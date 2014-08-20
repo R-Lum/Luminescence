@@ -27,6 +27,6 @@ The R luminescence project is based on and evolves from ideas, contributions and
 
 ## License
 
-The Luminescence package is licensed under the GPLv3. See these files in the inst directory for additional details:
+The Luminescence package is licensed under the GPLv3. See these files in the main directory for additional details:
 
 - LICENSE - Luminescence package license (GPLv3)
