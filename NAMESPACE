@@ -1,0 +1,8 @@
+import(methods)
+import(XML)
+import(shape)
+import(rgl)
+import(matrixStats)
+import(Rserve)
+import(raster)
+exportPattern("^[[:alpha:]]+")

@@ -1,0 +1,69 @@
+\name{CW2pLM}
+\alias{CW2pLM}
+\title{Transform a CW-OSL curve into a pLM-OSL curve}
+\description{Transforms a conventionally measured continuous-wave (CW) curve into a 
+pseudo linearly modulated (pLM) curve using the equations given in Bulur (2000). }
+\usage{CW2pLM(values)}
+\arguments{
+  \item{values}{\code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}} (\bold{required}):
+\code{RLum.Data.Curve} data object. Alternatively, a \code{data.frame} of the 
+measured curve data of type stimulation time (t) (\code{values[,1]}) and 
+measured counts (cts) (\code{values[,2]}) can be provided.}
+}
+\details{According to Bulur (2000) the curve data are transformed by introducing two
+new parameters P (stimulation period) and u (transformed time):
+\deqn{P=2*max(t)}
+\deqn{u=\sqrt{(2*t*P)}}
+The new count values are then calculated by
+\deqn{ctsNEW = cts(u/P)}
+and the returned \code{data.frame} is produced by: \code{data.frame(u,ctsNEW)}}
+\value{The function returns the same data type as the input data type with the
+transformed curve values.
+
+\item{\code{\link{data.frame}}}{generic R data structure}
+\item{\code{\linkS4class{RLum.Data.Curve}}}{package \code{\linkS4class{RLum} object}}}
+\references{Bulur, E., 2000. A simple transformation for converting CW-OSL curves to 
+LM-OSL curves. Radiation Measurements, 32, 141-145.
+
+\bold{Further Reading}\cr\cr
+Bulur, E., 1996. An Alternative Technique For Optically Stimulated Luminescence 
+(OSL) Experiment. Radiation Measurements, 26, 701-709.}
+\author{Sebastian Kreutzer, JLU Giessen (Germany), \cr
+R Luminescence Package Team}
+\note{The transformation is recommended for curves recorded with a channel 
+resolution of at least 0.05 s/channel.}
+
+
+\seealso{\code{\link{CW2pHMi}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}}, 
+\code{\link{fit_LMCurve}}, \code{\link{lm}}, \code{\linkS4class{RLum.Data.Curve}}
+
+The output of the function can be further used for LM-OSL fitting: 
+\code{\link{CW2pLMi}}, \code{\link{CW2pHMi}}, \code{\link{CW2pPMi}}, 
+\code{\link{fit_LMCurve}}, \code{\linkS4class{RLum.Data.Curve}}, 
+\code{\link{plot_RLum}}}
+\examples{
+
+##read curve from CWOSL.SAR.Data transform curve and plot values
+data(ExampleData.BINfileData, envir = environment())
+
+##read id for the 1st OSL curve
+id.OSL <- CWOSL.SAR.Data@METADATA[CWOSL.SAR.Data@METADATA[,"LTYPE"] == "OSL","ID"]
+
+##produce x and y (time and count data for the data set)
+x<-seq(CWOSL.SAR.Data@METADATA[id.OSL[1],"HIGH"]/CWOSL.SAR.Data@METADATA[id.OSL[1],"NPOINTS"],
+       CWOSL.SAR.Data@METADATA[id.OSL[1],"HIGH"],
+       by = CWOSL.SAR.Data@METADATA[id.OSL[1],"HIGH"]/CWOSL.SAR.Data@METADATA[id.OSL[1],"NPOINTS"])
+y <- unlist(CWOSL.SAR.Data@DATA[id.OSL[1]])
+values <- data.frame(x,y)
+
+##transform values
+values.transformed <- CW2pLM(values)
+
+##plot
+plot(values.transformed)
+
+
+}
+
+\keyword{manip}
+\section{Function version}{0.4 (2014-04-13 14:29:18)}

@@ -1,0 +1,117 @@
+\name{calc_AliquotSize}
+\alias{calc_AliquotSize}
+\title{Estimate the amount of grains on an aliquot}
+\description{Estimate the number of grains on an aliquot. Alternatively, the packing
+density of an aliquot is computed.}
+\usage{calc_AliquotSize(grain.size, sample.diameter, packing.density = 0.65, 
+    MC.estimate = TRUE, grains.counted, ...)}
+\arguments{
+  \item{grain.size}{\code{\link{numeric}} (\bold{required}): mean grain size (microns) or a 
+range of grain sizes from which the mean grain size is computed 
+(e.g. \code{c(100,200)}).}
+  \item{sample.diameter}{\code{\link{numeric}} (\bold{required}): diameter (mm) of the targeted
+area on the sample carrier.}
+  \item{packing.density}{\code{\link{numeric}} (with default) empirical value for mean packing 
+density. \cr 
+If \code{packing.density = "inf"} a hexagonal structure on an
+infinite plane with a packing density of \eqn{0.906\ldots} is assumed.}
+  \item{MC.estimate}{\code{\link{logical}} (optional): if \code{TRUE} the function performs
+a monte carlo simulation for estimating the amount of grains on the
+sample carrier and assumes random errors in grain size distribution
+and packing density. Requires a vector with min and max grain size for
+\code{grain.size}. For more information see details.}
+  \item{grains.counted}{\code{\link{numeric}} (optional) grains counted on a sample carrier. If
+a non-zero positive integer is provided this function will calculate the 
+packing density of the aliquot.
+If more than one value is provided the mean packing density and its 
+standard deviation is calculated. Note that this overrides
+\code{packing.density}.}
+  \item{\dots}{further arguments to pass (\code{main, xlab, MC.iter}). }
+}
+\details{This function can be used to either estimate the number of grains
+on an aliquot or to compute the packing density depending on the
+the arguments provided. \cr
+The following function is used to estimate the number of grains \code{n}:
+\cr
+\deqn{n = (\pi*x^2)/(\pi*y^2)*d}
+where \code{x} is the radius of the aliquot size (microns), \code{y}
+is the mean radius of the mineral grains (mm) and \code{d} is the packing
+density (value between 0 and 1). \cr
+
+\bold{Packing density} \cr\cr
+The default value for \code{packing.density} is 0.65, which is the mean of
+empirical values determined by Heer et al. (2012) and unpublished data from
+the Cologne luminescence laboratory. If \code{packing.density = "inf"}
+a maximum density of \eqn{\pi/\sqrt12 = 0.9068\ldots} is used. However,
+note that this value is not appropriate as the standard preparation
+procedure of aliquots resembles a PECC ("Packing Equal Circles in a 
+Circle") problem where the maximum packing density is asymptotic to about
+0.87. \cr
+
+\bold{Monte Carlo simulation} \cr\cr
+The number of grains on an aliquot can be estimated by Monte Carlo 
+simulation when setting \code{MC.estimate = TRUE}.
+Each of the parameters necessary to calculate \code{n} (\code{x}, \code{y}, \code{d})
+are assumed to be normally distributed with means \eqn{\mu_x, \mu_y, \mu_d}
+and standard deviations \eqn{\sigma_x, \sigma_y, \sigma_d}. \cr\cr
+For the mean grain size random samples are taken first from \eqn{N(\mu_y, \sigma_y)},
+where \eqn{\mu_y = mean.grain.size} and 
+\eqn{\sigma_y = (max.grain.size-min.grain.size)/4} so that 95\% of 
+all grains are within the provided the grain size range. This effectively takes into
+account that after sieving the sample there is still a small chance of having grains 
+smaller or larger than the used mesh sizes. For each random sample the mean grain size
+is calculated, from which random 
+subsamples are drawn for the Monte Carlo simulation. \cr\cr
+The packing density is assumed to be normally distributed with an empirically 
+determined \eqn{\mu = 0.65} (or provided value) and \eqn{\sigma = 0.18}. The
+normal distribution is truncated at \code{d = 0.87} as this is approximately the
+maximum packing density that can be achieved in PECC problem. \cr\cr
+The sample diameter has \eqn{\mu = sample.diameter} and \eqn{\sigma = 0.2} to
+take into account variations in sample disc preparation (i.e. applying silicon spray
+to the disc). A lower truncation point at \code{x = 0.5} is used, which assumes
+that aliqouts with smaller sample diameters of 0.5 mm are discarded. Likewise,
+the normal distribution is truncated at 9.8 mm, which is the diameter of the 
+sample disc. \cr\cr
+For each random sample drawn from the normal distributions the amount of 
+grains on the aliquot is calculated. By default, \code{10^5} iterations are used, but
+can be reduced/increased with \code{MC.iter} (see \code{...}). The results
+are visualised in a bar- and boxplot together with a statistical summary.}
+\value{Returns terminal output. In addition an 
+\code{\linkS4class{RLum.Results}} object is 
+returned containing the following element:
+
+\item{results}{\link{data.frame} with calculation results.}
+
+The output should be accessed using the function 
+\code{\link{get_RLum.Results}}}
+\references{Duller, G.A.T., 2008. Single-grain optical dating of Quaternary sediments: 
+why aliquot size matters in luminescence dating. Boreas 37, pp. 589-612. 
+\cr\cr
+Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains are there on a 
+single aliquot?. Ancient TL, 30, pp. 9-16. \cr\cr
+\bold{Further reading} \cr\cr
+Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's Theorem on 
+Circle Packing. \url{http://arxiv.org/pdf/1009.4322v1.pdf}, 2013-09-13.
+\cr\cr
+Graham, R.L., Lubachevsky, B.D., Nurmela, K.J., Oestergard, P.R.J., 1998. 
+Dense packings of congruent circles in a circle. Discrete Mathematics, 181, 
+pp. 139-154. \cr\cr
+Huang, W., Ye, T., 2011. Global optimization method for finding dense 
+packings of equal circles in a circle. European Journal of Operational 
+Research, 210, pp. 474-481. }
+\author{Christoph Burow, University of Cologne (Germany) \cr
+R Luminescence Package Team}
+
+
+
+
+\examples{
+## Estimate the amount of grains on a small aliquot
+calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1) 
+
+## Calculate the mean packing density of large aliquots
+calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8, 
+                 grains.counted = c(2525,2312,2880))
+
+}
+\section{Function version}{0.3 (2014-04-13 14:27:11)}

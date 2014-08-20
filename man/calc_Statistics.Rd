@@ -1,0 +1,43 @@
+\name{calc_Statistics}
+\alias{calc_Statistics}
+\title{Function to calculate statistic measures}
+\description{This function calculates a number of descriptive statistics for De-data,
+most fundamentally using error-weighted approaches.}
+\usage{calc_Statistics(data, weight.calc = "reciprocal")}
+\arguments{
+  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
+(required): for \code{data.frame} two columns: De (\code{data[,1]})
+and De error (\code{data[,2]}). To plot several data sets in one plot
+the data sets must be provided as \code{list}, e.g. 
+\code{list(data.1, data.2)}.}
+  \item{weight.calc}{\code{\link{character}}: type of weight calculation. One out of
+\code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
+1/error^2).}
+}
+
+\value{Returns a list with weighted and unweighted statistic measures.}
+
+\author{Michael Dietze, GFZ Potsdam (Germany),\cr
+R Luminescence Package Team}
+
+
+
+
+\examples{
+## load example data
+data(ExampleData.DeValues, envir = environment())
+
+## show a rough plot of the data to illustrate the non-normal distribution
+plot_KDE(ExampleData.DeValues)
+
+## calculate statistics and show output
+str(calc_Statistics(ExampleData.DeValues))
+
+## now the same for 10000 normal distributed random numbers with equal errors
+x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
+                         rep(0.001, 10^5)))
+
+## note the congruent results for weighted and unweighted measures
+str(calc_Statistics(x)) 
+}
+\section{Function version}{0.1 (2014-04-13 14:28:51)}

@@ -1,0 +1,89 @@
+\name{readSPE2R}
+\alias{readSPE2R}
+\title{Import Princton Intruments SPE-file into R}
+\description{Function imports Princton Instruments SPE files into R environment and
+provides \code{RLum} objects as output. }
+\usage{readSPE2R(file, output.object = "RLum.Data.Spectrum", frame.range, 
+    txtProgressBar = TRUE)}
+\arguments{
+  \item{file}{\link{character} (\bold{required}): spe-file name (including path), e.g. \cr
+[WIN]: \code{readSPE2R("C:/Desktop/test.spe")}, \cr  
+[MAC/LINUX]: \code{readSPER("/User/test/Desktop/test.spe")} }
+  \item{output.object}{\code{\link{character}} (with default): set \code{RLum} output object. 
+Allowed types are \code{"RLum.Data.Spectrum"}, \code{"RLum.Data.Image"} or
+\code{"matrix"}}
+  \item{frame.range}{\code{\link{vector}} (optional): limit frame range, e.g. select first 
+100 frames by \code{frame.range = c(1,100)}}
+  \item{txtProgressBar}{\link{logical} (with default): enables or disables 
+\code{\link{txtProgressBar}}.}
+}
+\details{Function provides data an import routine for the Princton Instruments SPE format. 
+Import functionality based on the file format description provided 
+by Princton Instruments and a MatLab script written by Carl Hall (s. 
+references). }
+\value{Depending on the chosen option the functions returns three different type 
+of objects:\cr
+
+\code{output.object}. \cr
+
+\code{RLum.Data.Spectrum}\cr
+
+An object of type \code{\linkS4class{RLum.Data.Spectrum}} is returned. 
+Row sums are used to integrate all counts over one channel. 
+
+\code{RLum.Data.Image}\cr
+
+An object of type \code{\linkS4class{RLum.Data.Image}} is returned. 
+
+\code{matrix}\cr
+
+Returns a matrix of the form: Rows = Channels, columns = Frames
+For the transformation the function \code{\link{get_RLum.Data.Spectrum}} is used, 
+meaning that same results can be obtained by using the function \code{\link{get_RLum.Data.Spectrum}}
+on an \code{RLum.Data.Spectrum} object or \code{\link{get_RLum.Data.Image}} on an
+\code{RLum.Data.Image} object.}
+\references{Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File Format Specification,
+Version 1.A,
+\url{ftp://ftp.princetoninstruments.com/Public/Manuals/Princeton\%20Instruments/SPE\%203.0\%20File\%20Format\%20Specification.pdf}
+
+Hall, C., 2012: readSPE.m. \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}}
+\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
+R Luminescence Package Team}
+\note{\bold{The function does not test whether the input data are spectra or pictures
+for spatial resolved analysis!}\cr
+
+The function has been successfully tested for SPE format versions 2.x.
+
+\emph{Currentyl not all information provided by the SPE format are supported.} }
+
+
+\seealso{\code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{raster}} }
+\examples{
+
+## to run examples uncomment lines and run the code 
+
+##(1) Import data as RLum.Data.Spectrum object
+#file <- file.choose()
+#temp <- readSPE2R(file)
+#temp
+
+##(2) Import data as RLum.Data.Image object
+#file <- file.choose()
+#temp <- readSPE2R(file, output.object = "RLum.Data.Image")
+#temp
+
+##(3) Import data as matrix object
+#file <- file.choose()
+#temp <- readSPE2R(file, output.object = "matrix")
+#temp
+
+##(4) Export raw data to csv, if temp is a RLum.Data.Spectrum object
+# write.table(x = get_RLum.Data.Spectrum(temp), 
+#             file = "[your path and filename]", 
+#             sep = ";", row.names = FALSE)  
+
+
+}
+
+\keyword{IO}
+\section{Function version}{0.1 (2014-08-19 11:19:27)}

@@ -1,0 +1,266 @@
+\name{plot_AbanicoPlot}
+\alias{plot_AbanicoPlot}
+\title{Function to create an Abanico Plot.}
+\description{A plot is produced which allows comprehensive presentation of data
+precision and its dispersion around a central value as well as 
+illustration of a kernel density estimate of the dose values.}
+\usage{plot_AbanicoPlot(data, na.exclude = TRUE, log.z = TRUE, central.value, 
+    centrality = "mean.weighted", dispersion = "sd", plot.ratio = 0.75, 
+    mtext, summary, summary.pos, legend, legend.pos, stats, y.axis = TRUE, 
+    error.bars = FALSE, polygon.col, bar.col, line, line.col, 
+    line.label, grid.col, bw = "nrd0", output = FALSE, ...)}
+\arguments{
+  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
+(required): for \code{data.frame} two columns: De (\code{data[,1]})
+and De error (\code{data[,2]}). To plot several data sets in one plot
+the data sets must be provided as \code{list}, e.g. 
+\code{list(data.1, data.2)}.}
+  \item{na.exclude}{\code{\link{logical}} (with default): exclude NA values from the data 
+set prior to any further operations.}
+  \item{log.z}{\code{\link{logical}} (with default): Option to display the z-axis
+in logarithmic scale. Default is \code{TRUE}.}
+  \item{central.value}{\code{\link{numeric}}: User-defined central value, primarily used for
+horizontal centering of the z-axis.}
+  \item{centrality}{\code{\link{character}} (with default): measure of centrality, used for
+automatically centering the plot and drawing the central line. Can be
+one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"}, 
+and \code{"median.weighted"}. Default is \code{"mean.weighted"}.}
+  \item{dispersion}{\code{\link{character}} (with default): measure of dispersion, used for
+drawing the polygon that depicts the dose distribution. One out of
+\code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations) 
+\code{"qr"} (quartile range), default is \code{"sd"}.}
+  \item{plot.ratio}{\code{\link{numeric}}: Relative space, given to the radial versus the
+cartesian plot part, deault is \code{0.75}.}
+  \item{mtext}{\code{\link{character}}: additional text below the plot title.}
+  \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
+Can be one or more out of: "n" (number of samples), "mean" (mean De 
+value), "mean.weighted" (error-weighted mean), "median" (median of 
+the De values), "sdrel" (relative standard deviation in 
+percent), "sdabs" (absolute standard deviation), "serel" (relative 
+standard error), "seabs" (absolute standard error) and "in.ci" (percent
+of samples in confidence interval, e.g. 2-sigma).}
+  \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
+position coordinates or keyword (e.g. \code{"topright"}) for the 
+statistical summary. Alternatively, the keyword \code{"sub"} may be
+specified to place the summary below the plot header. However, this
+latter option in only possible if \code{mtext} is not used.}
+  \item{legend}{\code{\link{character}} vector (optional): legend content to be added
+to the plot.}
+  \item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
+position coordinates or keyword (e.g. \code{"topright"}) for the legend
+to be plotted.}
+  \item{stats}{\code{\link{character}}: additional labels of statistically important
+values in the plot. One or more out of the following: \code{"min"}, 
+\code{"max"}, \code{"median"}.}
+  \item{y.axis}{\code{\link{logical}}: Option to hide y-axis labels. Useful for data  
+with small scatter.}
+  \item{error.bars}{\code{\link{logical}}: Option to show De-errors as error bars on 
+De-points. Useful in combination with 
+\code{y.axis = FALSE, bar.col = "none"}.}
+  \item{polygon.col}{\code{\link{character}} or \code{\link{numeric}} (with default): colour 
+of the polygon showing the dose dispersion around the central value.
+To disable the polygon use \code{"none"}. Default is \code{"grey80"}.}
+  \item{bar.col}{\code{\link{character}} or \code{\link{numeric}} (with default): colour 
+of the bar showing the 2-sigma range of the dose error around the 
+central value. To disable the bar use \code{"none"}. Default is 
+\code{"grey50"}.}
+  \item{line}{\code{\link{numeric}}: numeric values of the additional lines to be
+added.}
+  \item{line.col}{\code{\link{character}} or \code{\link{numeric}}: colour of the
+additional lines.}
+  \item{line.label}{\code{\link{character}}: labels for the additional lines.}
+  \item{grid.col}{\code{\link{character}} or \code{\link{numeric}} (with default): colour 
+of the grid lines (originating at [0,0] and strechting to the z-scale).  
+To disable grid lines use \code{"none"}. Default is \code{"grey"}.}
+  \item{bw}{\code{\link{character}} (with default): bin-width for KDE, choose a  
+numeric value for manual setting.}
+  \item{output}{\code{\link{logical}}: Optional output of numerical plot parameters.
+These can be useful to reproduce similar plots. Default is \code{FALSE}.}
+  \item{\dots}{Further plot arguments to pass. \code{xlab} must be a vector of length 2,
+specifying the upper and lower x-axes labels.}
+}
+\details{The Abanico Plot is a combination of the classic Radial Plot 
+(\code{plot_RadialPlot}) and a kernel density estimate plot (e.g.
+\code{plot_KDE}). It allows straightforward visualisation of data
+precision, error scatter around a user-defined central value and the 
+combined distribution of the values, on the actual scale of the measured
+data (e.g. seconds, equivalent dose, years). The principle of the plot
+is shown in Galbraith & Green (1990). The function authors are
+thankful for the thoughtprovocing figure in this article. \cr
+The semi circle (z-axis) of the classic Radial Plot is bent to a straight
+line here, which actually is the basis for combining this polar (radial)
+part of the plot with any other cartesian visualisation method (KDE,
+histogram, PDF and so on). Note that the plot allows dispaying two
+measures of distribution. One is the 2-sigma bar, which illustrates
+the spread in value errors, and the other is the polygon, which stretches
+over both parts of the Abanico Plot (polar and cartesian) and illustrates
+the actual spread in the values themselfes. \cr
+Since the 2-sigma-bar is a polygon, it can be (and is) filled with shaded
+lines. To change density (lines per inch, default is 15) and angle
+(default is 45 degrees) of the shading lines, specify these parameters.
+See \code{?polygon()} for further help. \cr
+The Abanico Plot supports other than the weighted mean as measure of 
+centrality. When it is obvious that the data is not (log-)normally
+distributed, the mean (weighted or not) cannot be a valid measure of
+centrality and hence central dose. Accordingly, the median and the
+weighted median can be chosen as well to represent a proper measure of
+centrality (e.g. \code{centrality = "median.weighted"}).\cr
+The proportion of the polar part and the cartesian part of the Abanico
+Plot can be modfied for display reasons (\code{plot.ratio = 0.75}). By 
+default, the polar part spreads over 75 \% and leaves 25 \% for the part
+that shows the KDE graph.}
+\value{returns a plot object and, optionally, a list with plot calculus data.}
+\references{Galbraith, R. & Green, P., 1990. Estimating the component ages in a 
+finite mixture. International Journal of Radiation Applications and 
+Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 
+(3), pp. 197-206. }
+\author{Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, JLU Giessen 
+(Germany)\cr
+Inspired by a plot introduced by Galbraith & Green (1990)\cr
+R Luminescence Package Team}
+
+
+
+\seealso{\code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}}, 
+\code{\link{plot_Histogram}}}
+\examples{
+## load example data and recalculate to Gray
+data(ExampleData.DeValues, envir = environment())
+ExampleData.DeValues <- 
+  Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
+
+## plot the example data straightforward
+plot_AbanicoPlot(data = ExampleData.DeValues)
+
+## now with linear z-scale
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 log.z = FALSE)
+
+## now with output of the plot parameters
+plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
+                          output = TRUE)
+str(plot1)
+plot1$zlim
+
+## now with adjusted z-scale limits
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 zlim = c(100, 200))
+
+## now with adjusted x-scale limits
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 xlim = c(0, 60))
+
+## now with user-defined plot ratio
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 plot.ratio = 0.5)
+
+## now with user-defined central value
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 central.value = 120)
+
+## now with weighted median as measure of centrality
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 centrality = "median.weighted")
+
+## now with median/quartile range as measure of centrality/dispersion
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 centrality = "median", 
+                 dispersion = "qr")
+
+## now with user-defined green line for MAM3 (i.e. 2936.3)
+MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
+                     sigmab = 0.3,
+                     gamma.xub = 7000, 
+                     output.plot = FALSE)
+
+MAM <- as.numeric(get_RLum.Results(object = MAM, 
+                                   data.object = "results")$mindose)
+
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 xlim = c(0, 50),
+                 line = MAM,
+                 line.col = "darkgreen",
+                 line.label = "MAM3-dose")
+
+## now add lines (e.g. De = 100) completely manually
+## 1. infer extra data
+extra <- plot_AbanicoPlot(data = ExampleData.DeValues,
+                          output = TRUE)
+
+## 2. transform De value to plot coordinates, only use log when 
+##    log.z = TRUE. Don't mind the cryptic equation too much.
+De <- 100
+y.De <- (log(De) - extra$data.global$z.central[1]) * extra$polar.box[2]
+
+## 3. create line coordinates (origin - polar margin - cartesian margin)
+line.x <- c(0, extra$polar.box[2], extra$cartesian.box[2])
+line.y <- c(0, y.De, y.De)
+
+## 4. draw the line
+lines(x = line.x, y = line.y, lwd = 2, lty = 4, col = "tomato")
+
+## now create plot with legend, colour, different points and smaller scale
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 legend = "Sample 1",
+                 col = "tomato4",
+                 bar.col = "peachpuff",
+                 pch = "R",
+                 cex = 0.8)
+
+## now without 2-sigma bar, polygon, grid lines and central value line
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 bar.col = "none",
+                 polygon.col = "none",
+                 grid.col = "none",
+                 y.axis = FALSE,
+                 lwd = 0)
+
+## now with direct display of De errors, without 2-sigma bar
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 bar.col = "none",
+                 ylab = "",
+                 y.axis = FALSE,
+                 error.bars = TRUE)
+
+## now with user-defined axes labels
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 xlab = c("Data error [\%]",
+                          "Data precision"),
+                 ylab = "Scatter",
+                 zlab = "Equivalent dose [Gy]")
+
+## now with minimum, maximum and median value indicated
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                central.value = 150,
+                stats = c("min", "max", "median"))
+
+## now with a brief statistical summary
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                summary = c("n", "in.ci"))
+
+## now with another statistical summary as subheader
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                summary = c("mean.weighted", "median"),
+                summary.pos = "sub")
+
+## now the data set is split into sub-groups, one is manipulated
+data.1 <- ExampleData.DeValues[1:15,]
+data.2 <- ExampleData.DeValues[16:25,] * 1.3
+
+## now a common dataset is created from the two subgroups
+data.3 <- list(data.1, data.2)
+
+## now the two data sets are plotted in one plot
+plot_AbanicoPlot(data = data.3)
+
+## now with some graphical modification
+plot_AbanicoPlot(data = data.3,
+                 col = c("steelblue4", "orange4"),
+                 bar.col = c("steelblue3", "orange3"),
+                 polygon.col = c("steelblue1", "orange1"),
+                 pch = c(2, 6),
+                 density = c(10, 20),
+                 angle = c(30, 50),
+                 summary = c("n", "in.ci"))
+}
+\section{Function version}{0.1 (2014-06-05 13:42:28)}

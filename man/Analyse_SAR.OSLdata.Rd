@@ -1,0 +1,107 @@
+\name{Analyse_SAR.OSLdata}
+\alias{Analyse_SAR.OSLdata}
+\title{Analyse SAR CW-OSL measurements.}
+\description{The function analyses SAR CW-OSL curve data and provides a summary of the 
+measured data for every position. The output of the function is optimised 
+for SAR OSL measurements on quartz.}
+\usage{Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, 
+    position, run, set, info.measurement = "unkown measurement", 
+    log = "", output.plot = FALSE, output.plot.single = FALSE, 
+    cex.global = 1)}
+\arguments{
+  \item{input.data}{\link{Risoe.BINfileData-class} (\bold{required}): 
+input data from a Risoe BIN file, produced by the function \link{readBIN2R}.}
+  \item{signal.integral}{\link{vector} (\bold{required}): channels used for the signal integral,
+e.g. \code{signal.integral=c(1:2)}}
+  \item{background.integral}{\link{vector} (\bold{required}): channels used for the background integral,
+e.g. \code{background.integral=c(85:100)}}
+  \item{position}{\link{vector} (optional): reader positions that want to be analysed 
+(e.g. \code{position=c(1:48)}. Empty positions are automatically omitted.  
+If no value is given all positions are analysed by default.}
+  \item{run}{\link{vector} (optional): range of runs used for the analysis. 
+If no value is given the range of the runs in the sequence is deduced 
+from the Risoe.BINfileData object.}
+  \item{set}{\link{vector} (optional): range of sets used for the analysis. 
+If no value is given the range of the sets in the sequence is deduced 
+from the \code{Risoe.BINfileData} object.}
+  \item{info.measurement}{\link{character} (with default): option to provide information about
+the measurement on the plot output (e.g. name of the BIN or BINX file).}
+  \item{log}{\link{character} (with default): a character string which contains "x" 
+if the x axis is to be logarithmic, "y" if the y axis is to be logarithmic 
+and "xy" or "yx" if both axes are to be logarithmic. See \link{plot.default}.}
+  \item{output.plot}{\link{logical} (with default): plot output (\code{TRUE/FALSE})}
+  \item{output.plot.single}{\link{logical} (with default): single plot output (\code{TRUE/FALSE}) to 
+allow for plotting the results in single plot windows. 
+Requires \code{output.plot = TRUE}.}
+  \item{cex.global}{\link{numeric} (with default): global scaling factor.}
+}
+\details{The function works only for standard SAR protocol measurements introduced 
+by Murray and Wintle (2000) with CW-OSL curves. 
+For the calculation of the Lx/Tx value the function \link{calc_OSLLxTxRatio} 
+is used. \cr\cr
+
+\bold{Provided rejection criteria}\cr\cr
+\sQuote{recyling ratio}: calculated for every repeated regeneration dose point.\cr
+\sQuote{recuperation}: recuperation rate calculated by comparing the Lx/Tx 
+values of the zero regeneration point with the Ln/Tn value (the Lx/Tx ratio 
+of the natural signal). For methodological background see Aitken and Smith (1988)\cr
+
+\sQuote{IRSL/BOSL}: the integrated counts (\code{signal.integral}) of an IRSL 
+curve are compared to the integrated counts of the first regenerated dose point. 
+It is assumed that IRSL curves got the same dose as the first regenerated 
+dose point. \strong{Note:} This is not the IR depletation ratio described 
+by Duller (2003).}
+\value{A plot (optional) and \link{list} is returned containing the following elements:
+\item{LnLxTnTx}{\link{data.frame} of all calculated Lx/Tx values including signal,
+background counts and the dose points.}
+\item{RejectionCriteria}{\link{data.frame} with values that might by used 
+as rejection criteria. NA is produced if no R0 dose point exists.}
+\item{SARParameters}{\link{data.frame} of additional measurement parameters 
+obtained from the BIN file, e.g. preheat or read temperature 
+(not valid for all types of measurements).}}
+\references{Aitken, M.J. & Smith, B.W., 1988. Optical dating: recuperation after 
+bleaching. Quaternary Science Reviews, 7, pp. 387-393.
+
+Duller, G., 2003. Distinguishing quartz and feldspar in single grain 
+luminescence measurements. Radiation Measurements, 37 (2), pp. 161-165. 
+
+Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using 
+an improved single-aliquot regenerative-dose protocol. 
+Radiation Measurements, 32, pp. 57-73. }
+\author{Sebastian Kreutzer, JLU Giessen (Germany), 
+Margret C. Fuchs, AWI Potsdam (Germany), \cr
+R Luminescence Package Team}
+\note{Rejection criteria are calculated but not considered during 
+the analysis to discard values.\cr\cr
+
+\bold{The development of this function will not be continued. 
+We recommend to use the function \link{analyse_SAR.CWOSL} instead.}}
+
+
+\seealso{\link{calc_OSLLxTxRatio}, \link{Risoe.BINfileData-class}, 
+\link{readBIN2R} 
+
+and for further analysis \link{plot_GrowthCurve}}
+\examples{
+
+##load data
+data(ExampleData.BINfileData, envir = environment())
+
+##analyse data
+output <- Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data, 
+                              signal.integral = c(1:5), 
+                              background.integral = c(900:1000),
+                              position = c(1:1),
+                              output.plot = TRUE)
+
+##combine results relevant for further analysis
+output.SAR <- data.frame(Dose = output$LnLxTnTx[[1]]$Dose, 
+                         LxTx = output$LnLxTnTx[[1]]$LxTx, 
+                         LxTx.Error = output$LnLxTnTx[[1]]$LxTx.Error)
+output.SAR
+
+}
+
+\keyword{datagen}
+\keyword{dplot}
+\section{Function version}{0.2.12 (2014-04-13 14:22:24)}

@@ -1,0 +1,122 @@
+\name{CW2pLMi}
+\alias{CW2pLMi}
+\title{Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear modulation conditions}
+\description{Transforms a conventionally measured continuous-wave (CW) OSL-curve into a 
+pseudo linearly modulated (pLM) curve under linear modulation conditions 
+using the interpolation procedure described by Bos & Wallinga (2012). }
+\usage{CW2pLMi(values, P)}
+\arguments{
+  \item{values}{\code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}} 
+(\bold{required}): \code{\linkS4class{RLum.Data.Curve}} or \code{data.frame} 
+with measured curve data of type stimulation time (t) 
+(\code{values[,1]}) and measured counts (cts) (\code{values[,2]})}
+  \item{P}{\code{\link{vector}} (optional): stimulation time in seconds. 
+If no value is given the optimal value is estimated automatically (see details). 
+Greater values of P produce more points in the rising tail of the curve.}
+}
+\details{The complete procedure of the transformation is given in Bos & Wallinga (2012). 
+The input \code{data.frame} consists of two columns: time (t) and count 
+values (CW(t))\cr\cr
+
+\bold{Nomenclature}\cr\cr
+P = stimulation time (s)\cr
+1/P = stimulation rate (1/s)\cr\cr
+
+\bold{Internal transformation steps}\cr\cr
+(1) log(CW-OSL) values
+(2) Calculate t' which is the transformed time:
+\deqn{t' = 1/2*1/P*t^2}
+
+(3) Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values 
+for the transformed time (t'). 
+Values beyond \code{min(t)} and \code{max(t)} produce \code{NA} values.\cr\cr
+(4) Select all values for t' < \code{min(t)}, i.e. values beyond the time 
+resolution of t. Select the first two values of the transformed data set 
+which contain no \code{NA} values and use these values for a linear fit using 
+\code{\link{lm}}.\cr\cr
+(5) Extrapolate values for t' < \code{min(t)} based on the previously 
+obtained fit parameters.\cr\cr
+(6) Transform values using 
+\deqn{pLM(t) = t/P*CW(t')}
+(7) Combine values and truncate all values for t' > \code{max(t)}\cr\cr 
+\emph{The number of values for t' < \code{min(t)} depends on the stimulation 
+period (P) and therefore on the stimulation rate 1/P. To avoid the production 
+of too many artificial data at the raising tail of the determined pLM curves 
+it is recommended to use the automatic estimation routine for \code{P}, 
+i.e. provide no own value for \code{P}.}}
+\value{The function returns the same data type as the input data type with the
+transformed curve values.
+\item{\code{\linkS4class{RLum.Data.Curve}}}{package \code{\linkS4class{RLum}} object 
+with two additional info elements:}
+\tabular{rl}{
+$CW2pLMi.x.t  \tab: transformed time values \cr
+$CW2pLMi.method \tab: used method for the production of the new data points}}
+\references{Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL signal 
+components. Radiation Measurements, 47, 752-758.\cr
+
+\bold{Further Reading}\cr\cr
+Bulur, E., 1996. An Alternative Technique For Optically Stimulated Luminescence 
+(OSL) Experiment. Radiation Measurements, 26, 701-709.
+
+Bulur, E., 2000. A simple transformation for converting CW-OSL curves to 
+LM-OSL curves. Radiation Measurements, 32, 141-145.}
+\author{Sebastian Kreutzer, JLU Giessen (Germany)\cr\cr
+Based on comments and suggestions from:\cr
+Adrie J.J. Bos, Delft University of Technology, The Netherlands\cr\cr
+R Luminescence Package Team}
+\note{According to Bos & Wallinga (2012) the number of extrapolated points should 
+be limited to avoid artificial intensity data. 
+If \code{P} is provided manually and more than two points are extrapolated, 
+a warning message is returned. }
+
+
+\seealso{\code{\link{CW2pLM}}, \code{\link{CW2pHMi}}, 
+\code{\link{CW2pPMi}}, \code{\link{fit_LMCurve}},
+\code{\linkS4class{RLum.Data.Curve}}}
+\examples{
+
+##(1)
+##load CW-OSL curve data
+data(ExampleData.CW_OSL_Curve, envir = environment())
+
+##transform values
+values.transformed <- CW2pLMi(ExampleData.CW_OSL_Curve)
+
+##plot
+plot(values.transformed$x, values.transformed$y.t, log = "x")
+
+##(2) - produce Fig. 4 from Bos & Wallinga (2012)
+##load data
+data(ExampleData.CW_OSL_Curve, envir = environment())
+values <- CW_Curve.BosWallinga2012
+
+##open plot area
+plot(NA, NA,
+     xlim = c(0.001,10),
+     ylim = c(0,8000),
+     ylab = "pseudo OSL (cts/0.01 s)",
+     xlab = "t [s]",
+     log = "x",
+     main = "Fig. 4 - Bos & Wallinga (2012)") 
+
+
+values.t <- CW2pLMi(values, P = 1/20)
+lines(values[1:length(values.t[,1]),1],CW2pLMi(values, P = 1/20)[,2], 
+      col = "red", lwd = 1.3)
+text(0.03,4500,"LM", col = "red", cex = .8)
+
+values.t <- CW2pHMi(values, delta = 40)
+lines(values[1:length(values.t[,1]),1],CW2pHMi(values, delta = 40)[,2], 
+      col = "black", lwd = 1.3)
+text(0.005,3000,"HM", cex =.8)
+
+values.t <- CW2pPMi(values, P = 1/10)
+lines(values[1:length(values.t[,1]),1], CW2pPMi(values, P = 1/10)[,2], 
+      col = "blue", lwd = 1.3)
+text(0.5,6500,"PM", col = "blue", cex = .8)
+
+
+}
+
+\keyword{manip}
+\section{Function version}{0.3 (2014-04-13 14:29:25)}

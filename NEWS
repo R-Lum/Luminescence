@@ -1,0 +1,109 @@
+NEWS for the R Package Luminescence
+
+Changes in version 0.4.0 (XX XXXX, 2014):
+
+  New S4-classes, methods:
+
+         • ‘RLum.Data.Image’: S4-class for handling image data
+           including. Image data in slot ‘data’ are stored as
+           ‘RasterBrick’
+
+         • ‘set_RLum.Data.Image()’: Set method for class
+           ‘RLum.Data.Image’
+
+         • ‘get_RLum.Data.Image()’: get method for class
+           ‘RLum.Data.Image’
+
+         • further: corresponding show and coercing methods added for
+           class.
+
+  New functions:
+
+         • ‘readSPE2R()’: Add support Princenton Instruments *.SPE
+           files (camera and spectrometer measurements). Function
+           output is a ‘RLum.Data.Spectrum’ or ‘RLum.Data.Image’
+           object.
+
+         • ‘plot_RLum.Data.Image()’: Plot function for
+           ‘RLum.Data.Image’ object.  Function also added to wrapper
+           function ‘plot_RLum’
+
+  Changes S4-objects, methods, classes:
+
+         • ‘get_RLum.Results()’: Add support for data objects for
+           objects produced by the function ‘calc_OSLLxTxRatio()’
+
+         • ‘Risoe.BINfileData2RLum.Analysis()’: If the ‘pos’ value is
+           invalid now the function does not return an error any
+           longer. Instead ‘NA’ is returned.
+
+  Bugfixes and changes:
+
+         • ‘plot_RLum.Data.Spectrum()’:
+
+             • Correct an error that caused a chrash when ‘xlim’ was
+               set in a way that only one wavelength (colour value) was
+               remained,
+
+             • correct zebra-colour-pattern for rare cases of ‘xlim’
+               settings using ‘plot.type = "persp"’ or ‘plot.type =
+               "persp3d"’,
+
+             • add argument new plot type ‘"transect"’ for plotting a
+               transect along the time/temperature axis for a specific
+               wavelength/channel intervall (#120, requested by Regina
+               DeWitt),
+
+             • correct function break for a single column matrix
+               (single frame spectrum) by automatically resetting
+               ‘plot.type’ to ‘single’ for single frame spectra.
+
+         • ‘plot_GrowthCurve()’:
+
+             • Minor graphical and code polishing,
+
+         • ‘calc_OSLLxTxRatio()’:
+
+             • Correct an error that causes ‘NA’ values within the
+               curve errors for rare combinations of signal and
+               background integreation limits,
+
+             • provide a name for the output data frame ‘LxTx.table’
+               for the ‘RLum.Results’ object
+
+         • ‘fit_CWCurve()’:
+
+             • Implement ‘...’ argument to replace explicit arguments
+               ‘ylab’, ‘xlab’ and ‘main’,
+
+             • Fix an issue that causes an error when input values were
+               <= 0 (#123 reported by Johanna Lomax),
+
+             • Correct wrong y-axis labelling (wrong channel resolution
+               value).
+
+         • ‘analyse_IRSAR.RF()’:
+
+             • Add ‘...’ support for ‘mtext’
+
+         • ‘plot_Histogram()’:
+
+             • Change default y-axis labelling from 'Counts' to
+               'Frequency'
+
+         • ‘analyse_SAR.CWOSL()’:
+
+             • Clarify behaviour when no OSL curve is provided;
+               function now stops with an error (#132, reported by
+               Alice Versendaal)
+
+         • ‘plot_RLum.Data.Curve()’:
+
+             • Add argument ‘norm’ to allow for curve normalisation to
+               the highest value (#129)
+
+  Internals:
+
+         • Add new dependency for package ‘raster’, which is used for
+           the ‘RLum.Data.Image-class’
+

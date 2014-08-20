@@ -1,0 +1,20 @@
+citHeader("To cite the package 'Luminescence' in publications use:")
+
+	 citation(auto = meta)
+
+	 bibentry(bibtype = "Article",
+			  	title = "A practical guide to the R package Luminescence",
+				author = "Michael Dietze, Sebastian Kreutzer, Margret C. Fuchs, Christoph Burow, Manfred Fischer, Christoph Schmidt",
+				year = "2013",
+				journal = "Ancient TL",
+				volume = "31",
+				pages = "11-18")
+
+	  bibentry(bibtype = "Article",
+			  	title = "Introducing an R package for luminescence dating analysis",
+				author = "Sebastian Kreutzer, Christoph Schmidt, Margret C. Fuchs, Michael Dietze, Manfred Fischer, Markus Fuchs",
+				year = "2012",
+				journal = "Ancient TL",
+				volume = "30",
+				pages = "1-8")
+

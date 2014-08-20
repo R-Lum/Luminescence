@@ -1,0 +1,254 @@
+calc_TLLxTxRatio <- structure(function(#Calculate the Lx/Tx ratio for a given set of TL curves [beta version]
+  ### Calculate Lx/Tx ratio for a given set of TL curves. 
+  
+  # ===========================================================================
+  ##author<<
+  ## Sebastian Kreutzer, JLU Giessen/Freiberg Instruments (Germany),
+  ## Christoph Schmidt, University of Bayreuth (Germany),\cr
+  
+  ##section<<
+  ## version 0.2.1
+  # ===========================================================================
+
+  Lx.data.signal,
+  ### \link{data.frame} (\bold{required}): TL data 
+  ### (x = temperature, y = counts) (TL signal)
+  
+  Lx.data.background,
+  ### \link{data.frame} (optional): TL data (x = temperature, 
+  ### y = counts). If no data are provided no background subtraction is performed.
+  
+  Tx.data.signal,
+  ### \link{data.frame} (\bold{required}): TL data 
+  ### (x = temperature, y = counts) (TL test signal)
+  
+  Tx.data.background,
+  ### \link{data.frame} (optional): TL data (x = temperature, 
+  ### y = counts). If no data are provided no background subtraction is performed. 
+  
+  signal.integral.min,
+  ### \link{integer} (\bold{required}): channel number for the 
+  ### upper signal integral bound (e.g. \code{signal.integral.min = 100})
+  
+  signal.integral.max
+  ###   \link{integer} (\bold{required}): channel number for the 
+  ### upper signal integral bound (e.g. \code{signal.integral.max = 200})
+  
+){
+   
+  
+  ##--------------------------------------------------------------------------##
+  ##(1) - a few integrity check 
+  
+     ##check for MISSING objects
+     if(missing(Lx.data.signal) == TRUE | missing(Tx.data.signal) == TRUE | 
+        missing(signal.integral.min) == TRUE |  missing(signal.integral.max) == TRUE){
+       
+       temp.missing <- paste(
+                       c(if(missing(Lx.data.signal) == TRUE){"Lx.data.signal"},
+                         if(missing(Tx.data.signal) == TRUE){"Tx.data.signal"},
+                         if(missing(signal.integral.min) == TRUE){"signal.integral.min"},
+                         if(missing(signal.integral.max) == TRUE){"signal.integral.max"}),
+                       collapse = ", ")
+                        
+          stop(paste("[calc_TLLxTxRatio] Error: Arguments are missing: ",temp.missing, ".", sep=""))               
+                         
+     }
+     
+      
+     ##check DATA TYPE differences
+     if(is(Lx.data.signal)[1]!=is(Tx.data.signal)[1]){
+       stop("[calc_TLLxTxRatio.R] >> Error: Data type of Lx and Tx data differs!")}
+   
+     ##check for allowed data.types
+     if(is(Lx.data.signal, "data.frame") == FALSE &
+        is(Lx.data.signal, "RLum.Data.Curve") == FALSE){
+       
+       stop("[calc_TLLxTxRatio] Error: Input data type for not allowed. Allowed are 'RLum.Data.Curve' and 'data.frame'")
+       
+     }
+      
+  ##--------------------------------------------------------------------------##
+  ## Type conversion (assuming that all input variables are of the same type)
+  
+  if(is(Lx.data.signal, "RLum.Data.Curve") == TRUE){
+    
+    Lx.data.signal <- as(Lx.data.signal, "matrix")
+    Tx.data.signal <- as(Tx.data.signal, "matrix")
+    
+    if(missing(Lx.data.background) == FALSE && is.null(Lx.data.background) == FALSE){
+      
+      Lx.data.background <- as(Lx.data.background, "matrix")
+      
+    }
+    
+    if(missing(Tx.data.background) == FALSE && is.null(Tx.data.background) == FALSE){
+      
+      Tx.data.background <- as(Tx.data.background, "matrix")
+      
+    }
+    
+  }
+     
+  ##(d) - check if Lx and Tx curves have the same channel length
+     if(length(Lx.data.signal[,2])!=length(Tx.data.signal[,2])){
+  
+       stop("[calc_TLLxTxRatio.R] >> Error: Channel number of Lx and Tx data differs!")}
+   
+   ##set signal.integral
+   signal.integral <- c(signal.integral.min, signal.integral.max)
+    
+   ##(e) - check if signal integral is valid
+   if(min(signal.integral)<1 | max(signal.integral>length(Lx.data.signal[,2]))){
+     stop("[calc_TLLxTxRatio.R] >> Error: signal.integral is not valid!")}
+
+
+     
+
+#  Background Consideration --------------------------------------------------
+ 
+ 
+   ##Lx.data
+   if(missing(Lx.data.background)==FALSE){
+     
+     LnLx.BG <- sum(Lx.data.background[signal.integral,2])
+ 
+    }else{
+     
+     LnLx.BG <- NA
+     
+    }  
+     
+   ##Tx.data
+      if(missing(Tx.data.background)==FALSE){
+  
+        TnTx.BG <- sum(Tx.data.background[signal.integral,2])
+      
+      }else{
+        
+        TnTx.BG <- NA
+        
+      }     
+     
+# Calculate Lx/Tx values --------------------------------------------------  
+ 
+    LnLx <- sum(Lx.data.signal[signal.integral,2])
+    TnTx <- sum(Tx.data.signal[signal.integral,2])
+     
+     
+     ##calculate variance of background
+     if(is.na(LnLx.BG) == FALSE & is.na(TnTx.BG) == FALSE){
+       
+       BG.Error <- sd(c(LnLx.BG, TnTx.BG))
+     }
+     
+       
+    if(is.na(LnLx.BG) == FALSE){
+      
+      net_LnLx <-  LnLx - LnLx.BG
+      net_LnLx.Error <- abs(net_LnLx * BG.Error/LnLx.BG)
+      
+    }else{
+      
+      net_LnLx <- NA
+      net_LnLx.Error <- NA
+      
+    }
+       
+    if(is.na(TnTx.BG) == FALSE){
+         
+         net_TnTx <-  TnTx - TnTx.BG
+         net_TnTx.Error <- abs(net_TnTx * BG.Error/TnTx.BG)
+         
+    }else{
+      
+      net_TnTx <- NA
+      net_TnTx.Error  <- NA
+      
+    }
+ 
+
+    if(is.na(net_TnTx) == TRUE){
+      
+      LxTx <- LnLx/TnTx 
+      LxTx.Error <- NA
+      
+    }else{
+      
+      LxTx <- net_LnLx/net_TnTx
+      LxTx.Error <- LxTx*((net_LnLx.Error/net_LnLx) + (net_TnTx.Error/net_TnTx))
+      
+      
+    }
+     
+  
+     
+    ##COMBINE to a data.frame
+    temp.results <- data.frame(LnLx, 
+                               LnLx.BG, 
+                               TnTx, 
+                               TnTx.BG, 
+                               net_LnLx,
+                               net_LnLx.Error,
+                               net_TnTx, 
+                               net_TnTx.Error,
+                               LxTx, 
+                               LxTx.Error)
+
+# Return values -----------------------------------------------------------
+
+   newRLumResults.calc_TLLxTxRatio <- set_RLum.Results(data=temp.results)
+   return(newRLumResults.calc_TLLxTxRatio)
+     
+# DOCUMENTATION - INLINEDOC LINES -----------------------------------------
+     
+     ##details<<
+     ## -
+     
+     ##value<<
+     ## Returns an S4 object of type \code{\linkS4class{RLum.Results}}. 
+     ## Slot \code{data} contains a \link{data.frame} with the following 
+     ## structure:\cr\cr 
+     ## $ LnLx  \cr        
+     ## $ LnLx.BG   \cr     
+     ## $ TnTx    \cr       
+     ## $ TnTx.BG    \cr   
+     ## $ Net_LnLx   \cr   
+     ## $ Net_LnLx.Error\cr 
+
+     ##references<<
+     ## -
+     
+     ##note<<
+     ## \bold{This function is a beta version!}
+     
+     ##seealso<<
+     ## \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
+     
+     ##keyword<<
+     ## datagen
+     
+     
+}, ex=function(){
+           
+  ##load package example data
+  data(ExampleData.BINfileData, envir = environment())
+  
+  ##convert Risoe.BINfileData into a curve object
+  temp <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
+  
+  
+  Lx.data.signal <- get_RLum.Analysis(temp, record.id=1)
+  Lx.data.background <- get_RLum.Analysis(temp, record.id=2)
+  Tx.data.signal <- get_RLum.Analysis(temp, record.id=3)
+  Tx.data.background <- get_RLum.Analysis(temp, record.id=4)
+  signal.integral.min <- 210
+  signal.integral.max <- 230
+  
+  output <- calc_TLLxTxRatio(Lx.data.signal, 
+                             Lx.data.background, 
+                             Tx.data.signal, Tx.data.background, 
+                             signal.integral.min, signal.integral.max)
+  get_RLum.Results(output)
+                          
+})#end function

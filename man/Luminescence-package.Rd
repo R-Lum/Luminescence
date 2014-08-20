@@ -1,0 +1,69 @@
+\name{Luminescence-package}
+\alias{Luminescence-package}
+\alias{Luminescence}
+\docType{package}
+\title{Collection of functions for luminescence dating data analysis [upcoming]}
+\description{
+This package provides various functions developed for the purpose
+of Luminescence Dating data analysis. 
+}
+\details{
+\tabular{ll}{
+Package: \tab Luminescence\cr
+Type: \tab Package\cr
+Version: \tab 0.4.0\cr
+Date: \tab 2014-XX-XX\cr
+License: \tab GPL-3\cr
+}
+%~~ An overview of how to use the package, including the most important functions ~~
+}
+\author{
+\bold{Authors} 
+
+\tabular{ll}{ 
+Christoph Burow \tab University of Cologne, Germany \cr
+Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr
+Manfred Fischer\tab University of Bayreuth, Germany \cr 
+Margret C. Fuchs \tab Alfred Wegener Insitute for Polar and Marine Research, Potsdam, Germany\cr
+Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France\cr
+Christoph Schmidt \tab University of Bayreuth, Germany
+}
+
+\bold{Supervisor}
+
+Markus Fuchs, Justus-Liebig-University Giessen, Germany
+
+\bold{Support contact}
+
+\url{http://forum.r-luminescence.de}
+
+\email{team@r-luminescence.de}\cr
+
+\bold{Bug reporting}
+
+\email{bugtracker@r-luminescence.de} \cr
+
+\bold{Project website}
+
+\url{http://www.r-luminescence.de}\cr
+
+\bold{Package maintainer}
+
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France, \cr
+\email{sebastian.kreutzer@u-bordeaux-montaigne.fr}
+
+\bold{Acknowledgement}
+
+Cooperation and personal exchange between the developers is gratefully funded by 
+the DFG (SCHM 3051/3-1) in the framework of the program "Scientific Networks". 
+Project title: "Lum.Network: Ein Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2016) 
+
+}
+
+\references{
+Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M., Schmidt, C., 2013. A practical guide to the R package Luminescence.  Ancient TL, 31, pp. 11-18.
+
+Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M., 2012. Introducing an R package for luminescence dating analysis. Ancient TL, 30, pp. 1-8.
+}
+
+\keyword{package}
