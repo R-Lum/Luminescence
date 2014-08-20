@@ -1,6 +1,6 @@
 # Luminescence
 
-The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for Luminescence Dating data analysis.
+The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
 
 For an introduction and further details, visit the [R-Luminescence homepage](http://www.r-luminescence.de).
 
@@ -25,8 +25,13 @@ devtools::install_github("Luminescence", "R-Lum")
 
 The R luminescence project is based on and evolves from ideas, contributions and constructive criticism of its users. Help us to maintain and develop the package, to find bugs and create new functions as well as a user-friendly design. Visit our [message board](https://forum.r-luminescence.de) or write us an [e-mail](mailto:team@r-luminescence.de) if anything crosses your mind or if you want your new self-written function to be to implemented. You are kindly invited to bring forward the package with us!
 
+## Note
+
+This version is a development version and it comes without any guarentee! For stable branches please visit
+the package on [CRAN 'Luminescence'](http://cran.r-project.org/web/packages/Luminescence/index.html).
+
 ## License
 
-The Luminescence package is licensed under the GPLv3. See these files in the main directory for additional details:
+The Luminescence package is licensed under the GPLv3. See these files in the main directory for additional details: 
 
 - LICENSE - Luminescence package license (GPLv3)
