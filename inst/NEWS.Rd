@@ -24,11 +24,18 @@
     \item \code{readSPE2R()}: Add support Princenton Instruments *.SPE files
     (camera and spectrometer measurements). Function output is a \code{RLum.Data.Spectrum}
     or \code{RLum.Data.Image} object.   
-  
-  
+    
    \item \code{plot_RLum.Data.Image()}: Plot function for \code{RLum.Data.Image} object.
    Function also added to wrapper function \code{plot_RLum}
+  
+  
+     \item \code{get_Layout()}: Helper function to return a list with layout definitions for
+      more homogenous plotting.
   }
+  
+  
+  
+  
   }
 
 
@@ -111,6 +118,18 @@
       
       }
       
+        \item \code{plot_AbanicoPlot()}:
+      \itemize{
+      
+        \item numeric values allowed for parameter centrality,
+        \item KDE label value fixed,
+        \item layout functionality added,
+        \item not supported summary keywords fixed.
+      
+      }
+      
+      
+      
        \item \code{analyse_SAR.CWOSL()}:
       \itemize{
       
@@ -127,6 +146,21 @@
       
       }
       
+      
+      \item \code{calc_MaxDose3()} & \code{calc_MaxDose4()}:
+      
+        \itemize{
+        
+        \item bootstrap method (recycled) as described in Cunningham & Wallinga (2012) implemented,
+        \item upper and lower plot margins of profile log likelihood plots decreased,
+        
+        \item function now iteratively adjusts boundaries for gamma, sigma and p0 when one of the estimators reaches the lower or upper boundary,
+        
+        \item new arguments: \code{boundary.sigma}, \code{boundary.gamma}, \code{init.values}, \code{...} (\code{bs.M}, \code{bs.N}, \code{bs.h}, \code{sigmab.sd}),
+        
+        \item removed/merged arguments: \code{sigma.xlb}, \code{sigma.xub}, \code{gamma.xlb}, \code{gamma.xub}, \code{init.gamma}, \code{init.sigma}, \code{init.p0}, \code{output.indices}
+        
+        }
       
    }
    

@@ -6,10 +6,12 @@ calc_MinDose3<- structure(function( # Apply the (un-)logged three parameter mini
   # ===========================================================================
   ##author<< 
   ## Christoph Burow, University of Cologne (Germany) \cr
-  ## Based on a rewritten S script of Rex Galbraith, 2010 \cr\cr
+  ## Based on a rewritten S script of Rex Galbraith, 2010 \cr
+  ## The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
+  ## Alastair Cunningham is thanked for his help in implementing and cross-checking the code.\cr
   
   ##section<<
-  ## version 0.22
+  ## version 0.3
   # ===========================================================================
   
   input.data, 
@@ -25,23 +27,23 @@ calc_MinDose3<- structure(function( # Apply the (un-)logged three parameter mini
   ### minimum dose model to De data
   sample.id="unknown sample",
   ### \code{\link{character}} (with default): sample id
-  gamma.xlb=0.1, 
-  ### \code{\link{numeric}} (with default): lower boundary of gamma
-  gamma.xub=100,
-  ### \code{\link{numeric}} (with default): upper boundary of gamma
-  sigma.xlb= 0.001, 
-  ### \code{\link{numeric}} (with default): lower boundary of sigma 
-  sigma.xub= 5.00, 
-  ### \code{\link{numeric}} (with default): upper boundary of sigma 
-  init.gamma=10, 
-  ### \code{\link{numeric}} (with default): starting value of gamma 
-  init.sigma=1.2, 
-  ### \code{\link{numeric}} (with default): starting value of sigma
-  init.p0=0.01,
-  ### \code{\link{numeric}} (with default): starting value of p0
+  bootstrap,
+  ## code{\link{logical}}: Apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
+  boundary.gamma,
+  ### \code{\link{numeric}}: a vector of in the form of
+  ### \code{c(lower.boundary, upper.boundary)}. If no values are provided 
+  ### reasonable values are tried to be estimated by the input data.
+  boundary.sigma,
+  ### \code{\link{numeric}}: a vector of in the form of
+  ### \code{c(lower.boundary, upper.boundary)}. If no values are provided 
+  ### reasonable values are tried to be estimated by the input data.
+  init.values=c(10, 1.2, 0.01), 
+  ### \code{\link{numeric}} (with default): starting values for gamma, sigma and p0.
+  ### Custom values need to be provided in a vector of length three in the form of
+  ### \code{c(gamma, sigma, p0)}.
   ignore.NA = FALSE,
   ### \code{\link{logical}} (with default): ignore NA values during log
-  ### likelihood calculations. See details.
+  ### likelihood calculations. See details!
   calc.ProfileLikelihoods=TRUE, 
   ### \code{\link{logical}} (with default): calculate profile log likelihood
   ### functions for gamma, sigma, p0. See \code{output.indices}.
@@ -53,10 +55,9 @@ calc_MinDose3<- structure(function( # Apply the (un-)logged three parameter mini
   output.plot=TRUE, 
   ### \code{\link{logical}} (with default): plot output
   ### (\code{TRUE}/\code{FALSE})
-  output.indices=3
-  ### \code{\link{numeric}} (with default): requires 
-  ### \code{calc.ProfileLikelihoods} = \code{TRUE}. Indices: 1 = gamma, 
-  ### 2 = gamma/sigma, 3 = gamma/sigma/p0.
+  ...
+  ### further arguments for bootstrapping (\code{bs.M, bs.N, bs.h, sigmab.sd}). 
+  ### See details for their usage.
   ){                     
   
   
@@ -96,11 +97,103 @@ calc_MinDose3<- structure(function( # Apply the (un-)logged three parameter mini
     stop(domain=NA)
   }
   
-  if(output.indices >3 | output.indices <1) { 
-    cat(paste("Invalid number of indices. Only 1, 2 or 3",
-              "(gamma, gamma/sigma, gamma/sigma/p0) allowed."), fill = FALSE)
-    stop(domain=NA)
+  
+  if(missing(boundary.gamma) == FALSE) {
+   
+    if(length(boundary.gamma) != 2) {
+      cat(paste("boundary.gamma needs to be a vector of length = 2, i.e. ",
+                "c(lower.boundary, upper.boundary"), fill = FALSE)
+      stop(domain=NA)
+    }
+    else{
+      if(boundary.gamma[1] >= boundary.gamma[2]) {
+        cat(paste("the lower boundary for gamma needs to be smaller than",
+                  "the upper boundary"), fill = FALSE)
+        stop(domain=NA)
+      }
+    }
   }
+  
+  if(missing(boundary.sigma) == FALSE) {
+    if(length(boundary.sigma) != 2) {
+      cat(paste("boundary.sigma needs to be a vector of length = 2, i.e. ",
+                "c(lower.boundary, upper.boundary"), fill = FALSE)
+      stop(domain=NA)
+    }
+    else{
+      if(boundary.sigma[1] >= boundary.sigma[2]) {
+        cat(paste("the lower boundary for sigma needs to be smaller than",
+                  "the upper boundary"), fill = FALSE)
+        stop(domain=NA)
+      }
+    }
+  }
+  
+
+
+##============================================================================##
+## ESTIMATE START PARAMETERS
+##============================================================================##
+
+# TO BE DONE
+
+##============================================================================##
+## ESTIMATE BOUNDARY PARAMETERS
+##============================================================================##
+
+## BOUNDARIES FOR GAMMA
+
+if(missing(boundary.gamma) == FALSE) {
+  
+  # retrieve lower and upper boundary for gamma
+  gamma.xlb<- boundary.gamma[1]
+  gamma.xub<- boundary.gamma[2]
+  
+  
+} 
+else { # 0.1, max De
+  
+  gamma.xlb<- min(input.data[,1]/10)
+  gamma.xub<- max(input.data[,1]*1.1)
+  
+}
+
+## BOUNDARIES FOR SIGMA
+if(missing(boundary.sigma) == FALSE) {
+  
+  # retrieve lower and upper boundary for sigma
+  sigma.xlb<- boundary.sigma[1]
+  sigma.xub<- boundary.sigma[2]
+}
+else { # default values by Rex Galbraith: 0.001, 5
+  
+  sigma.xlb<- 0.001
+  sigma.xub<- 5
+  
+}
+
+## THIS FUNCTION IS CALLED WHEN ONE OR MORE ESTIMATES REACHED THE BOUNDARY
+readjust.boundaries<- function (s.xlb, s.xub,
+                                g.xlb, g.xub,
+                                Bcheck) {
+  
+  if(Bcheck[".xlb","sigma"]==TRUE) {
+  sigma.xlb<- s.xlb*0.9
+  }
+  if(Bcheck[".xub","sigma"]==TRUE) {
+  sigma.xub<- s.xub*1.1
+  }
+  if(Bcheck[".xlb","gamma"]==TRUE) {
+  gamma.xlb<- g.xlb*0.9
+  }
+  if(Bcheck[".xub","gamma"]==TRUE) {
+  gamma.xub<- g.xub*1.1
+  }
+    
+  return(data.frame(sigma.xlb, sigma.xub,
+                    gamma.xlb, gamma.xub))
+}
+
   
 ##============================================================================##
 ## CALCULATIONS
@@ -142,7 +235,7 @@ lnnprob.f<- function(x) {
       options(warn = -1)
     }
   }
-  
+
   if(sum(tf)>0) {
     z<- x[tf]
     lnnp[tf]<- log(1-pnorm(z))
@@ -197,41 +290,31 @@ neglik.f<- function(param,input.data,rep){
 	llik<- log( exp(lf1i) + exp(lf2i) )
  	negll<- -sum(llik) 
 
-# printing the results to screen
-  get("prstat",mode="numeric")
-	ncalls<- prstat[1]
-	ncmod<-  prstat[2]
-	ipr<-    prstat[3]
-	ncalls<- ncalls+1
-	ncmod<- ncmod+1
-  
-  if(console.extendedOutput==TRUE) {
-    
-    if( ncmod==ipr | (ncalls==1 & ipr>0) ) {
-      cat(paste("\n\n\n ------ # function calls:", ncalls,"------"))
-      cat(paste("\n neg. log likelihood: ",round(negll,3)))
-      cat(paste("\n parameters"))
-      cat(paste("\n  gamma: ",round(gamma,3),"  mindose:",
-                if(log==TRUE){round(exp(gamma),3)}else{round(gamma,3)}))
-      cat(paste("\n  sigma: ",round(sigma,4)))
-      cat(paste("\n     p0: ",round(p0,3)))
-      cat(paste("\n      n: ",length(zi)))
-      ncmod<- 0
-    }
-  }
-  
-	assign("prstat",c(ncalls,ncmod,ipr))
   return(negll)
 }
+
 
 ##============================================================================##
 ## MAIN PROGRAM
 ##============================================================================##
 
+apply.MAM<- function(input.data, sigmab, ...) {
+  
+  extraArgs <- list(...)
+  
+  ## set plot main title
+  if("new.bounds" %in% names(extraArgs)) {
+    #print(extraArgs) # DEBUG
+    sigma.xlb<- as.double(extraArgs$new.bounds[1,"sigma.xlb"])
+    sigma.xub<- as.double(extraArgs$new.bounds[1,"sigma.xub"])
+    gamma.xlb<- as.double(extraArgs$new.bounds[1,"gamma.xlb"])
+    gamma.xub<- as.double(extraArgs$new.bounds[1,"gamma.xub"])
+  } 
+
 # read in the data and print the number of grains
   if(log==TRUE) { 
     lcd<- log(input.data$ED)
-    lse<- sqrt((input.data$ED_Error/input.data$ED)^2 + sigmab^2)
+    lse<- sqrt((input.data$ED_Error/input.data$ED)^2 + sigmab^2) 
   }
   else {
     lcd<- input.data$ED
@@ -240,19 +323,15 @@ neglik.f<- function(param,input.data,rep){
   
 	datmat<- cbind(lcd,lse)
 
-  
-  cat("\n [Calc_MinDose3] \n")
-
-# supply the starting values and bounds for the parameters
   if(log==TRUE) { 
-    gamma.init<- log(init.gamma) 
+    gamma.init<- log(init.values[1]) 
   }
   else {          
-    gamma.init<- init.gamma 
+    gamma.init<- init.values[1] 
   }
   
-  sigma.init<- init.sigma
-  p0.init<- init.p0
+  sigma.init<- init.values[2]
+  p0.init<- init.values[3]
   x0<- c(gamma.init, sigma.init, p0.init)
   
   if(log==TRUE) { 
@@ -271,10 +350,6 @@ neglik.f<- function(param,input.data,rep){
 	prstat<- c(ncalls,ncmod,ipr)
 	prfile<- F
   
-  if(log==TRUE) {
-    Bmess<- 0 
-  }
-  
 # maximise the likelihood
   opt.param<- nlminb(start=x0, objective=neglik.f, scale=1, lower=xlb,
                      upper=xub, input.data=datmat,
@@ -291,35 +366,526 @@ neglik.f<- function(param,input.data,rep){
   get("prstat",mode="numeric")
   ncalls<- prstat[1]
   
-  if(log==TRUE){
-    get("Bmess",)
+# return values
+MAM.res<- data.frame(maxlik=maxlik,
+                     bic=bic,
+                     gamma=gamma,
+                     sigma=sigma,
+                     p0=p0)
+
+# this is a dummy variable for compatibility reasons
+Bmess<- NA
+
+# check if any of the estimates are on the boundary
+bcheck<- data.frame(gamma=c(all.equal(gamma.xub,if(log==TRUE){exp(gamma)}
+                                      else{gamma})==TRUE,
+                            all.equal(gamma.xlb,if(log==TRUE){exp(gamma)}
+                                      else{gamma})==TRUE),
+                    sigma=c(all.equal(sigma.xub,sigma)==TRUE,
+                            all.equal(sigma.xlb,sigma)==TRUE))
+rownames(bcheck)<- c(".xub",".xlb")
+
+
+return(list(lcd, MAM.res, datmat, x0, xlb, mlest, xub, Bmess, bcheck, 
+            sigma.xlb, sigma.xub, gamma.xlb, gamma.xub))
+}
+
+
+
+##============================================================================##
+## BOOTSTRAP
+##============================================================================##
+
+# create normal distribution for sigmab
+
+if(missing(bootstrap) == FALSE) {
+  
+  extraArgs <- list(...)
+  
+  ## bootstrap replications
+  # first level bootstrap
+  if("bs.M" %in% names(extraArgs)) {
+    M<- as.integer(extraArgs$bs.M)
+  } else {
+    M<- 1000
   }
   
+  # second level bootstrap
+  if("bs.N" %in% names(extraArgs)) {
+    N<- as.integer(extraArgs$bs.N)
+  } else {
+    N<- 3*M
+  }
+  
+  # KDE bandwith
+  if("bs.h" %in% names(extraArgs)) {
+    h<- extraArgs$bs.h
+  } else {
+    h<- (sd(input.data[,1])/sqrt(length(input.data[,1])))*2
+  }
+  
+  # standard deviation of sigmab 
+  if("sigmab.sd" %in% names(extraArgs)) {
+    sigmab.sd<- extraArgs$sigmab.sd
+  } else {
+    sigmab.sd<- 0.04
+  }
+  
+if(bootstrap == TRUE) {
+  
+  # header
+  cat(paste("\n   --- RECYCLED BOOTSTRAP ---- \n"))
+  
+  # save original sigmab value
+  sigmab.global<- sigmab
+  
+  # define normal dist. parameters for sigmab
+  sigmab.mean<- sigmab
+  sigmab.sd<- sigmab.sd
+  
+  # empty variables
+  n<- length(input.data[,1])
+  b2Pmatrix<- matrix(NA, N, n)
+  b2mamvec<- matrix(NA, N, 1)
+  pairs<- matrix(NA, M, 2)
+  p0.pairs<- matrix(NA, M, 2)
+  
+  # KDE bandwidth
+  h<- h
+  
+  ## --------- N SECOND LEVEL BOOTSTRAPS -------------- ##
+  
+  for(i in 1:N) {
+    
+    if(i == 1) {
+      cat(paste("\n"))
+      cat(paste("   Calculating", N, "second level bootstraps. Please wait... \n"))
+      
+      #get starting time
+      time.start<- Sys.time()
+    }
+    if(i == 10) {
+      
+      #get stop time
+      time.stop<- Sys.time()
+      
+      # calculate time needed for one iteration
+      time.elapsed<- abs(as.double(time.start - time.stop))/10
+      
+      # estimate time till second level bootstraps are finished
+      ETA<- Sys.time()+time.elapsed*N
+      
+      # tell user about time
+      write(paste("   Estimated time needed:", round(time.elapsed*N), "s | Finished at", ETA), file = "")
+      
+      # create progress bar
+      pb <- txtProgressBar(min = 0, max = N, char = "#", style = 3)
+    }
+    
+    # draw random sigmab
+    sigmab<- rnorm(1, sigmab.mean, sigmab.sd)
+    
+    # n random integers with replacement
+    R<- sample(x=n, size=n, replace=TRUE)
+    
+    # recored frequencies of each n, used in calc of product term
+    for(k in 1:n) {
+      b2Pmatrix[i, k]<- sum(R == k)
+    }
+    
+    # create bootstrap replicate
+    Rde<- input.data[R,]
+    de2<- Rde
+    
+    # apply MAM and get results
+    mam<- apply.MAM(de2, sigmab) 
+    
+    # save gamma to storage matrix
+    if(log == TRUE) {
+      b2mamvec[i,1]<- exp(mam[[2]]$gamma)
+    } else {
+      b2mamvec[i,1]<- mam[[2]]$gamma
+    }
+   
+    if(i > 10) {
+    # update progress bar
+    setTxtProgressBar(pb, i)
+    }
+  }
+  
+  # close progress bar
+  close(pb)
+  
+  ## --------- M FIRST LEVEL BOOTSTRAPS -------------- ##
+  
+  for(i in 1:M) {
+   
+    if(i == 1) {
+      cat(paste("\n"))
+      cat(paste("   Calculating", M, "first level bootstraps. Please wait... \n"))
+      
+      #get starting time
+      time.start<- Sys.time()
+    }
+    if(i == 10) {
+      
+      #get stop time
+      time.stop<- Sys.time()
+      
+      # calculate time needed for one iteration
+      time.elapsed<- abs(as.double(time.start - time.stop))/10
+      
+      # estimate time till second level bootstraps are finished
+      ETA<- Sys.time()+time.elapsed*N
+      
+      # tell user about time
+      write(paste("   Estimated time needed:", round(time.elapsed*N), "s | Finished at", ETA), file = "")
+      
+      # create progress bar
+      pb <- txtProgressBar(min = 0, max = M, char = "#", style = 3)
+    }
+    
+    
+    # draw random sigmab
+    sigmab<- rnorm(1, sigmab.mean, sigmab.sd)
+    
+    # n random integers with replacement
+    R<- sample(x=n, size=n, replace=TRUE)
+    
+    # create bootstrap replicates
+    Rde<- input.data[R,]
+    de2<- Rde
+    
+    # apply MAM and get results
+    mam<- apply.MAM(de2, sigmab)
+    
+    
+    ## --------- CHECK AND READJUST BOUNDARIS ------------ ##
+    
+    # get logical matrix, which indicates whether any parameter 
+    # is on the boundary
+    Bcheck<- mam[[9]]
+    
+    # check if any parameter is on the boundary
+    if(any(Bcheck == TRUE)) {
+      
+      # try 1000 times to produce a valid result
+      for(j in 1:1000) {  
+        
+        if(any(Bcheck == TRUE)) {
+          
+          new.bounds<- readjust.boundaries(s.xlb = sigma.xlb, 
+                                           s.xub = sigma.xub,
+                                           g.xlb = gamma.xlb,
+                                           g.xub = gamma.xub,
+                                           Bcheck)
+          
+          #mam<- apply.MAM(input.data, sigmab, new.bounds=new.bounds) #ORIGINAL
+          mam<- apply.MAM(de2, sigmab, new.bounds=new.bounds)
+          
+          # get boundary values
+          sigma.xlb<- mam[[10]]
+          sigma.xub<- mam[[11]]
+          gamma.xlb<- mam[[12]]
+          gamma.xub<- mam[[13]]
+          
+          # get TRUE/FALSE boundary matrix
+          Bcheck<- mam[[9]]
+        }
+        else {
+          # break loop if none of the parameters is on the loop
+          break
+        }
+      } #EndOf::LOOP (1000 iter)
+    }#EndOf::Bcheck matrix check
+    
+    
+    # save gamma
+    if(log == TRUE) {
+      theta<- exp(mam[[2]]$gamma)
+    } else {
+      theta<- mam[[2]]$gamma
+    }
+    
+    bs.p0<- mam[[2]]$p0
+    
+    
+    # kernel density estimate
+    f<- density(x=de2[,1], kernel="gaussian", bw=h)
+    f<- approx(x=f$x, y=f$y, xout=de2[,1])
+         
+    # convert to matrix
+    f<- cbind(f$x,f$y)
+    
+    pStarTheta<- as.vector(f[,2]/sum(f[,2]))
+    
+   
+    thetavec<- matrix(theta, N, 1)    
+    #kdthis<- (b2mamvec-thetavec)/h # SHOULD IT BE THE OTHER WAY AROUND?
+    kdthis<- (thetavec-b2mamvec)/h
+    kd1<- dnorm(kdthis)
+    
+  
+    # the product term
+    Pmat<- pStarTheta/(1/n)
+    Pmat<- matrix(t(Pmat), N, n, byrow=TRUE)
+    prodterm<- apply(Pmat^b2Pmatrix, 1, prod)
+    
+    kd2<- kd1*prodterm
+        
+    kd<- sum(kd2)
+     
+    likelihood<- (1/(N*h))*kd
+    
+    pairs[i,]<- c(theta, likelihood)
+ 
+    
+    p0.pairs[i,]<- c(theta, bs.p0)
+    
+    if(i > 10) {
+      # update progress bar
+      setTxtProgressBar(pb, i)
+    }
+  }
+  
+  # close progress bar
+  close(pb)
+  
+  
+  ## --------- PLOT "RECYCLE" BOOTSTRAP RESULTS ------------ ##
+  
+  for(i in 1:4) {
+  
+  # save previous plot parameter and set new ones
+  .pardefault<- par(no.readonly = TRUE)
+  
+  # set plot layout
+  layout(matrix(c(1,1,2,3)),3,1)
+  par(cex = 0.8)
+  
+  ## ----- LIKELIHOODS
+  
+  # set margins (bottom, left, top, right)
+  par(mar=c(1,5,5,3))
+  
+  # sort De and likelihoods by De (increasing)
+  pairs<- pairs[order(pairs[,1]),]
+  
+  # remove invalid NA values
+  pairs<- na.omit(pairs)
+  
+  # sort corresponding p0 values
+  p0.pairs<- p0.pairs[order(p0.pairs[,1]),]
+  
+  # remove invalid NA values
+  p0.pairs<- na.omit(p0.pairs)
+    
+  plot(x=pairs[,1],
+       y=pairs[,2],
+       xlab="Equivalent Dose [Gy]",
+       ylab="Likelihood",
+       ylim=c(0, as.double(quantile(pairs[,2],probs=0.98))),
+       main="Recycled bootstrap MAM-3")
+  
+  # add subtitle
+  mtext(as.expression(bquote(italic(M) == .(M) ~ "|" ~
+                               italic(N) == .(N) ~ "|" ~
+                               italic(sigma[b])  == .(sigmab.global) ~ 
+                               "\u00B1" ~ .(sigmab.sd) ~ "|" ~
+                               italic(h) == .(round(h,1))
+  )
+  ),           
+  side = 3, line = 0.3, adj = 0.5, 
+  cex = 0.9)
+  
+  
+  points(x=pairs[,1], y=pairs[,2], pch=1, col = "grey66")
+  
+  
+  
+  # polynomial fits of increasing degrees
+  poly.three<- lm(pairs[,2] ~ poly(pairs[,1], degree=3, raw=TRUE)) # 3-deg. poly
+  poly.four<- lm(pairs[,2] ~ poly(pairs[,1], degree=4, raw=TRUE))  # 4-deg. poly
+  poly.five<- lm(pairs[,2] ~ poly(pairs[,1], degree=5, raw=TRUE))  # 5-deg. poly
+  poly.six<- lm(pairs[,2] ~ poly(pairs[,1], degree=6, raw=TRUE))   # 6-deg. poly
+  
+  if(i == 1) {
+    poly.curve<- function(x) poly.three$coefficient[4]*x^3 + poly.three$coefficient[3]*x^2 + poly.three$coefficient[2]*x + poly.three$coefficient[1]
+  } 
+  if(i == 2) {
+    poly.curve<- function(x) poly.four$coefficient[5]*x^4 + poly.four$coefficient[4]*x^3 + poly.four$coefficient[3]*x^2 + poly.four$coefficient[2]*x + poly.four$coefficient[1]
+  }
+  if(i == 3) {
+    poly.curve<- function(x) poly.five$coefficient[6]*x^5 + poly.five$coefficient[5]*x^4 + poly.five$coefficient[4]*x^3 + poly.five$coefficient[3]*x^2 + poly.five$coefficient[2]*x + poly.five$coefficient[1]
+  }
+  if(i == 4) {
+    poly.curve<- function(x) poly.six$coefficient[7]*x^6 + poly.six$coefficient[6]*x^5 + poly.six$coefficient[5]*x^4 + poly.six$coefficient[4]*x^3 + poly.six$coefficient[3]*x^2 + poly.six$coefficient[2]*x + poly.six$coefficient[1]
+  }
+  
+  poly.lines<- list(poly.three,poly.four,poly.five,poly.six)
+  
+  # add polynomials to plot
+  curve(poly.curve, col = "black", add = TRUE, type = "l")
+
+  legend<- c("Third degree", "Fourth degree", "Fifth degree", "Sixth degree")
+  
+  # add legend
+  legend("topright", legend = legend[i], 
+         y.intersp = 1.2,
+         bty = "n", 
+         title = "Polynomial Fit",
+         lty = 1,
+         lwd= 1.5)
+  
+  
+  ## ----- RESIDUALS
+  
+  # set margins (bottom, left, top, right)
+  par(mar=c(3,5,2,3))
+  
+  plot(x = pairs[,1],
+       y = residuals(poly.lines[[i]]),
+       ylim = c(min(residuals(poly.lines[[i]]))*1.2,
+                as.double(quantile(residuals(poly.lines[[i]]),probs=0.99))),
+       xlab = "",
+       col = "grey66",
+       ylab = "Fit Residual")
+  
+  abline(h = 0)
+  
+  ## ----- PROPORTIONS
+  
+  # set margins (bottom, left, top, right)
+  par(mar=c(5,5,0,3))
+  
+  # plot p0 values
+  plot(x=p0.pairs[,1],
+       y=p0.pairs[,2]*100,
+       xlab="Equivalent Dose [Gy]",
+       ylab="Proportion [%]",
+       ylim=c(0, max(p0.pairs[,2])*100),
+       col = "grey66")
+  
+
+
+  # polynomial fits of increasing degrees
+  #poly.three.p0<- predict(lm(p0.pairs[,2] ~ poly(p0.pairs[,1], degree=3, raw=TRUE)))
+  #lines(x=p0.pairs[,1], poly.three.p0, col="black", lwd=1.5)
+  
+  # pair min dose and likelihoods of poly fits
+  #poly.three<- data.frame(min_dose = pairs[,1], poly.three$fitted.values)
+  poly.four<- data.frame(min_dose = pairs[,1], poly.four$fitted.values)
+  poly.five<- data.frame(min_dose = pairs[,1], poly.five$fitted.values)
+  poly.six<- data.frame(min_dose = pairs[,1], poly.six$fitted.values)
+  
+  # restore previous plot parameters
+  par(.pardefault)
+  
+}##EndOf::Plot_loop
+
+}##EndOf::Bootstrap
+}##EndOf::Bootstrap
+
+else {
+
+  ## --------- NORMAL MAM-3 W/O BOOTSTRAP ------------ ##
+  
+  # apply MAM-3
+  MAM.res<- apply.MAM(input.data, sigmab)
+  
+  
+  
+  ## --------- CHECK AND READJUST BOUNDARIS ------------ ##
+  
+  # get logical matrix, which indicates whether any parameter 
+  # is on the boundary
+  Bcheck<- MAM.res[[9]]
+  
+  # check if any parameter is on the boundary
+  if(any(Bcheck == TRUE)) {
+    
+    # try 1000 times to produce a valid result
+    for(i in 1:1000) {  
+      
+      if(any(Bcheck == TRUE)) {
+        
+        new.bounds<- readjust.boundaries(s.xlb = sigma.xlb, 
+                                         s.xub = sigma.xub,
+                                         g.xlb = gamma.xlb,
+                                         g.xub = gamma.xub,
+                                         Bcheck)
+        
+        MAM.res<- apply.MAM(input.data, sigmab, new.bounds=new.bounds)  
+        
+        # get boundary values
+        sigma.xlb<- MAM.res[[10]]
+        sigma.xub<- MAM.res[[11]]
+        gamma.xlb<- MAM.res[[12]]
+        gamma.xub<- MAM.res[[13]]
+        
+        # get TRUE/FALSE boundary matrix
+        Bcheck<- MAM.res[[9]]
+      }
+      else {
+        # break loop if none of the parameters is on the boundary
+        break
+      }
+    } #EndOf::LOOP (1000 iter)
+  }#EndOf::Bcheck matrix check
+  
+  
+  # retrieve results from MAM.res object
+  # (for compatibility reasons the results are stored in individual variables)
+  
+  # slot 1
+  lcd<- MAM.res[[1]]
+  
+  # slot 2
+  maxlik<- MAM.res[[2]]$maxlik
+  bic<- MAM.res[[2]]$bic
+  gamma<- MAM.res[[2]]$gamma
+  sigma<- MAM.res[[2]]$sigma
+  p0<- MAM.res[[2]]$p0
+  x0<- MAM.res[[2]]$x0
+  xlb<- MAM.res[[2]]$xlb
+  xub<- MAM.res[[2]]$xub
+  mlest<- MAM.res[[2]]$mlest
+  
+  # slot 3-8
+  datmat<- MAM.res[[3]]
+  x0<- MAM.res[[4]]
+  xlb<- MAM.res[[5]]
+  mlest<- MAM.res[[6]]
+  xub<- MAM.res[[7]]
+  Bmess<- MAM.res[[8]]
+} #EndOf::Normal MAM-3
   
 ##============================================================================##
 ## PROFILE LOG LIKELIHOODS
 ##============================================================================##
 
-  if(calc.ProfileLikelihoods==TRUE) {
+  if(calc.ProfileLikelihoods == TRUE && missing(bootstrap) == TRUE) {
 
-    # read in the indices of the parameters for which profile
-    # likelihoods are to be calculated
-    
-    profind<- as.integer(output.indices)
-    
-    # save previous plot parameter and set new ones
-    .pardefault<- par(no.readonly = TRUE)
-    
+        
     if(output.plot == TRUE) {
-    par(mfrow=c(2,2),oma=c(9,2,9,1),mar=c(3.7,3.1,1.1,0.2),
-        mgp=c(1.75,0.5,0),las=1,cex.axis=1.1,cex.lab=1.3)
+      
+      # save previous plot parameter and set new ones
+      .pardefault<- par(no.readonly = TRUE)
+      
+      par(mfrow=c(2,2),
+          oma=c(3,2,3,1),
+          mar=c(3.7,3.1,1.1,0.2),
+          mgp=c(1.75,0.5,0),
+          las=1,
+          cex.axis=1.1,
+          cex.lab=1.3)
     }
     
     # calculate the required profiles
     lbpar<- c("gamma","sigma","p0")
     npar<- length(x0)
     
-    for(j in 1:profind) {
+    for(j in 1:3) {
       
 ##============================================================================##    
 ## first pass at the profile likelihood
@@ -605,16 +1171,9 @@ neglik.f<- function(param,input.data,rep){
       mtext(side=3,line=0,paste(sample.id,if(log==TRUE){"   MAM 3"}
                                 else{"   MAM 3-UL"}),cex=1.4,outer=T)
     }
-# Bmess is a message: it is the number ofs times 
-# B1<=B2 
-    if(log==TRUE) {
-      get("Bmess")
-      cat("\n -----------------------------")
-      cat(paste("\n # number of times B1<=B2:",Bmess,"#"))
-      cat("\n -----------------------------")
-    }
   }#EndOf IF (PROFILE LOG LIKELIHOODS)
-  
+
+if(missing(bootstrap) == TRUE) {
 
 # prepare return values
 results<- data.frame(id=sample.id,n=length(lcd),log=log,Lmax=maxlik,BIC=bic,
@@ -673,42 +1232,37 @@ try(results$"X95ci_upper"<- if(log==TRUE){exp(guu)}else{guu},silent=TRUE)
 
   cat(paste("\n----------------------------------------------"))
 
-# Print out warnings with regard to parameter boundaries
-
-  bcheck<- data.frame(gamma=c(all.equal(gamma.xub,if(log==TRUE){exp(gamma)}
-                                        else{gamma})==TRUE,
-                              all.equal(gamma.xlb,if(log==TRUE){exp(gamma)}
-                                        else{gamma})==TRUE),
-                      sigma=c(all.equal(sigma.xub,sigma)==TRUE,
-                              all.equal(sigma.xlb,sigma)==TRUE))
-  rownames(bcheck)<- c(".xub",".xlb")
-
-
-                    
-  if(any(bcheck==TRUE)) {
-    cat(paste("\n\n #---------------------------------#"))
-    cat(paste("\n # Warning! One or more parameters #",
-              "\n # are on the boundary. Check the  #",
-              "\n # logical matrix below to see     #",
-              "\n # which ones and where.           #"), fill = FALSE)
-    cat(paste("\n #---------------------------------#\n\n"))
-    print(bcheck)
-  }
-  
-  if(ignore.NA == TRUE) {
-    cat(paste("\n CAUTION: By ignoring NA values the validity of results",
-              "is not ensured. \n"), fill = FALSE)
-  }
   
 # restore previous plot parameters
+if(output.plot==TRUE && missing(bootstrap) == TRUE) {
   par(.pardefault)
+}
 
 # return values
   newRLumResults.calc_MinDose3 <- set_RLum.Results(
     data = list(
       results = results))
   
+  invisible(newRLumResults.calc_MinDose3) 
+
+} else {
+  
+  colnames(pairs)<- c("min_dose","likelihood")
+  
+  newRLumResults.calc_MinDose3 <- set_RLum.Results(
+    data = list(results = 
+      list(
+      pairs = pairs,
+      poly.fits = list(poly.three = poly.three,
+                       poly.four = poly.four,
+                       poly.five = poly.five,
+                       poly.six = poly.six)))
+  
+  )
+  
   invisible(newRLumResults.calc_MinDose3)
+  
+}
   ### Returns a plot (optional) and terminal output. In addition an 
   ### \code{\linkS4class{RLum.Results}} object is 
   ### returned containing the following element:
@@ -740,15 +1294,16 @@ try(results$"X95ci_upper"<- if(log==TRUE){exp(guu)}else{guu},silent=TRUE)
 ## containing negative, zero or near-zero De estimates (Arnold et al. 2009,
 ## p. 323). \cr\cr
 ## \bold{Boundaries} \cr\cr
-## Depending on the data, the upper and lower bounds for gamma (\code{gamma.xlb}
-## and \code{gamma.xub}) need to be specified. If the final estimate of gamma is
-## on the boundary, \code{gamma.xlb} and \code{gamma.xub} need to be adjusted 
+## Depending on the data, the upper and lower bounds for gamma need to be specified.
+## If the final estimate of gamma is on the boundary, need to be adjusted 
 ## appropriately, so that gamma lies within the bounds. The same applies for 
-## sigma boundaries (\code{sigma.xlb} and \code{sigma.xub}). \cr\cr
+## sigma boundaries. By default, the function tries to estimate reasonable
+## boundary values depending on the data and iteratively adjusts these values
+## until all estimators are within the bounds.\cr\cr
 ## \bold{Initial values} \cr\cr
 ## The log likelihood calculations use the \link{nlminb} function. Accordingly,
-## initial values for the three parameters \code{init.gamma}, \code{init.sigma} 
-## and \code{init.p0} need to be specified. \cr\cr
+## initial values for the three parameters need to be specified (\code{init.values}).
+## \cr\cr
 ## \bold{Ignore NA values} \cr\cr
 ## In some cases during the calculation of the log likelihoods NA values 
 ## are produced instantly terminating the minimum age model. It is advised to 
@@ -757,6 +1312,22 @@ try(results$"X95ci_upper"<- if(log==TRUE){exp(guu)}else{guu},silent=TRUE)
 ## \code{ignore.NA = TRUE}. While the model is then usually able to finish
 ## all calculations the integrity of the final estimates cannot be ensured.
 ## Use this argument at own risk.
+## \bold{Bootstrap} \cr\cr
+## The MAM-3 may be run with \code{bootstrap = TRUE}, which applies the 
+## bootstrap recycling approach as described in Cunningham & Wallinga (2012).
+## Important parameters to control the bootstrap approach are the number of 
+## first and second level bootstrap replicates (\code{bs.M} and \code{bs.N}),
+## the uncertainty on sigmab (\code{sigmab.sd}) and the bandwidth (\code{bs.h})
+## for a kernel density estimate. Default values are \code{bs.M = 1000}, 
+## \code{bs.M = 3000} and \code{sigmab.sd = 0.04}. The bandwith \code{bs.h} 
+## is calculated by the following formula:
+## \cr
+## \deqn{h = (\sigma/\sqrt(n))*2}
+## Note that the values for \code{sigma.sd} and \code{bs.h} need to be 
+## adjusted specific to each data set. Also, while bootstrapping is 
+## computationally heavy, it is advised to run the model with as many
+## bootstrap replicates as possible.
+
 
 ##references<<
 ## Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B., 2009. A revised
@@ -802,18 +1373,17 @@ try(results$"X95ci_upper"<- if(log==TRUE){exp(guu)}else{guu},silent=TRUE)
 ## \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose4}}
 
 }, ex=function(){
+  
   ## load example data
   data(ExampleData.DeValues, envir = environment())
   
   ## apply the logged minimum dose model
   calc_MinDose3(ExampleData.DeValues,
-                sigmab = 0.3,gamma.xub = 7000, 
-                output.plot = FALSE)
+                sigmab = 0.3)
   
   ## apply the un-logged minimum dose model
   ## note that the example data set does not meet the un-logged model 
   ## requirements
   calc_MinDose3(ExampleData.DeValues, log = FALSE,
-                sigmab = 0.3,gamma.xub = 5000, 
-                output.plot = FALSE)
+                sigmab = 0.3)
 })

@@ -21,10 +21,12 @@ set prior to any further operations.}
 in logarithmic scale. Default is \code{TRUE}.}
   \item{central.value}{\code{\link{numeric}}: User-defined central value, primarily used for
 horizontal centering of the z-axis.}
-  \item{centrality}{\code{\link{character}} (with default): measure of centrality, used for
-automatically centering the plot and drawing the central line. Can be
-one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"}, 
-and \code{"median.weighted"}. Default is \code{"mean.weighted"}.}
+  \item{centrality}{\code{\link{character}} or \code{\link{numeric}} (with default): 
+measure of centrality, used for automatically centering the plot and 
+drawing the central line. Can either be one out of \code{"mean"}, 
+\code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
+or a numeric value used for the standardisation. Default is 
+\code{"mean.weighted"}.}
   \item{dispersion}{\code{\link{character}} (with default): measure of dispersion, used for
 drawing the polygon that depicts the dose distribution. One out of
 \code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations) 
@@ -104,11 +106,20 @@ centrality. When it is obvious that the data is not (log-)normally
 distributed, the mean (weighted or not) cannot be a valid measure of
 centrality and hence central dose. Accordingly, the median and the
 weighted median can be chosen as well to represent a proper measure of
-centrality (e.g. \code{centrality = "median.weighted"}).\cr
+centrality (e.g. \code{centrality = "median.weighted"}). Also 
+user-defined numeric values (e.g. from the central age model) can be 
+used if this appears appropriate. \cr
 The proportion of the polar part and the cartesian part of the Abanico
 Plot can be modfied for display reasons (\code{plot.ratio = 0.75}). By 
 default, the polar part spreads over 75 \% and leaves 25 \% for the part
-that shows the KDE graph.}
+that shows the KDE graph.\cr\cr
+The optional parameter \code{layout} allows to modify the entire plot
+more sophisticated. Each element of the plot can be addressed and its
+properties can be defined. This includes font type, size and decoration,
+colours and sizes of all plot items. To infer the definition of a 
+specific layout style cf. \code{get_Layout()} or type eg. for the layout
+type \code{"journal"} \code{get_Layout("journal")}. A layout type can be
+modified by the user by assigning new values to the list object.}
 \value{returns a plot object and, optionally, a list with plot calculus data.}
 \references{Galbraith, R. & Green, P., 1990. Estimating the component ages in a 
 finite mixture. International Journal of Radiation Applications and 
@@ -182,23 +193,6 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
                  line.col = "darkgreen",
                  line.label = "MAM3-dose")
 
-## now add lines (e.g. De = 100) completely manually
-## 1. infer extra data
-extra <- plot_AbanicoPlot(data = ExampleData.DeValues,
-                          output = TRUE)
-
-## 2. transform De value to plot coordinates, only use log when 
-##    log.z = TRUE. Don't mind the cryptic equation too much.
-De <- 100
-y.De <- (log(De) - extra$data.global$z.central[1]) * extra$polar.box[2]
-
-## 3. create line coordinates (origin - polar margin - cartesian margin)
-line.x <- c(0, extra$polar.box[2], extra$cartesian.box[2])
-line.y <- c(0, y.De, y.De)
-
-## 4. draw the line
-lines(x = line.x, y = line.y, lwd = 2, lty = 4, col = "tomato")
-
 ## now create plot with legend, colour, different points and smaller scale
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  legend = "Sample 1",
@@ -225,7 +219,8 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 ## now with user-defined axes labels
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  xlab = c("Data error [\%]",
-                          "Data precision"),
+                          "Data precision",
+                          "Kernel density"),
                  ylab = "Scatter",
                  zlab = "Equivalent dose [Gy]")
 
@@ -262,5 +257,20 @@ plot_AbanicoPlot(data = data.3,
                  density = c(10, 20),
                  angle = c(30, 50),
                  summary = c("n", "in.ci"))
+
+## create Abanico plot with predefined layout definition
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 layout = "journal")
+
+## now with predefined layout definition and further modifications
+plot_AbanicoPlot(data = data.3,
+                 layout = "journal",
+                 col = c("steelblue4", "orange4"),
+                 bar.col = adjustcolor(c("steelblue3", "orange3"), 
+                                       alpha.f = 0.5),
+                 polygon.col = c("steelblue3", "orange3"))
+
+## for further information on layout definitions see documentation
+## of function get_Layout()
 }
-\section{Function version}{0.1 (2014-06-05 13:42:28)}
+\section{Function version}{0.1.1 (2014-08-21 17:36:50)}

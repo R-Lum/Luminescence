@@ -4,11 +4,10 @@
 \description{Function to fit the (un-)logged four parameter minimum dose model (MAM 4)
 to De data.}
 \usage{calc_MinDose4(input.data, sigmab, log = TRUE, sample.id = "unknown sample", 
-    gamma.xlb = 0.1, gamma.xub = 100, mu.xlb = 1, mu.xub = 100, 
-    sigma.xlb = 0.001, sigma.xub = 5, init.gamma = 10, init.mu = 10, 
-    init.sigma = 0.6, init.p0 = 0.01, ignore.NA = FALSE, calc.ProfileLikelihoods = TRUE, 
+    bootstrap, boundary.gamma, boundary.sigma, boundary.mu, init.values = c(10, 
+        10, 0.6, 0.01), ignore.NA = FALSE, calc.ProfileLikelihoods = TRUE, 
     console.ProfileLikelihoods = FALSE, console.extendedOutput = FALSE, 
-    output.plot = TRUE, output.indices = 4)}
+    output.plot = TRUE, ...)}
 \arguments{
   \item{input.data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
 for \code{data.frame}: two columns with De \code{(input.data[,1])} and
@@ -20,16 +19,20 @@ p. 100).}
   \item{log}{\code{\link{logical}} (with default): fit the (un-)logged three parameter 
 minimum dose model to De data}
   \item{sample.id}{\code{\link{character}} (with default): sample id}
-  \item{gamma.xlb}{\code{\link{numeric}} (with default): lower boundary of gamma}
-  \item{gamma.xub}{\code{\link{numeric}} (with default): upper boundary of gamma}
-  \item{mu.xlb}{\code{\link{numeric}} (with default): lower boundary of mu}
-  \item{mu.xub}{\code{\link{numeric}} (with default): upper boundary of mu}
-  \item{sigma.xlb}{\code{\link{numeric}} (with default): lower boundary of sigma }
-  \item{sigma.xub}{\code{\link{numeric}} (with default): upper boundary of sigma }
-  \item{init.gamma}{\code{\link{numeric}} (with default): starting value of gamma }
-  \item{init.mu}{\code{\link{numeric}} (with default): starting value of mu }
-  \item{init.sigma}{\code{\link{numeric}} (with default): starting value of sigma}
-  \item{init.p0}{\code{\link{numeric}} (with default): starting value of p0}
+  \item{bootstrap}{
+}
+  \item{boundary.gamma}{\code{\link{numeric}}: a vector of in the form of
+\code{c(lower.boundary, upper.boundary)}. If no values are provided 
+reasonable values are tried to be estimated by the input data.}
+  \item{boundary.sigma}{\code{\link{numeric}}: a vector of in the form of
+\code{c(lower.boundary, upper.boundary)}. If no values are provided 
+reasonable values are tried to be estimated by the input data.}
+  \item{boundary.mu}{\code{\link{numeric}}: a vector of in the form of
+\code{c(lower.boundary, upper.boundary)}. If no values are provided 
+reasonable values are tried to be estimated by the input data.}
+  \item{init.values}{\code{\link{numeric}} (with default): starting values for gamma, sigma and p0.
+Custom values need to be provided in a vector of length three in the form of
+\code{c(gamma, mu, sigma, p0)}.}
   \item{ignore.NA}{\code{\link{logical}} (with default): ignore NA values during log
 likelihood calculations. See details.}
   \item{calc.ProfileLikelihoods}{\code{\link{logical}} (with default): calculate profile log likelihood
@@ -39,9 +42,8 @@ functions for gamma, mu, sigma, p0 to console.}
   \item{console.extendedOutput}{\code{\link{logical}} (with default): extended terminal output}
   \item{output.plot}{\code{\link{logical}} (with default): plot output
 (\code{TRUE}/\code{FALSE})}
-  \item{output.indices}{\code{\link{numeric}} (with default): requires 
-\code{calc.ProfileLikelihoods} = \code{TRUE}. Indices: 1 = gamma, 
-2 = gamma/mu, 3 = gamma/mu/sigma, 4 = gamma/mu/sigma/p0}
+  \item{\dots}{further arguments for bootstrapping (\code{bs.M, bs.N, bs.h, sigmab.sd}). 
+See details for their usage.}
 }
 \details{\bold{Parameters} \cr\cr
 This model has four parameters: \cr\cr
@@ -126,6 +128,8 @@ Rodnight, H., 2008. How many equivalent dose values are needed to obtain a
 reproducible distribution?. Ancient TL, 26, pp. 3-10. \cr\cr}
 \author{Christoph Burow, University of Cologne (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2010 \cr\cr
+The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
+Alastair Cunningham is thanked for his help in implementing and cross-checking the code.\cr
 R Luminescence Package Team}
 \note{The default boundary and starting values for \emph{gamma}, \emph{mu}, 
 \emph{sigma} and \emph{p0} may only be appropriate for some De data sets 
@@ -138,12 +142,12 @@ the un-logged version is applied.}
 \code{\link{calc_CommonDose}}, \code{\link{calc_FiniteMixture}},
 \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose3}}}
 \examples{
-## load example data
-data(ExampleData.DeValues, envir = environment())
-
-## apply the logged minimum dose model
-calc_MinDose4(ExampleData.DeValues, 
-              sigmab = 0.05, gamma.xub = 10000, mu.xub = 10000, init.p0 = 0.4,
-              output.plot = FALSE)
+  ## load example data
+  data(ExampleData.DeValues, envir = environment())
+  
+  ## apply the logged minimum dose model TODO
+#   calc_MinDose4(ExampleData.DeValues, 
+#                 sigmab = 0.05, gamma.xub = 10000, mu.xub = 10000, init.p0 = 0.4,
+#                 output.plot = FALSE)
 }
-\section{Function version}{0.22 (2014-04-13 14:28:35)}
+\section{Function version}{0.3 (2014-08-21 17:56:24)}

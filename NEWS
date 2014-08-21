@@ -28,6 +28,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
            ‘RLum.Data.Image’ object.  Function also added to wrapper
            function ‘plot_RLum’
 
+         • ‘get_Layout()’: Helper function to return a list with layout
+           definitions for more homogenous plotting.
+
   Changes S4-objects, methods, classes:
 
          • ‘get_RLum.Results()’: Add support for data objects for
@@ -91,6 +94,16 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • Change default y-axis labelling from 'Counts' to
                'Frequency'
 
+         • ‘plot_AbanicoPlot()’:
+
+             • numeric values allowed for parameter centrality,
+
+             • KDE label value fixed,
+
+             • layout functionality added,
+
+             • not supported summary keywords fixed.
+
          • ‘analyse_SAR.CWOSL()’:
 
              • Clarify behaviour when no OSL curve is provided;
@@ -101,6 +114,26 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • Add argument ‘norm’ to allow for curve normalisation to
                the highest value (#129)
+
+         • ‘calc_MaxDose3()’ & ‘calc_MaxDose4()’:
+
+             • bootstrap method (recycled) as described in Cunningham &
+               Wallinga (2012) implemented,
+
+             • upper and lower plot margins of profile log likelihood
+               plots decreased,
+
+             • function now iteratively adjusts boundaries for gamma,
+               sigma and p0 when one of the estimators reaches the
+               lower or upper boundary,
+
+             • new arguments: ‘boundary.sigma’, ‘boundary.gamma’,
+               ‘init.values’, ‘...’ (‘bs.M’, ‘bs.N’, ‘bs.h’,
+               ‘sigmab.sd’),
+
+             • removed/merged arguments: ‘sigma.xlb’, ‘sigma.xub’,
+               ‘gamma.xlb’, ‘gamma.xub’, ‘init.gamma’, ‘init.sigma’,
+               ‘init.p0’, ‘output.indices’
 
   Internals:
 
