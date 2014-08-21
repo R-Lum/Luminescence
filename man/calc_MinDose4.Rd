@@ -142,12 +142,13 @@ the un-logged version is applied.}
 \code{\link{calc_CommonDose}}, \code{\link{calc_FiniteMixture}},
 \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose3}}}
 \examples{
-  ## load example data
-  data(ExampleData.DeValues, envir = environment())
-  
-  ## apply the logged minimum dose model TODO
-#   calc_MinDose4(ExampleData.DeValues, 
-#                 sigmab = 0.05, gamma.xub = 10000, mu.xub = 10000, init.p0 = 0.4,
-#                 output.plot = FALSE)
+## load example data
+data(ExampleData.DeValues, envir = environment())
+
+## apply the logged minimum dose model
+calc_MinDose4(ExampleData.DeValues, 
+              sigmab = 0.05,
+              ignore.NA = TRUE,
+              output.plot = FALSE)
 }
-\section{Function version}{0.3 (2014-08-21 17:56:24)}
+\section{Function version}{0.3 (2014-08-21 18:11:46)}
