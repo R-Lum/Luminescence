@@ -775,7 +775,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                paste("in confidence interval = ", 
                      round(sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
                              nrow(data[[i]]) * 100 , 1),
-                     " % \n", 
+                     " %", 
                      sep = ""),
                ""),
         sep = ""), stops, sep = "")
@@ -843,7 +843,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                paste("in confidence interval = ", 
                      round(sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
                              nrow(data[[i]]) * 100 , 1),
-                     " %  ", 
+                     " %   ", 
                      sep = ""),
                ""),
         sep = "")
@@ -983,8 +983,12 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   for(i in 1:length(data)) {
     bars[i,1:4] <- c(limits.x[1],
                      limits.x[1],
-                     max(data.global$precision),
-                     max(data.global$precision))
+                     ifelse("xlim" %in% names(extraArgs),
+                            extraArgs$xlim[2] * 0.95,
+                            max(data.global$precision)),
+                     ifelse("xlim" %in% names(extraArgs),
+                            extraArgs$xlim[2] * 0.95,
+                            max(data.global$precision)))
     bars[i,5:8] <- c(-2,
                      2,
                      (data[[i]][1,5] - z.central.global) * 
@@ -1019,14 +1023,22 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ## calculate KDE
   KDE <- list(NA)
   KDE.ext <- 0
+
   for(i in 1:length(data)) {
     KDE.i <- density(x = data[[i]][,3],
                      kernel = "gaussian", 
-                     bw = bw)
+                     bw = bw,
+                     from = ifelse(log.z == TRUE, 
+                                   log(limits.z[1]), 
+                                       limits.z[1]),
+                     to = ifelse(log.z == TRUE, 
+                                 log(limits.z[2]), 
+                                     limits.z[2]))
     KDE.xy <- cbind(KDE.i$x, KDE.i$y)
     KDE.ext <- ifelse(max(KDE.xy[,2]) < KDE.ext, KDE.ext, max(KDE.xy[,2]))
-    KDE.xy <- KDE.xy[KDE.xy[,1] >= min(tick.values.major,tick.values.minor) &
-                   KDE.xy[,1] <= max(tick.values.major,tick.values.minor),]
+#     KDE.xy <- KDE.xy[KDE.xy[,1] >= min(tick.values.major,tick.values.minor) &
+#                    KDE.xy[,1] <= max(tick.values.major,tick.values.minor),]
+KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0)) 
     KDE[[length(KDE) + 1]] <- cbind(KDE.xy[,1], KDE.xy[,2])
   }
   KDE[1] <- NULL
@@ -1037,7 +1049,9 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   for(i in 1:length(data)) {
     KDE.plot <- density(x = data[[i]][,1],
                      kernel = "gaussian", 
-                     bw = bw)
+                     bw = bw,
+                     from = limits.z[1],
+                     to = limits.z[2])
     KDE.max.plot[i] <- max(KDE.plot$y)
   }
 

@@ -1470,8 +1470,8 @@ calc_MinDose4<- structure(function( # Apply the (un-)logged four parameter minim
   data(ExampleData.DeValues, envir = environment())
   
   ## apply the logged minimum dose model
-  calc_MinDose4(ExampleData.DeValues, 
-                sigmab = 0.05,
-                ignore.NA = TRUE,
-                output.plot = FALSE)
+  #calc_MinDose4(ExampleData.DeValues, 
+  #              sigmab = 0.05,
+  #              ignore.NA = TRUE,
+  #              output.plot = FALSE)
 })

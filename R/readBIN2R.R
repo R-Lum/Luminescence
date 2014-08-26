@@ -4,11 +4,11 @@ readBIN2R <- structure(function(#Import Risoe BIN-file into R
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen (Germany), 
+  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
   ## Margret C. Fuchs, AWI Postdam (Germany),\cr
   
   ##section<<
-  ## version 0.7
+  ## version 0.7.1
   # ===========================================================================
 
   file,
@@ -38,6 +38,22 @@ readBIN2R <- structure(function(#Import Risoe BIN-file into R
   ### Note: The usage is at own risk, only supported BIN-file versions have been tested.
 ){
 
+# Integrity checks ------------------------------------------------------  
+  
+  ##check if file exists 
+  if(!file.exists(file)){
+    
+    stop("[readBIN2R()] File does not exists!")
+    
+  }
+
+  ##check if file is a BIN or BINX file
+  if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%tail(
+    unlist(strsplit(file, split = "\\.")), n = 1)))){
+    
+    stop("[readBIN2R()] Input is not a file or not of type 'BIN' or 'BINX'!")
+    
+  }
   
 # Config ------------------------------------------------------------------  
   
@@ -45,6 +61,7 @@ readBIN2R <- structure(function(#Import Risoe BIN-file into R
   VERSION.supported <- as.raw(c(03, 04, 06))
   
 # Set Translation Matrices ------------------------------------------------
+
 
 ##LTYPE
 LTYPE.TranslationMatrix <- matrix(NA, nrow=14, ncol=2)
@@ -111,7 +128,7 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
 
 # Open Connection ---------------------------------------------------------
 
-##show warinig of version number check has been cheated
+  ##show warning if version number check has been cheated
   
   if(missing(forced.VersionNumber) == FALSE){
     warning("[readBIN2R.R]: Argument 'forced.VersionNumber' has been used. BIN-file version might not be supported!")

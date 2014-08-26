@@ -161,7 +161,18 @@
         \item removed/merged arguments: \code{sigma.xlb}, \code{sigma.xub}, \code{gamma.xlb}, \code{gamma.xub}, \code{init.gamma}, \code{init.sigma}, \code{init.p0}, \code{output.indices}
         
         }
+   
+   
+   \item \code{readBIN2R()}:
+      \itemize{
       
+        \item Integrity checks added to avoid unspecific errors for wrong input 
+        formats. 
+      
+      }
+   
+   
+   
    }
    
  }

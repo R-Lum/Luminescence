@@ -146,9 +146,9 @@ the un-logged version is applied.}
 data(ExampleData.DeValues, envir = environment())
 
 ## apply the logged minimum dose model
-calc_MinDose4(ExampleData.DeValues, 
-              sigmab = 0.05,
-              ignore.NA = TRUE,
-              output.plot = FALSE)
+#calc_MinDose4(ExampleData.DeValues, 
+#              sigmab = 0.05,
+#              ignore.NA = TRUE,
+#              output.plot = FALSE)
 }
-\section{Function version}{0.3 (2014-08-21 18:11:46)}
+\section{Function version}{0.3 (2014-08-22 09:43:39)}
