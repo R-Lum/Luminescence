@@ -124,7 +124,11 @@
         \item numeric values allowed for parameter centrality,
         \item KDE label value fixed,
         \item layout functionality added,
-        \item not supported summary keywords fixed.
+        \item not supported summary keywords fixed,
+        \item dispersion polygon bug fixed,
+        \item dispersion type enriched by userdefined confidence interval,
+        \item rug option added,
+        \item multiple 2-sigma-bars allowed.
       
       }
       

@@ -6,9 +6,10 @@ precision and its dispersion around a central value as well as
 illustration of a kernel density estimate of the dose values.}
 \usage{plot_AbanicoPlot(data, na.exclude = TRUE, log.z = TRUE, central.value, 
     centrality = "mean.weighted", dispersion = "sd", plot.ratio = 0.75, 
-    mtext, summary, summary.pos, legend, legend.pos, stats, y.axis = TRUE, 
-    error.bars = FALSE, polygon.col, bar.col, line, line.col, 
-    line.label, grid.col, bw = "nrd0", output = FALSE, ...)}
+    mtext, summary, summary.pos, legend, legend.pos, stats, rug = FALSE, 
+    y.axis = TRUE, error.bars = FALSE, polygon.col, bar.col, 
+    line, line.col, line.label, grid.col, bw = "nrd0", output = FALSE, 
+    ...)}
 \arguments{
   \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
 (required): for \code{data.frame} two columns: De (\code{data[,1]})
@@ -25,12 +26,17 @@ horizontal centering of the z-axis.}
 measure of centrality, used for automatically centering the plot and 
 drawing the central line. Can either be one out of \code{"mean"}, 
 \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
-or a numeric value used for the standardisation. Default is 
+or one or more numeric values used for the standardisation. If more 
+than one value is specified, more than one 2-sigma bar will be 
+plotted and the dataset is centered using the median. Default is 
 \code{"mean.weighted"}.}
   \item{dispersion}{\code{\link{character}} (with default): measure of dispersion, used for
 drawing the polygon that depicts the dose distribution. One out of
-\code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations) 
-\code{"qr"} (quartile range), default is \code{"sd"}.}
+\code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations), 
+\code{"qr"} (quartile range) or \code{"cinn"} (confidence interval 
+with nn specifying the level, e.g. \code{"ci95"} meaning the 95 \% 
+confidence interval, i.e. data between the quantiles 0.025 and 0.975), 
+default is \code{"sd"}.}
   \item{plot.ratio}{\code{\link{numeric}}: Relative space, given to the radial versus the
 cartesian plot part, deault is \code{0.75}.}
   \item{mtext}{\code{\link{character}}: additional text below the plot title.}
@@ -54,6 +60,8 @@ to be plotted.}
   \item{stats}{\code{\link{character}}: additional labels of statistically important
 values in the plot. One or more out of the following: \code{"min"}, 
 \code{"max"}, \code{"median"}.}
+  \item{rug}{\code{\link{logical}}: Option to add a rug to the KDE part, to indicate
+the location of individual values}
   \item{y.axis}{\code{\link{logical}}: Option to hide y-axis labels. Useful for data  
 with small scatter.}
   \item{error.bars}{\code{\link{logical}}: Option to show De-errors as error bars on 
@@ -139,7 +147,7 @@ R Luminescence Package Team}
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- 
   Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
-
+pdf(file = "testplots.pdf", paper = "special", onefile = TRUE)
 ## plot the example data straightforward
 plot_AbanicoPlot(data = ExampleData.DeValues)
 
@@ -160,6 +168,10 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 ## now with adjusted x-scale limits
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  xlim = c(0, 60))
+
+## now with rug to indicate individual values in KDE part
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 rug = TRUE)
 
 ## now with user-defined plot ratio
 plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -188,7 +200,6 @@ MAM <- as.numeric(get_RLum.Results(object = MAM,
                                    data.object = "results")$mindose)
 
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 xlim = c(0, 50),
                  line = MAM,
                  line.col = "darkgreen",
                  line.label = "MAM3-dose")
@@ -238,6 +249,11 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
                 summary = c("mean.weighted", "median"),
                 summary.pos = "sub")
 
+## now a plot with two 2-sigma bars for one data set
+plot_AbanicoPlot(data = ExampleData.DeValues, 
+                 centrality = c(120, 160),
+                 mtext = "n = 25")
+
 ## now the data set is split into sub-groups, one is manipulated
 data.1 <- ExampleData.DeValues[1:15,]
 data.2 <- ExampleData.DeValues[16:25,] * 1.3
@@ -269,8 +285,8 @@ plot_AbanicoPlot(data = data.3,
                  bar.col = adjustcolor(c("steelblue3", "orange3"), 
                                        alpha.f = 0.5),
                  polygon.col = c("steelblue3", "orange3"))
-
+dev.off()
 ## for further information on layout definitions see documentation
 ## of function get_Layout()
 }
-\section{Function version}{0.1.1 (2014-08-22 20:18:54)}
+\section{Function version}{0.1.1 (2014-09-01 11:02:15)}

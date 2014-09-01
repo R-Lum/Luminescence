@@ -38,14 +38,19 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ### measure of centrality, used for automatically centering the plot and 
   ### drawing the central line. Can either be one out of \code{"mean"}, 
   ### \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
-  ### or a numeric value used for the standardisation. Default is 
+  ### or one or more numeric values used for the standardisation. If more 
+  ### than one value is specified, more than one 2-sigma bar will be 
+  ### plotted and the dataset is centered using the median. Default is 
   ### \code{"mean.weighted"}.
   
   dispersion = "sd",
   ### \code{\link{character}} (with default): measure of dispersion, used for
   ### drawing the polygon that depicts the dose distribution. One out of
-  ### \code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations) 
-  ### \code{"qr"} (quartile range), default is \code{"sd"}.
+  ### \code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations), 
+  ### \code{"qr"} (quartile range) or \code{"cinn"} (confidence interval 
+  ### with nn specifying the level, e.g. \code{"ci95"} meaning the 95 % 
+  ### confidence interval, i.e. data between the quantiles 0.025 and 0.975), 
+  ### default is \code{"sd"}.
   
   plot.ratio = 0.75,
   ### \code{\link{numeric}}: Relative space, given to the radial versus the
@@ -83,6 +88,10 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ### \code{\link{character}}: additional labels of statistically important
   ### values in the plot. One or more out of the following: \code{"min"}, 
   ### \code{"max"}, \code{"median"}.
+  
+  rug = FALSE,
+  ### \code{\link{logical}}: Option to add a rug to the KDE part, to indicate
+  ### the location of individual values
   
   y.axis = TRUE,
   ### \code{\link{logical}}: Option to hide y-axis labels. Useful for data  
@@ -294,7 +303,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       rep(median.w(y = data[[x]][,3], 
                    w = data[[x]][,4]), length(data[[x]][,3]))})
   } else if(is.numeric(centrality) == TRUE & 
-            length(centrality == length(data))) {
+            length(centrality) == length(data)) {
     z.central.raw <- if(log.z == TRUE) {
         log(centrality)
       } else {
@@ -302,6 +311,10 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       }
     z.central <- sapply(1:length(data), function(x){
       rep(z.central.raw[x], length(data[[x]][,3]))})
+  } else if(is.numeric(centrality) == TRUE & 
+              length(centrality) > length(data)) {
+    z.central <- sapply(1:length(data), function(x){
+      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else {
     stop("Measure of centrality not supported!")
   }
@@ -380,8 +393,8 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   } else if(is.numeric(centrality) == TRUE & 
             length(centrality == length(data))) {
             z.central.global <- mean(data.global[,3], na.rm = TRUE)
-}
-  
+  } 
+
   ## optionally adjust zentral value by user-defined value
   if(missing(central.value) == FALSE) {
     
@@ -942,16 +955,27 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   for(i in 1:length(data)) {
     
     if(dispersion == "sd") {
-      y.lower <- data[[i]][1,5] - sd(data[[i]][,3])
-      y.upper <- data[[i]][1,5] + sd(data[[i]][,3])
+      y.lower <- mean(data[[i]][,1]) - sd(data[[i]][,1])
+      y.upper <- mean(data[[i]][,1]) + sd(data[[i]][,1])
     } else if(dispersion == "2sd") {
-      y.lower <- data[[i]][1,5] - 2 * sd(data[[i]][,3])
-      y.upper <- data[[i]][1,5] + 2 * sd(data[[i]][,3])
+      y.lower <- mean(data[[i]][,1]) - 2 * sd(data[[i]][,1])
+      y.upper <- mean(data[[i]][,1]) + 2 * sd(data[[i]][,1])
     } else if(dispersion == "qr") {
-      y.lower <- quantile(data[[i]][,3], 0.25)
-      y.upper <- quantile(data[[i]][,3], 0.75)
+      y.lower <- quantile(data[[i]][,1], 0.25)
+      y.upper <- quantile(data[[i]][,1], 0.75)
+    } else if(grepl(x = dispersion, pattern = "ci") == TRUE) {
+      ci.plot <- as.numeric(strsplit(x = dispersion, 
+                                     split = "ci")[[1]][2])
+      ci.plot <- (100 - ci.plot) / 200
+      y.lower <- quantile(data[[i]][,1], ci.plot)
+      y.upper <- quantile(data[[i]][,1], 1 - ci.plot)
     } else {
       stop("Measure of dispersion not supported.")
+    }
+    
+    if(log.z == TRUE) {
+      y.lower <- log(y.lower)
+      y.upper <- log(y.upper)
     }
     
     polygons[i,1:7] <- c(limits.x[1], 
@@ -978,25 +1002,53 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   }
 
   ## calculate coordinates for 2-sigma bar overlay
-  bars <- matrix(nrow = length(data), ncol = 8)
-  
-  for(i in 1:length(data)) {
-    bars[i,1:4] <- c(limits.x[1],
-                     limits.x[1],
-                     ifelse("xlim" %in% names(extraArgs),
-                            extraArgs$xlim[2] * 0.95,
-                            max(data.global$precision)),
-                     ifelse("xlim" %in% names(extraArgs),
-                            extraArgs$xlim[2] * 0.95,
-                            max(data.global$precision)))
-    bars[i,5:8] <- c(-2,
-                     2,
-                     (data[[i]][1,5] - z.central.global) * 
-                       bars[i,3] + 2,
-                     (data[[i]][1,5] - z.central.global) * 
-                       bars[i,3] - 2)
+  if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
+    bars <- matrix(nrow = length(centrality), ncol = 8)
+    
+    if(is.numeric(centrality) == TRUE & log.z == TRUE) {
+      centrality <- log(centrality)
+    }
+
+    for(i in 1:length(centrality)) {
+      bars[i,1:4] <- c(limits.x[1],
+                       limits.x[1],
+                       ifelse("xlim" %in% names(extraArgs),
+                              extraArgs$xlim[2] * 0.95,
+                              max(data.global$precision)),
+                       ifelse("xlim" %in% names(extraArgs),
+                              extraArgs$xlim[2] * 0.95,
+                              max(data.global$precision)))
+      
+      bars[i,5:8] <- c(-2,
+                       2,
+                       (centrality[i] - z.central.global) * 
+                         bars[i,3] + 2,
+                       (centrality[i] - z.central.global) * 
+                         bars[i,3] - 2)
+    }
+  } else {
+    bars <- matrix(nrow = length(data), ncol = 8)
+    
+    for(i in 1:length(data)) {
+      bars[i,1:4] <- c(limits.x[1],
+                       limits.x[1],
+                       ifelse("xlim" %in% names(extraArgs),
+                              extraArgs$xlim[2] * 0.95,
+                              max(data.global$precision)),
+                       ifelse("xlim" %in% names(extraArgs),
+                              extraArgs$xlim[2] * 0.95,
+                              max(data.global$precision)))
+      
+       bars[i,5:8] <- c(-2,
+                         2,
+                         (data[[i]][1,5] - z.central.global) * 
+                           bars[i,3] + 2,
+                         (data[[i]][1,5] - z.central.global) * 
+                           bars[i,3] - 2)
+        
+    }
   }
-  
+
   ## calculate error bar coordinates
   if(error.bars == TRUE) {
     arrow.coords <- list(NA)
@@ -1036,9 +1088,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                                      limits.z[2]))
     KDE.xy <- cbind(KDE.i$x, KDE.i$y)
     KDE.ext <- ifelse(max(KDE.xy[,2]) < KDE.ext, KDE.ext, max(KDE.xy[,2]))
-#     KDE.xy <- KDE.xy[KDE.xy[,1] >= min(tick.values.major,tick.values.minor) &
-#                    KDE.xy[,1] <= max(tick.values.major,tick.values.minor),]
-KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0)) 
+    KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0)) 
     KDE[[length(KDE) + 1]] <- cbind(KDE.xy[,1], KDE.xy[,2])
   }
   KDE[1] <- NULL
@@ -1080,6 +1130,26 @@ KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
     if(missing(line.label) == TRUE) {
       line.label <- rep("", length(line.coords))
     }
+  }
+
+## calculate line coordinates and further parameters
+  if(missing(rug) == FALSE) {
+    if(log.z == TRUE) {
+      rug.values <- log(De.global)
+    } else {
+      rug.values <- De.global
+    }
+  
+    rug.coords <- list(NA)
+    
+    for(i in 1:length(rug.values)) {
+      rug.x <- c(xy.0[1] * 0.987, xy.0[1])
+      rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,1]),
+                  (rug.values[i] - z.central.global) * min(ellipse[,1]))
+      rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
+    }
+    
+    rug.coords[1] <- NULL
   }
   
   ## Generate plot ------------------------------------------------------------
@@ -1156,14 +1226,24 @@ KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
               border = polygon.line[i])
     }
   }
-  
+
   ## optionally, plot 2-sigma-bar
   if(bar.fill[1] != "none") {
-    for(i in 1:length(data)) {
-      polygon(x = bars[i,1:4], 
-              y = bars[i,5:8],
-              col = bar.fill[i],
-              border = bar.line[i])
+    
+    if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
+      for(i in 1:length(centrality)) {
+        polygon(x = bars[i,1:4], 
+                y = bars[i,5:8],
+                col = bar.fill,
+                border = bar.line[i])
+      }
+    } else {
+      for(i in 1:length(data)) {
+        polygon(x = bars[i,1:4], 
+                y = bars[i,5:8],
+                col = bar.fill[i],
+                border = bar.line[i])
+      } 
     }
   }
 
@@ -1549,6 +1629,14 @@ KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
          col = layout$abanico$colour$stats)
   }
   
+  ## optionally add rug
+  if(rug == TRUE) {
+    for(i in 1:length(rug.coords)) {
+      lines(x = rug.coords[[i]][1,],
+            y = rug.coords[[i]][2,])
+    }
+  }
+
   ## plot KDE base line
   lines(x = c(xy.0[1], xy.0[1]), 
         y = c(min(ellipse[,2]), max(ellipse[,2])),
@@ -1704,7 +1792,7 @@ KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- 
     Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
-  
+  pdf(file = "testplots.pdf", paper = "special", onefile = TRUE)
   ## plot the example data straightforward
   plot_AbanicoPlot(data = ExampleData.DeValues)
   
@@ -1726,6 +1814,10 @@ KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
   plot_AbanicoPlot(data = ExampleData.DeValues,
                    xlim = c(0, 60))
   
+  ## now with rug to indicate individual values in KDE part
+  plot_AbanicoPlot(data = ExampleData.DeValues,
+                   rug = TRUE)
+
   ## now with user-defined plot ratio
   plot_AbanicoPlot(data = ExampleData.DeValues,
                    plot.ratio = 0.5)
@@ -1753,7 +1845,6 @@ KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
                                      data.object = "results")$mindose)
   
   plot_AbanicoPlot(data = ExampleData.DeValues,
-                   xlim = c(0, 50),
                    line = MAM,
                    line.col = "darkgreen",
                    line.label = "MAM3-dose")
@@ -1803,6 +1894,11 @@ KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
                   summary = c("mean.weighted", "median"),
                   summary.pos = "sub")
   
+  ## now a plot with two 2-sigma bars for one data set
+  plot_AbanicoPlot(data = ExampleData.DeValues, 
+                   centrality = c(120, 160),
+                   mtext = "n = 25")
+  
   ## now the data set is split into sub-groups, one is manipulated
   data.1 <- ExampleData.DeValues[1:15,]
   data.2 <- ExampleData.DeValues[16:25,] * 1.3
@@ -1834,7 +1930,7 @@ KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0))
                    bar.col = adjustcolor(c("steelblue3", "orange3"), 
                                          alpha.f = 0.5),
                    polygon.col = c("steelblue3", "orange3"))
-  
+  dev.off()
   ## for further information on layout definitions see documentation
   ## of function get_Layout()
 })
