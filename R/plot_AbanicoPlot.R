@@ -1792,7 +1792,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- 
     Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
-  pdf(file = "testplots.pdf", paper = "special", onefile = TRUE)
+ 
   ## plot the example data straightforward
   plot_AbanicoPlot(data = ExampleData.DeValues)
   
@@ -1930,7 +1930,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                    bar.col = adjustcolor(c("steelblue3", "orange3"), 
                                          alpha.f = 0.5),
                    polygon.col = c("steelblue3", "orange3"))
-  dev.off()
+
   ## for further information on layout definitions see documentation
   ## of function get_Layout()
 })
