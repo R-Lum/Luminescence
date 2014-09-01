@@ -1051,19 +1051,20 @@ if(fun==TRUE){sTeve()}
   ## A D02 value is provided for the function \code{EXP+EXP} only.
 
 }, ex=function(){
-  ##(1) plot growth curve for a dummy data.set
+  ##(1) plot growth curve for a dummy data.set and show De value
   data(ExampleData.LxTxData, envir = environment())
-  plot_GrowthCurve(LxTxData)
+  temp <- plot_GrowthCurve(LxTxData)
+  get_RLum.Results(temp)
   
-  
+  ##(1a) to access the fitting value try
+  get_RLum.Results(temp, data.object = "Fit")
+    
   ##(2) plot the growth curve only - uncomment to use
-  
   ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
   plot_GrowthCurve(LxTxData)
   ##dev.off()                                   
   
   ##(3) plot growth curve with pdf output - uncomment to use
-  
   ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
   plot_GrowthCurve(LxTxData)
   ##dev.off()  
