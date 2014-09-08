@@ -68,7 +68,7 @@ luminescence measurements. Radiation Measurements, 37 (2), pp. 161-165.
 Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using 
 an improved single-aliquot regenerative-dose protocol. 
 Radiation Measurements, 32, pp. 57-73. }
-\author{Sebastian Kreutzer, JLU Giessen (Germany), 
+\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
 Margret C. Fuchs, AWI Potsdam (Germany), \cr
 R Luminescence Package Team}
 \note{Rejection criteria are calculated but not considered during 
@@ -104,4 +104,4 @@ output.SAR
 
 \keyword{datagen}
 \keyword{dplot}
-\section{Function version}{0.2.12 (2014-04-13 14:22:24)}
+\section{Function version}{0.2.13 (2014-09-08 00:18:51)}

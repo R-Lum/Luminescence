@@ -34,6 +34,20 @@ introduced by Murray and Wintle (2000) with CW-OSL curves.
 For the calculation of the Lx/Tx value the function \link{calc_OSLLxTxRatio} 
 is used. \cr\cr
 
+\bold{Working with IRSL data}\cr\cr
+
+The function was originally designed to work just for 'OSL' curves, 
+following the principles of the SAR protocol. An IRSL measurement protocol
+may follow this procedure, e.g., post-IR IRSL protocol (Thomsen et al., 2008).
+Therefore this functions has been enhanced to work with IRSL data, however, 
+the function is only capable to analyse curves that follow the SAR protocol structure, i.e., 
+to analyse a post-IR IRSL protocol curve data have to be pre-selected by the user to 
+fit the standards of the SAR protocol, i.e., Lx,Tx,Lx,Tx and so on. \cr
+
+Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves. Only
+one curve type can be analysed at the same time: 
+The pIRIR50 curves or the pIRIR225 curves.\cr\cr
+
 \bold{Provided rejection criteria}\cr\cr
 \sQuote{recyling.ratio}: calculated for every repeated regeneration dose point.\cr
 \sQuote{recuperation.rate}: recuperation rate calculated by comparing the 
@@ -60,14 +74,19 @@ measurements. Radiation Measurements, 37 (2), pp. 161-165.
 
 Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using an 
 improved single-aliquot regenerative-dose protocol. Radiation Measurements, 
-32, pp. 57-73. }
+32, pp. 57-73. 
+
+Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. 
+Laboratory fading rates of various luminescence signals from feldspar-rich 
+sediment extracts. Radiation Measurements 43, 1474-1486. 
+doi:10.1016/j.radmeas.2008.06.002}
 \author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France)\cr
 R Luminescence Package Team}
 \note{This function must not be mixed up with the function 
 \code{\link{Analyse_SAR.OSLdata}}, which works with \link{Risoe.BINfileData-class}
 objects.\cr
 
-\bold{The function currently does not work for IRSL data!}}
+\bold{The function currently does only support 'OSL' or 'IRSL' data!}}
 
 
 \seealso{\code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}}, 
@@ -99,4 +118,4 @@ get_RLum.Results(results)
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.3.5 (2014-08-13 17:03:37)}
+\section{Function version}{0.4.0 (2014-09-08 00:22:47)}

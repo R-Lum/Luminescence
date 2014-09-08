@@ -5,11 +5,11 @@ Analyse_SAR.OSLdata<- structure(function(#Analyse SAR CW-OSL measurements.
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen (Germany), 
+  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
   ## Margret C. Fuchs, AWI Potsdam (Germany), \cr
   
   ##section<<
-  ## version 0.2.12
+  ## version 0.2.13
   # ===========================================================================
   
   input.data,
@@ -94,6 +94,13 @@ for (i in position){
     
 ##checking if position is valid   
 if(length(which(sample.data@METADATA["POSITION"]==i))>0){
+  
+    ##check if OSL curves are part of the data set
+    if(nrow(sample.data@METADATA[sample.data@METADATA[,"LTYPE"]=="OSL",]) == 0){
+      
+      stop("[Analyse_SAR.OSLdata] No 'OSL' curves found!")
+      
+    }
   
     ##select OSL data
     sample.data@METADATA[,"SEL"]<-FALSE

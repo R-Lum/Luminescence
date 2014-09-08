@@ -56,6 +56,9 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ### \code{\link{numeric}}: Relative space, given to the radial versus the
   ### cartesian plot part, deault is \code{0.75}.
   
+  rotate = FALSE,
+  ### \code{\link{logical}}: Option to turn the plot by 90 degrees.
+  
   mtext,
   ### \code{\link{character}}: additional text below the plot title.
   
@@ -583,17 +586,31 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ## define auxiliary plot parameters -----------------------------------------
   
   ## create empty plot to update plot parameters
-  plot(NA, 
-       xlim = c(limits.x[1], limits.x[2] * (1 / plot.ratio)), 
-       ylim = limits.y,
-       main = "",
-       sub = "",
-       xlab = "", 
-       ylab = "",
-       xaxs = "i",
-       yaxs = "i",
-       frame.plot = FALSE, 
-       axes = FALSE)
+  if(rotate == FALSE) {
+    plot(NA, 
+         xlim = c(limits.x[1], limits.x[2] * (1 / plot.ratio)), 
+         ylim = limits.y,
+         main = "",
+         sub = "",
+         xlab = "", 
+         ylab = "",
+         xaxs = "i",
+         yaxs = "i",
+         frame.plot = FALSE, 
+         axes = FALSE)
+  } else {
+    plot(NA, 
+         xlim = limits.y, 
+         ylim = c(limits.x[1], limits.x[2] * (1 / plot.ratio)),
+         main = "",
+         sub = "",
+         xlab = "", 
+         ylab = "",
+         xaxs = "i",
+         yaxs = "i",
+         frame.plot = FALSE, 
+         axes = FALSE)
+  }
   
   ## calculate conversion factor for plot coordinates
   f <- 10^-6
@@ -641,8 +658,15 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                                  tick.values.major, 
                                  tick.values.minor), 
                         length.out = 500)
-  ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
-  ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
+
+  if(rotate == FALSE) {
+    ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
+    ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
+  } else {
+    ellipse.y <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
+    ellipse.x <- (ellipse.values - z.central.global) * ellipse.y
+  }
+
   ellipse <- cbind(ellipse.x, ellipse.y)
 
   
@@ -670,8 +694,14 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   }
   
   ## re-calculate axes limits if necessary
-  limits.z.x <- range(ellipse[,1])
-  limits.z.y <- range(ellipse[,2])
+  if(rotate == FALSE) {
+    limits.z.x <- range(ellipse[,1])
+    limits.z.y <- range(ellipse[,2])
+  } else {
+    limits.z.x <- range(ellipse[,2])
+    limits.z.y <- range(ellipse[,1])
+  }
+
   if(!("ylim" %in% names(extraArgs))) {
     if(limits.z.y[1] < 0.66 * limits.y[1]) {
       limits.y[1] <- 1.8 * limits.z.y[1]
@@ -679,7 +709,11 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     if(limits.z.y[2] > 0.77 * limits.y[2]) {
       limits.y[2] <- 1.3 * limits.z.y[2]
     }
-#    limits.y <- c(-max(abs(limits.y)), max(abs(limits.y)))
+
+    if(rotate == TRUE) {
+      limits.y <- c(-max(abs(limits.y)), max(abs(limits.y)))      
+    }
+
   }
   if(!("xlim" %in% names(extraArgs))) {
     if(limits.z.x[2] > 1.1 * limits.x[2]) {
@@ -946,7 +980,11 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   }
     
   ## define cartesian plot origins
-  xy.0 <- c(min(ellipse[,1]) * 1.03, min(ellipse[,2]))
+  if(rotate == FALSE) {
+    xy.0 <- c(min(ellipse[,1]) * 1.03, min(ellipse[,2]))
+  } else {
+    xy.0 <- c(min(ellipse[,1]), min(ellipse[,2]) * 1.03)
+  }
 
   ## calculate coordinates for dispersion polygon overlay
   y.max.x <- 2 * limits.x[2] / max(data.global[6])
@@ -978,27 +1016,53 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       y.upper <- log(y.upper)
     }
     
-    polygons[i,1:7] <- c(limits.x[1], 
-                         limits.x[2],
-                         xy.0[1],
-                         par()$usr[2],
-                         par()$usr[2],
-                         xy.0[1],
-                         limits.x[2])
-    polygons[i,8:14] <- c(0, 
-                          (y.upper - z.central.global) * 
-                            limits.x[2],
-                          (y.upper - z.central.global) * 
-                            xy.0[1],
-                          (y.upper - z.central.global) * 
-                            xy.0[1],
-                          (y.lower - z.central.global) * 
-                            xy.0[1],
-                          (y.lower - z.central.global) * 
-                            xy.0[1],
-                          (y.lower - z.central.global) * 
-                            limits.x[2]
-                          )
+    if(rotate == FALSE) {
+      polygons[i,1:7] <- c(limits.x[1], 
+                           limits.x[2],
+                           xy.0[1],
+                           par()$usr[2],
+                           par()$usr[2],
+                           xy.0[1],
+                           limits.x[2])
+      polygons[i,8:14] <- c(0, 
+                            (y.upper - z.central.global) * 
+                              limits.x[2],
+                            (y.upper - z.central.global) * 
+                              xy.0[1],
+                            (y.upper - z.central.global) * 
+                              xy.0[1],
+                            (y.lower - z.central.global) * 
+                              xy.0[1],
+                            (y.lower - z.central.global) * 
+                              xy.0[1],
+                            (y.lower - z.central.global) * 
+                              limits.x[2]
+      )
+    } else {
+      y.max <- par()$usr[4]
+      
+      polygons[i,1:7] <- c(limits.x[1], 
+                           limits.x[2],
+                           xy.0[2],
+                           y.max,
+                           y.max,
+                           xy.0[2],
+                           limits.x[2])
+      polygons[i,8:14] <- c(0, 
+                            (y.upper - z.central.global) * 
+                              limits.x[2],
+                            (y.upper - z.central.global) * 
+                              xy.0[2],
+                            (y.upper - z.central.global) * 
+                              xy.0[2],
+                            (y.lower - z.central.global) * 
+                              xy.0[2],
+                            (y.lower - z.central.global) * 
+                              xy.0[2],
+                            (y.lower - z.central.global) * 
+                              limits.x[2]
+      )
+    }
   }
 
   ## calculate coordinates for 2-sigma bar overlay
@@ -1113,12 +1177,22 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     
     line.coords <- list(NA)
     
-    for(i in 1:length(line)) {
-      line.x <- c(limits.x[1], min(ellipse[,1]), par()$usr[2])
-      line.y <- c(0,
-                  (line[i] - z.central.global) * min(ellipse[,1]),
-                  (line[i] - z.central.global) * min(ellipse[,1]))
-      line.coords[[length(line.coords) + 1]] <- rbind(line.x, line.y)
+    if(rotate == FALSE) {
+      for(i in 1:length(line)) {
+        line.x <- c(limits.x[1], min(ellipse[,1]), par()$usr[2])
+        line.y <- c(0,
+                    (line[i] - z.central.global) * min(ellipse[,1]),
+                    (line[i] - z.central.global) * min(ellipse[,1]))
+        line.coords[[length(line.coords) + 1]] <- rbind(line.x, line.y)
+      }
+    } else {
+      for(i in 1:length(line)) {
+        line.x <- c(limits.x[1], min(ellipse[,2]),y.max)
+        line.y <- c(0,
+                    (line[i] - z.central.global) * min(ellipse[,2]),
+                    (line[i] - z.central.global) * min(ellipse[,2]))
+        line.coords[[length(line.coords) + 1]] <- rbind(line.x, line.y)
+      }
     }
     
     line.coords[1] <- NULL
@@ -1142,11 +1216,20 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   
     rug.coords <- list(NA)
     
-    for(i in 1:length(rug.values)) {
-      rug.x <- c(xy.0[1] * 0.987, xy.0[1])
-      rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,1]),
-                  (rug.values[i] - z.central.global) * min(ellipse[,1]))
-      rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
+    if(rotate == FALSE) {
+      for(i in 1:length(rug.values)) {
+        rug.x <- c(xy.0[1] * 0.987, xy.0[1])
+        rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,1]),
+                   (rug.values[i] - z.central.global) * min(ellipse[,1]))
+        rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
+      }
+    } else {
+      for(i in 1:length(rug.values)) {
+        rug.x <- c(xy.0[2] * 0.987, xy.0[2])
+        rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,2]),
+                   (rug.values[i] - z.central.global) * min(ellipse[,2]))
+        rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
+      }
     }
     
     rug.coords[1] <- NULL
@@ -1167,12 +1250,13 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   par(bg = layout$abanico$colour$background)
   bg.original <- par()$bg
   
+if(rotate == FALSE) {
   ## setup plot area
   par(oma = c(1, 1, 0, 0),
       mar = c(4, 4, shift.lines + 1.5, 7),
       xpd = TRUE,
       cex = cex)
-
+  
   if(layout$abanico$dimension$figure.width != "auto" |
        layout$abanico$dimension$figure.height != "auto") {
     par(mai = layout$abanico$dimension$margin / 25.4,
@@ -1183,7 +1267,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                   layout$abanico$dimension$margin[1] / 25.4 - 
                   layout$abanico$dimension$margin[3]/25.4))
   }
-
+  
   ## create empty plot
   par(new = TRUE)
   plot(NA, 
@@ -1209,7 +1293,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
         font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
                        layout$abanico$font.deco$ylab],
         cex = cex * layout$abanico$font.size$ylab/12)
-
+  
   ## calculate upper x-axis label values
   label.x.upper <- if(log.z == TRUE) {
     as.character(round(1/axTicks(side = 1)[-1] * 100, 1))
@@ -1226,7 +1310,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
               border = polygon.line[i])
     }
   }
-
+  
   ## optionally, plot 2-sigma-bar
   if(bar.fill[1] != "none") {
     
@@ -1246,7 +1330,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       } 
     }
   }
-
+  
   ## remove unwanted parts
   polygon(x = c(par()$usr[2], 
                 par()$usr[2], 
@@ -1258,7 +1342,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                 min(ellipse[,2]) * 2),
           col = bg.original,
           lty = 0)
-
+  
   ## optionally, add minor grid lines
   if(grid.minor != "none") {
     for(i in 1:length(tick.values.minor)) {
@@ -1275,7 +1359,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
             lwd = 1)
     }
   }
-
+  
   ## optionally, add major grid lines
   if(grid.major != "none") {
     for(i in 1:length(tick.values.major)) {
@@ -1306,7 +1390,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
             col = centrality.col[i])
     }
   }
-
+  
   ## optionally add further lines
   if(missing(line) == FALSE) {
     for(i in 1:length(line)) {
@@ -1332,12 +1416,12 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
         col.main = layout$abanico$colour$main,
         line = shift.lines * layout$abanico$dimension$main / 100)
   par(cex = cex.old)
-
+  
   ## calculate lower x-axis (precision)
   x.axis.ticks <- axTicks(side = 1)
   x.axis.ticks <- x.axis.ticks[c(TRUE, x.axis.ticks <= limits.x[2])]
   x.axis.ticks <- x.axis.ticks[x.axis.ticks <= max(ellipse[,1])]
-    
+  
   ## x-axis with lables and ticks
   axis(side = 1,
        at = x.axis.ticks,
@@ -1370,7 +1454,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
        at = limits.x[2],
        labels = FALSE, 
        col = layout$abanico$colour$xtck1)
-
+  
   axis(side = 1, 
        tcl = layout$abanico$dimension$xtcl2 / 200, 
        lwd = 0, 
@@ -1378,7 +1462,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
        at = limits.x[2],
        labels = FALSE,
        col = layout$abanico$colour$xtck2)
-
+  
   ## add lower axis label
   mtext(xlab[2], 
         at = (limits.x[1] + max(ellipse[,1])) / 2,
@@ -1400,7 +1484,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
         font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
                        layout$abanico$font.deco$xlab2],
         cex = cex * layout$abanico$font.size$xlab2/12) 
-
+  
   ## plot upper x-axis
   axis(side = 1,
        at = x.axis.ticks[-1],
@@ -1409,10 +1493,10 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
        labels = NA,
        tcl = layout$abanico$dimension$xtcl2 / 200,
        cex = cex)
-
+  
   ## remove first tick label (infinity)
   label.x.upper <- label.x.upper[1:(length(x.axis.ticks) - 1)]
-
+  
   axis(side = 1,
        at = x.axis.ticks[-1],
        labels = label.x.upper,
@@ -1424,7 +1508,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                       layout$abanico$font.deco$xtck2],
        col.axis = layout$abanico$colour$xtck2,
        cex.axis = layout$abanico$font.size$xlab2/12)
-    
+  
   ## plot y-axis
   if(y.axis == TRUE) {
     char.height <- par()$cxy[2]
@@ -1505,7 +1589,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                   min(ellipse[,1])),
           col = layout$abanico$colour$ztck)
   }
-
+  
   ## plot major z-ticks
   for(i in 1:length(tick.values.major)) {
     lines(x = c(par()$usr[2], 
@@ -1536,17 +1620,17 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   
   ## plot z-label
   mtext(text = zlab, 
-      at = 0,
-      side = 4,
-      las = 3,
-      adj = 0.5,
-      line = 5 * layout$abanico$dimension$zlab.line / 100, 
-      col = layout$abanico$colour$zlab,
-      family = layout$abanico$font.type$zlab,
-      font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
-                     layout$abanico$font.deco$zlab],
-      cex = cex * layout$abanico$font.size$zlab/12) 
-
+        at = 0,
+        side = 4,
+        las = 3,
+        adj = 0.5,
+        line = 5 * layout$abanico$dimension$zlab.line / 100, 
+        col = layout$abanico$colour$zlab,
+        family = layout$abanico$font.type$zlab,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$zlab],
+        cex = cex * layout$abanico$font.size$zlab/12) 
+  
   ## plot values and optionally error bars
   if(error.bars == TRUE) {
     for(i in 1:length(data)) {
@@ -1584,10 +1668,10 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
        labels = NA,
        tcl = -layout$abanico$dimension$xtcl3 / 200,
        cex = cex)
-
+  
   axis(side = 1,
        at = c(xy.0[1], par()$usr[2]),
-       labels = as.character(round(c(0, KDE.max.plot), 2)),
+       labels = as.character(round(c(0, KDE.max.plot), 3)),
        line = 2 * layout$abanico$dimension$xtck3.line / 100 - 2,
        lwd = 0,
        col = layout$abanico$colour$xtck3, 
@@ -1596,7 +1680,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                       layout$abanico$font.deco$xtck3],
        col.axis = layout$abanico$colour$xtck3,
        cex.axis = layout$abanico$font.size$xtck3/12)
-
+  
   ## add axis label
   mtext(text = xlab[3], 
         at = (xy.0[1] + par()$usr[2]) / 2,
@@ -1607,13 +1691,13 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
         font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
                        layout$abanico$font.deco$xlab3],
         cex = cex * layout$abanico$font.size$xlab3/12) 
-
+  
   ## plot KDE lines
   for(i in 1:length(data)) {
     polygon(x = xy.0[1] + KDE[[i]][,2] * KDE.scale,
-          y = (KDE[[i]][,1] - z.central.global) * min(ellipse[,1]),
-          col = kde.fill[i],
-          border = kde.line[i])
+            y = (KDE[[i]][,1] - z.central.global) * min(ellipse[,1]),
+            col = kde.fill[i],
+            border = kde.line[i])
   }
   
   ## optionally add stats, i.e. min, max, median sample text
@@ -1641,20 +1725,20 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   lines(x = c(xy.0[1], xy.0[1]), 
         y = c(min(ellipse[,2]), max(ellipse[,2])),
         col = layout$abanico$colour$border)
-
+  
   ## draw border around plot
   polygon(x = c(limits.x[1], min(ellipse[,1]), par()$usr[2],
                 par()$usr[2], min(ellipse[,1])),
           y = c(0, max(ellipse[,2]), max(ellipse[,2]), 
                 min(ellipse[,2]), min(ellipse[,2])),
           border = layout$abanico$colour$border)
-
+  
   ## optionally add legend content
   if(missing(legend) == FALSE) {
     ## store and change font familiy
     par.family <- par()$family
     par(family = layout$abanico$font.type$legend)
-  
+    
     legend(x = legend.pos[1],
            y = 0.8 * legend.pos[2],
            xjust = legend.adj[1],
@@ -1664,7 +1748,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
            col = value.dot,
            text.col = value.dot,
            text.font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
-                          layout$abanico$font.deco$legend],
+                               layout$abanico$font.deco$legend],
            cex = cex * layout$abanico$font.size$legend/12,
            bty = "n")
     
@@ -1708,6 +1792,550 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       }
     }
   }
+} else {
+  ## setup plot area
+  par(oma = c(1, 1, 0, 0),
+      mar = c(4, 4, shift.lines + 5, 4),
+      xpd = TRUE,
+      cex = cex)
+  
+  if(layout$abanico$dimension$figure.width != "auto" |
+       layout$abanico$dimension$figure.height != "auto") {
+    par(mai = layout$abanico$dimension$margin / 25.4,
+        pin = c(layout$abanico$dimension$figure.width / 25.4 - 
+                  layout$abanico$dimension$margin[2] / 25.4 - 
+                  layout$abanico$dimension$margin[4] / 25.4,
+                layout$abanico$dimension$figure.height / 25.4 - 
+                  layout$abanico$dimension$margin[1] / 25.4 - 
+                  layout$abanico$dimension$margin[3]/25.4))
+  }
+  
+  ## create empty plot
+  par(new = TRUE)
+  plot(NA, 
+       xlim = limits.y,
+       ylim = c(limits.x[1], limits.x[2] * (1 / plot.ratio)), 
+       main = "",
+       sub = sub,
+       xlab = "", 
+       ylab = "",
+       xaxs = "i",
+       yaxs = "i",
+       frame.plot = FALSE, 
+       axes = FALSE)
+  
+  ## add y-axis label
+  mtext(text = ylab,
+        at = 0,
+        adj = 0.5,
+        side = 1, 
+        line = 3 * layout$abanico$dimension$ylab.line / 100, 
+        col = layout$abanico$colour$ylab,
+        family = layout$abanico$font.type$ylab,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$ylab],
+        cex = cex * layout$abanico$font.size$ylab/12)
+  
+  ## calculate upper x-axis label values
+  label.x.upper <- if(log.z == TRUE) {
+    as.character(round(1/axTicks(side = 2)[-1] * 100, 1))
+  } else {
+    as.character(round(1/axTicks(side = 2)[-1], 1))
+  }
+  
+  ## optionally, plot dispersion polygon
+  if(polygon.fill[1] != "none") {
+    for(i in 1:length(data)) {
+      polygon(x = polygons[i,8:14],
+              y = polygons[i,1:7], 
+              col = polygon.fill[i],
+              border = polygon.line[i])
+    }
+  }
+  
+  ## optionally, plot 2-sigma-bar
+  if(bar.fill[1] != "none") {
+    
+    if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
+      for(i in 1:length(centrality)) {
+        polygon(x = bars[i,1:4], 
+                y = bars[i,5:8],
+                col = bar.fill,
+                border = bar.line[i])
+      }
+    } else {
+      for(i in 1:length(data)) {
+        polygon(y = bars[i,1:4], 
+                x = bars[i,5:8],
+                col = bar.fill[i],
+                border = bar.line[i])
+      } 
+    }
+  }
+  
+  ## remove unwanted parts
+  polygon(y = c(par()$usr[2], 
+                par()$usr[2], 
+                par()$usr[2] * 2,
+                par()$usr[2] * 2),
+          x = c(min(ellipse[,2]) * 2,
+                max(ellipse[,2]) * 2,
+                max(ellipse[,2]) * 2,
+                min(ellipse[,2]) * 2),
+          col = bg.original,
+          lty = 0)
+  
+  ## optionally, add minor grid lines
+  if(grid.minor != "none") {
+    for(i in 1:length(tick.values.minor)) {
+      lines(y = c(limits.x[1], min(ellipse[,1])),
+            x = c(0, (tick.values.minor[i] - z.central.global) * min(ellipse[,1])),
+            col = grid.minor,
+            lwd = 1)
+    }
+    for(i in 1:length(tick.values.minor)) {
+      lines(y = c(xy.0[2], par()$usr[2]),
+            x = c((tick.values.minor[i] - z.central.global) * min(ellipse[,1]),
+                  (tick.values.minor[i] - z.central.global) * min(ellipse[,1])),
+            col = grid.minor,
+            lwd = 1)
+    }
+  }
+  
+  ## optionally, add major grid lines
+  if(grid.major != "none") {
+    for(i in 1:length(tick.values.major)) {
+      lines(y = c(limits.x[1], min(ellipse[,2])),
+            x = c(0, (tick.values.major[i] - z.central.global) * min(ellipse[,2])),
+            col = grid.major,
+            lwd = 1)
+    }
+    for(i in 1:length(tick.values.major)) {
+      lines(y = c(xy.0[2],y.max),
+            x = c((tick.values.major[i] - z.central.global) * min(ellipse[,2]),
+                  (tick.values.major[i] - z.central.global) * min(ellipse[,2])),
+            col = grid.major,
+            lwd = 1)
+    }
+  }
+  
+  ## optionally, plot central value lines
+  if(lwd[1] > 0 & lty[1] > 0) {
+    for(i in 1:length(data)) {
+      x2 <- r / sqrt(1 + f^2 * (
+        data[[i]][1,5] - z.central.global)^2)
+      y2 <- (data[[i]][1,5] - z.central.global) * x2
+      lines(y = c(limits.x[1], x2, xy.0[2],y.max),
+            x = c(0, y2, y2, y2),
+            lty = lty[i],
+            lwd = lwd[i],
+            col = centrality.col[i])
+    }
+  }
+  
+  ## optionally add further lines
+  if(missing(line) == FALSE) {
+    for(i in 1:length(line)) {
+      lines(y = line.coords[[i]][1,1:3],
+            x = line.coords[[i]][2,1:3],
+            col = line.col[i])
+      text(y = line.coords[[i]][1,3],
+           x = line.coords[[i]][2,3] + par()$cxy[2] * 0.3,
+           labels = line.label[i],
+           pos = 2,
+           col = line.col[i],
+           cex = cex * 0.9)      
+    }
+  }
+  
+  ## add plot title
+  cex.old <- par()$cex
+  par(cex = layout$abanico$font.size$main / 12)
+  title(main = main,
+        family = layout$abanico$font.type$main,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$main],
+        col.main = layout$abanico$colour$main,
+        line = (shift.lines + 3.5) * layout$abanico$dimension$main / 100)
+  par(cex = cex.old)
+  
+  ## calculate lower x-axis (precision)
+  x.axis.ticks <- axTicks(side = 2)
+  x.axis.ticks <- x.axis.ticks[c(TRUE, x.axis.ticks <= limits.x[2])]
+  x.axis.ticks <- x.axis.ticks[x.axis.ticks <= max(ellipse[,2])]
+  
+  ## x-axis with lables and ticks
+  axis(side = 2,
+       at = x.axis.ticks,
+       col = layout$abanico$colour$xtck1, 
+       col.axis = layout$abanico$colour$xtck1,
+       labels = NA,
+       tcl = -layout$abanico$dimension$xtcl1 / 200,
+       cex = cex)
+  axis(side = 2,
+       at = x.axis.ticks,
+       line = 2 * layout$abanico$dimension$xtck1.line / 100 - 2,
+       lwd = 0,
+       col = layout$abanico$colour$xtck1, 
+       family = layout$abanico$font.type$xtck1,
+       font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                      layout$abanico$font.deco$xtck1],
+       col.axis = layout$abanico$colour$xtck1,
+       cex.axis = layout$abanico$font.size$xlab1/12)
+  
+  ## extend axis line to right side of the plot
+  lines(y = c(max(x.axis.ticks), max(ellipse[,2])), 
+        x = c(limits.y[1], limits.y[1]),
+        col = layout$abanico$colour$xtck1)
+  
+  ## draw closing tick on right hand side
+  axis(side = 2, 
+       tcl = -layout$abanico$dimension$xtcl1 / 200, 
+       lwd = 0, 
+       lwd.ticks = 1,
+       at = limits.x[2],
+       labels = FALSE, 
+       col = layout$abanico$colour$xtck1)
+  
+  axis(side = 2, 
+       tcl = layout$abanico$dimension$xtcl2 / 200, 
+       lwd = 0, 
+       lwd.ticks = 1, 
+       at = limits.x[2],
+       labels = FALSE,
+       col = layout$abanico$colour$xtck2)
+  
+  ## add lower axis label
+  mtext(xlab[2], 
+        at = (limits.x[1] + max(ellipse[,2])) / 2,
+        side = 2, 
+        line = 2.5 * layout$abanico$dimension$xlab1.line / 100, 
+        col = layout$abanico$colour$xlab1,
+        family = layout$abanico$font.type$xlab1,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$xlab1],
+        cex = cex * layout$abanico$font.size$xlab1/12) 
+  
+  ## add upper axis label
+  mtext(xlab[1], 
+        at = (limits.x[1] + max(ellipse[,2])) / 2,
+        side = 2, 
+        line = -3.5 * layout$abanico$dimension$xlab2.line / 100, 
+        col = layout$abanico$colour$xlab2,
+        family = layout$abanico$font.type$xlab2,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$xlab2],
+        cex = cex * layout$abanico$font.size$xlab2/12) 
+  
+  ## plot upper x-axis
+  axis(side = 2,
+       at = x.axis.ticks[-1],
+       col = layout$abanico$colour$xtck2, 
+       col.axis = layout$abanico$colour$xtck2,
+       labels = NA,
+       tcl = layout$abanico$dimension$xtcl2 / 200,
+       cex = cex)
+  
+  ## remove first tick label (infinity)
+  label.x.upper <- label.x.upper[1:(length(x.axis.ticks) - 1)]
+  
+  axis(side = 2,
+       at = x.axis.ticks[-1],
+       labels = label.x.upper,
+       line = -1 * layout$abanico$dimension$xtck2.line / 100 - 2,
+       lwd = 0,
+       col = layout$abanico$colour$xtck2, 
+       family = layout$abanico$font.type$xtck2,
+       font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                      layout$abanico$font.deco$xtck2],
+       col.axis = layout$abanico$colour$xtck2,
+       cex.axis = layout$abanico$font.size$xlab2/12)
+  
+  ## plot y-axis
+  if(y.axis == TRUE) {
+    char.height <- par()$cxy[2]
+    tick.space <- axisTicks(usr = limits.y, log = FALSE)
+    tick.space <- (max(tick.space) - min(tick.space)) / length(tick.space)
+    if(tick.space < char.height * 1.7) {
+      axis(side = 1, 
+           tcl = -layout$abanico$dimension$ytcl / 200, 
+           lwd = 1, 
+           lwd.ticks = 1,
+           at = c(-2, 2),
+           labels = c("", ""),
+           las = 1,
+           col = layout$abanico$colour$ytck)
+      
+      axis(side = 1, 
+           at = 0, 
+           tcl = 0, 
+           line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
+           labels = paste("\u00B1", "2"), 
+           las = 1,
+           family = layout$abanico$font.type$ytck,
+           font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                          layout$abanico$font.deco$ytck],
+           col.axis = layout$abanico$colour$ytck,
+           cex.axis = layout$abanico$font.size$ylab/12)
+    } else {
+      axis(side = 1,
+           at = seq(-2, 2, by = 2),
+           col = layout$abanico$colour$ytck, 
+           col.axis = layout$abanico$colour$ytck,
+           labels = NA,
+           las = 1,
+           tcl = -layout$abanico$dimension$ytcl / 200,
+           cex = cex)
+      axis(side = 1,
+           at = seq(-2, 2, by = 2),
+           line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
+           lwd = 0,
+           las = 1,
+           col = layout$abanico$colour$ytck, 
+           family = layout$abanico$font.type$ytck,
+           font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                          layout$abanico$font.deco$ytck],
+           col.axis = layout$abanico$colour$ytck,
+           cex.axis = layout$abanico$font.size$ylab/12)
+    }
+  } else {
+    axis(side = 1,
+         at = 0,
+         col = layout$abanico$colour$ytck, 
+         col.axis = layout$abanico$colour$ytck,
+         labels = NA,
+         las = 1,
+         tcl = -layout$abanico$dimension$ytcl / 200,
+         cex = cex)
+    axis(side = 1,
+         at = 0,
+         line = 2 * layout$abanico$dimension$ytck.line / 100 - 2,
+         lwd = 0,
+         las = 1,
+         col = layout$abanico$colour$ytck, 
+         family = layout$abanico$font.type$ytck,
+         font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                        layout$abanico$font.deco$ytck],
+         col.axis = layout$abanico$colour$ytck,
+         cex.axis = layout$abanico$font.size$ylab/12)
+  }
+  
+  ## plot minor z-ticks
+  for(i in 1:length(tick.values.minor)) {
+    lines(y = c(par()$usr[4], 
+                (1 + 0.015 * cex * layout$abanico$dimension$ztcl / 100) * 
+                  y.max),
+          x = c((tick.values.minor[i] - z.central.global) * 
+                  min(ellipse[,2]),
+                (tick.values.minor[i] - z.central.global) * 
+                  min(ellipse[,2])),
+          col = layout$abanico$colour$ztck)
+  }
+  
+  ## plot major z-ticks
+  for(i in 1:length(tick.values.major)) {
+    lines(y = c(par()$usr[4], 
+                (1 + 0.03 * cex * layout$abanico$dimension$ztcl / 100) * 
+                  y.max),
+          x = c((tick.values.major[i] - z.central.global) * 
+                  min(ellipse[,2]),
+                (tick.values.major[i] - z.central.global) * 
+                  min(ellipse[,2])),
+          col = layout$abanico$colour$ztck)
+  }
+  
+  ## plot z-axes
+  lines(ellipse, col = layout$abanico$colour$border)
+  lines(y = rep(par()$usr[4], nrow(ellipse)), 
+        x = ellipse[,1],
+        col = layout$abanico$colour$ztck)
+  
+  ## plot z-axis text
+  text(y = (1 + 0.06 * cex * layout$abanico$dimension$ztcl / 100) * 
+         y.max,
+       x = (tick.values.major - z.central.global) * min(ellipse[,2]),
+       labels = label.z.text, 
+       adj = 0.5,
+       family = layout$abanico$font.type$ztck,
+       font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                      layout$abanico$font.deco$ztck],
+       cex = cex * layout$abanico$font.size$ztck/12)
+  
+  ## plot z-label
+  mtext(text = zlab, 
+        at = 0,
+        side = 3,
+        las = 1,
+        adj = 0.5,
+        line = 2.5 * layout$abanico$dimension$zlab.line / 100, 
+        col = layout$abanico$colour$zlab,
+        family = layout$abanico$font.type$zlab,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$zlab],
+        cex = cex * layout$abanico$font.size$zlab/12) 
+  
+  ## plot values and optionally error bars
+  if(error.bars == TRUE) {
+    for(i in 1:length(data)) {
+      arrows(y0 = arrow.coords[[i]][,1],
+             y1 = arrow.coords[[i]][,2],
+             x0 = arrow.coords[[i]][,3],
+             x1 = arrow.coords[[i]][,4],
+             length = 0.05,
+             angle = 90,
+             code = 3,
+             col = value.bar[i])
+    }
+  }
+  
+  for(i in 1:length(data)) {
+    points(y = data[[i]][,6][data[[i]][,6] <= limits.x[2]], 
+           x = data[[i]][,8][data[[i]][,6] <= limits.x[2]], 
+           col = value.dot[i],
+           pch = pch[i],
+           cex = layout$abanico$dimension$pch / 100)
+  }
+  
+  ## calculate KDE width
+  KDE.max <- 0
+  for(i in 1:length(data)) {
+    KDE.max <- ifelse(KDE.max < max(KDE[[i]][,2]), max(KDE[[i]][,2]), KDE.max)
+  }
+  KDE.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max * 1.05)
+  
+  ## plot KDE x-axis
+  axis(side = 2,
+       at = c(xy.0[2],y.max),
+       col = layout$abanico$colour$xtck3, 
+       col.axis = layout$abanico$colour$xtck3,
+       labels = NA,
+       tcl = -layout$abanico$dimension$xtcl3 / 200,
+       cex = cex)
+  
+  axis(side = 2,
+       at = c(xy.0[2],y.max),
+       labels = as.character(round(c(0, KDE.max.plot), 3)),
+       line = 2 * layout$abanico$dimension$xtck3.line / 100 - 2,
+       lwd = 0,
+       col = layout$abanico$colour$xtck3, 
+       family = layout$abanico$font.type$xtck3,
+       font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                      layout$abanico$font.deco$xtck3],
+       col.axis = layout$abanico$colour$xtck3,
+       cex.axis = layout$abanico$font.size$xtck3/12)
+  
+  ## add axis label
+  mtext(text = xlab[3], 
+        at = (xy.0[2] +y.max) / 2,
+        side = 2,
+        line = 2.5 * layout$abanico$dimension$xlab3.line / 100, 
+        col = layout$abanico$colour$xlab3,
+        family = layout$abanico$font.type$xlab3,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$xlab3],
+        cex = cex * layout$abanico$font.size$xlab3/12) 
+  
+  ## plot KDE lines
+  for(i in 1:length(data)) {
+    polygon(y = xy.0[2] + KDE[[i]][,2] * KDE.scale,
+            x = (KDE[[i]][,1] - z.central.global) * min(ellipse[,2]),
+            col = kde.fill[i],
+            border = kde.line[i])
+  }
+  
+  ## optionally add stats, i.e. min, max, median sample text
+  if(length(stats) > 0) {
+    text(y = stats.data[,1],
+         x = stats.data[,2],
+         pos = 2, 
+         labels = round(stats.data[,3], 1), 
+         family = layout$abanico$font.type$stats,
+         font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                        layout$abanico$font.deco$stats],
+         cex = cex * layout$abanico$font.size$stats/12,
+         col = layout$abanico$colour$stats)
+  }
+  
+  ## optionally add rug
+  if(rug == TRUE) {
+    for(i in 1:length(rug.coords)) {
+      lines(y = rug.coords[[i]][1,],
+            x = rug.coords[[i]][2,])
+    }
+  }
+
+  ## plot KDE base line
+  lines(y = c(xy.0[2], xy.0[2]), 
+        x = c(min(ellipse[,2]), max(ellipse[,2])),
+        col = layout$abanico$colour$border)
+  
+  ## draw border around plot
+  polygon(y = c(limits.x[1], min(ellipse[,2]),y.max,
+                y.max, min(ellipse[,2])),
+          x = c(0, max(ellipse[,1]), max(ellipse[,1]), 
+                min(ellipse[,1]), min(ellipse[,1])),
+          border = layout$abanico$colour$border)
+  
+  ## optionally add legend content
+  if(missing(legend) == FALSE) {
+    ## store and change font familiy
+    par.family <- par()$family
+    par(family = layout$abanico$font.type$legend)
+    
+    legend(y = legend.pos[2],
+           x = 0.8 * legend.pos[1],
+           xjust = legend.adj[2],
+           yjust = legend.adj[1],
+           legend = legend,
+           pch = pch,
+           col = value.dot,
+           text.col = value.dot,
+           text.font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                               layout$abanico$font.deco$legend],
+           cex = cex * layout$abanico$font.size$legend/12,
+           bty = "n")
+    
+    ## restore font family
+    par(family = par.family)
+  }
+  
+  ## optionally add subheader text
+  mtext(text = mtext, 
+        side = 3,
+        line = (shift.lines - 2 + 3.5) * layout$abanico$dimension$mtext / 100, 
+        col = layout$abanico$colour$mtext,
+        family = layout$abanico$font.type$mtext,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$mtext],
+        cex = cex * layout$abanico$font.size$mtext / 12) 
+  
+  ## add summary content
+  for(i in 1:length(data)) {
+    if(summary.pos[1] != "sub") {
+      text(x = summary.pos[1],
+           y = summary.pos[2],
+           adj = summary.adj,
+           labels = label.text[[i]],
+           col = summary.col[i],
+           family = layout$abanico$font.type$summary,
+           font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                          layout$abanico$font.deco$summary],
+           cex = cex * layout$abanico$font.size$summary / 12)
+    } else {
+      if(mtext == "") {
+        mtext(side = 3, 
+              line = (shift.lines - 1 + 3.5 - i) * 
+                layout$abanico$dimension$summary / 100 , 
+              text = label.text[[i]],
+              col = summary.col[i],
+              family = layout$abanico$font.type$summary,
+              font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                             layout$abanico$font.deco$summary],
+              cex = cex * layout$abanico$font.size$summary / 12)
+      }
+    }
+  }
+}
   
   ## restore previous plot parameters
   par(oma = oma.original)

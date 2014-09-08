@@ -6,10 +6,10 @@ precision and its dispersion around a central value as well as
 illustration of a kernel density estimate of the dose values.}
 \usage{plot_AbanicoPlot(data, na.exclude = TRUE, log.z = TRUE, central.value, 
     centrality = "mean.weighted", dispersion = "sd", plot.ratio = 0.75, 
-    mtext, summary, summary.pos, legend, legend.pos, stats, rug = FALSE, 
-    y.axis = TRUE, error.bars = FALSE, polygon.col, bar.col, 
-    line, line.col, line.label, grid.col, bw = "nrd0", output = FALSE, 
-    ...)}
+    rotate = FALSE, mtext, summary, summary.pos, legend, legend.pos, 
+    stats, rug = FALSE, y.axis = TRUE, error.bars = FALSE, polygon.col, 
+    bar.col, line, line.col, line.label, grid.col, bw = "nrd0", 
+    output = FALSE, ...)}
 \arguments{
   \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
 (required): for \code{data.frame} two columns: De (\code{data[,1]})
@@ -39,6 +39,7 @@ confidence interval, i.e. data between the quantiles 0.025 and 0.975),
 default is \code{"sd"}.}
   \item{plot.ratio}{\code{\link{numeric}}: Relative space, given to the radial versus the
 cartesian plot part, deault is \code{0.75}.}
+  \item{rotate}{\code{\link{logical}}: Option to turn the plot by 90 degrees.}
   \item{mtext}{\code{\link{character}}: additional text below the plot title.}
   \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
 Can be one or more out of: "n" (number of samples), "mean" (mean De 
@@ -289,4 +290,4 @@ plot_AbanicoPlot(data = data.3,
 ## for further information on layout definitions see documentation
 ## of function get_Layout()
 }
-\section{Function version}{0.1.1 (2014-09-01 14:41:28)}
+\section{Function version}{0.1.1 (2014-09-08 09:54:25)}

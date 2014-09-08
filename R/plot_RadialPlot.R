@@ -534,11 +534,13 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
       plot.ratio <- 4.5 / 5.5
     }
   } 
-  
+
+  if(plot.ratio > 10^6) {plot.ratio <- 10^6}
+
   ## calculate conversion factor for plot coordinates
   f <- (max(data.global[,6]) - min(data.global[,6])) / 
        (max(data.global[,7]) - min(data.global[,7])) * plot.ratio
-  
+
   ## calculate major and minor z-tick values
   tick.values.major <- round(pretty(limits.z, n = 5), 0)
   tick.values.minor <- round(pretty(limits.z, n = 25), 0)
@@ -641,7 +643,7 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
   ellipse <- cbind(ellipse.x, ellipse.y)
   ellipse.lims <- rbind(range(ellipse[,1]), range(ellipse[,2]))
-  
+
   ## calculate statistical labels
   if(length(stats == 1)) {stats <- rep(stats, 2)}
   stats.data <- matrix(nrow = 3, ncol = 3)
@@ -664,7 +666,7 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
     stats.data[3, 1] <- data.global[data.stats == stats.data[3, 3], 6][1]
     stats.data[3, 2] <- data.global[data.stats == stats.data[3, 3], 8][1]
   }
-  
+
   ## recalculate axes limits if necessary
   limits.z.x <- range(ellipse[,1])
   limits.z.y <- range(ellipse[,2])

@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ##version 1.2.7
+  ##version 1.2.8
   # ===========================================================================
   
   sample,
@@ -85,7 +85,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
     stop("\n [plot_GrowthCurve] At least two regeneration points are needed!")
   }
   
-  ## optionally, count nd exclude NA values and print result
+  ## optionally, count and exclude NA values and print result
   if(na.exclude == TRUE) {
     n.NA <- sum(!complete.cases(sample))
     if(n.NA == 1) {print("1 NA value excluded.")
@@ -104,7 +104,11 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   #1.0.1 calculate number of reg points if not set
   if(missing(fit.NumberRegPoints)==TRUE){fit.NumberRegPoints<-length(sample[-1,1])}
   if(missing(fit.NumberRegPointsReal)==TRUE){
-    fit.NumberRegPointsReal<-length(sample[-which(duplicated(sample[,1]) | sample[,1]==0),1])
+    
+    fit.RegPointsReal <- as.integer(
+      rownames(sample[-which(duplicated(sample[,1]) | sample[,1]==0),]))
+    fit.NumberRegPointsReal <- length(fit.RegPointsReal)
+    
   }
  
   #1.1 Produce dataframe from input values
@@ -833,7 +837,19 @@ if(output.plot==TRUE) {
       }else{par(mfrow=c(1,1),cex=cex.global)}
 
 #PLOT		#Plot input values
-			plot(xy[1:fit.NumberRegPointsReal,1],xy[1:fit.NumberRegPointsReal,2],
+
+      ##Make selection to support manual number of reg points input
+      if(exists("fit.RegPointsReal")==TRUE){
+         
+          temp.xy.plot  <- xy[fit.RegPointsReal,]
+
+      }else{
+          
+          temp.xy.plot  <- xy[1:fit.NumberRegPointsReal]
+        
+      }
+    
+			plot(temp.xy.plot[,1:2],
 				ylim=ylim,
 				xlim=xlim,
 				pch=19,
@@ -850,11 +866,13 @@ if(output.plot==TRUE) {
       else if (fit.method=="EXP+EXP") {try(curve(fit.functionEXPEXP(a1,a2,b1,b2,x),lwd=1.5,add=TRUE))}
 
 ##POINTS	#Plot Reg0 and Repeated Points
+
 			#Repeated Point
-      points(xy[which(duplicated(xy[,1])),1],xy[which(duplicated(xy[,1])),2], pch=2)
+      points(xy[which(duplicated(xy[,1])),1],xy[which(duplicated(xy[,1])),2], 
+             pch=2)
       
       #Reg Point 0
-      points(xy[which(xy==0),1],xy[which(xy==0),2], pch=1)
+      points(xy[which(xy==0),1],xy[which(xy==0),2], pch=1, cex = 1.5*cex.global)
    
 ##ARROWS	#y-error Bars
 

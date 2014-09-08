@@ -7,7 +7,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.3.5
+  ## version 0.4.0
   # ===========================================================================
 
   object,
@@ -57,9 +57,6 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
 
 # CONFIG  -----------------------------------------------------------------
   
-  ##set allowed curve types
-  ##type.curves <- c("OSL", "TL", "IRSL")
-
   ##build signal and background integrals
   signal.integral <- c(signal.integral.min:signal.integral.max)
   background.integral <- c(background.integral.min:background.integral.max)
@@ -94,12 +91,18 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
     }
   
     ##CHECK IF DATA SET CONTAINS ANY OSL curve
-    if(length(grep("OSL", get_structure.RLum.Analysis(object)$recordType)) == 0){
+    if(!TRUE%in%(c("OSL", "IRSL")%in%get_structure.RLum.Analysis(object)$recordType)){
       
-      stop("[analyse_SAR.CWOSL] No record of type 'OSL' detected in sequence
+      stop("[analyse_SAR.CWOSL] No record of type 'OSL' or 'IRSL' are detected in the sequence
 object!")
       
     }
+
+    ##Check if any OSL curve is measured, if not set curve type on IRSL 
+    ##to allow further proceedings
+    CWcurve.type  <- ifelse(FALSE%in%(c("OSL")%in%get_structure.RLum.Analysis(object)$recordType),
+                            "IRSL","OSL")
+
 
 # Protocol Integrity Checks -------------------------------------------------- 
   
@@ -132,20 +135,20 @@ object!")
     
     ##remove irradiation entries from file
     object <- set_RLum.Analysis(
-               records = get_RLum.Analysis(object, recordType = c("OSL", "TL")),
+               records = get_RLum.Analysis(object, recordType = c(CWcurve.type, "TL")),
                protocol = "SAR")
 
   }
 
   ##check if the wanted curves are a multiple of two
   ##gsub removes unwanted information from the curves
-  if(table(temp.ltype)["OSL"]%%2!=0){
+  if(table(temp.ltype)[CWcurve.type]%%2!=0){
     stop("[analyse_SAR.CWOSL] Input OSL/IRSL curves are not a multiple of two.")
   }
 
   ##check if the curve lengths differ
   temp.matrix.length <- unlist(sapply(1:length(object@records), function(x) {
-                          if(object@records[[x]]@recordType=="OSL"){                            
+                          if(object@records[[x]]@recordType==CWcurve.type){                            
                               length(object@records[[x]]@data[,1])
                           }
   }))
@@ -172,7 +175,7 @@ object!")
 
   ##grep relevant curves from RLum.Analyis object
   OSL.Curves.ID <- unlist(sapply(1:length(object@records), function(x) {
-    if(object@records[[x]]@recordType == "OSL"){x} 
+    if(object@records[[x]]@recordType == CWcurve.type){x} 
   }))
 
   ##separate curves by Lx and Tx (it makes it much easier)
@@ -303,7 +306,6 @@ object!")
         LnLxTnTx<-cbind(temp.LnLxTnTx,LnLxTnTx)
         LnLxTnTx[,"Name"]<-as.character(LnLxTnTx[,"Name"])
 
-
 # Calculate Recycling Ratio -----------------------------------------------
 
       ##Calculate Recycling Ratio 
@@ -343,26 +345,36 @@ object!")
 # Calculate Recuperation Rate ---------------------------------------------
 
         
-         ##Recuperation Rate
-  
-         if("R0" %in% LnLxTnTx[,"Name"]==TRUE){
-         Recuperation<-round(LnLxTnTx[LnLxTnTx[,"Name"]=="R0","LxTx"]/
-                               LnLxTnTx[LnLxTnTx[,"Name"]=="Natural","LxTx"],digits=4)
+         ##Recuperation Rate (capable to handle multiple type of recuperation values)
+
+         if(length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"])>0){
+          
+           Recuperation <- sapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), 
+                                  function(x){
+                                    round(
+                                      LnLxTnTx[LnLxTnTx[,"Name"]=="R0","LxTx"][x]/
+                                      LnLxTnTx[LnLxTnTx[,"Name"]=="Natural","LxTx"],
+                                      digits=4)
+                                  })
+           ##Just transform the matrix and add column names
+           Recuperation  <-  t(Recuperation)
+           colnames(Recuperation)  <-  unlist(strsplit(paste("recuperation rate", 
+             1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), collapse = ";"), ";"))
+           
          }else{Recuperation<-NA}
       
 
-
 # Evaluate and Combine Rejection Criteria ---------------------------------
 
-    temp.criteria <- c(colnames(RecyclingRatio), "recuperation rate")
+    temp.criteria <- c(colnames(RecyclingRatio), colnames(Recuperation))
     temp.value <- c(RecyclingRatio,Recuperation)
     temp.threshold <- c(rep(paste("+/-", rejection.criteria$recycling.ratio/100),
                                   length(RecyclingRatio)),
-                        paste("", rejection.criteria$recuperation.rate/100))
-
+                        rep(paste("", rejection.criteria$recuperation.rate/100),
+                                  length(Recuperation)))
   
     ##RecyclingRatio
-    if(is.na(RecyclingRatio) == FALSE){
+    if(is.na(RecyclingRatio)[1] == FALSE){
      
       temp.status.RecyclingRatio <- sapply(1:length(RecyclingRatio), function(x){
         if(abs(1-RecyclingRatio[x])>(rejection.criteria$recycling.ratio/100)){
@@ -375,16 +387,15 @@ object!")
     }
 
     ##Recuperation
-    if(is.na(Recuperation) == FALSE){
-      if(Recuperation>rejection.criteria$recuperation.rate){
+    if(is.na(Recuperation)[1] == FALSE){
       
-        temp.status.Recuperation <- "FAILED"
-    
-      }else{
-      
-        temp.status.Recuperation <- "OK"
-  
-      }
+      temp.status.Recuperation  <- sapply(1:length(Recuperation), function(x){
+        ifelse(Recuperation[x]>rejection.criteria$recuperation.rate, 
+               "FAILED", "OK")
+        
+        
+      }) 
+
     }else{
       
       temp.status.Recuperation <- "OK"
@@ -429,11 +440,13 @@ if(output.plot == TRUE){
   
 
   ##warning if number of curves exceed colour values
-  if(length(col)<length(OSL.Curves.ID/2)){
-       cat("\n[analyse_SAR.CWOSL.R] Warning: To many curves! Only the first",
+  if(length(col)<length(OSL.Curves.ID)/2){
+    
+       temp.message  <- paste("\n[analyse_SAR.CWOSL()] To many curves! Only the first",
            length(col),"curves are plotted!")
+       warning(temp.message)
    }
-
+ 
   ##legend text
   legend.text <- paste(LnLxTnTx$Name,"\n(",LnLxTnTx$Dose,")", sep="")
 
@@ -509,7 +522,7 @@ if(output.plot == TRUE){
       #open plot area LnLx
       plot(NA,NA,
           xlab="Time [s]",
-          ylab=paste("OSL [cts/",resolution.OSLCurves," s]",sep=""),
+          ylab=paste(CWcurve.type," [cts/",resolution.OSLCurves," s]",sep=""),
           xlim=c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
                  max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1])),
            
@@ -600,7 +613,7 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
     #open plot area LnLx
     plot(NA,NA,
          xlab="Time [s]",
-         ylab=paste("OSL [cts/",resolution.OSLCurves," s]",sep=""),
+         ylab=paste(CWcurve.type ," [cts/",resolution.OSLCurves," s]",sep=""),
            xlim=c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
                max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1])),
      
@@ -730,6 +743,20 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## introduced by Murray and Wintle (2000) with CW-OSL curves. 
   ## For the calculation of the Lx/Tx value the function \link{calc_OSLLxTxRatio} 
   ## is used. \cr\cr
+  ##
+  ## \bold{Working with IRSL data}\cr\cr
+  ##
+  ## The function was originally designed to work just for 'OSL' curves, 
+  ## following the principles of the SAR protocol. An IRSL measurement protocol
+  ## may follow this procedure, e.g., post-IR IRSL protocol (Thomsen et al., 2008).
+  ## Therefore this functions has been enhanced to work with IRSL data, however, 
+  ## the function is only capable to analyse curves that follow the SAR protocol structure, i.e., 
+  ## to analyse a post-IR IRSL protocol curve data have to be pre-selected by the user to 
+  ## fit the standards of the SAR protocol, i.e., Lx,Tx,Lx,Tx and so on. \cr
+  ##
+  ## Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves. Only
+  ## one curve type can be analysed at the same time: 
+  ## The pIRIR50 curves or the pIRIR225 curves.\cr\cr
   ## 
   ## \bold{Provided rejection criteria}\cr\cr
   ## \sQuote{recyling.ratio}: calculated for every repeated regeneration dose point.\cr
@@ -762,13 +789,18 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using an 
   ## improved single-aliquot regenerative-dose protocol. Radiation Measurements, 
   ## 32, pp. 57-73. 
+  ##
+  ## Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. 
+  ## Laboratory fading rates of various luminescence signals from feldspar-rich 
+  ## sediment extracts. Radiation Measurements 43, 1474-1486. 
+  ## doi:10.1016/j.radmeas.2008.06.002
 
   ##note<<
   ## This function must not be mixed up with the function 
   ## \code{\link{Analyse_SAR.OSLdata}}, which works with \link{Risoe.BINfileData-class}
   ## objects.\cr
   ## 
-  ## \bold{The function currently does not work for IRSL data!}
+  ## \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 
   ##seealso<<
   ## \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}}, 

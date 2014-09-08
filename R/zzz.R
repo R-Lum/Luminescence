@@ -14,7 +14,7 @@
 # Assign variables to Namespace -------------------------------------------     
 ##variable col to define colours in the functions for output
 assign("col",  
-       unlist(colors())[c(261,552,51,62,76,151,451,474,654,657,100,513,23,612,129,27,551,393)], 
+       unlist(colors())[c(261,552,51,62,76,151,451,474,654,657,100,513,23,612,129,27,551,393,80)], 
        pos = ".LuminescenceEnv",
        envir = .LuminescenceEnv) 
 

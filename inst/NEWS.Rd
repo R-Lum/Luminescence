@@ -79,6 +79,9 @@
       \itemize{
       
         \item Minor graphical and code polishing,
+        
+        \item fix wrong regneration point plotting, if sequence contains more then
+        one zero dose point.
       
       }
       
@@ -128,8 +131,10 @@
         \item dispersion polygon bug fixed,
         \item dispersion type enriched by userdefined confidence interval,
         \item rug option added,
-        \item multiple 2-sigma-bars allowed.
-      
+        \item multiple 2-sigma-bars allowed,
+        \item rotate-Option added to Abanico Plot,
+        \item minor modifications of layout definitions.
+        
       }
       
       
@@ -137,16 +142,31 @@
        \item \code{analyse_SAR.CWOSL()}:
       \itemize{
       
-        \item Clarify behaviour when no OSL curve is provided; function
-        now stops with an error (#132, reported by Alice Versendaal)
+        \item Allow 'IRSL' curves as input to support rough data analysis of the 
+        post-IR IRSL protocol (#132, Alice Versendaal, #140, Georgina King),
+        
+        \item support multiple recuperation measurements, 
+        
+        \item minor bug fixes. 
       
       }
+      
+       \item \code{Analyse_SAR.OSLdata()}:
+       
+       \itemize{
+       
+        \item Error message implemented for non OSL data sets (#130, Geogrina King)
+       
+       }
+       
+       
+       
       
         \item \code{plot_RLum.Data.Curve()}:
       \itemize{
       
         \item Add argument \code{norm} to allow for curve normalisation to 
-        the highest value (#129)
+        the highest value (#129).
       
       }
       
