@@ -3,10 +3,10 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen (Germany),\cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
   
   ##section<<
-  ## version 0.4.3
+  ## version 0.4.4
   # ===========================================================================
   
   Lx.data, 
@@ -75,16 +75,16 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
    }#endif::missing Tx.data
    
    ##(e) - check if signal integral is valid
-   if(min(signal.integral)<1 | max(signal.integral>length(Lx.data[,2]))){
-     stop("[calc_OSLLxTxRatio.R] Signal.integral is not valid!")}
+   if(min(signal.integral) < 1 | max(signal.integral>length(Lx.data[,2]))){
+     stop("[calc_OSLLxTxRatio()] Signal.integral is not valid!")}
 
    ##(f) - check if background integral is valid
    if(min(background.integral)<1 | max(background.integral>length(Lx.data[,2]))){
-     stop(paste("[calc_OSLLxTxRatio.R] Background.integral is not valid! Max: ",length(Lx.data[,2]),sep=""))}
+     stop(paste("[calc_OSLLxTxRatio()] Background.integral is not valid! Max: ",length(Lx.data[,2]),sep=""))}
    
    ##(g) - check if signal and background integral overlapping
    if(min(background.integral)<=max(signal.integral)){
-     stop("[calc_OSLLxTxRatio.R] Overlapping of 'signal.integral' and 'background.integral' is not permitted!")}
+     stop("[calc_OSLLxTxRatio()] Overlapping of 'signal.integral' and 'background.integral' is not permitted!")}
    
    
   ##--------------------------------------------------------------------------##
@@ -95,7 +95,7 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   n <- length(signal.integral) 
   m <- length(background.integral)
   k <- m/n
-  
+ 
 
   ##LnLx (comments are corresponding variables to Galbraith, 2002)
   Lx.curve <- Lx.data[,2]                     
@@ -124,12 +124,12 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   Y.1 <- sum(Lx.curve[background.integral])
   Y.1_TnTx <- sum(Tx.curve[background.integral])
 
-
+  
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in 
   ## Galbraith (2002), Galbraith (2014)
   ## If else condition for the case that k < 2
-
-  if(round(k,digits = 1) >= 2){
+  
+   if(round(k,digits = 1) >= 2 & ((min(background.integral) + length(signal.integral)*(2+1)) <= length(Lx.curve))){
 
     ##(b)(1)(1)
     ## note that m = n*k = multiple of background.integral from signal.integral
@@ -138,11 +138,11 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
         (min(background.integral)+length(signal.integral)*i):
         (min(background.integral)+length(signal.integral)+length(signal.integral)*i)])
    })      
-
+  
    Y.i <- na.exclude(Y.i)
    sigmab <- abs(var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean 
                                         ##therefore here absolute values are given
-
+   
    ##(b)(1)(2)
    ## also for the TnTx signal   
    Y.i_TnTx <- sapply(0:round(k,digits=0), function(i){
@@ -166,14 +166,13 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
       
     }
     
-    
     sigmab<- abs((var(Lx.curve[background.integral]) - 
                    mean(Lx.curve[background.integral]))*n)
     sigmab_TnTx <- abs((var(Tx.curve[background.integral]) - 
                       mean(Tx.curve[background.integral]))*n)
     
   }
-
+  
   ##(c)
   ## Calculate relative error of the background subtracted signal
   ## according to Galbratith (2002), equation (6) with changes
@@ -233,7 +232,7 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   ##calculate Ln/Tx error
   LxTx.relError <- sqrt(LnLx.relError^2 + TnTx.relError^2)
   LxTx.Error <- LxTx * LxTx.relError
-  
+
   ##return combined values
   temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)
   calc.parameters <- list(sigmab = sigmab, 
@@ -242,7 +241,7 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   ##set results object
   temp.return <- set_RLum.Results(data = list(LxTx.table = temp, 
                                               calc.parameters = calc.parameters))
-
+  
   invisible(temp.return)
   
    

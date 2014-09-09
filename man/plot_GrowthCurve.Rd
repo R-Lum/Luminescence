@@ -3,7 +3,7 @@
 \title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
 \description{A dose response curve is produced for luminescence measurements using a 
 regenerative protocol.}
-\usage{plot_GrowthCurve(sample, na.exclude = TRUE, main = "Growth curve", 
+\usage{plot_GrowthCurve(sample, na.rm = TRUE, main = "Growth curve", 
     fit.method = "EXP", fit.weights = TRUE, fit.includingRepeatedRegPoints = TRUE, 
     fit.NumberRegPoints, fit.NumberRegPointsReal, fit.bounds = TRUE, 
     NumberIterations.MC = 100, output.plot = TRUE, output.plotExtended = TRUE, 
@@ -12,7 +12,7 @@ regenerative protocol.}
   \item{sample}{\code{\link{data.frame}} (\bold{required}): data frame with three columns
 for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the test dose 
 response is optional, but requires 'TnTx' as column name if used.}
-  \item{na.exclude}{\code{\link{logical}} (with default): excludes \code{NA} values from the data 
+  \item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA} values from the data 
 set prior to any further operations.}
   \item{main}{\code{\link{character}} (with default): header of the plot.}
   \item{fit.method}{\code{\link{character}} (with default): function used for fitting. 
@@ -92,7 +92,7 @@ and \code{EXP+EXP}. In case of a resulting linear fit when using
 \code{EXP OR LIN}, a \link{lm} object is returned. 
 Additionally a plot is returned.}
 
-\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
 Michael Dietze, GFZ Potsdam (Germany), \cr
 R Luminescence Package Team}
 
@@ -118,4 +118,4 @@ plot_GrowthCurve(LxTxData)
 plot_GrowthCurve(LxTxData)
 ##dev.off()  
 }
-\section{Function version}{1.2.8 (2014-09-08 00:10:08)}
+\section{Function version}{1.2.9 (2014-09-09 18:24:48)}

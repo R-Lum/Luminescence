@@ -71,38 +71,39 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
     }
 
     if(missing("signal.integral")==TRUE){
-      stop("[analyse_SAR.CWOSL] No value set for 'signal.integral'!")
+      stop("[analyse_SAR.CWOSL()] No value set for 'signal.integral'!")
     }
     
     if(missing("background.integral")==TRUE){
-     stop("[analyse_SAR.CWOSL] No value set for 'background.integral'!")
+     stop("[analyse_SAR.CWOSL()] No value set for 'background.integral'!")
     }
 
     ##INPUT OBJECTS
     if(is(object, "RLum.Analysis")==FALSE){
-      stop("[analyse_SAR.CWOSL] Input object is not of type 'RLum.Analyis'!")
+      stop("[analyse_SAR.CWOSL()] Input object is not of type 'RLum.Analyis'!")
     }
 
     ##INTEGRAL LIMITS
     if(is(signal.integral, "integer")==FALSE | is(background.integral, 
                                                   "integer")==FALSE){
-      stop("[analyse_SAR.CWOSL] 'signal.integral' or background.integral is not 
+      stop("[analyse_SAR.CWOSL()] 'signal.integral' or background.integral is not 
            of type integer!")
     }
-  
+
+
     ##CHECK IF DATA SET CONTAINS ANY OSL curve
-    if(!TRUE%in%(c("OSL", "IRSL")%in%get_structure.RLum.Analysis(object)$recordType)){
+    if(!TRUE%in%grepl("OSL", get_structure.RLum.Analysis(object)$recordType) && 
+       !TRUE%in%grepl("IRSL", get_structure.RLum.Analysis(object)$recordType)){
       
-      stop("[analyse_SAR.CWOSL] No record of type 'OSL' or 'IRSL' are detected in the sequence
+      stop("[analyse_SAR.CWOSL()] No record of type 'OSL' or 'IRSL' are detected in the sequence
 object!")
       
     }
 
     ##Check if any OSL curve is measured, if not set curve type on IRSL 
     ##to allow further proceedings
-    CWcurve.type  <- ifelse(FALSE%in%(c("OSL")%in%get_structure.RLum.Analysis(object)$recordType),
+    CWcurve.type  <- ifelse(!TRUE%in%grepl("OSL", get_structure.RLum.Analysis(object)$recordType),
                             "IRSL","OSL")
-
 
 # Protocol Integrity Checks -------------------------------------------------- 
   
@@ -460,7 +461,7 @@ if(output.plot == TRUE){
 
 # Plotting TL Curves previous LnLx ----------------------------------------
 
-
+  
   ##check if TL curves are available
   if(length(TL.Curves.ID.Lx[[1]]>0)) {
     
@@ -470,17 +471,17 @@ if(output.plot == TRUE){
        digits=2)
                             
      
-     ylim.range <- sapply(seq(1,length(TL.Curves.ID),by=2) ,function(x){      
+     ylim.range <- sapply(seq(1,length(TL.Curves.ID.Lx),by=1) ,function(x){      
                           
-                           range(object@records[[TL.Curves.ID[x]]]@data[,2])
+                           range(object@records[[TL.Curves.ID.Lx[x]]]@data[,2])
                           
                           })
-     
+   
      plot(NA,NA,
           xlab="T [\u00B0C]",
           ylab=paste("TL [cts/",resolution.TLCurves," \u00B0C]",sep=""),
-          xlim=c(object@records[[TL.Curves.ID[1]]]@data[1,1],
-                 max(object@records[[TL.Curves.ID[1]]]@data[,1])),
+          xlim=c(object@records[[TL.Curves.ID.Lx[1]]]@data[1,1],
+                 max(object@records[[TL.Curves.ID.Lx[1]]]@data[,1])),
           
           ylim=c(1,max(ylim.range)),
           
@@ -518,14 +519,14 @@ if(output.plot == TRUE){
                         range(object@records[[OSL.Curves.ID.Lx[x]]]@data[,2])
       })
           
+      xlim  <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
+                 max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]))
 
       #open plot area LnLx
       plot(NA,NA,
           xlab="Time [s]",
           ylab=paste(CWcurve.type," [cts/",resolution.OSLCurves," s]",sep=""),
-          xlim=c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
-                 max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1])),
-           
+          xlim=xlim,
           ylim=range(ylim.range),
            
           main=expression(paste(L[n],",",L[x]," curves",sep="")),
@@ -539,11 +540,12 @@ if(output.plot == TRUE){
                   
                   })
            
+        
           ##mark integration limits
-          abline(v=min(signal.integral)*resolution.OSLCurves, lty=2, col="gray")
-          abline(v=max(signal.integral)*resolution.OSLCurves, lty=2, col="gray")
-          abline(v=min(background.integral)*resolution.OSLCurves, lty=2, col="gray")
-          abline(v=max(background.integral)*resolution.OSLCurves, lty=2, col="gray")
+          abline(v=(min(xlim) + min(signal.integral)*resolution.OSLCurves), lty=2, col="gray")
+          abline(v=(min(xlim) + max(signal.integral)*resolution.OSLCurves), lty=2, col="gray")
+          abline(v=(min(xlim) + min(background.integral)*resolution.OSLCurves), lty=2, col="gray")
+          abline(v=(min(xlim) + max(background.integral)*resolution.OSLCurves), lty=2, col="gray")
 
 
 # Plotting TL Curves previous TnTx ----------------------------------------
@@ -610,13 +612,13 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
                   })
 
 
+    xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1], max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
+
     #open plot area LnLx
     plot(NA,NA,
          xlab="Time [s]",
          ylab=paste(CWcurve.type ," [cts/",resolution.OSLCurves," s]",sep=""),
-           xlim=c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
-               max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1])),
-     
+           xlim=xlim,     
            ylim=range(ylim.range),
      
            main=expression(paste(T[n],",",T[x]," curves",sep="")),
@@ -630,11 +632,11 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
   
       })
 
-      ##mark integration limits
-      abline(v=min(signal.integral)*resolution.OSLCurves, lty=2, col="gray")
-      abline(v=max(signal.integral)*resolution.OSLCurves, lty=2, col="gray")
-      abline(v=min(background.integral)*resolution.OSLCurves, lty=2, col="gray")
-      abline(v=max(background.integral)*resolution.OSLCurves, lty=2, col="gray")
+      ##mark integration limit
+      abline(v=(min(xlim) + min(signal.integral)*resolution.OSLCurves), lty=2, col="gray")
+      abline(v=(min(xlim) + max(signal.integral)*resolution.OSLCurves), lty=2, col="gray")
+      abline(v=(min(xlim) + min(background.integral)*resolution.OSLCurves), lty=2, col="gray")
+      abline(v=(min(xlim) + max(background.integral)*resolution.OSLCurves), lty=2, col="gray")
 
 
 # Plotting Legend ----------------------------------------

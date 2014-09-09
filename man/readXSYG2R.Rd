@@ -85,7 +85,7 @@ A list is provided, the list elements contain:
 Unpublished Technical Note. Freiberg, Germany \cr\cr
 \bold{Further reading} \cr\cr
 XML: \url{http://en.wikipedia.org/wiki/XML}}
-\author{Sebastian Kreutzer, JLU Giessen (Germany), \cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{This function is a beta version as the XSYG file format is not yet fully
 specified. 
@@ -119,4 +119,4 @@ Corresponding values in the XSXG file are skipped. }
 }
 
 \keyword{IO}
-\section{Function version}{0.3.1 (2014-06-06 14:35:51)}
+\section{Function version}{0.3.2 (2014-09-09 15:55:47)}

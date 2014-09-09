@@ -118,4 +118,4 @@ get_RLum.Results(results)
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.4.0 (2014-09-08 00:22:47)}
+\section{Function version}{0.4.0 (2014-09-09 17:39:27)}

@@ -4,11 +4,11 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ##version 1.2.8
+  ##version 1.2.9
   # ===========================================================================
   
   sample,
@@ -16,7 +16,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ### for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the test dose 
   ### response is optional, but requires 'TnTx' as column name if used.
 
-  na.exclude = TRUE,
+  na.rm = TRUE,
   ### \code{\link{logical}} (with default): excludes \code{NA} values from the data 
   ### set prior to any further operations.
   
@@ -74,23 +74,35 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ### arguments will only be passed to the growth curve plot
 ) {
 
-  
+
   ##1. check if sample is data.frame
   if(is.data.frame(sample)==FALSE){
-    stop("\n [plot_GrowthCurve] Sample has to be of type data.fame!")
+    stop("\n [plot_GrowthCurve()] Sample has to be of type data.fame!")
   }
   
   ##2. check if sample contains a least three rows 
   if(length(sample[,1])<3){
-    stop("\n [plot_GrowthCurve] At least two regeneration points are needed!")
+    stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!")
   }
   
+  
   ## optionally, count and exclude NA values and print result
-  if(na.exclude == TRUE) {
+  if(na.rm == TRUE) {
     n.NA <- sum(!complete.cases(sample))
     if(n.NA == 1) {print("1 NA value excluded.")
     } else if(n.NA > 1) {print(paste(n.NA, "NA values excluded."))}
-    sample <- na.exclude(sample)}
+  
+    sample <- na.exclude(sample)
+    
+    ##Check if anything is left after removal
+    if(nrow(sample) == 0){
+      
+      stop("[plot_GrowthCurve()] Sorry, after NA removal nothing is left from the data set!")
+      
+    }
+  
+  }
+  
   
   ##NULL values in the data.frame are not allowed for the y-column
     if(length(sample[sample[,2]==0,2])>0){
@@ -107,6 +119,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
     
     fit.RegPointsReal <- as.integer(
       rownames(sample[-which(duplicated(sample[,1]) | sample[,1]==0),]))
+
     fit.NumberRegPointsReal <- length(fit.RegPointsReal)
     
   }
@@ -121,7 +134,6 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   }else{
     fit.weights<-NULL
   }
-    
 
   # Deal with extra arguments -----------------------------------------------
   ##deal with addition arguments 
@@ -841,7 +853,8 @@ if(output.plot==TRUE) {
       ##Make selection to support manual number of reg points input
       if(exists("fit.RegPointsReal")==TRUE){
          
-          temp.xy.plot  <- xy[fit.RegPointsReal,]
+          ##here the object sample has to be used otherwise the first regeneration point is not plotted.
+          temp.xy.plot  <- sample[fit.RegPointsReal,]
 
       }else{
           

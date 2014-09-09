@@ -3,10 +3,10 @@ readXSYG2R <- structure(function(#Import XSYG files to R
 
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen (Germany), \cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.3.1
+  ## version 0.3.2
   # ===========================================================================
   
   file,
@@ -186,8 +186,19 @@ readXSYG2R <- structure(function(#Import XSYG files to R
          temp.sequence.object.detector <- as.character(
            xmlAttrs(temp[[x]][[i]][[j]])["detector"])
          
+         
+         ##get stimulator
+         temp.sequence.object.stimulator <- as.character(
+           xmlAttrs(temp[[x]][[i]][[j]])["stimulator"])
+         
+         
          ##get additional information
          temp.sequence.object.info <- as.list(xmlAttrs(temp.sequence.object.curveValue)) 
+         
+         ##add stimulator and detector
+         temp.sequence.object.info <- c(temp.sequence.object.info, 
+                                        detector = temp.sequence.object.detector,
+                                        stimulator = temp.sequence.object.stimulator)
 
   
          ## TL curve recalculation ============================================
@@ -309,7 +320,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
           
            
          set_RLum.Data.Curve(recordType = paste(temp.sequence.object.recordType, 
-                                                " (",temp.sequence.object.detector,")",
+                                                " (", temp.sequence.object.detector,")",
                                                 sep = ""),
                     curveType = temp.sequence.object.curveType,
                     data = temp.sequence.object.curveValue,

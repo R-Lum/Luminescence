@@ -59,7 +59,7 @@ OSL count. Ancient TL, 20 (2), 49-51.
 
 Galbraith, R.F., 2014. A further note on the variance of a background-corrected OSL count.
 Ancient TL, 31 (2), 1-3.}
-\author{Sebastian Kreutzer, JLU Giessen (Germany),\cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
 R Luminescence Package Team}
 \note{The results of this function have been cross-checked with the Analyst (vers. 3.24b).   
 Access to the results object via \code{\link{get_RLum.Results}}.}
@@ -82,4 +82,4 @@ get_RLum.Results(results)
 }
 
 \keyword{datagen}
-\section{Function version}{0.4.3 (2014-07-28 18:05:05)}
+\section{Function version}{0.4.4 (2014-09-09 18:28:43)}

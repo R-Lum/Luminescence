@@ -42,6 +42,9 @@
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{   
     
+     \item \code{get_RLum.Analysis()}: Add support for inverse \code{record.id} selection, e.g. \code{record.id = -1} selects
+     all objects except the first. 
+    
     \item \code{get_RLum.Results()}: Add support for data objects for objects
     produced by the function \code{calc_OSLLxTxRatio()}
     
@@ -81,7 +84,11 @@
         \item Minor graphical and code polishing,
         
         \item fix wrong regneration point plotting, if sequence contains more then
-        one zero dose point.
+        one zero dose point,
+        
+        \item argument \code{na.exclude} for the sake consistency replaced by \code{na.rm},
+        
+        \item proper error message provided if nothing is left after \code{NA} value removal.
       
       }
       
@@ -92,7 +99,11 @@
       within the curve errors for rare combinations of signal and background 
       integreation limits, 
       \item provide a name for the output data frame \code{LxTx.table} for the
-      \code{RLum.Results} object
+      \code{RLum.Results} object,
+      
+      \item error fixed for the marginal case that k = 2 and exceed the maximal curve length. In that 
+      case accidentially no error was calculated. 
+      
       }
       
       \item \code{fit_CWCurve()}: 
@@ -146,6 +157,8 @@
         post-IR IRSL protocol (#132, Alice Versendaal, #140, Georgina King),
         
         \item support multiple recuperation measurements, 
+        
+        \item correct wrong TL curve figure scaling,
         
         \item minor bug fixes. 
       

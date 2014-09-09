@@ -3,9 +3,9 @@
 ##//////////////////////////////////////////////////////////////////////////////
 ##==============================================================================
 ##author: Sebastian Kreutzer
-##organisation: JLU Giessen/Freiberg Instruments
-##version: 0.1.5
-##date: 2014-03-19
+##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+##version: 0.1.6
+##date: 2014-09-09
 ##==============================================================================
 
 ##class definition
@@ -50,8 +50,7 @@ setClass("RLum.Analysis",
                 cat("\n\t .. :",names(table(temp)[x]),":",table(temp)[x])
                 
       
-                ##show structure               
-               
+                ##show structure                 
                 cat("\n\t .. .. : ", 
                     unlist(sapply(1:length(object@records),  function(i) {
                
@@ -185,7 +184,7 @@ setMethod("get_RLum.Analysis",
                         keep.object = "ANY"), 
           
           function(object, record.id, recordType, curveType, RLum.type, get.index, keep.object = FALSE){             
-            
+       
             ##record.id
             if(missing(record.id) == TRUE){
               
@@ -193,7 +192,14 @@ setMethod("get_RLum.Analysis",
   
             }else if (is(record.id, "numeric") == FALSE){
               
-              stop("[get_RLum.Analysis] Error: 'record.id' has to be of type 'numeric'!")
+              stop("[get_RLum.Analysis] 'record.id' has to be of type 'numeric'!")
+              
+            }
+            
+            ##check if record.id exists
+            if(FALSE%in%(abs(record.id)%in%(1:length(object@records)))){
+              
+              stop("[get_RLum.Analysis] At least one 'record.id' is invalid!")
               
             }
             
@@ -250,13 +256,20 @@ setMethod("get_RLum.Analysis",
               stop("[get_RLum.Analysis] Error: 'get.index' has to be of type 'logical'!")
               
             }
-            
+    
+             
             
             
            ##-----------------------------------------------------------------##
+           
+           ##a pre-selection is necessary to support negative index selection
+           object@records <- object@records[record.id]
+           record.id <- 1:length(object@records)
+           
+           
            ##select curves according to the chosen paramter
            if(length(record.id)>1){  
-           
+             
             temp <- sapply(record.id, function(x){
              
                 if(is(object@records[[x]])[1]%in%RLum.type == TRUE){
