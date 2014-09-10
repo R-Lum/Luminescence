@@ -50,13 +50,16 @@ setClass("RLum.Analysis",
                 cat("\n\t .. :",names(table(temp)[x]),":",table(temp)[x])
                 
       
-                ##show structure                 
+                ##show structure   
+                ##set width option ... just an implementation for the tutorial output
+                ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 10)
+                
                 cat("\n\t .. .. : ", 
                     unlist(sapply(1:length(object@records),  function(i) {
                
                       if(names(table(temp)[x]) == is(object@records[[i]])[1]){
                          paste(object@records[[i]]@recordType,
-                         if(i%%10==0 & i!=length(object@records)){"\n\t .. .. : "})
+                         if(i%%temp.width==0 & i!=length(object@records)){"\n\t .. .. : "})
                       }
                     })))
                       
