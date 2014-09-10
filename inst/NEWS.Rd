@@ -160,7 +160,7 @@
         
         \item correct wrong TL curve figure scaling,
         
-        \item minor bug fixes. 
+        \item minor bug fixes (e.g., not properly caluculated TL curve resolution). 
       
       }
       

@@ -80,7 +80,7 @@ Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008.
 Laboratory fading rates of various luminescence signals from feldspar-rich 
 sediment extracts. Radiation Measurements 43, 1474-1486. 
 doi:10.1016/j.radmeas.2008.06.002}
-\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France)\cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 R Luminescence Package Team}
 \note{This function must not be mixed up with the function 
 \code{\link{Analyse_SAR.OSLdata}}, which works with \link{Risoe.BINfileData-class}
@@ -118,4 +118,4 @@ get_RLum.Results(results)
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.4.0 (2014-09-09 17:39:27)}
+\section{Function version}{0.4.1 (2014-09-10 14:52:19)}

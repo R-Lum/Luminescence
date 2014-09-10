@@ -4,10 +4,10 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France)\cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.4.0
+  ## version 0.4.1
   # ===========================================================================
 
   object,
@@ -465,18 +465,20 @@ if(output.plot == TRUE){
   ##check if TL curves are available
   if(length(TL.Curves.ID.Lx[[1]]>0)) {
     
-     resolution.TLCurves <- round(
-       object@records[[TL.Curves.ID[1]]]@data[2,1]-
-       object@records[[TL.Curves.ID[1]]]@data[1,1],
-       digits=2)
+     ##It is just an approximation taken from the data
+     resolution.TLCurves <-  round(
+       mean(
+         diff(
+           round(object@records[[TL.Curves.ID.Lx[1]]]@data[,1], digits = 1)
+           )
+         ), digits = 1)
                             
-     
      ylim.range <- sapply(seq(1,length(TL.Curves.ID.Lx),by=1) ,function(x){      
                           
                            range(object@records[[TL.Curves.ID.Lx[x]]]@data[,2])
                           
                           })
-   
+
      plot(NA,NA,
           xlab="T [\u00B0C]",
           ylab=paste("TL [cts/",resolution.TLCurves," \u00B0C]",sep=""),
@@ -554,11 +556,14 @@ if(output.plot == TRUE){
 
 if(length(TL.Curves.ID.Tx[[1]]>0)) {
   
+  ##It is just an approximation taken from the data
+  resolution.TLCurves <-  round(
+    mean(
+      diff(
+        round(object@records[[TL.Curves.ID.Tx[1]]]@data[,1], digits = 1)
+      )
+    ), digits = 1)
   
-  resolution.TLCurves <- round(
-    object@records[[TL.Curves.ID.Tx[1]]]@data[2,1]-
-    object@records[[TL.Curves.ID.Tx[1]]]@data[1,1],
-    digits=2)
   
   ylim.range <- sapply(1:length(TL.Curves.ID.Tx) ,function(x){      
     
