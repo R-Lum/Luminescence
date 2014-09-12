@@ -37,4 +37,3 @@ This function has BETA status}
 }
 
 \keyword{manip}
-\section{Function version}{0.1 (2014-04-13 14:27:05)}

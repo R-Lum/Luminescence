@@ -73,4 +73,3 @@ R Luminescence Package Team}
 }
 
 \keyword{manip}
-\section{Function version}{0.1.2 (2014-06-04 18:50:49)}

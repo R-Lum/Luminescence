@@ -143,4 +143,3 @@ lines(x = KDE.x,
       y = KDE.y,
       lwd = 3)
 }
-\section{Function version}{3.2 (2014-05-30 11:58:30)}

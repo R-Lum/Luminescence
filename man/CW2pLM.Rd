@@ -66,4 +66,3 @@ plot(values.transformed)
 }
 
 \keyword{manip}
-\section{Function version}{0.4 (2014-04-13 14:29:18)}

@@ -123,4 +123,3 @@ plot_DRTResults(values = ExampleData.DeValues[7:11,],
 }
 
 \keyword{dplot}
-\section{Function version}{0.1.2 (2014-04-13 14:30:15)}

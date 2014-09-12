@@ -207,4 +207,3 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 #write.csv(results, file = "c:/users/public/results_profile.csv")
 
 }
-\section{Function version}{0.5.2 (2014-04-13 14:27:31)}
