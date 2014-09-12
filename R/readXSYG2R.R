@@ -6,7 +6,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.3.2
+  ## version 0.3.3
   # ===========================================================================
   
   file,
@@ -38,7 +38,15 @@ readXSYG2R <- structure(function(#Import XSYG files to R
   ##check if file exists 
   if(file.exists(file) == FALSE){
     
-    stop("[readXSYG2R] Wrong file name or file does not exsits!")
+    stop("[readXSYG2R()] Wrong file name or file does not exsits!")
+    
+  }
+  
+  ##check if file is XML file
+  if(tail(unlist(strsplit(file, split = "\\.")), 1) != "xsyg" & 
+       tail(unlist(strsplit(file, split = "\\.")), 1) != "XSYG" ){
+    
+    stop("[readXSYG2R()] File is not of type 'XSYG'!")
     
   }
   

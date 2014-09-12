@@ -129,3 +129,4 @@ data(ExampleData.BINfileData, envir = environment())
 }
 
 \keyword{dplot}
+\section{Function version}{0.4.1 (2014-04-13 14:30:45)}

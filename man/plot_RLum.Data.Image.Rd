@@ -56,3 +56,4 @@ my or extremely slow. }
 }
 
 \keyword{aplot}
+\section{Function version}{0.1 (2014-09-11 17:24:28)}

@@ -7,7 +7,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.4.1
+  ## version 0.4.2
   # ===========================================================================
 
   object,
@@ -35,11 +35,6 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   dose.points,
   ### \link{numeric} (optional): a numeric vector containg the dose points values
   ### Using this argument overwrites dose point values in the signal curves. 
-  
-  log = "",
-  ### \link{character} (with default): a character string which contains "x" 
-  ### if the x axis is to be logarithmic, "y" if the y-axis is to be logarithmic 
-  ### and "xy" or "yx" if both axes are to be logarithmic. See \link{plot.default}.
   
   output.plot = TRUE,
   ### \link{logical} (with default): enables or disables plot output.
@@ -104,6 +99,22 @@ object!")
     ##to allow further proceedings
     CWcurve.type  <- ifelse(!TRUE%in%grepl("OSL", get_structure.RLum.Analysis(object)$recordType),
                             "IRSL","OSL")
+
+
+# Deal with extra arguments -------------------------------------------------------------------
+
+  ##deal with addition arguments 
+  extraArgs <- list(...) 
+
+  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else 
+  {""}
+
+  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else 
+  {""}
+
+  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else 
+  {0.6}
+
 
 # Protocol Integrity Checks -------------------------------------------------- 
   
@@ -421,7 +432,7 @@ if(output.plot == TRUE){
 
   ##colours and double for plotting
   col <- get("col", pos = .LuminescenceEnv)
-  
+
   if(output.plot.single == FALSE){
     
     layout(matrix(c(1,1,3,3,
@@ -430,7 +441,7 @@ if(output.plot == TRUE){
                     2,2,4,4,
                     5,5,5,5),5,4,byrow=TRUE))
     
-    par(oma=c(0,0,0,0), mar=c(4,4,3,3))
+    par(oma=c(0,0,0,0), mar=c(4,4,3,3), cex = cex)
     
     ## 1 -> TL previous LnLx
     ## 2 -> LnLx
@@ -484,9 +495,7 @@ if(output.plot == TRUE){
           ylab=paste("TL [cts/",resolution.TLCurves," \u00B0C]",sep=""),
           xlim=c(object@records[[TL.Curves.ID.Lx[1]]]@data[1,1],
                  max(object@records[[TL.Curves.ID.Lx[1]]]@data[,1])),
-          
           ylim=c(1,max(ylim.range)),
-          
           main=expression(paste("TL previous ", L[n],",",L[x]," curves",sep="")),
           log=if(log=="y" | log=="xy"){"y"}else{""}
      )
@@ -530,7 +539,6 @@ if(output.plot == TRUE){
           ylab=paste(CWcurve.type," [cts/",resolution.OSLCurves," s]",sep=""),
           xlim=xlim,
           ylim=range(ylim.range),
-           
           main=expression(paste(L[n],",",L[x]," curves",sep="")),
           log=log
        )
@@ -549,6 +557,9 @@ if(output.plot == TRUE){
           abline(v=(min(xlim) + min(background.integral)*resolution.OSLCurves), lty=2, col="gray")
           abline(v=(min(xlim) + max(background.integral)*resolution.OSLCurves), lty=2, col="gray")
 
+
+          ##mtext, implemented here, as a plot window has to be called first
+          mtext(mtext, side = 4, outer = TRUE, line = -1.7, cex = cex, col = "blue")
 
 # Plotting TL Curves previous TnTx ----------------------------------------
 

@@ -125,3 +125,4 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
 
 \keyword{dplot}
 \keyword{models}
+\section{Function version}{0.4.4 (2014-06-18 22:51:44)}

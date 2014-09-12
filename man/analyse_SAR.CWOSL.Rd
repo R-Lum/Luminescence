@@ -6,8 +6,7 @@ object including growth curve fitting.}
 \usage{analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max, 
     background.integral.min, background.integral.max, rejection.criteria = list(recycling.ratio = 10, 
         recuperation.rate = 10, palaeodose.error = 10), dose.points, 
-    log = "", output.plot = TRUE, output.plot.single = FALSE, 
-    ...)}
+    output.plot = TRUE, output.plot.single = FALSE, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): 
 input object containing data for analysis}
@@ -19,9 +18,6 @@ input object containing data for analysis}
 }
   \item{dose.points}{\link{numeric} (optional): a numeric vector containg the dose points values
 Using this argument overwrites dose point values in the signal curves. }
-  \item{log}{\link{character} (with default): a character string which contains "x" 
-if the x axis is to be logarithmic, "y" if the y-axis is to be logarithmic 
-and "xy" or "yx" if both axes are to be logarithmic. See \link{plot.default}.}
   \item{output.plot}{\link{logical} (with default): enables or disables plot output.}
   \item{output.plot.single}{\link{logical} (with default): single plot output (\code{TRUE/FALSE}) to 
 allow for plotting the results in single plot windows. 
@@ -118,3 +114,4 @@ get_RLum.Results(results)
 
 \keyword{datagen}
 \keyword{plot}
+\section{Function version}{0.4.2 (2014-09-12 11:17:40)}

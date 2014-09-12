@@ -162,3 +162,4 @@ calc_MinDose3(ExampleData.DeValues,
 calc_MinDose3(ExampleData.DeValues, log = FALSE,
               sigmab = 0.3)
 }
+\section{Function version}{0.3 (2014-08-21 11:48:06)}

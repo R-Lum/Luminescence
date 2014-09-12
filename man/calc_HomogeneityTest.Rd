@@ -37,3 +37,4 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the homogeneity test
 calc_HomogeneityTest(ExampleData.DeValues)
 }
+\section{Function version}{0.2 (2014-04-13 14:28:06)}

@@ -151,3 +151,4 @@ data(ExampleData.DeValues, envir = environment())
 #              ignore.NA = TRUE,
 #              output.plot = FALSE)
 }
+\section{Function version}{0.3 (2014-08-22 09:43:39)}

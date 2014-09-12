@@ -38,3 +38,4 @@ plot_RLum.Analysis(temp)
 }
 
 \keyword{aplot}
+\section{Function version}{0.1.2 (2014-04-13 14:30:54)}

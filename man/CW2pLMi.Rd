@@ -119,3 +119,4 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 }
 
 \keyword{manip}
+\section{Function version}{0.3 (2014-04-13 14:29:25)}

@@ -198,3 +198,4 @@ fit_LMCurve(values = values.curve,
 
 \keyword{dplot}
 \keyword{models}
+\section{Function version}{0.2.15 (2014-04-13 14:29:53)}

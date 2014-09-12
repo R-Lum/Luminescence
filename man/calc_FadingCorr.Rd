@@ -36,3 +36,4 @@ calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
 }
 
 \keyword{datagen}
+\section{Function version}{0.1.2 (2014-04-13 14:27:43)}

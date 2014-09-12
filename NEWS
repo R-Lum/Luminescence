@@ -33,6 +33,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
   Changes S4-objects, methods, classes:
 
+         • ‘get_RLum.Analysis()’: Add support for inverse ‘record.id’
+           selection, e.g. ‘record.id = -1’ selects all objects except
+           the first.
+
          • ‘get_RLum.Results()’: Add support for data objects for
            objects produced by the function ‘calc_OSLLxTxRatio()’
 
@@ -65,6 +69,15 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • Minor graphical and code polishing,
 
+             • fix wrong regneration point plotting, if sequence
+               contains more then one zero dose point,
+
+             • argument ‘na.exclude’ for the sake consistency replaced
+               by ‘na.rm’,
+
+             • proper error message provided if nothing is left after
+               ‘NA’ value removal.
+
          • ‘calc_OSLLxTxRatio()’:
 
              • Correct an error that causes ‘NA’ values within the
@@ -72,7 +85,11 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                background integreation limits,
 
              • provide a name for the output data frame ‘LxTx.table’
-               for the ‘RLum.Results’ object
+               for the ‘RLum.Results’ object,
+
+             • error fixed for the marginal case that k = 2 and exceed
+               the maximal curve length. In that case accidentially no
+               error was calculated.
 
          • ‘fit_CWCurve()’:
 
@@ -102,18 +119,48 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • layout functionality added,
 
-             • not supported summary keywords fixed.
+             • not supported summary keywords fixed,
+
+             • dispersion polygon bug fixed,
+
+             • dispersion type enriched by userdefined confidence
+               interval,
+
+             • rug option added,
+
+             • multiple 2-sigma-bars allowed,
+
+             • rotate-Option added to Abanico Plot,
+
+             • minor modifications of layout definitions.
 
          • ‘analyse_SAR.CWOSL()’:
 
-             • Clarify behaviour when no OSL curve is provided;
-               function now stops with an error (#132, reported by
-               Alice Versendaal)
+             • Allow 'IRSL' curves as input to support rough data
+               analysis of the post-IR IRSL protocol (#132, Alice
+               Versendaal, #140, Georgina King),
+
+             • support multiple recuperation measurements,
+
+             • correct wrong TL curve figure scaling,
+
+             • argument ‘log’ moved to the ‘...’ argument,
+
+             • arguments ‘mtext’ and ‘cex’ now supported via the ‘...’
+               argument,
+
+             • minor bug fixes (e.g., not properly caluculated TL curve
+               resolution).
+
+         • ‘Analyse_SAR.OSLdata()’:
+
+             • Error message implemented for non OSL data sets (#130,
+               Geogrina King)
 
          • ‘plot_RLum.Data.Curve()’:
 
              • Add argument ‘norm’ to allow for curve normalisation to
-               the highest value (#129)
+               the highest value (#129).
 
          • ‘calc_MaxDose3()’ & ‘calc_MaxDose4()’:
 
@@ -143,5 +190,7 @@ Changes in version 0.4.0 (XX XXXX, 2014):
   Internals:
 
          • Add new dependency for package ‘raster’, which is used for
-           the ‘RLum.Data.Image-class’
+           the ‘RLum.Data.Image-class’,
+
+         • dependency to package Rserve removed.
 
