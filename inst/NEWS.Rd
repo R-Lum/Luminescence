@@ -162,9 +162,9 @@
         
         \item argument \code{log} moved to the \code{...} argument, 
         
-        \item arguments \code{mtext} and \code{cex} now supported via the \code{...} argument,
+        \item arguments \code{mtext}, \code{cex}, \code{main} now supported via the \code{...} argument,
         
-        \item minor bug fixes (e.g., not properly caluculated TL curve resolution). 
+        \item minor bug fixes (e.g., not properly caluculated TL curve resolution) and graphical adjustements.
       
       }
       

@@ -146,11 +146,11 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • argument ‘log’ moved to the ‘...’ argument,
 
-             • arguments ‘mtext’ and ‘cex’ now supported via the ‘...’
-               argument,
+             • arguments ‘mtext’, ‘cex’, ‘main’ now supported via the
+               ‘...’ argument,
 
              • minor bug fixes (e.g., not properly caluculated TL curve
-               resolution).
+               resolution) and graphical adjustements.
 
          • ‘Analyse_SAR.OSLdata()’:
 

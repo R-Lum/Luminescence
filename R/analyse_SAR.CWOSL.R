@@ -109,6 +109,9 @@ object!")
   mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else 
   {""}
 
+  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else 
+  {""}
+  
   log <- if("log" %in% names(extraArgs)) {extraArgs$log} else 
   {""}
 
@@ -496,10 +499,13 @@ if(output.plot == TRUE){
           xlim=c(object@records[[TL.Curves.ID.Lx[1]]]@data[1,1],
                  max(object@records[[TL.Curves.ID.Lx[1]]]@data[,1])),
           ylim=c(1,max(ylim.range)),
-          main=expression(paste("TL previous ", L[n],",",L[x]," curves",sep="")),
+          main=main,
           log=if(log=="y" | log=="xy"){"y"}else{""}
      )
     
+     #provide curve information as mtext, to keep the space for the header
+     mtext(side = 3, expression(paste("TL previous ", L[n],",",L[x]," curves",sep="")), cex = cex)
+     
      ##plot TL curves
      sapply(1:length(TL.Curves.ID.Lx) ,function(x){
                   
@@ -539,10 +545,13 @@ if(output.plot == TRUE){
           ylab=paste(CWcurve.type," [cts/",resolution.OSLCurves," s]",sep=""),
           xlim=xlim,
           ylim=range(ylim.range),
-          main=expression(paste(L[n],",",L[x]," curves",sep="")),
+          main=main,
           log=log
        )
       
+       #provide curve information as mtext, to keep the space for the header
+       mtext(side = 3, expression(paste(L[n],",",L[x]," curves",sep="")), cex = cex)
+
         ##plot curves
            sapply(1:length(OSL.Curves.ID.Lx), function(x){
                
@@ -589,12 +598,13 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
        ylab=paste("TL [cts/",resolution.TLCurves," \u00B0C]",sep=""),
        xlim=c(object@records[[TL.Curves.ID.Tx[1]]]@data[1,1],
               max(object@records[[TL.Curves.ID.Tx[1]]]@data[,1])),
-       
        ylim=c(1,max(ylim.range)),
-       
-       main=expression(paste("TL previous ", T[n],",",T[x]," curves",sep="")),
+       main=main,
        log=if(log=="y" | log=="xy"){"y"}else{""}
   )
+  
+  #provide curve information as mtext, to keep the space for the header
+  mtext(side = 3, expression(paste("TL previous ", T[n],",",T[x]," curves",sep="")), cex = cex)
   
   ##plot TL curves
   sapply(1:length(TL.Curves.ID.Tx) ,function(x){
@@ -636,10 +646,13 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
          ylab=paste(CWcurve.type ," [cts/",resolution.OSLCurves," s]",sep=""),
            xlim=xlim,     
            ylim=range(ylim.range),
-     
-           main=expression(paste(T[n],",",T[x]," curves",sep="")),
+           main=main,
            log=log
     )
+
+       #provide curve information as mtext, to keep the space for the header
+       mtext(side = 3, expression(paste(T[n],",",T[x]," curves",sep="")), cex = cex)
+      
 
       ##plot curves and get legend values
       sapply(1:length(OSL.Curves.ID.Tx) ,function(x){
