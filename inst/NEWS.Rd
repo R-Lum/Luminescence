@@ -218,7 +218,9 @@
    \itemize{   
   
     \item Add new dependency for package \code{raster}, which is used 
-    for the \code{RLum.Data.Image-class}
+    for the \code{RLum.Data.Image-class},
+
+    \item dependency to package Rserve removed.  
   }
   }
 

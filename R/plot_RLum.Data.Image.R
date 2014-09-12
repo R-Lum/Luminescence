@@ -97,14 +97,14 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   ## standard raster plot (package raster)
   ## ==========================================================================#      
   }else if(plot.type == "plot.raster"){
-    
+
     plot(get_RLum.Data.Image(object),
          main = main, 
          xlab = xlab,
          ylab = ylab,
          col = col,
          stretch = stretch) 
-    
+    print("test")
   ## ==========================================================================#
   ## standard contour (package raster)
   ## ==========================================================================#     
