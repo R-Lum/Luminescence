@@ -32,7 +32,11 @@
       more homogenous plotting.
       
    \item \code{analyse_pIRIRSequence()}: Function to analyse post-IR IRSL sequence
-   measurements. 
+   measurements.
+   
+   \item \code{merge_RLum()}: Wrapper functions for various merge for \code{RLum}-objects (#139).
+   
+   
   }
   
   

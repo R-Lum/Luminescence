@@ -34,6 +34,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
          • ‘analyse_pIRIRSequence()’: Function to analyse post-IR IRSL
            sequence measurements.
 
+         • ‘merge_RLum()’: Wrapper functions for various merge for
+           ‘RLum’-objects (#139).
+
   Changes S4-objects, methods, classes:
 
          • ‘get_RLum.Analysis()’: Add support for inverse ‘record.id’
