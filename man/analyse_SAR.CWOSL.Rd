@@ -4,23 +4,32 @@
 \description{The function performs a SAR CW-OSL analysis on a \code{\linkS4class{RLum.Analysis}}
 object including growth curve fitting.}
 \usage{analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max, 
-    background.integral.min, background.integral.max, rejection.criteria = list(recycling.ratio = 10, 
-        recuperation.rate = 10, palaeodose.error = 10), dose.points, 
-    output.plot = TRUE, output.plot.single = FALSE, ...)}
+    background.integral.min, background.integral.max, rejection.criteria, 
+    dose.points, mtext.outer, output.plot = TRUE, output.plot.single = FALSE, 
+    ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): 
 input object containing data for analysis}
   \item{signal.integral.min}{\code{\link{integer}} (\bold{required}): lower bound of the signal integral}
-  \item{signal.integral.max}{code{\link{integer}} (\bold{required}): upper bound of the signal integral}
+  \item{signal.integral.max}{\code{\link{integer}} (\bold{required}): upper bound of the signal integral}
   \item{background.integral.min}{\code{\link{integer}} (\bold{required}): lower bound of the background integral}
   \item{background.integral.max}{\code{\link{integer}} (\bold{required}): upper bound of the background integral}
-  \item{rejection.criteria}{
-}
-  \item{dose.points}{\link{numeric} (optional): a numeric vector containg the dose points values
-Using this argument overwrites dose point values in the signal curves. }
-  \item{output.plot}{\link{logical} (with default): enables or disables plot output.}
-  \item{output.plot.single}{\link{logical} (with default): single plot output (\code{TRUE/FALSE}) to 
-allow for plotting the results in single plot windows. 
+  \item{rejection.criteria}{\code{\link{list}} (with default): provide list and set rejection criteria in 
+percentage for further calculation. Allowed arguments are \code{recycling.ratio}, 
+\code{recuperation.rate} and \code{palaeodose.error},
+e.g. \code{rejection.criteria = list(recycling.ratio = 10}
+Per default all values are set to 10. }
+  \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector containg the dose points values
+Using this argument overwrites dose point values in the signal curves.}
+  \item{mtext.outer}{\code{\link{character}} (optional): option to provide an outer margin mtext }
+  \item{output.plot}{\code{\link{logical}} (with default): enables or disables plot output.}
+  \item{output.plot.single}{\code{\link{logical}} (with default) or \code{\link{numeric}} (optional): 
+single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
+in single plot windows. If a numerice vector is provided the plots
+can be selected individually, i.e. \code{output.plot.single = c(1,2,3,4)} 
+will plot the TL and Lx, Tx curves but not the legend (5) 
+or the growth curve
+(6). 
 Requires \code{output.plot = TRUE}.}
   \item{\dots}{further arguments that will be passed to the function 
 \code{\link{plot_GrowthCurve}}}
@@ -44,12 +53,16 @@ Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves. Only
 one curve type can be analysed at the same time: 
 The pIRIR50 curves or the pIRIR225 curves.\cr\cr
 
-\bold{Provided rejection criteria}\cr\cr
+\bold{Supported rejection criteria}\cr\cr
 \sQuote{recyling.ratio}: calculated for every repeated regeneration dose point.\cr
+
 \sQuote{recuperation.rate}: recuperation rate calculated by comparing the 
 Lx/Tx values of the zero regeneration point with the Ln/Tn value 
 (the Lx/Tx ratio of the natural signal). 
-For methodological background see Aitken and Smith (1988)}
+For methodological background see Aitken and Smith (1988)\cr
+
+\sQuote{palaeodose.error}: set the allowed error for the De value, which per
+default should not exceed 10\%.}
 \value{A plot (optional) and an \code{\linkS4class{RLum.Results}} object is 
 returned containing the following elements: 
 \item{De.values}{\link{data.frame} containing De-values, 
@@ -58,8 +71,10 @@ De-error and further parameters}
 including signal, background counts and the dose points.}
 \item{rejection.criteria}{\link{data.frame} with values that might by 
 used as rejection criteria. NA is produced if no R0 dose point 
-exists.}\cr
-
+exists.}
+\item{Formula}{\link{formula} formula that have been used for the 
+growth curve fitting
+}\cr
 The output should be accessed using the function 
 \code{\link{get_RLum.Results}}}
 \references{Aitken, M.J. & Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
@@ -107,11 +122,14 @@ results <- analyse_SAR.CWOSL(object,
                   log = "x",
                   fit.method = "EXP")
 
-##show results 
+##show De results 
 get_RLum.Results(results)
+
+##show LnTnLxTx table
+get_RLum.Results(results, data.object = "LnLxTnTx.table")
 
 }
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.4.2 (2014-09-12 13:38:37)}
+\section{Function version}{0.4.7 (2014-09-15 02:28:00)}

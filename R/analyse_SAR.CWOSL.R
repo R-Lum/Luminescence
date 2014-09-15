@@ -7,7 +7,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.4.2
+  ## version 0.4.7
   # ===========================================================================
 
   object,
@@ -18,7 +18,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ### \code{\link{integer}} (\bold{required}): lower bound of the signal integral
   
   signal.integral.max,
-  ### code{\link{integer}} (\bold{required}): upper bound of the signal integral
+  ### \code{\link{integer}} (\bold{required}): upper bound of the signal integral
   
   background.integral.min,
   ### \code{\link{integer}} (\bold{required}): lower bound of the background integral
@@ -26,22 +26,31 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   background.integral.max,
   ### \code{\link{integer}} (\bold{required}): upper bound of the background integral
   
-  rejection.criteria = list(recycling.ratio = 10, 
-                            recuperation.rate = 10, 
-                            palaeodose.error = 10),
-  ### \link{list} (with default): list containing rejection criteria in 
-  ### percentage for the calculation. 
+  rejection.criteria,
+  ### \code{\link{list}} (with default): provide list and set rejection criteria in 
+  ### percentage for further calculation. Allowed arguments are \code{recycling.ratio}, 
+  ### \code{recuperation.rate} and \code{palaeodose.error},
+  ### e.g. \code{rejection.criteria = list(recycling.ratio = 10}
+  ### Per default all values are set to 10. 
   
   dose.points,
-  ### \link{numeric} (optional): a numeric vector containg the dose points values
-  ### Using this argument overwrites dose point values in the signal curves. 
+  ### \code{\link{numeric}} (optional): a numeric vector containg the dose points values
+  ### Using this argument overwrites dose point values in the signal curves.
+  
+  mtext.outer, 
+  ### \code{\link{character}} (optional): option to provide an outer margin mtext 
   
   output.plot = TRUE,
-  ### \link{logical} (with default): enables or disables plot output.
+  ### \code{\link{logical}} (with default): enables or disables plot output.
   
   output.plot.single = FALSE,
-  ### \link{logical} (with default): single plot output (\code{TRUE/FALSE}) to 
-  ### allow for plotting the results in single plot windows. 
+  ### \code{\link{logical}} (with default) or \code{\link{numeric}} (optional): 
+  ### single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
+  ### in single plot windows. If a numerice vector is provided the plots
+  ### can be selected individually, i.e. \code{output.plot.single = c(1,2,3,4)} 
+  ### will plot the TL and Lx, Tx curves but not the legend (5) 
+  ### or the growth curve
+  ### (6). 
   ### Requires \code{output.plot = TRUE}.
   
   ... 
@@ -51,7 +60,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
 ){
 
 # CONFIG  -----------------------------------------------------------------
-  
+
   ##build signal and background integrals
   signal.integral <- c(signal.integral.min:signal.integral.max)
   background.integral <- c(background.integral.min:background.integral.max)
@@ -101,13 +110,52 @@ object!")
                             "IRSL","OSL")
 
 
-# Deal with extra arguments -------------------------------------------------------------------
+
+# Rejection criteria ------------------------------------------------------
+
+  #Set rejection criteria
+  if(missing(rejection.criteria)){
+  
+    rejection.criteria <- list(
+      recycling.ratio = 10, recuperation.rate = 10, palaeodose.error = 10)
+  
+  }else{
+  
+    ##recycling ratio
+    temp.recycling.ratio <- if("recycling.ratio" %in% names(rejection.criteria)) {
+      
+      rejection.criteria$recycling.ratio
+    
+    } else {10}
+    
+    ##recuperation rate
+    temp.recuperation.rate <- if("recuperation.rate" %in% names(rejection.criteria)) {
+      
+      rejection.criteria$recuperation.rate
+      
+    } else {10}
+    
+    ##paleaodose error
+    temp.palaeodose.error <- if("palaeodose.error" %in% names(rejection.criteria)) {
+      
+      rejection.criteria$palaeodose.error
+      
+    } else {10}
+  
+    ##combine 
+    rejection.criteria <- list(
+      recycling.ratio = temp.recycling.ratio, 
+      recuperation.rate = temp.recuperation.rate,
+      palaeodose.error = temp.palaeodose.error)
+  
+    ##remove objects
+    rm(temp.recycling.ratio,temp.recuperation.rate, temp.palaeodose.error )
+  }
+
+# Deal with extra arguments ----------------------------------------------------
 
   ##deal with addition arguments 
   extraArgs <- list(...) 
-
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else 
-  {""}
 
   main <- if("main" %in% names(extraArgs)) {extraArgs$main} else 
   {""}
@@ -116,7 +164,7 @@ object!")
   {""}
 
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else 
-  {0.6}
+  {1}
 
 
 # Protocol Integrity Checks -------------------------------------------------- 
@@ -283,7 +331,7 @@ object!")
           
           if(length(dose.points)!=length(LnLxTnTx$Dose)){
             
-            stop("[analyse_SAR.CWOSL] length 'dose.points' differs from number of curves.")
+            stop("[analyse_SAR.CWOSL()] length 'dose.points' differs from number of curves.")
             
           }
           
@@ -304,6 +352,16 @@ object!")
         ##set R0
         temp.DoseName[temp.DoseName[,"Name"]!="Natural" & 
                         temp.DoseName[,"Dose"]==0,"Name"]<-"R0"
+
+        ##correct numeration numeration of other dose points
+        
+            ##how many dose points do we have with 0?
+            non.temp.zero.dose.number <- nrow(temp.DoseName[
+              temp.DoseName[, "Dose"] != 0, ])
+
+        temp.DoseName[temp.DoseName[,"Name"]!="Natural" & 
+                      temp.DoseName[,"Name"]!="R0","Name"]<-paste(
+                        "R",c(1:non.temp.zero.dose.number),sep="")
           
         ##find duplicated doses (including 0 dose - which means the Natural) 
         temp.DoseDuplicated<-duplicated(temp.DoseName[,"Dose"])
@@ -431,12 +489,13 @@ if(output.plot == TRUE){
 
 # Plotting - Config -------------------------------------------------------
   
-  par.default <- par(no.readonly = TRUE)
-
   ##colours and double for plotting
   col <- get("col", pos = .LuminescenceEnv)
 
-  if(output.plot.single == FALSE){
+  if(output.plot.single[1] == FALSE){
+    
+    ## read par settings
+    par.default <- par(no.readonly = TRUE)
     
     layout(matrix(c(1,1,3,3,
                     1,1,3,3,
@@ -444,14 +503,36 @@ if(output.plot == TRUE){
                     2,2,4,4,
                     5,5,5,5),5,4,byrow=TRUE))
     
-    par(oma=c(0,0,0,0), mar=c(4,4,3,3), cex = cex)
-    
+    par(oma=c(0,0,0,0), mar=c(4,4,3,3), cex = cex*0.6)
+  
     ## 1 -> TL previous LnLx
     ## 2 -> LnLx
     ## 3 -> TL previous TnTx
     ## 4 -> TnTx 
-    ## 5 -> Legend
-  }else{par(mfrow=c(1,1))}   
+    ## 5 -> Legend  
+    
+    ## set selected curves to allow plotting of all curves
+    output.plot.single.sel <- c(1,2,3,4,5,6)
+    
+  }else{
+    
+ 
+    ##check for values in the single output of the function and convert
+    if(!is(output.plot.single, "logical")){
+            
+      if(!is(output.plot.single, "numeric")){
+        stop("[analyse_SAR.CWOSL()] Invalid data type for 'output.plot.single'.")
+      }
+      
+    output.plot.single.sel  <- output.plot.single  
+      
+    }else{
+      
+    output.plot.single.sel <- c(1,2,3,4,5,6)
+      
+    }
+  
+  }   
   
 
   ##warning if number of curves exceed colour values
@@ -475,7 +556,9 @@ if(output.plot == TRUE){
 
 # Plotting TL Curves previous LnLx ----------------------------------------
 
-  
+  ##overall plot option selection for output.plot.single.sel
+  if(1%in%output.plot.single.sel){
+
   ##check if TL curves are available
   if(length(TL.Curves.ID.Lx[[1]]>0)) {
     
@@ -504,7 +587,9 @@ if(output.plot == TRUE){
      )
     
      #provide curve information as mtext, to keep the space for the header
-     mtext(side = 3, expression(paste("TL previous ", L[n],",",L[x]," curves",sep="")), cex = cex)
+     mtext(side = 3, 
+           expression(paste("TL previous ", L[n],",",L[x]," curves",sep="")), 
+           cex = cex*0.8)
      
      ##plot TL curves
      sapply(1:length(TL.Curves.ID.Lx) ,function(x){
@@ -526,10 +611,12 @@ if(output.plot == TRUE){
     text(0.5,0.5, "No TL curve detected")
     
   }
-
+}#output.plot.single.sel
 
 # Plotting LnLx Curves ----------------------------------------------------
 
+  ##overall plot option selection for output.plot.single.sel
+  if(2%in%output.plot.single.sel){
 
       ylim.range <- sapply(1:length(OSL.Curves.ID.Lx) ,function(x){
                       
@@ -550,7 +637,8 @@ if(output.plot == TRUE){
        )
       
        #provide curve information as mtext, to keep the space for the header
-       mtext(side = 3, expression(paste(L[n],",",L[x]," curves",sep="")), cex = cex)
+       mtext(side = 3, expression(paste(L[n],",",L[x]," curves",sep="")),
+             cex = cex*0.8)
 
         ##plot curves
            sapply(1:length(OSL.Curves.ID.Lx), function(x){
@@ -560,20 +648,28 @@ if(output.plot == TRUE){
                   })
            
         
-          ##mark integration limits
-          abline(v=(min(xlim) + min(signal.integral)*resolution.OSLCurves), lty=2, col="gray")
-          abline(v=(min(xlim) + max(signal.integral)*resolution.OSLCurves), lty=2, col="gray")
-          abline(v=(min(xlim) + min(background.integral)*resolution.OSLCurves), lty=2, col="gray")
-          abline(v=(min(xlim) + max(background.integral)*resolution.OSLCurves), lty=2, col="gray")
+      ##mark integration limit Lx curves
+      abline(v=(object@records[[OSL.Curves.ID.Lx[1]]]@data[
+        min(signal.integral),1]), lty=2, col="gray")
+      abline(v=(object@records[[OSL.Curves.ID.Lx[1]]]@data[
+        max(signal.integral),1]), lty=2, col="gray")
+      abline(v=(object@records[[OSL.Curves.ID.Lx[1]]]@data[
+        min(background.integral),1]), lty=2, col="gray")
+      abline(v=(object@records[[OSL.Curves.ID.Lx[1]]]@data[
+        max(background.integral),1]), lty=2, col="gray")
 
+      ##mtext, implemented here, as a plot window has to be called first
+      if(missing(mtext.outer)){mtext.outer  <- ""}
+      mtext(mtext.outer, side = 4, outer = TRUE, line = -1.7, cex = cex, col = "blue")
 
-          ##mtext, implemented here, as a plot window has to be called first
-          mtext(mtext, side = 4, outer = TRUE, line = -1.7, cex = cex, col = "blue")
-
+  }# output.plot.single.sel  
+      
 # Plotting TL Curves previous TnTx ----------------------------------------
 
-##check if TL curves are available
+##overall plot option selection for output.plot.single.sel
+if(3%in%output.plot.single.sel){
 
+##check if TL curves are available
 if(length(TL.Curves.ID.Tx[[1]]>0)) {
   
   ##It is just an approximation taken from the data
@@ -604,7 +700,9 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
   )
   
   #provide curve information as mtext, to keep the space for the header
-  mtext(side = 3, expression(paste("TL previous ", T[n],",",T[x]," curves",sep="")), cex = cex)
+  mtext(side = 3, 
+        expression(paste("TL previous ", T[n],",",T[x]," curves",sep="")), 
+        cex = cex*0.8)
   
   ##plot TL curves
   sapply(1:length(TL.Curves.ID.Tx) ,function(x){
@@ -627,9 +725,12 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
   
 }
 
+}#output.plot.single.sel
 
 # Plotting TnTx Curves ----------------------------------------------------
 
+##overall plot option selection for output.plot.single.sel
+if(4%in%output.plot.single.sel){
 
     ylim.range <- sapply(1:length(OSL.Curves.ID.Tx) ,function(x){
   
@@ -637,8 +738,8 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
                   
                   })
 
-
-    xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1], max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
+    xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1], 
+              max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
 
     #open plot area LnLx
     plot(NA,NA,
@@ -651,7 +752,9 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
     )
 
        #provide curve information as mtext, to keep the space for the header
-       mtext(side = 3, expression(paste(T[n],",",T[x]," curves",sep="")), cex = cex)
+       mtext(side = 3, 
+             expression(paste(T[n],",",T[x]," curves",sep="")), 
+             cex = cex*0.8)
       
 
       ##plot curves and get legend values
@@ -661,32 +764,45 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
   
       })
 
-      ##mark integration limit
-      abline(v=(min(xlim) + min(signal.integral)*resolution.OSLCurves), lty=2, col="gray")
-      abline(v=(min(xlim) + max(signal.integral)*resolution.OSLCurves), lty=2, col="gray")
-      abline(v=(min(xlim) + min(background.integral)*resolution.OSLCurves), lty=2, col="gray")
-      abline(v=(min(xlim) + max(background.integral)*resolution.OSLCurves), lty=2, col="gray")
-
+      ##mark integration limit Tx curves
+      abline(v=(object@records[[OSL.Curves.ID.Tx[1]]]@data[
+        min(signal.integral),1]), lty=2, col="gray")
+     abline(v=(object@records[[OSL.Curves.ID.Tx[1]]]@data[
+        max(signal.integral),1]), lty=2, col="gray")
+    abline(v=(object@records[[OSL.Curves.ID.Tx[1]]]@data[
+      min(background.integral),1]), lty=2, col="gray")
+     abline(v=(object@records[[OSL.Curves.ID.Tx[1]]]@data[
+        max(background.integral),1]), lty=2, col="gray")
+  
+}# output.plot.single.sel
 
 # Plotting Legend ----------------------------------------
 
+##overall plot option selection for output.plot.single.sel
+if(5%in%output.plot.single.sel){
+  
+  par.margin  <- par()$mar
+  par.mai  <- par()$mai
+  par(mar = c(1,1,1,1), mai = c(0,0,0,0))
 
-plot(c(1:(length(OSL.Curves.ID)/2)),
-     rep(8,length(OSL.Curves.ID)/2),
+  plot(c(1:(length(OSL.Curves.ID)/2)),
+     rep(7,length(OSL.Curves.ID)/2),
      type = "p", 
      axes=FALSE, 
      xlab="", 
      ylab="",
-     pch=15,
+     pch=20,
      col=unique(col[1:length(OSL.Curves.ID)]),
-     cex=2,
-     ylim=c(0,10)
-     )
+     cex=4*cex,
+     ylim=c(0,10))
 
 ##add text
 text(c(1:(length(OSL.Curves.ID)/2)), 
-     rep(4,length(OSL.Curves.ID)/2),
-     legend.text)
+     rep(7,length(OSL.Curves.ID)/2),
+     legend.text,
+     offset = 1,
+     pos = 1)
+     
 
 ##add line
 abline(h=10,lwd=0.5)
@@ -699,8 +815,18 @@ if(length(grep("FAILED", RejectionCriteria$status))>0){
   
 }
 
-par(par.default)
-rm(par.default)
+#reset margin
+par(mar = par.margin, mai = par.mai)
+
+}#output.plot.single.sel
+
+  if(exists("par.default")){
+    
+    par(par.default)
+    rm(par.default)
+
+  }
+
 
 }##end output.plot == TRUE
 
@@ -712,13 +838,27 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                           TnTx=LnLxTnTx$Net_TnTx
                           )
 
- temp.GC <- get_RLum.Results(plot_GrowthCurve(temp.sample,
-                                              output.plot = output.plot,
-                                              ...))[,c("De","De.Error")]
-
-
-
+  ##overall plot option selection for output.plot.single.sel
+  if(output.plot == TRUE & 6%in%output.plot.single.sel){
+    
+    output.plot  <-  TRUE
   
+    }else {
+    
+    output.plot  <- FALSE
+  
+    }
+
+ ##Fit and plot growth curve
+ temp.GC <- plot_GrowthCurve(temp.sample,
+                             output.plot = output.plot,
+                              ...)
+ 
+ ##grep informaton on the fit object
+ temp.GC.fit.Formula  <- get_RLum.Results(temp.GC, "Formula")
+  
+ ##grep results
+ temp.GC <- get_RLum.Results(temp.GC)
 
 # Provide Rejection Criteria for Palaedose error --------------------------
 
@@ -755,15 +895,21 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
     
   }
 
+  ##add information on the integration limits
+  temp.GC.extened <- data.frame(signal.range = paste(signal.integral.min,":",
+                                                       signal.integral.max), 
+                                background.range = paste(background.integral.min,":",
+                                                 background.integral.max))
 
+   
 # Return Values -----------------------------------------------------------
 
-  temp.return <- new("RLum.Results",
-                     originator = "analyse_SAR.CWOSL",
-                     data = list(
-                       De.values = temp.GC, 
-                       LnLxTnTx.table = LnLxTnTx, 
-                       rejection.criteria = RejectionCriteria))
+  temp.return <- set_RLum.Results(
+    data = list(
+      De.values = as.data.frame(c(temp.GC, temp.GC.extened)),
+      LnLxTnTx.table = LnLxTnTx, 
+      rejection.criteria = RejectionCriteria,
+      Formula = temp.GC.fit.Formula))
 
   return(temp.return)
   
@@ -789,12 +935,16 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## one curve type can be analysed at the same time: 
   ## The pIRIR50 curves or the pIRIR225 curves.\cr\cr
   ## 
-  ## \bold{Provided rejection criteria}\cr\cr
+  ## \bold{Supported rejection criteria}\cr\cr
   ## \sQuote{recyling.ratio}: calculated for every repeated regeneration dose point.\cr
+  ##
   ## \sQuote{recuperation.rate}: recuperation rate calculated by comparing the 
   ## Lx/Tx values of the zero regeneration point with the Ln/Tn value 
   ## (the Lx/Tx ratio of the natural signal). 
-  ## For methodological background see Aitken and Smith (1988)
+  ## For methodological background see Aitken and Smith (1988)\cr
+  ##
+  ## \sQuote{palaeodose.error}: set the allowed error for the De value, which per
+  ## default should not exceed 10%.
 
   ##value<<
   ## A plot (optional) and an \code{\linkS4class{RLum.Results}} object is 
@@ -805,8 +955,10 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## including signal, background counts and the dose points.}
   ## \item{rejection.criteria}{\link{data.frame} with values that might by 
   ## used as rejection criteria. NA is produced if no R0 dose point 
-  ## exists.}\cr
-  ##
+  ## exists.}
+  ## \item{Formula}{\link{formula} formula that have been used for the 
+  ## growth curve fitting
+  ## }\cr
   ## The output should be accessed using the function 
   ## \code{\link{get_RLum.Results}}
   
@@ -862,7 +1014,10 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                     log = "x",
                     fit.method = "EXP")
   
-  ##show results 
+  ##show De results 
   get_RLum.Results(results)
+  
+  ##show LnTnLxTx table
+  get_RLum.Results(results, data.object = "LnLxTnTx.table")
   
 })#END OF STRUCTURE

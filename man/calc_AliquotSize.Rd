@@ -114,4 +114,4 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
                  grains.counted = c(2525,2312,2880))
 
 }
-\section{Function version}{0.3 (2014-04-13 14:27:11)}
+\section{Function version}{0.3 (2014-09-15 02:28:00)}

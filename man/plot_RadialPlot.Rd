@@ -206,4 +206,4 @@ plot_RadialPlot(data = data.3,
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
 }
-\section{Function version}{0.5.2 (2014-09-08 09:50:08)}
+\section{Function version}{0.5.2 (2014-09-15 02:28:00)}

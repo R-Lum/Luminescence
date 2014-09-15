@@ -5,7 +5,7 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France), \cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
   ## version 0.1
@@ -129,7 +129,7 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   ## \bold{Details on the plot functions} \cr
   ## 
   ## Image is visualised as 2D plot usinng generic plot types provided by other 
-  ## package.
+  ## packages.
   ## R plot functions. \cr
   ##
   ## \bold{\code{plot.type = "plot.raster"}}\cr

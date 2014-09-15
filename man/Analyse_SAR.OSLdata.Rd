@@ -104,4 +104,4 @@ output.SAR
 
 \keyword{datagen}
 \keyword{dplot}
-\section{Function version}{0.2.13 (2014-09-08 00:18:51)}
+\section{Function version}{0.2.13 (2014-09-15 02:28:00)}

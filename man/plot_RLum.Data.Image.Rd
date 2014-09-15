@@ -20,7 +20,7 @@ specific plot functions.}
 \details{\bold{Details on the plot functions} \cr
 
 Image is visualised as 2D plot usinng generic plot types provided by other 
-package.
+packages.
 R plot functions. \cr
 
 \bold{\code{plot.type = "plot.raster"}}\cr
@@ -38,7 +38,7 @@ Uses the function contour plot function from the \code{\link{raster}}
 function (\code{\link[raster]{contour}}).}
 \value{Returns a plot.}
 \references{-}
-\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France), \cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{This function has been created to faciliate the plotting of image data imported
 by the function \code{\link{readSPE2R}}. However, so far the function 
@@ -56,4 +56,4 @@ my or extremely slow. }
 }
 
 \keyword{aplot}
-\section{Function version}{0.1 (2014-09-11 17:24:28)}
+\section{Function version}{0.1 (2014-09-15 02:28:00)}

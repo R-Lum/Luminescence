@@ -67,4 +67,4 @@ get_RLum.Results(temp)
 }
 
 \keyword{dplot}
-\section{Function version}{0.4.0 (2014-04-13 14:27:55)}
+\section{Function version}{0.4.0 (2014-09-15 02:28:00)}

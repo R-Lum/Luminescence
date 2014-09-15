@@ -31,6 +31,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
          • ‘get_Layout()’: Helper function to return a list with layout
            definitions for more homogenous plotting.
 
+         • ‘analyse_pIRIRSequence()’: Function to analyse post-IR IRSL
+           sequence measurements.
+
   Changes S4-objects, methods, classes:
 
          • ‘get_RLum.Analysis()’: Add support for inverse ‘record.id’
@@ -63,7 +66,13 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • correct function break for a single column matrix
                (single frame spectrum) by automatically resetting
-               ‘plot.type’ to ‘single’ for single frame spectra.
+               ‘plot.type’ to ‘single’ for single frame spectra,
+
+             • colour rug (‘rug = TRUE’) implemented for plot type
+               ‘"multiple.lines"’ (#130),
+
+             • argument ‘xaxis.energy’ for wavelength energy conversion
+               for 2D plots added (#141).
 
          • ‘plot_GrowthCurve()’:
 
@@ -76,7 +85,17 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                by ‘na.rm’,
 
              • proper error message provided if nothing is left after
-               ‘NA’ value removal.
+               ‘NA’ value removal,
+
+             • overshoot of normal distribution curve in MC simulation
+               plot corrected (#111),
+
+             • argument ‘output.plotExtended.single’ added allowing a
+               single window plot output of all plots,
+
+             • formula of the fitted function is now returend as R
+               expression instead of a ‘formula’ object. The return
+               object remains, however, ‘Formula’.
 
          • ‘calc_OSLLxTxRatio()’:
 
@@ -146,8 +165,31 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • argument ‘log’ moved to the ‘...’ argument,
 
-             • arguments ‘mtext’, ‘cex’, ‘main’ now supported via the
-               ‘...’ argument,
+             • correct wrong regeneration point numbering (#144),
+
+             • arguments ‘cex’, ‘main’ now supported via the ‘...’
+               argument,
+
+             • argument ‘mtext.outer’ added,
+
+             • output object ‘Formula’ added to return the fromula of
+               the growth curve,
+
+             • output object ‘De.values’ extended for D01, D02 and
+               information on the applied fittin,
+
+             • numerical output extended for information on the choosen
+               signal and background integration limits (#122),
+
+             • enhance argument ‘output.plot.single’ for numerical
+               values.  This allows to select each single plot output
+               individually,
+
+             • details from the argument ‘rejection.criteria’ were
+               removed from the argument list to allow a more flexible
+               handling (e.g. changing only one parameter at time) and
+               to clean up the argument list. However, the argument
+               work still as excpected (#145).
 
              • minor bug fixes (e.g., not properly caluculated TL curve
                resolution) and graphical adjustements.

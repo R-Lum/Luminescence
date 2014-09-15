@@ -7,7 +7,7 @@ regenerative protocol.}
     fit.method = "EXP", fit.weights = TRUE, fit.includingRepeatedRegPoints = TRUE, 
     fit.NumberRegPoints, fit.NumberRegPointsReal, fit.bounds = TRUE, 
     NumberIterations.MC = 100, output.plot = TRUE, output.plotExtended = TRUE, 
-    cex.global = 1, ...)}
+    output.plotExtended.single = FALSE, cex.global = 1, ...)}
 \arguments{
   \item{sample}{\code{\link{data.frame}} (\bold{required}): data frame with three columns
 for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the test dose 
@@ -40,6 +40,10 @@ area are provided: (1) growth curve, (2) histogram from Monte
 Carlo error simulation and (3) a test dose response plot. If \code{FALSE}, 
 just the growth curve will be plotted. \bold{Requires:} 
 \code{output.plot = TRUE}.}
+  \item{output.plotExtended.single}{\code{\link{logical}} (with default): 
+single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
+in single plot windows. 
+Requires \code{output.plot = TRUE} and \code{output.plotExtended = TRUE}.}
   \item{cex.global}{\code{\link{numeric}} (with default): global scaling factor.}
   \item{\dots}{Further arguments and graphical parameters to be passed. Note: Standard 
 arguments will only be passed to the growth curve plot}
@@ -89,7 +93,8 @@ To avoid plotting the subtitle information, provide an empty user mtext
 \value{\code{RLum.Results} object containing the De (De, De Error, D01 value, D02 value and Fit 
 type) and fit object \link{nls} object for \code{EXP}, \code{EXP+LIN} 
 and \code{EXP+EXP}. In case of a resulting linear fit when using 
-\code{EXP OR LIN}, a \link{lm} object is returned. 
+\code{EXP OR LIN}, a \link{lm} object is returned. \cr
+The formula \code{Formula} is returned as R expression for further evaluation.
 Additionally a plot is returned.}
 
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
@@ -118,4 +123,4 @@ plot_GrowthCurve(LxTxData)
 plot_GrowthCurve(LxTxData)
 ##dev.off()  
 }
-\section{Function version}{1.2.9 (2014-09-09 18:24:48)}
+\section{Function version}{1.2.12 (2014-09-15 02:28:00)}

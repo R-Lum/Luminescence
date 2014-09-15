@@ -43,4 +43,4 @@ Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data, id = 1)
 }
 
 \keyword{manip}
-\section{Function version}{0.1 (2014-04-13 14:32:07)}
+\section{Function version}{0.1 (2014-09-15 02:28:00)}

@@ -5,7 +5,7 @@
 RLum.Data.Spectrum S4 class object }
 \usage{plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour", 
     optical.wavelength.colours = TRUE, bg.channels, bin.rows = 1, 
-    bin.cols = 1, ...)}
+    bin.cols = 1, rug = TRUE, xaxis.energy = FALSE, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): 
 S4 object of class \code{RLum.Data.Spectrum}}
@@ -31,6 +31,11 @@ Note: Background subtraction is applied prior to channel binning}
   \item{bin.cols}{\code{\link{integer}} (with default): allow summing-up channel counts 
 (vertical binning) for plotting, 
 e.g. \code{bin.cols = 2} two channels are summed up}
+  \item{rug}{\code{\link{logical}} (with default): enables or disables colour rug. 
+Currently only implemented for plot type \code{multiple.lines}.}
+  \item{xaxis.energy}{\code{\link{logical}} (with default): enables or disables energy instead
+of wavelength axis. Axis labelling are changed accordingly, so far no 
+manual axis labelling is choosen. }
   \item{\dots}{further arguments and graphical parameters that will be passed to the 
 \code{plot} function.}
 }
@@ -92,7 +97,7 @@ plot along the summed up count values of channel 300 to 310.
 \code{lwd} \cr}
 \value{Returns a plot.}
 \references{#}
-\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France), \cr
+\author{Sebastian Kreutzer, IRMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{Not all additional arguments (\code{...}) will be passed similarly!}
 
@@ -130,4 +135,4 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 }
 
 \keyword{aplot}
-\section{Function version}{0.3.2 (2014-07-22 16:33:29)}
+\section{Function version}{0.3.4 (2014-09-15 02:28:00)}

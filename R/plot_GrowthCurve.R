@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ##version 1.2.9
+  ##version 1.2.12
   # ===========================================================================
   
   sample,
@@ -66,6 +66,12 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ### just the growth curve will be plotted. \bold{Requires:} 
   ### \code{output.plot = TRUE}.
   
+  output.plotExtended.single = FALSE,
+  ### \code{\link{logical}} (with default): 
+  ### single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
+  ### in single plot windows. 
+  ### Requires \code{output.plot = TRUE} and \code{output.plotExtended = TRUE}.
+  
   cex.global = 1,
   ### \code{\link{numeric}} (with default): global scaling factor.
   
@@ -73,7 +79,6 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ### Further arguments and graphical parameters to be passed. Note: Standard 
   ### arguments will only be passed to the growth curve plot
 ) {
-
 
   ##1. check if sample is data.frame
   if(is.data.frame(sample)==FALSE){
@@ -84,7 +89,6 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   if(length(sample[,1])<3){
     stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!")
   }
-  
   
   ## optionally, count and exclude NA values and print result
   if(na.rm == TRUE) {
@@ -106,7 +110,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   
   ##NULL values in the data.frame are not allowed for the y-column
     if(length(sample[sample[,2]==0,2])>0){
-      cat("\n[plot_GrowthCurve.R] >> Warning:",
+      cat("\n[plot_GrowthCurve()] Warning:",
           length(sample[sample[,2]==0,2]),"values with 0 for Lx/Tx detected; replaced by 0.0001.\n")
       sample[sample[,2]==0,2]<-0.0001 
     }
@@ -796,27 +800,28 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   if(is(fit,"try-error") == FALSE){
   
   if(fit.method == "EXP") {
-    f <- as.formula(paste("f ~", round(coef(fit)[1], 5), "* (1-exp(-(x+", 
-                          round(coef(fit)[3], 5), ") /", 
+    f <- parse(text = paste0(round(coef(fit)[1], 5), " * (1 - exp( - (x + ", 
+                          round(coef(fit)[3], 5), ")/", 
                           round(coef(fit)[2], 5), "))"))
+    
   }
   
   if(fit.method == "EXP+LIN") {
-    f <- as.formula(paste("f ~", round(coef(fit)[1], 5), "* (1-exp(-(x+", 
+    f <- parse(text = paste0(round(coef(fit)[1], 5), "* (1-exp(-(x+", 
                           round(coef(fit)[3], 5), ") /", 
                           round(coef(fit)[2], 5), ")+(",
                           round(coef(fit)[4], 5), "*x))"))
   }
   
   if(fit.method == "EXP+EXP") {
-    f <- as.formula(paste("f ~ ", round(coef(fit)[1], 5), " * (1 - exp( -x / ", 
+    f <- parse(text = paste0(round(coef(fit)[1], 5), " * (1 - exp( -x / ", 
                           round(coef(fit)[3], 5), ")) + ", 
                           round(coef(fit)[2], 5), " * (1 - exp(-x / ", 
                           round(coef(fit)[4], 5), "))"))
   }
   
   if(fit.method == "LIN") {
-    f <- as.formula(paste("f ~ ", round(fit.lm$coefficients[2], 5),
+    f <- parse(text = paste0(round(fit.lm$coefficients[2], 5),
                           "* x + ", round(fit.lm$coefficients[1], 5)))
     
   }
@@ -830,23 +835,26 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 # PLOTTING ---------------------------------------------------------------------
 ##============================================================================##
 
-##5. Plotting if plotOutput=TRUE
+##5. Plotting if plotOutput==TRUE
 if(output.plot==TRUE) {
   
-      ####grep recent plot parameter for later reset
-      par.default <- par(no.readonly = TRUE)
-      
+    
       ##cheat the R check
       x<-NULL; rm(x)
 
 #PAR	#open plot area
-      if(output.plot==TRUE & output.plotExtended==TRUE){
+      if(output.plot== TRUE & 
+           output.plotExtended== TRUE & 
+           output.plotExtended.single == FALSE ){
       
+        ####grep recent plot parameter for later reset
+        par.default <- par(no.readonly = TRUE)$cex
       
-      ##set new parameter
-			layout(matrix(c(1,1,1,1,2,3), 3, 2, byrow=TRUE), respect=TRUE)
-			par(cex=0.8*cex.global)
-      }else{par(mfrow=c(1,1),cex=cex.global)}
+        ##set new parameter
+			  layout(matrix(c(1,1,1,1,2,3), 3, 2, byrow=TRUE), respect=TRUE)
+			  par(cex=0.8*cex.global)
+        
+      }
 
 #PLOT		#Plot input values
 
@@ -861,7 +869,7 @@ if(output.plot==TRUE) {
           temp.xy.plot  <- xy[1:fit.NumberRegPointsReal]
         
       }
-    
+
 			plot(temp.xy.plot[,1:2],
 				ylim=ylim,
 				xlim=xlim,
@@ -924,42 +932,58 @@ mtext <- if("mtext" %in% names(list(...))) {
       if(output.plot==TRUE & output.plotExtended==TRUE){
         
 ##HIST		#try to plot histogramm of De values from the Monte Carlo simulation
-			par(cex=0.7*cex.global)
-      
-			##plot histogram for frequency axis
-      try(histogram<-hist(
-          x.natural,
-          freq=TRUE,
-          col="white",
-          border="white",
-          xlab="",
-          xaxt="n",
-          main="" 
-      ), silent = TRUE)
-                  
-		  	if(exists("histogram")) {par(new=TRUE)} ##otherwise we get an overplotting
-  			try(histogram<-hist(
-  				x.natural,
-  				xlab=xlab,
-  				main=expression(paste(D[e], " from Monte Carlo simulation")),
-          freq=FALSE,
-  				sub=paste("n.iterations = ", NumberIterations.MC,", valid fits =",length(na.exclude(x.natural))),
-  				col="grey",
-          ylab="",
-          yaxt="n",
-  			), silent = TRUE)#end plot hist
-			      
+			
+      if(output.plotExtended.single != TRUE){
+                
+        par(cex=0.7*cex.global)
+        
+      }
+   
+            
+			##(A) Calculate histogram data 
+      try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
+                
 			#to avoid errors plot only if histogram exists
 			if (exists("histogram")) {
         
+			##calculate normal distribution curves for overlay
+			norm.curve.x <- seq(min(x.natural, na.rm = TRUE), 
+			                    max(x.natural, na.rm = TRUE),
+			                    length = 101)
+			
+			norm.curve.y <- dnorm(norm.curve.x,
+			                      mean=mean(x.natural, na.rm = TRUE),
+			                      sd=sd(x.natural, na.rm = TRUE))
+      
+      ##plot histogram 
+			histogram <- hist(x.natural,
+  				xlab = xlab,
+  				ylab = "Frequency",
+  				main=expression(paste(D[e], " from MC simulation")),
+          freq=FALSE,
+          border = "white",
+          axes = FALSE,
+          ylim = c(0,max(norm.curve.y)),
+  				sub = 
+            paste("n = ", NumberIterations.MC, ", valid fits =", length(na.exclude(x.natural))),
+  				col="grey")
+
+        ##add axes 
+        axis(side = 1)
+        axis(side = 2, 
+             at = seq(min(histogram$density),max(histogram$density), length = 5),
+             labels = round(
+               seq(min(histogram$counts),max(histogram$counts), length = 5), 
+               digits = 0))
+        
+        ##add norm curve
+        lines(norm.curve.x, norm.curve.y, col = "red")
+        
 			  ##add rug
 			  rug(x.natural)
-             
-        ##add normal curve
-			  curve(dnorm(x,mean=mean(na.exclude(x.natural)),sd=sd(na.exclude(x.natural))),col="red",add=TRUE)
-                        
-				#write De + Error from Monte Carlo simulation + write quality of error estimation
-		  	try(mtext(side=3,substitute(D[e[MC]] == De, 
+                   
+			##write De + Error from Monte Carlo simulation + write quality of error estimation
+			try(mtext(side=3,substitute(D[e[MC]] == De, 
               list(De=paste(De.MonteCarlo,"\u00B1",De.Error,
               " | quality = ",round((1-abs(De-De.MonteCarlo)/De)*100,
               digits=1),"%"))),cex=0.6*cex.global),silent=TRUE)
@@ -1003,8 +1027,12 @@ if(fun==TRUE){sTeve()}
 ##END lines
   }#endif::output.plotExtended
 
-  par(par.default)
-  rm(par.default)
+ 
+  ##reset only the parameter that have been changed!  
+  if(exists("par.default")){
+    par(cex = par.default)
+    rm(par.default)
+  }
 
 }#end if plotOutput	
 
@@ -1015,10 +1043,12 @@ if(fun==TRUE){sTeve()}
                   silent=TRUE)
     output <- set_RLum.Results(data=list(De=output,Fit=fit, Formula=f))
     invisible(output)
+
   ### \code{RLum.Results} object containing the De (De, De Error, D01 value, D02 value and Fit 
   ### type) and fit object \link{nls} object for \code{EXP}, \code{EXP+LIN} 
   ### and \code{EXP+EXP}. In case of a resulting linear fit when using 
-  ### \code{EXP OR LIN}, a \link{lm} object is returned. 
+  ### \code{EXP OR LIN}, a \link{lm} object is returned. \cr
+  ### The formula \code{Formula} is returned as R expression for further evaluation.
   ### Additionally a plot is returned.
   
   ##details<<

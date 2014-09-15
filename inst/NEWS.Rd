@@ -28,12 +28,12 @@
    \item \code{plot_RLum.Data.Image()}: Plot function for \code{RLum.Data.Image} object.
    Function also added to wrapper function \code{plot_RLum}
   
-  
-     \item \code{get_Layout()}: Helper function to return a list with layout definitions for
+    \item \code{get_Layout()}: Helper function to return a list with layout definitions for
       more homogenous plotting.
+      
+   \item \code{analyse_pIRIRSequence()}: Function to analyse post-IR IRSL sequence
+   measurements. 
   }
-  
-  
   
   
   }
@@ -74,7 +74,13 @@
         
         \item correct function break for a single column matrix (single frame spectrum)
         by automatically resetting \code{plot.type} to \code{single} 
-        for single frame spectra.
+        for single frame spectra,
+        
+        \item colour rug (\code{rug = TRUE}) implemented for plot type \code{"multiple.lines"}
+        (#130), 
+        
+        \item argument \code{xaxis.energy} for wavelength energy conversion for
+        2D plots added (#141).
          
       }
       
@@ -87,8 +93,18 @@
         one zero dose point,
         
         \item argument \code{na.exclude} for the sake consistency replaced by \code{na.rm},
+                
+        \item proper error message provided if nothing is left after \code{NA} value removal, 
         
-        \item proper error message provided if nothing is left after \code{NA} value removal.
+        \item overshoot of normal distribution curve in MC simulation plot corrected
+        (#111),
+        
+        \item argument \code{output.plotExtended.single} added allowing a single
+        window plot output of all plots,
+        
+        \item formula of the fitted function is now returend as R expression 
+        instead of a \code{formula} object. The return object remains, however, 
+        \code{Formula}.
       
       }
       
@@ -161,8 +177,29 @@
         \item correct wrong TL curve figure scaling,
         
         \item argument \code{log} moved to the \code{...} argument, 
+      
+        \item correct wrong regeneration point numbering (#144),
         
-        \item arguments \code{mtext}, \code{cex}, \code{main} now supported via the \code{...} argument,
+        \item arguments \code{cex}, \code{main} now supported via the \code{...} argument,
+        
+        \item argument \code{mtext.outer} added,
+        
+        \item output object \code{Formula} added to return the fromula of the 
+         growth curve, 
+         
+         \item output object \code{De.values} extended for D01, D02 and information
+         on the applied fittin, 
+        
+        \item numerical output extended for information on the choosen signal and
+        background integration limits (#122), 
+        
+        \item enhance argument \code{output.plot.single} for numerical values. 
+        This allows to select each single plot output individually, 
+        
+        \item details from the argument \code{rejection.criteria} were removed 
+        from the argument list to allow a more flexible handling (e.g. changing only
+        one parameter at time) and to clean up the argument list. However, the argument
+        work still as excpected (#145).
         
         \item minor bug fixes (e.g., not properly caluculated TL curve resolution) and graphical adjustements.
       

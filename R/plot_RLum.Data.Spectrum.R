@@ -4,10 +4,10 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France), \cr
+  ## Sebastian Kreutzer, IRMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.3.2
+  ## version 0.3.4
   # ===========================================================================
 
   object, 
@@ -48,6 +48,15 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   ### (vertical binning) for plotting, 
   ### e.g. \code{bin.cols = 2} two channels are summed up
   
+  rug = TRUE, 
+  ### \code{\link{logical}} (with default): enables or disables colour rug. 
+  ### Currently only implemented for plot type \code{multiple.lines}.
+  
+  xaxis.energy = FALSE, 
+  ### \code{\link{logical}} (with default): enables or disables energy instead
+  ### of wavelength axis. Axis labelling are changed accordingly, so far no 
+  ### manual axis labelling is choosen. 
+  
   ...
   ### further arguments and graphical parameters that will be passed to the 
   ### \code{plot} function.
@@ -69,16 +78,25 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
     
     temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
 
-    xlab <- temp.lab[2]
+    xlab <- if(xaxis.energy == FALSE | plot.type == "persp" | plot.type == "persp3d"){
+      temp.lab[2]}else{"Energy [eV]"}
     ylab <- temp.lab[1]
     zlab <- temp.lab[3]
     
   }else{
     
-    xlab <- "Row values [a.u.]"
+    xlab <- if(xaxis.energy == FALSE | plot.type == "persp" | plot.type == "persp3d"){
+      "Row values [a.u.]"}else{"Energy [eV]"}
     ylab <- "Column values [a.u.]"  
     zlab <- "Cell values [a.u.]"
   
+  }
+    
+  ##warning for energy curve conversion
+  if(xaxis.energy == TRUE & (plot.type == "persp" | plot.type == "persp3d")){
+    
+    warning("Energy axis conversion not supported for this plot.type, nothing was done.")
+    
   }
   
   ##deal with addition arguments 
@@ -423,8 +441,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
         border = border,
         box = box,
         ticktype = ticktype)
-        
-        
+       
   
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)  
@@ -438,10 +455,25 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
            xlab = xlab,
            ylab = ylab,
            main = main,
-           col = "black")
+           col = "black", 
+           xaxt = "n"
+           )
    
    ##plot additional mtext
    mtext(mtext, side = 3, cex = cex*0.8)  
+   
+   ##add normal or energy axsis
+   if(xaxis.energy == FALSE){
+     
+     axis(side =1)
+     
+   }else{
+     
+     axis.ticks <- seq(min(xlim), max(xlim), length = 10)
+     axis(side = 1, at = axis.ticks, 
+          labels = round(c((4.13566733e-015 * 299792458e+09)/axis.ticks), digits =1))
+   }
+   
   
    } else if(plot.type == "single") {
   ## ==========================================================================#
@@ -459,6 +491,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
            xlim = xlim, 
            ylim = zlim,
            col = col,
+           xaxt = "n",
            sub = paste(
              "(frame ",i, " | ", 
              ifelse(i==1,
@@ -468,11 +501,26 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
              sep = ""),
            type = type,
            pch = pch)
+      
+      ##add normal or energy axsis
+      if(xaxis.energy == FALSE){
+        
+        axis(side =1)
+        
+      }else{
+        
+        axis.ticks <- seq(min(xlim), max(xlim), length = 10)
+        axis(side = 1, at = axis.ticks, 
+             labels = round(c((4.13566733e-015 * 299792458e+09)/axis.ticks), digits =1))
+      }
+      
+      
        
     }  
     
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)  
+    
     
     }else if(plot.type == "multiple.lines" && ncol(temp.xyz) > 1) {
     ## ========================================================================#
@@ -493,9 +541,31 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
            main = main,
            xlim = xlim, 
            ylim = zlim,
-           sub = sub)
+           sub = sub, 
+           bty = "n",
+           xaxt = "n")
+       
+      if(rug == TRUE){
+      ##rug als continous polygons    
+      for(i in 1:length(x)){
+        polygon(x = c(x[i],x[i+1],x[i+1],x[i]), 
+                y = c(min(zlim),min(zlim), par("usr")[3], par("usr")[3]), 
+                border = col[i], col = col[i])
+        }
+      }
       
-  
+      ##add normal or energy axsis
+      if(xaxis.energy == FALSE){
+        
+        axis(side =1)
+      
+      }else{
+      
+      axis.ticks <- seq(min(xlim), max(xlim), length = 10)
+      axis(side = 1, at = axis.ticks, 
+           labels = round(c((4.13566733e-015 * 299792458e+09)/axis.ticks), digits =1))
+      }
+      
        ##add lines
        for(i in 1:length(y)){
       
@@ -516,6 +586,11 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
        
       ##plot additional mtext
       mtext(mtext, side = 3, cex = cex*0.8)  
+      
+      ##add border frame
+      par(new = TRUE)
+      plot(NA,NA, xlab = "", ylab = "", main = "", xlim = xlim, ylim = zlim, 
+           xaxt = "n", yaxt="n")
       
       ##reset graphic settings
       par(par.default)
