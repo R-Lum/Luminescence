@@ -17,38 +17,42 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ### input object containing data for protocol analysis
   
   sequence.structure = c("NATURAL", "REGENERATED"),
-  ### \link{vector} \link{character} (with default): specifies the general 
+  ### \code{\link{vector}} \link{character} (with default): specifies the general 
   ### sequence structure. Allowed steps are \code{NATURAL}, \code{REGENERATED}
   ### In addition any other character is allowed in the sequence structure; 
   ### such curves will be ignored. 
   
+  method = "FIT", 
+  ### \code{\link{character}} (with default): setting the method applied for the data analysis
+  ### Possible options are \code{"FIT"} or \code{"SLIDE"}
+  
   fit.range.min, 
-  ### \link{integer} (optional): set the minimum channel range for signal fitting.   
+  ### \code{\link{integer}} (optional): set the minimum channel range for signal fitting.   
   ### Usually the entire data set is used for curve fitting, but there might be 
   ### reasons to limit the channels used for fitting.
   ### Note: This option also limits the values used for natural signal calculation.
   
   fit.range.max,
-  ### \link{integer} (optional): set maximum channel range for signal fitting. 
+  ### \code{\link{integer}} (optional): set maximum channel range for signal fitting. 
   ### Usually the entire data set is used for curve fitting, but there might be 
   ### reasons to limit the channels used for fitting.
   
   fit.trace = FALSE,
-  ### \link{logical} (with default): trace fitting (for debugging use)
+  ### \code{\link{logical}} (with default): trace fitting (for debugging use)
   
   fit.MC.runs = 10, 
-  ### \link{numeric} (with default): set number of Monte Carlo runs for start 
+  ### \code{\link{numeric}} (with default): set number of Monte Carlo runs for start 
   ### parameter estimation. Note: Higher values will significantly increase 
   ### the calculation time   
   
   output.plot = TRUE, 
-  ### \link{logical} (with default): plot output (\code{TRUE} or \code{FALSE})
+  ### \code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})
   
   xlab.unit = "s",
-  ### \link{character} (with default): set unit for x-axis
+  ### \code{\link{character}} (with default): set unit for x-axis
   
-  legend.pos = "bottom",
-  ### \link{character} (with default): useful keywords are \code{bottomright}, 
+  legend.pos,
+  ### \code{\link{character}} (with default): useful keywords are \code{bottomright}, 
   ### \code{bottom}, \code{bottomleft}, \code{left}, \code{topleft}, 
   ### \code{top}, \code{topright}, \code{right} and \code{center}. 
   ### For further details see \code{\link{legend}.}
@@ -129,6 +133,13 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   resolution.RF <- round(object@records[[1]]@data[2,1]-
                    object@records[[1]]@data[1,1], digits=2)
   
+  if(missing(legend.pos)){
+    
+    legend.pos  <- ifelse(method == "FIT", "bottom", "top")
+    
+  }
+
+
   # Set plot format parameters -----------------------------------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
   
@@ -145,7 +156,8 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   {1}
   
   
-  
+
+
 ##=============================================================================#
 ## FITTING 
 ##=============================================================================#
@@ -156,11 +168,11 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   values.regenerated <- as.data.frame(object@records[[
     temp.sequence.structure[temp.sequence.structure$protocol.step=="REGENERATED","id"]]]@data)
   
-  values.regenrated <- as.data.frame(object@records[[2]]@data)
-  values.regenrated.x <- values.regenrated[fit.range,1]
-  values.regenrated.y <- values.regenrated[fit.range,2]
+ values.regenerated<- as.data.frame(object@records[[2]]@data)
+ values.regenerated.x <- values.regenerated[fit.range,1]
+ values.regenerated.y <- values.regenerated[fit.range,2]
   
-  
+if(method == "FIT"){  
 ## REGENERATED SIGNAL
 # set function for fitting ------------------------------------------------
 
@@ -175,10 +187,10 @@ fit.function <- as.formula(y~phi.0-(delta.phi*((1-exp(-lambda*x))^beta)))
 # set start parameter estimation ------------------------------------------
  
   fit.parameters.start <- c(
-    phi.0 = max(values.regenrated.y),
+    phi.0 = max(values.regenerated.y),
     lambda = 0.0001,
     beta = 1,
-    delta.phi = 2*(max(values.regenrated.y)-min(values.regenrated.y)))    
+    delta.phi = 2*(max(values.regenerated.y)-min(values.regenerated.y)))    
 
 # start nls fitting -------------------------------------------------------
   
@@ -197,7 +209,7 @@ fit.function <- as.formula(y~phi.0-(delta.phi*((1-exp(-lambda*x))^beta)))
   
   fit.MC <-try(nls(fit.function, 
                 trace = FALSE, 
-                data = data.frame(x=values.regenrated.x, y=values.regenrated.y), 
+                data = data.frame(x=values.regenerated.x, y=values.regenerated.y), 
                 algorithm = "port",
                 start = list(
                   phi.0 = phi.0.MC[i],
@@ -212,8 +224,8 @@ fit.function <- as.formula(y~phi.0-(delta.phi*((1-exp(-lambda*x))^beta)))
                           delta.phi = .Machine$double.xmin, 
                           lambda = .Machine$double.xmin, 
                           beta = .Machine$double.xmin),
-                upper = c(phi.0 = max(values.regenrated.y), 
-                          delta.phi = max(values.regenrated.y),     
+                upper = c(phi.0 = max(values.regenerated.y), 
+                          delta.phi = max(values.regenerated.y),     
                           lambda = 1, 
                           beta = 100)),
                silent=TRUE)
@@ -240,7 +252,7 @@ fit.function <- as.formula(y~phi.0-(delta.phi*((1-exp(-lambda*x))^beta)))
       ##try final fitting 
       fit <-try(nls(fit.function, 
                 trace = fit.trace, 
-                data = data.frame(x=values.regenrated.x, y=values.regenrated.y), 
+                data = data.frame(x=values.regenerated.x, y=values.regenerated.y), 
                 algorithm = "port",
                 start = list(
                   phi.0 = fit.parameters.results.MC.results["phi.0"],
@@ -255,8 +267,8 @@ fit.function <- as.formula(y~phi.0-(delta.phi*((1-exp(-lambda*x))^beta)))
                         delta.phi = .Machine$double.xmin, 
                         lambda = .Machine$double.xmin, 
                         beta = .Machine$double.xmin),
-                upper = c(phi.0 = max(values.regenrated.y), 
-                          delta.phi = max(values.regenrated.y), 
+                upper = c(phi.0 = max(values.regenerated.y), 
+                          delta.phi = max(values.regenerated.y), 
                           lambda = 1, beta = 100)),
                 silent=FALSE)
  }else{
@@ -275,6 +287,7 @@ if(inherits(fit,"try-error") == FALSE){
   
   fit.parameters.results <- NA
   
+}
 }
 
 ##=============================================================================#
@@ -295,7 +308,7 @@ if(inherits(fit,"try-error") == FALSE){
   values.natural.error.lower <- values.natural.mean + values.natural.sd 
   values.natural.error.upper <- values.natural.mean - values.natural.sd 
   
-
+  if(method == "FIT"){
   if(is.na(fit.parameters.results[1]) == FALSE){
     
   De.mean <- suppressWarnings(round(log(-((values.natural.mean - fit.parameters.results["phi.0"])/
@@ -320,8 +333,52 @@ if(inherits(fit,"try-error") == FALSE){
        
   }
   
+
+
+# METHOD SLIDE --------------------------------------------------------------------------------
+
+}else if(method == "SLIDE"){
   
- 
+  ## TODO
+  ## Check for rejection criteria for input data
+  ## check graphical appearance
+  ## show De.value
+  ## implement error
+  ## visualisation vai transparence -- alpha
+  
+  ##convert to matrix
+  values.natural.limited <- as.matrix(values.natural.limited)
+  values.regenerated.limited <- matrix(c(values.regenerated.x, values.regenerated.y), ncol = 2)
+  
+  ##(1) sum up natural values
+  temp.sum.natural.curve <- sum(values.natural.limited[,2])
+  
+  ##(2) sum up regenerated values until the maximum value
+  temp.sum.regenerated.curve <- sapply(1:(nrow(values.regenerated.limited)-nrow(values.natural.limited)), 
+                                       function(x){
+    
+   sum(values.regenerated.limited[x:(nrow(values.natural.limited)+x)-1,2])
+    
+  })
+  
+  ##(3) difference
+  temp.sum.diff <- abs(temp.sum.natural.curve - temp.sum.regenerated.curve)
+  
+  ##(4) get index of minimal value
+  temp.sum.min.id <- which.min(temp.sum.diff)
+  temp.sliding.step <- diff(values.natural.limited[1:2,1])
+  
+  ##(5) slide curve
+  values.natural.limited[,1] <- values.natural.limited[,1] + temp.sum.min.id * temp.sliding.step 
+
+  ##(6) calculate De
+  De.mean <- values.natural.limited[1,1]
+  
+}else{
+  
+  stop("[analyse_IRSAR.RF()] method is not supported!")
+  
+}
 ##=============================================================================#
 ## PLOTTING
 ##=============================================================================#
@@ -347,8 +404,11 @@ if(output.plot==TRUE){
   ##plotting measured signal 
   points(values.regenerated[,1], values.regenerated[,2], pch=3, col="grey")
   
+
+  if(method == "FIT"){
+    
   ##mark values used for fitting
-  points(values.regenrated.x, values.regenrated.y, pch=3, col=col[18])
+  points(values.regenerated.x,values.regenerated.y, pch=3, col=col[18])
 
   ##show fitted curve COLORED
   
@@ -380,22 +440,41 @@ if(output.plot==TRUE){
       from = values.regenerated[max(fit.range), 1],
       to = max(values.regenerated[, 1]),
       col="grey")
-
-  ##PLOT NATURAL VALUES
+  }
   
-  points(values.natural, pch = 20, col = "grey")
-  points(values.natural.limited, pch = 20, col = "red")
+  
+  ##PLOT NATURAL VALUES
+  if(method == "FIT"){
+    points(values.natural, pch = 20, col = "grey")
+    points(values.natural.limited, pch = 20, col = "red")
+ 
+  }else if(method == "SLIDE"){
+    
+    points(values.natural.limited, pch = 20, col = "red")
+    
+  }
+
 
   ##plot range choosen for fitting
   abline(v=values.regenerated[min(fit.range), 1], lty=2)
   abline(v=values.regenerated[max(fit.range), 1], lty=2)
   
   ##legend
+  if(method == "FIT"){
   legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),  
           pch=c(3,3, 20), col=c("grey", col[18], "red"), 
           horiz=TRUE, bty="n", cex=.7)
+ 
+  }else if(method == "SLIDE"){
+    
+    legend(legend.pos, legend=c("reg. measured","natural"),  
+           pch=c(3, 20), col=c("grey", col[18], "red"), 
+           horiz=TRUE, bty="n", cex=.7)
+    
+  }
 
   
+  if(method == "FIT"){
   ##plot De if De was calculated 
   if(is.na(De.mean) == FALSE & is.nan(De.mean) == FALSE){
     
@@ -414,8 +493,8 @@ if(output.plot==TRUE){
   
   ##Insert fit and result
   if(is.na(De.mean) != TRUE & (is.nan(De.mean) == TRUE |
-    De.mean > max(values.regenrated.x) | 
-    De.error.upper > max(values.regenrated.x))){
+    De.mean > max(values.regenerated.x) | 
+    De.error.upper > max(values.regenerated.x))){
     
     try(mtext(side=3, substitute(D[e] == De.mean, 
                                  list(De.mean=paste(
@@ -440,6 +519,7 @@ if(output.plot==TRUE){
   
   De.status <- "OK"
   }
+  
 
   ##==lower plot==##    
   par(mar=c(4.2,4,0,0))
@@ -447,7 +527,7 @@ if(output.plot==TRUE){
   ##plot residuals	
   if(is.na(fit.parameters.results[1])==FALSE){
     
-  plot(values.regenrated.x,residuals(fit), 
+  plot(values.regenerated.x,residuals(fit), 
      xlim=c(0,max(temp.sequence.structure$x.max)),
      xlab="Time [s]", 
      type="p", 
@@ -468,11 +548,51 @@ if(output.plot==TRUE){
          )    
     text(x = max(temp.sequence.structure$x.max)/2,y=0, "Fitting Error!")   
   }
+  }else if(method == "SLIDE"){
+    
+    arrows(x0 = De.mean, y0 = c(min(temp.sequence.structure$y.min)),
+          x1 = De.mean, y1 = par("usr")[3], lwd = 3*cex)
+    
+        
+    ##==lower plot==##    
+    par(mar=c(4.2,4,0,0))
+    
+
+    values.residuals <- values.natural.limited[,2] - 
+      values.regenerated.limited[
+        values.regenerated.limited[,1]%in%values.natural.limited[,1], 2]
+   
+    
+    plot(values.natural.limited[,1], values.residuals, 
+         xlim=c(0,max(temp.sequence.structure$x.max)),
+         xlab="Time [s]", 
+         type="p", 
+         pch=20,
+         col="grey", 
+         ylab="Residual [a.u.]",
+         #lwd=2,
+         log="")
+    
+    ##add 0 line
+    abline(h=0)
+    abline(v = De.mean)
+    
+  }
+  
+  
 }#endif::output.plot
 ##=============================================================================#
 ## RETURN
 ##=============================================================================#
   
+  ##catch up worst case scenarios
+  if(!exists("De.mean")){De.mean  <- NA}
+  if(!exists("De.error.lower")){De.error.lower  <- NA}
+  if(!exists("De.error.upper")){De.error.upper  <- NA}
+  if(!exists("De.status")){De.status  <- NA}
+  if(!exists("fit")){fit  <- NA}
+
+
   ##combine values
   De.values <- data.frame(De = De.mean,
                           De.error.lower = De.error.lower,
@@ -576,3 +696,18 @@ if(output.plot==TRUE){
   ##perform analysis
   temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data) 
 })#END OF STRUCTURE
+
+# library(Luminescence)
+# 
+# if(!exists("temp.raw")){
+# temp.raw <- readXSYG2R("~/Lumi/Bordeaux/pourNorbert/XSGYG/2014-09-12_20140912_Courville5_RF70_Test.xsyg")
+# }
+# 
+# temp.header  <- temp.raw[[1]]$Sequence.Header
+# temp.sequence <- temp.raw[[1]]$Sequence.Object
+# 
+# temp.RF <- get_RLum.Analysis(temp.sequence, recordType = "RF (NIR50)", keep.object = TRUE)
+# 
+# 
+# ##perform analysis
+# temp <- analyse_IRSAR.RF(object = temp.RF, method = "SLIDE") 

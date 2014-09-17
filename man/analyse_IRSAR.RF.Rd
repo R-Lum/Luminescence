@@ -4,30 +4,32 @@
 \description{Function to analyse IRSAR RF measurements on K-feldspar samples, performed 
 using the protocol according to Erfurt et al. (2003)}
 \usage{analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"), 
-    fit.range.min, fit.range.max, fit.trace = FALSE, fit.MC.runs = 10, 
-    output.plot = TRUE, xlab.unit = "s", legend.pos = "bottom", 
+    method = "FIT", fit.range.min, fit.range.max, fit.trace = FALSE, 
+    fit.MC.runs = 10, output.plot = TRUE, xlab.unit = "s", legend.pos, 
     ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): 
 input object containing data for protocol analysis}
-  \item{sequence.structure}{\link{vector} \link{character} (with default): specifies the general 
+  \item{sequence.structure}{\code{\link{vector}} \link{character} (with default): specifies the general 
 sequence structure. Allowed steps are \code{NATURAL}, \code{REGENERATED}
 In addition any other character is allowed in the sequence structure; 
 such curves will be ignored. }
-  \item{fit.range.min}{\link{integer} (optional): set the minimum channel range for signal fitting.   
+  \item{method}{\code{\link{character}} (with default): setting the method applied for the data analysis
+Possible options are \code{"FIT"} or \code{"SLIDE"}}
+  \item{fit.range.min}{\code{\link{integer}} (optional): set the minimum channel range for signal fitting.   
 Usually the entire data set is used for curve fitting, but there might be 
 reasons to limit the channels used for fitting.
 Note: This option also limits the values used for natural signal calculation.}
-  \item{fit.range.max}{\link{integer} (optional): set maximum channel range for signal fitting. 
+  \item{fit.range.max}{\code{\link{integer}} (optional): set maximum channel range for signal fitting. 
 Usually the entire data set is used for curve fitting, but there might be 
 reasons to limit the channels used for fitting.}
-  \item{fit.trace}{\link{logical} (with default): trace fitting (for debugging use)}
-  \item{fit.MC.runs}{\link{numeric} (with default): set number of Monte Carlo runs for start 
+  \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for debugging use)}
+  \item{fit.MC.runs}{\code{\link{numeric}} (with default): set number of Monte Carlo runs for start 
 parameter estimation. Note: Higher values will significantly increase 
 the calculation time   }
-  \item{output.plot}{\link{logical} (with default): plot output (\code{TRUE} or \code{FALSE})}
-  \item{xlab.unit}{\link{character} (with default): set unit for x-axis}
-  \item{legend.pos}{\link{character} (with default): useful keywords are \code{bottomright}, 
+  \item{output.plot}{\code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})}
+  \item{xlab.unit}{\code{\link{character}} (with default): set unit for x-axis}
+  \item{legend.pos}{\code{\link{character}} (with default): useful keywords are \code{bottomright}, 
 \code{bottom}, \code{bottomleft}, \code{left}, \code{topleft}, 
 \code{top}, \code{topright}, \code{right} and \code{center}. 
 For further details see \code{\link{legend}.}}
@@ -113,4 +115,4 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 }
 
 \keyword{datagen}
-\section{Function version}{0.1.4 (2014-09-15 02:28:00)}
+\section{Function version}{0.1.4 (2014-09-17 13:55:42)}
