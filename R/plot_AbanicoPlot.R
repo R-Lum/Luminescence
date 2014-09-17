@@ -189,11 +189,20 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     polygon.line <- NA
   }
   if(missing(grid.col) == TRUE) {
-    grid.major <- layout$abanico$colour$grid.major
-    grid.minor <- layout$abanico$colour$grid.minor
+      grid.major <- layout$abanico$colour$grid.major
+      grid.minor <- layout$abanico$colour$grid.minor
   } else {
-    grid.major <- "none"
-    grid.minor <- "none"
+    if(grid.col == "grey") {
+      grid.major <- layout$abanico$colour$grid.major
+      grid.minor <- layout$abanico$colour$grid.minor
+    }
+    if(grid.col == "none") {
+      grid.major <- "none"
+      grid.minor <- "none"
+    } 
+    if(grid.col != "grey" || grid.col != "none") {
+      grid.major<- grid.minor<- grid.col  
+    }
   }
   if(missing(summary) == TRUE) {summary <- c("n", "in.ci")}
   if(missing(summary.pos) == TRUE) {summary.pos <- "sub"}
