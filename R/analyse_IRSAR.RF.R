@@ -7,7 +7,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
   
   ##section<<
-  ## version 0.1.4
+  ## version 0.2.0
   # ===========================================================================
 
   #TODO - keep fit.range in mind for De calculation
@@ -70,12 +70,12 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
 
   ##MISSING INPUT
   if(missing("object")==TRUE){
-    stop("[analyse_IRSAR.RF] Error: No value set for 'object'!")
+    stop("[analyse_IRSAR.RF()] No value set for 'object'!")
   }
   
   ##INPUT OBJECTS
   if(is(object, "RLum.Analysis")==FALSE){
-    stop("[analyse_IRSAR.RF] Error: Input object is not of type 'RLum.Analyis'!")
+    stop("[analyse_IRSAR.RF()] Input object is not of type 'RLum.Analyis'!")
   }
 
   # Protocol Integrity Checks -------------------------------------------------- 
@@ -156,12 +156,11 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   {1}
   
   
-
-
 ##=============================================================================#
-## FITTING 
+## ANALYSIS
 ##=============================================================================#
- 
+  
+  ##IMPLEMENT OVERALL REJECTION CRITERIA TODO for curves
   # set values for fitting --------------------------------------------------
   
   ##grep first regenerated curve 
@@ -171,7 +170,23 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
  values.regenerated<- as.data.frame(object@records[[2]]@data)
  values.regenerated.x <- values.regenerated[fit.range,1]
  values.regenerated.y <- values.regenerated[fit.range,2]
-  
+
+  ##grep values from natural signal 
+  values.natural <- as.data.frame(object@records[[
+    temp.sequence.structure[temp.sequence.structure$protocol.step=="NATURAL","id"]]]@data)
+
+  ##limit values to fit range (at least to the minimum)
+  values.natural.limited<- values.natural[min(fit.range.natural):nrow(values.natural),]
+
+  ##calculate some use paremeters 
+  values.natural.mean <- mean(values.natural.limited[,2])
+  values.natural.sd <- sd(values.natural.limited[,2])
+
+  values.natural.error.lower <- values.natural.mean + values.natural.sd 
+  values.natural.error.upper <- values.natural.mean - values.natural.sd 
+
+
+##METHOD FIT
 if(method == "FIT"){  
 ## REGENERATED SIGNAL
 # set function for fitting ------------------------------------------------
@@ -288,27 +303,8 @@ if(inherits(fit,"try-error") == FALSE){
   fit.parameters.results <- NA
   
 }
-}
 
-##=============================================================================#
-## CALCULATING
-##=============================================================================#
-  
-      
-  ##grep values from natural signal 
-  values.natural <- as.data.frame(object@records[[
-    temp.sequence.structure[temp.sequence.structure$protocol.step=="NATURAL","id"]]]@data)
-
-  ##limit values to fit range (at least to the minimum)
-  values.natural.limited<- values.natural[min(fit.range.natural):nrow(values.natural),]
-
-  values.natural.mean <- mean(values.natural.limited[,2])
-  values.natural.sd <- sd(values.natural.limited[,2])
-  
-  values.natural.error.lower <- values.natural.mean + values.natural.sd 
-  values.natural.error.upper <- values.natural.mean - values.natural.sd 
-  
-  if(method == "FIT"){
+  ##calculate De value
   if(is.na(fit.parameters.results[1]) == FALSE){
     
   De.mean <- suppressWarnings(round(log(-((values.natural.mean - fit.parameters.results["phi.0"])/
@@ -332,49 +328,119 @@ if(inherits(fit,"try-error") == FALSE){
     De.error.upper <- NA
        
   }
-  
+}
 
-
-# METHOD SLIDE --------------------------------------------------------------------------------
-
-}else if(method == "SLIDE"){
+##METHOD SLIDE
+else if(method == "SLIDE"){
   
   ## TODO
   ## Check for rejection criteria for input data
-  ## check graphical appearance
-  ## show De.value
-  ## implement error
-  ## visualisation vai transparence -- alpha
+  ## implement error calculation 
+  ## Extent the manual
+  ## Test the data analysis
   
-  ##convert to matrix
+  ##convert to matrix (in fact above the matrix data were first transfered to data.frames ... here
+  ##we correct this ... again)
   values.natural.limited <- as.matrix(values.natural.limited)
   values.regenerated.limited <- matrix(c(values.regenerated.x, values.regenerated.y), ncol = 2)
   
-  ##(1) sum up natural values
-  temp.sum.natural.curve <- sum(values.natural.limited[,2])
+  ##===============================================================================================#
+  ## Check for outliers and remove potential outliers
+  ## Procedure based partly on the code used in the function apply_CosmicRayRemoval()
   
-  ##(2) sum up regenerated values until the maximum value
-  temp.sum.regenerated.curve <- sapply(1:(nrow(values.regenerated.limited)-nrow(values.natural.limited)), 
-                                       function(x){
+  ##remove outliers for sliding (but just at the beginning and at the tail, nothing in between)
+  temp.median.roll <- (zoo::rollmedian(values.natural.limited, k = 11))
+  
+    ##use interpolation to fill the gaps in the data
+    temp.median.roll <-  matrix(unlist(approx(temp.median.roll[,1],
+                                temp.median.roll[,2],                               
+                                xout = values.natural.limited[,1], rule=2)), ncol=2)
     
-   sum(values.regenerated.limited[x:(nrow(values.natural.limited)+x)-1,2])
+    ##detect outliers in the natural signal using histogramm; mark them 
+    temp.outlier.residual <- (temp.median.roll[,2] - values.natural.limited[,2])
+      temp.outlier.hist <- hist(temp.outlier.residual, 
+           breaks = length(values.natural.limited[,2])/2, plot = FALSE)
+    
+    ##find mode of the histogram (e.g. peak)
+    temp.outlier.hist.max <- which.max(temp.outlier.hist$counts)
+  
+    ##find gaps in the histogram (bins with zero value)
+    temp.outlier.hist.zerobin <- which(temp.outlier.hist$counts == 0)
+  
+    ##select non-zerobins
+    temp.outlier.hist.nonzerobin <- which(temp.outlier.hist$counts != 0)
+         
+    ##define threshold, e.g. if a gap is broader than this value, all values above
+    ##are marked as outlier
+    temp.threshold  <- 2 * sd(temp.median.roll[,2])
+  
+    temp.outlier.hist.nonzerobin.diff <- diff(
+        temp.outlier.hist$breaks[temp.outlier.hist.nonzerobin])
+        
+     ## select the first value where the thershold is reached
+     ## factor 3 is defined by Pych (2003)
+     temp.outlier.hist.thres <- which(
+        temp.outlier.hist.nonzerobin.diff >= temp.threshold)
+      
+     ##Find what ID value?
+     
+     temp.outlier.hist.thres.min  <- min(temp.outlier.hist$breaks[
+       temp.outlier.hist.nonzerobin][temp.outlier.hist.thres])
+     temp.outlier.hist.thres.max  <- max(temp.outlier.hist$breaks[
+       temp.outlier.hist.nonzerobin][temp.outlier.hist.thres]) 
+  
+  
+      if( temp.outlier.hist.thres.min <0){
+        
+        temp.outlier.ID.max <- unique(
+          which(temp.outlier.residual > temp.outlier.hist.thres.max))
+        
+        temp.outlier.ID.min <- unique(
+          which(temp.outlier.residual < temp.outlier.hist.thres.min))
+        
+        temp.outlier.ID <- c(temp.outlier.ID.min, temp.outlier.ID.max)
+        
+      }else{
+        
+        temp.outlier.ID <- unique(
+          which(temp.outlier.residual > temp.outlier.hist.thres.max))
+        
+      }
+     
+      ##remove from data set for further analysis
+      values.natural.limited.full <-  values.natural.limited
+      
+      if(length(temp.outlier.ID)>0){
+        values.natural.limited <-  values.natural.limited[- temp.outlier.ID,]
+        
+        warning(paste(length(temp.outlier.ID)), " values removed as outlier for sliding!")
+        
+      }
+      
+  ##(1) calculate sum of residual squares
+  temp.sum.residuals <- sapply(1:(nrow(values.regenerated.limited)-nrow(values.natural.limited)), 
+                                       function(x){
+                                          
+   sum((values.regenerated.limited[
+     x:((nrow(values.natural.limited)+x)-1),2]-values.natural.limited[,2])^2)
     
   })
   
-  ##(3) difference
-  temp.sum.diff <- abs(temp.sum.natural.curve - temp.sum.regenerated.curve)
-  
-  ##(4) get index of minimal value
-  temp.sum.min.id <- which.min(temp.sum.diff)
+  ##(2) get index of minimum value
+  temp.sum.min.id <- which.min(temp.sum.residuals)
   temp.sliding.step <- diff(values.natural.limited[1:2,1])
   
-  ##(5) slide curve
-  values.natural.limited[,1] <- values.natural.limited[,1] + temp.sum.min.id * temp.sliding.step 
+  ##(3) slide curve (with the full data)
+  values.natural.limited.full[,1] <- values.natural.limited.full[,1] + 
+    temp.sum.min.id * temp.sliding.step 
 
   ##(6) calculate De
-  De.mean <- values.natural.limited[1,1]
+  De.mean <- values.natural.limited.full[1,1]
   
-}else{
+}
+
+##ANY OTHER METHOD
+else{
   
   stop("[analyse_IRSAR.RF()] method is not supported!")
   
@@ -383,6 +449,9 @@ if(inherits(fit,"try-error") == FALSE){
 ## PLOTTING
 ##=============================================================================#
 if(output.plot==TRUE){
+  
+  ##grep par default
+  def.par <- par(no.readonly = TRUE)
   
   ##colours 
   col <- get("col", pos = .LuminescenceEnv)
@@ -403,12 +472,12 @@ if(output.plot==TRUE){
 
   ##plotting measured signal 
   points(values.regenerated[,1], values.regenerated[,2], pch=3, col="grey")
-  
-
-  if(method == "FIT"){
-    
-  ##mark values used for fitting
+ 
+  ##mark values used for further analysis fitting
   points(values.regenerated.x,values.regenerated.y, pch=3, col=col[18])
+
+##METHOD FIT
+  if(method == "FIT"){
 
   ##show fitted curve COLORED
   
@@ -440,41 +509,20 @@ if(output.plot==TRUE){
       from = values.regenerated[max(fit.range), 1],
       to = max(values.regenerated[, 1]),
       col="grey")
-  }
-  
-  
-  ##PLOT NATURAL VALUES
-  if(method == "FIT"){
-    points(values.natural, pch = 20, col = "grey")
-    points(values.natural.limited, pch = 20, col = "red")
- 
-  }else if(method == "SLIDE"){
-    
-    points(values.natural.limited, pch = 20, col = "red")
-    
-  }
 
-
+  ##at points
+  points(values.natural, pch = 20, col = "grey")
+  points(values.natural.limited, pch = 20, col = "red")
+  
+  ##legend
+  legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),  
+         pch=c(3,3, 20), col=c("grey", col[18], "red"), 
+         horiz=TRUE, bty="n", cex=.7)
+  
   ##plot range choosen for fitting
   abline(v=values.regenerated[min(fit.range), 1], lty=2)
   abline(v=values.regenerated[max(fit.range), 1], lty=2)
   
-  ##legend
-  if(method == "FIT"){
-  legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),  
-          pch=c(3,3, 20), col=c("grey", col[18], "red"), 
-          horiz=TRUE, bty="n", cex=.7)
- 
-  }else if(method == "SLIDE"){
-    
-    legend(legend.pos, legend=c("reg. measured","natural"),  
-           pch=c(3, 20), col=c("grey", col[18], "red"), 
-           horiz=TRUE, bty="n", cex=.7)
-    
-  }
-
-  
-  if(method == "FIT"){
   ##plot De if De was calculated 
   if(is.na(De.mean) == FALSE & is.nan(De.mean) == FALSE){
     
@@ -489,12 +537,11 @@ if(output.plot==TRUE){
           c(0,values.natural.error.upper), lty=2, col="grey")
     
   }
- 
   
   ##Insert fit and result
   if(is.na(De.mean) != TRUE & (is.nan(De.mean) == TRUE |
-    De.mean > max(values.regenerated.x) | 
-    De.error.upper > max(values.regenerated.x))){
+                                 De.mean > max(values.regenerated.x) | 
+                                 De.error.upper > max(values.regenerated.x))){
     
     try(mtext(side=3, substitute(D[e] == De.mean, 
                                  list(De.mean=paste(
@@ -504,66 +551,30 @@ if(output.plot==TRUE){
     De.status <- "VALUE OUT OF BOUNDS"
     
   } else{
-      
-  if("mtext" %in% names(extraArgs)) {extraArgs$mtext
-  }else{
     
-    try(mtext(side=3, 
-              substitute(D[e] == De.mean, 
-                 list(De.mean=paste(
-                   De.mean," (",De.error.lower," ", De.error.upper,")", sep=""))),
-              line=0, 
-              cex=0.7), 
-        silent=TRUE)
+    if("mtext" %in% names(extraArgs)) {extraArgs$mtext
+    }else{
+      
+      try(mtext(side=3, 
+                substitute(D[e] == De.mean, 
+                           list(De.mean=paste(
+                             De.mean," (",De.error.lower," ", De.error.upper,")", sep=""))),
+                line=0, 
+                cex=0.7), 
+          silent=TRUE)
+    }
+    
+    De.status <- "OK"
   }
   
-  De.status <- "OK"
-  }
   
-
   ##==lower plot==##    
   par(mar=c(4.2,4,0,0))
   
-  ##plot residuals	
+  ##plot residuals  
   if(is.na(fit.parameters.results[1])==FALSE){
     
-  plot(values.regenerated.x,residuals(fit), 
-     xlim=c(0,max(temp.sequence.structure$x.max)),
-     xlab="Time [s]", 
-     type="p", 
-     pch=20,
-     col="grey", 
-     ylab="Residual [a.u.]",
-     #lwd=2,
-     log="")
-
-  ##add 0 line
-  abline(h=0)
-  }else{
-    plot(NA,NA,
-         xlim=c(0,max(temp.sequence.structure$x.max)),
-         ylab="Residual [a.u.]",
-         xlab=xlab, 
-         ylim=c(-1,1)
-         )    
-    text(x = max(temp.sequence.structure$x.max)/2,y=0, "Fitting Error!")   
-  }
-  }else if(method == "SLIDE"){
-    
-    arrows(x0 = De.mean, y0 = c(min(temp.sequence.structure$y.min)),
-          x1 = De.mean, y1 = par("usr")[3], lwd = 3*cex)
-    
-        
-    ##==lower plot==##    
-    par(mar=c(4.2,4,0,0))
-    
-
-    values.residuals <- values.natural.limited[,2] - 
-      values.regenerated.limited[
-        values.regenerated.limited[,1]%in%values.natural.limited[,1], 2]
-   
-    
-    plot(values.natural.limited[,1], values.residuals, 
+    plot(values.regenerated.x,residuals(fit), 
          xlim=c(0,max(temp.sequence.structure$x.max)),
          xlab="Time [s]", 
          type="p", 
@@ -575,10 +586,112 @@ if(output.plot==TRUE){
     
     ##add 0 line
     abline(h=0)
-    abline(v = De.mean)
+  }else{
+    plot(NA,NA,
+         xlim=c(0,max(temp.sequence.structure$x.max)),
+         ylab="Residual [a.u.]",
+         xlab=xlab, 
+         ylim=c(-1,1)
+    )    
+    text(x = max(temp.sequence.structure$x.max)/2,y=0, "Fitting Error!")   
+  } 
+}
+
+##METHOD SLIDE  
+  else if(method == "SLIDE"){
+    
+  ##add points
+  points(values.natural.limited.full, pch = 20, col = rgb(0,0,1,.5))
+  
+  if(length(temp.outlier.ID)>0){
+   ##mark points markes as outlier
+    points(values.natural.limited.full[temp.outlier.ID,], pch = 1, col = "red")  
+  }
+    
+  ##plot range choosen for fitting
+  abline(v=values.regenerated[min(fit.range), 1], lty=2)
+  abline(v=values.regenerated[max(fit.range), 1], lty=2)
+  
+  ##legend
+  if(length(temp.outlier.ID)>0){
+
+  legend(legend.pos, legend=c("reg. measured","reg. selected", "natural", "outlier"),  
+           pch=c(3,3,20,1), col=c("grey", col[18], "blue", "red"), 
+           horiz=TRUE, bty="n", cex=.7)
+  
+  }else{
+    
+    legend(legend.pos, legend=c("reg. measured","reg. selected", "natural"),  
+           pch=c(3,3,20), col=c("grey", col[18], "blue"), 
+           horiz=TRUE, bty="n", cex=.7)
     
   }
+    
+  ##write information on the De in the plot
+  if("mtext" %in% names(extraArgs)) {extraArgs$mtext
+  }else{
+      
+      try(mtext(side=3, 
+                substitute(D[e] == De.mean),
+                line=0, 
+                cex=0.7), 
+          silent=TRUE)
+    }
+    
+    ##mark selected De
+    arrows(x0 = De.mean, y0 = c(min(temp.sequence.structure$y.min)),
+           x1 = De.mean, y1 = par("usr")[3], lwd = 3*cex, col = "red", lty = 1)
+    
+    ##==lower plot==##    
+    par(mar=c(4.2,4,0,0))
+    
+    if(length(temp.outlier.ID)>0){
+    
+      
+    values.residuals <- values.natural.limited.full[-temp.outlier.ID,2] - 
+      values.regenerated.limited[
+        values.regenerated.limited[,1]%in%values.natural.limited.full[-temp.outlier.ID,1], 2]
   
+    plot(values.natural.limited.full[-temp.outlier.ID,1], values.residuals, 
+         xlim=c(0,max(temp.sequence.structure$x.max)),
+         xlab="Time [s]", 
+         type="p", 
+         pch=20,
+         col="grey", 
+         ylab="Residual [a.u.]",
+         #lwd=2,
+         log="")
+    
+    }else{
+     
+      values.residuals <- values.natural.limited.full[,2] - 
+        values.regenerated.limited[
+          values.regenerated.limited[,1]%in%values.natural.limited.full[,1], 2]
+      
+      plot(values.natural.limited.full[,1], values.residuals, 
+           xlim=c(0,max(temp.sequence.structure$x.max)),
+           xlab="Time [s]", 
+           type="p", 
+           pch=20,
+           col="grey", 
+           ylab="Residual [a.u.]",
+           #lwd=2,
+           log="")
+      
+    }
+
+    
+    ##add 0 line
+    abline(h=0)
+    abline(v = De.mean, lty = 2, col = "red")
+       
+    ##add 
+    axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*cex,
+         col = "red", padj = -1.55,)
+    
+  }
+
+  par(def.par)  #- reset to default
   
 }#endif::output.plot
 ##=============================================================================#
@@ -619,7 +732,7 @@ if(output.plot==TRUE){
   ## function \code{\link{get_RLum.Results}}
   
   ##details<<
-  ## The function performs an IRSAR analysis described for feldspar samples by 
+  ## The function performs an IRSAR analysis described for K-feldspar samples by 
   ## Erfurt et al. (2003) assuming a negligible sensitivity change of the RF signal.\cr
   ## \bold{General Sequence Structure} (according to Erfurt et al. (2003))
   ## \enumerate{
@@ -639,7 +752,30 @@ if(output.plot==TRUE){
   ## factor.\cr\cr
   ## To obtain the palaedose the function is changed to:\cr
   ## \deqn{D = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}\cr
-  ## The fitting is done using the \code{port} algorithm of the \code{\link{nls}} function.
+  ## The fitting is done using the \code{port} algorithm of the \code{\link{nls}} function.\cr
+  ##
+  ## Two methods are supported to obtain the De:\cr
+  ##
+  ## \bold{\code{method = "FIT"}}\cr
+  ## 
+  ## The principle is described above and follows the orignal suggestions from Erfurt et al., 2003.\cr
+  ##
+  ## \bold{\code{method = "SLIDE"}}
+  ##
+  ## For this method the natural curve is slided along the x-axis until the best fit has been 
+  ## employed. Instead of fitting this allows to work with the original data without the need 
+  ## of any phisical model. This approach was introduced by Buylaert et al., 2012 and 
+  ## Lapp et al., 2012. 
+  ## TODO ... add mathematical decription
+  ## 
+  ## \bold{Correction for outliers}
+  ##
+  ## TODO
+  ##
+  ## \bold{Error estimation}
+  ## 
+  ## TODO
+
   
   ##references<<
   ## Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T., 2012. 
@@ -661,6 +797,14 @@ if(output.plot==TRUE){
   ## A fully automated multi-spectral radioluminescence reading system for 
   ## geochronometry and dosimetry. Nuclear Instruments and Methods in Physics Research 
   ## Section B: Beam Interactions with Materials and Atoms 207, 487-499.
+  ##
+  ## Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New luminescence measurement
+  ## facilities in retrospective dosimetry. Radiation Measurements 47, 803-808. 
+  ## doi:10.1016/j.radmeas.2012.02.006
+  ##
+  ## Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from Single Images.
+  ## Astrophysics 116, 148-153.
+  ## \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
   ##
   ## Trautmann, T., 2000. A study of radioluminescence kinetics of natural feldspar 
   ## dosimeters: experiments and simulations. Journal of Physics D: Applied Physics 33, 2304-2310.
@@ -695,6 +839,7 @@ if(output.plot==TRUE){
   
   ##perform analysis
   temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data) 
+  
 })#END OF STRUCTURE
 
 # library(Luminescence)
@@ -710,4 +855,4 @@ if(output.plot==TRUE){
 # 
 # 
 # ##perform analysis
-# temp <- analyse_IRSAR.RF(object = temp.RF, method = "SLIDE") 
+# temp <- analyse_IRSAR.RF(object = temp.RF, method = "SLIDE", fit.range.min = 1) 

@@ -4,7 +4,7 @@ apply_CosmicRayRemoval<- structure(function(#Function to remove cosmic rays from
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France)
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
   
   ##section<<
   ## version 0.1.2

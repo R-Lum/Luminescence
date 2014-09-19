@@ -79,4 +79,4 @@ R Luminescence Package Team}
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.1 (2014-09-15 02:28:00)}
+\section{Function version}{0.1 (2014-09-18 16:03:51)}

@@ -199,7 +199,7 @@ setMethod("get_RLum.Results",
             
             ##-------------------------------------------------------------
             ##analyse_SAR.CWOSL        
-            if(object@originator == "analyse_SAR.CWOSL") {
+            if(object@originator == "analyse_SAR.CWOSL" | object@originator == "analyse_pIRIRSequence") {
               
               return(object@data[[1]])
               

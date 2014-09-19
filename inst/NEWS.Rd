@@ -141,7 +141,10 @@
       \item \code{analyse_IRSAR.RF()}:
       \itemize{
       
-        \item Add \code{...} support for \code{mtext}
+        \item Add \code{...} support for \code{mtext},
+        
+        \item argument \code{method} added to allow selection between the method \code{"FIT"} and
+        \code{"SLIDE"}. The latter method has been newly implemented (#143). 
       
       }
       
@@ -265,7 +268,9 @@
     \item Add new dependency for package \code{raster}, which is used 
     for the \code{RLum.Data.Image-class},
 
-    \item dependency to package Rserve removed.  
+    \item dependency to package 'Rserve' removed, 
+    
+    \item dependcy to package 'zoo' added. 
   }
   }
 

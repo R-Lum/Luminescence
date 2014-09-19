@@ -126,7 +126,11 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
          • ‘analyse_IRSAR.RF()’:
 
-             • Add ‘...’ support for ‘mtext’
+             • Add ‘...’ support for ‘mtext’,
+
+             • argument ‘method’ added to allow selection between the
+               method ‘"FIT"’ and ‘"SLIDE"’. The latter method has been
+               newly implemented (#143).
 
          • ‘plot_Histogram()’:
 
@@ -237,5 +241,7 @@ Changes in version 0.4.0 (XX XXXX, 2014):
          • Add new dependency for package ‘raster’, which is used for
            the ‘RLum.Data.Image-class’,
 
-         • dependency to package Rserve removed.
+         • dependency to package 'Rserve' removed,
+
+         • dependcy to package 'zoo' added.
 

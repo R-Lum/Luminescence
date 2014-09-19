@@ -74,14 +74,6 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
       stop("[analyse_pIRIRSequence()] No value set for 'object'!")
     }
 
-#     if(missing("signal.integral")==TRUE){
-#       stop("[analyse_pIRIRSequence()] No value set for 'signal.integral'!")
-#     }
-#     
-#     if(missing("background.integral")==TRUE){
-#      stop("[analyse_pIRIRSequence()] No value set for 'background.integral'!")
-#     }
-
     ##INPUT OBJECTS
     if(is(object, "RLum.Analysis")==FALSE){
       stop("[analyse_pIRIRSequence()] Input object is not of type 'RLum.Analyis'!")
@@ -254,6 +246,9 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
     
   }      
 
+  ##get layout information
+  def.par <- par(no.readonly = TRUE)
+  
   ##set up layout matrix linked to the number of plot areas needed
   layout.matrix  <- c(
     rep(c(2,4,1,1),2), #header row with TL curves and info window
@@ -273,7 +268,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
 
   ## show the regions that have been allocated to each plot for debug
   ##layout.show(nf) 
-  
+
   }
   
   ##(1) INFO PLOT
@@ -344,7 +339,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
                     output.plotExtended.single = TRUE,
                     ...) ##TODO should be replaced be useful explizit arguments
     
-    
+ 
     ##add signal nformation to the protocol step 
     temp.results.pIRIR.De <- as.data.frame(
       c(get_RLum.Results(temp.results, "De.values"), 
@@ -369,16 +364,17 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
         LnLxTnTx.table = temp.results.pIRIR.LnLxTnTx, 
         rejection.criteria = temp.results.pIRIR.rejection.criteria,
         Formula =temp.results.pIRIR.formula))
-      
-  
+     
+     
     ##merge results
     if(exists("temp.results.final")){
     
-      temp.results.final <- merge_RLum.Results(list(temp.results.final, temp.results))
+      temp.results.final <- merge_RLum.Results(
+        list(temp.results.final, temp.results))
     
     }else{
     
-     temp.results.final <- temp.results
+      temp.results.final <- temp.results
     
    }
 
@@ -503,71 +499,20 @@ if(output.plot == TRUE){
          bty = "n", 
          pch = c(1:length(pIRIR.curve.names))
          )
-    
-    
-    
 
-# Plotting - Config -------------------------------------------------------
+   #reset graphic settings  
+   if(output.plot.single == FALSE){par(def.par)} 
+     
+    
   
-#   par.default <- par(no.readonly = TRUE)
-# 
-#   ##colours and double for plotting
-#   col <- get("col", pos = .LuminescenceEnv)
-# 
-#   if(output.plot.single[1] == FALSE){
-#     
-#     layout(matrix(c(1,1,3,3,
-#                     1,1,3,3,
-#                     2,2,4,4,
-#                     2,2,4,4,
-#                     5,5,5,5),5,4,byrow=TRUE))
-#     
-#     par(oma=c(0,0,0,0), mar=c(4,4,3,3), cex = cex)
-#     
-#     ## 1 -> TL previous LnLx
-#     ## 2 -> LnLx
-#     ## 3 -> TL previous TnTx
-#     ## 4 -> TnTx 
-#     ## 5 -> Legend  
-#     
-#     ## set selected curves to allow plotting of all curves
-#     output.plot.single.sel <- c(1,2,3,4,5,6)
-#     
-#   }else{
-#     
-#     par(mfrow=c(1,1))
-#         
-#     ##check for values in the single output of the function and convert
-#     if(!is(output.plot.single, "logical")){
-#             
-#       if(!is(output.plot.single, "numeric")){
-#         stop("[analyse_SAR.CWOSL()] Invalid data type for 'output.plot.single'.")
-#       }
-#       
-#     output.plot.single.sel  <- output.plot.single  
-#       
-#     }else{
-#       
-#     output.plot.single.sel <- c(1,2,3,4,5,6)
-#       
-#     }
-#   
-#   }   
-#   
-# 
-#  
-# 
-
 }##end output.plot == TRUE
 
-# Plotting  GC  ----------------------------------------
 
 ##============================================================================##
 # Return Values -----------------------------------------------------------
 ##============================================================================##
-   
-
-  #return(temp.return)
+  
+  temp.results.final
   
   # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
 

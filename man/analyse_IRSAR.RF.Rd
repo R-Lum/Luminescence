@@ -36,7 +36,7 @@ For further details see \code{\link{legend}.}}
   \item{\dots}{further arguments that will be passed to the plot output. 
 Currently supported arguments are \code{main}, \code{xlab}, \code{ylab}}
 }
-\details{The function performs an IRSAR analysis described for feldspar samples by 
+\details{The function performs an IRSAR analysis described for K-feldspar samples by 
 Erfurt et al. (2003) assuming a negligible sensitivity change of the RF signal.\cr
 \bold{General Sequence Structure} (according to Erfurt et al. (2003))
 \enumerate{
@@ -56,7 +56,29 @@ the exponential parameter, \eqn{D} the dose and \eqn{\beta} the dispersive
 factor.\cr\cr
 To obtain the palaedose the function is changed to:\cr
 \deqn{D = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}\cr
-The fitting is done using the \code{port} algorithm of the \code{\link{nls}} function.}
+The fitting is done using the \code{port} algorithm of the \code{\link{nls}} function.\cr
+
+Two methods are supported to obtain the De:\cr
+
+\bold{\code{method = "FIT"}}\cr
+
+The principle is described above and follows the orignal suggestions from Erfurt et al., 2003.\cr
+
+\bold{\code{method = "SLIDE"}}
+
+For this method the natural curve is slided along the x-axis until the best fit has been 
+employed. Instead of fitting this allows to work with the original data without the need 
+of any phisical model. This approach was introduced by Buylaert et al., 2012 and 
+Lapp et al., 2012. 
+TODO ... add mathematical decription
+
+\bold{Correction for outliers}
+
+TODO
+
+\bold{Error estimation}
+
+TODO}
 \value{A plot (optional) and an \code{\linkS4class{RLum.Results}} object is returned 
 containing the following elements: \cr
 \item{De.values}{\code{\link{data.frame}} containing De-values with error 
@@ -83,6 +105,14 @@ Erfurt, G., Krbetschek, M.R., Bortolot, V.J., Preusser, F., 2003.
 A fully automated multi-spectral radioluminescence reading system for 
 geochronometry and dosimetry. Nuclear Instruments and Methods in Physics Research 
 Section B: Beam Interactions with Materials and Atoms 207, 487-499.
+
+Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New luminescence measurement
+facilities in retrospective dosimetry. Radiation Measurements 47, 803-808. 
+doi:10.1016/j.radmeas.2012.02.006
+
+Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from Single Images.
+Astrophysics 116, 148-153.
+\url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 
 Trautmann, T., 2000. A study of radioluminescence kinetics of natural feldspar 
 dosimeters: experiments and simulations. Journal of Physics D: Applied Physics 33, 2304-2310.
@@ -112,7 +142,8 @@ data(ExampleData.RLum.Analysis, envir = environment())
 
 ##perform analysis
 temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data) 
+
 }
 
 \keyword{datagen}
-\section{Function version}{0.1.4 (2014-09-17 13:55:42)}
+\section{Function version}{0.2.0 (2014-09-18 18:28:34)}

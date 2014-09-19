@@ -148,12 +148,12 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
 
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {data <- list(data)}
-  
+    
   ## Check input data
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE & 
          is(data[[i]], "data.frame") == FALSE) {
-      stop(paste("[plot_AbanicoPlot] Error: Input data format is neither",
+      stop(paste("[plot_AbanicoPlot()] Error: Input data format is neither",
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
@@ -161,7 +161,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       }
     }
   }
-  
+
   ## check/set layout definitions
   if("layout" %in% names(list(...))) {
     layout = get_Layout(layout = list(...)$layout)
@@ -189,20 +189,11 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     polygon.line <- NA
   }
   if(missing(grid.col) == TRUE) {
-      grid.major <- layout$abanico$colour$grid.major
-      grid.minor <- layout$abanico$colour$grid.minor
+    grid.major <- layout$abanico$colour$grid.major
+    grid.minor <- layout$abanico$colour$grid.minor
   } else {
-    if(grid.col == "grey") {
-      grid.major <- layout$abanico$colour$grid.major
-      grid.minor <- layout$abanico$colour$grid.minor
-    }
-    if(grid.col == "none") {
-      grid.major <- "none"
-      grid.minor <- "none"
-    } 
-    if(grid.col != "grey" || grid.col != "none") {
-      grid.major<- grid.minor<- grid.col  
-    }
+    grid.major <- "none"
+    grid.minor <- "none"
   }
   if(missing(summary) == TRUE) {summary <- c("n", "in.ci")}
   if(missing(summary.pos) == TRUE) {summary.pos <- "sub"}
@@ -363,6 +354,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     }
   }
   
+
   ## create column names
   colnames(data.global) <- c("De", 
                              "error", 
@@ -417,7 +409,6 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       log(central.value), central.value)
   }
   
-
   ## create column names
   for(i in 1:length(data)) {
     colnames(data[[i]]) <- c("De", 
@@ -593,7 +584,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   }
   
   ## define auxiliary plot parameters -----------------------------------------
-  
+
   ## create empty plot to update plot parameters
   if(rotate == FALSE) {
     plot(NA, 
@@ -1024,7 +1015,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       y.lower <- log(y.lower)
       y.upper <- log(y.upper)
     }
-    
+ 
     if(rotate == FALSE) {
       polygons[i,1:7] <- c(limits.x[1], 
                            limits.x[2],
@@ -1144,7 +1135,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     }
     arrow.coords[[1]] <- NULL
   }
-  
+
   ## calculate KDE
   KDE <- list(NA)
   KDE.ext <- 0
@@ -1243,7 +1234,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     
     rug.coords[1] <- NULL
   }
-  
+
   ## Generate plot ------------------------------------------------------------
 
   ## determine number of subheader lines to shift the plot
@@ -1385,7 +1376,7 @@ if(rotate == FALSE) {
             lwd = 1)
     }
   }
-  
+
   ## optionally, plot central value lines
   if(lwd[1] > 0 & lty[1] > 0) {
     for(i in 1:length(data)) {
@@ -1639,7 +1630,7 @@ if(rotate == FALSE) {
         font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
                        layout$abanico$font.deco$zlab],
         cex = cex * layout$abanico$font.size$zlab/12) 
-  
+
   ## plot values and optionally error bars
   if(error.bars == TRUE) {
     for(i in 1:length(data)) {
@@ -1818,7 +1809,7 @@ if(rotate == FALSE) {
                   layout$abanico$dimension$margin[1] / 25.4 - 
                   layout$abanico$dimension$margin[3]/25.4))
   }
-  
+
   ## create empty plot
   par(new = TRUE)
   plot(NA, 
@@ -2204,7 +2195,7 @@ if(rotate == FALSE) {
            pch = pch[i],
            cex = layout$abanico$dimension$pch / 100)
   }
-  
+
   ## calculate KDE width
   KDE.max <- 0
   for(i in 1:length(data)) {

@@ -55,7 +55,7 @@ dataset (see example). }
 \references{Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from Single Images.
 Astrophysics 116, 148-153.
 \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}}
-\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France)
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 R Luminescence Package Team}
 \note{This function has BETA status}
 
@@ -73,4 +73,4 @@ R Luminescence Package Team}
 }
 
 \keyword{manip}
-\section{Function version}{0.1.2 (2014-09-15 02:28:00)}
+\section{Function version}{0.1.2 (2014-09-17 22:22:03)}
