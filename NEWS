@@ -34,8 +34,15 @@ Changes in version 0.4.0 (XX XXXX, 2014):
          • ‘analyse_pIRIRSequence()’: Function to analyse post-IR IRSL
            sequence measurements.
 
-         • ‘merge_RLum()’: Wrapper functions for various merge for
-           ‘RLum’-objects (#139).
+         • ‘merge_RLum()’: Wrapper function for various merge methods
+           for ‘RLum’-objects (#139),
+
+         • ‘get_RLum()’: Wrapper function for various get methods for
+           ‘RLum’-objects (#148),
+
+         • ‘merge_RLum.Analysis()’: Function allows merging of
+           RLum.Analysis objects and adding of objects an RLum.Analysis
+           object consists of (#138).
 
   Changes S4-objects, methods, classes:
 

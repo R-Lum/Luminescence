@@ -1,0 +1,52 @@
+\name{get_RLum}
+\alias{get_RLum}
+\title{General accessor function for RLum S4 class objects}
+\description{Function calls object specific get functions for RLum S4 class objects. }
+\usage{get_RLum(object, ...)}
+\arguments{
+  \item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of class \code{RLum}}
+  \item{\dots}{further arguments that one might want to pass to the specific get function }
+}
+\details{The function provides a generalised access point for specific 
+\code{\linkS4class{RLum}} objects.\cr
+Depending on the input object, the corresponding get function will be selected. 
+Allowed arguments can be found in the documentations of each get function. 
+\tabular{lll}{
+\bold{object} \tab \tab \bold{corresponding get function} \cr
+
+\code{\linkS4class{RLum.Data.Curve}} \tab : \tab \code{\link{get_RLum.Data.Curve}}\cr
+\code{\linkS4class{RLum.Data.Image}} \tab : \tab \code{\link{get_RLum.Data.Image}}\cr
+\code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab \code{\link{get_RLum.Data.Spectrum}}\cr
+\code{\linkS4class{RLum.Analysis}} \tab : \tab \code{\link{get_RLum.Analysis}}\cr 
+\code{\linkS4class{RLum.Results}} \tab : \tab \code{\link{get_RLum.Results}} 
+}}
+\value{Return same as input objects as provided in the list.}
+\references{-}
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
+R Luminescence Package Team}
+\note{-}
+
+
+\seealso{\code{\link{get_RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Curve}}, 
+\code{\link{get_RLum.Data.Image}},  \code{\linkS4class{RLum.Data.Image}},
+\code{\link{get_RLum.Data.Spectrum}},  \code{\linkS4class{RLum.Data.Spectrum}},
+\code{\link{get_RLum.Analysis}}, \code{\linkS4class{RLum.Analysis}},
+\code{\link{get_RLum.Results}}, \code{\linkS4class{RLum.Results}}}
+\examples{
+
+##Example based using data and from the calc_CentralDose() function
+
+##load example data
+data(ExampleData.DeValues, envir = environment())
+
+##apply the central dose model 1st time 
+temp1 <- calc_CentralDose(ExampleData.DeValues)
+
+##get results and store them in a new object
+temp.get<- get_RLum(object = temp1)
+
+
+}
+
+\keyword{utilities}
+\section{Function version}{0.1 (2014-09-21 17:51:06)}

@@ -2,15 +2,15 @@
 \alias{merge_RLum}
 \title{General merge function for RLum S4 class objects}
 \description{Function calls object specific merge functions for RLum S4 class objects. }
-\usage{merge_RLum(object, ...)}
+\usage{merge_RLum(objects, ...)}
 \arguments{
-  \item{object}{\code{\link{list}} of \code{\linkS4class{RLum}} (\bold{required}): list of S4 object of class \code{RLum}}
+  \item{objects}{\code{\link{list}} of \code{\linkS4class{RLum}} (\bold{required}): list of S4 object of class \code{RLum}}
   \item{\dots}{further arguments that one might want to pass to the specific merge function }
 }
 \details{The function provides a generalised access point for merge specific 
 \code{\linkS4class{RLum}} objects.\cr
-Depending on the input object, the corresponding plot function will be selected. 
-Allowed arguments can be found in the documentations of each merg function. 
+Depending on the input object, the corresponding merge function will be selected. 
+Allowed arguments can be found in the documentations of each merge function. 
 \tabular{lll}{
 \bold{object} \tab \tab \bold{corresponding merge function} \cr
 
@@ -38,10 +38,10 @@ temp1 <- calc_CentralDose(ExampleData.DeValues)
 temp2 <- calc_CentralDose(ExampleData.DeValues)
 
 ##merge the results and store them in a new object
-temp.merged <- get_RLum.Results(merge_RLum(object = list(temp1, temp2)))
+temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))
 
 
 }
 
 \keyword{utilities}
-\section{Function version}{0.1 (2014-09-15 15:16:58)}
+\section{Function version}{0.1 (2014-09-21 19:22:56)}

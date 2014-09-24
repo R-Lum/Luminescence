@@ -1,4 +1,4 @@
-\name{NEWS}
+  \name{NEWS}
 \title{NEWS for the R Package Luminescence}
 
 \section{Changes in version 0.4.0 (XX XXXX, 2014)}{
@@ -34,7 +34,13 @@
    \item \code{analyse_pIRIRSequence()}: Function to analyse post-IR IRSL sequence
    measurements.
    
-   \item \code{merge_RLum()}: Wrapper functions for various merge for \code{RLum}-objects (#139).
+   \item \code{merge_RLum()}: Wrapper function for various merge methods for \code{RLum}-objects (#139),
+   
+   \item \code{get_RLum()}: Wrapper function for various get methods for \code{RLum}-objects (#148),
+   
+   \item \code{merge_RLum.Analysis()}: Function allows merging of RLum.Analysis objects and adding 
+   of objects an RLum.Analysis object consists of (#138).
+   
    
    
   }
