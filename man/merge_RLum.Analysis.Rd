@@ -6,10 +6,8 @@ object consists of. }
 \usage{merge_RLum.Analysis(objects)}
 \arguments{
   \item{objects}{\code{\link{list}} of \code{\linkS4class{RLum.Analysis}} (\bold{required}): 
-list of S4 object of class \code{RLum.Analysis}. Furthermore objects 
-of class \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Spectrum}},
-and \code{\linkS4class{RLum.Data.Image}} can be added. Note: The input list 
-requires at least on object of \code{\linkS4class{RLum.Analysis}}}
+list of S4 objects of class \code{RLum.Analysis}. Furthermore other objects 
+of class \code{\linkS4class{RLum}} can be added, see details.}
 }
 \details{This function simply allows to merge \code{\linkS4class{RLum.Analysis}} objects. 
 Additionally other \code{\linkS4class{RLum}} objects can be added to an existing 
@@ -45,4 +43,4 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 }
 
 \keyword{utilities}
-\section{Function version}{0.1 (2014-09-21 19:33:38)}
+\section{Function version}{0.1 (2014-09-21 19:46:54)}

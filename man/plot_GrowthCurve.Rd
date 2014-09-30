@@ -123,4 +123,4 @@ plot_GrowthCurve(LxTxData)
 plot_GrowthCurve(LxTxData)
 ##dev.off()  
 }
-\section{Function version}{1.2.12 (2014-09-15 02:28:00)}
+\section{Function version}{1.2.12 (2014-09-30 11:20:36)}

@@ -144,10 +144,10 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
 
   ##get sequence structure
   temp.sequence.structure  <- get_structure.RLum.Analysis(object)
-    
+
   ##set values to structure data.frame
   temp.sequence.structure[, "protocol.step"] <- rep(
-    sequence.structure, nrow(temp.sequence.structure)/2/length(temp.sequence.structure))
+    sequence.structure, nrow(temp.sequence.structure)/2/length(sequence.structure))
   
   ##remove values that have been excluded
   temp.sequence.rm.id <- temp.sequence.structure[
@@ -406,7 +406,7 @@ if(output.plot == TRUE){
              length = 100)
   
     for(j in 1:length(pIRIR.curve.names)){
-    
+
      ##dose points
      temp.curve.points <- get_RLum.Results(
        temp.results.final,"LnLxTnTx.table")[,c("Dose", "LxTx", "LxTx.Error", "Signal")]
@@ -438,8 +438,8 @@ if(output.plot == TRUE){
      ##curve  
      temp.curve.formula  <- get_RLum.Results(
         temp.results.final, "Formula")[[pIRIR.curve.names[j]]]
-     
-     lines(x, eval(temp.curve.formula), col = j)
+        
+     try(lines(x, eval(temp.curve.formula), col = j), silent = TRUE)
       
     }
   
@@ -564,16 +564,3 @@ if(output.plot == TRUE){
   
   
 })#END OF STRUCTURE
-
-# pdf("~/Desktop/test.pdf", height = 16, width = 14)
-# #analyse sequence
-# temp.results <- analyse_pIRIRSequence(temp.curves, 
-#                                       signal.integral.min = 1,
-#                                       signal.integral.max = 50,
-#                                       background.integral.min = 800, 
-#                                       background.integral.max = 999,
-#                                       dose.points = c(0,750,1500,2500,4000,5000,0,750), 
-#                                       main = input.name,
-#                                       output.plot.single = FALSE
-#                                       )
-# dev.off()

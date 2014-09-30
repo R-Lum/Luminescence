@@ -261,6 +261,21 @@
         formats. 
       
       }
+      
+    \item \code{plot_DRTResults()}:
+      \itemize{
+      
+        \item Argument \code{na.exclude} renamed to \code{na.rm}, 
+        
+        \item by default ylim scaling now is set to the minimum and  maximum extend of the
+        data set,
+        
+        \item argument \code{given.dose} now allows a vector as input, e.g., if more then one data set
+        is provided (#156),
+        
+        \item minor corrections in error handling and graphical appearance.
+      
+      }
    
    
    

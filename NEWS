@@ -243,6 +243,19 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • Integrity checks added to avoid unspecific errors for
                wrong input formats.
 
+         • ‘plot_DRTResults()’:
+
+             • Argument ‘na.exclude’ renamed to ‘na.rm’,
+
+             • by default ylim scaling now is set to the minimum and
+               maximum extend of the data set,
+
+             • argument ‘given.dose’ now allows a vector as input,
+               e.g., if more then one data set is provided (#156),
+
+             • minor corrections in error handling and graphical
+               appearance.
+
   Internals:
 
          • Add new dependency for package ‘raster’, which is used for

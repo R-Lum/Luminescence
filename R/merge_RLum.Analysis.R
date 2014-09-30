@@ -12,10 +12,8 @@ merge_RLum.Analysis<- structure(function(#Merge function for RLum.Analysis S4 cl
 
   objects 
   ### \code{\link{list}} of \code{\linkS4class{RLum.Analysis}} (\bold{required}): 
-  ### list of S4 object of class \code{RLum.Analysis}. Furthermore objects 
-  ### of class \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Spectrum}},
-  ### and \code{\linkS4class{RLum.Data.Image}} can be added. Note: The input list 
-  ### requires at least on object of \code{\linkS4class{RLum.Analysis}}
+  ### list of S4 objects of class \code{RLum.Analysis}. Furthermore other objects 
+  ### of class \code{\linkS4class{RLum}} can be added, see details.
  
 ){
   
