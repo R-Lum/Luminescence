@@ -4,7 +4,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, IRAMT-CRP2A, Universite Bordeaux Montaigne (France),
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
@@ -180,17 +180,16 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
       
   }
  
-
   ##correct ylim for data set which exceed boundaries
-  if((max(sapply(1:length(values), function(x){max(values[[x]][,1])}))>1.25 |
-      min(sapply(1:length(values), function(x){min(values[[x]][,1])}))<0.75) &
+  if((max(sapply(1:length(values), function(x){max(values[[x]][,1], na.rm = TRUE)}))>1.25 |
+      min(sapply(1:length(values), function(x){min(values[[x]][,1], na.rm = TRUE)}))<0.75) &
       ("ylim" %in% names(extraArgs)) == FALSE){
         
     ylim <- c(
       min(sapply(1:length(values), function(x){
-      min(values[[x]][,1]) - max(values[[x]][,2])})), 
+      min(values[[x]][,1], na.rm = TRUE) - max(values[[x]][,2], na.rm = TRUE)})), 
       max(sapply(1:length(values), function(x){
-        max(values[[x]][,1]) + max(values[[x]][,2])})))
+        max(values[[x]][,1], na.rm = TRUE) + max(values[[x]][,2], na.rm = TRUE)})))
     
   }
  

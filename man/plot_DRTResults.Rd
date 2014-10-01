@@ -59,7 +59,7 @@ De/Given Dose.}
 \references{Wintle, A.G., Murray, A.S., 2006. A review of quartz optically stimulated 
 luminescence characteristics and their relevance in single-aliquot 
 regeneration dating protocols. Radiation Measurements, 41, 369-391.}
-\author{Sebastian Kreutzer, IRAMT-CRP2A, Universite Bordeaux Montaigne (France),
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 Michael Dietze, GFZ Potsdam (Germany), \cr
 R Luminescence Package Team}
 \note{Further data and plot arguments can be added by using the appropiate
@@ -126,4 +126,4 @@ plot_DRTResults(values = ExampleData.DeValues[7:11,],
 }
 
 \keyword{dplot}
-\section{Function version}{0.1.3 (2014-09-30 16:53:44)}
+\section{Function version}{0.1.3 (2014-09-30 17:30:42)}
