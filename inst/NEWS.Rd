@@ -13,7 +13,7 @@
     
     \item \code{get_RLum.Data.Image()}: get method for class \code{RLum.Data.Image}
     
-    \item further: corresponding show and coercing methods added for class. 
+    \item further: corresponding show and coercing methods added for class \code{RLum.Data.Image}. 
   }
   }
 
@@ -21,27 +21,26 @@
    \subsection{New functions}{
    \itemize{   
   
-    \item \code{readSPE2R()}: Add support Princenton Instruments *.SPE files
-    (camera and spectrometer measurements). Function output is a \code{RLum.Data.Spectrum}
-    or \code{RLum.Data.Image} object.   
-    
-   \item \code{plot_RLum.Data.Image()}: Plot function for \code{RLum.Data.Image} object.
-   Function also added to wrapper function \code{plot_RLum}
-  
-    \item \code{get_Layout()}: Helper function to return a list with layout definitions for
-      more homogenous plotting.
+  \item \code{analyse_pIRIRSequence()}: Function to analyse post-IR IRSL sequence
+   measurements (#133),
+   
+  \item \code{get_Layout()}: Helper function to return a list with layout definitions for
+  more homogenous plotting,
       
-   \item \code{analyse_pIRIRSequence()}: Function to analyse post-IR IRSL sequence
-   measurements.
-   
-   \item \code{merge_RLum()}: Wrapper function for various merge methods for \code{RLum}-objects (#139),
-   
    \item \code{get_RLum()}: Wrapper function for various get methods for \code{RLum}-objects (#148),
    
    \item \code{merge_RLum.Analysis()}: Function allows merging of RLum.Analysis objects and adding 
-   of objects an RLum.Analysis object consists of (#138).
+   of objects an RLum.Analysis object consists of (#138),
    
-   
+   \item \code{merge_RLum()}: Wrapper function for various merge methods for \code{RLum}-objects (#139),
+  
+   \item \code{plot_RLum.Data.Image()}: Plot function for \code{RLum.Data.Image} object.
+   Function also added to wrapper function \code{plot_RLum}
+  
+  \item \code{readSPE2R()}: Add support Princenton Instruments *.SPE files
+    (camera and spectrometer measurements). Function output is a \code{RLum.Data.Spectrum}
+    or \code{RLum.Data.Image} object.   
+    
    
   }
   
@@ -212,7 +211,9 @@
         \item details from the argument \code{rejection.criteria} were removed 
         from the argument list to allow a more flexible handling (e.g. changing only
         one parameter at time) and to clean up the argument list. However, the argument
-        work still as excpected (#145).
+        work still as excpected (#145),
+        
+        \item reformat of rejection criteria output to allow easier further treatment, 
         
         \item minor bug fixes (e.g., not properly caluculated TL curve resolution) and graphical adjustements.
       
@@ -222,7 +223,7 @@
        
        \itemize{
        
-        \item Error message implemented for non OSL data sets (#130, Geogrina King)
+        \item Error message implemented for non OSL data sets (#130, Georgina King)
        
        }
        

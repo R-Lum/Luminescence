@@ -93,8 +93,8 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## optionally, count and exclude NA values and print result
   if(na.rm == TRUE) {
     n.NA <- sum(!complete.cases(sample))
-    if(n.NA == 1) {print("1 NA value excluded.")
-    } else if(n.NA > 1) {print(paste(n.NA, "NA values excluded."))}
+    if(n.NA == 1) {cat("\n [plot_GrowthCurve()] 1 NA value excluded.")
+    } else if(n.NA > 1) {cat(paste("\n [plot_GrowthCurve()]", n.NA, "NA values excluded."))}
   
     sample <- na.exclude(sample)
     
@@ -299,7 +299,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 							  c<-as.vector((parameters["c"]))
 							
               #print D01 value
-              writeLines(paste("[plot_GrowthCurve.R] >> D01 = ",round(b,digits=2),sep=""))
+              writeLines(paste("[plot_GrowthCurve()] >> D01 = ",round(b,digits=2),sep=""))
               D01<-round(b,digits=2)  
             
 							#calculate De 

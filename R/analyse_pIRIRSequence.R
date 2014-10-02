@@ -36,7 +36,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   ### IRSL curves.
   
   dose.points,
-  ### \code{\link{numeric}} (optional): a numeric vector containg the dose points values
+  ### \code{\link{numeric}} (optional): a numeric vector containg the dose points values.
   ### Using this argument overwrites dose point values in the signal curves. 
   
   sequence.structure = c("TL", "IR50", "pIRIR225"),
@@ -45,7 +45,8 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   ### and any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}). 
   ### Addiationally a parameter \code{"EXCLUDE"} is allowed to exclude curves 
   ### from the analysis  
-  ### (Note: If a preheat without PMT measurement is used, remove the TL step.)
+  ### (Note: If a preheat without PMT measurement is used, i.e. preheat as non TL, 
+  ### remove the TL step.)
   
   output.plot = TRUE,
   ### \code{\link{logical}} (with default): enables or disables plot output.
@@ -58,7 +59,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   
   ... 
   ### further arguments that will be passed to the function 
-  ### \code{\link{analyse_SAR.CWOSL}}
+  ### \code{\link{analyse_SAR.CWOSL}} and \code{\link{plot_GrowthCurve}}
 
 ){
 
@@ -196,7 +197,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
 
   ##===========================================================================#
   ## set graphic layout using the layout option
-  ## unfortunately a little bit more complilcated then expeced due 
+  ## unfortunately a little bit more complicated then expected previously due 
   ## the order of the produced plots by the previous functions
   
   if(output.plot.single == FALSE){
@@ -254,10 +255,13 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
     rep(c(2,4,1,1),2), #header row with TL curves and info window
     temp.IRSL.layout.vector, #IRSL curves, 
     rep((max(temp.IRSL.layout.vector)-3),8), #legend,
-    rep((max(temp.IRSL.layout.vector)+1),2), #GC
-    rep((max(temp.IRSL.layout.vector)+2),2),#TnTc
-    rep((max(temp.IRSL.layout.vector)+1),2), #GC
-    rep((max(temp.IRSL.layout.vector)+2),2))#TnTc
+    rep((max(temp.IRSL.layout.vector)+1),1), #GC
+    rep((max(temp.IRSL.layout.vector)+2),1), #TnTc
+    rep((max(temp.IRSL.layout.vector)+3),2), #Rejection criteria
+    rep((max(temp.IRSL.layout.vector)+1),1), #GC
+    rep((max(temp.IRSL.layout.vector)+2),1), #TnTc
+    rep((max(temp.IRSL.layout.vector)+3),2)) #Rejection criteria
+    
 
   ##set layout
   nf <- layout(
@@ -500,11 +504,116 @@ if(output.plot == TRUE){
          pch = c(1:length(pIRIR.curve.names))
          )
 
-   #reset graphic settings  
-   if(output.plot.single == FALSE){par(def.par)} 
-     
-    
+   
+   ##Rejection criteria
+   temp.rejection.criteria <- get_RLum.Results(temp.results.final, 
+                                               data.object = "rejection.criteria")
   
+   temp.rc.reycling.ratio <- temp.rejection.criteria[
+     grep("Recycling ratio",temp.rejection.criteria[,"Criteria"]),]
+    
+   temp.rc.recuperation.rate <- temp.rejection.criteria[
+     grep("Recuperation rate",temp.rejection.criteria[,"Criteria"]),]
+  
+   temp.rc.palaedose.error <- temp.rejection.criteria[
+     grep("Palaeodose error",temp.rejection.criteria[,"Criteria"]),]
+      
+   plot(NA,NA,
+        xlim = c(-0.5,0.5),
+        ylim = c(0,30),
+        yaxt = "n", ylab = "",
+        xaxt = "n", xlab = "",
+        bty = "n",
+        main = "Rejection criteria")
+  
+   axis(side = 1, at = c(-0.2,-0.1,0,0.1,0.2), labels = c("- 0.2", "- 0.1","0/1","+ 0.1", "+ 0.2"))
+   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+   ##polygon for recycling ratio
+   text(x = -.4, y = 30, "Recycling ratio", pos = 1, srt = 0)
+   polygon(x = c(-as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
+                -as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
+                as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
+                as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1]), 
+          y = c(21,29,29,21), col = "gray", border = NA)
+    polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(21,29,29,21))
+ 
+  
+   ##consider possibility of multiple pIRIR signals and multiple recycling ratios
+   col.id  <- 1
+   for(i in seq(1,nrow(temp.rc.recuperation.rate),
+                  length(unique(temp.rc.recuperation.rate[,"Criteria"])))){
+        
+        
+        for(j in 0:length(unique(temp.rc.recuperation.rate[,"Criteria"]))){
+         points(temp.rc.reycling.ratio[i+j, "Value"]-1,
+               y = 25,
+               pch = col.id,
+               col = col.id)
+    
+        }
+        col.id <- col.id + 1
+    }
+    rm(col.id)
+     
+   
+  
+   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+   ##polygon for recuperation rate
+   text(x = -.4, y = 20, "Recuperation rate", pos = 1, srt = 0)
+   polygon(x = c(0,
+                0,
+                as.numeric(as.character(temp.rc.recuperation.rate$Threshold))[1],
+                as.numeric(as.character(temp.rc.recuperation.rate$Threshold))[1]), 
+          y = c(11,19,19,11), col = "gray", border = NA)
+  
+   polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(11,19,19,11))
+   polygon(x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45)
+  
+  
+  for(i in 1:nrow(temp.rc.recuperation.rate)){
+    
+    points(temp.rc.palaedose.error[i, "Value"],
+           y = 15,
+           pch = i,
+           col = i)
+    
+  }
+  
+   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+   ##polygon for palaeodose error
+   text(x = -.4, y = 10, "Palaeodose error", pos = 1, srt = 0)
+   polygon(x = c(0,
+                0,
+                as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1],
+                as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1]), 
+          y = c(1,9,9,1), col = "gray", border = NA)
+   polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(1,9,9,1))
+   polygon(x = c(-0.3,-0.3,0,0) , y = c(1,9,9,1), border = NA, density = 10, angle = 45)
+ 
+  
+   for(i in 1:nrow(temp.rc.palaedose.error)){
+     
+     points(temp.rc.palaedose.error[i, "Value"],
+            y = 5,
+            pch = i,
+            col = i)
+     
+   }  
+  
+   ##add 0 value
+   lines(x = c(0,0), y = c(0,19), lwd = 1.5*cex)
+   lines(x = c(0,0), y = c(20,29), lwd = 1.5*cex)  
+  
+  ##plot legend
+  legend("bottomright", legend = pIRIR.curve.names, 
+         col = c(1:length(pIRIR.curve.names)), 
+         bty = "n",
+         pch = c(1:length(pIRIR.curve.names)))
+  
+   
+   ##reset graphic settings  
+   if(output.plot.single == FALSE){par(def.par)} 
+       
 }##end output.plot == TRUE
 
 
@@ -517,18 +626,18 @@ if(output.plot == TRUE){
   # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
 
   ##details<<
-  ## To enable post-IR IRSL protocol (Thomsen et al., 2008) measurement analysis 
-  ## this function has been written as wrapper function for the function 
-  ## \code{\link{analyse_SAR.CWOSL}} facilitating an entire sequence analysis 
-  ## in one run. On the other hand, its functionality is stritctly limited 
-  ## by the functionality of the function \code{\link{analyse_SAR.CWOSL}}
+  ## To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analysis 
+  ## this function has been written as extended wrapper function for the function 
+  ## \code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis 
+  ## in one run. With this, its functionality is strictly limited 
+  ## by the functionality of the function \code{\link{analyse_SAR.CWOSL}}.
   ##
 
   ##value<<
   ## Plots (optional) and an \code{\linkS4class{RLum.Results}} object is 
   ## returned containing the following elements: 
   ## \item{De.values}{\link{data.frame} containing De-values, 
-  ## De-error and further parameters}
+  ## De-error and further parameters}.
   ## \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values 
   ## including signal, background counts and the dose points.}
   ## \item{rejection.criteria}{\link{data.frame} with values that might by 
@@ -536,16 +645,23 @@ if(output.plot == TRUE){
   ## exists.}\cr
   ##
   ## The output should be accessed using the function 
-  ## \code{\link{get_RLum.Results}}
+  ## \code{\link{get_RLum.Results}}.
   
   ##references<<
+  ##
+  ## Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved 
+  ## single-aliquot regenerative-dose protocol. Radiation Measurements 32, 57-73. 
+  ## doi:10.1016/S1350-4487(99)00253-X
+  ##
   ## Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. 
   ## Laboratory fading rates of various luminescence signals from feldspar-rich 
   ## sediment extracts. Radiation Measurements 43, 1474-1486. 
   ## doi:10.1016/j.radmeas.2008.06.002
 
   ##note<<
-  ## -
+  ## Best graphical ouput can be achieved by using the function \code{pdf} with the 
+  ## following options:\cr
+  ## \code{pdf(file = "...", height = 15, width = 15)}
 
   ##seealso<<
   ## \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}}, 
@@ -560,7 +676,57 @@ if(output.plot == TRUE){
 
 }, ex=function(){
   
-  ## TODO provide pIRIR measurements? 
+  ### NOTE: For this example existing example data are used. These data are non pIRIR data.
+  ###
+  ##(1) Compile example data set based on existing example data (SAR quartz measurement)
+  ##(a) Load example data
+  data(ExampleData.BINfileData, envir = environment())
   
+  ##(b) Transform the values from the first position in a RLum.Analysis object
+  object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+  
+  ##(c) Grep curves and exclude the last two (one TL and one IRSL)
+  object <- get_RLum.Analysis(object, record.id = c(-29,-30))
+  
+  ##(d) Define new sequence structure and set new RLum.Analysis object
+  sequence.structure  <- c(1,2,2,3,4,4)
+  sequence.structure <- as.vector(sapply(seq(0,length(object)-1,by = 4), 
+                                         function(x){sequence.structure + x}))
+  
+  object <-  sapply(1:length(sequence.structure), function(x){
+    
+    object[[sequence.structure[x]]]
+    
+  })
+  
+  object <- set_RLum.Analysis(records = object, protocol = "pIRIR")
+  
+  ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
+  ## Note: output as single plots to avoid problems with this example
+  results <- analyse_pIRIRSequence(object, 
+                               signal.integral.min = 1,
+                               signal.integral.max = 2,
+                               background.integral.min = 900,
+                               background.integral.max = 1000,
+                               fit.method = "EXP",
+                               sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+                               main = "Pseudo pIRIR data set based on quartz OSL", 
+                               output.plot.single = TRUE)
+                               
+                              
+  ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
+  ## Alternative for PDF output, uncomment and complete for usage
+  ##
+  # pdf(file = "...", height = 15, width = 15)
+  #  results <- analyse_pIRIRSequence(object, 
+  #         signal.integral.min = 1,
+  #         signal.integral.max = 2,
+  #         background.integral.min = 900,
+  #         background.integral.max = 1000,
+  #         fit.method = "EXP",
+  #         main = "Pseudo pIRIR data set based on quartz OSL") 
+  #                                   
+  #  dev.off()
+
   
 })#END OF STRUCTURE

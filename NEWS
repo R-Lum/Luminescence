@@ -15,34 +15,34 @@ Changes in version 0.4.0 (XX XXXX, 2014):
            ‘RLum.Data.Image’
 
          • further: corresponding show and coercing methods added for
-           class.
+           class ‘RLum.Data.Image’.
 
   New functions:
 
-         • ‘readSPE2R()’: Add support Princenton Instruments *.SPE
-           files (camera and spectrometer measurements). Function
-           output is a ‘RLum.Data.Spectrum’ or ‘RLum.Data.Image’
-           object.
-
-         • ‘plot_RLum.Data.Image()’: Plot function for
-           ‘RLum.Data.Image’ object.  Function also added to wrapper
-           function ‘plot_RLum’
+         • ‘analyse_pIRIRSequence()’: Function to analyse post-IR IRSL
+           sequence measurements (#133),
 
          • ‘get_Layout()’: Helper function to return a list with layout
-           definitions for more homogenous plotting.
-
-         • ‘analyse_pIRIRSequence()’: Function to analyse post-IR IRSL
-           sequence measurements.
-
-         • ‘merge_RLum()’: Wrapper function for various merge methods
-           for ‘RLum’-objects (#139),
+           definitions for more homogenous plotting,
 
          • ‘get_RLum()’: Wrapper function for various get methods for
            ‘RLum’-objects (#148),
 
          • ‘merge_RLum.Analysis()’: Function allows merging of
            RLum.Analysis objects and adding of objects an RLum.Analysis
-           object consists of (#138).
+           object consists of (#138),
+
+         • ‘merge_RLum()’: Wrapper function for various merge methods
+           for ‘RLum’-objects (#139),
+
+         • ‘plot_RLum.Data.Image()’: Plot function for
+           ‘RLum.Data.Image’ object.  Function also added to wrapper
+           function ‘plot_RLum’
+
+         • ‘readSPE2R()’: Add support Princenton Instruments *.SPE
+           files (camera and spectrometer measurements). Function
+           output is a ‘RLum.Data.Spectrum’ or ‘RLum.Data.Image’
+           object.
 
   Changes S4-objects, methods, classes:
 
@@ -203,7 +203,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                removed from the argument list to allow a more flexible
                handling (e.g. changing only one parameter at time) and
                to clean up the argument list. However, the argument
-               work still as excpected (#145).
+               work still as excpected (#145),
+
+             • reformat of rejection criteria output to allow easier
+               further treatment,
 
              • minor bug fixes (e.g., not properly caluculated TL curve
                resolution) and graphical adjustements.
@@ -211,7 +214,7 @@ Changes in version 0.4.0 (XX XXXX, 2014):
          • ‘Analyse_SAR.OSLdata()’:
 
              • Error message implemented for non OSL data sets (#130,
-               Geogrina King)
+               Georgina King)
 
          • ‘plot_RLum.Data.Curve()’:
 

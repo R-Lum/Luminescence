@@ -7,7 +7,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.4.7
+  ## version 0.4.8
   # ===========================================================================
 
   object,
@@ -399,13 +399,15 @@ object!")
               
               ##set column names
               temp.ColNames<-sapply(1:length(temp.Repeated[,1]),function(x){
-                     paste(temp.Repeated[x,"Name"],"/",
+                     paste("Recycling ratio (", temp.Repeated[x,"Name"],"/",
                            temp.Previous[temp.Previous[,"Dose"]==temp.Repeated[x,"Dose"],"Name"],
+                           ")",
                            sep="")
                       })
                                             
               ##Calculate Recycling Ratio
-              RecyclingRatio<-as.numeric(temp.Repeated[,"LxTx"])/as.numeric(temp.Previous[,"LxTx"])
+              RecyclingRatio<-round(as.numeric(temp.Repeated[,"LxTx"])/as.numeric(temp.Previous[,"LxTx"]), 
+                                    digits = 4)
               
               ##Just transform the matrix and add column names
               RecyclingRatio<-t(RecyclingRatio)
@@ -431,7 +433,7 @@ object!")
                                   })
            ##Just transform the matrix and add column names
            Recuperation  <-  t(Recuperation)
-           colnames(Recuperation)  <-  unlist(strsplit(paste("recuperation rate", 
+           colnames(Recuperation)  <-  unlist(strsplit(paste("Recuperation rate", 
              1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]), collapse = ";"), ";"))
            
          }else{Recuperation<-NA}
@@ -441,8 +443,7 @@ object!")
 
     temp.criteria <- c(colnames(RecyclingRatio), colnames(Recuperation))
     temp.value <- c(RecyclingRatio,Recuperation)
-    temp.threshold <- c(rep(paste("+/-", rejection.criteria$recycling.ratio/100),
-                                  length(RecyclingRatio)),
+    temp.threshold <- c(rep(rejection.criteria$recycling.ratio/100, length(RecyclingRatio)),
                         rep(paste("", rejection.criteria$recuperation.rate/100),
                                   length(Recuperation)))
   
@@ -476,10 +477,10 @@ object!")
     }
  
     RejectionCriteria <- data.frame(
-      criteria = temp.criteria,
-      value = temp.value,
-      threshold = temp.threshold,
-      status = c(temp.status.RecyclingRatio,temp.status.Recuperation)) 
+      Criteria = temp.criteria,
+      Value = temp.value,
+      Threshold = temp.threshold,
+      Status = c(temp.status.RecyclingRatio,temp.status.Recuperation)) 
                
 ##============================================================================##
 ##PLOTTING
@@ -866,19 +867,18 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                                         round(temp.GC[,2]/temp.GC[,1], digits = 5),
                                         NA)
 
-  palaeodose.error.threshold <- paste("+/- ",  
-                                      rejection.criteria$palaeodose.error/100,
-                                      sep = "")
-  
+  palaeodose.error.threshold <- rejection.criteria$palaeodose.error/100
+                                      
   palaeodose.error.status <- ifelse(
     palaeodose.error.calculated <= rejection.criteria$palaeodose.error,
                                     "OK", "FAILED")
 
 
-  palaeodose.error.data.frame <- data.frame(criteria = "palaeodose.error", 
-                                   value = palaeodose.error.calculated, 
-                                   threshold = palaeodose.error.threshold,
-                                   status =  palaeodose.error.status)
+  palaeodose.error.data.frame <- data.frame(
+                                   Criteria = "Palaeodose error", 
+                                   Value = palaeodose.error.calculated, 
+                                   Threshold = palaeodose.error.threshold,
+                                   Status =  palaeodose.error.status)
   
   ##add to RejectionCriteria data.frame
   RejectionCriteria <- rbind(RejectionCriteria, palaeodose.error.data.frame)

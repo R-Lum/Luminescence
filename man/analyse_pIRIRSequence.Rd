@@ -23,32 +23,33 @@ IRSL curves.}
   \item{background.integral.max}{\code{\link{integer}} (\bold{required}): upper bound of the background integral.
 Provide this value as vector for different integration limits for the different
 IRSL curves.}
-  \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector containg the dose points values
+  \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector containg the dose points values.
 Using this argument overwrites dose point values in the signal curves. }
   \item{sequence.structure}{\link{vector} \link{character} (with default): specifies the general 
 sequence structure. Allowed values are \code{"TL"} 
 and any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}). 
 Addiationally a parameter \code{"EXCLUDE"} is allowed to exclude curves 
 from the analysis  
-(Note: If a preheat without PMT measurement is used, remove the TL step.)}
+(Note: If a preheat without PMT measurement is used, i.e. preheat as non TL, 
+remove the TL step.)}
   \item{output.plot}{\code{\link{logical}} (with default): enables or disables plot output.}
   \item{output.plot.single}{\code{\link{logical}} (with default): 
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
 in single plot windows. 
 Requires \code{output.plot = TRUE}.}
   \item{\dots}{further arguments that will be passed to the function 
-\code{\link{analyse_SAR.CWOSL}}}
+\code{\link{analyse_SAR.CWOSL}} and \code{\link{plot_GrowthCurve}}}
 }
-\details{To enable post-IR IRSL protocol (Thomsen et al., 2008) measurement analysis 
-this function has been written as wrapper function for the function 
-\code{\link{analyse_SAR.CWOSL}} facilitating an entire sequence analysis 
-in one run. On the other hand, its functionality is stritctly limited 
-by the functionality of the function \code{\link{analyse_SAR.CWOSL}}
+\details{To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analysis 
+this function has been written as extended wrapper function for the function 
+\code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis 
+in one run. With this, its functionality is strictly limited 
+by the functionality of the function \code{\link{analyse_SAR.CWOSL}}.
 }
 \value{Plots (optional) and an \code{\linkS4class{RLum.Results}} object is 
 returned containing the following elements: 
 \item{De.values}{\link{data.frame} containing De-values, 
-De-error and further parameters}
+De-error and further parameters}.
 \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values 
 including signal, background counts and the dose points.}
 \item{rejection.criteria}{\link{data.frame} with values that might by 
@@ -56,14 +57,20 @@ used as rejection criteria. NA is produced if no R0 dose point
 exists.}\cr
 
 The output should be accessed using the function 
-\code{\link{get_RLum.Results}}}
-\references{Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. 
+\code{\link{get_RLum.Results}}.}
+\references{Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved 
+single-aliquot regenerative-dose protocol. Radiation Measurements 32, 57-73. 
+doi:10.1016/S1350-4487(99)00253-X
+
+Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. 
 Laboratory fading rates of various luminescence signals from feldspar-rich 
 sediment extracts. Radiation Measurements 43, 1474-1486. 
 doi:10.1016/j.radmeas.2008.06.002}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 R Luminescence Package Team}
-\note{-}
+\note{Best graphical ouput can be achieved by using the function \code{pdf} with the 
+following options:\cr
+\code{pdf(file = "...", height = 15, width = 15)}}
 
 
 \seealso{\code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}}, 
@@ -72,11 +79,61 @@ R Luminescence Package Team}
 \code{\link{get_RLum.Results}}}
 \examples{
 
-## TODO provide pIRIR measurements? 
+### NOTE: For this example existing example data are used. These data are non pIRIR data.
+###
+##(1) Compile example data set based on existing example data (SAR quartz measurement)
+##(a) Load example data
+data(ExampleData.BINfileData, envir = environment())
+
+##(b) Transform the values from the first position in a RLum.Analysis object
+object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+
+##(c) Grep curves and exclude the last two (one TL and one IRSL)
+object <- get_RLum.Analysis(object, record.id = c(-29,-30))
+
+##(d) Define new sequence structure and set new RLum.Analysis object
+sequence.structure  <- c(1,2,2,3,4,4)
+sequence.structure <- as.vector(sapply(seq(0,length(object)-1,by = 4), 
+                                       function(x){sequence.structure + x}))
+
+object <-  sapply(1:length(sequence.structure), function(x){
+  
+  object[[sequence.structure[x]]]
+  
+})
+
+object <- set_RLum.Analysis(records = object, protocol = "pIRIR")
+
+##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
+## Note: output as single plots to avoid problems with this example
+results <- analyse_pIRIRSequence(object, 
+                             signal.integral.min = 1,
+                             signal.integral.max = 2,
+                             background.integral.min = 900,
+                             background.integral.max = 1000,
+                             fit.method = "EXP",
+                             sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+                             main = "Pseudo pIRIR data set based on quartz OSL", 
+                             output.plot.single = TRUE)
+                             
+                            
+##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
+## Alternative for PDF output, uncomment and complete for usage
+##
+# pdf(file = "...", height = 15, width = 15)
+#  results <- analyse_pIRIRSequence(object, 
+#         signal.integral.min = 1,
+#         signal.integral.max = 2,
+#         background.integral.min = 900,
+#         background.integral.max = 1000,
+#         fit.method = "EXP",
+#         main = "Pseudo pIRIR data set based on quartz OSL") 
+#                                   
+#  dev.off()
 
 
 }
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.1 (2014-09-30 11:05:58)}
+\section{Function version}{0.1 (2014-10-02 18:49:01)}
