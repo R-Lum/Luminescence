@@ -226,7 +226,12 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • correct wrong error message and graphical output for
                cases where no De can be calculated for Ln/Tn values
-               much higher than the highest Lx/Tx value.
+               much higher than the highest Lx/Tx value,
+
+             • fix ‘'EXP+EXP'’ fit as is was broken, due to a coding
+               error,
+
+             • minor code polishing and adjustment.
 
          • ‘plot_RLum.Data.Curve()’:
 

@@ -243,7 +243,11 @@
         \code{Formula},
         
         \item correct wrong error message and graphical output for cases where no De can be 
-        calculated for Ln/Tn values much higher than the highest Lx/Tx value.
+        calculated for Ln/Tn values much higher than the highest Lx/Tx value,
+        
+        \item fix \code{'EXP+EXP'} fit as is was broken, due to a coding error,
+        
+        \item minor code polishing and adjustment. 
       
       }   
    

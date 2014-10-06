@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ##version 1.2.13
+  ##version 1.2.14
   # ===========================================================================
   
   sample,
@@ -297,14 +297,17 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 							  b<-as.vector((parameters["b"]))
 							  a<-as.vector((parameters["a"])) 
 							  c<-as.vector((parameters["c"]))
-							
-              #print D01 value
-              writeLines(paste("[plot_GrowthCurve()] >> D01 = ",round(b,digits=2),sep=""))
-              D01<-round(b,digits=2)  
-            
+					
+                
+                
 							#calculate De 
 							De<-round(-c-b*log(1-sample[1,2]/a), digits=2)
-              
+                
+              #print D01 value
+							D01<-round(b,digits=2) 
+              writeLines(paste0("[plot_GrowthCurve()] >> D01 = ",D01, " | De = ", De)) 
+            
+
 						##Monte Carlo Simulation
 						#	--Fit many curves and calculate a new De +/- De_Error
 						#	--take De_Error
@@ -613,6 +616,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 		                 nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
 		    ),silent=TRUE)
 		    
+      
 		     if(class(fit)!="try-error"){
 		        #get parameters out of it
 		        parameters<-(coef(fit)) 
@@ -656,8 +660,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
               D02<-round(b2,digits=2)
        
               #print D0 values
-              writeLines(paste(">> D01 = ",D01,sep=""))
-              writeLines(paste(">> D02 = ",D02,sep=""))
+              writeLines(paste0("\n [plot_GrowthCurve()] >> D01 = ",D01, " | D02 = ",D02))
                             
         #problem: analytic it is not easy to calculat x, here an simple approximation is made
 						
@@ -775,7 +778,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
           } #end if "try-error" Fit Method
       
         ##close
-        close(pb)    
+        if(exists("pb")){close(pb)}    
     #===========================================================================
 		} #End if Fit Method  
       
