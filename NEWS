@@ -59,78 +59,6 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
   Bugfixes and changes:
 
-         • ‘plot_RLum.Data.Spectrum()’:
-
-             • Correct an error that caused a chrash when ‘xlim’ was
-               set in a way that only one wavelength (colour value) was
-               remained,
-
-             • correct zebra-colour-pattern for rare cases of ‘xlim’
-               settings using ‘plot.type = "persp"’ or ‘plot.type =
-               "persp3d"’,
-
-             • add argument new plot type ‘"transect"’ for plotting a
-               transect along the time/temperature axis for a specific
-               wavelength/channel intervall (#120, requested by Regina
-               DeWitt),
-
-             • correct function break for a single column matrix
-               (single frame spectrum) by automatically resetting
-               ‘plot.type’ to ‘single’ for single frame spectra,
-
-             • colour rug (‘rug = TRUE’) implemented for plot type
-               ‘"multiple.lines"’ (#130),
-
-             • argument ‘xaxis.energy’ for wavelength energy conversion
-               for 2D plots added (#141).
-
-         • ‘plot_GrowthCurve()’:
-
-             • Minor graphical and code polishing,
-
-             • fix wrong regneration point plotting, if sequence
-               contains more then one zero dose point,
-
-             • argument ‘na.exclude’ for the sake consistency replaced
-               by ‘na.rm’,
-
-             • proper error message provided if nothing is left after
-               ‘NA’ value removal,
-
-             • overshoot of normal distribution curve in MC simulation
-               plot corrected (#111),
-
-             • argument ‘output.plotExtended.single’ added allowing a
-               single window plot output of all plots,
-
-             • formula of the fitted function is now returend as R
-               expression instead of a ‘formula’ object. The return
-               object remains, however, ‘Formula’.
-
-         • ‘calc_OSLLxTxRatio()’:
-
-             • Correct an error that causes ‘NA’ values within the
-               curve errors for rare combinations of signal and
-               background integreation limits,
-
-             • provide a name for the output data frame ‘LxTx.table’
-               for the ‘RLum.Results’ object,
-
-             • error fixed for the marginal case that k = 2 and exceed
-               the maximal curve length. In that case accidentially no
-               error was calculated.
-
-         • ‘fit_CWCurve()’:
-
-             • Implement ‘...’ argument to replace explicit arguments
-               ‘ylab’, ‘xlab’ and ‘main’,
-
-             • Fix an issue that causes an error when input values were
-               <= 0 (#123 reported by Johanna Lomax),
-
-             • Correct wrong y-axis labelling (wrong channel resolution
-               value).
-
          • ‘analyse_IRSAR.RF()’:
 
              • Add ‘...’ support for ‘mtext’,
@@ -138,34 +66,6 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • argument ‘method’ added to allow selection between the
                method ‘"FIT"’ and ‘"SLIDE"’. The latter method has been
                newly implemented (#143).
-
-         • ‘plot_Histogram()’:
-
-             • Change default y-axis labelling from 'Counts' to
-               'Frequency'
-
-         • ‘plot_AbanicoPlot()’:
-
-             • numeric values allowed for parameter centrality,
-
-             • KDE label value fixed,
-
-             • layout functionality added,
-
-             • not supported summary keywords fixed,
-
-             • dispersion polygon bug fixed,
-
-             • dispersion type enriched by userdefined confidence
-               interval,
-
-             • rug option added,
-
-             • multiple 2-sigma-bars allowed,
-
-             • rotate-Option added to Abanico Plot,
-
-             • minor modifications of layout definitions.
 
          • ‘analyse_SAR.CWOSL()’:
 
@@ -216,11 +116,6 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • Error message implemented for non OSL data sets (#130,
                Georgina King)
 
-         • ‘plot_RLum.Data.Curve()’:
-
-             • Add argument ‘norm’ to allow for curve normalisation to
-               the highest value (#129).
-
          • ‘calc_MaxDose3()’ & ‘calc_MaxDose4()’:
 
              • bootstrap method (recycled) as described in Cunningham &
@@ -241,10 +136,52 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                ‘gamma.xlb’, ‘gamma.xub’, ‘init.gamma’, ‘init.sigma’,
                ‘init.p0’, ‘output.indices’
 
-         • ‘readBIN2R()’:
+         • ‘calc_OSLLxTxRatio()’:
 
-             • Integrity checks added to avoid unspecific errors for
-               wrong input formats.
+             • Correct an error that causes ‘NA’ values within the
+               curve errors for rare combinations of signal and
+               background integreation limits,
+
+             • provide a name for the output data frame ‘LxTx.table’
+               for the ‘RLum.Results’ object,
+
+             • error fixed for the marginal case that k = 2 and exceed
+               the maximal curve length. In that case accidentially no
+               error was calculated.
+
+         • ‘fit_CWCurve()’:
+
+             • Implement ‘...’ argument to replace explicit arguments
+               ‘ylab’, ‘xlab’ and ‘main’,
+
+             • Fix an issue that causes an error when input values were
+               <= 0 (#123 reported by Johanna Lomax),
+
+             • Correct wrong y-axis labelling (wrong channel resolution
+               value).
+
+         • ‘plot_AbanicoPlot()’:
+
+             • numeric values allowed for parameter centrality,
+
+             • KDE label value fixed,
+
+             • layout functionality added,
+
+             • not supported summary keywords fixed,
+
+             • dispersion polygon bug fixed,
+
+             • dispersion type enriched by userdefined confidence
+               interval,
+
+             • rug option added,
+
+             • multiple 2-sigma-bars allowed,
+
+             • rotate-Option added to Abanico Plot,
+
+             • minor modifications of layout definitions.
 
          • ‘plot_DRTResults()’:
 
@@ -259,12 +196,79 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • minor corrections in error handling and graphical
                appearance.
 
+         • ‘plot_Histogram()’:
+
+             • Change default y-axis labelling from 'Counts' to
+               'Frequency'
+
+         • ‘plot_GrowthCurve()’:
+
+             • Minor graphical and code polishing,
+
+             • fix wrong regneration point plotting, if sequence
+               contains more then one zero dose point,
+
+             • argument ‘na.exclude’ for the sake consistency replaced
+               by ‘na.rm’,
+
+             • proper error message provided if nothing is left after
+               ‘NA’ value removal,
+
+             • overshoot of normal distribution curve in MC simulation
+               plot corrected (#111),
+
+             • argument ‘output.plotExtended.single’ added allowing a
+               single window plot output of all plots,
+
+             • formula of the fitted function is now returend as R
+               expression instead of a ‘formula’ object. The return
+               object remains, however, ‘Formula’,
+
+             • correct wrong error message and graphical output for
+               cases where no De can be calculated for Ln/Tn values
+               much higher than the highest Lx/Tx value.
+
+         • ‘plot_RLum.Data.Curve()’:
+
+             • Add argument ‘norm’ to allow for curve normalisation to
+               the highest value (#129).
+
+         • ‘plot_RLum.Data.Spectrum()’:
+
+             • Correct an error that caused a chrash when ‘xlim’ was
+               set in a way that only one wavelength (colour value) was
+               remained,
+
+             • correct zebra-colour-pattern for rare cases of ‘xlim’
+               settings using ‘plot.type = "persp"’ or ‘plot.type =
+               "persp3d"’,
+
+             • add argument new plot type ‘"transect"’ for plotting a
+               transect along the time/temperature axis for a specific
+               wavelength/channel intervall (#120, requested by Regina
+               DeWitt),
+
+             • correct function break for a single column matrix
+               (single frame spectrum) by automatically resetting
+               ‘plot.type’ to ‘single’ for single frame spectra,
+
+             • colour rug (‘rug = TRUE’) implemented for plot type
+               ‘"multiple.lines"’ (#130),
+
+             • argument ‘xaxis.energy’ for wavelength energy conversion
+               for 2D plots added (#141).
+
+         • ‘readBIN2R()’:
+
+             • Integrity checks added to avoid unspecific errors for
+               wrong input formats.
+
   Internals:
 
-         • Add new dependency for package ‘raster’, which is used for
-           the ‘RLum.Data.Image-class’,
+         • Add new dependency for package ‘raster’ and ‘sp’, which is
+           used for the ‘RLum.Data.Image-class’,
 
          • dependency to package 'Rserve' removed,
 
-         • dependcy to package 'zoo' added.
+         • dependcy to package 'zoo' added (used for running means).
 

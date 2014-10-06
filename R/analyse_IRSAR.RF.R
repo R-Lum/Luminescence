@@ -10,7 +10,9 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ## version 0.2.0
   # ===========================================================================
 
-  #TODO - keep fit.range in mind for De calculation
+  ##TODO - keep fit.range in mind for De calculation
+  ##Rejection criteria for curves input should be implemented. 
+  ##Problem: User needs visuale feedback... 
 
   object,
   ### \code{\linkS4class{RLum.Analysis}} (\bold{required}): 
@@ -27,13 +29,13 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ### Possible options are \code{"FIT"} or \code{"SLIDE"}
   
   fit.range.min, 
-  ### \code{\link{integer}} (optional): set the minimum channel range for signal fitting.   
+  ### \code{\link{integer}} (optional): set the minimum channel range for signal fitting and sliding.   
   ### Usually the entire data set is used for curve fitting, but there might be 
   ### reasons to limit the channels used for fitting.
   ### Note: This option also limits the values used for natural signal calculation.
   
   fit.range.max,
-  ### \code{\link{integer}} (optional): set maximum channel range for signal fitting. 
+  ### \code{\link{integer}} (optional): set maximum channel range for signal fitting and sliding. 
   ### Usually the entire data set is used for curve fitting, but there might be 
   ### reasons to limit the channels used for fitting.
   
@@ -44,6 +46,14 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ### \code{\link{numeric}} (with default): set number of Monte Carlo runs for start 
   ### parameter estimation. Note: Higher values will significantly increase 
   ### the calculation time   
+  
+  slide.outlier.rm = FALSE,
+  ### \code{\link{logical}} (with default): enable or disable outlier removal. 
+  ### Outliers are removed from the natural signal curve only.
+  
+  slide.trend.corr = FALSE, 
+  ### \code{\link{logical}} (with default): enable or disable trend correction. 
+  ### If \code{TRUE} the sliding is applied on a previouly trend corrected data set.
   
   output.plot = TRUE, 
   ### \code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})
@@ -116,14 +126,14 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
     if(min(fit.range)< 1 | max(fit.range)>max(temp.sequence.structure$n.channels)){
       
       fit.range <- c(1:max(temp.sequence.structure$n.channels))
-      warning("[analyse_IRSAR.RF] Fit range out of bounds, set to full data set extend.")
+      warning("Fit range out of bounds, set to full data set extend.")
 
   }
   
   ##apply fit range also for the natural curve
   fit.range.natural <- fit.range
     
-
+   
   
 ##=============================================================================#
 ## PLOT PARAMETERS
@@ -348,8 +358,19 @@ else if(method == "SLIDE"){
   ## Check for outliers and remove potential outliers
   ## Procedure based partly on the code used in the function apply_CosmicRayRemoval()
   
+    if(length(values.natural.limited)<=32 & slide.outlier.rm == TRUE){
+      
+      warning("> 30 data points are needed for the outlier correction. Nothing done!") 
+      
+    }
+  
+  if(slide.outlier.rm == TRUE & length(values.natural.limited) > 32){
+    ##the threshold 30 has been set artifically to avoid problems during 
+    ##outlier removoval 
+    
   ##remove outliers for sliding (but just at the beginning and at the tail, nothing in between)
-  temp.median.roll <- (zoo::rollmedian(values.natural.limited, k = 11))
+  temp.median.roll <- zoo::rollmedian(values.natural.limited, k = 11)
+                                 
   
     ##use interpolation to fill the gaps in the data
     temp.median.roll <-  matrix(unlist(approx(temp.median.roll[,1],
@@ -382,7 +403,7 @@ else if(method == "SLIDE"){
      temp.outlier.hist.thres <- which(
         temp.outlier.hist.nonzerobin.diff >= temp.threshold)
       
-     ##Find what ID value?
+     ##Find: Which ID value?
      
      temp.outlier.hist.thres.min  <- min(temp.outlier.hist$breaks[
        temp.outlier.hist.nonzerobin][temp.outlier.hist.thres])
@@ -416,6 +437,13 @@ else if(method == "SLIDE"){
         warning(paste(length(temp.outlier.ID)), " values removed as outlier for sliding!")
         
       }
+  
+  }else{
+    
+    values.natural.limited.full <-  values.natural.limited
+    temp.outlier.ID <- NULL
+    
+  }
       
   ##(1) calculate sum of residual squares
   temp.sum.residuals <- sapply(1:(nrow(values.regenerated.limited)-nrow(values.natural.limited)), 
@@ -428,15 +456,72 @@ else if(method == "SLIDE"){
   
   ##(2) get index of minimum value
   temp.sum.min.id <- which.min(temp.sum.residuals)
-  temp.sliding.step <- diff(values.natural.limited[1:2,1])
+  temp.sum.min.time.value <- values.regenerated.limited[temp.sum.min.id]
+  
+  temp.sliding.step <- temp.sum.min.time.value - values.natural.limited[1,1]
+  
   
   ##(3) slide curve (with the full data)
-  values.natural.limited.full[,1] <- values.natural.limited.full[,1] + 
-    temp.sum.min.id * temp.sliding.step 
+  values.natural.limited.full.preSlide <- values.natural.limited.full
+  values.natural.limited.full[,1] <- values.natural.limited.full[,1] + temp.sliding.step 
 
-  ##(6) calculate De
-  De.mean <- values.natural.limited.full[1,1]
   
+  ##(4) grep residuals
+  if(length(temp.outlier.ID)>0){
+    
+    values.residuals <- values.natural.limited.full[-temp.outlier.ID,2] - 
+      values.regenerated.limited[
+        values.regenerated.limited[,1]%in%values.natural.limited.full[-temp.outlier.ID,1], 2]
+    
+    
+  }else{
+    
+    values.residuals <- values.natural.limited.full[,2] - 
+      values.regenerated.limited[
+        values.regenerated.limited[,1]%in%values.natural.limited.full[,1], 2]
+    
+  }
+  
+  
+  ##(4.1) calculate De from the first channel
+  De.mean <- round(values.natural.limited.full[1,1], digits = 2)
+  
+  if(slide.trend.corr == TRUE){
+  
+   ##(5) fit residual data and correct for trend
+   temp.trend.fit <- coef(lm(y~x, data.frame(x = values.natural.limited[,1], y = values.residuals)))
+   temp.trend.fit.slope  <- temp.trend.fit[2]
+  
+   ##(5.1) recalculate trend corrected values
+   values.natural.limited.corr <- data.frame(
+     x = values.natural.limited[,1],
+     y = (-temp.trend.fit.slope * values.natural.limited[,1] + 
+     values.natural.limited[,2]))
+  
+   ##(5.2) calcualte sum of residual squares
+   temp.sum.residuals.corr <- sapply(1:(nrow(values.regenerated.limited)-nrow(values.natural.limited.corr)), 
+                               function(x){
+                                 
+                                 sum((values.regenerated.limited[
+                                   x:((nrow(values.natural.limited.corr)+x)-1),2]-values.natural.limited.corr[,2])^2)
+                                 
+                               })
+  
+   ##(5.3) find minimum value
+   temp.sum.min.id.corr <- which.min(temp.sum.residuals.corr)
+   temp.sum.min.time.value.corr <- values.regenerated.limited[temp.sum.min.id.corr]
+  
+   ##(5.4) slide correct values
+   temp.sliding.step.corr <- temp.sum.min.time.value.corr - values.natural.limited.corr[1,1]
+  
+   ##(5.5) slide curve (with the full data)
+   values.natural.limited.full.corr <- values.natural.limited.full.preSlide
+   values.natural.limited.full.corr[,1] <- values.natural.limited.full.corr[,1] + temp.sliding.step.corr 
+  
+   ##(5.6) calculate De
+   De.mean.corr <- round(values.natural.limited.full.corr[1,1], digits = 2)
+  }
+
 }
 
 ##ANY OTHER METHOD
@@ -607,7 +692,10 @@ if(output.plot==TRUE){
    ##mark points markes as outlier
     points(values.natural.limited.full[temp.outlier.ID,], pch = 1, col = "red")  
   }
-    
+  
+  ##DEBUG
+  #points(values.natural.limited.full.corr, col = "red")
+  
   ##plot range choosen for fitting
   abline(v=values.regenerated[min(fit.range), 1], lty=2)
   abline(v=values.regenerated[max(fit.range), 1], lty=2)
@@ -630,28 +718,43 @@ if(output.plot==TRUE){
   ##write information on the De in the plot
   if("mtext" %in% names(extraArgs)) {extraArgs$mtext
   }else{
-      
-      try(mtext(side=3, 
-                substitute(D[e] == De.mean),
-                line=0, 
-                cex=0.7), 
-          silent=TRUE)
+            
+      if(exists("De.mean.corr")){
+        try(mtext(side=3, 
+                  substitute(D[e] == De.mean,  list(
+                  De.mean=paste0(De.mean," | ", De.mean.corr, " (corr. value)"))),
+                  line=0, 
+                  cex=0.7), 
+            silent=TRUE)
+        
+      }else{
+        
+        try(mtext(side=3, 
+                  substitute(D[e] == De.mean),
+                  line=0, 
+                  cex=0.7), 
+            silent=TRUE)
+
+      }
     }
     
     ##mark selected De
     arrows(x0 = De.mean, y0 = c(min(temp.sequence.structure$y.min)),
-           x1 = De.mean, y1 = par("usr")[3], lwd = 3*cex, col = "red", lty = 1)
+           x1 = De.mean, y1 = par("usr")[3], lwd = 3*cex, col = "blue", lty = 1)
+  
+    ##mark selected De.corr
+    if(exists("De.mean.corr")){
+     
+      arrows(x0 = De.mean.corr, y0 = c(min(temp.sequence.structure$y.min)),
+            x1 = De.mean.corr, y1 = par("usr")[3], lwd = 3*cex, col = "red", lty = 1)
     
+    }
+  
     ##==lower plot==##    
     par(mar=c(4.2,4,0,0))
     
     if(length(temp.outlier.ID)>0){
-    
-      
-    values.residuals <- values.natural.limited.full[-temp.outlier.ID,2] - 
-      values.regenerated.limited[
-        values.regenerated.limited[,1]%in%values.natural.limited.full[-temp.outlier.ID,1], 2]
-  
+          
     plot(values.natural.limited.full[-temp.outlier.ID,1], values.residuals, 
          xlim=c(0,max(temp.sequence.structure$x.max)),
          xlab="Time [s]", 
@@ -662,12 +765,14 @@ if(output.plot==TRUE){
          #lwd=2,
          log="")
     
+    if(exists("De.mean.corr")){
+     lines(values.natural.limited.full[-temp.outlier.ID,1], 
+           temp.trend.fit[2] * values.natural.limited.full[-temp.outlier.ID,1] + temp.trend.fit[1], 
+           col = "red")
+    }
+    
     }else{
-     
-      values.residuals <- values.natural.limited.full[,2] - 
-        values.regenerated.limited[
-          values.regenerated.limited[,1]%in%values.natural.limited.full[,1], 2]
-      
+    
       plot(values.natural.limited.full[,1], values.residuals, 
            xlim=c(0,max(temp.sequence.structure$x.max)),
            xlab="Time [s]", 
@@ -678,16 +783,34 @@ if(output.plot==TRUE){
            #lwd=2,
            log="")
       
+      if(exists("De.mean.corr")){
+        lines(values.natural.limited.full[,1], 
+              temp.trend.fit[2] * values.natural.limited.full[,1] + temp.trend.fit[1], 
+              col = "red")
+      }
+      
     }
 
     
+  
     ##add 0 line
     abline(h=0)
-    abline(v = De.mean, lty = 2, col = "red")
+    abline(v = De.mean, lty = 2, col = "blue")
+    if(exists("De.mean.corr")){abline(v = De.mean.corr, lty = 2, col = "red")}
        
-    ##add 
-    axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*cex,
-         col = "red", padj = -1.55,)
+    
+    ##add numeric value
+    if(exists("De.mean.corr")){
+     
+      axis(side = 1, at = De.mean.corr, labels = De.mean.corr, cex.axis = 0.8*cex,
+          col = "red", padj = -1.55,)
+   
+    }else{
+     
+     axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*cex,
+          col = "blue", padj = -1.55,)
+    }
+    
     
   }
 
@@ -700,6 +823,7 @@ if(output.plot==TRUE){
   
   ##catch up worst case scenarios
   if(!exists("De.mean")){De.mean  <- NA}
+  if(!exists("De.mean.corr")){De.mean.corr  <- NA}
   if(!exists("De.error.lower")){De.error.lower  <- NA}
   if(!exists("De.error.upper")){De.error.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
@@ -708,6 +832,7 @@ if(output.plot==TRUE){
 
   ##combine values
   De.values <- data.frame(De = De.mean,
+                          De.corr = De.mean.corr,
                           De.error.lower = De.error.lower,
                           De.error.upper = De.error.upper,
                           De.status = De.status,
@@ -726,7 +851,8 @@ if(output.plot==TRUE){
   ## A plot (optional) and an \code{\linkS4class{RLum.Results}} object is returned 
   ## containing the following elements: \cr
   ## \item{De.values}{\code{\link{data.frame}} containing De-values with error 
-  ## (gray dashed lines in the plot) and further parameters}
+  ## (gray dashed lines in the plot) and further parameters. Corrected De values are only 
+  ## provided for the method \code{"SLIDE"}, so far the trend correction is applied.}
   ## \item{fit}{\link{nls} \code{nlsModel} object}\cr
   ## \bold{Note:} The output (\code{De.values}) should be accessed using the 
   ## function \code{\link{get_RLum.Results}}
@@ -760,21 +886,58 @@ if(output.plot==TRUE){
   ## 
   ## The principle is described above and follows the orignal suggestions from Erfurt et al., 2003.\cr
   ##
-  ## \bold{\code{method = "SLIDE"}}
+  ## \bold{\code{method = "SLIDE"}}\cr
   ##
   ## For this method the natural curve is slided along the x-axis until the best fit has been 
   ## employed. Instead of fitting this allows to work with the original data without the need 
-  ## of any phisical model. This approach was introduced by Buylaert et al., 2012 and 
-  ## Lapp et al., 2012. 
-  ## TODO ... add mathematical decription
+  ## of any phisical model. This approach was introduced on RF curves by Buylaert et al., 2012 and 
+  ## Lapp et al., 2012.
   ## 
-  ## \bold{Correction for outliers}
+  ## Here the sliding is done by searching for the minimum of the residual squares. 
   ##
-  ## TODO
+  ## \deqn{min(\Sigma(RF.reg_{k.i} - RF.nat_{k.i})^2)}
+  ## for 
+  ## \deqn{k = {t.0+i,...,t.max+i}}
+  ## 
+  ##
+  ## \bold{Correction for outliers} (\code{slide.outlier.rm = TRUE})\cr
+  ##
+  ## By using \code{method = "SLIDE"} and setting the argument \code{slide.outlier.rm = TRUE}
+  ## an automatic outlier removal can be applied on the natural curve. Outliers may be observed also
+  ## on the regenerative curve, but here the impact of single outliers on the curve adjustment (sliding)
+  ## is considered as negligible. \cr
+  ## The applied outlier removal algorithm consists of three steps:\cr
+  ##
+  ## (a) Input data are smoothed using the function \code{\link{rollmedian}}. Value \code{k} for 
+  ## the rolling window is fixed to 11. Therefore, the natural curve needs to comprise at least of 33 
+  ## values, otherwise outlier removal is rejected. \cr
+  ##
+  ## (b) To subsequently remove outliers, code blocks from the function \code{\link{apply_CosmicRayRemoval}} 
+  ## were recycled, therefore in general the outlier correction works as described by Pych (2003). 
+  ## In contrast, here no sigma clipping before constructing the histograms is applied.\cr
+  ##
+  ## (c) Outliers are marked in the data set and visualised in the graphical output. The subsequent
+  ## adjustement of both curves (natural and regenerative) is done without outliers, whereas the 
+  ## sliding it selfis done with the entire data set.\cr
+  ## 
+  ##
+  ## \bold{Trend correction} (\code{slide.trend.corr = TRUE})\cr
+  ##
+  ## This option allows for correcting any linear trend in the natural curve in comparison to the 
+  ## regenerative curve. The trend correction is based on regression analysis of the residuals from 
+  ## the slided curve. The corrected De is obtained by sliding the trend corrected values (again)
+  ## along the regenerative data curve. This correction is driven by the idea that the 
+  ## rediduals from the regenerative and the natural curve should be free of any trend, so far as 
+  ## they are comparable. \cr
   ##
   ## \bold{Error estimation}
   ## 
-  ## TODO
+  ## For \bold{\code{method = "FIT"}} the asymmetric error range is taken from the standard deviation
+  ## of the natural signal.\cr
+  ##
+  ## For \bold{\code{method = "SLIDE"}} so far no error estimation is implemented. Instead, to asses
+  ## the error of the De several aliquots should be measured and the error obtained from the 
+  ## De distribution.
 
   
   ##references<<
@@ -841,18 +1004,3 @@ if(output.plot==TRUE){
   temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data) 
   
 })#END OF STRUCTURE
-
-# library(Luminescence)
-# 
-# if(!exists("temp.raw")){
-# temp.raw <- readXSYG2R("~/Lumi/Bordeaux/pourNorbert/XSGYG/2014-09-12_20140912_Courville5_RF70_Test.xsyg")
-# }
-# 
-# temp.header  <- temp.raw[[1]]$Sequence.Header
-# temp.sequence <- temp.raw[[1]]$Sequence.Object
-# 
-# temp.RF <- get_RLum.Analysis(temp.sequence, recordType = "RF (NIR50)", keep.object = TRUE)
-# 
-# 
-# ##perform analysis
-# temp <- analyse_IRSAR.RF(object = temp.RF, method = "SLIDE", fit.range.min = 1) 

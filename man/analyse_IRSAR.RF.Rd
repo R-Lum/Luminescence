@@ -5,8 +5,8 @@
 using the protocol according to Erfurt et al. (2003)}
 \usage{analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"), 
     method = "FIT", fit.range.min, fit.range.max, fit.trace = FALSE, 
-    fit.MC.runs = 10, output.plot = TRUE, xlab.unit = "s", legend.pos, 
-    ...)}
+    fit.MC.runs = 10, slide.outlier.rm = FALSE, slide.trend.corr = FALSE, 
+    output.plot = TRUE, xlab.unit = "s", legend.pos, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): 
 input object containing data for protocol analysis}
@@ -16,17 +16,21 @@ In addition any other character is allowed in the sequence structure;
 such curves will be ignored. }
   \item{method}{\code{\link{character}} (with default): setting the method applied for the data analysis
 Possible options are \code{"FIT"} or \code{"SLIDE"}}
-  \item{fit.range.min}{\code{\link{integer}} (optional): set the minimum channel range for signal fitting.   
+  \item{fit.range.min}{\code{\link{integer}} (optional): set the minimum channel range for signal fitting and sliding.   
 Usually the entire data set is used for curve fitting, but there might be 
 reasons to limit the channels used for fitting.
 Note: This option also limits the values used for natural signal calculation.}
-  \item{fit.range.max}{\code{\link{integer}} (optional): set maximum channel range for signal fitting. 
+  \item{fit.range.max}{\code{\link{integer}} (optional): set maximum channel range for signal fitting and sliding. 
 Usually the entire data set is used for curve fitting, but there might be 
 reasons to limit the channels used for fitting.}
   \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for debugging use)}
   \item{fit.MC.runs}{\code{\link{numeric}} (with default): set number of Monte Carlo runs for start 
 parameter estimation. Note: Higher values will significantly increase 
 the calculation time   }
+  \item{slide.outlier.rm}{\code{\link{logical}} (with default): enable or disable outlier removal. 
+Outliers are removed from the natural signal curve only.}
+  \item{slide.trend.corr}{\code{\link{logical}} (with default): enable or disable trend correction. 
+If \code{TRUE} the sliding is applied on a previouly trend corrected data set.}
   \item{output.plot}{\code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})}
   \item{xlab.unit}{\code{\link{character}} (with default): set unit for x-axis}
   \item{legend.pos}{\code{\link{character}} (with default): useful keywords are \code{bottomright}, 
@@ -64,25 +68,63 @@ Two methods are supported to obtain the De:\cr
 
 The principle is described above and follows the orignal suggestions from Erfurt et al., 2003.\cr
 
-\bold{\code{method = "SLIDE"}}
+\bold{\code{method = "SLIDE"}}\cr
 
 For this method the natural curve is slided along the x-axis until the best fit has been 
 employed. Instead of fitting this allows to work with the original data without the need 
-of any phisical model. This approach was introduced by Buylaert et al., 2012 and 
-Lapp et al., 2012. 
-TODO ... add mathematical decription
+of any phisical model. This approach was introduced on RF curves by Buylaert et al., 2012 and 
+Lapp et al., 2012.
 
-\bold{Correction for outliers}
+Here the sliding is done by searching for the minimum of the residual squares. 
 
-TODO
+\deqn{min(\Sigma(RF.reg_{k.i} - RF.nat_{k.i})^2)}
+for 
+\deqn{k = {t.0+i,...,t.max+i}}
+
+
+\bold{Correction for outliers} (\code{slide.outlier.rm = TRUE})\cr
+
+By using \code{method = "SLIDE"} and setting the argument \code{slide.outlier.rm = TRUE}
+an automatic outlier removal can be applied on the natural curve. Outliers may be observed also
+on the regenerative curve, but here the impact of single outliers on the curve adjustment (sliding)
+is considered as negligible. \cr
+The applied outlier removal algorithm consists of three steps:\cr
+
+(a) Input data are smoothed using the function \code{\link{rollmedian}}. Value \code{k} for 
+the rolling window is fixed to 11. Therefore, the natural curve needs to comprise at least of 33 
+values, otherwise outlier removal is rejected. \cr
+
+(b) To subsequently remove outliers, code blocks from the function \code{\link{apply_CosmicRayRemoval}} 
+were recycled, therefore in general the outlier correction works as described by Pych (2003). 
+In contrast, here no sigma clipping before constructing the histograms is applied.\cr
+
+(c) Outliers are marked in the data set and visualised in the graphical output. The subsequent
+adjustement of both curves (natural and regenerative) is done without outliers, whereas the 
+sliding it selfis done with the entire data set.\cr
+
+
+\bold{Trend correction} (\code{slide.trend.corr = TRUE})\cr
+
+This option allows for correcting any linear trend in the natural curve in comparison to the 
+regenerative curve. The trend correction is based on regression analysis of the residuals from 
+the slided curve. The corrected De is obtained by sliding the trend corrected values (again)
+along the regenerative data curve. This correction is driven by the idea that the 
+rediduals from the regenerative and the natural curve should be free of any trend, so far as 
+they are comparable. \cr
 
 \bold{Error estimation}
 
-TODO}
+For \bold{\code{method = "FIT"}} the asymmetric error range is taken from the standard deviation
+of the natural signal.\cr
+
+For \bold{\code{method = "SLIDE"}} so far no error estimation is implemented. Instead, to asses
+the error of the De several aliquots should be measured and the error obtained from the 
+De distribution.}
 \value{A plot (optional) and an \code{\linkS4class{RLum.Results}} object is returned 
 containing the following elements: \cr
 \item{De.values}{\code{\link{data.frame}} containing De-values with error 
-(gray dashed lines in the plot) and further parameters}
+(gray dashed lines in the plot) and further parameters. Corrected De values are only 
+provided for the method \code{"SLIDE"}, so far the trend correction is applied.}
 \item{fit}{\link{nls} \code{nlsModel} object}\cr
 \bold{Note:} The output (\code{De.values}) should be accessed using the 
 function \code{\link{get_RLum.Results}}}
@@ -146,4 +188,4 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 }
 
 \keyword{datagen}
-\section{Function version}{0.2.0 (2014-09-18 18:28:34)}
+\section{Function version}{0.2.0 (2014-10-06 11:32:05)}

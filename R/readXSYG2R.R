@@ -156,7 +156,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
   ##IMPORT XSYG FILE
   
   ##Display output
-  cat("[readXSYG2R]\n")
+  cat("[readXSYG2R()]\n")
     
   ##PROGRESS BAR
   if(txtProgressBar == TRUE){

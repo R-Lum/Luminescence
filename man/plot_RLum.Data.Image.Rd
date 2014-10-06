@@ -3,7 +3,7 @@
 \title{Plot function for an RLum.Data.Image S4 class object}
 \description{The function provides a standardised plot output for image data of an 
 RLum.Data.Image S4 class object mainly using the plot functions provided by the
-\code{\link{raster}} package [beta version]. }
+\code{\link{raster}} package. }
 \usage{plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster", 
     ...)}
 \arguments{
@@ -21,29 +21,44 @@ specific plot functions.}
 
 Image is visualised as 2D plot usinng generic plot types provided by other 
 packages.
-R plot functions. \cr
+
+Supported plot types: \cr
 
 \bold{\code{plot.type = "plot.raster"}}\cr
 
 Uses the standard plot function for raster data from the package \code{\link{raster}}:
-\code{\link[raster]{plot}}
+\code{\link[raster]{plot}}. For each raster layer in a raster brick one plot is produced.
+
+Arguments that are passed through the function call:\cr
+
+\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{col}
 
 \bold{\code{plot.type = "plotRGB"}}\cr
 
 Uses the function \code{\link[raster]{plotRGB}} from the \code{\link{raster}} package.
+Only one image plot is produced as all layers in a brick a combined. 
+This plot type is useful to see whether any signal is recorded by the camera.\cr
+Arguments that are passed through the function call:\cr
+
+\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext}, \code{interpolate},
+\code{maxpixels}, \code{alpha}, \code{colNA}, \code{stretch}\cr
 
 \bold{\code{plot.type = "contour"}}\cr
 
 Uses the function contour plot function from the \code{\link{raster}}
-function (\code{\link[raster]{contour}}).}
+function (\code{\link[raster]{contour}}). For each raster layer one contour plot
+is produced.
+Arguments that are passed through the function call:\cr
+
+\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{col}}
 \value{Returns a plot.}
 \references{-}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{This function has been created to faciliate the plotting of image data imported
 by the function \code{\link{readSPE2R}}. However, so far the function 
-is not optimized to handle image data > ca. 200 MByte and thus the plot
-my or extremely slow. }
+is not optimized to handle image data > ca. 200 MByte and thus plotting of such data
+is extremely slow. }
 
 
 \seealso{\code{\linkS4class{RLum.Data.Image}}, 
@@ -56,4 +71,4 @@ my or extremely slow. }
 }
 
 \keyword{aplot}
-\section{Function version}{0.1 (2014-09-15 02:28:00)}
+\section{Function version}{0.1 (2014-10-05 18:10:49)}

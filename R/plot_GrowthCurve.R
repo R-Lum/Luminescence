@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ##version 1.2.12
+  ##version 1.2.13
   # ===========================================================================
   
   sample,
@@ -289,7 +289,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
               
 							if (class(fit)=="try-error"){
                 
-							  writeLines("[plot_GrowthCurve.R] >> try-error for EXP fit")
+							  writeLines("[plot_GrowthCurve()] >> try-error for EXP fit")
                 
 							}else{
 							  #get parameters out of it
@@ -304,7 +304,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
             
 							#calculate De 
 							De<-round(-c-b*log(1-sample[1,2]/a), digits=2)
-							
+              
 						##Monte Carlo Simulation
 						#	--Fit many curves and calculate a new De +/- De_Error
 						#	--take De_Error
@@ -900,7 +900,16 @@ if(output.plot==TRUE) {
       segments(xy$x,xy$y-y.Error,xy$x,xy$y+y.Error)
 	
 ##LINES	#Insert Ln/Tn
-			try(lines(c(0,De),c(sample[1,2],sample[1,2]), col="red", lty=2,lwd=1.25),silent=TRUE)
+      if(is.na(De)){
+        
+        lines(c(0,max(sample[,1])*2),c(sample[1,2],sample[1,2]), col="red", lty=2,lwd=1.25)
+        
+      }else{
+        
+        try(lines(c(0,De),c(sample[1,2],sample[1,2]), col="red", lty=2,lwd=1.25),silent=TRUE)
+        
+      }
+		
 			try(lines(c(De,De),c(0,sample[1,2]), col="red", lty=2, lwd=1.25),silent=TRUE)
 			try(points(De,sample[1,2], col="red", pch=19),silent=TRUE)
 
@@ -919,7 +928,7 @@ mtext <- if("mtext" %in% names(list(...))) {
 	
 			#write error message in plot if De is NaN
 			try(if (De=="NaN") {
-				text(sample[2,1],0,"Error: Fit not valid. At least one parameter is negative!", 
+				text(sample[2,1],0,"Error: De could not be calculated!", 
          adj=c(0,0), cex=0.8, col="red")
 			},silent=TRUE)
 	

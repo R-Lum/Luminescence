@@ -1,7 +1,7 @@
 plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image S4 class object
   ### The function provides a standardised plot output for image data of an 
   ### RLum.Data.Image S4 class object mainly using the plot functions provided by the
-  ### \code{\link{raster}} package [beta version]. 
+  ### \code{\link{raster}} package. 
   
   # ===========================================================================
   ##author<<
@@ -35,7 +35,7 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   ##check if object is of class RLum.Data.Image
   if(class(object) != "RLum.Data.Image"){
     
-    stop("[plot_RLum.Data.Image] Input object is not of type RLum.Data.Image")
+    stop("[plot_RLum.Data.Image()] Input object is not of type RLum.Data.Image")
     
   }
   
@@ -55,18 +55,39 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else 
   {"Height [px]"}
   
-  stretch <- if("stretch" %in% names(extraArgs)) {extraArgs$stretch} else 
+  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else 
+  {c(0,dim(get_RLum.Data.Image(object))[2])}
+  
+  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else 
+  {c(0,dim(get_RLum.Data.Image(object))[1])}
+  
+  ##plotRGB::ext
+  ext <- if("ext" %in% names(extraArgs)) {extraArgs$ext} else 
   {NULL}
+  
+  ##plotRGB::interpolate
+  interpolate <- if("interpolate" %in% names(extraArgs)) {extraArgs$interpolate} else 
+  {FALSE}
+  
+  ##plotRGB::stretch
+  stretch <- if("stretch" %in% names(extraArgs)) {extraArgs$stretch} else 
+  {"hist"}
+  
+  ##plotRGB::maxpixels
+  maxpixels <- if("maxpixels" %in% names(extraArgs)) {extraArgs$maxpixels} else 
+  {dim(get_RLum.Data.Image(object))[1]*dim(get_RLum.Data.Image(object))[2]}
+  
+  ##plotRGB::alpha
+  alpha <- if("alpha" %in% names(extraArgs)) {extraArgs$alpha} else 
+  {255}
+  
+  ##plotRGB::colNA
+  colNA <- if("colNA" %in% names(extraArgs)) {extraArgs$colNA} else 
+  {"white"}
   
   col <- if("col" %in% names(extraArgs)) {extraArgs$col} else 
   {topo.colors(255)}
-  
-#   
-#   #for zlim see below
-#   
-#   mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else 
-#   {""}
-#   
+     
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else 
   {1}
    
@@ -75,21 +96,26 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   
     par(mfrow=c(1,1), cex = cex)
   
-  }##TODO - if the par setting is sufficient
+  }
 
   ##grep raster   
-
 
   if(plot.type == "plotRGB"){
   ## ==========================================================================#
   ## standard raster plotRGB (package raster)
   ## ==========================================================================#    
   
-      plotRGB(get_RLum.Data.Image(object),
+      plotRGB(
+        get_RLum.Data.Image(object),
            main = main, 
            axes = TRUE,
            xlab = xlab,
            ylab = ylab,
+           ext = ext,
+           interpolate = interpolate,
+           maxpixels = maxpixels,
+           alpha = alpha,
+           colNA = colNA,
            stretch = stretch)
            
    
@@ -100,26 +126,33 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
 
     plot(get_RLum.Data.Image(object),
          main = main, 
+         xlim = xlim, 
+         ylim = ylim,
          xlab = xlab,
          ylab = ylab,
-         col = col,
-         stretch = stretch) 
-    print("test")
+         col = col) 
+
   ## ==========================================================================#
   ## standard contour (package raster)
   ## ==========================================================================#     
   }else if(plot.type == "contour"){
     
-    contour(get_RLum.Data.Image(object),
-         main = main, 
-         xlab = xlab,
-         ylab = ylab,
-         col = col,
-         stretch = stretch) 
+    for(i in 1:nlayers(get_RLum.Data.Image(object))){
+    
+      
+      raster::contour(raster(get_RLum.Data.Image(object), layer = i),
+           main = main, 
+           xlim = xlim, 
+           ylim = ylim,
+           xlab = xlab,
+           ylab = ylab,
+           col = col) 
+    
+    }
       
   }else{
     
-    stop("[plot_RLum.Data.Image] Unknown plot type.")
+    stop("[plot_RLum.Data.Image()] Unknown plot type.")
     
   }
   
@@ -130,21 +163,36 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   ## 
   ## Image is visualised as 2D plot usinng generic plot types provided by other 
   ## packages.
-  ## R plot functions. \cr
+  ##
+  ## Supported plot types: \cr
   ##
   ## \bold{\code{plot.type = "plot.raster"}}\cr
   ##
   ## Uses the standard plot function for raster data from the package \code{\link{raster}}:
-  ## \code{\link[raster]{plot}}
+  ## \code{\link[raster]{plot}}. For each raster layer in a raster brick one plot is produced.
   ##
+  ## Arguments that are passed through the function call:\cr
+  ## 
+  ## \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{col}
+  ## 
   ## \bold{\code{plot.type = "plotRGB"}}\cr
   ##
   ## Uses the function \code{\link[raster]{plotRGB}} from the \code{\link{raster}} package.
+  ## Only one image plot is produced as all layers in a brick a combined. 
+  ## This plot type is useful to see whether any signal is recorded by the camera.\cr
+  ## Arguments that are passed through the function call:\cr
+  ##
+  ## \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext}, \code{interpolate},
+  ## \code{maxpixels}, \code{alpha}, \code{colNA}, \code{stretch}\cr
   ##
   ## \bold{\code{plot.type = "contour"}}\cr
   ##
   ## Uses the function contour plot function from the \code{\link{raster}}
-  ## function (\code{\link[raster]{contour}}).
+  ## function (\code{\link[raster]{contour}}). For each raster layer one contour plot
+  ## is produced.
+  ## Arguments that are passed through the function call:\cr
+  ## 
+  ## \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{col}
 
                                 
   ##value<<
@@ -156,8 +204,8 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   ##note<<
   ## This function has been created to faciliate the plotting of image data imported
   ## by the function \code{\link{readSPE2R}}. However, so far the function 
-  ## is not optimized to handle image data > ca. 200 MByte and thus the plot
-  ## my or extremely slow. 
+  ## is not optimized to handle image data > ca. 200 MByte and thus plotting of such data
+  ## is extremely slow. 
   
   ##seealso<<
   ## \code{\linkS4class{RLum.Data.Image}}, 
@@ -172,5 +220,3 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
  ##TODO
   
 })#END OF STRUCTURE
-
-#plot_RLum.Data.Image(temp, plot.type = "plotRGB")#TODO

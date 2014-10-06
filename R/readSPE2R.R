@@ -4,7 +4,7 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
   
   ##section<<
   ## version 0.1
@@ -15,7 +15,7 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
   ### [WIN]: \code{readSPE2R("C:/Desktop/test.spe")}, \cr  
   ### [MAC/LINUX]: \code{readSPER("/User/test/Desktop/test.spe")} 
   
-  output.object = "RLum.Data.Spectrum", 
+  output.object = "RLum.Data.Image", 
   ### \code{\link{character}} (with default): set \code{RLum} output object. 
   ### Allowed types are \code{"RLum.Data.Spectrum"}, \code{"RLum.Data.Image"} or
   ### \code{"matrix"}
@@ -35,14 +35,14 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
   ##check if file exists
   if(file.exists(file) == FALSE){
     
-    stop("[readSPE2R] File not found!")
+    stop("[readSPE2R()] File not found!")
     
   }
   
   ##check file extension
   if(strsplit(file, split = "\\.")[[1]][2] != "SPE"){
   
-    temp.text <- paste("[readSPE2R] Unsupported file format: *.",
+    temp.text <- paste("[readSPE2R()] Unsupported file format: *.",
                        strsplit(file, split = "\\.")[[1]][2], sep = "")
     
     stop(temp.text)
@@ -135,6 +135,13 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
 
   ##number of frames in file.
   NumFrames <- readBin(con, what="int", 1, size=4, endian="little", signed = TRUE)
+  
+  if(NumFrames > 100 & missing(frame.range) & output.object == "RLum.Data.Image"){
+    
+    error.message <- paste0("[readSPE2R()] Import aborted. This file containes > 100 (", NumFrames, "). Use argument 'frame.range' to force import.")
+    stop(error.message)
+    
+  }
 
     ##set frame.range
     if(missing(frame.range) == TRUE){frame.range <- c(1,NumFrames)}
@@ -217,7 +224,7 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
     
   }else{
     
-    stop("[readSPE2R] Unknown 'datatype'.")
+    stop("[readSPE2R()] Unknown 'datatype'.")
     
   }
   
@@ -317,6 +324,7 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
       
     })
    
+    ##Convert to raster brick
     data.raster <- brick(x = data.raster.list) 
    
     ##Create RLum.object
@@ -342,8 +350,8 @@ return(object)
 
   ##details<<
   ##
-  ## Function provides data an import routine for the Princton Instruments SPE format. 
-  ## Import functionality based on the file format description provided 
+  ## Function provides an import routine for the Princton Instruments SPE format. 
+  ## Import functionality is based on the file format description provided 
   ## by Princton Instruments and a MatLab script written by Carl Hall (s. 
   ## references). 
 
@@ -361,13 +369,18 @@ return(object)
   ## \code{RLum.Data.Image}\cr
   ##
   ## An object of type \code{\linkS4class{RLum.Data.Image}} is returned. 
+  ## Due to performace reasons the import is aborted for files containing more 
+  ## than 100 frames. This limitation can be overwritten manually be using the argument
+  ## \code{frame.frange}.
+  ## 
   ##
   ## \code{matrix}\cr
   ## 
   ## Returns a matrix of the form: Rows = Channels, columns = Frames
   ## For the transformation the function \code{\link{get_RLum.Data.Spectrum}} is used, 
-  ## meaning that same results can be obtained by using the function \code{\link{get_RLum.Data.Spectrum}}
-  ## on an \code{RLum.Data.Spectrum} object or \code{\link{get_RLum.Data.Image}} on an
+  ## meaning that same results can be obtained by using the 
+  ## function \code{\link{get_RLum.Data.Spectrum}} on an \code{RLum.Data.Spectrum} 
+  ## object or \code{\link{get_RLum.Data.Image}} on an
   ## \code{RLum.Data.Image} object.
 
   ##references<<
@@ -383,7 +396,7 @@ return(object)
   ##
   ## The function has been successfully tested for SPE format versions 2.x.
   ##
-  ## \emph{Currentyl not all information provided by the SPE format are supported.} 
+  ## \emph{Currently not all information provided by the SPE format are supported.} 
   
   ##seealso<<
   ## \code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{raster}} 
