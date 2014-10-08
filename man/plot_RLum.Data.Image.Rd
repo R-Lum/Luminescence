@@ -64,11 +64,14 @@ is extremely slow. }
 \seealso{\code{\linkS4class{RLum.Data.Image}}, 
 \code{\link{plot}}, \code{\link{plot_RLum}}, \code{\link{raster}}, }
 \examples{
- 
-##load example data
-##TODO
- 
+
+##load data
+data(ExampleData.RLum.Data.Image, envir = environment())
+
+##plot data
+plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
+
 }
 
 \keyword{aplot}
-\section{Function version}{0.1 (2014-10-05 18:10:49)}
+\section{Function version}{0.1 (2014-10-07 18:22:59)}

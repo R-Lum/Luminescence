@@ -169,7 +169,9 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   ##create info element list from data
-  temp.info <- list(ControllerVersion, LogicOutput,  AmpHiCapLowNoise,
+  temp.info <- list(ControllerVersion, 
+                    LogicOutput,  
+                    AmpHiCapLowNoise,
                     xDimDet, yDimDet, 
                     xdim, ydim, 
                     VChipXdim, VChipYdim, 
@@ -187,6 +189,12 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
                     NumFrames,
                     file_header_ver)
 
+  ##set name for list elements
+  names(temp.info) <- c("ControllerVersion", "LogicOutput", "AmpHiCapLowNoise", "xDimDet", "yDimDet",
+                        "xdim", "ydim", "VChipXdim", "VChipYdim", "Date", "noscan", "mode", "exp_sec",
+                        "DetTemperature", "DetType", "datatype", "scramble", "lnoscan", "lavgexp",
+                        "ReadoutTime", "TriggeredModeFlag", "NumFrames", "file_header_ver")
+                        
 # read count value data ---------------------------------------------------
   ##set functions
 
@@ -326,7 +334,7 @@ readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
    
     ##Convert to raster brick
     data.raster <- brick(x = data.raster.list) 
-   
+    
     ##Create RLum.object
     object <- set_RLum.Data.Image(recordType = "Image", 
                                   curveType = "measured",

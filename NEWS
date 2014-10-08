@@ -44,6 +44,11 @@ Changes in version 0.4.0 (XX XXXX, 2014):
            output is a ‘RLum.Data.Spectrum’ or ‘RLum.Data.Image’
            object.
 
+  New example data sets:
+
+         • ‘ExampleData.RLum.Data.Image’: Example data for
+           ‘RLum.Data.Image’ object (part of #135).
+
   Changes S4-objects, methods, classes:
 
          • ‘get_RLum.Analysis()’: Add support for inverse ‘record.id’

@@ -216,7 +216,10 @@ plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image 
   
 }, ex=function(){
   
- ##load example data
- ##TODO
+  ##load data
+  data(ExampleData.RLum.Data.Image, envir = environment())
+  
+  ##plot data
+  plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
   
 })#END OF STRUCTURE

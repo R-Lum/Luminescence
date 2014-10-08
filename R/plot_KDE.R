@@ -7,8 +7,8 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
                       
   # ===========================================================================
   ##author<<
-  ## Michael Dietze (GFZ Potsdam),
-  ## Sebastian Kreutzer, JLU Giessen (Germany), \cr
+  ## Michael Dietze, GFZ Potsdam (Germany),
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, \cr
   
   ##section<<
   ##version 3.2
@@ -94,7 +94,7 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE & 
          is(data[[i]], "data.frame") == FALSE) {
-      stop(paste("[plot_AbanicoPlot] Error: Input data format is neither",
+      stop(paste("[plot_KDE()] Input data format is neither",
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {

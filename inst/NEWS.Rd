@@ -46,6 +46,19 @@
   
   
   }
+  
+  
+   \subsection{New example data sets}{
+   \itemize{   
+  
+  \item \code{ExampleData.RLum.Data.Image}: Example data for \code{\linkS4class{RLum.Data.Image}} object
+  (part of #135).
+     
+  }
+  
+  
+  }
+  
 
 
   \subsection{Changes S4-objects, methods, classes}{

@@ -403,13 +403,15 @@ else if(method == "SLIDE"){
      temp.outlier.hist.thres <- which(
         temp.outlier.hist.nonzerobin.diff >= temp.threshold)
       
+     ##check for the case that no threshold is found
+     if(length(temp.outlier.hist.thres) != 0){
+       
      ##Find: Which ID value?
-     
      temp.outlier.hist.thres.min  <- min(temp.outlier.hist$breaks[
        temp.outlier.hist.nonzerobin][temp.outlier.hist.thres])
+  
      temp.outlier.hist.thres.max  <- max(temp.outlier.hist$breaks[
        temp.outlier.hist.nonzerobin][temp.outlier.hist.thres]) 
-  
   
       if( temp.outlier.hist.thres.min <0){
         
@@ -430,13 +432,19 @@ else if(method == "SLIDE"){
      
       ##remove from data set for further analysis
       values.natural.limited.full <-  values.natural.limited
-      
+  
       if(length(temp.outlier.ID)>0){
         values.natural.limited <-  values.natural.limited[- temp.outlier.ID,]
         
         warning(paste(length(temp.outlier.ID)), " values removed as outlier for sliding!")
-        
       }
+     
+     }else{
+       
+       values.natural.limited.full <-  values.natural.limited
+       temp.outlier.ID <- NULL
+       
+     }
   
   }else{
     
