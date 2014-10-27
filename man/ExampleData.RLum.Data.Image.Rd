@@ -11,7 +11,7 @@ ExampleData.RLum.Data.Image
 }
 %- maybe also 'usage' for other objects documented here.
 \format{
-Object of class code{\linkS4class{RLum.Data.Image}}
+Object of class \code{\linkS4class{RLum.Data.Image}}
 
 }
 \source{

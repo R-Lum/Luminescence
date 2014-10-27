@@ -238,6 +238,15 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • minor code polishing and adjustment.
 
+         • ‘plot_RLum.Analysis()’:
+
+             • Add argument ‘abline’ to allow inserting similar
+               vertical or horizontal lines in every plot. The decision
+               to implement this argument in this function instead the
+               function ‘plot_RLum.Data.Curve()’ was made because in a
+               single plot modus ‘abline’ is more sufficiently used as
+               separat function call.
+
          • ‘plot_RLum.Data.Curve()’:
 
              • Add argument ‘norm’ to allow for curve normalisation to

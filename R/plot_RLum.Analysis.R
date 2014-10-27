@@ -4,10 +4,10 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen (Germany), \cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.1.2
+  ## version 0.1.3
   # ===========================================================================
 
   object, 
@@ -19,6 +19,13 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   
   ncols = 2, 
   ### \code{\link{integer}} (with default): sets number of columns for plot output
+  
+  abline,
+  ### \code{\link{list}} (optional): allows to set similar ablines in each plot. This option 
+  ### uses the function \code{\link{do.call}}, meaning that every argument in the \code{list} has
+  ### to be provided as \code{list}, e.g. \code{abline = list(list(v = 120), list(v = 350))} produces
+  ### two vertical ablines: One at 150 and another one at 350. Within the call all arguments 
+  ### supported by \code{\link{abline}} are fully supported
   
   ...
   ### further arguments and graphical parameters will be passed to the \code{plot} function.
@@ -114,6 +121,17 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
                      type = type,
                      lty = lty, 
                      pch = pch)
+            
+            ##add abline
+            if(!missing(abline)){
+              
+              for(k in 1:length(abline)){
+                
+                do.call("abline", abline[[k]])
+                
+              }
+              
+            }
           
             
            } else if(is(temp[[i]], "RLum.Data.Spectrum") == TRUE) {

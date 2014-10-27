@@ -3,19 +3,24 @@
 \title{Plot function for an RLum.Analysis S4 class object}
 \description{The function provides a standardised plot output for curve data of an 
 RLum.Analysis S4 class object}
-\usage{plot_RLum.Analysis(object, nrows = 3, ncols = 2, ...)}
+\usage{plot_RLum.Analysis(object, nrows = 3, ncols = 2, abline, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4 object of class 
 \code{RLum.Analysis}}
   \item{nrows}{\code{\link{integer}} (with default): sets number of rows for plot output}
   \item{ncols}{\code{\link{integer}} (with default): sets number of columns for plot output}
+  \item{abline}{\code{\link{list}} (optional): allows to set similar ablines in each plot. This option 
+uses the function \code{\link{do.call}}, meaning that every argument in the \code{list} has
+to be provided as \code{list}, e.g. \code{abline = list(list(v = 120), list(v = 350))} produces
+two vertical ablines: One at 150 and another one at 350. Within the call all arguments 
+supported by \code{\link{abline}} are fully supported}
   \item{\dots}{further arguments and graphical parameters will be passed to the \code{plot} function.}
 }
 \details{The function produces a multiple plot output. 
 A file output is recommended (e.g., \code{\link{pdf}}).}
 \value{Returns multiple plots.}
 \references{#}
-\author{Sebastian Kreutzer, JLU Giessen (Germany), \cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{Not all arguments available for \code{\link{plot}} will be passed!
 Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
@@ -38,4 +43,4 @@ plot_RLum.Analysis(temp)
 }
 
 \keyword{aplot}
-\section{Function version}{0.1.2 (2014-09-15 02:28:00)}
+\section{Function version}{0.1.3 (2014-10-27 10:48:07)}
