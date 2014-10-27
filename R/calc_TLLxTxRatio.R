@@ -3,11 +3,11 @@ calc_TLLxTxRatio <- structure(function(#Calculate the Lx/Tx ratio for a given se
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen/Freiberg Instruments (Germany),
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
   ## Christoph Schmidt, University of Bayreuth (Germany),\cr
   
   ##section<<
-  ## version 0.2.1
+  ## version 0.2.2
   # ===========================================================================
 
   Lx.data.signal,
@@ -197,7 +197,9 @@ calc_TLLxTxRatio <- structure(function(#Calculate the Lx/Tx ratio for a given se
 
 # Return values -----------------------------------------------------------
 
-   newRLumResults.calc_TLLxTxRatio <- set_RLum.Results(data=temp.results)
+   newRLumResults.calc_TLLxTxRatio <- set_RLum.Results(
+     data=list(LxTx.table = temp.results))
+
    return(newRLumResults.calc_TLLxTxRatio)
      
 # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
@@ -207,20 +209,21 @@ calc_TLLxTxRatio <- structure(function(#Calculate the Lx/Tx ratio for a given se
      
      ##value<<
      ## Returns an S4 object of type \code{\linkS4class{RLum.Results}}. 
-     ## Slot \code{data} contains a \link{data.frame} with the following 
+     ## Slot \code{data} contains a \link{list} with the following 
      ## structure:\cr\cr 
-     ## $ LnLx  \cr        
-     ## $ LnLx.BG   \cr     
-     ## $ TnTx    \cr       
-     ## $ TnTx.BG    \cr   
-     ## $ Net_LnLx   \cr   
-     ## $ Net_LnLx.Error\cr 
+     ## $ LxTx.table \cr
+     ## .. $ LnLx  \cr        
+     ## .. $ LnLx.BG   \cr     
+     ## .. $ TnTx    \cr       
+     ## .. $ TnTx.BG    \cr   
+     ## .. $ Net_LnLx   \cr   
+     ## .. $ Net_LnLx.Error\cr 
 
      ##references<<
      ## -
      
      ##note<<
-     ## \bold{This function is a beta version!}
+     ## \bold{This function is has beta status!}
      
      ##seealso<<
      ## \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}

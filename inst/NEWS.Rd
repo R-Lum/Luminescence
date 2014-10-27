@@ -67,12 +67,25 @@
      \item \code{get_RLum.Analysis()}: Add support for inverse \code{record.id} selection, e.g. \code{record.id = -1} selects
      all objects except the first. 
     
-    \item \code{get_RLum.Results()}: Add support for data objects for objects
-    produced by the function \code{calc_OSLLxTxRatio()}
+        
+    \item \code{get_RLum.Results()}:
+    
+    
+     \itemize{
+    
+    \item Add support for data objects for objects
+    produced by the function \code{calc_OSLLxTxRatio()},
+    
+    \item match access behavoir of objects produced by the function
+    \code{calc_TLLxTxRatio()}. Now it works similar to the function \code{calc_OSLLxTxRatio()}.
+    
+    
+    }
     
     \item \code{Risoe.BINfileData2RLum.Analysis()}: If the \code{pos} value
     is invalid now the function does not return an error any longer. Instead 
     \code{NA} is returned.
+
     
   
   }
@@ -175,7 +188,16 @@
       case accidentially no error was calculated. 
       
       }
+      
+    \item \code{calc_OSLLxTxRatio()}: 
     
+          \itemize{
+          
+          Output produced by the function now is a \code{list} (data slot in the RLum object), to 
+          equal behavoir of the functions.
+          
+          
+          }
     
     \item \code{fit_CWCurve()}: 
       \itemize{

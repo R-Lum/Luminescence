@@ -55,8 +55,14 @@ Changes in version 0.4.0 (XX XXXX, 2014):
            selection, e.g. ‘record.id = -1’ selects all objects except
            the first.
 
-         • ‘get_RLum.Results()’: Add support for data objects for
-           objects produced by the function ‘calc_OSLLxTxRatio()’
+         • ‘get_RLum.Results()’:
+
+             • Add support for data objects for objects produced by the
+               function ‘calc_OSLLxTxRatio()’,
+
+             • match access behavoir of objects produced by the
+               function ‘calc_TLLxTxRatio()’. Now it works similar to
+               the function ‘calc_OSLLxTxRatio()’.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’: If the ‘pos’ value is
            invalid now the function does not return an error any
@@ -153,6 +159,11 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • error fixed for the marginal case that k = 2 and exceed
                the maximal curve length. In that case accidentially no
                error was calculated.
+
+         • ‘calc_OSLLxTxRatio()’:
+               Output produced by the function now is a ‘list’ (data
+               slot in the RLum object), to equal behavoir of the
+               functions.
 
          • ‘fit_CWCurve()’:
 

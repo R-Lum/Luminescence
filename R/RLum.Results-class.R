@@ -3,8 +3,8 @@
 ##//////////////////////////////////////////////////////////////////////////////
 ##==============================================================================
 ##author: Sebastian Kreutzer
-##organisation: Universite Bordeaux Montaigne/JLU Giessen/Freiberg Instruments
-##version: 0.2.3
+##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne/JLU Giessen/Freiberg Instruments
+##version: 0.2.4
 
 ##==============================================================================
 
@@ -123,7 +123,7 @@ setMethod("get_RLum.Results",
               if(is.null(try(object@data[[data.object]])) == TRUE){
                 
                 error.message1 <- paste(names(object@data), collapse = ", ")
-                error.message <- paste("[get_RLum.Results] Error: data.object unknown. Valid object names are: ", error.message1)
+                error.message <- paste("[get_RLum.Results()] data.object unknown. Valid object names are: ", error.message1)
                
                 stop(error.message)
                 
@@ -149,7 +149,7 @@ setMethod("get_RLum.Results",
                 if(data.object%in%names(object@data)==FALSE){
                   
                   #valid.names <- names(object@data))
-                  stop(paste("\n[get_RLum.Results] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()! 
+                  stop(paste("\n[get_RLum.Results()] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()! 
                              Valid 'data.objects' are: ",paste(names(object@data), collapse=", "), sep=""))
                   
                 }else{
@@ -167,7 +167,29 @@ setMethod("get_RLum.Results",
             ##calc_TLLxTxRatio            
             if(object@originator == "calc_TLLxTxRatio") {
               
-              return(as.data.frame(object@data))
+              
+              if(missing(data.object)==TRUE){
+                
+                return(object@data$LxTx.table)
+                
+              }else{
+                
+                if(data.object%in%names(object@data)==FALSE){
+                  
+                  #valid.names <- names(object@data))
+                  stop(paste("\n[get_RLum.Results()] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()! 
+                             Valid 'data.objects' are: ",paste(names(object@data), collapse=", "), sep=""))
+                  
+                }else{
+                  
+                  return(object@data[data.object][[1]])
+                  
+                }
+                
+              }
+              
+              
+              
               
             }
             
