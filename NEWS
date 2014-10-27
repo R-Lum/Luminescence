@@ -161,7 +161,13 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                error was calculated.
 
          • ‘calc_OSLLxTxRatio()’:
-               Output produced by the function now is a ‘list’ (data
+
+             • Lx/Tx ratio wrongly calculated as due to a coding error
+               just the first value of the signal integral was taken
+               for summing up the values and not the range of the
+               values,
+
+             • Output produced by the function now is a ‘list’ (data
                slot in the RLum object), to equal behavoir of the
                functions.
 

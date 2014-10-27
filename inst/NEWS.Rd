@@ -193,7 +193,10 @@
     
           \itemize{
           
-          Output produced by the function now is a \code{list} (data slot in the RLum object), to 
+          \item Lx/Tx ratio wrongly calculated as due to a coding error just the first value of 
+          the signal integral was taken for summing up the values and not the range of the values,
+          
+          \item Output produced by the function now is a \code{list} (data slot in the RLum object), to 
           equal behavoir of the functions.
           
           
