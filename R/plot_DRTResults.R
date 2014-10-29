@@ -140,7 +140,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
     ifelse(missing(preheat) == TRUE, "# Aliquot", "Preheat temperature [\u00B0C]")
   }
   
-  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylabs} else
+  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
   {expression(paste("Normalised ", D[e], sep=""))}
   
   xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
