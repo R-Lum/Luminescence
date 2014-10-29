@@ -189,7 +189,7 @@
       
       }
       
-    \item \code{calc_OSLLxTxRatio()}: 
+    \item \code{calc_TLLxTxRatio()}: 
     
           \itemize{
           

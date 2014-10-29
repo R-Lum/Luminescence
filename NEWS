@@ -160,7 +160,7 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                the maximal curve length. In that case accidentially no
                error was calculated.
 
-         • ‘calc_OSLLxTxRatio()’:
+         • ‘calc_TLLxTxRatio()’:
 
              • Lx/Tx ratio wrongly calculated as due to a coding error
                just the first value of the signal integral was taken
