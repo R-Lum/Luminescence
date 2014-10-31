@@ -262,7 +262,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                to implement this argument in this function instead the
                function ‘plot_RLum.Data.Curve()’ was made because in a
                single plot modus ‘abline’ is more sufficiently used as
-               separat function call.
+               separat function call,
+
+             • now reset ‘par’ parameters suffciently.
 
          • ‘plot_RLum.Data.Curve()’:
 

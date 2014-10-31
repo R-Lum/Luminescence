@@ -296,7 +296,9 @@
       \item Add argument \code{abline} to allow inserting similar vertical or horizontal lines 
       in every plot. The decision to implement this argument in this function instead the function 
       \code{plot_RLum.Data.Curve()} was made because in a single plot modus \code{abline} is more
-      sufficiently used as separat function call. 
+      sufficiently used as separat function call,
+      
+      \item now reset \code{par} parameters suffciently. 
       
       }
    

@@ -7,7 +7,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.1.3
+  ## version 0.1.4
   # ===========================================================================
 
   object, 
@@ -101,6 +101,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
       }
  
       ##set par
+      par.default <- par("mfrow")
       par(mfrow=c(nrows,ncols))          
   
       ##plot curves
@@ -151,6 +152,9 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
         }#end for loop
             
         
+        ##reset par
+        par(mfrow = par.default)
+  
   # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
   
   ##details<<
