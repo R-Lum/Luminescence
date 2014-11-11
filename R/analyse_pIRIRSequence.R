@@ -180,8 +180,9 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
 
   ##(1) find out how many runs are needed for the analysis by checking for "IR"
   ##    should be now everything except the TL curves
-  n.loops <- as.numeric(length(grepl("TL", sequence.structure)) - 
-                table(grepl("TL", sequence.structure))["TRUE"])
+  n.TL<- table(grepl("TL", sequence.structure))["TRUE"]
+  if(is.na(n.TL)) {n.TL<- 0}
+  n.loops <- as.numeric(length(grepl("TL", sequence.structure)) - n.TL)
 
   ##grep ids of TL curves (we need them later on)
   TL.curves.id <- temp.sequence.structure[
