@@ -8,7 +8,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.1
+  ## version 0.1.1
   # ===========================================================================
 
   object,
@@ -175,15 +175,15 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   }
 
 ##============================================================================##
-# Analyse data and Plotting ----------------------------------------------------
+# Analyse data and plotting ----------------------------------------------------
 ##============================================================================##
 
   ##(1) find out how many runs are needed for the analysis by checking for "IR"
-  ##    should be now everything except the TL curves
+  ##    now should by every signal except the TL curves
   n.TL<- table(grepl("TL", sequence.structure))["TRUE"]
   if(is.na(n.TL)) {n.TL<- 0}
   n.loops <- as.numeric(length(grepl("TL", sequence.structure)) - n.TL)
-
+ 
   ##grep ids of TL curves (we need them later on)
   TL.curves.id <- temp.sequence.structure[
     temp.sequence.structure[,"protocol.step"] == "TL","id"]

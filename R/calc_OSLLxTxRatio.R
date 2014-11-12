@@ -6,7 +6,7 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
   
   ##section<<
-  ## version 0.4.4
+  ## version 0.4.5
   # ===========================================================================
   
   Lx.data, 
@@ -32,9 +32,10 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   ### See details for further information
   
   sigmab
-  ### \link{numeric} (optional): Option to set a manual value for the overdispersion, used
-  ### for the Lx/Tx error calculation. The value should be provided as absolute
-  ### squared count values. 
+  ### \link{numeric} (optional): Option to set a manual value for the overdispersion (for LnTx and 
+  ### TnTx), used for the Lx/Tx error calculation. The value should be provided as absolute
+  ### squared count values, e.g. \code{sigmab = c(300,300). Note: If only one value is provided
+  ### this value is taken for both (LnTx and TnTx) signals.}
   
 ){
    
@@ -46,14 +47,14 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
      
      ##(a) - check data type
      if(is(Lx.data)[1]!=is(Tx.data)[1]){
-       stop("[calc_OSLLxTxRatio.R] Data type of Lx and Tx data differs!")
+       stop("[calc_OSLLxTxRatio()] Data type of Lx and Tx data differs!")
      }
    
      ##(b) - test if data.type is valid in general
      if((is(Lx.data)[1] != "data.frame" & 
          is(Lx.data)[1] != "numeric") & 
          is(Lx.data)[1] != "matrix"){
-       stop("[calc_OSLLxTxRatio.R] Data type error! Required types are data.frame or numeric vector.")
+       stop("[calc_OSLLxTxRatio()] Data type error! Required types are data.frame or numeric vector.")
      }
       
      ##(c) - convert vector to data.frame if nescessary
@@ -65,7 +66,7 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
    
      ##(d) - check if Lx and Tx curves have the same channel length
      if(length(Lx.data[,2]) != length(Tx.data[,2])){
-       stop("[calc_OSLLxTxRatio.R] Channel number of Lx and Tx data differs!")}
+       stop("[calc_OSLLxTxRatio()] Channel number of Lx and Tx data differs!")}
    
    }else{
 
@@ -85,6 +86,19 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
    ##(g) - check if signal and background integral overlapping
    if(min(background.integral)<=max(signal.integral)){
      stop("[calc_OSLLxTxRatio()] Overlapping of 'signal.integral' and 'background.integral' is not permitted!")}
+   
+   
+   ##check sigmab 
+   if(!missing(sigmab)){
+     
+     if(!is(sigmab, "numeric")){
+       stop("[calc_OSLLxTxRatio()] 'sigmab' has to be of type numeric.")
+     }
+     
+     if(length(sigmab)>2){   
+       stop("[calc_OSLLxTxRatio()] Maximum allowed vector length for 'sigmab' is 2.") 
+     }
+   }
    
    
   ##--------------------------------------------------------------------------##
@@ -140,7 +154,7 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
    })      
   
    Y.i <- na.exclude(Y.i)
-   sigmab <- abs(var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean 
+   sigmab.LnLx <- abs(var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean 
                                         ##therefore here absolute values are given
    
    ##(b)(1)(2)
@@ -152,7 +166,7 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   })
  
     Y.i_TnTx <- na.exclude(Y.i_TnTx)
-    sigmab_TnTx <- abs(var(Y.i_TnTx) - mean(Y.i_TnTx))
+    sigmab.TnTx <- abs(var(Y.i_TnTx) - mean(Y.i_TnTx))
  
     
   }else{
@@ -166,11 +180,28 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
       
     }
     
-    sigmab<- abs((var(Lx.curve[background.integral]) - 
+    sigmab.LnLx<- abs((var(Lx.curve[background.integral]) - 
                    mean(Lx.curve[background.integral]))*n)
-    sigmab_TnTx <- abs((var(Tx.curve[background.integral]) - 
+    sigmab.TnTx <- abs((var(Tx.curve[background.integral]) - 
                       mean(Tx.curve[background.integral]))*n)
     
+  }
+  
+  ##account for a manually set sigmab value
+  if(!missing(sigmab)){
+    
+      if(length(sigmab)==2){
+        
+        sigmab.LnLx <- sigmab[1]
+        sigmab.TnTx <- sigmab[2]
+        
+      }else{
+        
+        sigmab.LnLx <- sigmab[1]
+        sigmab.TnTx <- sigmab[1]
+        
+      }
+
   }
   
   ##(c)
@@ -192,9 +223,9 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
     if(background.count.distribution != "non-poisson"){
     warning("Unknown value for background.count.distribution. A non-poisson distribution is assumed!")}
         
-    LnLx.relError <- sqrt(Y.0 + Y.1/k^2 + sigmab*(1+1/k))/
+    LnLx.relError <- sqrt(Y.0 + Y.1/k^2 + sigmab.LnLx*(1+1/k))/
                           (Y.0 - Y.1/k)
-    TnTx.relError <- sqrt(Y.0_TnTx + Y.1_TnTx/k^2 + sigmab_TnTx*(1+1/k))/
+    TnTx.relError <- sqrt(Y.0_TnTx + Y.1_TnTx/k^2 + sigmab.TnTx*(1+1/k))/
                           (Y.0_TnTx - Y.1_TnTx/k)
   
   }
@@ -235,7 +266,8 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
 
   ##return combined values
   temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)
-  calc.parameters <- list(sigmab = sigmab, 
+  calc.parameters <- list(sigmab.LnLx = sigmab.LnLx, 
+                          sigmab.TnTx = sigmab.TnTx,
                           k = k)
 
   ##set results object
@@ -272,16 +304,21 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
    
   ##value<<
   ## Returns an S4 object of type \code{\linkS4class{RLum.Results}}. 
-  ## Slot \code{data} contains a \link{list} with the following structure:\cr 
-  ## $ LnLx  \cr        
-  ## $ LnLx.BG   \cr     
-  ## $ TnTx    \cr       
-  ## $ TnTx.BG    \cr   
-  ## $ Net_LnLx   \cr   
-  ## $ Net_LnLx.Error\cr 
-  ## $ Net_TnTx.Error\cr
-  ## $ LxTx\cr
-  ## $ LxTx.Error
+  ## Slot \code{data} contains a \code{\link{list}} with the following structure:\cr 
+  ## $ LxTx.table (data.frame)
+  ## .. $ LnLx  \cr        
+  ## .. $ LnLx.BG   \cr     
+  ## .. $ TnTx    \cr       
+  ## .. $ TnTx.BG    \cr   
+  ## .. $ Net_LnLx   \cr   
+  ## .. $ Net_LnLx.Error\cr 
+  ## .. $ Net_TnTx.Error\cr
+  ## .. $ LxTx\cr
+  ## .. $ LxTx.Error
+  ## $ calc.parameters (list)
+  ## .. $ sigmab.LnTx
+  ## .. $ sigmab.TnTx
+  ## .. $ k
    
   ##references<<
   ## Duller, G., 2007. Analyst. \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
