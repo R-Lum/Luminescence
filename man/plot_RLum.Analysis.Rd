@@ -14,7 +14,9 @@ uses the function \code{\link{do.call}}, meaning that every argument in the \cod
 to be provided as \code{list}, e.g. \code{abline = list(list(v = 120), list(v = 350))} produces
 two vertical ablines: One at 150 and another one at 350. Within the call all arguments 
 supported by \code{\link{abline}} are fully supported}
-  \item{\dots}{further arguments and graphical parameters will be passed to the \code{plot} function.}
+  \item{\dots}{further arguments and graphical parameters will be passed to the \code{plot} function.
+Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
+\code{type}, \code{pch}, \code{col}}
 }
 \details{The function produces a multiple plot output. 
 A file output is recommended (e.g., \code{\link{pdf}}).}
@@ -43,4 +45,4 @@ plot_RLum.Analysis(temp)
 }
 
 \keyword{aplot}
-\section{Function version}{0.1.4 (2014-10-30 17:53:55)}
+\section{Function version}{0.1.4 (2014-10-31 10:27:10)}

@@ -17,9 +17,10 @@ background integral.}
   \item{background.count.distribution}{\link{character} (with default): Sets the count distribution assumed for the 
 error calculation. Possible arguments \code{poisson} or \code{non-poisson}.
 See details for further information}
-  \item{sigmab}{\link{numeric} (optional): Option to set a manual value for the overdispersion, used
-for the Lx/Tx error calculation. The value should be provided as absolute
-squared count values. }
+  \item{sigmab}{\link{numeric} (optional): Option to set a manual value for the overdispersion (for LnTx and 
+TnTx), used for the Lx/Tx error calculation. The value should be provided as absolute
+squared count values, e.g. \code{sigmab = c(300,300). Note: If only one value is provided
+this value is taken for both (LnTx and TnTx) signals.}}
 }
 \details{The integrity of the chosen values for the signal and background integral 
 is checked by the function; 
@@ -42,16 +43,21 @@ Therefore the relative standard error is calculated as:\cr\cr
 (b) \code{non-poisson}\cr
 \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}}
 \value{Returns an S4 object of type \code{\linkS4class{RLum.Results}}. 
-Slot \code{data} contains a \link{list} with the following structure:\cr 
-$ LnLx  \cr        
-$ LnLx.BG   \cr     
-$ TnTx    \cr       
-$ TnTx.BG    \cr   
-$ Net_LnLx   \cr   
-$ Net_LnLx.Error\cr 
-$ Net_TnTx.Error\cr
-$ LxTx\cr
-$ LxTx.Error}
+Slot \code{data} contains a \code{\link{list}} with the following structure:\cr 
+$ LxTx.table (data.frame)
+.. $ LnLx  \cr        
+.. $ LnLx.BG   \cr     
+.. $ TnTx    \cr       
+.. $ TnTx.BG    \cr   
+.. $ Net_LnLx   \cr   
+.. $ Net_LnLx.Error\cr 
+.. $ Net_TnTx.Error\cr
+.. $ LxTx\cr
+.. $ LxTx.Error
+$ calc.parameters (list)
+.. $ sigmab.LnTx
+.. $ sigmab.TnTx
+.. $ k}
 \references{Duller, G., 2007. Analyst. \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
 
 Galbraith, R.F., 2002. A note on the variance of a background-corrected 
@@ -82,4 +88,4 @@ get_RLum.Results(results)
 }
 
 \keyword{datagen}
-\section{Function version}{0.4.4 (2014-09-15 02:28:00)}
+\section{Function version}{0.4.5 (2014-11-11 18:46:51)}

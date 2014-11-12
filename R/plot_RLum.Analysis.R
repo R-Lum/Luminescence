@@ -29,6 +29,8 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   
   ...
   ### further arguments and graphical parameters will be passed to the \code{plot} function.
+  ### Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
+  ### \code{type}, \code{pch}, \code{col}
 
 ){
   
@@ -160,7 +162,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ##details<<
   ## The function produces a multiple plot output. 
   ## A file output is recommended (e.g., \code{\link{pdf}}).
-  
+    
   ##value<<
   ## Returns multiple plots.
   

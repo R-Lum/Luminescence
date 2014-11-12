@@ -158,7 +158,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • error fixed for the marginal case that k = 2 and exceed
                the maximal curve length. In that case accidentially no
-               error was calculated.
+               error was calculated,
+
+             • argument ‘sigmab’ was listed but was so far not
+               implement. Fixed (#166)
 
          • ‘calc_TLLxTxRatio()’:
 

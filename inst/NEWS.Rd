@@ -185,7 +185,9 @@
       \code{RLum.Results} object,
       
       \item error fixed for the marginal case that k = 2 and exceed the maximal curve length. In that 
-      case accidentially no error was calculated. 
+      case accidentially no error was calculated, 
+      
+      \item argument \code{sigmab} was listed but was so far not implement. Fixed (#166)
       
       }
       
