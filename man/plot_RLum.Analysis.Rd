@@ -46,3 +46,4 @@ plot_RLum.Analysis(temp)
 
 \keyword{aplot}
 \section{Function version}{0.1.4 (2014-10-31 10:27:10)}
+\section{Function version}{0.1.4 (2014-10-31 10:27:10)}

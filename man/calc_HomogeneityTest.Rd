@@ -38,3 +38,4 @@ data(ExampleData.DeValues, envir = environment())
 calc_HomogeneityTest(ExampleData.DeValues)
 }
 \section{Function version}{0.2 (2014-09-15 02:28:00)}
+\section{Function version}{0.2 (2014-09-15 02:28:00)}

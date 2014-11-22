@@ -45,3 +45,4 @@ temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))
 
 \keyword{utilities}
 \section{Function version}{0.1 (2014-09-21 19:22:56)}
+\section{Function version}{0.1 (2014-09-21 19:22:56)}

@@ -246,6 +246,9 @@
         \item argument \code{given.dose} now allows a vector as input, e.g., if more then one data set
         is provided (#156),
         
+        \item argument \code{given.dose} are not required any longer (became an optional argument).
+        With this the plot function can be easily re-used, e.g. for preheat plateau tests,
+        
         \item minor corrections in error handling and graphical appearance.
       
       }

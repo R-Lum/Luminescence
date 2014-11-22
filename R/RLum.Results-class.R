@@ -4,7 +4,7 @@
 ##==============================================================================
 ##author: Sebastian Kreutzer
 ##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne/JLU Giessen/Freiberg Instruments
-##version: 0.2.4
+##version: 0.2.5
 
 ##==============================================================================
 
@@ -278,6 +278,14 @@ setMethod("get_RLum.Results",
             ##-------------------------------------------------------------
             ## calc_CentralDose   
             if(object@originator == "calc_CentralDose") {
+              
+              return(object@data$results)
+              
+            }
+            
+            ##-------------------------------------------------------------
+            ## calc_CosmicDoseRate 
+            if(object@originator == "calc_CosmicDoseRate") {
               
               return(object@data$results)
               

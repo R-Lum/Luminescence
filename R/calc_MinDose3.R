@@ -1311,7 +1311,7 @@ if(output.plot==TRUE && missing(bootstrap) == TRUE) {
 ## produces NA values it is possible to omit these values by setting 
 ## \code{ignore.NA = TRUE}. While the model is then usually able to finish
 ## all calculations the integrity of the final estimates cannot be ensured.
-## Use this argument at own risk.\cr\cr
+## Use this argument at own risk.
 ## \bold{Bootstrap} \cr\cr
 ## The MAM-3 may be run with \code{bootstrap = TRUE}, which applies the 
 ## bootstrap recycling approach as described in Cunningham & Wallinga (2012).

@@ -158,3 +158,4 @@ calc_MaxDose3(ExampleData.DeValues,
               sigmab = 0.3, gamma.xub = 4000)
 }
 \section{Function version}{0.22 (2014-09-15 02:28:00)}
+\section{Function version}{0.22 (2014-09-15 02:28:00)}

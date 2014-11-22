@@ -44,3 +44,4 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 
 \keyword{utilities}
 \section{Function version}{0.1 (2014-09-21 19:46:54)}
+\section{Function version}{0.1 (2014-09-21 19:46:54)}

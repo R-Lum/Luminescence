@@ -199,3 +199,4 @@ fit_LMCurve(values = values.curve,
 \keyword{dplot}
 \keyword{models}
 \section{Function version}{0.2.15 (2014-09-15 02:28:00)}
+\section{Function version}{0.2.15 (2014-09-15 02:28:00)}

@@ -137,3 +137,4 @@ results <- analyse_pIRIRSequence(object,
 \keyword{datagen}
 \keyword{plot}
 \section{Function version}{0.1.1 (2014-11-11 14:51:01)}
+\section{Function version}{0.1.1 (2014-11-11 14:51:01)}

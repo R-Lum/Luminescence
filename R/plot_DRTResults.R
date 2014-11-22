@@ -8,7 +8,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ## version 0.1.3
+  ## version 0.1.4
   # ===========================================================================
 
   values, 
@@ -19,10 +19,13 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   ### must be provided (e.g. \code{list(dataset.1, dataset.2)}).
   
   given.dose,
-  ### \code{\link{numeric}}: given dose used for the dose recovery test. If only one given dose is 
+  ### \code{\link{numeric}} (optional):
+  ### given dose used for the dose recovery test to normalise data. If only one given dose is 
   ### provided this given dose is valid for all input data sets (i.e., \code{values} is a list). 
   ### Otherwise a given dose for each input data set has to be provided 
   ### (e.g., \code{given.dose = c(100,200)}).
+  ### If no \code{given.dose} values are plotted without normalisation (might be useful for 
+  ### preheat plateau tests).
   ### Note: Unit has to be the same as from the input values (e.g., Seconds or Gray).
   
   error.range = 10,
@@ -86,9 +89,6 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
     
   }
   
-  
-  if(missing(given.dose)){stop("[plot_DRTResults] 'given.dose' missing!")}
-
   if(missing(summary) == TRUE) {summary <- NULL}
   if(missing(summary.pos) == TRUE) {summary.pos <- "topleft"}
   if(missing(legend.pos) == TRUE) {legend.pos <- "topright"}
@@ -141,7 +141,9 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   }
   
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {expression(paste("Normalised ", D[e], sep=""))}
+  {if(!missing(given.dose)){
+    expression(paste("Normalised ", D[e], sep=""))
+   }else{expression(paste(D[e], " [s]"), sep = "")}}
   
   xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
   {c(1, max(n.values) + 1)}
@@ -159,25 +161,28 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
 
   ## calculations and settings-------------------------------------------------
 
-  ## normalise data
-  if(length(given.dose) > 1){
+  ## normalise data if given.dose is given
+  if(!missing(given.dose)){
+  
+    if(length(given.dose) > 1){
     
-    if(length(values) < length(given.dose)){
+      if(length(values) < length(given.dose)){
       
-      stop("[plot_DRTResults()] 'given.dose' > number of input data sets!")
+        stop("[plot_DRTResults()] 'given.dose' > number of input data sets!")
       
-    }
+      }
     
-    for(i in 1:length(values)) {
-      values[[i]] <- values[[i]]/given.dose[i]
-    }
+      for(i in 1:length(values)) {
+        values[[i]] <- values[[i]]/given.dose[i]
+      }
         
-  }else{
+    }else{
     
-    for(i in 1:length(values)) {
-      values[[i]] <- values[[i]]/given.dose
-    }
+        for(i in 1:length(values)) {
+          values[[i]] <- values[[i]]/given.dose
+        }
       
+    }
   }
  
   ##correct ylim for data set which exceed boundaries
@@ -687,7 +692,12 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   plot_DRTResults(values = ExampleData.DeValues[7:11,], 
                   given.dose = 2800,
                   preheat = c(200, 200, 200, 240, 240))
+  ## read example data set and misapply them for this plot type
+  data(ExampleData.DeValues, envir = environment())
   
+  ## plot values 
+  plot_DRTResults(values = ExampleData.DeValues[7:11,], 
+                  given.dose = 2800, mtext = "Example data")
   ## plot two data sets grouped by preheat temperatures
   plot_DRTResults(values = list(x.1, x.2), 
                   given.dose = 2800,
@@ -699,3 +709,10 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
                   preheat = c(200, 200, 200, 240, 240),
                   boxplot = TRUE)
 })
+## read example data set and misapply them for this plot type
+data(ExampleData.DeValues, envir = environment())
+
+## plot values 
+## plot the data grouped by preheat temperatures
+plot_DRTResults(values = ExampleData.DeValues[7:11,], boxplot = TRUE, 
+                preheat = c(200, 200, 200, 240, 240))

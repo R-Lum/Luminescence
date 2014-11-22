@@ -38,3 +38,4 @@ This function has BETA status}
 
 \keyword{manip}
 \section{Function version}{0.1 (2014-09-15 02:28:00)}
+\section{Function version}{0.1 (2014-09-15 02:28:00)}

@@ -73,3 +73,4 @@ calc_CentralDose(ExampleData.DeValues)
 
 }
 \section{Function version}{1.23[2014-04-29] (2014-09-15 02:28:00)}
+\section{Function version}{1.23[2014-04-29] (2014-09-15 02:28:00)}

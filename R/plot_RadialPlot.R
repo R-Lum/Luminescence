@@ -903,19 +903,20 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   
   ## check if plotting is enabled
   if(show == TRUE) {
-    
+   
     ## determine number of subheader lines to shif the plot
     if(length(summary) > 0 & summary.pos[1] == "sub") {
       shift.lines <- length(data) + 1
     } else {shift.lines <- 1}
     
     ## setup plot area
-    par(mar = c(5, 5, shift.lines + 1.5, 7),
+    par(oma = c(1, 1, 0, 0),
+        mar = c(4, 4, shift.lines + 1.5, 7),
         xpd = TRUE,
         cex = cex)
     
     ## create empty plot
-    plot(NA,
+    plot(NA, 
          xlim = limits.x, 
          ylim = limits.y,
          main = "",
@@ -1155,7 +1156,6 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
     
     ##FUN by R Luminescence Team
     if(fun==TRUE){sTeve()}
-    
   }
 
   if(output == TRUE) {

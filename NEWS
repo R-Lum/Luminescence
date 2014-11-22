@@ -218,6 +218,11 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • argument ‘given.dose’ now allows a vector as input,
                e.g., if more then one data set is provided (#156),
 
+             • argument ‘given.dose’ are not required any longer
+               (became an optional argument).  With this the plot
+               function can be easily re-used, e.g. for preheat plateau
+               tests,
+
              • minor corrections in error handling and graphical
                appearance.
 
