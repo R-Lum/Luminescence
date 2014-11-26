@@ -6,7 +6,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.3.3
+  ## version 0.3.4
   # ===========================================================================
   
   file,
@@ -181,6 +181,20 @@ readXSYG2R <- structure(function(#Import XSYG files to R
       ##get recordType
       temp.sequence.object.recordType <- xmlAttrs(temp[[x]][[i]])["recordType"]
       
+      ##correct record type in depending on the stimulator
+      if(temp.sequence.object.recordType == "OSL"){
+        
+        if(xmlAttrs(temp[[x]][[i]][[
+          xmlSize(temp[[x]][[i]])]])["stimulator"] == "ir_LED_850"){
+          
+          temp.sequence.object.recordType  <- "IRSL"
+          
+        }
+
+      }
+        
+      
+       ##loop 3rd level      
        lapply(1:xmlSize(temp[[x]][[i]]), function(j){       
          
          ##get values
@@ -200,19 +214,25 @@ readXSYG2R <- structure(function(#Import XSYG files to R
            xmlAttrs(temp[[x]][[i]][[j]])["stimulator"])
          
          
+         ##get parentID
+         temp.sequence.object.parentID <- as.numeric(
+           xmlAttrs(temp[[x]][[i]][[j]])["partentID"])
+         
          ##get additional information
          temp.sequence.object.info <- as.list(xmlAttrs(temp.sequence.object.curveValue)) 
          
          ##add stimulator and detector
          temp.sequence.object.info <- c(temp.sequence.object.info, 
                                         detector = temp.sequence.object.detector,
-                                        stimulator = temp.sequence.object.stimulator)
-
+                                        stimulator = temp.sequence.object.stimulator,
+                                        partentID = temp.sequence.object.parentID)
+                                        
+         
   
          ## TL curve recalculation ============================================
          if(recalculate.TL.curves == TRUE){
          
-         ##TL curve heating values is stored in the 3rd curve of every 
+         ##TL curve heating values is stored in the 3rd curve of every set
          if(temp.sequence.object.recordType == "TL" && 
             "Spectrometer" %in% temp.sequence.object.detector == FALSE &&
             j == 1){
@@ -325,8 +345,8 @@ readXSYG2R <- structure(function(#Import XSYG files to R
                 get_XSYG.curve.values(temp.sequence.object.curveValue)
               
             }
-          
-           
+            
+            
          set_RLum.Data.Curve(recordType = paste(temp.sequence.object.recordType, 
                                                 " (", temp.sequence.object.detector,")",
                                                 sep = ""),
@@ -347,14 +367,15 @@ readXSYG2R <- structure(function(#Import XSYG files to R
          }
          
        })   
+    
       
      }))
-
+    
      ##set RLum.Analysis object
      temp.sequence.object <-  set_RLum.Analysis(
                                 records = temp.sequence.object, 
                                 protocol = as.character(
-                                  temp.sequence.header["protocol",1]))
+                                temp.sequence.header["protocol",1]))
     
     
     ##update progress bar

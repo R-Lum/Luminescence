@@ -291,4 +291,3 @@ plot_AbanicoPlot(data = data.3,
 ## of function get_Layout()
 }
 \section{Function version}{0.1.1 (2014-09-21 19:37:59)}
-\section{Function version}{0.1.1 (2014-09-21 19:37:59)}

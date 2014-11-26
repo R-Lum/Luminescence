@@ -12,10 +12,13 @@ measurements.}
 containing at least De and De error. To plot more than one data
 set in one figure, a \code{list} of the individual data sets
 must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
-  \item{given.dose}{\code{\link{numeric}}: given dose used for the dose recovery test. If only one given dose is 
+  \item{given.dose}{\code{\link{numeric}} (optional):
+given dose used for the dose recovery test to normalise data. If only one given dose is 
 provided this given dose is valid for all input data sets (i.e., \code{values} is a list). 
 Otherwise a given dose for each input data set has to be provided 
 (e.g., \code{given.dose = c(100,200)}).
+If no \code{given.dose} values are plotted without normalisation (might be useful for 
+preheat plateau tests).
 Note: Unit has to be the same as from the input values (e.g., Seconds or Gray).}
   \item{error.range}{\code{\link{numeric}}: symmetric error range in percent will be shown 
 as dashed lines in the plot. Set \code{error.range} to 0 to void  
@@ -112,7 +115,12 @@ plot_DRTResults(values = list(x.1, x.2),
 plot_DRTResults(values = ExampleData.DeValues[7:11,], 
                 given.dose = 2800,
                 preheat = c(200, 200, 200, 240, 240))
+## read example data set and misapply them for this plot type
+data(ExampleData.DeValues, envir = environment())
 
+## plot values 
+plot_DRTResults(values = ExampleData.DeValues[7:11,], 
+                given.dose = 2800, mtext = "Example data")
 ## plot two data sets grouped by preheat temperatures
 plot_DRTResults(values = list(x.1, x.2), 
                 given.dose = 2800,
@@ -126,5 +134,4 @@ plot_DRTResults(values = ExampleData.DeValues[7:11,],
 }
 
 \keyword{dplot}
-\section{Function version}{0.1.3 (2014-10-29 17:31:51)}
-\section{Function version}{0.1.4 (2014-11-21 10:19:45)}
+\section{Function version}{0.1.5 (2014-11-25 18:17:51)}

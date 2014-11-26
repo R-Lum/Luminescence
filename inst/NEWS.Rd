@@ -249,6 +249,11 @@
         \item argument \code{given.dose} are not required any longer (became an optional argument).
         With this the plot function can be easily re-used, e.g. for preheat plateau tests,
         
+        \item change behaviour of the argument \code{na.rm}. If a data set is provided containing 
+        \code{NA} values also the corresponding values in provided by the argument \code{preheat} are
+        cleaned up. This allows a proper usage of the function in combination with grouping option 
+        (e.g., \code{boxplot = TRUE}. 
+        
         \item minor corrections in error handling and graphical appearance.
       
       }
@@ -312,7 +317,10 @@
       \itemize{
       
         \item Add argument \code{norm} to allow for curve normalisation to 
-        the highest value (#129).
+        the highest value (#129),
+        
+        \item Correct for insufficient information on the channel resolution when data was imported
+        from an XSYG file.
       
       }
    
@@ -349,6 +357,14 @@
       
         \item Integrity checks added to avoid unspecific errors for wrong input 
         formats. 
+      
+      }
+      
+   \item \code{readXSYG2R()}:
+      \itemize{
+      
+        \item If the stimulator is infrared light the \code{recordType} will be set to \code{IRSL}. This 
+        makes the curve types more consistent with the commonly applied nomenclature. 
       
       }
       

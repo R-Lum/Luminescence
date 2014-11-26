@@ -152,4 +152,3 @@ data(ExampleData.DeValues, envir = environment())
 #              output.plot = FALSE)
 }
 \section{Function version}{0.3 (2014-09-15 02:28:00)}
-\section{Function version}{0.3 (2014-09-15 02:28:00)}

@@ -75,4 +75,3 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 \keyword{aplot}
 \section{Function version}{0.1 (2014-10-07 18:22:59)}
-\section{Function version}{0.1 (2014-10-07 18:22:59)}

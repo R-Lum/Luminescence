@@ -4,10 +4,10 @@ plot_RLum.Data.Curve<- structure(function(#Plot function for an RLum.Data.Curve 
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France), \cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.1.4
+  ## version 0.1.5
   # ===========================================================================
 
   object, 
@@ -33,7 +33,7 @@ plot_RLum.Data.Curve<- structure(function(#Plot function for an RLum.Data.Curve 
   ##check if object is of class RLum.Data.Curve
   if(class(object) != "RLum.Data.Curve"){
     
-    stop("[plot_RLum.Data.Curve]: Input object is not of type RLum.Data.Curve")
+    stop("[plot_RLum.Data.Curve()] Input object is not of type RLum.Data.Curve")
     
   }
 
@@ -91,7 +91,12 @@ plot_RLum.Data.Curve<- structure(function(#Plot function for an RLum.Data.Curve 
   { 
     if((grepl("TL", object@recordType) == TRUE) & "RATE" %in% names(object@info)){
       paste("(",object@info$RATE," K/s)", sep = "")
-    }                
+    }
+    
+    if((grepl("OSL", object@recordType) | grepl("IRSL", object@recordType)) & "interval" %in% names(object@info)){
+      paste("(resolution: ",object@info$interval," s)", sep = "")
+    }
+    
   }
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else 
   {1}

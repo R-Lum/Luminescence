@@ -20,7 +20,7 @@ highest count value }
 Arguments according to \code{\link{plot}}.}
 \value{Returns a plot.}
 \references{#}
-\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France), \cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{Not all arguments of \code{\link{plot}} will be passed!}
 
@@ -42,5 +42,4 @@ plot_RLum.Data.Curve(temp)
 }
 
 \keyword{aplot}
-\section{Function version}{0.1.4 (2014-09-15 02:28:00)}
-\section{Function version}{0.1.4 (2014-09-15 02:28:00)}
+\section{Function version}{0.1.5 (2014-11-26 08:18:36)}

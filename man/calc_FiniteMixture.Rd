@@ -152,4 +152,3 @@ calc_FiniteMixture(ExampleData.DeValues,
 
 }
 \section{Function version}{0.32 (2014-09-15 02:28:00)}
-\section{Function version}{0.32 (2014-09-15 02:28:00)}

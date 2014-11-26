@@ -73,4 +73,3 @@ data(ExampleData.DeValues, envir = environment())
 calc_CommonDose(ExampleData.DeValues)                         
 }
 \section{Function version}{1.2 (2014-09-15 02:28:00)}
-\section{Function version}{1.2 (2014-09-15 02:28:00)}

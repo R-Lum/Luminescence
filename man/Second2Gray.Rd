@@ -38,4 +38,3 @@ Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
 
 \keyword{manip}
 \section{Function version}{0.3 (2014-09-15 02:28:00)}
-\section{Function version}{0.3 (2014-09-15 02:28:00)}

@@ -50,4 +50,3 @@ temp.get<- get_RLum(object = temp1)
 
 \keyword{utilities}
 \section{Function version}{0.1 (2014-09-21 17:51:06)}
-\section{Function version}{0.1 (2014-09-21 17:51:06)}

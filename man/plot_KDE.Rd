@@ -144,4 +144,3 @@ lines(x = KDE.x,
       lwd = 3)
 }
 \section{Function version}{3.2 (2014-10-07 18:01:07)}
-\section{Function version}{3.2 (2014-10-07 18:01:07)}

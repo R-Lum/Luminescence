@@ -208,4 +208,3 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 
 }
 \section{Function version}{0.5.2 (2014-09-15 02:28:00)}
-\section{Function version}{0.5.2 (2014-09-15 02:28:00)}

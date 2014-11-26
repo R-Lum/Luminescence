@@ -115,4 +115,3 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
 
 }
 \section{Function version}{0.3 (2014-09-15 02:28:00)}
-\section{Function version}{0.3 (2014-09-15 02:28:00)}

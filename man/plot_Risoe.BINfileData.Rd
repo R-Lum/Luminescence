@@ -130,4 +130,3 @@ data(ExampleData.BINfileData, envir = environment())
 
 \keyword{dplot}
 \section{Function version}{0.4.1 (2014-09-15 02:28:00)}
-\section{Function version}{0.4.1 (2014-09-15 02:28:00)}

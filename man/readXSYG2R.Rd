@@ -119,5 +119,4 @@ Corresponding values in the XSXG file are skipped. }
 }
 
 \keyword{IO}
-\section{Function version}{0.3.3 (2014-10-02 18:58:27)}
-\section{Function version}{0.3.3 (2014-10-02 18:58:27)}
+\section{Function version}{0.3.4 (2014-11-25 22:52:06)}

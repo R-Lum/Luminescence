@@ -8,7 +8,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ## version 0.1.4
+  ## version 0.1.5
   # ===========================================================================
 
   values, 
@@ -111,15 +111,31 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   
   ## Check input arguments ----------------------------------------------------
   for(i in 1:length(values)) {
-    if(na.rm  == TRUE){
-      values[[i]] <- na.exclude(values[[i]])
-    }
     
+    ##check for preheat temperature values
     if(missing(preheat) == FALSE) {
       if(length(preheat) != nrow(values[[i]])){
         stop("[plot_DRTResults()] number of preheat temperatures != De values!")
       }
     }
+    
+    ##remove NA values; yes Micha, it is not that simple 
+    if(na.rm  == TRUE){
+      
+      ##currently we assume that all input data sets comprise a similar of data 
+      if(!missing(preheat) & i == length(values)){
+        
+        ##find and mark NA value indicies
+        temp.NA.values <- unique(c(which(is.na(values[[i]][,1])), which(is.na(values[[i]][,2]))))
+       
+        ##remove preheat entries
+        preheat <- preheat[-temp.NA.values]
+        
+      }
+           
+       values[[i]] <- na.exclude(values[[i]])
+    
+    }     
   }
   
   ## create global data set
@@ -538,7 +554,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
       }
     }
   }
-  
+    
   ## optionally, plot boxplot
   if(boxplot == TRUE) {
     ## create empty plot
@@ -709,10 +725,3 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
                   preheat = c(200, 200, 200, 240, 240),
                   boxplot = TRUE)
 })
-## read example data set and misapply them for this plot type
-data(ExampleData.DeValues, envir = environment())
-
-## plot values 
-## plot the data grouped by preheat temperatures
-plot_DRTResults(values = ExampleData.DeValues[7:11,], boxplot = TRUE, 
-                preheat = c(200, 200, 200, 240, 240))
