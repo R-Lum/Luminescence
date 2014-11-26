@@ -115,8 +115,19 @@ Corresponding values in the XSXG file are skipped. }
   
   ##search for specific subnodes with curves containing 'OSL'
   #getNodeSet(temp, "//Sample/Sequence/Record[@recordType = 'OSL']/Curve")
+
+##(2) How to extract single curves ... after import
+data(ExampleData.XSYG, envir = environment())
+
+##grep one OSL curves and plot the first curve
+OSLcurve <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
+
+##(3) How to see the structure of an object?
+get_structure.RLum.Analysis(OSL.SARMeasurement$Sequence.Object)
+
+
   
 }
 
 \keyword{IO}
-\section{Function version}{0.3.4 (2014-11-25 22:52:06)}
+\section{Function version}{0.3.4 (2014-11-26 19:05:46)}

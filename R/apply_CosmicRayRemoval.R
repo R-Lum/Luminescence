@@ -46,7 +46,7 @@ apply_CosmicRayRemoval<- structure(function(#Function to remove cosmic rays from
   ##check if object is of class RLum.Data.Spectrum
   if(class(object) != "RLum.Data.Spectrum"){
     
-    stop("[apply_CosmicRayRemoval]: Input object is not of type RLum.Data.Spectrum")
+    stop("[apply_CosmicRayRemoval()]: Input object is not of type RLum.Data.Spectrum")
     
   }
   
