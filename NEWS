@@ -163,6 +163,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • argument ‘sigmab’ was listed but was so far not
                implement. Fixed (#166)
 
+         • ‘calc_OSLLxTxRatio()’:
+
+             • support of data without given uncertainties.
+
          • ‘calc_TLLxTxRatio()’:
 
              • Lx/Tx ratio wrongly calculated as due to a coding error
@@ -206,7 +210,14 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • rotate-Option added to Abanico Plot,
 
-             • minor modifications of layout definitions.
+             • minor modifications of layout definitions (#124),
+
+             • ‘grid.col’ bug fixed (#149),
+
+             • error message for data with zero or without errors added
+               (#154),
+
+             • support of ‘par(mfcol())’.
 
          • ‘plot_DRTResults()’:
 
@@ -236,7 +247,31 @@ Changes in version 0.4.0 (XX XXXX, 2014):
          • ‘plot_Histogram()’:
 
              • Change default y-axis labelling from 'Counts' to
-               'Frequency'
+               'Frequency',
+
+             • support of ‘par(mfcol())’ (#146),
+
+             • support of data without and ‘NA’-values for error values
+               (#152, #162),
+
+             • implementation of ‘calc_Stats()’-call for extended
+               statistic summary,
+
+             • support of summary keywords "kurtosis" and "skewness"
+
+         • ‘plot_KDE()’:
+
+             • wrong x-axis and y-axis limit calculation fixed (#158),
+
+             • renaming and extension of summary and ‘summary.pos’
+               parameter,
+
+             • plot now longer shows a density error when no error
+               exists (#160),
+
+             • De.stats error fixed (#163),
+
+             • support of ‘par(mfcol())’.
 
          • ‘plot_GrowthCurve()’:
 
@@ -279,7 +314,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                single plot modus ‘abline’ is more sufficiently used as
                separat function call,
 
-             • now reset ‘par’ parameters suffciently.
+             • now reset ‘par’ parameters suffciently,
+
+             • add argument ‘combine’ to allow fast combining of curves
+               in single plot window.
 
          • ‘plot_RLum.Data.Curve()’:
 

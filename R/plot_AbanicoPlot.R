@@ -148,7 +148,35 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
 
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {data <- list(data)}
+  
+  ## optionally, remove NA-values
+  if(na.exclude == TRUE) {
+    for(i in 1:length(data)) {
+      
+      n.NA <- sum(!complete.cases(data[[i]]))
+      
+      if(n.NA == 1) {print("1 NA value excluded.")
+      } else if(n.NA > 1) {
+        print(paste(n.NA, "NA values excluded."))
+      }
+      
+      data[[i]] <- na.exclude(data[[i]])
+    }
+  }  
+  
+  ## check for zero-error values
+  for(i in 1:length(data)) {
+
+    if(length(data[[i]]) < 2) {
+      stop("Data without errors cannot be displayed!")
+    }
+
+    if(sum(data[[i]][,2] == 0) > 0) {
+      stop("Values with zero errors cannot be displayed!")
+    }
     
+  }
+  
   ## Check input data
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE & 
@@ -161,7 +189,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       }
     }
   }
-
+  
   ## check/set layout definitions
   if("layout" %in% names(list(...))) {
     layout = get_Layout(layout = list(...)$layout)
@@ -169,7 +197,10 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     layout <- get_Layout(layout = "default")
   }
   
-  if(missing(stats) == TRUE) {stats <- numeric(0)}
+  if(missing(stats) == TRUE) {
+    stats <- numeric(0)
+  }
+  
   if(missing(bar.col) == TRUE) {
     bar.fill <- rep(layout$abanico$colour$bar.fill, 
                     length.out = length(data))
@@ -179,6 +210,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     bar.fill <- bar.col
     bar.line <- NA
   }
+  
   if(missing(polygon.col) == TRUE) {
     polygon.fill <- rep(layout$abanico$colour$poly.fill, 
                        length.out = length(data))
@@ -188,16 +220,31 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     polygon.fill <- polygon.col
     polygon.line <- NA
   }
+  
   if(missing(grid.col) == TRUE) {
     grid.major <- layout$abanico$colour$grid.major
     grid.minor <- layout$abanico$colour$grid.minor
   } else {
-    grid.major <- "none"
-    grid.minor <- "none"
+    if(length(grid.col) == 1) {
+      grid.major <- grid.col[1]
+      grid.minor <- grid.col[1]      
+    } else {
+      grid.major <- grid.col[1]
+      grid.minor <- grid.col[2]
+    }
   }
-  if(missing(summary) == TRUE) {summary <- c("n", "in.ci")}
-  if(missing(summary.pos) == TRUE) {summary.pos <- "sub"}
-  if(missing(mtext) == TRUE) {mtext <- ""}
+  
+  if(missing(summary) == TRUE) {
+    summary <- c("n", "in.ci")
+  }
+  
+  if(missing(summary.pos) == TRUE) {
+    summary.pos <- "sub"
+  }
+  
+  if(missing(mtext) == TRUE) {
+    mtext <- ""
+  }
   
   ## check z-axis log-option for grouped data sets
   if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
@@ -205,15 +252,6 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                   "data set (group) is provided."))
   }
 
-  ## optionally, remove NA-values
-  if(na.exclude == TRUE) {
-    for(i in 1:length(data)) {
-      n.NA <- sum(!complete.cases(data[[i]]))
-      if(n.NA == 1) {print("1 NA value excluded.")
-      } else if(n.NA > 1) {print(paste(n.NA, "NA values excluded."))}
-      data[[i]] <- na.exclude(data[[i]])
-    }
-  }  
   ## create preliminary global data set
   De.global <- data[[1]][,1]
   if(length(data) > 1) {
@@ -232,6 +270,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
                   (1.1 + z.span) * max(De.global))
   }
+  
   ticks <- round(pretty(limits.z, n = 5), 3)
   
   ## check for negative values
@@ -1243,17 +1282,12 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   } else {shift.lines <- 1}
 
   ## extract original plot parameters
-  oma.original <- par()$oma
-  mar.original <- par()$mar
-  xpd.original <- par()$xpd
-  cex.original <- par()$cex
   par(bg = layout$abanico$colour$background)
   bg.original <- par()$bg
   
 if(rotate == FALSE) {
   ## setup plot area
-  par(oma = c(1, 1, 0, 0),
-      mar = c(4, 4, shift.lines + 1.5, 7),
+  par(mar = c(4.5, 4.5, shift.lines + 1.5, 7),
       xpd = TRUE,
       cex = cex)
   
@@ -1794,8 +1828,7 @@ if(rotate == FALSE) {
   }
 } else {
   ## setup plot area
-  par(oma = c(1, 1, 0, 0),
-      mar = c(4, 4, shift.lines + 5, 4),
+  par(mar = c(4, 4, shift.lines + 5, 4),
       xpd = TRUE,
       cex = cex)
   
@@ -2337,12 +2370,6 @@ if(rotate == FALSE) {
   }
 }
   
-  ## restore previous plot parameters
-  par(oma = oma.original)
-  par(mar = mar.original)
-  par(xpd = xpd.original)
-  par(cex = cex.original)
-  
   ## create and resturn numeric output
   if(output == TRUE) {
     return(list(xlim = limits.x,
@@ -2548,16 +2575,16 @@ if(rotate == FALSE) {
                    summary = c("n", "in.ci"))
   
   ## create Abanico plot with predefined layout definition
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   layout = "journal")
-  
-  ## now with predefined layout definition and further modifications
-  plot_AbanicoPlot(data = data.3,
-                   layout = "journal",
-                   col = c("steelblue4", "orange4"),
-                   bar.col = adjustcolor(c("steelblue3", "orange3"), 
-                                         alpha.f = 0.5),
-                   polygon.col = c("steelblue3", "orange3"))
+#   plot_AbanicoPlot(data = ExampleData.DeValues,
+#                    layout = "journal")
+#   
+#   ## now with predefined layout definition and further modifications
+#   plot_AbanicoPlot(data = data.3,
+#                    layout = "journal",
+#                    col = c("steelblue4", "orange4"),
+#                    bar.col = adjustcolor(c("steelblue3", "orange3"), 
+#                                          alpha.f = 0.5),
+#                    polygon.col = c("steelblue3", "orange3"))
 
   ## for further information on layout definitions see documentation
   ## of function get_Layout()

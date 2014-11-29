@@ -40,4 +40,4 @@ x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
 ## note the congruent results for weighted and unweighted measures
 str(calc_Statistics(x)) 
 }
-\section{Function version}{0.1 (2014-09-15 02:28:00)}
+\section{Function version}{0.1 (2014-11-28 17:54:03)}

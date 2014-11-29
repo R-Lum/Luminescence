@@ -191,6 +191,14 @@
       
       }
       
+        \item \code{calc_OSLLxTxRatio()}: 
+      \itemize{
+      
+      \item support of data without given uncertainties. 
+      
+      }
+      
+      
     \item \code{calc_TLLxTxRatio()}: 
     
           \itemize{
@@ -230,7 +238,10 @@
         \item rug option added,
         \item multiple 2-sigma-bars allowed,
         \item rotate-Option added to Abanico Plot,
-        \item minor modifications of layout definitions.
+        \item minor modifications of layout definitions (#124),
+        \item \code{grid.col} bug fixed (#149),
+        \item error message for data with zero or without errors added (#154),
+        \item support of \code{par(mfcol())}.
         
       }
       
@@ -262,10 +273,25 @@
       \item \code{plot_Histogram()}:
       \itemize{
       
-        \item Change default y-axis labelling from 'Counts' to 'Frequency'
+        \item Change default y-axis labelling from 'Counts' to 'Frequency',
+        \item support of \code{par(mfcol())} (#146),
+        \item support of data without and \code{NA}-values for error values (#152, #162),
+        \item implementation of \code{calc_Stats()}-call for extended statistic summary,
+        \item support of summary keywords "kurtosis" and "skewness"
+        
       
       }
       
+      \item \code{plot_KDE()}:
+      \itemize{
+      
+        \item wrong x-axis and y-axis limit calculation fixed (#158),
+        \item renaming and extension of summary and \code{summary.pos} parameter,
+        \item plot now longer shows a density error when no error exists (#160),
+        \item De.stats error fixed (#163),
+        \item support of \code{par(mfcol())}.
+      
+      }
       
       
       \item \code{plot_GrowthCurve()}:
@@ -308,7 +334,9 @@
       \code{plot_RLum.Data.Curve()} was made because in a single plot modus \code{abline} is more
       sufficiently used as separat function call,
       
-      \item now reset \code{par} parameters suffciently. 
+      \item now reset \code{par} parameters suffciently,
+      
+      \item add argument \code{combine} to allow fast combining of curves in single plot window.
       
       }
    
