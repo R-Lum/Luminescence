@@ -4,7 +4,7 @@ readBIN2R <- structure(function(#Import Risoe BIN-file into R
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
   ## Margret C. Fuchs, AWI Postdam (Germany),\cr
   
   ##section<<

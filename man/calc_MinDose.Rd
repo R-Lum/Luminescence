@@ -1,0 +1,133 @@
+\name{calc_MinDose}
+\alias{calc_MinDose}
+\title{Apply the (un-)logged three parameter minimum age model (MAM 3) after Galbraith et al. (1999) to a given De distribution}
+\description{Function to fit the (un-)logged three parameter minimum dose model 
+(MAM 3) to De data.}
+\usage{calc_MinDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE, 
+    boundaries, init.values, plot = TRUE, ...)}
+\arguments{
+  \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
+for \code{data.frame}: two columns with De \code{(data[,1])} and
+De error \code{(values[,2])}}
+  \item{sigmab}{\code{\link{numeric}}  (\bold{required}): spread in De values given as a 
+fraction (e.g. 0.2). This value represents the expected overdispersion in
+the data should the sample be well-bleached (Cunningham & Walling 2012, p. 100).}
+  \item{log}{\code{\link{logical}} (with default): fit the (un-)logged three parameter 
+minimum dose model to De data}
+  \item{par}{\code{\link{numeric}} (with default): apply the 3- or 4-parametric minimum age
+model (\code{par=3} or \code{par=4}).}
+  \item{bootstrap}{code{\link{logical}} (with default): apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
+  \item{boundaries}{\code{\link{list}}: a named list of boundary values for gamma, sigma and mu
+to be used in the optimisation routine 
+(e.g. \code{list(gamma=c(0.01,100), sigma=c(0.01,5), p0=c(0.01,0.99), mu=c(10, 100))}). 
+If no values are provided reasonable values are tried to be estimated from the data.}
+  \item{init.values}{\code{\link{numeric}}: a named list with starting values for gamma, sigma, p0 and mu
+(e.g. \code{list(gamma=100 sigma=1.5, p0=0.1, mu=100)}).
+If no values are provided reasonable values are tried to be estimated from the data.}
+  \item{plot}{\code{\link{logical}} (with default): plot output
+(\code{TRUE}/\code{FALSE})}
+  \item{\dots}{further arguments for bootstrapping (\code{bs.M, bs.N, bs.h, sigmab.sd}). 
+See details for their usage.}
+}
+\details{\bold{Parameters} \cr\cr
+This model has four parameters: \cr\cr
+\tabular{rl}{
+\code{gamma}: \tab minimum dose on the log scale \cr
+\code{mu}: \tab mean of the non-truncated normal distribution \cr
+\code{sigma}: \tab spread in ages above the minimum \cr
+\code{p0}: \tab proportion of grains at gamma \cr }
+If \code{par=3} (default) the 3-parametric minimum age model is applied,
+where \code{gamma = mu}. For \code{par=4} the 4-parametric model is applied
+instead.\cr\cr
+\bold{(Un-)logged model} \cr\cr
+In the original version of the three-parameter minimum dose model, the 
+basic data are the natural logarithms of the De estimates and relative 
+standard errors of the De estimates. This model will be applied if 
+\code{log = TRUE}. \cr\cr
+If \code{log = FALSE}, the modified un-logged model will be applied 
+instead. This has essentially the same form as the original version. 
+\code{gamma} and \code{sigma} are in Gy and \code{gamma} becomes the
+minimum true dose in the population. \cr\cr
+While the original (logged) version of the mimimum dose model may be
+appropriate for most samples (i.e. De distributions), the modified 
+(un-logged) version is specially designed for modern-age and young
+samples containing negative, zero or near-zero De estimates (Arnold 
+et al. 2009, p. 323). \cr\cr
+\bold{Boundaries} \cr\cr  
+Depending on the data, the upper and lower bounds for \emph{gamma}, \emph{mu}, 
+\emph{sigma} and \emph{p0} need to be specified. If no values are provided
+for \code{boundaris} the function tries to estimate reasonable boundaries.
+However, these might not be appropriate in all cases and 
+if the final estimate of any of these parameters is on the boundary, 
+make sure to adjust the boundaries via \code{boundaries}
+\cr\cr
+\bold{Initial values} \cr\cr
+The log likelihood calculations use the \link{optim} function with the
+\code{L-BFGS-B} method. 
+Accordingly, initial values for the four parameters need to be specified.
+IF no values are provided for \code{init.values} reasonable starting 
+values are estimated. If the final estimates of \emph{gamma}, \emph{mu}, 
+\emph{sigma} and \emph{p0} are totally of, consider providing custom
+starting values via \code{init.values}.}
+\value{# EXAMPLE ####}
+\references{Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B., 2009. A revised
+burial dose estimation procedure for optical dating of young and modern-age 
+sediments. Quaternary Geochronology, 4, pp. 306-325. \cr\cr
+Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission 
+track ages. Nuclear Tracks Radiation Measurements, 4, pp. 459-470. \cr\cr
+Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley, J.M., 
+1999. Optical dating of single grains of quartz from Jinmium rock shelter, 
+northern Australia. Part I: experimental design and statistical models. 
+Archaeometry, 41, pp. 339-364. \cr\cr
+Galbraith, R.F., 2005. Statistics for Fission Track Analysis, Chapman & 
+Hall/CRC, Boca Raton. \cr\cr
+Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose
+and error calculation and display in OSL dating: An overview and some
+recommendations. Quaternary Geochronology, 11, pp. 1-27. \cr\cr
+\bold{Further reading} \cr\cr
+Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain 
+equivalent dose (De) distributions: Implications for OSL dating of sediment 
+mixtures. Quaternary Geochronology, 4, pp. 204-230. \cr\cr
+Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain 
+quartz De distributions and an assessment of procedures for estimating burial
+dose. Quaternary Science Reviews, 25, pp. 2475-2502. \cr\cr
+Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial
+archives using robust OSL chronologies. Quaternary Geochronology, 12, 
+pp. 98-106. \cr\cr
+Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the
+reproducibility and accuracy of optical dating of fluvial deposits. 
+Quaternary Geochronology, 1, pp. 109-120. \cr\cr
+Rodnight, H., 2008. How many equivalent dose values are needed to obtain a
+reproducible distribution?. Ancient TL, 26, pp. 3-10. \cr\cr}
+\author{Christoph Burow, University of Cologne (Germany) \cr
+Based on a rewritten S script of Rex Galbraith, 2010 \cr
+The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
+Alastair Cunningham is thanked for his help in implementing and cross-checking the code.\cr
+R Luminescence Package Team}
+\note{The default boundary and starting values for \emph{gamma}, \emph{mu}, 
+\emph{sigma} and \emph{p0} may only be appropriate for some De data sets 
+and may need to be changed for other data. This is especially true when
+the un-logged version is applied.}
+
+
+\seealso{\code{\link{calc_CentralDose}},
+\code{\link{calc_CommonDose}}, \code{\link{calc_FiniteMixture}},
+\code{\link{calc_FuchsLang2001}}, \code{\link{calc_MaxDose}}}
+\examples{
+
+## load example data
+data(ExampleData.DeValues, envir = environment())
+
+# apply the un-logged, 3-parametric minimum age model
+calc_MinDose(data = ExampleData.DeValues, par = 3, sigmab = 0.2, log = FALSE)
+
+# re-run the model, but save results to a variable
+mam<- calc_MinDose(data = ExampleData.DeValues, par = 3, sigmab = 0.2, log = FALSE, plot = FALSE)
+
+# show summary table
+get_RLum.Results(mam, "summary")
+
+# plot the log likelihood profiles retroactively
+plot_RLum.Results(mam)
+}
+\section{Function version}{0.4 (2014-12-02 16:07:04)}

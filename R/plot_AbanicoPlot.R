@@ -148,7 +148,35 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
 
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {data <- list(data)}
+  
+  ## optionally, remove NA-values
+  if(na.exclude == TRUE) {
+    for(i in 1:length(data)) {
+      
+      n.NA <- sum(!complete.cases(data[[i]]))
+      
+      if(n.NA == 1) {print("1 NA value excluded.")
+      } else if(n.NA > 1) {
+        print(paste(n.NA, "NA values excluded."))
+      }
+      
+      data[[i]] <- na.exclude(data[[i]])
+    }
+  }  
+  
+  ## check for zero-error values
+  for(i in 1:length(data)) {
+
+    if(length(data[[i]]) < 2) {
+      stop("Data without errors cannot be displayed!")
+    }
+
+    if(sum(data[[i]][,2] == 0) > 0) {
+      stop("Values with zero errors cannot be displayed!")
+    }
     
+  }
+  
   ## Check input data
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE & 
@@ -161,7 +189,16 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       }
     }
   }
-
+  
+  ## save original plot parameters
+  par.old.bg <- par()$bg
+  par.old.mar <- par()$mar
+  par.old.xpd <- par()$xpd
+  par.old.cex <- par()$cex
+  par.old.mai <- par()$mai
+  par.old.pin <- par()$pin
+  par.old.family <- par()$family
+  
   ## check/set layout definitions
   if("layout" %in% names(list(...))) {
     layout = get_Layout(layout = list(...)$layout)
@@ -169,7 +206,10 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     layout <- get_Layout(layout = "default")
   }
   
-  if(missing(stats) == TRUE) {stats <- numeric(0)}
+  if(missing(stats) == TRUE) {
+    stats <- numeric(0)
+  }
+  
   if(missing(bar.col) == TRUE) {
     bar.fill <- rep(layout$abanico$colour$bar.fill, 
                     length.out = length(data))
@@ -179,6 +219,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     bar.fill <- bar.col
     bar.line <- NA
   }
+  
   if(missing(polygon.col) == TRUE) {
     polygon.fill <- rep(layout$abanico$colour$poly.fill, 
                        length.out = length(data))
@@ -188,16 +229,31 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     polygon.fill <- polygon.col
     polygon.line <- NA
   }
+  
   if(missing(grid.col) == TRUE) {
     grid.major <- layout$abanico$colour$grid.major
     grid.minor <- layout$abanico$colour$grid.minor
   } else {
-    grid.major <- "none"
-    grid.minor <- "none"
+    if(length(grid.col) == 1) {
+      grid.major <- grid.col[1]
+      grid.minor <- grid.col[1]      
+    } else {
+      grid.major <- grid.col[1]
+      grid.minor <- grid.col[2]
+    }
   }
-  if(missing(summary) == TRUE) {summary <- c("n", "in.ci")}
-  if(missing(summary.pos) == TRUE) {summary.pos <- "sub"}
-  if(missing(mtext) == TRUE) {mtext <- ""}
+  
+  if(missing(summary) == TRUE) {
+    summary <- c("n", "in.ci")
+  }
+  
+  if(missing(summary.pos) == TRUE) {
+    summary.pos <- "sub"
+  }
+  
+  if(missing(mtext) == TRUE) {
+    mtext <- ""
+  }
   
   ## check z-axis log-option for grouped data sets
   if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
@@ -205,15 +261,6 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                   "data set (group) is provided."))
   }
 
-  ## optionally, remove NA-values
-  if(na.exclude == TRUE) {
-    for(i in 1:length(data)) {
-      n.NA <- sum(!complete.cases(data[[i]]))
-      if(n.NA == 1) {print("1 NA value excluded.")
-      } else if(n.NA > 1) {print(paste(n.NA, "NA values excluded."))}
-      data[[i]] <- na.exclude(data[[i]])
-    }
-  }  
   ## create preliminary global data set
   De.global <- data[[1]][,1]
   if(length(data) > 1) {
@@ -232,6 +279,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
                   (1.1 + z.span) * max(De.global))
   }
+  
   ticks <- round(pretty(limits.z, n = 5), 3)
   
   ## check for negative values
@@ -257,7 +305,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ## calculate and append statistical measures --------------------------------
   
   ## z-values based on log-option
-  z <- sapply(1:length(data), function(x){
+  z <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
   if(is(z, "list") == FALSE) {z <- list(z)}
   data <- lapply(1:length(data), function(x) {
@@ -265,7 +313,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   rm(z)
 
   ## calculate dispersion based on log-option
-  se <- sapply(1:length(data), function(x){
+  se <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {data[[x]][,2] / data[[x]][,1]} else {data[[x]][,2]}})
   if(is(se, "list") == FALSE) {se <- list(se)}
   data <- lapply(1:length(data), function(x) {
@@ -274,13 +322,13 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   
   ## calculate central values
   if(centrality[1] == "mean") {
-    z.central <- sapply(1:length(data), function(x){
+    z.central <- lapply(1:length(data), function(x){
       rep(mean(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else if(centrality[1] == "median") {
-    z.central <- sapply(1:length(data), function(x){
+    z.central <- lapply(1:length(data), function(x){
       rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else  if(centrality[1] == "mean.weighted") {
-    z.central <- sapply(1:length(data), function(x){
+    z.central <- lapply(1:length(data), function(x){
       sum(data[[x]][,3] / data[[x]][,4]^2) / 
         sum(1 / data[[x]][,4]^2)})
   } else if(centrality[1] == "median.weighted") {
@@ -302,7 +350,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
         else return(y[k - 1])
       }
     }
-    z.central <- sapply(1:length(data), function(x){
+    z.central <- lapply(1:length(data), function(x){
       rep(median.w(y = data[[x]][,3], 
                    w = data[[x]][,4]), length(data[[x]][,3]))})
   } else if(is.numeric(centrality) == TRUE & 
@@ -312,11 +360,11 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       } else {
         centrality
       }
-    z.central <- sapply(1:length(data), function(x){
+    z.central <- lapply(1:length(data), function(x){
       rep(z.central.raw[x], length(data[[x]][,3]))})
   } else if(is.numeric(centrality) == TRUE & 
               length(centrality) > length(data)) {
-    z.central <- sapply(1:length(data), function(x){
+    z.central <- lapply(1:length(data), function(x){
       rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else {
     stop("Measure of centrality not supported!")
@@ -327,7 +375,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   rm(z.central)
   
   ## calculate precision
-  precision <- sapply(1:length(data), function(x){
+  precision <- lapply(1:length(data), function(x){
     1 / data[[x]][,4]})
   if(is(precision, "list") == FALSE) {precision <- list(precision)}
   data <- lapply(1:length(data), function(x) {
@@ -335,7 +383,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   rm(precision)
   
   ## calculate standardised estimate
-  std.estimate <- sapply(1:length(data), function(x){
+  std.estimate <- lapply(1:length(data), function(x){
     (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
   if(is(std.estimate, "list") == FALSE) {std.estimate <- list(std.estimate)}
   data <- lapply(1:length(data), function(x) {
@@ -544,26 +592,31 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
       } else {
         centrality.col <- layout$abanico$colour$centrality
       }
+      
       if(length(layout$abanico$colour$kde.line) == 1) {
         kde.line <- 1:length(data)
       } else {
         kde.line <- layout$abanico$colour$kde.line
       }
+      
       if(length(layout$abanico$colour$kde.fill) == 1) {
         kde.fill <- rep(layout$abanico$colour$kde.fill, length(data))
       } else {
         kde.fill <- layout$abanico$colour$kde.fill
       }
+      
       if(length(layout$abanico$colour$value.dot) == 1) {
         value.dot <- 1:length(data)
       } else {
         value.dot <- layout$abanico$colour$value.dot
       }
+      
       if(length(layout$abanico$colour$value.bar) == 1) {
         value.bar <- 1:length(data)
       } else {
         value.bar <- layout$abanico$colour$value.bar
       }
+      
       if(length(layout$abanico$colour$summary) == 1) {
         summary.col <- 1:length(data)
       } else {
@@ -1243,17 +1296,12 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   } else {shift.lines <- 1}
 
   ## extract original plot parameters
-  oma.original <- par()$oma
-  mar.original <- par()$mar
-  xpd.original <- par()$xpd
-  cex.original <- par()$cex
   par(bg = layout$abanico$colour$background)
   bg.original <- par()$bg
   
 if(rotate == FALSE) {
   ## setup plot area
-  par(oma = c(1, 1, 0, 0),
-      mar = c(4, 4, shift.lines + 1.5, 7),
+  par(mar = c(4.5, 4.5, shift.lines + 1.5, 7),
       xpd = TRUE,
       cex = cex)
   
@@ -1794,8 +1842,7 @@ if(rotate == FALSE) {
   }
 } else {
   ## setup plot area
-  par(oma = c(1, 1, 0, 0),
-      mar = c(4, 4, shift.lines + 5, 4),
+  par(mar = c(4, 4, shift.lines + 5, 4),
       xpd = TRUE,
       cex = cex)
   
@@ -2337,12 +2384,15 @@ if(rotate == FALSE) {
   }
 }
   
-  ## restore previous plot parameters
-  par(oma = oma.original)
-  par(mar = mar.original)
-  par(xpd = xpd.original)
-  par(cex = cex.original)
-  
+  ## restore potentially modified parameters
+  par(bg = par.old.bg,
+      mar = par.old.mar,
+      xpd = par.old.xpd,
+      cex = par.old.cex,
+      mai = par.old.mai,
+      pin = par.old.pin,
+      family = par.old.family)
+
   ## create and resturn numeric output
   if(output == TRUE) {
     return(list(xlim = limits.x,
@@ -2363,7 +2413,7 @@ if(rotate == FALSE) {
   }
   
   ### returns a plot object and, optionally, a list with plot calculus data.
-  
+
   ##details<<
   ## The Abanico Plot is a combination of the classic Radial Plot 
   ## (\code{plot_RadialPlot}) and a kernel density estimate plot (e.g.
@@ -2415,7 +2465,10 @@ if(rotate == FALSE) {
   ## \code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}}, 
   ## \code{\link{plot_Histogram}}
   
-}, ex=function(){
+}, ex = function() {
+  ## store original graphics parameters
+  par.old <- par(no.readonly = TRUE)
+  
   ## load example data and recalculate to Gray
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- 
@@ -2463,19 +2516,19 @@ if(rotate == FALSE) {
                    centrality = "median", 
                    dispersion = "qr")
   
-  ## now with user-defined green line for MAM3 (i.e. 2936.3)
-  MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
-                       sigmab = 0.3,
-                       gamma.xub = 7000, 
-                       output.plot = FALSE)
-  
-  MAM <- as.numeric(get_RLum.Results(object = MAM, 
-                                     data.object = "results")$mindose)
-  
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   line = MAM,
-                   line.col = "darkgreen",
-                   line.label = "MAM3-dose")
+#   ## now with user-defined green line for MAM3 (i.e. 2936.3)
+#   MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
+#                        sigmab = 0.3,
+#                        gamma.xub = 7000, 
+#                        output.plot = FALSE)
+#   
+#   MAM <- as.numeric(get_RLum.Results(object = MAM, 
+#                                      data.object = "results")$mindose)
+#   
+#   plot_AbanicoPlot(data = ExampleData.DeValues,
+#                    line = MAM,
+#                    line.col = "darkgreen",
+#                    line.label = "MAM3-dose")
 
   ## now create plot with legend, colour, different points and smaller scale
   plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -2546,7 +2599,7 @@ if(rotate == FALSE) {
                    density = c(10, 20),
                    angle = c(30, 50),
                    summary = c("n", "in.ci"))
-  
+
   ## create Abanico plot with predefined layout definition
   plot_AbanicoPlot(data = ExampleData.DeValues,
                    layout = "journal")
@@ -2561,4 +2614,7 @@ if(rotate == FALSE) {
 
   ## for further information on layout definitions see documentation
   ## of function get_Layout()
+  
+  ## restore original graphical parameters
+  par(par.old)
 })

@@ -33,10 +33,17 @@ calc_Statistics <- structure(function(# Function to calculate statistic measures
     }
   }
 
+  ## handle error-free data sets
+  if(length(data) == 1) {
+    data <- cbind(data, rep(NA, length(data)))
+  } 
+  
   ## check/set weight calculation type
+  data[is.na(data[,2]),2] <- 0
+  
   if(sum(data[,2]) == 0) {
-    warning("All errors are zero! Automatically set to 10^-9!")
-    data[,2] <- rep(10^-9, length(data[,2]))
+    warning("All errors are NA or zero! Automatically set to 10^-9!")
+    data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
   
   if(weight.calc == "reciprocal") {

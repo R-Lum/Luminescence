@@ -18,7 +18,8 @@ Allowed arguments can be found in the documentations of each plot function.
 \code{\linkS4class{RLum.Data.Curve}} \tab : \tab \code{\link{plot_RLum.Data.Curve}} \cr
 \code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab \code{\link{plot_RLum.Data.Spectrum}}\cr
 \code{\linkS4class{RLum.Data.Image}} \tab : \tab \code{\link{plot_RLum.Data.Image}}\cr
-\code{\linkS4class{RLum.Analysis}} \tab : \tab \code{\link{plot_RLum.Analysis}}
+\code{\linkS4class{RLum.Analysis}} \tab : \tab \code{\link{plot_RLum.Analysis}}\cr
+\code{\linkS4class{RLum.Results}} \tab : \tab \code{\link{plot_RLum.Results}}
 }}
 \value{Returns a plot.}
 \references{#}
@@ -30,7 +31,8 @@ R Luminescence Package Team}
 \seealso{\code{\link{plot_RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Curve}},
 \code{\link{plot_RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Data.Spectrum}},
 \code{\link{plot_RLum.Data.Image}}, \code{\linkS4class{RLum.Data.Image}},
-\code{\link{plot_RLum.Analysis}}, \code{\linkS4class{RLum.Analysis}}}
+\code{\link{plot_RLum.Analysis}}, \code{\linkS4class{RLum.Analysis}},
+\code{\link{plot_RLum.Results}}, \code{\linkS4class{RLum.Results}}}
 \examples{
 
 #load Example data
@@ -45,4 +47,4 @@ plot_RLum(temp)
 }
 
 \keyword{dplot}
-\section{Function version}{0.2 (2014-09-15 02:28:00)}
+\section{Function version}{0.3 (2014-12-02 16:41:35)}

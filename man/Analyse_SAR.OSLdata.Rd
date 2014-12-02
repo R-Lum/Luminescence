@@ -5,7 +5,7 @@
 measured data for every position. The output of the function is optimised 
 for SAR OSL measurements on quartz.}
 \usage{Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, 
-    position, run, set, info.measurement = "unkown measurement", 
+    position, run, set, dtype, info.measurement = "unkown measurement", 
     log = "", output.plot = FALSE, output.plot.single = FALSE, 
     cex.global = 1)}
 \arguments{
@@ -24,6 +24,10 @@ from the Risoe.BINfileData object.}
   \item{set}{\link{vector} (optional): range of sets used for the analysis. 
 If no value is given the range of the sets in the sequence is deduced 
 from the \code{Risoe.BINfileData} object.}
+  \item{dtype}{\code{\link{character}} (optional): allows to further limit the curves 
+by their data type (\code{DTYPE}), e.g., \code{dtype = c("Natural", "Dose")}
+limits the curves to this two data types. By default all values are allowed.
+See \link{Risoe.BINfileData-class} for allowed data types. }
   \item{info.measurement}{\link{character} (with default): option to provide information about
 the measurement on the plot output (e.g. name of the BIN or BINX file).}
   \item{log}{\link{character} (with default): a character string which contains "x" 
@@ -68,8 +72,8 @@ luminescence measurements. Radiation Measurements, 37 (2), pp. 161-165.
 Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using 
 an improved single-aliquot regenerative-dose protocol. 
 Radiation Measurements, 32, pp. 57-73. }
-\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
-Margret C. Fuchs, AWI Potsdam (Germany), \cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
+Margret C. Fuchs, AWI Potsdam (Germany), TU Bergakademie Freiberg (Germany)\cr
 R Luminescence Package Team}
 \note{Rejection criteria are calculated but not considered during 
 the analysis to discard values.\cr\cr
@@ -104,4 +108,4 @@ output.SAR
 
 \keyword{datagen}
 \keyword{dplot}
-\section{Function version}{0.2.13 (2014-09-15 02:28:00)}
+\section{Function version}{0.2.14 (2014-12-01 10:08:35)}
