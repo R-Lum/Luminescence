@@ -36,7 +36,8 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ...
   ### further arguments and graphical parameters will be passed to the \code{plot} function.
   ### Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
-  ### \code{type}, \code{pch}, \code{col}
+  ### \code{type}, \code{pch}, \code{col} ... and for \code{combine = TRUE} also: \code{xlim},
+  ### \code{ylim}, \code{xlab}, \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}
 
 ){
   
@@ -187,84 +188,141 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
      
     sapply(1:length(object.list), function(x){
       
-      if(is(object.list[[x]])[1] != "RLum.Data.Curve"){
+      if(is(object.list[[x]])[1] != "RLum.Data.Curve"){  
         
         stop("[plot_RLum.Analysis()] Using 'combine' is limited to 'RLum.Data.Curve' objects.")
-        
+      
       }
       
     }) 
-    
-    
+
     ##(2) check for similar types 
     object.structure  <- get_structure.RLum.Analysis(object)
     
     if(length(unique(object.structure$recordType))>1){
       
-      stop("[plot_RLum.Analysis()] Using 'combine' is limited 'RLum.Data.Curve' objects of similar type.")
+      stop("[plot_RLum.Analysis()] 'combine' is limited 'RLum.Data.Curve' objects of similar type.")
       
     }
     
     
     ##(3) PLOT values  
     
-    ##get some extra arguments
+    ##transform values to data.frame and norm values
+    temp.data.list <- lapply(1:length(object.list), function(x){
+      
+      temp.data <- as(object.list[[x]], "data.frame")
+      
+      ##normalise curves if argument has been set    
+      if(norm == TRUE){
+        
+        temp.data[,2] <- temp.data[,2]/max(temp.data[,2])
+        
+      }
+
+      return(temp.data)
+      
+    })
+    
+    ##get some extra arguments, here new, as the values have to considered differently
+    sub <- if("sub" %in% names(extraArgs)) {extraArgs$sub} else 
+    {""}
+    
+    ##xlab
     xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else 
     {"x"}
     
+    ##ylab
     ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else 
     {"y"}
     
-    ##colours and double for plotting
-    col.curves <- get("col", pos = .LuminescenceEnv)
-       
+    ##xlim
+    xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else 
+    {c(min(object.structure$x.min), max(object.structure$x.max))}
+    
+    ##ylim
+    ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else 
+    {
+        temp.ylim  <- t(sapply(1:length(temp.data.list), function(x){
+
+            temp.data <- temp.data.list[[x]]
+            range(temp.data[temp.data[,1] >= min(xlim) & temp.data[,1] <= max(xlim),2])
+
+        }))
+
+        c(min(temp.ylim), max(temp.ylim))
+        
+    }
+    
+    ##col (again)
+    col <- if("col" %in% names(extraArgs)) {extraArgs$col} else
+    {get("col", pos = .LuminescenceEnv)}
+    
+    ##if length of provided colours is < the number of objects, just one colour is supported
+    if(length(col)<length(object.list)){
+      
+      col <- rep(col[1], times = length(object.list))
+      
+    }
+    
+    ##col (again)
+    lty <- if("lty" %in% names(extraArgs)) {extraArgs$lty} else
+    {1}    
+    
+    ##if length of provided lty values is < the number of objects, just the first supported
+    if(length(lty)<length(object.list)){
+      
+      lty <- rep(lty[1], times = length(object.list))
+      
+    }
+    
+    ##legend.text
+    legend.text <- if("legend.text" %in% names(extraArgs)) {extraArgs$legend.text} else 
+    {paste("Curve", 1:length(object.list))}
+    
+    ##legend.pos
+    legend.pos <- if("legend.pos" %in% names(extraArgs)) {extraArgs$legend.pos} else 
+    {"topright"}
+    
+    
+            
     ##change graphic settings
-    par.default <- par()[c("mfrow", "mar", "xpd", "cex")]
-    par(mfrow = c(1,1), mar=c(5.1, 4.1, 4.1, 8.1), xpd = TRUE, cex = cex)
+    par.default <- par()[c("cex")]
+    par(cex = cex)
     
     ##open plot area
     plot(NA,NA,
-         xlim = c(min(object.structure$x.min), max(object.structure$x.max)),
-         ylim = if(norm == FALSE){c(min(object.structure$y.min), max(object.structure$y.max))}
-                else{c(0,1)},
+         xlim = xlim,
+         ylim = ylim,
          main = main,
          xlab = xlab,
          ylab = ylab,
-         log = log)
-         
+         log = log,
+         sub = sub)
 
     ##loop over all records
     for(i in 1:length(object.list)){
       
-       temp.data <- as(object.list[[i]], "data.frame")
-      
-       ##normalise curves if argument has been set    
-       if(norm == TRUE){
-        
-        temp.data[,2] <- temp.data[,2]/max(temp.data[,2])
-        
-       }
-      
-      lines(temp.data, col = col.curves[i])
+      lines(temp.data.list[[i]], 
+            col = col[i],
+            lty = lty)
    
     }      
     
     ##legend
-    legend("topright",
-           inset=c(-0.3*cex,0),
-           legend = paste("Curve", 1:length(object.list)), 
-           lwd= lwd, 
-           col = col.curves[1:length(object.list)],
-           lty = 1,
+    legend(legend.pos,
+           legend = legend.text, 
+           lwd = lwd, 
+           lty = lty,
+           col = col[1:length(object.list)],
            bty = "n",
-           cex = 0.6*cex)
+           cex = 0.9*cex)
     
     
     ##reset graphic settings
     par(par.default)
     rm(par.default)
 
-    
     
   }
   

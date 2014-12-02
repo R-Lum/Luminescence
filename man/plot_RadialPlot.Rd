@@ -28,17 +28,17 @@ one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"},
 and \code{"median.weighted"}. Default is \code{"mean.weighted"}.}
   \item{mtext}{\code{\link{character}}: additional text below the plot title.}
   \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
-Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De 
-value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of 
-the De values), \code{"sdrel"} (relative standard deviation in 
-percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative 
-standard error), \code{"seabs"} (absolute standard error) and \code{"in.ci"} (percent
+Can be one or more out of: "n" (number of samples), "mean" (mean De 
+value), "mean.weighted" (error-weighted mean), "median" (median of 
+the De values), "sdrel" (relative standard deviation in 
+percent), "sdabs" (absolute standard deviation), "serel" (relative 
+standard error), "seabs" (absolute standard error) and "in.ci" (percent
 of samples in confidence interval, e.g. 2-sigma).}
   \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
 position coordinates or keyword (e.g. \code{"topright"}) for the 
 statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this
-latter option is only possible if \code{mtext} is not used.}
+latter option in only possible if \code{mtext} is not used.}
   \item{legend}{\code{\link{character}} vector (optional): legend content to be added
 to the plot.}
   \item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
@@ -120,6 +120,9 @@ R Luminescence Package Team}
 
 \seealso{\code{\link{plot}}, \code{\link{plot_KDE}}, \code{\link{plot_Histogram}}}
 \examples{
+## store original graphics parameters
+par.old <- par(no.readonly = TRUE)
+
 ## load example data
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- 
@@ -205,5 +208,8 @@ plot_RadialPlot(data = data.3,
                 summary = c("n", "in.ci"),
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
+
+## restore original graphical parameters
+par(par.old)
 }
-\section{Function version}{0.5.2 (2014-09-15 02:28:00)}
+\section{Function version}{0.5.2 (2014-11-30 23:30:37)}

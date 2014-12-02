@@ -52,8 +52,8 @@ right axis limits.}
 the probability density. }
 
 
-\author{Michael Dietze (GFZ Potsdam), \cr
-Sebastian Kreutzer, JLU Giessen (Germany), \cr
+\author{Michael Dietze, GFZ Potsdam (Germany), \cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{The input data is not restricted to a special type.}
 
@@ -84,4 +84,4 @@ plot_Histogram(ExampleData.DeValues,
                xlim = c(100, 250),
                ylim = c(0, 0.08, 50, 200))
 }
-\section{Function version}{0.4.2 (2014-11-28 17:54:03)}
+\section{Function version}{0.4.2 (2014-12-01 13:39:36)}

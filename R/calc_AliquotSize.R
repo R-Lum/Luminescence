@@ -7,7 +7,7 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
   ## Christoph Burow, University of Cologne (Germany) \cr
   
   ##section<<
-  ## version 0.3
+  ## version 0.31 
   # ===========================================================================
   
   grain.size,
@@ -22,7 +22,7 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
   ### density. \cr 
   ### If \code{packing.density = "inf"} a hexagonal structure on an
   ### infinite plane with a packing density of \eqn{0.906\ldots} is assumed.
-  MC.estimate = TRUE,
+  MC = TRUE,
   ### \code{\link{logical}} (optional): if \code{TRUE} the function performs
   ### a monte carlo simulation for estimating the amount of grains on the
   ### sample carrier and assumes random errors in grain size distribution
@@ -35,6 +35,9 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
   ### If more than one value is provided the mean packing density and its 
   ### standard deviation is calculated. Note that this overrides
   ### \code{packing.density}.
+  plot=TRUE,
+  ### \code{\link{logical}} (with default): plot output
+  ### (\code{TRUE}/\code{FALSE})
   ...
   ### further arguments to pass (\code{main, xlab, MC.iter}). 
 ){
@@ -63,15 +66,15 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
   }
   
   if(missing(grains.counted) == FALSE) {
-    if(MC.estimate == TRUE) {
-      MC.estimate = FALSE
+    if(MC == TRUE) {
+      MC = FALSE
       cat(paste("\nMonte Carlo simulation is only available for estimating the",
                 "amount of grains on the sample disc. Automatically set to",
                 "FALSE.\n"))
     }
   }
   
-  if(MC.estimate == TRUE && length(grain.size) != 2) {
+  if(MC == TRUE && length(grain.size) != 2) {
     cat(paste("\nPlease provide a vector containing the min and max grain",
               "grain size(e.g. c(100,150) when using Monte Carlo simulations.\n"))
     stop(domain=NA)
@@ -83,20 +86,6 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
   ##==========================================================================##
   
   extraArgs <- list(...)
-  
-  ## set plot main title
-  if("main" %in% names(extraArgs)) {
-    main<- extraArgs$main
-  } else {
-    main<- "Monte Carlo Simulation"
-  }
-  
-  ## set plot main title
-  if("xlab" %in% names(extraArgs)) {
-    xlab<- extraArgs$xlab
-  } else {
-    xlab<- "Amount of grains on aliquot"
-  }
   
   ## set number of Monte Carlo iterations
   if("MC.iter" %in% names(extraArgs)) {
@@ -129,9 +118,6 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
     return(n)
   }
   
-  
-  
-  
   # calculate the amount of grains on the aliquot
   if(missing(grains.counted) == TRUE) {
     n.grains<- calc_n(sample.diameter, grain.size, packing.density)
@@ -139,7 +125,7 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
     ##========================================================================##
     ## MONTE CARLO SIMULATION
     
-    if(MC.estimate == TRUE && range.flag == TRUE) {
+    if(MC == TRUE && range.flag == TRUE) {
       
       # create a random set of packing densities assuming a normal
       # distribution with the empirically determined standard deviation of
@@ -175,7 +161,7 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
       # in mean grain size on the sample disc
       gs.mc.sampleMean<- vector(mode = "numeric")
       
-          
+      
       for(i in 1:length(gs.mc)) {
         gs.mc.sampleMean[i]<- mean(sample(gs.mc, calc_n(
           sample(sd.mc, size = 1),
@@ -208,71 +194,13 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
       # get unweighted statistics from calc_Statistics() function 
       MC.stats<- calc_Statistics(as.data.frame(cbind(MC.n,0.0001)))$unweighted
       
-      
-  ##==========================================================================##
-  ## PLOTTING
-  ##==========================================================================##      
-      
-      # set layout of plotting device
-      layout(matrix(c(1,1,2)),2,1)
-      par(cex = 0.8)
-  
-
-      ## plot MC estimate distribution
-      
-      # set margins (bottom, left, top, right)
-      par(mar=c(2,5,5,3))
-  
-      # plot histogram
-      hist(MC.n, freq=FALSE, col = "gray90",
-           main="", xlab=xlab,
-           xlim = c(min(MC.n)*0.95, max(MC.n)*1.05),
-           ylim = c(0, max(MC.n.kde$y)*1.1))
-      
-      # add rugs to histogram
-      rug(MC.n)
-      
-      # add KDE curve
-      lines(MC.n.kde, col = "black", lwd = 1)
-      
-      # add mean, median and quantils (0.05,0.95)
-      abline(v=c(MC.stats$mean, MC.stats$median, MC.q),
-             lty=c(2, 4, 3,3), lwd = 1)
-  
-      # add main- and subtitle
-      mtext(main, side = 3, adj = 0.5,
-            line = 3, cex = 1)
-      mtext(as.expression(bquote(italic(n) == .(MC.iter) ~ "|" ~
-                                 italic(hat(mu)) == .(round(MC.stats$mean)) ~ "|" ~
-                                 italic(hat(sigma))  == .(round(MC.stats$sd.abs)) ~ "|" ~
-                                 italic(frac(hat(sigma),sqrt(n))) == .(round(MC.stats$se.abs))  ~ "|" ~
-                                 italic(v) == .(round(MC.stats$skewness, 2))
-                                 )
-                          ),           
-            side = 3, line = 0.3, adj = 0.5, 
-            cex = 0.9)
-  
-      # add legend
-      legend("topright", legend = c("mean","median", "0.05 / 0.95 quantile"),
-             lty = c(2, 4, 3), bg = "white", box.col = "white", cex = 0.9)
-      
-      ## BOXPLOT
-      # set margins (bottom, left, top, right)
-      par(mar=c(5,5,0,3))
-  
-      plot(NA, type="n", xlim=c(min(MC.n)*0.95, max(MC.n)*1.05),
-           xlab=xlab,  ylim=c(0.5,1.5),
-           xaxt="n", yaxt="n", ylab="")
-      par(bty="n")
-      boxplot(MC.n, horizontal = TRUE, add = TRUE, bty="n")
-                  
-    }#EndOf:MonteCarloSimulation
+    }
   }#EndOf:estimate number of grains
   
   
   ##========================================================================##
   ## CALCULATE PACKING DENSITY
-
+  
   if(missing(grains.counted) == FALSE) {
     
     area.container<- pi*sample.diameter^2
@@ -323,7 +251,7 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
   
   
   
-  if(MC.estimate == TRUE && range.flag == TRUE) {
+  if(MC == TRUE && range.flag == TRUE) {
     cat(paste(cat(paste("\n\n --------------- Monte Carlo Estimates -------------------"))))
     cat(paste("\n number of iterations (n)     :", MC.iter))
     cat(paste("\n median                       :", round(MC.stats$median)))
@@ -334,7 +262,7 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
     cat(paste("\n standard error from CI (mean):", round(MC.t.se, 1)))
     cat(paste("\n ---------------------------------------------------------\n"))
     
-    } else {
+  } else {
     cat(paste("\n ---------------------------------------------------------\n"))
   }
   
@@ -345,7 +273,7 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
   
   # prepare return values for mode: estimate grains
   if(missing(grains.counted) == TRUE) {
-    results<- data.frame(grain.size = grain.size,
+    summary<- data.frame(grain.size = grain.size,
                          sample.diameter = sample.diameter,
                          packing.density = packing.density,
                          n.grains = round(n.grains,0),
@@ -357,24 +285,24 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
     
     # return values if only one value for counted.grains is provided
     if(length(grains.counted) == 1) {
-      results<- data.frame(grain.size = grain.size,
+      summary<- data.frame(grain.size = grain.size,
                            sample.diameter = sample.diameter,
                            packing.density = packing.density,
                            n.grains = NA,
                            grains.counted = grains.counted)
     } else { 
       # return values if more than one value for counted.grains is provided
-      results<- data.frame(rbind(1:5))
-      colnames(results)<- c("grain.size", "sample.diameter", "packing.density",
+      summary<- data.frame(rbind(1:5))
+      colnames(summary)<- c("grain.size", "sample.diameter", "packing.density",
                             "n.grains","grains.counted")
       for(i in 1:length(grains.counted)) {
-        results[i,]<- c(grain.size, sample.diameter, packing.densities[i],
+        summary[i,]<- c(grain.size, sample.diameter, packing.densities[i],
                         n.grains = NA, grains.counted[i])
       }
     }
   }
   
-  if(MC.estimate == FALSE) {
+  if(MC == FALSE) {
     MC.n<- NULL
     MC.stats<- NULL
     MC.n.kde<- NULL
@@ -382,25 +310,40 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
     MC.q<- NULL
   }
   
+  if(missing(grains.counted)) grains.counted<- NA
+  
+  call<- sys.call()
+  args<- list(grain.size = grain.size, sample.diameter = sample.diameter, packing.density = packing.density, MC = MC, grains.counted = grains.counted, MC.iter=MC.iter)
   
   # create S4 object
   newRLumResults.calc_AliquotSize <- set_RLum.Results(
     data = list(
-      results=results, 
-      MC.n=MC.n,
-      MC.statistics=MC.stats,
-      MC.kde=MC.n.kde,
-      MC.t.test=MC.t.test,
-      MC.quantile=MC.q
-        ))
+      summary=summary,
+      args=args,
+      call=call,
+      MC=list(estimates=MC.n,
+              statistics=MC.stats,
+              kde=MC.n.kde,
+              t.test=MC.t.test,
+              quantile=MC.q)
+    ))
+  
+  ##=========##
+  ## PLOTTING
+  if(plot==TRUE) {
+    try(plot_RLum.Results(newRLumResults.calc_AliquotSize, ...))
+  }
   
   # Return values
   invisible(newRLumResults.calc_AliquotSize)
-  ### Returns terminal output. In addition an 
+  ### Returns a terminal output. In addition an 
   ### \code{\linkS4class{RLum.Results}} object is 
   ### returned containing the following element:
   ###
-  ### \item{results}{\link{data.frame} with calculation results.}
+  ### \item{summary}{\link{data.frame} summary of all relevant calculation results.}
+  ### \item{args}{\link{list} used arguments}
+  ### \item{call}{\link{call} the function call}
+  ### \item{MC}{\link{list} results of the Monte Carlo simulation}
   ###
   ### The output should be accessed using the function 
   ### \code{\link{get_RLum.Results}}
@@ -428,7 +371,7 @@ calc_AliquotSize<- structure(function( # Estimate the amount of grains on an ali
   ##
   ## \bold{Monte Carlo simulation} \cr\cr
   ## The number of grains on an aliquot can be estimated by Monte Carlo 
-  ## simulation when setting \code{MC.estimate = TRUE}.
+  ## simulation when setting \code{MC = TRUE}.
   ## Each of the parameters necessary to calculate \code{n} (\code{x}, \code{y}, \code{d})
   ## are assumed to be normally distributed with means \eqn{\mu_x, \mu_y, \mu_d}
   ## and standard deviations \eqn{\sigma_x, \sigma_y, \sigma_d}. \cr\cr

@@ -4,7 +4,7 @@
 \description{Estimate the number of grains on an aliquot. Alternatively, the packing
 density of an aliquot is computed.}
 \usage{calc_AliquotSize(grain.size, sample.diameter, packing.density = 0.65, 
-    MC.estimate = TRUE, grains.counted, ...)}
+    MC = TRUE, grains.counted, plot = TRUE, ...)}
 \arguments{
   \item{grain.size}{\code{\link{numeric}} (\bold{required}): mean grain size (microns) or a 
 range of grain sizes from which the mean grain size is computed 
@@ -15,7 +15,7 @@ area on the sample carrier.}
 density. \cr 
 If \code{packing.density = "inf"} a hexagonal structure on an
 infinite plane with a packing density of \eqn{0.906\ldots} is assumed.}
-  \item{MC.estimate}{\code{\link{logical}} (optional): if \code{TRUE} the function performs
+  \item{MC}{\code{\link{logical}} (optional): if \code{TRUE} the function performs
 a monte carlo simulation for estimating the amount of grains on the
 sample carrier and assumes random errors in grain size distribution
 and packing density. Requires a vector with min and max grain size for
@@ -26,6 +26,8 @@ packing density of the aliquot.
 If more than one value is provided the mean packing density and its 
 standard deviation is calculated. Note that this overrides
 \code{packing.density}.}
+  \item{plot}{\code{\link{logical}} (with default): plot output
+(\code{TRUE}/\code{FALSE})}
   \item{\dots}{further arguments to pass (\code{main, xlab, MC.iter}). }
 }
 \details{This function can be used to either estimate the number of grains
@@ -50,7 +52,7 @@ Circle") problem where the maximum packing density is asymptotic to about
 
 \bold{Monte Carlo simulation} \cr\cr
 The number of grains on an aliquot can be estimated by Monte Carlo 
-simulation when setting \code{MC.estimate = TRUE}.
+simulation when setting \code{MC = TRUE}.
 Each of the parameters necessary to calculate \code{n} (\code{x}, \code{y}, \code{d})
 are assumed to be normally distributed with means \eqn{\mu_x, \mu_y, \mu_d}
 and standard deviations \eqn{\sigma_x, \sigma_y, \sigma_d}. \cr\cr
@@ -76,11 +78,14 @@ For each random sample drawn from the normal distributions the amount of
 grains on the aliquot is calculated. By default, \code{10^5} iterations are used, but
 can be reduced/increased with \code{MC.iter} (see \code{...}). The results
 are visualised in a bar- and boxplot together with a statistical summary.}
-\value{Returns terminal output. In addition an 
+\value{Returns a terminal output. In addition an 
 \code{\linkS4class{RLum.Results}} object is 
 returned containing the following element:
 
-\item{results}{\link{data.frame} with calculation results.}
+\item{summary}{\link{data.frame} summary of all relevant calculation results.}
+\item{args}{\link{list} used arguments}
+\item{call}{\link{call} the function call}
+\item{MC}{\link{list} results of the Monte Carlo simulation}
 
 The output should be accessed using the function 
 \code{\link{get_RLum.Results}}}
@@ -114,4 +119,4 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
                  grains.counted = c(2525,2312,2880))
 
 }
-\section{Function version}{0.3 (2014-09-15 02:28:00)}
+\section{Function version}{0.31 (2014-12-02 16:25:22)}

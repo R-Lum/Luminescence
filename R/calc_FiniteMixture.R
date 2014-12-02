@@ -10,12 +10,12 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
   ## Based on a rewritten S script of Rex Galbraith, 2006. \cr\cr
   
   ##section<<
-  ## version 0.32
+  ## version 0.4 [2014-12-01]
   # ===========================================================================
   
-  input.data,
+  data,
   ### \code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-  ### for \code{data.frame}: two columns with De \code{(input.data[,1])} and
+  ### for \code{data.frame}: two columns with De \code{(data[,1])} and
   ### De error \code{(values[,2])}
   sigmab,
   ### \code{\link{numeric}}  (\bold{required}): spread in De values given as a
@@ -28,16 +28,9 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
   ### mixtures for 2, 3 ... 8 components are calculated and a plot and a
   ### statistical evaluation of the model performance (BIC score and maximum
   ### log-likelihood) is provided.
-  sample.id="unknown sample",
-  ### \code{\link{character}} (with default): sample id
-  n.iterations = 200, 
-  ### \code{\link{numeric}}  (with default): number of iterations for maximum 
-  ### log likelihood estimates
   grain.probability = FALSE, 
   ### \code{\link{logical}} (with default): prints the estimated probabilities
   ### of which component each grain is in
-  main = "Finite Mixture Model",
-  ### \code{\link{character}} (with default): plot main title
   dose.scale,
   ### \code{\link{numeric}}: manually set the scaling of the y-axis of  
   ### the first plot with a vector in the form of \code{c(min,max)}
@@ -57,68 +50,81 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
   pdf.scale,
   ### \code{\link{numeric}}: manually set the max density value for
   ### proper scaling of the x-axis of the first plot
-  plot.proportions = TRUE
+  plot.proportions = TRUE,
   ### \code{\link{logical}} (with default): plot barplot showing the 
   ### proportions of components
+  plot=TRUE,
+  ### \code{\link{logical}} (with default): plot output
+  ...
+  ### further arguments to pass. 
+  ### See details for their usage.
 ){
   
-##============================================================================##
-## CONSISTENCY CHECK OF INPUT DATA
-##============================================================================##
+  ##============================================================================##
+  ## CONSISTENCY CHECK OF INPUT DATA
+  ##============================================================================##
   
-  if(missing(input.data)==FALSE){
+  if(missing(data)==FALSE){
     
-    if(is(input.data, "data.frame") == FALSE & is(input.data,
-                                                  "RLum.Results") == FALSE){
-      
-      stop("[calc_FiniteMixture] Error: 'input.data' object has to be of type 
+    if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
+      stop("[calc_FiniteMixture] Error: 'data' object has to be of type 
            'data.frame' or 'RLum.Results'!")
-      
-    }else{
-      
-      if(is(input.data, "RLum.Results") == TRUE){
-        
-        input.data <- get_RLum.Results(input.data, 
-                                       signature(object = "De.values"))
+    } else {
+      if(is(data, "RLum.Results") == TRUE){
+        data <- get_RLum.Results(data, signature(object = "De.values"))
       }
     }
   }  
-  
-  try(colnames(input.data)<- c("ED","ED_Error"),silent=TRUE)
-  
-  if(colnames(input.data[1])!="ED"||colnames(input.data[2])!="ED_Error") { 
+  try(colnames(data)<- c("ED","ED_Error"),silent=TRUE)
+  if(colnames(data[1])!="ED"||colnames(data[2])!="ED_Error") { 
     cat(paste("Columns must be named 'ED' and 'ED_Error'"), fill = FALSE)
     stop(domain=NA) 
   }
-  
   if(sigmab <0 | sigmab >1) { 
     cat(paste("sigmab needs to be given as a fraction between", 
               "0 and 1 (e.g. 0.2)"), fill = FALSE)
     stop(domain=NA)
   }
-  
   if(any(n.components<2) == TRUE) { 
     cat(paste("Atleast two components need to be fitted"), fill = FALSE)
     stop(domain=NA)
   }
-  
   if(pdf.sigma!="se" ) {
     if(pdf.sigma!="sigmab") {
-    cat(paste("Only 'se' or 'sigmab' allowed for the pdf.sigma argument"),
-        fill = FALSE)
-    stop(domain=NA)
+      cat(paste("Only 'se' or 'sigmab' allowed for the pdf.sigma argument"),
+          fill = FALSE)
+      stop(domain=NA)
     }
   }
   
-  if(n.iterations<1 | n.iterations>10000) { 
-    cat(paste("Only integers between 1:10000 allowed for n.iterations"),
-        fill = FALSE)
-    stop(domain=NA)
+  ##============================================================================##
+  ## ... ARGUMENTS
+  ##============================================================================##
+  
+  extraArgs <- list(...)
+  
+  ## console output
+  if("verbose" %in% names(extraArgs)) {
+    verbose<- extraArgs$verbose
+  } else {
+    verbose<- TRUE
+  }
+  # trace calculations
+  if("trace" %in% names(extraArgs)) {
+    trace<- extraArgs$trace
+  } else {
+    trace<- FALSE
+  }
+  # plot title
+  if("main" %in% names(extraArgs)) {
+    main<- extraArgs$main
+  } else {
+    main<- "Finite Mixture Model"
   }
   
-##============================================================================##
-## CALCULATIONS
-##============================================================================##
+  ##============================================================================##
+  ## CALCULATIONS
+  ##============================================================================##
   
   ## create storage variables if more than one k is provided
   if(length(n.components)>1) {
@@ -150,8 +156,8 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
     k<- n.components[i]
     
     # calculate yu = log(ED),  su = se(logED),  n = number of grains	
-    yu<- log(input.data$ED)
-    su<- input.data$ED_Error/input.data$ED
+    yu<- log(data$ED)
+    su<- data$ED_Error/data$ED
     n<- length(yu)
     
     # compute starting values
@@ -166,7 +172,7 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
     #	mu<- quantile(yu,(1:k)/(k+1))
     
     # compute maximum log likelihood estimates
-    nit<- n.iterations
+    nit<- 499L
     wu<- 1/(sigmab^2 + su^2)
     rwu<- sqrt(wu)
     
@@ -278,16 +284,16 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
       
       # save mle matrix and grain probabilities to corresponding vector
       vmat.n[[cnt]]<- vmat
-      grain.probability.n[[cnt]]<- grain.probability
+      grain.probability.n[[cnt]]<- as.data.frame(pui)
       
       # increase counter by one for next iteration
       cnt<- cnt+1
     }#EndOf::save intermediate results
   }##EndOf::calculation loop
   
-##============================================================================##
-## STATISTICAL CHECK
-##============================================================================##
+  ##============================================================================##
+  ## STATISTICAL CHECK
+  ##============================================================================##
   
   if(length(n.components)>1) {
     
@@ -304,536 +310,190 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
     BIC.lowest<- n.components[which.min(BIC.n)]
   }
   
-##============================================================================##
-## OUTPUT
-##============================================================================##
+  ##============================================================================##
+  ## OUTPUT
+  ##============================================================================##
   
-  ## HEADER (always printed)
-  cat("\n [calc_FiniteMixture]")
-  
-  ##----------------------------------------------------------------------------
-  ## OUTPUT WHEN ONLY ONE VALUE FOR n.components IS PROVIDED
-  
-  if(length(n.components) == 1) {
+  if(verbose==TRUE) {
     
-    # covariance matrix
-    cat(paste("\n\n--- covariance matrix of mle's ---\n\n"))
-    print(round(vmat,6))
+    ## HEADER (always printed)
+    cat("\n [calc_FiniteMixture]")
     
-    # general information on sample and model performance
-    cat(paste("\n----------- meta data ------------"))                                 
-    cat(paste("\n Sample ID:            ",sample.id))
-    cat(paste("\n n:                    ",n))
-    cat(paste("\n sigmab:               ",sigmab))
-    cat(paste("\n number of components: ",k))
-    cat(paste("\n llik:                 ",round(llik,4)))
-    cat(paste("\n BIC:                   ",round(bic,3)))
+    ##----------------------------------------------------------------------------
+    ## OUTPUT WHEN ONLY ONE VALUE FOR n.components IS PROVIDED
     
-    # fitted components
-    cat(paste("\n\n----------- components -----------\n\n"))
-    print(comp)
-    
-    
-    # print (to 2 decimal places) the estimated probabilities of which component 
-    # each grain is in -- sometimes useful for diagnostic purposes			
-    if(grain.probability==TRUE) {	
-      cat(paste("\n-------- grain probability -------\n\n"))
-      print(round(pui,2))                            
-    }
-    
-    # output for single component
-    cat(paste("\n-------- single component --------"))                   
-    cat(paste("\n mu:                    ", comp0[1]))
-    cat(paste("\n sigmab:                ", comp0[2]))
-    cat(paste("\n llik:                  ", comp0[3]))
-    cat(paste("\n BIC:                   ", comp0[4]))
-    cat(paste("\n----------------------------------\n\n"))
-    
-  }#EndOf::Output for length(n.components) == 1
-  
-  ##----------------------------------------------------------------------------
-  ## OUTPUT WHEN ONLY >1 VALUE FOR n.components IS PROVIDED
-  if(length(n.components) > 1) {
-    
-    ## final labeling of component and BIC/llik matrices
-    # create labels
-    dose.lab<- paste("c", 1:n.components[length(n.components)],"_dose", sep="")
-    se.lab<- paste("c", 1:n.components[length(n.components)],"_se", sep="")
-    prop.lab<- paste("c", 1:n.components[length(n.components)],"_prop", sep="")
-    
-    # empty vector which stores the labeles in correct order (dose, se, prop)
-    n.lab<- vector(mode = "expression",
-                   n.components[length(n.components)]*3)
-    
-    # loop to store the labels in correct order (dose, se, prop)
-    cnt<- 1
-    for(i in pos.n) {
-      n.lab[i]<- dose.lab[cnt]
-      n.lab[i+1]<- se.lab[cnt]
-      n.lab[i+2]<- prop.lab[cnt]
-      cnt<- cnt+1
-    }
-    
-    # label columns and rows of summary matrix and BIC/LLIK data frame
-    colnames(comp.n)<- n.components[1]:n.components[length(n.components)]
-    rownames(comp.n)<- n.lab
-    colnames(results.n)<- n.components[1]:n.components[length(n.components)]
-    
-    ## CONSOLE OUTPUT
-    # general information on sample and model performance
-    cat(paste("\n\n----------- meta data ------------"))                                 
-    cat(paste("\n Sample ID:            ",sample.id))
-    cat(paste("\n n:                    ",n))
-    cat(paste("\n sigmab:               ",sigmab))
-    cat(paste("\n number of components:  ",n.components[1],"-",
-              n.components[length(n.components)], sep=""))
-    
-    # output for single component
-    cat(paste("\n\n-------- single component --------"))                   
-    cat(paste("\n mu:                    ", comp0[1]))
-    cat(paste("\n sigmab:                ", comp0[2]))
-    cat(paste("\n llik:                  ", comp0[3]))
-    cat(paste("\n BIC:                   ", comp0[4]))
-    
-    # print component matrix
-    cat(paste("\n\n----------- k components -----------\n"))
-    print(comp.n, na.print="")
-    
-    # print BIC scores and LLIK estimates
-    cat(paste("\n----------- statistical criteria -----------\n"))
-    print(results.n)
-    
-    ## print evaluation of statistical criteria
-    # lowest BIC score
-    cat(paste("\n Lowest BIC score for k =", BIC.lowest))
-    
-    # first significant increase in LLIK estimates
-    if(any(LLIK.significant)!=TRUE) {
-      cat(paste("\n No significant increase in maximum log",
-                "likelihood estimates. \n"))
-    } else { 
-      cat(paste("\n First significant increase in maximum log likelihood for",
-                "k =", which(LLIK.significant==TRUE)[1], "\n\n"))
-    }
-    
-    cat(paste("\n"))
-  }#EndOf::Output for length(n.components) > 1
-  
-##============================================================================##
-## PLOTTING
-##============================================================================##
-  
-  ## plot only for length(n.components) > 1
-  if(length(n.components) > 1) {
-    
-    # save previous plot parameter and set new ones
-    .pardefault<- par(no.readonly = TRUE)
-    
-    ## DEVICE AND PLOT LAYOUT
-    n.plots<- length(n.components) #number of PDF plots in plotarea #1
-    seq.vertical.plots<- seq(from = 1, to = n.plots, by = 1) #indices
-    ID.plot.two<- n.plots+if(plot.proportions==TRUE){1}else{0} #ID of second plot area
-    ID.plot.three<- n.plots+if(plot.proportions==TRUE){2}else{1} #ID of third plot area
-    
-    #empty vector for plot indices
-    seq.matrix<- vector(mode="integer", length=4*n.plots)
-    
-    #fill vector with plot indices in correct order
-    cnt<- 1
-    seq<- seq(1,length(seq.matrix),4)
-    for(i in seq) {
-      seq.matrix[i]<- cnt
-      seq.matrix[i+1]<- cnt
-      seq.matrix[i+2]<- if(plot.proportions==TRUE){ID.plot.two}else{cnt}
-      seq.matrix[i+3]<- ID.plot.three
+    if(length(n.components) == 1) {
       
-      cnt<- cnt+1
-    }
-    
-    # create device layout
-    layout(matrix(c(seq.matrix),4,n.plots))
-    
-    # outer margins (bottom, left, top, right)
-    par(oma=c(2.5,5,3,5))
-    
-    # general plot parameters (global scaling, allow overplotting)
-    par(cex = 0.8, xpd = NA)
-    
-    # define color palette for prettier output
-    if(pdf.colors == "colors") {
-      col.n<- c("red3", "slateblue3", "seagreen", "tan3", "yellow3",
-                "burlywood4", "magenta4", "mediumpurple3", "brown4","grey",
-                "aquamarine")
-      poly.border<- FALSE
-    }
-    if(pdf.colors == "gray" || pdf.colors == "grey") {
-      col.n<- gray.colors(length(n.components)*2)
-      poly.border<- FALSE
-    }
-    if(pdf.colors == "none") {
-      col.n<- NULL
-      poly.border<- TRUE
-    }
-
-    ##--------------------------------------------------------------------------
-    ## PLOT 1: EQUIVALENT DOSES OF COMPONENTS
-    
-    ## create empty plot without x-axis
-    for(i in 1:n.plots) {
+      # covariance matrix
+      cat(paste("\n\n--- covariance matrix of mle's ---\n\n"))
+      print(round(vmat,6))
       
-      # set margins (bottom, left, top, right)
-      par(mar=c(1,0,2,0))
+      # general information on sample and model performance
+      cat(paste("\n----------- meta data ------------"))                                 
+      cat(paste("\n n:                    ",n))
+      cat(paste("\n sigmab:               ",sigmab))
+      cat(paste("\n number of components: ",k))
+      cat(paste("\n llik:                 ",round(llik,4)))
+      cat(paste("\n BIC:                   ",round(bic,3)))
       
-      # empty plot area
-      plot(NA, NA,
-           xlim=c(min(n.components)-0.2, max(n.components)+0.2),
-           ylim=c(min(comp.n[pos.n,]-comp.n[pos.n+1,], na.rm = TRUE),
-                  max((comp.n[pos.n,]+comp.n[pos.n+1,])*1.1, na.rm = TRUE)),
-           ylab="",
-           xaxt="n",
-           yaxt="n",
-           xlab="")
+      # fitted components
+      cat(paste("\n\n----------- components -----------\n\n"))
+      print(comp)
       
-      # add text in upper part of the plot ("k = 1,2..n")
-      mtext(bquote(italic(k) == .(n.components[i])),
-            side = 3, line = -2, cex=0.8)
       
-      # add y-axis label (only for the first plot)
-      if(i==1) {
-        mtext(expression(paste("D"[e]," [Gy]")), side=2,line=2.7, cex=1)
+      # print (to 2 decimal places) the estimated probabilities of which component 
+      # each grain is in -- sometimes useful for diagnostic purposes			
+      if(grain.probability==TRUE) {	
+        cat(paste("\n-------- grain probability -------\n\n"))
+        print(round(pui,2))                            
       }
       
-      # empty list to store normal distribution densities
-      sapply.storage<- list()
+      # output for single component
+      cat(paste("\n-------- single component --------"))                   
+      cat(paste("\n mu:                    ", comp0[1]))
+      cat(paste("\n sigmab:                ", comp0[2]))
+      cat(paste("\n llik:                  ", comp0[3]))
+      cat(paste("\n BIC:                   ", comp0[4]))
+      cat(paste("\n----------------------------------\n\n"))
       
-      ## NORMAL DISTR. OF EACH COMPONENT
-      options(warn=-1) #supress warnings for NA values
+    }#EndOf::Output for length(n.components) == 1
+    
+    ##----------------------------------------------------------------------------
+    ## OUTPUT WHEN ONLY >1 VALUE FOR n.components IS PROVIDED
+    if(length(n.components) > 1) {
       
-      # LOOP - iterate over number of components
-      for(j in 1:max(n.components)) { 
-        
-        # draw random values of the ND to check for NA values 
-        comp.nd.n<- sort(rnorm(n = length(input.data[,1]),
-                               mean = comp.n[pos.n[j],i],
-                               sd = comp.n[pos.n[j]+1,i]))    
-        
-        # proceed if no NA values occured
-        if(length(comp.nd.n)!=0) {
-          
-          # weight - proportion of the component
-          wi<- comp.n[pos.n[j]+2,i]
-          
-          # calculate density values with(out) weights 
-          fooX<- function(x) {
-            dnorm(x, mean = comp.n[pos.n[j],i], 
-                  sd = if(pdf.sigma=="se"){comp.n[pos.n[j]+1,i]}
-                  else{if(pdf.sigma=="sigmab"){comp.n[pos.n[j],i]*sigmab}}
-                  )*
-            if(pdf.weight==TRUE){wi}else{1}  
-          }
-          
-          # x-axis scaling - determine highest dose in first cycle
-          if(i==1 && j==1){
-            
-            max.dose<- max(input.data[,1])+sd(input.data[,1])/2
-                        
-            min.dose<- min(input.data[,1])-sd(input.data[,1])/2
-            
-            
-            # density function to determine y-scaling if no weights are used
-            fooY<- function(x) {
-              dnorm(x, mean = na.exclude(comp.n[pos.n,]), 
-                    sd = na.exclude(comp.n[pos.n+1,]))
-            }
-            
-            # set y-axis scaling
-            dens.max<-max(sapply(0:max.dose, fooY))            
-            
-
-          }##EndOfIf::first cycle settings
-          
-          
-          # override y-axis scaling if weights are used
-          if(pdf.weight==TRUE){
-            sapply.temp<- list()
-              for(b in 1:max(n.components)){
-                
-                # draw random values of the ND to check for NA values 
-                comp.nd.n<- sort(rnorm(n = length(input.data[,1]),
-                                       mean = comp.n[pos.n[b],i],
-                                       sd = comp.n[pos.n[b]+1,i])) 
-                
-                # proceed if no NA values occured
-                if(length(comp.nd.n)!=0) {
-                  
-                  # weight - proportion of the component
-                  wi.temp<- comp.n[pos.n[b]+2,i]            
-                  
-                  fooT<- function(x) {
-                    dnorm(x, mean = comp.n[pos.n[b],i], 
-                          sd = if(pdf.sigma=="se"){comp.n[pos.n[b]+1,i]}
-                          else{if(pdf.sigma=="sigmab"){comp.n[pos.n[b],i]*sigmab}}
-                    )*wi.temp
-                  }
-                  sapply.temp[[b]]<- sapply(0:max.dose, fooT)
-                }
-              }
-            dens.max<- max(Reduce('+', sapply.temp))
-          }
-          
-          # calculate density values for 0 to maximum dose
-          sapply<- sapply(0:max.dose, fooX)
-          
-          # save density values in list for sum curve of gaussians
-          sapply.storage[[j]]<- sapply
-          
-          ## determine axis scaling
-          # x-axis (dose)
-          if(missing(dose.scale)==FALSE) {
-            y.scale<- dose.scale
-          } else {
-            y.scale<- c(min.dose,max.dose)
-          }
-          # y-axis (density)
-          if(missing(pdf.scale)==FALSE) {
-            x.scale<- pdf.scale
-          } else {
-            x.scale<- dens.max*1.1
-          }
-          
-          ## PLOT Normal Distributions
-          par(new=TRUE)
-          plot(sapply, 1:length(sapply)-1, 
-               type="l", yaxt="n", xaxt="n", col=col.n[j], lwd=1, 
-               ylim=y.scale, 
-               xlim=c(0,x.scale),
-               xaxs="i", yaxs="i", 
-               ann=FALSE, xpd = FALSE)
-          
-          # draw colored polygons under curve
-          polygon(x=c(min(sapply), sapply,  min(sapply)),
-                  y=c(0, 0:max.dose,  0), 
-                  col = adjustcolor(col.n[j], alpha.f = 0.66),
-                  yaxt="n", border=poly.border, xpd = FALSE, lty = 2, lwd = 1.5) 
-          
-        }
-      }##EndOf::Component loop
+      ## final labeling of component and BIC/llik matrices
+      # create labels
+      dose.lab<- paste("c", 1:n.components[length(n.components)],"_dose", sep="")
+      se.lab<- paste("c", 1:n.components[length(n.components)],"_se", sep="")
+      prop.lab<- paste("c", 1:n.components[length(n.components)],"_prop", sep="")
       
-      #turn warnings on again
-      options(warn=0)
-
-      # Add sum of gaussians curve
-      par(new = TRUE)
+      # empty vector which stores the labeles in correct order (dose, se, prop)
+      n.lab<- vector(mode = "expression",
+                     n.components[length(n.components)]*3)
       
-      plot(Reduce('+', sapply.storage),1:length(sapply)-1,
-           type="l", yaxt="n", xaxt="n", col="black", 
-           lwd=1.5, lty = 1, 
-           ylim=y.scale, 
-           xlim=c(0,x.scale),
-           xaxs="i", yaxs="i", ann=FALSE, xpd = FALSE)
-           
-      # draw additional info during first k-cycle
-      if(i == 1) {
-        
-        # plot title
-        mtext("Normal distributions", 
-              side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
-        
-        # main title
-        mtext(main, 
-              side = 3, font = 2, line = 3.5, adj = 0.5, 
-              at = grconvertX(0.5, from = "ndc", to = "user"))
-        
-        # subtitle
-        mtext(as.expression(bquote(italic(sigma[b]) == .(sigmab) ~ 
-                                     "|" ~ n == .(length(input.data[,1])))),           
-              side = 3, font = 1, line = 2.2, adj = 0.5, 
-              at = grconvertX(0.5, from = "ndc", to = "user"), cex = 0.9)
-        
-        # x-axis label
-        mtext("Density [a.u.]", 
-              side = 1, line = 0.5, adj = 0.5, 
-              at = grconvertX(0.5, from = "ndc", to = "user"))
-        
-        # draw y-axis with proper labels
-        axis(side=2, labels = TRUE)
+      # loop to store the labels in correct order (dose, se, prop)
+      cnt<- 1
+      for(i in pos.n) {
+        n.lab[i]<- dose.lab[cnt]
+        n.lab[i+1]<- se.lab[cnt]
+        n.lab[i+2]<- prop.lab[cnt]
+        cnt<- cnt+1
       }
       
-      if(pdf.colors == "colors") {
-        # create legend labels
-        dose.lab.legend<- paste("c", 1:n.components[length(n.components)], sep="")
-        
-        if(max(n.components)>8) {
-          ncol.temp<- 8
-          yadj<- 1.025
-        } else {
-          ncol.temp<- max(n.components)
-          yadj<- 0.93
-        }
-        
-        # add legend
-        if(i==n.plots) {
-          legend(grconvertX(0.55, from = "ndc", to = "user"),
-                 grconvertY(yadj, from = "ndc", to = "user"),
-                 legend = dose.lab.legend,
-                 col = col.n[1:max(n.components)],
-                 pch = 15, adj = c(0,0.2), pt.cex=1.4,
-                 bty = "n", ncol=ncol.temp, x.intersp=0.4)
-          
-          mtext("Components: ", cex = 0.8,
-                at = grconvertX(0.5, from = "ndc", to = "user"))
-        }
+      # label columns and rows of summary matrix and BIC/LLIK data frame
+      colnames(comp.n)<- n.components[1]:n.components[length(n.components)]
+      rownames(comp.n)<- n.lab
+      colnames(results.n)<- n.components[1]:n.components[length(n.components)]
+      
+      ## CONSOLE OUTPUT
+      # general information on sample and model performance
+      cat(paste("\n\n----------- meta data ------------"))                                 
+      cat(paste("\n n:                    ",n))
+      cat(paste("\n sigmab:               ",sigmab))
+      cat(paste("\n number of components:  ",n.components[1],"-",
+                n.components[length(n.components)], sep=""))
+      
+      # output for single component
+      cat(paste("\n\n-------- single component --------"))                   
+      cat(paste("\n mu:                    ", comp0[1]))
+      cat(paste("\n sigmab:                ", comp0[2]))
+      cat(paste("\n llik:                  ", comp0[3]))
+      cat(paste("\n BIC:                   ", comp0[4]))
+      
+      # print component matrix
+      cat(paste("\n\n----------- k components -----------\n"))
+      print(comp.n, na.print="")
+      
+      # print BIC scores and LLIK estimates
+      cat(paste("\n----------- statistical criteria -----------\n"))
+      print(results.n)
+      
+      ## print evaluation of statistical criteria
+      # lowest BIC score
+      cat(paste("\n Lowest BIC score for k =", BIC.lowest))
+      
+      # first significant increase in LLIK estimates
+      if(any(LLIK.significant)!=TRUE) {
+        cat(paste("\n No significant increase in maximum log",
+                  "likelihood estimates. \n"))
+      } else { 
+        cat(paste("\n First significant increase in maximum log likelihood for",
+                  "k =", which(LLIK.significant==TRUE)[1], "\n\n"))
       }
       
-    }##EndOf::k-loop and Plot 1
-    
-    ##--------------------------------------------------------------------------
-    ## PLOT 2: PROPORTION OF COMPONENTS
-    if(plot.proportions==TRUE) {
-    # margins for second plot
-    par(mar=c(2,0,2,0))
-    
-    # create matrix with proportions from a subset of the summary matrix
-    prop.matrix<- comp.n[pos.n+2,]*100
-    
-    # stacked barplot of proportions without x-axis
-    barplot(prop.matrix,
-            width=1,
-            xlim=c(0.2, length(n.components)-0.2),
-            ylim=c(0,100),
-            axes=TRUE,
-            space=0,
-            col=col.n,
-            xpd=FALSE,
-            xaxt="n")
-    
-    # y-axis label
-    mtext("Proportion [%]", 
-          side=2,line=3, cex=1)
-    
-    
-    # add x-axis with corrected tick positions
-    axis(side = 1, labels = n.components, at = n.components+0.5-n.components[1])
-    
-    # draw a box (not possible with barplot())
-    box(lty=1, col="black")
-    
-    # add subtitle
-    mtext("Proportion of components", 
-          side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
-    
-    }
-    ##--------------------------------------------------------------------------
-    ## PLOT 3: BIC & LLIK
-    
-    # margins for third plot
-    par(mar=c(2,0,2,0))
-    
-    # prepare scaling for both y-axes
-    BIC.scale<- c(min(BIC.n)*if(min(BIC.n)<0){1.2}else{0.8},
-                  max(BIC.n)*if(max(BIC.n)<0){0.8}else{1.2})
-    LLIK.scale<- c(min(LLIK.n)*if(min(LLIK.n)<0){1.2}else{0.8},
-                   max(LLIK.n)*if(max(LLIK.n)<0){0.8}else{1.2})
-    
-    # plot BIC scores
-    plot(n.components, BIC.n,
-         main= "",
-         type="b",
-         pch=22,
-         cex=1.5,
-         xlim=c(min(n.components)-0.2, max(n.components)+0.2),
-         ylim=BIC.scale,
-         xaxp=c(min(n.components), max(n.components), length(n.components)-1),
-         xlab=expression(paste(italic(k), " Components")),
-         ylab=expression(paste("BIC")),
-         cex.lab=1.25)
-    
-    # following plot should be added to previous
-    par(new = TRUE)
-    
-    # plot LLIK estimates
-    plot(n.components, LLIK.n,
-         xlim=c(min(n.components)-0.2, max(n.components)+0.2),
-         xaxp=c(min(n.components), max(n.components), length(n.components)-1),
-         ylim=LLIK.scale,
-         yaxt="n", type="b", pch=16, xlab="", ylab="", lty=2, cex = 1.5)
-    
-    # subtitle
-    mtext("Statistical criteria", 
-          side = 3, font = 2, line = 0, adj = 0, cex = 0.8)
-    
-    # second y-axis with proper scaling
-    axis(side = 4, ylim=c(0,100))
-    
-    # LLIK axis label
-    mtext(bquote(italic(L)[max]),
-          side=4,line=3, cex=1.3)
-    
-    # legend  
-    legend(grconvertX(0.75, from = "nfc", to = "user"),
-           grconvertY(0.96, from = "nfc", to = "user"),
-           legend = c("BIC", as.expression(bquote(italic(L)[max]))),
-           pch = c(22,16), pt.bg=c("white","black"), 
-           adj = 0, pt.cex=1.3, lty=c(1,2),
-           bty = "n", horiz = TRUE, x.intersp=0.5)
-    
-    
-    ## restore previous plot parameters
-    par(.pardefault)
-    
-  }##EndOf::PLOTTING
+      cat(paste("\n"))
+    }#EndOf::Output for length(n.components) > 1
+  }
   
-
-##============================================================================##
-## RETURN VALUES
-##============================================================================##
+  ##============================================================================##
+  ## RETURN VALUES
+  ##============================================================================##
   
   # .@data$meta
-  meta<- data.frame(id=sample.id,n=n,sigmab=sigmab,n.components=k,
-                    llik=llik,bic=bic)
+  BIC<- data.frame(n.components=k, BIC=bic)
+  llik<- data.frame(n.components=k, llik=llik)
+  
   if(length(n.components)>1) {
-    meta.n<- data.frame(id=sample.id, n=n, sigmab=sigmab, n.components=n.components,
-                        llik=LLIK.n, bic=BIC.n)
+    BIC.n<- data.frame(n.components=n.components, BIC=BIC.n)
+    llik.n<- data.frame(n.components=n.components, llik=LLIK.n)
   }
   
   # .@data$single.comp
-  single.comp<- data.frame(id=sample.id,mu=comp0[1],sigmab=comp0[2],
+  single.comp<- data.frame(mu=comp0[1],sigmab=comp0[2],
                            llik=comp0[3],BIC=comp0[4])
   
   # .@data$components
-  comp.re<- rbind(round(estd,4),round(estp,4))
-  comp.re<- data.frame(comp.re,row.names=c("dose (Gy)    ","rse(dose)    ",
-                                           "se(dose)(Gy)","proportion   "))
-  names(comp.re)<- paste(cp,cn,sep="")
+  comp.re<- t(rbind(round(estd,4),round(estp,4)))
+  colnames(comp.re)<- c("de","rel_de_err","de_err","proportion")
+  comp.re<- comp.re[,-2] # remove the relative error column
   
   # .@data$grain.probability
   grain.probability<- round(pui, 2)
   
+  summary<- data.frame(comp.re)
+  call<- sys.call()
+  args<- list(sigmab = sigmab, n.components = n.components)
+  
   # create S4 object
   newRLumResults.calc_FiniteMixture <- set_RLum.Results(
     data = list(
-      mle.matrix=if(length(n.components)==1){vmat}else{vmat.n}, # .@data$mle.matrix
+      summary=summary,
+      data=data,
+      args=args,
+      call=call,
+      mle=if(length(n.components)==1){vmat}else{vmat.n}, # .@data$mle.matrix
+      BIC=if(length(n.components)==1){BIC}else{BIC.n},
+      llik=if(length(n.components)==1){llik}else{llik.n},
       grain.probability=if(length(n.components)==1){grain.probability}else{grain.probability.n},
-      meta=if(length(n.components)==1){meta}else{meta.n},
       components=if(length(n.components)==1){comp.re}else{comp.n},
       single.comp=single.comp))
   
+  ##=========##
+  ## PLOTTING
+  if(plot==TRUE) {
+      try(plot_RLum.Results(newRLumResults.calc_FiniteMixture, ...))
+  }#endif::plot
+  
   # Return values
   invisible(newRLumResults.calc_FiniteMixture)
-  ### Returns a terminal output. In addition a list
-  ### is returned containing the following elements:
-  ### \item{mle.matrix}{\link{matrix} covariance matrix of maximum likelihood
-  ### estimates.}
-  ### \item{grain.probability}{\link{matrix} with estimated probabilities 
-  ### of which component each grain is in.}
-  ### \item{meta}{\link{data.frame} containing model parameters 
-  ### (sample.id, sigmab, n.components, llik, bic).}
-  ### \item{components}{\link{data.frame} containing fitted components.}
-  ### \item{single.comp}{\link{data.frame} containing log likelihood and 
-  ### BIC for a single component.}
+  ### Returns a plot (optional) and terminal output. In addition an 
+  ### \code{\linkS4class{RLum.Results}} object is 
+  ### returned containing the following elements:
+  ###
+  ### \item{summary}{\link{data.frame} summary of all relevant model results.}
+  ### \item{data}{\link{data.frame} original input data}
+  ### \item{args}{\link{list} used arguments}
+  ### \item{call}{\link{call} the function call}
+  ### \item{mle}{ covariance matrices of the log likelhoods}
+  ### \item{BIC}{ BIC score}
+  ### \item{llik}{ maximum log likelihood}
+  ### \item{grain.probability}{ probabilities of a grain belonging to a component}
+  ### \item{components}{\link{matrix} estimates of the de, de error and proportion for each component}
+  ### \item{single.comp}{\link{data.frame} single componente FFM estimate}
   ###
   ### If a vector for \code{n.components} is provided (e.g. 
-  ### \code{c(2:8)}), \code{mle.matrix, grain.probability} and \code{meta} are
+  ### \code{c(2:8)}), \code{mle} and \code{grain.probability} are
   ### lists containing matrices of the results for each iteration of the model.
   ###
   ### The output should be accessed using the function 
@@ -866,7 +526,7 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
   ## The stacked barplot shows the proportion of each component (in per cent)
   ## calculated by the FFM. The last plot shows the achieved BIC scores
   ## and maximum log-likelihood estimates for each iteration of k.
-
+  
   ##references<<
   ## Galbraith, R.F. & Green, P.F., 1990. Estimating the component ages in a 
   ## finite mixture. Nuclear Tracks and Radiation Measurements, 17, pp. 197-206.
@@ -898,7 +558,7 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
   ##seealso<<
   ## \code{\link{calc_CentralDose}},
   ## \code{\link{calc_CommonDose}}, \code{\link{calc_FuchsLang2001}},
-  ## \code{\link{calc_MinDose3}}, \code{\link{calc_MinDose4}}    
+  ## \code{\link{calc_MinDose}}  
 }, ex=function(){
   ## load example data
   data(ExampleData.DeValues, envir = environment())
@@ -924,6 +584,4 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
   ## show the results on equivalent dose, standard error and proportion of
   ## fitted components
   #get_RLum.Results(object=res, data.object="components")
-  
-  
 })#END OF STRUCTURE

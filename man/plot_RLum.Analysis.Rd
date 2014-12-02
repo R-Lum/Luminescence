@@ -21,7 +21,8 @@ Works only for \code{\linkS4class{RLum.Analysis}} that comprises a single
 curve object (option is currently only roughly implemented)}
   \item{\dots}{further arguments and graphical parameters will be passed to the \code{plot} function.
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
-\code{type}, \code{pch}, \code{col}}
+\code{type}, \code{pch}, \code{col} ... and for \code{combine = TRUE} also: \code{xlim},
+\code{ylim}, \code{xlab}, \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}}
 }
 \details{The function produces a multiple plot output. 
 A file output is recommended (e.g., \code{\link{pdf}}).}
@@ -54,4 +55,4 @@ plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 }
 
 \keyword{aplot}
-\section{Function version}{0.1.5 (2014-11-29 16:11:16)}
+\section{Function version}{0.1.5 (2014-12-01 11:29:20)}

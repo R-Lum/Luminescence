@@ -144,6 +144,9 @@ R Luminescence Package Team}
 \seealso{\code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}}, 
 \code{\link{plot_Histogram}}}
 \examples{
+  ## store original graphics parameters
+  par.old <- par(no.readonly = TRUE)
+  
   ## load example data and recalculate to Gray
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- 
@@ -191,19 +194,19 @@ R Luminescence Package Team}
                    centrality = "median", 
                    dispersion = "qr")
   
-  ## now with user-defined green line for MAM3 (i.e. 2936.3)
-  MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
-                       sigmab = 0.3,
-                       gamma.xub = 7000, 
-                       output.plot = FALSE)
-  
-  MAM <- as.numeric(get_RLum.Results(object = MAM, 
-                                     data.object = "results")$mindose)
-  
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   line = MAM,
-                   line.col = "darkgreen",
-                   line.label = "MAM3-dose")
+#   ## now with user-defined green line for MAM3 (i.e. 2936.3)
+#   MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
+#                        sigmab = 0.3,
+#                        gamma.xub = 7000, 
+#                        output.plot = FALSE)
+#   
+#   MAM <- as.numeric(get_RLum.Results(object = MAM, 
+#                                      data.object = "results")$mindose)
+#   
+#   plot_AbanicoPlot(data = ExampleData.DeValues,
+#                    line = MAM,
+#                    line.col = "darkgreen",
+#                    line.label = "MAM3-dose")
 
   ## now create plot with legend, colour, different points and smaller scale
   plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -274,20 +277,23 @@ R Luminescence Package Team}
                    density = c(10, 20),
                    angle = c(30, 50),
                    summary = c("n", "in.ci"))
-  
+
   ## create Abanico plot with predefined layout definition
-#   plot_AbanicoPlot(data = ExampleData.DeValues,
-#                    layout = "journal")
-#   
-#   ## now with predefined layout definition and further modifications
-#   plot_AbanicoPlot(data = data.3,
-#                    layout = "journal",
-#                    col = c("steelblue4", "orange4"),
-#                    bar.col = adjustcolor(c("steelblue3", "orange3"), 
-#                                          alpha.f = 0.5),
-#                    polygon.col = c("steelblue3", "orange3"))
+  plot_AbanicoPlot(data = ExampleData.DeValues,
+                   layout = "journal")
+  
+  ## now with predefined layout definition and further modifications
+  plot_AbanicoPlot(data = data.3,
+                   layout = "journal",
+                   col = c("steelblue4", "orange4"),
+                   bar.col = adjustcolor(c("steelblue3", "orange3"), 
+                                         alpha.f = 0.5),
+                   polygon.col = c("steelblue3", "orange3"))
 
   ## for further information on layout definitions see documentation
   ## of function get_Layout()
+  
+  ## restore original graphical parameters
+  par(par.old)
 }
-\section{Function version}{0.1.1 (2014-11-29 09:57:27)}
+\section{Function version}{0.1.1 (2014-12-02 12:06:12)}

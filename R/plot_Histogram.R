@@ -4,8 +4,8 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
 
   # ===========================================================================
   ##author<<
-  ## Michael Dietze (GFZ Potsdam), \cr
-  ## Sebastian Kreutzer, JLU Giessen (Germany), \cr
+  ## Michael Dietze, GFZ Potsdam (Germany), \cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
   ##version 0.4.2
@@ -83,7 +83,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
   if(is(data, "RLum.Results") == FALSE & 
        is(data, "data.frame") == FALSE) {
     
-    stop(paste("[plot_KDE()] Input data format is neither",
+    stop(paste("[plot_Histogram()] Input data format is neither",
                "'data.frame' nor 'RLum.Results'"))
   } else {
     

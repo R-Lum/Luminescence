@@ -6,7 +6,7 @@ plot_RLum<- structure(function(#General plot function for RLum S4 class objects
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.2
+  ## version 0.3
   # ===========================================================================
 
   object, 
@@ -38,7 +38,8 @@ plot_RLum<- structure(function(#General plot function for RLum S4 class objects
             RLum.Data.Curve = plot_RLum.Data.Curve(object, ...),
             RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object, ...),
             RLum.Data.Image = plot_RLum.Data.Image(object, ...),
-            RLum.Analysis = plot_RLum.Analysis(object, ...)
+            RLum.Analysis = plot_RLum.Analysis(object, ...),
+            RLum.Results = plot_RLum.Results(object, ...)
   
            )
 
@@ -56,7 +57,8 @@ plot_RLum<- structure(function(#General plot function for RLum S4 class objects
    ## \code{\linkS4class{RLum.Data.Curve}} \tab : \tab \code{\link{plot_RLum.Data.Curve}} \cr
    ## \code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab \code{\link{plot_RLum.Data.Spectrum}}\cr
    ## \code{\linkS4class{RLum.Data.Image}} \tab : \tab \code{\link{plot_RLum.Data.Image}}\cr
-   ## \code{\linkS4class{RLum.Analysis}} \tab : \tab \code{\link{plot_RLum.Analysis}}
+   ## \code{\linkS4class{RLum.Analysis}} \tab : \tab \code{\link{plot_RLum.Analysis}}\cr
+   ## \code{\linkS4class{RLum.Results}} \tab : \tab \code{\link{plot_RLum.Results}}
    ## }
    
    ##value<<
@@ -72,7 +74,8 @@ plot_RLum<- structure(function(#General plot function for RLum S4 class objects
    ## \code{\link{plot_RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Curve}},
    ## \code{\link{plot_RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Data.Spectrum}},
    ## \code{\link{plot_RLum.Data.Image}}, \code{\linkS4class{RLum.Data.Image}},
-   ## \code{\link{plot_RLum.Analysis}}, \code{\linkS4class{RLum.Analysis}}
+   ## \code{\link{plot_RLum.Analysis}}, \code{\linkS4class{RLum.Analysis}},
+   ## \code{\link{plot_RLum.Results}}, \code{\linkS4class{RLum.Results}}
    
    ##keyword<<
    ## dplot

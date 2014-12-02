@@ -3,21 +3,17 @@
 \title{Apply the model after Fuchs & Lang (2001) to a given De distribution.}
 \description{This function applies the method according to Fuchs & Lang (2001) for 
 heterogeneously bleached samples with a given coefficient of variation threshold. }
-\usage{calc_FuchsLang2001(sample, sample.mtext = "unknown sample", sample.id = sample.mtext, 
-    cvThreshold = 5, startDeValue = 1, output.plot = TRUE, output.terminal = TRUE, 
+\usage{calc_FuchsLang2001(data, cvThreshold = 5, startDeValue = 1, plot = TRUE, 
     ...)}
 \arguments{
-  \item{sample}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-for \code{data.frame}: two columns with De \code{(input.data[,1])} and
+  \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
+for \code{data.frame}: two columns with De \code{(data[,1])} and
 De error \code{(values[,2])}}
-  \item{sample.mtext}{\link{character} (optional): mtext for optional plot (top)}
-  \item{sample.id}{\link{character} (with default): sample id, with default the sample.mtext is used.}
   \item{cvThreshold}{\link{numeric} (with default): coefficient of variation in percent, 
 as threshold for the method, e.g. \code{cvThreshold = 3}. See details.}
   \item{startDeValue}{\link{numeric} (with default): number of the first aliquot that is used 
 for the calculations}
-  \item{output.plot}{\link{logical} (with default): plot output \code{TRUE}/\code{FALSE}}
-  \item{output.terminal}{\link{logical} (with default): terminal output \code{TRUE}/\code{FALSE}}
+  \item{plot}{\link{logical} (with default): plot output \code{TRUE}/\code{FALSE}}
   \item{\dots}{further arguments and graphical parameters passed to \code{\link{plot}}}
 }
 \details{\bold{Used values} \cr
@@ -33,9 +29,14 @@ calculation (e.g. 2nd or 3rd value).\cr
 (3) Calculate a running mean, starting with the lowermost two values and 
 add values iteratively.\cr
 (4) Stop if the calculated c[v] exceeds the specified \code{cvThreshold}\cr}
-\value{A plot and terminal output is provided if desired. In addition, a 
-list is returned containing two elements:
-\item{results}{\link{data.frame} with stastical parameters, e.g. mean, sd, ...}
+\value{Returns a plot (optional) and terminal output. In addition an 
+\code{\linkS4class{RLum.Results}} object is 
+returned containing the following elements:
+
+\item{summary}{\link{data.frame} summary of all relevant model results.}
+\item{data}{\link{data.frame} original input data}
+\item{args}{\link{list} used arguments}
+\item{call}{\link{call} the function call}
 \item{usedDeValues}{\link{data.frame} containing the used values for the calculation}}
 \references{Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial quartz using 
 single-aliqout 	protocols on sediments from NE Peloponnese, 
@@ -44,13 +45,14 @@ Greece. In: Quaternary Science Reviews, 20, 783-787.
 Fuchs, M. & Wagner, G.A., 2003. Recognition of insufficient bleaching by 
 small aliquots of quartz for reconstructing soil erosion in Greece. 
 Quaternary Science Reviews, 22, 1161-1167. }
-\author{Sebastian Kreutzer, JLU Giessen (Germany)
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) 
+Christoph Burow, University of Cologne (Germany)
 R Luminescence Package Team}
 \note{Please consider the requirements and the constraints of this method 
 (see Fuchs & Lang, 2001)}
 
 
-\seealso{\code{\link{plot}}, \code{\link{calc_MinDose3}}, \code{\link{calc_MinDose4}}
+\seealso{\code{\link{plot}}, \code{\link{calc_MinDose}},
 \code{\link{calc_FiniteMixture}}, \code{\link{calc_CentralDose}}, 
 \code{\link{calc_CommonDose}}, \code{\linkS4class{RLum.Results}}}
 \examples{
@@ -59,12 +61,9 @@ R Luminescence Package Team}
 data(ExampleData.DeValues, envir = environment())
 
 ##calculate De according to Fuchs & Lang (2001)
-temp <- calc_FuchsLang2001(ExampleData.DeValues, cvThreshold = 5)
-
-##show values
-get_RLum.Results(temp)
+temp<- calc_FuchsLang2001(ExampleData.DeValues, cvThreshold = 5)
 
 }
 
 \keyword{dplot}
-\section{Function version}{0.4.0 (2014-09-15 02:28:00)}
+\section{Function version}{0.4.1 (2014-12-02 16:24:20)}

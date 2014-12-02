@@ -99,11 +99,13 @@ one values for \code{depth} and only one for \code{density}. For example,
 \code{depth = c(1, 2, 3), density = 1.7} will calculate the cosmic dose 
 rate for three samples in 1, 2 and 3 m depth in a sediment of density 
 1.7 g/cm^3.}
-\value{Returns terminal output. In addition an 
+\value{Returns a terminal output. In addition an 
 \code{\linkS4class{RLum.Results}} object is 
 returned containing the following element:
 
-\item{results}{\link{data.frame} with statistical parameters.}
+\item{summary}{\link{data.frame} summary of all relevant calculation results.}
+\item{args}{\link{list} used arguments}
+\item{call}{\link{call} the function call}
 
 The output should be accessed using the function 
 \code{\link{get_RLum.Results}}}
@@ -190,7 +192,7 @@ results<- calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                               altitude = 364, error = 10)
 
 # the results can be accessed by
-get_RLum.Results(results, "results")
+get_RLum.Results(results, "summary")
 
 #export results to .csv file - uncomment for usage
 #write.csv(results, file = "c:/users/public/results.csv")
@@ -207,4 +209,4 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 #write.csv(results, file = "c:/users/public/results_profile.csv")
 
 }
-\section{Function version}{0.5.2 (2014-09-15 02:28:00)}
+\section{Function version}{0.5.2 (2014-12-02 16:24:47)}
