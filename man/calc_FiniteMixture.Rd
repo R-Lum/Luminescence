@@ -5,12 +5,13 @@
 differing known standard errors. Parameters (doses and mixing proportions)
 are estimated by maximum likelihood assuming that the log dose estimates 
 are from a mixture of normal distributions.}
-\usage{calc_FiniteMixture(data, sigmab, n.components, grain.probability = FALSE, 
+\usage{calc_FiniteMixture(input.data, sigmab, n.components, sample.id = "unknown sample", 
+    n.iterations = 200, grain.probability = FALSE, main = "Finite Mixture Model", 
     dose.scale, pdf.weight = TRUE, pdf.sigma = "sigmab", pdf.colors = "gray", 
-    pdf.scale, plot.proportions = TRUE, plot = TRUE, ...)}
+    pdf.scale, plot.proportions = TRUE)}
 \arguments{
-  \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-for \code{data.frame}: two columns with De \code{(data[,1])} and
+  \item{input.data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
+for \code{data.frame}: two columns with De \code{(input.data[,1])} and
 De error \code{(values[,2])}}
   \item{sigmab}{\code{\link{numeric}}  (\bold{required}): spread in De values given as a
 fraction (e.g. 0.2). This value represents the expected overdispersion in
@@ -21,8 +22,12 @@ fitted. If a vector is provided (e.g. \code{c(2:8)}) the finite
 mixtures for 2, 3 ... 8 components are calculated and a plot and a
 statistical evaluation of the model performance (BIC score and maximum
 log-likelihood) is provided.}
+  \item{sample.id}{\code{\link{character}} (with default): sample id}
+  \item{n.iterations}{\code{\link{numeric}}  (with default): number of iterations for maximum 
+log likelihood estimates}
   \item{grain.probability}{\code{\link{logical}} (with default): prints the estimated probabilities
 of which component each grain is in}
+  \item{main}{\code{\link{character}} (with default): plot main title}
   \item{dose.scale}{\code{\link{numeric}}: manually set the scaling of the y-axis of  
 the first plot with a vector in the form of \code{c(min,max)}}
   \item{pdf.weight}{\code{\link{logical}} (with default): weight the probability density 
@@ -39,9 +44,6 @@ in the the plot. Possible options are "gray", "colors" and "none"}
 proper scaling of the x-axis of the first plot}
   \item{plot.proportions}{\code{\link{logical}} (with default): plot barplot showing the 
 proportions of components}
-  \item{plot}{\code{\link{logical}} (with default): plot output}
-  \item{\dots}{further arguments to pass. 
-See details for their usage.}
 }
 \details{This model uses the maximum likelihood and Bayesian Information Criterion 
 (BIC) approaches. \cr\cr
@@ -68,23 +70,20 @@ instead.\cr
 The stacked barplot shows the proportion of each component (in per cent)
 calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.}
-\value{Returns a plot (optional) and terminal output. In addition an 
-\code{\linkS4class{RLum.Results}} object is 
-returned containing the following elements:
-
-\item{summary}{\link{data.frame} summary of all relevant model results.}
-\item{data}{\link{data.frame} original input data}
-\item{args}{\link{list} used arguments}
-\item{call}{\link{call} the function call}
-\item{mle}{ covariance matrices of the log likelhoods}
-\item{BIC}{ BIC score}
-\item{llik}{ maximum log likelihood}
-\item{grain.probability}{ probabilities of a grain belonging to a component}
-\item{components}{\link{matrix} estimates of the de, de error and proportion for each component}
-\item{single.comp}{\link{data.frame} single componente FFM estimate}
+\value{Returns a terminal output. In addition a list
+is returned containing the following elements:
+\item{mle.matrix}{\link{matrix} covariance matrix of maximum likelihood
+estimates.}
+\item{grain.probability}{\link{matrix} with estimated probabilities 
+of which component each grain is in.}
+\item{meta}{\link{data.frame} containing model parameters 
+(sample.id, sigmab, n.components, llik, bic).}
+\item{components}{\link{data.frame} containing fitted components.}
+\item{single.comp}{\link{data.frame} containing log likelihood and 
+BIC for a single component.}
 
 If a vector for \code{n.components} is provided (e.g. 
-\code{c(2:8)}), \code{mle} and \code{grain.probability} are
+\code{c(2:8)}), \code{mle.matrix, grain.probability} and \code{meta} are
 lists containing matrices of the results for each iteration of the model.
 
 The output should be accessed using the function 
@@ -123,7 +122,7 @@ R Luminescence Package Team}
 
 \seealso{\code{\link{calc_CentralDose}},
 \code{\link{calc_CommonDose}}, \code{\link{calc_FuchsLang2001}},
-\code{\link{calc_MinDose}}  }
+\code{\link{calc_MinDose3}}, \code{\link{calc_MinDose4}}    }
 \examples{
 ## load example data
 data(ExampleData.DeValues, envir = environment())
@@ -149,5 +148,7 @@ calc_FiniteMixture(ExampleData.DeValues,
 ## show the results on equivalent dose, standard error and proportion of
 ## fitted components
 #get_RLum.Results(object=res, data.object="components")
+
+
 }
-\section{Function version}{0.4[2014-12-01] (2014-12-01 18:50:14)}
+\section{Function version}{0.32 (2014-09-15 02:28:00)}

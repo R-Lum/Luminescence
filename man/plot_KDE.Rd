@@ -7,7 +7,7 @@ Optionally, statistical measures such as mean, median, standard
 deviation, standard error and quartile range can be provided visually 
 and numerically.}
 \usage{plot_KDE(data, na.exclude = TRUE, weights = FALSE, values.cumulative = TRUE, 
-    centrality, dispersion, summary, summary.pos, polygon.col, 
+    centrality, dispersion, stats, stats.pos = "sub", polygon.col, 
     order = TRUE, bw = "nrd0", output = FALSE, ...)}
 \arguments{
   \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
@@ -29,19 +29,17 @@ one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"},
 drawing the polygon that depicts the dose distribution. One out of
 \code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations) 
 \code{"qr"} (quartile range).}
-  \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
-Can be one or more out of: "n" (number of samples), "mean" (mean De 
-value), "mean.weighted" (error-weighted mean), "median" (median of 
-the De values), "sdrel" (relative standard deviation in 
-percent), "sdabs" (absolute standard deviation), "serel" (relative 
-standard error), "seabs" (absolute standard error), "skewness" (skewness)
-and "kurtosis" (kurtosis).}
-  \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
-position coordinates or keyword (e.g. \code{"topright"}) for the 
-statistical summary. Alternatively, the keyword \code{"sub"} may be
-specified to place the summary below the plot header. However, this
-latter option in only possible if \code{mtext} is not used. In case 
-of coordinate specification, y-coordinate refers to the right y-axis.}
+  \item{stats}{\code{\link{character}} (optional): add numerical output to the plot. 
+Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De 
+value), \code{"mean.weighted"} (error-weighted mean), \code{"median.weighted"}
+(error-weighted median), \code{"median"} (median of the De values), \code{"kdemax"} 
+(maximum value of probability density function), \code{"kurtosis"} (kurtosis), 
+\code{"skewness"} (skewness), \code{"sdrel"} (relative standard deviation in 
+percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative 
+standard error) and \code{"seabs"} (absolute standard error).}
+  \item{stats.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
+position coordinates or keyword for the statistical summary. Y-coordinate  
+refers to the left y-axis.}
   \item{polygon.col}{\code{\link{character}} or \code{\link{numeric}} (with default): colour 
 of the polygon showing the dose dispersion around the central value.
 Only relevant if \code{dispersion} is specified.}
@@ -107,12 +105,12 @@ plot_KDE(data = ExampleData.DeValues,
 
 ## create plot with statistical summary below header
 plot_KDE(data = ExampleData.DeValues,
-         summary = c("n", "median", "skewness", "qr"))
+         stats = c("n", "median", "skewness", "qr"))
 
 ## create plot with statistical summary as legend
 plot_KDE(data = ExampleData.DeValues,
-         summary = c("n", "mean", "sdrel", "seabs"),
-         summary.pos = "topleft")
+         stats = c("n", "mean", "sdrel", "seabs"),
+         stats.pos = "topleft")
 
 ## split data set into sub-groups, one is manipulated, and merge again
 data.1 <- ExampleData.DeValues[1:15,]
@@ -124,8 +122,8 @@ plot_KDE(data = data.3)
 
 ## create plot with two subsets and summary legend at user coordinates
 plot_KDE(data = data.3,
-         summary = c("n", "median", "skewness"),
-         summary.pos = c(110, 0.07),
+         stats = c("n", "median", "skewness"),
+         stats.pos = c(110, 0.07),
          col = c("blue", "orange"))
 
 ## example of how to use the numerical output of the function
@@ -145,4 +143,4 @@ lines(x = KDE.x,
       y = KDE.y,
       lwd = 3)
 }
-\section{Function version}{3.3 (2014-11-29 09:50:28)}
+\section{Function version}{3.2 (2014-10-07 18:01:07)}

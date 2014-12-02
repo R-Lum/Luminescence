@@ -3,8 +3,7 @@
 \title{Plot function for an RLum.Analysis S4 class object}
 \description{The function provides a standardised plot output for curve data of an 
 RLum.Analysis S4 class object}
-\usage{plot_RLum.Analysis(object, nrows = 3, ncols = 2, abline, combine = FALSE, 
-    ...)}
+\usage{plot_RLum.Analysis(object, nrows = 3, ncols = 2, abline, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4 object of class 
 \code{RLum.Analysis}}
@@ -14,15 +13,10 @@ RLum.Analysis S4 class object}
 uses the function \code{\link{do.call}}, meaning that every argument in the \code{list} has
 to be provided as \code{list}, e.g. \code{abline = list(list(v = 120), list(v = 350))} produces
 two vertical ablines: One at 150 and another one at 350. Within the call all arguments 
-supported by \code{\link{abline}} are fully supported,}
-  \item{combine}{\code{\link{logical}} (with default): allows to combine all 
-code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
-Works only for \code{\linkS4class{RLum.Analysis}} that comprises a single 
-curve object (option is currently only roughly implemented)}
+supported by \code{\link{abline}} are fully supported}
   \item{\dots}{further arguments and graphical parameters will be passed to the \code{plot} function.
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
-\code{type}, \code{pch}, \code{col} ... and for \code{combine = TRUE} also: \code{xlim},
-\code{ylim}, \code{xlab}, \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}}
+\code{type}, \code{pch}, \code{col}}
 }
 \details{The function produces a multiple plot output. 
 A file output is recommended (e.g., \code{\link{pdf}}).}
@@ -45,14 +39,10 @@ data(ExampleData.BINfileData, envir = environment())
 ##convert values for position 1
 temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
-##plot all values
+##plot
 plot_RLum.Analysis(temp)
-
-##plot (combine) TL curves in one plot
-temp.sel <- get_RLum.Analysis(temp, recordType = "TL", keep.object = TRUE)
-plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 
 }
 
 \keyword{aplot}
-\section{Function version}{0.1.5 (2014-12-01 11:29:20)}
+\section{Function version}{0.1.4 (2014-10-31 10:27:10)}

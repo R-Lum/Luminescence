@@ -4,17 +4,20 @@
 \description{This function calculates the central dose and dispersion of the De 
 distribution, their standard errors and the profile log likelihood
 function for sigma.}
-\usage{calc_CentralDose(data, sigmab, plot = TRUE, ...)}
+\usage{calc_CentralDose(input.data, sigmab = 0, sample.id = "unknown sample", 
+    print.iterations = FALSE, output.plot = TRUE)}
 \arguments{
-  \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-for \code{data.frame}: two columns with De \code{(data[,1])} and
+  \item{input.data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
+for \code{data.frame}: two columns with De \code{(input.data[,1])} and
 De error \code{(values[,2])}}
   \item{sigmab}{\code{\link{numeric}} (with default): spread in De values given as
 a fraction (e.g. 0.2). This value represents the expected overdispersion
 in the data should the sample be well-bleached (Cunningham & Walling 2012, 
 p. 100).}
-  \item{plot}{\code{\link{logical}} (with default): plot output}
-  \item{\dots}{further arguments (\code{trace, verbose}). }
+  \item{sample.id}{\code{\link{character}} (with default): sample id}
+  \item{print.iterations}{\code{\link{logical}} (with default): terminal output of
+calculation iterations}
+  \item{output.plot}{\code{\link{logical}} (with default): plot output}
 }
 \details{This function uses the equations of Galbraith et al. (1999, pp. 358-359). 
 The parameter \code{sigma} is estimated using the maximum likelihood 
@@ -24,11 +27,7 @@ found in the appendix of Galbraith & Laslett (1993, pp. 468-470)}
 \code{\linkS4class{RLum.Results}} object is 
 returned containing the following element:
 
-\item{summary}{\link{data.frame} summary of all relevant model results.}
-\item{data}{\link{data.frame} original input data}
-\item{args}{\link{list} used arguments}
-\item{call}{\link{call} the function call}
-\item{profile}{\link{data.frame} the log likelihood profile for sigma}
+\item{results}{\link{data.frame} with statistical parameters.}
 
 The output should be accessed using the function 
 \code{\link{get_RLum.Results}}}
@@ -64,7 +63,7 @@ R Luminescence Package Team}
 
 \seealso{\code{\link{plot}}, \code{\link{calc_CommonDose}}, 
 \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
-\code{\link{calc_MinDose}}}
+\code{\link{calc_MinDose3}}, \code{\link{calc_MinDose4}}}
 \examples{
 ##load example data
 data(ExampleData.DeValues, envir = environment())
@@ -73,4 +72,4 @@ data(ExampleData.DeValues, envir = environment())
 calc_CentralDose(ExampleData.DeValues)
 
 }
-\section{Function version}{1.3 (2014-12-02 16:25:02)}
+\section{Function version}{1.23[2014-04-29] (2014-09-15 02:28:00)}

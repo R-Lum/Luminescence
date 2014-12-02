@@ -30,7 +30,7 @@ website: \code{http://www.nutech.dtu.dk/}}
 \item{DATA}{A \link{list} containing a numeric \link{vector} of the measured data. 
 The ID corresponds to the record ID in METADATA.}}
 \references{Duller, G., 2007. Analyst. \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}}
-\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
+\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France), 
 Margret C. Fuchs, AWI Postdam (Germany),\cr
 R Luminescence Package Team}
 \note{The function has been successfully tested for BIN format versions 03, 04 and 06. 
@@ -51,4 +51,4 @@ The version number depends on the used Sequence Editor.\cr\cr
 }
 
 \keyword{IO}
-\section{Function version}{0.7.1 (2014-11-30 23:12:34)}
+\section{Function version}{0.7.1 (2014-09-15 02:28:00)}

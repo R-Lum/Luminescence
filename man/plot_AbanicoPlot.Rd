@@ -144,156 +144,150 @@ R Luminescence Package Team}
 \seealso{\code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}}, 
 \code{\link{plot_Histogram}}}
 \examples{
-  ## store original graphics parameters
-  par.old <- par(no.readonly = TRUE)
-  
-  ## load example data and recalculate to Gray
-  data(ExampleData.DeValues, envir = environment())
-  ExampleData.DeValues <- 
-    Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
+## load example data and recalculate to Gray
+data(ExampleData.DeValues, envir = environment())
+ExampleData.DeValues <- 
+  Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
  
-  ## plot the example data straightforward
-  plot_AbanicoPlot(data = ExampleData.DeValues)
-  
-  ## now with linear z-scale
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   log.z = FALSE)
-  
-  ## now with output of the plot parameters
-  plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
-                            output = TRUE)
-  str(plot1)
-  plot1$zlim
-  
-  ## now with adjusted z-scale limits
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   zlim = c(100, 200))
-  
-  ## now with adjusted x-scale limits
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   xlim = c(0, 60))
-  
-  ## now with rug to indicate individual values in KDE part
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   rug = TRUE)
+## plot the example data straightforward
+plot_AbanicoPlot(data = ExampleData.DeValues)
 
-  ## now with user-defined plot ratio
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   plot.ratio = 0.5)
-  
-  ## now with user-defined central value
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   central.value = 120)
-  
-  ## now with weighted median as measure of centrality
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   centrality = "median.weighted")
-  
-  ## now with median/quartile range as measure of centrality/dispersion
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   centrality = "median", 
-                   dispersion = "qr")
-  
-#   ## now with user-defined green line for MAM3 (i.e. 2936.3)
-#   MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
-#                        sigmab = 0.3,
-#                        gamma.xub = 7000, 
-#                        output.plot = FALSE)
-#   
-#   MAM <- as.numeric(get_RLum.Results(object = MAM, 
-#                                      data.object = "results")$mindose)
-#   
-#   plot_AbanicoPlot(data = ExampleData.DeValues,
-#                    line = MAM,
-#                    line.col = "darkgreen",
-#                    line.label = "MAM3-dose")
+## now with linear z-scale
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 log.z = FALSE)
 
-  ## now create plot with legend, colour, different points and smaller scale
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   legend = "Sample 1",
-                   col = "tomato4",
-                   bar.col = "peachpuff",
-                   pch = "R",
-                   cex = 0.8)
-  
-  ## now without 2-sigma bar, polygon, grid lines and central value line
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   bar.col = "none",
-                   polygon.col = "none",
-                   grid.col = "none",
-                   y.axis = FALSE,
-                   lwd = 0)
-  
-  ## now with direct display of De errors, without 2-sigma bar
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   bar.col = "none",
-                   ylab = "",
-                   y.axis = FALSE,
-                   error.bars = TRUE)
-  
-  ## now with user-defined axes labels
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   xlab = c("Data error [\%]",
-                            "Data precision",
-                            "Kernel density"),
-                   ylab = "Scatter",
-                   zlab = "Equivalent dose [Gy]")
-  
-  ## now with minimum, maximum and median value indicated
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                  central.value = 150,
-                  stats = c("min", "max", "median"))
-  
-  ## now with a brief statistical summary
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                  summary = c("n", "in.ci"))
-  
-  ## now with another statistical summary as subheader
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                  summary = c("mean.weighted", "median"),
-                  summary.pos = "sub")
-  
-  ## now a plot with two 2-sigma bars for one data set
-  plot_AbanicoPlot(data = ExampleData.DeValues, 
-                   centrality = c(120, 160),
-                   mtext = "n = 25")
-  
-  ## now the data set is split into sub-groups, one is manipulated
-  data.1 <- ExampleData.DeValues[1:15,]
-  data.2 <- ExampleData.DeValues[16:25,] * 1.3
-  
-  ## now a common dataset is created from the two subgroups
-  data.3 <- list(data.1, data.2)
-  
-  ## now the two data sets are plotted in one plot
-  plot_AbanicoPlot(data = data.3)
-  
-  ## now with some graphical modification
-  plot_AbanicoPlot(data = data.3,
-                   col = c("steelblue4", "orange4"),
-                   bar.col = c("steelblue3", "orange3"),
-                   polygon.col = c("steelblue1", "orange1"),
-                   pch = c(2, 6),
-                   density = c(10, 20),
-                   angle = c(30, 50),
-                   summary = c("n", "in.ci"))
+## now with output of the plot parameters
+plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
+                          output = TRUE)
+str(plot1)
+plot1$zlim
 
-  ## create Abanico plot with predefined layout definition
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   layout = "journal")
-  
-  ## now with predefined layout definition and further modifications
-  plot_AbanicoPlot(data = data.3,
-                   layout = "journal",
-                   col = c("steelblue4", "orange4"),
-                   bar.col = adjustcolor(c("steelblue3", "orange3"), 
-                                         alpha.f = 0.5),
-                   polygon.col = c("steelblue3", "orange3"))
+## now with adjusted z-scale limits
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 zlim = c(100, 200))
 
-  ## for further information on layout definitions see documentation
-  ## of function get_Layout()
-  
-  ## restore original graphical parameters
-  par(par.old)
+## now with adjusted x-scale limits
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 xlim = c(0, 60))
+
+## now with rug to indicate individual values in KDE part
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 rug = TRUE)
+
+## now with user-defined plot ratio
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 plot.ratio = 0.5)
+
+## now with user-defined central value
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 central.value = 120)
+
+## now with weighted median as measure of centrality
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 centrality = "median.weighted")
+
+## now with median/quartile range as measure of centrality/dispersion
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 centrality = "median", 
+                 dispersion = "qr")
+
+## now with user-defined green line for MAM3 (i.e. 2936.3)
+MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
+                     sigmab = 0.3,
+                     gamma.xub = 7000, 
+                     output.plot = FALSE)
+
+MAM <- as.numeric(get_RLum.Results(object = MAM, 
+                                   data.object = "results")$mindose)
+
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 line = MAM,
+                 line.col = "darkgreen",
+                 line.label = "MAM3-dose")
+
+## now create plot with legend, colour, different points and smaller scale
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 legend = "Sample 1",
+                 col = "tomato4",
+                 bar.col = "peachpuff",
+                 pch = "R",
+                 cex = 0.8)
+
+## now without 2-sigma bar, polygon, grid lines and central value line
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 bar.col = "none",
+                 polygon.col = "none",
+                 grid.col = "none",
+                 y.axis = FALSE,
+                 lwd = 0)
+
+## now with direct display of De errors, without 2-sigma bar
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 bar.col = "none",
+                 ylab = "",
+                 y.axis = FALSE,
+                 error.bars = TRUE)
+
+## now with user-defined axes labels
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 xlab = c("Data error [\%]",
+                          "Data precision",
+                          "Kernel density"),
+                 ylab = "Scatter",
+                 zlab = "Equivalent dose [Gy]")
+
+## now with minimum, maximum and median value indicated
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                central.value = 150,
+                stats = c("min", "max", "median"))
+
+## now with a brief statistical summary
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                summary = c("n", "in.ci"))
+
+## now with another statistical summary as subheader
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                summary = c("mean.weighted", "median"),
+                summary.pos = "sub")
+
+## now a plot with two 2-sigma bars for one data set
+plot_AbanicoPlot(data = ExampleData.DeValues, 
+                 centrality = c(120, 160),
+                 mtext = "n = 25")
+
+## now the data set is split into sub-groups, one is manipulated
+data.1 <- ExampleData.DeValues[1:15,]
+data.2 <- ExampleData.DeValues[16:25,] * 1.3
+
+## now a common dataset is created from the two subgroups
+data.3 <- list(data.1, data.2)
+
+## now the two data sets are plotted in one plot
+plot_AbanicoPlot(data = data.3)
+
+## now with some graphical modification
+plot_AbanicoPlot(data = data.3,
+                 col = c("steelblue4", "orange4"),
+                 bar.col = c("steelblue3", "orange3"),
+                 polygon.col = c("steelblue1", "orange1"),
+                 pch = c(2, 6),
+                 density = c(10, 20),
+                 angle = c(30, 50),
+                 summary = c("n", "in.ci"))
+
+## create Abanico plot with predefined layout definition
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 layout = "journal")
+
+## now with predefined layout definition and further modifications
+plot_AbanicoPlot(data = data.3,
+                 layout = "journal",
+                 col = c("steelblue4", "orange4"),
+                 bar.col = adjustcolor(c("steelblue3", "orange3"), 
+                                       alpha.f = 0.5),
+                 polygon.col = c("steelblue3", "orange3"))
+
+## for further information on layout definitions see documentation
+## of function get_Layout()
 }
-\section{Function version}{0.1.1 (2014-12-02 12:06:12)}
+\section{Function version}{0.1.1 (2014-09-21 19:37:59)}

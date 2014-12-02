@@ -9,7 +9,7 @@
   \item{recalculate.TL.curves}{\link{logical} (with default): if set to \code{TRUE}, TL curves are returned 
 as temperature against count values (see details for more information)
 Note: The option overwrites the time vs. count TL curve. Select \code{FALSE}
-to import the raw data delivered by the lexsyg. Works for TL curves and spectra.}
+to import the raw data delivered by the lexsyg.}
   \item{import}{\link{logical} (with default): if set to \code{FALSE}, only the XSYG file structure
 is shown.}
   \item{txtProgressBar}{\link{logical} (with default): enables \code{TRUE} or disables \code{FALSE}
@@ -67,7 +67,8 @@ CASE (3): \code{nrow(matrix(PMT))} == \code{nrow(matrix(HE))} \cr
 A new matrix is produced using temperature values from the heating 
 element and count values from the PMT. \cr
 
-\emph{Note: Please note that due to the recalculation of the 
+\emph{Note: Temperature values for spectrum curves are currently 
+not supported. Please further note that due to the recalculation of the 
 temperature values based on values delivered by the heating element, it 
 may happen that mutiple count values exists for each temperature value and 
 temperature values may also decrease during heating, not only increase. }}
@@ -124,8 +125,9 @@ OSLcurve <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType="OS
 ##(3) How to see the structure of an object?
 get_structure.RLum.Analysis(OSL.SARMeasurement$Sequence.Object)
 
+
   
 }
 
 \keyword{IO}
-\section{Function version}{0.4 (2014-12-02 11:50:22)}
+\section{Function version}{0.3.4 (2014-11-26 19:05:46)}

@@ -2,10 +2,10 @@
 \alias{calc_CommonDose}
 \title{Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution}
 \description{Function to calculate the common dose of a De distribution.}
-\usage{calc_CommonDose(data, sigmab, log = TRUE, ...)}
+\usage{calc_CommonDose(input.data, sigmab = 0, log = TRUE, sample.id = "unknown sample")}
 \arguments{
-  \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-for \code{data.frame}: two columns with De \code{(data[,1])} and
+  \item{input.data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
+for \code{data.frame}: two columns with De \code{(input.data[,1])} and
 De error \code{(values[,2])}}
   \item{sigmab}{\code{\link{numeric}} (with default): spread in De values given as a 
 fraction (e.g. 0.2). This value represents the expected overdispersion in 
@@ -13,7 +13,7 @@ the data should the sample be well-bleached (Cunningham & Walling 2012,
 p. 100).}
   \item{log}{\code{\link{logical}} (with default): fit the (un-)logged common age 
 model to De data}
-  \item{\dots}{currently not used. }
+  \item{sample.id}{\code{\link{character}} (with default): sample id}
 }
 \details{\bold{(Un-)logged model} \cr\cr
 When \code{log = TRUE} this function calculates the weighted mean of 
@@ -29,10 +29,7 @@ un-logged estimates of De and their absolute standard error
 \code{\linkS4class{RLum.Results}} object is 
 returned containing the following element:
 
-\item{summary}{\link{data.frame} summary of all relevant model results.}
-\item{data}{\link{data.frame} original input data}
-\item{args}{\link{list} used arguments}
-\item{call}{\link{call} the function call}
+\item{results}{\link{data.frame} with statistical parameters.}
 
 The output should be accessed using the function 
 \code{\link{get_RLum.Results}}}
@@ -67,7 +64,7 @@ R Luminescence Package Team}
 
 \seealso{\code{\link{calc_CentralDose}},
 \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
-\code{\link{calc_MinDose}}}
+\code{\link{calc_MinDose3}}, \code{\link{calc_MinDose4}}   }
 \examples{
 ## load example data
 data(ExampleData.DeValues, envir = environment())
@@ -75,3 +72,4 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the common dose model
 calc_CommonDose(ExampleData.DeValues)                         
 }
+\section{Function version}{1.2 (2014-09-15 02:28:00)}

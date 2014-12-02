@@ -4,7 +4,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
+  ## Sebastian Kreutzer, IRMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
   ## version 0.3.4
@@ -77,6 +77,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   if("curveDescripter" %in% names(object@info) == TRUE){
     
     temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
+
     xlab <- if(xaxis.energy == FALSE | plot.type == "persp" | plot.type == "persp3d"){
       temp.lab[2]}else{"Energy [eV]"}
     ylab <- temp.lab[1]

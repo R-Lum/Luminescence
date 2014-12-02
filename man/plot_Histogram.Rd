@@ -1,14 +1,15 @@
 \name{plot_Histogram}
 \alias{plot_Histogram}
-\title{Plot a histogram with separate error plot}
-\description{Function plots a predefined histogram with an accompanying error plot 
-as suggested by Rex Galbraith at the UK LED in Oxford 2010.}
-\usage{plot_Histogram(data, na.exclude = TRUE, mtext, cex.global, breaks, 
-    se, rug, normal_curve, summary, summary.pos, colour, ...)}
+\title{Plot a histogram with a separate error plot}
+\description{Function plots a predefined histogram with an accompanying error plot as suggested by 
+Rex Galbraith at the UK LED in Oxford 2010.}
+\usage{plot_Histogram(values, na.exclude = TRUE, mtext, cex.global, 
+    breaks, se, rug, normal_curve, summary, summary.pos, colour, 
+    ...)}
 \arguments{
-  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}  
-object (required): for \code{data.frame}: two columns: De 
-(\code{data[,1]}) and De error (\code{data[,2]})}
+  \item{values}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object (required): 
+for \code{data.frame}: two columns: De 
+(\code{values[,1]}) and De error (\code{values[,2]})}
   \item{na.exclude}{\code{\link{logical}} (with default): excludes \code{NA} values from the 
 data set prior to any further operations.}
   \item{mtext}{\code{\link{character}} (optional): further sample information 
@@ -19,22 +20,16 @@ data set prior to any further operations.}
 histogram, default is \code{FALSE}.}
   \item{rug}{\code{\link{logical}} (optional): adds rugs to the histogram, default is 
 \code{TRUE}.}
-  \item{normal_curve}{\code{\link{logical}} (with default): adds a normal curve to the 
-histogram. Mean and sd are calculated from the input data. More see 
-details section.}
-  \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
-Can be one or more out of: "n" (number of samples), "mean" (mean De 
-value), "mean.weighted" (error-weighted mean), "median" (median of 
-the De values), "sdrel" (relative standard deviation in 
-percent), "sdabs" (absolute standard deviation), "serel" (relative 
-standard error), "seabs" (absolute standard error), "skewness" (skewness)
-and "kurtosis" (kurtosis).}
-  \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
-position coordinates or keyword (e.g. \code{"topright"}) for the 
-statistical summary. Alternatively, the keyword \code{"sub"} may be
-specified to place the summary below the plot header. However, this
-latter option in only possible if \code{mtext} is not used. In case 
-of coordinate specification, y-coordinate refers to the right y-axis.}
+  \item{normal_curve}{\code{\link{logical}} (with default): adds a normal curve to the histogram. 
+Mean and sd are calculated from the input data. More see details section.}
+  \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. Can 
+be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De value), 
+\code{"median"} (median of the De values), \code{"kdemax"} (maximum value of probability 
+density function), \code{"sdrel"} (relative standard deviation), \code{"sdabs"} 
+(absolute standard deviation), \code{"serel"} (relative standard error) and 
+\code{"seabs"} (absolute standard deviation).}
+  \item{summary.pos}{\code{\link{numeric}} (with default): optional position coordinates for 
+the statistical summary. Y-coordinate refers to the right hand y-axis.}
   \item{colour}{\code{\link{numeric}} or \link{character} (with default): optional vector 
 of length 4 which specifies the colours of the following plot items in 
 exactly this order: histogram bars, rug lines, normal distribution curve 
@@ -44,16 +39,16 @@ and standard error points\cr
 If y-axis labels are provided, these must be specified as a vector of 
 length 2 since the plot features two axes (e.g. \code{ylab = c("axis 
 label 1", "axis label 2")}). Y-axes limits (\code{ylim}) must be
-provided as vector of length four, with the first two elements 
-specifying the left axes limits and the latter two elements giving the 
-right axis limits.}
+provided as vector of length four, with the first two elements specifying
+the left axes limits and the latter two elements giving the right axis
+limits.}
 }
 \details{If the normal curve is added, the y-axis in the histogram will show 
 the probability density. }
 
 
-\author{Michael Dietze, GFZ Potsdam (Germany), \cr
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
+\author{Michael Dietze (GFZ Potsdam), \cr
+Sebastian Kreutzer, JLU Giessen (Germany), \cr
 R Luminescence Package Team}
 \note{The input data is not restricted to a special type.}
 
@@ -84,4 +79,4 @@ plot_Histogram(ExampleData.DeValues,
                xlim = c(100, 250),
                ylim = c(0, 0.08, 50, 200))
 }
-\section{Function version}{0.4.2 (2014-12-01 13:39:36)}
+\section{Function version}{0.4.1 (2014-09-15 02:28:00)}

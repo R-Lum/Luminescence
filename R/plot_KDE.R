@@ -11,7 +11,7 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, \cr
   
   ##section<<
-  ##version 3.3
+  ##version 3.2
   # ===========================================================================
 
   ## TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
@@ -50,22 +50,20 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   ### \code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations) 
   ### \code{"qr"} (quartile range).
   
-  summary,
-  ### \code{\link{character}} (optional): adds numerical output to the plot. 
-  ### Can be one or more out of: "n" (number of samples), "mean" (mean De 
-  ### value), "mean.weighted" (error-weighted mean), "median" (median of 
-  ### the De values), "sdrel" (relative standard deviation in 
-  ### percent), "sdabs" (absolute standard deviation), "serel" (relative 
-  ### standard error), "seabs" (absolute standard error), "skewness" (skewness)
-  ### and "kurtosis" (kurtosis).
+  stats,
+  ### \code{\link{character}} (optional): add numerical output to the plot. 
+  ### Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De 
+  ### value), \code{"mean.weighted"} (error-weighted mean), \code{"median.weighted"}
+  ### (error-weighted median), \code{"median"} (median of the De values), \code{"kdemax"} 
+  ### (maximum value of probability density function), \code{"kurtosis"} (kurtosis), 
+  ### \code{"skewness"} (skewness), \code{"sdrel"} (relative standard deviation in 
+  ### percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative 
+  ### standard error) and \code{"seabs"} (absolute standard error).
   
-  summary.pos,
+  stats.pos = "sub",
   ### \code{\link{numeric}} or \code{\link{character}} (with default): optional  
-  ### position coordinates or keyword (e.g. \code{"topright"}) for the 
-  ### statistical summary. Alternatively, the keyword \code{"sub"} may be
-  ### specified to place the summary below the plot header. However, this
-  ### latter option in only possible if \code{mtext} is not used. In case 
-  ### of coordinate specification, y-coordinate refers to the right y-axis.
+  ### position coordinates or keyword for the statistical summary. Y-coordinate  
+  ### refers to the left y-axis.
   
   polygon.col,
   ### \code{\link{character}} or \code{\link{numeric}} (with default): colour 
@@ -94,60 +92,32 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   
   ## check/adjust input data structure
   for(i in 1:length(data)) {
-  
     if(is(data[[i]], "RLum.Results") == FALSE & 
-         is(data[[i]], "data.frame") == FALSE &
-         is.numeric(data[[i]]) == FALSE) {
+         is(data[[i]], "data.frame") == FALSE) {
       stop(paste("[plot_KDE()] Input data format is neither",
-                 "'data.frame', 'RLum.Results' nor 'numeric'"))
+                 "'data.frame' nor 'RLum.Results'"))
     } else {
-
       if(is(data[[i]], "RLum.Results") == TRUE) {
         data[[i]] <- get_RLum.Results(data[[i]])[,1:2]
       }
-      
-      if(length(data[[i]]) < 2) {
-        data[[i]] <- cbind(data[[i]], rep(NA, length(data[[i]])))
-      } 
     }
   }
   
   ## check/set function parameters
-  if(missing(summary) == TRUE) {
-    summary <- ""
-  }
-  
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- "sub"
-  }
-  
-    mtext <- ""
-  
-  if(missing(polygon.col) == TRUE) {
-    polygon.col <- rep("grey80", 
-                       length(data))
-  }
-  
-  if(missing(centrality) == TRUE) {
-    centrality <- character(0)
-  }
-  
-  if(missing(dispersion) == TRUE) {
-    dispersion <- ""
-  }
+  if(missing(stats) == TRUE) {stats <- numeric(0)}
+  if(missing(polygon.col) == TRUE) {polygon.col <- rep("grey80", length(data))}
+  if(missing(centrality) == TRUE) {centrality <- character(0)}
+  if(missing(dispersion) == TRUE) {dispersion <- ""}
   
   ## data preparation steps ---------------------------------------------------
 
-  ## optionally, count and exclude NA values and print result
+  ## Optionally, count and exclude NA values and print result
   if(na.exclude == TRUE) {
     for(i in 1:length(data)) {
-      n.NA <- sum(is.na(data[[i]][,1]))
-      if(n.NA == 1) {
-        print(paste("1 NA value excluded from data set", i, "."))
-      } else if(n.NA > 1) {
-        print(paste(n.NA, "NA values excluded from data set", i, "."))
-      }
-      data[[i]] <- data[[i]][!is.na(data[[i]][,1]),]
+      n.NA <- sum(!complete.cases(data[[i]]))
+      if(n.NA == 1) {print("1 NA value excluded.")
+      } else if(n.NA > 1) {print(paste(n.NA, "NA values excluded."))}
+      data[[i]] <- na.exclude(data[[i]])
     }
   }
   
@@ -211,190 +181,106 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   ## create global data set
   De.global <- data[[1]][,1]
   De.error.global <- data[[1]][,2]
-  De.density.range <- matrix(nrow = length(data), ncol = 4)
+  De.density.range <- c(1, 0)
   for(i in 1:length(data)) {
     ##global De and De.error vector
     De.global <- c(De.global, data[[i]][,1])
     De.error.global <- c(De.error.global, data[[i]][,2])
     
-    ## density ranges
-    De.density.range[i,1] <- min(De.density[[i]]$x)
-    De.density.range[i,2] <- max(De.density[[i]]$x)
-    De.density.range[i,3] <- min(De.density[[i]]$y)
-    De.density.range[i,4] <- max(De.density[[i]]$y)
+    ## y-axis range
+    De.density.range[1] <- ifelse(min(De.density[[i]]$y) < 
+                                    De.density.range[1],
+                                  min(De.density[[i]]$y),
+                                  De.density.range[1])
+    De.density.range[2] <- ifelse(max(De.density[[i]]$y) > 
+                                    De.density.range[1],
+                                  max(De.density[[i]]$y),
+                                  De.density.range[1])
     
     ## position of maximum KDE value
     De.stats[i,6] <- De.density[[i]]$x[
     De.density[[i]]$y == (max(De.density[[i]]$y))]
   }
   
-  ## Get global range of densities
-  De.density.range <- c(min(De.density.range[,1]),
-                        max(De.density.range[,2]),
-                        min(De.density.range[,3]),
-                        max(De.density.range[,4]))
-
-  label.text = list(NA)
-  
-  if(summary.pos[1] != "sub") {
-    n.rows <- length(summary)
+  ## create stats expression for sub-header output
+  if(stats.pos[1] == "sub" & length(stats) >= 1) {
+    stats.sub <- rep("|", length(data))
     
-    for(i in 1:length(data)) {
-      stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
-      label.text[[length(label.text) + 1]] <- paste(stops, paste(
-        "",
-        ifelse("n" %in% summary == TRUE,
-               paste("n = ", 
-                     De.stats[i,1], 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("mean" %in% summary == TRUE,
-               paste("mean = ", 
-                     round(De.stats[i,2], 2), 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("mean.weighted" %in% summary == TRUE,
-               paste("weighted mean = ", 
-                     round(De.stats[i,3], 2), 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("median" %in% summary == TRUE,
-               paste("median = ", 
-                     round(De.stats[i,4], 2), 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("median.weighted" %in% summary == TRUE,
-               paste("weighted median = ", 
-                     round(De.stats[i,5], 2), 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("sdabs" %in% summary == TRUE,
-               paste("sd = ", 
-                     round(De.stats[i,7], 2),
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("sdrel" %in% summary == TRUE,
-               paste("rel. sd = ", 
-                     round(De.stats[i,8], 2), " %",
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("seabs" %in% summary == TRUE,
-               paste("se = ", 
-                     round(De.stats[i,9], 2),
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("serel" %in% summary == TRUE,
-               paste("rel. se = ", 
-                     round(De.stats[i,10], 2), " %",
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("skewness" %in% summary == TRUE,
-               paste("skewness = ", 
-                     round(De.stats[i,13], 2), " %",
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("kurtosis" %in% summary == TRUE,
-               paste("kurtosis = ", 
-                     round(De.stats[i,14], 2), " %",
-                     "\n", 
-                     sep = ""),
-               ""),
-        sep = ""), stops, sep = "")
+    for(i in 1:length(stats)) {
+      stats.expression <- if(stats[i] == "n") {
+        paste(" n = ", round(De.stats[,1], 2), sep = "")
+      } else if(stats[i] == "mean") {
+        paste(" mean = ", round(De.stats[,2], 2), sep = "")
+      } else if(stats[i] == "mean.weighted") {
+        paste(" weighted mean = ", round(De.stats[,3], 2), sep = "")
+      } else if(stats[i] == "median") {
+        paste(" median = ", round(De.stats[,4], 2), sep = "")
+      } else if(stats[i] == "median.weighted") {
+        paste(" weighted median = ", round(De.stats[,5], 2), sep = "")
+      } else if(stats[i] == "kdemax") {
+        paste(" KDE max = ", round(De.stats[,6], 2), sep = "")
+      } else if(stats[i] == "sdrel") {
+        paste(" rel. sd = ", round(De.stats[,8], 2), sep = "")
+      } else if(stats[i] == "serel") {
+        paste(" rel. se = ", round(De.stats[,10], 2), sep = "")
+      } else if(stats[i] == "sdabs") {
+        paste(" abs. sd = ", round(De.stats[,7], 2), sep = "")
+      } else if(stats[i] == "seabs") {
+        paste(" abs. se = ", round(De.stats[,9], 2), sep = "")
+      } else if(stats[i] == "qr") {
+        paste(" quartile range = ", round(De.stats[,11], 2), " - ",
+          round(De.stats[,12], 2), sep = "")
+      } else if(stats[i] == "skewness") {
+        paste(" skewness = ", round(De.stats[,13], 2), sep = "")
+      } else if(stats[i] == "kurtosis") {
+        paste(" kurtosis = ", round(De.stats[,14], 2), sep = "")
+      }
       
-    }
-  } else {
-    for(i in 1:length(data)) {
-      label.text[[length(label.text) + 1]]  <- paste(
-        "  ",
-        ifelse("n" %in% summary == TRUE,
-               paste("n = ", 
-                     De.stats[i,1], 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("mean" %in% summary == TRUE,
-               paste("mean = ", 
-                     round(De.stats[i,2], 2), 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("mean.weighted" %in% summary == TRUE,
-               paste("weighted mean = ", 
-                     round(De.stats[i,3], 2), 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("median" %in% summary == TRUE,
-               paste("median = ", 
-                     round(De.stats[i,4], 2), 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("median.weighted" %in% summary == TRUE,
-               paste("weighted median = ", 
-                     round(De.stats[i,5], 2), 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("sdrel" %in% summary == TRUE,
-               paste("rel. sd = ", 
-                     round(De.stats[i,8], 2), " %",
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("sdabs" %in% summary == TRUE,
-               paste("abs. sd = ", 
-                     round(De.stats[i,7], 2),
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("serel" %in% summary == TRUE,
-               paste("rel. se = ", 
-                     round(De.stats[i,10], 2), " %",
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("seabs" %in% summary == TRUE,
-               paste("abs. se = ", 
-                     round(De.stats[i,9], 2),
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("skewness" %in% summary == TRUE,
-               paste("skewness = ", 
-                     round(De.stats[i,13], 2),
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("kurtosis" %in% summary == TRUE,
-               paste("kurtosis = ", 
-                     round(De.stats[i,14], 2),
-                     " | ", 
-                     sep = ""),
-               ""),
-        sep = "")
-    }
-    
-    ## remove outer vertical lines from string
-    for(i in 2:length(label.text)) {
-      label.text[[i]] <- substr(x = label.text[[i]], 
-                                start = 3, 
-                                stop = nchar(label.text[[i]]) - 3)
+      stats.sub <- paste(stats.sub, 
+                         stats.expression,
+                         " |", sep = "")
     }
   }
   
-  ## remove dummy list element
-  label.text[[1]] <- NULL
+  ## create stats-list for legend output
+  if(stats.pos[1] != "sub" & length(stats) >= 1) {
+    stats.legend <- rep("", length(data))
+    
+    for(i in 1:length(stats)) {
+      stats.expression <- if(stats[i] == "n") {
+        paste("n = ", round(De.stats[,1], 2), "\n", sep = "")
+      } else if(stats[i] == "mean") {
+        paste("mean = ", round(De.stats[,2], 2), "\n", sep = "")
+      } else if(stats[i] == "mean.weighted") {
+        paste("weighted mean = ", round(De.stats[,3], 2), "\n", sep = "")
+      } else if(stats[i] == "median") {
+        paste("median = ", round(De.stats[,4], 2), "\n", sep = "")
+      } else if(stats[i] == "median.weighted") {
+        paste("weighted median = ", round(De.stats[,5], 2), "\n", sep = "")
+      } else if(stats[i] == "kdemax") {
+        paste("KDE max = ", round(De.stats[,6], 2), "\n", sep = "")
+      } else if(stats[i] == "sdrel") {
+        paste("rel. sd = ", round(De.stats[,8], 2), "\n", sep = "")
+      } else if(stats[i] == "serel") {
+        paste("rel. se = ", round(De.stats[,10], 2), "\n", sep = "")
+      } else if(stats[i] == "sdabs") {
+        paste("abs. sd = ", round(De.stats[,7], 2), "\n", sep = "")
+      } else if(stats[i] == "seabs") {
+        paste("abs. se = ", round(De.stats[,9], 2), "\n", sep = "")
+      } else if(stats[i] == "qr") {
+        paste("quartile range = ", round(De.stats[,11], 2), " - ",
+              round(De.stats[,12], 2), "\n", sep = "")
+      } else if(stats[i] == "skewness") {
+        paste("skewness = ", round(De.stats[,13], 2), "\n", sep = "")
+      } else if(stats[i] == "kurtosis") {
+        paste("kurtosis = ", round(De.stats[,14], 2), "\n", sep = "")
+      }
+      
+      stats.legend <- paste(stats.legend, 
+                            stats.expression,
+                            sep = "")
+    }
+  }  
   
   ## read out additional parameters -------------------------------------------
   if("main" %in% names(list(...))) {
@@ -416,21 +302,17 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   }
 
   if("xlim" %in% names(list(...))) {
-    xlim.plot <- list(...)$xlim
+    xlim <- list(...)$xlim
   } else {
-    xlim.plot <- c(min(c(De.global - De.error.global), 
-                  De.density.range[1], 
-                  na.rm = TRUE), 
-              max(c(De.global + De.error.global), 
-                  De.density.range[2],
-                  na.rm = TRUE))
+    xlim <- c(min(De.global - De.error.global), 
+              max(De.global + De.error.global))
   }
   
   if("ylim" %in% names(list(...))) {
-      ylim.plot <- list(...)$ylim
+      ylim <- list(...)$ylim
     } else {
-      ylim.plot <- c(De.density.range[3],
-                De.density.range[4],
+      ylim <- c(De.density.range[1],
+                De.density.range[2],
                 1, 
                 max(De.stats[,1]))
     }
@@ -481,45 +363,6 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
     fun <- FALSE
   }
 
-  ## convert keywords into summary placement coordinates
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- c(xlim.plot[1], ylim.plot[2])
-    summary.adj <- c(0, 1)
-  } else if(length(summary.pos) == 2) {
-    summary.pos <- summary.pos
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "topleft") {
-    summary.pos <- c(xlim.plot[1], ylim.plot[2])
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "top") {
-    summary.pos <- c(mean(xlim.plot), ylim.plot[2])
-    summary.adj <- c(0.5, 1)
-  } else if(summary.pos[1] == "topright") {
-    summary.pos <- c(xlim.plot[2], ylim.plot[2])
-    summary.adj <- c(1, 1)
-  }  else if(summary.pos[1] == "left") {
-    summary.pos <- c(xlim.plot[1], mean(ylim.plot[1:2]))
-    summary.adj <- c(0, 0.5)
-  } else if(summary.pos[1] == "center") {
-    summary.pos <- c(mean(xlim.plot), mean(ylim.plot[1:2]))
-    summary.adj <- c(0.5, 0.5)
-  } else if(summary.pos[1] == "right") {
-    summary.pos <- c(xlim.plot[2], mean(ylim.plot[1:2]))
-    summary.adj <- c(1, 0.5)
-  }else if(summary.pos[1] == "bottomleft") {
-    summary.pos <- c(xlim.plot[1], ylim.plot[1])
-    summary.adj <- c(0, 0)
-  } else if(summary.pos[1] == "bottom") {
-    summary.pos <- c(mean(xlim.plot), ylim.plot[1])
-    summary.adj <- c(0.5, 0)
-  } else if(summary.pos[1] == "bottomright") {
-    summary.pos <- c(xlim.plot[2], ylim.plot[1])
-    summary.adj <- c(1, 0)
-  }
-  
-  
-  
-  
   ## assign polygon coordinates
   polygons <- matrix(nrow = length(data), ncol = 8)
   
@@ -543,27 +386,28 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
       rep(NA, 4)
     }
     
-    polygons[i,] <- c(lims.x, c(-2 * ylim.plot[2], 
-                                2 * ylim.plot[2],
-                                2 * ylim.plot[2],
-                                -2 * ylim.plot[2]))
+    polygons[i,] <- c(lims.x, c(-2 * ylim[2], 
+                                2 * ylim[2],
+                                2 * ylim[2],
+                                -2 * ylim[2]))
   }
   
   ## plot data sets -----------------------------------------------------------
 
   ## setup plot area
-  if(length(summary) >= 1 & summary.pos[1] == "sub") {
+  if(length(stats) >= 1 & stats.pos[1] == "sub") {
     toplines <- length(data)
   } else {toplines <- 1}
   
-  par(mar = c(4.5, 5.5, 2.5 + toplines, 4.5),
+  par(oma = c(0, 0, 0, 2),
+      mar = c(5, 5, 2.5 + toplines, 3),
       xpd = FALSE,
       cex = cex)
   
   ## create empty plot to set plot dimensions
   plot(NA, 
-       xlim = xlim.plot,
-       ylim = ylim.plot[1:2],
+       xlim = xlim,
+       ylim = ylim[1:2],
        main = "",
        xlab = "",
        ylab = "",
@@ -588,27 +432,27 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
         if(centrality[j] == "mean") {
           abline(v = De.stats[i,2], col = colours[i,1], lty = lty[j + 1])
           text(De.stats[i,2] - par()$cxy[1] * 0.5, 
-               ylim.plot[2] * 0.99, "mean",
+               ylim[2] * 0.99, "mean",
                srt = 90, adj = 1, col = colours[i, 2], cex = 0.8 * cex)
         } else if(centrality[j] == "mean.weighted") {
           abline(v = De.stats[i,3], col = colours[i,1], lty = lty[j + 1])
           text(De.stats[i,3] - par()$cxy[1] * 0.5, 
-               ylim.plot[2] * 0.99, "weighted mean",
+               ylim[2] * 0.99, "weighted mean",
                srt = 90, adj = 1, col = colours[i, 2], cex = 0.8 * cex)
         } else if(centrality[j] == "median") {
           abline(v = De.stats[i,4], col = colours[i,1], lty = lty[j + 1])
           text(De.stats[i,4] - par()$cxy[1] * 0.5, 
-               ylim.plot[2] * 0.99, "median",
+               ylim[2] * 0.99, "median",
                srt = 90, adj = 1, col = colours[i, 2], cex = 0.8 * cex)
         } else if(centrality[j] == "median.weighted") {
           abline(v = De.stats[i,5], col = colours[i,1], lty = lty[j + 1])
           text(De.stats[i,5] - par()$cxy[1] * 0.5, 
-               ylim.plot[2] * 0.99, "weighted median",
+               ylim[2] * 0.99, "weighted median",
                srt = 90, adj = 1, col = colours[i, 2], cex = 0.8 * cex)
         } else if(centrality[j] == "kdemax") {
           abline(v = De.stats[i,6], col = colours[i,1], lty = lty[j + 1])
           text(De.stats[i,6] - par()$cxy[1] * 0.5, 
-               ylim.plot[2] * 0.99, "KDE max",
+               ylim[2] * 0.99, "KDE max",
                srt = 90, adj = 1, col = colours[i, 2], cex = 0.8 * cex)
         }
       }
@@ -622,8 +466,8 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
        main     = "", 
        xlab     = xlab, 
        ylab     = ylab[1],
-       xlim     = xlim.plot,
-       ylim     = ylim.plot[1:2],
+       xlim     = xlim,
+       ylim     = ylim[1:2],
        log      = log.option,
        cex      = cex,
        cex.lab  = cex,
@@ -638,24 +482,75 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   
   ## add plot title
   title(main, line = toplines + 1.2)
-
-  ## add summary content
-  for(i in 1:length(data)) {
-    if(summary.pos[1] != "sub") {
-      text(x = summary.pos[1],
-           y = summary.pos[2],
-           adj = summary.adj,
-           labels = label.text[[i]],
-           col = colours[i, 2],
-           cex = cex * 0.8)
-    } else {
-      if(mtext == "") {
-        mtext(side = 3, 
-              line = toplines + 0.3 - i, 
-              text = label.text[[i]],
-              col = colours[i, 2],
-              cex = cex * 0.8)
-      }
+  
+  ## add stats-expressions for sub-header
+  if(stats.pos[1] == "sub" & length(stats) >= 1) {
+    for(i in 1:length(stats.sub)) {
+      mtext(line = toplines + 0.5 - i,
+            text = stats.sub[i],
+            col = colours[i,1],
+            cex = 0.9 * cex)
+    }
+  }
+  
+  ## convert placement keywords to coordinates
+  if(stats.pos[1] != "sub" &length(stats) >= 1) {
+    if(missing(stats.pos) == TRUE) {
+      stats.pos <- c(xlim[1], ylim[2])
+      stats.adj <- c(0, 1)
+    } else if(length(stats.pos) == 2) {
+      stats.pos <- stats.pos
+      stats.adj <- c(0, 1)
+    } else if(stats.pos[1] == "topleft") {
+      stats.pos <- c(xlim[1], ylim[2])
+      stats.adj <- c(0, 1)
+    } else if(stats.pos[1] == "top") {
+      stats.pos <- c(mean(xlim), ylim[2])
+      stats.adj <- c(0.5, 1)
+    } else if(stats.pos[1] == "topright") {
+      stats.pos <- c(xlim[2], ylim[2])
+      stats.adj <- c(1, 1)
+    }  else if(stats.pos[1] == "left") {
+      stats.pos <- c(xlim[1], mean(ylim[1:2]))
+      stats.adj <- c(0, 0.5)
+    } else if(stats.pos[1] == "center") {
+      stats.pos <- c(mean(xlim), mean(ylim[1:2]))
+      stats.adj <- c(0.5, 0.5)
+    } else if(stats.pos[1] == "right") {
+      stats.pos <- c(xlim[2], mean(ylim[1:2]))
+      stats.adj <- c(1, 0.5)
+    }else if(stats.pos[1] == "bottomleft") {
+      stats.pos <- c(xlim[1], ylim[1])
+      stats.adj <- c(0, 0)
+    } else if(stats.pos[1] == "bottom") {
+      stats.pos <- c(mean(xlim), ylim[1])
+      stats.adj <- c(0.5, 0)
+    } else if(stats.pos[1] == "bottomright") {
+      stats.pos <- c(xlim[2], ylim[1])
+      stats.adj <- c(1, 0)
+    }
+    
+    ## generate sequence of empty lines
+    empty.lines <- ""
+    for(i in 1:((length(data) -1) * length(stats))) {
+      empty.lines[i + 1] <- paste(empty.lines[i], "\n", sep = "")
+    }
+    empty.lines <- empty.lines[seq(from = 0, 
+                                   to = length(empty.lines), 
+                                   by = length(stats)) + 1]
+    
+    ## add empty lines to stats content
+    for(i in 1:length(data)) {
+      ## concatenate stats legend expressions (i.e. empty lines)
+      stats.legend[i] <- paste(empty.lines[i], stats.legend[i], sep = "")
+      
+      ## add stats content to plot
+      text(x = stats.pos[1],
+           y = stats.pos[2],
+           adj = stats.adj,
+           labels = stats.legend[i],
+           cex = 0.8 * cex,
+           col = colours[i])
     }
   }
   
@@ -663,8 +558,8 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
     ## create empty overlay plot
     par(new = TRUE) # adjust plot options
     plot(NA, # add empty plot, scaled to secondary plot content
-         xlim = xlim.plot,
-         ylim = ylim.plot[3:4],
+         xlim = xlim,
+         ylim = ylim[3:4],
          log  = log.option,
          main = "",
          xlab = "",
@@ -699,8 +594,8 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   plot(NA,
        ann = FALSE,
        axes = FALSE,
-       xlim     = xlim.plot,
-       ylim     = ylim.plot[1:2],
+       xlim     = xlim,
+       ylim     = ylim[1:2],
        log      = log.option,
        cex      = cex,
        cex.lab  = cex,
@@ -712,7 +607,7 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   
   if(output == TRUE) {
     return(list(De.stats = De.stats,
-                summary.pos = summary.pos,
+                stats.pos = stats.pos,
                 De.density = De.density))
   }
     
@@ -781,12 +676,12 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   
   ## create plot with statistical summary below header
   plot_KDE(data = ExampleData.DeValues,
-           summary = c("n", "median", "skewness", "qr"))
+           stats = c("n", "median", "skewness", "qr"))
 
   ## create plot with statistical summary as legend
   plot_KDE(data = ExampleData.DeValues,
-           summary = c("n", "mean", "sdrel", "seabs"),
-           summary.pos = "topleft")
+           stats = c("n", "mean", "sdrel", "seabs"),
+           stats.pos = "topleft")
 
   ## split data set into sub-groups, one is manipulated, and merge again
   data.1 <- ExampleData.DeValues[1:15,]
@@ -798,8 +693,8 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   
   ## create plot with two subsets and summary legend at user coordinates
   plot_KDE(data = data.3,
-           summary = c("n", "median", "skewness"),
-           summary.pos = c(110, 0.07),
+           stats = c("n", "median", "skewness"),
+           stats.pos = c(110, 0.07),
            col = c("blue", "orange"))
   
   ## example of how to use the numerical output of the function

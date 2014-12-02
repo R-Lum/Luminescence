@@ -160,20 +160,7 @@ converted during data import.\cr
 [,13] \tab XRF \tab: X-ray Fluorescence
 }
 
-\bold{LTYPES}
-\tabular{rll}{
-[,0] \tab 0 \tab Natural \cr
-[,1] \tab 1 \tab N+dose \cr
-[,2] \tab 2 \tab Bleach \cr
-[,3] \tab 3 \tab Bleach+dose \cr
-[,4] \tab 4 \tab Natural (Bleach) \cr
-[,5] \tab 5 \tab N+dose (Bleach) \cr
-[,6] \tab 6 \tab Dose \cr
-[,7] \tab 7 \tab Background
-}
-
-
-(information on the \code{LTYPE} and \code{DTYPE} kindly provided by Risoe, DTU Nutech)
+(information on the \code{LTYPE} kindly provided by Risoe, DTU Nutech)
 
 
 }
