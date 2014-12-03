@@ -307,7 +307,10 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
             col = col[i],
             lty = lty)
    
-    }      
+    }   
+    
+    ##mtext
+    mtext(mtext, side = 3, cex = .8 * cex)
     
     ##legend
     legend(legend.pos,
