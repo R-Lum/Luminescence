@@ -7,7 +7,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.4.8
+  ## version 0.4.9
   # ===========================================================================
 
   object,
@@ -71,7 +71,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
 
     ##MISSING INPUT
     if(missing("object")==TRUE){
-      stop("[analyse_SAR.CWOSL] No value set for 'object'!")
+      stop("[analyse_SAR.CWOSL()] No value set for 'object'!")
     }
 
     if(missing("signal.integral")==TRUE){
@@ -513,7 +513,7 @@ if(output.plot == TRUE){
     ## 5 -> Legend  
     
     ## set selected curves to allow plotting of all curves
-    output.plot.single.sel <- c(1,2,3,4,5,6)
+    output.plot.single.sel <- c(1,2,3,4,5,6,7,8)
     
   }else{
     
@@ -529,7 +529,7 @@ if(output.plot == TRUE){
       
     }else{
       
-    output.plot.single.sel <- c(1,2,3,4,5,6)
+    output.plot.single.sel <- c(1,2,3,4,5,6,7,8)
       
     }
   
@@ -824,12 +824,12 @@ par(mar = par.margin, mai = par.mai)
   if(exists("par.default")){
     
     par(par.default)
-    rm(par.default)
 
   }
 
 
 }##end output.plot == TRUE
+
 
 # Plotting  GC  ----------------------------------------
 
@@ -840,7 +840,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                           )
 
   ##overall plot option selection for output.plot.single.sel
-  if(output.plot == TRUE & 6%in%output.plot.single.sel){
+  if(output.plot == TRUE && 6%in%output.plot.single.sel){
     
     output.plot  <-  TRUE
   
@@ -852,7 +852,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
  ##Fit and plot growth curve
  temp.GC <- plot_GrowthCurve(temp.sample,
-                             output.plot = output.plot,
+                             output.plot = output.plot, 
                               ...)
  
  ##grep informaton on the fit object
@@ -901,17 +901,151 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                                 background.range = paste(background.integral.min,":",
                                                  background.integral.max))
 
-   
-# Return Values -----------------------------------------------------------
 
-  temp.return <- set_RLum.Results(
+
+# Set return Values -----------------------------------------------------------
+
+  temp.results.final <- set_RLum.Results(
     data = list(
       De.values = as.data.frame(c(temp.GC, temp.GC.extened)),
       LnLxTnTx.table = LnLxTnTx, 
       rejection.criteria = RejectionCriteria,
       Formula = temp.GC.fit.Formula))
 
-  return(temp.return)
+
+  
+
+# Plot graphical interpretation of rejection criteria -----------------------------------------
+
+  if(output.plot == TRUE && 7%in%output.plot.single.sel){
+  
+  ##set graphical parameter
+  if(!output.plot.single){
+    par(mfrow = c(1,2))
+  }else{
+    par(mfrow = c(1,1)) 
+  }
+  
+
+  ##Rejection criteria
+  temp.rejection.criteria <- get_RLum.Results(temp.results.final, 
+                                            data.object = "rejection.criteria")
+
+  temp.rc.reycling.ratio <- temp.rejection.criteria[
+    grep("Recycling ratio",temp.rejection.criteria[,"Criteria"]),]
+
+  temp.rc.recuperation.rate <- temp.rejection.criteria[
+    grep("Recuperation rate",temp.rejection.criteria[,"Criteria"]),]
+
+  temp.rc.palaedose.error <- temp.rejection.criteria[
+    grep("Palaeodose error",temp.rejection.criteria[,"Criteria"]),]
+
+  plot(NA,NA,
+       xlim = c(-0.5,0.5),
+       ylim = c(0,30),
+       yaxt = "n", ylab = "",
+       xaxt = "n", xlab = "",
+       bty = "n",
+       main = "Rejection criteria")
+
+    axis(side = 1, at = c(-0.2,-0.1,0,0.1,0.2), labels = c("- 0.2", "- 0.1","0/1","+ 0.1", "+ 0.2"))
+
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+  ##polygon for recycling ratio
+  text(x = 0, y = 30.5, "Recycling ratio", pos = 1, srt = 0)
+  polygon(x = c(-as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
+                -as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
+                as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
+                as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1]), 
+          y = c(21,29,29,21), col = "gray", border = NA)
+  polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(21,29,29,21))
+
+
+  ##consider possibility of multiple pIRIR signals and multiple recycling ratios
+  col.id  <- 1
+  for(i in seq(1,nrow(temp.rc.recuperation.rate),
+               length(unique(temp.rc.recuperation.rate[,"Criteria"])))){
+  
+  
+    for(j in 0:length(unique(temp.rc.recuperation.rate[,"Criteria"]))){
+      points(temp.rc.reycling.ratio[i+j, "Value"]-1,
+             y = 25,
+             pch = col.id,
+             col = col.id,
+             cex = 1.3 * cex)
+    
+    }
+    col.id <- col.id + 1
+  }
+  rm(col.id)
+
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+  ##polygon for recuperation rate
+  text(x = 0, y = 20.5, "Recuperation rate", pos = 1, srt = 0)
+  polygon(x = c(0,
+                0,
+                as.numeric(as.character(temp.rc.recuperation.rate$Threshold))[1],
+                as.numeric(as.character(temp.rc.recuperation.rate$Threshold))[1]), 
+          y = c(11,19,19,11), col = "gray", border = NA)
+
+  polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(11,19,19,11))
+  polygon(x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45)
+
+  for(i in 1:nrow(temp.rc.recuperation.rate)){
+  
+    points(temp.rc.palaedose.error[i, "Value"],
+           y = 15,
+           pch = i,
+           col = i,
+           cex = 1.3 * cex)
+  
+  }
+
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+  ##polygon for palaeodose error
+  text(x = 0, y = 10.5, "Palaeodose error", pos = 1, srt = 0)
+  polygon(x = c(0,
+                0,
+                as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1],
+                as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1]), 
+          y = c(1,9,9,1), col = "gray", border = NA)
+  polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(1,9,9,1))
+  polygon(x = c(-0.3,-0.3,0,0) , y = c(1,9,9,1), border = NA, density = 10, angle = 45)
+
+
+  for(i in 1:nrow(temp.rc.palaedose.error)){
+  
+    points(temp.rc.palaedose.error[i, "Value"],
+           y = 5,
+           pch = i,
+           col = i,
+           cex = 1.3 * cex
+           )  
+  }  
+  }
+
+
+  if(output.plot == TRUE && 8%in%output.plot.single.sel){
+  
+  ##graphical represenation of IR-curve
+  temp.IRSL <- get_RLum.Analysis(object, recordType = "IRSL")
+  try(plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE), silent = TRUE)
+
+  }
+
+
+  ##It is doubled in this function, but the par settings need some more careful considerations ...
+  if(exists("par.default")){
+  
+   par(par.default)
+   rm(par.default)
+  }
+
+
+
+# Return --------------------------------------------------------------------------------------
+
+  return(temp.results.final)
   
   # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
 

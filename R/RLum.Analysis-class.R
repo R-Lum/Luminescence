@@ -195,14 +195,14 @@ setMethod("get_RLum.Analysis",
   
             }else if (is(record.id, "numeric") == FALSE){
               
-              stop("[get_RLum.Analysis] 'record.id' has to be of type 'numeric'!")
+              stop("[get_RLum.Analysis()] 'record.id' has to be of type 'numeric'!")
               
             }
             
             ##check if record.id exists
             if(FALSE%in%(abs(record.id)%in%(1:length(object@records)))){
               
-              stop("[get_RLum.Analysis] At least one 'record.id' is invalid!")
+              stop("[get_RLum.Analysis()] At least one 'record.id' is invalid!")
               
             }
             
@@ -218,7 +218,7 @@ setMethod("get_RLum.Analysis",
               
               if (is(recordType, "character") == FALSE){
               
-                stop("[get_RLum.Analysis] Error: 'recordType' has to be of type 'character'!")
+                stop("[get_RLum.Analysis()] Error: 'recordType' has to be of type 'character'!")
                 
               }
                 
@@ -234,7 +234,7 @@ setMethod("get_RLum.Analysis",
               
             }else if (is(curveType, "character") == FALSE){
               
-              stop("[get_RLum.Analysis] Error: 'curveType' has to be of type 'character'!")
+              stop("[get_RLum.Analysis()] Error: 'curveType' has to be of type 'character'!")
               
             }
             
@@ -245,7 +245,7 @@ setMethod("get_RLum.Analysis",
               
             }else if (is(RLum.type, "character") == FALSE){
               
-              stop("[get_RLum.Analysis] Error: 'RLum.type' has to be of type 'character'!")
+              stop("[get_RLum.Analysis()] Error: 'RLum.type' has to be of type 'character'!")
               
             }
             
@@ -256,7 +256,7 @@ setMethod("get_RLum.Analysis",
               
             }else if (is(get.index, "logical") == FALSE){
               
-              stop("[get_RLum.Analysis] Error: 'get.index' has to be of type 'logical'!")
+              stop("[get_RLum.Analysis()] Error: 'get.index' has to be of type 'logical'!")
               
             }
     

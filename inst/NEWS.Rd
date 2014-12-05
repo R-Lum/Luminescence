@@ -164,6 +164,8 @@
         
         \item reformat of rejection criteria output to allow easier further treatment, 
         
+        \item support graphical output of rejection criteria and IRSL curve (if exists),
+        
         \item minor bug fixes (e.g., not properly caluculated TL curve resolution) and graphical adjustements.
       
       }
