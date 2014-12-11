@@ -5,7 +5,7 @@
 measurements.}
 \usage{plot_DRTResults(values, given.dose, error.range = 10, preheat, 
     boxplot = FALSE, mtext, summary, summary.pos, legend, legend.pos, 
-    na.rm = FALSE, ...)}
+    par.local = TRUE, na.rm = FALSE, ...)}
 \arguments{
   \item{values}{\code{\linkS4class{RLum.Results}} or
 \code{\link{data.frame}}, (\bold{required}): input values 
@@ -46,6 +46,9 @@ to the plot.}
   \item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
 position coordinates or keyword (e.g. \code{"topright"}) for the legend
 to be plotted.}
+  \item{par.local}{\code{\link{logical}} (with default): use local graphical parameters for plotting, e.g.
+the plot is shown in one column and one row. If \code{par.local = FALSE},  
+global parameters are inherited.}
   \item{na.rm}{\code{\link{logical}}: indicating wether \code{NA} values are removed 
 before plotting from the input data set}
   \item{\dots}{further arguments and graphical parameters passed to \code{\link{plot}}.}
@@ -134,4 +137,4 @@ plot_DRTResults(values = ExampleData.DeValues[7:11,],
 }
 
 \keyword{dplot}
-\section{Function version}{0.1.5 (2014-11-25 18:17:51)}
+\section{Function version}{0.1.6 (2014-12-08 12:54:45)}

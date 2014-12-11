@@ -455,7 +455,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                corresponding values in provided by the argument
                ‘preheat’ are cleaned up. This allows a proper usage of
                the function in combination with grouping option (e.g.,
-               ‘boxplot = TRUE’.
+               ‘boxplot = TRUE’,
+
+             • add argument ‘par.local’ to allow to combine output
+               plots in broader plot frameworks,
 
              • minor corrections in error handling and graphical
                appearance.

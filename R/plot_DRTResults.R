@@ -8,7 +8,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ## version 0.1.5
+  ## version 0.1.6
   # ===========================================================================
 
   values, 
@@ -69,6 +69,11 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   ### \code{\link{numeric}} or \code{\link{character}} (with default): optional  
   ### position coordinates or keyword (e.g. \code{"topright"}) for the legend
   ### to be plotted.
+  
+  par.local = TRUE,
+  ### \code{\link{logical}} (with default): use local graphical parameters for plotting, e.g.
+  ### the plot is shown in one column and one row. If \code{par.local = FALSE},  
+  ### global parameters are inherited.
   
   na.rm  = FALSE, 
   ### \code{\link{logical}}: indicating wether \code{NA} values are removed 
@@ -132,10 +137,10 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
         preheat <- preheat[-temp.NA.values]
         
       }
-           
+         
        values[[i]] <- na.exclude(values[[i]])
-    
-    }     
+     
+    }      
   }
   
   ## create global data set
@@ -424,9 +429,12 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   } else {1}
   
   ## setup plot area
-  
+  if(par.local){
+    
+  par.default <- par()[c("mfrow", "cex", "oma")]
   par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
-  
+  }
+
   ## optionally plot values and error bars
   if(boxplot == FALSE) {
     ## plot data and error
@@ -630,9 +638,17 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
         line = shift.lines,
         text = mtext, 
         cex = 0.8 * cex)
+ 
+  ##reset par()
+  if(par.local){
+  par(par.default)
+  rm(par.default)
+  }
   
   ##FUN by R Luminescence Team
   if(fun == TRUE) {sTeve()}
+  
+ 
   
   ##details<<
   ## Procedure to test the accuracy of a measurement protocol to reliably 

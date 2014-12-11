@@ -28,8 +28,7 @@ single plot output (\code{TRUE/FALSE}) to allow for plotting the results
 in single plot windows. If a numerice vector is provided the plots
 can be selected individually, i.e. \code{output.plot.single = c(1,2,3,4)} 
 will plot the TL and Lx, Tx curves but not the legend (5) 
-or the growth curve
-(6). 
+or the growth curve (6), (7) and (8) belong to rejection criteria plots.  
 Requires \code{output.plot = TRUE}.}
   \item{\dots}{further arguments that will be passed to the function 
 \code{\link{plot_GrowthCurve}}}
@@ -132,4 +131,4 @@ get_RLum.Results(results, data.object = "LnLxTnTx.table")
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.4.9 (2014-12-05 00:55:11)}
+\section{Function version}{0.4.9 (2014-12-05 11:01:57)}

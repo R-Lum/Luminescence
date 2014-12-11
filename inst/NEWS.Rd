@@ -414,7 +414,10 @@
         \item change behaviour of the argument \code{na.rm}. If a data set is provided containing 
         \code{NA} values also the corresponding values in provided by the argument \code{preheat} are
         cleaned up. This allows a proper usage of the function in combination with grouping option 
-        (e.g., \code{boxplot = TRUE}. 
+        (e.g., \code{boxplot = TRUE}, 
+        
+        \item add argument \code{par.local} to allow to combine output plots in broader plot 
+        frameworks, 
         
         \item minor corrections in error handling and graphical appearance.
       

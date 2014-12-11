@@ -49,8 +49,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ### in single plot windows. If a numerice vector is provided the plots
   ### can be selected individually, i.e. \code{output.plot.single = c(1,2,3,4)} 
   ### will plot the TL and Lx, Tx curves but not the legend (5) 
-  ### or the growth curve
-  ### (6). 
+  ### or the growth curve (6), (7) and (8) belong to rejection criteria plots.  
   ### Requires \code{output.plot = TRUE}.
   
   ... 
@@ -861,6 +860,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
  ##grep results
  temp.GC <- get_RLum.Results(temp.GC)
 
+
 # Provide Rejection Criteria for Palaedose error --------------------------
 
   palaeodose.error.calculated <- ifelse(is.na(temp.GC[,1]) == FALSE, 
@@ -912,8 +912,6 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
       rejection.criteria = RejectionCriteria,
       Formula = temp.GC.fit.Formula))
 
-
-  
 
 # Plot graphical interpretation of rejection criteria -----------------------------------------
 
