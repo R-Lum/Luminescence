@@ -1,8 +1,8 @@
 \name{calc_MinDose}
 \alias{calc_MinDose}
-\title{Apply the (un-)logged three parameter minimum age model (MAM 3) after Galbraith et al. (1999) to a given De distribution}
-\description{Function to fit the (un-)logged three parameter minimum dose model 
-(MAM 3) to De data.}
+\title{Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution}
+\description{Function to fit the (un-)logged three or four parameter minimum dose model 
+(MAM-3/4) to De data.}
 \usage{calc_MinDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE, 
     boundaries, init.values, plot = TRUE, ...)}
 \arguments{
@@ -12,12 +12,12 @@ De error \code{(values[,2])}}
   \item{sigmab}{\code{\link{numeric}}  (\bold{required}): spread in De values given as a 
 fraction (e.g. 0.2). This value represents the expected overdispersion in
 the data should the sample be well-bleached (Cunningham & Walling 2012, p. 100).}
-  \item{log}{\code{\link{logical}} (with default): fit the (un-)logged three parameter 
+  \item{log}{\code{\link{logical}} (with default): fit the (un-)logged 
 minimum dose model to De data}
   \item{par}{\code{\link{numeric}} (with default): apply the 3- or 4-parametric minimum age
-model (\code{par=3} or \code{par=4}).}
+model (\code{par=3} or \code{par=4}). The MAM-3 is used by default.}
   \item{bootstrap}{\code{\link{logical}} (with default): apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
-  \item{boundaries}{\code{\link{list}}: a named list of boundary values for gamma, sigma and mu
+  \item{boundaries}{\code{\link{list}}: a named list of boundary values for gamma, sigma, p0 and mu
 to be used in the optimisation routine 
 (e.g. \code{list(gamma=c(0.01,100), sigma=c(0.01,5), p0=c(0.01,0.99), mu=c(10, 100))}). 
 If no values are provided reasonable values are tried to be estimated from the data.}
@@ -130,4 +130,4 @@ get_RLum.Results(mam, "summary")
 # plot the log likelihood profiles retroactively
 plot_RLum.Results(mam)
 }
-\section{Function version}{0.4 (2014-12-11 12:45:57)}
+\section{Function version}{0.4 (2014-12-11 08:57:59)}

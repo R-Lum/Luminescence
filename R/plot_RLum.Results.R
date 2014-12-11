@@ -75,10 +75,10 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
     try(
       plot(data@data$profile, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
     )
-    
+
     ## bootstrap MAM estimates
     if(data@data$args$bootstrap==TRUE) {
-      
+
       # save previous plot parameter and set new ones
       .pardefault<- par(no.readonly = TRUE)
       
@@ -175,7 +175,7 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
         
         # set margins (bottom, left, top, right)
         par(mar=c(5,5,0,3))
-        
+
         plot(x = pairs[,1],
              y = residuals(poly.lines[[i]]),
              ylim = c(min(residuals(poly.lines[[i]]))*1.2,
@@ -201,21 +201,42 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
         
         ## ----- PROPORTIONS
         
-        
-        
-        
       }##EndOf::Plot_loop
       
       # restore previous plot parameters
       par(.pardefault)
       
+      ### TODO: plotting of the LOESS fit needs to be fleshed out
+      ### possibly integrate this in the prior polynomial plot loop
+      
+      ### LOESS PLOT
+      pairs<- data@data$bootstrap$pairs$gamma
+      pred<- predict(data@data$bootstrap$loess.fit)
+      loess<- cbind(pairs[,1], pred)
+      loess<- loess[order(loess[,1]),]
+      
+      # plot gamma-llik pairs
+      plot(pairs,
+           ylim = c(0, as.double(quantile( pairs[,2],probs=0.99))),
+           ylab = "Likelihood",
+           xlab = "Equivalent dose [Gy]",
+           col = "gray80")
+      
+      # add LOESS line
+      lines(loess, type = "l", col = "black")
+      
       ### ------ PLOT BOOTSTRAP LIKELIHOOD FIT
       
       par(mar=c(5,4,4,4))
       
+      xlim<- range(pretty(data@data$data[,1]))
+      xlim[1]<- xlim[1]-data@data$data[which.min(data@data$data[,1]),2]
+      xlim[2]<- xlim[2]+data@data$data[which.max(data@data$data[,1]),2]
+      xlim<- range(pretty(xlim))
+      
       # empty plot
       plot(NA,NA,
-           xlim=range(pretty(data@data$data[,1])),
+           xlim=xlim,
            ylim=c(0,2),
            xlab="Equivalent dose [Gy]", 
            ylab="",
@@ -289,21 +310,20 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
       lines(l, col="blue", lwd=1)
       
       # add vertical lines of the mean values
-      points(x = 80, y = 100,type = "l")
+      #points(x = 80, y = 100,type = "l")
       
       #### ------ PLOT DE
       par(new = TRUE)
       
-      x<- data@data$data[,1]
+      # sort the data in ascending order
+      dat<- data@data$data[order(data@data$data[,1]),]
+      
+      x<- dat[,1]
       y<- 1:length(data@data$data[,1])
       
-      # add a dummy value for proper plotting
-      x<- c(x, 1)
-      y<- c(y,length(y)+1)
-      
       plot(x = x, y = y, 
-           xlim=range(pretty(data@data$data[,1])),
-           ylim=c(0,max(y)),
+           xlim=xlim,
+           ylim=c(0, max(y)+1),
            axes = FALSE, 
            pch = 16, 
            xlab = "", 
@@ -314,13 +334,12 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
       axis(side = 4)
       mtext(text = "# Grain / aliquot", side = 4, line = 2.5)
       
-      # remove dummy value again, otherwise error bars will complain
-      x<- x[-length(x)]
-      y<- y[-length(y)]
+      # get sorted errors
+      err<- data@data$data[order(data@data$data[,1]),2]
       
       # fancy error bars
-      arrows(x0 = x-data@data$data[,2], y0 = y, 
-             x1 =  x+data@data$data[,2], y1 = y, 
+      arrows(x0 = x-err, y0 = y, 
+             x1 =  x+err, y1 = y, 
              code = 3, angle = 90, length = 0.05)
       
       ### ---- AUXILLARY

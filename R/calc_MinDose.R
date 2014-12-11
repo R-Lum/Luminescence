@@ -1,6 +1,6 @@
-calc_MinDose<- structure(function( # Apply the (un-)logged three parameter minimum age model (MAM 3) after Galbraith et al. (1999) to a given De distribution
-  ### Function to fit the (un-)logged three parameter minimum dose model 
-  ### (MAM 3) to De data.
+calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution
+  ### Function to fit the (un-)logged three or four parameter minimum dose model 
+  ### (MAM-3/4) to De data.
   
   # ===========================================================================
   ##author<< 
@@ -22,15 +22,15 @@ calc_MinDose<- structure(function( # Apply the (un-)logged three parameter minim
   ### fraction (e.g. 0.2). This value represents the expected overdispersion in
   ### the data should the sample be well-bleached (Cunningham & Walling 2012, p. 100).
   log=TRUE, 
-  ### \code{\link{logical}} (with default): fit the (un-)logged three parameter 
+  ### \code{\link{logical}} (with default): fit the (un-)logged 
   ### minimum dose model to De data
   par=3,
   ### \code{\link{numeric}} (with default): apply the 3- or 4-parametric minimum age
-  ### model (\code{par=3} or \code{par=4}).
+  ### model (\code{par=3} or \code{par=4}). The MAM-3 is used by default.
   bootstrap=FALSE,
   ### \code{\link{logical}} (with default): apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
   boundaries,
-  ### \code{\link{list}}: a named list of boundary values for gamma, sigma and mu
+  ### \code{\link{list}}: a named list of boundary values for gamma, sigma, p0 and mu
   ### to be used in the optimisation routine 
   ### (e.g. \code{list(gamma=c(0.01,100), sigma=c(0.01,5), p0=c(0.01,0.99), mu=c(10, 100))}). 
   ### If no values are provided reasonable values are tried to be estimated from the data.
@@ -592,6 +592,9 @@ calc_MinDose<- structure(function( # Apply the (un-)logged three parameter minim
     poly.four<- lm(pairs[,2] ~ poly(pairs[,1], degree=4, raw=TRUE))  # 4-deg. poly
     poly.five<- lm(pairs[,2] ~ poly(pairs[,1], degree=5, raw=TRUE))  # 5-deg. poly
     poly.six<- lm(pairs[,2] ~ poly(pairs[,1], degree=6, raw=TRUE))   # 6-deg. poly
+    
+    ## --------- FIT LOESS -------------- ##
+    loess<- loess(pairs[,2] ~ pairs[,1])     
   }
   
   ##============================================================================##
@@ -646,6 +649,7 @@ calc_MinDose<- structure(function( # Apply the (un-)logged three parameter minim
     poly.four<- NULL
     poly.five<- NULL
     poly.six<- NULL
+    loess<- NULL
   }
   
   newRLumResults.calc_MinDose<- set_RLum.Results(
@@ -663,7 +667,8 @@ calc_MinDose<- structure(function( # Apply the (un-)logged three parameter minim
                   poly.fits = list(poly.three = poly.three,
                                    poly.four = poly.four,
                                    poly.five = poly.five,
-                                   poly.six = poly.six))))
+                                   poly.six = poly.six),
+                  loess.fit = loess)))
   
   ##=========##
   ## PLOTTING
