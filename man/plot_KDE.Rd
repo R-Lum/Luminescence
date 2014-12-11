@@ -34,8 +34,8 @@ Can be one or more out of: "n" (number of samples), "mean" (mean De
 value), "mean.weighted" (error-weighted mean), "median" (median of 
 the De values), "sdrel" (relative standard deviation in 
 percent), "sdabs" (absolute standard deviation), "serel" (relative 
-standard error), "seabs" (absolute standard error), "skewness" (skewness)
-and "kurtosis" (kurtosis).}
+standard error), "seabs" (absolute standard error), "kdemax" (maximum)
+of the KDE, "skewness" (skewness) and "kurtosis" (kurtosis).}
   \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
 position coordinates or keyword (e.g. \code{"topright"}) for the 
 statistical summary. Alternatively, the keyword \code{"sub"} may be
@@ -145,4 +145,4 @@ lines(x = KDE.x,
       y = KDE.y,
       lwd = 3)
 }
-\section{Function version}{3.3 (2014-11-29 09:50:28)}
+\section{Function version}{3.3 (2014-12-11 12:32:30)}

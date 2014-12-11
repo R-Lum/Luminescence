@@ -22,10 +22,12 @@ is \code{"remove"} (i.e. negative values are removed from the data set).}
 in logarithmic scale. Default is \code{TRUE}.}
   \item{central.value}{\code{\link{numeric}}: User-defined central value, primarily used for
 horizontal centering of the z-axis.}
-  \item{centrality}{\code{\link{character}} (with default): measure of centrality, used for
-automatically centering the plot and drawing the central line. Can be
-one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"}, 
-and \code{"median.weighted"}. Default is \code{"mean.weighted"}.}
+  \item{centrality}{\code{\link{character}} or \code{\link{numeric}} (with default): 
+measure of centrality, used for automatically centering the plot and 
+drawing the central line. Can either be one out of \code{"mean"}, 
+\code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
+or a numeric value used for the standardisation. Default is 
+\code{"mean.weighted"}.}
   \item{mtext}{\code{\link{character}}: additional text below the plot title.}
   \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
 Can be one or more out of: "n" (number of samples), "mean" (mean De 
@@ -212,4 +214,4 @@ plot_RadialPlot(data = data.3,
 ## restore original graphical parameters
 par(par.old)
 }
-\section{Function version}{0.5.2 (2014-11-30 23:30:37)}
+\section{Function version}{0.5.2 (2014-12-11 12:32:30)}

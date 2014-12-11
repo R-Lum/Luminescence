@@ -28,7 +28,7 @@ calc_MinDose<- structure(function( # Apply the (un-)logged three parameter minim
   ### \code{\link{numeric}} (with default): apply the 3- or 4-parametric minimum age
   ### model (\code{par=3} or \code{par=4}).
   bootstrap=FALSE,
-  ### code{\link{logical}} (with default): apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
+  ### \code{\link{logical}} (with default): apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
   boundaries,
   ### \code{\link{list}}: a named list of boundary values for gamma, sigma and mu
   ### to be used in the optimisation routine 

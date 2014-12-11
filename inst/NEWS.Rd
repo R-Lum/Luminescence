@@ -392,6 +392,7 @@
         \item minor modifications of layout definitions (#124),
         \item \code{grid.col} bug fixed (#149),
         \item error message for data with zero or without errors added (#154),
+        \item age models as input for lines supported (#107),
         \item support of \code{par(mfcol())}.
         
       }
@@ -431,7 +432,8 @@
         \item support of \code{par(mfcol())} (#146),
         \item support of data without and \code{NA}-values for error values (#152, #162),
         \item implementation of \code{calc_Stats()}-call for extended statistic summary,
-        \item support of summary keywords "kurtosis" and "skewness"
+        \item support of summary keywords "kurtosis" and "skewness",
+        \item example y-lim bug removed (#177).
         
       
       }
@@ -443,7 +445,8 @@
         \item renaming and extension of summary and \code{summary.pos} parameter,
         \item plot now longer shows a density error when no error exists (#160),
         \item De.stats error fixed (#163),
-        \item support of \code{par(mfcol())}.
+        \item support of \code{par(mfcol())},
+        \item support of error-free data extended (now also for calculation of kde max) (#178).
       
       }
       
@@ -479,6 +482,11 @@
       
       }   
    
+   \item \code{plot_RLum.Analysis()}:
+      \itemize{
+      
+     \item support of user-defined centrality value. 
+    }
    
     \item \code{plot_RLum.Analysis()}:
       \itemize{

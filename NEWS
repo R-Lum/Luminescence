@@ -433,6 +433,8 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • error message for data with zero or without errors added
                (#154),
 
+             • age models as input for lines supported (#107),
+
              • support of ‘par(mfcol())’.
 
          • ‘plot_DRTResults()’:
@@ -476,7 +478,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • implementation of ‘calc_Stats()’-call for extended
                statistic summary,
 
-             • support of summary keywords "kurtosis" and "skewness"
+             • support of summary keywords "kurtosis" and "skewness",
+
+             • example y-lim bug removed (#177).
 
          • ‘plot_KDE()’:
 
@@ -490,7 +494,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • De.stats error fixed (#163),
 
-             • support of ‘par(mfcol())’.
+             • support of ‘par(mfcol())’,
+
+             • support of error-free data extended (now also for
+               calculation of kde max) (#178).
 
          • ‘plot_GrowthCurve()’:
 
@@ -523,6 +530,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                error,
 
              • minor code polishing and adjustment.
+
+         • ‘plot_RLum.Analysis()’:
+
+             • support of user-defined centrality value.
 
          • ‘plot_RLum.Analysis()’:
 

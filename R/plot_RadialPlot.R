@@ -36,10 +36,12 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   ### horizontal centering of the z-axis.
   
   centrality = "mean.weighted",
-  ### \code{\link{character}} (with default): measure of centrality, used for
-  ### automatically centering the plot and drawing the central line. Can be
-  ### one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"}, 
-  ### and \code{"median.weighted"}. Default is \code{"mean.weighted"}.
+  ### \code{\link{character}} or \code{\link{numeric}} (with default): 
+  ### measure of centrality, used for automatically centering the plot and 
+  ### drawing the central line. Can either be one out of \code{"mean"}, 
+  ### \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
+  ### or a numeric value used for the standardisation. Default is 
+  ### \code{"mean.weighted"}.
   
   mtext,
   ### \code{\link{character}}: additional text below the plot title.
@@ -293,44 +295,55 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
 
   rm(se)
   
-  ## calculate central values
-  if(centrality == "mean") {
-    z.central <- lapply(1:length(data), function(x){
-      rep(mean(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-  } else if(centrality == "median") {
-    z.central <- lapply(1:length(data), function(x){
-      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-  } else  if(centrality == "mean.weighted") {
-    z.central <- lapply(1:length(data), function(x){
-      sum(data[[x]][,3] / data[[x]][,4]^2) / 
-        sum(1 / data[[x]][,4]^2)})
-  } else if(centrality == "median.weighted") {
-    ## define function after isotone::weighted.mean
-    median.w <- function (y, w)
-    {
-      ox <- order(y)
-      y <- y[ox]
-      w <- w[ox]
-      k <- 1
-      low <- cumsum(c(0, w))
-      up <- sum(w) - low
-      df <- low - up
-      repeat {
-        if (df[k] < 0) 
-          k <- k + 1
-        else if (df[k] == 0) 
-          return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] + 
-                                                        w[k - 1]))
-        else return(y[k - 1])
-      }
+## calculate central values
+if(centrality[1] == "mean") {
+  z.central <- lapply(1:length(data), function(x){
+    rep(mean(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
+} else if(centrality[1] == "median") {
+  z.central <- lapply(1:length(data), function(x){
+    rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
+} else  if(centrality[1] == "mean.weighted") {
+  z.central <- lapply(1:length(data), function(x){
+    sum(data[[x]][,3] / data[[x]][,4]^2) / 
+      sum(1 / data[[x]][,4]^2)})
+} else if(centrality[1] == "median.weighted") {
+  ## define function after isotone::weighted.median
+  median.w <- function (y, w)
+  {
+    ox <- order(y)
+    y <- y[ox]
+    w <- w[ox]
+    k <- 1
+    low <- cumsum(c(0, w))
+    up <- sum(w) - low
+    df <- low - up
+    repeat {
+      if (df[k] < 0) 
+        k <- k + 1
+      else if (df[k] == 0) 
+        return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
+      else return(y[k - 1])
     }
-    z.central <- lapply(1:length(data), function(x){
-      rep(median.w(y = data[[x]][,3], 
-                   w = data[[x]][,4]), length(data[[x]][,3]))})
-  } else {
-    stop("Measure of centrality not supported!")
   }
-  
+  z.central <- lapply(1:length(data), function(x){
+    rep(median.w(y = data[[x]][,3], 
+                 w = data[[x]][,4]), length(data[[x]][,3]))})
+} else if(is.numeric(centrality) == TRUE & 
+            length(centrality) == length(data)) {
+  z.central.raw <- if(log.z == TRUE) {
+    log(centrality)
+  } else {
+    centrality
+  }
+  z.central <- lapply(1:length(data), function(x){
+    rep(z.central.raw[x], length(data[[x]][,3]))})
+} else if(is.numeric(centrality) == TRUE & 
+            length(centrality) > length(data)) {
+  z.central <- lapply(1:length(data), function(x){
+    rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
+} else {
+  stop("Measure of centrality not supported!")
+}  
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], z.central[[x]])})
   rm(z.central)
@@ -373,37 +386,40 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
                              "std.estimate", 
                              "std.estimate.plot")
 
-  ## calculate global central value
-  if(centrality == "mean") {
-    z.central.global <- mean(data.global[,3], na.rm = TRUE)
-  } else if(centrality == "median") {
-    z.central.global <- median(data.global[,3], na.rm = TRUE)
-  } else  if(centrality == "mean.weighted") {
-    z.central.global <- sum(data.global[,3] / data.global[,4]^2) / 
-      sum(1 / data.global[,4]^2)
-  } else if(centrality == "median.weighted") {
-    ## define function after isotone::weighted.mean
-    median.w <- function (y, w) 
-    {
-      ox <- order(y)
-      y <- y[ox]
-      w <- w[ox]
-      k <- 1
-      low <- cumsum(c(0, w))
-      up <- sum(w) - low
-      df <- low - up
-      repeat {
-        if (df[k] < 0) 
-          k <- k + 1
-        else if (df[k] == 0) 
-          return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] + 
-                                                        w[k - 1]))
-        else return(y[k - 1])
-      }
+## calculate global central value
+if(centrality[1] == "mean") {
+  z.central.global <- mean(data.global[,3], na.rm = TRUE)
+} else if(centrality[1] == "median") {
+  z.central.global <- median(data.global[,3], na.rm = TRUE)
+} else  if(centrality[1] == "mean.weighted") {
+  z.central.global <- sum(data.global[,3] / data.global[,4]^2) / 
+    sum(1 / data.global[,4]^2)
+} else if(centrality[1] == "median.weighted") {
+  ## define function after isotone::weighted.mean
+  median.w <- function (y, w) 
+  {
+    ox <- order(y)
+    y <- y[ox]
+    w <- w[ox]
+    k <- 1
+    low <- cumsum(c(0, w))
+    up <- sum(w) - low
+    df <- low - up
+    repeat {
+      if (df[k] < 0) 
+        k <- k + 1
+      else if (df[k] == 0) 
+        return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] + 
+                                                      w[k - 1]))
+      else return(y[k - 1])
     }
-    z.central.global <- median.w(y = data.global[,3], w = data.global[,4])
   }
-  
+  z.central.global <- median.w(y = data.global[,3], w = data.global[,4])
+} else if(is.numeric(centrality) == TRUE & 
+            length(centrality == length(data))) {
+  z.central.global <- mean(data.global[,3], na.rm = TRUE)
+} 
+
   ## optionally adjust zentral value by user-defined value
   if(missing(central.value) == FALSE) {
     
@@ -535,11 +551,11 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
       rep(1, length(data))
     }
   
-  col <- if("col" %in% names(extraArgs)) {
-    extraArgs$col
-    } else {
-      1:length(data)
-    }
+  if("col" %in% names(extraArgs)) {
+    col <- extraArgs$col
+  } else {
+     col <- 1:length(data)
+  }
   
   tck <- if("tck" %in% names(extraArgs)) {
     extraArgs$tck

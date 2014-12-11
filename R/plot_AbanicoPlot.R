@@ -5,13 +5,12 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   
   # ===========================================================================
   ##author<<
-  ## Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, JLU Giessen 
-  ## (Germany)\cr
+  ## Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, 
+  ## Unversite Bordeaux Montaigne (France)\cr
   ## Inspired by a plot introduced by Galbraith & Green (1990)\cr
   
   ##section<<
   ## version 0.1.1
-  ## date: 2014-08-21
   # ===========================================================================
   
   data,
@@ -1226,7 +1225,28 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
 
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
-    if(log.z == TRUE) {line <- log(line)}
+
+    ## check if line parameters are R.Lum-objects
+    for(i in 1:length(line)) {
+      if(is.list(line) == TRUE) { 
+        if(is(line[[i]], "RLum.Results")) {
+          line[[i]] <- as.numeric(get_RLum.Results(object = line[[i]], 
+                                                   data.object = "summary")$de)
+        }
+      } else if(is(object = line, class2 = "RLum.Results")) {
+        line <- as.numeric(get_RLum.Results(object = line, 
+                                            data.object = "summary")$de)
+      }
+    }
+    print(line)
+    ## convert list to vector
+    if(is.list(line) == TRUE) {
+      line <- unlist(line)
+    }
+
+    if(log.z == TRUE) {
+      line <- log(line)
+    }
     
     line.coords <- list(NA)
     
@@ -2516,19 +2536,16 @@ if(rotate == FALSE) {
                    centrality = "median", 
                    dispersion = "qr")
   
-#   ## now with user-defined green line for MAM3 (i.e. 2936.3)
-#   MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
+  ## now with user-defined green line for minimum age model
+#   MAM <- calc_MinDose(data = ExampleData.DeValues,
 #                        sigmab = 0.3,
-#                        gamma.xub = 7000, 
-#                        output.plot = FALSE)
-#   
-#   MAM <- as.numeric(get_RLum.Results(object = MAM, 
-#                                      data.object = "results")$mindose)
-#   
+#                        par = 3,
+#                        plot = FALSE)
+  
 #   plot_AbanicoPlot(data = ExampleData.DeValues,
 #                    line = MAM,
 #                    line.col = "darkgreen",
-#                    line.label = "MAM3-dose")
+#                    line.label = "MAM")
 
   ## now create plot with legend, colour, different points and smaller scale
   plot_AbanicoPlot(data = ExampleData.DeValues,

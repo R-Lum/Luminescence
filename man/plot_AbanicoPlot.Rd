@@ -134,8 +134,8 @@ modified by the user by assigning new values to the list object.}
 finite mixture. International Journal of Radiation Applications and 
 Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 
 (3), pp. 197-206. }
-\author{Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, JLU Giessen 
-(Germany)\cr
+\author{Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, 
+Unversite Bordeaux Montaigne (France)\cr
 Inspired by a plot introduced by Galbraith & Green (1990)\cr
 R Luminescence Package Team}
 
@@ -194,19 +194,16 @@ R Luminescence Package Team}
                    centrality = "median", 
                    dispersion = "qr")
   
-#   ## now with user-defined green line for MAM3 (i.e. 2936.3)
-#   MAM <- calc_MinDose3(input.data = ExampleData.DeValues,
+  ## now with user-defined green line for minimum age model
+#   MAM <- calc_MinDose(data = ExampleData.DeValues,
 #                        sigmab = 0.3,
-#                        gamma.xub = 7000, 
-#                        output.plot = FALSE)
-#   
-#   MAM <- as.numeric(get_RLum.Results(object = MAM, 
-#                                      data.object = "results")$mindose)
-#   
+#                        par = 3,
+#                        plot = FALSE)
+  
 #   plot_AbanicoPlot(data = ExampleData.DeValues,
 #                    line = MAM,
 #                    line.col = "darkgreen",
-#                    line.label = "MAM3-dose")
+#                    line.label = "MAM")
 
   ## now create plot with legend, colour, different points and smaller scale
   plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -296,4 +293,4 @@ R Luminescence Package Team}
   ## restore original graphical parameters
   par(par.old)
 }
-\section{Function version}{0.1.1 (2014-12-02 12:06:12)}
+\section{Function version}{0.1.1 (2014-12-11 12:53:22)}

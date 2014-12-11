@@ -56,8 +56,8 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   ### value), "mean.weighted" (error-weighted mean), "median" (median of 
   ### the De values), "sdrel" (relative standard deviation in 
   ### percent), "sdabs" (absolute standard deviation), "serel" (relative 
-  ### standard error), "seabs" (absolute standard error), "skewness" (skewness)
-  ### and "kurtosis" (kurtosis).
+  ### standard error), "seabs" (absolute standard error), "kdemax" (maximum)
+  ### of the KDE, "skewness" (skewness) and "kurtosis" (kurtosis).
   
   summary.pos,
   ### \code{\link{numeric}} or \code{\link{character}} (with default): optional  
@@ -222,10 +222,9 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
     De.density.range[i,2] <- max(De.density[[i]]$x)
     De.density.range[i,3] <- min(De.density[[i]]$y)
     De.density.range[i,4] <- max(De.density[[i]]$y)
-    
+
     ## position of maximum KDE value
-    De.stats[i,6] <- De.density[[i]]$x[
-    De.density[[i]]$y == (max(De.density[[i]]$y))]
+    De.stats[i,6] <- De.density[[i]]$x[which.max(De.density[[i]]$y)]
   }
   
   ## Get global range of densities
@@ -294,6 +293,12 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
         ifelse("serel" %in% summary == TRUE,
                paste("rel. se = ", 
                      round(De.stats[i,10], 2), " %",
+                     "\n", 
+                     sep = ""),
+               ""),
+        ifelse("kdemax" %in% summary == TRUE,
+               paste("kde max = ", 
+                     round(De.stats[i,6], 2),
                      "\n", 
                      sep = ""),
                ""),
@@ -367,6 +372,12 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
         ifelse("seabs" %in% summary == TRUE,
                paste("abs. se = ", 
                      round(De.stats[i,9], 2),
+                     " | ", 
+                     sep = ""),
+               ""),
+        ifelse("kdemax" %in% summary == TRUE,
+               paste("kde max = ", 
+                     round(De.stats[i,6], 2),
                      " | ", 
                      sep = ""),
                ""),

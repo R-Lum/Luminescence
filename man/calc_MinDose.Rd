@@ -16,7 +16,7 @@ the data should the sample be well-bleached (Cunningham & Walling 2012, p. 100).
 minimum dose model to De data}
   \item{par}{\code{\link{numeric}} (with default): apply the 3- or 4-parametric minimum age
 model (\code{par=3} or \code{par=4}).}
-  \item{bootstrap}{code{\link{logical}} (with default): apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
+  \item{bootstrap}{\code{\link{logical}} (with default): apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
   \item{boundaries}{\code{\link{list}}: a named list of boundary values for gamma, sigma and mu
 to be used in the optimisation routine 
 (e.g. \code{list(gamma=c(0.01,100), sigma=c(0.01,5), p0=c(0.01,0.99), mu=c(10, 100))}). 
@@ -130,4 +130,4 @@ get_RLum.Results(mam, "summary")
 # plot the log likelihood profiles retroactively
 plot_RLum.Results(mam)
 }
-\section{Function version}{0.4 (2014-12-02 16:07:04)}
+\section{Function version}{0.4 (2014-12-11 12:45:57)}
