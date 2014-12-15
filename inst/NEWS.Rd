@@ -104,6 +104,10 @@
     
     }
     
+    
+   \item \code{Risoe.BINfileData-class}: Description updated due to established changes 
+   made for a better file format support. 
+    
     \item \code{Risoe.BINfileData2RLum.Analysis()}: If the \code{pos} value
     is invalid now the function does not return an error any longer. Instead 
     \code{NA} is returned.
@@ -393,7 +397,11 @@
         \item \code{grid.col} bug fixed (#149),
         \item error message for data with zero or without errors added (#154),
         \item age models as input for lines supported (#107),
-        \item support of \code{par(mfcol())}.
+        \item support of \code{par(mfcol())}l,
+        \item bug in lower z-axis limit eliminated,
+        \item example list updated (i.e. fast CAM instead of slow MAM)
+        \item bug for small values fixed, rounding to 0 decimals replaced by 3 significant digits,
+        \item parameter \code{at} to allow user-defined z-tick positions.
         
       }
       
@@ -482,10 +490,12 @@
       
       }   
    
-   \item \code{plot_RLum.Analysis()}:
+   \item \code{plot_RadialPlot()}:
       \itemize{
       
-     \item support of user-defined centrality value. 
+     \item support of user-defined centrality value,
+     \item rug option added,
+     \item bug for small values fixed, rounding to 0 decimals replaced by 3 significant digits.
     }
    
     \item \code{plot_RLum.Analysis()}:
@@ -546,7 +556,15 @@
       \itemize{
       
         \item Integrity checks added to avoid unspecific errors for wrong input 
-        formats. 
+        formats, 
+        
+        \item complete format support as now a more throughtful distinction is made between
+        version 03 and 04 (also made for function \code{writeR2BIN()}) (#182),
+        
+        \item \code{TAG} bit is now used to trigger the \code{SEL} element during import. 
+        With this, previous curve selections made with other software are kept 
+        (#181, Norbert Mercier). 
+        
       
       }
       
@@ -557,14 +575,22 @@
         makes the curve types more consistent with the commonly applied nomenclature,
         
         \item now the function automatically converts time values to temperature values also 
-        for spectra data (#121); behavious is triggered with the argument \code{recalculate.TL.curves}
+        for spectra data (#121); behavious is triggered with the argument \code{recalculate.TL.curves}.
       
       }
       
-    
-   
-   
-   
+      
+   \item \code{writeBIN2R()}:
+      \itemize{
+      
+       \item Complete format support as now a more throughtful distinction is made between
+        version 03 and 04 (also made for function \code{readBIN2R()}) (#182), 
+        
+        \item \code{SEL} will now be kept using the \code{TAG} bit, releated to changes made
+        in function \code{readBIN2R} (#181, Norbert Mercier).
+      
+      }
+      
    }
    
  }

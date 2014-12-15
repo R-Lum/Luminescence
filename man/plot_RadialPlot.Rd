@@ -5,9 +5,9 @@
 scale.}
 \usage{plot_RadialPlot(data, na.exclude = TRUE, negatives = "remove", 
     log.z = TRUE, central.value, centrality = "mean.weighted", 
-    mtext, summary, summary.pos, legend, legend.pos, stats, plot.ratio, 
-    bar.col, y.ticks = TRUE, grid.col, line, line.col, line.label, 
-    output = FALSE, ...)}
+    mtext, summary, summary.pos, legend, legend.pos, stats, rug = FALSE, 
+    plot.ratio, bar.col, y.ticks = TRUE, grid.col, line, line.col, 
+    line.label, output = FALSE, ...)}
 \arguments{
   \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
 (required): for \code{data.frame} two columns: De (\code{data[,1]})
@@ -22,25 +22,23 @@ is \code{"remove"} (i.e. negative values are removed from the data set).}
 in logarithmic scale. Default is \code{TRUE}.}
   \item{central.value}{\code{\link{numeric}}: User-defined central value, primarily used for
 horizontal centering of the z-axis.}
-  \item{centrality}{\code{\link{character}} or \code{\link{numeric}} (with default): 
-measure of centrality, used for automatically centering the plot and 
-drawing the central line. Can either be one out of \code{"mean"}, 
-\code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
-or a numeric value used for the standardisation. Default is 
-\code{"mean.weighted"}.}
+  \item{centrality}{\code{\link{character}} (with default): measure of centrality, used for
+automatically centering the plot and drawing the central line. Can be
+one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"}, 
+and \code{"median.weighted"}. Default is \code{"mean.weighted"}.}
   \item{mtext}{\code{\link{character}}: additional text below the plot title.}
   \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
-Can be one or more out of: "n" (number of samples), "mean" (mean De 
-value), "mean.weighted" (error-weighted mean), "median" (median of 
-the De values), "sdrel" (relative standard deviation in 
-percent), "sdabs" (absolute standard deviation), "serel" (relative 
-standard error), "seabs" (absolute standard error) and "in.ci" (percent
+Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De 
+value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of 
+the De values), \code{"sdrel"} (relative standard deviation in 
+percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative 
+standard error), \code{"seabs"} (absolute standard error) and \code{"in.ci"} (percent
 of samples in confidence interval, e.g. 2-sigma).}
   \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
 position coordinates or keyword (e.g. \code{"topright"}) for the 
 statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this
-latter option in only possible if \code{mtext} is not used.}
+latter option is only possible if \code{mtext} is not used.}
   \item{legend}{\code{\link{character}} vector (optional): legend content to be added
 to the plot.}
   \item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
@@ -49,6 +47,8 @@ to be plotted.}
   \item{stats}{\code{\link{character}}: additional labels of statistically important
 values in the plot. One or more out of the following: \code{"min"}, 
 \code{"max"}, \code{"median"}.}
+  \item{rug}{\code{\link{logical}}: Option to add a rug to the z-scale, to indicate
+the location of individual values}
   \item{plot.ratio}{\code{\link{numeric}}: User-defined plot area ratio (i.e. curvature of
 the z-axis). If omitted, the default value (\code{4.5/5.5}) is used and
 modified automatically to optimise the z-axis curvature. 
@@ -122,9 +122,6 @@ R Luminescence Package Team}
 
 \seealso{\code{\link{plot}}, \code{\link{plot_KDE}}, \code{\link{plot_Histogram}}}
 \examples{
-## store original graphics parameters
-par.old <- par(no.readonly = TRUE)
-
 ## load example data
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- 
@@ -155,6 +152,10 @@ plot_RadialPlot(data = ExampleData.DeValues,
 ## now with user-defined central value, in log-scale again
 plot_RadialPlot(data = ExampleData.DeValues,
                 central.value = 150)
+
+## now with a rug, indicating individual De values at the z-scale
+plot_RadialPlot(data = ExampleData.DeValues,
+                rug = TRUE)
 
 ## now with legend, colour, different points and smaller scale
 plot_RadialPlot(data = ExampleData.DeValues,
@@ -210,8 +211,5 @@ plot_RadialPlot(data = data.3,
                 summary = c("n", "in.ci"),
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
-
-## restore original graphical parameters
-par(par.old)
 }
-\section{Function version}{0.5.2 (2014-12-11 12:32:30)}
+\section{Function version}{0.5.2 (2014-12-12 10:11:23)}

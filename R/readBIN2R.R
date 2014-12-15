@@ -5,7 +5,7 @@ readBIN2R <- structure(function(#Import Risoe BIN-file into R
   # ===========================================================================
   ##author<<
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
-  ## Margret C. Fuchs, AWI Postdam (Germany),\cr
+  ## Margret C. Fuchs, AWI Potsdam (Germany),\cr
   
   ##section<<
   ## version 0.7.1
@@ -111,11 +111,14 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
   IRR_DOSERATEERR <- NA
   TIMESINCEIRR <- NA
   TIMETICK <- NA     
-  ONTIME <- NA   
+  ONTIME <- NA 
+  OFFTIME <- NA
   STIMPERIOD <- NA
-  GATE_ENABLED <- raw(length = 1)      
+  GATE_ENABLED <- raw(length = 1)   
+  ENABLE_FLAGS <- raw(length = 1) 
   GATE_START <- NA
   GATE_STOP <- NA
+  GATE_END <- NA
   PTENABLED <- raw(length = 1)
   DTENABLED <- raw(length = 1)
   DEADTIME <- NA   
@@ -131,7 +134,7 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
   ##show warning if version number check has been cheated
   
   if(missing(forced.VersionNumber) == FALSE){
-    warning("[readBIN2R.R]: Argument 'forced.VersionNumber' has been used. BIN-file version might not be supported!")
+    warning("Argument 'forced.VersionNumber' has been used. BIN-file version might not be supported!")
   }
 
 #open connection
@@ -141,7 +144,7 @@ con<-file(file, "rb")
    file.size<-file.info(file)
 
    ##output
-   cat(paste("\n[readBIN2R.R]\n\t >> ",file,sep=""), fill=TRUE)
+   cat(paste("\n[readBIN2R()]\n\t >> ",file,sep=""), fill=TRUE)
     
    ##set progressbar
    if(txtProgressBar==TRUE){
@@ -171,7 +174,7 @@ while(length(VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
         close(con)
           
         ##show error message
-        error.text <- paste("[readBIN2R] Error: The BIN format version (",VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+        error.text <- paste("[readBIN2R()] The BIN format version (",VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
         
         stop(error.text)
       
@@ -190,7 +193,7 @@ while(length(VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
       #empty byte position
       EMPTY<-readBin(con, what="raw", 1, size=1, endian="litte")
       
-  # ==========================================================================      
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      
   # BINX FORMAT SUPPORT -----------------------------------------------------
   if(VERSION==06){
     
@@ -400,9 +403,9 @@ while(length(VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
     #DPOINTS
     DPOINTS<-readBin(con, what="integer", NPOINTS, size=4, endian="little")
     
-  }else{
-  ## =========================================================================    
-  ##START BIN FILE FORMAT SUPPORT  
+  }else if(VERSION == 04 | VERSION == 03){
+  ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    
+  ##START BIN FILE FORMAT SUPPORT  (vers. 03 and 04)
  
   ##LENGTH, PREVIOUS, NPOINTS, LTYPE
   temp <- readBin(con, what="int", 3, size=2, endian="little") 
@@ -544,15 +547,79 @@ while(length(VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
   ##SYSTEMID    
   SYSTEMID<-readBin(con, what="integer", 1, size=2, endian="little")
   
-  ##RESERVED    
-  RESERVED<-readBin(con, what="raw", 54, size=1, endian="little")
+  ##Unfortunately an inconsitent BIN-file structure forces a differenciation ... 
+  if(VERSION == 03){
+  
+    ##RESERVED    
+    RESERVED<-readBin(con, what="raw", 36, size=1, endian="little")
+    
+    ##ONTIME, OFFTIME
+    temp <- readBin(con, what="double", 2, size=4, endian="little")
+  
+      ONTIME <- temp[1]
+      OFFTIME <- temp[2]
 
+  
+    ##Enable flags  #GateEnabled for v 06
+    ENABLE_FLAGS <- readBin(con, what="raw", 1, size=1, endian="little") 
+    GATE_ENABLED <- ENABLE_FLAGS 
+  
+    ##ONGATEDELAY, OFFGATEDELAY
+    temp <- readBin(con, what="double", 2, size=4, endian="little")
+    
+    GATE_START <- temp[1]
+    GATE_STOP <- temp[2]
+  
+    ##RESERVED    
+    RESERVED<-readBin(con, what="raw", 1, size=1, endian="little")
+   
+  }else{
+    
+    ##RESERVED    
+    RESERVED<-readBin(con, what="raw", 20, size=1, endian="little")
+        
+    ##CURVENO    
+    CURVENO <- readBin(con, what="integer", 1, size=2, endian="little")
+    
+    ##TIMETICK
+    TIMETICK <- readBin(con, what="double", 1, size=4, endian="little")
+    
+    ##ONTIME, STIMPERIOD
+    temp <- readBin(con, what="integer", 2, size=4, endian="little")
+    
+      ONTIME <- temp[1]
+      STIMPERIOD <- temp[2]
+    
+    ##GATE_ENABLED
+    GATE_ENABLED <- readBin(con, what="raw", 1, size=1, endian="little") 
+    
+    ##ONGATEDELAY, OFFGATEDELAY
+    temp <- readBin(con, what="double", 2, size=4, endian="little")
+    
+      GATE_START <- temp[1]
+      GATE_END <- temp[2]
+      GATE_STOP <- GATE_END
+    
+    ##PTENABLED
+    PTENABLED <- readBin(con, what="raw", 1, size=1, endian="little")
+  
+    ##RESERVED    
+    RESERVED<-readBin(con, what="raw", 10, size=1, endian="little")
+    
+    
+  }
+    
+    
   #DPOINTS
   DPOINTS<-readBin(con, what="integer", NPOINTS, size=4, endian="little")
       
+
+  }else{
   
-  
-  }#endif:format support       
+    stop("[readBIN2R()] Unsupported BIN/BINX-file version.")
+    
+  }  
+  #endif:format support       
   ##END BIN FILE FORMAT SUPPORT
   ## ==========================================================================#
   
@@ -575,7 +642,7 @@ while(length(VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
   ##set data.frame for output or append data on data.frame    
   if(exists("results")==FALSE) {
     results<-data.frame(ID=ID,
-                        SEL=TRUE,
+                        SEL=ifelse(TAG == 1, TRUE, FALSE),
                         VERSION=VERSION,
                         LENGTH=LENGTH,
                         PREVIOUS=PREVIOUS,
@@ -630,8 +697,10 @@ while(length(VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
                         TIMESINCEIRR = TIMESINCEIRR,
                         TIMETICK = TIMETICK, 
                         ONTIME = ONTIME, 
+                        OFFTIME = OFFTIME,
                         STIMPERIOD = STIMPERIOD, 
                         GATE_ENABLED = GATE_ENABLED, 
+                        ENABLE_FLAGS = ENABLE_FLAGS,
                         GATE_START  = GATE_START, 
                         GATE_STOP = GATE_STOP, 
                         PTENABLED = PTENABLED, 
@@ -651,7 +720,7 @@ while(length(VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
                       DATA<-list(DPOINTS)
   }else{
   temp<-data.frame(ID=ID,
-                   SEL=TRUE,
+                   SEL=ifelse(TAG == 1, TRUE, FALSE),
                    VERSION=VERSION,
                    LENGTH=LENGTH,
                    PREVIOUS=PREVIOUS,
@@ -706,8 +775,10 @@ while(length(VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
                    TIMESINCEIRR = TIMESINCEIRR,
                    TIMETICK = TIMETICK, 
                    ONTIME = ONTIME, 
+                   OFFTIME = OFFTIME,
                    STIMPERIOD = STIMPERIOD, 
-                   GATE_ENABLED = GATE_ENABLED, 
+                   GATE_ENABLED = GATE_ENABLED,
+                   ENABLE_FLAGS = ENABLE_FLAGS,
                    GATE_START  = GATE_START, 
                    GATE_STOP = GATE_STOP, 
                    PTENABLED = PTENABLED, 

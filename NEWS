@@ -91,6 +91,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
                function ‘calc_TLLxTxRatio()’. Now it works similar to
                the function ‘calc_OSLLxTxRatio()’.
 
+         • ‘Risoe.BINfileData-class’: Description updated due to
+           established changes made for a better file format support.
+
          • ‘Risoe.BINfileData2RLum.Analysis()’: If the ‘pos’ value is
            invalid now the function does not return an error any
            longer. Instead ‘NA’ is returned.
@@ -435,7 +438,16 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • age models as input for lines supported (#107),
 
-             • support of ‘par(mfcol())’.
+             • support of ‘par(mfcol())’l,
+
+             • bug in lower z-axis limit eliminated,
+
+             • example list updated (i.e. fast CAM instead of slow MAM)
+
+             • bug for small values fixed, rounding to 0 decimals
+               replaced by 3 significant digits,
+
+             • parameter ‘at’ to allow user-defined z-tick positions.
 
          • ‘plot_DRTResults()’:
 
@@ -531,9 +543,14 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • minor code polishing and adjustment.
 
-         • ‘plot_RLum.Analysis()’:
+         • ‘plot_RadialPlot()’:
 
-             • support of user-defined centrality value.
+             • support of user-defined centrality value,
+
+             • rug option added,
+
+             • bug for small values fixed, rounding to 0 decimals
+               replaced by 3 significant digits.
 
          • ‘plot_RLum.Analysis()’:
 
@@ -585,7 +602,16 @@ Changes in version 0.4.0 (XX XXXX, 2014):
          • ‘readBIN2R()’:
 
              • Integrity checks added to avoid unspecific errors for
-               wrong input formats.
+               wrong input formats,
+
+             • complete format support as now a more throughtful
+               distinction is made between version 03 and 04 (also made
+               for function ‘writeR2BIN()’) (#182),
+
+             • ‘TAG’ bit is now used to trigger the ‘SEL’ element
+               during import.  With this, previous curve selections
+               made with other software are kept (#181, Norbert
+               Mercier).
 
          • ‘readXSYG2R()’:
 
@@ -596,7 +622,17 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • now the function automatically converts time values to
                temperature values also for spectra data (#121);
                behavious is triggered with the argument
-               ‘recalculate.TL.curves’
+               ‘recalculate.TL.curves’.
+
+         • ‘writeBIN2R()’:
+
+             • Complete format support as now a more throughtful
+               distinction is made between version 03 and 04 (also made
+               for function ‘readBIN2R()’) (#182),
+
+             • ‘SEL’ will now be kept using the ‘TAG’ bit, releated to
+               changes made in function ‘readBIN2R’ (#181, Norbert
+               Mercier).
 
   Internals:
 

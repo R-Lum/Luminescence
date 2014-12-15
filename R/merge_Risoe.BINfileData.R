@@ -1,9 +1,9 @@
 merge_Risoe.BINfileData <- structure(function(#Merge Risoe.BINfileData objects or Risoe BIN-files
-  ### Function allows merging Risoe BIN files or Risoe.BINfileData objects.
+  ### Function allows merging Risoe BIN/BINX files or Risoe.BINfileData objects.
    
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen (Germany),\cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
   
   ##section<<
   ## version 0.2
@@ -38,8 +38,7 @@ merge_Risoe.BINfileData <- structure(function(#Merge Risoe.BINfileData objects o
 
   if(length(input.objects) < 2){
     
-    stop("[merge_Risoe.BINfileData] 
-                Error: At least two input objects are needed!")    
+    stop("[merge_Risoe.BINfileData()] At least two input objects are needed!")    
     
   }
 
@@ -49,8 +48,7 @@ merge_Risoe.BINfileData <- structure(function(#Merge Risoe.BINfileData objects o
         
         if(file.exists(input.objects[i])==FALSE){
           
-          stop("[merge_Risoe.BINfileData] 
-                Error: File",input.objects[i],"does not exists!")
+          stop("[merge_Risoe.BINfileData()] File",input.objects[i],"does not exists!")
           
         }
         
@@ -64,8 +62,7 @@ merge_Risoe.BINfileData <- structure(function(#Merge Risoe.BINfileData objects o
         
         if(is(input.objects[[i]], "Risoe.BINfileData") == FALSE){
           
-          stop("[merge_Risoe.BINfileData] 
-                Error: Input list does not contain Risoe.BINfileData objects!")
+          stop("[merge_Risoe.BINfileData()] Input list does not contain Risoe.BINfileData objects!")
           
         }
         

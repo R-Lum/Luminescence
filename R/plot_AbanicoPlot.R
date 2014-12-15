@@ -279,8 +279,12 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                   (1.1 + z.span) * max(De.global))
   }
   
-  ticks <- round(pretty(limits.z, n = 5), 3)
-  
+  if("at" %in% names(extraArgs)) {
+    ticks <- extraArgs$at
+  } else {
+    ticks <- round(pretty(limits.z, n = 5), 3)
+  }
+
   ## check for negative values
   if(min(De.global) <= 0) {
     stop("[plot_AbanicoPlot] Error: Data contains negative or zero values.")
@@ -666,11 +670,16 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   
   ## calculate conversion factor for plot coordinates
   f <- 10^-6
-  
+
   ## calculate major and minor z-tick values
-  tick.values.major <- round(pretty(limits.z, n = 5), 0)
-  tick.values.minor <- round(pretty(limits.z, n = 25), 0)
-  
+  if("at" %in% names(extraArgs)) {
+    tick.values.major <- extraArgs$at
+    tick.values.minor <- extraArgs$at
+  } else {
+    tick.values.major <- signif(pretty(limits.z, n = 5), 3)
+    tick.values.minor <- signif(pretty(limits.z, n = 25), 3)
+  }  
+
   tick.values.major <- tick.values.major[tick.values.major >= 
     min(tick.values.minor)]
   tick.values.major <- tick.values.major[tick.values.major <= 
@@ -690,9 +699,9 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
 
   ## create z-axes labels
   if(log.z == TRUE) {
-    label.z.text <- round(exp(tick.values.major), 0)
+    label.z.text <- signif(exp(tick.values.major), 3)
   } else {
-    label.z.text <- round(tick.values.major, 0)
+    label.z.text <- signif(tick.values.major, 3)
   }
 
   ## subtract De.add from label values
@@ -701,15 +710,16 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   }
   
   ## calculate node coordinates for semi-circle
-  ellipse.values <- seq(from = ifelse(log.z == TRUE, 
-                                      log(limits.z[1]), 
-                                      limits.z[1]), 
-                        to = max(ifelse(log.z == TRUE, 
-                                    log(limits.z[2]), 
-                                    limits.z[2]), 
-                                 tick.values.major, 
-                                 tick.values.minor), 
-                        length.out = 500)
+  ellipse.values <- c(min(ifelse(log.z == TRUE, 
+                                 log(limits.z[1]), 
+                                 limits.z[1]), 
+                          tick.values.major, 
+                          tick.values.minor), 
+                      max(ifelse(log.z == TRUE, 
+                                 log(limits.z[2]), 
+                                 limits.z[2]), 
+                          tick.values.major, 
+                          tick.values.minor))
 
   if(rotate == FALSE) {
     ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
@@ -744,7 +754,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     stats.data[3, 1] <- data.global[data.stats == stats.data[3, 3], 6][1]
     stats.data[3, 2] <- data.global[data.stats == stats.data[3, 3], 8][1]
   }
-  
+
   ## re-calculate axes limits if necessary
   if(rotate == FALSE) {
     limits.z.x <- range(ellipse[,1])
@@ -1196,12 +1206,8 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     KDE.i <- density(x = data[[i]][,3],
                      kernel = "gaussian", 
                      bw = bw,
-                     from = ifelse(log.z == TRUE, 
-                                   log(limits.z[1]), 
-                                       limits.z[1]),
-                     to = ifelse(log.z == TRUE, 
-                                 log(limits.z[2]), 
-                                     limits.z[2]))
+                     from = ellipse.values[1],
+                     to = ellipse.values[2])
     KDE.xy <- cbind(KDE.i$x, KDE.i$y)
     KDE.ext <- ifelse(max(KDE.xy[,2]) < KDE.ext, KDE.ext, max(KDE.xy[,2]))
     KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0)) 
@@ -1279,7 +1285,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     }
   }
 
-## calculate line coordinates and further parameters
+  ## calculate rug coordinates
   if(missing(rug) == FALSE) {
     if(log.z == TRUE) {
       rug.values <- log(De.global)
@@ -2337,7 +2343,7 @@ if(rotate == FALSE) {
         col = layout$abanico$colour$border)
   
   ## draw border around plot
-  polygon(y = c(limits.x[1], min(ellipse[,2]),y.max,
+  polygon(y = c(limits.x[1], min(ellipse[,2]), y.max,
                 y.max, min(ellipse[,2])),
           x = c(0, max(ellipse[,1]), max(ellipse[,1]), 
                 min(ellipse[,1]), min(ellipse[,1])),
@@ -2473,7 +2479,11 @@ if(rotate == FALSE) {
   ## colours and sizes of all plot items. To infer the definition of a 
   ## specific layout style cf. \code{get_Layout()} or type eg. for the layout
   ## type \code{"journal"} \code{get_Layout("journal")}. A layout type can be
-  ## modified by the user by assigning new values to the list object.
+  ## modified by the user by assigning new values to the list object.\cr\cr
+  ## It is possible for the z-scale to specify where ticks are to be drawn by 
+  ## using the parameter \code{at}, e.g. \code{at = seq(80, 200, 20)}, 
+  ## cf. function documentation of \code{axis}. Specifying tick positions 
+  ## manually overrides a \code{zlim}-definition.
   
   ##references<<
   ## Galbraith, R. & Green, P., 1990. Estimating the component ages in a 
@@ -2537,15 +2547,13 @@ if(rotate == FALSE) {
                    dispersion = "qr")
   
   ## now with user-defined green line for minimum age model
-#   MAM <- calc_MinDose(data = ExampleData.DeValues,
-#                        sigmab = 0.3,
-#                        par = 3,
-#                        plot = FALSE)
+  CAM <- calc_CentralDose(ExampleData.DeValues,
+                          plot = FALSE)
   
-#   plot_AbanicoPlot(data = ExampleData.DeValues,
-#                    line = MAM,
-#                    line.col = "darkgreen",
-#                    line.label = "MAM")
+  plot_AbanicoPlot(data = ExampleData.DeValues,
+                   line = CAM,
+                   line.col = "darkgreen",
+                   line.label = "CAM")
 
   ## now create plot with legend, colour, different points and smaller scale
   plot_AbanicoPlot(data = ExampleData.DeValues,

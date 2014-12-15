@@ -1,7 +1,7 @@
 \name{merge_Risoe.BINfileData}
 \alias{merge_Risoe.BINfileData}
 \title{Merge Risoe.BINfileData objects or Risoe BIN-files}
-\description{Function allows merging Risoe BIN files or Risoe.BINfileData objects.}
+\description{Function allows merging Risoe BIN/BINX files or Risoe.BINfileData objects.}
 \usage{merge_Risoe.BINfileData(input.objects, output.file, keep.position.number = FALSE, 
     position.number.append.gap = 0)}
 \arguments{
@@ -45,7 +45,7 @@ That might be unwanted. Using the argument \code{position.number.append.gap = 1}
 it will become: \code{1,3,5,7,9,11,13,15,17}.}
 \value{Returns a \code{file} or a \code{\linkS4class{Risoe.BINfileData}} object.}
 \references{Duller, G., 2007. Analyst. }
-\author{Sebastian Kreutzer, JLU Giessen (Germany),\cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
 R Luminescence Package Team}
 \note{The validity of the output objects is not further checked.  }
 
@@ -67,4 +67,4 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 
 \keyword{IO}
 \keyword{manip}
-\section{Function version}{0.2 (2014-09-15 02:28:00)}
+\section{Function version}{0.2 (2014-12-14 14:55:39)}

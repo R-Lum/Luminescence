@@ -4,10 +4,10 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Freiberg Instruments/JLU Giessen (Germany), \cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.1
+  ## version 0.2
   # ===========================================================================
 
   object,
@@ -42,14 +42,14 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   ##check if input object is of type 'Risoe.BINfileData'
   if(is(object, "Risoe.BINfileData") == FALSE){
     
-    stop("[writeR2BIN] Input object is not of type Risoe.BINfileData!")
+    stop("[writeR2BIN()] Input object is not of type Risoe.BINfileData!")
     
   }
 
   ##check if input file is of type 'character'
   if(is(file, "character") == FALSE){
   
-    stop("[writeR2BIN] argument 'file' has to be of type character!")
+    stop("[writeR2BIN()] argument 'file' has to be of type character!")
   
   }
   
@@ -97,28 +97,28 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   ##SEQUENCE
   if(max(nchar(as.character(object@METADATA[,"SEQUENCE"]), type="bytes"))>8){
   
-   stop("[writeR2BIN] Value in 'SEQUENCE' exceed storage limit!")
+   stop("[writeR2BIN()] Value in 'SEQUENCE' exceed storage limit!")
   
   }
 
   ##USER
   if(max(nchar(as.character(object@METADATA[,"USER"]), type="bytes"))>8){
     
-    stop("[writeR2BIN] 'USER' exceed storage limit!")
+    stop("[writeR2BIN()] 'USER' exceed storage limit!")
     
   }
 
   ##SAMPLE
   if(max(nchar(as.character(object@METADATA[,"SAMPLE"]), type="bytes"))>20){
   
-   stop("[writeR2BIN] 'SAMPLE' exceed storage limit!")
+   stop("[writeR2BIN()] 'SAMPLE' exceed storage limit!")
   
   }
 
   ##COMMENT
   if(max(nchar(as.character(object@METADATA[,"COMMENT"]), type="bytes"))>80){
   
-    stop("[writeR2BIN] 'COMMENT' exceed storage limit!")
+    stop("[writeR2BIN()] 'COMMENT' exceed storage limit!")
   
   }
 
@@ -215,6 +215,12 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
     as.character(levels(object@METADATA[x,"DATE"]))[as.integer(object@METADATA[x,"DATE"])]
   
   })
+
+  ##TAG and SEL
+  ##in TAG information on the SEL are storred, here the values are copied to TAG
+  ##before export
+  object@METADATA[,"TAG"] <- ifelse(object@METADATA[,"SEL"] == TRUE, 1, 0)
+  
   
 # SET FILE AND VALUES -----------------------------------------------------
 
@@ -224,7 +230,7 @@ con<-file(file, "wb")
     n.records <- max(object@METADATA[,"ID"])
     
     ##output
-    cat(paste("\n[writeR2BIN.R]\n\t >> ",file,sep=""), fill=TRUE)
+    cat(paste("\n[writeR2BIN()]\n\t >> ",file,sep=""), fill=TRUE)
      
     ##set progressbar
     if(txtProgressBar==TRUE){
@@ -238,7 +244,6 @@ con<-file(file, "wb")
 ID <- 1
 
 if(version == 03 || version == 04){
-## ====================================================
 ## version 03 and 04 
 
 ##start loop for export BIN data
@@ -504,13 +509,102 @@ while(ID<=n.records) {
            size = 2,
            endian="little")
   
-  ##RESERVED
-  writeBin(raw(length=54),
-           con,
-           size = 1,
-           endian="little")
+  ##Further distinction need to fully support format version 03 and 04 separately
+  if(version == 03){
   
+    ##RESERVED
+    writeBin(raw(length=36),
+             con,
+             size = 1,
+             endian="little")
   
+    ##ONTIME, OFFTIME
+    writeBin(c(as.integer(object@METADATA[ID,"ONTIME"]),
+               as.integer(object@METADATA[ID,"OFFTIME"])),
+             con,
+             size = 4,
+             endian="little")
+  
+     ##GATE_ENABLED
+     writeBin(as.integer(object@METADATA[ID,"GATE_ENABLED"]),
+            con,
+             size = 1,
+             endian="little")
+  
+
+    ##GATE_START, GATE_STOP 
+    writeBin(c(as.integer(object@METADATA[ID,"GATE_START"]),
+             as.integer(object@METADATA[ID,"GATE_STOP"])),
+            con,
+            size = 4,
+             endian="little")  
+  
+    ##RESERVED
+    writeBin(raw(length=1),
+             con,
+             size = 1,
+             endian="little")
+  
+  } else {
+    ##version 04
+    
+    ##RESERVED
+    writeBin(raw(length=20),
+             con,
+             size = 1,
+             endian="little")
+    
+    ##CURVENO
+    writeBin(as.integer(object@METADATA[ID,"CURVENO"]),
+             con,
+             size = 2,
+             endian="little")
+    
+    ##TIMETICK 
+    writeBin(c(as.double(object@METADATA[ID,"TIMETICK"])),
+             con,
+             size = 4,
+             endian="little")
+    
+    ##ONTIME, STIMPERIOD
+    writeBin(c(as.integer(object@METADATA[ID,"ONTIME"]),
+               as.integer(object@METADATA[ID,"STIMPERIOD"])),
+             con,
+             size = 4,
+             endian="little")
+    
+    ##GATE_ENABLED
+    writeBin(as.integer(object@METADATA[ID,"GATE_ENABLED"]),
+             con,
+             size = 1,
+             endian="little")
+    
+    
+    ##GATE_START, GATE_STOP 
+    writeBin(c(as.integer(object@METADATA[ID,"GATE_START"]),
+               as.integer(object@METADATA[ID,"GATE_STOP"])),
+             con,
+             size = 4,
+             endian="little") 
+    
+    
+    ##PTENABLED
+    writeBin(as.integer(object@METADATA[ID,"PTENABLED"]),
+             con,
+             size = 1,
+             endian="little")
+    
+    
+    ##RESERVED
+    writeBin(raw(length=10),
+             con,
+             size = 1,
+             endian="little")
+    
+    
+    
+    
+  }
   ##DPOINTS
   writeBin(as.integer(unlist(object@DATA[ID])),
            con,
@@ -919,7 +1013,7 @@ cat(paste("\t >> ",ID-1,"records have been written successfully!\n\n",paste=""))
   ## The validity of the file path is not further checked. \cr 
   ## BIN-file conversions using the argument \code{version} may be a lossy conversion, 
   ## depending on the chosen input and output data 
-  ## (e.g. conversion from version 06 to 04).
+  ## (e.g., conversion from version 06 to 04).
 
   ##seealso<<
   ## \code{\link{readBIN2R}}, \code{\linkS4class{Risoe.BINfileData}},

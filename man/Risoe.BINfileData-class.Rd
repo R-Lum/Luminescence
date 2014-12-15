@@ -67,7 +67,7 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 \tabular{rllll}{
 \bold{#} \tab \bold{Name} \tab \bold{Data Type} \tab \bold{V} \tab \bold{Description} \cr
 [,1]     \tab  ID             \tab  \code{numeric}  \tab RLum \tab Unique record ID (same ID as in slot \code{DATA})\cr
-[,2]     \tab SEL             \tab  \code{logic}    \tab RLum \tab Record selection\cr
+[,2]     \tab SEL             \tab  \code{logic}    \tab RLum \tab Record selection, not part  official BIN-format, triggered by TAG\cr
 [,3]     \tab VERSION         \tab  \code{raw}      \tab 03-06 \tab BIN-file version number \cr
 [,4]     \tab LENGTH          \tab  \code{integer}  \tab 03-06 \tab Length of this record\cr
 [,5]     \tab PREVIOUS        \tab  \code{integer}  \tab 03-06 \tab Length of previous record\cr
@@ -95,7 +95,7 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 [,27]    \tab NORM3           \tab  \code{numeric}  \tab 03-06 \tab Normalisation factor (3)\cr 
 [,28]    \tab BG              \tab  \code{numeric}  \tab 03-06 \tab Background level\cr 
 [,29]    \tab SHIFT           \tab  \code{integer}  \tab 03-06 \tab Number of channels to shift data\cr
-[,30]    \tab TAG             \tab  \code{integer}  \tab 03-06 \tab Tag\cr
+[,30]    \tab TAG             \tab  \code{integer}  \tab 03-06 \tab Tag, triggers SEL\cr
 [,31]    \tab LTYPE           \tab  \code{character} \tab 03-06 \tab Luminescence type\cr
 [,32]    \tab LIGHTSOURCE     \tab  \code{character} \tab 03-06 \tab Light source\cr
 [,33]    \tab LPOWER          \tab  \code{numeric}  \tab 03-06 \tab Optical stimulation power\cr
@@ -120,23 +120,24 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 [,52]    \tab ONTIME          \tab  \code{integer}  \tab 06   \tab On-time for pulsing (in time ticks)\cr
 [,53]    \tab STIMPERIOD      \tab  \code{integer}  \tab 06   \tab Stimulation period (on+off in time ticks)\cr
 [,54]    \tab GATE_ENABLED    \tab  \code{raw}      \tab 06   \tab PMT signal gating enabled\cr
-[,55]    \tab GATE_START      \tab  \code{integer}  \tab 06   \tab Start gating (in time ticks)\cr
-[,56]    \tab GATE_STOP       \tab  \code{ingeter}  \tab 06   \tab Stop gating (in time ticks)\cr
-[,57]    \tab PTENABLED       \tab  \code{raw}      \tab 06   \tab Photon time enabled\cr
-[,58]    \tab DTENABLED       \tab  \code{raw}      \tab 06   \tab PMT dead time correction enabled\cr
-[,59]    \tab DEADTIME        \tab  \code{numeric}  \tab 06   \tab PMT dead time (s)\cr
-[,60]    \tab MAXLPOWER       \tab  \code{numeric}  \tab 06   \tab Stimulation power to 100 percent (mW/cm^2)\cr
-[,61]    \tab XRF_ACQTIME     \tab  \code{numeric}  \tab 06   \tab XRF acquisition time (s)\cr
-[,62]    \tab XRF_HV          \tab  \code{numeric}  \tab 06   \tab XRF X-ray high voltage (V)\cr
-[,63]    \tab XRF_CURR        \tab  \code{integer}  \tab 06    \tab XRF X-ray current (uA)\cr
-[,64]    \tab XRF_DEADTIMEF   \tab  \code{numeric}  \tab 06   \tab XRF dead time fraction\cr
-[,65]    \tab SEQUENCE        \tab  \code{character}  \tab 03-04 \tab Sequence name\cr
+[,55]    \tab ENABLE_FLAGS    \tab  \code{raw}      \tab 03   \tab PMT signal gating enabled\cr
+[,56]    \tab GATE_START      \tab  \code{integer}  \tab 06   \tab Start gating (in time ticks)\cr
+[,57]    \tab GATE_STOP       \tab  \code{ingeter}  \tab 06   \tab Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used\cr
+[,58]    \tab PTENABLED       \tab  \code{raw}      \tab 06   \tab Photon time enabled\cr
+[,59]    \tab DTENABLED       \tab  \code{raw}      \tab 06   \tab PMT dead time correction enabled\cr
+[,60]    \tab DEADTIME        \tab  \code{numeric}  \tab 06   \tab PMT dead time (s)\cr
+[,61]    \tab MAXLPOWER       \tab  \code{numeric}  \tab 06   \tab Stimulation power to 100 percent (mW/cm^2)\cr
+[,62]    \tab XRF_ACQTIME     \tab  \code{numeric}  \tab 06   \tab XRF acquisition time (s)\cr
+[,63]    \tab XRF_HV          \tab  \code{numeric}  \tab 06   \tab XRF X-ray high voltage (V)\cr
+[,64]    \tab XRF_CURR        \tab  \code{integer}  \tab 06    \tab XRF X-ray current (uA)\cr
+[,65]    \tab XRF_DEADTIMEF   \tab  \code{numeric}  \tab 06   \tab XRF dead time fraction\cr
+[,66]    \tab SEQUENCE        \tab  \code{character}  \tab 03-04 \tab Sequence name\cr
 }
 V = BIN-file version (RLum means that it does not depend on a specific 
 BIN version)\cr
 
 Note that the \code{Risoe.BINfileData} object combines all values from 
-different versions from the BIN-file. Invalid values for a specific version 
+different versions from the BIN-file, reserved bits are skipped, however, the function \code{\link{writeR2BIN}} reset arbitrary reserved bits. Invalid values for a specific version 
 are set to \code{NA}. Furthermore, the internal R data types do not necessarily 
 match the required data types for the BIN-file data import! Data types are
 converted during data import.\cr
@@ -183,7 +184,7 @@ converted during data import.\cr
 \seealso{
 %%  ~~objects to See Also as \code{\link{~~fun~~}}, ~~~
 %%  ~~or \code{\linkS4class{CLASSNAME}} for links to other classes ~~~
-\code{\link{plot_Risoe.BINfileData}}, \code{\link{readBIN2R}}, \code{\link{Risoe.BINfileData2RLum.Analysis}}
+\code{\link{plot_Risoe.BINfileData}}, \code{\link{readBIN2R}}, \code{\link{writeR2BIN}},\code{\link{merge_Risoe.BINfileData}}, \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{Risoe.BINfileData2RLum.Data.Curve}}
 }
 \examples{
 showClass("Risoe.BINfileData")

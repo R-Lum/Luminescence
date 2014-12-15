@@ -36,23 +36,21 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   ### horizontal centering of the z-axis.
   
   centrality = "mean.weighted",
-  ### \code{\link{character}} or \code{\link{numeric}} (with default): 
-  ### measure of centrality, used for automatically centering the plot and 
-  ### drawing the central line. Can either be one out of \code{"mean"}, 
-  ### \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
-  ### or a numeric value used for the standardisation. Default is 
-  ### \code{"mean.weighted"}.
+  ### \code{\link{character}} (with default): measure of centrality, used for
+  ### automatically centering the plot and drawing the central line. Can be
+  ### one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"}, 
+  ### and \code{"median.weighted"}. Default is \code{"mean.weighted"}.
   
   mtext,
   ### \code{\link{character}}: additional text below the plot title.
   
   summary,
   ### \code{\link{character}} (optional): adds numerical output to the plot. 
-  ### Can be one or more out of: "n" (number of samples), "mean" (mean De 
-  ### value), "mean.weighted" (error-weighted mean), "median" (median of 
-  ### the De values), "sdrel" (relative standard deviation in 
-  ### percent), "sdabs" (absolute standard deviation), "serel" (relative 
-  ### standard error), "seabs" (absolute standard error) and "in.ci" (percent
+  ### Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De 
+  ### value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of 
+  ### the De values), \code{"sdrel"} (relative standard deviation in 
+  ### percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative 
+  ### standard error), \code{"seabs"} (absolute standard error) and \code{"in.ci"} (percent
   ### of samples in confidence interval, e.g. 2-sigma).
   
   summary.pos,
@@ -60,7 +58,7 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   ### position coordinates or keyword (e.g. \code{"topright"}) for the 
   ### statistical summary. Alternatively, the keyword \code{"sub"} may be
   ### specified to place the summary below the plot header. However, this
-  ### latter option in only possible if \code{mtext} is not used.
+  ### latter option is only possible if \code{mtext} is not used.
   
   legend,
   ### \code{\link{character}} vector (optional): legend content to be added
@@ -75,6 +73,10 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   ### \code{\link{character}}: additional labels of statistically important
   ### values in the plot. One or more out of the following: \code{"min"}, 
   ### \code{"max"}, \code{"median"}.
+  
+  rug = FALSE,
+  ### \code{\link{logical}}: Option to add a rug to the z-scale, to indicate
+  ### the location of individual values
   
   plot.ratio,
   ### \code{\link{numeric}}: User-defined plot area ratio (i.e. curvature of
@@ -132,45 +134,21 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
     }
   }
   
-  ## save original plot parameters
-  par.old.bg <- par()$bg
-  par.old.mar <- par()$mar
-  par.old.xpd <- par()$xpd
-  par.old.cex <- par()$cex
-  par.old.mai <- par()$mai
-  par.old.pin <- par()$pin
-  par.old.family <- par()$family
-  
   ## check data and parameter consistency--------------------------------------
-  if(missing(stats) == TRUE) {
-    stats <- numeric(0)
-  }
-  
+  if(missing(stats) == TRUE) {stats <- numeric(0)}
   if(missing(summary) == TRUE) {
     summary <- c("n", "in.ci")
     summary.pos = "sub"
   }
+  if(missing(bar.col) == TRUE) {bar.col <- rep("grey80", length(data))}
+  if(missing(grid.col) == TRUE) {grid.col <- rep("grey70", length(data))}
+  if(missing(summary) == TRUE) {summary <- NULL}
+  if(missing(summary.pos) == TRUE) {summary.pos <- "topleft"}
+  if(missing(mtext) == TRUE) {mtext <- ""}
   
-  if(missing(bar.col) == TRUE) {
-    bar.col <- rep("grey80", length(data))
-  }
-
-  if(missing(grid.col) == TRUE) {
-    grid.col <- rep("grey70", length(data))
-  }
   
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- "sub"
-  }
-  
-  if(missing(mtext) == TRUE) {
-    mtext <- ""
-  }
-    
   ## check z-axis log-option for grouped data sets
-  if(is(data, "list") == TRUE & 
-       length(data) > 1 & 
-       log.z == FALSE) {
+  if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
     warning(paste("Option 'log.z' is not set to 'TRUE' altough more than one",
                   "data set (group) is provided."))
   }
@@ -197,10 +175,10 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   } else {
     z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - 
-                     z.span) * min(De.global),
+    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
                   (1.1 + z.span) * max(De.global))
   }
+  
   ticks <- round(pretty(limits.z, n = 5), 3)
   De.delta <- ticks[2] - ticks[1]
   
@@ -230,8 +208,7 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   ## optionally add correction dose to data set and adjust error
   for(i in 1:length(data)) {
     data[[i]][,1] <- data[[i]][,1] + De.add
-    data[[i]][,2] <- data[[i]][,2] * data[[i]][,1] / 
-      abs(data[[i]][,1] - De.add)
+    data[[i]][,2] <- data[[i]][,2] * data[[i]][,1] / abs(data[[i]][,1] - De.add)
   }
 
   ## calculate major preliminary tick values and tick difference
@@ -241,8 +218,7 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   } else {
     z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - 
-                     z.span) * min(De.global),
+    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
                   (1.1 + z.span) * max(De.global))
   }
   ticks <- round(pretty(limits.z, n = 5), 3)
@@ -259,8 +235,7 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   ## optionally add correction dose to data set and adjust error
   for(i in 1:length(data)) {
     data[[i]][,1] <- data[[i]][,1] + De.add
-    data[[i]][,2] <- data[[i]][,2] * data[[i]][,1] / 
-      abs(data[[i]][,1] - De.add)
+    data[[i]][,2] <- data[[i]][,2] * data[[i]][,1] / abs(data[[i]][,1] - De.add)
   }
   
   ## adjust limits.z
@@ -269,7 +244,7 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   ## calculate and append statistical measures --------------------------------
   
   ## z-values based on log-option
-  z <- lapply(1:length(data), function(x){
+  z <- sapply(1:length(data), function(x){
     if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
   if(is(z, "list") == FALSE) {z <- list(z)}
   data <- lapply(1:length(data), function(x) {
@@ -277,79 +252,57 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   rm(z)
 
   ## calculate se-values based on log-option
-  se <- lapply(1:length(data), function(x){
-    if(log.z == TRUE) {
-      data[[x]][,2] / data[[x]][,1]
-      } else {
-        data[[x]][,2]
-        }
-    })
-
-  if(is(se, "list") == FALSE) {
-    se <- list(se)
-  }
-
+  se <- sapply(1:length(data), function(x){
+    if(log.z == TRUE) {data[[x]][,2] / data[[x]][,1]} else {data[[x]][,2]}})
+  if(is(se, "list") == FALSE) {se <- list(se)}
   data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], se[[x]])
-    })
-
+    cbind(data[[x]], se[[x]])})
   rm(se)
   
-## calculate central values
-if(centrality[1] == "mean") {
-  z.central <- lapply(1:length(data), function(x){
-    rep(mean(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-} else if(centrality[1] == "median") {
-  z.central <- lapply(1:length(data), function(x){
-    rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-} else  if(centrality[1] == "mean.weighted") {
-  z.central <- lapply(1:length(data), function(x){
-    sum(data[[x]][,3] / data[[x]][,4]^2) / 
-      sum(1 / data[[x]][,4]^2)})
-} else if(centrality[1] == "median.weighted") {
-  ## define function after isotone::weighted.median
-  median.w <- function (y, w)
-  {
-    ox <- order(y)
-    y <- y[ox]
-    w <- w[ox]
-    k <- 1
-    low <- cumsum(c(0, w))
-    up <- sum(w) - low
-    df <- low - up
-    repeat {
-      if (df[k] < 0) 
-        k <- k + 1
-      else if (df[k] == 0) 
-        return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
-      else return(y[k - 1])
+  ## calculate central values
+  if(centrality == "mean") {
+    z.central <- sapply(1:length(data), function(x){
+      rep(mean(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
+  } else if(centrality == "median") {
+    z.central <- sapply(1:length(data), function(x){
+      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
+  } else  if(centrality == "mean.weighted") {
+    z.central <- sapply(1:length(data), function(x){
+      sum(data[[x]][,3] / data[[x]][,4]^2) / 
+        sum(1 / data[[x]][,4]^2)})
+  } else if(centrality == "median.weighted") {
+    ## define function after isotone::weighted.mean
+    median.w <- function (y, w)
+    {
+      ox <- order(y)
+      y <- y[ox]
+      w <- w[ox]
+      k <- 1
+      low <- cumsum(c(0, w))
+      up <- sum(w) - low
+      df <- low - up
+      repeat {
+        if (df[k] < 0) 
+          k <- k + 1
+        else if (df[k] == 0) 
+          return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] + 
+                                                        w[k - 1]))
+        else return(y[k - 1])
+      }
     }
-  }
-  z.central <- lapply(1:length(data), function(x){
-    rep(median.w(y = data[[x]][,3], 
-                 w = data[[x]][,4]), length(data[[x]][,3]))})
-} else if(is.numeric(centrality) == TRUE & 
-            length(centrality) == length(data)) {
-  z.central.raw <- if(log.z == TRUE) {
-    log(centrality)
+    z.central <- sapply(1:length(data), function(x){
+      rep(median.w(y = data[[x]][,3], 
+                   w = data[[x]][,4]), length(data[[x]][,3]))})
   } else {
-    centrality
+    stop("Measure of centrality not supported!")
   }
-  z.central <- lapply(1:length(data), function(x){
-    rep(z.central.raw[x], length(data[[x]][,3]))})
-} else if(is.numeric(centrality) == TRUE & 
-            length(centrality) > length(data)) {
-  z.central <- lapply(1:length(data), function(x){
-    rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-} else {
-  stop("Measure of centrality not supported!")
-}  
+  
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], z.central[[x]])})
   rm(z.central)
   
   ## calculate precision
-  precision <- lapply(1:length(data), function(x){
+  precision <- sapply(1:length(data), function(x){
     1 / data[[x]][,4]})
   if(is(precision, "list") == FALSE) {precision <- list(precision)}
   data <- lapply(1:length(data), function(x) {
@@ -357,7 +310,7 @@ if(centrality[1] == "mean") {
   rm(precision)
   
   ## calculate standard estimate
-  std.estimate <- lapply(1:length(data), function(x){
+  std.estimate <- sapply(1:length(data), function(x){
     (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
   if(is(std.estimate, "list") == FALSE) {std.estimate <- list(std.estimate)}
   data <- lapply(1:length(data), function(x) {
@@ -386,40 +339,37 @@ if(centrality[1] == "mean") {
                              "std.estimate", 
                              "std.estimate.plot")
 
-## calculate global central value
-if(centrality[1] == "mean") {
-  z.central.global <- mean(data.global[,3], na.rm = TRUE)
-} else if(centrality[1] == "median") {
-  z.central.global <- median(data.global[,3], na.rm = TRUE)
-} else  if(centrality[1] == "mean.weighted") {
-  z.central.global <- sum(data.global[,3] / data.global[,4]^2) / 
-    sum(1 / data.global[,4]^2)
-} else if(centrality[1] == "median.weighted") {
-  ## define function after isotone::weighted.mean
-  median.w <- function (y, w) 
-  {
-    ox <- order(y)
-    y <- y[ox]
-    w <- w[ox]
-    k <- 1
-    low <- cumsum(c(0, w))
-    up <- sum(w) - low
-    df <- low - up
-    repeat {
-      if (df[k] < 0) 
-        k <- k + 1
-      else if (df[k] == 0) 
-        return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] + 
-                                                      w[k - 1]))
-      else return(y[k - 1])
+  ## calculate global central value
+  if(centrality == "mean") {
+    z.central.global <- mean(data.global[,3], na.rm = TRUE)
+  } else if(centrality == "median") {
+    z.central.global <- median(data.global[,3], na.rm = TRUE)
+  } else  if(centrality == "mean.weighted") {
+    z.central.global <- sum(data.global[,3] / data.global[,4]^2) / 
+      sum(1 / data.global[,4]^2)
+  } else if(centrality == "median.weighted") {
+    ## define function after isotone::weighted.mean
+    median.w <- function (y, w) 
+    {
+      ox <- order(y)
+      y <- y[ox]
+      w <- w[ox]
+      k <- 1
+      low <- cumsum(c(0, w))
+      up <- sum(w) - low
+      df <- low - up
+      repeat {
+        if (df[k] < 0) 
+          k <- k + 1
+        else if (df[k] == 0) 
+          return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] + 
+                                                        w[k - 1]))
+        else return(y[k - 1])
+      }
     }
+    z.central.global <- median.w(y = data.global[,3], w = data.global[,4])
   }
-  z.central.global <- median.w(y = data.global[,3], w = data.global[,4])
-} else if(is.numeric(centrality) == TRUE & 
-            length(centrality == length(data))) {
-  z.central.global <- mean(data.global[,3], na.rm = TRUE)
-} 
-
+  
   ## optionally adjust zentral value by user-defined value
   if(missing(central.value) == FALSE) {
     
@@ -551,11 +501,11 @@ if(centrality[1] == "mean") {
       rep(1, length(data))
     }
   
-  if("col" %in% names(extraArgs)) {
-    col <- extraArgs$col
-  } else {
-     col <- 1:length(data)
-  }
+  col <- if("col" %in% names(extraArgs)) {
+    extraArgs$col
+    } else {
+      1:length(data)
+    }
   
   tck <- if("tck" %in% names(extraArgs)) {
     extraArgs$tck
@@ -597,8 +547,8 @@ if(centrality[1] == "mean") {
        (max(data.global[,7]) - min(data.global[,7])) * plot.ratio
 
   ## calculate major and minor z-tick values
-  tick.values.major <- round(pretty(limits.z, n = 5), 0)
-  tick.values.minor <- round(pretty(limits.z, n = 25), 0)
+  tick.values.major <- signif(pretty(limits.z, n = 5), 3)
+  tick.values.minor <- signif(pretty(limits.z, n = 25), 3)
   
   tick.values.major <- tick.values.major[tick.values.major >= 
     min(tick.values.minor)]
@@ -653,9 +603,9 @@ if(centrality[1] == "mean") {
   
   ## create z-axes labels
   if(log.z == TRUE) {
-    label.z.text <- round(exp(tick.values.major), 0)
+    label.z.text <- signif(exp(tick.values.major), 3)
   } else {
-    label.z.text <- round(tick.values.major, 0)
+    label.z.text <- signif(tick.values.major, 3)
   }
 
   ## subtract De.add from label values
@@ -740,278 +690,198 @@ if(centrality[1] == "mean") {
     }
   }
 
-## calculate and paste statistical summary
-De.stats <- matrix(nrow = length(data), ncol = 14)
-colnames(De.stats) <- c("n",
-                        "mean", 
-                        "mean.weighted",
-                        "median",
-                        "median.weighted",
-                        "kde.max",
-                        "sd.abs",
-                        "sd.rel",
-                        "se.abs",
-                        "se.rel",
-                        "q25",
-                        "q75",
-                        "skewness",
-                        "kurtosis")
-
-for(i in 1:length(data)) {
-  statistics <- calc_Statistics(data[[i]])
-  De.stats[i,1] <- statistics$weighted$n
-  De.stats[i,2] <- statistics$unweighted$mean
-  De.stats[i,3] <- statistics$weighted$mean
-  De.stats[i,4] <- statistics$unweighted$median
-  De.stats[i,5] <- statistics$weighted$median
-  De.stats[i,7] <- statistics$weighted$sd.abs
-  De.stats[i,8] <- statistics$weighted$sd.rel
-  De.stats[i,9] <- statistics$weighted$se.abs
-  De.stats[i,10] <- statistics$weighted$se.rel
-  De.stats[i,11] <- quantile(data[[i]][,1], 0.25)
-  De.stats[i,12] <- quantile(data[[i]][,1], 0.75)
-  De.stats[i,13] <- statistics$unweighted$skewness
-  De.stats[i,14] <- statistics$unweighted$kurtosis
-}
-
-label.text = list(NA)
-
-if(summary.pos[1] != "sub") {
-  n.rows <- length(summary)
+  ## calculate and paste statistical summary
+  label.text = list(NA)
   
-  for(i in 1:length(data)) {
-    stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
-    label.text[[length(label.text) + 1]] <- paste(stops, paste(
-      "",
-      ifelse("n" %in% summary == TRUE,
-             paste("n = ", 
-                   De.stats[i,1], 
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("mean" %in% summary == TRUE,
-             paste("mean = ", 
-                   round(De.stats[i,2], 2), 
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("mean.weighted" %in% summary == TRUE,
-             paste("weighted mean = ", 
-                   round(De.stats[i,3], 2), 
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("median" %in% summary == TRUE,
-             paste("median = ", 
-                   round(De.stats[i,4], 2), 
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("median.weighted" %in% summary == TRUE,
-             paste("weighted median = ", 
-                   round(De.stats[i,5], 2), 
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("sdabs" %in% summary == TRUE,
-             paste("sd = ", 
-                   round(De.stats[i,7], 2),
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("sdrel" %in% summary == TRUE,
-             paste("rel. sd = ", 
-                   round(De.stats[i,8], 2), " %",
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("seabs" %in% summary == TRUE,
-             paste("se = ", 
-                   round(De.stats[i,9], 2),
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("serel" %in% summary == TRUE,
-             paste("rel. se = ", 
-                   round(De.stats[i,10], 2), " %",
-                   "\n", 
-                   sep = ""),
-             ""),
-      ifelse("in.ci" %in% summary == TRUE,
-             paste("in confidence interval = ", 
-                   round(sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
-                           nrow(data[[i]]) * 100 , 1),
-                   " %", 
-                   sep = ""),
-             ""),
-      sep = ""), stops, sep = "")
+  if(summary.pos[1] != "sub") {
+    n.rows <- length(summary)
     
-  }
-} else {
-  for(i in 1:length(data)) {
-    label.text[[length(label.text) + 1]]  <- paste(
-      "  ",
-      ifelse("n" %in% summary == TRUE,
-             paste("n = ", 
-                   De.stats[i,1], 
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("mean" %in% summary == TRUE,
-             paste("mean = ", 
-                   round(De.stats[i,2], 2), 
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("mean.weighted" %in% summary == TRUE,
-             paste("weighted mean = ", 
-                   round(De.stats[i,3], 2), 
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("median" %in% summary == TRUE,
-             paste("median = ", 
-                   round(De.stats[i,4], 2), 
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("median.weighted" %in% summary == TRUE,
-             paste("weighted median = ", 
-                   round(De.stats[i,5], 2), 
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("sdrel" %in% summary == TRUE,
-             paste("rel. sd = ", 
-                   round(De.stats[i,8], 2), " %",
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("sdabs" %in% summary == TRUE,
-             paste("abs. sd = ", 
-                   round(De.stats[i,7], 2),
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("serel" %in% summary == TRUE,
-             paste("rel. se = ", 
-                   round(De.stats[i,10], 2), " %",
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("seabs" %in% summary == TRUE,
-             paste("abs. se = ", 
-                   round(De.stats[i,9], 2),
-                   " | ", 
-                   sep = ""),
-             ""),
-      ifelse("in.ci" %in% summary == TRUE,
-             paste("in confidence interval = ", 
-                   round(sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
-                           nrow(data[[i]]) * 100 , 1),
-                   " %   ", 
-                   sep = ""),
-             ""),
-      sep = "")
+    for(i in 1:length(data)) {
+      stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
+      label.text[[length(label.text) + 1]] <- paste(stops, paste(
+        ifelse("n" %in% summary == TRUE,
+               paste("n = ", 
+                     nrow(data[[i]]), 
+                     "\n", 
+                     sep = ""),
+               ""),
+        ifelse("mean" %in% summary == TRUE,
+               paste("mean = ", 
+                     round(mean(data[[i]][,1]), 2), 
+                     "\n", 
+                     sep = ""),
+               ""),
+        ifelse("mean.weighted" %in% summary == TRUE,
+               paste("weighted mean = ", 
+                     round(weighted.mean(x = data[[i]][,1],
+                                         w = 1 / data[[i]][,2]), 2), 
+                     "\n", 
+                     sep = ""),
+               ""),
+        ifelse("median" %in% summary == TRUE,
+               paste("median = ", 
+                     round(median(data[[i]][,1]), 2), 
+                     "\n", 
+                     sep = ""),
+               ""),
+        ifelse("sdrel" %in% summary == TRUE,
+               paste("sd = ", 
+                     round(sd(data[[i]][,1]) / mean(data[[i]][,1]) * 100,
+                           2), " %",
+                     "\n", 
+                     sep = ""),
+               ""),
+        ifelse("sdabs" %in% summary == TRUE,
+               paste("sd = ", 
+                     round(sd(data[[i]][,1]), 2),
+                     "\n", 
+                     sep = ""),
+               ""),
+        ifelse("in.ci" %in% summary == TRUE,
+               paste("in confidence interval = ", 
+                     round(sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
+                             nrow(data[[i]]) * 100 , 1),
+                     " % \n", 
+                     sep = ""),
+               ""),
+        sep = ""), stops, sep = "")
+      
+    }
+  } else {
+    for(i in 1:length(data)) {
+      label.text[[length(label.text) + 1]]  <- paste(
+        "| ",
+        ifelse("n" %in% summary == TRUE,
+               paste("n = ", 
+                     nrow(data[[i]]), 
+                     " | ", 
+                     sep = ""),
+               ""),
+        ifelse("mean" %in% summary == TRUE,
+               paste("mean = ", 
+                     round(mean(data[[i]][,1]), 2), 
+                     " | ", 
+                     sep = ""),
+               ""),
+        ifelse("mean.weighted" %in% summary == TRUE,
+               paste("weighted mean = ", 
+                     round(weighted.mean(x = data[[i]][,1],
+                                         w = 1 / data[[i]][,2]), 2), 
+                     " | ", 
+                     sep = ""),
+               ""),
+        ifelse("median" %in% summary == TRUE,
+               paste("median = ", 
+                     round(median(data[[i]][,1]), 2), 
+                     " | ", 
+                     sep = ""),
+               ""),
+        ifelse("sdrel" %in% summary == TRUE,
+               paste("sd = ", 
+                     round(sd(data[[i]][,1]) / mean(data[[i]][,1]) * 100,
+                           2), " %",
+                     " | ", 
+                     sep = ""),
+               ""),
+        ifelse("sdabs" %in% summary == TRUE,
+               paste("sd = ", 
+                     round(sd(data[[i]][,1]), 2),
+                     " | ", 
+                     sep = ""),
+               ""),
+        ifelse("in.ci" %in% summary == TRUE,
+               paste("in confidence interval = ", 
+                     round(sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
+                             nrow(data[[i]]) * 100 , 1),
+                     " % | ", 
+                     sep = ""),
+                      ""),
+        sep = "")
+    }
+    ## remove outer vertical lines from string
+    label.text[[2]] <- substr(x = label.text[[2]], 
+                              start = 3, 
+                              stop = nchar(label.text[[2]]) - 2)
   }
   
-  ## remove outer vertical lines from string
-  for(i in 2:length(label.text)) {
-    label.text[[i]] <- substr(x = label.text[[i]], 
-                              start = 3, 
-                              stop = nchar(label.text[[i]]) - 3)
+  ## remove dummy list element
+  label.text[[1]] <- NULL
+  
+  ## convert keywords into summary placement coordinates
+  if(missing(summary.pos) == TRUE) {
+    summary.pos <- c(limits.x[1], limits.y[2])
+    summary.adj <- c(0, 1)
+  } else if(length(summary.pos) == 2) {
+    summary.pos <- summary.pos
+    summary.adj <- c(0, 1)
+  } else if(summary.pos[1] == "topleft") {
+    summary.pos <- c(limits.x[1], limits.y[2])
+    summary.adj <- c(0, 1)
+  } else if(summary.pos[1] == "top") {
+    summary.pos <- c(mean(limits.x), limits.y[2])
+    summary.adj <- c(0.5, 1)
+  } else if(summary.pos[1] == "topright") {
+    summary.pos <- c(limits.x[2], limits.y[2])
+    summary.adj <- c(1, 1)
+  }  else if(summary.pos[1] == "left") {
+    summary.pos <- c(limits.x[1], mean(limits.y))
+    summary.adj <- c(0, 0.5)
+  } else if(summary.pos[1] == "center") {
+    summary.pos <- c(mean(limits.x), mean(limits.y))
+    summary.adj <- c(0.5, 0.5)
+  } else if(summary.pos[1] == "right") {
+    summary.pos <- c(limits.x[2], mean(limits.y))
+    summary.adj <- c(1, 0.5)
+  }else if(summary.pos[1] == "bottomleft") {
+    summary.pos <- c(limits.x[1], limits.y[1])
+    summary.adj <- c(0, 0)
+  } else if(summary.pos[1] == "bottom") {
+    summary.pos <- c(mean(limits.x), limits.y[1])
+    summary.adj <- c(0.5, 0)
+  } else if(summary.pos[1] == "bottomright") {
+    summary.pos <- c(limits.x[2], limits.y[1])
+    summary.adj <- c(1, 0)
   }
-}
+  
+  ## convert keywords into legend placement coordinates
+  if(missing(legend.pos) == TRUE) {
+    legend.pos <- c(limits.x[1], limits.y[2])
+    legend.adj <- c(0, 1)
+  } else if(length(legend.pos) == 2) {
+    legend.pos <- legend.pos
+    legend.adj <- c(0, 1)
+  } else if(legend.pos[1] == "topleft") {
+    legend.pos <- c(limits.x[1], limits.y[2])
+    legend.adj <- c(0, 1)
+  } else if(legend.pos[1] == "top") {
+    legend.pos <- c(mean(limits.x), limits.y[2])
+    legend.adj <- c(0.5, 1)
+  } else if(legend.pos[1] == "topright") {
+    legend.pos <- c(limits.x[2], limits.y[2])
+    legend.adj <- c(1, 1)
+  } else if(legend.pos[1] == "left") {
+    legend.pos <- c(limits.x[1], mean(limits.y))
+    legend.adj <- c(0, 0.5)
+  } else if(legend.pos[1] == "center") {
+    legend.pos <- c(mean(limits.x), mean(limits.y))
+    legend.adj <- c(0.5, 0.5)
+  } else if(legend.pos[1] == "right") {
+    legend.pos <- c(limits.x[2], mean(limits.y))
+    legend.adj <- c(1, 0.5)
+  } else if(legend.pos[1] == "bottomleft") {
+    legend.pos <- c(limits.x[1], limits.y[1])
+    legend.adj <- c(0, 0)
+  } else if(legend.pos[1] == "bottom") {
+    legend.pos <- c(mean(limits.x), limits.y[1])
+    legend.adj <- c(0.5, 0)
+  } else if(legend.pos[1] == "bottomright") {
+    legend.pos <- c(limits.x[2], limits.y[1])
+    legend.adj <- c(1, 0)
+  }
 
-## remove dummy list element
-label.text[[1]] <- NULL
-
-## convert keywords into summary placement coordinates
-if(missing(summary.pos) == TRUE) {
-  summary.pos <- c(limits.x[1], limits.y[2])
-  summary.adj <- c(0, 1)
-} else if(length(summary.pos) == 2) {
-  summary.pos <- summary.pos
-  summary.adj <- c(0, 1)
-} else if(summary.pos[1] == "topleft") {
-  summary.pos <- c(limits.x[1], limits.y[2])
-  summary.adj <- c(0, 1)
-} else if(summary.pos[1] == "top") {
-  summary.pos <- c(mean(limits.x), limits.y[2])
-  summary.adj <- c(0.5, 1)
-} else if(summary.pos[1] == "topright") {
-  summary.pos <- c(limits.x[2], limits.y[2])
-  summary.adj <- c(1, 1)
-}  else if(summary.pos[1] == "left") {
-  summary.pos <- c(limits.x[1], mean(limits.y))
-  summary.adj <- c(0, 0.5)
-} else if(summary.pos[1] == "center") {
-  summary.pos <- c(mean(limits.x), mean(limits.y))
-  summary.adj <- c(0.5, 0.5)
-} else if(summary.pos[1] == "right") {
-  summary.pos <- c(limits.x[2], mean(limits.y))
-  summary.adj <- c(1, 0.5)
-}else if(summary.pos[1] == "bottomleft") {
-  summary.pos <- c(limits.x[1], limits.y[1])
-  summary.adj <- c(0, 0)
-} else if(summary.pos[1] == "bottom") {
-  summary.pos <- c(mean(limits.x), limits.y[1])
-  summary.adj <- c(0.5, 0)
-} else if(summary.pos[1] == "bottomright") {
-  summary.pos <- c(limits.x[2], limits.y[1])
-  summary.adj <- c(1, 0)
-}
-
-## convert keywords into legend placement coordinates
-if(missing(legend.pos) == TRUE) {
-  legend.pos <- c(limits.x[1], limits.y[2])
-  legend.adj <- c(0, 1)
-} else if(length(legend.pos) == 2) {
-  legend.pos <- legend.pos
-  legend.adj <- c(0, 1)
-} else if(legend.pos[1] == "topleft") {
-  legend.pos <- c(limits.x[1], limits.y[2])
-  legend.adj <- c(0, 1)
-} else if(legend.pos[1] == "top") {
-  legend.pos <- c(mean(limits.x), limits.y[2])
-  legend.adj <- c(0.5, 1)
-} else if(legend.pos[1] == "topright") {
-  legend.pos <- c(limits.x[2], limits.y[2])
-  legend.adj <- c(1, 1)
-} else if(legend.pos[1] == "left") {
-  legend.pos <- c(limits.x[1], mean(limits.y))
-  legend.adj <- c(0, 0.5)
-} else if(legend.pos[1] == "center") {
-  legend.pos <- c(mean(limits.x), mean(limits.y))
-  legend.adj <- c(0.5, 0.5)
-} else if(legend.pos[1] == "right") {
-  legend.pos <- c(limits.x[2], mean(limits.y))
-  legend.adj <- c(1, 0.5)
-} else if(legend.pos[1] == "bottomleft") {
-  legend.pos <- c(limits.x[1], limits.y[1])
-  legend.adj <- c(0, 0)
-} else if(legend.pos[1] == "bottom") {
-  legend.pos <- c(mean(limits.x), limits.y[1])
-  legend.adj <- c(0.5, 0)
-} else if(legend.pos[1] == "bottomright") {
-  legend.pos <- c(limits.x[2], limits.y[1])
-  legend.adj <- c(1, 0)
-}
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
-    
-#     ## check if line parameters are R.Lum-objects
-#     for(i in 1:length(line())) {
-#       if(is.list(line) == TRUE & is(line[[i]], “RLum.Results”)) { 
-#         if(line[[i]]@originator == "calc_MinDose3") {
-#           line[[i]] <- as.numeric(get_RLum.Results(object = line[[i]])$mindose)
-#         }
-#       }
-#     }
-    
-    if(log.z == TRUE) {
-      line <- log(line)
-    }
+    if(log.z == TRUE) {line <- log(line)}
   
     line.coords <- list(NA)
   
@@ -1033,6 +903,27 @@ if(missing(legend.pos) == TRUE) {
       line.label <- rep("", length(line.coords))
     }
   }
+
+  ## calculate rug coordinates
+  if(missing(rug) == FALSE) {
+    if(log.z == TRUE) {
+      rug.values <- log(De.global)
+    } else {
+      rug.values <- De.global
+    }
+  
+    rug.coords <- list(NA)
+  
+    for(i in 1:length(rug.values)) {
+      rug.x <- c(r / sqrt(1 + f^2 * (rug.values[i] - z.central.global)^2) * 0.988, 
+                 r / sqrt(1 + f^2 * (rug.values[i] - z.central.global)^2) * 0.995)
+      rug.y <- c((rug.values[i] - z.central.global) * rug.x[1],
+                 (rug.values[i] - z.central.global) * rug.x[2])
+      rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
+    }
+    
+    rug.coords[1] <- NULL
+  }
   
   ## Generate plot ------------------------------------------------------------
   
@@ -1045,7 +936,8 @@ if(missing(legend.pos) == TRUE) {
     } else {shift.lines <- 1}
     
     ## setup plot area
-    par(mar = c(4, 4, shift.lines + 1.5, 7),
+    par(oma = c(1, 1, 0, 0),
+        mar = c(4, 4, shift.lines + 1.5, 7),
         xpd = TRUE,
         cex = cex)
     
@@ -1216,6 +1108,14 @@ if(missing(legend.pos) == TRUE) {
           cex = cex,
           text = zlab)
     
+    ## optionally add rug
+    if(rug == TRUE) {
+      for(i in 1:length(rug.coords)) {
+        lines(x = rug.coords[[i]][1,],
+              y = rug.coords[[i]][2,])
+      }
+    }
+    
     ## plot values
     for(i in 1:length(data)) {
       points(data[[i]][,6][data[[i]][,6] <= limits.x[2]], 
@@ -1292,15 +1192,6 @@ if(missing(legend.pos) == TRUE) {
     if(fun==TRUE){sTeve()}
   }
 
-  ## restore potentially modified parameters
-  par(bg = par.old.bg,
-      mar = par.old.mar,
-      xpd = par.old.xpd,
-      cex = par.old.cex,
-      mai = par.old.mai,
-      pin = par.old.pin,
-      family = par.old.family)
-
   if(output == TRUE) {
     return(list(data = data,
                 data.global = data.global,
@@ -1365,10 +1256,7 @@ if(missing(legend.pos) == TRUE) {
   ##seealso<<
   ## \code{\link{plot}}, \code{\link{plot_KDE}}, \code{\link{plot_Histogram}}
   
-}, ex = function() {
-  ## store original graphics parameters
-  par.old <- par(no.readonly = TRUE)
-  
+}, ex=function(){
   ## load example data
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- 
@@ -1399,6 +1287,10 @@ if(missing(legend.pos) == TRUE) {
   ## now with user-defined central value, in log-scale again
   plot_RadialPlot(data = ExampleData.DeValues,
                   central.value = 150)
+  
+  ## now with a rug, indicating individual De values at the z-scale
+  plot_RadialPlot(data = ExampleData.DeValues,
+                  rug = TRUE)
   
   ## now with legend, colour, different points and smaller scale
   plot_RadialPlot(data = ExampleData.DeValues,
@@ -1454,8 +1346,5 @@ if(missing(legend.pos) == TRUE) {
                   summary = c("n", "in.ci"),
                   summary.pos = "sub",
                   legend = c("Sample 1", "Sample 2"))
-  
-  ## restore original graphical parameters
-  par(par.old)
 })
 
