@@ -69,7 +69,7 @@ details on the calculation of the bin-width (parameter \code{bw}) see
 \code{\link{density}}.}
 
 
-\author{Michael Dietze, GFZ Potsdam (Germany),
+\author{Michael Dietze, GFZ Potsdam (Germany),\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, \cr
 R Luminescence Package Team}
 \note{The plot output is no 'PD' plot (cf. the discussion of Berger and 
@@ -145,4 +145,4 @@ lines(x = KDE.x,
       y = KDE.y,
       lwd = 3)
 }
-\section{Function version}{3.3 (2014-12-11 12:32:30)}
+\section{Function version}{3.3 (2014-12-16 09:37:57)}

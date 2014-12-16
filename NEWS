@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.4.0 (XX XXXX, 2014):
+Changes in version 0.4.0 (December 19th, 2014):
 
   New S4-classes, methods:
 
@@ -41,6 +41,10 @@ Changes in version 0.4.0 (XX XXXX, 2014):
            method described in Olley et al. (2006).  Rather than
            estimating the minimum dose of a De distribution, this
            function estimates the maximum dose.
+
+         • ‘calc_SourceDoseRate()’: calculating the dose rate of the
+           irradiation source at the date of measurement based on:
+           source calibration date, source dose rate, dose rate error.
 
          • ‘get_Layout()’: Helper function to return a list with layout
            definitions for more homogenous plotting,
@@ -160,8 +164,11 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • Error message implemented for non OSL data sets (#130,
                Georgina King),
 
-             • Added argument ‘dtype’ to provide further curve
-               limitation options,
+             • add argument ‘dtype’ to provide further curve limitation
+               options,
+
+             • add argument ‘keep.SEL’ to allow a manual curve
+               selection (advanced users),
 
              • minor code polishing.
 
@@ -447,7 +454,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • bug for small values fixed, rounding to 0 decimals
                replaced by 3 significant digits,
 
-             • parameter ‘at’ to allow user-defined z-tick positions.
+             • parameter ‘at’ to allow user-defined z-tick positions,
+
+             • individual statistical summary order supported (#184).
 
          • ‘plot_DRTResults()’:
 
@@ -492,7 +501,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
 
              • support of summary keywords "kurtosis" and "skewness",
 
-             • example y-lim bug removed (#177).
+             • example y-lim bug removed (#177),
+
+             • individual statistical summary order supported (#184).
 
          • ‘plot_KDE()’:
 
@@ -509,7 +520,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • support of ‘par(mfcol())’,
 
              • support of error-free data extended (now also for
-               calculation of kde max) (#178).
+               calculation of kde max) (#178),
+
+             • individual statistical summary order supported (#184).
 
          • ‘plot_GrowthCurve()’:
 
@@ -541,6 +554,8 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • fix ‘'EXP+EXP'’ fit as is was broken, due to a coding
                error,
 
+             • correct for wrong ‘par()’ resetting,
+
              • minor code polishing and adjustment.
 
          • ‘plot_RadialPlot()’:
@@ -550,7 +565,9 @@ Changes in version 0.4.0 (XX XXXX, 2014):
              • rug option added,
 
              • bug for small values fixed, rounding to 0 decimals
-               replaced by 3 significant digits.
+               replaced by 3 significant digits,
+
+             • individual statistical summary order supported (#184).
 
          • ‘plot_RLum.Analysis()’:
 

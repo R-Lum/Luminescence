@@ -5,7 +5,7 @@
 measured data for every position. The output of the function is optimised 
 for SAR OSL measurements on quartz.}
 \usage{Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, 
-    position, run, set, dtype, info.measurement = "unkown measurement", 
+    position, run, set, dtype, keep.SEL = FALSE, info.measurement = "unkown measurement", 
     log = "", output.plot = FALSE, output.plot.single = FALSE, 
     cex.global = 1)}
 \arguments{
@@ -28,6 +28,9 @@ from the \code{Risoe.BINfileData} object.}
 by their data type (\code{DTYPE}), e.g., \code{dtype = c("Natural", "Dose")}
 limits the curves to this two data types. By default all values are allowed.
 See \link{Risoe.BINfileData-class} for allowed data types. }
+  \item{keep.SEL}{\code{\link{logical}} (default): option allowing to use the \code{SEL} element of the 
+\link{Risoe.BINfileData-class} manually. NOTE: In this case any limitation provided by
+\code{run}, \code{set} and \code{dtype} are ignored!}
   \item{info.measurement}{\link{character} (with default): option to provide information about
 the measurement on the plot output (e.g. name of the BIN or BINX file).}
   \item{log}{\link{character} (with default): a character string which contains "x" 
@@ -108,4 +111,4 @@ output.SAR
 
 \keyword{datagen}
 \keyword{dplot}
-\section{Function version}{0.2.14 (2014-12-01 10:08:35)}
+\section{Function version}{0.2.15 (2014-12-15 13:20:00)}

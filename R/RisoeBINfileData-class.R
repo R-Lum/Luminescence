@@ -87,7 +87,7 @@ setMethod("get_Risoe.BINfileData",
           signature=signature(object = "Risoe.BINfileData"), 
           definition = function(object) {
                      
-            cat("[get_Risoe.BINfileData]: No direct access is provided object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing instead.")
+            cat("[get_Risoe.BINfileData()]: No direct access is provided object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing instead.")
             
           })##end setMethod
 

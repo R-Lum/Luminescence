@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
-Title: Package for Luminescence Dating data analysis [upcoming]
+Title: Package for Luminescence Dating data analysis 
 Version: 0.4.0
-Date: 2014-XX-XX
+Date: 2014-12-19
 Author: Sebastian Kreutzer [aut, trl, cre],
   Michael Dietze [aut],
   Christoph Burow [aut],
@@ -22,7 +22,7 @@ Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
 Description: Package provides a collection of various R functions for Luminescence Dating data analysis.
 Contact: Package Developer Team <team@r-luminescence.de>
 License: GPL-3
-Depends: R (>= 3.1.1), utils
+Depends: R (>= 3.1.2), utils
 Imports: methods, XML, shape, rgl, matrixStats, raster, sp, zoo, bbmle
 URL: http://CRAN.R-project.org/package=Luminescence 
-Collate: Analyse_SAR.OSLdata.R analyse_SAR.CWOSL.R analyse_SAR.TL.R analyse_IRSAR.RF.R CW2pLM.R CW2pLMi.R CW2pHMi.R CW2pPMi.R calc_FadingCorr.R calc_FuchsLang2001.R calc_OSLLxTxRatio.R calc_TLLxTxRatio.R Second2Gray.R fit_LMCurve.R fit_CWCurve.R plot_Risoe.BINfileData.R plot_KDE.R plot_GrowthCurve.R plot_Histogram.R plot_RadialPlot.R plot_RLum.R plot_RLum.Analysis.R plot_RLum.Data.Curve.R readBIN2R.R RisoeBINfileData-class.R Risoe.BINfileData2RLum.Analysis.R RLum-class.R RLum.Data-class.R RLum.Data.Curve-class.R RLum.Analysis-class.R RLum.Results-class.R calc_CentralDose.R calc_FiniteMixture.R calc_MinDose.R calc_CommonDose.R calc_CosmicDoseRate.R merge_Risoe.BINfileData.R writeR2BIN.R Risoe.BINfileData2RLum.Data.Curve.R calc_HomogeneityTest.R calc_AliquotSize.R readXSYG2R.R RLum.Data.Spectrum-class.R plot_RLum.Data.Spectrum.R calc_MaxDose.R plot_AbanicoPlot.R plot_DRTResults.R calc_Statistics.R apply_CosmicRayRemoval.R apply_EfficiencyCorrection.R readSPE2R.R RLum.Data.Image-class.R plot_RLum.Data.Image.R get_Layout.R analyse_pIRIRSequence.R merge_RLum.R get_RLum.R merge_RLum.Analysis.R plot_RLum.Results.R zzz.R
+Collate: Analyse_SAR.OSLdata.R analyse_SAR.CWOSL.R analyse_SAR.TL.R analyse_IRSAR.RF.R CW2pLM.R CW2pLMi.R CW2pHMi.R CW2pPMi.R calc_FadingCorr.R calc_FuchsLang2001.R calc_OSLLxTxRatio.R calc_TLLxTxRatio.R Second2Gray.R fit_LMCurve.R fit_CWCurve.R plot_Risoe.BINfileData.R plot_KDE.R plot_GrowthCurve.R plot_Histogram.R plot_RadialPlot.R plot_RLum.R plot_RLum.Analysis.R plot_RLum.Data.Curve.R readBIN2R.R RisoeBINfileData-class.R Risoe.BINfileData2RLum.Analysis.R RLum-class.R RLum.Data-class.R RLum.Data.Curve-class.R RLum.Analysis-class.R RLum.Results-class.R calc_CentralDose.R calc_FiniteMixture.R calc_MinDose.R calc_CommonDose.R calc_CosmicDoseRate.R merge_Risoe.BINfileData.R writeR2BIN.R Risoe.BINfileData2RLum.Data.Curve.R calc_HomogeneityTest.R calc_AliquotSize.R readXSYG2R.R RLum.Data.Spectrum-class.R plot_RLum.Data.Spectrum.R calc_MaxDose.R plot_AbanicoPlot.R plot_DRTResults.R calc_Statistics.R apply_CosmicRayRemoval.R apply_EfficiencyCorrection.R readSPE2R.R RLum.Data.Image-class.R plot_RLum.Data.Image.R get_Layout.R analyse_pIRIRSequence.R merge_RLum.R get_RLum.R merge_RLum.Analysis.R plot_RLum.Results.R calc_SourceDoseRate.R zzz.R

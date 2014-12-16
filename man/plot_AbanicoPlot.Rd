@@ -138,8 +138,8 @@ manually overrides a \code{zlim}-definition.}
 finite mixture. International Journal of Radiation Applications and 
 Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 
 (3), pp. 197-206. }
-\author{Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, IRAMAT-CRP2A, 
-Unversite Bordeaux Montaigne (France)\cr
+\author{Michael Dietze, GFZ Potsdam (Germany),\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Unversite Bordeaux Montaigne (France)\cr
 Inspired by a plot introduced by Galbraith & Green (1990)\cr
 R Luminescence Package Team}
 
@@ -295,4 +295,4 @@ plot_AbanicoPlot(data = data.3,
 ## restore original graphical parameters
 par(par.old)
 }
-\section{Function version}{0.1.1 (2014-12-12 10:11:23)}
+\section{Function version}{0.1.1 (2014-12-16 09:38:17)}

@@ -7,7 +7,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
   
   ##section<<
-  ## version 0.2.0
+  ## version 0.2.1
   # ===========================================================================
 
   ##TODO - keep fit.range in mind for De calculation
@@ -673,7 +673,7 @@ if(output.plot==TRUE){
          type="p", 
          pch=20,
          col="grey", 
-         ylab="Residual [a.u.]",
+         ylab="Resid. [a.u.]",
          #lwd=2,
          log="")
     
@@ -682,7 +682,7 @@ if(output.plot==TRUE){
   }else{
     plot(NA,NA,
          xlim=c(0,max(temp.sequence.structure$x.max)),
-         ylab="Residual [a.u.]",
+         ylab="Resid. [a.u.]",
          xlab=xlab, 
          ylim=c(-1,1)
     )    
@@ -769,7 +769,7 @@ if(output.plot==TRUE){
          type="p", 
          pch=20,
          col="grey", 
-         ylab="Residual [a.u.]",
+         ylab="Resid. [a.u.]",
          #lwd=2,
          log="")
     
@@ -787,7 +787,7 @@ if(output.plot==TRUE){
            type="p", 
            pch=20,
            col="grey", 
-           ylab="Residual [a.u.]",
+           ylab="Resid. [a.u.]",
            #lwd=2,
            log="")
       

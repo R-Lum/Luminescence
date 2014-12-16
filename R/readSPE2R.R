@@ -1,5 +1,5 @@
 readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
-  ### Function imports Princton Instruments SPE files into R environment and
+  ### Function imports Princeton Instruments (TM) SPE-files into R environment and
   ### provides \code{RLum} objects as output. 
   
   # ===========================================================================

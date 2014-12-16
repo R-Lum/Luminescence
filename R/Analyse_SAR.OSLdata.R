@@ -9,7 +9,7 @@ Analyse_SAR.OSLdata<- structure(function(#Analyse SAR CW-OSL measurements.
   ## Margret C. Fuchs, AWI Potsdam (Germany), TU Bergakademie Freiberg (Germany)\cr
   
   ##section<<
-  ## version 0.2.14
+  ## version 0.2.15
   # ===========================================================================
   
   input.data,
@@ -44,6 +44,11 @@ Analyse_SAR.OSLdata<- structure(function(#Analyse SAR CW-OSL measurements.
   ### by their data type (\code{DTYPE}), e.g., \code{dtype = c("Natural", "Dose")}
   ### limits the curves to this two data types. By default all values are allowed.
   ### See \link{Risoe.BINfileData-class} for allowed data types. 
+  
+  keep.SEL = FALSE,
+  ### \code{\link{logical}} (default): option allowing to use the \code{SEL} element of the 
+  ### \link{Risoe.BINfileData-class} manually. NOTE: In this case any limitation provided by
+  ### \code{run}, \code{set} and \code{dtype} are ignored!
   
   info.measurement = "unkown measurement",
   ### \link{character} (with default): option to provide information about
@@ -118,12 +123,14 @@ if(length(which(sample.data@METADATA["POSITION"]==i))>0){
       
     }
   
+    if(!keep.SEL){
     ##select all OSL data depending on the run and set
     sample.data@METADATA[,"SEL"]<-FALSE
     sample.data@METADATA[sample.data@METADATA[,"LTYPE"]=="OSL" & 
       sample.data@METADATA[,"RUN"]%in%run==TRUE &
       sample.data@METADATA[,"SET"]%in%set==TRUE &
       sample.data@METADATA[,"DTYPE"]%in%dtype==TRUE, "SEL"] <- TRUE
+    }
     
     ##grep all OSL curve IDs 
     OSL.curveID<-sample.data@METADATA[sample.data@METADATA["SEL"]==TRUE &

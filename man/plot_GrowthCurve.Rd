@@ -120,7 +120,7 @@ plot_GrowthCurve(LxTxData)
 
 ##(3) plot growth curve with pdf output - uncomment to use
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
-plot_GrowthCurve(LxTxData)
+plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 ##dev.off()  
 }
-\section{Function version}{1.2.14 (2014-10-06 15:20:44)}
+\section{Function version}{1.2.15 (2014-12-16 15:18:07)}

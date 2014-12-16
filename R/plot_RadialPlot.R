@@ -4,8 +4,8 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   
   # ===========================================================================
   ##author<<
-  ## Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, JLU Giessen 
-  ## (Germany)\cr
+  ## Michael Dietze, GFZ Potsdam (Germany),\cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   ## Based on a rewritten S script of Rex Galbraith, 2010\cr
 
   ##section<<
@@ -138,7 +138,10 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
   if(missing(stats) == TRUE) {stats <- numeric(0)}
   if(missing(summary) == TRUE) {
     summary <- c("n", "in.ci")
-    summary.pos = "sub"
+  }
+  
+  if(missing(summary.pos) == TRUE) {
+    summary.pos <- "sub"
   }
   if(missing(bar.col) == TRUE) {bar.col <- rep("grey80", length(data))}
   if(missing(grid.col) == TRUE) {grid.col <- rep("grey70", length(data))}
@@ -690,123 +693,216 @@ plot_RadialPlot <- structure(function(# Function to create a Radial Plot
     }
   }
 
-  ## calculate and paste statistical summary
-  label.text = list(NA)
+## calculate and paste statistical summary
+De.stats <- matrix(nrow = length(data), ncol = 14)
+colnames(De.stats) <- c("n",
+                        "mean", 
+                        "mean.weighted",
+                        "median",
+                        "median.weighted",
+                        "kde.max",
+                        "sd.abs",
+                        "sd.rel",
+                        "se.abs",
+                        "se.rel",
+                        "q25",
+                        "q75",
+                        "skewness",
+                        "kurtosis")
+
+for(i in 1:length(data)) {
+  statistics <- calc_Statistics(data[[i]])
+  De.stats[i,1] <- statistics$weighted$n
+  De.stats[i,2] <- statistics$unweighted$mean
+  De.stats[i,3] <- statistics$weighted$mean
+  De.stats[i,4] <- statistics$unweighted$median
+  De.stats[i,5] <- statistics$weighted$median
+  De.stats[i,7] <- statistics$weighted$sd.abs
+  De.stats[i,8] <- statistics$weighted$sd.rel
+  De.stats[i,9] <- statistics$weighted$se.abs
+  De.stats[i,10] <- statistics$weighted$se.rel
+  De.stats[i,11] <- quantile(data[[i]][,1], 0.25)
+  De.stats[i,12] <- quantile(data[[i]][,1], 0.75)
+  De.stats[i,13] <- statistics$unweighted$skewness
+  De.stats[i,14] <- statistics$unweighted$kurtosis
+}
+
+label.text = list(NA)
+
+if(summary.pos[1] != "sub") {
+  n.rows <- length(summary)
   
-  if(summary.pos[1] != "sub") {
-    n.rows <- length(summary)
+  for(i in 1:length(data)) {
+    stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
     
-    for(i in 1:length(data)) {
-      stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
-      label.text[[length(label.text) + 1]] <- paste(stops, paste(
-        ifelse("n" %in% summary == TRUE,
-               paste("n = ", 
-                     nrow(data[[i]]), 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("mean" %in% summary == TRUE,
-               paste("mean = ", 
-                     round(mean(data[[i]][,1]), 2), 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("mean.weighted" %in% summary == TRUE,
-               paste("weighted mean = ", 
-                     round(weighted.mean(x = data[[i]][,1],
-                                         w = 1 / data[[i]][,2]), 2), 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("median" %in% summary == TRUE,
-               paste("median = ", 
-                     round(median(data[[i]][,1]), 2), 
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("sdrel" %in% summary == TRUE,
-               paste("sd = ", 
-                     round(sd(data[[i]][,1]) / mean(data[[i]][,1]) * 100,
-                           2), " %",
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("sdabs" %in% summary == TRUE,
-               paste("sd = ", 
-                     round(sd(data[[i]][,1]), 2),
-                     "\n", 
-                     sep = ""),
-               ""),
-        ifelse("in.ci" %in% summary == TRUE,
-               paste("in confidence interval = ", 
-                     round(sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
-                             nrow(data[[i]]) * 100 , 1),
-                     " % \n", 
-                     sep = ""),
-               ""),
-        sep = ""), stops, sep = "")
+    summary.text <- character(0)
+    
+    for(j in 1:length(summary)) {
+      summary.text <- c(summary.text, 
+                        paste(
+                          "",
+                          ifelse("n" %in% summary[j] == TRUE,
+                                 paste("n = ", 
+                                       De.stats[i,1], 
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("mean" %in% summary[j] == TRUE,
+                                 paste("mean = ", 
+                                       round(De.stats[i,2], 2), 
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("mean.weighted" %in% summary[j] == TRUE,
+                                 paste("weighted mean = ", 
+                                       round(De.stats[i,3], 2), 
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("median" %in% summary[j] == TRUE,
+                                 paste("median = ", 
+                                       round(De.stats[i,4], 2), 
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("median.weighted" %in% summary[j] == TRUE,
+                                 paste("weighted median = ", 
+                                       round(De.stats[i,5], 2), 
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("sdabs" %in% summary[j] == TRUE,
+                                 paste("sd = ", 
+                                       round(De.stats[i,7], 2),
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("sdrel" %in% summary[j] == TRUE,
+                                 paste("rel. sd = ", 
+                                       round(De.stats[i,8], 2), " %",
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("seabs" %in% summary[j] == TRUE,
+                                 paste("se = ", 
+                                       round(De.stats[i,9], 2),
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("serel" %in% summary[j] == TRUE,
+                                 paste("rel. se = ", 
+                                       round(De.stats[i,10], 2), " %",
+                                       "\n", 
+                                       sep = ""),
+                                 ""),
+                          ifelse("in.ci" %in% summary[j] == TRUE,
+                                 paste("in confidence interval = ", 
+                                       round(sum(data[[i]][,7] > -2 & 
+                                                   data[[i]][,7] < 2) /
+                                               nrow(data[[i]]) * 100 , 1),
+                                       " %", 
+                                       sep = ""),
+                                 ""),
+                          sep = ""))
       
     }
-  } else {
-    for(i in 1:length(data)) {
+    
+    summary.text <- paste(summary.text, collapse = "")
+    
+    label.text[[length(label.text) + 1]] <- paste(stops, 
+                                                  summary.text, 
+                                                  stops, 
+                                                  sep = "")
+  }
+} else {
+  for(i in 1:length(data)) {
+    
+    summary.text <- character(0)
+    
+    for(j in 1:length(summary)) {
+      summary.text <- c(summary.text, 
+                        ifelse("n" %in% summary[j] == TRUE,
+                               paste("n = ", 
+                                     De.stats[i,1], 
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("mean" %in% summary[j] == TRUE,
+                               paste("mean = ", 
+                                     round(De.stats[i,2], 2), 
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("mean.weighted" %in% summary[j] == TRUE,
+                               paste("weighted mean = ", 
+                                     round(De.stats[i,3], 2), 
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("median" %in% summary[j] == TRUE,
+                               paste("median = ", 
+                                     round(De.stats[i,4], 2), 
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("median.weighted" %in% summary[j] == TRUE,
+                               paste("weighted median = ", 
+                                     round(De.stats[i,5], 2), 
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("sdrel" %in% summary[j] == TRUE,
+                               paste("rel. sd = ", 
+                                     round(De.stats[i,8], 2), " %",
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("sdabs" %in% summary[j] == TRUE,
+                               paste("abs. sd = ", 
+                                     round(De.stats[i,7], 2),
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("serel" %in% summary[j] == TRUE,
+                               paste("rel. se = ", 
+                                     round(De.stats[i,10], 2), " %",
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("seabs" %in% summary[j] == TRUE,
+                               paste("abs. se = ", 
+                                     round(De.stats[i,9], 2),
+                                     " | ", 
+                                     sep = ""),
+                               ""),
+                        ifelse("in.ci" %in% summary[j] == TRUE,
+                               paste("in confidence interval = ", 
+                                       round(sum(data[[i]][,7] > -2 & 
+                                                   data[[i]][,7] < 2) /
+                                               nrow(data[[i]]) * 100 , 1),
+                                       " %   ", 
+                                       sep = ""),
+                                 ""))
+      }
+    
+      summary.text <- paste(summary.text, collapse = "")
+    
       label.text[[length(label.text) + 1]]  <- paste(
-        "| ",
-        ifelse("n" %in% summary == TRUE,
-               paste("n = ", 
-                     nrow(data[[i]]), 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("mean" %in% summary == TRUE,
-               paste("mean = ", 
-                     round(mean(data[[i]][,1]), 2), 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("mean.weighted" %in% summary == TRUE,
-               paste("weighted mean = ", 
-                     round(weighted.mean(x = data[[i]][,1],
-                                         w = 1 / data[[i]][,2]), 2), 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("median" %in% summary == TRUE,
-               paste("median = ", 
-                     round(median(data[[i]][,1]), 2), 
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("sdrel" %in% summary == TRUE,
-               paste("sd = ", 
-                     round(sd(data[[i]][,1]) / mean(data[[i]][,1]) * 100,
-                           2), " %",
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("sdabs" %in% summary == TRUE,
-               paste("sd = ", 
-                     round(sd(data[[i]][,1]), 2),
-                     " | ", 
-                     sep = ""),
-               ""),
-        ifelse("in.ci" %in% summary == TRUE,
-               paste("in confidence interval = ", 
-                     round(sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
-                             nrow(data[[i]]) * 100 , 1),
-                     " % | ", 
-                     sep = ""),
-                      ""),
+        "  ",
+        summary.text,
         sep = "")
     }
+  
     ## remove outer vertical lines from string
-    label.text[[2]] <- substr(x = label.text[[2]], 
-                              start = 3, 
-                              stop = nchar(label.text[[2]]) - 2)
+    for(i in 2:length(label.text)) {
+      label.text[[i]] <- substr(x = label.text[[i]], 
+                                start = 3, 
+                                stop = nchar(label.text[[i]]) - 3)
+    }
   }
-  
-  ## remove dummy list element
-  label.text[[1]] <- NULL
-  
+
+## remove dummy list element
+label.text[[1]] <- NULL  
   ## convert keywords into summary placement coordinates
   if(missing(summary.pos) == TRUE) {
     summary.pos <- c(limits.x[1], limits.y[2])

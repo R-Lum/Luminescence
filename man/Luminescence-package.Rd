@@ -2,7 +2,7 @@
 \alias{Luminescence-package}
 \alias{Luminescence}
 \docType{package}
-\title{Collection of functions for luminescence dating data analysis [upcoming]}
+\title{Collection of functions for luminescence dating data analysis}
 \description{
 This package provides various functions developed for the purpose
 of Luminescence Dating data analysis. 
@@ -12,7 +12,7 @@ of Luminescence Dating data analysis.
 Package: \tab Luminescence\cr
 Type: \tab Package\cr
 Version: \tab 0.4.0\cr
-Date: \tab 2014-XX-XX\cr
+Date: \tab 2014-12-19\cr
 License: \tab GPL-3\cr
 }
 %~~ An overview of how to use the package, including the most important functions ~~
@@ -59,7 +59,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France,
 
 Cooperation and personal exchange between the developers is gratefully funded by 
 the DFG (SCHM 3051/3-1) in the framework of the program "Scientific Networks". 
-Project title: "Lum.Network: Ein Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2016) 
+Project title: "Lum.Network: Ein Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2017) 
 
 }
 

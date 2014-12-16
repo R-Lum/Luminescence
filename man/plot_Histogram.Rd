@@ -85,4 +85,4 @@ plot_Histogram(ExampleData.DeValues,
                xlim = c(100, 250),
                ylim = c(0, 0.08, 5, 20))
 }
-\section{Function version}{0.4.2 (2014-12-11 12:32:30)}
+\section{Function version}{0.4.2 (2014-12-16 09:35:43)}

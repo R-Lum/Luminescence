@@ -3,8 +3,8 @@
 ##//////////////////////////////////////////////////////////////////////////////
 ##==============================================================================
 ##author: Sebastian Kreutzer
-##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne/JLU Giessen/Freiberg Instruments
-##version: 0.2.5
+##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+##version: 0.2.6
 
 ##==============================================================================
 
@@ -192,6 +192,16 @@ setMethod("get_RLum.Results",
               
               
             }
+            
+            ##-------------------------------------------------------------
+            ##calc_SourceDoseRate        
+            if(object@originator == "calc_SourceDoseRate") {
+              
+              return(object@data[[1]])
+              
+            }
+            
+            
             
             ##-------------------------------------------------------------
             ##plot_GrowthCurve         

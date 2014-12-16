@@ -113,8 +113,8 @@ Galbraith, R.F., 2010. On plotting OSL equivalent doses. Ancient TL,
 Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent 
 dose and error calculation and display in OSL dating: An overview and 
 some recommendations. Quaternary Geochronology, 11, 1-27. }
-\author{Michael Dietze, GFZ Potsdam (Germany), Sebastian Kreutzer, JLU Giessen 
-(Germany)\cr
+\author{Michael Dietze, GFZ Potsdam (Germany),\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Based on a rewritten S script of Rex Galbraith, 2010\cr
 R Luminescence Package Team}
 
@@ -212,4 +212,4 @@ plot_RadialPlot(data = data.3,
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
 }
-\section{Function version}{0.5.2 (2014-12-12 10:11:23)}
+\section{Function version}{0.5.2 (2014-12-16 09:37:42)}

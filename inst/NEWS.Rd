@@ -1,7 +1,7 @@
   \name{NEWS}
 \title{NEWS for the R Package Luminescence}
 
-\section{Changes in version 0.4.0 (XX XXXX, 2014)}{
+\section{Changes in version 0.4.0 (December 19th, 2014)}{
 
    \subsection{New S4-classes, methods}{
    \itemize{   
@@ -38,6 +38,8 @@
     but transforms the data set similar to the method described in Olley et al. (2006). 
     Rather than estimating the minimum dose of a De distribution, this function estimates the maximum dose.
    
+    \item \code{calc_SourceDoseRate()}: calculating the dose rate of the irradiation source at the 
+    date of measurement based on: source calibration date, source dose rate, dose rate error.
    
   \item \code{get_Layout()}: Helper function to return a list with layout definitions for
   more homogenous plotting,
@@ -180,7 +182,9 @@
        
         \item Error message implemented for non OSL data sets (#130, Georgina King),
         
-        \item Added argument \code{dtype} to provide further curve limitation options,
+        \item add argument \code{dtype} to provide further curve limitation options,
+        
+        \item add argument \code{keep.SEL} to allow a manual curve selection (advanced users),
         
         \item minor code polishing. 
        
@@ -401,7 +405,8 @@
         \item bug in lower z-axis limit eliminated,
         \item example list updated (i.e. fast CAM instead of slow MAM)
         \item bug for small values fixed, rounding to 0 decimals replaced by 3 significant digits,
-        \item parameter \code{at} to allow user-defined z-tick positions.
+        \item parameter \code{at} to allow user-defined z-tick positions,
+        \item individual statistical summary order supported (#184).
         
       }
       
@@ -441,7 +446,8 @@
         \item support of data without and \code{NA}-values for error values (#152, #162),
         \item implementation of \code{calc_Stats()}-call for extended statistic summary,
         \item support of summary keywords "kurtosis" and "skewness",
-        \item example y-lim bug removed (#177).
+        \item example y-lim bug removed (#177),
+        \item individual statistical summary order supported (#184).
         
       
       }
@@ -454,7 +460,8 @@
         \item plot now longer shows a density error when no error exists (#160),
         \item De.stats error fixed (#163),
         \item support of \code{par(mfcol())},
-        \item support of error-free data extended (now also for calculation of kde max) (#178).
+        \item support of error-free data extended (now also for calculation of kde max) (#178),
+        \item individual statistical summary order supported (#184).
       
       }
       
@@ -486,6 +493,8 @@
         
         \item fix \code{'EXP+EXP'} fit as is was broken, due to a coding error,
         
+        \item correct for wrong \code{par()} resetting, 
+        
         \item minor code polishing and adjustment. 
       
       }   
@@ -495,7 +504,8 @@
       
      \item support of user-defined centrality value,
      \item rug option added,
-     \item bug for small values fixed, rounding to 0 decimals replaced by 3 significant digits.
+     \item bug for small values fixed, rounding to 0 decimals replaced by 3 significant digits,
+     \item individual statistical summary order supported (#184).
     }
    
     \item \code{plot_RLum.Analysis()}:

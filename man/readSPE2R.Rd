@@ -1,7 +1,7 @@
 \name{readSPE2R}
 \alias{readSPE2R}
 \title{Import Princton Intruments SPE-file into R}
-\description{Function imports Princton Instruments SPE files into R environment and
+\description{Function imports Princeton Instruments (TM) SPE-files into R environment and
 provides \code{RLum} objects as output. }
 \usage{readSPE2R(file, output.object = "RLum.Data.Image", frame.range, 
     txtProgressBar = TRUE)}
@@ -91,4 +91,4 @@ The function has been successfully tested for SPE format versions 2.x.
 }
 
 \keyword{IO}
-\section{Function version}{0.1 (2014-10-07 17:59:30)}
+\section{Function version}{0.1 (2014-12-15 14:59:14)}

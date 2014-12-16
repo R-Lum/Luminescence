@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ##version 1.2.14
+  ##version 1.2.15
   # ===========================================================================
   
   sample,
@@ -851,11 +851,16 @@ if(output.plot==TRUE) {
            output.plotExtended.single == FALSE ){
       
         ####grep recent plot parameter for later reset
-        par.default <- par(no.readonly = TRUE)$cex
+        par.default.complex <- par(no.readonly = TRUE)
       
         ##set new parameter
 			  layout(matrix(c(1,1,1,1,2,3), 3, 2, byrow=TRUE), respect=TRUE)
 			  par(cex=0.8*cex.global)
+        
+      }else{
+        
+        par.default.single <- par(no.readonly = TRUE)$cex
+        par(cex=cex.global)
         
       }
 
@@ -1041,9 +1046,18 @@ if(fun==TRUE){sTeve()}
 
  
   ##reset only the parameter that have been changed!  
-  if(exists("par.default")){
-    par(cex = par.default)
-    rm(par.default)
+  if(exists("par.default.single")){
+   
+    par(cex = par.default.single)
+    rm(par.default.single)
+  
+  }
+
+  if(exists("par.default.complex")){
+   
+   par(par.default.complex)
+   rm(par.default.complex)
+   
   }
 
 }#end if plotOutput	
@@ -1137,8 +1151,8 @@ if(fun==TRUE){sTeve()}
   plot_GrowthCurve(LxTxData)
   ##dev.off()                                   
   
-  ##(3) plot growth curve with pdf output - uncomment to use
+  ##(3) plot growth curve with pdf output - uncomment to use, single output
   ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
-  plot_GrowthCurve(LxTxData)
+  plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
   ##dev.off()  
 })
