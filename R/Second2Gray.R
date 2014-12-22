@@ -12,11 +12,11 @@ Second2Gray <- structure(function(#Converting values from seconds (s) to gray (G
   ## version 0.4
   # ===========================================================================
 
-  values,
+  data,
   ### \code{\link{data.frame}} (\bold{required}): input values, structure: 
   ### data (\code{values[,1]}) and data error (\code{values [,2]}) are required
   
-  dose_rate,
+  dose.rate,
   ### \code{\linkS4class{RLum.Results}} or \code{\link{vector}} (\bold{required}): 
   ### \code{RLum.Results} needs to be orginated from the function \code{\link{calc_SourceDoseRate}},
   ### for \code{vector}dose rate in Gy/s and dose rate error in Gy/s
@@ -29,29 +29,29 @@ Second2Gray <- structure(function(#Converting values from seconds (s) to gray (G
   # Integrity tests -----------------------------------------------------------------------------
   
   ##(1) data.frame or RLum.Data.Curve object?
-  if(is(values, "data.frame") == FALSE){
+  if(is(data, "data.frame") == FALSE){
     
-    stop("[Second2Gray()] 'values' object has to be of type 'data.frame'!")
+    stop("[Second2Gray()] 'data' object has to be of type 'data.frame'!")
     
   }
   
   ##(2) data.frame or RLum.Data.Curve object?
-  if(is(dose_rate, "numeric") == FALSE & is(dose_rate, "RLum.Results") == FALSE){
+  if(is(dose.rate, "numeric") == FALSE & is(dose.rate, "RLum.Results") == FALSE){
     
-    stop("[Second2Gray()] 'dose_rate' object has to be of type 'numeric' or 'RLum.Results'!")
+    stop("[Second2Gray()] 'dose.rate' object has to be of type 'numeric' or 'RLum.Results'!")
     
   }
   
   ##(3) check for right orginator
-  if(is(dose_rate, "RLum.Results")){
+  if(is(dose.rate, "RLum.Results")){
     
-    if(dose_rate@originator != "calc_SourceDoseRate"){
+    if(dose.rate@originator != "calc_SourceDoseRate"){
       
-      stop("[Second2Gray()]  Wrong originator for dose_rate 'RLum.Results' object.")  
+      stop("[Second2Gray()]  Wrong originator for dose.rate 'RLum.Results' object.")  
       
     }else{
       
-     dose_rate <- as.numeric(get_RLum.Results(dose_rate, data.object = "dose.rate"))
+     dose.rate <- as.numeric(get_RLum.Results(dose.rate, data.object = "dose.rate"))
      
 
     }
@@ -61,22 +61,22 @@ Second2Gray <- structure(function(#Converting values from seconds (s) to gray (G
   # Calculation ---------------------------------------------------------------------------------
   
   
-  De.seconds <- values[,1]
-  De.error.seconds <- values[,2]
+  De.seconds <- data[,1]
+  De.error.seconds <- data[,2]
   
   
   De.gray <- NA
   De.error.gray <- NA
   
-  De.gray <- round(De.seconds*dose_rate[1], digits=2) 
+  De.gray <- round(De.seconds*dose.rate[1], digits=2) 
   
   if(method == "gaussian"){
     
-    De.error.gray <- round(sqrt((De.seconds*dose_rate[2])^2+(dose_rate[1]*De.error.seconds)^2), digits=2)
+    De.error.gray <- round(sqrt((De.seconds*dose.rate[2])^2+(dose.rate[1]*De.error.seconds)^2), digits=2)
     
   }else if (method == "absolute"){
         
-    De.error.gray <- round(abs(dose_rate[1] * De.error.seconds) + abs(De.seconds * dose_rate[2]), digits=2)
+    De.error.gray <- round(abs(dose.rate[1] * De.error.seconds) + abs(De.seconds * dose.rate[2]), digits=2)
     
   }else{
     
@@ -84,9 +84,9 @@ Second2Gray <- structure(function(#Converting values from seconds (s) to gray (G
     
   }
 
-  values <- data.frame(De=De.gray, De.error=De.error.gray)
+  data <- data.frame(De=De.gray, De.error=De.error.gray)
 	
-  return(values)
+  return(data)
 
   # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
   
@@ -128,14 +128,14 @@ Second2Gray <- structure(function(#Converting values from seconds (s) to gray (G
   
   ##(B) for source dose rate calibration data
   ## - calculate source dose rate first
-  dose_rate <-  calc_SourceDoseRate(measurement.date = "2014-01-08",
-                                    calib.date <- "2008-03-01",
-                                    calib.dose.rate <- 5.95,
-                                    calib.error <- 0.04)  
+  dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
+                                    calib.date <- "2014-12-19",
+                                    calib.dose.rate <- 0.0438,
+                                    calib.error <- 0.0019)  
   # read example data
   data(ExampleData.DeValues, envir = environment())
   
-  # apply Dose_rate to convert De(s) to De(Gy)
-  Second2Gray(ExampleData.DeValues, dose_rate)
+  # apply dose.rate to convert De(s) to De(Gy)
+  Second2Gray(ExampleData.DeValues, dose.rate)
   
 })  

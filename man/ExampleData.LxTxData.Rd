@@ -17,7 +17,7 @@ A \code{data.frame} with 4 columns (Dose, LxTx, LxTx.Error, TnTx).
 Lab: \tab Luminescence Laboratory Bayreuth\cr
 Lab-Code: \tab BT607\cr
 Location: \tab Ostrau (Saxony-Anhalt/Germany)\cr
-Material: \tab Middle grain quartz measured on a Risoe TL/OSL DA-15 reader.\cr
+Material: \tab Middle grain (38-63 \eqn{\mu}m) quartz measured on a Risoe TL/OSL DA-15 reader.\cr
 }
 }
 

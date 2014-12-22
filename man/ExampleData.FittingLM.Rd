@@ -3,7 +3,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Example data for fit_LMCurve() in the package Luminescence }
 \description{Lineraly modulated (LM) measurement data from a quartz sample from Norway including background 
-measurement. Measurements carried out in th luminescence laboratory at the University of Bayreuth.}
+measurement. Measurements carried out in the luminescence laboratory at the University of Bayreuth.}
 \usage{
 ExampleData.FittingLM
 }

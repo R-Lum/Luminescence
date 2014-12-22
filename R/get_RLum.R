@@ -1,5 +1,5 @@
 get_RLum<- structure(function(#General accessor function for RLum S4 class objects
-  ### Function calls object specific get functions for RLum S4 class objects. 
+  ### Function calls object-specific get functions for RLum S4 class objects. 
   
   # ===========================================================================
   ##author<<
@@ -23,7 +23,7 @@ get_RLum<- structure(function(#General accessor function for RLum S4 class objec
    ##check if object is of class RLum
    if(!"RLum"%in%is(object)){
       
-       stop("[get_RLum]: Input object  is not of class 'RLum' or a derivative class!")
+       stop("[get_RLum()]: Input object  is not of class 'RLum' or a derivative class!")
    
      }
      
@@ -60,7 +60,7 @@ get_RLum<- structure(function(#General accessor function for RLum S4 class objec
    ## }
    
    ##value<<
-   ## Return same as input objects as provided in the list.
+   ## Return is the same as input objects as provided in the list.
    
    ##references<<
    ## -

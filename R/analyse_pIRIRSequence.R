@@ -36,14 +36,14 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   ### IRSL curves.
   
   dose.points,
-  ### \code{\link{numeric}} (optional): a numeric vector containg the dose points values.
+  ### \code{\link{numeric}} (optional): a numeric vector containing the dose points values.
   ### Using this argument overwrites dose point values in the signal curves. 
   
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   ### \link{vector} \link{character} (with default): specifies the general 
   ### sequence structure. Allowed values are \code{"TL"} 
   ### and any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}). 
-  ### Addiationally a parameter \code{"EXCLUDE"} is allowed to exclude curves 
+  ### Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves 
   ### from the analysis  
   ### (Note: If a preheat without PMT measurement is used, i.e. preheat as non TL, 
   ### remove the TL step.)
@@ -660,7 +660,7 @@ if(output.plot == TRUE){
   ## doi:10.1016/j.radmeas.2008.06.002
 
   ##note<<
-  ## Best graphical ouput can be achieved by using the function \code{pdf} with the 
+  ## Best graphical output can be achieved by using the function \code{pdf} with the 
   ## following options:\cr
   ## \code{pdf(file = "...", height = 15, width = 15)}
 

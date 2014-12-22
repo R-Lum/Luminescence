@@ -1,4 +1,4 @@
-readSPE2R <- structure(function(#Import Princton Intruments SPE-file into R
+readSPE2R <- structure(function(#Import Princeton Intruments (TM) SPE-file into R
   ### Function imports Princeton Instruments (TM) SPE-files into R environment and
   ### provides \code{RLum} objects as output. 
   
@@ -378,7 +378,7 @@ return(object)
   ##
   ## An object of type \code{\linkS4class{RLum.Data.Image}} is returned. 
   ## Due to performace reasons the import is aborted for files containing more 
-  ## than 100 frames. This limitation can be overwritten manually be using the argument
+  ## than 100 frames. This limitation can be overwritten manually by using the argument
   ## \code{frame.frange}.
   ## 
   ##
@@ -386,7 +386,7 @@ return(object)
   ## 
   ## Returns a matrix of the form: Rows = Channels, columns = Frames
   ## For the transformation the function \code{\link{get_RLum.Data.Spectrum}} is used, 
-  ## meaning that same results can be obtained by using the 
+  ## meaning that the same results can be obtained by using the 
   ## function \code{\link{get_RLum.Data.Spectrum}} on an \code{RLum.Data.Spectrum} 
   ## object or \code{\link{get_RLum.Data.Image}} on an
   ## \code{RLum.Data.Image} object.

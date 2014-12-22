@@ -1,6 +1,6 @@
 \name{readSPE2R}
 \alias{readSPE2R}
-\title{Import Princton Intruments SPE-file into R}
+\title{Import Princeton Intruments (TM) SPE-file into R}
 \description{Function imports Princeton Instruments (TM) SPE-files into R environment and
 provides \code{RLum} objects as output. }
 \usage{readSPE2R(file, output.object = "RLum.Data.Image", frame.range, 
@@ -35,7 +35,7 @@ Row sums are used to integrate all counts over one channel.
 
 An object of type \code{\linkS4class{RLum.Data.Image}} is returned. 
 Due to performace reasons the import is aborted for files containing more 
-than 100 frames. This limitation can be overwritten manually be using the argument
+than 100 frames. This limitation can be overwritten manually by using the argument
 \code{frame.frange}.
 
 
@@ -43,7 +43,7 @@ than 100 frames. This limitation can be overwritten manually be using the argume
 
 Returns a matrix of the form: Rows = Channels, columns = Frames
 For the transformation the function \code{\link{get_RLum.Data.Spectrum}} is used, 
-meaning that same results can be obtained by using the 
+meaning that the same results can be obtained by using the 
 function \code{\link{get_RLum.Data.Spectrum}} on an \code{RLum.Data.Spectrum} 
 object or \code{\link{get_RLum.Data.Image}} on an
 \code{RLum.Data.Image} object.}
@@ -91,4 +91,4 @@ The function has been successfully tested for SPE format versions 2.x.
 }
 
 \keyword{IO}
-\section{Function version}{0.1 (2014-12-15 14:59:14)}
+\section{Function version}{0.1 (2014-12-17 14:27:14)}

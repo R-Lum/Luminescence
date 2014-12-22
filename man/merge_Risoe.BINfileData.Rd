@@ -15,12 +15,12 @@ If no value is given, a \code{\linkS4class{Risoe.BINfileData}}
 is returned instead of a file.}
   \item{keep.position.number}{\code{\link{logical}} (with default): Allows keeping the original 
 position numbers of the input objects. Otherwise the position numbers 
-a recalculated.}
+are recalculated.}
   \item{position.number.append.gap}{\code{\link{integer}} (with default): Set the position number gap between 
 merged BIN-file sets, if the option \code{keep.position.number = FALSE} is
 used. See details for further information.}
 }
-\details{The function allows mering different measurements to one file or one object.\cr
+\details{The function allows merging different measurements to one file or one object.\cr
 The record IDs are recalculated for the new object. Other values 
 are kept for each object. The number of input objects is not limited. \cr
 
@@ -67,4 +67,4 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 
 \keyword{IO}
 \keyword{manip}
-\section{Function version}{0.2 (2014-12-14 14:55:39)}
+\section{Function version}{0.2 (2014-12-18 17:44:15)}

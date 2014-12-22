@@ -1,6 +1,6 @@
 merge_RLum.Analysis<- structure(function(#Merge function for RLum.Analysis S4 class objects
-  ### Function allows merging of RLum.Analysis objects and adding of objects an RLum.Analysis 
-  ### object consists of. 
+  ### Function allows merging of RLum.Analysis objects and adding of allowed objects to 
+  ### an RLum.Analysis. 
   
   # ===========================================================================
   ##author<<
@@ -99,10 +99,10 @@ merge_RLum.Analysis<- structure(function(#Merge function for RLum.Analysis S4 cl
    # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
    
    ##details<<
-   ## This function simply allows to merge \code{\linkS4class{RLum.Analysis}} objects. 
+   ## This function simply allowing to merge \code{\linkS4class{RLum.Analysis}} objects. 
    ## Additionally other \code{\linkS4class{RLum}} objects can be added to an existing 
    ## \code{\linkS4class{RLum.Analysis}} object. Supported objects to be added are: 
-   ## \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}} and
+   ## \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Spectrum}} and
    ## \code{\linkS4class{RLum.Data.Image}}.\cr
    ##
    ## The order in the new \code{\linkS4class{RLum.Analysis}} object is the object order

@@ -11,11 +11,11 @@ using the protocol according to Erfurt et al. (2003)}
   \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): 
 input object containing data for protocol analysis}
   \item{sequence.structure}{\code{\link{vector}} \link{character} (with default): specifies the general 
-sequence structure. Allowed steps are \code{NATURAL}, \code{REGENERATED}
+sequence structure. Allowed steps are \code{NATURAL}, \code{REGENERATED}.
 In addition any other character is allowed in the sequence structure; 
 such curves will be ignored. }
-  \item{method}{\code{\link{character}} (with default): setting the method applied for the data analysis
-Possible options are \code{"FIT"} or \code{"SLIDE"}}
+  \item{method}{\code{\link{character}} (with default): setting method applied for the data analysis.
+Possible options are \code{"FIT"} or \code{"SLIDE"}.}
   \item{fit.range.min}{\code{\link{integer}} (optional): set the minimum channel range for signal fitting and sliding.   
 Usually the entire data set is used for curve fitting, but there might be 
 reasons to limit the channels used for fitting.
@@ -26,11 +26,11 @@ reasons to limit the channels used for fitting.}
   \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for debugging use)}
   \item{fit.MC.runs}{\code{\link{numeric}} (with default): set number of Monte Carlo runs for start 
 parameter estimation. Note: Higher values will significantly increase 
-the calculation time   }
+the calculation time.   }
   \item{slide.outlier.rm}{\code{\link{logical}} (with default): enable or disable outlier removal. 
 Outliers are removed from the natural signal curve only.}
   \item{slide.trend.corr}{\code{\link{logical}} (with default): enable or disable trend correction. 
-If \code{TRUE} the sliding is applied on a previouly trend corrected data set.}
+If \code{TRUE}, the sliding is applied to a previously trend corrected data set.}
   \item{output.plot}{\code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})}
   \item{xlab.unit}{\code{\link{character}} (with default): set unit for x-axis}
   \item{legend.pos}{\code{\link{character}} (with default): useful keywords are \code{bottomright}, 
@@ -38,7 +38,7 @@ If \code{TRUE} the sliding is applied on a previouly trend corrected data set.}
 \code{top}, \code{topright}, \code{right} and \code{center}. 
 For further details see \code{\link{legend}.}}
   \item{\dots}{further arguments that will be passed to the plot output. 
-Currently supported arguments are \code{main}, \code{xlab}, \code{ylab}}
+Currently supported arguments are \code{main}, \code{xlab}, \code{ylab}.}
 }
 \details{The function performs an IRSAR analysis described for K-feldspar samples by 
 Erfurt et al. (2003) assuming a negligible sensitivity change of the RF signal.\cr
@@ -50,7 +50,7 @@ the geometry
 \item Waiting for at least one hour 
 \item Regeneration of the IR-RF signal to at least the natural level
 \item Fitting data with a stretched exponential function
-\item Calculate the the palaedose \eqn{D} using the parameters from the fitting
+\item Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
 }
 \bold{Function Used For The Fitting} (according to Erfurt et al. (2003))\cr
 \deqn{\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta}
@@ -58,8 +58,8 @@ with \eqn{\phi(D)} the dose dependent IR-RF flux, \eqn{\phi_{0}} the inital IR-R
 \eqn{\Delta\phi} the dose dependent change of the IR-RF flux, \eqn{\lambda} 
 the exponential parameter, \eqn{D} the dose and \eqn{\beta} the dispersive 
 factor.\cr\cr
-To obtain the palaedose the function is changed to:\cr
-\deqn{D = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}\cr
+To obtain the palaeodose \eqn{D_{e}} the function is changed to:\cr
+\deqn{D_{e} = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}\cr
 The fitting is done using the \code{port} algorithm of the \code{\link{nls}} function.\cr
 
 Two methods are supported to obtain the De:\cr
@@ -70,9 +70,10 @@ The principle is described above and follows the orignal suggestions from Erfurt
 
 \bold{\code{method = "SLIDE"}}\cr
 
-For this method the natural curve is slided along the x-axis until the best fit has been 
-employed. Instead of fitting this allows to work with the original data without the need 
-of any phisical model. This approach was introduced on RF curves by Buylaert et al., 2012 and 
+For this method the natural curve is slided along the x-axis until congruence with the 
+regenerated curve is reached. Instead of fitting this allows to work with the original data 
+without the need of any physical model. 
+This approach was introduced for RF curves by Buylaert et al., 2012 and 
 Lapp et al., 2012.
 
 Here the sliding is done by searching for the minimum of the residual squares. 
@@ -85,7 +86,7 @@ for
 \bold{Correction for outliers} (\code{slide.outlier.rm = TRUE})\cr
 
 By using \code{method = "SLIDE"} and setting the argument \code{slide.outlier.rm = TRUE}
-an automatic outlier removal can be applied on the natural curve. Outliers may be observed also
+an automatic outlier removal can be applied to the natural curve. Outliers may be observed also
 on the regenerative curve, but here the impact of single outliers on the curve adjustment (sliding)
 is considered as negligible. \cr
 The applied outlier removal algorithm consists of three steps:\cr
@@ -100,7 +101,7 @@ In contrast, here no sigma clipping before constructing the histograms is applie
 
 (c) Outliers are marked in the data set and visualised in the graphical output. The subsequent
 adjustement of both curves (natural and regenerative) is done without outliers, whereas the 
-sliding it selfis done with the entire data set.\cr
+sliding itself is done with the entire data set.\cr
 
 
 \bold{Trend correction} (\code{slide.trend.corr = TRUE})\cr
@@ -109,7 +110,7 @@ This option allows for correcting any linear trend in the natural curve in compa
 regenerative curve. The trend correction is based on regression analysis of the residuals from 
 the slided curve. The corrected De is obtained by sliding the trend corrected values (again)
 along the regenerative data curve. This correction is driven by the idea that the 
-rediduals from the regenerative and the natural curve should be free of any trend, so far as 
+rediduals from the regenerative and the natural curve should be free of any trend, as long as 
 they are comparable. \cr
 
 \bold{Error estimation}
@@ -124,13 +125,13 @@ De distribution.}
 containing the following elements: \cr
 \item{De.values}{\code{\link{data.frame}} containing De-values with error 
 (gray dashed lines in the plot) and further parameters. Corrected De values are only 
-provided for the method \code{"SLIDE"}, so far the trend correction is applied.}
+provided for the method \code{"SLIDE"}, provided the trend correction is applied.}
 \item{fit}{\link{nls} \code{nlsModel} object}\cr
 \bold{Note:} The output (\code{De.values}) should be accessed using the 
 function \code{\link{get_RLum.Results}}}
 \references{Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T., 2012. 
 IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy. 
-Radiation Measurements 1-7. doi: 10.1016/j.radmeas.2012.06.021
+Radiation Measurements 44 (5-6), 560-565. doi: 10.1016/j.radmeas.2012.06.021
 
 Erfurt, G., Krbetschek, M.R., 2003. IRSAR - A single-aliquot regenerative-dose 
 dating protocol applied to the infrared radiofluorescence (IR-RF) of coarse- grain 
@@ -188,4 +189,4 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 }
 
 \keyword{datagen}
-\section{Function version}{0.2.1 (2014-12-15 17:23:43)}
+\section{Function version}{0.2.1 (2014-12-18 17:15:20)}

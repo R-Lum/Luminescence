@@ -75,7 +75,7 @@ output options, an \code{\linkS4class{RLum.Results}} object is returned.\cr\cr
 \code{fit}: an \code{nls} object (\code{$fit}) for which generic R functions 
 are provided, e.g. \link{summary}, \link{confint}, \link{profile}. 
 For more details, see \link{nls}.\cr\cr
-\code{output.table}:  a \link{data.frame} containing the summarized 
+\code{output.table}: a \link{data.frame} containing the summarised 
 parameters including the error\cr
 \code{component.contribution.matrix}: \link{matrix} containing the values 
 for the component to sum contribution plot 
@@ -96,7 +96,7 @@ The Review of Economics and Statistics, 52 (3), 320-323.
 
 Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. In: R. Gentleman, 
 K. Hornik, G. Parmigiani, eds., Springer, p. 150.}
-\author{Sebastian Kreutzer, Universite Bordeaux Montaigne (France),\cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 R Luminescence Package Team}
 \note{\bold{Beta version - This function has not been properly tested yet and should 
 therefore not be used for publication purposes!}\cr\cr
@@ -125,4 +125,4 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
 
 \keyword{dplot}
 \keyword{models}
-\section{Function version}{0.4.4 (2014-09-15 02:28:00)}
+\section{Function version}{0.4.4 (2014-12-18 17:41:10)}

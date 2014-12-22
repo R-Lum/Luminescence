@@ -81,7 +81,7 @@ Galbraith in Ancient TL; see references)!}
 ## read example data set
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- 
-  Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
+  Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
 
 ## create plot straightforward
 plot_KDE(data = ExampleData.DeValues)
@@ -145,4 +145,4 @@ lines(x = KDE.x,
       y = KDE.y,
       lwd = 3)
 }
-\section{Function version}{3.3 (2014-12-16 09:37:57)}
+\section{Function version}{3.3 (2014-12-18 15:41:33)}

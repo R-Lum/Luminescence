@@ -4,7 +4,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
@@ -662,7 +662,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
               #print D0 values
               writeLines(paste0("\n [plot_GrowthCurve()] >> D01 = ",D01, " | D02 = ",D02))
                             
-        #problem: analytic it is not easy to calculat x, here an simple approximation is made
+        #problem: analytic it is not easy to calculate x, here an simple approximation is made
 						
               #calculate absolut diffrences from LnTn
 							differences <- data.frame(dose=xy$x,differences=(sample[1,2]-

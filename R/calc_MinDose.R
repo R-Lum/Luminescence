@@ -722,51 +722,51 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ## \bold{Boundaries} \cr\cr  
   ## Depending on the data, the upper and lower bounds for \emph{gamma}, \emph{mu}, 
   ## \emph{sigma} and \emph{p0} need to be specified. If no values are provided
-  ## for \code{boundaris} the function tries to estimate reasonable boundaries.
+  ## for \code{boundaries} the function tries to estimate reasonable boundaries.
   ## However, these might not be appropriate in all cases and 
   ## if the final estimate of any of these parameters is on the boundary, 
-  ## make sure to adjust the boundaries via \code{boundaries}
+  ## make sure to adjust the boundaries via \code{boundaries}.
   ## \cr\cr
   ## \bold{Initial values} \cr\cr
   ## The log likelihood calculations use the \link{optim} function with the
   ## \code{L-BFGS-B} method. 
   ## Accordingly, initial values for the four parameters need to be specified.
-  ## IF no values are provided for \code{init.values} reasonable starting 
+  ## If no values are provided for \code{init.values} reasonable starting 
   ## values are estimated. If the final estimates of \emph{gamma}, \emph{mu}, 
-  ## \emph{sigma} and \emph{p0} are totally of, consider providing custom
+  ## \emph{sigma} and \emph{p0} are totally off target, consider providing custom
   ## starting values via \code{init.values}.
   
   
   ##references<<
   ## Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B., 2009. A revised
   ## burial dose estimation procedure for optical dating of young and modern-age 
-  ## sediments. Quaternary Geochronology, 4, pp. 306-325. \cr\cr
+  ## sediments. Quaternary Geochronology 4, 306-325. \cr\cr
   ## Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission 
-  ## track ages. Nuclear Tracks Radiation Measurements, 4, pp. 459-470. \cr\cr
+  ## track ages. Nuclear Tracks Radiation Measurements 4, 459-470. \cr\cr
   ## Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley, J.M., 
   ## 1999. Optical dating of single grains of quartz from Jinmium rock shelter, 
   ## northern Australia. Part I: experimental design and statistical models. 
-  ## Archaeometry, 41, pp. 339-364. \cr\cr
+  ## Archaeometry 41, 339-364. \cr\cr
   ## Galbraith, R.F., 2005. Statistics for Fission Track Analysis, Chapman & 
   ## Hall/CRC, Boca Raton. \cr\cr
   ## Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose
   ## and error calculation and display in OSL dating: An overview and some
-  ## recommendations. Quaternary Geochronology, 11, pp. 1-27. \cr\cr
+  ## recommendations. Quaternary Geochronology 11, 1-27. \cr\cr
   ## \bold{Further reading} \cr\cr
   ## Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain 
   ## equivalent dose (De) distributions: Implications for OSL dating of sediment 
-  ## mixtures. Quaternary Geochronology, 4, pp. 204-230. \cr\cr
+  ## mixtures. Quaternary Geochronology 4, 204-230. \cr\cr
   ## Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain 
   ## quartz De distributions and an assessment of procedures for estimating burial
-  ## dose. Quaternary Science Reviews, 25, pp. 2475-2502. \cr\cr
+  ## dose. Quaternary Science Reviews 25, 2475-2502. \cr\cr
   ## Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial
-  ## archives using robust OSL chronologies. Quaternary Geochronology, 12, 
-  ## pp. 98-106. \cr\cr
+  ## archives using robust OSL chronologies. Quaternary Geochronology 12, 
+  ## 98-106. \cr\cr
   ## Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the
   ## reproducibility and accuracy of optical dating of fluvial deposits. 
-  ## Quaternary Geochronology, 1, pp. 109-120. \cr\cr
+  ## Quaternary Geochronology 1, 109-120. \cr\cr
   ## Rodnight, H., 2008. How many equivalent dose values are needed to obtain a
-  ## reproducible distribution?. Ancient TL, 26, pp. 3-10. \cr\cr
+  ## reproducible distribution?. Ancient TL 26, 3-10. \cr\cr
   
   ##note<<
   ## The default boundary and starting values for \emph{gamma}, \emph{mu}, 

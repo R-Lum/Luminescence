@@ -1,8 +1,8 @@
 \name{get_Layout}
 \alias{get_Layout}
-\title{Collection of layout definitions.}
+\title{Collection of layout definitions}
 \description{This helper function returns a list with layout definitions for
-homogenous plotting.}
+homogeneous plotting.}
 \usage{get_Layout(layout)}
 \arguments{
   \item{layout}{\code{\link{character}} or \code{\link{list}} object (required): 
@@ -15,11 +15,11 @@ structure, see details.}
 }
 \details{The easiest way to create a user-specific layout definition is
 perhaps to create either an empty or a default layout object and 
-fill/modify the definitions. (\code{user.layout <- 
+fill/modify the definitions (\code{user.layout <- 
 get_Layout(data = "empty")}).}
 \value{A list object with layout definitions for plot functions.}
 
-\author{Michael Dietze, GFZ Potsdam (Germany), 
+\author{Michael Dietze, GFZ Potsdam (Germany) \cr 
 R Luminescence Package Team}
 
 
@@ -47,4 +47,4 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  layout = "journal")
 }
-\section{Function version}{0.1 (2014-09-15 02:28:00)}
+\section{Function version}{0.1 (2014-12-18 17:42:03)}

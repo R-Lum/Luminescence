@@ -63,8 +63,7 @@ R Luminescence Package Team}
 ## load data
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- 
-  Second2Gray(values = ExampleData.DeValues, 
-              dose_rate = c(0.0438,0.0019))
+  Second2Gray(ExampleData.DeValues, dose.rate = c(0.0438,0.0019))
 
 ## plot histogram the easiest way
 plot_Histogram(ExampleData.DeValues)
@@ -83,6 +82,7 @@ plot_Histogram(ExampleData.DeValues,
                ylab = c(expression(paste(D[e], " distribution")),
                         "Error"),
                xlim = c(100, 250),
-               ylim = c(0, 0.08, 5, 20))
+               ylim = c(0, 0.1, 5, 20))
+              
 }
-\section{Function version}{0.4.2 (2014-12-16 09:35:43)}
+\section{Function version}{0.4.2 (2014-12-18 15:41:05)}

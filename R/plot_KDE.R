@@ -769,7 +769,7 @@ plot_KDE <- structure(function( # Plot kernel density estimate with statistics
   ## read example data set
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- 
-    Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
+    Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
   
   ## create plot straightforward
   plot_KDE(data = ExampleData.DeValues)

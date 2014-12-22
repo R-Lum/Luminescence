@@ -1,26 +1,26 @@
 \name{apply_CosmicRayRemoval}
 \alias{apply_CosmicRayRemoval}
-\title{Function to remove cosmic rays from an RLum.Data.Spectrum S4 class objects}
+\title{Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object}
 \description{The function provides several methods for cosmic ray removal and spectrum 
-smoothing for an RLum.Data.Spectrum S4 class objects }
+smoothing for an RLum.Data.Spectrum S4 class object }
 \usage{apply_CosmicRayRemoval(object, method = "Pych", method.Pych.smoothing = 2, 
     method.Pych.histogram.plot = FALSE, silent = FALSE, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): 
 S4 object of class \code{RLum.Data.Spectrum}}
   \item{method}{\code{\link{character}} (with default): Defines method that is applied for 
-cosmic ray removal. Allowed methods \code{smooth} (\code{\link{smooth}}),
+cosmic ray removal. Allowed methods are \code{smooth} (\code{\link{smooth}}),
 \code{smooth.spline} (\code{\link{smooth.spline}}) and 
 \code{Pych} (default). See details for further information.}
   \item{method.Pych.smoothing}{\code{\link{integer}} (with default): Smoothing parameter for 
 cosmic ray removal according to Pych (2003). The value defines how
 many neighboring values in each frame are used for smoothing 
-(e.g. \code{2} means that the two previous and two following values 
-are used)}
+(e.g., \code{2} means that the two previous and two following values 
+are used).}
   \item{method.Pych.histogram.plot}{\code{\link{logical}} (with default): If \code{TRUE} the histograms used 
 for the cosmic-ray removal are returned as plot including the used 
-threshold. Note: A separat plot is returned for each frame!,}
-  \item{silent}{\code{\link{logical}} (with default): Option to suppress terminal output }
+threshold. Note: A separat plot is returned for each frame!}
+  \item{silent}{\code{\link{logical}} (with default): Option to suppress terminal output.}
   \item{\dots}{further arguments and graphical parameters that will be passed to the 
 \code{smooth} function.}
 }
@@ -49,7 +49,7 @@ Arguments that can be passed are: \code{spar}\cr
 
 \bold{How to combine methods?}\cr
 
-Different methods can combined by applying the method repeatedly on the 
+Different methods can be combined by applying the method repeatedly to the 
 dataset (see example). }
 \value{Returns same object as input (\code{\linkS4class{RLum.Data.Spectrum}})}
 \references{Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from Single Images.
@@ -57,7 +57,7 @@ Astrophysics 116, 148-153.
 \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 R Luminescence Package Team}
-\note{This function has BETA status}
+\note{-}
 
 
 \seealso{\code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{smooth}}, 
@@ -73,4 +73,4 @@ R Luminescence Package Team}
 }
 
 \keyword{manip}
-\section{Function version}{0.1.2 (2014-11-26 19:07:06)}
+\section{Function version}{0.1.2 (2014-12-18 17:27:48)}

@@ -18,7 +18,7 @@ Each object contains data needed for the given protocol analysis.
 \source{
 \bold{IRSAR.RF.Data}
 
-These data have been kindly provided by Tobias Lauer and 
+These data were kindly provided by Tobias Lauer and 
 Matthias Krbetschek.
 
 \tabular{ll}{

@@ -17,7 +17,7 @@ Object of class \code{\linkS4class{RLum.Data.Image}}
 \source{
 \bold{ExampleData.RLum.Data.Image}
 
-These data have been kindly provided by Regina DeWitt.
+These data were kindly provided by Regina DeWitt.
 
 \tabular{ll}{
 
@@ -29,7 +29,7 @@ Reference: \tab - \cr
 
 }
 
-Image data is a measurement of fluorescent ceiling lights with a cooled Princton Instruments
+Image data is a measurement of fluorescent ceiling lights with a cooled Princeton Instruments (TM)
 camera fitted on Risoe DA-20 TL/OSL reader. 
 
 

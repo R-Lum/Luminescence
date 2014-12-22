@@ -1,7 +1,7 @@
-plot_RLum.Data.Image<- structure(function(#Plot function for an RLum.Data.Image S4 class object
+plot_RLum.Data.Image<- structure(function(#Plot function for an \code{RLum.Data.Image} S4 class object
   ### The function provides a standardised plot output for image data of an 
-  ### RLum.Data.Image S4 class object mainly using the plot functions provided by the
-  ### \code{\link{raster}} package. 
+  ### \code{RLum.Data.Image}S4 class object, mainly using the plot functions provided by the
+  ### \code{\link{raster}} package.  
   
   # ===========================================================================
   ##author<<

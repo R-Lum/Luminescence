@@ -1,7 +1,7 @@
 \name{analyse_SAR.TL}
 \alias{analyse_SAR.TL}
 \title{Analyse SAR TL measurements }
-\description{The function performs an SAR TL analysis on a \code{\linkS4class{RLum.Analysis}}
+\description{The function performs a SAR TL analysis on a \code{\linkS4class{RLum.Analysis}}
 object including growth curve fitting.}
 \usage{analyse_SAR.TL(object, object.background, signal.integral.min, 
     signal.integral.max, sequence.structure = c("PREHEAT", "SIGNAL", 
@@ -16,8 +16,8 @@ lower signal integral bound (e.g. \code{signal.integral.min = 100})}
   \item{signal.integral.max}{\link{integer} (\bold{required}): requires the channel number for the 
 upper signal integral bound (e.g. \code{signal.integral.max = 200})}
   \item{sequence.structure}{\link{vector} \link{character} (with default): specifies the general 
-sequence structure. Three steps are allowed 
-\code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}, 
+sequence structure. Three steps are allowed (
+\code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), 
 in addition a parameter \code{"EXCLUDE"}. This allows excluding 
 TL curves which are not relevant for the protocol analysis. 
 (Note: None TL are removed by default)}
@@ -47,12 +47,12 @@ signal, background counts and the dose points.}
 as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
 \bold{note:} the output should be accessed using the function 
 \code{\link{get_RLum.Results}}}
-\references{Aitken, M.J. & Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
-Quaternary Science Reviews, 7, pp. 387-393.
+\references{Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
+Quaternary Science Reviews 7, 387-393.
 
-Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using an 
-improved single-aliquot regenerative-dose protocol. Radiation Measurements, 
-32, pp. 57-73. }
+Murray, A.S. and Wintle, A.G.,  2000. Luminescence dating of quartz using an 
+improved single-aliquot regenerative-dose protocol. Radiation Measurements 
+32, 57-73. }
 \author{Sebastian Kreutzer, Freiberg Instruments/JLU Giessen (Germany)\cr
 R Luminescence Package Team}
 \note{\bold{THIS IS A BETA VERSION}\cr\cr
@@ -82,4 +82,4 @@ analyse_SAR.TL(object,
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.1.4 (2014-09-15 02:28:00)}
+\section{Function version}{0.1.4 (2014-12-18 17:24:57)}

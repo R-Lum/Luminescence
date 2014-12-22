@@ -24,7 +24,7 @@ returned containing the following element:
 The output should be accessed using the function 
 \code{\link{get_RLum.Results}}}
 \references{Galbraith, R.F., 2003. A simple homogeneity test for estimates of dose
-obtained using OSL. Ancient TL, 21, pp. 75-77.}
+obtained using OSL. Ancient TL 21, 75-77.}
 \author{Christoph Burow, University of Cologne (Germany), \cr
 R Luminescence Package Team}
 
@@ -38,4 +38,4 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the homogeneity test
 calc_HomogeneityTest(ExampleData.DeValues)
 }
-\section{Function version}{0.2 (2014-12-02 16:24:35)}
+\section{Function version}{0.2 (2014-12-17 12:51:18)}

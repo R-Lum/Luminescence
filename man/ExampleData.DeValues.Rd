@@ -27,7 +27,8 @@ Lab-Code: \tab BT998\cr
 Location: \tab Rottewitz (Saxony/Germany)\cr
 Material: \tab Fine grain quartz measured on aluminum discs on a Risoe TL/OSL DA-15 reader\cr
 Units:    \tab Values are given in seconds \cr
-Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/- 0.0019 Gy/s
+Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/- 0.0019 Gy/s\cr
+Measurement Date: \tab 2012-01-27
 }
 }
 
@@ -47,7 +48,7 @@ plot_Histogram(ExampleData.DeValues, xlab = "De [s]")
 data(ExampleData.DeValues, envir = environment())
 
 De.values <- Second2Gray(ExampleData.DeValues, 
-                         dose_rate = c(0.0438, 0.0019), 
+                         dose.rate = c(0.0438, 0.0019), 
                          method = "gaussian")
 
 plot_Histogram(De.values, xlab = "De [Gy]")

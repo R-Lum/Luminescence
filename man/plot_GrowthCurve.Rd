@@ -97,7 +97,7 @@ and \code{EXP+EXP}. In case of a resulting linear fit when using
 The formula \code{Formula} is returned as R expression for further evaluation.
 Additionally a plot is returned.}
 
-\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 Michael Dietze, GFZ Potsdam (Germany), \cr
 R Luminescence Package Team}
 
@@ -118,9 +118,9 @@ get_RLum.Results(temp, data.object = "Fit")
 plot_GrowthCurve(LxTxData)
 ##dev.off()                                   
 
-##(3) plot growth curve with pdf output - uncomment to use
+##(3) plot growth curve with pdf output - uncomment to use, single output
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
 plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 ##dev.off()  
 }
-\section{Function version}{1.2.15 (2014-12-16 15:18:07)}
+\section{Function version}{1.2.15 (2014-12-17 14:31:29)}

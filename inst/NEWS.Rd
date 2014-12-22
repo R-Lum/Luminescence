@@ -1,7 +1,31 @@
   \name{NEWS}
 \title{NEWS for the R Package Luminescence}
 
+\section{Changes in version 0.4.1 (XXXXXXX XXth, 20145)}{
+
+  \subsection{Test}{
+  \itemize{
+  \item test
+
+  }
+
+
+}}
+
+
 \section{Changes in version 0.4.0 (December 19th, 2014)}{
+
+ \subsection{Preface}{
+ \itemize{
+  \item Amongst a few minor changes with this release we continued the homogenisation process to further unify our function arguments.  
+  So far meaningful similar function arguments can be used over all functions in the package to produce similar effects 
+  (e.g., na.rm = TRUE/FALSE). For you as package user it means that self-written R scripts using package functions 
+  are likely to break. Please check the list of changes below.
+
+  We apologise for any inconvenience!
+  
+  }}
+
 
    \subsection{New S4-classes, methods}{
    \itemize{   
@@ -505,7 +529,8 @@
      \item support of user-defined centrality value,
      \item rug option added,
      \item bug for small values fixed, rounding to 0 decimals replaced by 3 significant digits,
-     \item individual statistical summary order supported (#184).
+     \item individual statistical summary order supported (#184), 
+     \item minor fixes for the graphical output. 
     }
    
     \item \code{plot_RLum.Analysis()}:
@@ -586,6 +611,15 @@
         
         \item now the function automatically converts time values to temperature values also 
         for spectra data (#121); behavious is triggered with the argument \code{recalculate.TL.curves}.
+      
+      }
+      
+      
+    \item \code{Second2Gray()}:
+      \itemize{
+      
+       \item Minor code and example adjustments in along with creating a new function 
+       \code{calc_SourceDoseRate()} (#56). 
       
       }
       

@@ -1,5 +1,5 @@
 merge_RLum<- structure(function(#General merge function for RLum S4 class objects
-  ### Function calls object specific merge functions for RLum S4 class objects. 
+  ### Function calls object-specific merge functions for RLum S4 class objects. 
   
   # ===========================================================================
   ##author<<
@@ -25,7 +25,7 @@ merge_RLum<- structure(function(#General merge function for RLum S4 class object
    
      if(is(objects[[x]], "RLum") ==FALSE){
        
-       temp.text <- paste("[merge_RLum]: At least element", x, "is not of class 'RLum' or a derivative class!")
+       temp.text <- paste("[merge_RLum()]: At least element", x, "is not of class 'RLum' or a derivative class!")
        stop(temp.text)
      }
      
@@ -75,13 +75,13 @@ merge_RLum<- structure(function(#General merge function for RLum S4 class object
    ## }
    
    ##value<<
-   ## Return same as input objects as provided in the list.
+   ## Return is the same as input objects as provided in the list.
    
    ##references<<
    ## #
    
    ##note<<
-   ## So far not for every \code{RLum} object merging function exists.
+   ## So far not for every \code{RLum} object a merging function exists.
    
    ##seealso<<
    ## \code{\link{merge_RLum.Results}}, \code{\linkS4class{RLum.Results}},

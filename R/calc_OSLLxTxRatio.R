@@ -1,4 +1,4 @@
-calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
+calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves
   ### Calculate Lx/Tx ratios from a given set of CW-OSL curves. 
   
   # ===========================================================================
@@ -34,8 +34,9 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves.
   sigmab
   ### \link{numeric} (optional): Option to set a manual value for the overdispersion (for LnTx and 
   ### TnTx), used for the Lx/Tx error calculation. The value should be provided as absolute
-  ### squared count values, e.g. \code{sigmab = c(300,300). Note: If only one value is provided
-  ### this value is taken for both (LnTx and TnTx) signals.}
+  ### squared count values, e.g. \code{sigmab = c(300,300)}. 
+  ### Note: If only one value is provided
+  ### this value is taken for both (LnTx and TnTx) signals.
   
 ){
    

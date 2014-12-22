@@ -1,6 +1,6 @@
 \name{calc_OSLLxTxRatio}
 \alias{calc_OSLLxTxRatio}
-\title{Calculate Lx/Tx ratio for CW-OSL curves.}
+\title{Calculate Lx/Tx ratio for CW-OSL curves}
 \description{Calculate Lx/Tx ratios from a given set of CW-OSL curves. }
 \usage{calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral, background.integral, 
     background.count.distribution = "non-poisson", sigmab)}
@@ -19,8 +19,9 @@ error calculation. Possible arguments \code{poisson} or \code{non-poisson}.
 See details for further information}
   \item{sigmab}{\link{numeric} (optional): Option to set a manual value for the overdispersion (for LnTx and 
 TnTx), used for the Lx/Tx error calculation. The value should be provided as absolute
-squared count values, e.g. \code{sigmab = c(300,300). Note: If only one value is provided
-this value is taken for both (LnTx and TnTx) signals.}}
+squared count values, e.g. \code{sigmab = c(300,300)}. 
+Note: If only one value is provided
+this value is taken for both (LnTx and TnTx) signals.}
 }
 \details{The integrity of the chosen values for the signal and background integral 
 is checked by the function; 
@@ -88,4 +89,4 @@ get_RLum.Results(results)
 }
 
 \keyword{datagen}
-\section{Function version}{0.4.5 (2014-11-11 18:46:51)}
+\section{Function version}{0.4.5 (2014-12-18 17:34:13)}

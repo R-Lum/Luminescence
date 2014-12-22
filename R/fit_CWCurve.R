@@ -6,7 +6,7 @@ fit_CWCurve<- structure(function(#Nonlinear Least Squares Fit for CW-OSL curves 
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, Universite Bordeaux Montaigne (France),\cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
   ## version 0.4.4
@@ -689,7 +689,7 @@ if(output.plot==TRUE){
    ## \code{fit}: an \code{nls} object (\code{$fit}) for which generic R functions 
    ## are provided, e.g. \link{summary}, \link{confint}, \link{profile}. 
    ## For more details, see \link{nls}.\cr\cr
-   ## \code{output.table}:  a \link{data.frame} containing the summarized 
+   ## \code{output.table}: a \link{data.frame} containing the summarised 
    ## parameters including the error\cr
    ## \code{component.contribution.matrix}: \link{matrix} containing the values 
    ## for the component to sum contribution plot 

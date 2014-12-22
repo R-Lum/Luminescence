@@ -90,31 +90,31 @@ lists containing matrices of the results for each iteration of the model.
 The output should be accessed using the function 
 \code{\link{get_RLum.Results}}}
 \references{Galbraith, R.F. & Green, P.F., 1990. Estimating the component ages in a 
-finite mixture. Nuclear Tracks and Radiation Measurements, 17, pp. 197-206.
+finite mixture. Nuclear Tracks and Radiation Measurements 17, 197-206.
 \cr\cr
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission
-track ages. Nuclear Tracks Radiation Measurements, 4, pp. 459-470.\cr\cr
+track ages. Nuclear Tracks Radiation Measurements 4, 459-470.\cr\cr
 Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent 
 dose and error calculation and display in OSL dating: An overview and some
-recommendations. Quaternary Geochronology, 11, pp. 1-27.\cr\cr
+recommendations. Quaternary Geochronology 11, 1-27.\cr\cr
 Roberts, R.G., Galbraith, R.F., Yoshida, H., Laslett, G.M. & Olley, J.M., 
 2000. Distinguishing dose populations in sediment mixtures: a test of 
 single-grain optical dating procedures using mixtures of laboratory-dosed
-quartz. Radiation Measurements, 32, pp. 459-465.\cr\cr
+quartz. Radiation Measurements 32, 459-465.\cr\cr
 Galbraith, R.F., 2005. Statistics for Fission Track Analysis, Chapman & 
 Hall/CRC, Boca Raton.\cr\cr
 \bold{Further reading}\cr\cr
 Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain 
 equivalent dose (De) distributions: Implications for OSL dating of sediment
-mixtures. Quaternary Geochronology, 4, pp. 204-230.\cr\cr
+mixtures. Quaternary Geochronology 4, 204-230.\cr\cr
 Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial
-archives using robust OSL chronologies. Quaternary Geochronology, 12, 
-pp. 98-106.\cr\cr
+archives using robust OSL chronologies. Quaternary Geochronology 12, 
+98-106.\cr\cr
 Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the
 reproducibility and accuracy of optical dating of fluvial deposits. 
-Quaternary Geochronology, 1, pp. 109-120.\cr\cr
+Quaternary Geochronology 1, 109-120.\cr\cr
 Rodnight, H. 2008. How many equivalent dose values are needed to obtain a 
-reproducible distribution?. Ancient TL, 26, pp. 3-10.}
+reproducible distribution?. Ancient TL 26, 3-10.}
 \author{Christoph Burow, University of Cologne (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2006. \cr\cr
 R Luminescence Package Team}
@@ -150,4 +150,4 @@ calc_FiniteMixture(ExampleData.DeValues,
 ## fitted components
 #get_RLum.Results(object=res, data.object="components")
 }
-\section{Function version}{0.4[2014-12-01] (2014-12-01 18:50:14)}
+\section{Function version}{0.4 (2014-12-17 12:50:55)}

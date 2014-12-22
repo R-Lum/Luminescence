@@ -66,15 +66,15 @@ as rejection criteria. NA is produced if no R0 dose point exists.}
 \item{SARParameters}{\link{data.frame} of additional measurement parameters 
 obtained from the BIN file, e.g. preheat or read temperature 
 (not valid for all types of measurements).}}
-\references{Aitken, M.J. & Smith, B.W., 1988. Optical dating: recuperation after 
-bleaching. Quaternary Science Reviews, 7, pp. 387-393.
+\references{Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation after 
+bleaching. Quaternary Science Reviews 7, 387-393.
 
 Duller, G., 2003. Distinguishing quartz and feldspar in single grain 
-luminescence measurements. Radiation Measurements, 37 (2), pp. 161-165. 
+luminescence measurements. Radiation Measurements, 37 (2), 161-165. 
 
-Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using 
+Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using 
 an improved single-aliquot regenerative-dose protocol. 
-Radiation Measurements, 32, pp. 57-73. }
+Radiation Measurements 32, 57-73. }
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
 Margret C. Fuchs, AWI Potsdam (Germany), TU Bergakademie Freiberg (Germany)\cr
 R Luminescence Package Team}
@@ -111,4 +111,4 @@ output.SAR
 
 \keyword{datagen}
 \keyword{dplot}
-\section{Function version}{0.2.15 (2014-12-15 13:20:00)}
+\section{Function version}{0.2.15 (2014-12-18 17:22:43)}

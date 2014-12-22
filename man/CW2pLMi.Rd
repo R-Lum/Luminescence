@@ -23,7 +23,7 @@ P = stimulation time (s)\cr
 1/P = stimulation rate (1/s)\cr\cr
 
 \bold{Internal transformation steps}\cr\cr
-(1) log(CW-OSL) values
+(1) log(CW-OSL) values\cr
 (2) Calculate t' which is the transformed time:
 \deqn{t' = 1/2*1/P*t^2}
 
@@ -119,4 +119,4 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 }
 
 \keyword{manip}
-\section{Function version}{0.3 (2014-09-15 02:28:00)}
+\section{Function version}{0.3 (2014-12-18 17:36:08)}

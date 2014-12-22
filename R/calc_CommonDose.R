@@ -6,7 +6,7 @@ calc_CommonDose <-  structure(function( # Apply the (un-)logged common age model
     ## Christoph Burow, University of Cologne (Germany) \cr
     
     ##section<<
-    ## version 1.3 [2014-12-01]
+    ## version 1.3
     # ===========================================================================
     
     data,
@@ -141,29 +141,29 @@ calc_CommonDose <-  structure(function( # Apply the (un-)logged common age model
     
     ##references<<
     ## Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission
-    ## track ages. Nuclear Tracks Radiation Measurements, 4, pp. 459-470. \cr\cr
+    ## track ages. Nuclear Tracks Radiation Measurements 4, 459-470. \cr\cr
     ## Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley, J.M., 
     ## 1999. Optical dating of single grains of quartz from Jinmium rock shelter, 
     ## northern Australia. Part I: experimental design and statistical models. 
-    ## Archaeometry, 41, pp. 339-364. \cr\cr
+    ## Archaeometry 41, 339-364. \cr\cr
     ## Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent 
     ## dose and error calculation and display in OSL dating: An overview and some 
-    ## recommendations. Quaternary Geochronology, 11, pp. 1-27. \cr\cr
+    ## recommendations. Quaternary Geochronology 11, 1-27. \cr\cr
     ## \bold{Further reading} \cr\cr
     ## Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain
     ## equivalent dose (De) distributions: Implications for OSL dating of sediment
-    ## mixtures. Quaternary Geochronology, 4, pp. 204-230. \cr\cr
+    ## mixtures. Quaternary Geochronology 4, 204-230. \cr\cr
     ## Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain
     ## quartz De distributions and an assessment of procedures for estimating 
-    ## burial dose. Quaternary Science Reviews, 25, pp. 2475-2502. \cr\cr
+    ## burial dose. Quaternary Science Reviews 25, 2475-2502. \cr\cr
     ## Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial
-    ## archives using robust OSL chronologies. Quaternary Geochronology, 12, 
-    ## pp. 98-106. \cr\cr
+    ## archives using robust OSL chronologies. Quaternary Geochronology 12, 
+    ## 98-106. \cr\cr
     ## Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the
     ## reproducibility and accuracy of optical dating of fluvial deposits.
-    ## Quaternary Geochronology, 1, pp. 109-120.\cr\cr
+    ## Quaternary Geochronology 1, 109-120.\cr\cr
     ## Rodnight, H., 2008. How many equivalent dose values are needed to obtain
-    ## a reproducible distribution?. Ancient TL, 26, pp. 3-10.
+    ## a reproducible distribution?. Ancient TL 26, 3-10.
     
     ##seealso<<
     ## \code{\link{calc_CentralDose}},

@@ -1,13 +1,13 @@
 Package: Luminescence
 Type: Package
-Title: Package for Luminescence Dating data analysis 
-Version: 0.4.0
-Date: 2014-12-19
+Title: Package for Luminescence Dating data analysis [upcoming]
+Version: 0.4.1
+Date: 2015-XX-XX
 Author: Sebastian Kreutzer [aut, trl, cre],
   Michael Dietze [aut],
   Christoph Burow [aut],
   Margret C. Fuchs [aut],
-  Christoph Schmidt [ctb],
+  Christoph Schmidt [aut],
   Manfred Fischer [aut, trl],
   Markus Fuchs [ths]
 Authors@R: c(person("Sebastian", "Kreutzer", role = c("aut","trl","cre"),

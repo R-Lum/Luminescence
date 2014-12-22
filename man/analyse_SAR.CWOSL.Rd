@@ -1,7 +1,7 @@
 \name{analyse_SAR.CWOSL}
 \alias{analyse_SAR.CWOSL}
 \title{Analyse SAR CW-OSL measurements}
-\description{The function performs a SAR CW-OSL analysis on a \code{\linkS4class{RLum.Analysis}}
+\description{The function performs a SAR CW-OSL analysis on an \code{\linkS4class{RLum.Analysis}}
 object including growth curve fitting.}
 \usage{analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max, 
     background.integral.min, background.integral.max, rejection.criteria, 
@@ -44,8 +44,8 @@ The function was originally designed to work just for 'OSL' curves,
 following the principles of the SAR protocol. An IRSL measurement protocol
 may follow this procedure, e.g., post-IR IRSL protocol (Thomsen et al., 2008).
 Therefore this functions has been enhanced to work with IRSL data, however, 
-the function is only capable to analyse curves that follow the SAR protocol structure, i.e., 
-to analyse a post-IR IRSL protocol curve data have to be pre-selected by the user to 
+the function is only capable of analysing curves that follow the SAR protocol structure, i.e., 
+to analyse a post-IR IRSL protocol, curve data have to be pre-selected by the user to 
 fit the standards of the SAR protocol, i.e., Lx,Tx,Lx,Tx and so on. \cr
 
 Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves. Only
@@ -58,7 +58,7 @@ The pIRIR50 curves or the pIRIR225 curves.\cr\cr
 \sQuote{recuperation.rate}: recuperation rate calculated by comparing the 
 Lx/Tx values of the zero regeneration point with the Ln/Tn value 
 (the Lx/Tx ratio of the natural signal). 
-For methodological background see Aitken and Smith (1988)\cr
+For methodological background see Aitken and Smith (1988).\cr
 
 \sQuote{palaeodose.error}: set the allowed error for the De value, which per
 default should not exceed 10\%.}
@@ -67,7 +67,7 @@ returned containing the following elements:
 \item{De.values}{\link{data.frame} containing De-values, 
 De-error and further parameters}
 \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values 
-including signal, background counts and the dose points.}
+including signal, background counts and the dose points}
 \item{rejection.criteria}{\link{data.frame} with values that might by 
 used as rejection criteria. NA is produced if no R0 dose point 
 exists.}
@@ -75,16 +75,16 @@ exists.}
 growth curve fitting
 }\cr
 The output should be accessed using the function 
-\code{\link{get_RLum.Results}}}
-\references{Aitken, M.J. & Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
-Quaternary Science Reviews, 7, pp. 387-393.
+\code{\link{get_RLum.Results}}.}
+\references{Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
+Quaternary Science Reviews 7, 387-393.
 
 Duller, G., 2003. Distinguishing quartz and feldspar in single grain luminescence
-measurements. Radiation Measurements, 37 (2), pp. 161-165. 
+measurements. Radiation Measurements, 37 (2), 161-165. 
 
-Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using an 
-improved single-aliquot regenerative-dose protocol. Radiation Measurements, 
-32, pp. 57-73. 
+Murray, A.S. and Wintle, A.G.,  2000. Luminescence dating of quartz using an 
+improved single-aliquot regenerative-dose protocol. Radiation Measurements 
+32, 57-73. 
 
 Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. 
 Laboratory fading rates of various luminescence signals from feldspar-rich 
@@ -131,4 +131,4 @@ get_RLum.Results(results, data.object = "LnLxTnTx.table")
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.4.9 (2014-12-05 11:01:57)}
+\section{Function version}{0.4.9 (2014-12-18 17:22:25)}

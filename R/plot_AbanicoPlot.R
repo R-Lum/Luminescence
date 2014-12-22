@@ -2526,8 +2526,7 @@ if(rotate == FALSE) {
   
   ## load example data and recalculate to Gray
   data(ExampleData.DeValues, envir = environment())
-  ExampleData.DeValues <- 
-    Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
+  ExampleData.DeValues <- Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
  
   ## plot the example data straightforward
   plot_AbanicoPlot(data = ExampleData.DeValues)

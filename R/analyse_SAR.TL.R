@@ -1,5 +1,5 @@
 analyse_SAR.TL<- structure(function(#Analyse SAR TL measurements 
-  ### The function performs an SAR TL analysis on a \code{\linkS4class{RLum.Analysis}}
+  ### The function performs a SAR TL analysis on a \code{\linkS4class{RLum.Analysis}}
   ### object including growth curve fitting.
   # ===========================================================================
   ##author<<
@@ -26,8 +26,8 @@ analyse_SAR.TL<- structure(function(#Analyse SAR TL measurements
   
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   ### \link{vector} \link{character} (with default): specifies the general 
-  ### sequence structure. Three steps are allowed 
-  ### \code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}, 
+  ### sequence structure. Three steps are allowed (
+  ### \code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), 
   ### in addition a parameter \code{"EXCLUDE"}. This allows excluding 
   ### TL curves which are not relevant for the protocol analysis. 
   ### (Note: None TL are removed by default)
@@ -542,12 +542,12 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## \code{\link{get_RLum.Results}}
 
   ##references<<
-  ## Aitken, M.J. & Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
-  ## Quaternary Science Reviews, 7, pp. 387-393.
+  ## Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
+  ## Quaternary Science Reviews 7, 387-393.
   ## 
-  ## Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using an 
-  ## improved single-aliquot regenerative-dose protocol. Radiation Measurements, 
-  ## 32, pp. 57-73. 
+  ## Murray, A.S. and Wintle, A.G.,  2000. Luminescence dating of quartz using an 
+  ## improved single-aliquot regenerative-dose protocol. Radiation Measurements 
+  ## 32, 57-73. 
   
   ##note<<
   ## \bold{THIS IS A BETA VERSION}\cr\cr

@@ -3,11 +3,11 @@
 \title{Converting values from seconds (s) to gray (Gy)}
 \description{Conversion of absorbed radiation dose in seconds (s) to the SI unit gray (Gy) 
 including error propagation. Normally used for equivalent dose data.}
-\usage{Second2Gray(values, dose_rate, method = "gaussian")}
+\usage{Second2Gray(data, dose.rate, method = "gaussian")}
 \arguments{
-  \item{values}{\code{\link{data.frame}} (\bold{required}): input values, structure: 
+  \item{data}{\code{\link{data.frame}} (\bold{required}): input values, structure: 
 data (\code{values[,1]}) and data error (\code{values [,2]}) are required}
-  \item{dose_rate}{\code{\linkS4class{RLum.Results}} or \code{\link{vector}} (\bold{required}): 
+  \item{dose.rate}{\code{\linkS4class{RLum.Results}} or \code{\link{vector}} (\bold{required}): 
 \code{RLum.Results} needs to be orginated from the function \code{\link{calc_SourceDoseRate}},
 for \code{vector}dose rate in Gy/s and dose rate error in Gy/s}
   \item{method}{\link{character} (with default): method used for error calculation 
@@ -44,17 +44,17 @@ Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
 
 ##(B) for source dose rate calibration data
 ## - calculate source dose rate first
-dose_rate <-  calc_SourceDoseRate(measurement.date = "2014-01-08",
-                                  calib.date <- "2008-03-01",
-                                  calib.dose.rate <- 5.95,
-                                  calib.error <- 0.04)  
+dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
+                                  calib.date <- "2014-12-19",
+                                  calib.dose.rate <- 0.0438,
+                                  calib.error <- 0.0019)  
 # read example data
 data(ExampleData.DeValues, envir = environment())
 
-# apply Dose_rate to convert De(s) to De(Gy)
-Second2Gray(ExampleData.DeValues, dose_rate)
+# apply dose.rate to convert De(s) to De(Gy)
+Second2Gray(ExampleData.DeValues, dose.rate)
 
 }
 
 \keyword{manip}
-\section{Function version}{0.4 (2014-12-16 13:52:04)}
+\section{Function version}{0.4 (2014-12-18 15:38:33)}

@@ -1,5 +1,5 @@
 analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
-  ### The function performs a SAR CW-OSL analysis on a \code{\linkS4class{RLum.Analysis}}
+  ### The function performs a SAR CW-OSL analysis on an \code{\linkS4class{RLum.Analysis}}
   ### object including growth curve fitting.
   
   # ===========================================================================
@@ -1059,8 +1059,8 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## following the principles of the SAR protocol. An IRSL measurement protocol
   ## may follow this procedure, e.g., post-IR IRSL protocol (Thomsen et al., 2008).
   ## Therefore this functions has been enhanced to work with IRSL data, however, 
-  ## the function is only capable to analyse curves that follow the SAR protocol structure, i.e., 
-  ## to analyse a post-IR IRSL protocol curve data have to be pre-selected by the user to 
+  ## the function is only capable of analysing curves that follow the SAR protocol structure, i.e., 
+  ## to analyse a post-IR IRSL protocol, curve data have to be pre-selected by the user to 
   ## fit the standards of the SAR protocol, i.e., Lx,Tx,Lx,Tx and so on. \cr
   ##
   ## Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves. Only
@@ -1073,7 +1073,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## \sQuote{recuperation.rate}: recuperation rate calculated by comparing the 
   ## Lx/Tx values of the zero regeneration point with the Ln/Tn value 
   ## (the Lx/Tx ratio of the natural signal). 
-  ## For methodological background see Aitken and Smith (1988)\cr
+  ## For methodological background see Aitken and Smith (1988).\cr
   ##
   ## \sQuote{palaeodose.error}: set the allowed error for the De value, which per
   ## default should not exceed 10%.
@@ -1084,7 +1084,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## \item{De.values}{\link{data.frame} containing De-values, 
   ## De-error and further parameters}
   ## \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values 
-  ## including signal, background counts and the dose points.}
+  ## including signal, background counts and the dose points}
   ## \item{rejection.criteria}{\link{data.frame} with values that might by 
   ## used as rejection criteria. NA is produced if no R0 dose point 
   ## exists.}
@@ -1092,18 +1092,18 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   ## growth curve fitting
   ## }\cr
   ## The output should be accessed using the function 
-  ## \code{\link{get_RLum.Results}}
+  ## \code{\link{get_RLum.Results}}.
   
   ##references<<
-  ## Aitken, M.J. & Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
-  ## Quaternary Science Reviews, 7, pp. 387-393.
+  ## Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation after bleaching. 
+  ## Quaternary Science Reviews 7, 387-393.
   ##
   ## Duller, G., 2003. Distinguishing quartz and feldspar in single grain luminescence
-  ## measurements. Radiation Measurements, 37 (2), pp. 161-165. 
+  ## measurements. Radiation Measurements, 37 (2), 161-165. 
   ##
-  ## Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using an 
-  ## improved single-aliquot regenerative-dose protocol. Radiation Measurements, 
-  ## 32, pp. 57-73. 
+  ## Murray, A.S. and Wintle, A.G.,  2000. Luminescence dating of quartz using an 
+  ## improved single-aliquot regenerative-dose protocol. Radiation Measurements 
+  ## 32, 57-73. 
   ##
   ## Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. 
   ## Laboratory fading rates of various luminescence signals from feldspar-rich 

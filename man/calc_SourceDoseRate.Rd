@@ -16,17 +16,17 @@ for the function \code{\link{Second2Gray}}. }
 (\code{Sr-90} or \code{Co-60} or \code{Am-214}), see details for further information}
   \item{dose.rate.unit}{\code{\link{character}} (with default): specify dose rate unit for input 
 (\code{Gy/min} or \code{Gy/s}), the output is given in Gy/s
-as required for the function \code{\link{Second2Gray}}}
+as valid for the function \code{\link{Second2Gray}}}
 }
 \details{Calculation of the source dose rate based on the time elapsed since the last 
 calibration of the irradiation source. Decay parameters assume a Sr-90 
 beta source.
-\deqn{dose_rate = D0 * exp(-log(2) / t0.5 * t)} \cr
+\deqn{dose.rate = D0 * exp(-log(2) / T.1/2 * t)} \cr
 with:
 D0   <- calibration dose rate
-t0.5 <- half-life of the source nuclide (here in days)
+T.1/2 <- half-life of the source nuclide (here in days)
 t    <- time since source calibration (in days)
-log(2) / t0.5 equals the decay constant lambda
+log(2) / T.1/2 equals the decay constant lambda
 
 Information on the date of measurements may be taken from  
 the data's original .BIN file 
@@ -35,7 +35,7 @@ the data's original .BIN file
 \bold{Allowed source types and related values}
 
 \tabular{rllll}{
-\bold{#}   \tab \bold{Source type} \tab \bold{T 1/2} \tab \bold{Reference} \cr
+\bold{#}   \tab \bold{Source type} \tab \bold{T.1/2} \tab \bold{Reference} \cr
 [1]        \tab Sr-90              \tab 28.90 y      \tab NNDC, Brookhaven National Laboratory \cr
 [2]        \tab Am-214             \tab 432.6 y      \tab NNDC, Brookhaven National Laboratory \cr
 [3]        \tab Co-60              \tab 5.274 y      \tab NNDC, Brookhaven National Laboratory 
@@ -61,22 +61,24 @@ R Luminescence Package Team}
 
 ##(1) Simple function usage
 ##Basic calculation of the dose rate for a specific date
-dose.rate <-  calc_SourceDoseRate(measurement.date = "2014-01-08",
-                                  calib.date = "2008-03-01",
-                                  calib.dose.rate = 5.95,
-                                  calib.error = 0.04)
+dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
+                                  calib.date = "2014-12-19",
+                                  calib.dose.rate = 0.0438,
+                                  calib.error = 0.0019)
 
 ##show results
 get_RLum.Results(dose.rate)
 
-##(2) Usage in combination with another function
-#data(ExampleData.DeValues, envir = environment())
+##(2) Usage in combination with another function (e.g., Second2Gray() )
+## load example data 
+data(ExampleData.DeValues, envir = environment())
 
-# apply Dose_rate to convert De(s) to De(Gy)
-#Second2Gray(ExampleData.DeValues, dose_rate)
+## use the calculated variable dose.rate as input argument
+## to convert De(s) to De(Gy)
+Second2Gray(ExampleData.DeValues, dose.rate)
 
 
 }
 
 \keyword{manip}
-\section{Function version}{0.1 (2014-12-16 14:11:28)}
+\section{Function version}{0.1 (2014-12-18 15:30:27)}

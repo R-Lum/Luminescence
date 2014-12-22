@@ -19,7 +19,7 @@ with metadata from the measurement,(b) \code{Sequence.Object} contains an
 \code{TL.Spectrum}: TL spectrum data
 
 \code{\linkS4class{RLum.Data.Spectrum}} object for further analysis.
-The spectrum was cleaned from cosmic-rays using the function, 
+The spectrum was cleaned from cosmic-rays using the function 
 \code{apply_CosmicRayRemoval}. Note that no quantum efficiency
 calibration was performed.
 } 

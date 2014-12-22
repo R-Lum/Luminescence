@@ -1,11 +1,11 @@
-apply_EfficiencyCorrection<- structure(function(#Function to apply spectral efficiency correction on RLum.Data.Spectrum S4 class objects
+apply_EfficiencyCorrection<- structure(function(#Function to apply spectral efficiency correction to RLum.Data.Spectrum S4 class objects
   ### The function allows spectral efficiency corrections for  
   ### RLum.Data.Spectrum S4 class objects 
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen (Germany),
-  ## Johannes Friedrich, University of Bayreuth (Germany)
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
+  ## Johannes Friedrich, University of Bayreuth (Germany) \cr
   
   ##section<<
   ## version 0.1
@@ -16,7 +16,7 @@ apply_EfficiencyCorrection<- structure(function(#Function to apply spectral effi
   ### S4 object of class \code{RLum.Data.Spectrum}
   
   spectral.efficiency
-  ### \code{\link{data.frame}} (\bold{required}): Data set containg wavelengths
+  ### \code{\link{data.frame}} (\bold{required}): Data set containing wavelengths
   ### (x-column) and relative spectral response values (y-column) in percentage
   
 ){
@@ -26,13 +26,13 @@ apply_EfficiencyCorrection<- structure(function(#Function to apply spectral effi
   ##check if object is of class RLum.Data.Spectrum
   if(class(object) != "RLum.Data.Spectrum"){
     
-    stop("[apply_EfficiencyCorrection]: Input object is not of type RLum.Data.Spectrum")
+    stop("[apply_EfficiencyCorrection()] Input object is not of type RLum.Data.Spectrum")
     
   }
   
   if(class(spectral.efficiency) != "data.frame"){
     
-    stop("[apply_EfficiencyCorrection]: Input object is not of type data.frame")
+    stop("[apply_EfficiencyCorrection()] Input object is not of type data.frame")
     
   }
   
@@ -78,7 +78,7 @@ apply_EfficiencyCorrection<- structure(function(#Function to apply spectral effi
   # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
   
   ##details<<
-  ## The efficiency correction is based on a spetral response dataset provided
+  ## The efficiency correction is based on a spectral response dataset provided
   ## by the user. Usually the data set for the quantum efficiency is of lower
   ## resolution and values are interpolated for the required spectral 
   ## resolution. 
@@ -94,7 +94,7 @@ apply_EfficiencyCorrection<- structure(function(#Function to apply spectral effi
   ## may not sufficiently correct for spectral efficiency of the entire 
   ## optical system (e.g., spectrometer, camera ...). 
   ## 
-  ## This function has BETA status
+  ## This function has BETA status.
   
   ##seealso<<
   ## \code{\linkS4class{RLum.Data.Spectrum}}

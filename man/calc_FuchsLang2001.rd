@@ -40,11 +40,11 @@ returned containing the following elements:
 \item{usedDeValues}{\link{data.frame} containing the used values for the calculation}}
 \references{Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial quartz using 
 single-aliqout 	protocols on sediments from NE Peloponnese, 
-Greece. In: Quaternary Science Reviews, 20, 783-787.
+Greece. In: Quaternary Science Reviews 20, 783-787.
 
 Fuchs, M. & Wagner, G.A., 2003. Recognition of insufficient bleaching by 
 small aliquots of quartz for reconstructing soil erosion in Greece. 
-Quaternary Science Reviews, 22, 1161-1167. }
+Quaternary Science Reviews 22, 1161-1167. }
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) 
 Christoph Burow, University of Cologne (Germany)
 R Luminescence Package Team}
@@ -66,4 +66,4 @@ temp<- calc_FuchsLang2001(ExampleData.DeValues, cvThreshold = 5)
 }
 
 \keyword{dplot}
-\section{Function version}{0.4.1 (2014-12-02 16:24:20)}
+\section{Function version}{0.4.1 (2014-12-17 12:51:08)}

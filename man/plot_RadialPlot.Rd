@@ -22,10 +22,11 @@ is \code{"remove"} (i.e. negative values are removed from the data set).}
 in logarithmic scale. Default is \code{TRUE}.}
   \item{central.value}{\code{\link{numeric}}: User-defined central value, primarily used for
 horizontal centering of the z-axis.}
-  \item{centrality}{\code{\link{character}} (with default): measure of centrality, used for
-automatically centering the plot and drawing the central line. Can be
-one out of \code{"mean"}, \code{"median"}, \code{"mean.weighted"}, 
-and \code{"median.weighted"}. Default is \code{"mean.weighted"}.}
+  \item{centrality}{\code{\link{character}} or \code{\link{numeric}} (with default): 
+measure of centrality, used for automatically centering the plot and 
+drawing the central line. Can either be one out of \code{"mean"}, 
+\code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
+or a numeric value used for the standardisation.}
   \item{mtext}{\code{\link{character}}: additional text below the plot title.}
   \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
 Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De 
@@ -124,8 +125,7 @@ R Luminescence Package Team}
 \examples{
 ## load example data
 data(ExampleData.DeValues, envir = environment())
-ExampleData.DeValues <- 
-  Second2Gray(values = ExampleData.DeValues, dose_rate = c(0.0438,0.0019))
+ExampleData.DeValues <- Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
 
 ## plot the example data straightforward
 plot_RadialPlot(data = ExampleData.DeValues)
@@ -212,4 +212,4 @@ plot_RadialPlot(data = data.3,
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
 }
-\section{Function version}{0.5.2 (2014-12-16 09:37:42)}
+\section{Function version}{0.5.2 (2014-12-18 15:41:59)}

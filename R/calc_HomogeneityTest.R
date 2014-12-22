@@ -121,7 +121,7 @@ calc_HomogeneityTest<- structure(function( # Apply a simple homogeneity test aft
   
   ##references<<
   ## Galbraith, R.F., 2003. A simple homogeneity test for estimates of dose
-  ## obtained using OSL. Ancient TL, 21, pp. 75-77.
+  ## obtained using OSL. Ancient TL 21, 75-77.
   
   ##seealso<<
   ## \code{\link{pchisq}}

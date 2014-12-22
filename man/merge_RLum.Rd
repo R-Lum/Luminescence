@@ -1,7 +1,7 @@
 \name{merge_RLum}
 \alias{merge_RLum}
 \title{General merge function for RLum S4 class objects}
-\description{Function calls object specific merge functions for RLum S4 class objects. }
+\description{Function calls object-specific merge functions for RLum S4 class objects. }
 \usage{merge_RLum(objects, ...)}
 \arguments{
   \item{objects}{\code{\link{list}} of \code{\linkS4class{RLum}} (\bold{required}): list of S4 object of class \code{RLum}}
@@ -16,11 +16,11 @@ Allowed arguments can be found in the documentations of each merge function.
 
 \code{\linkS4class{RLum.Results}} \tab : \tab \code{\link{merge_RLum.Results}} 
 }}
-\value{Return same as input objects as provided in the list.}
+\value{Return is the same as input objects as provided in the list.}
 \references{#}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
-\note{So far not for every \code{RLum} object merging function exists.}
+\note{So far not for every \code{RLum} object a merging function exists.}
 
 
 \seealso{\code{\link{merge_RLum.Results}}, \code{\linkS4class{RLum.Results}},}
@@ -44,4 +44,4 @@ temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))
 }
 
 \keyword{utilities}
-\section{Function version}{0.1 (2014-09-21 19:22:56)}
+\section{Function version}{0.1 (2014-12-18 17:45:22)}

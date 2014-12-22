@@ -23,12 +23,12 @@ IRSL curves.}
   \item{background.integral.max}{\code{\link{integer}} (\bold{required}): upper bound of the background integral.
 Provide this value as vector for different integration limits for the different
 IRSL curves.}
-  \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector containg the dose points values.
+  \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector containing the dose points values.
 Using this argument overwrites dose point values in the signal curves. }
   \item{sequence.structure}{\link{vector} \link{character} (with default): specifies the general 
 sequence structure. Allowed values are \code{"TL"} 
 and any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}). 
-Addiationally a parameter \code{"EXCLUDE"} is allowed to exclude curves 
+Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves 
 from the analysis  
 (Note: If a preheat without PMT measurement is used, i.e. preheat as non TL, 
 remove the TL step.)}
@@ -68,7 +68,7 @@ sediment extracts. Radiation Measurements 43, 1474-1486.
 doi:10.1016/j.radmeas.2008.06.002}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 R Luminescence Package Team}
-\note{Best graphical ouput can be achieved by using the function \code{pdf} with the 
+\note{Best graphical output can be achieved by using the function \code{pdf} with the 
 following options:\cr
 \code{pdf(file = "...", height = 15, width = 15)}}
 
@@ -136,4 +136,4 @@ results <- analyse_pIRIRSequence(object,
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.1.1 (2014-11-11 14:51:01)}
+\section{Function version}{0.1.1 (2014-12-18 17:16:45)}

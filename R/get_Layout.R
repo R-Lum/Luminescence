@@ -1,10 +1,10 @@
-get_Layout <- structure(function( # Collection of layout definitions.
+get_Layout <- structure(function( # Collection of layout definitions
   ### This helper function returns a list with layout definitions for
-  ### homogenous plotting.
+  ### homogeneous plotting.
   
   # ===========================================================================
   ##author<<
-  ## Michael Dietze, GFZ Potsdam (Germany), 
+  ## Michael Dietze, GFZ Potsdam (Germany) \cr 
   
   ##section<<
   ## version 0.1
@@ -589,7 +589,7 @@ get_Layout <- structure(function( # Collection of layout definitions.
   ##details<<
   ## The easiest way to create a user-specific layout definition is
   ## perhaps to create either an empty or a default layout object and 
-  ## fill/modify the definitions. (\code{user.layout <- 
+  ## fill/modify the definitions (\code{user.layout <- 
   ## get_Layout(data = "empty")}).
   
 }, ex=function(){

@@ -1,9 +1,9 @@
 \name{plot_RLum.Data.Image}
 \alias{plot_RLum.Data.Image}
-\title{Plot function for an RLum.Data.Image S4 class object}
+\title{Plot function for an \code{RLum.Data.Image} S4 class object}
 \description{The function provides a standardised plot output for image data of an 
-RLum.Data.Image S4 class object mainly using the plot functions provided by the
-\code{\link{raster}} package. }
+\code{RLum.Data.Image}S4 class object, mainly using the plot functions provided by the
+\code{\link{raster}} package.  }
 \usage{plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster", 
     ...)}
 \arguments{
@@ -74,4 +74,4 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 }
 
 \keyword{aplot}
-\section{Function version}{0.1 (2014-10-07 18:22:59)}
+\section{Function version}{0.1 (2014-12-17 14:25:41)}

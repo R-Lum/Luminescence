@@ -572,15 +572,15 @@ if(output.plot==TRUE){
     ## (not valid for all types of measurements).}
     
     ##references<<
-    ## Aitken, M.J. & Smith, B.W., 1988. Optical dating: recuperation after 
-    ## bleaching. Quaternary Science Reviews, 7, pp. 387-393.
+    ## Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation after 
+    ## bleaching. Quaternary Science Reviews 7, 387-393.
     ## 
     ## Duller, G., 2003. Distinguishing quartz and feldspar in single grain 
-    ## luminescence measurements. Radiation Measurements, 37 (2), pp. 161-165. 
+    ## luminescence measurements. Radiation Measurements, 37 (2), 161-165. 
     ##
-    ## Murray, A.S. & Wintle, A.G.,  2000. Luminescence dating of quartz using 
+    ## Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using 
     ## an improved single-aliquot regenerative-dose protocol. 
-    ## Radiation Measurements, 32, pp. 57-73. 
+    ## Radiation Measurements 32, 57-73. 
     
     ##note<<
     ## Rejection criteria are calculated but not considered during 

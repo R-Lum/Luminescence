@@ -1,6 +1,6 @@
-apply_CosmicRayRemoval<- structure(function(#Function to remove cosmic rays from an RLum.Data.Spectrum S4 class objects
+apply_CosmicRayRemoval<- structure(function(#Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object
   ### The function provides several methods for cosmic ray removal and spectrum 
-  ### smoothing for an RLum.Data.Spectrum S4 class objects 
+  ### smoothing for an RLum.Data.Spectrum S4 class object 
   
   # ===========================================================================
   ##author<<
@@ -16,7 +16,7 @@ apply_CosmicRayRemoval<- structure(function(#Function to remove cosmic rays from
   
   method = "Pych",
   ### \code{\link{character}} (with default): Defines method that is applied for 
-  ### cosmic ray removal. Allowed methods \code{smooth} (\code{\link{smooth}}),
+  ### cosmic ray removal. Allowed methods are \code{smooth} (\code{\link{smooth}}),
   ### \code{smooth.spline} (\code{\link{smooth.spline}}) and 
   ### \code{Pych} (default). See details for further information.
   
@@ -24,16 +24,16 @@ apply_CosmicRayRemoval<- structure(function(#Function to remove cosmic rays from
   ### \code{\link{integer}} (with default): Smoothing parameter for 
   ### cosmic ray removal according to Pych (2003). The value defines how
   ### many neighboring values in each frame are used for smoothing 
-  ### (e.g. \code{2} means that the two previous and two following values 
-  ### are used)
+  ### (e.g., \code{2} means that the two previous and two following values 
+  ### are used).
   
   method.Pych.histogram.plot = FALSE,
   ### \code{\link{logical}} (with default): If \code{TRUE} the histograms used 
   ### for the cosmic-ray removal are returned as plot including the used 
-  ### threshold. Note: A separat plot is returned for each frame!,
+  ### threshold. Note: A separat plot is returned for each frame!
   
   silent = FALSE, 
-  ### \code{\link{logical}} (with default): Option to suppress terminal output 
+  ### \code{\link{logical}} (with default): Option to suppress terminal output.
   
   ...
   ### further arguments and graphical parameters that will be passed to the 
@@ -257,7 +257,7 @@ apply_CosmicRayRemoval<- structure(function(#Function to remove cosmic rays from
   ##
   ## \bold{How to combine methods?}\cr
   ##
-  ## Different methods can combined by applying the method repeatedly on the 
+  ## Different methods can be combined by applying the method repeatedly to the 
   ## dataset (see example). 
                                    
   ##value<<
@@ -269,7 +269,7 @@ apply_CosmicRayRemoval<- structure(function(#Function to remove cosmic rays from
   ## \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
   
   ##note<<
-  ## This function has BETA status
+  ## -
   
   ##seealso<<
   ## \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{smooth}}, 

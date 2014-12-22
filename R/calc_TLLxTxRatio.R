@@ -28,7 +28,7 @@ calc_TLLxTxRatio <- structure(function(#Calculate the Lx/Tx ratio for a given se
   
   signal.integral.min,
   ### \link{integer} (\bold{required}): channel number for the 
-  ### upper signal integral bound (e.g. \code{signal.integral.min = 100})
+  ### lower signal integral bound (e.g. \code{signal.integral.min = 100})
   
   signal.integral.max
   ###   \link{integer} (\bold{required}): channel number for the 
@@ -221,7 +221,7 @@ calc_TLLxTxRatio <- structure(function(#Calculate the Lx/Tx ratio for a given se
      ## -
      
      ##note<<
-     ## \bold{This function is has beta status!}
+     ## \bold{This function has still BETA status!}
      
      ##seealso<<
      ## \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}

@@ -211,11 +211,11 @@ calc_FuchsLang2001<- structure(function(#Apply the model after Fuchs & Lang (200
   ##references<<
   ## Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial quartz using 
   ## single-aliqout 	protocols on sediments from NE Peloponnese, 
-  ## Greece. In: Quaternary Science Reviews, 20, 783-787.
+  ## Greece. In: Quaternary Science Reviews 20, 783-787.
   ##
   ## Fuchs, M. & Wagner, G.A., 2003. Recognition of insufficient bleaching by 
   ## small aliquots of quartz for reconstructing soil erosion in Greece. 
-  ## Quaternary Science Reviews, 22, 1161-1167. 
+  ## Quaternary Science Reviews 22, 1161-1167. 
   
   ##note<<
   ## Please consider the requirements and the constraints of this method 

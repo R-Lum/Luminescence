@@ -1,7 +1,7 @@
 \name{get_RLum}
 \alias{get_RLum}
 \title{General accessor function for RLum S4 class objects}
-\description{Function calls object specific get functions for RLum S4 class objects. }
+\description{Function calls object-specific get functions for RLum S4 class objects. }
 \usage{get_RLum(object, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of class \code{RLum}}
@@ -20,7 +20,7 @@ Allowed arguments can be found in the documentations of each get function.
 \code{\linkS4class{RLum.Analysis}} \tab : \tab \code{\link{get_RLum.Analysis}}\cr 
 \code{\linkS4class{RLum.Results}} \tab : \tab \code{\link{get_RLum.Results}} 
 }}
-\value{Return same as input objects as provided in the list.}
+\value{Return is the same as input objects as provided in the list.}
 \references{-}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
@@ -49,4 +49,4 @@ temp.get<- get_RLum(object = temp1)
 }
 
 \keyword{utilities}
-\section{Function version}{0.1 (2014-09-21 17:51:06)}
+\section{Function version}{0.1 (2014-12-18 17:43:17)}

@@ -1,18 +1,18 @@
 \name{merge_RLum.Analysis}
 \alias{merge_RLum.Analysis}
 \title{Merge function for RLum.Analysis S4 class objects}
-\description{Function allows merging of RLum.Analysis objects and adding of objects an RLum.Analysis 
-object consists of. }
+\description{Function allows merging of RLum.Analysis objects and adding of allowed objects to 
+an RLum.Analysis. }
 \usage{merge_RLum.Analysis(objects)}
 \arguments{
   \item{objects}{\code{\link{list}} of \code{\linkS4class{RLum.Analysis}} (\bold{required}): 
 list of S4 objects of class \code{RLum.Analysis}. Furthermore other objects 
 of class \code{\linkS4class{RLum}} can be added, see details.}
 }
-\details{This function simply allows to merge \code{\linkS4class{RLum.Analysis}} objects. 
+\details{This function simply allowing to merge \code{\linkS4class{RLum.Analysis}} objects. 
 Additionally other \code{\linkS4class{RLum}} objects can be added to an existing 
 \code{\linkS4class{RLum.Analysis}} object. Supported objects to be added are: 
-\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}} and
+\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Spectrum}} and
 \code{\linkS4class{RLum.Data.Image}}.\cr
 
 The order in the new \code{\linkS4class{RLum.Analysis}} object is the object order
@@ -43,4 +43,4 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 }
 
 \keyword{utilities}
-\section{Function version}{0.1 (2014-09-21 19:46:54)}
+\section{Function version}{0.1 (2014-12-18 17:46:50)}

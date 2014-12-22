@@ -24,7 +24,7 @@ merge_Risoe.BINfileData <- structure(function(#Merge Risoe.BINfileData objects o
   keep.position.number = FALSE,
   ### \code{\link{logical}} (with default): Allows keeping the original 
   ### position numbers of the input objects. Otherwise the position numbers 
-  ### a recalculated.
+  ### are recalculated.
   
   position.number.append.gap = 0
   ### \code{\link{integer}} (with default): Set the position number gap between 
@@ -183,7 +183,7 @@ merge_Risoe.BINfileData <- structure(function(#Merge Risoe.BINfileData objects o
 # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
 
 ##details<<
-## The function allows mering different measurements to one file or one object.\cr
+## The function allows merging different measurements to one file or one object.\cr
 ## The record IDs are recalculated for the new object. Other values 
 ## are kept for each object. The number of input objects is not limited. \cr
 ## 

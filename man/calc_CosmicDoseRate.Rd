@@ -111,24 +111,24 @@ The output should be accessed using the function
 \code{\link{get_RLum.Results}}}
 \references{Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975. Letter to
 the editor. The absolute cosmic ray flux at sea level. Journal of 
-Physics G: Nuclear and Particle Physics, 1, pp. L51-L52. \cr\cr
+Physics G: Nuclear and Particle Physics 1, L51-L52. \cr\cr
 Barbouti, A.I., Rastin, B.C., 1983. A study of the absolute intensity 
 of muons at sea level and under various thicknesses of absorber. Journal 
-of Physics G: Nuclear and Particle Physics, 9, pp. 1577-1595. \cr\cr
+of Physics G: Nuclear and Particle Physics 9, 1577-1595. \cr\cr
 Crookes, J.N., Rastin, B.C., 1972. An investigation of the absolute 
-intensity of muons at sea-level. Nuclear Physics B, 39, pp. 493-508. 
+intensity of muons at sea-level. Nuclear Physics B 39, 493-508. 
 \cr\cr
 Gruen, R., 2009. The "AGE" program for the calculation of luminescence 
-age estimates. Ancient TL, 27, pp. 45-46. \cr\cr
+age estimates. Ancient TL 27, 45-46. \cr\cr
 Prescott, J.R., Hutton, J.T., 1988. Cosmic ray and gamma ray dosimetry
-for TL and ESR. Nuclear Tracks and Radiation Measurements, 14, pp. \cr\cr
+for TL and ESR. Nuclear Tracks and Radiation Measurements 14, \cr\cr
 223-227.
 Prescott, J.R., Hutton, J.T., 1994. Cosmic ray contributions to dose 
 rates for luminescence and ESR dating: large depths and long-term time
-variations. Radiation Measurements, 23, pp. 497-500. \cr\cr
+variations. Radiation Measurements 23, 497-500. \cr\cr
 Prescott, J.R., Stephan, L.G., 1982. The contribution of cosmic radiation
 to the environmental dose for thermoluminescence dating. Latitude, 
-altitude and depth dependences. PACT, 6, pp. 17-25.}
+altitude and depth dependences. PACT 6, 17-25.}
 \author{Christoph Burow, University of Cologne (Germany) \cr
 R Luminescence Package Team}
 \note{Despite its universal use the equation to calculate the cosmic dose rate
@@ -209,4 +209,4 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 #write.csv(results, file = "c:/users/public/results_profile.csv")
 
 }
-\section{Function version}{0.5.2 (2014-12-02 16:24:47)}
+\section{Function version}{0.5.2 (2014-12-17 12:50:26)}

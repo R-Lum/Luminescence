@@ -183,7 +183,7 @@ CW2pLMi<- structure(function(#Transform a CW-OSL curve into a pLM-OSL curve via 
   ## 1/P = stimulation rate (1/s)\cr\cr
   ## 
   ## \bold{Internal transformation steps}\cr\cr
-  ## (1) log(CW-OSL) values
+  ## (1) log(CW-OSL) values\cr
   ## (2) Calculate t' which is the transformed time:
   ## \deqn{t' = 1/2*1/P*t^2}
   ##
