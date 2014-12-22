@@ -3,7 +3,7 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
   
   ##section<<
   ## version 0.4.5
@@ -315,10 +315,10 @@ calc_OSLLxTxRatio<- structure(function(#Calculate Lx/Tx ratio for CW-OSL curves
   ## .. $ Net_LnLx.Error\cr 
   ## .. $ Net_TnTx.Error\cr
   ## .. $ LxTx\cr
-  ## .. $ LxTx.Error
-  ## $ calc.parameters (list)
-  ## .. $ sigmab.LnTx
-  ## .. $ sigmab.TnTx
+  ## .. $ LxTx.Error \cr
+  ## $ calc.parameters (list)\cr
+  ## .. $ sigmab.LnTx\cr
+  ## .. $ sigmab.TnTx\cr
   ## .. $ k
    
   ##references<<

@@ -54,10 +54,10 @@ $ LxTx.table (data.frame)
 .. $ Net_LnLx.Error\cr 
 .. $ Net_TnTx.Error\cr
 .. $ LxTx\cr
-.. $ LxTx.Error
-$ calc.parameters (list)
-.. $ sigmab.LnTx
-.. $ sigmab.TnTx
+.. $ LxTx.Error \cr
+$ calc.parameters (list)\cr
+.. $ sigmab.LnTx\cr
+.. $ sigmab.TnTx\cr
 .. $ k}
 \references{Duller, G., 2007. Analyst. \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
 
@@ -66,7 +66,7 @@ OSL count. Ancient TL, 20 (2), 49-51.
 
 Galbraith, R.F., 2014. A further note on the variance of a background-corrected OSL count.
 Ancient TL, 31 (2), 1-3.}
-\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 R Luminescence Package Team}
 \note{The results of this function have been cross-checked with the Analyst (vers. 3.24b).   
 Access to the results object via \code{\link{get_RLum.Results}}.}
@@ -89,4 +89,4 @@ get_RLum.Results(results)
 }
 
 \keyword{datagen}
-\section{Function version}{0.4.5 (2014-12-18 17:34:13)}
+\section{Function version}{0.4.5 (2014-12-20 10:59:21)}

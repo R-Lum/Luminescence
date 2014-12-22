@@ -40,7 +40,7 @@ merge_RLum<- structure(function(#General merge function for RLum S4 class object
       ##This is not valid for RLum.Analysis objects
       if(!"RLum.Analysis"%in%temp.class.test){
       
-          stop("[merge_RLum] So far only similar input objects in the list are supported!")
+          stop("[merge_RLum()] So far only similar input objects in the list are supported!")
           
       }
     }
@@ -53,9 +53,9 @@ merge_RLum<- structure(function(#General merge function for RLum S4 class object
   
     switch (objects.class,
             
-            RLum.Data.Curve = stop("[merge_RLum] Sorry, merging of 'RLum.Data.Curve' objects currently not supported!"),
-            RLum.Data.Image = stop("[merge_RLum] Sorry, merging of 'RLum.Data.Image' objects currently not supported!"),
-            RLum.Data.Spectrum = stop("[merge_RLum] Sorry, merging of 'RLum.Data.Spectrum' objects currently not supported!"),
+            RLum.Data.Image = stop("[merge_RLum()] Sorry, merging of 'RLum.Data.Image' objects is currently not supported!"),
+            RLum.Data.Spectrum = stop("[merge_RLum()] Sorry, merging of 'RLum.Data.Spectrum' is objects currently not supported!"),
+            RLum.Data.Curve = merge_RLum.Data.Curve(objects, ...),
             RLum.Analysis = merge_RLum.Analysis(objects, ...),
             RLum.Results = merge_RLum.Results(objects, ...)            
            )

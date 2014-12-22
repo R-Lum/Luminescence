@@ -158,7 +158,7 @@ Economics and Statistics, 52 (3), 320-323.
 
 Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. R. Gentleman, 
 K. Hornik, & G. Parmigiani, eds., Springer, p. 150.}
-\author{Sebastian Kreutzer, JLU Giessen (Germany), \cr
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{The pseudo-R^2 may not be the best parameter to describe the goodness of the fit.
 The trade off between the \code{n.components} and the pseudo-R^2 value 
@@ -198,4 +198,4 @@ fit_LMCurve(values = values.curve,
 
 \keyword{dplot}
 \keyword{models}
-\section{Function version}{0.2.15 (2014-09-15 02:28:00)}
+\section{Function version}{0.2.15 (2014-12-20 11:01:43)}

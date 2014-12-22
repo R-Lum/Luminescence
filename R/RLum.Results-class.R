@@ -331,7 +331,7 @@ setMethod("merge_RLum.Results",
             ##check if input object is a list
             if(is(object.list, "list") == FALSE){
               
-              stop("[merge_RLum.Results] Error: 'object.list' has to of type 'list'!")
+              stop("[merge_RLum.Results()] 'object.list' has to of type 'list'!")
               
             }else{
                             
@@ -353,7 +353,7 @@ setMethod("merge_RLum.Results",
               ##check if originator is different 
               if(length(unique(temp.originator))>1){
                 
-                stop("[merge_RLum.Results] Error: 'RLum.Results' object originator 
+                stop("[merge_RLum.Results()] 'RLum.Results' object originator 
 differs!")
               }   
     

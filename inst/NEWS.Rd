@@ -3,11 +3,23 @@
 
 \section{Changes in version 0.4.1 (XXXXXXX XXth, 20145)}{
 
-  \subsection{Test}{
+  \subsection{New functions}{
+  
   \itemize{
-  \item test
+  
+  \item \code{merge_RLum.Data.Curve()}: Function allows merging of \code{RLum.Data.Curve} 
+  objects in different ways (#128).
+
+  }}
+
+  \subsection{Bugfixes and changes}{
+   \itemize{
+  
+      \item \code{merge_RLum()}: Function extended accordingly with the newly implemented function
+      \code{merge_RLum.Data.Curve()} (#128).
 
   }
+
 
 
 }}

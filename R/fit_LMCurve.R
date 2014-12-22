@@ -7,7 +7,7 @@ fit_LMCurve<- structure(function(#Nonlinear Least Squares Fit for LM-OSL curves
   
   # ===========================================================================
   ##author<<
-  ## Sebastian Kreutzer, JLU Giessen (Germany), \cr
+  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
   ## version 0.2.15
@@ -103,14 +103,14 @@ fit_LMCurve<- structure(function(#Nonlinear Least Squares Fit for LM-OSL curves
   ##(1) data.frame or RLum.Data.Curve object?
   if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
     
-    stop("[fit_LMCurve] Error: 'values' object has to be of type 
+    stop("[fit_LMCurve()] 'values' object has to be of type 
          'data.frame' or 'RLum.Data.Curve'!")
     
   }else{
     
     if(is(values, "RLum.Data.Curve") == TRUE && values@recordType!="RBR"){
       
-      stop("[fit_LMCurve] Error: recordType should be 'RBR'!")
+      stop("[fit_LMCurve()] recordType should be 'RBR'!")
 
     }else if(is(values, "RLum.Data.Curve") == TRUE){
       
@@ -125,13 +125,13 @@ fit_LMCurve<- structure(function(#Nonlinear Least Squares Fit for LM-OSL curves
     if(is(values.bg, "data.frame") == FALSE & is(values.bg,
                                                  "RLum.Data.Curve") == FALSE){
     
-    stop("[fit_LMCurve] Error: 'values.bg' object has to be of type 'data.frame' or 'RLum.Data.Curve'!")
+    stop("[fit_LMCurve()] 'values.bg' object has to be of type 'data.frame' or 'RLum.Data.Curve'!")
     
     }else{
     
     if(is(values, "RLum.Data.Curve") == TRUE && values@recordType!="RBR"){
       
-      stop("[fit_LMCurve] Error: recordType should be 'RBR'!")
+      stop("[fit_LMCurve()] recordType should be 'RBR'!")
       
     }else if(is(values.bg, "RLum.Data.Curve") == TRUE){
       

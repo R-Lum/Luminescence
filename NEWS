@@ -2,9 +2,15 @@ NEWS for the R Package Luminescence
 
 Changes in version 0.4.1 (XXXXXXX XXth, 20145):
 
-  Test:
+  New functions:
 
-         • test
+         • ‘merge_RLum.Data.Curve()’: Function allows merging of
+           ‘RLum.Data.Curve’ objects in different ways (#128).
+
+  Bugfixes and changes:
+
+         • ‘merge_RLum()’: Function extended accordingly with the newly
+           implemented function ‘merge_RLum.Data.Curve()’ (#128).
 
 Changes in version 0.4.0 (December 19th, 2014):
 

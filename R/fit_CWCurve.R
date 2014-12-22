@@ -80,7 +80,7 @@ fit_CWCurve<- structure(function(#Nonlinear Least Squares Fit for CW-OSL curves 
       
       ##INPUT OBJECTS
       if(is(values, "RLum.Data.Curve") == FALSE & is(values, "data.frame") == FALSE){
-        stop("[fit_CWCurve] Input object is not of type 'RLum.Data.Curve' or 'data.frame'!")
+        stop("[fit_CWCurve()] Input object is not of type 'RLum.Data.Curve' or 'data.frame'!")
       } 
         
       
