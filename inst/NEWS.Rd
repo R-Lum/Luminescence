@@ -18,7 +18,22 @@
       \item \code{merge_RLum()}: Function extended accordingly with the newly implemented function
       \code{merge_RLum.Data.Curve()} (#128).
 
-  }
+  
+  
+   \item \code{plot_AbanicoPlot()}:
+    
+    
+     \itemize{
+    
+    \item ticks removed from error bars,
+    \item line value output removed,
+    \item placement of y- and z-labels set to center of plot,
+    \item weights-option for KDE integrated,
+    \item warning for linear z-scale removed.
+    
+    
+    }}
+  
 
 
 

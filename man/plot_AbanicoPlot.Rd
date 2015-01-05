@@ -294,4 +294,4 @@ plot_AbanicoPlot(data = data.3,
 ## restore original graphical parameters
 par(par.old)
 }
-\section{Function version}{0.1.1 (2014-12-18 15:42:24)}
+\section{Function version}{0.1.1 (2015-01-05 18:28:10)}

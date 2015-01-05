@@ -12,6 +12,18 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
          • ‘merge_RLum()’: Function extended accordingly with the newly
            implemented function ‘merge_RLum.Data.Curve()’ (#128).
 
+         • ‘plot_AbanicoPlot()’:
+
+             • ticks removed from error bars,
+
+             • line value output removed,
+
+             • placement of y- and z-labels set to center of plot,
+
+             • weights-option for KDE integrated,
+
+             • warning for linear z-scale removed.
+
 Changes in version 0.4.0 (December 19th, 2014):
 
   Preface:

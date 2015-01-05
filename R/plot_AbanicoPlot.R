@@ -254,11 +254,11 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     mtext <- ""
   }
   
-  ## check z-axis log-option for grouped data sets
-  if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
-    warning(paste("Option 'log.z' is not set to 'TRUE' altough more than one",
-                  "data set (group) is provided."))
-  }
+#   ## check z-axis log-option for grouped data sets
+#   if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
+#     warning(paste("Option 'log.z' is not set to 'TRUE' altough more than one",
+#                   "data set (group) is provided."))
+#   }
 
   ## create preliminary global data set
   De.global <- data[[1]][,1]
@@ -396,6 +396,52 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], std.estimate[[x]])})
   rm(std.estimate)
+
+  ## append optional weights for KDE curve
+  if("weights" %in% names(extraArgs)) {
+    if(extraArgs$weights == TRUE) {
+      wgt <- lapply(1:length(data), function(x){
+        (1 / data[[x]][,2]) / sum(1 / data[[x]][,2])
+        })
+      
+      if(is(wgt, "list") == FALSE) {
+        wgt <- list(wgt)
+      }
+      
+      data <- lapply(1:length(data), function(x) {
+        cbind(data[[x]], wgt[[x]])})
+
+      rm(wgt)
+    } else {
+      wgt <- lapply(1:length(data), function(x){
+        rep(x = 1, times = nrow(data[[x]])) / 
+          sum(rep(x = 1, times = nrow(data[[x]])))
+      })
+      
+      if(is(wgt, "list") == FALSE) {
+        wgt <- list(wgt)
+      }
+      
+      data <- lapply(1:length(data), function(x) {
+        cbind(data[[x]], wgt[[x]])})
+      
+      rm(wgt)
+    }
+  } else {
+    wgt <- lapply(1:length(data), function(x){
+      rep(x = 1, times = nrow(data[[x]])) / 
+        sum(rep(x = 1, times = nrow(data[[x]])))
+    })
+    
+    if(is(wgt, "list") == FALSE) {
+      wgt <- list(wgt)
+    }
+    
+    data <- lapply(1:length(data), function(x) {
+      cbind(data[[x]], wgt[[x]])})
+    
+    rm(wgt)  
+  }
   
   ## generate global data set
   data.global <- data[[1]]
@@ -414,7 +460,8 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                              "z.central",
                              "precision", 
                              "std.estimate", 
-                             "std.estimate.plot")
+                             "std.estimate.plot",
+                             "weights")
 
   ## calculate global central value
   if(centrality[1] == "mean") {
@@ -469,7 +516,8 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                              "z.central",
                              "precision", 
                              "std.estimate", 
-                             "std.estimate.plot")
+                             "std.estimate.plot",
+                             "weights")
   }
 
   ## re-calculate standardised estimate for plotting
@@ -1232,7 +1280,8 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                      kernel = "gaussian", 
                      bw = bw,
                      from = ellipse.values[1],
-                     to = ellipse.values[2])
+                     to = ellipse.values[2],
+                     weights = data[[i]]$weights)
     KDE.xy <- cbind(KDE.i$x, KDE.i$y)
     KDE.ext <- ifelse(max(KDE.xy[,2]) < KDE.ext, KDE.ext, max(KDE.xy[,2]))
     KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0)) 
@@ -1269,7 +1318,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                                             data.object = "summary")$de)
       }
     }
-    print(line)
+
     ## convert list to vector
     if(is.list(line) == TRUE) {
       line <- unlist(line)
@@ -1380,10 +1429,13 @@ if(rotate == FALSE) {
        yaxs = "i",
        frame.plot = FALSE, 
        axes = FALSE)
-  
+
   ## add y-axis label
   mtext(text = ylab,
-        at = 0,
+        at = mean(x = c(min(ellipse[,2]), 
+                       max(ellipse[,2])), 
+                  na.rm = TRUE),
+#        at = 0, ## BUG FROM VERSION 0.4.0, maybe removed in future
         adj = 0.5,
         side = 2, 
         line = 3 * layout$abanico$dimension$ylab.line / 100, 
@@ -1719,7 +1771,10 @@ if(rotate == FALSE) {
   
   ## plot z-label
   mtext(text = zlab, 
-        at = 0,
+        at = mean(x = c(min(ellipse[,2]), 
+                       max(ellipse[,2])), 
+                  na.rm = TRUE),
+#        at = 0, ## BUG from version 0.4.0, maybe removed in future
         side = 4,
         las = 3,
         adj = 0.5,
@@ -1737,7 +1792,7 @@ if(rotate == FALSE) {
              x1 = arrow.coords[[i]][,2],
              y0 = arrow.coords[[i]][,3],
              y1 = arrow.coords[[i]][,4],
-             length = 0.05,
+             length = 0,
              angle = 90,
              code = 3,
              col = value.bar[i])
