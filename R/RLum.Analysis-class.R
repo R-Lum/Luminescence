@@ -4,8 +4,8 @@
 ##==============================================================================
 ##author: Sebastian Kreutzer
 ##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-##version: 0.1.6
-##date: 2014-09-09
+##version: 0.1.7
+##date: 2015-01-08
 ##==============================================================================
 
 ##class definition
@@ -34,37 +34,45 @@ setClass("RLum.Analysis",
               cat("\n\t protocol:", object@protocol)
               cat("\n\t number of records:", length(object@records))  
               
-              ##get object class types
-              temp <- sapply(1:length(object@records), function(x){
-                             
-                            is(object@records[[x]])[1]
+              #skip this part if nothing is included in the object
+              if(length(object@records) > 0){
+              
+                ##get object class types
+                temp <- sapply(1:length(object@records), function(x){
+                               
+                              is(object@records[[x]])[1]
                             
-                           })
-      
-        
+                             })                    
             
-              ##print object class types
-              sapply(1:length(table(temp)), function(x){
+                ##print object class types
+                sapply(1:length(table(temp)), function(x){
              
-                ##show RLum class type
-                cat("\n\t .. :",names(table(temp)[x]),":",table(temp)[x])
+                  ##show RLum class type
+                  cat("\n\t .. :",names(table(temp)[x]),":",table(temp)[x])
                 
       
-                ##show structure   
-                ##set width option ... just an implementation for the tutorial output
-                ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 10)
+                  ##show structure   
+                  ##set width option ... just an implementation for the tutorial output
+                  ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 10)
                 
-                cat("\n\t .. .. : ", 
-                    unlist(sapply(1:length(object@records),  function(i) {
+                  cat("\n\t .. .. : ", 
+                      unlist(sapply(1:length(object@records),  function(i) {
                
-                      if(names(table(temp)[x]) == is(object@records[[i]])[1]){
-                         paste(object@records[[i]]@recordType,
-                         if(i%%temp.width==0 & i!=length(object@records)){"\n\t .. .. : "})
-                      }
-                    })))
+                        if(names(table(temp)[x]) == is(object@records[[i]])[1]){
+                           paste(object@records[[i]]@recordType,
+                           if(i%%temp.width==0 & i!=length(object@records)){"\n\t .. .. : "})
+                        }
+                      })))
                       
               })
         
+            }else{
+              
+              cat("\n\t >> This is an empty object and cannot be used for further analysis! <<")
+              
+            }
+         
+              
             }                              
             )##end show method
 
@@ -313,6 +321,13 @@ setMethod("get_RLum.Analysis",
            
             ##remove empty list element
             temp <- temp[!sapply(temp, is.null)]
+            
+            ##check if produced object is empty and show warning message
+            if(length(temp) == 0){
+              
+              warning("This request has produced and empty 'RLum.Analysis' object!")
+              
+            }
            
             ##remove list for get.index
             if(get.index == TRUE){
@@ -354,7 +369,8 @@ setMethod("get_RLum.Analysis",
                
              }
            }
-            
+           
+         
           })
 
 # constructor (length) method for object class ------------------------------------------

@@ -738,6 +738,10 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     limits.z[2]]
   
   if(log.z == TRUE) {
+    
+    tick.values.major[which(tick.values.major==0)] <- 1
+    tick.values.minor[which(tick.values.minor==0)] <- 1 
+    
     tick.values.major <- log(tick.values.major)
     tick.values.minor <- log(tick.values.minor)
   }
@@ -1147,6 +1151,9 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     }
     
     if(log.z == TRUE) {
+
+      y.lower[which(y.lower < 0)] <- 1
+      
       y.lower <- log(y.lower)
       y.upper <- log(y.upper)
     }

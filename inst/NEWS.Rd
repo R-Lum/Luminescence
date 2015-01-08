@@ -11,6 +11,28 @@
   objects in different ways (#128).
 
   }}
+  
+  
+   \subsection{Changes S4-objects, methods, classes}{
+   \itemize{   
+    
+    
+        
+    \item \code{RLum.Analysis-class}:
+    
+    
+     \itemize{
+    
+    \item Show warnings messages when empty object are produced by a \code{get_RLum.Analysis()} 
+    request (implemented in get method and show method). 
+    
+  
+    
+    }
+
+  
+  }}
+  
 
   \subsection{Bugfixes and changes}{
    \itemize{
@@ -29,7 +51,8 @@
     \item line value output removed,
     \item placement of y- and z-labels set to center of plot,
     \item weights-option for KDE integrated,
-    \item warning for linear z-scale removed.
+    \item warning for linear z-scale removed,
+    \item fixed an error that occured in Abanico Plot for a large data range (#188).
     
     
     }

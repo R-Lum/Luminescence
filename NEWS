@@ -7,6 +7,14 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
          • ‘merge_RLum.Data.Curve()’: Function allows merging of
            ‘RLum.Data.Curve’ objects in different ways (#128).
 
+  Changes S4-objects, methods, classes:
+
+         • ‘RLum.Analysis-class’:
+
+             • Show warnings messages when empty object are produced by
+               a ‘get_RLum.Analysis()’ request (implemented in get
+               method and show method).
+
   Bugfixes and changes:
 
          • ‘merge_RLum()’: Function extended accordingly with the newly
@@ -22,7 +30,10 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
 
              • weights-option for KDE integrated,
 
-             • warning for linear z-scale removed.
+             • warning for linear z-scale removed,
+
+             • fixed an error that occured in Abanico Plot for a large
+               data range (#188).
 
          • ‘readBIN2R()’:
 
