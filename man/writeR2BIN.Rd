@@ -42,4 +42,4 @@ depending on the chosen input and output data
 }
 
 \keyword{IO}
-\section{Function version}{0.2 (2014-12-14 14:43:27)}
+\section{Function version}{0.2.1 (2015-01-07 18:58:40)}

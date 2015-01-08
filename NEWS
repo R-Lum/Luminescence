@@ -24,6 +24,30 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
 
              • warning for linear z-scale removed.
 
+         • ‘readBIN2R()’:
+
+             • critical bug fixed: ‘GRAIN’ and ‘GRAINNUMBER’ were not
+               imported properely (thanks to Norber Mercier),
+
+             • import speed has been improved by at least an order of
+               magnitude, due to a different internal data handling
+               (using of ‘data.table’ instead of ‘data.frame’). This
+               may become relevant for hugh BIN-files like they are
+               produced by single grain measurements (#191).  Note: The
+               ‘Risoe.BINfileData-class’ remained untouched.
+
+         • ‘writeR2BIN()’:
+
+             • minor changes due to the changes in the function
+               ‘readBIN2R()’,
+
+             • confusing warnings during writing are suppressed.
+
+  Internals:
+
+         • Add new dependency for package ‘data.table’ (used in the
+           function ‘readBIN2R()’).
+
 Changes in version 0.4.0 (December 19th, 2014):
 
   Preface:

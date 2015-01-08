@@ -32,13 +32,47 @@
     \item warning for linear z-scale removed.
     
     
-    }}
+    }
+    
+   \item \code{readBIN2R()}:
+    
+    
+     \itemize{
+    
+    \item critical bug fixed: \code{GRAIN} and \code{GRAINNUMBER} were not imported properely 
+    (thanks to Norber Mercier), 
+    
+    \item import speed has been improved by at least an order of magnitude, due to a different
+    internal data handling (using of \code{data.table} instead of \code{data.frame}). This may become
+    relevant for hugh BIN-files like they are produced by single grain measurements (#191). 
+    Note: The \code{Risoe.BINfileData-class} remained untouched. 
+    
+    
+    }
+    
+    
+     \item \code{writeR2BIN()}:
+    
+    
+     \itemize{
+    
+    \item minor changes due to the changes in the function \code{readBIN2R()},
+    \item confusing warnings during writing are suppressed.
+    
+    
+    }
   
-
-
-
 }}
 
+ \subsection{Internals}{
+   \itemize{   
+  
+    \item Add new dependency for package \code{data.table} (used in the function \code{readBIN2R()}).
+  
+  }}
+  
+
+}
 
 \section{Changes in version 0.4.0 (December 19th, 2014)}{
 

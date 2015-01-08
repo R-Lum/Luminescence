@@ -51,4 +51,4 @@ The version number depends on the used Sequence Editor.\cr\cr
 }
 
 \keyword{IO}
-\section{Function version}{0.7.1 (2014-12-14 15:03:00)}
+\section{Function version}{0.8.0 (2015-01-07 19:17:19)}

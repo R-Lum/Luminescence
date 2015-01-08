@@ -7,7 +7,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
   
   ##section<<
-  ## version 0.2
+  ## version 0.2.1
   # ===========================================================================
 
   object,
@@ -34,7 +34,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
 # Config ------------------------------------------------------------------  
   
   ##set supported BIN format version
-  VERSION.supported <- as.raw(c(03, 04, 06))  
+  VERSION.supported <- as.raw(c(3, 4, 6))  
   
   
 # Check integrity ---------------------------------------------------------
@@ -66,11 +66,11 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   }
 
   ##Check if the BINfile object contains of unsupported versions
-  if((object@METADATA[1,"VERSION"] %in% VERSION.supported) == FALSE ||
+  if((as.raw(object@METADATA[1,"VERSION"]) %in% VERSION.supported) == FALSE ||
        version %in% VERSION.supported == FALSE){
   
     ##show error message
-    error.text <- paste("[writeR2BIN] Error: Writing BIN-files in format version (",
+    error.text <- paste("[writeR2BIN()] Error: Writing BIN-files in format version (",
                         object@METADATA[1,"VERSION"],") is currently not supported! 
                         Supported version numbers are: ",
                         paste(VERSION.supported,collapse=", "),".",sep="")
@@ -328,11 +328,11 @@ while(ID<=n.records) {
            endian="little")
   
   
-  writeChar(as.character(object@METADATA[ID,"DATE"]),
+  suppressWarnings(writeChar(as.character(object@METADATA[ID,"DATE"]),
             con,
             nchars = 6,
             useBytes=TRUE,
-            eos = NULL)
+            eos = NULL))
   
   
   
@@ -782,11 +782,11 @@ while(ID<=n.records) {
            endian="little")
   
   
-  writeChar(as.character(object@METADATA[ID,"DATE"]),
+  suppressWarnings(writeChar(as.character(object@METADATA[ID,"DATE"]),
             con,
             nchars = 6,
             useBytes=TRUE,
-            eos = NULL)
+            eos = NULL))
   
   ##Analysis
   ##DTYPE
