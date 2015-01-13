@@ -115,7 +115,7 @@ results <- analyse_pIRIRSequence(object,
                              sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
                              main = "Pseudo pIRIR data set based on quartz OSL", 
                              output.plot.single = TRUE)
-                             
+    
                             
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Alternative for PDF output, uncomment and complete for usage
@@ -136,4 +136,4 @@ results <- analyse_pIRIRSequence(object,
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.1.1 (2014-12-18 17:16:45)}
+\section{Function version}{0.1.2 (2015-01-08 14:39:58)}

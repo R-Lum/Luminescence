@@ -7,7 +7,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
   
   ##section<<
-  ## version 0.2.1
+  ## version 0.2.2
   # ===========================================================================
 
   ##TODO - keep fit.range in mind for De calculation
@@ -55,7 +55,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ### \code{\link{logical}} (with default): enable or disable trend correction. 
   ### If \code{TRUE}, the sliding is applied to a previously trend corrected data set.
   
-  output.plot = TRUE, 
+  plot = TRUE, 
   ### \code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})
   
   xlab.unit = "s",
@@ -69,7 +69,8 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
 
   ...
   ### further arguments that will be passed to the plot output. 
-  ### Currently supported arguments are \code{main}, \code{xlab}, \code{ylab}.
+  ### Currently supported arguments are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
+  ### \code{log}
   
 ){
   
@@ -162,8 +163,13 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ylab     <- if("ylabs" %in% names(extraArgs)) {extraArgs$ylabs} else # assign y axes labels
   {paste("IR-RF [cts/",resolution.RF," ", xlab.unit,"]",sep = "")}
 
+  log     <- if("log" %in% names(extraArgs)) {extraArgs$log} else 
+  {""}
+
   cex     <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else # assign y axes labels
   {1}
+
+  ##xlim and ylim see below
   
   
 ##=============================================================================#
@@ -541,7 +547,7 @@ else{
 ##=============================================================================#
 ## PLOTTING
 ##=============================================================================#
-if(output.plot==TRUE){
+if(plot==TRUE){
   
   ##grep par default
   def.par <- par(no.readonly = TRUE)
@@ -553,15 +559,35 @@ if(output.plot==TRUE){
   layout(matrix(c(1,2),2,1,byrow=TRUE),c(2), c(1.5,0.4), TRUE)
   par(oma=c(1,1,1,1), mar=c(0,4,3,0), cex = cex)
   
+  ##here control xlim and ylim behaviour
+  xlim     <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else 
+  {
+    
+    if(log == "x" | log == "xy"){
+      
+      c(min(temp.sequence.structure$x.min),max(temp.sequence.structure$x.max))
+      
+    }else{
+      
+      c(0,max(temp.sequence.structure$x.max))
+      
+    } 
+  
+  }
+
+  ylim     <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else 
+  {c(min(temp.sequence.structure$y.min), max(temp.sequence.structure$y.max))}
+  
+  
   ##open plot area
   plot(NA,NA,
-       xlim = c(0,max(temp.sequence.structure$x.max)),
-       ylim = c(min(temp.sequence.structure$y.min), max(temp.sequence.structure$y.max)),
+       xlim = xlim,
+       ylim = ylim,
        xlab = "",
        xaxt = "n",
        ylab = ylab,
        main = main, 
-       log = "")
+       log = log)
 
   ##plotting measured signal 
   points(values.regenerated[,1], values.regenerated[,2], pch=3, col="grey")
@@ -764,14 +790,14 @@ if(output.plot==TRUE){
     if(length(temp.outlier.ID)>0){
           
     plot(values.natural.limited.full[-temp.outlier.ID,1], values.residuals, 
-         xlim=c(0,max(temp.sequence.structure$x.max)),
+         xlim=xlim,
          xlab="Time [s]", 
          type="p", 
          pch=20,
          col="grey", 
          ylab="Resid. [a.u.]",
          #lwd=2,
-         log="")
+         log=log)
     
     if(exists("De.mean.corr")){
      lines(values.natural.limited.full[-temp.outlier.ID,1], 
@@ -782,14 +808,14 @@ if(output.plot==TRUE){
     }else{
     
       plot(values.natural.limited.full[,1], values.residuals, 
-           xlim=c(0,max(temp.sequence.structure$x.max)),
+           xlim=xlim,
            xlab="Time [s]", 
            type="p", 
            pch=20,
            col="grey", 
            ylab="Resid. [a.u.]",
            #lwd=2,
-           log="")
+           log=log)
       
       if(exists("De.mean.corr")){
         lines(values.natural.limited.full[,1], 
@@ -824,7 +850,7 @@ if(output.plot==TRUE){
 
   par(def.par)  #- reset to default
   
-}#endif::output.plot
+}#endif::plot
 ##=============================================================================#
 ## RETURN
 ##=============================================================================#

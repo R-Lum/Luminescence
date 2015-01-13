@@ -36,9 +36,27 @@
 
   \subsection{Bugfixes and changes}{
    \itemize{
+
+
+    \item \code{analyse_IRSAR.RF()}
+    
+     \itemize{
+    
+    \item Add enhanced support for \code{...}, e.g. \code{log}, \code{xlim}, \code{ylim},
+    \item rename argument \code{output.plot} to \code{plot}.
+    
+    }
   
-      \item \code{merge_RLum()}: Function extended accordingly with the newly implemented function
-      \code{merge_RLum.Data.Curve()} (#128).
+    \item \code{analyse_pIRIRSequence()}
+    
+     \itemize{
+    
+    \item Fix an error that causes problems during plotting ( Error in plot.new() : figure margins too large).
+    
+    }
+
+    \item \code{merge_RLum()}: Function extended accordingly with the newly implemented function
+    \code{merge_RLum.Data.Curve()} (#128).
 
   
   
@@ -52,7 +70,8 @@
     \item placement of y- and z-labels set to center of plot,
     \item weights-option for KDE integrated,
     \item warning for linear z-scale removed,
-    \item fixed an error that occured in Abanico Plot for a large data range (#188).
+    \item fixed an error that occured in Abanico Plot for a large data range (#188),
+    \item function output extended by data points in/out of confidence interval.
     
     
     }

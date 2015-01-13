@@ -1132,32 +1132,40 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   for(i in 1:length(data)) {
     
     if(dispersion == "sd") {
-      y.lower <- mean(data[[i]][,1]) - sd(data[[i]][,1])
-      y.upper <- mean(data[[i]][,1]) + sd(data[[i]][,1])
+      ci.lower <- mean(data[[i]][,1]) - sd(data[[i]][,1])
+      ci.upper <- mean(data[[i]][,1]) + sd(data[[i]][,1])
     } else if(dispersion == "2sd") {
-      y.lower <- mean(data[[i]][,1]) - 2 * sd(data[[i]][,1])
-      y.upper <- mean(data[[i]][,1]) + 2 * sd(data[[i]][,1])
+      ci.lower <- mean(data[[i]][,1]) - 2 * sd(data[[i]][,1])
+      ci.upper <- mean(data[[i]][,1]) + 2 * sd(data[[i]][,1])
     } else if(dispersion == "qr") {
-      y.lower <- quantile(data[[i]][,1], 0.25)
-      y.upper <- quantile(data[[i]][,1], 0.75)
+      ci.lower <- quantile(data[[i]][,1], 0.25)
+      ci.upper <- quantile(data[[i]][,1], 0.75)
     } else if(grepl(x = dispersion, pattern = "ci") == TRUE) {
       ci.plot <- as.numeric(strsplit(x = dispersion, 
                                      split = "ci")[[1]][2])
       ci.plot <- (100 - ci.plot) / 200
-      y.lower <- quantile(data[[i]][,1], ci.plot)
-      y.upper <- quantile(data[[i]][,1], 1 - ci.plot)
+      ci.lower <- quantile(data[[i]][,1], ci.plot)
+      ci.upper <- quantile(data[[i]][,1], 1 - ci.plot)
     } else {
       stop("Measure of dispersion not supported.")
     }
     
     if(log.z == TRUE) {
-
-      y.lower[which(y.lower < 0)] <- 1
-      
-      y.lower <- log(y.lower)
-      y.upper <- log(y.upper)
+      ci.lower[which(ci.lower < 0)] <- 1
+      y.lower <- log(ci.lower)
+      y.upper <- log(ci.upper)
+    } else {
+      y.lower <- ci.lower
+      y.upper <- ci.upper
     }
- 
+    
+    ## append information about data in confidence interval
+    for(i in 1:length(data)) {
+      data.in.ci <- rep(x = FALSE, times = nrow(data[[i]]))
+      data.in.ci[data[[i]][,1] > ci.lower & data[[i]][,1] < ci.upper] <- TRUE
+      data[[i]] <- cbind(data[[i]], data.in.ci)
+    }
+    
     if(rotate == FALSE) {
       polygons[i,1:7] <- c(limits.x[1], 
                            limits.x[2],

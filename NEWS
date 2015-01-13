@@ -17,6 +17,18 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
 
   Bugfixes and changes:
 
+         • ‘analyse_IRSAR.RF()’
+
+             • Add enhanced support for ‘...’, e.g. ‘log’, ‘xlim’,
+               ‘ylim’,
+
+             • rename argument ‘output.plot’ to ‘plot’.
+
+         • ‘analyse_pIRIRSequence()’
+
+             • Fix an error that causes problems during plotting (
+               Error in plot.new() : figure margins too large).
+
          • ‘merge_RLum()’: Function extended accordingly with the newly
            implemented function ‘merge_RLum.Data.Curve()’ (#128).
 
@@ -33,7 +45,10 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
              • warning for linear z-scale removed,
 
              • fixed an error that occured in Abanico Plot for a large
-               data range (#188).
+               data range (#188),
+
+             • function output extended by data points in/out of
+               confidence interval.
 
          • ‘readBIN2R()’:
 

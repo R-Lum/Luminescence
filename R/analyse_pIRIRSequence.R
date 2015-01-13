@@ -8,7 +8,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.1.1
+  ## version 0.1.2
   # ===========================================================================
 
   object,
@@ -108,7 +108,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   {""}
 
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else 
-  {1}
+  {.7}
 
 
 # Protocol Integrity Checks -------------------------------------------------- 
@@ -342,6 +342,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
                     dose.points = dose.points,
                     output.plot.single = temp.output.plot.single,
                     output.plotExtended.single = TRUE,
+                    cex.global = cex,
                     ...) ##TODO should be replaced be useful explizit arguments
     
  
@@ -713,7 +714,7 @@ if(output.plot == TRUE){
                                sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
                                main = "Pseudo pIRIR data set based on quartz OSL", 
                                output.plot.single = TRUE)
-                               
+      
                               
   ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
   ## Alternative for PDF output, uncomment and complete for usage

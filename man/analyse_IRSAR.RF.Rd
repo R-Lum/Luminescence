@@ -6,7 +6,7 @@ using the protocol according to Erfurt et al. (2003)}
 \usage{analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"), 
     method = "FIT", fit.range.min, fit.range.max, fit.trace = FALSE, 
     fit.MC.runs = 10, slide.outlier.rm = FALSE, slide.trend.corr = FALSE, 
-    output.plot = TRUE, xlab.unit = "s", legend.pos, ...)}
+    plot = TRUE, xlab.unit = "s", legend.pos, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): 
 input object containing data for protocol analysis}
@@ -31,14 +31,15 @@ the calculation time.   }
 Outliers are removed from the natural signal curve only.}
   \item{slide.trend.corr}{\code{\link{logical}} (with default): enable or disable trend correction. 
 If \code{TRUE}, the sliding is applied to a previously trend corrected data set.}
-  \item{output.plot}{\code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})}
+  \item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})}
   \item{xlab.unit}{\code{\link{character}} (with default): set unit for x-axis}
   \item{legend.pos}{\code{\link{character}} (with default): useful keywords are \code{bottomright}, 
 \code{bottom}, \code{bottomleft}, \code{left}, \code{topleft}, 
 \code{top}, \code{topright}, \code{right} and \code{center}. 
 For further details see \code{\link{legend}.}}
   \item{\dots}{further arguments that will be passed to the plot output. 
-Currently supported arguments are \code{main}, \code{xlab}, \code{ylab}.}
+Currently supported arguments are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
+\code{log}}
 }
 \details{The function performs an IRSAR analysis described for K-feldspar samples by 
 Erfurt et al. (2003) assuming a negligible sensitivity change of the RF signal.\cr
@@ -189,4 +190,4 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 }
 
 \keyword{datagen}
-\section{Function version}{0.2.1 (2014-12-18 17:15:20)}
+\section{Function version}{0.2.2 (2015-01-08 17:47:23)}
