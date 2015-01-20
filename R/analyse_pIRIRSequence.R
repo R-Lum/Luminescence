@@ -8,7 +8,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.1.2
+  ## version 0.1.3
   # ===========================================================================
 
   object,
@@ -48,14 +48,14 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   ### (Note: If a preheat without PMT measurement is used, i.e. preheat as non TL, 
   ### remove the TL step.)
   
-  output.plot = TRUE,
+  plot = TRUE,
   ### \code{\link{logical}} (with default): enables or disables plot output.
   
-  output.plot.single = FALSE,
+  plot.single = FALSE,
   ### \code{\link{logical}} (with default): 
   ### single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
   ### in single plot windows. 
-  ### Requires \code{output.plot = TRUE}.
+  ### Requires \code{plot = TRUE}.
   
   ... 
   ### further arguments that will be passed to the function 
@@ -201,7 +201,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
   ## unfortunately a little bit more complicated then expected previously due 
   ## the order of the produced plots by the previous functions
   
-  if(output.plot.single == FALSE){
+  if(plot.single == FALSE){
   ##first (Tx,Tn, Lx,Ln)
   temp.IRSL.layout.vector.first <- c(3,5,6,7,3,5,6,8)
 
@@ -319,15 +319,15 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
     ## call single plots
     if(i == 1){
       
-      temp.output.plot.single  <- c(1,2,3,4,6)
+      temp.plot.single  <- c(1,2,3,4,6)
       
     }else if(i == n.loops){
       
-      temp.output.plot.single  <- c(2,4,5,6)
+      temp.plot.single  <- c(2,4,5,6)
       
   }else{
     
-     temp.output.plot.single  <- c(2,4,6)
+     temp.plot.single  <- c(2,4,6)
     
   }
   
@@ -338,10 +338,10 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
                     signal.integral.max = temp.signal.integral.max,
                     background.integral.min = temp.background.integral.min, 
                     background.integral.max = temp.background.integral.max, 
-                    output.plot = output.plot,
+                    plot = plot,
                     dose.points = dose.points,
-                    output.plot.single = temp.output.plot.single,
-                    output.plotExtended.single = TRUE,
+                    plot.single = temp.plot.single,
+                    plotExtended.single = TRUE,
                     cex.global = cex,
                     ...) ##TODO should be replaced be useful explizit arguments
     
@@ -391,7 +391,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
 # Plotting additionals--------------------------------------------------------
 ##============================================================================##
 
-if(output.plot == TRUE){
+if(plot == TRUE){
   
   ##plot growth curves
   plot(NA, NA, 
@@ -614,9 +614,9 @@ if(output.plot == TRUE){
   
    
    ##reset graphic settings  
-   if(output.plot.single == FALSE){par(def.par)} 
+   if(plot.single == FALSE){par(def.par)} 
        
-}##end output.plot == TRUE
+}##end plot == TRUE
 
 
 ##============================================================================##
@@ -713,7 +713,7 @@ if(output.plot == TRUE){
                                fit.method = "EXP",
                                sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
                                main = "Pseudo pIRIR data set based on quartz OSL", 
-                               output.plot.single = TRUE)
+                               plot.single = TRUE)
       
                               
   ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)

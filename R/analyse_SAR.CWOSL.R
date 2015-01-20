@@ -7,7 +7,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
   
   ##section<<
-  ## version 0.4.9
+  ## version 0.5.0
   # ===========================================================================
 
   object,
@@ -29,7 +29,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   rejection.criteria,
   ### \code{\link{list}} (with default): provide list and set rejection criteria in 
   ### percentage for further calculation. Allowed arguments are \code{recycling.ratio}, 
-  ### \code{recuperation.rate} and \code{palaeodose.error},
+  ### \code{recuperation.rate}, \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS} 
   ### e.g. \code{rejection.criteria = list(recycling.ratio = 10}
   ### Per default all values are set to 10. 
   
@@ -40,17 +40,17 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   mtext.outer, 
   ### \code{\link{character}} (optional): option to provide an outer margin mtext 
   
-  output.plot = TRUE,
+  plot = TRUE,
   ### \code{\link{logical}} (with default): enables or disables plot output.
   
-  output.plot.single = FALSE,
+  plot.single = FALSE,
   ### \code{\link{logical}} (with default) or \code{\link{numeric}} (optional): 
   ### single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
   ### in single plot windows. If a numerice vector is provided the plots
-  ### can be selected individually, i.e. \code{output.plot.single = c(1,2,3,4)} 
+  ### can be selected individually, i.e. \code{plot.single = c(1,2,3,4)} 
   ### will plot the TL and Lx, Tx curves but not the legend (5) 
   ### or the growth curve (6), (7) and (8) belong to rejection criteria plots.  
-  ### Requires \code{output.plot = TRUE}.
+  ### Requires \code{plot = TRUE}.
   
   ... 
   ### further arguments that will be passed to the function 
@@ -116,7 +116,7 @@ object!")
   if(missing(rejection.criteria)){
   
     rejection.criteria <- list(
-      recycling.ratio = 10, recuperation.rate = 10, palaeodose.error = 10)
+      recycling.ratio = 10, recuperation.rate = 10, palaeodose.error = 10, exceed.max.regpoint = FALSE)
   
   }else{
   
@@ -140,13 +140,23 @@ object!")
       rejection.criteria$palaeodose.error
       
     } else {10}
+    
+    ##exceed.max.regpoint
+    temp.exceed.max.regpoint <- if("exceed.max.regpoint" %in% names(rejection.criteria)) {
+      
+      rejection.criteria$exceed.max.regpoint
+      
+    } else {FALSE}  
+      
+      
   
     ##combine 
     rejection.criteria <- list(
       recycling.ratio = temp.recycling.ratio, 
       recuperation.rate = temp.recuperation.rate,
-      palaeodose.error = temp.palaeodose.error)
-  
+      palaeodose.error = temp.palaeodose.error, 
+      exceed.max.regpoint = temp.exceed.max.regpoint)
+        
     ##remove objects
     rm(temp.recycling.ratio,temp.recuperation.rate, temp.palaeodose.error )
   }
@@ -268,7 +278,7 @@ object!")
 #                 n.components.max=3,
 #                 output.terminal = FALSE, 
 #                 output.terminalAdvanced = FALSE, 
-#                 output.plot = FALSE
+#                 plot = FALSE
 # 
 #               )
 #   if(exists("fit.output") == FALSE){
@@ -479,20 +489,21 @@ object!")
       Criteria = temp.criteria,
       Value = temp.value,
       Threshold = temp.threshold,
-      Status = c(temp.status.RecyclingRatio,temp.status.Recuperation)) 
+      Status = c(temp.status.RecyclingRatio,temp.status.Recuperation), 
+      stringsAsFactors = FALSE) 
                
 ##============================================================================##
 ##PLOTTING
 ##============================================================================##
 
-if(output.plot == TRUE){
+if(plot == TRUE){
 
 # Plotting - Config -------------------------------------------------------
   
   ##colours and double for plotting
   col <- get("col", pos = .LuminescenceEnv)
 
-  if(output.plot.single[1] == FALSE){
+  if(plot.single[1] == FALSE){
     
     ## read par settings
     par.default <- par(no.readonly = TRUE)
@@ -512,23 +523,23 @@ if(output.plot == TRUE){
     ## 5 -> Legend  
     
     ## set selected curves to allow plotting of all curves
-    output.plot.single.sel <- c(1,2,3,4,5,6,7,8)
+    plot.single.sel <- c(1,2,3,4,5,6,7,8)
     
   }else{
     
  
     ##check for values in the single output of the function and convert
-    if(!is(output.plot.single, "logical")){
+    if(!is(plot.single, "logical")){
             
-      if(!is(output.plot.single, "numeric")){
-        stop("[analyse_SAR.CWOSL()] Invalid data type for 'output.plot.single'.")
+      if(!is(plot.single, "numeric")){
+        stop("[analyse_SAR.CWOSL()] Invalid data type for 'plot.single'.")
       }
       
-    output.plot.single.sel  <- output.plot.single  
+    plot.single.sel  <- plot.single  
       
     }else{
       
-    output.plot.single.sel <- c(1,2,3,4,5,6,7,8)
+    plot.single.sel <- c(1,2,3,4,5,6,7,8)
       
     }
   
@@ -556,8 +567,8 @@ if(output.plot == TRUE){
 
 # Plotting TL Curves previous LnLx ----------------------------------------
 
-  ##overall plot option selection for output.plot.single.sel
-  if(1%in%output.plot.single.sel){
+  ##overall plot option selection for plot.single.sel
+  if(1%in%plot.single.sel){
 
   ##check if TL curves are available
   if(length(TL.Curves.ID.Lx[[1]]>0)) {
@@ -611,12 +622,12 @@ if(output.plot == TRUE){
     text(0.5,0.5, "No TL curve detected")
     
   }
-}#output.plot.single.sel
+}#plot.single.sel
 
 # Plotting LnLx Curves ----------------------------------------------------
 
-  ##overall plot option selection for output.plot.single.sel
-  if(2%in%output.plot.single.sel){
+  ##overall plot option selection for plot.single.sel
+  if(2%in%plot.single.sel){
 
       ylim.range <- sapply(1:length(OSL.Curves.ID.Lx) ,function(x){
                       
@@ -662,12 +673,12 @@ if(output.plot == TRUE){
       if(missing(mtext.outer)){mtext.outer  <- ""}
       mtext(mtext.outer, side = 4, outer = TRUE, line = -1.7, cex = cex, col = "blue")
 
-  }# output.plot.single.sel  
+  }# plot.single.sel  
       
 # Plotting TL Curves previous TnTx ----------------------------------------
 
-##overall plot option selection for output.plot.single.sel
-if(3%in%output.plot.single.sel){
+##overall plot option selection for plot.single.sel
+if(3%in%plot.single.sel){
 
 ##check if TL curves are available
 if(length(TL.Curves.ID.Tx[[1]]>0)) {
@@ -725,12 +736,12 @@ if(length(TL.Curves.ID.Tx[[1]]>0)) {
   
 }
 
-}#output.plot.single.sel
+}#plot.single.sel
 
 # Plotting TnTx Curves ----------------------------------------------------
 
-##overall plot option selection for output.plot.single.sel
-if(4%in%output.plot.single.sel){
+##overall plot option selection for plot.single.sel
+if(4%in%plot.single.sel){
 
     ylim.range <- sapply(1:length(OSL.Curves.ID.Tx) ,function(x){
   
@@ -774,12 +785,12 @@ if(4%in%output.plot.single.sel){
      abline(v=(object@records[[OSL.Curves.ID.Tx[1]]]@data[
         max(background.integral),1]), lty=2, col="gray")
   
-}# output.plot.single.sel
+}# plot.single.sel
 
 # Plotting Legend ----------------------------------------
 
-##overall plot option selection for output.plot.single.sel
-if(5%in%output.plot.single.sel){
+##overall plot option selection for plot.single.sel
+if(5%in%plot.single.sel){
   
   par.margin  <- par()$mar
   par.mai  <- par()$mai
@@ -818,7 +829,7 @@ if(length(grep("FAILED", RejectionCriteria$status))>0){
 #reset margin
 par(mar = par.margin, mai = par.mai)
 
-}#output.plot.single.sel
+}#plot.single.sel
 
   if(exists("par.default")){
     
@@ -827,7 +838,7 @@ par(mar = par.margin, mai = par.mai)
   }
 
 
-}##end output.plot == TRUE
+}##end plot == TRUE
 
 
 # Plotting  GC  ----------------------------------------
@@ -835,23 +846,22 @@ par(mar = par.margin, mai = par.mai)
 temp.sample <- data.frame(Dose=LnLxTnTx$Dose, 
                           LxTx=LnLxTnTx$LxTx,
                           LxTx.Error=LnLxTnTx$LxTx.Error,
-                          TnTx=LnLxTnTx$Net_TnTx
-                          )
+                          TnTx=LnLxTnTx$Net_TnTx)
 
-  ##overall plot option selection for output.plot.single.sel
-  if(output.plot == TRUE && 6%in%output.plot.single.sel){
+  ##overall plot option selection for plot.single.sel
+  if(plot == TRUE && 6%in%plot.single.sel){
     
-    output.plot  <-  TRUE
+    plot  <-  TRUE
   
     }else {
     
-    output.plot  <- FALSE
+    plot  <- FALSE
   
     }
 
  ##Fit and plot growth curve
  temp.GC <- plot_GrowthCurve(temp.sample,
-                             output.plot = output.plot, 
+                             plot = plot, 
                               ...)
  
  ##grep informaton on the fit object
@@ -859,7 +869,6 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   
  ##grep results
  temp.GC <- get_RLum.Results(temp.GC)
-
 
 # Provide Rejection Criteria for Palaedose error --------------------------
 
@@ -875,16 +884,36 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
 
   palaeodose.error.data.frame <- data.frame(
-                                   Criteria = "Palaeodose error", 
-                                   Value = palaeodose.error.calculated, 
-                                   Threshold = palaeodose.error.threshold,
-                                   Status =  palaeodose.error.status)
+    Criteria = "Palaeodose error", 
+    Value = palaeodose.error.calculated, 
+    Threshold = palaeodose.error.threshold,
+    Status =  palaeodose.error.status, 
+    stringsAsFactors = FALSE)
+
+  ##add exceed.max.regpoint
+  if(!is.na(temp.GC[,1])){
+  
+    status.exceed.max.regpoint <- ifelse(max(LnLxTnTx$Dose)<temp.GC[,1], "FAILED", "OK")
+
+  }else{
+  
+    status.exceed.max.regpoint <- "OK"
+  
+  }
+
+  exceed.max.regpoint.data.frame <- data.frame(
+    Criteria = "De > max. dose point", 
+    Value = as.numeric(temp.GC[,1]), 
+    Threshold = as.numeric(max(LnLxTnTx$Dose)),
+    Status =  status.exceed.max.regpoint)
+
   
   ##add to RejectionCriteria data.frame
-  RejectionCriteria <- rbind(RejectionCriteria, palaeodose.error.data.frame)
-
-
- ##add recjection status
+  RejectionCriteria <- rbind(RejectionCriteria, 
+                             palaeodose.error.data.frame, 
+                             exceed.max.regpoint.data.frame)
+ 
+  ##add recjection status
  if(length(grep("FAILED",RejectionCriteria$status))>0){
   
    temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
@@ -894,6 +923,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
    temp.GC <- data.frame(temp.GC, RC.Status="OK") 
     
   }
+
 
   ##add information on the integration limits
   temp.GC.extened <- data.frame(signal.range = paste(signal.integral.min,":",
@@ -915,10 +945,10 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
 # Plot graphical interpretation of rejection criteria -----------------------------------------
 
-  if(output.plot == TRUE && 7%in%output.plot.single.sel){
+  if(plot == TRUE && 7%in%plot.single.sel){
   
   ##set graphical parameter
-  if(!output.plot.single){
+  if(!plot.single){
     par(mfrow = c(1,2))
   }else{
     par(mfrow = c(1,1)) 
@@ -1023,7 +1053,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   }
 
 
-  if(output.plot == TRUE && 8%in%output.plot.single.sel){
+  if(plot == TRUE && 8%in%plot.single.sel){
   
   ##graphical represenation of IR-curve
   temp.IRSL <- get_RLum.Analysis(object, recordType = "IRSL")

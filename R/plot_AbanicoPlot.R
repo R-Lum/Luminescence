@@ -93,7 +93,16 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   
   rug = FALSE,
   ### \code{\link{logical}}: Option to add a rug to the KDE part, to indicate
-  ### the location of individual values
+  ### the location of individual values.
+  
+  kde = TRUE,
+  ### \code{\link{logical}}: Option to omit plotting the KDE curve.
+  
+  hist = FALSE,
+  ### \code{\link{logical}}: Option to add a histogram to the KDE part.
+    
+  dots = FALSE,
+  ### \code{\link{logical}}: Option to add a dot chart to the KDE part.
   
   y.axis = TRUE,
   ### \code{\link{logical}}: Option to hide y-axis labels. Useful for data  
@@ -131,7 +140,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ### of the grid lines (originating at [0,0] and strechting to the z-scale).  
   ### To disable grid lines use \code{"none"}. Default is \code{"grey"}.
   
-  bw = "nrd0",
+  bw = "SJ",
   ### \code{\link{character}} (with default): bin-width for KDE, choose a  
   ### numeric value for manual setting.
   
@@ -275,7 +284,8 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   } else {
     z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
+    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * 
+                    min(De.global),
                   (1.1 + z.span) * max(De.global))
   }
   
@@ -283,6 +293,12 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
     ticks <- extraArgs$at
   } else {
     ticks <- round(pretty(limits.z, n = 5), 3)
+  }
+
+  if("breaks" %in% names(extraArgs)) {
+    breaks <- extraArgs$breaks
+  } else {
+    breaks <- "Sturges"
   }
 
   ## check for negative values
@@ -1289,6 +1305,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ## calculate KDE
   KDE <- list(NA)
   KDE.ext <- 0
+  KDE.bw <- numeric(0)
 
   for(i in 1:length(data)) {
     KDE.i <- density(x = data[[i]][,3],
@@ -1298,11 +1315,15 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                      to = ellipse.values[2],
                      weights = data[[i]]$weights)
     KDE.xy <- cbind(KDE.i$x, KDE.i$y)
+    KDE.bw <- c(KDE.bw, KDE.i$bw)
     KDE.ext <- ifelse(max(KDE.xy[,2]) < KDE.ext, KDE.ext, max(KDE.xy[,2]))
     KDE.xy <- rbind(c(min(KDE.xy[,1]), 0), KDE.xy, c(max(KDE.xy[,1]), 0)) 
     KDE[[length(KDE) + 1]] <- cbind(KDE.xy[,1], KDE.xy[,2])
   }
   KDE[1] <- NULL
+
+  ## calculate mean KDE bandwidth
+  KDE.bw <- mean(KDE.bw, na.rm = TRUE)
 
   ## calculate max KDE value for labelling
   KDE.max.plot <- numeric(length(data))
@@ -1317,6 +1338,36 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   }
 
   KDE.max.plot <- max(KDE.max.plot, na.rm = TRUE)
+
+  ## calculate histogram data without plotting
+
+  ## create dummy list
+  hist.data <- list(NA)
+
+  for(i in 1:length(data)) {
+    hist.i <- hist(x = data[[i]][,3], 
+                   plot = FALSE,
+                   breaks = breaks)
+    hist.data[[length(hist.data) + 1]] <- hist.i
+  }
+  
+  ## remove dummy list object
+  hist.data[[1]] <- NULL
+  
+  ## calculate maximum histogram bar height for normalisation
+  hist.max.plot <- numeric(length(data))
+  for(i in 1:length(data)) {
+    hist.max.plot <- ifelse(max(hist.data[[i]]$counts, na.rm = TRUE) > 
+                              hist.max.plot, max(hist.data[[i]]$counts, 
+                            na.rm = TRUE), hist.max.plot)
+  }
+  
+  ## normalise histogram bar height to KDE dimensions
+  for(i in 1:length(data)) {
+    hist.data[[i]]$density <- hist.data[[i]]$counts / hist.max.plot * 
+      KDE.max.plot
+  }
+
 
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
@@ -1860,14 +1911,107 @@ if(rotate == FALSE) {
         font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
                        layout$abanico$font.deco$xlab3],
         cex = cex * layout$abanico$font.size$xlab3/12) 
+ 
+  ## add bandwidth value
+  mtext(text = paste("BW = ", signif(x = KDE.bw, digits = 3)), 
+        at = (xy.0[1] + par()$usr[2]) / 2,
+        side = 1,
+        line =-3.5 * layout$abanico$dimension$xlab3.line / 100, 
+        col = layout$abanico$colour$xlab3,
+        family = layout$abanico$font.type$xlab3,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$xlab3],
+        cex = cex * layout$abanico$font.size$xlab3/12) 
+
+  ## optionally plot histogram
+  if(hist == TRUE) { 
+    ## calculate scaling factor for histogram bar heights
+    hist.scale <- (par()$usr[2] - xy.0[1]) / (KDE.max.plot * 1.05)
+
+    ## draw each bar for each data set
+    for(i in 1:length(data)) {
+      for(j in 1:length(hist.data[[i]]$density)) {
+        ## calculate x-coordinates
+        hist.x.i <- c(xy.0[1], 
+                      xy.0[1], 
+                      xy.0[1] + hist.data[[i]]$density[j] * hist.scale,
+                      xy.0[1] + hist.data[[i]]$density[j] * hist.scale)
+        
+        ## calculate y-coordinates
+        hist.y.i <- c((hist.data[[i]]$breaks[j] - z.central.global) * 
+                        min(ellipse[,1]), 
+                      (hist.data[[i]]$breaks[j + 1] - z.central.global) * 
+                        min(ellipse[,1]),
+                      (hist.data[[i]]$breaks[j + 1] - z.central.global) * 
+                        min(ellipse[,1]),
+                      (hist.data[[i]]$breaks[j] - z.central.global) * 
+                        min(ellipse[,1]))
+
+        ## remove data out of z-axis range
+        hist.y.i <- ifelse(hist.y.i < min(ellipse[,2]), 
+                           min(ellipse[,2]), 
+                           hist.y.i)
+        hist.y.i <- ifelse(hist.y.i > max(ellipse[,2]), 
+                           max(ellipse[,2]), 
+                           hist.y.i)
+        
+        ## draw the bars
+        polygon(x = hist.x.i,
+                y = hist.y.i, 
+                col = kde.fill[i],
+                border = kde.line[i])
+      }
+    }
+  }
+
+  ## optionally add dot plot
+  if(dots == TRUE) {
+    for(i in 1:length(data)) {
+      for(j in 1:length(hist.data[[i]]$counts)) {
+        
+        ## calculate scaling factor for histogram bar heights
+        dots.distance <- par()$lheight * 0.7
+
+        dots.x.i <- seq(from = xy.0[1] + par()$lheight * 0.4,
+                        by = dots.distance,
+                        length.out = hist.data[[i]]$counts[j])
+        
+        dots.y.i <- rep((hist.data[[i]]$mids[j] - z.central.global) * 
+          min(ellipse[,1]), length(dots.x.i))
+        
+        ## remove data out of z-axis range
+        dots.x.i <- dots.x.i[dots.y.i >= min(ellipse[,2]) & 
+                               dots.y.i <= max(ellipse[,2])]
+        dots.y.i <- dots.y.i[dots.y.i >= min(ellipse[,2]) & 
+                               dots.y.i <= max(ellipse[,2])]
+
+        if(max(c(0, dots.x.i), na.rm = TRUE) >= (par()$usr[2] - 
+                                                   par()$lheight * 0.5)) {
+          dots.y.i <- dots.y.i[dots.x.i < (par()$usr[2] - par()$lheight * 0.5)]
+          dots.x.i <- dots.x.i[dots.x.i < (par()$usr[2] - par()$lheight * 0.5)]
+          pch.dots <- c(rep(pch, length(dots.x.i) - 1), 15)
+        } else {pch.dots <- rep(pch, length(dots.x.i))}
+        
+        ## plot points
+        points(x = dots.x.i, 
+               y = dots.y.i,
+               pch = pch.dots, cex = 0.8 * cex,
+               col = kde.line[i])
+        
+      }
+    }
+  }
   
   ## plot KDE lines
-  for(i in 1:length(data)) {
-    polygon(x = xy.0[1] + KDE[[i]][,2] * KDE.scale,
-            y = (KDE[[i]][,1] - z.central.global) * min(ellipse[,1]),
-            col = kde.fill[i],
-            border = kde.line[i])
-  }
+  if(kde == TRUE) {
+    for(i in 1:length(data)) {
+      polygon(x = xy.0[1] + KDE[[i]][,2] * KDE.scale,
+              y = (KDE[[i]][,1] - z.central.global) * min(ellipse[,1]),
+              col = kde.fill[i],
+              border = kde.line[i],
+              lwd = 1.7)
+    }    
+  }  
   
   ## optionally add stats, i.e. min, max, median sample text
   if(length(stats) > 0) {
@@ -2394,7 +2538,7 @@ if(rotate == FALSE) {
   
   ## add axis label
   mtext(text = xlab[3], 
-        at = (xy.0[2] +y.max) / 2,
+        at = (xy.0[2] + y.max) / 2,
         side = 2,
         line = 2.5 * layout$abanico$dimension$xlab3.line / 100, 
         col = layout$abanico$colour$xlab3,
@@ -2403,13 +2547,107 @@ if(rotate == FALSE) {
                        layout$abanico$font.deco$xlab3],
         cex = cex * layout$abanico$font.size$xlab3/12) 
   
-  ## plot KDE lines
-  for(i in 1:length(data)) {
-    polygon(y = xy.0[2] + KDE[[i]][,2] * KDE.scale,
-            x = (KDE[[i]][,1] - z.central.global) * min(ellipse[,2]),
-            col = kde.fill[i],
-            border = kde.line[i])
+  ## add bandwidth value
+  mtext(text = paste("BW = ", signif(x = KDE.bw, digits = 3)), 
+        at = (xy.0[2] + y.max) / 2,
+        side = 2,
+        line = -3.5 * layout$abanico$dimension$xlab3.line / 100, 
+        col = layout$abanico$colour$xlab3,
+        family = layout$abanico$font.type$xlab3,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                       layout$abanico$font.deco$xlab3],
+        cex = cex * layout$abanico$font.size$xlab3/12) 
+  
+  
+  ## optionally plot histogram
+  if(hist == TRUE) { 
+    ## calculate scaling factor for histogram bar heights
+    hist.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max.plot * 1.05)
+    
+    ## draw each bar for each data set
+    for(i in 1:length(data)) {
+      for(j in 1:length(hist.data[[i]]$density)) {
+        ## calculate x-coordinates
+        hist.x.i <- c(xy.0[2], 
+                      xy.0[2], 
+                      xy.0[2] + hist.data[[i]]$density[j] * hist.scale,
+                      xy.0[2] + hist.data[[i]]$density[j] * hist.scale)
+        
+        ## calculate y-coordinates
+        hist.y.i <- c((hist.data[[i]]$breaks[j] - z.central.global) * 
+                        min(ellipse[,2]), 
+                      (hist.data[[i]]$breaks[j + 1] - z.central.global) * 
+                        min(ellipse[,2]),
+                      (hist.data[[i]]$breaks[j + 1] - z.central.global) * 
+                        min(ellipse[,2]),
+                      (hist.data[[i]]$breaks[j] - z.central.global) * 
+                        min(ellipse[,2]))
+        
+        ## remove data out of z-axis range
+        hist.y.i <- ifelse(hist.y.i < min(ellipse[,1]), 
+                           min(ellipse[,1]), 
+                           hist.y.i)
+        hist.y.i <- ifelse(hist.y.i > max(ellipse[,1]), 
+                           max(ellipse[,1]), 
+                           hist.y.i)
+        
+        ## draw the bars
+        polygon(y = hist.x.i,
+                x = hist.y.i, 
+                col = kde.fill[i],
+                border = kde.line[i])
+      }
+    }
   }
+  
+  ## optionally add dot plot
+  if(dots == TRUE) {
+    for(i in 1:length(data)) {
+      for(j in 1:length(hist.data[[i]]$counts)) {
+        
+        ## calculate scaling factor for histogram bar heights
+        dots.distance <- par()$lheight * 0.7
+        
+        dots.x.i <- seq(from = xy.0[2] + par()$lheight * 0.4,
+                        by = dots.distance,
+                        length.out = hist.data[[i]]$counts[j])
+        
+        dots.y.i <- rep((hist.data[[i]]$mids[j] - z.central.global) * 
+                          min(ellipse[,2]), length(dots.x.i))
+        
+        ## remove data out of z-axis range
+        dots.x.i <- dots.x.i[dots.y.i >= min(ellipse[,1]) & 
+                               dots.y.i <= max(ellipse[,1])]
+        dots.y.i <- dots.y.i[dots.y.i >= min(ellipse[,1]) & 
+                               dots.y.i <= max(ellipse[,1])]
+        
+        if(max(c(0, dots.x.i), na.rm = TRUE) >= (par()$usr[4] - 
+                                                   par()$lheight * 0.5)) {
+          dots.y.i <- dots.y.i[dots.x.i < (par()$usr[4] - par()$lheight * 0.5)]
+          dots.x.i <- dots.x.i[dots.x.i < (par()$usr[4] - par()$lheight * 0.5)]
+          pch.dots <- c(rep(pch, length(dots.x.i) - 1), 15)
+        } else {pch.dots <- rep(pch, length(dots.x.i))}
+        
+        ## plot points
+        points(y = dots.x.i, 
+               x = dots.y.i,
+               pch = pch.dots, cex = 0.8 * cex,
+               col = kde.line[i])
+        
+      }
+    }
+  }
+  
+  ## plot KDE lines
+  if(kde == TRUE) {
+    for(i in 1:length(data)) {
+      polygon(y = xy.0[2] + KDE[[i]][,2] * KDE.scale,
+              x = (KDE[[i]][,1] - z.central.global) * min(ellipse[,2]),
+              col = kde.fill[i],
+              border = kde.line[i],
+              lwd = 1.7)
+    }    
+  } 
   
   ## optionally add stats, i.e. min, max, median sample text
   if(length(stats) > 0) {
@@ -2434,7 +2672,7 @@ if(rotate == FALSE) {
 
   ## plot KDE base line
   lines(y = c(xy.0[2], xy.0[2]), 
-        x = c(min(ellipse[,2]), max(ellipse[,2])),
+        x = c(min(ellipse[,1]), max(ellipse[,1])),
         col = layout$abanico$colour$border)
   
   ## draw border around plot

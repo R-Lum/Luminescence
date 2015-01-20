@@ -6,8 +6,8 @@ curve fitting on \code{\linkS4class{RLum.Analysis}}
 objects.}
 \usage{analyse_pIRIRSequence(object, signal.integral.min, signal.integral.max, 
     background.integral.min, background.integral.max, dose.points, 
-    sequence.structure = c("TL", "IR50", "pIRIR225"), output.plot = TRUE, 
-    output.plot.single = FALSE, ...)}
+    sequence.structure = c("TL", "IR50", "pIRIR225"), plot = TRUE, 
+    plot.single = FALSE, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): 
 input object containing data for analysis}
@@ -32,11 +32,11 @@ Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves
 from the analysis  
 (Note: If a preheat without PMT measurement is used, i.e. preheat as non TL, 
 remove the TL step.)}
-  \item{output.plot}{\code{\link{logical}} (with default): enables or disables plot output.}
-  \item{output.plot.single}{\code{\link{logical}} (with default): 
+  \item{plot}{\code{\link{logical}} (with default): enables or disables plot output.}
+  \item{plot.single}{\code{\link{logical}} (with default): 
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
 in single plot windows. 
-Requires \code{output.plot = TRUE}.}
+Requires \code{plot = TRUE}.}
   \item{\dots}{further arguments that will be passed to the function 
 \code{\link{analyse_SAR.CWOSL}} and \code{\link{plot_GrowthCurve}}}
 }
@@ -114,7 +114,7 @@ results <- analyse_pIRIRSequence(object,
                              fit.method = "EXP",
                              sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
                              main = "Pseudo pIRIR data set based on quartz OSL", 
-                             output.plot.single = TRUE)
+                             plot.single = TRUE)
     
                             
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
@@ -136,4 +136,4 @@ results <- analyse_pIRIRSequence(object,
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.1.2 (2015-01-08 14:39:58)}
+\section{Function version}{0.1.3 (2015-01-20 08:56:31)}

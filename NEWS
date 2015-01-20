@@ -17,6 +17,16 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • rename argument ‘output.plot’ to ‘plot’,
+
+             • rename argument ‘output.plot.single’ to ‘plot.single’,
+
+             • rejection criteria added 'De > max. dose point'. These
+               avoids that values are accepted even the De from the
+               fitting should be considered as invalid.
+
          • ‘analyse_IRSAR.RF()’
 
              • Add enhanced support for ‘...’, e.g. ‘log’, ‘xlim’,
@@ -26,8 +36,12 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
 
          • ‘analyse_pIRIRSequence()’
 
-             • Fix an error that causes problems during plotting (
-               Error in plot.new() : figure margins too large).
+             • Fix an error that causes problems during plotting (Error
+               in plot.new(): figure margins too large),
+
+             • rename argument ‘output.plot’ to ‘plot’,
+
+             • rename argument ‘output.plot.single’ to ‘plot.single’.
 
          • ‘merge_RLum()’: Function extended accordingly with the newly
            implemented function ‘merge_RLum.Data.Curve()’ (#128).
@@ -48,7 +62,15 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
                data range (#188),
 
              • function output extended by data points in/out of
-               confidence interval.
+               confidence interval,
+
+             • histogram option added,
+
+             • dot plot option added,
+
+             • KDE bandwidth added to plot output,
+
+             • KDE bandwidth default changed to "SJ".
 
          • ‘readBIN2R()’:
 

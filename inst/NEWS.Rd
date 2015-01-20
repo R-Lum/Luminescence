@@ -38,6 +38,19 @@
    \itemize{
 
 
+   \item \code{analyse_SAR.CWOSL()}
+    
+     \itemize{
+    
+    \item rename argument \code{output.plot} to \code{plot}, 
+    \item rename argument \code{output.plot.single} to \code{plot.single},
+    \item rejection criteria added 'De > max. dose point'. These avoids that
+    values are accepted even the De from the fitting should be considered as invalid.
+    
+    
+    }
+
+
     \item \code{analyse_IRSAR.RF()}
     
      \itemize{
@@ -51,7 +64,9 @@
     
      \itemize{
     
-    \item Fix an error that causes problems during plotting ( Error in plot.new() : figure margins too large).
+    \item Fix an error that causes problems during plotting (Error in plot.new(): figure margins too large),
+     \item rename argument \code{output.plot} to \code{plot}, 
+    \item rename argument \code{output.plot.single} to \code{plot.single}.
     
     }
 
@@ -71,7 +86,11 @@
     \item weights-option for KDE integrated,
     \item warning for linear z-scale removed,
     \item fixed an error that occured in Abanico Plot for a large data range (#188),
-    \item function output extended by data points in/out of confidence interval.
+    \item function output extended by data points in/out of confidence interval,
+    \item histogram option added,
+    \item dot plot option added,
+    \item KDE bandwidth added to plot output,
+    \item KDE bandwidth default changed to "SJ".
     
     
     }

@@ -5,7 +5,7 @@
 object including growth curve fitting.}
 \usage{analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max, 
     background.integral.min, background.integral.max, rejection.criteria, 
-    dose.points, mtext.outer, output.plot = TRUE, output.plot.single = FALSE, 
+    dose.points, mtext.outer, plot = TRUE, plot.single = FALSE, 
     ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): 
@@ -16,20 +16,20 @@ input object containing data for analysis}
   \item{background.integral.max}{\code{\link{integer}} (\bold{required}): upper bound of the background integral}
   \item{rejection.criteria}{\code{\link{list}} (with default): provide list and set rejection criteria in 
 percentage for further calculation. Allowed arguments are \code{recycling.ratio}, 
-\code{recuperation.rate} and \code{palaeodose.error},
+\code{recuperation.rate}, \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS} 
 e.g. \code{rejection.criteria = list(recycling.ratio = 10}
 Per default all values are set to 10. }
   \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector containg the dose points values
 Using this argument overwrites dose point values in the signal curves.}
   \item{mtext.outer}{\code{\link{character}} (optional): option to provide an outer margin mtext }
-  \item{output.plot}{\code{\link{logical}} (with default): enables or disables plot output.}
-  \item{output.plot.single}{\code{\link{logical}} (with default) or \code{\link{numeric}} (optional): 
+  \item{plot}{\code{\link{logical}} (with default): enables or disables plot output.}
+  \item{plot.single}{\code{\link{logical}} (with default) or \code{\link{numeric}} (optional): 
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
 in single plot windows. If a numerice vector is provided the plots
-can be selected individually, i.e. \code{output.plot.single = c(1,2,3,4)} 
+can be selected individually, i.e. \code{plot.single = c(1,2,3,4)} 
 will plot the TL and Lx, Tx curves but not the legend (5) 
 or the growth curve (6), (7) and (8) belong to rejection criteria plots.  
-Requires \code{output.plot = TRUE}.}
+Requires \code{plot = TRUE}.}
   \item{\dots}{further arguments that will be passed to the function 
 \code{\link{plot_GrowthCurve}}}
 }
@@ -131,4 +131,4 @@ get_RLum.Results(results, data.object = "LnLxTnTx.table")
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.4.9 (2014-12-18 17:22:25)}
+\section{Function version}{0.5.0 (2015-01-18 00:16:15)}

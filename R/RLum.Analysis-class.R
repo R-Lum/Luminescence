@@ -325,7 +325,7 @@ setMethod("get_RLum.Analysis",
             ##check if produced object is empty and show warning message
             if(length(temp) == 0){
               
-              warning("This request has produced and empty 'RLum.Analysis' object!")
+              warning("This request has produced an empty 'RLum.Analysis' object!")
               
             }
            

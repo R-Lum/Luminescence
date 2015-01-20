@@ -7,9 +7,10 @@ illustration of a kernel density estimate of the dose values.}
 \usage{plot_AbanicoPlot(data, na.exclude = TRUE, log.z = TRUE, central.value, 
     centrality = "mean.weighted", dispersion = "sd", plot.ratio = 0.75, 
     rotate = FALSE, mtext, summary, summary.pos, legend, legend.pos, 
-    stats, rug = FALSE, y.axis = TRUE, error.bars = FALSE, polygon.col, 
-    bar.col, line, line.col, line.label, grid.col, bw = "nrd0", 
-    output = FALSE, ...)}
+    stats, rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE, 
+    y.axis = TRUE, error.bars = FALSE, polygon.col, bar.col, 
+    line, line.col, line.label, grid.col, bw = "SJ", output = FALSE, 
+    ...)}
 \arguments{
   \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
 (required): for \code{data.frame} two columns: De (\code{data[,1]})
@@ -62,7 +63,10 @@ to be plotted.}
 values in the plot. One or more out of the following: \code{"min"}, 
 \code{"max"}, \code{"median"}.}
   \item{rug}{\code{\link{logical}}: Option to add a rug to the KDE part, to indicate
-the location of individual values}
+the location of individual values.}
+  \item{kde}{\code{\link{logical}}: Option to omit plotting the KDE curve.}
+  \item{hist}{\code{\link{logical}}: Option to add a histogram to the KDE part.}
+  \item{dots}{\code{\link{logical}}: Option to add a dot chart to the KDE part.}
   \item{y.axis}{\code{\link{logical}}: Option to hide y-axis labels. Useful for data  
 with small scatter.}
   \item{error.bars}{\code{\link{logical}}: Option to show De-errors as error bars on 
@@ -294,4 +298,4 @@ plot_AbanicoPlot(data = data.3,
 ## restore original graphical parameters
 par(par.old)
 }
-\section{Function version}{0.1.1 (2015-01-12 17:12:24)}
+\section{Function version}{0.1.1 (2015-01-19 14:42:34)}
