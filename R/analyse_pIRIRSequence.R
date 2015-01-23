@@ -341,7 +341,7 @@ analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
                     plot = plot,
                     dose.points = dose.points,
                     plot.single = temp.plot.single,
-                    plotExtended.single = TRUE,
+                    output.plotExtended.single = TRUE,
                     cex.global = cex,
                     ...) ##TODO should be replaced be useful explizit arguments
     

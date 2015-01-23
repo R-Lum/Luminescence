@@ -96,13 +96,17 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   ### the location of individual values.
   
   kde = TRUE,
-  ### \code{\link{logical}}: Option to omit plotting the KDE curve.
+  ### \code{\link{logical}}: Option to add a KDE plot to the dispersion part,
+  ### default is \code{TRUE}.
   
   hist = FALSE,
-  ### \code{\link{logical}}: Option to add a histogram to the KDE part.
+  ### \code{\link{logical}}: Option to add a histogram to the dispersion part.
+  ### Only meaningful when not more than one data set is plotted.
     
   dots = FALSE,
-  ### \code{\link{logical}}: Option to add a dot chart to the KDE part.
+  ### \code{\link{logical}}: Option to add a dot plot to the dispersion part.
+  ### If number of dots exceeds space in the dispersion part, a square 
+  ### indicates this.
   
   y.axis = TRUE,
   ### \code{\link{logical}}: Option to hide y-axis labels. Useful for data  
@@ -460,14 +464,20 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   }
   
   ## generate global data set
-  data.global <- data[[1]]
+  data.global <- cbind(data[[1]], 
+                       rep(x = 1, times = nrow(data[[1]])))
+  colnames(data.global) <- rep("", 10)
+
   if(length(data) > 1) {
     for(i in 2:length(data)) {
-      data.global <- rbind(data.global, data[[i]])
+      data.add <- cbind(data[[i]], 
+                        rep(x = i, times = nrow(data[[i]])))
+      colnames(data.add) <- rep("", 10)
+      data.global <- rbind(data.global, 
+                           data.add)
     }
   }
   
-
   ## create column names
   colnames(data.global) <- c("De", 
                              "error", 
@@ -477,7 +487,8 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                              "precision", 
                              "std.estimate", 
                              "std.estimate.plot",
-                             "weights")
+                             "weights",
+                             "data set")
 
   ## calculate global central value
   if(centrality[1] == "mean") {
@@ -733,7 +744,7 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
   }
   
   ## calculate conversion factor for plot coordinates
-  f <- 10^-6
+  f <- 0
 
   ## calculate major and minor z-tick values
   if("at" %in% names(extraArgs)) {
@@ -1361,7 +1372,8 @@ plot_AbanicoPlot <- structure(function(# Function to create an Abanico Plot.
                               hist.max.plot, max(hist.data[[i]]$counts, 
                             na.rm = TRUE), hist.max.plot)
   }
-  
+  hist.max.plot <- max(hist.max.plot, na.rm = TRUE)
+
   ## normalise histogram bar height to KDE dimensions
   for(i in 1:length(data)) {
     hist.data[[i]]$density <- hist.data[[i]]$counts / hist.max.plot * 
@@ -1912,16 +1924,18 @@ if(rotate == FALSE) {
                        layout$abanico$font.deco$xlab3],
         cex = cex * layout$abanico$font.size$xlab3/12) 
  
-  ## add bandwidth value
-  mtext(text = paste("BW = ", signif(x = KDE.bw, digits = 3)), 
-        at = (xy.0[1] + par()$usr[2]) / 2,
-        side = 1,
-        line =-3.5 * layout$abanico$dimension$xlab3.line / 100, 
-        col = layout$abanico$colour$xlab3,
-        family = layout$abanico$font.type$xlab3,
-        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
-                       layout$abanico$font.deco$xlab3],
-        cex = cex * layout$abanico$font.size$xlab3/12) 
+  ## optionally add bandwidth value
+  if(kde == TRUE) {
+    mtext(text = paste("BW = ", signif(x = KDE.bw, digits = 3)), 
+          at = (xy.0[1] + par()$usr[2]) / 2,
+          side = 1,
+          line =-3.5 * layout$abanico$dimension$xlab3.line / 100, 
+          col = layout$abanico$colour$xlab3,
+          family = layout$abanico$font.type$xlab3,
+          font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                         layout$abanico$font.deco$xlab3],
+          cex = cex * layout$abanico$font.size$xlab3/12)
+  } 
 
   ## optionally plot histogram
   if(hist == TRUE) { 
@@ -1970,15 +1984,15 @@ if(rotate == FALSE) {
       for(j in 1:length(hist.data[[i]]$counts)) {
         
         ## calculate scaling factor for histogram bar heights
-        dots.distance <- par()$lheight * 0.7
+        dots.distance <- par()$cxy[1] * 0.6
 
-        dots.x.i <- seq(from = xy.0[1] + par()$lheight * 0.4,
+        dots.x.i <- seq(from = xy.0[1] + par()$cxy[1] * 0.4,
                         by = dots.distance,
                         length.out = hist.data[[i]]$counts[j])
         
         dots.y.i <- rep((hist.data[[i]]$mids[j] - z.central.global) * 
           min(ellipse[,1]), length(dots.x.i))
-        
+
         ## remove data out of z-axis range
         dots.x.i <- dots.x.i[dots.y.i >= min(ellipse[,2]) & 
                                dots.y.i <= max(ellipse[,2])]
@@ -1986,12 +2000,14 @@ if(rotate == FALSE) {
                                dots.y.i <= max(ellipse[,2])]
 
         if(max(c(0, dots.x.i), na.rm = TRUE) >= (par()$usr[2] - 
-                                                   par()$lheight * 0.5)) {
-          dots.y.i <- dots.y.i[dots.x.i < (par()$usr[2] - par()$lheight * 0.5)]
-          dots.x.i <- dots.x.i[dots.x.i < (par()$usr[2] - par()$lheight * 0.5)]
-          pch.dots <- c(rep(pch, length(dots.x.i) - 1), 15)
-        } else {pch.dots <- rep(pch, length(dots.x.i))}
-        
+                                                   par()$cxy[1] * 0.4)) {
+          dots.y.i <- dots.y.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
+          dots.x.i <- dots.x.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
+          pch.dots <- c(rep(20, length(dots.x.i) - 1), 15)
+        } else {
+          pch.dots <- rep(20, length(dots.x.i))
+        }
+
         ## plot points
         points(x = dots.x.i, 
                y = dots.y.i,
@@ -2030,7 +2046,8 @@ if(rotate == FALSE) {
   if(rug == TRUE) {
     for(i in 1:length(rug.coords)) {
       lines(x = rug.coords[[i]][1,],
-            y = rug.coords[[i]][2,])
+            y = rug.coords[[i]][2,],
+            col = kde.line[data.global[i,10]])
     }
   }
 
@@ -2044,7 +2061,8 @@ if(rotate == FALSE) {
                 par()$usr[2], min(ellipse[,1])),
           y = c(0, max(ellipse[,2]), max(ellipse[,2]), 
                 min(ellipse[,2]), min(ellipse[,2])),
-          border = layout$abanico$colour$border)
+          border = layout$abanico$colour$border,
+          lwd = 0.8)
   
   ## optionally add legend content
   if(missing(legend) == FALSE) {
@@ -2547,17 +2565,18 @@ if(rotate == FALSE) {
                        layout$abanico$font.deco$xlab3],
         cex = cex * layout$abanico$font.size$xlab3/12) 
   
-  ## add bandwidth value
-  mtext(text = paste("BW = ", signif(x = KDE.bw, digits = 3)), 
-        at = (xy.0[2] + y.max) / 2,
-        side = 2,
-        line = -3.5 * layout$abanico$dimension$xlab3.line / 100, 
-        col = layout$abanico$colour$xlab3,
-        family = layout$abanico$font.type$xlab3,
-        font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
-                       layout$abanico$font.deco$xlab3],
-        cex = cex * layout$abanico$font.size$xlab3/12) 
-  
+  ## optionally add bandwidth value
+  if(kde == TRUE) {
+    mtext(text = paste("BW = ", signif(x = KDE.bw, digits = 3)), 
+          at = (xy.0[2] + y.max) / 2,
+          side = 2,
+          line = -3.5 * layout$abanico$dimension$xlab3.line / 100, 
+          col = layout$abanico$colour$xlab3,
+          family = layout$abanico$font.type$xlab3,
+          font = (1:4)[c("plain", "bold", "italic", "bold italic") == 
+                         layout$abanico$font.deco$xlab3],
+          cex = cex * layout$abanico$font.size$xlab3/12) 
+  }
   
   ## optionally plot histogram
   if(hist == TRUE) { 
@@ -2666,7 +2685,8 @@ if(rotate == FALSE) {
   if(rug == TRUE) {
     for(i in 1:length(rug.coords)) {
       lines(y = rug.coords[[i]][1,],
-            x = rug.coords[[i]][2,])
+            x = rug.coords[[i]][2,],
+            col = kde.line[data.global[i,10]])
     }
   }
 
@@ -2680,7 +2700,8 @@ if(rotate == FALSE) {
                 y.max, min(ellipse[,2])),
           x = c(0, max(ellipse[,1]), max(ellipse[,1]), 
                 min(ellipse[,1]), min(ellipse[,1])),
-          border = layout$abanico$colour$border)
+          border = layout$abanico$colour$border,
+          lwd = 0.8)
   
   ## optionally add legend content
   if(missing(legend) == FALSE) {
@@ -2860,7 +2881,25 @@ if(rotate == FALSE) {
   ## now with rug to indicate individual values in KDE part
   plot_AbanicoPlot(data = ExampleData.DeValues,
                    rug = TRUE)
-
+  
+  ## now with a smaller bandwidth for the KDE plot
+  plot_AbanicoPlot(data = ExampleData.DeValues,
+                   bw = 0.01)  
+  
+  ## now with a histogram instead of the KDE plot
+  plot_AbanicoPlot(data = ExampleData.DeValues,
+                   hist = TRUE,
+                   kde = FALSE)
+  
+  ## now with a KDE plot and histogram with manual number of bins
+  plot_AbanicoPlot(data = ExampleData.DeValues,
+                   hist = TRUE,
+                   breaks = 20)
+  
+  ## now with a KDE plot and a dot plot
+  plot_AbanicoPlot(data = ExampleData.DeValues,
+                   dots = TRUE)
+  
   ## now with user-defined plot ratio
   plot_AbanicoPlot(data = ExampleData.DeValues,
                    plot.ratio = 0.5)

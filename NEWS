@@ -70,7 +70,11 @@ Changes in version 0.4.1 (XXXXXXX XXth, 20145):
 
              • KDE bandwidth added to plot output,
 
-             • KDE bandwidth default changed to "SJ".
+             • KDE bandwidth default changed to "SJ",
+
+             • rugs coloured according to subsets,
+
+             • examples section extended.
 
          • ‘readBIN2R()’:
 

@@ -90,7 +90,9 @@
     \item histogram option added,
     \item dot plot option added,
     \item KDE bandwidth added to plot output,
-    \item KDE bandwidth default changed to "SJ".
+    \item KDE bandwidth default changed to "SJ",
+    \item rugs coloured according to subsets, 
+    \item examples section extended.
     
     
     }

@@ -64,9 +64,13 @@ values in the plot. One or more out of the following: \code{"min"},
 \code{"max"}, \code{"median"}.}
   \item{rug}{\code{\link{logical}}: Option to add a rug to the KDE part, to indicate
 the location of individual values.}
-  \item{kde}{\code{\link{logical}}: Option to omit plotting the KDE curve.}
-  \item{hist}{\code{\link{logical}}: Option to add a histogram to the KDE part.}
-  \item{dots}{\code{\link{logical}}: Option to add a dot chart to the KDE part.}
+  \item{kde}{\code{\link{logical}}: Option to add a KDE plot to the dispersion part,
+default is \code{TRUE}.}
+  \item{hist}{\code{\link{logical}}: Option to add a histogram to the dispersion part.
+Only meaningful when not more than one data set is plotted.}
+  \item{dots}{\code{\link{logical}}: Option to add a dot plot to the dispersion part.
+If number of dots exceeds space in the dispersion part, a square 
+indicates this.}
   \item{y.axis}{\code{\link{logical}}: Option to hide y-axis labels. Useful for data  
 with small scatter.}
   \item{error.bars}{\code{\link{logical}}: Option to show De-errors as error bars on 
@@ -184,6 +188,24 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  rug = TRUE)
 
+## now with a smaller bandwidth for the KDE plot
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 bw = 0.01)  
+
+## now with a histogram instead of the KDE plot
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 hist = TRUE,
+                 kde = FALSE)
+
+## now with a KDE plot and histogram with manual number of bins
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 hist = TRUE,
+                 breaks = 20)
+
+## now with a KDE plot and a dot plot
+plot_AbanicoPlot(data = ExampleData.DeValues,
+                 dots = TRUE)
+
 ## now with user-defined plot ratio
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  plot.ratio = 0.5)
@@ -298,4 +320,4 @@ plot_AbanicoPlot(data = data.3,
 ## restore original graphical parameters
 par(par.old)
 }
-\section{Function version}{0.1.1 (2015-01-19 14:42:34)}
+\section{Function version}{0.1.1 (2015-01-21 19:58:19)}

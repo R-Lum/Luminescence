@@ -861,7 +861,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
  ##Fit and plot growth curve
  temp.GC <- plot_GrowthCurve(temp.sample,
-                             plot = plot, 
+                             output.plot = plot, 
                               ...)
  
  ##grep informaton on the fit object
