@@ -97,6 +97,27 @@
     
     }
     
+    \item \code{plot_GrowthCurve()}:
+    
+      \itemize{
+      
+    \item Thanks to a querry from Rachel Smedly (#194) the De error calculation method has been updated.
+    So far only the Lx/Tx values have been re-sampled using a Monte Carlo simlation approach to estimate
+    the error. In contrast to the Analyst the Ln/Tn value was just considered without any error. This 
+    has been changed for all fitting methods and the final De error is calculated now also using the Ln/Tn error. 
+    Note: Usually this change results in a larger De error, however this approach is much more realistic,
+    
+    \item consequently to the changes made in the error calculation the corresponding De resulting from 
+    the MC simulation is now added to the output object (\code{$De$De.MC}),
+    
+    \item Ln/Tn point including the error is now added on the plot output as red circle,
+    
+    \item fix a bug occasionally occurred for \code{fit.method = "EXP+EXP"} and the function broke
+    subsequently (#159). 
+      
+      
+    }
+    
    \item \code{readBIN2R()}:
     
     

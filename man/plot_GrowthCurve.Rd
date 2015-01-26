@@ -76,12 +76,12 @@ using provided signal errors (Lx/Tx error):
 
 \bold{Error estimation using Monte Carlo simulation}\cr
 Error estimation is done using a Monte Carlo (MC) simulation approach. A 
-set of values is constructed by randomly drawing curve data from a normal 
-distribution. The normal distribution is defined by the input values 
+set of Lx/Tx values is constructed by randomly drawing curve data from samled from normal 
+distributions. The normal distribution is defined by the input values 
 (mean = value, sd = value.error). Then, a growth curve fit is attempted 
-for each dataset which results in new distribution of values. The 
-\link{sd} of this distribution is the error of the De. With increasing 
-iterations, the error value is becoming more stable. \bold{Note:} It may 
+for each dataset resulting in a new distribution of single De values. The 
+\link{sd} of this distribution is becomes then the error of the De. With increasing 
+iterations, the error value becomes more stable. \bold{Note:} It may 
 take some calculation time with increasing MC runs, especially for the 
 composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
 Each error estimation is done with the function of the chosen fitting 
@@ -90,8 +90,8 @@ method. \cr
 \bold{Subtitle information}\cr
 To avoid plotting the subtitle information, provide an empty user mtext
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.}
-\value{\code{RLum.Results} object containing the De (De, De Error, D01 value, D02 value and Fit 
-type) and fit object \link{nls} object for \code{EXP}, \code{EXP+LIN} 
+\value{\code{RLum.Results} object containing the De (De, De Error, D01 value, D02 value, De.MC and Fit 
+type) and the fit object \link{nls} object for \code{EXP}, \code{EXP+LIN} 
 and \code{EXP+EXP}. In case of a resulting linear fit when using 
 \code{EXP OR LIN}, a \link{lm} object is returned. \cr
 The formula \code{Formula} is returned as R expression for further evaluation.
@@ -123,4 +123,4 @@ plot_GrowthCurve(LxTxData)
 plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 ##dev.off()  
 }
-\section{Function version}{1.2.15 (2014-12-17 14:31:29)}
+\section{Function version}{1.3 (2015-01-24 23:35:48)}

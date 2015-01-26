@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ##version 1.2.15
+  ##version 1.3
   # ===========================================================================
   
   sample,
@@ -163,21 +163,27 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   fun   <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
 
 
-	#1.2 Prepare datasets for Monte Carlo Simulation
-
+	#1.2 Prepare data sets regeneration points for MC Simulation
 		data.MC<-t(matrix(sapply(seq(2,fit.NumberRegPoints+1,by=1), 
 									function(x){sample(rnorm(10000,mean=sample[x,2], sd=abs(sample[x,3])), 
                             NumberIterations.MC, replace=TRUE)}), nrow=NumberIterations.MC
 						     )#end matrix
 					)#end transpose matrix
-									
+
+  #1.3 Do the same for the natural signal
+  data.MC.De <- numeric(NumberIterations.MC)
+  data.MC.De <- sample(rnorm(10000,mean=sample[1,2], sd=abs(sample[1,3])), 
+                       NumberIterations.MC, replace=TRUE)
+
 	#1.3 set x.natural
-		x.natural<-as.vector(seq(1:NumberIterations.MC))
+	x.natural<-numeric(NumberIterations.MC)
+  x.natural <- NA
   
   ##1.4 set initialise variables
   De <- NA
   De.Error <- NA
  
+
 ##============================================================================##
 # FITTING ----------------------------------------------------------------------
 ##============================================================================##
@@ -344,8 +350,8 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 								var.a[i]<-as.vector((parameters["a"])) #Imax
 								var.c[i]<-as.vector((parameters["c"]))
 							
-								#calculate x.natural
-								x.natural[i]<-round(-var.c[i]-var.b[i]*log(1-sample[1,2]/var.a[i]), digits=2)
+								#calculate x.natural for error calculatio
+								x.natural[i]<-round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2)
                 
 						  }
 
@@ -375,7 +381,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
                 fit.lmMC <- lm(data$y~data$x, weights=abs(fit.weights))
   
                 #calculate x.natural
-                x.natural[i]<-round((sample[1,2]-fit.lmMC$coefficients[1])/
+                x.natural[i]<-round((data.MC.De[i]-fit.lmMC$coefficients[1])/
                                       fit.lmMC$coefficients[2], digits=2)
             }#endfor::loop for MC
             
@@ -498,6 +504,8 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 					                 
 							#select dose if Ln/Tn fits the values in the matrix
 							De <- round(mean(iteration.matrix[iteration.matrix[,2]==round(sample[1,2],digits=3),1]),digits=2)
+            
+						writeLines(paste0("[plot_GrowthCurve()] >> De = ", De)) 
 					   
 						##Monte Carlo Simulation for error estimation
 						#	--Fit many curves and calculate a new De +/- De_Error
@@ -510,13 +518,13 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 						var.g <- vector(mode="numeric", length=NumberIterations.MC)
 					           
             ##terminal output fo MC
-            cat("\n\t Execute Monte Carlo loops for error estimation of the EXP+LIN fit\n")
+            cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
             
-						##set progressbar
+            ##set progressbar
 						pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
             
 						#start Monto Carlo loops
-						for (i in 1:NumberIterations.MC) { 
+						for(i in  1:NumberIterations.MC){ 
 							
 							data <- data.frame(x=xy$x,y=data.MC[,i])
 							 
@@ -547,8 +555,10 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 						
 							#calculate absolute differences from LnTn
 							differences <- data.frame(dose=xy$x,
-                               differences=(sample[1,2]-(fit.functionEXPLIN(a=var.a[i],b=var.b[i],c=var.c[i],g=var.g[i],x=xy$x))))
-            
+                               differences=(data.MC.De[i]-
+                                              (fit.functionEXPLIN(
+                                                a=var.a[i],b=var.b[i],c=var.c[i],g=var.g[i],x=xy$x))))   
+              
            		#set upper and lower boundary for searching (really timesaving)
 							boundary.upper <- round(
                 unique(differences[differences[,2]==max(differences[differences[,2]<=0,2]),]), 
@@ -564,22 +574,25 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 											boundary.upper[1,1]<-round(artificialRegPoint, digits = 2)								
 											}
 
-							#write all boundary values in a vector (if cases to prevent error)				
+							#write all boundary values in a vector (if cases to prevent error)
 						  if(boundary.lower[,1] < boundary.upper[,1]){
                j <- seq(boundary.lower[,1], boundary.upper[,1], by=0.01)
 						  }else{
 						   j <- seq(boundary.upper[,1], boundary.lower[,1], by=0.01)   
 						  }
-              
 						
 							#produce an iteration matrix 
-							iteration.matrix<-matrix(
-                c(j,(round(var.a[i]*(1-exp(-(j+var.c[i])/var.b[i])+var.g[i]*j),digits=3))),ncol=2)
-					
+              iteration.matrix <- matrix(NA, nrow = length(j), ncol = 2)
+							iteration.matrix[,1] <- j 
+              iteration.matrix[,2] <- round(var.a[i]*(1-exp(-(j+var.c[i])/var.b[i])+var.g[i]*j),
+                                            digits=3)
+					 
 							#select dose when Ln/Tn fits the values in the matrix
 							x.natural[i]<-mean(
-                iteration.matrix[iteration.matrix[,2]==round(sample[1,2],digits=3),1])
+                iteration.matrix[iteration.matrix[,2]==round(data.MC.De[i],digits=3),1])
+              
 							}
+              
 
 				  ##update progress bar
 				  setTxtProgressBar(pb, i)
@@ -616,7 +629,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 		                 nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
 		    ),silent=TRUE)
 		    
-      
+        
 		     if(class(fit)!="try-error"){
 		        #get parameters out of it
 		        parameters<-(coef(fit)) 
@@ -702,7 +715,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 					
 													
 						##terminal output fo MC
-						cat("\n\t Execute Monte Carlo loops for error estimation of the EXP+EXP fit\n")  
+						cat("\n\t Run Monte Carlo loops for error estimation of the EXP+EXP fit\n")  
             
 						##progress bar
             pb<-txtProgressBar(min=0,max=NumberIterations.MC, initial=0, char="=", style=3)  
@@ -727,7 +740,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
               
 							#get parameters out of it including error handling
 							if (class(fit.MC)=="try-error") {
-								
+					
 								x.natural[i]<-NA
                 
 							}else {
@@ -768,7 +781,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
                                            digits=3))),ncol=2)
 					
 							#select dose if Ln/Tn fits the values in the matrix
-							x.natural[i]<-mean(iteration.matrix[iteration.matrix[,2]==round(sample[1,2],digits=3),1])
+							x.natural[i]<-mean(iteration.matrix[iteration.matrix[,2]==round(data.MC.De[i],digits=3),1])
               
               
 							} #end if "try-error" MC simulation
@@ -781,7 +794,6 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
         if(exists("pb")){close(pb)}    
     #===========================================================================
 		} #End if Fit Method  
-      
       
       
 		#Get De values from Monto Carlo simulation
@@ -896,6 +908,12 @@ if(output.plot==TRUE) {
 
 ##POINTS	#Plot Reg0 and Repeated Points
 
+      #Natural value    
+      points(sample[1,1:2], col = "red")
+      segments(sample[1,1],sample[1,2]-sample[1,3],
+               sample[1,1],sample[1,2]+sample[1,3], col = "red")
+    
+
 			#Repeated Point
       points(xy[which(duplicated(xy[,1])),1],xy[which(duplicated(xy[,1])),2], 
              pch=2)
@@ -956,7 +974,7 @@ mtext <- if("mtext" %in% names(list(...))) {
         
       }
    
-            
+  
 			##(A) Calculate histogram data 
       try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
                 
@@ -1064,14 +1082,18 @@ if(fun==TRUE){sTeve()}
 
     ##RETURN - return De values and parameter
 
-	  output <- try(data.frame(De=De,De.Error=De.Error, D01=D01, D02=D02, 
+	  output <- try(data.frame(De=De,
+                             De.Error=De.Error, 
+                             D01=D01, 
+                             D02=D02, 
+                             De.MC = De.MonteCarlo,
                              Fit=fit.method),
                   silent=TRUE)
     output <- set_RLum.Results(data=list(De=output,Fit=fit, Formula=f))
     invisible(output)
 
-  ### \code{RLum.Results} object containing the De (De, De Error, D01 value, D02 value and Fit 
-  ### type) and fit object \link{nls} object for \code{EXP}, \code{EXP+LIN} 
+  ### \code{RLum.Results} object containing the De (De, De Error, D01 value, D02 value, De.MC and Fit 
+  ### type) and the fit object \link{nls} object for \code{EXP}, \code{EXP+LIN} 
   ### and \code{EXP+EXP}. In case of a resulting linear fit when using 
   ### \code{EXP OR LIN}, a \link{lm} object is returned. \cr
   ### The formula \code{Formula} is returned as R expression for further evaluation.
@@ -1106,12 +1128,12 @@ if(fun==TRUE){sTeve()}
   ##
   ## \bold{Error estimation using Monte Carlo simulation}\cr
   ## Error estimation is done using a Monte Carlo (MC) simulation approach. A 
-  ## set of values is constructed by randomly drawing curve data from a normal 
-  ## distribution. The normal distribution is defined by the input values 
+  ## set of Lx/Tx values is constructed by randomly drawing curve data from samled from normal 
+  ## distributions. The normal distribution is defined by the input values 
   ## (mean = value, sd = value.error). Then, a growth curve fit is attempted 
-  ## for each dataset which results in new distribution of values. The 
-  ## \link{sd} of this distribution is the error of the De. With increasing 
-  ## iterations, the error value is becoming more stable. \bold{Note:} It may 
+  ## for each dataset resulting in a new distribution of single De values. The 
+  ## \link{sd} of this distribution is becomes then the error of the De. With increasing 
+  ## iterations, the error value becomes more stable. \bold{Note:} It may 
   ## take some calculation time with increasing MC runs, especially for the 
   ## composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
   ## Each error estimation is done with the function of the chosen fitting 
