@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
-Title: Package for Luminescence Dating data analysis [upcoming]
+Title: Package for Luminescence Dating data analysis
 Version: 0.4.1
-Date: 2015-XX-XX
+Date: 2015-01-29
 Author: Sebastian Kreutzer [aut, trl, cre],
   Michael Dietze [aut],
   Christoph Burow [aut],

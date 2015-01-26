@@ -5,14 +5,14 @@
 \title{Collection of functions for luminescence dating data analysis}
 \description{
 This package provides various functions developed for the purpose
-of Luminescence Dating data analysis. [upcoming]
+of Luminescence Dating data analysis. 
 }
 \details{
 \tabular{ll}{
 Package: \tab Luminescence\cr
 Type: \tab Package\cr
 Version: \tab 0.4.1\cr
-Date: \tab 2014-XX-XX\cr
+Date: \tab 2015-01-29\cr
 License: \tab GPL-3\cr
 }
 %~~ An overview of how to use the package, including the most important functions ~~
