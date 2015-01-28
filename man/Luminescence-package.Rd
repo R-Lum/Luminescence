@@ -29,9 +29,14 @@ Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, Fra
 Christoph Schmidt \tab University of Bayreuth, Germany
 }
 
+
+\bold{Beta-Tester}
+
+Thomas Kobl, University of Bayreuth, Germany\cr
+
 \bold{Supervisor}
 
-Markus Fuchs, Justus-Liebig-University Giessen, Germany
+Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
 
 \bold{Support contact}
 

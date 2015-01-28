@@ -100,10 +100,10 @@ readSPE2R <- structure(function(#Import Princeton Intruments (TM) SPE-file into 
     stepping <- readBin(con, what="raw", 64, size=1, endian="little", signed = TRUE)
   
   ##experiment data type 
-  ##￼0 = 32f (4 bytes)
+  ##0 = 32f (4 bytes)
   ##1 = 32s (4 bytes)
-  ##￼3 = 16u (2 bytes)
-  ##￼8 = 32u (4 bytes)
+  ##3 = 16u (2 bytes)
+  ##8 = 32u (4 bytes)
   datatype <- readBin(con, what="int", 1, size=2, endian="little", signed = TRUE)
 
     ##jump

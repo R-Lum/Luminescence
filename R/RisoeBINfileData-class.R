@@ -6,7 +6,7 @@
 ##author<<
 ## Sebastian Kreutzer, IRAMAT-CPR2A, Universite Bordeaux Montaigne (France), \cr
 ##
-## version 0.3.2
+## version 0.3.3
 # ===========================================================================
 
 setClass("Risoe.BINfileData",
@@ -41,19 +41,19 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
                                         collapse="\n\t                      ")
  
             ##print
-            cat("\nRisoe.BINfileData Object")
-            cat("\n\t BIN/BINX Format Version:  ", version)
+            cat("\n[Risoe.BINfileData object]")
+            cat("\n\n\tBIN/BINX version     ", version)
             if(version>=6){
-              cat("\n\tFile Name:           ", filename)
+              cat("\n\tFile name:           ", filename)
             }
-            cat("\n\tObject Date:         ", date) 
+            cat("\n\tObject date:         ", date) 
             cat("\n\tUser:                ", user)
-            cat("\n\tSystem ID:           ", systemID)
-            cat("\n\tOverall Records:     ", records.overall)
-            cat("\n\tRecords Type:        ", records.type.count)
-            cat("\n\tPosition Range:      ",pos.range[1],":",pos.range[2])
-            cat("\n\tRun Range:           ",run.range[1],":",run.range[2])
-            cat("\n\tSet Range:           ",set.range[1],":",set.range[2])
+            cat("\n\tSystem ID:           ", ifelse(systemID == 0,"0 (unknown)", systemID))
+            cat("\n\tOverall records:     ", records.overall)
+            cat("\n\tRecords type:        ", records.type.count)
+            cat("\n\tPosition range:      ",pos.range[1],":",pos.range[2])
+            cat("\n\tRun range:           ",run.range[1],":",run.range[2])
+            cat("\n\tSet range:           ",set.range[1],":",set.range[2])
           }#end function          
           )#end setMethod
 
@@ -87,7 +87,7 @@ setMethod("get_Risoe.BINfileData",
           signature=signature(object = "Risoe.BINfileData"), 
           definition = function(object) {
                      
-            cat("[get_Risoe.BINfileData()]: No direct access is provided object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing instead.")
+            cat("[get_Risoe.BINfileData()]: No direct access is provided for this object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing.")
             
           })##end setMethod
 
