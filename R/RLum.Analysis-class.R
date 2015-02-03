@@ -4,8 +4,8 @@
 ##==============================================================================
 ##author: Sebastian Kreutzer
 ##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-##version: 0.1.7
-##date: 2015-01-08
+##version: 0.1.8
+##date: 2015-02-03
 ##==============================================================================
 
 ##class definition
@@ -27,7 +27,7 @@ setClass("RLum.Analysis",
 
   setMethod("show", 
             signature(object = "RLum.Analysis"),
-            function(object){
+             function(object){
                
               ##print
               cat("\n [RLum.Analysis]")
@@ -75,7 +75,6 @@ setClass("RLum.Analysis",
               
             }                              
             )##end show method
-
 
 # get object structure ----------------------------------------------------
 
@@ -278,7 +277,7 @@ setMethod("get_RLum.Analysis",
            record.id <- 1:length(object@records)
            
            
-           ##select curves according to the chosen paramter
+           ##select curves according to the chosen parameter
            if(length(record.id)>1){  
              
             temp <- sapply(record.id, function(x){
@@ -360,8 +359,21 @@ setMethod("get_RLum.Analysis",
            }else{
              
              if(get.index == FALSE){
-            
+               
+               
+               if(keep.object == TRUE){
+                 
+                 ##needed to keep the argument keep.object == TRUE
+                 temp <- set_RLum.Analysis(records = list(object@records[[record.id]]), 
+                                           protocol = object@protocol)
+                 return(temp)
+                   
+               }else{
+                 
                  return(object@records[[record.id]])
+                 
+               }
+                 
   
              }else{
         

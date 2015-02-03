@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
-Title: Package for Luminescence Dating data analysis
-Version: 0.4.1
-Date: 2015-01-29
+Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
+Version: 0.4.2
+Date: 2015-02-XX
 Author: Sebastian Kreutzer [aut, trl, cre],
   Michael Dietze [aut],
   Christoph Burow [aut],
@@ -19,7 +19,7 @@ Authors@R: c(person("Sebastian", "Kreutzer", role = c("aut","trl","cre"),
 				     person("Manfred", "Fischer", role = c("aut","trl")),
 				     person("Markus", "Fuchs", role = "ths"))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
-Description: Package provides a collection of various R functions for Luminescence Dating data analysis.
+Description: A collection of various R functions for the purpose of Luminescence dating data analysis. This includes, amongst others, data import, export, application of age models, curve deconvolution, sequence analysis and plotting of equivalent dose distributions. 
 Contact: Package Developer Team <team@r-luminescence.de>
 License: GPL-3
 Depends: R (>= 3.1.2), utils

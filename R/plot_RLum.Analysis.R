@@ -31,7 +31,11 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ### \code{\link{logical}} (with default): allows to combine all 
   ### code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
   ### Works only for \code{\linkS4class{RLum.Analysis}} that comprises a single 
-  ### curve object (option is currently only roughly implemented)
+  ### curve object (option is currently only roughly implemented),
+  
+  plot.single = FALSE,
+  ### \code{\link{logical}} (with default): each curve is plotted in a single window, overwrites the 
+  ### settings of \code{norws} and \code{ncols}
   
   ...
   ### further arguments and graphical parameters will be passed to the \code{plot} function.
@@ -94,11 +98,27 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   {1}
   
   
+  ##plot.single
+  if(plot.single == TRUE){
+    
+    ncols <- 1
+    nrows <- 1
+  
+  }
+  
+  
   # Plotting ------------------------------------------------------------------
     
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(1) NORMAL (combine == FALSE) 
-  if(combine == FALSE){
+  if(combine == FALSE || length(object@records) == 1){
+    
+      ##show warning message
+      if(combine == TRUE & length(object@records) == 1){
+        
+        warning("Nothing to combine, object contains a single curve.")
+        
+      }
   
       ##grep RLum.Data.Curve or RLum.Data.Spectrum objects 
       temp <- lapply(1:length(object@records), function(x){
@@ -174,7 +194,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
             
         }#end for loop
             
-        
+  
         ##reset par
         par(mfrow = par.default)
 
@@ -185,7 +205,8 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
      
    ##(1) check RLum objects in the set
     object.list <- get_RLum.Analysis(object) 
-     
+    
+
     sapply(1:length(object.list), function(x){
       
       if(is(object.list[[x]])[1] != "RLum.Data.Curve"){  
@@ -287,8 +308,8 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
     
             
     ##change graphic settings
-    par.default <- par()[c("cex")]
-    par(cex = cex)
+    par.default <- par()[c("cex", "mfrow")]
+    par(cex = cex, mfrow = c(nrows, ncols))
     
     ##open plot area
     plot(NA,NA,

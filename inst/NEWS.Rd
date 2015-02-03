@@ -1,6 +1,60 @@
   \name{NEWS}
 \title{NEWS for the R Package Luminescence}
 
+\section{Changes in version 0.4.2 (Feburary XX, 2015)}{
+
+  \subsection{New functions}{
+  
+  \itemize{
+  
+  \item DUMMY
+
+  }}
+  
+    \subsection{Changes S4-objects, methods, classes}{
+   \itemize{   
+    
+    
+        
+    \item \code{RLum.Analysis-class}:
+    
+    
+     \itemize{
+    
+    \item Fix: Argument \code{keep.object == TRUE} was not respected for the case after using 
+    the function \code{get_RLum.Analysis()} the object just contained a single object. In such 
+    cases only the object itself, but no \code{RLum.Analysis} object was returned (#200).
+    
+  
+    
+    }
+
+  
+  }}
+
+
+  \subsection{Bugfixes and changes}{
+   \itemize{
+
+   \item \code{plot_RLum.Analysis()}
+   
+   
+   \itemize{
+   
+    \item Fix an error appeared for \code{combine = TRUE} if only one single object was in the \code{RLum.Analysis} object (#199),
+    \item added logical argument \code{plot.single}. In fact this just resets \code{ncols} and \code{nrows} to \code{1} (#201).
+   
+   
+   }
+   
+   
+
+   }}
+
+
+
+}
+
 \section{Changes in version 0.4.1 (January 29th, 2015)}{
 
   \subsection{New functions}{

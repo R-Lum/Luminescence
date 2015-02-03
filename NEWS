@@ -1,5 +1,31 @@
 NEWS for the R Package Luminescence
 
+Changes in version 0.4.2 (Feburary XX, 2015):
+
+  New functions:
+
+         • DUMMY
+
+  Changes S4-objects, methods, classes:
+
+         • ‘RLum.Analysis-class’:
+
+             • Fix: Argument ‘keep.object == TRUE’ was not respected
+               for the case after using the function
+               ‘get_RLum.Analysis()’ the object just contained a single
+               object. In such cases only the object itself, but no
+               ‘RLum.Analysis’ object was returned (#200).
+
+  Bugfixes and changes:
+
+         • ‘plot_RLum.Analysis()’
+
+             • Fix an error appeared for ‘combine = TRUE’ if only one
+               single object was in the ‘RLum.Analysis’ object (#199),
+
+             • added logical argument ‘plot.single’. In fact this just
+               resets ‘ncols’ and ‘nrows’ to ‘1’ (#201).
+
 Changes in version 0.4.1 (January 29th, 2015):
 
   New functions:
