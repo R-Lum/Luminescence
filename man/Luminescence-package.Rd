@@ -25,13 +25,14 @@ Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr
 Manfred Fischer\tab University of Bayreuth, Germany \cr 
 Margret C. Fuchs \tab Alfred Wegener Insitute for Polar and Marine Research, Potsdam, Germany\cr
 Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France\cr
-Christoph Schmidt \tab University of Bayreuth, Germany
+Christoph Schmidt \tab University of Bayreuth, Germany\cr
+Rachel K. Smedley\tab Aberystwyth University, United Kingdom
 }
 
 
 \bold{Beta-Tester}
 
-Thomas Kobl, University of Bayreuth, Germany\cr
+Thomas Kolb, University of Bayreuth, Germany\cr
 
 \bold{Supervisor}
 

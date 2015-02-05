@@ -4,7 +4,8 @@ Changes in version 0.4.2 (Feburary XX, 2015):
 
   New functions:
 
-         • DUMMY
+         • ‘calc_IEU()’ Apply the internal-external-uncertainty (IEU)
+           model after Thomsen et al. (2007) to a given De distribution
 
   Changes S4-objects, methods, classes:
 

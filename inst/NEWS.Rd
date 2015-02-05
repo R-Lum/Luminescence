@@ -7,7 +7,8 @@
   
   \itemize{
   
-  \item DUMMY
+  \item \code{calc_IEU()} Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) 
+  to a given De distribution
 
   }}
   
