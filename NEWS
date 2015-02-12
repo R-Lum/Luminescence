@@ -19,6 +19,25 @@ Changes in version 0.4.2 (Feburary XX, 2015):
 
   Bugfixes and changes:
 
+         • ‘plot_GrowthCurve()’
+
+             • Fix an error that causes a function chrash if the input
+               data.frame (argument ‘sample’) comprises row names. Now
+               all preset row names are removed automatically,
+
+             • using the option ‘fit.weights = FALSE’ in combination
+               with ‘fit.method = "LIN"’ caused an error. Corrected,
+
+             • avoid confusing warning messages in case ‘fit.weights’
+               was set to ‘FALSE’,
+
+             • fix an error that causes a chrash for the combination
+               ‘fit.method = "LIN"’ and error column just comprises 0,
+
+             • argument ‘main’ was not working as expected, corrected.
+               Furthermore the argument is removed from the argument
+               list, but is still available via ‘...’.
+
          • ‘plot_RLum.Analysis()’
 
              • Fix an error appeared for ‘combine = TRUE’ if only one

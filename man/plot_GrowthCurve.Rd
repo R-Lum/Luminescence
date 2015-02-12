@@ -3,18 +3,17 @@
 \title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
 \description{A dose response curve is produced for luminescence measurements using a 
 regenerative protocol.}
-\usage{plot_GrowthCurve(sample, na.rm = TRUE, main = "Growth curve", 
-    fit.method = "EXP", fit.weights = TRUE, fit.includingRepeatedRegPoints = TRUE, 
-    fit.NumberRegPoints, fit.NumberRegPointsReal, fit.bounds = TRUE, 
-    NumberIterations.MC = 100, output.plot = TRUE, output.plotExtended = TRUE, 
-    output.plotExtended.single = FALSE, cex.global = 1, ...)}
+\usage{plot_GrowthCurve(sample, na.rm = TRUE, fit.method = "EXP", fit.weights = TRUE, 
+    fit.includingRepeatedRegPoints = TRUE, fit.NumberRegPoints, 
+    fit.NumberRegPointsReal, fit.bounds = TRUE, NumberIterations.MC = 100, 
+    output.plot = TRUE, output.plotExtended = TRUE, output.plotExtended.single = FALSE, 
+    cex.global = 1, ...)}
 \arguments{
   \item{sample}{\code{\link{data.frame}} (\bold{required}): data frame with three columns
 for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the test dose 
 response is optional, but requires 'TnTx' as column name if used.}
   \item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA} values from the data 
 set prior to any further operations.}
-  \item{main}{\code{\link{character}} (with default): header of the plot.}
   \item{fit.method}{\code{\link{character}} (with default): function used for fitting. 
 Possible options are: \code{LIN}, \code{EXP}, \code{EXP OR LIN}, 
 \code{EXP+LIN} or \code{EXP+EXP}. See details.}
@@ -46,7 +45,8 @@ in single plot windows.
 Requires \code{output.plot = TRUE} and \code{output.plotExtended = TRUE}.}
   \item{cex.global}{\code{\link{numeric}} (with default): global scaling factor.}
   \item{\dots}{Further arguments and graphical parameters to be passed. Note: Standard 
-arguments will only be passed to the growth curve plot}
+arguments will only be passed to the growth curve plot. Supported: \code{xlim}, \code{ylim}, 
+\code{main}, \code{xlab}, \code{ylab}}
 }
 \details{\bold{Fitting methods} \cr\cr
 For all options (except for the \code{LIN} and the \code{EXP OR LIN}), 
@@ -123,4 +123,4 @@ plot_GrowthCurve(LxTxData)
 plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 ##dev.off()  
 }
-\section{Function version}{1.3 (2015-01-24 23:35:48)}
+\section{Function version}{1.4 (2015-02-05 18:07:45)}

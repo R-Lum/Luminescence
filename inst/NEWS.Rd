@@ -37,6 +37,28 @@
   \subsection{Bugfixes and changes}{
    \itemize{
 
+  
+   \item \code{plot_GrowthCurve()}
+   
+   
+   \itemize{
+   
+    \item Fix an error that causes a function chrash if the input data.frame (argument \code{sample}) comprises
+    row names. Now all preset row names are removed automatically,
+    
+    \item using the option \code{fit.weights = FALSE} in combination with \code{fit.method = "LIN"} caused an error. Corrected,
+    
+    \item avoid confusing warning messages in case \code{fit.weights} was set to \code{FALSE},
+    
+    \item fix an error that causes a chrash for the combination \code{fit.method = "LIN"} and error column just comprises 0,
+    
+    \item argument \code{main} was not working as expected, corrected. Furthermore the argument is removed from the 
+    argument list, but is still available via \code{...}. 
+   
+   
+   }
+
+
    \item \code{plot_RLum.Analysis()}
    
    

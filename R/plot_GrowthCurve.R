@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
   
   ##section<<
-  ##version 1.3
+  ##version 1.4
   # ===========================================================================
   
   sample,
@@ -19,10 +19,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   na.rm = TRUE,
   ### \code{\link{logical}} (with default): excludes \code{NA} values from the data 
   ### set prior to any further operations.
-  
-  main = "Growth curve",
-  ### \code{\link{character}} (with default): header of the plot.
-  
+    
   fit.method = "EXP", 
   ### \code{\link{character}} (with default): function used for fitting. 
   ### Possible options are: \code{LIN}, \code{EXP}, \code{EXP OR LIN}, 
@@ -77,7 +74,8 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   
   ...
   ### Further arguments and graphical parameters to be passed. Note: Standard 
-  ### arguments will only be passed to the growth curve plot
+  ### arguments will only be passed to the growth curve plot. Supported: \code{xlim}, \code{ylim}, 
+  ### \code{main}, \code{xlab}, \code{ylab}
 ) {
 
   ##1. check if sample is data.frame
@@ -107,6 +105,9 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   
   }
   
+  ##remove rownames from data.frame, as this could causes errors for the reg point calculation
+  rownames(sample) <- NULL
+  
   
   ##NULL values in the data.frame are not allowed for the y-column
     if(length(sample[sample[,2]==0,2])>0){
@@ -134,7 +135,16 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   
   ##1.1.1 produce weights for weighted fitting
   if(fit.weights==TRUE){
+    
     fit.weights<-1/y.Error/(sum(1/y.Error))
+    
+    if(is.na(fit.weights[1])){
+      
+      fit.weights <- NULL
+      warning("fit.weights set to NULL as error column is invalid or 0.")
+      
+    }
+    
   }else{
     fit.weights<-NULL
   }
@@ -283,15 +293,29 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
           a<-median(na.exclude(a.start));b<-median(na.exclude(b.start));c<-median(na.exclude(c.start))
           
           #FINAL Fit curve on given values
+          if(!is.null(fit.weights)){
 					fit<-try(nls(y~fit.functionEXP(a,b,c,x),
 									data=data,
 									start=c(a=a,b=b,c=c),
-                  weights=fit.weights,
+                  fit.weights = fit.weights,
 									trace=FALSE,
 									algorithm="port",
                   lower = if(fit.bounds==TRUE){lower=c(a=0,b=0,c=0)}else{c()},
 									nls.control(maxiter=500)
           				))#end nls
+          
+          ##just the same in case fit is set to NULL
+          } else{
+            
+					fit<-try(nls(y~fit.functionEXP(a,b,c,x),
+					             data=data,
+					             start=c(a=a,b=b,c=c),
+					             trace=FALSE,
+					             algorithm="port",
+					             lower = if(fit.bounds==TRUE){lower=c(a=0,b=0,c=0)}else{c()},
+					             nls.control(maxiter=500)
+					))#end nls
+          }
               
 							if (class(fit)=="try-error"){
                 
@@ -328,15 +352,29 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 							
 							data<-data.frame(x=xy$x,y=data.MC[,i])
 
-							fit.MC<-try(nls(y~fit.functionEXP(a,b,c,x),
-								data=data,
-								start=c(a=a,b=b,c=c),
-                weights=fit.weights,
-								trace=FALSE,
-								algorithm="port",
-								nls.control(maxiter=500) #increase max. iterations
+              if(!is.null(fit.weights)){
+						  	fit.MC<-try(nls(y~fit.functionEXP(a,b,c,x),
+							  	data=data,
+								  start=c(a=a,b=b,c=c),
+                  weights=fit.weights,
+								  trace=FALSE,
+								  algorithm="port",
+								  nls.control(maxiter=500) #increase max. iterations
 							),silent=TRUE) #end nls
+              
+              } else{
+                
+                fit.MC<-try(nls(y~fit.functionEXP(a,b,c,x),
+                                data=data,
+                                start=c(a=a,b=b,c=c),
+                                trace=FALSE,
+                                algorithm="port",
+                                nls.control(maxiter=500) #increase max. iterations
+                ),silent=TRUE) #end nls
+                
+              }
 
+          
 							#get parameters out of it including error handling
 							if (class(fit.MC)=="try-error") {
 								
@@ -374,11 +412,16 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
             ##remove vector labels
             De <- as.numeric(as.character(De))
             
+            
             #start loop for Monte Carlo Error estimation
             for (i in 1:NumberIterations.MC) { 
-  
+                
                 data <- data.frame(x=xy$x, y=data.MC[,i])
-                fit.lmMC <- lm(data$y~data$x, weights=abs(fit.weights))
+                
+                ##check if fit weights are NULL
+                if(!is.null(fit.weights)){fit.weights <- abs(fit.weights)}
+                
+                fit.lmMC <- lm(data$y~data$x, weights=fit.weights)
   
                 #calculate x.natural
                 x.natural[i]<-round((data.MC.De[i]-fit.lmMC$coefficients[1])/
@@ -457,7 +500,8 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
             c<-median(na.exclude(c.start))
             g<-median(na.exclude(g.start))
                     
-            
+            if(!is.null(fit.weights)){
+          
             fit<-try(nls(y~fit.functionEXPLIN(a,b,c,g,x),
   			  		data=data,
 					  	start=c(a=a,b=b,c=c,g=g),
@@ -467,6 +511,19 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
               lower = if(fit.bounds==TRUE){lower=c(a=0,b>10,c=0,g=0)}else{c()},           
 						  nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
 						  ))
+              
+            }else{
+             
+              fit<-try(nls(y~fit.functionEXPLIN(a,b,c,g,x),
+                           data=data,
+                           start=c(a=a,b=b,c=c,g=g),
+                           trace=FALSE,
+                           algorithm="port",
+                           lower = if(fit.bounds==TRUE){lower=c(a=0,b>10,c=0,g=0)}else{c()},           
+                           nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
+              ))
+               
+            }
 
         #if try error stop calculation        
         if(class(fit)!="try-error"){
@@ -528,6 +585,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 							
 							data <- data.frame(x=xy$x,y=data.MC[,i])
 							 
+              if(!is.null(fit.weights)){
 							fit.MC<-try(nls(y~fit.functionEXPLIN(a,b,c,g,x),
 								data=data,
 								start=c(a=a,b=b,c=c,g=g),
@@ -536,6 +594,18 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 								algorithm="port",
 								nls.control(maxiter=500) #increase max. iterations
 							),silent=TRUE)
+              
+              }else{
+                
+                fit.MC<-try(nls(y~fit.functionEXPLIN(a,b,c,g,x),
+                                data=data,
+                                start=c(a=a,b=b,c=c,g=g),
+                                trace=FALSE,
+                                algorithm="port",
+                                nls.control(maxiter=500) #increase max. iterations
+                ),silent=TRUE)
+                
+              }
               
 							#get parameters out of it including error handling
 							if (class(fit.MC)=="try-error") {
@@ -648,16 +718,34 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
    
  
 							#Fit curve on given values
-							fit<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
-									data=data,
-									start=c(a1=a1,a2=a2,b1=b1,b2=b2),
-									trace=FALSE,
-                  weights=fit.weights,
-									algorithm="port",
-									nls.control(maxiter=500), #increase max. iterations
-                  lower=c(a1>0,a2>0,b1>0,b2>0)
-								))#end nls
-             
+              if(!is.null(fit.weights)){
+					  	
+                fit<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
+							  		data=data,
+								  	start=c(a1=a1,a2=a2,b1=b1,b2=b2),
+									  trace=FALSE,
+                    weights=fit.weights,
+									  algorithm="port",
+									  nls.control(maxiter=500), #increase max. iterations
+                    lower=c(a1>0,a2>0,b1>0,b2>0)
+								  ))#end nls
+              
+              }else{
+                
+                fit<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
+                             data=data,
+                             start=c(a1=a1,a2=a2,b1=b1,b2=b2),
+                             trace=FALSE,
+                             algorithm="port",
+                             nls.control(maxiter=500), #increase max. iterations
+                             lower=c(a1>0,a2>0,b1>0,b2>0)
+                ))#end nls
+                
+                
+                
+              }
+                
+                
               ##insert if for try-error      
               if (class(fit)!="try-error") {
                     
@@ -727,16 +815,32 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 						  setTxtProgressBar(pb,i)
               
 							data<-data.frame(x=xy$x,y=data.MC[,i])
-					
-							fit.MC<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
-								data=data,
-								start=c(a1=a1,a2=a2,b1=b1,b2=b2),
-								trace=FALSE,
-                weights=fit.weights,
-								algorithm="port",
-								nls.control(maxiter=500),
-							  lower=c(a1>0,a2>0,b1>0,b2>0)#increase max. iterations
-							),silent=TRUE)
+					  
+              if(!is.null(fit.weights)){
+						
+                fit.MC<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
+								  data=data,
+								  start=c(a1=a1,a2=a2,b1=b1,b2=b2),
+								  trace=FALSE,
+                  weights=fit.weights,
+								  algorithm="port",
+								  nls.control(maxiter=500),
+							    lower=c(a1>0,a2>0,b1>0,b2>0)#increase max. iterations
+							  ),silent=TRUE)
+                
+              }else{
+                
+                fit.MC<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
+                                data=data,
+                                start=c(a1=a1,a2=a2,b1=b1,b2=b2),
+                                trace=FALSE,
+                                algorithm="port",
+                                nls.control(maxiter=500),
+                                lower=c(a1>0,a2>0,b1>0,b2>0)#increase max. iterations
+                ),silent=TRUE)
+ 
+              }
+              
               
 							#get parameters out of it including error handling
 							if (class(fit.MC)=="try-error") {
@@ -886,10 +990,10 @@ if(output.plot==TRUE) {
 
       }else{
           
-          temp.xy.plot  <- xy[1:fit.NumberRegPointsReal]
+          temp.xy.plot  <- xy[1:fit.NumberRegPointsReal,]
         
       }
-
+   
 			plot(temp.xy.plot[,1:2],
 				ylim=ylim,
 				xlim=xlim,
@@ -912,7 +1016,6 @@ if(output.plot==TRUE) {
       points(sample[1,1:2], col = "red")
       segments(sample[1,1],sample[1,2]-sample[1,3],
                sample[1,1],sample[1,2]+sample[1,3], col = "red")
-    
 
 			#Repeated Point
       points(xy[which(duplicated(xy[,1])),1],xy[which(duplicated(xy[,1])),2], 
