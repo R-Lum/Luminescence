@@ -1,7 +1,7 @@
 \name{plot_GrowthCurve}
 \alias{plot_GrowthCurve}
 \title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
-\description{A dose response curve is produced for luminescence measurements using a 
+\description{A dose response curve is produced for luminescence measurements using a
 regenerative protocol.}
 \usage{plot_GrowthCurve(sample, na.rm = TRUE, fit.method = "EXP", fit.weights = TRUE, 
     fit.includingRepeatedRegPoints = TRUE, fit.NumberRegPoints, 
@@ -10,89 +10,89 @@ regenerative protocol.}
     cex.global = 1, ...)}
 \arguments{
   \item{sample}{\code{\link{data.frame}} (\bold{required}): data frame with three columns
-for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the test dose 
+for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the test dose
 response is optional, but requires 'TnTx' as column name if used.}
-  \item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA} values from the data 
+  \item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA} values from the data
 set prior to any further operations.}
-  \item{fit.method}{\code{\link{character}} (with default): function used for fitting. 
-Possible options are: \code{LIN}, \code{EXP}, \code{EXP OR LIN}, 
+  \item{fit.method}{\code{\link{character}} (with default): function used for fitting.
+Possible options are: \code{LIN}, \code{EXP}, \code{EXP OR LIN},
 \code{EXP+LIN} or \code{EXP+EXP}. See details.}
-  \item{fit.weights}{\code{\link{logical}} (with default): option whether the fitting is 
+  \item{fit.weights}{\code{\link{logical}} (with default): option whether the fitting is
 done with or without weights. See details.}
-  \item{fit.includingRepeatedRegPoints}{\code{\link{logical}} (with default): includes repeated points for 
+  \item{fit.includingRepeatedRegPoints}{\code{\link{logical}} (with default): includes repeated points for
 fitting (\code{TRUE}/\code{FALSE}).}
-  \item{fit.NumberRegPoints}{\code{\link{integer}} (optional): set number of regeneration points 
-manually. By default the number of all (!) regeneration points is 
+  \item{fit.NumberRegPoints}{\code{\link{integer}} (optional): set number of regeneration points
+manually. By default the number of all (!) regeneration points is
 used automatically.}
-  \item{fit.NumberRegPointsReal}{\code{\link{integer}} (optional): if the number of regeneration points 
-is provided manually, the value of the real, regeneration points = 
+  \item{fit.NumberRegPointsReal}{\code{\link{integer}} (optional): if the number of regeneration points
+is provided manually, the value of the real, regeneration points =
 all points (repeated points) including reg 0, has to be inserted.}
-  \item{fit.bounds}{\code{\link{logical}} (with default): set lower fit bounds for all fitting 
-parameters to 0. Limited for the use with the fit methods \code{EXP}, 
-\code{EXP+LIN} and \code{EXP OR LIN}. Argument to be inserted for 
+  \item{fit.bounds}{\code{\link{logical}} (with default): set lower fit bounds for all fitting
+parameters to 0. Limited for the use with the fit methods \code{EXP},
+\code{EXP+LIN} and \code{EXP OR LIN}. Argument to be inserted for
 experimental application only!}
-  \item{NumberIterations.MC}{\code{\link{integer}} (with default): number of Monte Carlo simulations 
+  \item{NumberIterations.MC}{\code{\link{integer}} (with default): number of Monte Carlo simulations
 for error estimation. See details.}
   \item{output.plot}{\code{\link{logical}} (with default): plot output (\code{TRUE/FALSE}).}
-  \item{output.plotExtended}{\code{\link{logical}} (with default): If \code{TRUE}, 3 plots on one plot 
-area are provided: (1) growth curve, (2) histogram from Monte 
-Carlo error simulation and (3) a test dose response plot. If \code{FALSE}, 
-just the growth curve will be plotted. \bold{Requires:} 
+  \item{output.plotExtended}{\code{\link{logical}} (with default): If \code{TRUE}, 3 plots on one plot
+area are provided: (1) growth curve, (2) histogram from Monte
+Carlo error simulation and (3) a test dose response plot. If \code{FALSE},
+just the growth curve will be plotted. \bold{Requires:}
 \code{output.plot = TRUE}.}
-  \item{output.plotExtended.single}{\code{\link{logical}} (with default): 
-single plot output (\code{TRUE/FALSE}) to allow for plotting the results 
-in single plot windows. 
+  \item{output.plotExtended.single}{\code{\link{logical}} (with default):
+single plot output (\code{TRUE/FALSE}) to allow for plotting the results
+in single plot windows.
 Requires \code{output.plot = TRUE} and \code{output.plotExtended = TRUE}.}
   \item{cex.global}{\code{\link{numeric}} (with default): global scaling factor.}
-  \item{\dots}{Further arguments and graphical parameters to be passed. Note: Standard 
-arguments will only be passed to the growth curve plot. Supported: \code{xlim}, \code{ylim}, 
+  \item{\dots}{Further arguments and graphical parameters to be passed. Note: Standard
+arguments will only be passed to the growth curve plot. Supported: \code{xlim}, \code{ylim},
 \code{main}, \code{xlab}, \code{ylab}}
 }
 \details{\bold{Fitting methods} \cr\cr
-For all options (except for the \code{LIN} and the \code{EXP OR LIN}), 
+For all options (except for the \code{LIN} and the \code{EXP OR LIN}),
 the \link{nls} function with the \code{port} algorithm is used. \cr
 \code{LIN}: fits a linear function to the data using \link{lm}:
 \deqn{y = m*x+n}
-\code{EXP}: try to fit a function of the form 
+\code{EXP}: try to fit a function of the form
 \deqn{y = a*(1-exp(-(x+c)/b))}
 Parameters b and c are approximated by a linear fit using \link{lm}.
 Note: b = D0\cr
 
-\code{EXP OR LIN}: works for some cases where an \code{EXP} fit fails. 
+\code{EXP OR LIN}: works for some cases where an \code{EXP} fit fails.
 If the \code{EXP} fit fails, a \code{LIN} fit is done instead. \cr
-\code{EXP+LIN}: tries to fit an exponential plus linear function of the 
+\code{EXP+LIN}: tries to fit an exponential plus linear function of the
 form: \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))}
 The De is calculated by iteration.\cr
-\bold{Note:} In the context of luminescence dating, this function has 
+\bold{Note:} In the context of luminescence dating, this function has
 no physical meaning. Therefore, no D0 value is returned.\cr
 \code{EXP+EXP}: tries to fit a double exponential function of the form
 \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
-This fitting procedure is not robust against wrong start parameters 
+This fitting procedure is not robust against wrong start parameters
 and should be further improved.\cr\cr
 \bold{Fit weighting}\cr
-If the option \code{fit.weights = TRUE} is chosen, weights are calculated 
+If the option \code{fit.weights = TRUE} is chosen, weights are calculated
 using provided signal errors (Lx/Tx error):
 \deqn{fit.weights = 1/error/(sum(1/error))}
 
 \bold{Error estimation using Monte Carlo simulation}\cr
-Error estimation is done using a Monte Carlo (MC) simulation approach. A 
-set of Lx/Tx values is constructed by randomly drawing curve data from samled from normal 
-distributions. The normal distribution is defined by the input values 
-(mean = value, sd = value.error). Then, a growth curve fit is attempted 
-for each dataset resulting in a new distribution of single De values. The 
-\link{sd} of this distribution is becomes then the error of the De. With increasing 
-iterations, the error value becomes more stable. \bold{Note:} It may 
-take some calculation time with increasing MC runs, especially for the 
+Error estimation is done using a Monte Carlo (MC) simulation approach. A
+set of Lx/Tx values is constructed by randomly drawing curve data from samled from normal
+distributions. The normal distribution is defined by the input values
+(mean = value, sd = value.error). Then, a growth curve fit is attempted
+for each dataset resulting in a new distribution of single De values. The
+\link{sd} of this distribution is becomes then the error of the De. With increasing
+iterations, the error value becomes more stable. \bold{Note:} It may
+take some calculation time with increasing MC runs, especially for the
 composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
-Each error estimation is done with the function of the chosen fitting 
+Each error estimation is done with the function of the chosen fitting
 method. \cr
 
 \bold{Subtitle information}\cr
 To avoid plotting the subtitle information, provide an empty user mtext
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.}
-\value{\code{RLum.Results} object containing the De (De, De Error, D01 value, D02 value, De.MC and Fit 
-type) and the fit object \link{nls} object for \code{EXP}, \code{EXP+LIN} 
-and \code{EXP+EXP}. In case of a resulting linear fit when using 
+\value{\code{RLum.Results} object containing the De (De, De Error, D01 value, D02 value, De.MC and Fit
+type) and the fit object \link{nls} object for \code{EXP}, \code{EXP+LIN}
+and \code{EXP+EXP}. In case of a resulting linear fit when using
 \code{EXP OR LIN}, a \link{lm} object is returned. \cr
 The formula \code{Formula} is returned as R expression for further evaluation.
 Additionally a plot is returned.}
@@ -112,15 +112,15 @@ get_RLum.Results(temp)
 
 ##(1a) to access the fitting value try
 get_RLum.Results(temp, data.object = "Fit")
-  
+
 ##(2) plot the growth curve only - uncomment to use
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
 plot_GrowthCurve(LxTxData)
-##dev.off()                                   
+##dev.off()
 
 ##(3) plot growth curve with pdf output - uncomment to use, single output
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
 plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
-##dev.off()  
+##dev.off()
 }
-\section{Function version}{1.4 (2015-02-05 18:07:45)}
+\section{Function version}{1.5 (2015-02-14 18:13:45)}

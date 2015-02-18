@@ -1,125 +1,129 @@
 writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
-  ### Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be 
+  ### Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be
   ### opened by the Analyst software or other Risoe software.
-  
+
   # ===========================================================================
   ##author<<
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
-  
+
   ##section<<
-  ## version 0.2.1
+  ## version 0.2.2
   # ===========================================================================
 
   object,
-  ## \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): input object
-  ## to be stored in a bin file.
-  
+  ### \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): input object
+  ### to be stored in a bin file.
+
   file,
-  ## \code{\link{character}} (\bold{required}): file name and path of the 
-  ## output file\cr
-  ## [WIN]: \code{writeR2BIN(object, "C:/Desktop/test.bin")}, \cr  
-  ## [MAC/LINUX]: \code{writeR2BIN("/User/test/Desktop/test.bin")}
-  
+  ### \code{\link{character}} (\bold{required}): file name and path of the
+  ### output file\cr
+  ### [WIN]: \code{writeR2BIN(object, "C:/Desktop/test.bin")}, \cr
+  ### [MAC/LINUX]: \code{writeR2BIN("/User/test/Desktop/test.bin")}
+
   version,
-  ## \code{\link{raw}} (optional): version number for the output file.
-  ## If no value is provided the highest version number from the 
-  ## \code{\linkS4class{Risoe.BINfileData}} is taken automatically.\cr\cr
-  ## Note: This argument can be used to convert BIN-file versions.
-  
+  ### \code{\link{character}} (optional): version number for the output file.
+  ### If no value is provided the highest version number from the
+  ### \code{\linkS4class{Risoe.BINfileData}} is taken automatically.\cr\cr
+  ### Note: This argument can be used to convert BIN-file versions.
+
   txtProgressBar = TRUE
-  ## \link{logical} (with default): enables or disables \code{\link{txtProgressBar}}. 
+  ### \link{logical} (with default): enables or disables \code{\link{txtProgressBar}}.
 
 ){
-  
-# Config ------------------------------------------------------------------  
-  
+
+# Config ------------------------------------------------------------------
+
   ##set supported BIN format version
-  VERSION.supported <- as.raw(c(3, 4, 6))  
-  
-  
+  VERSION.supported <- as.raw(c(3, 4, 6))
+
+
 # Check integrity ---------------------------------------------------------
-  
+
   ##check if input object is of type 'Risoe.BINfileData'
   if(is(object, "Risoe.BINfileData") == FALSE){
-    
+
     stop("[writeR2BIN()] Input object is not of type Risoe.BINfileData!")
-    
+
   }
 
   ##check if input file is of type 'character'
   if(is(file, "character") == FALSE){
-  
+
     stop("[writeR2BIN()] argument 'file' has to be of type character!")
-  
+
   }
-  
+
 
 # Check Risoe.BINfileData Struture ----------------------------------------
 
   ##VERSION
-  
+
   ##If missing version argument set to the highest value
   if(missing(version) == TRUE){
-    
+
     version <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
-    
+
+  }else{
+
+    version <- as.raw(version)
+
   }
 
   ##Check if the BINfile object contains of unsupported versions
   if((as.raw(object@METADATA[1,"VERSION"]) %in% VERSION.supported) == FALSE ||
        version %in% VERSION.supported == FALSE){
-  
+
     ##show error message
     error.text <- paste("[writeR2BIN()] Error: Writing BIN-files in format version (",
-                        object@METADATA[1,"VERSION"],") is currently not supported! 
+                        object@METADATA[1,"VERSION"],") is currently not supported!
                         Supported version numbers are: ",
                         paste(VERSION.supported,collapse=", "),".",sep="")
-    stop(error.text)    
-  }  
-  
+    stop(error.text)
+  }
+
   ##CHECK file name for version == 06 it has to be *.binx and correct for it
   if(version == 06){
-    
+
     ##grep file ending
     temp.file.name <- unlist(strsplit(file, "[:.:]"))
-    
+
     ##*.bin? >> correct to binx
     if(temp.file.name[length(temp.file.name)]=="bin"){
-      
+
       temp.file.name[length(temp.file.name)] <- "binx"
       file <- paste(temp.file.name, collapse=".")
-      
+
     }
    }
-  
+
 
 
   ##SEQUENCE
   if(max(nchar(as.character(object@METADATA[,"SEQUENCE"]), type="bytes"))>8){
-  
+
    stop("[writeR2BIN()] Value in 'SEQUENCE' exceed storage limit!")
-  
+
   }
 
   ##USER
   if(max(nchar(as.character(object@METADATA[,"USER"]), type="bytes"))>8){
-    
+
     stop("[writeR2BIN()] 'USER' exceed storage limit!")
-    
+
   }
 
   ##SAMPLE
   if(max(nchar(as.character(object@METADATA[,"SAMPLE"]), type="bytes"))>20){
-  
+
    stop("[writeR2BIN()] 'SAMPLE' exceed storage limit!")
-  
+
   }
 
   ##COMMENT
   if(max(nchar(as.character(object@METADATA[,"COMMENT"]), type="bytes"))>80){
-  
+
     stop("[writeR2BIN()] 'COMMENT' exceed storage limit!")
-  
+
   }
 
 
@@ -128,7 +132,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
 
 ##LTYPE
 LTYPE.TranslationMatrix <- matrix(NA, nrow=14, ncol=2)
-LTYPE.TranslationMatrix[,1] <- 0:13 
+LTYPE.TranslationMatrix[,1] <- 0:13
 LTYPE.TranslationMatrix[,2] <- c("TL",
                                  "OSL",
                                  "IRSL",
@@ -151,7 +155,7 @@ DTYPE.TranslationMatrix <- matrix(NA, nrow=8, ncol=2)
 DTYPE.TranslationMatrix[,1] <- 0:7
 DTYPE.TranslationMatrix[,2] <- c("Natural","N+dose","Bleach",
                                  "Bleach+dose","Natural (Bleach)",
-                                 "N+dose (Bleach)","Dose","Background")  
+                                 "N+dose (Bleach)","Dose","Background")
 
 
 ##LIGHTSOURCE
@@ -165,19 +169,19 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
                                        "White light",
                                        "Green laser (single grain)",
                                        "IR laser (single grain)"
-) 
+)
 
 
   ##TRANSLATE VALUES IN METADATA
-    
+
   ##LTYPE
-  if(is(object@METADATA[1,"LTYPE"], "character") == TRUE | 
+  if(is(object@METADATA[1,"LTYPE"], "character") == TRUE |
      is(object@METADATA[1,"LTYPE"], "factor") == TRUE){
-   
+
   object@METADATA[,"LTYPE"]<- sapply(1:length(object@METADATA[,"LTYPE"]),function(x){
-   
+
     as.integer(LTYPE.TranslationMatrix[object@METADATA[x,"LTYPE"]==LTYPE.TranslationMatrix[,2],1])
-   
+
    })
   }
 
@@ -185,58 +189,58 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
   if(is(object@METADATA[1,"DTYPE"], "character") == TRUE |
      is(object@METADATA[1,"DTYPE"], "factor") == TRUE){
   object@METADATA[,"DTYPE"]<- sapply(1:length(object@METADATA[,"DTYPE"]),function(x){
-  
+
    as.integer(DTYPE.TranslationMatrix[object@METADATA[x,"DTYPE"]==DTYPE.TranslationMatrix[,2],1])
-  
+
   })
   }
 
   ##LIGHTSOURCE
   if(is(object@METADATA[1,"LIGHTSOURCE"], "character") == TRUE |
      is(object@METADATA[1,"LIGHTSOURCE"], "factor") == TRUE){
-    
+
   object@METADATA[,"LIGHTSOURCE"]<- sapply(1:length(object@METADATA[,"LIGHTSOURCE"]),function(x){
-  
+
     as.integer(LIGHTSOURCE.TranslationMatrix[
       object@METADATA[x,"LIGHTSOURCE"]==LIGHTSOURCE.TranslationMatrix[,2],1])
-  
+
   })}
 
   ##TIME
   object@METADATA[,"TIME"] <- sapply(1:length(object@METADATA[,"TIME"]),function(x){
-  
+
     as.character(gsub(":","",object@METADATA[x,"TIME"]))
-    
+
   })
 
   ##DATE
   object@METADATA[,"DATE"] <- sapply(1:length(object@METADATA[,"DATE"]),function(x){
-  
+
     as.character(levels(object@METADATA[x,"DATE"]))[as.integer(object@METADATA[x,"DATE"])]
-  
+
   })
 
   ##TAG and SEL
   ##in TAG information on the SEL are storred, here the values are copied to TAG
   ##before export
   object@METADATA[,"TAG"] <- ifelse(object@METADATA[,"SEL"] == TRUE, 1, 0)
-  
-  
+
+
 # SET FILE AND VALUES -----------------------------------------------------
 
 con<-file(file, "wb")
 
     ##get records
     n.records <- max(object@METADATA[,"ID"])
-    
+
     ##output
     cat(paste("\n[writeR2BIN()]\n\t >> ",file,sep=""), fill=TRUE)
-     
+
     ##set progressbar
     if(txtProgressBar==TRUE){
       pb<-txtProgressBar(min=0,max=n.records, char="=", style=3)
     }
-  
+
 
 
 # LOOP -------------------------------------------------------------------
@@ -244,24 +248,24 @@ con<-file(file, "wb")
 ID <- 1
 
 if(version == 03 || version == 04){
-## version 03 and 04 
+## version 03 and 04
 
 ##start loop for export BIN data
 while(ID<=n.records) {
- 
+
   ##VERSION
   writeBin(as.raw(object@METADATA[ID,"VERSION"]),
            con,
            size = 1,
-           endian="little") 
-  
+           endian="little")
+
   ##stepping
    writeBin(raw(length=1),
             con,
             size = 1,
             endian="little")
-  
-  
+
+
   ##LENGTH, PREVIOUS, NPOINTS
   writeBin(c(as.integer(object@METADATA[ID,"LENGTH"]),
              as.integer(object@METADATA[ID,"PREVIOUS"]),
@@ -269,15 +273,15 @@ while(ID<=n.records) {
             con,
             size = 2,
             endian="little")
-          
-  
+
+
   ##LTYPE
   writeBin(object@METADATA[ID,"LTYPE"],
            con,
            size = 1,
            endian="little")
-           
-    
+
+
   ##LOW, HIGH, RATE
   writeBin(c(as.double(object@METADATA[ID,"LOW"]),
              as.double(object@METADATA[ID,"HIGH"]),
@@ -285,8 +289,8 @@ while(ID<=n.records) {
              con,
              size = 4,
              endian="little")
-  
-  
+
+
   ##TEMPERATURE, XCOORD, YCOORD, TOLDELAY; TOLON, TOLOFF
   writeBin(c(as.integer(object@METADATA[ID,"TEMPERATURE"]),
              as.integer(object@METADATA[ID,"XCOORD"]),
@@ -297,61 +301,61 @@ while(ID<=n.records) {
              con,
              size = 2,
              endian="little")
-  
+
   ##POSITION, RUN
   writeBin(c(as.integer(object@METADATA[ID,"POSITION"]),
              as.integer(object@METADATA[ID,"RUN"])),
            con,
            size = 1,
            endian="little")
-   
-  
+
+
 
   ##TIME
   writeBin(as.integer(6),
            con,
-           size = 1, 
+           size = 1,
            endian="little")
-           
-  
+
+
   writeChar(object@METADATA[ID,"TIME"],
            con,
            nchars = 6,
            useBytes=TRUE,
            eos = NULL)
-  
-  
+
+
   ##DATE
   writeBin(as.integer(6),
            con,
            size = 1 ,
            endian="little")
-  
-  
+
+
   suppressWarnings(writeChar(as.character(object@METADATA[ID,"DATE"]),
             con,
             nchars = 6,
             useBytes=TRUE,
             eos = NULL))
-  
-  
-  
+
+
+
   ##SEQUENCE
-    
+
      ##count number of characters
      SEQUENCE_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"SEQUENCE"]), type = "bytes"))
-  
+
        writeBin(SEQUENCE_SIZE,
             con,
             size = 1,
             endian="little")
-      
+
       writeChar(as.character(object@METADATA[ID,"SEQUENCE"]),
             con,
             nchars = 8,
             useBytes=TRUE,
             eos = NULL)
-   
+
       ##stepping
       if(8-SEQUENCE_SIZE>0){
         writeBin(raw(length = (8-SEQUENCE_SIZE)),
@@ -367,13 +371,13 @@ while(ID<=n.records) {
                con,
                size = 1,
                endian="little")
-  
+
       writeChar(as.character(object@METADATA[ID,"USER"]),
               con,
               nchars = USER_SIZE,
-              useBytes=TRUE, 
+              useBytes=TRUE,
               eos = NULL)
-  
+
       ##stepping
      if(8-USER_SIZE>0){
      writeBin(raw(length = (8-USER_SIZE)),
@@ -381,20 +385,20 @@ while(ID<=n.records) {
                size = 1,
                endian="little")
      }
-  
+
   ##DTYPE
   writeBin(object@METADATA[ID,"DTYPE"],
            con,
            size = 1,
            endian="little")
-  
+
   ##IRR_TIME
   writeBin(as.double(object@METADATA[ID,"IRR_TIME"]),
            con,
            size = 4,
            endian="little")
 
-  
+
   ##IRR_TYPE, IRR_UNIT
   writeBin(c(object@METADATA[ID,"IRR_TYPE"],
            object@METADATA[ID,"IRR_UNIT"]),
@@ -408,56 +412,56 @@ while(ID<=n.records) {
            con,
            size = 4,
            endian="little")
-  
+
   ##BL_UNIT
   writeBin(as.integer(object@METADATA[ID,"DTYPE"]),
            con,
            size = 1,
            endian="little")
-  
- 
+
+
   ##AN_TEMP, AN_TIME, NORM1, NORM2, NORM2, BG
   writeBin(c(as.double(object@METADATA[ID,"AN_TEMP"]),
              as.double(object@METADATA[ID,"AN_TIME"]),
              as.double(object@METADATA[ID,"NORM1"]),
              as.double(object@METADATA[ID,"NORM2"]),
              as.double(object@METADATA[ID,"NORM3"]),
-             as.double(object@METADATA[ID,"BG"])), 
+             as.double(object@METADATA[ID,"BG"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##SHIFT
   writeBin(as.integer(object@METADATA[ID,"SHIFT"]),
            con,
            size = 2,
            endian="little")
-  
 
-  
+
+
   ##SAMPLE
   SAMPLE_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"SAMPLE"]), type="bytes"))
-  
+
   writeBin(SAMPLE_SIZE,
            con,
            size = 1,
            endian="little")
-  
-  
-  writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
+
+
+  suppressWarnings(writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
            con,
            nchars = SAMPLE_SIZE,
-           useBytes=TRUE, 
-           eos = NULL)
-  
-  
+           useBytes=TRUE,
+           eos = NULL))
+
+
   if((20-SAMPLE_SIZE)>0){
   writeBin(raw(length = (20-SAMPLE_SIZE)),
            con,
            size = 1,
            endian="little")
   }
-  
+
   ##COMMENT
   COMMENT_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"COMMENT"]), type="bytes"))
 
@@ -465,14 +469,14 @@ while(ID<=n.records) {
            con,
            size = 1,
            endian="little")
-  
-  writeChar(as.character(object@METADATA[ID,"COMMENT"]),
+
+  suppressWarnings(writeChar(as.character(object@METADATA[ID,"COMMENT"]),
            con,
            nchars = COMMENT_SIZE,
-           useBytes=TRUE, 
-           eos = NULL)
-  
-  
+           useBytes=TRUE,
+           eos = NULL))
+
+
   if((80-COMMENT_SIZE)>0){
   writeBin(raw(length = c(80-COMMENT_SIZE)),
            con,
@@ -480,7 +484,7 @@ while(ID<=n.records) {
            endian="little")
 
   }
-  
+
   ##LIGHTSOURCE, SET, TAG
   writeBin(c(as.integer(object@METADATA[ID,"LIGHTSOURCE"]),
              as.integer(object@METADATA[ID,"SET"]),
@@ -489,7 +493,7 @@ while(ID<=n.records) {
            size = 1,
            endian="little")
 
-  
+
   ##GRAIN
   writeBin(as.integer(object@METADATA[ID,"GRAIN"]),
            con,
@@ -502,108 +506,108 @@ while(ID<=n.records) {
            con,
            size = 4,
            endian="little")
-  
+
   ##SYSTEMID
   writeBin(as.integer(object@METADATA[ID,"SYSTEMID"]),
            con,
            size = 2,
            endian="little")
-  
+
   ##Further distinction need to fully support format version 03 and 04 separately
   if(version == 03){
-  
+
     ##RESERVED
     writeBin(raw(length=36),
              con,
              size = 1,
              endian="little")
-  
+
     ##ONTIME, OFFTIME
     writeBin(c(as.integer(object@METADATA[ID,"ONTIME"]),
                as.integer(object@METADATA[ID,"OFFTIME"])),
              con,
              size = 4,
              endian="little")
-  
+
      ##GATE_ENABLED
      writeBin(as.integer(object@METADATA[ID,"GATE_ENABLED"]),
             con,
              size = 1,
              endian="little")
-  
 
-    ##GATE_START, GATE_STOP 
+
+    ##GATE_START, GATE_STOP
     writeBin(c(as.integer(object@METADATA[ID,"GATE_START"]),
              as.integer(object@METADATA[ID,"GATE_STOP"])),
             con,
             size = 4,
-             endian="little")  
-  
+             endian="little")
+
     ##RESERVED
     writeBin(raw(length=1),
              con,
              size = 1,
              endian="little")
-  
+
   } else {
     ##version 04
-    
+
     ##RESERVED
     writeBin(raw(length=20),
              con,
              size = 1,
              endian="little")
-    
+
     ##CURVENO
     writeBin(as.integer(object@METADATA[ID,"CURVENO"]),
              con,
              size = 2,
              endian="little")
-    
-    ##TIMETICK 
+
+    ##TIMETICK
     writeBin(c(as.double(object@METADATA[ID,"TIMETICK"])),
              con,
              size = 4,
              endian="little")
-    
+
     ##ONTIME, STIMPERIOD
     writeBin(c(as.integer(object@METADATA[ID,"ONTIME"]),
                as.integer(object@METADATA[ID,"STIMPERIOD"])),
              con,
              size = 4,
              endian="little")
-    
+
     ##GATE_ENABLED
     writeBin(as.integer(object@METADATA[ID,"GATE_ENABLED"]),
              con,
              size = 1,
              endian="little")
-    
-    
-    ##GATE_START, GATE_STOP 
+
+
+    ##GATE_START, GATE_STOP
     writeBin(c(as.integer(object@METADATA[ID,"GATE_START"]),
                as.integer(object@METADATA[ID,"GATE_STOP"])),
              con,
              size = 4,
-             endian="little") 
-    
-    
+             endian="little")
+
+
     ##PTENABLED
     writeBin(as.integer(object@METADATA[ID,"PTENABLED"]),
              con,
              size = 1,
              endian="little")
-    
-    
+
+
     ##RESERVED
     writeBin(raw(length=10),
              con,
              size = 1,
              endian="little")
-    
-    
-    
-    
+
+
+
+
   }
   ##DPOINTS
   writeBin(as.integer(unlist(object@DATA[ID])),
@@ -613,8 +617,8 @@ while(ID<=n.records) {
 
 
     #SET UNIQUE ID
-    ID<-ID+1    
-    
+    ID<-ID+1
+
     ##update progress bar
     if(txtProgressBar==TRUE){
       setTxtProgressBar(pb, ID)
@@ -633,14 +637,14 @@ while(ID<=n.records) {
   writeBin(as.raw(object@METADATA[ID,"VERSION"]),
            con,
            size = 1,
-           endian="little") 
-  
+           endian="little")
+
   ##stepping
   writeBin(raw(length=1),
            con,
            size = 1,
            endian="little")
-  
+
   ##LENGTH, PREVIOUS, NPOINTS
   writeBin(c(as.integer(object@METADATA[ID,"LENGTH"]),
              as.integer(object@METADATA[ID,"PREVIOUS"]),
@@ -648,8 +652,8 @@ while(ID<=n.records) {
            con,
            size = 4,
            endian="little")
-  
-  
+
+
   ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
   writeBin(c(as.integer(object@METADATA[ID,"RUN"]),
              as.integer(object@METADATA[ID,"SET"]),
@@ -661,53 +665,53 @@ while(ID<=n.records) {
            con,
            size = 2,
            endian="little")
-  
+
   ##SAMPLE
   SAMPLE_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"SAMPLE"]), type="bytes"))
-  
+
   writeBin(SAMPLE_SIZE,
            con,
            size = 1,
            endian="little")
-  
-  
-  writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
+
+
+  suppressWarnings(writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
             con,
             nchars = SAMPLE_SIZE,
-            useBytes=TRUE, 
-            eos = NULL)
-  
-  
+            useBytes=TRUE,
+            eos = NULL))
+
+
   if((20-SAMPLE_SIZE)>0){
     writeBin(raw(length = (20-SAMPLE_SIZE)),
              con,
              size = 1,
              endian="little")
   }
-  
+
   ##COMMENT
   COMMENT_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"COMMENT"]), type="bytes"))
-  
+
   writeBin(COMMENT_SIZE,
            con,
            size = 1,
            endian="little")
-  
-  writeChar(as.character(object@METADATA[ID,"COMMENT"]),
+
+  suppressWarnings(writeChar(as.character(object@METADATA[ID,"COMMENT"]),
             con,
             nchars = COMMENT_SIZE,
-            useBytes=TRUE, 
-            eos = NULL)
-  
-  
+            useBytes=TRUE,
+            eos = NULL))
+
+
   if((80-COMMENT_SIZE)>0){
     writeBin(raw(length = c(80-COMMENT_SIZE)),
              con,
              size = 1,
              endian="little")
-    
+
   }
-  
+
   ##Instrument and sequence characteristics
   ##SYSTEMID
   writeBin(as.integer(object@METADATA[ID,"SYSTEMID"]),
@@ -717,161 +721,161 @@ while(ID<=n.records) {
 
   ##FNAME
   FNAME_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"FNAME"]), type="bytes"))
-  
+
   writeBin(FNAME_SIZE,
            con,
            size = 1,
            endian="little")
-  
+
   writeChar(as.character(object@METADATA[ID,"FNAME"]),
             con,
             nchars = FNAME_SIZE,
-            useBytes=TRUE, 
+            useBytes=TRUE,
             eos = NULL)
-  
-  
+
+
   if((100-FNAME_SIZE)>0){
     writeBin(raw(length = c(100-FNAME_SIZE)),
              con,
              size = 1,
              endian="little")
-    
+
   }
 
   ##USER
   USER_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"USER"]), type="bytes"))
-  
+
   writeBin(USER_SIZE,
            con,
            size = 1,
            endian="little")
-  
+
   writeChar(as.character(object@METADATA[ID,"USER"]),
             con,
             nchars = USER_SIZE,
-            useBytes=TRUE, 
+            useBytes=TRUE,
             eos = NULL)
-  
-  
+
+
   if((30-USER_SIZE)>0){
     writeBin(raw(length = c(30-USER_SIZE)),
              con,
              size = 1,
              endian="little")
-    
+
   }
-  
+
   ##TIME
   writeBin(as.integer(6),
            con,
-           size = 1, 
+           size = 1,
            endian="little")
-  
-  
+
+
   writeChar(object@METADATA[ID,"TIME"],
             con,
             nchars = 6,
             useBytes=TRUE,
             eos = NULL)
-  
-  
+
+
   ##DATE
   writeBin(as.integer(6),
            con,
            size = 1 ,
            endian="little")
-  
-  
+
+
   suppressWarnings(writeChar(as.character(object@METADATA[ID,"DATE"]),
             con,
             nchars = 6,
             useBytes=TRUE,
             eos = NULL))
-  
+
   ##Analysis
   ##DTYPE
   writeBin(object@METADATA[ID,"DTYPE"],
            con,
            size = 1,
            endian="little")
-  
-  
+
+
   ##BL_TIME
   writeBin(as.double(object@METADATA[ID,"BL_TIME"]),
            con,
            size = 4,
            endian="little")
-  
+
   ##BL_UNIT
   writeBin(as.integer(object@METADATA[ID,"DTYPE"]),
            con,
            size = 1,
            endian="little")
-  
+
   ##NORM1, NORM2, NORM3, BG
   writeBin(c(as.double(object@METADATA[ID,"NORM1"]),
              as.double(object@METADATA[ID,"NORM2"]),
              as.double(object@METADATA[ID,"NORM3"]),
-             as.double(object@METADATA[ID,"BG"])), 
+             as.double(object@METADATA[ID,"BG"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##SHIFT
   writeBin(as.integer(object@METADATA[ID,"SHIFT"]),
            con,
            size = 2,
            endian="little")
-  
+
   ##TAG
   writeBin(c(as.integer(object@METADATA[ID,"TAG"])),
            con,
            size = 1,
            endian="little")
-  
+
   ##RESERVED
   writeBin(raw(length=20),
            con,
            size = 1,
            endian="little")
-  
+
   ##Measurement characteristics
   ##LTYPE
   writeBin(object@METADATA[ID,"LTYPE"],
            con,
            size = 1,
            endian="little")
-  
-  
+
+
   ##LIGHTSOURCE
   writeBin(c(as.integer(object@METADATA[ID,"LIGHTSOURCE"])),
            con,
            size = 1,
            endian="little")
-  
+
   ##LIGHTPOWER, LOW, HIGH, RATE
   writeBin(c(as.double(object@METADATA[ID,"LIGHTPOWER"]),
              as.double(object@METADATA[ID,"LOW"]),
              as.double(object@METADATA[ID,"HIGH"]),
-             as.double(object@METADATA[ID,"RATE"])), 
+             as.double(object@METADATA[ID,"RATE"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##TEMPERATURE, MEASTEMP
   writeBin(c(as.integer(object@METADATA[ID,"TEMPERATURE"]),
              as.integer(object@METADATA[ID,"MEASTEMP"])),
            con,
            size = 2,
            endian="little")
-  
+
   ##AN_TEMP, AN_TIME
   writeBin(c(as.double(object@METADATA[ID,"AN_TEMP"]),
-             as.double(object@METADATA[ID,"AN_TIME"])), 
+             as.double(object@METADATA[ID,"AN_TIME"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##TOLDELAY; TOLON, TOLOFF
   writeBin(c(as.integer(object@METADATA[ID,"TOLDELAY"]),
              as.integer(object@METADATA[ID,"TOLON"]),
@@ -879,67 +883,67 @@ while(ID<=n.records) {
            con,
            size = 2,
            endian="little")
-  
+
   ##IRR_TIME
   writeBin(as.double(object@METADATA[ID,"IRR_TIME"]),
            con,
            size = 4,
            endian="little")
-  
-  
+
+
   ##IRR_TYPE
   writeBin(c(object@METADATA[ID,"IRR_TYPE"]),
            con,
            size = 1,
            endian="little")
-  
+
   ##IRR_DOSERATE, IRR_DOSERATEERR
   writeBin(c(as.double(object@METADATA[ID,"IRR_DOSERATE"]),
              as.double(object@METADATA[ID,"IRR_DOSERATEERR"])),
            con,
            size = 4,
            endian="little")
-  
-  ##TIMESINCEIRR  
+
+  ##TIMESINCEIRR
   writeBin(c(as.integer(object@METADATA[ID,"TIMESINCEIRR"])),
            con,
            size = 4,
            endian="little")
-  
-  ##TIMETICK 
+
+  ##TIMETICK
   writeBin(c(as.double(object@METADATA[ID,"TIMETICK"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##ONTIME, STIMPERIOD
   writeBin(c(as.integer(object@METADATA[ID,"ONTIME"]),
              as.integer(object@METADATA[ID,"STIMPERIOD"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##GATE_ENABLED
   writeBin(as.integer(object@METADATA[ID,"GATE_ENABLED"]),
            con,
            size = 1,
            endian="little")
-  
-  ##GATE_START, GATE_STOP 
+
+  ##GATE_START, GATE_STOP
   writeBin(c(as.integer(object@METADATA[ID,"GATE_START"]),
              as.integer(object@METADATA[ID,"GATE_STOP"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##PTENABLED, DTENABLED
   writeBin(c(as.integer(object@METADATA[ID,"PTENABLED"]),
              as.integer(object@METADATA[ID,"DTENABLED"])),
            con,
            size = 1,
            endian="little")
-  
-  ##DEADTIME, MAXLPOWER, XRF_ACQTIME, XRF_HV 
+
+  ##DEADTIME, MAXLPOWER, XRF_ACQTIME, XRF_HV
   writeBin(c(as.double(object@METADATA[ID,"DEADTIME"]),
              as.double(object@METADATA[ID,"MAXLPOWER"]),
              as.double(object@METADATA[ID,"XRF_ACQTIME"]),
@@ -947,46 +951,46 @@ while(ID<=n.records) {
            con,
            size = 4,
            endian="little")
-  
-  ##XRF_CURR  
+
+  ##XRF_CURR
   writeBin(c(as.integer(object@METADATA[ID,"XRF_CURR"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##XRF_DEADTIMEF
   writeBin(c(as.double(object@METADATA[ID,"XRF_DEADTIMEF"])),
            con,
            size = 4,
            endian="little")
-  
+
   ##RESERVED
   writeBin(raw(length=24),
            con,
            size = 1,
            endian="little")
-  
+
   ##DPOINTS
   writeBin(as.integer(unlist(object@DATA[ID])),
            con,
            size = 4,
            endian="little")
-  
-  
+
+
   #SET UNIQUE ID
-  ID <- ID + 1    
-  
+  ID <- ID + 1
+
   ##update progress bar
   if(txtProgressBar==TRUE){
     setTxtProgressBar(pb, ID)
   }
-  
-}   
+
+}
 }
 
-# ##close con 
+# ##close con
  close(con)
-# 
+#
 # ##close
   if(txtProgressBar==TRUE){close(pb)}
 
@@ -996,23 +1000,23 @@ cat(paste("\t >> ",ID-1,"records have been written successfully!\n\n",paste=""))
 # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
 
   ##details<<
-  ## The structure of the exported binary data follows the data structure 
+  ## The structure of the exported binary data follows the data structure
   ## published in the Appendices of the Analyst manual p. 42.\cr\cr
-  ## If \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} are not of type 
-  ## \code{\link{character}}, no transformation into numeric values is done. 
+  ## If \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} are not of type
+  ## \code{\link{character}}, no transformation into numeric values is done.
 
   ##value<<
   ## Write a binary file.
 
   ##references<<
-  ## Duller, G., 2007. Analyst. 
+  ## Duller, G., 2007. Analyst.
 
   ##note<<
-  ## The function just roughly checks the data structures. 
+  ## The function just roughly checks the data structures.
   ## The validity of the output data depends on the user.\cr\cr
-  ## The validity of the file path is not further checked. \cr 
-  ## BIN-file conversions using the argument \code{version} may be a lossy conversion, 
-  ## depending on the chosen input and output data 
+  ## The validity of the file path is not further checked. \cr
+  ## BIN-file conversions using the argument \code{version} may be a lossy conversion,
+  ## depending on the chosen input and output data
   ## (e.g., conversion from version 06 to 04).
 
   ##seealso<<
@@ -1023,10 +1027,10 @@ cat(paste("\t >> ",ID-1,"records have been written successfully!\n\n",paste=""))
   ## IO
 
 }, ex=function(){
-  
-  ##uncomment for usage 
-  
+
+  ##uncomment for usage
+
   ##data(ExampleData.BINfileData, envir = environment())
   ##writeR2BIN(CWOSL.SAR.Data, file="[your path]/output.bin")
-  
-})  
+
+})

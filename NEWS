@@ -19,6 +19,29 @@ Changes in version 0.4.2 (Feburary XX, 2015):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • For the case that no recycling ratio and no recuperation
+               rate could be calculated the functions chrashed. This
+               has bee corrected.
+
+         • ‘analyse_pIRIRSequence()’
+
+             • For the case that no recycling ratio and no recuperation
+               rate could be calculated the functions chrashed. This
+               has bee corrected; in accordance with the similar
+               behaviour in the function analyse_SAR.CWOSL().
+
+         • ‘calc_FadingCorr()’
+
+             • Change the way the equation is solved using the R
+               function ‘uniroot’. This markedly speeds up the
+               computation process,
+
+             • now additionally an ‘RLum.Results’ object is returned,
+
+             • minor code polishing.
+
          • ‘plot_GrowthCurve()’
 
              • Fix an error that causes a function chrash if the input
@@ -36,7 +59,13 @@ Changes in version 0.4.2 (Feburary XX, 2015):
 
              • argument ‘main’ was not working as expected, corrected.
                Furthermore the argument is removed from the argument
-               list, but is still available via ‘...’.
+               list, but is still available via ‘...’,
+
+             • the slow self-written approach to calculate the De for
+               ‘fit.method = "EXP+LIN"’ and ‘fit.method = "EXP+EXP"’
+               has been replaced by the function ‘uniroot’. This
+               markedly reduces the computation times for the MC
+               simulation (partly addresses issue #100)
 
          • ‘plot_RLum.Analysis()’
 
@@ -45,6 +74,16 @@ Changes in version 0.4.2 (Feburary XX, 2015):
 
              • added logical argument ‘plot.single’. In fact this just
                resets ‘ncols’ and ‘nrows’ to ‘1’ (#201).
+
+         • ‘writeR2BIN()’
+
+             • Part of the manual was missing due to an error in the
+               inlinedoc documentation. Fixed.,
+
+             • the argument ‘version’ no expects a ‘character’ as impot
+               instead of a ‘raw’ object,
+
+             • further suppressing of confusing warning messages.
 
 Changes in version 0.4.1 (January 29th, 2015):
 
