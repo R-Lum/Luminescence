@@ -4,7 +4,7 @@
 ##==============================================================================
 ##author: Sebastian Kreutzer
 ##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-##version: 0.2.7
+##version: 0.2.8
 
 ##==============================================================================
 
@@ -317,6 +317,14 @@ setMethod("get_RLum.Results",
               return(object@data$results)
 
             }
+
+            ##-------------------------------------------------------------
+            ## extract_IrradiationTimes()
+              if(object@originator == "extract_IrradiationTimes") {
+
+                return(object@data$irr.times)
+
+              }
 
 
 

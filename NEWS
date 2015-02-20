@@ -4,8 +4,11 @@ Changes in version 0.4.2 (Feburary XX, 2015):
 
   New functions:
 
-         • ‘calc_IEU()’ Apply the internal-external-uncertainty (IEU)
+         • ‘calc_IEU()’: Apply the internal-external-uncertainty (IEU)
            model after Thomsen et al. (2007) to a given De distribution
+
+         • ‘extract_IrradiationTimes()’: Extract irradiation times from
+           an XSYG file
 
   Changes S4-objects, methods, classes:
 

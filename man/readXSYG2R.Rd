@@ -6,7 +6,7 @@
     txtProgressBar = TRUE)}
 \arguments{
   \item{file}{\link{character} (\bold{required}): path and file name of the XSYG file.}
-  \item{recalculate.TL.curves}{\link{logical} (with default): if set to \code{TRUE}, TL curves are returned 
+  \item{recalculate.TL.curves}{\link{logical} (with default): if set to \code{TRUE}, TL curves are returned
 as temperature against count values (see details for more information)
 Note: The option overwrites the time vs. count TL curve. Select \code{FALSE}
 to import the raw data delivered by the lexsyg. Works for TL curves and spectra.}
@@ -32,20 +32,20 @@ object.\cr\cr
 \code{   </Record>}\cr
 \code{  </Sequence>}\cr
 \code{ </Sample>}\cr\cr
-So far, each XSYG file can only contain one \code{<Sample></Sample>}, but 
+So far, each XSYG file can only contain one \code{<Sample></Sample>}, but
 multiple sequences. \cr\cr
 Each record may comprise several curves.\cr\cr
 
 \bold{TL curve recalculation}\cr
 
-On the FI lexsyg device TL curves are recorded as time against count values. 
+On the FI lexsyg device TL curves are recorded as time against count values.
 Temperature values are monitored on the heating plate and stored in a separate
 curve (time vs. temperature). If the option \code{recalculate.TL.curves = TRUE}
-is chosen, the time values for each 
+is chosen, the time values for each
 TL curve are replaced by temperature values.\cr
 
-Practically, this means combining two matrices 
-(Time vs. Counts and Time vs. Temperature) with different row numbers by 
+Practically, this means combining two matrices
+(Time vs. Counts and Time vs. Temperature) with different row numbers by
 their time values. Three cases are considered:
 
 HE: Heating element\cr
@@ -64,17 +64,17 @@ time values from the heating element measurement.\cr
 
 CASE (3): \code{nrow(matrix(PMT))} == \code{nrow(matrix(HE))} \cr
 
-A new matrix is produced using temperature values from the heating 
+A new matrix is produced using temperature values from the heating
 element and count values from the PMT. \cr
 
-\emph{Note: Please note that due to the recalculation of the 
-temperature values based on values delivered by the heating element, it 
-may happen that mutiple count values exists for each temperature value and 
+\emph{Note: Please note that due to the recalculation of the
+temperature values based on values delivered by the heating element, it
+may happen that mutiple count values exists for each temperature value and
 temperature values may also decrease during heating, not only increase. }}
 \value{\bold{Using the option \code{import = FALSE}}\cr\cr
 A list consisting of two elements is shown:
 \item{Sample}{\link{data.frame} with information on file.}
-\item{Sequences}{\link{data.frame} with information on the sequences 
+\item{Sequences}{\link{data.frame} with information on the sequences
 stored in the XSYG file}.\cr\cr
 \bold{Using the option \code{import = TRUE} (default)} \cr\cr
 A list is provided, the list elements contain:
@@ -87,16 +87,16 @@ XML: \url{http://en.wikipedia.org/wiki/XML}}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{This function is a beta version as the XSYG file format is not yet fully
-specified. 
-Thus, further file operations (merge, export, write) should be 
+specified.
+Thus, further file operations (merge, export, write) should be
 done using the functions
 provided with the package \code{\link{xml}}.\cr
 
 \bold{So far, no image data import is provided!}\cr
-Corresponding values in the XSXG file are skipped. }
+Corresponding values in the XSXG file are skipped.}
 
 
-\seealso{\code{\link{xml}}, \code{\linkS4class{RLum.Analysis}}, 
+\seealso{\code{\link{xml}}, \code{\linkS4class{RLum.Analysis}},
 \code{\linkS4class{RLum.Data.Curve}}, \code{\link{approx}}}
 \examples{
 
@@ -108,10 +108,10 @@ Corresponding values in the XSXG file are skipped. }
 ##(2) additional examples for pure XML import using the package XML
 ##    (uncomment for usage)
 
-  ##import entire XML file 
+  ##import entire XML file
   #FILE <- file.choose()
   #temp <- xmlRoot(xmlTreeParse(FILE))
-  
+
   ##search for specific subnodes with curves containing 'OSL'
   #getNodeSet(temp, "//Sample/Sequence/Record[@recordType = 'OSL']/Curve")
 
@@ -124,8 +124,8 @@ OSLcurve <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType="OS
 ##(3) How to see the structure of an object?
 get_structure.RLum.Analysis(OSL.SARMeasurement$Sequence.Object)
 
-  
+
 }
 
 \keyword{IO}
-\section{Function version}{0.4 (2014-12-02 11:50:22)}
+\section{Function version}{0.4 (2015-02-20 09:39:16)}
