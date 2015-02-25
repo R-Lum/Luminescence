@@ -114,7 +114,8 @@
 
   \item Part of the manual was missing due to an error in the inlinedoc documentation. Fixed.,
   \item the argument \code{version} no expects a \code{character} as impot instead of a \code{raw} object,
-  \item further suppressing of confusing warning messages.
+  \item further suppressing of confusing warning messages,
+  \item date has not been written properly in accordance with the format description (fixed).
 
 
    }

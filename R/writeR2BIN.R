@@ -7,7 +7,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.2.2
+  ## version 0.2.3
   # ===========================================================================
 
   object,
@@ -210,13 +210,6 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
   object@METADATA[,"TIME"] <- sapply(1:length(object@METADATA[,"TIME"]),function(x){
 
     as.character(gsub(":","",object@METADATA[x,"TIME"]))
-
-  })
-
-  ##DATE
-  object@METADATA[,"DATE"] <- sapply(1:length(object@METADATA[,"DATE"]),function(x){
-
-    as.character(levels(object@METADATA[x,"DATE"]))[as.integer(object@METADATA[x,"DATE"])]
 
   })
 

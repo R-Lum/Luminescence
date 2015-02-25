@@ -86,7 +86,10 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • the argument ‘version’ no expects a ‘character’ as impot
                instead of a ‘raw’ object,
 
-             • further suppressing of confusing warning messages.
+             • further suppressing of confusing warning messages,
+
+             • date has not been written properly in accordance with
+               the format description (fixed).
 
 Changes in version 0.4.1 (January 29th, 2015):
 

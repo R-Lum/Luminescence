@@ -215,8 +215,11 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
 
   # Write BINX-file if wanted -------------------------------------------------------------------
 
-    ##(1) remove all irradiation steps as there is no record in the BINX file
-    results.BINX <- temp.results[-which(results[,"STEP"] == "irradiation (NA)"),]
+    ##(1) remove all irradiation steps as there is no record in the BINX file and update information
+    results.BINX <- results[-which(results[,"STEP"] == "irradiation (NA)"),]
+
+    ##(1a)  update information
+    temp.BINX@METADATA[,c("IRR_TIME", "TIMESINCEIRR")] <- results.BINX[,c("IRR_TIME","TIMESINCEIRR")]
 
     ##(2) compare entries in the BINX-file with the entries in the table to make sure
     ## that both have the same length
