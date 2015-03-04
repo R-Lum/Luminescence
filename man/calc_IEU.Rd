@@ -45,7 +45,11 @@ R Luminescence Package Team}
 \code{\link{calc_MinDose}}}
 \examples{
 
-## no examples available
+## load data
+data(ExampleData.DeValues, envir = environment())
+
+## apply the IEU model
+ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 
 }
-\section{Function version}{0.1 (2015-02-04 18:36:25)}
+\section{Function version}{0.1 (2015-03-04 13:18:38)}

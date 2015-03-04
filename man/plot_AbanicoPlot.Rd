@@ -161,7 +161,7 @@ par.old <- par(no.readonly = TRUE)
 
 ## load example data and recalculate to Gray
 data(ExampleData.DeValues, envir = environment())
-ExampleData.DeValues <- Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
+ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
 ## plot the example data straightforward
 plot_AbanicoPlot(data = ExampleData.DeValues)
@@ -320,4 +320,4 @@ plot_AbanicoPlot(data = data.3,
 ## restore original graphical parameters
 par(par.old)
 }
-\section{Function version}{0.1.2 (2015-02-27 23:33:45)}
+\section{Function version}{0.1.2 (2015-03-04 14:53:26)}

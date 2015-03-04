@@ -235,6 +235,6 @@ calc_FuchsLang2001<- structure(function(#Apply the model after Fuchs & Lang (200
   data(ExampleData.DeValues, envir = environment())
   
   ##calculate De according to Fuchs & Lang (2001)
-  temp<- calc_FuchsLang2001(ExampleData.DeValues, cvThreshold = 5)
+  temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
   
 })#END OF STRUCTURE

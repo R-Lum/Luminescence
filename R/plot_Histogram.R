@@ -627,7 +627,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
   ## load data
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <-
-    Second2Gray(ExampleData.DeValues, dose.rate = c(0.0438,0.0019))
+    Second2Gray(ExampleData.DeValues$BT998, dose.rate = c(0.0438,0.0019))
 
   ## plot histogram the easiest way
   plot_Histogram(ExampleData.DeValues)

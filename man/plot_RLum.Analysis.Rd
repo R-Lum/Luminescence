@@ -57,4 +57,4 @@ plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 }
 
 \keyword{aplot}
-\section{Function version}{0.1.5 (2015-02-03 14:24:42)}
+\section{Function version}{0.1.5 (2015-03-04 12:43:39)}

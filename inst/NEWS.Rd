@@ -58,7 +58,12 @@
   \item Function now checks the number of channels in each curve. If the number of the channels in the
   first curve is > than in the 2nd curve the execution of the function is stopped,
   \item add error estimation using bootstraping and MC loops for \code{method = "SLIDE"},
-  \item add scaled KDE for distribution of De.
+  \item add scaled KDE for distribution of De,
+  \item the functions no longer stops with an error if a undefined \code{method} was choosen. Instead
+  a warning message is shown and the available curves are shown in a plot anyway,
+  \item the labelling for the residuals is replaced by a greek letter (epsilon, \code{"\u03b5"}),
+  \item new argument \code{rejection.criteria} provided to allow for setting rejection criteria. The
+  argument works similar as for other \code{analyse_...} functions. Details are provided in the manual.
 
 
   }
@@ -230,6 +235,14 @@
 
    }
 
+
+}}
+
+\subsection{New example data sets}{
+\itemize{
+
+
+  \item ExampleData.DeValues is now a list with two elements containing an additional single grain quartz data set
 
 }}}
 

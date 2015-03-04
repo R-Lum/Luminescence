@@ -82,4 +82,4 @@ analyse_SAR.TL(object,
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.1.4 (2014-12-18 17:24:57)}
+\section{Function version}{0.1.4 (2015-03-04 00:19:53)}

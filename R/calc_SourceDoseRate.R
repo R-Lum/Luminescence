@@ -162,7 +162,7 @@ calc_SourceDoseRate <- structure(function(#Calculation of the source dose rate v
   
   ## use the calculated variable dose.rate as input argument
   ## to convert De(s) to De(Gy)
-  Second2Gray(ExampleData.DeValues, dose.rate)
+  Second2Gray(ExampleData.DeValues$BT998, dose.rate)
   
   
 })   

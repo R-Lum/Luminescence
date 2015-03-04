@@ -28,10 +28,10 @@ R Luminescence Package Team}
 data(ExampleData.DeValues, envir = environment())
 
 ## show a rough plot of the data to illustrate the non-normal distribution
-plot_KDE(ExampleData.DeValues)
+plot_KDE(ExampleData.DeValues$BT998)
 
 ## calculate statistics and show output
-str(calc_Statistics(ExampleData.DeValues))
+str(calc_Statistics(ExampleData.DeValues$BT998))
 
 ## now the same for 10000 normal distributed random numbers with equal errors
 x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
@@ -40,4 +40,4 @@ x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
 ## note the congruent results for weighted and unweighted measures
 str(calc_Statistics(x)) 
 }
-\section{Function version}{0.1 (2014-11-30 23:30:37)}
+\section{Function version}{0.1 (2015-03-04 13:28:41)}

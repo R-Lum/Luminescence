@@ -29,11 +29,6 @@ calc_MaxDose<- structure(function( # Apply the maximum age model to a given De d
   ### model (\code{par=3} or \code{par=4}).
   bootstrap=FALSE,
   ## code{\link{logical}}: Apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
-  boundaries,
-  ### \code{\link{list}}: a named list of boundary values for gamma, sigma and mu
-  ### to be used in the optimisation routine 
-  ### (e.g. \code{list(gamma=c(0.01,100), sigma=c(0.01,5), mu=c(10, 100))}). If no values are provided 
-  ### reasonable values are tried to be estimated from the input data.
   init.values, 
   ### \code{\link{numeric}} (with default): starting values for gamma, sigma, p0 and mu.
   ### Custom values need to be provided in a vector of length three in the form of
@@ -50,9 +45,9 @@ calc_MaxDose<- structure(function( # Apply the maximum age model to a given De d
 ## MAIN PROGRAM
 ##============================================================================##
 
-res<- calc_MinDose(data, sigmab, log, par, bootstrap, boundaries, init.values, plot=FALSE, invert=TRUE, ...)
+res<- calc_MinDose(data, sigmab, log, par, bootstrap, init.values, plot=FALSE, invert=TRUE, ...)
 res@originator<- "calc_MaxDose"
-if(plot) try(plot_RLum.Results(res, ...))
+if (plot) try(plot_RLum.Results(res, ...))
 invisible(res) 
 ### Please see \code{\link{calc_MinDose}}.
   
@@ -123,4 +118,7 @@ invisible(res)
 }, ex=function(){
   ## load example data
   data(ExampleData.DeValues, envir = environment())
+  
+  # apply the maximum dose model
+  calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 })

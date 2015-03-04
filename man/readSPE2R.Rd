@@ -91,4 +91,4 @@ The function has been successfully tested for SPE format versions 2.x.
 }
 
 \keyword{IO}
-\section{Function version}{0.1 (2015-01-28 18:30:29)}
+\section{Function version}{0.1 (2015-03-04 12:43:39)}

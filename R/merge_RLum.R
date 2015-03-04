@@ -99,10 +99,10 @@ merge_RLum<- structure(function(#General merge function for RLum S4 class object
   data(ExampleData.DeValues, envir = environment())
   
   ##apply the central dose model 1st time 
-  temp1 <- calc_CentralDose(ExampleData.DeValues)
+  temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
   
   ##apply the central dose model 2nd time
-  temp2 <- calc_CentralDose(ExampleData.DeValues)
+  temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
   
   ##merge the results and store them in a new object
   temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))

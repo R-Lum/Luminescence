@@ -67,4 +67,4 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 
 \keyword{IO}
 \keyword{manip}
-\section{Function version}{0.2.2 (2015-02-27 15:51:42)}
+\section{Function version}{0.2.2 (2015-03-04 12:43:39)}

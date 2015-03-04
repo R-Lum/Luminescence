@@ -4,10 +4,10 @@
 \description{Function to analyse IRSAR RF measurements on K-feldspar samples, performed
 using the protocol according to Erfurt et al. (2003)}
 \usage{analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"), 
-    method = "FIT", fit.range.min, fit.range.max, fit.trace = FALSE, 
-    fit.MC.runs = 10, slide.MC.runs = 10, slide.outlier.rm = FALSE, 
-    slide.trend.corr = FALSE, plot = TRUE, xlab.unit = "s", legend.pos, 
-    ...)}
+    method = "FIT", rejection.criteria, fit.range.min, fit.range.max, 
+    fit.trace = FALSE, fit.MC.runs = 10, slide.MC.runs = 10, 
+    slide.outlier.rm = FALSE, slide.trend.corr = FALSE, slide.show.density = TRUE, 
+    plot = TRUE, xlab.unit = "s", legend.pos, ...)}
 \arguments{
   \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):
 input object containing data for protocol analysis}
@@ -17,6 +17,7 @@ In addition any other character is allowed in the sequence structure;
 such curves will be ignored.}
   \item{method}{\code{\link{character}} (with default): setting method applied for the data analysis.
 Possible options are \code{"FIT"} or \code{"SLIDE"}.}
+  \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection criteria for, see details for more information}
   \item{fit.range.min}{\code{\link{integer}} (optional): set the minimum channel range for signal fitting and sliding.
 Usually the entire data set is used for curve fitting, but there might be
 reasons to limit the channels used for fitting.
@@ -34,6 +35,8 @@ Note: Large values will significantly increase the calculation time.}
 Outliers are removed from the natural signal curve only.}
   \item{slide.trend.corr}{\code{\link{logical}} (with default): enable or disable trend correction.
 If \code{TRUE}, the sliding is applied to a previously trend corrected data set.}
+  \item{slide.show.density}{\code{\link{logical}} (with default): enable or disable KDE for MC runs.
+If \code{FALSE}, the final values are indicated with triangles.}
   \item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})}
   \item{xlab.unit}{\code{\link{character}} (with default): set unit for x-axis}
   \item{legend.pos}{\code{\link{character}} (with default): useful keywords are \code{bottomright},
@@ -193,4 +196,4 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 }
 
 \keyword{datagen}
-\section{Function version}{0.3.0 (2015-03-04 00:17:12)}
+\section{Function version}{0.3.0 (2015-03-04 17:01:47)}

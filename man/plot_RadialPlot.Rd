@@ -129,7 +129,7 @@ R Luminescence Package Team}
 \examples{
 ## load example data
 data(ExampleData.DeValues, envir = environment())
-ExampleData.DeValues <- Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
+ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
 ## plot the example data straightforward
 plot_RadialPlot(data = ExampleData.DeValues)
@@ -216,4 +216,4 @@ plot_RadialPlot(data = data.3,
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
 }
-\section{Function version}{0.5.3 (2015-02-27 23:34:25)}
+\section{Function version}{0.5.3 (2015-03-04 13:25:19)}

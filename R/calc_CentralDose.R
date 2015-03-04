@@ -250,6 +250,6 @@ calc_CentralDose<- structure(function( # Apply the central age model (CAM) after
   data(ExampleData.DeValues, envir = environment())
   
   ##apply the central dose model
-  calc_CentralDose(ExampleData.DeValues)
+  calc_CentralDose(ExampleData.DeValues$CA1)
   
 })#END OF STRUCTURE

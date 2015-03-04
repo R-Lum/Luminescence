@@ -86,7 +86,7 @@ get_RLum<- structure(function(#General accessor function for RLum S4 class objec
   data(ExampleData.DeValues, envir = environment())
   
   ##apply the central dose model 1st time 
-  temp1 <- calc_CentralDose(ExampleData.DeValues)
+  temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
   
   ##get results and store them in a new object
   temp.get<- get_RLum(object = temp1)

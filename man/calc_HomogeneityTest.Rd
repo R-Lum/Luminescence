@@ -36,6 +36,6 @@ R Luminescence Package Team}
 data(ExampleData.DeValues, envir = environment())
 
 ## apply the homogeneity test
-calc_HomogeneityTest(ExampleData.DeValues)
+calc_HomogeneityTest(ExampleData.DeValues$BT998)
 }
-\section{Function version}{0.2 (2014-12-17 12:51:18)}
+\section{Function version}{0.2 (2015-03-04 13:31:44)}

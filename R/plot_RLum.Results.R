@@ -974,7 +974,7 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
   data(ExampleData.DeValues, envir = environment())
   
   # apply the un-logged minimum age model
-  mam<- calc_MinDose(data = ExampleData.DeValues, sigmab = 0.2, log = FALSE, plot = FALSE)
+  mam<- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
   
   ##plot
   plot_RLum.Results(mam)

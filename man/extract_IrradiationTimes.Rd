@@ -71,4 +71,4 @@ does not allow irradiations as separat sequences steps.}
 
 \keyword{IO}
 \keyword{manip}
-\section{Function version}{0.1 (2015-02-25 18:10:43)}
+\section{Function version}{0.1 (2015-03-04 12:43:39)}

@@ -47,4 +47,4 @@ plot_RLum(temp)
 }
 
 \keyword{dplot}
-\section{Function version}{0.3 (2014-12-02 16:41:35)}
+\section{Function version}{0.3 (2015-03-04 00:19:53)}

@@ -142,15 +142,15 @@ all internal warning messages.}
 data(ExampleData.DeValues, envir = environment())
 
 # apply the un-logged, 3-parametric minimum age model
-calc_MinDose(data = ExampleData.DeValues, 
+calc_MinDose(data = ExampleData.DeValues$CA1, 
              par = 3, 
-             sigmab = 0.05, 
-             log = FALSE)
+             sigmab = 0.2, 
+             log = TRUE)
 
 # re-run the model, but save results to a variable
-mam <- calc_MinDose(data = ExampleData.DeValues, 
+mam <- calc_MinDose(data = ExampleData.DeValues$CA1, 
                    par = 3, 
-                   sigmab = 0.05, 
+                   sigmab = 0.2, 
                    log = FALSE, 
                    plot = FALSE)
 
@@ -160,4 +160,4 @@ get_RLum.Results(mam, "summary")
 # plot the log likelihood profiles retroactively
 plot_RLum.Results(mam)
 }
-\section{Function version}{0.4.1 (2015-03-03 15:21:49)}
+\section{Function version}{0.4.1 (2015-03-04 13:29:41)}

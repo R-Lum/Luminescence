@@ -1421,7 +1421,7 @@ label.text[[1]] <- NULL
 }, ex=function(){
   ## load example data
   data(ExampleData.DeValues, envir = environment())
-  ExampleData.DeValues <- Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
+  ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
   ## plot the example data straightforward
   plot_RadialPlot(data = ExampleData.DeValues)

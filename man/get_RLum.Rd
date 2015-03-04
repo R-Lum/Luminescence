@@ -40,7 +40,7 @@ R Luminescence Package Team}
 data(ExampleData.DeValues, envir = environment())
 
 ##apply the central dose model 1st time 
-temp1 <- calc_CentralDose(ExampleData.DeValues)
+temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
 
 ##get results and store them in a new object
 temp.get<- get_RLum(object = temp1)
@@ -49,4 +49,4 @@ temp.get<- get_RLum(object = temp1)
 }
 
 \keyword{utilities}
-\section{Function version}{0.1 (2014-12-18 17:43:17)}
+\section{Function version}{0.1 (2015-03-04 14:39:52)}

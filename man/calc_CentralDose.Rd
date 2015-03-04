@@ -70,7 +70,7 @@ R Luminescence Package Team}
 data(ExampleData.DeValues, envir = environment())
 
 ##apply the central dose model
-calc_CentralDose(ExampleData.DeValues)
+calc_CentralDose(ExampleData.DeValues$CA1)
 
 }
-\section{Function version}{1.3 (2014-12-17 12:49:16)}
+\section{Function version}{1.3 (2015-03-04 13:35:16)}

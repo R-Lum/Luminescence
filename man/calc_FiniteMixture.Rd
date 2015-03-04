@@ -131,23 +131,23 @@ data(ExampleData.DeValues, envir = environment())
 ## (1) apply the finite mixture model
 ## NOTE: the data set is not suitable for the finite mixture model,
 ## which is why a very small sigmab is necessary
-calc_FiniteMixture(ExampleData.DeValues,
-                   sigmab = 0.08, n.components = 2,
+calc_FiniteMixture(ExampleData.DeValues$CA1,
+                   sigmab = 0.2, n.components = 2,
                    grain.probability = TRUE)
 
 ## (2) repeat the finite mixture model for 2, 3 and 4 maximum number of fitted
 ## components and save results
 ## NOTE: The following example is computationally intensive. Please un-comment
 ## the following lines to make the example work.
-#res<- calc_FiniteMixture(ExampleData.DeValues,
-#                         sigmab = 0.01, n.components = c(2:4),
-#                         pdf.weight = TRUE, dose.scale = c(2200,4500))
+FMM<- calc_FiniteMixture(ExampleData.DeValues$CA1,
+                         sigmab = 0.2, n.components = c(2:4),
+                         pdf.weight = TRUE, dose.scale = c(0, 100))
 
 ## show structure of the results
-#res
+FMM
 
 ## show the results on equivalent dose, standard error and proportion of
 ## fitted components
-#get_RLum.Results(object=res, data.object="components")
+get_RLum.Results(object = FMM, data.object = "components")
 }
-\section{Function version}{0.4 (2014-12-17 12:50:55)}
+\section{Function version}{0.4 (2015-03-04 13:33:56)}

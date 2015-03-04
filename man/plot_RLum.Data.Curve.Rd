@@ -42,4 +42,4 @@ plot_RLum.Data.Curve(temp)
 }
 
 \keyword{aplot}
-\section{Function version}{0.1.5 (2014-11-26 08:18:36)}
+\section{Function version}{0.1.5 (2015-03-04 00:19:53)}

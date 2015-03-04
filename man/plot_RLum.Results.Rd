@@ -28,7 +28,7 @@ Only plotting of \code{RLum.Results} objects are supported. }
 data(ExampleData.DeValues, envir = environment())
 
 # apply the un-logged minimum age model
-mam<- calc_MinDose(data = ExampleData.DeValues, sigmab = 0.2, log = FALSE, plot = FALSE)
+mam<- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
 
 ##plot
 plot_RLum.Results(mam)
@@ -42,4 +42,4 @@ plot_RLum.Results(grains)
 }
 
 \keyword{aplot}
-\section{Function version}{0.1 (2015-03-02 17:12:37)}
+\section{Function version}{0.1 (2015-03-04 13:24:51)}

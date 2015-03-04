@@ -36,7 +36,7 @@ R Luminescence Package Team}
 ## - load De data from the example data help file
 data(ExampleData.DeValues, envir = environment())
 ## - convert De(s) to De(Gy)
-Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
+Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
 
 
@@ -52,9 +52,9 @@ dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
 data(ExampleData.DeValues, envir = environment())
 
 # apply dose.rate to convert De(s) to De(Gy)
-Second2Gray(ExampleData.DeValues, dose.rate)
+Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 
 }
 
 \keyword{manip}
-\section{Function version}{0.4 (2014-12-18 15:38:33)}
+\section{Function version}{0.4 (2015-03-04 13:42:29)}

@@ -47,4 +47,4 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  layout = "journal")
 }
-\section{Function version}{0.1 (2014-12-18 17:42:03)}
+\section{Function version}{0.1 (2015-03-04 00:19:53)}

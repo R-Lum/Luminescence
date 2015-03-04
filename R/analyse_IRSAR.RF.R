@@ -28,6 +28,9 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ### \code{\link{character}} (with default): setting method applied for the data analysis.
   ### Possible options are \code{"FIT"} or \code{"SLIDE"}.
 
+  rejection.criteria,
+  ### \code{\link{list} (with default)}: set rejection criteria for, see details for more information
+
   fit.range.min,
   ### \code{\link{integer}} (optional): set the minimum channel range for signal fitting and sliding.
   ### Usually the entire data set is used for curve fitting, but there might be
@@ -58,6 +61,10 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   slide.trend.corr = FALSE,
   ### \code{\link{logical}} (with default): enable or disable trend correction.
   ### If \code{TRUE}, the sliding is applied to a previously trend corrected data set.
+
+  slide.show.density = TRUE,
+  ### \code{\link{logical}} (with default): enable or disable KDE for MC runs.
+  ### If \code{FALSE}, the final values are indicated with triangles.
 
   plot = TRUE,
   ### \code{\link{logical}} (with default): plot output (\code{TRUE} or \code{FALSE})
@@ -145,6 +152,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   fit.range.natural <- fit.range
 
 
+
 ##=============================================================================#
 ## PLOT PARAMETERS
 ##=============================================================================#
@@ -203,12 +211,24 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ##limit values to fit range (at least to the minimum)
   values.natural.limited<- values.natural[min(fit.range.natural):nrow(values.natural),]
 
-  ##calculate some use paremeters
+  ##calculate some useful parameters
   values.natural.mean <- mean(values.natural.limited[,2])
   values.natural.sd <- sd(values.natural.limited[,2])
 
   values.natural.error.lower <- values.natural.mean + values.natural.sd
   values.natural.error.upper <- values.natural.mean - values.natural.sd
+
+
+  ##=============================================================================#
+  ## REJECTION CRITERIA
+  ##=============================================================================#
+
+  ##TODO
+  ##(1) check if RF_nat > RF_reg, considering the fit range
+  RC.initial.curve.ratio <- sum(values.regenerated.y)/sum(values.natural.limited[,2])
+
+
+
 
 
 ##METHOD FIT
@@ -630,16 +650,19 @@ else if(method == "SLIDE"){
   close(pb)
 
   ##get information for error
-  De.mean.MC.se <- sd(De.mean.MC,na.rm = TRUE)
-  De.mean.corr.MC.se <- sd(De.mean.corr.MC, na.rm = TRUE)
+  De.mean.MC.se <- round(sd(De.mean.MC,na.rm = TRUE), digits = 0)
+  De.mean.corr.MC.se <- round(sd(De.mean.corr.MC, na.rm = TRUE), digits = 0)
 
 
-##ANY OTHER METHOD
 }else{
 
-  stop("[analyse_IRSAR.RF()] method is not supported!")
+
+  warning("Analysis skipped: Unkown method or threshold of rejection criteria reached.")
+
 
 }
+
+
 
 ##=============================================================================#
 ## PLOTTING
@@ -652,9 +675,14 @@ if(plot==TRUE){
   ##colours
   col <- get("col", pos = .LuminescenceEnv)
 
-  ##set plot frame
-  layout(matrix(c(1,2),2,1,byrow=TRUE),c(2), c(1.5,0.4), TRUE)
-  par(oma=c(1,1,1,1), mar=c(0,4,3,0), cex = cex)
+  ##set plot frame, if a method was choosen
+  if(method == "SLIDE" | method == "FIT"){
+
+    layout(matrix(c(1,2),2,1,byrow=TRUE),c(2), c(1.5,0.4), TRUE)
+    par(oma=c(1,1,1,1), mar=c(0,4,3,0), cex = cex)
+
+  }
+
 
   ##here control xlim and ylim behaviour
   xlim     <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
@@ -680,8 +708,8 @@ if(plot==TRUE){
   plot(NA,NA,
        xlim = xlim,
        ylim = ylim,
-       xlab = "",
-       xaxt = "n",
+       xlab = ifelse(method != "SLIDE" & method != "FIT",xlab," "),
+       xaxt = ifelse(method != "SLIDE" & method != "FIT","s","n"),
        ylab = ylab,
        main = main,
        log = log)
@@ -691,6 +719,20 @@ if(plot==TRUE){
 
   ##mark values used for further analysis fitting
   points(values.regenerated.x,values.regenerated.y, pch=3, col=col[18])
+
+  ##shot natural points if no analysis was done
+  if(method != "SLIDE" & method != "FIT"){
+
+    ##at points
+    points(values.natural, pch = 20, col = "grey")
+    points(values.natural.limited, pch = 20, col = "red")
+
+    ##legend
+    legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
+           pch=c(3,3, 20), col=c("grey", col[18], "red"),
+           horiz=TRUE, bty="n", cex=.7)
+
+  }
 
 ##METHOD FIT
   if(method == "FIT"){
@@ -796,7 +838,7 @@ if(plot==TRUE){
          type="p",
          pch=20,
          col="grey",
-         ylab="Resid. [a.u.]",
+         ylab="\u03b5",
          #lwd=2,
          log="")
 
@@ -826,13 +868,48 @@ if(plot==TRUE){
 
   ##DEBUG
   #points(values.natural.limited.full.corr, col = "red")
-  density.MC <- density(De.mean.MC)
-  polygon(density.MC$x,
-          density.MC$y*values.natural.limited.full[
-            trunc(values.natural.limited.full[,1]) == trunc(max(density.MC$x)),2]
-          /unique(max(density.MC$y)),
-          col = "gray")
 
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  ##KDE plots
+
+  ##normal De
+  density.mean.MC <- density(De.mean.MC)
+
+  if(log == "y" | log == "xy"){
+
+    temp.scale.ratio <- abs(((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/1.75+par("usr")[3])/
+      unique(max(density.mean.MC$y)))
+
+  }else{
+
+    temp.scale.ratio <- ((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/2+par("usr")[3])/
+      unique(max(density.mean.MC$y))
+  }
+
+  polygon(density.mean.MC$x,
+          density.mean.MC$y*temp.scale.ratio,
+          col = rgb(0,0,1,0.5))
+
+  ##corrected De
+  if(!is.na(De.mean.corr)){
+
+    density.mean.corr.MC <- density(De.mean.corr.MC)
+
+    if(log == "y" | log == "xy"){
+
+      temp.scale.ratio <- abs(((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/1.75+par("usr")[3])/
+                                unique(max(density.mean.MC$y)))
+
+    }else{
+
+      temp.scale.ratio <- ((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/2+par("usr")[3])/
+        unique(max(density.mean.MC$y))
+    }
+
+   polygon(density.mean.corr.MC$x,
+           density.mean.corr.MC$y*temp.scale.ratio,
+           col = rgb(1,0,1,0.5))
+  }
 
   ##plot range choosen for fitting
   abline(v=values.regenerated[min(fit.range), 1], lty=2)
@@ -860,7 +937,8 @@ if(plot==TRUE){
       if(!is.na(De.mean.corr)){
         try(mtext(side=3,
                   substitute(D[e] == De.mean,  list(
-                  De.mean=paste0(De.mean," | ", De.mean.corr, " (corr. value)"))),
+                  De.mean=paste0(De.mean," \u00b1 ", De.mean.MC.se, " | ",
+                                 De.mean.corr," \u00b1 ", De.mean.corr.MC.se ," (corr. value)"))),
                   line=0,
                   cex=0.7),
             silent=TRUE)
@@ -868,7 +946,7 @@ if(plot==TRUE){
       }else{
 
         try(mtext(side=3,
-                  substitute(D[e] == De.mean),
+                  substitute(D[e] == De.mean, list(De.mean=paste0(De.mean," \u00b1 ", De.mean.MC.se))),
                   line=0,
                   cex=0.7),
             silent=TRUE)
@@ -876,8 +954,9 @@ if(plot==TRUE){
       }
     }
 
-    ##mark selected De
+  if(!slide.show.density){
 
+    #mark selected De
     points(x = De.mean,
            y = c(min(temp.sequence.structure$y.min)),
            pch = 25,
@@ -893,7 +972,8 @@ if(plot==TRUE){
              pch = 25,
              col = "red",)
 
-    }
+   }
+  }
 
     ##==lower plot==##
     par(mar=c(4.2,4,0,0))
@@ -906,7 +986,7 @@ if(plot==TRUE){
          type="p",
          pch=20,
          col="grey",
-         ylab="Resid. [a.u.]",
+         ylab="\u03b5",
          #lwd=2,
          log=log)
 
@@ -924,7 +1004,7 @@ if(plot==TRUE){
            type="p",
            pch=20,
            col="grey",
-           ylab="Resid. [a.u.]",
+           ylab="\u03b5",
            #lwd=2,
            log=log)
 
@@ -968,7 +1048,9 @@ if(plot==TRUE){
 
   ##catch up worst case scenarios
   if(!exists("De.mean")){De.mean  <- NA}
+  if(!exists("De.mean.MC.se")){De.mean.MC.se  <- NA}
   if(!exists("De.mean.corr")){De.mean.corr  <- NA}
+  if(!exists("De.mean.corr.MC.se")){De.mean.corr.MC.se  <- NA}
   if(!exists("De.error.lower")){De.error.lower  <- NA}
   if(!exists("De.error.upper")){De.error.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
@@ -977,7 +1059,9 @@ if(plot==TRUE){
 
   ##combine values
   De.values <- data.frame(De = De.mean,
+                          De.error = De.mean.MC.se,
                           De.corr = De.mean.corr,
+                          De.corr.error = De.mean.corr.MC.se,
                           De.error.lower = De.error.lower,
                           De.error.upper = De.error.upper,
                           De.status = De.status,

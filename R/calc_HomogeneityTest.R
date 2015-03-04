@@ -131,5 +131,5 @@ calc_HomogeneityTest<- structure(function( # Apply a simple homogeneity test aft
   data(ExampleData.DeValues, envir = environment())
   
   ## apply the homogeneity test
-  calc_HomogeneityTest(ExampleData.DeValues)
+  calc_HomogeneityTest(ExampleData.DeValues$BT998)
 })

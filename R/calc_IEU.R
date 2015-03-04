@@ -430,6 +430,10 @@ calc_IEU <- structure(function(# Apply the internal-external-uncertainty (IEU) m
   
 }, ex = function() {
   
-  ## no examples available
+  ## load data
+  data(ExampleData.DeValues, envir = environment())
+  
+  ## apply the IEU model
+  ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
   
 })#END OF STRUCTURE

@@ -120,7 +120,7 @@ Second2Gray <- structure(function(#Converting values from seconds (s) to gray (G
   ## - load De data from the example data help file
   data(ExampleData.DeValues, envir = environment())
   ## - convert De(s) to De(Gy)
-  Second2Gray(ExampleData.DeValues, c(0.0438,0.0019))
+  Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
 
 
@@ -136,6 +136,6 @@ Second2Gray <- structure(function(#Converting values from seconds (s) to gray (G
   data(ExampleData.DeValues, envir = environment())
   
   # apply dose.rate to convert De(s) to De(Gy)
-  Second2Gray(ExampleData.DeValues, dose.rate)
+  Second2Gray(ExampleData.DeValues$BT998, dose.rate)
   
 })  

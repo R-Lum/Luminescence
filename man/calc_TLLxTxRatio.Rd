@@ -62,4 +62,4 @@ get_RLum.Results(output)
 }
 
 \keyword{datagen}
-\section{Function version}{0.3 (2014-12-18 17:35:13)}
+\section{Function version}{0.3 (2015-03-04 00:19:53)}

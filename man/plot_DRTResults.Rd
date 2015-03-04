@@ -79,17 +79,17 @@ R commands.}
 data(ExampleData.DeValues, envir = environment())
 
 ## plot values 
-plot_DRTResults(values = ExampleData.DeValues[7:11,], 
+plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
 given.dose = 2800, mtext = "Example data")
 
 ## plot values with legend
-plot_DRTResults(values = ExampleData.DeValues[7:11,], 
+plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
                 given.dose = 2800,
                 legend = "Test data set")
 
 ## create and plot two subsets with randomised values
-x.1 <- ExampleData.DeValues[7:11,]
-x.2 <- ExampleData.DeValues[7:11,] * c(runif(5, 0.9, 1.1), 1)
+x.1 <- ExampleData.DeValues$BT998[7:11,]
+x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
 
 plot_DRTResults(values = list(x.1, x.2),
                 given.dose = 2800)
@@ -115,14 +115,14 @@ plot_DRTResults(values = list(x.1, x.2),
                 summary.pos = "sub")
 
 ## plot the data grouped by preheat temperatures
-plot_DRTResults(values = ExampleData.DeValues[7:11,], 
+plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
                 given.dose = 2800,
                 preheat = c(200, 200, 200, 240, 240))
 ## read example data set and misapply them for this plot type
 data(ExampleData.DeValues, envir = environment())
 
 ## plot values 
-plot_DRTResults(values = ExampleData.DeValues[7:11,], 
+plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
                 given.dose = 2800, mtext = "Example data")
 ## plot two data sets grouped by preheat temperatures
 plot_DRTResults(values = list(x.1, x.2), 
@@ -130,11 +130,11 @@ plot_DRTResults(values = list(x.1, x.2),
                 preheat = c(200, 200, 200, 240, 240))
 
 ## plot the data grouped by preheat temperatures as boxplots
-plot_DRTResults(values = ExampleData.DeValues[7:11,], 
+plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
                 given.dose = 2800,
                 preheat = c(200, 200, 200, 240, 240),
                 boxplot = TRUE)
 }
 
 \keyword{dplot}
-\section{Function version}{0.1.6 (2014-12-08 12:54:45)}
+\section{Function version}{0.1.6 (2015-03-04 13:27:28)}

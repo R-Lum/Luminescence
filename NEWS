@@ -45,7 +45,20 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • add error estimation using bootstraping and MC loops for
                ‘method = "SLIDE"’,
 
-             • add scaled KDE for distribution of De.
+             • add scaled KDE for distribution of De,
+
+             • the functions no longer stops with an error if a
+               undefined ‘method’ was choosen. Instead a warning
+               message is shown and the available curves are shown in a
+               plot anyway,
+
+             • the labelling for the residuals is replaced by a greek
+               letter (epsilon, ‘"\u03b5"’),
+
+             • new argument ‘rejection.criteria’ provided to allow for
+               setting rejection criteria. The argument works similar
+               as for other ‘analyse_...’ functions. Details are
+               provided in the manual.
 
          • ‘analyse_SAR.CWOSL()’
 
@@ -197,6 +210,11 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • if the BIN-file is stored in a different version, the
                version number and the record lengths are now changed
                accordingly.
+
+  New example data sets:
+
+         • ExampleData.DeValues is now a list with two elements
+           containing an additional single grain quartz data set
 
 Changes in version 0.4.1 (January 29th, 2015):
 

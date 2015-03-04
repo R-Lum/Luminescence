@@ -5,7 +5,7 @@
 that calls calc_MinDose() and applies a similiar approach as described 
 in Olley et al. (2006).}
 \usage{calc_MaxDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE, 
-    boundaries, init.values, plot = TRUE, ...)}
+    init.values, plot = TRUE, ...)}
 \arguments{
   \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
 for \code{data.frame}: two columns with De \code{(data[,1])} and
@@ -19,10 +19,6 @@ minimum dose model to De data}
 model (\code{par=3} or \code{par=4}).}
   \item{bootstrap}{
 }
-  \item{boundaries}{\code{\link{list}}: a named list of boundary values for gamma, sigma and mu
-to be used in the optimisation routine 
-(e.g. \code{list(gamma=c(0.01,100), sigma=c(0.01,5), mu=c(10, 100))}). If no values are provided 
-reasonable values are tried to be estimated from the input data.}
   \item{init.values}{\code{\link{numeric}} (with default): starting values for gamma, sigma, p0 and mu.
 Custom values need to be provided in a vector of length three in the form of
 \code{c(gamma, sigma, p0)}.}
@@ -94,5 +90,8 @@ R Luminescence Package Team}
 \examples{
 ## load example data
 data(ExampleData.DeValues, envir = environment())
+
+# apply the maximum dose model
+calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 }
-\section{Function version}{0.3 (2014-12-17 12:51:56)}
+\section{Function version}{0.3 (2015-03-04 13:31:23)}

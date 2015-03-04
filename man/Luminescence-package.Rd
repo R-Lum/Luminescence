@@ -11,7 +11,7 @@ A collection of various R functions for the purpose of Luminescence dating data 
 Package: \tab Luminescence\cr
 Type: \tab Package\cr
 Version: \tab 0.4.2 [upcoming]\cr
-Date: \tab 2015-02-XX\cr
+Date: \tab 2015-03-XX\cr
 License: \tab GPL-3\cr
 }
 %~~ An overview of how to use the package, including the most important functions ~~

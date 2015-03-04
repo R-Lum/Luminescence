@@ -75,10 +75,10 @@ data(ExampleData.DeValues, envir = environment())
 
 ## use the calculated variable dose.rate as input argument
 ## to convert De(s) to De(Gy)
-Second2Gray(ExampleData.DeValues, dose.rate)
+Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 
 
 }
 
 \keyword{manip}
-\section{Function version}{0.1 (2014-12-18 15:30:27)}
+\section{Function version}{0.1 (2015-03-04 14:33:28)}

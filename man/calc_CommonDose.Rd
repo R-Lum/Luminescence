@@ -73,5 +73,5 @@ R Luminescence Package Team}
 data(ExampleData.DeValues, envir = environment())
 
 ## apply the common dose model
-calc_CommonDose(ExampleData.DeValues)                         
+calc_CommonDose(ExampleData.DeValues$CA1)                         
 }

@@ -51,4 +51,4 @@ in the METADATA, however, the BIN/BINX-file may not fully compatible!}
 }
 
 \keyword{IO}
-\section{Function version}{0.2.5 (2015-02-27 19:19:12)}
+\section{Function version}{0.2.5 (2015-03-04 12:43:39)}

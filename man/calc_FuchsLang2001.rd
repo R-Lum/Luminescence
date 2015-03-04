@@ -61,9 +61,9 @@ R Luminescence Package Team}
 data(ExampleData.DeValues, envir = environment())
 
 ##calculate De according to Fuchs & Lang (2001)
-temp<- calc_FuchsLang2001(ExampleData.DeValues, cvThreshold = 5)
+temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 
 }
 
 \keyword{dplot}
-\section{Function version}{0.4.1 (2014-12-17 12:51:08)}
+\section{Function version}{0.4.1 (2015-03-04 13:31:55)}
