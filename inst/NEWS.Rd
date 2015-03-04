@@ -30,12 +30,38 @@
 
     }
 
+   \item \code{RisoeBINfileData-class}:
+
+
+     \itemize{
+
+    \item Slot \code{.RESERVED} added to allow transfering undocumented raw binary values to a
+    new BIN/BINX-file. For this all reserved bytes are just copied and pasted into the new slot
+    \code{.RESERVED} using the function \code{readBIN2R()}. Using the function \code{writeR2BIN()} transfers
+    the values unchanged to the new BIN/BINX-file. Allc corresponding functions have been updated in accordance
+    (\code{readBIN2R()}, \code{writeR2BIN()} and \code{merge_Risoe.BINfileData()}. Other functions are not
+    affected as they can simply ignore the new slot.
+
+    }
+
 
   }}
 
 
   \subsection{Bugfixes and changes}{
    \itemize{
+
+   \item \code{analyse_IRSAR.RF()}
+
+  \itemize{
+
+  \item Function now checks the number of channels in each curve. If the number of the channels in the
+  first curve is > than in the 2nd curve the execution of the function is stopped,
+  \item add error estimation using bootstraping and MC loops for \code{method = "SLIDE"},
+  \item add scaled KDE for distribution of De.
+
+
+  }
 
 
   \item \code{analyse_SAR.CWOSL()}
@@ -69,8 +95,61 @@
   \item minor code polishing.
   }
 
+  \item \code{calc_MinDose()}
+  \itemize{
+
+  \item Major changes in terms of reliablity and perfomance to the optimisation of the log
+  likelihood function. Amongst minor fixes these include:
+  \item Optimiser of the log likelihood function changed from 'optim' to 'nlminb' and
+  switch from 'L-BFGS-B' method to default PORT routine,
+  \item Removed parameter: \code{boundaries}
+  \item Boundaries for the model parameters are now hard-coded and suffice all input data,
+  \item Warning messages are now suppressed unless \code{debug=TRUE},
+  \item Improved error handling and fallback for profiling the log likelihood function,
+  \item Start value for gamma and mu are changed to lower quartile of the dose values,
+  \item fixed an error in the documentation that prevented the 'value' section from being displayed
+  \item additional information on bootstrapping added in 'details' section.
 
 
+  }
+
+
+ \item \code{merge_Risoe.BINfileData()}
+
+  \itemize{
+
+  \item Support for the changes in the corresponding S4-class are implemented.
+
+  }
+
+   \item \code{plot_AbanicoPlot()}
+
+   \itemize{
+
+   \item Missing summary keywords \code{"kdemax"}, \code{"skewness"} and \code{"kurtosis"} added
+   (#205)
+
+   }
+
+
+ \item \code{plot_Histogram()}
+
+   \itemize{
+
+   \item Missing summary keywords \code{"kdemax"}, \code{"skewness"} and \code{"kurtosis"} added
+   (#205)
+
+   }
+
+
+   \item \code{plot_KDE()}
+
+   \itemize{
+
+   \item Missing summary keywords \code{"kdemax"}, \code{"skewness"} and \code{"kurtosis"} added
+   (#205)
+
+   }
 
    \item \code{plot_GrowthCurve()}
 
@@ -96,6 +175,15 @@
    }
 
 
+  \item \code{plot_RadialPlot()}
+
+   \itemize{
+
+   \item Missing summary keywords \code{"kdemax"}, \code{"skewness"} and \code{"kurtosis"} added
+   (#205)
+
+   }
+
    \item \code{plot_RLum.Analysis()}
 
 
@@ -107,6 +195,23 @@
 
    }
 
+   \item \code{plot_RLum.Results()}
+
+   \itemize{
+
+   \item Improved error handling for \code{RLum.Results} objects originating from \code{calc_MinDose()}
+
+   }
+
+
+  \item \code{readBIN2R()}
+
+  \itemize{
+
+  \item Improved handling of odd time formats,
+  \item support for the changes in the corresponding S4-class implemented.
+
+  }
 
    \item \code{writeR2BIN()}
 
@@ -115,7 +220,12 @@
   \item Part of the manual was missing due to an error in the inlinedoc documentation. Fixed.,
   \item the argument \code{version} no expects a \code{character} as impot instead of a \code{raw} object,
   \item further suppressing of confusing warning messages,
-  \item date has not been written properly in accordance with the format description (fixed).
+  \item date has not been written properly in accordance with the format description (fixed),
+  \item time values have been not properly exported in same cases, corrected.
+  \item added support for changes in corresponding S4-class, means that reserved values are transfered,
+  \item the version conversion was partly broken due to the new routines implemented with last update (fixed),
+  \item if empty comments or sample names are provided these are replaced by \code{"  "} (double empty space),
+  \item if the BIN-file is stored in a different version, the version number and the record lengths are now changed accordingly.
 
 
    }

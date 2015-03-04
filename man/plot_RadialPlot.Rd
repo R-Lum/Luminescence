@@ -1,7 +1,7 @@
 \name{plot_RadialPlot}
 \alias{plot_RadialPlot}
 \title{Function to create a Radial Plot}
-\description{A Galbraith's radial plot is produced on a logarithmic or a linear 
+\description{A Galbraith's radial plot is produced on a logarithmic or a linear
 scale.}
 \usage{plot_RadialPlot(data, na.exclude = TRUE, negatives = "remove", 
     log.z = TRUE, central.value, centrality = "mean.weighted", 
@@ -9,12 +9,12 @@ scale.}
     plot.ratio, bar.col, y.ticks = TRUE, grid.col, line, line.col, 
     line.label, output = FALSE, ...)}
 \arguments{
-  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
+  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object
 (required): for \code{data.frame} two columns: De (\code{data[,1]})
 and De error (\code{data[,2]}). To plot several data sets in one plot,
-the data sets must be provided as \code{list}, e.g. 
+the data sets must be provided as \code{list}, e.g.
 \code{list(data.1, data.2)}.}
-  \item{na.exclude}{\code{\link{logical}} (with default): excludes \code{NA} values from 
+  \item{na.exclude}{\code{\link{logical}} (with default): excludes \code{NA} values from
 the data set prior to any further operations.}
   \item{negatives}{\code{\link{character}} (with default): rule for negative values. Default
 is \code{"remove"} (i.e. negative values are removed from the data set).}
@@ -22,46 +22,50 @@ is \code{"remove"} (i.e. negative values are removed from the data set).}
 in logarithmic scale. Default is \code{TRUE}.}
   \item{central.value}{\code{\link{numeric}}: User-defined central value, primarily used for
 horizontal centering of the z-axis.}
-  \item{centrality}{\code{\link{character}} or \code{\link{numeric}} (with default): 
-measure of centrality, used for automatically centering the plot and 
-drawing the central line. Can either be one out of \code{"mean"}, 
-\code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} 
+  \item{centrality}{\code{\link{character}} or \code{\link{numeric}} (with default):
+measure of centrality, used for automatically centering the plot and
+drawing the central line. Can either be one out of \code{"mean"},
+\code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"}
 or a numeric value used for the standardisation.}
   \item{mtext}{\code{\link{character}}: additional text below the plot title.}
-  \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
-Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De 
-value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of 
-the De values), \code{"sdrel"} (relative standard deviation in 
-percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative 
-standard error), \code{"seabs"} (absolute standard error) and \code{"in.ci"} (percent
-of samples in confidence interval, e.g. 2-sigma).}
-  \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
-position coordinates or keyword (e.g. \code{"topright"}) for the 
+  \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot.
+Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De
+value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of
+the De values), \code{"sdrel"} (relative standard deviation in
+percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative
+standard error), \code{"seabs"} (absolute standard error), \code{"kdemax"} (maximum
+of the KDE), \code{"skewness"} (skewness) and \code{"kurtosis"} (kurtosis) and \code{"in.ci"}
+(percent of samples in confidence interval, e.g. 2-sigma).\cr
+Note: Keywords \code{"kdemax"}, \code{"skewness"}, \code{"kurtosis"} are implemented for
+consistency reasons, however, no KDE is shown. The bandwidth is calculated according to
+\code{\link{plot_KDE}}}
+  \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional
+position coordinates or keyword (e.g. \code{"topright"}) for the
 statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this
 latter option is only possible if \code{mtext} is not used.}
   \item{legend}{\code{\link{character}} vector (optional): legend content to be added
 to the plot.}
-  \item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
+  \item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional
 position coordinates or keyword (e.g. \code{"topright"}) for the legend
 to be plotted.}
   \item{stats}{\code{\link{character}}: additional labels of statistically important
-values in the plot. One or more out of the following: \code{"min"}, 
+values in the plot. One or more out of the following: \code{"min"},
 \code{"max"}, \code{"median"}.}
   \item{rug}{\code{\link{logical}}: Option to add a rug to the z-scale, to indicate
 the location of individual values}
   \item{plot.ratio}{\code{\link{numeric}}: User-defined plot area ratio (i.e. curvature of
 the z-axis). If omitted, the default value (\code{4.5/5.5}) is used and
-modified automatically to optimise the z-axis curvature. 
+modified automatically to optimise the z-axis curvature.
 The parameter should be decreased when data points are plotted outside
 the z-axis or when the z-axis gets too elliptic.}
-  \item{bar.col}{\code{\link{character}} or \code{\link{numeric}} (with default): colour 
-of the bar showing the 2-sigma range around the central value. To 
+  \item{bar.col}{\code{\link{character}} or \code{\link{numeric}} (with default): colour
+of the bar showing the 2-sigma range around the central value. To
 disable the bar, use \code{"none"}. Default is \code{"grey"}.}
-  \item{y.ticks}{\code{\link{logical}}: Option to hide y-axis labels. Useful for data  
+  \item{y.ticks}{\code{\link{logical}}: Option to hide y-axis labels. Useful for data
 with small scatter.}
-  \item{grid.col}{\code{\link{character}} or \code{\link{numeric}} (with default): colour 
-of the grid lines (originating at [0,0] and stretching to the z-scale).  
+  \item{grid.col}{\code{\link{character}} or \code{\link{numeric}} (with default): colour
+of the grid lines (originating at [0,0] and stretching to the z-scale).
 To disable grid lines, use \code{"none"}. Default is \code{"grey"}.}
   \item{line}{\code{\link{numeric}}: numeric values of the additional lines to be
 added.}
@@ -73,11 +77,11 @@ These can be useful to reproduce similar plots. Default is \code{FALSE}.}
   \item{\dots}{Further plot arguments to pass. \code{xlab} must be a vector of length 2,
 specifying the upper and lower x-axes labels.}
 }
-\details{Details and the theoretical background of the radial plot are given 
-in the cited literature. This function is based on an S script of Rex 
-Galbraith. To reduce the manual adjustments, the function has been 
+\details{Details and the theoretical background of the radial plot are given
+in the cited literature. This function is based on an S script of Rex
+Galbraith. To reduce the manual adjustments, the function has been
 rewritten. Thanks to Rex Galbraith for useful comments on this function.
-\cr Plotting can be disabled by adding the argument 
+\cr Plotting can be disabled by adding the argument
 \code{plot = "FALSE"}, e.g. to return only numeric plot output.\cr
 
 Earlier versions of the Radial Plot in this package had the 2-sigma-bar
@@ -89,31 +93,31 @@ originating at zero precision (x0) and zero standardised estimate (y0).
 Such a range may be drawn by adding lines to the radial plot (
 \code{line}, \code{line.col}, \code{line.label}, cf. examples).}
 \value{Returns a plot object.}
-\references{Galbraith, R.F., 1988. Graphical Display of Estimates Having Differing 
+\references{Galbraith, R.F., 1988. Graphical Display of Estimates Having Differing
 Standard Errors. Technometrics, 30 (3), 271-281.
 
-Galbraith, R.F., 1990. The radial plot: Graphical assessment of spread in 
-ages. International Journal of Radiation Applications and Instrumentation. 
-Part D. Nuclear Tracks and Radiation Measurements, 17 (3), 207-214. 
+Galbraith, R.F., 1990. The radial plot: Graphical assessment of spread in
+ages. International Journal of Radiation Applications and Instrumentation.
+Part D. Nuclear Tracks and Radiation Measurements, 17 (3), 207-214.
 
-Galbraith, R. & Green, P., 1990. Estimating the component ages in a 
-finite mixture. International Journal of Radiation Applications and 
-Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3) 
-197-206. 
+Galbraith, R. & Green, P., 1990. Estimating the component ages in a
+finite mixture. International Journal of Radiation Applications and
+Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3)
+197-206.
 
-Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission 
-track ages. Nuclear Tracks And Radiation Measurements, 21 (4),  
-459-470. 
+Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission
+track ages. Nuclear Tracks And Radiation Measurements, 21 (4),
+459-470.
 
-Galbraith, R.F., 1994. Some Applications of Radial Plots. Journal of the 
+Galbraith, R.F., 1994. Some Applications of Radial Plots. Journal of the
 American Statistical Association, 89 (428), 1232-1242.
 
-Galbraith, R.F., 2010. On plotting OSL equivalent doses. Ancient TL, 
-28 (1), 1-10. 
+Galbraith, R.F., 2010. On plotting OSL equivalent doses. Ancient TL,
+28 (1), 1-10.
 
-Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent 
-dose and error calculation and display in OSL dating: An overview and 
-some recommendations. Quaternary Geochronology, 11, 1-27. }
+Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent
+dose and error calculation and display in OSL dating: An overview and
+some recommendations. Quaternary Geochronology, 11, 1-27.}
 \author{Michael Dietze, GFZ Potsdam (Germany),\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Based on a rewritten S script of Rex Galbraith, 2010\cr
@@ -212,4 +216,4 @@ plot_RadialPlot(data = data.3,
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
 }
-\section{Function version}{0.5.2 (2014-12-18 15:41:59)}
+\section{Function version}{0.5.3 (2015-02-27 23:34:25)}

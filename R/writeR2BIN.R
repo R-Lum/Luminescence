@@ -7,7 +7,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.2.3
+  ## version 0.2.5
   # ===========================================================================
 
   object,
@@ -62,10 +62,40 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   if(missing(version) == TRUE){
 
     version <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
+    version.original <- version
 
   }else{
 
+    version.original <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version <- as.raw(version)
+    object@METADATA[,"VERSION"] <- version
+
+    ##Furthermore, entries length needed to be recalculated
+    if(version.original != version){
+
+      ##stepping decision
+      header.stepping <- switch(as.character(version),
+                                "06" = 447,
+                                "04" = 272,
+                                "03" = 272)
+
+      object@METADATA[,"LENGTH"] <- sapply(1:nrow(object@METADATA), function(x){
+
+              header.stepping + 4 * object@METADATA[x,"NPOINTS"]
+
+      })
+
+      object@METADATA[,"PREVIOUS"] <- sapply(1:nrow(object@METADATA), function(x){
+
+        if(x == 1){
+           0
+        }else{
+          header.stepping + 4 * object@METADATA[x-1,"NPOINTS"]
+        }
+
+      })
+
+    }
 
   }
 
@@ -246,6 +276,7 @@ if(version == 03 || version == 04){
 ##start loop for export BIN data
 while(ID<=n.records) {
 
+
   ##VERSION
   writeBin(as.raw(object@METADATA[ID,"VERSION"]),
            con,
@@ -305,17 +336,26 @@ while(ID<=n.records) {
 
 
   ##TIME
-  writeBin(as.integer(6),
+  TIME_SIZE <- nchar(object@METADATA[ID,"TIME"])
+  writeBin(as.integer(TIME_SIZE),
            con,
            size = 1,
            endian="little")
 
 
   writeChar(object@METADATA[ID,"TIME"],
-           con,
-           nchars = 6,
-           useBytes=TRUE,
-           eos = NULL)
+            con,
+            nchars =TIME_SIZE,
+            useBytes=TRUE,
+            eos = NULL)
+
+  if(6-TIME_SIZE>0){
+    writeBin(raw(length = c(6-TIME_SIZE)),
+             con,
+             size = 1,
+             endian="little")
+
+  }
 
 
   ##DATE
@@ -338,14 +378,14 @@ while(ID<=n.records) {
      ##count number of characters
      SEQUENCE_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"SEQUENCE"]), type = "bytes"))
 
-       writeBin(SEQUENCE_SIZE,
+      writeBin(SEQUENCE_SIZE,
             con,
             size = 1,
             endian="little")
 
       writeChar(as.character(object@METADATA[ID,"SEQUENCE"]),
             con,
-            nchars = 8,
+            nchars = SEQUENCE_SIZE,
             useBytes=TRUE,
             eos = NULL)
 
@@ -435,17 +475,25 @@ while(ID<=n.records) {
   ##SAMPLE
   SAMPLE_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"SAMPLE"]), type="bytes"))
 
+  ##avoid problems with empty sample names
+  if(SAMPLE_SIZE == 0){
+
+    SAMPLE_SIZE <- as.integer(2)
+    object@METADATA[ID,"SAMPLE"] <- "  "
+
+  }
+
   writeBin(SAMPLE_SIZE,
            con,
            size = 1,
            endian="little")
 
 
-  suppressWarnings(writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
+  writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
            con,
            nchars = SAMPLE_SIZE,
            useBytes=TRUE,
-           eos = NULL))
+           eos = NULL)
 
 
   if((20-SAMPLE_SIZE)>0){
@@ -457,6 +505,14 @@ while(ID<=n.records) {
 
   ##COMMENT
   COMMENT_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"COMMENT"]), type="bytes"))
+
+  ##avoid problems with empty comments
+  if(COMMENT_SIZE == 0){
+
+    COMMENT_SIZE <- as.integer(2)
+    object@METADATA[ID,"COMMENT"] <- "  "
+
+  }
 
   writeBin(COMMENT_SIZE,
            con,
@@ -509,11 +565,21 @@ while(ID<=n.records) {
   ##Further distinction need to fully support format version 03 and 04 separately
   if(version == 03){
 
-    ##RESERVED
-    writeBin(raw(length=36),
-             con,
-             size = 1,
-             endian="little")
+
+    ##RESERVED 1
+    if(length(object@.RESERVED) == 0 || version.original != version){
+      writeBin(raw(length=36),
+               con,
+               size = 1,
+               endian="little")
+    }else{
+
+      writeBin(object@.RESERVED[[ID]][[1]],
+               con,
+               size = 1,
+               endian="little")
+
+    }
 
     ##ONTIME, OFFTIME
     writeBin(c(as.integer(object@METADATA[ID,"ONTIME"]),
@@ -536,20 +602,40 @@ while(ID<=n.records) {
             size = 4,
              endian="little")
 
-    ##RESERVED
-    writeBin(raw(length=1),
-             con,
-             size = 1,
-             endian="little")
+
+    ##RESERVED 2
+    if(length(object@.RESERVED) == 0 || version.original != version){
+      writeBin(raw(length=1),
+               con,
+               size = 1,
+               endian="little")
+    }else{
+
+      writeBin(object@.RESERVED[[ID]][[2]],
+               con,
+               size = 1,
+               endian="little")
+
+    }
 
   } else {
     ##version 04
 
-    ##RESERVED
-    writeBin(raw(length=20),
-             con,
-             size = 1,
-             endian="little")
+
+    ##RESERVED 1
+    if(length(object@.RESERVED) == 0 || version.original != version){
+      writeBin(raw(length=20),
+               con,
+               size = 1,
+               endian="little")
+    }else{
+
+      writeBin(object@.RESERVED[[ID]][[1]],
+               con,
+               size = 1,
+               endian="little")
+
+    }
 
     ##CURVENO
     writeBin(as.integer(object@METADATA[ID,"CURVENO"]),
@@ -592,12 +678,21 @@ while(ID<=n.records) {
              endian="little")
 
 
-    ##RESERVED
-    writeBin(raw(length=10),
-             con,
-             size = 1,
-             endian="little")
+    ##RESERVED 2
+    if(length(object@.RESERVED) == 0 || version.original != version){
+      writeBin(raw(length=10),
+               con,
+               size = 1,
+               endian="little")
 
+    }else{
+
+      writeBin(object@.RESERVED[[ID]][[2]],
+               con,
+               size = 1,
+               endian="little")
+
+    }
 
 
 
@@ -662,17 +757,25 @@ while(ID<=n.records) {
   ##SAMPLE
   SAMPLE_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"SAMPLE"]), type="bytes"))
 
+  ##avoid problems with empty sample names
+  if(SAMPLE_SIZE == 0){
+
+    SAMPLE_SIZE <- as.integer(2)
+    object@METADATA[ID,"SAMPLE"] <- "  "
+
+  }
+
   writeBin(SAMPLE_SIZE,
            con,
            size = 1,
            endian="little")
 
 
-  suppressWarnings(writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
+  writeChar(as.character(object@METADATA[ID,"SAMPLE"]),
             con,
             nchars = SAMPLE_SIZE,
             useBytes=TRUE,
-            eos = NULL))
+            eos = NULL)
 
 
   if((20-SAMPLE_SIZE)>0){
@@ -685,16 +788,24 @@ while(ID<=n.records) {
   ##COMMENT
   COMMENT_SIZE <- as.integer(nchar(as.character(object@METADATA[ID,"COMMENT"]), type="bytes"))
 
+  ##avoid problems with empty comments
+  if(COMMENT_SIZE == 0){
+
+    COMMENT_SIZE <- as.integer(2)
+    object@METADATA[ID,"COMMENT"] <- "  "
+
+  }
+
   writeBin(COMMENT_SIZE,
            con,
            size = 1,
            endian="little")
 
-  suppressWarnings(writeChar(as.character(object@METADATA[ID,"COMMENT"]),
+  writeChar(as.character(object@METADATA[ID,"COMMENT"]),
             con,
             nchars = COMMENT_SIZE,
             useBytes=TRUE,
-            eos = NULL))
+            eos = NULL)
 
 
   if((80-COMMENT_SIZE)>0){
@@ -759,17 +870,26 @@ while(ID<=n.records) {
   }
 
   ##TIME
-  writeBin(as.integer(6),
+  TIME_SIZE <- nchar(object@METADATA[ID,"TIME"])
+
+  writeBin(as.integer(TIME_SIZE),
            con,
            size = 1,
            endian="little")
 
-
   writeChar(object@METADATA[ID,"TIME"],
             con,
-            nchars = 6,
+            nchars =TIME_SIZE,
             useBytes=TRUE,
             eos = NULL)
+
+  if(6-TIME_SIZE>0){
+    writeBin(raw(length = c(6-TIME_SIZE)),
+             con,
+             size = 1,
+             endian="little")
+
+  }
 
 
   ##DATE
@@ -826,11 +946,20 @@ while(ID<=n.records) {
            size = 1,
            endian="little")
 
-  ##RESERVED
-  writeBin(raw(length=20),
-           con,
-           size = 1,
-           endian="little")
+  ##RESERVED 1
+  if(length(object@.RESERVED) == 0 || version.original != version){
+    writeBin(raw(length=20),
+            con,
+            size = 1,
+            endian="little")
+  }else{
+
+    writeBin(object@.RESERVED[[ID]][[1]],
+             con,
+             size = 1,
+             endian="little")
+
+  }
 
   ##Measurement characteristics
   ##LTYPE
@@ -957,11 +1086,22 @@ while(ID<=n.records) {
            size = 4,
            endian="little")
 
-  ##RESERVED
-  writeBin(raw(length=24),
-           con,
-           size = 1,
-           endian="little")
+
+  ##RESERVED 2
+  if(length(object@.RESERVED) == 0 || version.original != version){
+    writeBin(raw(length=24),
+             con,
+             size = 1,
+             endian="little")
+  }else{
+
+    writeBin(object@.RESERVED[[ID]][[2]],
+             con,
+             size = 1,
+             endian="little")
+
+  }
+
 
   ##DPOINTS
   writeBin(as.integer(unlist(object@DATA[ID])),
@@ -1010,7 +1150,13 @@ cat(paste("\t >> ",ID-1,"records have been written successfully!\n\n",paste=""))
   ## The validity of the file path is not further checked. \cr
   ## BIN-file conversions using the argument \code{version} may be a lossy conversion,
   ## depending on the chosen input and output data
-  ## (e.g., conversion from version 06 to 04).
+  ## (e.g., conversion from version 06 to 04 or 03).\cr
+  ##
+  ##\bold{Warning}\cr
+  ##
+  ## Although the coding was done carefully it seems that the BIN/BINX-files produced by
+  ## Risoe DA 15/20 TL/OSL readers slightly differ on the byte level. No obvious differences are observed
+  ## in the METADATA, however, the BIN/BINX-file may not fully compatible!
 
   ##seealso<<
   ## \code{\link{readBIN2R}}, \code{\linkS4class{Risoe.BINfileData}},

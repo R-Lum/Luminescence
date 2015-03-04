@@ -1,41 +1,41 @@
 \name{readBIN2R}
 \alias{readBIN2R}
 \title{Import Risoe BIN-file into R}
-\description{Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 
+\description{Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20
 TL/OSL reader into R.}
 \usage{readBIN2R(file, show.raw.values = FALSE, n.records, show.record.number = FALSE, 
     txtProgressBar = TRUE, forced.VersionNumber)}
 \arguments{
   \item{file}{\link{character} (\bold{required}): bin-file name (including path), e.g. \cr
-[WIN]: \code{readBIN2R("C:/Desktop/test.bin")}, \cr  
+[WIN]: \code{readBIN2R("C:/Desktop/test.bin")}, \cr
 [MAC/LINUX]: \code{readBIN2R("/User/test/Desktop/test.bin")}}
-  \item{show.raw.values}{\link{logical} (with default): shows raw values from BIN file for 
-\code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without translation in characters. }
-  \item{n.records}{\link{raw} (optional): limits the number of imported records. Can be used in 
+  \item{show.raw.values}{\link{logical} (with default): shows raw values from BIN file for
+\code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without translation in characters.}
+  \item{n.records}{\link{raw} (optional): limits the number of imported records. Can be used in
 combination with \code{show.record.number} for debugging purposes, e.g. corrupt BIN files.}
-  \item{show.record.number}{\link{logical} (with default): shows record number of the imported record, 
-for debugging usage only. }
-  \item{txtProgressBar}{\link{logical} (with default): enables or disables 
+  \item{show.record.number}{\link{logical} (with default): shows record number of the imported record,
+for debugging usage only.}
+  \item{txtProgressBar}{\link{logical} (with default): enables or disables
 \code{\link{txtProgressBar}}.}
-  \item{forced.VersionNumber}{\link{integer} (optional): allows to cheat the version number check in the 
-function by own values for cases where the BIN-file version is not supported.\cr 
+  \item{forced.VersionNumber}{\link{integer} (optional): allows to cheat the version number check in the
+function by own values for cases where the BIN-file version is not supported.\cr
 Note: The usage is at own risk, only supported BIN-file versions have been tested.}
 }
-\details{The binary data file is parsed byte by byte following the data structure 
+\details{The binary data file is parsed byte by byte following the data structure
 published in the Appendices of the Analyst manual p. 42.\cr\cr
 For the general BIN-file structure, the reader is referred to the Risoe
 website: \code{http://www.nutech.dtu.dk/}}
 \value{Returns an S4 \link{Risoe.BINfileData-class} object containing two slots:\cr
 \item{METADATA}{A \link{data.frame} containing all variables stored in the bin-file.}
-\item{DATA}{A \link{list} containing a numeric \link{vector} of the measured data. 
+\item{DATA}{A \link{list} containing a numeric \link{vector} of the measured data.
 The ID corresponds to the record ID in METADATA.}}
 \references{Duller, G., 2007. Analyst. \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}}
-\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), 
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 Margret C. Fuchs, AWI Potsdam (Germany),\cr
 R Luminescence Package Team}
-\note{The function has been successfully tested for BIN format versions 03, 04 and 06. 
+\note{The function has been successfully tested for BIN format versions 03, 04 and 06.
 The version number depends on the used Sequence Editor.\cr\cr
-\bold{Other BIN format versions are currently not supported}. }
+\bold{Other BIN format versions are currently not supported}.}
 
 
 \seealso{\code{\link{writeR2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
@@ -51,4 +51,4 @@ The version number depends on the used Sequence Editor.\cr\cr
 }
 
 \keyword{IO}
-\section{Function version}{0.8.0 (2015-01-07 19:17:19)}
+\section{Function version}{0.8.1 (2015-02-27 16:42:14)}

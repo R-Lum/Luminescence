@@ -1,4 +1,4 @@
-calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution
+calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution
   ### Function to fit the (un-)logged three or four parameter minimum dose model 
   ### (MAM-3/4) to De data.
   
@@ -10,39 +10,34 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ## Alastair Cunningham is thanked for his help in implementing and cross-checking the code.\cr
   
   ##section<<
-  ## version 0.4 
+  ## version 0.4.1
   # ===========================================================================
   
   data, 
   ### \code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-  ### for \code{data.frame}: two columns with De \code{(data[,1])} and
-  ### De error \code{(values[,2])}
+  ### for \code{data.frame}: two columns with De \code{(data[ ,1])} and
+  ### De error \code{(values[ ,2])}
   sigmab, 
   ### \code{\link{numeric}}  (\bold{required}): spread in De values given as a 
   ### fraction (e.g. 0.2). This value represents the expected overdispersion in
   ### the data should the sample be well-bleached (Cunningham & Walling 2012, p. 100).
-  log=TRUE, 
+  log = TRUE, 
   ### \code{\link{logical}} (with default): fit the (un-)logged 
   ### minimum dose model to De data
-  par=3,
+  par = 3,
   ### \code{\link{numeric}} (with default): apply the 3- or 4-parametric minimum age
   ### model (\code{par=3} or \code{par=4}). The MAM-3 is used by default.
-  bootstrap=FALSE,
+  bootstrap = FALSE,
   ### \code{\link{logical}} (with default): apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
-  boundaries,
-  ### \code{\link{list}}: a named list of boundary values for gamma, sigma, p0 and mu
-  ### to be used in the optimisation routine 
-  ### (e.g. \code{list(gamma=c(0.01,100), sigma=c(0.01,5), p0=c(0.01,0.99), mu=c(10, 100))}). 
-  ### If no values are provided reasonable values are tried to be estimated from the data.
   init.values, 
-  ### \code{\link{numeric}}: a named list with starting values for gamma, sigma, p0 and mu
+  ### \code{\link{numeric}} (optional): a named list with starting values for gamma, sigma, p0 and mu
   ### (e.g. \code{list(gamma=100 sigma=1.5, p0=0.1, mu=100)}).
   ### If no values are provided reasonable values are tried to be estimated from the data.
-  plot=TRUE, 
+  plot = TRUE, 
   ### \code{\link{logical}} (with default): plot output
   ### (\code{TRUE}/\code{FALSE})
   ...
-  ### further arguments for bootstrapping (\code{bs.M, bs.N, bs.h, sigmab.sd}). 
+  ### (optional) further arguments for bootstrapping (\code{bs.M, bs.N, bs.h, sigmab.sd}). 
   ### See details for their usage.
 ){ 
   
@@ -53,113 +48,103 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   extraArgs <- list(...)
   
   ## check if this function is called by calc_MaxDose()
-  if("invert" %in% names(extraArgs)) {
-    invert<- extraArgs$invert
-    if(!log) {
-      log<- TRUE # overwrite user choice as max dose model currently only supports the logged version
+  if ("invert" %in% names(extraArgs)) {
+    invert <- extraArgs$invert
+    if (!log) {
+      log <- TRUE # overwrite user choice as max dose model currently only supports the logged version
       cat(paste("\n[WARNING] The maximum dose model only supports the logged version.",
                 "'log' was automatically changed to TRUE.\n\n"))
     }
   } else {
-    invert<- FALSE
+    invert <- FALSE
   }
   
   ## console output
-  if("verbose" %in% names(extraArgs)) {
-    verbose<- extraArgs$verbose
+  if ("verbose" %in% names(extraArgs)) {
+    verbose <- extraArgs$verbose
   } else {
-    verbose<- TRUE
+    verbose <- TRUE
   }
   
   ## bootstrap replications
   # first level bootstrap
-  if("bs.M" %in% names(extraArgs)) {
-    M<- as.integer(extraArgs$bs.M)
+  if ("bs.M" %in% names(extraArgs)) {
+    M <- as.integer(extraArgs$bs.M)
   } else {
-    M<- 1000
+    M <- 1000
   }
   
   # second level bootstrap
-  if("bs.N" %in% names(extraArgs)) {
-    N<- as.integer(extraArgs$bs.N)
+  if ("bs.N" %in% names(extraArgs)) {
+    N <- as.integer(extraArgs$bs.N)
   } else {
-    N<- 3*M
+    N <- 3*M
   }
   
   # KDE bandwith
-  if("bs.h" %in% names(extraArgs)) {
-    h<- extraArgs$bs.h
+  if ("bs.h" %in% names(extraArgs)) {
+    h <- extraArgs$bs.h
   } else {
-    h<- (sd(data[,1])/sqrt(length(data[,1])))*2
+    h <- (sd(data[ ,1])/sqrt(length(data[ ,1])))*2
   }
   
   # standard deviation of sigmab 
-  if("sigmab.sd" %in% names(extraArgs)) {
-    sigmab.sd<- extraArgs$sigmab.sd
+  if ("sigmab.sd" %in% names(extraArgs)) {
+    sigmab.sd <- extraArgs$sigmab.sd
   } else {
-    sigmab.sd<- 0.04
+    sigmab.sd <- 0.04
   }
   
-  if("debug" %in% names(extraArgs)) {
-    debug<- extraArgs$debug
+  if ("debug" %in% names(extraArgs)) {
+    debug <- extraArgs$debug
   } else {
-    debug<- FALSE
+    debug <- FALSE
   }
+  
+  ## WARNINGS ----
+  if (!debug)
+    options(warn = -1)
   
   ##============================================================================##
   ## START VALUES
   ##============================================================================##
   
-  if(missing(init.values)) {
-    gamma.init<- ifelse(log, log(min(data[,1])), min(data[,1]))
-    sigma.init<- 1.2
-    p0.init<- 0.01
-    mu.init<- ifelse(log, log(mean(data[,1])), mean(data[,1]))
-    init.values<- NA
+  if (missing(init.values)) {
+    gamma.init <- ifelse(log, log(quantile(data[ ,1], probs = 0.25)), quantile(data[ ,1], probs = 0.25))
+    sigma.init <- 1.2
+    p0.init <- 0.01
+    mu.init <- ifelse(log, log(quantile(data[ ,1], probs = 0.25)), mean(data[ ,1]))
+    init.values <- NA
   } else {
-    gamma.init<- init.values$gamma
-    sigma.init<- init.values$sigma
-    p0.init<- init.values$p0
-    mu.init<- init.values$mu
+    gamma.init <- init.values$gamma
+    sigma.init <- init.values$sigma
+    p0.init <- init.values$p0
+    mu.init <- init.values$mu
   }
   
   ##============================================================================##
   ## ESTIMATE BOUNDARY PARAMETERS
   ##============================================================================##
   
-  ## BOUNDARIES FOR GAMMA
-  if(missing(boundaries) == TRUE) {
-    gamma.xlb<- min(data[,1]/10)
-    gamma.xub<- max(data[,1]*1.1)
-    sigma.xlb<- 1e-8
-    sigma.xub<- 5
-    mu.xlb<- min(data[,1])
-    mu.xub<- max(data[,1]*1.1)
-  } else {
-    gamma.xlb<- boundaries$gamma[1]
-    gamma.xub<- boundaries$gamma[2]
-    sigma.xlb<- boundaries$sigma[1]
-    sigma.xub<- boundaries$sigma[2]
-    mu.xlb<- boundaries$mu[1]
-    mu.xub<- boundaries$mu[2]
-  }
-  
-  boundary.gamma<- c(gamma.xlb, gamma.xub)
-  boundary.sigma<- c(sigma.xlb, sigma.xub)
-  boundary.mu<- c(mu.xlb, mu.xub)
+  gamma.xlb <- min(data[ ,1]/10)
+  gamma.xub <- max(data[ ,1]*1.1)
+  sigma.xlb <- 0
+  sigma.xub <- 5
+  mu.xlb <- min(data[ ,1])/10
+  mu.xub <- max(data[ ,1]*1.1)
   
   # combine lower and upper boundary values to vectors
-  if(log==TRUE) { 
-    xlb<- c(log(gamma.xlb), sigma.xlb, 1e-8)
-    xub<- c(log(gamma.xub), sigma.xub, 0.99999999)
+  if (log) { 
+    xlb <- c(log(gamma.xlb), sigma.xlb, 0)
+    xub <- c(log(gamma.xub), sigma.xub, 1)
   } else { 
-    xlb<- c(gamma.xlb, sigma.xlb, 1e-8)
-    xub<- c(gamma.xub, exp(sigma.xub), 0.99999999)
+    xlb <- c(gamma.xlb, sigma.xlb, 0)
+    xub <- c(gamma.xub, exp(sigma.xub), 1)
   }
   
-  if(par==4) {
-    xlb<- c(xlb, ifelse(log, log(mu.xlb), mu.xlb))
-    xub<- c(xub, ifelse(log, log(mu.xub), mu.xub))
+  if (par==4) {
+    xlb <- c(xlb, ifelse(log, log(mu.xlb), mu.xlb))
+    xub <- c(xub, ifelse(log, log(mu.xub), mu.xub))
   }
   
   ##============================================================================##
@@ -167,121 +152,61 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ##============================================================================##
   
   # THIS FUNCTION CALCULATES THE NEGATIVE LOG LIKELIHOOD OF THE DATA
-  Neglik_f<- function(gamma, sigma, p0, mu, data) {
+  Neglik_f <- function(gamma, sigma, p0, mu, data) {
     # this calculates the negative of the log likelihood of the  
     # data (data) for a given set of parameters (gamma, sigma, p0)
-    #data is a 2x2 matrix of data: De, rel_error (including sigma_b)
+    # data is a 2x2 matrix of data: De, rel_error (including sigma_b)
     
     # recover the data
-    zi<- data[,1]
-    si<- data[,2]
-    n<- length(zi)
+    zi <- data[ ,1]
+    si <- data[ ,2]
+    n <- length(zi)
     
     # in the MAM-3 gamma and mu are assumed to be equal
-    if(par==3) {
-      mu<- gamma
-    }
+    if (par == 3)
+      mu <- gamma
     
     # calculate sigma^2 + seld^2, mu0 and sigma0
-    s2<- sigma^2 + si^2
-    sigma0<- 1/sqrt(1/sigma^2 + 1/si^2)
-    mu0<- (mu/sigma^2 + zi/si^2)/(1/sigma^2 + 1/si^2) 
+    s2 <- sigma^2 + si^2
+    sigma0 <- 1/sqrt(1/sigma^2 + 1/si^2)
+    mu0 <- (mu/sigma^2 + zi/si^2)/(1/sigma^2 + 1/si^2) 
     
     # calculate the log-likelihood
-    logsqrt2pi<- 0.5*log(2*pi)
-    res0<- (gamma - mu0)/sigma0
-    res1<- (gamma - mu)/sigma
-    lf1i<- log(p0) - log(si) - 0.5*((zi-gamma)/si)^2   - logsqrt2pi
-    lf2i<- log(1-p0) - 0.5*log(s2) - 0.5*(zi-mu)^2/s2  - logsqrt2pi
-    lf2i<- lf2i + log(1-pnorm(res0)) - log(1-pnorm(res1))
-    llik<- log( exp(lf1i) + exp(lf2i) )
-    negll<- -sum(llik)
-    
-    # check if negative log likelihood is a valid estimate 
-    if(negll == Inf || negll == -Inf || is.na(negll)==TRUE) {
-      negll=0
-    }
+    logsqrt2pi <- 0.5*log(2*pi)
+    res0 <- (gamma - mu0)/sigma0
+    res1 <- (gamma - mu)/sigma
+    lf1i <- log(p0) - log(si) - 0.5*((zi-gamma)/si)^2   - logsqrt2pi
+    lf2i <- log(1-p0) - 0.5*log(s2) - 0.5*(zi-mu)^2/s2  - logsqrt2pi
+    lf2i <- lf2i + log(1-pnorm(res0)) - log(1-pnorm(res1))
+    llik <- log( exp(lf1i) + exp(lf2i) )
+    negll <- -sum(llik)
     
     return(negll)
   }
   
-  ## THIS EVALUATES WHETER ANY OF THE PARAMETERS IS ON THE BOUNDARY
-  Eval_boundaries<- function(mle, args) {
-    coef<- as.vector(mle@coef)
-    lower<- as.vector(args$lower)
-    upper<- as.vector(args$upper)
-    flag<- FALSE
-    
-    if(debug) {
-      print(paste("coef:", paste(round(coef,4), collapse = " | ")))
-      print(paste("lower:", paste(round(lower,4), collapse = " | ")))
-      print(paste("upper:", paste(round(upper,4), collapse = " | ")))
-    }
-    
-    for(i in 1:length(coef)) {
-      if(any(coef[i]==c(lower[i],upper[i]))) {
-        flag<- TRUE
-        break
-      }
-    }
-    return(flag)
-  }
-  
-  ## THIS FUNCTION IS CALLED WHEN ONE OR MORE ESTIMATES REACHED THE BOUNDARY
-  Readjust_boundaries<- function(args) {
-    args$upper["sigma"]<- args$upper["sigma"]*1.1
-    
-    # TODO: implement check which parameter is actually on the boundary
-    return(args)
-  }
-  
   # THIS MAXIMIZES THE Neglik_f LIKELIHOOD FUNCTION AND RETURNS AN MLE OBJECT
-  Get_mle<- function(data, xlb, xub, gamma, sigma, p0, mu) {
+  Get_mle <- function(data, gamma, sigma, p0, mu) {
     
-    if(par==3) {
-      lower<- c(gamma=xlb[1], sigma=xlb[2], p0=xlb[3])
-      upper<- c(gamma=xub[1], sigma=xub[2], p0=xub[3])
-      start<- list(gamma=gamma, sigma=sigma, p0=p0)
-    } else {
-      lower<- c(gamma=xlb[1], sigma=xlb[2], p0=xlb[3], mu=xlb[4])
-      upper<- c(gamma=xub[1], sigma=xub[2], p0=xub[3], mu=xub[4])
-      start<- list(gamma=gamma, sigma=sigma, p0=p0, mu=mu)
-    }
+    start <- list(gamma=gamma, sigma=sigma, p0=p0, mu=mu)
     
-    t.args<- list(data = list(data=data),
-                  optimizer = "optim",
-                  method = "L-BFGS-B",
-                  lower=lower,
-                  upper=upper,
+    t.args <- list(data = list(data=data),
+                  optimizer = "nlminb",
+                  #method = "L-BFGS-B",
+                  lower=c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf),
+                  upper=c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf),
                   minuslogl = Neglik_f,
-                  control = list(maxit = 1000),
-                  start = start)
+                  control = list(iter.max = 1000L),
+                  start = start
+                  )
     
     # TODO: PROPER ERROR HANDLING
-    # check if values are on the boundary and change accordingly;
-    # else, use latest working set of parameters
-    
     tryCatch({
-      for(i in 1:10) {
         suppressWarnings(
-          mle<- do.call("mle2", t.args)
-        )
-        
-        flag.b<- Eval_boundaries(mle, t.args)
-        if(flag.b==TRUE) {
-          t.args<- Readjust_boundaries(t.args)
-          if(debug){print("Readjusting boundaries")}
-        } else {
-          break
-        }
-      }
+          mle <- do.call("mle2", t.args)
+          )
     }, error = function(e) {
-      print(paste("Sorry, seems like I encountered an error...:", e))
+      stop(paste("Sorry, seems like I encountered an error...:", e), call. = FALSE)
     })
-    
-    if(class(mle)!="mle2") {
-      mle<- do.call("mle2", t.args)
-    }
     
     return(mle)
   }
@@ -291,50 +216,97 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ##============================================================================##
   
   # combine errors
-  if(log==TRUE) { 
-    if(invert==TRUE) {
-      lcd<- log(data[,1])*-1
-      x.offset<- abs(min(lcd))
-      lcd<- lcd+x.offset
+  if (log) { 
+    if (invert) {
+      lcd <- log(data[ ,1])*-1
+      x.offset <- abs(min(lcd))
+      lcd <- lcd+x.offset
     } else {
-      lcd<- log(data[,1])
+      lcd <- log(data[ ,1])
     }
-    lse<- sqrt((data[,2]/data[,1])^2 + sigmab^2)
+    lse <- sqrt((data[ ,2]/data[ ,1])^2 + sigmab^2)
   } else {
-    lcd<- data[,1]
-    lse<- sqrt(data[,2]^2 + sigmab^2)
+    lcd <- data[ ,1]
+    lse <- sqrt(data[ ,2]^2 + sigmab^2)
   }
   
   # create new data frame with DE and combined relative error
-  dat<- cbind(lcd, lse)
+  dat <- cbind(lcd, lse)
   
   # get the maximum likelihood estimate
-  ests<- Get_mle(dat, xlb, xub, gamma.init, sigma.init, p0.init, mu.init)
+  ests <- Get_mle(dat, gamma.init, sigma.init, p0.init, mu.init)
   
   # check if any standard errors are NA or NaN
-  coef_err<- t(as.data.frame(summary(ests)@coef[,2]))
-  if(debug) print(summary(ests))
-  if(any(is.nan(coef_err))) {
-    coef_err[which(is.nan(coef_err))]<- t(as.data.frame(ests@coef))/100
-  }
+  coef_err <- t(as.data.frame(summary(ests)@coef[ ,2]))
+
+  if (debug) 
+    print(summary(ests))
+
+  if (any(is.nan(coef_err))) 
+    coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))/100
+  if (any(is.na(coef_err)))
+    coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))/100
+  
+  if (par == 3)
+    which <- c("gamma", "sigma", "p0")
+  if (par == 4)
+    which <- c("gamma", "sigma", "p0", "mu")
   
   # calculate profile log likelihoods
-  prof<- profile(ests,
+  prof <- profile(ests,
+                 which = which,
                  std.err = as.vector(coef_err),
-                 try_harder = TRUE,
+                 #try_harder = TRUE,
                  quietly = TRUE,
                  tol.newmin = Inf,
                  skiperrs = TRUE,
-                 control = list(maxit = 1000),
-                 prof.upper=xub, 
-                 prof.lower=xlb)
+                 prof.lower=c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf),
+                 prof.upper=c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf)
+                 )
+  # Fallback when profile() returns a 'better' fit
+  maxsteps <- 100
+  cnt <- 1
+  while (!inherits(prof, "profile.mle2")) {
+    message(paste0("## Trying to find a better fit (", cnt, "/10) ##"))
+    if (maxsteps == 0L) 
+      stop(paste("Sorry, but I can't find a converging fit for the profile log-likelihood."), 
+           call. = FALSE)
+    
+    prof <- profile(ests,
+                   which = which,
+                   std.err = as.vector(coef_err),
+                   try_harder = TRUE,
+                   quietly = TRUE,
+                   maxsteps = maxsteps,
+                   tol.newmin = Inf,
+                   skiperrs = TRUE,
+                   prof.lower = xlb,
+                   prof.upper = xub
+                   )
+    
+    maxsteps <- maxsteps - 10
+    cnt <- cnt+1
+  }
+  
+  ## DELETE rows where z = -Inf/Inf
+  prof@profile$gamma <-  prof@profile$gamma[which(prof@profile$gamma["z"] != Inf), ]
+  prof@profile$gamma <-  prof@profile$gamma[which(prof@profile$gamma["z"] != -Inf), ]
+  prof@profile$sigma <-  prof@profile$sigma[which(prof@profile$sigma["z"] != Inf), ]
+  prof@profile$sigma <-  prof@profile$sigma[which(prof@profile$sigma["z"] != -Inf), ]
+  prof@profile$p0 <-  prof@profile$p0[which(prof@profile$p0["z"] != Inf), ]
+  prof@profile$p0 <-  prof@profile$p0[which(prof@profile$p0["z"] != -Inf), ]
+  
+  if (par == 4) {
+    prof@profile$mu <-  prof@profile$mu[which(prof@profile$mu["z"] != Inf), ]
+    prof@profile$mu <-  prof@profile$mu[which(prof@profile$mu["z"] != -Inf), ]
+  }
   
   # calculate Bayesian Information Criterion (BIC)
-  BIC<- BIC(ests)
+  BIC <- BIC(ests)
   
   # retrieve results from mle2-object
-  pal<- if(log==TRUE) {
-    if(invert==TRUE) {
+  pal <- if (log) {
+    if (invert) {
       exp((coef(ests)[["gamma"]]-x.offset)*-1)
     } else {
       exp(coef(ests)[["gamma"]])
@@ -342,13 +314,13 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   } else {
     coef(ests)[["gamma"]]
   }
-  sig<- coef(ests)[["sigma"]]
-  p0end<- coef(ests)[["p0"]]
+  sig <- coef(ests)[["sigma"]]
+  p0end <- coef(ests)[["p0"]]
   
-  if(par==4) {
-    muend<- ifelse(log, exp(coef(ests)[["mu"]]), coef(ests)[["mu"]])
+  if (par==4) {
+    muend <- ifelse(log, exp(coef(ests)[["mu"]]), coef(ests)[["mu"]])
   } else {
-    muend<- NA
+    muend <- NA
   }
   
   ##============================================================================##
@@ -357,26 +329,25 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   #### METHOD 1: follow the instructions of Galbraith & Roberts (2012) ####
   # "If the likelihood profile is symmetrical about the parameter, an approximate standard error 
   #  can be calculated by dividing the length of this interval by 3.92"
-  conf<- as.data.frame(confint(ests, tol.newmin = Inf, quietly=TRUE))
+  conf <- as.data.frame(confint(prof, tol.newmin = Inf, quietly = TRUE))
   
-  if(invert==TRUE) {
-    conf[1,]<- (conf[1,]-x.offset)*-1
-    t<- conf[1,1]
-    conf[1,1]<- conf[1,2]
-    conf[1,2]<- t
+  if (invert) {
+    conf[1, ] <- (conf[1, ]-x.offset)*-1
+    t <- conf[1,1]
+    conf[1,1] <- conf[1,2]
+    conf[1,2] <- t
   }
   
-  gamma_err<- if(log==TRUE) {
+  gamma_err <- if (log) {
     (exp(conf["gamma",2])-exp(conf["gamma",1]))/3.92 
-  }
-  else {
+  } else {
     (conf["gamma",2]-conf["gamma",1])/3.92
   }
+ 
   
   ##============================================================================##
   ## AGGREGATE RESULTS
-  
-  summary<- data.frame(de=pal, 
+  summary <- data.frame(de=pal, 
                        de_err=gamma_err, 
                        "ci_lower"=ifelse(log, exp(conf["gamma",1]), conf["gamma",1]),
                        "ci_upper"=ifelse(log, exp(conf["gamma",2]), conf["gamma",2]),
@@ -386,11 +357,8 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
                        mu=muend,
                        Lmax=-ests@min, 
                        BIC=BIC)
-  call<- sys.call()
-  args<- list(log=log, sigmab=sigmab, bootstrap=bootstrap, 
-              boundary.gamma=boundary.gamma, 
-              boundary.sigma=boundary.sigma,
-              boundary.mu=boundary.mu,
+  call <- sys.call()
+  args <- list(log=log, sigmab=sigmab, bootstrap=bootstrap, 
               init.values=init.values, 
               bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
   
@@ -399,94 +367,95 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ##============================================================================##
   
   # create normal distribution for sigmab
-  if(bootstrap == TRUE) {
+  if (bootstrap == TRUE) {
     # header
     cat(paste("\n   --- RECYCLED BOOTSTRAP ---- \n"))
     
     # save original sigmab value
-    sigmab.global<- sigmab
+    sigmab.global <- sigmab
     
     # define normal dist. parameters for sigmab
-    sigmab.mean<- sigmab
-    sigmab.sd<- sigmab.sd
+    sigmab.mean <- sigmab
+    sigmab.sd <- sigmab.sd
     
     # empty variables
-    n<- length(data[,1])
-    b2Pmatrix<- matrix(NA, N, n)
-    b2mamvec<- matrix(NA, N, 1)
-    pairs<- matrix(NA, M, 2)
-    p0.pairs<- matrix(NA, M, 2)
+    n <- length(data[ ,1])
+    b2Pmatrix <- matrix(NA, N, n)
+    b2mamvec <- matrix(NA, N, 1)
+    pairs <- matrix(NA, M, 2)
+    p0.pairs <- matrix(NA, M, 2)
     
     # KDE bandwidth
-    h<- h
+    h <- h
     
     ## --------- N SECOND LEVEL BOOTSTRAPS -------------- ##
     for(i in 1:N) {
-      if(i == 1) {
+      if (i == 1) {
         cat(paste("\n"))
         cat(paste("   Calculating", N, "second level bootstraps. Please wait... \n"))
         
         #get starting time
-        time.start<- Sys.time()
+        time.start <- Sys.time()
       }
-      if(i == 10) {
+      if (i == 10) {
         #get stop time
-        time.stop<- Sys.time()
+        time.stop <- Sys.time()
         # calculate time needed for one iteration
-        time.elapsed<- abs(as.double(time.start - time.stop))/10
+        time.elapsed <- abs(as.double(time.start - time.stop))/10
         # estimate time till second level bootstraps are finished
-        ETA<- Sys.time()+time.elapsed*N
+        ETA <- Sys.time()+time.elapsed*N
         # tell user about time
         write(paste("   Estimated time needed:", round(time.elapsed*N), "s | Finished at", ETA), file = "")
         # create progress bar
         pb <- txtProgressBar(min = 0, max = N, char = "#", style = 3)
       }
       # draw random sigmab
-      sigmab<- rnorm(1, sigmab.mean, sigmab.sd)
+      sigmab <- rnorm(1, sigmab.mean, sigmab.sd)
       # n random integers with replacement
-      R<- sample(x=n, size=n, replace=TRUE)
+      R <- sample(x=n, size=n, replace=TRUE)
       # recored frequencies of each n, used in calc of product term
       for(k in 1:n) {
-        b2Pmatrix[i, k]<- sum(R == k)
+        b2Pmatrix[i, k] <- sum(R == k)
       }
       
       # create bootstrap replicate
-      Rde<- data[R,]
-      de2<- Rde
+      Rde <- data[R, ]
+      de2 <- Rde
       
       # combine errors
-      if(log==TRUE) { 
-        lcd<- log(de2[,1])
-        lse<- sqrt((de2[,2]/de2[,1])^2 + sigmab^2)
+      if (log) { 
+        lcd <- log(de2[ ,1])
+        lse <- sqrt((de2[ ,2]/de2[ ,1])^2 + sigmab^2)
       } else {
-        lcd<- de2[,1]
-        lse<- sqrt(de2[,2]^2 + sigmab^2)
+        lcd <- de2[ ,1]
+        lse <- sqrt(de2[ ,2]^2 + sigmab^2)
       }
       
       # create new data frame with DE and combined relative error
-      dat<- cbind(lcd, lse)
+      dat <- cbind(lcd, lse)
       
       # get the maximum likelihood estimate
-      ests<- Get_mle(dat, xlb, xub, gamma.init, sigma.init, p0.init)
+      ests <- Get_mle(dat, gamma.init, sigma.init, p0.init, mu.init)
       
       # check if any standard errors are NA or NaN
-      coef_err<- t(as.data.frame(summary(ests)@coef[,2]))
-      if(any(is.nan(coef_err))) {
-        coef_err[which(is.nan(coef_err))]<- t(as.data.frame(ests@coef))/100
-      }
+      coef_err <- t(as.data.frame(summary(ests)@coef[ ,2]))
+      if (any(is.nan(coef_err)))
+        coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))/100
+      if (any(is.na(coef_err)))
+        coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))/100
       
       # save gamma to storage matrix
-      if(log == TRUE) {
-        if(invert==TRUE) {
-          b2mamvec[i,1]<- exp((coef(ests)[["gamma"]]-x.offset)*-1)
+      if (log) {
+        if (invert) {
+          b2mamvec[i,1] <- exp((coef(ests)[["gamma"]]-x.offset)*-1)
         } else {
-          b2mamvec[i,1]<- exp(coef(ests)[["gamma"]])
+          b2mamvec[i,1] <- exp(coef(ests)[["gamma"]])
         }
       } else {
-        b2mamvec[i,1]<- coef(ests)[["gamma"]]
+        b2mamvec[i,1] <- coef(ests)[["gamma"]]
       }
       
-      if(i > 10) {
+      if (i > 10) {
         # update progress bar
         setTxtProgressBar(pb, i)
       }
@@ -496,89 +465,90 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
     
     ## --------- M FIRST LEVEL BOOTSTRAPS -------------- ##
     for(i in 1:M) {
-      if(i == 1) {
+      if (i == 1) {
         cat(paste("\n"))
         cat(paste("   Calculating", M, "first level bootstraps. Please wait... \n"))
         #get starting time
-        time.start<- Sys.time()
+        time.start <- Sys.time()
       }
-      if(i == 10) {
+      if (i == 10) {
         #get stop time
-        time.stop<- Sys.time()
+        time.stop <- Sys.time()
         # calculate time needed for one iteration
-        time.elapsed<- abs(as.double(time.start - time.stop))/10
+        time.elapsed <- abs(as.double(time.start - time.stop))/10
         # estimate time till second level bootstraps are finished
-        ETA<- Sys.time()+time.elapsed*N
+        ETA <- Sys.time()+time.elapsed*N
         # tell user about time
         write(paste("   Estimated time needed:", round(time.elapsed*N), "s | Finished at", ETA), file = "")
         # create progress bar
         pb <- txtProgressBar(min = 0, max = M, char = "#", style = 3)
       }
       # draw random sigmab
-      sigmab<- rnorm(1, sigmab.mean, sigmab.sd)
+      sigmab <- rnorm(1, sigmab.mean, sigmab.sd)
       # n random integers with replacement
-      R<- sample(x=n, size=n, replace=TRUE)
+      R <- sample(x=n, size=n, replace=TRUE)
       # create bootstrap replicates
-      Rde<- data[R,]
-      de2<- Rde
+      Rde <- data[R, ]
+      de2 <- Rde
       
       # combine errors
-      if(log==TRUE) { 
-        lcd<- log(de2[,1])
-        lse<- sqrt((de2[,2]/de2[,1])^2 + sigmab^2)
+      if (log) { 
+        lcd <- log(de2[ ,1])
+        lse <- sqrt((de2[ ,2]/de2[ ,1])^2 + sigmab^2)
       } else {
-        lcd<- de2[,1]
-        lse<- sqrt(de2[,2]^2 + sigmab^2)
+        lcd <- de2[ ,1]
+        lse <- sqrt(de2[ ,2]^2 + sigmab^2)
       }
       
       # create new data frame with DE and combined relative error
-      dat<- cbind(lcd, lse)
+      dat <- cbind(lcd, lse)
       
       # get the maximum likelihood estimate
-      ests<- Get_mle(dat, xlb, xub, gamma.init, sigma.init, p0.init)
+      ests <- Get_mle(dat, gamma.init, sigma.init, p0.init, mu.init)
       
       # check if any standard errors are NA or NaN
-      coef_err<- t(as.data.frame(summary(ests)@coef[,2]))
-      if(any(is.nan(coef_err))) {
-        coef_err[which(is.nan(coef_err))]<- t(as.data.frame(ests@coef))/100
-      }
+      coef_err <- t(as.data.frame(summary(ests)@coef[ ,2]))
+      if (any(is.nan(coef_err)))
+        coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))/100
+      if (any(is.na(coef_err)))
+        coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))/100
       
       # save gamma to storage matrix
-      if(log == TRUE) {
-        if(invert == TRUE) {
-          theta<- exp((coef(ests)[["gamma"]]-x.offset)*-1)
+      if (log) {
+        if (invert) {
+          theta <- exp((coef(ests)[["gamma"]]-x.offset)*-1)
         } else {
-          theta<- exp(coef(ests)[["gamma"]]) 
+          theta <- exp(coef(ests)[["gamma"]]) 
         }
       } else {
-        theta<- coef(ests)[["gamma"]]
+        theta <- coef(ests)[["gamma"]]
       }
       
-      bs.p0<- coef(ests)[["p0"]]
+      bs.p0 <- coef(ests)[["p0"]]
       
       # kernel density estimate
-      f<- density(x=de2[,1], kernel="gaussian", bw=h)
-      f<- approx(x=f$x, y=f$y, xout=de2[,1])
+      f <- density(x=de2[ ,1], kernel="gaussian", bw=h)
+      f <- approx(x=f$x, y=f$y, xout=de2[ ,1])
       
       # convert to matrix
-      f<- cbind(f$x,f$y)
-      pStarTheta<- as.vector(f[,2]/sum(f[,2]))
-      thetavec<- matrix(theta, N, 1)    
-      kdthis<- (thetavec-b2mamvec)/h
-      kd1<- dnorm(kdthis)
+      f <- cbind(f$x,f$y)
+      pStarTheta <- as.vector(f[ ,2]/sum(f[ ,2]))
+      thetavec <- matrix(theta, N, 1)    
+      kdthis <- (thetavec-b2mamvec)/h
+      kd1 <- dnorm(kdthis)
       
       # the product term
-      Pmat<- pStarTheta/(1/n)
-      Pmat<- matrix(t(Pmat), N, n, byrow=TRUE)
-      prodterm<- apply(Pmat^b2Pmatrix, 1, prod)
+      Pmat <- pStarTheta/(1/n)
+      Pmat <- matrix(t(Pmat), N, n, byrow=TRUE)
+      prodterm <- apply(Pmat^b2Pmatrix, 1, prod)
       
-      kd2<- kd1*prodterm
-      kd<- sum(kd2)
-      likelihood<- (1/(N*h))*kd
-      pairs[i,]<- c(theta, likelihood)
-      p0.pairs[i,]<- c(theta, bs.p0)
+      kd2 <- kd1*prodterm
+      kd <- sum(kd2)
+      likelihood <- (1/(N*h))*kd
+      pairs[i, ] <- c(theta, likelihood)
+      p0.pairs[i, ] <- c(theta, bs.p0)
       
-      if(i > 10) {
+      if (i > 10) {
         # update progress bar
         setTxtProgressBar(pb, i)
       }
@@ -588,23 +558,23 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
     
     ## --------- FIT POLYNOMIALS -------------- ##
     # polynomial fits of increasing degrees
-    poly.three<- lm(pairs[,2] ~ poly(pairs[,1], degree=3, raw=TRUE)) # 3-deg. poly
-    poly.four<- lm(pairs[,2] ~ poly(pairs[,1], degree=4, raw=TRUE))  # 4-deg. poly
-    poly.five<- lm(pairs[,2] ~ poly(pairs[,1], degree=5, raw=TRUE))  # 5-deg. poly
-    poly.six<- lm(pairs[,2] ~ poly(pairs[,1], degree=6, raw=TRUE))   # 6-deg. poly
+    poly.three <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree=3, raw=TRUE)) # 3-deg. poly
+    poly.four <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree=4, raw=TRUE))  # 4-deg. poly
+    poly.five <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree=5, raw=TRUE))  # 5-deg. poly
+    poly.six <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree=6, raw=TRUE))   # 6-deg. poly
     
     ## --------- FIT LOESS -------------- ##
-    loess<- loess(pairs[,2] ~ pairs[,1])     
+    loess <- loess(pairs[ ,2] ~ pairs[ ,1])     
   }
   
   ##============================================================================##
   ## CONSOLE PRINT
   ##============================================================================##
   
-  if(verbose==TRUE) {
-    if(bootstrap==FALSE) {
+  if (verbose) {
+    if (bootstrap==FALSE) {
       cat("\n----------- meta data -----------\n")
-      print(data.frame(n=length(data[,1]),
+      print(data.frame(n=length(data[ ,1]),
                        par=par,
                        sigmab=sigmab, 
                        logged=log, 
@@ -633,7 +603,7 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
                              error=gamma_err, 
                              row.names=""), 2))
       
-    } else if(bootstrap==TRUE) {
+    } else if (bootstrap==TRUE) {
       # TODO: at least some text output would be nice for bootstrap
     }
   }
@@ -642,17 +612,10 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ## RETURN VALUES
   ##============================================================================##
   
-  if(bootstrap==FALSE) {
-    pairs<- NULL
-    p0.pairs<- NULL
-    poly.three<- NULL
-    poly.four<- NULL
-    poly.five<- NULL
-    poly.six<- NULL
-    loess<- NULL
-  }
+  if (!bootstrap) 
+    pairs <- p0.pairs <- poly.three <- poly.four <- poly.five <- poly.six <- loess <- NULL
   
-  newRLumResults.calc_MinDose<- set_RLum.Results(
+  newRLumResults.calc_MinDose <- set_RLum.Results(
     data = list(summary = summary,
                 data = data,
                 args = args,
@@ -672,9 +635,12 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   
   ##=========##
   ## PLOTTING
-  if(plot==TRUE) {
+  if (plot==TRUE) {
     try(plot_RLum.Results(newRLumResults.calc_MinDose, ...))
   }
+  
+  if (!debug)
+    options(warn = 0)
   
   invisible(newRLumResults.calc_MinDose)
   ### Returns a plot (optional) and terminal output. In addition an 
@@ -685,7 +651,7 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ### \item{data}{\link{data.frame} original input data}
   ### \item{args}{\link{list} used arguments}
   ### \item{call}{\link{call} the function call}
-  ### \item{mle}{\link{mle2} mle2 object containing the maximum log likelhood functions for all parameters}
+  ### \item{mle}{\link{mle2} \code{mle2} object containing the maximum log likelhood functions for all parameters}
   ### \item{BIC}{\link{numeric} BIC score}
   ### \item{confint}{\link{data.frame} confidence intervals for all parameters}
   ### \item{profile}{\link{profile.mle2} the log likelihood profiles}
@@ -703,14 +669,14 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ## \code{sigma}: \tab spread in ages above the minimum \cr
   ## \code{p0}: \tab proportion of grains at gamma \cr }
   ## If \code{par=3} (default) the 3-parametric minimum age model is applied,
-  ## where \code{gamma = mu}. For \code{par=4} the 4-parametric model is applied
+  ## where \code{gamma=mu}. For \code{par=4} the 4-parametric model is applied
   ## instead.\cr\cr
   ## \bold{(Un-)logged model} \cr\cr
   ## In the original version of the three-parameter minimum dose model, the 
   ## basic data are the natural logarithms of the De estimates and relative 
   ## standard errors of the De estimates. This model will be applied if 
-  ## \code{log = TRUE}. \cr\cr
-  ## If \code{log = FALSE}, the modified un-logged model will be applied 
+  ## \code{log=TRUE}. \cr\cr
+  ## If \code{log=FALSE}, the modified un-logged model will be applied 
   ## instead. This has essentially the same form as the original version. 
   ## \code{gamma} and \code{sigma} are in Gy and \code{gamma} becomes the
   ## minimum true dose in the population. \cr\cr
@@ -719,22 +685,30 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ## (un-logged) version is specially designed for modern-age and young
   ## samples containing negative, zero or near-zero De estimates (Arnold 
   ## et al. 2009, p. 323). \cr\cr
-  ## \bold{Boundaries} \cr\cr  
-  ## Depending on the data, the upper and lower bounds for \emph{gamma}, \emph{mu}, 
-  ## \emph{sigma} and \emph{p0} need to be specified. If no values are provided
-  ## for \code{boundaries} the function tries to estimate reasonable boundaries.
-  ## However, these might not be appropriate in all cases and 
-  ## if the final estimate of any of these parameters is on the boundary, 
-  ## make sure to adjust the boundaries via \code{boundaries}.
-  ## \cr\cr
-  ## \bold{Initial values} \cr\cr
-  ## The log likelihood calculations use the \link{optim} function with the
-  ## \code{L-BFGS-B} method. 
-  ## Accordingly, initial values for the four parameters need to be specified.
-  ## If no values are provided for \code{init.values} reasonable starting 
-  ## values are estimated. If the final estimates of \emph{gamma}, \emph{mu}, 
+  ## \bold{Initial values & boundaries} \cr\cr
+  ## The log likelihood calculations use the \link{nlminb} function for
+  ## box-constrained optimisation using PORT routines. 
+  ## Accordingly, initial values for the four parameters can be specified via
+  ## \code{init.values}. If no values are provided for \code{init.values} reasonable starting 
+  ## values are estimated from the input data. 
+  ## If the final estimates of \emph{gamma}, \emph{mu}, 
   ## \emph{sigma} and \emph{p0} are totally off target, consider providing custom
-  ## starting values via \code{init.values}.
+  ## starting values via \code{init.values}. \cr
+  ## In contrast to previous versions of this function the boundaries for the
+  ## individual model parameters can no longer be specified. Appropriate boundary
+  ## are now hard-coded and are valid for all input data sets. \cr\cr
+  ## \bold{Bootstrap} \cr\cr
+  ## When \code{bootstrap=TRUE} the function applies the bootstrapping method as
+  ## described in Wallinga & Cunningham (2012). By default, the minimum age model 
+  ## produces 1000 first level and 3000 second level bootstrap replicates
+  ## (actually, the number of second level bootstrap replicates is three times 
+  ## the number of first level replicates unless specified otherwise). 
+  ## The uncertainty on sigmab is 0.04 by default. These values can be changed by
+  ## using the arguments \code{bs.M} (first level replicates), \code{bs.N}
+  ## (second level replicates) and \code{sigmab.sd} (error on sigmab). With \code{bs.h}
+  ## the bandwidth of the kernel density estimate can be specified. By default, \code{h} 
+  ## is calculated as \cr
+  ## \deqn{h = (2*\sigma_{DE})/\sqrt{n}}
   
   
   ##references<<
@@ -769,28 +743,37 @@ calc_MinDose<- structure(function( # Apply the (un-)logged minimum age model (MA
   ## reproducible distribution?. Ancient TL 26, 3-10. \cr\cr
   
   ##note<<
-  ## The default boundary and starting values for \emph{gamma}, \emph{mu}, 
+  ## The default starting values for \emph{gamma}, \emph{mu}, 
   ## \emph{sigma} and \emph{p0} may only be appropriate for some De data sets 
   ## and may need to be changed for other data. This is especially true when
-  ## the un-logged version is applied.
+  ## the un-logged version is applied. \cr 
+  ## Also note that all R warning messages are suppressed when running this
+  ## function. If the results seem odd consider re-running the model with
+  ## \code{debug=TRUE} which provides extended console output and forwards
+  ## all internal warning messages.
   
   ##seealso<<
   ## \code{\link{calc_CentralDose}},
   ## \code{\link{calc_CommonDose}}, \code{\link{calc_FiniteMixture}},
   ## \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MaxDose}}
   
-  
-  #### EXAMPLE ####
 },ex=function(){
   
   ## load example data
   data(ExampleData.DeValues, envir = environment())
   
   # apply the un-logged, 3-parametric minimum age model
-  calc_MinDose(data = ExampleData.DeValues, par = 3, sigmab = 0.2, log = FALSE)
+  calc_MinDose(data = ExampleData.DeValues, 
+               par = 3, 
+               sigmab = 0.05, 
+               log = FALSE)
   
   # re-run the model, but save results to a variable
-  mam<- calc_MinDose(data = ExampleData.DeValues, par = 3, sigmab = 0.2, log = FALSE, plot = FALSE)
+  mam <- calc_MinDose(data = ExampleData.DeValues, 
+                     par = 3, 
+                     sigmab = 0.05, 
+                     log = FALSE, 
+                     plot = FALSE)
   
   # show summary table
   get_RLum.Results(mam, "summary")

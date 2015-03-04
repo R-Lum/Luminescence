@@ -6,47 +6,49 @@
 \alias{set_Risoe.BINfileData}
 \alias{set_Risoe.BINfileData,Risoe.BINfileData-method}
 \alias{set_Risoe.BINfileData,data.frame,list-method}
+\alias{set_Risoe.BINfileData,ANY-method}
 \alias{get_Risoe.BINfileData}
 \alias{get_Risoe.BINfileData-methods}
 \alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
 
 \title{Class \code{"Risoe.BINfileData"}}
 \description{
-S4 class object for luminescence data in R. The object is produced as output of the 
+S4 class object for luminescence data in R. The object is produced as output of the
 function \code{\link{readBIN2R}}.
 }
 \section{Objects from the Class}{
 Objects can be created by calls of the form \code{new("Risoe.BINfileData", ...)}.
-%%  ~~ describe objects here ~~ 
+%%  ~~ describe objects here ~~
 }
 \section{Slots}{
   \describe{
     \item{\code{METADATA}:}{Object of class \code{"data.frame"} containing the meta information for each curve.}
-    \item{\code{DATA}:}{Object of class \code{"list"} containing numeric vector with count data }
+    \item{\code{DATA}:}{Object of class \code{"list"} containing numeric vector with count data.}
+    \item{\code{.RESERVED}:}{Object of class \code{"list"} containing list of undocumented raw values for internal use only.}
     \item{\code{.S3Class}:}{Object of class \code{"character"}}
   }
 }
 \section{Methods}{
   \describe{
     \item{show}{\code{signature(object = "Risoe.BINfileData")}: ... }
-	 
-    \item{set_Risoe.BINfileData}{\code{signature(METADATA = "data.frame", DATA = "list")}: 
-    
-    The \code{\linkS4class{Risoe.BINfileData}} is normally produced as output of 
+
+    \item{set_Risoe.BINfileData}{\code{signature(METADATA = "data.frame", DATA = "list", .RESERVED = "list")}:
+
+    The \code{\linkS4class{Risoe.BINfileData}} is normally produced as output of
     the function \code{\link{readBIN2R}}. This construction method is intended for internal usage
     only.
-   } 
-   
-   \item{get_Risoe.BINfileData}{\code{signature(object = "Risoe.BINfileData")}: 
-    
+   }
+
+   \item{get_Risoe.BINfileData}{\code{signature(object = "Risoe.BINfileData")}:
+
     Formal get-method for \code{\linkS4class{Risoe.BINfileData}} object. It does not
-    allow accessing the object directly, it is just showing a terminal message.  
-   } 
-   
+    allow accessing the object directly, it is just showing a terminal message.
+   }
+
 
   }
 }
-  
+
 
 \references{
 %%  ~~put references to the literature/web site here~~
@@ -55,10 +57,10 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 \code{http://www.nutech.dtu.dk/}
 
 }
-\author{Sebastian Kreutzer, JLU Giessen (Germany)
+\author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 
-\section{Version}{0.3 (2013-06-02)}
+\section{Version}{0.4 (2014-02-27)}
 
 \note{
 
@@ -78,10 +80,10 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 [,10]    \tab GRAIN           \tab  \code{integer}  \tab 03-04 \tab Grain number\cr
 [,11]    \tab GRAINNUMBER     \tab  \code{integer}  \tab 06 \tab Grain number\cr
 [,12]    \tab CURVENO         \tab  \code{integer}  \tab 06 \tab Curve number\cr
-[,13]    \tab XCOORD          \tab  \code{integer}  \tab 03-06 \tab X position of a single grain\cr 
-[,14]    \tab YCOORD          \tab  \code{integer}  \tab 03-06 \tab Y position of a single grain\cr 
+[,13]    \tab XCOORD          \tab  \code{integer}  \tab 03-06 \tab X position of a single grain\cr
+[,14]    \tab YCOORD          \tab  \code{integer}  \tab 03-06 \tab Y position of a single grain\cr
 [,15]    \tab SAMPLE          \tab  \code{factor}   \tab 03-06 \tab Sample name\cr
-[,16]    \tab COMMENT         \tab  \code{factor}   \tab 03-06 \tab Comment name\cr 
+[,16]    \tab COMMENT         \tab  \code{factor}   \tab 03-06 \tab Comment name\cr
 [,17]    \tab SYSTEMID        \tab  \code{integer}  \tab 03-06 \tab Risoe system id\cr
 [,18]    \tab FNAME           \tab  \code{factor}   \tab 06    \tab File name (*.bin/*.binx)\cr
 [,19]    \tab USER            \tab  \code{facotr}   \tab 03-06 \tab User name\cr
@@ -90,10 +92,10 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 [,22]    \tab DTYPE           \tab  \code{character} \tab 03-06 \tab Data type\cr
 [,23]    \tab BL_TIME         \tab  \code{numeric}  \tab 03-06 \tab Bleaching time\cr
 [,24]    \tab BL_UNIT         \tab  \code{integer}  \tab 03-06 \tab Bleaching unit (mJ, J, secs, mins, hrs)\cr
-[,25]    \tab NORM1           \tab  \code{numeric}  \tab 03-06 \tab Normalisation factor (1)\cr 
-[,26]    \tab NORM2           \tab  \code{numeric}  \tab 03-06 \tab Normalisation factor (2)\cr 
-[,27]    \tab NORM3           \tab  \code{numeric}  \tab 03-06 \tab Normalisation factor (3)\cr 
-[,28]    \tab BG              \tab  \code{numeric}  \tab 03-06 \tab Background level\cr 
+[,25]    \tab NORM1           \tab  \code{numeric}  \tab 03-06 \tab Normalisation factor (1)\cr
+[,26]    \tab NORM2           \tab  \code{numeric}  \tab 03-06 \tab Normalisation factor (2)\cr
+[,27]    \tab NORM3           \tab  \code{numeric}  \tab 03-06 \tab Normalisation factor (3)\cr
+[,28]    \tab BG              \tab  \code{numeric}  \tab 03-06 \tab Background level\cr
 [,29]    \tab SHIFT           \tab  \code{integer}  \tab 03-06 \tab Number of channels to shift data\cr
 [,30]    \tab TAG             \tab  \code{integer}  \tab 03-06 \tab Tag, triggers SEL\cr
 [,31]    \tab LTYPE           \tab  \code{character} \tab 03-06 \tab Luminescence type\cr
@@ -103,7 +105,7 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 [,35]    \tab LOW             \tab  \code{numeric}  \tab 03-06 \tab Low (temperature, time, wavelength)\cr
 [,36]    \tab HIGH            \tab  \code{numeric}  \tab 03-06 \tab High (temperature, time, wavelength)\cr
 [,37]    \tab RATE            \tab  \code{numeric}  \tab 03-06 \tab Rate (heating rate, scan rate)\cr
-[,38]    \tab TEMPERATURE     \tab  \code{integer}  \tab 03-06 \tab Sample temperature\cr 
+[,38]    \tab TEMPERATURE     \tab  \code{integer}  \tab 03-06 \tab Sample temperature\cr
 [,39]    \tab MEASTEMP        \tab  \code{integer} \tab 06    \tab Measured temperature\cr
 [,40]    \tab AN_TEMP         \tab  \code{numeric}  \tab 03-06 \tab Annealing temperature\cr
 [,41]    \tab AN_TIME         \tab  \code{numeric}  \tab 03-06 \tab Annealing time\cr
@@ -114,7 +116,7 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 [,46]    \tab IRR_TYPE        \tab  \code{integer}  \tab 03-06 \tab Irradiation type (alpha, beta or gamma)\cr
 [,47]    \tab IRR_UNIT        \tab  \code{integer}  \tab 03-04 \tab Irradiation unit (Gy, Rads, secs, mins, hrs)\cr
 [,48]    \tab IRR_DOSERATE    \tab  \code{numeric}  \tab 06   \tab Irradiation dose rate (Gy/s)\cr
-[,49]    \tab IRR_DOSERATEERR \tab  \code{numeric}  \tab 06   \tab Irradiation dose rate error (Gy/s)\cr 
+[,49]    \tab IRR_DOSERATEERR \tab  \code{numeric}  \tab 06   \tab Irradiation dose rate error (Gy/s)\cr
 [,50]    \tab TIMESINCEIRR    \tab  \code{integer}  \tab 06   \tab Time since irradiation (s)\cr
 [,51]    \tab TIMETICK        \tab  \code{numeric}  \tab 06   \tab Time tick for pulsing (s)\cr
 [,52]    \tab ONTIME          \tab  \code{integer}  \tab 06   \tab On-time for pulsing (in time ticks)\cr
@@ -133,12 +135,12 @@ Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013
 [,65]    \tab XRF_DEADTIMEF   \tab  \code{numeric}  \tab 06   \tab XRF dead time fraction\cr
 [,66]    \tab SEQUENCE        \tab  \code{character}  \tab 03-04 \tab Sequence name\cr
 }
-V = BIN-file version (RLum means that it does not depend on a specific 
+V = BIN-file version (RLum means that it does not depend on a specific
 BIN version)\cr
 
-Note that the \code{Risoe.BINfileData} object combines all values from 
-different versions from the BIN-file, reserved bits are skipped, however, the function \code{\link{writeR2BIN}} reset arbitrary reserved bits. Invalid values for a specific version 
-are set to \code{NA}. Furthermore, the internal R data types do not necessarily 
+Note that the \code{Risoe.BINfileData} object combines all values from
+different versions from the BIN-file, reserved bits are skipped, however, the function \code{\link{writeR2BIN}} reset arbitrary reserved bits. Invalid values for a specific version
+are set to \code{NA}. Furthermore, the internal R data types do not necessarily
 match the required data types for the BIN-file data import! Data types are
 converted during data import.\cr
 

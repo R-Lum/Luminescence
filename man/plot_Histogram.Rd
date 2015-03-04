@@ -1,55 +1,58 @@
 \name{plot_Histogram}
 \alias{plot_Histogram}
 \title{Plot a histogram with separate error plot}
-\description{Function plots a predefined histogram with an accompanying error plot 
+\description{Function plots a predefined histogram with an accompanying error plot
 as suggested by Rex Galbraith at the UK LED in Oxford 2010.}
 \usage{plot_Histogram(data, na.exclude = TRUE, mtext, cex.global, breaks, 
     se, rug, normal_curve, summary, summary.pos, colour, ...)}
 \arguments{
-  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}  
-object (required): for \code{data.frame}: two columns: De 
+  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
+object (required): for \code{data.frame}: two columns: De
 (\code{data[,1]}) and De error (\code{data[,2]})}
-  \item{na.exclude}{\code{\link{logical}} (with default): excludes \code{NA} values from the 
+  \item{na.exclude}{\code{\link{logical}} (with default): excludes \code{NA} values from the
 data set prior to any further operations.}
-  \item{mtext}{\code{\link{character}} (optional): further sample information 
+  \item{mtext}{\code{\link{character}} (optional): further sample information
 (\link{mtext}).}
   \item{cex.global}{\code{\link{numeric}} (with default): global scaling factor.}
   \item{breaks}{(with default): sets breakpoints for histogram. Works as in \link{hist}.}
-  \item{se}{\code{\link{logical}} (optional): plots standard error points over the 
+  \item{se}{\code{\link{logical}} (optional): plots standard error points over the
 histogram, default is \code{FALSE}.}
-  \item{rug}{\code{\link{logical}} (optional): adds rugs to the histogram, default is 
+  \item{rug}{\code{\link{logical}} (optional): adds rugs to the histogram, default is
 \code{TRUE}.}
-  \item{normal_curve}{\code{\link{logical}} (with default): adds a normal curve to the 
-histogram. Mean and sd are calculated from the input data. More see 
+  \item{normal_curve}{\code{\link{logical}} (with default): adds a normal curve to the
+histogram. Mean and sd are calculated from the input data. More see
 details section.}
-  \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot. 
-Can be one or more out of: "n" (number of samples), "mean" (mean De 
-value), "mean.weighted" (error-weighted mean), "median" (median of 
-the De values), "sdrel" (relative standard deviation in 
-percent), "sdabs" (absolute standard deviation), "serel" (relative 
-standard error), "seabs" (absolute standard error), "skewness" (skewness)
-and "kurtosis" (kurtosis).}
-  \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional  
-position coordinates or keyword (e.g. \code{"topright"}) for the 
+  \item{summary}{\code{\link{character}} (optional): adds numerical output to the plot.
+Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De
+value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of
+the De values), \code{"kdemax"} (maximum of the KDE), \code{"sdrel"} (relative standard deviation in
+percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative
+standard error), \code{"seabs"} (absolute standard error), \code{"skewness"} (skewness)
+and \code{"kurtosis"} (kurtosis).
+Note: Keywords \code{"kdemax"} is implemented for
+consistency reasons, however, no KDE is shown. The bandwidth is calculated according to
+\code{\link{plot_KDE}}}
+  \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with default): optional
+position coordinates or keyword (e.g. \code{"topright"}) for the
 statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this
-latter option in only possible if \code{mtext} is not used. In case 
+latter option in only possible if \code{mtext} is not used. In case
 of coordinate specification, y-coordinate refers to the right y-axis.}
-  \item{colour}{\code{\link{numeric}} or \link{character} (with default): optional vector 
-of length 4 which specifies the colours of the following plot items in 
-exactly this order: histogram bars, rug lines, normal distribution curve 
+  \item{colour}{\code{\link{numeric}} or \link{character} (with default): optional vector
+of length 4 which specifies the colours of the following plot items in
+exactly this order: histogram bars, rug lines, normal distribution curve
 and standard error points\cr
 (e.g., \code{c("grey", "black", "red", "grey")}).}
-  \item{\dots}{further arguments and graphical parameters passed to \code{\link{plot}}. 
-If y-axis labels are provided, these must be specified as a vector of 
-length 2 since the plot features two axes (e.g. \code{ylab = c("axis 
+  \item{\dots}{further arguments and graphical parameters passed to \code{\link{plot}}.
+If y-axis labels are provided, these must be specified as a vector of
+length 2 since the plot features two axes (e.g. \code{ylab = c("axis
 label 1", "axis label 2")}). Y-axes limits (\code{ylim}) must be
-provided as vector of length four, with the first two elements 
-specifying the left axes limits and the latter two elements giving the 
+provided as vector of length four, with the first two elements
+specifying the left axes limits and the latter two elements giving the
 right axis limits.}
 }
-\details{If the normal curve is added, the y-axis in the histogram will show 
-the probability density. }
+\details{If the normal curve is added, the y-axis in the histogram will show
+the probability density.}
 
 
 \author{Michael Dietze, GFZ Potsdam (Germany), \cr
@@ -62,27 +65,27 @@ R Luminescence Package Team}
 \examples{
 ## load data
 data(ExampleData.DeValues, envir = environment())
-ExampleData.DeValues <- 
+ExampleData.DeValues <-
   Second2Gray(ExampleData.DeValues, dose.rate = c(0.0438,0.0019))
 
 ## plot histogram the easiest way
 plot_Histogram(ExampleData.DeValues)
 
 ## plot histogram with some more modifications
-plot_Histogram(ExampleData.DeValues, 
-               rug = TRUE, 
-               normal_curve = TRUE, 
-               cex.global = 0.9, 
+plot_Histogram(ExampleData.DeValues,
+               rug = TRUE,
+               normal_curve = TRUE,
+               cex.global = 0.9,
                pch = 2,
                colour = c("grey", "black", "blue", "green"),
                summary = c("n", "mean", "sdrel"),
                summary.pos = "topleft",
                main = "Histogram of De-values",
-               mtext = "Example data set", 
+               mtext = "Example data set",
                ylab = c(expression(paste(D[e], " distribution")),
                         "Error"),
                xlim = c(100, 250),
                ylim = c(0, 0.1, 5, 20))
-              
+
 }
-\section{Function version}{0.4.2 (2014-12-18 15:41:05)}
+\section{Function version}{0.4.3 (2015-02-27 23:34:51)}

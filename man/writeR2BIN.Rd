@@ -30,7 +30,13 @@ The validity of the output data depends on the user.\cr\cr
 The validity of the file path is not further checked. \cr
 BIN-file conversions using the argument \code{version} may be a lossy conversion,
 depending on the chosen input and output data
-(e.g., conversion from version 06 to 04).}
+(e.g., conversion from version 06 to 04 or 03).\cr
+
+\bold{Warning}\cr
+
+Although the coding was done carefully it seems that the BIN/BINX-files produced by
+Risoe DA 15/20 TL/OSL readers slightly differ on the byte level. No obvious differences are observed
+in the METADATA, however, the BIN/BINX-file may not fully compatible!}
 
 
 \seealso{\code{\link{readBIN2R}}, \code{\linkS4class{Risoe.BINfileData}},
@@ -45,4 +51,4 @@ depending on the chosen input and output data
 }
 
 \keyword{IO}
-\section{Function version}{0.2.3 (2015-02-25 18:44:23)}
+\section{Function version}{0.2.5 (2015-02-27 19:19:12)}

@@ -72,13 +72,29 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
     
     ## single MAM estimate
     # plot profile log likelhood
-    try(
-      plot(data@data$profile, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
-    )
-
+    tryCatch({
+      suppressWarnings(
+        plot(data@data$profile, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
+      )
+    }, error = function(e) {
+      if (single) 
+        par(mfrow=c(2, 2))
+      param <- c("gamma", "sigma", "p0", "mu")
+      for (i in param) {
+        if (data@data$summary$par == 3 && i == "mu") 
+          break
+        tryCatch({
+          plot(data@data$profile, which = i)
+        }, error = function(e)  {
+          message(paste("Unable to plot the Likelihood profile for:", i))
+        })
+      }
+      par(mfrow=c(1,1))
+    })
+    
     ## bootstrap MAM estimates
     if(data@data$args$bootstrap==TRUE) {
-
+      
       # save previous plot parameter and set new ones
       .pardefault<- par(no.readonly = TRUE)
       
@@ -175,7 +191,7 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
         
         # set margins (bottom, left, top, right)
         par(mar=c(5,5,0,3))
-
+        
         plot(x = pairs[,1],
              y = residuals(poly.lines[[i]]),
              ylim = c(min(residuals(poly.lines[[i]]))*1.2,
@@ -865,7 +881,7 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
     if(data@data$args$MC == TRUE) {
       
       extraArgs <- list(...)
-
+      
       main<- if("main" %in% names(extraArgs)) { extraArgs$main } else { "Monte Carlo Simulation"  }
       xlab<- if("xlab" %in% names(extraArgs)) { extraArgs$xlab } else { "Amount of grains on aliquot" }
       

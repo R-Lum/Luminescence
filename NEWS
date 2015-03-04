@@ -20,7 +20,32 @@ Changes in version 0.4.2 (Feburary XX, 2015):
                object. In such cases only the object itself, but no
                ‘RLum.Analysis’ object was returned (#200).
 
+         • ‘RisoeBINfileData-class’:
+
+             • Slot ‘.RESERVED’ added to allow transfering undocumented
+               raw binary values to a new BIN/BINX-file. For this all
+               reserved bytes are just copied and pasted into the new
+               slot ‘.RESERVED’ using the function ‘readBIN2R()’. Using
+               the function ‘writeR2BIN()’ transfers the values
+               unchanged to the new BIN/BINX-file. Allc corresponding
+               functions have been updated in accordance
+               (‘readBIN2R()’, ‘writeR2BIN()’ and
+               ‘merge_Risoe.BINfileData()’. Other functions are not
+               affected as they can simply ignore the new slot.
+
   Bugfixes and changes:
+
+         • ‘analyse_IRSAR.RF()’
+
+             • Function now checks the number of channels in each
+               curve. If the number of the channels in the first curve
+               is > than in the 2nd curve the execution of the function
+               is stopped,
+
+             • add error estimation using bootstraping and MC loops for
+               ‘method = "SLIDE"’,
+
+             • add scaled KDE for distribution of De.
 
          • ‘analyse_SAR.CWOSL()’
 
@@ -44,6 +69,55 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • now additionally an ‘RLum.Results’ object is returned,
 
              • minor code polishing.
+
+         • ‘calc_MinDose()’
+
+             • Major changes in terms of reliablity and perfomance to
+               the optimisation of the log likelihood function. Amongst
+               minor fixes these include:
+
+             • Optimiser of the log likelihood function changed from
+               'optim' to 'nlminb' and switch from 'L-BFGS-B' method to
+               default PORT routine,
+
+             • Removed parameter: ‘boundaries’
+
+             • Boundaries for the model parameters are now hard-coded
+               and suffice all input data,
+
+             • Warning messages are now suppressed unless ‘debug=TRUE’,
+
+             • Improved error handling and fallback for profiling the
+               log likelihood function,
+
+             • Start value for gamma and mu are changed to lower
+               quartile of the dose values,
+
+             • fixed an error in the documentation that prevented the
+               'value' section from being displayed
+
+             • additional information on bootstrapping added in
+               'details' section.
+
+         • ‘merge_Risoe.BINfileData()’
+
+             • Support for the changes in the corresponding S4-class
+               are implemented.
+
+         • ‘plot_AbanicoPlot()’
+
+             • Missing summary keywords ‘"kdemax"’, ‘"skewness"’ and
+               ‘"kurtosis"’ added (#205)
+
+         • ‘plot_Histogram()’
+
+             • Missing summary keywords ‘"kdemax"’, ‘"skewness"’ and
+               ‘"kurtosis"’ added (#205)
+
+         • ‘plot_KDE()’
+
+             • Missing summary keywords ‘"kdemax"’, ‘"skewness"’ and
+               ‘"kurtosis"’ added (#205)
 
          • ‘plot_GrowthCurve()’
 
@@ -70,6 +144,11 @@ Changes in version 0.4.2 (Feburary XX, 2015):
                markedly reduces the computation times for the MC
                simulation (partly addresses issue #100)
 
+         • ‘plot_RadialPlot()’
+
+             • Missing summary keywords ‘"kdemax"’, ‘"skewness"’ and
+               ‘"kurtosis"’ added (#205)
+
          • ‘plot_RLum.Analysis()’
 
              • Fix an error appeared for ‘combine = TRUE’ if only one
@@ -77,6 +156,18 @@ Changes in version 0.4.2 (Feburary XX, 2015):
 
              • added logical argument ‘plot.single’. In fact this just
                resets ‘ncols’ and ‘nrows’ to ‘1’ (#201).
+
+         • ‘plot_RLum.Results()’
+
+             • Improved error handling for ‘RLum.Results’ objects
+               originating from ‘calc_MinDose()’
+
+         • ‘readBIN2R()’
+
+             • Improved handling of odd time formats,
+
+             • support for the changes in the corresponding S4-class
+               implemented.
 
          • ‘writeR2BIN()’
 
@@ -89,7 +180,23 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • further suppressing of confusing warning messages,
 
              • date has not been written properly in accordance with
-               the format description (fixed).
+               the format description (fixed),
+
+             • time values have been not properly exported in same
+               cases, corrected.
+
+             • added support for changes in corresponding S4-class,
+               means that reserved values are transfered,
+
+             • the version conversion was partly broken due to the new
+               routines implemented with last update (fixed),
+
+             • if empty comments or sample names are provided these are
+               replaced by ‘" "’ (double empty space),
+
+             • if the BIN-file is stored in a different version, the
+               version number and the record lengths are now changed
+               accordingly.
 
 Changes in version 0.4.1 (January 29th, 2015):
 
