@@ -1,43 +1,59 @@
 \name{plot_RLum.Analysis}
 \alias{plot_RLum.Analysis}
 \title{Plot function for an RLum.Analysis S4 class object}
-\description{The function provides a standardised plot output for curve data of an 
+\description{The function provides a standardised plot output for curve data of an
 RLum.Analysis S4 class object}
 \usage{plot_RLum.Analysis(object, nrows = 3, ncols = 2, abline, combine = FALSE, 
-    plot.single = FALSE, ...)}
+    curve.transformation, plot.single = FALSE, ...)}
 \arguments{
-  \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4 object of class 
+  \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4 object of class
 \code{RLum.Analysis}}
   \item{nrows}{\code{\link{integer}} (with default): sets number of rows for plot output}
   \item{ncols}{\code{\link{integer}} (with default): sets number of columns for plot output}
-  \item{abline}{\code{\link{list}} (optional): allows to set similar ablines in each plot. This option 
+  \item{abline}{\code{\link{list}} (optional): allows to set similar ablines in each plot. This option
 uses the function \code{\link{do.call}}, meaning that every argument in the \code{list} has
 to be provided as \code{list}, e.g. \code{abline = list(list(v = 120), list(v = 350))} produces
-two vertical ablines: One at 150 and another one at 350. Within the call all arguments 
+two vertical ablines: One at 150 and another one at 350. Within the call all arguments
 supported by \code{\link{abline}} are fully supported,}
-  \item{combine}{\code{\link{logical}} (with default): allows to combine all 
+  \item{combine}{\code{\link{logical}} (with default): allows to combine all
 code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
-Works only for \code{\linkS4class{RLum.Analysis}} that comprises a single 
+Works only for \code{\linkS4class{RLum.Analysis}} that comprises a single
 curve object (option is currently only roughly implemented),}
-  \item{plot.single}{\code{\link{logical}} (with default): each curve is plotted in a single window, overwrites the 
+  \item{curve.transformation}{\link{character} (optional): allows transforming CW-OSL and CW-IRSL curves
+to pseudo-LM curves via transformation functions.
+Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
+\code{CW2pPMi}. See details.}
+  \item{plot.single}{\code{\link{logical}} (with default): each curve is plotted in a single window, overwrites the
 settings of \code{norws} and \code{ncols}}
   \item{\dots}{further arguments and graphical parameters will be passed to the \code{plot} function.
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
 \code{type}, \code{pch}, \code{col} ... and for \code{combine = TRUE} also: \code{xlim},
 \code{ylim}, \code{xlab}, \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}}
 }
-\details{The function produces a multiple plot output. 
-A file output is recommended (e.g., \code{\link{pdf}}).}
+\details{The function produces a multiple plot output.
+A file output is recommended (e.g., \code{\link{pdf}}).
+
+
+\bold{curve.transformation}\cr
+
+This argument allows transforming continuous wave (CW) curves to pseudo (linear)
+modulated curves. For the transformation, the functions of the package are used.
+Currently, it is not possible to pass further arguments to the transformation functions.
+The argument works only for \code{ltype} \code{OSL} and \code{IRSL}.\cr
+
+Please note: The curve transformation within this functions works roughly, i.e. every
+IRSL or OSL curve is transformed, without considerung whether it is measured with the PMT
+or not! However, for a fast look it might be helpful.}
 \value{Returns multiple plots.}
 \references{#}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{Not all arguments available for \code{\link{plot}} will be passed!
 Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
-objects are currently supported. }
+objects are currently supported.}
 
 
-\seealso{\code{\link{plot}}, \code{\link{plot_RLum}}, 
+\seealso{\code{\link{plot}}, \code{\link{plot_RLum}},
 \code{\link{plot_RLum.Data.Curve}}}
 \examples{
 
@@ -57,4 +73,4 @@ plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 }
 
 \keyword{aplot}
-\section{Function version}{0.1.5 (2015-03-04 12:43:39)}
+\section{Function version}{0.2.0 (2015-03-04 19:15:10)}

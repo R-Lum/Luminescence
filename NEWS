@@ -112,6 +112,34 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • additional information on bootstrapping added in
                'details' section.
 
+         • ‘calc_Statistics()’
+
+             • argument ‘na.rm’ added (#198).
+
+         • ‘CW2pHMi()’
+
+             • Functions was rather inflexible selecting the allowed
+               curves, e.g. ‘"OSL"’ worked, ‘"OSL (UVVIS)"’ not.
+               Corrected.
+
+         • ‘CW2pLMi()’
+
+             • Functions was rather inflexible selecting the allowed
+               curves, e.g. ‘"OSL"’ worked, ‘"OSL (UVVIS)"’ not.
+               Corrected.
+
+         • ‘CW2pLM()’
+
+             • Functions was rather inflexible selecting the allowed
+               curves, e.g. ‘"OSL"’ worked, ‘"OSL (UVVIS)"’ not.
+               Corrected.
+
+         • ‘CW2pPMi()’
+
+             • Functions was rather inflexible selecting the allowed
+               curves, e.g. ‘"OSL"’ worked, ‘"OSL (UVVIS)"’ not.
+               Corrected.
+
          • ‘merge_Risoe.BINfileData()’
 
              • Support for the changes in the corresponding S4-class
@@ -168,7 +196,11 @@ Changes in version 0.4.2 (Feburary XX, 2015):
                single object was in the ‘RLum.Analysis’ object (#199),
 
              • added logical argument ‘plot.single’. In fact this just
-               resets ‘ncols’ and ‘nrows’ to ‘1’ (#201).
+               resets ‘ncols’ and ‘nrows’ to ‘1’ (#201),
+
+             • added argument ‘curve.transformation’ to allow a quick
+               dataoverview using the pseudo-LM curve transformation
+               methods.
 
          • ‘plot_RLum.Results()’
 
@@ -214,7 +246,7 @@ Changes in version 0.4.2 (Feburary XX, 2015):
   New example data sets:
 
          • ExampleData.DeValues is now a list with two elements
-           containing an additional single grain quartz data set
+           containing an additional single grain quartz data set (#203)
 
 Changes in version 0.4.1 (January 29th, 2015):
 

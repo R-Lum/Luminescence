@@ -118,6 +118,46 @@
 
   }
 
+  \item \code{calc_Statistics()}
+  \itemize{
+
+  \item argument \code{na.rm} added (#198).
+
+  }
+
+   \item \code{CW2pHMi()}
+  \itemize{
+
+  \item Functions was rather inflexible selecting the allowed curves, e.g. \code{"OSL"} worked,
+  \code{"OSL (UVVIS)"} not. Corrected.
+
+  }
+
+     \item \code{CW2pLMi()}
+  \itemize{
+
+  \item Functions was rather inflexible selecting the allowed curves, e.g. \code{"OSL"} worked,
+  \code{"OSL (UVVIS)"} not. Corrected.
+
+  }
+
+       \item \code{CW2pLM()}
+  \itemize{
+
+  \item Functions was rather inflexible selecting the allowed curves, e.g. \code{"OSL"} worked,
+  \code{"OSL (UVVIS)"} not. Corrected.
+
+  }
+
+  \item \code{CW2pPMi()}
+  \itemize{
+
+  \item Functions was rather inflexible selecting the allowed curves, e.g. \code{"OSL"} worked,
+  \code{"OSL (UVVIS)"} not. Corrected.
+
+  }
+
+
 
  \item \code{merge_Risoe.BINfileData()}
 
@@ -195,7 +235,8 @@
    \itemize{
 
     \item Fix an error appeared for \code{combine = TRUE} if only one single object was in the \code{RLum.Analysis} object (#199),
-    \item added logical argument \code{plot.single}. In fact this just resets \code{ncols} and \code{nrows} to \code{1} (#201).
+    \item added logical argument \code{plot.single}. In fact this just resets \code{ncols} and \code{nrows} to \code{1} (#201),
+    \item added argument \code{curve.transformation} to allow a quick dataoverview using the pseudo-LM curve transformation methods.
 
 
    }
@@ -242,7 +283,7 @@
 \itemize{
 
 
-  \item ExampleData.DeValues is now a list with two elements containing an additional single grain quartz data set
+  \item ExampleData.DeValues is now a list with two elements containing an additional single grain quartz data set (#203)
 
 }}}
 

@@ -3,16 +3,18 @@
 \title{Function to calculate statistic measures}
 \description{This function calculates a number of descriptive statistics for De-data,
 most fundamentally using error-weighted approaches.}
-\usage{calc_Statistics(data, weight.calc = "reciprocal")}
+\usage{calc_Statistics(data, weight.calc = "reciprocal", na.rm = TRUE)}
 \arguments{
-  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object 
+  \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object
 (required): for \code{data.frame} two columns: De (\code{data[,1]})
 and De error (\code{data[,2]}). To plot several data sets in one plot
-the data sets must be provided as \code{list}, e.g. 
+the data sets must be provided as \code{list}, e.g.
 \code{list(data.1, data.2)}.}
   \item{weight.calc}{\code{\link{character}}: type of weight calculation. One out of
 \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
 1/error^2).}
+  \item{na.rm}{\code{\link{logical}} (with default):  indicating whether NA values should be stripped before
+the computation proceeds.}
 }
 
 \value{Returns a list with weighted and unweighted statistic measures.}
@@ -38,6 +40,6 @@ x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
                          rep(0.001, 10^5)))
 
 ## note the congruent results for weighted and unweighted measures
-str(calc_Statistics(x)) 
+str(calc_Statistics(x))
 }
-\section{Function version}{0.1 (2015-03-04 13:28:41)}
+\section{Function version}{0.1.1 (2015-03-04 17:27:01)}
