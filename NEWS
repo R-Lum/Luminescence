@@ -58,7 +58,13 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • new argument ‘rejection.criteria’ provided to allow for
                setting rejection criteria. The argument works similar
                as for other ‘analyse_...’ functions. Details are
-               provided in the manual.
+               provided in the manual,
+
+             • speed up caculation time for ‘method = "SLIDE"’ by
+               re-writting the sliding process as C++ function. It does
+               not the affect readability of the R-code at all, as just
+               the sum of the residual squares is calculated in this
+               way, i.e. the steps are simple, but now much faster.
 
          • ‘analyse_SAR.CWOSL()’
 
@@ -110,7 +116,9 @@ Changes in version 0.4.2 (Feburary XX, 2015):
                'value' section from being displayed
 
              • additional information on bootstrapping added in
-               'details' section.
+               'details' section,
+
+             • new example added.
 
          • ‘calc_Statistics()’
 
@@ -247,6 +255,13 @@ Changes in version 0.4.2 (Feburary XX, 2015):
 
          • ExampleData.DeValues is now a list with two elements
            containing an additional single grain quartz data set (#203)
+
+  Internals:
+
+         • Adding dependency for package 'Rcpp'. This is used in
+           particular to export some time consuming calculations to
+           compiled C++ code to speed up the functions. Currently it is
+           used e.g. in the function ‘analyse_IRSAR.RF()’.
 
 Changes in version 0.4.1 (January 29th, 2015):
 

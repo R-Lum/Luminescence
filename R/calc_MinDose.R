@@ -190,20 +190,20 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
     start <- list(gamma=gamma, sigma=sigma, p0=p0, mu=mu)
     
     t.args <- list(data = list(data=data),
-                  optimizer = "nlminb",
-                  #method = "L-BFGS-B",
-                  lower=c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf),
-                  upper=c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf),
-                  minuslogl = Neglik_f,
-                  control = list(iter.max = 1000L),
-                  start = start
-                  )
+                   optimizer = "nlminb",
+                   #method = "L-BFGS-B",
+                   lower=c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf),
+                   upper=c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf),
+                   minuslogl = Neglik_f,
+                   control = list(iter.max = 1000L),
+                   start = start
+    )
     
     # TODO: PROPER ERROR HANDLING
     tryCatch({
-        suppressWarnings(
-          mle <- do.call("mle2", t.args)
-          )
+      suppressWarnings(
+        mle <- do.call("mle2", t.args)
+      )
     }, error = function(e) {
       stop(paste("Sorry, seems like I encountered an error...:", e), call. = FALSE)
     })
@@ -238,10 +238,10 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   
   # check if any standard errors are NA or NaN
   coef_err <- t(as.data.frame(summary(ests)@coef[ ,2]))
-
+  
   if (debug) 
     print(summary(ests))
-
+  
   if (any(is.nan(coef_err))) 
     coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))/100
   if (any(is.na(coef_err)))
@@ -253,16 +253,16 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
     which <- c("gamma", "sigma", "p0", "mu")
   
   # calculate profile log likelihoods
-  prof <- profile(ests,
-                 which = which,
-                 std.err = as.vector(coef_err),
-                 #try_harder = TRUE,
-                 quietly = TRUE,
-                 tol.newmin = Inf,
-                 skiperrs = TRUE,
-                 prof.lower=c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf),
-                 prof.upper=c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf)
-                 )
+  prof <- bbmle::profile(ests,
+                         which = which,
+                         std.err = as.vector(coef_err),
+                         #try_harder = TRUE,
+                         quietly = TRUE,
+                         tol.newmin = Inf,
+                         skiperrs = TRUE,
+                         prof.lower=c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf),
+                         prof.upper=c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf)
+  )
   # Fallback when profile() returns a 'better' fit
   maxsteps <- 100
   cnt <- 1
@@ -273,16 +273,16 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
            call. = FALSE)
     
     prof <- profile(ests,
-                   which = which,
-                   std.err = as.vector(coef_err),
-                   try_harder = TRUE,
-                   quietly = TRUE,
-                   maxsteps = maxsteps,
-                   tol.newmin = Inf,
-                   skiperrs = TRUE,
-                   prof.lower = xlb,
-                   prof.upper = xub
-                   )
+                    which = which,
+                    std.err = as.vector(coef_err),
+                    try_harder = TRUE,
+                    quietly = TRUE,
+                    maxsteps = maxsteps,
+                    tol.newmin = Inf,
+                    skiperrs = TRUE,
+                    prof.lower = xlb,
+                    prof.upper = xub
+    )
     
     maxsteps <- maxsteps - 10
     cnt <- cnt+1
@@ -307,18 +307,18 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   # retrieve results from mle2-object
   pal <- if (log) {
     if (invert) {
-      exp((coef(ests)[["gamma"]]-x.offset)*-1)
+      exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
     } else {
-      exp(coef(ests)[["gamma"]])
+      exp(bbmle::coef(ests)[["gamma"]])
     }
   } else {
-    coef(ests)[["gamma"]]
+    bbmle::coef(ests)[["gamma"]]
   }
-  sig <- coef(ests)[["sigma"]]
-  p0end <- coef(ests)[["p0"]]
+  sig <- bbmle::coef(ests)[["sigma"]]
+  p0end <- bbmle::coef(ests)[["p0"]]
   
-  if (par==4) {
-    muend <- ifelse(log, exp(coef(ests)[["mu"]]), coef(ests)[["mu"]])
+  if (par == 4) {
+    muend <- ifelse(log, exp(bbmle::coef(ests)[["mu"]]), bbmle::coef(ests)[["mu"]])
   } else {
     muend <- NA
   }
@@ -329,7 +329,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   #### METHOD 1: follow the instructions of Galbraith & Roberts (2012) ####
   # "If the likelihood profile is symmetrical about the parameter, an approximate standard error 
   #  can be calculated by dividing the length of this interval by 3.92"
-  conf <- as.data.frame(confint(prof, tol.newmin = Inf, quietly = TRUE))
+  conf <- as.data.frame(bbmle::confint(prof, tol.newmin = Inf, quietly = TRUE))
   
   if (invert) {
     conf[1, ] <- (conf[1, ]-x.offset)*-1
@@ -343,24 +343,24 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   } else {
     (conf["gamma",2]-conf["gamma",1])/3.92
   }
- 
+  
   
   ##============================================================================##
   ## AGGREGATE RESULTS
   summary <- data.frame(de=pal, 
-                       de_err=gamma_err, 
-                       "ci_lower"=ifelse(log, exp(conf["gamma",1]), conf["gamma",1]),
-                       "ci_upper"=ifelse(log, exp(conf["gamma",2]), conf["gamma",2]),
-                       par=par,
-                       sig=sig, 
-                       p0=p0end,
-                       mu=muend,
-                       Lmax=-ests@min, 
-                       BIC=BIC)
+                        de_err=gamma_err, 
+                        "ci_lower"=ifelse(log, exp(conf["gamma",1]), conf["gamma",1]),
+                        "ci_upper"=ifelse(log, exp(conf["gamma",2]), conf["gamma",2]),
+                        par=par,
+                        sig=sig, 
+                        p0=p0end,
+                        mu=muend,
+                        Lmax=-ests@min, 
+                        BIC=BIC)
   call <- sys.call()
   args <- list(log=log, sigmab=sigmab, bootstrap=bootstrap, 
-              init.values=init.values, 
-              bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
+               init.values=init.values, 
+               bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
   
   ##============================================================================##
   ## BOOTSTRAP
@@ -419,8 +419,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
       }
       
       # create bootstrap replicate
-      Rde <- data[R, ]
-      de2 <- Rde
+      de2 <- data[R, ]
       
       # combine errors
       if (log) { 
@@ -447,12 +446,12 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
       # save gamma to storage matrix
       if (log) {
         if (invert) {
-          b2mamvec[i,1] <- exp((coef(ests)[["gamma"]]-x.offset)*-1)
+          b2mamvec[i,1] <- exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
         } else {
-          b2mamvec[i,1] <- exp(coef(ests)[["gamma"]])
+          b2mamvec[i,1] <- exp(bbmle::coef(ests)[["gamma"]])
         }
       } else {
-        b2mamvec[i,1] <- coef(ests)[["gamma"]]
+        b2mamvec[i,1] <- bbmle::coef(ests)[["gamma"]]
       }
       
       if (i > 10) {
@@ -488,8 +487,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
       # n random integers with replacement
       R <- sample(x=n, size=n, replace=TRUE)
       # create bootstrap replicates
-      Rde <- data[R, ]
-      de2 <- Rde
+      de2 <- data[R, ]
       
       # combine errors
       if (log) { 
@@ -516,15 +514,15 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
       # save gamma to storage matrix
       if (log) {
         if (invert) {
-          theta <- exp((coef(ests)[["gamma"]]-x.offset)*-1)
+          theta <- exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
         } else {
-          theta <- exp(coef(ests)[["gamma"]]) 
+          theta <- exp(bbmle::coef(ests)[["gamma"]]) 
         }
       } else {
-        theta <- coef(ests)[["gamma"]]
+        theta <- bbmle::coef(ests)[["gamma"]]
       }
       
-      bs.p0 <- coef(ests)[["p0"]]
+      bs.p0 <- bbmle::coef(ests)[["p0"]]
       
       # kernel density estimate
       f <- density(x=de2[ ,1], kernel="gaussian", bw=h)
@@ -572,7 +570,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   ##============================================================================##
   
   if (verbose) {
-    if (bootstrap==FALSE) {
+    if (!bootstrap) {
       cat("\n----------- meta data -----------\n")
       print(data.frame(n=length(data[ ,1]),
                        par=par,
@@ -583,9 +581,9 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
                        row.names = ""))
       
       cat("\n--- final parameter estimates ---\n")
-      print(round(data.frame(gamma=ifelse(!invert, coef(ests)[["gamma"]], (coef(ests)[["gamma"]]-x.offset)*-1), 
-                             sigma=coef(ests)[["sigma"]],
-                             p0=coef(ests)[["p0"]],
+      print(round(data.frame(gamma=ifelse(!invert, bbmle::coef(ests)[["gamma"]], (bbmle::coef(ests)[["gamma"]]-x.offset)*-1), 
+                             sigma=bbmle::coef(ests)[["sigma"]],
+                             p0=bbmle::coef(ests)[["p0"]],
                              mu=ifelse(par==4, ifelse(log,log(muend),muend),0),
                              row.names=""), 2))
       
@@ -603,7 +601,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
                              error=gamma_err, 
                              row.names=""), 2))
       
-    } else if (bootstrap==TRUE) {
+    } else if (bootstrap) {
       # TODO: at least some text output would be nice for bootstrap
     }
   }
@@ -635,7 +633,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   
   ##=========##
   ## PLOTTING
-  if (plot==TRUE) {
+  if (plot) {
     try(plot_RLum.Results(newRLumResults.calc_MinDose, ...))
   }
   
@@ -759,27 +757,93 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   
 },ex=function(){
   
-  ## load example data
+  ## Load example data
   data(ExampleData.DeValues, envir = environment())
   
-  # apply the un-logged, 3-parametric minimum age model
-  calc_MinDose(data = ExampleData.DeValues$CA1, 
-               par = 3, 
-               sigmab = 0.2, 
-               log = TRUE)
+  # (1) Apply the minimum age model with minimum required parameters.
+  # By default, this will apply the un-logged 3-parametric MAM. 
+  calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.1)
   
-  # re-run the model, but save results to a variable
+  # (2) Re-run the model, but save results to a variable and turn
+  # plotting of the log-likelihood profiles off.
   mam <- calc_MinDose(data = ExampleData.DeValues$CA1, 
-                     par = 3, 
-                     sigmab = 0.2, 
-                     log = FALSE, 
-                     plot = FALSE)
+                      sigmab = 0.1,
+                      plot = FALSE)
   
-  # show summary table
-  get_RLum.Results(mam, "summary")
+  # Show structure of the RLum.Results object
+  mam
   
-  # plot the log likelihood profiles retroactively
+  # Show summary table that contains the most relevant results
+  res <- get_RLum.Results(mam, "summary")
+  res
+  
+  # Plot the log likelihood profiles retroactively, because before
+  # we set plot = FALSE
   plot_RLum.Results(mam)
+  
+  # Plot the dose distribution in an abanico plot and draw a line
+  # at the minimum dose estimate
+  plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
+                   main = "3-parameter Minimum Age Model",
+                   line = mam,polygon.col = "none",
+                   hist = TRUE,
+                   rug = TRUE,
+                   summary = c("n", "mean", "mean.weighted", "median", "in.ci"),
+                   centrality = res$de,
+                   line.col = "red", 
+                   grid.col = "none", 
+                   line.label = paste0(round(res$de, 1), "\U00B1", 
+                                       round(res$de_err, 1), " Gy"),
+                   bw = 0.1,
+                   ylim = c(-25, 18),
+                   summary.pos = "topleft",
+                   mtext = bquote("Parameters: " ~
+                                    sigma[b] == .(get_RLum(mam, "args")$sigmab) ~ ", " ~
+                                    gamma == .(round(log(res$de), 1)) ~ ", " ~
+                                    sigma == .(round(res$sig, 1)) ~ ", " ~
+                                    rho == .(round(res$p0, 2))))
+  
+  # (3) Run the minimum age model with bootstrap
+  # NOTE: Bootstrapping is computationally intensive, which is why the 
+  # following example is commented out. To run the examples just 
+  # uncomment the code.
+  # (3.1) run the minimum age model with default values for bootstrapping
+  #calc_MinDose(data = ExampleData.DeValues$CA1,
+  #             sigmab = 0.15, 
+  #             bootstrap = TRUE)
+  
+  # (3.2) Bootstrap control parameters
+  #mam <- calc_MinDose(data = ExampleData.DeValues$CA1, 
+  #                    sigmab = 0.15,
+  #                    bootstrap = TRUE,
+  #                    bs.M = 300,
+  #                    bs.N = 500,
+  #                    bs.h = 4,
+  #                    sigmab.sd = 0.06,
+  #                    plot = FALSE)
+  
+  # Plot the results
+  #plot_RLum(mam)
+  
+  # save bootstrap results in a separate variable
+  #bs <- get_RLum.Results(mam, "bootstrap")
+  
+  # show structure of the bootstrap results
+  #str(bs, max.level = 2, give.attr = FALSE)
+  
+  # print summary of minimum dose and likelihood pairs
+  #summary(bs$pairs$gamma)
+  
+  # Show polynomial fits of the bootstrap pairs
+  #bs$poly.fits$poly.three
+  
+  # Plot various statistics of the fit using the generic plot() function
+  #par(mfcol=c(2,2))
+  #plot(bs$poly.fits$poly.three, ask = FALSE)
+  
+  # Show the fitted values of the polynomials
+  #summary(bs$poly.fits$poly.three$fitted.values)
+  
 })
 
 

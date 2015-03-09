@@ -7,7 +7,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 
   ##section<<
-  ## version 0.3.0
+  ## version 0.3.1
   # ===========================================================================
 
   ##TODO - keep fit.range in mind for De calculation
@@ -488,7 +488,7 @@ else if(method == "SLIDE"){
 
   }
 
-  ##FIND MINIMUM - this is done in functions so that it can be further used for MC simulations
+  ##FIND MINIMUM - this is done in a function so that it can be further used for MC simulations
   sliding <- function(values.regenerated.limited,
                       values.natural.limited,
                       values.natural.limited.full,
@@ -496,14 +496,15 @@ else if(method == "SLIDE"){
                       numerical.only = FALSE){
 
 
-  #(1) calculate sum of residual squares
-  temp.sum.residuals <- sapply(1:(nrow(values.regenerated.limited)-nrow(values.natural.limited)),
-                                       function(x){
-   sum((values.regenerated.limited[
-     x:(nrow(values.natural.limited)+x-1),2]-values.natural.limited[,2])^2)
+  #(1) calculate sum of residual squares using internal RCPP function (faster)
 
-  })
+    #pre-allocate object
+    temp.sum.residuals <- vector("numeric",
+                                 length = length(values.regenerated.limited[,2])-
+                                   length(values.natural.limited[,2]))
 
+    temp.sum.residuals <- .analyse_IRSARRF_SRS(values.regenerated.limited[,2],
+                                             values.natural.limited[,2])
 
   #(2) get index of minimum value
   temp.sum.min.id <- which.min(temp.sum.residuals)
@@ -556,13 +557,11 @@ else if(method == "SLIDE"){
      values.natural.limited[,2]))
 
    ##(5.2) calcualte sum of residual squares
-   temp.sum.residuals.corr <- sapply(1:(nrow(values.regenerated.limited)-nrow(values.natural.limited.corr)),
-                               function(x){
+   temp.sum.residuals.corr <- vector("numeric", length = length(temp.sum.residuals))
 
-                                 sum((values.regenerated.limited[
-                                   x:((nrow(values.natural.limited.corr)+x)-1),2]-values.natural.limited.corr[,2])^2)
+   temp.sum.residuals.corr <- .analyse_IRSARRF_SRS(values.regenerated.limited[,2],
+                                              values.natural.limited.corr[,2])
 
-                               })
 
    ##(5.3) find minimum value
    temp.sum.min.id.corr <- which.min(temp.sum.residuals.corr)

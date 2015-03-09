@@ -63,7 +63,10 @@
   a warning message is shown and the available curves are shown in a plot anyway,
   \item the labelling for the residuals is replaced by a greek letter (epsilon, \code{"\u03b5"}),
   \item new argument \code{rejection.criteria} provided to allow for setting rejection criteria. The
-  argument works similar as for other \code{analyse_...} functions. Details are provided in the manual.
+  argument works similar as for other \code{analyse_...} functions. Details are provided in the manual,
+  \item speed up caculation time for \code{method = "SLIDE"} by re-writting the sliding process
+  as C++ function. It does not the affect readability of the R-code at all, as just the sum of the residual
+  squares is calculated in this way, i.e. the steps are simple, but now much faster.
 
 
   }
@@ -113,7 +116,8 @@
   \item Improved error handling and fallback for profiling the log likelihood function,
   \item Start value for gamma and mu are changed to lower quartile of the dose values,
   \item fixed an error in the documentation that prevented the 'value' section from being displayed
-  \item additional information on bootstrapping added in 'details' section.
+  \item additional information on bootstrapping added in 'details' section,
+  \item new example added.
 
 
   }
@@ -285,7 +289,21 @@
 
   \item ExampleData.DeValues is now a list with two elements containing an additional single grain quartz data set (#203)
 
-}}}
+}}
+
+\subsection{Internals}{
+\itemize{
+
+
+  \item Adding dependency for package 'Rcpp'. This is used in particular to export some time consuming
+  calculations to compiled C++ code to speed up the functions. Currently it is used e.g. in the function
+  \code{analyse_IRSAR.RF()}.
+
+}}
+
+
+
+}
 
 \section{Changes in version 0.4.1 (January 29th, 2015)}{
 

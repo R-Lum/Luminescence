@@ -138,26 +138,92 @@ all internal warning messages.}
 \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MaxDose}}}
 \examples{
 
-## load example data
+## Load example data
 data(ExampleData.DeValues, envir = environment())
 
-# apply the un-logged, 3-parametric minimum age model
-calc_MinDose(data = ExampleData.DeValues$CA1, 
-             par = 3, 
-             sigmab = 0.2, 
-             log = TRUE)
+# (1) Apply the minimum age model with minimum required parameters.
+# By default, this will apply the un-logged 3-parametric MAM. 
+calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.1)
 
-# re-run the model, but save results to a variable
+# (2) Re-run the model, but save results to a variable and turn
+# plotting of the log-likelihood profiles off.
 mam <- calc_MinDose(data = ExampleData.DeValues$CA1, 
-                   par = 3, 
-                   sigmab = 0.2, 
-                   log = FALSE, 
-                   plot = FALSE)
+                    sigmab = 0.1,
+                    plot = FALSE)
 
-# show summary table
-get_RLum.Results(mam, "summary")
+# Show structure of the RLum.Results object
+mam
 
-# plot the log likelihood profiles retroactively
+# Show summary table that contains the most relevant results
+res <- get_RLum.Results(mam, "summary")
+res
+
+# Plot the log likelihood profiles retroactively, because before
+# we set plot = FALSE
 plot_RLum.Results(mam)
+
+# Plot the dose distribution in an abanico plot and draw a line
+# at the minimum dose estimate
+plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
+                 main = "3-parameter Minimum Age Model",
+                 line = mam,polygon.col = "none",
+                 hist = TRUE,
+                 rug = TRUE,
+                 summary = c("n", "mean", "mean.weighted", "median", "in.ci"),
+                 centrality = res$de,
+                 line.col = "red", 
+                 grid.col = "none", 
+                 line.label = paste0(round(res$de, 1), "\U00B1", 
+                                     round(res$de_err, 1), " Gy"),
+                 bw = 0.1,
+                 ylim = c(-25, 18),
+                 summary.pos = "topleft",
+                 mtext = bquote("Parameters: " ~
+                                  sigma[b] == .(get_RLum(mam, "args")$sigmab) ~ ", " ~
+                                  gamma == .(round(log(res$de), 1)) ~ ", " ~
+                                  sigma == .(round(res$sig, 1)) ~ ", " ~
+                                  rho == .(round(res$p0, 2))))
+
+# (3) Run the minimum age model with bootstrap
+# NOTE: Bootstrapping is computationally intensive, which is why the 
+# following example is commented out. To run the examples just 
+# uncomment the code.
+# (3.1) run the minimum age model with default values for bootstrapping
+#calc_MinDose(data = ExampleData.DeValues$CA1,
+#             sigmab = 0.15, 
+#             bootstrap = TRUE)
+
+# (3.2) Bootstrap control parameters
+#mam <- calc_MinDose(data = ExampleData.DeValues$CA1, 
+#                    sigmab = 0.15,
+#                    bootstrap = TRUE,
+#                    bs.M = 300,
+#                    bs.N = 500,
+#                    bs.h = 4,
+#                    sigmab.sd = 0.06,
+#                    plot = FALSE)
+
+# Plot the results
+#plot_RLum(mam)
+
+# save bootstrap results in a separate variable
+#bs <- get_RLum.Results(mam, "bootstrap")
+
+# show structure of the bootstrap results
+#str(bs, max.level = 2, give.attr = FALSE)
+
+# print summary of minimum dose and likelihood pairs
+#summary(bs$pairs$gamma)
+
+# Show polynomial fits of the bootstrap pairs
+#bs$poly.fits$poly.three
+
+# Plot various statistics of the fit using the generic plot() function
+#par(mfcol=c(2,2))
+#plot(bs$poly.fits$poly.three, ask = FALSE)
+
+# Show the fitted values of the polynomials
+#summary(bs$poly.fits$poly.three$fitted.values)
+
 }
-\section{Function version}{0.4.1 (2015-03-04 13:29:41)}
+\section{Function version}{0.4.1 (2015-03-05 17:36:13)}
