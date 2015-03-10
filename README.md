@@ -6,6 +6,22 @@ For an introduction and further details, visit the [R-Luminescence homepage](htt
 
 ## Installation
 
+#### i. Requirements
+
+With release of version 0.4.2 part of the *analyse_IRSAR.RF()* function was rewritten in C to increase its perfomance. This inevitably introduced the requirement for the GNU Compiler Collection (*gcc*) when the R package 'Luminescence' is installed from source. Depending on your OS please download and install one of the following:
+
+**Windows (32/64bit)** - 'Rtools' (provided by CRAN)
+
+   http://cran.r-project.org/bin/windows/Rtools/
+
+**Mac OS X** - 'Xcode' (provided by Apple)
+
+   https://developer.apple.com/xcode/downloads/
+
+For **Linux** users *gcc* often comes pre-installed in most distributions. Should *gcc* be not available, however, we kindly refer to the exhaustive collection of installation guides depending on the linux distribution.
+
+#### ii. Install the package
+
 To install the stable version from CRAN, simply run the following from an R console:
 
 ```r
