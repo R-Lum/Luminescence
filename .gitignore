@@ -1,4 +1,7 @@
 /.Rproj.user/*
+/src/RcppExports.o
+/src/Luminescence.dll
+/src/analyse_IRSARRF_SRS.o
 *.RData
 *.Rhistory
 *.Rproj
