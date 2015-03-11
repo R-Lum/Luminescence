@@ -215,7 +215,7 @@ object!")
   ##check if the wanted curves are a multiple of two
   ##gsub removes unwanted information from the curves
   if(table(temp.ltype)[CWcurve.type]%%2!=0){
-    stop("[analyse_SAR.CWOSL] Input OSL/IRSL curves are not a multiple of two.")
+    stop("[analyse_SAR.CWOSL()] Input OSL/IRSL curves are not a multiple of two.")
   }
 
   ##check if the curve lengths differ
@@ -226,7 +226,7 @@ object!")
   }))
 
   if(length(unique(temp.matrix.length))!=1){
-    stop("[analyse_SAR.CWOSL] Input curves lengths differ.")
+    stop("[analyse_SAR.CWOSL()] Input curves lengths differ.")
   }
 
 

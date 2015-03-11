@@ -118,7 +118,11 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • additional information on bootstrapping added in
                'details' section,
 
-             • new example added.
+             • new example added,
+
+             • add multicore support for bootstrapping,
+
+             • new arguments: ‘multicore’ (logical), ‘cores’ (numeric).
 
          • ‘calc_Statistics()’
 
@@ -215,6 +219,14 @@ Changes in version 0.4.2 (Feburary XX, 2015):
              • Improved error handling for ‘RLum.Results’ objects
                originating from ‘calc_MinDose()’
 
+         • ‘plot_RLum.Data.Spectrum()’
+
+             • For ‘plot.type="multiple.lines"’ the legend was placed
+               odd, corrected using ‘par()$usr’ parameters,
+
+             • argument ‘legend.text’ added for plot types which
+               support a legend (e.g., ‘plot.type="multiple.lines"’).
+
          • ‘readBIN2R()’
 
              • Improved handling of odd time formats,
@@ -261,7 +273,12 @@ Changes in version 0.4.2 (Feburary XX, 2015):
          • Adding dependency for package 'Rcpp'. This is used in
            particular to export some time consuming calculations to
            compiled C++ code to speed up the functions. Currently it is
-           used e.g. in the function ‘analyse_IRSAR.RF()’.
+           used e.g. in the function ‘analyse_IRSAR.RF()’,
+
+         • adding dependency (import) for the packages ‘parallel’ and
+           ‘snow’. With this the multicore support is realised within
+           in the package. First implemented in the function
+           ‘calc_MinDose()’.
 
 Changes in version 0.4.1 (January 29th, 2015):
 

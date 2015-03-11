@@ -131,4 +131,4 @@ get_RLum.Results(results, data.object = "LnLxTnTx.table")
 
 \keyword{datagen}
 \keyword{plot}
-\section{Function version}{0.5.1 (2015-03-04 12:43:39)}
+\section{Function version}{0.5.1 (2015-03-09 15:43:53)}

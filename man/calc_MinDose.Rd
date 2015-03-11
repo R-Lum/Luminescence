@@ -4,7 +4,7 @@
 \description{Function to fit the (un-)logged three or four parameter minimum dose model 
 (MAM-3/4) to De data.}
 \usage{calc_MinDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE, 
-    init.values, plot = TRUE, ...)}
+    init.values, plot = TRUE, multicore = FALSE, ...)}
 \arguments{
   \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
 for \code{data.frame}: two columns with De \code{(data[ ,1])} and
@@ -22,8 +22,15 @@ model (\code{par=3} or \code{par=4}). The MAM-3 is used by default.}
 If no values are provided reasonable values are tried to be estimated from the data.}
   \item{plot}{\code{\link{logical}} (with default): plot output
 (\code{TRUE}/\code{FALSE})}
+  \item{multicore}{\code{\link{logical}} (with default): enable parallel computation of the bootstrap
+by creating a multicore SNOW cluster. Depending on the number of available logical CPU cores
+this will drastically reduce the computation time. Note that this option is highly
+experimental and not work for all machines.
+(\code{TRUE}/\code{FALSE})}
   \item{\dots}{(optional) further arguments for bootstrapping (\code{bs.M, bs.N, bs.h, sigmab.sd}). 
-See details for their usage.}
+See details for their usage. Further arguments are \code{verbose} to de-/activate
+console output (logical), \code{debug} for extended console output (logical) and \code{cores}
+(integer) to manually specify the number of cores to be used when \code{multicore=TRUE}.}
 }
 \details{\bold{Parameters} \cr\cr
 This model has four parameters: \cr\cr
@@ -72,7 +79,21 @@ using the arguments \code{bs.M} (first level replicates), \code{bs.N}
 (second level replicates) and \code{sigmab.sd} (error on sigmab). With \code{bs.h}
 the bandwidth of the kernel density estimate can be specified. By default, \code{h} 
 is calculated as \cr
-\deqn{h = (2*\sigma_{DE})/\sqrt{n}}}
+\deqn{h = (2*\sigma_{DE})/\sqrt{n}}
+\cr
+\bold{Multicore support} \cr\cr
+This function supports parallel computing and can be activated by
+\code{multicore=TRUE}. By default, the number of available logical CPU
+cores is determined automatically, but can be changed with \code{cores}.
+The multicore support is only available when \code{bootstrap=TRUE} and
+spawns \code{n} R instances for each core to get MAM estimates for each
+of the N and M boostrap replicates. Note that this option is highly
+experimental and may or may not work for your machine. Also the performance
+gain increases for larger number of bootstrap replicates. Also note
+that with each additional core and hence R instance 
+and depending on the number of bootstrap replicates the memory usage
+can significantly increase. Make sure that memory is always availabe, otherwise
+there will be a massive perfomance hit.}
 \value{Returns a plot (optional) and terminal output. In addition an 
 \code{\linkS4class{RLum.Results}} object is 
 returned containing the following elements:
@@ -81,7 +102,7 @@ returned containing the following elements:
 \item{data}{\link{data.frame} original input data}
 \item{args}{\link{list} used arguments}
 \item{call}{\link{call} the function call}
-\item{mle}{\link{mle2} \code{mle2} object containing the maximum log likelhood functions for all parameters}
+\item{mle}{\link{mle2} object containing the maximum log likelhood functions for all parameters}
 \item{BIC}{\link{numeric} BIC score}
 \item{confint}{\link{data.frame} confidence intervals for all parameters}
 \item{profile}{\link{profile.mle2} the log likelihood profiles}
@@ -226,4 +247,4 @@ plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
 #summary(bs$poly.fits$poly.three$fitted.values)
 
 }
-\section{Function version}{0.4.1 (2015-03-05 17:36:13)}
+\section{Function version}{0.4.1 (2015-03-10 10:40:25)}

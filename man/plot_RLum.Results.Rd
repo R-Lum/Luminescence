@@ -42,4 +42,4 @@ plot_RLum.Results(grains)
 }
 
 \keyword{aplot}
-\section{Function version}{0.1 (2015-03-04 13:24:51)}
+\section{Function version}{0.1 (2015-03-10 09:43:59)}

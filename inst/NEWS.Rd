@@ -117,7 +117,9 @@
   \item Start value for gamma and mu are changed to lower quartile of the dose values,
   \item fixed an error in the documentation that prevented the 'value' section from being displayed
   \item additional information on bootstrapping added in 'details' section,
-  \item new example added.
+  \item new example added,
+  \item add multicore support for bootstrapping,
+  \item new arguments: \code{multicore} (logical), \code{cores} (numeric).
 
 
   }
@@ -253,6 +255,15 @@
 
    }
 
+    \item \code{plot_RLum.Data.Spectrum()}
+
+   \itemize{
+
+   \item For \code{plot.type="multiple.lines"} the legend was placed odd, corrected using \code{par()$usr} parameters,
+
+   \item argument \code{legend.text} added for plot types which support a legend (e.g., \code{plot.type="multiple.lines"}).
+
+   }
 
   \item \code{readBIN2R()}
 
@@ -297,7 +308,11 @@
 
   \item Adding dependency for package 'Rcpp'. This is used in particular to export some time consuming
   calculations to compiled C++ code to speed up the functions. Currently it is used e.g. in the function
-  \code{analyse_IRSAR.RF()}.
+  \code{analyse_IRSAR.RF()},
+
+  \item adding dependency (import) for the packages \code{parallel} and \code{snow}. With this
+  the multicore support is realised within in the package. First implemented in the
+  function \code{calc_MinDose()}.
 
 }}
 

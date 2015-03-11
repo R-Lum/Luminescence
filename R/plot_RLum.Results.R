@@ -74,7 +74,7 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
     # plot profile log likelhood
     tryCatch({
       suppressWarnings(
-        plot(data@data$profile, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
+        bbmle::plot(data@data$profile, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
       )
     }, error = function(e) {
       if (single) 
@@ -84,7 +84,7 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
         if (data@data$summary$par == 3 && i == "mu") 
           break
         tryCatch({
-          plot(data@data$profile, which = i)
+          bbmle::plot(data@data$profile, which = i)
         }, error = function(e)  {
           message(paste("Unable to plot the Likelihood profile for:", i))
         })
@@ -100,7 +100,6 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
       
       # get De-llik pairs
       pairs<- data@data$bootstrap$pairs$gamma
-      p0.pairs<- data@data$bootstrap$pairs$p0
       
       # get polynomial fit objects
       poly.lines<- list(poly.three=data@data$bootstrap$poly.fits$poly.three,
@@ -135,12 +134,6 @@ plot_RLum.Results<- structure(function(#Plot function for an RLum.Results S4 cla
         
         # remove invalid NA values
         pairs<- na.omit(pairs)
-        
-        # sort corresponding p0 values
-        p0.pairs<- p0.pairs[order(p0.pairs[,1]),]
-        
-        # remove invalid NA values
-        p0.pairs<- na.omit(p0.pairs)
         
         plot(x=pairs[,1], 
              y=pairs[,2],

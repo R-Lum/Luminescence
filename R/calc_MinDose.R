@@ -36,9 +36,17 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   plot = TRUE, 
   ### \code{\link{logical}} (with default): plot output
   ### (\code{TRUE}/\code{FALSE})
+  multicore = FALSE,
+  ### \code{\link{logical}} (with default): enable parallel computation of the bootstrap
+  ### by creating a multicore SNOW cluster. Depending on the number of available logical CPU cores
+  ### this will drastically reduce the computation time. Note that this option is highly
+  ### experimental and not work for all machines.
+  ### (\code{TRUE}/\code{FALSE})
   ...
   ### (optional) further arguments for bootstrapping (\code{bs.M, bs.N, bs.h, sigmab.sd}). 
-  ### See details for their usage.
+  ### See details for their usage. Further arguments are \code{verbose} to de-/activate
+  ### console output (logical), \code{debug} for extended console output (logical) and \code{cores}
+  ### (integer) to manually specify the number of cores to be used when \code{multicore=TRUE}.
 ){ 
   
   ##============================================================================##
@@ -101,6 +109,14 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
     debug <- FALSE
   }
   
+  if ("cores" %in% names(extraArgs)) {
+    cores <- extraArgs$cores
+  } else {
+    cores <- parallel::detectCores()
+    if (multicore)
+      message(paste("Logical CPU cores detected:", cores))
+  }
+  
   ## WARNINGS ----
   if (!debug)
     options(warn = -1)
@@ -110,16 +126,17 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   ##============================================================================##
   
   if (missing(init.values)) {
-    gamma.init <- ifelse(log, log(quantile(data[ ,1], probs = 0.25)), quantile(data[ ,1], probs = 0.25))
-    sigma.init <- 1.2
-    p0.init <- 0.01
-    mu.init <- ifelse(log, log(quantile(data[ ,1], probs = 0.25)), mean(data[ ,1]))
-    init.values <- NA
+    start <- list(gamma = ifelse(log, log(quantile(data[ ,1], probs = 0.25)), 
+                                 quantile(data[ ,1], probs = 0.25)),
+                  sigma = 1.2,
+                  p0 = 0.01,
+                  mu = ifelse(log, log(quantile(data[ ,1], probs = 0.25)), 
+                              mean(data[ ,1])))
   } else {
-    gamma.init <- init.values$gamma
-    sigma.init <- init.values$sigma
-    p0.init <- init.values$p0
-    mu.init <- init.values$mu
+    start <- list(gamma = init.values$gamma,
+                  sigma = init.values$sigma,
+                  p0 = init.values$p0,
+                  mu = init.values$mu)
   }
   
   ##============================================================================##
@@ -141,7 +158,6 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
     xlb <- c(gamma.xlb, sigma.xlb, 0)
     xub <- c(gamma.xub, exp(sigma.xub), 1)
   }
-  
   if (par==4) {
     xlb <- c(xlb, ifelse(log, log(mu.xlb), mu.xlb))
     xub <- c(xub, ifelse(log, log(mu.xub), mu.xub))
@@ -185,29 +201,19 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   }
   
   # THIS MAXIMIZES THE Neglik_f LIKELIHOOD FUNCTION AND RETURNS AN MLE OBJECT
-  Get_mle <- function(data, gamma, sigma, p0, mu) {
-    
-    start <- list(gamma=gamma, sigma=sigma, p0=p0, mu=mu)
-    
-    t.args <- list(data = list(data=data),
-                   optimizer = "nlminb",
-                   #method = "L-BFGS-B",
-                   lower=c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf),
-                   upper=c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf),
-                   minuslogl = Neglik_f,
-                   control = list(iter.max = 1000L),
-                   start = start
-    )
-    
+  Get_mle <- function(data) {
     # TODO: PROPER ERROR HANDLING
     tryCatch({
-      suppressWarnings(
-        mle <- do.call("mle2", t.args)
-      )
+      mle <- bbmle::mle2(data = list(data = data),
+                         optimizer = "nlminb",
+                         lower = c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf),
+                         upper = c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf),
+                         minuslogl = Neglik_f,
+                         control = list(iter.max = 1000L),
+                         start = start)
     }, error = function(e) {
       stop(paste("Sorry, seems like I encountered an error...:", e), call. = FALSE)
     })
-    
     return(mle)
   }
   
@@ -234,7 +240,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   dat <- cbind(lcd, lse)
   
   # get the maximum likelihood estimate
-  ests <- Get_mle(dat, gamma.init, sigma.init, p0.init, mu.init)
+  ests <- Get_mle(dat)
   
   # check if any standard errors are NA or NaN
   coef_err <- t(as.data.frame(summary(ests)@coef[ ,2]))
@@ -283,11 +289,11 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
                     prof.lower = xlb,
                     prof.upper = xub
     )
-    
     maxsteps <- maxsteps - 10
-    cnt <- cnt+1
+    cnt <- cnt + 1
   }
   
+  ## TODO: reduce the redundant code
   ## DELETE rows where z = -Inf/Inf
   prof@profile$gamma <-  prof@profile$gamma[which(prof@profile$gamma["z"] != Inf), ]
   prof@profile$gamma <-  prof@profile$gamma[which(prof@profile$gamma["z"] != -Inf), ]
@@ -337,13 +343,11 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
     conf[1,1] <- conf[1,2]
     conf[1,2] <- t
   }
-  
   gamma_err <- if (log) {
     (exp(conf["gamma",2])-exp(conf["gamma",1]))/3.92 
   } else {
     (conf["gamma",2]-conf["gamma",1])/3.92
   }
-  
   
   ##============================================================================##
   ## AGGREGATE RESULTS
@@ -359,216 +363,160 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
                         BIC=BIC)
   call <- sys.call()
   args <- list(log=log, sigmab=sigmab, bootstrap=bootstrap, 
-               init.values=init.values, 
+               init.values=start, 
                bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
   
   ##============================================================================##
   ## BOOTSTRAP
   ##============================================================================##
-  
-  # create normal distribution for sigmab
-  if (bootstrap == TRUE) {
-    # header
-    cat(paste("\n   --- RECYCLED BOOTSTRAP ---- \n"))
+  if (bootstrap) {
     
-    # save original sigmab value
-    sigmab.global <- sigmab
+    ## BOOTSTRAP FUNCTIONS ----
+    # Function that draws N+M sets of integer values from 1:n and returns
+    # both the indices and frequencies
+    draw_Freq <- function() {
+      f <- R <- matrix(0L, N+M, n)
+      for (i in seq_len(N+M)) {
+        R[i, ] <- sample(x = n, size = n, replace = TRUE)
+        f[i, ] <- tabulate(R, n)
+      }
+      return(list(R = R, freq = f))
+    }
     
-    # define normal dist. parameters for sigmab
-    sigmab.mean <- sigmab
-    sigmab.sd <- sigmab.sd
+    # Function that adds the additional error sigmab to each individual DE error
+    combine_Errors <- function(d, e) {
+      if (log) {
+        d[ ,2] <- sqrt((d[ ,2]/d[ ,1])^2 + e^2)
+        d[ ,1] <- log(d[ ,1])
+      } else {
+        d[ ,2] <- sqrt(d[ ,2]^2 + e^2)
+      }
+      return(d)
+    }
     
-    # empty variables
-    n <- length(data[ ,1])
-    b2Pmatrix <- matrix(NA, N, n)
-    b2mamvec <- matrix(NA, N, 1)
-    pairs <- matrix(NA, M, 2)
-    p0.pairs <- matrix(NA, M, 2)
+    # Function that produces N+M replicates from the original data set using
+    # randomly sampled indices with replacement and adding a randomly drawn 
+    # sigmab error
+    create_Replicates <- function(f, s) {
+      d <- apply(f$R, 1, function(x) data[x, ])
+      r <- mapply(function(x, y) combine_Errors(x, y), d, s, SIMPLIFY = FALSE)
+      return(r)
+    }
     
-    # KDE bandwidth
-    h <- h
+    # Function to extract the estimate of gamma from mle2 objects and converting 
+    # it back to the 'normal' scale
+    save_Gamma <- function(d) {
+      if (log) {
+        if (invert) {
+          m <- exp((bbmle::coef(d)[["gamma"]]-x.offset)*-1)
+        } else {
+          m <- exp(bbmle::coef(d)[["gamma"]])
+        }
+      } else {
+        m <- bbmle::coef(d)[["gamma"]]
+      }
+      return(m)
+    }
     
-    ## --------- N SECOND LEVEL BOOTSTRAPS -------------- ##
-    for(i in 1:N) {
-      if (i == 1) {
-        cat(paste("\n"))
-        cat(paste("   Calculating", N, "second level bootstraps. Please wait... \n"))
+    # Function that takes each of the N replicates and produces a kernel density
+    # estimate of length n. The normalised values are then returned as a matrix
+    # with dimensions [N, n]
+    get_KDE <- function(d) {
+      f <- approx(density(x=d[ ,1], kernel="gaussian", bw = h), xout = d[ ,1])
+      pStarTheta <- as.vector(f$y / sum(f$y))
+      x <- matrix(t(pStarTheta/(1/n)), N, n, byrow = TRUE)
+      return(x)
+    }
+    
+    # Function that calculates the product term of the recycled bootstrap
+    get_ProductTerm <- function(Pmat, b2Pmatrix) {
+      prodterm <- apply(Pmat^b2Pmatrix$freq[1:N, ], 1, prod)
+      return(prodterm)
+    }
+    
+    # Function that calculates the pseudo likelihoods for M replicates and
+    # returns the dose-likelihood pairs
+    make_Pairs <- function(theta, b2mamvec, prodterm) {
+      pairs <- matrix(0, M, 2)
+      for (i in seq_len(M)) {
+        thetavec <- matrix(theta[i], N, 1)    
+        kdthis <- (thetavec-b2mamvec)/h
+        kd1 <- dnorm(kdthis)
         
-        #get starting time
-        time.start <- Sys.time()
+        kd2 <- kd1*prodterm[[i]]
+        kd <- sum(kd2)
+        likelihood <- (1/(N*h))*kd
+        pairs[i, ] <- c(theta[i], likelihood)
       }
-      if (i == 10) {
-        #get stop time
-        time.stop <- Sys.time()
-        # calculate time needed for one iteration
-        time.elapsed <- abs(as.double(time.start - time.stop))/10
-        # estimate time till second level bootstraps are finished
-        ETA <- Sys.time()+time.elapsed*N
-        # tell user about time
-        write(paste("   Estimated time needed:", round(time.elapsed*N), "s | Finished at", ETA), file = "")
-        # create progress bar
-        pb <- txtProgressBar(min = 0, max = N, char = "#", style = 3)
-      }
-      # draw random sigmab
-      sigmab <- rnorm(1, sigmab.mean, sigmab.sd)
-      # n random integers with replacement
-      R <- sample(x=n, size=n, replace=TRUE)
-      # recored frequencies of each n, used in calc of product term
-      for(k in 1:n) {
-        b2Pmatrix[i, k] <- sum(R == k)
-      }
-      
-      # create bootstrap replicate
-      de2 <- data[R, ]
-      
-      # combine errors
-      if (log) { 
-        lcd <- log(de2[ ,1])
-        lse <- sqrt((de2[ ,2]/de2[ ,1])^2 + sigmab^2)
-      } else {
-        lcd <- de2[ ,1]
-        lse <- sqrt(de2[ ,2]^2 + sigmab^2)
-      }
-      
-      # create new data frame with DE and combined relative error
-      dat <- cbind(lcd, lse)
-      
-      # get the maximum likelihood estimate
-      ests <- Get_mle(dat, gamma.init, sigma.init, p0.init, mu.init)
-      
-      # check if any standard errors are NA or NaN
-      coef_err <- t(as.data.frame(summary(ests)@coef[ ,2]))
-      if (any(is.nan(coef_err)))
-        coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))/100
-      if (any(is.na(coef_err)))
-        coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))/100
-      
-      # save gamma to storage matrix
-      if (log) {
-        if (invert) {
-          b2mamvec[i,1] <- exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
-        } else {
-          b2mamvec[i,1] <- exp(bbmle::coef(ests)[["gamma"]])
-        }
-      } else {
-        b2mamvec[i,1] <- bbmle::coef(ests)[["gamma"]]
-      }
-      
-      if (i > 10) {
-        # update progress bar
-        setTxtProgressBar(pb, i)
-      }
+      return(pairs)
     }
-    # close progress bar
-    close(pb)
     
-    ## --------- M FIRST LEVEL BOOTSTRAPS -------------- ##
-    for(i in 1:M) {
-      if (i == 1) {
-        cat(paste("\n"))
-        cat(paste("   Calculating", M, "first level bootstraps. Please wait... \n"))
-        #get starting time
-        time.start <- Sys.time()
-      }
-      if (i == 10) {
-        #get stop time
-        time.stop <- Sys.time()
-        # calculate time needed for one iteration
-        time.elapsed <- abs(as.double(time.start - time.stop))/10
-        # estimate time till second level bootstraps are finished
-        ETA <- Sys.time()+time.elapsed*N
-        # tell user about time
-        write(paste("   Estimated time needed:", round(time.elapsed*N), "s | Finished at", ETA), file = "")
-        # create progress bar
-        pb <- txtProgressBar(min = 0, max = M, char = "#", style = 3)
-      }
-      # draw random sigmab
-      sigmab <- rnorm(1, sigmab.mean, sigmab.sd)
-      # n random integers with replacement
-      R <- sample(x=n, size=n, replace=TRUE)
-      # create bootstrap replicates
-      de2 <- data[R, ]
-      
-      # combine errors
-      if (log) { 
-        lcd <- log(de2[ ,1])
-        lse <- sqrt((de2[ ,2]/de2[ ,1])^2 + sigmab^2)
-      } else {
-        lcd <- de2[ ,1]
-        lse <- sqrt(de2[ ,2]^2 + sigmab^2)
-      }
-      
-      # create new data frame with DE and combined relative error
-      dat <- cbind(lcd, lse)
-      
-      # get the maximum likelihood estimate
-      ests <- Get_mle(dat, gamma.init, sigma.init, p0.init, mu.init)
-      
-      # check if any standard errors are NA or NaN
-      coef_err <- t(as.data.frame(summary(ests)@coef[ ,2]))
-      if (any(is.nan(coef_err)))
-        coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))/100
-      if (any(is.na(coef_err)))
-        coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))/100
-      
-      # save gamma to storage matrix
-      if (log) {
-        if (invert) {
-          theta <- exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
-        } else {
-          theta <- exp(bbmle::coef(ests)[["gamma"]]) 
-        }
-      } else {
-        theta <- bbmle::coef(ests)[["gamma"]]
-      }
-      
-      bs.p0 <- bbmle::coef(ests)[["p0"]]
-      
-      # kernel density estimate
-      f <- density(x=de2[ ,1], kernel="gaussian", bw=h)
-      f <- approx(x=f$x, y=f$y, xout=de2[ ,1])
-      
-      # convert to matrix
-      f <- cbind(f$x,f$y)
-      pStarTheta <- as.vector(f[ ,2]/sum(f[ ,2]))
-      thetavec <- matrix(theta, N, 1)    
-      kdthis <- (thetavec-b2mamvec)/h
-      kd1 <- dnorm(kdthis)
-      
-      # the product term
-      Pmat <- pStarTheta/(1/n)
-      Pmat <- matrix(t(Pmat), N, n, byrow=TRUE)
-      prodterm <- apply(Pmat^b2Pmatrix, 1, prod)
-      
-      kd2 <- kd1*prodterm
-      kd <- sum(kd2)
-      likelihood <- (1/(N*h))*kd
-      pairs[i, ] <- c(theta, likelihood)
-      p0.pairs[i, ] <- c(theta, bs.p0)
-      
-      if (i > 10) {
-        # update progress bar
-        setTxtProgressBar(pb, i)
-      }
+    ## START BOOTSTRAP ----
+    msg <- sprintf(paste("\n [calc_MinDose] \n\nRecycled Bootstrap", 
+                         "\n\nParameters:",
+                         "\n M = %d",
+                         "\n N = %d",
+                         "\n sigmab = %.2f \U00B1 %.2f",
+                         "\n h = %.2f",
+                         "\n\n Creating %d bootstrap replicates..."),
+                   M, N, sigmab, sigmab.sd, h, N+M)
+    message(msg)
+    
+    n <- length(data[ ,1])
+    # Draw N+M samples of a normale distributed sigmab
+    sigmab <- rnorm(N + M, sigmab, sigmab.sd)
+    # Draw N+M random indices and their frequencies
+    b2Pmatrix <- draw_Freq()
+    # Finally draw N+M bootstrap replicates
+    replicates <- create_Replicates(b2Pmatrix, sigmab)
+    
+    # MULTICORE: The call to 'Get_mle' is the bottleneck of the function.
+    # Using multiple CPU cores can reduce the computation cost, but may 
+    # not work for all machines.
+    if (multicore) {
+      message(paste("\n Spawning", cores, "instances of R for parallel computation. This may take a few seconds..."))
+      cl <- parallel::makeCluster(cores, type = "SOCK")
+      message("\n Done! Applying the model to all replicates. This may take a while...")
+      mle <- snow::parLapply(cl, replicates, Get_mle)
+      parallel::stopCluster(cl)
+    } else {
+      message("\n Applying the model to all replicates. This may take a while...")
+      mle <- lapply(replicates, Get_mle)
     }
-    # close progress bar
-    close(pb)
+    
+    # Final bootstrap calculations
+    message("\n Calculating the likelihoods...")
+    # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
+    b2mamvec <- as.matrix(sapply(mle[1:N], save_Gamma, simplify = TRUE))
+    theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma)
+    # Calculate the probality/pseudo-likelihood
+    Pmat <- lapply(replicates[c(N+1):c(N+M)], get_KDE)
+    prodterm <- lapply(Pmat, get_ProductTerm, b2Pmatrix)
+    # Save the bootstrap results as dose-likelihood pairs
+    pairs <- make_Pairs(theta, b2mamvec, prodterm)
     
     ## --------- FIT POLYNOMIALS -------------- ##
+    message("\n Fit curves to dose-likelihood pairs...")
     # polynomial fits of increasing degrees
-    poly.three <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree=3, raw=TRUE)) # 3-deg. poly
-    poly.four <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree=4, raw=TRUE))  # 4-deg. poly
-    poly.five <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree=5, raw=TRUE))  # 5-deg. poly
-    poly.six <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree=6, raw=TRUE))   # 6-deg. poly
+    poly.three <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 3, raw = TRUE))
+    poly.four <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 4, raw = TRUE))
+    poly.five <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 5, raw = TRUE))
+    poly.six <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 6, raw = TRUE))
     
     ## --------- FIT LOESS -------------- ##
-    loess <- loess(pairs[ ,2] ~ pairs[ ,1])     
-  }
+    # Polynomials are probably not reasonable and often suffer badly from 
+    # overfitting, especially towards the margins of the fitted data. In this
+    # particular use case polynomials may suggest a multimodal likelihood 
+    # distribution where actually none is given. The non-parametric
+    # LOESS (LOcal polynomial regrESSion) often yields better results than 
+    # standard polynomials.
+    loess <- loess(pairs[ ,2] ~ pairs[ ,1])
+    
+  }#EndOf::Bootstrap
   
   ##============================================================================##
   ## CONSOLE PRINT
   ##============================================================================##
-  
   if (verbose) {
     if (!bootstrap) {
       cat("\n----------- meta data -----------\n")
@@ -602,7 +550,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
                              row.names=""), 2))
       
     } else if (bootstrap) {
-      # TODO: at least some text output would be nice for bootstrap
+      message("\n Finished!")
     }
   }
   
@@ -611,7 +559,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   ##============================================================================##
   
   if (!bootstrap) 
-    pairs <- p0.pairs <- poly.three <- poly.four <- poly.five <- poly.six <- loess <- NULL
+    pairs <- poly.three <- poly.four <- poly.five <- poly.six <- loess <- NULL
   
   newRLumResults.calc_MinDose <- set_RLum.Results(
     data = list(summary = summary,
@@ -623,8 +571,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
                 confint = conf,
                 profile = prof,
                 bootstrap = list(
-                  pairs = list(gamma=pairs,
-                               p0=p0.pairs),
+                  pairs = list(gamma=pairs),
                   poly.fits = list(poly.three = poly.three,
                                    poly.four = poly.four,
                                    poly.five = poly.five,
@@ -633,9 +580,9 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   
   ##=========##
   ## PLOTTING
-  if (plot) {
+  if (plot)
     try(plot_RLum.Results(newRLumResults.calc_MinDose, ...))
-  }
+
   
   if (!debug)
     options(warn = 0)
@@ -649,7 +596,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   ### \item{data}{\link{data.frame} original input data}
   ### \item{args}{\link{list} used arguments}
   ### \item{call}{\link{call} the function call}
-  ### \item{mle}{\link{mle2} \code{mle2} object containing the maximum log likelhood functions for all parameters}
+  ### \item{mle}{\link{mle2} object containing the maximum log likelhood functions for all parameters}
   ### \item{BIC}{\link{numeric} BIC score}
   ### \item{confint}{\link{data.frame} confidence intervals for all parameters}
   ### \item{profile}{\link{profile.mle2} the log likelihood profiles}
@@ -707,6 +654,20 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
   ## the bandwidth of the kernel density estimate can be specified. By default, \code{h} 
   ## is calculated as \cr
   ## \deqn{h = (2*\sigma_{DE})/\sqrt{n}}
+  ## \cr
+  ## \bold{Multicore support} \cr\cr
+  ## This function supports parallel computing and can be activated by
+  ## \code{multicore=TRUE}. By default, the number of available logical CPU
+  ## cores is determined automatically, but can be changed with \code{cores}.
+  ## The multicore support is only available when \code{bootstrap=TRUE} and
+  ## spawns \code{n} R instances for each core to get MAM estimates for each
+  ## of the N and M boostrap replicates. Note that this option is highly
+  ## experimental and may or may not work for your machine. Also the performance
+  ## gain increases for larger number of bootstrap replicates. Also note
+  ## that with each additional core and hence R instance 
+  ## and depending on the number of bootstrap replicates the memory usage
+  ## can significantly increase. Make sure that memory is always availabe, otherwise
+  ## there will be a massive perfomance hit.
   
   
   ##references<<
