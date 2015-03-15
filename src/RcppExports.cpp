@@ -9,15 +9,11 @@ using namespace Rcpp;
 NumericVector analyse_IRSARRF_SRS(NumericVector values_regenerated_limited, NumericVector values_natural_limited);
 RcppExport SEXP Luminescence_analyse_IRSARRF_SRS(SEXP values_regenerated_limitedSEXP, SEXP values_natural_limitedSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type values_regenerated_limited(values_regenerated_limitedSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type values_natural_limited(values_natural_limitedSEXP );
-        NumericVector __result = analyse_IRSARRF_SRS(values_regenerated_limited, values_natural_limited);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type values_regenerated_limited(values_regenerated_limitedSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type values_natural_limited(values_natural_limitedSEXP);
+    __result = Rcpp::wrap(analyse_IRSARRF_SRS(values_regenerated_limited, values_natural_limited));
+    return __result;
 END_RCPP
 }
