@@ -13,6 +13,12 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ##TODO - keep fit.range in mind for De calculation
   ##Rejection criteria for curves input should be implemented.
   ##Problem: User needs visuale feedback...
+  ###TODO:
+  ### - MC runs set to zero or to produces and error
+  ### - Outlier correction currently just works for the natural curve, but should applied
+  ###   also on the regenerated curve? At least there should be a clever check.
+  ### - currently no feedback on the outlier removal are given
+  ### - CHECK ERROR CALCULATION!
 
   object,
   ### \code{\linkS4class{RLum.Analysis}} (\bold{required}):
@@ -395,7 +401,7 @@ else if(method == "SLIDE"){
 
     if(length(values.natural.limited)<=32 & slide.outlier.rm == TRUE){
 
-      warning("> 30 data points are needed for the outlier correction. Nothing done!")
+      warning("> 30 data points are needed for the outlier correction. Nothing was done!")
 
     }
 
@@ -417,18 +423,20 @@ else if(method == "SLIDE"){
       temp.outlier.hist <- hist(temp.outlier.residual,
            breaks = length(values.natural.limited[,2])/2, plot = FALSE)
 
+
     ##find mode of the histogram (e.g. peak)
     temp.outlier.hist.max <- which.max(temp.outlier.hist$counts)
 
     ##find gaps in the histogram (bins with zero value)
     temp.outlier.hist.zerobin <- which(temp.outlier.hist$counts == 0)
 
+
     ##select non-zerobins
     temp.outlier.hist.nonzerobin <- which(temp.outlier.hist$counts != 0)
 
-    ##define threshold, e.g. if a gap is broader than this value, all values above
+    ##define threshold, e.g. if a gap is greater than this value, all values above
     ##are marked as outlier
-    temp.threshold  <- 2 * sd(temp.median.roll[,2])
+    temp.threshold  <- 2 * sd(temp.outlier.residual)
 
     temp.outlier.hist.nonzerobin.diff <- diff(
         temp.outlier.hist$breaks[temp.outlier.hist.nonzerobin])
@@ -469,7 +477,7 @@ else if(method == "SLIDE"){
       values.natural.limited.full <-  values.natural.limited
 
       if(length(temp.outlier.ID)>0){
-        values.natural.limited <-  values.natural.limited[- temp.outlier.ID,]
+        values.natural.limited <- values.natural.limited[- temp.outlier.ID,]
 
         warning(paste(length(temp.outlier.ID)), " values removed as outlier before sliding!")
       }
@@ -503,6 +511,7 @@ else if(method == "SLIDE"){
                                  length = length(values.regenerated.limited[,2])-
                                    length(values.natural.limited[,2]))
 
+
     temp.sum.residuals <- .analyse_IRSARRF_SRS(values.regenerated.limited[,2],
                                              values.natural.limited[,2])
 
@@ -512,8 +521,7 @@ else if(method == "SLIDE"){
 
   temp.sliding.step <- temp.sum.min.time.value - values.natural.limited[1,1]
 
-
-  ##(3) slide curve (with the full data)
+  ##(3) slide curve graphically (with the full data)
   values.natural.limited.full.preSlide <- values.natural.limited.full
   values.natural.limited.full[,1] <- values.natural.limited.full[,1] + temp.sliding.step
 
@@ -522,22 +530,27 @@ else if(method == "SLIDE"){
   if(length(temp.outlier.ID)>0){
 
       values.residuals <- values.natural.limited.full[-temp.outlier.ID,2] -
-        values.regenerated.limited[
-          values.regenerated.limited[,1]%in%values.natural.limited.full[-temp.outlier.ID,1], 2]
+            values.regenerated.limited[
+           values.regenerated.limited[,1]%in%values.natural.limited.full[-temp.outlier.ID,1], 2]
 
+
+#        temp.values.resdiduals.time <- values.regenerated.limited[
+#          values.regenerated.limited[,1]%in%values.natural.limited.full[-temp.outlier.ID,1],1]
+#
+#       print(values.natural.limited.full[,1]%in%temp.values.resdiduals.time)
+#
+#        values.residuals <-
+#           values.natural.limited.full[
+#             which(values.natural.limited.full[,1] == temp.values.resdiduals.time),2] -
+#           values.regenerated.limited[
+#             which(values.regenerated.limited[,1] == temp.values.resdiduals.time),2]
 
     }else{
 
-  #     SK: Removed 2015-03-03, in case of strange effects ... TODO
-  #     values.residuals <- values.natural.limited.full[,2] -
-  #       values.regenerated.limited[
-  #         values.regenerated.limited[,1]%in%values.natural.limited.full[,1], 2]
-
-       values.residuals <- values.natural.limited.full[,2] -
-          values.regenerated.limited[temp.sum.min.id:((nrow(values.natural.limited.full)+temp.sum.min.id)-1), 2]
+      values.residuals <- values.natural.limited.full[,2] -
+        values.regenerated.limited[temp.sum.min.id:((nrow(values.natural.limited.full)+temp.sum.min.id)-1), 2]
 
   }
-
 
   ##(4.1) calculate De from the first channel
   De.mean <- round(values.natural.limited.full[1,1], digits = 2)
@@ -555,6 +568,7 @@ else if(method == "SLIDE"){
      x = values.natural.limited[,1],
      y = (-temp.trend.fit.slope * values.natural.limited[,1] +
      values.natural.limited[,2]))
+
 
    ##(5.2) calcualte sum of residual squares
    temp.sum.residuals.corr <- vector("numeric", length = length(temp.sum.residuals))
@@ -580,7 +594,7 @@ else if(method == "SLIDE"){
 
   ##return values and limited if they are not needed
   if(numerical.only == FALSE){
-   return(list(De.mean, De.mean.corr,values.residuals,temp.trend.fit, values.natural.limited.full))
+   return(list(De.mean, De.mean.corr,values.residuals, temp.trend.fit, values.natural.limited.full))
   }else{
     return(list(De.mean, De.mean.corr))
   }
@@ -600,7 +614,7 @@ else if(method == "SLIDE"){
 
   De.mean <- temp.sliding[[1]]
   De.mean.corr <- temp.sliding[[2]]
-  values.residuals <-temp.sliding[[3]]
+  values.residuals <- temp.sliding[[3]]
   temp.trend.fit <- temp.sliding[[4]]
   values.natural.limited.full <- temp.sliding[[5]]
 
@@ -988,6 +1002,7 @@ if(plot==TRUE){
          ylab="\u03b5",
          #lwd=2,
          log=log)
+
 
     if(!is.na(De.mean.corr)){
      lines(values.natural.limited.full[-temp.outlier.ID,1],
