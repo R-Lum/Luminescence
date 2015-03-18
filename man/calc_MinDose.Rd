@@ -247,4 +247,4 @@ plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
 #summary(bs$poly.fits$poly.three$fitted.values)
 
 }
-\section{Function version}{0.4.1 (2015-03-10 10:40:25)}
+\section{Function version}{0.4.1 (2015-03-18 13:29:54)}

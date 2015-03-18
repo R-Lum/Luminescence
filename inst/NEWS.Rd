@@ -310,7 +310,7 @@
   calculations to compiled C++ code to speed up the functions. Currently it is used e.g. in the function
   \code{analyse_IRSAR.RF()},
 
-  \item adding dependency (import) for the packages \code{parallel} and \code{snow}. With this
+  \item adding dependency (import) for the packages \code{parallel}. With this
   the multicore support is realised within in the package. First implemented in the
   function \code{calc_MinDose()}.
 

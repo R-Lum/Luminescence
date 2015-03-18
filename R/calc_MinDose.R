@@ -477,7 +477,7 @@ calc_MinDose <- structure(function( # Apply the (un-)logged minimum age model (M
       message(paste("\n Spawning", cores, "instances of R for parallel computation. This may take a few seconds..."))
       cl <- parallel::makeCluster(cores, type = "SOCK")
       message("\n Done! Applying the model to all replicates. This may take a while...")
-      mle <- snow::parLapply(cl, replicates, Get_mle)
+      mle <- parallel::parLapply(cl, replicates, Get_mle)
       parallel::stopCluster(cl)
     } else {
       message("\n Applying the model to all replicates. This may take a while...")

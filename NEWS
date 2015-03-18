@@ -275,10 +275,9 @@ Changes in version 0.4.2 (March 23th 2015):
            compiled C++ code to speed up the functions. Currently it is
            used e.g. in the function ‘analyse_IRSAR.RF()’,
 
-         • adding dependency (import) for the packages ‘parallel’ and
-           ‘snow’. With this the multicore support is realised within
-           in the package. First implemented in the function
-           ‘calc_MinDose()’.
+         • adding dependency (import) for the packages ‘parallel’. With
+           this the multicore support is realised within in the
+           package. First implemented in the function ‘calc_MinDose()’.
 
 Changes in version 0.4.1 (January 29th, 2015):
 
