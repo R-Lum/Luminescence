@@ -17,7 +17,8 @@ In addition any other character is allowed in the sequence structure;
 such curves will be ignored.}
   \item{method}{\code{\link{character}} (with default): setting method applied for the data analysis.
 Possible options are \code{"FIT"} or \code{"SLIDE"}.}
-  \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection criteria for, see details for more information}
+  \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection criteria for, see details for more information
+\bold{Currently without usage!}}
   \item{fit.range.min}{\code{\link{integer}} (optional): set the minimum channel range for signal fitting and sliding.
 Usually the entire data set is used for curve fitting, but there might be
 reasons to limit the channels used for fitting.
@@ -125,9 +126,8 @@ they are comparable. \cr
 For \bold{\code{method = "FIT"}} the asymmetric error range is taken from the standard deviation
 of the natural signal.\cr
 
-For \bold{\code{method = "SLIDE"}} so far no error estimation is implemented. Instead, to asses
-the error of the De several aliquots should be measured and the error obtained from the
-De distribution.}
+For \bold{\code{method = "SLIDE"}} an beta-version of an error estimation based on boostrapping
+is implemented, however, this needs further documentation.}
 \value{A plot (optional) and an \code{\linkS4class{RLum.Results}} object is returned
 containing the following elements: \cr
 \item{De.values}{\code{\link{data.frame}} containing De-values with error
@@ -181,7 +181,9 @@ Radiation Measurements 32, 685-690.}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 R Luminescence Package Team}
 \note{This function assumes that there is no sensitivity change during the measurements (natural
-vs. regenerated signal), which is in contrast to the findings from Buylaert et al. (2012).}
+vs. regenerated signal), which is in contrast to the findings from Buylaert et al. (2012).\cr
+
+\bold{Please note that \code{method = "FIT"} has beta status and was not properly tested yet!}}
 
 
 \seealso{\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}},
@@ -196,4 +198,4 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 }
 
 \keyword{datagen}
-\section{Function version}{0.3.1 (2015-03-18 11:40:06)}
+\section{Function version}{0.3.1 (2015-03-23 13:07:08)}

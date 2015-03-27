@@ -1,7 +1,19 @@
-  \name{NEWS}
+\name{NEWS}
 \title{NEWS for the R Package Luminescence}
+\section{Changes in version 0.4.3 (XXth, 2015)}{
 
-\section{Changes in version 0.4.2 (March 23th 2015)}{
+  \subsection{Bugfixes and changes}{
+   \itemize{
+
+      \item DUMMY
+
+
+    }
+  }
+}
+
+
+\section{Changes in version 0.4.2 (March 23th, 2015)}{
 
   \subsection{New functions}{
 
@@ -18,13 +30,12 @@
    \itemize{
 
 
-
     \item \code{RLum.Analysis-class}:
 
 
      \itemize{
 
-    \item Fix: Argument \code{keep.object == TRUE} was not respected for the case after using
+    \item Fix: Argument \code{keep.object == TRUE} was not respected for every case. After using
     the function \code{get_RLum.Analysis()} the object just contained a single object. In such
     cases only the object itself, but no \code{RLum.Analysis} object was returned (#200).
 
@@ -35,7 +46,7 @@
 
      \itemize{
 
-    \item Slot \code{.RESERVED} added to allow transfering undocumented raw binary values to a
+    \item Slot \code{.RESERVED} added to allow transferring undocumented raw binary values to a
     new BIN/BINX-file. For this all reserved bytes are just copied and pasted into the new slot
     \code{.RESERVED} using the function \code{readBIN2R()}. Using the function \code{writeR2BIN()} transfers
     the values unchanged to the new BIN/BINX-file. Allc corresponding functions have been updated in accordance
@@ -51,7 +62,7 @@
   \subsection{Bugfixes and changes}{
    \itemize{
 
-   \item \code{analyse_IRSAR.RF()}
+   \item \code{analyse_IRSAR.RF()}\cr
 
   \itemize{
 
@@ -59,15 +70,14 @@
   first curve is > than in the 2nd curve the execution of the function is stopped,
   \item add error estimation using bootstraping and MC loops for \code{method = "SLIDE"},
   \item add scaled KDE for distribution of De,
-  \item the functions no longer stops with an error if a undefined \code{method} was choosen. Instead
+  \item the functions no longer stops with an error if a undefined \code{method} was chosen. Instead
   a warning message is shown and the available curves are shown in a plot anyway,
-  \item the labelling for the residuals is replaced by a greek letter (epsilon, \code{"\u03b5"}),
+  \item the labelling for the residuals is replaced by 'E' to avoid overplotting,
   \item new argument \code{rejection.criteria} provided to allow for setting rejection criteria. The
   argument works similar as for other \code{analyse_...} functions. Details are provided in the manual,
-  \item speed up caculation time for \code{method = "SLIDE"} by re-writting the sliding process
+  \item speed up caculation time for \code{method = "SLIDE"} by re-writing the sliding process
   as C++ function. It does not the affect readability of the R-code at all, as just the sum of the residual
-  squares is calculated in this way, i.e. the steps are simple, but now much faster.
-
+  squares is calculated in this way, i.e. the calculations are simple, but now much faster.
 
   }
 
@@ -92,6 +102,19 @@
 
 
   }
+
+  \item \code{apply_CosmicRayRemoval()}
+
+  \itemize{
+
+  \item Argument \code{method.Pych.histogram.plot} replaced by the more general and consistent
+  argument \code{plot},
+  \item minor code polishing.
+
+
+  }
+
+
 
     \item \code{calc_FadingCorr()}
 
@@ -208,7 +231,7 @@
    \itemize{
 
     \item Fix an error that causes a function chrash if the input data.frame (argument \code{sample}) comprises
-    row names. Now all preset row names are removed automatically,
+    row names. Now all pre-set row names are removed automatically,
 
     \item using the option \code{fit.weights = FALSE} in combination with \code{fit.method = "LIN"} caused an error. Corrected,
 
@@ -242,7 +265,7 @@
 
     \item Fix an error appeared for \code{combine = TRUE} if only one single object was in the \code{RLum.Analysis} object (#199),
     \item added logical argument \code{plot.single}. In fact this just resets \code{ncols} and \code{nrows} to \code{1} (#201),
-    \item added argument \code{curve.transformation} to allow a quick dataoverview using the pseudo-LM curve transformation methods.
+    \item added argument \code{curve.transformation} to allow a quick data overview using the pseudo-LM curve transformation methods.
 
 
    }
@@ -274,12 +297,24 @@
 
   }
 
+    \item \code{readXSYG2R()}
+
+  \itemize{
+
+  \item For using the argument \code{recalculate.TL.curves = FALSE} the import of spectrometer
+  data was broken. Fixed.
+  \item during TL-curve recalculation for spectra in rare cases the produced object was not
+  valid for further plotting due to duplicated x-values in the matrix. This has been fixed by
+  adding artificially 1 K to such values. In addition a warnings is produced.
+
+  }
+
    \item \code{writeR2BIN()}
 
   \itemize{
 
   \item Part of the manual was missing due to an error in the inlinedoc documentation. Fixed.,
-  \item the argument \code{version} no expects a \code{character} as impot instead of a \code{raw} object,
+  \item the argument \code{version} no expects a \code{character} as import instead of a \code{raw} object,
   \item further suppressing of confusing warning messages,
   \item date has not been written properly in accordance with the format description (fixed),
   \item time values have been not properly exported in same cases, corrected.
@@ -311,7 +346,7 @@
   \code{analyse_IRSAR.RF()},
 
   \item adding dependency (import) for the packages \code{parallel}. With this
-  the multicore support is realised within in the package. First implemented in the
+  the multi-core support is realised within in the package. First implemented in the
   function \code{calc_MinDose()}.
 
 }}
@@ -443,12 +478,12 @@
 
      \itemize{
 
-    \item critical bug fixed: \code{GRAIN} and \code{GRAINNUMBER} were not imported properely
+    \item critical bug fixed: \code{GRAIN} and \code{GRAINNUMBER} were not imported properly
     (thanks to Norber Mercier),
 
     \item import speed has been improved by at least an order of magnitude, due to a different
     internal data handling (using of \code{data.table} instead of \code{data.frame}). This may become
-    relevant for hugh BIN-files like they are produced by single grain measurements (#191).
+    relevant for huge BIN-files like they are produced by single grain measurements (#191).
     Note: The \code{Risoe.BINfileData-class} remained untouched.
 
 
@@ -531,7 +566,7 @@
     date of measurement based on: source calibration date, source dose rate, dose rate error.
 
   \item \code{get_Layout()}: Helper function to return a list with layout definitions for
-  more homogenous plotting,
+  more homogeneous plotting,
 
    \item \code{get_RLum()}: Wrapper function for various get methods for \code{RLum}-objects (#148),
 
@@ -640,11 +675,11 @@
 
         \item argument \code{mtext.outer} added,
 
-        \item output object \code{Formula} added to return the fromula of the
+        \item output object \code{Formula} added to return the formula of the
          growth curve,
 
          \item output object \code{De.values} extended for D01, D02 and information
-         on the applied fittin,
+         on the applied fitting,
 
         \item numerical output extended for information on the choosen signal and
         background integration limits (#122),
@@ -655,7 +690,7 @@
         \item details from the argument \code{rejection.criteria} were removed
         from the argument list to allow a more flexible handling (e.g. changing only
         one parameter at time) and to clean up the argument list. However, the argument
-        work still as excpected (#145),
+        work still as expected (#145),
 
         \item reformat of rejection criteria output to allow easier further treatment,
 
@@ -701,7 +736,7 @@
   \item renamed argument \code{input.data} to \code{data},
   \item new argument \code{'...'}, which is checked for arguments \code{verbose} (logical) and \code{trace}
   (logical) to (dis-)allow (extended) console output,
-  \item new structure of the returned \code{RLum.Results} object, containing the elemennts 'summary', 'data', 'args', 'call' and 'profile',
+  \item new structure of the returned \code{RLum.Results} object, containing the elements 'summary', 'data', 'args', 'call' and 'profile',
   \item fixed a bug that occured for non-dispersed data sets and resulted in a virtually infinite loop using up all available memory,
   \item plotting now done by \item{plot_RLum.Results()}.
 
@@ -820,7 +855,7 @@
 
       \item Correct an error that causes \code{NA} values
       within the curve errors for rare combinations of signal and background
-      integreation limits,
+      integration limits,
       \item provide a name for the output data frame \code{LxTx.table} for the
       \code{RLum.Results} object,
 
@@ -855,7 +890,7 @@
           the signal integral was taken for summing up the values and not the range of the values,
 
           \item Output produced by the function now is a \code{list} (data slot in the RLum object), to
-          equal behavoir of the functions.
+          equal behaviour of the functions.
 
 
           }
@@ -1004,9 +1039,9 @@
       \item Add argument \code{abline} to allow inserting similar vertical or horizontal lines
       in every plot. The decision to implement this argument in this function instead the function
       \code{plot_RLum.Data.Curve()} was made because in a single plot modus \code{abline} is more
-      sufficiently used as separat function call,
+      sufficiently used as separate function call,
 
-      \item now reset \code{par} parameters suffciently,
+      \item now reset \code{par} parameters sufficiently,
 
       \item add argument \code{combine} to allow fast combining of curves in single plot window.
 
@@ -1036,7 +1071,7 @@
         using \code{plot.type = "persp"} or \code{plot.type = "persp3d"},
 
         \item add argument new plot type \code{"transect"} for plotting a transect
-        along the time/temperature axis for a specific wavelength/channel intervall
+        along the time/temperature axis for a specific wavelength/channel interval
         (#120, requested by Regina DeWitt),
 
         \item correct function break for a single column matrix (single frame spectrum)
@@ -1095,7 +1130,7 @@
        \item Complete format support as now a more throughtful distinction is made between
         version 03 and 04 (also made for function \code{readBIN2R()}) (#182),
 
-        \item \code{SEL} will now be kept using the \code{TAG} bit, releated to changes made
+        \item \code{SEL} will now be kept using the \code{TAG} bit, related to changes made
         in function \code{readBIN2R} (#181, Norbert Mercier).
 
       }

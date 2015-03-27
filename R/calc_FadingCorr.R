@@ -66,8 +66,9 @@ calc_FadingCorr<- structure(function(#Apply a fading correction according to Hun
             uniroot(f,
                     c(0.1,500),
                     tol = 0.001,
-                    tc = tc, af = age.fadedMC[x],
-                    kappa = kappaMC[x],
+                    tc = tc,
+                    af = age.fadedMC[[x]],
+                    kappa = kappaMC[[x]],
                     check.conv = TRUE)$root
 
             })

@@ -1,6 +1,12 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.4.2 (March 23th 2015):
+Changes in version 0.4.3 (XXth, 2015):
+
+  Bugfixes and changes:
+
+         • DUMMY
+
+Changes in version 0.4.2 (March 23th, 2015):
 
   New functions:
 
@@ -15,21 +21,21 @@ Changes in version 0.4.2 (March 23th 2015):
          • ‘RLum.Analysis-class’:
 
              • Fix: Argument ‘keep.object == TRUE’ was not respected
-               for the case after using the function
+               for every case. After using the function
                ‘get_RLum.Analysis()’ the object just contained a single
                object. In such cases only the object itself, but no
                ‘RLum.Analysis’ object was returned (#200).
 
          • ‘RisoeBINfileData-class’:
 
-             • Slot ‘.RESERVED’ added to allow transfering undocumented
-               raw binary values to a new BIN/BINX-file. For this all
-               reserved bytes are just copied and pasted into the new
-               slot ‘.RESERVED’ using the function ‘readBIN2R()’. Using
-               the function ‘writeR2BIN()’ transfers the values
-               unchanged to the new BIN/BINX-file. Allc corresponding
-               functions have been updated in accordance
-               (‘readBIN2R()’, ‘writeR2BIN()’ and
+             • Slot ‘.RESERVED’ added to allow transferring
+               undocumented raw binary values to a new BIN/BINX-file.
+               For this all reserved bytes are just copied and pasted
+               into the new slot ‘.RESERVED’ using the function
+               ‘readBIN2R()’. Using the function ‘writeR2BIN()’
+               transfers the values unchanged to the new BIN/BINX-file.
+               Allc corresponding functions have been updated in
+               accordance (‘readBIN2R()’, ‘writeR2BIN()’ and
                ‘merge_Risoe.BINfileData()’. Other functions are not
                affected as they can simply ignore the new slot.
 
@@ -48,12 +54,12 @@ Changes in version 0.4.2 (March 23th 2015):
              • add scaled KDE for distribution of De,
 
              • the functions no longer stops with an error if a
-               undefined ‘method’ was choosen. Instead a warning
-               message is shown and the available curves are shown in a
-               plot anyway,
+               undefined ‘method’ was chosen. Instead a warning message
+               is shown and the available curves are shown in a plot
+               anyway,
 
-             • the labelling for the residuals is replaced by a greek
-               letter (epsilon, ‘"\u03b5"’),
+             • the labelling for the residuals is replaced by 'E' to
+               avoid overplotting,
 
              • new argument ‘rejection.criteria’ provided to allow for
                setting rejection criteria. The argument works similar
@@ -61,10 +67,11 @@ Changes in version 0.4.2 (March 23th 2015):
                provided in the manual,
 
              • speed up caculation time for ‘method = "SLIDE"’ by
-               re-writting the sliding process as C++ function. It does
+               re-writing the sliding process as C++ function. It does
                not the affect readability of the R-code at all, as just
                the sum of the residual squares is calculated in this
-               way, i.e. the steps are simple, but now much faster.
+               way, i.e. the calculations are simple, but now much
+               faster.
 
          • ‘analyse_SAR.CWOSL()’
 
@@ -78,6 +85,13 @@ Changes in version 0.4.2 (March 23th 2015):
                rate could be calculated the functions chrashed. This
                has bee corrected; in accordance with the similar
                behaviour in the function analyse_SAR.CWOSL().
+
+         • ‘apply_CosmicRayRemoval()’
+
+             • Argument ‘method.Pych.histogram.plot’ replaced by the
+               more general and consistent argument ‘plot’,
+
+             • minor code polishing.
 
          • ‘calc_FadingCorr()’
 
@@ -176,7 +190,7 @@ Changes in version 0.4.2 (March 23th 2015):
 
              • Fix an error that causes a function chrash if the input
                data.frame (argument ‘sample’) comprises row names. Now
-               all preset row names are removed automatically,
+               all pre-set row names are removed automatically,
 
              • using the option ‘fit.weights = FALSE’ in combination
                with ‘fit.method = "LIN"’ caused an error. Corrected,
@@ -211,7 +225,7 @@ Changes in version 0.4.2 (March 23th 2015):
                resets ‘ncols’ and ‘nrows’ to ‘1’ (#201),
 
              • added argument ‘curve.transformation’ to allow a quick
-               dataoverview using the pseudo-LM curve transformation
+               data overview using the pseudo-LM curve transformation
                methods.
 
          • ‘plot_RLum.Results()’
@@ -234,13 +248,24 @@ Changes in version 0.4.2 (March 23th 2015):
              • support for the changes in the corresponding S4-class
                implemented.
 
+         • ‘readXSYG2R()’
+
+             • For using the argument ‘recalculate.TL.curves = FALSE’
+               the import of spectrometer data was broken. Fixed.
+
+             • during TL-curve recalculation for spectra in rare cases
+               the produced object was not valid for further plotting
+               due to duplicated x-values in the matrix. This has been
+               fixed by adding artificially 1 K to such values. In
+               addition a warnings is produced.
+
          • ‘writeR2BIN()’
 
              • Part of the manual was missing due to an error in the
                inlinedoc documentation. Fixed.,
 
-             • the argument ‘version’ no expects a ‘character’ as impot
-               instead of a ‘raw’ object,
+             • the argument ‘version’ no expects a ‘character’ as
+               import instead of a ‘raw’ object,
 
              • further suppressing of confusing warning messages,
 
@@ -276,7 +301,7 @@ Changes in version 0.4.2 (March 23th 2015):
            used e.g. in the function ‘analyse_IRSAR.RF()’,
 
          • adding dependency (import) for the packages ‘parallel’. With
-           this the multicore support is realised within in the
+           this the multi-core support is realised within in the
            package. First implemented in the function ‘calc_MinDose()’.
 
 Changes in version 0.4.1 (January 29th, 2015):
@@ -382,12 +407,12 @@ Changes in version 0.4.1 (January 29th, 2015):
          • ‘readBIN2R()’:
 
              • critical bug fixed: ‘GRAIN’ and ‘GRAINNUMBER’ were not
-               imported properely (thanks to Norber Mercier),
+               imported properly (thanks to Norber Mercier),
 
              • import speed has been improved by at least an order of
                magnitude, due to a different internal data handling
                (using of ‘data.table’ instead of ‘data.frame’). This
-               may become relevant for hugh BIN-files like they are
+               may become relevant for huge BIN-files like they are
                produced by single grain measurements (#191).  Note: The
                ‘Risoe.BINfileData-class’ remained untouched.
 
@@ -462,7 +487,7 @@ Changes in version 0.4.0 (December 19th, 2014):
            source calibration date, source dose rate, dose rate error.
 
          • ‘get_Layout()’: Helper function to return a list with layout
-           definitions for more homogenous plotting,
+           definitions for more homogeneous plotting,
 
          • ‘get_RLum()’: Wrapper function for various get methods for
            ‘RLum’-objects (#148),
@@ -546,11 +571,11 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • argument ‘mtext.outer’ added,
 
-             • output object ‘Formula’ added to return the fromula of
+             • output object ‘Formula’ added to return the formula of
                the growth curve,
 
              • output object ‘De.values’ extended for D01, D02 and
-               information on the applied fittin,
+               information on the applied fitting,
 
              • numerical output extended for information on the choosen
                signal and background integration limits (#122),
@@ -563,7 +588,7 @@ Changes in version 0.4.0 (December 19th, 2014):
                removed from the argument list to allow a more flexible
                handling (e.g. changing only one parameter at time) and
                to clean up the argument list. However, the argument
-               work still as excpected (#145),
+               work still as expected (#145),
 
              • reformat of rejection criteria output to allow easier
                further treatment,
@@ -613,7 +638,7 @@ Changes in version 0.4.0 (December 19th, 2014):
                (extended) console output,
 
              • new structure of the returned ‘RLum.Results’ object,
-               containing the elemennts 'summary', 'data', 'args',
+               containing the elements 'summary', 'data', 'args',
                'call' and 'profile',
 
              • fixed a bug that occured for non-dispersed data sets and
@@ -788,7 +813,7 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • Correct an error that causes ‘NA’ values within the
                curve errors for rare combinations of signal and
-               background integreation limits,
+               background integration limits,
 
              • provide a name for the output data frame ‘LxTx.table’
                for the ‘RLum.Results’ object,
@@ -816,7 +841,7 @@ Changes in version 0.4.0 (December 19th, 2014):
                values,
 
              • Output produced by the function now is a ‘list’ (data
-               slot in the RLum object), to equal behavoir of the
+               slot in the RLum object), to equal behaviour of the
                functions.
 
          • ‘fit_CWCurve()’:
@@ -993,9 +1018,9 @@ Changes in version 0.4.0 (December 19th, 2014):
                to implement this argument in this function instead the
                function ‘plot_RLum.Data.Curve()’ was made because in a
                single plot modus ‘abline’ is more sufficiently used as
-               separat function call,
+               separate function call,
 
-             • now reset ‘par’ parameters suffciently,
+             • now reset ‘par’ parameters sufficiently,
 
              • add argument ‘combine’ to allow fast combining of curves
                in single plot window.
@@ -1020,7 +1045,7 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • add argument new plot type ‘"transect"’ for plotting a
                transect along the time/temperature axis for a specific
-               wavelength/channel intervall (#120, requested by Regina
+               wavelength/channel interval (#120, requested by Regina
                DeWitt),
 
              • correct function break for a single column matrix
@@ -1069,7 +1094,7 @@ Changes in version 0.4.0 (December 19th, 2014):
                distinction is made between version 03 and 04 (also made
                for function ‘readBIN2R()’) (#182),
 
-             • ‘SEL’ will now be kept using the ‘TAG’ bit, releated to
+             • ‘SEL’ will now be kept using the ‘TAG’ bit, related to
                changes made in function ‘readBIN2R’ (#181, Norbert
                Mercier).
 

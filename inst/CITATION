@@ -21,10 +21,10 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 	  bibentry(bibtype = "Article",
 			  	title = "Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'",
 				author = "Margret C. Fuchs, Sebastian Kreutzer, Christoph Burow, Michael Dietze, Manfred Fischer, Christoph Schmidt, Markus Fuchs",
-				year = "2014",
+				year = "2015",
 				journal = "Quaternary International",
-				volume = "",
-				pages = "1-6",
+				volume = "362",
+				pages = "8-13",
 				doi = "10.1016/j.quaint.2014.06.034")
 
 

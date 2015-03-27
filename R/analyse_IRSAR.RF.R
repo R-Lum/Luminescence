@@ -36,6 +36,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
 
   rejection.criteria,
   ### \code{\link{list} (with default)}: set rejection criteria for, see details for more information
+  ### \bold{Currently without usage!}
 
   fit.range.min,
   ### \code{\link{integer}} (optional): set the minimum channel range for signal fitting and sliding.
@@ -851,7 +852,7 @@ if(plot==TRUE){
          type="p",
          pch=20,
          col="grey",
-         ylab="\u03b5",
+         ylab="E",
          #lwd=2,
          log="")
 
@@ -860,7 +861,7 @@ if(plot==TRUE){
   }else{
     plot(NA,NA,
          xlim=c(0,max(temp.sequence.structure$x.max)),
-         ylab="Resid. [a.u.]",
+         ylab="E",
          xlab=xlab,
          ylim=c(-1,1)
     )
@@ -999,7 +1000,7 @@ if(plot==TRUE){
          type="p",
          pch=20,
          col="grey",
-         ylab="\u03b5",
+         ylab="E",
          #lwd=2,
          log=log)
 
@@ -1018,7 +1019,7 @@ if(plot==TRUE){
            type="p",
            pch=20,
            col="grey",
-           ylab="\u03b5",
+           ylab="E",
            #lwd=2,
            log=log)
 
@@ -1179,9 +1180,8 @@ if(plot==TRUE){
   ## For \bold{\code{method = "FIT"}} the asymmetric error range is taken from the standard deviation
   ## of the natural signal.\cr
   ##
-  ## For \bold{\code{method = "SLIDE"}} so far no error estimation is implemented. Instead, to asses
-  ## the error of the De several aliquots should be measured and the error obtained from the
-  ## De distribution.
+  ## For \bold{\code{method = "SLIDE"}} an beta-version of an error estimation based on boostrapping
+  ## is implemented, however, this needs further documentation.
 
 
   ##references<<
@@ -1230,7 +1230,9 @@ if(plot==TRUE){
 
   ##note<<
   ## This function assumes that there is no sensitivity change during the measurements (natural
-  ## vs. regenerated signal), which is in contrast to the findings from Buylaert et al. (2012).
+  ## vs. regenerated signal), which is in contrast to the findings from Buylaert et al. (2012).\cr
+  ##
+  ##\bold{Please note that \code{method = "FIT"} has beta status and was not properly tested yet!}
 
   ##seealso<<
   ## \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}},

@@ -306,7 +306,7 @@ setMethod("get_RLum.Results",
 
               if(object@originator == "calc_FadingCorr") {
 
-                return(object@data$Age.corr)
+                return(object@data$age.corr)
 
             }
 

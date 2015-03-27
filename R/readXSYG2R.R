@@ -6,7 +6,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.4
+  ## version 0.4.1
   # ===========================================================================
 
   file,
@@ -118,7 +118,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
   ##show error
   if(is(temp, "try-error") == TRUE){
 
-    stop("[readXSYG2R.R] >> Error: XML file not readable!)")
+    stop("[readXSYG2R()] XML file not readable!)")
 
   }
 
@@ -389,10 +389,24 @@ readXSYG2R <- structure(function(#Import XSYG files to R
                     x = temp.sequence.object.curveValue.heating.element[,1],
                     y = temp.sequence.object.curveValue.heating.element[,2],
                     xout = temp.sequence.object.curveValue.spectrum.time,
-                    rule = 2)
+                    rule = 2,
+                    ties = -2)
 
                   temperature.values <-
                     temp.sequence.object.curveValue.heating.element.i$y
+
+                  ##check for duplicated values and if so, increase this values
+                  if(anyDuplicated(temperature.values)>0){
+
+                    temperature.values[which(duplicated(temperature.values))] <-
+                      temperature.values[which(duplicated(temperature.values))]+1
+
+                    warning("Temperatures values are found duplicated and increased by 1 K")
+
+                  }
+
+
+
 
                 ##CASE (2)  (equal)
                 }else{
@@ -442,7 +456,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
            if(is(temp.sequence.object.curveValue, "matrix") == FALSE){
 
              temp.sequence.object.curveValue <-
-               get_XSYG.curve.values(temp.sequence.object.curveValue)
+               get_XSYG.spectrum.values(temp.sequence.object.curveValue)
 
            }
 

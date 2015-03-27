@@ -36,7 +36,8 @@ depending on the chosen input and output data
 
 Although the coding was done carefully it seems that the BIN/BINX-files produced by
 Risoe DA 15/20 TL/OSL readers slightly differ on the byte level. No obvious differences are observed
-in the METADATA, however, the BIN/BINX-file may not fully compatible!}
+in the METADATA, however, the BIN/BINX-file may not fully compatible, at least not similar to
+the once directly produced by the Risoe readers!}
 
 
 \seealso{\code{\link{readBIN2R}}, \code{\linkS4class{Risoe.BINfileData}},
@@ -51,4 +52,4 @@ in the METADATA, however, the BIN/BINX-file may not fully compatible!}
 }
 
 \keyword{IO}
-\section{Function version}{0.2.5 (2015-03-04 12:43:39)}
+\section{Function version}{0.2.5 (2015-03-23 12:57:25)}

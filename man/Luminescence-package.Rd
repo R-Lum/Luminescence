@@ -10,8 +10,8 @@ A collection of various R functions for the purpose of Luminescence dating data 
 \tabular{ll}{
 Package: \tab Luminescence\cr
 Type: \tab Package\cr
-Version: \tab 0.4.2\cr
-Date: \tab 2015-03-23\cr
+Version: \tab 0.4.3 [upcoming]\cr
+Date: \tab 2015-XX-XX\cr
 License: \tab GPL-3\cr
 }
 %~~ An overview of how to use the package, including the most important functions ~~
@@ -72,7 +72,7 @@ Project title: "Lum.Network: Ein Wissenschaftsnetzwerk zur Analyse von Luminesze
 \references{
 Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M., Schmidt, C., 2013. A practical guide to the R package Luminescence.  Ancient TL, 31, pp. 11-18.
 
-Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C., Fuchs, M., 2014. Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'. Quaternary International, , pp. 1-6. http://dx.doi.org/10.1016/j.quaint.2014.06.034
+Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C., Fuchs, M., 2015. Data processing in luminescence dating analysis: An exemplary workflow using the R package 'Luminescence'. Quaternary International, 362, pp. 8-13. http://dx.doi.org/10.1016/j.quaint.2014.06.034
 
 Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M., 2012. Introducing an R package for luminescence dating analysis. Ancient TL, 30, pp. 1-8.
 

@@ -1156,7 +1156,8 @@ cat(paste("\t >> ",ID-1,"records have been written successfully!\n\n",paste=""))
   ##
   ## Although the coding was done carefully it seems that the BIN/BINX-files produced by
   ## Risoe DA 15/20 TL/OSL readers slightly differ on the byte level. No obvious differences are observed
-  ## in the METADATA, however, the BIN/BINX-file may not fully compatible!
+  ## in the METADATA, however, the BIN/BINX-file may not fully compatible, at least not similar to
+  ## the once directly produced by the Risoe readers!
 
   ##seealso<<
   ## \code{\link{readBIN2R}}, \code{\linkS4class{Risoe.BINfileData}},

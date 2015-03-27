@@ -1,6 +1,6 @@
 extract_IrradiationTimes <- structure(function(#Extract irradiation times from an XSYG file
   ### Extracts irradiation times, dose and times since last irradiation, from a Freiberg Instruments
-  ### XSYG-file. The information can be further used to update an existing BINX-file
+  ### XSYG-file. These information can be further used to update an existing BINX-file
 
   # ===========================================================================
   ##author<<
@@ -24,7 +24,7 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
   ### As the XSYG-file format comprises much more information than usually needed for routine
   ### data analysis and allowed in the BINX-file format, only the relevant curves are selected
   ### by using the function \code{\link{get_RLum.Analysis}}. The argument
-  ### \code{recordType} works a described for this function. \cr
+  ### \code{recordType} works as described for this function. \cr
   ###
   ### Note: A wrong selection will causes a function error. Please change this argument only
   ### if you have reasons to do so.
@@ -244,18 +244,18 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
   return(set_RLum.Results(data = list(irr.times = results)))
 
   ##value<<
-  ##An \code{\linkS4class{RLum.Results}} object is returned with the following structure:\cr
+  ## An \code{\linkS4class{RLum.Results}} object is returned with the following structure:\cr
   ## .. $irr.times (data.frame)\cr
   ##
   ## If a BINX-file path and name is set, the output will be additionally transferred
   ## to a new BINX-file with the function name as suffix. For the output
-  ## the path of the BINX-file itself is used.
+  ## the path of the input BINX-file itself is used.
 
   ##details<<
   ## The function was written to compensate missing information in the BINX-file output of
   ## Freiberg Instruments lexsyg readers. As all information are available within the XSYG-file anyway,
   ## these information can be extracted and used for further analysis or/and to stored
-  ## in a new BINX-file, which can be further used by the software Analyst (Geoff Duller). \cr
+  ## in a new BINX-file, which can be further used by other software, e.g. Analyst (Geoff Duller). \cr
   ##
   ## Typical application example: g-value estimation from fading measurements using the Analyst
   ## or any other self written script.\cr
@@ -269,7 +269,10 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
   ##note<<
   ## The produced output object contains still the irradiation steps to keep the output transparent.
   ## However, for the BINX-file export this steps are removed as the BINX-file format description
-  ## does not allow irradiations as separat sequences steps.
+  ## does not allow irradiations as separat sequences steps.\cr
+  ##
+  ## Know issue: The 'fading correction' menu in the Analyst will not work appear with the produced
+  ## BIN/BINX-file due to hidden bits, which are not reproduced by the function \code{writeR2BIN()}.
 
   ##seealso<<
   ## \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
