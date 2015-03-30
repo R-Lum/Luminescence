@@ -7,7 +7,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.2.5
+  ## version 0.3.0
   # ===========================================================================
 
   object,
@@ -26,6 +26,11 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   ### \code{\linkS4class{Risoe.BINfileData}} is taken automatically.\cr\cr
   ### Note: This argument can be used to convert BIN-file versions.
 
+  compatibility.mode = FALSE,
+  ### \code{\link{logical}} (with default): this option recalculates the position values if necessary
+  ### and set the max. value to 48. The old position number is appended as comment (e.gh. 'OP: 70).
+  ### This option accounts for potential compatibility problems with the Analyst software.
+
   txtProgressBar = TRUE
   ### \link{logical} (with default): enables or disables \code{\link{txtProgressBar}}.
 
@@ -34,7 +39,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
 # Config ------------------------------------------------------------------
 
   ##set supported BIN format version
-  VERSION.supported <- as.raw(c(3, 4, 6))
+  VERSION.supported <- as.raw(c(3, 4, 6, 7))
 
 
 # Check integrity ---------------------------------------------------------
@@ -75,6 +80,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
 
       ##stepping decision
       header.stepping <- switch(as.character(version),
+                                "07" = 447,
                                 "06" = 447,
                                 "04" = 272,
                                 "03" = 272)
@@ -112,7 +118,7 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
   }
 
   ##CHECK file name for version == 06 it has to be *.binx and correct for it
-  if(version == 06){
+  if(version == 06 | version == 07){
 
     ##grep file ending
     temp.file.name <- unlist(strsplit(file, "[:.:]"))
@@ -148,6 +154,38 @@ writeR2BIN <- structure(function(#Export Risoe.BINfileData into Risoe BIN-file
    stop("[writeR2BIN()] 'SAMPLE' exceed storage limit!")
 
   }
+
+  ##enables compatibility to the Analyst as the the max value for POSITION becomes 48
+  if(compatibility.mode){
+
+    ##just do if position values > 48
+    if(max(object@METADATA[,"POSITION"])>48){
+
+      ##grep relevant IDs
+      temp.POSITION48.id <- which(object@METADATA[,"POSITION"]>48)
+
+      ##find unique values
+      temp.POSITION48.unique <- unique(object@METADATA[temp.POSITION48.id,"POSITION"])
+
+      ##set translation vector starting from 1 and ending at 48
+      temp.POSITION48.new <- rep_len(1:48, length.out = length(temp.POSITION48.unique))
+
+      ##recaluate POSITION and update comment
+      for(i in 1:length(temp.POSITION48.unique)){
+
+        object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"COMMENT"] <-
+          paste0(object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"COMMENT"],
+                 "OP:",object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"POSITION"])
+
+        object@METADATA[object@METADATA[,"POSITION"] == temp.POSITION48.unique[i],"POSITION"] <-
+          temp.POSITION48.new[i]
+
+      }
+
+    }
+
+  }
+
 
   ##COMMENT
   if(max(nchar(as.character(object@METADATA[,"COMMENT"]), type="bytes"))>80){
@@ -247,6 +285,8 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
   ##in TAG information on the SEL are storred, here the values are copied to TAG
   ##before export
   object@METADATA[,"TAG"] <- ifelse(object@METADATA[,"SEL"] == TRUE, 1, 0)
+
+    ##
 
 
 # SET FILE AND VALUES -----------------------------------------------------
@@ -716,7 +756,7 @@ while(ID<=n.records) {
 ## ====================================================
 ## version 06
 
-if(version == 06){
+if(version == 06 | version == 07){
 
 ##start loop for export BIN data
 while(ID<=n.records) {
@@ -1087,21 +1127,61 @@ while(ID<=n.records) {
            endian="little")
 
 
-  ##RESERVED 2
-  if(length(object@.RESERVED) == 0 || version.original != version){
-    writeBin(raw(length=24),
-             con,
-             size = 1,
-             endian="little")
+  ##add version support for V7
+  if(version == 06){
+
+    ##RESERVED 2
+    if(length(object@.RESERVED) == 0 || version.original != version){
+      writeBin(raw(length=15),
+               con,
+               size = 1,
+               endian="little")
+    }else{
+
+      writeBin(object@.RESERVED[[ID]][[2]],
+               con,
+               size = 1,
+               endian="little")
+    }
+
   }else{
 
-    writeBin(object@.RESERVED[[ID]][[2]],
-             con,
-             size = 1,
-             endian="little")
+    ##DETECTOR_ID
+    writeBin(as.integer(object@METADATA[ID,"DETECTOR_ID"]),
+               con,
+               size = 1,
+               endian="little")
 
-  }
+    ##LOWERFILTER_ID, UPPERFILTER_ID
+    writeBin(c(as.integer(object@METADATA[ID,"LOWERFILTER_ID"]),
+               as.integer(object@METADATA[ID,"UPPERFILTER_ID"])),
+               con,
+               size = 2,
+               endian="little")
 
+
+    ##ENOISEFACTOR
+    writeBin(as.double(object@METADATA[ID,"ENOISEFACTOR"]),
+               con,
+               size = 4,
+               endian="little")
+
+
+     ##RESERVED 2
+     if(length(object@.RESERVED) == 0 || version.original != version){
+       writeBin(raw(length=15),
+                con,
+                size = 1,
+                endian="little")
+     }else{
+
+       writeBin(object@.RESERVED[[ID]][[2]],
+                con,
+                size = 1,
+                endian="little")
+     }
+
+  }#end if version decision
 
   ##DPOINTS
   writeBin(as.integer(unlist(object@DATA[ID])),
@@ -1150,14 +1230,16 @@ cat(paste("\t >> ",ID-1,"records have been written successfully!\n\n",paste=""))
   ## The validity of the file path is not further checked. \cr
   ## BIN-file conversions using the argument \code{version} may be a lossy conversion,
   ## depending on the chosen input and output data
-  ## (e.g., conversion from version 06 to 04 or 03).\cr
+  ## (e.g., conversion from version 07 to 06 to 04 or 03).\cr
   ##
   ##\bold{Warning}\cr
   ##
   ## Although the coding was done carefully it seems that the BIN/BINX-files produced by
   ## Risoe DA 15/20 TL/OSL readers slightly differ on the byte level. No obvious differences are observed
   ## in the METADATA, however, the BIN/BINX-file may not fully compatible, at least not similar to
-  ## the once directly produced by the Risoe readers!
+  ## the once directly produced by the Risoe readers!\cr
+  ##
+  ## Implementation of support for version 07 could so far not properly tested.
 
   ##seealso<<
   ## \code{\link{readBIN2R}}, \code{\linkS4class{Risoe.BINfileData}},

@@ -3,8 +3,8 @@
 \title{Plot a histogram with separate error plot}
 \description{Function plots a predefined histogram with an accompanying error plot
 as suggested by Rex Galbraith at the UK LED in Oxford 2010.}
-\usage{plot_Histogram(data, na.exclude = TRUE, mtext, cex.global, breaks, 
-    se, rug, normal_curve, summary, summary.pos, colour, ...)}
+\usage{plot_Histogram(data, na.exclude = TRUE, mtext, cex.global, se, 
+    rug, normal_curve, summary, summary.pos, colour, ...)}
 \arguments{
   \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
 object (required): for \code{data.frame}: two columns: De
@@ -14,7 +14,6 @@ data set prior to any further operations.}
   \item{mtext}{\code{\link{character}} (optional): further sample information
 (\link{mtext}).}
   \item{cex.global}{\code{\link{numeric}} (with default): global scaling factor.}
-  \item{breaks}{(with default): sets breakpoints for histogram. Works as in \link{hist}.}
   \item{se}{\code{\link{logical}} (optional): plots standard error points over the
 histogram, default is \code{FALSE}.}
   \item{rug}{\code{\link{logical}} (optional): adds rugs to the histogram, default is
@@ -43,7 +42,7 @@ of length 4 which specifies the colours of the following plot items in
 exactly this order: histogram bars, rug lines, normal distribution curve
 and standard error points\cr
 (e.g., \code{c("grey", "black", "red", "grey")}).}
-  \item{\dots}{further arguments and graphical parameters passed to \code{\link{plot}}.
+  \item{\dots}{further arguments and graphical parameters passed to \code{\link{plot}} or \code{\link{hist}}.
 If y-axis labels are provided, these must be specified as a vector of
 length 2 since the plot features two axes (e.g. \code{ylab = c("axis
 label 1", "axis label 2")}). Y-axes limits (\code{ylim}) must be
@@ -88,4 +87,4 @@ plot_Histogram(ExampleData.DeValues,
                ylim = c(0, 0.1, 5, 20))
 
 }
-\section{Function version}{0.4.3 (2015-03-04 13:26:15)}
+\section{Function version}{0.4.4 (2015-03-28 12:38:08)}

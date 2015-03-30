@@ -33,9 +33,10 @@ The ID corresponds to the record ID in METADATA.}}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 Margret C. Fuchs, AWI Potsdam (Germany),\cr
 R Luminescence Package Team}
-\note{The function has been successfully tested for BIN format versions 03, 04 and 06.
+\note{The function works for BIN/BINX-format versions 03, 04, 06 and 07.
 The version number depends on the used Sequence Editor.\cr\cr
-\bold{Other BIN format versions are currently not supported}.}
+\bold{Potential other BIN/BINX-format versions are currently not supported. The implementation of
+version 07 support could not been tested so far.}.}
 
 
 \seealso{\code{\link{writeR2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
@@ -51,4 +52,4 @@ The version number depends on the used Sequence Editor.\cr\cr
 }
 
 \keyword{IO}
-\section{Function version}{0.8.1 (2015-03-04 12:43:39)}
+\section{Function version}{0.9.0 (2015-03-26 16:22:50)}

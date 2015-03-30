@@ -8,7 +8,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ##version 0.4.3
+  ##version 0.4.4
   # ===========================================================================
 
   data,
@@ -26,9 +26,6 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
 
   cex.global,
   ### \code{\link{numeric}} (with default): global scaling factor.
-
-  breaks,
-  ### (with default): sets breakpoints for histogram. Works as in \link{hist}.
 
   se,
   ### \code{\link{logical}} (optional): plots standard error points over the
@@ -71,7 +68,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
   ### (e.g., \code{c("grey", "black", "red", "grey")}).
 
   ...
-  ### further arguments and graphical parameters passed to \code{\link{plot}}.
+  ### further arguments and graphical parameters passed to \code{\link{plot}} or \code{\link{hist}}.
   ### If y-axis labels are provided, these must be specified as a vector of
   ### length 2 since the plot features two axes (e.g. \code{ylab = c("axis
   ### label 1", "axis label 2")}). Y-axes limits (\code{ylim}) must be

@@ -8,7 +8,7 @@ readBIN2R <- structure(function(#Import Risoe BIN-file into R
   ## Margret C. Fuchs, AWI Potsdam (Germany),\cr
 
   ##section<<
-  ## version 0.8.1
+  ## version 0.9.0
   # ===========================================================================
 
   file,
@@ -58,7 +58,7 @@ readBIN2R <- structure(function(#Import Risoe BIN-file into R
 # Config ------------------------------------------------------------------
 
   ##set supported BIN format version
-  VERSION.supported <- as.raw(c(03, 04, 06))
+  VERSION.supported <- as.raw(c(03, 04, 06, 07))
 
 
 # Short file parsing to get number of records -------------------------------------------------
@@ -98,7 +98,7 @@ while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>
   #empty byte position
   EMPTY<-readBin(con, what="raw", 1, size=1, endian="litte")
 
-  if(temp.VERSION==06){
+  if(temp.VERSION==06 | temp.VERSION==07){
 
     ##GET record LENGTH
     temp.LENGTH  <- readBin(con, what="int", 1, size=4, endian="little")
@@ -187,6 +187,10 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
   temp.XRF_HV <- NA
   temp.XRF_CURR <- NA
   temp.XRF_DEADTIMEF <- NA
+  temp.DETECTOR_ID <- NA
+  temp.LOWERFILTER_ID <- NA
+  temp.UPPERFILTER_ID <- NA
+  temp.ENOISEFACTOR <- NA
   temp.SEQUENCE <- NA
 
   ##SET length of entire record
@@ -267,6 +271,11 @@ LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
                       XRF_CURR = numeric(length = n.length),
                       XRF_DEADTIMEF = numeric(length = n.length),
 
+                      DETECTOR_ID = integer(length = n.length),
+                      LOWERFILTER_ID = integer(length = n.length),
+                      UPPERFILTER_ID = integer(length = n.length),
+                      ENOISEFACTOR = numeric(length = n.length),
+
                       SEQUENCE = character(length = n.length)
 
   ) #end set data table
@@ -345,7 +354,7 @@ while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # BINX FORMAT SUPPORT -----------------------------------------------------
-  if(temp.VERSION==06){
+  if(temp.VERSION==06 | temp.VERSION==07){
 
     ##(1) Header size and strucutre
     ##LENGTH, PREVIOUS, NPOINTS, LTYPE
@@ -552,8 +561,31 @@ while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>
     ##XRF_DEADTIMEF
     temp.XRF_DEADTIMEF <- readBin(con, what="double", 1, size=4, endian="little")
 
-    ##RESERVED
-    temp.RESERVED2<-readBin(con, what="raw", 24, size=1, endian="little")
+    ###Account for differences between V6 and V7
+    if(temp.VERSION == 06){
+
+      ##RESERVED
+      temp.RESERVED2<-readBin(con, what="raw", 24, size=1, endian="little")
+
+
+    }else{
+
+      ##DETECTOR_ID
+      temp.DETECTOR_ID <- readBin(con, what="int", 1, size=1, endian="little")
+
+      ##LOWERFILTER_ID, UPPERFILTER_ID
+      temp <- readBin(con, what="int", 2, size=2, endian="little")
+
+       temp.LOWERFILTER_ID <- temp[1]
+       temp.UPPERFILTER_ID <- temp[2]
+
+      ##ENOISEFACTOR
+      temp.ENOISEFACTOR <- readBin(con, what="double", 1, size=4, endian="little")
+
+      ##RESERVED
+      temp.RESERVED2<-readBin(con, what="raw", 15, size=1, endian="little")
+
+    }
 
     #DPOINTS
     temp.DPOINTS<-readBin(con, what="integer", temp.NPOINTS, size=4, endian="little")
@@ -861,6 +893,10 @@ while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>
                                     XRF_HV = temp.XRF_HV,
                                     XRF_CURR = temp.XRF_CURR,
                                     XRF_DEADTIMEF = temp.XRF_DEADTIMEF,
+                                    DETECTOR_ID = temp.DETECTOR_ID,
+                                    LOWERFILTER_ID = temp.LOWERFILTER_ID,
+                                    UPPERFILTER_ID = temp.UPPERFILTER_ID,
+                                    ENOISEFACTOR = temp.ENOISEFACTOR,
                                     SEQUENCE = temp.SEQUENCE
 
 
@@ -967,9 +1003,10 @@ return(object)
   ## Duller, G., 2007. Analyst. \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter%20og%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}
 
   ##note<<
-  ## The function has been successfully tested for BIN format versions 03, 04 and 06.
+  ## The function works for BIN/BINX-format versions 03, 04, 06 and 07.
   ## The version number depends on the used Sequence Editor.\cr\cr
-  ## \bold{Other BIN format versions are currently not supported}.
+  ## \bold{Potential other BIN/BINX-format versions are currently not supported. The implementation of
+  ## version 07 support could not been tested so far.}.
 
   ##seealso<<
   ## \code{\link{writeR2BIN}}, \code{\linkS4class{Risoe.BINfileData}},

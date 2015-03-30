@@ -3,15 +3,22 @@
 \title{Extract irradiation times from an XSYG file}
 \description{Extracts irradiation times, dose and times since last irradiation, from a Freiberg Instruments
 XSYG-file. These information can be further used to update an existing BINX-file}
-\usage{extract_IrradiationTimes(file.XSYG, file.BINX, recordType = c("irradiation (NA)", 
-    "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"), txtProgressBar = TRUE)}
+\usage{extract_IrradiationTimes(object, file.BINX, recordType = c("irradiation (NA)", 
+    "IRSL (UVVIS)", "OSL (UVVIS)", "TL (UVVIS)"), compatibility.mode = TRUE, 
+    txtProgressBar = TRUE)}
 \arguments{
-  \item{file.XSYG}{\code{\link{character}} (\bold{required}): path and file name of the XSYG file.}
+  \item{object}{\code{\link{character}} (\bold{required}) or \code{\linkS4class{RLum.Analysis}} object:
+path and file name of the XSYG file or an \code{\linkS4class{RLum.Analysis}} produced by the
+function \code{\link{readXSYG2R}}. \cr
+
+\bold{Note}: If an \code{\linkS4class{RLum.Analysis}} is used, any input for the arguments
+\code{file.BINX} and \code{recordType} will be ignored!}
   \item{file.BINX}{\code{\link{character}} (optional): path and file name of an existing BINX-file. If a file name
 is provided the file will be updated with the information from the XSYG file in the same
 folder as the original BINX-file.\cr
 Note: The XSYG and the BINX-file have to be originate from the same measurement!}
-  \item{recordType}{\code{\link{character}} (with default): select relevant curves types from the XSYG file.
+  \item{recordType}{\code{\link{character}} (with default): select relevant curves types from the XSYG file or
+\code{\linkS4class{RLum.Analysis}} object.
 As the XSYG-file format comprises much more information than usually needed for routine
 data analysis and allowed in the BINX-file format, only the relevant curves are selected
 by using the function \code{\link{get_RLum.Analysis}}. The argument
@@ -19,6 +26,8 @@ by using the function \code{\link{get_RLum.Analysis}}. The argument
 
 Note: A wrong selection will causes a function error. Please change this argument only
 if you have reasons to do so.}
+  \item{compatibility.mode}{\code{\link{logical}} (with default): this option is parsed only if a BIN/BINX file is produced
+and it will reset all position values to a max. value of 48, cf.\code{\link{writeR2BIN}}}
   \item{txtProgressBar}{\code{\link{logical}} (with default): enables \code{TRUE} or disables \code{FALSE}
 the progression bars during import and export}
 }
@@ -37,7 +46,8 @@ Beside the some simple data transformation steps the function applies the functi
 
 If a BINX-file path and name is set, the output will be additionally transferred
 to a new BINX-file with the function name as suffix. For the output
-the path of the input BINX-file itself is used.}
+the path of the input BINX-file itself is used. Note that this will not work if the input
+object is a file path to an XSYG-file. In this case the argument input is ignored.}
 \references{Duller, G., 2007. Analyst.}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
@@ -49,7 +59,7 @@ Know issue: The 'fading correction' menu in the Analyst will not work appear wit
 BIN/BINX-file due to hidden bits, which are not reproduced by the function \code{writeR2BIN()}.}
 
 
-\seealso{\code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
+\seealso{\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
 \code{\link{readXSYG2R}}, \code{\link{readBIN2R}},
 \code{\link{writeR2BIN}}}
 \examples{
@@ -74,4 +84,4 @@ BIN/BINX-file due to hidden bits, which are not reproduced by the function \code
 
 \keyword{IO}
 \keyword{manip}
-\section{Function version}{0.1 (2015-03-23 12:56:18)}
+\section{Function version}{0.2 (2015-03-29 14:08:31)}

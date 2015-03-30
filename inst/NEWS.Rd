@@ -5,11 +5,56 @@
   \subsection{Bugfixes and changes}{
    \itemize{
 
-      \item DUMMY
+      \item \code{calc_MinDose()}
+       \itemize{
+          \item Fixed a false argument in \code{parallel::makeCluster()} that unintentionally required the 'snow' package.
+       }
+
+      \item \code{extract_IrradiationTimes()}
+       \itemize{
+          \item Argument \code{file.XSYG} replaced by \code{object},
+          \item allow input for \code{RLum.Analysis} object. In such cases the arguments \code{file.BINX}
+          and \code{recordType} are ignored. This mode gives more flexibility in applying this function,
+          \item new argument \code{compatibility.mode} to trigger the write output of the BIN/BINX-file.
+
+          }
+
+
+      \item \code{plot_Histogram()}
+       \itemize{
+          \item Argument 'breaks' was without function due to a coding error. Corrected. (#217),
+          \item argument 'breaks' removed from the argument list, however, supported via the \code{'...'}
+          argument.
+       }
+
+
+      \item \code{readBIN2R()}
+       \itemize{
+          \item Support for BIN/BINX-file version 07 added thanks to the support by Torben Lapp (#215).
+       }
+
+      \item \code{writeR2BIN()}
+       \itemize{
+          \item Support for BIN/BINX-file version 07 added thanks to the support by Torben Lapp (#215),
+          \item new argument \code{compatibility.mode} to avoid position numbers >48. This may cause
+          errors using external software like the Analyst. The old version number will be added
+          in the comment field.
+       }
 
 
     }
   }
+
+  \subsection{Internals}{
+   \itemize{
+
+      \item Description on the class \code{Risoe.BINfileData} updated in accordance with the implemented
+      changes on the import.
+
+
+    }
+  }
+
 }
 
 
