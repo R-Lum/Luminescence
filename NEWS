@@ -9,6 +9,13 @@ Changes in version 0.4.3 (XXth, 2015):
              • Fixed a false argument in ‘parallel::makeCluster()’ that
                unintentionally required the 'snow' package.
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • If the threshold for the rejection criteria was reached
+               due an error this information was not properly stored in
+               the output object (i.e. every time 'RC.Status' was set
+               to 'OK'); corrected (#180).
+
          • ‘extract_IrradiationTimes()’
 
              • Argument ‘file.XSYG’ replaced by ‘object’,

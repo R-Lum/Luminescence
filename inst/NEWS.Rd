@@ -10,6 +10,15 @@
           \item Fixed a false argument in \code{parallel::makeCluster()} that unintentionally required the 'snow' package.
        }
 
+
+      \item \code{analyse_SAR.CWOSL()}
+       \itemize{
+          \item If the threshold for the rejection criteria was reached due an error this information
+          was not properly stored in the output object (i.e. every time 'RC.Status' was set to 'OK');
+          corrected (#180).
+       }
+
+
       \item \code{extract_IrradiationTimes()}
        \itemize{
           \item Argument \code{file.XSYG} replaced by \code{object},

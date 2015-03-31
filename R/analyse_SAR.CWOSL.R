@@ -7,7 +7,7 @@ analyse_SAR.CWOSL<- structure(function(#Analyse SAR CW-OSL measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 
   ##section<<
-  ## version 0.5.1
+  ## version 0.5.2
   # ===========================================================================
 
   object,
@@ -882,9 +882,17 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
   palaeodose.error.threshold <- rejection.criteria$palaeodose.error/100
 
-  palaeodose.error.status <- ifelse(
-    palaeodose.error.calculated <= rejection.criteria$palaeodose.error,
-                                    "OK", "FAILED")
+  if(is.na(palaeodose.error.calculated)){
+
+    palaeodose.error.status <- "FAILED"
+
+  }else{
+
+    palaeodose.error.status <- ifelse(
+      palaeodose.error.calculated <= rejection.criteria$palaeodose.error,
+      "OK", "FAILED")
+
+  }
 
 
   palaeodose.error.data.frame <- data.frame(
@@ -918,13 +926,15 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                              exceed.max.regpoint.data.frame)
 
   ##add recjection status
- if(length(grep("FAILED",RejectionCriteria$status))>0){
+ if(length(grep("FAILED",RejectionCriteria$Status))>0){
 
    temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
+
 
   }else{
 
    temp.GC <- data.frame(temp.GC, RC.Status="OK")
+
 
   }
 
