@@ -4,6 +4,10 @@ Changes in version 0.4.3 (XXth, 2015):
 
   Bugfixes and changes:
 
+         • ‘calc_OSLLxTxRatio()’
+
+             • Support for ‘RLum.Data.Curve’ objects implemented.
+
          • ‘calc_MinDose()’
 
              • Fixed a false argument in ‘parallel::makeCluster()’ that
@@ -28,6 +32,16 @@ Changes in version 0.4.3 (XXth, 2015):
              • new argument ‘compatibility.mode’ to trigger the write
                output of the BIN/BINX-file.
 
+         • ‘fit_CWVCurve()’
+
+             • The function broke with an error under rare
+               circumstances when not fit was made (reported by
+               Alexandra Rowell); corrected,
+
+             • change start parameter estimation to better account for
+               the input data, this should hopefully stabilise the
+               fitting (thanks to Alexandra Rowell)
+
          • ‘plot_Histogram()’
 
              • Argument 'breaks' was without function due to a coding
@@ -35,6 +49,12 @@ Changes in version 0.4.3 (XXth, 2015):
 
              • argument 'breaks' removed from the argument list,
                however, supported via the ‘'...'’ argument.
+
+         • ‘plot_RLum.Anaysis()’
+
+             • Setting the argument ‘combine = TRUE’ for 'OSL' and
+               'IRSL' caused an error related to the missing argument
+               'curve.transformation'; corrected.
 
          • ‘readBIN2R()’
 

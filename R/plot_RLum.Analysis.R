@@ -34,7 +34,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ### curve object (option is currently only roughly implemented),
 
   curve.transformation,
-  ### \link{character} (optional): allows transforming CW-OSL and CW-IRSL curves
+  ### \code{\link{character}} (optional): allows transforming CW-OSL and CW-IRSL curves
   ### to pseudo-LM curves via transformation functions.
   ### Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
   ### \code{CW2pPMi}. See details.
@@ -156,7 +156,6 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
 
             if(is(temp[[i]], "RLum.Data.Curve") == TRUE){
 
-
               ##set curve transformation if wanted
               if((grepl("IRSL", temp[[i]]@recordType) | grepl("OSL", temp[[i]]@recordType)) &
                   !missing(curve.transformation)){
@@ -266,6 +265,9 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
 
     ##(3) PLOT values
 
+    ##prevent problems for non set argument
+    if(missing(curve.transformation)){curve.transformation <- "None"}
+
     ##transform values to data.frame and norm values
     temp.data.list <- lapply(1:length(object.list), function(x){
 
@@ -291,6 +293,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
         }
 
       }
+
 
       temp.data <- as(object.list[[x]], "data.frame")
 

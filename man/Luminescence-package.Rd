@@ -56,6 +56,10 @@ For this please visit our project website (link below).
 \bold{Project source code repository}\cr
 \url{https://github.com/R-Lum/Luminescence}\cr
 
+\bold{Related package projects}\cr
+\url{http://cran.r-project.org/web/packages/RLumShiny}\cr
+
+
 \bold{Package maintainer}
 
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France, \cr

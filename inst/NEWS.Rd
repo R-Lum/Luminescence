@@ -5,6 +5,12 @@
   \subsection{Bugfixes and changes}{
    \itemize{
 
+
+      \item \code{calc_OSLLxTxRatio()}
+       \itemize{
+          \item Support for \code{RLum.Data.Curve} objects implemented.
+       }
+
       \item \code{calc_MinDose()}
        \itemize{
           \item Fixed a false argument in \code{parallel::makeCluster()} that unintentionally required the 'snow' package.
@@ -29,11 +35,28 @@
           }
 
 
+      \item \code{fit_CWVCurve()}
+       \itemize{
+          \item The function broke with an error under rare circumstances when not fit was made (reported by Alexandra Rowell); corrected,
+          \item change start parameter estimation to better account for the input data, this should hopefully stabilise the fitting (thanks to Alexandra Rowell)
+
+
+        }
+
+
+
       \item \code{plot_Histogram()}
        \itemize{
           \item Argument 'breaks' was without function due to a coding error. Corrected. (#217),
           \item argument 'breaks' removed from the argument list, however, supported via the \code{'...'}
           argument.
+       }
+
+
+      \item \code{plot_RLum.Anaysis()}
+       \itemize{
+          \item Setting the argument \code{combine = TRUE} for 'OSL' and 'IRSL' caused an error related
+          to the missing argument 'curve.transformation'; corrected.
        }
 
 

@@ -19,7 +19,7 @@ supported by \code{\link{abline}} are fully supported,}
 code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
 Works only for \code{\linkS4class{RLum.Analysis}} that comprises a single
 curve object (option is currently only roughly implemented),}
-  \item{curve.transformation}{\link{character} (optional): allows transforming CW-OSL and CW-IRSL curves
+  \item{curve.transformation}{\code{\link{character}} (optional): allows transforming CW-OSL and CW-IRSL curves
 to pseudo-LM curves via transformation functions.
 Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
 \code{CW2pPMi}. See details.}
@@ -73,4 +73,4 @@ plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 }
 
 \keyword{aplot}
-\section{Function version}{0.2.0 (2015-03-04 19:15:10)}
+\section{Function version}{0.2.0 (2015-03-31 22:49:32)}
