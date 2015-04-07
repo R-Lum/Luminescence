@@ -6,7 +6,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.4.1
+  ## version 0.4.2
   # ===========================================================================
 
   file,
@@ -28,10 +28,6 @@ readXSYG2R <- structure(function(#Import XSYG files to R
 
 ){
 
-  ##TODO
-  ## - one file can contain several sequences
-  ## allow for short check, i.e. just show a data.frame with all sequences
-  ## data in the file
 
   # Consistency check -------------------------------------------------------
 
@@ -221,11 +217,14 @@ readXSYG2R <- structure(function(#Import XSYG files to R
          ##get additional information
          temp.sequence.object.info <- as.list(xmlAttrs(temp.sequence.object.curveValue))
 
-         ##add stimulator and detector
+         ##add stimulator and detector and so on
          temp.sequence.object.info <- c(temp.sequence.object.info,
                                         detector = temp.sequence.object.detector,
                                         stimulator = temp.sequence.object.stimulator,
-                                        partentID = temp.sequence.object.parentID)
+                                        partentID = temp.sequence.object.parentID,
+                                        position = as.integer(temp.sequence.header["position",]),
+                                        name = as.character(temp.sequence.header["name",]))
+
 
 
 

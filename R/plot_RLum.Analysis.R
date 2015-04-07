@@ -7,7 +7,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.2.0
+  ## version 0.2.1
   # ===========================================================================
 
   object,
@@ -46,7 +46,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ...
   ### further arguments and graphical parameters will be passed to the \code{plot} function.
   ### Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
-  ### \code{type}, \code{pch}, \code{col} ... and for \code{combine = TRUE} also: \code{xlim},
+  ### \code{type}, \code{pch}, \code{col}, \code{norm} ... and for \code{combine = TRUE} also: \code{xlim},
   ### \code{ylim}, \code{xlab}, \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}
 
 ){
@@ -186,7 +186,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
 
 
             plot_RLum.Data.Curve(temp[[i]],
-                 col = if(col != "black"){col} else{
+                 col = if(unique(col) != "black"){col} else{
                    if(grepl("IRSL", temp[[i]]@recordType) == TRUE){"red"} else
                      if(grepl("OSL", temp[[i]]@recordType) == TRUE){"blue"} else
                      {col}
@@ -345,7 +345,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
     ##if length of provided colours is < the number of objects, just one colour is supported
     if(length(col)<length(object.list)){
 
-      col <- rep(col[1], times = length(object.list))
+      col <- rep_len(col, length(object.list))
 
     }
 

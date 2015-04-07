@@ -6,16 +6,20 @@ component parameters of a CW-OSL signal for a given maximum number of components
 and returns various component parameters. The fitting procedure uses the
 \code{\link{nls}} function with the \code{port} algorithm.}
 \usage{fit_CWCurve(values, n.components.max, fit.failure_threshold = 5, 
-    fit.trace = FALSE, fit.calcError = FALSE, LED.power = 36, 
-    LED.wavelength = 470, cex.global = 0.6, sample_code = "Default", 
+    fit.method = "port", fit.trace = FALSE, fit.calcError = FALSE, 
+    LED.power = 36, LED.wavelength = 470, cex.global = 0.6, sample_code = "Default", 
     output.path, output.terminal = TRUE, output.terminalAdvanced = TRUE, 
-    output.plot = TRUE, ...)}
+    plot = TRUE, ...)}
 \arguments{
   \item{values}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
 (\bold{required}): x, y data of measured values (time and counts). See examples.}
   \item{n.components.max}{\link{vector} (optional): maximum number of components that are to be used for
 fitting. The upper limit is 7.}
   \item{fit.failure_threshold}{\link{vector} (with default): limits the failed fitting attempts.}
+  \item{fit.method}{\link{character} (with default): select fit method, allowed values: \code{'port'} and \code{'LM'}.
+\code{'port'} uses the 'port' routine usint the funtion \code{\link{nls}}
+\code{'LM'} utilises the function \code{nlsLM} from the package \code{minpack.lm} and with
+that the Levenberg-Marquardt algorithm.}
   \item{fit.trace}{\link{logical} (with default): traces the fitting process on the terminal.}
   \item{fit.calcError}{\link{logical} (with default): calculate 1-sigma error range of components
 using \code{\link{confint}}}
@@ -35,7 +39,7 @@ the file already exists in the directory, the values are appended.}
   \item{output.terminalAdvanced}{\link{logical} (with default): enhanced terminal output.
 Requires \code{output.terminal = TRUE}.
 If \code{output.terminal = FALSE} no advanced output is possible.}
-  \item{output.plot}{\link{logical} (with default): returns a plot of the fitted curves.}
+  \item{plot}{\link{logical} (with default): returns a plot of the fitted curves.}
   \item{\dots}{further arguments and graphical parameters passed to \code{\link{plot}}.}
 }
 \details{\bold{Fitting function}\cr\cr
@@ -109,7 +113,7 @@ a global minimum rather than a local minimum!}
 
 \seealso{\code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
 \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-\code{\link{get_RLum.Results}}}
+\code{\link{get_RLum.Results}}, \code{\link{nlsLM}}}
 \examples{
 
 ##load data
@@ -125,4 +129,4 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
 
 \keyword{dplot}
 \keyword{models}
-\section{Function version}{0.4.5 (2015-04-01 19:39:42)}
+\section{Function version}{0.5.0 (2015-04-07 00:27:19)}

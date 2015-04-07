@@ -27,7 +27,7 @@ Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
 settings of \code{norws} and \code{ncols}}
   \item{\dots}{further arguments and graphical parameters will be passed to the \code{plot} function.
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
-\code{type}, \code{pch}, \code{col} ... and for \code{combine = TRUE} also: \code{xlim},
+\code{type}, \code{pch}, \code{col}, \code{norm} ... and for \code{combine = TRUE} also: \code{xlim},
 \code{ylim}, \code{xlab}, \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}}
 }
 \details{The function produces a multiple plot output.
@@ -73,4 +73,4 @@ plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 }
 
 \keyword{aplot}
-\section{Function version}{0.2.0 (2015-03-31 22:49:32)}
+\section{Function version}{0.2.1 (2015-04-03 12:46:03)}

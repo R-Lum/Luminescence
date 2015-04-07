@@ -40,7 +40,21 @@ Changes in version 0.4.3 (XXth, 2015):
 
              • change start parameter estimation to better account for
                the input data, this should hopefully stabilise the
-               fitting (thanks to Alexandra Rowell)
+               fitting (thanks to Alexandra Rowell),
+
+             • proper rescaling graphical output if no fit could be
+               made,
+
+             • new argument add ‘fit.method’ to allow using the
+               function ‘nlsLM’ from the ‘minpack.lm package’ and with
+               this the Levenberg-Marquardt algorithm,
+
+             • argument ‘cex.global’ replaced by ‘cex’ and moved to the
+               ‘...’ argument,
+
+             • argument ‘output.plot’ changed to ‘plot’,
+
+             • changing the way how warnings are surpressed.
 
          • ‘plot_Histogram()’
 
@@ -54,12 +68,22 @@ Changes in version 0.4.3 (XXth, 2015):
 
              • Setting the argument ‘combine = TRUE’ for 'OSL' and
                'IRSL' caused an error related to the missing argument
-               'curve.transformation'; corrected.
+               'curve.transformation'; corrected.,
+
+             • colour handling for setting ‘combine = TRUE’ improved.
+               It now works as for ‘plot.default’.
 
          • ‘readBIN2R()’
 
              • Support for BIN/BINX-file version 07 added thanks to the
                support by Torben Lapp (#215).
+
+         • ‘readXSYG2R()’
+
+             • Info objects from the sequence header like 'name' and
+               'position' are now be additionally transferred to each
+               single output object, to keep this information in the
+               object.
 
          • ‘writeR2BIN()’
 
@@ -74,7 +98,10 @@ Changes in version 0.4.3 (XXth, 2015):
   Internals:
 
          • Description on the class ‘Risoe.BINfileData’ updated in
-           accordance with the implemented changes on the import.
+           accordance with the implemented changes on the import,
+
+         • added dependency to package ‘minpack.lm’ to support the
+           Levenberg-Marquardt algorithm for fitting.
 
 Changes in version 0.4.2 (March 23th, 2015):
 

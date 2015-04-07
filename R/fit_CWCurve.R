@@ -9,7 +9,7 @@ fit_CWCurve<- structure(function(#Nonlinear Least Squares Fit for CW-OSL curves 
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 
   ##section<<
-  ## version 0.4.5
+  ## version 0.5.0
   # ===========================================================================
 
   values,
@@ -22,6 +22,12 @@ fit_CWCurve<- structure(function(#Nonlinear Least Squares Fit for CW-OSL curves 
 
   fit.failure_threshold = 5,
   ### \link{vector} (with default): limits the failed fitting attempts.
+
+  fit.method = "port",
+  ### \link{character} (with default): select fit method, allowed values: \code{'port'} and \code{'LM'}.
+  ### \code{'port'} uses the 'port' routine usint the funtion \code{\link{nls}}
+  ### \code{'LM'} utilises the function \code{nlsLM} from the package \code{minpack.lm} and with
+  ### that the Levenberg-Marquardt algorithm.
 
   fit.trace = FALSE,
   ### \link{logical} (with default): traces the fitting process on the terminal.
@@ -60,7 +66,7 @@ fit_CWCurve<- structure(function(#Nonlinear Least Squares Fit for CW-OSL curves 
   ### Requires \code{output.terminal = TRUE}.
   ### If \code{output.terminal = FALSE} no advanced output is possible.
 
-  output.plot = TRUE,
+  plot = TRUE,
   ### \link{logical} (with default): returns a plot of the fitted curves.
 
   ...
@@ -68,12 +74,8 @@ fit_CWCurve<- structure(function(#Nonlinear Least Squares Fit for CW-OSL curves 
 ){
 
 
-      ##set sys language to EN (to get the error messages as well in EN)
-      Sys.setenv(LANG="EN")
-
-      ##switch off warnings of to avoid confusions
-      options(warn=-1)
-
+      ##TODO
+      ##remove output.path
 
 
 # INTEGRITY CHECKS --------------------------------------------------------
@@ -142,6 +144,28 @@ fit_CWCurve<- structure(function(#Nonlinear Least Squares Fit for CW-OSL curves 
 ##////equation used for fitting///(end)
 
 
+  ##set formula elements for fitting functions
+  ## the upper two funtions should be removed ... but chances are needed ... TODO
+  ##////equation used for fitting////(start)
+  fit.formula <- function(n.components){
+
+    I0 <- paste0("I0.",1:n.components)
+    lambda <- paste0("lambda.",1:n.components)
+    as.formula(paste0("y ~ ", paste(I0," * ", lambda, "* exp(-",lambda," * x)", collapse=" + ")))
+
+  }
+  ##////equation used for fitting///(end)
+
+  ##////equation used for fitting////(start)
+  fit.formula.simple <- function(n.components){
+
+      I0 <- paste0("I0.",1:n.components)
+      lambda <- paste0("lambda.",1:n.components)
+      as.formula(paste0("y ~ ", paste(I0," * exp(-",lambda," * x)", collapse=" + ")))
+
+  }
+  ##////equation used for fitting///(end)
+
   ##set variables
   fit.trigger <- TRUE #triggers if the fitting should stopped
   n.components <- 1 #number of components used for fitting - start with 1
@@ -152,17 +176,20 @@ fit_CWCurve<- structure(function(#Nonlinear Least Squares Fit for CW-OSL curves 
 
 
 ##
-##
 ##++++Fitting loop++++(start)
 while(fit.trigger==TRUE & n.components <= n.components.max){
 
+    ##(0) START PARAMETER ESTIMATION
     ##rough automatic start parameter estimation
+
+    ##I0
     I0<-rep(values[1,2]/3,n.components)
+    names(I0) <- paste0("I0.",1:n.components)
 
-
+    ##lambda
     ##ensure that no values <=0 are included remove them for start parameter
     ##estimation and fit an linear function a first guess
-    if(y<=0){
+    if(min(y)<=0){
       temp.values<-data.frame(x[-which(y<=0)], log(y[-which(y<=0)]))
     }else{
       temp.values<-data.frame(x, log(y))
@@ -171,69 +198,102 @@ while(fit.trigger==TRUE & n.components <= n.components.max){
     temp<-lm(temp.values)
     lambda<-abs(temp$coefficient[2])/nrow(values)
 
-    k<-2;
+    k<-2
     while(k<=n.components){
       lambda[k]<-lambda[k-1]/100
       k<-k+1
     }
+    names(lambda) <- paste0("lambda.",1:n.components)
+
+    ##(1) FIRST FIT WITH A SIMPLE FUNCTION
+    if(fit.method == "LM"){
+
+          ##try fit simple
+          fit.try<-suppressWarnings(try(nlsLM(fit.formula.simple(n.components),
+                             data=values,
+                             start=c(I0,lambda),
+                             na.action = "na.exclude",
+                             trace = fit.trace,
+                             control = nls.lm.control(
+                               maxiter = 500
+                             )),
+                       silent = TRUE
+
+          ))#end try
 
 
-    ##set fit equation as fit function
-    I0.i<-1:n.components
-    lambda.i<-1:n.components
-
-    fit.function.simple <- fit.equation.simple(I0.i=I0.i,lambda.i=lambda.i)
+    }else if(fit.method == "port"){
 
     ##try fit simple
-    fit.try<-try(nls(y~eval(fit.function.simple),
+    fit.try<-suppressWarnings(try(nls(fit.formula.simple(n.components),
                      data=values,
                      trace = fit.trace,
                      algorithm="port",
                      na.action = "na.exclude",
-                     start=list(
-                       I0=I0,
-                       lambda=lambda
-                     ),
+                     start=c(I0,lambda),
                      nls.control(
                        tol = 1,
                        maxiter=100,
                        warnOnly=FALSE,
-                       minFactor=1/256
+                       minFactor=1/1024
                      ),
-                     lower=c(I0=0,lambda=0)# set lower boundaries for components
+                     lower=rep(0,n.components * 2)# set lower boundaries for components
     ), silent=TRUE# nls
-    )#end try
+    ))#end try
 
+     }else{
+
+      stop("[fit_CWCurve()] fit.method unknown.")
+
+    }
+
+
+    ##(3) FIT WITH THE FULL FUNCTION
     if(inherits(fit.try,"try-error") == FALSE){
 
       ##grep parameters from simple fit to further work with them
       parameters <- coef(fit.try)
 
-      #grep parameters an set new starting parameters
-      I0 < -parameters[1:(length(parameters)/2)]/2
-      lambda <- parameters[(1+(length(parameters)/2)):length(parameters)]
+      ##grep parameters an set new starting parameters, here just lambda is choosen as
+      ##it seems to be the most valuable parameter
+      lambda <- parameters[(n.components+1):length(parameters)]
 
-      fit.function<-fit.equation(I0.i=I0.i,lambda.i=lambda.i)
+      if(fit.method == "LM"){
+
+      ##try fit simple
+      fit.try<-suppressWarnings(try(nlsLM(fit.formula(n.components),
+                         data=values,
+                         start=c(I0,lambda),
+                         trace = fit.trace,
+                         na.action = "na.exclude",
+                         lower = rep(0,n.components * 2),
+                         control = nls.lm.control(
+                           maxiter = 500
+                         )),
+                   silent = TRUE))
+
+      }else{
+
 
     ##try fit
-    fit.try<-try(nls(y~eval(fit.function),
+    fit.try<-suppressWarnings(try(nls(fit.formula(n.components),
                      trace=fit.trace,
                      data=values,
                      algorithm="port",
                      na.action = "na.exclude",
-                start=list(
-  						            I0 = I0,
-                          lambda = lambda
-							            ),
+                     start=c(I0,lambda),
 						    nls.control(
 						             maxiter = 500,
                          warnOnly = FALSE,
                          minFactor = 1/4096
                          ),
-						    lower=c(I0 = 0,lambda = 0)# set lower boundaries for components
+						    lower=rep(0,n.components * 2)# set lower boundaries for components
             ), silent=TRUE# nls
-		)#end try
+		))#end try
+
+      }#fit.method
     }
+
 
     ##count failed attempts for fitting
     if(inherits(fit.try,"try-error")==FALSE){
@@ -250,8 +310,14 @@ while(fit.trigger==TRUE & n.components <= n.components.max){
 
     ##stop fitting after a given number of wrong attempts
     if(fit.failure_counter>=fit.failure_threshold){
-      fit.trigger<-FALSE
+
+      fit.trigger <- FALSE
+      if(!exists("fit")){fit <- fit.try}
+
+    }else if(n.components == n.components.max & exists("fit") == FALSE){
+
       fit <- fit.try
+
     }
 
 }##end while
@@ -313,6 +379,10 @@ while(fit.trigger==TRUE & n.components <= n.components.max){
       TSS <- sum((y - mean(y))^2) #total sum of squares
  		  pR<-round(1-RSS/TSS,digits=4)
 
+ 		  if(pR<0){
+ 		    warning("pseudo-R^2 < 0!")
+ 		  }
+
     ## ---------------------------------------------
     ##calculate 1- sigma CONFIDENCE INTERVALL
 
@@ -338,11 +408,11 @@ while(fit.trigger==TRUE & n.components <= n.components.max){
       if (output.terminal==TRUE){
 
         ##print rough fitting information - use the nls() control for more information
-        writeLines("\n[fit_CWCurve]")
+        writeLines("\n[fit_CWCurve()]")
         writeLines(paste("\nFitting was finally done using a ",n.components,
                          "-component function (max=",n.components.max,"):",sep=""))
         writeLines("------------------------------------------------------------------------------")
-        writeLines(paste("y = ",as.character(fit.function),"\n",sep=""))
+        writeLines(paste0("y ~ ", as.character(fit.formula(n.components))[3], "\n"))
 
         ##combine values and change rows names
         fit.results<-cbind(I0,I0.error,lambda,lambda.error,cs, cs.rel)
@@ -529,7 +599,7 @@ if (output.terminalAdvanced==TRUE && output.terminal==TRUE){
 
 }#endif :: (exists("fit"))
 
-}else{writeLines("[fit_CWCurve] Fitting Error >> Plot without fit produced!")
+}else{writeLines("[fit_CWCurve()] Fitting Error >> Plot without fit produced!")
       output.table<-NA
       component.contribution.matrix <- NA
       }
@@ -537,7 +607,7 @@ if (output.terminalAdvanced==TRUE && output.terminal==TRUE){
 ##============================================================================##
 ## PLOTTING
 ##============================================================================##
-if(output.plot==TRUE){
+if(plot==TRUE){
 
     ##grep par parameters
     par.default <- par(no.readonly = TRUE)
@@ -546,8 +616,13 @@ if(output.plot==TRUE){
     col <- get("col", pos = .LuminescenceEnv)
 
     ##set plot frame
-    layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
-    par(oma=c(1,1,1,1),mar=c(0,4,3,0),cex=cex.global)
+    if(!inherits(fit, "try-error")){
+      layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
+      par(oma=c(1,1,1,1),mar=c(0,4,3,0),cex=cex.global)
+    }else{
+      par(cex=cex.global)
+    }
+
 
      ##==uppper plot==##
      ##open plot area
@@ -555,8 +630,8 @@ if(output.plot==TRUE){
      plot(NA,NA,
           xlim=c(min(x),max(x)),
           ylim=if(log=="xy"){c(1,max(y))}else{c(0,max(y))},
-          xlab="",
-          xaxt="n",
+          xlab=if(!inherits(fit, "try-error")){""}else{xlab},
+          xaxt=if(!inherits(fit, "try-error")){"n"}else{"s"},
           ylab=ylab,
           main=main,
           log=log)
@@ -650,6 +725,10 @@ if(output.plot==TRUE){
           output.table = output.table,
           component.contribution.matrix = component.contribution.matrix))
 
+      rm(fit)
+      rm(output.table)
+      rm(component.contribution.matrix)
+
       invisible(newRLumResults.fit_CWCurve)
 
    # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
@@ -730,7 +809,7 @@ if(output.plot==TRUE){
    ##seealso<<
    ## \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
    ## \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-   ## \code{\link{get_RLum.Results}}
+   ## \code{\link{get_RLum.Results}}, \code{\link{nlsLM}}
 
    ##keyword<<
    ## dplot

@@ -38,7 +38,14 @@
       \item \code{fit_CWVCurve()}
        \itemize{
           \item The function broke with an error under rare circumstances when not fit was made (reported by Alexandra Rowell); corrected,
-          \item change start parameter estimation to better account for the input data, this should hopefully stabilise the fitting (thanks to Alexandra Rowell)
+          \item change start parameter estimation to better account for the input data, this should hopefully stabilise the fitting (thanks to Alexandra Rowell),
+          \item proper rescaling graphical output if no fit could be made,
+          \item new argument add \code{fit.method} to allow using the function \code{nlsLM} from the
+          \code{minpack.lm package} and with this the Levenberg-Marquardt algorithm,
+          \item argument \code{cex.global} replaced by \code{cex} and moved to the \code{...} argument,
+          \item argument \code{output.plot} changed to \code{plot},
+          \item changing the way how warnings are surpressed.
+
 
 
         }
@@ -56,13 +63,23 @@
       \item \code{plot_RLum.Anaysis()}
        \itemize{
           \item Setting the argument \code{combine = TRUE} for 'OSL' and 'IRSL' caused an error related
-          to the missing argument 'curve.transformation'; corrected.
+          to the missing argument 'curve.transformation'; corrected.,
+          \item colour handling for setting \code{combine = TRUE} improved. It now works as for \code{plot.default}.
        }
 
 
       \item \code{readBIN2R()}
        \itemize{
           \item Support for BIN/BINX-file version 07 added thanks to the support by Torben Lapp (#215).
+       }
+
+       \item \code{readXSYG2R()}
+       \itemize{
+
+          \item Info objects from the sequence header like 'name' and 'position' are now be additionally
+          transferred to each single output object, to keep this information in the object.
+
+
        }
 
       \item \code{writeR2BIN()}
@@ -81,7 +98,10 @@
    \itemize{
 
       \item Description on the class \code{Risoe.BINfileData} updated in accordance with the implemented
-      changes on the import.
+      changes on the import,
+
+      \item added dependency to package \code{minpack.lm} to support the Levenberg-Marquardt algorithm
+      for fitting.
 
 
     }
