@@ -84,4 +84,4 @@ BIN/BINX-file due to hidden bits, which are not reproduced by the function \code
 
 \keyword{IO}
 \keyword{manip}
-\section{Function version}{0.2 (2015-03-29 14:08:31)}
+\section{Function version}{0.2.1 (2015-04-07 11:38:42)}

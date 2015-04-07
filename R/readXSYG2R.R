@@ -6,7 +6,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.4.2
+  ## version 0.4.3
   # ===========================================================================
 
   file,
@@ -222,7 +222,7 @@ readXSYG2R <- structure(function(#Import XSYG files to R
                                         detector = temp.sequence.object.detector,
                                         stimulator = temp.sequence.object.stimulator,
                                         partentID = temp.sequence.object.parentID,
-                                        position = as.integer(temp.sequence.header["position",]),
+                                        position = as.integer(as.character(temp.sequence.header["position",])),
                                         name = as.character(temp.sequence.header["name",]))
 
 

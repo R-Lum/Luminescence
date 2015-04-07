@@ -739,7 +739,7 @@ if(plot==TRUE){
    ## \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots,
    ## + I0_{i}*\lambda_{i}*exp(-\lambda_i*x)
    ## }
-   ## where \eqn{1 < i < 8}\cr\cr
+   ## where \eqn{0 < i < 8}\cr\cr
    ## and \eqn{\lambda} is the decay constant and \eqn{N0} the intial number of
    ## trapped electrons.\cr
    ## (for the used equation cf. Boetter-Jensen et al., 2003)\cr\cr

@@ -30,7 +30,8 @@
           \item Argument \code{file.XSYG} replaced by \code{object},
           \item allow input for \code{RLum.Analysis} object. In such cases the arguments \code{file.BINX}
           and \code{recordType} are ignored. This mode gives more flexibility in applying this function,
-          \item new argument \code{compatibility.mode} to trigger the write output of the BIN/BINX-file.
+          \item new argument \code{compatibility.mode} to trigger the write output of the BIN/BINX-file,
+          \item additionally now the time between the steps is exported \code{TIMESINCELAST.STEP}.
 
           }
 

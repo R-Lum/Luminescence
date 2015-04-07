@@ -89,7 +89,7 @@ setMethod("get_structure.RLum.Analysis",
             ##check if the object containing other elements than allowed
             if(length(grep(FALSE, sapply(object@records, is, class="RLum.Data.Curve")))!=0){
 
-              stop("[get_structure.RLum.Analysis] Error: Only 'RLum.Data.Curve' objects are allowed!" )
+              stop("[get_structure.RLum.Analysis()]  Only 'RLum.Data.Curve' objects are allowed!" )
 
             }
 

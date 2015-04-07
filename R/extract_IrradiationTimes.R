@@ -7,7 +7,7 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.2
+  ## version 0.2.1
   # ===========================================================================
 
   object,
@@ -157,7 +157,7 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
 
   })
 
-   #START time of each step
+  #START time of each step
   temp.START <- unname(sapply(1:length_RLum.Analysis(temp.sequence), function(x){
 
     get_RLum.Data.Curve(get_RLum.Analysis(temp.sequence, record.id = x), info.object = c("startDate"))
@@ -171,6 +171,8 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
 
   })
 
+
+
  ##a little bit reformatting.
  START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")
 
@@ -179,9 +181,25 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
 
  ##add position number so far an XSYG file was the input
  if(exists("file.XSYG")){
-   POSITION <- rep(temp.sequence.position, each = length_RLum.Analysis(temp.sequence))
+
+    POSITION <- rep(temp.sequence.position, each = length_RLum.Analysis(temp.sequence))
+
+  }else if(!inherits(try(
+    get_RLum.Data.Curve(
+      get_RLum.Analysis(temp.sequence, record.id = 1), info.object = "position"),
+    silent = TRUE), "try-error")){
+
+    ##DURATION of each STEP
+    POSITION <- unname(sapply(1:length_RLum.Analysis(temp.sequence), function(x){
+
+      get_RLum.Data.Curve(get_RLum.Analysis(temp.sequence, record.id = x),info.object = "position")
+
+    }))
+
  }else{
+
    POSITION <- NA
+
  }
 
 
@@ -246,10 +264,27 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
 
   }))
 
+
+
+  # Calculate time since last step --------------------------------------------------------------
+
+
+  TIMESINCELAST.STEP <- unlist(sapply(1:nrow(temp.results), function(x){
+
+    if(x == 1){
+      return(0)
+    }else{
+    return(difftime(temp.results[x,"START"],temp.results[x-1, "END"], units = "secs"))
+    }
+
+
+  }))
+
+
   # Combine final results -----------------------------------------------------------------------
 
   ##results table, export as CSV
-  results <- cbind(temp.results,IRR_TIME, TIMESINCEIRR)
+  results <- cbind(temp.results,IRR_TIME, TIMESINCEIRR,TIMESINCELAST.STEP)
 
   # Write BINX-file if wanted -------------------------------------------------------------------
   if(!missing(file.BINX)){
