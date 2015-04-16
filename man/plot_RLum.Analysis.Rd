@@ -16,9 +16,7 @@ to be provided as \code{list}, e.g. \code{abline = list(list(v = 120), list(v = 
 two vertical ablines: One at 150 and another one at 350. Within the call all arguments
 supported by \code{\link{abline}} are fully supported,}
   \item{combine}{\code{\link{logical}} (with default): allows to combine all
-code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
-Works only for \code{\linkS4class{RLum.Analysis}} that comprises a single
-curve object (option is currently only roughly implemented),}
+code{\linkS4class{RLum.Data.Curve}} objects in one single plot.}
   \item{curve.transformation}{\code{\link{character}} (optional): allows transforming CW-OSL and CW-IRSL curves
 to pseudo-LM curves via transformation functions.
 Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
@@ -27,8 +25,9 @@ Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
 settings of \code{norws} and \code{ncols}}
   \item{\dots}{further arguments and graphical parameters will be passed to the \code{plot} function.
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
-\code{type}, \code{pch}, \code{col}, \code{norm} ... and for \code{combine = TRUE} also: \code{xlim},
-\code{ylim}, \code{xlab}, \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}}
+\code{type}, \code{pch}, \code{col}, \code{norm}, \code{ylim}, \code{xlab} ...
+and for \code{combine = TRUE} also: \code{xlim},
+\code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}}
 }
 \details{The function produces a multiple plot output.
 A file output is recommended (e.g., \code{\link{pdf}}).
@@ -73,4 +72,4 @@ plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 }
 
 \keyword{aplot}
-\section{Function version}{0.2.1 (2015-04-03 12:46:03)}
+\section{Function version}{0.2.3 (2015-04-13 19:47:33)}

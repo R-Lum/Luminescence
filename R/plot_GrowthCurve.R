@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
 
   ##section<<
-  ##version 1.5
+  ##version 1.6.0
   # ===========================================================================
 
   sample,
@@ -289,7 +289,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
             }
           }
 
-          ##used mean as start parameters for the final fitting
+          ##used median as start parameters for the final fitting
           a<-median(na.exclude(a.start));b<-median(na.exclude(b.start));c<-median(na.exclude(c.start))
 
           #FINAL Fit curve on given values
@@ -525,6 +525,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 
             }
 
+
         #if try error stop calculation
         if(class(fit)!="try-error"){
 
@@ -539,14 +540,25 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 						#use uniroot to solve that problem ... readjust function first
 						f.unirootEXPLIN <- function(a,b,c,g,x,LnTn){fit.functionEXPLIN(a,b,c,g,x)-LnTn}
 
-						  De <- round(uniroot(f = f.unirootEXPLIN,
-						                interval = c(0,max(xy$x)+max(xy$x)*0.5),
+    			  temp.De <-  try(uniroot(f = f.unirootEXPLIN,
+						                interval = c(0,max(xy$x)*1.5),
 						                tol = 0.001,
 						                a = a,
 						                b = b,
 						                c = c,
 						                g = g,
-						                LnTn = sample[1,2])$root, digits = 2)
+						                LnTn = sample[1,2],
+						                extendInt = "yes",
+						                maxiter = 3000), silent = TRUE)
+
+
+
+              if (class(temp.De) != "try-error") {
+                  De <- round(temp.De$root, digits = 2)
+              }else{
+                  De <- NA
+              }
+
 
 						writeLines(paste0("[plot_GrowthCurve()] >> De = ", De))
 
@@ -599,27 +611,34 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 								x.natural[i]<-NA
 
 							}else {
+							  parameters <- coef(fit.MC)
+							  var.b[i] <- as.vector((parameters["b"]))
+							  var.a[i] <- as.vector((parameters["a"]))
+							  var.c[i] <- as.vector((parameters["c"]))
+							  var.g[i] <- as.vector((parameters["g"]))
 
-							parameters <- coef(fit.MC)
-							var.b[i]<-as.vector((parameters["b"]))
-							var.a[i]<-as.vector((parameters["a"]))
-							var.c[i]<-as.vector((parameters["c"]))
-							var.g[i]<-as.vector((parameters["g"]))
+							  #problem: analytical it is not easy to calculate x,
+							  #use uniroot to solve this problem
 
-							#problem: analytical it is not easy to calculate x,
-              #use uniroot to solve this problem
+							  temp.De.MC <-  try(uniroot(
+							    f = f.unirootEXPLIN,
+							    interval = c(0,max(xy$x) * 1.5),
+							    tol = 0.001,
+							    a = var.a[i],
+							    b = var.b[i],
+							    c = var.c[i],
+							    g = var.g[i],
+							    LnTn = data.MC.De[i]
+							  ), silent = TRUE)
 
-							x.natural[i] <-  uniroot(f = f.unirootEXPLIN,
-							          interval = c(0,max(xy$x)*1.5),
-							          tol = 0.001,
-							          a = a,
-							          b = b,
-							          c = c,
-							          g = g,
-							          LnTn = data.MC.De[i])$root
+							  if (class(temp.De.MC) != "try-error") {
+							    x.natural[i] <- temp.De.MC$root
+							  }else{
+							    x.natural[i] <- NA
+							  }
 
- 							}
 
+							}
 				  ##update progress bar
 				  setTxtProgressBar(pb, i)
 
@@ -635,54 +654,57 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 		#EXP+EXP#
 		else if (fit.method=="EXP+EXP") {
 
-      a1.start<-NA
-      a2.start<-NA
-      b1.start<-NA
-      b2.start<-NA
+		  a1.start <- NA
+		  a2.start <- NA
+		  b1.start <- NA
+		  b2.start <- NA
 
 		  ## try to create some start parameters from the input values to make the fitting more stable
-		  for(i in 1:50){
+		  for(i in 1:50) {
+		    a1 <- a.MC[i];b1 <- b.MC[i];
+		    a2 <- a.MC[i] / 2; b2 <- b.MC[i] / 2
 
-		    a1<-a.MC[i];b1<-b.MC[i];
-        a2<-a.MC[i]/2; b2<-b.MC[i]/2
+		    fit.start <- try(nls(
+		      y ~ fit.functionEXPEXP(a1,a2,b1,b2,x),
+		      data = data,
+		      start = c(
+		        a1 = a1,a2 = a2,b1 = b1,b2 = b2
+		      ),
+		      trace = FALSE,
+		      algorithm = "port",
+		      lower = c(a1 > 0,a2 > 0,b1 > 0,b2 > 0),
+		      nls.control(
+		        maxiter = 500,warnOnly = FALSE,minFactor = 1 / 2048
+		      ) #increase max. iterations
+		    ),silent = TRUE)
 
-		    fit<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
-		                 data=data,
-		                 start=c(a1=a1,a2=a2,b1=b1,b2=b2),
-		                 trace=FALSE,
-		                 algorithm="port",
-		                 lower=c(a1>0,a2>0,b1>0,b2>0),
-		                 nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
-		    ),silent=TRUE)
 
-
-		     if(class(fit)!="try-error"){
-		        #get parameters out of it
-		        parameters<-(coef(fit))
-		        a1.start[i]<-as.vector((parameters["a1"]))
-		        b1.start[i]<-as.vector((parameters["b1"]))
-		        a2.start[i]<-as.vector((parameters["a2"]))
-		        b2.start[i]<-as.vector((parameters["b2"]))
-		     }
-        }
+		    if (class(fit.start) != "try-error") {
+		      #get parameters out of it
+		      parameters <- coef(fit.start)
+		      a1.start[i] <- as.vector((parameters["a1"]))
+		      b1.start[i] <- as.vector((parameters["b1"]))
+		      a2.start[i] <- as.vector((parameters["a2"]))
+		      b2.start[i] <- as.vector((parameters["b2"]))
+		    }
+		  }
 
         ##use obtained parameters for fit input
-		    a1<-median(na.exclude(a1.start))
-        b1<-median(na.exclude(b1.start))
-		    a2<-median(na.exclude(a2.start))
-		    b2<-median(na.exclude(b2.start))
-
+        a1.start <- median(na.exclude(a1.start))
+        b1.start <- median(na.exclude(b1.start))
+        a2.start <- median(na.exclude(a2.start))
+        b2.start <- median(na.exclude(b2.start))
 
 							#Fit curve on given values
               if(!is.null(fit.weights)){
 
                 fit<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
 							  		data=data,
-								  	start=c(a1=a1,a2=a2,b1=b1,b2=b2),
+								  	start=c(a1=a1.start,a2=a2.start,b1=b1.start,b2=b2.start),
 									  trace=FALSE,
                     weights=fit.weights,
 									  algorithm="port",
-									  nls.control(maxiter=500), #increase max. iterations
+									  nls.control(maxiter=500, minFactor=1/2048), #increase max. iterations
                     lower=c(a1>0,a2>0,b1>0,b2>0)
 								  ))#end nls
 
@@ -690,14 +712,12 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 
                 fit<-try(nls(y~fit.functionEXPEXP(a1,a2,b1,b2,x),
                              data=data,
-                             start=c(a1=a1,a2=a2,b1=b1,b2=b2),
+                             start=c(a1=a1.start,a2=a2.start,b1=b1.start,b2=b2.start),
                              trace=FALSE,
                              algorithm="port",
-                             nls.control(maxiter=500), #increase max. iterations
+                             nls.control(maxiter=500, minFactor=1/2048), #increase max. iterations
                              lower=c(a1>0,a2>0,b1>0,b2>0)
                 ))#end nls
-
-
 
               }
 
@@ -705,32 +725,45 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
               ##insert if for try-error
               if (class(fit)!="try-error") {
 
-							#get parameters out of it
-							parameters<-(coef(fit))
-							b1<-as.vector((parameters["b1"]))
-              b2<-as.vector((parameters["b2"]))
-							a1<-as.vector((parameters["a1"]))
-              a2<-as.vector((parameters["a2"]))
+                #get parameters out of it
+                parameters <- (coef(fit))
+                b1 <- as.vector((parameters["b1"]))
+                b2 <- as.vector((parameters["b2"]))
+                a1 <- as.vector((parameters["a1"]))
+                a2 <- as.vector((parameters["a2"]))
 
-              ##set D0 values
-              D01<-round(b1,digits=2)
-              D02<-round(b2,digits=2)
+                ##set D0 values
+                D01 <- round(b1,digits = 2)
+                D02 <- round(b2,digits = 2)
 
-              #print D0 values
-              writeLines(paste0("\n [plot_GrowthCurve()] >> D01 = ",D01, " | D02 = ",D02))
 
-        #problem: analytically it is not easy to calculate x, here an simple approximation is made
-
+              #problem: analytically it is not easy to calculate x, use uniroot
               f.unirootEXPEXP <- function(a1,a2,b1,b2,x,LnTn){fit.functionEXPEXP(a1,a2,b1,b2,x)-LnTn}
 
-              De <- round(uniroot(f = f.unirootEXPEXP,
-                                  interval = c(0,max(xy$x)+max(xy$x)*0.5),
-                                  tol = 0.001,
-                                  a1 = a1,
-                                  a2 = a2,
-                                  b1 = b1,
-                                  b2 = b2,
-                                  LnTn = sample[1,2])$root, digits = 2)
+              temp.De <-  try(uniroot(f = f.unirootEXPEXP,
+                                      interval = c(0,max(xy$x)*1.5),
+                                      tol = 0.001,
+                                      a1 = a1,
+                                      a2 = a2,
+                                      b1 = b1,
+                                      b2 = b2,
+                                      LnTn = sample[1,2],
+                                      extendInt = "yes",
+                                      maxiter = 3000), silent = TRUE)
+
+
+              if (class(temp.De) != "try-error") {
+                De <- round(temp.De$root, digits = 2)
+              }else{
+                De <- NA
+              }
+
+              ##remove object
+              rm(temp.De)
+
+              #print D0 and De value values
+              writeLines(paste0("\n [plot_GrowthCurve()] >> D01 = ",D01, " | D02 = ",D02, " | De = ", De))
+
 
             ##Monte Carlo Simulation for error estimation
 						#	--Fit many curves and calculate a new De +/- De_Error
@@ -790,24 +823,30 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 								x.natural[i]<-NA
 
 							}else {
+							  parameters <- (coef(fit.MC))
+							  var.b1[i] <- as.vector((parameters["b1"]))
+							  var.b2[i] <- as.vector((parameters["b2"]))
+							  var.a1[i] <- as.vector((parameters["a1"]))
+							  var.a2[i] <- as.vector((parameters["a2"]))
 
-							parameters<-(coef(fit.MC))
-							var.b1[i]<-as.vector((parameters["b1"]))
-              var.b2[i]<-as.vector((parameters["b2"]))
-       				var.a1[i]<-as.vector((parameters["a1"]))
-              var.a2[i]<-as.vector((parameters["a2"]))
+							  #problem: analytically it is not easy to calculate x, here an simple approximation is made
 
-							#problem: analytic it is not easy to calculat x, here an simple approximation is made
+							  temp.De.MC <-  try(uniroot(
+							    f = f.unirootEXPEXP,
+							    interval = c(0,max(xy$x) * 1.5),
+							    tol = 0.001,
+							    a1 = var.a1[i],
+							    a2 = var.a2[i],
+							    b1 = var.b1[i],
+							    b2 = var.b2[i],
+							    LnTn = data.MC.De[i]
+							  ), silent = TRUE)
 
-              x.natural[i] <- round(uniroot(f = f.unirootEXPEXP,
-                                  interval = c(0,max(xy$x)+max(xy$x)*0.5),
-                                  tol = 0.001,
-                                  a1 = a1,
-                                  a2 = a2,
-                                  b1 = b1,
-                                  b2 = b2,
-                                  LnTn = data.MC.De[i])$root, digits = 2)
-
+							  if (class(temp.De.MC) != "try-error") {
+							    x.natural[i] <- temp.De.MC$root
+							  }else{
+							    x.natural[i] <- NA
+							  }
 
 							} #end if "try-error" MC simulation
 

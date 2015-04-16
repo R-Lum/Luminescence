@@ -7,7 +7,7 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.2.1
+  ## version 0.2.3
   # ===========================================================================
 
   object,
@@ -30,8 +30,6 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   combine = FALSE,
   ### \code{\link{logical}} (with default): allows to combine all
   ### code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
-  ### Works only for \code{\linkS4class{RLum.Analysis}} that comprises a single
-  ### curve object (option is currently only roughly implemented),
 
   curve.transformation,
   ### \code{\link{character}} (optional): allows transforming CW-OSL and CW-IRSL curves
@@ -46,8 +44,9 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ...
   ### further arguments and graphical parameters will be passed to the \code{plot} function.
   ### Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty}
-  ### \code{type}, \code{pch}, \code{col}, \code{norm} ... and for \code{combine = TRUE} also: \code{xlim},
-  ### \code{ylim}, \code{xlab}, \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}
+  ### \code{type}, \code{pch}, \code{col}, \code{norm}, \code{ylim}, \code{xlab} ...
+  ### and for \code{combine = TRUE} also: \code{xlim},
+  ### \code{ylab}, \code{sub}, \code{legend.text}, \code{legend.pos}
 
 ){
 
@@ -86,6 +85,14 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
   ##type
   type <- if("type" %in% names(extraArgs)) {extraArgs$type} else
   {"l"}
+
+  ##xlim
+  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
+  {NULL}
+
+  ##ylim
+  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
+  {NULL}
 
   ##pch
   pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
@@ -185,6 +192,37 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
               }
 
 
+              ##check xlim and ylim values and adjust if where necessary
+              ##xlim
+              if (!is.null(xlim)) {
+                xlim.set <- xlim
+                if (xlim[1] < min(temp[[i]]@data[,1])) {
+                  xlim.set[1] <- min(temp[[i]]@data[,1])
+                }
+                if (xlim[2] > max(temp[[i]]@data[,1])) {
+                  xlim.set[2] <- max(temp[[i]]@data[,1])
+                }
+
+              }else{
+                xlim.set <- xlim
+
+              }
+
+              ##ylim
+              if (!is.null(ylim)) {
+                ylim.set <- ylim
+                if (ylim[1] < min(temp[[i]]@data[,2])) {
+                  ylim.set[1] <- min(temp[[i]]@data[,2])
+                }
+                if (ylim[2] > max(temp[[i]]@data[,2])) {
+                  ylim.set[2] <- max(temp[[i]]@data[,2])
+                }
+
+              }else{
+                ylim.set <- ylim
+
+              }
+
             plot_RLum.Data.Curve(temp[[i]],
                  col = if(unique(col) != "black"){col} else{
                    if(grepl("IRSL", temp[[i]]@recordType) == TRUE){"red"} else
@@ -198,6 +236,8 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
                      lwd = lwd,
                      type = type,
                      lty = lty,
+                     xlim = xlim.set,
+                     ylim = ylim.set,
                      pch = pch,
                      norm = norm,
                      cex = cex)
@@ -253,163 +293,211 @@ plot_RLum.Analysis<- structure(function(#Plot function for an RLum.Analysis S4 c
 
     })
 
-    ##(2) check for similar types
-    object.structure  <- get_structure.RLum.Analysis(object)
 
-    if(length(unique(object.structure$recordType))>1){
-
-      stop("[plot_RLum.Analysis()] 'combine' is limited 'RLum.Data.Curve' objects of similar type.")
-
-    }
-
-
-    ##(3) PLOT values
-
-    ##prevent problems for non set argument
-    if(missing(curve.transformation)){curve.transformation <- "None"}
-
-    ##transform values to data.frame and norm values
-    temp.data.list <- lapply(1:length(object.list), function(x){
-
-      ##set curve transformation if wanted
-      if(grepl("IRSL", object.list[[x]]@recordType) | grepl("OSL", object.list[[x]]@recordType)){
-
-        if(curve.transformation=="CW2pLM"){
-
-          object.list[[x]] <- CW2pLM(object.list[[x]])
-
-        }else if(curve.transformation=="CW2pLMi"){
-
-          object.list[[x]] <- CW2pLMi(object.list[[x]])
-
-        }else if(curve.transformation=="CW2pHMi"){
-
-          object.list[[x]]<- CW2pHMi(object.list[[x]])
-
-        }else if(curve.transformation=="CW2pPMi"){
-
-          object.list[[x]] <- CW2pPMi(object.list[[x]])
-
-        }
-
-      }
-
-
-      temp.data <- as(object.list[[x]], "data.frame")
-
-      ##normalise curves if argument has been set
-      if(norm == TRUE){
-
-        temp.data[,2] <- temp.data[,2]/max(temp.data[,2])
-
-      }
-
-      return(temp.data)
-
-    })
-
-    ##get some extra arguments, here new, as the values have to considered differently
-    sub <- if("sub" %in% names(extraArgs)) {extraArgs$sub} else
-    {""}
-
-    ##xlab
-    xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
-    {"x"}
-
-    ##ylab
-    ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-    {"y"}
-
-    ##xlim
-    xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-    {c(min(object.structure$x.min), max(object.structure$x.max))}
-
-    ##ylim
-    ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-    {
-        temp.ylim  <- t(sapply(1:length(temp.data.list), function(x){
-
-            temp.data <- temp.data.list[[x]]
-            range(temp.data[temp.data[,1] >= min(xlim) & temp.data[,1] <= max(xlim),2])
-
-        }))
-
-        c(min(temp.ylim), max(temp.ylim))
-
-    }
-
-    ##col (again)
-    col <- if("col" %in% names(extraArgs)) {extraArgs$col} else
-    {get("col", pos = .LuminescenceEnv)}
-
-    ##if length of provided colours is < the number of objects, just one colour is supported
-    if(length(col)<length(object.list)){
-
-      col <- rep_len(col, length(object.list))
-
-    }
-
-    ##col (again)
-    lty <- if("lty" %in% names(extraArgs)) {extraArgs$lty} else
-    {1}
-
-    ##if length of provided lty values is < the number of objects, just the first supported
-    if(length(lty)<length(object.list)){
-
-      lty <- rep(lty[1], times = length(object.list))
-
-    }
-
-    ##legend.text
-    legend.text <- if("legend.text" %in% names(extraArgs)) {extraArgs$legend.text} else
-    {paste("Curve", 1:length(object.list))}
-
-    ##legend.pos
-    legend.pos <- if("legend.pos" %in% names(extraArgs)) {extraArgs$legend.pos} else
-    {"topright"}
-
+    ##account for different curve types, combine similar
+    temp.object.structure  <- get_structure.RLum.Analysis(object)
+    temp.recordType <- as.character(unique(temp.object.structure$recordType))
 
 
     ##change graphic settings
     par.default <- par()[c("cex", "mfrow")]
     par(cex = cex, mfrow = c(nrows, ncols))
 
-    ##open plot area
-    plot(NA,NA,
-         xlim = xlim,
-         ylim = ylim,
-         main = main,
-         xlab = xlab,
-         ylab = ylab,
-         log = log,
-         sub = sub)
+    ##(2) PLOT values
 
-    ##loop over all records
-    for(i in 1:length(object.list)){
+    for(k in 1:length(temp.recordType)) {
 
-      lines(temp.data.list[[i]],
-            col = col[i],
-            lty = lty)
+      ##main 2
+      main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
+      {paste0(temp.recordType[[k]], " combined")}
+
+      ###get type of curves
+      temp.object <-
+        get_RLum.Analysis(object, recordType = temp.recordType[k], keep.object = TRUE)
+
+      ##get structure
+      object.structure  <- get_structure.RLum.Analysis(temp.object)
+
+      ##now get the real list object
+      object.list <-
+        get_RLum.Analysis(object, recordType = temp.recordType[k])
+
+
+      ##prevent problems for non set argument
+      if (missing(curve.transformation)) {
+        curve.transformation <- "None"
+      }
+
+      ##transform values to data.frame and norm values
+      temp.data.list <- lapply(1:length(object.list), function(x) {
+        ##set curve transformation if wanted
+        if (grepl("IRSL", object.list[[x]]@recordType) |
+            grepl("OSL", object.list[[x]]@recordType)) {
+          if (curve.transformation == "CW2pLM") {
+            object.list[[x]] <- CW2pLM(object.list[[x]])
+
+          }else if (curve.transformation == "CW2pLMi") {
+            object.list[[x]] <- CW2pLMi(object.list[[x]])
+
+          }else if (curve.transformation == "CW2pHMi") {
+            object.list[[x]] <- CW2pHMi(object.list[[x]])
+
+          }else if (curve.transformation == "CW2pPMi") {
+            object.list[[x]] <- CW2pPMi(object.list[[x]])
+
+          }
+
+        }
+
+
+        temp.data <- as(object.list[[x]], "data.frame")
+
+        ##normalise curves if argument has been set
+        if (norm == TRUE) {
+          temp.data[,2] <- temp.data[,2] / max(temp.data[,2])
+
+        }
+
+        return(temp.data)
+
+      })
+
+      ##get some extra arguments, here new, as the values have to considered differently
+      sub <- if ("sub" %in% names(extraArgs)) {
+        extraArgs$sub
+      } else
+      {
+        ""
+      }
+
+      ##xlab
+      xlab <- if ("xlab" %in% names(extraArgs)) {
+        extraArgs$xlab
+      } else
+      {
+        "x"
+      }
+
+      ##ylab
+      ylab <- if ("ylab" %in% names(extraArgs)) {
+        extraArgs$ylab
+      } else
+      {
+        "y"
+      }
+
+      ##xlim
+      xlim <- if ("xlim" %in% names(extraArgs)) {
+        extraArgs$xlim
+      } else
+      {
+        c(min(object.structure$x.min), max(object.structure$x.max))
+      }
+
+      ##ylim
+      ylim <- if ("ylim" %in% names(extraArgs)) {
+        extraArgs$ylim
+      } else
+      {
+        temp.ylim  <- t(sapply(1:length(temp.data.list), function(x) {
+          temp.data <- temp.data.list[[x]]
+          range(temp.data[temp.data[,1] >= min(xlim) &
+                            temp.data[,1] <= max(xlim),2])
+
+        }))
+
+        c(min(temp.ylim), max(temp.ylim))
+
+      }
+
+      ##col (again)
+      col <- if ("col" %in% names(extraArgs)) {
+        extraArgs$col
+      } else
+      {
+        get("col", pos = .LuminescenceEnv)
+      }
+
+      ##if length of provided colours is < the number of objects, just one colour is supported
+      if (length(col) < length(object.list)) {
+        col <- rep_len(col, length(object.list))
+
+      }
+
+      ##col (again)
+      lty <- if ("lty" %in% names(extraArgs)) {
+        extraArgs$lty
+      } else
+      {
+        1
+      }
+
+      ##if length of provided lty values is < the number of objects, just the first supported
+      if (length(lty) < length(object.list)) {
+        lty <- rep(lty[1], times = length(object.list))
+
+      }
+
+      ##legend.text
+      legend.text <-
+        if ("legend.text" %in% names(extraArgs)) {
+          extraArgs$legend.text
+        } else
+        {
+          paste("Curve", 1:length(object.list))
+        }
+
+      ##legend.pos
+      legend.pos <-
+        if ("legend.pos" %in% names(extraArgs)) {
+          extraArgs$legend.pos
+        } else
+        {
+          "topright"
+        }
+
+
+
+      ##open plot area
+      plot(
+        NA,NA,
+        xlim = xlim,
+        ylim = ylim,
+        main = main,
+        xlab = xlab,
+        ylab = ylab,
+        log = log,
+        sub = sub
+      )
+
+      ##loop over all records
+      for (i in 1:length(object.list)) {
+        lines(temp.data.list[[i]],
+              col = col[i],
+              lty = lty)
+
+      }
+
+      ##mtext
+      mtext(mtext, side = 3, cex = .8 * cex)
+
+      ##legend
+      legend(
+        legend.pos,
+        legend = legend.text,
+        lwd = lwd,
+        lty = lty,
+        col = col[1:length(object.list)],
+        bty = "n",
+        cex = 0.9 * cex
+      )
+
 
     }
-
-    ##mtext
-    mtext(mtext, side = 3, cex = .8 * cex)
-
-    ##legend
-    legend(legend.pos,
-           legend = legend.text,
-           lwd = lwd,
-           lty = lty,
-           col = col[1:length(object.list)],
-           bty = "n",
-           cex = 0.9*cex)
-
 
     ##reset graphic settings
     par(par.default)
     rm(par.default)
-
 
   }
 

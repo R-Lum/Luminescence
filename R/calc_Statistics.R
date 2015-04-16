@@ -30,7 +30,7 @@ calc_Statistics <- structure(function(# Function to calculate statistic measures
   ## Check input data
   if(is(data, "RLum.Results") == FALSE &
        is(data, "data.frame") == FALSE) {
-    stop(paste("[calc_Statistics()] Error: Input data format is neither",
+    stop(paste("[calc_Statistics()] Input data format is neither",
                "'data.frame' nor 'RLum.Results'"))
   } else {
     if(is(data, "RLum.Results") == TRUE) {
@@ -61,7 +61,7 @@ calc_Statistics <- structure(function(# Function to calculate statistic measures
   } else if(weight.calc == "square") {
     S.weights <- 1 / data[,2]^2
   } else {
-    stop ("[calc_Statistics] Error: Weight calculation type not supported!")
+    stop ("[calc_Statistics()] Weight calculation type not supported!")
   }
 
   S.weights <- S.weights / sum(S.weights)

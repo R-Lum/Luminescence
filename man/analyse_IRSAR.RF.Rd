@@ -198,4 +198,4 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 }
 
 \keyword{datagen}
-\section{Function version}{0.3.1 (2015-03-23 13:07:08)}
+\section{Function version}{0.3.2 (2015-04-09 19:27:06)}

@@ -33,10 +33,10 @@ Note: Background subtraction is applied prior to channel binning}
 (vertical binning) for plotting,
 e.g. \code{bin.cols = 2} two channels are summed up}
   \item{rug}{\code{\link{logical}} (with default): enables or disables colour rug.
-Currently only implemented for plot type \code{multiple.lines}.}
+Currently only implemented for plot type \code{multiple.lines} and \code{single}}
   \item{xaxis.energy}{\code{\link{logical}} (with default): enables or disables energy instead
-of wavelength axis. Axis labelling are changed accordingly, so far no
-manual axis labelling is choosen.}
+of wavelength axis. Note: This option means not only simnply redrawing the axis, insteadly the
+spectrum in terms of intensity is recalculated, s. details.}
   \item{legend.text}{\code{\link{character}} (with default): possiblity to provide own legend text.
 This argument is only considered for plot types providing
 a legend, e.g. \code{plot.type="transect"}}
@@ -44,7 +44,7 @@ a legend, e.g. \code{plot.type="transect"}}
 \code{plot} function.}
 }
 \details{\bold{Matrix structure} \cr
-(cf. \code{\linkS4class{RLum.Data.Spectrum}}) \cr
+(cf. \code{\linkS4class{RLum.Data.Spectrum}})
 
 \itemize{
 \item \code{rows} (x-values): wavelengths/channels (xlim, xlab)
@@ -52,16 +52,37 @@ a legend, e.g. \code{plot.type="transect"}}
 \item \code{cells} (z-values): count values (zlim, zlab)
 }
 
-\emph{Note: This nomenclature is valid for all plot types of this function!}
+\emph{Note: This nomenclature is valid for all plot types of this function!}\cr
 
 
-\bold{Nomenclature for value limiting}\cr
+\bold{Nomenclature for value limiting}
 
 \code{xlim}: Limits values along the wavelength axis\cr
 \code{ylim}: Limits values along the time/temperature axis\cr
-\code{zlim}: Limits values along the count value axis
+\code{zlim}: Limits values along the count value axis\cr
 
-\bold{Details on the plot functions} \cr
+
+\bold{Energy axis re-calculation}
+
+If the argument \code{xaxis.energy = TRUE} is chosen, instead intensity vs. wavelength the spectrum
+is plotted as intensiyt vs. energy. Therefore the entire spectrum is re-recaluated
+(e.g., Appendix 4 in Blasse and Grabmeier, 1994):
+
+The intensity of the spectrum (z-values) is re-calcualted using the following equation:
+
+\deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
+
+with \eqn{\phi_{E}} the intensity per interval of energy \eqn{E} (eV), \eqn{\phi_{\lambda}}
+the intensity per interval of wavelength \eqn{\lambda} (nm) and \eqn{h} (eV/s) the Planck constant
+and \eqn{c} (m/s) the velocity of light.
+
+For transforming the wavelength axis (x-values) the equation
+
+\deqn{E = hc/\lambda}
+
+is used. For further details please see the cited the literature.\cr
+
+\bold{Details on the plot functions}
 
 Spectrum is visualised as 3D or 2D plot. Both plot types are based on internal
 R plot functions. \cr
@@ -82,25 +103,29 @@ to set the background transparent and reduce the thickness of the lines use:
 \code{par(bg = NA, lwd = 0.7)} previous the function call.}
 
 \bold{\code{plot.type = "single"}}\cr
+
 Per frame a single curve is returned. Frames are time or temperature steps.\cr
 
 \bold{\code{plot.type = "multiple.lines"}}\cr
-All frames drawn in one frame.\cr
+
+All frames plotted in one frame.\cr
 
 \bold{\code{plot.type = "transect"}}\cr
+
 Depending on the selected wavelength/channel range a transect over the
 time/temperature (y-axis) will be plotted along the wavelength/channels (x-axis).
 If the range contains more than one channel, values (z-values) are summed up.
 To select a transect use the \code{xlim} argument, e.g. \code{xlim = c(300,310)}
-plot along the summed up count values of channel 300 to 310.
+plot along the summed up count values of channel 300 to 310.\cr
 
 
-\bold{Further arguments that will be passed (depending on the plot type)}\cr
+\bold{Further arguments that will be passed (depending on the plot type)}
+
 \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{zlim},
-\code{main}, \code{mtext}, \code{pch}, \code{type}, \code{border}, \code{box}
+\code{main}, \code{mtext}, \code{pch}, \code{type}, \code{col}, \code{border}, \code{box}
 \code{lwd}, \code{bty} \cr}
 \value{Returns a plot.}
-\references{#}
+\references{Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.}
 \author{Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 R Luminescence Package Team}
 \note{Not all additional arguments (\code{...}) will be passed similarly!}
@@ -124,7 +149,7 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 
 ##(2) plot simple spectrum (2D) - multiple.lines (with ylim)
 plot_RLum.Data.Spectrum(TL.Spectrum,
-                        plot.type="multiple.lines",
+                        plot.type="persp",
                         xlim = c(310,750),
                         ylim = c(0,100),
                         bin.rows=10,
@@ -139,4 +164,4 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 }
 
 \keyword{aplot}
-\section{Function version}{0.3.5 (2015-03-21 10:14:55)}
+\section{Function version}{0.4.0 (2015-04-16 09:14:44)}

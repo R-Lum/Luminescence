@@ -7,7 +7,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 
   ##section<<
-  ## version 0.3.1
+  ## version 0.3.2
   # ===========================================================================
 
   ##TODO - keep fit.range in mind for De calculation
@@ -19,6 +19,7 @@ analyse_IRSAR.RF<- structure(function(# Analyse IRSAR RF measurements
   ###   also on the regenerated curve? At least there should be a clever check.
   ### - currently no feedback on the outlier removal are given
   ### - CHECK ERROR CALCULATION!
+  ### - RETURN values are not sufficiently described.
 
   object,
   ### \code{\linkS4class{RLum.Analysis}} (\bold{required}):
@@ -618,6 +619,7 @@ else if(method == "SLIDE"){
   values.residuals <- temp.sliding[[3]]
   temp.trend.fit <- temp.sliding[[4]]
   values.natural.limited.full <- temp.sliding[[5]]
+  Trend.slope <- temp.sliding[[4]][2]
 
 
   # MC runs for error calculation ---------------------------------------------------------------
@@ -1069,6 +1071,7 @@ if(plot==TRUE){
   if(!exists("De.error.lower")){De.error.lower  <- NA}
   if(!exists("De.error.upper")){De.error.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
+  if(!exists("Trend.slope")){Trend.slope  <- NA}
   if(!exists("fit")){fit  <- NA}
 
 
@@ -1080,6 +1083,7 @@ if(plot==TRUE){
                           De.error.lower = De.error.lower,
                           De.error.upper = De.error.upper,
                           De.status = De.status,
+                          Trend.slope =  Trend.slope,
                           row.names=NULL)
 
   newRLumResults.analyse_IRSAR.RF <- set_RLum.Results(

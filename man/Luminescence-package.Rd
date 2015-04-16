@@ -10,8 +10,8 @@ A collection of various R functions for the purpose of Luminescence dating data 
 \tabular{ll}{
 Package: \tab Luminescence\cr
 Type: \tab Package\cr
-Version: \tab 0.4.3 [upcoming]\cr
-Date: \tab 2015-XX-XX\cr
+Version: \tab 0.4.3\cr
+Date: \tab 2015-04-16\cr
 License: \tab GPL-3\cr
 }
 %~~ An overview of how to use the package, including the most important functions ~~

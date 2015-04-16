@@ -7,7 +7,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
 
   ##section<<
-  ## version 0.3.5
+  ## version 0.4.0
   # ===========================================================================
 
   object,
@@ -50,12 +50,12 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
 
   rug = TRUE,
   ### \code{\link{logical}} (with default): enables or disables colour rug.
-  ### Currently only implemented for plot type \code{multiple.lines}.
+  ### Currently only implemented for plot type \code{multiple.lines} and \code{single}
 
   xaxis.energy = FALSE,
   ### \code{\link{logical}} (with default): enables or disables energy instead
-  ### of wavelength axis. Axis labelling are changed accordingly, so far no
-  ### manual axis labelling is choosen.
+  ### of wavelength axis. Note: This option means not only simnply redrawing the axis, insteadly the
+  ### spectrum in terms of intensity is recalculated, s. details.
 
   legend.text,
   ### \code{\link{character}} (with default): possiblity to provide own legend text.
@@ -73,7 +73,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   ##check if object is of class RLum.Data.Spectrum
   if(class(object) != "RLum.Data.Spectrum"){
 
-    stop("[plot_RLum.Data.Spectrum] Input object is not of type RLum.Data.Spectrum")
+    stop("[plot_RLum.Data.Spectrum()] Input object is not of type RLum.Data.Spectrum")
 
   }
 
@@ -82,26 +82,38 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   if("curveDescripter" %in% names(object@info) == TRUE){
 
     temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
-    xlab <- if(xaxis.energy == FALSE | plot.type == "persp" | plot.type == "persp3d"){
+    xlab <- if(xaxis.energy == FALSE){
       temp.lab[2]}else{"Energy [eV]"}
     ylab <- temp.lab[1]
     zlab <- temp.lab[3]
 
   }else{
 
-    xlab <- if(xaxis.energy == FALSE | plot.type == "persp" | plot.type == "persp3d"){
+    xlab <- if(xaxis.energy == FALSE){
       "Row values [a.u.]"}else{"Energy [eV]"}
     ylab <- "Column values [a.u.]"
     zlab <- "Cell values [a.u.]"
 
   }
 
-  ##warning for energy curve conversion
-  if(xaxis.energy == TRUE & (plot.type == "persp" | plot.type == "persp3d")){
+  # Do energy axis conversion -------------------------------------------------------------------
+  if (xaxis.energy) {
+    temp.object.data <- sapply(1:ncol(object@data), function(x) {
+      object@data[,x] * x ^ 2 / (4.13566733e-015 * 299792458e+09)
+    })
 
-    warning("Energy axis conversion not supported for this plot.type, nothing was done.")
+    ##preserve column and rownames
+    colnames(temp.object.data) <- colnames(object@data)
+    rownames(temp.object.data) <-
+      4.13566733e-015 * 299792458e+09 / as.numeric(rownames(object@data))
+
+    ##write back to original data
+    object@data <-
+      temp.object.data[order(as.numeric(rownames(temp.object.data))),]
 
   }
+
+
 
   ##deal with addition arguments
   extraArgs <- list(...)
@@ -175,10 +187,8 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   {""}
 
 
-
-
   # prepare values for plot ---------------------------------------------------
-  temp.xyz <- as(object, "matrix")
+  temp.xyz <- get_RLum.Data.Spectrum(object)
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
@@ -311,32 +321,64 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
 
   # set color values --------------------------------------------------------
 
-  if("col" %in% names(extraArgs) == FALSE){
+  if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
 
-    if(optical.wavelength.colours == TRUE && (type == "b" | type == "p" |
-                                              (plot.type != "single" &&
-                                               plot.type != "transect"))){
+    if(optical.wavelength.colours == TRUE | rug == TRUE){
 
-      col.violet <- c(ifelse(min(xlim) <= 300, min(xlim), 300),450)
-      col.blue <- c(450,495)
-      col.green <- c(495,570)
-      col.yellow <- c(570,590)
-      col.orange <- c(590,620)
-      col.red <- c(620,790)
-      col.infrared <- c(790, ifelse(max(xlim) >= 800, max(xlim), 800))
+      ##make different colour palette for energy valuesw
+      if (xaxis.energy) {
+        col.violet <- c(2.76, ifelse(max(xlim) <= 4.13, max(xlim), 4.13))
+        col.blue <- c(2.52, 2.76)
+        col.green <- c(2.18, 2.52)
+        col.yellow <- c(2.10, 2.18)
+        col.orange <- c(2.00, 2.10)
+        col.red <- c(1.57, 2.00)
+        col.infrared <-
+          c(1.55, ifelse(min(xlim) >= 1.55, min(xlim), 1.57))
 
-      #set colour palette
-      col <- unlist(sapply(1:length(x), function(i){
 
-        if(x[i] >= col.violet[1] & x[i] < col.violet[2]){"#EE82EE"}
-        else if(x[i] >= col.blue[1] & x[i] < col.blue[2]){"#0000FF"}
-        else if(x[i] >= col.green[1] & x[i] < col.green[2]){"#00FF00"}
-        else if(x[i] >= col.yellow[1] & x[i] < col.yellow[2]){"#FFFF00"}
-        else if(x[i] >= col.orange[1] & x[i] < col.orange[2]){"#FFA500"}
-        else if(x[i] >= col.red[1] & x[i] < col.red[2]){"#FF0000"}
-        else if(x[i] >= col.infrared[1]){"#BEBEBE"}
+        #set colour palette
+        col <- unlist(sapply(1:length(x), function(i){
 
-      }))
+          if(x[i] >= col.violet[1] & x[i] < col.violet[2]){"#EE82EE"}
+          else if(x[i] >= col.blue[1] & x[i] < col.blue[2]){"#0000FF"}
+          else if(x[i] >= col.green[1] & x[i] < col.green[2]){"#00FF00"}
+          else if(x[i] >= col.yellow[1] & x[i] < col.yellow[2]){"#FFFF00"}
+          else if(x[i] >= col.orange[1] & x[i] < col.orange[2]){"#FFA500"}
+          else if(x[i] >= col.red[1] & x[i] < col.red[2]){"#FF0000"}
+          else if(x[i] <= col.infrared[2]){"#BEBEBE"}
+
+        }))
+
+
+      }else{
+        col.violet <- c(ifelse(min(xlim) <= 300, min(xlim), 300),450)
+        col.blue <- c(450,495)
+        col.green <- c(495,570)
+        col.yellow <- c(570,590)
+        col.orange <- c(590,620)
+        col.red <- c(620,790)
+        col.infrared <-
+          c(790, ifelse(max(xlim) >= 800, max(xlim), 800))
+
+
+        #set colour palette
+        col <- unlist(sapply(1:length(x), function(i){
+
+          if(x[i] >= col.violet[1] & x[i] < col.violet[2]){"#EE82EE"}
+          else if(x[i] >= col.blue[1] & x[i] < col.blue[2]){"#0000FF"}
+          else if(x[i] >= col.green[1] & x[i] < col.green[2]){"#00FF00"}
+          else if(x[i] >= col.yellow[1] & x[i] < col.yellow[2]){"#FFFF00"}
+          else if(x[i] >= col.orange[1] & x[i] < col.orange[2]){"#FFA500"}
+          else if(x[i] >= col.red[1] & x[i] < col.red[2]){"#FF0000"}
+          else if(x[i] >= col.infrared[1]){"#BEBEBE"}
+
+        }))
+
+
+      }
+
+
 
         ##find unique colours
         col.unique <- unique(col)
@@ -349,39 +391,53 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
           ##set colour function for replacement
           colfunc <- colorRampPalette(col.unique)
 
-          ##get index for cut colour values from current palette
-          col.unique.index <- sapply(1:length(col.unique), function(i){
+          ##get index for colour values to be cut from the current palette
+          col.unique.index <-
+            sapply(1:length(col.unique), function(i) {
+              max(which(col == col.unique[i]))
 
-            col.unique.max <- max(which(col == col.unique[i]))
+            })
 
-          })
 
-          ##remove last index (no colour gradient needed)
+          ##remove last index (no colour gradient needed), for energy axis use the first value
           col.unique.index <- col.unique.index[-length(col.unique.index)]
+
 
           ##set borders for colour gradient recalculation
           col.unique.index.min <- col.unique.index - (50)/bin.rows
           col.unique.index.max <- col.unique.index + (50)/bin.rows
 
+          ##set negative values to the lowest index
+          col.unique.index.min[col.unique.index.min<=0] <- 1
+
+
+
           ##build up new index sequence (might be better)
-          col.gradient.index <- as.vector(
+          col.gradient.index <- as.vector(unlist((
             sapply(1:length(col.unique.index.min), function(j){
 
             seq(col.unique.index.min[j],col.unique.index.max[j], by = 1)
 
-         }))
+         }))))
+
 
         ##generate colour ramp and replace values
         col.new <- colfunc(length(col.gradient.index))
         col[col.gradient.index] <- col.new
 
         ##correct for overcharged colour values (causes zebra colour pattern)
-        if(diff(c(length(col), nrow(temp.xyz))) < 0){
+        if (diff(c(length(col), nrow(temp.xyz))) < 0) {
+          col <- col[1:c(length(col) - diff(c(length(col), nrow(temp.xyz))))]
 
-          col <- col[1:c(length(col)+diff(c(length(col), nrow(temp.xyz))))]
+        }else if(diff(c(length(col), nrow(temp.xyz))) > 0){
+          col <- col[1:c(length(col) + diff(c(length(col), nrow(temp.xyz))))]
+
 
         }
-      }
+
+
+        }
+
 
     }else{
 
@@ -395,6 +451,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
 
   }
 
+
   # Do log scaling if needed -------------------------------------------------
 
   ##x
@@ -405,6 +462,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
 
   ##z
   if(grepl("z", log)==TRUE){temp.xyz <- log10(temp.xyz)}
+
 
   # PLOT --------------------------------------------------------------------
 
@@ -434,6 +492,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   ## ==========================================================================#
   ##perspective plot
   ## ==========================================================================#
+
   persp(x, y, temp.xyz,
         shade = shade,
         phi = phi,
@@ -463,30 +522,24 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
            xlab = xlab,
            ylab = ylab,
            main = main,
-           col = "black",
-           xaxt = "n"
+           col = "black"
            )
 
    ##plot additional mtext
    mtext(mtext, side = 3, cex = cex*0.8)
-
-   ##add normal or energy axsis
-   if(xaxis.energy == FALSE){
-
-     axis(side =1)
-
-   }else{
-
-     axis.ticks <- seq(min(xlim), max(xlim), length = 10)
-     axis(side = 1, at = axis.ticks,
-          labels = round(c((4.13566733e-015 * 299792458e+09)/axis.ticks), digits =1))
-   }
 
 
    } else if(plot.type == "single") {
   ## ==========================================================================#
   ## single plot
   ## ==========================================================================#
+
+    col.rug <- col
+
+    col<- if("col" %in% names(extraArgs)) {extraArgs$col} else
+    {"black"}
+
+
 
     for(i in 1:length(y)){
 
@@ -499,7 +552,6 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
            xlim = xlim,
            ylim = zlim,
            col = col,
-           xaxt = "n",
            sub = paste(
              "(frame ",i, " | ",
              ifelse(i==1,
@@ -510,19 +562,14 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
            type = type,
            pch = pch)
 
-      ##add normal or energy axsis
-      if(xaxis.energy == FALSE){
-
-        axis(side =1)
-
-      }else{
-
-        axis.ticks <- seq(min(xlim), max(xlim), length = 10)
-        axis(side = 1, at = axis.ticks,
-             labels = round(c((4.13566733e-015 * 299792458e+09)/axis.ticks), digits =1))
+      if(rug == TRUE){
+        ##rug als continous polygons
+        for(i in 1:length(x)){
+          polygon(x = c(x[i],x[i+1],x[i+1],x[i]),
+                  y = c(min(zlim),min(zlim), par("usr")[3], par("usr")[3]),
+                  border = col.rug[i], col = col.rug[i])
+        }
       }
-
-
 
     }
 
@@ -534,6 +581,11 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
     ## ========================================================================#
     ## multiple.lines plot
     ## ========================================================================#
+
+      col.rug <- col
+
+      col<- if("col" %in% names(extraArgs)) {extraArgs$col} else
+      {"black"}
 
       ##change graphic settings
       par.default <- par()[c("mfrow", "mar", "xpd")]
@@ -550,30 +602,16 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
            xlim = xlim,
            ylim = zlim,
            sub = sub,
-           bty = bty,
-           xaxt = "n")
+           bty = bty)
 
       if(rug == TRUE){
       ##rug als continous polygons
       for(i in 1:length(x)){
         polygon(x = c(x[i],x[i+1],x[i+1],x[i]),
                 y = c(min(zlim),min(zlim), par("usr")[3], par("usr")[3]),
-                border = col[i], col = col[i])
+                border = col.rug[i], col = col.rug[i])
         }
       }
-
-      ##add normal or energy axsis
-      if(xaxis.energy == FALSE){
-
-        axis(side =1)
-
-      }else{
-
-      axis.ticks <- seq(min(xlim), max(xlim), length = 10)
-      axis(side = 1, at = axis.ticks,
-           labels = round(c((4.13566733e-015 * 299792458e+09)/axis.ticks), digits =1))
-      }
-
 
        ##add lines
        for(i in 1:length(y)){
@@ -582,7 +620,8 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
                temp.xyz[,i],
                lty = i,
                lwd = lwd,
-               type = type)
+               type = type,
+               col = col)
        }
 
       ##for missing values - legend.text
@@ -652,7 +691,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
 
   ##details<<
   ## \bold{Matrix structure} \cr
-  ## (cf. \code{\linkS4class{RLum.Data.Spectrum}}) \cr
+  ## (cf. \code{\linkS4class{RLum.Data.Spectrum}})
   ##
   ## \itemize{
   ## \item \code{rows} (x-values): wavelengths/channels (xlim, xlab)
@@ -660,16 +699,37 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   ## \item \code{cells} (z-values): count values (zlim, zlab)
   ##}
   ##
-  ## \emph{Note: This nomenclature is valid for all plot types of this function!}
+  ## \emph{Note: This nomenclature is valid for all plot types of this function!}\cr
   ##
   ##
-  ## \bold{Nomenclature for value limiting}\cr
+  ## \bold{Nomenclature for value limiting}
   ##
   ## \code{xlim}: Limits values along the wavelength axis\cr
   ## \code{ylim}: Limits values along the time/temperature axis\cr
-  ## \code{zlim}: Limits values along the count value axis
+  ## \code{zlim}: Limits values along the count value axis\cr
   ##
-  ## \bold{Details on the plot functions} \cr
+  ##
+  ## \bold{Energy axis re-calculation}
+  ##
+  ## If the argument \code{xaxis.energy = TRUE} is chosen, instead intensity vs. wavelength the spectrum
+  ## is plotted as intensiyt vs. energy. Therefore the entire spectrum is re-recaluated
+  ## (e.g., Appendix 4 in Blasse and Grabmeier, 1994):
+  ##
+  ## The intensity of the spectrum (z-values) is re-calcualted using the following equation:
+  ##
+  ## \deqn{\phi_{E} = \phi_{\lambda} * \lambda^2 / (hc)}
+  ##
+  ## with \eqn{\phi_{E}} the intensity per interval of energy \eqn{E} (eV), \eqn{\phi_{\lambda}}
+  ## the intensity per interval of wavelength \eqn{\lambda} (nm) and \eqn{h} (eV/s) the Planck constant
+  ## and \eqn{c} (m/s) the velocity of light.
+  ##
+  ## For transforming the wavelength axis (x-values) the equation
+  ##
+  ## \deqn{E = hc/\lambda}
+  ##
+  ## is used. For further details please see the cited the literature.\cr
+  ##
+  ## \bold{Details on the plot functions}
   ##
   ## Spectrum is visualised as 3D or 2D plot. Both plot types are based on internal
   ## R plot functions. \cr
@@ -690,22 +750,26 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   ## \code{par(bg = NA, lwd = 0.7)} previous the function call.}
   ##
   ## \bold{\code{plot.type = "single"}}\cr
+  ##
   ## Per frame a single curve is returned. Frames are time or temperature steps.\cr
   ##
   ## \bold{\code{plot.type = "multiple.lines"}}\cr
-  ## All frames drawn in one frame.\cr
+  ##
+  ## All frames plotted in one frame.\cr
   ##
   ## \bold{\code{plot.type = "transect"}}\cr
+  ##
   ## Depending on the selected wavelength/channel range a transect over the
   ## time/temperature (y-axis) will be plotted along the wavelength/channels (x-axis).
   ## If the range contains more than one channel, values (z-values) are summed up.
   ## To select a transect use the \code{xlim} argument, e.g. \code{xlim = c(300,310)}
-  ## plot along the summed up count values of channel 300 to 310.
+  ## plot along the summed up count values of channel 300 to 310.\cr
   ##
   ##
-  ## \bold{Further arguments that will be passed (depending on the plot type)}\cr
+  ## \bold{Further arguments that will be passed (depending on the plot type)}
+  ##
   ## \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim}, \code{zlim},
-  ## \code{main}, \code{mtext}, \code{pch}, \code{type}, \code{border}, \code{box}
+  ## \code{main}, \code{mtext}, \code{pch}, \code{type}, \code{col}, \code{border}, \code{box}
   ## \code{lwd}, \code{bty} \cr
 
 
@@ -713,7 +777,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
   ## Returns a plot.
 
   ##references<<
-  ## #
+  ## Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials. Springer.
 
   ##note<<
   ## Not all additional arguments (\code{...}) will be passed similarly!
@@ -741,7 +805,7 @@ plot_RLum.Data.Spectrum<- structure(function(#Plot function for an RLum.Data.Spe
 
  ##(2) plot simple spectrum (2D) - multiple.lines (with ylim)
  plot_RLum.Data.Spectrum(TL.Spectrum,
-                         plot.type="multiple.lines",
+                         plot.type="persp",
                          xlim = c(310,750),
                          ylim = c(0,100),
                          bin.rows=10,

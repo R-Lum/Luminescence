@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.4.3 (XXth, 2015):
+Changes in version 0.4.3 (17th, 2015):
 
   Bugfixes and changes:
 
@@ -67,6 +67,37 @@ Changes in version 0.4.3 (XXth, 2015):
              • argument 'breaks' removed from the argument list,
                however, supported via the ‘'...'’ argument.
 
+         • ‘plot_GrowthCurve()’
+
+             • Error estimation using the Monte Carlo runs for the
+               fitting function ‘fit.method = "EXP+LIN"’ and
+               ‘fit.method = "EXP+EXP"’ results in false values, as the
+               Monte Carlo simulation was fed by mistake with wrong
+               input variables (introduced in version 0.4.2 with the
+               uniroot function) ... fixed,
+
+             • the function brook if the uniroot algorithm was not able
+               to find a solution within the given ranges, fixed. De
+               will become NA instead and the function continues.
+
+         • ‘plot_RLum.Data.Spectrum()’
+
+             • Colour handing changed towards a more logical behaviour
+               for ‘plot.type = 'single'’.  The color now changes only
+               the colour of the points and the argument ‘rug’ is now
+               recognised also by this plot type. Automatic wavelength
+               colouring for points for in this plot type has been
+               removed.
+
+             • same changes are made for ‘plot.type =
+               'multiple.lines'’,
+
+             • instead of just plotting a new x-axis when the argument
+               ‘xaxis.energy = TRUE’ is used, the spectrum (intensity)
+               is now proper re-calculated (#192),
+
+             • minor code polishing.
+
          • ‘plot_RLum.Anaysis()’
 
              • Setting the argument ‘combine = TRUE’ for 'OSL' and
@@ -74,7 +105,13 @@ Changes in version 0.4.3 (XXth, 2015):
                'curve.transformation'; corrected.,
 
              • colour handling for setting ‘combine = TRUE’ improved.
-               It now works as for ‘plot.default’.
+               It now works as for ‘plot.default’,
+
+             • support for ‘xlim’ and ‘ylim’ in the non-combined mode,
+
+             • combine mode (‘combine = TRUE’) is no more limited to an
+               input object of similar curves. Now the plot function
+               tries to combine curves of similar type automatically.
 
          • ‘readBIN2R()’
 

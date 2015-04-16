@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.4.3 (XXth, 2015)}{
+\section{Changes in version 0.4.3 (17th, 2015)}{
 
   \subsection{Bugfixes and changes}{
    \itemize{
@@ -60,12 +60,37 @@
           argument.
        }
 
+      \item \code{plot_GrowthCurve()}
+       \itemize{
+          \item Error estimation using the Monte Carlo runs for the
+          fitting function \code{fit.method = "EXP+LIN"} and \code{fit.method = "EXP+EXP"} results in false values, as the Monte Carlo simulation
+          was fed by mistake with wrong input variables (introduced in version 0.4.2 with the uniroot function) ... fixed,
+          \item the function brook if the uniroot algorithm was not able to find a solution within the given ranges, fixed. De will become
+          NA instead and the function continues.
+       }
+
+
+    \item \code{plot_RLum.Data.Spectrum()}
+       \itemize{
+          \item Colour handing changed towards a more logical behaviour for \code{plot.type = 'single'}.
+          The color now changes only the colour of the points and the argument \code{rug} is now recognised also
+          by this plot type. Automatic wavelength colouring for points for in this plot type has been removed.
+          \item same changes are made for  \code{plot.type = 'multiple.lines'},
+          \item instead of just plotting a new x-axis when the argument \code{xaxis.energy = TRUE} is used,
+          the spectrum (intensity) is now proper re-calculated (#192),
+          \item minor code polishing.
+
+       }
 
       \item \code{plot_RLum.Anaysis()}
        \itemize{
           \item Setting the argument \code{combine = TRUE} for 'OSL' and 'IRSL' caused an error related
           to the missing argument 'curve.transformation'; corrected.,
-          \item colour handling for setting \code{combine = TRUE} improved. It now works as for \code{plot.default}.
+          \item colour handling for setting \code{combine = TRUE} improved. It now works as for \code{plot.default},
+          \item support for \code{xlim} and \code{ylim} in the non-combined mode,
+          \item combine mode (\code{combine = TRUE}) is no more limited to an input object of similar curves. Now
+          the plot function tries to combine curves of similar type automatically.
+
        }
 
 

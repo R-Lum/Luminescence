@@ -123,4 +123,4 @@ plot_GrowthCurve(LxTxData)
 plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 ##dev.off()
 }
-\section{Function version}{1.5 (2015-03-04 12:43:39)}
+\section{Function version}{1.6.0 (2015-04-16 11:35:46)}
