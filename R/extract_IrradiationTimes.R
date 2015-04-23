@@ -349,7 +349,16 @@ extract_IrradiationTimes <- structure(function(#Extract irradiation times from a
   ## does not allow irradiations as separat sequences steps.\cr
   ##
   ## Know issue: The 'fading correction' menu in the Analyst will not work appear with the produced
-  ## BIN/BINX-file due to hidden bits, which are not reproduced by the function \code{writeR2BIN()}.
+  ## BIN/BINX-file due to hidden bits, which are not reproduced by the function \code{writeR2BIN()}
+  ## or if it appears it stops with a floating point error. \cr
+  ##
+  ## Negative values for \code{TIMESINCELAS.STEP}? Yes, this is possible and no bug, as in the XSYG
+  ## file multiple curves are stored for one step. Example:
+  ## A TL step may comprise three curves: (a) counts vs. time, (b) measured temperature
+  ## vs. time and (c) predefined temperature vs. time. Three curves, but they are all belonging
+  ## to one TL measurement step, but with regard to the time stamps this could produce negative
+  ## values as the important function (\code{\link{readXSYG2R}}) do not change the order of entries
+  ## for one step towards a correct time order.
 
   ##seealso<<
   ## \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},

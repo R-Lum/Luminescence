@@ -1,6 +1,26 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.4.3 (17th, 2015):
+Changes in version 0.4.4 (XXth, May 2015):
+
+  Bugfixes and changes:
+
+         • ‘plot_GrowthCurve()’
+
+             • Function crashed with unclear error if the number of
+               regenerations points was <=3), fixed,
+
+             • fitting is now allowed with at leat two regenerations
+               points.
+
+Changes in version 0.4.3 (17th, April 2015):
+
+  Note on the update:
+
+         • This is an unplanned update but it was necessary as with the
+           last package version (0.4.2) unfortunately we introduced
+           (again) a bug in the error calculation routine of the
+           function plot_GrowthCurve().  Due to this the error of the
+           resulting De became unrealistically small.
 
   Bugfixes and changes:
 
@@ -18,35 +38,36 @@ Changes in version 0.4.3 (17th, 2015):
              • If the threshold for the rejection criteria was reached
                due an error this information was not properly stored in
                the output object (i.e. every time 'RC.Status' was set
-               to 'OK'); corrected (#180).
+               to 'OK' instead of 'FAILED'); corrected (#180).
 
          • ‘extract_IrradiationTimes()’
 
-             • Argument ‘file.XSYG’ replaced by ‘object’,
+             • Argument ‘file.XSYG’ replaced by ‘object’ for the sake
+               of argument consistency on the package,
 
              • allow input for ‘RLum.Analysis’ object. In such cases
                the arguments ‘file.BINX’ and ‘recordType’ are ignored.
-               This mode gives more flexibility in applying this
+               This mode allows for more flexibility in applying this
                function,
 
-             • new argument ‘compatibility.mode’ to trigger the write
-               output of the BIN/BINX-file,
+             • new argument ‘compatibility.mode’ to trigger the binary
+               write output of the BIN/BINX-file,
 
              • additionally now the time between the steps is exported
-               ‘TIMESINCELAST.STEP’.
+               (‘TIMESINCELAST.STEP’).
 
          • ‘fit_CWVCurve()’
 
              • The function broke with an error under rare
-               circumstances when not fit was made (reported by
+               circumstances when no fit was made (reported by
                Alexandra Rowell); corrected,
 
              • change start parameter estimation to better account for
-               the input data, this should hopefully stabilise the
+               the input data, this hopefully further stabilise the
                fitting (thanks to Alexandra Rowell),
 
-             • proper rescaling graphical output if no fit could be
-               made,
+             • more proper re-scaling of the graphical output if no fit
+               could be produced,
 
              • new argument add ‘fit.method’ to allow using the
                function ‘nlsLM’ from the ‘minpack.lm package’ and with
@@ -62,28 +83,32 @@ Changes in version 0.4.3 (17th, 2015):
          • ‘plot_Histogram()’
 
              • Argument 'breaks' was without function due to a coding
-               error. Corrected. (#217),
+               error. Corrected (#217).,
 
              • argument 'breaks' removed from the argument list,
-               however, supported via the ‘'...'’ argument.
+               however, it remains supported via the ‘'...'’ argument.
 
          • ‘plot_GrowthCurve()’
 
              • Error estimation using the Monte Carlo runs for the
                fitting function ‘fit.method = "EXP+LIN"’ and
-               ‘fit.method = "EXP+EXP"’ results in false values, as the
-               Monte Carlo simulation was fed by mistake with wrong
-               input variables (introduced in version 0.4.2 with the
-               uniroot function) ... fixed,
+               ‘fit.method = "EXP+EXP"’ results in unrealistic values,
+               as the Monte Carlo simulation was fed by mistake with
+               wrong input variables (introduced in version 0.4.2 with
+               the uniroot function) ... fixed,
 
-             • the function brook if the uniroot algorithm was not able
-               to find a solution within the given ranges, fixed. De
-               will become NA instead and the function continues.
+             • the function broke if the uniroot algorithm was not be
+               able to find a solution within the given ranges, fixed.
+               Now the De will become NA insteadly and the function
+               will not stop,
+
+             • error messages coming from the fitting process itself
+               are now surpressed.
 
          • ‘plot_RLum.Data.Spectrum()’
 
              • Colour handing changed towards a more logical behaviour
-               for ‘plot.type = 'single'’.  The color now changes only
+               for ‘plot.type = 'single'’.  The colour now changes only
                the colour of the points and the argument ‘rug’ is now
                recognised also by this plot type. Automatic wavelength
                colouring for points for in this plot type has been
@@ -122,8 +147,8 @@ Changes in version 0.4.3 (17th, 2015):
 
              • Info objects from the sequence header like 'name' and
                'position' are now be additionally transferred to each
-               single output object, to keep this information in the
-               object.
+               single output object. With this the information is kept
+               within the curve object.
 
          • ‘writeR2BIN()’
 
@@ -131,17 +156,19 @@ Changes in version 0.4.3 (17th, 2015):
                support by Torben Lapp (#215),
 
              • new argument ‘compatibility.mode’ to avoid position
-               numbers >48. This may cause errors using external
-               software like the Analyst. The old version number will
-               be added in the comment field.
+               numbers >48 as this caused errors using external
+               software like the Analyst. The old version number is
+               kept and added in the comment field.
 
   Internals:
 
          • Description on the class ‘Risoe.BINfileData’ updated in
-           accordance with the implemented changes on the import,
+           accordance with the implemented changes on the import (no
+           change in the S4-object class chart),
 
          • added dependency to package ‘minpack.lm’ to support the
-           Levenberg-Marquardt algorithm for fitting.
+           Levenberg-Marquardt algorithm for fitting in the function
+           ‘fit_LMCurve()’
 
 Changes in version 0.4.2 (March 23th, 2015):
 

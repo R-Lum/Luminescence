@@ -4,25 +4,25 @@
 \docType{package}
 \title{Comprehensive Luminescence Dating Data Analysis}
 \description{
-A collection of various R functions for the purpose of Luminescence dating data analysis. This includes, amongst others, data import, export, application of age models, curve deconvolution, sequence analysis and plotting of equivalent dose distributions. 
+A collection of various R functions for the purpose of Luminescence dating data analysis. This includes, amongst others, data import, export, application of age models, curve deconvolution, sequence analysis and plotting of equivalent dose distributions.
 }
 \details{
 \tabular{ll}{
 Package: \tab Luminescence\cr
 Type: \tab Package\cr
-Version: \tab 0.4.3\cr
-Date: \tab 2015-04-16\cr
+Version: \tab 0.4.4 [upcoming]\cr
+Date: \tab 2015-05-XX\cr
 License: \tab GPL-3\cr
 }
 %~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-\bold{Authors} 
+\bold{Authors}
 
-\tabular{ll}{ 
+\tabular{ll}{
 Christoph Burow \tab University of Cologne, Germany \cr
 Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr
-Manfred Fischer\tab University of Bayreuth, Germany \cr 
+Manfred Fischer\tab University of Bayreuth, Germany \cr
 Margret C. Fuchs \tab Alfred Wegener Insitute for Polar and Marine Research, Potsdam, Germany\cr
 Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France\cr
 Christoph Schmidt \tab University of Bayreuth, Germany\cr
@@ -42,7 +42,7 @@ Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
 
 \email{developer@r-luminescence.de}\cr
 
-We may further encourage the usage of our support forum. 
+We may further encourage the usage of our support forum.
 For this please visit our project website (link below).
 
 \bold{Bug reporting}
@@ -58,6 +58,7 @@ For this please visit our project website (link below).
 
 \bold{Related package projects}\cr
 \url{http://cran.r-project.org/web/packages/RLumShiny}\cr
+\url{http://shiny.r-luminescence.de}\cr
 
 
 \bold{Package maintainer}
@@ -67,9 +68,9 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France,
 
 \bold{Acknowledgement}
 
-Cooperation and personal exchange between the developers is gratefully funded by 
-the DFG (SCHM 3051/3-1) in the framework of the program "Scientific Networks". 
-Project title: "Lum.Network: Ein Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2017) 
+Cooperation and personal exchange between the developers is gratefully funded by
+the DFG (SCHM 3051/3-1) in the framework of the program "Scientific Networks".
+Project title: "Lum.Network: Ein Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2017)
 
 }
 

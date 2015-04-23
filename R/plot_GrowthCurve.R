@@ -8,7 +8,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
   ## Michael Dietze, GFZ Potsdam (Germany), \cr
 
   ##section<<
-  ##version 1.6.0
+  ##version 1.6.1
   # ===========================================================================
 
   sample,
@@ -260,7 +260,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 
 	if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
-        if(fit.method!="LIN" & length(data[,1])>3){
+        if(fit.method!="LIN" & length(data[,1])>=2){
 
 					##FITTING on GIVEN VALUES##
 					#	--use classic R fitting routine to fit the curve
@@ -289,6 +289,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
             }
           }
 
+
           ##used median as start parameters for the final fitting
           a<-median(na.exclude(a.start));b<-median(na.exclude(b.start));c<-median(na.exclude(c.start))
 
@@ -316,6 +317,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 					             nls.control(maxiter=500)
 					))#end nls
           }
+
 
 							if (class(fit)=="try-error"){
 
@@ -510,7 +512,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 						  algorithm="port",
               lower = if(fit.bounds==TRUE){lower=c(a=0,b>10,c=0,g=0)}else{c()},
 						  nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
-						  ))
+						  ), silent = TRUE)
 
             }else{
 
@@ -521,7 +523,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
                            algorithm="port",
                            lower = if(fit.bounds==TRUE){lower=c(a=0,b>10,c=0,g=0)}else{c()},
                            nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
-              ))
+              ), silent = TRUE)
 
             }
 
@@ -647,7 +649,13 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 					##close
 					close(pb)
 
-      }#end if try-error
+			}else{
+
+			  #print message
+			  writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
+
+  		} #end if "try-error" Fit Method
+
 		} #End if EXP+LIN
 		#==========================================================================
 		#===========================================================================
@@ -690,10 +698,10 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 		  }
 
         ##use obtained parameters for fit input
-        a1.start <- median(na.exclude(a1.start))
-        b1.start <- median(na.exclude(b1.start))
-        a2.start <- median(na.exclude(a2.start))
-        b2.start <- median(na.exclude(b2.start))
+        a1.start <- median(a1.start, na.rm = TRUE)
+        b1.start <- median(b1.start, na.rm = TRUE)
+        a2.start <- median(a2.start, na.rm = TRUE)
+        b2.start <- median(b2.start, na.rm = TRUE)
 
 							#Fit curve on given values
               if(!is.null(fit.weights)){
@@ -706,7 +714,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 									  algorithm="port",
 									  nls.control(maxiter=500, minFactor=1/2048), #increase max. iterations
                     lower=c(a1>0,a2>0,b1>0,b2>0)
-								  ))#end nls
+								  ), silent = TRUE)#end nls
 
               }else{
 
@@ -717,10 +725,9 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
                              algorithm="port",
                              nls.control(maxiter=500, minFactor=1/2048), #increase max. iterations
                              lower=c(a1>0,a2>0,b1>0,b2>0)
-                ))#end nls
+                ), silent = TRUE)#end nls try
 
               }
-
 
               ##insert if for try-error
               if (class(fit)!="try-error") {
@@ -775,7 +782,6 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
             var.b2<-vector(mode="numeric", length=NumberIterations.MC)
 						var.a1<-vector(mode="numeric", length=NumberIterations.MC)
             var.a2<-vector(mode="numeric", length=NumberIterations.MC)
-
 
 						##terminal output fo MC
 						cat("\n\t Run Monte Carlo loops for error estimation of the EXP+EXP fit\n")
@@ -852,7 +858,13 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 
 						} #end for loop
 
+          }else{
+
+            #print message
+            writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
+
           } #end if "try-error" Fit Method
+
 
         ##close
         if(exists("pb")){close(pb)}
@@ -875,8 +887,7 @@ plot_GrowthCurve <- structure(function(# Fit and plot a growth curve for lumines
 
 
 # Formula creation --------------------------------------------------------
-
-  if(is(fit,"try-error") == FALSE){
+  if(!is(fit,"try-error") & !is.na(fit[1])){
 
   if(fit.method == "EXP") {
     f <- parse(text = paste0(round(coef(fit)[1], 5), " * (1 - exp( - (x + ",
