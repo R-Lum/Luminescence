@@ -1,25 +1,44 @@
-calc_HomogeneityTest<- structure(function( # Apply a simple homogeneity test after Galbraith (2003)
-  ### A simple homogeneity test for De estimates
-  
-  # ===========================================================================
-  ##author<< 
-  ## Christoph Burow, University of Cologne (Germany), \cr
-  
-  ##section<<
-  ## version 0.2 
-  # ===========================================================================
-  
+#' Apply a simple homogeneity test after Galbraith (2003)
+#' 
+#' A simple homogeneity test for De estimates
+#' 
+#' For details see Galbraith (2003).
+#' 
+#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
+#' (\bold{required}): for \code{data.frame}: two columns with De
+#' \code{(data[,1])} and De error \code{(values[,2])}
+#' @param log \code{\link{logical}} (with default): peform the homogeniety test
+#' with (un-)logged data
+#' @param \dots further arguments (for internal compatibility only).
+#' @return Returns a terminal output. In addition an
+#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' following element:
+#' 
+#' \item{summary}{\link{data.frame} summary of all relevant model results.}
+#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' used arguments} \item{call}{\link{call} the function call}
+#' 
+#' The output should be accessed using the function
+#' \code{\link{get_RLum.Results}}
+#' @section Function version: 0.2 (2015-03-04 13:31:44)
+#' @author Christoph Burow, University of Cologne (Germany), \cr R Luminescence
+#' Package Team
+#' @seealso \code{\link{pchisq}}
+#' @references Galbraith, R.F., 2003. A simple homogeneity test for estimates
+#' of dose obtained using OSL. Ancient TL 21, 75-77.
+#' @examples
+#' 
+#' ## load example data
+#' data(ExampleData.DeValues, envir = environment())
+#' 
+#' ## apply the homogeneity test
+#' calc_HomogeneityTest(ExampleData.DeValues$BT998)
+#' 
+calc_HomogeneityTest <- function(
   data,
-  ### \code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-  ### for \code{data.frame}: two columns with De \code{(data[,1])} and
-  ### De error \code{(values[,2])}
   log=TRUE,
-  ### \code{\link{logical}} (with default): peform the homogeniety test with
-  ### (un-)logged data
   ...
-  ### further arguments (for internal compatibility only).
 ){                     
-  
   
   ##============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
@@ -104,32 +123,5 @@ calc_HomogeneityTest<- structure(function( # Apply a simple homogeneity test aft
     ))
   
   invisible(newRLumResults.calc_HomogeneityTest)
-  ### Returns a terminal output. In addition an 
-  ### \code{\linkS4class{RLum.Results}} object is 
-  ### returned containing the following element:
-  ###
-  ### \item{summary}{\link{data.frame} summary of all relevant model results.}
-  ### \item{data}{\link{data.frame} original input data}
-  ### \item{args}{\link{list} used arguments}
-  ### \item{call}{\link{call} the function call}
-  ###
-  ### The output should be accessed using the function 
-  ### \code{\link{get_RLum.Results}}
   
-  ##details<<
-  ## For details see Galbraith (2003).
-  
-  ##references<<
-  ## Galbraith, R.F., 2003. A simple homogeneity test for estimates of dose
-  ## obtained using OSL. Ancient TL 21, 75-77.
-  
-  ##seealso<<
-  ## \code{\link{pchisq}}
-  
-}, ex=function(){
-  ## load example data
-  data(ExampleData.DeValues, envir = environment())
-  
-  ## apply the homogeneity test
-  calc_HomogeneityTest(ExampleData.DeValues$BT998)
-})
+}

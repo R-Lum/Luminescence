@@ -1,31 +1,48 @@
-plot_RLum.Data.Curve<- structure(function(#Plot function for an RLum.Data.Curve S4 class object
-  ### The function provides a standardised plot output for curve data of an 
-  ### RLum.Data.Curve S4 class object 
-  
-  # ===========================================================================
-  ##author<<
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
-  
-  ##section<<
-  ## version 0.1.5
-  # ===========================================================================
-
+#' Plot function for an RLum.Data.Curve S4 class object
+#' 
+#' The function provides a standardised plot output for curve data of an
+#' RLum.Data.Curve S4 class object
+#' 
+#' Only single curve data can be plotted with this function.  Arguments
+#' according to \code{\link{plot}}.
+#' 
+#' @param object \code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
+#' object of class \code{RLum.Data.Curve}
+#' @param par.local \code{\link{logical}} (with default): use local graphical
+#' parameters for plotting, e.g. the plot is shown in one column and one row.
+#' If \code{par.local = FALSE}, global parameters are inherited.
+#' @param norm \code{\link{logical}} (with default): allows curve normalisation
+#' to the highest count value
+#' @param \dots further arguments and graphical parameters that will be passed
+#' to the \code{plot} function
+#' @return Returns a plot.
+#' @note Not all arguments of \code{\link{plot}} will be passed!
+#' @section Function version: 0.1.5 (2015-03-04 00:19:53)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France), \cr R Luminescence Package Team
+#' @seealso \code{\link{plot}}, \code{\link{plot_RLum}}
+#' @references #
+#' @keywords aplot
+#' @examples
+#' 
+#' 
+#' ##plot curve data
+#' 
+#' #load Example data
+#' data(ExampleData.CW_OSL_Curve, envir = environment())
+#' 
+#' #transform data.frame to RLum.Data.Curve object
+#' temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
+#' 
+#' #plot RLum.Data.Curve object
+#' plot_RLum.Data.Curve(temp)
+#' 
+#' 
+plot_RLum.Data.Curve<- function(
   object, 
-  ### \code{\linkS4class{RLum.Data.Curve}} (\bold{required}): 
-  ### S4 object of class \code{RLum.Data.Curve}
-  
   par.local = TRUE,
-  ### \code{\link{logical}} (with default): use local graphical parameters for plotting, e.g.
-  ### the plot is shown in one column and one row. If \code{par.local = FALSE},  
-  ### global parameters are inherited.
-  
   norm = FALSE, 
-  ### \code{\link{logical}} (with default): allows curve normalisation to the 
-  ### highest count value 
-  
   ...
-  ### further arguments and graphical parameters that will be passed to the 
-  ### \code{plot} function
 ){
   
   # Integrity check -------------------------------------------------------------
@@ -36,28 +53,28 @@ plot_RLum.Data.Curve<- structure(function(#Plot function for an RLum.Data.Curve 
     stop("[plot_RLum.Data.Curve()] Input object is not of type RLum.Data.Curve")
     
   }
-
+  
   ##set labeling unit 
   lab.unit <- if(object@recordType=="OSL" | 
                    object@recordType=="IRSL" | 
                    object@recordType=="RL" | 
                    object@recordType=="RBR"){"s"} 
-              else if (object@recordType == "TL"){"\u00B0C"}
-              else {"Unknown"}
+  else if (object@recordType == "TL"){"\u00B0C"}
+  else {"Unknown"}
   
   lab.xlab <- if(object@recordType=="OSL" | 
                    object@recordType=="IRSL" | 
                    object@recordType=="RL" | 
                    object@recordType=="RBR"){"Time"} 
-              else if (object@recordType == "TL"){"Temperature"}
-              else {"Independent"}
+  else if (object@recordType == "TL"){"Temperature"}
+  else {"Independent"}
   
   ##XSYG
   ##check for curveDescripter
   if("curveDescripter" %in% names(object@info) == TRUE){
     
     temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
- 
+    
     xlab <- temp.lab[1]
     ylab <- temp.lab[2]
     
@@ -78,14 +95,14 @@ plot_RLum.Data.Curve<- structure(function(#Plot function for an RLum.Data.Curve 
   
   xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else 
   {if(exists("xlab") == TRUE){xlab} else
-    {paste(lab.xlab," [",lab.unit,"]", sep="")}}
+  {paste(lab.xlab," [",lab.unit,"]", sep="")}}
   
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} 
-          else if (exists("ylab") == TRUE){ylab}
-          else if (lab.xlab == "Independent") {"Dependent [unknown]"} 
-          else {paste(object@recordType, 
-                      " [cts/", round(max(object@data[,1])/length(object@data[,1]),digits=2)
-         , " ", lab.unit,"]", sep="")}
+  else if (exists("ylab") == TRUE){ylab}
+  else if (lab.xlab == "Independent") {"Dependent [unknown]"} 
+  else {paste(object@recordType, 
+              " [cts/", round(max(object@data[,1])/length(object@data[,1]),digits=2)
+              , " ", lab.unit,"]", sep="")}
   
   sub <-  if("sub" %in% names(extraArgs)) {extraArgs$sub} else
   { 
@@ -157,38 +174,4 @@ plot_RLum.Data.Curve<- structure(function(#Plot function for an RLum.Data.Curve 
   
   if(fun==TRUE){sTeve()}
   
-  # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
-  
-  ##details<<
-  ## Only single curve data can be plotted with this function. 
-  ## Arguments according to \code{\link{plot}}.
-  
-  ##value<<
-  ## Returns a plot.
-  
-  ##references<<
-  ## #
-  
-  ##note<<
-  ## Not all arguments of \code{\link{plot}} will be passed!
-  
-  ##seealso<<
-  ## \code{\link{plot}}, \code{\link{plot_RLum}}
-  
-  ##keyword<<
-  ## aplot
-  
-}, ex=function(){
-  
-  ##plot curve data
-  
-  #load Example data
-  data(ExampleData.CW_OSL_Curve, envir = environment())
-  
-  #transform data.frame to RLum.Data.Curve object
-  temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
-  
-  #plot RLum.Data.Curve object
-  plot_RLum.Data.Curve(temp)
-  
-})#END OF STRUCTURE
+}

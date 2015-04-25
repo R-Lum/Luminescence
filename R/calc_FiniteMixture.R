@@ -1,63 +1,151 @@
-calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution
-  ### This function fits a k-component mixture to a De distribution with 
-  ### differing known standard errors. Parameters (doses and mixing proportions)
-  ### are estimated by maximum likelihood assuming that the log dose estimates 
-  ### are from a mixture of normal distributions.
-  
-  # ===========================================================================
-  ##author<< 
-  ## Christoph Burow, University of Cologne (Germany) \cr
-  ## Based on a rewritten S script of Rex Galbraith, 2006. \cr\cr
-  
-  ##section<<
-  ## version 0.4
-  # ===========================================================================
-  
+#' Apply the finite mixture model (FMM) after Galbraith (2005) to a given De
+#' distribution
+#' 
+#' This function fits a k-component mixture to a De distribution with differing
+#' known standard errors. Parameters (doses and mixing proportions) are
+#' estimated by maximum likelihood assuming that the log dose estimates are
+#' from a mixture of normal distributions.
+#' 
+#' This model uses the maximum likelihood and Bayesian Information Criterion
+#' (BIC) approaches. \cr\cr Indications of overfitting are: \cr\cr - increasing
+#' BIC \cr - repeated dose estimates \cr - covariance matrix not positive
+#' definite \cr - covariance matrix produces NaNs\cr - convergence problems
+#' \cr\cr \bold{Plot} \cr\cr If a vector (\code{c(k.min:k.max)}) is provided
+#' for \code{n.components} a plot is generated showing the the k components
+#' equivalent doses as normal distributions. By default \code{pdf.weight} is
+#' set to \code{FALSE}, so that the area under each normal distribution is
+#' always 1. If \code{TRUE}, the probability density functions are weighted by
+#' the components proportion for each iteration of k components, so the sum of
+#' areas of each component equals 1. While the density values are on the same
+#' scale when no weights are used, the y-axis are individually scaled if the
+#' probability density are weighted by the components proportion. \cr The
+#' standard deviation (sigma) of the normal distributions is by default
+#' determined by a common \code{sigmab} (see \code{pdf.sigma}). For
+#' \code{pdf.sigma = "se"} the standard error of each component is taken
+#' instead.\cr The stacked barplot shows the proportion of each component (in
+#' per cent) calculated by the FFM. The last plot shows the achieved BIC scores
+#' and maximum log-likelihood estimates for each iteration of k.
+#' 
+#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
+#' (\bold{required}): for \code{data.frame}: two columns with De
+#' \code{(data[,1])} and De error \code{(values[,2])}
+#' @param sigmab \code{\link{numeric}} (\bold{required}): spread in De values
+#' given as a fraction (e.g. 0.2). This value represents the expected
+#' overdispersion in the data should the sample be well-bleached (Cunningham &
+#' Wallinga 2012, p. 100).
+#' @param n.components \code{\link{numeric}} (\bold{required}): number of
+#' components to be fitted. If a vector is provided (e.g. \code{c(2:8)}) the
+#' finite mixtures for 2, 3 ... 8 components are calculated and a plot and a
+#' statistical evaluation of the model performance (BIC score and maximum
+#' log-likelihood) is provided.
+#' @param grain.probability \code{\link{logical}} (with default): prints the
+#' estimated probabilities of which component each grain is in
+#' @param dose.scale \code{\link{numeric}}: manually set the scaling of the
+#' y-axis of the first plot with a vector in the form of \code{c(min,max)}
+#' @param pdf.weight \code{\link{logical}} (with default): weight the
+#' probability density functions by the components proportion (applies only
+#' when a vector is provided for \code{n.components})
+#' @param pdf.sigma \code{\link{character}} (with default): if \code{"sigmab"}
+#' the components normal distributions are plotted with a common standard
+#' deviation (i.e. \code{sigmab}) as assumed by the FFM. Alternatively,
+#' \code{"se"} takes the standard error of each component for the sigma
+#' parameter of the normal distribution
+#' @param pdf.colors \code{\link{character}} (with default): color coding of
+#' the components in the the plot. Possible options are "gray", "colors" and
+#' "none"
+#' @param pdf.scale \code{\link{numeric}}: manually set the max density value
+#' for proper scaling of the x-axis of the first plot
+#' @param plot.proportions \code{\link{logical}} (with default): plot barplot
+#' showing the proportions of components
+#' @param plot \code{\link{logical}} (with default): plot output
+#' @param \dots further arguments to pass.  See details for their usage.
+#' @return Returns a plot (optional) and terminal output. In addition an
+#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' following elements:
+#' 
+#' \item{summary}{\link{data.frame} summary of all relevant model results.}
+#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' used arguments} \item{call}{\link{call} the function call} \item{mle}{
+#' covariance matrices of the log likelhoods} \item{BIC}{ BIC score}
+#' \item{llik}{ maximum log likelihood} \item{grain.probability}{ probabilities
+#' of a grain belonging to a component} \item{components}{\link{matrix}
+#' estimates of the de, de error and proportion for each component}
+#' \item{single.comp}{\link{data.frame} single componente FFM estimate}
+#' 
+#' If a vector for \code{n.components} is provided (e.g.  \code{c(2:8)}),
+#' \code{mle} and \code{grain.probability} are lists containing matrices of the
+#' results for each iteration of the model.
+#' 
+#' The output should be accessed using the function
+#' \code{\link{get_RLum.Results}}
+#' @section Function version: 0.4 (2015-03-04 13:33:56)
+#' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
+#' rewritten S script of Rex Galbraith, 2006. \cr\cr R Luminescence Package
+#' Team
+#' @seealso \code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
+#' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+#' @references Galbraith, R.F. & Green, P.F., 1990. Estimating the component
+#' ages in a finite mixture. Nuclear Tracks and Radiation Measurements 17,
+#' 197-206. \cr\cr Galbraith, R.F. & Laslett, G.M., 1993. Statistical models
+#' for mixed fission track ages. Nuclear Tracks Radiation Measurements 4,
+#' 459-470.\cr\cr Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of
+#' equivalent dose and error calculation and display in OSL dating: An overview
+#' and some recommendations. Quaternary Geochronology 11, 1-27.\cr\cr Roberts,
+#' R.G., Galbraith, R.F., Yoshida, H., Laslett, G.M. & Olley, J.M., 2000.
+#' Distinguishing dose populations in sediment mixtures: a test of single-grain
+#' optical dating procedures using mixtures of laboratory-dosed quartz.
+#' Radiation Measurements 32, 459-465.\cr\cr Galbraith, R.F., 2005. Statistics
+#' for Fission Track Analysis, Chapman & Hall/CRC, Boca Raton.\cr\cr
+#' \bold{Further reading}\cr\cr Arnold, L.J. & Roberts, R.G., 2009. Stochastic
+#' modelling of multi-grain equivalent dose (De) distributions: Implications
+#' for OSL dating of sediment mixtures. Quaternary Geochronology 4,
+#' 204-230.\cr\cr Cunningham, A.C. & Wallinga, J., 2012. Realizing the
+#' potential of fluvial archives using robust OSL chronologies. Quaternary
+#' Geochronology 12, 98-106.\cr\cr Rodnight, H., Duller, G.A.T., Wintle, A.G. &
+#' Tooth, S., 2006. Assessing the reproducibility and accuracy of optical
+#' dating of fluvial deposits.  Quaternary Geochronology 1, 109-120.\cr\cr
+#' Rodnight, H. 2008. How many equivalent dose values are needed to obtain a
+#' reproducible distribution?. Ancient TL 26, 3-10.
+#' @examples
+#' 
+#' ## load example data
+#' data(ExampleData.DeValues, envir = environment())
+#' 
+#' ## (1) apply the finite mixture model
+#' ## NOTE: the data set is not suitable for the finite mixture model,
+#' ## which is why a very small sigmab is necessary
+#' calc_FiniteMixture(ExampleData.DeValues$CA1,
+#'                    sigmab = 0.2, n.components = 2,
+#'                    grain.probability = TRUE)
+#' 
+#' ## (2) repeat the finite mixture model for 2, 3 and 4 maximum number of fitted
+#' ## components and save results
+#' ## NOTE: The following example is computationally intensive. Please un-comment
+#' ## the following lines to make the example work.
+#' FMM<- calc_FiniteMixture(ExampleData.DeValues$CA1,
+#'                          sigmab = 0.2, n.components = c(2:4),
+#'                          pdf.weight = TRUE, dose.scale = c(0, 100))
+#' 
+#' ## show structure of the results
+#' FMM
+#' 
+#' ## show the results on equivalent dose, standard error and proportion of
+#' ## fitted components
+#' get_RLum.Results(object = FMM, data.object = "components")
+#' 
+calc_FiniteMixture <- function( 
   data,
-  ### \code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-  ### for \code{data.frame}: two columns with De \code{(data[,1])} and
-  ### De error \code{(values[,2])}
   sigmab,
-  ### \code{\link{numeric}}  (\bold{required}): spread in De values given as a
-  ### fraction (e.g. 0.2). This value represents the expected overdispersion in
-  ### the data should the sample be well-bleached (Cunningham & Wallinga 2012, 
-  ### p. 100).
   n.components, 
-  ### \code{\link{numeric}}  (\bold{required}): number of components to be 
-  ### fitted. If a vector is provided (e.g. \code{c(2:8)}) the finite
-  ### mixtures for 2, 3 ... 8 components are calculated and a plot and a
-  ### statistical evaluation of the model performance (BIC score and maximum
-  ### log-likelihood) is provided.
   grain.probability = FALSE, 
-  ### \code{\link{logical}} (with default): prints the estimated probabilities
-  ### of which component each grain is in
   dose.scale,
-  ### \code{\link{numeric}}: manually set the scaling of the y-axis of  
-  ### the first plot with a vector in the form of \code{c(min,max)}
   pdf.weight = TRUE,
-  ### \code{\link{logical}} (with default): weight the probability density 
-  ### functions by the components proportion (applies only when a vector
-  ### is provided for \code{n.components})
   pdf.sigma = "sigmab",
-  ### \code{\link{character}} (with default): if \code{"sigmab"} the components
-  ### normal distributions are plotted with a common standard deviation (i.e.
-  ### \code{sigmab}) as assumed by the FFM. Alternatively,
-  ### \code{"se"} takes the standard error of each
-  ### component for the sigma parameter of the normal distribution
   pdf.colors = "gray",
-  ### \code{\link{character}} (with default): color coding of the components 
-  ### in the the plot. Possible options are "gray", "colors" and "none"
   pdf.scale,
-  ### \code{\link{numeric}}: manually set the max density value for
-  ### proper scaling of the x-axis of the first plot
   plot.proportions = TRUE,
-  ### \code{\link{logical}} (with default): plot barplot showing the 
-  ### proportions of components
   plot=TRUE,
-  ### \code{\link{logical}} (with default): plot output
   ...
-  ### further arguments to pass. 
-  ### See details for their usage.
 ){
   
   ##============================================================================##
@@ -462,7 +550,7 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
       data=data,
       args=args,
       call=call,
-      mle=if(length(n.components)==1){vmat}else{vmat.n}, # .@data$mle.matrix
+      mle=if(length(n.components)==1){vmat}else{vmat.n},
       BIC=if(length(n.components)==1){BIC}else{BIC.n},
       llik=if(length(n.components)==1){llik}else{llik.n},
       grain.probability=if(length(n.components)==1){grain.probability}else{grain.probability.n},
@@ -472,116 +560,10 @@ calc_FiniteMixture<- structure(function( # Apply the finite mixture model (FMM) 
   ##=========##
   ## PLOTTING
   if(plot==TRUE) {
-      try(plot_RLum.Results(newRLumResults.calc_FiniteMixture, ...))
+    try(plot_RLum.Results(newRLumResults.calc_FiniteMixture, ...))
   }#endif::plot
   
   # Return values
   invisible(newRLumResults.calc_FiniteMixture)
-  ### Returns a plot (optional) and terminal output. In addition an 
-  ### \code{\linkS4class{RLum.Results}} object is 
-  ### returned containing the following elements:
-  ###
-  ### \item{summary}{\link{data.frame} summary of all relevant model results.}
-  ### \item{data}{\link{data.frame} original input data}
-  ### \item{args}{\link{list} used arguments}
-  ### \item{call}{\link{call} the function call}
-  ### \item{mle}{ covariance matrices of the log likelhoods}
-  ### \item{BIC}{ BIC score}
-  ### \item{llik}{ maximum log likelihood}
-  ### \item{grain.probability}{ probabilities of a grain belonging to a component}
-  ### \item{components}{\link{matrix} estimates of the de, de error and proportion for each component}
-  ### \item{single.comp}{\link{data.frame} single componente FFM estimate}
-  ###
-  ### If a vector for \code{n.components} is provided (e.g. 
-  ### \code{c(2:8)}), \code{mle} and \code{grain.probability} are
-  ### lists containing matrices of the results for each iteration of the model.
-  ###
-  ### The output should be accessed using the function 
-  ### \code{\link{get_RLum.Results}}
   
-  
-  ##details<<
-  ## This model uses the maximum likelihood and Bayesian Information Criterion 
-  ## (BIC) approaches. \cr\cr
-  ## Indications of overfitting are: \cr\cr
-  ## - increasing BIC \cr
-  ## - repeated dose estimates \cr
-  ## - covariance matrix not positive definite \cr
-  ## - covariance matrix produces NaNs\cr
-  ## - convergence problems \cr\cr
-  ## \bold{Plot} \cr\cr
-  ## If a vector (\code{c(k.min:k.max)}) is provided for \code{n.components}
-  ## a plot is generated showing the the k components equivalent doses as 
-  ## normal distributions. By default \code{pdf.weight} is set to \code{FALSE},
-  ## so that the area under each normal distribution is always 1. If \code{TRUE},
-  ## the probability density functions are weighted by the components proportion
-  ## for each iteration of k components, so the sum of areas of each component 
-  ## equals 1. While the density values are on the same scale when no weights are
-  ## used, the y-axis are individually scaled if the probability density 
-  ## are weighted by the components proportion. \cr 
-  ## The standard deviation (sigma) of the normal distributions is by default
-  ## determined by a common \code{sigmab} (see \code{pdf.sigma}). For
-  ## \code{pdf.sigma = "se"} the standard error of each component is taken 
-  ## instead.\cr
-  ## The stacked barplot shows the proportion of each component (in per cent)
-  ## calculated by the FFM. The last plot shows the achieved BIC scores
-  ## and maximum log-likelihood estimates for each iteration of k.
-  
-  ##references<<
-  ## Galbraith, R.F. & Green, P.F., 1990. Estimating the component ages in a 
-  ## finite mixture. Nuclear Tracks and Radiation Measurements 17, 197-206.
-  ## \cr\cr
-  ## Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission
-  ## track ages. Nuclear Tracks Radiation Measurements 4, 459-470.\cr\cr
-  ## Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent 
-  ## dose and error calculation and display in OSL dating: An overview and some
-  ## recommendations. Quaternary Geochronology 11, 1-27.\cr\cr
-  ## Roberts, R.G., Galbraith, R.F., Yoshida, H., Laslett, G.M. & Olley, J.M., 
-  ## 2000. Distinguishing dose populations in sediment mixtures: a test of 
-  ## single-grain optical dating procedures using mixtures of laboratory-dosed
-  ## quartz. Radiation Measurements 32, 459-465.\cr\cr
-  ## Galbraith, R.F., 2005. Statistics for Fission Track Analysis, Chapman & 
-  ## Hall/CRC, Boca Raton.\cr\cr
-  ## \bold{Further reading}\cr\cr
-  ## Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain 
-  ## equivalent dose (De) distributions: Implications for OSL dating of sediment
-  ## mixtures. Quaternary Geochronology 4, 204-230.\cr\cr
-  ## Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial
-  ## archives using robust OSL chronologies. Quaternary Geochronology 12, 
-  ## 98-106.\cr\cr
-  ## Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the
-  ## reproducibility and accuracy of optical dating of fluvial deposits. 
-  ## Quaternary Geochronology 1, 109-120.\cr\cr
-  ## Rodnight, H. 2008. How many equivalent dose values are needed to obtain a 
-  ## reproducible distribution?. Ancient TL 26, 3-10.
-  
-  ##seealso<<
-  ## \code{\link{calc_CentralDose}},
-  ## \code{\link{calc_CommonDose}}, \code{\link{calc_FuchsLang2001}},
-  ## \code{\link{calc_MinDose}}  
-}, ex=function(){
-  ## load example data
-  data(ExampleData.DeValues, envir = environment())
-  
-  ## (1) apply the finite mixture model
-  ## NOTE: the data set is not suitable for the finite mixture model,
-  ## which is why a very small sigmab is necessary
-  calc_FiniteMixture(ExampleData.DeValues$CA1,
-                     sigmab = 0.2, n.components = 2,
-                     grain.probability = TRUE)
-  
-  ## (2) repeat the finite mixture model for 2, 3 and 4 maximum number of fitted
-  ## components and save results
-  ## NOTE: The following example is computationally intensive. Please un-comment
-  ## the following lines to make the example work.
-  FMM<- calc_FiniteMixture(ExampleData.DeValues$CA1,
-                           sigmab = 0.2, n.components = c(2:4),
-                           pdf.weight = TRUE, dose.scale = c(0, 100))
-  
-  ## show structure of the results
-  FMM
-  
-  ## show the results on equivalent dose, standard error and proportion of
-  ## fitted components
-  get_RLum.Results(object = FMM, data.object = "components")
-})#END OF STRUCTURE
+}

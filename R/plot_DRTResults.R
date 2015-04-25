@@ -1,89 +1,154 @@
-plot_DRTResults <- structure(function(# Visualise dose recovery test results
-  ### The function provides a standardised plot output for dose recovery test
-  ### measurements.
-  
-  # ===========================================================================
-  ##author<<
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
-  ## Michael Dietze, GFZ Potsdam (Germany), \cr
-  
-  ##section<<
-  ## version 0.1.6
-  # ===========================================================================
-
+#' Visualise dose recovery test results
+#' 
+#' The function provides a standardised plot output for dose recovery test
+#' measurements.
+#' 
+#' Procedure to test the accuracy of a measurement protocol to reliably
+#' determine the dose of a specific sample. Here, the natural signal is erased
+#' and a known laboratory dose administered which is treated as unknown. Then
+#' the De measurement is carried out and the degree of congruence between
+#' administered and recovered dose is a measure of the protocol's accuracy for
+#' this sample.\cr In the plot the normalised De is shown on the y-axis, i.e.
+#' obtained De/Given Dose.
+#' 
+#' @param values \code{\linkS4class{RLum.Results}} or \code{\link{data.frame}},
+#' (\bold{required}): input values containing at least De and De error. To plot
+#' more than one data set in one figure, a \code{list} of the individual data
+#' sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).
+#' @param given.dose \code{\link{numeric}} (optional): given dose used for the
+#' dose recovery test to normalise data. If only one given dose is provided
+#' this given dose is valid for all input data sets (i.e., \code{values} is a
+#' list).  Otherwise a given dose for each input data set has to be provided
+#' (e.g., \code{given.dose = c(100,200)}). If no \code{given.dose} values are
+#' plotted without normalisation (might be useful for preheat plateau tests).
+#' Note: Unit has to be the same as from the input values (e.g., Seconds or
+#' Gray).
+#' @param error.range \code{\link{numeric}}: symmetric error range in percent
+#' will be shown as dashed lines in the plot. Set \code{error.range} to 0 to
+#' void plotting of error ranges.
+#' @param preheat \code{\link{numeric}}: optional vector of preheat
+#' temperatures to be used for grouping the De values. If specified, the
+#' temperatures are assigned to the x-axis.
+#' @param boxplot \code{\link{logical}}: optionally plot values, that are
+#' grouped by preheat temperature as boxplots. Only possible when
+#' \code{preheat} vector is specified.
+#' @param mtext \code{\link{character}}: additional text below the plot title.
+#' @param summary \code{\link{character}} (optional): adds numerical output to
+#' the plot.  Can be one or more out of: \code{"n"} (number of samples),
+#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+#' deviation in percent), \code{"sdabs"} (absolute standard deviation),
+#' \code{"serel"} (relative standard error) and \code{"seabs"} (absolute
+#' standard error).
+#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' default): optional position coordinates or keyword (e.g. \code{"topright"})
+#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
+#' specified to place the summary below the plot header. However, this latter
+#' option in only possible if \code{mtext} is not used.
+#' @param legend \code{\link{character}} vector (optional): legend content to
+#' be added to the plot.
+#' @param legend.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' default): optional position coordinates or keyword (e.g. \code{"topright"})
+#' for the legend to be plotted.
+#' @param par.local \code{\link{logical}} (with default): use local graphical
+#' parameters for plotting, e.g. the plot is shown in one column and one row.
+#' If \code{par.local = FALSE}, global parameters are inherited.
+#' @param na.rm \code{\link{logical}}: indicating wether \code{NA} values are
+#' removed before plotting from the input data set
+#' @param \dots further arguments and graphical parameters passed to
+#' \code{\link{plot}}.
+#' @return A plot is returned.
+#' @note Further data and plot arguments can be added by using the appropiate R
+#' commands.
+#' @section Function version: 0.1.6 (2015-03-04 13:27:28)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France), Michael Dietze, GFZ Potsdam (Germany), \cr R Luminescence Package
+#' Team
+#' @seealso \code{\link{plot}}
+#' @references Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
+#' stimulated luminescence characteristics and their relevance in
+#' single-aliquot regeneration dating protocols. Radiation Measurements, 41,
+#' 369-391.
+#' @keywords dplot
+#' @examples
+#' 
+#' 
+#' ## read example data set and misapply them for this plot type
+#' data(ExampleData.DeValues, envir = environment())
+#' 
+#' ## plot values 
+#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
+#' given.dose = 2800, mtext = "Example data")
+#' 
+#' ## plot values with legend
+#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
+#'                 given.dose = 2800,
+#'                 legend = "Test data set")
+#' 
+#' ## create and plot two subsets with randomised values
+#' x.1 <- ExampleData.DeValues$BT998[7:11,]
+#' x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
+#' 
+#' plot_DRTResults(values = list(x.1, x.2),
+#'                 given.dose = 2800)
+#' 
+#' ## some more user-defined plot parameters
+#' plot_DRTResults(values = list(x.1, x.2),
+#'                 given.dose = 2800,
+#'                 pch = c(2, 5),
+#'                 col = c("orange", "blue"),
+#'                 xlim = c(0, 8),
+#'                 ylim = c(0.85, 1.15),
+#'                 xlab = "Sample aliquot")
+#' 
+#' ## plot the data with user-defined statistical measures as legend
+#' plot_DRTResults(values = list(x.1, x.2),
+#'                 given.dose = 2800,
+#'                 summary = c("n", "mean.weighted", "sd"))
+#' 
+#' ## plot the data with user-defined statistical measures as sub-header
+#' plot_DRTResults(values = list(x.1, x.2),
+#'                 given.dose = 2800,
+#'                 summary = c("n", "mean.weighted", "sd"),
+#'                 summary.pos = "sub")
+#' 
+#' ## plot the data grouped by preheat temperatures
+#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
+#'                 given.dose = 2800,
+#'                 preheat = c(200, 200, 200, 240, 240))
+#' ## read example data set and misapply them for this plot type
+#' data(ExampleData.DeValues, envir = environment())
+#' 
+#' ## plot values 
+#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
+#'                 given.dose = 2800, mtext = "Example data")
+#' ## plot two data sets grouped by preheat temperatures
+#' plot_DRTResults(values = list(x.1, x.2), 
+#'                 given.dose = 2800,
+#'                 preheat = c(200, 200, 200, 240, 240))
+#' 
+#' ## plot the data grouped by preheat temperatures as boxplots
+#' plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
+#'                 given.dose = 2800,
+#'                 preheat = c(200, 200, 200, 240, 240),
+#'                 boxplot = TRUE)
+#' 
+plot_DRTResults <- function(
   values, 
-  ### \code{\linkS4class{RLum.Results}} or
-  ### \code{\link{data.frame}}, (\bold{required}): input values 
-  ### containing at least De and De error. To plot more than one data
-  ### set in one figure, a \code{list} of the individual data sets
-  ### must be provided (e.g. \code{list(dataset.1, dataset.2)}).
-  
   given.dose,
-  ### \code{\link{numeric}} (optional):
-  ### given dose used for the dose recovery test to normalise data. If only one given dose is 
-  ### provided this given dose is valid for all input data sets (i.e., \code{values} is a list). 
-  ### Otherwise a given dose for each input data set has to be provided 
-  ### (e.g., \code{given.dose = c(100,200)}).
-  ### If no \code{given.dose} values are plotted without normalisation (might be useful for 
-  ### preheat plateau tests).
-  ### Note: Unit has to be the same as from the input values (e.g., Seconds or Gray).
-  
   error.range = 10,
-  ### \code{\link{numeric}}: symmetric error range in percent will be shown 
-  ### as dashed lines in the plot. Set \code{error.range} to 0 to void  
-  ### plotting of error ranges.
-  
   preheat,
-  ### \code{\link{numeric}}: optional vector of preheat temperatures to be
-  ### used for grouping the De values. If specified, the temperatures are
-  ### assigned to the x-axis.
-  
   boxplot = FALSE,
-  ### \code{\link{logical}}: optionally plot values, that are grouped by 
-  ### preheat temperature as boxplots. Only possible when \code{preheat}  
-  ### vector is specified.
-  
   mtext,
-  ### \code{\link{character}}: additional text below the plot title.
-  
   summary,
-  ### \code{\link{character}} (optional): adds numerical output to the plot. 
-  ### Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De 
-  ### value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of 
-  ### the De values), \code{"sdrel"} (relative standard deviation in 
-  ### percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative 
-  ### standard error) and \code{"seabs"} (absolute standard error).
-  
   summary.pos,
-  ### \code{\link{numeric}} or \code{\link{character}} (with default): optional  
-  ### position coordinates or keyword (e.g. \code{"topright"}) for the 
-  ### statistical summary. Alternatively, the keyword \code{"sub"} may be
-  ### specified to place the summary below the plot header. However, this
-  ### latter option in only possible if \code{mtext} is not used.
-  
   legend,
-  ### \code{\link{character}} vector (optional): legend content to be added
-  ### to the plot.
-  
   legend.pos,
-  ### \code{\link{numeric}} or \code{\link{character}} (with default): optional  
-  ### position coordinates or keyword (e.g. \code{"topright"}) for the legend
-  ### to be plotted.
-  
   par.local = TRUE,
-  ### \code{\link{logical}} (with default): use local graphical parameters for plotting, e.g.
-  ### the plot is shown in one column and one row. If \code{par.local = FALSE},  
-  ### global parameters are inherited.
-  
   na.rm  = FALSE, 
-  ### \code{\link{logical}}: indicating wether \code{NA} values are removed 
-  ### before plotting from the input data set
-  
   ...
-  ### further arguments and graphical parameters passed to \code{\link{plot}}.
-
-  ){
-
+){
+  
   ## Validity checks ----------------------------------------------------------
   
   ##avoid crash for wrongly set boxlot argument
@@ -132,14 +197,14 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
         
         ##find and mark NA value indicies
         temp.NA.values <- unique(c(which(is.na(values[[i]][,1])), which(is.na(values[[i]][,2]))))
-       
+        
         ##remove preheat entries
         preheat <- preheat[-temp.NA.values]
         
       }
-         
-       values[[i]] <- na.exclude(values[[i]])
-     
+      
+      values[[i]] <- na.exclude(values[[i]])
+      
     }      
   }
   
@@ -150,7 +215,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
     values.global <- rbind(values.global, values[[i]])
     n.values <- c(n.values, nrow(values[[i]]))
   }
-
+  
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
   
@@ -164,14 +229,14 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
   {if(!missing(given.dose)){
     expression(paste("Normalised ", D[e], sep=""))
-   }else{expression(paste(D[e], " [s]"), sep = "")}}
+  }else{expression(paste(D[e], " [s]"), sep = "")}}
   
   xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
   {c(1, max(n.values) + 1)}
   
   ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
   {c(0.75, 1.25)} #check below for further corrections if boundaries exceed set range
-
+  
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else {1}
   
   pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else {
@@ -179,47 +244,47 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   }
   
   fun <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
-
+  
   ## calculations and settings-------------------------------------------------
-
+  
   ## normalise data if given.dose is given
   if(!missing(given.dose)){
-  
+    
     if(length(given.dose) > 1){
-    
+      
       if(length(values) < length(given.dose)){
-      
+        
         stop("[plot_DRTResults()] 'given.dose' > number of input data sets!")
-      
+        
       }
-    
+      
       for(i in 1:length(values)) {
         values[[i]] <- values[[i]]/given.dose[i]
       }
-        
+      
     }else{
-    
-        for(i in 1:length(values)) {
-          values[[i]] <- values[[i]]/given.dose
-        }
+      
+      for(i in 1:length(values)) {
+        values[[i]] <- values[[i]]/given.dose
+      }
       
     }
   }
- 
+  
   ##correct ylim for data set which exceed boundaries
   if((max(sapply(1:length(values), function(x){max(values[[x]][,1], na.rm = TRUE)}))>1.25 |
-      min(sapply(1:length(values), function(x){min(values[[x]][,1], na.rm = TRUE)}))<0.75) &
-      ("ylim" %in% names(extraArgs)) == FALSE){
-        
+        min(sapply(1:length(values), function(x){min(values[[x]][,1], na.rm = TRUE)}))<0.75) &
+       ("ylim" %in% names(extraArgs)) == FALSE){
+    
     ylim <- c(
       min(sapply(1:length(values), function(x){
-      min(values[[x]][,1], na.rm = TRUE) - max(values[[x]][,2], na.rm = TRUE)})), 
+        min(values[[x]][,1], na.rm = TRUE) - max(values[[x]][,2], na.rm = TRUE)})), 
       max(sapply(1:length(values), function(x){
         max(values[[x]][,1], na.rm = TRUE) + max(values[[x]][,2], na.rm = TRUE)})))
     
   }
- 
-
+  
+  
   ## optionally group data by preheat temperature
   if(missing(preheat) == FALSE) {
     modes <- as.numeric(rownames(as.matrix(table(preheat))))
@@ -252,7 +317,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   
   ## calculate and paste statistical summary
   label.text = list(NA)
-
+  
   if(summary.pos[1] != "sub") {
     n.rows <- length(summary)
     
@@ -422,7 +487,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   }
   
   ## Plot output --------------------------------------------------------------
-
+  
   ## determine number of subheader lines to shif the plot
   shift.lines <- if(summary.pos[1] == "sub" & mtext == "") {
     length(label.text) - 1
@@ -431,10 +496,10 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
   ## setup plot area
   if(par.local){
     
-  par.default <- par()[c("mfrow", "cex", "oma")]
-  par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
+    par.default <- par()[c("mfrow", "cex", "oma")]
+    par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
   }
-
+  
   ## optionally plot values and error bars
   if(boxplot == FALSE) {
     ## plot data and error
@@ -507,7 +572,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
       } 
     } else {  
       
-    ## option for provided preheat data
+      ## option for provided preheat data
       ## create empty plot
       plot(NA,NA,
            xlim = c(min(modes.plot) * 0.9, max(modes.plot) * 1.1),
@@ -562,7 +627,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
       }
     }
   }
-    
+  
   ## optionally, plot boxplot
   if(boxplot == TRUE) {
     ## create empty plot
@@ -578,7 +643,7 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
     if(length(modes.plot) == 1) {
       axis(side = 1, at = 1, labels = modes.plot)
     }
-
+    
     ## add title
     title(main = main,
           line = shift.lines + 2)
@@ -638,106 +703,14 @@ plot_DRTResults <- structure(function(# Visualise dose recovery test results
         line = shift.lines,
         text = mtext, 
         cex = 0.8 * cex)
- 
+  
   ##reset par()
   if(par.local){
-  par(par.default)
-  rm(par.default)
+    par(par.default)
+    rm(par.default)
   }
   
   ##FUN by R Luminescence Team
   if(fun == TRUE) {sTeve()}
   
- 
-  
-  ##details<<
-  ## Procedure to test the accuracy of a measurement protocol to reliably 
-  ## determine the dose of a specific sample. Here, the natural signal is 
-  ## erased and a known laboratory dose administered which is treated as 
-  ## unknown. Then the De measurement is carried out and the degree of 
-  ## congruence between administered and recovered dose is a measure of the 
-  ## protocol's accuracy for this sample.\cr
-  ## In the plot the normalised De is shown on the y-axis, i.e. obtained 
-  ## De/Given Dose.
-  
-  ##value<<
-  ## A plot is returned.
-  
-  ##seealso<<
-  ## \code{\link{plot}}
-  
-  ##references<<
-  ## Wintle, A.G., Murray, A.S., 2006. A review of quartz optically stimulated 
-  ## luminescence characteristics and their relevance in single-aliquot 
-  ## regeneration dating protocols. Radiation Measurements, 41, 369-391.
-  
-  ##note<<
-  ## Further data and plot arguments can be added by using the appropiate
-  ## R commands.
-  
-  ##keyword<<
-  ## dplot
-  
-  
-}, ex=function(){
-  
-  ## read example data set and misapply them for this plot type
-  data(ExampleData.DeValues, envir = environment())
-  
-  ## plot values 
-  plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
-  given.dose = 2800, mtext = "Example data")
-  
-  ## plot values with legend
-  plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
-                  given.dose = 2800,
-                  legend = "Test data set")
-  
-  ## create and plot two subsets with randomised values
-  x.1 <- ExampleData.DeValues$BT998[7:11,]
-  x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
-  
-  plot_DRTResults(values = list(x.1, x.2),
-                  given.dose = 2800)
-  
-  ## some more user-defined plot parameters
-  plot_DRTResults(values = list(x.1, x.2),
-                  given.dose = 2800,
-                  pch = c(2, 5),
-                  col = c("orange", "blue"),
-                  xlim = c(0, 8),
-                  ylim = c(0.85, 1.15),
-                  xlab = "Sample aliquot")
-
-  ## plot the data with user-defined statistical measures as legend
-  plot_DRTResults(values = list(x.1, x.2),
-                  given.dose = 2800,
-                  summary = c("n", "mean.weighted", "sd"))
-
-  ## plot the data with user-defined statistical measures as sub-header
-  plot_DRTResults(values = list(x.1, x.2),
-                  given.dose = 2800,
-                  summary = c("n", "mean.weighted", "sd"),
-                  summary.pos = "sub")
-  
-  ## plot the data grouped by preheat temperatures
-  plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
-                  given.dose = 2800,
-                  preheat = c(200, 200, 200, 240, 240))
-  ## read example data set and misapply them for this plot type
-  data(ExampleData.DeValues, envir = environment())
-  
-  ## plot values 
-  plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
-                  given.dose = 2800, mtext = "Example data")
-  ## plot two data sets grouped by preheat temperatures
-  plot_DRTResults(values = list(x.1, x.2), 
-                  given.dose = 2800,
-                  preheat = c(200, 200, 200, 240, 240))
-
-  ## plot the data grouped by preheat temperatures as boxplots
-  plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,], 
-                  given.dose = 2800,
-                  preheat = c(200, 200, 200, 240, 240),
-                  boxplot = TRUE)
-})
+}

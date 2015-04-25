@@ -1,127 +1,238 @@
-plot_RadialPlot <- structure(function(# Function to create a Radial Plot
-  ### A Galbraith's radial plot is produced on a logarithmic or a linear
-  ### scale.
-
-  # ===========================================================================
-  ##author<<
-  ## Michael Dietze, GFZ Potsdam (Germany),\cr
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
-  ## Based on a rewritten S script of Rex Galbraith, 2010\cr
-
-  ##section<<
-  ## version 0.5.3
-  # ===========================================================================
-
+#' Function to create a Radial Plot
+#' 
+#' A Galbraith's radial plot is produced on a logarithmic or a linear scale.
+#' 
+#' Details and the theoretical background of the radial plot are given in the
+#' cited literature. This function is based on an S script of Rex Galbraith. To
+#' reduce the manual adjustments, the function has been rewritten. Thanks to
+#' Rex Galbraith for useful comments on this function. \cr Plotting can be
+#' disabled by adding the argument \code{plot = "FALSE"}, e.g. to return only
+#' numeric plot output.\cr
+#' 
+#' Earlier versions of the Radial Plot in this package had the 2-sigma-bar
+#' drawn onto the z-axis. However, this might have caused misunderstanding in
+#' that the 2-sigma range may also refer to the z-scale, which it does not!
+#' Rather it applies only to the x-y-coordinate system (standardised error vs.
+#' precision). A spread in doses or ages must be drawn as lines originating at
+#' zero precision (x0) and zero standardised estimate (y0). Such a range may be
+#' drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
+#' \code{line.label}, cf. examples).
+#' 
+#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
+#' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
+#' and De error (\code{data[,2]}). To plot several data sets in one plot, the
+#' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
+#' @param na.exclude \code{\link{logical}} (with default): excludes \code{NA}
+#' values from the data set prior to any further operations.
+#' @param negatives \code{\link{character}} (with default): rule for negative
+#' values. Default is \code{"remove"} (i.e. negative values are removed from
+#' the data set).
+#' @param log.z \code{\link{logical}} (with default): Option to display the
+#' z-axis in logarithmic scale. Default is \code{TRUE}.
+#' @param central.value \code{\link{numeric}}: User-defined central value,
+#' primarily used for horizontal centering of the z-axis.
+#' @param centrality \code{\link{character}} or \code{\link{numeric}} (with
+#' default): measure of centrality, used for automatically centering the plot
+#' and drawing the central line. Can either be one out of \code{"mean"},
+#' \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or a
+#' numeric value used for the standardisation.
+#' @param mtext \code{\link{character}}: additional text below the plot title.
+#' @param summary \code{\link{character}} (optional): adds numerical output to
+#' the plot. Can be one or more out of: \code{"n"} (number of samples),
+#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+#' deviation in percent), \code{"sdabs"} (absolute standard deviation),
+#' \code{"serel"} (relative standard error), \code{"seabs"} (absolute standard
+#' error), \code{"kdemax"} (maximum of the KDE), \code{"skewness"} (skewness)
+#' and \code{"kurtosis"} (kurtosis) and \code{"in.ci"} (percent of samples in
+#' confidence interval, e.g. 2-sigma).\cr Note: Keywords \code{"kdemax"},
+#' \code{"skewness"}, \code{"kurtosis"} are implemented for consistency
+#' reasons, however, no KDE is shown. The bandwidth is calculated according to
+#' \code{\link{plot_KDE}}
+#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' default): optional position coordinates or keyword (e.g. \code{"topright"})
+#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
+#' specified to place the summary below the plot header. However, this latter
+#' option is only possible if \code{mtext} is not used.
+#' @param legend \code{\link{character}} vector (optional): legend content to
+#' be added to the plot.
+#' @param legend.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' default): optional position coordinates or keyword (e.g. \code{"topright"})
+#' for the legend to be plotted.
+#' @param stats \code{\link{character}}: additional labels of statistically
+#' important values in the plot. One or more out of the following:
+#' \code{"min"}, \code{"max"}, \code{"median"}.
+#' @param rug \code{\link{logical}}: Option to add a rug to the z-scale, to
+#' indicate the location of individual values
+#' @param plot.ratio \code{\link{numeric}}: User-defined plot area ratio (i.e.
+#' curvature of the z-axis). If omitted, the default value (\code{4.5/5.5}) is
+#' used and modified automatically to optimise the z-axis curvature. The
+#' parameter should be decreased when data points are plotted outside the
+#' z-axis or when the z-axis gets too elliptic.
+#' @param bar.col \code{\link{character}} or \code{\link{numeric}} (with
+#' default): colour of the bar showing the 2-sigma range around the central
+#' value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.
+#' @param y.ticks \code{\link{logical}}: Option to hide y-axis labels. Useful
+#' for data with small scatter.
+#' @param grid.col \code{\link{character}} or \code{\link{numeric}} (with
+#' default): colour of the grid lines (originating at [0,0] and stretching to
+#' the z-scale). To disable grid lines, use \code{"none"}. Default is
+#' \code{"grey"}.
+#' @param line \code{\link{numeric}}: numeric values of the additional lines to
+#' be added.
+#' @param line.col \code{\link{character}} or \code{\link{numeric}}: colour of
+#' the additional lines.
+#' @param line.label \code{\link{character}}: labels for the additional lines.
+#' @param output \code{\link{logical}}: Optional output of numerical plot
+#' parameters. These can be useful to reproduce similar plots. Default is
+#' \code{FALSE}.
+#' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of
+#' length 2, specifying the upper and lower x-axes labels.
+#' @return Returns a plot object.
+#' @section Function version: 0.5.3 (2015-03-04 13:25:19)
+#' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
+#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
+#' S script of Rex Galbraith, 2010\cr R Luminescence Package Team
+#' @seealso \code{\link{plot}}, \code{\link{plot_KDE}},
+#' \code{\link{plot_Histogram}}
+#' @references Galbraith, R.F., 1988. Graphical Display of Estimates Having
+#' Differing Standard Errors. Technometrics, 30 (3), 271-281.
+#' 
+#' Galbraith, R.F., 1990. The radial plot: Graphical assessment of spread in
+#' ages. International Journal of Radiation Applications and Instrumentation.
+#' Part D. Nuclear Tracks and Radiation Measurements, 17 (3), 207-214.
+#' 
+#' Galbraith, R. & Green, P., 1990. Estimating the component ages in a finite
+#' mixture. International Journal of Radiation Applications and
+#' Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3)
+#' 197-206.
+#' 
+#' Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission
+#' track ages. Nuclear Tracks And Radiation Measurements, 21 (4), 459-470.
+#' 
+#' Galbraith, R.F., 1994. Some Applications of Radial Plots. Journal of the
+#' American Statistical Association, 89 (428), 1232-1242.
+#' 
+#' Galbraith, R.F., 2010. On plotting OSL equivalent doses. Ancient TL, 28 (1),
+#' 1-10.
+#' 
+#' Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent
+#' dose and error calculation and display in OSL dating: An overview and some
+#' recommendations. Quaternary Geochronology, 11, 1-27.
+#' @examples
+#' 
+#' ## load example data
+#' data(ExampleData.DeValues, envir = environment())
+#' ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+#' 
+#' ## plot the example data straightforward
+#' plot_RadialPlot(data = ExampleData.DeValues)
+#' 
+#' ## now with linear z-scale
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 log.z = FALSE)
+#' 
+#' ## now with output of the plot parameters
+#' plot1 <- plot_RadialPlot(data = ExampleData.DeValues,
+#'                          log.z = FALSE,
+#'                          output = TRUE)
+#' plot1
+#' plot1$zlim
+#' 
+#' ## now with adjusted z-scale limits
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                log.z = FALSE,
+#'                zlim = c(100, 200))
+#' 
+#' ## now the two plots with serious but seasonally changing fun
+#' #plot_RadialPlot(data = data.3, fun = TRUE)
+#' 
+#' ## now with user-defined central value, in log-scale again
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 central.value = 150)
+#' 
+#' ## now with a rug, indicating individual De values at the z-scale
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 rug = TRUE)
+#' 
+#' ## now with legend, colour, different points and smaller scale
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 legend.text = "Sample 1",
+#'                 col = "tomato4",
+#'                 bar.col = "peachpuff",
+#'                 pch = "R",
+#'                 cex = 0.8)
+#' 
+#' ## now without 2-sigma bar, y-axis, grid lines and central value line
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 bar.col = "none",
+#'                 grid.col = "none",
+#'                 y.ticks = FALSE,
+#'                 lwd = 0)
+#' 
+#' ## now with user-defined axes labels
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 xlab = c("Data error [%]",
+#'                          "Data precision"),
+#'                 ylab = "Scatter",
+#'                 zlab = "Equivalent dose [Gy]")
+#' 
+#' ## now with minimum, maximum and median value indicated
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 central.value = 150,
+#'                 stats = c("min", "max", "median"))
+#' 
+#' ## now with a brief statistical summary
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 summary = c("n", "in.ci"))
+#' 
+#' ## now with another statistical summary as subheader
+#' plot_RadialPlot(data = ExampleData.DeValues,
+#'                 summary = c("mean.weighted", "median"),
+#'                 summary.pos = "sub")
+#' 
+#' ## now the data set is split into sub-groups, one is manipulated
+#' data.1 <- ExampleData.DeValues[1:15,]
+#' data.2 <- ExampleData.DeValues[16:25,] * 1.3
+#' 
+#' ## now a common dataset is created from the two subgroups
+#' data.3 <- list(data.1, data.2)
+#' 
+#' ## now the two data sets are plotted in one plot
+#' plot_RadialPlot(data = data.3)
+#' 
+#' ## now with some graphical modification
+#' plot_RadialPlot(data = data.3,
+#'                 col = c("darkblue", "darkgreen"),
+#'                 bar.col = c("lightblue", "lightgreen"),
+#'                 pch = c(2, 6),
+#'                 summary = c("n", "in.ci"),
+#'                 summary.pos = "sub",
+#'                 legend = c("Sample 1", "Sample 2"))
+#' 
+plot_RadialPlot <- function(
   data,
-  ### \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}} object
-  ### (required): for \code{data.frame} two columns: De (\code{data[,1]})
-  ### and De error (\code{data[,2]}). To plot several data sets in one plot,
-  ### the data sets must be provided as \code{list}, e.g.
-  ### \code{list(data.1, data.2)}.
-
   na.exclude = TRUE,
-  ### \code{\link{logical}} (with default): excludes \code{NA} values from
-  ### the data set prior to any further operations.
-
   negatives = "remove",
-  ### \code{\link{character}} (with default): rule for negative values. Default
-  ### is \code{"remove"} (i.e. negative values are removed from the data set).
-
   log.z = TRUE,
-  ### \code{\link{logical}} (with default): Option to display the z-axis
-  ### in logarithmic scale. Default is \code{TRUE}.
-
   central.value,
-  ### \code{\link{numeric}}: User-defined central value, primarily used for
-  ### horizontal centering of the z-axis.
-
   centrality = "mean.weighted",
-  ### \code{\link{character}} or \code{\link{numeric}} (with default):
-  ### measure of centrality, used for automatically centering the plot and
-  ### drawing the central line. Can either be one out of \code{"mean"},
-  ### \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"}
-  ### or a numeric value used for the standardisation.
-
   mtext,
-  ### \code{\link{character}}: additional text below the plot title.
-
   summary,
-  ### \code{\link{character}} (optional): adds numerical output to the plot.
-  ### Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De
-  ### value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of
-  ### the De values), \code{"sdrel"} (relative standard deviation in
-  ### percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative
-  ### standard error), \code{"seabs"} (absolute standard error), \code{"kdemax"} (maximum
-  ### of the KDE), \code{"skewness"} (skewness) and \code{"kurtosis"} (kurtosis) and \code{"in.ci"}
-  ### (percent of samples in confidence interval, e.g. 2-sigma).\cr
-  ### Note: Keywords \code{"kdemax"}, \code{"skewness"}, \code{"kurtosis"} are implemented for
-  ### consistency reasons, however, no KDE is shown. The bandwidth is calculated according to
-  ### \code{\link{plot_KDE}}
-
   summary.pos,
-  ### \code{\link{numeric}} or \code{\link{character}} (with default): optional
-  ### position coordinates or keyword (e.g. \code{"topright"}) for the
-  ### statistical summary. Alternatively, the keyword \code{"sub"} may be
-  ### specified to place the summary below the plot header. However, this
-  ### latter option is only possible if \code{mtext} is not used.
-
   legend,
-  ### \code{\link{character}} vector (optional): legend content to be added
-  ### to the plot.
-
   legend.pos,
-  ### \code{\link{numeric}} or \code{\link{character}} (with default): optional
-  ### position coordinates or keyword (e.g. \code{"topright"}) for the legend
-  ### to be plotted.
-
   stats,
-  ### \code{\link{character}}: additional labels of statistically important
-  ### values in the plot. One or more out of the following: \code{"min"},
-  ### \code{"max"}, \code{"median"}.
-
   rug = FALSE,
-  ### \code{\link{logical}}: Option to add a rug to the z-scale, to indicate
-  ### the location of individual values
-
   plot.ratio,
-  ### \code{\link{numeric}}: User-defined plot area ratio (i.e. curvature of
-  ### the z-axis). If omitted, the default value (\code{4.5/5.5}) is used and
-  ### modified automatically to optimise the z-axis curvature.
-  ### The parameter should be decreased when data points are plotted outside
-  ### the z-axis or when the z-axis gets too elliptic.
-
   bar.col,
-  ### \code{\link{character}} or \code{\link{numeric}} (with default): colour
-  ### of the bar showing the 2-sigma range around the central value. To
-  ### disable the bar, use \code{"none"}. Default is \code{"grey"}.
-
   y.ticks = TRUE,
-  ### \code{\link{logical}}: Option to hide y-axis labels. Useful for data
-  ### with small scatter.
-
   grid.col,
-  ### \code{\link{character}} or \code{\link{numeric}} (with default): colour
-  ### of the grid lines (originating at [0,0] and stretching to the z-scale).
-  ### To disable grid lines, use \code{"none"}. Default is \code{"grey"}.
-
   line,
-  ### \code{\link{numeric}}: numeric values of the additional lines to be
-  ### added.
-
   line.col,
-  ### \code{\link{character}} or \code{\link{numeric}}: colour of the
-  ### additional lines.
-
   line.label,
-  ### \code{\link{character}}: labels for the additional lines.
-
   output = FALSE,
-  ### \code{\link{logical}}: Optional output of numerical plot parameters.
-  ### These can be useful to reproduce similar plots. Default is \code{FALSE}.
-
   ...
-  ### Further plot arguments to pass. \code{xlab} must be a vector of length 2,
-  ### specifying the upper and lower x-axes labels.
 ) {
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {data <- list(data)}
@@ -1369,143 +1480,4 @@ label.text[[1]] <- NULL
                 ellipse.lims = ellipse.lims))
   }
 
-  ### Returns a plot object.
-
-  ##details<<
-  ## Details and the theoretical background of the radial plot are given
-  ## in the cited literature. This function is based on an S script of Rex
-  ## Galbraith. To reduce the manual adjustments, the function has been
-  ## rewritten. Thanks to Rex Galbraith for useful comments on this function.
-  ## \cr Plotting can be disabled by adding the argument
-  ## \code{plot = "FALSE"}, e.g. to return only numeric plot output.\cr
-  ##
-  ## Earlier versions of the Radial Plot in this package had the 2-sigma-bar
-  ## drawn onto the z-axis. However, this might have caused misunderstanding
-  ## in that the 2-sigma range may also refer to the z-scale, which it does
-  ## not! Rather it applies only to the x-y-coordinate system (standardised
-  ## error vs. precision). A spread in doses or ages must be drawn as lines
-  ## originating at zero precision (x0) and zero standardised estimate (y0).
-  ## Such a range may be drawn by adding lines to the radial plot (
-  ## \code{line}, \code{line.col}, \code{line.label}, cf. examples).
-
-  ##references<<
-  ## Galbraith, R.F., 1988. Graphical Display of Estimates Having Differing
-  ## Standard Errors. Technometrics, 30 (3), 271-281.
-  ##
-  ## Galbraith, R.F., 1990. The radial plot: Graphical assessment of spread in
-  ## ages. International Journal of Radiation Applications and Instrumentation.
-  ## Part D. Nuclear Tracks and Radiation Measurements, 17 (3), 207-214.
-  ##
-  ## Galbraith, R. & Green, P., 1990. Estimating the component ages in a
-  ## finite mixture. International Journal of Radiation Applications and
-  ## Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3)
-  ## 197-206.
-  ##
-  ## Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission
-  ## track ages. Nuclear Tracks And Radiation Measurements, 21 (4),
-  ## 459-470.
-  ##
-  ## Galbraith, R.F., 1994. Some Applications of Radial Plots. Journal of the
-  ## American Statistical Association, 89 (428), 1232-1242.
-  ##
-  ## Galbraith, R.F., 2010. On plotting OSL equivalent doses. Ancient TL,
-  ## 28 (1), 1-10.
-  ##
-  ## Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent
-  ## dose and error calculation and display in OSL dating: An overview and
-  ## some recommendations. Quaternary Geochronology, 11, 1-27.
-
-  ##seealso<<
-  ## \code{\link{plot}}, \code{\link{plot_KDE}}, \code{\link{plot_Histogram}}
-
-}, ex=function(){
-  ## load example data
-  data(ExampleData.DeValues, envir = environment())
-  ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
-
-  ## plot the example data straightforward
-  plot_RadialPlot(data = ExampleData.DeValues)
-
-  ## now with linear z-scale
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  log.z = FALSE)
-
-  ## now with output of the plot parameters
-  plot1 <- plot_RadialPlot(data = ExampleData.DeValues,
-                           log.z = FALSE,
-                           output = TRUE)
-  plot1
-  plot1$zlim
-
-  ## now with adjusted z-scale limits
-  plot_RadialPlot(data = ExampleData.DeValues,
-                 log.z = FALSE,
-                 zlim = c(100, 200))
-
-  ## now the two plots with serious but seasonally changing fun
-  #plot_RadialPlot(data = data.3, fun = TRUE)
-
-  ## now with user-defined central value, in log-scale again
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  central.value = 150)
-
-  ## now with a rug, indicating individual De values at the z-scale
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  rug = TRUE)
-
-  ## now with legend, colour, different points and smaller scale
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  legend.text = "Sample 1",
-                  col = "tomato4",
-                  bar.col = "peachpuff",
-                  pch = "R",
-                  cex = 0.8)
-
-  ## now without 2-sigma bar, y-axis, grid lines and central value line
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  bar.col = "none",
-                  grid.col = "none",
-                  y.ticks = FALSE,
-                  lwd = 0)
-
-  ## now with user-defined axes labels
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  xlab = c("Data error [%]",
-                           "Data precision"),
-                  ylab = "Scatter",
-                  zlab = "Equivalent dose [Gy]")
-
-  ## now with minimum, maximum and median value indicated
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  central.value = 150,
-                  stats = c("min", "max", "median"))
-
-  ## now with a brief statistical summary
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  summary = c("n", "in.ci"))
-
-  ## now with another statistical summary as subheader
-  plot_RadialPlot(data = ExampleData.DeValues,
-                  summary = c("mean.weighted", "median"),
-                  summary.pos = "sub")
-
-  ## now the data set is split into sub-groups, one is manipulated
-  data.1 <- ExampleData.DeValues[1:15,]
-  data.2 <- ExampleData.DeValues[16:25,] * 1.3
-
-  ## now a common dataset is created from the two subgroups
-  data.3 <- list(data.1, data.2)
-
-  ## now the two data sets are plotted in one plot
-  plot_RadialPlot(data = data.3)
-
-  ## now with some graphical modification
-  plot_RadialPlot(data = data.3,
-                  col = c("darkblue", "darkgreen"),
-                  bar.col = c("lightblue", "lightgreen"),
-                  pch = c(2, 6),
-                  summary = c("n", "in.ci"),
-                  summary.pos = "sub",
-                  legend = c("Sample 1", "Sample 2"))
-})
-
+}

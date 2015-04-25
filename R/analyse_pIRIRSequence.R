@@ -1,66 +1,141 @@
-analyse_pIRIRSequence<- structure(function(#Analyse post-IR IRSL sequences
-  ### The function performs an analysis of post-IR IRSL sequences including
-  ### curve fitting on \code{\linkS4class{RLum.Analysis}}
-  ### objects.
-
-  # ===========================================================================
-  ##author<<
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
-
-  ##section<<
-  ## version 0.1.4
-  # ===========================================================================
-
+#' Analyse post-IR IRSL sequences
+#' 
+#' The function performs an analysis of post-IR IRSL sequences including curve
+#' fitting on \code{\linkS4class{RLum.Analysis}} objects.
+#' 
+#' To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analysis
+#' this function has been written as extended wrapper function for the function
+#' \code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis in
+#' one run. With this, its functionality is strictly limited by the
+#' functionality of the function \code{\link{analyse_SAR.CWOSL}}.
+#' 
+#' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
+#' object containing data for analysis
+#' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
+#' bound of the signal integral. Provide this value as vector for different
+#' integration limits for the different IRSL curves.
+#' @param signal.integral.max \code{\link{integer}} (\bold{required}): upper
+#' bound of the signal integral. Provide this value as vector for different
+#' integration limits for the different IRSL curves.
+#' @param background.integral.min \code{\link{integer}} (\bold{required}):
+#' lower bound of the background integral. Provide this value as vector for
+#' different integration limits for the different IRSL curves.
+#' @param background.integral.max \code{\link{integer}} (\bold{required}):
+#' upper bound of the background integral. Provide this value as vector for
+#' different integration limits for the different IRSL curves.
+#' @param dose.points \code{\link{numeric}} (optional): a numeric vector
+#' containing the dose points values. Using this argument overwrites dose point
+#' values in the signal curves.
+#' @param sequence.structure \link{vector} \link{character} (with default):
+#' specifies the general sequence structure. Allowed values are \code{"TL"} and
+#' any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
+#' Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves from
+#' the analysis (Note: If a preheat without PMT measurement is used, i.e.
+#' preheat as non TL, remove the TL step.)
+#' @param plot \code{\link{logical}} (with default): enables or disables plot
+#' output.
+#' @param plot.single \code{\link{logical}} (with default): single plot output
+#' (\code{TRUE/FALSE}) to allow for plotting the results in single plot
+#' windows. Requires \code{plot = TRUE}.
+#' @param \dots further arguments that will be passed to the function
+#' \code{\link{analyse_SAR.CWOSL}} and \code{\link{plot_GrowthCurve}}
+#' @return Plots (optional) and an \code{\linkS4class{RLum.Results}} object is
+#' returned containing the following elements:
+#' \item{De.values}{\link{data.frame} containing De-values, De-error and
+#' further parameters}. \item{LnLxTnTx.values}{\link{data.frame} of all
+#' calculated Lx/Tx values including signal, background counts and the dose
+#' points.} \item{rejection.criteria}{\link{data.frame} with values that might
+#' by used as rejection criteria. NA is produced if no R0 dose point
+#' exists.}\cr
+#' 
+#' The output should be accessed using the function
+#' \code{\link{get_RLum.Results}}.
+#' @note Best graphical output can be achieved by using the function \code{pdf}
+#' with the following options:\cr \code{pdf(file = "...", height = 15, width =
+#' 15)}
+#' @section Function version: 0.1.4 (2015-04-19 12:24:29)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France)\cr R Luminescence Package Team
+#' @seealso \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
+#' \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
+#' \code{\linkS4class{RLum.Results}} \code{\link{get_RLum.Results}}
+#' @references Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
+#' using an improved single-aliquot regenerative-dose protocol. Radiation
+#' Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
+#' 
+#' Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
+#' fading rates of various luminescence signals from feldspar-rich sediment
+#' extracts. Radiation Measurements 43, 1474-1486.
+#' doi:10.1016/j.radmeas.2008.06.002
+#' @keywords datagen plot
+#' @examples
+#' 
+#' 
+#' ### NOTE: For this example existing example data are used. These data are non pIRIR data.
+#' ###
+#' ##(1) Compile example data set based on existing example data (SAR quartz measurement)
+#' ##(a) Load example data
+#' data(ExampleData.BINfileData, envir = environment())
+#' 
+#' ##(b) Transform the values from the first position in a RLum.Analysis object
+#' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+#' 
+#' ##(c) Grep curves and exclude the last two (one TL and one IRSL)
+#' object <- get_RLum.Analysis(object, record.id = c(-29,-30))
+#' 
+#' ##(d) Define new sequence structure and set new RLum.Analysis object
+#' sequence.structure  <- c(1,2,2,3,4,4)
+#' sequence.structure <- as.vector(sapply(seq(0,length(object)-1,by = 4),
+#'                                        function(x){sequence.structure + x}))
+#' 
+#' object <-  sapply(1:length(sequence.structure), function(x){
+#' 
+#'   object[[sequence.structure[x]]]
+#' 
+#' })
+#' 
+#' object <- set_RLum.Analysis(records = object, protocol = "pIRIR")
+#' 
+#' ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
+#' ## Note: output as single plots to avoid problems with this example
+#' results <- analyse_pIRIRSequence(object,
+#'                              signal.integral.min = 1,
+#'                              signal.integral.max = 2,
+#'                              background.integral.min = 900,
+#'                              background.integral.max = 1000,
+#'                              fit.method = "EXP",
+#'                              sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+#'                              main = "Pseudo pIRIR data set based on quartz OSL",
+#'                              plot.single = TRUE)
+#' 
+#' 
+#' ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
+#' ## Alternative for PDF output, uncomment and complete for usage
+#' ##
+#' # pdf(file = "...", height = 15, width = 15)
+#' #  results <- analyse_pIRIRSequence(object,
+#' #         signal.integral.min = 1,
+#' #         signal.integral.max = 2,
+#' #         background.integral.min = 900,
+#' #         background.integral.max = 1000,
+#' #         fit.method = "EXP",
+#' #         main = "Pseudo pIRIR data set based on quartz OSL")
+#' #
+#' #  dev.off()
+#' 
+#' 
+#' 
+analyse_pIRIRSequence <- function(
   object,
-  ### \code{\linkS4class{RLum.Analysis}}(\bold{required}):
-  ### input object containing data for analysis
-
   signal.integral.min,
-  ### \code{\link{integer}} (\bold{required}): lower bound of the signal integral.
-  ### Provide this value as vector for different integration limits for the different
-  ### IRSL curves.
-
   signal.integral.max,
-  ### \code{\link{integer}} (\bold{required}): upper bound of the signal integral.
-  ### Provide this value as vector for different integration limits for the different
-  ### IRSL curves.
-
   background.integral.min,
-  ### \code{\link{integer}} (\bold{required}): lower bound of the background integral.
-  ### Provide this value as vector for different integration limits for the different
-  ### IRSL curves.
-
   background.integral.max,
-  ### \code{\link{integer}} (\bold{required}): upper bound of the background integral.
-  ### Provide this value as vector for different integration limits for the different
-  ### IRSL curves.
-
   dose.points,
-  ### \code{\link{numeric}} (optional): a numeric vector containing the dose points values.
-  ### Using this argument overwrites dose point values in the signal curves.
-
   sequence.structure = c("TL", "IR50", "pIRIR225"),
-  ### \link{vector} \link{character} (with default): specifies the general
-  ### sequence structure. Allowed values are \code{"TL"}
-  ### and any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
-  ### Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves
-  ### from the analysis
-  ### (Note: If a preheat without PMT measurement is used, i.e. preheat as non TL,
-  ### remove the TL step.)
-
   plot = TRUE,
-  ### \code{\link{logical}} (with default): enables or disables plot output.
-
   plot.single = FALSE,
-  ### \code{\link{logical}} (with default):
-  ### single plot output (\code{TRUE/FALSE}) to allow for plotting the results
-  ### in single plot windows.
-  ### Requires \code{plot = TRUE}.
-
   ...
-  ### further arguments that will be passed to the function
-  ### \code{\link{analyse_SAR.CWOSL}} and \code{\link{plot_GrowthCurve}}
-
 ){
 
 # CONFIG  -----------------------------------------------------------------
@@ -635,110 +710,5 @@ if(plot == TRUE){
 
   temp.results.final
 
-  # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
 
-  ##details<<
-  ## To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analysis
-  ## this function has been written as extended wrapper function for the function
-  ## \code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis
-  ## in one run. With this, its functionality is strictly limited
-  ## by the functionality of the function \code{\link{analyse_SAR.CWOSL}}.
-  ##
-
-  ##value<<
-  ## Plots (optional) and an \code{\linkS4class{RLum.Results}} object is
-  ## returned containing the following elements:
-  ## \item{De.values}{\link{data.frame} containing De-values,
-  ## De-error and further parameters}.
-  ## \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values
-  ## including signal, background counts and the dose points.}
-  ## \item{rejection.criteria}{\link{data.frame} with values that might by
-  ## used as rejection criteria. NA is produced if no R0 dose point
-  ## exists.}\cr
-  ##
-  ## The output should be accessed using the function
-  ## \code{\link{get_RLum.Results}}.
-
-  ##references<<
-  ##
-  ## Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved
-  ## single-aliquot regenerative-dose protocol. Radiation Measurements 32, 57-73.
-  ## doi:10.1016/S1350-4487(99)00253-X
-  ##
-  ## Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008.
-  ## Laboratory fading rates of various luminescence signals from feldspar-rich
-  ## sediment extracts. Radiation Measurements 43, 1474-1486.
-  ## doi:10.1016/j.radmeas.2008.06.002
-
-  ##note<<
-  ## Best graphical output can be achieved by using the function \code{pdf} with the
-  ## following options:\cr
-  ## \code{pdf(file = "...", height = 15, width = 15)}
-
-  ##seealso<<
-  ## \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
-  ## \code{\link{plot_GrowthCurve}},
-  ## \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-  ## \code{\link{get_RLum.Results}}
-
-  ##keyword<<
-  ## datagen
-  ## plot
-
-
-}, ex=function(){
-
-  ### NOTE: For this example existing example data are used. These data are non pIRIR data.
-  ###
-  ##(1) Compile example data set based on existing example data (SAR quartz measurement)
-  ##(a) Load example data
-  data(ExampleData.BINfileData, envir = environment())
-
-  ##(b) Transform the values from the first position in a RLum.Analysis object
-  object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-
-  ##(c) Grep curves and exclude the last two (one TL and one IRSL)
-  object <- get_RLum.Analysis(object, record.id = c(-29,-30))
-
-  ##(d) Define new sequence structure and set new RLum.Analysis object
-  sequence.structure  <- c(1,2,2,3,4,4)
-  sequence.structure <- as.vector(sapply(seq(0,length(object)-1,by = 4),
-                                         function(x){sequence.structure + x}))
-
-  object <-  sapply(1:length(sequence.structure), function(x){
-
-    object[[sequence.structure[x]]]
-
-  })
-
-  object <- set_RLum.Analysis(records = object, protocol = "pIRIR")
-
-  ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
-  ## Note: output as single plots to avoid problems with this example
-  results <- analyse_pIRIRSequence(object,
-                               signal.integral.min = 1,
-                               signal.integral.max = 2,
-                               background.integral.min = 900,
-                               background.integral.max = 1000,
-                               fit.method = "EXP",
-                               sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
-                               main = "Pseudo pIRIR data set based on quartz OSL",
-                               plot.single = TRUE)
-
-
-  ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
-  ## Alternative for PDF output, uncomment and complete for usage
-  ##
-  # pdf(file = "...", height = 15, width = 15)
-  #  results <- analyse_pIRIRSequence(object,
-  #         signal.integral.min = 1,
-  #         signal.integral.max = 2,
-  #         background.integral.min = 900,
-  #         background.integral.max = 1000,
-  #         fit.method = "EXP",
-  #         main = "Pseudo pIRIR data set based on quartz OSL")
-  #
-  #  dev.off()
-
-
-})#END OF STRUCTURE
+}

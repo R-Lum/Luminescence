@@ -35,6 +35,30 @@ assign("col",
 ##==============================================================================
 # DO NOT TOUCH! -----------------------------------------------------------
 
+
+
+#' sTeve - sophisticated tool for efficient data validation and evaluation
+#' 
+#' This function provides a sophisticated routine for comprehensive
+#' luminescence dating data analysis.
+#' 
+#' This amazing sophisticated function validates your data seriously.
+#' 
+#' @param n_frames \code{\link{integer}} (with default): n frames
+#' @param t_animation \code{\link{integer}} (with default): t animation
+#' @param n.tree \code{\link{integer}} (with default): How many trees do you
+#' want to cut?
+#' @param type \code{\link{integer}} (optional): Make a decision: 1, 2 or 3
+#' @return Validates your data.
+#' @note This function should not be taken too seriously.
+#' @author R Luminescence Team, 2012-2013
+#' @seealso \link{plot_KDE}
+#' @references #
+#' @keywords manip
+#' @examples
+#' 
+#' ##no example available
+#' 
 sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
  
   ## allow new overlay plot
