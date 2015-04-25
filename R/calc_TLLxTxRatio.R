@@ -1,39 +1,66 @@
-calc_TLLxTxRatio <- structure(function(#Calculate the Lx/Tx ratio for a given set of TL curves [beta version]
-  ### Calculate Lx/Tx ratio for a given set of TL curves. 
-  
-  # ===========================================================================
-  ##author<<
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
-  ## Christoph Schmidt, University of Bayreuth (Germany),\cr
-  
-  ##section<<
-  ## version 0.3
-  # ===========================================================================
-
+#' Calculate the Lx/Tx ratio for a given set of TL curves [beta version]
+#' 
+#' Calculate Lx/Tx ratio for a given set of TL curves.
+#' 
+#' -
+#' 
+#' @param Lx.data.signal \link{data.frame} (\bold{required}): TL data (x =
+#' temperature, y = counts) (TL signal)
+#' @param Lx.data.background \link{data.frame} (optional): TL data (x =
+#' temperature, y = counts). If no data are provided no background subtraction
+#' is performed.
+#' @param Tx.data.signal \link{data.frame} (\bold{required}): TL data (x =
+#' temperature, y = counts) (TL test signal)
+#' @param Tx.data.background \link{data.frame} (optional): TL data (x =
+#' temperature, y = counts). If no data are provided no background subtraction
+#' is performed.
+#' @param signal.integral.min \link{integer} (\bold{required}): channel number
+#' for the lower signal integral bound (e.g. \code{signal.integral.min = 100})
+#' @param signal.integral.max \link{integer} (\bold{required}): channel number
+#' for the upper signal integral bound (e.g. \code{signal.integral.max = 200})
+#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+#' Slot \code{data} contains a \link{list} with the following structure:\cr\cr
+#' $ LxTx.table \cr .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $ TnTx.BG
+#' \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr
+#' @note \bold{This function has still BETA status!}
+#' @section Function version: 0.3 (2015-03-04 00:19:53)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France), Christoph Schmidt, University of Bayreuth (Germany),\cr R
+#' Luminescence Package Team
+#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
+#' @references -
+#' @keywords datagen
+#' @examples
+#' 
+#'          
+#' ##load package example data
+#' data(ExampleData.BINfileData, envir = environment())
+#' 
+#' ##convert Risoe.BINfileData into a curve object
+#' temp <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
+#' 
+#' 
+#' Lx.data.signal <- get_RLum.Analysis(temp, record.id=1)
+#' Lx.data.background <- get_RLum.Analysis(temp, record.id=2)
+#' Tx.data.signal <- get_RLum.Analysis(temp, record.id=3)
+#' Tx.data.background <- get_RLum.Analysis(temp, record.id=4)
+#' signal.integral.min <- 210
+#' signal.integral.max <- 230
+#' 
+#' output <- calc_TLLxTxRatio(Lx.data.signal, 
+#'                            Lx.data.background, 
+#'                            Tx.data.signal, Tx.data.background, 
+#'                            signal.integral.min, signal.integral.max)
+#' get_RLum.Results(output)
+#'                         
+#' 
+calc_TLLxTxRatio <- function(
   Lx.data.signal,
-  ### \link{data.frame} (\bold{required}): TL data 
-  ### (x = temperature, y = counts) (TL signal)
-  
   Lx.data.background,
-  ### \link{data.frame} (optional): TL data (x = temperature, 
-  ### y = counts). If no data are provided no background subtraction is performed.
-  
   Tx.data.signal,
-  ### \link{data.frame} (\bold{required}): TL data 
-  ### (x = temperature, y = counts) (TL test signal)
-  
   Tx.data.background,
-  ### \link{data.frame} (optional): TL data (x = temperature, 
-  ### y = counts). If no data are provided no background subtraction is performed. 
-  
   signal.integral.min,
-  ### \link{integer} (\bold{required}): channel number for the 
-  ### lower signal integral bound (e.g. \code{signal.integral.min = 100})
-  
   signal.integral.max
-  ###   \link{integer} (\bold{required}): channel number for the 
-  ### upper signal integral bound (e.g. \code{signal.integral.max = 200})
-  
 ){
    
   
@@ -200,56 +227,4 @@ calc_TLLxTxRatio <- structure(function(#Calculate the Lx/Tx ratio for a given se
 
    return(newRLumResults.calc_TLLxTxRatio)
      
-# DOCUMENTATION - INLINEDOC LINES -----------------------------------------
-     
-     ##details<<
-     ## -
-     
-     ##value<<
-     ## Returns an S4 object of type \code{\linkS4class{RLum.Results}}. 
-     ## Slot \code{data} contains a \link{list} with the following 
-     ## structure:\cr\cr 
-     ## $ LxTx.table \cr
-     ## .. $ LnLx  \cr        
-     ## .. $ LnLx.BG   \cr     
-     ## .. $ TnTx    \cr       
-     ## .. $ TnTx.BG    \cr   
-     ## .. $ Net_LnLx   \cr   
-     ## .. $ Net_LnLx.Error\cr 
-
-     ##references<<
-     ## -
-     
-     ##note<<
-     ## \bold{This function has still BETA status!}
-     
-     ##seealso<<
-     ## \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
-     
-     ##keyword<<
-     ## datagen
-     
-     
-}, ex=function(){
-           
-  ##load package example data
-  data(ExampleData.BINfileData, envir = environment())
-  
-  ##convert Risoe.BINfileData into a curve object
-  temp <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
-  
-  
-  Lx.data.signal <- get_RLum.Analysis(temp, record.id=1)
-  Lx.data.background <- get_RLum.Analysis(temp, record.id=2)
-  Tx.data.signal <- get_RLum.Analysis(temp, record.id=3)
-  Tx.data.background <- get_RLum.Analysis(temp, record.id=4)
-  signal.integral.min <- 210
-  signal.integral.max <- 230
-  
-  output <- calc_TLLxTxRatio(Lx.data.signal, 
-                             Lx.data.background, 
-                             Tx.data.signal, Tx.data.background, 
-                             signal.integral.min, signal.integral.max)
-  get_RLum.Results(output)
-                          
-})#end function
+}

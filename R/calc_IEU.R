@@ -1,33 +1,63 @@
-calc_IEU <- structure(function(# Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution
-  ### Function to calculate the IEU De for a De data set.
-  
-  # ===========================================================================
-  ##author<< 
-  ## Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
-  ## Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen.
-  
-  ##section<<
-  ## version 0.1
-  # ===========================================================================
-  
+#' Apply the internal-external-uncertainty (IEU) model after Thomsen et al.
+#' (2007) to a given De distribution
+#' 
+#' Function to calculate the IEU De for a De data set.
+#' 
+#' This function uses the equations of Thomsen et al. (2007).  The parameters a
+#' and b are estimated from dose-recovery experiments.
+#' 
+#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
+#' (\bold{required}): for \code{data.frame}: two columns with De
+#' \code{(data[,1])} and De error \code{(values[,2])}
+#' @param a \code{\link{numeric}}: slope
+#' @param b \code{\link{numeric}}: intercept
+#' @param interval \code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for
+#' iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
+#' [Dbar.Fixed vs Z]
+#' @param decimal.point \code{\link{numeric}} (with default): number of decimal
+#' points for rounding calculations (e.g. 2)
+#' @param plot \code{\link{logical}} (with default): plot output
+#' @param \dots further arguments (\code{trace, verbose}).
+#' @return Returns a plot (optional) and terminal output. In addition an
+#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' following element:
+#' 
+#' \item{summary}{\link{data.frame} summary of all relevant model results.}
+#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' used arguments} \item{call}{\link{call} the function call}
+#' \item{tables}{\link{list} a list of data frames containing all calculation
+#' tables}
+#' 
+#' The output should be accessed using the function
+#' \code{\link{get_RLum.Results}}.
+#' @section Function version: 0.1 (2015-03-04 13:18:38)
+#' @author Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
+#' (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
+#' written by Kristina Thomsen. R Luminescence Package Team
+#' @seealso \code{\link{plot}}, \code{\link{calc_CommonDose}},
+#' \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
+#' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+#' @references Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
+#' 2007. Determination of burial dose in incompletely bleached fluvial samples
+#' using single grains of quartz. Radiation Measurements 42, 370-379.
+#' @examples
+#' 
+#' 
+#' ## load data
+#' data(ExampleData.DeValues, envir = environment())
+#' 
+#' ## apply the IEU model
+#' ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
+#' 
+#' 
+calc_IEU <- function(
   data, 
-  ### \code{\linkS4class{RLum.Results}} or \link{data.frame} (\bold{required}):
-  ### for \code{data.frame}: two columns with De \code{(data[,1])} and
-  ### De error \code{(values[,2])}
   a, 
-  ### \code{\link{numeric}}: slope
   b, 
-  ### \code{\link{numeric}}: intercept
   interval, 
-  ### \code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for iteration of 
-  ### Dbar, from the mean to Lowest.De used to create Graph.IEU [Dbar.Fixed vs Z]
   decimal.point = 2, 
-  ### \code{\link{numeric}} (with default): number of decimal points for 
-  ### rounding calculations (e.g. 2)
   plot = TRUE, 
-  ### \code{\link{logical}} (with default): plot output
   ...
-  ### further arguments (\code{trace, verbose}).
 ) {
   
   ##==========================================================================##
@@ -400,40 +430,4 @@ calc_IEU <- structure(function(# Apply the internal-external-uncertainty (IEU) m
   
   invisible(newRLumResults.calc_IEU)
   
-  ### Returns a plot (optional) and terminal output. In addition an 
-  ### \code{\linkS4class{RLum.Results}} object is 
-  ### returned containing the following element:
-  ###
-  ### \item{summary}{\link{data.frame} summary of all relevant model results.}
-  ### \item{data}{\link{data.frame} original input data}
-  ### \item{args}{\link{list} used arguments}
-  ### \item{call}{\link{call} the function call}
-  ### \item{tables}{\link{list} a list of data frames containing all calculation tables}
-  ###
-  ### The output should be accessed using the function 
-  ### \code{\link{get_RLum.Results}}.
-  
-  
-  ##details<<
-  ## This function uses the equations of Thomsen et al. (2007). 
-  ## The parameters a and b are estimated from dose-recovery experiments. 
-  
-  ##references<<
-  ## Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J., 2007.
-  ## Determination of burial dose in incompletely bleached fluvial samples using
-  ## single grains of quartz. Radiation Measurements 42, 370-379.
-  
-  ##seealso<<
-  ## \code{\link{plot}}, \code{\link{calc_CommonDose}}, \code{\link{calc_CentralDose}}, 
-  ## \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
-  ## \code{\link{calc_MinDose}}
-  
-}, ex = function() {
-  
-  ## load data
-  data(ExampleData.DeValues, envir = environment())
-  
-  ## apply the IEU model
-  ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
-  
-})#END OF STRUCTURE
+}

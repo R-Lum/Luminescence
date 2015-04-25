@@ -1,26 +1,50 @@
-get_Layout <- structure(function( # Collection of layout definitions
-  ### This helper function returns a list with layout definitions for
-  ### homogeneous plotting.
-  
-  # ===========================================================================
-  ##author<<
-  ## Michael Dietze, GFZ Potsdam (Germany) \cr 
-  
-  ##section<<
-  ## version 0.1
-  # ===========================================================================
-  
+#' Collection of layout definitions
+#' 
+#' This helper function returns a list with layout definitions for homogeneous
+#' plotting.
+#' 
+#' The easiest way to create a user-specific layout definition is perhaps to
+#' create either an empty or a default layout object and fill/modify the
+#' definitions (\code{user.layout <- get_Layout(data = "empty")}).
+#' 
+#' @param layout \code{\link{character}} or \code{\link{list}} object
+#' (required): name of the layout definition to be returned. If name is
+#' provided the respective definition is returned. One of the following
+#' supported layout definitions is possible: \code{"default"},
+#' \code{"journal.1"}, \code{"small"}, \code{"empty"}. User-specific layout
+#' definitions must be provided as a list object of predefined structure, see
+#' details.
+#' @return A list object with layout definitions for plot functions.
+#' @section Function version: 0.1 (2015-03-04 00:19:53)
+#' @author Michael Dietze, GFZ Potsdam (Germany) \cr R Luminescence Package
+#' Team
+#' @examples
+#' 
+#' ## read example data set
+#' data(ExampleData.DeValues, envir = environment())
+#' 
+#' ## show structure of the default layout definition
+#' layout.default <- get_Layout(layout = "default")
+#' str(layout.default)
+#' 
+#' ## show colour definitions for Abanico plot, only
+#' layout.default$abanico$colour
+#' 
+#' ## set Abanico plot title colour to orange
+#' layout.default$abanico$colour$main <- "orange"
+#' 
+#' ## create Abanico plot with modofied layout definition
+#' plot_AbanicoPlot(data = ExampleData.DeValues,
+#'                  layout = layout.default)
+#' 
+#' ## create Abanico plot with predefined layout "journal"
+#' plot_AbanicoPlot(data = ExampleData.DeValues,
+#'                  layout = "journal")
+#' 
+get_Layout <- function(
   layout
-  ### \code{\link{character}} or \code{\link{list}} object (required): 
-  ### name of the layout definition to be returned. If name is provided
-  ### the respective definition is returned. One of the following 
-  ### supported layout definitions is possible: \code{"default"},
-  ### \code{"journal.1"}, \code{"small"}, \code{"empty"}. User-specific  
-  ### layout definitions must be provided as a list object of predefined 
-  ### structure, see details.
-  
 ) {
-
+  
   ## pre-defined layout selections
   if(is.character(layout) == TRUE & length(layout) == 1) {
     
@@ -584,33 +608,4 @@ get_Layout <- structure(function( # Collection of layout definitions
   }
   
   return(layout)
-  ### A list object with layout definitions for plot functions.
-  
-  ##details<<
-  ## The easiest way to create a user-specific layout definition is
-  ## perhaps to create either an empty or a default layout object and 
-  ## fill/modify the definitions (\code{user.layout <- 
-  ## get_Layout(data = "empty")}).
-  
-}, ex=function(){
-  ## read example data set
-  data(ExampleData.DeValues, envir = environment())
-  
-  ## show structure of the default layout definition
-  layout.default <- get_Layout(layout = "default")
-  str(layout.default)
-  
-  ## show colour definitions for Abanico plot, only
-  layout.default$abanico$colour
-  
-  ## set Abanico plot title colour to orange
-  layout.default$abanico$colour$main <- "orange"
-  
-  ## create Abanico plot with modofied layout definition
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   layout = layout.default)
-  
-  ## create Abanico plot with predefined layout "journal"
-  plot_AbanicoPlot(data = ExampleData.DeValues,
-                   layout = "journal")
-})
+}

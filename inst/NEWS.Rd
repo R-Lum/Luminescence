@@ -1,6 +1,33 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.4.3 (17th, 2015)}{
+\section{Changes in version 0.4.4 (XXth, May 2015)}{
+
+ \subsection{Bugfixes and changes}{
+   \itemize{
+  \item \code{plot_GrowthCurve()}
+
+  \itemize{
+    \item Function crashed with unclear error if the number of regenerations points was <=3), fixed,
+    \item fitting is now allowed with at leat two regenerations points.
+  }
+
+   }
+
+}
+
+}
+
+\section{Changes in version 0.4.3 (17th, April 2015)}{
+
+\subsection{Note on the update}{
+
+  \itemize{
+  \item This is an unplanned update but it was necessary as with the last package version (0.4.2)
+  unfortunately we introduced (again) a bug in the error calculation routine of the function plot_GrowthCurve().
+  Due to this the error of the resulting De became unrealistically small.
+
+
+}}
 
   \subsection{Bugfixes and changes}{
    \itemize{
@@ -20,60 +47,59 @@
       \item \code{analyse_SAR.CWOSL()}
        \itemize{
           \item If the threshold for the rejection criteria was reached due an error this information
-          was not properly stored in the output object (i.e. every time 'RC.Status' was set to 'OK');
+          was not properly stored in the output object (i.e. every time 'RC.Status' was set to 'OK' instead of 'FAILED');
           corrected (#180).
        }
 
 
       \item \code{extract_IrradiationTimes()}
        \itemize{
-          \item Argument \code{file.XSYG} replaced by \code{object},
+          \item Argument \code{file.XSYG} replaced by \code{object} for the sake of argument consistency on the package,
           \item allow input for \code{RLum.Analysis} object. In such cases the arguments \code{file.BINX}
-          and \code{recordType} are ignored. This mode gives more flexibility in applying this function,
-          \item new argument \code{compatibility.mode} to trigger the write output of the BIN/BINX-file,
-          \item additionally now the time between the steps is exported \code{TIMESINCELAST.STEP}.
+          and \code{recordType} are ignored. This mode allows for more flexibility in applying this function,
+          \item new argument \code{compatibility.mode} to trigger the binary write output of the BIN/BINX-file,
+          \item additionally now the time between the steps is exported (\code{TIMESINCELAST.STEP}).
 
           }
 
 
       \item \code{fit_CWVCurve()}
        \itemize{
-          \item The function broke with an error under rare circumstances when not fit was made (reported by Alexandra Rowell); corrected,
-          \item change start parameter estimation to better account for the input data, this should hopefully stabilise the fitting (thanks to Alexandra Rowell),
-          \item proper rescaling graphical output if no fit could be made,
+          \item The function broke with an error under rare circumstances when no fit was made (reported by Alexandra Rowell); corrected,
+          \item change start parameter estimation to better account for the input data,
+              this hopefully further stabilise the fitting (thanks to Alexandra Rowell),
+          \item more proper re-scaling of the graphical output if no fit could be produced,
           \item new argument add \code{fit.method} to allow using the function \code{nlsLM} from the
           \code{minpack.lm package} and with this the Levenberg-Marquardt algorithm,
           \item argument \code{cex.global} replaced by \code{cex} and moved to the \code{...} argument,
           \item argument \code{output.plot} changed to \code{plot},
           \item changing the way how warnings are surpressed.
 
-
-
         }
-
 
 
       \item \code{plot_Histogram()}
        \itemize{
-          \item Argument 'breaks' was without function due to a coding error. Corrected. (#217),
-          \item argument 'breaks' removed from the argument list, however, supported via the \code{'...'}
+          \item Argument 'breaks' was without function due to a coding error. Corrected (#217).,
+          \item argument 'breaks' removed from the argument list, however, it remains supported via the \code{'...'}
           argument.
        }
 
       \item \code{plot_GrowthCurve()}
        \itemize{
           \item Error estimation using the Monte Carlo runs for the
-          fitting function \code{fit.method = "EXP+LIN"} and \code{fit.method = "EXP+EXP"} results in false values, as the Monte Carlo simulation
+          fitting function \code{fit.method = "EXP+LIN"} and \code{fit.method = "EXP+EXP"} results in unrealistic values, as the Monte Carlo simulation
           was fed by mistake with wrong input variables (introduced in version 0.4.2 with the uniroot function) ... fixed,
-          \item the function brook if the uniroot algorithm was not able to find a solution within the given ranges, fixed. De will become
-          NA instead and the function continues.
+          \item the function broke if the uniroot algorithm was not be able to find a solution within the given ranges, fixed. Now the De will become
+          NA insteadly and the function will not stop,
+          \item error messages coming from the fitting process itself are now surpressed.
        }
 
 
     \item \code{plot_RLum.Data.Spectrum()}
        \itemize{
           \item Colour handing changed towards a more logical behaviour for \code{plot.type = 'single'}.
-          The color now changes only the colour of the points and the argument \code{rug} is now recognised also
+          The colour now changes only the colour of the points and the argument \code{rug} is now recognised also
           by this plot type. Automatic wavelength colouring for points for in this plot type has been removed.
           \item same changes are made for  \code{plot.type = 'multiple.lines'},
           \item instead of just plotting a new x-axis when the argument \code{xaxis.energy = TRUE} is used,
@@ -103,7 +129,7 @@
        \itemize{
 
           \item Info objects from the sequence header like 'name' and 'position' are now be additionally
-          transferred to each single output object, to keep this information in the object.
+          transferred to each single output object. With this the information is kept within the curve object.
 
 
        }
@@ -111,8 +137,8 @@
       \item \code{writeR2BIN()}
        \itemize{
           \item Support for BIN/BINX-file version 07 added thanks to the support by Torben Lapp (#215),
-          \item new argument \code{compatibility.mode} to avoid position numbers >48. This may cause
-          errors using external software like the Analyst. The old version number will be added
+          \item new argument \code{compatibility.mode} to avoid position numbers >48 as this caused
+          errors using external software like the Analyst. The old version number is kept and added
           in the comment field.
        }
 
@@ -124,10 +150,10 @@
    \itemize{
 
       \item Description on the class \code{Risoe.BINfileData} updated in accordance with the implemented
-      changes on the import,
+      changes on the import (no change in the S4-object class chart),
 
       \item added dependency to package \code{minpack.lm} to support the Levenberg-Marquardt algorithm
-      for fitting.
+      for fitting in the function \code{fit_LMCurve()}
 
 
     }

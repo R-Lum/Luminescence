@@ -1,147 +1,166 @@
-plot_Histogram <- structure(function(# Plot a histogram with separate error plot
-  ### Function plots a predefined histogram with an accompanying error plot
-  ### as suggested by Rex Galbraith at the UK LED in Oxford 2010.
-
-  # ===========================================================================
-  ##author<<
-  ## Michael Dietze, GFZ Potsdam (Germany), \cr
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
-
-  ##section<<
-  ##version 0.4.4
-  # ===========================================================================
-
+#' Plot a histogram with separate error plot
+#' 
+#' Function plots a predefined histogram with an accompanying error plot as
+#' suggested by Rex Galbraith at the UK LED in Oxford 2010.
+#' 
+#' If the normal curve is added, the y-axis in the histogram will show the
+#' probability density.
+#' 
+#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
+#' object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
+#' and De error (\code{data[,2]})
+#' @param na.exclude \code{\link{logical}} (with default): excludes \code{NA}
+#' values from the data set prior to any further operations.
+#' @param mtext \code{\link{character}} (optional): further sample information
+#' (\link{mtext}).
+#' @param cex.global \code{\link{numeric}} (with default): global scaling
+#' factor.
+#' @param se \code{\link{logical}} (optional): plots standard error points over
+#' the histogram, default is \code{FALSE}.
+#' @param rug \code{\link{logical}} (optional): adds rugs to the histogram,
+#' default is \code{TRUE}.
+#' @param normal_curve \code{\link{logical}} (with default): adds a normal
+#' curve to the histogram. Mean and sd are calculated from the input data. More
+#' see details section.
+#' @param summary \code{\link{character}} (optional): adds numerical output to
+#' the plot. Can be one or more out of: \code{"n"} (number of samples),
+#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+#' \code{"median"} (median of the De values), \code{"kdemax"} (maximum of the
+#' KDE), \code{"sdrel"} (relative standard deviation in percent),
+#' \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative
+#' standard error), \code{"seabs"} (absolute standard error), \code{"skewness"}
+#' (skewness) and \code{"kurtosis"} (kurtosis). Note: Keywords \code{"kdemax"}
+#' is implemented for consistency reasons, however, no KDE is shown. The
+#' bandwidth is calculated according to \code{\link{plot_KDE}}
+#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' default): optional position coordinates or keyword (e.g. \code{"topright"})
+#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
+#' specified to place the summary below the plot header. However, this latter
+#' option in only possible if \code{mtext} is not used. In case of coordinate
+#' specification, y-coordinate refers to the right y-axis.
+#' @param colour \code{\link{numeric}} or \link{character} (with default):
+#' optional vector of length 4 which specifies the colours of the following
+#' plot items in exactly this order: histogram bars, rug lines, normal
+#' distribution curve and standard error points\cr (e.g., \code{c("grey",
+#' "black", "red", "grey")}).
+#' @param \dots further arguments and graphical parameters passed to
+#' \code{\link{plot}} or \code{\link{hist}}. If y-axis labels are provided,
+#' these must be specified as a vector of length 2 since the plot features two
+#' axes (e.g. \code{ylab = c("axis label 1", "axis label 2")}). Y-axes limits
+#' (\code{ylim}) must be provided as vector of length four, with the first two
+#' elements specifying the left axes limits and the latter two elements giving
+#' the right axis limits.
+#' @note The input data is not restricted to a special type.
+#' @section Function version: 0.4.4 (2015-03-28 12:38:08)
+#' @author Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
+#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr R Luminescence
+#' Package Team
+#' @seealso \code{\link{hist}}, \code{\link{plot}}
+#' @examples
+#' 
+#' ## load data
+#' data(ExampleData.DeValues, envir = environment())
+#' ExampleData.DeValues <-
+#'   Second2Gray(ExampleData.DeValues$BT998, dose.rate = c(0.0438,0.0019))
+#' 
+#' ## plot histogram the easiest way
+#' plot_Histogram(ExampleData.DeValues)
+#' 
+#' ## plot histogram with some more modifications
+#' plot_Histogram(ExampleData.DeValues,
+#'                rug = TRUE,
+#'                normal_curve = TRUE,
+#'                cex.global = 0.9,
+#'                pch = 2,
+#'                colour = c("grey", "black", "blue", "green"),
+#'                summary = c("n", "mean", "sdrel"),
+#'                summary.pos = "topleft",
+#'                main = "Histogram of De-values",
+#'                mtext = "Example data set",
+#'                ylab = c(expression(paste(D[e], " distribution")),
+#'                         "Error"),
+#'                xlim = c(100, 250),
+#'                ylim = c(0, 0.1, 5, 20))
+#' 
+#' 
+plot_Histogram <- function(
   data,
-  ### \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-  ### object (required): for \code{data.frame}: two columns: De
-  ### (\code{data[,1]}) and De error (\code{data[,2]})
-
   na.exclude = TRUE,
-  ### \code{\link{logical}} (with default): excludes \code{NA} values from the
-  ### data set prior to any further operations.
-
   mtext,
-  ### \code{\link{character}} (optional): further sample information
-  ### (\link{mtext}).
-
   cex.global,
-  ### \code{\link{numeric}} (with default): global scaling factor.
-
   se,
-  ### \code{\link{logical}} (optional): plots standard error points over the
-  ### histogram, default is \code{FALSE}.
-
   rug,
-  ### \code{\link{logical}} (optional): adds rugs to the histogram, default is
-  ### \code{TRUE}.
-
   normal_curve,
-  ### \code{\link{logical}} (with default): adds a normal curve to the
-  ### histogram. Mean and sd are calculated from the input data. More see
-  ### details section.
-
   summary,
-  ### \code{\link{character}} (optional): adds numerical output to the plot.
-  ### Can be one or more out of: \code{"n"} (number of samples), \code{"mean"} (mean De
-  ### value), \code{"mean.weighted"} (error-weighted mean), \code{"median"} (median of
-  ### the De values), \code{"kdemax"} (maximum of the KDE), \code{"sdrel"} (relative standard deviation in
-  ### percent), \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative
-  ### standard error), \code{"seabs"} (absolute standard error), \code{"skewness"} (skewness)
-  ### and \code{"kurtosis"} (kurtosis).
-  ### Note: Keywords \code{"kdemax"} is implemented for
-  ### consistency reasons, however, no KDE is shown. The bandwidth is calculated according to
-  ### \code{\link{plot_KDE}}
-
   summary.pos,
-  ### \code{\link{numeric}} or \code{\link{character}} (with default): optional
-  ### position coordinates or keyword (e.g. \code{"topright"}) for the
-  ### statistical summary. Alternatively, the keyword \code{"sub"} may be
-  ### specified to place the summary below the plot header. However, this
-  ### latter option in only possible if \code{mtext} is not used. In case
-  ### of coordinate specification, y-coordinate refers to the right y-axis.
-
   colour,
-  ### \code{\link{numeric}} or \link{character} (with default): optional vector
-  ### of length 4 which specifies the colours of the following plot items in
-  ### exactly this order: histogram bars, rug lines, normal distribution curve
-  ### and standard error points\cr
-  ### (e.g., \code{c("grey", "black", "red", "grey")}).
-
   ...
-  ### further arguments and graphical parameters passed to \code{\link{plot}} or \code{\link{hist}}.
-  ### If y-axis labels are provided, these must be specified as a vector of
-  ### length 2 since the plot features two axes (e.g. \code{ylab = c("axis
-  ### label 1", "axis label 2")}). Y-axes limits (\code{ylim}) must be
-  ### provided as vector of length four, with the first two elements
-  ### specifying the left axes limits and the latter two elements giving the
-  ### right axis limits.
-
 ) {
-
+  
   # Integrity tests ---------------------------------------------------------
   ## check/adjust input data structure
   if(is(data, "RLum.Results") == FALSE &
        is(data, "data.frame") == FALSE) {
-
+    
     stop(paste("[plot_Histogram()] Input data format is neither",
                "'data.frame' nor 'RLum.Results'"))
   } else {
-
+    
     if(is(data, "RLum.Results") == TRUE) {
       data <- get_RLum.Results(data)[,1:2]
     }
   }
-
+  
   ## handle error-free data sets
   if(length(data) < 2) {
     data <- cbind(data, rep(NA, length(data)))
   }
-
-
+  
+  
   ## Set general parameters ---------------------------------------------------
   ## Check/set default parameters
   if(missing(cex.global) == TRUE) {
     cex.global <- 1
   }
-
+  
   if(missing(mtext) == TRUE) {
     mtext <- ""
   }
-
+  
   if(missing(se) == TRUE) {
     se = TRUE
   }
-
+  
   if(missing(rug) == TRUE) {
     rug = TRUE
   }
-
+  
   if(missing(colour) == TRUE) {
     colour = c("white", "black", "red", "black")
   }
-
+  
   if(missing(summary) == TRUE) {
     summary <- ""
   }
-
+  
   if(missing(summary.pos) == TRUE) {
     summary.pos <- "sub"
   }
-
+  
   if(missing(normal_curve) == TRUE) {
     normal_curve = FALSE
   }
-
+  
   ## read out additional arguments list
   extraArgs <- list(...)
-
+  
   ## define fun
   if("fun" %in% names(extraArgs)) {
     fun <- extraArgs$fun
   } else {
     fun <- FALSE
   }
-
+  
   ## optionally, count and exclude NA values and print result
   if(na.exclude == TRUE) {
     n.NA <- sum(is.na(data[,1]))
@@ -152,39 +171,39 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
     }
     data <- data[!is.na(data[,1]),]
   }
-
+  
   if("main" %in% names(extraArgs)) {
     main.plot <- extraArgs$main
   } else {
     main.plot <- "Histogram"
   }
-
+  
   if("xlab" %in% names(extraArgs)) {
     xlab.plot <- extraArgs$xlab
   } else {
     xlab.plot <- expression(paste(D[e], " [Gy]"))
   }
-
+  
   if("ylab" %in% names(extraArgs)) {
     ylab.plot <- extraArgs$ylab
   } else {
     ylab.plot <- c("Frequency",
                    "Error")
   }
-
+  
   if("breaks" %in% names(extraArgs)) {
     breaks.plot <- extraArgs$breaks
   } else {
     breaks.plot <- hist(x = data[,1],
                         plot = FALSE)$breaks
   }
-
+  
   if("xlim" %in% names(extraArgs)) {
     xlim.plot <- extraArgs$xlim
   } else {
     xlim.plot <- range(breaks.plot)
   }
-
+  
   if("ylim" %in% names(extraArgs)) {
     ylim.plot <- extraArgs$ylim
   } else {
@@ -202,7 +221,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
     range.error[2] <- ifelse(is.infinite(range.error[2]), 0, range.error[2])
     ylim.plot <- c(left.ylim, range.error)
   }
-
+  
   if("pch" %in% names(extraArgs)) {
     pch.plot <- extraArgs$pch
   } else {
@@ -211,32 +230,32 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
   ## Set plot area format
   par(mar = c(4.5, 4.5, 4.5, 4.5),
       cex = cex.global)
-
+  
   ## Plot histogram -----------------------------------------------------------
   HIST <- hist(data[,1],
-	  	 main = "",
-       xlab = xlab.plot,
-       ylab = ylab.plot[1],
-       xlim = xlim.plot,
-       ylim = ylim.plot[1:2],
-       breaks = breaks.plot,
-       freq = !normal_curve,
-       col = colour[1]
-       )
-
+               main = "",
+               xlab = xlab.plot,
+               ylab = ylab.plot[1],
+               xlim = xlim.plot,
+               ylim = ylim.plot[1:2],
+               breaks = breaks.plot,
+               freq = !normal_curve,
+               col = colour[1]
+  )
+  
   ## add title
   title(line = 2,
         main = main.plot)
-
+  
   ## Optionally, add rug ------------------------------------------------------
   if(rug == TRUE) {rug(data[,1], col = colour[2])}
-
+  
   ## Optionally, add a normal curve based on the data -------------------------
   if(normal_curve == TRUE){
     ## cheat the R check routine, tztztz how neat
     x <- NULL
     rm(x)
-
+    
     ## add normal distribution curve
     curve(dnorm(x,
                 mean = mean(na.exclude(data[,1])),
@@ -245,7 +264,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
           add = TRUE,
           lwd = 1.2 * cex.global)
   }
-
+  
   ## calculate and paste statistical summary
   data.stats <- list(data = data)
   De.stats <- matrix(nrow = length(data.stats), ncol = 14)
@@ -263,7 +282,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
                           "q75",
                           "skewness",
                           "kurtosis")
-
+  
   for(i in 1:length(data.stats)) {
     statistics <- calc_Statistics(data.stats[[i]])
     De.stats[i,1] <- statistics$weighted$n
@@ -279,28 +298,28 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
     De.stats[i,12] <- quantile(data.stats[[i]][,1], 0.75)
     De.stats[i,13] <- statistics$unweighted$skewness
     De.stats[i,14] <- statistics$unweighted$kurtosis
-
-
+    
+    
     ##kdemax - here a little doubled as it appears below again
     De.density <-density(x = data.stats[[i]][,1],
                          kernel = "gaussian",
                          bw = "nrd0")
-
+    
     De.stats[i,6] <- De.density$x[which.max(De.density$y)]
-
-
+    
+    
   }
-
+  
   label.text = list(NA)
-
+  
   if(summary.pos[1] != "sub") {
     n.rows <- length(summary)
-
+    
     for(i in 1:length(data.stats)) {
       stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
-
+      
       summary.text <- character(0)
-
+      
       for(j in 1:length(summary)) {
         summary.text <- c(summary.text,
                           paste(
@@ -386,11 +405,11 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
                                          sep = ""),
                                    ""),
                             sep = ""))
-
+        
       }
-
+      
       summary.text <- paste(summary.text, collapse = "")
-
+      
       label.text[[length(label.text) + 1]] <- paste(stops,
                                                     summary.text,
                                                     stops,
@@ -399,7 +418,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
   } else {
     for(i in 1:length(data.stats)) {
       summary.text <- character(0)
-
+      
       for(j in 1:length(summary)) {
         summary.text <- c(summary.text,
                           ifelse("n" %in% summary[j] == TRUE,
@@ -483,15 +502,15 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
                                        sep = ""),
                                  ""))
       }
-
+      
       summary.text <- paste(summary.text, collapse = "")
-
+      
       label.text[[length(label.text) + 1]]  <- paste(
         "  ",
         summary.text,
         sep = "")
     }
-
+    
     ## remove outer vertical lines from string
     for(i in 2:length(label.text)) {
       label.text[[i]] <- substr(x = label.text[[i]],
@@ -499,10 +518,10 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
                                 stop = nchar(label.text[[i]]) - 3)
     }
   }
-
+  
   ## remove dummy list element
   label.text[[1]] <- NULL
-
+  
   ## convert keywords into summary placement coordinates
   if(missing(summary.pos) == TRUE) {
     summary.pos <- c(xlim.plot[1], ylim.plot[2])
@@ -538,7 +557,7 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
     summary.pos <- c(xlim.plot[2], ylim.plot[1])
     summary.adj <- c(1, 0)
   }
-
+  
   ## add summary content
   for(i in 1:length(data.stats)) {
     if(summary.pos[1] != "sub") {
@@ -558,16 +577,16 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
       }
     }
   }
-
+  
   ## Optionally, add standard error plot --------------------------------------
   if(sum(is.na(data[,2])) == length(data[,2])) {
     se <- FALSE
   }
-
+  
   if(se == TRUE) {
     par(new = TRUE)
     plot.data <- data[!is.na(data[,2]),]
-
+    
     plot(x = plot.data[,1],
          y = plot.data[,2],
          xlim = xlim.plot,
@@ -579,70 +598,26 @@ plot_Histogram <- structure(function(# Plot a histogram with separate error plot
          ylab = "",
          axes = FALSE,
          frame.plot = FALSE
-         )
+    )
     axis(side = 4,
          labels = TRUE,
          cex = cex.global
-         )
+    )
     mtext(ylab.plot[2],
           side = 4,
           line = 3,
           cex = cex.global)
-
-#    par(new = FALSE)
+    
+    #    par(new = FALSE)
   }
-
+  
   ## Optionally add user-defined mtext
   mtext(side = 3,
         line = 0.5,
         text = mtext,
         cex = 0.8 * cex.global)
-
+  
   ## FUN by R Luminescence Team
   if(fun==TRUE){sTeve()}
-
-  ##details<<
-  ## If the normal curve is added, the y-axis in the histogram will show
-  ## the probability density.
-
-  ##seealso<<
-  ## \code{\link{hist}}, \code{\link{plot}}
-
-  ##referencs<<
-  ## Galbraith, R., 2010. Statistics in OSL: Some Current Questions; Ask Rex.
-  ## Oral presentation during the UK TL/OSL/ESR Meeting at the School of
-  ## Geography and the Environment, University of Oxford, 8-10 September
-  ## 2010.\cr
-  ## Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent
-  ## dose and error calculation and display in OSL dating: An overview and
-  ## some recommendations. Quaternary Geochronology, 11, 1-27.
-
-  ##note<<
-  ## The input data is not restricted to a special type.
-
-}, ex=function(){
-  ## load data
-  data(ExampleData.DeValues, envir = environment())
-  ExampleData.DeValues <-
-    Second2Gray(ExampleData.DeValues$BT998, dose.rate = c(0.0438,0.0019))
-
-  ## plot histogram the easiest way
-  plot_Histogram(ExampleData.DeValues)
-
-  ## plot histogram with some more modifications
-  plot_Histogram(ExampleData.DeValues,
-                 rug = TRUE,
-                 normal_curve = TRUE,
-                 cex.global = 0.9,
-                 pch = 2,
-                 colour = c("grey", "black", "blue", "green"),
-                 summary = c("n", "mean", "sdrel"),
-                 summary.pos = "topleft",
-                 main = "Histogram of De-values",
-                 mtext = "Example data set",
-                 ylab = c(expression(paste(D[e], " distribution")),
-                          "Error"),
-                 xlim = c(100, 250),
-                 ylim = c(0, 0.1, 5, 20))
-
-})
+  
+}

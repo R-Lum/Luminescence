@@ -1,20 +1,51 @@
-merge_RLum<- structure(function(#General merge function for RLum S4 class objects
-  ### Function calls object-specific merge functions for RLum S4 class objects. 
-  
-  # ===========================================================================
-  ##author<<
-  ## Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
-  
-  ##section<<
-  ## version 0.1
-  # ===========================================================================
-
+#' General merge function for RLum S4 class objects
+#' 
+#' Function calls object-specific merge functions for RLum S4 class objects.
+#' 
+#' The function provides a generalised access point for merge specific
+#' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+#' corresponding merge function will be selected.  Allowed arguments can be
+#' found in the documentations of each merge function.  \tabular{lll}{
+#' \bold{object} \tab \tab \bold{corresponding merge function} \cr
+#' 
+#' \code{\linkS4class{RLum.Results}} \tab : \tab
+#' \code{\link{merge_RLum.Results}} }
+#' 
+#' @param objects \code{\link{list}} of \code{\linkS4class{RLum}}
+#' (\bold{required}): list of S4 object of class \code{RLum}
+#' @param \dots further arguments that one might want to pass to the specific
+#' merge function
+#' @return Return is the same as input objects as provided in the list.
+#' @note So far not for every \code{RLum} object a merging function exists.
+#' @section Function version: 0.1 (2015-03-04 14:47:38)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France), \cr R Luminescence Package Team
+#' @seealso \code{\link{merge_RLum.Results}},
+#' \code{\linkS4class{RLum.Results}},
+#' @references #
+#' @keywords utilities
+#' @examples
+#' 
+#' 
+#' ##Example based using data and from the calc_CentralDose() function
+#' 
+#' ##load example data
+#' data(ExampleData.DeValues, envir = environment())
+#' 
+#' ##apply the central dose model 1st time 
+#' temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
+#' 
+#' ##apply the central dose model 2nd time
+#' temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
+#' 
+#' ##merge the results and store them in a new object
+#' temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))
+#' 
+#' 
+#' 
+merge_RLum<- function(
   objects, 
-  ### \code{\link{list}} of \code{\linkS4class{RLum}} (\bold{required}): list of S4 object of class \code{RLum}
-  
   ...
-  ### further arguments that one might want to pass to the specific merge function 
- 
 ){
   
    # Integrity check ----------------------------------------------------------
@@ -60,52 +91,4 @@ merge_RLum<- structure(function(#General merge function for RLum S4 class object
             RLum.Results = merge_RLum.Results(objects, ...)            
            )
 
-
-   # DOCUMENTATION - INLINEDOC LINES -----------------------------------------
-   
-   ##details<<
-   ## The function provides a generalised access point for merge specific 
-   ## \code{\linkS4class{RLum}} objects.\cr
-   ## Depending on the input object, the corresponding merge function will be selected. 
-   ## Allowed arguments can be found in the documentations of each merge function. 
-   ## \tabular{lll}{
-   ## \bold{object} \tab \tab \bold{corresponding merge function} \cr
-   ##    
-   ## \code{\linkS4class{RLum.Results}} \tab : \tab \code{\link{merge_RLum.Results}} 
-   ## }
-   
-   ##value<<
-   ## Return is the same as input objects as provided in the list.
-   
-   ##references<<
-   ## #
-   
-   ##note<<
-   ## So far not for every \code{RLum} object a merging function exists.
-   
-   ##seealso<<
-   ## \code{\link{merge_RLum.Results}}, \code{\linkS4class{RLum.Results}},
-
-   
-   ##keyword<<
-   ## utilities
-   
-   
-}, ex=function(){
-  
-  ##Example based using data and from the calc_CentralDose() function
-  
-  ##load example data
-  data(ExampleData.DeValues, envir = environment())
-  
-  ##apply the central dose model 1st time 
-  temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
-  
-  ##apply the central dose model 2nd time
-  temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
-  
-  ##merge the results and store them in a new object
-  temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))
-  
-  
-})#END OF STRUCTURE
+}
