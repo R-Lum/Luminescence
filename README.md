@@ -1,5 +1,7 @@
 # Luminescence
 
+[![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
+
 The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
 
 For an introduction and further details, visit the [R-Luminescence homepage](http://www.r-luminescence.de).
