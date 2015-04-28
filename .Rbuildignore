@@ -4,3 +4,5 @@ LICENSE$
 ^\.travis\.yml$
 ^\.README\.md$
 ^\test\*
+^packrat/
+^\.Rprofile$

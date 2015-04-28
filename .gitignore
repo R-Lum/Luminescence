@@ -10,3 +10,5 @@
 .Rproj.user
 .Rprofile
 /test/*
+packrat/lib*/
+packrat/src/
