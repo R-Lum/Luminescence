@@ -6,6 +6,7 @@
 *.Rhistory
 *.Rproj
 *.Rbuildignore
+*.DS_Store
 .Rproj.user
 .Rprofile
 /test/*
