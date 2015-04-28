@@ -8,3 +8,4 @@
 *.Rbuildignore
 .Rproj.user
 .Rprofile
+/test/*
