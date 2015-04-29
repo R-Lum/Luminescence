@@ -160,7 +160,7 @@ HTML(output,
 
 write.table(output,
             file =  paste0("Luminescence_",temp.version,"-Functions.csv"),
-            sep = ";", row.names = FALSE)
+            sep = ",", row.names = FALSE)
 
 
 # LaTeX Output ------------------------------------------------------------
