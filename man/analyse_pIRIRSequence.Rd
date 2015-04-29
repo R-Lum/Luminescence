@@ -80,7 +80,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.1.4 (2015-04-19 12:24:29)
+ 0.1.4 (2015-04-19 12:24:29) (2015-04-28 18:31:51)
 }
 \examples{
 ### NOTE: For this example existing example data are used. These data are non pIRIR data.
@@ -138,7 +138,7 @@ results <- analyse_pIRIRSequence(object,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)\cr R Luminescence Package Team
-}
+\cr R Luminescence Package Team}
 \references{
 Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 using an improved single-aliquot regenerative-dose protocol. Radiation

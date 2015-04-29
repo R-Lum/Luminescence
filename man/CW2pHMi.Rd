@@ -72,7 +72,7 @@ no further interpolation is attempted.\cr In every case a warning message is
 shown.
 }
 \section{Function version}{
- 0.2.2 (2015-03-04 18:42:57)
+ 0.2.2 (2015-03-04 18:42:57) (2015-04-28 18:31:51)
 }
 \examples{
 ##(1) - simple transformation
@@ -153,7 +153,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France) \cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
 Delft University of Technology, The Netherlands\cr\cr R Luminescence Package
 Team
-}
+\cr R Luminescence Package Team}
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr

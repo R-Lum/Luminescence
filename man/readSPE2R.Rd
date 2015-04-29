@@ -68,7 +68,7 @@ The function has been successfully tested for SPE format versions 2.x.
 supported.}
 }
 \section{Function version}{
- 0.1 (2015-03-04 12:43:39)
+ 0.1 (2015-03-04 12:43:39) (2015-04-28 18:31:51)
 }
 \examples{
 ## to run examples uncomment lines and run the code
@@ -96,7 +96,7 @@ supported.}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), R Luminescence Package Team
-}
+\cr R Luminescence Package Team}
 \references{
 Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 Format Specification, Version 1.A,

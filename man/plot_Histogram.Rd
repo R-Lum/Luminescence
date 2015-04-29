@@ -75,7 +75,7 @@ probability density.
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4 (2015-03-28 12:38:08)
+ 0.4.4 (2015-03-28 12:38:08) (2015-04-28 18:31:51)
 }
 \examples{
 ## load data
@@ -106,7 +106,7 @@ plot_Histogram(ExampleData.DeValues,
 Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr R Luminescence
 Package Team
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\link{hist}}, \code{\link{plot}}
 }

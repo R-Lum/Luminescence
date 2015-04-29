@@ -79,7 +79,7 @@ The function has been successfully tested for the Sequence Editor file
 output version 3 and 4.
 }
 \section{Function version}{
- 0.4.1 (2015-03-04 00:19:53)
+ 0.4.1 (2015-03-04 00:19:53) (2015-04-28 18:31:51)
 }
 \examples{
 ##load data
@@ -101,7 +101,7 @@ data(ExampleData.BINfileData, envir = environment())
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France),\cr Michael Dietze, GFZ Potsdam (Germany)\cr R Luminescence Package
 Team
-}
+\cr R Luminescence Package Team}
 \references{
 Duller, G., 2007. Analyst. pp. 1-45.
 }

@@ -182,7 +182,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.3.2 (2015-04-09 19:27:06)
+ 0.3.2 (2015-04-09 19:27:06) (2015-04-28 22:46:44)
 }
 \examples{
 ##load data
@@ -194,7 +194,7 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France) \cr R Luminescence Package Team
-}
+\cr R Luminescence Package Team}
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.

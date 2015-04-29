@@ -94,7 +94,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.4.3 (2015-04-07 11:39:31)
+ 0.4.3 (2015-04-07 11:39:31) (2015-04-28 18:31:51)
 }
 \examples{
 ##(1) import XSYG file to R (uncomment for usage)
@@ -124,7 +124,7 @@ get_structure.RLum.Analysis(OSL.SARMeasurement$Sequence.Object)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), \cr R Luminescence Package Team
-}
+\cr R Luminescence Package Team}
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr

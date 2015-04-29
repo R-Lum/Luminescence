@@ -27,7 +27,7 @@ This function calculates a number of descriptive statistics for De-data,
 most fundamentally using error-weighted approaches.
 }
 \section{Function version}{
- 0.1.1 (2015-04-15 11:57:42)
+ 0.1.1 (2015-04-15 11:57:42) (2015-04-28 18:31:51)
 }
 \examples{
 ## load example data
@@ -49,5 +49,5 @@ str(calc_Statistics(x))
 \author{
 Michael Dietze, GFZ Potsdam (Germany),\cr R Luminescence Package
 Team
-}
+\cr R Luminescence Package Team}
 

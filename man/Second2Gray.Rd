@@ -40,7 +40,7 @@ If no or a wrong method is given, the execution of the function is
 stopped.
 }
 \section{Function version}{
- 0.4 (2015-03-04 13:42:29)
+ 0.4 (2015-03-04 13:42:29) (2015-04-28 18:31:51)
 }
 \examples{
 ##(A) for known source dose rate at date of measurement
@@ -69,7 +69,7 @@ Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, AWI
 Potsdam (Germany), \cr R Luminescence Package Team
-}
+\cr R Luminescence Package Team}
 \references{
 #
 }

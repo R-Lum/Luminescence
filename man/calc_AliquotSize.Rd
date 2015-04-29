@@ -101,7 +101,7 @@ default, \code{10^5} iterations are used, but can be reduced/increased with
 boxplot together with a statistical summary.
 }
 \section{Function version}{
- 0.31 (2015-03-04 00:19:53)
+ 0.31 (2015-03-04 00:19:53) (2015-04-28 18:31:51)
 }
 \examples{
 ## Estimate the amount of grains on a small aliquot
@@ -114,7 +114,7 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
 \author{
 Christoph Burow, University of Cologne (Germany) \cr R Luminescence
 Package Team
-}
+\cr R Luminescence Package Team}
 \references{
 Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
 sediments: why aliquot size matters in luminescence dating. Boreas 37,

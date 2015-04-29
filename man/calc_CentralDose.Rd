@@ -46,7 +46,7 @@ detailed explanation on maximum likelihood estimation can be found in the
 appendix of Galbraith & Laslett (1993, 468-470)
 }
 \section{Function version}{
- 1.3 (2015-03-04 13:35:16)
+ 1.3 (2015-03-04 13:35:16) (2015-04-28 18:31:51)
 }
 \examples{
 ##load example data
@@ -59,7 +59,7 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2010 \cr \cr R Luminescence Package
 Team
-}
+\cr R Luminescence Package Team}
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.

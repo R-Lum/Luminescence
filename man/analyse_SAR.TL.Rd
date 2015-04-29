@@ -71,7 +71,7 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
- 0.1.4 (2015-03-04 00:19:53)
+ 0.1.4 (2015-03-04 00:19:53) (2015-04-28 18:31:51)
 }
 \examples{
 ##load data
@@ -91,7 +91,7 @@ analyse_SAR.TL(object,
 \author{
 Sebastian Kreutzer, Freiberg Instruments/JLU Giessen (Germany)\cr R
 Luminescence Package Team
-}
+\cr R Luminescence Package Team}
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching.  Quaternary Science Reviews 7, 387-393.

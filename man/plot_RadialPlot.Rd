@@ -126,7 +126,7 @@ drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
 \code{line.label}, cf. examples).
 }
 \section{Function version}{
- 0.5.3 (2015-03-04 13:25:19)
+ 0.5.3 (2015-03-04 13:25:19) (2015-04-28 18:31:51)
 }
 \examples{
 ## load example data
@@ -222,7 +222,7 @@ plot_RadialPlot(data = data.3,
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
 S script of Rex Galbraith, 2010\cr R Luminescence Package Team
-}
+\cr R Luminescence Package Team}
 \references{
 Galbraith, R.F., 1988. Graphical Display of Estimates Having
 Differing Standard Errors. Technometrics, 30 (3), 271-281.
