@@ -83,4 +83,4 @@ M <- M[1:n.max,]
 write.table(x = M,
             row.names = FALSE,
             file = paste0("Luminescence_",temp.version,"-Function_Arguments.csv"),
-            sep = ";")
+            sep = ",")
