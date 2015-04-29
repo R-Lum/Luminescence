@@ -6,3 +6,4 @@ LICENSE$
 ^\test\*
 ^packrat/
 ^\.Rprofile$
+^appveyor\.yml$
