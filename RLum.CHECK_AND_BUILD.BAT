@@ -77,7 +77,7 @@ R CMD check --timings %PATHPACKAGE%\Luminescence*.tar.gz
 
 echo Example timing warnings ...
 R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Timings.R NULL
-cat %PATHPACKAGE%\RLum.BuildResults\Luminescence-Ex.timings.*.WARNING
+type %PATHPACKAGE%\RLum.BuildResults\*.WARNING
 
 :: INSTALL PACKAGE
 :: -----------------------
@@ -164,15 +164,15 @@ goto :eof
 :: %errorlevel% 0 = success, 1 = fail, 2 = unknown
 :check
 IF %errorlevel% == 0 (
-	call :ColorText 0a "[OK]"
+	call :ColorText 0a "  [OK]"
 	echo.
 	)
 IF %errorlevel% == 1 (
-	call :ColorText 0C "[FAIL]"
+	call :ColorText 0C "  [FAIL]"
 	echo.
 	)
 IF %errorlevel% == 2 (
-	call :ColorText 0b "[FAIL]"
+	call :ColorText 0b "  [UNKNOWN ERROR]"
 	echo.
 	)
 goto :eof
