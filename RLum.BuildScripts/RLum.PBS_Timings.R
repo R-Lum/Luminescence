@@ -14,8 +14,12 @@ temp.version <- sub(" ","",unlist(strsplit(temp,":"))[2])
 
 # CHECK EXAMPLE TIMING ----------------------------------------------------
 timing.threshold <- 3
-temp <- read.table("Luminescence.Rcheck/Luminescence-Ex.timings", header=TRUE)
-
+if (Sys.info()[["sysname"]] == "Windows") {
+  temp <- read.table("Luminescence.Rcheck/examples_x64/Luminescence-Ex.timings", header=TRUE)
+} else {
+  temp <- read.table("Luminescence.Rcheck/Luminescence-Ex.timings", header=TRUE)
+}
+  
 ##plot values for the functions
 pdf(file=paste0("RLum.BuildResults/Luminescence-TimingExamples.",temp.version,".pdf"), paper="special")
 
