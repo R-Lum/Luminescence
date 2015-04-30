@@ -95,7 +95,7 @@ The plot output is no 'PD' plot (cf. the discussion of Berger and
 Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5 (2015-04-30 11:59:33)
+ 3.5 (2015-04-30 12:16:14)
 }
 \examples{
 ## read example data set

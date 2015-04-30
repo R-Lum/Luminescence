@@ -180,7 +180,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.2 (2015-04-30 11:58:40)
+ 0.1.2 (2015-04-30 12:16:14)
 }
 \examples{
 ## store original graphics parameters
