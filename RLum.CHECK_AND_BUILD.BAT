@@ -1,0 +1,178 @@
+::--------------------------------
+::-- Main
+::================================
+
+:: SETTINGS
+:: -----------------------
+@echo off
+set PATHPACKAGE=%~dp0
+echo Working directory: %PATHPACKAGE%
+SETLOCAL EnableDelayedExpansion
+for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
+  set "DEL=%%a"
+)
+
+
+:: REMOVING UNWANTED FILES
+:: -----------------------
+echo.
+echo [PREPARE FOR PACKAGE CHECK]
+echo.
+:: 
+
+echo -^> Clean RLum.BuildResults folder ...
+find %PATHPACKAGE%\RLum.BuildResults\ -type f -delete
+call :check
+
+echo -^> Remove old ^*. ...
+find %PATHPACKAGE%\src -name RcppExports.cpp -delete
+call :check
+
+
+:: Rcpp
+:: -----------------------
+echo -^> Build Rcpp ...
+R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Rcpp.R NULL
+call :check
+
+:: roxygen2
+:: -----------------------
+echo -^> Build documentation ...
+R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_roxygen2.R NULL
+call :check
+
+:: COMPILE FUNCTION PARAMTER LIST
+:: -----------------------
+echo -^> Compile function argument list ...
+R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Function_Arguments.R NULL
+call :check
+
+:: NEWS
+:: -----------------------
+echo -^> Build ASCII NEWS ...
+R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_NEWS.R NULL
+call :check
+
+:: PARSE RD files
+:: -----------------------
+echo -^> Add RLum.Team ...
+R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_AddRLumTeam.R NULL
+call :check
+
+
+:: BUILD PACKAGE
+:: -----------------------
+echo.
+echo [BUILD PACKAGE]
+echo.
+
+R CMD build %PATHPACKAGE%
+
+:: CHECK PACKAGE
+:: -----------------------
+echo.
+echo [CHECK PACKAGE]
+echo.
+R CMD check --timings %PATHPACKAGE%\Luminescence*.tar.gz
+
+echo Example timing warnings ...
+R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Timings.R NULL
+cat %PATHPACKAGE%\RLum.BuildResults\Luminescence-Ex.timings.*.WARNING
+
+:: INSTALL PACKAGE
+:: -----------------------
+echo.
+echo [INSTALL PACKAGE]
+echo.
+R CMD INSTALL --build %PATHPACKAGE%\Luminescence*.tar.gz
+
+
+:: COPY FILES AND CLEANING UP
+:: -----------------------
+echo.
+echo [COPY FILES AND CLEANING UP]
+echo.
+
+echo -^> Write BibTeX ...
+R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_BibTeX.R NULL
+call :check
+
+echo -^> Build function list ...
+R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Function_List.R NULL
+call :check
+
+echo -^> Moving packge source files (^*.tar.gz)
+mv Luminescence_*.tar.gz RLum.BuildResults\
+call :check
+
+echo -^> Moving packge source files (^*.zip)
+mv Luminescence_*.zip RLum.BuildResults\
+call :check
+
+echo -^> ^Copy manual ...
+copy %PATHPACKAGE%\Luminescence.Rcheck\Luminescence-manual.pdf %PATHPACKAGE%\RLum.BuildResults\Luminescence-manual.pdf
+call :check
+
+echo -^> ^Copy check results ...
+copy %PATHPACKAGE%\Luminescence.Rcheck\Luminescence-Ex.pdf %PATHPACKAGE%\RLum.BuildResults\Luminescence-Ex.pdf
+call :check
+
+echo -^> Remove Luminescence.Rcheck ...
+rm -rf %PATHPACKAGE%\Luminescence.Rcheck
+call :check
+
+echo -^> Remove src/^*.so ...
+find %PATHPACKAGE%\src -name *.so -delete
+call :check
+
+echo -^> Remove src/^*.o ...
+find %PATHPACKAGE%\src -name *.o -delete
+call :check
+
+echo -^> Remove src/^*.rds ...
+find %PATHPACKAGE%\src -name *.rds -delete
+call :check
+
+echo -^> Remove output dump ...
+find %PATHPACKAGE% -name NULL -delete
+call :check
+
+echo -^> Remove .Rdata ...
+find %PATHPACKAGE% -name .Rdata -delete
+call :check
+
+echo -^> Remove .Rhistory ...
+find %PATHPACKAGE% -name .Rhistory -delete
+call :check
+
+echo.
+echo [DONE]
+
+pause
+::--------------------------------
+::-- Functions
+::--------------------------------
+
+:: From NiklasJ @SO (http://stackoverflow.com/questions/7923948/batch-color-per-line)
+:ColorText
+echo off
+<nul set /p ".=%DEL%" > "%~2"
+findstr /v /a:%1 /R "^$" "%~2" nul
+del "%~2" > nul 2>&1
+goto :eof
+
+:: %errorlevel% 0 = success, 1 = fail, 2 = unknown
+:check
+IF %errorlevel% == 0 (
+	call :ColorText 0a "[OK]"
+	echo.
+	)
+IF %errorlevel% == 1 (
+	call :ColorText 0C "[FAIL]"
+	echo.
+	)
+IF %errorlevel% == 2 (
+	call :ColorText 0b "[FAIL]"
+	echo.
+	)
+goto :eof
