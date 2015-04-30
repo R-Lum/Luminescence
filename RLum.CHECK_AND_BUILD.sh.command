@@ -1,5 +1,14 @@
 #!/bin/bash
 #
+# =================================================================================================
+# RLum.CHECK_AND_BUILD shell script
+# author: R Luminescence Team
+# date: 2015-04-30
+#
+# Customized R check and build routine for the R package 'Luminescence'
+# =================================================================================================
+#
+#
 # CONFIG AND DEFINITIONS
 # =================================================================================================
 #
@@ -22,24 +31,8 @@ echo "[PREPARE FOR PACKAGE CHECK]"
 echo ""
 #
 
-  echo -ne "-> Remove old *.tar.gz ... \t\t\t"
-  find ${PATHPACKAGE} -name "*.tar.gz" -depth -exec rm {} \;
-  check_status
-
-  echo -ne "-> Remove old *.tgz ... \t\t\t"
-  find ${PATHPACKAGE} -name "*.tgz" -depth -exec rm {} \;
-  check_status
-
-  echo -ne "-> Remove old *.bib ... \t\t\t"
-  find ${PATHPACKAGE} -name "*.bib" -depth -exec rm {} \;
-  check_status
-
-  echo -ne "-> Remove old *.csv ... \t\t\t"
-  find ${PATHPACKAGE} -name "*.csv" -depth -exec rm {} \;
-  check_status
-
-  echo -ne "-> Remove old *.tex ... \t\t\t"
-  find ${PATHPACKAGE} -name "*.tex" -depth -exec rm {} \;
+  echo -ne "-> Clean RLum.BuildResults folder ... \t\t"
+  find ${PATHPACKAGE}/RLum.BuildResults -type f -exec rm {} \;
   check_status
 
   echo -ne "-> Remove .DS_Store ... \t\t\t"
@@ -63,11 +56,12 @@ echo ""
   check_status
 
 
+
 # Rcpp
 # =================================================================================================
 
   echo -ne "-> Build Rcpp ... \t\t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/Package_Buildscripts/RLum.PBS_Rcpp.R /dev/null
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Rcpp.R /dev/null
   check_status
 
 
@@ -75,7 +69,7 @@ echo ""
 # =================================================================================================
 
   echo -ne "-> Build documentation ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/Package_Buildscripts/RLum.PBS_roxygen2.R /dev/null
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_roxygen2.R /dev/null
   check_status
 
 
@@ -84,7 +78,7 @@ echo ""
 # =================================================================================================
 
   echo -ne "-> Compile function argument list ...\t\t"
-  eval R CMD BATCH ${PATHPACKAGE}/Package_Buildscripts/RLum.PBS_Function_Arguments.R /dev/null
+  eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Function_Arguments.R /dev/null
   check_status
 
 
@@ -93,7 +87,7 @@ echo ""
 # =================================================================================================
 
   echo -ne "-> Build ASCII NEWS ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/Package_Buildscripts/RLum.PBS_NEWS.R /dev/null
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_NEWS.R /dev/null
   check_status
 
 #
@@ -101,7 +95,7 @@ echo ""
 # =================================================================================================
 
   echo -ne "-> Add RLum.Team ... \t\t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/Package_Buildscripts/RLum.PBS_AddRLumTeam.R /dev/null
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_AddRLumTeam.R /dev/null
   check_status
 
 #
@@ -123,8 +117,8 @@ echo ""
   eval R CMD check --timings ${PATHPACKAGE}/Luminescence*.tar.gz
 
   echo -ne 'Example timing warnings...:\n\n'
-  eval R CMD BATCH ${PATHPACKAGE}/Package_Buildscripts/RLum.PBS_Timings.R /dev/null
-  cat ${PATHPACKAGE}/Luminescence-Ex.timings.*.WARNING
+  eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Timings.R /dev/null
+  cat ${PATHPACKAGE}/RLum.BuildResults/Luminescence-Ex.timings.*.WARNING
 
 
 #
@@ -144,19 +138,27 @@ echo "[OUTRO]"
 echo ""
 
   echo -ne "-> Write BibTeX ... \t\t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/Package_Buildscripts/RLum.PBS_BibTeX.R /dev/null
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_BibTeX.R /dev/null
   check_status
 
   echo -ne "-> Build function list ... \t\t\t"
-  eval R CMD BATCH --no-timing ${PATHPACKAGE}/Package_Buildscripts/RLum.PBS_Function_List.R /dev/null
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Function_List.R /dev/null
+  check_status
+
+  echo -ne "-> Moving packge source files (*.tar.gz) ... \t"
+  mv Luminescence_*.tar.gz RLum.BuildResults/
+  check_status
+
+  echo -ne "-> Moving packge compiles package (*.tgz) ... \t"
+  mv Luminescence_*.tgz RLum.BuildResults/
   check_status
 
   echo -ne "-> Copy manual ... \t\t\t\t"
-  cp Luminescence.Rcheck/Luminescence-manual.pdf Luminescence-manual.pdf
+  cp Luminescence.Rcheck/Luminescence-manual.pdf RLum.BuildResults/Luminescence-manual.pdf
   check_status
 
   echo -ne "-> Copy check results ... \t\t\t"
-  cp Luminescence.Rcheck/Luminescence-Ex.pdf Luminescence-Ex.pdf
+  cp Luminescence.Rcheck/Luminescence-Ex.pdf RLum.BuildResults/Luminescence-Ex.pdf
   check_status
 
   echo -ne "-> Remove Luminescence.Rcheck ... \t\t"
