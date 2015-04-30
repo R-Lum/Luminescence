@@ -73,7 +73,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.3 (2015-04-30 12:16:14)
+ 0.2.3 (2015-04-30 12:00:11)
 }
 \examples{
 ###load data

@@ -49,7 +49,7 @@ This function uses the equations of Thomsen et al. (2007).  The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
- 0.1 (2015-04-30 12:16:14)
+ 0.1 (2015-04-30 11:53:16)
 }
 \examples{
 ## load data

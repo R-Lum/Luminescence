@@ -126,7 +126,7 @@ drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
 \code{line.label}, cf. examples).
 }
 \section{Function version}{
- 0.5.3 (2015-04-30 12:16:14)
+ 0.5.3 (2015-04-30 11:59:45)
 }
 \examples{
 ## load example data

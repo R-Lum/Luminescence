@@ -33,7 +33,7 @@ found in the documentations of each merge function.  \tabular{lll}{
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1 (2015-04-30 12:16:14)
+ 0.1 (2015-04-30 11:58:21)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function

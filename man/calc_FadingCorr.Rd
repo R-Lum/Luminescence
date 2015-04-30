@@ -44,7 +44,7 @@ increase the computation time.
 The upper age limit is set to 500 ka!
 }
 \section{Function version}{
- 0.2 (2015-04-30 12:16:14)
+ 0.2 (2015-04-30 11:52:10)
 }
 \examples{
 results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,

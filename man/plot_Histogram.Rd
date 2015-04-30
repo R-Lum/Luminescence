@@ -75,7 +75,7 @@ probability density.
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4 (2015-04-30 12:16:14)
+ 0.4.4 (2015-04-30 11:59:18)
 }
 \examples{
 ## load data

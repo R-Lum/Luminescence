@@ -44,7 +44,7 @@ Calculate Lx/Tx ratio for a given set of TL curves.
 \bold{This function has still BETA status!}
 }
 \section{Function version}{
- 0.3 (2015-04-30 12:16:14)
+ 0.3 (2015-04-30 11:54:57)
 }
 \examples{
 ##load package example data
