@@ -9,12 +9,19 @@
   \itemize{
     \item Function crashed with unclear error if the number of regenerations points was <=3), fixed,
     \item fitting is now allowed with at leat two regenerations points.
-    \item test
+
   }
 
    }
 
 }
+
+\subsection{Internals}{
+   \itemize{
+    \item Switch from inlinedocs to roxygen2 to build the manuals
+
+   }
+  }
 
 }
 
