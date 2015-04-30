@@ -9,6 +9,6 @@ README\.md
 ^appveyor\.yml$
 ^cran-comments\.md$
 ^appveyor\.yml$
-CHECK_AND_BUILD.sh.command
+CHECK_AND_BUILD.sh
 RLum.BuildScripts
 RLum.BuildResults
