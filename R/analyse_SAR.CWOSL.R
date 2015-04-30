@@ -23,7 +23,7 @@
 #' Only one curve type can be analysed at the same time: The pIRIR50 curves or
 #' the pIRIR225 curves.\cr\cr
 #'
-#' \bold{Supported rejection criteria}\cr\cr \sQuote{recyling.ratio}:
+#' \bold{Supported rejection criteria}\cr\cr \sQuote{recycling.ratio}:
 #' calculated for every repeated regeneration dose point.\cr
 #'
 #' \sQuote{recuperation.rate}: recuperation rate calculated by comparing the
@@ -244,6 +244,7 @@ object!")
 
     ##remove objects
     rm(temp.recycling.ratio,temp.recuperation.rate, temp.palaeodose.error )
+
   }
 
 # Deal with extra arguments ----------------------------------------------------

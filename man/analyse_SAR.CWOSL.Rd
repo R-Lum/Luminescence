@@ -89,7 +89,7 @@ Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves.
 Only one curve type can be analysed at the same time: The pIRIR50 curves or
 the pIRIR225 curves.\cr\cr
 
-\bold{Supported rejection criteria}\cr\cr \sQuote{recyling.ratio}:
+\bold{Supported rejection criteria}\cr\cr \sQuote{recycling.ratio}:
 calculated for every repeated regeneration dose point.\cr
 
 \sQuote{recuperation.rate}: recuperation rate calculated by comparing the
@@ -108,7 +108,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.5.2 (2015-04-30 11:47:56)
+ 0.5.2 (2015-04-30 13:19:35)
 }
 \examples{
 ##load data

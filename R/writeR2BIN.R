@@ -39,7 +39,7 @@
 #' directly produced by the Risoe readers!\cr
 #'
 #' Implementation of support for version 07 could so far not properly tested.
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\link{readBIN2R}}, \code{\linkS4class{Risoe.BINfileData}},
@@ -160,24 +160,23 @@ writeR2BIN <- function(
   }
 
 
-
   ##SEQUENCE
-  if(max(nchar(as.character(object@METADATA[,"SEQUENCE"]), type="bytes"))>8){
-
+  if (suppressWarnings(max(nchar(as.character(object@METADATA[,"SEQUENCE"]), type =
+                                 "bytes"), na.rm = TRUE)) > 8) {
     stop("[writeR2BIN()] Value in 'SEQUENCE' exceed storage limit!")
 
   }
 
   ##USER
-  if(max(nchar(as.character(object@METADATA[,"USER"]), type="bytes"))>8){
-
+  if (suppressWarnings(max(nchar(as.character(object@METADATA[,"USER"]), type =
+                                 "bytes"), na.rm = TRUE)) > 8) {
     stop("[writeR2BIN()] 'USER' exceed storage limit!")
 
   }
 
   ##SAMPLE
-  if(max(nchar(as.character(object@METADATA[,"SAMPLE"]), type="bytes"))>20){
-
+  if (suppressWarnings(max(nchar(as.character(object@METADATA[,"SAMPLE"]), type =
+                                 "bytes"), na.rm = TRUE)) > 20) {
     stop("[writeR2BIN()] 'SAMPLE' exceed storage limit!")
 
   }

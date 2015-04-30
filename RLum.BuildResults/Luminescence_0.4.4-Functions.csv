@@ -3,7 +3,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.1.4","2015-04-30","11:47:40
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.5.2","2015-04-30","11:47:56
+"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.5.2","2015-04-30","13:19:35
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "Analyse_SAR.OSLdata","Analyse SAR CW-OSL measurements.","<br /> The function analyses SAR CW-OSL curve data and provides a summary of the<br /> measured data for every position. The output of the function is optimised<br /> for SAR OSL measurements on quartz.<br />","0.2.15","2015-04-30","11:48:22
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, TU Bergakademie Freiberg<br /> (Germany)<br />  R Luminescence Package Team"
@@ -61,7 +61,7 @@
 "ExampleData.RLum.Analysis","Example data as  RLum.Analysis  objects","<br /> Collection of different  RLum.Analysis  objects for<br /> protocol analysis.<br />",NA,NA,NA,NA
 "ExampleData.RLum.Data.Image","Example data as  RLum.Data.Image  objects","<br /> Measurement of Princton Instruments camera imported with the function<br /> readSPE2R  to R to produce an<br /> RLum.Data.Image  object.<br />",NA,NA,NA,NA
 "ExampleData.XSYG","Example data for a SAR OSL measurement and a TL spectrum using a lexsyg<br /> reader","<br /> Example data from a SAR OSL measurement and a TL spectrum for package<br /> Luminescence imported from a Freiberg Instruments XSYG file using the<br /> function  readXSYG2R .<br />",NA,NA,NA,NA
-"extract_IrradiationTimes","Extract irradiation times from an XSYG file","<br /> Extracts irradiation times, dose and times since last irradiation, from a<br /> Freiberg Instruments XSYG-file. These information can be further used to<br /> update an existing BINX-file<br />","0.2.1","2015-04-30","11:56:23
+"extract_IrradiationTimes","Extract irradiation times from an XSYG file","<br /> Extracts irradiation times, dose and times since last irradiation, from a<br /> Freiberg Instruments XSYG-file. These information can be further used to<br /> update an existing BINX-file<br />","0.2.1","2015-04-30","13:39:26
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "fit_CWCurve","Nonlinear Least Squares Fit for CW-OSL curves [beta version]","<br /> The function determines the weighted least-squares estimates of the<br /> component parameters of a CW-OSL signal for a given maximum number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the  nls  function with the  port  algorithm.<br />","0.5.0","2015-04-30","11:56:39
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -126,5 +126,5 @@
 "Second2Gray","Converting values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.4","2015-04-30","12:04:11
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, TU Bergakadmie Freiberg<br /> (Germany)<br />  R Luminescence Package Team"
 "sTeve","sTeve - sophisticated tool for efficient data validation and evaluation","<br /> This function provides a sophisticated routine for comprehensive<br /> luminescence dating data analysis.<br />",NA,NA,NA,"<br /> R Luminescence Team, 2012-2013<br />"
-"writeR2BIN","Export Risoe.BINfileData into Risoe BIN-file","<br /> Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be<br /> opened by the Analyst software or other Risoe software.<br />","0.3.0","2015-04-30","12:04:22
+"writeR2BIN","Export Risoe.BINfileData into Risoe BIN-file","<br /> Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be<br /> opened by the Analyst software or other Risoe software.<br />","0.3.1","2015-04-30","13:53:02
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

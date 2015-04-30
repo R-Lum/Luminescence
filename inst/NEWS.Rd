@@ -3,12 +3,19 @@
 \section{Changes in version 0.4.4 (XXth, May 2015)}{
 
  \subsection{Bugfixes and changes}{
-   \itemize{
+  \itemize{
   \item \code{plot_GrowthCurve()}
 
   \itemize{
     \item Function crashed with unclear error if the number of regenerations points was <=3), fixed,
     \item fitting is now allowed with at leat two regenerations points.
+
+  }
+
+  \item \code{writeR2BIN()}
+
+  \itemize{
+    \item Function broke if information in SEQUENCE, COMMENT or USER was always NA. Corrected.
 
   }
 
@@ -18,7 +25,7 @@
 
 \subsection{Internals}{
    \itemize{
-    \item Switch from inlinedocs to roxygen2 to build the manuals
+    \item Switch from inlinedocs to roxygen2 to build the manuals (#193)
 
    }
   }

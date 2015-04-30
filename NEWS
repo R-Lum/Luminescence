@@ -12,7 +12,15 @@ Changes in version 0.4.4 (XXth, May 2015):
              • fitting is now allowed with at leat two regenerations
                points.
 
-             • test
+         • ‘writeR2BIN()’
+
+             • Function broke if information in SEQUENCE, COMMENT or
+               USER was always NA. Corrected.
+
+  Internals:
+
+         • Switch from inlinedocs to roxygen2 to build the manuals
+           (#193)
 
 Changes in version 0.4.3 (17th, April 2015):
 
