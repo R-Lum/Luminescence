@@ -114,7 +114,7 @@ copy %PATHPACKAGE%\Luminescence.Rcheck\Luminescence-manual.pdf %PATHPACKAGE%\RLu
 call :check
 
 echo -^> ^Copy check results ...
-copy %PATHPACKAGE%\Luminescence.Rcheck\Luminescence-Ex.pdf %PATHPACKAGE%\RLum.BuildResults\Luminescence-Ex.pdf
+copy %PATHPACKAGE%\Luminescence.Rcheck\examples_x64\Luminescence-Ex.pdf %PATHPACKAGE%\RLum.BuildResults\Luminescence-Ex.pdf
 call :check
 
 echo -^> Remove Luminescence.Rcheck ...
