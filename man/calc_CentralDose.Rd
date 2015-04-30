@@ -46,7 +46,7 @@ detailed explanation on maximum likelihood estimation can be found in the
 appendix of Galbraith & Laslett (1993, 468-470)
 }
 \section{Function version}{
- 1.3 (2015-03-04 13:35:16) (2015-04-28 18:31:51)
+ 1.3 (2015-04-30 11:50:32)
 }
 \examples{
 ##load example data
@@ -57,8 +57,7 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
-rewritten S script of Rex Galbraith, 2010 \cr \cr R Luminescence Package
-Team
+rewritten S script of Rex Galbraith, 2010 \cr
 \cr R Luminescence Package Team}
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for

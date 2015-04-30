@@ -59,7 +59,7 @@ directly produced by the Risoe readers!\cr
 Implementation of support for version 07 could so far not properly tested.
 }
 \section{Function version}{
- 0.3.0 (2015-03-29 13:33:17) (2015-04-28 18:31:51)
+ 0.3.0 (2015-04-30 12:04:22)
 }
 \examples{
 ##uncomment for usage
@@ -69,7 +69,7 @@ Implementation of support for version 07 could so far not properly tested.
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), \cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 Duller, G., 2007. Analyst.

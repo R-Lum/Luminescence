@@ -1,15 +1,15 @@
 #' Analyse SAR CW-OSL measurements
-#' 
+#'
 #' The function performs a SAR CW-OSL analysis on an
 #' \code{\linkS4class{RLum.Analysis}} object including growth curve fitting.
-#' 
+#'
 #' The function performs an analysis for a standard SAR protocol measurements
 #' introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 #' calculation of the Lx/Tx value the function \link{calc_OSLLxTxRatio} is
 #' used. \cr\cr
-#' 
+#'
 #' \bold{Working with IRSL data}\cr\cr
-#' 
+#'
 #' The function was originally designed to work just for 'OSL' curves,
 #' following the principles of the SAR protocol. An IRSL measurement protocol
 #' may follow this procedure, e.g., post-IR IRSL protocol (Thomsen et al.,
@@ -18,22 +18,22 @@
 #' SAR protocol structure, i.e., to analyse a post-IR IRSL protocol, curve data
 #' have to be pre-selected by the user to fit the standards of the SAR
 #' protocol, i.e., Lx,Tx,Lx,Tx and so on. \cr
-#' 
+#'
 #' Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves.
 #' Only one curve type can be analysed at the same time: The pIRIR50 curves or
 #' the pIRIR225 curves.\cr\cr
-#' 
+#'
 #' \bold{Supported rejection criteria}\cr\cr \sQuote{recyling.ratio}:
 #' calculated for every repeated regeneration dose point.\cr
-#' 
+#'
 #' \sQuote{recuperation.rate}: recuperation rate calculated by comparing the
 #' Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
 #' ratio of the natural signal). For methodological background see Aitken and
 #' Smith (1988).\cr
-#' 
+#'
 #' \sQuote{palaeodose.error}: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
-#' 
+#'
 #' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
 #' object containing data for analysis
 #' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
@@ -79,40 +79,40 @@
 #' @note This function must not be mixed up with the function
 #' \code{\link{Analyse_SAR.OSLdata}}, which works with
 #' \link{Risoe.BINfileData-class} objects.\cr
-#' 
+#'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
-#' @section Function version: 0.5.2 (2015-03-30 18:44:39)
+#' @section Function version: 0.5.2
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)\cr R Luminescence Package Team
+#' (France)
 #' @seealso \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 #' \code{\link{get_RLum.Results}}
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching. Quaternary Science Reviews 7, 387-393.
-#' 
+#'
 #' Duller, G., 2003. Distinguishing quartz and feldspar in single grain
 #' luminescence measurements. Radiation Measurements, 37 (2), 161-165.
-#' 
+#'
 #' Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using an
 #' improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #' 32, 57-73.
-#' 
+#'
 #' Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
 #' fading rates of various luminescence signals from feldspar-rich sediment
 #' extracts. Radiation Measurements 43, 1474-1486.
 #' doi:10.1016/j.radmeas.2008.06.002
 #' @keywords datagen plot
 #' @examples
-#' 
-#' 
+#'
+#'
 #' ##load data
 #' ##ExampleData.BINfileData contains two BINfileData objects
 #' ##CWOSL.SAR.Data and TL.SAR.Data
 #' data(ExampleData.BINfileData, envir = environment())
-#' 
+#'
 #' ##transform the values from the first position in a RLum.Analysis object
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-#' 
+#'
 #' ##perform SAR analysis
 #' results <- analyse_SAR.CWOSL(object,
 #'                   signal.integral.min = 1,
@@ -121,14 +121,14 @@
 #'                   background.integral.max = 1000,
 #'                   log = "x",
 #'                   fit.method = "EXP")
-#' 
+#'
 #' ##show De results
 #' get_RLum.Results(results)
-#' 
+#'
 #' ##show LnTnLxTx table
 #' get_RLum.Results(results, data.object = "LnLxTnTx.table")
-#' 
-#' 
+#'
+#'
 analyse_SAR.CWOSL<- function(
   object,
   signal.integral.min,

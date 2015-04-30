@@ -38,7 +38,7 @@ The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
- 0.4.1 (2015-03-04 18:47:17) (2015-04-28 18:31:51)
+ 0.4.1 (2015-04-30 11:55:38)
 }
 \examples{
 ##read curve from CWOSL.SAR.Data transform curve and plot values
@@ -62,7 +62,7 @@ plot(values.transformed)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), \cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 Bulur, E., 2000. A simple transformation for converting CW-OSL

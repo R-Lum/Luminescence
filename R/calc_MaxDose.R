@@ -2,11 +2,11 @@
 
 
 #' Apply the maximum age model to a given De distribution
-#' 
+#'
 #' Function to fit the maximum age model to De data. This is a wrapper function
 #' that calls calc_MinDose() and applies a similiar approach as described in
 #' Olley et al. (2006).
-#' 
+#'
 #' \bold{Data transformation} \cr\cr To estimate the maximum dose population
 #' and its standard error, the three parameter minimum age model of Galbraith
 #' et al. (1999) is adapted. The measured De values are transformed as follows:
@@ -19,7 +19,7 @@
 #' follows\cr\cr 1. subtract the x-offset \cr 2. multiply the natural logs by
 #' -1 \cr 3. take the exponent to obtain the maximum dose estimate in Gy \cr\cr
 #' \bold{Further documentation} \cr\cr Please see \code{\link{calc_MinDose}}.
-#' 
+#'
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
@@ -41,9 +41,9 @@
 #' @param \dots further arguments for bootstrapping (\code{bs.M, bs.N, bs.h,
 #' sigmab.sd}).  See details for their usage.
 #' @return Please see \code{\link{calc_MinDose}}.
-#' @section Function version: 0.3 (2015-03-04 13:31:23)
+#' @section Function version: 0.3
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
-#' rewritten S script of Rex Galbraith, 2010 \cr\cr R Luminescence Package Team
+#' rewritten S script of Rex Galbraith, 2010 \cr
 #' @seealso \code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
 #' \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
 #' \code{\link{calc_MinDose}}
@@ -76,26 +76,26 @@
 #' \cr\cr Rodnight, H., 2008. How many equivalent dose values are needed to
 #' obtain a reproducible distribution?. Ancient TL 26, 3-10. \cr\cr
 #' @examples
-#' 
+#'
 #' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
-#' 
+#'
 #' # apply the maximum dose model
 #' calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
-#' 
+#'
 calc_MaxDose<- function(
-  data, 
-  sigmab, 
-  log=TRUE, 
+  data,
+  sigmab,
+  log=TRUE,
   par=3,
   bootstrap=FALSE,
-  init.values, 
-  plot=TRUE, 
+  init.values,
+  plot=TRUE,
   ...
-){                     
+){
   res<- calc_MinDose(data, sigmab, log, par, bootstrap, init.values, plot=FALSE, invert=TRUE, ...)
   res@originator<- "calc_MaxDose"
   if (plot) try(plot_RLum.Results(res, ...))
-  
-  invisible(res) 
+
+  invisible(res)
 }

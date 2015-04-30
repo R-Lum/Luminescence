@@ -108,7 +108,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.5.2 (2015-03-30 18:44:39) (2015-04-28 18:31:51)
+ 0.5.2 (2015-04-30 11:47:56)
 }
 \examples{
 ##load data
@@ -136,7 +136,7 @@ get_RLum.Results(results, data.object = "LnLxTnTx.table")
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)\cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

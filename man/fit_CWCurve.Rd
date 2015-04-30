@@ -137,7 +137,7 @@ the fitting procedure has reached a global minimum rather than a local
 minimum!
 }
 \section{Function version}{
- 0.5.0 (2015-04-07 10:43:19) (2015-04-28 18:31:51)
+ 0.5.0 (2015-04-30 11:56:39)
 }
 \examples{
 ##load data
@@ -151,7 +151,7 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)\cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.

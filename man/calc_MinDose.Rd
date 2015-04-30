@@ -132,7 +132,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.1 (2015-03-27 17:26:41) (2015-04-28 18:31:51)
+ 0.4.1 (2015-04-30 11:53:53)
 }
 \examples{
 ## Load example data
@@ -227,7 +227,7 @@ Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
 based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
 Cunningham is thanked for his help in implementing and cross-checking the
-code.\cr R Luminescence Package Team
+code.
 \cr R Luminescence Package Team}
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,

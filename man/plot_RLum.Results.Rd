@@ -33,7 +33,7 @@ Not all arguments available for \code{\link{plot}} will be passed!
 Only plotting of \code{RLum.Results} objects are supported.
 }
 \section{Function version}{
- 0.1 (2015-03-10 09:43:59) (2015-04-28 18:31:51)
+ 0.1 (2015-04-30 12:01:13)
 }
 \examples{
 ###load data
@@ -52,8 +52,7 @@ grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = F
 plot_RLum.Results(grains)
 }
 \author{
-Christoph Burow, University of Cologne (Germany) \cr R Luminescence
-Package Team
+Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team}
 \references{
 #

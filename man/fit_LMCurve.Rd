@@ -177,7 +177,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.2.16 (2015-03-10 16:11:27) (2015-04-28 18:31:51)
+ 0.2.16 (2015-04-30 11:56:56)
 }
 \examples{
 ##(1) fit LM data without background subtraction
@@ -203,7 +203,7 @@ fit_LMCurve(values = values.curve,
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), \cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 Bulur, E., 1996. An Alternative Technique For Optically

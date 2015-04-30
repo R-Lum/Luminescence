@@ -49,7 +49,7 @@ This function uses the equations of Thomsen et al. (2007).  The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
- 0.1 (2015-03-04 13:18:38) (2015-04-28 18:31:51)
+ 0.1 (2015-04-30 11:53:16)
 }
 \examples{
 ## load data
@@ -61,7 +61,7 @@ ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 \author{
 Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
 (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
-written by Kristina Thomsen. R Luminescence Package Team
+written by Kristina Thomsen.
 \cr R Luminescence Package Team}
 \references{
 Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,

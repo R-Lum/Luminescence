@@ -37,7 +37,7 @@ least one object of type \code{\linkS4class{RLum.Analysis}} has to be
 provided.
 }
 \section{Function version}{
- 0.1 (2015-03-04 00:19:53) (2015-04-28 18:31:51)
+ 0.1 (2015-04-30 11:57:55)
 }
 \examples{
 ##merge different RLum objects from the example data
@@ -51,7 +51,7 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), \cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 -

@@ -35,7 +35,7 @@ A simple homogeneity test for De estimates
 For details see Galbraith (2003).
 }
 \section{Function version}{
- 0.2 (2015-03-04 13:31:44) (2015-04-28 18:31:51)
+ 0.2 (2015-04-30 11:53:01)
 }
 \examples{
 ## load example data
@@ -45,8 +45,7 @@ data(ExampleData.DeValues, envir = environment())
 calc_HomogeneityTest(ExampleData.DeValues$BT998)
 }
 \author{
-Christoph Burow, University of Cologne (Germany), \cr R Luminescence
-Package Team
+Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team}
 \references{
 Galbraith, R.F., 2003. A simple homogeneity test for estimates

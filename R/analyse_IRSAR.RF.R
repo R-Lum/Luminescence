@@ -147,9 +147,9 @@
 #'
 #' \bold{Please note that \code{method = "FIT"} has beta status and was not
 #' properly tested yet!}
-#' @section Function version: 0.3.2 (2015-04-09 19:27:06)
+#' @section Function version: 0.3.2
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France) \cr R Luminescence Package Team
+#' (France)
 #' @seealso \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
 #' \code{\link{nls}}

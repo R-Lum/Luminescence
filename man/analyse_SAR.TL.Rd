@@ -71,7 +71,7 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
- 0.1.4 (2015-03-04 00:19:53) (2015-04-28 18:31:51)
+ 0.1.4 (2015-04-30 11:49:25)
 }
 \examples{
 ##load data
@@ -89,8 +89,7 @@ analyse_SAR.TL(object,
                sequence.structure = c("SIGNAL", "BACKGROUND"))
 }
 \author{
-Sebastian Kreutzer, Freiberg Instruments/JLU Giessen (Germany)\cr R
-Luminescence Package Team
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

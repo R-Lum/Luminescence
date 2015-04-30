@@ -59,7 +59,7 @@ Please consider the requirements and the constraints of this method
 (see Fuchs & Lang, 2001)
 }
 \section{Function version}{
- 0.4.1 (2015-03-04 13:31:55) (2015-04-28 18:31:51)
+ 0.4.1 (2015-04-30 11:52:48)
 }
 \examples{
 ##load example data
@@ -70,8 +70,7 @@ temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France) Christoph Burow, University of Cologne (Germany) R Luminescence
-Package Team
+(France) Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team}
 \references{
 Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial

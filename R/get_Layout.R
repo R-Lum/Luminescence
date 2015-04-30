@@ -1,12 +1,12 @@
 #' Collection of layout definitions
-#' 
+#'
 #' This helper function returns a list with layout definitions for homogeneous
 #' plotting.
-#' 
+#'
 #' The easiest way to create a user-specific layout definition is perhaps to
 #' create either an empty or a default layout object and fill/modify the
 #' definitions (\code{user.layout <- get_Layout(data = "empty")}).
-#' 
+#'
 #' @param layout \code{\link{character}} or \code{\link{list}} object
 #' (required): name of the layout definition to be returned. If name is
 #' provided the respective definition is returned. One of the following
@@ -15,41 +15,40 @@
 #' definitions must be provided as a list object of predefined structure, see
 #' details.
 #' @return A list object with layout definitions for plot functions.
-#' @section Function version: 0.1 (2015-03-04 00:19:53)
-#' @author Michael Dietze, GFZ Potsdam (Germany) \cr R Luminescence Package
-#' Team
+#' @section Function version: 0.1
+#' @author Michael Dietze, GFZ Potsdam (Germany)
 #' @examples
-#' 
+#'
 #' ## read example data set
 #' data(ExampleData.DeValues, envir = environment())
-#' 
+#'
 #' ## show structure of the default layout definition
 #' layout.default <- get_Layout(layout = "default")
 #' str(layout.default)
-#' 
+#'
 #' ## show colour definitions for Abanico plot, only
 #' layout.default$abanico$colour
-#' 
+#'
 #' ## set Abanico plot title colour to orange
 #' layout.default$abanico$colour$main <- "orange"
-#' 
+#'
 #' ## create Abanico plot with modofied layout definition
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  layout = layout.default)
-#' 
+#'
 #' ## create Abanico plot with predefined layout "journal"
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  layout = "journal")
-#' 
+#'
 get_Layout <- function(
   layout
 ) {
-  
+
   ## pre-defined layout selections
   if(is.character(layout) == TRUE & length(layout) == 1) {
-    
+
     if(layout == "empty") {
-      
+
       # empty layout definition -------------------------------------------------
       layout = list(
         abanico = list(
@@ -84,7 +83,7 @@ get_Layout <- function(
             mtext   = numeric(1),
             summary = numeric(1), # optionally vector
             stats   = numeric(1), # optionally vector
-            legend  = numeric(1)  # optionally vector      
+            legend  = numeric(1)  # optionally vector
           ),
           font.deco = list(
             main    = character(1),
@@ -101,7 +100,7 @@ get_Layout <- function(
             mtext   = character(1),
             summary = character(1), # optionally vector
             stats   = character(1), # optionally vector
-            legend  = character(1) # optionally vector      
+            legend  = character(1) # optionally vector
           ),
           colour = list(
             main    = numeric(1), # plot title colour
@@ -232,7 +231,7 @@ get_Layout <- function(
         )
       )
     } else if(layout == "default") {
-      
+
       # default layout definition -----------------------------------------------
       layout = list(
         abanico = list(
@@ -267,7 +266,7 @@ get_Layout <- function(
             mtext   = 10,
             summary = 10, # optionally vector
             stats   = 10, # optionally vector
-            legend  = 10 # optionally vector      
+            legend  = 10 # optionally vector
           ),
           font.deco = list(
             main    = "bold",
@@ -284,7 +283,7 @@ get_Layout <- function(
             mtext   = "normal",
             summary = "normal", # optionally vector
             stats   = "normal", # optionally vector
-            legend  = "normal" # optionally vector      
+            legend  = "normal" # optionally vector
           ),
           colour = list(
             main    = 1, # plot title colour
@@ -415,7 +414,7 @@ get_Layout <- function(
         )
       )
     } else if(layout == "journal") {
-      
+
       # journal layout definition -----------------------------------------------
       layout = list(
         abanico = list(
@@ -450,7 +449,7 @@ get_Layout <- function(
             mtext   = 6,
             summary = 6, # optionally vector
             stats   = 6, # optionally vector
-            legend  = 6 # optionally vector      
+            legend  = 6 # optionally vector
           ),
           font.deco = list(
             main    = "bold",
@@ -467,7 +466,7 @@ get_Layout <- function(
             mtext   = "normal",
             summary = "normal", # optionally vector
             stats   = "normal", # optionally vector
-            legend  = "normal" # optionally vector      
+            legend  = "normal" # optionally vector
           ),
           colour = list(
             main    = 1, # plot title colour
@@ -602,10 +601,10 @@ get_Layout <- function(
       stop("Layout definition not supported!")
     }
   } else if(is.list(layout) == TRUE) {
-    
+
     ## user-specific layout definition assignment
     layout <- layout
   }
-  
+
   return(layout)
 }

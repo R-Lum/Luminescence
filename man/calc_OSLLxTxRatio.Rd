@@ -69,7 +69,7 @@ The results of this function have been cross-checked with the Analyst
 \code{\link{get_RLum.Results}}.
 }
 \section{Function version}{
- 0.5.0 (2015-03-31 19:46:34) (2015-04-28 18:31:51)
+ 0.5.0 (2015-04-30 11:54:07)
 }
 \examples{
 ##load data
@@ -84,7 +84,7 @@ get_RLum.Results(results)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France) \cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 Duller, G., 2007. Analyst.

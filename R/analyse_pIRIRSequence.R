@@ -1,14 +1,14 @@
 #' Analyse post-IR IRSL sequences
-#' 
+#'
 #' The function performs an analysis of post-IR IRSL sequences including curve
 #' fitting on \code{\linkS4class{RLum.Analysis}} objects.
-#' 
+#'
 #' To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analysis
 #' this function has been written as extended wrapper function for the function
 #' \code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
 #' functionality of the function \code{\link{analyse_SAR.CWOSL}}.
-#' 
+#'
 #' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
 #' object containing data for analysis
 #' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
@@ -47,55 +47,55 @@
 #' points.} \item{rejection.criteria}{\link{data.frame} with values that might
 #' by used as rejection criteria. NA is produced if no R0 dose point
 #' exists.}\cr
-#' 
+#'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum.Results}}.
 #' @note Best graphical output can be achieved by using the function \code{pdf}
 #' with the following options:\cr \code{pdf(file = "...", height = 15, width =
 #' 15)}
-#' @section Function version: 0.1.4 (2015-04-19 12:24:29)
+#' @section Function version: 0.1.4
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)\cr R Luminescence Package Team
+#' (France)
 #' @seealso \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
 #' \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}} \code{\link{get_RLum.Results}}
 #' @references Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 #' using an improved single-aliquot regenerative-dose protocol. Radiation
 #' Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
-#' 
+#'
 #' Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
 #' fading rates of various luminescence signals from feldspar-rich sediment
 #' extracts. Radiation Measurements 43, 1474-1486.
 #' doi:10.1016/j.radmeas.2008.06.002
 #' @keywords datagen plot
 #' @examples
-#' 
-#' 
+#'
+#'
 #' ### NOTE: For this example existing example data are used. These data are non pIRIR data.
 #' ###
 #' ##(1) Compile example data set based on existing example data (SAR quartz measurement)
 #' ##(a) Load example data
 #' data(ExampleData.BINfileData, envir = environment())
-#' 
+#'
 #' ##(b) Transform the values from the first position in a RLum.Analysis object
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-#' 
+#'
 #' ##(c) Grep curves and exclude the last two (one TL and one IRSL)
 #' object <- get_RLum.Analysis(object, record.id = c(-29,-30))
-#' 
+#'
 #' ##(d) Define new sequence structure and set new RLum.Analysis object
 #' sequence.structure  <- c(1,2,2,3,4,4)
 #' sequence.structure <- as.vector(sapply(seq(0,length(object)-1,by = 4),
 #'                                        function(x){sequence.structure + x}))
-#' 
+#'
 #' object <-  sapply(1:length(sequence.structure), function(x){
-#' 
+#'
 #'   object[[sequence.structure[x]]]
-#' 
+#'
 #' })
-#' 
+#'
 #' object <- set_RLum.Analysis(records = object, protocol = "pIRIR")
-#' 
+#'
 #' ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
 #' ## Note: output as single plots to avoid problems with this example
 #' results <- analyse_pIRIRSequence(object,
@@ -107,8 +107,8 @@
 #'                              sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
 #'                              main = "Pseudo pIRIR data set based on quartz OSL",
 #'                              plot.single = TRUE)
-#' 
-#' 
+#'
+#'
 #' ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
 #' ## Alternative for PDF output, uncomment and complete for usage
 #' ##
@@ -122,9 +122,9 @@
 #' #         main = "Pseudo pIRIR data set based on quartz OSL")
 #' #
 #' #  dev.off()
-#' 
-#' 
-#' 
+#'
+#'
+#'
 analyse_pIRIRSequence <- function(
   object,
   signal.integral.min,

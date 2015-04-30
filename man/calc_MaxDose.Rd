@@ -59,7 +59,7 @@ follows\cr\cr 1. subtract the x-offset \cr 2. multiply the natural logs by
 \bold{Further documentation} \cr\cr Please see \code{\link{calc_MinDose}}.
 }
 \section{Function version}{
- 0.3 (2015-03-04 13:31:23) (2015-04-28 18:31:51)
+ 0.3 (2015-04-30 11:53:34)
 }
 \examples{
 ## load example data
@@ -70,7 +70,7 @@ calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
-rewritten S script of Rex Galbraith, 2010 \cr\cr R Luminescence Package Team
+rewritten S script of Rex Galbraith, 2010 \cr
 \cr R Luminescence Package Team}
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,

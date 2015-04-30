@@ -1,9 +1,9 @@
 #' Apply a simple homogeneity test after Galbraith (2003)
-#' 
+#'
 #' A simple homogeneity test for De estimates
-#' 
+#'
 #' For details see Galbraith (2003).
-#' 
+#'
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
@@ -13,86 +13,85 @@
 #' @return Returns a terminal output. In addition an
 #' \code{\linkS4class{RLum.Results}} object is returned containing the
 #' following element:
-#' 
+#'
 #' \item{summary}{\link{data.frame} summary of all relevant model results.}
 #' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
 #' used arguments} \item{call}{\link{call} the function call}
-#' 
+#'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum.Results}}
-#' @section Function version: 0.2 (2015-03-04 13:31:44)
-#' @author Christoph Burow, University of Cologne (Germany), \cr R Luminescence
-#' Package Team
+#' @section Function version: 0.2
+#' @author Christoph Burow, University of Cologne (Germany)
 #' @seealso \code{\link{pchisq}}
 #' @references Galbraith, R.F., 2003. A simple homogeneity test for estimates
 #' of dose obtained using OSL. Ancient TL 21, 75-77.
 #' @examples
-#' 
+#'
 #' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
-#' 
+#'
 #' ## apply the homogeneity test
 #' calc_HomogeneityTest(ExampleData.DeValues$BT998)
-#' 
+#'
 calc_HomogeneityTest <- function(
   data,
   log=TRUE,
   ...
-){                     
-  
+){
+
   ##============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##============================================================================##
-  
+
   if(missing(data)==FALSE){
     if(is(data, "data.frame") == FALSE & is(data, "RLum.Results") == FALSE){
-      stop("[calc_FiniteMixture] Error: 'data' object has to be of type 
+      stop("[calc_FiniteMixture] Error: 'data' object has to be of type
            'data.frame' or 'RLum.Results'!")
     } else {
       if(is(data, "RLum.Results") == TRUE){
         data <- get_RLum.Results(data, signature(object = "De.values"))
-        
+
       }
     }
-  }  
-  
+  }
+
   ##==========================================================================##
   ## ... ARGUMENTS
   ##==========================================================================##
-  
+
   extraArgs <- list(...)
-  
+
   ## set plot main title
   if("verbose" %in% names(extraArgs)) {
     verbose<- extraArgs$verbose
   } else {
     verbose<- TRUE
   }
-  
+
   ##============================================================================##
   ## CALCULATIONS
   ##============================================================================##
-  
+
   if(log==TRUE){
     dat<- log(data)
   } else {
     dat<- data
   }
-  
+
   wi<- 1/dat[2]^2
   wizi<- wi*dat[1]
   mu<- sum(wizi)/sum(wi)
   gi<- wi*(dat[1]-mu)^2
-  
+
   G<- sum(gi)
   df<- length(wi)-1
   n<- length(wi)
   P<- pchisq(G, df, lower.tail = FALSE)
-  
+
   ##============================================================================##
   ## OUTPUT
   ##============================================================================##
-  
+
   if(verbose == TRUE) {
     cat("\n [calc_HomogeneityTest]")
     cat(paste("\n\n ---------------------------------"))
@@ -104,16 +103,16 @@ calc_HomogeneityTest <- function(
     cat(paste("\n P-value:           ", round(P,4)))
     cat(paste("\n ---------------------------------\n\n"))
   }
-  
+
   ##============================================================================##
   ## RETURN VALUES
   ##============================================================================##
-  
+
   summary<- data.frame(n=n,g.value=G,df=df,P.value=P)
-  
+
   call<- sys.call()
   args<- list(log=log)
-  
+
   newRLumResults.calc_HomogeneityTest <- set_RLum.Results(
     data = list(
       summary=summary,
@@ -121,7 +120,7 @@ calc_HomogeneityTest <- function(
       args=args,
       call=call
     ))
-  
+
   invisible(newRLumResults.calc_HomogeneityTest)
-  
+
 }

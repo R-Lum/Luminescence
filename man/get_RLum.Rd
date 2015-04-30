@@ -39,7 +39,7 @@ in the documentations of each get function.  \tabular{lll}{ \bold{object}
 -
 }
 \section{Function version}{
- 0.1 (2015-03-04 14:39:52) (2015-04-28 18:31:51)
+ 0.1 (2015-04-30 11:57:24)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function
@@ -55,7 +55,7 @@ temp.get<- get_RLum(object = temp1)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), \cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 -

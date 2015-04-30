@@ -35,7 +35,7 @@ according to \code{\link{plot}}.
 Not all arguments of \code{\link{plot}} will be passed!
 }
 \section{Function version}{
- 0.1.5 (2015-03-04 00:19:53) (2015-04-28 18:31:51)
+ 0.1.5 (2015-04-30 12:00:23)
 }
 \examples{
 ##plot curve data
@@ -51,7 +51,7 @@ plot_RLum.Data.Curve(temp)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), \cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 #

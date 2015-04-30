@@ -44,7 +44,7 @@ increase the computation time.
 The upper age limit is set to 500 ka!
 }
 \section{Function version}{
- 0.2 (2015-03-21 01:18:50) (2015-04-28 18:31:51)
+ 0.2 (2015-04-30 11:52:10)
 }
 \examples{
 results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
@@ -54,8 +54,7 @@ results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
 get_RLum.Results(results)
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne R
-Luminescence Package Team
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team}
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading

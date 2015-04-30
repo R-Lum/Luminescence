@@ -62,7 +62,7 @@ The information from the slot 'recordType' is taken from the first
 'curveType' is filled with the name \code{merged}.
 }
 \section{Function version}{
- 0.1 (2015-03-04 00:19:53) (2015-04-28 18:31:51)
+ 0.1 (2015-04-30 11:58:09)
 }
 \examples{
 ##load example data
@@ -83,7 +83,7 @@ plot_RLum(TL.curve.merged)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), \cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 -

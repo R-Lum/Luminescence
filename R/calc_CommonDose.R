@@ -1,8 +1,8 @@
 #' Apply the (un-)logged common age model after Galbraith et al. (1999) to a
 #' given De distribution
-#' 
+#'
 #' Function to calculate the common dose of a De distribution.
-#' 
+#'
 #' \bold{(Un-)logged model} \cr\cr When \code{log = TRUE} this function
 #' calculates the weighted mean of logarithmic De values. Each of the estimates
 #' is weighted by the inverse square of its relative standard error. The
@@ -12,7 +12,7 @@
 #' can be applied instead (\code{log = FALSE}). The weighted mean is then
 #' calculated using the un-logged estimates of De and their absolute standard
 #' error (Galbraith & Roberts 2012, p. 14).
-#' 
+#'
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
@@ -26,15 +26,15 @@
 #' @return Returns a terminal output. In addition an
 #' \code{\linkS4class{RLum.Results}} object is returned containing the
 #' following element:
-#' 
+#'
 #' \item{summary}{\link{data.frame} summary of all relevant model results.}
 #' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
 #' used arguments} \item{call}{\link{call} the function call}
-#' 
+#'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum.Results}}
-#' @author Christoph Burow, University of Cologne (Germany) \cr R Luminescence
-#' Package Team
+#' @section Function version: 0.1
+#' @author Christoph Burow, University of Cologne (Germany)
 #' @seealso \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
 #' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
 #' @references Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
@@ -59,54 +59,54 @@
 #' 109-120.\cr\cr Rodnight, H., 2008. How many equivalent dose values are
 #' needed to obtain a reproducible distribution?. Ancient TL 26, 3-10.
 #' @examples
-#' 
+#'
 #' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
-#' 
+#'
 #' ## apply the common dose model
-#' calc_CommonDose(ExampleData.DeValues$CA1)                         
-#' 
+#' calc_CommonDose(ExampleData.DeValues$CA1)
+#'
 calc_CommonDose <- function(
   data,
   sigmab,
   log=TRUE,
   ...
-) {                     
-  
+) {
+
   ##============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##============================================================================##
-  
+
   if(missing(data)==FALSE){
     if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
-      stop("[calc_CentralDose] Error: 'data' object has to be of type 
+      stop("[calc_CentralDose] Error: 'data' object has to be of type
            'data.frame' or 'RLum.Results'!")
     }else{
       if(is(data, "RLum.Results") == TRUE){
         data <- get_RLum.Results(data, signature(object = "De.values"))
       }
     }
-  }  
+  }
   try(colnames(data)<- c("ED","ED_Error"), silent = TRUE)
-  if(colnames(data[1])!="ED"||colnames(data[2])!="ED_Error") { 
+  if(colnames(data[1])!="ED"||colnames(data[2])!="ED_Error") {
     cat(paste("Columns must be named 'ED' and 'ED_Error'"), fill = FALSE)
-    stop(domain=NA) 
+    stop(domain=NA)
   }
   if(!missing(sigmab)) {
     if(sigmab <0 | sigmab >1) {
-      cat(paste("sigmab needs to be given as a fraction between", 
+      cat(paste("sigmab needs to be given as a fraction between",
                 "0 and 1 (e.g. 0.2)"), fill = FALSE)
       stop(domain=NA)
     }
   }
-  
+
   ##============================================================================##
   ## CALCULATIONS
   ##============================================================================##
-  
+
   # set default value of sigmab
   if(missing(sigmab)) sigmab<- 0
-  
+
   # calculate  yu = log(ED) and su = se(logED)
   if(log==TRUE) {
     yu<- log(data$ED)
@@ -116,26 +116,26 @@ calc_CommonDose <- function(
     yu<- data$ED
     su<- sqrt((data$ED_Error)^2 + sigmab^2)
   }
-  
-  # calculate weights 
+
+  # calculate weights
   wu<- 1/su^2
   delta<- sum(wu*yu)/sum(wu)
   n<- length(yu)
-  
+
   #standard error
   sedelta<- 1/sqrt(sum(wu))
   if(log==FALSE) {
     sedelta<- sedelta/delta
   }
-  
+
   if(log==TRUE){
     delta<- exp(delta)
   }
-  
-  ##============================================================================##  
+
+  ##============================================================================##
   ## TERMINAL OUTPUT
-  ##============================================================================##  
-  
+  ##============================================================================##
+
   cat("\n [calc_CommonDose]")
   cat(paste("\n\n----------- meta data --------------"))
   cat(paste("\n n:                      ",n))
@@ -144,24 +144,24 @@ calc_CommonDose <- function(
   cat(paste("\n common dose:            ", round(delta,2)))
   cat(paste("\n SE:                     ", round(delta*sedelta, 2)))
   cat(paste("\n rel. SE [%]:            ", round(sedelta*100,2)))
-  cat(paste("\n------------------------------------\n\n")) 
-  
-  ##============================================================================##  
+  cat(paste("\n------------------------------------\n\n"))
+
+  ##============================================================================##
   ## RETURN VALUES
   ##============================================================================##
-  
+
   summary<- data.frame(de=delta,
                        de_err=delta*sedelta)
-  
+
   call<- sys.call()
   args<- list(log=log, sigmab=sigmab)
-  
+
   newRLumResults.calc_CommonDose<- set_RLum.Results(
     data = list(summary = summary,
                 data = data,
                 args = args,
                 call = call))
-  
+
   invisible(newRLumResults.calc_CommonDose)
-  
+
 }

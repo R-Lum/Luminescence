@@ -1,11 +1,11 @@
 #' Plot a histogram with separate error plot
-#' 
+#'
 #' Function plots a predefined histogram with an accompanying error plot as
 #' suggested by Rex Galbraith at the UK LED in Oxford 2010.
-#' 
+#'
 #' If the normal curve is added, the y-axis in the histogram will show the
 #' probability density.
-#' 
+#'
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
 #' object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]})
@@ -51,21 +51,20 @@
 #' elements specifying the left axes limits and the latter two elements giving
 #' the right axis limits.
 #' @note The input data is not restricted to a special type.
-#' @section Function version: 0.4.4 (2015-03-28 12:38:08)
+#' @section Function version: 0.4.4
 #' @author Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
-#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr R Luminescence
-#' Package Team
+#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #' @seealso \code{\link{hist}}, \code{\link{plot}}
 #' @examples
-#' 
+#'
 #' ## load data
 #' data(ExampleData.DeValues, envir = environment())
 #' ExampleData.DeValues <-
 #'   Second2Gray(ExampleData.DeValues$BT998, dose.rate = c(0.0438,0.0019))
-#' 
+#'
 #' ## plot histogram the easiest way
 #' plot_Histogram(ExampleData.DeValues)
-#' 
+#'
 #' ## plot histogram with some more modifications
 #' plot_Histogram(ExampleData.DeValues,
 #'                rug = TRUE,
@@ -81,8 +80,8 @@
 #'                         "Error"),
 #'                xlim = c(100, 250),
 #'                ylim = c(0, 0.1, 5, 20))
-#' 
-#' 
+#'
+#'
 plot_Histogram <- function(
   data,
   na.exclude = TRUE,
@@ -96,71 +95,71 @@ plot_Histogram <- function(
   colour,
   ...
 ) {
-  
+
   # Integrity tests ---------------------------------------------------------
   ## check/adjust input data structure
   if(is(data, "RLum.Results") == FALSE &
        is(data, "data.frame") == FALSE) {
-    
+
     stop(paste("[plot_Histogram()] Input data format is neither",
                "'data.frame' nor 'RLum.Results'"))
   } else {
-    
+
     if(is(data, "RLum.Results") == TRUE) {
       data <- get_RLum.Results(data)[,1:2]
     }
   }
-  
+
   ## handle error-free data sets
   if(length(data) < 2) {
     data <- cbind(data, rep(NA, length(data)))
   }
-  
-  
+
+
   ## Set general parameters ---------------------------------------------------
   ## Check/set default parameters
   if(missing(cex.global) == TRUE) {
     cex.global <- 1
   }
-  
+
   if(missing(mtext) == TRUE) {
     mtext <- ""
   }
-  
+
   if(missing(se) == TRUE) {
     se = TRUE
   }
-  
+
   if(missing(rug) == TRUE) {
     rug = TRUE
   }
-  
+
   if(missing(colour) == TRUE) {
     colour = c("white", "black", "red", "black")
   }
-  
+
   if(missing(summary) == TRUE) {
     summary <- ""
   }
-  
+
   if(missing(summary.pos) == TRUE) {
     summary.pos <- "sub"
   }
-  
+
   if(missing(normal_curve) == TRUE) {
     normal_curve = FALSE
   }
-  
+
   ## read out additional arguments list
   extraArgs <- list(...)
-  
+
   ## define fun
   if("fun" %in% names(extraArgs)) {
     fun <- extraArgs$fun
   } else {
     fun <- FALSE
   }
-  
+
   ## optionally, count and exclude NA values and print result
   if(na.exclude == TRUE) {
     n.NA <- sum(is.na(data[,1]))
@@ -171,39 +170,39 @@ plot_Histogram <- function(
     }
     data <- data[!is.na(data[,1]),]
   }
-  
+
   if("main" %in% names(extraArgs)) {
     main.plot <- extraArgs$main
   } else {
     main.plot <- "Histogram"
   }
-  
+
   if("xlab" %in% names(extraArgs)) {
     xlab.plot <- extraArgs$xlab
   } else {
     xlab.plot <- expression(paste(D[e], " [Gy]"))
   }
-  
+
   if("ylab" %in% names(extraArgs)) {
     ylab.plot <- extraArgs$ylab
   } else {
     ylab.plot <- c("Frequency",
                    "Error")
   }
-  
+
   if("breaks" %in% names(extraArgs)) {
     breaks.plot <- extraArgs$breaks
   } else {
     breaks.plot <- hist(x = data[,1],
                         plot = FALSE)$breaks
   }
-  
+
   if("xlim" %in% names(extraArgs)) {
     xlim.plot <- extraArgs$xlim
   } else {
     xlim.plot <- range(breaks.plot)
   }
-  
+
   if("ylim" %in% names(extraArgs)) {
     ylim.plot <- extraArgs$ylim
   } else {
@@ -221,7 +220,7 @@ plot_Histogram <- function(
     range.error[2] <- ifelse(is.infinite(range.error[2]), 0, range.error[2])
     ylim.plot <- c(left.ylim, range.error)
   }
-  
+
   if("pch" %in% names(extraArgs)) {
     pch.plot <- extraArgs$pch
   } else {
@@ -230,7 +229,7 @@ plot_Histogram <- function(
   ## Set plot area format
   par(mar = c(4.5, 4.5, 4.5, 4.5),
       cex = cex.global)
-  
+
   ## Plot histogram -----------------------------------------------------------
   HIST <- hist(data[,1],
                main = "",
@@ -242,20 +241,20 @@ plot_Histogram <- function(
                freq = !normal_curve,
                col = colour[1]
   )
-  
+
   ## add title
   title(line = 2,
         main = main.plot)
-  
+
   ## Optionally, add rug ------------------------------------------------------
   if(rug == TRUE) {rug(data[,1], col = colour[2])}
-  
+
   ## Optionally, add a normal curve based on the data -------------------------
   if(normal_curve == TRUE){
     ## cheat the R check routine, tztztz how neat
     x <- NULL
     rm(x)
-    
+
     ## add normal distribution curve
     curve(dnorm(x,
                 mean = mean(na.exclude(data[,1])),
@@ -264,7 +263,7 @@ plot_Histogram <- function(
           add = TRUE,
           lwd = 1.2 * cex.global)
   }
-  
+
   ## calculate and paste statistical summary
   data.stats <- list(data = data)
   De.stats <- matrix(nrow = length(data.stats), ncol = 14)
@@ -282,7 +281,7 @@ plot_Histogram <- function(
                           "q75",
                           "skewness",
                           "kurtosis")
-  
+
   for(i in 1:length(data.stats)) {
     statistics <- calc_Statistics(data.stats[[i]])
     De.stats[i,1] <- statistics$weighted$n
@@ -298,28 +297,28 @@ plot_Histogram <- function(
     De.stats[i,12] <- quantile(data.stats[[i]][,1], 0.75)
     De.stats[i,13] <- statistics$unweighted$skewness
     De.stats[i,14] <- statistics$unweighted$kurtosis
-    
-    
+
+
     ##kdemax - here a little doubled as it appears below again
     De.density <-density(x = data.stats[[i]][,1],
                          kernel = "gaussian",
                          bw = "nrd0")
-    
+
     De.stats[i,6] <- De.density$x[which.max(De.density$y)]
-    
-    
+
+
   }
-  
+
   label.text = list(NA)
-  
+
   if(summary.pos[1] != "sub") {
     n.rows <- length(summary)
-    
+
     for(i in 1:length(data.stats)) {
       stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
-      
+
       summary.text <- character(0)
-      
+
       for(j in 1:length(summary)) {
         summary.text <- c(summary.text,
                           paste(
@@ -405,11 +404,11 @@ plot_Histogram <- function(
                                          sep = ""),
                                    ""),
                             sep = ""))
-        
+
       }
-      
+
       summary.text <- paste(summary.text, collapse = "")
-      
+
       label.text[[length(label.text) + 1]] <- paste(stops,
                                                     summary.text,
                                                     stops,
@@ -418,7 +417,7 @@ plot_Histogram <- function(
   } else {
     for(i in 1:length(data.stats)) {
       summary.text <- character(0)
-      
+
       for(j in 1:length(summary)) {
         summary.text <- c(summary.text,
                           ifelse("n" %in% summary[j] == TRUE,
@@ -502,15 +501,15 @@ plot_Histogram <- function(
                                        sep = ""),
                                  ""))
       }
-      
+
       summary.text <- paste(summary.text, collapse = "")
-      
+
       label.text[[length(label.text) + 1]]  <- paste(
         "  ",
         summary.text,
         sep = "")
     }
-    
+
     ## remove outer vertical lines from string
     for(i in 2:length(label.text)) {
       label.text[[i]] <- substr(x = label.text[[i]],
@@ -518,10 +517,10 @@ plot_Histogram <- function(
                                 stop = nchar(label.text[[i]]) - 3)
     }
   }
-  
+
   ## remove dummy list element
   label.text[[1]] <- NULL
-  
+
   ## convert keywords into summary placement coordinates
   if(missing(summary.pos) == TRUE) {
     summary.pos <- c(xlim.plot[1], ylim.plot[2])
@@ -557,7 +556,7 @@ plot_Histogram <- function(
     summary.pos <- c(xlim.plot[2], ylim.plot[1])
     summary.adj <- c(1, 0)
   }
-  
+
   ## add summary content
   for(i in 1:length(data.stats)) {
     if(summary.pos[1] != "sub") {
@@ -577,16 +576,16 @@ plot_Histogram <- function(
       }
     }
   }
-  
+
   ## Optionally, add standard error plot --------------------------------------
   if(sum(is.na(data[,2])) == length(data[,2])) {
     se <- FALSE
   }
-  
+
   if(se == TRUE) {
     par(new = TRUE)
     plot.data <- data[!is.na(data[,2]),]
-    
+
     plot(x = plot.data[,1],
          y = plot.data[,2],
          xlim = xlim.plot,
@@ -607,17 +606,17 @@ plot_Histogram <- function(
           side = 4,
           line = 3,
           cex = cex.global)
-    
+
     #    par(new = FALSE)
   }
-  
+
   ## Optionally add user-defined mtext
   mtext(side = 3,
         line = 0.5,
         text = mtext,
         cex = 0.8 * cex.global)
-  
+
   ## FUN by R Luminescence Team
   if(fun==TRUE){sTeve()}
-  
+
 }

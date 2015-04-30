@@ -63,7 +63,7 @@ With no additional summand the new position numbers would be:
 The validity of the output objects is not further checked.
 }
 \section{Function version}{
- 0.2.2 (2015-03-04 12:43:39) (2015-04-28 18:31:51)
+ 0.2.2 (2015-04-30 11:57:42)
 }
 \examples{
 ##merge two objects
@@ -76,7 +76,7 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France),\cr R Luminescence Package Team
+(France)
 \cr R Luminescence Package Team}
 \references{
 Duller, G., 2007. Analyst.

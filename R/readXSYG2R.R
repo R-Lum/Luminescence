@@ -1,12 +1,12 @@
 #' Import XSYG files to R
-#' 
+#'
 #' Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
-#' 
+#'
 #' \bold{How does the import function work?}\cr\cr The function uses the
 #' \code{\link{xml}} package to parse the file structure. Each sequence is
 #' subsequently translated into an \code{\linkS4class{RLum.Analysis}}
 #' object.\cr\cr
-#' 
+#'
 #' \bold{General structure XSYG format}\cr\cr \code{<?xml?}\cr \code{
 #' <Sample>}\cr \code{ <Sequence>}\cr \code{ <Record>}\cr \code{ <Curve
 #' name="first curve" />}\cr \code{ <Curve name="curve with data">}\cr \code{
@@ -14,42 +14,42 @@
 #' </Record>}\cr \code{ </Sequence>}\cr \code{ </Sample>}\cr\cr So far, each
 #' XSYG file can only contain one \code{<Sample></Sample>}, but multiple
 #' sequences. \cr\cr Each record may comprise several curves.\cr\cr
-#' 
+#'
 #' \bold{TL curve recalculation}\cr
-#' 
+#'
 #' On the FI lexsyg device TL curves are recorded as time against count values.
 #' Temperature values are monitored on the heating plate and stored in a
 #' separate curve (time vs. temperature). If the option
 #' \code{recalculate.TL.curves = TRUE} is chosen, the time values for each TL
 #' curve are replaced by temperature values.\cr
-#' 
+#'
 #' Practically, this means combining two matrices (Time vs. Counts and Time vs.
 #' Temperature) with different row numbers by their time values. Three cases
 #' are considered:
-#' 
+#'
 #' HE: Heating element\cr PMT: Photomultiplier tube\cr Interpolation is done
 #' using the function \code{\link{approx}}\cr
-#' 
+#'
 #' CASE (1): \code{nrow(matrix(PMT))} > \code{nrow(matrix(HE))} \cr
-#' 
+#'
 #' Missing temperature values from the heating element are calculated using
 #' time values from the PMT measurement.\cr
-#' 
+#'
 #' CASE (2): \code{nrow(matrix(PMT))} < \code{nrow(matrix(HE))} \cr
-#' 
+#'
 #' Missing count values from the PMT are calculated using time values from the
 #' heating element measurement.\cr
-#' 
+#'
 #' CASE (3): \code{nrow(matrix(PMT))} == \code{nrow(matrix(HE))} \cr
-#' 
+#'
 #' A new matrix is produced using temperature values from the heating element
 #' and count values from the PMT. \cr
-#' 
+#'
 #' \emph{Note: Please note that due to the recalculation of the temperature
 #' values based on values delivered by the heating element, it may happen that
 #' mutiple count values exists for each temperature value and temperature
 #' values may also decrease during heating, not only increase. }
-#' 
+#'
 #' @param file \link{character} (\bold{required}): path and file name of the
 #' XSYG file.
 #' @param recalculate.TL.curves \link{logical} (with default): if set to
@@ -72,12 +72,12 @@
 #' @note This function is a beta version as the XSYG file format is not yet
 #' fully specified. Thus, further file operations (merge, export, write) should
 #' be done using the functions provided with the package \code{\link{xml}}.\cr
-#' 
+#'
 #' \bold{So far, no image data import is provided!}\cr Corresponding values in
 #' the XSXG file are skipped.
-#' @section Function version: 0.4.3 (2015-04-07 11:39:31)
+#' @section Function version: 0.4.3
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), \cr R Luminescence Package Team
+#' (France)
 #' @seealso \code{\link{xml}}, \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Data.Curve}}, \code{\link{approx}}
 #' @references Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
@@ -85,34 +85,34 @@
 #' \bold{Further reading} \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
 #' @keywords IO
 #' @examples
-#' 
-#' 
+#'
+#'
 #' ##(1) import XSYG file to R (uncomment for usage)
-#' 
+#'
 #' #FILE <- file.choose()
 #' #temp <- readXSYG2R(FILE)
-#' 
+#'
 #' ##(2) additional examples for pure XML import using the package XML
 #' ##    (uncomment for usage)
-#' 
+#'
 #'   ##import entire XML file
 #'   #FILE <- file.choose()
 #'   #temp <- xmlRoot(xmlTreeParse(FILE))
-#' 
+#'
 #'   ##search for specific subnodes with curves containing 'OSL'
 #'   #getNodeSet(temp, "//Sample/Sequence/Record[@@recordType = 'OSL']/Curve")
-#' 
+#'
 #' ##(2) How to extract single curves ... after import
 #' data(ExampleData.XSYG, envir = environment())
-#' 
+#'
 #' ##grep one OSL curves and plot the first curve
 #' OSLcurve <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
-#' 
+#'
 #' ##(3) How to see the structure of an object?
 #' get_structure.RLum.Analysis(OSL.SARMeasurement$Sequence.Object)
-#' 
-#' 
-#' 
+#'
+#'
+#'
 readXSYG2R <- function(
   file,
   recalculate.TL.curves = TRUE,
