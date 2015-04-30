@@ -4,7 +4,7 @@ Changes in version 0.4.4 (XXth, May 2015):
 
   Bugfixes and changes:
 
-         • ‘plot_GrowthCurve()’
+         • 'plot_GrowthCurve()'
 
              • Function crashed with unclear error if the number of
                regenerations points was <=3), fixed,
@@ -12,7 +12,7 @@ Changes in version 0.4.4 (XXth, May 2015):
              • fitting is now allowed with at leat two regenerations
                points.
 
-         • ‘writeR2BIN()’
+         • 'writeR2BIN()'
 
              • Function broke if information in SEQUENCE, COMMENT or
                USER was always NA. Corrected.
@@ -34,39 +34,39 @@ Changes in version 0.4.3 (17th, April 2015):
 
   Bugfixes and changes:
 
-         • ‘calc_OSLLxTxRatio()’
+         • 'calc_OSLLxTxRatio()'
 
-             • Support for ‘RLum.Data.Curve’ objects implemented.
+             • Support for 'RLum.Data.Curve' objects implemented.
 
-         • ‘calc_MinDose()’
+         • 'calc_MinDose()'
 
-             • Fixed a false argument in ‘parallel::makeCluster()’ that
+             • Fixed a false argument in 'parallel::makeCluster()' that
                unintentionally required the 'snow' package.
 
-         • ‘analyse_SAR.CWOSL()’
+         • 'analyse_SAR.CWOSL()'
 
              • If the threshold for the rejection criteria was reached
                due an error this information was not properly stored in
                the output object (i.e. every time 'RC.Status' was set
                to 'OK' instead of 'FAILED'); corrected (#180).
 
-         • ‘extract_IrradiationTimes()’
+         • 'extract_IrradiationTimes()'
 
-             • Argument ‘file.XSYG’ replaced by ‘object’ for the sake
+             • Argument 'file.XSYG' replaced by 'object' for the sake
                of argument consistency on the package,
 
-             • allow input for ‘RLum.Analysis’ object. In such cases
-               the arguments ‘file.BINX’ and ‘recordType’ are ignored.
+             • allow input for 'RLum.Analysis' object. In such cases
+               the arguments 'file.BINX' and 'recordType' are ignored.
                This mode allows for more flexibility in applying this
                function,
 
-             • new argument ‘compatibility.mode’ to trigger the binary
+             • new argument 'compatibility.mode' to trigger the binary
                write output of the BIN/BINX-file,
 
              • additionally now the time between the steps is exported
-               (‘TIMESINCELAST.STEP’).
+               ('TIMESINCELAST.STEP').
 
-         • ‘fit_CWVCurve()’
+         • 'fit_CWVCurve()'
 
              • The function broke with an error under rare
                circumstances when no fit was made (reported by
@@ -79,30 +79,30 @@ Changes in version 0.4.3 (17th, April 2015):
              • more proper re-scaling of the graphical output if no fit
                could be produced,
 
-             • new argument add ‘fit.method’ to allow using the
-               function ‘nlsLM’ from the ‘minpack.lm package’ and with
+             • new argument add 'fit.method' to allow using the
+               function 'nlsLM' from the 'minpack.lm package' and with
                this the Levenberg-Marquardt algorithm,
 
-             • argument ‘cex.global’ replaced by ‘cex’ and moved to the
-               ‘...’ argument,
+             • argument 'cex.global' replaced by 'cex' and moved to the
+               '...' argument,
 
-             • argument ‘output.plot’ changed to ‘plot’,
+             • argument 'output.plot' changed to 'plot',
 
              • changing the way how warnings are surpressed.
 
-         • ‘plot_Histogram()’
+         • 'plot_Histogram()'
 
              • Argument 'breaks' was without function due to a coding
                error. Corrected (#217).,
 
              • argument 'breaks' removed from the argument list,
-               however, it remains supported via the ‘'...'’ argument.
+               however, it remains supported via the ''...'' argument.
 
-         • ‘plot_GrowthCurve()’
+         • 'plot_GrowthCurve()'
 
              • Error estimation using the Monte Carlo runs for the
-               fitting function ‘fit.method = "EXP+LIN"’ and
-               ‘fit.method = "EXP+EXP"’ results in unrealistic values,
+               fitting function 'fit.method = "EXP+LIN"' and
+               'fit.method = "EXP+EXP"' results in unrealistic values,
                as the Monte Carlo simulation was fed by mistake with
                wrong input variables (introduced in version 0.4.2 with
                the uniroot function) ... fixed,
@@ -115,107 +115,107 @@ Changes in version 0.4.3 (17th, April 2015):
              • error messages coming from the fitting process itself
                are now surpressed.
 
-         • ‘plot_RLum.Data.Spectrum()’
+         • 'plot_RLum.Data.Spectrum()'
 
              • Colour handing changed towards a more logical behaviour
-               for ‘plot.type = 'single'’.  The colour now changes only
-               the colour of the points and the argument ‘rug’ is now
+               for 'plot.type = 'single''.  The colour now changes only
+               the colour of the points and the argument 'rug' is now
                recognised also by this plot type. Automatic wavelength
                colouring for points for in this plot type has been
                removed.
 
-             • same changes are made for ‘plot.type =
-               'multiple.lines'’,
+             • same changes are made for 'plot.type =
+               'multiple.lines'',
 
              • instead of just plotting a new x-axis when the argument
-               ‘xaxis.energy = TRUE’ is used, the spectrum (intensity)
+               'xaxis.energy = TRUE' is used, the spectrum (intensity)
                is now proper re-calculated (#192),
 
              • minor code polishing.
 
-         • ‘plot_RLum.Anaysis()’
+         • 'plot_RLum.Anaysis()'
 
-             • Setting the argument ‘combine = TRUE’ for 'OSL' and
+             • Setting the argument 'combine = TRUE' for 'OSL' and
                'IRSL' caused an error related to the missing argument
                'curve.transformation'; corrected.,
 
-             • colour handling for setting ‘combine = TRUE’ improved.
-               It now works as for ‘plot.default’,
+             • colour handling for setting 'combine = TRUE' improved.
+               It now works as for 'plot.default',
 
-             • support for ‘xlim’ and ‘ylim’ in the non-combined mode,
+             • support for 'xlim' and 'ylim' in the non-combined mode,
 
-             • combine mode (‘combine = TRUE’) is no more limited to an
+             • combine mode ('combine = TRUE') is no more limited to an
                input object of similar curves. Now the plot function
                tries to combine curves of similar type automatically.
 
-         • ‘readBIN2R()’
+         • 'readBIN2R()'
 
              • Support for BIN/BINX-file version 07 added thanks to the
                support by Torben Lapp (#215).
 
-         • ‘readXSYG2R()’
+         • 'readXSYG2R()'
 
              • Info objects from the sequence header like 'name' and
                'position' are now be additionally transferred to each
                single output object. With this the information is kept
                within the curve object.
 
-         • ‘writeR2BIN()’
+         • 'writeR2BIN()'
 
              • Support for BIN/BINX-file version 07 added thanks to the
                support by Torben Lapp (#215),
 
-             • new argument ‘compatibility.mode’ to avoid position
+             • new argument 'compatibility.mode' to avoid position
                numbers >48 as this caused errors using external
                software like the Analyst. The old version number is
                kept and added in the comment field.
 
   Internals:
 
-         • Description on the class ‘Risoe.BINfileData’ updated in
+         • Description on the class 'Risoe.BINfileData' updated in
            accordance with the implemented changes on the import (no
            change in the S4-object class chart),
 
-         • added dependency to package ‘minpack.lm’ to support the
+         • added dependency to package 'minpack.lm' to support the
            Levenberg-Marquardt algorithm for fitting in the function
-           ‘fit_LMCurve()’
+           'fit_LMCurve()'
 
 Changes in version 0.4.2 (March 23th, 2015):
 
   New functions:
 
-         • ‘calc_IEU()’: Apply the internal-external-uncertainty (IEU)
+         • 'calc_IEU()': Apply the internal-external-uncertainty (IEU)
            model after Thomsen et al. (2007) to a given De distribution
 
-         • ‘extract_IrradiationTimes()’: Extract irradiation times from
+         • 'extract_IrradiationTimes()': Extract irradiation times from
            an XSYG file
 
   Changes S4-objects, methods, classes:
 
-         • ‘RLum.Analysis-class’:
+         • 'RLum.Analysis-class':
 
-             • Fix: Argument ‘keep.object == TRUE’ was not respected
+             • Fix: Argument 'keep.object == TRUE' was not respected
                for every case. After using the function
-               ‘get_RLum.Analysis()’ the object just contained a single
+               'get_RLum.Analysis()' the object just contained a single
                object. In such cases only the object itself, but no
-               ‘RLum.Analysis’ object was returned (#200).
+               'RLum.Analysis' object was returned (#200).
 
-         • ‘RisoeBINfileData-class’:
+         • 'RisoeBINfileData-class':
 
-             • Slot ‘.RESERVED’ added to allow transferring
+             • Slot '.RESERVED' added to allow transferring
                undocumented raw binary values to a new BIN/BINX-file.
                For this all reserved bytes are just copied and pasted
-               into the new slot ‘.RESERVED’ using the function
-               ‘readBIN2R()’. Using the function ‘writeR2BIN()’
+               into the new slot '.RESERVED' using the function
+               'readBIN2R()'. Using the function 'writeR2BIN()'
                transfers the values unchanged to the new BIN/BINX-file.
                Allc corresponding functions have been updated in
-               accordance (‘readBIN2R()’, ‘writeR2BIN()’ and
-               ‘merge_Risoe.BINfileData()’. Other functions are not
+               accordance ('readBIN2R()', 'writeR2BIN()' and
+               'merge_Risoe.BINfileData()'. Other functions are not
                affected as they can simply ignore the new slot.
 
   Bugfixes and changes:
 
-         • ‘analyse_IRSAR.RF()’
+         • 'analyse_IRSAR.RF()'
 
              • Function now checks the number of channels in each
                curve. If the number of the channels in the first curve
@@ -223,61 +223,61 @@ Changes in version 0.4.2 (March 23th, 2015):
                is stopped,
 
              • add error estimation using bootstraping and MC loops for
-               ‘method = "SLIDE"’,
+               'method = "SLIDE"',
 
              • add scaled KDE for distribution of De,
 
              • the functions no longer stops with an error if a
-               undefined ‘method’ was chosen. Instead a warning message
+               undefined 'method' was chosen. Instead a warning message
                is shown and the available curves are shown in a plot
                anyway,
 
              • the labelling for the residuals is replaced by 'E' to
                avoid overplotting,
 
-             • new argument ‘rejection.criteria’ provided to allow for
+             • new argument 'rejection.criteria' provided to allow for
                setting rejection criteria. The argument works similar
-               as for other ‘analyse_...’ functions. Details are
+               as for other 'analyse_...' functions. Details are
                provided in the manual,
 
-             • speed up caculation time for ‘method = "SLIDE"’ by
+             • speed up caculation time for 'method = "SLIDE"' by
                re-writing the sliding process as C++ function. It does
                not the affect readability of the R-code at all, as just
                the sum of the residual squares is calculated in this
                way, i.e. the calculations are simple, but now much
                faster.
 
-         • ‘analyse_SAR.CWOSL()’
+         • 'analyse_SAR.CWOSL()'
 
              • For the case that no recycling ratio and no recuperation
                rate could be calculated the functions chrashed. This
                has bee corrected.
 
-         • ‘analyse_pIRIRSequence()’
+         • 'analyse_pIRIRSequence()'
 
              • For the case that no recycling ratio and no recuperation
                rate could be calculated the functions chrashed. This
                has bee corrected; in accordance with the similar
                behaviour in the function analyse_SAR.CWOSL().
 
-         • ‘apply_CosmicRayRemoval()’
+         • 'apply_CosmicRayRemoval()'
 
-             • Argument ‘method.Pych.histogram.plot’ replaced by the
-               more general and consistent argument ‘plot’,
+             • Argument 'method.Pych.histogram.plot' replaced by the
+               more general and consistent argument 'plot',
 
              • minor code polishing.
 
-         • ‘calc_FadingCorr()’
+         • 'calc_FadingCorr()'
 
              • Change the way the equation is solved using the R
-               function ‘uniroot’. This markedly speeds up the
+               function 'uniroot'. This markedly speeds up the
                computation process,
 
-             • now additionally an ‘RLum.Results’ object is returned,
+             • now additionally an 'RLum.Results' object is returned,
 
              • minor code polishing.
 
-         • ‘calc_MinDose()’
+         • 'calc_MinDose()'
 
              • Major changes in terms of reliablity and perfomance to
                the optimisation of the log likelihood function. Amongst
@@ -287,12 +287,12 @@ Changes in version 0.4.2 (March 23th, 2015):
                'optim' to 'nlminb' and switch from 'L-BFGS-B' method to
                default PORT routine,
 
-             • Removed parameter: ‘boundaries’
+             • Removed parameter: 'boundaries'
 
              • Boundaries for the model parameters are now hard-coded
                and suffice all input data,
 
-             • Warning messages are now suppressed unless ‘debug=TRUE’,
+             • Warning messages are now suppressed unless 'debug=TRUE',
 
              • Improved error handling and fallback for profiling the
                log likelihood function,
@@ -310,121 +310,121 @@ Changes in version 0.4.2 (March 23th, 2015):
 
              • add multicore support for bootstrapping,
 
-             • new arguments: ‘multicore’ (logical), ‘cores’ (numeric).
+             • new arguments: 'multicore' (logical), 'cores' (numeric).
 
-         • ‘calc_Statistics()’
+         • 'calc_Statistics()'
 
-             • argument ‘na.rm’ added (#198).
+             • argument 'na.rm' added (#198).
 
-         • ‘CW2pHMi()’
-
-             • Functions was rather inflexible selecting the allowed
-               curves, e.g. ‘"OSL"’ worked, ‘"OSL (UVVIS)"’ not.
-               Corrected.
-
-         • ‘CW2pLMi()’
+         • 'CW2pHMi()'
 
              • Functions was rather inflexible selecting the allowed
-               curves, e.g. ‘"OSL"’ worked, ‘"OSL (UVVIS)"’ not.
+               curves, e.g. '"OSL"' worked, '"OSL (UVVIS)"' not.
                Corrected.
 
-         • ‘CW2pLM()’
+         • 'CW2pLMi()'
 
              • Functions was rather inflexible selecting the allowed
-               curves, e.g. ‘"OSL"’ worked, ‘"OSL (UVVIS)"’ not.
+               curves, e.g. '"OSL"' worked, '"OSL (UVVIS)"' not.
                Corrected.
 
-         • ‘CW2pPMi()’
+         • 'CW2pLM()'
 
              • Functions was rather inflexible selecting the allowed
-               curves, e.g. ‘"OSL"’ worked, ‘"OSL (UVVIS)"’ not.
+               curves, e.g. '"OSL"' worked, '"OSL (UVVIS)"' not.
                Corrected.
 
-         • ‘merge_Risoe.BINfileData()’
+         • 'CW2pPMi()'
+
+             • Functions was rather inflexible selecting the allowed
+               curves, e.g. '"OSL"' worked, '"OSL (UVVIS)"' not.
+               Corrected.
+
+         • 'merge_Risoe.BINfileData()'
 
              • Support for the changes in the corresponding S4-class
                are implemented.
 
-         • ‘plot_AbanicoPlot()’
+         • 'plot_AbanicoPlot()'
 
-             • Missing summary keywords ‘"kdemax"’, ‘"skewness"’ and
-               ‘"kurtosis"’ added (#205)
+             • Missing summary keywords '"kdemax"', '"skewness"' and
+               '"kurtosis"' added (#205)
 
-         • ‘plot_Histogram()’
+         • 'plot_Histogram()'
 
-             • Missing summary keywords ‘"kdemax"’, ‘"skewness"’ and
-               ‘"kurtosis"’ added (#205)
+             • Missing summary keywords '"kdemax"', '"skewness"' and
+               '"kurtosis"' added (#205)
 
-         • ‘plot_KDE()’
+         • 'plot_KDE()'
 
-             • Missing summary keywords ‘"kdemax"’, ‘"skewness"’ and
-               ‘"kurtosis"’ added (#205)
+             • Missing summary keywords '"kdemax"', '"skewness"' and
+               '"kurtosis"' added (#205)
 
-         • ‘plot_GrowthCurve()’
+         • 'plot_GrowthCurve()'
 
              • Fix an error that causes a function chrash if the input
-               data.frame (argument ‘sample’) comprises row names. Now
+               data.frame (argument 'sample') comprises row names. Now
                all pre-set row names are removed automatically,
 
-             • using the option ‘fit.weights = FALSE’ in combination
-               with ‘fit.method = "LIN"’ caused an error. Corrected,
+             • using the option 'fit.weights = FALSE' in combination
+               with 'fit.method = "LIN"' caused an error. Corrected,
 
-             • avoid confusing warning messages in case ‘fit.weights’
-               was set to ‘FALSE’,
+             • avoid confusing warning messages in case 'fit.weights'
+               was set to 'FALSE',
 
              • fix an error that causes a chrash for the combination
-               ‘fit.method = "LIN"’ and error column just comprises 0,
+               'fit.method = "LIN"' and error column just comprises 0,
 
-             • argument ‘main’ was not working as expected, corrected.
+             • argument 'main' was not working as expected, corrected.
                Furthermore the argument is removed from the argument
-               list, but is still available via ‘...’,
+               list, but is still available via '...',
 
              • the slow self-written approach to calculate the De for
-               ‘fit.method = "EXP+LIN"’ and ‘fit.method = "EXP+EXP"’
-               has been replaced by the function ‘uniroot’. This
+               'fit.method = "EXP+LIN"' and 'fit.method = "EXP+EXP"'
+               has been replaced by the function 'uniroot'. This
                markedly reduces the computation times for the MC
                simulation (partly addresses issue #100)
 
-         • ‘plot_RadialPlot()’
+         • 'plot_RadialPlot()'
 
-             • Missing summary keywords ‘"kdemax"’, ‘"skewness"’ and
-               ‘"kurtosis"’ added (#205)
+             • Missing summary keywords '"kdemax"', '"skewness"' and
+               '"kurtosis"' added (#205)
 
-         • ‘plot_RLum.Analysis()’
+         • 'plot_RLum.Analysis()'
 
-             • Fix an error appeared for ‘combine = TRUE’ if only one
-               single object was in the ‘RLum.Analysis’ object (#199),
+             • Fix an error appeared for 'combine = TRUE' if only one
+               single object was in the 'RLum.Analysis' object (#199),
 
-             • added logical argument ‘plot.single’. In fact this just
-               resets ‘ncols’ and ‘nrows’ to ‘1’ (#201),
+             • added logical argument 'plot.single'. In fact this just
+               resets 'ncols' and 'nrows' to '1' (#201),
 
-             • added argument ‘curve.transformation’ to allow a quick
+             • added argument 'curve.transformation' to allow a quick
                data overview using the pseudo-LM curve transformation
                methods.
 
-         • ‘plot_RLum.Results()’
+         • 'plot_RLum.Results()'
 
-             • Improved error handling for ‘RLum.Results’ objects
-               originating from ‘calc_MinDose()’
+             • Improved error handling for 'RLum.Results' objects
+               originating from 'calc_MinDose()'
 
-         • ‘plot_RLum.Data.Spectrum()’
+         • 'plot_RLum.Data.Spectrum()'
 
-             • For ‘plot.type="multiple.lines"’ the legend was placed
-               odd, corrected using ‘par()$usr’ parameters,
+             • For 'plot.type="multiple.lines"' the legend was placed
+               odd, corrected using 'par()$usr' parameters,
 
-             • argument ‘legend.text’ added for plot types which
-               support a legend (e.g., ‘plot.type="multiple.lines"’).
+             • argument 'legend.text' added for plot types which
+               support a legend (e.g., 'plot.type="multiple.lines"').
 
-         • ‘readBIN2R()’
+         • 'readBIN2R()'
 
              • Improved handling of odd time formats,
 
              • support for the changes in the corresponding S4-class
                implemented.
 
-         • ‘readXSYG2R()’
+         • 'readXSYG2R()'
 
-             • For using the argument ‘recalculate.TL.curves = FALSE’
+             • For using the argument 'recalculate.TL.curves = FALSE'
                the import of spectrometer data was broken. Fixed.
 
              • during TL-curve recalculation for spectra in rare cases
@@ -433,13 +433,13 @@ Changes in version 0.4.2 (March 23th, 2015):
                fixed by adding artificially 1 K to such values. In
                addition a warnings is produced.
 
-         • ‘writeR2BIN()’
+         • 'writeR2BIN()'
 
              • Part of the manual was missing due to an error in the
                inlinedoc documentation. Fixed.,
 
-             • the argument ‘version’ no expects a ‘character’ as
-               import instead of a ‘raw’ object,
+             • the argument 'version' no expects a 'character' as
+               import instead of a 'raw' object,
 
              • further suppressing of confusing warning messages,
 
@@ -456,7 +456,7 @@ Changes in version 0.4.2 (March 23th, 2015):
                routines implemented with last update (fixed),
 
              • if empty comments or sample names are provided these are
-               replaced by ‘" "’ (double empty space),
+               replaced by '" "' (double empty space),
 
              • if the BIN-file is stored in a different version, the
                version number and the record lengths are now changed
@@ -472,59 +472,59 @@ Changes in version 0.4.2 (March 23th, 2015):
          • Adding dependency for package 'Rcpp'. This is used in
            particular to export some time consuming calculations to
            compiled C++ code to speed up the functions. Currently it is
-           used e.g. in the function ‘analyse_IRSAR.RF()’,
+           used e.g. in the function 'analyse_IRSAR.RF()',
 
-         • adding dependency (import) for the packages ‘parallel’. With
+         • adding dependency (import) for the packages 'parallel'. With
            this the multi-core support is realised within in the
-           package. First implemented in the function ‘calc_MinDose()’.
+           package. First implemented in the function 'calc_MinDose()'.
 
 Changes in version 0.4.1 (January 29th, 2015):
 
   New functions:
 
-         • ‘merge_RLum.Data.Curve()’: Function allows merging of
-           ‘RLum.Data.Curve’ objects in different ways (#128).
+         • 'merge_RLum.Data.Curve()': Function allows merging of
+           'RLum.Data.Curve' objects in different ways (#128).
 
   Changes S4-objects, methods, classes:
 
-         • ‘RLum.Analysis-class’:
+         • 'RLum.Analysis-class':
 
              • Show warnings messages when empty object are produced by
-               a ‘get_RLum.Analysis()’ request (implemented in get
+               a 'get_RLum.Analysis()' request (implemented in get
                method and show method).
 
   Bugfixes and changes:
 
-         • ‘analyse_SAR.CWOSL()’
+         • 'analyse_SAR.CWOSL()'
 
-             • rename argument ‘output.plot’ to ‘plot’,
+             • rename argument 'output.plot' to 'plot',
 
-             • rename argument ‘output.plot.single’ to ‘plot.single’,
+             • rename argument 'output.plot.single' to 'plot.single',
 
              • rejection criteria added 'De > max. dose point'. These
                avoids that values are accepted even the De from the
                fitting should be considered as invalid.
 
-         • ‘analyse_IRSAR.RF()’
+         • 'analyse_IRSAR.RF()'
 
-             • Add enhanced support for ‘...’, e.g. ‘log’, ‘xlim’,
-               ‘ylim’,
+             • Add enhanced support for '...', e.g. 'log', 'xlim',
+               'ylim',
 
-             • rename argument ‘output.plot’ to ‘plot’.
+             • rename argument 'output.plot' to 'plot'.
 
-         • ‘analyse_pIRIRSequence()’
+         • 'analyse_pIRIRSequence()'
 
              • Fix an error that causes problems during plotting (Error
                in plot.new(): figure margins too large),
 
-             • rename argument ‘output.plot’ to ‘plot’,
+             • rename argument 'output.plot' to 'plot',
 
-             • rename argument ‘output.plot.single’ to ‘plot.single’.
+             • rename argument 'output.plot.single' to 'plot.single'.
 
-         • ‘merge_RLum()’: Function extended accordingly with the newly
-           implemented function ‘merge_RLum.Data.Curve()’ (#128).
+         • 'merge_RLum()': Function extended accordingly with the newly
+           implemented function 'merge_RLum.Data.Curve()' (#128).
 
-         • ‘plot_AbanicoPlot()’:
+         • 'plot_AbanicoPlot()':
 
              • ticks removed from error bars,
 
@@ -554,7 +554,7 @@ Changes in version 0.4.1 (January 29th, 2015):
 
              • examples section extended.
 
-         • ‘plot_GrowthCurve()’:
+         • 'plot_GrowthCurve()':
 
              • Thanks to a querry from Rachel Smedly (#194) the De
                error calculation method has been updated.  So far only
@@ -570,37 +570,37 @@ Changes in version 0.4.1 (January 29th, 2015):
              • consequently to the changes made in the error
                calculation the corresponding De resulting from the MC
                simulation is now added to the output object
-               (‘$De$De.MC’),
+               ('$De$De.MC'),
 
              • Ln/Tn point including the error is now added on the plot
                output as red circle,
 
-             • fix a bug occasionally occurred for ‘fit.method =
-               "EXP+EXP"’ and the function broke subsequently (#159).
+             • fix a bug occasionally occurred for 'fit.method =
+               "EXP+EXP"' and the function broke subsequently (#159).
 
-         • ‘readBIN2R()’:
+         • 'readBIN2R()':
 
-             • critical bug fixed: ‘GRAIN’ and ‘GRAINNUMBER’ were not
+             • critical bug fixed: 'GRAIN' and 'GRAINNUMBER' were not
                imported properly (thanks to Norber Mercier),
 
              • import speed has been improved by at least an order of
                magnitude, due to a different internal data handling
-               (using of ‘data.table’ instead of ‘data.frame’). This
+               (using of 'data.table' instead of 'data.frame'). This
                may become relevant for huge BIN-files like they are
                produced by single grain measurements (#191).  Note: The
-               ‘Risoe.BINfileData-class’ remained untouched.
+               'Risoe.BINfileData-class' remained untouched.
 
-         • ‘writeR2BIN()’:
+         • 'writeR2BIN()':
 
              • minor changes due to the changes in the function
-               ‘readBIN2R()’,
+               'readBIN2R()',
 
              • confusing warnings during writing are suppressed.
 
   Internals:
 
-         • Add new dependency for package ‘data.table’ (used in the
-           function ‘readBIN2R()’).
+         • Add new dependency for package 'data.table' (used in the
+           function 'readBIN2R()').
 
 Changes in version 0.4.0 (December 19th, 2014):
 
@@ -618,115 +618,115 @@ Changes in version 0.4.0 (December 19th, 2014):
 
   New S4-classes, methods:
 
-         • ‘RLum.Data.Image’: S4-class for handling image data
-           including. Image data in slot ‘data’ are stored as
-           ‘RasterBrick’
+         • 'RLum.Data.Image': S4-class for handling image data
+           including. Image data in slot 'data' are stored as
+           'RasterBrick'
 
-         • ‘RLum.Results’: homogenised structure for containing the
+         • 'RLum.Results': homogenised structure for containing the
            following base items in the slot data: 'summary', 'args' and
            'call'. Where applicable the 'data' slot contains the
            original input data.  Depending on the function various
            further slots are added containing additional (intermediate)
            data and objects,
 
-         • ‘set_RLum.Data.Image()’: Set method for class
-           ‘RLum.Data.Image’
+         • 'set_RLum.Data.Image()': Set method for class
+           'RLum.Data.Image'
 
-         • ‘get_RLum.Data.Image()’: get method for class
-           ‘RLum.Data.Image’
+         • 'get_RLum.Data.Image()': get method for class
+           'RLum.Data.Image'
 
          • further: corresponding show and coercing methods added for
-           class ‘RLum.Data.Image’.
+           class 'RLum.Data.Image'.
 
   New functions:
 
-         • ‘analyse_pIRIRSequence()’: Function to analyse post-IR IRSL
+         • 'analyse_pIRIRSequence()': Function to analyse post-IR IRSL
            sequence measurements (#133),
 
-         • ‘calc_MinDose()’: the previous ‘calc_MinDose3()’ and
-           ‘calc_MinDose4()’ functions were merged to the new
-           ‘calc_MinDose()’ function, which was rewritten from scratch
+         • 'calc_MinDose()': the previous 'calc_MinDose3()' and
+           'calc_MinDose4()' functions were merged to the new
+           'calc_MinDose()' function, which was rewritten from scratch
            and now contains both the 3- and 4-parametric Minimum Age
-           Models (introducing the new argument ‘par’).  Detailed
+           Models (introducing the new argument 'par').  Detailed
            changes and bugfixes are listed further below,
 
-         • ‘calc_MaxDose()’: a wrapper function that calls
-           ‘calc_MinDose()’, but transforms the data set similar to the
+         • 'calc_MaxDose()': a wrapper function that calls
+           'calc_MinDose()', but transforms the data set similar to the
            method described in Olley et al. (2006).  Rather than
            estimating the minimum dose of a De distribution, this
            function estimates the maximum dose.
 
-         • ‘calc_SourceDoseRate()’: calculating the dose rate of the
+         • 'calc_SourceDoseRate()': calculating the dose rate of the
            irradiation source at the date of measurement based on:
            source calibration date, source dose rate, dose rate error.
 
-         • ‘get_Layout()’: Helper function to return a list with layout
+         • 'get_Layout()': Helper function to return a list with layout
            definitions for more homogeneous plotting,
 
-         • ‘get_RLum()’: Wrapper function for various get methods for
-           ‘RLum’-objects (#148),
+         • 'get_RLum()': Wrapper function for various get methods for
+           'RLum'-objects (#148),
 
-         • ‘merge_RLum.Analysis()’: Function allows merging of
+         • 'merge_RLum.Analysis()': Function allows merging of
            RLum.Analysis objects and adding of objects an RLum.Analysis
            object consists of (#138),
 
-         • ‘merge_RLum()’: Wrapper function for various merge methods
-           for ‘RLum’-objects (#139),
+         • 'merge_RLum()': Wrapper function for various merge methods
+           for 'RLum'-objects (#139),
 
-         • ‘plot_RLum.Data.Image()’: Plot function for
-           ‘RLum.Data.Image’ object.  Function also added to wrapper
-           function ‘plot_RLum’,
+         • 'plot_RLum.Data.Image()': Plot function for
+           'RLum.Data.Image' object.  Function also added to wrapper
+           function 'plot_RLum',
 
-         • ‘plot_RLum.Results()’: Plot function for ‘RLum.Results’
+         • 'plot_RLum.Results()': Plot function for 'RLum.Results'
            objects.  RLum.Results objects created, e.g. by the age
-           model functions may now be passed to ‘plot_RLum.Results()’
+           model functions may now be passed to 'plot_RLum.Results()'
            to create specific plots that previously were generated by
            the functions themselves.  Function also added to wrapper
-           function ‘plot_RLum’,
+           function 'plot_RLum',
 
-         • ‘readSPE2R()’: Add support Princenton Instruments *.SPE
+         • 'readSPE2R()': Add support Princenton Instruments *.SPE
            files (camera and spectrometer measurements). Function
-           output is a ‘RLum.Data.Spectrum’ or ‘RLum.Data.Image’
+           output is a 'RLum.Data.Spectrum' or 'RLum.Data.Image'
            object.
 
   New example data sets:
 
-         • ‘ExampleData.RLum.Data.Image’: Example data for
-           ‘RLum.Data.Image’ object (part of #135).
+         • 'ExampleData.RLum.Data.Image': Example data for
+           'RLum.Data.Image' object (part of #135).
 
   Changes S4-objects, methods, classes:
 
-         • ‘get_RLum.Analysis()’: Add support for inverse ‘record.id’
-           selection, e.g. ‘record.id = -1’ selects all objects except
+         • 'get_RLum.Analysis()': Add support for inverse 'record.id'
+           selection, e.g. 'record.id = -1' selects all objects except
            the first.
 
-         • ‘get_RLum.Results()’:
+         • 'get_RLum.Results()':
 
              • Add support for data objects for objects produced by the
-               function ‘calc_OSLLxTxRatio()’,
+               function 'calc_OSLLxTxRatio()',
 
              • match access behavoir of objects produced by the
-               function ‘calc_TLLxTxRatio()’. Now it works similar to
-               the function ‘calc_OSLLxTxRatio()’.
+               function 'calc_TLLxTxRatio()'. Now it works similar to
+               the function 'calc_OSLLxTxRatio()'.
 
-         • ‘Risoe.BINfileData-class’: Description updated due to
+         • 'Risoe.BINfileData-class': Description updated due to
            established changes made for a better file format support.
 
-         • ‘Risoe.BINfileData2RLum.Analysis()’: If the ‘pos’ value is
+         • 'Risoe.BINfileData2RLum.Analysis()': If the 'pos' value is
            invalid now the function does not return an error any
-           longer. Instead ‘NA’ is returned.
+           longer. Instead 'NA' is returned.
 
   Bugfixes and changes:
 
-         • ‘analyse_IRSAR.RF()’:
+         • 'analyse_IRSAR.RF()':
 
-             • Add ‘...’ support for ‘mtext’,
+             • Add '...' support for 'mtext',
 
-             • argument ‘method’ added to allow selection between the
-               method ‘"FIT"’ and ‘"SLIDE"’. The latter method has been
+             • argument 'method' added to allow selection between the
+               method '"FIT"' and '"SLIDE"'. The latter method has been
                newly implemented (#143).
 
-         • ‘analyse_SAR.CWOSL()’:
+         • 'analyse_SAR.CWOSL()':
 
              • Allow 'IRSL' curves as input to support rough data
                analysis of the post-IR IRSL protocol (#132, Alice
@@ -736,29 +736,29 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • correct wrong TL curve figure scaling,
 
-             • argument ‘log’ moved to the ‘...’ argument,
+             • argument 'log' moved to the '...' argument,
 
              • correct wrong regeneration point numbering (#144),
 
-             • arguments ‘cex’, ‘main’ now supported via the ‘...’
+             • arguments 'cex', 'main' now supported via the '...'
                argument,
 
-             • argument ‘mtext.outer’ added,
+             • argument 'mtext.outer' added,
 
-             • output object ‘Formula’ added to return the formula of
+             • output object 'Formula' added to return the formula of
                the growth curve,
 
-             • output object ‘De.values’ extended for D01, D02 and
+             • output object 'De.values' extended for D01, D02 and
                information on the applied fitting,
 
              • numerical output extended for information on the choosen
                signal and background integration limits (#122),
 
-             • enhance argument ‘output.plot.single’ for numerical
+             • enhance argument 'output.plot.single' for numerical
                values.  This allows to select each single plot output
                individually,
 
-             • details from the argument ‘rejection.criteria’ were
+             • details from the argument 'rejection.criteria' were
                removed from the argument list to allow a more flexible
                handling (e.g. changing only one parameter at time) and
                to clean up the argument list. However, the argument
@@ -773,45 +773,45 @@ Changes in version 0.4.0 (December 19th, 2014):
              • minor bug fixes (e.g., not properly caluculated TL curve
                resolution) and graphical adjustements.
 
-         • ‘Analyse_SAR.OSLdata()’:
+         • 'Analyse_SAR.OSLdata()':
 
              • Error message implemented for non OSL data sets (#130,
                Georgina King),
 
-             • add argument ‘dtype’ to provide further curve limitation
+             • add argument 'dtype' to provide further curve limitation
                options,
 
-             • add argument ‘keep.SEL’ to allow a manual curve
+             • add argument 'keep.SEL' to allow a manual curve
                selection (advanced users),
 
              • minor code polishing.
 
-         • ‘calc_AliquotSize()’:
+         • 'calc_AliquotSize()':
 
-             • new argument ‘plot’ (logical): option to (dis-)allow
+             • new argument 'plot' (logical): option to (dis-)allow
                plotting of the Monte Carlo estimation,
 
-             • argument ‘MC.estimate’ was renamed to ‘MC’,
+             • argument 'MC.estimate' was renamed to 'MC',
 
-             • new structure of the returned ‘RLum.Results’ object,
+             • new structure of the returned 'RLum.Results' object,
                containing the elements 'summary', 'args', 'call' and
                'MC'.
 
-             • plotting now done by ‘plot_RLum.Results()’.
+             • plotting now done by 'plot_RLum.Results()'.
 
-         • ‘calc_CentralDose()’:
+         • 'calc_CentralDose()':
 
-             • removed argument ‘sample.id’,
+             • removed argument 'sample.id',
 
-             • removed argument ‘print.iterations’,
+             • removed argument 'print.iterations',
 
-             • renamed argument ‘input.data’ to ‘data’,
+             • renamed argument 'input.data' to 'data',
 
-             • new argument ‘'...'’, which is checked for arguments
-               ‘verbose’ (logical) and ‘trace’ (logical) to (dis-)allow
+             • new argument ''...'', which is checked for arguments
+               'verbose' (logical) and 'trace' (logical) to (dis-)allow
                (extended) console output,
 
-             • new structure of the returned ‘RLum.Results’ object,
+             • new structure of the returned 'RLum.Results' object,
                containing the elements 'summary', 'data', 'args',
                'call' and 'profile',
 
@@ -823,128 +823,128 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • plot_RLum.Results().
 
-         • ‘calc_CommonDose()’:
+         • 'calc_CommonDose()':
 
-             • removed argument ‘sample.id’,
+             • removed argument 'sample.id',
 
-             • renamed argument ‘input.data’ to ‘data’,
+             • renamed argument 'input.data' to 'data',
 
-             • new argument ‘'...'’ (currently not used),
+             • new argument ''...'' (currently not used),
 
-             • new structure of the returned ‘RLum.Results’ object,
+             • new structure of the returned 'RLum.Results' object,
                containing the elements 'summary', 'data', 'args' and
                'call'.
 
-         • ‘calc_CosmicDoseRate()’:
+         • 'calc_CosmicDoseRate()':
 
              • new structure of the returned RLum.Results object,
                containing the elements 'summary', 'args' and 'call'
 
-         • ‘calc_FiniteMixture()’:
+         • 'calc_FiniteMixture()':
 
-             • removed argument ‘sample.id’,
+             • removed argument 'sample.id',
 
-             • removed argument ‘n.iterations’,
+             • removed argument 'n.iterations',
 
-             • removed argument ‘main’,
+             • removed argument 'main',
 
-             • renamed argument ‘input.data’ to ‘data’,
+             • renamed argument 'input.data' to 'data',
 
-             • new argument ‘plot’ option to (dis-)allow plotting when
-               a vector of length > 1 is provided for ‘n.components’,
+             • new argument 'plot' option to (dis-)allow plotting when
+               a vector of length > 1 is provided for 'n.components',
 
-             • new argument ‘'...'’, which is checked for arguments
-               ‘verbose’ (logical) and ‘trace’ (logical) to (dis-)allow
-               (extended) console output. ‘main’ may be used to set the
+             • new argument ''...'', which is checked for arguments
+               'verbose' (logical) and 'trace' (logical) to (dis-)allow
+               (extended) console output. 'main' may be used to set the
                title of the plot,
 
-             • new structure of the returned ‘RLum.Results’ object,
+             • new structure of the returned 'RLum.Results' object,
                containing the elements 'summary', 'data', 'args',
                'call', 'mle', 'BIC', 'llik', 'grain.probability',
                'components' and 'single.comp',
 
-             • plotting now done by ‘plot_RLum.Results()’.
+             • plotting now done by 'plot_RLum.Results()'.
 
-         • ‘calc_FuchsLang2001()’:
+         • 'calc_FuchsLang2001()':
 
-             • removed argument ‘sample.mtext’,
+             • removed argument 'sample.mtext',
 
-             • removed argument ‘sample.id’,
+             • removed argument 'sample.id',
 
-             • removed argument ‘output.terminal’,
+             • removed argument 'output.terminal',
 
-             • renamed argument ‘sample’ to ‘data’,
+             • renamed argument 'sample' to 'data',
 
-             • renamed argument ‘output.plot’ to ‘plot’,
+             • renamed argument 'output.plot' to 'plot',
 
-             • the argument ‘'...'’ is checked for ‘verbose’ (logical)
+             • the argument ''...'' is checked for 'verbose' (logical)
                to (dis-)allow console output,
 
-             • new structure of the returned ‘RLum.Results’ object,
+             • new structure of the returned 'RLum.Results' object,
                containing the elements 'summary', 'data', 'args',
                'call' and 'usedDeValues',
 
-             • plotting now done by ‘plot_RLum.Results()’.
+             • plotting now done by 'plot_RLum.Results()'.
 
-         • ‘calc_HomogeneityTest()’:
+         • 'calc_HomogeneityTest()':
 
-             • removed argument ‘sample.id’,
+             • removed argument 'sample.id',
 
-             • renamed argument ‘input.data’ to ‘data’,
+             • renamed argument 'input.data' to 'data',
 
-             • the argument ‘'...'’ is checked for ‘verbose’ (logical)
+             • the argument ''...'' is checked for 'verbose' (logical)
                to (dis-)allow console output,
 
-             • new structure of the returned ‘RLum.Results’ object,
+             • new structure of the returned 'RLum.Results' object,
                containing the elements 'summary', 'data', 'args' and
                'call'.
 
-         • ‘calc_MaxDose3()’:
+         • 'calc_MaxDose3()':
 
-             • Function renamed to ‘calc_MaxDose()’,
+             • Function renamed to 'calc_MaxDose()',
 
              • this is now just a wrapper function that calls the new
-               ‘calc_MinDose()’ function, but transforms the data set
+               'calc_MinDose()' function, but transforms the data set
                similar to the method described in Olley et al. (2006).
                For further details please see the changes/bugfixes for
-               the ‘calc_MinDose3()’ / ‘calc_MinDose4()’ functions,
+               the 'calc_MinDose3()' / 'calc_MinDose4()' functions,
 
-             • plotting now done by ‘plot_RLum.Results()’.
+             • plotting now done by 'plot_RLum.Results()'.
 
-         • ‘calc_MinDose3()’ and ‘calc_MinDose4()’
+         • 'calc_MinDose3()' and 'calc_MinDose4()'
 
-             • the functions ‘calc_MinDose3()’ and ‘calc_MinDose4()’
-               were merged in the new function ‘calc_MinDose()’,
+             • the functions 'calc_MinDose3()' and 'calc_MinDose4()'
+               were merged in the new function 'calc_MinDose()',
 
-             • renamed argument ‘input.data’ to ‘data’,
+             • renamed argument 'input.data' to 'data',
 
-             • renamed argument ‘output.plot’ to ‘plot’,
+             • renamed argument 'output.plot' to 'plot',
 
-             • removed arguments ‘sample.id’, ‘gamma.xlb’, ‘gamma.xub’,
-               ‘sigma.xlb’, ‘sigma.xub’, ‘mu.xlb’, ‘mu.xub’,
-               ‘init.gamma’, ‘init.sigma’, ‘init.p0’, ‘init.mu’,
-               ‘ignore.NA’, ‘calc.ProfileLikelihoods’,
-               ‘console.ProfileLikelihoods’, ‘console.extendedOutput’,
-               ‘output.indices’,
+             • removed arguments 'sample.id', 'gamma.xlb', 'gamma.xub',
+               'sigma.xlb', 'sigma.xub', 'mu.xlb', 'mu.xub',
+               'init.gamma', 'init.sigma', 'init.p0', 'init.mu',
+               'ignore.NA', 'calc.ProfileLikelihoods',
+               'console.ProfileLikelihoods', 'console.extendedOutput',
+               'output.indices',
 
-             • new argument ‘par’ that accepts a numeric value (either
+             • new argument 'par' that accepts a numeric value (either
                3 or 4) to set whether the 3- or 4-parametric Minimum
                Age Model should be applied,
 
-             • new argument ‘bootstrap’ (logical) to apply the recycled
+             • new argument 'bootstrap' (logical) to apply the recycled
                bootstrap approach of Cunningham & Wallinga (2012),
 
-             • new argument ‘boundaries’ that accepts a named list
+             • new argument 'boundaries' that accepts a named list
                containing values for the lower and upper boundaries for
                all parameters,
 
-             • new argument ‘init.values’ that accepts a named list
+             • new argument 'init.values' that accepts a named list
                containing the starting values for all parameters,
 
-             • new argument ‘'...'’ that, amongst others, checks for
-               ‘debug’ (logical) and ‘verbose’ (logical) to (dis-)allow
+             • new argument ''...'' that, amongst others, checks for
+               'debug' (logical) and 'verbose' (logical) to (dis-)allow
                (extended) console output. Further allowed arguments are
-               ‘bs.M’, ‘bs.N’, ‘bs.h’ and ‘sigmab.sd’ to set various
+               'bs.M', 'bs.N', 'bs.h' and 'sigmab.sd' to set various
                bootstrap parameters,
 
              • implemented (recycled) bootstrap method as described in
@@ -977,51 +977,51 @@ Changes in version 0.4.0 (December 19th, 2014):
                log likelihood function by dividing the length of this
                interval by 3.92 (see Galbraith & Roberts, 2012).
 
-             • new structure of the returned ‘RLum.Results’ object,
+             • new structure of the returned 'RLum.Results' object,
                containing the elements 'summary', 'data', 'args',
                'call', 'mle', 'BIC', 'confint', 'profile', 'bootstrap',
 
-             • plotting now done by ‘plot_RLum.Results()’.
+             • plotting now done by 'plot_RLum.Results()'.
 
-         • ‘calc_OSLLxTxRatio()’:
+         • 'calc_OSLLxTxRatio()':
 
-             • Correct an error that causes ‘NA’ values within the
+             • Correct an error that causes 'NA' values within the
                curve errors for rare combinations of signal and
                background integration limits,
 
-             • provide a name for the output data frame ‘LxTx.table’
-               for the ‘RLum.Results’ object,
+             • provide a name for the output data frame 'LxTx.table'
+               for the 'RLum.Results' object,
 
              • error fixed for the marginal case that k = 2 and exceed
                the maximal curve length. In that case accidentially no
                error was calculated,
 
-             • argument ‘sigmab’ was listed but was so far not
+             • argument 'sigmab' was listed but was so far not
                implement. Fixed (#166)
 
-         • ‘calc_OSLLxTxRatio()’:
+         • 'calc_OSLLxTxRatio()':
 
              • support of data without given uncertainties.
 
-         • ‘calc_Statistics()’:
+         • 'calc_Statistics()':
 
-             • support of data with ‘NA’ or zero errors
+             • support of data with 'NA' or zero errors
 
-         • ‘calc_TLLxTxRatio()’:
+         • 'calc_TLLxTxRatio()':
 
              • Lx/Tx ratio wrongly calculated as due to a coding error
                just the first value of the signal integral was taken
                for summing up the values and not the range of the
                values,
 
-             • Output produced by the function now is a ‘list’ (data
+             • Output produced by the function now is a 'list' (data
                slot in the RLum object), to equal behaviour of the
                functions.
 
-         • ‘fit_CWCurve()’:
+         • 'fit_CWCurve()':
 
-             • Implement ‘...’ argument to replace explicit arguments
-               ‘ylab’, ‘xlab’ and ‘main’,
+             • Implement '...' argument to replace explicit arguments
+               'ylab', 'xlab' and 'main',
 
              • Fix an issue that causes an error when input values were
                <= 0 (#123 reported by Johanna Lomax),
@@ -1029,7 +1029,7 @@ Changes in version 0.4.0 (December 19th, 2014):
              • Correct wrong y-axis labelling (wrong channel resolution
                value).
 
-         • ‘plot_AbanicoPlot()’:
+         • 'plot_AbanicoPlot()':
 
              • numeric values allowed for parameter centrality,
 
@@ -1052,14 +1052,14 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • minor modifications of layout definitions (#124),
 
-             • ‘grid.col’ bug fixed (#149),
+             • 'grid.col' bug fixed (#149),
 
              • error message for data with zero or without errors added
                (#154),
 
              • age models as input for lines supported (#107),
 
-             • support of ‘par(mfcol())’l,
+             • support of 'par(mfcol())'l,
 
              • bug in lower z-axis limit eliminated,
 
@@ -1068,49 +1068,49 @@ Changes in version 0.4.0 (December 19th, 2014):
              • bug for small values fixed, rounding to 0 decimals
                replaced by 3 significant digits,
 
-             • parameter ‘at’ to allow user-defined z-tick positions,
+             • parameter 'at' to allow user-defined z-tick positions,
 
              • individual statistical summary order supported (#184).
 
-         • ‘plot_DRTResults()’:
+         • 'plot_DRTResults()':
 
-             • Argument ‘na.exclude’ renamed to ‘na.rm’,
+             • Argument 'na.exclude' renamed to 'na.rm',
 
              • by default ylim scaling now is set to the minimum and
                maximum extend of the data set,
 
-             • argument ‘given.dose’ now allows a vector as input,
+             • argument 'given.dose' now allows a vector as input,
                e.g., if more then one data set is provided (#156),
 
-             • argument ‘given.dose’ are not required any longer
+             • argument 'given.dose' are not required any longer
                (became an optional argument).  With this the plot
                function can be easily re-used, e.g. for preheat plateau
                tests,
 
-             • change behaviour of the argument ‘na.rm’. If a data set
-               is provided containing ‘NA’ values also the
+             • change behaviour of the argument 'na.rm'. If a data set
+               is provided containing 'NA' values also the
                corresponding values in provided by the argument
-               ‘preheat’ are cleaned up. This allows a proper usage of
+               'preheat' are cleaned up. This allows a proper usage of
                the function in combination with grouping option (e.g.,
-               ‘boxplot = TRUE’,
+               'boxplot = TRUE',
 
-             • add argument ‘par.local’ to allow to combine output
+             • add argument 'par.local' to allow to combine output
                plots in broader plot frameworks,
 
              • minor corrections in error handling and graphical
                appearance.
 
-         • ‘plot_Histogram()’:
+         • 'plot_Histogram()':
 
              • Change default y-axis labelling from 'Counts' to
                'Frequency',
 
-             • support of ‘par(mfcol())’ (#146),
+             • support of 'par(mfcol())' (#146),
 
-             • support of data without and ‘NA’-values for error values
+             • support of data without and 'NA'-values for error values
                (#152, #162),
 
-             • implementation of ‘calc_Stats()’-call for extended
+             • implementation of 'calc_Stats()'-call for extended
                statistic summary,
 
              • support of summary keywords "kurtosis" and "skewness",
@@ -1119,11 +1119,11 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • individual statistical summary order supported (#184).
 
-         • ‘plot_KDE()’:
+         • 'plot_KDE()':
 
              • wrong x-axis and y-axis limit calculation fixed (#158),
 
-             • renaming and extension of summary and ‘summary.pos’
+             • renaming and extension of summary and 'summary.pos'
                parameter,
 
              • plot now longer shows a density error when no error
@@ -1131,48 +1131,48 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • De.stats error fixed (#163),
 
-             • support of ‘par(mfcol())’,
+             • support of 'par(mfcol())',
 
              • support of error-free data extended (now also for
                calculation of kde max) (#178),
 
              • individual statistical summary order supported (#184).
 
-         • ‘plot_GrowthCurve()’:
+         • 'plot_GrowthCurve()':
 
              • Minor graphical and code polishing,
 
              • fix wrong regneration point plotting, if sequence
                contains more then one zero dose point,
 
-             • argument ‘na.exclude’ for the sake consistency replaced
-               by ‘na.rm’,
+             • argument 'na.exclude' for the sake consistency replaced
+               by 'na.rm',
 
              • proper error message provided if nothing is left after
-               ‘NA’ value removal,
+               'NA' value removal,
 
              • overshoot of normal distribution curve in MC simulation
                plot corrected (#111),
 
-             • argument ‘output.plotExtended.single’ added allowing a
+             • argument 'output.plotExtended.single' added allowing a
                single window plot output of all plots,
 
              • formula of the fitted function is now returend as R
-               expression instead of a ‘formula’ object. The return
-               object remains, however, ‘Formula’,
+               expression instead of a 'formula' object. The return
+               object remains, however, 'Formula',
 
              • correct wrong error message and graphical output for
                cases where no De can be calculated for Ln/Tn values
                much higher than the highest Lx/Tx value,
 
-             • fix ‘'EXP+EXP'’ fit as is was broken, due to a coding
+             • fix ''EXP+EXP'' fit as is was broken, due to a coding
                error,
 
-             • correct for wrong ‘par()’ resetting,
+             • correct for wrong 'par()' resetting,
 
              • minor code polishing and adjustment.
 
-         • ‘plot_RadialPlot()’:
+         • 'plot_RadialPlot()':
 
              • support of user-defined centrality value,
 
@@ -1185,97 +1185,97 @@ Changes in version 0.4.0 (December 19th, 2014):
 
              • minor fixes for the graphical output.
 
-         • ‘plot_RLum.Analysis()’:
+         • 'plot_RLum.Analysis()':
 
-             • Add argument ‘abline’ to allow inserting similar
+             • Add argument 'abline' to allow inserting similar
                vertical or horizontal lines in every plot. The decision
                to implement this argument in this function instead the
-               function ‘plot_RLum.Data.Curve()’ was made because in a
-               single plot modus ‘abline’ is more sufficiently used as
+               function 'plot_RLum.Data.Curve()' was made because in a
+               single plot modus 'abline' is more sufficiently used as
                separate function call,
 
-             • now reset ‘par’ parameters sufficiently,
+             • now reset 'par' parameters sufficiently,
 
-             • add argument ‘combine’ to allow fast combining of curves
+             • add argument 'combine' to allow fast combining of curves
                in single plot window.
 
-         • ‘plot_RLum.Data.Curve()’:
+         • 'plot_RLum.Data.Curve()':
 
-             • Add argument ‘norm’ to allow for curve normalisation to
+             • Add argument 'norm' to allow for curve normalisation to
                the highest value (#129),
 
              • Correct for insufficient information on the channel
                resolution when data was imported from an XSYG file.
 
-         • ‘plot_RLum.Data.Spectrum()’:
+         • 'plot_RLum.Data.Spectrum()':
 
-             • Correct an error that caused a chrash when ‘xlim’ was
+             • Correct an error that caused a chrash when 'xlim' was
                set in a way that only one wavelength (colour value) was
                remained,
 
-             • correct zebra-colour-pattern for rare cases of ‘xlim’
-               settings using ‘plot.type = "persp"’ or ‘plot.type =
-               "persp3d"’,
+             • correct zebra-colour-pattern for rare cases of 'xlim'
+               settings using 'plot.type = "persp"' or 'plot.type =
+               "persp3d"',
 
-             • add argument new plot type ‘"transect"’ for plotting a
+             • add argument new plot type '"transect"' for plotting a
                transect along the time/temperature axis for a specific
                wavelength/channel interval (#120, requested by Regina
                DeWitt),
 
              • correct function break for a single column matrix
                (single frame spectrum) by automatically resetting
-               ‘plot.type’ to ‘single’ for single frame spectra,
+               'plot.type' to 'single' for single frame spectra,
 
-             • colour rug (‘rug = TRUE’) implemented for plot type
-               ‘"multiple.lines"’ (#130),
+             • colour rug ('rug = TRUE') implemented for plot type
+               '"multiple.lines"' (#130),
 
-             • argument ‘xaxis.energy’ for wavelength energy conversion
+             • argument 'xaxis.energy' for wavelength energy conversion
                for 2D plots added (#141).
 
-         • ‘readBIN2R()’:
+         • 'readBIN2R()':
 
              • Integrity checks added to avoid unspecific errors for
                wrong input formats,
 
              • complete format support as now a more throughtful
                distinction is made between version 03 and 04 (also made
-               for function ‘writeR2BIN()’) (#182),
+               for function 'writeR2BIN()') (#182),
 
-             • ‘TAG’ bit is now used to trigger the ‘SEL’ element
+             • 'TAG' bit is now used to trigger the 'SEL' element
                during import.  With this, previous curve selections
                made with other software are kept (#181, Norbert
                Mercier).
 
-         • ‘readXSYG2R()’:
+         • 'readXSYG2R()':
 
-             • If the stimulator is infrared light the ‘recordType’
-               will be set to ‘IRSL’. This makes the curve types more
+             • If the stimulator is infrared light the 'recordType'
+               will be set to 'IRSL'. This makes the curve types more
                consistent with the commonly applied nomenclature,
 
              • now the function automatically converts time values to
                temperature values also for spectra data (#121);
                behavious is triggered with the argument
-               ‘recalculate.TL.curves’.
+               'recalculate.TL.curves'.
 
-         • ‘Second2Gray()’:
+         • 'Second2Gray()':
 
              • Minor code and example adjustments in along with
-               creating a new function ‘calc_SourceDoseRate()’ (#56).
+               creating a new function 'calc_SourceDoseRate()' (#56).
 
-         • ‘writeBIN2R()’:
+         • 'writeBIN2R()':
 
              • Complete format support as now a more throughtful
                distinction is made between version 03 and 04 (also made
-               for function ‘readBIN2R()’) (#182),
+               for function 'readBIN2R()') (#182),
 
-             • ‘SEL’ will now be kept using the ‘TAG’ bit, related to
-               changes made in function ‘readBIN2R’ (#181, Norbert
+             • 'SEL' will now be kept using the 'TAG' bit, related to
+               changes made in function 'readBIN2R' (#181, Norbert
                Mercier).
 
   Internals:
 
-         • Add new dependency for package ‘raster’ and ‘sp’, which is
-           used for the ‘RLum.Data.Image-class’,
+         • Add new dependency for package 'raster' and 'sp', which is
+           used for the 'RLum.Data.Image-class',
 
          • dependency to package 'Rserve' removed,
 
