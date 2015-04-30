@@ -9,6 +9,7 @@
 *.DS_Store
 .Rproj.user
 .Rprofile
-/test/*
+RLum.Debug/
+RLum.Experiment/
 packrat/lib*/
 packrat/src/
