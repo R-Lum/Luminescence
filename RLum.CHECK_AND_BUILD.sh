@@ -173,9 +173,13 @@ echo ""
   find ${PATHPACKAGE}/src -name "*.o" -depth -exec rm {} \;
   check_status
 
+  echo -ne "-> Remove src/*.o* ... \t\t\t\t"
+  find ${PATHPACKAGE}/src -name "*.o*" -depth -exec rm {} \;
+  check_status
+
   echo -ne "-> Remove src/*.rds ... \t\t\t"
   find ${PATHPACKAGE}/src -name "*.rds" -depth -exec rm {} \;
   check_status
 
   echo ""
-  echo "FINE"
+  echo "[FINE]"
