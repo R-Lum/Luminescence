@@ -1,6 +1,6 @@
 # Luminescence
 
-[![Build status](https://ci.appveyor.com/api/projects/status/564oioj2oyefax08?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence)
+[![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
 [![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
 
 > Follow us on [![alt text][1.1]][1] <a href="http://www.twitter.com/RLuminescence" target="_blank">@RLuminescence</a>
