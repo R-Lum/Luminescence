@@ -8,6 +8,8 @@
 .Rprofile
 RLum.Debug/
 RLum.Experiment/
+src/*.dll
+src/*.o
 packrat/lib*/
 packrat/src/
 Luminescence.Rcheck/
