@@ -56,7 +56,6 @@ echo ""
   check_status
 
 
-
 # Rcpp
 # =================================================================================================
 
@@ -146,23 +145,23 @@ echo ""
   check_status
 
   echo -ne "-> Moving packge source files (*.tar.gz) ... \t"
-  mv Luminescence_*.tar.gz RLum.BuildResults/
+  mv Luminescence_*.tar.gz RLum.BuildResults/ &>/dev/null
   check_status
 
   echo -ne "-> Moving packge compiles package (*.tgz) ... \t"
-  mv Luminescence_*.tgz RLum.BuildResults/
+  mv Luminescence_*.tgz RLum.BuildResults/ &>/dev/null
   check_status
 
   echo -ne "-> Copy manual ... \t\t\t\t"
-  cp Luminescence.Rcheck/Luminescence-manual.pdf RLum.BuildResults/Luminescence-manual.pdf
+  cp Luminescence.Rcheck/Luminescence-manual.pdf RLum.BuildResults/Luminescence-manual.pdf &>/dev/null
   check_status
 
   echo -ne "-> Copy check results ... \t\t\t"
-  cp Luminescence.Rcheck/Luminescence-Ex.pdf RLum.BuildResults/Luminescence-Ex.pdf
+  cp Luminescence.Rcheck/Luminescence-Ex.pdf RLum.BuildResults/Luminescence-Ex.pdf &>/dev/null
   check_status
 
   echo -ne "-> Remove Luminescence.Rcheck ... \t\t"
-  rm -r ${PATHPACKAGE}/Luminescence.Rcheck
+  rm -r ${PATHPACKAGE}/Luminescence.Rcheck &>/dev/null
   check_status
 
   echo -ne "-> Remove src/*.so ... \t\t\t\t"

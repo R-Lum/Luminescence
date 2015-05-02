@@ -5,6 +5,7 @@ sudo: required
 notifications:
   email:
     recipients:
-      - team@r-luminescence.de
+      - cb@r-luminescence.de
+      - sk@r-luminescence.de
     on_success: change
     on_failure: change

@@ -12,6 +12,7 @@ src/*.dll
 src/*.o
 packrat/lib*/
 packrat/src/
+packrat/
 Luminescence.Rcheck/
 RLum.BuildResults/*.tar.gz
 RLum.BuildResults/*.zip

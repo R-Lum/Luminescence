@@ -8,7 +8,6 @@ README\.md
 ^\.Rprofile$
 ^appveyor\.yml$
 ^cran-comments\.md$
-^appveyor\.yml$
 RLum.CHECK_AND_BUILD.sh
 RLum.CHECK_AND_BUILD.BAT
 RLum.BuildScripts
