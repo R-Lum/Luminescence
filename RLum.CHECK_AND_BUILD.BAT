@@ -5,7 +5,7 @@
 :: SETTINGS
 :: -----------------------
 @echo off
-set PATHPACKAGE=%~dp0
+set PATHPACKAGE='%~dp0'
 echo Working directory: %PATHPACKAGE%
 SETLOCAL EnableDelayedExpansion
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
@@ -32,31 +32,31 @@ call :check
 :: Rcpp
 :: -----------------------
 echo -^> Build Rcpp ...
-R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Rcpp.R NULL
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Rcpp.R" NULL
 call :check
 
 :: roxygen2
 :: -----------------------
 echo -^> Build documentation ...
-R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_roxygen2.R NULL
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_roxygen2.R" NULL
 call :check
 
 :: COMPILE FUNCTION PARAMTER LIST
 :: -----------------------
 echo -^> Compile function argument list ...
-R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Function_Arguments.R NULL
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Function_Arguments.R" NULL
 call :check
 
 :: NEWS
 :: -----------------------
 echo -^> Build ASCII NEWS ...
-R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_NEWS.R NULL
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_NEWS.R" NULL
 call :check
 
 :: PARSE RD files
 :: -----------------------
 echo -^> Add RLum.Team ...
-R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_AddRLumTeam.R NULL
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_AddRLumTeam.R" NULL
 call :check
 
 
@@ -66,17 +66,17 @@ echo.
 echo [BUILD PACKAGE]
 echo.
 
-R CMD build %PATHPACKAGE%
+R CMD build "%PATHPACKAGE:'=%"
 
 :: CHECK PACKAGE
 :: -----------------------
 echo.
 echo [CHECK PACKAGE]
 echo.
-R CMD check --timings %PATHPACKAGE%\Luminescence*.tar.gz
+R CMD check --timings "%PATHPACKAGE:'=%\Luminescence*.tar.gz"
 
 echo Example timing warnings ...
-R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Timings.R NULL
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Timings.R" NULL
 type %PATHPACKAGE%\RLum.BuildResults\*.WARNING
 
 :: INSTALL PACKAGE
@@ -84,7 +84,7 @@ type %PATHPACKAGE%\RLum.BuildResults\*.WARNING
 echo.
 echo [INSTALL PACKAGE]
 echo.
-R CMD INSTALL --build %PATHPACKAGE%\Luminescence*.tar.gz
+R CMD INSTALL --build "%PATHPACKAGE:'=%\Luminescence*.tar.gz"
 
 
 :: COPY FILES AND CLEANING UP
@@ -94,11 +94,11 @@ echo [COPY FILES AND CLEANING UP]
 echo.
 
 echo -^> Write BibTeX ...
-R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_BibTeX.R NULL
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_BibTeX.R" NULL
 call :check
 
 echo -^> Build function list ...
-R CMD BATCH --no-timing %PATHPACKAGE%\RLum.BuildScripts\RLum.PBS_Function_List.R NULL
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Function_List.R" NULL
 call :check
 
 echo -^> Moving packge source files (^*.tar.gz)
@@ -110,11 +110,11 @@ mv Luminescence_*.zip RLum.BuildResults\
 call :check
 
 echo -^> ^Copy manual ...
-copy %PATHPACKAGE%\Luminescence.Rcheck\Luminescence-manual.pdf %PATHPACKAGE%\RLum.BuildResults\Luminescence-manual.pdf
+copy "%PATHPACKAGE:'=%\Luminescence.Rcheck\Luminescence-manual.pdf" "%PATHPACKAGE:'=%\RLum.BuildResults\Luminescence-manual.pdf"
 call :check
 
 echo -^> ^Copy check results ...
-copy %PATHPACKAGE%\Luminescence.Rcheck\examples_x64\Luminescence-Ex.pdf %PATHPACKAGE%\RLum.BuildResults\Luminescence-Ex.pdf
+copy "%PATHPACKAGE:'=%\Luminescence.Rcheck\examples_x64\Luminescence-Ex.pdf" "%PATHPACKAGE:'=%\RLum.BuildResults\Luminescence-Ex.pdf"
 call :check
 
 echo -^> Remove Luminescence.Rcheck ...
@@ -149,6 +149,7 @@ echo.
 echo [DONE]
 
 pause
+goto :eof
 ::--------------------------------
 ::-- Functions
 ::--------------------------------
