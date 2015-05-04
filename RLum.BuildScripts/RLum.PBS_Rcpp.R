@@ -5,7 +5,11 @@
 ### 2015-04-29
 ### ===============================================================================================
 
-require(Rcpp)
+if(!require("Rcpp"))
+  install.packages("Rcpp")
+
+library(Rcpp)
+
 
 ##compile new attributes
 Rcpp::compileAttributes()

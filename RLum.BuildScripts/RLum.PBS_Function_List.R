@@ -4,11 +4,15 @@
 ### sebastian.kreutzer@u-bordeaux-montaigne.fr
 ### 2015-04-29
 ### ===============================================================================================
+if(!require("R2HTML"))
+  install.packages("R2HTML")
 
-require(tools)
-require(R2HTML)
-require(xtable)
+if(!require("xtable"))
+  install.packages("xtable")
 
+library(tools)
+library(R2HTML)
+library(xtable)
 
 # Reading file ------------------------------------------------------------
 

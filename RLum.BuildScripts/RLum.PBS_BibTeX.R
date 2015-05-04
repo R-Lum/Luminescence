@@ -5,8 +5,8 @@
 ### 2015-04-29
 ### ===============================================================================================
 
-require(tools)
-require(Luminescence)
+library(tools)
+library(Luminescence)
 
 ##get version number
 temp <- readLines("DESCRIPTION")

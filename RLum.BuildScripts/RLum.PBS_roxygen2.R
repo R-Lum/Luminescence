@@ -5,6 +5,9 @@
 ### 2015-04-29
 ### ===============================================================================================
 
-require(devtools)
+if(!require("devtools"))
+  install.packages("devtools")
+
+library(devtools)
 
 document(pkg = ".", roclets = NULL, reload = TRUE)
