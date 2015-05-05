@@ -4,7 +4,6 @@ LICENSE$
 ^\.travis\.yml$
 README\.md
 ^\test\*
-^packrat/
 ^\.Rprofile$
 ^appveyor\.yml$
 ^cran-comments\.md$
@@ -14,3 +13,5 @@ RLum.BuildScripts
 RLum.BuildResults
 RLum.Debug
 RLum.Experiment
+^packrat/
+packrat
