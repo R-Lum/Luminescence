@@ -9,6 +9,7 @@
       \item \code{merge_RLum.Results()} clear break implemented when objects cannot be merged.
 
   }
+  }
 
  \subsection{Bugfixes and changes}{
 
