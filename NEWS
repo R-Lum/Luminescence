@@ -7,39 +7,37 @@ Changes in version 0.4.4 (XXth, May 2015):
          • ‘merge_RLum.Results()’ clear break implemented when objects
            cannot be merged.
 
-    Bugfixes and changes:
+  Bugfixes and changes:
 
-           • ‘fit_CWCurve()’
+         • ‘fit_CWCurve()’
 
-               • 'component.contribution.matrix' is now returned as
-                 list, as otherwise the merging of the objects will
-                 break.
+             • 'component.contribution.matrix' is now returned as list,
+               as otherwise the merging of the objects will break.
 
-           • ‘fit_LMCurve()’
+         • ‘fit_LMCurve()’
 
-               • 'component.contribution.matrix' is now returned as
-                 list, as otherwise the merging of the objects will
-                 break.
+             • 'component.contribution.matrix' is now returned as list,
+               as otherwise the merging of the objects will break.
 
-           • ‘plot_GrowthCurve()’
+         • ‘plot_GrowthCurve()’
 
-               • Function crashed with unclear error if the number of
-                 regenerations points was <=3), fixed,
+             • Function crashed with unclear error if the number of
+               regenerations points was <=3), fixed,
 
-               • fitting is now allowed with at leat two regenerations
-                 points.
+             • fitting is now allowed with at leat two regenerations
+               points.
 
-           • ‘writeR2BIN()’
+         • ‘writeR2BIN()’
 
-               • Function broke if information in SEQUENCE, COMMENT or
-                 USER was always NA. Corrected.
+             • Function broke if information in SEQUENCE, COMMENT or
+               USER was always NA. Corrected.
 
-    Internals:
+  Internals:
 
-           • Switch from inlinedocs to roxygen2 to build the manuals
-             (#193)
+         • Switch from inlinedocs to roxygen2 to build the manuals
+           (#193)
 
-     Changes in version 0.4.3 (17th, April 2015)
+Changes in version 0.4.3 (17th, April 2015):
 
   Note on the update:
 
@@ -48,7 +46,6 @@ Changes in version 0.4.4 (XXth, May 2015):
            (again) a bug in the error calculation routine of the
            function plot_GrowthCurve().  Due to this the error of the
            resulting De became unrealistically small.
-
 
   Bugfixes and changes:
 
@@ -188,7 +185,6 @@ Changes in version 0.4.4 (XXth, May 2015):
                software like the Analyst. The old version number is
                kept and added in the comment field.
 
-
   Internals:
 
          • Description on the class ‘Risoe.BINfileData’ updated in
@@ -199,8 +195,7 @@ Changes in version 0.4.4 (XXth, May 2015):
            Levenberg-Marquardt algorithm for fitting in the function
            ‘fit_LMCurve()’
 
-
-     Changes in version 0.4.2 (March 23th, 2015)
+Changes in version 0.4.2 (March 23th, 2015):
 
   New functions:
 
@@ -209,7 +204,6 @@ Changes in version 0.4.4 (XXth, May 2015):
 
          • ‘extract_IrradiationTimes()’: Extract irradiation times from
            an XSYG file
-
 
   Changes S4-objects, methods, classes:
 
@@ -233,7 +227,6 @@ Changes in version 0.4.4 (XXth, May 2015):
                accordance (‘readBIN2R()’, ‘writeR2BIN()’ and
                ‘merge_Risoe.BINfileData()’. Other functions are not
                affected as they can simply ignore the new slot.
-
 
   Bugfixes and changes:
 
@@ -484,12 +477,10 @@ Changes in version 0.4.4 (XXth, May 2015):
                version number and the record lengths are now changed
                accordingly.
 
-
   New example data sets:
 
          • ExampleData.DeValues is now a list with two elements
            containing an additional single grain quartz data set (#203)
-
 
   Internals:
 
@@ -502,14 +493,12 @@ Changes in version 0.4.4 (XXth, May 2015):
            this the multi-core support is realised within in the
            package. First implemented in the function ‘calc_MinDose()’.
 
-
-     Changes in version 0.4.1 (January 29th, 2015)
+Changes in version 0.4.1 (January 29th, 2015):
 
   New functions:
 
          • ‘merge_RLum.Data.Curve()’: Function allows merging of
            ‘RLum.Data.Curve’ objects in different ways (#128).
-
 
   Changes S4-objects, methods, classes:
 
@@ -518,7 +507,6 @@ Changes in version 0.4.4 (XXth, May 2015):
              • Show warnings messages when empty object are produced by
                a ‘get_RLum.Analysis()’ request (implemented in get
                method and show method).
-
 
   Bugfixes and changes:
 
@@ -624,14 +612,12 @@ Changes in version 0.4.4 (XXth, May 2015):
 
              • confusing warnings during writing are suppressed.
 
-
   Internals:
 
          • Add new dependency for package ‘data.table’ (used in the
            function ‘readBIN2R()’).
 
-
-     Changes in version 0.4.0 (December 19th, 2014)
+Changes in version 0.4.0 (December 19th, 2014):
 
   Preface:
 
@@ -644,7 +630,6 @@ Changes in version 0.4.4 (XXth, May 2015):
            are likely to break. Please check the list of changes below.
 
            We apologise for any inconvenience!
-
 
   New S4-classes, methods:
 
@@ -667,7 +652,6 @@ Changes in version 0.4.4 (XXth, May 2015):
 
          • further: corresponding show and coercing methods added for
            class ‘RLum.Data.Image’.
-
 
   New functions:
 
@@ -720,12 +704,10 @@ Changes in version 0.4.4 (XXth, May 2015):
            output is a ‘RLum.Data.Spectrum’ or ‘RLum.Data.Image’
            object.
 
-
   New example data sets:
 
          • ‘ExampleData.RLum.Data.Image’: Example data for
            ‘RLum.Data.Image’ object (part of #135).
-
 
   Changes S4-objects, methods, classes:
 
@@ -748,7 +730,6 @@ Changes in version 0.4.4 (XXth, May 2015):
          • ‘Risoe.BINfileData2RLum.Analysis()’: If the ‘pos’ value is
            invalid now the function does not return an error any
            longer. Instead ‘NA’ is returned.
-
 
   Bugfixes and changes:
 
@@ -1306,7 +1287,6 @@ Changes in version 0.4.4 (XXth, May 2015):
                changes made in function ‘readBIN2R’ (#181, Norbert
                Mercier).
 
-
   Internals:
 
          • Add new dependency for package ‘raster’ and ‘sp’, which is
@@ -1318,5 +1298,4 @@ Changes in version 0.4.4 (XXth, May 2015):
 
          • dependency to package 'bbmle' added (used for maximum
            likelihood estimations).
-
 
