@@ -137,7 +137,7 @@
 #' The function \bold{does not} ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
-#' @section Function version: 0.2.16
+#' @section Function version: 0.2.17
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\link{fit_CWCurve}}, \code{\link{plot}}, \code{\link{nls}}
@@ -948,7 +948,7 @@ fit_LMCurve<- function(
     data = list(
       fit = fit,
       output.table = output.table,
-      component.contribution.matrix = component.contribution.matrix))
+      component.contribution.matrix = list(component.contribution.matrix)))
 
   invisible(newRLumResults.fit_LMCurve)
 

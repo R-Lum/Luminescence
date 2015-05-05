@@ -137,7 +137,7 @@ the fitting procedure has reached a global minimum rather than a local
 minimum!
 }
 \section{Function version}{
- 0.5.0 (2015-04-30 11:56:39)
+ 0.5.1 (2015-05-05 18:12:45)
 }
 \examples{
 ##load data

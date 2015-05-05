@@ -4,7 +4,7 @@
 ##==============================================================================
 ##author: Sebastian Kreutzer
 ##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-##version: 0.2.8
+##version: 0.2.9
 
 ##==============================================================================
 
@@ -385,16 +385,23 @@ differs!")
                  is(object.list[[1]]@data[[i]])[1] == "vector" ||
                  is(object.list[[1]]@data[[i]])[1] == "matrix"){
 
-                ##grep elements and write them into a list
-                temp.list <- lapply(1:length(object.list), function(x){
-
+                ##grep elements and combine them into a list
+                temp.list <-
+                  lapply(1:length(object.list), function(x) {
                      object.list[[x]]@data[[i]]
 
-                   })
+                  })
 
+                 ##check whetger the objects can be combined by rbind
+                 if(length(unique(unlist(lapply(temp.list, FUN = ncol)))) > 1){
 
-                ##combine them using rbind
-                object.list[[1]]@data[[i]] <- do.call(rbind,temp.list)
+                      stop("[merge_RLum.Results()] Objects cannot be combined, number of columns differs.")
+
+                 }
+
+                 ##combine them using rbind
+                 object.list[[1]]@data[[i]] <- do.call(rbind, temp.list)
+
 
               }else{
 
@@ -409,6 +416,7 @@ differs!")
 
                 })
 
+
                 ##unlist to flatten list if necessary for the elements
                 if(is(object.list[[1]]@data[[i]][[1]])[1] == "list"){
 
@@ -416,9 +424,6 @@ differs!")
                                                        recursive = FALSE)
                 }
               }
-
-
-
 
 
             }##end loop

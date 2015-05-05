@@ -104,7 +104,7 @@
 #' is currently not considered.\cr\cr The function \bold{does not} ensure that
 #' the fitting procedure has reached a global minimum rather than a local
 #' minimum!
-#' @section Function version: 0.5.0
+#' @section Function version: 0.5.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
@@ -797,7 +797,7 @@ fit_CWCurve<- function(
     data = list(
       fit = fit,
       output.table = output.table,
-      component.contribution.matrix = component.contribution.matrix))
+      component.contribution.matrix = list(component.contribution.matrix)))
 
   rm(fit)
   rm(output.table)

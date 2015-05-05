@@ -2,15 +2,42 @@
 \title{NEWS for the R Package Luminescence}
 \section{Changes in version 0.4.4 (XXth, May 2015)}{
 
+
+  \subsection{Changes S4-objects, methods, classes}{
+   \itemize{
+
+      \item \code{merge_RLum.Results()} clear break implemented when objects cannot be merged.
+
+  }
+
  \subsection{Bugfixes and changes}{
+
+
   \itemize{
-  \item \code{plot_GrowthCurve()}
+
+  \item \code{fit_CWCurve()}
+
+  \itemize{
+    \item 'component.contribution.matrix' is now returned as list, as otherwise the merging
+    of the objects will break.
+
+   }
+
+  \item \code{fit_LMCurve()}
+
+  \itemize{
+    \item 'component.contribution.matrix' is now returned as list, as otherwise the merging
+    of the objects will break.
+
+   }
+
+   \item \code{plot_GrowthCurve()}
 
   \itemize{
     \item Function crashed with unclear error if the number of regenerations points was <=3), fixed,
     \item fitting is now allowed with at leat two regenerations points.
 
-  }
+   }
 
   \item \code{writeR2BIN()}
 
