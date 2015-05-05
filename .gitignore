@@ -13,3 +13,5 @@ Luminescence.Rcheck/
 RLum.BuildResults/*.tar.gz
 RLum.BuildResults/*.zip
 RLum.BuildResults/*.tgz
+packrat/lib*/
+packrat/src/

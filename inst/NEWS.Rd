@@ -53,7 +53,8 @@
 
 \subsection{Internals}{
    \itemize{
-    \item Switch from inlinedocs to roxygen2 to build the manuals (#193)
+    \item Switch from inlinedocs to roxygen2 to build the manuals (#193),
+    \item remove dependency to package 'sp'.
 
    }
   }

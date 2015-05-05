@@ -35,7 +35,9 @@ Changes in version 0.4.4 (XXth, May 2015):
   Internals:
 
          • Switch from inlinedocs to roxygen2 to build the manuals
-           (#193)
+           (#193),
+
+         • remove dependency to package 'sp'.
 
 Changes in version 0.4.3 (17th, April 2015):
 
