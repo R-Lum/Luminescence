@@ -45,14 +45,16 @@
 #' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 #' \code{norm}, \code{ylim}, \code{xlab} ... and for \code{combine = TRUE}
 #' also: \code{xlim}, \code{ylab}, \code{sub}, \code{legend.text},
-#' \code{legend.pos}
+#' \code{legend.pos} (typical plus 'outside'), \code{legend.col}
 #' @return Returns multiple plots.
 #' @note Not all arguments available for \code{\link{plot}} will be passed!
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
-#' @section Function version: 0.2.3
+#'
+#' @section Function version: 0.2.4
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\link{plot}}, \code{\link{plot_RLum}},
 #' \code{\link{plot_RLum.Data.Curve}}
 #' @references #
@@ -482,6 +484,16 @@ plot_RLum.Analysis <- function(
           paste("Curve", 1:length(object.list))
         }
 
+      ##legend.col
+      legend.col <-
+        if ("legend.col" %in% names(extraArgs)) {
+          extraArgs$legend.col
+        } else
+        {
+          NULL
+        }
+
+
       ##legend.pos
       legend.pos <-
         if ("legend.pos" %in% names(extraArgs)) {
@@ -491,6 +503,10 @@ plot_RLum.Analysis <- function(
           "topright"
         }
 
+      if (legend.pos == "outside") {
+        par.default.outside <- par()[c("mar", "xpd")]
+        par(mar = c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
+      }
 
 
       ##open plot area
@@ -518,11 +534,12 @@ plot_RLum.Analysis <- function(
 
       ##legend
       legend(
-        legend.pos,
+        x = ifelse(legend.pos == "outside", par()$usr[2], legend.pos),
+        y = ifelse(legend.pos == "outside", par()$usr[4], NULL),
         legend = legend.text,
         lwd = lwd,
         lty = lty,
-        col = col[1:length(object.list)],
+        col = if(is.null(legend.col)){col[1:length(object.list)]}else{legend.col},
         bty = "n",
         cex = 0.9 * cex
       )
@@ -531,6 +548,10 @@ plot_RLum.Analysis <- function(
     }
 
     ##reset graphic settings
+    if (exists("par.default.outside")) {
+      par(par.default.outside)
+      rm(par.default.outside)
+    }
     par(par.default)
     rm(par.default)
 

@@ -41,7 +41,7 @@ the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 \code{norm}, \code{ylim}, \code{xlab} ... and for \code{combine = TRUE}
 also: \code{xlim}, \code{ylab}, \code{sub}, \code{legend.text},
-\code{legend.pos}}
+\code{legend.pos} (typical plus 'outside'), \code{legend.col}}
 }
 \value{
 Returns multiple plots.
@@ -73,7 +73,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.3 (2015-04-30 12:00:11)
+ 0.2.4 (2015-05-06 18:24:07)
 }
 \examples{
 ###load data

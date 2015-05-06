@@ -40,6 +40,15 @@
 
    }
 
+
+  \item \code{plot_RLum.Anlysis()}
+
+  \itemize{
+    \item Add \code{...} argument support \code{legend.pos = "ouside"} and \code{legend.col} for
+    argument \code{combine = TRUE}
+
+   }
+
   \item \code{writeR2BIN()}
 
   \itemize{

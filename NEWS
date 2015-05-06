@@ -27,6 +27,11 @@ Changes in version 0.4.4 (XXth, May 2015):
              • fitting is now allowed with at leat two regenerations
                points.
 
+         • ‘plot_RLum.Anlysis()’
+
+             • Add ‘...’ argument support ‘legend.pos = "ouside"’ and
+               ‘legend.col’ for argument ‘combine = TRUE’
+
          • ‘writeR2BIN()’
 
              • Function broke if information in SEQUENCE, COMMENT or
