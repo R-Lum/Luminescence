@@ -15,3 +15,5 @@ RLum.BuildResults/*.zip
 RLum.BuildResults/*.tgz
 packrat/lib*/
 packrat/src/
+src/*.o
+src/*.dll
