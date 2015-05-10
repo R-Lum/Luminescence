@@ -33,6 +33,18 @@
 
    }
 
+  \item \code{calc_FadingCorr()}
+
+  \itemize{
+    \item Argument \code{seed} added to allow to recreate previously determined results by
+    using a similar seed of the R random number generator,
+    \item argument\code{n.MCruns} no allows an option \code{'auto'}. Using this mode the error
+    estimation is continued until a stable error is reached,
+    \item added argument \code{txtProgressBar},
+    \item output table enhanced by input options and values resulting from the new arguments.
+
+   }
+
 
   \item \code{fit_CWCurve()}
 

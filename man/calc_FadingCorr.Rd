@@ -5,7 +5,8 @@
 \title{Apply a fading correction according to Huntley & Lamothe (2001) for a given
 g-value.}
 \usage{
-calc_FadingCorr(g_value, tc, age.faded, n.MCruns = 10000)
+calc_FadingCorr(g_value, tc, age.faded, n.MCruns = 10000, seed,
+  txtProgressBar = TRUE)
 }
 \arguments{
 \item{g_value}{\link{vector} (\bold{required}): g-value and error obtained
@@ -18,13 +19,30 @@ irradiation and the prompt measurement, cf. Huntely & Lamothe 2001)}
 age with error in ka (see example)}
 
 \item{n.MCruns}{\link{integer} (with default): number of Monte Carlo
-simulation runs for error estimation}
+simulation runs for error estimation. If \code{n.MCruns = 'auto'} is used the function
+tries to find a 'stable' error for the age. Note: This may take a while!}
+
+\item{seed}{\link{integer} (optional): sets the seed for the random number generator
+in R using \code{\link{set.seed}}}
+
+\item{txtProgressBar}{\link{logical} (with default): enables or disables
+\code{\link{txtProgressBar}}}
 }
 \value{
 Returns an S4 object of type \code{\linkS4class{RLum.Results}}. Slot
-\code{data} contains a \code{\link{list}} with the following structure:\cr $
-age.corr (data.frame) .. $ age \cr .. $ age.error \cr $ age.corr.MC
-(numeric)\cr
+\code{data} contains a \code{\link{list}} with the following structure:\cr
+$ age.corr (data.frame) \cr
+.. $ age \cr
+.. $ age.error \cr
+.. $ age.faded \cr
+.. $ age.faded.error \cr
+.. $ g_value \cr
+.. $ g_value.error \cr
+.. $ tc \cr
+.. $ n.MCruns \cr
+.. $ observations \cr
+.. $ seed \cr
+$ age.corr.MC (numeric)\cr
 
 \code{Age.corr.MC} contain all possible ages from the Monte Carlo (error)
 simulation.
@@ -37,14 +55,42 @@ age including the error for a given g-value according to Huntley & Lamothe
 \details{
 The error of the fading-corrected age is determined using a Monte Carlo
 simulation approach. Solving of the equation is realised using
-\code{\link{uniroot}} Large values for \code{n.MCruns} will significantly
-increase the computation time.
+\code{\link{uniroot}}. Large values for \code{n.MCruns} will significantly
+increase the computation time.\cr
+
+\bold{\code{n.MCruns = 'auto'}}
+
+The error estimation based on a stochastic process, i.e. for a small number of MC runs the calculated
+error varies considerably every time the function is called, even with the same input values.
+The argument option \code{n.MCruns = 'auto'} tries to find a stable value for the standard error, i.e.
+the standard deviation of values calculated during the MC runs (\code{age.corr.MC}),
+within a given precision (2 digits) by increasing the number of MC runs stepwise and
+calculating the corresponding error.
+
+If the determined error does not differ from the 9 values calculated previously
+within a precision of (here) 3 digits the calculation is stopped as it is assumed that the error
+is stable. Please note that (a) the duration depends on the input values as well as on
+the provided computation ressources and it may take a while, (b) the length (size) of the output
+vector \code{age.corr.MC}, where all the single values produced during the MC runs are stored,
+equals the number of MC runs (here termed observations).
+
+To avoid an endless loop the calculation is stopped if the number of observations exceeds 10^7.
+This limitation can be overwritten by setting the number of MC runs manually,
+e.g. \code{n.MCruns = 10000001}. Note: For this case the function is not checking whether the calculated
+error is stable.\cr
+
+\bold{\code{seed}}
+
+This option allows to recreate previously calculated results by setting the seed
+for the R random number generator (see \code{\link{set.seed}} for details). This option
+should not be mixed up with the option \bold{\code{n.MCruns = 'auto'}}. The results may
+appear similar, but they are not comparable!
 }
 \note{
 The upper age limit is set to 500 ka!
 }
 \section{Function version}{
- 0.2 (2015-05-10 13:47:25)
+ 0.3.0 (2015-05-10 23:46:35)
 }
 \examples{
 results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,

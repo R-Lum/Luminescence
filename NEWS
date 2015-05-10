@@ -23,6 +23,21 @@ Changes in version 0.4.4 (XXth, May 2015):
                which has the same effect as a missing ‘sigmab’
                argument.
 
+         • ‘calc_FadingCorr()’
+
+             • Argument ‘seed’ added to allow to recreate previously
+               determined results by using a similar seed of the R
+               random number generator,
+
+             • argument‘n.MCruns’ no allows an option ‘'auto'’. Using
+               this mode the error estimation is continued until a
+               stable error is reached,
+
+             • added argument ‘txtProgressBar’,
+
+             • output table enhanced by input options and values
+               resulting from the new arguments.
+
          • ‘fit_CWCurve()’
 
              • 'component.contribution.matrix' is now returned as list,
