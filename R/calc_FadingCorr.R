@@ -74,27 +74,30 @@ calc_FadingCorr <- function(
   ##--------------------------------------------------------------------------##
   ##Monte Carlo simulation for error estimation
 
-  ##pre-allocate memory
-  g_valueMC <- vector("numeric", length = n.MCruns)
-  age.fadeMC <- vector("numeric", length = n.MCruns)
-  kappaMC <- vector("numeric", length = n.MCruns)
+    ##pre-allocate memory
+    g_valueMC <- vector("numeric", length = n.MCruns)
+    age.fadeMC <- vector("numeric", length = n.MCruns)
+    kappaMC <- vector("numeric", length = n.MCruns)
 
-  ##set-values
-  g_valueMC <- rnorm(n.MCruns,mean=g_value[1],sd=g_value[2])
-  age.fadedMC <- rnorm(n.MCruns,mean=age.faded[1],sd=age.faded[2])
-  kappaMC <- g_valueMC/log(10)/100
+    ##set-values
+    g_valueMC <- rnorm(n.MCruns,mean=g_value[1],sd=g_value[2])
+    age.fadedMC <- rnorm(n.MCruns,mean=age.faded[1],sd=age.faded[2])
+    kappaMC <- g_valueMC/log(10)/100
 
-  ##calculate for all values
-  tempMC <- lapply(1:length(age.fadedMC),function(x){
-    uniroot(f,
-            c(0.1,500),
-            tol = 0.001,
-            tc = tc,
-            af = age.fadedMC[[x]],
-            kappa = kappaMC[[x]],
-            check.conv = TRUE)$root
 
-  })
+    ##calculate for all values
+    tempMC <- lapply(1:length(age.fadedMC),function(x) {
+      uniroot(
+        f,
+        c(0.1,500),
+        tol = 0.001,
+        tc = tc,
+        af = age.fadedMC[[x]],
+        kappa = kappaMC[[x]],
+        check.conv = TRUE
+      )$root
+
+    })
 
   ##--------------------------------------------------------------------------##
 

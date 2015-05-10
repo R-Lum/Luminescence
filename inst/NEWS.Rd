@@ -16,6 +16,24 @@
 
   \itemize{
 
+  \item \code{analyse_SAR.CWOSL()}
+
+  \itemize{
+    \item Add support for \code{...} argument for \code{calc_OSLLxTxRatio()} arguments
+    \code{background.count.distribution} and \code{sigmab}.
+
+   }
+
+  \item \code{calc_OSLLxTxRatio()}
+
+  \itemize{
+    \item 'LxTx.Error' could become negative, which is not meaningful by definition (corrected),
+    \item minor internal changes to allow for \code{sigmab = NULL}, which has the same
+    effect as a missing \code{sigmab} argument.
+
+   }
+
+
   \item \code{fit_CWCurve()}
 
   \itemize{

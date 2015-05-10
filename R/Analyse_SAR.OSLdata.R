@@ -22,40 +22,53 @@
 #'
 #' @param input.data \link{Risoe.BINfileData-class} (\bold{required}): input
 #' data from a Risoe BIN file, produced by the function \link{readBIN2R}.
+#'
 #' @param signal.integral \link{vector} (\bold{required}): channels used for
 #' the signal integral, e.g. \code{signal.integral=c(1:2)}
+#'
 #' @param background.integral \link{vector} (\bold{required}): channels used
 #' for the background integral, e.g. \code{background.integral=c(85:100)}
+#'
 #' @param position \link{vector} (optional): reader positions that want to be
 #' analysed (e.g. \code{position=c(1:48)}. Empty positions are automatically
 #' omitted. If no value is given all positions are analysed by default.
+#'
 #' @param run \link{vector} (optional): range of runs used for the analysis. If
 #' no value is given the range of the runs in the sequence is deduced from the
 #' Risoe.BINfileData object.
+#'
 #' @param set \link{vector} (optional): range of sets used for the analysis. If
 #' no value is given the range of the sets in the sequence is deduced from the
 #' \code{Risoe.BINfileData} object.
+#'
 #' @param dtype \code{\link{character}} (optional): allows to further limit the
 #' curves by their data type (\code{DTYPE}), e.g., \code{dtype = c("Natural",
 #' "Dose")} limits the curves to this two data types. By default all values are
 #' allowed. See \link{Risoe.BINfileData-class} for allowed data types.
+#'
 #' @param keep.SEL \code{\link{logical}} (default): option allowing to use the
 #' \code{SEL} element of the \link{Risoe.BINfileData-class} manually. NOTE: In
 #' this case any limitation provided by \code{run}, \code{set} and \code{dtype}
 #' are ignored!
+#'
 #' @param info.measurement \link{character} (with default): option to provide
 #' information about the measurement on the plot output (e.g. name of the BIN
 #' or BINX file).
+#'
 #' @param log \link{character} (with default): a character string which
 #' contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
 #' logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 #' \link{plot.default}.
+#'
 #' @param output.plot \link{logical} (with default): plot output
 #' (\code{TRUE/FALSE})
+#'
 #' @param output.plot.single \link{logical} (with default): single plot output
 #' (\code{TRUE/FALSE}) to allow for plotting the results in single plot
 #' windows. Requires \code{output.plot = TRUE}.
+#'
 #' @param cex.global \link{numeric} (with default): global scaling factor.
+#'
 #' @return A plot (optional) and \link{list} is returned containing the
 #' following elements: \item{LnLxTnTx}{\link{data.frame} of all calculated
 #' Lx/Tx values including signal, background counts and the dose points.}

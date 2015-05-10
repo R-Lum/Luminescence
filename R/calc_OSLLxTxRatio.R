@@ -23,38 +23,49 @@
 #'
 #' @param Lx.data \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
 #' (\bold{required}): requires a CW-OSL shine down curve (x = time, y = counts)
+#'
 #' @param Tx.data \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
 #' (optional): requires a CW-OSL shine down curve (x = time, y = counts). If no
 #' input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 #' is calculated.
+#'
 #' @param signal.integral \link{vector} (\bold{required}): vector with the
 #' limits for the signal integral.
+#'
 #' @param background.integral \link{vector} (\bold{required}): vector with the
 #' bounds for the background integral.
+#'
 #' @param background.count.distribution \link{character} (with default): Sets
 #' the count distribution assumed for the error calculation. Possible arguments
 #' \code{poisson} or \code{non-poisson}. See details for further information
+#'
 #' @param sigmab \link{numeric} (optional): Option to set a manual value for
 #' the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 #' calculation. The value should be provided as absolute squared count values,
 #' e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 #' value is taken for both (LnTx and TnTx) signals.
+#'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}. Slot
 #' \code{data} contains a \code{\link{list}} with the following structure:\cr $
 #' LxTx.table (data.frame) .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $
 #' TnTx.BG \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr .. $ Net_TnTx.Error\cr
 #' .. $ LxTx\cr .. $ LxTx.Error \cr $ calc.parameters (list)\cr .. $
 #' sigmab.LnTx\cr .. $ sigmab.TnTx\cr .. $ k
+#'
 #' @note The results of this function have been cross-checked with the Analyst
 #' (vers. 3.24b). Access to the results object via
 #' \code{\link{get_RLum.Results}}.
-#' @section Function version: 0.5.0
+#'
+#' @section Function version: 0.5.1
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\linkS4class{RLum.Data.Curve}},
 #' \code{\link{Analyse_SAR.OSLdata}}, \code{\link{plot_GrowthCurve}},
 #' \code{\link{analyse_SAR.CWOSL}}
-#' @references Duller, G., 2007. Analyst.
+#'
+#'  @references Duller, G., 2007. Analyst.
 #' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
@@ -147,14 +158,15 @@ calc_OSLLxTxRatio <- function(
 
 
   ##check sigmab
-  if(!missing(sigmab)){
+  if (!missing(sigmab)) {
+    if (!is.null(sigmab)) {
+      if (!is(sigmab, "numeric")) {
+        stop("[calc_OSLLxTxRatio()] 'sigmab' has to be of type numeric.")
+      }
 
-    if(!is(sigmab, "numeric")){
-      stop("[calc_OSLLxTxRatio()] 'sigmab' has to be of type numeric.")
-    }
-
-    if(length(sigmab)>2){
-      stop("[calc_OSLLxTxRatio()] Maximum allowed vector length for 'sigmab' is 2.")
+      if (length(sigmab) > 2) {
+        stop("[calc_OSLLxTxRatio()] Maximum allowed vector length for 'sigmab' is 2.")
+      }
     }
   }
 
@@ -246,20 +258,18 @@ calc_OSLLxTxRatio <- function(
   }
 
   ##account for a manually set sigmab value
-  if(!missing(sigmab)){
+  if (!missing(sigmab)) {
+    if (!is.null(sigmab)) {
+      if (length(sigmab) == 2) {
+        sigmab.LnLx <- sigmab[1]
+        sigmab.TnTx <- sigmab[2]
 
-    if(length(sigmab)==2){
+      }else{
+        sigmab.LnLx <- sigmab[1]
+        sigmab.TnTx <- sigmab[1]
 
-      sigmab.LnLx <- sigmab[1]
-      sigmab.TnTx <- sigmab[2]
-
-    }else{
-
-      sigmab.LnLx <- sigmab[1]
-      sigmab.TnTx <- sigmab[1]
-
+      }
     }
-
   }
 
   ##(c)
@@ -320,7 +330,7 @@ calc_OSLLxTxRatio <- function(
 
   ##calculate Ln/Tx error
   LxTx.relError <- sqrt(LnLx.relError^2 + TnTx.relError^2)
-  LxTx.Error <- LxTx * LxTx.relError
+  LxTx.Error <- abs(LxTx * LxTx.relError)
 
   ##return combined values
   temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)

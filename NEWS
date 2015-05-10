@@ -9,6 +9,20 @@ Changes in version 0.4.4 (XXth, May 2015):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • Add support for ‘...’ argument for ‘calc_OSLLxTxRatio()’
+               arguments ‘background.count.distribution’ and ‘sigmab’.
+
+         • ‘calc_OSLLxTxRatio()’
+
+             • 'LxTx.Error' could become negative, which is not
+               meaningful by definition (corrected),
+
+             • minor internal changes to allow for ‘sigmab = NULL’,
+               which has the same effect as a missing ‘sigmab’
+               argument.
+
          • ‘fit_CWCurve()’
 
              • 'component.contribution.matrix' is now returned as list,

@@ -36,27 +36,36 @@
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
 #' object containing data for analysis
+#'
 #' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
 #' bound of the signal integral
+#'
 #' @param signal.integral.max \code{\link{integer}} (\bold{required}): upper
 #' bound of the signal integral
+#'
 #' @param background.integral.min \code{\link{integer}} (\bold{required}):
 #' lower bound of the background integral
+#'
 #' @param background.integral.max \code{\link{integer}} (\bold{required}):
 #' upper bound of the background integral
+#'
 #' @param rejection.criteria \code{\link{list}} (with default): provide list
 #' and set rejection criteria in percentage for further calculation. Allowed
 #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
 #' \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS} e.g.
 #' \code{rejection.criteria = list(recycling.ratio = 10} Per default all values
 #' are set to 10.
+#'
 #' @param dose.points \code{\link{numeric}} (optional): a numeric vector
 #' containg the dose points values Using this argument overwrites dose point
 #' values in the signal curves.
+#'
 #' @param mtext.outer \code{\link{character}} (optional): option to provide an
 #' outer margin mtext
+#'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot
 #' output.
+#'
 #' @param plot.single \code{\link{logical}} (with default) or
 #' \code{\link{numeric}} (optional): single plot output (\code{TRUE/FALSE}) to
 #' allow for plotting the results in single plot windows. If a numerice vector
@@ -64,8 +73,12 @@
 #' c(1,2,3,4)} will plot the TL and Lx, Tx curves but not the legend (5) or the
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' \code{plot = TRUE}.
+#'
 #' @param \dots further arguments that will be passed to the function
-#' \code{\link{plot_GrowthCurve}}
+#' \code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
+#' (supported: \code{background.count.distribution} and \code{sigmab})
+#'
+#'
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned containing the following elements:
 #' \item{De.values}{\link{data.frame} containing De-values, De-error and
@@ -76,17 +89,26 @@
 #' \item{Formula}{\link{formula} formula that have been used for the growth
 #' curve fitting }\cr The output should be accessed using the function
 #' \code{\link{get_RLum.Results}}.
+#'
+#'
 #' @note This function must not be mixed up with the function
 #' \code{\link{Analyse_SAR.OSLdata}}, which works with
 #' \link{Risoe.BINfileData-class} objects.\cr
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
-#' @section Function version: 0.5.2
+#'
+#' @section Function version: 0.5.3
+#'
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
+#'
 #' @seealso \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 #' \code{\link{get_RLum.Results}}
+#'
+#'
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching. Quaternary Science Reviews 7, 387-393.
 #'
@@ -103,7 +125,6 @@
 #' doi:10.1016/j.radmeas.2008.06.002
 #' @keywords datagen plot
 #' @examples
-#'
 #'
 #' ##load data
 #' ##ExampleData.BINfileData contains two BINfileData objects
@@ -261,6 +282,17 @@ object!")
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
   {1}
 
+  background.count.distribution <-
+    if ("background.count.distribution" %in% names(extraArgs)) {
+      extraArgs$background.count.distribution
+    } else
+    {
+      "poisson"
+    }
+
+  sigmab <- if("sigmab" %in% names(extraArgs)) {extraArgs$sigmab} else
+  {NULL}
+
 
 # Protocol Integrity Checks --------------------------------------------------
 
@@ -390,7 +422,9 @@ object!")
                  calc_OSLLxTxRatio(Lx.data=object@records[[OSL.Curves.ID[x]]]@data,
                                  Tx.data=object@records[[OSL.Curves.ID[x+1]]]@data,
                                  signal.integral,
-                                 background.integral))
+                                 background.integral,
+                                 background.count.distribution = background.count.distribution,
+                                 sigmab = sigmab))
 
                ##grep dose
                if(exists("temp.irradiation") == FALSE){
