@@ -62,20 +62,26 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
 # constructor (set) method for object class -----------------------------------
 
 setGeneric("set_Risoe.BINfileData",
-           function(METADATA, DATA,.RESERVED) {standardGeneric("set_Risoe.BINfileData")})
+           function(METADATA, DATA,.RESERVED) {
+             standardGeneric("set_Risoe.BINfileData")
+           })
 
 
 setMethod("set_Risoe.BINfileData",
-          signature = c(METADATA = "data.frame", DATA = "list", .RESERVED = "ANY"),
+          signature = c(
+            METADATA = "data.frame", DATA = "list", .RESERVED = "ANY"
+          ),
 
-          function(METADATA, DATA, .RESERVED){
+          function(METADATA, DATA, .RESERVED) {
+            if (missing(.RESERVED)) {
+              .RESERVED <- list()
+            }
 
-            if(missing(.RESERVED)){.RESERVED <- list()}
-
-            new("Risoe.BINfileData",
-                METADATA = METADATA,
-                DATA = DATA,
-                .RESERVED = .RESERVED
+            new(
+              "Risoe.BINfileData",
+              METADATA = METADATA,
+              DATA = DATA,
+              .RESERVED = .RESERVED
             )
 
           })

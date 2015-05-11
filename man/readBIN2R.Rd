@@ -55,7 +55,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested so far.}.
 }
 \section{Function version}{
- 0.9.0 (2015-04-30 12:01:44)
+ 0.9.0 (2015-05-11 10:33:42)
 }
 \examples{
 ##(1) import Risoe BIN-file to R (uncomment for usage)
@@ -74,8 +74,8 @@ Duller, G., 2007. Analyst.
 }
 \seealso{
 \code{\link{writeR2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
-\code{\link{readBin}}, \code{\link{merge_Risoe.BINfileData}},
-\code{\link{txtProgressBar}}
+\code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}},
+\code{\link[utils]{txtProgressBar}}
 }
 \keyword{IO}
 

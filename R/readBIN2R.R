@@ -11,38 +11,58 @@
 #' @param file \link{character} (\bold{required}): bin-file name (including
 #' path), e.g. \cr [WIN]: \code{readBIN2R("C:/Desktop/test.bin")}, \cr
 #' [MAC/LINUX]: \code{readBIN2R("/User/test/Desktop/test.bin")}
+#'
 #' @param show.raw.values \link{logical} (with default): shows raw values from
 #' BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
 #' translation in characters.
+#'
 #' @param n.records \link{raw} (optional): limits the number of imported
 #' records. Can be used in combination with \code{show.record.number} for
 #' debugging purposes, e.g. corrupt BIN files.
+#'
 #' @param show.record.number \link{logical} (with default): shows record number
 #' of the imported record, for debugging usage only.
+#'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
+#'
 #' @param forced.VersionNumber \link{integer} (optional): allows to cheat the
 #' version number check in the function by own values for cases where the
 #' BIN-file version is not supported.\cr Note: The usage is at own risk, only
 #' supported BIN-file versions have been tested.
+#'
 #' @return Returns an S4 \link{Risoe.BINfileData-class} object containing two
 #' slots:\cr \item{METADATA}{A \link{data.frame} containing all variables
 #' stored in the bin-file.} \item{DATA}{A \link{list} containing a numeric
 #' \link{vector} of the measured data. The ID corresponds to the record ID in
 #' METADATA.}
+#'
+#'
 #' @note The function works for BIN/BINX-format versions 03, 04, 06 and 07. The
 #' version number depends on the used Sequence Editor.\cr\cr \bold{Potential
 #' other BIN/BINX-format versions are currently not supported. The
 #' implementation of version 07 support could not been tested so far.}.
+#'
+#'
 #' @section Function version: 0.9.0
+#'
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Margret C. Fuchs, TU Bergakademie Freiberg (Germany)
+#'
+#'
 #' @seealso \code{\link{writeR2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link{readBin}}, \code{\link{merge_Risoe.BINfileData}},
-#' \code{\link{txtProgressBar}}
+#' \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}},
+#' \code{\link[utils]{txtProgressBar}}
+#'
+#'
 #' @references Duller, G., 2007. Analyst.
 #' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}
+#'
+#'
 #' @keywords IO
+#'
+#'
 #' @examples
 #'
 #'
@@ -851,77 +871,78 @@ readBIN2R <- function(
     temp.SEL <- if(temp.TAG == 1){TRUE}else{FALSE}
 
     ##replace values in the data.table with values
-    results.METADATA[temp.ID, `:=` (ID = temp.ID,
-                                    SEL = temp.SEL,
-                                    VERSION = as.numeric(temp.VERSION),
-                                    LENGTH = temp.LENGTH,
-                                    PREVIOUS = temp.PREVIOUS,
-                                    NPOINTS = temp.NPOINTS,
-                                    RUN = temp.RUN,
-                                    SET = temp.SET,
-                                    POSITION = temp.POSITION,
-                                    GRAIN = temp.GRAIN,
-                                    GRAINNUMBER = temp.GRAINNUMBER,
-                                    CURVENO = temp.CURVENO,
-                                    XCOORD = temp.XCOORD,
-                                    YCOORD = temp.YCOORD,
-                                    SAMPLE = temp.SAMPLE,
-                                    COMMENT = temp.COMMENT,
-                                    SYSTEMID = temp.SYSTEMID,
-                                    FNAME = temp.FNAME,
-                                    USER = temp.USER,
-                                    TIME = temp.TIME,
-                                    DATE = temp.DATE,
-                                    DTYPE = as.character(temp.DTYPE),
-                                    BL_TIME = temp.BL_TIME,
-                                    BL_UNIT = temp.BL_UNIT,
-                                    NORM1 = temp.NORM1,
-                                    NORM2 = temp.NORM2,
-                                    NORM3 = temp.NORM3,
-                                    BG = temp.BG,
-                                    SHIFT = temp.SHIFT,
-                                    TAG = temp.TAG,
-                                    LTYPE = as.character(temp.LTYPE),
-                                    LIGHTSOURCE = as.character(temp.LIGHTSOURCE),
-                                    LPOWER = temp.LPOWER,
-                                    LIGHTPOWER = temp.LIGHTPOWER,
-                                    LOW = temp.LOW,
-                                    HIGH = temp.HIGH,
-                                    RATE = temp.RATE,
-                                    TEMPERATURE = temp.TEMPERATURE,
-                                    MEASTEMP = temp.MEASTEMP,
-                                    AN_TEMP = temp.AN_TEMP,
-                                    AN_TIME = temp.AN_TIME,
-                                    TOLDELAY = temp.TOLDELAY,
-                                    TOLON = temp.TOLON,
-                                    TOLOFF = temp.TOLOFF,
-                                    IRR_TIME = temp.IRR_TIME,
-                                    IRR_TYPE = temp.IRR_TYPE,
-                                    IRR_UNIT = temp.IRR_UNIT,
-                                    IRR_DOSERATE = temp.IRR_DOSERATE,
-                                    IRR_DOSERATEERR = temp.IRR_DOSERATEERR,
-                                    TIMESINCEIRR = temp.TIMESINCEIRR,
-                                    TIMETICK = temp.TIMETICK,
-                                    ONTIME = temp.ONTIME,
-                                    OFFTIME = temp.OFFTIME,
-                                    STIMPERIOD = temp.STIMPERIOD,
-                                    GATE_ENABLED = as.numeric(temp.GATE_ENABLED),
-                                    ENABLE_FLAGS = as.numeric(temp.ENABLE_FLAGS),
-                                    GATE_START = temp.GATE_START,
-                                    GATE_STOP = temp.GATE_STOP,
-                                    PTENABLED = as.numeric(temp.PTENABLED),
-                                    DTENABLED = as.numeric(temp.DTENABLED),
-                                    DEADTIME = temp.DEADTIME,
-                                    MAXLPOWER = temp.MAXLPOWER,
-                                    XRF_ACQTIME = temp.XRF_ACQTIME,
-                                    XRF_HV = temp.XRF_HV,
-                                    XRF_CURR = temp.XRF_CURR,
-                                    XRF_DEADTIMEF = temp.XRF_DEADTIMEF,
-                                    DETECTOR_ID = temp.DETECTOR_ID,
-                                    LOWERFILTER_ID = temp.LOWERFILTER_ID,
-                                    UPPERFILTER_ID = temp.UPPERFILTER_ID,
-                                    ENOISEFACTOR = temp.ENOISEFACTOR,
-                                    SEQUENCE = temp.SEQUENCE
+    results.METADATA[temp.ID, `:=` (
+      ID = temp.ID,
+      SEL = temp.SEL,
+      VERSION = as.numeric(temp.VERSION),
+      LENGTH = temp.LENGTH,
+      PREVIOUS = temp.PREVIOUS,
+      NPOINTS = temp.NPOINTS,
+      RUN = temp.RUN,
+      SET = temp.SET,
+      POSITION = temp.POSITION,
+      GRAIN = temp.GRAIN,
+      GRAINNUMBER = temp.GRAINNUMBER,
+      CURVENO = temp.CURVENO,
+      XCOORD = temp.XCOORD,
+      YCOORD = temp.YCOORD,
+      SAMPLE = temp.SAMPLE,
+      COMMENT = temp.COMMENT,
+      SYSTEMID = temp.SYSTEMID,
+      FNAME = temp.FNAME,
+      USER = temp.USER,
+      TIME = temp.TIME,
+      DATE = temp.DATE,
+      DTYPE = as.character(temp.DTYPE),
+      BL_TIME = temp.BL_TIME,
+      BL_UNIT = temp.BL_UNIT,
+      NORM1 = temp.NORM1,
+      NORM2 = temp.NORM2,
+      NORM3 = temp.NORM3,
+      BG = temp.BG,
+      SHIFT = temp.SHIFT,
+      TAG = temp.TAG,
+      LTYPE = as.character(temp.LTYPE),
+      LIGHTSOURCE = as.character(temp.LIGHTSOURCE),
+      LPOWER = temp.LPOWER,
+      LIGHTPOWER = temp.LIGHTPOWER,
+      LOW = temp.LOW,
+      HIGH = temp.HIGH,
+      RATE = temp.RATE,
+      TEMPERATURE = temp.TEMPERATURE,
+      MEASTEMP = temp.MEASTEMP,
+      AN_TEMP = temp.AN_TEMP,
+      AN_TIME = temp.AN_TIME,
+      TOLDELAY = temp.TOLDELAY,
+      TOLON = temp.TOLON,
+      TOLOFF = temp.TOLOFF,
+      IRR_TIME = temp.IRR_TIME,
+      IRR_TYPE = temp.IRR_TYPE,
+      IRR_UNIT = temp.IRR_UNIT,
+      IRR_DOSERATE = temp.IRR_DOSERATE,
+      IRR_DOSERATEERR = temp.IRR_DOSERATEERR,
+      TIMESINCEIRR = temp.TIMESINCEIRR,
+      TIMETICK = temp.TIMETICK,
+      ONTIME = temp.ONTIME,
+      OFFTIME = temp.OFFTIME,
+      STIMPERIOD = temp.STIMPERIOD,
+      GATE_ENABLED = as.numeric(temp.GATE_ENABLED),
+      ENABLE_FLAGS = as.numeric(temp.ENABLE_FLAGS),
+      GATE_START = temp.GATE_START,
+      GATE_STOP = temp.GATE_STOP,
+      PTENABLED = as.numeric(temp.PTENABLED),
+      DTENABLED = as.numeric(temp.DTENABLED),
+      DEADTIME = temp.DEADTIME,
+      MAXLPOWER = temp.MAXLPOWER,
+      XRF_ACQTIME = temp.XRF_ACQTIME,
+      XRF_HV = temp.XRF_HV,
+      XRF_CURR = temp.XRF_CURR,
+      XRF_DEADTIMEF = temp.XRF_DEADTIMEF,
+      DETECTOR_ID = temp.DETECTOR_ID,
+      LOWERFILTER_ID = temp.LOWERFILTER_ID,
+      UPPERFILTER_ID = temp.UPPERFILTER_ID,
+      ENOISEFACTOR = temp.ENOISEFACTOR,
+      SEQUENCE = temp.SEQUENCE
 
 
     )]
@@ -935,9 +956,10 @@ readBIN2R <- function(
 
     ##BREAK
     ##stop loop if record limit is reached
-    if(missing(n.records)==FALSE){
-
-      if(n.records==temp.ID){break()}
+    if (missing(n.records) == FALSE) {
+      if (n.records == temp.ID) {
+        break()
+      }
 
     }
 
@@ -959,51 +981,43 @@ readBIN2R <- function(
   cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))
 
   ##produce S4 object for output
-  object <- set_Risoe.BINfileData(
-    METADATA = results.METADATA,
-    DATA = results.DATA,
-    .RESERVED =  results.RESERVED
-  )
+  object <- set_Risoe.BINfileData(METADATA = results.METADATA,
+                                  DATA = results.DATA,
+                                  .RESERVED =  results.RESERVED)
 
-
-
-
-  ##============================================================================##
   # Convert Translation Matrix Values ---------------------------------------
 
-
-  if(show.raw.values == FALSE) {
+  if (show.raw.values == FALSE) {
     ##LTYPE
-    object@METADATA[,"LTYPE"]<- sapply(1:length(object@METADATA[,"LTYPE"]),function(x){
-
-      as.character(LTYPE.TranslationMatrix[object@METADATA[x,"LTYPE"]==LTYPE.TranslationMatrix[,1],2])
-
-    })
-
-    ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
-    if(TIME_SIZE == 6){
-
-      object@METADATA[,"TIME"]<- sapply(1:length(object@METADATA[,"TIME"]),function(x){
-
-        format(strptime(as.character(object@METADATA[x,"TIME"]),"%H%M%S"),"%H:%M:%S")
+    object@METADATA[,"LTYPE"] <-
+      sapply(1:length(object@METADATA[,"LTYPE"]),function(x) {
+        as.character(LTYPE.TranslationMatrix[object@METADATA[x,"LTYPE"] == LTYPE.TranslationMatrix[,1],2])
 
       })
 
+    ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
+    if (TIME_SIZE == 6) {
+      object@METADATA[,"TIME"] <-
+        sapply(1:length(object@METADATA[,"TIME"]),function(x) {
+          format(strptime(as.character(object@METADATA[x,"TIME"]),"%H%M%S"),"%H:%M:%S")
+
+        })
     }
 
     ##DTYPE CONVERSION
-    object@METADATA[,"DTYPE"]<- sapply(1:length(object@METADATA[,"DTYPE"]),function(x){
+    object@METADATA[,"DTYPE"] <-
+      sapply(1:length(object@METADATA[,"DTYPE"]),function(x) {
+        as.character(DTYPE.TranslationMatrix[object@METADATA[x,"DTYPE"] == DTYPE.TranslationMatrix[,1],2])
 
-      as.character(DTYPE.TranslationMatrix[object@METADATA[x,"DTYPE"]==DTYPE.TranslationMatrix[,1],2])
-
-    })
+      })
 
     ##LIGHTSOURCE CONVERSION
-    object@METADATA[,"LIGHTSOURCE"]<- sapply(1:length(object@METADATA[,"LIGHTSOURCE"]),function(x){
+    object@METADATA[,"LIGHTSOURCE"] <-
+      sapply(1:length(object@METADATA[,"LIGHTSOURCE"]),function(x) {
+        as.character(LIGHTSOURCE.TranslationMatrix[object@METADATA[x,"LIGHTSOURCE"] ==
+                                                     LIGHTSOURCE.TranslationMatrix[,1],2])
 
-      as.character(LIGHTSOURCE.TranslationMatrix[object@METADATA[x,"LIGHTSOURCE"]==LIGHTSOURCE.TranslationMatrix[,1],2])
-
-    })
+      })
   }
 
 
