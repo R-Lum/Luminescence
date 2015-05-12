@@ -4,12 +4,12 @@
 \alias{plot_AbanicoPlot}
 \title{Function to create an Abanico Plot.}
 \usage{
-plot_AbanicoPlot(data, na.exclude = TRUE, log.z = TRUE, central.value,
+plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, central.value,
   centrality = "mean.weighted", dispersion = "sd", plot.ratio = 0.75,
   rotate = FALSE, mtext, summary, summary.pos, legend, legend.pos, stats,
   rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE, y.axis = TRUE,
-  error.bars = FALSE, polygon.col, bar.col, line, line.col, line.label,
-  grid.col, bw = "SJ", output = FALSE, ...)
+  error.bars = FALSE, polygon.col, bar.col, frame = 1, line, line.col,
+  line.label, grid.col, bw = "SJ", output = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -17,7 +17,7 @@ object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 and De error (\code{data[,2]}). To plot several data sets in one plot the
 data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
-\item{na.exclude}{\code{\link{logical}} (with default): exclude NA values
+\item{na.rm}{\code{\link{logical}} (with default): exclude NA values
 from the data set prior to any further operations.}
 
 \item{log.z}{\code{\link{logical}} (with default): Option to display the
@@ -97,13 +97,20 @@ bars on De-points. Useful in combination with \code{y.axis = FALSE, bar.col
 
 \item{polygon.col}{\code{\link{character}} or \code{\link{numeric}} (with
 default): colour of the polygon showing the dose dispersion around the
-central value. To disable the polygon use \code{"none"}. Default is
-\code{"grey80"}.}
+central value. To disable the polygon use \code{"none"} or
+\code{bar = FALSE}. Default is \code{"grey80"}.}
 
 \item{bar.col}{\code{\link{character}} or \code{\link{numeric}} (with
 default): colour of the bar showing the 2-sigma range of the dose error
-around the central value. To disable the bar use \code{"none"}. Default is
-\code{"grey50"}.}
+around the central value. To disable the bar use \code{"none"} or
+\code{bar = FALSE}. Default is \code{"grey65"}.
+#'}
+
+\item{frame}{\code{\link{numeric}} (with default): option to modify the
+plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
+originates at 0,0 and runs along min/max isochrons), \code{2} (frame
+embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a
+rectangle).Default is \code{1}.}
 
 \item{line}{\code{\link{numeric}}: numeric values of the additional lines to
 be added.}
@@ -139,7 +146,7 @@ kernel density estimate of the dose values.
 }
 \details{
 The Abanico Plot is a combination of the classic Radial Plot
-(\code{plot_RadialPlot}) and a kernel density estimate plot (e.g.
+(\code{plot_RadialPlot}) and a kernel density estimate plot (e.g
 \code{plot_KDE}). It allows straightforward visualisation of data precision,
 error scatter around a user-defined central value and the combined
 distribution of the values, on the actual scale of the measured data (e.g.
@@ -180,7 +187,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.2 (2015-04-30 11:58:40)
+ 0.1.2 (2015-05-12 12:24:06)
 }
 \examples{
 ## store original graphics parameters
@@ -195,7 +202,8 @@ plot_AbanicoPlot(data = ExampleData.DeValues)
 
 ## now with linear z-scale
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 log.z = FALSE)
+                 log.z = FALSE,
+                 xlab = c("Standard error (Gy)", "Precision"))
 
 ## now with output of the plot parameters
 plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -284,11 +292,10 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 
 ## now with user-defined axes labels
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 xlab = c("Data error [\%]",
-                          "Data precision",
-                          "Kernel density"),
+                 xlab = c("Data error (\%)",
+                          "Data precision"),
                  ylab = "Scatter",
-                 zlab = "Equivalent dose [Gy]")
+                 zlab = "Equivalent dose (Gy)")
 
 ## now with minimum, maximum and median value indicated
 plot_AbanicoPlot(data = ExampleData.DeValues,

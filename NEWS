@@ -56,7 +56,37 @@ Changes in version 0.4.4 (XXth, May 2015):
              • fitting is now allowed with at leat two regenerations
                points.
 
-         • ‘plot_RLum.Anlysis()’
+         • ‘plot_AbanicoPlot()’
+
+             • Argument ‘na.exclude’ changed to ‘na.rm’,
+
+             • add sample group specific colours for rugs,
+
+             • summary and legend placement bugs for rotated abanico
+               plot fixed,
+
+             • labelling errors fixed,
+
+             • argument ‘frame’ added to abanico plot,
+
+             • adjustment of colours for polygon and bar in abanico
+               plot.
+
+         • ‘plot_Histogram()’
+
+             • Argument ‘na.exclude’ changed to ‘na.rm’
+
+         • ‘plot_KDE()’
+
+             • Argument ‘na.exclude’ changed to ‘na.rm’,
+
+             • argument weights removed.
+
+         • ‘plot_RadialPlot()’
+
+             • Argument ‘na.exclude’ changed to ‘na.rm’
+
+         • ‘plot_RLum.Analysis()’
 
              • Add ‘...’ argument support ‘legend.pos = "ouside"’ and
                ‘legend.col’ for argument ‘combine = TRUE’

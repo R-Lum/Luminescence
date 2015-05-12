@@ -22,7 +22,7 @@
 #' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}). To plot several data sets in one plot, the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
-#' @param na.exclude \code{\link{logical}} (with default): excludes \code{NA}
+#' @param na.rm \code{\link{logical}} (with default): excludes \code{NA}
 #' values from the data set prior to any further operations.
 #' @param negatives \code{\link{character}} (with default): rule for negative
 #' values. Default is \code{"remove"} (i.e. negative values are removed from
@@ -172,10 +172,10 @@
 #'
 #' ## now with user-defined axes labels
 #' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 xlab = c("Data error [%]",
+#'                 xlab = c("Data error (%)",
 #'                          "Data precision"),
 #'                 ylab = "Scatter",
-#'                 zlab = "Equivalent dose [Gy]")
+#'                 zlab = "Equivalent dose (Gy)")
 #'
 #' ## now with minimum, maximum and median value indicated
 #' plot_RadialPlot(data = ExampleData.DeValues,
@@ -212,7 +212,7 @@
 #'
 plot_RadialPlot <- function(
   data,
-  na.exclude = TRUE,
+  na.rm = TRUE,
   negatives = "remove",
   log.z = TRUE,
   central.value,
@@ -273,7 +273,7 @@ plot_RadialPlot <- function(
   }
 
   ## optionally, remove NA-values
-  if(na.exclude == TRUE) {
+  if(na.rm == TRUE) {
     for(i in 1:length(data)) {
       data[[i]] <- na.exclude(data[[i]])
     }
@@ -453,10 +453,19 @@ plot_RadialPlot <- function(
   rm(std.estimate)
 
   ## generate global data set
-  data.global <- data[[1]]
+  data.global <- cbind(data[[1]],
+                       rep(x = 1, 
+                           times = nrow(data[[1]])))
+  
+  colnames(data.global) <- rep("", 9)
+  
   if(length(data) > 1) {
     for(i in 2:length(data)) {
-      data.global <- rbind(data.global, data[[i]])
+      data.add <- cbind(data[[i]],
+                        rep(x = i, times = nrow(data[[i]])))
+      colnames(data.add) <- rep("", 9)
+      data.global <- rbind(data.global,
+                           data.add)
     }
   }
 
@@ -560,9 +569,9 @@ if(centrality[1] == "mean") {
     } else {xlab <- extraArgs$xlab}
   } else {
     xlab <- c(if(log.z == TRUE) {
-      "Relative error [%]"
+      "Relative standard error (%)"
       } else {
-        "Error"
+        "Standard error"
         },
       "Precision")
   }
@@ -576,7 +585,7 @@ if(centrality[1] == "mean") {
   zlab <- if("zlab" %in% names(extraArgs)) {
     extraArgs$zlab
     } else {
-      expression(paste(D[e], " [Gy]"))
+      expression(paste(D[e], " (Gy)"))
     }
 
   if("zlim" %in% names(extraArgs)) {
@@ -789,15 +798,15 @@ if(centrality[1] == "mean") {
   data.stats <- as.numeric(data.global[,1] - 2 * De.add)
 
   if("min" %in% stats == TRUE) {
-    stats.data[1, 3] <- data.stats[data.stats == min(data.stats)]
-    stats.data[1, 1] <- data.global[data.stats == stats.data[1, 3], 6]
-    stats.data[1, 2] <- data.global[data.stats == stats.data[1, 3], 8]
+    stats.data[1, 3] <- data.stats[data.stats == min(data.stats)][1]
+    stats.data[1, 1] <- data.global[data.stats == stats.data[1, 3], 6][1]
+    stats.data[1, 2] <- data.global[data.stats == stats.data[1, 3], 8][1]
   }
 
   if("max" %in% stats == TRUE) {
-    stats.data[2, 3] <- data.stats[data.stats == max(data.stats)]
-    stats.data[2, 1] <- data.global[data.stats == stats.data[2, 3], 6]
-    stats.data[2, 2] <- data.global[data.stats == stats.data[2, 3], 8]
+    stats.data[2, 3] <- data.stats[data.stats == max(data.stats)][1]
+    stats.data[2, 1] <- data.global[data.stats == stats.data[2, 3], 6][1]
+    stats.data[2, 2] <- data.global[data.stats == stats.data[2, 3], 8][1]
   }
 
   if("median" %in% stats == TRUE) {
@@ -1297,7 +1306,7 @@ label.text[[1]] <- NULL
             lty = 0)
 
     ## add plot title
-    title(main = main, line = shift.lines)
+    title(main = main, line = shift.lines, font = 2)
 
     ## plot lower x-axis (precision)
     x.axis.ticks <- axTicks(side = 1)
@@ -1385,7 +1394,8 @@ label.text[[1]] <- NULL
     if(rug == TRUE) {
       for(i in 1:length(rug.coords)) {
         lines(x = rug.coords[[i]][1,],
-              y = rug.coords[[i]][2,])
+              y = rug.coords[[i]][2,],
+              col = col[data.global[i,9]])
       }
     }
 

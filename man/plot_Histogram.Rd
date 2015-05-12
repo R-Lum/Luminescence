@@ -4,15 +4,15 @@
 \alias{plot_Histogram}
 \title{Plot a histogram with separate error plot}
 \usage{
-plot_Histogram(data, na.exclude = TRUE, mtext, cex.global, se, rug,
-  normal_curve, summary, summary.pos, colour, ...)
+plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug, normal_curve,
+  summary, summary.pos, colour, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
 object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
 and De error (\code{data[,2]})}
 
-\item{na.exclude}{\code{\link{logical}} (with default): excludes \code{NA}
+\item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA}
 values from the data set prior to any further operations.}
 
 \item{mtext}{\code{\link{character}} (optional): further sample information
@@ -75,7 +75,7 @@ probability density.
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4 (2015-04-30 11:59:18)
+ 0.4.4 (2015-05-12 12:24:06)
 }
 \examples{
 ## load data
@@ -98,7 +98,7 @@ plot_Histogram(ExampleData.DeValues,
                main = "Histogram of De-values",
                mtext = "Example data set",
                ylab = c(expression(paste(D[e], " distribution")),
-                        "Error"),
+                        "Standard error"),
                xlim = c(100, 250),
                ylim = c(0, 0.1, 5, 20))
 }

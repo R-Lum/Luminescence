@@ -8,8 +8,8 @@
 #'
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
 #' object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
-#' and De error (\code{data[,2]})
-#' @param na.exclude \code{\link{logical}} (with default): excludes \code{NA}
+#' and De error (\code{data[,2]}) 
+#' @param na.rm \code{\link{logical}} (with default): excludes \code{NA}
 #' values from the data set prior to any further operations.
 #' @param mtext \code{\link{character}} (optional): further sample information
 #' (\link{mtext}).
@@ -77,14 +77,14 @@
 #'                main = "Histogram of De-values",
 #'                mtext = "Example data set",
 #'                ylab = c(expression(paste(D[e], " distribution")),
-#'                         "Error"),
+#'                         "Standard error"),
 #'                xlim = c(100, 250),
 #'                ylim = c(0, 0.1, 5, 20))
 #'
 #'
 plot_Histogram <- function(
   data,
-  na.exclude = TRUE,
+  na.rm = TRUE,
   mtext,
   cex.global,
   se,
@@ -161,7 +161,7 @@ plot_Histogram <- function(
   }
 
   ## optionally, count and exclude NA values and print result
-  if(na.exclude == TRUE) {
+  if(na.rm == TRUE) {
     n.NA <- sum(is.na(data[,1]))
     if(n.NA == 1) {
       print("1 NA value excluded.")
@@ -180,14 +180,14 @@ plot_Histogram <- function(
   if("xlab" %in% names(extraArgs)) {
     xlab.plot <- extraArgs$xlab
   } else {
-    xlab.plot <- expression(paste(D[e], " [Gy]"))
+    xlab.plot <- expression(paste(D[e], " (Gy)"))
   }
 
   if("ylab" %in% names(extraArgs)) {
     ylab.plot <- extraArgs$ylab
   } else {
     ylab.plot <- c("Frequency",
-                   "Error")
+                   "Standard error")
   }
 
   if("breaks" %in% names(extraArgs)) {

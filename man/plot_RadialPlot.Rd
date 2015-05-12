@@ -4,9 +4,9 @@
 \alias{plot_RadialPlot}
 \title{Function to create a Radial Plot}
 \usage{
-plot_RadialPlot(data, na.exclude = TRUE, negatives = "remove",
-  log.z = TRUE, central.value, centrality = "mean.weighted", mtext, summary,
-  summary.pos, legend, legend.pos, stats, rug = FALSE, plot.ratio, bar.col,
+plot_RadialPlot(data, na.rm = TRUE, negatives = "remove", log.z = TRUE,
+  central.value, centrality = "mean.weighted", mtext, summary, summary.pos,
+  legend, legend.pos, stats, rug = FALSE, plot.ratio, bar.col,
   y.ticks = TRUE, grid.col, line, line.col, line.label, output = FALSE, ...)
 }
 \arguments{
@@ -15,7 +15,7 @@ object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 and De error (\code{data[,2]}). To plot several data sets in one plot, the
 data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
-\item{na.exclude}{\code{\link{logical}} (with default): excludes \code{NA}
+\item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA}
 values from the data set prior to any further operations.}
 
 \item{negatives}{\code{\link{character}} (with default): rule for negative
@@ -126,7 +126,7 @@ drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
 \code{line.label}, cf. examples).
 }
 \section{Function version}{
- 0.5.3 (2015-04-30 11:59:45)
+ 0.5.3 (2015-05-12 12:24:06)
 }
 \examples{
 ## load example data
@@ -180,10 +180,10 @@ plot_RadialPlot(data = ExampleData.DeValues,
 
 ## now with user-defined axes labels
 plot_RadialPlot(data = ExampleData.DeValues,
-                xlab = c("Data error [\%]",
+                xlab = c("Data error (\%)",
                          "Data precision"),
                 ylab = "Scatter",
-                zlab = "Equivalent dose [Gy]")
+                zlab = "Equivalent dose (Gy)")
 
 ## now with minimum, maximum and median value indicated
 plot_RadialPlot(data = ExampleData.DeValues,

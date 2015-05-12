@@ -70,8 +70,44 @@
 
    }
 
+   \item \code{plot_AbanicoPlot()}
 
-  \item \code{plot_RLum.Anlysis()}
+  \itemize{
+      \item Argument \code{na.exclude} changed to \code{na.rm},
+      \item add sample group specific colours for rugs,
+      \item summary and legend placement bugs for rotated abanico plot fixed,
+      \item labelling errors fixed,
+      \item argument \code{frame} added to abanico plot,
+      \item adjustment of colours for polygon and bar in abanico plot.
+
+
+   }
+
+  \item \code{plot_Histogram()}
+
+  \itemize{
+      \item Argument \code{na.exclude} changed to \code{na.rm}
+
+   }
+
+    \item \code{plot_KDE()}
+
+  \itemize{
+      \item Argument \code{na.exclude} changed to \code{na.rm},
+      \item argument weights removed.
+
+   }
+
+       \item \code{plot_RadialPlot()}
+
+  \itemize{
+      \item Argument \code{na.exclude} changed to \code{na.rm}
+
+   }
+
+
+
+  \item \code{plot_RLum.Analysis()}
 
   \itemize{
     \item Add \code{...} argument support \code{legend.pos = "ouside"} and \code{legend.col} for

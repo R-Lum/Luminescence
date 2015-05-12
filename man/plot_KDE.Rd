@@ -4,9 +4,9 @@
 \alias{plot_KDE}
 \title{Plot kernel density estimate with statistics}
 \usage{
-plot_KDE(data, na.exclude = TRUE, weights = FALSE,
-  values.cumulative = TRUE, centrality, dispersion, summary, summary.pos,
-  polygon.col, order = TRUE, bw = "nrd0", output = FALSE, ...)
+plot_KDE(data, na.rm = TRUE, weights = FALSE, values.cumulative = TRUE,
+  centrality, dispersion, summary, summary.pos, polygon.col, order = TRUE,
+  bw = "nrd0", output = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -15,7 +15,7 @@ object (required): for \code{data.frame}: two columns: De
 data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
 dataset2)}).}
 
-\item{na.exclude}{\code{\link{logical}} (with default): exclude NA values
+\item{na.rm}{\code{\link{logical}} (with default): exclude NA values
 from the data set prior to any further operations.}
 
 \item{weights}{\code{\link{logical}} (with default): calculate the KDE with
@@ -95,7 +95,7 @@ The plot output is no 'PD' plot (cf. the discussion of Berger and
 Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5 (2015-04-30 11:59:33)
+ 3.5 (2015-05-12 12:24:06)
 }
 \examples{
 ## read example data set
@@ -113,7 +113,7 @@ plot_KDE(data = ExampleData.DeValues,
 ## create plot with user-defined labels and axes limits
 plot_KDE(data = ExampleData.DeValues,
          main = "Dose distribution",
-         xlab = "Dose [s]",
+         xlab = "Dose (s)",
          ylab = c("KDE estimate", "Cumulative dose value"),
          xlim = c(100, 250),
          ylim = c(0, 0.08, 0, 30))

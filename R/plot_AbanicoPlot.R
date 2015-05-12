@@ -5,7 +5,7 @@
 #' kernel density estimate of the dose values.
 #'
 #' The Abanico Plot is a combination of the classic Radial Plot
-#' (\code{plot_RadialPlot}) and a kernel density estimate plot (e.g.
+#' (\code{plot_RadialPlot}) and a kernel density estimate plot (e.g
 #' \code{plot_KDE}). It allows straightforward visualisation of data precision,
 #' error scatter around a user-defined central value and the combined
 #' distribution of the values, on the actual scale of the measured data (e.g.
@@ -49,7 +49,7 @@
 #' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}). To plot several data sets in one plot the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
-#' @param na.exclude \code{\link{logical}} (with default): exclude NA values
+#' @param na.rm \code{\link{logical}} (with default): exclude NA values
 #' from the data set prior to any further operations.
 #' @param log.z \code{\link{logical}} (with default): Option to display the
 #' z-axis in logarithmic scale. Default is \code{TRUE}.
@@ -110,12 +110,17 @@
 #' = "none"}.
 #' @param polygon.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the polygon showing the dose dispersion around the
-#' central value. To disable the polygon use \code{"none"}. Default is
-#' \code{"grey80"}.
+#' central value. To disable the polygon use \code{"none"} or 
+#' \code{bar = FALSE}. Default is \code{"grey80"}.
 #' @param bar.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the bar showing the 2-sigma range of the dose error
-#' around the central value. To disable the bar use \code{"none"}. Default is
-#' \code{"grey50"}.
+#' around the central value. To disable the bar use \code{"none"} or 
+#' \code{bar = FALSE}. Default is \code{"grey65"}.
+#' #' @param frame \code{\link{numeric}} (with default): option to modify the
+#' plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame 
+#' originates at 0,0 and runs along min/max isochrons), \code{2} (frame 
+#' embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a 
+#' rectangle).Default is \code{1}.
 #' @param line \code{\link{numeric}}: numeric values of the additional lines to
 #' be added.
 #' @param line.col \code{\link{character}} or \code{\link{numeric}}: colour of
@@ -158,7 +163,8 @@
 #'
 #' ## now with linear z-scale
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  log.z = FALSE)
+#'                  log.z = FALSE,
+#'                  xlab = c("Standard error (Gy)", "Precision"))
 #'
 #' ## now with output of the plot parameters
 #' plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -247,11 +253,10 @@
 #'
 #' ## now with user-defined axes labels
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  xlab = c("Data error [%]",
-#'                           "Data precision",
-#'                           "Kernel density"),
+#'                  xlab = c("Data error (%)",
+#'                           "Data precision"),
 #'                  ylab = "Scatter",
-#'                  zlab = "Equivalent dose [Gy]")
+#'                  zlab = "Equivalent dose (Gy)")
 #'
 #' ## now with minimum, maximum and median value indicated
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -312,7 +317,7 @@
 #'
 plot_AbanicoPlot <- function(
   data,
-  na.exclude = TRUE,
+  na.rm = TRUE,
   log.z = TRUE,
   central.value,
   centrality = "mean.weighted",
@@ -333,6 +338,7 @@ plot_AbanicoPlot <- function(
   error.bars = FALSE,
   polygon.col,
   bar.col,
+  frame = 1,
   line,
   line.col,
   line.label,
@@ -347,7 +353,7 @@ plot_AbanicoPlot <- function(
   if(is(data, "list") == FALSE) {data <- list(data)}
 
   ## optionally, remove NA-values
-  if(na.exclude == TRUE) {
+  if(na.rm == TRUE) {
     for(i in 1:length(data)) {
 
       n.NA <- sum(!complete.cases(data[[i]]))
@@ -374,6 +380,7 @@ plot_AbanicoPlot <- function(
 
   }
 
+  
   ## Check input data
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE &
@@ -416,7 +423,7 @@ plot_AbanicoPlot <- function(
     bar.fill <- bar.col
     bar.line <- NA
   }
-
+  
   if(missing(polygon.col) == TRUE) {
     polygon.fill <- rep(layout$abanico$colour$poly.fill,
                         length.out = length(data))
@@ -426,7 +433,7 @@ plot_AbanicoPlot <- function(
     polygon.fill <- polygon.col
     polygon.line <- NA
   }
-
+  
   if(missing(grid.col) == TRUE) {
     grid.major <- layout$abanico$colour$grid.major
     grid.minor <- layout$abanico$colour$grid.minor
@@ -451,12 +458,6 @@ plot_AbanicoPlot <- function(
   if(missing(mtext) == TRUE) {
     mtext <- ""
   }
-
-  #   ## check z-axis log-option for grouped data sets
-  #   if(is(data, "list") == TRUE & length(data) > 1 & log.z == FALSE) {
-  #     warning(paste("Option 'log.z' is not set to 'TRUE' altough more than one",
-  #                   "data set (group) is provided."))
-  #   }
 
   ## create preliminary global data set
   De.global <- data[[1]][,1]
@@ -761,14 +762,14 @@ plot_AbanicoPlot <- function(
   sub <- if("sub" %in% names(extraArgs)) {extraArgs$sub} else {""}
 
   if("xlab" %in% names(extraArgs)) {
-    if(length(extraArgs$xlab) != 3) {
-      stop("Argmuent xlab is not of length 3!")
-    } else {xlab <- extraArgs$xlab}
+    if(length(extraArgs$xlab) != 2) {
+      stop("Argmuent xlab is not of length 2!")
+    } else {xlab <- c(extraArgs$xlab, "Density")}
   } else {
     xlab <- c(if(log.z == TRUE) {
-      "Relative error [%]"
+      "Relative standard error (%)"
     } else {
-      "Error"
+      "Standard error"
     },
     "Precision",
     "Density")
@@ -783,7 +784,7 @@ plot_AbanicoPlot <- function(
   zlab <- if("zlab" %in% names(extraArgs)) {
     extraArgs$zlab
   } else {
-    expression(paste(D[e], " [Gy]"))
+    expression(paste(D[e], " (Gy)"))
   }
 
   if("zlim" %in% names(extraArgs)) {
@@ -848,6 +849,7 @@ plot_AbanicoPlot <- function(
     kde.fill <- NA
     value.dot <- extraArgs$col
     value.bar <- extraArgs$col
+    value.rug <- extraArgs$col
     summary.col <- extraArgs$col
   } else {
     if(length(layout$abanico$colour$centrality) == 1) {
@@ -878,6 +880,12 @@ plot_AbanicoPlot <- function(
       value.bar <- 1:length(data)
     } else {
       value.bar <- layout$abanico$colour$value.bar
+    }
+
+    if(length(layout$abanico$colour$value.rug) == 1) {
+      value.rug <- 1:length(data)
+    } else {
+      value.rug <- layout$abanico$colour$value.rug
     }
 
     if(length(layout$abanico$colour$summary) == 1) {
@@ -1002,15 +1010,15 @@ plot_AbanicoPlot <- function(
   data.stats <- as.numeric(data.global[,1] - De.add)
 
   if("min" %in% stats == TRUE) {
-    stats.data[1, 3] <- data.stats[data.stats == min(data.stats)]
-    stats.data[1, 1] <- data.global[data.stats == stats.data[1, 3], 6]
-    stats.data[1, 2] <- data.global[data.stats == stats.data[1, 3], 8]
+    stats.data[1, 3] <- data.stats[data.stats == min(data.stats)][1]
+    stats.data[1, 1] <- data.global[data.stats == stats.data[1, 3], 6][1]
+    stats.data[1, 2] <- data.global[data.stats == stats.data[1, 3], 8][1]
   }
 
   if("max" %in% stats == TRUE) {
-    stats.data[2, 3] <- data.stats[data.stats == max(data.stats)]
-    stats.data[2, 1] <- data.global[data.stats == stats.data[2, 3], 6]
-    stats.data[2, 2] <- data.global[data.stats == stats.data[2, 3], 8]
+    stats.data[2, 3] <- data.stats[data.stats == max(data.stats)][1]
+    stats.data[2, 1] <- data.global[data.stats == stats.data[2, 3], 6][1]
+    stats.data[2, 2] <- data.global[data.stats == stats.data[2, 3], 8][1]
   }
 
   if("median" %in% stats == TRUE) {
@@ -1168,13 +1176,13 @@ plot_AbanicoPlot <- function(
                             ifelse("skewness" %in% summary[j] == TRUE,
                                    paste("skewness = ",
                                          round(De.stats[i,13], 2),
-                                         " \n ",
+                                         "\n",
                                          sep = ""),
                                    ""),
                             ifelse("kurtosis" %in% summary[j] == TRUE,
                                    paste("kurtosis = ",
                                          round(De.stats[i,14], 2),
-                                         " \n ",
+                                         "\n",
                                          sep = ""),
                                    ""),
                             ifelse("in.ci" %in% summary[j] == TRUE,
@@ -1304,76 +1312,150 @@ plot_AbanicoPlot <- function(
   ## remove dummy list element
   label.text[[1]] <- NULL
 
-  ## convert keywords into summary placement coordinates
-  if(missing(summary.pos) == TRUE) {
-    summary.pos <- c(limits.x[1], limits.y[2])
-    summary.adj <- c(0, 1)
-  } else if(length(summary.pos) == 2) {
-    summary.pos <- summary.pos
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "topleft") {
-    summary.pos <- c(limits.x[1], limits.y[2])
-    summary.adj <- c(0, 1)
-  } else if(summary.pos[1] == "top") {
-    summary.pos <- c(mean(limits.x), limits.y[2])
-    summary.adj <- c(0.5, 1)
-  } else if(summary.pos[1] == "topright") {
-    summary.pos <- c(limits.x[2], limits.y[2])
-    summary.adj <- c(1, 1)
-  }  else if(summary.pos[1] == "left") {
-    summary.pos <- c(limits.x[1], mean(limits.y))
-    summary.adj <- c(0, 0.5)
-  } else if(summary.pos[1] == "center") {
-    summary.pos <- c(mean(limits.x), mean(limits.y))
-    summary.adj <- c(0.5, 0.5)
-  } else if(summary.pos[1] == "right") {
-    summary.pos <- c(limits.x[2], mean(limits.y))
-    summary.adj <- c(1, 0.5)
-  }else if(summary.pos[1] == "bottomleft") {
-    summary.pos <- c(limits.x[1], limits.y[1])
-    summary.adj <- c(0, 0)
-  } else if(summary.pos[1] == "bottom") {
-    summary.pos <- c(mean(limits.x), limits.y[1])
-    summary.adj <- c(0.5, 0)
-  } else if(summary.pos[1] == "bottomright") {
-    summary.pos <- c(limits.x[2], limits.y[1])
-    summary.adj <- c(1, 0)
-  }
-
-  ## convert keywords into legend placement coordinates
-  if(missing(legend.pos) == TRUE) {
-    legend.pos <- c(limits.x[1], limits.y[2])
-    legend.adj <- c(0, 1)
-  } else if(length(legend.pos) == 2) {
-    legend.pos <- legend.pos
-    legend.adj <- c(0, 1)
-  } else if(legend.pos[1] == "topleft") {
-    legend.pos <- c(limits.x[1], limits.y[2])
-    legend.adj <- c(0, 1)
-  } else if(legend.pos[1] == "top") {
-    legend.pos <- c(mean(limits.x), limits.y[2])
-    legend.adj <- c(0.5, 1)
-  } else if(legend.pos[1] == "topright") {
-    legend.pos <- c(limits.x[2], limits.y[2])
-    legend.adj <- c(1, 1)
-  } else if(legend.pos[1] == "left") {
-    legend.pos <- c(limits.x[1], mean(limits.y))
-    legend.adj <- c(0, 0.5)
-  } else if(legend.pos[1] == "center") {
-    legend.pos <- c(mean(limits.x), mean(limits.y))
-    legend.adj <- c(0.5, 0.5)
-  } else if(legend.pos[1] == "right") {
-    legend.pos <- c(limits.x[2], mean(limits.y))
-    legend.adj <- c(1, 0.5)
-  } else if(legend.pos[1] == "bottomleft") {
-    legend.pos <- c(limits.x[1], limits.y[1])
-    legend.adj <- c(0, 0)
-  } else if(legend.pos[1] == "bottom") {
-    legend.pos <- c(mean(limits.x), limits.y[1])
-    legend.adj <- c(0.5, 0)
-  } else if(legend.pos[1] == "bottomright") {
-    legend.pos <- c(limits.x[2], limits.y[1])
-    legend.adj <- c(1, 0)
+  if(rotate == FALSE) {
+    ## convert keywords into summary placement coordinates
+    if(missing(summary.pos) == TRUE) {
+      summary.pos <- c(limits.x[1], limits.y[2])
+      summary.adj <- c(0, 1)
+    } else if(length(summary.pos) == 2) {
+      summary.pos <- summary.pos
+      summary.adj <- c(0, 1)
+    } else if(summary.pos[1] == "topleft") {
+      summary.pos <- c(limits.x[1], limits.y[2] - par()$cxy[2] * 1)
+      summary.adj <- c(0, 1)
+    } else if(summary.pos[1] == "top") {
+      summary.pos <- c(mean(limits.x), limits.y[2] - par()$cxy[2] * 1)
+      summary.adj <- c(0.5, 1)
+    } else if(summary.pos[1] == "topright") {
+      summary.pos <- c(limits.x[2], limits.y[2] - par()$cxy[2] * 1)
+      summary.adj <- c(1, 1)
+    }  else if(summary.pos[1] == "left") {
+      summary.pos <- c(limits.x[1], mean(limits.y))
+      summary.adj <- c(0, 0.5)
+    } else if(summary.pos[1] == "center") {
+      summary.pos <- c(mean(limits.x), mean(limits.y))
+      summary.adj <- c(0.5, 0.5)
+    } else if(summary.pos[1] == "right") {
+      summary.pos <- c(limits.x[2], mean(limits.y))
+      summary.adj <- c(1, 0.5)
+    }else if(summary.pos[1] == "bottomleft") {
+      summary.pos <- c(limits.x[1], limits.y[1] + par()$cxy[2] * 3.5)
+      summary.adj <- c(0, 0)
+    } else if(summary.pos[1] == "bottom") {
+      summary.pos <- c(mean(limits.x), limits.y[1] + par()$cxy[2] * 3.5)
+      summary.adj <- c(0.5, 0)
+    } else if(summary.pos[1] == "bottomright") {
+      summary.pos <- c(limits.x[2], limits.y[1] + par()$cxy[2] * 3.5)
+      summary.adj <- c(1, 0)
+    }
+    
+    ## convert keywords into legend placement coordinates
+    if(missing(legend.pos) == TRUE) {
+      legend.pos <- c(limits.x[1], limits.y[2])
+      legend.adj <- c(0, 1)
+    } else if(length(legend.pos) == 2) {
+      legend.pos <- legend.pos
+      legend.adj <- c(0, 1)
+    } else if(legend.pos[1] == "topleft") {
+      legend.pos <- c(limits.x[1], limits.y[2])
+      legend.adj <- c(0, 1)
+    } else if(legend.pos[1] == "top") {
+      legend.pos <- c(mean(limits.x), limits.y[2])
+      legend.adj <- c(0.5, 1)
+    } else if(legend.pos[1] == "topright") {
+      legend.pos <- c(limits.x[2], limits.y[2])
+      legend.adj <- c(1, 1)
+    } else if(legend.pos[1] == "left") {
+      legend.pos <- c(limits.x[1], mean(limits.y))
+      legend.adj <- c(0, 0.5)
+    } else if(legend.pos[1] == "center") {
+      legend.pos <- c(mean(limits.x), mean(limits.y))
+      legend.adj <- c(0.5, 0.5)
+    } else if(legend.pos[1] == "right") {
+      legend.pos <- c(limits.x[2], mean(limits.y))
+      legend.adj <- c(1, 0.5)
+    } else if(legend.pos[1] == "bottomleft") {
+      legend.pos <- c(limits.x[1], limits.y[1])
+      legend.adj <- c(0, 0)
+    } else if(legend.pos[1] == "bottom") {
+      legend.pos <- c(mean(limits.x), limits.y[1])
+      legend.adj <- c(0.5, 0)
+    } else if(legend.pos[1] == "bottomright") {
+      legend.pos <- c(limits.x[2], limits.y[1])
+      legend.adj <- c(1, 0)
+    }
+  } else {
+    ## convert keywords into summary placement coordinates
+    if(missing(summary.pos) == TRUE) {
+      summary.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
+      summary.adj <- c(0, 0)
+    } else if(length(summary.pos) == 2) {
+      summary.pos <- summary.pos
+      summary.adj <- c(0, 1)
+    } else if(summary.pos[1] == "topleft") {
+      summary.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[2])
+      summary.adj <- c(0, 1)
+    } else if(summary.pos[1] == "top") {
+      summary.pos <- c(mean(limits.y), limits.x[2])
+      summary.adj <- c(0.5, 1)
+    } else if(summary.pos[1] == "topright") {
+      summary.pos <- c(limits.y[2], limits.x[2])
+      summary.adj <- c(1, 1)
+    }  else if(summary.pos[1] == "left") {
+      summary.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, mean(limits.x))
+      summary.adj <- c(0, 0.5)
+    } else if(summary.pos[1] == "center") {
+      summary.pos <- c(mean(limits.y), mean(limits.x))
+      summary.adj <- c(0.5, 0.5)
+    } else if(summary.pos[1] == "right") {
+      summary.pos <- c(limits.y[2], mean(limits.x))
+      summary.adj <- c(1, 0.5)
+    }else if(summary.pos[1] == "bottomleft") {
+      summary.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
+      summary.adj <- c(0, 0)
+    } else if(summary.pos[1] == "bottom") {
+      summary.pos <- c(mean(limits.y), limits.x[1])
+      summary.adj <- c(0.5, 0)
+    } else if(summary.pos[1] == "bottomright") {
+      summary.pos <- c(limits.y[2], limits.x[1])
+      summary.adj <- c(1, 0)
+    }
+    
+    ## convert keywords into legend placement coordinates
+    if(missing(legend.pos) == TRUE) {
+      legend.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
+      legend.adj <- c(0, 0)
+    } else if(length(legend.pos) == 2) {
+      legend.pos <- legend.pos
+      legend.adj <- c(1, 0)
+    } else if(legend.pos[1] == "topleft") {
+      legend.pos <- c(limits.y[1] + par()$cxy[1] * 11, limits.x[2])
+      legend.adj <- c(1, 0)
+    } else if(legend.pos[1] == "top") {
+      legend.pos <- c(mean(limits.y), limits.x[2])
+      legend.adj <- c(1, 0.5)
+    } else if(legend.pos[1] == "topright") {
+      legend.pos <- c(limits.y[2], limits.x[2])
+      legend.adj <- c(1, 1)
+    } else if(legend.pos[1] == "left") {
+      legend.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, mean(limits.x))
+      legend.adj <- c(0.5, 0)
+    } else if(legend.pos[1] == "center") {
+      legend.pos <- c(mean(limits.y), mean(limits.x))
+      legend.adj <- c(0.5, 0.5)
+    } else if(legend.pos[1] == "right") {
+      legend.pos <- c(limits.y[2], mean(limits.x))
+      legend.adj <- c(0.5, 1)
+    } else if(legend.pos[1] == "bottomleft") {
+      legend.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
+      legend.adj <- c(0, 0)
+    } else if(legend.pos[1] == "bottom") {
+      legend.pos <- c(mean(limits.y), limits.x[1])
+      legend.adj <- c(0, 0.5)
+    } else if(legend.pos[1] == "bottomright") {
+      legend.pos <- c(limits.y[2], limits.x[1])
+      legend.adj <- c(0, 1)
+    }
   }
 
   ## define cartesian plot origins
@@ -1680,14 +1762,16 @@ plot_AbanicoPlot <- function(
 
     if(rotate == FALSE) {
       for(i in 1:length(rug.values)) {
-        rug.x <- c(xy.0[1] * 0.987, xy.0[1])
+        rug.x <- c(xy.0[1] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)), 
+                   xy.0[1])
         rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,1]),
                    (rug.values[i] - z.central.global) * min(ellipse[,1]))
         rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
       }
     } else {
       for(i in 1:length(rug.values)) {
-        rug.x <- c(xy.0[2] * 0.987, xy.0[2])
+        rug.x <- c(xy.0[2] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)), 
+                   xy.0[2])
         rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,2]),
                    (rug.values[i] - z.central.global) * min(ellipse[,2]))
         rug.coords[[length(rug.coords) + 1]] <- rbind(rug.x, rug.y)
@@ -1761,16 +1845,6 @@ plot_AbanicoPlot <- function(
       as.character(round(1/axTicks(side = 1)[-1], 1))
     }
 
-    ## optionally, plot dispersion polygon
-    if(polygon.fill[1] != "none") {
-      for(i in 1:length(data)) {
-        polygon(x = polygons[i,1:7],
-                y = polygons[i,8:14],
-                col = polygon.fill[i],
-                border = polygon.line[i])
-      }
-    }
-
     ## optionally, plot 2-sigma-bar
     if(bar.fill[1] != "none") {
 
@@ -1778,7 +1852,7 @@ plot_AbanicoPlot <- function(
         for(i in 1:length(centrality)) {
           polygon(x = bars[i,1:4],
                   y = bars[i,5:8],
-                  col = bar.fill,
+                  col = bar.fill[i],
                   border = bar.line[i])
         }
       } else {
@@ -1803,6 +1877,16 @@ plot_AbanicoPlot <- function(
             col = bg.original,
             lty = 0)
 
+    ## optionally, plot dispersion polygon
+    if(polygon.fill[1] != "none") {
+      for(i in 1:length(data)) {
+        polygon(x = polygons[i,1:7],
+                y = polygons[i,8:14],
+                col = polygon.fill[i],
+                border = polygon.line[i])
+      }
+    }
+    
     ## optionally, add minor grid lines
     if(grid.minor != "none") {
       for(i in 1:length(tick.values.minor)) {
@@ -2304,7 +2388,7 @@ plot_AbanicoPlot <- function(
       for(i in 1:length(rug.coords)) {
         lines(x = rug.coords[[i]][1,],
               y = rug.coords[[i]][2,],
-              col = kde.line[data.global[i,10]])
+              col = value.rug[data.global[i,10]])
       }
     }
 
@@ -2314,12 +2398,28 @@ plot_AbanicoPlot <- function(
           col = layout$abanico$colour$border)
 
     ## draw border around plot
-    polygon(x = c(limits.x[1], min(ellipse[,1]), par()$usr[2],
-                  par()$usr[2], min(ellipse[,1])),
-            y = c(0, max(ellipse[,2]), max(ellipse[,2]),
-                  min(ellipse[,2]), min(ellipse[,2])),
-            border = layout$abanico$colour$border,
-            lwd = 0.8)
+    if(frame == 1) {
+      polygon(x = c(limits.x[1], min(ellipse[,1]), par()$usr[2],
+                    par()$usr[2], min(ellipse[,1])),
+              y = c(0, max(ellipse[,2]), max(ellipse[,2]),
+                    min(ellipse[,2]), min(ellipse[,2])),
+              border = layout$abanico$colour$border,
+              lwd = 0.8)
+    } else if(frame == 2) {
+      polygon(x = c(limits.x[1], min(ellipse[,1]), par()$usr[2],
+                    par()$usr[2], min(ellipse[,1]), limits.x[1]),
+              y = c(2, max(ellipse[,2]), max(ellipse[,2]),
+                    min(ellipse[,2]), min(ellipse[,2]), -2),
+              border = layout$abanico$colour$border,
+              lwd = 0.8)
+    } else if(frame == 3) {
+      polygon(x = c(limits.x[1], par()$usr[2],
+                    par()$usr[2], limits.x[1]),
+              y = c(max(ellipse[,2]), max(ellipse[,2]),
+                    min(ellipse[,2]), min(ellipse[,2])),
+              border = layout$abanico$colour$border,
+              lwd = 0.8)
+    }
 
     ## optionally add legend content
     if(missing(legend) == FALSE) {
@@ -2430,16 +2530,6 @@ plot_AbanicoPlot <- function(
       as.character(round(1/axTicks(side = 2)[-1], 1))
     }
 
-    ## optionally, plot dispersion polygon
-    if(polygon.fill[1] != "none") {
-      for(i in 1:length(data)) {
-        polygon(x = polygons[i,8:14],
-                y = polygons[i,1:7],
-                col = polygon.fill[i],
-                border = polygon.line[i])
-      }
-    }
-
     ## optionally, plot 2-sigma-bar
     if(bar.fill[1] != "none") {
 
@@ -2447,7 +2537,7 @@ plot_AbanicoPlot <- function(
         for(i in 1:length(centrality)) {
           polygon(x = bars[i,1:4],
                   y = bars[i,5:8],
-                  col = bar.fill,
+                  col = bar.fill[i],
                   border = bar.line[i])
         }
       } else {
@@ -2472,6 +2562,16 @@ plot_AbanicoPlot <- function(
             col = bg.original,
             lty = 0)
 
+    ## optionally, plot dispersion polygon
+    if(polygon.fill[1] != "none") {
+      for(i in 1:length(data)) {
+        polygon(x = polygons[i,8:14],
+                y = polygons[i,1:7],
+                col = polygon.fill[i],
+                border = polygon.line[i])
+      }
+    }
+    
     ## optionally, add minor grid lines
     if(grid.minor != "none") {
       for(i in 1:length(tick.values.minor)) {
@@ -2971,7 +3071,7 @@ plot_AbanicoPlot <- function(
       for(i in 1:length(rug.coords)) {
         lines(y = rug.coords[[i]][1,],
               x = rug.coords[[i]][2,],
-              col = kde.line[data.global[i,10]])
+              col = value.rug[data.global[i,10]])
       }
     }
 

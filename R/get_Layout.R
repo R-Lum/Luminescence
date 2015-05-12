@@ -121,6 +121,7 @@ get_Layout <- function(
             centrality = numeric(1), # Centrality line colour
             value.dot  = numeric(1), # De value dot colour
             value.bar  = numeric(1), # De value error bar colour
+            value.rug  = numeric(1), # De value rug colour
             poly.line  = numeric(1), # polygon line colour
             poly.fill  = numeric(1), # polygon fill colour
             bar.line   = numeric(1), # polygon line colour
@@ -151,6 +152,7 @@ get_Layout <- function(
             xtcl3           = numeric(1), # tick length in %
             ytcl            = numeric(1), # tick length in %
             ztcl            = numeric(1), # tick length in %
+            rugl            = numeric(1), # rug length in %
             mtext           = numeric(1), # line height in %
             summary.line    = numeric(1) # line height in %
           )),
@@ -204,6 +206,7 @@ get_Layout <- function(
             kde.fill        = numeric(1), # KDE fill colour
             value.dot       = numeric(1), # De value dot colour
             value.bar       = numeric(1), # De value error bar colour
+            value.rug       = numeric(1), # De value rug colour
             mean            = numeric(1), # mean line colour
             median          = numeric(1), # median line colour
             mean.weighted   = numeric(1), # weighted mean line colour
@@ -304,10 +307,11 @@ get_Layout <- function(
             centrality = 1, # Centrality line colour
             value.dot  = 1, # De value dot colour
             value.bar  = 1, # De value error bar colour
+            value.rug = 1, # De value rug colour
             poly.line  = NA, # polygon line colour
-            poly.fill  = "grey60", # polygon fill colour
+            poly.fill  = adjustcolor("grey75", alpha.f = 0.6), # polygon fill colour
             bar.line   = NA, # polygon line colour
-            bar.fill   = adjustcolor("grey90", alpha.f = 0.7), # polygon fill colour
+            bar.fill   = "grey60", # bar fill colour
             kde.line   = 1,
             kde.fill   = NA,
             grid.major = "grey80",
@@ -319,9 +323,9 @@ get_Layout <- function(
             figure.height   = "auto", # figure height in mm
             margin = c(10, 10, 10, 10), # margin sizes in mm
             main.line       = 100, # line height in %
-            xlab1.line      = 100, # line height in %
-            xlab2.line      = 100, # line height in %
-            xlab3.line      = 100, # line height in %
+            xlab1.line      = 90, # line height in %
+            xlab2.line      = 90, # line height in %
+            xlab3.line      = 90, # line height in %
             ylab.line       = 100, # line height in %
             zlab.line       = 70, # line height in %
             xtck1.line      = 100, # line height in %
@@ -334,6 +338,7 @@ get_Layout <- function(
             xtcl3           = 100, # tick length in %
             ytcl            = 100, # tick length in %
             ztcl            = 100, # tick length in %
+            rugl            = 100, # rug length in %
             mtext           = 100, # line height in %
             summary.line    = 100 # line height in %
           )),
@@ -387,6 +392,7 @@ get_Layout <- function(
             kde.fill        = "none", # KDE fill colour
             value.dot       = 1, # De value dot colour
             value.bar       = 1, # De value error bar colour
+            value.rug       = 1, # De value rug colour
             mean   = 1, # mean line colour
             median = 1, # median line colour
             mean.weighted   = 1, # weighted mean line colour
@@ -487,10 +493,11 @@ get_Layout <- function(
             centrality = 1, # Centrality line colour
             value.dot  = 1, # De value dot colour
             value.bar  = 1, # De value error bar colour
+            value.rug  = 1, # De value rug colour
             poly.line  = NA, # polygon line colour
-            poly.fill  = "grey60", # polygon fill colour
+            poly.fill  = adjustcolor("grey75", alpha.f = 0.6), # polygon fill colour
             bar.line   = NA, # polygon line colour
-            bar.fill   = adjustcolor("grey90", alpha.f = 0.7), # polygon fill colour
+            bar.fill   = "grey60", # bar fill colour
             kde.line   = 1,
             kde.fill   = NA,
             grid.major = "grey80",
@@ -517,6 +524,7 @@ get_Layout <- function(
             xtcl3           = 50, # tick length in %
             ytcl            = 50, # tick length in %
             ztcl            = 70, # tick length in %
+            rugl            = 70, # rug length in %
             mtext           = 100, # line height in %
             summary.line    = 70, # line height in %
             pch             = 50  # point size in %
@@ -571,6 +579,7 @@ get_Layout <- function(
             kde.fill        = "none", # KDE fill colour
             value.dot       = 1, # De value dot colour
             value.bar       = 1, # De value error bar colour
+            value.rug       = 1, # De value rug colour
             mean   = 1, # mean line colour
             median = 1, # median line colour
             mean.weighted   = 1, # weighted mean line colour

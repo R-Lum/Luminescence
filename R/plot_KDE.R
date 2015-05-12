@@ -25,7 +25,7 @@
 #' (\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
 #' data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
 #' dataset2)}).
-#' @param na.exclude \code{\link{logical}} (with default): exclude NA values
+#' @param na.rm \code{\link{logical}} (with default): exclude NA values
 #' from the data set prior to any further operations.
 #' @param weights \code{\link{logical}} (with default): calculate the KDE with
 #' De-errors as weights. Attention, using errors as weights will result in a
@@ -89,7 +89,7 @@
 #' ## create plot with user-defined labels and axes limits
 #' plot_KDE(data = ExampleData.DeValues,
 #'          main = "Dose distribution",
-#'          xlab = "Dose [s]",
+#'          xlab = "Dose (s)",
 #'          ylab = c("KDE estimate", "Cumulative dose value"),
 #'          xlim = c(100, 250),
 #'          ylim = c(0, 0.08, 0, 30))
@@ -143,7 +143,7 @@
 #'
 plot_KDE <- function(
   data,
-  na.exclude = TRUE,
+  na.rm = TRUE,
   weights = FALSE,
   values.cumulative = TRUE,
   centrality,
@@ -209,7 +209,7 @@ plot_KDE <- function(
   ## data preparation steps ---------------------------------------------------
 
   ## optionally, count and exclude NA values and print result
-  if(na.exclude == TRUE) {
+  if(na.rm == TRUE) {
     for(i in 1:length(data)) {
       n.NA <- sum(is.na(data[[i]][,1]))
       if(n.NA == 1) {
@@ -217,7 +217,7 @@ plot_KDE <- function(
       } else if(n.NA > 1) {
         print(paste(n.NA, "NA values excluded from data set", i, "."))
       }
-      data[[i]] <- data[[i]][!is.na(data[[i]][,1]),]
+      data[[i]] <- na.exclude(data[[i]])
     }
   }
 
@@ -526,7 +526,7 @@ plot_KDE <- function(
   if("xlab" %in% names(list(...))) {
     xlab <- list(...)$xlab
   } else {
-    xlab <- expression(paste(D[e], " [Gy]"))
+    xlab <- expression(paste(D[e], " (Gy)"))
   }
 
   if("ylab" %in% names(list(...))) {
