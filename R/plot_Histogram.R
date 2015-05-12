@@ -4,7 +4,19 @@
 #' suggested by Rex Galbraith at the UK LED in Oxford 2010.
 #'
 #' If the normal curve is added, the y-axis in the histogram will show the
-#' probability density.
+#' probability density.\cr\cr 
+#' A statistic summary, i.e. a collection of statistic measures of 
+#' centrality and dispersion (and further measures) can be added by specifying 
+#' one or more of the following keywords: \code{"n"} (number of samples),
+#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative 
+#' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
+#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation), 
+#' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
+#' error-weighted relative standard error), \code{"seabs"} (absolute standard
+#' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
+#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 #'
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
 #' object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
@@ -22,16 +34,9 @@
 #' @param normal_curve \code{\link{logical}} (with default): adds a normal
 #' curve to the histogram. Mean and sd are calculated from the input data. More
 #' see details section.
-#' @param summary \code{\link{character}} (optional): adds numerical output to
-#' the plot. Can be one or more out of: \code{"n"} (number of samples),
-#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-#' \code{"median"} (median of the De values), \code{"kdemax"} (maximum of the
-#' KDE), \code{"sdrel"} (relative standard deviation in percent),
-#' \code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative
-#' standard error), \code{"seabs"} (absolute standard error), \code{"skewness"}
-#' (skewness) and \code{"kurtosis"} (kurtosis). Note: Keywords \code{"kdemax"}
-#' is implemented for consistency reasons, however, no KDE is shown. The
-#' bandwidth is calculated according to \code{\link{plot_KDE}}
+#' @param summary \code{\link{character}} (optional): add statistic measures of 
+#' centrality and dispersion to the plot. Can be one or more of several 
+#' keywords. See details for available keywords.
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
@@ -266,7 +271,9 @@ plot_Histogram <- function(
 
   ## calculate and paste statistical summary
   data.stats <- list(data = data)
-  De.stats <- matrix(nrow = length(data.stats), ncol = 14)
+
+  ## calculate and paste statistical summary
+  De.stats <- matrix(nrow = length(data), ncol = 18)
   colnames(De.stats) <- c("n",
                           "mean",
                           "mean.weighted",
@@ -280,45 +287,51 @@ plot_Histogram <- function(
                           "q25",
                           "q75",
                           "skewness",
-                          "kurtosis")
-
-  for(i in 1:length(data.stats)) {
-    statistics <- calc_Statistics(data.stats[[i]])
+                          "kurtosis",
+                          "sd.abs.weighted",
+                          "sd.rel.weighted",
+                          "se.abs.weighted",
+                          "se.rel.weighted")
+  
+  for(i in 1:length(data)) {
+    statistics <- calc_Statistics(data)
     De.stats[i,1] <- statistics$weighted$n
     De.stats[i,2] <- statistics$unweighted$mean
     De.stats[i,3] <- statistics$weighted$mean
     De.stats[i,4] <- statistics$unweighted$median
-    De.stats[i,5] <- statistics$weighted$median
-    De.stats[i,7] <- statistics$weighted$sd.abs
-    De.stats[i,8] <- statistics$weighted$sd.rel
-    De.stats[i,9] <- statistics$weighted$se.abs
+    De.stats[i,5] <- statistics$unweighted$median
+    De.stats[i,7] <- statistics$unweighted$sd.abs
+    De.stats[i,8] <- statistics$unweighted$sd.rel
+    De.stats[i,9] <- statistics$unweighted$se.abs
     De.stats[i,10] <- statistics$weighted$se.rel
-    De.stats[i,11] <- quantile(data.stats[[i]][,1], 0.25)
-    De.stats[i,12] <- quantile(data.stats[[i]][,1], 0.75)
+    De.stats[i,11] <- quantile(data[,1], 0.25)
+    De.stats[i,12] <- quantile(data[,1], 0.75)
     De.stats[i,13] <- statistics$unweighted$skewness
     De.stats[i,14] <- statistics$unweighted$kurtosis
-
-
+    De.stats[i,15] <- statistics$weighted$sd.abs
+    De.stats[i,16] <- statistics$weighted$sd.rel
+    De.stats[i,17] <- statistics$weighted$se.abs
+    De.stats[i,18] <- statistics$weighted$se.rel
+    
     ##kdemax - here a little doubled as it appears below again
-    De.density <-density(x = data.stats[[i]][,1],
+    De.density <-density(x = data[,1],
                          kernel = "gaussian",
-                         bw = "nrd0")
-
+                         from = xlim.plot[1],
+                         to = xlim.plot[2])
+    
     De.stats[i,6] <- De.density$x[which.max(De.density$y)]
-
-
   }
 
   label.text = list(NA)
-
+  
   if(summary.pos[1] != "sub") {
     n.rows <- length(summary)
-
-    for(i in 1:length(data.stats)) {
+    
+    for(i in 1:length(data)) {
       stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
-
+      
       summary.text <- character(0)
-
+      
       for(j in 1:length(summary)) {
         summary.text <- c(summary.text,
                           paste(
@@ -395,29 +408,45 @@ plot_Histogram <- function(
                                          "\n",
                                          sep = ""),
                                    ""),
-                            ifelse("in.ci" %in% summary[j] == TRUE,
-                                   paste("in confidence interval = ",
-                                         round(sum(data[[i]][,7] > -2 &
-                                                     data[[i]][,7] < 2) /
-                                                 nrow(data[[i]]) * 100 , 1),
-                                         " %",
+                            ifelse("sdabs.weighted" %in% summary[j] == TRUE,
+                                   paste("abs. weighted sd = ",
+                                         round(De.stats[i,15], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("sdrel.weighted" %in% summary[j] == TRUE,
+                                   paste("rel. weighted sd = ",
+                                         round(De.stats[i,16], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("seabs.weighted" %in% summary[j] == TRUE,
+                                   paste("abs. weighted se = ",
+                                         round(De.stats[i,17], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("serel.weighted" %in% summary[j] == TRUE,
+                                   paste("rel. weighted se = ",
+                                         round(De.stats[i,18], 2),
+                                         "\n",
                                          sep = ""),
                                    ""),
                             sep = ""))
-
       }
-
+      
       summary.text <- paste(summary.text, collapse = "")
-
+      
       label.text[[length(label.text) + 1]] <- paste(stops,
                                                     summary.text,
                                                     stops,
                                                     sep = "")
     }
   } else {
-    for(i in 1:length(data.stats)) {
+    for(i in 1:length(data)) {
+      
       summary.text <- character(0)
-
+      
       for(j in 1:length(summary)) {
         summary.text <- c(summary.text,
                           ifelse("n" %in% summary[j] == TRUE,
@@ -492,18 +521,35 @@ plot_Histogram <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("in.ci" %in% summary[j] == TRUE,
-                                 paste("in confidence interval = ",
-                                       round(sum(data[[i]][,7] > -2 &
-                                                   data[[i]][,7] < 2) /
-                                               nrow(data[[i]]) * 100 , 1),
-                                       " %   ",
+                          ifelse("sdabs.weighted" %in% summary[j] == TRUE,
+                                 paste("abs. weighted sd = ",
+                                       round(De.stats[i,15], 2), " %",
+                                       " | ",
                                        sep = ""),
-                                 ""))
+                                 ""),
+                          ifelse("sdrel.weighted" %in% summary[j] == TRUE,
+                                 paste("rel. weighted sd = ",
+                                       round(De.stats[i,16], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("seabs.weighted" %in% summary[j] == TRUE,
+                                 paste("abs. weighted se = ",
+                                       round(De.stats[i,17], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("serel.weighted" %in% summary[j] == TRUE,
+                                 paste("rel. weighted se = ",
+                                       round(De.stats[i,18], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 "")
+        )
       }
-
+      
       summary.text <- paste(summary.text, collapse = "")
-
+      
       label.text[[length(label.text) + 1]]  <- paste(
         "  ",
         summary.text,
