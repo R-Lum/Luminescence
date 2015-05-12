@@ -67,7 +67,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "fit_LMCurve","Nonlinear Least Squares Fit for LM-OSL curves","<br /> The function determines weighted nonlinear least-squares estimates of the<br /> component parameters of an LM-OSL curve (Bulur 1996) for a given number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the function  nls  with the  port  algorithm.<br />","0.2.17","2015-05-05","23:06:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"get_Layout","Collection of layout definitions","<br /> This helper function returns a list with layout definitions for homogeneous<br /> plotting.<br />","0.1","2015-05-12","12:24:06
+"get_Layout","Collection of layout definitions","<br /> This helper function returns a list with layout definitions for homogeneous<br /> plotting.<br />","0.1","2015-05-12","14:57:50
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "get_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.1","2015-04-30","11:57:24
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -79,17 +79,17 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "merge_RLum","General merge function for RLum S4 class objects","<br /> Function calls object-specific merge functions for RLum S4 class objects.<br />","0.1","2015-04-30","11:58:21
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_AbanicoPlot","Function to create an Abanico Plot.","<br /> A plot is produced which allows comprehensive presentation of data precision<br /> and its dispersion around a central value as well as illustration of a<br /> kernel density estimate of the dose values.<br />","0.1.2","2015-05-12","12:24:06
+"plot_AbanicoPlot","Function to create an Abanico Plot.","<br /> A plot is produced which allows comprehensive presentation of data precision<br /> and its dispersion around a central value as well as illustration of a<br /> kernel density estimate, histogram and/or dot plot of the dose values.<br />","0.1.2","2015-05-13","00:20:44
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Inspired by a plot<br /> introduced by Galbraith & Green (1990)<br />  R Luminescence Package Team"
 "plot_DRTResults","Visualise dose recovery test results","<br /> The function provides a standardised plot output for dose recovery test<br /> measurements.<br />","0.1.6","2015-04-30","11:58:53
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "plot_GrowthCurve","Fit and plot a growth curve for luminescence data (Lx/Tx against dose)","<br /> A dose response curve is produced for luminescence measurements using a<br /> regenerative protocol.<br />","1.6.1","2015-04-30","11:59:06
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),   Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_Histogram","Plot a histogram with separate error plot","<br /> Function plots a predefined histogram with an accompanying error plot as<br /> suggested by Rex Galbraith at the UK LED in Oxford 2010.<br />","0.4.4","2015-05-12","12:24:06
+"plot_Histogram","Plot a histogram with separate error plot","<br /> Function plots a predefined histogram with an accompanying error plot as<br /> suggested by Rex Galbraith at the UK LED in Oxford 2010.<br />","0.4.4","2015-05-13","00:20:44
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),   Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"plot_KDE","Plot kernel density estimate with statistics","<br /> Plot a kernel density estimate of measurement values in combination with the<br /> actual values and associated error bars in ascending order. Optionally,<br /> statistical measures such as mean, median, standard deviation, standard<br /> error and quartile range can be provided visually and numerically.<br />","3.5","2015-05-12","12:24:06
+"plot_KDE","Plot kernel density estimate with statistics","<br /> Plot a kernel density estimate of measurement values in combination with the<br /> actual values and associated error bars in ascending order. Optionally,<br /> statistical measures such as mean, median, standard deviation, standard<br /> error and quartile range can be provided visually and numerically.<br />","3.5","2015-05-13","00:20:44
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne<br />  R Luminescence Package Team"
-"plot_RadialPlot","Function to create a Radial Plot","<br /> A Galbraith's radial plot is produced on a logarithmic or a linear scale.<br />","0.5.3","2015-05-12","12:24:06
+"plot_RadialPlot","Function to create a Radial Plot","<br /> A Galbraith's radial plot is produced on a logarithmic or a linear scale.<br />","0.5.3","2015-05-13","00:20:44
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> readBIN2R  function.<br />","0.4.1","2015-04-30","12:00:00
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"

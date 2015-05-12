@@ -70,21 +70,29 @@ Changes in version 0.4.4 (XXth, May 2015):
              • argument ‘frame’ added to abanico plot,
 
              • adjustment of colours for polygon and bar in abanico
-               plot.
+               plot,
+
+             • summary keyword list extended and corrected.
 
          • ‘plot_Histogram()’
 
-             • Argument ‘na.exclude’ changed to ‘na.rm’
+             • Argument ‘na.exclude’ changed to ‘na.rm’,
+
+             • summary keyword list extended and corrected.
 
          • ‘plot_KDE()’
 
              • Argument ‘na.exclude’ changed to ‘na.rm’,
 
-             • argument weights removed.
+             • argument weights removed,
+
+             • summary keyword list extended and corrected.
 
          • ‘plot_RadialPlot()’
 
-             • Argument ‘na.exclude’ changed to ‘na.rm’
+             • Argument ‘na.exclude’ changed to ‘na.rm’,
+
+             • summary keyword list extended and corrected.
 
          • ‘plot_RLum.Analysis()’
 

@@ -49,14 +49,9 @@ versus the cartesian plot part, deault is \code{0.75}.}
 
 \item{mtext}{\code{\link{character}}: additional text below the plot title.}
 
-\item{summary}{\code{\link{character}} (optional): adds numerical output to
-the plot. Can be one or more out of: \code{"n"} (number of samples),
-\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-deviation in percent), \code{"sdabs"} (absolute standard deviation),
-\code{"serel"} (relative standard error), \code{"seabs"} (absolute standard
-error) and \code{"in.ci"} (percent of samples in confidence interval, e.g.
-2-sigma).}
+\item{summary}{\code{\link{character}} (optional): add statistic measures of
+centrality and dispersion to the plot. Can be one or more of several
+keywords. See details for available keywords.}
 
 \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
@@ -103,8 +98,7 @@ central value. To disable the polygon use \code{"none"} or
 \item{bar.col}{\code{\link{character}} or \code{\link{numeric}} (with
 default): colour of the bar showing the 2-sigma range of the dose error
 around the central value. To disable the bar use \code{"none"} or
-\code{bar = FALSE}. Default is \code{"grey65"}.
-#'}
+\code{bar = FALSE}. Default is \code{"grey65"}.}
 
 \item{frame}{\code{\link{numeric}} (with default): option to modify the
 plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
@@ -142,7 +136,7 @@ data.
 \description{
 A plot is produced which allows comprehensive presentation of data precision
 and its dispersion around a central value as well as illustration of a
-kernel density estimate of the dose values.
+kernel density estimate, histogram and/or dot plot of the dose values.
 }
 \details{
 The Abanico Plot is a combination of the classic Radial Plot
@@ -173,12 +167,26 @@ user-defined numeric values (e.g. from the central age model) can be used if
 this appears appropriate. \cr The proportion of the polar part and the
 cartesian part of the Abanico Plot can be modfied for display reasons
 (\code{plot.ratio = 0.75}). By default, the polar part spreads over 75 \%
-and leaves 25 \% for the part that shows the KDE graph.\cr\cr The optional
-parameter \code{layout} allows to modify the entire plot more sophisticated.
-Each element of the plot can be addressed and its properties can be defined.
-This includes font type, size and decoration, colours and sizes of all plot
-items. To infer the definition of a specific layout style cf.
-\code{get_Layout()} or type eg. for the layout type \code{"journal"}
+and leaves 25 \% for the part that shows the KDE graph.\cr\cr
+A statistic summary, i.e. a collection of statistic measures of
+centrality and dispersion (and further measures) can be added by specifying
+one or more of the following keywords: \code{"n"} (number of samples),
+\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
+standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
+\code{"sdabs.weighted"} (error-weighted absolute standard deviation),
+\code{"serel"} (relative standard error), \code{"serel.weighted"} (
+error-weighted relative standard error), \code{"seabs"} (absolute standard
+error), \code{"seabs.weighted"} (error-weighted absolute standard error),
+\code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+\code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). \cr\cr
+
+The optional parameter \code{layout} allows to modify the entire plot more
+sophisticated. Each element of the plot can be addressed and its properties
+can be defined. This includes font type, size and decoration, colours and
+sizes of all plot items. To infer the definition of a specific layout style
+cf. \code{get_Layout()} or type eg. for the layout type \code{"journal"}
 \code{get_Layout("journal")}. A layout type can be modified by the user by
 assigning new values to the list object.\cr\cr It is possible for the
 z-scale to specify where ticks are to be drawn by using the parameter
@@ -187,7 +195,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.2 (2015-05-12 12:24:06)
+ 0.1.2 (2015-05-13 00:20:44)
 }
 \examples{
 ## store original graphics parameters

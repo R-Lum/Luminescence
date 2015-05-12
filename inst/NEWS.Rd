@@ -78,7 +78,8 @@
       \item summary and legend placement bugs for rotated abanico plot fixed,
       \item labelling errors fixed,
       \item argument \code{frame} added to abanico plot,
-      \item adjustment of colours for polygon and bar in abanico plot.
+      \item adjustment of colours for polygon and bar in abanico plot,
+      \item summary keyword list extended and corrected.
 
 
    }
@@ -86,7 +87,8 @@
   \item \code{plot_Histogram()}
 
   \itemize{
-      \item Argument \code{na.exclude} changed to \code{na.rm}
+      \item Argument \code{na.exclude} changed to \code{na.rm},
+      \item summary keyword list extended and corrected.
 
    }
 
@@ -94,14 +96,16 @@
 
   \itemize{
       \item Argument \code{na.exclude} changed to \code{na.rm},
-      \item argument weights removed.
+      \item argument weights removed,
+      \item summary keyword list extended and corrected.
 
    }
 
        \item \code{plot_RadialPlot()}
 
   \itemize{
-      \item Argument \code{na.exclude} changed to \code{na.rm}
+      \item Argument \code{na.exclude} changed to \code{na.rm},
+      \item summary keyword list extended and corrected.
 
    }
 

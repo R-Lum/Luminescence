@@ -31,16 +31,9 @@ default is \code{TRUE}.}
 curve to the histogram. Mean and sd are calculated from the input data. More
 see details section.}
 
-\item{summary}{\code{\link{character}} (optional): adds numerical output to
-the plot. Can be one or more out of: \code{"n"} (number of samples),
-\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-\code{"median"} (median of the De values), \code{"kdemax"} (maximum of the
-KDE), \code{"sdrel"} (relative standard deviation in percent),
-\code{"sdabs"} (absolute standard deviation), \code{"serel"} (relative
-standard error), \code{"seabs"} (absolute standard error), \code{"skewness"}
-(skewness) and \code{"kurtosis"} (kurtosis). Note: Keywords \code{"kdemax"}
-is implemented for consistency reasons, however, no KDE is shown. The
-bandwidth is calculated according to \code{\link{plot_KDE}}}
+\item{summary}{\code{\link{character}} (optional): add statistic measures of
+centrality and dispersion to the plot. Can be one or more of several
+keywords. See details for available keywords.}
 
 \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
@@ -69,13 +62,25 @@ suggested by Rex Galbraith at the UK LED in Oxford 2010.
 }
 \details{
 If the normal curve is added, the y-axis in the histogram will show the
-probability density.
+probability density.\cr\cr
+A statistic summary, i.e. a collection of statistic measures of
+centrality and dispersion (and further measures) can be added by specifying
+one or more of the following keywords: \code{"n"} (number of samples),
+\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
+standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
+\code{"sdabs.weighted"} (error-weighted absolute standard deviation),
+\code{"serel"} (relative standard error), \code{"serel.weighted"} (
+error-weighted relative standard error), \code{"seabs"} (absolute standard
+error), \code{"seabs.weighted"} (error-weighted absolute standard error),
+\code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \note{
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4 (2015-05-12 12:24:06)
+ 0.4.4 (2015-05-13 00:20:44)
 }
 \examples{
 ## load data

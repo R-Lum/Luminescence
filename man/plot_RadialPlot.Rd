@@ -36,18 +36,9 @@ numeric value used for the standardisation.}
 
 \item{mtext}{\code{\link{character}}: additional text below the plot title.}
 
-\item{summary}{\code{\link{character}} (optional): adds numerical output to
-the plot. Can be one or more out of: \code{"n"} (number of samples),
-\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-deviation in percent), \code{"sdabs"} (absolute standard deviation),
-\code{"serel"} (relative standard error), \code{"seabs"} (absolute standard
-error), \code{"kdemax"} (maximum of the KDE), \code{"skewness"} (skewness)
-and \code{"kurtosis"} (kurtosis) and \code{"in.ci"} (percent of samples in
-confidence interval, e.g. 2-sigma).\cr Note: Keywords \code{"kdemax"},
-\code{"skewness"}, \code{"kurtosis"} are implemented for consistency
-reasons, however, no KDE is shown. The bandwidth is calculated according to
-\code{\link{plot_KDE}}}
+\item{summary}{\code{\link{character}} (optional): add statistic measures of
+centrality and dispersion to the plot. Can be one or more of several
+keywords. See details for available keywords.}
 
 \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
@@ -123,10 +114,24 @@ Rather it applies only to the x-y-coordinate system (standardised error vs.
 precision). A spread in doses or ages must be drawn as lines originating at
 zero precision (x0) and zero standardised estimate (y0). Such a range may be
 drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
-\code{line.label}, cf. examples).
+\code{line.label}, cf. examples).\cr\cr
+
+A statistic summary, i.e. a collection of statistic measures of
+centrality and dispersion (and further measures) can be added by specifying
+one or more of the following keywords: \code{"n"} (number of samples),
+\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
+standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
+\code{"sdabs.weighted"} (error-weighted absolute standard deviation),
+\code{"serel"} (relative standard error), \code{"serel.weighted"} (
+error-weighted relative standard error), \code{"seabs"} (absolute standard
+error), \code{"seabs.weighted"} (error-weighted absolute standard error),
+\code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+\code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.3 (2015-05-12 12:24:06)
+ 0.5.3 (2015-05-13 00:20:44)
 }
 \examples{
 ## load example data

@@ -36,14 +36,9 @@ drawing the polygon that depicts the dose distribution. One out of
 \code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations)
 \code{"qr"} (quartile range).}
 
-\item{summary}{\code{\link{character}} (optional): adds numerical output to
-the plot. Can be one or more out of: \code{"n"} (number of samples),
-\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-deviation in percent), \code{"sdabs"} (absolute standard deviation),
-\code{"serel"} (relative standard error), \code{"seabs"} (absolute standard
-error), \code{"kdemax"} (maximum of the KDE), \code{"skewness"} (skewness)
-and \code{"kurtosis"} (kurtosis).}
+\item{summary}{\code{\link{character}} (optional): add statistic measures of
+centrality and dispersion to the plot. Can be one or more of several
+keywords. See details for available keywords.}
 
 \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
@@ -88,14 +83,27 @@ further vertical lines dashed, dotted, dash-dotted and so on. To change this
 behaviour specify the desired order of line types (e.g. \code{lty = c(1, 3,
 2, 5)}). See examples for some further explanations. For details on the
 calculation of the bin-width (parameter \code{bw}) see
-\code{\link{density}}.
+\code{\link{density}}.\cr\cr
+A statistic summary, i.e. a collection of statistic measures of
+centrality and dispersion (and further measures) can be added by specifying
+one or more of the following keywords: \code{"n"} (number of samples),
+\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
+standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
+\code{"sdabs.weighted"} (error-weighted absolute standard deviation),
+\code{"serel"} (relative standard error), \code{"serel.weighted"} (
+error-weighted relative standard error), \code{"seabs"} (absolute standard
+error), \code{"seabs.weighted"} (error-weighted absolute standard error),
+\code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+\code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \note{
 The plot output is no 'PD' plot (cf. the discussion of Berger and
 Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5 (2015-05-12 12:24:06)
+ 3.5 (2015-05-13 00:20:44)
 }
 \examples{
 ## read example data set
