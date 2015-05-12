@@ -18,7 +18,20 @@
 #' behaviour specify the desired order of line types (e.g. \code{lty = c(1, 3,
 #' 2, 5)}). See examples for some further explanations. For details on the
 #' calculation of the bin-width (parameter \code{bw}) see
-#' \code{\link{density}}.
+#' \code{\link{density}}.\cr\cr 
+#' A statistic summary, i.e. a collection of statistic measures of 
+#' centrality and dispersion (and further measures) can be added by specifying 
+#' one or more of the following keywords: \code{"n"} (number of samples),
+#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative 
+#' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
+#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation), 
+#' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
+#' error-weighted relative standard error), \code{"seabs"} (absolute standard
+#' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
+#' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 #'
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
 #' object (required): for \code{data.frame}: two columns: De
@@ -41,14 +54,9 @@
 #' drawing the polygon that depicts the dose distribution. One out of
 #' \code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations)
 #' \code{"qr"} (quartile range).
-#' @param summary \code{\link{character}} (optional): adds numerical output to
-#' the plot. Can be one or more out of: \code{"n"} (number of samples),
-#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-#' deviation in percent), \code{"sdabs"} (absolute standard deviation),
-#' \code{"serel"} (relative standard error), \code{"seabs"} (absolute standard
-#' error), \code{"kdemax"} (maximum of the KDE), \code{"skewness"} (skewness)
-#' and \code{"kurtosis"} (kurtosis).
+#' @param summary \code{\link{character}} (optional): add statistic measures of 
+#' centrality and dispersion to the plot. Can be one or more of several 
+#' keywords. See details for available keywords.
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
@@ -229,7 +237,8 @@ plot_KDE <- function(
   }
 
   ## create output variables
-  De.stats <- matrix(nrow = length(data), ncol = 14)
+  ## calculate and paste statistical summary
+  De.stats <- matrix(nrow = length(data), ncol = 18)
   colnames(De.stats) <- c("n",
                           "mean",
                           "mean.weighted",
@@ -243,7 +252,11 @@ plot_KDE <- function(
                           "q25",
                           "q75",
                           "skewness",
-                          "kurtosis")
+                          "kurtosis",
+                          "sd.abs.weighted",
+                          "sd.rel.weighted",
+                          "se.abs.weighted",
+                          "se.rel.weighted")
   De.density <- list(NA)
 
   ## loop through all data sets
@@ -253,15 +266,19 @@ plot_KDE <- function(
     De.stats[i,2] <- statistics$unweighted$mean
     De.stats[i,3] <- statistics$weighted$mean
     De.stats[i,4] <- statistics$unweighted$median
-    De.stats[i,5] <- statistics$weighted$median
-    De.stats[i,7] <- statistics$weighted$sd.abs
-    De.stats[i,8] <- statistics$weighted$sd.rel
-    De.stats[i,9] <- statistics$weighted$se.abs
+    De.stats[i,5] <- statistics$unweighted$median
+    De.stats[i,7] <- statistics$unweighted$sd.abs
+    De.stats[i,8] <- statistics$unweighted$sd.rel
+    De.stats[i,9] <- statistics$unweighted$se.abs
     De.stats[i,10] <- statistics$weighted$se.rel
     De.stats[i,11] <- quantile(data[[i]][,1], 0.25)
     De.stats[i,12] <- quantile(data[[i]][,1], 0.75)
     De.stats[i,13] <- statistics$unweighted$skewness
     De.stats[i,14] <- statistics$unweighted$kurtosis
+    De.stats[i,15] <- statistics$weighted$sd.abs
+    De.stats[i,16] <- statistics$weighted$sd.rel
+    De.stats[i,17] <- statistics$weighted$se.abs
+    De.stats[i,18] <- statistics$weighted$se.rel
 
     De.density[[length(De.density) + 1]] <- if(weights == TRUE) {
       density(data[[i]][,1],
@@ -350,7 +367,7 @@ plot_KDE <- function(
                             ifelse("kdemax" %in% summary[j] == TRUE,
                                    paste("kdemax = ",
                                          round(De.stats[i,6], 2),
-                                         "\n",
+                                         " \n ",
                                          sep = ""),
                                    ""),
                             ifelse("sdabs" %in% summary[j] == TRUE,
@@ -397,8 +414,31 @@ plot_KDE <- function(
                                          " %",
                                          sep = ""),
                                    ""),
+                            ifelse("sdabs.weighted" %in% summary[j] == TRUE,
+                                   paste("abs. weighted sd = ",
+                                         round(De.stats[i,15], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("sdrel.weighted" %in% summary[j] == TRUE,
+                                   paste("rel. weighted sd = ",
+                                         round(De.stats[i,16], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("seabs.weighted" %in% summary[j] == TRUE,
+                                   paste("abs. weighted se = ",
+                                         round(De.stats[i,17], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("serel.weighted" %in% summary[j] == TRUE,
+                                   paste("rel. weighted se = ",
+                                         round(De.stats[i,18], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
                             sep = ""))
-
       }
 
       summary.text <- paste(summary.text, collapse = "")
@@ -469,6 +509,12 @@ plot_KDE <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
+                          ifelse("seabs" %in% summary[j] == TRUE,
+                                 paste("abs. se = ",
+                                       round(De.stats[i,9], 2),
+                                       " | ",
+                                       sep = ""),
+                                 ""),
                           ifelse("skewness" %in% summary[j] == TRUE,
                                  paste("skewness = ",
                                        round(De.stats[i,13], 2),
@@ -481,12 +527,6 @@ plot_KDE <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("seabs" %in% summary[j] == TRUE,
-                                 paste("abs. se = ",
-                                       round(De.stats[i,9], 2),
-                                       " | ",
-                                       sep = ""),
-                                 ""),
                           ifelse("in.ci" %in% summary[j] == TRUE,
                                  paste("in confidence interval = ",
                                        round(sum(data[[i]][,7] > -2 &
@@ -494,7 +534,32 @@ plot_KDE <- function(
                                                nrow(data[[i]]) * 100 , 1),
                                        " %   ",
                                        sep = ""),
-                                 ""))
+                                 ""),
+                          ifelse("sdabs.weighted" %in% summary[j] == TRUE,
+                                 paste("abs. weighted sd = ",
+                                       round(De.stats[i,15], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("sdrel.weighted" %in% summary[j] == TRUE,
+                                 paste("rel. weighted sd = ",
+                                       round(De.stats[i,16], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("seabs.weighted" %in% summary[j] == TRUE,
+                                 paste("abs. weighted se = ",
+                                       round(De.stats[i,17], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("serel.weighted" %in% summary[j] == TRUE,
+                                 paste("rel. weighted se = ",
+                                       round(De.stats[i,18], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 "")
+        )
       }
 
       summary.text <- paste(summary.text, collapse = "")
