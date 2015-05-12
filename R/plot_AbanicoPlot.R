@@ -45,7 +45,8 @@
 #' error-weighted relative standard error), \code{"seabs"} (absolute standard
 #' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
 #' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
-#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). #' \cr\cr 
+#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). \cr\cr
+#'  
 #' The optional parameter \code{layout} allows to modify the entire plot more 
 #' sophisticated. Each element of the plot can be addressed and its properties 
 #' can be defined. This includes font type, size and decoration, colours and 
@@ -124,7 +125,7 @@
 #' default): colour of the bar showing the 2-sigma range of the dose error
 #' around the central value. To disable the bar use \code{"none"} or 
 #' \code{bar = FALSE}. Default is \code{"grey65"}.
-#' #' @param frame \code{\link{numeric}} (with default): option to modify the
+#' @param frame \code{\link{numeric}} (with default): option to modify the
 #' plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame 
 #' originates at 0,0 and runs along min/max isochrons), \code{2} (frame 
 #' embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a 
@@ -385,10 +386,8 @@ plot_AbanicoPlot <- function(
     if(sum(data[[i]][,2] == 0) > 0) {
       stop("Values with zero errors cannot be displayed!")
     }
-
   }
 
-  
   ## Check input data
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE &

@@ -16,7 +16,21 @@
 #' precision). A spread in doses or ages must be drawn as lines originating at
 #' zero precision (x0) and zero standardised estimate (y0). Such a range may be
 #' drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
-#' \code{line.label}, cf. examples).
+#' \code{line.label}, cf. examples).\cr\cr
+#' 
+#' A statistic summary, i.e. a collection of statistic measures of 
+#' centrality and dispersion (and further measures) can be added by specifying 
+#' one or more of the following keywords: \code{"n"} (number of samples),
+#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative 
+#' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
+#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation), 
+#' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
+#' error-weighted relative standard error), \code{"seabs"} (absolute standard
+#' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
+#' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 #'
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
 #' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
@@ -37,18 +51,9 @@
 #' \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or a
 #' numeric value used for the standardisation.
 #' @param mtext \code{\link{character}}: additional text below the plot title.
-#' @param summary \code{\link{character}} (optional): adds numerical output to
-#' the plot. Can be one or more out of: \code{"n"} (number of samples),
-#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-#' deviation in percent), \code{"sdabs"} (absolute standard deviation),
-#' \code{"serel"} (relative standard error), \code{"seabs"} (absolute standard
-#' error), \code{"kdemax"} (maximum of the KDE), \code{"skewness"} (skewness)
-#' and \code{"kurtosis"} (kurtosis) and \code{"in.ci"} (percent of samples in
-#' confidence interval, e.g. 2-sigma).\cr Note: Keywords \code{"kdemax"},
-#' \code{"skewness"}, \code{"kurtosis"} are implemented for consistency
-#' reasons, however, no KDE is shown. The bandwidth is calculated according to
-#' \code{\link{plot_KDE}}
+#' @param summary \code{\link{character}} (optional): add statistic measures of 
+#' centrality and dispersion to the plot. Can be one or more of several 
+#' keywords. See details for available keywords.
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
@@ -833,135 +838,261 @@ if(centrality[1] == "mean") {
     }
   }
 
-## calculate and paste statistical summary
-De.stats <- matrix(nrow = length(data), ncol = 14)
-colnames(De.stats) <- c("n",
-                        "mean",
-                        "mean.weighted",
-                        "median",
-                        "median.weighted",
-                        "kde.max",
-                        "sd.abs",
-                        "sd.rel",
-                        "se.abs",
-                        "se.rel",
-                        "q25",
-                        "q75",
-                        "skewness",
-                        "kurtosis")
-
-for(i in 1:length(data)) {
-  statistics <- calc_Statistics(data[[i]])
-  De.stats[i,1] <- statistics$weighted$n
-  De.stats[i,2] <- statistics$unweighted$mean
-  De.stats[i,3] <- statistics$weighted$mean
-  De.stats[i,4] <- statistics$unweighted$median
-  De.stats[i,5] <- statistics$weighted$median
-  De.stats[i,7] <- statistics$weighted$sd.abs
-  De.stats[i,8] <- statistics$weighted$sd.rel
-  De.stats[i,9] <- statistics$weighted$se.abs
-  De.stats[i,10] <- statistics$weighted$se.rel
-  De.stats[i,11] <- quantile(data[[i]][,1], 0.25)
-  De.stats[i,12] <- quantile(data[[i]][,1], 0.75)
-  De.stats[i,13] <- statistics$unweighted$skewness
-  De.stats[i,14] <- statistics$unweighted$kurtosis
-
-  ##kdemax - here a little doubled as it appears below again
-  De.density <-density(x = data[[i]][,1],
-                       kernel = "gaussian",
-                       bw = "nrd0",
-                       from = limits.z[1],
-                       to = limits.z[2])
-
-  De.stats[i,6] <- De.density$x[which.max(De.density$y)]
-
-
-}
-
-label.text = list(NA)
-
-if(summary.pos[1] != "sub") {
-  n.rows <- length(summary)
-
+  ## calculate and paste statistical summary
+  De.stats <- matrix(nrow = length(data), ncol = 18)
+  colnames(De.stats) <- c("n",
+                          "mean",
+                          "mean.weighted",
+                          "median",
+                          "median.weighted",
+                          "kde.max",
+                          "sd.abs",
+                          "sd.rel",
+                          "se.abs",
+                          "se.rel",
+                          "q25",
+                          "q75",
+                          "skewness",
+                          "kurtosis",
+                          "sd.abs.weighted",
+                          "sd.rel.weighted",
+                          "se.abs.weighted",
+                          "se.rel.weighted")
+  
   for(i in 1:length(data)) {
-    stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
+    statistics <- calc_Statistics(data[[i]])
+    De.stats[i,1] <- statistics$weighted$n
+    De.stats[i,2] <- statistics$unweighted$mean
+    De.stats[i,3] <- statistics$weighted$mean
+    De.stats[i,4] <- statistics$unweighted$median
+    De.stats[i,5] <- statistics$unweighted$median
+    De.stats[i,7] <- statistics$unweighted$sd.abs
+    De.stats[i,8] <- statistics$unweighted$sd.rel
+    De.stats[i,9] <- statistics$unweighted$se.abs
+    De.stats[i,10] <- statistics$weighted$se.rel
+    De.stats[i,11] <- quantile(data[[i]][,1], 0.25)
+    De.stats[i,12] <- quantile(data[[i]][,1], 0.75)
+    De.stats[i,13] <- statistics$unweighted$skewness
+    De.stats[i,14] <- statistics$unweighted$kurtosis
+    De.stats[i,15] <- statistics$weighted$sd.abs
+    De.stats[i,16] <- statistics$weighted$sd.rel
+    De.stats[i,17] <- statistics$weighted$se.abs
+    De.stats[i,18] <- statistics$weighted$se.rel
+    
+    ##kdemax - here a little doubled as it appears below again
+    De.density <-density(x = data[[i]][,1],
+                         kernel = "gaussian",
+                         from = limits.z[1],
+                         to = limits.z[2])
+    
+    De.stats[i,6] <- De.density$x[which.max(De.density$y)]
+  }
 
-    summary.text <- character(0)
-
-    for(j in 1:length(summary)) {
-      summary.text <- c(summary.text,
-                        paste(
-                          "",
+  label.text = list(NA)
+  
+  if(summary.pos[1] != "sub") {
+    n.rows <- length(summary)
+    
+    for(i in 1:length(data)) {
+      stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
+      
+      summary.text <- character(0)
+      
+      for(j in 1:length(summary)) {
+        summary.text <- c(summary.text,
+                          paste(
+                            "",
+                            ifelse("n" %in% summary[j] == TRUE,
+                                   paste("n = ",
+                                         De.stats[i,1],
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("mean" %in% summary[j] == TRUE,
+                                   paste("mean = ",
+                                         round(De.stats[i,2], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("mean.weighted" %in% summary[j] == TRUE,
+                                   paste("weighted mean = ",
+                                         round(De.stats[i,3], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("median" %in% summary[j] == TRUE,
+                                   paste("median = ",
+                                         round(De.stats[i,4], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("median.weighted" %in% summary[j] == TRUE,
+                                   paste("weighted median = ",
+                                         round(De.stats[i,5], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("kdemax" %in% summary[j] == TRUE,
+                                   paste("kdemax = ",
+                                         round(De.stats[i,6], 2),
+                                         " \n ",
+                                         sep = ""),
+                                   ""),
+                            ifelse("sdabs" %in% summary[j] == TRUE,
+                                   paste("sd = ",
+                                         round(De.stats[i,7], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("sdrel" %in% summary[j] == TRUE,
+                                   paste("rel. sd = ",
+                                         round(De.stats[i,8], 2), " %",
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("seabs" %in% summary[j] == TRUE,
+                                   paste("se = ",
+                                         round(De.stats[i,9], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("serel" %in% summary[j] == TRUE,
+                                   paste("rel. se = ",
+                                         round(De.stats[i,10], 2), " %",
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("skewness" %in% summary[j] == TRUE,
+                                   paste("skewness = ",
+                                         round(De.stats[i,13], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("kurtosis" %in% summary[j] == TRUE,
+                                   paste("kurtosis = ",
+                                         round(De.stats[i,14], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("in.ci" %in% summary[j] == TRUE,
+                                   paste("in confidence interval = ",
+                                         round(sum(data[[i]][,7] > -2 &
+                                                     data[[i]][,7] < 2) /
+                                                 nrow(data[[i]]) * 100 , 1),
+                                         " %",
+                                         sep = ""),
+                                   ""),
+                            ifelse("sdabs.weighted" %in% summary[j] == TRUE,
+                                   paste("abs. weighted sd = ",
+                                         round(De.stats[i,15], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("sdrel.weighted" %in% summary[j] == TRUE,
+                                   paste("rel. weighted sd = ",
+                                         round(De.stats[i,16], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("seabs.weighted" %in% summary[j] == TRUE,
+                                   paste("abs. weighted se = ",
+                                         round(De.stats[i,17], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("serel.weighted" %in% summary[j] == TRUE,
+                                   paste("rel. weighted se = ",
+                                         round(De.stats[i,18], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            sep = ""))
+      }
+      
+      summary.text <- paste(summary.text, collapse = "")
+      
+      label.text[[length(label.text) + 1]] <- paste(stops,
+                                                    summary.text,
+                                                    stops,
+                                                    sep = "")
+    }
+  } else {
+    for(i in 1:length(data)) {
+      
+      summary.text <- character(0)
+      
+      for(j in 1:length(summary)) {
+        summary.text <- c(summary.text,
                           ifelse("n" %in% summary[j] == TRUE,
                                  paste("n = ",
                                        De.stats[i,1],
-                                       "\n",
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("mean" %in% summary[j] == TRUE,
                                  paste("mean = ",
                                        round(De.stats[i,2], 2),
-                                       "\n",
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("mean.weighted" %in% summary[j] == TRUE,
                                  paste("weighted mean = ",
                                        round(De.stats[i,3], 2),
-                                       "\n",
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("median" %in% summary[j] == TRUE,
                                  paste("median = ",
                                        round(De.stats[i,4], 2),
-                                       "\n",
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("median.weighted" %in% summary[j] == TRUE,
                                  paste("weighted median = ",
                                        round(De.stats[i,5], 2),
-                                       "\n",
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("kdemax" %in% summary[j] == TRUE,
                                  paste("kdemax = ",
                                        round(De.stats[i,6], 2),
-                                       " \n ",
-                                       sep = ""),
-                                 ""),
-                          ifelse("sdabs" %in% summary[j] == TRUE,
-                                 paste("sd = ",
-                                       round(De.stats[i,7], 2),
-                                       "\n",
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("sdrel" %in% summary[j] == TRUE,
                                  paste("rel. sd = ",
                                        round(De.stats[i,8], 2), " %",
-                                       "\n",
+                                       " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("seabs" %in% summary[j] == TRUE,
-                                 paste("se = ",
-                                       round(De.stats[i,9], 2),
-                                       "\n",
+                          ifelse("sdabs" %in% summary[j] == TRUE,
+                                 paste("abs. sd = ",
+                                       round(De.stats[i,7], 2),
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("serel" %in% summary[j] == TRUE,
                                  paste("rel. se = ",
                                        round(De.stats[i,10], 2), " %",
-                                       "\n",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("seabs" %in% summary[j] == TRUE,
+                                 paste("abs. se = ",
+                                       round(De.stats[i,9], 2),
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("skewness" %in% summary[j] == TRUE,
                                  paste("skewness = ",
                                        round(De.stats[i,13], 2),
-                                       " \n ",
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("kurtosis" %in% summary[j] == TRUE,
                                  paste("kurtosis = ",
                                        round(De.stats[i,14], 2),
-                                       " \n ",
+                                       " | ",
                                        sep = ""),
                                  ""),
                           ifelse("in.ci" %in% summary[j] == TRUE,
@@ -969,117 +1100,44 @@ if(summary.pos[1] != "sub") {
                                        round(sum(data[[i]][,7] > -2 &
                                                    data[[i]][,7] < 2) /
                                                nrow(data[[i]]) * 100 , 1),
-                                       " %",
-                                       sep = ""),
-                                 ""),
-                          sep = ""))
-
-    }
-
-    summary.text <- paste(summary.text, collapse = "")
-
-    label.text[[length(label.text) + 1]] <- paste(stops,
-                                                  summary.text,
-                                                  stops,
-                                                  sep = "")
-  }
-} else {
-  for(i in 1:length(data)) {
-
-    summary.text <- character(0)
-
-    for(j in 1:length(summary)) {
-      summary.text <- c(summary.text,
-                        ifelse("n" %in% summary[j] == TRUE,
-                               paste("n = ",
-                                     De.stats[i,1],
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("mean" %in% summary[j] == TRUE,
-                               paste("mean = ",
-                                     round(De.stats[i,2], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("mean.weighted" %in% summary[j] == TRUE,
-                               paste("weighted mean = ",
-                                     round(De.stats[i,3], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("median" %in% summary[j] == TRUE,
-                               paste("median = ",
-                                     round(De.stats[i,4], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("median.weighted" %in% summary[j] == TRUE,
-                               paste("weighted median = ",
-                                     round(De.stats[i,5], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("kdemax" %in% summary[j] == TRUE,
-                               paste("kdemax = ",
-                                     round(De.stats[i,6], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("sdrel" %in% summary[j] == TRUE,
-                               paste("rel. sd = ",
-                                     round(De.stats[i,8], 2), " %",
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("sdabs" %in% summary[j] == TRUE,
-                               paste("abs. sd = ",
-                                     round(De.stats[i,7], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("serel" %in% summary[j] == TRUE,
-                               paste("rel. se = ",
-                                     round(De.stats[i,10], 2), " %",
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("seabs" %in% summary[j] == TRUE,
-                               paste("abs. se = ",
-                                     round(De.stats[i,9], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("skewness" %in% summary[j] == TRUE,
-                               paste("skewness = ",
-                                     round(De.stats[i,13], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("kurtosis" %in% summary[j] == TRUE,
-                               paste("kurtosis = ",
-                                     round(De.stats[i,14], 2),
-                                     " | ",
-                                     sep = ""),
-                               ""),
-                        ifelse("in.ci" %in% summary[j] == TRUE,
-                               paste("in confidence interval = ",
-                                       round(sum(data[[i]][,7] > -2 &
-                                                   data[[i]][,7] < 2) /
-                                               nrow(data[[i]]) * 100 , 1),
                                        " %   ",
                                        sep = ""),
-                                 ""))
+                                 ""),
+                          ifelse("sdabs.weighted" %in% summary[j] == TRUE,
+                                 paste("abs. weighted sd = ",
+                                       round(De.stats[i,15], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("sdrel.weighted" %in% summary[j] == TRUE,
+                                 paste("rel. weighted sd = ",
+                                       round(De.stats[i,16], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("seabs.weighted" %in% summary[j] == TRUE,
+                                 paste("abs. weighted se = ",
+                                       round(De.stats[i,17], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("serel.weighted" %in% summary[j] == TRUE,
+                                 paste("rel. weighted se = ",
+                                       round(De.stats[i,18], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 "")
+        )
       }
-
+      
       summary.text <- paste(summary.text, collapse = "")
-
+      
       label.text[[length(label.text) + 1]]  <- paste(
         "  ",
         summary.text,
         sep = "")
     }
-
+    
     ## remove outer vertical lines from string
     for(i in 2:length(label.text)) {
       label.text[[i]] <- substr(x = label.text[[i]],
