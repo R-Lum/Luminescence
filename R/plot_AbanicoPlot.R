@@ -2,7 +2,7 @@
 #'
 #' A plot is produced which allows comprehensive presentation of data precision
 #' and its dispersion around a central value as well as illustration of a
-#' kernel density estimate of the dose values.
+#' kernel density estimate, histogram and/or dot plot of the dose values.
 #'
 #' The Abanico Plot is a combination of the classic Radial Plot
 #' (\code{plot_RadialPlot}) and a kernel density estimate plot (e.g
@@ -32,12 +32,25 @@
 #' this appears appropriate. \cr The proportion of the polar part and the
 #' cartesian part of the Abanico Plot can be modfied for display reasons
 #' (\code{plot.ratio = 0.75}). By default, the polar part spreads over 75 \%
-#' and leaves 25 \% for the part that shows the KDE graph.\cr\cr The optional
-#' parameter \code{layout} allows to modify the entire plot more sophisticated.
-#' Each element of the plot can be addressed and its properties can be defined.
-#' This includes font type, size and decoration, colours and sizes of all plot
-#' items. To infer the definition of a specific layout style cf.
-#' \code{get_Layout()} or type eg. for the layout type \code{"journal"}
+#' and leaves 25 \% for the part that shows the KDE graph.\cr\cr 
+#' A statistic summary, i.e. a collection of statistic measures of 
+#' centrality and dispersion (and further measures) can be added by specifying 
+#' one or more of the following keywords: \code{"n"} (number of samples),
+#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
+#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
+#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative 
+#' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
+#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation), 
+#' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
+#' error-weighted relative standard error), \code{"seabs"} (absolute standard
+#' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
+#' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). #' \cr\cr 
+#' The optional parameter \code{layout} allows to modify the entire plot more 
+#' sophisticated. Each element of the plot can be addressed and its properties 
+#' can be defined. This includes font type, size and decoration, colours and 
+#' sizes of all plot items. To infer the definition of a specific layout style 
+#' cf. \code{get_Layout()} or type eg. for the layout type \code{"journal"}
 #' \code{get_Layout("journal")}. A layout type can be modified by the user by
 #' assigning new values to the list object.\cr\cr It is possible for the
 #' z-scale to specify where ticks are to be drawn by using the parameter
@@ -73,14 +86,9 @@
 #' versus the cartesian plot part, deault is \code{0.75}.
 #' @param rotate \code{\link{logical}}: Option to turn the plot by 90 degrees.
 #' @param mtext \code{\link{character}}: additional text below the plot title.
-#' @param summary \code{\link{character}} (optional): adds numerical output to
-#' the plot. Can be one or more out of: \code{"n"} (number of samples),
-#' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-#' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-#' deviation in percent), \code{"sdabs"} (absolute standard deviation),
-#' \code{"serel"} (relative standard error), \code{"seabs"} (absolute standard
-#' error) and \code{"in.ci"} (percent of samples in confidence interval, e.g.
-#' 2-sigma).
+#' @param summary \code{\link{character}} (optional): add statistic measures of 
+#' centrality and dispersion to the plot. Can be one or more of several 
+#' keywords. See details for available keywords.
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
@@ -1056,7 +1064,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## calculate and paste statistical summary
-  De.stats <- matrix(nrow = length(data), ncol = 14)
+  De.stats <- matrix(nrow = length(data), ncol = 18)
   colnames(De.stats) <- c("n",
                           "mean",
                           "mean.weighted",
@@ -1070,7 +1078,11 @@ plot_AbanicoPlot <- function(
                           "q25",
                           "q75",
                           "skewness",
-                          "kurtosis")
+                          "kurtosis",
+                          "sd.abs.weighted",
+                          "sd.rel.weighted",
+                          "se.abs.weighted",
+                          "se.rel.weighted")
 
   for(i in 1:length(data)) {
     statistics <- calc_Statistics(data[[i]])
@@ -1078,15 +1090,19 @@ plot_AbanicoPlot <- function(
     De.stats[i,2] <- statistics$unweighted$mean
     De.stats[i,3] <- statistics$weighted$mean
     De.stats[i,4] <- statistics$unweighted$median
-    De.stats[i,5] <- statistics$weighted$median
-    De.stats[i,7] <- statistics$weighted$sd.abs
-    De.stats[i,8] <- statistics$weighted$sd.rel
-    De.stats[i,9] <- statistics$weighted$se.abs
+    De.stats[i,5] <- statistics$unweighted$median
+    De.stats[i,7] <- statistics$unweighted$sd.abs
+    De.stats[i,8] <- statistics$unweighted$sd.rel
+    De.stats[i,9] <- statistics$unweighted$se.abs
     De.stats[i,10] <- statistics$weighted$se.rel
     De.stats[i,11] <- quantile(data[[i]][,1], 0.25)
     De.stats[i,12] <- quantile(data[[i]][,1], 0.75)
     De.stats[i,13] <- statistics$unweighted$skewness
     De.stats[i,14] <- statistics$unweighted$kurtosis
+    De.stats[i,15] <- statistics$weighted$sd.abs
+    De.stats[i,16] <- statistics$weighted$sd.rel
+    De.stats[i,17] <- statistics$weighted$se.abs
+    De.stats[i,18] <- statistics$weighted$se.rel
 
     ##kdemax - here a little doubled as it appears below again
     De.density <-density(x = data[[i]][,1],
@@ -1094,7 +1110,6 @@ plot_AbanicoPlot <- function(
                          bw = bw,
                          from = limits.z[1],
                          to = limits.z[2])
-
 
     De.stats[i,6] <- De.density$x[which.max(De.density$y)]
   }
@@ -1193,8 +1208,31 @@ plot_AbanicoPlot <- function(
                                          " %",
                                          sep = ""),
                                    ""),
+                            ifelse("sdabs.weighted" %in% summary[j] == TRUE,
+                                   paste("abs. weighted sd = ",
+                                         round(De.stats[i,15], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("sdrel.weighted" %in% summary[j] == TRUE,
+                                   paste("rel. weighted sd = ",
+                                         round(De.stats[i,16], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("seabs.weighted" %in% summary[j] == TRUE,
+                                   paste("abs. weighted se = ",
+                                         round(De.stats[i,17], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
+                            ifelse("serel.weighted" %in% summary[j] == TRUE,
+                                   paste("rel. weighted se = ",
+                                         round(De.stats[i,18], 2),
+                                         "\n",
+                                         sep = ""),
+                                   ""),
                             sep = ""))
-
       }
 
       summary.text <- paste(summary.text, collapse = "")
@@ -1290,7 +1328,32 @@ plot_AbanicoPlot <- function(
                                                nrow(data[[i]]) * 100 , 1),
                                        " %   ",
                                        sep = ""),
-                                 ""))
+                                 ""),
+                          ifelse("sdabs.weighted" %in% summary[j] == TRUE,
+                                 paste("abs. weighted sd = ",
+                                       round(De.stats[i,15], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("sdrel.weighted" %in% summary[j] == TRUE,
+                                 paste("rel. weighted sd = ",
+                                       round(De.stats[i,16], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("seabs.weighted" %in% summary[j] == TRUE,
+                                 paste("abs. weighted se = ",
+                                       round(De.stats[i,17], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 ""),
+                          ifelse("serel.weighted" %in% summary[j] == TRUE,
+                                 paste("rel. weighted se = ",
+                                       round(De.stats[i,18], 2), " %",
+                                       " | ",
+                                       sep = ""),
+                                 "")
+                          )
       }
 
       summary.text <- paste(summary.text, collapse = "")
