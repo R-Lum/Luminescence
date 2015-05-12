@@ -615,5 +615,6 @@ get_Layout <- function(
     layout <- layout
   }
 
+  ## return layout parameters
   return(layout)
 }
