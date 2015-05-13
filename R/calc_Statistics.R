@@ -14,7 +14,7 @@
 #' @param na.rm \code{\link{logical}} (with default): indicating whether NA
 #' values should be stripped before the computation proceeds.
 #' @return Returns a list with weighted and unweighted statistic measures.
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #' @author Michael Dietze, GFZ Potsdam (Germany)
 #' @examples
 #'
@@ -60,7 +60,7 @@ calc_Statistics <- function(
     data <- cbind(data, rep(NA, length(data)))
   }
 
-  ## check/set weight calculation type
+  ## replace Na values in error by 0
   data[is.na(data[,2]),2] <- 0
 
   if(sum(data[,2]) == 0) {
@@ -147,18 +147,18 @@ calc_Statistics <- function(
   S.weighted <- list(n = S.n,
                      mean = S.wg.mean,
                      median = S.wg.median,
-                     sd.abs = S.sd.abs,
-                     sd.rel = S.sd.rel,
-                     se.abs = S.se.abs,
-                     se.rel = S.se.rel)
+                     sd.abs = S.wg.sd.abs,
+                     sd.rel = S.wg.sd.rel,
+                     se.abs = S.wg.se.abs,
+                     se.rel = S.wg.se.rel)
 
   S.unweighted <- list(n = S.n,
                        mean = S.mean,
                        median = S.median,
-                       sd.abs = S.wg.sd.abs,
-                       sd.rel = S.wg.sd.rel,
-                       se.abs = S.wg.se.abs,
-                       se.rel = S.wg.se.rel,
+                       sd.abs = S.sd.abs,
+                       sd.rel = S.sd.rel,
+                       se.abs = S.se.abs,
+                       se.rel = S.se.rel,
                        skewness = S.skewness,
                        kurtosis = S.kurtosis)
 
