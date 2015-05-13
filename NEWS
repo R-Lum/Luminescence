@@ -38,6 +38,10 @@ Changes in version 0.4.4 (XXth, May 2015):
              • output table enhanced by input options and values
                resulting from the new arguments.
 
+         • ‘calc_Statistics()’
+
+             • Wrongly assigned output values corrected.
+
          • ‘fit_CWCurve()’
 
              • 'component.contribution.matrix' is now returned as list,
