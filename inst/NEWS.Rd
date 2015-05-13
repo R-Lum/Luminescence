@@ -46,6 +46,13 @@
    }
 
 
+    \item \code{calc_Statistics()}
+
+    \itemize{
+    \item Wrongly assigned output values corrected.
+
+    }
+
   \item \code{fit_CWCurve()}
 
   \itemize{

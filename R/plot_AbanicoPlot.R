@@ -32,25 +32,25 @@
 #' this appears appropriate. \cr The proportion of the polar part and the
 #' cartesian part of the Abanico Plot can be modfied for display reasons
 #' (\code{plot.ratio = 0.75}). By default, the polar part spreads over 75 \%
-#' and leaves 25 \% for the part that shows the KDE graph.\cr\cr 
-#' A statistic summary, i.e. a collection of statistic measures of 
-#' centrality and dispersion (and further measures) can be added by specifying 
+#' and leaves 25 \% for the part that shows the KDE graph.\cr\cr
+#' A statistic summary, i.e. a collection of statistic measures of
+#' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords: \code{"n"} (number of samples),
 #' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
 #' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative 
+#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
 #' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
-#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation), 
+#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation),
 #' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 #' error-weighted relative standard error), \code{"seabs"} (absolute standard
-#' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
+#' error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 #' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
 #' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). \cr\cr
-#'  
-#' The optional parameter \code{layout} allows to modify the entire plot more 
-#' sophisticated. Each element of the plot can be addressed and its properties 
-#' can be defined. This includes font type, size and decoration, colours and 
-#' sizes of all plot items. To infer the definition of a specific layout style 
+#'
+#' The optional parameter \code{layout} allows to modify the entire plot more
+#' sophisticated. Each element of the plot can be addressed and its properties
+#' can be defined. This includes font type, size and decoration, colours and
+#' sizes of all plot items. To infer the definition of a specific layout style
 #' cf. \code{get_Layout()} or type eg. for the layout type \code{"journal"}
 #' \code{get_Layout("journal")}. A layout type can be modified by the user by
 #' assigning new values to the list object.\cr\cr It is possible for the
@@ -87,8 +87,8 @@
 #' versus the cartesian plot part, deault is \code{0.75}.
 #' @param rotate \code{\link{logical}}: Option to turn the plot by 90 degrees.
 #' @param mtext \code{\link{character}}: additional text below the plot title.
-#' @param summary \code{\link{character}} (optional): add statistic measures of 
-#' centrality and dispersion to the plot. Can be one or more of several 
+#' @param summary \code{\link{character}} (optional): add statistic measures of
+#' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
@@ -119,16 +119,16 @@
 #' = "none"}.
 #' @param polygon.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the polygon showing the dose dispersion around the
-#' central value. To disable the polygon use \code{"none"} or 
+#' central value. To disable the polygon use \code{"none"} or
 #' \code{bar = FALSE}. Default is \code{"grey80"}.
 #' @param bar.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the bar showing the 2-sigma range of the dose error
-#' around the central value. To disable the bar use \code{"none"} or 
+#' around the central value. To disable the bar use \code{"none"} or
 #' \code{bar = FALSE}. Default is \code{"grey65"}.
 #' @param frame \code{\link{numeric}} (with default): option to modify the
-#' plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame 
-#' originates at 0,0 and runs along min/max isochrons), \code{2} (frame 
-#' embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a 
+#' plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
+#' originates at 0,0 and runs along min/max isochrons), \code{2} (frame
+#' embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a
 #' rectangle).Default is \code{1}.
 #' @param line \code{\link{numeric}}: numeric values of the additional lines to
 #' be added.
@@ -430,7 +430,7 @@ plot_AbanicoPlot <- function(
     bar.fill <- bar.col
     bar.line <- NA
   }
-  
+
   if(missing(polygon.col) == TRUE) {
     polygon.fill <- rep(layout$abanico$colour$poly.fill,
                         length.out = length(data))
@@ -440,7 +440,7 @@ plot_AbanicoPlot <- function(
     polygon.fill <- polygon.col
     polygon.line <- NA
   }
-  
+
   if(missing(grid.col) == TRUE) {
     grid.major <- layout$abanico$colour$grid.major
     grid.minor <- layout$abanico$colour$grid.minor
@@ -1410,7 +1410,7 @@ plot_AbanicoPlot <- function(
       summary.pos <- c(limits.x[2], limits.y[1] + par()$cxy[2] * 3.5)
       summary.adj <- c(1, 0)
     }
-    
+
     ## convert keywords into legend placement coordinates
     if(missing(legend.pos) == TRUE) {
       legend.pos <- c(limits.x[1], limits.y[2])
@@ -1482,7 +1482,7 @@ plot_AbanicoPlot <- function(
       summary.pos <- c(limits.y[2], limits.x[1])
       summary.adj <- c(1, 0)
     }
-    
+
     ## convert keywords into legend placement coordinates
     if(missing(legend.pos) == TRUE) {
       legend.pos <- c(limits.y[1] + par()$cxy[1] * 7.5, limits.x[1])
@@ -1824,7 +1824,7 @@ plot_AbanicoPlot <- function(
 
     if(rotate == FALSE) {
       for(i in 1:length(rug.values)) {
-        rug.x <- c(xy.0[1] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)), 
+        rug.x <- c(xy.0[1] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
                    xy.0[1])
         rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,1]),
                    (rug.values[i] - z.central.global) * min(ellipse[,1]))
@@ -1832,7 +1832,7 @@ plot_AbanicoPlot <- function(
       }
     } else {
       for(i in 1:length(rug.values)) {
-        rug.x <- c(xy.0[2] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)), 
+        rug.x <- c(xy.0[2] * (1 - 0.013 * (layout$abanico$dimension$rugl / 100)),
                    xy.0[2])
         rug.y <- c((rug.values[i] - z.central.global) * min(ellipse[,2]),
                    (rug.values[i] - z.central.global) * min(ellipse[,2]))
@@ -1948,7 +1948,7 @@ plot_AbanicoPlot <- function(
                 border = polygon.line[i])
       }
     }
-    
+
     ## optionally, add minor grid lines
     if(grid.minor != "none") {
       for(i in 1:length(tick.values.minor)) {
@@ -2633,7 +2633,7 @@ plot_AbanicoPlot <- function(
                 border = polygon.line[i])
       }
     }
-    
+
     ## optionally, add minor grid lines
     if(grid.minor != "none") {
       for(i in 1:length(tick.values.minor)) {
