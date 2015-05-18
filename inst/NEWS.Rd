@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.4.4 (XXth, May 2015)}{
+\section{Changes in version 0.4.4 (19th, May 2015)}{
 
 
   \subsection{Changes S4-objects, methods, classes}{
