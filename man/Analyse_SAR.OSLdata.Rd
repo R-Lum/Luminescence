@@ -7,7 +7,7 @@
 Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, position,
   run, set, dtype, keep.SEL = FALSE,
   info.measurement = "unkown measurement", log = "", output.plot = FALSE,
-  output.plot.single = FALSE, cex.global = 1)
+  output.plot.single = FALSE, cex.global = 1, ...)
 }
 \arguments{
 \item{input.data}{\link{Risoe.BINfileData-class} (\bold{required}): input
@@ -57,7 +57,12 @@ logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 (\code{TRUE/FALSE}) to allow for plotting the results in single plot
 windows. Requires \code{output.plot = TRUE}.}
 
-\item{cex.global}{\link{numeric} (with default): global scaling factor.}
+\item{cex.global}{\link{numeric} (with default): global scaling factor.
+
+#'}
+
+\item{\dots}{further arguments that will be passed to the function
+\code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution} and \code{sigmab})}
 }
 \value{
 A plot (optional) and \link{list} is returned containing the
@@ -103,7 +108,7 @@ consider using the functions \code{\link{analyse_SAR.CWOSL}} or
 to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.15 (2015-05-10 15:12:52)
+ 0.2.16 (2015-05-19 16:13:07)
 }
 \examples{
 ##load data

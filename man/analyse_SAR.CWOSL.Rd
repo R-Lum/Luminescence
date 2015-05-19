@@ -73,7 +73,9 @@ The function performs a SAR CW-OSL analysis on an
 The function performs an analysis for a standard SAR protocol measurements
 introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 calculation of the Lx/Tx value the function \link{calc_OSLLxTxRatio} is
-used. \cr\cr
+used. For \bold{changing the way the Lx/Tx error is calculated} use the argument
+\code{background.count.distribution} and \code{sigmab}, which will be passed to the function
+\link{calc_OSLLxTxRatio}.\cr\cr
 
 \bold{Working with IRSL data}\cr\cr
 
@@ -109,7 +111,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.5.3 (2015-05-10 15:12:52)
+ 0.5.3 (2015-05-19 16:05:34)
 }
 \examples{
 ##load data

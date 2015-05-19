@@ -24,6 +24,14 @@
 
    }
 
+  \item \code{Analyse_SAR.OSLdata()}
+
+  \itemize{
+    \item Add support for \code{...} argument for \code{calc_OSLLxTxRatio()} arguments
+    \code{background.count.distribution} and \code{sigmab} similar as done for the function \code{analyse_SAR.CWOSL()}.
+
+   }
+
   \item \code{calc_OSLLxTxRatio()}
 
   \itemize{

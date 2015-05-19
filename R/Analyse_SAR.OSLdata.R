@@ -69,6 +69,9 @@
 #'
 #' @param cex.global \link{numeric} (with default): global scaling factor.
 #'
+#' #' @param \dots further arguments that will be passed to the function
+#' \code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution} and \code{sigmab})
+#'
 #' @return A plot (optional) and \link{list} is returned containing the
 #' following elements: \item{LnLxTnTx}{\link{data.frame} of all calculated
 #' Lx/Tx values including signal, background counts and the dose points.}
@@ -77,6 +80,8 @@
 #' \item{SARParameters}{\link{data.frame} of additional measurement parameters
 #' obtained from the BIN file, e.g. preheat or read temperature (not valid for
 #' all types of measurements).}
+#'
+#'
 #' @note Rejection criteria are calculated but not considered during the
 #' analysis to discard values.\cr\cr
 #'
@@ -86,7 +91,11 @@
 #'
 #' \bold{The development of this function will not be continued. We recommend
 #' to use the function \link{analyse_SAR.CWOSL} or instead.}
-#' @section Function version: 0.2.15
+#'
+#'
+#' @section Function version: 0.2.16
+#'
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Margret C. Fuchs, TU Bergakademie Freiberg
 #' (Germany)
@@ -137,7 +146,8 @@ Analyse_SAR.OSLdata <- function(
   log = "",
   output.plot = FALSE,
   output.plot.single = FALSE,
-  cex.global = 1
+  cex.global = 1,
+  ...
 ){
 
   ##============================================================================##
@@ -173,6 +183,23 @@ Analyse_SAR.OSLdata <- function(
                                 "N+dose (Bleach)",
                                 "Dose",
                                 "Background")}
+
+
+  # Deal with extra arguments ----------------------------------------------------
+
+  ##deal with addition arguments
+  extraArgs <- list(...)
+
+  background.count.distribution <-
+    if ("background.count.distribution" %in% names(extraArgs)) {
+      extraArgs$background.count.distribution
+    } else
+    {
+      "non-poisson"
+    }
+
+  sigmab <- if("sigmab" %in% names(extraArgs)) {extraArgs$sigmab} else
+  {NULL}
 
   ##============================================================================##
   ##CALCULATIONS
@@ -237,18 +264,33 @@ Analyse_SAR.OSLdata <- function(
       ##(3) calculate Lx/Tx ratios
       for(k in 1:length(LnLxTnTx.curves[1,])){
         if(exists("LnLxTnTx")==FALSE){
-          LnLxTnTx<-get_RLum.Results(calc_OSLLxTxRatio(as.data.frame(LnLxTnTx.curves[1,k]),
-                                                       as.data.frame(LnLxTnTx.curves[2,k]),
-                                                       signal.integral,background.integral))
+          LnLxTnTx <-
+            get_RLum.Results(
+              calc_OSLLxTxRatio(
+                as.data.frame(LnLxTnTx.curves[1,k]),
+                as.data.frame(LnLxTnTx.curves[2,k]),
+                signal.integral,background.integral,
+                background.count.distribution = background.count.distribution,
+                sigmab = sigmab
+              )
+            )
+
         }else{
-          LnLxTnTx<-rbind(LnLxTnTx,get_RLum.Results(calc_OSLLxTxRatio(as.data.frame(LnLxTnTx.curves[1,k]),
-                                                                      as.data.frame(LnLxTnTx.curves[2,k]),
-                                                                      signal.integral,background.integral)))
+          LnLxTnTx <-
+            rbind(LnLxTnTx,get_RLum.Results(
+              calc_OSLLxTxRatio(
+                as.data.frame(LnLxTnTx.curves[1,k]),
+                as.data.frame(LnLxTnTx.curves[2,k]),
+                signal.integral,background.integral,
+                background.count.distribution = background.count.distribution,
+                sigmab = sigmab
+              )
+            ))
         }
       }
 
       ##finally combine to data.frame including the record ID for further analysis
-      LnLxTnTx<-cbind(LnLxTnTx,LnLx.curveID,TnTx.curveID)
+      LnLxTnTx <- cbind(LnLxTnTx,LnLx.curveID,TnTx.curveID)
 
       ##(4.1) set info concerning the kind of regeneration points
 

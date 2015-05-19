@@ -62,6 +62,11 @@ standard error is calculated as:\cr\cr (a) \code{poisson}\cr
 \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k} (b)
 \code{non-poisson}\cr \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 +
 \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
+
+\bold{Please note that when using the early background subtraction method in combination with the
+'non-poisson' distribution argument, the corresponding Lx/Tx error may considerably increase due
+to a high sigmab value. Please check whether this is valid for your data set and  if necessary
+consider to provide an own sigmab value using the corresponding argument \code{sigmab}.}
 }
 \note{
 The results of this function have been cross-checked with the Analyst
@@ -69,7 +74,7 @@ The results of this function have been cross-checked with the Analyst
 \code{\link{get_RLum.Results}}.
 }
 \section{Function version}{
- 0.5.1 (2015-05-10 15:12:52)
+ 0.5.1 (2015-05-19 16:03:06)
 }
 \examples{
 ##load data

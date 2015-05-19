@@ -21,6 +21,11 @@
 #' \code{non-poisson}\cr \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 +
 #' \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
 #'
+#' \bold{Please note that when using the early background subtraction method in combination with the
+#' 'non-poisson' distribution argument, the corresponding Lx/Tx error may considerably increase due
+#' to a high sigmab value. Please check whether this is valid for your data set and  if necessary
+#' consider to provide an own sigmab value using the corresponding argument \code{sigmab}.}
+#'
 #' @param Lx.data \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
 #' (\bold{required}): requires a CW-OSL shine down curve (x = time, y = counts)
 #'
@@ -289,7 +294,7 @@ calc_OSLLxTxRatio <- function(
 
     ##(c.2) estimate relative standard error for a non-poisson distribution
     if(background.count.distribution != "non-poisson"){
-      warning("Unknown value for background.count.distribution. A non-poisson distribution is assumed!")}
+      warning("Unknown method for background.count.distribution. A non-poisson distribution is assumed!")}
 
     LnLx.relError <- sqrt(Y.0 + Y.1/k^2 + sigmab.LnLx*(1+1/k))/
       (Y.0 - Y.1/k)
