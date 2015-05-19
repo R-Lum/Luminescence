@@ -28,6 +28,8 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2006.  <br />  R Luminescence Package Team"
 "calc_FuchsLang2001","Apply the model after Fuchs & Lang (2001) to a given De distribution.","<br /> This function applies the method according to Fuchs & Lang (2001) for<br /> heterogeneously bleached samples with a given coefficient of variation<br /> threshold.<br />","0.4.1","2015-04-30","11:52:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France) Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
+"calc_gSGC","Calculate De value based on the gSGC by Li et al., 2015","<br /> Function returns De value and De value error using the global standardised growth<br /> curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz<br />","0.1","2015-05-20","00:01:11
+","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France) <br />  R Luminescence Package Team"
 "calc_HomogeneityTest","Apply a simple homogeneity test after Galbraith (2003)","<br /> A simple homogeneity test for De estimates<br />","0.2","2015-04-30","11:53:01
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "calc_IEU","Apply the internal-external-uncertainty (IEU) model after Thomsen et al.<br /> (2007) to a given De distribution","<br /> Function to calculate the IEU De for a De data set.<br />","0.1","2015-04-30","11:53:16

@@ -8,6 +8,12 @@
    }
   }
 
+  \subsection{New functions}{
+   \itemize{
+      \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015
+   }
+  }
+
   \subsection{Bugfixes and changes}{
    \itemize{
       \item Dummy
