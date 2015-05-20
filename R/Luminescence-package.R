@@ -700,32 +700,6 @@ NULL
 #'
 NULL
 
-
-
-#' Class \code{"RLum"}
-#'
-#' Abstract class for data in the package Luminescence
-#'
-#'
-#' @name RLum-class
-#' @docType class
-#' @note \code{RLum} is a virtual class.
-#' @section Objects from the Class: A virtual Class: No objects can be created
-#' from it.
-#' @author Sebastian Kreutzer, 2013 (Freiberg Instruments/JLU Giessen, Germany)
-#' @seealso \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
-#' @references #
-#' @keywords classes
-#' @examples
-#'
-#' showClass("RLum")
-#'
-NULL
-
-
-
-
-
 #' Class \code{"RLum.Analysis"}
 #'
 #' Object class containing analysis data for protocol analysis.
@@ -753,7 +727,7 @@ NULL
 #'
 #' showClass("RLum.Analysis")
 #'
-#' ## usage of get_RLum.Analysis() with returining an RLum.Analysis object
+#' ## usage of get_RLum.Analysis() with returning an RLum.Analysis object
 #' #  get_RLum.Analysis(object, keep.object = TRUE)
 #'
 #'
