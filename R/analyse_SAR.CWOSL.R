@@ -51,12 +51,13 @@
 #' @param background.integral.max \code{\link{integer}} (\bold{required}):
 #' upper bound of the background integral
 #'
-#' @param rejection.criteria \code{\link{list}} (with default): provide list
-#' and set rejection criteria in percentage for further calculation. Allowed
-#' arguments are \code{recycling.ratio}, \code{recuperation.rate},
-#' \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS} e.g.
-#' \code{rejection.criteria = list(recycling.ratio = 10} Per default all values
-#' are set to 10.
+#' @param rejection.criteria \code{\link{list}} (with default): provide a named list
+#' and set rejection criteria in percentage for further calculation.
+#'
+#' Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
+#' \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS}.
+#' Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
+#' Per default all numericla values are set to 10.
 #'
 #' @param dose.points \code{\link{numeric}} (optional): a numeric vector
 #' containg the dose points values Using this argument overwrites dose point

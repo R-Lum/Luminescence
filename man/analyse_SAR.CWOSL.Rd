@@ -24,12 +24,13 @@ lower bound of the background integral}
 \item{background.integral.max}{\code{\link{integer}} (\bold{required}):
 upper bound of the background integral}
 
-\item{rejection.criteria}{\code{\link{list}} (with default): provide list
-and set rejection criteria in percentage for further calculation. Allowed
-arguments are \code{recycling.ratio}, \code{recuperation.rate},
-\code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS} e.g.
-\code{rejection.criteria = list(recycling.ratio = 10} Per default all values
-are set to 10.}
+\item{rejection.criteria}{\code{\link{list}} (with default): provide a named list
+and set rejection criteria in percentage for further calculation.
+
+Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
+\code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS}.
+Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
+Per default all numericla values are set to 10.}
 
 \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector
 containg the dose points values Using this argument overwrites dose point
@@ -111,7 +112,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.5.3 (2015-05-19 16:05:34)
+ 0.5.3 (2015-05-21 14:22:27)
 }
 \examples{
 ##load data
