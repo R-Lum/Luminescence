@@ -71,7 +71,7 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
- 0.1.4 (2015-04-30 11:49:25)
+ 0.1.4 (2015-04-30 12:16:14)
 }
 \examples{
 ##load data

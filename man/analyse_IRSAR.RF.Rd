@@ -182,7 +182,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.3.2 (2015-04-30 11:47:26)
+ 0.3.2 (2015-04-30 12:16:14)
 }
 \examples{
 ##load data
