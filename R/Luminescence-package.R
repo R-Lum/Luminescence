@@ -89,7 +89,6 @@
 NULL
 
 
-
 #' Base data set for cosmic dose rate calculation
 #'
 #' Collection of data from various sources needed for cosmic dose rate
@@ -197,9 +196,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example data from a SAR OSL and SAR TL measurement for the package
 #' Luminescence
 #'
@@ -251,9 +247,6 @@ NULL
 #'
 #' @name ExampleData.BINfileData
 NULL
-
-
-
 
 
 #' Example CW-OSL curve data for the package Luminescence
@@ -325,9 +318,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example Lx/Tx data from CW-OSL SAR measurement
 #'
 #' LxTx data from a SAR measurement for the package Luminescence.
@@ -350,9 +340,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example Lx and Tx curve data from an artificial OSL measurement
 #'
 #' Lx and Tx data of continous wave (CW-) OSL signal curves.
@@ -373,9 +360,6 @@ NULL
 #'
 #' @name ExampleData.LxTxOSLData
 NULL
-
-
-
 
 
 #' Example data as \code{\linkS4class{RLum.Analysis}} objects
@@ -422,9 +406,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example data as \code{\linkS4class{RLum.Data.Image}} objects
 #'
 #' Measurement of Princton Instruments camera imported with the function
@@ -459,9 +440,6 @@ NULL
 #'
 #' @name ExampleData.RLum.Data.Image
 NULL
-
-
-
 
 
 #' Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
