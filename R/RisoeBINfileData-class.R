@@ -5,11 +5,6 @@
 #'
 #'
 #' @name Risoe.BINfileData-class
-#' @aliases Risoe.BINfileData-class show,Risoe.BINfileData-method
-#' set_Risoe.BINfileData set_Risoe.BINfileData,Risoe.BINfileData-method
-#' set_Risoe.BINfileData,data.frame,list-method
-#' set_Risoe.BINfileData,ANY-method get_Risoe.BINfileData
-#' get_Risoe.BINfileData-methods get_Risoe.BINfileData,Risoe.BINfileData-method
 #' @docType class
 #' @note
 #'

@@ -4,12 +4,6 @@
 #'
 #'
 #' @name RLum.Analysis-class
-#' @aliases RLum.Analysis-class show,RLum.Analysis-method set_RLum.Analysis
-#' set_RLum.Analysis,RLum.Analysis-method set_RLum.Analysis,list-method
-#' get_RLum.Analysis get_RLum.Analysis-methods
-#' get_RLum.Analysis,RLum.Analysis-method get_structure.RLum.Analysis
-#' get_structure.RLum.Analysis,RLum.Analysis-method length_RLum.Analysis
-#' length_RLum.Analysis-methods length_RLum.Analysis,RLum.Analysis-method
 #' @docType class
 #' @note The method \code{get_structure.RLum.Analysis} is currently just
 #' avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
