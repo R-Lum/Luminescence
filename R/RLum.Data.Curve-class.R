@@ -4,11 +4,6 @@
 #'
 #'
 #' @name RLum.Data.Curve-class
-#' @aliases RLum.Data.Curve-class coerce,RLum.Analysis-method
-#' show,RLum.Data.Curve-method set_RLum.Data.Curve set_RLum.Data.Curve-methods
-#' set_RLum.Data.Curve,RLum.Data.Curve-method set_RLum.Data.Curve,ANY-method
-#' set_RLum.Data.Curve,character,matrix-method get_RLum.Data.Curve
-#' get_RLum.Data.Curve-methods get_RLum.Data.Curve,ANY-method
 #' @docType class
 #' @note The class should only contain data for a single curve. For additional
 #' elements the slot \code{info} can be used (e.g. providing additional heating

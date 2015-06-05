@@ -4,13 +4,6 @@
 #'
 #'
 #' @name RLum.Data.Spectrum-class
-#' @aliases RLum.Data.Spectrum-class coerce,RLum.Data.Spectrum-method
-#' show,RLum.Data.Spectrum-method set_RLum.Data.Spectrum
-#' set_RLum.Data.Spectrum-methods
-#' set_RLum.Data.Spectrum,RLum.Data.Spectrum-method
-#' set_RLum.Data.Spectrum,ANY-method
-#' set_RLum.Data.Spectrum,character,matrix-method get_RLum.Data.Spectrum
-#' get_RLum.Data.Spectrum-methods get_RLum.Data.Spectrum,ANY-method
 #' @docType class
 #' @note The class should only contain data for a single spectra data set. For
 #' additional elements the slot \code{info} can be used.

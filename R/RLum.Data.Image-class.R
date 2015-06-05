@@ -4,11 +4,6 @@
 #'
 #'
 #' @name RLum.Data.Image-class
-#' @aliases RLum.Data.Image-class coerce,RLum.Data.Image-method
-#' show,RLum.Data.Image-method set_RLum.Data.Image set_RLum.Data.Image-methods
-#' set_RLum.Data.Image,RLum.Data.Image-method set_RLum.Data.Image,ANY-method
-#' set_RLum.Data.Image,character,matrix-method get_RLum.Data.Image
-#' get_RLum.Data.Image-methods get_RLum.Data.Image,ANY-method
 #' @docType class
 #' @note The class should only contain data for a set of images. For additional
 #' elements the slot \code{info} can be used.
