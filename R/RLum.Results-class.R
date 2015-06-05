@@ -1,14 +1,30 @@
-##//////////////////////////////////////////////////////////////////////////////
-##//RLum.Results-class.R
-##//////////////////////////////////////////////////////////////////////////////
-##==============================================================================
-##author: Sebastian Kreutzer
-##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-##version: 0.2.9
 
-##==============================================================================
-
-##class definition
+#' Class \code{"RLum.Results"}
+#'
+#' Object class contains results data from functions.
+#'
+#'
+#' @name RLum.Results-class
+#' @aliases RLum.Results-class show,RLum.Results-method set_RLum.Results
+#' set_RLum.Results,RLum.Results-method set_RLum.Results,ANY,list-method
+#' get_RLum.Results get_RLum.Results,RLum.Results-method merge_RLum.Results
+#' merge_RLum.Results-methods merge_RLum.Results,list-method
+#' validObject,RLum.Results-method
+#' @docType class
+#' @note The class is intended to store results from functions to be used by
+#' other functions. The data in the object should always be accessed by the
+#' method \code{get_RLum.Results}.
+#' @section Objects from the Class: Objects can be created by calls of the form
+#' \code{new("RLum.Results", ...)}.
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France)
+#' @seealso \code{\linkS4class{RLum}}
+#' @references #
+#' @keywords classes methods
+#' @examples
+#'
+#' showClass("RLum.Results")
+#'
 setClass("RLum.Results",
          representation(
            originator = "character",

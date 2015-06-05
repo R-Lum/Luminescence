@@ -1,16 +1,34 @@
-##//////////////////////////////////////////////////////////////////////////////
-##//RLum.Data.Spectrum-class.R
-##//////////////////////////////////////////////////////////////////////////////
-##==============================================================================
-##author: Sebastian Kreutzer
-##organisation: JLU Giessen
-##version: 0.1
-##date: 2013-11-23
-##==============================================================================
-##[SK]  The curve type slot is intentionally named 'recordType' against 
-##      the internal naming conventions. 
-
-
+#' Class \code{"RLum.Data.Spectrum"}
+#'
+#' Class for luminescence spectra data (TL/OSL/RF).
+#'
+#'
+#' @name RLum.Data.Spectrum-class
+#' @aliases RLum.Data.Spectrum-class coerce,RLum.Data.Spectrum-method
+#' show,RLum.Data.Spectrum-method set_RLum.Data.Spectrum
+#' set_RLum.Data.Spectrum-methods
+#' set_RLum.Data.Spectrum,RLum.Data.Spectrum-method
+#' set_RLum.Data.Spectrum,ANY-method
+#' set_RLum.Data.Spectrum,character,matrix-method get_RLum.Data.Spectrum
+#' get_RLum.Data.Spectrum-methods get_RLum.Data.Spectrum,ANY-method
+#' @docType class
+#' @note The class should only contain data for a single spectra data set. For
+#' additional elements the slot \code{info} can be used.
+#' @section Objects from the Class: Objects can be created by calls of the form
+#' \code{new("RLum.Data.Spectrum", ...)}.
+#' @author Sebastian Kreutzer, JLU Giessen (Germany)
+#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+#' \code{\link{plot_RLum}}
+#' @references #
+#' @keywords classes
+#' @examples
+#'
+#' showClass("RLum.Data.Spectrum")
+#'
+#' ##show example data (uncomment for usage)
+#' # data(ExampleData.XSYG, envir = environment())
+#' # TL.Spectrum
+#'
 setClass("RLum.Data.Spectrum",
          representation(
            recordType = "character",

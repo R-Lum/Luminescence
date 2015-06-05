@@ -1,16 +1,30 @@
-##//////////////////////////////////////////////////////////////////////////////
-##//RLum.Data.Image-class.R
-##//////////////////////////////////////////////////////////////////////////////
-##==============================================================================
-##author: Sebastian Kreutzer
-##organisation: Universite Bordeaux Montaigne (France)
-##version: 0.1
-##date: 2014-07-21
-##==============================================================================
-##[SK]  The curve type slot is intentionally named 'recordType' against
-##      the internal naming conventions.
-
-
+#' Class \code{"RLum.Data.Image"}
+#'
+#' Class for luminescence image data (TL/OSL/RF).
+#'
+#'
+#' @name RLum.Data.Image-class
+#' @aliases RLum.Data.Image-class coerce,RLum.Data.Image-method
+#' show,RLum.Data.Image-method set_RLum.Data.Image set_RLum.Data.Image-methods
+#' set_RLum.Data.Image,RLum.Data.Image-method set_RLum.Data.Image,ANY-method
+#' set_RLum.Data.Image,character,matrix-method get_RLum.Data.Image
+#' get_RLum.Data.Image-methods get_RLum.Data.Image,ANY-method
+#' @docType class
+#' @note The class should only contain data for a set of images. For additional
+#' elements the slot \code{info} can be used.
+#' @section Objects from the Class: Objects can be created by calls of the form
+#' \code{new("RLum.Data.Image", ...)}.
+#' @author Sebastian Kreutzer, Universite Bordeaux Montaigne (France)
+#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+#' \code{\link{plot_RLum}}
+#' @references #
+#' @keywords classes
+#' @examples
+#'
+#' showClass("RLum.Data.Image")
+#'
+#' ##so far no further example available
+#'
 setClass("RLum.Data.Image",
          representation(
            recordType = "character",
