@@ -497,6 +497,17 @@ plot_AbanicoPlot <- function(
   } else {
     breaks <- "Sturges"
   }
+  
+  ## check/set bw-parameter
+  for(i in 1:length(data)) {
+    bw.test <- try(density(x = data[[i]][,1], 
+                           bw = bw), 
+                   silent = TRUE)
+    if(grepl(pattern = "Error", x = bw.test[1]) == TRUE) {
+      bw <- "nrd0"
+      warning("Option for bw not possible. Set to nrd0!")
+    }
+  }
 
   ## check for negative values
   if(min(De.global) <= 0) {
@@ -959,10 +970,15 @@ plot_AbanicoPlot <- function(
                                            min(tick.values.minor)]
   tick.values.major <- tick.values.major[tick.values.major <=
                                            max(tick.values.minor)]
+  tick.values.major <- tick.values.major[tick.values.major >=
+                                           limits.z[1]]
+  tick.values.major <- tick.values.major[tick.values.major <=
+                                           limits.z[2]]
   tick.values.minor <- tick.values.minor[tick.values.minor >=
                                            limits.z[1]]
   tick.values.minor <- tick.values.minor[tick.values.minor <=
                                            limits.z[2]]
+  
 
   if(log.z == TRUE) {
 
@@ -999,6 +1015,9 @@ plot_AbanicoPlot <- function(
                                  limits.z[2]),
                           tick.values.major,
                           tick.values.minor))
+  
+  ## correct for unpleasant value
+  ellipse.values[ellipse.values == -Inf] <- 0
 
   if(rotate == FALSE) {
     ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
