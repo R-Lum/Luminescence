@@ -88,51 +88,68 @@
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
 #' object containing data for protocol analysis
+#'
 #' @param sequence.structure \code{\link{vector}} \link{character} (with
 #' default): specifies the general sequence structure. Allowed steps are
 #' \code{NATURAL}, \code{REGENERATED}. In addition any other character is
 #' allowed in the sequence structure; such curves will be ignored.
+#'
 #' @param method \code{\link{character}} (with default): setting method applied
 #' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
+#'
 #' @param rejection.criteria \code{\link{list} (with default)}: set rejection
 #' criteria for, see details for more information \bold{Currently without
 #' usage!}
+#'
 #' @param fit.range.min \code{\link{integer}} (optional): set the minimum
 #' channel range for signal fitting and sliding. Usually the entire data set is
 #' used for curve fitting, but there might be reasons to limit the channels
 #' used for fitting. Note: This option also limits the values used for natural
 #' signal calculation.
+#'
 #' @param fit.range.max \code{\link{integer}} (optional): set maximum channel
 #' range for signal fitting and sliding. Usually the entire data set is used
 #' for curve fitting, but there might be reasons to limit the channels used for
 #' fitting.
+#'
 #' @param fit.trace \code{\link{logical}} (with default): trace fitting (for
 #' debugging use)
+#'
 #' @param fit.MC.runs \code{\link{numeric}} (with default): set number of Monte
 #' Carlo runs for start parameter estimation. Note: Large values will
 #' significantly increase the calculation time.
+#'
 #' @param slide.MC.runs \code{\link{integer}} (with default): set number of
 #' Monte Carlo runs error calculation Note: Large values will significantly
 #' increase the calculation time.
+#'
 #' @param slide.outlier.rm \code{\link{logical}} (with default): enable or
 #' disable outlier removal. Outliers are removed from the natural signal curve
 #' only.
+#'
 #' @param slide.trend.corr \code{\link{logical}} (with default): enable or
 #' disable trend correction. If \code{TRUE}, the sliding is applied to a
 #' previously trend corrected data set.
+#'
 #' @param slide.show.density \code{\link{logical}} (with default): enable or
 #' disable KDE for MC runs. If \code{FALSE}, the final values are indicated
 #' with triangles.
+#'
 #' @param plot \code{\link{logical}} (with default): plot output (\code{TRUE}
 #' or \code{FALSE})
+#'
 #' @param xlab.unit \code{\link{character}} (with default): set unit for x-axis
+#'
 #' @param legend.pos \code{\link{character}} (with default): useful keywords
 #' are \code{bottomright}, \code{bottom}, \code{bottomleft}, \code{left},
 #' \code{topleft}, \code{top}, \code{topright}, \code{right} and \code{center}.
 #' For further details see \code{\link{legend}.}
+#'
 #' @param \dots further arguments that will be passed to the plot output.
 #' Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 #' \code{xlim}, \code{ylim}, \code{log}
+#'
+#'
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned containing the following elements: \cr
 #' \item{De.values}{\code{\link{data.frame}} containing De-values with error
@@ -147,12 +164,20 @@
 #'
 #' \bold{Please note that \code{method = "FIT"} has beta status and was not
 #' properly tested yet!}
+#'
+#'
 #' @section Function version: 0.3.2
+#'
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
+#'
 #' @seealso \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
 #' \code{\link{nls}}
+#'
+#'
 #' @references Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 #' 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
 #' Radiation Measurements 44 (5-6), 560-565. doi: 10.1016/j.radmeas.2012.06.021
@@ -196,7 +221,11 @@
 #' Trautmann, T., Krbetschek, M.R., Stolz, W., 2000. A systematic study of the
 #' radioluminescence properties of single feldspar grains. Radiation
 #' Measurements 32, 685-690.
+#'
+#'
 #' @keywords datagen
+#'
+#'
 #' @examples
 #'
 #' ##load data
