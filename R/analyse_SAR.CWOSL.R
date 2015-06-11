@@ -91,7 +91,7 @@
 #' by used as rejection criteria. NA is produced if no R0 dose point exists.}
 #' \item{Formula}{\link{formula} formula that have been used for the growth
 #' curve fitting }\cr The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}.
+#' \code{\link{get_RLum}}.
 #'
 #'
 #' @note This function must not be mixed up with the function
@@ -109,7 +109,7 @@
 #'
 #' @seealso \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #'
 #'
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

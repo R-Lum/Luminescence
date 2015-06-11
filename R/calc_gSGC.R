@@ -45,7 +45,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}}, \code{\link{uniroot}}
+#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}}, \code{\link{uniroot}}
 #'
 #' @references  Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 #' a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.

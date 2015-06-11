@@ -80,7 +80,7 @@
 #' simulation}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @section Function version: 0.31
 #' @author Christoph Burow, University of Cologne (Germany)
 #' @references Duller, G.A.T., 2008. Single-grain optical dating of Quaternary

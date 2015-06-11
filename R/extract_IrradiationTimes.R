@@ -34,7 +34,7 @@
 #' object. As the XSYG-file format comprises much more information than usually
 #' needed for routine data analysis and allowed in the BINX-file format, only
 #' the relevant curves are selected by using the function
-#' \code{\link{get_RLum.Analysis}}. The argument \code{recordType} works as
+#' \code{\link{get_RLum}}. The argument \code{recordType} works as
 #' described for this function. \cr
 #'
 #' Note: A wrong selection will causes a function error. Please change this

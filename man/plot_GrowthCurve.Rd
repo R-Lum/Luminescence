@@ -117,7 +117,7 @@ provide an empty user mtext \code{mtext = ""}. To plot any other subtitle
 text, use \code{mtext}.
 }
 \section{Function version}{
- 1.6.1 (2015-04-30 05:59:06)
+ 1.6.1
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value
@@ -141,5 +141,5 @@ plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), \cr Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+}
 

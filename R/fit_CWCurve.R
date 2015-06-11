@@ -109,7 +109,7 @@
 #' (France)
 #' @seealso \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
 #' \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-#' \code{\link{get_RLum.Results}}, \code{\link{nlsLM}}
+#' \code{\link{get_RLum}}, \code{\link{nlsLM}}
 #' @references Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 #' Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.
 #'

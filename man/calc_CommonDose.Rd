@@ -32,7 +32,7 @@ following element:
 used arguments} \item{call}{\link{call} the function call}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 Function to calculate the common dose of a De distribution.
@@ -49,7 +49,7 @@ calculated using the un-logged estimates of De and their absolute standard
 error (Galbraith & Roberts 2012, p. 14).
 }
 \section{Function version}{
- 0.1 (2015-04-30 05:51:33)
+ 0.1
 }
 \examples{
 ## load example data
@@ -60,7 +60,7 @@ calc_CommonDose(ExampleData.DeValues$CA1)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.

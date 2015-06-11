@@ -3,11 +3,33 @@
 \docType{class}
 \name{Risoe.BINfileData-class}
 \alias{Risoe.BINfileData-class}
+\alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
+\alias{set_Risoe.BINfileData,data.frame,list-method}
 \title{Class \code{"Risoe.BINfileData"}}
+\usage{
+\S4method{set_Risoe.BINfileData}{data.frame,list}(METADATA, DATA, .RESERVED)
+
+\S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object)
+}
+\arguments{
+\item{METADATA}{x}
+
+\item{DATA}{x}
+
+\item{.RESERVED}{x}
+
+\item{object}{x}
+}
 \description{
 S4 class object for luminescence data in R. The object is produced as output
 of the function \code{\link{readBIN2R}}.
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{set_Risoe.BINfileData}: The argument \code{data.object} allows directly access
+
+\item \code{get_Risoe.BINfileData}: The argument \code{data.object} allows directly access
+}}
 \note{
 \bold{Internal METADATA - object structure}
 

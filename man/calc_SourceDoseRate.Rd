@@ -65,7 +65,7 @@ National Laboratory }
 #
 }
 \section{Function version}{
- 0.1 (2015-04-30 05:54:25)
+ 0.1
 }
 \examples{
 ##(1) Simple function usage
@@ -89,7 +89,7 @@ Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 \author{
 Margret C. Fuchs, AWI Potsdam (Germany), \cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \references{
 NNDC, Brookhaven National Laboratory
 (\code{http://www.nndc.bnl.gov/})

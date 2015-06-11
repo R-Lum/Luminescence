@@ -40,7 +40,7 @@ found in the documentations of each plot function.  \tabular{lll}{
 The provided plot output depends on the input object.
 }
 \section{Function version}{
- 0.3 (2015-04-30 06:00:58)
+ 0.3
 }
 \examples{
 #load Example data
@@ -55,7 +55,7 @@ plot_RLum(temp)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 #
 }

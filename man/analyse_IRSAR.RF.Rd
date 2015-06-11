@@ -83,7 +83,7 @@ returned containing the following elements: \cr
 are only provided for the method \code{"SLIDE"}, provided the trend
 correction is applied.} \item{fit}{\link{nls} \code{nlsModel} object}\cr
 \bold{Note:} The output (\code{De.values}) should be accessed using the
-function \code{\link{get_RLum.Results}}
+function \code{\link{get_RLum}}
 }
 \description{
 Function to analyse IRSAR RF measurements on K-feldspar samples, performed
@@ -182,7 +182,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.3.2 (2015-06-08 18:33:53)
+ 0.3.2
 }
 \examples{
 ##load data
@@ -194,7 +194,7 @@ temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
@@ -242,7 +242,7 @@ Measurements 32, 685-690.
 }
 \seealso{
 \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
+\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 \code{\link{nls}}
 }
 \keyword{datagen}

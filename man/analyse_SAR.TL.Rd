@@ -49,7 +49,7 @@ values including signal, background counts and the dose points.}
 \item{rejection.criteria}{\link{data.frame} with values that might by used
 as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
 \bold{note:} the output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 The function performs a SAR TL analysis on a
@@ -71,7 +71,7 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
- 0.1.4 (2015-04-30 05:49:25)
+ 0.1.4
 }
 \examples{
 ##load data
@@ -90,7 +90,7 @@ analyse_SAR.TL(object,
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching.  Quaternary Science Reviews 7, 387-393.
@@ -102,7 +102,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 \seealso{
 \code{\link{calc_TLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \keyword{datagen}
 \keyword{plot}

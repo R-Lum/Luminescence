@@ -88,7 +88,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #'
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
+#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 #' \code{\link{uniroot}}
 #'
 #'

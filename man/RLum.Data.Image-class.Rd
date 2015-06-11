@@ -3,10 +3,43 @@
 \docType{class}
 \name{RLum.Data.Image-class}
 \alias{RLum.Data.Image-class}
+\alias{get_RLum,RLum.Data.Image-method}
+\alias{set_RLum,RLum.Data.Image-method}
 \title{Class \code{"RLum.Data.Image"}}
+\usage{
+\S4method{set_RLum}{RLum.Data.Image}(class, recordType, curveType, data, info)
+
+\S4method{get_RLum}{RLum.Data.Image}(object, info.object)
+}
+\arguments{
+\item{class}{x}
+
+\item{recordType}{x}
+
+\item{curveType}{x}
+
+\item{data}{x}
+
+\item{info}{x}
+
+\item{object}{x}
+
+\item{info.object}{x}
+}
 \description{
 Class for luminescence image data (TL/OSL/RF).
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{set_RLum}: Construction method for \code{RLum.Results} object.
+The slot \code{originator} is optional and predefined as the function
+that calls the function \code{set_RLum.Results}.
+
+\item \code{get_RLum}: The argument \code{data.object} allows directly accessing
+objects delivered within the slot \code{data}. If no \code{data.object} is
+specified, a preselected object is returned. The default return
+object depends on the object originator (e.g. \code{fit_LMCurve})
+}}
 \note{
 The class should only contain data for a set of images. For additional
 elements the slot \code{info} can be used.

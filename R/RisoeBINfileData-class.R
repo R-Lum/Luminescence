@@ -1,3 +1,6 @@
+#' @include get_Risoe.BINfileData.R set_Risoe.BINfileData.R
+NULL
+
 #' Class \code{"Risoe.BINfileData"}
 #'
 #' S4 class object for luminescence data in R. The object is produced as output
@@ -188,12 +191,12 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
 
 # constructor (set) method for object class -----------------------------------
 
-setGeneric("set_Risoe.BINfileData",
-           function(METADATA, DATA,.RESERVED) {
-             standardGeneric("set_Risoe.BINfileData")
-           })
-
-
+#' @describeIn Risoe.BINfileData
+#' The argument \code{data.object} allows directly access
+#' 
+#' @param METADATA x
+#' @param DATA x
+#' @param .RESERVED x
 setMethod("set_Risoe.BINfileData",
           signature = c(
             METADATA = "data.frame", DATA = "list", .RESERVED = "ANY"
@@ -216,12 +219,12 @@ setMethod("set_Risoe.BINfileData",
 
 # accessor (get) method for object class -----------------------------------
 
-setGeneric("get_Risoe.BINfileData",
-           function(object) {standardGeneric("get_Risoe.BINfileData")})
-
-
+#' @describeIn Risoe.BINfileData
+#' The argument \code{data.object} allows directly access
+#' 
+#' @param object x
 setMethod("get_Risoe.BINfileData",
-          signature=signature(object = "Risoe.BINfileData"),
+          signature= "Risoe.BINfileData",
           definition = function(object) {
 
             cat("[get_Risoe.BINfileData()]: No direct access is provided for this object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing.")

@@ -73,7 +73,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.4 (2015-05-06 12:24:07)
+ 0.2.4
 }
 \examples{
 ###load data
@@ -92,7 +92,7 @@ plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 #
 }

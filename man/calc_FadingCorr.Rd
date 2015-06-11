@@ -90,7 +90,7 @@ appear similar, but they are not comparable!
 The upper age limit is set to 500 ka!
 }
 \section{Function version}{
- 0.3.0 (2015-05-10 17:46:35)
+ 0.3.0
 }
 \examples{
 results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
@@ -101,14 +101,14 @@ get_RLum.Results(results)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-\cr R Luminescence Package Team}
+}
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading
 in K-feldspars and the measurement and correction for it in optical dating.
 Canadian Journal of Earth Sciences, 38, 1093-1106.
 }
 \seealso{
-\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
+\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 \code{\link{uniroot}}
 }
 \keyword{datagen}

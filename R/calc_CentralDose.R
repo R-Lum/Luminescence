@@ -29,7 +29,7 @@
 #' \item{profile}{\link{data.frame} the log likelihood profile for sigma}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @section Function version: 1.3
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2010 \cr

@@ -63,7 +63,7 @@ for all parameters} \item{BIC}{\link{numeric} BIC score}
 \item{bootstrap}{\link{list} bootstrap results}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 Function to fit the (un-)logged three or four parameter minimum dose model
@@ -132,7 +132,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.1 (2015-04-30 05:53:53)
+ 0.4.1
 }
 \examples{
 ## Load example data
@@ -228,7 +228,7 @@ rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
 based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
 Cunningham is thanked for his help in implementing and cross-checking the
 code.
-\cr R Luminescence Package Team}
+}
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young

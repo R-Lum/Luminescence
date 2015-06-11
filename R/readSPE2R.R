@@ -37,11 +37,10 @@
 #'
 #' \code{matrix}\cr
 #'
-#' Returns a matrix of the form: Rows = Channels, columns = Frames For the
-#' transformation the function \code{\link{get_RLum.Data.Spectrum}} is used,
+#' Returns a matrix of the form: Rows = Channels, columns = Frames. For the
+#' transformation the function \code{\link{get_RLum}} is used,
 #' meaning that the same results can be obtained by using the function
-#' \code{\link{get_RLum.Data.Spectrum}} on an \code{RLum.Data.Spectrum} object
-#' or \code{\link{get_RLum.Data.Image}} on an \code{RLum.Data.Image} object.
+#' \code{\link{get_RLum}} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 #' @note \bold{The function does not test whether the input data are spectra or
 #' pictures for spatial resolved analysis!}\cr
 #'

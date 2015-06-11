@@ -100,7 +100,7 @@
 #' \item{bootstrap}{\link{list} bootstrap results}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @note The default starting values for \emph{gamma}, \emph{mu}, \emph{sigma}
 #' and \emph{p0} may only be appropriate for some De data sets and may need to
 #' be changed for other data. This is especially true when the un-logged

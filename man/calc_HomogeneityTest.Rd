@@ -26,7 +26,7 @@ following element:
 used arguments} \item{call}{\link{call} the function call}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 A simple homogeneity test for De estimates
@@ -35,7 +35,7 @@ A simple homogeneity test for De estimates
 For details see Galbraith (2003).
 }
 \section{Function version}{
- 0.2 (2015-04-30 05:53:01)
+ 0.2
 }
 \examples{
 ## load example data
@@ -46,7 +46,7 @@ calc_HomogeneityTest(ExampleData.DeValues$BT998)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \references{
 Galbraith, R.F., 2003. A simple homogeneity test for estimates
 of dose obtained using OSL. Ancient TL 21, 75-77.

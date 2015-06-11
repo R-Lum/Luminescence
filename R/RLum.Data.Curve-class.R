@@ -1,3 +1,6 @@
+#' @include get_RLum.R set_RLum.R
+NULL
+
 #' Class \code{"RLum.Data.Curve"}
 #'
 #' Class for luminescence curve data.
@@ -110,17 +113,20 @@ setMethod("show",
 
 # constructor (set) method for object class -----------------------------------
 
-setGeneric("set_RLum.Data.Curve",
-           function(recordType, curveType, data, info) {standardGeneric("set_RLum.Data.Curve")})
-
-
-setMethod("set_RLum.Data.Curve", 
-            signature = c(recordType = "ANY", 
-                          curveType = "ANY", 
-                          data = "ANY", 
-                          info = "ANY"), 
+#' @describeIn RLum.Data.Curve
+#' Construction method for \code{RLum.Results} object.
+#' The slot \code{originator} is optional and predefined as the function 
+#' that calls the function \code{set_RLum.Results}. 
+#'
+#' @param class x
+#' @param recordType x
+#' @param curveType x
+#' @param data x
+#' @param info x
+setMethod("set_RLum", 
+          signature = signature("RLum.Data.Curve"), 
           
-            function(recordType, curveType, data, info){             
+          definition = function(class, recordType, curveType, data, info){             
               
               ##check for missing curveType
               if(missing(curveType)==TRUE){
@@ -169,11 +175,16 @@ setMethod("set_RLum.Data.Curve",
 
 # constructor (get) method for object class -----------------------------------
 
-setGeneric("get_RLum.Data.Curve",
-           function(object, info.object) {standardGeneric("get_RLum.Data.Curve")})
-
-setMethod("get_RLum.Data.Curve", 
-          signature(object="ANY", info.object = "ANY"), 
+#' @describeIn RLum.Data.Curve
+#' The argument \code{data.object} allows directly accessing
+#' objects delivered within the slot \code{data}. If no \code{data.object} is 
+#' specified, a preselected object is returned. The default return
+#' object depends on the object originator (e.g. \code{fit_LMCurve})
+#'  
+#' @param object x
+#' @param info.object x
+setMethod("get_RLum", 
+          signature("RLum.Data.Curve"), 
           definition = function(object, info.object) {
             
            ##Check if function is of type RLum.Data.Curve
