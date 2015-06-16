@@ -1,14 +1,31 @@
-##//////////////////////////////////////////////////////////////////////////////
-##//RLum.Analysis-class.R
-##//////////////////////////////////////////////////////////////////////////////
-##==============================================================================
-##author: Sebastian Kreutzer
-##organisation: IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-##version: 0.1.8
-##date: 2015-02-03
-##==============================================================================
-
-##class definition
+#' Class \code{"RLum.Analysis"}
+#'
+#' Object class containing analysis data for protocol analysis.
+#'
+#'
+#' @name RLum.Analysis-class
+#' @aliases RLum.Analysis-class show,RLum.Analysis-method set_RLum.Analysis
+#' set_RLum.Analysis,RLum.Analysis-method set_RLum.Analysis,list-method
+#' get_RLum.Analysis get_RLum.Analysis-methods
+#' get_RLum.Analysis,RLum.Analysis-method get_structure.RLum.Analysis
+#' get_structure.RLum.Analysis,RLum.Analysis-method length_RLum.Analysis
+#' length_RLum.Analysis-methods length_RLum.Analysis,RLum.Analysis-method
+#' @docType class
+#' @note The method \code{get_structure.RLum.Analysis} is currently just
+#' avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
+#' @section Objects from the Class: Objects can be created by calls of the form
+#' \code{new("RLum.Analysis", ...)}.
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France)
+#' @seealso \code{\link{Risoe.BINfileData2RLum.Analysis}},
+#' \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}
+#' @examples
+#'
+#' showClass("RLum.Analysis")
+#'
+#' ## usage of get_RLum.Analysis() with returning an RLum.Analysis object
+#' #  get_RLum.Analysis(object, keep.object = TRUE)
+#'
 setClass("RLum.Analysis",
          representation(
            records = "list",

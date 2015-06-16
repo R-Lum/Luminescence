@@ -1,16 +1,29 @@
-##//////////////////////////////////////////////////////////////////////////////
-##//RLum.Data.Curve-class.R
-##//////////////////////////////////////////////////////////////////////////////
-##==============================================================================
-#author: Sebastian Kreutzer
-#organisation: JLU Giessen/Freiberg Instruments
-#version: 0.1.2
-#date: 2013-11-22
-##==============================================================================
-##[SK]  The curve type slot is intentionally named 'recordType' against 
-##      the internal naming conventions. 
-
-
+#' Class \code{"RLum.Data.Curve"}
+#'
+#' Class for luminescence curve data.
+#'
+#'
+#' @name RLum.Data.Curve-class
+#' @aliases RLum.Data.Curve-class coerce,RLum.Analysis-method
+#' show,RLum.Data.Curve-method set_RLum.Data.Curve set_RLum.Data.Curve-methods
+#' set_RLum.Data.Curve,RLum.Data.Curve-method set_RLum.Data.Curve,ANY-method
+#' set_RLum.Data.Curve,character,matrix-method get_RLum.Data.Curve
+#' get_RLum.Data.Curve-methods get_RLum.Data.Curve,ANY-method
+#' @docType class
+#' @note The class should only contain data for a single curve. For additional
+#' elements the slot \code{info} can be used (e.g. providing additional heating
+#' ramp curve).
+#' @section Objects from the Class: Objects can be created by calls of the form
+#' \code{new("RLum.Data.Curve", ...)}.
+#' @author Sebastian Kreutzer Freiberg Instruments/JLU Giessen (Germany)
+#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+#' \code{\link{plot_RLum}}
+#' @references #
+#' @keywords classes
+#' @examples
+#'
+#' showClass("RLum.Data.Curve")
+#'
 setClass("RLum.Data.Curve",
          representation(
            recordType = "character",
