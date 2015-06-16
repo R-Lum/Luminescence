@@ -10,8 +10,13 @@
 
   \subsection{Bugfixes and changes}{
    \itemize{
-      \item Dummy
-   }
+      \item \code{plot_AbanicoPlot()}
+        \itemize{
+          \item zlim-definition bug removed,
+          \item automatic bandwidth adjustment implemented,
+          \item automatic z-axis scaling for zero scatter implemented
+        }
+     }
   }
 }
 
