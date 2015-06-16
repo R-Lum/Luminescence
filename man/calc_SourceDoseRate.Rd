@@ -76,7 +76,7 @@ dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
                                   calib.error = 0.0019)
 
 ##show results
-get_RLum.Results(dose.rate)
+get_RLum(dose.rate)
 
 ##(2) Usage in combination with another function (e.g., Second2Gray() )
 ## load example data

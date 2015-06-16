@@ -49,7 +49,7 @@ temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
 temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
 
 ##merge the results and store them in a new object
-temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))
+temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

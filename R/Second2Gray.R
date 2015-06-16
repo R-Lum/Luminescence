@@ -87,7 +87,7 @@ Second2Gray <- function(
 
     }else{
 
-      dose.rate <- as.numeric(get_RLum.Results(dose.rate, data.object = "dose.rate"))
+      dose.rate <- as.numeric(get_RLum(dose.rate, data.object = "dose.rate"))
 
 
     }

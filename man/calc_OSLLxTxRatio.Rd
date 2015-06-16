@@ -85,7 +85,7 @@ results <- calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral = c(1:2),
                              background.integral = c(85:100))
 
 ##get results object
-get_RLum.Results(results)
+get_RLum(results)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

@@ -59,7 +59,7 @@
 #' Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
 #' Dr1 = 34.4))
 #'
-#' get_RLum.Results(results, data.object = "De")
+#' get_RLum(results, data.object = "De")
 #'
 #'
 calc_gSGC<- function(
@@ -315,7 +315,9 @@ calc_gSGC<- function(
 ##OUTPUT RLUM
 ##============================================================================##
 
-  temp.RLum.Results <- set_RLum.Results(data = list(
+  temp.RLum.Results <- set_RLum(
+    class = "RLum.Results",
+    data = list(
     De = as.data.frame(output.data),
     De.MC =  output.De.MC,
     uniroot = output.uniroot

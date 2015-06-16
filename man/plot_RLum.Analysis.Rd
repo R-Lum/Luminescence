@@ -86,7 +86,7 @@ temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 plot_RLum.Analysis(temp)
 
 ##plot (combine) TL curves in one plot
-temp.sel <- get_RLum.Analysis(temp, recordType = "TL", keep.object = TRUE)
+temp.sel <- get_RLum(temp, recordType = "TL", keep.object = TRUE)
 plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 }
 \author{

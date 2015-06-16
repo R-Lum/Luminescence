@@ -116,10 +116,10 @@ the XSXG file are skipped.
 data(ExampleData.XSYG, envir = environment())
 
 ##grep one OSL curves and plot the first curve
-OSLcurve <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
+OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 
 ##(3) How to see the structure of an object?
-get_structure.RLum.Analysis(OSL.SARMeasurement$Sequence.Object)
+structure_RLum(OSL.SARMeasurement$Sequence.Object)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

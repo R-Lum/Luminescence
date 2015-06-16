@@ -39,10 +39,10 @@
 #' temp <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos = 3)
 #'
 #'
-#' Lx.data.signal <- get_RLum.Analysis(temp, record.id=1)
-#' Lx.data.background <- get_RLum.Analysis(temp, record.id=2)
-#' Tx.data.signal <- get_RLum.Analysis(temp, record.id=3)
-#' Tx.data.background <- get_RLum.Analysis(temp, record.id=4)
+#' Lx.data.signal <- get_RLum(temp, record.id=1)
+#' Lx.data.background <- get_RLum(temp, record.id=2)
+#' Tx.data.signal <- get_RLum(temp, record.id=3)
+#' Tx.data.background <- get_RLum(temp, record.id=4)
 #' signal.integral.min <- 210
 #' signal.integral.max <- 230
 #'
@@ -50,7 +50,7 @@
 #'                            Lx.data.background,
 #'                            Tx.data.signal, Tx.data.background,
 #'                            signal.integral.min, signal.integral.max)
-#' get_RLum.Results(output)
+#' get_RLum(output)
 #'
 #'
 calc_TLLxTxRatio <- function(
@@ -221,7 +221,8 @@ calc_TLLxTxRatio <- function(
 
 # Return values -----------------------------------------------------------
 
-   newRLumResults.calc_TLLxTxRatio <- set_RLum.Results(
+   newRLumResults.calc_TLLxTxRatio <- set_RLum(
+     class = "RLum.Results",
      data=list(LxTx.table = temp.results))
 
    return(newRLumResults.calc_TLLxTxRatio)

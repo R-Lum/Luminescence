@@ -88,7 +88,7 @@ supported.}
 #temp
 
 ##(4) Export raw data to csv, if temp is a RLum.Data.Spectrum object
-# write.table(x = get_RLum.Data.Spectrum(temp),
+# write.table(x = get_RLum(temp),
 #             file = "[your path and filename]",
 #             sep = ";", row.names = FALSE)
 }

@@ -81,7 +81,7 @@
 #' #temp
 #'
 #' ##(4) Export raw data to csv, if temp is a RLum.Data.Spectrum object
-#' # write.table(x = get_RLum.Data.Spectrum(temp),
+#' # write.table(x = get_RLum(temp),
 #' #             file = "[your path and filename]",
 #' #             sep = ";", row.names = FALSE)
 #'
@@ -367,7 +367,9 @@ readSPE2R <- function(
 
 
     ##set output object
-    object <- set_RLum.Data.Spectrum(recordType = "Spectrum",
+    object <- set_RLum(
+      class = "RLum.Data.Spectrum",
+      recordType = "Spectrum",
                                      curveType = "measured",
                                      data = data.spectrum.matrix,
                                      info = temp.info)
@@ -375,7 +377,7 @@ readSPE2R <- function(
     ##optional matrix object
     if(output.object == "matrix"){
 
-      object <- get_RLum.Data.Spectrum(object)}
+      object <- get_RLum(object)}
 
 
   }else if(output.object == "RLum.Data.Image"){
@@ -400,7 +402,9 @@ readSPE2R <- function(
     data.raster <- brick(x = data.raster.list)
 
     ##Create RLum.object
-    object <- set_RLum.Data.Image(recordType = "Image",
+    object <- set_RLum(
+      class = "RLum.Data.Image",
+      recordType = "Image",
                                   curveType = "measured",
                                   data = data.raster,
                                   info = temp.info)

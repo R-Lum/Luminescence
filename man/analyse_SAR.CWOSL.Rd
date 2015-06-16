@@ -133,10 +133,10 @@ results <- analyse_SAR.CWOSL(object,
                   fit.method = "EXP")
 
 ##show De results
-get_RLum.Results(results)
+get_RLum(results)
 
 ##show LnTnLxTx table
-get_RLum.Results(results, data.object = "LnLxTnTx.table")
+get_RLum(results, data.object = "LnLxTnTx.table")
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

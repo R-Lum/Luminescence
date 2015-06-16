@@ -181,7 +181,7 @@
 #'                               altitude = 364, error = 10)
 #'
 #' # the results can be accessed by
-#' get_RLum.Results(results, "summary")
+#' get_RLum(results, "summary")
 #'
 #' #export results to .csv file - uncomment for usage
 #' #write.csv(results, file = "c:/users/public/results.csv")
@@ -535,7 +535,8 @@ calc_CosmicDoseRate<- function(
 
     summary<- data.frame(cbind(temp1,temp2))
 
-    newRLumResults.calc_CosmicDoseRate <- set_RLum.Results(
+    newRLumResults.calc_CosmicDoseRate <- set_RLum(
+      class = "RLum.Results",
       data = list(summary=summary,
                   args=args,
                   call=call))
@@ -560,7 +561,8 @@ calc_CosmicDoseRate<- function(
 
     summary<- data.frame(cbind(profile.results,add.info))
 
-    newRLumResults.calc_CosmicDoseRate <- set_RLum.Results(
+    newRLumResults.calc_CosmicDoseRate <- set_RLum(
+      class = "RLum.Results",
       data = list(summary=summary,
                   args=args,
                   call=call))

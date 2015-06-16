@@ -793,7 +793,8 @@ fit_CWCurve<- function(
   ## Return Values
   ##============================================================================##
 
-  newRLumResults.fit_CWCurve <- set_RLum.Results(
+  newRLumResults.fit_CWCurve <- set_RLum(
+    class = "RLum.Results",
     data = list(
       fit = fit,
       output.table = output.table,

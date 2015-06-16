@@ -108,10 +108,10 @@ plot_RLum.Data.Image <- function(
   {"Height [px]"}
 
   xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  {c(0,dim(get_RLum.Data.Image(object))[2])}
+  {c(0,dim(get_RLum(object))[2])}
 
   ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {c(0,dim(get_RLum.Data.Image(object))[1])}
+  {c(0,dim(get_RLum(object))[1])}
 
   ##plotRGB::ext
   ext <- if("ext" %in% names(extraArgs)) {extraArgs$ext} else
@@ -127,7 +127,7 @@ plot_RLum.Data.Image <- function(
 
   ##plotRGB::maxpixels
   maxpixels <- if("maxpixels" %in% names(extraArgs)) {extraArgs$maxpixels} else
-  {dim(get_RLum.Data.Image(object))[1]*dim(get_RLum.Data.Image(object))[2]}
+  {dim(get_RLum(object))[1]*dim(get_RLum(object))[2]}
 
   ##plotRGB::alpha
   alpha <- if("alpha" %in% names(extraArgs)) {extraArgs$alpha} else
@@ -158,7 +158,7 @@ plot_RLum.Data.Image <- function(
     ## ==========================================================================#
 
     plotRGB(
-      get_RLum.Data.Image(object),
+      get_RLum(object),
       main = main,
       axes = TRUE,
       xlab = xlab,
@@ -176,7 +176,7 @@ plot_RLum.Data.Image <- function(
     ## ==========================================================================#
   }else if(plot.type == "plot.raster"){
 
-    plot(get_RLum.Data.Image(object),
+    plot(get_RLum(object),
          main = main,
          xlim = xlim,
          ylim = ylim,
@@ -189,10 +189,10 @@ plot_RLum.Data.Image <- function(
     ## ==========================================================================#
   }else if(plot.type == "contour"){
 
-    for(i in 1:nlayers(get_RLum.Data.Image(object))){
+    for(i in 1:nlayers(get_RLum(object))){
 
 
-      raster::contour(raster(get_RLum.Data.Image(object), layer = i),
+      raster::contour(raster(get_RLum(object), layer = i),
                       main = main,
                       xlim = xlim,
                       ylim = ylim,

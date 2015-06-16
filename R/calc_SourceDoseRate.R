@@ -62,7 +62,7 @@
 #'                                   calib.error = 0.0019)
 #'
 #' ##show results
-#' get_RLum.Results(dose.rate)
+#' get_RLum(dose.rate)
 #'
 #' ##(2) Usage in combination with another function (e.g., Second2Gray() )
 #' ## load example data
@@ -132,7 +132,8 @@ calc_SourceDoseRate <- function(
 
   dose_rate <- data.frame(dose.rate = source.dose.rate, dose.rate.error = source.dose.rate.error)
 
-  temp.return <- set_RLum.Results(
+  temp.return <- set_RLum(
+    class = "RLum.Results",
     data = list(
       dose.rate = dose_rate,
       parameters = list(source.type = source.type,

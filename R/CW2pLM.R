@@ -123,7 +123,9 @@ CW2pLM <- function(
 
   }else{
 
-    newRLumDataCurves.CW2pLM <- set_RLum.Data.Curve(recordType = values@recordType,
+    newRLumDataCurves.CW2pLM <- set_RLum(
+      class = "RLum.Data.Curve",
+      recordType = values@recordType,
                                                     data = as.matrix(temp.values),
                                                     info = values@info)
     return(newRLumDataCurves.CW2pLM)

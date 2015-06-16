@@ -78,7 +78,7 @@ calc_FuchsLang2001 <- function(
       stop("[calc_FuchsLang2001] 'data' has to be of type 'data.frame' or 'RLum.Results'!")
     } else {
       if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum.Results(data,data.object="De.values")
+        data <- get_RLum(data,data.object="De.values")
       }
     }
   }
@@ -212,7 +212,8 @@ calc_FuchsLang2001 <- function(
   call<- sys.call()
   args<- list(cvThreshold = cvThreshold, startDeValue = startDeValue)
 
-  newRLumResults.calc_FuchsLang2001<- set_RLum.Results(
+  newRLumResults.calc_FuchsLang2001<- set_RLum(
+    class = "RLum.Results",
     data = list(summary = summary,
                 data = data,
                 args = args,

@@ -7,6 +7,11 @@
 \description{
 Abstract class for data in the package Luminescence
 }
+\section{Slots}{
+
+\describe{
+\item{\code{.S3Class}}{Object of class "character"}
+}}
 \note{
 \code{RLum} is a virtual class.
 }
@@ -19,9 +24,6 @@ showClass("RLum")
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
-\references{
-#
 }
 \seealso{
 \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}

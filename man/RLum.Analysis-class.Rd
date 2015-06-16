@@ -19,52 +19,68 @@
 \S4method{length_RLum}{RLum.Analysis}(object)
 }
 \arguments{
-\item{object}{x}
+\item{object}{an object of class \code{\linkS4class{RLum.Analysis}}}
 
-\item{class}{x}
+\item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
 
-\item{records}{x}
+\item{records}{\code{\link{integer}} (\bold{required}): record id in the
+\code{Risoe.BINfileData} object of the curve that is to be stored in the
+\code{RLum.Analysis} object.}
 
-\item{protocol}{x}
+\item{protocol}{\code{\link{character}} (optional): sets protocol type for
+analysis object. Value may be used by subsequent analysis functions. \code{UNKNOWN}
+by default.}
 
-\item{record.id}{x}
+\item{record.id}{\code{\link{numeric}}: IDs of specific records}
 
-\item{recordType}{x}
+\item{recordType}{\code{\link{character}}: record type (e.g. "OSL")}
 
-\item{curveType}{x}
+\item{curveType}{\code{\link{character}}: curve type (e.g. "predefined" or "measured")}
 
-\item{RLum.type}{x}
+\item{RLum.type}{\code{\link{character}}: RLum object type. Defaults to "RLum.Data.Curve"
+and "RLum.Data.Spectrum".}
 
-\item{info.object}{x}
+\item{info.object}{currently not used.}
 
-\item{get.index}{x}
+\item{get.index}{\code{\link{logical}}: return a numeric vector with the index of each
+element in the RLum.Analysis object.}
 
-\item{keep.object}{x}
+\item{keep.object}{\code{\link{logical}}: return an RLum.Analysis object instead of the single
+elements. Default is keep.object = FALSE.}
 }
 \description{
 Object class containing analysis data for protocol analysis.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{structure_RLum}: Construction method for \code{RLum.Results} object.
-The slot \code{originator} is optional and predefined as the function
-that calls the function \code{set_RLum.Results}.
+\item \code{structure_RLum}: Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
 
-\item \code{set_RLum}: Construction method for \code{RLum.Results} object.
-The slot \code{originator} is optional and predefined as the function
-that calls the function \code{set_RLum.Results}.
+\item \code{set_RLum}: Construction method for \code{\linkS4class{RLum.Analysis}} objects.
 
-\item \code{get_RLum}: The argument \code{data.object} allows directly accessing
-objects delivered within the slot \code{data}. If no \code{data.object} is
-specified, a preselected object is returned. The default return
-object depends on the object originator (e.g. \code{fit_LMCurve})
+\item \code{get_RLum}: Accessor method for RLum.Analysis object.
 
-\item \code{length_RLum}: Construction method for \code{RLum.Results} object.
-The slot \code{originator} is optional and predefined as the function
-that calls the function \code{set_RLum.Results}.
+The slots record.id, recordType, curveType and RLum.type are optional to allow for records
+limited by their id (list index number), their record type (e.g. recordType = "OSL")
+or object type.
+
+Example: curve type (e.g. curveType = "predefined" or curveType ="measured")
+
+The selection of a specific RLum.type object superimposes the default selection.
+Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
+
+\item \code{length_RLum}: Returns the length of the object, i.e., number of stored records.
+}}
+\section{Slots}{
+
+\describe{
+\item{\code{records}}{Object of class "list" containing objects of class RLum.Data}
+
+\item{\code{protocol}}{Object of class "character" describing the applied measurement protocol}
+
+\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
-The method \code{get_structure.RLum.Analysis} is currently just
+The method \code{get_structure} is currently just
 avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 \section{Objects from the Class}{
@@ -74,8 +90,8 @@ avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 \examples{
 showClass("RLum.Analysis")
 
-## usage of get_RLum.Analysis() with returning an RLum.Analysis object
-#  get_RLum.Analysis(object, keep.object = TRUE)
+## usage of get_RLum() with returning an RLum.Analysis object
+#  get_RLum(object, keep.object = TRUE)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

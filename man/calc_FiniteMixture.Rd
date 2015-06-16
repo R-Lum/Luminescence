@@ -131,7 +131,7 @@ FMM
 
 ## show the results on equivalent dose, standard error and proportion of
 ## fitted components
-get_RLum.Results(object = FMM, data.object = "components")
+get_RLum(object = FMM, data.object = "components")
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
