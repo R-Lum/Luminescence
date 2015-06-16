@@ -90,7 +90,7 @@
 #'                              background.integral = c(85:100))
 #'
 #' ##get results object
-#' get_RLum.Results(results)
+#' get_RLum(results)
 #'
 #'
 calc_OSLLxTxRatio <- function(

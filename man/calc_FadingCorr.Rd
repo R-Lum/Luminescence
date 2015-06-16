@@ -97,7 +97,7 @@ results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
                 age.faded = c(100,10),
                 n.MCruns=100)
 
-get_RLum.Results(results)
+get_RLum(results)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

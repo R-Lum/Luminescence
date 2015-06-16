@@ -93,7 +93,7 @@ data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
 ##(c) Grep curves and exclude the last two (one TL and one IRSL)
-object <- get_RLum.Analysis(object, record.id = c(-29,-30))
+object <- get_RLum(object, record.id = c(-29,-30))
 
 ##(d) Define new sequence structure and set new RLum.Analysis object
 sequence.structure  <- c(1,2,2,3,4,4)
@@ -106,7 +106,7 @@ object <-  sapply(1:length(sequence.structure), function(x){
 
 })
 
-object <- set_RLum.Analysis(records = object, protocol = "pIRIR")
+object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR")
 
 ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Note: output as single plots to avoid problems with this example

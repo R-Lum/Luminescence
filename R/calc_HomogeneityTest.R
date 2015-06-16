@@ -49,7 +49,7 @@ calc_HomogeneityTest <- function(
            'data.frame' or 'RLum.Results'!")
     } else {
       if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum.Results(data, signature(object = "De.values"))
+        data <- get_RLum(data, signature(object = "De.values"))
 
       }
     }
@@ -113,7 +113,8 @@ calc_HomogeneityTest <- function(
   call<- sys.call()
   args<- list(log=log)
 
-  newRLumResults.calc_HomogeneityTest <- set_RLum.Results(
+  newRLumResults.calc_HomogeneityTest <- set_RLum(
+    class = "RLum.Results",
     data = list(
       summary=summary,
       data=data,

@@ -13,33 +13,45 @@
 \S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object)
 }
 \arguments{
-\item{class}{x}
+\item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
 
-\item{recordType}{x}
+\item{recordType}{\code{\link{character}}: record type (e.g. "OSL")}
 
-\item{curveType}{x}
+\item{curveType}{\code{\link{character}}: curve type (e.g. "predefined" or "measured")}
 
-\item{data}{x}
+\item{data}{\code{\link{matrix}}: raw curve data}
 
-\item{info}{x}
+\item{info}{\code{\link{list}}: info elements}
 
-\item{object}{x}
+\item{object}{an object of class \code{\linkS4class{RLum.Data.Image}}}
 
-\item{info.object}{x}
+\item{info.object}{object of class "list" containing further meta information objects}
 }
 \description{
 Class for luminescence spectra data (TL/OSL/RF).
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{set_RLum}: Construction method for \code{RLum.Results} object.
-The slot \code{originator} is optional and predefined as the function
-that calls the function \code{set_RLum.Results}.
+\item \code{set_RLum}: Construction method for RLum.Data.Spectrum object. The slot info is optional
+ and predefined as empty list by default
 
-\item \code{get_RLum}: The argument \code{data.object} allows directly accessing
-objects delivered within the slot \code{data}. If no \code{data.object} is
-specified, a preselected object is returned. The default return
-object depends on the object originator (e.g. \code{fit_LMCurve})
+\item \code{get_RLum}: Accessor method for RLum.Data.Spectrum object. The argument info.object
+is optional to directly access the info elements. If no info element name
+is provided, the raw curve data (matrix) will be returned
+}}
+\section{Slots}{
+
+\describe{
+\item{\code{recordType}}{Object of class "character" containing the type of the curve (e.g. "TL" or "OSL")}
+
+\item{\code{curveType}}{Object of class "character" containing curve type, allowed values are measured or predefined}
+
+\item{\code{data}}{Object of class "matrix" containing spectrum (count) values. Row labels indicate wavelength/pixel values,
+column labels are temperature or time values.}
+
+\item{\code{info}}{Object of class "list" containing further meta information objects}
+
+\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 The class should only contain data for a single spectra data set. For
@@ -58,9 +70,6 @@ showClass("RLum.Data.Spectrum")
 }
 \author{
 Sebastian Kreutzer, JLU Giessen (Germany)
-}
-\references{
-#
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},

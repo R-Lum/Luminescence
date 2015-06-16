@@ -164,7 +164,8 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     # Convert values ----------------------------------------------------------
 
-    object <- set_RLum.Analysis(
+    object <- set_RLum(
+      class = "RLum.Analysis",
       records = lapply(1:length(object@DATA),function(x){
 
         ##calculate values for matrix
@@ -175,7 +176,8 @@ Risoe.BINfileData2RLum.Analysis<- function(
         j<-unlist(object@DATA[x])
 
         ##set RLum.Data.Curve object
-        set_RLum.Data.Curve(
+        set_RLum(
+          class = "RLum.Data.Curve",
           recordType = as.character(object@METADATA[x,"LTYPE"]),
           data = matrix(c(i,j),nrow=length(i),ncol=2),
           info = as.list(object@METADATA[x,]))

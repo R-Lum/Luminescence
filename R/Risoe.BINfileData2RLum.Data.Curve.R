@@ -161,7 +161,8 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
   # Build object ------------------------------------------------------------
 
-  newRLumDataCurve.Risoe.BINfileData2RLum.Data.Curve <- set_RLum.Data.Curve(
+  newRLumDataCurve.Risoe.BINfileData2RLum.Data.Curve <- set_RLum(
+    class = "RLum.Data.Curve",
     recordType = temp.recordType,
     data = temp.data,
     info = temp.info)

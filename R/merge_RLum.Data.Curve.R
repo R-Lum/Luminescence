@@ -58,7 +58,7 @@
 #' data(ExampleData.XSYG, envir = environment())
 #'
 #' ##grep first and 3d TL curves
-#' TL.curves  <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType = "TL (UVVIS)")
+#' TL.curves  <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType = "TL (UVVIS)")
 #' TL.curve.1 <- TL.curves[[1]]
 #' TL.curve.3 <- TL.curves[[3]]
 #'
@@ -202,7 +202,8 @@ merge_RLum.Data.Curve<- function(
 
   # Build new RLum.Analysis object --------------------------------------------------------------
 
-  temp.new.Data.Curve <- set_RLum.Data.Curve(
+  temp.new.Data.Curve <- set_RLum(
+    class = "RLum.Data.Curve",
     recordType = object[[1]]@recordType,
     curveType =  "merged",
     data = temp.matrix,

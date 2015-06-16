@@ -181,7 +181,7 @@ plot_KDE <- function(
     } else {
 
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum.Results(data[[i]])[,1:2]
+        data[[i]] <- get_RLum(data[[i]])[,1:2]
       }
 
       if(length(data[[i]]) < 2) {

@@ -294,7 +294,7 @@ plot_RLum.Data.Spectrum <- function(
 
 
   # prepare values for plot ---------------------------------------------------
-  temp.xyz <- get_RLum.Data.Spectrum(object)
+  temp.xyz <- get_RLum(object)
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){

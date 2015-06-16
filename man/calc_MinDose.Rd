@@ -152,7 +152,7 @@ mam <- calc_MinDose(data = ExampleData.DeValues$CA1,
 mam
 
 # Show summary table that contains the most relevant results
-res <- get_RLum.Results(mam, "summary")
+res <- get_RLum(mam, "summary")
 res
 
 # Plot the log likelihood profiles retroactively, because before
@@ -204,7 +204,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
 #plot_RLum(mam)
 
 # save bootstrap results in a separate variable
-#bs <- get_RLum.Results(mam, "bootstrap")
+#bs <- get_RLum(mam, "bootstrap")
 
 # show structure of the bootstrap results
 #str(bs, max.level = 2, give.attr = FALSE)

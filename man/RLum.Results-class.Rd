@@ -15,41 +15,48 @@
 \S4method{merge_RLum.Results}{list}(object.list)
 }
 \arguments{
-\item{class}{x}
+\item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
 
-\item{originator}{x}
+\item{originator}{\code{\link{character}}: optional argument to manually set
+the originator.}
 
-\item{data}{x}
+\item{data}{code{\link{list}}: a list containing the data to be stored in the object}
 
-\item{object}{x}
+\item{object}{an object of class \code{\linkS4class{RLum.Results}}}
 
-\item{data.object}{name of the slot to be returned}
+\item{data.object}{name of the data slot to be returned}
 
-\item{object.list}{list}
+\item{object.list}{a list of RLum.Results objects}
 }
 \description{
 Object class contains results data from functions.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{set_RLum}: Construction method for \code{RLum.Results} object.
-The slot \code{originator} is optional and predefined as the function
-that calls the function \code{set_RLum.Results}.
+\item \code{set_RLum}: Construction method for RLum.Results object. The slot originator is optional
+and predefined as the function that calls the function set_RLum.
 
-\item \code{get_RLum}: The argument \code{data.object} allows directly accessing
-objects delivered within the slot \code{data}. If no \code{data.object} is
-specified, a preselected object is returned. The default return
-object depends on the object originator (e.g. \code{fit_LMCurve})
+\item \code{get_RLum}: Accessor method for RLum.Results object. The argument data.object allows
+directly accessing objects delivered within the slot data. If no
+data.object is specified, a preselected object is returned. The default
+return object depends on the object originator (e.g. fit_LMCurve).
 
-\item \code{merge_RLum.Results}: The argument \code{data.object} allows directly accessing
-objects delivered within the slot \code{data}. If no \code{data.object} is
-specified, a preselected object is returned. The default return
-object depends on the object originator (e.g. \code{fit_LMCurve})
+\item \code{merge_RLum.Results}: merge method for RLum.Results objects. The argument object.list requires a list of RLum.Results objects.
+Merging is done by appending similar elements to the first object of the input list.
+}}
+\section{Slots}{
+
+\describe{
+\item{\code{originator}}{Object of class "character" containing name of the producing function}
+
+\item{\code{data}}{Object of class "list" containing output data}
+
+\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 The class is intended to store results from functions to be used by
 other functions. The data in the object should always be accessed by the
-method \code{get_RLum.Results}.
+method \code{get_RLum}.
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form

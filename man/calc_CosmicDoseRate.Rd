@@ -187,7 +187,7 @@ results<- calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                               altitude = 364, error = 10)
 
 # the results can be accessed by
-get_RLum.Results(results, "summary")
+get_RLum(results, "summary")
 
 #export results to .csv file - uncomment for usage
 #write.csv(results, file = "c:/users/public/results.csv")

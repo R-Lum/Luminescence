@@ -69,7 +69,7 @@ The information from the slot 'recordType' is taken from the first
 data(ExampleData.XSYG, envir = environment())
 
 ##grep first and 3d TL curves
-TL.curves  <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType = "TL (UVVIS)")
+TL.curves  <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType = "TL (UVVIS)")
 TL.curve.1 <- TL.curves[[1]]
 TL.curve.3 <- TL.curves[[3]]
 

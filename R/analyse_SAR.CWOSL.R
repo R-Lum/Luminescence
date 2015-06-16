@@ -147,10 +147,10 @@
 #'                   fit.method = "EXP")
 #'
 #' ##show De results
-#' get_RLum.Results(results)
+#' get_RLum(results)
 #'
 #' ##show LnTnLxTx table
-#' get_RLum.Results(results, data.object = "LnLxTnTx.table")
+#' get_RLum(results, data.object = "LnLxTnTx.table")
 #'
 #'
 analyse_SAR.CWOSL<- function(
@@ -204,8 +204,8 @@ analyse_SAR.CWOSL<- function(
 
 
     ##CHECK IF DATA SET CONTAINS ANY OSL curve
-    if(!TRUE%in%grepl("OSL", get_structure.RLum.Analysis(object)$recordType) &&
-       !TRUE%in%grepl("IRSL", get_structure.RLum.Analysis(object)$recordType)){
+    if(!TRUE%in%grepl("OSL", structure_RLum(object)$recordType) &&
+       !TRUE%in%grepl("IRSL", structure_RLum(object)$recordType)){
 
       stop("[analyse_SAR.CWOSL()] No record of type 'OSL' or 'IRSL' are detected in the sequence
 object!")
@@ -214,7 +214,7 @@ object!")
 
     ##Check if any OSL curve is measured, if not set curve type on IRSL
     ##to allow further proceedings
-    CWcurve.type  <- ifelse(!TRUE%in%grepl("OSL", get_structure.RLum.Analysis(object)$recordType),
+    CWcurve.type  <- ifelse(!TRUE%in%grepl("OSL", structure_RLum(object)$recordType),
                             "IRSL","OSL")
 
 
@@ -319,7 +319,7 @@ object!")
   if("irradiation"%in%temp.ltype){
 
     ##grep irraditation times
-    temp.irradiation <- get_structure.RLum.Analysis(object)
+    temp.irradiation <- structure_RLum(object)
     temp.irradiation <- temp.irradiation[temp.irradiation$recordType == "irradiation",
                                          "x.max"]
 
@@ -327,8 +327,9 @@ object!")
     temp.Dose <- c(0,temp.irradiation)
 
     ##remove irradiation entries from file
-    object <- set_RLum.Analysis(
-               records = get_RLum.Analysis(object, recordType = c(CWcurve.type, "TL")),
+    object <- set_RLum(
+               class = "RLum.Analysis",
+               records = get_RLum(object, recordType = c(CWcurve.type, "TL")),
                protocol = "SAR")
 
   }
@@ -404,11 +405,11 @@ object!")
 #               )
 #   if(exists("fit.output") == FALSE){
 #
-#     fit.output <- get_RLum.Results(temp.fit.output)
+#     fit.output <- get_RLum(temp.fit.output)
 #
 #   }else{
 #
-#     fit.output <- rbind(fit.output, get_RLum.Results(temp.fit.output))
+#     fit.output <- rbind(fit.output, get_RLum(temp.fit.output))
 #
 #   }
 #
@@ -421,7 +422,7 @@ object!")
   ##calculate LxTx values using external function
   for(x in seq(1,length(OSL.Curves.ID),by=2)){
 
-               temp.LnLxTnTx <- get_RLum.Results(
+               temp.LnLxTnTx <- get_RLum(
                  calc_OSLLxTxRatio(Lx.data=object@records[[OSL.Curves.ID[x]]]@data,
                                  Tx.data=object@records[[OSL.Curves.ID[x+1]]]@data,
                                  signal.integral,
@@ -992,10 +993,10 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                               ...)
 
  ##grep informaton on the fit object
- temp.GC.fit.Formula  <- get_RLum.Results(temp.GC, "Formula")
+ temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
 
  ##grep results
- temp.GC <- get_RLum.Results(temp.GC)
+ temp.GC <- get_RLum(temp.GC)
 
 # Provide Rejection Criteria for Palaedose error --------------------------
 
@@ -1072,7 +1073,8 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
 # Set return Values -----------------------------------------------------------
 
-  temp.results.final <- set_RLum.Results(
+  temp.results.final <- set_RLum(
+    class = "RLum.Results",
     data = list(
       De.values = as.data.frame(c(temp.GC, temp.GC.extened)),
       LnLxTnTx.table = LnLxTnTx,
@@ -1093,7 +1095,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
 
   ##Rejection criteria
-  temp.rejection.criteria <- get_RLum.Results(temp.results.final,
+  temp.rejection.criteria <- get_RLum(temp.results.final,
                                             data.object = "rejection.criteria")
 
   temp.rc.reycling.ratio <- temp.rejection.criteria[
@@ -1193,7 +1195,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   if(plot == TRUE && 8%in%plot.single.sel){
 
   ##graphical represenation of IR-curve
-  temp.IRSL <- get_RLum.Analysis(object, recordType = "IRSL")
+  temp.IRSL <- get_RLum(object, recordType = "IRSL")
   try(plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE), silent = TRUE)
 
   }

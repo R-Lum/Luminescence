@@ -396,7 +396,7 @@ plot_AbanicoPlot <- function(
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum.Results(data[[i]])[,1:2]
+        data[[i]] <- get_RLum(data[[i]])[,1:2]
       }
     }
   }
@@ -1782,11 +1782,11 @@ plot_AbanicoPlot <- function(
     for(i in 1:length(line)) {
       if(is.list(line) == TRUE) {
         if(is(line[[i]], "RLum.Results")) {
-          line[[i]] <- as.numeric(get_RLum.Results(object = line[[i]],
+          line[[i]] <- as.numeric(get_RLum(object = line[[i]],
                                                    data.object = "summary")$de)
         }
       } else if(is(object = line, class2 = "RLum.Results")) {
-        line <- as.numeric(get_RLum.Results(object = line,
+        line <- as.numeric(get_RLum(object = line,
                                             data.object = "summary")$de)
       }
     }

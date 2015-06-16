@@ -507,7 +507,7 @@ NULL
 #' OSL.SARMeasurement$Sequence.Object
 #'
 #' ##grep OSL curves and plot the first curve
-#' OSLcurve <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object,
+#' OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object,
 #' recordType="OSL")[[1]]
 #' plot_RLum(OSLcurve)
 #'

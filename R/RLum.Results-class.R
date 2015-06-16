@@ -5,18 +5,30 @@ NULL
 #'
 #' Object class contains results data from functions.
 #'
-#'
 #' @name RLum.Results-class
+#' 
 #' @docType class
+#' 
+#' @slot originator Object of class "character" containing name of the producing function
+#' 
+#' @slot data Object of class "list" containing output data
+#' 
+#' @slot .S3Class Object of class "character"
+#' 
 #' @note The class is intended to store results from functions to be used by
 #' other functions. The data in the object should always be accessed by the
-#' method \code{get_RLum.Results}.
+#' method \code{get_RLum}.
+#' 
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Results", ...)}.
+#' 
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#' 
 #' @seealso \code{\linkS4class{RLum}}
+#' 
 #' @keywords classes methods
+#' 
 #' @examples
 #'
 #' showClass("RLum.Results")
@@ -88,13 +100,13 @@ setMethod("show",
 # constructor (set) method for object class -------------------------------
 
 #' @describeIn RLum.Results
-#' Construction method for \code{RLum.Results} object.
-#' The slot \code{originator} is optional and predefined as the function 
-#' that calls the function \code{set_RLum.Results}. 
+#' Construction method for RLum.Results object. The slot originator is optional 
+#' and predefined as the function that calls the function set_RLum.
 #'  
-#' @param class x
-#' @param originator x
-#' @param data x
+#' @param class \code{\link{character}}: name of the \code{RLum} class to create
+#' @param originator \code{\link{character}}: optional argument to manually set 
+#' the originator.
+#' @param data code{\link{list}}: a list containing the data to be stored in the object
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
           
@@ -103,7 +115,7 @@ setMethod("set_RLum",
             if(missing(originator) == TRUE){
               
               ##originator is the calling function (function in which the
-              ##function set_RLum.Results is called)
+              ##function set_RLum is called)
               originator <- as.character(sys.call(which=-3)[[1]])
               
               # temporary fallback due to the change of set_RLum in 0.5.0:
@@ -124,13 +136,14 @@ setMethod("set_RLum",
 
 
 #' @describeIn RLum.Results
-#' The argument \code{data.object} allows directly accessing
-#' objects delivered within the slot \code{data}. If no \code{data.object} is 
-#' specified, a preselected object is returned. The default return
-#' object depends on the object originator (e.g. \code{fit_LMCurve})
+#' Accessor method for RLum.Results object. The argument data.object allows 
+#' directly accessing objects delivered within the slot data. If no 
+#' data.object is specified, a preselected object is returned. The default 
+#' return object depends on the object originator (e.g. fit_LMCurve).
 #' 
-#' @param object x
-#' @param data.object name of the slot to be returned
+#' 
+#' @param object an object of class \code{\linkS4class{RLum.Results}}
+#' @param data.object name of the data slot to be returned
 setMethod("get_RLum",
           signature = signature("RLum.Results"),
           definition = function(object, data.object) {
@@ -138,7 +151,7 @@ setMethod("get_RLum",
             if(missing(data.object)==FALSE){
               if(is(data.object, "character")==FALSE){
                 
-                stop("[get_RLum.Results] Error: 'data.object' has to be a character!")
+                stop("[get_RLum] Error: 'data.object' has to be a character!")
                 
               }
             }
@@ -149,7 +162,7 @@ setMethod("get_RLum",
               if(is.null(try(object@data[[data.object]])) == TRUE){
                 
                 error.message1 <- paste(names(object@data), collapse = ", ")
-                error.message <- paste("[get_RLum.Results()] data.object unknown. Valid object names are: ", error.message1)
+                error.message <- paste("[get_RLum()] data.object unknown. Valid object names are: ", error.message1)
                 
                 stop(error.message)
                 
@@ -175,7 +188,7 @@ setMethod("get_RLum",
                   if(data.object%in%names(object@data)==FALSE){
                     
                     #valid.names <- names(object@data))
-                    stop(paste("\n[get_RLum.Results()] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
+                    stop(paste("\n[get_RLum()] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
                              Valid 'data.objects' are: ",paste(names(object@data), collapse=", "), sep=""))
                     
                   }else{
@@ -203,7 +216,7 @@ setMethod("get_RLum",
                   if(data.object%in%names(object@data)==FALSE){
                     
                     #valid.names <- names(object@data))
-                    stop(paste("\n[get_RLum.Results()] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
+                    stop(paste("\n[get_RLum()] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
                              Valid 'data.objects' are: ",paste(names(object@data), collapse=", "), sep=""))
                     
                   }else{
@@ -242,7 +255,7 @@ setMethod("get_RLum",
                   if(data.object%in%names(object@data)==FALSE){
                     
                     #valid.names <- names(object@data))
-                    stop(paste("\n[get_RLum.Results] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
+                    stop(paste("\n[get_RLum] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
                              Valid 'data.objects' are: ",paste(names(object@data), collapse=", "), sep=""))
                     
                   }else{
@@ -362,12 +375,10 @@ setMethod("get_RLum",
 ## merging is done by append objects to the first object in a list
 
 #' @describeIn RLum.Results
-#' The argument \code{data.object} allows directly accessing
-#' objects delivered within the slot \code{data}. If no \code{data.object} is 
-#' specified, a preselected object is returned. The default return
-#' object depends on the object originator (e.g. \code{fit_LMCurve})
+#' merge method for RLum.Results objects. The argument object.list requires a list of RLum.Results objects.
+#' Merging is done by appending similar elements to the first object of the input list.
 #' 
-#' @param object.list list
+#' @param object.list a list of RLum.Results objects
 setMethod("merge_RLum.Results",
           signature=signature(object.list = "list"),
           definition = function(object.list){

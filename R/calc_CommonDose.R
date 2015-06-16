@@ -83,7 +83,7 @@ calc_CommonDose <- function(
            'data.frame' or 'RLum.Results'!")
     }else{
       if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum.Results(data, signature(object = "De.values"))
+        data <- get_RLum(data, signature(object = "De.values"))
       }
     }
   }
@@ -156,7 +156,8 @@ calc_CommonDose <- function(
   call<- sys.call()
   args<- list(log=log, sigmab=sigmab)
 
-  newRLumResults.calc_CommonDose<- set_RLum.Results(
+  newRLumResults.calc_CommonDose<- set_RLum(
+    class = "RLum.Results",
     data = list(summary = summary,
                 data = data,
                 args = args,

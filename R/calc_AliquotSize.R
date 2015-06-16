@@ -387,7 +387,8 @@ calc_AliquotSize <- function(
   args<- list(grain.size = grain.size, sample.diameter = sample.diameter, packing.density = packing.density, MC = MC, grains.counted = grains.counted, MC.iter=MC.iter)
 
   # create S4 object
-  newRLumResults.calc_AliquotSize <- set_RLum.Results(
+  newRLumResults.calc_AliquotSize <- set_RLum(
+    class = "RLum.Results",
     data = list(
       summary=summary,
       args=args,

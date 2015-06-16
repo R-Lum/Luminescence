@@ -5,18 +5,34 @@ NULL
 #'
 #' Class for luminescence spectra data (TL/OSL/RF).
 #'
-#'
 #' @name RLum.Data.Spectrum-class
+#' 
 #' @docType class
+#' 
+#' @slot recordType Object of class "character" containing the type of the curve (e.g. "TL" or "OSL")
+#' 
+#' @slot curveType Object of class "character" containing curve type, allowed values are measured or predefined
+#' 
+#' @slot data Object of class "matrix" containing spectrum (count) values. Row labels indicate wavelength/pixel values,
+#' column labels are temperature or time values.
+#' 
+#' @slot info Object of class "list" containing further meta information objects
+#'  
+#' @slot .S3Class Object of class "character"
+#' 
 #' @note The class should only contain data for a single spectra data set. For
 #' additional elements the slot \code{info} can be used.
+#' 
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Data.Spectrum", ...)}.
+#' 
 #' @author Sebastian Kreutzer, JLU Giessen (Germany)
+#' 
 #' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
 #' \code{\link{plot_RLum}}
-#' @references #
+#' 
 #' @keywords classes
+#' 
 #' @examples
 #'
 #' showClass("RLum.Data.Spectrum")
@@ -118,15 +134,14 @@ setMethod("show",
 # # constructor (set) method for object class -----------------------------------
 
 #' @describeIn RLum.Data.Spectrum
-#' Construction method for \code{RLum.Results} object.
-#' The slot \code{originator} is optional and predefined as the function 
-#' that calls the function \code{set_RLum.Results}. 
+#' Construction method for RLum.Data.Spectrum object. The slot info is optional
+#'  and predefined as empty list by default
 #'  
-#' @param class x
-#' @param recordType x
-#' @param curveType x
-#' @param data x
-#' @param info x
+#' @param class \code{\link{character}}: name of the \code{RLum} class to create
+#' @param recordType \code{\link{character}}: record type (e.g. "OSL")
+#' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
+#' @param data \code{\link{matrix}}: raw curve data
+#' @param info \code{\link{list}}: info elements
 setMethod("set_RLum", 
           signature = signature("RLum.Data.Spectrum"), 
           
@@ -139,7 +154,7 @@ setMethod("set_RLum",
               
             }else if (is(curveType, "character") == FALSE){
               
-              stop("[set_RLum.Data.Spectrum] Error: 'curveType' has to be of type 'character'!")
+              stop("[set_RLum] Error: 'curveType' has to be of type 'character'!")
               
             }
             
@@ -153,7 +168,7 @@ setMethod("set_RLum",
                 collapse=", ")
               
               ##set error message   
-              temp.error.message <- paste("[set_RLum.Data.Spectrum] Error: Missing required arguments " ,
+              temp.error.message <- paste("[set_RLum] Error: Missing required arguments " ,
                                           temp.error.missing,"!", sep="")
               stop(temp.error.message)
             }
@@ -165,7 +180,7 @@ setMethod("set_RLum",
               
             }else if (is(info, "list") == FALSE){
               
-              stop("[set_RLum.Data.Spectrum] Error: 'info' has to be of type 'list'!")
+              stop("[set_RLum] Error: 'info' has to be of type 'list'!")
               
             }
             
@@ -180,13 +195,12 @@ setMethod("set_RLum",
 # constructor (get) method for object class -----------------------------------
 
 #' @describeIn RLum.Data.Spectrum
-#' The argument \code{data.object} allows directly accessing
-#' objects delivered within the slot \code{data}. If no \code{data.object} is 
-#' specified, a preselected object is returned. The default return
-#' object depends on the object originator (e.g. \code{fit_LMCurve})
+#' Accessor method for RLum.Data.Spectrum object. The argument info.object 
+#' is optional to directly access the info elements. If no info element name 
+#' is provided, the raw curve data (matrix) will be returned
 #'  
-#' @param object x
-#' @param info.object x
+#' @param object an object of class \code{\linkS4class{RLum.Data.Image}}
+#' @param info.object object of class "list" containing further meta information objects
 setMethod("get_RLum", 
           signature("RLum.Data.Spectrum"), 
           definition = function(object, info.object) {
@@ -194,7 +208,7 @@ setMethod("get_RLum",
             ##Check if function is of type RLum.Data.Spectrum
             if(is(object, "RLum.Data.Spectrum") == FALSE){
               
-              stop("[get_RLum.Data.Spectrum] Function valid for 'RLum.Data.Spectrum' objects only!")
+              stop("[get_RLum] Function valid for 'RLum.Data.Spectrum' objects only!")
               
             }
             
@@ -203,7 +217,7 @@ setMethod("get_RLum",
             if(missing(info.object) == FALSE){
               
               if(is(info.object, "character") == FALSE){            
-                stop("[get_RLum.Data.Spectrum] Error: 'info.object' has to be a character!")           
+                stop("[get_RLum] Error: 'info.object' has to be a character!")           
               }
               
               if(info.object %in% names(object@info) == TRUE){
@@ -215,7 +229,7 @@ setMethod("get_RLum",
                 ##grep names
                 temp.element.names <- paste(names(object@info), collapse = ", ")
                 
-                stop.text <- paste("[get_RLum.Data.Spectrum] Error: Invalid element name. Valid names are:", temp.element.names)
+                stop.text <- paste("[get_RLum] Error: Invalid element name. Valid names are:", temp.element.names)
                 
                 stop(stop.text)  
                 

@@ -272,10 +272,11 @@ analyse_IRSAR.RF<- function(
 
   ##REMOVE predefined curves if they are availabe
   if(grepl("curveType",
-           as.character(get_structure.RLum.Analysis(object)$info.elements))[1] == TRUE){
+           as.character(structure_RLum(object)$info.elements))[1] == TRUE){
 
-    object <- set_RLum.Analysis(
-      records = get_RLum.Analysis(object, curveType="measured"),
+    object <- set_RLum(
+      class = "RLum.Analysis",
+      records = get_RLum(object, curveType="measured"),
       protocol = object@protocol)
 
   }
@@ -287,7 +288,7 @@ analyse_IRSAR.RF<- function(
   temp.protocol.step <- rep(sequence.structure, length(object@records))[1:length(object@records)]
 
   ##grep object strucute
-  temp.sequence.structure <- get_structure.RLum.Analysis(object)
+  temp.sequence.structure <- structure_RLum(object)
 
   ##check if the first curve is shorter then the first curve
   if(temp.sequence.structure[1,"n.channels"]>temp.sequence.structure[2,"n.channels"]){
@@ -1244,7 +1245,8 @@ analyse_IRSAR.RF<- function(
                           Trend.slope =  Trend.slope,
                           row.names=NULL)
 
-  newRLumResults.analyse_IRSAR.RF <- set_RLum.Results(
+  newRLumResults.analyse_IRSAR.RF <- set_RLum(
+    class = "RLum.Results",
     data = list(
       De.values = De.values,
       fit = fit))

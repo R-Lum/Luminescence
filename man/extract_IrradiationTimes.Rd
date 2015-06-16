@@ -103,10 +103,10 @@ towards a correct time order.
 #   file.BINX <- file.choose()
 #
 #     output <- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
-#     get_RLum.Results(output)
+#     get_RLum(output)
 #
 ## export results additionally to a CSV.file in the same directory as the XSYG-file
-#       write.table(x = get_RLum.Results(output),
+#       write.table(x = get_RLum(output),
 #                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
 #                   sep = ";",
 #                   row.names = FALSE)

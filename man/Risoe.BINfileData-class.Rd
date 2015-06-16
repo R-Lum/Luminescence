@@ -12,13 +12,15 @@
 \S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object)
 }
 \arguments{
-\item{METADATA}{x}
+\item{METADATA}{Object of class "data.frame" containing the meta information
+for each curve.}
 
-\item{DATA}{x}
+\item{DATA}{Object of class "list" containing numeric vector with count data.}
 
-\item{.RESERVED}{x}
+\item{.RESERVED}{Object of class "list" containing list of undocumented raw
+values for internal use only.}
 
-\item{object}{x}
+\item{object}{an object of class \code{\linkS4class{Risoe.BINfileData}}}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
@@ -26,9 +28,22 @@ of the function \code{\link{readBIN2R}}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{set_Risoe.BINfileData}: The argument \code{data.object} allows directly access
+\item \code{set_Risoe.BINfileData}: The Risoe.BINfileData is normally produced as output of the function readBIN2R.
+This construction method is intended for internal usage only.
 
-\item \code{get_Risoe.BINfileData}: The argument \code{data.object} allows directly access
+\item \code{get_Risoe.BINfileData}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
+the object directly, it is just showing a terminal message.
+}}
+\section{Slots}{
+
+\describe{
+\item{\code{METADATA}}{Object of class "data.frame" containing the meta information for each curve.}
+
+\item{\code{DATA}}{Object of class "list" containing numeric vector with count data.}
+
+\item{\code{.RESERVED}}{Object of class "list" containing list of undocumented raw values for internal use only.}
+
+\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 \bold{Internal METADATA - object structure}
