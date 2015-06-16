@@ -231,6 +231,11 @@ calc_CosmicDoseRate<- function(
       corr.fieldChanges<- FALSE
     }
   }
+  
+  if(length(density) > length(depth)) {
+    stop("\nIf you provide more than one value for density please", 
+         " provide an equal number of values for depth.", call. = FALSE)
+  }
 
 
   ##============================================================================##
