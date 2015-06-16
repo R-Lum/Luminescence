@@ -6,7 +6,7 @@
 #' plotting of equivalent dose distributions.
 #'
 #' \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-#' \tab 0.5.0\cr Date: \tab 2015-XX-XX [upcoming]\cr License: \tab GPL-3\cr }
+#' \tab 0.4.5\cr Date: \tab 2015-XX-XX [upcoming]\cr License: \tab GPL-3\cr }
 #'
 #' @name Luminescence-package
 #' @aliases Luminescence-package Luminescence
@@ -533,16 +533,16 @@ NULL
 
 
 #' Example De data sets for the package Luminescence
-#' 
+#'
 #' Equivalent dose (De) values measured for a fine grain quartz sample from a
 #' loess section in Rottewitz (Saxony/Germany) and for a coarse grain quartz
 #' sample from a fluvial deposit in the rock shelter of Cueva Anton
 #' (Murcia/Spain).
-#' 
-#' 
+#'
+#'
 #' @format A \code{\link{list}} with two elements, each containing a two column
 #' \code{\link{data.frame}}:
-#' 
+#'
 #' \describe{ \code{$BT998}: De and De error values for a fine grain quartz
 #' sample from a loess section in Rottewitz.\cr\cr \code{$CA1}: Single grain De
 #' and De error values for a coarse grain quartz sample from a fluvial deposit
@@ -552,7 +552,7 @@ NULL
 #' V., Zapata, J. and Zilhao, J.  (accepted). Luminescence dating of fluvial
 #' deposits in the rock shelter of Cueva Anton, Spain. Geochronometria.
 #' @source %% ~~ If necessary, more details than the description above ~~
-#' 
+#'
 #' \bold{BT998} \cr \tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr
 #' Lab-Code: \tab BT998\cr Location: \tab Rottewitz (Saxony/Germany)\cr
 #' Material: \tab Fine grain quartz measured on aluminum discs on a Risoe
@@ -565,19 +565,19 @@ NULL
 #' Risoe TL/OSL DA-20 reader\cr Units: \tab Values are given in Gray \cr
 #' Measurement Date: \tab 2012 }
 #' @examples
-#' 
+#'
 #' ##(1) plot values as histogram
 #' data(ExampleData.DeValues, envir = environment())
 #' plot_Histogram(ExampleData.DeValues$BT998, xlab = "De [s]")
-#' 
+#'
 #' ##(2) plot value as histogram (with Second to Gray convertion)
 #' data(ExampleData.DeValues, envir = environment())
-#' 
-#' De.values <- Second2Gray(ExampleData.DeValues$BT998, 
-#'                          dose.rate = c(0.0438, 0.0019), 
+#'
+#' De.values <- Second2Gray(ExampleData.DeValues$BT998,
+#'                          dose.rate = c(0.0438, 0.0019),
 #'                          method = "gaussian")
-#' 
+#'
 #' plot_Histogram(De.values, xlab = "De [Gy]")
-#' 
-#' 
-#' 
+#'
+#'
+#'
