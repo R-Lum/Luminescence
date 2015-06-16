@@ -61,7 +61,7 @@ by used as rejection criteria. NA is produced if no R0 dose point
 exists.}\cr
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}.
+\code{\link{get_RLum}}.
 }
 \description{
 The function performs an analysis of post-IR IRSL sequences including curve
@@ -80,7 +80,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.1.4 (2015-04-30 05:47:40)
+ 0.1.4
 }
 \examples{
 ### NOTE: For this example existing example data are used. These data are non pIRIR data.
@@ -138,7 +138,7 @@ results <- analyse_pIRIRSequence(object,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 using an improved single-aliquot regenerative-dose protocol. Radiation
@@ -152,7 +152,7 @@ doi:10.1016/j.radmeas.2008.06.002
 \seealso{
 \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
 \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}} \code{\link{get_RLum.Results}}
+\code{\linkS4class{RLum.Results}} \code{\link{get_RLum}}
 }
 \keyword{datagen}
 \keyword{plot}

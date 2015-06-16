@@ -20,7 +20,7 @@ growing library. If called without any parameters, a random quote is
 returned.
 }
 \section{Function version}{
- 0.1.1 (2015-05-22 08:42:50)
+ 0.1.1
 }
 \examples{
 ## ask for an arbitrary qoute
@@ -28,5 +28,5 @@ get_Quote()
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+}
 

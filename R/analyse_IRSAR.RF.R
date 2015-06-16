@@ -157,7 +157,7 @@
 #' are only provided for the method \code{"SLIDE"}, provided the trend
 #' correction is applied.} \item{fit}{\link{nls} \code{nlsModel} object}\cr
 #' \bold{Note:} The output (\code{De.values}) should be accessed using the
-#' function \code{\link{get_RLum.Results}}
+#' function \code{\link{get_RLum}}
 #' @note This function assumes that there is no sensitivity change during the
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings from Buylaert et al. (2012).\cr
@@ -174,7 +174,7 @@
 #'
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
+#' \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 #' \code{\link{nls}}
 #'
 #'

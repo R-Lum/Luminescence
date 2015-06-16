@@ -29,7 +29,7 @@
 #' tables}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}.
+#' \code{\link{get_RLum}}.
 #' @section Function version: 0.1
 #' @author Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro

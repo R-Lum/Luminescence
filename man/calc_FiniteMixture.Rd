@@ -75,7 +75,7 @@ If a vector for \code{n.components} is provided (e.g.  \code{c(2:8)}),
 results for each iteration of the model.
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 This function fits a k-component mixture to a De distribution with differing
@@ -105,7 +105,7 @@ per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{
- 0.4 (2015-04-30 05:52:34)
+ 0.4
 }
 \examples{
 ## load example data
@@ -136,7 +136,7 @@ get_RLum.Results(object = FMM, data.object = "components")
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2006. \cr
-\cr R Luminescence Package Team}
+}
 \references{
 Galbraith, R.F. & Green, P.F., 1990. Estimating the component
 ages in a finite mixture. Nuclear Tracks and Radiation Measurements 17,

@@ -137,7 +137,7 @@ the fitting procedure has reached a global minimum rather than a local
 minimum!
 }
 \section{Function version}{
- 0.5.1 (2015-05-05 17:06:46)
+ 0.5.1
 }
 \examples{
 ##load data
@@ -152,7 +152,7 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.
@@ -166,7 +166,7 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 \seealso{
 \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
 \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-\code{\link{get_RLum.Results}}, \code{\link{nlsLM}}
+\code{\link{get_RLum}}, \code{\link{nlsLM}}
 }
 \keyword{dplot}
 \keyword{models}

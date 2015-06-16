@@ -39,7 +39,7 @@ used arguments} \item{call}{\link{call} the function call}
 tables}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}.
+\code{\link{get_RLum}}.
 }
 \description{
 Function to calculate the IEU De for a De data set.
@@ -49,7 +49,7 @@ This function uses the equations of Thomsen et al. (2007).  The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
- 0.1 (2015-04-30 05:53:16)
+ 0.1
 }
 \examples{
 ## load data
@@ -62,7 +62,7 @@ ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
 (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
 written by Kristina Thomsen.
-\cr R Luminescence Package Team}
+}
 \references{
 Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
 2007. Determination of burial dose in incompletely bleached fluvial samples

@@ -49,7 +49,7 @@
 #' exists.}\cr
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}.
+#' \code{\link{get_RLum}}.
 #' @note Best graphical output can be achieved by using the function \code{pdf}
 #' with the following options:\cr \code{pdf(file = "...", height = 15, width =
 #' 15)}
@@ -58,7 +58,7 @@
 #' (France)
 #' @seealso \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
 #' \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}} \code{\link{get_RLum.Results}}
+#' \code{\linkS4class{RLum.Results}} \code{\link{get_RLum}}
 #' @references Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 #' using an improved single-aliquot regenerative-dose protocol. Radiation
 #' Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X

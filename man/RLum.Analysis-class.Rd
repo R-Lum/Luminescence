@@ -3,10 +3,66 @@
 \docType{class}
 \name{RLum.Analysis-class}
 \alias{RLum.Analysis-class}
+\alias{get_RLum,RLum.Analysis-method}
+\alias{length_RLum,RLum.Analysis-method}
+\alias{set_RLum,RLum.Analysis-method}
+\alias{structure_RLum,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
+\usage{
+\S4method{structure_RLum}{RLum.Analysis}(object)
+
+\S4method{set_RLum}{RLum.Analysis}(class, records, protocol)
+
+\S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
+  RLum.type, info.object, get.index, keep.object = FALSE)
+
+\S4method{length_RLum}{RLum.Analysis}(object)
+}
+\arguments{
+\item{object}{x}
+
+\item{class}{x}
+
+\item{records}{x}
+
+\item{protocol}{x}
+
+\item{record.id}{x}
+
+\item{recordType}{x}
+
+\item{curveType}{x}
+
+\item{RLum.type}{x}
+
+\item{info.object}{x}
+
+\item{get.index}{x}
+
+\item{keep.object}{x}
+}
 \description{
 Object class containing analysis data for protocol analysis.
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{structure_RLum}: Construction method for \code{RLum.Results} object.
+The slot \code{originator} is optional and predefined as the function
+that calls the function \code{set_RLum.Results}.
+
+\item \code{set_RLum}: Construction method for \code{RLum.Results} object.
+The slot \code{originator} is optional and predefined as the function
+that calls the function \code{set_RLum.Results}.
+
+\item \code{get_RLum}: The argument \code{data.object} allows directly accessing
+objects delivered within the slot \code{data}. If no \code{data.object} is
+specified, a preselected object is returned. The default return
+object depends on the object originator (e.g. \code{fit_LMCurve})
+
+\item \code{length_RLum}: Construction method for \code{RLum.Results} object.
+The slot \code{originator} is optional and predefined as the function
+that calls the function \code{set_RLum.Results}.
+}}
 \note{
 The method \code{get_structure.RLum.Analysis} is currently just
 avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
@@ -29,4 +85,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \code{\link{Risoe.BINfileData2RLum.Analysis}},
 \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}
 }
+\keyword{classes}
+\keyword{methods}
 

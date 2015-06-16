@@ -64,7 +64,7 @@ points} \item{rejection.criteria}{\link{data.frame} with values that might
 by used as rejection criteria. NA is produced if no R0 dose point exists.}
 \item{Formula}{\link{formula} formula that have been used for the growth
 curve fitting }\cr The output should be accessed using the function
-\code{\link{get_RLum.Results}}.
+\code{\link{get_RLum}}.
 }
 \description{
 The function performs a SAR CW-OSL analysis on an
@@ -112,7 +112,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.5.3 (2015-05-21 08:22:27)
+ 0.5.3
 }
 \examples{
 ##load data
@@ -141,7 +141,7 @@ get_RLum.Results(results, data.object = "LnLxTnTx.table")
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.
@@ -161,7 +161,7 @@ doi:10.1016/j.radmeas.2008.06.002
 \seealso{
 \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \keyword{datagen}
 \keyword{plot}

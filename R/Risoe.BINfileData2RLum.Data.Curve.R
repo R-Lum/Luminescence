@@ -32,7 +32,7 @@
 #' @section Function version: 0.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #' @seealso \code{\link{Risoe.BINfileData2RLum.Analysis}},
-#' \code{\link{set_RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Curve}},
+#' \code{\link{set_RLum}}, \code{\linkS4class{RLum.Data.Curve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{Risoe.BINfileData}},
 #' \code{\link{plot_RLum}}
 #' @references #

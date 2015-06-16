@@ -43,14 +43,14 @@
 #' \item{rejection.criteria}{\link{data.frame} with values that might by used
 #' as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
 #' \bold{note:} the output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
 #' from the input object without further warning.
 #' @section Function version: 0.1.4
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #' @seealso \code{\link{calc_TLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching.  Quaternary Science Reviews 7, 387-393.
 #'

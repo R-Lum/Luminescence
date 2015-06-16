@@ -4,36 +4,26 @@
 #'
 #' The function provides a generalised access point for specific
 #' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
-#' corresponding get function will be selected.  Allowed arguments can be found
-#' in the documentations of each get function.  \tabular{lll}{ \bold{object}
-#' \tab \tab \bold{corresponding get function} \cr
-#'
-#' \code{\linkS4class{RLum.Data.Curve}} \tab : \tab
-#' \code{\link{get_RLum.Data.Curve}}\cr \code{\linkS4class{RLum.Data.Image}}
-#' \tab : \tab \code{\link{get_RLum.Data.Image}}\cr
-#' \code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab
-#' \code{\link{get_RLum.Data.Spectrum}}\cr \code{\linkS4class{RLum.Analysis}}
-#' \tab : \tab \code{\link{get_RLum.Analysis}}\cr
-#' \code{\linkS4class{RLum.Results}} \tab : \tab \code{\link{get_RLum.Results}}
-#' }
+#' corresponding get function will be selected. Allowed arguments can be found
+#' in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 #'
 #' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
 #' class \code{RLum}
 #' @param \dots further arguments that one might want to pass to the specific
 #' get function
 #' @return Return is the same as input objects as provided in the list.
-#' @note -
 #' @section Function version: 0.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
-#' @seealso \code{\link{get_RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Curve}}, \code{\link{get_RLum.Data.Image}},
-#' \code{\linkS4class{RLum.Data.Image}}, \code{\link{get_RLum.Data.Spectrum}},
-#' \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{get_RLum.Analysis}},
-#' \code{\linkS4class{RLum.Analysis}}, \code{\link{get_RLum.Results}},
+#' @seealso
+#' \code{\linkS4class{RLum.Data.Curve}},
+#' \code{\linkS4class{RLum.Data.Image}},
+#' \code{\linkS4class{RLum.Data.Spectrum}},
+#' \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}
-#' @references -
 #' @keywords utilities
+#' @aliases get_RLum.Data.Curve get_RLum.Data.Image get_RLum.Data.Spectrum
+#' get_RLum.Analysis get_RLum.Results
 #' @examples
 #'
 #'
@@ -50,32 +40,40 @@
 #'
 #'
 #'
-get_RLum <- function(
-  object,
-  ...
-){
-
-  # Integrity check ----------------------------------------------------------
+setGeneric("get_RLum", function (object, ...) { standardGeneric("get_RLum") })
 
 
-  ##check if object is of class RLum
-  if(!"RLum"%in%is(object)){
+## ---- DEPRECATED GENERICS
+# .Deprecated in package version 0.5.0
+# .Defunct in 0.5.X
+# Removed in 0.6.0
 
-    stop("[get_RLum()]: Input object  is not of class 'RLum' or a derivative class!")
+#' @noRd
+get_RLum.Analysis <- function(...) {
+  .Deprecated("get_RLum")
+  get_RLum(...)
+}
 
-  }
+#' @noRd
+get_RLum.Data.Curve <- function(...) {
+  .Deprecated("get_RLum")
+  get_RLum(...)
+}
 
-  ##grep object class
-  object.class <-  is(object)[1]
+#' @noRd
+get_RLum.Data.Image <- function(...) {
+  .Deprecated("get_RLum")
+  get_RLum(...)
+}
 
-  ##select which get function should be used
-  switch (object.class,
+#' @noRd
+get_RLum.Data.Spectrum <- function(...) {
+  .Deprecated("get_RLum")
+  get_RLum(...)
+}
 
-          RLum.Data.Curve = get_RLum.Data.Curve(object, ...),
-          RLum.Data.Image = get_RLum.Data.Image(object, ...),
-          RLum.Data.Spectrum = get_RLum.Data.Spectrum(object, ...),
-          RLum.Analysis = get_RLum.Analysis(object, ...),
-          RLum.Results = get_RLum.Results(object, ...)
-
-  )
+#' @noRd
+get_RLum.Results <- function(...) {
+  .Deprecated("get_RLum")
+  get_RLum(...)
 }

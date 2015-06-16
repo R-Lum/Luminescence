@@ -42,11 +42,10 @@ frames. This limitation can be overwritten manually by using the argument
 
 \code{matrix}\cr
 
-Returns a matrix of the form: Rows = Channels, columns = Frames For the
-transformation the function \code{\link{get_RLum.Data.Spectrum}} is used,
+Returns a matrix of the form: Rows = Channels, columns = Frames. For the
+transformation the function \code{\link{get_RLum}} is used,
 meaning that the same results can be obtained by using the function
-\code{\link{get_RLum.Data.Spectrum}} on an \code{RLum.Data.Spectrum} object
-or \code{\link{get_RLum.Data.Image}} on an \code{RLum.Data.Image} object.
+\code{\link{get_RLum}} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 }
 \description{
 Function imports Princeton Instruments (TM) SPE-files into R environment and
@@ -68,7 +67,7 @@ The function has been successfully tested for SPE format versions 2.x.
 supported.}
 }
 \section{Function version}{
- 0.1 (2015-04-30 06:01:56)
+ 0.1
 }
 \examples{
 ## to run examples uncomment lines and run the code
@@ -96,7 +95,7 @@ supported.}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 Format Specification, Version 1.A,

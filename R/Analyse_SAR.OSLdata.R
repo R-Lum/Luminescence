@@ -265,7 +265,7 @@ Analyse_SAR.OSLdata <- function(
       for(k in 1:length(LnLxTnTx.curves[1,])){
         if(exists("LnLxTnTx")==FALSE){
           LnLxTnTx <-
-            get_RLum.Results(
+            get_RLum(
               calc_OSLLxTxRatio(
                 as.data.frame(LnLxTnTx.curves[1,k]),
                 as.data.frame(LnLxTnTx.curves[2,k]),
@@ -277,7 +277,7 @@ Analyse_SAR.OSLdata <- function(
 
         }else{
           LnLxTnTx <-
-            rbind(LnLxTnTx,get_RLum.Results(
+            rbind(LnLxTnTx, get_RLum(
               calc_OSLLxTxRatio(
                 as.data.frame(LnLxTnTx.curves[1,k]),
                 as.data.frame(LnLxTnTx.curves[2,k]),

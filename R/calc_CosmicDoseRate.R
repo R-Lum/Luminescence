@@ -103,7 +103,7 @@
 #' the function call}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @note Despite its universal use the equation to calculate the cosmic dose
 #' rate provided by Prescott & Hutton (1994) is falsely stated to be valid from
 #' the surface to 10^4 hg/cm^2 of standard rock. The original expression by

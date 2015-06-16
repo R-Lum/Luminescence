@@ -19,7 +19,7 @@
 #' used arguments} \item{call}{\link{call} the function call}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @section Function version: 0.2
 #' @author Christoph Burow, University of Cologne (Germany)
 #' @seealso \code{\link{pchisq}}

@@ -28,7 +28,7 @@ curves types from the XSYG file or \code{\linkS4class{RLum.Analysis}}
 object. As the XSYG-file format comprises much more information than usually
 needed for routine data analysis and allowed in the BINX-file format, only
 the relevant curves are selected by using the function
-\code{\link{get_RLum.Analysis}}. The argument \code{recordType} works as
+\code{\link{get_RLum}}. The argument \code{recordType} works as
 described for this function. \cr
 
 Note: A wrong selection will causes a function error. Please change this
@@ -92,7 +92,7 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.2.1 (2015-04-30 07:39:26)
+ 0.2.1
 }
 \examples{
 ## (1) - example for your own data
@@ -114,7 +114,7 @@ towards a correct time order.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Duller, G., 2007. Analyst.
 }
