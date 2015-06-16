@@ -70,7 +70,7 @@ should be limited to avoid artificial intensity data. If \code{P} is
 provided manually, not more than two points are extrapolated.
 }
 \section{Function version}{
- 0.2.1
+ 0.2.1 (2015-06-16 10:57:14)
 }
 \examples{
 ##(1)
@@ -117,7 +117,7 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
 Delft University of Technology, The Netherlands\cr
-}
+\cr R Luminescence Package Team}
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr
