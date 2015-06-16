@@ -30,7 +30,7 @@ avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 \examples{
 showClass("RLum.Analysis")
 
-## usage of get_RLum.Analysis() with returining an RLum.Analysis object
+## usage of get_RLum.Analysis() with returning an RLum.Analysis object
 #  get_RLum.Analysis(object, keep.object = TRUE)
 }
 \author{
