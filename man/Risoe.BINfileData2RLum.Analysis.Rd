@@ -50,7 +50,7 @@ The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.2 (2015-06-16 11:31:33)
 }
 \examples{
 ##load data
@@ -61,7 +61,7 @@ Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \references{
 #
 }

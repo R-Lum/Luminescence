@@ -59,7 +59,7 @@ Please consider the requirements and the constraints of this method
 (see Fuchs & Lang, 2001)
 }
 \section{Function version}{
- 0.4.1
+ 0.4.1 (2015-06-16 10:50:17)
 }
 \examples{
 ##load example data
@@ -71,7 +71,7 @@ temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France) Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 \references{
 Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
 quartz using single-aliqout protocols on sediments from NE Peloponnese,

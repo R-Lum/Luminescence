@@ -103,7 +103,7 @@ The plot output is no 'PD' plot (cf. the discussion of Berger and
 Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5
+ 3.5 (2015-06-16 11:05:48)
 }
 \examples{
 ## read example data set
@@ -176,7 +176,7 @@ lines(x = KDE.x,
 \author{
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\link{density}}, \code{\link{plot}}
 }

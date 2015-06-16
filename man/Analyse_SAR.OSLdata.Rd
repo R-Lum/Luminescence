@@ -108,7 +108,7 @@ consider using the functions \code{\link{analyse_SAR.CWOSL}} or
 to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.16
+ 0.2.16 (2015-06-16 08:56:38)
 }
 \examples{
 ##load data
@@ -131,7 +131,7 @@ output.SAR
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Margret C. Fuchs, TU Bergakademie Freiberg
 (Germany)
-}
+\cr R Luminescence Package Team}
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.

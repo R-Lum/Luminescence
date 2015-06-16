@@ -148,7 +148,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.4.0
+ 0.4.0 (2015-06-16 11:27:07)
 }
 \examples{
 ##load example data
@@ -178,7 +178,7 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \references{
 Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
 Springer.
