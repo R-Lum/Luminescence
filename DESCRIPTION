@@ -93,7 +93,6 @@ Collate:
     'calc_SourceDoseRate.R'
     'calc_Statistics.R'
     'calc_TLLxTxRatio.R'
-    'calc_gSGC.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
     'fit_LMCurve.R'
