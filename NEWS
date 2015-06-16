@@ -6,6 +6,11 @@ Changes in version 0.5.0 (, 2015):
 
          • Dummy
 
+  New functions:
+
+         • 'calc_gSGC()' Calculate De value based on the gSGC by Li et
+           al., 2015
+
   Bugfixes and changes:
 
          • Dummy

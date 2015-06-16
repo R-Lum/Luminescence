@@ -39,7 +39,7 @@ in the documentations of each get function.  \tabular{lll}{ \bold{object}
 -
 }
 \section{Function version}{
- 0.1 (2015-04-30 11:57:24)
+ 0.1 (2015-04-30 12:16:14)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function
