@@ -422,20 +422,20 @@ plot_AbanicoPlot <- function(
   }
 
   if(missing(bar.col) == TRUE) {
-    bar.fill <- rep(x = rep(x = layout$abanico$colour$bar.fill,
-                    length.out = length(data)), length(centrality))
-    bar.line <- rep(rep(layout$abanico$colour$bar.line,
-                    length.out = length(data)), length(centrality))
+    bar.fill <- rep(layout$abanico$colour$bar.fill,
+                    length.out = length(data))
+    bar.line <- rep(layout$abanico$colour$bar.line,
+                    length.out = length(data))
   } else {
     bar.fill <- bar.col
     bar.line <- NA
   }
 
   if(missing(polygon.col) == TRUE) {
-    polygon.fill <- rep(x = rep(layout$abanico$colour$poly.fill,
-                        length.out = length(data)), length(centrality))
-    polygon.line <- rep(x = rep(layout$abanico$colour$poly.line,
-                        length.out = length(data)), length(centrality))
+    polygon.fill <- rep(layout$abanico$colour$poly.fill,
+                        length.out = length(data))
+    polygon.line <- rep(layout$abanico$colour$poly.line,
+                        length.out = length(data))
   } else {
     polygon.fill <- polygon.col
     polygon.line <- NA
@@ -522,79 +522,70 @@ plot_AbanicoPlot <- function(
 
   ## z-values based on log-option
   z <- lapply(1:length(data), function(x){
-    if(log.z == TRUE) {
-      log(data[[x]][,1])
-      } else {
-        data[[x]][,1]
-        }
-    })
-  if(is(z, "list") == FALSE) {
-    z <- list(z)
-    }
+    if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
+  if(is(z, "list") == FALSE) {z <- list(z)}
   data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], z[[x]])
-    })
+    cbind(data[[x]], z[[x]])})
   rm(z)
 
   ## calculate dispersion based on log-option
   se <- lapply(1:length(data), function(x){
-    if(log.z == TRUE) {
-      data[[x]][,2] / data[[x]][,1]
-      } else {
-        data[[x]][,2]
-        }
-    })
-  if(is(se, "list") == FALSE) {
-    se <- list(se)
-    }
+    if(log.z == TRUE) {data[[x]][,2] / data[[x]][,1]} else {data[[x]][,2]}})
+  if(is(se, "list") == FALSE) {se <- list(se)}
   data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], se[[x]])
-    })
+    cbind(data[[x]], se[[x]])})
   rm(se)
-
-  ## calculate initial data statistics
-  stats.init <- list(NA)
-  for(i in 1:length(data)) {
-    stats.init[[length(stats.init) + 1]] <- calc_Statistics(data = data[[i]])
-  }
-  stats.init[[1]] <- NULL
 
   ## calculate central values
   if(centrality[1] == "mean") {
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE, 
-                 log(stats.init[[x]]$unweighted$mean), 
-                 stats.init[[x]]$unweighted$mean), 
-          length(data[[x]][,3]))})
+      rep(mean(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else if(centrality[1] == "median") {
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE, 
-                 log(stats.init[[x]]$unweighted$median), 
-                 stats.init[[x]]$unweighted$median), 
-          length(data[[x]][,3]))})
+      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else  if(centrality[1] == "mean.weighted") {
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE, 
-                 log(stats.init[[x]]$weighted$mean), 
-                 stats.init[[x]]$weighted$mean),
-          length(data[[x]][,3]))})
+      sum(data[[x]][,3] / data[[x]][,4]^2) /
+        sum(1 / data[[x]][,4]^2)})
   } else if(centrality[1] == "median.weighted") {
+    ## define function after isotone::weighted.median
+    median.w <- function (y, w)
+    {
+      ox <- order(y)
+      y <- y[ox]
+      w <- w[ox]
+      k <- 1
+      low <- cumsum(c(0, w))
+      up <- sum(w) - low
+      df <- low - up
+      repeat {
+        if (df[k] < 0)
+          k <- k + 1
+        else if (df[k] == 0)
+          return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
+        else return(y[k - 1])
+      }
+    }
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE, 
-                 log(stats.init[[x]]$weighted$median), 
-                 stats.init[[x]]$weighted$median), 
-          length(data[[x]][,3]))})
+      rep(median.w(y = data[[x]][,3],
+                   w = data[[x]][,4]), length(data[[x]][,3]))})
   } else if(is.numeric(centrality) == TRUE &
-              length(centrality) >= length(data)) {
+              length(centrality) == length(data)) {
+    z.central.raw <- if(log.z == TRUE) {
+      log(centrality)
+    } else {
+      centrality
+    }
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE, 
-                 log(stats.init[[x]]$weighted$mean), 
-                 stats.init[[x]]$weighted$mean),
-          length(data[[x]][,3]))})
+      rep(z.central.raw[x], length(data[[x]][,3]))})
+  } else if(is.numeric(centrality) == TRUE &
+              length(centrality) > length(data)) {
+    z.central <- lapply(1:length(data), function(x){
+      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
   } else {
     stop("Measure of centrality not supported!")
   }
-  
+
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], z.central[[x]])})
   rm(z.central)
@@ -691,36 +682,41 @@ plot_AbanicoPlot <- function(
                              "std.estimate.plot",
                              "weights",
                              "data set")
-  
-  ## calculate global data statistics
-  stats.global <- calc_Statistics(data = data.global)  
 
   ## calculate global central value
   if(centrality[1] == "mean") {
-    z.central.global <- ifelse(log.z == TRUE, 
-                               log(stats.global$unweighted$mean), 
-                               stats.global$unweighted$mean)
+    z.central.global <- mean(data.global[,3], na.rm = TRUE)
   } else if(centrality[1] == "median") {
-    z.central.global <- ifelse(log.z == TRUE, 
-                               log(stats.global$unweighted$median), 
-                               stats.global$unweighted$median)
+    z.central.global <- median(data.global[,3], na.rm = TRUE)
   } else  if(centrality[1] == "mean.weighted") {
-    z.central.global <- ifelse(log.z == TRUE, 
-                               log(stats.global$weighted$mean), 
-                               stats.global$weighted$mean)
+    z.central.global <- sum(data.global[,3] / data.global[,4]^2) /
+      sum(1 / data.global[,4]^2)
   } else if(centrality[1] == "median.weighted") {
-    z.central.global <- ifelse(log.z == TRUE, 
-                               log(stats.global$weighted$median), 
-                               stats.global$weighted$median)
+    ## define function after isotone::weighted.mean
+    median.w <- function (y, w)
+    {
+      ox <- order(y)
+      y <- y[ox]
+      w <- w[ox]
+      k <- 1
+      low <- cumsum(c(0, w))
+      up <- sum(w) - low
+      df <- low - up
+      repeat {
+        if (df[k] < 0)
+          k <- k + 1
+        else if (df[k] == 0)
+          return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] +
+                                                        w[k - 1]))
+        else return(y[k - 1])
+      }
+    }
+    z.central.global <- median.w(y = data.global[,3], w = data.global[,4])
   } else if(is.numeric(centrality) == TRUE &
-            length(centrality) >= length(data)) {
-    z.central.global <- ifelse(log.z == TRUE, 
-                               log(stats.global$weighted$mean), 
-                               stats.global$weighted$mean)
-  } else {
-    stop("Measure of centrality not supported!")
+              length(centrality == length(data))) {
+    z.central.global <- mean(data.global[,3], na.rm = TRUE)
   }
-  
+
   ## optionally adjust zentral value by user-defined value
   if(missing(central.value) == FALSE) {
 
@@ -839,13 +835,13 @@ plot_AbanicoPlot <- function(
   lty <- if("lty" %in% names(extraArgs)) {
     extraArgs$lty
   } else {
-    rep(rep(2, length(data)), length(centrality))
+    rep(2, length(data))
   }
 
   lwd <- if("lwd" %in% names(extraArgs)) {
     extraArgs$lwd
   } else {
-    rep(rep(1, length(data)), length(centrality))
+    rep(1, length(data))
   }
 
   pch <- if("pch" %in% names(extraArgs)) {
@@ -864,7 +860,7 @@ plot_AbanicoPlot <- function(
     summary.col <- extraArgs$col
   } else {
     if(length(layout$abanico$colour$centrality) == 1) {
-      centrality.col <- rep(1:length(data), length(centrality))
+      centrality.col <- 1:length(data)
     } else {
       centrality.col <- layout$abanico$colour$centrality
     }
@@ -1565,6 +1561,13 @@ plot_AbanicoPlot <- function(
       y.upper <- ci.upper
     }
 
+    ## append information about data in confidence interval
+    for(i in 1:length(data)) {
+      data.in.ci <- rep(x = FALSE, times = nrow(data[[i]]))
+      data.in.ci[data[[i]][,1] > ci.lower & data[[i]][,1] < ci.upper] <- TRUE
+      data[[i]] <- cbind(data[[i]], data.in.ci)
+    }
+
     if(rotate == FALSE) {
       polygons[i,1:7] <- c(limits.x[1],
                            limits.x[2],
@@ -1589,6 +1592,7 @@ plot_AbanicoPlot <- function(
       )
     } else {
       y.max <- par()$usr[4]
+
       polygons[i,1:7] <- c(limits.x[1],
                            limits.x[2],
                            xy.0[2],
@@ -1613,15 +1617,8 @@ plot_AbanicoPlot <- function(
     }
   }
 
-  ## append information about data in confidence interval
-  for(i in 1:length(data)) {
-    data.in.ci <- rep(x = FALSE, times = nrow(data[[i]]))
-    data.in.ci[data[[i]][,1] > ci.lower & data[[i]][,1] < ci.upper] <- TRUE
-    data[[i]] <- cbind(data[[i]], data.in.ci)
-  }
-  
   ## calculate coordinates for 2-sigma bar overlay
-  if(is.numeric(centrality) == TRUE & length(centrality) >= length(data)) {
+  if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
     bars <- matrix(nrow = length(centrality), ncol = 8)
 
     if(is.numeric(centrality) == TRUE & log.z == TRUE) {
@@ -1648,7 +1645,7 @@ plot_AbanicoPlot <- function(
   } else {
     bars <- matrix(nrow = length(data), ncol = 8)
 
-     for(i in 1:length(data)) {
+    for(i in 1:length(data)) {
       bars[i,1:4] <- c(limits.x[1],
                        limits.x[1],
                        ifelse("xlim" %in% names(extraArgs),
@@ -1912,7 +1909,8 @@ plot_AbanicoPlot <- function(
 
     ## optionally, plot 2-sigma-bar
     if(bar.fill[1] != "none") {
-      if(is.numeric(centrality) == TRUE & length(centrality) >= length(data)) {
+
+      if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
         for(i in 1:length(centrality)) {
           polygon(x = bars[i,1:4],
                   y = bars[i,5:8],
@@ -1986,22 +1984,11 @@ plot_AbanicoPlot <- function(
     }
 
     ## optionally, plot central value lines
-    if(lwd[1] > 0 & lty[1] > 0 & is.numeric(centrality[1]) == FALSE) {
+    if(lwd[1] > 0 & lty[1] > 0) {
       for(i in 1:length(data)) {
         x2 <- r / sqrt(1 + f^2 * (
           data[[i]][1,5] - z.central.global)^2)
         y2 <- (data[[i]][1,5] - z.central.global) * x2
-        lines(x = c(limits.x[1], x2, xy.0[1], par()$usr[2]),
-              y = c(0, y2, y2, y2),
-              lty = lty[i],
-              lwd = lwd[i],
-              col = centrality.col[i])
-      }
-    } else if(lwd[1] > 0 & lty[1] > 0) {
-      for(i in 1:length(centrality)) {
-        x2 <- r / sqrt(1 + f^2 * (
-          centrality[i] - z.central.global)^2)
-        y2 <- (centrality[i] - z.central.global) * x2
         lines(x = c(limits.x[1], x2, xy.0[1], par()$usr[2]),
               y = c(0, y2, y2, y2),
               lty = lty[i],
