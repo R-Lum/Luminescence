@@ -361,33 +361,6 @@ plot_AbanicoPlot <- function(
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {data <- list(data)}
 
-  ## optionally, remove NA-values
-  if(na.rm == TRUE) {
-    for(i in 1:length(data)) {
-
-      n.NA <- sum(!complete.cases(data[[i]]))
-
-      if(n.NA == 1) {print("1 NA value excluded.")
-      } else if(n.NA > 1) {
-        print(paste(n.NA, "NA values excluded."))
-      }
-
-      data[[i]] <- na.exclude(data[[i]])
-    }
-  }
-
-  ## check for zero-error values
-  for(i in 1:length(data)) {
-
-    if(length(data[[i]]) < 2) {
-      stop("Data without errors cannot be displayed!")
-    }
-
-    if(sum(data[[i]][,2] == 0) > 0) {
-      stop("Values with zero errors cannot be displayed!")
-    }
-  }
-
   ## Check input data
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE &
@@ -396,8 +369,35 @@ plot_AbanicoPlot <- function(
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]])[,1:2]
+        data[[i]] <- get_RLum(data[[i]], "data")
       }
+    }
+  }
+  
+  ## optionally, remove NA-values
+  if(na.rm == TRUE) {
+    for(i in 1:length(data)) {
+      
+      n.NA <- sum(!complete.cases(data[[i]]))
+      
+      if(n.NA == 1) {print("1 NA value excluded.")
+      } else if(n.NA > 1) {
+        print(paste(n.NA, "NA values excluded."))
+      }
+      
+      data[[i]] <- na.exclude(data[[i]])
+    }
+  }
+  
+  ## check for zero-error values
+  for(i in 1:length(data)) {
+    
+    if(length(data[[i]]) < 2) {
+      stop("Data without errors cannot be displayed!")
+    }
+    
+    if(sum(data[[i]][,2] == 0) > 0) {
+      stop("Values with zero errors cannot be displayed!")
     }
   }
 
