@@ -301,6 +301,22 @@ setMethod("get_RLum",
               }
               
               ##-------------------------------------------------------------
+              ##calc_MinDose
+              if(object@originator == "calc_MinDose") {
+                
+                return(object@data$summary)
+                
+              }
+              
+              ##-------------------------------------------------------------
+              ##calc_MinDose
+              if(object@originator == "calc_MaxDose") {
+                
+                return(object@data$summary)
+                
+              }
+              
+              ##-------------------------------------------------------------
               ##calc_MinDose3
               if(object@originator == "calc_MinDose3") {
                 
@@ -328,7 +344,7 @@ setMethod("get_RLum",
               ## calc_CentralDose
               if(object@originator == "calc_CentralDose") {
                 
-                return(object@data$results)
+                return(object@data$summary)
                 
               }
               
@@ -336,7 +352,15 @@ setMethod("get_RLum",
               ## calc_CosmicDoseRate
               if(object@originator == "calc_CosmicDoseRate") {
                 
-                return(object@data$results)
+                return(object@data$summary)
+                
+              }
+              
+              ##-------------------------------------------------------------
+              ## calc_HomogeneityTest
+              if(object@originator == "calc_HomogeneityTest") {
+                
+                return(object@data$summary)
                 
               }
               
@@ -353,7 +377,7 @@ setMethod("get_RLum",
               ## calc_FuchsLang2001
               if(object@originator == "calc_FuchsLang2001") {
                 
-                return(object@data$results)
+                return(object@data$summary)
                 
               }
               
