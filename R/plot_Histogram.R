@@ -111,7 +111,7 @@ plot_Histogram <- function(
   } else {
     
     if(is(data, "RLum.Results") == TRUE) {
-      data <- get_RLum(data)[,1:2]
+      data <- get_RLum(data, "data")
     }
   }
   
