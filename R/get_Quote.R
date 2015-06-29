@@ -44,8 +44,12 @@ get_Quote <- function(
     c("A data import function", "Better late than never."),
     c("The NSA", "O'zapft is."),
     c("The natural dose", "You only life once."),
-    c("A Windows user", "An apply a day keeps the doctor away."),
-    c("The authors of sTeve", "We love to entertain you."))
+    c("A Windows user", "An apple a day keeps the doctor away."),
+    c("The authors of sTeve", "We love to entertain you."),
+    c("Any arbitrary independent OSL device manufacutor", "Sure it will work, it was me who built it!"),
+    c("Response to the reviewer", "You are right, it was just a guess."),
+    c("An aliquot disc", "The answer [...] is: 48"),
+    c("Push Pin", "Made of used sample carriers"))
   
   ## Check input data
   if(missing(ID) == TRUE & missing(author) == TRUE) {
