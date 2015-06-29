@@ -729,6 +729,17 @@ plot_AbanicoPlot <- function(
 
     z.central.global <- ifelse(log.z == TRUE,
                                log(central.value), central.value)
+  } else if(is.numeric(centrality) == TRUE) {
+    
+    if(length(centrality) > 1) {
+      central.value <- ifelse(log.z == TRUE, 
+                              log(stats.global$weighted$mean), 
+                              stats.global$weighted$mean)
+    } else {
+      central.value <- ifelse(log.z == TRUE,
+                              log(centrality), centrality)
+    }
+    z.central.global <- central.value
   }
 
   ## create column names
