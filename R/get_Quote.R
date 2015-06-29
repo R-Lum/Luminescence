@@ -18,7 +18,7 @@ get_Quote <- function(
   ID,
   author
 ) {
-
+  
   ## definition of the ever growing quote data set
   quotes <- rbind(
     c("Anonymous student hotel employee", "Let me double check this."),
@@ -35,8 +35,17 @@ get_Quote <- function(
     c("A fluvially transported quartz grain at night", "Always look at the bright side of life."),
     c("An arctic sediment outcrop", "Marmor, Stein und Eisen bricht..."),
     c("A LexSyg user", "If anything can go wrong, it will."),
-    c("A blue LED to a trapped electron", "Resistance is futile.")
-    )
+    c("A blue LED to a trapped electron", "Resistance is futile."),
+    c("A weathering rock", "Who want's to live forever?"),
+    c("A new pIRIR derivative", "20000 miles below the sea."),
+    c("Robert Oppenheimer", "I want this thing to work by just pressing one button."),
+    c("An arbitrary member of the CRAN team", "No shirt, no shoes, no service!"),
+    c("Rubber mallet to steel cylinder", "Let's rock and roll."),
+    c("A data import function", "Better late than never."),
+    c("The NSA", "O'zapft is."),
+    c("The natural dose", "You only life once."),
+    c("A Windows user", "An apply a day keeps the doctor away."),
+    c("The authors of sTeve", "We love to entertain you."))
   
   ## Check input data
   if(missing(ID) == TRUE & missing(author) == TRUE) {
@@ -57,7 +66,7 @@ get_Quote <- function(
     quote.out <- paste(quotes[ID,1], ": '", quotes[ID,2], "'", sep = "")
     
   }
-
+  
   ## return quotes
   return(quote.out)
 }
