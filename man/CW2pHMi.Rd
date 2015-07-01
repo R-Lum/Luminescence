@@ -72,7 +72,7 @@ no further interpolation is attempted.\cr In every case a warning message is
 shown.
 }
 \section{Function version}{
- 0.2.2 (2015-06-16 10:55:47)
+ 0.2.2 (2015-06-16 15:23:12)
 }
 \examples{
 ##(1) - simple transformation

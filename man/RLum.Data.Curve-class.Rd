@@ -64,7 +64,7 @@ ramp curve).
 showClass("RLum.Data.Curve")
 }
 \author{
-Sebastian Kreutzer Freiberg Instruments/JLU Giessen (Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},

@@ -14,7 +14,7 @@
 #' \bold{\code{plot.type = "plot.raster"}}\cr
 #'
 #' Uses the standard plot function for raster data from the package
-#' \code{\link{raster}}: \code{\link[raster]{plot}}. For each raster layer in a
+#' \code{\link[raster]{raster}}: \code{\link[raster]{plot}}. For each raster layer in a
 #' raster brick one plot is produced.
 #'
 #' Arguments that are passed through the function call:\cr
@@ -25,7 +25,7 @@
 #' \bold{\code{plot.type = "plotRGB"}}\cr
 #'
 #' Uses the function \code{\link[raster]{plotRGB}} from the
-#' \code{\link{raster}} package. Only one image plot is produced as all layers
+#' \code{\link[raster]{raster}} package. Only one image plot is produced as all layers
 #' in a brick a combined.  This plot type is useful to see whether any signal
 #' is recorded by the camera.\cr Arguments that are passed through the function
 #' call:\cr
@@ -61,7 +61,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link{raster}},
+#' \code{\link{plot_RLum}}, \code{\link[raster]{raster}},
 #' @references -
 #' @keywords aplot
 #' @examples
@@ -157,7 +157,7 @@ plot_RLum.Data.Image <- function(
     ## standard raster plotRGB (package raster)
     ## ==========================================================================#
 
-    plotRGB(
+    raster::plotRGB(
       get_RLum(object),
       main = main,
       axes = TRUE,
@@ -189,10 +189,10 @@ plot_RLum.Data.Image <- function(
     ## ==========================================================================#
   }else if(plot.type == "contour"){
 
-    for(i in 1:nlayers(get_RLum(object))){
+    for(i in 1:raster::nlayers(get_RLum(object))){
 
 
-      raster::contour(raster(get_RLum(object), layer = i),
+      raster::contour(raster::raster(get_RLum(object), layer = i),
                       main = main,
                       xlim = xlim,
                       ylim = ylim,

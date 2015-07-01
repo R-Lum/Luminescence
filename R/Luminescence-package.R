@@ -75,14 +75,12 @@
 #' 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 #' 30, pp. 1-8.
 #' @keywords package
-#' @import methods shape data.table bbmle
+#' @import utils methods shape data.table bbmle
 #' @importFrom parallel parLapply makeCluster stopCluster
-#' @importFrom raster brick raster contour plotRGB nlayers
 #' @importFrom zoo as.Date as.Date.numeric
 #' @importFrom matrixStats rowDiffs
 #' @importFrom XML xmlSize xmlValue xmlAttrs xmlRoot xmlTreeParse getEncoding xmlErrorCumulator
 #' @importFrom Rcpp evalCpp
-#' @importFrom rgl persp3d
 #' @importFrom minpack.lm nlsLM nls.lm.control
 #' @exportPattern ^[[:alpha:]]+
 #' @useDynLib Luminescence

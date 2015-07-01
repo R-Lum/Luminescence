@@ -55,7 +55,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested so far.}.
 }
 \section{Function version}{
- 0.9.0 (2015-05-11 14:40:59)
+ 0.9.0 (2015-05-11 10:33:42)
 }
 \examples{
 ##(1) import Risoe BIN-file to R (uncomment for usage)

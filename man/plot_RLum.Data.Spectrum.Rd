@@ -21,7 +21,7 @@ If \code{par.local = FALSE} global parameters are inherited.}
 \code{single} or \code{multiple.lines} (along the time or temperature axis)
 or \code{transect} (along the wavelength axis) \cr
 
-Note: The use of \code{persp3d} will produce a dynamic 3D surface plot on
+Note: The use of \code{\link[rgl]{persp3d}} will produce a dynamic 3D surface plot on
 the screen.}
 
 \item{optical.wavelength.colours}{\code{\link{logical}} (with default): use
@@ -148,7 +148,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.4.0 (2015-06-16 11:27:07)
+ 0.4.0 (2015-07-01 16:53:23)
 }
 \examples{
 ##load example data
@@ -185,7 +185,7 @@ Springer.
 }
 \seealso{
 \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-\code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link{persp3d}},
+\code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[rgl]{persp3d}},
 \code{\link{contour}}
 }
 \keyword{aplot}
