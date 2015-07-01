@@ -109,7 +109,7 @@
 #' (France)
 #' @seealso \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
 #' \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-#' \code{\link{get_RLum}}, \code{\link{nlsLM}}
+#' \code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}
 #' @references Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 #' Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.
 #'
@@ -283,12 +283,12 @@ fit_CWCurve<- function(
     if(fit.method == "LM"){
 
       ##try fit simple
-      fit.try<-suppressWarnings(try(nlsLM(fit.formula.simple(n.components),
+      fit.try<-suppressWarnings(try(minpack.lm::nlsLM(fit.formula.simple(n.components),
                                           data=values,
                                           start=c(I0,lambda),
                                           na.action = "na.exclude",
                                           trace = fit.trace,
-                                          control = nls.lm.control(
+                                          control = minpack.lm::nls.lm.control(
                                             maxiter = 500
                                           )),
                                     silent = TRUE
@@ -335,13 +335,13 @@ fit_CWCurve<- function(
       if(fit.method == "LM"){
 
         ##try fit simple
-        fit.try<-suppressWarnings(try(nlsLM(fit.formula(n.components),
+        fit.try<-suppressWarnings(try(minpack.lm::nlsLM(fit.formula(n.components),
                                             data=values,
                                             start=c(I0,lambda),
                                             trace = fit.trace,
                                             na.action = "na.exclude",
                                             lower = rep(0,n.components * 2),
-                                            control = nls.lm.control(
+                                            control = minpack.lm::nls.lm.control(
                                               maxiter = 500
                                             )),
                                       silent = TRUE))
@@ -652,7 +652,7 @@ fit_CWCurve<- function(
         seq(3,ncol(component.contribution.matrix),by=2),
         function(x){
 
-          rowDiffs(cbind(rev(component.contribution.matrix[,(x+1)]),
+          matrixStats::rowDiffs(cbind(rev(component.contribution.matrix[,(x+1)]),
                          component.contribution.matrix[,x]))
 
         })

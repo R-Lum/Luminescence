@@ -78,10 +78,7 @@
 #' @import utils methods shape data.table bbmle
 #' @importFrom parallel parLapply makeCluster stopCluster
 #' @importFrom zoo as.Date as.Date.numeric
-#' @importFrom matrixStats rowDiffs
-#' @importFrom XML xmlSize xmlValue xmlAttrs xmlRoot xmlTreeParse getEncoding xmlErrorCumulator
 #' @importFrom Rcpp evalCpp
-#' @importFrom minpack.lm nlsLM nls.lm.control
 #' @exportPattern ^[[:alpha:]]+
 #' @useDynLib Luminescence
 NULL

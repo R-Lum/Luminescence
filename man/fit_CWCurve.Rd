@@ -137,7 +137,7 @@ the fitting procedure has reached a global minimum rather than a local
 minimum!
 }
 \section{Function version}{
- 0.5.1 (2015-06-16 15:23:12)
+ 0.5.1 (2015-07-01 17:00:30)
 }
 \examples{
 ##load data
@@ -166,7 +166,7 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 \seealso{
 \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
 \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-\code{\link{get_RLum}}, \code{\link{nlsLM}}
+\code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}
 }
 \keyword{dplot}
 \keyword{models}

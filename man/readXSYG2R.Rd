@@ -94,7 +94,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.4.3 (2015-06-16 15:23:12)
+ 0.4.3 (2015-07-01 17:04:54)
 }
 \examples{
 ##(1) import XSYG file to R (uncomment for usage)
@@ -107,7 +107,7 @@ the XSXG file are skipped.
 
   ##import entire XML file
   #FILE <- file.choose()
-  #temp <- xmlRoot(xmlTreeParse(FILE))
+  #temp <- XML::xmlRoot(XML::xmlTreeParse(FILE))
 
   ##search for specific subnodes with curves containing 'OSL'
   #getNodeSet(temp, "//Sample/Sequence/Record[@recordType = 'OSL']/Curve")
