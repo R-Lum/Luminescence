@@ -48,7 +48,7 @@
 #' \url{https://github.com/R-Lum/Luminescence}\cr
 #'
 #' \bold{Related package projects}\cr
-#' \url{http://cran.r-project.org/web/packages/RLumShiny}\cr
+#' \url{http://cran.r-project.org/package=RLumShiny}\cr
 #' \url{http://shiny.r-luminescence.de}\cr
 #'
 #' \bold{Package maintainer}
@@ -75,7 +75,7 @@
 #' 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 #' 30, pp. 1-8.
 #' @keywords package
-#' @import utils methods shape data.table bbmle
+#' @import stats utils grDevices graphics methods shape data.table bbmle
 #' @importFrom parallel parLapply makeCluster stopCluster
 #' @importFrom zoo as.Date as.Date.numeric
 #' @importFrom Rcpp evalCpp
