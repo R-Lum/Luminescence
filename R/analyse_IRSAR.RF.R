@@ -52,7 +52,7 @@
 #' (sliding) is considered as negligible. \cr The applied outlier removal
 #' algorithm consists of three steps:\cr
 #'
-#' (a) Input data are smoothed using the function \code{\link{rollmedian}}.
+#' (a) Input data are smoothed using the function \code{\link[zoo]{rollmedian}}.
 #' Value \code{k} for the rolling window is fixed to 11. Therefore, the natural
 #' curve needs to comprise at least of 33 values, otherwise outlier removal is
 #' rejected. \cr

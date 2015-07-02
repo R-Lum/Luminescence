@@ -139,7 +139,7 @@ curve, but here the impact of single outliers on the curve adjustment
 (sliding) is considered as negligible. \cr The applied outlier removal
 algorithm consists of three steps:\cr
 
-(a) Input data are smoothed using the function \code{\link{rollmedian}}.
+(a) Input data are smoothed using the function \code{\link[zoo]{rollmedian}}.
 Value \code{k} for the rolling window is fixed to 11. Therefore, the natural
 curve needs to comprise at least of 33 values, otherwise outlier removal is
 rejected. \cr
@@ -182,7 +182,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.3.2 (2015-06-16 15:23:12)
+ 0.3.2 (2015-07-02 16:48:21)
 }
 \examples{
 ##load data

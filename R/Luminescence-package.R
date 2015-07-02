@@ -75,12 +75,11 @@
 #' 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 #' 30, pp. 1-8.
 #' @keywords package
-#' @import utils methods shape data.table bbmle
+#' @import utils methods data.table bbmle
 #' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors
 #' @importFrom stats approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean
 #' @importFrom parallel parLapply makeCluster stopCluster
-#' @importFrom zoo as.Date as.Date.numeric
 #' @importFrom Rcpp evalCpp
 #' @exportPattern ^[[:alpha:]]+
 #' @useDynLib Luminescence
