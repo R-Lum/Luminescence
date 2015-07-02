@@ -113,7 +113,7 @@ echo ""
 echo "[CHECK PACKAGE]"
 echo ""
 
-  eval R CMD check --as-cran --timings ${PATHPACKAGE}/Luminescence*.tar.gz
+  eval R CMD check --timings ${PATHPACKAGE}/Luminescence*.tar.gz
 
   echo -ne 'Example timing warnings...:\n\n'
   eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Timings.R /dev/null
