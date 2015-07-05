@@ -27,9 +27,8 @@
           \item further clean-up NAMESPACE file.
 
         }
-
-  }
-
+   }
+ }
 
 }
 
