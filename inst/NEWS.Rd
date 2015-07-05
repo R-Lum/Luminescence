@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.5.0 (, 2015)}{
+\section{Changes in version 0.4.5 (, 2015)}{
 
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
@@ -18,6 +18,19 @@
         }
      }
   }
+
+   \subsection{Internals}{
+   \itemize{
+        \itemize{
+          \item Hopefully fix NAMESPACE issue with 'rgdal' package,
+          \item add imports from base packages as requested by CRAN,
+          \item further clean-up NAMESPACE file.
+
+        }
+
+  }
+
+
 }
 
 
