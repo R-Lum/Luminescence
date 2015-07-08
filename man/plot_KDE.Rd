@@ -95,7 +95,7 @@ standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
 \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 error-weighted relative standard error), \code{"seabs"} (absolute standard
 error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-\code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+\code{"in.2s"} (percent of samples in 2-sigma range),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \note{
@@ -103,7 +103,7 @@ The plot output is no 'PD' plot (cf. the discussion of Berger and
 Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5 (2015-07-01 15:06:19)
+ 3.5 (2015-07-08 14:11:51)
 }
 \examples{
 ## read example data set

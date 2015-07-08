@@ -8,13 +8,43 @@ Changes in version 0.4.5 (, 2015):
 
   Bugfixes and changes:
 
+         • ‘calc_Statistics()’
+
+             • default setting of weights definition changed from 1/s
+               to 1/s^2
+
          • ‘plot_AbanicoPlot()’
 
              • zlim-definition bug removed,
 
              • automatic bandwidth adjustment implemented,
 
-             • automatic z-axis scaling for zero scatter implemented
+             • automatic z-axis scaling for zero scatter implemented,
+
+             • qr (quartile range) set as default option for scatter
+               polygon,
+
+             • option cinn (confidence intervals) changed to pnn
+               (percentiles),
+
+             • summary content 'in confidence interval' changed to 'in
+               2 sigma',
+
+             • argument central.value renamed to z.0,
+
+             • argument centrality removed,
+
+             • argument bar.col added.
+
+         • ‘plot_KDE()’
+
+             • summary content 'in confidence interval' changed to 'in
+               2 sigma'
+
+         • ‘plot_RadialPlot()’
+
+             • summary content 'in confidence interval' changed to 'in
+               2 sigma'
 
   Internals:
 

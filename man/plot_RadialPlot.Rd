@@ -127,11 +127,11 @@ standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
 \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 error-weighted relative standard error), \code{"seabs"} (absolute standard
 error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-\code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+\code{"in.2s"} (percent of samples in 2-sigma range),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.3 (2015-07-01 15:06:19)
+ 0.5.3 (2015-07-08 14:11:51)
 }
 \examples{
 ## load example data
@@ -197,7 +197,7 @@ plot_RadialPlot(data = ExampleData.DeValues,
 
 ## now with a brief statistical summary
 plot_RadialPlot(data = ExampleData.DeValues,
-                summary = c("n", "in.ci"))
+                summary = c("n", "in.2s"))
 
 ## now with another statistical summary as subheader
 plot_RadialPlot(data = ExampleData.DeValues,
@@ -219,7 +219,7 @@ plot_RadialPlot(data = data.3,
                 col = c("darkblue", "darkgreen"),
                 bar.col = c("lightblue", "lightgreen"),
                 pch = c(2, 6),
-                summary = c("n", "in.ci"),
+                summary = c("n", "in.2s"),
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
 }
