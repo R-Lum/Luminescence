@@ -4,12 +4,12 @@
 \alias{plot_AbanicoPlot}
 \title{Function to create an Abanico Plot.}
 \usage{
-plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, central.value,
-  centrality = "mean.weighted", dispersion = "sd", plot.ratio = 0.75,
-  rotate = FALSE, mtext, summary, summary.pos, legend, legend.pos, stats,
-  rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE, y.axis = TRUE,
-  error.bars = FALSE, polygon.col, bar.col, frame = 1, line, line.col,
-  line.label, grid.col, bw = "SJ", output = FALSE, ...)
+plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, z.0 = "mean.weighted",
+  dispersion = "qr", plot.ratio = 0.75, rotate = FALSE, mtext, summary,
+  summary.pos, legend, legend.pos, stats, rug = FALSE, kde = TRUE,
+  hist = FALSE, dots = FALSE, y.axis = TRUE, error.bars = FALSE, bar,
+  bar.col, polygon.col, line, line.col, line.label, grid.col, frame = 1,
+  bw = "SJ", output = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -23,24 +23,19 @@ from the data set prior to any further operations.}
 \item{log.z}{\code{\link{logical}} (with default): Option to display the
 z-axis in logarithmic scale. Default is \code{TRUE}.}
 
-\item{central.value}{\code{\link{numeric}}: User-defined central value,
-primarily used for horizontal centering of the z-axis.}
-
-\item{centrality}{\code{\link{character}} or \code{\link{numeric}} (with
-default): measure of centrality, used for automatically centering the plot
-and drawing the central line. Can either be one out of \code{"mean"},
-\code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or one
-or more numeric values used for the standardisation. If more than one value
-is specified, more than one 2-sigma bar will be plotted and the dataset is
-centered using the median. Default is \code{"mean.weighted"}.}
+\item{z.0}{\code{\link{character}} or \code{\link{numeric}}: User-defined
+central value, used for centering of data. One out of \code{"mean"},
+\code{"mean.weighted"} and \code{"median"} or a numeric value (not its
+logarithm). Default is \code{"mean.weighted"}.}
 
 \item{dispersion}{\code{\link{character}} (with default): measure of
-dispersion, used for drawing the polygon that depicts the dose distribution.
-One out of \code{"sd"} (standard deviation),\code{"2sd"} (2 standard
-deviations), \code{"qr"} (quartile range) or \code{"cinn"} (confidence
-interval with nn specifying the level, e.g. \code{"ci95"} meaning the 95 \%
-confidence interval, i.e. data between the quantiles 0.025 and 0.975),
-default is \code{"sd"}.}
+dispersion, used for drawing the scatter polygon. One out of \code{"qr"}
+(quartile range), \code{"pnn"} (symmetric percentile range with nn the lower
+percentile, e.g. \code{"p05"} depicting the range between 5 and 95 %),
+\code{"sd"} (standard deviation) and \code{"2sd"} (2 standard deviations),
+default is \code{"qr"}. Note that \code{"sd"} and \code{"2sd"} are only
+meaningful in combination with \code{"z.0 = 'mean'"} because the unweighted
+mean is used to center the polygon.}
 
 \item{plot.ratio}{\code{\link{numeric}}: Relative space, given to the radial
 versus the cartesian plot part, deault is \code{0.75}.}
@@ -90,21 +85,18 @@ for data with small scatter.}
 bars on De-points. Useful in combination with \code{y.axis = FALSE, bar.col
 = "none"}.}
 
-\item{polygon.col}{\code{\link{character}} or \code{\link{numeric}} (with
-default): colour of the polygon showing the dose dispersion around the
-central value. To disable the polygon use \code{"none"} or
-\code{bar = FALSE}. Default is \code{"grey80"}.}
+\item{bar}{\code{\link{numeric}} (with default): option to add one or more
+dispersion bars (i.e., bar showing the 2-sigma range) centered at the
+defined values. By default a bar is drawn according to \code{"z.0"}. To omit
+the bar set \code{"bar = FALSE"}.}
 
 \item{bar.col}{\code{\link{character}} or \code{\link{numeric}} (with
-default): colour of the bar showing the 2-sigma range of the dose error
-around the central value. To disable the bar use \code{"none"} or
-\code{bar = FALSE}. Default is \code{"grey65"}.}
+default): colour of the dispersion bar. Default is \code{"grey60"}.}
 
-\item{frame}{\code{\link{numeric}} (with default): option to modify the
-plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
-originates at 0,0 and runs along min/max isochrons), \code{2} (frame
-embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a
-rectangle).Default is \code{1}.}
+\item{polygon.col}{\code{\link{character}} or \code{\link{numeric}} (with
+default): colour of the polygon showing the data scatter. Sometimes this
+polygon may be omitted for clarity. To disable it use \code{FALSE} or
+\code{polygon = FALSE}. Default is \code{"grey80"}.}
 
 \item{line}{\code{\link{numeric}}: numeric values of the additional lines to
 be added.}
@@ -116,8 +108,14 @@ the additional lines.}
 
 \item{grid.col}{\code{\link{character}} or \code{\link{numeric}} (with
 default): colour of the grid lines (originating at [0,0] and strechting to
-the z-scale). To disable grid lines use \code{"none"}. Default is
+the z-scale). To disable grid lines use \code{FALSE}. Default is
 \code{"grey"}.}
+
+\item{frame}{\code{\link{numeric}} (with default): option to modify the
+plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
+originates at 0,0 and runs along min/max isochrons), \code{2} (frame
+embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a
+rectangle).Default is \code{1}.}
 
 \item{bw}{\code{\link{character}} (with default): bin-width for KDE, choose
 a numeric value for manual setting.}
@@ -179,7 +177,7 @@ standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
 \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 error-weighted relative standard error), \code{"seabs"} (absolute standard
 error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-\code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+\code{"in.2s"} (percent of samples in 2-sigma range),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). \cr\cr
 
 The optional parameter \code{layout} allows to modify the entire plot more
@@ -195,7 +193,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.2 (2015-07-01 16:06:19)
+ 0.1.2 (2015-07-08 11:09:38)
 }
 \examples{
 ## store original graphics parameters
@@ -203,15 +201,14 @@ par.old <- par(no.readonly = TRUE)
 
 ## load example data and recalculate to Gray
 data(ExampleData.DeValues, envir = environment())
-ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+ExampleData.DeValues <- ExampleData.DeValues$CA1
 
 ## plot the example data straightforward
 plot_AbanicoPlot(data = ExampleData.DeValues)
 
 ## now with linear z-scale
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 log.z = FALSE,
-                 xlab = c("Standard error (Gy)", "Precision"))
+                 log.z = FALSE)
 
 ## now with output of the plot parameters
 plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -221,11 +218,11 @@ plot1$zlim
 
 ## now with adjusted z-scale limits
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 zlim = c(100, 200))
+                 zlim = c(10, 200))
 
 ## now with adjusted x-scale limits
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 xlim = c(0, 60))
+                 xlim = c(0, 20))
 
 ## now with rug to indicate individual values in KDE part
 plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -233,7 +230,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 
 ## now with a smaller bandwidth for the KDE plot
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 bw = 0.01)
+                 bw = 0.04)
 
 ## now with a histogram instead of the KDE plot
 plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -252,19 +249,18 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 ## now with user-defined plot ratio
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  plot.ratio = 0.5)
-
 ## now with user-defined central value
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 central.value = 120)
+                 z.0 = 70)
 
-## now with weighted median as measure of centrality
+## now with weighted median as central value
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 centrality = "median.weighted")
+                 z.0 = "median")
 
-## now with median/quartile range as measure of centrality/dispersion
+## now with the 17-83 percentile range as definition of scatter
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 centrality = "median",
-                 dispersion = "qr")
+                 z.0 = "median",
+                 dispersion = "p17")
 
 ## now with user-defined green line for minimum age model
 CAM <- calc_CentralDose(ExampleData.DeValues,
@@ -285,15 +281,15 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 
 ## now without 2-sigma bar, polygon, grid lines and central value line
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 bar.col = "none",
-                 polygon.col = "none",
-                 grid.col = "none",
+                 bar.col = FALSE,
+                 polygon.col = FALSE,
+                 grid.col = FALSE,
                  y.axis = FALSE,
                  lwd = 0)
 
 ## now with direct display of De errors, without 2-sigma bar
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 bar.col = "none",
+                 bar.col = FALSE,
                  ylab = "",
                  y.axis = FALSE,
                  error.bars = TRUE)
@@ -307,26 +303,24 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 
 ## now with minimum, maximum and median value indicated
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                central.value = 150,
-                stats = c("min", "max", "median"))
+                 stats = c("min", "max", "median"))
 
 ## now with a brief statistical summary
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                summary = c("n", "in.ci"))
+                 summary = c("n", "in.2s"))
 
 ## now with another statistical summary as subheader
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                summary = c("mean.weighted", "median"),
-                summary.pos = "sub")
+                 summary = c("mean.weighted", "median"),
+                 summary.pos = "topleft")
 
 ## now a plot with two 2-sigma bars for one data set
 plot_AbanicoPlot(data = ExampleData.DeValues,
-                 centrality = c(120, 160),
-                 mtext = "n = 25")
+                 bar = c(30, 100))
 
 ## now the data set is split into sub-groups, one is manipulated
-data.1 <- ExampleData.DeValues[1:15,]
-data.2 <- ExampleData.DeValues[16:25,] * 1.3
+data.1 <- ExampleData.DeValues[1:30,]
+data.2 <- ExampleData.DeValues[31:62,] * 1.3
 
 ## now a common dataset is created from the two subgroups
 data.3 <- list(data.1, data.2)
@@ -336,13 +330,13 @@ plot_AbanicoPlot(data = data.3)
 
 ## now with some graphical modification
 plot_AbanicoPlot(data = data.3,
+                 z.0 = "median",
                  col = c("steelblue4", "orange4"),
                  bar.col = c("steelblue3", "orange3"),
                  polygon.col = c("steelblue1", "orange1"),
                  pch = c(2, 6),
-                 density = c(10, 20),
                  angle = c(30, 50),
-                 summary = c("n", "in.ci"))
+                 summary = c("n", "in.2s", "median"))
 
 ## create Abanico plot with predefined layout definition
 plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -350,6 +344,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 
 ## now with predefined layout definition and further modifications
 plot_AbanicoPlot(data = data.3,
+                 z.0 = "median",
                  layout = "journal",
                  col = c("steelblue4", "orange4"),
                  bar.col = adjustcolor(c("steelblue3", "orange3"),
