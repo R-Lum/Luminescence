@@ -28,6 +28,6 @@ setGeneric("length_RLum", function(object) {
 
 #' @noRd
 length_RLum.Analysis <- function(...) {
-  .Deprecated("length_RLum.Analysis")
+  .Deprecated("length_RLum")
   length_RLum(...)
 }
