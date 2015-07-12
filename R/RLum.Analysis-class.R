@@ -202,7 +202,7 @@ setMethod("set_RLum",
               
             }else if (is(protocol, "character") == FALSE){
               
-              stop("[set_RLum] Error: 'protocol' has to be of type 'charcter'!")
+              stop("[set_RLum] Error: 'protocol' has to be of type 'character'!")
               
             }
             
@@ -240,7 +240,8 @@ setMethod("set_RLum",
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
           
-          function(object, record.id, recordType, curveType, RLum.type, info.object, get.index, keep.object = FALSE){
+          function(object, record.id, recordType, curveType, RLum.type, 
+                   protocol = "UNKNOWN", info.object, get.index, keep.object = FALSE){
             
             ##record.id
             if(missing(record.id) == TRUE){
