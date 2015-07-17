@@ -74,7 +74,7 @@ The results of this function have been cross-checked with the Analyst
 \code{\link{get_RLum}}.
 }
 \section{Function version}{
- 0.5.1 (2015-06-16 10:53:34)
+ 0.5.1 (2015-06-23 10:10:54)
 }
 \examples{
 ##load data

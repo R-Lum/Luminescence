@@ -107,6 +107,7 @@ Collate:
     'plot_GrowthCurve.R'
     'plot_Histogram.R'
     'plot_KDE.R'
+    'plot_NRt.R'
     'plot_RLum.Analysis.R'
     'plot_RLum.Data.Curve.R'
     'plot_RLum.Data.Image.R'

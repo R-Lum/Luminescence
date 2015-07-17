@@ -40,7 +40,7 @@ If no or a wrong method is given, the execution of the function is
 stopped.
 }
 \section{Function version}{
- 0.4 (2015-06-16 11:38:40)
+ 0.4 (2015-06-23 10:10:54)
 }
 \examples{
 ##(A) for known source dose rate at date of measurement

@@ -24,7 +24,7 @@ corresponding get function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1 (2015-06-16 08:56:38)
+ 0.1 (2015-06-23 10:10:54)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

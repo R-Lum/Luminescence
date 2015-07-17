@@ -37,7 +37,7 @@ least one object of type \code{\linkS4class{RLum.Analysis}} has to be
 provided.
 }
 \section{Function version}{
- 0.1 (2015-06-16 11:02:20)
+ 0.1 (2015-06-23 10:10:54)
 }
 \examples{
 ##merge different RLum objects from the example data

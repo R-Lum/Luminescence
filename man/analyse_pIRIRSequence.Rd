@@ -80,7 +80,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.1.4 (2015-06-16 11:43:58)
+ 0.1.4 (2015-06-23 10:10:54)
 }
 \examples{
 ### NOTE: For this example existing example data are used. These data are non pIRIR data.

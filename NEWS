@@ -11,6 +11,9 @@ Changes in version 0.5.0 (, 2015):
          • 'calc_gSGC()' Calculate De value based on the gSGC by Li et
            al., 2015
 
+         • 'plot_NRt()' Creates a Natural/Regenerated signal vs. time
+           (NR(t)) plot as shown in Steffen et al. 2009
+
   Bugfixes and changes:
 
          • 'plot_AbanicoPlot()'
