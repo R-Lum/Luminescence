@@ -142,7 +142,7 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     if (!any(sapply(RLum.objects, class) == "RLum.Data.Curve"))
       stop(paste("The provided RLum.Analysis object must exclusively contain RLum.Data.Curve objects."), call. = FALSE)
     curves <- lapply(RLum.objects, get_RLum)
-    if (length(data) < 2)
+    if (length(curves) < 2)
       stop(paste("The provided RLum.Analysis object only contains curve data of the natural signal"), call. = FALSE)
   }
   
