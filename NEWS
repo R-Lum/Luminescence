@@ -52,6 +52,12 @@ Changes in version 0.4.5 (, 2015):
                contains NA-values (previous behaviour: function stopped
                with an error).
 
+         • ‘readXSYG2R()’
+
+             • The import will not break any longer if the XSYG file is
+               incomplete. Incomplete sequences will be removed from
+               the output (incl. terminal feedback).
+
          • ‘Risoe.BINfileData2RLum.Data.Curve()’
 
              • Corrupt RisoeBINfileData-objects containing no

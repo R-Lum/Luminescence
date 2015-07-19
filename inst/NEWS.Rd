@@ -59,6 +59,16 @@
 
       }
 
+     \item \code{readXSYG2R()}
+
+        \itemize{
+
+          \item The import will not break any longer if the XSYG file is incomplete. Incomplete
+          sequences will be removed from the output (incl. terminal feedback).
+
+      }
+
+
      \item \code{Risoe.BINfileData2RLum.Data.Curve()}
 
         \itemize{
