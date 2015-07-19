@@ -51,6 +51,9 @@ if(!require("devtools"))
 devtools::install_github("R-Lum/Luminescence@master")
 ```
 
+To install a developer build other than 'master', replace the term 'master' in the codeline by the name
+of the wanted developer build. 
+
 ## Contribute
 
 The R luminescence project is based on and evolves from ideas, contributions and constructive criticism of its users. Help us to maintain and develop the package, to find bugs and create new functions as well as a user-friendly design. Visit our [message board](https://forum.r-luminescence.de) or write us an [e-mail](mailto:team@r-luminescence.de) if anything crosses your mind or if you want your new self-written function to be to implemented. You are kindly invited to bring forward the package with us!
