@@ -9,34 +9,46 @@
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 #' \code{Risoe.BINfileData} object
+#'
 #' @param id \code{\link{integer}} (\bold{required}): record id in the
 #' \code{Risoe.BINfileData} object of the curve that is to be stored in the
 #' \code{RLum.Data.Curve} object. If no value for id is provided, the record
 #' has to be specified by \code{pos}, \code{set} and \code{run}.
+#'
 #' @param pos \code{\link{integer}} (optional): record position number in the
 #' \code{Risoe.BINfileData} object of the curve that is to be stored in the
 #' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
 #' argument is ignored.
+#'
 #' @param run \code{\link{integer}} (optional): record run number in the
 #' \code{Risoe.BINfileData} object of the curve that is to be stored in the
 #' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
 #' argument is ignored.
+#'
 #' @param set \code{\link{integer}} (optional): record set number in the
 #' \code{Risoe.BINfileData} object of the curve that is to be stored in the
 #' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
 #' argument is ignored.
+#'
 #' @return Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+#'
 #' @note The function is intended for experimental usage. Normally, the
 #' function \code{\link{Risoe.BINfileData2RLum.Analysis}} should be used for
 #' the conversion.
-#' @section Function version: 0.1
+#'
+#' @section Function version: 0.1.1
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
 #' @seealso \code{\link{Risoe.BINfileData2RLum.Analysis}},
 #' \code{\link{set_RLum}}, \code{\linkS4class{RLum.Data.Curve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{Risoe.BINfileData}},
 #' \code{\link{plot_RLum}}
+#'
 #' @references #
+#'
 #' @keywords manip
+#'
 #' @examples
 #'
 #'
@@ -147,11 +159,21 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
   # Select values -----------------------------------------------------------
 
   ##build matrix
-  temp.x <- seq(object@METADATA[id,"HIGH"]/object@METADATA[id,"NPOINTS"],
-                object@METADATA[id,"HIGH"],
-                by=object@METADATA[id,"HIGH"]/object@METADATA[id,"NPOINTS"])
+  if(object@METADATA[id,"NPOINTS"][1] != 0){
 
-  temp.y <- unlist(object@DATA[id])
+    temp.x <- seq(object@METADATA[id,"HIGH"]/object@METADATA[id,"NPOINTS"],
+                  object@METADATA[id,"HIGH"],
+                  by=object@METADATA[id,"HIGH"]/object@METADATA[id,"NPOINTS"])
+
+    temp.y <- unlist(object@DATA[id])
+
+  }else{
+    temp.x <- NA
+    temp.y <- NA
+
+    warning("NPOINTS was 0, RLum.Data.Curve-object with NA-values produced.")
+
+  }
 
 
   temp.data <- matrix(c(temp.x,temp.y), ncol=2, byrow=FALSE)

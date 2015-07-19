@@ -79,7 +79,7 @@ The function has been successfully tested for the Sequence Editor file
 output version 3 and 4.
 }
 \section{Function version}{
- 0.4.1 (2015-04-30 11:00:00)
+ 0.4.1 (2015-04-30 12:00:00)
 }
 \examples{
 ##load data

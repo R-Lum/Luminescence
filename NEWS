@@ -46,6 +46,20 @@ Changes in version 0.4.5 (, 2015):
              • summary content 'in confidence interval' changed to 'in
                2 sigma'
 
+         • ‘plot_RLum.Data.Curve()’
+
+             • NA-test implemented. Nothing is plotted if the curve
+               contains NA-values (previous behaviour: function stopped
+               with an error).
+
+         • ‘Risoe.BINfileData2RLum.Data.Curve()’
+
+             • Corrupt RisoeBINfileData-objects containing no
+               measurement data (NPOINTS = 0) no longer cause an error
+               during while the RLum.Data.Curve-object is produced.
+               Curve x- and y-values are set to NA (BIN-file issue
+               Norbert Mercier).
+
   Internals:
 
              • Hopefully fix NAMESPACE issue with 'rgdal' package,
