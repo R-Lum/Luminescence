@@ -19,6 +19,16 @@
 
       }
 
+
+      \item \code{merge_Risoe.BINfileData()}
+
+        \itemize{
+
+          \item Confusing warning message corrected (#230, Thomas Kolb).
+
+      }
+
+
       \item \code{plot_AbanicoPlot()}
         \itemize{
           \item zlim-definition bug removed,
