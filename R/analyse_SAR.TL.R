@@ -43,14 +43,14 @@
 #' \item{rejection.criteria}{\link{data.frame} with values that might by used
 #' as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
 #' \bold{note:} the output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
 #' from the input object without further warning.
 #' @section Function version: 0.1.4
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #' @seealso \code{\link{calc_TLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching.  Quaternary Science Reviews 7, 387-393.
 #'
@@ -119,7 +119,7 @@ analyse_SAR.TL <- function(
   # Protocol Integrity Checks --------------------------------------------------
 
   ##Remove non TL-curves from object by selecting TL curves
-  object@records <- get_RLum.Analysis(object, recordType = type.curves)
+  object@records <- get_RLum(object, recordType = type.curves)
 
   ##ANALYSE SEQUENCE OBJECT STRUCTURE
 
@@ -127,7 +127,7 @@ analyse_SAR.TL <- function(
   temp.protocol.step <- rep(sequence.structure,length(object@records))[1:length(object@records)]
 
   ##grep object strucute
-  temp.sequence.structure <- get_structure.RLum.Analysis(object)
+  temp.sequence.structure <- structure_RLum(object)
 
   ##set values for step
   temp.sequence.structure[,"protocol.step"] <- temp.protocol.step
@@ -173,12 +173,12 @@ analyse_SAR.TL <- function(
 
   for(i in seq(1,length(TL.signal.ID),by=2)){
 
-    temp.LnLxTnTx <- get_RLum.Results(
+    temp.LnLxTnTx <- get_RLum(
       calc_TLLxTxRatio(
-        Lx.data.signal = get_RLum.Analysis(object, record.id=TL.signal.ID[i]),
-        Lx.data.background = get_RLum.Analysis(object, record.id=TL.background.ID[i]),
-        Tx.data.signal = get_RLum.Analysis(object, record.id=TL.signal.ID[i+1]),
-        Tx.data.background = get_RLum.Analysis(object, record.id = TL.background.ID[i+1]),
+        Lx.data.signal = get_RLum(object, record.id=TL.signal.ID[i]),
+        Lx.data.background = get_RLum(object, record.id=TL.background.ID[i]),
+        Tx.data.signal = get_RLum(object, record.id=TL.signal.ID[i+1]),
+        Tx.data.background = get_RLum(object, record.id = TL.background.ID[i+1]),
         signal.integral.min,
         signal.integral.max))
 
@@ -530,7 +530,7 @@ analyse_SAR.TL <- function(
                             TnTx=LnLxTnTx$TnTx
   )
 
-  temp.GC <- get_RLum.Results(plot_GrowthCurve(temp.sample,
+  temp.GC <- get_RLum(plot_GrowthCurve(temp.sample,
                                                ...))[,c("De","De.Error")]
 
   ##add recjection status
@@ -546,8 +546,8 @@ analyse_SAR.TL <- function(
 
   # Return Values -----------------------------------------------------------
 
-  newRLumResults.analyse_SAR.TL <- set_RLum.Results(
-
+  newRLumResults.analyse_SAR.TL <- set_RLum(
+    class = "RLum.Results",
     data = list(
       De.values = temp.GC,
       LnLxTnTx.table = LnLxTnTx,

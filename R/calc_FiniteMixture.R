@@ -77,7 +77,7 @@
 #' results for each iteration of the model.
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @section Function version: 0.4
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2006. \cr
@@ -130,7 +130,7 @@
 #'
 #' ## show the results on equivalent dose, standard error and proportion of
 #' ## fitted components
-#' get_RLum.Results(object = FMM, data.object = "components")
+#' get_RLum(object = FMM, data.object = "components")
 #'
 calc_FiniteMixture <- function(
   data,
@@ -158,7 +158,7 @@ calc_FiniteMixture <- function(
            'data.frame' or 'RLum.Results'!")
     } else {
       if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum.Results(data, signature(object = "De.values"))
+        data <- get_RLum(data, signature(object = "De.values"))
       }
     }
   }
@@ -543,7 +543,8 @@ calc_FiniteMixture <- function(
   args<- list(sigmab = sigmab, n.components = n.components)
 
   # create S4 object
-  newRLumResults.calc_FiniteMixture <- set_RLum.Results(
+  newRLumResults.calc_FiniteMixture <- set_RLum(
+    class = "RLum.Results",
     data = list(
       summary=summary,
       data=data,

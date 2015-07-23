@@ -173,7 +173,7 @@ plot_DRTResults <- function(
                  "(!= 'data.frame' or 'RLum.Results')"))
     } else {
       if(is(values[[i]], "RLum.Results")==TRUE){
-        values[[i]] <- get_RLum.Results(values[[i]])[,1:2]
+        values[[i]] <- get_RLum(values[[i]], "data")
       }
     }
   }

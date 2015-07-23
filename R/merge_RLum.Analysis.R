@@ -97,7 +97,7 @@ merge_RLum.Analysis<- function(
       }
 
       ##return to list
-      get_RLum.Analysis(objects[[x]])
+      get_RLum(objects[[x]])
 
     }else if((is(objects[[x]])[1] == "RLum.Data.Curve") |
                (is(objects[[x]])[1] == "RLum.Data.Image") |
@@ -118,7 +118,8 @@ merge_RLum.Analysis<- function(
 
   # Build new RLum.Analysis object --------------------------------------------------------------
 
-  temp.new.RLum.Analysis <- set_RLum.Analysis(
+  temp.new.RLum.Analysis <- set_RLum(
+    class = "RLum.Analysis",
     records = temp.element.list,
     protocol = temp.meta.data.first)
 

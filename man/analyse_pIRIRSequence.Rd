@@ -61,7 +61,7 @@ by used as rejection criteria. NA is produced if no R0 dose point
 exists.}\cr
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}.
+\code{\link{get_RLum}}.
 }
 \description{
 The function performs an analysis of post-IR IRSL sequences including curve
@@ -80,7 +80,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.1.4 (2015-04-30 11:47:40)
+ 0.1.4 (2015-06-16 14:23:12)
 }
 \examples{
 ### NOTE: For this example existing example data are used. These data are non pIRIR data.
@@ -93,7 +93,7 @@ data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
 ##(c) Grep curves and exclude the last two (one TL and one IRSL)
-object <- get_RLum.Analysis(object, record.id = c(-29,-30))
+object <- get_RLum(object, record.id = c(-29,-30))
 
 ##(d) Define new sequence structure and set new RLum.Analysis object
 sequence.structure  <- c(1,2,2,3,4,4)
@@ -106,7 +106,7 @@ object <-  sapply(1:length(sequence.structure), function(x){
 
 })
 
-object <- set_RLum.Analysis(records = object, protocol = "pIRIR")
+object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR")
 
 ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Note: output as single plots to avoid problems with this example
@@ -152,7 +152,7 @@ doi:10.1016/j.radmeas.2008.06.002
 \seealso{
 \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
 \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}} \code{\link{get_RLum.Results}}
+\code{\linkS4class{RLum.Results}} \code{\link{get_RLum}}
 }
 \keyword{datagen}
 \keyword{plot}

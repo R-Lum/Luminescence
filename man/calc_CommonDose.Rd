@@ -32,7 +32,7 @@ following element:
 used arguments} \item{call}{\link{call} the function call}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 Function to calculate the common dose of a De distribution.
@@ -49,7 +49,7 @@ calculated using the un-logged estimates of De and their absolute standard
 error (Galbraith & Roberts 2012, p. 14).
 }
 \section{Function version}{
- 0.1 (2015-04-30 11:51:33)
+ 0.1 (2015-06-16 14:23:12)
 }
 \examples{
 ## load example data

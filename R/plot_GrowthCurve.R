@@ -94,10 +94,10 @@
 #' ##(1) plot growth curve for a dummy data.set and show De value
 #' data(ExampleData.LxTxData, envir = environment())
 #' temp <- plot_GrowthCurve(LxTxData)
-#' get_RLum.Results(temp)
+#' get_RLum(temp)
 #'
 #' ##(1a) to access the fitting value try
-#' get_RLum.Results(temp, data.object = "Fit")
+#' get_RLum(temp, data.object = "Fit")
 #'
 #' ##(2) plot the growth curve only - uncomment to use
 #' ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
@@ -1211,7 +1211,7 @@ plot_GrowthCurve <- function(
                            De.MC = De.MonteCarlo,
                            Fit=fit.method),
                 silent=TRUE)
-  output <- set_RLum.Results(data=list(De=output,Fit=fit, Formula=f))
+  output <- set_RLum(class = "RLum.Results", data=list(De=output,Fit=fit, Formula=f))
   invisible(output)
 
 }

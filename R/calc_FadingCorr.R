@@ -88,7 +88,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #'
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
+#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 #' \code{\link{uniroot}}
 #'
 #'
@@ -105,7 +105,7 @@
 #'                 age.faded = c(100,10),
 #'                 n.MCruns=100)
 #'
-#' get_RLum.Results(results)
+#' get_RLum(results)
 #'
 #'
 calc_FadingCorr <- function(
@@ -116,37 +116,37 @@ calc_FadingCorr <- function(
   seed,
   txtProgressBar = TRUE
 ){
-
+  
   ##============================================================================##
   ##DEFINE FUNCTION
   ##============================================================================##
-
+  
   f <- function(x, af,kappa,tc){1-kappa*(log(x/tc)-1) - (af/x)}
-
+  
   ##============================================================================##
   ##CALCULATION
   ##============================================================================##
-
+  
   ##calculate kappa
   kappa <- g_value[1] / log(10) / 100
-
+  
   ##transform tc in ka years
   tc <- tc / 60 / 60 / 24 / 365 / 1000
-
+  
   ##calculate mean value
   temp <- uniroot(f, c(0.1,500), tol = 0.001, tc = tc, af = age.faded[1], kappa = kappa,
                   check.conv = TRUE)
-
+  
   ##--------------------------------------------------------------------------##
   ##Monte Carlo simulation for error estimation
   tempMC.sd.recent <- NA
   tempMC.sd.count <- 1:10
   counter <- 1
-
+  
   ##show some progression bar of the process
   if (n.MCruns == 'auto') {
     n.MCruns.i <- 10000
-
+    
     cat("\n[calc_FadingCorr()] ... trying to find stable error value ...")
     if (txtProgressBar) {
       cat("\n -------------------------------------------------------------\n")
@@ -154,48 +154,48 @@ calc_FadingCorr <- function(
     }
   }else{
     n.MCruns.i <- n.MCruns
-
+    
   }
-
-
-
-# Start loop  ---------------------------------------------------------------------------------
-
+  
+  
+  
+  # Start loop  ---------------------------------------------------------------------------------
+  
   ##set object and preallocate memory
   tempMC <- vector("numeric", length = 1e+07)
   tempMC[] <- NA
   i <- 1
   j <- n.MCruns.i
-
+  
   while(length(unique(tempMC.sd.count))>1 | j > 1e+07){
-
+    
     ##set previous
     if(!is.na(tempMC.sd.recent)){
       tempMC.sd.count[counter] <- tempMC.sd.recent
-
+      
     }
-
+    
     ##set seed
     if (!missing(seed)) {
       seed.set <- seed
       set.seed(seed)
-
+      
     }else{
       seed.set <- "not set"
-
+      
     }
-
+    
     ##pre-allocate memory
     g_valueMC <- vector("numeric", length = n.MCruns.i)
     age.fadeMC <- vector("numeric", length = n.MCruns.i)
     kappaMC <- vector("numeric", length = n.MCruns.i)
-
+    
     ##set-values
     g_valueMC <- rnorm(n.MCruns.i,mean = g_value[1],sd = g_value[2])
     age.fadedMC <- rnorm(n.MCruns.i,mean = age.faded[1],sd = age.faded[2])
     kappaMC <- g_valueMC / log(10) / 100
-
-
+    
+    
     ##calculate for all values
     tempMC.i <- lapply(1:length(age.fadedMC),function(x) {
       uniroot(
@@ -207,30 +207,30 @@ calc_FadingCorr <- function(
         kappa = kappaMC[[x]],
         check.conv = TRUE
       )$root
-
+      
     })
-
+    
     ##write values in vector
     tempMC[i:j] <- unlist(tempMC.i)
     i <- j + 1
     j <- j + n.MCruns.i
-
+    
     ##stop here if a fixed value is set
     if(n.MCruns != 'auto'){
       break
     }
-
+    
     ##set recent
     tempMC.sd.recent <- round(sd(tempMC, na.rm = TRUE), digits = 3)
-
+    
     if (counter %% 10 == 0) {
       counter <- 1
-
+      
     }else{
       counter <- counter + 1
-
+      
     }
-
+    
     ##show progress in terminal
     if (txtProgressBar) {
       text <- rep("CHECK",10)
@@ -239,35 +239,35 @@ calc_FadingCorr <- function(
       }else{
         text[1:length(unique(tempMC.sd.count))] <- " CAL "
       }
-
-
-
+      
+      
+      
       cat(paste("\r ",paste(rev(text), collapse = " ")))
     }
-
+    
   }
-
+  
   ##--------------------------------------------------------------------------##
-
-    ##remove all NA values from tempMC
-    tempMC <- na.exclude(tempMC)
-
-    ##obtain corrected age
-    age.corr <- data.frame(age = round(temp$root, digits = 2),
-                           age.error = round(sd(tempMC),digits = 2),
-                           age.faded = age.faded[1],
-                           age.faded.error = age.faded[2],
-                           g_value = g_value[1],
-                           g_value.error = g_value[2],
-                           tc = tc,
-                           n.MCruns = n.MCruns,
-                           observations = length(tempMC),
-                           seed = seed.set)
-
+  
+  ##remove all NA values from tempMC
+  tempMC <- na.exclude(tempMC)
+  
+  ##obtain corrected age
+  age.corr <- data.frame(age = round(temp$root, digits = 2),
+                         age.error = round(sd(tempMC),digits = 2),
+                         age.faded = age.faded[1],
+                         age.faded.error = age.faded[2],
+                         g_value = g_value[1],
+                         g_value.error = g_value[2],
+                         tc = tc,
+                         n.MCruns = n.MCruns,
+                         observations = length(tempMC),
+                         seed = seed.set)
+  
   ##============================================================================##
   ##OUTPUT VISUAL
   ##============================================================================##
-
+  
   cat("\n\n[calc_FadingCorr()]\n")
   cat("\n\t Fading correction according to Huntley & Lamothe (2001):\n")
   cat(paste("\n\t Age (faded): ",age.faded[1]," ka \u00b1 ",
@@ -283,14 +283,16 @@ calc_FadingCorr <- function(
   cat("\n\n\t ----------------------------------")
   cat(paste("\n\t Age (corr.): ",age.corr[1]," ka \u00b1 ",age.corr[2]," ka",sep=""))
   cat("\n\t ----------------------------------\n")
-
+  
   ##============================================================================##
   ##OUTPUT RLUM
   ##============================================================================##
-
-    temp.RLum.Results <- set_RLum.Results(data = list(age.corr = age.corr,
-                                                      age.corr.MC = tempMC))
-
+  
+  temp.RLum.Results <- set_RLum(
+    class = "RLum.Results",
+    data = list(age.corr = age.corr,
+                age.corr.MC = tempMC))
+  
   return(temp.RLum.Results)
-
+  
 }

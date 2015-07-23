@@ -29,7 +29,7 @@
 #' tables}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}.
+#' \code{\link{get_RLum}}.
 #' @section Function version: 0.1
 #' @author Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
@@ -69,7 +69,7 @@ calc_IEU <- function(
            'data.frame' or 'RLum.Results'!")
     }else{
       if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum.Results(data, signature(object = "De.values"))
+        data <- get_RLum(data, signature(object = "De.values"))
       }
     }
   }
@@ -417,7 +417,8 @@ calc_IEU <- function(
   args <- list(a = a, b = b, interval = interval,
                decimal.point = decimal.point, plot = plot)
 
-  newRLumResults.calc_IEU <- set_RLum.Results(
+  newRLumResults.calc_IEU <- set_RLum(
+    class = "RLum.Results",
     data = list(summary = summary,
                 data = data,
                 args = args,

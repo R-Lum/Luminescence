@@ -23,17 +23,18 @@ Function calls object-specific merge functions for RLum S4 class objects.
 The function provides a generalised access point for merge specific
 \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
 corresponding merge function will be selected.  Allowed arguments can be
-found in the documentations of each merge function.  \tabular{lll}{
+found in the documentations of each merge function.
+\tabular{lll}{
 \bold{object} \tab \tab \bold{corresponding merge function} \cr
 
 \code{\linkS4class{RLum.Results}} \tab : \tab
-\code{\link{merge_RLum.Results}} }
+\code{merge_RLum} }
 }
 \note{
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1 (2015-04-30 11:58:21)
+ 0.1 (2015-06-16 14:23:12)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function
@@ -48,7 +49,7 @@ temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
 temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
 
 ##merge the results and store them in a new object
-temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))
+temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -58,7 +59,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #
 }
 \seealso{
-\code{\link{merge_RLum.Results}},
 \code{\linkS4class{RLum.Results}},
 }
 \keyword{utilities}

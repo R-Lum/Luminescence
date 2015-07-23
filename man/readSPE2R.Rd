@@ -42,11 +42,10 @@ frames. This limitation can be overwritten manually by using the argument
 
 \code{matrix}\cr
 
-Returns a matrix of the form: Rows = Channels, columns = Frames For the
-transformation the function \code{\link{get_RLum.Data.Spectrum}} is used,
+Returns a matrix of the form: Rows = Channels, columns = Frames. For the
+transformation the function \code{\link{get_RLum}} is used,
 meaning that the same results can be obtained by using the function
-\code{\link{get_RLum.Data.Spectrum}} on an \code{RLum.Data.Spectrum} object
-or \code{\link{get_RLum.Data.Image}} on an \code{RLum.Data.Image} object.
+\code{\link{get_RLum}} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 }
 \description{
 Function imports Princeton Instruments (TM) SPE-files into R environment and
@@ -68,7 +67,7 @@ The function has been successfully tested for SPE format versions 2.x.
 supported.}
 }
 \section{Function version}{
- 0.1 (2015-04-30 12:01:56)
+ 0.1 (2015-07-01 15:32:11)
 }
 \examples{
 ## to run examples uncomment lines and run the code
@@ -89,7 +88,7 @@ supported.}
 #temp
 
 ##(4) Export raw data to csv, if temp is a RLum.Data.Spectrum object
-# write.table(x = get_RLum.Data.Spectrum(temp),
+# write.table(x = get_RLum(temp),
 #             file = "[your path and filename]",
 #             sep = ";", row.names = FALSE)
 }
@@ -107,7 +106,7 @@ Hall, C., 2012: readSPE.m.
 }
 \seealso{
 \code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
-\code{\link{raster}}
+\code{\link[raster]{raster}}
 }
 \keyword{IO}
 

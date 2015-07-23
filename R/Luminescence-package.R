@@ -6,7 +6,7 @@
 #' plotting of equivalent dose distributions.
 #'
 #' \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-#' \tab 0.4.4\cr Date: \tab 2015-05-19\cr License: \tab GPL-3\cr }
+#' \tab 0.4.5\cr Date: \tab 2015-XX-XX [upcoming]\cr License: \tab GPL-3\cr }
 #'
 #' @name Luminescence-package
 #' @aliases Luminescence-package Luminescence
@@ -15,8 +15,7 @@
 #'
 #' \tabular{ll}{ Christoph Burow \tab University of Cologne, Germany \cr
 #' Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr Manfred
-#' Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab Alfred
-#' Wegener Insitute for Polar and Marine Research, Potsdam, Germany\cr
+#' Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab Helmholtz-Zentrum Dresden- Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany \cr
 #' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac,
 #' France\cr Christoph Schmidt \tab University of Bayreuth, Germany\cr Rachel
 #' K. Smedley\tab Aberystwyth University, United Kingdom }
@@ -48,7 +47,7 @@
 #' \url{https://github.com/R-Lum/Luminescence}\cr
 #'
 #' \bold{Related package projects}\cr
-#' \url{http://cran.r-project.org/web/packages/RLumShiny}\cr
+#' \url{http://cran.r-project.org/package=RLumShiny}\cr
 #' \url{http://shiny.r-luminescence.de}\cr
 #'
 #' \bold{Package maintainer}
@@ -75,19 +74,15 @@
 #' 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 #' 30, pp. 1-8.
 #' @keywords package
-#' @import methods shape data.table bbmle
+#' @import utils methods data.table bbmle
+#' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title
+#' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors
+#' @importFrom stats approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean
 #' @importFrom parallel parLapply makeCluster stopCluster
-#' @importFrom raster brick raster contour plotRGB nlayers
-#' @importFrom zoo as.Date as.Date.numeric
-#' @importFrom matrixStats rowDiffs
-#' @importFrom XML xmlSize xmlValue xmlAttrs xmlRoot xmlTreeParse getEncoding xmlErrorCumulator
 #' @importFrom Rcpp evalCpp
-#' @importFrom rgl persp3d
-#' @importFrom minpack.lm nlsLM nls.lm.control
 #' @exportPattern ^[[:alpha:]]+
 #' @useDynLib Luminescence
 NULL
-
 
 
 #' Base data set for cosmic dose rate calculation
@@ -197,9 +192,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example data from a SAR OSL and SAR TL measurement for the package
 #' Luminescence
 #'
@@ -251,9 +243,6 @@ NULL
 #'
 #' @name ExampleData.BINfileData
 NULL
-
-
-
 
 
 #' Example CW-OSL curve data for the package Luminescence
@@ -325,9 +314,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example Lx/Tx data from CW-OSL SAR measurement
 #'
 #' LxTx data from a SAR measurement for the package Luminescence.
@@ -350,9 +336,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example Lx and Tx curve data from an artificial OSL measurement
 #'
 #' Lx and Tx data of continous wave (CW-) OSL signal curves.
@@ -373,9 +356,6 @@ NULL
 #'
 #' @name ExampleData.LxTxOSLData
 NULL
-
-
-
 
 
 #' Example data as \code{\linkS4class{RLum.Analysis}} objects
@@ -422,9 +402,6 @@ NULL
 NULL
 
 
-
-
-
 #' Example data as \code{\linkS4class{RLum.Data.Image}} objects
 #'
 #' Measurement of Princton Instruments camera imported with the function
@@ -459,9 +436,6 @@ NULL
 #'
 #' @name ExampleData.RLum.Data.Image
 NULL
-
-
-
 
 
 #' Example data for a SAR OSL measurement and a TL spectrum using a lexsyg
@@ -529,7 +503,7 @@ NULL
 #' OSL.SARMeasurement$Sequence.Object
 #'
 #' ##grep OSL curves and plot the first curve
-#' OSLcurve <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object,
+#' OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object,
 #' recordType="OSL")[[1]]
 #' plot_RLum(OSLcurve)
 #'
@@ -554,370 +528,52 @@ NULL
 NULL
 
 
-
-#' Class \code{"Risoe.BINfileData"}
+#' Example De data sets for the package Luminescence
 #'
-#' S4 class object for luminescence data in R. The object is produced as output
-#' of the function \code{\link{readBIN2R}}.
+#' Equivalent dose (De) values measured for a fine grain quartz sample from a
+#' loess section in Rottewitz (Saxony/Germany) and for a coarse grain quartz
+#' sample from a fluvial deposit in the rock shelter of Cueva Anton
+#' (Murcia/Spain).
 #'
 #'
-#' @name Risoe.BINfileData-class
-#' @aliases Risoe.BINfileData-class show,Risoe.BINfileData-method
-#' set_Risoe.BINfileData set_Risoe.BINfileData,Risoe.BINfileData-method
-#' set_Risoe.BINfileData,data.frame,list-method
-#' set_Risoe.BINfileData,ANY-method get_Risoe.BINfileData
-#' get_Risoe.BINfileData-methods get_Risoe.BINfileData,Risoe.BINfileData-method
-#' @docType class
-#' @note
+#' @format A \code{\link{list}} with two elements, each containing a two column
+#' \code{\link{data.frame}}:
 #'
-#' \bold{Internal METADATA - object structure}
+#' \describe{ \code{$BT998}: De and De error values for a fine grain quartz
+#' sample from a loess section in Rottewitz.\cr\cr \code{$CA1}: Single grain De
+#' and De error values for a coarse grain quartz sample from a fluvial deposit
+#' in the rock shelter of Cueva Anton }
+#' @references \bold{BT998} \cr\cr Unpublished data \cr\cr \bold{CA1} \cr\cr
+#' Burow, C., Kehl, M., Hilgers, A., Weniger, G.-C., Angelucci, D., Villaverde,
+#' V., Zapata, J. and Zilhao, J.  (accepted). Luminescence dating of fluvial
+#' deposits in the rock shelter of Cueva Anton, Spain. Geochronometria.
+#' @source %% ~~ If necessary, more details than the description above ~~
 #'
-#' \tabular{rllll}{
-#' \bold{#} \tab \bold{Name} \tab \bold{Data Type} \tab \bold{V} \tab \bold{Description} \cr
-#' [,1]  \tab ID  \tab \code{numeric} \tab RLum \tab Unique record ID (same ID as in slot \code{DATA})\cr
-#' [,2]  \tab SEL \tab \code{logic} \tab RLum \tab Record selection, not part official BIN-format, triggered by TAG\cr
-#' [,3]  \tab VERSION \tab \code{raw} \tab 03-07 \tab BIN-file version number \cr
-#' [,4]  \tab LENGTH \tab \code{integer} \tab 03-07 \tab Length of this record\cr
-#' [,5]  \tab PREVIOUS \tab \code{integer} \tab 03-07 \tab Length of previous record\cr
-#' [,6]  \tab NPOINTS \tab \code{integer} \tab 03-07 \tab Number of data points in the record\cr
-#' [,7]  \tab RUN \tab \code{integer} \tab 03-07 \tab Run number\cr
-#' [,8]  \tab SET \tab \code{integer} \tab 03-07 \tab Set number\cr
-#' [,9]  \tab POSITION \tab  \code{integer} \tab 03-07 \tab Position number\cr
-#' [,10] \tab GRAIN \tab \code{integer} \tab 03-04 \tab Grain number\cr
-#' [,11] \tab GRAINNUMBER \tab \code{integer} \tab 06-07 \tab Grain number\cr
-#' [,12] \tab CURVENO \tab \code{integer} \tab 06-07 \tab Curve number\cr
-#' [,13] \tab XCOORD \tab \code{integer} \tab 03-07 \tab X position of a single grain\cr
-#' [,14] \tab YCOORD \tab \code{integer} \tab 03-07 \tab Y position of a single grain\cr
-#' [,15] \tab SAMPLE \tab \code{factor} \tab 03-07 \tab Sample name\cr
-#' [,16] \tab COMMENT \tab \code{factor} \tab 03-07 \tab Comment name\cr
-#' [,17] \tab SYSTEMID \tab \code{integer} \tab 03-07 \tab Risoe system id\cr
-#' [,18] \tab FNAME \tab \code{factor} \tab 06-07 \tab File name (*.bin/*.binx)\cr
-#' [,19] \tab USER \tab \code{facotr} \tab 03-07 \tab User name\cr
-#' [,20] \tab TIME \tab \code{character} \tab 03-07 \tab Data collection time (hh-mm-ss)\cr
-#' [,21] \tab DATE \tab \code{factor} \tab 03-07 \tab Data collection date (ddmmyy)\cr
-#' [,22] \tab DTYPE \tab \code{character} \tab 03-07 \tab Data type\cr
-#' [,23] \tab BL_TIME \tab \code{numeric} \tab 03-07 \tab Bleaching time\cr
-#' [,24] \tab BL_UNIT \tab \code{integer} \tab 03-07 \tab Bleaching unit (mJ, J, secs, mins, hrs)\cr
-#' [,25] \tab NORM1 \tab \code{numeric} \tab 03-07 \tab Normalisation factor (1)\cr
-#' [,26] \tab NORM2 \tab \code{numeric} \tab 03-07 \tab Normalisation factor (2)\cr
-#' [,27] \tab NORM3 \tab \code{numeric} \tab 03-07 \tab Normalisation factor (3)\cr
-#' [,28] \tab BG \tab \code{numeric} \tab 03-07 \tab Background level\cr
-#' [,29] \tab SHIFT \tab \code{integer} \tab 03-07 \tab Number of channels to shift data\cr
-#' [,30] \tab TAG \tab \code{integer} \tab 03-07 \tab Tag, triggers SEL\cr
-#' [,31] \tab LTYPE \tab \code{character} \tab 03-07 \tab Luminescence type\cr
-#' [,32] \tab LIGHTSOURCE \tab \code{character} \tab 03-07 \tab Light source\cr
-#' [,33] \tab LPOWER \tab \code{numeric} \tab 03-07 \tab Optical stimulation power\cr
-#' [,34] \tab LIGHTPOWER \tab \code{numeric} \tab 06-07 \tab Optical stimulation power\cr
-#' [,35] \tab LOW \tab \code{numeric} \tab 03-07 \tab Low (temperature, time, wavelength)\cr
-#' [,36] \tab HIGH \tab \code{numeric} \tab 03-07 \tab High (temperature, time, wavelength)\cr
-#' [,37] \tab RATE \tab \code{numeric} \tab 03-07 \tab Rate (heating rate, scan rate)\cr
-#' [,38] \tab TEMPERATURE \tab \code{integer} \tab 03-07 \tab Sample temperature\cr
-#' [,39] \tab MEASTEMP \tab \code{integer} \tab 06-07 \tab Measured temperature\cr
-#' [,40] \tab AN_TEMP \tab \code{numeric} \tab 03-07 \tab Annealing temperature\cr
-#' [,41] \tab AN_TIME \tab \code{numeric} \tab 03-07 \tab Annealing time\cr
-#' [,42] \tab TOLDELAY \tab \code{integer} \tab 03-07 \tab TOL 'delay' channels\cr
-#' [,43] \tab TOLON \tab \code{integer} \tab 03-07 \tab TOL 'on' channels\cr
-#' [,44] \tab TOLOFF \tab \code{integer} \tab 03-07 \tab TOL 'off' channels\cr
-#' [,45] \tab IRR_TIME \tab \code{numeric} \tab 03-07 \tab Irradiation time\cr
-#' [,46] \tab IRR_TYPE \tab \code{integer} \tab 03-07 \tab Irradiation type (alpha, beta or gamma)\cr
-#' [,47] \tab IRR_UNIT \tab \code{integer} \tab 03-04 \tab Irradiation unit (Gy, Rads, secs, mins, hrs)\cr
-#' [,48] \tab IRR_DOSERATE \tab \code{numeric} \tab 06-07 \tab Irradiation dose rate (Gy/s)\cr
-#' [,49] \tab IRR_DOSERATEERR \tab \code{numeric} \tab 06-07 \tab Irradiation dose rate error (Gy/s)\cr
-#' [,50] \tab TIMESINCEIRR \tab \code{integer} \tab 06-07 \tab Time since irradiation (s)\cr
-#' [,51] \tab TIMETICK \tab \code{numeric} \tab 06-07 \tab Time tick for pulsing (s)\cr
-#' [,52] \tab ONTIME \tab \code{integer} \tab 06-07 \tab On-time for pulsing (in time ticks)\cr
-#' [,53] \tab STIMPERIOD \tab \code{integer} \tab 06-07 \tab Stimulation period (on+off in time ticks)\cr
-#' [,54] \tab GATE_ENABLED \tab \code{raw} \tab 06-07 \tab PMT signal gating enabled\cr
-#' [,55] \tab ENABLE_FLAGS \tab \code{raw} \tab 06-07 \tab PMT signal gating  enabled\cr
-#' [,56] \tab GATE_START \tab \code{integer} \tab 06-07 \tab Start gating (in time ticks)\cr
-#' [,57] \tab GATE_STOP \tab \code{ingeter} \tab 06-07 \tab Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used\cr
-#' [,58] \tab PTENABLED \tab \code{raw} \tab 06-07 \tab Photon time enabled\cr
-#' [,59] \tab DTENABLED \tab \code{raw} \tab 06-07 \tab PMT dead time correction enabled\cr
-#' [,60] \tab DEADTIME \tab \code{numeric} \tab 06-07 \tab PMT dead time (s)\cr
-#' [,61] \tab MAXLPOWER \tab \code{numeric} \tab 06-07 \tab Stimulation power to 100 percent (mW/cm^2)\cr
-#' [,62] \tab XRF_ACQTIME \tab \code{numeric} \tab 06-07 \tab XRF acquisition time (s)\cr
-#' [,63] \tab XRF_HV \tab \code{numeric} \tab 06-07 \tab XRF X-ray high voltage (V)\cr
-#' [,64] \tab XRF_CURR \tab \code{integer} \tab 06-07 \tab XRF X-ray current (uA)\cr
-#' [,65] \tab XRF_DEADTIMEF \tab \code{numeric} \tab 06-07 \tab XRF dead time fraction\cr
-#' [,66] \tab SEQUENCE \tab \code{character} \tab 03-04 \tab Sequence name\cr
-#' [,67] \tab DETECTOR_ID \tab \code{raw} \tab 07 \tab Detector ID\cr
-#' [,68] \tab LOWERFILTER_ID \tab \code{integer} \tab 07 \tab Lower filter ID in reader\cr
-#' [,69] \tab UPPERFILTER_ID \tab \code{integer} \tab 07 \tab Uper filter ID in reader\cr
-#' [,70] \tab ENOISEFACTOR \tab \code{numeric} \tab 07 \tab Excess noise filter, usage unknown
-#'
-#' } V = BIN-file version (RLum means that it does not depend on a specific BIN
-#' version)\cr
-#'
-#' Note that the \code{Risoe.BINfileData} object combines all values from
-#' different versions from the BIN-file, reserved bits are skipped, however,
-#' the function \code{\link{writeR2BIN}} reset arbitrary reserved bits. Invalid
-#' values for a specific version are set to \code{NA}. Furthermore, the
-#' internal R data types do not necessarily match the required data types for
-#' the BIN-file data import! Data types are converted during data import.\cr
-#'
-#' \bold{LTYPE} values
-#'
-#' \tabular{rll}{ [,0] \tab TL \tab: Thermoluminescence \cr [,1] \tab OSL \tab:
-#' Optically stimulated luminescence \cr [,2] \tab IRSL \tab: Infrared
-#' stimulated luminescence \cr [,3] \tab M-IR \tab: Infrared monochromator
-#' scan\cr [,4] \tab M-VIS \tab: Visible monochromator scan\cr [,5] \tab TOL
-#' \tab: Thermo-optical luminescence \cr [,6] \tab TRPOSL \tab: Time Resolved
-#' Pulsed OSL\cr [,7] \tab RIR \tab: Ramped IRSL\cr [,8] \tab RBR \tab: Ramped
-#' (Blue) LEDs\cr [,9] \tab USER \tab: User defined\cr [,10] \tab POSL \tab:
-#' Pulsed OSL \cr [,11] \tab SGOSL \tab: Single Grain OSL\cr [,12] \tab RL
-#' \tab: Radio Luminescence \cr [,13] \tab XRF \tab: X-ray Fluorescence }
-#'
-#' \bold{DTYPE} values \tabular{rll}{ [,0] \tab 0 \tab Natural \cr [,1] \tab 1
-#' \tab N+dose \cr [,2] \tab 2 \tab Bleach \cr [,3] \tab 3 \tab Bleach+dose \cr
-#' [,4] \tab 4 \tab Natural (Bleach) \cr [,5] \tab 5 \tab N+dose (Bleach) \cr
-#' [,6] \tab 6 \tab Dose \cr [,7] \tab 7 \tab Background }
-#'
-#' \bold{LIGHTSOURCE} values \tabular{rll}{ [,0] \tab 0 \tab Non \cr [,1] \tab
-#' 1 \tab Lamp \cr [,2] \tab 2 \tab IR diodes/IR Laser \cr [,3] \tab 3 \tab
-#' Calibration LED \cr [,4] \tab 4 \tab Blue Diodes \cr [,5] \tab 5 \tab White
-#' lite \cr [,6] \tab 6 \tab Green laser (single grain) \cr [,7] \tab 7 \tab IR
-#' laser (single grain) }
-#'
-#' (information on the BIN/BINX file format are kindly provided by Risoe, DTU
-#' Nutech)
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("Risoe.BINfileData", ...)}.
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
-#' @seealso
-#' \code{\link{plot_Risoe.BINfileData}}, \code{\link{readBIN2R}},
-#' \code{\link{writeR2BIN}},\code{\link{merge_Risoe.BINfileData}},
-#' \code{\link{Risoe.BINfileData2RLum.Analysis}},
-#' \code{\link{Risoe.BINfileData2RLum.Data.Curve}}
-#' @references Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2015. The
-#' Sequence Editor User Manual - March 2015
-#'
-#' \code{http://www.nutech.dtu.dk/}
-#' @keywords classes
+#' \bold{BT998} \cr \tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr
+#' Lab-Code: \tab BT998\cr Location: \tab Rottewitz (Saxony/Germany)\cr
+#' Material: \tab Fine grain quartz measured on aluminum discs on a Risoe
+#' TL/OSL DA-15 reader\cr Units: \tab Values are given in seconds \cr Dose
+#' Rate: \tab Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/-
+#' 0.0019 Gy/s\cr Measurement Date: \tab 2012-01-27 } \bold{CA1} \cr
+#' \tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory (CLL)\cr Lab-Code:
+#' \tab C-L2941\cr Location: \tab Cueva Anton (Murcia/Spain)\cr Material: \tab
+#' Coarse grain quartz (200-250 microns) measured on single grain discs on a
+#' Risoe TL/OSL DA-20 reader\cr Units: \tab Values are given in Gray \cr
+#' Measurement Date: \tab 2012 }
 #' @examples
 #'
-#' showClass("Risoe.BINfileData")
+#' ##(1) plot values as histogram
+#' data(ExampleData.DeValues, envir = environment())
+#' plot_Histogram(ExampleData.DeValues$BT998, xlab = "De [s]")
 #'
-NULL
-
-
-
-#' Class \code{"RLum"}
+#' ##(2) plot value as histogram (with Second to Gray convertion)
+#' data(ExampleData.DeValues, envir = environment())
 #'
-#' Abstract class for data in the package Luminescence
+#' De.values <- Second2Gray(ExampleData.DeValues$BT998,
+#'                          dose.rate = c(0.0438, 0.0019),
+#'                          method = "gaussian")
 #'
-#'
-#' @name RLum-class
-#' @docType class
-#' @note \code{RLum} is a virtual class.
-#' @section Objects from the Class: A virtual Class: No objects can be created
-#' from it.
-#' @author Sebastian Kreutzer, 2013 (Freiberg Instruments/JLU Giessen, Germany)
-#' @seealso \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
-#' @references #
-#' @keywords classes
-#' @examples
-#'
-#' showClass("RLum")
-#'
-NULL
-
-
-
-
-
-#' Class \code{"RLum.Analysis"}
-#'
-#' Object class containing analysis data for protocol analysis.
-#'
-#'
-#' @name RLum.Analysis-class
-#' @aliases RLum.Analysis-class show,RLum.Analysis-method set_RLum.Analysis
-#' set_RLum.Analysis,RLum.Analysis-method set_RLum.Analysis,list-method
-#' get_RLum.Analysis get_RLum.Analysis-methods
-#' get_RLum.Analysis,RLum.Analysis-method get_structure.RLum.Analysis
-#' get_structure.RLum.Analysis,RLum.Analysis-method length_RLum.Analysis
-#' length_RLum.Analysis-methods length_RLum.Analysis,RLum.Analysis-method
-#' @docType class
-#' @note The method \code{get_structure.RLum.Analysis} is currently just
-#' avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Analysis", ...)}.
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
-#' @seealso \code{\link{Risoe.BINfileData2RLum.Analysis}},
-#' \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}
-#' @references #
-#' @keywords classes
-#' @examples
-#'
-#' showClass("RLum.Analysis")
-#'
-#' ## usage of get_RLum.Analysis() with returining an RLum.Analysis object
-#' #  get_RLum.Analysis(object, keep.object = TRUE)
-#'
-#'
-NULL
-
-
-
-
-
-#' Class \code{"RLum.Data"}
-#'
-#' Generalized virtual data class for luminescence data.
-#'
-#'
-#' @name RLum.Data-class
-#' @docType class
-#' @note Just a virtual class.
-#' @section Objects from the Class: A virtual Class: No objects can be created
-#' from it.
-#' @author Sebastian Kreutzer, 2013 (Freiberg Instruments/JLU Giessen, Germany)
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Spectrum}}
-#' @references #
-#' @keywords classes
-#' @examples
-#'
-#' showClass("RLum.Data")
-#'
-NULL
-
-
-
-
-
-#' Class \code{"RLum.Data.Curve"}
-#'
-#' Class for luminescence curve data.
-#'
-#'
-#' @name RLum.Data.Curve-class
-#' @aliases RLum.Data.Curve-class coerce,RLum.Analysis-method
-#' show,RLum.Data.Curve-method set_RLum.Data.Curve set_RLum.Data.Curve-methods
-#' set_RLum.Data.Curve,RLum.Data.Curve-method set_RLum.Data.Curve,ANY-method
-#' set_RLum.Data.Curve,character,matrix-method get_RLum.Data.Curve
-#' get_RLum.Data.Curve-methods get_RLum.Data.Curve,ANY-method
-#' @docType class
-#' @note The class should only contain data for a single curve. For additional
-#' elements the slot \code{info} can be used (e.g. providing additional heating
-#' ramp curve).
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Data.Curve", ...)}.
-#' @author Sebastian Kreutzer Freiberg Instruments/JLU Giessen (Germany)
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}
-#' @references #
-#' @keywords classes
-#' @examples
-#'
-#' showClass("RLum.Data.Curve")
-#'
-NULL
-
-
-
-
-
-#' Class \code{"RLum.Data.Image"}
-#'
-#' Class for luminescence image data (TL/OSL/RF).
-#'
-#'
-#' @name RLum.Data.Image-class
-#' @aliases RLum.Data.Image-class coerce,RLum.Data.Image-method
-#' show,RLum.Data.Image-method set_RLum.Data.Image set_RLum.Data.Image-methods
-#' set_RLum.Data.Image,RLum.Data.Image-method set_RLum.Data.Image,ANY-method
-#' set_RLum.Data.Image,character,matrix-method get_RLum.Data.Image
-#' get_RLum.Data.Image-methods get_RLum.Data.Image,ANY-method
-#' @docType class
-#' @note The class should only contain data for a set of images. For additional
-#' elements the slot \code{info} can be used.
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Data.Image", ...)}.
-#' @author Sebastian Kreutzer, Universite Bordeaux Montaigne (France)
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}
-#' @references #
-#' @keywords classes
-#' @examples
-#'
-#' showClass("RLum.Data.Image")
-#'
-#' ##so far no further example available
+#' plot_Histogram(De.values, xlab = "De [Gy]")
 #'
 #'
 #'
-NULL
-
-
-
-
-
-#' Class \code{"RLum.Data.Spectrum"}
-#'
-#' Class for luminescence spectra data (TL/OSL/RF).
-#'
-#'
-#' @name RLum.Data.Spectrum-class
-#' @aliases RLum.Data.Spectrum-class coerce,RLum.Data.Spectrum-method
-#' show,RLum.Data.Spectrum-method set_RLum.Data.Spectrum
-#' set_RLum.Data.Spectrum-methods
-#' set_RLum.Data.Spectrum,RLum.Data.Spectrum-method
-#' set_RLum.Data.Spectrum,ANY-method
-#' set_RLum.Data.Spectrum,character,matrix-method get_RLum.Data.Spectrum
-#' get_RLum.Data.Spectrum-methods get_RLum.Data.Spectrum,ANY-method
-#' @docType class
-#' @note The class should only contain data for a single spectra data set. For
-#' additional elements the slot \code{info} can be used.
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Data.Spectrum", ...)}.
-#' @author Sebastian Kreutzer, JLU Giessen (Germany)
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}
-#' @references #
-#' @keywords classes
-#' @examples
-#'
-#' showClass("RLum.Data.Spectrum")
-#'
-#' ##show example data (uncomment for usage)
-#' # data(ExampleData.XSYG, envir = environment())
-#' # TL.Spectrum
-#'
-#'
-#'
-NULL
-
-
-
-
-
-#' Class \code{"RLum.Results"}
-#'
-#' Object class contains results data from functions.
-#'
-#'
-#' @name RLum.Results-class
-#' @aliases RLum.Results-class show,RLum.Results-method set_RLum.Results
-#' set_RLum.Results,RLum.Results-method set_RLum.Results,ANY,list-method
-#' get_RLum.Results get_RLum.Results,RLum.Results-method merge_RLum.Results
-#' merge_RLum.Results-methods merge_RLum.Results,list-method
-#' validObject,RLum.Results-method
-#' @docType class
-#' @note The class is intended to store results from functions to be used by
-#' other functions. The data in the object should always be accessed by the
-#' method \code{get_RLum.Results}.
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Results", ...)}.
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
-#' @seealso \code{\linkS4class{RLum}}
-#' @references #
-#' @keywords classes methods
-#' @examples
-#'
-#' showClass("RLum.Results")
-#'
-NULL

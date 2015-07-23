@@ -30,7 +30,7 @@
 #' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 #' error-weighted relative standard error), \code{"seabs"} (absolute standard
 #' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
-#' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+#' \code{"in.2s"} (percent of samples in 2-sigma range),
 #' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 #'
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -181,7 +181,7 @@ plot_KDE <- function(
     } else {
 
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum.Results(data[[i]])[,1:2]
+        data[[i]] <- get_RLum(data[[i]], "data")
       }
 
       if(length(data[[i]]) < 2) {
@@ -406,8 +406,8 @@ plot_KDE <- function(
                                          "\n",
                                          sep = ""),
                                    ""),
-                            ifelse("in.ci" %in% summary[j] == TRUE,
-                                   paste("in confidence interval = ",
+                            ifelse("in.2s" %in% summary[j] == TRUE,
+                                   paste("in 2 sigma = ",
                                          round(sum(data[[i]][,7] > -2 &
                                                      data[[i]][,7] < 2) /
                                                  nrow(data[[i]]) * 100 , 1),
@@ -527,8 +527,8 @@ plot_KDE <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("in.ci" %in% summary[j] == TRUE,
-                                 paste("in confidence interval = ",
+                          ifelse("in.2s" %in% summary[j] == TRUE,
+                                 paste("in 2 sigma = ",
                                        round(sum(data[[i]][,7] > -2 &
                                                    data[[i]][,7] < 2) /
                                                nrow(data[[i]]) * 100 , 1),

@@ -62,14 +62,14 @@ The information from the slot 'recordType' is taken from the first
 'curveType' is filled with the name \code{merged}.
 }
 \section{Function version}{
- 0.1 (2015-04-30 11:58:09)
+ 0.1 (2015-06-16 14:23:12)
 }
 \examples{
 ##load example data
 data(ExampleData.XSYG, envir = environment())
 
 ##grep first and 3d TL curves
-TL.curves  <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType = "TL (UVVIS)")
+TL.curves  <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType = "TL (UVVIS)")
 TL.curve.1 <- TL.curves[[1]]
 TL.curve.3 <- TL.curves[[3]]
 

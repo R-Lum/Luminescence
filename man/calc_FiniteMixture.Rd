@@ -75,7 +75,7 @@ If a vector for \code{n.components} is provided (e.g.  \code{c(2:8)}),
 results for each iteration of the model.
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 This function fits a k-component mixture to a De distribution with differing
@@ -105,7 +105,7 @@ per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{
- 0.4 (2015-04-30 11:52:34)
+ 0.4 (2015-06-16 14:23:12)
 }
 \examples{
 ## load example data
@@ -131,7 +131,7 @@ FMM
 
 ## show the results on equivalent dose, standard error and proportion of
 ## fitted components
-get_RLum.Results(object = FMM, data.object = "components")
+get_RLum(object = FMM, data.object = "components")
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a

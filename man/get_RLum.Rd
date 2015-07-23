@@ -2,6 +2,11 @@
 % Please edit documentation in R/get_RLum.R
 \name{get_RLum}
 \alias{get_RLum}
+\alias{get_RLum.Analysis}
+\alias{get_RLum.Data.Curve}
+\alias{get_RLum.Data.Image}
+\alias{get_RLum.Data.Spectrum}
+\alias{get_RLum.Results}
 \title{General accessor function for RLum S4 class objects}
 \usage{
 get_RLum(object, ...)
@@ -22,24 +27,11 @@ Function calls object-specific get functions for RLum S4 class objects.
 \details{
 The function provides a generalised access point for specific
 \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
-corresponding get function will be selected.  Allowed arguments can be found
-in the documentations of each get function.  \tabular{lll}{ \bold{object}
-\tab \tab \bold{corresponding get function} \cr
-
-\code{\linkS4class{RLum.Data.Curve}} \tab : \tab
-\code{\link{get_RLum.Data.Curve}}\cr \code{\linkS4class{RLum.Data.Image}}
-\tab : \tab \code{\link{get_RLum.Data.Image}}\cr
-\code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab
-\code{\link{get_RLum.Data.Spectrum}}\cr \code{\linkS4class{RLum.Analysis}}
-\tab : \tab \code{\link{get_RLum.Analysis}}\cr
-\code{\linkS4class{RLum.Results}} \tab : \tab \code{\link{get_RLum.Results}}
-}
-}
-\note{
--
+corresponding get function will be selected. Allowed arguments can be found
+in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1 (2015-04-30 11:57:24)
+ 0.1 (2015-06-16 14:23:12)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function
@@ -57,15 +49,11 @@ temp.get<- get_RLum(object = temp1)
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
 \cr R Luminescence Package Team}
-\references{
--
-}
 \seealso{
-\code{\link{get_RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Curve}}, \code{\link{get_RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Image}}, \code{\link{get_RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{get_RLum.Analysis}},
-\code{\linkS4class{RLum.Analysis}}, \code{\link{get_RLum.Results}},
+\code{\linkS4class{RLum.Data.Curve}},
+\code{\linkS4class{RLum.Data.Image}},
+\code{\linkS4class{RLum.Data.Spectrum}},
+\code{\linkS4class{RLum.Analysis}},
 \code{\linkS4class{RLum.Results}}
 }
 \keyword{utilities}

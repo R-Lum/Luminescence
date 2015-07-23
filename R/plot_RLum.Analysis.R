@@ -72,7 +72,7 @@
 #' plot_RLum.Analysis(temp)
 #'
 #' ##plot (combine) TL curves in one plot
-#' temp.sel <- get_RLum.Analysis(temp, recordType = "TL", keep.object = TRUE)
+#' temp.sel <- get_RLum(temp, recordType = "TL", keep.object = TRUE)
 #' plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 #'
 #'
@@ -317,7 +317,7 @@ plot_RLum.Analysis <- function(
     ##(2) NORMAL (combine == TRUE)
 
     ##(1) check RLum objects in the set
-    object.list <- get_RLum.Analysis(object)
+    object.list <- get_RLum(object)
 
 
     sapply(1:length(object.list), function(x){
@@ -332,7 +332,7 @@ plot_RLum.Analysis <- function(
 
 
     ##account for different curve types, combine similar
-    temp.object.structure  <- get_structure.RLum.Analysis(object)
+    temp.object.structure  <- structure_RLum(object)
     temp.recordType <- as.character(unique(temp.object.structure$recordType))
 
 
@@ -350,14 +350,14 @@ plot_RLum.Analysis <- function(
 
       ###get type of curves
       temp.object <-
-        get_RLum.Analysis(object, recordType = temp.recordType[k], keep.object = TRUE)
+        get_RLum(object, recordType = temp.recordType[k], keep.object = TRUE)
 
       ##get structure
-      object.structure  <- get_structure.RLum.Analysis(temp.object)
+      object.structure  <- structure_RLum(temp.object)
 
       ##now get the real list object
       object.list <-
-        get_RLum.Analysis(object, recordType = temp.recordType[k])
+        get_RLum(object, recordType = temp.recordType[k])
 
 
       ##prevent problems for non set argument

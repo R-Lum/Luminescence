@@ -32,7 +32,7 @@ used arguments} \item{call}{\link{call} the function call}
 \item{profile}{\link{data.frame} the log likelihood profile for sigma}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 This function calculates the central dose and dispersion of the De
@@ -46,7 +46,7 @@ detailed explanation on maximum likelihood estimation can be found in the
 appendix of Galbraith & Laslett (1993, 468-470)
 }
 \section{Function version}{
- 1.3 (2015-04-30 11:50:32)
+ 1.3 (2015-06-16 14:23:12)
 }
 \examples{
 ##load example data

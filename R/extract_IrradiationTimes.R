@@ -34,7 +34,7 @@
 #' object. As the XSYG-file format comprises much more information than usually
 #' needed for routine data analysis and allowed in the BINX-file format, only
 #' the relevant curves are selected by using the function
-#' \code{\link{get_RLum.Analysis}}. The argument \code{recordType} works as
+#' \code{\link{get_RLum}}. The argument \code{recordType} works as
 #' described for this function. \cr
 #'
 #' Note: A wrong selection will causes a function error. Please change this
@@ -90,10 +90,10 @@
 #' #   file.BINX <- file.choose()
 #' #
 #' #     output <- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
-#' #     get_RLum.Results(output)
+#' #     get_RLum(output)
 #' #
 #' ## export results additionally to a CSV.file in the same directory as the XSYG-file
-#' #       write.table(x = get_RLum.Results(output),
+#' #       write.table(x = get_RLum(output),
 #' #                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
 #' #                   sep = ";",
 #' #                   row.names = FALSE)
@@ -173,7 +173,7 @@ extract_IrradiationTimes <- function(
     for(i in 1:length(temp.XSYG)){
 
       ##select sequence and reduce the data set to really wanted values
-      temp.sequence.list[[i]] <- get_RLum.Analysis(temp.XSYG[[i]]$Sequence.Object,
+      temp.sequence.list[[i]] <- get_RLum(temp.XSYG[[i]]$Sequence.Object,
                                                    recordType = recordType,
                                                    keep.object = TRUE)
 
@@ -213,23 +213,23 @@ extract_IrradiationTimes <- function(
   # Grep relevant information -------------------------------------------------------------------
 
   ##Sequence STEP
-  STEP <- sapply(1:length_RLum.Analysis(temp.sequence), function(x){
+  STEP <- sapply(1:length_RLum(temp.sequence), function(x){
 
-    get_RLum.Analysis(temp.sequence, record.id = x)@recordType
+    get_RLum(temp.sequence, record.id = x)@recordType
 
   })
 
   #START time of each step
-  temp.START <- unname(sapply(1:length_RLum.Analysis(temp.sequence), function(x){
+  temp.START <- unname(sapply(1:length_RLum(temp.sequence), function(x){
 
-    get_RLum.Data.Curve(get_RLum.Analysis(temp.sequence, record.id = x), info.object = c("startDate"))
+    get_RLum(get_RLum(temp.sequence, record.id = x), info.object = c("startDate"))
 
   }))
 
   ##DURATION of each STEP
-  DURATION.STEP <- sapply(1:length_RLum.Analysis(temp.sequence), function(x){
+  DURATION.STEP <- sapply(1:length_RLum(temp.sequence), function(x){
 
-    max(get_RLum.Data.Curve(get_RLum.Analysis(temp.sequence, record.id = x))[,1])
+    max(get_RLum(get_RLum(temp.sequence, record.id = x))[,1])
 
   })
 
@@ -244,17 +244,17 @@ extract_IrradiationTimes <- function(
   ##add position number so far an XSYG file was the input
   if(exists("file.XSYG")){
 
-    POSITION <- rep(temp.sequence.position, each = length_RLum.Analysis(temp.sequence))
+    POSITION <- rep(temp.sequence.position, each = length_RLum(temp.sequence))
 
   }else if(!inherits(try(
-    get_RLum.Data.Curve(
-      get_RLum.Analysis(temp.sequence, record.id = 1), info.object = "position"),
+    get_RLum(
+      get_RLum(temp.sequence, record.id = 1), info.object = "position"),
     silent = TRUE), "try-error")){
 
     ##DURATION of each STEP
-    POSITION <- unname(sapply(1:length_RLum.Analysis(temp.sequence), function(x){
+    POSITION <- unname(sapply(1:length_RLum(temp.sequence), function(x){
 
-      get_RLum.Data.Curve(get_RLum.Analysis(temp.sequence, record.id = x),info.object = "position")
+      get_RLum(get_RLum(temp.sequence, record.id = x),info.object = "position")
 
     }))
 
@@ -379,5 +379,5 @@ extract_IrradiationTimes <- function(
 
 
   # Output --------------------------------------------------------------------------------------
-  return(set_RLum.Results(data = list(irr.times = results)))
+  return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }

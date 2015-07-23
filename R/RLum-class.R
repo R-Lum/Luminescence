@@ -1,14 +1,29 @@
-##//////////////////////////////////////////////////////////////////////////////
-##//RLum-class.R
-##//////////////////////////////////////////////////////////////////////////////
-##==============================================================================
-##author: Sebastian Kreutzer
-##organisation: JLU Giessen
-##vers.: 0.1
-##date: 18/01/2013
-##==============================================================================
-
+#' Class \code{"RLum"}
+#'
+#' Abstract class for data in the package Luminescence
+#'
+#'
+#' @name RLum-class
+#' 
+#' @docType class
+#' 
+#' @slot .S3Class Object of class "character"
+#' 
+#' @note \code{RLum} is a virtual class.
+#' 
+#' @section Objects from the Class: A virtual Class: No objects can be created
+#' from it.
+#' 
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' 
+#' @seealso \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
+#' 
+#' @keywords classes
+#' 
+#' @examples
+#'
+#' showClass("RLum")
+#'
 setClass("RLum",
-         representation(),            
-         S3methods=TRUE
-         )
+         representation(),
+         S3methods = TRUE)

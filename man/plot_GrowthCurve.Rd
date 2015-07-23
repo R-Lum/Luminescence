@@ -117,16 +117,16 @@ provide an empty user mtext \code{mtext = ""}. To plot any other subtitle
 text, use \code{mtext}.
 }
 \section{Function version}{
- 1.6.1 (2015-04-30 11:59:06)
+ 1.6.1 (2015-06-16 14:23:12)
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value
 data(ExampleData.LxTxData, envir = environment())
 temp <- plot_GrowthCurve(LxTxData)
-get_RLum.Results(temp)
+get_RLum(temp)
 
 ##(1a) to access the fitting value try
-get_RLum.Results(temp, data.object = "Fit")
+get_RLum(temp, data.object = "Fit")
 
 ##(2) plot the growth curve only - uncomment to use
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")

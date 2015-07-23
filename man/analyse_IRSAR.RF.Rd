@@ -83,7 +83,7 @@ returned containing the following elements: \cr
 are only provided for the method \code{"SLIDE"}, provided the trend
 correction is applied.} \item{fit}{\link{nls} \code{nlsModel} object}\cr
 \bold{Note:} The output (\code{De.values}) should be accessed using the
-function \code{\link{get_RLum.Results}}
+function \code{\link{get_RLum}}
 }
 \description{
 Function to analyse IRSAR RF measurements on K-feldspar samples, performed
@@ -139,7 +139,7 @@ curve, but here the impact of single outliers on the curve adjustment
 (sliding) is considered as negligible. \cr The applied outlier removal
 algorithm consists of three steps:\cr
 
-(a) Input data are smoothed using the function \code{\link{rollmedian}}.
+(a) Input data are smoothed using the function \code{\link[zoo]{rollmedian}}.
 Value \code{k} for the rolling window is fixed to 11. Therefore, the natural
 curve needs to comprise at least of 33 values, otherwise outlier removal is
 rejected. \cr
@@ -182,7 +182,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.3.2 (2015-04-30 11:47:26)
+ 0.3.2 (2015-07-02 15:48:21)
 }
 \examples{
 ##load data
@@ -242,7 +242,7 @@ Measurements 32, 685-690.
 }
 \seealso{
 \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
+\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 \code{\link{nls}}
 }
 \keyword{datagen}

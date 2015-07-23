@@ -94,7 +94,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.4.3 (2015-04-30 12:02:09)
+ 0.4.3 (2015-07-01 16:04:54)
 }
 \examples{
 ##(1) import XSYG file to R (uncomment for usage)
@@ -107,7 +107,7 @@ the XSXG file are skipped.
 
   ##import entire XML file
   #FILE <- file.choose()
-  #temp <- xmlRoot(xmlTreeParse(FILE))
+  #temp <- XML::xmlRoot(XML::xmlTreeParse(FILE))
 
   ##search for specific subnodes with curves containing 'OSL'
   #getNodeSet(temp, "//Sample/Sequence/Record[@recordType = 'OSL']/Curve")
@@ -116,10 +116,10 @@ the XSXG file are skipped.
 data(ExampleData.XSYG, envir = environment())
 
 ##grep one OSL curves and plot the first curve
-OSLcurve <- get_RLum.Analysis(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
+OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 
 ##(3) How to see the structure of an object?
-get_structure.RLum.Analysis(OSL.SARMeasurement$Sequence.Object)
+structure_RLum(OSL.SARMeasurement$Sequence.Object)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

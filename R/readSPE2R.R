@@ -37,11 +37,10 @@
 #'
 #' \code{matrix}\cr
 #'
-#' Returns a matrix of the form: Rows = Channels, columns = Frames For the
-#' transformation the function \code{\link{get_RLum.Data.Spectrum}} is used,
+#' Returns a matrix of the form: Rows = Channels, columns = Frames. For the
+#' transformation the function \code{\link{get_RLum}} is used,
 #' meaning that the same results can be obtained by using the function
-#' \code{\link{get_RLum.Data.Spectrum}} on an \code{RLum.Data.Spectrum} object
-#' or \code{\link{get_RLum.Data.Image}} on an \code{RLum.Data.Image} object.
+#' \code{\link{get_RLum}} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 #' @note \bold{The function does not test whether the input data are spectra or
 #' pictures for spatial resolved analysis!}\cr
 #'
@@ -53,7 +52,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\link{raster}}
+#' \code{\link[raster]{raster}}
 #' @references Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 #' Format Specification, Version 1.A,
 #' \url{ftp://ftp.princetoninstruments.com/Public/Manuals/Princeton\%20Instruments/SPE\%203.0\%20File\%20Format\%20Specification.pdf}
@@ -82,7 +81,7 @@
 #' #temp
 #'
 #' ##(4) Export raw data to csv, if temp is a RLum.Data.Spectrum object
-#' # write.table(x = get_RLum.Data.Spectrum(temp),
+#' # write.table(x = get_RLum(temp),
 #' #             file = "[your path and filename]",
 #' #             sep = ";", row.names = FALSE)
 #'
@@ -368,7 +367,9 @@ readSPE2R <- function(
 
 
     ##set output object
-    object <- set_RLum.Data.Spectrum(recordType = "Spectrum",
+    object <- set_RLum(
+      class = "RLum.Data.Spectrum",
+      recordType = "Spectrum",
                                      curveType = "measured",
                                      data = data.spectrum.matrix,
                                      info = temp.info)
@@ -376,7 +377,7 @@ readSPE2R <- function(
     ##optional matrix object
     if(output.object == "matrix"){
 
-      object <- get_RLum.Data.Spectrum(object)}
+      object <- get_RLum(object)}
 
 
   }else if(output.object == "RLum.Data.Image"){
@@ -390,7 +391,7 @@ readSPE2R <- function(
 
       }
 
-      raster(t(data.list[[x]]),
+      raster::raster(t(data.list[[x]]),
              xmn = 0, xmx = max(xdim),
              ymn = 0, ymx = max(ydim))
 
@@ -398,10 +399,12 @@ readSPE2R <- function(
     })
 
     ##Convert to raster brick
-    data.raster <- brick(x = data.raster.list)
+    data.raster <- raster::brick(x = data.raster.list)
 
     ##Create RLum.object
-    object <- set_RLum.Data.Image(recordType = "Image",
+    object <- set_RLum(
+      class = "RLum.Data.Image",
+      recordType = "Image",
                                   curveType = "measured",
                                   data = data.raster,
                                   info = temp.info)

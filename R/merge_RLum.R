@@ -5,11 +5,12 @@
 #' The function provides a generalised access point for merge specific
 #' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
 #' corresponding merge function will be selected.  Allowed arguments can be
-#' found in the documentations of each merge function.  \tabular{lll}{
+#' found in the documentations of each merge function.  
+#' \tabular{lll}{
 #' \bold{object} \tab \tab \bold{corresponding merge function} \cr
 #'
 #' \code{\linkS4class{RLum.Results}} \tab : \tab
-#' \code{\link{merge_RLum.Results}} }
+#' \code{merge_RLum} }
 #'
 #' @param objects \code{\link{list}} of \code{\linkS4class{RLum}}
 #' (\bold{required}): list of S4 object of class \code{RLum}
@@ -20,8 +21,7 @@
 #' @section Function version: 0.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
-#' @seealso \code{\link{merge_RLum.Results}},
-#' \code{\linkS4class{RLum.Results}},
+#' @seealso \code{\linkS4class{RLum.Results}},
 #' @references #
 #' @keywords utilities
 #' @examples
@@ -39,7 +39,7 @@
 #' temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
 #'
 #' ##merge the results and store them in a new object
-#' temp.merged <- get_RLum.Results(merge_RLum(objects = list(temp1, temp2)))
+#' temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 #'
 #'
 #'
@@ -47,48 +47,65 @@ merge_RLum<- function(
   objects,
   ...
 ){
-
-   # Integrity check ----------------------------------------------------------
-
-
-   ##check if objects are of class RLum
-   temp.class.test <- unique(sapply(1:length(objects), function(x){
-
-     if(is(objects[[x]], "RLum") ==FALSE){
-
-       temp.text <- paste("[merge_RLum()]: At least element", x, "is not of class 'RLum' or a derivative class!")
-       stop(temp.text)
-     }
-
-     ##provide class of objects ... so far they should be similar
-     is(objects[[x]])[1]
-
-    }))
-
-    ##check if objects are consitent
-    if(length(temp.class.test)>1){
-
-      ##This is not valid for RLum.Analysis objects
-      if(!"RLum.Analysis"%in%temp.class.test){
-
-          stop("[merge_RLum()] So far only similar input objects in the list are supported!")
-
-      }
+  
+  # Integrity check ----------------------------------------------------------
+  
+  
+  ##check if objects are of class RLum
+  temp.class.test <- unique(sapply(1:length(objects), function(x){
+    if(is(objects[[x]], "RLum") ==FALSE){
+      temp.text <- paste("[merge_RLum()]: At least element", x, "is not of class 'RLum' or a derivative class!")
+      stop(temp.text)
     }
-
-
-    ##grep object class
-    objects.class <- ifelse("RLum.Analysis"%in%temp.class.test, "RLum.Analysis", temp.class.test)
-
-    ##select which merge function should be used
-
-    switch (objects.class,
-
-            RLum.Data.Image = stop("[merge_RLum()] Sorry, merging of 'RLum.Data.Image' objects is currently not supported!"),
-            RLum.Data.Spectrum = stop("[merge_RLum()] Sorry, merging of 'RLum.Data.Spectrum' is objects currently not supported!"),
-            RLum.Data.Curve = merge_RLum.Data.Curve(objects, ...),
-            RLum.Analysis = merge_RLum.Analysis(objects, ...),
-            RLum.Results = merge_RLum.Results(objects, ...)
-           )
-
+    ##provide class of objects ... so far they should be similar
+    is(objects[[x]])[1]
+  }))
+  
+  ##check if objects are consitent
+  if(length(temp.class.test) > 1){
+    ##This is not valid for RLum.Analysis objects
+    if(!"RLum.Analysis" %in% temp.class.test){
+      stop("[merge_RLum()] So far only similar input objects in the list are supported!")
+    }
+  }
+  
+  ##grep object class
+  objects.class <- ifelse("RLum.Analysis" %in% temp.class.test, "RLum.Analysis", temp.class.test)
+  
+  ##select which merge function should be used
+  switch (objects.class,
+          RLum.Data.Image = stop("[merge_RLum()] Sorry, merging of 'RLum.Data.Image' objects is currently not supported!"),
+          RLum.Data.Spectrum = stop("[merge_RLum()] Sorry, merging of 'RLum.Data.Spectrum' is objects currently not supported!"),
+          RLum.Data.Curve = merge_RLum.Data.Curve(objects, ...),
+          RLum.Analysis = merge_RLum.Analysis(objects, ...),
+          RLum.Results = merge_RLum.Results(objects, ...)
+  )
+  
 }
+
+#' General accessor function for RLum S4 class objects
+#'
+#' Function calls object-specific get functions for RLum S4 class objects.
+#'
+#' The function provides a generalised access point for specific
+#' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+#' corresponding merge function will be selected. Allowed arguments can be found
+#' in the documentations of the corresponding \code{\linkS4class{RLum}} class.
+#'
+#' @param object.list \code{\linkS4class{RLum}} (\bold{required}): a list of S4 
+#' objects of class \code{RLum}
+#' @return Return is the same as input objects as provided in the list.
+#' @section Function version: 0.1
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France)
+#' @seealso
+#' \code{\linkS4class{RLum.Data.Curve}},
+#' \code{\linkS4class{RLum.Data.Image}},
+#' \code{\linkS4class{RLum.Data.Spectrum}},
+#' \code{\linkS4class{RLum.Analysis}},
+#' \code{\linkS4class{RLum.Results}}
+#' @keywords utilities
+#' 
+setGeneric("merge_RLum.Results",  function(object.list) {
+  standardGeneric("merge_RLum.Results")
+})

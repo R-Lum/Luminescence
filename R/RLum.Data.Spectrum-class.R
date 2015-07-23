@@ -1,30 +1,60 @@
-##//////////////////////////////////////////////////////////////////////////////
-##//RLum.Data.Spectrum-class.R
-##//////////////////////////////////////////////////////////////////////////////
-##==============================================================================
-##author: Sebastian Kreutzer
-##organisation: JLU Giessen
-##version: 0.1
-##date: 2013-11-23
-##==============================================================================
-##[SK]  The curve type slot is intentionally named 'recordType' against 
-##      the internal naming conventions. 
+#' @include get_RLum.R set_RLum.R
+NULL
 
-
+#' Class \code{"RLum.Data.Spectrum"}
+#'
+#' Class for luminescence spectra data (TL/OSL/RF).
+#'
+#' @name RLum.Data.Spectrum-class
+#' 
+#' @docType class
+#' 
+#' @slot recordType Object of class "character" containing the type of the curve (e.g. "TL" or "OSL")
+#' 
+#' @slot curveType Object of class "character" containing curve type, allowed values are measured or predefined
+#' 
+#' @slot data Object of class "matrix" containing spectrum (count) values. Row labels indicate wavelength/pixel values,
+#' column labels are temperature or time values.
+#' 
+#' @slot info Object of class "list" containing further meta information objects
+#'  
+#' @slot .S3Class Object of class "character"
+#' 
+#' @note The class should only contain data for a single spectra data set. For
+#' additional elements the slot \code{info} can be used.
+#' 
+#' @section Objects from the Class: Objects can be created by calls of the form
+#' \code{new("RLum.Data.Spectrum", ...)}.
+#' 
+#' @author Sebastian Kreutzer, JLU Giessen (Germany)
+#' 
+#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+#' \code{\link{plot_RLum}}
+#' 
+#' @keywords classes
+#' 
+#' @examples
+#'
+#' showClass("RLum.Data.Spectrum")
+#'
+#' ##show example data (uncomment for usage)
+#' # data(ExampleData.XSYG, envir = environment())
+#' # TL.Spectrum
+#'
 setClass("RLum.Data.Spectrum",
          representation(
            recordType = "character",
            curveType = "character",
            data = "matrix",
            info = "list"
-           ),
+         ),
          contains = "RLum.Data",
          prototype = list (
            recordType = character(),
            curveType = character(),
            data = matrix(),      
            info = list()
-           ),                
+         ),                
          S3methods=TRUE)
 
 
@@ -36,12 +66,12 @@ setClass("RLum.Data.Spectrum",
 setAs("data.frame", "RLum.Data.Spectrum", 
       function(from,to){
         
-              new(to, 
-                  recordType = "unkown curve type",
-                  curveType = "NA",
-                  data = as.matrix(from),
-                  info = list())
-            })    
+        new(to, 
+            recordType = "unkown curve type",
+            curveType = "NA",
+            data = as.matrix(from),
+            info = list())
+      })    
 
 setAs("RLum.Data.Spectrum", "data.frame", 
       function(from){
@@ -57,7 +87,7 @@ setAs("RLum.Data.Spectrum", "data.frame",
 
 setAs("matrix", "RLum.Data.Spectrum", 
       function(from,to){
-                
+        
         new(to, 
             recordType = "unkown curve type",
             curveType = "NA",
@@ -80,13 +110,13 @@ setAs("RLum.Data.Spectrum", "matrix",
 setMethod("show", 
           signature(object = "RLum.Data.Spectrum"),
           function(object){
-          
+            
             x.range <- range(as.numeric(rownames(object@data)))
             y.range <- range(as.numeric(colnames(object@data)))
             z.range <- range(object@data)
-    
+            
             ##print information
-        
+            
             cat("\n [RLum.Data.Spectrum]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
@@ -103,73 +133,82 @@ setMethod("show",
 
 # # constructor (set) method for object class -----------------------------------
 
-setGeneric("set_RLum.Data.Spectrum",
-           function(recordType, curveType, data, info) {standardGeneric("set_RLum.Data.Spectrum")})
-
-
-setMethod("set_RLum.Data.Spectrum", 
-            signature = c(recordType = "ANY", curveType = "ANY", data = "ANY", info = "ANY"), 
+#' @describeIn RLum.Data.Spectrum
+#' Construction method for RLum.Data.Spectrum object. The slot info is optional
+#'  and predefined as empty list by default
+#'  
+#' @param class \code{\link{character}}: name of the \code{RLum} class to create
+#' @param recordType \code{\link{character}}: record type (e.g. "OSL")
+#' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
+#' @param data \code{\link{matrix}}: raw curve data
+#' @param info \code{\link{list}}: info elements
+setMethod("set_RLum", 
+          signature = signature("RLum.Data.Spectrum"), 
           
-            function(recordType, curveType, data, info){             
+          definition = function(class, recordType, curveType, data, info){             
+            
+            ##check for missing curveType
+            if(missing(curveType)==TRUE){
               
-              ##check for missing curveType
-              if(missing(curveType)==TRUE){
-                
-                curveType <- "NA"
-                
-              }else if (is(curveType, "character") == FALSE){
-                              
-                stop("[set_RLum.Data.Spectrum] Error: 'curveType' has to be of type 'character'!")
-                
-              }
+              curveType <- "NA"
               
-              ##check for missing arguments
-              if(missing(recordType) | missing(data)){
-                     
-                temp.error.missing <- paste(c(
-                  
-                  if(missing(recordType)){"'recordType'"}else{},
-                  if(missing(data)){"'data'"}else{}), 
-                                            collapse=", ")
-                  
-                ##set error message   
-                temp.error.message <- paste("[set_RLum.Data.Spectrum] Error: Missing required arguments " ,
-                                       temp.error.missing,"!", sep="")
-                stop(temp.error.message)
-              }
+            }else if (is(curveType, "character") == FALSE){
               
-              ##handle missing info argument
-              if(missing(info)){
-                
-                info <- list()
-                
-              }else if (is(info, "list") == FALSE){
-                
-                stop("[set_RLum.Data.Spectrum] Error: 'info' has to be of type 'list'!")
-    
-              }
+              stop("[set_RLum] Error: 'curveType' has to be of type 'character'!")
               
-              new("RLum.Data.Spectrum", 
-                  recordType = recordType,
-                  curveType = curveType,
-                  data = data,
-                  info = info)
-  
-            })
+            }
+            
+            ##check for missing arguments
+            if(missing(recordType) | missing(data)){
+              
+              temp.error.missing <- paste(c(
+                
+                if(missing(recordType)){"'recordType'"}else{},
+                if(missing(data)){"'data'"}else{}), 
+                collapse=", ")
+              
+              ##set error message   
+              temp.error.message <- paste("[set_RLum] Error: Missing required arguments " ,
+                                          temp.error.missing,"!", sep="")
+              stop(temp.error.message)
+            }
+            
+            ##handle missing info argument
+            if(missing(info)){
+              
+              info <- list()
+              
+            }else if (is(info, "list") == FALSE){
+              
+              stop("[set_RLum] Error: 'info' has to be of type 'list'!")
+              
+            }
+            
+            new("RLum.Data.Spectrum", 
+                recordType = recordType,
+                curveType = curveType,
+                data = data,
+                info = info)
+            
+          })
 
 # constructor (get) method for object class -----------------------------------
 
-setGeneric("get_RLum.Data.Spectrum",
-           function(object, info.object) {standardGeneric("get_RLum.Data.Spectrum")})
-
-setMethod("get_RLum.Data.Spectrum", 
-          signature(object="ANY", info.object = "ANY"), 
+#' @describeIn RLum.Data.Spectrum
+#' Accessor method for RLum.Data.Spectrum object. The argument info.object 
+#' is optional to directly access the info elements. If no info element name 
+#' is provided, the raw curve data (matrix) will be returned
+#'  
+#' @param object an object of class \code{\linkS4class{RLum.Data.Image}}
+#' @param info.object object of class "list" containing further meta information objects
+setMethod("get_RLum", 
+          signature("RLum.Data.Spectrum"), 
           definition = function(object, info.object) {
             
             ##Check if function is of type RLum.Data.Spectrum
             if(is(object, "RLum.Data.Spectrum") == FALSE){
               
-              stop("[get_RLum.Data.Spectrum] Function valid for 'RLum.Data.Spectrum' objects only!")
+              stop("[get_RLum] Function valid for 'RLum.Data.Spectrum' objects only!")
               
             }
             
@@ -178,7 +217,7 @@ setMethod("get_RLum.Data.Spectrum",
             if(missing(info.object) == FALSE){
               
               if(is(info.object, "character") == FALSE){            
-                stop("[get_RLum.Data.Spectrum] Error: 'info.object' has to be a character!")           
+                stop("[get_RLum] Error: 'info.object' has to be a character!")           
               }
               
               if(info.object %in% names(object@info) == TRUE){
@@ -190,7 +229,7 @@ setMethod("get_RLum.Data.Spectrum",
                 ##grep names
                 temp.element.names <- paste(names(object@info), collapse = ", ")
                 
-                stop.text <- paste("[get_RLum.Data.Spectrum] Error: Invalid element name. Valid names are:", temp.element.names)
+                stop.text <- paste("[get_RLum] Error: Invalid element name. Valid names are:", temp.element.names)
                 
                 stop(stop.text)  
                 

@@ -103,7 +103,7 @@
 #' the function call}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}
+#' \code{\link{get_RLum}}
 #' @note Despite its universal use the equation to calculate the cosmic dose
 #' rate provided by Prescott & Hutton (1994) is falsely stated to be valid from
 #' the surface to 10^4 hg/cm^2 of standard rock. The original expression by
@@ -181,7 +181,7 @@
 #'                               altitude = 364, error = 10)
 #'
 #' # the results can be accessed by
-#' get_RLum.Results(results, "summary")
+#' get_RLum(results, "summary")
 #'
 #' #export results to .csv file - uncomment for usage
 #' #write.csv(results, file = "c:/users/public/results.csv")
@@ -230,6 +230,11 @@ calc_CosmicDoseRate<- function(
                 "older >80 ka possible!"), fill = FALSE)
       corr.fieldChanges<- FALSE
     }
+  }
+  
+  if(length(density) > length(depth)) {
+    stop("\nIf you provide more than one value for density please", 
+         " provide an equal number of values for depth.", call. = FALSE)
   }
 
 
@@ -530,7 +535,8 @@ calc_CosmicDoseRate<- function(
 
     summary<- data.frame(cbind(temp1,temp2))
 
-    newRLumResults.calc_CosmicDoseRate <- set_RLum.Results(
+    newRLumResults.calc_CosmicDoseRate <- set_RLum(
+      class = "RLum.Results",
       data = list(summary=summary,
                   args=args,
                   call=call))
@@ -555,7 +561,8 @@ calc_CosmicDoseRate<- function(
 
     summary<- data.frame(cbind(profile.results,add.info))
 
-    newRLumResults.calc_CosmicDoseRate <- set_RLum.Results(
+    newRLumResults.calc_CosmicDoseRate <- set_RLum(
+      class = "RLum.Results",
       data = list(summary=summary,
                   args=args,
                   call=call))

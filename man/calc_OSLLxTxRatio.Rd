@@ -71,10 +71,10 @@ consider to provide an own sigmab value using the corresponding argument \code{s
 \note{
 The results of this function have been cross-checked with the Analyst
 (vers. 3.24b). Access to the results object via
-\code{\link{get_RLum.Results}}.
+\code{\link{get_RLum}}.
 }
 \section{Function version}{
- 0.5.1 (2015-05-19 16:03:06)
+ 0.5.1 (2015-06-16 14:23:12)
 }
 \examples{
 ##load data
@@ -85,7 +85,7 @@ results <- calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral = c(1:2),
                              background.integral = c(85:100))
 
 ##get results object
-get_RLum.Results(results)
+get_RLum(results)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

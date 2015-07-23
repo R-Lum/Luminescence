@@ -51,7 +51,7 @@ results.} \item{args}{\link{list} used arguments} \item{call}{\link{call}
 the function call}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 This function calculates the cosmic dose rate taking into account the soft-
@@ -159,7 +159,7 @@ for near-surface samples as there is no equation known to the author of this
 function at the time of writing.
 }
 \section{Function version}{
- 0.5.2 (2015-04-30 11:51:54)
+ 0.5.2 (2015-06-16 14:23:12)
 }
 \examples{
 ##(1) calculate cosmic dose rate (one absorber)
@@ -187,7 +187,7 @@ results<- calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                               altitude = 364, error = 10)
 
 # the results can be accessed by
-get_RLum.Results(results, "summary")
+get_RLum(results, "summary")
 
 #export results to .csv file - uncomment for usage
 #write.csv(results, file = "c:/users/public/results.csv")

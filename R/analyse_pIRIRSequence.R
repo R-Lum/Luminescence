@@ -49,7 +49,7 @@
 #' exists.}\cr
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum.Results}}.
+#' \code{\link{get_RLum}}.
 #' @note Best graphical output can be achieved by using the function \code{pdf}
 #' with the following options:\cr \code{pdf(file = "...", height = 15, width =
 #' 15)}
@@ -58,7 +58,7 @@
 #' (France)
 #' @seealso \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
 #' \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}} \code{\link{get_RLum.Results}}
+#' \code{\linkS4class{RLum.Results}} \code{\link{get_RLum}}
 #' @references Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 #' using an improved single-aliquot regenerative-dose protocol. Radiation
 #' Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
@@ -81,7 +81,7 @@
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 #'
 #' ##(c) Grep curves and exclude the last two (one TL and one IRSL)
-#' object <- get_RLum.Analysis(object, record.id = c(-29,-30))
+#' object <- get_RLum(object, record.id = c(-29,-30))
 #'
 #' ##(d) Define new sequence structure and set new RLum.Analysis object
 #' sequence.structure  <- c(1,2,2,3,4,4)
@@ -94,7 +94,7 @@
 #'
 #' })
 #'
-#' object <- set_RLum.Analysis(records = object, protocol = "pIRIR")
+#' object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR")
 #'
 #' ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
 #' ## Note: output as single plots to avoid problems with this example
@@ -191,7 +191,7 @@ analyse_pIRIRSequence <- function(
   ##(1) Check structure and remove curves that fit not the recordType criteria
 
   ##get sequence structure
-  temp.sequence.structure  <- get_structure.RLum.Analysis(object)
+  temp.sequence.structure  <- structure_RLum(object)
 
   ##remove data types that fit not to allow values
   temp.sequence.rm.id <- temp.sequence.structure[
@@ -203,7 +203,7 @@ analyse_pIRIRSequence <- function(
   if(length(temp.sequence.rm.id)>0){
 
   ##removed record from data set
-  object <- get_RLum.Analysis(object, record.id = -temp.sequence.rm.id,
+  object <- get_RLum(object, record.id = -temp.sequence.rm.id,
                               keep.object = TRUE)
 
   ##compile warning message
@@ -219,7 +219,7 @@ analyse_pIRIRSequence <- function(
   ##(2) Apply user sequence structure
 
   ##get sequence structure
-  temp.sequence.structure  <- get_structure.RLum.Analysis(object)
+  temp.sequence.structure  <- structure_RLum(object)
 
   ##set values to structure data.frame
   temp.sequence.structure[, "protocol.step"] <- rep(
@@ -232,14 +232,14 @@ analyse_pIRIRSequence <- function(
   if(length(temp.sequence.rm.id)>0){
 
     ##remove from object
-    object  <- get_RLum.Analysis(
+    object  <- get_RLum(
       object, record.id = -temp.sequence.rm.id, keep.object = TRUE)
 
     ##remove from sequence structure
     sequence.structure  <- sequence.structure[sequence.structure != "EXCLUDE"]
 
     ##set new structure
-    temp.sequence.structure  <- get_structure.RLum.Analysis(object)
+    temp.sequence.structure  <- structure_RLum(object)
 
     temp.sequence.structure[, "protocol.step"] <- rep(
       sequence.structure, nrow(temp.sequence.structure)/2/length(temp.sequence.structure))
@@ -370,7 +370,7 @@ analyse_pIRIRSequence <- function(
       sort(c(TL.curves.id, IRSL.curves.id[seq(i,length(IRSL.curves.id),by=n.loops)]))
 
     ##(a) select data set (TL curves has to be considered for the data set)
-    temp.curves<- get_RLum.Analysis(object, record.id = temp.id.sel, keep.object = TRUE)
+    temp.curves<- get_RLum(object, record.id = temp.id.sel, keep.object = TRUE)
 
     ##(b) grep integral limits as they might be different for different curves
     if(length(signal.integral.min)>1){
@@ -423,23 +423,24 @@ analyse_pIRIRSequence <- function(
 
     ##add signal nformation to the protocol step
     temp.results.pIRIR.De <- as.data.frame(
-      c(get_RLum.Results(temp.results, "De.values"),
+      c(get_RLum(temp.results, "De.values"),
         data.frame(Signal = pIRIR.curve.names[i])))
 
     temp.results.pIRIR.LnLxTnTx <- as.data.frame(
-     c(get_RLum.Results(temp.results, "LnLxTnTx.table"),
+     c(get_RLum(temp.results, "LnLxTnTx.table"),
        data.frame(Signal = pIRIR.curve.names[i])))
 
     temp.results.pIRIR.rejection.criteria <- as.data.frame(
-      c(get_RLum.Results(temp.results, "rejection.criteria"),
+      c(get_RLum(temp.results, "rejection.criteria"),
       data.frame(Signal = pIRIR.curve.names[i])))
 
-    temp.results.pIRIR.formula <- list(get_RLum.Results(temp.results,
+    temp.results.pIRIR.formula <- list(get_RLum(temp.results,
                                                              "Formula"))
     names(temp.results.pIRIR.formula)  <- pIRIR.curve.names[i]
 
     ##create now object
-    temp.results  <- set_RLum.Results(
+    temp.results  <- set_RLum(
+      class = "RLum.Results",
       data = list(
         De.values = temp.results.pIRIR.De,
         LnLxTnTx.table = temp.results.pIRIR.LnLxTnTx,
@@ -470,12 +471,12 @@ if(plot == TRUE){
 
   ##plot growth curves
   plot(NA, NA,
-       xlim = range(get_RLum.Results(temp.results.final, "LnLxTnTx.table")$Dose),
+       xlim = range(get_RLum(temp.results.final, "LnLxTnTx.table")$Dose),
        ylim = c(
-         min(get_RLum.Results(temp.results.final, "LnLxTnTx.table")$LxTx)+
-         max(get_RLum.Results(temp.results.final, "LnLxTnTx.table")$LxTx.Error),
-         max(get_RLum.Results(temp.results.final, "LnLxTnTx.table")$LxTx)+
-         max(get_RLum.Results(temp.results.final, "LnLxTnTx.table")$LxTx.Error)),
+         min(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)+
+         max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error),
+         max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)+
+         max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error)),
        xlab = "Dose [s]",
        ylab = expression(L[x]/T[x]),
        main = "Summarised growth curves")
@@ -483,13 +484,13 @@ if(plot == TRUE){
 
     ##set x for expression evaluation
     x <- seq(0,
-             max(get_RLum.Results(temp.results.final, "LnLxTnTx.table")$Dose)*1.05,
+             max(get_RLum(temp.results.final, "LnLxTnTx.table")$Dose)*1.05,
              length = 100)
 
     for(j in 1:length(pIRIR.curve.names)){
 
      ##dose points
-     temp.curve.points <- get_RLum.Results(
+     temp.curve.points <- get_RLum(
        temp.results.final,"LnLxTnTx.table")[,c("Dose", "LxTx", "LxTx.Error", "Signal")]
 
      temp.curve.points <- temp.curve.points[
@@ -506,18 +507,18 @@ if(plot == TRUE){
               col = j)
 
      ##De values
-     lines(c(0, get_RLum.Results(temp.results.final, "De.values")[j,1]),
+     lines(c(0, get_RLum(temp.results.final, "De.values")[j,1]),
            c(temp.curve.points[1,c("LxTx")], temp.curve.points[1,c("LxTx")]),
            col = j,
            lty = 2)
 
-     lines(c(rep(get_RLum.Results(temp.results.final, "De.values")[j,1], 2)),
+     lines(c(rep(get_RLum(temp.results.final, "De.values")[j,1], 2)),
            c(temp.curve.points[1,c("LxTx")], 0),
            col = j,
            lty = 2)
 
      ##curve
-     temp.curve.formula  <- get_RLum.Results(
+     temp.curve.formula  <- get_RLum(
         temp.results.final, "Formula")[[pIRIR.curve.names[j]]]
 
      try(lines(x, eval(temp.curve.formula), col = j), silent = TRUE)
@@ -536,7 +537,7 @@ if(plot == TRUE){
     ##plot Tn/Tx curves
     ##select signal
     temp.curve.TnTx <-
-      get_RLum.Results(temp.results.final, "LnLxTnTx.table")[, c("TnTx", "Signal")]
+      get_RLum(temp.results.final, "LnLxTnTx.table")[, c("TnTx", "Signal")]
 
     temp.curve.TnTx.matrix <- matrix(NA,
                                     nrow = nrow(temp.curve.TnTx)/
@@ -555,7 +556,7 @@ if(plot == TRUE){
     }
 
     plot(NA, NA,
-       xlim = c(0,nrow(get_RLum.Results(temp.results.final, "LnLxTnTx.table"))/
+       xlim = c(0,nrow(get_RLum(temp.results.final, "LnLxTnTx.table"))/
                      n.loops),
        ylim = range(temp.curve.TnTx.matrix),
        xlab = "# Cycle",
@@ -583,7 +584,7 @@ if(plot == TRUE){
 
 
    ##Rejection criteria
-   temp.rejection.criteria <- get_RLum.Results(temp.results.final,
+   temp.rejection.criteria <- get_RLum(temp.results.final,
                                                data.object = "rejection.criteria")
 
    temp.rc.reycling.ratio <- temp.rejection.criteria[

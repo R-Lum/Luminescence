@@ -56,7 +56,7 @@ apply_EfficiencyCorrection <- function(
   }
 
   ## grep data matrix
-  temp.matrix <- get_RLum.Data.Spectrum(object)
+  temp.matrix <- get_RLum(object)
 
   ## grep efficency values
   temp.efficiency <- as.matrix(spectral.efficiency)
@@ -80,12 +80,14 @@ apply_EfficiencyCorrection <- function(
   })
 
   ##correct colnames
-  colnames(temp.matrix) <- colnames(get_RLum.Data.Spectrum(object))
+  colnames(temp.matrix) <- colnames(get_RLum(object))
 
 
   # Return Output------------------------------------------------------------
 
-  temp.output <- set_RLum.Data.Spectrum(recordType = object@recordType,
+  temp.output <- set_RLum(
+    class = "RLum.Data.Spectrum",
+    recordType = object@recordType,
                                         curveType = object@curveType,
                                         data = temp.matrix,
                                         info = object@info)

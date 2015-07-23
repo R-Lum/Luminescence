@@ -26,7 +26,7 @@ following element:
 used arguments} \item{call}{\link{call} the function call}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}
+\code{\link{get_RLum}}
 }
 \description{
 A simple homogeneity test for De estimates
@@ -35,7 +35,7 @@ A simple homogeneity test for De estimates
 For details see Galbraith (2003).
 }
 \section{Function version}{
- 0.2 (2015-04-30 11:53:01)
+ 0.2 (2015-06-16 14:23:12)
 }
 \examples{
 ## load example data

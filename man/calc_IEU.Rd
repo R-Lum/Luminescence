@@ -39,7 +39,7 @@ used arguments} \item{call}{\link{call} the function call}
 tables}
 
 The output should be accessed using the function
-\code{\link{get_RLum.Results}}.
+\code{\link{get_RLum}}.
 }
 \description{
 Function to calculate the IEU De for a De data set.
@@ -49,7 +49,7 @@ This function uses the equations of Thomsen et al. (2007).  The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
- 0.1 (2015-04-30 11:53:16)
+ 0.1 (2015-06-16 14:23:12)
 }
 \examples{
 ## load data

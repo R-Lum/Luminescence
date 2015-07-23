@@ -90,14 +90,14 @@ appear similar, but they are not comparable!
 The upper age limit is set to 500 ka!
 }
 \section{Function version}{
- 0.3.0 (2015-05-10 23:46:35)
+ 0.3.0 (2015-06-16 14:23:12)
 }
 \examples{
 results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
                 age.faded = c(100,10),
                 n.MCruns=100)
 
-get_RLum.Results(results)
+get_RLum(results)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -108,7 +108,7 @@ in K-feldspars and the measurement and correction for it in optical dating.
 Canadian Journal of Earth Sciences, 38, 1093-1106.
 }
 \seealso{
-\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum.Results}},
+\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 \code{\link{uniroot}}
 }
 \keyword{datagen}

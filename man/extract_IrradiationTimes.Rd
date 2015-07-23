@@ -28,7 +28,7 @@ curves types from the XSYG file or \code{\linkS4class{RLum.Analysis}}
 object. As the XSYG-file format comprises much more information than usually
 needed for routine data analysis and allowed in the BINX-file format, only
 the relevant curves are selected by using the function
-\code{\link{get_RLum.Analysis}}. The argument \code{recordType} works as
+\code{\link{get_RLum}}. The argument \code{recordType} works as
 described for this function. \cr
 
 Note: A wrong selection will causes a function error. Please change this
@@ -92,7 +92,7 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.2.1 (2015-04-30 13:39:26)
+ 0.2.1 (2015-06-16 14:23:12)
 }
 \examples{
 ## (1) - example for your own data
@@ -103,10 +103,10 @@ towards a correct time order.
 #   file.BINX <- file.choose()
 #
 #     output <- extract_IrradiationTimes(file.XSYG = file.XSYG, file.BINX = file.BINX)
-#     get_RLum.Results(output)
+#     get_RLum(output)
 #
 ## export results additionally to a CSV.file in the same directory as the XSYG-file
-#       write.table(x = get_RLum.Results(output),
+#       write.table(x = get_RLum(output),
 #                   file = paste0(file.BINX,"_extract_IrradiationTimes.csv"),
 #                   sep = ";",
 #                   row.names = FALSE)

@@ -29,7 +29,7 @@
 #' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 #' error-weighted relative standard error), \code{"seabs"} (absolute standard
 #' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
-#' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+#' \code{"in.2s"} (percent of samples in 2-sigma range),
 #' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 #'
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -189,7 +189,7 @@
 #'
 #' ## now with a brief statistical summary
 #' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 summary = c("n", "in.ci"))
+#'                 summary = c("n", "in.2s"))
 #'
 #' ## now with another statistical summary as subheader
 #' plot_RadialPlot(data = ExampleData.DeValues,
@@ -211,7 +211,7 @@
 #'                 col = c("darkblue", "darkgreen"),
 #'                 bar.col = c("lightblue", "lightgreen"),
 #'                 pch = c(2, 6),
-#'                 summary = c("n", "in.ci"),
+#'                 summary = c("n", "in.2s"),
 #'                 summary.pos = "sub",
 #'                 legend = c("Sample 1", "Sample 2"))
 #'
@@ -250,7 +250,7 @@ plot_RadialPlot <- function(
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum.Results(data[[i]])[,1:2]
+        data[[i]] <- get_RLum(data[[i]], "data")
       }
     }
   }
@@ -258,7 +258,7 @@ plot_RadialPlot <- function(
   ## check data and parameter consistency--------------------------------------
   if(missing(stats) == TRUE) {stats <- numeric(0)}
   if(missing(summary) == TRUE) {
-    summary <- c("n", "in.ci")
+    summary <- c("n", "in.2s")
   }
 
   if(missing(summary.pos) == TRUE) {
@@ -974,8 +974,8 @@ if(centrality[1] == "mean") {
                                          "\n",
                                          sep = ""),
                                    ""),
-                            ifelse("in.ci" %in% summary[j] == TRUE,
-                                   paste("in confidence interval = ",
+                            ifelse("in.2s" %in% summary[j] == TRUE,
+                                   paste("in 2 sigma = ",
                                          round(sum(data[[i]][,7] > -2 &
                                                      data[[i]][,7] < 2) /
                                                  nrow(data[[i]]) * 100 , 1),
@@ -1095,8 +1095,8 @@ if(centrality[1] == "mean") {
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("in.ci" %in% summary[j] == TRUE,
-                                 paste("in confidence interval = ",
+                          ifelse("in.2s" %in% summary[j] == TRUE,
+                                 paste("in 2 sigma = ",
                                        round(sum(data[[i]][,7] > -2 &
                                                    data[[i]][,7] < 2) /
                                                nrow(data[[i]]) * 100 , 1),

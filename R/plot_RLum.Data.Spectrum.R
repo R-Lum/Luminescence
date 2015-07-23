@@ -91,45 +91,61 @@
 #' \code{single} or \code{multiple.lines} (along the time or temperature axis)
 #' or \code{transect} (along the wavelength axis) \cr
 #'
-#' Note: The use of \code{persp3d} will produce a dynamic 3D surface plot on
+#' Note: The use of \code{\link[rgl]{persp3d}} will produce a dynamic 3D surface plot on
 #' the screen.
+#'
 #' @param optical.wavelength.colours \code{\link{logical}} (with default): use
 #' optical wavelength colour palette. Note: For this, the spectrum range is
 #' limited: \code{c(350,750)}. Own colours can be set with the argument
 #' \code{col}.
+#'
 #' @param bg.channels \code{\link{vector}} (optional): defines channel for
 #' background subtraction If a vector is provided the mean of the channels is
 #' used for subtraction. Note: Background subtraction is applied prior to
 #' channel binning
+#'
 #' @param bin.rows \code{\link{integer}} (with defaul): allow summing-up
 #' wavelength channels (horizontal binning), e.g. \code{bin.rows = 2} two
 #' channels are summed up
+#'
 #' @param bin.cols \code{\link{integer}} (with default): allow summing-up
 #' channel counts (vertical binning) for plotting, e.g. \code{bin.cols = 2} two
 #' channels are summed up
+#'
 #' @param rug \code{\link{logical}} (with default): enables or disables colour
 #' rug. Currently only implemented for plot type \code{multiple.lines} and
 #' \code{single}
+#'
 #' @param xaxis.energy \code{\link{logical}} (with default): enables or
 #' disables energy instead of wavelength axis. Note: This option means not only
 #' simnply redrawing the axis, insteadly the spectrum in terms of intensity is
 #' recalculated, s. details.
+#'
 #' @param legend.text \code{\link{character}} (with default): possiblity to
 #' provide own legend text. This argument is only considered for plot types
 #' providing a legend, e.g. \code{plot.type="transect"}
+#'
 #' @param \dots further arguments and graphical parameters that will be passed
 #' to the \code{plot} function.
+#'
 #' @return Returns a plot.
+#'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
+#'
 #' @section Function version: 0.4.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link{persp3d}},
+#' \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[rgl]{persp3d}},
 #' \code{\link{contour}}
+#'
 #' @references Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
 #' Springer.
+#'
 #' @keywords aplot
+#'
 #' @examples
 #'
 #'
@@ -294,7 +310,7 @@ plot_RLum.Data.Spectrum <- function(
 
 
   # prepare values for plot ---------------------------------------------------
-  temp.xyz <- get_RLum.Data.Spectrum(object)
+  temp.xyz <- get_RLum(object)
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
@@ -586,7 +602,7 @@ plot_RLum.Data.Spectrum <- function(
     ## ==========================================================================#
     ##perspective plot 3D screen (package rgl)
     ## ==========================================================================#
-    persp3d(x, y, temp.xyz,
+    rgl::persp3d(x, y, temp.xyz,
             xlab = xlab,
             ylab = ylab,
             zlab = zlab,

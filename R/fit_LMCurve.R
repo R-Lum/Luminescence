@@ -673,7 +673,7 @@ fit_LMCurve<- function(
       seq(3,ncol(component.contribution.matrix),by=2),
       function(x){
 
-        rowDiffs(cbind(rev(component.contribution.matrix[,(x+1)]),
+        matrixStats::rowDiffs(cbind(rev(component.contribution.matrix[,(x+1)]),
                        component.contribution.matrix[,x]))
 
       })
@@ -944,7 +944,8 @@ fit_LMCurve<- function(
   ## Return Values
   ##============================================================================#
 
-  newRLumResults.fit_LMCurve <- set_RLum.Results(
+  newRLumResults.fit_LMCurve <- set_RLum(
+    class = "RLum.Results",
     data = list(
       fit = fit,
       output.table = output.table,

@@ -44,7 +44,7 @@
 #' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 #' error-weighted relative standard error), \code{"seabs"} (absolute standard
 #' error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-#' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+#' \code{"in.2s"} (percent of samples in 2-sigma range),
 #' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). \cr\cr
 #'
 #' The optional parameter \code{layout} allows to modify the entire plot more
@@ -67,22 +67,18 @@
 #' from the data set prior to any further operations.
 #' @param log.z \code{\link{logical}} (with default): Option to display the
 #' z-axis in logarithmic scale. Default is \code{TRUE}.
-#' @param central.value \code{\link{numeric}}: User-defined central value,
-#' primarily used for horizontal centering of the z-axis.
-#' @param centrality \code{\link{character}} or \code{\link{numeric}} (with
-#' default): measure of centrality, used for automatically centering the plot
-#' and drawing the central line. Can either be one out of \code{"mean"},
-#' \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or one
-#' or more numeric values used for the standardisation. If more than one value
-#' is specified, more than one 2-sigma bar will be plotted and the dataset is
-#' centered using the median. Default is \code{"mean.weighted"}.
+#' @param z.0 \code{\link{character}} or \code{\link{numeric}}: User-defined
+#' central value, used for centering of data. One out of \code{"mean"},
+#' \code{"mean.weighted"} and \code{"median"} or a numeric value (not its
+#' logarithm). Default is \code{"mean.weighted"}.
 #' @param dispersion \code{\link{character}} (with default): measure of
-#' dispersion, used for drawing the polygon that depicts the dose distribution.
-#' One out of \code{"sd"} (standard deviation),\code{"2sd"} (2 standard
-#' deviations), \code{"qr"} (quartile range) or \code{"cinn"} (confidence
-#' interval with nn specifying the level, e.g. \code{"ci95"} meaning the 95 \%
-#' confidence interval, i.e. data between the quantiles 0.025 and 0.975),
-#' default is \code{"sd"}.
+#' dispersion, used for drawing the scatter polygon. One out of \code{"qr"}
+#' (quartile range), \code{"pnn"} (symmetric percentile range with nn the lower
+#' percentile, e.g. \code{"p05"} depicting the range between 5 and 95 %),
+#' \code{"sd"} (standard deviation) and \code{"2sd"} (2 standard deviations),
+#' default is \code{"qr"}. Note that \code{"sd"} and \code{"2sd"} are only
+#' meaningful in combination with \code{"z.0 = 'mean'"} because the unweighted
+#' mean is used to center the polygon.
 #' @param plot.ratio \code{\link{numeric}}: Relative space, given to the radial
 #' versus the cartesian plot part, deault is \code{0.75}.
 #' @param rotate \code{\link{logical}}: Option to turn the plot by 90 degrees.
@@ -117,19 +113,16 @@
 #' @param error.bars \code{\link{logical}}: Option to show De-errors as error
 #' bars on De-points. Useful in combination with \code{y.axis = FALSE, bar.col
 #' = "none"}.
-#' @param polygon.col \code{\link{character}} or \code{\link{numeric}} (with
-#' default): colour of the polygon showing the dose dispersion around the
-#' central value. To disable the polygon use \code{"none"} or
-#' \code{bar = FALSE}. Default is \code{"grey80"}.
+#' @param bar \code{\link{numeric}} (with default): option to add one or more
+#' dispersion bars (i.e., bar showing the 2-sigma range) centered at the
+#' defined values. By default a bar is drawn according to \code{"z.0"}. To omit
+#' the bar set \code{"bar = FALSE"}.
 #' @param bar.col \code{\link{character}} or \code{\link{numeric}} (with
-#' default): colour of the bar showing the 2-sigma range of the dose error
-#' around the central value. To disable the bar use \code{"none"} or
-#' \code{bar = FALSE}. Default is \code{"grey65"}.
-#' @param frame \code{\link{numeric}} (with default): option to modify the
-#' plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
-#' originates at 0,0 and runs along min/max isochrons), \code{2} (frame
-#' embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a
-#' rectangle).Default is \code{1}.
+#' default): colour of the dispersion bar. Default is \code{"grey60"}.
+#' @param polygon.col \code{\link{character}} or \code{\link{numeric}} (with
+#' default): colour of the polygon showing the data scatter. Sometimes this
+#' polygon may be omitted for clarity. To disable it use \code{FALSE} or
+#' \code{polygon = FALSE}. Default is \code{"grey80"}.
 #' @param line \code{\link{numeric}}: numeric values of the additional lines to
 #' be added.
 #' @param line.col \code{\link{character}} or \code{\link{numeric}}: colour of
@@ -137,8 +130,13 @@
 #' @param line.label \code{\link{character}}: labels for the additional lines.
 #' @param grid.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the grid lines (originating at [0,0] and strechting to
-#' the z-scale). To disable grid lines use \code{"none"}. Default is
+#' the z-scale). To disable grid lines use \code{FALSE}. Default is
 #' \code{"grey"}.
+#' @param frame \code{\link{numeric}} (with default): option to modify the
+#' plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
+#' originates at 0,0 and runs along min/max isochrons), \code{2} (frame
+#' embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a
+#' rectangle).Default is \code{1}.
 #' @param bw \code{\link{character}} (with default): bin-width for KDE, choose
 #' a numeric value for manual setting.
 #' @param output \code{\link{logical}}: Optional output of numerical plot
@@ -149,11 +147,14 @@
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
 #' @section Function version: 0.1.2
+#'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
 #' introduced by Galbraith & Green (1990)
+#'
 #' @seealso \code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}},
 #' \code{\link{plot_Histogram}}
+#'
 #' @references Galbraith, R. & Green, P., 1990. Estimating the component ages
 #' in a finite mixture. International Journal of Radiation Applications and
 #' Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3),
@@ -165,15 +166,14 @@
 #'
 #' ## load example data and recalculate to Gray
 #' data(ExampleData.DeValues, envir = environment())
-#' ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+#' ExampleData.DeValues <- ExampleData.DeValues$CA1
 #'
 #' ## plot the example data straightforward
 #' plot_AbanicoPlot(data = ExampleData.DeValues)
 #'
 #' ## now with linear z-scale
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  log.z = FALSE,
-#'                  xlab = c("Standard error (Gy)", "Precision"))
+#'                  log.z = FALSE)
 #'
 #' ## now with output of the plot parameters
 #' plot1 <- plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -183,11 +183,11 @@
 #'
 #' ## now with adjusted z-scale limits
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  zlim = c(100, 200))
+#'                  zlim = c(10, 200))
 #'
 #' ## now with adjusted x-scale limits
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  xlim = c(0, 60))
+#'                  xlim = c(0, 20))
 #'
 #' ## now with rug to indicate individual values in KDE part
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -195,7 +195,7 @@
 #'
 #' ## now with a smaller bandwidth for the KDE plot
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  bw = 0.01)
+#'                  bw = 0.04)
 #'
 #' ## now with a histogram instead of the KDE plot
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -214,19 +214,19 @@
 #' ## now with user-defined plot ratio
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  plot.ratio = 0.5)
-#'
+
 #' ## now with user-defined central value
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  central.value = 120)
+#'                  z.0 = 70)
 #'
-#' ## now with weighted median as measure of centrality
+#' ## now with weighted median as central value
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  centrality = "median.weighted")
+#'                  z.0 = "median")
 #'
-#' ## now with median/quartile range as measure of centrality/dispersion
+#' ## now with the 17-83 percentile range as definition of scatter
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  centrality = "median",
-#'                  dispersion = "qr")
+#'                  z.0 = "median",
+#'                  dispersion = "p17")
 #'
 #' ## now with user-defined green line for minimum age model
 #' CAM <- calc_CentralDose(ExampleData.DeValues,
@@ -247,15 +247,15 @@
 #'
 #' ## now without 2-sigma bar, polygon, grid lines and central value line
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  bar.col = "none",
-#'                  polygon.col = "none",
-#'                  grid.col = "none",
+#'                  bar.col = FALSE,
+#'                  polygon.col = FALSE,
+#'                  grid.col = FALSE,
 #'                  y.axis = FALSE,
 #'                  lwd = 0)
 #'
 #' ## now with direct display of De errors, without 2-sigma bar
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  bar.col = "none",
+#'                  bar.col = FALSE,
 #'                  ylab = "",
 #'                  y.axis = FALSE,
 #'                  error.bars = TRUE)
@@ -269,26 +269,24 @@
 #'
 #' ## now with minimum, maximum and median value indicated
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                 central.value = 150,
-#'                 stats = c("min", "max", "median"))
+#'                  stats = c("min", "max", "median"))
 #'
 #' ## now with a brief statistical summary
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                 summary = c("n", "in.ci"))
+#'                  summary = c("n", "in.2s"))
 #'
 #' ## now with another statistical summary as subheader
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                 summary = c("mean.weighted", "median"),
-#'                 summary.pos = "sub")
+#'                  summary = c("mean.weighted", "median"),
+#'                  summary.pos = "topleft")
 #'
 #' ## now a plot with two 2-sigma bars for one data set
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  centrality = c(120, 160),
-#'                  mtext = "n = 25")
+#'                  bar = c(30, 100))
 #'
 #' ## now the data set is split into sub-groups, one is manipulated
-#' data.1 <- ExampleData.DeValues[1:15,]
-#' data.2 <- ExampleData.DeValues[16:25,] * 1.3
+#' data.1 <- ExampleData.DeValues[1:30,]
+#' data.2 <- ExampleData.DeValues[31:62,] * 1.3
 #'
 #' ## now a common dataset is created from the two subgroups
 #' data.3 <- list(data.1, data.2)
@@ -298,13 +296,13 @@
 #'
 #' ## now with some graphical modification
 #' plot_AbanicoPlot(data = data.3,
+#'                  z.0 = "median",
 #'                  col = c("steelblue4", "orange4"),
 #'                  bar.col = c("steelblue3", "orange3"),
 #'                  polygon.col = c("steelblue1", "orange1"),
 #'                  pch = c(2, 6),
-#'                  density = c(10, 20),
 #'                  angle = c(30, 50),
-#'                  summary = c("n", "in.ci"))
+#'                  summary = c("n", "in.2s", "median"))
 #'
 #' ## create Abanico plot with predefined layout definition
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -312,6 +310,7 @@
 #'
 #' ## now with predefined layout definition and further modifications
 #' plot_AbanicoPlot(data = data.3,
+#'                  z.0 = "median",
 #'                  layout = "journal",
 #'                  col = c("steelblue4", "orange4"),
 #'                  bar.col = adjustcolor(c("steelblue3", "orange3"),
@@ -328,9 +327,8 @@ plot_AbanicoPlot <- function(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  central.value,
-  centrality = "mean.weighted",
-  dispersion = "sd",
+  z.0 = "mean.weighted",
+  dispersion = "qr",
   plot.ratio = 0.75,
   rotate = FALSE,
   mtext,
@@ -345,13 +343,14 @@ plot_AbanicoPlot <- function(
   dots = FALSE,
   y.axis = TRUE,
   error.bars = FALSE,
-  polygon.col,
+  bar,
   bar.col,
-  frame = 1,
+  polygon.col,
   line,
   line.col,
   line.label,
   grid.col,
+  frame = 1,
   bw = "SJ",
   output = FALSE,
   ...
@@ -359,7 +358,22 @@ plot_AbanicoPlot <- function(
   ## check data and parameter consistency--------------------------------------
 
   ## Homogenise input data format
-  if(is(data, "list") == FALSE) {data <- list(data)}
+  if(is(data, "list") == FALSE) {
+    data <- list(data)
+    }
+
+  ## Check input data
+  for(i in 1:length(data)) {
+    if(is(data[[i]], "RLum.Results") == FALSE &
+         is(data[[i]], "data.frame") == FALSE) {
+      stop(paste("[plot_AbanicoPlot()] Error: Input data format is neither",
+                 "'data.frame' nor 'RLum.Results'"))
+    } else {
+      if(is(data[[i]], "RLum.Results") == TRUE) {
+        data[[i]] <- get_RLum(data[[i]], "data")
+      }
+    }
+  }
 
   ## optionally, remove NA-values
   if(na.rm == TRUE) {
@@ -388,19 +402,6 @@ plot_AbanicoPlot <- function(
     }
   }
 
-  ## Check input data
-  for(i in 1:length(data)) {
-    if(is(data[[i]], "RLum.Results") == FALSE &
-         is(data[[i]], "data.frame") == FALSE) {
-      stop(paste("[plot_AbanicoPlot()] Error: Input data format is neither",
-                 "'data.frame' nor 'RLum.Results'"))
-    } else {
-      if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum.Results(data[[i]])[,1:2]
-      }
-    }
-  }
-
   ## save original plot parameters
   par.old.bg <- par()$bg
   par.old.mar <- par()$mar
@@ -421,22 +422,26 @@ plot_AbanicoPlot <- function(
     stats <- numeric(0)
   }
 
+  if(missing(bar) == TRUE) {
+    bar <- rep(TRUE, length(data))
+  }
+
   if(missing(bar.col) == TRUE) {
-    bar.fill <- rep(layout$abanico$colour$bar.fill,
-                    length.out = length(data))
-    bar.line <- rep(layout$abanico$colour$bar.line,
-                    length.out = length(data))
+    bar.fill <- rep(x = rep(x = layout$abanico$colour$bar.fill,
+                    length.out = length(data)), length(bar))
+    bar.line <- rep(rep(layout$abanico$colour$bar.line,
+                    length.out = length(data)), length(bar))
   } else {
     bar.fill <- bar.col
     bar.line <- NA
   }
 
-  if(missing(polygon.col) == TRUE) {
-    polygon.fill <- rep(layout$abanico$colour$poly.fill,
-                        length.out = length(data))
-    polygon.line <- rep(layout$abanico$colour$poly.line,
-                        length.out = length(data))
-  } else {
+    if(missing(polygon.col) == TRUE) {
+      polygon.fill <- rep(layout$abanico$colour$poly.fill,
+                          length.out = length(data))
+      polygon.line <- rep(layout$abanico$colour$poly.line,
+                          length.out = length(data))
+    } else {
     polygon.fill <- polygon.col
     polygon.line <- NA
   }
@@ -503,87 +508,74 @@ plot_AbanicoPlot <- function(
     stop("[plot_AbanicoPlot] Error: Data contains negative or zero values.")
   }
 
-  #   ## calculate correction dose to shift negative values
-  #   if(min(De.global) <= 0) {
-  #     De.add <- abs(ticks[length(ticks) - sum(ticks > limits.z[1])])
-  #   } else {De.add <- 0}
-  De.add <- 0
-
-  ## optionally add correction dose to data set and adjust error
-  for(i in 1:length(data)) {
-    data[[i]][,1] <- data[[i]][,1] + De.add
-    data[[i]][,2] <- data[[i]][,2] * data[[i]][,1] / abs(data[[i]][,1] - De.add)
-  }
-
-  ## adjust limits.z
-  limits.z <- limits.z + De.add
-
   ## calculate and append statistical measures --------------------------------
 
   ## z-values based on log-option
   z <- lapply(1:length(data), function(x){
-    if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
-  if(is(z, "list") == FALSE) {z <- list(z)}
+    if(log.z == TRUE) {
+      log(data[[x]][,1])
+      } else {
+        data[[x]][,1]
+        }
+    })
+  if(is(z, "list") == FALSE) {
+    z <- list(z)
+    }
   data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], z[[x]])})
+    cbind(data[[x]], z[[x]])
+    })
   rm(z)
 
   ## calculate dispersion based on log-option
   se <- lapply(1:length(data), function(x){
-    if(log.z == TRUE) {data[[x]][,2] / data[[x]][,1]} else {data[[x]][,2]}})
-  if(is(se, "list") == FALSE) {se <- list(se)}
+    if(log.z == TRUE) {
+      data[[x]][,2] / data[[x]][,1]
+      } else {
+        data[[x]][,2]
+        }
+    })
+  if(is(se, "list") == FALSE) {
+    se <- list(se)
+    }
   data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], se[[x]])})
+    cbind(data[[x]], se[[x]])
+    })
   rm(se)
 
+  ## calculate initial data statistics
+  stats.init <- list(NA)
+  for(i in 1:length(data)) {
+    stats.init[[length(stats.init) + 1]] <- calc_Statistics(data = data[[i]])
+  }
+  stats.init[[1]] <- NULL
+
   ## calculate central values
-  if(centrality[1] == "mean") {
+  if(z.0 == "mean") {
     z.central <- lapply(1:length(data), function(x){
-      rep(mean(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-  } else if(centrality[1] == "median") {
+      rep(ifelse(log.z == TRUE,
+                 log(stats.init[[x]]$unweighted$mean),
+                 stats.init[[x]]$unweighted$mean),
+          length(data[[x]][,3]))})
+  } else if(z.0 == "median") {
     z.central <- lapply(1:length(data), function(x){
-      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
-  } else  if(centrality[1] == "mean.weighted") {
+      rep(ifelse(log.z == TRUE,
+                 log(stats.init[[x]]$unweighted$median),
+                 stats.init[[x]]$unweighted$median),
+          length(data[[x]][,3]))})
+  } else  if(z.0 == "mean.weighted") {
     z.central <- lapply(1:length(data), function(x){
-      sum(data[[x]][,3] / data[[x]][,4]^2) /
-        sum(1 / data[[x]][,4]^2)})
-  } else if(centrality[1] == "median.weighted") {
-    ## define function after isotone::weighted.median
-    median.w <- function (y, w)
-    {
-      ox <- order(y)
-      y <- y[ox]
-      w <- w[ox]
-      k <- 1
-      low <- cumsum(c(0, w))
-      up <- sum(w) - low
-      df <- low - up
-      repeat {
-        if (df[k] < 0)
-          k <- k + 1
-        else if (df[k] == 0)
-          return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
-        else return(y[k - 1])
-      }
-    }
+      rep(ifelse(log.z == TRUE,
+                 log(stats.init[[x]]$weighted$mean),
+                 stats.init[[x]]$weighted$mean),
+          length(data[[x]][,3]))})
+  } else if(is.numeric(z.0) == TRUE) {
     z.central <- lapply(1:length(data), function(x){
-      rep(median.w(y = data[[x]][,3],
-                   w = data[[x]][,4]), length(data[[x]][,3]))})
-  } else if(is.numeric(centrality) == TRUE &
-              length(centrality) == length(data)) {
-    z.central.raw <- if(log.z == TRUE) {
-      log(centrality)
-    } else {
-      centrality
-    }
-    z.central <- lapply(1:length(data), function(x){
-      rep(z.central.raw[x], length(data[[x]][,3]))})
-  } else if(is.numeric(centrality) == TRUE &
-              length(centrality) > length(data)) {
-    z.central <- lapply(1:length(data), function(x){
-      rep(median(data[[x]][,3], na.rm = TRUE), length(data[[x]][,3]))})
+      rep(ifelse(log.z == TRUE,
+                 log(z.0),
+                 z.0),
+          length(data[[x]][,3]))})
   } else {
-    stop("Measure of centrality not supported!")
+    stop("Value for z.0 not supported!")
   }
 
   data <- lapply(1:length(data), function(x) {
@@ -614,7 +606,7 @@ plot_AbanicoPlot <- function(
   if("weights" %in% names(extraArgs)) {
     if(extraArgs$weights == TRUE) {
       wgt <- lapply(1:length(data), function(x){
-        (1 / data[[x]][,2]) / sum(1 / data[[x]][,2])
+        (1 / data[[x]][,2]) / sum(1 / data[[x]][,2]^2)
       })
 
       if(is(wgt, "list") == FALSE) {
@@ -683,48 +675,28 @@ plot_AbanicoPlot <- function(
                              "weights",
                              "data set")
 
+  ## calculate global data statistics
+  stats.global <- calc_Statistics(data = data.global)
+
   ## calculate global central value
-  if(centrality[1] == "mean") {
-    z.central.global <- mean(data.global[,3], na.rm = TRUE)
-  } else if(centrality[1] == "median") {
-    z.central.global <- median(data.global[,3], na.rm = TRUE)
-  } else  if(centrality[1] == "mean.weighted") {
-    z.central.global <- sum(data.global[,3] / data.global[,4]^2) /
-      sum(1 / data.global[,4]^2)
-  } else if(centrality[1] == "median.weighted") {
-    ## define function after isotone::weighted.mean
-    median.w <- function (y, w)
-    {
-      ox <- order(y)
-      y <- y[ox]
-      w <- w[ox]
-      k <- 1
-      low <- cumsum(c(0, w))
-      up <- sum(w) - low
-      df <- low - up
-      repeat {
-        if (df[k] < 0)
-          k <- k + 1
-        else if (df[k] == 0)
-          return((w[k] * y[k] + w[k - 1] * y[k - 1])/(w[k] +
-                                                        w[k - 1]))
-        else return(y[k - 1])
-      }
-    }
-    z.central.global <- median.w(y = data.global[,3], w = data.global[,4])
-  } else if(is.numeric(centrality) == TRUE &
-              length(centrality == length(data))) {
-    z.central.global <- mean(data.global[,3], na.rm = TRUE)
-  }
-
-  ## optionally adjust zentral value by user-defined value
-  if(missing(central.value) == FALSE) {
-
-    ## adjust central value for De.add
-    central.value <- central.value + De.add
-
+  if(z.0 == "mean") {
     z.central.global <- ifelse(log.z == TRUE,
-                               log(central.value), central.value)
+                               log(stats.global$unweighted$mean),
+                               stats.global$unweighted$mean)
+  } else if(z.0 == "median") {
+    z.central.global <- ifelse(log.z == TRUE,
+                               log(stats.global$unweighted$median),
+                               stats.global$unweighted$median)
+  } else  if(z.0 == "mean.weighted") {
+    z.central.global <- ifelse(log.z == TRUE,
+                               log(stats.global$weighted$mean),
+                               stats.global$weighted$mean)
+  } else if(is.numeric(z.0) == TRUE) {
+    z.central.global <- ifelse(log.z == TRUE,
+                               log(z.0),
+                               z.0)
+  } else {
+    stop("Value for z.0 not supported!")
   }
 
   ## create column names
@@ -763,10 +735,17 @@ plot_AbanicoPlot <- function(
   ## read out additional arguments---------------------------------------------
   extraArgs <- list(...)
 
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {expression(paste(D[e], " distribution"))}
+  main <- if("main" %in% names(extraArgs)) {
+    extraArgs$main
+  } else {
+      expression(paste(D[e], " distribution"))
+    }
 
-  sub <- if("sub" %in% names(extraArgs)) {extraArgs$sub} else {""}
+  sub <- if("sub" %in% names(extraArgs)) {
+    extraArgs$sub
+  } else {
+      ""
+    }
 
   if("xlab" %in% names(extraArgs)) {
     if(length(extraArgs$xlab) != 2) {
@@ -802,9 +781,6 @@ plot_AbanicoPlot <- function(
     limits.z <- c((0.9 - z.span) * min(data.global[[1]]),
                   (1.1 + z.span) * max(data.global[[1]]))
   }
-  if(limits.z[1] <= 0) {
-    limits.z <- limits.z + De.add
-  }
 
   if("xlim" %in% names(extraArgs)) {
     limits.x <- extraArgs$xlim
@@ -835,13 +811,13 @@ plot_AbanicoPlot <- function(
   lty <- if("lty" %in% names(extraArgs)) {
     extraArgs$lty
   } else {
-    rep(2, length(data))
+    rep(rep(2, length(data)), length(bar))
   }
 
   lwd <- if("lwd" %in% names(extraArgs)) {
     extraArgs$lwd
   } else {
-    rep(1, length(data))
+    rep(rep(1, length(data)), length(bar))
   }
 
   pch <- if("pch" %in% names(extraArgs)) {
@@ -851,18 +827,19 @@ plot_AbanicoPlot <- function(
   }
 
   if("col" %in% names(extraArgs)) {
-    centrality.col <- extraArgs$col
+    bar.col <- extraArgs$col
     kde.line <- extraArgs$col
     kde.fill <- NA
     value.dot <- extraArgs$col
     value.bar <- extraArgs$col
     value.rug <- extraArgs$col
     summary.col <- extraArgs$col
+    centrality.col <- extraArgs$col
   } else {
-    if(length(layout$abanico$colour$centrality) == 1) {
-      centrality.col <- 1:length(data)
+    if(length(layout$abanico$colour$bar) == 1) {
+      bar.col <- 1:length(data)
     } else {
-      centrality.col <- layout$abanico$colour$centrality
+      bar.col <- layout$abanico$colour$bar.col
     }
 
     if(length(layout$abanico$colour$kde.line) == 1) {
@@ -900,7 +877,17 @@ plot_AbanicoPlot <- function(
     } else {
       summary.col <- layout$abanico$colour$summary
     }
+
+    if(length(layout$abanico$colour$centrality) == 1) {
+      centrality.col <- rep(x = 1:length(data), times = length(bar))
+    } else {
+      centrality.col <- rep(x = layout$abanico$colour$centrality,
+                            times = length(bar))
+    }
   }
+
+  ## update central line colour
+  centrality.col <- rep(centrality.col, length(bar))
 
   tck <- if("tck" %in% names(extraArgs)) {
     extraArgs$tck
@@ -983,11 +970,6 @@ plot_AbanicoPlot <- function(
     label.z.text <- signif(tick.values.major, 3)
   }
 
-  ## subtract De.add from label values
-  if(De.add != 0) {
-    label.z.text <- label.z.text - De.add
-  }
-
   ## calculate node coordinates for semi-circle
   ellipse.values <- c(min(ifelse(log.z == TRUE,
                                  log(limits.z[1]),
@@ -1014,7 +996,7 @@ plot_AbanicoPlot <- function(
   ## calculate statistical labels
   if(length(stats == 1)) {stats <- rep(stats, 2)}
   stats.data <- matrix(nrow = 3, ncol = 3)
-  data.stats <- as.numeric(data.global[,1] - De.add)
+  data.stats <- as.numeric(data.global[,1])
 
   if("min" %in% stats == TRUE) {
     stats.data[1, 3] <- data.stats[data.stats == min(data.stats)][1]
@@ -1089,7 +1071,6 @@ plot_AbanicoPlot <- function(
     De.stats[i,2] <- statistics$unweighted$mean
     De.stats[i,3] <- statistics$weighted$mean
     De.stats[i,4] <- statistics$unweighted$median
-    De.stats[i,5] <- statistics$unweighted$median
     De.stats[i,7] <- statistics$unweighted$sd.abs
     De.stats[i,8] <- statistics$unweighted$sd.rel
     De.stats[i,9] <- statistics$unweighted$se.abs
@@ -1151,12 +1132,6 @@ plot_AbanicoPlot <- function(
                                          "\n",
                                          sep = ""),
                                    ""),
-                            ifelse("median.weighted" %in% summary[j] == TRUE,
-                                   paste("weighted median = ",
-                                         round(De.stats[i,5], 2),
-                                         "\n",
-                                         sep = ""),
-                                   ""),
                             ifelse("kdemax" %in% summary[j] == TRUE,
                                    paste("kdemax = ",
                                          round(De.stats[i,6], 2),
@@ -1199,8 +1174,8 @@ plot_AbanicoPlot <- function(
                                          "\n",
                                          sep = ""),
                                    ""),
-                            ifelse("in.ci" %in% summary[j] == TRUE,
-                                   paste("in confidence interval = ",
+                            ifelse("in.2s" %in% summary[j] == TRUE,
+                                   paste("in 2 sigma = ",
                                          round(sum(data[[i]][,7] > -2 &
                                                      data[[i]][,7] < 2) /
                                                  nrow(data[[i]]) * 100 , 1),
@@ -1272,12 +1247,6 @@ plot_AbanicoPlot <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("median.weighted" %in% summary[j] == TRUE,
-                                 paste("weighted median = ",
-                                       round(De.stats[i,5], 2),
-                                       " | ",
-                                       sep = ""),
-                                 ""),
                           ifelse("kdemax" %in% summary[j] == TRUE,
                                  paste("kdemax = ",
                                        round(De.stats[i,6], 2),
@@ -1320,8 +1289,8 @@ plot_AbanicoPlot <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("in.ci" %in% summary[j] == TRUE,
-                                 paste("in confidence interval = ",
+                          ifelse("in.2s" %in% summary[j] == TRUE,
+                                 paste("in 2 sigma = ",
                                        round(sum(data[[i]][,7] > -2 &
                                                    data[[i]][,7] < 2) /
                                                nrow(data[[i]]) * 100 , 1),
@@ -1533,21 +1502,31 @@ plot_AbanicoPlot <- function(
   polygons <- matrix(nrow = length(data), ncol = 14)
   for(i in 1:length(data)) {
 
-    if(dispersion == "sd") {
-      ci.lower <- mean(data[[i]][,1]) - sd(data[[i]][,1])
-      ci.upper <- mean(data[[i]][,1]) + sd(data[[i]][,1])
-    } else if(dispersion == "2sd") {
-      ci.lower <- mean(data[[i]][,1]) - 2 * sd(data[[i]][,1])
-      ci.upper <- mean(data[[i]][,1]) + 2 * sd(data[[i]][,1])
-    } else if(dispersion == "qr") {
+    if(dispersion == "qr") {
       ci.lower <- quantile(data[[i]][,1], 0.25)
       ci.upper <- quantile(data[[i]][,1], 0.75)
-    } else if(grepl(x = dispersion, pattern = "ci") == TRUE) {
+    } else if(grepl(x = dispersion, pattern = "p") == TRUE) {
       ci.plot <- as.numeric(strsplit(x = dispersion,
-                                     split = "ci")[[1]][2])
-      ci.plot <- (100 - ci.plot) / 200
+                                     split = "p")[[1]][2])
+      ci.plot <- (100 - ci.plot) / 100
       ci.lower <- quantile(data[[i]][,1], ci.plot)
       ci.upper <- quantile(data[[i]][,1], 1 - ci.plot)
+    } else if(dispersion == "sd") {
+      if(log.z == TRUE) {
+        ci.lower <- exp(mean(log(data[[i]][,1])) - sd(log(data[[i]][,1])))
+        ci.upper <- exp(mean(log(data[[i]][,1])) + sd(log(data[[i]][,1])))
+      } else {
+        ci.lower <- mean(data[[i]][,1]) - sd(data[[i]][,1])
+        ci.upper <- mean(data[[i]][,1]) + sd(data[[i]][,1])
+      }
+    } else if(dispersion == "2sd") {
+      if(log.z == TRUE) {
+        ci.lower <- exp(mean(log(data[[i]][,1])) - 2 * sd(log(data[[i]][,1])))
+        ci.upper <- exp(mean(log(data[[i]][,1])) + 2 * sd(log(data[[i]][,1])))
+      } else {
+        ci.lower <- mean(data[[i]][,1]) - 2 * sd(data[[i]][,1])
+        ci.upper <- mean(data[[i]][,1]) + 2 * sd(data[[i]][,1])
+      }
     } else {
       stop("Measure of dispersion not supported.")
     }
@@ -1559,13 +1538,6 @@ plot_AbanicoPlot <- function(
     } else {
       y.lower <- ci.lower
       y.upper <- ci.upper
-    }
-
-    ## append information about data in confidence interval
-    for(i in 1:length(data)) {
-      data.in.ci <- rep(x = FALSE, times = nrow(data[[i]]))
-      data.in.ci[data[[i]][,1] > ci.lower & data[[i]][,1] < ci.upper] <- TRUE
-      data[[i]] <- cbind(data[[i]], data.in.ci)
     }
 
     if(rotate == FALSE) {
@@ -1592,7 +1564,6 @@ plot_AbanicoPlot <- function(
       )
     } else {
       y.max <- par()$usr[4]
-
       polygons[i,1:7] <- c(limits.x[1],
                            limits.x[2],
                            xy.0[2],
@@ -1617,32 +1588,15 @@ plot_AbanicoPlot <- function(
     }
   }
 
+  ## append information about data in confidence interval
+  for(i in 1:length(data)) {
+    data.in.2s <- rep(x = FALSE, times = nrow(data[[i]]))
+    data.in.2s[data[[i]][,8] > -2 & data[[i]][,8] < 2] <- TRUE
+    data[[i]] <- cbind(data[[i]], data.in.2s)
+  }
+
   ## calculate coordinates for 2-sigma bar overlay
-  if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
-    bars <- matrix(nrow = length(centrality), ncol = 8)
-
-    if(is.numeric(centrality) == TRUE & log.z == TRUE) {
-      centrality <- log(centrality)
-    }
-
-    for(i in 1:length(centrality)) {
-      bars[i,1:4] <- c(limits.x[1],
-                       limits.x[1],
-                       ifelse("xlim" %in% names(extraArgs),
-                              extraArgs$xlim[2] * 0.95,
-                              max(data.global$precision)),
-                       ifelse("xlim" %in% names(extraArgs),
-                              extraArgs$xlim[2] * 0.95,
-                              max(data.global$precision)))
-
-      bars[i,5:8] <- c(-2,
-                       2,
-                       (centrality[i] - z.central.global) *
-                         bars[i,3] + 2,
-                       (centrality[i] - z.central.global) *
-                         bars[i,3] - 2)
-    }
-  } else {
+  if(bar[1] == TRUE) {
     bars <- matrix(nrow = length(data), ncol = 8)
 
     for(i in 1:length(data)) {
@@ -1662,6 +1616,30 @@ plot_AbanicoPlot <- function(
                        (data[[i]][1,5] - z.central.global) *
                          bars[i,3] - 2)
 
+    }
+  } else {
+    bars <- matrix(nrow = length(bar), ncol = 8)
+
+    if(is.numeric(bar) == TRUE & log.z == TRUE) {
+      bar <- log(bar)
+    }
+
+    for(i in 1:length(bar)) {
+      bars[i,1:4] <- c(limits.x[1],
+                       limits.x[1],
+                       ifelse("xlim" %in% names(extraArgs),
+                              extraArgs$xlim[2] * 0.95,
+                              max(data.global$precision)),
+                       ifelse("xlim" %in% names(extraArgs),
+                              extraArgs$xlim[2] * 0.95,
+                              max(data.global$precision)))
+
+      bars[i,5:8] <- c(-2,
+                       2,
+                       (bar[i] - z.central.global) *
+                         bars[i,3] + 2,
+                       (bar[i] - z.central.global) *
+                         bars[i,3] - 2)
     }
   }
 
@@ -1755,7 +1733,6 @@ plot_AbanicoPlot <- function(
       KDE.max.plot
   }
 
-
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
 
@@ -1763,11 +1740,11 @@ plot_AbanicoPlot <- function(
     for(i in 1:length(line)) {
       if(is.list(line) == TRUE) {
         if(is(line[[i]], "RLum.Results")) {
-          line[[i]] <- as.numeric(get_RLum.Results(object = line[[i]],
+          line[[i]] <- as.numeric(get_RLum(object = line[[i]],
                                                    data.object = "summary")$de)
         }
       } else if(is(object = line, class2 = "RLum.Results")) {
-        line <- as.numeric(get_RLum.Results(object = line,
+        line <- as.numeric(get_RLum(object = line,
                                             data.object = "summary")$de)
       }
     }
@@ -1907,23 +1884,13 @@ plot_AbanicoPlot <- function(
       as.character(round(1/axTicks(side = 1)[-1], 1))
     }
 
-    ## optionally, plot 2-sigma-bar
-    if(bar.fill[1] != "none") {
-
-      if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
-        for(i in 1:length(centrality)) {
-          polygon(x = bars[i,1:4],
-                  y = bars[i,5:8],
-                  col = bar.fill[i],
-                  border = bar.line[i])
-        }
-      } else {
-        for(i in 1:length(data)) {
-          polygon(x = bars[i,1:4],
-                  y = bars[i,5:8],
-                  col = bar.fill[i],
-                  border = bar.line[i])
-        }
+    # optionally, plot 2-sigma-bar
+    if(bar[1] != FALSE) {
+      for(i in 1:length(bar)) {
+        polygon(x = bars[i,1:4],
+                y = bars[i,5:8],
+                col = bar.fill[i],
+                border = bar.line[i])
       }
     }
 
@@ -1951,16 +1918,21 @@ plot_AbanicoPlot <- function(
 
     ## optionally, add minor grid lines
     if(grid.minor != "none") {
+
       for(i in 1:length(tick.values.minor)) {
         lines(x = c(limits.x[1], min(ellipse[,1])),
-              y = c(0, (tick.values.minor[i] - z.central.global) * min(ellipse[,1])),
+              y = c(0, (tick.values.minor[i] - z.central.global) *
+                      min(ellipse[,1])),
               col = grid.minor,
               lwd = 1)
       }
+
       for(i in 1:length(tick.values.minor)) {
         lines(x = c(xy.0[1], par()$usr[2]),
-              y = c((tick.values.minor[i] - z.central.global) * min(ellipse[,1]),
-                    (tick.values.minor[i] - z.central.global) * min(ellipse[,1])),
+              y = c((tick.values.minor[i] - z.central.global) *
+                      min(ellipse[,1]),
+                    (tick.values.minor[i] - z.central.global) *
+                      min(ellipse[,1])),
               col = grid.minor,
               lwd = 1)
       }
@@ -1970,25 +1942,47 @@ plot_AbanicoPlot <- function(
     if(grid.major != "none") {
       for(i in 1:length(tick.values.major)) {
         lines(x = c(limits.x[1], min(ellipse[,1])),
-              y = c(0, (tick.values.major[i] - z.central.global) * min(ellipse[,1])),
+              y = c(0, (tick.values.major[i] - z.central.global) *
+                      min(ellipse[,1])),
               col = grid.major,
               lwd = 1)
       }
       for(i in 1:length(tick.values.major)) {
         lines(x = c(xy.0[1], par()$usr[2]),
-              y = c((tick.values.major[i] - z.central.global) * min(ellipse[,1]),
-                    (tick.values.major[i] - z.central.global) * min(ellipse[,1])),
+              y = c((tick.values.major[i] - z.central.global) *
+                      min(ellipse[,1]),
+                    (tick.values.major[i] - z.central.global) *
+                      min(ellipse[,1])),
               col = grid.major,
               lwd = 1)
       }
     }
 
-    ## optionally, plot central value lines
-    if(lwd[1] > 0 & lty[1] > 0) {
-      for(i in 1:length(data)) {
+    ## optionally, plot lines for each bar
+    if(lwd[1] > 0 & lty[1] > 0 & bar[1] != FALSE & length(data) == 1) {
+      if(bar[1] == TRUE & length(bar) == 1) {
+        bar[1] <- z.central.global
+      }
+      for(i in 1:length(bar)) {
         x2 <- r / sqrt(1 + f^2 * (
-          data[[i]][1,5] - z.central.global)^2)
-        y2 <- (data[[i]][1,5] - z.central.global) * x2
+          bar[i] - z.central.global)^2)
+        y2 <- (bar[i] - z.central.global) * x2
+        lines(x = c(limits.x[1], x2, xy.0[1], par()$usr[2]),
+              y = c(0, y2, y2, y2),
+              lty = lty[i],
+              lwd = lwd[i],
+              col = centrality.col[i])
+      }
+    } else if(lwd[1] > 0 & lty[1] > 0 & bar[1] != FALSE) {
+      for(i in 1:length(data)) {
+
+        z.line <- ifelse(test = is.numeric(bar[i]) == TRUE,
+                         yes = bar[i],
+                         no = data[[i]][1,5])
+
+        x2 <- r / sqrt(1 + f^2 * (
+          z.line - z.central.global)^2)
+        y2 <- (z.line - z.central.global) * x2
         lines(x = c(limits.x[1], x2, xy.0[1], par()$usr[2]),
               y = c(0, y2, y2, y2),
               lty = lty[i],
@@ -2592,25 +2586,25 @@ plot_AbanicoPlot <- function(
       as.character(round(1/axTicks(side = 2)[-1], 1))
     }
 
-    ## optionally, plot 2-sigma-bar
-    if(bar.fill[1] != "none") {
-
-      if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
-        for(i in 1:length(centrality)) {
-          polygon(x = bars[i,1:4],
-                  y = bars[i,5:8],
-                  col = bar.fill[i],
-                  border = bar.line[i])
-        }
-      } else {
-        for(i in 1:length(data)) {
-          polygon(y = bars[i,1:4],
-                  x = bars[i,5:8],
-                  col = bar.fill[i],
-                  border = bar.line[i])
-        }
-      }
-    }
+#     ## optionally, plot 2-sigma-bar
+#     if(bar.fill[1] != "none") {
+#
+#       if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
+#         for(i in 1:length(centrality)) {
+#           polygon(x = bars[i,1:4],
+#                   y = bars[i,5:8],
+#                   col = bar.fill[i],
+#                   border = bar.line[i])
+#         }
+#       } else {
+#         for(i in 1:length(data)) {
+#           polygon(y = bars[i,1:4],
+#                   x = bars[i,5:8],
+#                   col = bar.fill[i],
+#                   border = bar.line[i])
+#         }
+#       }
+#     }
 
     ## remove unwanted parts
     polygon(y = c(par()$usr[2],
@@ -2668,19 +2662,19 @@ plot_AbanicoPlot <- function(
       }
     }
 
-    ## optionally, plot central value lines
-    if(lwd[1] > 0 & lty[1] > 0) {
-      for(i in 1:length(data)) {
-        x2 <- r / sqrt(1 + f^2 * (
-          data[[i]][1,5] - z.central.global)^2)
-        y2 <- (data[[i]][1,5] - z.central.global) * x2
-        lines(y = c(limits.x[1], x2, xy.0[2],y.max),
-              x = c(0, y2, y2, y2),
-              lty = lty[i],
-              lwd = lwd[i],
-              col = centrality.col[i])
-      }
-    }
+#     ## optionally, plot central value lines
+#     if(lwd[1] > 0 & lty[1] > 0) {
+#       for(i in 1:length(data)) {
+#         x2 <- r / sqrt(1 + f^2 * (
+#           data[[i]][1,5] - z.central.global)^2)
+#         y2 <- (data[[i]][1,5] - z.central.global) * x2
+#         lines(y = c(limits.x[1], x2, xy.0[2],y.max),
+#               x = c(0, y2, y2, y2),
+#               lty = lty[i],
+#               lwd = lwd[i],
+#               col = centrality.col[i])
+#       }
+#     }
 
     ## optionally add further lines
     if(missing(line) == FALSE) {
