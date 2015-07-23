@@ -148,7 +148,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.4.0 (2015-07-01 15:53:23)
+ 0.4.0 (2015-07-23 10:08:51)
 }
 \examples{
 ##load example data

@@ -31,7 +31,7 @@ corresponding get function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1 (2015-06-16 14:23:12)
+ 0.1 (2015-07-23 10:08:51)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function

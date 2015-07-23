@@ -63,7 +63,7 @@ provided manually and more than two points are extrapolated, a warning
 message is returned.
 }
 \section{Function version}{
- 0.3.1 (2015-06-16 14:23:12)
+ 0.3.1 (2015-07-23 10:08:51)
 }
 \examples{
 ##(1)

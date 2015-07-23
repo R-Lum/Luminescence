@@ -14,7 +14,8 @@
 \S4method{set_RLum}{RLum.Analysis}(class, records, protocol)
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
-  RLum.type, info.object, get.index, keep.object = FALSE)
+  RLum.type, protocol = "UNKNOWN", info.object, get.index,
+  keep.object = FALSE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
 }

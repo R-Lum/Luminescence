@@ -8,12 +8,12 @@ Changes in version 0.4.5 (, 2015):
 
   Bugfixes and changes:
 
-         • ‘calc_Statistics()’
+         • 'calc_Statistics()'
 
              • default setting of weights definition changed from 1/s
                to 1/s^2
 
-         • ‘plot_AbanicoPlot()’
+         • 'plot_AbanicoPlot()'
 
              • zlim-definition bug removed,
 
@@ -36,12 +36,12 @@ Changes in version 0.4.5 (, 2015):
 
              • argument bar.col added.
 
-         • ‘plot_KDE()’
+         • 'plot_KDE()'
 
              • summary content 'in confidence interval' changed to 'in
                2 sigma'
 
-         • ‘plot_RadialPlot()’
+         • 'plot_RadialPlot()'
 
              • summary content 'in confidence interval' changed to 'in
                2 sigma'
