@@ -80,7 +80,11 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.1.4 (2015-07-23 10:08:51)
+=======
+ 0.1.4 (2015-06-16 15:23:12)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ### NOTE: For this example existing example data are used. These data are non pIRIR data.

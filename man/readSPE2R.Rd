@@ -67,7 +67,11 @@ The function has been successfully tested for SPE format versions 2.x.
 supported.}
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.1 (2015-07-23 10:08:51)
+=======
+ 0.1 (2015-07-01 16:32:11)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ## to run examples uncomment lines and run the code

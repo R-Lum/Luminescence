@@ -94,7 +94,11 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.4.3 (2015-07-23 10:08:51)
+=======
+ 0.4.4 (2015-07-19 18:01:49)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ##(1) import XSYG file to R (uncomment for usage)
@@ -128,6 +132,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
+
 \bold{Further reading} \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
 }
 \seealso{

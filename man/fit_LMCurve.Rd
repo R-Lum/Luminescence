@@ -177,7 +177,11 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.2.17 (2015-07-23 10:08:51)
+=======
+ 0.2.17 (2015-07-01 16:58:27)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ##(1) fit LM data without background subtraction

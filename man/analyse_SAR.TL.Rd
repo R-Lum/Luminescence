@@ -71,7 +71,11 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.1.4 (2015-07-23 10:08:51)
+=======
+ 0.1.4 (2015-06-16 15:23:12)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ##load data

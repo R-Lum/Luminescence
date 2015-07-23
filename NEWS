@@ -13,7 +13,15 @@ Changes in version 0.4.5 (, 2015):
              • default setting of weights definition changed from 1/s
                to 1/s^2
 
+<<<<<<< HEAD
          • 'plot_AbanicoPlot()'
+=======
+         • ‘merge_Risoe.BINfileData()’
+
+             • Confusing warning message corrected (#230, Thomas Kolb).
+
+         • ‘plot_AbanicoPlot()’
+>>>>>>> origin/dev_0.4.5
 
              • zlim-definition bug removed,
 
@@ -45,6 +53,26 @@ Changes in version 0.4.5 (, 2015):
 
              • summary content 'in confidence interval' changed to 'in
                2 sigma'
+
+         • ‘plot_RLum.Data.Curve()’
+
+             • NA-test implemented. Nothing is plotted if the curve
+               contains NA-values (previous behaviour: function stopped
+               with an error).
+
+         • ‘readXSYG2R()’
+
+             • The import will not break any longer if the XSYG file is
+               incomplete. Incomplete sequences will be removed from
+               the output (incl. terminal feedback).
+
+         • ‘Risoe.BINfileData2RLum.Data.Curve()’
+
+             • Corrupt RisoeBINfileData-objects containing no
+               measurement data (NPOINTS = 0) no longer cause an error
+               during while the RLum.Data.Curve-object is produced.
+               Curve x- and y-values are set to NA (BIN-file issue
+               Norbert Mercier).
 
   Internals:
 

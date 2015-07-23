@@ -182,7 +182,11 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.3.2 (2015-07-23 10:08:51)
+=======
+ 0.3.2 (2015-07-02 16:48:21)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ##load data

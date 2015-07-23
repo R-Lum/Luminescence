@@ -89,7 +89,11 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.1.6 (2015-07-23 10:08:51)
+=======
+ 0.1.6 (2015-07-01 16:06:19)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ## read example data set and misapply them for this plot type

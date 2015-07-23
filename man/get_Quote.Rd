@@ -20,7 +20,11 @@ growing library. If called without any parameters, a random quote is
 returned.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.1.1 (2015-07-23 10:08:51)
+=======
+ 0.1.1 (2015-07-01 16:06:19)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ## ask for an arbitrary qoute

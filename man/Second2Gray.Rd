@@ -40,7 +40,11 @@ If no or a wrong method is given, the execution of the function is
 stopped.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.4 (2015-07-23 10:08:51)
+=======
+ 0.4 (2015-06-16 15:23:12)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ##(A) for known source dose rate at date of measurement

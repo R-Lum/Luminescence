@@ -92,7 +92,11 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.2.1 (2015-07-23 10:08:51)
+=======
+ 0.2.1 (2015-06-16 15:23:12)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ## (1) - example for your own data

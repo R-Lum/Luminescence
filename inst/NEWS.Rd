@@ -19,6 +19,16 @@
 
       }
 
+
+      \item \code{merge_Risoe.BINfileData()}
+
+        \itemize{
+
+          \item Confusing warning message corrected (#230, Thomas Kolb).
+
+      }
+
+
       \item \code{plot_AbanicoPlot()}
         \itemize{
           \item zlim-definition bug removed,
@@ -49,6 +59,36 @@
           \item summary content 'in confidence interval' changed to 'in 2 sigma'
 
       }
+
+      \item \code{plot_RLum.Data.Curve()}
+
+        \itemize{
+
+          \item NA-test implemented. Nothing is plotted if the curve contains NA-values
+          (previous behaviour: function stopped with an error).
+
+      }
+
+     \item \code{readXSYG2R()}
+
+        \itemize{
+
+          \item The import will not break any longer if the XSYG file is incomplete. Incomplete
+          sequences will be removed from the output (incl. terminal feedback).
+
+      }
+
+
+     \item \code{Risoe.BINfileData2RLum.Data.Curve()}
+
+        \itemize{
+
+          \item Corrupt RisoeBINfileData-objects containing no measurement data (NPOINTS = 0)
+          no longer cause an error during while the RLum.Data.Curve-object is produced. Curve
+          x- and y-values are set to NA (BIN-file issue Norbert Mercier).
+
+      }
+
      }
   }
 

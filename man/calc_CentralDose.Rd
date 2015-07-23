@@ -46,7 +46,11 @@ detailed explanation on maximum likelihood estimation can be found in the
 appendix of Galbraith & Laslett (1993, 468-470)
 }
 \section{Function version}{
+<<<<<<< HEAD
  1.3 (2015-07-23 10:08:51)
+=======
+ 1.3 (2015-06-16 15:23:12)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 ##load example data

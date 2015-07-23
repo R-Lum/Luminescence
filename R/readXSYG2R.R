@@ -49,18 +49,23 @@
 #' values based on values delivered by the heating element, it may happen that
 #' mutiple count values exists for each temperature value and temperature
 #' values may also decrease during heating, not only increase. }
+
 #'
 #' @param file \link{character} (\bold{required}): path and file name of the
 #' XSYG file.
+#'
 #' @param recalculate.TL.curves \link{logical} (with default): if set to
 #' \code{TRUE}, TL curves are returned as temperature against count values (see
 #' details for more information) Note: The option overwrites the time vs. count
 #' TL curve. Select \code{FALSE} to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
+#'
 #' @param import \link{logical} (with default): if set to \code{FALSE}, only
 #' the XSYG file structure is shown.
+#'
 #' @param txtProgressBar \link{logical} (with default): enables \code{TRUE} or
 #' disables \code{FALSE} the progression bar during import
+#'
 #' @return \bold{Using the option \code{import = FALSE}}\cr\cr A list
 #' consisting of two elements is shown: \item{Sample}{\link{data.frame} with
 #' information on file.} \item{Sequences}{\link{data.frame} with information on
@@ -69,21 +74,35 @@
 #' contain: \item{Sequence.Header}{\link{data.frame} with information on the
 #' sequence.} \item{Sequence.Object}{\code{\linkS4class{RLum.Analysis}}
 #' containing the curves.}
+#'
 #' @note This function is a beta version as the XSYG file format is not yet
 #' fully specified. Thus, further file operations (merge, export, write) should
 #' be done using the functions provided with the package \code{\link{xml}}.\cr
 #'
 #' \bold{So far, no image data import is provided!}\cr Corresponding values in
 #' the XSXG file are skipped.
-#' @section Function version: 0.4.3
+#'
+#'
+#' @section Function version: 0.4.4
+#'
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
+#'
 #' @seealso \code{\link{xml}}, \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Data.Curve}}, \code{\link{approx}}
+#'
+#'
 #' @references Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 #' XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
+#'
 #' \bold{Further reading} \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
+#'
+#'
 #' @keywords IO
+#'
+#'
 #' @examples
 #'
 #'
@@ -267,7 +286,12 @@ readXSYG2R <- function(
       temp.sequence.object <- unlist(lapply(1:XML::xmlSize(temp[[x]]), function(i){
 
         ##get recordType
-        temp.sequence.object.recordType <- XML::xmlAttrs(temp[[x]][[i]])["recordType"]
+        temp.sequence.object.recordType <- try(XML::xmlAttrs(temp[[x]][[i]])["recordType"],
+                                               silent = TRUE)
+
+        ##the XSYG file might be broken due to a machine error during the measurement, this
+        ##control flow helps; if a try-error is observed NULL is returned
+        if(!inherits(temp.sequence.object.recordType, "try-error")){
 
         ##correct record type in depending on the stimulator
         if(temp.sequence.object.recordType == "OSL"){
@@ -567,39 +591,66 @@ readXSYG2R <- function(
 
         })
 
+        }else{
+
+         return(NULL)
+
+        }##if-try condition
 
       }))
 
-      ##set RLum.Analysis object
-      temp.sequence.object <-  set_RLum(
-        class = "RLum.Analysis",
-        records = temp.sequence.object,
-        protocol = as.character(
-          temp.sequence.header["protocol",1]))
+
+      ##if the XSYG file is broken we get NULL as list element
+      if (!is.null(temp.sequence.object)) {
+        ##set RLum.Analysis object
+        temp.sequence.object <-  set_RLum(
+          class = "RLum.Analysis",
+          records = temp.sequence.object,
+          protocol = as.character(temp.sequence.header["protocol",1])
+        )
 
 
-      ##update progress bar
-      if(txtProgressBar == TRUE){
-        setTxtProgressBar(pb, x)
+        ##update progress bar
+        if (txtProgressBar == TRUE) {
+          setTxtProgressBar(pb, x)
+        }
+
+
+        ##merge output
+        temp.output <- list(Sequence.Header = temp.sequence.header,
+                            Sequence.Object = temp.sequence.object)
+
+
+      }else{
+        return(temp.sequence.object)
+
       }
 
-
-      ##merge output
-      temp.output <- list(Sequence.Header = temp.sequence.header,
-                          Sequence.Object = temp.sequence.object)
-
-
-
-    })##end loop for sequence
+    })##end loop for sequence list
 
     ##close ProgressBar
     if(txtProgressBar == TRUE){close(pb)}
 
-    cat(paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n"), sep = "")
+    ##show output informatioj
+    if(length(output[sapply(output, is.null)]) == 0){
+
+      cat(paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n"), sep = "")
+
+    }else{
+
+      cat(paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.",
+                XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n"), sep = "")
+
+      warning(paste0(length(output[sapply(output, is.null)])), " incomplete sequence(s) removed.")
+
+    }
 
     ##output
     invisible(output)
 
   }#end if
+
+  ##get rid of the NULL elementsn (as stated before ... invalid files)
+  return(output[!sapply(output,is.null)])
 
 }

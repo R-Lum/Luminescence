@@ -40,7 +40,11 @@ found in the documentations of each plot function.  \tabular{lll}{
 The provided plot output depends on the input object.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.3 (2015-04-30 12:16:14)
+=======
+ 0.3 (2015-04-30 12:00:58)
+>>>>>>> origin/dev_0.4.5
 }
 \examples{
 #load Example data
