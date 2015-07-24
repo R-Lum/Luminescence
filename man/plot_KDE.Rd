@@ -103,11 +103,7 @@ The plot output is no 'PD' plot (cf. the discussion of Berger and
 Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
-<<<<<<< HEAD
- 3.5 (2015-07-23 10:08:51)
-=======
- 3.5 (2015-07-08 15:11:51)
->>>>>>> origin/dev_0.4.5
+ 3.5 (2015-07-23 17:09:29)
 }
 \examples{
 ## read example data set

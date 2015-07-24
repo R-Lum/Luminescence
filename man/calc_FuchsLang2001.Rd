@@ -59,11 +59,7 @@ Please consider the requirements and the constraints of this method
 (see Fuchs & Lang, 2001)
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.4.1 (2015-07-23 10:08:51)
-=======
- 0.4.1 (2015-06-16 15:23:12)
->>>>>>> origin/dev_0.4.5
+ 0.4.1 (2015-07-23 17:09:29)
 }
 \examples{
 ##load example data

@@ -27,11 +27,7 @@ This function calculates a number of descriptive statistics for De-data,
 most fundamentally using error-weighted approaches.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.1.2 (2015-07-23 10:08:51)
-=======
- 0.1.2 (2015-07-08 12:07:02)
->>>>>>> origin/dev_0.4.5
+ 0.1.2 (2015-07-23 17:09:29)
 }
 \examples{
 ## load example data

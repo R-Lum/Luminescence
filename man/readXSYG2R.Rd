@@ -94,11 +94,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.4.3 (2015-07-23 10:08:51)
-=======
- 0.4.4 (2015-07-19 18:01:49)
->>>>>>> origin/dev_0.4.5
+ 0.4.4 (2015-07-23 21:04:46)
 }
 \examples{
 ##(1) import XSYG file to R (uncomment for usage)

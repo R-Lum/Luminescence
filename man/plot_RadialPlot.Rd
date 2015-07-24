@@ -131,11 +131,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.5.3 (2015-07-23 10:08:51)
-=======
- 0.5.3 (2015-07-08 15:11:51)
->>>>>>> origin/dev_0.4.5
+ 0.5.3 (2015-07-23 17:09:29)
 }
 \examples{
 ## load example data

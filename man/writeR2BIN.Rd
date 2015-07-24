@@ -59,11 +59,7 @@ directly produced by the Risoe readers!\cr
 Implementation of support for version 07 could so far not properly tested.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.3.1 (2015-04-30 14:12:40)
-=======
  0.3.1 (2015-04-30 13:53:02)
->>>>>>> origin/dev_0.4.5
 }
 \examples{
 ##uncomment for usage

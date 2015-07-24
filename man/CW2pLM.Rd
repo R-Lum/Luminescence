@@ -38,11 +38,7 @@ The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.4.1 (2015-07-23 10:08:51)
-=======
- 0.4.1 (2015-06-16 15:23:12)
->>>>>>> origin/dev_0.4.5
+ 0.4.1 (2015-07-23 17:09:29)
 }
 \examples{
 ##read curve from CWOSL.SAR.Data transform curve and plot values

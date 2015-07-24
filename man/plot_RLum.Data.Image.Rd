@@ -76,11 +76,7 @@ function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.1 (2015-07-23 10:08:51)
-=======
- 0.1 (2015-07-01 16:33:13)
->>>>>>> origin/dev_0.4.5
+ 0.1 (2015-07-23 17:09:29)
 }
 \examples{
 ##load data

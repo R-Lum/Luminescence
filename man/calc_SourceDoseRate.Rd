@@ -65,11 +65,7 @@ National Laboratory }
 #
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.1 (2015-07-23 10:08:51)
-=======
- 0.1 (2015-06-16 15:23:12)
->>>>>>> origin/dev_0.4.5
+ 0.1 (2015-07-23 17:09:29)
 }
 \examples{
 ##(1) Simple function usage

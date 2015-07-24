@@ -34,11 +34,7 @@ found in the documentations of each merge function.
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.1 (2015-07-23 10:08:51)
-=======
- 0.1 (2015-06-16 15:23:12)
->>>>>>> origin/dev_0.4.5
+ 0.1 (2015-07-23 17:09:29)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function

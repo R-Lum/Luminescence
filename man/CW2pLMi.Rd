@@ -63,11 +63,7 @@ provided manually and more than two points are extrapolated, a warning
 message is returned.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.3.1 (2015-07-23 10:08:51)
-=======
- 0.3.1 (2015-06-16 15:23:12)
->>>>>>> origin/dev_0.4.5
+ 0.3.1 (2015-07-23 17:09:29)
 }
 \examples{
 ##(1)

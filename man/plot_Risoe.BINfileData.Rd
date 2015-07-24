@@ -79,11 +79,7 @@ The function has been successfully tested for the Sequence Editor file
 output version 3 and 4.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.4.1 (2015-04-30 12:16:14)
-=======
  0.4.1 (2015-04-30 12:00:00)
->>>>>>> origin/dev_0.4.5
 }
 \examples{
 ##load data
