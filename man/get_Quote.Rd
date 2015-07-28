@@ -4,12 +4,14 @@
 \alias{get_Quote}
 \title{Function to return essential quotes}
 \usage{
-get_Quote(ID, author)
+get_Quote(ID, author, separated = FALSE)
 }
 \arguments{
 \item{ID}{\code{\link{character}}, qoute ID to be returned.}
 
 \item{author}{\code{\link{character}}, all quotes by specified author.}
+
+\item{separated}{\code{\link{logical}}, return result in separated form.}
 }
 \value{
 Returns a character with quote and respective (false) author.
@@ -20,7 +22,7 @@ growing library. If called without any parameters, a random quote is
 returned.
 }
 \section{Function version}{
- 0.1.1 (2015-07-23 17:09:29)
+ 0.1.1 (2015-07-28 10:48:20)
 }
 \examples{
 ## ask for an arbitrary qoute
