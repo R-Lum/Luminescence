@@ -6,6 +6,7 @@
 #'
 #' @param ID \code{\link{character}}, qoute ID to be returned.
 #' @param author \code{\link{character}}, all quotes by specified author.
+#' @param separated \code{\link{logical}}, return result in separated form.
 #' @return Returns a character with quote and respective (false) author.
 #' @section Function version: 0.1.1
 #' @author Michael Dietze, GFZ Potsdam (Germany)
@@ -16,7 +17,8 @@
 #'
 get_Quote <- function(
   ID,
-  author
+  author,
+  separated = FALSE
 ) {
   
   ## definition of the ever growing quote data set
@@ -63,12 +65,17 @@ get_Quote <- function(
   
   ## check for correct ID and generate qoute
   if(length(ID) < 1 | ID > nrow(quotes)) {
+
     quote.out <- "Sorry, but this was an impossible task!"
+    
   } else {
     
     ## generate qoute(s)
-    quote.out <- paste(quotes[ID,1], ": '", quotes[ID,2], "'", sep = "")
-    
+    if(separated == FALSE) {
+      quote.out <- paste(quotes[ID,1], ": '", quotes[ID,2], "'", sep = "")
+    } else {
+      quote.out <- quotes[ID,]
+    }
   }
   
   ## return quotes
