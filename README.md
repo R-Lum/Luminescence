@@ -60,7 +60,7 @@ The R luminescence project is based on and evolves from ideas, contributions and
 
 ## Note
 
-**The package comes without any guarentee!**
+**The package comes without any guarantee!**
 
 Please further note that this version is a development version and may change day by day. For stable branches please visit
 the package on [CRAN 'Luminescence'](http://cran.r-project.org/package=Luminescence).
