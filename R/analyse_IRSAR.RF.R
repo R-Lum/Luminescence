@@ -42,31 +42,8 @@
 #'
 #' \deqn{min(\Sigma(RF.reg_{k.i} - RF.nat_{k.i})^2)} for \deqn{k =
 #' {t.0+i,...,t.max+i}}
-#'
-#' \bold{Correction for outliers} (\code{slide.outlier.rm = TRUE})\cr
-#'
-#' By using \code{method = "SLIDE"} and setting the argument
-#' \code{slide.outlier.rm = TRUE} an automatic outlier removal can be applied
-#' to the natural curve. Outliers may be observed also on the regenerative
-#' curve, but here the impact of single outliers on the curve adjustment
-#' (sliding) is considered as negligible. \cr The applied outlier removal
-#' algorithm consists of three steps:\cr
-#'
-#' (a) Input data are smoothed using the function \code{\link[zoo]{rollmedian}}.
-#' Value \code{k} for the rolling window is fixed to 11. Therefore, the natural
-#' curve needs to comprise at least of 33 values, otherwise outlier removal is
-#' rejected. \cr
-#'
-#' (b) To subsequently remove outliers, code blocks from the function
-#' \code{\link{apply_CosmicRayRemoval}} were recycled, therefore in general the
-#' outlier correction works as described by Pych (2003). In contrast, here no
-#' sigma clipping before constructing the histograms is applied.\cr
-#'
-#' (c) Outliers are marked in the data set and visualised in the graphical
-#' output. The subsequent adjustement of both curves (natural and regenerative)
-#' is done without outliers, whereas the sliding itself is done with the entire
-#' data set.\cr
-#'
+#
+#
 #' \bold{Trend correction} (\code{slide.trend.corr = TRUE})\cr
 #'
 #' This option allows for correcting any linear trend in the natural curve in
@@ -94,23 +71,18 @@
 #' \code{NATURAL}, \code{REGENERATED}. In addition any other character is
 #' allowed in the sequence structure; such curves will be ignored.
 #'
+#' @param RF_nat.lim \code{\link{vector}} (with default): set minimum and maximum
+#' channel range for natural signal fitting and sliding.
+#'
+#' @param RF_reg.lim \code{\link{vector}} (with default): set minimum and maximum
+#' channel range for regenerated signal fitting and sliding.
+#'
 #' @param method \code{\link{character}} (with default): setting method applied
 #' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
 #'
 #' @param rejection.criteria \code{\link{list} (with default)}: set rejection
 #' criteria for, see details for more information \bold{Currently without
 #' usage!}
-#'
-#' @param fit.range.min \code{\link{integer}} (optional): set the minimum
-#' channel range for signal fitting and sliding. Usually the entire data set is
-#' used for curve fitting, but there might be reasons to limit the channels
-#' used for fitting. Note: This option also limits the values used for natural
-#' signal calculation.
-#'
-#' @param fit.range.max \code{\link{integer}} (optional): set maximum channel
-#' range for signal fitting and sliding. Usually the entire data set is used
-#' for curve fitting, but there might be reasons to limit the channels used for
-#' fitting.
 #'
 #' @param fit.trace \code{\link{logical}} (with default): trace fitting (for
 #' debugging use)
@@ -122,11 +94,7 @@
 #' @param slide.MC.runs \code{\link{integer}} (with default): set number of
 #' Monte Carlo runs error calculation Note: Large values will significantly
 #' increase the calculation time.
-#'
-#' @param slide.outlier.rm \code{\link{logical}} (with default): enable or
-#' disable outlier removal. Outliers are removed from the natural signal curve
-#' only.
-#'
+#'#'
 #' @param slide.trend.corr \code{\link{logical}} (with default): enable or
 #' disable trend correction. If \code{TRUE}, the sliding is applied to a
 #' previously trend corrected data set.
@@ -166,7 +134,7 @@
 #' properly tested yet!}
 #'
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.4.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -238,14 +206,13 @@
 analyse_IRSAR.RF<- function(
   object,
   sequence.structure = c("NATURAL", "REGENERATED"),
+  RF_nat.lim,
+  RF_reg.lim,
   method = "FIT",
   rejection.criteria,
-  fit.range.min,
-  fit.range.max,
   fit.trace = FALSE,
   fit.MC.runs = 10,
   slide.MC.runs = 10,
-  slide.outlier.rm = FALSE,
   slide.trend.corr = FALSE,
   slide.show.density = TRUE,
   plot = TRUE,
@@ -254,75 +221,87 @@ analyse_IRSAR.RF<- function(
   ...
 ){
 
-  ##=============================================================================#
-  ## INTEGRITY TESTS
-  ##=============================================================================#
+  ##===============================================================================================#
+  ## INTEGRITY TESTS AND SEQUENCE STRUCTURE TESTS
+  ##===============================================================================================#
 
   ##MISSING INPUT
-  if(missing("object")==TRUE){
-    stop("[analyse_IRSAR.RF()] No value set for 'object'!")
+  if(missing("object")){
+    stop("[analyse_IRSAR.RF()] No input 'object' set!")
   }
 
   ##INPUT OBJECTS
-  if(is(object, "RLum.Analysis")==FALSE){
-    stop("[analyse_IRSAR.RF()] Input object is not of type 'RLum.Analyis'!")
+  if(!is(object, "RLum.Analysis")){
+    stop("[analyse_IRSAR.RF()] Input object is not of type 'RLum.Analysis'!")
   }
 
-  # Protocol Integrity Checks --------------------------------------------------
+  ##CHECK OTHER ARGUMENTS
 
-  ##REMOVE predefined curves if they are availabe
-  if(grepl("curveType",
-           as.character(structure_RLum(object)$info.elements))[1] == TRUE){
-
-    object <- set_RLum(
-      class = "RLum.Analysis",
-      records = get_RLum(object, curveType="measured"),
-      protocol = object@protocol)
-
-  }
+    ##sequence.structure
+    assertive::assert_is_character(sequence.structure)
 
 
-  ##ANALYSE SEQUENCE OBJECT STRUCTURE
-
-  ##set vector for sequence structure
-  temp.protocol.step <- rep(sequence.structure, length(object@records))[1:length(object@records)]
-
-  ##grep object strucute
-  temp.sequence.structure <- structure_RLum(object)
-
-  ##check if the first curve is shorter then the first curve
-  if(temp.sequence.structure[1,"n.channels"]>temp.sequence.structure[2,"n.channels"]){
-
-    stop("[analyse_IRSAR.RF()] Number of data channels in the 1st curve is > than in the 2nd curve. This is not supported!")
+  ##SELECT ONLY MEASURED CURVES
+  ## (this is not really necessary but rather user friendly)
+  if(!length(suppressWarnings(get_RLum(object, curveType= "measured"))) == 0){
+    object <- get_RLum(object, curveType= "measured")
 
   }
 
-  ##set values for step
-  temp.sequence.structure[,"protocol.step"] <- temp.protocol.step
+  ##INVESTIGATE SEQUENCE OBJECT STRUCTURE
 
-  ##set fit.range for fitting
+    ##grep object strucute
+    temp.sequence.structure <- structure_RLum(object)
 
-  if(missing(fit.range.min)==TRUE){fit.range.min <- 1}
-  if(missing(fit.range.max)==TRUE){fit.range.max <- max(
-    temp.sequence.structure$n.channels)}
+    ##set structure values
+    temp.sequence.structure$protocol.step <-
+      rep(sequence.structure, length_RLum(object))[1:length_RLum(object)]
 
-  ##set to full range if no value is given
-  fit.range <- c(fit.range.min:fit.range.max)
+    ##check if the first curve is shorter then the first curve
+    if (temp.sequence.structure[1,"n.channels"] > temp.sequence.structure[2,"n.channels"]) {
+      stop(
+        "[analyse_IRSAR.RF()] Number of data channels in RF_nat > RF_reg. This is not supported!"
+      )
 
-  ##if value if given, check the validity
-  if(min(fit.range)< 1 | max(fit.range)>max(temp.sequence.structure$n.channels)){
+   }
 
-    fit.range <- c(1:max(temp.sequence.structure$n.channels))
-    warning("Fit range out of bounds, set to full data set extend.")
+  ##===============================================================================================#
+  ## SET CURVE LIMITATIONS
+  ##===============================================================================================#
+  ##the setting here will be valid for all subsequent operations
 
-  }
+    ##RF_nat.lim
+    if (missing(RF_nat.lim)) {
+      RF_nat.lim <-
+        c(1,subset(temp.sequence.structure,
+                   temp.sequence.structure$protocol.step == "NATURAL")$n.channels)
 
-  ##apply fit range also for the natural curve
-  fit.range.natural <- fit.range
+    }else if (min(RF_nat.lim) < 1 |
+              max(RF_nat.lim) > max(temp.sequence.structure$n.channels)) {
+      RF_nat.lim <-
+        c(1,subset(temp.sequence.structure,
+                   temp.sequence.structure$protocol.step == "NATURAL")$n.channels)
+      warning("RF_nat.lim out of bounds, reset to full data set extend.")
+    }
 
-  ##=============================================================================#
+    ##RF_reg.lim
+    if (missing(RF_reg.lim)) {
+      RF_reg.lim <-
+        c(1,subset(temp.sequence.structure,
+                   temp.sequence.structure$protocol.step == "REGENERATED")$n.channels)
+
+    }else if (min(RF_reg.lim) < 1 |
+              max(RF_reg.lim) > max(temp.sequence.structure$n.channels)) {
+      RF_reg.lim <-
+        c(1,subset(temp.sequence.structure,
+                   temp.sequence.structure$protocol.step == "NATURAL")$n.channels)
+      warning("RF_reg.lim out of bounds, reset to full data set extend.")
+    }
+
+
+  ##===============================================================================================#
   ## PLOT PARAMETERS
-  ##=============================================================================#
+  ##===============================================================================================#
 
   ##get channel resolution (should be equal for all curves)
   resolution.RF <- round(object@records[[1]]@data[2,1]-
@@ -335,25 +314,17 @@ analyse_IRSAR.RF<- function(
   }
 
 
-  # Set plot format parameters -----------------------------------------------------------------------
-  extraArgs <- list(...) # read out additional arguments list
+  # Set plot format parameters --------------------------------------------------------------------
+  plot.settings <- list(
+    main = "IR-RF",
+    xlab = paste0("Time [", xlab.unit, "]"),
+    log = "",
+    cex = 1
+    ##xlim and ylim see below
+  )
 
-  main      <- if("main" %in% names(extraArgs)) {extraArgs$main} else # assign main text
-  {"IR-RF"}
-
-  xlab      <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else # assign x axis label
-  {paste("Time [", xlab.unit, "]", sep="")}
-
-  ylab     <- if("ylabs" %in% names(extraArgs)) {extraArgs$ylabs} else # assign y axes labels
-  {paste("IR-RF [cts/",resolution.RF," ", xlab.unit,"]",sep = "")}
-
-  log     <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  cex     <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else # assign y axes labels
-  {1}
-
-  ##xlim and ylim see below
+  ##modify list if something was set
+  plot.settings <- modifyList(plot.settings, list(...))
 
 
   ##=============================================================================#
@@ -368,15 +339,16 @@ analyse_IRSAR.RF<- function(
     temp.sequence.structure[temp.sequence.structure$protocol.step=="REGENERATED","id"]]]@data)
 
   values.regenerated<- as.data.frame(object@records[[2]]@data)
-  values.regenerated.x <- values.regenerated[fit.range,1]
-  values.regenerated.y <- values.regenerated[fit.range,2]
+  values.regenerated.x <- values.regenerated[RF_reg.lim[1]:RF_reg.lim[2],1]
+  values.regenerated.y <- values.regenerated[RF_reg.lim[1]:RF_reg.lim[2],2]
+
 
   ##grep values from natural signal
   values.natural <- as.data.frame(object@records[[
     temp.sequence.structure[temp.sequence.structure$protocol.step=="NATURAL","id"]]]@data)
 
   ##limit values to fit range (at least to the minimum)
-  values.natural.limited<- values.natural[min(fit.range.natural):nrow(values.natural),]
+  values.natural.limited<- values.natural[min(RF_nat.lim):nrow(values.natural),]
 
   ##calculate some useful parameters
   values.natural.mean <- mean(values.natural.limited[,2])
@@ -393,10 +365,6 @@ analyse_IRSAR.RF<- function(
   ##TODO
   ##(1) check if RF_nat > RF_reg, considering the fit range
   RC.initial.curve.ratio <- sum(values.regenerated.y)/sum(values.natural.limited[,2])
-
-
-
-
 
   ##METHOD FIT
   if(method == "FIT"){
@@ -552,110 +520,11 @@ analyse_IRSAR.RF<- function(
     ## Test the data analysis
 
     ##convert to matrix (in fact above the matrix data were first transfered to data.frames ... here
-    ##we correct this ... again)
+    ##we correct this ... again)  ##TODO
     values.natural.limited <- as.matrix(values.natural.limited)
+    values.natural.limited.full <- as.matrix(values.natural.limited) #TODO ... this is the same
     values.regenerated.limited <- matrix(c(values.regenerated.x, values.regenerated.y), ncol = 2)
 
-    ##===============================================================================================#
-    ## Check for outliers and remove potential outliers
-    ## Procedure based partly on the code used in the function apply_CosmicRayRemoval()
-
-    if(length(values.natural.limited)<=32 & slide.outlier.rm == TRUE){
-
-      warning("> 30 data points are needed for the outlier correction. Nothing was done!")
-
-    }
-
-    if(slide.outlier.rm == TRUE & length(values.natural.limited) > 32){
-      ##the threshold 30 has been set artifically to avoid problems during
-      ##outlier removoval
-
-      ##remove outliers for sliding (but just at the beginning and at the tail, nothing in between)
-      temp.median.roll <- zoo::rollmedian(values.natural.limited, k = 11)
-
-
-      ##use interpolation to fill the gaps in the data
-      temp.median.roll <-  matrix(unlist(approx(temp.median.roll[,1],
-                                                temp.median.roll[,2],
-                                                xout = values.natural.limited[,1], rule=2)), ncol=2)
-
-      ##detect outliers in the natural signal using histogramm; mark them
-      temp.outlier.residual <- (temp.median.roll[,2] - values.natural.limited[,2])
-      temp.outlier.hist <- hist(temp.outlier.residual,
-                                breaks = length(values.natural.limited[,2])/2, plot = FALSE)
-
-
-      ##find mode of the histogram (e.g. peak)
-      temp.outlier.hist.max <- which.max(temp.outlier.hist$counts)
-
-      ##find gaps in the histogram (bins with zero value)
-      temp.outlier.hist.zerobin <- which(temp.outlier.hist$counts == 0)
-
-
-      ##select non-zerobins
-      temp.outlier.hist.nonzerobin <- which(temp.outlier.hist$counts != 0)
-
-      ##define threshold, e.g. if a gap is greater than this value, all values above
-      ##are marked as outlier
-      temp.threshold  <- 2 * sd(temp.outlier.residual)
-
-      temp.outlier.hist.nonzerobin.diff <- diff(
-        temp.outlier.hist$breaks[temp.outlier.hist.nonzerobin])
-
-      ## select the first value where the thershold is reached
-      ## factor 3 is defined by Pych (2003)
-      temp.outlier.hist.thres <- which(
-        temp.outlier.hist.nonzerobin.diff >= temp.threshold)
-
-      ##check for the case that no threshold is found
-      if(length(temp.outlier.hist.thres) != 0){
-
-        ##Find: Which ID value?
-        temp.outlier.hist.thres.min  <- min(temp.outlier.hist$breaks[
-          temp.outlier.hist.nonzerobin][temp.outlier.hist.thres])
-
-        temp.outlier.hist.thres.max  <- max(temp.outlier.hist$breaks[
-          temp.outlier.hist.nonzerobin][temp.outlier.hist.thres])
-
-        if( temp.outlier.hist.thres.min <0){
-
-          temp.outlier.ID.max <- unique(
-            which(temp.outlier.residual > temp.outlier.hist.thres.max))
-
-          temp.outlier.ID.min <- unique(
-            which(temp.outlier.residual < temp.outlier.hist.thres.min))
-
-          temp.outlier.ID <- c(temp.outlier.ID.min, temp.outlier.ID.max)
-
-        }else{
-
-          temp.outlier.ID <- unique(
-            which(temp.outlier.residual > temp.outlier.hist.thres.max))
-
-        }
-
-        ##remove from data set for further analysis
-        values.natural.limited.full <-  values.natural.limited
-
-        if(length(temp.outlier.ID)>0){
-          values.natural.limited <- values.natural.limited[- temp.outlier.ID,]
-
-          warning(paste(length(temp.outlier.ID)), " values removed as outlier before sliding!")
-        }
-
-      }else{
-
-        values.natural.limited.full <-  values.natural.limited
-        temp.outlier.ID <- NULL
-
-      }
-
-    }else{
-
-      values.natural.limited.full <-  values.natural.limited
-      temp.outlier.ID <- NULL
-
-    }
 
     ##FIND MINIMUM - this is done in a function so that it can be further used for MC simulations
     sliding <- function(values.regenerated.limited,
@@ -687,31 +556,9 @@ analyse_IRSAR.RF<- function(
       values.natural.limited.full[,1] <- values.natural.limited.full[,1] + temp.sliding.step
 
 
-      ##(4) grep relevant (values to be displayed) residuals
-      if(length(temp.outlier.ID)>0){
-
-        values.residuals <- values.natural.limited.full[-temp.outlier.ID,2] -
-          values.regenerated.limited[
-            values.regenerated.limited[,1]%in%values.natural.limited.full[-temp.outlier.ID,1], 2]
-
-
-        #        temp.values.resdiduals.time <- values.regenerated.limited[
-        #          values.regenerated.limited[,1]%in%values.natural.limited.full[-temp.outlier.ID,1],1]
-        #
-        #       print(values.natural.limited.full[,1]%in%temp.values.resdiduals.time)
-        #
-        #        values.residuals <-
-        #           values.natural.limited.full[
-        #             which(values.natural.limited.full[,1] == temp.values.resdiduals.time),2] -
-        #           values.regenerated.limited[
-        #             which(values.regenerated.limited[,1] == temp.values.resdiduals.time),2]
-
-      }else{
-
-        values.residuals <- values.natural.limited.full[,2] -
+          values.residuals <- values.natural.limited.full[,2] -
           values.regenerated.limited[temp.sum.min.id:((nrow(values.natural.limited.full)+temp.sum.min.id)-1), 2]
 
-      }
 
       ##(4.1) calculate De from the first channel
       De.mean <- round(values.natural.limited.full[1,1], digits = 2)
@@ -832,17 +679,16 @@ analyse_IRSAR.RF<- function(
   }else{
 
 
-    warning("Analysis skipped: Unkown method or threshold of rejection criteria reached.")
+    warning("Analysis skipped: Unknown method or threshold of rejection criteria reached.")
 
 
   }
 
 
-
   ##=============================================================================#
   ## PLOTTING
   ##=============================================================================#
-  if(plot==TRUE){
+  if(plot){
 
     ##grep par default
     def.par <- par(no.readonly = TRUE)
@@ -854,28 +700,29 @@ analyse_IRSAR.RF<- function(
     if(method == "SLIDE" | method == "FIT"){
 
       layout(matrix(c(1,2),2,1,byrow=TRUE),c(2), c(1.5,0.4), TRUE)
-      par(oma=c(1,1,1,1), mar=c(0,4,3,0), cex = cex)
+      par(oma=c(1,1,1,1), mar=c(0,4,3,0), cex = plot.settings$cex)
 
     }
 
 
     ##here control xlim and ylim behaviour
-    xlim     <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
+    ##xlim
+    xlim  <- if ("xlim" %in% names(list(...))) {
+      list(...)$xlim
+    } else
     {
-
-      if(log == "x" | log == "xy"){
-
+      if (plot.settings$log == "x" | plot.settings$log == "xy") {
         c(min(temp.sequence.structure$x.min),max(temp.sequence.structure$x.max))
 
       }else{
-
         c(0,max(temp.sequence.structure$x.max))
 
       }
 
     }
 
-    ylim     <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
+    ##ylim
+    ylim  <- if("ylim" %in% names(list(...))) {list(...)$ylim} else
     {c(min(temp.sequence.structure$y.min), max(temp.sequence.structure$y.max))}
 
 
@@ -883,11 +730,11 @@ analyse_IRSAR.RF<- function(
     plot(NA,NA,
          xlim = xlim,
          ylim = ylim,
-         xlab = ifelse(method != "SLIDE" & method != "FIT",xlab," "),
+         xlab = ifelse(method != "SLIDE" & method != "FIT",plot.settings$xlab," "),
          xaxt = ifelse(method != "SLIDE" & method != "FIT","s","n"),
-         ylab = ylab,
-         main = main,
-         log = log)
+         ylab = plot.settings$ylab,
+         main = plot.settings$main,
+         log = plot.settings$log)
 
     ##plotting measured signal
     points(values.regenerated[,1], values.regenerated[,2], pch=3, col="grey")
@@ -909,6 +756,7 @@ analyse_IRSAR.RF<- function(
 
     }
 
+
     ##METHOD FIT
     if(method == "FIT"){
 
@@ -921,9 +769,10 @@ analyse_IRSAR.RF<- function(
               (fit.parameters.results["delta.phi"]*
                  ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
             add=TRUE,
-            from = values.regenerated[min(fit.range), 1],
-            to = values.regenerated[max(fit.range), 1],
+            from = values.regenerated[min(RF_reg.lim), 1],
+            to = values.regenerated[max(RF_reg.lim), 1],
             col="red")
+
 
       ##show fitted curve GREY (previous red curve)
       curve(fit.parameters.results["phi.0"]-
@@ -931,7 +780,7 @@ analyse_IRSAR.RF<- function(
                  ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
             add=TRUE,
             from = min(values.regenerated[, 1]),
-            to = values.regenerated[min(fit.range), 1],
+            to = values.regenerated[min(RF_reg.lim), 1],
             col="grey")
 
       ##show fitted curve GREY (after red curve)
@@ -939,7 +788,7 @@ analyse_IRSAR.RF<- function(
               (fit.parameters.results["delta.phi"]*
                  ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
             add=TRUE,
-            from = values.regenerated[max(fit.range), 1],
+            from = values.regenerated[max(RF_reg.lim), 1],
             to = max(values.regenerated[, 1]),
             col="grey")
 
@@ -953,8 +802,8 @@ analyse_IRSAR.RF<- function(
              horiz=TRUE, bty="n", cex=.7)
 
       ##plot range choosen for fitting
-      abline(v=values.regenerated[min(fit.range), 1], lty=2)
-      abline(v=values.regenerated[max(fit.range), 1], lty=2)
+      abline(v=values.regenerated[min(RF_reg.lim), 1], lty=2)
+      abline(v=values.regenerated[max(RF_reg.lim), 1], lty=2)
 
       ##plot De if De was calculated
       if(is.na(De.mean) == FALSE & is.nan(De.mean) == FALSE){
@@ -985,16 +834,20 @@ analyse_IRSAR.RF<- function(
 
       } else{
 
-        if("mtext" %in% names(extraArgs)) {extraArgs$mtext
+        if ("mtext" %in% names(list(...))) {
+          mtext(side = 3, list(...)$mtext)
         }else{
-
-          try(mtext(side=3,
-                    substitute(D[e] == De.mean,
-                               list(De.mean=paste(
-                                 De.mean," (",De.error.lower," ", De.error.upper,")", sep=""))),
-                    line=0,
-                    cex=0.7),
-              silent=TRUE)
+          try(mtext(
+            side = 3,
+            substitute(D[e] == De.mean,
+                       list(
+                         De.mean = paste(De.mean," (",De.error.lower," ", De.error.upper,")", sep =
+                                           "")
+                       )),
+            line = 0,
+            cex = 0.7
+          ),
+          silent = TRUE)
         }
 
         De.status <- "OK"
@@ -1023,7 +876,7 @@ analyse_IRSAR.RF<- function(
         plot(NA,NA,
              xlim=c(0,max(temp.sequence.structure$x.max)),
              ylab="E",
-             xlab=xlab,
+             xlab=plot.settings$xlab,
              ylim=c(-1,1)
         )
         text(x = max(temp.sequence.structure$x.max)/2,y=0, "Fitting Error!")
@@ -1036,13 +889,6 @@ analyse_IRSAR.RF<- function(
       ##add points
       points(values.natural.limited.full, pch = 20, col = rgb(0,0,1,.5))
 
-      if(length(temp.outlier.ID)>0){
-        ##mark points markes as outlier
-        points(values.natural.limited.full[temp.outlier.ID,], pch = 1, col = "red")
-      }
-
-      ##DEBUG
-      #points(values.natural.limited.full.corr, col = "red")
 
       ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       ##KDE plots
@@ -1050,7 +896,7 @@ analyse_IRSAR.RF<- function(
       ##normal De
       density.mean.MC <- density(De.mean.MC)
 
-      if(log == "y" | log == "xy"){
+      if(plot.settings$log == "y" | plot.settings$log == "xy"){
 
         temp.scale.ratio <- abs(((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/1.75+par("usr")[3])/
                                   unique(max(density.mean.MC$y)))
@@ -1070,7 +916,7 @@ analyse_IRSAR.RF<- function(
 
         density.mean.corr.MC <- density(De.mean.corr.MC)
 
-        if(log == "y" | log == "xy"){
+        if(plot.settings$log == "y" | plot.settings$log == "xy"){
 
           temp.scale.ratio <- abs(((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/1.75+par("usr")[3])/
                                     unique(max(density.mean.MC$y)))
@@ -1087,26 +933,20 @@ analyse_IRSAR.RF<- function(
       }
 
       ##plot range choosen for fitting
-      abline(v=values.regenerated[min(fit.range), 1], lty=2)
-      abline(v=values.regenerated[max(fit.range), 1], lty=2)
+      abline(v=values.regenerated[min(RF_reg.lim), 1], lty=2)
+      abline(v=values.regenerated[max(RF_reg.lim), 1], lty=2)
 
-      ##legend
-      if(length(temp.outlier.ID)>0){
-
-        legend(legend.pos, legend=c("reg. measured","reg. selected", "natural", "outlier"),
-               pch=c(3,3,20,1), col=c("grey", col[18], "blue", "red"),
-               horiz=TRUE, bty="n", cex=.7)
-
-      }else{
 
         legend(legend.pos, legend=c("reg. measured","reg. selected", "natural"),
                pch=c(3,3,20), col=c("grey", col[18], "blue"),
                horiz=TRUE, bty="n", cex=.7)
 
-      }
 
       ##write information on the De in the plot
-      if("mtext" %in% names(extraArgs)) {extraArgs$mtext
+      if("mtext" %in% names(list(...))) {
+
+        mtext(side = 3, list(...)$mtext)
+
       }else{
 
         if(!is.na(De.mean.corr)){
@@ -1153,27 +993,6 @@ analyse_IRSAR.RF<- function(
       ##==lower plot==##
       par(mar=c(4.2,4,0,0))
 
-      if(length(temp.outlier.ID)>0){
-
-        plot(values.natural.limited.full[-temp.outlier.ID,1], values.residuals,
-             xlim=xlim,
-             xlab="Time [s]",
-             type="p",
-             pch=20,
-             col="grey",
-             ylab="E",
-             #lwd=2,
-             log=log)
-
-
-        if(!is.na(De.mean.corr)){
-          lines(values.natural.limited.full[-temp.outlier.ID,1],
-                temp.trend.fit[2] * values.natural.limited.full[-temp.outlier.ID,1] + temp.trend.fit[1],
-                col = "red")
-        }
-
-      }else{
-
         plot(values.natural.limited.full[,1], values.residuals,
              xlim=xlim,
              xlab="Time [s]",
@@ -1182,16 +1001,13 @@ analyse_IRSAR.RF<- function(
              col="grey",
              ylab="E",
              #lwd=2,
-             log=log)
+             log=plot.settings$log)
 
         if(!is.na(De.mean.corr)){
           lines(values.natural.limited.full[,1],
                 temp.trend.fit[2] * values.natural.limited.full[,1] + temp.trend.fit[1],
                 col = "red")
         }
-
-      }
-
 
 
       ##add 0 line
@@ -1203,12 +1019,12 @@ analyse_IRSAR.RF<- function(
       ##add numeric value
       if(!is.na(De.mean.corr)){
 
-        axis(side = 1, at = De.mean.corr, labels = De.mean.corr, cex.axis = 0.8*cex,
+        axis(side = 1, at = De.mean.corr, labels = De.mean.corr, cex.axis = 0.8*plot.settings$cex,
              col = "red", padj = -1.55,)
 
       }else{
 
-        axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*cex,
+        axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*plot.settings$cex,
              col = "blue", padj = -1.55,)
       }
 

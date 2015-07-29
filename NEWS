@@ -8,6 +8,18 @@ Changes in version 0.4.5 (, 2015):
 
   Bugfixes and changes:
 
+         • ‘analyse_IRSAR.RF()’
+
+             • Arguments ‘fit.range.min’ and ‘fit.range.max’ have been
+               removed and replaced by ‘RF_nat.lim’ and ‘RF_reg.lim’,
+
+             • the argument ‘slide.outlier.rm’ and the underlying
+               algorithm were removed from the function as the
+               functionality turned out to be unreliable and overcoded
+               for this purpose,
+
+             • a lot of internal code polishing.
+
          • ‘calc_Statistics()’
 
              • default setting of weights definition changed from 1/s
@@ -76,5 +88,10 @@ Changes in version 0.4.5 (, 2015):
 
              • add imports from base packages as requested by CRAN,
 
-             • further clean-up NAMESPACE file.
+             • further clean-up NAMESPACE file,
+
+             • dependency to package 'zoo' removed,
+
+             • add dependency to package 'assertive' to hopefully
+               provide more user friendly error messages.
 

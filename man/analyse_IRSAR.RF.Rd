@@ -5,11 +5,10 @@
 \title{Analyse IRSAR RF measurements}
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
-  method = "FIT", rejection.criteria, fit.range.min, fit.range.max,
+  RF_nat.lim, RF_reg.lim, method = "FIT", rejection.criteria,
   fit.trace = FALSE, fit.MC.runs = 10, slide.MC.runs = 10,
-  slide.outlier.rm = FALSE, slide.trend.corr = FALSE,
-  slide.show.density = TRUE, plot = TRUE, xlab.unit = "s", legend.pos,
-  ...)
+  slide.trend.corr = FALSE, slide.show.density = TRUE, plot = TRUE,
+  xlab.unit = "s", legend.pos, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -20,23 +19,18 @@ default): specifies the general sequence structure. Allowed steps are
 \code{NATURAL}, \code{REGENERATED}. In addition any other character is
 allowed in the sequence structure; such curves will be ignored.}
 
+\item{RF_nat.lim}{\code{\link{vector}} (with default): set minimum and maximum
+channel range for natural signal fitting and sliding.}
+
+\item{RF_reg.lim}{\code{\link{vector}} (with default): set minimum and maximum
+channel range for regenerated signal fitting and sliding.}
+
 \item{method}{\code{\link{character}} (with default): setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection
 criteria for, see details for more information \bold{Currently without
 usage!}}
-
-\item{fit.range.min}{\code{\link{integer}} (optional): set the minimum
-channel range for signal fitting and sliding. Usually the entire data set is
-used for curve fitting, but there might be reasons to limit the channels
-used for fitting. Note: This option also limits the values used for natural
-signal calculation.}
-
-\item{fit.range.max}{\code{\link{integer}} (optional): set maximum channel
-range for signal fitting and sliding. Usually the entire data set is used
-for curve fitting, but there might be reasons to limit the channels used for
-fitting.}
 
 \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
 debugging use)}
@@ -47,11 +41,8 @@ significantly increase the calculation time.}
 
 \item{slide.MC.runs}{\code{\link{integer}} (with default): set number of
 Monte Carlo runs error calculation Note: Large values will significantly
-increase the calculation time.}
-
-\item{slide.outlier.rm}{\code{\link{logical}} (with default): enable or
-disable outlier removal. Outliers are removed from the natural signal curve
-only.}
+increase the calculation time.
+#'}
 
 \item{slide.trend.corr}{\code{\link{logical}} (with default): enable or
 disable trend correction. If \code{TRUE}, the sliding is applied to a
@@ -129,31 +120,6 @@ squares.
 
 \deqn{min(\Sigma(RF.reg_{k.i} - RF.nat_{k.i})^2)} for \deqn{k =
 {t.0+i,...,t.max+i}}
-
-\bold{Correction for outliers} (\code{slide.outlier.rm = TRUE})\cr
-
-By using \code{method = "SLIDE"} and setting the argument
-\code{slide.outlier.rm = TRUE} an automatic outlier removal can be applied
-to the natural curve. Outliers may be observed also on the regenerative
-curve, but here the impact of single outliers on the curve adjustment
-(sliding) is considered as negligible. \cr The applied outlier removal
-algorithm consists of three steps:\cr
-
-(a) Input data are smoothed using the function \code{\link[zoo]{rollmedian}}.
-Value \code{k} for the rolling window is fixed to 11. Therefore, the natural
-curve needs to comprise at least of 33 values, otherwise outlier removal is
-rejected. \cr
-
-(b) To subsequently remove outliers, code blocks from the function
-\code{\link{apply_CosmicRayRemoval}} were recycled, therefore in general the
-outlier correction works as described by Pych (2003). In contrast, here no
-sigma clipping before constructing the histograms is applied.\cr
-
-(c) Outliers are marked in the data set and visualised in the graphical
-output. The subsequent adjustement of both curves (natural and regenerative)
-is done without outliers, whereas the sliding itself is done with the entire
-data set.\cr
-
 \bold{Trend correction} (\code{slide.trend.corr = TRUE})\cr
 
 This option allows for correcting any linear trend in the natural curve in
@@ -182,7 +148,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.3.2 (2015-07-23 17:09:29)
+ 0.4.0 (2015-07-30 01:23:29)
 }
 \examples{
 ##load data

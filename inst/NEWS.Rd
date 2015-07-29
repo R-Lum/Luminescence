@@ -11,6 +11,20 @@
   \subsection{Bugfixes and changes}{
    \itemize{
 
+     \item \code{analyse_IRSAR.RF()}
+
+        \itemize{
+
+          \item Arguments \code{fit.range.min} and \code{fit.range.max} have been removed and
+          replaced by \code{RF_nat.lim} and \code{RF_reg.lim},
+          \item the argument \code{slide.outlier.rm} and the underlying algorithm were
+          removed from the function as the functionality turned out to be unreliable
+          and overcoded for this purpose,
+          \item a lot of internal code polishing.
+
+      }
+
+
       \item \code{calc_Statistics()}
 
         \itemize{
@@ -97,7 +111,9 @@
         \itemize{
           \item Hopefully fix NAMESPACE issue with 'rgdal' package,
           \item add imports from base packages as requested by CRAN,
-          \item further clean-up NAMESPACE file.
+          \item further clean-up NAMESPACE file,
+          \item dependency to package 'zoo' removed,
+          \item add dependency to package 'assertive' to hopefully provide more user friendly error messages.
 
         }
    }
