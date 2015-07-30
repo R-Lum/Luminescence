@@ -8,7 +8,7 @@ analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim, RF_reg.lim, method = "FIT", rejection.criteria,
   fit.trace = FALSE, fit.MC.runs = 10, slide.MC.runs = 10,
   slide.trend.corr = FALSE, slide.show.density = TRUE, plot = TRUE,
-  xlab.unit = "s", legend.pos, ...)
+  legend.pos, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -54,8 +54,6 @@ with triangles.}
 
 \item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}
 or \code{FALSE})}
-
-\item{xlab.unit}{\code{\link{character}} (with default): set unit for x-axis}
 
 \item{legend.pos}{\code{\link{character}} (with default): useful keywords
 are \code{bottomright}, \code{bottom}, \code{bottomleft}, \code{left},
@@ -138,6 +136,10 @@ the standard deviation of the natural signal.\cr
 For \bold{\code{method = "SLIDE"}} an beta-version of an error estimation
 based on boostrapping is implemented, however, this needs further
 documentation.
+
+#-----------------------------------------------------------------------------------------------#
+#DESCRIBE PARAMETERS
+#-----------------------------------------------------------------------------------------------#
 }
 \note{
 This function assumes that there is no sensitivity change during the
@@ -146,9 +148,13 @@ findings from Buylaert et al. (2012).\cr
 
 \bold{Please note that \code{method = "FIT"} has beta status and was not
 properly tested yet!}
+
+#-----------------------------------------------------------------------------------------------#
+# VERSION AND AUTHOR
+#-----------------------------------------------------------------------------------------------#
 }
 \section{Function version}{
- 0.4.0 (2015-07-30 01:23:29)
+ 0.4.0 (2015-07-30 14:08:51)
 }
 \examples{
 ##load data
@@ -158,8 +164,7 @@ data(ExampleData.RLum.Analysis, envir = environment())
 temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,

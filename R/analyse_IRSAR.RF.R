@@ -63,6 +63,9 @@
 #' based on boostrapping is implemented, however, this needs further
 #' documentation.
 #'
+#' #-----------------------------------------------------------------------------------------------#
+#' #DESCRIBE PARAMETERS
+#' #-----------------------------------------------------------------------------------------------#
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
 #' object containing data for protocol analysis
 #'
@@ -106,8 +109,6 @@
 #' @param plot \code{\link{logical}} (with default): plot output (\code{TRUE}
 #' or \code{FALSE})
 #'
-#' @param xlab.unit \code{\link{character}} (with default): set unit for x-axis
-#'
 #' @param legend.pos \code{\link{character}} (with default): useful keywords
 #' are \code{bottomright}, \code{bottom}, \code{bottomleft}, \code{left},
 #' \code{topleft}, \code{top}, \code{topright}, \code{right} and \code{center}.
@@ -133,12 +134,11 @@
 #' \bold{Please note that \code{method = "FIT"} has beta status and was not
 #' properly tested yet!}
 #'
-#'
+#' #-----------------------------------------------------------------------------------------------#
+#' # VERSION AND AUTHOR
+#' #-----------------------------------------------------------------------------------------------#
 #' @section Function version: 0.4.0
-#'
-#'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}},
@@ -216,7 +216,6 @@ analyse_IRSAR.RF<- function(
   slide.trend.corr = FALSE,
   slide.show.density = TRUE,
   plot = TRUE,
-  xlab.unit = "s",
   legend.pos,
   ...
 ){
@@ -300,31 +299,28 @@ analyse_IRSAR.RF<- function(
 
 
   ##===============================================================================================#
-  ## PLOT PARAMETERS
+  ## SET PLOT PARAMETERS
   ##===============================================================================================#
 
-  ##get channel resolution (should be equal for all curves)
-  resolution.RF <- round(object@records[[1]]@data[2,1]-
-                           object@records[[1]]@data[1,1], digits=2)
+  ##get channel resolution (should be equal for all curves, but if not the mean is taken)
+  resolution.RF <- round(mean((temp.sequence.structure$x.max/temp.sequence.structure$n.channels)),digits=1)
 
-  if(missing(legend.pos)){
-
-    legend.pos  <- ifelse(method == "FIT", "bottom", "top")
-
-  }
-
-
-  # Set plot format parameters --------------------------------------------------------------------
   plot.settings <- list(
     main = "IR-RF",
-    xlab = paste0("Time [", xlab.unit, "]"),
+    xlab = "Time/s",
+    ylab = paste0("IR-RF/(cts/", resolution.RF," s)"),
     log = "",
     cex = 1
-    ##xlim and ylim see below
+    ##xlim and ylim see below as they has to be modifid differently
   )
 
   ##modify list if something was set
   plot.settings <- modifyList(plot.settings, list(...))
+
+  if (missing(legend.pos)) {
+    legend.pos  <- ifelse(method == "FIT", "bottom", "top")
+
+  }
 
 
   ##=============================================================================#
@@ -358,9 +354,9 @@ analyse_IRSAR.RF<- function(
   values.natural.error.upper <- values.natural.mean - values.natural.sd
 
 
-  ##=============================================================================#
+  ##===============================================================================================#
   ## REJECTION CRITERIA
-  ##=============================================================================#
+  ##===============================================================================================#
 
   ##TODO
   ##(1) check if RF_nat > RF_reg, considering the fit range
@@ -685,15 +681,15 @@ analyse_IRSAR.RF<- function(
   }
 
 
-  ##=============================================================================#
+  ##===============================================================================================#
   ## PLOTTING
-  ##=============================================================================#
+  ##===============================================================================================#
   if(plot){
 
     ##grep par default
     def.par <- par(no.readonly = TRUE)
 
-    ##colours
+    ##get internal colour definition
     col <- get("col", pos = .LuminescenceEnv)
 
     ##set plot frame, if a method was choosen
@@ -703,7 +699,6 @@ analyse_IRSAR.RF<- function(
       par(oma=c(1,1,1,1), mar=c(0,4,3,0), cex = plot.settings$cex)
 
     }
-
 
     ##here control xlim and ylim behaviour
     ##xlim
@@ -727,25 +722,29 @@ analyse_IRSAR.RF<- function(
 
 
     ##open plot area
-    plot(NA,NA,
-         xlim = xlim,
-         ylim = ylim,
-         xlab = ifelse(method != "SLIDE" & method != "FIT",plot.settings$xlab," "),
-         xaxt = ifelse(method != "SLIDE" & method != "FIT","s","n"),
-         ylab = plot.settings$ylab,
-         main = plot.settings$main,
-         log = plot.settings$log)
+    plot(
+      NA,NA,
+      xlim = xlim,
+      ylim = ylim,
+      xlab = ifelse(method != "SLIDE" &
+                      method != "FIT", plot.settings$xlab," "),
+      xaxt = ifelse(method != "SLIDE" & method != "FIT","s","n"),
+      ylab = plot.settings$ylab,
+      main = plot.settings$main,
+      log = plot.settings$log
+    )
 
-    ##plotting measured signal
-    points(values.regenerated[,1], values.regenerated[,2], pch=3, col="grey")
 
-    ##mark values used for further analysis fitting
-    points(values.regenerated.x,values.regenerated.y, pch=3, col=col[18])
+      ##(1) plot points that have been not selected
+      points(values.regenerated[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col="grey")
 
-    ##shot natural points if no analysis was done
+      ##(2) plot points that has been used for the fitting
+      points(values.regenerated.x,values.regenerated.y, pch=3, col=col[18])
+
+    ##show natural points if no analysis was done
     if(method != "SLIDE" & method != "FIT"){
 
-      ##at points
+      ##add points
       points(values.natural, pch = 20, col = "grey")
       points(values.natural.limited, pch = 20, col = "red")
 
@@ -755,7 +754,6 @@ analyse_IRSAR.RF<- function(
              horiz=TRUE, bty="n", cex=.7)
 
     }
-
 
     ##METHOD FIT
     if(method == "FIT"){
@@ -862,12 +860,11 @@ analyse_IRSAR.RF<- function(
 
         plot(values.regenerated.x,residuals(fit),
              xlim=c(0,max(temp.sequence.structure$x.max)),
-             xlab="Time [s]",
+             xlab=plot.settings$xlab,
              type="p",
              pch=20,
              col="grey",
              ylab="E",
-             #lwd=2,
              log="")
 
         ##add 0 line
@@ -887,7 +884,7 @@ analyse_IRSAR.RF<- function(
     else if(method == "SLIDE"){
 
       ##add points
-      points(values.natural.limited.full, pch = 20, col = rgb(0,0,1,.5))
+      points(values.natural.limited.full, pch = 20, col = rgb(1,0,0,.5))
 
 
       ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -995,12 +992,11 @@ analyse_IRSAR.RF<- function(
 
         plot(values.natural.limited.full[,1], values.residuals,
              xlim=xlim,
-             xlab="Time [s]",
+             xlab=plot.settings$xlab,
              type="p",
              pch=20,
              col="grey",
              ylab="E",
-             #lwd=2,
              log=plot.settings$log)
 
         if(!is.na(De.mean.corr)){

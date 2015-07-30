@@ -44,6 +44,8 @@
           \item the argument \code{slide.outlier.rm} and the underlying algorithm were
           removed from the function as the functionality turned out to be unreliable
           and 'over-coded' for the intended purpose,
+          \item argument \code{xlab.unit} removed (usage of \code{xlab} is still possible),
+          \item minor graphical adjustments,
           \item a lot of internal code polishing.
 
       }

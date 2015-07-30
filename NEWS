@@ -48,6 +48,11 @@ Changes in version 0.4.5 (, 2015):
                functionality turned out to be unreliable and
                'over-coded' for the intended purpose,
 
+             • argument ‘xlab.unit’ removed (usage of ‘xlab’ is still
+               possible),
+
+             • minor graphical adjustments,
+
              • a lot of internal code polishing.
 
          • ‘calc_Statistics()’
