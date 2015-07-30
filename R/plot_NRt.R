@@ -184,7 +184,7 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   # override defaults with user settings
   settings <- modifyList(settings, list(...))
   
-
+  
   
   ## PLOTTING ----------
   
@@ -195,15 +195,8 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   if (is.na(pmatch(log, c("x", "y", "xy"))))
     log <- ""
   
-  plot(NA, NA,
-       log = log,
-       main = settings$main,
-       xaxs = "i",
-       yaxs = "i",
-       xlim = settings$xlim, 
-       ylim = settings$ylim,
-       xlab = settings$xlab,
-       ylab = settings$ylab)
+  do.call(plot, modifyList(list(x = NA, y = NA, log = log, xaxs = "i", yaxs = "i"), 
+                           settings))
   
   # horizontal line
   abline(h = 1, lty = 3, col = "grey")
@@ -222,4 +215,19 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     legend(legend.pos, legend = labels, col = col, lty = 1, ncol = ncol, cex = 0.8, bty = "n")
   }
   
+  ## RETURN VALUES ----
+  obj <- set_RLum("RLum.Analysis", protocol = "UNKNOWN", 
+                  records = lapply(NRnorm, function(curve) { 
+                    set_RLum("RLum.Data.Curve", 
+                             recordType = "NRt", 
+                             curveType = "NRt",
+                             data = matrix(c(time, curve), ncol = 2),
+                             info = list(
+                               data = curves,
+                               call = sys.call(-8L),
+                               args = as.list(sys.call(-8L)[-1])
+                             )) 
+                  })
+  )
+  invisible(obj)
 }
