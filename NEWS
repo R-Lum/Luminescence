@@ -4,7 +4,37 @@ Changes in version 0.4.5 (, 2015):
 
   Changes S4-objects, methods, classes:
 
-         • Dummy
+         • With the (internal) switch from inlinedocs to roxygen2 for
+           the package manual compilation, some help page entries for
+           our S4-methods got unintentionally lost. Unfortunately this
+           remained unnoticed until the package was alread on CRAN.
+           This issue has been corrected by picking up some code
+           changes we already made for the package version 0.5.0.
+           However, this may become confusing in terms of warning
+           messages ('deprecated') appearing by using object specific
+           'get' or 'set' functions such as ‘get_RLum.Analysis’. The
+           function calls are still working, but will be removed in
+           version 0.5.0 or better to say become part of more general
+           calls like ‘get_RLum’, ‘set_RLum’ and so on. In fact this
+           switch has already been made, but the 'old' functions are
+           still supported and the warning messages may point on
+           necessary changes in your scripts.  Changes in detail:
+
+             • Depraceted S4-generics: ‘set_RLum.Analyis’,
+               ‘set_RLum.Data.Curve’, ‘set_RLum.Data.Image’,
+               ‘set_RLum.Data.Spectrum’, ‘set_RLum.Results’,
+               ‘get_RLum.Analyis’, ‘get_RLum.Data.Curve’,
+               ‘get_RLum.Data.Image’, ‘get_RLum.Data.Spectrum’,
+               ‘get_RLum.Results’, ‘length_RLum.Analysis’,
+               ‘get_structure.RLum.Analysis’.
+
+             • New S4-generics (partly they alreaded existed as plain R
+               functions): ‘get_RLum’, ‘set_RLum’, ‘length_RLum’,
+               ‘structure_RLum’.
+
+             • This brings the following changes: ‘set_RLum’ now holds
+               a argument ‘class’, e.g.: ‘set_RLum(class =
+               'RLum.Results', data = data)’
 
   Bugfixes and changes:
 
@@ -15,8 +45,8 @@ Changes in version 0.4.5 (, 2015):
 
              • the argument ‘slide.outlier.rm’ and the underlying
                algorithm were removed from the function as the
-               functionality turned out to be unreliable and overcoded
-               for this purpose,
+               functionality turned out to be unreliable and
+               'over-coded' for the intended purpose,
 
              • a lot of internal code polishing.
 
@@ -90,8 +120,9 @@ Changes in version 0.4.5 (, 2015):
 
              • further clean-up NAMESPACE file,
 
-             • dependency to package 'zoo' removed,
+             • dependency to package 'zoo' removed for this build, will
+               be added again in 0.5.0,
 
-             • add dependency to package 'assertive' to hopefully
-               provide more user friendly error messages.
+             • add import for package 'assertive' to hopefully provide
+               more user friendly error messages.
 
