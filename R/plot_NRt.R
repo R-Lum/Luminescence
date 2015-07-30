@@ -171,62 +171,39 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
   
   
   ## EXTRA ARGUMENTS -----
-  extraArgs <- list(...)
-  if ("xlim" %in% names(extraArgs)) {
-    xlim <- extraArgs$xlim
-  } else  {
-    if (log == "x" || log ==  "xy") {
-      xlim <- c(0.1, max(time)) 
-    } else { 
-      xlim <- c(0, max(time))
-    }
-  }
   
-  if ("ylim" %in% names(extraArgs)) {
-    ylim <- extraArgs$ylim
-  } else {
-    ylim <- range(pretty(c(min(sapply(NRnorm, min)),
-                           max(sapply(NRnorm, max)))))
-  }
+  # default values
+  settings <- list(
+    xlim = if (log == "x" || log ==  "xy") c(0.1, max(time)) else c(0, max(time)),
+    ylim = range(pretty(c(min(sapply(NRnorm, min)), max(sapply(NRnorm, max))))),
+    xlab = "Time [s]",
+    ylab = "Natural signal / Regenerated signal",
+    cex = 1L,
+    main = "NR(t) Plot")
   
-  if ("xlab" %in% names(extraArgs)) { 
-    xlab <- extraArgs$xlab 
-  } else {
-    xlab <- "Time [s]"
-  } 
+  # override defaults with user settings
+  settings <- modifyList(settings, list(...))
   
-  if ("ylab" %in% names(extraArgs)) {
-    ylab <- extraArgs$ylab
-  } else {
-    ylab <- "Natural signal / Regenerated signal"
-  } 
-  
-  if ("cex" %in% names(extraArgs)) {
-    par(cex = extraArgs$cex)
-  } else {
-    par(cex = 1.0)
-  }
-  
-  if ("main" %in% names(extraArgs)) {
-    main <- extraArgs$main
-  } else {
-    main <- "NR(t) Plot"
-  }
+
   
   ## PLOTTING ----------
+  
+  # set graphical parameter
+  par(cex = settings$cex)
+  
   # empty plot
   if (is.na(pmatch(log, c("x", "y", "xy"))))
     log <- ""
   
   plot(NA, NA,
        log = log,
-       main = main,
+       main = settings$main,
        xaxs = "i",
        yaxs = "i",
-       xlim = xlim, 
-       ylim = ylim,
-       xlab = xlab,
-       ylab = ylab)
+       xlim = settings$xlim, 
+       ylim = settings$ylim,
+       xlab = settings$xlab,
+       ylab = settings$ylab)
   
   # horizontal line
   abline(h = 1, lty = 3, col = "grey")
