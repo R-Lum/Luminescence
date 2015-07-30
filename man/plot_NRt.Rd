@@ -32,7 +32,7 @@ the position of the legend (see \code{\link{legend}}).}
 \item{...}{further parameters passed to \code{\link{plot}} (also see \code{\link{par}}).}
 }
 \value{
-A plot is returned.
+Returns a plot and \code{\linkS4class{RLum.Analysis}} object.
 }
 \description{
 This function creates a Natural/Regenerated signal vs. time (NR(t)) plot

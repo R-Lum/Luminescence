@@ -40,7 +40,7 @@
 #' 
 #' @seealso \code{\link{plot}}
 #' 
-#' @return A plot is returned.
+#' @return Returns a plot and \code{\linkS4class{RLum.Analysis}} object.
 #' 
 #' @references
 #' Steffen, D., Preusser, F., Schlunegger, F., 2009. OSL quartz underestimation due to 
