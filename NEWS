@@ -51,6 +51,13 @@ Changes in version 0.4.5 (, 2015):
              • argument ‘xlab.unit’ removed (usage of ‘xlab’ is still
                possible),
 
+             • argument ‘fit.MC.runs’ and ‘slide.MC.runs’ replaced by
+               ‘n.MC’ (valid for both methods),
+
+             • argument ‘slide.trend.corr’ has been removed and with
+               this the underlying code, however, a trend is still
+               calculated and used as rejection criteria,
+
              • minor graphical adjustments,
 
              • a lot of internal code polishing.

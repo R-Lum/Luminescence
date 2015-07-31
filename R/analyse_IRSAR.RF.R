@@ -26,7 +26,7 @@
 #'
 #' \bold{\code{method = "FIT"}}\cr
 #'
-#' The principle is described above and follows the orignal suggestions from
+#' The principle is described above and follows the orignal suggestions by
 #' Erfurt et al., 2003.\cr
 #'
 #' \bold{\code{method = "SLIDE"}}\cr
@@ -42,19 +42,8 @@
 #'
 #' \deqn{min(\Sigma(RF.reg_{k.i} - RF.nat_{k.i})^2)} for \deqn{k =
 #' {t.0+i,...,t.max+i}}
-#
-#
-#' \bold{Trend correction} (\code{slide.trend.corr = TRUE})\cr
 #'
-#' This option allows for correcting any linear trend in the natural curve in
-#' comparison to the regenerative curve. The trend correction is based on
-#' regression analysis of the residuals from the slided curve. The corrected De
-#' is obtained by sliding the trend corrected values (again) along the
-#' regenerative data curve. This correction is driven by the idea that the
-#' rediduals from the regenerative and the natural curve should be free of any
-#' trend, as long as they are comparable. \cr
-#'
-#' \bold{Error estimation}
+#' \bold{Error estimation}\cr
 #'
 #' For \bold{\code{method = "FIT"}} the asymmetric error range is taken from
 #' the standard deviation of the natural signal.\cr
@@ -63,9 +52,6 @@
 #' based on boostrapping is implemented, however, this needs further
 #' documentation.
 #'
-#' #-----------------------------------------------------------------------------------------------#
-#' #DESCRIBE PARAMETERS
-#' #-----------------------------------------------------------------------------------------------#
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
 #' object containing data for protocol analysis
 #'
@@ -90,17 +76,10 @@
 #' @param fit.trace \code{\link{logical}} (with default): trace fitting (for
 #' debugging use)
 #'
-#' @param fit.MC.runs \code{\link{numeric}} (with default): set number of Monte
-#' Carlo runs for start parameter estimation. Note: Large values will
+#' @param n.MC \code{\link{numeric}} (with default): set number of Monte
+#' Carlo runs for start parameter estimation (\code{method = "FIT"}) or
+#' error estimation \code{method = "SLIDE"}). Note: Large values will
 #' significantly increase the calculation time.
-#'
-#' @param slide.MC.runs \code{\link{integer}} (with default): set number of
-#' Monte Carlo runs error calculation Note: Large values will significantly
-#' increase the calculation time.
-#'#'
-#' @param slide.trend.corr \code{\link{logical}} (with default): enable or
-#' disable trend correction. If \code{TRUE}, the sliding is applied to a
-#' previously trend corrected data set.
 #'
 #' @param slide.show.density \code{\link{logical}} (with default): enable or
 #' disable KDE for MC runs. If \code{FALSE}, the final values are indicated
@@ -134,9 +113,7 @@
 #' \bold{Please note that \code{method = "FIT"} has beta status and was not
 #' properly tested yet!}
 #'
-#' #-----------------------------------------------------------------------------------------------#
-#' # VERSION AND AUTHOR
-#' #-----------------------------------------------------------------------------------------------#
+#'
 #' @section Function version: 0.4.0
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -169,10 +146,6 @@
 #' Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 #' luminescence measurement facilities in retrospective dosimetry. Radiation
 #' Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
-#'
-#' Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from Single Images.
-#' Astrophysics 116, 148-153.
-#' \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 #'
 #' Trautmann, T., 2000. A study of radioluminescence kinetics of natural
 #' feldspar dosimeters: experiments and simulations. Journal of Physics D:
@@ -211,10 +184,8 @@ analyse_IRSAR.RF<- function(
   method = "FIT",
   rejection.criteria,
   fit.trace = FALSE,
-  fit.MC.runs = 10,
-  slide.MC.runs = 10,
-  slide.trend.corr = FALSE,
-  slide.show.density = TRUE,
+  n.MC = 10,
+  slide.show.density = FALSE,
   plot = TRUE,
   legend.pos,
   ...
@@ -243,7 +214,7 @@ analyse_IRSAR.RF<- function(
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
   if(!length(suppressWarnings(get_RLum(object, curveType= "measured"))) == 0){
-    object <- get_RLum(object, curveType= "measured")
+    object <- get_RLum(object, curveType= "measured", keep.object = TRUE)
 
   }
 
@@ -269,32 +240,70 @@ analyse_IRSAR.RF<- function(
   ##===============================================================================================#
   ##the setting here will be valid for all subsequent operations
 
+
     ##RF_nat.lim
     if (missing(RF_nat.lim)) {
       RF_nat.lim <-
-        c(1,subset(temp.sequence.structure,
-                   temp.sequence.structure$protocol.step == "NATURAL")$n.channels)
+        c(
+          1,subset(
+            temp.sequence.structure,
+            temp.sequence.structure$protocol.step == "NATURAL"
+          )$n.channels
+        )
 
     }else if (min(RF_nat.lim) < 1 |
-              max(RF_nat.lim) > max(temp.sequence.structure$n.channels)) {
+              max(RF_nat.lim) > max(
+                subset(
+                  temp.sequence.structure,
+                  temp.sequence.structure$protocol.step == "NATURAL"
+                )$n.channels
+              )) {
       RF_nat.lim <-
-        c(1,subset(temp.sequence.structure,
-                   temp.sequence.structure$protocol.step == "NATURAL")$n.channels)
-      warning("RF_nat.lim out of bounds, reset to full data set extend.")
+        c(
+          1,subset(
+            temp.sequence.structure,
+            temp.sequence.structure$protocol.step == "NATURAL"
+          )$n.channels
+        )
+      warning(paste0("RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
+                     paste(range(RF_nat.lim), collapse=":")),")")
     }
 
     ##RF_reg.lim
     if (missing(RF_reg.lim)) {
       RF_reg.lim <-
-        c(1,subset(temp.sequence.structure,
-                   temp.sequence.structure$protocol.step == "REGENERATED")$n.channels)
+        c(
+          1,subset(
+            temp.sequence.structure,
+            temp.sequence.structure$protocol.step == "REGENERATED"
+          )$n.channels
+        )
 
     }else if (min(RF_reg.lim) < 1 |
-              max(RF_reg.lim) > max(temp.sequence.structure$n.channels)) {
+              max(RF_reg.lim) > max(
+                subset(
+                  temp.sequence.structure,
+                  temp.sequence.structure$protocol.step == "REGENERATED"
+                )$n.channels
+              )) {
       RF_reg.lim <-
-        c(1,subset(temp.sequence.structure,
-                   temp.sequence.structure$protocol.step == "NATURAL")$n.channels)
-      warning("RF_reg.lim out of bounds, reset to full data set extend.")
+        c(
+          1,subset(
+            temp.sequence.structure,
+            temp.sequence.structure$protocol.step == "REGENERATED"
+          )$n.channels
+        )
+      warning(paste0("RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
+                     paste(range(RF_reg.lim), collapse=":")),")")
+
+    }
+
+    if(length(RF_reg.lim[1]:RF_reg.lim[2]) < RF_nat.lim[2]){
+      RF_reg.lim[2] <- RF_reg.lim[2] + abs(length(RF_reg.lim[1]:RF_reg.lim[2]) - RF_nat.lim[2]) + 1
+
+      warning(paste0("Length intervall RF_reg.lim < length RF_nat. Reset to RF_reg.lim = c(",
+                     paste(range(RF_reg.lim), collapse=":")),")")
+
     }
 
 
@@ -327,31 +336,28 @@ analyse_IRSAR.RF<- function(
   ## ANALYSIS
   ##=============================================================================#
 
-  ##IMPLEMENT OVERALL REJECTION CRITERIA TODO for curves
-  # set values for fitting --------------------------------------------------
-
   ##grep first regenerated curve
-  values.regenerated <- as.data.frame(object@records[[
+  RF_reg <- as.data.frame(object@records[[
     temp.sequence.structure[temp.sequence.structure$protocol.step=="REGENERATED","id"]]]@data)
 
-  values.regenerated<- as.data.frame(object@records[[2]]@data)
-  values.regenerated.x <- values.regenerated[RF_reg.lim[1]:RF_reg.lim[2],1]
-  values.regenerated.y <- values.regenerated[RF_reg.lim[1]:RF_reg.lim[2],2]
+  RF_reg<- as.data.frame(object@records[[2]]@data)
+  RF_reg.x <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],1]
+  RF_reg.y <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],2]
 
 
   ##grep values from natural signal
-  values.natural <- as.data.frame(object@records[[
+  RF_nat <- as.data.frame(object@records[[
     temp.sequence.structure[temp.sequence.structure$protocol.step=="NATURAL","id"]]]@data)
 
   ##limit values to fit range (at least to the minimum)
-  values.natural.limited<- values.natural[min(RF_nat.lim):nrow(values.natural),]
+  RF_nat.limited<- RF_nat[min(RF_nat.lim):max(RF_nat.lim),]
 
   ##calculate some useful parameters
-  values.natural.mean <- mean(values.natural.limited[,2])
-  values.natural.sd <- sd(values.natural.limited[,2])
+  RF_nat.mean <- mean(RF_nat.limited[,2])
+  RF_nat.sd <- sd(RF_nat.limited[,2])
 
-  values.natural.error.lower <- values.natural.mean + values.natural.sd
-  values.natural.error.upper <- values.natural.mean - values.natural.sd
+  RF_nat.error.lower <- RF_nat.mean + RF_nat.sd
+  RF_nat.error.upper <- RF_nat.mean - RF_nat.sd
 
 
   ##===============================================================================================#
@@ -360,7 +366,7 @@ analyse_IRSAR.RF<- function(
 
   ##TODO
   ##(1) check if RF_nat > RF_reg, considering the fit range
-  RC.initial.curve.ratio <- sum(values.regenerated.y)/sum(values.natural.limited[,2])
+  RC.initial.curve.ratio <- sum(RF_reg.y)/sum(RF_nat.limited[,2])
 
   ##METHOD FIT
   if(method == "FIT"){
@@ -378,10 +384,10 @@ analyse_IRSAR.RF<- function(
     # set start parameter estimation ------------------------------------------
 
     fit.parameters.start <- c(
-      phi.0 = max(values.regenerated.y),
+      phi.0 = max(RF_reg.y),
       lambda = 0.0001,
       beta = 1,
-      delta.phi = 2*(max(values.regenerated.y)-min(values.regenerated.y)))
+      delta.phi = 2*(max(RF_reg.y)-min(RF_reg.y)))
 
     # start nls fitting -------------------------------------------------------
 
@@ -390,17 +396,17 @@ analyse_IRSAR.RF<- function(
     fit.parameters.results.MC.results <- data.frame()
 
     ##produce set of start paramters
-    phi.0.MC <- rep(fit.parameters.start["phi.0"], fit.MC.runs)
-    lambda.MC <- seq(0.0001, 0.001, by=(0.001-0.0001)/fit.MC.runs) ##TODO
-    beta.MC <- rep(fit.parameters.start["beta"], fit.MC.runs)
-    delta.phi.MC <- rep(fit.parameters.start["delta.phi"], fit.MC.runs)
+    phi.0.MC <- rep(fit.parameters.start["phi.0"], n.MC)
+    lambda.MC <- seq(0.0001, 0.001, by=(0.001-0.0001)/n.MC) ##TODO
+    beta.MC <- rep(fit.parameters.start["beta"], n.MC)
+    delta.phi.MC <- rep(fit.parameters.start["delta.phi"], n.MC)
 
     ##start fitting loop
-    for(i in 1:fit.MC.runs){
+    for(i in 1:n.MC){
 
       fit.MC <-try(nls(fit.function,
                        trace = FALSE,
-                       data = data.frame(x=values.regenerated.x, y=values.regenerated.y),
+                       data = data.frame(x=RF_reg.x, y=RF_reg.y),
                        algorithm = "port",
                        start = list(
                          phi.0 = phi.0.MC[i],
@@ -415,8 +421,8 @@ analyse_IRSAR.RF<- function(
                                  delta.phi = .Machine$double.xmin,
                                  lambda = .Machine$double.xmin,
                                  beta = .Machine$double.xmin),
-                       upper = c(phi.0 = max(values.regenerated.y),
-                                 delta.phi = max(values.regenerated.y),
+                       upper = c(phi.0 = max(RF_reg.y),
+                                 delta.phi = max(RF_reg.y),
                                  lambda = 1,
                                  beta = 100)),
                    silent=TRUE)
@@ -443,7 +449,7 @@ analyse_IRSAR.RF<- function(
       ##try final fitting
       fit <-try(nls(fit.function,
                     trace = fit.trace,
-                    data = data.frame(x=values.regenerated.x, y=values.regenerated.y),
+                    data = data.frame(x=RF_reg.x, y=RF_reg.y),
                     algorithm = "port",
                     start = list(
                       phi.0 = fit.parameters.results.MC.results["phi.0"],
@@ -458,8 +464,8 @@ analyse_IRSAR.RF<- function(
                               delta.phi = .Machine$double.xmin,
                               lambda = .Machine$double.xmin,
                               beta = .Machine$double.xmin),
-                    upper = c(phi.0 = max(values.regenerated.y),
-                              delta.phi = max(values.regenerated.y),
+                    upper = c(phi.0 = max(RF_reg.y),
+                              delta.phi = max(RF_reg.y),
                               lambda = 1, beta = 100)),
                 silent=FALSE)
     }else{
@@ -483,17 +489,17 @@ analyse_IRSAR.RF<- function(
     ##calculate De value
     if(is.na(fit.parameters.results[1]) == FALSE){
 
-      De.mean <- suppressWarnings(round(log(-((values.natural.mean - fit.parameters.results["phi.0"])/
+      De.mean <- suppressWarnings(round(log(-((RF_nat.mean - fit.parameters.results["phi.0"])/
                                                 -fit.parameters.results["delta.phi"])^(1/fit.parameters.results["beta"])+1)/
                                           -fit.parameters.results["lambda"], digits=2))
 
       De.error.lower <- suppressWarnings(
-        round(log(-((values.natural.error.lower - fit.parameters.results["phi.0"])/
+        round(log(-((RF_nat.error.lower - fit.parameters.results["phi.0"])/
                       -fit.parameters.results["delta.phi"])^(1/fit.parameters.results["beta"])+1)/
                 -fit.parameters.results["lambda"],digits=2))
 
       De.error.upper <- suppressWarnings(
-        round(log(-((values.natural.error.upper - fit.parameters.results["phi.0"])/
+        round(log(-((RF_nat.error.upper - fit.parameters.results["phi.0"])/
                       -fit.parameters.results["delta.phi"])^(1/fit.parameters.results["beta"])+1)/
                 -fit.parameters.results["lambda"],digits=2))
 
@@ -517,159 +523,128 @@ analyse_IRSAR.RF<- function(
 
     ##convert to matrix (in fact above the matrix data were first transfered to data.frames ... here
     ##we correct this ... again)  ##TODO
-    values.natural.limited <- as.matrix(values.natural.limited)
-    values.natural.limited.full <- as.matrix(values.natural.limited) #TODO ... this is the same
-    values.regenerated.limited <- matrix(c(values.regenerated.x, values.regenerated.y), ncol = 2)
+    RF_nat.limited <- as.matrix(RF_nat.limited)
+    RF_reg.limited <- matrix(c(RF_reg.x, RF_reg.y), ncol = 2)
+    RF_nat <- as.matrix(RF_nat)
 
-
+    ##DEFINE FUNCTION FOR SLIDING
     ##FIND MINIMUM - this is done in a function so that it can be further used for MC simulations
-    sliding <- function(values.regenerated.limited,
-                        values.natural.limited,
-                        values.natural.limited.full,
-                        slide.trend.corr,
+    sliding <- function(RF_nat,
+                        RF_nat.limited,
+                        RF_reg.limited,
                         numerical.only = FALSE){
 
 
-      #(1) calculate sum of residual squares using internal RCPP function (faster)
+      ##(0) set objects ... nomenclature as used in Frouin et al., please note that here the index
+      ##is used instead the real time values
+      t_max.id <- nrow(RF_reg.limited)
+      t_max_nat.id <- nrow(RF_nat.limited)
+      t_min.id <- 1
+      t_min <- RF_nat.limited[1,1]
 
-      #pre-allocate object
-      temp.sum.residuals <- vector("numeric",
-                                   length = length(values.regenerated.limited[,2])-
-                                     length(values.natural.limited[,2]))
+      ##(1) calculate sum of residual squares using internal Rcpp function
 
+        #pre-allocate object
+        temp.sum.residuals <- vector("numeric", length = t_max.id - t_max_nat.id)
 
-      temp.sum.residuals <- .analyse_IRSARRF_SRS(values.regenerated.limited[,2],
-                                                 values.natural.limited[,2])
+        ##calculate sum of squared residuals ... for the entire set
+        temp.sum.residuals <- .analyse_IRSARRF_SRS(RF_reg.limited[,2], RF_nat.limited[,2])
 
-      #(2) get index of minimum value
-      temp.sum.min.id <- which.min(temp.sum.residuals)
-      temp.sum.min.time.value <- values.regenerated.limited[temp.sum.min.id]
+      #(2) get minimum value (index and time value)
+      t_n.id <- which.min(temp.sum.residuals)
+      temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
-      temp.sliding.step <- temp.sum.min.time.value - values.natural.limited[1,1]
+      ##(3) slide curve graphically ... full data set we need this for the plotting later
+      RF_nat.slided <- matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2]), ncol = 2)
+      t_n <- RF_nat.slided[1,1]
 
-      ##(3) slide curve graphically (with the full data)
-      values.natural.limited.full.preSlide <- values.natural.limited.full
-      values.natural.limited.full[,1] <- values.natural.limited.full[,1] + temp.sliding.step
-
-
-          values.residuals <- values.natural.limited.full[,2] -
-          values.regenerated.limited[temp.sum.min.id:((nrow(values.natural.limited.full)+temp.sum.min.id)-1), 2]
-
+      ##(4) get residuals
+      residuals <- RF_nat.limited[,2] - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
 
       ##(4.1) calculate De from the first channel
-      De.mean <- round(values.natural.limited.full[1,1], digits = 2)
-      De.mean.corr <- NA
+      De.mean <- round(t_n, digits = 2)
       temp.trend.fit <- NA
 
-      if(slide.trend.corr == TRUE){
+     ##(5) calculate trend fit
+     temp.trend.fit <- coef(lm(y~x, data.frame(x = RF_nat.limited[,1], y = residuals)))
 
-        ##(5) fit residual data and correct for trend
-        temp.trend.fit <- coef(lm(y~x, data.frame(x = values.natural.limited[,1], y = values.residuals)))
-        temp.trend.fit.slope  <- temp.trend.fit[2]
-
-        ##(5.1) recalculate trend corrected values
-        values.natural.limited.corr <- data.frame(
-          x = values.natural.limited[,1],
-          y = (-temp.trend.fit.slope * values.natural.limited[,1] +
-                 values.natural.limited[,2]))
-
-
-        ##(5.2) calcualte sum of residual squares
-        temp.sum.residuals.corr <- vector("numeric", length = length(temp.sum.residuals))
-
-        temp.sum.residuals.corr <- .analyse_IRSARRF_SRS(values.regenerated.limited[,2],
-                                                        values.natural.limited.corr[,2])
-
-
-        ##(5.3) find minimum value
-        temp.sum.min.id.corr <- which.min(temp.sum.residuals.corr)
-        temp.sum.min.time.value.corr <- values.regenerated.limited[temp.sum.min.id.corr]
-
-        ##(5.4) slide correct values
-        temp.sliding.step.corr <- temp.sum.min.time.value.corr - values.natural.limited.corr[1,1]
-
-        ##(5.5) slide curve (with the full data)
-        values.natural.limited.full.corr <- values.natural.limited.full.preSlide
-        values.natural.limited.full.corr[,1] <- values.natural.limited.full.corr[,1] + temp.sliding.step.corr
-
-        ##(5.6) calculate De
-        De.mean.corr <- round(values.natural.limited.full.corr[1,1], digits = 2)
-      }
 
       ##return values and limited if they are not needed
-      if(numerical.only == FALSE){
-        return(list(De.mean, De.mean.corr,values.residuals, temp.trend.fit, values.natural.limited.full))
+      if (numerical.only == FALSE) {
+        return(
+          list(
+            De.mean = De.mean,
+            residuals = residuals,
+            trend.fit = temp.trend.fit,
+            RF_nat.slided = RF_nat.slided,
+            t_n.id = t_n.id
+          )
+        )
       }else{
-        return(list(De.mean, De.mean.corr))
+        return(list(De.mean))
       }
 
-    }##end of
+    }##end of function sliding()
 
     ##just keep this for the MC simulation
-    values.natural.limited.full.MC <- values.natural.limited.full
+    #RF_nat.limited.full.MC <- RF_nat.limited.full
 
-    ##PERFORM sliding and overwrite same values
-    temp.sliding <-  sliding(
-      values.regenerated.limited = values.regenerated.limited,
-      values.natural.limited = values.natural.limited,
-      values.natural.limited.full = values.natural.limited.full,
-      slide.trend.corr = slide.trend.corr)
+    ##PERFORM sliding and overwrite values
+    sliding.results <-  sliding(
+      RF_nat = RF_nat,
+      RF_nat.limited = RF_nat.limited,
+      RF_reg.limited = RF_reg.limited,
+    )
 
+      ##write results in variables
+      De.mean <- sliding.results$De.mean
+      residuals <- sliding.results$residuals
+      temp.trend.fit <- sliding.results$trend.fit[1]
+      temp.trend.slope <- sliding.results$trend.fit[2]
+      RF_nat.slided <-  sliding.results$RF_nat.slided
 
-    De.mean <- temp.sliding[[1]]
-    De.mean.corr <- temp.sliding[[2]]
-    values.residuals <- temp.sliding[[3]]
-    temp.trend.fit <- temp.sliding[[4]]
-    values.natural.limited.full <- temp.sliding[[5]]
-    Trend.slope <- temp.sliding[[4]][2]
 
 
     # MC runs for error calculation ---------------------------------------------------------------
 
-    ##set up MC matrix
-    slide.MC.list <- lapply(1:slide.MC.runs, function(x){
-
-      temp <- sample(1:nrow(values.regenerated.limited),
-                     size = nrow(values.regenerated.limited),
-                     replace = TRUE)
-      temp <- temp[order(temp)]
-      return(values.regenerated.limited[temp,1:2])
-
-    })
-
-    De.mean.MC <- vector(length = slide.MC.runs)
-    De.mean.corr.MC <- vector(length = slide.MC.runs)
-
-    ##terminal output fo MC
-    cat("\n\t Run Monte Carlo loops for error estimation\n")
+      ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
+      slide.MC.list <- lapply(1:n.MC, function(x) {
+        cbind(RF_nat.limited[,1],
+              (RF_reg.limited[sliding.results$t_n.id:(sliding.results$t_n.id + nrow(RF_nat.limited)-1) ,2] + sample(
+                 residuals, size = nrow(RF_nat.limited), replace = TRUE
+              )))
+      })
 
 
-    ##progress bar
-    pb<-txtProgressBar(min=0,max=slide.MC.runs, initial=0, char="=", style=3)
-    for(i in 1:slide.MC.runs){
+     De.mean.MC <- vector(length = n.MC)
 
-      temp <- sliding(
-        values.regenerated.limited = slide.MC.list[[i]],
-        values.natural.limited = values.natural.limited,
-        values.natural.limited.full = values.natural.limited.full.MC,
-        slide.trend.corr = slide.trend.corr,
-        numerical.only = TRUE)
+     ##terminal output fo MC
+     cat("\n\t Run Monte Carlo loops for error estimation\n")
 
 
-      De.mean.MC[i] <- temp[[1]]
-      De.mean.corr.MC[i] <- temp[[2]]
+      ##progress bar
+      pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
+      for(i in 1:n.MC){
 
-      ##update progress bar
-      setTxtProgressBar(pb, i)
+        temp.sliding.results.MC <- sliding(
+          RF_nat = RF_nat,
+          RF_reg.limited = RF_reg.limited,
+          RF_nat.limited = slide.MC.list[[i]],
+          numerical.only = TRUE)
 
-    }
 
-    ##close
-    close(pb)
+        De.mean.MC[i] <- temp.sliding.results.MC[[1]]
 
-    ##get information for error
-    De.mean.MC.se <- round(sd(De.mean.MC,na.rm = TRUE), digits = 0)
-    De.mean.corr.MC.se <- round(sd(De.mean.corr.MC, na.rm = TRUE), digits = 0)
+        ##update progress bar
+        setTxtProgressBar(pb, i)
+
+      }
+
+      ##close
+      close(pb)
+
+      ##get information for error
+      De.mean.MC.se <- round(sd(De.mean.MC,na.rm = TRUE), digits = 0)
 
 
   }else{
@@ -695,7 +670,7 @@ analyse_IRSAR.RF<- function(
     ##set plot frame, if a method was choosen
     if(method == "SLIDE" | method == "FIT"){
 
-      layout(matrix(c(1,2),2,1,byrow=TRUE),c(2), c(1.5,0.4), TRUE)
+      layout(matrix(c(1,2),2,1,byrow=TRUE),c(2), c(1.3,0.4), TRUE)
       par(oma=c(1,1,1,1), mar=c(0,4,3,0), cex = plot.settings$cex)
 
     }
@@ -729,31 +704,37 @@ analyse_IRSAR.RF<- function(
       xlab = ifelse(method != "SLIDE" &
                       method != "FIT", plot.settings$xlab," "),
       xaxt = ifelse(method != "SLIDE" & method != "FIT","s","n"),
+      yaxt = "n",
       ylab = plot.settings$ylab,
       main = plot.settings$main,
-      log = plot.settings$log
+      log = plot.settings$log,
+
     )
 
 
+      ##use scientific format for y-axis
+      labels <- axis(2, labels = FALSE)
+      axis(side = 2, at = labels, labels = format(labels, scientific = TRUE))
+
       ##(1) plot points that have been not selected
-      points(values.regenerated[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col="grey")
+      points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col=col[19])
 
       ##(2) plot points that has been used for the fitting
-      points(values.regenerated.x,values.regenerated.y, pch=3, col=col[18])
+      points(RF_reg.x,RF_reg.y, pch=3, col=col[10])
 
-    ##show natural points if no analysis was done
-    if(method != "SLIDE" & method != "FIT"){
+      ##show natural points if no analysis was done
+      if(method != "SLIDE" & method != "FIT"){
 
-      ##add points
-      points(values.natural, pch = 20, col = "grey")
-      points(values.natural.limited, pch = 20, col = "red")
+        ##add points
+        points(RF_nat, pch = 20, col = "grey")
+        points(RF_nat.limited, pch = 20, col = "red")
 
-      ##legend
-      legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
-             pch=c(3,3, 20), col=c("grey", col[18], "red"),
-             horiz=TRUE, bty="n", cex=.7)
+        ##legend
+        legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
+               pch=c(3,3, 20), col=c("grey", col[18], "red"),
+               horiz=TRUE, bty="n", cex=.7)
 
-    }
+      }
 
     ##METHOD FIT
     if(method == "FIT"){
@@ -767,8 +748,8 @@ analyse_IRSAR.RF<- function(
               (fit.parameters.results["delta.phi"]*
                  ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
             add=TRUE,
-            from = values.regenerated[min(RF_reg.lim), 1],
-            to = values.regenerated[max(RF_reg.lim), 1],
+            from = RF_reg[min(RF_reg.lim), 1],
+            to = RF_reg[max(RF_reg.lim), 1],
             col="red")
 
 
@@ -777,8 +758,8 @@ analyse_IRSAR.RF<- function(
               (fit.parameters.results["delta.phi"]*
                  ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
             add=TRUE,
-            from = min(values.regenerated[, 1]),
-            to = values.regenerated[min(RF_reg.lim), 1],
+            from = min(RF_reg[, 1]),
+            to = RF_reg[min(RF_reg.lim), 1],
             col="grey")
 
       ##show fitted curve GREY (after red curve)
@@ -786,42 +767,42 @@ analyse_IRSAR.RF<- function(
               (fit.parameters.results["delta.phi"]*
                  ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
             add=TRUE,
-            from = values.regenerated[max(RF_reg.lim), 1],
-            to = max(values.regenerated[, 1]),
+            from = RF_reg[max(RF_reg.lim), 1],
+            to = max(RF_reg[, 1]),
             col="grey")
 
       ##at points
-      points(values.natural, pch = 20, col = "grey")
-      points(values.natural.limited, pch = 20, col = "red")
+      points(RF_nat, pch = 20, col = "grey")
+      points(RF_nat.limited, pch = 20, col = "red")
 
       ##legend
       legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
-             pch=c(3,3, 20), col=c("grey", col[18], "red"),
+             pch=c(3,3, 20), col=c("grey", col[4], "red"),
              horiz=TRUE, bty="n", cex=.7)
 
       ##plot range choosen for fitting
-      abline(v=values.regenerated[min(RF_reg.lim), 1], lty=2)
-      abline(v=values.regenerated[max(RF_reg.lim), 1], lty=2)
+      abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
+      abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
       ##plot De if De was calculated
       if(is.na(De.mean) == FALSE & is.nan(De.mean) == FALSE){
 
-        lines(c(0,De.error.lower), c(values.natural.error.lower,values.natural.error.lower), lty=2, col="grey")
-        lines(c(0,De.mean), c(values.natural.mean,values.natural.mean), lty=2, col="red")
-        lines(c(0,De.error.upper), c(values.natural.error.upper,values.natural.error.upper), lty=2, col="grey")
+        lines(c(0,De.error.lower), c(RF_nat.error.lower,RF_nat.error.lower), lty=2, col="grey")
+        lines(c(0,De.mean), c(RF_nat.mean,RF_nat.mean), lty=2, col="red")
+        lines(c(0,De.error.upper), c(RF_nat.error.upper,RF_nat.error.upper), lty=2, col="grey")
 
         lines(c(De.error.lower, De.error.lower),
-              c(0,values.natural.error.lower), lty=2, col="grey")
-        lines(c(De.mean,De.mean), c(0, values.natural.mean), lty=2, col="red")
+              c(0,RF_nat.error.lower), lty=2, col="grey")
+        lines(c(De.mean,De.mean), c(0, RF_nat.mean), lty=2, col="red")
         lines(c(De.error.upper, De.error.upper),
-              c(0,values.natural.error.upper), lty=2, col="grey")
+              c(0,RF_nat.error.upper), lty=2, col="grey")
 
       }
 
       ##Insert fit and result
       if(is.na(De.mean) != TRUE & (is.nan(De.mean) == TRUE |
-                                     De.mean > max(values.regenerated.x) |
-                                     De.error.upper > max(values.regenerated.x))){
+                                     De.mean > max(RF_reg.x) |
+                                     De.error.upper > max(RF_reg.x))){
 
         try(mtext(side=3, substitute(D[e] == De.mean,
                                      list(De.mean=paste(
@@ -858,9 +839,10 @@ analyse_IRSAR.RF<- function(
       ##plot residuals
       if(is.na(fit.parameters.results[1])==FALSE){
 
-        plot(values.regenerated.x,residuals(fit),
+        plot(RF_reg.x,residuals(fit),
              xlim=c(0,max(temp.sequence.structure$x.max)),
              xlab=plot.settings$xlab,
+             yaxt = "n",
              type="p",
              pch=20,
              col="grey",
@@ -883,60 +865,80 @@ analyse_IRSAR.RF<- function(
     ##METHOD SLIDE
     else if(method == "SLIDE"){
 
-      ##add points
-      points(values.natural.limited.full, pch = 20, col = rgb(1,0,0,.5))
+      ##(0) density plot
+      if (slide.show.density) {
 
+        if (length(unique(De.mean.MC)) >= 10) {
+          ##normal De
+          density.mean.MC <- density(De.mean.MC)
 
-      ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-      ##KDE plots
+          if (plot.settings$log == "y" | plot.settings$log == "xy") {
+            temp.scale.ratio <-
+              abs(((unique(
+                max(RF_nat.limited[,2])
+              ) - par("usr")[3]) / 1.75 + par("usr")[3]) /
+                unique(max(density.mean.MC$y)))
 
-      ##normal De
-      density.mean.MC <- density(De.mean.MC)
+          }else{
+            temp.scale.ratio <-
+              ((unique(max(
+                RF_nat.limited[,2]
+              )) - par("usr")[3]) / 2 + par("usr")[3]) /
+              unique(max(density.mean.MC$y))
+          }
 
-      if(plot.settings$log == "y" | plot.settings$log == "xy"){
-
-        temp.scale.ratio <- abs(((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/1.75+par("usr")[3])/
-                                  unique(max(density.mean.MC$y)))
-
-      }else{
-
-        temp.scale.ratio <- ((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/2+par("usr")[3])/
-          unique(max(density.mean.MC$y))
-      }
-
-      polygon(density.mean.MC$x,
-              density.mean.MC$y*temp.scale.ratio,
-              col = rgb(0,0,1,0.5))
-
-      ##corrected De
-      if(!is.na(De.mean.corr)){
-
-        density.mean.corr.MC <- density(De.mean.corr.MC)
-
-        if(plot.settings$log == "y" | plot.settings$log == "xy"){
-
-          temp.scale.ratio <- abs(((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/1.75+par("usr")[3])/
-                                    unique(max(density.mean.MC$y)))
+          polygon(density.mean.MC$x,
+                  density.mean.MC$y * temp.scale.ratio,
+                  col = rgb(0,0,1,0.5))
 
         }else{
 
-          temp.scale.ratio <- ((unique(max(values.natural.limited.full[,2]))-par("usr")[3])/2+par("usr")[3])/
-            unique(max(density.mean.MC$y))
+          warning("Narrow density distribution, no density distribution plotted!")
+
         }
 
-        polygon(density.mean.corr.MC$x,
-                density.mean.corr.MC$y*temp.scale.ratio,
-                col = rgb(1,0,1,0.5))
       }
 
+      ##(1) show unused points (in grey)
+      points(
+        matrix(RF_nat.slided[-(min(RF_nat.lim):max(RF_nat.lim)),1:2], ncol = 2),
+        pch = 21, col = col[19]
+      )
+
+      ##(2) add used points
+      points(RF_nat.slided[min(RF_nat.lim):max(RF_nat.lim),], pch = 21, col = col[2],
+             bg = col[2])
+
+      ##(3) add line to show the connection between the first point and the De
+      lines(x = c(RF_nat.slided[1,1], RF_nat.slided[1,1]),
+            y = c(0,RF_nat.slided[1,2]),
+            lty = 2,
+            col = col[2]
+      )
+
+      ##(4) add arrow at the lowest point possible to show the sliding
+      shape::Arrows(x0 = 0,
+                    y0 = ylim[1],
+                    y1 = ylim[1],
+                    x1 = RF_nat.slided[1,1],
+                    arr.type = "triangle",
+                    arr.length = 0.5,
+                    code = 2,
+                    col = col[2],
+                    arr.adj = 1,
+                    arr.lwd = 1)
+
+      ##uncomment here to see all the RF_nat curves produced by the MC runs
+      ##lapply(1:n.MC, function(x){lines(slide.MC.list[[x]], col = rgb(0,0,0, alpha = 0.2))})
+
       ##plot range choosen for fitting
-      abline(v=values.regenerated[min(RF_reg.lim), 1], lty=2)
-      abline(v=values.regenerated[max(RF_reg.lim), 1], lty=2)
+      abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
+      abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
 
-        legend(legend.pos, legend=c("reg. measured","reg. selected", "natural"),
-               pch=c(3,3,20), col=c("grey", col[18], "blue"),
-               horiz=TRUE, bty="n", cex=.7)
+        legend(legend.pos, legend=c("RF_nat","RF_reg"),
+               pch=c(19,3), col=c("red", col[10]),
+               horiz=TRUE, bty = "n", cex=.9)
 
 
       ##write information on the De in the plot
@@ -946,88 +948,94 @@ analyse_IRSAR.RF<- function(
 
       }else{
 
-        if(!is.na(De.mean.corr)){
-          try(mtext(side=3,
-                    substitute(D[e] == De.mean,  list(
-                      De.mean=paste0(De.mean," \u00b1 ", De.mean.MC.se, " | ",
-                                     De.mean.corr," \u00b1 ", De.mean.corr.MC.se ," (corr. value)"))),
-                    line=0,
-                    cex=0.7),
-              silent=TRUE)
-
-        }else{
-
           try(mtext(side=3,
                     substitute(D[e] == De.mean, list(De.mean=paste0(De.mean," \u00b1 ", De.mean.MC.se))),
                     line=0,
                     cex=0.7),
               silent=TRUE)
 
-        }
-      }
-
-      if(!slide.show.density){
-
-        #mark selected De
-        points(x = De.mean,
-               y = c(min(temp.sequence.structure$y.min)),
-               pch = 25,
-               cex = 1.3,
-               col = "blue", bg = "blue")
-
-
-        ##mark selected De.corr
-        if(!is.na(De.mean.corr)){
-
-          points(x = De.mean.corr,
-                 y =  c(min(temp.sequence.structure$y.min)),
-                 pch = 25,
-                 col = "red",)
-
-        }
       }
 
       ##==lower plot==##
-      par(mar=c(4.2,4,0,0))
+      ##RESIDUAL PLOT
+      par(mar=c(4,4,0,0))
 
-        plot(values.natural.limited.full[,1], values.residuals,
+        plot(NA,NA,
+             ylim = range(residuals),
              xlim=xlim,
              xlab=plot.settings$xlab,
              type="p",
-             pch=20,
+             pch=1,
              col="grey",
              ylab="E",
-             log=plot.settings$log)
+             yaxt = "n",
+             log=ifelse(plot.settings$log == "y" | plot.settings$log == "xy", "", plot.settings$log)
+            )
 
-        if(!is.na(De.mean.corr)){
-          lines(values.natural.limited.full[,1],
-                temp.trend.fit[2] * values.natural.limited.full[,1] + temp.trend.fit[1],
-                col = "red")
+        ##add axis for 0 ... means if the 0 is not visible there is labelling
+        axis(side = 4, at = 0, labels = 0)
+
+        ##add residual indicator (should circle around 0)
+        col.ramp <- colorRampPalette(c(col[19], "white", col[19]))
+        col.polygon <- col.ramp(100)
+
+        shape::filledrectangle(
+          mid = c(xlim[2] + (par("usr")[2] - xlim[2]) / 2,
+                  max(residuals) - diff(range(residuals)) / 2
+                  ),
+          wx = par("usr")[2] - xlim[2],
+          wy = diff(range(residuals)),
+          col = col.polygon
+        )
+
+        ##add 0 line
+        abline(h=0, lty = 3)
+
+        ##0-line indicator and arrows if this is not visible
+        ##red colouring here only if the 0 point is not visible to avoid too much colouring
+        if(max(residuals) < 0 &
+           min(residuals) < 0) {
+          shape::Arrowhead(
+            x0 =   xlim[2] + (par("usr")[2] - xlim[2]) / 2,
+            y0 = max(residuals),
+            angle = 270,
+            lcol = col[2],
+            arr.length = 0.4, arr.type = "triangle",
+            arr.col = col[2]
+          )
+
+        }else if (max(residuals) > 0 & min(residuals) > 0) {
+          shape::Arrowhead(
+            x0 =   xlim[2] + (par("usr")[2] - xlim[2]) / 2,
+            y0 = min(residuals),
+            angle = 90,
+            lcol = col[2],
+            arr.length = 0.4, arr.type = "triangle",
+            arr.col = col[2]
+          )
+
+
+        }else{
+          points(xlim[2], 0, pch = 3)
+
         }
 
 
-      ##add 0 line
-      abline(h=0)
-      abline(v = De.mean, lty = 2, col = "blue")
-      if(!is.na(De.mean.corr)){abline(v = De.mean.corr, lty = 2, col = "red")}
+      ##add points
+      points(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)),1], residuals,
+               pch = 20, col = col[19])
+
+      abline(v = De.mean, lty = 2, col = col[2])
 
 
       ##add numeric value
-      if(!is.na(De.mean.corr)){
-
-        axis(side = 1, at = De.mean.corr, labels = De.mean.corr, cex.axis = 0.8*plot.settings$cex,
-             col = "red", padj = -1.55,)
-
-      }else{
-
-        axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*plot.settings$cex,
+      axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*plot.settings$cex,
              col = "blue", padj = -1.55,)
-      }
-
 
     }
 
     par(def.par)  #- reset to default
+
 
   }#endif::plot
   ##=============================================================================#
@@ -1036,9 +1044,8 @@ analyse_IRSAR.RF<- function(
 
   ##catch up worst case scenarios
   if(!exists("De.mean")){De.mean  <- NA}
+  if(!exists("De.mean.MC")){De.mean.MC  <- NA}
   if(!exists("De.mean.MC.se")){De.mean.MC.se  <- NA}
-  if(!exists("De.mean.corr")){De.mean.corr  <- NA}
-  if(!exists("De.mean.corr.MC.se")){De.mean.corr.MC.se  <- NA}
   if(!exists("De.error.lower")){De.error.lower  <- NA}
   if(!exists("De.error.upper")){De.error.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
@@ -1049,8 +1056,6 @@ analyse_IRSAR.RF<- function(
   ##combine values
   De.values <- data.frame(De = De.mean,
                           De.error = De.mean.MC.se,
-                          De.corr = De.mean.corr,
-                          De.corr.error = De.mean.corr.MC.se,
                           De.error.lower = De.error.lower,
                           De.error.upper = De.error.upper,
                           De.status = De.status,

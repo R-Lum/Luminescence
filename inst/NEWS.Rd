@@ -45,6 +45,10 @@
           removed from the function as the functionality turned out to be unreliable
           and 'over-coded' for the intended purpose,
           \item argument \code{xlab.unit} removed (usage of \code{xlab} is still possible),
+          \item argument \code{fit.MC.runs} and \code{slide.MC.runs} replaced by \code{n.MC} (valid for both
+          methods),
+          \item argument \code{slide.trend.corr} has been removed and with this the underlying
+          code, however, a trend is still calculated and used as rejection criteria,
           \item minor graphical adjustments,
           \item a lot of internal code polishing.
 

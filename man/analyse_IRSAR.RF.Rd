@@ -6,8 +6,7 @@
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim, RF_reg.lim, method = "FIT", rejection.criteria,
-  fit.trace = FALSE, fit.MC.runs = 10, slide.MC.runs = 10,
-  slide.trend.corr = FALSE, slide.show.density = TRUE, plot = TRUE,
+  fit.trace = FALSE, n.MC = 10, slide.show.density = FALSE, plot = TRUE,
   legend.pos, ...)
 }
 \arguments{
@@ -29,28 +28,19 @@ channel range for regenerated signal fitting and sliding.}
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection
-criteria for, see details for more information \bold{Currently without
+criteria for, see details for more information. \bold{Currently without
 usage!}}
 
 \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
 debugging use)}
 
-\item{fit.MC.runs}{\code{\link{numeric}} (with default): set number of Monte
-Carlo runs for start parameter estimation. Note: Large values will
+\item{n.MC}{\code{\link{numeric}} (with default): set number of Monte
+Carlo runs for start parameter estimation (\code{method = "FIT"}) or
+error estimation (\code{method = "SLIDE"}). Note: Large values will
 significantly increase the calculation time.}
 
-\item{slide.MC.runs}{\code{\link{integer}} (with default): set number of
-Monte Carlo runs error calculation Note: Large values will significantly
-increase the calculation time.
-#'}
-
-\item{slide.trend.corr}{\code{\link{logical}} (with default): enable or
-disable trend correction. If \code{TRUE}, the sliding is applied to a
-previously trend corrected data set.}
-
 \item{slide.show.density}{\code{\link{logical}} (with default): enable or
-disable KDE for MC runs. If \code{FALSE}, the final values are indicated
-with triangles.}
+disable KDE for MC runs.}
 
 \item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}
 or \code{FALSE})}
@@ -102,7 +92,7 @@ Two methods are supported to obtain the De:\cr
 
 \bold{\code{method = "FIT"}}\cr
 
-The principle is described above and follows the orignal suggestions from
+The principle is described above and follows the orignal suggestions by
 Erfurt et al., 2003.\cr
 
 \bold{\code{method = "SLIDE"}}\cr
@@ -118,17 +108,8 @@ squares.
 
 \deqn{min(\Sigma(RF.reg_{k.i} - RF.nat_{k.i})^2)} for \deqn{k =
 {t.0+i,...,t.max+i}}
-\bold{Trend correction} (\code{slide.trend.corr = TRUE})\cr
 
-This option allows for correcting any linear trend in the natural curve in
-comparison to the regenerative curve. The trend correction is based on
-regression analysis of the residuals from the slided curve. The corrected De
-is obtained by sliding the trend corrected values (again) along the
-regenerative data curve. This correction is driven by the idea that the
-rediduals from the regenerative and the natural curve should be free of any
-trend, as long as they are comparable. \cr
-
-\bold{Error estimation}
+\bold{Error estimation}\cr
 
 For \bold{\code{method = "FIT"}} the asymmetric error range is taken from
 the standard deviation of the natural signal.\cr
@@ -136,10 +117,6 @@ the standard deviation of the natural signal.\cr
 For \bold{\code{method = "SLIDE"}} an beta-version of an error estimation
 based on boostrapping is implemented, however, this needs further
 documentation.
-
-#-----------------------------------------------------------------------------------------------#
-#DESCRIBE PARAMETERS
-#-----------------------------------------------------------------------------------------------#
 }
 \note{
 This function assumes that there is no sensitivity change during the
@@ -148,13 +125,9 @@ findings from Buylaert et al. (2012).\cr
 
 \bold{Please note that \code{method = "FIT"} has beta status and was not
 properly tested yet!}
-
-#-----------------------------------------------------------------------------------------------#
-# VERSION AND AUTHOR
-#-----------------------------------------------------------------------------------------------#
 }
 \section{Function version}{
- 0.4.0 (2015-07-30 14:08:51)
+ 0.4.0 (2015-07-31 22:48:31)
 }
 \examples{
 ##load data
@@ -190,10 +163,6 @@ B: Beam Interactions with Materials and Atoms 207, 487-499.
 Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 luminescence measurement facilities in retrospective dosimetry. Radiation
 Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
-
-Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from Single Images.
-Astrophysics 116, 148-153.
-\url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 
 Trautmann, T., 2000. A study of radioluminescence kinetics of natural
 feldspar dosimeters: experiments and simulations. Journal of Physics D:
