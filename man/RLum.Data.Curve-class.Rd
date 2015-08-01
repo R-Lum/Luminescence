@@ -12,19 +12,20 @@
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object)
 }
 \arguments{
-\item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
+\item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create}
 
-\item{recordType}{\code{\link{character}}: record type (e.g. "OSL")}
+\item{recordType}{[\code{set_RLum}] \code{\link{character}} (optional): record type (e.g. "OSL")}
 
-\item{curveType}{\code{\link{character}}: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{[\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g. "predefined" or "measured")}
 
-\item{data}{\code{\link{matrix}}: raw curve data}
+\item{data}{[\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data}
 
-\item{info}{\code{\link{list}}: info elements}
+\item{info}{[\code{set_RLum}] \code{\link{list}} (optional): info elements}
 
-\item{object}{an object of class \code{\linkS4class{RLum.Data.Curve}}}
+\item{object}{[\code{get_RLum}] an object of class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
 
-\item{info.object}{object of class "list" containing further meta information objects}
+\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+element}
 }
 \description{
 Class for luminescence curve data.
