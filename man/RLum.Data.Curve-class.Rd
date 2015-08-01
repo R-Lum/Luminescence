@@ -48,8 +48,6 @@ provided, the raw curve data (matrix) will be returned.
 \item{\code{data}}{Object of class "matrix" containing curve x and y data}
 
 \item{\code{info}}{Object of class "list" containing further meta information objects}
-
-\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 The class should only contain data for a single curve. For additional
@@ -59,6 +57,10 @@ ramp curve).
 \section{Objects from the Class}{
  Objects can be created by calls of the form
 \code{new("RLum.Data.Curve", ...)}.
+}
+
+\section{Class version}{
+ 0.2.0
 }
 \examples{
 showClass("RLum.Data.Curve")

@@ -17,15 +17,15 @@ NULL
 #'
 #' @slot info Object of class "list" containing further meta information objects
 #'
-#' @slot .S3Class Object of class "character"
-#'
 #' @note The class should only contain data for a set of images. For additional
 #' elements the slot \code{info} can be used.
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Data.Image", ...)}.
 #'
-#' @author Sebastian Kreutzer, Universite Bordeaux Montaigne (France)
+#' @section Class version: 0.2.0
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
 #' \code{\link{plot_RLum}}
@@ -38,21 +38,22 @@ NULL
 #'
 #' ##so far no further example available
 #'
-setClass("RLum.Data.Image",
-         representation(
-           recordType = "character",
-           curveType = "character",
-           data = "RasterBrick",
-           info = "list"
-         ),
-         contains = "RLum.Data",
-         prototype = list (
-           recordType = character(),
-           curveType = character(),
-           data = raster::brick(raster::raster()),
-           info = list()
-         ),
-         S3methods=TRUE)
+setClass(
+  "RLum.Data.Image",
+  slots = list(
+    recordType = "character",
+    curveType = "character",
+    data = "RasterBrick",
+    info = "list"
+  ),
+  contains = "RLum.Data",
+  prototype = list (
+    recordType = character(),
+    curveType = character(),
+    data = raster::brick(raster::raster()),
+    info = list()
+  )
+)
 
 
 # setAs - coerce methods ------------------------------------------------------

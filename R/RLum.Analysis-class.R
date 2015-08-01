@@ -14,8 +14,6 @@ NULL
 #'
 #' @slot protocol Object of class "character" describing the applied measurement protocol
 #'
-#' @slot .S3Class Object of class "character"
-#'
 #' @note The method \code{get_structure} is currently just
 #' avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 #'
@@ -37,8 +35,10 @@ NULL
 #' ## usage of get_RLum() with returning an RLum.Analysis object
 #' #  get_RLum(object, keep.object = TRUE)
 #'
+
+##SET CLASS DEFINITION
 setClass("RLum.Analysis",
-         representation(
+         slots = list(
            records = "list",
            protocol = "character"
          ),
@@ -46,8 +46,7 @@ setClass("RLum.Analysis",
          prototype = list (
            records = list(),
            protocol = character()
-         ),
-         S3methods = FALSE
+         )
 )
 
 

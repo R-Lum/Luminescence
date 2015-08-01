@@ -51,8 +51,6 @@ Merging is done by appending similar elements to the first object of the input l
 \item{\code{originator}}{Object of class "character" containing name of the producing function}
 
 \item{\code{data}}{Object of class "list" containing output data}
-
-\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 The class is intended to store results from functions to be used by
@@ -62,6 +60,10 @@ method \code{get_RLum}.
 \section{Objects from the Class}{
  Objects can be created by calls of the form
 \code{new("RLum.Results", ...)}.
+}
+
+\section{Class version}{
+ 0.2.0
 }
 \examples{
 showClass("RLum.Results")

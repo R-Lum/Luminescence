@@ -32,7 +32,9 @@
       }
 
     \item \code{Risoe.BINfileData}: class definition was updated according to changes made in
-    the R version 3.0.0 (without effect for the users)
+    the R version 3.0.0 (without effect for the users).
+
+    \item All \code{RLum} classes have been updated according to the changes in R version 3.0.0
    }
   }
 

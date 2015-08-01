@@ -77,8 +77,6 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item{\code{records}}{Object of class "list" containing objects of class RLum.Data}
 
 \item{\code{protocol}}{Object of class "character" describing the applied measurement protocol}
-
-\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 The method \code{get_structure} is currently just

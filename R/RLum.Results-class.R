@@ -13,14 +13,14 @@ NULL
 #'
 #' @slot data Object of class "list" containing output data
 #'
-#' @slot .S3Class Object of class "character"
-#'
 #' @note The class is intended to store results from functions to be used by
 #' other functions. The data in the object should always be accessed by the
 #' method \code{get_RLum}.
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Results", ...)}.
+#'
+#' @section Class version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -33,17 +33,13 @@ NULL
 #'
 #' showClass("RLum.Results")
 #'
-setClass("RLum.Results",
-         representation(
-           originator = "character",
-           data = "list"
-         ),
-         contains = "RLum",
-         prototype = list (
-           originator = character(),
-           data = list()
-         ),
-         S3methods=TRUE
+setClass(
+  "RLum.Results",
+  slots = list(originator = "character",
+               data = "list"),
+  contains = "RLum",
+  prototype = list (originator = character(),
+                    data = list())
 )
 
 

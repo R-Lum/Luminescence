@@ -17,14 +17,14 @@ NULL
 #'
 #' @slot info Object of class "list" containing further meta information objects
 #'
-#' @slot .S3Class Object of class "character"
-#'
 #' @note The class should only contain data for a single curve. For additional
 #' elements the slot \code{info} can be used (e.g. providing additional heating
 #' ramp curve).
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Data.Curve", ...)}.
+#'
+#' @section Class version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -38,7 +38,7 @@ NULL
 #' showClass("RLum.Data.Curve")
 #'
 setClass("RLum.Data.Curve",
-         representation(
+         slots = list(
            recordType = "character",
            curveType = "character",
            data = "matrix",
@@ -50,8 +50,7 @@ setClass("RLum.Data.Curve",
            curveType = character(),
            data = matrix(0,0,2),
            info = list()
-           ),
-         S3methods = TRUE
+           )
          )
 
 

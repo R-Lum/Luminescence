@@ -48,8 +48,6 @@ and predefined as empty list by default..
 \item{\code{data}}{Object of class "RasterBrick" containing images (raster data).}
 
 \item{\code{info}}{Object of class "list" containing further meta information objects}
-
-\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 The class should only contain data for a set of images. For additional
@@ -59,13 +57,17 @@ elements the slot \code{info} can be used.
  Objects can be created by calls of the form
 \code{new("RLum.Data.Image", ...)}.
 }
+
+\section{Class version}{
+ 0.2.0
+}
 \examples{
 showClass("RLum.Data.Image")
 
 ##so far no further example available
 }
 \author{
-Sebastian Kreutzer, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
