@@ -108,7 +108,7 @@ setMethod("show",
 #' @describeIn RLum.Analysis
 #' Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
 #'
-#' @param object an object of class \code{\linkS4class{RLum.Analysis}}
+#' @param object [\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
           definition = function(object) {
@@ -181,13 +181,11 @@ setMethod("structure_RLum",
 #' @describeIn RLum.Analysis
 #' Construction method for \code{\linkS4class{RLum.Analysis}} objects.
 #'
-#' @param class \code{\link{character}}: name of the \code{RLum} class to create
+#' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to be created
 #'
-#' @param records \code{\link{integer}} (\bold{required}): record id in the
-#' \code{Risoe.BINfileData} object of the curve that is to be stored in the
-#' \code{RLum.Analysis} object.
+#' @param records [\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
 #'
-#' @param protocol \code{\link{character}} (optional): sets protocol type for
+#' @param protocol [\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions. \code{UNKNOWN}
 #' by default.
 setMethod("set_RLum",
@@ -201,7 +199,7 @@ setMethod("set_RLum",
 
             }else if (is(protocol, "character") == FALSE){
 
-              stop("[set_RLum] Error: 'protocol' has to be of type 'character'!")
+              stop("[set_RLum] 'protocol' has to be of type 'character'!")
 
             }
 
@@ -226,16 +224,22 @@ setMethod("set_RLum",
 #' The selection of a specific RLum.type object superimposes the default selection.
 #' Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 #'
-#' @param record.id \code{\link{numeric}}: IDs of specific records
-#' @param recordType \code{\link{character}}: record type (e.g. "OSL")
-#' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
-#' @param RLum.type \code{\link{character}}: RLum object type. Defaults to "RLum.Data.Curve"
+#' @param record.id [\code{get_RLum}] \code{\link{numeric}} (optional): IDs of specific records
+#'
+#' @param recordType [\code{get_RLum}] \code{\link{character}} (optional): record type (e.g. "OSL")
+#'
+#' @param curveType [\code{get_RLum}] \code{\link{character}} (optional): curve type (e.g. "predefined" or "measured")
+#'
+#' @param RLum.type [\code{get_RLum}] \code{\link{character}} (optional): RLum object type. Defaults to "RLum.Data.Curve"
 #' and "RLum.Data.Spectrum".
-#' @param info.object currently not used.
-#' @param get.index \code{\link{logical}}: return a numeric vector with the index of each
+#'
+#' @param info.object [\code{get_RLum}] currently not used.
+#'
+#' @param get.index [\code{get_RLum}] \code{\link{logical}} (optional): return a numeric vector with the index of each
 #' element in the RLum.Analysis object.
-#' @param keep.object \code{\link{logical}}: return an RLum.Analysis object instead of the single
-#' elements. Default is keep.object = FALSE.
+#'
+#' @param keep.object [\code{get_RLum}] \code{\link{logical}} (with default):
+#' return an RLum.Analysis object instead of the single elements.
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
@@ -272,7 +276,7 @@ setMethod("get_RLum",
 
               if (is(recordType, "character") == FALSE){
 
-                stop("[get_RLum()] Error: 'recordType' has to be of type 'character'!")
+                stop("[get_RLum()] 'recordType' has to be of type 'character'!")
 
               }
 
@@ -299,7 +303,7 @@ setMethod("get_RLum",
 
             }else if (is(RLum.type, "character") == FALSE){
 
-              stop("[get_RLum()] Error: 'RLum.type' has to be of type 'character'!")
+              stop("[get_RLum()] 'RLum.type' has to be of type 'character'!")
 
             }
 
@@ -310,7 +314,7 @@ setMethod("get_RLum",
 
             }else if (is(get.index, "logical") == FALSE){
 
-              stop("[get_RLum()] Error: 'get.index' has to be of type 'logical'!")
+              stop("[get_RLum()] 'get.index' has to be of type 'logical'!")
 
             }
 
@@ -384,7 +388,9 @@ setMethod("get_RLum",
 
                 if(keep.object == TRUE){
 
-                  temp <- set_RLum(class = "RLum.Analysis", records = temp, protocol = object@protocol)
+                  temp <- set_RLum(class = "RLum.Analysis",
+                                   records = temp,
+                                   protocol = object@protocol)
                   return(temp)
 
                 }else{
@@ -411,8 +417,9 @@ setMethod("get_RLum",
                 if(keep.object == TRUE){
 
                   ##needed to keep the argument keep.object == TRUE
-                  temp <- set_RLum(class = "RLum.Data.Spectrum", records = list(object@records[[record.id]]),
-                                            protocol = object@protocol)
+                  temp <- set_RLum(class = "RLum.Analysis",
+                                   records = list(object@records[[record.id]]),
+                                   protocol = object@protocol)
                   return(temp)
 
                 }else{

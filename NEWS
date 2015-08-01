@@ -42,7 +42,10 @@ Changes in version 0.4.5 (, 2015):
            the users).
 
          • All ‘RLum’ classes have been updated according to the
-           changes in R version 3.0.0
+           changes in R version 3.0.0.
+
+         • undefined error using ‘get_RLum(..., keep.object = TRUE)’
+           for ‘RLum.Analysis’ objects are corrected (#233).
 
   Bugfixes and changes:
 
