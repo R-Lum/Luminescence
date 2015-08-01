@@ -911,23 +911,26 @@ analyse_IRSAR.RF<- function(
 
       ##(3) add line to show the connection between the first point and the De
       lines(x = c(RF_nat.slided[1,1], RF_nat.slided[1,1]),
-            y = c(0,RF_nat.slided[1,2]),
+            y = c(1,RF_nat.slided[1,2]),
             lty = 2,
             col = col[2]
       )
 
       ##(4) add arrow at the lowest point possible to show the sliding
-      shape::Arrows(x0 = 0,
-                    y0 = ylim[1],
-                    y1 = ylim[1],
-                    x1 = RF_nat.slided[1,1],
-                    arr.type = "triangle",
-                    arr.length = 0.5,
-                    code = 2,
-                    col = col[2],
-                    arr.adj = 1,
-                    arr.lwd = 1)
-
+      if (plot.settings$log != "y" & plot.settings$log != "xy") {
+        shape::Arrows(
+          x0 = 0,
+          y0 = ylim[1],
+          y1 = ylim[1],
+          x1 = RF_nat.slided[1,1],
+          arr.type = "triangle",
+          arr.length = 0.5,
+          code = 2,
+          col = col[2],
+          arr.adj = 1,
+          arr.lwd = 1
+        )
+      }
       ##uncomment here to see all the RF_nat curves produced by the MC runs
       ##lapply(1:n.MC, function(x){lines(slide.MC.list[[x]], col = rgb(0,0,0, alpha = 0.2))})
 
@@ -979,15 +982,16 @@ analyse_IRSAR.RF<- function(
         col.ramp <- colorRampPalette(c(col[19], "white", col[19]))
         col.polygon <- col.ramp(100)
 
-        shape::filledrectangle(
-          mid = c(xlim[2] + (par("usr")[2] - xlim[2]) / 2,
-                  max(residuals) - diff(range(residuals)) / 2
-                  ),
-          wx = par("usr")[2] - xlim[2],
-          wy = diff(range(residuals)),
-          col = col.polygon
-        )
+        if (plot.settings$log != "x") {
+          shape::filledrectangle(
+            mid = c((xlim[2]) + (par("usr")[2] - xlim[2]) / 2,
+                    max(residuals) - diff(range(residuals)) / 2),
+            wx = par("usr")[2] - xlim[2],
+            wy = diff(range(residuals)),
+            col = col.polygon
+          )
 
+        }
         ##add 0 line
         abline(h=0, lty = 3)
 
