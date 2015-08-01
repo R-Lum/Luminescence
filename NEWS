@@ -13,12 +13,13 @@ Changes in version 0.4.5 (, 2015):
            However, this may become confusing in terms of warning
            messages ('deprecated') appearing by using object specific
            'get' or 'set' functions such as ‘get_RLum.Analysis’. The
-           function calls are still working, but will be removed in
-           version 0.5.0 or better to say become part of more general
-           calls like ‘get_RLum’, ‘set_RLum’ and so on. In fact this
-           switch has already been made, but the 'old' functions are
-           still supported and the warning messages may point on
-           necessary changes in your scripts.  Changes in detail:
+           function calls are still working, but will be defunct in
+           version 0.5.0 and removed in version 0.6.0 or better to say
+           become part of more general calls like ‘get_RLum’,
+           ‘set_RLum’ and so on. In fact this switch has already been
+           made, but the 'old' functions are still supported and the
+           warning messages may point on necessary changes in your
+           scripts.  Changes in detail:
 
              • Depraceted S4-generics: ‘set_RLum.Analyis’,
                ‘set_RLum.Data.Curve’, ‘set_RLum.Data.Image’,
@@ -57,6 +58,14 @@ Changes in version 0.4.5 (, 2015):
              • argument ‘slide.trend.corr’ has been removed and with
                this the underlying code, however, a trend is still
                calculated and used as rejection criteria,
+
+             • argument ‘legend.pos’ moved to the ‘...’ argument,
+
+             • function output ‘class’ containing the original function
+               call
+
+             • re-design and unify the function output by removing and
+               adding output objects, see manual for further details,
 
              • minor graphical adjustments,
 

@@ -88,24 +88,29 @@
 #' @param plot \code{\link{logical}} (with default): plot output (\code{TRUE}
 #' or \code{FALSE})
 #'
-#' @param legend.pos \code{\link{character}} (with default): useful keywords
-#' are \code{bottomright}, \code{bottom}, \code{bottomleft}, \code{left},
-#' \code{topleft}, \code{top}, \code{topright}, \code{right} and \code{center}.
-#' For further details see \code{\link{legend}}.
-#'
 #' @param \dots further arguments that will be passed to the plot output.
 #' Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
-#' \code{xlim}, \code{ylim}, \code{log}
+#' \code{xlim}, \code{ylim}, \code{log}, \code{legend.pos} (passes argument to x,y in
+#' \code{\link[graphics]{legend}})
 #'
 #'
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
-#' returned containing the following elements: \cr
-#' \item{De.values}{\code{\link{data.frame}} containing De-values with error
-#' (gray dashed lines in the plot) and further parameters. Corrected De values
-#' are only provided for the method \code{"SLIDE"}, provided the trend
-#' correction is applied.} \item{fit}{\link{nls} \code{nlsModel} object}\cr
-#' \bold{Note:} The output (\code{De.values}) should be accessed using the
+#' returned. The slot data contains the following elements: \cr
+#'
+#' $ De.values: \code{\link{data.frame}}\cr
+#' ..$ De : num \cr
+#' ..$ De.error : logical or numeric \cr
+#' ..$ De.error.lower : numeric  \cr
+#' ..$ De.error.upper : numeric \cr
+#' ..$ De.status  : character \cr
+#' ..$ RF_nat.lim  : character \cr
+#' ..$ RF_reg.lim : character \cr
+#' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
+#' $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
+#'
+#' The output (\code{De.values}) should be accessed using the
 #' function \code{\link{get_RLum}}
+#'
 #' @note This function assumes that there is no sensitivity change during the
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings from Buylaert et al. (2012).\cr
@@ -187,7 +192,6 @@ analyse_IRSAR.RF<- function(
   n.MC = 10,
   slide.show.density = FALSE,
   plot = TRUE,
-  legend.pos,
   ...
 ){
 
@@ -319,17 +323,13 @@ analyse_IRSAR.RF<- function(
     xlab = "Time/s",
     ylab = paste0("IR-RF/(cts/", resolution.RF," s)"),
     log = "",
-    cex = 1
+    cex = 1,
+    legend.pos = ifelse(method == "FIT", "bottom", "top")
     ##xlim and ylim see below as they has to be modifid differently
   )
 
   ##modify list if something was set
   plot.settings <- modifyList(plot.settings, list(...))
-
-  if (missing(legend.pos)) {
-    legend.pos  <- ifelse(method == "FIT", "bottom", "top")
-
-  }
 
 
   ##=============================================================================#
@@ -730,7 +730,7 @@ analyse_IRSAR.RF<- function(
         points(RF_nat.limited, pch = 20, col = "red")
 
         ##legend
-        legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
+        legend(plot.settings$legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
                pch=c(3,3, 20), col=c("grey", col[18], "red"),
                horiz=TRUE, bty="n", cex=.7)
 
@@ -776,7 +776,7 @@ analyse_IRSAR.RF<- function(
       points(RF_nat.limited, pch = 20, col = "red")
 
       ##legend
-      legend(legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
+      legend(plot.settings$legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
              pch=c(3,3, 20), col=c("grey", col[4], "red"),
              horiz=TRUE, bty="n", cex=.7)
 
@@ -936,7 +936,7 @@ analyse_IRSAR.RF<- function(
       abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
 
-        legend(legend.pos, legend=c("RF_nat","RF_reg"),
+        legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
                pch=c(19,3), col=c("red", col[10]),
                horiz=TRUE, bty = "n", cex=.9)
 
@@ -1021,20 +1021,21 @@ analyse_IRSAR.RF<- function(
         }
 
 
-      ##add points
+      ##add residual points
       points(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)),1], residuals,
                pch = 20, col = col[19])
 
+      ##add vertical line to mark De (t_n)
       abline(v = De.mean, lty = 2, col = col[2])
 
-
-      ##add numeric value
+      ##add numeric value of De ... t_n
       axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*plot.settings$cex,
              col = "blue", padj = -1.55,)
 
     }
 
-    par(def.par)  #- reset to default
+    #reset par to default
+    par(def.par)
 
 
   }#endif::plot
@@ -1042,7 +1043,7 @@ analyse_IRSAR.RF<- function(
   ## RETURN
   ##=============================================================================#
 
-  ##catch up worst case scenarios
+  ##catch up worst case scenarios ... means something went totally wrong
   if(!exists("De.mean")){De.mean  <- NA}
   if(!exists("De.mean.MC")){De.mean.MC  <- NA}
   if(!exists("De.mean.MC.se")){De.mean.MC.se  <- NA}
@@ -1053,20 +1054,26 @@ analyse_IRSAR.RF<- function(
   if(!exists("fit")){fit  <- NA}
 
 
-  ##combine values
-  De.values <- data.frame(De = De.mean,
-                          De.error = De.mean.MC.se,
-                          De.error.lower = De.error.lower,
-                          De.error.upper = De.error.upper,
-                          De.status = De.status,
-                          Trend.slope =  Trend.slope,
-                          row.names=NULL)
+  ##combine values for De into a data frame
+  De.values <- data.frame(
+      De = De.mean,
+      De.error = De.mean.MC.se,
+      De.error.lower = De.error.lower,
+      De.error.upper = De.error.upper,
+      De.status = De.status,
+      RF_nat.lim = paste(RF_nat.lim, collapse = ":"),
+      RF_reg.lim = paste(RF_reg.lim, collapse = ":"),
+    row.names = NULL,
+    stringsAsFactors = FALSE
+  )
 
-  newRLumResults.analyse_IRSAR.RF <- set_RLum(
-    class = "RLum.Results",
-    data = list(
-      De.values = De.values,
-      fit = fit))
+  ##produce results object
+  newRLumResults.analyse_IRSAR.RF <- set_RLum(class = "RLum.Results",
+                                              data = list(
+                                                De.values = De.values,
+                                                fit = fit,
+                                                call = sys.call()
+                                              ))
 
   return(newRLumResults.analyse_IRSAR.RF)
 

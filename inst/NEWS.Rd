@@ -10,7 +10,8 @@
       by picking up some code changes we already made for the package version 0.5.0. However,
       this may become confusing in terms of warning messages ('deprecated') appearing by using object specific
       'get' or 'set' functions such as \code{get_RLum.Analysis}. The function calls are still working, but will
-      be removed in version 0.5.0 or better to say become part of more general calls like \code{get_RLum},
+      be defunct in version 0.5.0 and removed in version 0.6.0 or better to say become part
+      of more general calls like \code{get_RLum},
       \code{set_RLum} and so on. In fact this switch has already been made, but the 'old' functions
       are still supported and the warning messages may point on necessary changes in your scripts.
       Changes in detail:
@@ -49,6 +50,11 @@
           methods),
           \item argument \code{slide.trend.corr} has been removed and with this the underlying
           code, however, a trend is still calculated and used as rejection criteria,
+          \item argument \code{legend.pos} moved to the \code{...} argument,
+          \item function output \code{class} containing the original function call
+          \item re-design and unify the function output by removing and adding output objects,
+          see manual for further
+          details,
           \item minor graphical adjustments,
           \item a lot of internal code polishing.
 

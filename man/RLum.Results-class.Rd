@@ -15,18 +15,19 @@
 \S4method{merge_RLum.Results}{list}(object.list)
 }
 \arguments{
-\item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
+\item{class}{[\code{set_RLum}] \code{\link{character}} (required): name of the \code{RLum} class to create}
 
-\item{originator}{\code{\link{character}}: optional argument to manually set
+\item{originator}{[\code{set_RLum}] \code{\link{character}} (optional): argument to manually set
 the originator.}
 
-\item{data}{code{\link{list}}: a list containing the data to be stored in the object}
+\item{data}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to be stored in the object}
 
-\item{object}{an object of class \code{\linkS4class{RLum.Results}}}
+\item{object}{[\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
+\code{\linkS4class{RLum.Results}} to be evaluated}
 
-\item{data.object}{name of the data slot to be returned}
+\item{data.object}{[\code{get_RLum}] \code{\link{character}}: name of the data slot to be returned}
 
-\item{object.list}{a list of RLum.Results objects}
+\item{object.list}{[\code{merge_RLum.Results}] \code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects}
 }
 \description{
 Object class contains results data from functions.
@@ -39,7 +40,7 @@ and predefined as the function that calls the function set_RLum.
 \item \code{get_RLum}: Accessor method for RLum.Results object. The argument data.object allows
 directly accessing objects delivered within the slot data. If no
 data.object is specified, a preselected object is returned. The default
-return object depends on the object originator (e.g. fit_LMCurve).
+return object depends on the object originator (e.g., \code{fit_LMCurve}).
 
 \item \code{merge_RLum.Results}: merge method for RLum.Results objects. The argument object.list requires a list of RLum.Results objects.
 Merging is done by appending similar elements to the first object of the input list.

@@ -15,8 +15,11 @@ get_RLum(object, ...)
 \item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
 class \code{RLum}}
 
-\item{\dots}{further arguments that one might want to pass to the specific
-get function}
+\item{\dots}{further arguments that will be passed to the object specific methods. For
+furter details on the supported arguments please see the class
+documentation: \code{\linkS4class{RLum.Data.Curve}},
+\code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Data.Image}},
+\code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}}
 }
 \value{
 Return is the same as input objects as provided in the list.
@@ -31,7 +34,7 @@ corresponding get function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1 (2015-07-23 17:09:29)
+ 0.1 (2015-08-01 13:46:00)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function
@@ -43,7 +46,7 @@ data(ExampleData.DeValues, envir = environment())
 temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
 
 ##get results and store them in a new object
-temp.get<- get_RLum(object = temp1)
+temp.get <- get_RLum(object = temp1)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
