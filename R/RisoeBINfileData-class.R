@@ -8,17 +8,15 @@ NULL
 #'
 #'
 #' @name Risoe.BINfileData-class
-#' 
+#'
 #' @docType class
-#' 
+#'
 #' @slot METADATA Object of class "data.frame" containing the meta information for each curve.
-#' 
+#'
 #' @slot DATA Object of class "list" containing numeric vector with count data.
-#' 
+#'
 #' @slot .RESERVED Object of class "list" containing list of undocumented raw values for internal use only.
-#' 
-#' @slot .S3Class Object of class "character"
-#' 
+#'
 #' @note
 #'
 #' \bold{Internal METADATA - object structure}
@@ -131,37 +129,41 @@ NULL
 #'
 #' (information on the BIN/BINX file format are kindly provided by Risoe, DTU
 #' Nutech)
-#' 
+#'
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("Risoe.BINfileData", ...)}.
-#' 
+#'
+#' @section Function version: 0.2.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
-#' 
+#'
 #' @seealso
 #' \code{\link{plot_Risoe.BINfileData}}, \code{\link{readBIN2R}},
 #' \code{\link{writeR2BIN}},\code{\link{merge_Risoe.BINfileData}},
 #' \code{\link{Risoe.BINfileData2RLum.Analysis}},
 #' \code{\link{Risoe.BINfileData2RLum.Data.Curve}}
-#' 
+#'
 #' @references Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2015. The
 #' Sequence Editor User Manual - March 2015
 #'
 #' \code{http://www.nutech.dtu.dk/}
-#' 
+#'
 #' @keywords classes
-#' 
+#'
 #' @examples
 #'
 #' showClass("Risoe.BINfileData")
 #'
+
+
+##DEFINE CLASS
 setClass("Risoe.BINfileData",
-         representation(
+         slots = list(
            METADATA="data.frame",
            DATA = "list",
            .RESERVED = "list"
-           ),
-         S3methods=TRUE
+           )
          )
 
 ##set generic S4 function for object
@@ -208,13 +210,15 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
 # constructor (set) method for object class -----------------------------------
 
 #' @describeIn Risoe.BINfileData
-#' The Risoe.BINfileData is normally produced as output of the function readBIN2R. 
+#' The Risoe.BINfileData is normally produced as output of the function readBIN2R.
 #' This construction method is intended for internal usage only.
-#' 
-#' @param METADATA Object of class "data.frame" containing the meta information 
+#'
+#' @param METADATA Object of class "data.frame" containing the meta information
 #' for each curve.
+#'
 #' @param DATA Object of class "list" containing numeric vector with count data.
-#' @param .RESERVED Object of class "list" containing list of undocumented raw 
+#'
+#' @param .RESERVED Object of class "list" containing list of undocumented raw
 #' values for internal use only.
 setMethod("set_Risoe.BINfileData",
           signature = c(
@@ -241,7 +245,7 @@ setMethod("set_Risoe.BINfileData",
 #' @describeIn Risoe.BINfileData
 #' Formal get-method for Risoe.BINfileData object. It does not allow accessing
 #' the object directly, it is just showing a terminal message.
-#' 
+#'
 #' @param object an object of class \code{\linkS4class{Risoe.BINfileData}}
 setMethod("get_Risoe.BINfileData",
           signature= "Risoe.BINfileData",

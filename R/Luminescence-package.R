@@ -237,6 +237,11 @@ NULL
 #' DA-20 reader \cr \tab (Filter: Semrock Brightline, \cr \tab HC475/50, N2,
 #' unpolished steel discs) \cr Reference: \tab unpublished \cr Remarks: \tab
 #' dataset limited to one position\cr }
+#'
+#' @note Please note that this example data cannot be exported to a BIN-file using the function
+#' \code{writeR2BIN} as it was generated and implemented in the package long time ago. In the meantime
+#' the BIN-file format changed.
+#'
 #' @keywords datasets
 #' @examples
 #'

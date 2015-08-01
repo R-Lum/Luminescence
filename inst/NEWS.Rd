@@ -30,6 +30,9 @@
       e.g.: \code{set_RLum(class = 'RLum.Results', data = data)}
 
       }
+
+    \item \code{Risoe.BINfileData}: class definition was updated according to changes made in
+    the R version 3.0.0 (without effect for the users)
    }
   }
 
@@ -136,6 +139,17 @@
           \item Corrupt RisoeBINfileData-objects containing no measurement data (NPOINTS = 0)
           no longer cause an error during while the RLum.Data.Curve-object is produced. Curve
           x- and y-values are set to NA (BIN-file issue Norbert Mercier).
+
+      }
+
+      \item \code{writeR2BIN()}
+
+        \itemize{
+
+          \item Fix some minor issues for if only empty text fields (e.g., COMMENT) are provided,
+          \item implement a function stop for the really rare case that someone tries to export
+          a 'Risoe.BINfileData-class' object importet in the workspace with an old package version and
+          now try to write it back to a BIN-file (e.g., the package example data).
 
       }
 

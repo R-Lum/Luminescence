@@ -37,6 +37,10 @@ Changes in version 0.4.5 (, 2015):
                a argument ‘class’, e.g.: ‘set_RLum(class =
                'RLum.Results', data = data)’
 
+         • ‘Risoe.BINfileData’: class definition was updated according
+           to changes made in the R version 3.0.0 (without effect for
+           the users)
+
   Bugfixes and changes:
 
          • ‘analyse_IRSAR.RF()’
@@ -132,6 +136,17 @@ Changes in version 0.4.5 (, 2015):
                during while the RLum.Data.Curve-object is produced.
                Curve x- and y-values are set to NA (BIN-file issue
                Norbert Mercier).
+
+         • ‘writeR2BIN()’
+
+             • Fix some minor issues for if only empty text fields
+               (e.g., COMMENT) are provided,
+
+             • implement a function stop for the really rare case that
+               someone tries to export a 'Risoe.BINfileData-class'
+               object importet in the workspace with an old package
+               version and now try to write it back to a BIN-file
+               (e.g., the package example data).
 
   Example data:
 
