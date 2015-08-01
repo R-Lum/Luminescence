@@ -78,9 +78,6 @@
 #'
 #' @keywords package
 #'
-#' #-----------------------------------------------------------------------------------------------#
-#' #IMPORTS
-#' #-----------------------------------------------------------------------------------------------#
 #' @import utils methods data.table bbmle
 #' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors

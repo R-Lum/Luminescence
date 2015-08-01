@@ -28,7 +28,7 @@ channel range for regenerated signal fitting and sliding.}
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection
-criteria for, see details for more information. \bold{Currently without
+criteria for, see details for more information \bold{Currently without
 usage!}}
 
 \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
@@ -40,7 +40,8 @@ error estimation (\code{method = "SLIDE"}). Note: Large values will
 significantly increase the calculation time.}
 
 \item{slide.show.density}{\code{\link{logical}} (with default): enable or
-disable KDE for MC runs.}
+disable KDE for MC runs. If \code{FALSE}, the final values are indicated
+with triangles.}
 
 \item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}
 or \code{FALSE})}
@@ -48,7 +49,7 @@ or \code{FALSE})}
 \item{legend.pos}{\code{\link{character}} (with default): useful keywords
 are \code{bottomright}, \code{bottom}, \code{bottomleft}, \code{left},
 \code{topleft}, \code{top}, \code{topright}, \code{right} and \code{center}.
-For further details see \code{\link{legend}.}}
+For further details see \code{\link{legend}}.}
 
 \item{\dots}{further arguments that will be passed to the plot output.
 Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
@@ -127,7 +128,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.4.0 (2015-07-31 22:48:31)
+ 0.4.0 (2015-07-31 23:09:27)
 }
 \examples{
 ##load data

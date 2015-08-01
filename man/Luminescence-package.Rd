@@ -83,7 +83,5 @@ Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 30, pp. 1-8.
 }
-\keyword{#-----------------------------------------------------------------------------------------------#}
-\keyword{#IMPORTS}
 \keyword{package}
 

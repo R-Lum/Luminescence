@@ -78,7 +78,7 @@
 #'
 #' @param n.MC \code{\link{numeric}} (with default): set number of Monte
 #' Carlo runs for start parameter estimation (\code{method = "FIT"}) or
-#' error estimation \code{method = "SLIDE"}). Note: Large values will
+#' error estimation (\code{method = "SLIDE"}). Note: Large values will
 #' significantly increase the calculation time.
 #'
 #' @param slide.show.density \code{\link{logical}} (with default): enable or
@@ -91,7 +91,7 @@
 #' @param legend.pos \code{\link{character}} (with default): useful keywords
 #' are \code{bottomright}, \code{bottom}, \code{bottomleft}, \code{left},
 #' \code{topleft}, \code{top}, \code{topright}, \code{right} and \code{center}.
-#' For further details see \code{\link{legend}.}
+#' For further details see \code{\link{legend}}.
 #'
 #' @param \dots further arguments that will be passed to the plot output.
 #' Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
@@ -115,8 +115,8 @@
 #'
 #'
 #' @section Function version: 0.4.0
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
