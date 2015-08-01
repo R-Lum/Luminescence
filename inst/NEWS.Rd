@@ -142,6 +142,18 @@
      }
   }
 
+   \subsection{Example data}{
+   \itemize{
+        \itemize{
+        \item The \code{Risoe.BINfileData-class} objects in \code{ExampleData.BINfileData} did not contain
+        a \code{.RESERVED} slot for historical reasons.
+        So far this caused no problem, but if one wanted to write the BIN-file
+        information back to a file an error occurred; this has been fixed now,
+        \item fix some internal package related example data size issues (no effect for the users).
+     }
+    }
+   }
+
    \subsection{Internals}{
    \itemize{
         \itemize{

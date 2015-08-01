@@ -10,17 +10,21 @@
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 #' input object to be stored in a bin file.
+#'
 #' @param file \code{\link{character}} (\bold{required}): file name and path of
 #' the output file\cr [WIN]: \code{writeR2BIN(object, "C:/Desktop/test.bin")},
 #' \cr [MAC/LINUX]: \code{writeR2BIN("/User/test/Desktop/test.bin")}
+#'
 #' @param version \code{\link{character}} (optional): version number for the
 #' output file. If no value is provided the highest version number from the
 #' \code{\linkS4class{Risoe.BINfileData}} is taken automatically.\cr\cr Note:
 #' This argument can be used to convert BIN-file versions.
+#'
 #' @param compatibility.mode \code{\link{logical}} (with default): this option
 #' recalculates the position values if necessary and set the max. value to 48.
-#' The old position number is appended as comment (e.gh. 'OP: 70). This option
+#' The old position number is appended as comment (e.g., 'OP: 70). This option
 #' accounts for potential compatibility problems with the Analyst software.
+#'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
 #' @return Write a binary file.

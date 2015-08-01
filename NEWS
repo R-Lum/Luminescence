@@ -133,6 +133,18 @@ Changes in version 0.4.5 (, 2015):
                Curve x- and y-values are set to NA (BIN-file issue
                Norbert Mercier).
 
+  Example data:
+
+             • The ‘Risoe.BINfileData-class’ objects in
+               ‘ExampleData.BINfileData’ did not contain a ‘.RESERVED’
+               slot for historical reasons.  So far this caused no
+               problem, but if one wanted to write the BIN-file
+               information back to a file an error occurred; this has
+               been fixed now,
+
+             • fix some internal package related example data size
+               issues (no effect for the users).
+
   Internals:
 
              • Hopefully fix NAMESPACE issue with 'rgdal' package,
