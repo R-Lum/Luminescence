@@ -85,6 +85,9 @@
 #' disable KDE for MC runs. If \code{FALSE}, the final values are indicated
 #' with triangles.
 #'
+#' @param txtProgressBar \code{\link{logical}} (with default): enables \code{TRUE} or
+#' disables \code{FALSE} the progression bar during MC runs
+#'
 #' @param plot \code{\link{logical}} (with default): plot output (\code{TRUE}
 #' or \code{FALSE})
 #'
@@ -191,6 +194,7 @@ analyse_IRSAR.RF<- function(
   fit.trace = FALSE,
   n.MC = 10,
   slide.show.density = FALSE,
+  txtProgressBar = TRUE,
   plot = TRUE,
   ...
 ){
@@ -368,7 +372,9 @@ analyse_IRSAR.RF<- function(
   ##(1) check if RF_nat > RF_reg, considering the fit range
   RC.initial.curve.ratio <- sum(RF_reg.y)/sum(RF_nat.limited[,2])
 
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   ##METHOD FIT
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   if(method == "FIT"){
     ## REGENERATED SIGNAL
     # set function for fitting ------------------------------------------------
@@ -512,14 +518,10 @@ analyse_IRSAR.RF<- function(
     }
   }
 
-  ##METHOD SLIDE
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+  ##METHOD SLIDE - ANALYSIS
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   else if(method == "SLIDE"){
-
-    ## TODO
-    ## Check for rejection criteria for input data
-    ## implement error calculation
-    ## Extent the manual
-    ## Test the data analysis
 
     ##convert to matrix (in fact above the matrix data were first transfered to data.frames ... here
     ##we correct this ... again)  ##TODO
@@ -586,8 +588,6 @@ analyse_IRSAR.RF<- function(
 
     }##end of function sliding()
 
-    ##just keep this for the MC simulation
-    #RF_nat.limited.full.MC <- RF_nat.limited.full
 
     ##PERFORM sliding and overwrite values
     sliding.results <-  sliding(
@@ -605,6 +605,7 @@ analyse_IRSAR.RF<- function(
 
 
 
+    # ERROR ESTIMATION
     # MC runs for error calculation ---------------------------------------------------------------
 
       ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
@@ -618,12 +619,14 @@ analyse_IRSAR.RF<- function(
 
      De.mean.MC <- vector(length = n.MC)
 
+     if(txtProgressBar){
      ##terminal output fo MC
      cat("\n\t Run Monte Carlo loops for error estimation\n")
 
-
       ##progress bar
       pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
+     }
+
       for(i in 1:n.MC){
 
         temp.sliding.results.MC <- sliding(
@@ -636,12 +639,18 @@ analyse_IRSAR.RF<- function(
         De.mean.MC[i] <- temp.sliding.results.MC[[1]]
 
         ##update progress bar
-        setTxtProgressBar(pb, i)
+        if(txtProgressBar){setTxtProgressBar(pb, i)}
 
       }
 
       ##close
-      close(pb)
+      if(txtProgressBar){close(pb)}
+
+      ##calculate absolute deviation between De and the here newly calculated De.mean.MC
+      ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
+      De.mean.diff <- diff(x = c(De.mean, De.mean.MC))
+      De.mean.lower <- De.mean - quantile(De.mean.diff, 0.975)
+      De.mean.upper <- De.mean - quantile(De.mean.diff, 0.025)
 
       ##get information for error
       De.mean.MC.se <- round(sd(De.mean.MC,na.rm = TRUE), digits = 0)
@@ -736,7 +745,9 @@ analyse_IRSAR.RF<- function(
 
       }
 
-    ##METHOD FIT
+    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+    ## METHOD FIT
+    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     if(method == "FIT"){
 
       ##show fitted curve COLOURED
@@ -862,12 +873,15 @@ analyse_IRSAR.RF<- function(
       }
     }
 
-    ##METHOD SLIDE
+    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+    ## METHOD SLIDE
+    ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     else if(method == "SLIDE"){
 
       ##(0) density plot
       if (slide.show.density) {
 
+        ##showing the density makes only sense when we see at least 10 data points
         if (length(unique(De.mean.MC)) >= 10) {
           ##normal De
           density.mean.MC <- density(De.mean.MC)
@@ -899,7 +913,7 @@ analyse_IRSAR.RF<- function(
 
       }
 
-      ##(1) show unused points (in grey)
+      ##(1) plot unused points in grey ... unused points are points outside of the set limit
       points(
         matrix(RF_nat.slided[-(min(RF_nat.lim):max(RF_nat.lim)),1:2], ncol = 2),
         pch = 21, col = col[19]
@@ -916,7 +930,7 @@ analyse_IRSAR.RF<- function(
             col = col[2]
       )
 
-      ##(4) add arrow at the lowest point possible to show the sliding
+      ##(4) add arrow at the lowest y-coordinate possible to show the sliding
       if (plot.settings$log != "y" & plot.settings$log != "xy") {
         shape::Arrows(
           x0 = 0,
@@ -932,12 +946,12 @@ analyse_IRSAR.RF<- function(
         )
       }
       ##uncomment here to see all the RF_nat curves produced by the MC runs
+      ##could become a polygone for future versions
       ##lapply(1:n.MC, function(x){lines(slide.MC.list[[x]], col = rgb(0,0,0, alpha = 0.2))})
 
       ##plot range choosen for fitting
       abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
       abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
-
 
         legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
                pch=c(19,3), col=c("red", col[10]),
@@ -1051,6 +1065,8 @@ analyse_IRSAR.RF<- function(
   if(!exists("De.mean")){De.mean  <- NA}
   if(!exists("De.mean.MC")){De.mean.MC  <- NA}
   if(!exists("De.mean.MC.se")){De.mean.MC.se  <- NA}
+  if(!exists("De.mean.lower")){De.mean.lower  <- NA}
+  if(!exists("De.mean.upper")){De.mean.upper  <- NA}
   if(!exists("De.error.lower")){De.error.lower  <- NA}
   if(!exists("De.error.upper")){De.error.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
@@ -1061,6 +1077,8 @@ analyse_IRSAR.RF<- function(
   ##combine values for De into a data frame
   De.values <- data.frame(
       De = De.mean,
+      De.lower = De.mean.lower,
+      De.upper = De.mean.upper,
       De.error = De.mean.MC.se,
       De.error.lower = De.error.lower,
       De.error.upper = De.error.upper,

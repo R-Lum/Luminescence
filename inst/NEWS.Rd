@@ -61,8 +61,8 @@
           \item argument \code{legend.pos} moved to the \code{...} argument,
           \item function output \code{class} containing the original function call
           \item re-design and unify the function output by removing and adding output objects,
-          see manual for further
-          details,
+          see manual for further details,
+          \item add argument \code{txtProgressBar} (logical),
           \item minor graphical adjustments,
           \item a lot of internal code polishing.
 

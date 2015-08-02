@@ -6,8 +6,8 @@
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim, RF_reg.lim, method = "FIT", rejection.criteria,
-  fit.trace = FALSE, n.MC = 10, slide.show.density = FALSE, plot = TRUE,
-  ...)
+  fit.trace = FALSE, n.MC = 10, slide.show.density = FALSE,
+  txtProgressBar = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -42,6 +42,9 @@ significantly increase the calculation time.}
 \item{slide.show.density}{\code{\link{logical}} (with default): enable or
 disable KDE for MC runs. If \code{FALSE}, the final values are indicated
 with triangles.}
+
+\item{txtProgressBar}{\code{\link{logical}} (with default): enables \code{TRUE} or
+disables \code{FALSE} the progression bar during MC runs}
 
 \item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}
 or \code{FALSE})}
@@ -132,7 +135,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.4.0 (2015-08-01 14:09:21)
+ 0.4.0 (2015-08-02 11:56:41)
 }
 \examples{
 ##load data

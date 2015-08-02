@@ -77,6 +77,8 @@ Changes in version 0.4.5 (, 2015):
              • re-design and unify the function output by removing and
                adding output objects, see manual for further details,
 
+             • add argument ‘txtProgressBar’ (logical),
+
              • minor graphical adjustments,
 
              • a lot of internal code polishing.
