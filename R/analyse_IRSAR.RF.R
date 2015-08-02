@@ -1005,7 +1005,7 @@ analyse_IRSAR.RF<- function(
 
       ##(3) add line to show the connection between the first point and the De
       lines(x = c(RF_nat.slided[1,1], RF_nat.slided[1,1]),
-            y = c(1,RF_nat.slided[1,2]),
+            y = c(.Machine$double.xmin,RF_nat.slided[1,2]),
             lty = 2,
             col = col[2]
       )
