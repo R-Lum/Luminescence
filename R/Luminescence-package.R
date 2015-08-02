@@ -15,7 +15,9 @@
 #'
 #' \tabular{ll}{ Christoph Burow \tab University of Cologne, Germany \cr
 #' Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr Manfred
-#' Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab Helmholtz-Zentrum Dresden- Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany \cr
+#' Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab
+#' Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology,
+#' Freiberg, Germany \cr
 #' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac,
 #' France\cr Christoph Schmidt \tab University of Bayreuth, Germany\cr Rachel
 #' K. Smedley\tab Aberystwyth University, United Kingdom }
@@ -73,7 +75,9 @@
 #' Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
 #' 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 #' 30, pp. 1-8.
+#'
 #' @keywords package
+#'
 #' @import utils methods data.table bbmle
 #' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors
@@ -233,6 +237,11 @@ NULL
 #' DA-20 reader \cr \tab (Filter: Semrock Brightline, \cr \tab HC475/50, N2,
 #' unpolished steel discs) \cr Reference: \tab unpublished \cr Remarks: \tab
 #' dataset limited to one position\cr }
+#'
+#' @note Please note that this example data cannot be exported to a BIN-file using the function
+#' \code{writeR2BIN} as it was generated and implemented in the package long time ago. In the meantime
+#' the BIN-file format changed.
+#'
 #' @keywords datasets
 #' @examples
 #'

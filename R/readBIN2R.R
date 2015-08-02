@@ -122,7 +122,7 @@ readBIN2R <- function(
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
     ##force version number
-    if(missing(forced.VersionNumber) == FALSE){
+    if(!missing(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
@@ -153,7 +153,6 @@ readBIN2R <- function(
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=2, endian="little")
       STEPPING <- readBin(con, what="raw", temp.LENGTH-4, size=1, endian="litte")
-
 
     }
 
@@ -364,7 +363,7 @@ readBIN2R <- function(
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
     ##force version number
-    if(missing(forced.VersionNumber) == FALSE){
+    if(!missing(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
@@ -448,7 +447,13 @@ readBIN2R <- function(
 
       ##FNAME
       FNAME_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.FNAME<-readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
+
+      ##correct for 0 file name length
+      if(length(FNAME_SIZE)>0){
+        temp.FNAME<-readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
+      }else{
+        FNAME_SIZE <- 0
+      }
 
       #step forward in con
       if(100-c(FNAME_SIZE)>0){
@@ -458,7 +463,15 @@ readBIN2R <- function(
 
       ##USER
       USER_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.USER<-readChar(con, USER_SIZE, useBytes=TRUE) #set to 30 (manual)
+
+      ##correct for 0 user size length
+      if (length(USER_SIZE) > 0) {
+        temp.USER <-
+          readChar(con, USER_SIZE, useBytes = TRUE) #set to 30 (manual)
+      }else{
+        USER_SIZE <- 0
+
+      }
 
       #step forward in con
       if(30-c(USER_SIZE)>0){
@@ -471,7 +484,12 @@ readBIN2R <- function(
 
       ##time size corrections for wrong time formats; set n to 6 for all values
       ##accoording the handbook of Geoff Duller, 2007
-      temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
+      if(length(TIME_SIZE)>0){
+        temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
+      }else{
+        TIME_SIZE <- 0
+
+      }
 
       if(6-TIME_SIZE>0){
 

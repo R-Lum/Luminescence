@@ -33,15 +33,15 @@ Depends:
     utils
 Imports:
     methods,
+    assertive,
     XML,
     shape,
     rgl,
     matrixStats,
     raster,
-    zoo,
     bbmle,
     data.table (>= 1.9.4),
-    Rcpp (>= 0.11.4),
+    Rcpp (>= 0.12.0),
     parallel,
     minpack.lm
 LinkingTo: Rcpp

@@ -17,14 +17,14 @@ NULL
 #'
 #' @slot info Object of class "list" containing further meta information objects
 #'
-#' @slot .S3Class Object of class "character"
-#'
 #' @note The class should only contain data for a single curve. For additional
 #' elements the slot \code{info} can be used (e.g. providing additional heating
 #' ramp curve).
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Data.Curve", ...)}.
+#'
+#' @section Class version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -38,7 +38,7 @@ NULL
 #' showClass("RLum.Data.Curve")
 #'
 setClass("RLum.Data.Curve",
-         representation(
+         slots = list(
            recordType = "character",
            curveType = "character",
            data = "matrix",
@@ -50,8 +50,7 @@ setClass("RLum.Data.Curve",
            curveType = character(),
            data = matrix(0,0,2),
            info = list()
-           ),
-         S3methods = TRUE
+           )
          )
 
 
@@ -132,11 +131,11 @@ setMethod("show",
 #' Construction method for RLum.Data.Curve object. The slot info is optional
 #' and predefined as empty list by default.
 #'
-#' @param class \code{\link{character}}: name of the \code{RLum} class to create
-#' @param recordType \code{\link{character}}: record type (e.g. "OSL")
-#' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
-#' @param data \code{\link{matrix}}: raw curve data
-#' @param info \code{\link{list}}: info elements
+#' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create
+#' @param recordType [\code{set_RLum}] \code{\link{character}} (optional): record type (e.g. "OSL")
+#' @param curveType [\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g. "predefined" or "measured")
+#' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data
+#' @param info [\code{set_RLum}] \code{\link{list}} (optional): info elements
 setMethod("set_RLum",
           signature = signature("RLum.Data.Curve"),
 
@@ -163,7 +162,7 @@ setMethod("set_RLum",
                                             collapse=", ")
 
                 ##set error message
-                temp.error.message <- paste("[set_RLum] Error: Missing required arguments " ,
+                temp.error.message <- paste("[set_RLum] Missing required arguments " ,
                                        temp.error.missing,"!", sep="")
                 stop(temp.error.message)
               }
@@ -175,7 +174,7 @@ setMethod("set_RLum",
 
               }else if (is(info, "list") == FALSE){
 
-                stop("[set_RLum] Error: 'info' has to be of type 'list'!")
+                stop("[set_RLum] 'info' has to be of type 'list'!")
 
               }
 
@@ -194,8 +193,9 @@ setMethod("set_RLum",
 #' optional to directly access the info elements. If no info element name is
 #' provided, the raw curve data (matrix) will be returned.
 #'
-#' @param object an object of class \code{\linkS4class{RLum.Data.Curve}}
-#' @param info.object object of class "list" containing further meta information objects
+#' @param object [\code{get_RLum}] an object of class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})
+#' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+#' element
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),
           definition = function(object, info.object) {

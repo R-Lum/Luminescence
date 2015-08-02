@@ -7,17 +7,16 @@
 \description{
 Abstract class for data in the package Luminescence
 }
-\section{Slots}{
-
-\describe{
-\item{\code{.S3Class}}{Object of class "character"}
-}}
 \note{
 \code{RLum} is a virtual class.
 }
 \section{Objects from the Class}{
  A virtual Class: No objects can be created
 from it.
+}
+
+\section{Class version}{
+ 0.2.0
 }
 \examples{
 showClass("RLum")

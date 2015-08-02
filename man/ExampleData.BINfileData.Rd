@@ -37,6 +37,11 @@ Example data from a SAR OSL and TL measurement for package Luminescence
 directly extracted from a Risoe BIN-file and provided in an object of type
 \link{Risoe.BINfileData-class}
 }
+\note{
+Please note that this example data cannot be exported to a BIN-file using the function
+\code{writeR2BIN} as it was generated and implemented in the package long time ago. In the meantime
+the BIN-file format changed.
+}
 \section{Version}{
  0.1
 }

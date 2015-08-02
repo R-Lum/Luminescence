@@ -22,7 +22,7 @@ This argument can be used to convert BIN-file versions.}
 
 \item{compatibility.mode}{\code{\link{logical}} (with default): this option
 recalculates the position values if necessary and set the max. value to 48.
-The old position number is appended as comment (e.gh. 'OP: 70). This option
+The old position number is appended as comment (e.g., 'OP: 70). This option
 accounts for potential compatibility problems with the Analyst software.}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
@@ -59,7 +59,7 @@ directly produced by the Risoe readers!\cr
 Implementation of support for version 07 could so far not properly tested.
 }
 \section{Function version}{
- 0.3.1 (2015-04-30 13:53:02)
+ 0.3.2 (2015-08-01 18:38:28)
 }
 \examples{
 ##uncomment for usage

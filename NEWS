@@ -4,9 +4,93 @@ Changes in version 0.4.5 (, 2015):
 
   Changes S4-objects, methods, classes:
 
-         • Dummy
+         • With the (internal) switch from inlinedocs to roxygen2 for
+           the package manual compilation, some help page entries for
+           our S4-methods got unintentionally lost. Unfortunately this
+           remained unnoticed until the package was alread on CRAN.
+           This issue has been corrected by picking up some code
+           changes we already made for the package version 0.5.0.
+           However, this may become confusing in terms of warning
+           messages ('deprecated') appearing by using object specific
+           'get' or 'set' functions such as ‘get_RLum.Analysis’. The
+           function calls are still working, but will be defunct in
+           version 0.5.0 and removed in version 0.6.0 or better to say
+           become part of more general calls like ‘get_RLum’,
+           ‘set_RLum’ and so on. In fact this switch has already been
+           made, but the 'old' functions are still supported and the
+           warning messages may point on necessary changes in your
+           scripts.  Changes in detail:
+
+             • Depraceted S4-generics: ‘set_RLum.Analyis’,
+               ‘set_RLum.Data.Curve’, ‘set_RLum.Data.Image’,
+               ‘set_RLum.Data.Spectrum’, ‘set_RLum.Results’,
+               ‘get_RLum.Analyis’, ‘get_RLum.Data.Curve’,
+               ‘get_RLum.Data.Image’, ‘get_RLum.Data.Spectrum’,
+               ‘get_RLum.Results’, ‘length_RLum.Analysis’,
+               ‘get_structure.RLum.Analysis’.
+
+             • New S4-generics (partly they alreaded existed as plain R
+               functions): ‘get_RLum’, ‘set_RLum’, ‘length_RLum’,
+               ‘structure_RLum’.
+
+             • This brings the following changes: ‘set_RLum’ now holds
+               a argument ‘class’, e.g.: ‘set_RLum(class =
+               'RLum.Results', data = data)’
+
+         • ‘Risoe.BINfileData’: class definition was updated according
+           to changes made in the R version 3.0.0 (without effect for
+           the users).
+
+         • All ‘RLum’ classes have been updated according to the
+           changes in R version 3.0.0.
+
+         • undefined error using ‘get_RLum(..., keep.object = TRUE)’
+           for ‘RLum.Analysis’ objects are corrected (#233).
 
   Bugfixes and changes:
+
+         • ‘analyse_IRSAR.RF()’
+
+             • Arguments ‘fit.range.min’ and ‘fit.range.max’ have been
+               removed and replaced by ‘RF_nat.lim’ and ‘RF_reg.lim’,
+
+             • the argument ‘slide.outlier.rm’ and the underlying
+               algorithm were removed from the function as the
+               functionality turned out to be unreliable and
+               'over-coded' for the intended purpose,
+
+             • argument ‘xlab.unit’ removed (usage of ‘xlab’ is still
+               possible),
+
+             • argument ‘fit.MC.runs’ and ‘slide.MC.runs’ replaced by
+               ‘n.MC’ (valid for both methods),
+
+             • argument ‘slide.trend.corr’ has been removed and with
+               this the underlying code, however, a trend is still
+               calculated and used as rejection criteria,
+
+             • argument ‘legend.pos’ moved to the ‘...’ argument,
+
+             • function output ‘class’ containing the original function
+               call
+
+             • re-design and unify the function output by removing and
+               adding output objects, see manual for further details,
+
+             • the way the error is calculated and returned has been
+               changed (see manual for details),
+
+             • add argument ‘txtProgressBar’ (logical),
+
+             • argument ‘slide.show.density’ renamed to
+               ‘slide.show_density’,
+
+             • implement rejection criteria (‘rejection.criteria’,
+               details see manual),
+
+             • minor graphical adjustments,
+
+             • a lot of internal code polishing.
 
          • ‘calc_Statistics()’
 
@@ -70,11 +154,40 @@ Changes in version 0.4.5 (, 2015):
                Curve x- and y-values are set to NA (BIN-file issue
                Norbert Mercier).
 
+         • ‘writeR2BIN()’
+
+             • Fix some minor issues for if only empty text fields
+               (e.g., COMMENT) are provided,
+
+             • implement a function stop for the really rare case that
+               someone tries to export a 'Risoe.BINfileData-class'
+               object importet in the workspace with an old package
+               version and now try to write it back to a BIN-file
+               (e.g., the package example data).
+
+  Example data:
+
+             • The ‘Risoe.BINfileData-class’ objects in
+               ‘ExampleData.BINfileData’ did not contain a ‘.RESERVED’
+               slot for historical reasons.  So far this caused no
+               problem, but if one wanted to write the BIN-file
+               information back to a file an error occurred; this has
+               been fixed now,
+
+             • fix some internal package related example data size
+               issues (no effect for the users).
+
   Internals:
 
              • Hopefully fix NAMESPACE issue with 'rgdal' package,
 
              • add imports from base packages as requested by CRAN,
 
-             • further clean-up NAMESPACE file.
+             • further clean-up NAMESPACE file,
+
+             • dependency to package 'zoo' removed for this build, will
+               be added again in 0.5.0,
+
+             • add import for package 'assertive' to hopefully provide
+               more user friendly error messages.
 
