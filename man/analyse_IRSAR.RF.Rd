@@ -6,7 +6,7 @@
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim, RF_reg.lim, method = "FIT", rejection.criteria,
-  fit.trace = FALSE, n.MC = 10, slide.show.density = FALSE,
+  fit.trace = FALSE, n.MC = 10, slide.show_density = FALSE,
   txtProgressBar = TRUE, plot = TRUE, ...)
 }
 \arguments{
@@ -28,8 +28,8 @@ channel range for regenerated signal fitting and sliding.}
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection
-criteria for, see details for more information \bold{Currently without
-usage!}}
+criteria. Supported criteria are: \code{curves_ratio}, \code{residuals_slope} (only for
+\code{method = "SLIDE"}) and \code{curves_bounds} (see Details for further information)}
 
 \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
 debugging use)}
@@ -37,11 +37,10 @@ debugging use)}
 \item{n.MC}{\code{\link{numeric}} (with default): set number of Monte
 Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 error estimation (\code{method = "SLIDE"}). Note: Large values will
-significantly increase the calculation time.}
+significantly increase the calculation time}
 
-\item{slide.show.density}{\code{\link{logical}} (with default): enable or
-disable KDE for MC runs. If \code{FALSE}, the final values are indicated
-with triangles.}
+\item{slide.show_density}{\code{\link{logical}} (with default): enable or
+disable KDE for MC run results}
 
 \item{txtProgressBar}{\code{\link{logical}} (with default): enables \code{TRUE} or
 disables \code{FALSE} the progression bar during MC runs}
@@ -60,7 +59,6 @@ returned. The slot data contains the following elements: \cr
 
 $ De.values: \code{\link{data.frame}}\cr
 ..$ De : num \cr
-..$ De.error : logical or numeric \cr
 ..$ De.lower : numeric  \cr
 ..$ De.upper : numeric \cr
 ..$ De.status  : character \cr
@@ -135,7 +133,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.4.0 (2015-08-02 13:52:34)
+ 0.4.0 (2015-08-02 15:38:31)
 }
 \examples{
 ##load data

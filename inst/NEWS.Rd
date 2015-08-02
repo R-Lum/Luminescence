@@ -64,6 +64,8 @@
           see manual for further details,
           \item the way the error is calculated and returned has been changed (see manual for details),
           \item add argument \code{txtProgressBar} (logical),
+          \item argument \code{slide.show.density} renamed to \code{slide.show_density},
+          \item implement rejection criteria (\code{rejection.criteria}, details see manual),
           \item minor graphical adjustments,
           \item a lot of internal code polishing.
 

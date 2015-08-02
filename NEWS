@@ -82,6 +82,12 @@ Changes in version 0.4.5 (, 2015):
 
              • add argument ‘txtProgressBar’ (logical),
 
+             • argument ‘slide.show.density’ renamed to
+               ‘slide.show_density’,
+
+             • implement rejection criteria (‘rejection.criteria’,
+               details see manual),
+
              • minor graphical adjustments,
 
              • a lot of internal code polishing.

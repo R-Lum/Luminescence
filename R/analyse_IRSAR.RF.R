@@ -70,8 +70,8 @@
 #' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
 #'
 #' @param rejection.criteria \code{\link{list} (with default)}: set rejection
-#' criteria for, see details for more information \bold{Currently without
-#' usage!}
+#' criteria. Supported criteria are: \code{curves_ratio}, \code{residuals_slope} (only for
+#' \code{method = "SLIDE"}) and \code{curves_bounds} (see Details for further information)
 #'
 #' @param fit.trace \code{\link{logical}} (with default): trace fitting (for
 #' debugging use)
@@ -79,11 +79,10 @@
 #' @param n.MC \code{\link{numeric}} (with default): set number of Monte
 #' Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 #' error estimation (\code{method = "SLIDE"}). Note: Large values will
-#' significantly increase the calculation time.
+#' significantly increase the calculation time
 #'
-#' @param slide.show.density \code{\link{logical}} (with default): enable or
-#' disable KDE for MC runs. If \code{FALSE}, the final values are indicated
-#' with triangles.
+#' @param slide.show_density \code{\link{logical}} (with default): enable or
+#' disable KDE for MC run results
 #'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables \code{TRUE} or
 #' disables \code{FALSE} the progression bar during MC runs
@@ -102,7 +101,6 @@
 #'
 #' $ De.values: \code{\link{data.frame}}\cr
 #' ..$ De : num \cr
-#' ..$ De.error : logical or numeric \cr
 #' ..$ De.lower : numeric  \cr
 #' ..$ De.upper : numeric \cr
 #' ..$ De.status  : character \cr
@@ -193,7 +191,7 @@ analyse_IRSAR.RF<- function(
   rejection.criteria,
   fit.trace = FALSE,
   n.MC = 10,
-  slide.show.density = FALSE,
+  slide.show_density = FALSE,
   txtProgressBar = TRUE,
   plot = TRUE,
   ...
@@ -214,9 +212,9 @@ analyse_IRSAR.RF<- function(
   }
 
   ##CHECK OTHER ARGUMENTS
-
-    ##sequence.structure
-    assertive::assert_is_character(sequence.structure)
+  assertive::assert_is_character(sequence.structure)
+  assertive::assert_is_logical(plot)
+  assertive::assert_is_logical(txtProgressBar)
 
 
   ##SELECT ONLY MEASURED CURVES
@@ -244,7 +242,7 @@ analyse_IRSAR.RF<- function(
    }
 
   ##===============================================================================================#
-  ## SET CURVE LIMITATIONS
+  ## SET CURVE LIMITS
   ##===============================================================================================#
   ##the setting here will be valid for all subsequent operations
 
@@ -362,15 +360,6 @@ analyse_IRSAR.RF<- function(
 
   RF_nat.error.lower <- RF_nat.mean + RF_nat.sd
   RF_nat.error.upper <- RF_nat.mean - RF_nat.sd
-
-
-  ##===============================================================================================#
-  ## REJECTION CRITERIA
-  ##===============================================================================================#
-
-  ##TODO
-  ##(1) check if RF_nat > RF_reg, considering the fit range
-  RC.initial.curve.ratio <- sum(RF_reg.y)/sum(RF_nat.limited[,2])
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   ##METHOD FIT
@@ -616,18 +605,16 @@ analyse_IRSAR.RF<- function(
 
 
     ##PERFORM sliding and overwrite values
-    sliding.results <-  sliding(
+    slide <-  sliding(
       RF_nat = RF_nat,
       RF_nat.limited = RF_nat.limited,
       RF_reg.limited = RF_reg.limited,
     )
 
       ##write results in variables
-      De <- sliding.results$De
-      residuals <- sliding.results$residuals
-      temp.trend.fit <- sliding.results$trend.fit[1]
-      temp.trend.slope <- sliding.results$trend.fit[2]
-      RF_nat.slided <-  sliding.results$RF_nat.slided
+      De <- slide$De
+      residuals <- slide$residuals
+      RF_nat.slided <-  slide$RF_nat.slided
 
 
     # ERROR ESTIMATION
@@ -637,7 +624,7 @@ analyse_IRSAR.RF<- function(
       slide.MC.list <- lapply(1:n.MC,function(x) {
         cbind(
           RF_nat.limited[,1],
-          (RF_reg.limited[sliding.results$t_n.id:(sliding.results$t_n.id + nrow(RF_nat.limited)-1) ,2]
+          (RF_reg.limited[slide$t_n.id:(slide$t_n.id + nrow(RF_nat.limited)-1) ,2]
            + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
            )
         )
@@ -656,14 +643,14 @@ analyse_IRSAR.RF<- function(
      }
 
        for (i in 1:n.MC) {
-         temp.sliding.results.MC <- sliding(
+         temp.slide.MC <- sliding(
            RF_nat = RF_nat,
            RF_reg.limited = RF_reg.limited,
            RF_nat.limited = slide.MC.list[[i]],
            numerical.only = TRUE
          )
 
-         De.MC[i] <- temp.sliding.results.MC[[1]]
+         De.MC[i] <- temp.slide.MC[[1]]
 
          ##update progress bar
          if (txtProgressBar) {
@@ -687,6 +674,71 @@ analyse_IRSAR.RF<- function(
 
   }
 
+  ##===============================================================================================#
+  ## REJECTION CRITERIA
+  ##===============================================================================================#
+  ## Rejection criteria are intentionally evaluated after all the calculations have been done as
+  ## it should be up to the user to decide whether a value should be taken into account or not.
+
+  ##(0)
+  ##set default values and overwrite them if there was something new
+  ##set defaults
+  RC <- list(
+    curves_ratio = 1.01,
+    residuals_slope = 5,
+    curves_bounds = as.integer(max(RF_reg.x))
+  )
+
+  ##modify default values
+  if(!missing(rejection.criteria)){RC <- modifyList(RC, rejection.criteria)}
+
+  ##(1) check if RF_nat > RF_reg, considering the fit range
+  RC.curves_ratio <- sum(RF_nat.limited[,2])/sum(RF_reg.y)
+  RC.curves_ratio.status <- ifelse(RC.curves_ratio >= RC$curves_ratio, "FAILED", "OK")
+
+  ##(2) check slop of the residuals using a linear fit
+  if(exists("slide")){
+    RC.residuals_slope <- abs(slide$trend.fit[2])
+    RC.residuals_slope.status <- ifelse(RC.residuals_slope >= RC$residuals_slope, "FAILED", "OK")
+
+  }else{
+    RC.residuals_slope <- NA
+    RC.residuals_slope.status <- "OK"
+
+  }
+
+  ##(99) check whether after sliding the
+  if(exists("slide")){
+    RC.curves_bounds <- max(RF_nat.slided[,1])
+    RC.curves_bounds.status <- ifelse(RC.curves_bounds >= max(RF_reg.x), "FAILED", "OK")
+
+  }else if(exists("fit")){
+    RC.curves_bounds <- De.upper
+    RC.curves_bounds.status <- ifelse(RC.curves_bounds  >= max(RF_reg.x), "FAILED", "OK")
+
+  }else{
+    RC.curves_bounds <- NA
+    RC.curves_bounds.status <- "OK"
+
+  }
+
+  ##Combine everthing in a data.frame
+  RC.data.frame <- data.frame(
+      CRITERIA = c(names(RC)),
+      THRESHOLD = unlist(RC),
+      VALUE = c(RC.curves_ratio, RC.residuals_slope,RC.curves_bounds),
+      STATUS = c(RC.curves_ratio.status, RC.residuals_slope.status, RC.curves_bounds.status),
+    row.names = NULL,
+    stringsAsFactors = FALSE
+  )
+
+  ##set De.status to indicate whether there is any problem with the De according to the rejection
+  ##criteria
+  if ("FAILED" %in% RC.data.frame$STATUS) {
+    De.status <- "FAILED"
+  }else{
+    De.status <- "OK"
+  }
 
   ##===============================================================================================#
   ## PLOTTING
@@ -743,6 +795,11 @@ analyse_IRSAR.RF<- function(
 
     )
 
+    if(De.status == "FAILED"){
+      mtext(text = "RC criteria exceeded, check De results!", side = 3, outer = TRUE, col = "red")
+      warning("RC criteria exceeded, check De results!")
+
+    }
 
       ##use scientific format for y-axis
       labels <- axis(2, labels = FALSE)
@@ -902,7 +959,7 @@ analyse_IRSAR.RF<- function(
     else if(method == "SLIDE"){
 
       ##(0) density plot
-      if (slide.show.density) {
+      if (slide.show_density) {
 
         ##showing the density makes only sense when we see at least 10 data points
         if (length(unique(De.MC)) >= 10) {
@@ -1090,8 +1147,8 @@ analyse_IRSAR.RF<- function(
   if(!exists("De.lower")){De.lower  <- NA}
   if(!exists("De.upper")){De.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
-  if(!exists("Trend.slope")){Trend.slope  <- NA}
-  if(!exists("fit")){fit  <- NA}
+  if(!exists("fit")){fit  <- list()}
+  if(!exists("slide")){slide <- list()}
 
   ##combine values for De into a data frame
   De.values <- data.frame(
@@ -1109,8 +1166,10 @@ analyse_IRSAR.RF<- function(
   newRLumResults.analyse_IRSAR.RF <- set_RLum(class = "RLum.Results",
                                               data = list(
                                                 De.values = De.values,
+                                                De.RC = RC.data.frame,
                                                 De.MC = De.MC,
                                                 fit = fit,
+                                                slide = slide,
                                                 call = sys.call()
                                               ))
 
