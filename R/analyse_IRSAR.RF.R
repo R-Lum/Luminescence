@@ -27,7 +27,7 @@
 #' \bold{\code{method = "FIT"}}\cr
 #'
 #' The principle is described above and follows the orignal suggestions by
-#' Erfurt et al., 2003.\cr
+#' Erfurt et al., 2003. For the fitting the mean count value of the RF_nat curve is used.
 #'
 #' \bold{\code{method = "SLIDE"}}\cr
 #'
@@ -37,28 +37,27 @@
 #' model. This approach was introduced for RF curves by Buylaert et al., 2012
 #' and Lapp et al., 2012.
 #'
-#' Here the sliding is done by searching for the minimum of the residual
-#' squares.
+#' Here the sliding is done by searching for the minimum of the squared residuals.
 #'
-#' \deqn{min(\Sigma(RF.reg_{k.i} - RF.nat_{k.i})^2)} for \deqn{k =
-#' {t.0+i,...,t.max+i}}
+#' //WILL BE ADDED TODO
 #'
 #' \bold{Error estimation}\cr
 #'
 #' For \bold{\code{method = "FIT"}} the asymmetric error range is taken from
 #' the standard deviation of the natural signal.\cr
 #'
-#' For \bold{\code{method = "SLIDE"}} an beta-version of an error estimation
-#' based on boostrapping is implemented, however, this needs further
-#' documentation.
+#' For \bold{\code{method = "SLIDE"}} an
+#'
+#' //WILL BE ADDED TODO
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
-#' object containing data for protocol analysis
+#' object containing data for protocol analysis. Generally the function expects two curves.
+#' (1) RF_nat, (2) RF_reg
 #'
 #' @param sequence.structure \code{\link{vector}} \link{character} (with
 #' default): specifies the general sequence structure. Allowed steps are
 #' \code{NATURAL}, \code{REGENERATED}. In addition any other character is
-#' allowed in the sequence structure; such curves will be ignored.
+#' allowed in the sequence structure; such curves will be ignored during the analysis.
 #'
 #' @param RF_nat.lim \code{\link{vector}} (with default): set minimum and maximum
 #' channel range for natural signal fitting and sliding.
@@ -79,10 +78,10 @@
 #' @param n.MC \code{\link{numeric}} (with default): set number of Monte
 #' Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 #' error estimation (\code{method = "SLIDE"}). Note: Large values will
-#' significantly increase the calculation time
+#' significantly increase the computation time
 #'
 #' @param slide.show_density \code{\link{logical}} (with default): enable or
-#' disable KDE for MC run results
+#' disable KDE for MC run results. If the distribution is too narrow nothing is shown
 #'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables \code{TRUE} or
 #' disables \code{FALSE} the progression bar during MC runs
@@ -99,14 +98,16 @@
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned. The slot data contains the following elements: \cr
 #'
-#' $ De.values: \code{\link{data.frame}}\cr
-#' ..$ De : num \cr
-#' ..$ De.lower : numeric  \cr
-#' ..$ De.upper : numeric \cr
-#' ..$ De.status  : character \cr
-#' ..$ RF_nat.lim  : character \cr
-#' ..$ RF_reg.lim : character \cr
+#' $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
+#' ..$ De : \code{numeric} \cr
+#' ..$ De.lower : \code{numeric} \cr
+#' ..$ De.upper : \code{numeric}c \cr
+#' ..$ De.status  : \code{character} \cr
+#' ..$ RF_nat.lim  : \code{charcter} \cr
+#' ..$ RF_reg.lim : \code{character} \cr
+#' $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
 #' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
+#' $ slide : \code{\link{list}} data from the sliding process\cr
 #' $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 #'
 #' The output (\code{De.values}) should be accessed using the
@@ -115,9 +116,6 @@
 #' @note This function assumes that there is no sensitivity change during the
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings from Buylaert et al. (2012).\cr
-#'
-#' \bold{Please note that \code{method = "FIT"} has beta status and was not
-#' properly tested yet!}
 #'
 #'
 #' @section Function version: 0.4.0
@@ -629,7 +627,6 @@ analyse_IRSAR.RF<- function(
            )
         )
        })
-
 
      ##predefine vector
      De.MC <- vector(length = n.MC)
