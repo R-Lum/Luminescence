@@ -61,8 +61,8 @@ returned. The slot data contains the following elements: \cr
 $ De.values: \code{\link{data.frame}}\cr
 ..$ De : num \cr
 ..$ De.error : logical or numeric \cr
-..$ De.error.lower : numeric  \cr
-..$ De.error.upper : numeric \cr
+..$ De.lower : numeric  \cr
+..$ De.upper : numeric \cr
 ..$ De.status  : character \cr
 ..$ RF_nat.lim  : character \cr
 ..$ RF_reg.lim : character \cr
@@ -135,7 +135,7 @@ findings from Buylaert et al. (2012).\cr
 properly tested yet!}
 }
 \section{Function version}{
- 0.4.0 (2015-08-02 11:56:41)
+ 0.4.0 (2015-08-02 13:52:34)
 }
 \examples{
 ##load data

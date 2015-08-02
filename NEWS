@@ -77,6 +77,9 @@ Changes in version 0.4.5 (, 2015):
              • re-design and unify the function output by removing and
                adding output objects, see manual for further details,
 
+             • the way the error is calculated and returned has been
+               changed (see manual for details),
+
              • add argument ‘txtProgressBar’ (logical),
 
              • minor graphical adjustments,

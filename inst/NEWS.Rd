@@ -62,6 +62,7 @@
           \item function output \code{class} containing the original function call
           \item re-design and unify the function output by removing and adding output objects,
           see manual for further details,
+          \item the way the error is calculated and returned has been changed (see manual for details),
           \item add argument \code{txtProgressBar} (logical),
           \item minor graphical adjustments,
           \item a lot of internal code polishing.
@@ -187,5 +188,3 @@
  }
 
 }
-
-

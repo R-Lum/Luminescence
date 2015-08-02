@@ -103,8 +103,8 @@
 #' $ De.values: \code{\link{data.frame}}\cr
 #' ..$ De : num \cr
 #' ..$ De.error : logical or numeric \cr
-#' ..$ De.error.lower : numeric  \cr
-#' ..$ De.error.upper : numeric \cr
+#' ..$ De.lower : numeric  \cr
+#' ..$ De.upper : numeric \cr
 #' ..$ De.status  : character \cr
 #' ..$ RF_nat.lim  : character \cr
 #' ..$ RF_reg.lim : character \cr
@@ -328,7 +328,7 @@ analyse_IRSAR.RF<- function(
     ylab = paste0("IR-RF/(cts/", resolution.RF," s)"),
     log = "",
     cex = 1,
-    legend.pos = ifelse(method == "FIT", "bottom", "top")
+    legend.pos = "top"
     ##xlim and ylim see below as they has to be modifid differently
   )
 
@@ -393,12 +393,12 @@ analyse_IRSAR.RF<- function(
       phi.0 = max(RF_reg.y),
       lambda = 0.0001,
       beta = 1,
-      delta.phi = 2*(max(RF_reg.y)-min(RF_reg.y)))
+      delta.phi = 2 * (max(RF_reg.y) - min(RF_reg.y))
+    )
 
     # start nls fitting -------------------------------------------------------
 
     ##Monte Carlo approach for fitting
-
     fit.parameters.results.MC.results <- data.frame()
 
     ##produce set of start paramters
@@ -407,40 +407,52 @@ analyse_IRSAR.RF<- function(
     beta.MC <- rep(fit.parameters.start["beta"], n.MC)
     delta.phi.MC <- rep(fit.parameters.start["delta.phi"], n.MC)
 
-    ##start fitting loop
+    ##start fitting loop for MC runs
     for(i in 1:n.MC){
 
-      fit.MC <-try(nls(fit.function,
-                       trace = FALSE,
-                       data = data.frame(x=RF_reg.x, y=RF_reg.y),
-                       algorithm = "port",
-                       start = list(
-                         phi.0 = phi.0.MC[i],
-                         delta.phi = delta.phi.MC[i],
-                         lambda = lambda.MC[i],
-                         beta = beta.MC[i]),
-                       nls.control(
-                         maxiter = 100,
-                         warnOnly = FALSE,
-                         minFactor = 1/1024),
-                       lower = c(phi.0 = .Machine$double.xmin,
-                                 delta.phi = .Machine$double.xmin,
-                                 lambda = .Machine$double.xmin,
-                                 beta = .Machine$double.xmin),
-                       upper = c(phi.0 = max(RF_reg.y),
-                                 delta.phi = max(RF_reg.y),
-                                 lambda = 1,
-                                 beta = 100)),
-                   silent=TRUE)
+        fit.MC <- try(nls(
+          fit.function,
+          trace = FALSE,
+          data = data.frame(x = RF_reg.x, y = RF_reg.y),
+          algorithm = "port",
+          start = list(
+            phi.0 = phi.0.MC[i],
+            delta.phi = delta.phi.MC[i],
+            lambda = lambda.MC[i],
+            beta = beta.MC[i]
+          ),
+          nls.control(
+            maxiter = 100,
+            warnOnly = FALSE,
+            minFactor = 1 / 1024
+          ),
+          lower = c(
+            phi.0 = .Machine$double.xmin,
+            delta.phi = .Machine$double.xmin,
+            lambda = .Machine$double.xmin,
+            beta = .Machine$double.xmin
+          ),
+          upper = c(
+            phi.0 = max(RF_reg.y),
+            delta.phi = max(RF_reg.y),
+            lambda = 1,
+            beta = 100
+          )
+        ),
+        silent = TRUE
+        )
 
-      if(inherits(fit.MC,"try-error") == FALSE){
-
+      if(inherits(fit.MC,"try-error") == FALSE) {
         temp.fit.parameters.results.MC.results <- coef(fit.MC)
 
-        fit.parameters.results.MC.results[i,"phi.0"] <- temp.fit.parameters.results.MC.results["phi.0"]
-        fit.parameters.results.MC.results[i,"lambda"] <- temp.fit.parameters.results.MC.results["lambda"]
-        fit.parameters.results.MC.results[i,"delta.phi"] <- temp.fit.parameters.results.MC.results["delta.phi"]
-        fit.parameters.results.MC.results[i,"beta"] <- temp.fit.parameters.results.MC.results["beta"]
+        fit.parameters.results.MC.results[i,"phi.0"] <-
+          temp.fit.parameters.results.MC.results["phi.0"]
+        fit.parameters.results.MC.results[i,"lambda"] <-
+          temp.fit.parameters.results.MC.results["lambda"]
+        fit.parameters.results.MC.results[i,"delta.phi"] <-
+          temp.fit.parameters.results.MC.results["delta.phi"]
+        fit.parameters.results.MC.results[i,"beta"] <-
+          temp.fit.parameters.results.MC.results["beta"]
 
       }
     }
@@ -451,69 +463,83 @@ analyse_IRSAR.RF<- function(
       ##choose median as final fit version
       fit.parameters.results.MC.results <- sapply(na.omit(fit.parameters.results.MC.results), median)
 
-
       ##try final fitting
-      fit <-try(nls(fit.function,
-                    trace = fit.trace,
-                    data = data.frame(x=RF_reg.x, y=RF_reg.y),
-                    algorithm = "port",
-                    start = list(
-                      phi.0 = fit.parameters.results.MC.results["phi.0"],
-                      delta.phi = fit.parameters.results.MC.results["delta.phi"],
-                      lambda = fit.parameters.results.MC.results["lambda"],
-                      beta = fit.parameters.results.MC.results["beta"]),
-                    nls.control(
-                      maxiter = 500,
-                      warnOnly = FALSE,
-                      minFactor = 1/4096),
-                    lower = c(phi.0 = .Machine$double.xmin,
-                              delta.phi = .Machine$double.xmin,
-                              lambda = .Machine$double.xmin,
-                              beta = .Machine$double.xmin),
-                    upper = c(phi.0 = max(RF_reg.y),
-                              delta.phi = max(RF_reg.y),
-                              lambda = 1, beta = 100)),
-                silent=FALSE)
+      fit <- try(nls(
+        fit.function,
+        trace = fit.trace,
+        data = data.frame(x = RF_reg.x, y = RF_reg.y),
+        algorithm = "port",
+        start = list(
+          phi.0 = fit.parameters.results.MC.results["phi.0"],
+          delta.phi = fit.parameters.results.MC.results["delta.phi"],
+          lambda = fit.parameters.results.MC.results["lambda"],
+          beta = fit.parameters.results.MC.results["beta"]
+        ),
+        nls.control(
+          maxiter = 500,
+          warnOnly = FALSE,
+          minFactor = 1 / 4096
+        ),
+        lower = c(
+          phi.0 = .Machine$double.xmin,
+          delta.phi = .Machine$double.xmin,
+          lambda = .Machine$double.xmin,
+          beta = .Machine$double.xmin
+        ),
+        upper = c(
+          phi.0 = max(RF_reg.y),
+          delta.phi = max(RF_reg.y),
+          lambda = 1, beta = 100
+        )
+      ),
+      silent = FALSE
+      )
     }else{
 
       fit <- NA
       class(fit) <- "try-error"
 
     }
+
     # get parameters ----------------------------------------------------------
+    # and with that the final De
 
-    if(inherits(fit,"try-error") == FALSE){
-
+    if (!inherits(fit,"try-error")) {
       fit.parameters.results <- coef(fit)
 
     }else{
-
       fit.parameters.results <- NA
 
     }
 
     ##calculate De value
-    if(is.na(fit.parameters.results[1]) == FALSE){
+    if (!is.na(fit.parameters.results[1])) {
+      De <- suppressWarnings(round(log(
+        -((RF_nat.mean - fit.parameters.results["phi.0"]) /
+            -fit.parameters.results["delta.phi"]
+        ) ^ (1 / fit.parameters.results["beta"]) + 1
+      ) /
+        -fit.parameters.results["lambda"], digits =
+        2))
 
-      De.mean <- suppressWarnings(round(log(-((RF_nat.mean - fit.parameters.results["phi.0"])/
-                                                -fit.parameters.results["delta.phi"])^(1/fit.parameters.results["beta"])+1)/
-                                          -fit.parameters.results["lambda"], digits=2))
+      De.lower <- suppressWarnings(round(log(
+        -((RF_nat.error.lower - fit.parameters.results["phi.0"]) /
+            -fit.parameters.results["delta.phi"]
+        ) ^ (1 / fit.parameters.results["beta"]) + 1
+      ) /
+        -fit.parameters.results["lambda"],digits = 2))
 
-      De.error.lower <- suppressWarnings(
-        round(log(-((RF_nat.error.lower - fit.parameters.results["phi.0"])/
-                      -fit.parameters.results["delta.phi"])^(1/fit.parameters.results["beta"])+1)/
-                -fit.parameters.results["lambda"],digits=2))
-
-      De.error.upper <- suppressWarnings(
-        round(log(-((RF_nat.error.upper - fit.parameters.results["phi.0"])/
-                      -fit.parameters.results["delta.phi"])^(1/fit.parameters.results["beta"])+1)/
-                -fit.parameters.results["lambda"],digits=2))
+      De.upper <- suppressWarnings(round(log(
+        -((RF_nat.error.upper - fit.parameters.results["phi.0"]) /
+            -fit.parameters.results["delta.phi"]
+        ) ^ (1 / fit.parameters.results["beta"]) + 1
+      ) /
+        -fit.parameters.results["lambda"],digits = 2))
 
     }else{
-
-      De.mean <- NA
-      De.error.lower <- NA
-      De.error.upper <- NA
+      De <- NA
+      De.lower <- NA
+      De.upper <- NA
 
     }
   }
@@ -564,7 +590,7 @@ analyse_IRSAR.RF<- function(
       residuals <- RF_nat.limited[,2] - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
 
       ##(4.1) calculate De from the first channel
-      De.mean <- round(t_n, digits = 2)
+      De <- round(t_n, digits = 2)
       temp.trend.fit <- NA
 
      ##(5) calculate trend fit
@@ -575,7 +601,7 @@ analyse_IRSAR.RF<- function(
       if (numerical.only == FALSE) {
         return(
           list(
-            De.mean = De.mean,
+            De = De,
             residuals = residuals,
             trend.fit = temp.trend.fit,
             RF_nat.slided = RF_nat.slided,
@@ -583,7 +609,7 @@ analyse_IRSAR.RF<- function(
           )
         )
       }else{
-        return(list(De.mean))
+        return(list(De))
       }
 
     }##end of function sliding()
@@ -597,27 +623,29 @@ analyse_IRSAR.RF<- function(
     )
 
       ##write results in variables
-      De.mean <- sliding.results$De.mean
+      De <- sliding.results$De
       residuals <- sliding.results$residuals
       temp.trend.fit <- sliding.results$trend.fit[1]
       temp.trend.slope <- sliding.results$trend.fit[2]
       RF_nat.slided <-  sliding.results$RF_nat.slided
 
 
-
     # ERROR ESTIMATION
     # MC runs for error calculation ---------------------------------------------------------------
 
       ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
-      slide.MC.list <- lapply(1:n.MC, function(x) {
-        cbind(RF_nat.limited[,1],
-              (RF_reg.limited[sliding.results$t_n.id:(sliding.results$t_n.id + nrow(RF_nat.limited)-1) ,2] + sample(
-                 residuals, size = nrow(RF_nat.limited), replace = TRUE
-              )))
-      })
+      slide.MC.list <- lapply(1:n.MC,function(x) {
+        cbind(
+          RF_nat.limited[,1],
+          (RF_reg.limited[sliding.results$t_n.id:(sliding.results$t_n.id + nrow(RF_nat.limited)-1) ,2]
+           + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
+           )
+        )
+       })
 
 
-     De.mean.MC <- vector(length = n.MC)
+     ##predefine vector
+     De.MC <- vector(length = n.MC)
 
      if(txtProgressBar){
      ##terminal output fo MC
@@ -627,40 +655,35 @@ analyse_IRSAR.RF<- function(
       pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
      }
 
-      for(i in 1:n.MC){
+       for (i in 1:n.MC) {
+         temp.sliding.results.MC <- sliding(
+           RF_nat = RF_nat,
+           RF_reg.limited = RF_reg.limited,
+           RF_nat.limited = slide.MC.list[[i]],
+           numerical.only = TRUE
+         )
 
-        temp.sliding.results.MC <- sliding(
-          RF_nat = RF_nat,
-          RF_reg.limited = RF_reg.limited,
-          RF_nat.limited = slide.MC.list[[i]],
-          numerical.only = TRUE)
+         De.MC[i] <- temp.sliding.results.MC[[1]]
 
+         ##update progress bar
+         if (txtProgressBar) {
+           setTxtProgressBar(pb, i)
+         }
 
-        De.mean.MC[i] <- temp.sliding.results.MC[[1]]
-
-        ##update progress bar
-        if(txtProgressBar){setTxtProgressBar(pb, i)}
-
-      }
+       }
 
       ##close
       if(txtProgressBar){close(pb)}
 
-      ##calculate absolute deviation between De and the here newly calculated De.mean.MC
+      ##calculate absolute deviation between De and the here newly calculated De.MC
       ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
-      De.mean.diff <- diff(x = c(De.mean, De.mean.MC))
-      De.mean.lower <- De.mean - quantile(De.mean.diff, 0.975)
-      De.mean.upper <- De.mean - quantile(De.mean.diff, 0.025)
-
-      ##get information for error
-      De.mean.MC.se <- round(sd(De.mean.MC,na.rm = TRUE), digits = 0)
-
+      De.diff <- diff(x = c(De, De.MC))
+      De.lower <- De - quantile(De.diff, 0.975)
+      De.upper <- De - quantile(De.diff, 0.025)
 
   }else{
 
-
     warning("Analysis skipped: Unknown method or threshold of rejection criteria reached.")
-
 
   }
 
@@ -739,22 +762,22 @@ analyse_IRSAR.RF<- function(
         points(RF_nat.limited, pch = 20, col = "red")
 
         ##legend
-        legend(plot.settings$legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
-               pch=c(3,3, 20), col=c("grey", col[18], "red"),
-               horiz=TRUE, bty="n", cex=.7)
+        legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
+               pch=c(19,3), col=c("red", col[10]),
+               horiz=TRUE, bty = "n", cex=.9)
+
 
       }
 
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-    ## METHOD FIT
+    ## PLOT - METHOD FIT
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     if(method == "FIT"){
-
-      ##show fitted curve COLOURED
 
       ##dummy to cheat R CMD check
       x<-NULL; rm(x)
 
+      ##plot fitted curve
       curve(fit.parameters.results["phi.0"]-
               (fit.parameters.results["delta.phi"]*
                  ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
@@ -763,61 +786,61 @@ analyse_IRSAR.RF<- function(
             to = RF_reg[max(RF_reg.lim), 1],
             col="red")
 
+        ##plotting to show the limitations if RF_reg.lim was chosen
+        ##show fitted curve GREY (previous red curve)
+        curve(fit.parameters.results["phi.0"]-
+                (fit.parameters.results["delta.phi"]*
+                   ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
+              add=TRUE,
+              from = min(RF_reg[, 1]),
+              to = RF_reg[min(RF_reg.lim), 1],
+              col="grey")
 
-      ##show fitted curve GREY (previous red curve)
-      curve(fit.parameters.results["phi.0"]-
-              (fit.parameters.results["delta.phi"]*
-                 ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
-            add=TRUE,
-            from = min(RF_reg[, 1]),
-            to = RF_reg[min(RF_reg.lim), 1],
-            col="grey")
+        ##show fitted curve GREY (after red curve)
+        curve(fit.parameters.results["phi.0"]-
+                (fit.parameters.results["delta.phi"]*
+                   ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
+              add=TRUE,
+              from = RF_reg[max(RF_reg.lim), 1],
+              to = max(RF_reg[, 1]),
+              col="grey")
 
-      ##show fitted curve GREY (after red curve)
-      curve(fit.parameters.results["phi.0"]-
-              (fit.parameters.results["delta.phi"]*
-                 ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
-            add=TRUE,
-            from = RF_reg[max(RF_reg.lim), 1],
-            to = max(RF_reg[, 1]),
-            col="grey")
-
-      ##at points
-      points(RF_nat, pch = 20, col = "grey")
-      points(RF_nat.limited, pch = 20, col = "red")
+      ##add points
+      points(RF_nat, pch = 20, col = col[19])
+      points(RF_nat.limited, pch = 20, col = col[2])
 
       ##legend
-      legend(plot.settings$legend.pos, legend=c("reg. measured","reg. used for fit", "natural"),
-             pch=c(3,3, 20), col=c("grey", col[4], "red"),
-             horiz=TRUE, bty="n", cex=.7)
+      legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
+             pch=c(19,3), col=c("red", col[10]),
+             horiz=TRUE, bty = "n", cex=.9)
 
       ##plot range choosen for fitting
       abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
       abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
       ##plot De if De was calculated
-      if(is.na(De.mean) == FALSE & is.nan(De.mean) == FALSE){
+      if(is.na(De) == FALSE & is.nan(De) == FALSE){
 
-        lines(c(0,De.error.lower), c(RF_nat.error.lower,RF_nat.error.lower), lty=2, col="grey")
-        lines(c(0,De.mean), c(RF_nat.mean,RF_nat.mean), lty=2, col="red")
-        lines(c(0,De.error.upper), c(RF_nat.error.upper,RF_nat.error.upper), lty=2, col="grey")
+        lines(c(0,De.lower), c(RF_nat.error.lower,RF_nat.error.lower), lty=2, col="grey")
+        lines(c(0,De), c(RF_nat.mean,RF_nat.mean), lty=2, col="red")
+        lines(c(0,De.upper), c(RF_nat.error.upper,RF_nat.error.upper), lty=2, col="grey")
 
-        lines(c(De.error.lower, De.error.lower),
+        lines(c(De.lower, De.lower),
               c(0,RF_nat.error.lower), lty=2, col="grey")
-        lines(c(De.mean,De.mean), c(0, RF_nat.mean), lty=2, col="red")
-        lines(c(De.error.upper, De.error.upper),
+        lines(c(De,De), c(0, RF_nat.mean), lty=2, col="red")
+        lines(c(De.upper, De.upper),
               c(0,RF_nat.error.upper), lty=2, col="grey")
 
       }
 
       ##Insert fit and result
-      if(is.na(De.mean) != TRUE & (is.nan(De.mean) == TRUE |
-                                     De.mean > max(RF_reg.x) |
-                                     De.error.upper > max(RF_reg.x))){
+      if(is.na(De) != TRUE & (is.nan(De) == TRUE |
+                                     De > max(RF_reg.x) |
+                                     De.upper > max(RF_reg.x))){
 
-        try(mtext(side=3, substitute(D[e] == De.mean,
-                                     list(De.mean=paste(
-                                       De.mean," (",De.error.lower," ", De.error.upper,")", sep=""))),
+        try(mtext(side=3, substitute(D[e] == De,
+                                     list(De=paste(
+                                       De," (",De.lower," ", De.upper,")", sep=""))),
                   line=0, cex=0.8, col="red"), silent=TRUE)
 
         De.status <- "VALUE OUT OF BOUNDS"
@@ -829,9 +852,9 @@ analyse_IRSAR.RF<- function(
         }else{
           try(mtext(
             side = 3,
-            substitute(D[e] == De.mean,
+            substitute(D[e] == De,
                        list(
-                         De.mean = paste(De.mean," (",De.error.lower," ", De.error.upper,")", sep =
+                         De = paste(De," [",De.lower," ; ", De.upper,"]", sep =
                                            "")
                        )),
             line = 0,
@@ -874,7 +897,7 @@ analyse_IRSAR.RF<- function(
     }
 
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-    ## METHOD SLIDE
+    ## PLOT - METHOD SLIDE
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     else if(method == "SLIDE"){
 
@@ -882,9 +905,9 @@ analyse_IRSAR.RF<- function(
       if (slide.show.density) {
 
         ##showing the density makes only sense when we see at least 10 data points
-        if (length(unique(De.mean.MC)) >= 10) {
+        if (length(unique(De.MC)) >= 10) {
           ##normal De
-          density.mean.MC <- density(De.mean.MC)
+          density.mean.MC <- density(De.MC)
 
           if (plot.settings$log == "y" | plot.settings$log == "xy") {
             temp.scale.ratio <-
@@ -966,7 +989,7 @@ analyse_IRSAR.RF<- function(
       }else{
 
           try(mtext(side=3,
-                    substitute(D[e] == De.mean, list(De.mean=paste0(De.mean," \u00b1 ", De.mean.MC.se))),
+                    substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
                     line=0,
                     cex=0.7),
               silent=TRUE)
@@ -1044,10 +1067,10 @@ analyse_IRSAR.RF<- function(
                pch = 20, col = col[19])
 
       ##add vertical line to mark De (t_n)
-      abline(v = De.mean, lty = 2, col = col[2])
+      abline(v = De, lty = 2, col = col[2])
 
       ##add numeric value of De ... t_n
-      axis(side = 1, at = De.mean, labels = De.mean, cex.axis = 0.8*plot.settings$cex,
+      axis(side = 1, at = De, labels = De, cex.axis = 0.8*plot.settings$cex,
              col = "blue", padj = -1.55,)
 
     }
@@ -1061,27 +1084,20 @@ analyse_IRSAR.RF<- function(
   ## RETURN
   ##=============================================================================#
 
-  ##catch up worst case scenarios ... means something went totally wrong
-  if(!exists("De.mean")){De.mean  <- NA}
-  if(!exists("De.mean.MC")){De.mean.MC  <- NA}
-  if(!exists("De.mean.MC.se")){De.mean.MC.se  <- NA}
-  if(!exists("De.mean.lower")){De.mean.lower  <- NA}
-  if(!exists("De.mean.upper")){De.mean.upper  <- NA}
-  if(!exists("De.error.lower")){De.error.lower  <- NA}
-  if(!exists("De.error.upper")){De.error.upper  <- NA}
+  ##catch up worst case scenarios ... means something went wrong
+  if(!exists("De")){De  <- NA}
+  if(!exists("De.MC")){De.MC  <- NA}
+  if(!exists("De.lower")){De.lower  <- NA}
+  if(!exists("De.upper")){De.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
   if(!exists("Trend.slope")){Trend.slope  <- NA}
   if(!exists("fit")){fit  <- NA}
 
-
   ##combine values for De into a data frame
   De.values <- data.frame(
-      De = De.mean,
-      De.lower = De.mean.lower,
-      De.upper = De.mean.upper,
-      De.error = De.mean.MC.se,
-      De.error.lower = De.error.lower,
-      De.error.upper = De.error.upper,
+      De = De,
+      De.lower = De.lower,
+      De.upper = De.upper,
       De.status = De.status,
       RF_nat.lim = paste(RF_nat.lim, collapse = ":"),
       RF_reg.lim = paste(RF_reg.lim, collapse = ":"),
@@ -1093,6 +1109,7 @@ analyse_IRSAR.RF<- function(
   newRLumResults.analyse_IRSAR.RF <- set_RLum(class = "RLum.Results",
                                               data = list(
                                                 De.values = De.values,
+                                                De.MC = De.MC,
                                                 fit = fit,
                                                 call = sys.call()
                                               ))
