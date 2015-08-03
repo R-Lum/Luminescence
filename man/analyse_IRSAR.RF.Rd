@@ -61,12 +61,14 @@ A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 returned. The slot data contains the following elements: \cr
 
 $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
-..$ De : \code{numeric} \cr
-..$ De.lower : \code{numeric} \cr
-..$ De.upper : \code{numeric}c \cr
-..$ De.status  : \code{character} \cr
-..$ RF_nat.lim  : \code{charcter} \cr
-..$ RF_reg.lim : \code{character} \cr
+..$ DE : \code{numeric} \cr
+..$ DE.LOWER : \code{numeric} \cr
+..$ DE.UPPER : \code{numeric}c \cr
+..$ DE.STATUS  : \code{character} \cr
+..$ RF_NAT.LIM  : \code{charcter} \cr
+..$ RF_REG.LIM : \code{character} \cr
+..$ POSITION : \code{integer} \cr
+..$ SEQUENCE_NAME : \code{character}\cr
 $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 $ slide : \code{\link{list}} data from the sliding process\cr
@@ -133,7 +135,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings from Buylaert et al. (2012).\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-03 16:13:43)
+ 0.4.0 (2015-08-03 20:18:36)
 }
 \examples{
 ##load data
