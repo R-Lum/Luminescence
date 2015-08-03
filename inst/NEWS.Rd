@@ -130,12 +130,26 @@
 
       }
 
+      \item \code{readBIN2R()}
+
+        \itemize{
+
+          \item Implemnt new logical argument called \code{fastForward}. If \code{TRUE} the output
+          is no longer a \code{Risoe.BINfileData} object, but a list of \code{RLum.Analysis} objects.
+          This should allow a more efficient data processing in particular cases.
+
+      }
+
      \item \code{readXSYG2R()}
 
         \itemize{
 
           \item The import will not break any longer if the XSYG file is incomplete. Incomplete
-          sequences will be removed from the output (incl. terminal feedback).
+          sequences will be removed from the output (incl. terminal feedback), \
+          \item new logical argument \code{fastForward} implemented for a more efficient data analysis
+          (same functionality as for the function \code{readBIN2R()}.
+          If set to \code{TRUE} only a list of \code{RLum.Analysis} objects is returned, instead of
+          a list of headers and \code{RLum.Analysis} objects.
 
       }
 

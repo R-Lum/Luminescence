@@ -4,8 +4,8 @@
 \alias{readXSYG2R}
 \title{Import XSYG files to R}
 \usage{
-readXSYG2R(file, recalculate.TL.curves = TRUE, import = TRUE,
-  txtProgressBar = TRUE)
+readXSYG2R(file, recalculate.TL.curves = TRUE, fastForward = FALSE,
+  import = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
 \item{file}{\link{character} (\bold{required}): path and file name of the
@@ -16,6 +16,9 @@ XSYG file.}
 details for more information) Note: The option overwrites the time vs. count
 TL curve. Select \code{FALSE} to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.}
+
+\item{fastForward}{\code{\link{logical}} (with default): if \code{TRUE} for a
+more efficient data processing only a list of \code{RLum.Analysis} objects is returned.}
 
 \item{import}{\link{logical} (with default): if set to \code{FALSE}, only
 the XSYG file structure is shown.}
@@ -94,7 +97,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.4.4 (2015-07-23 21:04:46)
+ 0.4.5 (2015-08-03 13:46:58)
 }
 \examples{
 ##(1) import XSYG file to R (uncomment for usage)
