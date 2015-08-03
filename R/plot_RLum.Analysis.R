@@ -43,9 +43,8 @@
 #' transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 #' \code{CW2pHMi} and \code{CW2pPMi}. See details.
 #'
-#' @param plot.single \code{\link{logical}} (with default): each curve is
-#' plotted in a single window, overwrites the settings of \code{norws} and
-#' \code{ncols}
+#' @param plot.single \code{\link{logical}} (with default): global par settings are
+#' considered, normally this should end in one plot per page
 #'
 #' @param \dots further arguments and graphical parameters will be passed to
 #' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
@@ -60,7 +59,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
 #'
-#' @section Function version: 0.2.4
+#' @section Function version: 0.2.5
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
@@ -157,15 +156,6 @@ plot_RLum.Analysis <- function(
   {1}
 
 
-  ##plot.single
-  if(plot.single == TRUE){
-
-    ncols <- 1
-    nrows <- 1
-
-  }
-
-
   # Plotting ------------------------------------------------------------------
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -202,7 +192,7 @@ plot_RLum.Analysis <- function(
 
     ##set par
     par.default <- par("mfrow")
-    par(mfrow=c(nrows,ncols))
+    if(!plot.single){par(mfrow=c(nrows,ncols))}
 
     ##plot curves
     for(i in 1:length(temp)){
@@ -318,7 +308,7 @@ plot_RLum.Analysis <- function(
 
 
     ##reset par
-    par(mfrow = par.default)
+    if(!plot.single){par(mfrow = par.default)}
 
   }else{
 
@@ -346,8 +336,15 @@ plot_RLum.Analysis <- function(
 
 
     ##change graphic settings
-    par.default <- par()[c("cex", "mfrow")]
-    par(cex = cex, mfrow = c(nrows, ncols))
+    if(!plot.single){
+      par.default <- par()[c("cex", "mfrow")]
+      par(cex = cex, mfrow = c(nrows, ncols))
+
+    }else{
+      par.default <- par()[c("cex")]
+      par(cex = cex)
+
+    }
 
     ##(2) PLOT values
 
