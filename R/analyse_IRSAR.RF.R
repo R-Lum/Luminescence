@@ -60,10 +60,12 @@
 #' allowed in the sequence structure; such curves will be ignored during the analysis.
 #'
 #' @param RF_nat.lim \code{\link{vector}} (with default): set minimum and maximum
-#' channel range for natural signal fitting and sliding.
+#' channel range for natural signal fitting and sliding. If only one value is provided this
+#' will be treated as minium value and the maximum limit will be added automatically.
 #'
 #' @param RF_reg.lim \code{\link{vector}} (with default): set minimum and maximum
-#' channel range for regenerated signal fitting and sliding.
+#' channel range for regenerated signal fitting and sliding. If only one value is provided this
+#' will be treated as minium value and the maximum limit will be added automatically.
 #'
 #' @param method \code{\link{character}} (with default): setting method applied
 #' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
@@ -231,7 +233,7 @@ analyse_IRSAR.RF<- function(
     temp.sequence.structure$protocol.step <-
       rep(sequence.structure, length_RLum(object))[1:length_RLum(object)]
 
-    ##check if the first curve is shorter then the first curve
+    ##check if the first curve is shorter than the first curve
     if (temp.sequence.structure[1,"n.channels"] > temp.sequence.structure[2,"n.channels"]) {
       stop(
         "[analyse_IRSAR.RF()] Number of data channels in RF_nat > RF_reg. This is not supported!"
@@ -244,64 +246,73 @@ analyse_IRSAR.RF<- function(
   ##===============================================================================================#
   ##the setting here will be valid for all subsequent operations
 
+    ##01
+    ##first get allowed curve limits, this makes the subsequent checkings easier and the code
+    ##more easier to read
+    RF_nat.lim.default <- c(1,max(
+      subset(
+        temp.sequence.structure,
+        temp.sequence.structure$protocol.step == "NATURAL"
+      )$n.channels
+    ))
 
+    RF_reg.lim.default <- c(1,max(
+      subset(
+        temp.sequence.structure,
+        temp.sequence.structure$protocol.step == "REGENERATED"
+      )$n.channels
+    ))
+
+
+    ##02 - check boundaris
     ##RF_nat.lim
     if (missing(RF_nat.lim)) {
-      RF_nat.lim <-
-        c(
-          1,subset(
-            temp.sequence.structure,
-            temp.sequence.structure$protocol.step == "NATURAL"
-          )$n.channels
-        )
+      RF_nat.lim <- RF_nat.lim.default
 
-    }else if (min(RF_nat.lim) < 1 |
-              max(RF_nat.lim) > max(
-                subset(
-                  temp.sequence.structure,
-                  temp.sequence.structure$protocol.step == "NATURAL"
-                )$n.channels
-              )) {
-      RF_nat.lim <-
-        c(
-          1,subset(
-            temp.sequence.structure,
-            temp.sequence.structure$protocol.step == "NATURAL"
-          )$n.channels
-        )
-      warning(paste0("RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
-                     paste(range(RF_nat.lim), collapse=":")),")")
+    }else {
+      ##this allows to provide only one boundary and the 2nd will be added automatically
+      if (length(RF_nat.lim) == 1) {
+        RF_nat.lim <- c(RF_nat.lim, RF_nat.lim.default[2])
+
+      }
+
+      if (min(RF_nat.lim) < RF_nat.lim.default[1] |
+          max(RF_nat.lim) > RF_nat.lim.default[2]) {
+        RF_nat.lim <- RF_nat.lim.default
+
+        warning(paste0(
+          "RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
+          paste(range(RF_nat.lim), collapse = ":")
+        ),")")
+      }
+
     }
 
     ##RF_reg.lim
+    ##
     if (missing(RF_reg.lim)) {
-      RF_reg.lim <-
-        c(
-          1,subset(
-            temp.sequence.structure,
-            temp.sequence.structure$protocol.step == "REGENERATED"
-          )$n.channels
-        )
+      RF_reg.lim <- RF_reg.lim.default
 
-    }else if (min(RF_reg.lim) < 1 |
-              max(RF_reg.lim) > max(
-                subset(
-                  temp.sequence.structure,
-                  temp.sequence.structure$protocol.step == "REGENERATED"
-                )$n.channels
-              )) {
-      RF_reg.lim <-
-        c(
-          1,subset(
-            temp.sequence.structure,
-            temp.sequence.structure$protocol.step == "REGENERATED"
-          )$n.channels
-        )
-      warning(paste0("RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
-                     paste(range(RF_reg.lim), collapse=":")),")")
+    }else {
+      ##this allows to provide only one boundary and the 2nd will be added automatically
+      if (length(RF_reg.lim) == 1) {
+        RF_reg.lim <- c(RF_reg.lim, RF_reg.lim.default[2])
 
+      }
+
+      if (min(RF_reg.lim) < RF_reg.lim.default[1] |
+          max(RF_reg.lim) > RF_reg.lim.default[2]) {
+        RF_reg.lim <- RF_reg.lim.default
+
+        warning(paste0(
+          "RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
+          paste(range(RF_reg.lim), collapse = ":")
+        ),")")
+
+      }
     }
 
+    ##check if intervalls make sense at all
     if(length(RF_reg.lim[1]:RF_reg.lim[2]) < RF_nat.lim[2]){
       RF_reg.lim[2] <- RF_reg.lim[2] + abs(length(RF_reg.lim[1]:RF_reg.lim[2]) - RF_nat.lim[2]) + 1
 

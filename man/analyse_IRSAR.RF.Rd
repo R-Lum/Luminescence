@@ -20,10 +20,12 @@ default): specifies the general sequence structure. Allowed steps are
 allowed in the sequence structure; such curves will be ignored during the analysis.}
 
 \item{RF_nat.lim}{\code{\link{vector}} (with default): set minimum and maximum
-channel range for natural signal fitting and sliding.}
+channel range for natural signal fitting and sliding. If only one value is provided this
+will be treated as minium value and the maximum limit will be added automatically.}
 
 \item{RF_reg.lim}{\code{\link{vector}} (with default): set minimum and maximum
-channel range for regenerated signal fitting and sliding.}
+channel range for regenerated signal fitting and sliding. If only one value is provided this
+will be treated as minium value and the maximum limit will be added automatically.}
 
 \item{method}{\code{\link{character}} (with default): setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
@@ -131,7 +133,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings from Buylaert et al. (2012).\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-02 23:07:11)
+ 0.4.0 (2015-08-03 16:13:43)
 }
 \examples{
 ##load data

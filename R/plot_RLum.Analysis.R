@@ -21,32 +21,41 @@
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 #' object of class \code{RLum.Analysis}
+#'
 #' @param nrows \code{\link{integer}} (with default): sets number of rows for
 #' plot output
+#'
 #' @param ncols \code{\link{integer}} (with default): sets number of columns
 #' for plot output
+#'
 #' @param abline \code{\link{list}} (optional): allows to set similar ablines
 #' in each plot. This option uses the function \code{\link{do.call}}, meaning
 #' that every argument in the \code{list} has to be provided as \code{list},
 #' e.g. \code{abline = list(list(v = 120), list(v = 350))} produces two
 #' vertical ablines: One at 150 and another one at 350. Within the call all
 #' arguments supported by \code{\link{abline}} are fully supported,
+#'
 #' @param combine \code{\link{logical}} (with default): allows to combine all
 #' code\linkS4class{RLum.Data.Curve} objects in one single plot.
+#'
 #' @param curve.transformation \code{\link{character}} (optional): allows
 #' transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 #' transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 #' \code{CW2pHMi} and \code{CW2pPMi}. See details.
+#'
 #' @param plot.single \code{\link{logical}} (with default): each curve is
 #' plotted in a single window, overwrites the settings of \code{norws} and
 #' \code{ncols}
+#'
 #' @param \dots further arguments and graphical parameters will be passed to
 #' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 #' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 #' \code{norm}, \code{ylim}, \code{xlab} ... and for \code{combine = TRUE}
 #' also: \code{xlim}, \code{ylab}, \code{sub}, \code{legend.text},
 #' \code{legend.pos} (typical plus 'outside'), \code{legend.col}
+#'
 #' @return Returns multiple plots.
+#'
 #' @note Not all arguments available for \code{\link{plot}} will be passed!
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
