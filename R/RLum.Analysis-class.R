@@ -20,6 +20,8 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Analysis", ...)}.
 #'
+#' @section Class version: 0.2.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
@@ -238,13 +240,18 @@ setMethod("set_RLum",
 #' @param get.index [\code{get_RLum}] \code{\link{logical}} (optional): return a numeric vector with the index of each
 #' element in the RLum.Analysis object.
 #'
+#' @param recursive [\code{get_RLum}] \code{\link{logical}} (with default): if \code{TRUE} (the default)
+#' and the result of the 'get_RLum' request is a single object this object will be unlisted, means
+#' only the object itself and no list containing exactly one object is returned. Mostly this makes things
+#' easier, however, if this method in a loop this might become annoying
+#'
 #' @param keep.object [\code{get_RLum}] \code{\link{logical}} (with default):
 #' return an RLum.Analysis object instead of the single elements.
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
           function(object, record.id, recordType, curveType, RLum.type,
-                   protocol = "UNKNOWN", info.object, get.index, keep.object = FALSE){
+                   protocol = "UNKNOWN", info.object, get.index, keep.object = FALSE, recursive = TRUE){
 
             ##record.id
             if(missing(record.id) == TRUE){
@@ -395,7 +402,7 @@ setMethod("get_RLum",
 
                 }else{
 
-                  if(length(temp) == 1){
+                  if(length(temp) == 1 & recursive == TRUE){
 
                     return(temp[[1]])
 

@@ -60,6 +60,9 @@
 #' TL curve. Select \code{FALSE} to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
 #'
+#' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
+#' more efficient data processing only a list of \code{RLum.Analysis} objects is returned.
+#'
 #' @param import \link{logical} (with default): if set to \code{FALSE}, only
 #' the XSYG file structure is shown.
 #'
@@ -83,7 +86,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.4.4
+#' @section Function version: 0.4.5
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -135,6 +138,7 @@
 readXSYG2R <- function(
   file,
   recalculate.TL.curves = TRUE,
+  fastForward = FALSE,
   import = TRUE,
   txtProgressBar = TRUE
 ){
@@ -242,7 +246,8 @@ readXSYG2R <- function(
     ##grep sequences files
 
     ##set data.frame
-    temp.sequence.header <- data.frame(t(1:length(names(XML::xmlAttrs(temp[[1]])))))
+    temp.sequence.header <- data.frame(t(1:length(names(XML::xmlAttrs(temp[[1]])))),
+                                       stringsAsFactors = FALSE)
 
     colnames(temp.sequence.header) <- names(XML::xmlAttrs(temp[[1]]))
 
@@ -277,7 +282,7 @@ readXSYG2R <- function(
     output <- lapply(1:XML::xmlSize(temp), function(x){
 
       ##read sequence header
-      temp.sequence.header <- as.data.frame(XML::xmlAttrs(temp[[x]]))
+      temp.sequence.header <- as.data.frame(XML::xmlAttrs(temp[[x]]), stringsAsFactors = FALSE)
       colnames(temp.sequence.header) <- ""
 
       ###-----------------------------------------------------------------------
@@ -616,10 +621,14 @@ readXSYG2R <- function(
         }
 
 
-        ##merge output
-        temp.output <- list(Sequence.Header = temp.sequence.header,
-                            Sequence.Object = temp.sequence.object)
+        ##merge output and return values
+        if(fastForward){
+          return(temp.sequence.object)
 
+        }else{
+          return(list(Sequence.Header = temp.sequence.header, Sequence.Object = temp.sequence.object))
+
+        }
 
       }else{
         return(temp.sequence.object)

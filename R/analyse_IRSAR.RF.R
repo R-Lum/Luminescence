@@ -60,10 +60,12 @@
 #' allowed in the sequence structure; such curves will be ignored during the analysis.
 #'
 #' @param RF_nat.lim \code{\link{vector}} (with default): set minimum and maximum
-#' channel range for natural signal fitting and sliding.
+#' channel range for natural signal fitting and sliding. If only one value is provided this
+#' will be treated as minium value and the maximum limit will be added automatically.
 #'
 #' @param RF_reg.lim \code{\link{vector}} (with default): set minimum and maximum
-#' channel range for regenerated signal fitting and sliding.
+#' channel range for regenerated signal fitting and sliding. If only one value is provided this
+#' will be treated as minium value and the maximum limit will be added automatically.
 #'
 #' @param method \code{\link{character}} (with default): setting method applied
 #' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
@@ -99,12 +101,14 @@
 #' returned. The slot data contains the following elements: \cr
 #'
 #' $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
-#' ..$ De : \code{numeric} \cr
-#' ..$ De.lower : \code{numeric} \cr
-#' ..$ De.upper : \code{numeric}c \cr
-#' ..$ De.status  : \code{character} \cr
-#' ..$ RF_nat.lim  : \code{charcter} \cr
-#' ..$ RF_reg.lim : \code{character} \cr
+#' ..$ DE : \code{numeric} \cr
+#' ..$ DE.LOWER : \code{numeric} \cr
+#' ..$ DE.UPPER : \code{numeric}c \cr
+#' ..$ DE.STATUS  : \code{character} \cr
+#' ..$ RF_NAT.LIM  : \code{charcter} \cr
+#' ..$ RF_REG.LIM : \code{character} \cr
+#' ..$ POSITION : \code{integer} \cr
+#' ..$ SEQUENCE_NAME : \code{character}\cr
 #' $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
 #' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 #' $ slide : \code{\link{list}} data from the sliding process\cr
@@ -224,91 +228,125 @@ analyse_IRSAR.RF<- function(
 
   ##INVESTIGATE SEQUENCE OBJECT STRUCTURE
 
-    ##grep object strucute
-    temp.sequence.structure <- structure_RLum(object)
+  ##grep object strucute
+  temp.sequence.structure <- structure_RLum(object)
 
-    ##set structure values
-    temp.sequence.structure$protocol.step <-
-      rep(sequence.structure, length_RLum(object))[1:length_RLum(object)]
+  ##grep name of the sequence and the position this will be useful later on
+  ##name
+  if (!inherits(try(get_RLum(get_RLum(object, record.id = 1), info.object = "name"), silent = TRUE)
+                , "try-error")) {
+    aliquot.sequence_name <-
+      get_RLum(get_RLum(object, record.id = 1), info.object = "name")
 
-    ##check if the first curve is shorter then the first curve
-    if (temp.sequence.structure[1,"n.channels"] > temp.sequence.structure[2,"n.channels"]) {
-      stop(
-        "[analyse_IRSAR.RF()] Number of data channels in RF_nat > RF_reg. This is not supported!"
-      )
+  }else{
+    aliquot.sequence_name <- NA
 
-   }
+  }
+
+
+  ##position
+  if (!inherits(try(get_RLum(get_RLum(object, record.id = 1), info.object = "position"), silent = TRUE)
+                , "try-error")) {
+    aliquot.position <-
+      get_RLum(get_RLum(object, record.id = 1), info.object = "position")
+
+  }else{
+    aliquot.position <- NA
+
+  }
+
+
+  ##set structure values
+  temp.sequence.structure$protocol.step <-
+    rep(sequence.structure, length_RLum(object))[1:length_RLum(object)]
+
+  ##check if the first curve is shorter than the first curve
+  if (temp.sequence.structure[1,"n.channels"] > temp.sequence.structure[2,"n.channels"]) {
+    stop(
+      "[analyse_IRSAR.RF()] Number of data channels in RF_nat > RF_reg. This is not supported!"
+    )
+
+  }
 
   ##===============================================================================================#
   ## SET CURVE LIMITS
   ##===============================================================================================#
   ##the setting here will be valid for all subsequent operations
 
+  ##01
+  ##first get allowed curve limits, this makes the subsequent checkings easier and the code
+  ##more easier to read
+  RF_nat.lim.default <- c(1,max(
+    subset(
+      temp.sequence.structure,
+      temp.sequence.structure$protocol.step == "NATURAL"
+    )$n.channels
+  ))
 
-    ##RF_nat.lim
-    if (missing(RF_nat.lim)) {
-      RF_nat.lim <-
-        c(
-          1,subset(
-            temp.sequence.structure,
-            temp.sequence.structure$protocol.step == "NATURAL"
-          )$n.channels
-        )
+  RF_reg.lim.default <- c(1,max(
+    subset(
+      temp.sequence.structure,
+      temp.sequence.structure$protocol.step == "REGENERATED"
+    )$n.channels
+  ))
 
-    }else if (min(RF_nat.lim) < 1 |
-              max(RF_nat.lim) > max(
-                subset(
-                  temp.sequence.structure,
-                  temp.sequence.structure$protocol.step == "NATURAL"
-                )$n.channels
-              )) {
-      RF_nat.lim <-
-        c(
-          1,subset(
-            temp.sequence.structure,
-            temp.sequence.structure$protocol.step == "NATURAL"
-          )$n.channels
-        )
-      warning(paste0("RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
-                     paste(range(RF_nat.lim), collapse=":")),")")
-    }
 
-    ##RF_reg.lim
-    if (missing(RF_reg.lim)) {
-      RF_reg.lim <-
-        c(
-          1,subset(
-            temp.sequence.structure,
-            temp.sequence.structure$protocol.step == "REGENERATED"
-          )$n.channels
-        )
+  ##02 - check boundaris
+  ##RF_nat.lim
+  if (missing(RF_nat.lim)) {
+    RF_nat.lim <- RF_nat.lim.default
 
-    }else if (min(RF_reg.lim) < 1 |
-              max(RF_reg.lim) > max(
-                subset(
-                  temp.sequence.structure,
-                  temp.sequence.structure$protocol.step == "REGENERATED"
-                )$n.channels
-              )) {
-      RF_reg.lim <-
-        c(
-          1,subset(
-            temp.sequence.structure,
-            temp.sequence.structure$protocol.step == "REGENERATED"
-          )$n.channels
-        )
-      warning(paste0("RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
-                     paste(range(RF_reg.lim), collapse=":")),")")
+  }else {
+    ##this allows to provide only one boundary and the 2nd will be added automatically
+    if (length(RF_nat.lim) == 1) {
+      RF_nat.lim <- c(RF_nat.lim, RF_nat.lim.default[2])
 
     }
 
-    if(length(RF_reg.lim[1]:RF_reg.lim[2]) < RF_nat.lim[2]){
-      RF_reg.lim[2] <- RF_reg.lim[2] + abs(length(RF_reg.lim[1]:RF_reg.lim[2]) - RF_nat.lim[2]) + 1
+    if (min(RF_nat.lim) < RF_nat.lim.default[1] |
+        max(RF_nat.lim) > RF_nat.lim.default[2]) {
+      RF_nat.lim <- RF_nat.lim.default
 
-      warning(paste0("Length intervall RF_reg.lim < length RF_nat. Reset to RF_reg.lim = c(",
-                     paste(range(RF_reg.lim), collapse=":")),")")
+      warning(paste0(
+        "RF_nat.lim out of bounds, reset to: RF_nat.lim = c(",
+        paste(range(RF_nat.lim), collapse = ":")
+      ),")")
+    }
+
+  }
+
+  ##RF_reg.lim
+  ##
+  if (missing(RF_reg.lim)) {
+    RF_reg.lim <- RF_reg.lim.default
+
+  }else {
+    ##this allows to provide only one boundary and the 2nd will be added automatically
+    if (length(RF_reg.lim) == 1) {
+      RF_reg.lim <- c(RF_reg.lim, RF_reg.lim.default[2])
 
     }
+
+    if (min(RF_reg.lim) < RF_reg.lim.default[1] |
+        max(RF_reg.lim) > RF_reg.lim.default[2]) {
+      RF_reg.lim <- RF_reg.lim.default
+
+      warning(paste0(
+        "RF_reg.lim out of bounds, reset to: RF_reg.lim = c(",
+        paste(range(RF_reg.lim), collapse = ":")
+      ),")")
+
+    }
+  }
+
+  ##check if intervalls make sense at all
+  if(length(RF_reg.lim[1]:RF_reg.lim[2]) < RF_nat.lim[2]){
+    RF_reg.lim[2] <- RF_reg.lim[2] + abs(length(RF_reg.lim[1]:RF_reg.lim[2]) - RF_nat.lim[2]) + 1
+
+    warning(paste0("Length intervall RF_reg.lim < length RF_nat. Reset to RF_reg.lim = c(",
+                   paste(range(RF_reg.lim), collapse=":")),")")
+
+  }
 
 
   ##===============================================================================================#
@@ -397,37 +435,37 @@ analyse_IRSAR.RF<- function(
     ##start fitting loop for MC runs
     for(i in 1:n.MC){
 
-        fit.MC <- try(nls(
-          fit.function,
-          trace = FALSE,
-          data = data.frame(x = RF_reg.x, y = RF_reg.y),
-          algorithm = "port",
-          start = list(
-            phi.0 = phi.0.MC[i],
-            delta.phi = delta.phi.MC[i],
-            lambda = lambda.MC[i],
-            beta = beta.MC[i]
-          ),
-          nls.control(
-            maxiter = 100,
-            warnOnly = FALSE,
-            minFactor = 1 / 1024
-          ),
-          lower = c(
-            phi.0 = .Machine$double.xmin,
-            delta.phi = .Machine$double.xmin,
-            lambda = .Machine$double.xmin,
-            beta = .Machine$double.xmin
-          ),
-          upper = c(
-            phi.0 = max(RF_reg.y),
-            delta.phi = max(RF_reg.y),
-            lambda = 1,
-            beta = 100
-          )
+      fit.MC <- try(nls(
+        fit.function,
+        trace = FALSE,
+        data = data.frame(x = RF_reg.x, y = RF_reg.y),
+        algorithm = "port",
+        start = list(
+          phi.0 = phi.0.MC[i],
+          delta.phi = delta.phi.MC[i],
+          lambda = lambda.MC[i],
+          beta = beta.MC[i]
         ),
-        silent = TRUE
+        nls.control(
+          maxiter = 100,
+          warnOnly = FALSE,
+          minFactor = 1 / 1024
+        ),
+        lower = c(
+          phi.0 = .Machine$double.xmin,
+          delta.phi = .Machine$double.xmin,
+          lambda = .Machine$double.xmin,
+          beta = .Machine$double.xmin
+        ),
+        upper = c(
+          phi.0 = max(RF_reg.y),
+          delta.phi = max(RF_reg.y),
+          lambda = 1,
+          beta = 100
         )
+      ),
+      silent = TRUE
+      )
 
       if(inherits(fit.MC,"try-error") == FALSE) {
         temp.fit.parameters.results.MC.results <- coef(fit.MC)
@@ -559,11 +597,11 @@ analyse_IRSAR.RF<- function(
 
       ##(1) calculate sum of residual squares using internal Rcpp function
 
-        #pre-allocate object
-        temp.sum.residuals <- vector("numeric", length = t_max.id - t_max_nat.id)
+      #pre-allocate object
+      temp.sum.residuals <- vector("numeric", length = t_max.id - t_max_nat.id)
 
-        ##calculate sum of squared residuals ... for the entire set
-        temp.sum.residuals <- .analyse_IRSARRF_SRS(RF_reg.limited[,2], RF_nat.limited[,2])
+      ##calculate sum of squared residuals ... for the entire set
+      temp.sum.residuals <- .analyse_IRSARRF_SRS(RF_reg.limited[,2], RF_nat.limited[,2])
 
       #(2) get minimum value (index and time value)
       t_n.id <- which.min(temp.sum.residuals)
@@ -580,8 +618,8 @@ analyse_IRSAR.RF<- function(
       De <- round(t_n, digits = 2)
       temp.trend.fit <- NA
 
-     ##(5) calculate trend fit
-     temp.trend.fit <- coef(lm(y~x, data.frame(x = RF_nat.limited[,1], y = residuals)))
+      ##(5) calculate trend fit
+      temp.trend.fit <- coef(lm(y~x, data.frame(x = RF_nat.limited[,1], y = residuals)))
 
 
       ##return values and limited if they are not needed
@@ -609,61 +647,61 @@ analyse_IRSAR.RF<- function(
       RF_reg.limited = RF_reg.limited,
     )
 
-      ##write results in variables
-      De <- slide$De
-      residuals <- slide$residuals
-      RF_nat.slided <-  slide$RF_nat.slided
+    ##write results in variables
+    De <- slide$De
+    residuals <- slide$residuals
+    RF_nat.slided <-  slide$RF_nat.slided
 
 
     # ERROR ESTIMATION
     # MC runs for error calculation ---------------------------------------------------------------
 
-      ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
-      slide.MC.list <- lapply(1:n.MC,function(x) {
-        cbind(
-          RF_nat.limited[,1],
-          (RF_reg.limited[slide$t_n.id:(slide$t_n.id + nrow(RF_nat.limited)-1) ,2]
-           + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
-           )
+    ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
+    slide.MC.list <- lapply(1:n.MC,function(x) {
+      cbind(
+        RF_nat.limited[,1],
+        (RF_reg.limited[slide$t_n.id:(slide$t_n.id + nrow(RF_nat.limited)-1) ,2]
+         + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
         )
-       })
+      )
+    })
 
-     ##predefine vector
-     De.MC <- vector(length = n.MC)
+    ##predefine vector
+    De.MC <- vector(length = n.MC)
 
-     if(txtProgressBar){
-     ##terminal output fo MC
-     cat("\n\t Run Monte Carlo loops for error estimation\n")
+    if(txtProgressBar){
+      ##terminal output fo MC
+      cat("\n\t Run Monte Carlo loops for error estimation\n")
 
       ##progress bar
       pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
-     }
+    }
 
-       for (i in 1:n.MC) {
-         temp.slide.MC <- sliding(
-           RF_nat = RF_nat,
-           RF_reg.limited = RF_reg.limited,
-           RF_nat.limited = slide.MC.list[[i]],
-           numerical.only = TRUE
-         )
+    for (i in 1:n.MC) {
+      temp.slide.MC <- sliding(
+        RF_nat = RF_nat,
+        RF_reg.limited = RF_reg.limited,
+        RF_nat.limited = slide.MC.list[[i]],
+        numerical.only = TRUE
+      )
 
-         De.MC[i] <- temp.slide.MC[[1]]
+      De.MC[i] <- temp.slide.MC[[1]]
 
-         ##update progress bar
-         if (txtProgressBar) {
-           setTxtProgressBar(pb, i)
-         }
+      ##update progress bar
+      if (txtProgressBar) {
+        setTxtProgressBar(pb, i)
+      }
 
-       }
+    }
 
-      ##close
-      if(txtProgressBar){close(pb)}
+    ##close
+    if(txtProgressBar){close(pb)}
 
-      ##calculate absolute deviation between De and the here newly calculated De.MC
-      ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
-      De.diff <- diff(x = c(De, De.MC))
-      De.lower <- De - quantile(De.diff, 0.975)
-      De.upper <- De - quantile(De.diff, 0.025)
+    ##calculate absolute deviation between De and the here newly calculated De.MC
+    ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
+    De.diff <- diff(x = c(De, De.MC))
+    De.lower <- De - quantile(De.diff, 0.975)
+    De.upper <- De - quantile(De.diff, 0.025)
 
   }else{
 
@@ -721,10 +759,12 @@ analyse_IRSAR.RF<- function(
 
   ##Combine everthing in a data.frame
   RC.data.frame <- data.frame(
-      CRITERIA = c(names(RC)),
-      THRESHOLD = unlist(RC),
-      VALUE = c(RC.curves_ratio, RC.residuals_slope,RC.curves_bounds),
-      STATUS = c(RC.curves_ratio.status, RC.residuals_slope.status, RC.curves_bounds.status),
+    POSITION =  as.integer(aliquot.position),
+    CRITERIA = c(names(RC)),
+    THRESHOLD = unlist(RC),
+    VALUE = c(RC.curves_ratio, RC.residuals_slope,RC.curves_bounds),
+    STATUS = c(RC.curves_ratio.status, RC.residuals_slope.status, RC.curves_bounds.status),
+    SEQUENCE_NAME = aliquot.sequence_name,
     row.names = NULL,
     stringsAsFactors = FALSE
   )
@@ -798,30 +838,30 @@ analyse_IRSAR.RF<- function(
 
     }
 
-      ##use scientific format for y-axis
-      labels <- axis(2, labels = FALSE)
-      axis(side = 2, at = labels, labels = format(labels, scientific = TRUE))
+    ##use scientific format for y-axis
+    labels <- axis(2, labels = FALSE)
+    axis(side = 2, at = labels, labels = format(labels, scientific = TRUE))
 
-      ##(1) plot points that have been not selected
-      points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col=col[19])
+    ##(1) plot points that have been not selected
+    points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col=col[19])
 
-      ##(2) plot points that has been used for the fitting
-      points(RF_reg.x,RF_reg.y, pch=3, col=col[10])
+    ##(2) plot points that has been used for the fitting
+    points(RF_reg.x,RF_reg.y, pch=3, col=col[10])
 
-      ##show natural points if no analysis was done
-      if(method != "SLIDE" & method != "FIT"){
+    ##show natural points if no analysis was done
+    if(method != "SLIDE" & method != "FIT"){
 
-        ##add points
-        points(RF_nat, pch = 20, col = "grey")
-        points(RF_nat.limited, pch = 20, col = "red")
+      ##add points
+      points(RF_nat, pch = 20, col = "grey")
+      points(RF_nat.limited, pch = 20, col = "red")
 
-        ##legend
-        legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
-               pch=c(19,3), col=c("red", col[10]),
-               horiz=TRUE, bty = "n", cex=.9)
+      ##legend
+      legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
+             pch=c(19,3), col=c("red", col[10]),
+             horiz=TRUE, bty = "n", cex=.9)
 
 
-      }
+    }
 
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
     ## PLOT - METHOD FIT
@@ -840,24 +880,24 @@ analyse_IRSAR.RF<- function(
             to = RF_reg[max(RF_reg.lim), 1],
             col="red")
 
-        ##plotting to show the limitations if RF_reg.lim was chosen
-        ##show fitted curve GREY (previous red curve)
-        curve(fit.parameters.results["phi.0"]-
-                (fit.parameters.results["delta.phi"]*
-                   ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
-              add=TRUE,
-              from = min(RF_reg[, 1]),
-              to = RF_reg[min(RF_reg.lim), 1],
-              col="grey")
+      ##plotting to show the limitations if RF_reg.lim was chosen
+      ##show fitted curve GREY (previous red curve)
+      curve(fit.parameters.results["phi.0"]-
+              (fit.parameters.results["delta.phi"]*
+                 ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
+            add=TRUE,
+            from = min(RF_reg[, 1]),
+            to = RF_reg[min(RF_reg.lim), 1],
+            col="grey")
 
-        ##show fitted curve GREY (after red curve)
-        curve(fit.parameters.results["phi.0"]-
-                (fit.parameters.results["delta.phi"]*
-                   ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
-              add=TRUE,
-              from = RF_reg[max(RF_reg.lim), 1],
-              to = max(RF_reg[, 1]),
-              col="grey")
+      ##show fitted curve GREY (after red curve)
+      curve(fit.parameters.results["phi.0"]-
+              (fit.parameters.results["delta.phi"]*
+                 ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
+            add=TRUE,
+            from = RF_reg[max(RF_reg.lim), 1],
+            to = max(RF_reg[, 1]),
+            col="grey")
 
       ##add points
       points(RF_nat, pch = 20, col = col[19])
@@ -889,8 +929,8 @@ analyse_IRSAR.RF<- function(
 
       ##Insert fit and result
       if(is.na(De) != TRUE & (is.nan(De) == TRUE |
-                                     De > max(RF_reg.x) |
-                                     De.upper > max(RF_reg.x))){
+                              De > max(RF_reg.x) |
+                              De.upper > max(RF_reg.x))){
 
         try(mtext(side=3, substitute(D[e] == De,
                                      list(De=paste(
@@ -909,7 +949,7 @@ analyse_IRSAR.RF<- function(
             substitute(D[e] == De,
                        list(
                          De = paste(De," [",De.lower," ; ", De.upper,"]", sep =
-                                           "")
+                                      "")
                        )),
             line = 0,
             cex = 0.7
@@ -1030,9 +1070,9 @@ analyse_IRSAR.RF<- function(
       abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
       abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
-        legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
-               pch=c(19,3), col=c("red", col[10]),
-               horiz=TRUE, bty = "n", cex=.9)
+      legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
+             pch=c(19,3), col=c("red", col[10]),
+             horiz=TRUE, bty = "n", cex=.9)
 
 
       ##write information on the De in the plot
@@ -1042,11 +1082,11 @@ analyse_IRSAR.RF<- function(
 
       }else{
 
-          try(mtext(side=3,
-                    substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
-                    line=0,
-                    cex=0.7),
-              silent=TRUE)
+        try(mtext(side=3,
+                  substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
+                  line=0,
+                  cex=0.7),
+            silent=TRUE)
 
       }
 
@@ -1054,78 +1094,78 @@ analyse_IRSAR.RF<- function(
       ##RESIDUAL PLOT
       par(mar=c(4,4,0,0))
 
-        plot(NA,NA,
-             ylim = range(residuals),
-             xlim=xlim,
-             xlab=plot.settings$xlab,
-             type="p",
-             pch=1,
-             col="grey",
-             ylab="E",
-             yaxt = "n",
-             log=ifelse(plot.settings$log == "y" | plot.settings$log == "xy", "", plot.settings$log)
-            )
+      plot(NA,NA,
+           ylim = range(residuals),
+           xlim=xlim,
+           xlab=plot.settings$xlab,
+           type="p",
+           pch=1,
+           col="grey",
+           ylab="E",
+           yaxt = "n",
+           log=ifelse(plot.settings$log == "y" | plot.settings$log == "xy", "", plot.settings$log)
+      )
 
-        ##add axis for 0 ... means if the 0 is not visible there is labelling
-        axis(side = 4, at = 0, labels = 0)
+      ##add axis for 0 ... means if the 0 is not visible there is labelling
+      axis(side = 4, at = 0, labels = 0)
 
-        ##add residual indicator (should circle around 0)
-        col.ramp <- colorRampPalette(c(col[19], "white", col[19]))
-        col.polygon <- col.ramp(100)
+      ##add residual indicator (should circle around 0)
+      col.ramp <- colorRampPalette(c(col[19], "white", col[19]))
+      col.polygon <- col.ramp(100)
 
-        if (plot.settings$log != "x") {
-          shape::filledrectangle(
-            mid = c((xlim[2]) + (par("usr")[2] - xlim[2]) / 2,
-                    max(residuals) - diff(range(residuals)) / 2),
-            wx = par("usr")[2] - xlim[2],
-            wy = diff(range(residuals)),
-            col = col.polygon
-          )
+      if (plot.settings$log != "x") {
+        shape::filledrectangle(
+          mid = c((xlim[2]) + (par("usr")[2] - xlim[2]) / 2,
+                  max(residuals) - diff(range(residuals)) / 2),
+          wx = par("usr")[2] - xlim[2],
+          wy = diff(range(residuals)),
+          col = col.polygon
+        )
 
-        }
-        ##add 0 line
-        abline(h=0, lty = 3)
+      }
+      ##add 0 line
+      abline(h=0, lty = 3)
 
-        ##0-line indicator and arrows if this is not visible
-        ##red colouring here only if the 0 point is not visible to avoid too much colouring
-        if(max(residuals) < 0 &
-           min(residuals) < 0) {
-          shape::Arrowhead(
-            x0 =   xlim[2] + (par("usr")[2] - xlim[2]) / 2,
-            y0 = max(residuals),
-            angle = 270,
-            lcol = col[2],
-            arr.length = 0.4, arr.type = "triangle",
-            arr.col = col[2]
-          )
+      ##0-line indicator and arrows if this is not visible
+      ##red colouring here only if the 0 point is not visible to avoid too much colouring
+      if(max(residuals) < 0 &
+         min(residuals) < 0) {
+        shape::Arrowhead(
+          x0 =   xlim[2] + (par("usr")[2] - xlim[2]) / 2,
+          y0 = max(residuals),
+          angle = 270,
+          lcol = col[2],
+          arr.length = 0.4, arr.type = "triangle",
+          arr.col = col[2]
+        )
 
-        }else if (max(residuals) > 0 & min(residuals) > 0) {
-          shape::Arrowhead(
-            x0 =   xlim[2] + (par("usr")[2] - xlim[2]) / 2,
-            y0 = min(residuals),
-            angle = 90,
-            lcol = col[2],
-            arr.length = 0.4, arr.type = "triangle",
-            arr.col = col[2]
-          )
+      }else if (max(residuals) > 0 & min(residuals) > 0) {
+        shape::Arrowhead(
+          x0 =   xlim[2] + (par("usr")[2] - xlim[2]) / 2,
+          y0 = min(residuals),
+          angle = 90,
+          lcol = col[2],
+          arr.length = 0.4, arr.type = "triangle",
+          arr.col = col[2]
+        )
 
 
-        }else{
-          points(xlim[2], 0, pch = 3)
+      }else{
+        points(xlim[2], 0, pch = 3)
 
-        }
+      }
 
 
       ##add residual points
       points(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)),1], residuals,
-               pch = 20, col = col[19])
+             pch = 20, col = col[19])
 
       ##add vertical line to mark De (t_n)
       abline(v = De, lty = 2, col = col[2])
 
       ##add numeric value of De ... t_n
       axis(side = 1, at = De, labels = De, cex.axis = 0.8*plot.settings$cex,
-             col = "blue", padj = -1.55,)
+           col = "blue", padj = -1.55,)
 
     }
 
@@ -1149,12 +1189,14 @@ analyse_IRSAR.RF<- function(
 
   ##combine values for De into a data frame
   De.values <- data.frame(
-      De = De,
-      De.lower = De.lower,
-      De.upper = De.upper,
-      De.status = De.status,
-      RF_nat.lim = paste(RF_nat.lim, collapse = ":"),
-      RF_reg.lim = paste(RF_reg.lim, collapse = ":"),
+    DE = De,
+    DE.LOWER = De.lower,
+    DE.UPPER = De.upper,
+    DE.STATUS = De.status,
+    RF_NAT.LIM = paste(RF_nat.lim, collapse = ":"),
+    RF_REG.LIM = paste(RF_reg.lim, collapse = ":"),
+    POSITION =  as.integer(aliquot.position),
+    SEQUENCE_NAME = aliquot.sequence_name,
     row.names = NULL,
     stringsAsFactors = FALSE
   )

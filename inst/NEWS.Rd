@@ -38,6 +38,10 @@
 
     \item undefined error using \code{get_RLum(..., keep.object = TRUE)} for \code{RLum.Analysis}
     objects are corrected (#233).
+
+    \item argument \code{recursive} added to \code{get_RLum} method for \code{RLum.Analysis} class. This
+    should prevent some loop related problems in cases \code{get_RLum} returns a single RLum object instead
+    a list of RLum objects
    }
   }
 
@@ -121,6 +125,16 @@
 
       }
 
+       \item \code{plot_RLum.Analysis()}
+
+        \itemize{
+
+          \item Fix an error that occurred for the argument combination \code{combine = TRUE}
+           and \code{RLum.Analysis} objects that only contain one curve object of each type.
+
+      }
+
+
       \item \code{plot_RLum.Data.Curve()}
 
         \itemize{
@@ -130,12 +144,26 @@
 
       }
 
+      \item \code{readBIN2R()}
+
+        \itemize{
+
+          \item Implemnt new logical argument called \code{fastForward}. If \code{TRUE} the output
+          is no longer a \code{Risoe.BINfileData} object, but a list of \code{RLum.Analysis} objects.
+          This should allow a more efficient data processing in particular cases.
+
+      }
+
      \item \code{readXSYG2R()}
 
         \itemize{
 
           \item The import will not break any longer if the XSYG file is incomplete. Incomplete
-          sequences will be removed from the output (incl. terminal feedback).
+          sequences will be removed from the output (incl. terminal feedback), \
+          \item new logical argument \code{fastForward} implemented for a more efficient data analysis
+          (same functionality as for the function \code{readBIN2R()}.
+          If set to \code{TRUE} only a list of \code{RLum.Analysis} objects is returned, instead of
+          a list of headers and \code{RLum.Analysis} objects.
 
       }
 

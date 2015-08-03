@@ -20,10 +20,12 @@ default): specifies the general sequence structure. Allowed steps are
 allowed in the sequence structure; such curves will be ignored during the analysis.}
 
 \item{RF_nat.lim}{\code{\link{vector}} (with default): set minimum and maximum
-channel range for natural signal fitting and sliding.}
+channel range for natural signal fitting and sliding. If only one value is provided this
+will be treated as minium value and the maximum limit will be added automatically.}
 
 \item{RF_reg.lim}{\code{\link{vector}} (with default): set minimum and maximum
-channel range for regenerated signal fitting and sliding.}
+channel range for regenerated signal fitting and sliding. If only one value is provided this
+will be treated as minium value and the maximum limit will be added automatically.}
 
 \item{method}{\code{\link{character}} (with default): setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
@@ -59,12 +61,14 @@ A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 returned. The slot data contains the following elements: \cr
 
 $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
-..$ De : \code{numeric} \cr
-..$ De.lower : \code{numeric} \cr
-..$ De.upper : \code{numeric}c \cr
-..$ De.status  : \code{character} \cr
-..$ RF_nat.lim  : \code{charcter} \cr
-..$ RF_reg.lim : \code{character} \cr
+..$ DE : \code{numeric} \cr
+..$ DE.LOWER : \code{numeric} \cr
+..$ DE.UPPER : \code{numeric}c \cr
+..$ DE.STATUS  : \code{character} \cr
+..$ RF_NAT.LIM  : \code{charcter} \cr
+..$ RF_REG.LIM : \code{character} \cr
+..$ POSITION : \code{integer} \cr
+..$ SEQUENCE_NAME : \code{character}\cr
 $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 $ slide : \code{\link{list}} data from the sliding process\cr
@@ -131,7 +135,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings from Buylaert et al. (2012).\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-02 22:55:15)
+ 0.4.0 (2015-08-03 20:34:00)
 }
 \examples{
 ##load data

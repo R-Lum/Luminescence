@@ -15,7 +15,7 @@
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
   RLum.type, protocol = "UNKNOWN", info.object, get.index,
-  keep.object = FALSE)
+  keep.object = FALSE, recursive = TRUE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
 }
@@ -46,6 +46,11 @@ element in the RLum.Analysis object.}
 
 \item{keep.object}{[\code{get_RLum}] \code{\link{logical}} (with default):
 return an RLum.Analysis object instead of the single elements.}
+
+\item{recursive}{[\code{get_RLum}] \code{\link{logical}} (with default): if \code{TRUE} (the default)
+and the result of the 'get_RLum' request is a single object this object will be unlisted, means
+only the object itself and no list containing exactly one object is returned. Mostly this makes things
+easier, however, if this method in a loop this might become annoying}
 }
 \description{
 Object class containing analysis data for protocol analysis.
@@ -83,6 +88,10 @@ avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 \section{Objects from the Class}{
  Objects can be created by calls of the form
 \code{new("RLum.Analysis", ...)}.
+}
+
+\section{Class version}{
+ 0.2.0
 }
 \examples{
 showClass("RLum.Analysis")

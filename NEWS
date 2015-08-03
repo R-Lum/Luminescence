@@ -47,6 +47,11 @@ Changes in version 0.4.5 (, 2015):
          • undefined error using ‘get_RLum(..., keep.object = TRUE)’
            for ‘RLum.Analysis’ objects are corrected (#233).
 
+         • argument ‘recursive’ added to ‘get_RLum’ method for
+           ‘RLum.Analysis’ class. This should prevent some loop related
+           problems in cases ‘get_RLum’ returns a single RLum object
+           instead a list of RLum objects
+
   Bugfixes and changes:
 
          • ‘analyse_IRSAR.RF()’
@@ -134,17 +139,37 @@ Changes in version 0.4.5 (, 2015):
              • summary content 'in confidence interval' changed to 'in
                2 sigma'
 
+         • ‘plot_RLum.Analysis()’
+
+             • Fix an error that occurred for the argument combination
+               ‘combine = TRUE’ and ‘RLum.Analysis’ objects that only
+               contain one curve object of each type.
+
          • ‘plot_RLum.Data.Curve()’
 
              • NA-test implemented. Nothing is plotted if the curve
                contains NA-values (previous behaviour: function stopped
                with an error).
 
+         • ‘readBIN2R()’
+
+             • Implemnt new logical argument called ‘fastForward’. If
+               ‘TRUE’ the output is no longer a ‘Risoe.BINfileData’
+               object, but a list of ‘RLum.Analysis’ objects.  This
+               should allow a more efficient data processing in
+               particular cases.
+
          • ‘readXSYG2R()’
 
              • The import will not break any longer if the XSYG file is
                incomplete. Incomplete sequences will be removed from
-               the output (incl. terminal feedback).
+               the output (incl. terminal feedback), \
+
+             • new logical argument ‘fastForward’ implemented for a
+               more efficient data analysis (same functionality as for
+               the function ‘readBIN2R()’.  If set to ‘TRUE’ only a
+               list of ‘RLum.Analysis’ objects is returned, instead of
+               a list of headers and ‘RLum.Analysis’ objects.
 
          • ‘Risoe.BINfileData2RLum.Data.Curve()’
 

@@ -4,7 +4,7 @@
 \alias{readBIN2R}
 \title{Import Risoe BIN-file into R}
 \usage{
-readBIN2R(file, show.raw.values = FALSE, n.records,
+readBIN2R(file, show.raw.values = FALSE, n.records, fastForward = FALSE,
   show.record.number = FALSE, txtProgressBar = TRUE, forced.VersionNumber)
 }
 \arguments{
@@ -19,6 +19,10 @@ translation in characters.}
 \item{n.records}{\link{raw} (optional): limits the number of imported
 records. Can be used in combination with \code{show.record.number} for
 debugging purposes, e.g. corrupt BIN files.}
+
+\item{fastForward}{\code{\link{logical}} (with default): if \code{TRUE} for a
+more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
+of a \link{Risoe.BINfileData-class} object}
 
 \item{show.record.number}{\link{logical} (with default): shows record number
 of the imported record, for debugging usage only.}
@@ -36,7 +40,10 @@ Returns an S4 \link{Risoe.BINfileData-class} object containing two
 slots:\cr \item{METADATA}{A \link{data.frame} containing all variables
 stored in the bin-file.} \item{DATA}{A \link{list} containing a numeric
 \link{vector} of the measured data. The ID corresponds to the record ID in
-METADATA.}
+METADATA.}\cr
+
+If \code{fastForward = TRUE} a list of \code{\linkS4class{RLum.Analysis}} object is returned. The
+internal coercing is done using the function \code{\link{Risoe.BINfileData2RLum.Analysis}}
 }
 \description{
 Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL
@@ -55,7 +62,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested so far.}.
 }
 \section{Function version}{
- 0.9.0 (2015-08-01 17:03:04)
+ 0.9.1 (2015-08-03 14:04:31)
 }
 \examples{
 ##(1) import Risoe BIN-file to R (uncomment for usage)
@@ -74,7 +81,7 @@ Duller, G., 2007. Analyst.
 }
 \seealso{
 \code{\link{writeR2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
-\code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}},
+\code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
 \code{\link[utils]{txtProgressBar}}
 }
 \keyword{IO}
