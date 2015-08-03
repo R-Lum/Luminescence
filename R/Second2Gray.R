@@ -46,9 +46,9 @@
 #' ##(B) for source dose rate calibration data
 #' ## - calculate source dose rate first
 #' dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
-#'                                   calib.date <- "2014-12-19",
-#'                                   calib.dose.rate <- 0.0438,
-#'                                   calib.error <- 0.0019)
+#'                                   calib.date = "2014-12-19",
+#'                                   calib.dose.rate = 0.0438,
+#'                                   calib.error = 0.0019)
 #' # read example data
 #' data(ExampleData.DeValues, envir = environment())
 #'
