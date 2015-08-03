@@ -47,6 +47,11 @@ Changes in version 0.4.5 (, 2015):
          • undefined error using ‘get_RLum(..., keep.object = TRUE)’
            for ‘RLum.Analysis’ objects are corrected (#233).
 
+         • argument ‘recursive’ added to ‘get_RLum’ method for
+           ‘RLum.Analysis’ class. This should prevent some loop related
+           problems in cases ‘get_RLum’ returns a single RLum object
+           instead a list of RLum objects
+
   Bugfixes and changes:
 
          • ‘analyse_IRSAR.RF()’
@@ -133,6 +138,12 @@ Changes in version 0.4.5 (, 2015):
 
              • summary content 'in confidence interval' changed to 'in
                2 sigma'
+
+         • ‘plot_RLum.Analysis()’
+
+             • Fix an error that occurred for the argument combination
+               ‘combine = TRUE’ and ‘RLum.Analysis’ objects that only
+               contain one curve object of each type.
 
          • ‘plot_RLum.Data.Curve()’
 

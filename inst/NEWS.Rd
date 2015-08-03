@@ -38,6 +38,10 @@
 
     \item undefined error using \code{get_RLum(..., keep.object = TRUE)} for \code{RLum.Analysis}
     objects are corrected (#233).
+
+    \item argument \code{recursive} added to \code{get_RLum} method for \code{RLum.Analysis} class. This
+    should prevent some loop related problems in cases \code{get_RLum} returns a single RLum object instead
+    a list of RLum objects
    }
   }
 
@@ -120,6 +124,16 @@
           \item summary content 'in confidence interval' changed to 'in 2 sigma'
 
       }
+
+       \item \code{plot_RLum.Analysis()}
+
+        \itemize{
+
+          \item Fix an error that occurred for the argument combination \code{combine = TRUE}
+           and \code{RLum.Analysis} objects that only contain one curve object of each type.
+
+      }
+
 
       \item \code{plot_RLum.Data.Curve()}
 

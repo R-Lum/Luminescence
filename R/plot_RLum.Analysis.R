@@ -355,10 +355,10 @@ plot_RLum.Analysis <- function(
       ##get structure
       object.structure  <- structure_RLum(temp.object)
 
-      ##now get the real list object
-      object.list <-
-        get_RLum(object, recordType = temp.recordType[k])
 
+      ##now get the real list object (note the argument recursive = FALSE)
+      object.list <-
+        get_RLum(object, recordType = temp.recordType[k], recursive = FALSE)
 
       ##prevent problems for non set argument
       if (missing(curve.transformation)) {
@@ -368,6 +368,7 @@ plot_RLum.Analysis <- function(
       ##transform values to data.frame and norm values
       temp.data.list <- lapply(1:length(object.list), function(x) {
         ##set curve transformation if wanted
+
         if (grepl("IRSL", object.list[[x]]@recordType) |
               grepl("OSL", object.list[[x]]@recordType)) {
           if (curve.transformation == "CW2pLM") {
