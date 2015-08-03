@@ -728,7 +728,7 @@ analyse_IRSAR.RF<- function(
   if(!missing(rejection.criteria)){RC <- modifyList(RC, rejection.criteria)}
 
   ##(1) check if RF_nat > RF_reg, considering the fit range
-  RC.curves_ratio <- sum(RF_nat.limited[,2])/sum(RF_reg.y)
+  RC.curves_ratio <- sum(RF_nat.limited[,2])/sum(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2])
   RC.curves_ratio.status <- ifelse(RC.curves_ratio >= RC$curves_ratio, "FAILED", "OK")
 
   ##(2) check slop of the residuals using a linear fit

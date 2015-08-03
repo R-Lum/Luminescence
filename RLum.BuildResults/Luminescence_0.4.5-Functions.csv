@@ -1,5 +1,5 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
-"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003)<br />","0.4.0","2015-08-03","20:34:00
+"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003)<br />","0.4.0","2015-08-03","22:22:51
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.1.4","2015-07-24","16:13:49
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -101,7 +101,7 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> readBIN2R  function.<br />","0.4.1","2015-04-30","12:00:00
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.4","2015-08-03","15:32:38
+"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.4","2015-08-03","20:39:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Curve","Plot function for an RLum.Data.Curve S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Data.Curve S4 class object<br />","0.1.5","2015-07-23","21:04:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -113,11 +113,11 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Results","Plot function for an RLum.Results S4 class object","<br /> The function provides a standardised plot output for data of an RLum.Results<br /> S4 class object<br />","0.1","2015-04-30","12:01:13
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
-"readBIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.9.1","2015-08-03","14:04:31
+"readBIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.9.1","2015-08-03","20:39:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, TU Bergakademie Freiberg (Germany)<br />  R Luminescence Package Team"
 "readSPE2R","Import Princeton Intruments (TM) SPE-file into R","<br /> Function imports Princeton Instruments (TM) SPE-files into R environment and<br /> provides  RLum  objects as output.<br />","0.1","2015-07-23","17:09:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"readXSYG2R","Import XSYG files to R","<br /> Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.<br />","0.4.5","2015-08-03","13:46:58
+"readXSYG2R","Import XSYG files to R","<br /> Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.<br />","0.4.5","2015-08-03","20:39:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "Risoe.BINfileData-class","Class  \"Risoe.BINfileData\"","<br /> S4 class object for luminescence data in R. The object is produced as output<br /> of the function  readBIN2R .<br />","0.2.0
 ",NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -132,7 +132,7 @@
 "RLum.Data.Image-class","Class  \"RLum.Data.Image\"","<br /> Class for luminescence image data (TL/OSL/RF).<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Data.Spectrum-class","Class  \"RLum.Data.Spectrum\"","<br /> Class for luminescence spectra data (TL/OSL/RF).<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Results-class","Class  \"RLum.Results\"","<br /> Object class contains results data from functions.<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />"
-"Second2Gray","Converting values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.4","2015-07-23","17:09:29
+"Second2Gray","Converting values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.4","2015-08-03","20:43:15
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, TU Bergakadmie Freiberg<br /> (Germany)<br />  R Luminescence Package Team"
 "set_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1","2015-07-23","17:09:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
