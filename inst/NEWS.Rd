@@ -76,6 +76,18 @@
       }
 
 
+     \item \code{calc_SourceDoseRate()}
+
+        \itemize{
+
+          \item The arguments \code{measurement.date} and \code{calib.date} no accept also input objects
+          of type 'Date',
+          \item if no \code{measurement.date} is provided, it will be set automatically to today with
+          a warning.
+
+      }
+
+
       \item \code{calc_Statistics()}
 
         \itemize{

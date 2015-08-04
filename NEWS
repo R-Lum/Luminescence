@@ -97,6 +97,14 @@ Changes in version 0.4.5 (, 2015):
 
              • a lot of internal code polishing.
 
+         • ‘calc_SourceDoseRate()’
+
+             • The arguments ‘measurement.date’ and ‘calib.date’ no
+               accept also input objects of type 'Date',
+
+             • if no ‘measurement.date’ is provided, it will be set
+               automatically to today with a warning.
+
          • ‘calc_Statistics()’
 
              • default setting of weights definition changed from 1/s

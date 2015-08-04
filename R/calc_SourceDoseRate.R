@@ -24,33 +24,47 @@
 #' National Laboratory \cr [3] \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven
 #' National Laboratory }
 #'
-#' @param measurement.date \code{\link{character}} (\bold{required}): date of
-#' measurement in "YYYY-MM-DD"
-#' @param calib.date \code{\link{character}} (\bold{required}): date of source
+#' @param measurement.date \code{\link{character}} or \code{\link{Date}} (\bold{required}): date of
+#' measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
+#'
+#' @param calib.date \code{\link{character}} or \code{\link{Date}} (\bold{required}): date of source
 #' calibration in "YYYY-MM-DD"
+#'
 #' @param calib.dose.rate \code{\link{numeric}} (\bold{required}): dose rate at
 #' date of calibration in Gy/s or Gy/min
+#'
 #' @param calib.error \code{\link{numeric}} (\bold{required}): error of dose
 #' rate at date of calibration Gy/s or Gy/min
+#'
 #' @param source.type \code{\link{character}} (with default): specify
 #' irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}), see
 #' details for further information
+#'
 #' @param dose.rate.unit \code{\link{character}} (with default): specify dose
 #' rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
 #' Gy/s as valid for the function \code{\link{Second2Gray}}
+#'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #' Slot \code{data} contains a \code{\link{list}} with the following
 #' structure:\cr $ dose.rate (data.frame)\cr .. $ dose.rate \cr .. $
 #' dose.rate.error \cr $ parameters (list) \cr .. $ source.type\cr .. $
 #' halflife\cr .. $ dose.rate.unit
+#'
 #' @note #
-#' @section Function version: 0.1
+#'
+#' @section Function version: 0.2.0
+#'
 #' @author Margret C. Fuchs, AWI Potsdam (Germany), \cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
+#'
 #' @seealso \code{\link{Second2Gray}}
+#'
 #' @references NNDC, Brookhaven National Laboratory
 #' (\code{http://www.nndc.bnl.gov/})
+#'
 #' @keywords manip
+#'
 #' @examples
 #'
 #'
@@ -83,6 +97,25 @@ calc_SourceDoseRate <- function(
   dose.rate.unit = "Gy/s"
 ){
 
+
+  # -- transform input so far necessary
+  ## measurement.data
+    if (missing(measurement.date)) {
+      measurement.date <- Sys.Date()
+
+      warning("Argument 'measurement.date', automatically set to today.")
+
+    }else{
+      if (is(measurement.date, "character")) {
+        measurement.date <- as.Date(measurement.date)
+      }
+
+    }
+
+  ##calibration date
+  if(is(calib.date, "character")) {
+    calib.date <- as.Date(calib.date)
+  }
 
   # -- calc days since source calibration
   decay.time <- as.Date(c(measurement.date, calib.date))

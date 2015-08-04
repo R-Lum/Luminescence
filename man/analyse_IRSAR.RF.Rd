@@ -68,6 +68,7 @@ $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 ..$ RF_NAT.LIM  : \code{charcter} \cr
 ..$ RF_REG.LIM : \code{character} \cr
 ..$ POSITION : \code{integer} \cr
+..$ DATE : \code{character} \cr
 ..$ SEQUENCE_NAME : \code{character}\cr
 $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
@@ -135,7 +136,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings from Buylaert et al. (2012).\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-03 22:22:51)
+ 0.4.0 (2015-08-04 13:36:15)
 }
 \examples{
 ##load data

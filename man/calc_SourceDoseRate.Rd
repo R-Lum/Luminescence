@@ -8,10 +8,10 @@ calc_SourceDoseRate(measurement.date, calib.date, calib.dose.rate, calib.error,
   source.type = "Sr-90", dose.rate.unit = "Gy/s")
 }
 \arguments{
-\item{measurement.date}{\code{\link{character}} (\bold{required}): date of
-measurement in "YYYY-MM-DD"}
+\item{measurement.date}{\code{\link{character}} or \code{\link{Date}} (\bold{required}): date of
+measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.}
 
-\item{calib.date}{\code{\link{character}} (\bold{required}): date of source
+\item{calib.date}{\code{\link{character}} or \code{\link{Date}} (\bold{required}): date of source
 calibration in "YYYY-MM-DD"}
 
 \item{calib.dose.rate}{\code{\link{numeric}} (\bold{required}): dose rate at
@@ -65,7 +65,7 @@ National Laboratory }
 #
 }
 \section{Function version}{
- 0.1 (2015-07-23 17:09:29)
+ 0.2.0 (2015-08-04 13:19:19)
 }
 \examples{
 ##(1) Simple function usage
