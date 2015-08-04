@@ -338,7 +338,11 @@ plot_RLum.Analysis <- function(
     ##change graphic settings
     if(!plot.single){
       par.default <- par()[c("cex", "mfrow")]
-      par(cex = cex, mfrow = c(nrows, ncols))
+      par(mfrow = c(nrows, ncols))
+
+      ##this 2nd par request is needed as seeting mfrow resets the par settings ... this might
+      ##not be wanted
+      par(cex = cex)
 
     }else{
       par.default <- par()[c("cex")]
@@ -536,6 +540,7 @@ plot_RLum.Analysis <- function(
 
       }
 
+
       ##mtext
       mtext(mtext, side = 3, cex = .8 * cex)
 
@@ -548,7 +553,7 @@ plot_RLum.Analysis <- function(
         lty = lty,
         col = if(is.null(legend.col)){col[1:length(object.list)]}else{legend.col},
         bty = "n",
-        cex = 0.9 * cex
+        cex = 0.8 * cex
       )
 
 
