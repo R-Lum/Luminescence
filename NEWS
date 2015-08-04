@@ -103,7 +103,12 @@ Changes in version 0.4.5 (, 2015):
                accept also input objects of type 'Date',
 
              • if no ‘measurement.date’ is provided, it will be set
-               automatically to today with a warning.
+               automatically to today with a warning,
+
+             • now vector can be passed to argumement
+               ‘measurement.date’ this will be treated now a little bit
+               more R like in the sense the output has the same lenght
+               as the input length of the argument ‘measurement.date’.
 
          • ‘calc_Statistics()’
 
@@ -186,6 +191,11 @@ Changes in version 0.4.5 (, 2015):
                during while the RLum.Data.Curve-object is produced.
                Curve x- and y-values are set to NA (BIN-file issue
                Norbert Mercier).
+
+         • ‘Second2Gray()’
+
+             • The data provided with the argument ‘dose.rate’ can be
+               now also of type ‘data.frame’
 
          • ‘writeR2BIN()’
 

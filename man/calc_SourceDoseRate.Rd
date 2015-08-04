@@ -65,7 +65,7 @@ National Laboratory }
 #
 }
 \section{Function version}{
- 0.2.0 (2015-08-04 13:19:19)
+ 0.2.0 (2015-08-04 15:04:49)
 }
 \examples{
 ##(1) Simple function usage
@@ -87,8 +87,8 @@ data(ExampleData.DeValues, envir = environment())
 Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 }
 \author{
-Margret C. Fuchs, AWI Potsdam (Germany), \cr Sebastian Kreutzer,
-IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),
+\cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \references{
 NNDC, Brookhaven National Laboratory

@@ -11,7 +11,7 @@ Second2Gray(data, dose.rate, method = "gaussian")
 structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
 required}
 
-\item{dose.rate}{\code{\linkS4class{RLum.Results}} or \code{\link{vector}}
+\item{dose.rate}{\code{\linkS4class{RLum.Results}} or \code{\link{data.frame}} or \code{\link{numeric}}
 (\bold{required}): \code{RLum.Results} needs to be orginated from the
 function \code{\link{calc_SourceDoseRate}}, for \code{vector}dose rate in
 Gy/s and dose rate error in Gy/s}
@@ -37,10 +37,11 @@ De.error.seconds) + abs(De.seconds * dose.rate.error)}
 }
 \note{
 If no or a wrong method is given, the execution of the function is
-stopped.
+stopped. Furthermore, if a \code{data.frame} is provided for the dose rate values is has to
+be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.4 (2015-08-03 20:43:15)
+ 0.5.0 (2015-08-04 15:54:31)
 }
 \examples{
 ##(A) for known source dose rate at date of measurement
@@ -67,7 +68,8 @@ Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, TU Bergakadmie Freiberg
+(France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, HZDR,
+Helmholtz-Institute Freiberg for Resource Technology
 (Germany)
 \cr R Luminescence Package Team}
 \references{

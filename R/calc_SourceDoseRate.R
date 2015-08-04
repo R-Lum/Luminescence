@@ -54,8 +54,8 @@
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author Margret C. Fuchs, AWI Potsdam (Germany), \cr Sebastian Kreutzer,
-#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),
+#' \cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso \code{\link{Second2Gray}}
@@ -118,8 +118,7 @@ calc_SourceDoseRate <- function(
   }
 
   # -- calc days since source calibration
-  decay.time <- as.Date(c(measurement.date, calib.date))
-  decay.days <- decay.time[1] - decay.time[2]
+  decay.days <- measurement.date - calib.date
 
 
   # -- calc dose rate of source at date of measurement, considering the chosen source-type
