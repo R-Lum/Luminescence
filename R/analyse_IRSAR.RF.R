@@ -627,7 +627,9 @@ analyse_IRSAR.RF<- function(
       temp.sum.residuals <- .analyse_IRSARRF_SRS(RF_reg.limited[,2], RF_nat.limited[,2])
 
       #(2) get minimum value (index and time value)
-      t_n.id <- which.min(temp.sum.residuals)
+      #important: correct min value for the set limit, otherwise the sliding will be wrong
+      #as the sliding has to be done with the full dataset
+      t_n.id <- which.min(temp.sum.residuals) + RF_nat.lim[1] - 1
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
       ##(3) slide curve graphically ... full data set we need this for the plotting later
