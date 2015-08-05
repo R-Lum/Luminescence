@@ -108,6 +108,7 @@
 #' ..$ RF_NAT.LIM  : \code{charcter} \cr
 #' ..$ RF_REG.LIM : \code{character} \cr
 #' ..$ POSITION : \code{integer} \cr
+#' ..$ DATE : \code{character} \cr
 #' ..$ SEQUENCE_NAME : \code{character}\cr
 #' $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
 #' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
@@ -254,6 +255,28 @@ analyse_IRSAR.RF<- function(
     aliquot.position <- NA
 
   }
+
+  ##date
+  if (!inherits(try(get_RLum(get_RLum(object, record.id = 1), info.object = "startDate"), silent = TRUE)
+                , "try-error")) {
+    aliquot.date <-
+      get_RLum(get_RLum(object, record.id = 1), info.object = "startDate")
+
+    ##transform so far the format can be identified
+    if (nchar(aliquot.date) == 14) {
+      aliquot.date <-
+        paste(c(
+          substr(aliquot.date, 1,4),substr(aliquot.date, 5,6), substr(aliquot.date, 7,8)
+        ), collapse = "-")
+
+    }
+
+  }else{
+    aliquot.date <- NA
+
+  }
+
+
 
 
   ##set structure values
@@ -728,7 +751,7 @@ analyse_IRSAR.RF<- function(
   if(!missing(rejection.criteria)){RC <- modifyList(RC, rejection.criteria)}
 
   ##(1) check if RF_nat > RF_reg, considering the fit range
-  RC.curves_ratio <- sum(RF_nat.limited[,2])/sum(RF_reg.y)
+  RC.curves_ratio <- sum(RF_nat.limited[,2])/sum(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2])
   RC.curves_ratio.status <- ifelse(RC.curves_ratio >= RC$curves_ratio, "FAILED", "OK")
 
   ##(2) check slop of the residuals using a linear fit
@@ -1196,6 +1219,7 @@ analyse_IRSAR.RF<- function(
     RF_NAT.LIM = paste(RF_nat.lim, collapse = ":"),
     RF_REG.LIM = paste(RF_reg.lim, collapse = ":"),
     POSITION =  as.integer(aliquot.position),
+    DATE = aliquot.date,
     SEQUENCE_NAME = aliquot.sequence_name,
     row.names = NULL,
     stringsAsFactors = FALSE

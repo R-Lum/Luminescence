@@ -32,9 +32,8 @@ transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 \code{CW2pHMi} and \code{CW2pPMi}. See details.}
 
-\item{plot.single}{\code{\link{logical}} (with default): each curve is
-plotted in a single window, overwrites the settings of \code{norws} and
-\code{ncols}}
+\item{plot.single}{\code{\link{logical}} (with default): global par settings are
+considered, normally this should end in one plot per page}
 
 \item{\dots}{further arguments and graphical parameters will be passed to
 the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
@@ -73,7 +72,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.4 (2015-08-03 15:32:38)
+ 0.2.5 (2015-08-04 08:46:52)
 }
 \examples{
 ###load data

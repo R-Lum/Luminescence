@@ -76,6 +76,21 @@
       }
 
 
+     \item \code{calc_SourceDoseRate()}
+
+        \itemize{
+
+          \item The arguments \code{measurement.date} and \code{calib.date} no accept also input objects
+          of type 'Date',
+          \item if no \code{measurement.date} is provided, it will be set automatically to today with
+          a warning,
+          \item now vector can be passed to argumement \code{measurement.date} this will be
+          treated now a little bit more R like in the sense the output has the same lenght as the input length
+          of the argument \code{measurement.date}.
+
+      }
+
+
       \item \code{calc_Statistics()}
 
         \itemize{
@@ -177,6 +192,16 @@
           x- and y-values are set to NA (BIN-file issue Norbert Mercier).
 
       }
+
+      \item \code{Second2Gray()}
+
+        \itemize{
+
+          \item The data provided with the argument \code{dose.rate} can be now also of type
+          \code{data.frame}
+
+      }
+
 
       \item \code{writeR2BIN()}
 
