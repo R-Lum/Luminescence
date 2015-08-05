@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.4.5 (, 2015)}{
+\section{Changes in version 0.4.5 (10th August, 2015)}{
 
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
@@ -85,7 +85,7 @@
           \item if no \code{measurement.date} is provided, it will be set automatically to today with
           a warning,
           \item now vector can be passed to argumement \code{measurement.date} this will be
-          treated now a little bit more R like in the sense the output has the same lenght as the input length
+          treated now a little bit more R like in the sense the output has the same length as the input length
           of the argument \code{measurement.date}.
 
       }
