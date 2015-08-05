@@ -208,7 +208,6 @@ merge_RLum.Data.Curve<- function(
 
   ##add first column
   temp.matrix <- cbind(object[[1]]@data[1:min(check.length),1], temp.matrix)
-  print(temp.matrix)
 
 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
