@@ -119,6 +119,13 @@ Changes in version 0.4.5 (, 2015):
 
              • Confusing warning message corrected (#230, Thomas Kolb).
 
+         • ‘merge_RLum.Data.Curve()’
+
+             • Adapt function behaviour for curves with different
+               number of data points, but similar channel resolution.
+               Function returns a warning and perform the merging only
+               for channels available in all curves.
+
          • ‘plot_AbanicoPlot()’
 
              • zlim-definition bug removed,

@@ -108,6 +108,16 @@
 
       }
 
+       \item \code{merge_RLum.Data.Curve()}
+
+        \itemize{
+
+          \item Adapt function behaviour for curves with different number of data points, but similar
+          channel resolution. Function returns a warning and perform the merging only for channels
+          available in all curves.
+
+      }
+
 
       \item \code{plot_AbanicoPlot()}
         \itemize{

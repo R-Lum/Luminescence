@@ -32,25 +32,35 @@
 #'
 #' @param object \code{\link{list}} of \code{\linkS4class{RLum.Data.Curve}}
 #' (\bold{required}): list of S4 objects of class \code{RLum.Curve}.
+#'
 #' @param merge.method \code{\link{character}} (\bold{required}): method for
 #' combining of the objects, e.g.  \code{'mean'}, \code{'sum'}, see details for
 #' further information and allowed methods.  Note: Elements in slot info will
 #' be taken from the first curve in the list.
+#'
 #' @param method.info \code{\link{numeric}} (optional): allows to specify how
 #' info elements of the input objects are combined, e.g. \code{1} means that
 #' just the elements from the first object are kept, \code{2} keeps only the
 #' info elements from the 2 object etc.  If nothing is provided all elements
 #' are combined.
+#'
 #' @return Return an \code{\linkS4class{RLum.Data.Curve}} object.
+#'
 #' @note The information from the slot 'recordType' is taken from the first
 #' \code{\linkS4class{RLum.Data.Curve}} object in the input list. The slot
 #' 'curveType' is filled with the name \code{merged}.
-#' @section Function version: 0.1
+#'
+#' @section Function version: 0.1.1
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Data.Curve}}
+#'
 #' @references -
+#'
 #' @keywords utilities
+#'
 #' @examples
 #'
 #'
@@ -97,7 +107,7 @@ merge_RLum.Data.Curve<- function(
   ##(2) Check for similar record types
   if(length(unique(temp.recordType.test))>1){
 
-    stop.text <- paste0("[merge_RLum.Data.Curve()] only similar record types are supported, you  try to merge: ", paste0("'",unique(temp.recordType.test),"'", collapse = ", "))
+    stop.text <- paste0("[merge_RLum.Data.Curve()] only similar record types are supported, you are trying to merge: ", paste0("'",unique(temp.recordType.test),"'", collapse = ", "))
 
     stop(stop.text)
   }
@@ -111,16 +121,37 @@ merge_RLum.Data.Curve<- function(
   ##problem ... how to handle data with different resoultion or length?
 
   ##(1) build new data matrix
+
+    ##first find shortest object
+    check.length <- sapply(1:length(object),function(x){
+      nrow(object[[x]]@data)
+    })
+
   temp.matrix  <- sapply(1:length(object), function(x){
 
     ##check if the objects are of equal length
-    if(length(object[[x]]@data[,2]) != length(object[[1]]@data[,2])){
+    if (length(unique(check.length)) != 1) {
+      ##but we have to at least check the x-range
+      if (object[[x]]@data[x,1] != object[[1]]@data[x,1]) {
+        stop(
+          "[merge_RLum.Data.Curve()] The objects seem not to have the same channel resolution!"
+        )
 
-      stop("[merge_RLum.Data.Curve()] Input objects have to be of similar length.")
+      }
+
+      warning("The channel between the curves differes. Resulting curve has length of shortest curve.")
+
+      ##if this is ok, we cann continue and shorten the rest of the objects
+      return(object[[x]]@data[1:min(check.length),2])
+
+      #stop("[merge_RLum.Data.Curve()] Input objects have to be of similar length.")
+      ##find out which curve is the shortest element
+
+
+    }else{
+      object[[x]]@data[,2]
 
     }
-
-    object[[x]]@data[,2]
 
 
   })
@@ -176,7 +207,8 @@ merge_RLum.Data.Curve<- function(
   }
 
   ##add first column
-  temp.matrix <- cbind(object[[1]]@data[,1], temp.matrix)
+  temp.matrix <- cbind(object[[1]]@data[1:min(check.length),1], temp.matrix)
+  print(temp.matrix)
 
 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
