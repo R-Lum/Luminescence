@@ -236,7 +236,8 @@
           \item add imports from base packages as requested by CRAN,
           \item further clean-up NAMESPACE file,
           \item dependency to package 'zoo' removed for this build, will be added again in 0.5.0,
-          \item add import for package 'assertive' to hopefully provide more user friendly error messages.
+          \item add import for package 'assertive' to hopefully provide more user friendly error messages,
+          \item add import for package 'digest' to generate unique ids for data sets.
 
         }
    }

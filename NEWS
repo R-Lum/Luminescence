@@ -232,5 +232,8 @@ Changes in version 0.4.5 (, 2015):
                be added again in 0.5.0,
 
              • add import for package 'assertive' to hopefully provide
-               more user friendly error messages.
+               more user friendly error messages,
+
+             • add import for package 'digest' to generate unique ids
+               for data sets.
 

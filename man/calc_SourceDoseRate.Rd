@@ -65,7 +65,7 @@ National Laboratory }
 #
 }
 \section{Function version}{
- 0.2.0 (2015-08-04 15:04:49)
+ 0.2.0 (2015-08-05 11:28:41)
 }
 \examples{
 ##(1) Simple function usage
