@@ -32,7 +32,8 @@ for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection
 criteria. Supported criteria are: \code{curves_ratio}, \code{residuals_slope} (only for
-\code{method = "SLIDE"}) and \code{curves_bounds} (see Details for further information)}
+\code{method = "SLIDE"}), \code{curves_bounds} and \code{dynamic_range}
+(see Details for further information)}
 
 \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
 debugging use)}
@@ -62,6 +63,7 @@ returned. The slot data contains the following elements: \cr
 
 $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 ..$ DE : \code{numeric} \cr
+..$ DE.ERROR : \code{numeric} \cr
 ..$ DE.LOWER : \code{numeric} \cr
 ..$ DE.UPPER : \code{numeric}c \cr
 ..$ DE.STATUS  : \code{character} \cr
@@ -136,7 +138,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings from Buylaert et al. (2012).\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-05 19:53:02)
+ 0.4.0 (2015-08-06 19:14:51)
 }
 \examples{
 ##load data

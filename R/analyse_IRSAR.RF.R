@@ -72,7 +72,8 @@
 #'
 #' @param rejection.criteria \code{\link{list} (with default)}: set rejection
 #' criteria. Supported criteria are: \code{curves_ratio}, \code{residuals_slope} (only for
-#' \code{method = "SLIDE"}) and \code{curves_bounds} (see Details for further information)
+#' \code{method = "SLIDE"}), \code{curves_bounds} and \code{dynamic_range}
+#' (see Details for further information)
 #'
 #' @param fit.trace \code{\link{logical}} (with default): trace fitting (for
 #' debugging use)
@@ -102,6 +103,7 @@
 #'
 #' $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 #' ..$ DE : \code{numeric} \cr
+#' ..$ DE.ERROR : \code{numeric} \cr
 #' ..$ DE.LOWER : \code{numeric} \cr
 #' ..$ DE.UPPER : \code{numeric}c \cr
 #' ..$ DE.STATUS  : \code{character} \cr
@@ -570,6 +572,11 @@ analyse_IRSAR.RF<- function(
         -fit.parameters.results["lambda"], digits =
         2))
 
+      ##This could be solved with a MC simulation, but for this the code has to be adjusted
+      ##The question is: Where the parameters are coming from?
+      ##TODO
+      De.error <- NA
+
       De.lower <- suppressWarnings(round(log(
         -((RF_nat.error.lower - fit.parameters.results["phi.0"]) /
             -fit.parameters.results["delta.phi"]
@@ -586,6 +593,7 @@ analyse_IRSAR.RF<- function(
 
     }else{
       De <- NA
+      De.error <- NA
       De.lower <- NA
       De.upper <- NA
 
@@ -725,6 +733,7 @@ analyse_IRSAR.RF<- function(
     ##calculate absolute deviation between De and the here newly calculated De.MC
     ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
     De.diff <- diff(x = c(De, De.MC))
+    De.error <- sd(De.MC)
     De.lower <- De - quantile(De.diff, 0.975)
     De.upper <- De - quantile(De.diff, 0.025)
 
@@ -746,7 +755,8 @@ analyse_IRSAR.RF<- function(
   RC <- list(
     curves_ratio = 1.01,
     residuals_slope = 5,
-    curves_bounds = as.integer(max(RF_reg.x))
+    curves_bounds = as.integer(max(RF_reg.x)),
+    dynamic_range = 0
   )
 
   ##modify default values
@@ -766,6 +776,13 @@ analyse_IRSAR.RF<- function(
     RC.residuals_slope.status <- "OK"
 
   }
+
+
+  ##(3) calculate dynamic range of regenrated curve
+  RC.dynamic_range <- subset(temp.sequence.structure,
+                             temp.sequence.structure$protocol.step == "REGENERATED")
+  RC.dynamic_range <- RC.dynamic_range$y.max/RC.dynamic_range$y.min
+  RC.dynamic_range.status <- ifelse(RC.dynamic_range <= RC$dynamic_range, "FAILED", "OK")
 
   ##(99) check whether after sliding the
   if(exists("slide")){
@@ -787,8 +804,15 @@ analyse_IRSAR.RF<- function(
       POSITION =  as.integer(aliquot.position),
       CRITERIA = c(names(RC)),
       THRESHOLD = unlist(RC),
-      VALUE = c(RC.curves_ratio, RC.residuals_slope,RC.curves_bounds),
-      STATUS = c(RC.curves_ratio.status, RC.residuals_slope.status, RC.curves_bounds.status),
+      VALUE = c(RC.curves_ratio,
+                RC.residuals_slope,
+                RC.curves_bounds,
+                RC.dynamic_range
+                ),
+      STATUS = c(RC.curves_ratio.status,
+                 RC.residuals_slope.status,
+                 RC.curves_bounds.status,
+                 RC.dynamic_range.status),
       SEQUENCE_NAME = aliquot.sequence_name,
       UID = NA,
     row.names = NULL,
@@ -1206,6 +1230,7 @@ analyse_IRSAR.RF<- function(
 
   ##catch up worst case scenarios ... means something went wrong
   if(!exists("De")){De  <- NA}
+  if(!exists("De.error")){De.error  <- NA}
   if(!exists("De.MC")){De.MC  <- NA}
   if(!exists("De.lower")){De.lower  <- NA}
   if(!exists("De.upper")){De.upper  <- NA}
@@ -1216,6 +1241,7 @@ analyse_IRSAR.RF<- function(
   ##combine values for De into a data frame
   De.values <- data.frame(
       DE = De,
+      DE.ERROR = De.error,
       DE.LOWER = De.lower,
       DE.UPPER = De.upper,
       DE.STATUS = De.status,
