@@ -1,5 +1,5 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
-"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003)<br />","0.4.0","2015-08-04","13:36:15
+"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003)<br />","0.4.0","2015-08-05","19:53:02
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.1.4","2015-07-24","16:13:49
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -18,7 +18,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "calc_CentralDose","Apply the central age model (CAM) after Galbraith et al. (1999) to a given<br /> De distribution","<br /> This function calculates the central dose and dispersion of the De<br /> distribution, their standard errors and the profile log likelihood function<br /> for sigma.<br />","1.3","2015-07-23","17:09:29
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
-"calc_CommonDose","Apply the (un-)logged common age model after Galbraith et al. (1999) to a<br /> given De distribution","<br /> Function to calculate the common dose of a De distribution.<br />","0.1","2015-07-23","17:09:29
+"calc_CommonDose","Apply the (un-)logged common age model after Galbraith et al. (1999) to a<br /> given De distribution","<br /> Function to calculate the common dose of a De distribution.<br />","0.1","2015-08-05","11:29:39
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "calc_CosmicDoseRate","Calculate the cosmic dose rate","<br /> This function calculates the cosmic dose rate taking into account the soft-<br /> and hard-component of the cosmic ray flux and allows corrections for<br /> geomagnetic latitude, altitude above sea-level and geomagnetic field<br /> changes.<br />","0.5.2","2015-07-23","17:09:29
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
@@ -38,7 +38,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010   The bootstrap approach is<br /> based on a rewritten MATLAB script of Alastair Cunningham.   Alastair<br /> Cunningham is thanked for his help in implementing and cross-checking the<br /> code.<br />  R Luminescence Package Team"
 "calc_OSLLxTxRatio","Calculate Lx/Tx ratio for CW-OSL curves","<br /> Calculate Lx/Tx ratios from a given set of CW-OSL curves.<br />","0.5.1","2015-07-23","17:09:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"calc_SourceDoseRate","Calculation of the source dose rate via the date of measurement","<br /> Calculating the dose rate of the irradiation source via the date of<br /> measurement based on: source calibration date, source dose rate, dose rate<br /> error. The function returns a data.frame that provides the input argument<br /> dose_rate for the function  Second2Gray .<br />","0.2.0","2015-08-04","15:04:49
+"calc_SourceDoseRate","Calculation of the source dose rate via the date of measurement","<br /> Calculating the dose rate of the irradiation source via the date of<br /> measurement based on: source calibration date, source dose rate, dose rate<br /> error. The function returns a data.frame that provides the input argument<br /> dose_rate for the function  Second2Gray .<br />","0.2.0","2015-08-05","11:28:41
 ","<br /> Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),<br />  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "calc_Statistics","Function to calculate statistic measures","<br /> This function calculates a number of descriptive statistics for De-data,<br /> most fundamentally using error-weighted approaches.<br />","0.1.2","2015-07-23","17:09:29
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
@@ -81,7 +81,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "merge_RLum.Analysis","Merge function for RLum.Analysis S4 class objects","<br /> Function allows merging of RLum.Analysis objects and adding of allowed<br /> objects to an RLum.Analysis.<br />","0.1","2015-07-23","17:09:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"merge_RLum.Data.Curve","Merge function for RLum.Data.Curve S4 class objects","<br /> Function allows merging of RLum.Data.Curve objects in different ways<br />","0.1","2015-07-23","17:09:29
+"merge_RLum.Data.Curve","Merge function for RLum.Data.Curve S4 class objects","<br /> Function allows merging of RLum.Data.Curve objects in different ways<br />","0.1.1","2015-08-06","00:07:07
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "merge_RLum","General merge function for RLum S4 class objects","<br /> Function calls object-specific merge functions for RLum S4 class objects.<br />","0.1","2015-07-23","17:09:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -101,7 +101,7 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> readBIN2R  function.<br />","0.4.1","2015-04-30","12:00:00
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.5","2015-08-04","08:46:52
+"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.5","2015-08-05","11:28:41
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Curve","Plot function for an RLum.Data.Curve S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Data.Curve S4 class object<br />","0.1.5","2015-07-23","21:04:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -132,7 +132,7 @@
 "RLum.Data.Image-class","Class  \"RLum.Data.Image\"","<br /> Class for luminescence image data (TL/OSL/RF).<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Data.Spectrum-class","Class  \"RLum.Data.Spectrum\"","<br /> Class for luminescence spectra data (TL/OSL/RF).<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Results-class","Class  \"RLum.Results\"","<br /> Object class contains results data from functions.<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />"
-"Second2Gray","Converting values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.5.0","2015-08-04","15:54:31
+"Second2Gray","Converting values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.5.0","2015-08-05","11:29:39
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, HZDR,<br /> Helmholtz-Institute Freiberg for Resource Technology<br /> (Germany)<br />  R Luminescence Package Team"
 "set_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1","2015-07-23","17:09:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

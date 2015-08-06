@@ -627,7 +627,9 @@ analyse_IRSAR.RF<- function(
       temp.sum.residuals <- .analyse_IRSARRF_SRS(RF_reg.limited[,2], RF_nat.limited[,2])
 
       #(2) get minimum value (index and time value)
-      t_n.id <- which.min(temp.sum.residuals)
+      #important: correct min value for the set limit, otherwise the sliding will be wrong
+      #as the sliding has to be done with the full dataset
+      t_n.id <- which.min(temp.sum.residuals) + RF_nat.lim[1] - 1
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
       ##(3) slide curve graphically ... full data set we need this for the plotting later
@@ -782,12 +784,13 @@ analyse_IRSAR.RF<- function(
 
   ##Combine everthing in a data.frame
   RC.data.frame <- data.frame(
-    POSITION =  as.integer(aliquot.position),
-    CRITERIA = c(names(RC)),
-    THRESHOLD = unlist(RC),
-    VALUE = c(RC.curves_ratio, RC.residuals_slope,RC.curves_bounds),
-    STATUS = c(RC.curves_ratio.status, RC.residuals_slope.status, RC.curves_bounds.status),
-    SEQUENCE_NAME = aliquot.sequence_name,
+      POSITION =  as.integer(aliquot.position),
+      CRITERIA = c(names(RC)),
+      THRESHOLD = unlist(RC),
+      VALUE = c(RC.curves_ratio, RC.residuals_slope,RC.curves_bounds),
+      STATUS = c(RC.curves_ratio.status, RC.residuals_slope.status, RC.curves_bounds.status),
+      SEQUENCE_NAME = aliquot.sequence_name,
+      UID = NA,
     row.names = NULL,
     stringsAsFactors = FALSE
   )
@@ -1212,18 +1215,35 @@ analyse_IRSAR.RF<- function(
 
   ##combine values for De into a data frame
   De.values <- data.frame(
-    DE = De,
-    DE.LOWER = De.lower,
-    DE.UPPER = De.upper,
-    DE.STATUS = De.status,
-    RF_NAT.LIM = paste(RF_nat.lim, collapse = ":"),
-    RF_REG.LIM = paste(RF_reg.lim, collapse = ":"),
-    POSITION =  as.integer(aliquot.position),
-    DATE = aliquot.date,
-    SEQUENCE_NAME = aliquot.sequence_name,
+      DE = De,
+      DE.LOWER = De.lower,
+      DE.UPPER = De.upper,
+      DE.STATUS = De.status,
+      RF_NAT.LIM = paste(RF_nat.lim, collapse = ":"),
+      RF_REG.LIM = paste(RF_reg.lim, collapse = ":"),
+      POSITION =  as.integer(aliquot.position),
+      DATE = aliquot.date,
+      SEQUENCE_NAME = aliquot.sequence_name,
+      UID = NA,
     row.names = NULL,
     stringsAsFactors = FALSE
   )
+
+  ##add data set identifyer
+  token <- paste(
+             De.values$De,
+             De.values$POSITION,
+             De.values$DATE,
+             De.values$SEQUENCE_NAME,
+             RC.data.frame$VALUE,
+            collapse = "" )
+
+  ##generate unique identifier
+  UID <- digest::digest(object = token, algo = "md5")
+
+    ##update data.frames accordingly
+    De.values$UID <- UID
+    RC.data.frame$UID <- UID
 
   ##produce results object
   newRLumResults.analyse_IRSAR.RF <- set_RLum(class = "RLum.Results",

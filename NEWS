@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.4.5 (, 2015):
+Changes in version 0.4.5 (10th August, 2015):
 
   Changes S4-objects, methods, classes:
 
@@ -107,7 +107,7 @@ Changes in version 0.4.5 (, 2015):
 
              • now vector can be passed to argumement
                ‘measurement.date’ this will be treated now a little bit
-               more R like in the sense the output has the same lenght
+               more R like in the sense the output has the same length
                as the input length of the argument ‘measurement.date’.
 
          • ‘calc_Statistics()’
@@ -118,6 +118,13 @@ Changes in version 0.4.5 (, 2015):
          • ‘merge_Risoe.BINfileData()’
 
              • Confusing warning message corrected (#230, Thomas Kolb).
+
+         • ‘merge_RLum.Data.Curve()’
+
+             • Adapt function behaviour for curves with different
+               number of data points, but similar channel resolution.
+               Function returns a warning and perform the merging only
+               for channels available in all curves.
 
          • ‘plot_AbanicoPlot()’
 
@@ -232,5 +239,8 @@ Changes in version 0.4.5 (, 2015):
                be added again in 0.5.0,
 
              • add import for package 'assertive' to hopefully provide
-               more user friendly error messages.
+               more user friendly error messages,
+
+             • add import for package 'digest' to generate unique ids
+               for data sets.
 
