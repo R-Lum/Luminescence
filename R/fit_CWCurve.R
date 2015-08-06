@@ -345,7 +345,15 @@ fit_CWCurve<- function(
                                               maxiter = 500
                                             )),
                                       silent = TRUE))
-
+        
+        ## HACK: 
+        # minpack.lm::nlsLM() stores the 'lower' argument as class "call" rather
+        # than "numeric" as nls() does. Before running confint() on this object
+        # we overwrite the "lower" slot with the numeric values again. 
+        if (!inherits(fit.try, "try-error")) {
+          fit.try$call$lower <- rep(0,n.components * 2)
+        }
+        
       }else{
 
 
@@ -367,8 +375,7 @@ fit_CWCurve<- function(
 
       }#fit.method
     }
-
-
+    
     ##count failed attempts for fitting
     if(inherits(fit.try,"try-error")==FALSE){
 
