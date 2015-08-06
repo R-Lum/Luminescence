@@ -115,6 +115,11 @@ Changes in version 0.4.5 (10th August, 2015):
              • default setting of weights definition changed from 1/s
                to 1/s^2
 
+         • ‘fit_CWCurve()’
+
+             • fixed a bug that prevented error calculation when using
+               the Levenberg-Marquardt algorithm.
+
          • ‘merge_Risoe.BINfileData()’
 
              • Confusing warning message corrected (#230, Thomas Kolb).

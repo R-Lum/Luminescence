@@ -98,6 +98,14 @@
           \item default setting of weights definition changed from 1/s to 1/s^2
 
       }
+      
+      \item \code{fit_CWCurve()}
+
+        \itemize{
+
+          \item fixed a bug that prevented error calculation when using the Levenberg-Marquardt algorithm.
+
+      }
 
 
       \item \code{merge_Risoe.BINfileData()}
