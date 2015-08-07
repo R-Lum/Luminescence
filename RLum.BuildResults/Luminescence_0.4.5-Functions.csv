@@ -1,5 +1,5 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
-"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003)<br />","0.4.0","2015-08-06","19:14:51
+"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003)<br />","0.4.0","2015-08-07","11:16:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.1.4","2015-07-24","16:13:49
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -36,14 +36,14 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
 "calc_MinDose","Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)<br /> to a given De distribution","<br /> Function to fit the (un-)logged three or four parameter minimum dose model<br /> (MAM-3/4) to De data.<br />","0.4.1","2015-07-23","17:09:29
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010   The bootstrap approach is<br /> based on a rewritten MATLAB script of Alastair Cunningham.   Alastair<br /> Cunningham is thanked for his help in implementing and cross-checking the<br /> code.<br />  R Luminescence Package Team"
-"calc_OSLLxTxRatio","Calculate Lx/Tx ratio for CW-OSL curves","<br /> Calculate Lx/Tx ratios from a given set of CW-OSL curves.<br />","0.5.1","2015-07-23","17:09:29
+"calc_OSLLxTxRatio","Calculate Lx/Tx ratio for CW-OSL curves","<br /> Calculate Lx/Tx ratios from a given set of CW-OSL curves.<br />","0.5.1","2015-08-07","11:16:06
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "calc_SourceDoseRate","Calculation of the source dose rate via the date of measurement","<br /> Calculating the dose rate of the irradiation source via the date of<br /> measurement based on: source calibration date, source dose rate, dose rate<br /> error. The function returns a data.frame that provides the input argument<br /> dose_rate for the function  Second2Gray .<br />","0.2.0","2015-08-05","11:28:41
 ","<br /> Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),<br />  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "calc_Statistics","Function to calculate statistic measures","<br /> This function calculates a number of descriptive statistics for De-data,<br /> most fundamentally using error-weighted approaches.<br />","0.1.2","2015-07-23","17:09:29
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"calc_TLLxTxRatio","Calculate the Lx/Tx ratio for a given set of TL curves [beta version]","<br /> Calculate Lx/Tx ratio for a given set of TL curves.<br />","0.3","2015-07-23","17:09:29
-","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Christoph Schmidt, University of Bayreuth (Germany)<br />  R Luminescence Package Team"
+"calc_TLLxTxRatio","Calculate the Lx/Tx ratio for a given set of TL curves [beta version]","<br /> Calculate Lx/Tx ratio for a given set of TL curves.<br />","0.3.0","2015-08-07","11:15:00
+","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> #' (France), Christoph Schmidt, University of Bayreuth (Germany)<br />  R Luminescence Package Team"
 "CW2pHMi","Transform a CW-OSL curve into a pHM-OSL curve via interpolation under<br /> hyperbolic modulation conditions","<br /> This function transforms a conventionally measured continuous-wave (CW)<br /> OSL-curve to a pseudo hyperbolic modulated (pHM) curve under hyperbolic<br /> modulation conditions using the interpolation procedure described by Bos &<br /> Wallinga (2012).<br />","0.2.2","2015-07-23","17:09:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)   Based on comments and suggestions from:  Adrie J.J. Bos,<br /> Delft University of Technology, The Netherlands <br />  R Luminescence Package Team"
 "CW2pLM","Transform a CW-OSL curve into a pLM-OSL curve","<br /> Transforms a conventionally measured continuous-wave (CW) curve into a<br /> pseudo linearly modulated (pLM) curve using the equations given in Bulur<br /> (2000).<br />","0.4.1","2015-07-23","17:09:29

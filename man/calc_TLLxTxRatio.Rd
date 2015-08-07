@@ -8,24 +8,28 @@ calc_TLLxTxRatio(Lx.data.signal, Lx.data.background, Tx.data.signal,
   Tx.data.background, signal.integral.min, signal.integral.max)
 }
 \arguments{
-\item{Lx.data.signal}{\link{data.frame} (\bold{required}): TL data (x =
+\item{Lx.data.signal}{\code{\linkS4class{RLum.Data.Curve}} or
+\code{\link{data.frame}} (\bold{required}): TL data (x =
 temperature, y = counts) (TL signal)}
 
-\item{Lx.data.background}{\link{data.frame} (optional): TL data (x =
+\item{Lx.data.background}{\code{\linkS4class{RLum.Data.Curve}} or
+\code{\link{data.frame}} (optional): TL data (x =
 temperature, y = counts). If no data are provided no background subtraction
 is performed.}
 
-\item{Tx.data.signal}{\link{data.frame} (\bold{required}): TL data (x =
+\item{Tx.data.signal}{\code{\linkS4class{RLum.Data.Curve}} or
+\code{\link{data.frame}} (\bold{required}): TL data (x =
 temperature, y = counts) (TL test signal)}
 
-\item{Tx.data.background}{\link{data.frame} (optional): TL data (x =
+\item{Tx.data.background}{\code{\linkS4class{RLum.Data.Curve}} or
+\code{\link{data.frame}} (optional): TL data (x =
 temperature, y = counts). If no data are provided no background subtraction
 is performed.}
 
-\item{signal.integral.min}{\link{integer} (\bold{required}): channel number
+\item{signal.integral.min}{\code{\link{integer}} (\bold{required}): channel number
 for the lower signal integral bound (e.g. \code{signal.integral.min = 100})}
 
-\item{signal.integral.max}{\link{integer} (\bold{required}): channel number
+\item{signal.integral.max}{\code{\link{integer}} (\bold{required}): channel number
 for the upper signal integral bound (e.g. \code{signal.integral.max = 200})}
 }
 \value{
@@ -44,7 +48,7 @@ Calculate Lx/Tx ratio for a given set of TL curves.
 \bold{This function has still BETA status!}
 }
 \section{Function version}{
- 0.3 (2015-07-23 17:09:29)
+ 0.3.0 (2015-08-07 11:15:00)
 }
 \examples{
 ##load package example data
@@ -69,7 +73,7 @@ get_RLum(output)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), Christoph Schmidt, University of Bayreuth (Germany)
+#' (France), Christoph Schmidt, University of Bayreuth (Germany)
 \cr R Luminescence Package Team}
 \references{
 -
