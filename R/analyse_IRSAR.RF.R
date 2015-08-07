@@ -50,6 +50,13 @@
 #'
 #' //WILL BE ADDED TODO
 #'
+#' \bold{Test parameters}\cr
+#'
+#' The argument \code{test_parameters} allows to evaluate ..
+#'
+#' //WILL BE ADDED TODO
+#'
+#'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
 #' object containing data for protocol analysis. Generally the function expects two curves.
 #' (1) RF_nat, (2) RF_reg
@@ -70,9 +77,12 @@
 #' @param method \code{\link{character}} (with default): setting method applied
 #' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
 #'
-#' @param rejection.criteria \code{\link{list} (with default)}: set rejection
-#' criteria. Supported criteria are: \code{curves_ratio}, \code{residuals_slope} (only for
-#' \code{method = "SLIDE"}), \code{curves_bounds} and \code{dynamic_ratio}
+#' @param test_parameter \code{\link{list} (with default)}: set test parameter
+#' Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
+#' \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
+#' \code{lambda}, \code{beta} and \code{delta.phi}. All input: \code{\link{numeric}}
+#' values, \code{NA} and \code{NULL} (s. Details)
+#'
 #' (see Details for further information)
 #'
 #' @param fit.trace \code{\link{logical}} (with default): trace fitting (for
@@ -107,14 +117,14 @@
 #' ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
 #' ..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtabined by MC runs \cr
 #' ..$ DE.UPPER : \code{numeric}: 97.5\% quantile for De values obtabined by MC runs  \cr
-#' ..$ DE.STATUS  : \code{character}: overall rejection criteria status\cr
+#' ..$ DE.STATUS  : \code{character}: test parameter status\cr
 #' ..$ RF_NAT.LIM  : \code{charcter}: used RF_nat curve limits \cr
 #' ..$ RF_REG.LIM : \code{character}: used RF_reg curve limits\cr
 #' ..$ POSITION : \code{integer}: (optional) position of the curves\cr
 #' ..$ DATE : \code{character}: (optional) measurement date\cr
 #' ..$ SEQUENCE_NAME : \code{character}: (optional) sequence name)\cr
 #' ..$ UID : \code{character}: unique data set ID \cr
-#' $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
+#' $ test_parameter : \code{\link{data.frame}} table test parameters \cr
 #' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 #' $ slide : \code{\link{list}} data from the sliding process\cr
 #' $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
@@ -195,7 +205,7 @@ analyse_IRSAR.RF<- function(
   RF_nat.lim,
   RF_reg.lim,
   method = "FIT",
-  rejection.criteria,
+  test_parameter,
   fit.trace = FALSE,
   n.MC = 10,
   slide.show_density = FALSE,
@@ -421,17 +431,19 @@ analyse_IRSAR.RF<- function(
   RF_nat.mean <- mean(RF_nat.limited[,2])
   RF_nat.sd <- sd(RF_nat.limited[,2])
 
-  RF_nat.error.lower <- RF_nat.mean + RF_nat.sd
-  RF_nat.error.upper <- RF_nat.mean - RF_nat.sd
+  RF_nat.error.lower <- quantile(RF_nat.limited[,2], 0.975)
+  RF_nat.error.upper <- quantile(RF_nat.limited[,2], 0.025)
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   ##METHOD FIT
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-  if(method == "FIT"){
     ## REGENERATED SIGNAL
     # set function for fitting ------------------------------------------------
 
-    fit.function <- as.formula(y~phi.0-(delta.phi*((1-exp(-lambda*x))^beta)))
+    fit.function <-
+      as.formula(y ~ phi.0 - (delta.phi * ((1 - exp(
+        -lambda * x
+      )) ^ beta)))
 
     ##stretched expontial function according to Erfurt et al. (2003)
     ## + phi.0 >> initial IR-RF flux
@@ -447,6 +459,8 @@ analyse_IRSAR.RF<- function(
       beta = 1,
       delta.phi = 2 * (max(RF_reg.y) - min(RF_reg.y))
     )
+
+  if(method == "FIT"){
 
     # start nls fitting -------------------------------------------------------
 
@@ -465,7 +479,7 @@ analyse_IRSAR.RF<- function(
       fit.MC <- try(nls(
         fit.function,
         trace = FALSE,
-        data = data.frame(x = RF_reg.x, y = RF_reg.y),
+        data = list(x = RF_reg.x, y = RF_reg.y),
         algorithm = "port",
         start = list(
           phi.0 = phi.0.MC[i],
@@ -741,94 +755,179 @@ analyse_IRSAR.RF<- function(
 
   }else{
 
-    warning("Analysis skipped: Unknown method or threshold of rejection criteria reached.")
+    warning("Analysis skipped: Unknown method or threshold of test parameter exceeded.")
 
   }
 
   ##===============================================================================================#
-  ## REJECTION CRITERIA
+  ## TEST PARAMETER
   ##===============================================================================================#
-  ## Rejection criteria are intentionally evaluated after all the calculations have been done as
+  ## Test parameter are evaluated after all the calculations have been done as
   ## it should be up to the user to decide whether a value should be taken into account or not.
 
   ##(0)
   ##set default values and overwrite them if there was something new
   ##set defaults
-  RC <- list(
-    curves_ratio = 1.005,
-    residuals_slope = 5,
+  TP <- list(
+    curves_ratio = 1.001,
+    residuals_slope = NA,
     curves_bounds = as.integer(max(RF_reg.x)),
-    dynamic_ratio = 0
+    dynamic_ratio = NA,
+    lambda = 1e-04,
+    beta = NA,
+    delta.phi = NA
   )
 
-  ##modify default values
-  if(!missing(rejection.criteria)){RC <- modifyList(RC, rejection.criteria)}
+    ##modify default values by given input
+    if(!missing(test_parameter)){TP <- modifyList(TP, test_parameter)}
+
+    ##remove NULL elements from list
+    TP <- TP[!sapply(TP, is.null)]
+
+    ##set list with values we want to evaluate
+    TP <- lapply(TP, function(x){
+      data.frame(THRESHOLD = as.numeric(x), VALUE = NA, STATUS = "OK", stringsAsFactors = TRUE)
+
+    })
+
 
   ##(1) check if RF_nat > RF_reg, considering the fit range
-  RC.curves_ratio <- sum(RF_nat.limited[,2])/sum(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2])
-  RC.curves_ratio.status <- ifelse(RC.curves_ratio >= RC$curves_ratio, "FAILED", "OK")
+  ##TP$curves_ratio
+    if ("curves_ratio" %in% names(TP)) {
+      TP$curves_ratio$VALUE <-
+        sum(RF_nat.limited[,2]) / sum(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2])
+
+      if (!is.na(TP$curves_ratio$THRESHOLD)) {
+        TP$curves_ratio$STATUS <-
+          ifelse(TP$curves_ratio$VALUE >= TP$curves_ratio$THRESHOLD, "FAILED", "OK")
+      }
+    }
 
   ##(2) check slop of the residuals using a linear fit
-  if(exists("slide")){
-    RC.residuals_slope <- abs(slide$trend.fit[2])
-    RC.residuals_slope.status <- ifelse(RC.residuals_slope >= RC$residuals_slope, "FAILED", "OK")
+  ##TP$residuals_slope
+    if ("residuals_slope" %in% names(TP)) {
+      if (exists("slide")) {
+        TP$residuals_slope$VALUE <- abs(slide$trend.fit[2])
 
-  }else{
-    RC.residuals_slope <- NA
-    RC.residuals_slope.status <- "OK"
+        if (!is.na(TP$residuals_slope$THRESHOLD)) {
+          TP$residuals_slope$STATUS <- ifelse(
+            TP$residuals_slope$VALUE >= TP$residuals_slope$THRESHOLD, "FAILED", "OK")
 
-  }
-
+        }
+      }
+    }
 
   ##(3) calculate dynamic range of regenrated curve
-  RC.dynamic_ratio <- subset(temp.sequence.structure,
-                             temp.sequence.structure$protocol.step == "REGENERATED")
-  RC.dynamic_ratio <- RC.dynamic_ratio$y.max/RC.dynamic_ratio$y.min
-  RC.dynamic_ratio.status <- ifelse(RC.dynamic_ratio <= RC$dynamic_ratio, "FAILED", "OK")
+  ##TP$dynamic_ratio
+  if ("dynamic_ratio"%in%names(TP)){
+    TP.dynamic_ratio <- subset(temp.sequence.structure,
+                               temp.sequence.structure$protocol.step == "REGENERATED")
+    TP$dynamic_ratio$VALUE <- TP.dynamic_ratio$y.max/TP.dynamic_ratio$y.min
+
+    if (!is.na(TP$dynamic_ratio$THRESHOLD)){
+      TP$dynamic_ratio$STATUS  <- ifelse(
+        TP$dynamic_ratio$VALUE <= TP$dynamic_ratio$THRESHOLD , "FAILED", "OK")
+    }
+  }
+
+
+  ##(4) decay parameter
+  ##TP$lambda
+  if ("lambda"%in%names(TP) & "beta"%in%names(TP) & "delta.phi"%in%names(TP)){
+
+    fit.lambda <- try(minpack.lm::nlsLM(
+        fit.function,
+        data = data.frame(x = RF_reg.x, y = RF_reg.y),
+        algorithm = "LM",
+        start = list(
+          phi.0 = fit.parameters.start["phi.0"],
+          delta.phi = fit.parameters.start["delta.phi"],
+          lambda = fit.parameters.start["lambda"],
+          beta = fit.parameters.start["beta"]
+        ),
+        lower = c(
+          phi.0 = .Machine$double.xmin,
+          delta.phi = .Machine$double.xmin,
+          lambda = .Machine$double.xmin,
+          beta = .Machine$double.xmin
+        ),
+        upper = c(
+          phi.0 = max(RF_reg.y),
+          delta.phi = max(RF_reg.y),
+          lambda = 1, beta = 100
+        )
+      ),
+    silent = TRUE
+    )
+
+    if(!inherits(fit.lambda, "try-error")){
+       temp.coef <- coef(fit.lambda)
+
+       TP$lambda$VALUE <- temp.coef["lambda.lambda"]
+       TP$beta$VALUE <- temp.coef["beta.beta"]
+       TP$delta.phi$VALUE <- temp.coef["delta.phi.delta.phi"]
+
+       if (!is.na( TP$lambda$THRESHOLD)){
+        TP$lambda$STATUS <- ifelse(TP$lambda$VALUE <= TP$lambda$THRESHOLD, "FAILED", "OK")
+       }
+
+       if (!is.na( TP$beta$THRESHOLD)){
+         TP$beta$STATUS <- ifelse(TP$beta$VALUE <= TP$beta$THRESHOLD, "FAILED", "OK")
+       }
+
+       if (!is.na( TP$delta.phi$THRESHOLD)){
+         TP$delta.phi$STATUS <- ifelse(TP$delta.phi$VALUE <= TP$delta.phi$THRESHOLD, "FAILED", "OK")
+       }
+
+    }
+  }
 
   ##(99) check whether after sliding the
-  if(exists("slide")){
-    RC.curves_bounds <- max(RF_nat.slided[,1])
-    RC.curves_bounds.status <- ifelse(RC.curves_bounds >= max(RF_reg.x), "FAILED", "OK")
+  ##TP$curves_bounds
+  if (!is.null(TP$curves_bounds)) {
+    if(exists("slide")){
+      TP$curves_bounds$VALUE <- max(RF_nat.slided[,1])
 
-  }else if(exists("fit")){
-    RC.curves_bounds <- De.upper
-    RC.curves_bounds.status <- ifelse(RC.curves_bounds  >= max(RF_reg.x), "FAILED", "OK")
+       if (!is.na(TP$curves_bounds$THRESHOLD)){
+        TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= max(RF_reg.x), "FAILED", "OK")
+       }
 
-  }else{
-    RC.curves_bounds <- NA
-    RC.curves_bounds.status <- "OK"
+    }else if(exists("fit")){
+      TP$curves_bounds$VALUE <- De.upper
 
+      if (!is.na(TP$curves_bounds$THRESHOLD)){
+        TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE  >= max(RF_reg.x), "FAILED", "OK")
+      }
+    }
   }
 
-  ##Combine everthing in a data.frame
-  RC.data.frame <- data.frame(
-      POSITION =  as.integer(aliquot.position),
-      CRITERIA = c(names(RC)),
-      THRESHOLD = unlist(RC),
-      VALUE = c(RC.curves_ratio,
-                RC.residuals_slope,
-                RC.curves_bounds,
-                RC.dynamic_ratio
-                ),
-      STATUS = c(RC.curves_ratio.status,
-                 RC.residuals_slope.status,
-                 RC.curves_bounds.status,
-                 RC.dynamic_ratio.status),
-      SEQUENCE_NAME = aliquot.sequence_name,
-      UID = NA,
-    row.names = NULL,
-    stringsAsFactors = FALSE
-  )
 
-  ##set De.status to indicate whether there is any problem with the De according to the rejection
-  ##criteria
-  if ("FAILED" %in% RC.data.frame$STATUS) {
-    De.status <- "FAILED"
-  }else{
-    De.status <- "OK"
-  }
+  ##Combine everything in a data.frame
+    if(length(TP) != 0) {
+      TP.data.frame <- as.data.frame(
+        cbind(
+          POSITION =  as.integer(aliquot.position),
+          PARAMETER = c(names(TP)),
+          do.call(data.table::rbindlist, args = list(l = TP)),
+          SEQUENCE_NAME = aliquot.sequence_name,
+          UID = NA
+        )
+      )
 
+      ##set De.status to indicate whether there is any problem with the De according to the test parameter
+      if ("FAILED" %in% TP.data.frame$STATUS) {
+        De.status <- "FAILED"
+      }else{
+        De.status <- "OK"
+      }
+
+    }else{
+      De.status <- "OK"
+      TP.data.frame <- NULL
+
+    }
+
+    print(TP.data.frame)
   ##===============================================================================================#
   ## PLOTTING
   ##===============================================================================================#
@@ -885,8 +984,17 @@ analyse_IRSAR.RF<- function(
     )
 
     if(De.status == "FAILED"){
-      mtext(text = "RC criteria exceeded, check De results!", side = 3, outer = TRUE, col = "red")
-      warning("RC criteria exceeded, check De results!")
+
+      ##build list of failed TP
+      mtext.message <- paste0(
+        "Threshold exceeded for:  ",
+        paste(subset(TP.data.frame, TP.data.frame$STATUS == "FAILED")$PARAMETER, collapse = ", "))
+
+      ##print mtext
+      mtext(text = mtext.message,
+            side = 3, outer = TRUE, col = "red",
+            cex = 0.8)
+      warning(mtext.message)
 
     }
 
@@ -1237,7 +1345,15 @@ analyse_IRSAR.RF<- function(
   if(!exists("De.lower")){De.lower  <- NA}
   if(!exists("De.upper")){De.upper  <- NA}
   if(!exists("De.status")){De.status  <- NA}
-  if(!exists("fit")){fit  <- list()}
+  if (!exists("fit")) {
+  if (exists("fit.lambda")) {
+      fit <- fit.lambda
+
+    }else{
+      fit  <- list()
+
+    }
+  }
   if(!exists("slide")){slide <- list()}
 
   ##combine values for De into a data frame
@@ -1263,7 +1379,7 @@ analyse_IRSAR.RF<- function(
              De.values$POSITION,
              De.values$DATE,
              De.values$SEQUENCE_NAME,
-             RC.data.frame$VALUE,
+             ifelse(is.null(TP.data.frame), NA, TP.data.frame$VALUE),
             collapse = "" )
 
   ##generate unique identifier
@@ -1271,14 +1387,19 @@ analyse_IRSAR.RF<- function(
 
     ##update data.frames accordingly
     De.values$UID <- UID
-    RC.data.frame$UID <- UID
+
+    if(!is.null(TP.data.frame)){
+      TP.data.frame$UID <- UID
+
+    }
+
 
   ##produce results object
   newRLumResults.analyse_IRSAR.RF <- set_RLum(class = "RLum.Results",
                                               data = list(
                                                 De.values = De.values,
-                                                De.RC = RC.data.frame,
                                                 De.MC = De.MC,
+                                                test_parameter = TP.data.frame,
                                                 fit = fit,
                                                 slide = slide,
                                                 call = sys.call()
