@@ -32,7 +32,7 @@ for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{rejection.criteria}{\code{\link{list} (with default)}: set rejection
 criteria. Supported criteria are: \code{curves_ratio}, \code{residuals_slope} (only for
-\code{method = "SLIDE"}), \code{curves_bounds} and \code{dynamic_range}
+\code{method = "SLIDE"}), \code{curves_bounds} and \code{dynamic_ratio}
 (see Details for further information)}
 
 \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
@@ -61,17 +61,19 @@ Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 returned. The slot data contains the following elements: \cr
 
+
 $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
-..$ DE : \code{numeric} \cr
-..$ DE.ERROR : \code{numeric} \cr
-..$ DE.LOWER : \code{numeric} \cr
-..$ DE.UPPER : \code{numeric}c \cr
-..$ DE.STATUS  : \code{character} \cr
-..$ RF_NAT.LIM  : \code{charcter} \cr
-..$ RF_REG.LIM : \code{character} \cr
-..$ POSITION : \code{integer} \cr
-..$ DATE : \code{character} \cr
-..$ SEQUENCE_NAME : \code{character}\cr
+..$ DE : \code{numeric}: the obtained equivalent dose\cr
+..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
+..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtabined by MC runs \cr
+..$ DE.UPPER : \code{numeric}: 97.5\% quantile for De values obtabined by MC runs  \cr
+..$ DE.STATUS  : \code{character}: overall rejection criteria status\cr
+..$ RF_NAT.LIM  : \code{charcter}: used RF_nat curve limits \cr
+..$ RF_REG.LIM : \code{character}: used RF_reg curve limits\cr
+..$ POSITION : \code{integer}: (optional) position of the curves\cr
+..$ DATE : \code{character}: (optional) measurement date\cr
+..$ SEQUENCE_NAME : \code{character}: (optional) sequence name)\cr
+..$ UID : \code{character}: unique data set ID \cr
 $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 $ slide : \code{\link{list}} data from the sliding process\cr
@@ -138,7 +140,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings from Buylaert et al. (2012).\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-07 11:16:46)
+ 0.4.0 (2015-08-07 14:01:11)
 }
 \examples{
 ##load data

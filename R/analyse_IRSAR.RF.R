@@ -72,7 +72,7 @@
 #'
 #' @param rejection.criteria \code{\link{list} (with default)}: set rejection
 #' criteria. Supported criteria are: \code{curves_ratio}, \code{residuals_slope} (only for
-#' \code{method = "SLIDE"}), \code{curves_bounds} and \code{dynamic_range}
+#' \code{method = "SLIDE"}), \code{curves_bounds} and \code{dynamic_ratio}
 #' (see Details for further information)
 #'
 #' @param fit.trace \code{\link{logical}} (with default): trace fitting (for
@@ -101,17 +101,19 @@
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned. The slot data contains the following elements: \cr
 #'
+#'
 #' $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
-#' ..$ DE : \code{numeric} \cr
-#' ..$ DE.ERROR : \code{numeric} \cr
-#' ..$ DE.LOWER : \code{numeric} \cr
-#' ..$ DE.UPPER : \code{numeric}c \cr
-#' ..$ DE.STATUS  : \code{character} \cr
-#' ..$ RF_NAT.LIM  : \code{charcter} \cr
-#' ..$ RF_REG.LIM : \code{character} \cr
-#' ..$ POSITION : \code{integer} \cr
-#' ..$ DATE : \code{character} \cr
-#' ..$ SEQUENCE_NAME : \code{character}\cr
+#' ..$ DE : \code{numeric}: the obtained equivalent dose\cr
+#' ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
+#' ..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtabined by MC runs \cr
+#' ..$ DE.UPPER : \code{numeric}: 97.5\% quantile for De values obtabined by MC runs  \cr
+#' ..$ DE.STATUS  : \code{character}: overall rejection criteria status\cr
+#' ..$ RF_NAT.LIM  : \code{charcter}: used RF_nat curve limits \cr
+#' ..$ RF_REG.LIM : \code{character}: used RF_reg curve limits\cr
+#' ..$ POSITION : \code{integer}: (optional) position of the curves\cr
+#' ..$ DATE : \code{character}: (optional) measurement date\cr
+#' ..$ SEQUENCE_NAME : \code{character}: (optional) sequence name)\cr
+#' ..$ UID : \code{character}: unique data set ID \cr
 #' $ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
 #' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 #' $ slide : \code{\link{list}} data from the sliding process\cr
@@ -733,7 +735,7 @@ analyse_IRSAR.RF<- function(
     ##calculate absolute deviation between De and the here newly calculated De.MC
     ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
     De.diff <- diff(x = c(De, De.MC))
-    De.error <- sd(De.MC)
+    De.error <- round(sd(De.MC), digits = 2)
     De.lower <- De - quantile(De.diff, 0.975)
     De.upper <- De - quantile(De.diff, 0.025)
 
@@ -753,10 +755,10 @@ analyse_IRSAR.RF<- function(
   ##set default values and overwrite them if there was something new
   ##set defaults
   RC <- list(
-    curves_ratio = 1.01,
+    curves_ratio = 1.005,
     residuals_slope = 5,
     curves_bounds = as.integer(max(RF_reg.x)),
-    dynamic_range = 0
+    dynamic_ratio = 0
   )
 
   ##modify default values
@@ -779,10 +781,10 @@ analyse_IRSAR.RF<- function(
 
 
   ##(3) calculate dynamic range of regenrated curve
-  RC.dynamic_range <- subset(temp.sequence.structure,
+  RC.dynamic_ratio <- subset(temp.sequence.structure,
                              temp.sequence.structure$protocol.step == "REGENERATED")
-  RC.dynamic_range <- RC.dynamic_range$y.max/RC.dynamic_range$y.min
-  RC.dynamic_range.status <- ifelse(RC.dynamic_range <= RC$dynamic_range, "FAILED", "OK")
+  RC.dynamic_ratio <- RC.dynamic_ratio$y.max/RC.dynamic_ratio$y.min
+  RC.dynamic_ratio.status <- ifelse(RC.dynamic_ratio <= RC$dynamic_ratio, "FAILED", "OK")
 
   ##(99) check whether after sliding the
   if(exists("slide")){
@@ -807,12 +809,12 @@ analyse_IRSAR.RF<- function(
       VALUE = c(RC.curves_ratio,
                 RC.residuals_slope,
                 RC.curves_bounds,
-                RC.dynamic_range
+                RC.dynamic_ratio
                 ),
       STATUS = c(RC.curves_ratio.status,
                  RC.residuals_slope.status,
                  RC.curves_bounds.status,
-                 RC.dynamic_range.status),
+                 RC.dynamic_ratio.status),
       SEQUENCE_NAME = aliquot.sequence_name,
       UID = NA,
     row.names = NULL,
