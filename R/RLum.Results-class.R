@@ -154,12 +154,12 @@ setMethod("get_RLum",
             }
 
             ##allow to access a specific data object
-            if(missing(data.object) == FALSE){
+            if(!missing(data.object)){
 
-              if(is.null(try(object@data[[data.object]])) == TRUE){
+              if(is.null(try(object@data[[data.object]]))){
 
                 error.message1 <- paste(names(object@data), collapse = ", ")
-                error.message <- paste("[get_RLum()] data.object unknown. Valid object names are: ", error.message1)
+                error.message <- paste0("[get_RLum()] data.object '",data.object ,"' unknown. Valid object names are: ", error.message1)
 
                 stop(error.message)
 
