@@ -8,14 +8,20 @@
 #' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}). To plot several data sets in one plot the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
+#'
 #' @param weight.calc \code{\link{character}}: type of weight calculation. One
 #' out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
 #' 1/error^2). Default is \code{"square"}.
+#'
 #' @param na.rm \code{\link{logical}} (with default): indicating whether NA
 #' values should be stripped before the computation proceeds.
+#'
 #' @return Returns a list with weighted and unweighted statistic measures.
-#' @section Function version: 0.1.2
+#'
+#' @section Function version: 0.1.3
+#'
 #' @author Michael Dietze, GFZ Potsdam (Germany)
+#'
 #' @examples
 #'
 #' ## load example data
@@ -88,12 +94,19 @@ calc_Statistics <- function(
     low <- cumsum(c(0, w))
     up <- sum(w) - low
     df <- low - up
-    repeat {
-      if (df[k] < 0)
-        k <- k + 1
-      else if (df[k] == 0)
-        return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
-      else return(y[k - 1])
+
+    if(!anyNA(df)){
+      repeat {
+        if (df[k] < 0)
+          k <- k + 1
+        else if (df[k] == 0)
+          return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
+        else
+          return(y[k - 1])
+      }
+    }else{
+      return(NA)
+
     }
   }
 
