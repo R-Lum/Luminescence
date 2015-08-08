@@ -5,9 +5,9 @@
 \title{Analyse IRSAR RF measurements}
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
-  RF_nat.lim, RF_reg.lim, method = "FIT", rejection.criteria,
-  fit.trace = FALSE, n.MC = 10, slide.show_density = FALSE,
-  txtProgressBar = TRUE, plot = TRUE, ...)
+  RF_nat.lim, RF_reg.lim, method = "FIT", test_parameter, fit.trace = FALSE,
+  n.MC = 10, slide.show_density = FALSE, txtProgressBar = TRUE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -30,9 +30,13 @@ will be treated as minium value and the maximum limit will be added automaticall
 \item{method}{\code{\link{character}} (with default): setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
-\item{rejection.criteria}{\code{\link{list} (with default)}: set rejection
-criteria. Supported criteria are: \code{curves_ratio}, \code{residuals_slope} (only for
-\code{method = "SLIDE"}) and \code{curves_bounds} (see Details for further information)}
+\item{test_parameter}{\code{\link{list} (with default)}: set test parameter
+Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
+\code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
+\code{lambda}, \code{beta} and \code{delta.phi}. All input: \code{\link{numeric}}
+values, \code{NA} and \code{NULL} (s. Details)
+
+(see Details for further information)}
 
 \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
 debugging use)}
@@ -60,17 +64,20 @@ Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 returned. The slot data contains the following elements: \cr
 
+
 $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
-..$ DE : \code{numeric} \cr
-..$ DE.LOWER : \code{numeric} \cr
-..$ DE.UPPER : \code{numeric}c \cr
-..$ DE.STATUS  : \code{character} \cr
-..$ RF_NAT.LIM  : \code{charcter} \cr
-..$ RF_REG.LIM : \code{character} \cr
-..$ POSITION : \code{integer} \cr
-..$ DATE : \code{character} \cr
-..$ SEQUENCE_NAME : \code{character}\cr
-$ De.RC : \code{\link{data.frame}} table with rejection criteria \cr
+..$ DE : \code{numeric}: the obtained equivalent dose\cr
+..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
+..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtabined by MC runs \cr
+..$ DE.UPPER : \code{numeric}: 97.5\% quantile for De values obtabined by MC runs  \cr
+..$ DE.STATUS  : \code{character}: test parameter status\cr
+..$ RF_NAT.LIM  : \code{charcter}: used RF_nat curve limits \cr
+..$ RF_REG.LIM : \code{character}: used RF_reg curve limits\cr
+..$ POSITION : \code{integer}: (optional) position of the curves\cr
+..$ DATE : \code{character}: (optional) measurement date\cr
+..$ SEQUENCE_NAME : \code{character}: (optional) sequence name)\cr
+..$ UID : \code{character}: unique data set ID \cr
+$ test_parameter : \code{\link{data.frame}} table test parameters \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 $ slide : \code{\link{list}} data from the sliding process\cr
 $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
@@ -129,6 +136,12 @@ the standard deviation of the natural signal.\cr
 For \bold{\code{method = "SLIDE"}} an
 
 //WILL BE ADDED TODO
+
+\bold{Test parameters}\cr
+
+The argument \code{test_parameters} allows to evaluate ..
+
+//WILL BE ADDED TODO
 }
 \note{
 This function assumes that there is no sensitivity change during the
@@ -136,7 +149,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings from Buylaert et al. (2012).\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-05 19:53:02)
+ 0.4.0 (2015-08-07 20:20:50)
 }
 \examples{
 ##load data

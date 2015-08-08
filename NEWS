@@ -97,6 +97,11 @@ Changes in version 0.4.5 (10th August, 2015):
 
              • a lot of internal code polishing.
 
+         • ‘calc_CentralDose()’
+
+             • Fix error caused by zero value, function now returns
+               ‘NA’ instead of crashing (#238).
+
          • ‘calc_SourceDoseRate()’
 
              • The arguments ‘measurement.date’ and ‘calib.date’ no
@@ -113,7 +118,13 @@ Changes in version 0.4.5 (10th August, 2015):
          • ‘calc_Statistics()’
 
              • default setting of weights definition changed from 1/s
-               to 1/s^2
+               to 1/s^2,
+
+             • fix an error where weighted statistics cannot be
+               calculated due to zero values in the input data.frame
+               and the function breaks with unclear error message
+               (#239). This also sloves the reported problem #236 for
+               ‘plot_KDE’ and ‘plot_Histogram’.
 
          • ‘fit_CWCurve()’
 
@@ -157,12 +168,18 @@ Changes in version 0.4.5 (10th August, 2015):
          • ‘plot_KDE()’
 
              • summary content 'in confidence interval' changed to 'in
-               2 sigma'
+               2 sigma',
+
+             • function crash caused by internal call calc_Statistics()
+               (#238) was fixed (#236).
 
          • ‘plot_RadialPlot()’
 
              • summary content 'in confidence interval' changed to 'in
-               2 sigma'
+               2 sigma',
+
+             • irritating message corrected for the case zero values
+               had been supplied (#237).
 
          • ‘plot_RLum.Analysis()’
 

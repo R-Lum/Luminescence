@@ -75,6 +75,15 @@
 
       }
 
+     \item \code{calc_CentralDose()}
+
+        \itemize{
+
+          \item Fix error caused by zero value, function now returns \code{NA} instead of
+          crashing (#238).
+
+      }
+
 
      \item \code{calc_SourceDoseRate()}
 
@@ -95,7 +104,11 @@
 
         \itemize{
 
-          \item default setting of weights definition changed from 1/s to 1/s^2
+          \item default setting of weights definition changed from 1/s to 1/s^2,
+          \item fix an error where weighted statistics cannot be
+          calculated due to zero values in the input data.frame
+          and the function breaks with unclear error message (#239). This also sloves
+          the reported problem #236 for \code{plot_KDE} and \code{plot_Histogram}.
 
       }
       
@@ -145,7 +158,9 @@
 
         \itemize{
 
-          \item summary content 'in confidence interval' changed to 'in 2 sigma'
+          \item summary content 'in confidence interval' changed to 'in 2 sigma',
+          \item function crash caused by internal call calc_Statistics() (#238) was
+          fixed (#236).
 
       }
 
@@ -154,7 +169,8 @@
 
         \itemize{
 
-          \item summary content 'in confidence interval' changed to 'in 2 sigma'
+          \item summary content 'in confidence interval' changed to 'in 2 sigma',
+          \item irritating message corrected for the case zero values had been supplied (#237).
 
       }
 
