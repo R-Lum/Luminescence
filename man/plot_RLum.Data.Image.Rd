@@ -40,7 +40,7 @@ Supported plot types: \cr
 \bold{\code{plot.type = "plot.raster"}}\cr
 
 Uses the standard plot function for raster data from the package
-\code{\link{raster}}: \code{\link[raster]{plot}}. For each raster layer in a
+\code{\link[raster]{raster}}: \code{\link[raster]{plot}}. For each raster layer in a
 raster brick one plot is produced.
 
 Arguments that are passed through the function call:\cr
@@ -51,7 +51,7 @@ Arguments that are passed through the function call:\cr
 \bold{\code{plot.type = "plotRGB"}}\cr
 
 Uses the function \code{\link[raster]{plotRGB}} from the
-\code{\link{raster}} package. Only one image plot is produced as all layers
+\code{\link[raster]{raster}} package. Only one image plot is produced as all layers
 in a brick a combined.  This plot type is useful to see whether any signal
 is recorded by the camera.\cr Arguments that are passed through the function
 call:\cr
@@ -76,7 +76,7 @@ function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
 \section{Function version}{
- 0.1 (2015-07-17 08:55:43)
+ 0.1 (2015-07-23 17:09:29)
 }
 \examples{
 ##load data
@@ -94,7 +94,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 }
 \seealso{
 \code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
-\code{\link{plot_RLum}}, \code{\link{raster}},
+\code{\link{plot_RLum}}, \code{\link[raster]{raster}},
 }
 \keyword{aplot}
 

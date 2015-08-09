@@ -50,8 +50,6 @@ is provided, the raw curve data (matrix) will be returned
 column labels are temperature or time values.}
 
 \item{\code{info}}{Object of class "list" containing further meta information objects}
-
-\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 The class should only contain data for a single spectra data set. For
@@ -61,6 +59,10 @@ additional elements the slot \code{info} can be used.
  Objects can be created by calls of the form
 \code{new("RLum.Data.Spectrum", ...)}.
 }
+
+\section{Class version}{
+ 0.2.0
+}
 \examples{
 showClass("RLum.Data.Spectrum")
 
@@ -69,7 +71,7 @@ showClass("RLum.Data.Spectrum")
 # TL.Spectrum
 }
 \author{
-Sebastian Kreutzer, JLU Giessen (Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},

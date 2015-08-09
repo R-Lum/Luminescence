@@ -9,15 +9,22 @@
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
+#'
 #' @param a \code{\link{numeric}}: slope
+#'
 #' @param b \code{\link{numeric}}: intercept
+#'
 #' @param interval \code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for
 #' iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
 #' [Dbar.Fixed vs Z]
+#'
 #' @param decimal.point \code{\link{numeric}} (with default): number of decimal
 #' points for rounding calculations (e.g. 2)
+#'
 #' @param plot \code{\link{logical}} (with default): plot output
+#'
 #' @param \dots further arguments (\code{trace, verbose}).
+#'
 #' @return Returns a plot (optional) and terminal output. In addition an
 #' \code{\linkS4class{RLum.Results}} object is returned containing the
 #' following element:
@@ -30,18 +37,25 @@
 #'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum}}.
-#' @section Function version: 0.1
+#'
+#' @section Function version: 0.1.0
+#'
 #' @author Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
 #' (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
 #' written by Kristina Thomsen.
+#'
 #' @seealso \code{\link{plot}}, \code{\link{calc_CommonDose}},
 #' \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
 #' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
-#' @references Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
+#'
+#' @references Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
+#' Ancient TL 33, 16-21.
+#'
+#' Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
 #' 2007. Determination of burial dose in incompletely bleached fluvial samples
 #' using single grains of quartz. Radiation Measurements 42, 370-379.
-#' @examples
 #'
+#' @examples
 #'
 #' ## load data
 #' data(ExampleData.DeValues, envir = environment())

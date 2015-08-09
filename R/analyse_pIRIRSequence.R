@@ -350,16 +350,17 @@ analyse_pIRIRSequence <- function(
   ##layout.show(nf)
 
   }
-
+  
   ##(1) INFO PLOT
-  plot(NA,NA,
-       ylim = c(0,1), xlab = "",
-       xlim = c(0,1), ylab = "",
-       axes = FALSE,
-       main = main)
-
-  text(0.5,0.5, paste(sequence.structure, collapse = "\n"), cex = cex *2)
-
+  if (plot == TRUE) {
+    plot(NA,NA,
+         ylim = c(0,1), xlab = "",
+         xlim = c(0,1), ylab = "",
+         axes = FALSE,
+         main = main)
+    
+    text(0.5,0.5, paste(sequence.structure, collapse = "\n"), cex = cex *2)
+  }
 
 
   ##(2) set loop

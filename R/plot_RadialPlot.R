@@ -17,19 +17,19 @@
 #' zero precision (x0) and zero standardised estimate (y0). Such a range may be
 #' drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
 #' \code{line.label}, cf. examples).\cr\cr
-#' 
-#' A statistic summary, i.e. a collection of statistic measures of 
-#' centrality and dispersion (and further measures) can be added by specifying 
+#'
+#' A statistic summary, i.e. a collection of statistic measures of
+#' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords: \code{"n"} (number of samples),
 #' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
 #' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative 
+#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
 #' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
-#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation), 
+#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation),
 #' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 #' error-weighted relative standard error), \code{"seabs"} (absolute standard
-#' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
-#' \code{"in.ci"} (percent of samples in confidence interval, e.g. 2-sigma),
+#' error), \code{"seabs.weighted"} (error-weighted absolute standard error),
+#' \code{"in.2s"} (percent of samples in 2-sigma range),
 #' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 #'
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -51,8 +51,8 @@
 #' \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or a
 #' numeric value used for the standardisation.
 #' @param mtext \code{\link{character}}: additional text below the plot title.
-#' @param summary \code{\link{character}} (optional): add statistic measures of 
-#' centrality and dispersion to the plot. Can be one or more of several 
+#' @param summary \code{\link{character}} (optional): add statistic measures of
+#' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
@@ -189,7 +189,7 @@
 #'
 #' ## now with a brief statistical summary
 #' plot_RadialPlot(data = ExampleData.DeValues,
-#'                 summary = c("n", "in.ci"))
+#'                 summary = c("n", "in.2s"))
 #'
 #' ## now with another statistical summary as subheader
 #' plot_RadialPlot(data = ExampleData.DeValues,
@@ -211,7 +211,7 @@
 #'                 col = c("darkblue", "darkgreen"),
 #'                 bar.col = c("lightblue", "lightgreen"),
 #'                 pch = c(2, 6),
-#'                 summary = c("n", "in.ci"),
+#'                 summary = c("n", "in.2s"),
 #'                 summary.pos = "sub",
 #'                 legend = c("Sample 1", "Sample 2"))
 #'
@@ -258,7 +258,7 @@ plot_RadialPlot <- function(
   ## check data and parameter consistency--------------------------------------
   if(missing(stats) == TRUE) {stats <- numeric(0)}
   if(missing(summary) == TRUE) {
-    summary <- c("n", "in.ci")
+    summary <- c("n", "in.2s")
   }
 
   if(missing(summary.pos) == TRUE) {
@@ -321,7 +321,7 @@ plot_RadialPlot <- function(
       data.negative <- paste(seq(1, length(data.test))[data.test == TRUE],
                              collapse = ", ")
       if(sum(data.test) > 0) {
-        print(paste("The following lines contain negative values: ",
+        warning(paste("The following lines contain zero or negative values: ",
                       data.negative,
                       ".",
                       sep = ""))
@@ -459,11 +459,11 @@ plot_RadialPlot <- function(
 
   ## generate global data set
   data.global <- cbind(data[[1]],
-                       rep(x = 1, 
+                       rep(x = 1,
                            times = nrow(data[[1]])))
-  
+
   colnames(data.global) <- rep("", 9)
-  
+
   if(length(data) > 1) {
     for(i in 2:length(data)) {
       data.add <- cbind(data[[i]],
@@ -858,7 +858,7 @@ if(centrality[1] == "mean") {
                           "sd.rel.weighted",
                           "se.abs.weighted",
                           "se.rel.weighted")
-  
+
   for(i in 1:length(data)) {
     statistics <- calc_Statistics(data[[i]])
     De.stats[i,1] <- statistics$weighted$n
@@ -878,26 +878,26 @@ if(centrality[1] == "mean") {
     De.stats[i,16] <- statistics$weighted$sd.rel
     De.stats[i,17] <- statistics$weighted$se.abs
     De.stats[i,18] <- statistics$weighted$se.rel
-    
+
     ##kdemax - here a little doubled as it appears below again
     De.density <-density(x = data[[i]][,1],
                          kernel = "gaussian",
                          from = limits.z[1],
                          to = limits.z[2])
-    
+
     De.stats[i,6] <- De.density$x[which.max(De.density$y)]
   }
 
   label.text = list(NA)
-  
+
   if(summary.pos[1] != "sub") {
     n.rows <- length(summary)
-    
+
     for(i in 1:length(data)) {
       stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
-      
+
       summary.text <- character(0)
-      
+
       for(j in 1:length(summary)) {
         summary.text <- c(summary.text,
                           paste(
@@ -974,8 +974,8 @@ if(centrality[1] == "mean") {
                                          "\n",
                                          sep = ""),
                                    ""),
-                            ifelse("in.ci" %in% summary[j] == TRUE,
-                                   paste("in confidence interval = ",
+                            ifelse("in.2s" %in% summary[j] == TRUE,
+                                   paste("in 2 sigma = ",
                                          round(sum(data[[i]][,7] > -2 &
                                                      data[[i]][,7] < 2) /
                                                  nrow(data[[i]]) * 100 , 1),
@@ -1008,9 +1008,9 @@ if(centrality[1] == "mean") {
                                    ""),
                             sep = ""))
       }
-      
+
       summary.text <- paste(summary.text, collapse = "")
-      
+
       label.text[[length(label.text) + 1]] <- paste(stops,
                                                     summary.text,
                                                     stops,
@@ -1018,9 +1018,9 @@ if(centrality[1] == "mean") {
     }
   } else {
     for(i in 1:length(data)) {
-      
+
       summary.text <- character(0)
-      
+
       for(j in 1:length(summary)) {
         summary.text <- c(summary.text,
                           ifelse("n" %in% summary[j] == TRUE,
@@ -1095,8 +1095,8 @@ if(centrality[1] == "mean") {
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("in.ci" %in% summary[j] == TRUE,
-                                 paste("in confidence interval = ",
+                          ifelse("in.2s" %in% summary[j] == TRUE,
+                                 paste("in 2 sigma = ",
                                        round(sum(data[[i]][,7] > -2 &
                                                    data[[i]][,7] < 2) /
                                                nrow(data[[i]]) * 100 , 1),
@@ -1129,15 +1129,15 @@ if(centrality[1] == "mean") {
                                  "")
         )
       }
-      
+
       summary.text <- paste(summary.text, collapse = "")
-      
+
       label.text[[length(label.text) + 1]]  <- paste(
         "  ",
         summary.text,
         sep = "")
     }
-    
+
     ## remove outer vertical lines from string
     for(i in 2:length(label.text)) {
       label.text[[i]] <- substr(x = label.text[[i]],

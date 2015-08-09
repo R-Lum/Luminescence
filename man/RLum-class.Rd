@@ -19,6 +19,10 @@ Abstract class for data in the package Luminescence
  A virtual Class: No objects can be created
 from it.
 }
+
+\section{Class version}{
+ 0.2.0
+}
 \examples{
 showClass("RLum")
 }

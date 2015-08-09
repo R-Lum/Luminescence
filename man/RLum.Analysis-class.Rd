@@ -14,39 +14,43 @@
 \S4method{set_RLum}{RLum.Analysis}(class, records, protocol)
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
-  RLum.type, info.object, get.index, keep.object = FALSE)
+  RLum.type, protocol = "UNKNOWN", info.object, get.index,
+  keep.object = FALSE, recursive = TRUE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
 }
 \arguments{
-\item{object}{an object of class \code{\linkS4class{RLum.Analysis}}}
+\item{object}{[\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})}
 
-\item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
+\item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to be created}
 
-\item{records}{\code{\link{integer}} (\bold{required}): record id in the
-\code{Risoe.BINfileData} object of the curve that is to be stored in the
-\code{RLum.Analysis} object.}
+\item{records}{[\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects}
 
-\item{protocol}{\code{\link{character}} (optional): sets protocol type for
+\item{protocol}{[\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
 analysis object. Value may be used by subsequent analysis functions. \code{UNKNOWN}
 by default.}
 
-\item{record.id}{\code{\link{numeric}}: IDs of specific records}
+\item{record.id}{[\code{get_RLum}] \code{\link{numeric}} (optional): IDs of specific records}
 
-\item{recordType}{\code{\link{character}}: record type (e.g. "OSL")}
+\item{recordType}{[\code{get_RLum}] \code{\link{character}} (optional): record type (e.g. "OSL")}
 
-\item{curveType}{\code{\link{character}}: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{[\code{get_RLum}] \code{\link{character}} (optional): curve type (e.g. "predefined" or "measured")}
 
-\item{RLum.type}{\code{\link{character}}: RLum object type. Defaults to "RLum.Data.Curve"
+\item{RLum.type}{[\code{get_RLum}] \code{\link{character}} (optional): RLum object type. Defaults to "RLum.Data.Curve"
 and "RLum.Data.Spectrum".}
 
-\item{info.object}{currently not used.}
+\item{info.object}{[\code{get_RLum}] currently not used.}
 
-\item{get.index}{\code{\link{logical}}: return a numeric vector with the index of each
+\item{get.index}{[\code{get_RLum}] \code{\link{logical}} (optional): return a numeric vector with the index of each
 element in the RLum.Analysis object.}
 
-\item{keep.object}{\code{\link{logical}}: return an RLum.Analysis object instead of the single
-elements. Default is keep.object = FALSE.}
+\item{keep.object}{[\code{get_RLum}] \code{\link{logical}} (with default):
+return an RLum.Analysis object instead of the single elements.}
+
+\item{recursive}{[\code{get_RLum}] \code{\link{logical}} (with default): if \code{TRUE} (the default)
+and the result of the 'get_RLum' request is a single object this object will be unlisted, means
+only the object itself and no list containing exactly one object is returned. Mostly this makes things
+easier, however, if this method in a loop this might become annoying}
 }
 \description{
 Object class containing analysis data for protocol analysis.
@@ -76,8 +80,6 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item{\code{records}}{Object of class "list" containing objects of class RLum.Data}
 
 \item{\code{protocol}}{Object of class "character" describing the applied measurement protocol}
-
-\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 The method \code{get_structure} is currently just
@@ -86,6 +88,10 @@ avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 \section{Objects from the Class}{
  Objects can be created by calls of the form
 \code{new("RLum.Analysis", ...)}.
+}
+
+\section{Class version}{
+ 0.2.0
 }
 \examples{
 showClass("RLum.Analysis")

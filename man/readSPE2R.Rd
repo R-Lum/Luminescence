@@ -67,7 +67,7 @@ The function has been successfully tested for SPE format versions 2.x.
 supported.}
 }
 \section{Function version}{
- 0.1 (2015-07-17 08:55:43)
+ 0.1 (2015-07-23 17:09:29)
 }
 \examples{
 ## to run examples uncomment lines and run the code
@@ -106,7 +106,7 @@ Hall, C., 2012: readSPE.m.
 }
 \seealso{
 \code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
-\code{\link{raster}}
+\code{\link[raster]{raster}}
 }
 \keyword{IO}
 

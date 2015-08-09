@@ -13,15 +13,16 @@ plotting of equivalent dose distributions.
 }
 \details{
 \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-\tab 0.5.0\cr Date: \tab 2015-XX-XX [upcoming]\cr License: \tab GPL-3\cr }
+\tab 0.4.5\cr Date: \tab 2015-08-10\cr License: \tab GPL-3\cr }
 }
 \author{
 \bold{Authors}
 
 \tabular{ll}{ Christoph Burow \tab University of Cologne, Germany \cr
 Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr Manfred
-Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab Alfred
-Wegener Insitute for Polar and Marine Research, Potsdam, Germany\cr
+Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab
+Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology,
+Freiberg, Germany \cr
 Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac,
 France\cr Christoph Schmidt \tab University of Bayreuth, Germany\cr Rachel
 K. Smedley\tab Aberystwyth University, United Kingdom }

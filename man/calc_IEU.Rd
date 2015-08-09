@@ -49,7 +49,7 @@ This function uses the equations of Thomsen et al. (2007).  The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
- 0.1 (2015-06-23 10:10:54)
+ 0.1.0 (2015-08-09 23:43:58)
 }
 \examples{
 ## load data
@@ -64,6 +64,9 @@ Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
 written by Kristina Thomsen.
 \cr R Luminescence Package Team}
 \references{
+Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
+Ancient TL 33, 16-21.
+
 Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
 2007. Determination of burial dose in incompletely bleached fluvial samples
 using single grains of quartz. Radiation Measurements 42, 370-379.

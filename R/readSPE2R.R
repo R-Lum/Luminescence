@@ -52,7 +52,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\link{raster}}
+#' \code{\link[raster]{raster}}
 #' @references Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 #' Format Specification, Version 1.A,
 #' \url{ftp://ftp.princetoninstruments.com/Public/Manuals/Princeton\%20Instruments/SPE\%203.0\%20File\%20Format\%20Specification.pdf}
@@ -391,7 +391,7 @@ readSPE2R <- function(
 
       }
 
-      raster(t(data.list[[x]]),
+      raster::raster(t(data.list[[x]]),
              xmn = 0, xmx = max(xdim),
              ymn = 0, ymx = max(ydim))
 
@@ -399,7 +399,7 @@ readSPE2R <- function(
     })
 
     ##Convert to raster brick
-    data.raster <- brick(x = data.raster.list)
+    data.raster <- raster::brick(x = data.raster.list)
 
     ##Create RLum.object
     object <- set_RLum(

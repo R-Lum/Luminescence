@@ -20,6 +20,10 @@
 #' records. Can be used in combination with \code{show.record.number} for
 #' debugging purposes, e.g. corrupt BIN files.
 #'
+#' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
+#' more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
+#' of a \link{Risoe.BINfileData-class} object
+#'
 #' @param show.record.number \link{logical} (with default): shows record number
 #' of the imported record, for debugging usage only.
 #'
@@ -35,7 +39,10 @@
 #' slots:\cr \item{METADATA}{A \link{data.frame} containing all variables
 #' stored in the bin-file.} \item{DATA}{A \link{list} containing a numeric
 #' \link{vector} of the measured data. The ID corresponds to the record ID in
-#' METADATA.}
+#' METADATA.}\cr
+#'
+#' If \code{fastForward = TRUE} a list of \code{\linkS4class{RLum.Analysis}} object is returned. The
+#' internal coercing is done using the function \code{\link{Risoe.BINfileData2RLum.Analysis}}
 #'
 #'
 #' @note The function works for BIN/BINX-format versions 03, 04, 06 and 07. The
@@ -44,7 +51,7 @@
 #' implementation of version 07 support could not been tested so far.}.
 #'
 #'
-#' @section Function version: 0.9.0
+#' @section Function version: 0.9.1
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -52,7 +59,7 @@
 #'
 #'
 #' @seealso \code{\link{writeR2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}},
+#' \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
 #' \code{\link[utils]{txtProgressBar}}
 #'
 #'
@@ -77,6 +84,7 @@ readBIN2R <- function(
   file,
   show.raw.values = FALSE,
   n.records,
+  fastForward = FALSE,
   show.record.number = FALSE,
   txtProgressBar = TRUE,
   forced.VersionNumber
@@ -122,7 +130,7 @@ readBIN2R <- function(
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
     ##force version number
-    if(missing(forced.VersionNumber) == FALSE){
+    if(!missing(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
@@ -153,7 +161,6 @@ readBIN2R <- function(
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=2, endian="little")
       STEPPING <- readBin(con, what="raw", temp.LENGTH-4, size=1, endian="litte")
-
 
     }
 
@@ -364,7 +371,7 @@ readBIN2R <- function(
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
     ##force version number
-    if(missing(forced.VersionNumber) == FALSE){
+    if(!missing(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
@@ -448,7 +455,13 @@ readBIN2R <- function(
 
       ##FNAME
       FNAME_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.FNAME<-readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
+
+      ##correct for 0 file name length
+      if(length(FNAME_SIZE)>0){
+        temp.FNAME<-readChar(con, FNAME_SIZE, useBytes=TRUE) #set to 100 (manual)
+      }else{
+        FNAME_SIZE <- 0
+      }
 
       #step forward in con
       if(100-c(FNAME_SIZE)>0){
@@ -458,7 +471,15 @@ readBIN2R <- function(
 
       ##USER
       USER_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
-      temp.USER<-readChar(con, USER_SIZE, useBytes=TRUE) #set to 30 (manual)
+
+      ##correct for 0 user size length
+      if (length(USER_SIZE) > 0) {
+        temp.USER <-
+          readChar(con, USER_SIZE, useBytes = TRUE) #set to 30 (manual)
+      }else{
+        USER_SIZE <- 0
+
+      }
 
       #step forward in con
       if(30-c(USER_SIZE)>0){
@@ -471,7 +492,12 @@ readBIN2R <- function(
 
       ##time size corrections for wrong time formats; set n to 6 for all values
       ##accoording the handbook of Geoff Duller, 2007
-      temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
+      if(length(TIME_SIZE)>0){
+        temp.TIME<-readChar(con, TIME_SIZE, useBytes=TRUE)
+      }else{
+        TIME_SIZE <- 0
+
+      }
 
       if(6-TIME_SIZE>0){
 
@@ -1022,5 +1048,18 @@ readBIN2R <- function(
 
 
   ##return values
-  return(object)
+  ##with fast fastForward they will be converted directly to a list of RLum.Analysis objects
+  if(fastForward){
+    object <- sapply(unique(object@METADATA[,"POSITION"]), function(x){
+        Risoe.BINfileData2RLum.Analysis(object, pos = x)
+
+    })
+
+
+  }
+
+
+   return(object)
+
+
 }

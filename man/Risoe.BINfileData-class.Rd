@@ -42,8 +42,6 @@ the object directly, it is just showing a terminal message.
 \item{\code{DATA}}{Object of class "list" containing numeric vector with count data.}
 
 \item{\code{.RESERVED}}{Object of class "list" containing list of undocumented raw values for internal use only.}
-
-\item{\code{.S3Class}}{Object of class "character"}
 }}
 \note{
 \bold{Internal METADATA - object structure}
@@ -161,13 +159,17 @@ Nutech)
  Objects can be created by calls of the form
 \code{new("Risoe.BINfileData", ...)}.
 }
+
+\section{Function version}{
+ 0.2.0
+}
 \examples{
 showClass("Risoe.BINfileData")
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \references{
 Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2015. The
 Sequence Editor User Manual - March 2015

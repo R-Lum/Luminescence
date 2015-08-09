@@ -15,8 +15,9 @@
 #'
 #' \tabular{ll}{ Christoph Burow \tab University of Cologne, Germany \cr
 #' Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr Manfred
-#' Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab Alfred
-#' Wegener Insitute for Polar and Marine Research, Potsdam, Germany\cr
+#' Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab
+#' Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology,
+#' Freiberg, Germany \cr
 #' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac,
 #' France\cr Christoph Schmidt \tab University of Bayreuth, Germany\cr Rachel
 #' K. Smedley\tab Aberystwyth University, United Kingdom }
@@ -74,16 +75,15 @@
 #' Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
 #' 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
 #' 30, pp. 1-8.
+#'
 #' @keywords package
-#' @import methods shape data.table bbmle
+#'
+#' @import utils methods data.table bbmle
+#' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title
+#' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors
+#' @importFrom stats approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean
 #' @importFrom parallel parLapply makeCluster stopCluster
-#' @importFrom raster brick raster contour plotRGB nlayers
-#' @importFrom zoo as.Date as.Date.numeric
-#' @importFrom matrixStats rowDiffs
-#' @importFrom XML xmlSize xmlValue xmlAttrs xmlRoot xmlTreeParse getEncoding xmlErrorCumulator
 #' @importFrom Rcpp evalCpp
-#' @importFrom rgl persp3d
-#' @importFrom minpack.lm nlsLM nls.lm.control
 #' @exportPattern ^[[:alpha:]]+
 #' @useDynLib Luminescence
 NULL
@@ -237,6 +237,11 @@ NULL
 #' DA-20 reader \cr \tab (Filter: Semrock Brightline, \cr \tab HC475/50, N2,
 #' unpolished steel discs) \cr Reference: \tab unpublished \cr Remarks: \tab
 #' dataset limited to one position\cr }
+#'
+#' @note Please note that this example data cannot be exported to a BIN-file using the function
+#' \code{writeR2BIN} as it was generated and implemented in the package long time ago. In the meantime
+#' the BIN-file format changed.
+#'
 #' @keywords datasets
 #' @examples
 #'
@@ -533,16 +538,16 @@ NULL
 
 
 #' Example De data sets for the package Luminescence
-#' 
+#'
 #' Equivalent dose (De) values measured for a fine grain quartz sample from a
 #' loess section in Rottewitz (Saxony/Germany) and for a coarse grain quartz
 #' sample from a fluvial deposit in the rock shelter of Cueva Anton
 #' (Murcia/Spain).
-#' 
-#' 
+#'
+#'
 #' @format A \code{\link{list}} with two elements, each containing a two column
 #' \code{\link{data.frame}}:
-#' 
+#'
 #' \describe{ \code{$BT998}: De and De error values for a fine grain quartz
 #' sample from a loess section in Rottewitz.\cr\cr \code{$CA1}: Single grain De
 #' and De error values for a coarse grain quartz sample from a fluvial deposit
@@ -552,7 +557,7 @@ NULL
 #' V., Zapata, J. and Zilhao, J.  (accepted). Luminescence dating of fluvial
 #' deposits in the rock shelter of Cueva Anton, Spain. Geochronometria.
 #' @source %% ~~ If necessary, more details than the description above ~~
-#' 
+#'
 #' \bold{BT998} \cr \tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr
 #' Lab-Code: \tab BT998\cr Location: \tab Rottewitz (Saxony/Germany)\cr
 #' Material: \tab Fine grain quartz measured on aluminum discs on a Risoe
@@ -565,19 +570,19 @@ NULL
 #' Risoe TL/OSL DA-20 reader\cr Units: \tab Values are given in Gray \cr
 #' Measurement Date: \tab 2012 }
 #' @examples
-#' 
+#'
 #' ##(1) plot values as histogram
 #' data(ExampleData.DeValues, envir = environment())
 #' plot_Histogram(ExampleData.DeValues$BT998, xlab = "De [s]")
-#' 
+#'
 #' ##(2) plot value as histogram (with Second to Gray convertion)
 #' data(ExampleData.DeValues, envir = environment())
-#' 
-#' De.values <- Second2Gray(ExampleData.DeValues$BT998, 
-#'                          dose.rate = c(0.0438, 0.0019), 
+#'
+#' De.values <- Second2Gray(ExampleData.DeValues$BT998,
+#'                          dose.rate = c(0.0438, 0.0019),
 #'                          method = "gaussian")
-#' 
+#'
 #' plot_Histogram(De.values, xlab = "De [Gy]")
-#' 
-#' 
-#' 
+#'
+#'
+#'

@@ -31,26 +31,48 @@
 #' with path and files names (e.g. \code{input.objects = c("path/file1.bin",
 #' "path/file2.bin")} or \code{\linkS4class{Risoe.BINfileData}} objects (e.g.
 #' \code{input.objects = c(object1, object2)})
+#'
+#'
 #' @param output.file \code{\link{character}} (optional): File output path and
 #' name. \cr If no value is given, a \code{\linkS4class{Risoe.BINfileData}} is
 #' returned instead of a file.
+#'
+#'
 #' @param keep.position.number \code{\link{logical}} (with default): Allows
 #' keeping the original position numbers of the input objects. Otherwise the
 #' position numbers are recalculated.
+#'
+#'
 #' @param position.number.append.gap \code{\link{integer}} (with default): Set
 #' the position number gap between merged BIN-file sets, if the option
 #' \code{keep.position.number = FALSE} is used. See details for further
 #' information.
+#'
+#'
 #' @return Returns a \code{file} or a \code{\linkS4class{Risoe.BINfileData}}
 #' object.
+#'
+#'
 #' @note The validity of the output objects is not further checked.
-#' @section Function version: 0.2.2
+#'
+#'
+#' @section Function version: 0.2.3
+#'
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
+#'
 #' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\link{readBIN2R}},
 #' \code{\link{writeR2BIN}}
+#'
+#'
 #' @references Duller, G., 2007. Analyst.
+#'
+#'
 #' @keywords IO manip
+#'
+#'
 #' @examples
 #'
 #'
@@ -179,7 +201,7 @@ merge_Risoe.BINfileData <- function(
       temp.new.DATA <- temp[[i]]@DATA
 
 
-      if(is(try(temp[[i]]@.RESERVED, silent = TRUE)) == "try-error"){
+      if(inherits(try(temp[[i]]@.RESERVED, silent = TRUE), "try-error")){
 
         temp.new.RESERVED <- list()
 
@@ -194,7 +216,7 @@ merge_Risoe.BINfileData <- function(
       temp.new.METADATA <- rbind(temp.new.METADATA, temp[[i]]@METADATA)
       temp.new.DATA <- c(temp.new.DATA, temp[[i]]@DATA)
 
-      if(is(try(temp[[i]]@.RESERVED, silent = TRUE)) == "try-error"){
+      if(inherits(try(temp[[i]]@.RESERVED, silent = TRUE), "try-error")){
 
         temp.new.RESERVED <- c(temp.new.RESERVED, list())
 

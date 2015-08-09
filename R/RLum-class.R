@@ -4,26 +4,25 @@
 #'
 #'
 #' @name RLum-class
-#' 
+#'
 #' @docType class
-#' 
-#' @slot .S3Class Object of class "character"
-#' 
+#'
 #' @note \code{RLum} is a virtual class.
-#' 
+#'
 #' @section Objects from the Class: A virtual Class: No objects can be created
 #' from it.
-#' 
+#'
+#' @section Class version: 0.2.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-#' 
+#'
 #' @seealso \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
-#' 
+#'
 #' @keywords classes
-#' 
+#'
 #' @examples
 #'
 #' showClass("RLum")
 #'
 setClass("RLum",
-         representation(),
-         S3methods = TRUE)
+         contains = "VIRTUAL")

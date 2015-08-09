@@ -7,11 +7,6 @@
 \description{
 Generalized virtual data class for luminescence data.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{.S3Class}}{Object of class "character"}
-}}
 \note{
 Just a virtual class.
 }
@@ -19,11 +14,15 @@ Just a virtual class.
  A virtual Class: No objects can be created
 from it.
 }
+
+\section{Class version}{
+ 0.2.0
+}
 \examples{
 showClass("RLum.Data")
 }
 \author{
-Sebastian Kreutzer, 2013 (Freiberg Instruments/JLU Giessen, Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data.Curve}},

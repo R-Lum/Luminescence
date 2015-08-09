@@ -132,7 +132,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.1 (2015-06-23 10:10:54)
+ 0.4.1 (2015-07-23 17:09:29)
 }
 \examples{
 ## Load example data

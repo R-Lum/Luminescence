@@ -13,23 +13,35 @@
 #' @param data \code{\link{data.frame}} (\bold{required}): input values,
 #' structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
 #' required
-#' @param dose.rate \code{\linkS4class{RLum.Results}} or \code{\link{vector}}
+#'
+#' @param dose.rate \code{\linkS4class{RLum.Results}} or \code{\link{data.frame}} or \code{\link{numeric}}
 #' (\bold{required}): \code{RLum.Results} needs to be orginated from the
 #' function \code{\link{calc_SourceDoseRate}}, for \code{vector}dose rate in
 #' Gy/s and dose rate error in Gy/s
+#'
 #' @param method \link{character} (with default): method used for error
 #' calculation (\code{gaussian} or \code{absolute}), see details for further
 #' information
+#'
 #' @return Returns a \link{data.frame} with converted values.
+#'
 #' @note If no or a wrong method is given, the execution of the function is
-#' stopped.
-#' @section Function version: 0.4
+#' stopped. Furthermore, if a \code{data.frame} is provided for the dose rate values is has to
+#' be of the same length as the data frame provided with the argument \code{data}
+#'
+#' @section Function version: 0.5.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, TU Bergakadmie Freiberg
+#' (France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, HZDR,
+#' Helmholtz-Institute Freiberg for Resource Technology
 #' (Germany)
+#'
 #' @seealso #
+#'
 #' @references #
+#'
 #' @keywords manip
+#'
 #' @examples
 #'
 #'
@@ -46,9 +58,9 @@
 #' ##(B) for source dose rate calibration data
 #' ## - calculate source dose rate first
 #' dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
-#'                                   calib.date <- "2014-12-19",
-#'                                   calib.dose.rate <- 0.0438,
-#'                                   calib.error <- 0.0019)
+#'                                   calib.date = "2014-12-19",
+#'                                   calib.dose.rate = 0.0438,
+#'                                   calib.error = 0.0019)
 #' # read example data
 #' data(ExampleData.DeValues, envir = environment())
 #'
@@ -71,14 +83,27 @@ Second2Gray <- function(
 
   }
 
-  ##(2) data.frame or RLum.Data.Curve object?
-  if(is(dose.rate, "numeric") == FALSE & is(dose.rate, "RLum.Results") == FALSE){
+  ##(2) numeric, data.frame or RLum.Data.Curve object?
+  if(!is(dose.rate, "numeric")  &  !is(dose.rate, "RLum.Results") & !is(dose.rate, "data.frame")){
 
-    stop("[Second2Gray()] 'dose.rate' object has to be of type 'numeric' or 'RLum.Results'!")
+    stop("[Second2Gray()] 'dose.rate' object has to be of type 'numeric', 'data.frame' or 'RLum.Results'!")
 
   }
 
-  ##(3) check for right orginator
+
+  ##(3) last check to avoid problems
+  if(is(dose.rate, "data.frame")){
+
+    if(nrow(dose.rate)!=nrow(data)){
+
+      stop("[Second2Gray()] the data frames in 'data' and 'dose.rate' need to be of similar length!")
+
+    }
+
+  }
+
+
+  ##(4) check for right orginator
   if(is(dose.rate, "RLum.Results")){
 
     if(dose.rate@originator != "calc_SourceDoseRate"){
@@ -87,12 +112,24 @@ Second2Gray <- function(
 
     }else{
 
-      dose.rate <- as.numeric(get_RLum(dose.rate, data.object = "dose.rate"))
+      ##check what is what
+      if(!is(get_RLum(dose.rate, data.object = "dose.rate"), "data.frame")){
 
+        dose.rate <- data.frame(
+          dose.rate  <- as.numeric(get_RLum(dose.rate, data.object = "dose.rate")[1]),
+          dose.rate.error <- as.numeric(get_RLum(dose.rate, data.object = "dose.rate")[2])
+          )
+
+      }else{
+
+        dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")
+
+      }
 
     }
 
   }
+
 
   # Calculation ---------------------------------------------------------------------------------
 
@@ -100,19 +137,37 @@ Second2Gray <- function(
   De.seconds <- data[,1]
   De.error.seconds <- data[,2]
 
-
   De.gray <- NA
   De.error.gray <- NA
 
-  De.gray <- round(De.seconds*dose.rate[1], digits=2)
+  if(is(dose.rate,"data.frame")){
+    De.gray <- round(De.seconds*dose.rate[,1], digits=2)
+
+  }else{
+    De.gray <- round(De.seconds*dose.rate[1], digits=2)
+
+  }
+
 
   if(method == "gaussian"){
 
-    De.error.gray <- round(sqrt((De.seconds*dose.rate[2])^2+(dose.rate[1]*De.error.seconds)^2), digits=2)
+    if(is(dose.rate,"data.frame")){
+       De.error.gray <- round(sqrt((De.seconds*dose.rate[,2])^2+(dose.rate[,1]*De.error.seconds)^2), digits=3)
+
+    }else{
+      De.error.gray <- round(sqrt((De.seconds*dose.rate[2])^2+(dose.rate[1]*De.error.seconds)^2), digits=3)
+
+    }
 
   }else if (method == "absolute"){
 
-    De.error.gray <- round(abs(dose.rate[1] * De.error.seconds) + abs(De.seconds * dose.rate[2]), digits=2)
+    if(is(dose.rate,"data.frame")){
+      De.error.gray <- round(abs(dose.rate[,1] * De.error.seconds) + abs(De.seconds * dose.rate[,2]), digits=3)
+
+    }else{
+      De.error.gray <- round(abs(dose.rate[1] * De.error.seconds) + abs(De.seconds * dose.rate[2]), digits=3)
+
+    }
 
   }else{
 

@@ -4,31 +4,48 @@
 #'
 #' -
 #'
-#' @param Lx.data.signal \link{data.frame} (\bold{required}): TL data (x =
+#' @param Lx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
+#' \code{\link{data.frame}} (\bold{required}): TL data (x =
 #' temperature, y = counts) (TL signal)
-#' @param Lx.data.background \link{data.frame} (optional): TL data (x =
+#'
+#' @param Lx.data.background \code{\linkS4class{RLum.Data.Curve}} or
+#' \code{\link{data.frame}} (optional): TL data (x =
 #' temperature, y = counts). If no data are provided no background subtraction
 #' is performed.
-#' @param Tx.data.signal \link{data.frame} (\bold{required}): TL data (x =
+#'
+#' @param Tx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
+#' \code{\link{data.frame}} (\bold{required}): TL data (x =
 #' temperature, y = counts) (TL test signal)
-#' @param Tx.data.background \link{data.frame} (optional): TL data (x =
+#'
+#' @param Tx.data.background \code{\linkS4class{RLum.Data.Curve}} or
+#' \code{\link{data.frame}} (optional): TL data (x =
 #' temperature, y = counts). If no data are provided no background subtraction
 #' is performed.
-#' @param signal.integral.min \link{integer} (\bold{required}): channel number
+#'
+#' @param signal.integral.min \code{\link{integer}} (\bold{required}): channel number
 #' for the lower signal integral bound (e.g. \code{signal.integral.min = 100})
-#' @param signal.integral.max \link{integer} (\bold{required}): channel number
+#'
+#' @param signal.integral.max \code{\link{integer}} (\bold{required}): channel number
 #' for the upper signal integral bound (e.g. \code{signal.integral.max = 200})
+#'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #' Slot \code{data} contains a \link{list} with the following structure:\cr\cr
 #' $ LxTx.table \cr .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $ TnTx.BG
 #' \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr
+#'
 #' @note \bold{This function has still BETA status!}
-#' @section Function version: 0.3
+#'
+#' @section Function version: 0.3.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), Christoph Schmidt, University of Bayreuth (Germany)
+#' #' (France), Christoph Schmidt, University of Bayreuth (Germany)
+#'
 #' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
+#'
 #' @references -
+#'
 #' @keywords datagen
+#'
 #' @examples
 #'
 #'
@@ -71,10 +88,10 @@ calc_TLLxTxRatio <- function(
         missing(signal.integral.min) == TRUE |  missing(signal.integral.max) == TRUE){
 
        temp.missing <- paste(
-                       c(if(missing(Lx.data.signal) == TRUE){"Lx.data.signal"},
-                         if(missing(Tx.data.signal) == TRUE){"Tx.data.signal"},
-                         if(missing(signal.integral.min) == TRUE){"signal.integral.min"},
-                         if(missing(signal.integral.max) == TRUE){"signal.integral.max"}),
+                       c(if(missing(Lx.data.signal)){"Lx.data.signal"},
+                         if(missing(Tx.data.signal)){"Tx.data.signal"},
+                         if(missing(signal.integral.min)){"signal.integral.min"},
+                         if(missing(signal.integral.max)){"signal.integral.max"}),
                        collapse = ", ")
 
           stop(paste("[calc_TLLxTxRatio()] Arguments are missing: ",temp.missing, ".", sep=""))
@@ -87,8 +104,8 @@ calc_TLLxTxRatio <- function(
        stop("[calc_TLLxTxRatio()] Data type of Lx and Tx data differs!")}
 
      ##check for allowed data.types
-     if(is(Lx.data.signal, "data.frame") == FALSE &
-        is(Lx.data.signal, "RLum.Data.Curve") == FALSE){
+     if(!is(Lx.data.signal, "data.frame") &
+        !is(Lx.data.signal, "RLum.Data.Curve")){
 
        stop("[calc_TLLxTxRatio()] Input data type for not allowed. Allowed are 'RLum.Data.Curve' and 'data.frame'")
 
@@ -97,7 +114,7 @@ calc_TLLxTxRatio <- function(
   ##--------------------------------------------------------------------------##
   ## Type conversion (assuming that all input variables are of the same type)
 
-  if(is(Lx.data.signal, "RLum.Data.Curve") == TRUE){
+  if(is(Lx.data.signal, "RLum.Data.Curve")){
 
     Lx.data.signal <- as(Lx.data.signal, "matrix")
     Tx.data.signal <- as(Tx.data.signal, "matrix")

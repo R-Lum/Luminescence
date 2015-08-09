@@ -4,12 +4,16 @@
 \alias{plot_RLum.Analysis}
 \title{Plot function for an RLum.Analysis S4 class object}
 \usage{
-plot_RLum.Analysis(object, nrows = 3, ncols = 2, abline, combine = FALSE,
-  curve.transformation, plot.single = FALSE, ...)
+plot_RLum.Analysis(object, subset, nrows = 3, ncols = 2, abline,
+  combine = FALSE, curve.transformation, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 object of class \code{RLum.Analysis}}
+
+\item{subset}{named \code{\link{list}} (optional): subsets elements for plotting. The
+arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
+(e.g., \code{subset = list(curveType = "measured")})}
 
 \item{nrows}{\code{\link{integer}} (with default): sets number of rows for
 plot output}
@@ -32,9 +36,8 @@ transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 \code{CW2pHMi} and \code{CW2pPMi}. See details.}
 
-\item{plot.single}{\code{\link{logical}} (with default): each curve is
-plotted in a single window, overwrites the settings of \code{norws} and
-\code{ncols}}
+\item{plot.single}{\code{\link{logical}} (with default): global par settings are
+considered, normally this should end in one plot per page}
 
 \item{\dots}{further arguments and graphical parameters will be passed to
 the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
@@ -73,7 +76,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.4 (2015-06-23 10:10:54)
+ 0.2.6 (2015-08-09 19:40:22)
 }
 \examples{
 ###load data

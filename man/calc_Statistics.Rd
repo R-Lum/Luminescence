@@ -4,7 +4,7 @@
 \alias{calc_Statistics}
 \title{Function to calculate statistic measures}
 \usage{
-calc_Statistics(data, weight.calc = "reciprocal", na.rm = TRUE)
+calc_Statistics(data, weight.calc = "square", na.rm = TRUE)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -14,7 +14,7 @@ data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
 \item{weight.calc}{\code{\link{character}}: type of weight calculation. One
 out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
-1/error^2).}
+1/error^2). Default is \code{"square"}.}
 
 \item{na.rm}{\code{\link{logical}} (with default): indicating whether NA
 values should be stripped before the computation proceeds.}
@@ -27,7 +27,7 @@ This function calculates a number of descriptive statistics for De-data,
 most fundamentally using error-weighted approaches.
 }
 \section{Function version}{
- 0.1.2 (2015-07-17 08:55:43)
+ 0.1.3 (2015-08-08 02:46:32)
 }
 \examples{
 ## load example data

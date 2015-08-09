@@ -5,102 +5,117 @@
 \title{Analyse IRSAR RF measurements}
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
-  method = "FIT", rejection.criteria, fit.range.min, fit.range.max,
-  fit.trace = FALSE, fit.MC.runs = 10, slide.MC.runs = 10,
-  slide.outlier.rm = FALSE, slide.trend.corr = FALSE,
-  slide.show.density = TRUE, plot = TRUE, xlab.unit = "s", legend.pos,
-  ...)
+  RF_nat.lim, RF_reg.lim, method = "FIT", test_parameter, fit.trace = FALSE,
+  n.MC = 10, slide.show_density = FALSE, txtProgressBar = TRUE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
-object containing data for protocol analysis}
+object containing data for protocol analysis. The function expects to find at least two curves in the
+\code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg}
 
 \item{sequence.structure}{\code{\link{vector}} \link{character} (with
 default): specifies the general sequence structure. Allowed steps are
 \code{NATURAL}, \code{REGENERATED}. In addition any other character is
-allowed in the sequence structure; such curves will be ignored.}
+allowed in the sequence structure; such curves will be ignored during the analysis.}
+
+\item{RF_nat.lim}{\code{\link{vector}} (with default): set minimum and maximum
+channel range for natural signal fitting and sliding. If only one value is provided this
+will be treated as minimum value and the maximum limit will be added automatically.}
+
+\item{RF_reg.lim}{\code{\link{vector}} (with default): set minimum and maximum
+channel range for regenerated signal fitting and sliding. If only one value is provided this
+will be treated as minimum value and the maximum limit will be added automatically.}
 
 \item{method}{\code{\link{character}} (with default): setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
-\item{rejection.criteria}{\code{\link{list} (with default)}: set rejection
-criteria for, see details for more information \bold{Currently without
-usage!}}
+\item{test_parameter}{\code{\link{list} (with default)}: set test parameter
+Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
+\code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
+\code{lambda}, \code{beta} and \code{delta.phi}. All input: \code{\link{numeric}}
+values, \code{NA} and \code{NULL} (s. Details)
 
-\item{fit.range.min}{\code{\link{integer}} (optional): set the minimum
-channel range for signal fitting and sliding. Usually the entire data set is
-used for curve fitting, but there might be reasons to limit the channels
-used for fitting. Note: This option also limits the values used for natural
-signal calculation.}
-
-\item{fit.range.max}{\code{\link{integer}} (optional): set maximum channel
-range for signal fitting and sliding. Usually the entire data set is used
-for curve fitting, but there might be reasons to limit the channels used for
-fitting.}
+(see Details for further information)}
 
 \item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
 debugging use)}
 
-\item{fit.MC.runs}{\code{\link{numeric}} (with default): set number of Monte
-Carlo runs for start parameter estimation. Note: Large values will
-significantly increase the calculation time.}
+\item{n.MC}{\code{\link{numeric}} (with default): set number of Monte
+Carlo runs for start parameter estimation (\code{method = "FIT"}) or
+error estimation (\code{method = "SLIDE"}). Note: Large values will
+significantly increase the computation time}
 
-\item{slide.MC.runs}{\code{\link{integer}} (with default): set number of
-Monte Carlo runs error calculation Note: Large values will significantly
-increase the calculation time.}
+\item{slide.show_density}{\code{\link{logical}} (with default): enable or
+disable KDE for MC run results. If the distribution is too narrow nothing is shown}
 
-\item{slide.outlier.rm}{\code{\link{logical}} (with default): enable or
-disable outlier removal. Outliers are removed from the natural signal curve
-only.}
-
-\item{slide.trend.corr}{\code{\link{logical}} (with default): enable or
-disable trend correction. If \code{TRUE}, the sliding is applied to a
-previously trend corrected data set.}
-
-\item{slide.show.density}{\code{\link{logical}} (with default): enable or
-disable KDE for MC runs. If \code{FALSE}, the final values are indicated
-with triangles.}
+\item{txtProgressBar}{\code{\link{logical}} (with default): enables \code{TRUE} or
+disables \code{FALSE} the progression bar during MC runs}
 
 \item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}
 or \code{FALSE})}
 
-\item{xlab.unit}{\code{\link{character}} (with default): set unit for x-axis}
-
-\item{legend.pos}{\code{\link{character}} (with default): useful keywords
-are \code{bottomright}, \code{bottom}, \code{bottomleft}, \code{left},
-\code{topleft}, \code{top}, \code{topright}, \code{right} and \code{center}.
-For further details see \code{\link{legend}.}}
-
 \item{\dots}{further arguments that will be passed to the plot output.
 Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
-\code{xlim}, \code{ylim}, \code{log}}
+\code{xlim}, \code{ylim}, \code{log}, \code{legend.pos} (passes argument to x,y in
+\code{\link[graphics]{legend}})}
 }
 \value{
 A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
-returned containing the following elements: \cr
-\item{De.values}{\code{\link{data.frame}} containing De-values with error
-(gray dashed lines in the plot) and further parameters. Corrected De values
-are only provided for the method \code{"SLIDE"}, provided the trend
-correction is applied.} \item{fit}{\link{nls} \code{nlsModel} object}\cr
-\bold{Note:} The output (\code{De.values}) should be accessed using the
+returned. The slot data contains the following elements: \cr
+
+
+$ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
+..$ DE : \code{numeric}: the obtained equivalent dose\cr
+..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
+..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtained by MC runs \cr
+..$ DE.UPPER : \code{numeric}: 97.5\% quantile for De values obtained by MC runs  \cr
+..$ DE.STATUS  : \code{character}: test parameter status\cr
+..$ RF_NAT.LIM  : \code{charcter}: used RF_nat curve limits \cr
+..$ RF_REG.LIM : \code{character}: used RF_reg curve limits\cr
+..$ POSITION : \code{integer}: (optional) position of the curves\cr
+..$ DATE : \code{character}: (optional) measurement date\cr
+..$ SEQUENCE_NAME : \code{character}: (optional) sequence name\cr
+..$ UID : \code{character}: unique data set ID \cr
+$ test_parameter : \code{\link{data.frame}} table test parameters \cr
+$ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
+$ slide : \code{\link{list}} data from the sliding process\cr
+$ call : \code{\link[methods]{language-class}}: the orignal function call \cr
+
+The output (\code{De.values}) should be accessed using the
 function \code{\link{get_RLum}}
 }
 \description{
 Function to analyse IRSAR RF measurements on K-feldspar samples, performed
-using the protocol according to Erfurt et al. (2003)
+using the protocol according to Erfurt et al. (2003) and beyond.
 }
 \details{
 The function performs an IRSAR analysis described for K-feldspar samples by
 Erfurt et al. (2003) assuming a negligible sensitivity change of the RF
-signal.\cr \bold{General Sequence Structure} (according to Erfurt et al.
-(2003)) \enumerate{ \item Measuring IR-RF intensity of the natural dose for
-a few seconds (\eqn{D_{natural}}) \item Bleach the samples under solar
-conditions for at least 30 min without changing the geometry \item Waiting
-for at least one hour \item Regeneration of the IR-RF signal to at least the
-natural level \item Fitting data with a stretched exponential function \item
-Calculate the the palaeodose \eqn{D_{e}} using the parameters from the
-fitting } \bold{Function Used For The Fitting} (according to Erfurt et al.
-(2003))\cr \deqn{\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta}
+signal.\cr
+
+\bold{General Sequence Structure} (according to Erfurt et al.
+(2003)) \enumerate{
+
+\item Measuring IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
+\item Bleach the samples under solar conditions for at least 30 min without changing the geometry
+\item Waiting for at least one hour
+\item Regeneration of the IR-RF signal to at least the natural level (measuring (\eqn{RF_{reg}})
+\item Fitting data with a stretched exponential function
+\item Calculate the the palaeodose \eqn{D_{e}} using the parameters from the
+fitting}
+
+Actually two methods are supported to obtain the \eqn{D_{e}}: \code{method = "FIT"} and
+\code{method = "SLIDE"}:
+
+\bold{\code{method = "FIT"}}\cr
+
+The principle is described above and follows the original suggestions by
+Erfurt et al., 2003. For the fitting the mean count value of the RF_nat curve is used.
+
+Function used for the fitting (according to Erfurt et al. (2003)): \cr
+
+\deqn{\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta}
 with \eqn{\phi(D)} the dose dependent IR-RF flux, \eqn{\phi_{0}} the inital
 IR-RF flux, \eqn{\Delta\phi} the dose dependent change of the IR-RF flux,
 \eqn{\lambda} the exponential parameter, \eqn{D} the dose and \eqn{\beta}
@@ -108,13 +123,6 @@ the dispersive factor.\cr\cr To obtain the palaeodose \eqn{D_{e}} the
 function is changed to:\cr \deqn{D_{e} = ln(-(\phi(D) -
 \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}\cr The fitting is done
 using the \code{port} algorithm of the \code{\link{nls}} function.\cr
-
-Two methods are supported to obtain the De:\cr
-
-\bold{\code{method = "FIT"}}\cr
-
-The principle is described above and follows the orignal suggestions from
-Erfurt et al., 2003.\cr
 
 \bold{\code{method = "SLIDE"}}\cr
 
@@ -124,65 +132,77 @@ allows to work with the original data without the need of any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
-Here the sliding is done by searching for the minimum of the residual
-squares.
+Here the sliding is done by searching for the minimum of the squared residuals.
 
-\deqn{min(\Sigma(RF.reg_{k.i} - RF.nat_{k.i})^2)} for \deqn{k =
-{t.0+i,...,t.max+i}}
+\bold{Error estimation}\cr
 
-\bold{Correction for outliers} (\code{slide.outlier.rm = TRUE})\cr
+For \bold{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
+the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.\cr
 
-By using \code{method = "SLIDE"} and setting the argument
-\code{slide.outlier.rm = TRUE} an automatic outlier removal can be applied
-to the natural curve. Outliers may be observed also on the regenerative
-curve, but here the impact of single outliers on the curve adjustment
-(sliding) is considered as negligible. \cr The applied outlier removal
-algorithm consists of three steps:\cr
+For \bold{\code{method = "SLIDE"}} the error is obtained by bootstrapping the residuals of the slided
+curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
+ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the MC runs and (b) the confidence
+interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
+are returned with the function output. \cr
 
-(a) Input data are smoothed using the function \code{\link{rollmedian}}.
-Value \code{k} for the rolling window is fixed to 11. Therefore, the natural
-curve needs to comprise at least of 33 values, otherwise outlier removal is
-rejected. \cr
+\bold{Test parameters}\cr
 
-(b) To subsequently remove outliers, code blocks from the function
-\code{\link{apply_CosmicRayRemoval}} were recycled, therefore in general the
-outlier correction works as described by Pych (2003). In contrast, here no
-sigma clipping before constructing the histograms is applied.\cr
+The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
+which will be evaluated during the function run. If a threshold is set and it will be exceeded the
+test parameter status will be set to "FAILED". Intentionally this parameter is not termed
+'rejection criteria' as not all test parameters are evaluated for both methods and some parameters
+are calculated by not evaluated by default. Common for all parameters are the allowed argument options
+\code{NA} and \code{NULL}. If the parameter is set to \code{NA} the value is calculated but the
+result will not be evaluated, means it has no effect on the status ("OK" or "FAILED") of the parameter.
+Setting the parameter to \code{NULL} disables the parameter entirely and the parameter will be
+also removed from the function output. This might be useful in cases where a particular parameter
+asks for long computation times. Currently supported parameters are:
 
-(c) Outliers are marked in the data set and visualised in the graphical
-output. The subsequent adjustement of both curves (natural and regenerative)
-is done without outliers, whereas the sliding itself is done with the entire
-data set.\cr
+\code{curves_ratio} \code{\link{numeric}} (default: \code{1.001}):\cr
 
-\bold{Trend correction} (\code{slide.trend.corr = TRUE})\cr
+The ratio of \eqn{RF_{nat}} over \eqn{RF_{reg}} in the range of\eqn{RF_{nat}} of is calculated
+and should not exceed the threshold value. \cr
 
-This option allows for correcting any linear trend in the natural curve in
-comparison to the regenerative curve. The trend correction is based on
-regression analysis of the residuals from the slided curve. The corrected De
-is obtained by sliding the trend corrected values (again) along the
-regenerative data curve. This correction is driven by the idea that the
-rediduals from the regenerative and the natural curve should be free of any
-trend, as long as they are comparable. \cr
+\code{residuals_slope} \code{\link{numeric}} (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
 
-\bold{Error estimation}
+A linear function is fitted on the residuals after sliding.
+The corresponding slope can be used to discard values as a high (positive, negative) slope
+may indicate that both curves are fundamentally different and the method cannot be applied at all.
+Per default the value of this parameter is calculated but not evaluated. \cr
 
-For \bold{\code{method = "FIT"}} the asymmetric error range is taken from
-the standard deviation of the natural signal.\cr
+\code{curves_bounds} \code{\link{numeric}} (default: \eqn{max(RF_{reg_counts})}:\cr
 
-For \bold{\code{method = "SLIDE"}} an beta-version of an error estimation
-based on boostrapping is implemented, however, this needs further
-documentation.
+This measure uses the maximum time (x) value of the regenerated curve.
+The maximum time (x) value of the natural curve cannot be larger than this value. However, although
+this is not recommended the value can be changed or disabled.\cr
+
+\code{dynamic_ratio} \code{\link{numeric}} (default: \code{NA}):\cr
+
+The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.
+
+\code{lambda}, \code{beta} and \code{delta.phi}
+\code{\link{numeric}} (default: \code{NA}; \code{method = "SLIDE"}): \cr
+
+The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
+the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
+For \code{method = "FIT"} this parameter is obtained during the fitting, for \code{method = "SLIDE"} a
+rather rough estimation is made using the function \code{\link[minpack.lm]{nlsLM}} and the equation
+given above. Note: As this procedure requests more computation time, setting of one of these three parameters
+to \code{NULL} also prevents a calculation of the remaining two.
 }
 \note{
+\bold{[THIS FUNCTION HAS BETA-STATUS]}\cr
+
 This function assumes that there is no sensitivity change during the
 measurements (natural vs. regenerated signal), which is in contrast to the
-findings from Buylaert et al. (2012).\cr
-
-\bold{Please note that \code{method = "FIT"} has beta status and was not
-properly tested yet!}
+findings from Buylaert et al. (2012). Furthermore: In course of ongoing research this function has
+been almost fully re-written, but further thoughtful tests are still pending!
+However, as a lot new package functionality was introduced with the changes made
+for this function and to allow a part of such tests the re-newed code was made part
+of the current package.\cr
 }
 \section{Function version}{
- 0.3.2 (2015-07-17 08:55:43)
+ 0.4.0 (2015-08-09 23:14:46)
 }
 \examples{
 ##load data
@@ -190,10 +210,13 @@ data(ExampleData.RLum.Analysis, envir = environment())
 
 ##perform analysis
 temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
+
+##show De results and test paramter results
+get_RLum(temp, data.object = "De.values")
+get_RLum(temp, data.object = "test_parameter")
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
@@ -220,10 +243,6 @@ Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 luminescence measurement facilities in retrospective dosimetry. Radiation
 Measurements 47, 803-808. doi:10.1016/j.radmeas.2012.02.006
 
-Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from Single Images.
-Astrophysics 116, 148-153.
-\url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
-
 Trautmann, T., 2000. A study of radioluminescence kinetics of natural
 feldspar dosimeters: experiments and simulations. Journal of Physics D:
 Applied Physics 33, 2304-2310.
@@ -243,7 +262,7 @@ Measurements 32, 685-690.
 \seealso{
 \code{\linkS4class{RLum.Analysis}},
 \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
-\code{\link{nls}}
+\code{\link{nls}}, \code{\link[minpack.lm]{nlsLM}}
 }
 \keyword{datagen}
 

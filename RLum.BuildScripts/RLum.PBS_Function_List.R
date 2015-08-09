@@ -23,7 +23,7 @@ temp <- readLines("DESCRIPTION")
 temp <- temp[grep("Version", temp)]
 temp.version <- sub(" ","",unlist(strsplit(temp,":"))[2])
 
-output.file <- paste0("RLum.BuildScripts/Luminescence_",temp.version,"-Functions.html")
+output.file <- paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions.html")
 
 ##exclude package itself
 file.list.man <- file.list.man[which(file.list.man!="Luminescence-package.Rd")]

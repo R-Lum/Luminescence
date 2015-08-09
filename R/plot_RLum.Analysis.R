@@ -21,37 +21,49 @@
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 #' object of class \code{RLum.Analysis}
+#'
+#' @param subset named \code{\link{list}} (optional): subsets elements for plotting. The
+#' arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
+#' (e.g., \code{subset = list(curveType = "measured")})
+#'
 #' @param nrows \code{\link{integer}} (with default): sets number of rows for
 #' plot output
+#'
 #' @param ncols \code{\link{integer}} (with default): sets number of columns
 #' for plot output
+#'
 #' @param abline \code{\link{list}} (optional): allows to set similar ablines
 #' in each plot. This option uses the function \code{\link{do.call}}, meaning
 #' that every argument in the \code{list} has to be provided as \code{list},
 #' e.g. \code{abline = list(list(v = 120), list(v = 350))} produces two
 #' vertical ablines: One at 150 and another one at 350. Within the call all
 #' arguments supported by \code{\link{abline}} are fully supported,
+#'
 #' @param combine \code{\link{logical}} (with default): allows to combine all
 #' code\linkS4class{RLum.Data.Curve} objects in one single plot.
+#'
 #' @param curve.transformation \code{\link{character}} (optional): allows
 #' transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 #' transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 #' \code{CW2pHMi} and \code{CW2pPMi}. See details.
-#' @param plot.single \code{\link{logical}} (with default): each curve is
-#' plotted in a single window, overwrites the settings of \code{norws} and
-#' \code{ncols}
+#'
+#' @param plot.single \code{\link{logical}} (with default): global par settings are
+#' considered, normally this should end in one plot per page
+#'
 #' @param \dots further arguments and graphical parameters will be passed to
 #' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 #' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 #' \code{norm}, \code{ylim}, \code{xlab} ... and for \code{combine = TRUE}
 #' also: \code{xlim}, \code{ylab}, \code{sub}, \code{legend.text},
 #' \code{legend.pos} (typical plus 'outside'), \code{legend.col}
+#'
 #' @return Returns multiple plots.
+#'
 #' @note Not all arguments available for \code{\link{plot}} will be passed!
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
 #'
-#' @section Function version: 0.2.4
+#' @section Function version: 0.2.6
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
@@ -78,6 +90,7 @@
 #'
 plot_RLum.Analysis <- function(
   object,
+  subset,
   nrows = 3,
   ncols = 2,
   abline,
@@ -147,15 +160,14 @@ plot_RLum.Analysis <- function(
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
   {1}
 
+  # Make selection if wanted  -------------------------------------------------------------------
+  if(!missing(subset)){
 
-  ##plot.single
-  if(plot.single == TRUE){
-
-    ncols <- 1
-    nrows <- 1
+    ##check whether the user set the keep.object option ...
+    subset <- subset[!sapply(names(subset), function(x){"keep.object" %in% x})]
+    object <- do.call(get_RLum,c(object,subset, keep.object = TRUE))
 
   }
-
 
   # Plotting ------------------------------------------------------------------
 
@@ -193,7 +205,7 @@ plot_RLum.Analysis <- function(
 
     ##set par
     par.default <- par("mfrow")
-    par(mfrow=c(nrows,ncols))
+    if(!plot.single){par(mfrow=c(nrows,ncols))}
 
     ##plot curves
     for(i in 1:length(temp)){
@@ -309,7 +321,7 @@ plot_RLum.Analysis <- function(
 
 
     ##reset par
-    par(mfrow = par.default)
+    if(!plot.single){par(mfrow = par.default)}
 
   }else{
 
@@ -337,8 +349,19 @@ plot_RLum.Analysis <- function(
 
 
     ##change graphic settings
-    par.default <- par()[c("cex", "mfrow")]
-    par(cex = cex, mfrow = c(nrows, ncols))
+    if(!plot.single){
+      par.default <- par()[c("cex", "mfrow")]
+      par(mfrow = c(nrows, ncols))
+
+      ##this 2nd par request is needed as seeting mfrow resets the par settings ... this might
+      ##not be wanted
+      par(cex = cex)
+
+    }else{
+      par.default <- par()[c("cex")]
+      par(cex = cex)
+
+    }
 
     ##(2) PLOT values
 
@@ -355,10 +378,10 @@ plot_RLum.Analysis <- function(
       ##get structure
       object.structure  <- structure_RLum(temp.object)
 
-      ##now get the real list object
-      object.list <-
-        get_RLum(object, recordType = temp.recordType[k])
 
+      ##now get the real list object (note the argument recursive = FALSE)
+      object.list <-
+        get_RLum(object, recordType = temp.recordType[k], recursive = FALSE)
 
       ##prevent problems for non set argument
       if (missing(curve.transformation)) {
@@ -368,6 +391,7 @@ plot_RLum.Analysis <- function(
       ##transform values to data.frame and norm values
       temp.data.list <- lapply(1:length(object.list), function(x) {
         ##set curve transformation if wanted
+
         if (grepl("IRSL", object.list[[x]]@recordType) |
               grepl("OSL", object.list[[x]]@recordType)) {
           if (curve.transformation == "CW2pLM") {
@@ -529,6 +553,7 @@ plot_RLum.Analysis <- function(
 
       }
 
+
       ##mtext
       mtext(mtext, side = 3, cex = .8 * cex)
 
@@ -541,7 +566,7 @@ plot_RLum.Analysis <- function(
         lty = lty,
         col = if(is.null(legend.col)){col[1:length(object.list)]}else{legend.col},
         bty = "n",
-        cex = 0.9 * cex
+        cex = 0.8 * cex
       )
 
 
