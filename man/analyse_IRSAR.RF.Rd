@@ -149,7 +149,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings from Buylaert et al. (2012).\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-07 20:20:50)
+ 0.4.0 (2015-08-08 02:46:32)
 }
 \examples{
 ##load data

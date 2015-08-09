@@ -8,7 +8,9 @@ plot_RLum(object, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
-class \code{RLum}}
+class \code{RLum}. Optional a \code{\link{list}} containing objects of class \code{\linkS4class{RLum}}
+can be provided. In this case the function tries to plot every object in this list according
+to its \code{RLum} class.}
 
 \item{\dots}{further arguments and graphical parameters that will be passed
 to the specific plot functions}
@@ -40,7 +42,7 @@ found in the documentations of each plot function.  \tabular{lll}{
 The provided plot output depends on the input object.
 }
 \section{Function version}{
- 0.3 (2015-04-30 12:00:58)
+ 0.4.0 (2015-08-09 18:30:32)
 }
 \examples{
 #load Example data

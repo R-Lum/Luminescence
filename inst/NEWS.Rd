@@ -111,7 +111,7 @@
           the reported problem #236 for \code{plot_KDE} and \code{plot_Histogram}.
 
       }
-      
+
       \item \code{fit_CWCurve()}
 
         \itemize{
@@ -174,12 +174,24 @@
 
       }
 
+      \item \code{plot_RLum()}
+
+        \itemize{
+
+          \item The function adpopt the capability to handle \code{list} objects containing \code{RLum}.
+          This may improve the workflow in several cases.
+
+      }
+
        \item \code{plot_RLum.Analysis()}
 
         \itemize{
 
           \item Fix an error that occurred for the argument combination \code{combine = TRUE}
-           and \code{RLum.Analysis} objects that only contain one curve object of each type.
+           and \code{RLum.Analysis} objects that only contain one curve object of each type,
+
+           \item add argument \code{subset} to allow a subset during plotting for a better workflow.
+           Arguments will be passed to the function \code{plot_RLum}.
 
       }
 

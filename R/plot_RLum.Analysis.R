@@ -22,6 +22,10 @@
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 #' object of class \code{RLum.Analysis}
 #'
+#' @param subset named \code{\link{list}} (optional): subsets elements for plotting. The
+#' arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
+#' (e.g., \code{subset = list(curveType = "measured")})
+#'
 #' @param nrows \code{\link{integer}} (with default): sets number of rows for
 #' plot output
 #'
@@ -59,7 +63,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
@@ -86,6 +90,7 @@
 #'
 plot_RLum.Analysis <- function(
   object,
+  subset,
   nrows = 3,
   ncols = 2,
   abline,
@@ -155,6 +160,14 @@ plot_RLum.Analysis <- function(
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
   {1}
 
+  # Make selection if wanted  -------------------------------------------------------------------
+  if(!missing(subset)){
+
+    ##check whether the user set the keep.object option ...
+    subset <- subset[!sapply(names(subset), function(x){"keep.object" %in% x})]
+    object <- do.call(get_RLum,c(object,subset, keep.object = TRUE))
+
+  }
 
   # Plotting ------------------------------------------------------------------
 

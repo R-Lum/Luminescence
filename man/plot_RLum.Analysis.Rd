@@ -4,12 +4,16 @@
 \alias{plot_RLum.Analysis}
 \title{Plot function for an RLum.Analysis S4 class object}
 \usage{
-plot_RLum.Analysis(object, nrows = 3, ncols = 2, abline, combine = FALSE,
-  curve.transformation, plot.single = FALSE, ...)
+plot_RLum.Analysis(object, subset, nrows = 3, ncols = 2, abline,
+  combine = FALSE, curve.transformation, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 object of class \code{RLum.Analysis}}
+
+\item{subset}{named \code{\link{list}} (optional): subsets elements for plotting. The
+arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
+(e.g., \code{subset = list(curveType = "measured")})}
 
 \item{nrows}{\code{\link{integer}} (with default): sets number of rows for
 plot output}
@@ -72,7 +76,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.5 (2015-08-05 11:28:41)
+ 0.2.6 (2015-08-09 19:40:22)
 }
 \examples{
 ###load data
