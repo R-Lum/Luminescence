@@ -5,7 +5,7 @@
 ##==============================================================================
 ##author: R Luminescence Package Team
 ##organisation:
-##version.: 0.2
+##version.: 0.2.0
 ##date: 2013-11-10
 ##==============================================================================
 # Set namespace .LuminescenceEnv ------------------------------------------
@@ -14,7 +14,7 @@
 # Assign variables to Namespace -------------------------------------------
 ##variable col to define colours in the functions for output
 assign("col",
-       unlist(colors())[c(261,552,51,62,76,151,451,474,654,657,100,513,23,612,129,27,551,393,80)],
+       unlist(colors())[c(261,552,51,62,76,151,451,474,654,657,100,513,23,612,129,27,551,393,80,652,555)],
        pos = ".LuminescenceEnv",
        envir = .LuminescenceEnv)
 

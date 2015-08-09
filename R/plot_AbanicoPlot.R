@@ -503,6 +503,13 @@ plot_AbanicoPlot <- function(
     breaks <- "Sturges"
   }
 
+  if ("fun" %in% names(extraArgs)) {
+    fun <- list(...)$fun
+
+  } else {
+    fun <- FALSE
+  }
+
   ## check for negative values
   if(min(De.global) <= 0) {
     stop("[plot_AbanicoPlot] Error: Data contains negative or zero values.")
@@ -3213,6 +3220,10 @@ plot_AbanicoPlot <- function(
       mai = par.old.mai,
       pin = par.old.pin,
       family = par.old.family)
+
+  ##sTeve
+  if(fun){sTeve()}
+
 
   ## create and resturn numeric output
   if(output == TRUE) {

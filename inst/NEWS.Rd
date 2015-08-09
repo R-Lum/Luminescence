@@ -4,16 +4,16 @@
 
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
-      \item With the (internal) switch from inlinedocs to roxygen2 for the package manual compilation,
+      \item With the (internal) switch from inlinedocs to roxygen2 used for the package manual compilation,
       some help page entries for our S4-methods got unintentionally lost. Unfortunately this
-      remained unnoticed until the package was alread on CRAN. This issue has been corrected
+      remained unnoticed until the package was already on CRAN. This issue has been corrected
       by picking up some code changes we already made for the package version 0.5.0. However,
       this may become confusing in terms of warning messages ('deprecated') appearing by using object specific
       'get' or 'set' functions such as \code{get_RLum.Analysis}. The function calls are still working, but will
       be defunct in version 0.5.0 and removed in version 0.6.0 or better to say become part
-      of more general calls like \code{get_RLum},
-      \code{set_RLum} and so on. In fact this switch has already been made, but the 'old' functions
-      are still supported and the warning messages may point on necessary changes in your scripts.
+      of more general calls like \code{get_RLum}, \code{set_RLum} and so on.
+      With this update in fact this switch has already been made, but the 'old' functions
+      are still supported and the warning messages may point on future necessary changes in your scripts.
       Changes in detail:
 
       \itemize{
