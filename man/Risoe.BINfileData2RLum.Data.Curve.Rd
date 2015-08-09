@@ -48,7 +48,7 @@ function \code{\link{Risoe.BINfileData2RLum.Analysis}} should be used for
 the conversion.
 }
 \section{Function version}{
- 0.1.1 (2015-07-23 21:04:46)
+ 0.1.1 (2015-08-10 01:01:45)
 }
 \examples{
 ##get package example data

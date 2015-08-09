@@ -1,13 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-<<<<<<< HEAD
 Version: 0.5.0
 Date: 2015-XX-XX
-=======
-Version: 0.4.5
-Date: 2015-08-10
->>>>>>> origin/master
 Author: Sebastian Kreutzer [aut, trl, cre],
     Michael Dietze [aut],
     Christoph Burow [aut],
@@ -38,30 +33,19 @@ Depends:
     utils
 Imports:
     methods,
-<<<<<<< HEAD
-=======
     assertive,
->>>>>>> origin/master
     XML,
     shape,
     rgl,
     matrixStats,
     raster,
-<<<<<<< HEAD
     zoo,
-    bbmle,
-    data.table (>= 1.9.4),
-    Rcpp (>= 0.11.4),
-    parallel,
-    minpack.lm
-=======
     bbmle,
     data.table (>= 1.9.4),
     Rcpp (>= 0.12.0),
     parallel,
     minpack.lm,
     digest
->>>>>>> origin/master
 LinkingTo: Rcpp
 URL: http://CRAN.R-project.org/package=Luminescence
 Collate:
@@ -111,10 +95,7 @@ Collate:
     'calc_SourceDoseRate.R'
     'calc_Statistics.R'
     'calc_TLLxTxRatio.R'
-<<<<<<< HEAD
     'calc_gSGC.R'
-=======
->>>>>>> origin/master
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
     'fit_LMCurve.R'
@@ -128,10 +109,7 @@ Collate:
     'plot_GrowthCurve.R'
     'plot_Histogram.R'
     'plot_KDE.R'
-<<<<<<< HEAD
     'plot_NRt.R'
-=======
->>>>>>> origin/master
     'plot_RLum.Analysis.R'
     'plot_RLum.Data.Curve.R'
     'plot_RLum.Data.Image.R'
