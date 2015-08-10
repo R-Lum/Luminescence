@@ -5,7 +5,8 @@ Changes in version 0.5.0 (, 2015):
   Changes S4-objects, methods, classes:
 
          • Extend class definition for ‘RLum’-class by slots
-           ‘originator’ and ‘.uid’
+           ‘originator’ and ‘.uid’ (and with that for all
+           ‘RLum’classes)
 
   New functions:
 

@@ -5,6 +5,7 @@
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
       \item Extend class definition for \code{RLum}-class by slots \code{originator} and \code{.uid}
+      (and with that for all \code{RLum}classes)
    }
   }
 

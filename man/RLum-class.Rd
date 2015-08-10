@@ -10,7 +10,7 @@ Abstract class for data in the package Luminescence
 \section{Slots}{
 
 \describe{
-\item{\code{originator}}{Object of class "character" containing the name of the producing function}
+\item{\code{originator}}{Object of class "character" containing the name of the producing function for the object}
 
 \item{\code{.uid}}{Object of class "character" containing a unified object identifier}
 }}

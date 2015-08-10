@@ -16,7 +16,7 @@ from it.
 }
 
 \section{Class version}{
- 0.2.0
+ 0.2.1
 }
 \examples{
 showClass("RLum.Data")

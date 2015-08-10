@@ -7,7 +7,7 @@
 #'
 #' @docType class
 #'
-#' @slot originator Object of class "character" containing the name of the producing function
+#' @slot originator Object of class "character" containing the name of the producing function for the object
 #'
 #' @slot .uid Object of class "character" containing a unified object identifier
 #'

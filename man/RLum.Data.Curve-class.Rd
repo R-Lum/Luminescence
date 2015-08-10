@@ -14,9 +14,9 @@
 \arguments{
 \item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create}
 
-\item{recordType}{[\code{set_RLum}] \code{\link{character}} (optional): record type (e.g. "OSL")}
+\item{recordType}{[\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")}
 
-\item{curveType}{[\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g. "predefined" or "measured")}
+\item{curveType}{[\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")}
 
 \item{data}{[\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data}
 
