@@ -1,24 +1,22 @@
 #' Import Daybreak ASCII dato into R
 #'
-#' Import a *.txt produced by a Daybreak reader into R
-#'
-#'
+#' Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 #'
 #' @param file \code{\link{character}} (\bold{required}): path and file name of the
 #' file to import
 #'
-#' @param txtProgressBar \link{logical} (with default): enables or disables
+#' @param txtProgressBar \code{\link{logical}} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
 #'
 #' @return  A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.
 #'
-#' @note [BETA VERSION]
+#' @note \bold{[BETA VERSION]} This function version still needs to be properly tested.
 #'
 #' @section Function version: 0.1.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' (France)\cr Based on suggestion by Willian Amidon and Andrew Louis Gorin.
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
 #'
@@ -29,25 +27,21 @@
 #'
 #' @examples
 #'
-#' ##No example yet
+#' ## This function has no example yet.
 read_Daybreak2R <- function(
   file,
   txtProgressBar = TRUE
-
 ){
 
   ##TODO
   ## - run tests
   ## - check where the warning messages are comming from
+  ## - implement further integretiy tests
 
   # Integrity checks ----------------------------------------------------------------------------
 
   ##check if file exists
-  if(file.exists(file) == FALSE){
-
-    stop("[read_Daybreak2R()] Wrong file name or file does not exsits!")
-
-  }
+  assertive::is_existing_file(file)
 
 
   # Read ASCII file -----------------------------------------------------------------------------
@@ -64,7 +58,7 @@ read_Daybreak2R <- function(
   records.row_number <- grep(pattern = "\\[NewRecord\\]", x = file2read)
 
   ##(1)
-  ##now split everything into a list ... this is not essentially needed but it make things easier
+  ##make a list ... this is not essentially needed but it makes things easier
   data.list <- lapply(1:length(records.row_number), function(x) {
 
     ##grep each element
@@ -78,7 +72,7 @@ read_Daybreak2R <- function(
 
   })
 
-   ##get rid of the object to clear the memory
+    ##clear memory
     rm(file2read)
 
 
@@ -89,7 +83,7 @@ read_Daybreak2R <- function(
 
 
   ##(2)
-  ##Now iterations can be made using the list to create RLum Curve Objects
+  ##Loop over the list to create RLum.Data.Curve objects
   RLum.Data.Curve.list <- lapply(1:length(data.list), function(x){
 
 

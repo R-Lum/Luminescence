@@ -10,27 +10,27 @@ read_Daybreak2R(file, txtProgressBar = TRUE)
 \item{file}{\code{\link{character}} (\bold{required}): path and file name of the
 file to import}
 
-\item{txtProgressBar}{\link{logical} (with default): enables or disables
+\item{txtProgressBar}{\code{\link{logical}} (with default): enables or disables
 \code{\link{txtProgressBar}}.}
 }
 \value{
 A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.
 }
 \description{
-Import a *.txt produced by a Daybreak reader into R
+Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 }
 \note{
-[BETA VERSION]
+\bold{[BETA VERSION]} This function version still needs to be properly tested.
 }
 \section{Function version}{
- 0.1.0 (2015-08-10 22:04:05)
+ 0.1.0 (2015-08-11 01:04:32)
 }
 \examples{
-##No example yet
+## This function has no example yet.
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+(France)\cr Based on suggestion by Willian Amidon and Andrew Louis Gorin.
 \cr R Luminescence Package Team}
 \references{
 -

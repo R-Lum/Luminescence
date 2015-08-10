@@ -116,8 +116,8 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Results","Plot function for an RLum.Results S4 class object","<br /> The function provides a standardised plot output for data of an RLum.Results<br /> S4 class object<br />","0.1","2015-04-30","12:01:13
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
-"read_Daybreak2R","Import Daybreak ASCII dato into R","<br /> Import a *.txt produced by a Daybreak reader into R<br />","0.1.0","2015-08-10","22:04:05
-","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
+"read_Daybreak2R","Import Daybreak ASCII dato into R","<br /> Import a *.txt (ASCII) file produced by a Daybreak reader into R.<br />","0.1.0","2015-08-11","01:04:32
+","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)  Based on suggestion by Willian Amidon and Andrew Louis Gorin.<br />  R Luminescence Package Team"
 "readBIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.9.1","2015-08-10","01:01:44
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, TU Bergakademie Freiberg (Germany)<br />  R Luminescence Package Team"
 "readSPE2R","Import Princeton Intruments (TM) SPE-file into R","<br /> Function imports Princeton Instruments (TM) SPE-files into R environment and<br /> provides  RLum  objects as output.<br />","0.1","2015-08-10","01:01:45
