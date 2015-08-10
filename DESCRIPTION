@@ -121,5 +121,6 @@ Collate:
     'readBIN2R.R'
     'readSPE2R.R'
     'readXSYG2R.R'
+    'read_Daybreak2R.R'
     'writeR2BIN.R'
     'zzz.R'

@@ -13,6 +13,7 @@
    \itemize{
       \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015
       \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009
+       \item \code{read_Daybreak2R()} Imports data prodcued by a Daybreak TL/OSL reader
    }
   }
 
