@@ -4,7 +4,8 @@ Changes in version 0.5.0 (, 2015):
 
   Changes S4-objects, methods, classes:
 
-         • Dummy
+         • Extend class definition for ‘RLum’-class by slots
+           ‘originator’ and ‘.uid’
 
   New functions:
 
@@ -16,11 +17,5 @@ Changes in version 0.5.0 (, 2015):
 
   Bugfixes and changes:
 
-         • ‘plot_AbanicoPlot()’
-
-             • zlim-definition bug removed,
-
-             • automatic bandwidth adjustment implemented,
-
-             • automatic z-axis scaling for zero scatter implemented
+         • Dummy
 

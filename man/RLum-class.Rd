@@ -7,6 +7,13 @@
 \description{
 Abstract class for data in the package Luminescence
 }
+\section{Slots}{
+
+\describe{
+\item{\code{originator}}{Object of class "character" containing the name of the producing function}
+
+\item{\code{.uid}}{Object of class "character" containing a unified object identifier}
+}}
 \note{
 \code{RLum} is a virtual class.
 }
@@ -16,7 +23,7 @@ from it.
 }
 
 \section{Class version}{
- 0.2.0
+ 0.3.0
 }
 \examples{
 showClass("RLum")

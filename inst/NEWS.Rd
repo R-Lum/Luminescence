@@ -4,7 +4,7 @@
 
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
-      \item Dummy
+      \item Extend class definition for \code{RLum}-class by slots \code{originator} and \code{.uid}
    }
   }
 
@@ -17,12 +17,7 @@
 
   \subsection{Bugfixes and changes}{
    \itemize{
-      \item \code{plot_AbanicoPlot()}
-        \itemize{
-          \item zlim-definition bug removed,
-          \item automatic bandwidth adjustment implemented,
-          \item automatic z-axis scaling for zero scatter implemented
-        }
+      \item Dummy
      }
   }
 }

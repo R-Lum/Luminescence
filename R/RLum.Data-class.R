@@ -12,7 +12,7 @@
 #' @section Objects from the Class: A virtual Class: No objects can be created
 #' from it.
 #'
-#' @section Class version: 0.2.0
+#' @section Class version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -26,5 +26,5 @@
 #' showClass("RLum.Data")
 #'
 setClass("RLum.Data",
-         contains = "RLum"
+         contains = c("RLum", "VIRTUAL")
          )

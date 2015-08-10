@@ -7,12 +7,16 @@
 #'
 #' @docType class
 #'
+#' @slot originator Object of class "character" containing the name of the producing function
+#'
+#' @slot .uid Object of class "character" containing a unified object identifier
+#'
 #' @note \code{RLum} is a virtual class.
 #'
 #' @section Objects from the Class: A virtual Class: No objects can be created
 #' from it.
 #'
-#' @section Class version: 0.2.0
+#' @section Class version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -25,4 +29,12 @@
 #' showClass("RLum")
 #'
 setClass("RLum",
-         contains = "VIRTUAL")
+           slots = list(
+             originator = "character",
+             .uid = "character"),
+           contains = "VIRTUAL",
+           prototype = prototype(
+             originator = NA_character_,
+             .uid = NA_character_
+           ),
+         sealed = TRUE)
