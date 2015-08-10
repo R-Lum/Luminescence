@@ -100,7 +100,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.5.3
+#' @section Function version: 0.5.5
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -218,7 +218,6 @@ object!")
                             "IRSL","OSL")
 
 
-
 # Rejection criteria ------------------------------------------------------
 
   #Set rejection criteria
@@ -315,7 +314,7 @@ object!")
   })
 
 
-  ##problem: FI lexsyg devices provide irradtion information in a separat curve
+  ##problem: FI lexsyg devices provide irradiation information in a separat curve
   if("irradiation"%in%temp.ltype){
 
     ##grep irraditation times
@@ -368,17 +367,14 @@ object!")
 # Grep Curves -------------------------------------------------------------
 
   ##grep relevant curves from RLum.Analyis object
-  OSL.Curves.ID <- unlist(sapply(1:length(object@records), function(x) {
-    if(object@records[[x]]@recordType == CWcurve.type){x}
-  }))
+  OSL.Curves.ID <- get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
 
   ##separate curves by Lx and Tx (it makes it much easier)
   OSL.Curves.ID.Lx <- OSL.Curves.ID[seq(1,length(OSL.Curves.ID),by=2)]
   OSL.Curves.ID.Tx <- OSL.Curves.ID[seq(2,length(OSL.Curves.ID),by=2)]
 
-  TL.Curves.ID <- unlist(sapply(1:length(object@records), function(x) {
-    if(object@records[[x]]@recordType == "TL"){x}
-  }))
+  ##get index of OSL curves
+  TL.Curves.ID <- get_RLum(object, recordType = "TL", get.index = TRUE)
 
   ##separate TL curves
   TL.Curves.ID.Lx <- sapply(1:length(OSL.Curves.ID.Lx), function(x) {
@@ -460,7 +456,7 @@ object!")
 # Set regeneration points -------------------------------------------------
 
         ##overwrite dose point manually
-        if(missing(dose.points) == FALSE){
+        if(!missing(dose.points)){
 
           if(length(dose.points)!=length(LnLxTnTx$Dose)){
 
@@ -472,6 +468,12 @@ object!")
 
         }
 
+        ##check whether we have dose points at all
+        if(missing(dose.points) & anyNA(LnLxTnTx$Dose)){
+          stop("[analyse_SAR.CWOSL()] 'dose.points' contains NA values or have not been set!")
+
+        }
+
         #generate unique dose id - this are also the # for the generated points
         temp.DoseID <- c(0:(length(LnLxTnTx$Dose)-1))
         temp.DoseName <- paste("R",temp.DoseID,sep="")
@@ -480,7 +482,6 @@ object!")
 
         ##set natural
         temp.DoseName[temp.DoseName[,"Name"]=="R0","Name"]<-"Natural"
-
 
         ##set R0
         temp.DoseName[temp.DoseName[,"Name"]!="Natural" &
@@ -1129,43 +1130,45 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
 
   ##consider possibility of multiple pIRIR signals and multiple recycling ratios
-  col.id  <- 1
-  for(i in seq(1,nrow(temp.rc.recuperation.rate),
-               length(unique(temp.rc.recuperation.rate[,"Criteria"])))){
+  if (nrow(temp.rc.recuperation.rate) > 0) {
+    col.id  <- 1
+    for (i in seq(1,nrow(temp.rc.recuperation.rate),
+                  length(unique(temp.rc.recuperation.rate[,"Criteria"])))) {
+      for (j in 0:length(unique(temp.rc.recuperation.rate[,"Criteria"]))) {
+        points(
+          temp.rc.reycling.ratio[i + j, "Value"] - 1,
+          y = 25,
+          pch = col.id,
+          col = col.id,
+          cex = 1.3 * cex
+        )
 
+      }
+      col.id <- col.id + 1
+    }
+    rm(col.id)
 
-    for(j in 0:length(unique(temp.rc.recuperation.rate[,"Criteria"]))){
-      points(temp.rc.reycling.ratio[i+j, "Value"]-1,
-             y = 25,
-             pch = col.id,
-             col = col.id,
+    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+    ##polygon for recuperation rate
+    text(x = 0, y = 20.5, "Recuperation rate", pos = 1, srt = 0)
+    polygon(x = c(0,
+                  0,
+                  as.numeric(as.character(temp.rc.recuperation.rate$Threshold))[1],
+                  as.numeric(as.character(temp.rc.recuperation.rate$Threshold))[1]),
+            y = c(11,19,19,11), col = "gray", border = NA)
+
+    polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(11,19,19,11))
+    polygon(x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45)
+
+    for(i in 1:nrow(temp.rc.recuperation.rate)){
+
+      points(temp.rc.palaedose.error[i, "Value"],
+             y = 15,
+             pch = i,
+             col = i,
              cex = 1.3 * cex)
 
     }
-    col.id <- col.id + 1
-  }
-  rm(col.id)
-
-  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
-  ##polygon for recuperation rate
-  text(x = 0, y = 20.5, "Recuperation rate", pos = 1, srt = 0)
-  polygon(x = c(0,
-                0,
-                as.numeric(as.character(temp.rc.recuperation.rate$Threshold))[1],
-                as.numeric(as.character(temp.rc.recuperation.rate$Threshold))[1]),
-          y = c(11,19,19,11), col = "gray", border = NA)
-
-  polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(11,19,19,11))
-  polygon(x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45)
-
-  for(i in 1:nrow(temp.rc.recuperation.rate)){
-
-    points(temp.rc.palaedose.error[i, "Value"],
-           y = 15,
-           pch = i,
-           col = i,
-           cex = 1.3 * cex)
-
   }
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
@@ -1195,7 +1198,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   if(plot == TRUE && 8%in%plot.single.sel){
 
   ##graphical represenation of IR-curve
-  temp.IRSL <- get_RLum(object, recordType = "IRSL")
+  temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
   try(plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE), silent = TRUE)
 
   }

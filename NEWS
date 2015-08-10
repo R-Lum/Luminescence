@@ -16,7 +16,18 @@ Changes in version 0.5.0 (, 2015):
          • ‘plot_NRt()’ Creates a Natural/Regenerated signal vs. time
            (NR(t)) plot as shown in Steffen et al. 2009
 
+         • ‘read_Daybreak2R()’ Imports data prodcued by a Daybreak
+           TL/OSL reader
+
   Bugfixes and changes:
 
-         • Dummy
+         • ‘analyse_SAR.CWOSL()’
+
+             • Internal curve selection now works using the ‘get_RLum’.
+               This should give a little bit more flexibility and
+               prevent errors with odd curve names,
+
+             • in the rare case where no recuperation rate can be
+               calculated due to the missing R0 point the function
+               stopped with an error. Corrected.
 

@@ -156,7 +156,7 @@ read_Daybreak2R <- function(
     return(
       set_RLum(
         class = "RLum.Data.Curve",
-        recordType = info$DataType,
+        recordType = sub(" ", replacement = "_", x = info$DataType),
         curveType = "measured",
         data = data,
         info = info

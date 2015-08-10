@@ -19,7 +19,15 @@
 
   \subsection{Bugfixes and changes}{
    \itemize{
-      \item Dummy
+      \item \code{analyse_SAR.CWOSL()}
+      \itemize{
+
+        \item Internal curve selection now works using the \code{get_RLum}. This should give
+        a little bit more flexibility and prevent errors with odd curve names,
+        \item in the rare case where no recuperation rate can be calculated due to the missing
+        R0 point the function stopped with an error. Corrected.
+
+      }
      }
   }
 }

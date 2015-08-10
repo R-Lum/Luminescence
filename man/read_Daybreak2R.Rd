@@ -23,7 +23,7 @@ Import a *.txt produced by a Daybreak reader into R
 [BETA VERSION]
 }
 \section{Function version}{
- 0.1.0 (2015-08-10 21:42:13)
+ 0.1.0 (2015-08-10 22:04:05)
 }
 \examples{
 ##No example yet
