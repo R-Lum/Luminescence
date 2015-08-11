@@ -28,6 +28,23 @@
         R0 point the function stopped with an error. Corrected.
 
       }
+
+     \item \code{plot_RLum()}
+      \itemize{
+
+        \item The \code{...} argument \code{main} can be now be of type \code{list} if a \code{list} of
+        objects is provided. This allows to set different plot titles for this specific plot option.
+
+      }
+
+
+      \item \code{plot_RLum.Analysis()}
+      \itemize{
+
+        \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE}.
+
+      }
+
      }
   }
 }

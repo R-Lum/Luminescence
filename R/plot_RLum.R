@@ -24,13 +24,16 @@
 #' to its \code{RLum} class.
 #'
 #' @param \dots further arguments and graphical parameters that will be passed
-#' to the specific plot functions
+#' to the specific plot functions. The only argument that is supported directly is \code{main}
+#' (setting the plot title). In contrast to the normal behaviour \code{main} can be here provided as
+#' \code{\link{list}} and the arguments in the list will dispatched to the plots if the \code{object}
+#' is of type \code{list} as well.
 #'
 #' @return Returns a plot.
 #'
 #' @note The provided plot output depends on the input object.
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -94,6 +97,8 @@ plot_RLum<- function(
 
   }
 
+
+
   # Run dispatcher ------------------------------------------------------------------------------
 
   ##call for the list, if not just proceed as normal
@@ -112,15 +117,34 @@ plot_RLum<- function(
 
     ##(2) check if empty, if empty do nothing ...
     if (length(object.cleaned) != 0) {
-      for (i in 1:length(object.cleaned)) {
-        RLum.dispatcher(object[[i]], ...)
 
+      ## If we iterate over a list, this might be extremly useful to have different plot titles
+      if("main" %in% names(list(...))){
+        if(is(list(...)$main,"list")){
+          main.list <- rep(list(...)$main, length = length(object.cleaned))
 
+        }
+      }
+
+      if(exists("main.list")){
+        ##dispatch objects
+        for (i in 1:length(object.cleaned)) {
+          RLum.dispatcher(object[[i]],
+                          main = main.list[[i]],
+                          ...)
+        }
+      }else{
+        ##dispatch objects
+        for (i in 1:length(object.cleaned)) {
+          RLum.dispatcher(object[[i]], ...)
+
+        }
       }
 
     }
 
   }else{
+    ##dispatch object
     RLum.dispatcher(object, ...)
 
   }

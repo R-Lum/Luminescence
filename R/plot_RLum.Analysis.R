@@ -51,7 +51,8 @@
 #' considered, normally this should end in one plot per page
 #'
 #' @param \dots further arguments and graphical parameters will be passed to
-#' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
+#' the \code{plot} function. Supported arguments: \code{main} (can be provided as
+#' vector for \code{combine = TRUE}), \code{mtext},
 #' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 #' \code{norm}, \code{ylim}, \code{xlab} ... and for \code{combine = TRUE}
 #' also: \code{xlim}, \code{ylab}, \code{sub}, \code{legend.text},
@@ -63,7 +64,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
 #'
-#' @section Function version: 0.2.6
+#' @section Function version: 0.2.7
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
@@ -431,6 +432,7 @@ plot_RLum.Analysis <- function(
         ""
       }
 
+
       ##xlab
       xlab <- if ("xlab" %in% names(extraArgs)) {
         extraArgs$xlab
@@ -532,13 +534,18 @@ plot_RLum.Analysis <- function(
         par(mar = c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
       }
 
+      ##main - allow to set different mains
+      if(length(main) == 1 | length(main) < length(temp.recordType)){
+        main <- rep(x = main, length(temp.recordType))
+
+      }
 
       ##open plot area
       plot(
         NA,NA,
         xlim = xlim,
         ylim = ylim,
-        main = main,
+        main = main[k],
         xlab = xlab,
         ylab = ylab,
         log = log,

@@ -104,7 +104,7 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> readBIN2R  function.<br />","0.4.1","2015-04-30","12:00:00
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.6","2015-08-10","01:03:00
+"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.7","2015-08-11","14:57:04
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Curve","Plot function for an RLum.Data.Curve S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Data.Curve S4 class object<br />","0.1.5","2015-08-10","01:01:44
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -112,7 +112,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.0","2015-08-10","01:01:45
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.0","2015-08-10","01:01:44
+"plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.1","2015-08-11","15:00:33
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Results","Plot function for an RLum.Results S4 class object","<br /> The function provides a standardised plot output for data of an RLum.Results<br /> S4 class object<br />","0.1","2015-04-30","12:01:13
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"

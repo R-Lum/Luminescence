@@ -31,3 +31,14 @@ Changes in version 0.5.0 (, 2015):
                calculated due to the missing R0 point the function
                stopped with an error. Corrected.
 
+         • ‘plot_RLum()’
+
+             • The ‘...’ argument ‘main’ can be now be of type ‘list’
+               if a ‘list’ of objects is provided. This allows to set
+               different plot titles for this specific plot option.
+
+         • ‘plot_RLum.Analysis()’
+
+             • The ‘...’ argument ‘main’ can now be provided as vector
+               if ‘combine = TRUE’.
+

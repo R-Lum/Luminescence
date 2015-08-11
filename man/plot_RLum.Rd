@@ -13,7 +13,10 @@ can be provided. In this case the function tries to plot every object in this li
 to its \code{RLum} class.}
 
 \item{\dots}{further arguments and graphical parameters that will be passed
-to the specific plot functions}
+to the specific plot functions. The only argument that is supported directly is \code{main}
+(setting the plot title). In contrast to the normal behaviour \code{main} can be here provided as
+\code{\link{list}} and the arguments in the list will dispatched to the plots if the \code{object}
+is of type \code{list} as well.}
 }
 \value{
 Returns a plot.
@@ -42,7 +45,7 @@ found in the documentations of each plot function.  \tabular{lll}{
 The provided plot output depends on the input object.
 }
 \section{Function version}{
- 0.4.0 (2015-08-10 01:01:44)
+ 0.4.1 (2015-08-11 15:00:33)
 }
 \examples{
 #load Example data

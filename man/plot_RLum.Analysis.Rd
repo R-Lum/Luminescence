@@ -40,7 +40,8 @@ transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 considered, normally this should end in one plot per page}
 
 \item{\dots}{further arguments and graphical parameters will be passed to
-the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
+the \code{plot} function. Supported arguments: \code{main} (can be provided as
+vector for \code{combine = TRUE}), \code{mtext},
 \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 \code{norm}, \code{ylim}, \code{xlab} ... and for \code{combine = TRUE}
 also: \code{xlim}, \code{ylab}, \code{sub}, \code{legend.text},
@@ -76,7 +77,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.6 (2015-08-10 01:03:00)
+ 0.2.7 (2015-08-11 14:57:04)
 }
 \examples{
 ###load data
