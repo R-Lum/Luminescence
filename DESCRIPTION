@@ -32,20 +32,22 @@ Depends:
     R (>= 3.2.0),
     utils
 Imports:
-    methods,
-    assertive,
-    XML,
-    shape,
-    rgl,
-    matrixStats,
-    raster,
-    zoo,
-    bbmle,
+    assertive (>= 0.3-0),
+    bbmle (>= 1.0-4),
     data.table (>= 1.9.4),
+    digest (>= 0.6.8),
+    httr (>= 1.0.0),
+    matrixStats (>= 0.14.2),
+    methods,
+    minpack.lm (>= 1.1-8),
+    raster (>= 2.4-15),
     Rcpp (>= 0.12.0),
+    readxl (>= 0.1.0),
+    rgl (>= 0.95.1247),
+    shape (>= 1.4.2),
     parallel,
-    minpack.lm,
-    digest
+    XML (>= 3.98-1.3),
+    zoo (>= 1.7-12)
 LinkingTo: Rcpp
 URL: http://CRAN.R-project.org/package=Luminescence
 Collate:
@@ -122,5 +124,6 @@ Collate:
     'readSPE2R.R'
     'readXSYG2R.R'
     'read_Daybreak2R.R'
+    'use_DRAC.R'
     'writeR2BIN.R'
     'zzz.R'

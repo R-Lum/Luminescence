@@ -14,6 +14,7 @@
       \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015
       \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009
        \item \code{read_Daybreak2R()} Imports data prodcued by a Daybreak TL/OSL reader
+       \item \code{use_DRAC()} Provides an R interface to
    }
   }
 
@@ -47,6 +48,19 @@
 
      }
   }
+
+   \subsection{Internals}{
+   \itemize{
+      \item Re-adding the package 'zoo' in imports,
+      \item adding package 'readxl' to imports (used in \code{use_DRAC} to import the XLS file)
+      \item adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
+
+
+   }
+  }
+
+
+
 }
 
 
