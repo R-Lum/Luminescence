@@ -411,7 +411,13 @@ plot_AbanicoPlot <- function(
     }
     
     if(sum(data[[i]][,2] == 0) > 0) {
-      stop("Values with zero errors cannot be displayed!")
+      data[[i]] <- data[[i]][data[[i]][,2] > 0,]
+      
+      if(nrow(data[[i]]) < 1) {
+        stop("Data set contains only values with zero errors.")
+      }
+      
+      warning("Values with zero errors cannot be displayed and were removed!")
     }
   }
 
