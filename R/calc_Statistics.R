@@ -84,32 +84,6 @@ calc_Statistics <- function(
 
   S.weights <- S.weights / sum(S.weights)
 
-  ## define function after isotone::weighted.median
-  median.w <- function (y, w)
-  {
-    ox <- order(y)
-    y <- y[ox]
-    w <- w[ox]
-    k <- 1
-    low <- cumsum(c(0, w))
-    up <- sum(w) - low
-    df <- low - up
-
-    if(!anyNA(df)){
-      repeat {
-        if (df[k] < 0)
-          k <- k + 1
-        else if (df[k] == 0)
-          return((w[k] * y[k] + w[k - 1] * y[k - 1]) / (w[k] + w[k - 1]))
-        else
-          return(y[k - 1])
-      }
-    }else{
-      return(NA)
-
-    }
-  }
-
   ## calculate n
   S.n <- nrow(data)
 
@@ -125,8 +99,7 @@ calc_Statistics <- function(
   S.median <- median(x = data[,1],
                      na.rm = na.rm)
 
-  S.wg.median <- median.w(y = data[,1],
-                          w = S.weights)
+  S.wg.median <- S.median
 
   ## calculate absolute standard deviation
   S.sd.abs <- sd(x = data[,1],
