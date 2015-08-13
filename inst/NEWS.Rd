@@ -5,7 +5,11 @@
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
       \item Extend class definition for \code{RLum}-class by slots \code{originator} and \code{.uid}
-      (and with that for all \code{RLum}classes)
+      (and with that for all \code{RLum}classes),
+
+      \item the \code{get_RLum} method for the \code{RLum.Results} object returned \code{NULL} if
+      nothing was defined for a specific function, corrected. Now, if nothing is defined the first
+      object in the slot \code{data} is returned (#223).
    }
   }
 

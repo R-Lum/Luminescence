@@ -371,7 +371,7 @@ setMethod("get_RLum",
               }
 
               ##-------------------------------------------------------------
-              ## calc_FuchsLang2001
+              # calc_FuchsLang2001
               if(object@originator == "calc_FuchsLang2001") {
 
                 return(object@data$summary)
@@ -385,6 +385,10 @@ setMethod("get_RLum",
                 return(object@data$irr.times)
 
               }
+
+              ##-------------------------------------------------------------
+              ##CATCHER - IF NOTHING ELSE IS DEFINED return always the first object
+              return(object@data[1])
 
 
 

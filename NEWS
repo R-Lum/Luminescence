@@ -6,7 +6,12 @@ Changes in version 0.5.0 (, 2015):
 
          • Extend class definition for ‘RLum’-class by slots
            ‘originator’ and ‘.uid’ (and with that for all
-           ‘RLum’classes)
+           ‘RLum’classes),
+
+         • the ‘get_RLum’ method for the ‘RLum.Results’ object returned
+           ‘NULL’ if nothing was defined for a specific function,
+           corrected. Now, if nothing is defined the first object in
+           the slot ‘data’ is returned (#223).
 
   New functions:
 
