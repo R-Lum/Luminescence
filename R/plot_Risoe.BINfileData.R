@@ -1,7 +1,7 @@
 #' Plot single luminescence curves from a BIN file object
 #'
 #' Plots single luminescence curves from an object returned by the
-#' \link{readBIN2R} function.
+#' \link{read_BIN2R} function.
 #'
 #' \bold{Nomenclature}\cr
 #'
@@ -23,7 +23,7 @@
 #' in R.
 #'
 #' @param BINfileData \link{Risoe.BINfileData-class} (\bold{required}):
-#' requires an S4 object returned by the \link{readBIN2R} function.
+#' requires an S4 object returned by the \link{read_BIN2R} function.
 #' @param position \link{vector} (optional): option to limit the plotted curves
 #' by position (e.g. \code{position = 1}, \code{position = c(1,3,5)}).
 #' @param run \link{vector} (optional): option to limit the plotted curves by
@@ -55,7 +55,7 @@
 #' @section Function version: 0.4.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France),\cr Michael Dietze, GFZ Potsdam (Germany)
-#' @seealso \code{\link{Risoe.BINfileData-class}},\code{\link{readBIN2R}},
+#' @seealso \code{\link{Risoe.BINfileData-class}},\code{\link{read_BIN2R}},
 #' \code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}},
 #' \code{\link{CW2pHMi}}
 #' @references Duller, G., 2007. Analyst. pp. 1-45.
@@ -71,7 +71,7 @@
 #'
 #' ##example - load from *.bin file
 #' #BINfile<- file.choose()
-#' #BINfileData<-readBIN2R(BINfile)
+#' #BINfileData<-read_BIN2R(BINfile)
 #'
 #' #par(mfrow = c(4,3), oma = c(0.5,1,0.5,1))
 #' #plot_Risoe.BINfileData(CWOSL.SAR.Data,position = 1)

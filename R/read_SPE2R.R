@@ -9,15 +9,19 @@
 #' references).
 #'
 #' @param file \link{character} (\bold{required}): spe-file name (including
-#' path), e.g. \cr [WIN]: \code{readSPE2R("C:/Desktop/test.spe")}, \cr
+#' path), e.g. \cr [WIN]: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
 #' [MAC/LINUX]: \code{readSPER("/User/test/Desktop/test.spe")}
+#'
 #' @param output.object \code{\link{character}} (with default): set \code{RLum}
 #' output object.  Allowed types are \code{"RLum.Data.Spectrum"},
 #' \code{"RLum.Data.Image"} or \code{"matrix"}
+#'
 #' @param frame.range \code{\link{vector}} (optional): limit frame range, e.g.
 #' select first 100 frames by \code{frame.range = c(1,100)}
+#'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
+#'
 #' @return Depending on the chosen option the functions returns three different
 #' type of objects:\cr
 #'
@@ -48,18 +52,26 @@
 #'
 #' \emph{Currently not all information provided by the SPE format are
 #' supported.}
-#' @section Function version: 0.1
+#'
+#' @section Function version: 0.1.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
 #' \code{\link[raster]{raster}}
+#'
 #' @references Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 #' Format Specification, Version 1.A,
 #' \url{ftp://ftp.princetoninstruments.com/Public/Manuals/Princeton\%20Instruments/SPE\%203.0\%20File\%20Format\%20Specification.pdf}
 #'
 #' Hall, C., 2012: readSPE.m.
 #' \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
+#'
+#' @aliases readSPE2R
+#'
 #' @keywords IO
+#'
 #' @examples
 #'
 #'
@@ -67,17 +79,17 @@
 #'
 #' ##(1) Import data as RLum.Data.Spectrum object
 #' #file <- file.choose()
-#' #temp <- readSPE2R(file)
+#' #temp <- read_SPE2R(file)
 #' #temp
 #'
 #' ##(2) Import data as RLum.Data.Image object
 #' #file <- file.choose()
-#' #temp <- readSPE2R(file, output.object = "RLum.Data.Image")
+#' #temp <- read_SPE2R(file, output.object = "RLum.Data.Image")
 #' #temp
 #'
 #' ##(3) Import data as matrix object
 #' #file <- file.choose()
-#' #temp <- readSPE2R(file, output.object = "matrix")
+#' #temp <- read_SPE2R(file, output.object = "matrix")
 #' #temp
 #'
 #' ##(4) Export raw data to csv, if temp is a RLum.Data.Spectrum object
@@ -87,7 +99,7 @@
 #'
 #'
 #'
-readSPE2R <- function(
+read_SPE2R <- function(
   file,
   output.object = "RLum.Data.Image",
   frame.range,
@@ -99,14 +111,14 @@ readSPE2R <- function(
   ##check if file exists
   if(file.exists(file) == FALSE){
 
-    stop("[readSPE2R()] File not found!")
+    stop("[read_SPE2R()] File not found!")
 
   }
 
   ##check file extension
   if(strsplit(file, split = "\\.")[[1]][2] != "SPE"){
 
-    temp.text <- paste("[readSPE2R()] Unsupported file format: *.",
+    temp.text <- paste("[read_SPE2R()] Unsupported file format: *.",
                        strsplit(file, split = "\\.")[[1]][2], sep = "")
 
     stop(temp.text)
@@ -202,7 +214,7 @@ readSPE2R <- function(
 
   if(NumFrames > 100 & missing(frame.range) & output.object == "RLum.Data.Image"){
 
-    error.message <- paste0("[readSPE2R()] Import aborted. This file containes > 100 (", NumFrames, "). Use argument 'frame.range' to force import.")
+    error.message <- paste0("[read_SPE2R()] Import aborted. This file containes > 100 (", NumFrames, "). Use argument 'frame.range' to force import.")
     stop(error.message)
 
   }
@@ -296,14 +308,14 @@ readSPE2R <- function(
 
   }else{
 
-    stop("[readSPE2R()] Unknown 'datatype'.")
+    stop("[read_SPE2R()] Unknown 'datatype'.")
 
   }
 
 
   ##loop over all frames
   ##output
-  cat(paste("\n[readSPE2R.R]\n\t >> ",file,sep=""), fill=TRUE)
+  cat(paste("\n[read_SPE2R.R]\n\t >> ",file,sep=""), fill=TRUE)
 
   ##set progressbar
   if(txtProgressBar==TRUE){
@@ -411,7 +423,7 @@ readSPE2R <- function(
 
   }else{
 
-    stop("[readSPE2R()] Chosen 'output.object' not supported. Please check manual!")
+    stop("[read_SPE2R()] Chosen 'output.object' not supported. Please check manual!")
 
   }
 
@@ -423,3 +435,15 @@ readSPE2R <- function(
   return(object)
 
 }
+
+## ---- DEPRECATED GENERICS
+# .Deprecated in package version 0.5.0
+# .Defunct in 0.5.X
+# Removed in 0.6.0
+#' @noRd
+readSPE2R <- function(...) {
+  .Deprecated("read_SPE2R")
+  read_SPE2R(...)
+}
+
+

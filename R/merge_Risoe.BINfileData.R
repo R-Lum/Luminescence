@@ -63,8 +63,8 @@
 #' (France)
 #'
 #'
-#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\link{readBIN2R}},
-#' \code{\link{writeR2BIN}}
+#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\link{read_BIN2R}},
+#' \code{\link{write_R2BIN}}
 #'
 #'
 #' @references Duller, G., 2007. Analyst.
@@ -152,7 +152,7 @@ merge_Risoe.BINfileData <- function(
   if(is(input.objects, "character") == TRUE){
     for(i in 1:length(input.objects)){
 
-      temp[i] <- readBIN2R(input.objects[i])
+      temp[i] <- read_BIN2R(input.objects[i])
 
     }
 
@@ -256,7 +256,7 @@ merge_Risoe.BINfileData <- function(
 
   if(missing(output.file) == FALSE){
 
-    writeR2BIN(temp.new, output.file)
+    write_R2BIN(temp.new, output.file)
 
   }else{
 

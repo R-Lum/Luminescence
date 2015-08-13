@@ -10,7 +10,7 @@ plot_Risoe.BINfileData(BINfileData, position, run, set, sorter = "POSITION",
 }
 \arguments{
 \item{BINfileData}{\link{Risoe.BINfileData-class} (\bold{required}):
-requires an S4 object returned by the \link{readBIN2R} function.}
+requires an S4 object returned by the \link{read_BIN2R} function.}
 
 \item{position}{\link{vector} (optional): option to limit the plotted curves
 by position (e.g. \code{position = 1}, \code{position = c(1,3,5)}).}
@@ -52,7 +52,7 @@ Returns a plot.
 }
 \description{
 Plots single luminescence curves from an object returned by the
-\link{readBIN2R} function.
+\link{read_BIN2R} function.
 }
 \details{
 \bold{Nomenclature}\cr
@@ -79,7 +79,7 @@ The function has been successfully tested for the Sequence Editor file
 output version 3 and 4.
 }
 \section{Function version}{
- 0.4.1 (2015-04-30 12:00:00)
+ 0.4.1 (2015-08-13 16:35:12)
 }
 \examples{
 ##load data
@@ -90,7 +90,7 @@ data(ExampleData.BINfileData, envir = environment())
 
 ##example - load from *.bin file
 #BINfile<- file.choose()
-#BINfileData<-readBIN2R(BINfile)
+#BINfileData<-read_BIN2R(BINfile)
 
 #par(mfrow = c(4,3), oma = c(0.5,1,0.5,1))
 #plot_Risoe.BINfileData(CWOSL.SAR.Data,position = 1)
@@ -105,7 +105,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 Duller, G., 2007. Analyst. pp. 1-45.
 }
 \seealso{
-\code{\link{Risoe.BINfileData-class}},\code{\link{readBIN2R}},
+\code{\link{Risoe.BINfileData-class}},\code{\link{read_BIN2R}},
 \code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}},
 \code{\link{CW2pHMi}}
 }

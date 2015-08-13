@@ -71,12 +71,12 @@ plot is produced. Arguments that are passed through the function call:\cr
 }
 \note{
 This function has been created to faciliate the plotting of image data
-imported by the function \code{\link{readSPE2R}}. However, so far the
+imported by the function \code{\link{read_SPE2R}}. However, so far the
 function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
 \section{Function version}{
- 0.1 (2015-08-10 01:03:00)
+ 0.1 (2015-08-13 16:49:48)
 }
 \examples{
 ##load data

@@ -14,13 +14,13 @@
 #' using the Analyst or any other self written script.\cr
 #'
 #' Beside the some simple data transformation steps the function applies the
-#' functions \code{\link{readXSYG2R}}, \code{\link{readBIN2R}},
-#' \code{\link{writeR2BIN}} for data import and export.
+#' functions \code{\link{read_XSYG2R}}, \code{\link{read_BIN2R}},
+#' \code{\link{write_R2BIN}} for data import and export.
 #'
 #' @param object \code{\link{character}} (\bold{required}) or
 #' \code{\linkS4class{RLum.Analysis}} object: path and file name of the XSYG
 #' file or an \code{\linkS4class{RLum.Analysis}} produced by the function
-#' \code{\link{readXSYG2R}}. \cr
+#' \code{\link{read_XSYG2R}}. \cr
 #'
 #' \bold{Note}: If an \code{\linkS4class{RLum.Analysis}} is used, any input for
 #' the arguments \code{file.BINX} and \code{recordType} will be ignored!
@@ -41,7 +41,7 @@
 #' argument only if you have reasons to do so.
 #' @param compatibility.mode \code{\link{logical}} (with default): this option
 #' is parsed only if a BIN/BINX file is produced and it will reset all position
-#' values to a max. value of 48, cf.\code{\link{writeR2BIN}}
+#' values to a max. value of 48, cf.\code{\link{write_R2BIN}}
 #' @param txtProgressBar \code{\link{logical}} (with default): enables
 #' \code{TRUE} or disables \code{FALSE} the progression bars during import and
 #' export
@@ -60,7 +60,7 @@
 #'
 #' Know issue: The 'fading correction' menu in the Analyst will not work appear
 #' with the produced BIN/BINX-file due to hidden bits, which are not reproduced
-#' by the function \code{writeR2BIN()} or if it appears it stops with a
+#' by the function \code{write_R2BIN()} or if it appears it stops with a
 #' floating point error. \cr
 #'
 #' Negative values for \code{TIMESINCELAS.STEP}? Yes, this is possible and no
@@ -69,14 +69,14 @@
 #' temperature vs. time and (c) predefined temperature vs. time. Three curves,
 #' but they are all belonging to one TL measurement step, but with regard to
 #' the time stamps this could produce negative values as the important function
-#' (\code{\link{readXSYG2R}}) do not change the order of entries for one step
+#' (\code{\link{read_XSYG2R}}) do not change the order of entries for one step
 #' towards a correct time order.
 #' @section Function version: 0.2.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link{readXSYG2R}}, \code{\link{readBIN2R}}, \code{\link{writeR2BIN}}
+#' \code{\link{read_XSYG2R}}, \code{\link{read_BIN2R}}, \code{\link{write_R2BIN}}
 #' @references Duller, G., 2007. Analyst.
 #' @keywords IO manip
 #' @examples
@@ -157,10 +157,10 @@ extract_IrradiationTimes <- function(
 
     # Settings and import XSYG --------------------------------------------------------------------
 
-    temp.XSYG <- readXSYG2R(file.XSYG, txtProgressBar = txtProgressBar)
+    temp.XSYG <- read_XSYG2R(file.XSYG, txtProgressBar = txtProgressBar)
 
     if(!missing(file.BINX)){
-      temp.BINX <- readBIN2R(file.BINX, txtProgressBar = txtProgressBar)
+      temp.BINX <- read_BIN2R(file.BINX, txtProgressBar = txtProgressBar)
       temp.BINX.dirname <- (dirname(file.XSYG))
     }
 
@@ -363,7 +363,7 @@ extract_IrradiationTimes <- function(
       if(nrow(results.BINX) == nrow(temp.BINX@METADATA)){
 
         ##update BINX-file
-        writeR2BIN(temp.BINX, version = "06",
+        write_R2BIN(temp.BINX, version = "06",
                    file = paste0(file.BINX,"_extract_IrradiationTimes.BINX"),
                    compatibility.mode =  compatibility.mode,
                    txtProgressBar = txtProgressBar)

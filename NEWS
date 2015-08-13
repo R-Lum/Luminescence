@@ -59,7 +59,8 @@ Changes in version 0.5.0 (, 2015):
 
              • new argument added ‘fit.method’. Argument works similar
                as in ‘fit_CWCurve()’ and allows to use the
-               Levenberg-Marquardt algorithm for fitting,
+               Levenberg-Marquardt algorithm for fitting (addressing
+               #55)
 
              • new return data object added ‘call’ containing the
                original function call.
@@ -79,6 +80,22 @@ Changes in version 0.5.0 (, 2015):
 
              • The ‘...’ argument ‘main’ can now be provided as vector
                if ‘combine = TRUE’.
+
+         • ‘readBIN2R()’
+
+             • Set function on deprecated, new name: ‘read_BIN2R()’
+
+         • ‘readSPE2R()’
+
+             • Set function on deprecated, new name: ‘read_SPE2R()’
+
+         • ‘readXSYG2R()’
+
+             • Set function to deprecated, new name: ‘read_XSYG2R()’
+
+         • ‘writeR2BIN()’
+
+             • Set function to deprecated, new name: ‘write_R2BIN()’
 
   Internals:
 

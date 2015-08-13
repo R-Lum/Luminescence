@@ -32,7 +32,7 @@
 #' @section Function version: 0.1.2
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #' @seealso \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\linkS4class{RLum.Analysis}}, \code{\link{readBIN2R}}
+#' \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
 #' @references #
 #' @keywords manip
 #' @examples

@@ -22,7 +22,7 @@ Princeton Instruments (TM) camera fitted on Risoe DA-20 TL/OSL reader.
 }
 \description{
 Measurement of Princton Instruments camera imported with the function
-\code{\link{readSPE2R}} to R to produce an
+\code{\link{read_SPE2R}} to R to produce an
 \code{\linkS4class{RLum.Data.Image}} object.
 }
 \section{Version}{

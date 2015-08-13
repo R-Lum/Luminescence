@@ -10,7 +10,7 @@
 #' @param METADATA x
 #' @param DATA x
 #' @param .RESERVED x
-#' 
+#'
 #' @return Return is the same as input objects as provided in the list.
 #' @section Function version: 0.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

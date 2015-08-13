@@ -21,7 +21,7 @@
 #' \code{\linkS4class{RLum.Results}}
 #' @keywords utilities
 #' @aliases length_RLum.Analysis
-#' 
+#'
 setGeneric("length_RLum", function(object) {
   standardGeneric("length_RLum")
 })

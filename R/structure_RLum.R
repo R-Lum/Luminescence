@@ -21,7 +21,7 @@
 #' \code{\linkS4class{RLum.Results}}
 #' @keywords utilities
 #' @aliases get_structure.RLum.Analysis
-#' 
+#'
 setGeneric("structure_RLum", function(object) {
   standardGeneric("structure_RLum")
 })

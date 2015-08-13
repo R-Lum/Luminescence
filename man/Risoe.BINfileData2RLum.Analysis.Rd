@@ -50,7 +50,7 @@ The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.1.2 (2015-07-23 17:09:29)
+ 0.1.2 (2015-08-13 16:29:54)
 }
 \examples{
 ##load data
@@ -67,7 +67,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \seealso{
 \code{\linkS4class{Risoe.BINfileData}},
-\code{\linkS4class{RLum.Analysis}}, \code{\link{readBIN2R}}
+\code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
 }
 \keyword{manip}
 

@@ -105,6 +105,7 @@
 #'
 #' @keywords IO
 #'
+#' @aliases readXSYG2R
 #'
 #' @examples
 #'
@@ -112,7 +113,7 @@
 #' ##(1) import XSYG file to R (uncomment for usage)
 #'
 #' #FILE <- file.choose()
-#' #temp <- readXSYG2R(FILE)
+#' #temp <- read_XSYG2R(FILE)
 #'
 #' ##(2) additional examples for pure XML import using the package XML
 #' ##    (uncomment for usage)
@@ -135,7 +136,7 @@
 #'
 #'
 #'
-readXSYG2R <- function(
+read_XSYG2R <- function(
   file,
   recalculate.TL.curves = TRUE,
   fastForward = FALSE,
@@ -149,7 +150,7 @@ readXSYG2R <- function(
   ##check if file exists
   if(file.exists(file) == FALSE){
 
-    stop("[readXSYG2R()] Wrong file name or file does not exsits!")
+    stop("[read_XSYG2R()] Wrong file name or file does not exsits!")
 
   }
 
@@ -157,7 +158,7 @@ readXSYG2R <- function(
   if(tail(unlist(strsplit(file, split = "\\.")), 1) != "xsyg" &
      tail(unlist(strsplit(file, split = "\\.")), 1) != "XSYG" ){
 
-    stop("[readXSYG2R()] File is not of type 'XSYG'!")
+    stop("[read_XSYG2R()] File is not of type 'XSYG'!")
 
   }
 
@@ -229,7 +230,7 @@ readXSYG2R <- function(
   ##show error
   if(is(temp, "try-error") == TRUE){
 
-    stop("[readXSYG2R()] XML file not readable!)")
+    stop("[read_XSYG2R()] XML file not readable!)")
 
   }
 
@@ -268,7 +269,7 @@ readXSYG2R <- function(
     ##IMPORT XSYG FILE
 
     ##Display output
-    cat("[readXSYG2R()]\n")
+    cat("[read_XSYG2R()]\n")
 
     ##PROGRESS BAR
     if(txtProgressBar == TRUE){
@@ -663,3 +664,13 @@ readXSYG2R <- function(
   return(output[!sapply(output,is.null)])
 
 }
+## ---- DEPRECATED GENERICS
+# .Deprecated in package version 0.5.0
+# .Defunct in 0.5.X
+# Removed in 0.6.0
+#' @noRd
+readXSYG2R <- function(...) {
+  .Deprecated("read_XSYG2R")
+  read_XSYG2R(...)
+}
+

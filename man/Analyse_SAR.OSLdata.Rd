@@ -11,7 +11,7 @@ Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, position,
 }
 \arguments{
 \item{input.data}{\link{Risoe.BINfileData-class} (\bold{required}): input
-data from a Risoe BIN file, produced by the function \link{readBIN2R}.}
+data from a Risoe BIN file, produced by the function \link{read_BIN2R}.}
 
 \item{signal.integral}{\link{vector} (\bold{required}): channels used for
 the signal integral, e.g. \code{signal.integral=c(1:2)}}
@@ -108,7 +108,7 @@ consider using the functions \code{\link{analyse_SAR.CWOSL}} or
 to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.16 (2015-07-23 17:09:29)
+ 0.2.16 (2015-08-13 16:35:34)
 }
 \examples{
 ##load data
@@ -145,7 +145,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 }
 \seealso{
 \link{calc_OSLLxTxRatio}, \link{Risoe.BINfileData-class},
-\link{readBIN2R}
+\link{read_BIN2R}
 
 and for further analysis \link{plot_GrowthCurve}
 }

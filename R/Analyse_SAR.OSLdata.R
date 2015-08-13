@@ -21,7 +21,7 @@
 #' described by Duller (2003).
 #'
 #' @param input.data \link{Risoe.BINfileData-class} (\bold{required}): input
-#' data from a Risoe BIN file, produced by the function \link{readBIN2R}.
+#' data from a Risoe BIN file, produced by the function \link{read_BIN2R}.
 #'
 #' @param signal.integral \link{vector} (\bold{required}): channels used for
 #' the signal integral, e.g. \code{signal.integral=c(1:2)}
@@ -100,7 +100,7 @@
 #' (France), Margret C. Fuchs, TU Bergakademie Freiberg
 #' (Germany)
 #' @seealso \link{calc_OSLLxTxRatio}, \link{Risoe.BINfileData-class},
-#' \link{readBIN2R}
+#' \link{read_BIN2R}
 #'
 #' and for further analysis \link{plot_GrowthCurve}
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

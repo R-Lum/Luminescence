@@ -53,7 +53,7 @@
         \item argument \code{output.terminaladvanced} has been removed without replacement, terminal
         output can just be triggered via \code{verbose},
         \item new argument added \code{fit.method}. Argument works similar as in \code{fit_CWCurve()}
-        and allows to use the Levenberg-Marquardt algorithm for fitting,
+        and allows to use the Levenberg-Marquardt algorithm for fitting (addressing #55)
         \item new return data object added \code{call} containing the original function call.
 
 
@@ -82,6 +82,36 @@
       \itemize{
 
         \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE}.
+
+      }
+
+    \item \code{readBIN2R()}
+      \itemize{
+
+        \item Set function on deprecated, new name: \code{read_BIN2R()}
+
+      }
+
+
+    \item \code{readSPE2R()}
+      \itemize{
+
+        \item Set function on deprecated, new name: \code{read_SPE2R()}
+
+      }
+
+
+      \item \code{readXSYG2R()}
+      \itemize{
+
+        \item Set function to deprecated, new name: \code{read_XSYG2R()}
+
+      }
+
+      \item \code{writeR2BIN()}
+      \itemize{
+
+        \item Set function to deprecated, new name: \code{write_R2BIN()}
 
       }
 

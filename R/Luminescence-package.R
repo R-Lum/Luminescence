@@ -414,7 +414,7 @@ NULL
 #' Example data as \code{\linkS4class{RLum.Data.Image}} objects
 #'
 #' Measurement of Princton Instruments camera imported with the function
-#' \code{\link{readSPE2R}} to R to produce an
+#' \code{\link{read_SPE2R}} to R to produce an
 #' \code{\linkS4class{RLum.Data.Image}} object.
 #'
 #'
@@ -452,7 +452,7 @@ NULL
 #'
 #' Example data from a SAR OSL measurement and a TL spectrum for package
 #' Luminescence imported from a Freiberg Instruments XSYG file using the
-#' function \code{\link{readXSYG2R}}.
+#' function \code{\link{read_XSYG2R}}.
 #'
 #'
 #' @format
@@ -471,7 +471,7 @@ NULL
 #' \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
 #' was performed.
 #' @section Version: 0.1
-#' @seealso \code{\link{readXSYG2R}}, \code{\linkS4class{RLum.Analysis}},\cr
+#' @seealso \code{\link{read_XSYG2R}}, \code{\linkS4class{RLum.Analysis}},\cr
 #' \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot_RLum}},\cr
 #' \code{\link{plot_RLum.Analysis}}, \code{\link{plot_RLum.Data.Spectrum}}
 #' @references Unpublished data measured to serve as example data for that

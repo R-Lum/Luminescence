@@ -1,7 +1,7 @@
 #' Function to return essential quotes
 #'
-#' This function returns one of the collected essential quotes in the 
-#' growing library. If called without any parameters, a random quote is 
+#' This function returns one of the collected essential quotes in the
+#' growing library. If called without any parameters, a random quote is
 #' returned.
 #'
 #' @param ID \code{\link{character}}, qoute ID to be returned.
@@ -20,7 +20,7 @@ get_Quote <- function(
   author,
   separated = FALSE
 ) {
-  
+
   ## definition of the ever growing quote data set
   quotes <- rbind(
     c("Anonymous student hotel employee", "Let me double check this."),
@@ -52,24 +52,24 @@ get_Quote <- function(
     c("Response to the reviewer", "You are right, it was just a guess."),
     c("An aliquot disc", "The answer [...] is: 48"),
     c("Push Pin", "Made of used sample carriers"))
-  
+
   ## Check input data
   if(missing(ID) == TRUE & missing(author) == TRUE) {
-    ID <- sample(x = seq(from = 1, 
-                         to = nrow(quotes)), 
+    ID <- sample(x = seq(from = 1,
+                         to = nrow(quotes)),
                  size = 1)
   } else if(missing(ID) == TRUE) {
-    ID <- seq(from = 1, 
+    ID <- seq(from = 1,
               to = nrow(quotes))[quotes[,1] == author]
   }
-  
+
   ## check for correct ID and generate qoute
   if(length(ID) < 1 | ID > nrow(quotes)) {
 
     quote.out <- "Sorry, but this was an impossible task!"
-    
+
   } else {
-    
+
     ## generate qoute(s)
     if(separated == FALSE) {
       quote.out <- paste(quotes[ID,1], ": '", quotes[ID,2], "'", sep = "")
@@ -77,7 +77,7 @@ get_Quote <- function(
       quote.out <- quotes[ID,]
     }
   }
-  
+
   ## return quotes
   return(quote.out)
 }

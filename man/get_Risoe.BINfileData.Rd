@@ -26,7 +26,7 @@ corresponding get function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{Risoe.BINfileData}} class.
 }
 \section{Function version}{
- 0.1 (2015-07-23 17:09:29)
+ 0.1 (2015-08-13 16:09:04)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

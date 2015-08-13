@@ -63,7 +63,7 @@ With no additional summand the new position numbers would be:
 The validity of the output objects is not further checked.
 }
 \section{Function version}{
- 0.2.3 (2015-08-10 01:01:44)
+ 0.2.3 (2015-08-13 16:38:24)
 }
 \examples{
 ##merge two objects
@@ -82,8 +82,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 Duller, G., 2007. Analyst.
 }
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}, \code{\link{readBIN2R}},
-\code{\link{writeR2BIN}}
+\code{\linkS4class{Risoe.BINfileData}}, \code{\link{read_BIN2R}},
+\code{\link{write_R2BIN}}
 }
 \keyword{IO}
 \keyword{manip}

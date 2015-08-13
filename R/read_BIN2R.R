@@ -9,8 +9,8 @@
 #' \code{http://www.nutech.dtu.dk/}
 #'
 #' @param file \link{character} (\bold{required}): bin-file name (including
-#' path), e.g. \cr [WIN]: \code{readBIN2R("C:/Desktop/test.bin")}, \cr
-#' [MAC/LINUX]: \code{readBIN2R("/User/test/Desktop/test.bin")}
+#' path), e.g. \cr [WIN]: \code{read_BIN2R("C:/Desktop/test.bin")}, \cr
+#' [MAC/LINUX]: \code{read_BIN2R("/User/test/Desktop/test.bin")}
 #'
 #' @param show.raw.values \link{logical} (with default): shows raw values from
 #' BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
@@ -58,7 +58,7 @@
 #' (France), Margret C. Fuchs, TU Bergakademie Freiberg (Germany)
 #'
 #'
-#' @seealso \code{\link{writeR2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
+#' @seealso \code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
 #' \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
 #' \code{\link[utils]{txtProgressBar}}
 #'
@@ -66,6 +66,7 @@
 #' @references Duller, G., 2007. Analyst.
 #' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}
 #'
+#' @aliases readBIN2R
 #'
 #' @keywords IO
 #'
@@ -76,11 +77,11 @@
 #' ##(1) import Risoe BIN-file to R (uncomment for usage)
 #'
 #' #FILE <- file.choose()
-#' #temp <- readBIN2R(FILE)
+#' #temp <- read_BIN2R(FILE)
 #' #temp
 #'
 #'
-readBIN2R <- function(
+read_BIN2R <- function(
   file,
   show.raw.values = FALSE,
   n.records,
@@ -95,7 +96,7 @@ readBIN2R <- function(
   ##check if file exists
   if(!file.exists(file)){
 
-    stop("[readBIN2R()] File does not exists!")
+    stop("[read_BIN2R()] File does not exists!")
 
   }
 
@@ -103,7 +104,7 @@ readBIN2R <- function(
   if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%tail(
     unlist(strsplit(file, split = "\\.")), n = 1)))){
 
-    stop("[readBIN2R()] Input is not a file or not of type 'BIN' or 'BINX'!")
+    stop("[read_BIN2R()] Input is not a file or not of type 'BIN' or 'BINX'!")
 
   }
 
@@ -141,7 +142,7 @@ readBIN2R <- function(
       close(con)
 
       ##show error message
-      error.text <- paste("[readBIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+      error.text <- paste("[read_BIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
       stop(error.text)
 
@@ -352,7 +353,7 @@ readBIN2R <- function(
   file.size<-file.info(file)
 
   ##output
-  cat(paste("\n[readBIN2R()]\n\t >> ",file,sep=""), fill=TRUE)
+  cat(paste("\n[read_BIN2R()]\n\t >> ",file,sep=""), fill=TRUE)
 
   ##set progressbar
   if(txtProgressBar==TRUE){
@@ -382,7 +383,7 @@ readBIN2R <- function(
       close(con)
 
       ##show error message
-      error.text <- paste("[readBIN2R()] The BIN format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+      error.text <- paste("[read_BIN2R()] The BIN format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
       stop(error.text)
 
@@ -872,7 +873,7 @@ readBIN2R <- function(
 
     }else{
 
-      stop("[readBIN2R()] Unsupported BIN/BINX-file version.")
+      stop("[read_BIN2R()] Unsupported BIN/BINX-file version.")
 
     }
 
@@ -1063,3 +1064,14 @@ readBIN2R <- function(
 
 
 }
+
+## ---- DEPRECATED GENERICS
+# .Deprecated in package version 0.5.0
+# .Defunct in 0.5.X
+# Removed in 0.6.0
+#' @noRd
+readBIN2R <- function(...) {
+  .Deprecated("read_BIN2R")
+  read_BIN2R(...)
+}
+

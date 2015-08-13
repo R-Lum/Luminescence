@@ -39,7 +39,7 @@ time 20 s\cr Heating: \tab 1 K/s, up to 500 deg. C }
 \description{
 Example data from a SAR OSL measurement and a TL spectrum for package
 Luminescence imported from a Freiberg Instruments XSYG file using the
-function \code{\link{readXSYG2R}}.
+function \code{\link{read_XSYG2R}}.
 }
 \section{Version}{
  0.1
@@ -87,7 +87,7 @@ of Dolni Vestonice, Czech Republic: A new OSL-based chronology of the Last
 Climatic Cycle. Boreas, 42, 664--677.
 }
 \seealso{
-\code{\link{readXSYG2R}}, \code{\linkS4class{RLum.Analysis}},\cr
+\code{\link{read_XSYG2R}}, \code{\linkS4class{RLum.Analysis}},\cr
 \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot_RLum}},\cr
 \code{\link{plot_RLum.Analysis}}, \code{\link{plot_RLum.Data.Spectrum}}
 }

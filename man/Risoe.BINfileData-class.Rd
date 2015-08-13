@@ -24,11 +24,11 @@ values for internal use only.}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
-of the function \code{\link{readBIN2R}}.
+of the function \code{\link{read_BIN2R}}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{set_Risoe.BINfileData}: The Risoe.BINfileData is normally produced as output of the function readBIN2R.
+\item \code{set_Risoe.BINfileData}: The Risoe.BINfileData is normally produced as output of the function read_BIN2R.
 This construction method is intended for internal usage only.
 
 \item \code{get_Risoe.BINfileData}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
@@ -124,7 +124,7 @@ version)\cr
 
 Note that the \code{Risoe.BINfileData} object combines all values from
 different versions from the BIN-file, reserved bits are skipped, however,
-the function \code{\link{writeR2BIN}} reset arbitrary reserved bits. Invalid
+the function \code{\link{write_R2BIN}} reset arbitrary reserved bits. Invalid
 values for a specific version are set to \code{NA}. Furthermore, the
 internal R data types do not necessarily match the required data types for
 the BIN-file data import! Data types are converted during data import.\cr
@@ -177,8 +177,8 @@ Sequence Editor User Manual - March 2015
 \code{http://www.nutech.dtu.dk/}
 }
 \seealso{
-\code{\link{plot_Risoe.BINfileData}}, \code{\link{readBIN2R}},
-\code{\link{writeR2BIN}},\code{\link{merge_Risoe.BINfileData}},
+\code{\link{plot_Risoe.BINfileData}}, \code{\link{read_BIN2R}},
+\code{\link{write_R2BIN}},\code{\link{merge_Risoe.BINfileData}},
 \code{\link{Risoe.BINfileData2RLum.Analysis}},
 \code{\link{Risoe.BINfileData2RLum.Data.Curve}}
 }
