@@ -89,6 +89,11 @@ use_DRAC <- function(
   # Integrity tests -----------------------------------------------------------------------------
   assertive::is_existing_file(file)
   
+  if (inherits(file, "DRAC.list"))
+    file <- as.data.frame(file)
+  
+  
+  if (!inherits(file, "DRAC.data.frame")) {
   # Import data ---------------------------------------------------------------------------------
   
   ## Import and skipt the first rows and remove NA lines and the 2 row, as this row contains
@@ -127,7 +132,7 @@ use_DRAC <- function(
   mask.df <- lapply(seq(1, nrow(input.raw), by = 3), function(x) {
     
     ##replace some values - the De value
-    mask.df[x:(x + 2),c("TI:52","TI:53")] <- .masking(
+    mask.df[x:(x + 2), c("TI:52","TI:53")] <- .masking(
       mean = as.numeric(mask.df[x,"TI:52"]),
       sd = as.numeric(mask.df[x,"TI:53"]),
       n = 3)
@@ -146,6 +151,11 @@ use_DRAC <- function(
   ##(6) create DRAC submission string
   DRAC_submission.df <- DRAC_submission.df[sample(x = 1:nrow(DRAC_submission.df), nrow(DRAC_submission.df),
                                                   replace = FALSE), ]
+  
+  }## End Of ExcelSheet import
+  
+  if (inherits(file, "DRAC.data.frame"))
+    DRAC_submission.df <- file
   
   ##get line by line and remove unwanted characters
   DRAC_submission.string <- sapply(1:nrow(DRAC_submission.df), function(x) {

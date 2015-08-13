@@ -124,6 +124,7 @@ Collate:
     'readSPE2R.R'
     'readXSYG2R.R'
     'read_Daybreak2R.R'
+    'template_DRAC.R'
     'use_DRAC.R'
     'writeR2BIN.R'
     'zzz.R'
