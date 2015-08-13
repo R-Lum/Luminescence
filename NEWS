@@ -33,6 +33,12 @@ Changes in version 0.5.0 (, 2015):
                calculated due to the missing R0 point the function
                stopped with an error. Corrected.
 
+         • ‘calc_Statistics()’
+
+             • Weighted median is now completly removed from the
+               calculation, values is replaced by the unweighted
+               median.
+
          • ‘fit_LMCurve()’
 
              • Argument ‘output.plot’ renamed to ‘plot’,
@@ -57,6 +63,11 @@ Changes in version 0.5.0 (, 2015):
 
              • new return data object added ‘call’ containing the
                original function call.
+
+         • ‘plot_AbanicoPlot()’
+
+             • Further adjustment to deal with zero values (will now be
+               removed automatically)
 
          • ‘plot_RLum()’
 

@@ -31,6 +31,16 @@
       }
 
 
+       \item \code{calc_Statistics()}
+       \itemize{
+
+        \item Weighted median is now completly removed from the calculation, values is replaced
+        by the unweighted median.
+
+
+      }
+
+
      \item \code{fit_LMCurve()}
       \itemize{
 
@@ -49,6 +59,15 @@
 
 
       }
+
+      \item \code{plot_AbanicoPlot()}
+       \itemize{
+
+        \item Further adjustment to deal with zero values (will now be removed automatically)
+
+
+      }
+
 
      \item \code{plot_RLum()}
       \itemize{
