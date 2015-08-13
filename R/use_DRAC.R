@@ -149,7 +149,8 @@ use_DRAC <- function(
   DRAC_submission.df <- rbind(input.raw,mask.df[[1]])
   
   ##(4) replace ID values
-  DRAC_submission.df$`TI:1` <- sample(x = 1:1000, size = nrow(DRAC_submission.df), replace = FALSE)
+  DRAC_submission.df$`TI:1` <- paste0(paste0(paste0(sample(LETTERS, runif(1, 2, 4)), collapse = ""), ifelse(runif(1,-10,10)>0, "-", "")), 
+                                      seq(sample(1:50, 1, replace = FALSE), by = 1, length.out = nrow(DRAC_submission.df)))
   
   ##(5) store the real IDs in a sperate object
   DRAC_results.id <-  DRAC_submission.df[1:nrow(input.raw), "TI:1"]
