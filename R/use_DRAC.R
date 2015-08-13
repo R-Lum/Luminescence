@@ -178,15 +178,13 @@ use_DRAC <- function(
   # Send data to DRAC ---------------------------------------------------------------------------
   
   ## send data set to DRAC website and receive repsonse
-  #   DRAC.response <- httr::POST(paste0("https://www.aber.ac.uk/en/iges/",
-  #                                     "research-groups/quaternary/luminescence-",
-  #                                     "research-laboratory/dose-rate-calculator/",
-  #                                     "?show=calculator"),
-  #                               body = list("drac_data[name]"  = "Test",
-  #                                           "drac_data[table]" = DRAC_input))
-  
-  DRAC.response <- httr::POST(paste0("http://zerk.canopus.uberspace.de/drac/?show=calculator"),
-                              body = list("drac_data[name]"  = "Test",
+  # url <- paste0("https://www.aber.ac.uk/en/iges/research-groups/quaternary/luminescence-",
+  #               "research-laboratory/dose-rate-calculator/?show=calculator")
+  url <- "http://zerk.canopus.uberspace.de/drac/?show=calculator"
+    
+  DRAC.response <- httr::POST(url,
+                              body = list("drac_data[name]"  = paste(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, 
+                                                                            runif(1, 2, 4)), collapse = ""),
                                           "drac_data[table]" = DRAC_input))
   
   ## check for correct response
