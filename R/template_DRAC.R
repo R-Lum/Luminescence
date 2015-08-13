@@ -3,7 +3,7 @@
 #' This function returns a DRAC input template (v1.1) to be used in conjunction
 #' with the use_DRAC() function
 #' 
-#' @param nrows \code{\link{integer}} (with default): specifies the number of rows
+#' @param nrow \code{\link{integer}} (with default): specifies the number of rows
 #' of the template (i.e., the number of data sets you want to submit)
 #' 
 #' @param notification \code{\link{logical}} (with default): show or hide the
@@ -11,7 +11,14 @@
 #'
 #' @return A list.
 #' 
-#' @export
+#' @author Christoph Burow, University of Cologne (Germany)
+#'
+#' @references
+#'
+#' Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
+#' Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
+#'
+#' @seealso \code{\link{as.data.frame}} \code{\link{list}} 
 #'
 #' @examples
 #' 
@@ -23,10 +30,42 @@
 #' print(template$`Project ID`)
 #' print(template[[4]])
 #' 
-#' # fill in data
 #' 
+#' ## Example: DRAC Quartz example
+#' # note that you only have to assign new values where they 
+#' # are different to the default values
+#' template$`Project ID` <- "DRAC-Example"
+#' template$`Sample ID` <- "Quartz"
+#' template$`Conversion factors` <- "AdamiecAitken1998"
+#' template$`ExternalU (ppm)` <- 3.4
+#' template$`errExternal U (ppm)` <- 0.51
+#' template$`External Th (ppm)` <- 14.47
+#' template$`errExternal Th (ppm)` <- 1.69
+#' template$`External K (%)` <- 1.2
+#' template$`errExternal K (%)` <- 0.14
+#' template$`Calculate external Rb from K conc?` <- "N"
+#' template$`Calculate internal Rb from K conc?` <- "N"
+#' template$`Scale gammadoserate at shallow depths?` <- "N"
+#' template$`Grain size min (microns)` <- 90
+#' template$`Grain size max (microns)` <- 125
+#' template$`Water content ((wet weight - dry weight)/dry weight) %` <- 5
+#' template$`errWater content %` <- 2
+#' template$`Depth (m)` <- 2.2
+#' template$`errDepth (m)` <- 0.22
+#' template$`Overburden density (g cm-3)` <- 1.8
+#' template$`errOverburden density (g cm-3)` <- 0.1
+#' template$`Latitude (decimal degrees)` <- 30.0000
+#' template$`Longitude (decimal degrees)` <- 70.0000
+#' template$`Altitude (m)` <- 150
+#' template$`De (Gy)` <- 20
+#' template$`errDe (Gy)` <- 0.2
 #' 
-template_DRAC <- function(nrows = 1, notification = TRUE) {
+#' # use DRAC
+#' \dontrun{
+#' Reply <- use_DRAC(template)
+#' }
+#' 
+template_DRAC <- function(nrow = 1, notification = TRUE) {
   
   ## TODO:
   # 1 - allow mineral specific presets; new argument 'mineral'
@@ -61,215 +100,215 @@ template_DRAC <- function(nrows = 1, notification = TRUE) {
   template <- list(
     
     `Project ID` = 
-      structure(rep("RLum", nrows), required = TRUE, key = "TI:1",
+      structure(rep("RLum", nrow), required = TRUE, key = "TI:1",
                 description = "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."), # 
     
     `Sample ID` = 
-      structure(rep("999", nrows), required = TRUE, key = "TI:2",
+      structure(rep("999", nrow), required = TRUE, key = "TI:2",
                 description = "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."), #
     
     `Mineral` = 
-      structure(factor(rep("Q", nrows), c("Q", "F", "PM")), required = TRUE,
+      structure(factor(rep("Q", nrow), c("Q", "F", "PM")), required = TRUE,
                 description = "The mineral used for dating: quartz, feldspar or polymineral. Input must be 'Q', 'F' or 'PM'."), #
     
     `Conversion factors` = 
-      structure(factor(rep("Liritzisetal2013", nrows), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "X")), required = FALSE, key = "TI:4",
+      structure(factor(rep("Liritzisetal2013", nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "X")), required = FALSE, key = "TI:4",
                 description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required."), #
     
     `ExternalU (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:5",
+      structure(rep(0, nrow), required = FALSE, key = "TI:5",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), # 
     
     `errExternal U (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:6",
+      structure(rep(0, nrow), required = FALSE, key = "TI:6",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `External Th (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:7",
+      structure(rep(0, nrow), required = FALSE, key = "TI:7",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
-    `rrExternal Th (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:8",
+    `errExternal Th (ppm)` = 
+      structure(rep(0, nrow), required = FALSE, key = "TI:8",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `External K (%)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:9",
+      structure(rep(0, nrow), required = FALSE, key = "TI:9",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errExternal K (%)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:10",
+      structure(rep(0, nrow), required = FALSE, key = "TI:10",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `External Rb (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:11",
+      structure(rep(0, nrow), required = FALSE, key = "TI:11",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errExternal Rb (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:12",
+      structure(rep(0, nrow), required = FALSE, key = "TI:12",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `Calculate external Rb from K conc?` = 
-      structure(factor(rep("Y", nrows), c("Y", "N")), required = FALSE, key = "TI:13",
+      structure(factor(rep("Y", nrow), c("Y", "N")), required = FALSE, key = "TI:13",
                 description = "Option to calculate a Rubidium concentration from Potassium, using the 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'."), #
     
     `Internal U (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:14",
+      structure(rep(0, nrow), required = FALSE, key = "TI:14",
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errInternal U (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:15",
+      structure(rep(0, nrow), required = FALSE, key = "TI:15",
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `Internal Th (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:16",
+      structure(rep(0, nrow), required = FALSE, key = "TI:16",
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errInternal Th (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:17",
+      structure(rep(0, nrow), required = FALSE, key = "TI:17",
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `Internal K (%)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:18",
+      structure(rep(0, nrow), required = FALSE, key = "TI:18",
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errInternal K (%)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:19",
+      structure(rep(0, nrow), required = FALSE, key = "TI:19",
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `Rb (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:20",
+      structure(rep(0, nrow), required = FALSE, key = "TI:20",
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errRb (ppm)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:21",
+      structure(rep(0, nrow), required = FALSE, key = "TI:21",
                 description = "Internal radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `Calculate internal Rb from K conc?` = 
-      structure(factor(rep("Y", nrows), c("Y", "N")), required = FALSE, key = "TI:22",
+      structure(factor(rep("Y", nrow), c("Y", "N")), required = FALSE, key = "TI:22",
                 description = "Option to calculate an internal Rubidium concentration from Potassium, using the 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'."), #
     
     `User external alphadoserate (Gy.ka-1)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:23",
+      structure(rep(0, nrow), required = FALSE, key = "TI:23",
                 description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
     
     `errUser external alphadoserate (Gy.ka-1)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:24",
+      structure(rep(0, nrow), required = FALSE, key = "TI:24",
                 description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
     
     `User external betadoserate (Gy.ka-1)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:25",
+      structure(rep(0, nrow), required = FALSE, key = "TI:25",
                 description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
     
     `errUser external betadoserate (Gy.ka-1)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:26",
+      structure(rep(0, nrow), required = FALSE, key = "TI:26",
                 description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
     
     `User external gamma doserate (Gy.ka-1)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:27",
+      structure(rep(0, nrow), required = FALSE, key = "TI:27",
                 description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
     
     `errUser external gammadoserate (Gy.ka-1)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:28",
+      structure(rep(0, nrow), required = FALSE, key = "TI:28",
                 description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
     
     `User internal doserate (Gy.ka-1)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:29",
+      structure(rep(0, nrow), required = FALSE, key = "TI:29",
                 description = "Users may input an internal dose rate (either alpha, beta or the sum of the two; in Gy.ka-1). DRAC will assume that this value has already been corrected for attenuation. Inputs in this field will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and not left blank."), #
     
     `errUser internal doserate (Gy.ka-1)` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:30",
+      structure(rep(0, nrow), required = FALSE, key = "TI:30",
                 description = "Users may input an internal dose rate (either alpha, beta or the sum of the two; in Gy.ka-1). DRAC will assume that this value has already been corrected for attenuation. Inputs in this field will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and not left blank."), #
     
     `Scale gammadoserate at shallow depths?` = 
-      structure(factor(rep("Y", nrows), c("Y", "N")), required = FALSE, key = "TI:31",
+      structure(factor(rep("Y", nrow), c("Y", "N")), required = FALSE, key = "TI:31",
                 description = "Users may choose to scale gamma dose rates for samples taken within 0.3 m of the ground surface. The scaling factors of Aitken (1985) are used. Input should be yes 'Y' or no 'N'."), #
     
     `Grain size min (microns)` = 
-      structure(rep(100, nrows), required = TRUE, key = "TI:32",
+      structure(rep(100, nrow), required = TRUE, key = "TI:32",
                 description = "The grain size range analysed. DRAC can be used for the grain size ranges between 1 and 1000 µm. Inputs should range between 1 and 1000 and not be left blank."), #
     
     `Grain size max (microns)` = 
-      structure(rep(150, nrows), required = TRUE, key = "TI:33",
+      structure(rep(150, nrow), required = TRUE, key = "TI:33",
                 description = "The grain size range analysed. DRAC can be used for the grain size ranges between 1 and 1000 µm. Inputs should range between 1 and 1000 and not be left blank."), #
     
     `alpha-Grain size attenuation` = 
-      structure(factor(rep("Brennanetal1991", nrows), c("Bell1980", "Brennanetal1991")), required = TRUE, key = "TI:34",
+      structure(factor(rep("Brennanetal1991", nrow), c("Bell1980", "Brennanetal1991")), required = TRUE, key = "TI:34",
                 description = "The grain size attenuation factors for the alpha dose rate. Users have the option of datasets from Bell (1980) and Brennan et al. (1991). Input must be 'Bell1980' or 'Brennanetal1991'."), #
     
     `beta-Grain size attenuation ` = 
-      structure(factor(rep("Guerinetal2012-Q", nrows), c("Mejdahl1979", "Brennan2003", "Guerinetal2012-Q", "Guerinetal2012-F")), required = TRUE, key = "TI:35",
+      structure(factor(rep("Guerinetal2012-Q", nrow), c("Mejdahl1979", "Brennan2003", "Guerinetal2012-Q", "Guerinetal2012-F")), required = TRUE, key = "TI:35",
                 description = "The grain size attenuation factors for the beta dose rate. Users have the option of datasets from Mejdahl (1979), Brennan (2003) and Guerin et al. (2012) for quartz or feldspar. Input must be 'Mejdahl1979', 'Brennan2003', 'Guerinetal2012-Q' or 'Guerinetal2012-F' ."), #
     
     `Etch depth min (microns)` = 
-      structure(rep(0, nrows), required = TRUE, key = "TI:36",
+      structure(rep(8, nrow), required = TRUE, key = "TI:36",
                 description = "The user defined etch depth range (µm). Inputs should range between 0 and 30 and not be left blank."), #
     
     `Etch depth max (microns)` = 
-      structure(rep(10, nrows), required = TRUE, key = "TI:37",
+      structure(rep(10, nrow), required = TRUE, key = "TI:37",
                 description = "The user defined etch depth range (µm). Inputs should range between 0 and 30 and not be left blank."), #
     
     `beta-Etch depth attenuation factor` = 
-      structure(factor(rep("Bell1979", nrows), c("Bell1979", "Brennan2003")), required = FALSE, key = "TI:38",
+      structure(factor(rep("Bell1979", nrow), c("Bell1979", "Brennan2003")), required = FALSE, key = "TI:38",
                 description = "The etch depth attenuation factors for the beta dose rate. Users have the option of datasets from Bell (1979) and Brennan (2003). Input must be 'Bell1979' or 'Brennan2003'. Note: only the dataset of Bell (1980) is provided for attenuation of the alpha dose rate by etching."), #
     
     `a-value` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:39",
+      structure(rep(0, nrow), required = FALSE, key = "TI:39",
                 description = "Alpha track efficiency value and uncertainty defined by the user. Inputs should be 0 or positive and not left blank."), #
     
     `erra-value` = 
-      structure(rep(0, nrows), required = TRUE, key = "TI:40",
+      structure(rep(0, nrow), required = TRUE, key = "TI:40",
                 description = "Alpha track efficiency value and uncertainty defined by the user. Inputs should be 0 or positive and not left blank."), #
     
     `Water content ((wet weight - dry weight)/dry weight) %` = 
-      structure(rep(0, nrows), required = TRUE, key = "TI:41",
+      structure(rep(0, nrow), required = TRUE, key = "TI:41",
                 description = "Sediment water content (%) over the burial period. Inputs should be 0 or positive and not be left blank."), #
     
     `errWater content %` = 
-      structure(rep(0, nrows), required = FALSE, key = "TI:42",
+      structure(rep(0, nrow), required = FALSE, key = "TI:42",
                 description = "Sediment water content (%) over the burial period. Inputs should be 0 or positive and not be left blank."), #
     
     `Depth (m)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:43",
+      structure(rep("X", nrow), required = FALSE, key = "TI:43",
                 description = "Depth and uncertainty from which sample was extracted beneath the ground surface. Inputs should be 0 or positive and not left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `errDepth (m)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:44",
+      structure(rep("X", nrow), required = FALSE, key = "TI:44",
                 description = "Depth and uncertainty from which sample was extracted beneath the ground surface. Inputs should be 0 or positive and not left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `Overburden density (g cm-3)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:45",
+      structure(rep("X", nrow), required = FALSE, key = "TI:45",
                 description = "Density of the overlying sediment matrix from which the sample was taken. Inputs should be 0 or positive and not be left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `errOverburden density (g cm-3)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:46",
+      structure(rep("X", nrow), required = FALSE, key = "TI:46",
                 description = "Density of the overlying sediment matrix from which the sample was taken. Inputs should be 0 or positive and not be left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `Latitude (decimal degrees)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:47",
+      structure(rep("X", nrow), required = FALSE, key = "TI:47",
                 description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from – 90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
     
     `Longitude (decimal degrees)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:48",
+      structure(rep("X", nrow), required = FALSE, key = "TI:48",
                 description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from – 90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
     
     `Altitude (m)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:49",
+      structure(rep("X", nrow), required = FALSE, key = "TI:49",
                 description = "Altitude of sample location in metres above sea level. Input should be less than 5000 and not left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `User cosmicdoserate (Gy.ka-1)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:50",
+      structure(rep("X", nrow), required = FALSE, key = "TI:50",
                 description = "Users may input a cosmic dose rate (in Gy.ka-1). Inputs in these fields will override the DRAC calculated cosmic dose rate. Inputs should be positive or 'X' if not required, and not left blank."), #
     
     `errUser cosmicdoserate (Gy.ka-1)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:51",
+      structure(rep("X", nrow), required = FALSE, key = "TI:51",
                 description = "Users may input a cosmic dose rate (in Gy.ka-1). Inputs in these fields will override the DRAC calculated cosmic dose rate. Inputs should be positive or 'X' if not required, and not left blank."), #
     
     `De (Gy)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:52",
+      structure(rep("X", nrow), required = FALSE, key = "TI:52",
                 description = "Sample De and uncertainty (in Gy). Inputs should be positive or 'X' if not required, and not left blank."), #
     
     `errDe (Gy)` = 
-      structure(rep("X", nrows), required = FALSE, key = "TI:53",
+      structure(rep("X", nrow), required = FALSE, key = "TI:53",
                 description = "Sample De and uncertainty (in Gy). Inputs should be positive or 'X' if not required, and not left blank.") #
   )   
   
@@ -281,10 +320,17 @@ template_DRAC <- function(nrows = 1, notification = TRUE) {
 }
 
 
-
+## This is a method for the as.data.frame S3 generic. We need this to intercept the
+## DRAC list object after it hast passed the actual list-method. After it was 
+## coerced to a data.frame we assign new column names (DRAC ID keys) and 
+## make sure that all columns are either of class 'character' or 'numeric'.
+## Finally, we attach a further class name to identify it as a valid DRAC object 
+## when passed to use_DRAC
 as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) {
   DF <- as.data.frame.list(x)
   colnames(DF) <- paste0("TI:", 1:ncol(DF))
+  for (i in 1:ncol(DF)) 
+    DF[ ,i] <- as.character(DF[, i])
   class(DF) <- c("data.frame", "DRAC.data.frame")
   return(DF)
 }

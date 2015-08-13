@@ -4,10 +4,10 @@
 \alias{template_DRAC}
 \title{Create a DRAC input data template (v1.1)}
 \usage{
-template_DRAC(nrows = 1, notification = TRUE)
+template_DRAC(nrow = 1, notification = TRUE)
 }
 \arguments{
-\item{nrows}{\code{\link{integer}} (with default): specifies the number of rows
+\item{nrow}{\code{\link{integer}} (with default): specifies the number of rows
 of the template (i.e., the number of data sets you want to submit)}
 
 \item{notification}{\code{\link{logical}} (with default): show or hide the
@@ -29,7 +29,49 @@ print(template)
 print(template$`Project ID`)
 print(template[[4]])
 
-# fill in data
-template$
+
+## Example: DRAC Quartz example
+# note that you only have to assign new values where they
+# are different to the default values
+template$`Project ID` <- "DRAC-Example"
+template$`Sample ID` <- "Quartz"
+template$`Conversion factors` <- "AdamiecAitken1998"
+template$`ExternalU (ppm)` <- 3.4
+template$`errExternal U (ppm)` <- 0.51
+template$`External Th (ppm)` <- 14.47
+template$`errExternal Th (ppm)` <- 1.69
+template$`External K (\%)` <- 1.2
+template$`errExternal K (\%)` <- 0.14
+template$`Calculate external Rb from K conc?` <- "N"
+template$`Calculate internal Rb from K conc?` <- "N"
+template$`Scale gammadoserate at shallow depths?` <- "N"
+template$`Grain size min (microns)` <- 90
+template$`Grain size max (microns)` <- 125
+template$`Water content ((wet weight - dry weight)/dry weight) \%` <- 5
+template$`errWater content \%` <- 2
+template$`Depth (m)` <- 2.2
+template$`errDepth (m)` <- 0.22
+template$`Overburden density (g cm-3)` <- 1.8
+template$`errOverburden density (g cm-3)` <- 0.1
+template$`Latitude (decimal degrees)` <- 30.0000
+template$`Longitude (decimal degrees)` <- 70.0000
+template$`Altitude (m)` <- 150
+template$`De (Gy)` <- 20
+template$`errDe (Gy)` <- 0.2
+
+# use DRAC
+\dontrun{
+Reply <- use_DRAC(template)
+}
+}
+\author{
+Christoph Burow, University of Cologne (Germany)
+}
+\references{
+Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
+Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
+}
+\seealso{
+\code{\link{as.data.frame}} \code{\link{list}}
 }
 

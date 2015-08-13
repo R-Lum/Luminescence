@@ -6,7 +6,8 @@
 #'
 #'
 #' @param file \code{\link{character}}: spreadsheet to be passed
-#' to the DRAC website for calculation.
+#' to the DRAC website for calculation. Can also be a DRAC template object
+#' obtained from \code{template_DRAC()}.
 #'
 #' @param name \code{\link{character}}: Optional user name submitted to DRAC. If
 #' omitted, a random name will be generated
@@ -87,13 +88,9 @@ use_DRAC <- function(
   ##  keep the function as easy as possible.
   
   # Integrity tests -----------------------------------------------------------------------------
-  assertive::is_existing_file(file)
-  
-  if (inherits(file, "DRAC.list"))
-    file <- as.data.frame(file)
-  
-  
-  if (!inherits(file, "DRAC.data.frame")) {
+  if (inherits(file, "character")) {
+    assertive::is_existing_file(file)
+    
     # Import data ---------------------------------------------------------------------------------
     
     ## Import and skipt the first rows and remove NA lines and the 2 row, as this row contains
@@ -104,12 +101,16 @@ use_DRAC <- function(
       stop("[use_DRAC()] It looks like that you are not using the original DRAC XLSX template. This is currently
          not supported!")
     }
-    
     input.raw <- na.omit(as.data.frame(readxl::read_excel(path = file, sheet = 1, skip = 5)))[-1, ]
-  }
-  
-  if (inherits(file, "DRAC.data.frame")) {
+    
+  } else if (inherits(file, "DRAC.list")) {
+    input.raw <- as.data.frame(file)
+    
+  } else if (inherits(file, "DRAC.data.frame")) {
     input.raw <- file
+    
+  } else {
+    stop("The provided data object is not a valid DRAC template.", call. = FALSE)
   }
   
   
