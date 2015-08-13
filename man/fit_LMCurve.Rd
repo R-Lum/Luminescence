@@ -5,12 +5,11 @@
 \title{Nonlinear Least Squares Fit for LM-OSL curves}
 \usage{
 fit_LMCurve(values, values.bg, n.components = 3, start_values,
-  input.dataType = "LM", sample_code = "", sample_ID = "",
-  LED.power = 36, LED.wavelength = 470, cex.global = 0.8,
+  input.dataType = "LM", fit.method = "port", sample_code = "",
+  sample_ID = "", LED.power = 36, LED.wavelength = 470,
   fit.trace = FALSE, fit.advanced = FALSE, fit.calcError = FALSE,
-  bg.subtraction = "polynomial", output.path, output.terminal = TRUE,
-  output.terminaladvanced = TRUE, output.plot = TRUE,
-  output.plotBG = FALSE, ...)
+  bg.subtraction = "polynomial", verbose = TRUE, plot = TRUE,
+  plot.BG = FALSE, ...)
 }
 \arguments{
 \item{values}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
@@ -31,6 +30,12 @@ value estimation is attempted (see details).}
 \item{input.dataType}{\link{character} (with default): alter the plot output
 depending on the input data: "LM" or "pLM" (pseudo-LM). See: \link{CW2pLM}}
 
+\item{fit.method}{\code{\link{character}} (with default): select fit method,
+allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
+routine usint the funtion \code{\link{nls}} \code{'LM'} utilises the
+function \code{nlsLM} from the package \code{minpack.lm} and with that the
+Levenberg-Marquardt algorithm.}
+
 \item{sample_code}{\link{character} (optional): sample code used for the
 plot and the optional output table (mtext).}
 
@@ -45,14 +50,13 @@ calculation of the absolute photoionisation cross section.}
 used for stimulation. \bold{Note:} This value is used for the calculation of
 the absolute photoionisation cross section.}
 
-\item{cex.global}{\link{numeric} (with default): global scaling factor.}
-
 \item{fit.trace}{\link{logical} (with default): traces the fitting process
 on the terminal.}
 
 \item{fit.advanced}{\link{logical} (with default): enables advanced fitting
 attempt for automatic start parameter recognition. Works only if no start
-parameters are provided. \bold{Note:} It may take a while.}
+parameters are provided. \bold{Note:} It may take a while and it is not
+compatible with \code{fit.method = "LM"}.}
 
 \item{fit.calcError}{\link{logical} (with default): calculate 1-sigma error
 range of components using \link{confint}.}
@@ -61,57 +65,35 @@ range of components using \link{confint}.}
 background subtraction (\code{polynomial}, \code{linear}, \code{channel},
 see Details). \bold{Note:} requires input for \code{values.bg}.}
 
-\item{output.path}{\link{character} (optional): output path for table output
-containing the results of the fit. The file name is set automatically. If
-the file already exists in the directory, the values are appended.}
-
-\item{output.terminal}{\link{logical} (with default): terminal output with
+\item{verbose}{\link{logical} (with default): terminal output with
 fitting results.}
 
-\item{output.terminaladvanced}{\link{logical} (with default): enhanced
-terminal output. Requires \code{output.terminal = TRUE}. If
-\code{output.terminal = FALSE} no advanced output is possible.}
-
-\item{output.plot}{\link{logical} (with default): returns a plot of the
+\item{plot}{\link{logical} (with default): returns a plot of the
 fitted curves.}
 
-\item{output.plotBG}{\link{logical} (with default): returns a plot of the
+\item{plot.BG}{\link{logical} (with default): returns a plot of the
 background values with the fit used for the background subtraction.}
 
 \item{\dots}{Further arguments that may be passed to the plot output, e.g.
 \code{xlab}, \code{xlab}, \code{main}, \code{log}.}
 }
 \value{
-\item{plot}{(optional) various types of plots are returned. For
-details see above.} \item{table}{(optional) an output table (*.csv) with the
-fitted components is provided if the \code{output.path} is set.}
-\item{list("list")}{beside the plot and table output, a \link{list} is
-returned. The list contains: \cr (a) an \code{nls} object (\code{$fit}) for
-which generic R functions are provided, e.g. \link{summary}, \link{confint},
-\link{profile}. For more details, see \link{nls}. \cr (b) a
-\link{data.frame} containing the summarised parameters including the error
-(\code{$output.table}). (c) a \link{matrix} containing the values for the
-component to sum contribution plot
-(\code{$component.contribution.matrix}).\cr
+Various types of plots are returned. For details see above.\cr
+Furthermore an \code{RLum.Results} object is returned with the following structure:\cr
 
-Matrix structure:\cr Column 1 and 2: time and \code{rev(time)} values\cr
+data:\cr
+.. $fit : \code{nls} (nls object)\cr
+.. $output.table : \code{data.frame} with fitting results\cr
+.. $component.contribution.matrix : \code{list} component distribution matrix\cr
+.. $call : \code{call} the original function call
+
+Matrix structure for the distribution matrix:\cr
+
+Column 1 and 2: time and \code{rev(time)} values\cr
 Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns \code{cont.} provide information on
 the relative component contribution for each time interval including the row
-sum for this values. }\item{ object}{beside the plot and table output, a
-\link{list} is returned. The list contains: \cr (a) an \code{nls} object
-(\code{$fit}) for which generic R functions are provided, e.g.
-\link{summary}, \link{confint}, \link{profile}. For more details, see
-\link{nls}. \cr (b) a \link{data.frame} containing the summarised parameters
-including the error (\code{$output.table}). (c) a \link{matrix} containing
-the values for the component to sum contribution plot
-(\code{$component.contribution.matrix}).\cr
-
-Matrix structure:\cr Column 1 and 2: time and \code{rev(time)} values\cr
-Additional columns are used for the components, two for each component,
-containing I0 and n0. The last columns \code{cont.} provide information on
-the relative component contribution for each time interval including the row
-sum for this values. }
+sum for this values.
 }
 \description{
 The function determines weighted nonlinear least-squares estimates of the
@@ -145,7 +127,7 @@ maximum of 7 components. Based on these values, the pseudo start parameters
 xm and Im are recalculated for the given data set. In all cases, the fitting
 starts with the ultra-fast component and (depending on \code{n.components})
 steps through the following values. If no fit could be achieved, an error
-plot (for \code{output.plot = TRUE}) with the pseudo curve (based on the
+plot (for \code{plot = TRUE}) with the pseudo curve (based on the
 pseudo start parameters) is provided. This may give the opportunity to
 identify appropriate start parameters visually.\cr\cr \bold{(b)} If start
 values are provided, the function works like a simple \code{\link{nls}}
@@ -177,7 +159,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.2.17 (2015-08-10 01:01:45)
+ 0.3.0 (2015-08-13 15:45:28)
 }
 \examples{
 ##(1) fit LM data without background subtraction
@@ -190,7 +172,7 @@ fit_LMCurve(values = values.curve, n.components = 3, log = "x")
 ## height = 3000, width = 3000, res = 300)
 data(ExampleData.FittingLM, envir = environment())
 fit_LMCurve(values = values.curve, values.bg = values.curveBG,
-            n.components = 2, log = "x", output.plotBG = TRUE)
+            n.components = 2, log = "x", plot.BG = TRUE)
 ##dev.off()
 
 ##(3) fit LM data with manual start parameters
@@ -225,7 +207,8 @@ Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. R. Gentleman,
 K. Hornik, & G. Parmigiani, eds., Springer, p. 150.
 }
 \seealso{
-\code{\link{fit_CWCurve}}, \code{\link{plot}}, \code{\link{nls}}
+\code{\link{fit_CWCurve}}, \code{\link{plot}}, \code{\link{nls}},
+\code{\link[minpack.lm]{nlsLM}}, \code{\link{get_RLum}}
 }
 \keyword{dplot}
 \keyword{models}
