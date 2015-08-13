@@ -30,7 +30,7 @@
 #' xm and Im are recalculated for the given data set. In all cases, the fitting
 #' starts with the ultra-fast component and (depending on \code{n.components})
 #' steps through the following values. If no fit could be achieved, an error
-#' plot (for \code{output.plot = TRUE}) with the pseudo curve (based on the
+#' plot (for \code{plot = TRUE}) with the pseudo curve (based on the
 #' pseudo start parameters) is provided. This may give the opportunity to
 #' identify appropriate start parameters visually.\cr\cr \bold{(b)} If start
 #' values are provided, the function works like a simple \code{\link{nls}}
@@ -55,81 +55,86 @@
 #' @param values \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
 #' (\bold{required}): x,y data of measured values (time and counts). See
 #' examples.
+#'
 #' @param values.bg \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
 #' (optional): x,y data of measured values (time and counts) for background
 #' subtraction.
+#'
 #' @param n.components \link{integer} (with default): fixed number of
 #' components that are to be recognised during fitting (min = 1, max = 7).
+#'
 #' @param start_values \link{data.frame} (optional): start parameters for lm
 #' and xm data for the fit. If no start values are given, an automatic start
 #' value estimation is attempted (see details).
+#'
 #' @param input.dataType \link{character} (with default): alter the plot output
 #' depending on the input data: "LM" or "pLM" (pseudo-LM). See: \link{CW2pLM}
+#'
+#' @param fit.method \code{\link{character}} (with default): select fit method,
+#' allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
+#' routine usint the funtion \code{\link{nls}} \code{'LM'} utilises the
+#' function \code{nlsLM} from the package \code{minpack.lm} and with that the
+#' Levenberg-Marquardt algorithm.
+#'
 #' @param sample_code \link{character} (optional): sample code used for the
 #' plot and the optional output table (mtext).
+#'
 #' @param sample_ID \link{character} (optional): additional identifier used as
 #' column header for the table output.
+#'
 #' @param LED.power \link{numeric} (with default): LED power (max.) used for
 #' intensity ramping in mW/cm^2. \bold{Note:} This value is used for the
 #' calculation of the absolute photoionisation cross section.
+#'
 #' @param LED.wavelength \link{numeric} (with default): LED wavelength in nm
 #' used for stimulation. \bold{Note:} This value is used for the calculation of
 #' the absolute photoionisation cross section.
-#' @param cex.global \link{numeric} (with default): global scaling factor.
+#'
 #' @param fit.trace \link{logical} (with default): traces the fitting process
 #' on the terminal.
+#'
 #' @param fit.advanced \link{logical} (with default): enables advanced fitting
 #' attempt for automatic start parameter recognition. Works only if no start
-#' parameters are provided. \bold{Note:} It may take a while.
+#' parameters are provided. \bold{Note:} It may take a while and it is not
+#' compatible with \code{fit.method = "LM"}.
+#'
 #' @param fit.calcError \link{logical} (with default): calculate 1-sigma error
 #' range of components using \link{confint}.
+#'
 #' @param bg.subtraction \link{character} (with default): specifies method for
 #' background subtraction (\code{polynomial}, \code{linear}, \code{channel},
 #' see Details). \bold{Note:} requires input for \code{values.bg}.
-#' @param output.path \link{character} (optional): output path for table output
-#' containing the results of the fit. The file name is set automatically. If
-#' the file already exists in the directory, the values are appended.
-#' @param output.terminal \link{logical} (with default): terminal output with
+#'
+#' @param verbose \link{logical} (with default): terminal output with
 #' fitting results.
-#' @param output.terminaladvanced \link{logical} (with default): enhanced
-#' terminal output. Requires \code{output.terminal = TRUE}. If
-#' \code{output.terminal = FALSE} no advanced output is possible.
-#' @param output.plot \link{logical} (with default): returns a plot of the
+#'
+#' @param plot \link{logical} (with default): returns a plot of the
 #' fitted curves.
-#' @param output.plotBG \link{logical} (with default): returns a plot of the
+#'
+#' @param plot.BG \link{logical} (with default): returns a plot of the
 #' background values with the fit used for the background subtraction.
+#'
 #' @param \dots Further arguments that may be passed to the plot output, e.g.
 #' \code{xlab}, \code{xlab}, \code{main}, \code{log}.
-#' @return \item{plot}{(optional) various types of plots are returned. For
-#' details see above.} \item{table}{(optional) an output table (*.csv) with the
-#' fitted components is provided if the \code{output.path} is set.}
-#' \item{list("list")}{beside the plot and table output, a \link{list} is
-#' returned. The list contains: \cr (a) an \code{nls} object (\code{$fit}) for
-#' which generic R functions are provided, e.g. \link{summary}, \link{confint},
-#' \link{profile}. For more details, see \link{nls}. \cr (b) a
-#' \link{data.frame} containing the summarised parameters including the error
-#' (\code{$output.table}). (c) a \link{matrix} containing the values for the
-#' component to sum contribution plot
-#' (\code{$component.contribution.matrix}).\cr
 #'
-#' Matrix structure:\cr Column 1 and 2: time and \code{rev(time)} values\cr
+#' @return
+#' Various types of plots are returned. For details see above.\cr
+#' Furthermore an \code{RLum.Results} object is returned with the following structure:\cr
+#'
+#' data:\cr
+#' .. $fit : \code{nls} (nls object)\cr
+#' .. $output.table : \code{data.frame} with fitting results\cr
+#' .. $component.contribution.matrix : \code{list} component distribution matrix\cr
+#' .. $call : \code{call} the original function call
+#'
+#' Matrix structure for the distribution matrix:\cr
+#'
+#' Column 1 and 2: time and \code{rev(time)} values\cr
 #' Additional columns are used for the components, two for each component,
 #' containing I0 and n0. The last columns \code{cont.} provide information on
 #' the relative component contribution for each time interval including the row
-#' sum for this values. }\item{ object}{beside the plot and table output, a
-#' \link{list} is returned. The list contains: \cr (a) an \code{nls} object
-#' (\code{$fit}) for which generic R functions are provided, e.g.
-#' \link{summary}, \link{confint}, \link{profile}. For more details, see
-#' \link{nls}. \cr (b) a \link{data.frame} containing the summarised parameters
-#' including the error (\code{$output.table}). (c) a \link{matrix} containing
-#' the values for the component to sum contribution plot
-#' (\code{$component.contribution.matrix}).\cr
+#' sum for this values.
 #'
-#' Matrix structure:\cr Column 1 and 2: time and \code{rev(time)} values\cr
-#' Additional columns are used for the components, two for each component,
-#' containing I0 and n0. The last columns \code{cont.} provide information on
-#' the relative component contribution for each time interval including the row
-#' sum for this values. }
 #' @note The pseudo-R^2 may not be the best parameter to describe the goodness
 #' of the fit. The trade off between the \code{n.components} and the pseudo-R^2
 #' value currently remains unconsidered. \cr
@@ -137,10 +142,15 @@
 #' The function \bold{does not} ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
-#' @section Function version: 0.2.17
+#'
+#' @section Function version: 0.3.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
-#' @seealso \code{\link{fit_CWCurve}}, \code{\link{plot}}, \code{\link{nls}}
+#'
+#' @seealso \code{\link{fit_CWCurve}}, \code{\link{plot}}, \code{\link{nls}},
+#' \code{\link[minpack.lm]{nlsLM}}, \code{\link{get_RLum}}
+#'
 #' @references Bulur, E., 1996. An Alternative Technique For Optically
 #' Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,
 #' 701-709.
@@ -158,7 +168,9 @@
 #'
 #' Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. R. Gentleman,
 #' K. Hornik, & G. Parmigiani, eds., Springer, p. 150.
+#'
 #' @keywords dplot models
+#'
 #' @examples
 #'
 #'
@@ -172,7 +184,7 @@
 #' ## height = 3000, width = 3000, res = 300)
 #' data(ExampleData.FittingLM, envir = environment())
 #' fit_LMCurve(values = values.curve, values.bg = values.curveBG,
-#'             n.components = 2, log = "x", output.plotBG = TRUE)
+#'             n.components = 2, log = "x", plot.BG = TRUE)
 #' ##dev.off()
 #'
 #' ##(3) fit LM data with manual start parameters
@@ -190,20 +202,18 @@ fit_LMCurve<- function(
   n.components = 3,
   start_values,
   input.dataType = "LM",
+  fit.method = "port",
   sample_code = "",
   sample_ID = "",
   LED.power = 36,
   LED.wavelength = 470,
-  cex.global = 0.8,
   fit.trace = FALSE,
   fit.advanced = FALSE,
   fit.calcError = FALSE,
   bg.subtraction = "polynomial",
-  output.path,
-  output.terminal = TRUE,
-  output.terminaladvanced = TRUE,
-  output.plot = TRUE,
-  output.plotBG = FALSE,
+  verbose = TRUE,
+  plot = TRUE,
+  plot.BG = FALSE,
   ...
 ){
 
@@ -289,7 +299,8 @@ fit_LMCurve<- function(
   main      <- if("main" %in% names(extraArgs)) {extraArgs$main}
   else {"Default"}
 
-
+  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex}
+  else {0.8}
 
 
   fun       <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
@@ -304,7 +315,7 @@ fit_LMCurve<- function(
   if(missing(values.bg)==FALSE){
 
     #set graphical parameters
-    par.default <- par(mfrow=c(1,1), cex=1.5*cex.global)
+    par.default <- par(mfrow=c(1,1), cex=1.5*cex)
 
     ##check if length of bg and signal is consistent
     if(length(values[,2])!=length(values.bg[,2])){stop("[fit_LMCurve] Length of values and values.bg differs!")}
@@ -321,7 +332,7 @@ fit_LMCurve<- function(
       writeLines("[fit_LMCurve] >> Background subtracted (method=\"polynomial\")!")
 
       ##plot Background measurement if needed
-      if(output.plotBG==TRUE){
+      if(plot.BG==TRUE){
 
         plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
         curve((glm.coef[4]*x^3+glm.coef[3]*x^2+glm.coef[2]*x+glm.coef[1]),add=TRUE,col="red",lwd=2)
@@ -333,7 +344,7 @@ fit_LMCurve<- function(
                                         "*x+",
                                         round(glm.coef[1],digits=2),
                                         sep=""),pos=4)
-        mtext(side=3,sample_code,cex=.8*cex.global)
+        mtext(side=3,sample_code,cex=.8*cex)
       }
 
     }else if(bg.subtraction=="linear"){
@@ -347,7 +358,7 @@ fit_LMCurve<- function(
       writeLines("[fit_LMCurve.R] >> Background subtracted (method=\"linear\")!")
 
       ##plot Background measurement if needed
-      if(output.plotBG==TRUE){
+      if(plot.BG==TRUE){
 
         plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
         curve((glm.coef[2]*x+glm.coef[1]),add=TRUE,col="red",lwd=1.5)
@@ -356,7 +367,7 @@ fit_LMCurve<- function(
                                         "*x+",
                                         round(glm.coef[1],digits=2),
                                         sep=""),pos=4)
-        mtext(side=3,sample_code,cex=.8*cex.global)
+        mtext(side=3,sample_code,cex=.8*cex)
 
       }#endif::plot BG
 
@@ -365,10 +376,10 @@ fit_LMCurve<- function(
       values[,2]<-values[,2]-values.bg[,2]
       writeLines("[fit_LMCurve.R] >> Background subtracted (method=\"channel\")!")
 
-      if(output.plotBG==TRUE){
+      if(plot.BG==TRUE){
 
         plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
-        mtext(side=3,sample_code,cex=.8*cex.global)
+        mtext(side=3,sample_code,cex=.8*cex)
       }
 
     }else{stop("Error: Invalid method for background subtraction")}
@@ -395,13 +406,26 @@ fit_LMCurve<- function(
   ##////equation used for fitting///(end)
   ##------------------------------------------------------------------------##
 
+  ##set formula elements for fitting functions
+  ## the upper two funtions should be removed ... but chances are needed ... TODO
+  ##////equation used for fitting////(start)
+  fit.formula <- function(n.components){
+
+    Im <- paste0("Im.",1:n.components)
+    xm <- paste0("xm.",1:n.components)
+
+    as.formula(paste0("y ~ ", paste("(exp(0.5) * ", Im, "* x/", xm, ") * exp(-x^2/(2 *",xm,"^2))", collapse=" + ")))
+
+  }
+  ##////equation used for fitting///(end)
+
   ##------------------------------------------------------------------------##
   ##automatic start parameter estimation
 
   ##set fit function
   fit.function<-fit.equation(Im.i=1:n.components,xm.i=1:n.components)
 
-  if(missing(start_values)==TRUE){
+  if(missing(start_values)){
 
     ##set b (detrapping) values for a 7-component function taken from Jain et al. (2003)
     b.pseudo<-c(32,2.5,0.65,0.15,0.025,0.0025,0.00030)
@@ -427,7 +451,7 @@ fit_LMCurve<- function(
       xm<-xm.pseudo[b.pseudo_start:(n.components+b.pseudo_end)]
       Im<-Im.pseudo[b.pseudo_start:(n.components+b.pseudo_end)]
 
-      if(fit.advanced==TRUE){
+      if(fit.advanced){
         ##---------------------------------------------------------------##
         ##MC for fitting parameter
         ##make the fitting more stable by small variations of the parameters
@@ -459,7 +483,7 @@ fit_LMCurve<- function(
           ),# nls
           silent=TRUE)# end try
           ##graphical output
-          if(i==1){cat(paste("[fit_LMCurve.R] >> advanced fitting attempt (#",
+          if(i==1){cat(paste("[fit_LMCurve()] >> advanced fitting attempt (#",
                              b.pseudo_start,"): ",sep=""))}
           cat("*")
 
@@ -470,18 +494,46 @@ fit_LMCurve<- function(
 
       }else{
 
-        ##NLS      ##try fit
-        fit<-try(nls(y~eval(fit.function),
-                     trace=fit.trace,
-                     data=data.frame(x=values[,1],y=values[,2]),
-                     algorithm="port",
-                     start=list(Im=Im,xm=xm),#end start values input
-                     nls.control(
-                       maxiter=500
-                     ),#end nls control
-                     lower=c(xm=0,Im=0)
-        ),# nls
-        silent=TRUE)# end try
+
+        if(fit.method == "port") {
+          fit <- try(nls(
+            y ~ eval(fit.function),
+            trace = fit.trace,
+            data = data.frame(x = values[,1],y = values[,2]),
+            algorithm = "port",
+            start = list(Im = Im,xm = xm),#end start values input
+            nls.control(maxiter = 500),#end nls control
+            lower = c(xm = 0,Im = 0)
+          ),# nls
+          silent = TRUE)
+          # end try
+
+        }else if (fit.method == "LM") {
+          ##re-name for method == "LM"
+          names(Im) <- paste0("Im.", 1:n.components)
+          names(xm) <- paste0("xm.", 1:n.components)
+          start.list <- c(as.list(Im), as.list(xm))
+          lower <-
+            sapply(start.list, function(x) {
+              start.list[[x]] <- 0
+            })
+
+          fit <- try(minpack.lm::nlsLM(
+            fit.formula(n.components),
+            data = data.frame(x = values[,1],
+                              y = values[,2]),
+            start = start.list,
+            lower = lower,
+            trace = fit.trace,
+            control = minpack.lm::nls.lm.control(maxiter = 500)
+          ), silent = TRUE)
+
+        }else{
+
+          stop("[fit_LMCurve()] unknow method for 'fit.method'")
+
+        }
+
 
       }#endifelse::fit.advanced
 
@@ -518,21 +570,24 @@ fit_LMCurve<- function(
 
     ##write parameters in vectors and order parameters
     Im<-parameters[1:(length(parameters)/2)]
+    Im.names <- names(Im)
     xm<-parameters[(1+(length(parameters)/2)):length(parameters)]
+    xm.names <- names(xm)
 
     ##order parameters
-    o<-order(xm)
-    xm<-xm[o]
-    Im<-Im[o]
+    o <- order(xm)
+    xm <- xm[o]
+    names(xm) <- xm.names
+    Im <- Im[o]
+    names(Im) <- Im.names
 
-
-    if (output.terminal==TRUE){
+    if (verbose){
       ##print rough fitting information - use the nls() control for more information
-      writeLines("\n[fit_LMCurve.R]")
+      writeLines("\n[fit_LMCurve()]")
       writeLines(paste("\nFitting was done using a ",n.components, "-component function:\n",sep=""))
 
       ##print parameters
-      print(parameters)
+      print(c(xm, Im))
 
       #print some additional information
       writeLines("\n(equation used for fitting according Kitis & Pagonis, 2008)")
@@ -694,7 +749,7 @@ fit_LMCurve<- function(
     ##============================================================================##
     ##  Terminal Output (advanced)
     ##============================================================================##
-    if (output.terminaladvanced==TRUE && output.terminal==TRUE){
+    if (verbose){
       ##write fill lines
       writeLines("------------------------------------------------------------------------------")
       writeLines("(1) Corresponding values according the equation in Bulur, 1996 for b and n0:\n")
@@ -780,23 +835,6 @@ fit_LMCurve<- function(
       ###alter column names
       colnames(output.table)<-c("ID","sample_code","n.components",output.tableColNames,"pseudo-R^2")
 
-
-      ##============================================================================#
-      ## TABLE OUTPUT (CVS)
-      ##============================================================================#
-
-      if(missing(output.path)==FALSE){
-
-        ##write file with just the header if the file not exists
-        if(file.exists(paste(output.path,"Fit_Output_",sample_code,".csv",sep=""))==FALSE){
-          write.table(output.table,file=paste(output.path,"Fit_Output_",sample_code,".csv",sep=""), sep=","
-                      ,row.names=FALSE)
-        }else{
-          write.table(output.table,file=paste(output.path,"Fit_Output_",sample_code,".csv",sep=""), sep=","
-                      ,row.names=FALSE, append=TRUE, col.names=FALSE)
-        }#endif :: for write option
-      }#endif::CSV output
-
       ##----------------------------------------------------------------------------##
     }#endif::exists fit
   }else{
@@ -809,7 +847,7 @@ fit_LMCurve<- function(
   ##============================================================================##
   ##  PLOTTING
   ##============================================================================##
-  if(output.plot==TRUE){
+  if(plot){
 
     ##cheat the R check routine
     x <- NULL; rm(x)
@@ -821,7 +859,7 @@ fit_LMCurve<- function(
     par.default <- par(no.readonly = TRUE)
 
     layout(matrix(c(1,2,3),3,1,byrow=TRUE),c(1.6,1,1), c(1,0.3,0.4),TRUE)
-    par(oma=c(1,1,1,1),mar=c(0,4,3,0), cex=cex.global)
+    par(oma=c(1,1,1,1),mar=c(0,4,3,0), cex=cex)
 
     ##==uppper plot==##
     ##open plot area
@@ -835,7 +873,7 @@ fit_LMCurve<- function(
          ylab=ylab
     )#endplot
 
-    mtext(side=3,sample_code,cex=0.8*cex.global)
+    mtext(side=3,sample_code,cex=0.8*cex)
 
     ##plotting measured signal
     points(values[,1],values[,2],pch=20, col="grey")
@@ -852,7 +890,7 @@ fit_LMCurve<- function(
       lines(values[,1],eval(fit.function), lwd=2, col="red", lty=2)
 
       axis(side=1)
-      mtext(side=1,xlab, cex=.9*cex.global,line=2)
+      mtext(side=1,xlab, cex=.9*cex,line=2)
 
       mtext(side=4,paste(n.components, " component pseduo function is shown",sep=""),cex=0.7, col="blue")
 
@@ -949,7 +987,10 @@ fit_LMCurve<- function(
     data = list(
       fit = fit,
       output.table = output.table,
-      component.contribution.matrix = list(component.contribution.matrix)))
+      component.contribution.matrix = list(component.contribution.matrix),
+      call = sys.call()
+    )
+  )
 
   invisible(newRLumResults.fit_LMCurve)
 

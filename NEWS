@@ -33,6 +33,31 @@ Changes in version 0.5.0 (, 2015):
                calculated due to the missing R0 point the function
                stopped with an error. Corrected.
 
+         • ‘fit_LMCurve()’
+
+             • Argument ‘output.plot’ renamed to ‘plot’,
+
+             • argument ‘output.plotBG’ renamed to ‘plot.BG’,
+
+             • arguemtn ‘output.terminal’ renamed to ‘verbose’,
+
+             • argument ‘output.path’ removed without replacement,
+               corresponding code has been removed from the function,
+
+             • argument ‘cex.global’ removed, scaling can be still used
+               via ‘cex’
+
+             • argument ‘output.terminaladvanced’ has been removed
+               without replacement, terminal output can just be
+               triggered via ‘verbose’,
+
+             • new argument added ‘fit.method’. Argument works similar
+               as in ‘fit_CWCurve()’ and allows to use the
+               Levenberg-Marquardt algorithm for fitting,
+
+             • new return data object added ‘call’ containing the
+               original function call.
+
          • ‘plot_RLum()’
 
              • The ‘...’ argument ‘main’ can be now be of type ‘list’

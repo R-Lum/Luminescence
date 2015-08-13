@@ -30,6 +30,26 @@
 
       }
 
+
+     \item \code{fit_LMCurve()}
+      \itemize{
+
+        \item Argument \code{output.plot} renamed to \code{plot},
+        \item argument \code{output.plotBG} renamed to \code{plot.BG},
+        \item arguemtn \code{output.terminal} renamed to \code{verbose},
+        \item argument \code{output.path} removed without replacement, corresponding code has been
+        removed from the function,
+        \item argument \code{cex.global} removed, scaling can be still used via \code{cex}
+        \item argument \code{output.terminaladvanced} has been removed without replacement, terminal
+        output can just be triggered via \code{verbose},
+        \item new argument added \code{fit.method}. Argument works similar as in \code{fit_CWCurve()}
+        and allows to use the Levenberg-Marquardt algorithm for fitting,
+        \item new return data object added \code{call} containing the original function call.
+
+
+
+      }
+
      \item \code{plot_RLum()}
       \itemize{
 
