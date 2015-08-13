@@ -112,7 +112,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.5.5 (2015-08-10 22:36:39)
+ 0.5.5 (2015-08-13 17:21:43)
 }
 \examples{
 ##load data
