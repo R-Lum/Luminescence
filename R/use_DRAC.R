@@ -94,18 +94,23 @@ use_DRAC <- function(
   
   
   if (!inherits(file, "DRAC.data.frame")) {
-  # Import data ---------------------------------------------------------------------------------
-  
-  ## Import and skipt the first rows and remove NA lines and the 2 row, as this row contains
-  ## only meta data
-  
-  ##check if is the original DRAC table
-  if (readxl::excel_sheets(file)[1] != "DRAC_1.1_input") {
-    stop("[use_DRAC()] It looks like that you are not using the original DRAC XLSX template. This is currently
+    # Import data ---------------------------------------------------------------------------------
+    
+    ## Import and skipt the first rows and remove NA lines and the 2 row, as this row contains
+    ## only meta data
+    
+    ##check if is the original DRAC table
+    if (readxl::excel_sheets(file)[1] != "DRAC_1.1_input") {
+      stop("[use_DRAC()] It looks like that you are not using the original DRAC XLSX template. This is currently
          not supported!")
+    }
+    
+    input.raw <- na.omit(as.data.frame(readxl::read_excel(path = file, sheet = 1, skip = 5)))[-1, ]
   }
   
-  input.raw <- na.omit(as.data.frame(readxl::read_excel(path = file, sheet = 1, skip = 5)))[-1, ]
+  if (inherits(file, "DRAC.data.frame")) {
+    input.raw <- file
+  }
   
   
   # Set helper function -------------------------------------------------------------------------
@@ -122,7 +127,7 @@ use_DRAC <- function(
     return(t(temp.result))
   }
   
-
+  
   # Process data --------------------------------------------------------------------------------
   
   ##(1) expand the rows in the data.frame a little bit
@@ -152,11 +157,6 @@ use_DRAC <- function(
   DRAC_submission.df <- DRAC_submission.df[sample(x = 1:nrow(DRAC_submission.df), nrow(DRAC_submission.df),
                                                   replace = FALSE), ]
   
-  }## End Of ExcelSheet import
-  
-  if (inherits(file, "DRAC.data.frame"))
-    DRAC_submission.df <- file
-  
   ##get line by line and remove unwanted characters
   DRAC_submission.string <- sapply(1:nrow(DRAC_submission.df), function(x) {
     paste0(gsub(",", "", toString(DRAC_submission.df[x,])), "\n")
@@ -165,7 +165,7 @@ use_DRAC <- function(
   ##paste everything together to get the format we want
   DRAC_input <- paste(DRAC_submission.string, collapse = "")
   
-
+  
   # Send data to DRAC ---------------------------------------------------------------------------
   
   ## send data set to DRAC website and receive repsonse
@@ -218,7 +218,7 @@ use_DRAC <- function(
   DRAC.labels <- DRAC.raw[2, ]
   
   ## return output
-  return(list(DRAC.header = DRAC.header,
-              DRAC.labels = DRAC.labels,
-              DRAC.content = DRAC.content))
+  invisible(list(DRAC.header = DRAC.header,
+                 DRAC.labels = DRAC.labels,
+                 DRAC.content = DRAC.content))
 }

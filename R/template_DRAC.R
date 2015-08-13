@@ -2,7 +2,7 @@
 #'
 #' This function returns a DRAC input template (v1.1) to be used in conjunction
 #' with the use_DRAC() function
-#'
+#' 
 #' @param nrows \code{\link{integer}} (with default): specifies the number of rows
 #' of the template (i.e., the number of data sets you want to submit)
 #' 
@@ -24,7 +24,7 @@
 #' print(template[[4]])
 #' 
 #' # fill in data
-#' template$
+#' 
 #' 
 template_DRAC <- function(nrows = 1, notification = TRUE) {
   
