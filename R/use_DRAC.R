@@ -158,9 +158,13 @@ use_DRAC <- function(
   DRAC_submission.df <- DRAC_submission.df[sample(x = 1:nrow(DRAC_submission.df), nrow(DRAC_submission.df),
                                                   replace = FALSE), ]
   
+  ##convert all columns of the data.frame to class 'character'
+  for (i in 1:ncol(DRAC_submission.df)) 
+    DRAC_submission.df[ ,i] <- as.character(DRAC_submission.df[, i])
+  
   ##get line by line and remove unwanted characters
   DRAC_submission.string <- sapply(1:nrow(DRAC_submission.df), function(x) {
-    paste0(gsub(",", "", toString(DRAC_submission.df[x,])), "\n")
+    paste0(gsub(",", "", toString(DRAC_submission.df[x, ])), "\n")
   })
   
   ##paste everything together to get the format we want
@@ -191,6 +195,15 @@ use_DRAC <- function(
   http.header <- DRAC.response$header
   DRAC.content <- httr::content(x = DRAC.response, as = "text")
   
+  ## if the input was valid from a technical standpoint, but not with regard
+  ## contents, we indeed get a valid response, but no DRAC output
+  if (!grepl("DRAC Outputs", DRAC.content)) {
+    stop(message(paste("\n\t We got a response from the server, but it\n",
+                       "\t did not contain DRAC output. Please check\n",
+                       "\t your data and verify it is valid.\n")),
+         call. = FALSE)
+  }
+    
   ## split header and content
   DRAC.content.split <- strsplit(x = DRAC.content,
                                  split = "DRAC Outputs\n\n")
