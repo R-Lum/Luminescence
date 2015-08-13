@@ -68,7 +68,7 @@ The function has been successfully tested for SPE format versions 2.x.
 supported.}
 }
 \section{Function version}{
- 0.1.0 (2015-08-13 16:52:57)
+ 0.1.0 (2015-08-13 17:00:23)
 }
 \examples{
 ## to run examples uncomment lines and run the code

@@ -22,7 +22,7 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.0 (2015-08-12 14:53:21)
+ 0.1.0 (2015-08-13 17:00:23)
 }
 \examples{
 \dontrun{
