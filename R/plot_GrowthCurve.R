@@ -50,6 +50,10 @@
 #' fitting. Possible options are: \code{LIN}, \code{EXP}, \code{EXP OR LIN},
 #' \code{EXP+LIN} or \code{EXP+EXP}. See details.
 #'
+#' @param fit.force_through_origin \code{\link{logical}} (with default) allow to force
+#' the fitted function through the origin. For \code{method = "EXP+EXP"} the function will
+#' go to the origin in either case, so this option will have no effect.
+#'
 #' @param fit.weights \code{\link{logical}} (with default): option whether the
 #' fitting is done with or without weights. See details.
 #'
@@ -103,7 +107,7 @@
 #' .. $Formula : \code{expression} \cr
 #' .. $call : \code{call} (the original function call)\cr
 #'
-#' @section Function version: 1.7.0
+#' @section Function version: 1.7.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -135,6 +139,7 @@ plot_GrowthCurve <- function(
   sample,
   na.rm = TRUE,
   fit.method = "EXP",
+  fit.force_through_origin = FALSE,
   fit.weights = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
   fit.NumberRegPoints,
@@ -387,6 +392,11 @@ plot_GrowthCurve <- function(
           }else{
             c(-Inf,-Inf,-Inf)
           },
+          upper = if (fit.force_through_origin) {
+            c(Inf, Inf, 0)
+          }else{
+            c(Inf, Inf, Inf)
+          },
           control = minpack.lm::nls.lm.control(maxiter = 500)
         ), silent = TRUE
       )
@@ -439,6 +449,11 @@ plot_GrowthCurve <- function(
               }else{
                 c(-Inf,-Inf,-Inf)
               },
+              upper = if (fit.force_through_origin) {
+                c(Inf, Inf, 0)
+              }else{
+                c(Inf, Inf, Inf)
+              },
               control = minpack.lm::nls.lm.control(maxiter = 500)
             ), silent = TRUE
           )
@@ -474,8 +489,24 @@ plot_GrowthCurve <- function(
     if ((fit.method=="EXP OR LIN" & class(fit)=="try-error") |
           fit.method=="LIN" | length(data[,1])<3) {
 
-      #calculate De
-      De <- round((sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2], digits=2)
+      ##Do fitting again as just allows fitting through the origin
+      if(fit.force_through_origin){
+
+        fit.lm<-lm(data$y ~ 0 + data$x, weights = fit.weights)
+
+        #calculate De
+        De <- round((sample[1,2]/fit.lm$coefficients[1]), digits=2)
+
+
+      }else{
+
+        fit.lm<-lm(data$y ~ data$x, weights = fit.weights)
+
+        #calculate De
+        De <- round((sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2], digits=2)
+
+      }
+
 
       ##remove vector labels
       De <- as.numeric(as.character(De))
@@ -486,14 +517,29 @@ plot_GrowthCurve <- function(
 
         data <- data.frame(x=xy$x, y=data.MC[,i])
 
-        ##check if fit weights are NULL
-        if(!is.null(fit.weights)){fit.weights <- abs(fit.weights)}
+        if(fit.force_through_origin){
 
-        fit.lmMC <- lm(data$y~data$x, weights=fit.weights)
+          ##do fitting
+          fit.lmMC <- lm(data$y ~ 0 + data$x, weights=fit.weights)
 
-        #calculate x.natural
-        x.natural[i]<-round((data.MC.De[i]-fit.lmMC$coefficients[1])/
-                              fit.lmMC$coefficients[2], digits=2)
+          #calculate x.natural
+          x.natural[i]<-round((data.MC.De[i]/fit.lmMC$coefficients[1]), digits=2)
+
+
+        }else{
+
+          ##do fitting
+          fit.lmMC <- lm(data$y~ data$x, weights=fit.weights)
+
+          #calculate x.natural
+          x.natural[i]<-round((data.MC.De[i]-fit.lmMC$coefficients[1])/
+                                fit.lmMC$coefficients[2], digits=2)
+
+        }
+
+
+
+
       }#endfor::loop for MC
 
       #correct for fit.method
@@ -580,6 +626,11 @@ plot_GrowthCurve <- function(
           c(0,10,0,0)
         }else{
           c(-Inf,-Inf,-Inf,-Inf)
+        },
+        upper = if (fit.force_through_origin) {
+          c(Inf, Inf, 0, Inf)
+        }else{
+          c(Inf, Inf, Inf, Inf)
         },
         control = minpack.lm::nls.lm.control(maxiter = 500)
       ), silent = TRUE
@@ -1013,6 +1064,7 @@ plot_GrowthCurve <- function(
 
     #CURVE	#plot fitted curve
     if (fit.method=="EXP+LIN") {try(curve(a*(1-exp(-(x+c)/b)+(g*x)), lwd=1.5, add=TRUE))}
+    else if (fit.method=="LIN" & fit.force_through_origin) {curve(fit.lm$coefficients[1]*x,lwd=1.5, add=TRUE)}
     else if (fit.method=="LIN") {curve(fit.lm$coefficients[2]*x+fit.lm$coefficients[1],lwd=1.5, add=TRUE)}
     else if (fit.method=="EXP") {try(curve(fit.functionEXP(a,b,c,x), lwd=1.5, add=TRUE))}
     else if (fit.method=="EXP+EXP") {try(curve(fit.functionEXPEXP(a1,a2,b1,b2,x),lwd=1.5,add=TRUE))}

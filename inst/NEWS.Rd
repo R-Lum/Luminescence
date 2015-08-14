@@ -77,7 +77,12 @@
 
         \item Final fitting and fitting during the MC runs is now done using the Levenberg-Marquardt from the package 'minpack.lm'. This
         increases the fitting stability and the computation step markedly (#5),
-        \item output object is enhanced by the \code{call} containing the function call.
+        \item output object is enhanced by the \code{call} containing the function call,
+        \item for the option \code{fit.method = "LIN"} and \code{fit.method = "EXP OR LIN"} weights had been
+        not considered; corrected,
+        \item add argument \code{fit.force_through_origin}, it does excatly what you may expect from such
+        argument (#225, requested by Alice Versendaal).
+
 
 
       }

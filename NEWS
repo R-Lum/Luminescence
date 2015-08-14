@@ -83,7 +83,15 @@ Changes in version 0.5.0 (, 2015):
                the computation step markedly (#5),
 
              • output object is enhanced by the ‘call’ containing the
-               function call.
+               function call,
+
+             • for the option ‘fit.method = "LIN"’ and ‘fit.method =
+               "EXP OR LIN"’ weights had been not considered;
+               corrected,
+
+             • add argument ‘fit.force_through_origin’, it does excatly
+               what you may expect from such argument (#225, requested
+               by Alice Versendaal).
 
          • ‘plot_RLum()’
 

@@ -5,11 +5,11 @@
 \title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
 \usage{
 plot_GrowthCurve(sample, na.rm = TRUE, fit.method = "EXP",
-  fit.weights = TRUE, fit.includingRepeatedRegPoints = TRUE,
-  fit.NumberRegPoints, fit.NumberRegPointsReal, fit.bounds = TRUE,
-  NumberIterations.MC = 100, output.plot = TRUE,
-  output.plotExtended = TRUE, output.plotExtended.single = FALSE,
-  cex.global = 1, ...)
+  fit.force_through_origin = FALSE, fit.weights = TRUE,
+  fit.includingRepeatedRegPoints = TRUE, fit.NumberRegPoints,
+  fit.NumberRegPointsReal, fit.bounds = TRUE, NumberIterations.MC = 100,
+  output.plot = TRUE, output.plotExtended = TRUE,
+  output.plotExtended.single = FALSE, cex.global = 1, ...)
 }
 \arguments{
 \item{sample}{\code{\link{data.frame}} (\bold{required}): data frame with
@@ -22,6 +22,10 @@ from the data set prior to any further operations.}
 \item{fit.method}{\code{\link{character}} (with default): function used for
 fitting. Possible options are: \code{LIN}, \code{EXP}, \code{EXP OR LIN},
 \code{EXP+LIN} or \code{EXP+EXP}. See details.}
+
+\item{fit.force_through_origin}{\code{\link{logical}} (with default) allow to force
+the fitted function through the origin. For \code{method = "EXP+EXP"} the function will
+go to the origin in either case, so this option will have no effect.}
 
 \item{fit.weights}{\code{\link{logical}} (with default): option whether the
 fitting is done with or without weights. See details.}
@@ -119,7 +123,7 @@ provide an empty user mtext \code{mtext = ""}. To plot any other subtitle
 text, use \code{mtext}.
 }
 \section{Function version}{
- 1.7.0 (2015-08-14 10:29:45)
+ 1.7.1 (2015-08-14 12:23:51)
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value
