@@ -72,6 +72,16 @@
 
       }
 
+      \item \code{plot_GrowthCurve()}
+       \itemize{
+
+        \item Final fitting and fitting during the MC runs is now done using the Levenberg-Marquardt from the package 'minpack.lm'. This
+        increases the fitting stability and the computation step markedly (#5),
+        \item output object is enhanced by the \code{call} containing the function call.
+
+
+      }
+
 
      \item \code{plot_RLum()}
       \itemize{

@@ -75,6 +75,16 @@ Changes in version 0.5.0 (, 2015):
              • Further adjustment to deal with zero values (will now be
                removed automatically)
 
+         • ‘plot_GrowthCurve()’
+
+             • Final fitting and fitting during the MC runs is now done
+               using the Levenberg-Marquardt from the package
+               'minpack.lm'. This increases the fitting stability and
+               the computation step markedly (#5),
+
+             • output object is enhanced by the ‘call’ containing the
+               function call.
+
          • ‘plot_RLum()’
 
              • The ‘...’ argument ‘main’ can be now be of type ‘list’
