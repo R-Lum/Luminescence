@@ -14,8 +14,8 @@
 \S4method{set_RLum}{RLum.Analysis}(class, records, protocol)
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
-  RLum.type, protocol = "UNKNOWN", info.object, get.index,
-  keep.object = FALSE, recursive = TRUE)
+  RLum.type, protocol = "UNKNOWN", subset, get.index, keep.object = FALSE,
+  recursive = TRUE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
 }
@@ -39,7 +39,7 @@ by default.}
 \item{RLum.type}{[\code{get_RLum}] \code{\link{character}} (optional): RLum object type. Defaults to "RLum.Data.Curve"
 and "RLum.Data.Spectrum".}
 
-\item{info.object}{[\code{get_RLum}] currently not used.}
+\item{subset}{[\code{get_RLum}] \code{\link{list}}: currently not used.}
 
 \item{get.index}{[\code{get_RLum}] \code{\link{logical}} (optional): return a numeric vector with the index of each
 element in the RLum.Analysis object.}
