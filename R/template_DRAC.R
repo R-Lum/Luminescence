@@ -334,7 +334,7 @@ as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) 
   DF <- as.data.frame.list(x)
   colnames(DF) <- paste0("TI:", 1:ncol(DF))
   for (i in 1:ncol(DF)) {
-    if (is.factor(DF[ ,1])) 
+    if (is.factor(DF[ ,i])) 
       DF[ ,i] <- as.character(DF[, i])
   }
   class(DF) <- c("data.frame", "DRAC.data.frame")
