@@ -419,6 +419,12 @@ print.DRAC.list <- function(x, ...) {
 }
 
 ## ---------------------------------------------------------------------------##
+## SINGLE SQUARE BRACKET METHOD
+`[<-.DRAC.list` <- function(x, i, value) {
+  return(`[[<-`(x, i, value))
+}
+
+## ---------------------------------------------------------------------------##
 ## DOLLAR SIGN METHOD
 
 `$<-.DRAC.list`<- function(x, name, value) {
