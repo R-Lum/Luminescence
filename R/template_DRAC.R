@@ -370,6 +370,7 @@ print.DRAC.list <- function(x, ...) {
 ## ---------------------------------------------------------------------------##
 ## DOUBLE SQUARE BRACKETS METHOD
 
+#' @export
 `[[<-.DRAC.list` <- function(x, i, value) {
   
   ## CHECK INPUT LENGTH ----
@@ -446,6 +447,8 @@ print.DRAC.list <- function(x, ...) {
 
 ## ---------------------------------------------------------------------------##
 ## SINGLE SQUARE BRACKET METHOD
+
+#' @export
 `[<-.DRAC.list` <- function(x, i, value) {
   return(`[[<-`(x, i, value))
 }
@@ -453,6 +456,7 @@ print.DRAC.list <- function(x, ...) {
 ## ---------------------------------------------------------------------------##
 ## DOLLAR SIGN METHOD
 
+#' @export
 `$<-.DRAC.list`<- function(x, name, value) {
   # this is straightforward; retrieve the index and pass the object
   # to the custom [[<- function, which does the data verification
