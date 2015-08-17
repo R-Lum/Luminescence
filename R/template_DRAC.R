@@ -108,7 +108,7 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
                 description = "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."), #
     
     `Mineral` = 
-      structure(factor(rep("Q", nrow), c("Q", "F", "PM")), required = TRUE,
+      structure(factor(rep("Q", nrow), c("Q", "F", "PM")), required = TRUE, key = "TI:3",
                 description = "The mineral used for dating: quartz, feldspar or polymineral. Input must be 'Q', 'F' or 'PM'."), #
     
     `Conversion factors` = 
@@ -320,6 +320,10 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
 }
 
 
+
+## ---------------------------------------------------------------------------##
+## DATA FRAME COERCION METHOD
+
 ## This is a method for the as.data.frame S3 generic. We need this to intercept the
 ## DRAC list object after it hast passed the actual list-method. After it was 
 ## coerced to a data.frame we assign new column names (DRAC ID keys) and 
@@ -335,5 +339,93 @@ as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) 
   }
   class(DF) <- c("data.frame", "DRAC.data.frame")
   return(DF)
+}
+
+
+## ---------------------------------------------------------------------------##
+## PRINT METHOD
+
+print.DRAC.list <- function(x, ...) {
+  for (i in 1:length(x)) {
+    msg <- paste(attributes(x[[i]])$key, "=>",names(x)[i], "\n",
+                 "\t VALUES =", x[[i]], "\n",
+                 "\t REQUIRED =", attributes(x[[i]])$required, "\n",
+                 "\t DESCRIPTION =", attributes(x[[i]])$description, "\n\n"
+                 )
+    cat(msg)
+  }
+}
+
+
+## ---------------------------------------------------------------------------##
+## DOUBLE SQUARE BRACKETS METHOD
+
+`[[<-.DRAC.list` <- function(x, i, value) {
+  
+  ## CHECK INPUT LENGTH ----
+  length.old <- length(x[[i]])
+  length.new <- length(value)
+  
+  if (length.old != length.new) {
+    warning(paste("Input must be of length", length.old), 
+            call. = FALSE)
+    return(x)
+  }
+  
+  ## CHECK INPUT CLASS ----
+  class.old <- class(x[[i]])
+  class.new <- class(value)
+  
+  # numeric input can be both of class 'integer' or 'numeric'. We will
+  # allow any combination and reject only non-numeric/integer input
+  if (class.old == "numeric" || class.old == "integer") {
+    if (class.new != "numeric" && class.new != "integer") {
+      warning(paste("Input must be of class", class.old),
+              call. = FALSE)
+    }
+  }
+  
+  # for 'factor' and 'character' elements only 'character' input is allowed 
+  if (class.old == "factor" || class.old == "character") {
+    if (class.new != "character") {
+      warning(paste("Input must be of class", "character"),
+              call. = FALSE)
+      return(x)
+    }
+  }
+  
+  ## CHECK IF VALID OPTION ----
+  # in case of 'factor's the user is only allowed input that matches one of 
+  # the options specified by the factor levels. if it is a valid option,
+  # the input is converted to a factor to keep the information.
+  if (class.old == "factor") {
+    levels <- levels(x[[i]])
+    if (any(`%in%`(value, levels)) == FALSE) {
+      warning(paste("Invalid option. Valid options are:", paste(levels, collapse = ", ")),
+              call. = FALSE)
+      return(x)
+    } else {
+      value <- factor(value, levels)
+    }
+  }
+  
+  ## WRITE NEW VALUES ----
+  # we strip our custom class, pass the object to the default generic and 
+  # finally re-attach our custom class
+  class(x) <- "list"
+  x <- `[[<-`(x, i, value)
+  class(x) <- c("DRAC.list", "list")
+  return(x)
+}
+
+## ---------------------------------------------------------------------------##
+## DOLLAR SIGN METHOD
+
+`$<-.DRAC.list`<- function(x, name, value) {
+  # this is straightforward; retrieve the index and pass the object
+  # to the custom [[<- function, which does the data verification
+  index <- which(names(x) == name)
+  x[[index]] <- value
+  return(x)
 }
 
