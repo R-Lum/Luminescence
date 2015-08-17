@@ -202,7 +202,7 @@ use_DRAC <- function(
   if (!grepl("DRAC Outputs", DRAC.content)) {
     stop(message(paste("\n\t We got a response from the server, but it\n",
                        "\t did not contain DRAC output. Please check\n",
-                       "\t your data and verify it is valid.\n")),
+                       "\t your data and verify its validity.\n")),
          call. = FALSE)
   }
     
@@ -233,8 +233,21 @@ use_DRAC <- function(
   ## assign labels
   DRAC.labels <- DRAC.raw[2, ]
   
+  ## DRAC also returns the input, so we need to split input and output
+  DRAC.content.input <- DRAC.content[ ,grep("TI:", names(DRAC.content))]
+  DRAC.content.output <- DRAC.content[ ,grep("TO:", names(DRAC.content))]
+  
+  ## The DRAC ouput also contains a hightlight table, which results in 
+  ## duplicate columns. When creating the data.frame duplicate columns 
+  ## are automatically appended '.1' in their names, so we can identify 
+  ## and remove them easily
+  DRAC.content.input <- DRAC.content.input[ ,-grep("\\.1", names(DRAC.content.input))]
+  DRAC.content.output <- DRAC.content.output[ ,-grep("\\.1", names(DRAC.content.output))]
+  
   ## return output
   invisible(list(DRAC.header = DRAC.header,
                  DRAC.labels = DRAC.labels,
-                 DRAC.content = DRAC.content))
+                 DRAC.content = DRAC.content,
+                 DRAC.input = DRAC.content.input,
+                 DRAC.output = DRAC.content.output))
 }
