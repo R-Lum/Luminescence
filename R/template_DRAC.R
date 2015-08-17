@@ -268,39 +268,39 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
                 description = "Sediment water content (%) over the burial period. Inputs should be 0 or positive and not be left blank."), #
     
     `Depth (m)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:43",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:43",
                 description = "Depth and uncertainty from which sample was extracted beneath the ground surface. Inputs should be 0 or positive and not left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `errDepth (m)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:44",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:44",
                 description = "Depth and uncertainty from which sample was extracted beneath the ground surface. Inputs should be 0 or positive and not left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `Overburden density (g cm-3)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:45",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:45",
                 description = "Density of the overlying sediment matrix from which the sample was taken. Inputs should be 0 or positive and not be left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `errOverburden density (g cm-3)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:46",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:46",
                 description = "Density of the overlying sediment matrix from which the sample was taken. Inputs should be 0 or positive and not be left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `Latitude (decimal degrees)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:47",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:47",
                 description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from – 90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
     
     `Longitude (decimal degrees)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:48",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:48",
                 description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from – 90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
     
     `Altitude (m)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:49",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:49",
                 description = "Altitude of sample location in metres above sea level. Input should be less than 5000 and not left blank. If user defined Dc will be used then an 'X' must be input."), #
     
     `User cosmicdoserate (Gy.ka-1)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:50",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:50",
                 description = "Users may input a cosmic dose rate (in Gy.ka-1). Inputs in these fields will override the DRAC calculated cosmic dose rate. Inputs should be positive or 'X' if not required, and not left blank."), #
     
     `errUser cosmicdoserate (Gy.ka-1)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = FALSE, key = "TI:51",
+      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:51",
                 description = "Users may input a cosmic dose rate (in Gy.ka-1). Inputs in these fields will override the DRAC calculated cosmic dose rate. Inputs should be positive or 'X' if not required, and not left blank."), #
     
     `De (Gy)` = 
@@ -397,6 +397,7 @@ print.DRAC.list <- function(x, ...) {
   # non-character input is allowed
   if (any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
     class.new <- "character"
+    value <- as.character(value)
   }
   
   # numeric input can be both of class 'integer' or 'numeric'. We will
