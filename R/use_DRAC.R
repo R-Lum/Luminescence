@@ -230,8 +230,11 @@ use_DRAC <- function(
   ## assign column names
   colnames(DRAC.content) <- DRAC.raw[1, ]
   
-  ## assign labels
+  ## save column labels and use them as attributes for the I/O table columns
   DRAC.labels <- DRAC.raw[2, ]
+  for (i in 1:length(DRAC.content)) {
+    attr(DRAC.content[ ,i], "description") <- DRAC.labels[1,i]
+  }
   
   ## DRAC also returns the input, so we need to split input and output
   DRAC.content.input <- DRAC.content[ ,grep("TI:", names(DRAC.content))]
@@ -244,10 +247,27 @@ use_DRAC <- function(
   DRAC.content.input <- DRAC.content.input[ ,-grep("\\.1", names(DRAC.content.input))]
   DRAC.content.output <- DRAC.content.output[ ,-grep("\\.1", names(DRAC.content.output))]
   
+  ## The output table (v1.1) has 198 columns, making it unreasonable complex 
+  ## for standard data evaluation. We reproduce the DRAC highlight table 
+  ## and use the descriptions (saved as attributes) as column names.
+  highlight.keys <- c("TI:1","TI:2","TI:3","TO:FQ","TO:FR",
+                      "TO:FS", "TO:FT", "TO:FU", "TO:FV", "TO:FW",
+                      "TO:FX", "TO:FY", "TO:FZ", "TO:GG", "TO:GH",
+                      "TO:GI", "TO:GJ", "TO:GK", "TO:GL", "TO:GM",
+                      "TO:GN", "TI:52", "TI:53", "TO:GO", "TO:GP")
+  DRAC.highlights <- subset(DRAC.content, select = highlight.keys)
+  DRAC.highlights.labels <- as.character(DRAC.labels[1, which(unique(names(DRAC.content)) %in% highlight.keys)])
+  colnames(DRAC.highlights) <- DRAC.highlights.labels
+  for (i in 1:length(DRAC.highlights)) {
+    attr(DRAC.highlights[ ,i], "key") <- highlight.keys[i]
+  }
+  
+  
   ## return output
   invisible(list(DRAC.header = DRAC.header,
                  DRAC.labels = DRAC.labels,
                  DRAC.content = DRAC.content,
+                 DRAC.highlights = DRAC.highlights,
                  DRAC.input = DRAC.content.input,
                  DRAC.output = DRAC.content.output))
 }
