@@ -122,7 +122,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.6.0
+#' @section Function version: 0.6.1
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -148,7 +148,9 @@
 #' fading rates of various luminescence signals from feldspar-rich sediment
 #' extracts. Radiation Measurements 43, 1474-1486.
 #' doi:10.1016/j.radmeas.2008.06.002
+#'
 #' @keywords datagen plot
+#'
 #' @examples
 #'
 #' ##load data
@@ -1130,6 +1132,7 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                              palaeodose.error.data.frame,
                              exceed.max.regpoint.data.frame)
 
+
   ##add recjection status
  if(length(grep("FAILED",RejectionCriteria$Status))>0){
 
@@ -1154,13 +1157,25 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
 # Set return Values -----------------------------------------------------------
 
+  ##add data set identifyer
+  token <- paste(
+    temp.GC[,1],
+    temp.GC[,2],
+    temp.GC[,3],
+    RejectionCriteria[,4],
+    collapse = "" )
+
+  ##generate unique identifier
+  UID <- digest::digest(object = token, algo = "md5")
+
   temp.results.final <- set_RLum(
     class = "RLum.Results",
     data = list(
-      De.values = as.data.frame(c(temp.GC, temp.GC.extened)),
+      De.values = as.data.frame(c(temp.GC, temp.GC.extened, UID = UID)),
       LnLxTnTx.table = LnLxTnTx,
-      rejection.criteria = RejectionCriteria,
-      Formula = temp.GC.fit.Formula))
+      rejection.criteria = cbind(RejectionCriteria, UID),
+      Formula = temp.GC.fit.Formula,
+      call = sys.call()))
 
 
 # Plot graphical interpretation of rejection criteria -----------------------------------------
@@ -1295,7 +1310,6 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
 
 # Return --------------------------------------------------------------------------------------
 
-  return(temp.results.final)
+  invisible(temp.results.final)
 
 }
-

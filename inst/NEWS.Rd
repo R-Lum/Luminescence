@@ -44,7 +44,9 @@
         R0 point the function stopped with an error. Corrected,
         \item function now how to deal with a \code{list} of \code{RLum.Analysis} objects and will
         re-call itself as elements are in the \code{list} (argument \code{object}). In particular
-        cases this may lead to a tremendous efficient data analysis process.
+        cases this may lead to a tremendous efficient data analysis process,
+        \item add 'call' to data output object,
+        \item add 'UID' column to data object 'De.values' and 'rejection.criteria'.
 
       }
 

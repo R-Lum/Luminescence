@@ -49,7 +49,12 @@ Changes in version 0.5.0 (, 2015):
                ‘RLum.Analysis’ objects and will re-call itself as
                elements are in the ‘list’ (argument ‘object’). In
                particular cases this may lead to a tremendous efficient
-               data analysis process.
+               data analysis process,
+
+             • add 'call' to data output object,
+
+             • add 'UID' column to data object 'De.values' and
+               'rejection.criteria'.
 
          • ‘calc_Statistics()’
 
