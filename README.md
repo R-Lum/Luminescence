@@ -1,5 +1,8 @@
 # Luminescence
 
+> [![CRAN](http://www.r-pkg.org/badges/version/Luminescence)](http://www.r-pkg.org/badges/version/Luminescence)
+> [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](http://cranlogs.r-pkg.org/badges/grand-total/Luminescence)
+
 > [![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
 [![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
 **@master**
