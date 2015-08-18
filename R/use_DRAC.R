@@ -6,7 +6,8 @@
 #'
 #'
 #' @param file \code{\link{character}}: spreadsheet to be passed
-#' to the DRAC website for calculation.
+#' to the DRAC website for calculation. Can also be a DRAC template object
+#' obtained from \code{template_DRAC()}.
 #'
 #' @param name \code{\link{character}}: Optional user name submitted to DRAC. If
 #' omitted, a random name will be generated
@@ -87,25 +88,30 @@ use_DRAC <- function(
   ##  keep the function as easy as possible.
   
   # Integrity tests -----------------------------------------------------------------------------
-  assertive::is_existing_file(file)
-  
-  if (inherits(file, "DRAC.list"))
-    file <- as.data.frame(file)
-  
-  
-  if (!inherits(file, "DRAC.data.frame")) {
-  # Import data ---------------------------------------------------------------------------------
-  
-  ## Import and skipt the first rows and remove NA lines and the 2 row, as this row contains
-  ## only meta data
-  
-  ##check if is the original DRAC table
-  if (readxl::excel_sheets(file)[1] != "DRAC_1.1_input") {
-    stop("[use_DRAC()] It looks like that you are not using the original DRAC XLSX template. This is currently
+  if (inherits(file, "character")) {
+    assertive::is_existing_file(file)
+    
+    # Import data ---------------------------------------------------------------------------------
+    
+    ## Import and skipt the first rows and remove NA lines and the 2 row, as this row contains
+    ## only meta data
+    
+    ##check if is the original DRAC table
+    if (readxl::excel_sheets(file)[1] != "DRAC_1.1_input") {
+      stop("[use_DRAC()] It looks like that you are not using the original DRAC XLSX template. This is currently
          not supported!")
+    }
+    input.raw <- na.omit(as.data.frame(readxl::read_excel(path = file, sheet = 1, skip = 5)))[-1, ]
+    
+  } else if (inherits(file, "DRAC.list")) {
+    input.raw <- as.data.frame(file)
+    
+  } else if (inherits(file, "DRAC.data.frame")) {
+    input.raw <- file
+    
+  } else {
+    stop("The provided data object is not a valid DRAC template.", call. = FALSE)
   }
-  
-  input.raw <- na.omit(as.data.frame(readxl::read_excel(path = file, sheet = 1, skip = 5)))[-1, ]
   
   
   # Set helper function -------------------------------------------------------------------------
@@ -122,7 +128,7 @@ use_DRAC <- function(
     return(t(temp.result))
   }
   
-
+  
   # Process data --------------------------------------------------------------------------------
   
   ##(1) expand the rows in the data.frame a little bit
@@ -143,7 +149,11 @@ use_DRAC <- function(
   DRAC_submission.df <- rbind(input.raw,mask.df[[1]])
   
   ##(4) replace ID values
-  DRAC_submission.df$`TI:1` <- sample(x = 1:1000, size = nrow(DRAC_submission.df), replace = FALSE)
+  DRAC_submission.df$`TI:1` <- paste0(paste0(paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, 
+                                                           runif(1, 2, 4)), collapse = ""), 
+                                             ifelse(runif(1,-10,10)>0, "-", "")), 
+                                      seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE), 
+                                          by = 1, length.out = nrow(DRAC_submission.df)))
   
   ##(5) store the real IDs in a sperate object
   DRAC_results.id <-  DRAC_submission.df[1:nrow(input.raw), "TI:1"]
@@ -152,32 +162,29 @@ use_DRAC <- function(
   DRAC_submission.df <- DRAC_submission.df[sample(x = 1:nrow(DRAC_submission.df), nrow(DRAC_submission.df),
                                                   replace = FALSE), ]
   
-  }## End Of ExcelSheet import
-  
-  if (inherits(file, "DRAC.data.frame"))
-    DRAC_submission.df <- file
+  ##convert all columns of the data.frame to class 'character'
+  for (i in 1:ncol(DRAC_submission.df)) 
+    DRAC_submission.df[ ,i] <- as.character(DRAC_submission.df[, i])
   
   ##get line by line and remove unwanted characters
   DRAC_submission.string <- sapply(1:nrow(DRAC_submission.df), function(x) {
-    paste0(gsub(",", "", toString(DRAC_submission.df[x,])), "\n")
+    paste0(gsub(",", "", toString(DRAC_submission.df[x, ])), "\n")
   })
   
   ##paste everything together to get the format we want
   DRAC_input <- paste(DRAC_submission.string, collapse = "")
   
-
+  
   # Send data to DRAC ---------------------------------------------------------------------------
   
   ## send data set to DRAC website and receive repsonse
-  #   DRAC.response <- httr::POST(paste0("https://www.aber.ac.uk/en/iges/",
-  #                                     "research-groups/quaternary/luminescence-",
-  #                                     "research-laboratory/dose-rate-calculator/",
-  #                                     "?show=calculator"),
-  #                               body = list("drac_data[name]"  = "Test",
-  #                                           "drac_data[table]" = DRAC_input))
-  
-  DRAC.response <- httr::POST(paste0("http://zerk.canopus.uberspace.de/drac/?show=calculator"),
-                              body = list("drac_data[name]"  = "Test",
+  # url <- paste0("https://www.aber.ac.uk/en/iges/research-groups/quaternary/luminescence-",
+  #               "research-laboratory/dose-rate-calculator/?show=calculator")
+  url <- "http://zerk.canopus.uberspace.de/drac/?show=calculator"
+    
+  DRAC.response <- httr::POST(url,
+                              body = list("drac_data[name]"  = paste(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, 
+                                                                            runif(1, 2, 4)), collapse = ""),
                                           "drac_data[table]" = DRAC_input))
   
   ## check for correct response
@@ -190,6 +197,15 @@ use_DRAC <- function(
   http.header <- DRAC.response$header
   DRAC.content <- httr::content(x = DRAC.response, as = "text")
   
+  ## if the input was valid from a technical standpoint, but not with regard
+  ## contents, we indeed get a valid response, but no DRAC output
+  if (!grepl("DRAC Outputs", DRAC.content)) {
+    stop(message(paste("\n\t We got a response from the server, but it\n",
+                       "\t did not contain DRAC output. Please check\n",
+                       "\t your data and verify its validity.\n")),
+         call. = FALSE)
+  }
+    
   ## split header and content
   DRAC.content.split <- strsplit(x = DRAC.content,
                                  split = "DRAC Outputs\n\n")
@@ -214,11 +230,44 @@ use_DRAC <- function(
   ## assign column names
   colnames(DRAC.content) <- DRAC.raw[1, ]
   
-  ## assign labels
+  ## save column labels and use them as attributes for the I/O table columns
   DRAC.labels <- DRAC.raw[2, ]
+  for (i in 1:length(DRAC.content)) {
+    attr(DRAC.content[ ,i], "description") <- DRAC.labels[1,i]
+  }
+  
+  ## DRAC also returns the input, so we need to split input and output
+  DRAC.content.input <- DRAC.content[ ,grep("TI:", names(DRAC.content))]
+  DRAC.content.output <- DRAC.content[ ,grep("TO:", names(DRAC.content))]
+  
+  ## The DRAC ouput also contains a hightlight table, which results in 
+  ## duplicate columns. When creating the data.frame duplicate columns 
+  ## are automatically appended '.1' in their names, so we can identify 
+  ## and remove them easily
+  DRAC.content.input <- DRAC.content.input[ ,-grep("\\.1", names(DRAC.content.input))]
+  DRAC.content.output <- DRAC.content.output[ ,-grep("\\.1", names(DRAC.content.output))]
+  
+  ## The output table (v1.1) has 198 columns, making it unreasonable complex 
+  ## for standard data evaluation. We reproduce the DRAC highlight table 
+  ## and use the descriptions (saved as attributes) as column names.
+  highlight.keys <- c("TI:1","TI:2","TI:3","TO:FQ","TO:FR",
+                      "TO:FS", "TO:FT", "TO:FU", "TO:FV", "TO:FW",
+                      "TO:FX", "TO:FY", "TO:FZ", "TO:GG", "TO:GH",
+                      "TO:GI", "TO:GJ", "TO:GK", "TO:GL", "TO:GM",
+                      "TO:GN", "TI:52", "TI:53", "TO:GO", "TO:GP")
+  DRAC.highlights <- subset(DRAC.content, select = highlight.keys)
+  DRAC.highlights.labels <- as.character(DRAC.labels[1, which(unique(names(DRAC.content)) %in% highlight.keys)])
+  colnames(DRAC.highlights) <- DRAC.highlights.labels
+  for (i in 1:length(DRAC.highlights)) {
+    attr(DRAC.highlights[ ,i], "key") <- highlight.keys[i]
+  }
+  
   
   ## return output
-  return(list(DRAC.header = DRAC.header,
-              DRAC.labels = DRAC.labels,
-              DRAC.content = DRAC.content))
+  invisible(list(DRAC.header = DRAC.header,
+                 DRAC.labels = DRAC.labels,
+                 DRAC.content = DRAC.content,
+                 DRAC.highlights = DRAC.highlights,
+                 DRAC.input = DRAC.content.input,
+                 DRAC.output = DRAC.content.output))
 }
