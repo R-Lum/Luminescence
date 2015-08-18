@@ -218,8 +218,10 @@ if(is.list(object)){
   }
 
   if(!missing(mtext.outer)){
-    mtext.outer<- rep(as.list(mtext.outer), length = length(object))
+    mtext.outer <- rep(as.list(mtext.outer), length = length(object))
 
+  }else{
+    mtext.outer <- rep(list(""), length = length(object))
 
   }
 
