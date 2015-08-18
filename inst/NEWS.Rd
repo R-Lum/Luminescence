@@ -14,8 +14,8 @@
         defined for a specific function, corrected. Now, if nothing is defined the first  object
         in the slot \code{data} is returned (#223),
         \item the method was enhanced to deal with objects of type \code{list} containing only
-        \code{RLum} objects. Depending of the object in the list the corresponding method is
-        called of the \code{RLum} objects.
+        \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding \code{get_RLum} methods
+        are called.
 
 
 
@@ -28,7 +28,7 @@
    \itemize{
       \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015
       \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009
-       \item \code{read_Daybreak2R()} Imports data prodcued by a Daybreak TL/OSL reader
+       \item \code{read_Daybreak2R()} Imports data produced by a Daybreak TL/OSL reader
        \item \code{use_DRAC()} Provides an R interface to
    }
   }
@@ -94,7 +94,7 @@
         \item output object is enhanced by the \code{call} containing the function call,
         \item for the option \code{fit.method = "LIN"} and \code{fit.method = "EXP OR LIN"} weights had been
         not considered; corrected,
-        \item add argument \code{fit.force_through_origin}, it does excatly what you may expect from such
+        \item add argument \code{fit.force_through_origin}, it does exactly what you may expect from such
         argument (#225, requested by Alice Versendaal),
         \item get rid of some not very informative warning messages if some fitting failed.
 

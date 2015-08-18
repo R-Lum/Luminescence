@@ -16,9 +16,9 @@ Changes in version 0.5.0 (, 2015):
                in the slot ‘data’ is returned (#223),
 
              • the method was enhanced to deal with objects of type
-               ‘list’ containing only ‘RLum’ objects. Depending of the
-               object in the list the corresponding method is called of
-               the ‘RLum’ objects.
+               ‘list’ containing only ‘RLum’ objects. Depending on the
+               ‘RLum’ objects in the list the corresponding ‘get_RLum’
+               methods are called.
 
   New functions:
 
@@ -28,7 +28,7 @@ Changes in version 0.5.0 (, 2015):
          • ‘plot_NRt()’ Creates a Natural/Regenerated signal vs. time
            (NR(t)) plot as shown in Steffen et al. 2009
 
-         • ‘read_Daybreak2R()’ Imports data prodcued by a Daybreak
+         • ‘read_Daybreak2R()’ Imports data produced by a Daybreak
            TL/OSL reader
 
          • ‘use_DRAC()’ Provides an R interface to
@@ -102,7 +102,7 @@ Changes in version 0.5.0 (, 2015):
                "EXP OR LIN"’ weights had been not considered;
                corrected,
 
-             • add argument ‘fit.force_through_origin’, it does excatly
+             • add argument ‘fit.force_through_origin’, it does exactly
                what you may expect from such argument (#225, requested
                by Alice Versendaal),
 
