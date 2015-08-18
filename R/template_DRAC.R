@@ -65,6 +65,7 @@
 #' Reply <- use_DRAC(template)
 #' }
 #' 
+#' @export
 template_DRAC <- function(nrow = 1, notification = TRUE) {
   
   ## TODO:
@@ -225,11 +226,11 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
     
     `Grain size min (microns)` = 
       structure(rep(100, nrow), required = TRUE, allowsX = FALSE, key = "TI:32",
-                description = "The grain size range analysed. DRAC can be used for the grain size ranges between 1 and 1000 µm. Inputs should range between 1 and 1000 and not be left blank."), #
+                description = "The grain size range analysed. DRAC can be used for the grain size ranges between 1 and 1000 microns. Inputs should range between 1 and 1000 and not be left blank."), #
     
     `Grain size max (microns)` = 
       structure(rep(150, nrow), required = TRUE, allowsX = FALSE, key = "TI:33",
-                description = "The grain size range analysed. DRAC can be used for the grain size ranges between 1 and 1000 µm. Inputs should range between 1 and 1000 and not be left blank."), #
+                description = "The grain size range analysed. DRAC can be used for the grain size ranges between 1 and 1000 microns. Inputs should range between 1 and 1000 and not be left blank."), #
     
     `alpha-Grain size attenuation` = 
       structure(factor(rep("Brennanetal1991", nrow), c("Bell1980", "Brennanetal1991")), required = TRUE, allowsX = FALSE, key = "TI:34",
@@ -241,11 +242,11 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
     
     `Etch depth min (microns)` = 
       structure(rep(8, nrow), required = TRUE, allowsX = FALSE, key = "TI:36",
-                description = "The user defined etch depth range (µm). Inputs should range between 0 and 30 and not be left blank."), #
+                description = "The user defined etch depth range (microns). Inputs should range between 0 and 30 and not be left blank."), #
     
     `Etch depth max (microns)` = 
       structure(rep(10, nrow), required = TRUE, allowsX = FALSE, key = "TI:37",
-                description = "The user defined etch depth range (µm). Inputs should range between 0 and 30 and not be left blank."), #
+                description = "The user defined etch depth range (microns). Inputs should range between 0 and 30 and not be left blank."), #
     
     `beta-Etch depth attenuation factor` = 
       structure(factor(rep("Bell1979", nrow), c("Bell1979", "Brennan2003", "X")), required = FALSE, allowsX = TRUE, key = "TI:38",
@@ -285,11 +286,11 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
     
     `Latitude (decimal degrees)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:47",
-                description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from – 90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
+                description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from -90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
     
     `Longitude (decimal degrees)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:48",
-                description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from – 90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
+                description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from -90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
     
     `Altitude (m)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:49",
@@ -320,7 +321,6 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
 }
 
 
-
 ## ---------------------------------------------------------------------------##
 ## DATA FRAME COERCION METHOD
 
@@ -330,6 +330,8 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
 ## make sure that all columns are either of class 'character' or 'numeric'.
 ## Finally, we attach a further class name to identify it as a valid DRAC object 
 ## when passed to use_DRAC
+
+#' @export
 as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) {
   DF <- as.data.frame.list(x)
   colnames(DF) <- paste0("TI:", 1:ncol(DF))
@@ -345,6 +347,7 @@ as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) 
 ## ---------------------------------------------------------------------------##
 ## PRINT METHOD
 
+#' @export
 print.DRAC.list <- function(x, ...) {
   for (i in 1:length(x)) {
     msg <- paste(attributes(x[[i]])$key, "=>",names(x)[i], "\n",
@@ -352,7 +355,7 @@ print.DRAC.list <- function(x, ...) {
                  "\t ALLOWS 'X' = ", attributes(x[[i]])$allowsX, "\n",
                  "\t REQUIRED =", attributes(x[[i]])$required, "\n",
                  "\t DESCRIPTION =", attributes(x[[i]])$description, "\n"
-                 )
+    )
     
     if (!is.null(levels(x[[i]]))) {
       msg <- paste(msg,
@@ -404,8 +407,8 @@ print.DRAC.list <- function(x, ...) {
   # allow any combination and reject only non-numeric/integer input
   if (class.old == "numeric" || class.old == "integer") {
     if (class.new != "numeric" && class.new != "integer") {
-        warning(paste(names(x)[i], ": Input must be of class", class.old),
-                call. = FALSE)
+      warning(paste(names(x)[i], ": Input must be of class", class.old),
+              call. = FALSE)
     }
   }
   
@@ -465,4 +468,3 @@ print.DRAC.list <- function(x, ...) {
   x[[index]] <- value
   return(x)
 }
-

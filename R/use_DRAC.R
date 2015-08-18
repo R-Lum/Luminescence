@@ -53,7 +53,8 @@
 #' file <-  "~/DRAC_Input_and_Output_Template-2.xlsx"
 #' use_DRAC(file = file)
 #' }
-#'
+#' 
+#' @export
 use_DRAC <- function(
   file,
   name
