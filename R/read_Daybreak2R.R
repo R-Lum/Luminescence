@@ -28,6 +28,8 @@
 #' @examples
 #'
 #' ## This function has no example yet.
+#' 
+#' @export
 read_Daybreak2R <- function(
   file,
   txtProgressBar = TRUE

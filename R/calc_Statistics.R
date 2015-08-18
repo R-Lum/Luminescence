@@ -40,6 +40,7 @@
 #' ## note the congruent results for weighted and unweighted measures
 #' str(calc_Statistics(x))
 #'
+#' @export
 calc_Statistics <- function(
   data,
   weight.calc = "square",

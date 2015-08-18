@@ -174,7 +174,7 @@
 #' # bin.cols = 1)
 #'
 #'
-#'
+#' @export
 plot_RLum.Data.Spectrum <- function(
   object,
   par.local = TRUE,

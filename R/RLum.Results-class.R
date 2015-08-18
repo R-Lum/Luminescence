@@ -33,6 +33,7 @@ NULL
 #'
 #' showClass("RLum.Results")
 #'
+#' @export
 setClass(
   "RLum.Results",
   slots = list(originator = "character",
@@ -61,7 +62,9 @@ setValidity("RLum.Results",
 
 
 # show method for object ------------------------------------------------------
-
+#' @describeIn RLum.Results
+#' Show structure of RLum and Risoe.BINfile class objects
+#' @export
 setMethod("show",
           signature(object = "RLum.Results"),
           function(object){
@@ -103,6 +106,8 @@ setMethod("show",
 #' @param originator [\code{set_RLum}] \code{\link{character}} (optional): argument to manually set
 #' the originator.
 #' @param data [\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to be stored in the object
+#' 
+#' @export
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
 
@@ -141,6 +146,8 @@ setMethod("set_RLum",
 #' @param object [\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
 #' \code{\linkS4class{RLum.Results}} to be evaluated
 #' @param data.object [\code{get_RLum}] \code{\link{character}}: name of the data slot to be returned
+#' 
+#' @export
 setMethod("get_RLum",
           signature = signature("RLum.Results"),
           definition = function(object, data.object) {
@@ -404,6 +411,8 @@ setMethod("get_RLum",
 #' Merging is done by appending similar elements to the first object of the input list.
 #'
 #' @param object.list [\code{merge_RLum.Results}] \code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects
+#' 
+#' @export
 setMethod("merge_RLum.Results",
           signature=signature(object.list = "list"),
           definition = function(object.list){

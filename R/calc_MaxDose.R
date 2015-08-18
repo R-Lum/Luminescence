@@ -1,6 +1,3 @@
-##======================================
-
-
 #' Apply the maximum age model to a given De distribution
 #'
 #' Function to fit the maximum age model to De data. This is a wrapper function
@@ -83,6 +80,7 @@
 #' # apply the maximum dose model
 #' calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 #'
+#' @export
 calc_MaxDose<- function(
   data,
   sigmab,

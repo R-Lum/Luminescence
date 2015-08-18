@@ -255,7 +255,9 @@
 #' ##show De results and test paramter results
 #' get_RLum(temp, data.object = "De.values")
 #' get_RLum(temp, data.object = "test_parameter")
-
+#' 
+#' 
+#' @export
 analyse_IRSAR.RF<- function(
   object,
   sequence.structure = c("NATURAL", "REGENERATED"),

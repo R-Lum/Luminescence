@@ -75,7 +75,7 @@
 #'                fit.method = "EXP OR LIN",
 #'                sequence.structure = c("SIGNAL", "BACKGROUND"))
 #'
-#'
+#' @export
 analyse_SAR.TL <- function(
   object,
   object.background,

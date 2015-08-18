@@ -80,7 +80,7 @@
 #' TL.curve.merged <- merge_RLum.Data.Curve(list(TL.curve.3, TL.curve.1), merge.method = "/")
 #' plot_RLum(TL.curve.merged)
 #'
-#'
+#' @export
 merge_RLum.Data.Curve<- function(
   object,
   merge.method = "mean",

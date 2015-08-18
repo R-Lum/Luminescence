@@ -195,7 +195,7 @@
 #'             log = "x",
 #'             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)))
 #'
-#'
+#' @export
 fit_LMCurve<- function(
   values,
   values.bg,

@@ -87,7 +87,7 @@
 #' Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 #'
 #'
-#'
+#' @export
 calc_SourceDoseRate <- function(
   measurement.date,
   calib.date,

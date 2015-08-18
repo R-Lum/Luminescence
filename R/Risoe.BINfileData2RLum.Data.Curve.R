@@ -58,7 +58,7 @@
 #' ##convert one record
 #' Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data, id = 1)
 #'
-#'
+#' @export
 Risoe.BINfileData2RLum.Data.Curve <- function(
   object,
   id,

@@ -150,7 +150,7 @@
 #' text(0.5,6500,"PM", col="blue" ,cex=.8)
 #'
 #'
-#'
+#' @export
 CW2pHMi<- function(
   values,
   delta

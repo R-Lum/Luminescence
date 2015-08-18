@@ -149,6 +149,7 @@
 #'       y = KDE.y,
 #'       lwd = 3)
 #'
+#' @export
 plot_KDE <- function(
   data,
   na.rm = TRUE,

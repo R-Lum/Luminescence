@@ -87,6 +87,7 @@
 #'                ylim = c(0, 0.1, 5, 20))
 #'
 #'
+#' @export
 plot_Histogram <- function(
   data,
   na.rm = TRUE,

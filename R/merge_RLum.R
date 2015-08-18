@@ -42,7 +42,7 @@
 #' temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 #'
 #'
-#'
+#' @export
 merge_RLum<- function(
   objects,
   ...
@@ -106,6 +106,7 @@ merge_RLum<- function(
 #' \code{\linkS4class{RLum.Results}}
 #' @keywords utilities
 #' 
+#' @export
 setGeneric("merge_RLum.Results",  function(object.list) {
   standardGeneric("merge_RLum.Results")
 })

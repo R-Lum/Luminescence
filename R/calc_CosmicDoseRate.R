@@ -197,7 +197,7 @@
 #' #export results to .csv file - uncomment for usage
 #' #write.csv(results, file = "c:/users/public/results_profile.csv")
 #'
-#'
+#' @export
 calc_CosmicDoseRate<- function(
   depth,
   density,

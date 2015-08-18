@@ -40,6 +40,7 @@
 #' plot_RLum.Results(grains)
 #'
 #'
+#' @export
 plot_RLum.Results<- function(
   data,
   single = TRUE,

@@ -25,6 +25,7 @@
 #' @aliases set_RLum.Data.Curve set_RLum.Data.Image set_RLum.Data.Spectrum
 #' set_RLum.Analysis set_RLum.Results
 #'
+#' @export
 setGeneric("set_RLum", function (class, ...) { 
   class(class) <- as.character(class)
   standardGeneric("set_RLum") 
@@ -37,30 +38,35 @@ setGeneric("set_RLum", function (class, ...) {
 # Removed in 0.6.0
 
 #' @noRd
+#' @export
 set_RLum.Analysis <- function(...) {
   .Deprecated("set_RLum")
   set_RLum("RLum.Analysis", ...)
 }
 
 #' @noRd
+#' @export
 set_RLum.Data.Curve <- function(...) {
   .Deprecated("set_RLum")
   set_RLum("RLum.Data.Curve", ...)
 }
 
 #' @noRd
+#' @export
 set_RLum.Data.Image <- function(...) {
   .Deprecated("set_RLum")
   set_RLum("RLum.Data.Image", ...)
 }
 
 #' @noRd
+#' @export
 set_RLum.Data.Spectrum <- function(...) {
   .Deprecated("set_RLum")
   set_RLum("RLum.Data.Spectrum", ...)
 }
 
 #' @noRd
+#' @export
 set_RLum.Results <- function(...) {
   .Deprecated("set_RLum")
   set_RLum("RLum.Results", ...)

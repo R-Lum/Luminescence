@@ -323,6 +323,7 @@
 #' ## restore original graphical parameters
 #' par(par.old)
 #'
+#' @export
 plot_AbanicoPlot <- function(
   data,
   na.rm = TRUE,

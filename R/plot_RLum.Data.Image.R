@@ -73,7 +73,7 @@
 #' ##plot data
 #' plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 #'
-#'
+#' @export
 plot_RLum.Data.Image <- function(
   object,
   par.local = TRUE,

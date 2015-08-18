@@ -4,40 +4,40 @@ Changes in version 0.5.0 (, 2015):
 
   Changes S4-objects, methods, classes:
 
-         • Extend class definition for ‘RLum’-class by slots
-           ‘originator’ and ‘.uid’ (and with that for all
-           ‘RLum’classes),
+         • Extend class definition for 'RLum'-class by slots
+           'originator' and '.uid' (and with that for all
+           'RLum'classes),
 
-         • ‘get_RLum’
+         • 'get_RLum'
 
-             • the method for the ‘RLum.Results’ object returned ‘NULL’
+             • the method for the 'RLum.Results' object returned 'NULL'
                if nothing was defined for a specific function,
                corrected. Now, if nothing is defined the first object
-               in the slot ‘data’ is returned (#223),
+               in the slot 'data' is returned (#223),
 
              • the method was enhanced to deal with objects of type
-               ‘list’ containing only ‘RLum’ objects. Depending on the
-               ‘RLum’ objects in the list the corresponding ‘get_RLum’
+               'list' containing only 'RLum' objects. Depending on the
+               'RLum' objects in the list the corresponding 'get_RLum'
                methods are called.
 
   New functions:
 
-         • ‘calc_gSGC()’ Calculate De value based on the gSGC by Li et
+         • 'calc_gSGC()' Calculate De value based on the gSGC by Li et
            al., 2015
 
-         • ‘plot_NRt()’ Creates a Natural/Regenerated signal vs. time
+         • 'plot_NRt()' Creates a Natural/Regenerated signal vs. time
            (NR(t)) plot as shown in Steffen et al. 2009
 
-         • ‘read_Daybreak2R()’ Imports data produced by a Daybreak
+         • 'read_Daybreak2R()' Imports data produced by a Daybreak
            TL/OSL reader
 
-         • ‘use_DRAC()’ Provides an R interface to
+         • 'use_DRAC()' Provides an R interface to
 
   Bugfixes and changes:
 
-         • ‘analyse_SAR.CWOSL()’
+         • 'analyse_SAR.CWOSL()'
 
-             • Internal curve selection now works using the ‘get_RLum’.
+             • Internal curve selection now works using the 'get_RLum'.
                This should give a little bit more flexibility and
                prevent errors with odd curve names,
 
@@ -45,104 +45,104 @@ Changes in version 0.5.0 (, 2015):
                calculated due to the missing R0 point the function
                stopped with an error. Corrected,
 
-             • function now how to deal with a ‘list’ of
-               ‘RLum.Analysis’ objects and will re-call itself as
-               elements are in the ‘list’ (argument ‘object’). In
+             • function now how to deal with a 'list' of
+               'RLum.Analysis' objects and will re-call itself as
+               elements are in the 'list' (argument 'object'). In
                particular cases this may lead to a tremendous efficient
                data analysis process.
 
-         • ‘calc_Statistics()’
+         • 'calc_Statistics()'
 
              • Weighted median is now completly removed from the
                calculation, values is replaced by the unweighted
                median.
 
-         • ‘fit_LMCurve()’
+         • 'fit_LMCurve()'
 
-             • Argument ‘output.plot’ renamed to ‘plot’,
+             • Argument 'output.plot' renamed to 'plot',
 
-             • argument ‘output.plotBG’ renamed to ‘plot.BG’,
+             • argument 'output.plotBG' renamed to 'plot.BG',
 
-             • arguemtn ‘output.terminal’ renamed to ‘verbose’,
+             • arguemtn 'output.terminal' renamed to 'verbose',
 
-             • argument ‘output.path’ removed without replacement,
+             • argument 'output.path' removed without replacement,
                corresponding code has been removed from the function,
 
-             • argument ‘cex.global’ removed, scaling can be still used
-               via ‘cex’
+             • argument 'cex.global' removed, scaling can be still used
+               via 'cex'
 
-             • argument ‘output.terminaladvanced’ has been removed
+             • argument 'output.terminaladvanced' has been removed
                without replacement, terminal output can just be
-               triggered via ‘verbose’,
+               triggered via 'verbose',
 
-             • new argument added ‘fit.method’. Argument works similar
-               as in ‘fit_CWCurve()’ and allows to use the
+             • new argument added 'fit.method'. Argument works similar
+               as in 'fit_CWCurve()' and allows to use the
                Levenberg-Marquardt algorithm for fitting (addressing
                #55)
 
-             • new return data object added ‘call’ containing the
+             • new return data object added 'call' containing the
                original function call.
 
-         • ‘plot_AbanicoPlot()’
+         • 'plot_AbanicoPlot()'
 
              • Further adjustment to deal with zero values (will now be
                removed automatically)
 
-         • ‘plot_GrowthCurve()’
+         • 'plot_GrowthCurve()'
 
              • Final fitting and fitting during the MC runs is now done
                using the Levenberg-Marquardt from the package
                'minpack.lm'. This increases the fitting stability and
                the computation step markedly (#5),
 
-             • output object is enhanced by the ‘call’ containing the
+             • output object is enhanced by the 'call' containing the
                function call,
 
-             • for the option ‘fit.method = "LIN"’ and ‘fit.method =
-               "EXP OR LIN"’ weights had been not considered;
+             • for the option 'fit.method = "LIN"' and 'fit.method =
+               "EXP OR LIN"' weights had been not considered;
                corrected,
 
-             • add argument ‘fit.force_through_origin’, it does exactly
+             • add argument 'fit.force_through_origin', it does exactly
                what you may expect from such argument (#225, requested
                by Alice Versendaal),
 
              • get rid of some not very informative warning messages if
                some fitting failed.
 
-         • ‘plot_RLum()’
+         • 'plot_RLum()'
 
-             • The ‘...’ argument ‘main’ can be now be of type ‘list’
-               if a ‘list’ of objects is provided. This allows to set
+             • The '...' argument 'main' can be now be of type 'list'
+               if a 'list' of objects is provided. This allows to set
                different plot titles for this specific plot option.
 
-         • ‘plot_RLum.Analysis()’
+         • 'plot_RLum.Analysis()'
 
-             • The ‘...’ argument ‘main’ can now be provided as vector
-               if ‘combine = TRUE’.
+             • The '...' argument 'main' can now be provided as vector
+               if 'combine = TRUE'.
 
-         • ‘readBIN2R()’
+         • 'readBIN2R()'
 
-             • Set function on deprecated, new name: ‘read_BIN2R()’
+             • Set function on deprecated, new name: 'read_BIN2R()'
 
-         • ‘readSPE2R()’
+         • 'readSPE2R()'
 
-             • Set function on deprecated, new name: ‘read_SPE2R()’
+             • Set function on deprecated, new name: 'read_SPE2R()'
 
-         • ‘readXSYG2R()’
+         • 'readXSYG2R()'
 
-             • Set function to deprecated, new name: ‘read_XSYG2R()’
+             • Set function to deprecated, new name: 'read_XSYG2R()'
 
-         • ‘writeR2BIN()’
+         • 'writeR2BIN()'
 
-             • Set function to deprecated, new name: ‘write_R2BIN()’
+             • Set function to deprecated, new name: 'write_R2BIN()'
 
   Internals:
 
          • Re-adding the package 'zoo' in imports,
 
-         • adding package 'readxl' to imports (used in ‘use_DRAC’ to
+         • adding package 'readxl' to imports (used in 'use_DRAC' to
            import the XLS file)
 
-         • adding package 'httr' to imports (used in ‘use_DRAC’ to
+         • adding package 'httr' to imports (used in 'use_DRAC' to
            establish the connection)
 

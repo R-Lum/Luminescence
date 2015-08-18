@@ -84,7 +84,6 @@
 #' @importFrom stats approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean
 #' @importFrom parallel parLapply makeCluster stopCluster
 #' @importFrom Rcpp evalCpp
-#' @exportPattern ^[[:alpha:]]+
 #' @useDynLib Luminescence
 NULL
 

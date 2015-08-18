@@ -65,7 +65,7 @@
 #' ##data(ExampleData.BINfileData, envir = environment())
 #' ##write_R2BIN(CWOSL.SAR.Data, file="[your path]/output.bin")
 #'
-#'
+#' @export
 write_R2BIN <- function(
   object,
   file,
@@ -1273,6 +1273,7 @@ write_R2BIN <- function(
 # .Defunct in 0.5.X
 # Removed in 0.6.0
 #' @noRd
+#' @export
 writeR2BIN <- function(...) {
   .Deprecated("write_R2BIN")
   write_R2BIN(...)

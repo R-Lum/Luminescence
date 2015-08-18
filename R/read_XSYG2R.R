@@ -135,7 +135,7 @@
 #' structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #'
 #'
-#'
+#' @export
 read_XSYG2R <- function(
   file,
   recalculate.TL.curves = TRUE,
@@ -669,6 +669,7 @@ read_XSYG2R <- function(
 # .Defunct in 0.5.X
 # Removed in 0.6.0
 #' @noRd
+#' @export
 readXSYG2R <- function(...) {
   .Deprecated("read_XSYG2R")
   read_XSYG2R(...)

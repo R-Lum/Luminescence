@@ -107,7 +107,7 @@
 #'
 #' get_RLum(results)
 #'
-#'
+#' @export
 calc_FadingCorr <- function(
   g_value,
   tc,

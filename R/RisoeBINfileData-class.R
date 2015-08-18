@@ -155,9 +155,7 @@ NULL
 #'
 #' showClass("Risoe.BINfileData")
 #'
-
-
-##DEFINE CLASS
+#' @export
 setClass("Risoe.BINfileData",
          slots = list(
            METADATA="data.frame",
@@ -167,6 +165,9 @@ setClass("Risoe.BINfileData",
          )
 
 ##set generic S4 function for object
+#' @describeIn Risoe.BINfileData
+#' Show structure of RLum and Risoe.BINfile class objects
+#' @export
 setMethod("show", signature(object = "Risoe.BINfileData"),
           function(object){
 
@@ -220,6 +221,7 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
 #'
 #' @param .RESERVED Object of class "list" containing list of undocumented raw
 #' values for internal use only.
+#' @export
 setMethod("set_Risoe.BINfileData",
           signature = c(
             METADATA = "data.frame", DATA = "list", .RESERVED = "ANY"
@@ -247,6 +249,7 @@ setMethod("set_Risoe.BINfileData",
 #' the object directly, it is just showing a terminal message.
 #'
 #' @param object an object of class \code{\linkS4class{Risoe.BINfileData}}
+#' @export
 setMethod("get_Risoe.BINfileData",
           signature= "Risoe.BINfileData",
           definition = function(object) {

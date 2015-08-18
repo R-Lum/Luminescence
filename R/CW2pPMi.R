@@ -114,7 +114,7 @@
 #' text(0.5,6500,"PM", col = "blue", cex = .8)
 #'
 #'
-#'
+#' @export
 CW2pPMi<- function(
   values,
   P

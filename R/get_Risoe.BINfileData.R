@@ -18,4 +18,6 @@
 #' @seealso
 #' \code{\linkS4class{Risoe.BINfileData}}
 #' @keywords utilities
+#' 
+#' @export
 setGeneric("get_Risoe.BINfileData", function(object) { standardGeneric("get_Risoe.BINfileData") })

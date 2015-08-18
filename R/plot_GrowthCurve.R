@@ -135,6 +135,7 @@
 #' plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 #' ##dev.off()
 #'
+#' @export
 plot_GrowthCurve <- function(
   sample,
   na.rm = TRUE,

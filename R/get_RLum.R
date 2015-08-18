@@ -51,13 +51,14 @@
 #' temp.get <- get_RLum(object = temp1)
 #'
 #'
-#'
+#' @export
 setGeneric("get_RLum", function (object, ...) { standardGeneric("get_RLum") })
 
 # Method for get_RLum method for RLum objects in a list for a list of objects  -------------------
 #' @describeIn get_RLum
 #' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 #'
+#' @export
 setMethod("get_RLum",
           signature = "list",
           function(object,...){
@@ -88,30 +89,35 @@ setMethod("get_RLum",
 # Removed in 0.6.0
 
 #' @noRd
+#' @export
 get_RLum.Analysis <- function(...) {
   .Deprecated("get_RLum")
   get_RLum(...)
 }
 
 #' @noRd
+#' @export
 get_RLum.Data.Curve <- function(...) {
   .Deprecated("get_RLum")
   get_RLum(...)
 }
 
 #' @noRd
+#' @export
 get_RLum.Data.Image <- function(...) {
   .Deprecated("get_RLum")
   get_RLum(...)
 }
 
 #' @noRd
+#' @export
 get_RLum.Data.Spectrum <- function(...) {
   .Deprecated("get_RLum")
   get_RLum(...)
 }
 
 #' @noRd
+#' @export
 get_RLum.Results <- function(...) {
   .Deprecated("get_RLum")
   get_RLum(...)

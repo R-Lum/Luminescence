@@ -33,6 +33,7 @@
 #' ## apply the homogeneity test
 #' calc_HomogeneityTest(ExampleData.DeValues$BT998)
 #'
+#' @export
 calc_HomogeneityTest <- function(
   data,
   log=TRUE,

@@ -85,7 +85,7 @@
 #' object.new <- merge_Risoe.BINfileData(c(object1, object2))
 #'
 #'
-#'
+#' @export
 merge_Risoe.BINfileData <- function(
   input.objects,
   output.file,

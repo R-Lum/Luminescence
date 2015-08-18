@@ -27,7 +27,8 @@
 #' @examples
 #'
 #' showClass("RLum")
-#'
+#' 
+#' @export
 setClass("RLum",
            slots = list(
              originator = "character",

@@ -98,7 +98,7 @@
 #' #             sep = ";", row.names = FALSE)
 #'
 #'
-#'
+#' @export
 read_SPE2R <- function(
   file,
   output.object = "RLum.Data.Image",
@@ -441,6 +441,7 @@ read_SPE2R <- function(
 # .Defunct in 0.5.X
 # Removed in 0.6.0
 #' @noRd
+#' @export
 readSPE2R <- function(...) {
   .Deprecated("read_SPE2R")
   read_SPE2R(...)

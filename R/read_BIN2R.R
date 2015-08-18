@@ -80,7 +80,7 @@
 #' #temp <- read_BIN2R(FILE)
 #' #temp
 #'
-#'
+#' @export
 read_BIN2R <- function(
   file,
   show.raw.values = FALSE,
@@ -1070,6 +1070,7 @@ read_BIN2R <- function(
 # .Defunct in 0.5.X
 # Removed in 0.6.0
 #' @noRd
+#' @export
 readBIN2R <- function(...) {
   .Deprecated("read_BIN2R")
   read_BIN2R(...)

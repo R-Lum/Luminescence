@@ -37,6 +37,7 @@ NULL
 #'
 #' showClass("RLum.Data.Curve")
 #'
+#' @export
 setClass("RLum.Data.Curve",
          slots = list(
            recordType = "character",
@@ -103,7 +104,9 @@ setAs("RLum.Data.Curve", "matrix",
 
 
 # show method for object ------------------------------------------------------
-
+#' @describeIn RLum.Data.Curve
+#' Show structure of RLum and Risoe.BINfile class objects
+#' @export
 setMethod("show",
           signature(object = "RLum.Data.Curve"),
           function(object){
@@ -136,6 +139,8 @@ setMethod("show",
 #' @param curveType [\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")
 #' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data
 #' @param info [\code{set_RLum}] \code{\link{list}} (optional): info elements
+#' 
+#' @export
 setMethod("set_RLum",
           signature = signature("RLum.Data.Curve"),
 
@@ -196,6 +201,8 @@ setMethod("set_RLum",
 #' @param object [\code{get_RLum}] an object of class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})
 #' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 #' element
+#' 
+#' @export
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),
           definition = function(object, info.object) {

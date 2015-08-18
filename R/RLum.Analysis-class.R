@@ -37,8 +37,7 @@ NULL
 #' ## usage of get_RLum() with returning an RLum.Analysis object
 #' #  get_RLum(object, keep.object = TRUE)
 #'
-
-##SET CLASS DEFINITION
+#' @export
 setClass("RLum.Analysis",
          slots = list(
            records = "list",
@@ -54,6 +53,9 @@ setClass("RLum.Analysis",
 
 # show method for object -------------------------------------------------------
 
+#' @describeIn RLum.Analysis
+#' Show structure of RLum and Risoe.BINfile class objects
+#' @export
 setMethod("show",
           signature(object = "RLum.Analysis"),
           function(object){
@@ -111,6 +113,8 @@ setMethod("show",
 #' Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
 #'
 #' @param object [\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})
+#' 
+#' @export
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
           definition = function(object) {
@@ -190,6 +194,8 @@ setMethod("structure_RLum",
 #' @param protocol [\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions. \code{UNKNOWN}
 #' by default.
+#' 
+#' @export
 setMethod("set_RLum",
           signature = "RLum.Analysis",
 
@@ -247,6 +253,8 @@ setMethod("set_RLum",
 #'
 #' @param keep.object [\code{get_RLum}] \code{\link{logical}} (with default):
 #' return an RLum.Analysis object instead of the single elements.
+#' 
+#' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
@@ -433,6 +441,7 @@ setMethod("get_RLum",
 #' @describeIn RLum.Analysis
 #' Returns the length of the object, i.e., number of stored records.
 #'
+#' @export
 setMethod("length_RLum",
           "RLum.Analysis",
           function(object){

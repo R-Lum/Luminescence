@@ -41,6 +41,7 @@ NULL
 #' # data(ExampleData.XSYG, envir = environment())
 #' # TL.Spectrum
 #'
+#' @export
 setClass(
   "RLum.Data.Spectrum",
   slots = list(
@@ -107,7 +108,9 @@ setAs("RLum.Data.Spectrum", "matrix",
 
 
 # show method for object ------------------------------------------------------
-
+#' @describeIn RLum.Data.Spectrum
+#' Show structure of RLum and Risoe.BINfile class objects
+#' @export
 setMethod("show",
           signature(object = "RLum.Data.Spectrum"),
           function(object){
@@ -143,6 +146,8 @@ setMethod("show",
 #' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
 #' @param data \code{\link{matrix}}: raw curve data
 #' @param info \code{\link{list}}: info elements
+#' 
+#' @export
 setMethod("set_RLum",
           signature = signature("RLum.Data.Spectrum"),
 
@@ -202,6 +207,8 @@ setMethod("set_RLum",
 #'
 #' @param object an object of class \code{\linkS4class{RLum.Data.Image}}
 #' @param info.object object of class "list" containing further meta information objects
+#' 
+#' @export
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),
           definition = function(object, info.object) {

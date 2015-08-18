@@ -124,7 +124,7 @@
 #' #  dev.off()
 #'
 #'
-#'
+#' @export
 analyse_pIRIRSequence <- function(
   object,
   signal.integral.min,

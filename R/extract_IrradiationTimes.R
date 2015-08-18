@@ -98,7 +98,7 @@
 #' #                   sep = ";",
 #' #                   row.names = FALSE)
 #'
-#'
+#' @export
 extract_IrradiationTimes <- function(
   object,
   file.BINX,

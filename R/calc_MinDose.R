@@ -232,7 +232,7 @@
 #' # Show the fitted values of the polynomials
 #' #summary(bs$poly.fits$poly.three$fitted.values)
 #'
-#'
+#' @export
 calc_MinDose <- function(
   data,
   sigmab,

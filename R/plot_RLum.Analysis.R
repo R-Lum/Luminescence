@@ -89,6 +89,7 @@
 #' plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 #'
 #'
+#' @export
 plot_RLum.Analysis <- function(
   object,
   subset,

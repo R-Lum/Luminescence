@@ -69,7 +69,7 @@
 #'                            signal.integral.min, signal.integral.max)
 #' get_RLum(output)
 #'
-#'
+#' @export
 calc_TLLxTxRatio <- function(
   Lx.data.signal,
   Lx.data.background,

@@ -78,7 +78,7 @@
 #' #mtext(side = 4, BINfile, outer = TRUE, col = "blue", cex = .7)
 #' #dev.off()
 #'
-#'
+#' @export
 plot_Risoe.BINfileData<- function(
   BINfileData,
   position,

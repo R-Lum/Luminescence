@@ -38,6 +38,8 @@ NULL
 #'
 #' ##so far no further example available
 #'
+#'
+#' @export
 setClass(
   "RLum.Data.Image",
   slots = list(
@@ -106,7 +108,9 @@ setAs("RLum.Data.Image", "matrix",
 
 
 # show method for object ------------------------------------------------------
-
+#' @describeIn RLum.Data.Image
+#' Show structure of RLum and Risoe.BINfile class objects
+#' @export
 setMethod("show",
           signature(object = "RLum.Data.Image"),
           function(object){
@@ -142,6 +146,8 @@ setMethod("show",
 #' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
 #' @param data \code{\link{matrix}}: raw curve data
 #' @param info \code{\link{list}}: info elements
+#' 
+#' @export
 setMethod("set_RLum",
           signature = signature("RLum.Data.Image"),
 
@@ -201,6 +207,8 @@ setMethod("set_RLum",
 #'
 #' @param object an object of class \code{\linkS4class{RLum.Data.Image}}
 #' @param info.object object of class "list" containing further meta information objects
+#' 
+#' @export
 setMethod("get_RLum",
           signature("RLum.Data.Image"),
           definition = function(object, info.object) {
