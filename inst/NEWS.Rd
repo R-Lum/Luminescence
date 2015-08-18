@@ -5,7 +5,22 @@
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
       \item Extend class definition for \code{RLum}-class by slots \code{originator} and \code{.uid}
-      (and with that for all \code{RLum}classes)
+      (and with that for all \code{RLum}classes),
+
+
+      \item \code{get_RLum}
+      \itemize{
+        \item the method for the \code{RLum.Results} object returned \code{NULL} if nothing was
+        defined for a specific function, corrected. Now, if nothing is defined the first  object
+        in the slot \code{data} is returned (#223),
+        \item the method was enhanced to deal with objects of type \code{list} containing only
+        \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding \code{get_RLum} methods
+        are called.
+
+
+
+      }
+
    }
   }
 
@@ -13,7 +28,7 @@
    \itemize{
       \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015
       \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009
-       \item \code{read_Daybreak2R()} Imports data prodcued by a Daybreak TL/OSL reader
+       \item \code{read_Daybreak2R()} Imports data produced by a Daybreak TL/OSL reader
        \item \code{use_DRAC()} Provides an R interface to
    }
   }
@@ -26,7 +41,10 @@
         \item Internal curve selection now works using the \code{get_RLum}. This should give
         a little bit more flexibility and prevent errors with odd curve names,
         \item in the rare case where no recuperation rate can be calculated due to the missing
-        R0 point the function stopped with an error. Corrected.
+        R0 point the function stopped with an error. Corrected,
+        \item function now how to deal with a \code{list} of \code{RLum.Analysis} objects and will
+        re-call itself as elements are in the \code{list} (argument \code{object}). In particular
+        cases this may lead to a tremendous efficient data analysis process.
 
       }
 
@@ -64,6 +82,21 @@
        \itemize{
 
         \item Further adjustment to deal with zero values (will now be removed automatically)
+
+
+      }
+
+      \item \code{plot_GrowthCurve()}
+       \itemize{
+
+        \item Final fitting and fitting during the MC runs is now done using the Levenberg-Marquardt from the package 'minpack.lm'. This
+        increases the fitting stability and the computation step markedly (#5),
+        \item output object is enhanced by the \code{call} containing the function call,
+        \item for the option \code{fit.method = "LIN"} and \code{fit.method = "EXP OR LIN"} weights had been
+        not considered; corrected,
+        \item add argument \code{fit.force_through_origin}, it does exactly what you may expect from such
+        argument (#225, requested by Alice Versendaal),
+        \item get rid of some not very informative warning messages if some fitting failed.
 
 
       }

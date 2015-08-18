@@ -5,11 +5,11 @@
 \title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
 \usage{
 plot_GrowthCurve(sample, na.rm = TRUE, fit.method = "EXP",
-  fit.weights = TRUE, fit.includingRepeatedRegPoints = TRUE,
-  fit.NumberRegPoints, fit.NumberRegPointsReal, fit.bounds = TRUE,
-  NumberIterations.MC = 100, output.plot = TRUE,
-  output.plotExtended = TRUE, output.plotExtended.single = FALSE,
-  cex.global = 1, ...)
+  fit.force_through_origin = FALSE, fit.weights = TRUE,
+  fit.includingRepeatedRegPoints = TRUE, fit.NumberRegPoints,
+  fit.NumberRegPointsReal, fit.bounds = TRUE, NumberIterations.MC = 100,
+  output.plot = TRUE, output.plotExtended = TRUE,
+  output.plotExtended.single = FALSE, cex.global = 1, ...)
 }
 \arguments{
 \item{sample}{\code{\link{data.frame}} (\bold{required}): data frame with
@@ -22,6 +22,10 @@ from the data set prior to any further operations.}
 \item{fit.method}{\code{\link{character}} (with default): function used for
 fitting. Possible options are: \code{LIN}, \code{EXP}, \code{EXP OR LIN},
 \code{EXP+LIN} or \code{EXP+EXP}. See details.}
+
+\item{fit.force_through_origin}{\code{\link{logical}} (with default) allow to force
+the fitted function through the origin. For \code{method = "EXP+EXP"} the function will
+go to the origin in either case, so this option will have no effect.}
 
 \item{fit.weights}{\code{\link{logical}} (with default): option whether the
 fitting is done with or without weights. See details.}
@@ -68,12 +72,14 @@ Standard arguments will only be passed to the growth curve plot. Supported:
 \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}}
 }
 \value{
-\code{RLum.Results} object containing the De (De, De Error, D01
-value, D02 value, De.MC and Fit type) and the fit object \link{nls} object
-for \code{EXP}, \code{EXP+LIN} and \code{EXP+EXP}. In case of a resulting
-linear fit when using \code{EXP OR LIN}, a \link{lm} object is returned. \cr
-The formula \code{Formula} is returned as R expression for further
-evaluation. Additionally a plot is returned.
+Along with a plot (so far wanted) an \code{RLum.Results} object is returned containing:
+
+data: \cr
+.. $De : \code{data.frame} (table of De values)\cr
+.. $Fit : \code{\link{nls}} object from the fitting for \code{EXP}, \code{EXP+LIN} and \code{EXP+EXP}.
+In case of a resulting  linear fit when using \code{EXP OR LIN}, a \code{\link{lm}} object is returned.\cr
+.. $Formula : \code{expression} \cr
+.. $call : \code{call} (the original function call)\cr
 }
 \description{
 A dose response curve is produced for luminescence measurements using a
@@ -117,7 +123,7 @@ provide an empty user mtext \code{mtext = ""}. To plot any other subtitle
 text, use \code{mtext}.
 }
 \section{Function version}{
- 1.6.1 (2015-07-23 17:09:29)
+ 1.7.2 (2015-08-18 11:04:59)
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value
@@ -142,4 +148,8 @@ plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), \cr Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team}
+\seealso{
+\code{\link{nls}}, \code{\linkS4class{RLum.Results}},
+\code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link{lm}}
+}
 

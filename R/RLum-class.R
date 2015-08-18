@@ -38,3 +38,4 @@ setClass("RLum",
              .uid = NA_character_
            ),
          sealed = TRUE)
+

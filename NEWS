@@ -6,7 +6,19 @@ Changes in version 0.5.0 (, 2015):
 
          • Extend class definition for ‘RLum’-class by slots
            ‘originator’ and ‘.uid’ (and with that for all
-           ‘RLum’classes)
+           ‘RLum’classes),
+
+         • ‘get_RLum’
+
+             • the method for the ‘RLum.Results’ object returned ‘NULL’
+               if nothing was defined for a specific function,
+               corrected. Now, if nothing is defined the first object
+               in the slot ‘data’ is returned (#223),
+
+             • the method was enhanced to deal with objects of type
+               ‘list’ containing only ‘RLum’ objects. Depending on the
+               ‘RLum’ objects in the list the corresponding ‘get_RLum’
+               methods are called.
 
   New functions:
 
@@ -16,7 +28,7 @@ Changes in version 0.5.0 (, 2015):
          • ‘plot_NRt()’ Creates a Natural/Regenerated signal vs. time
            (NR(t)) plot as shown in Steffen et al. 2009
 
-         • ‘read_Daybreak2R()’ Imports data prodcued by a Daybreak
+         • ‘read_Daybreak2R()’ Imports data produced by a Daybreak
            TL/OSL reader
 
          • ‘use_DRAC()’ Provides an R interface to
@@ -31,7 +43,13 @@ Changes in version 0.5.0 (, 2015):
 
              • in the rare case where no recuperation rate can be
                calculated due to the missing R0 point the function
-               stopped with an error. Corrected.
+               stopped with an error. Corrected,
+
+             • function now how to deal with a ‘list’ of
+               ‘RLum.Analysis’ objects and will re-call itself as
+               elements are in the ‘list’ (argument ‘object’). In
+               particular cases this may lead to a tremendous efficient
+               data analysis process.
 
          • ‘calc_Statistics()’
 
@@ -69,6 +87,27 @@ Changes in version 0.5.0 (, 2015):
 
              • Further adjustment to deal with zero values (will now be
                removed automatically)
+
+         • ‘plot_GrowthCurve()’
+
+             • Final fitting and fitting during the MC runs is now done
+               using the Levenberg-Marquardt from the package
+               'minpack.lm'. This increases the fitting stability and
+               the computation step markedly (#5),
+
+             • output object is enhanced by the ‘call’ containing the
+               function call,
+
+             • for the option ‘fit.method = "LIN"’ and ‘fit.method =
+               "EXP OR LIN"’ weights had been not considered;
+               corrected,
+
+             • add argument ‘fit.force_through_origin’, it does exactly
+               what you may expect from such argument (#225, requested
+               by Alice Versendaal),
+
+             • get rid of some not very informative warning messages if
+               some fitting failed.
 
          • ‘plot_RLum()’
 

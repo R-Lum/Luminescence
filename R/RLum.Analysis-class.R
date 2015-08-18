@@ -235,7 +235,7 @@ setMethod("set_RLum",
 #' @param RLum.type [\code{get_RLum}] \code{\link{character}} (optional): RLum object type. Defaults to "RLum.Data.Curve"
 #' and "RLum.Data.Spectrum".
 #'
-#' @param info.object [\code{get_RLum}] currently not used.
+#' @param subset [\code{get_RLum}] \code{\link{list}}: currently not used.
 #'
 #' @param get.index [\code{get_RLum}] \code{\link{logical}} (optional): return a numeric vector with the index of each
 #' element in the RLum.Analysis object.
@@ -251,38 +251,32 @@ setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
           function(object, record.id, recordType, curveType, RLum.type,
-                   protocol = "UNKNOWN", info.object, get.index, keep.object = FALSE, recursive = TRUE){
+                   protocol = "UNKNOWN", subset, get.index, keep.object = FALSE, recursive = TRUE){
 
             ##record.id
-            if(missing(record.id) == TRUE){
-
+            if (missing(record.id)) {
               record.id <- c(1:length(object@records))
 
-            }else if (is(record.id, "numeric") == FALSE){
-
+            }else if (!is(record.id, "numeric")) {
               stop("[get_RLum()] 'record.id' has to be of type 'numeric'!")
 
             }
 
             ##check if record.id exists
-            if(FALSE%in%(abs(record.id)%in%(1:length(object@records)))){
-
+            if (FALSE %in% (abs(record.id) %in% (1:length(object@records)))) {
               stop("[get_RLum()] At least one 'record.id' is invalid!")
 
             }
 
             ##recordType
-            if(missing(recordType) == TRUE){
-
-              recordType <- unique(
-                unlist(
-                  lapply(1:length(object@records),
-                         function(x){object@records[[x]]@recordType})))
+            if (missing(recordType)) {
+              recordType <- unique(unlist(lapply(1:length(object@records),
+                                                 function(x) {
+                                                   object@records[[x]]@recordType
+                                                 })))
 
             }else{
-
-              if (is(recordType, "character") == FALSE){
-
+              if (!is(recordType, "character")) {
                 stop("[get_RLum()] 'recordType' has to be of type 'character'!")
 
               }
@@ -290,42 +284,34 @@ setMethod("get_RLum",
             }
 
             ##curveType
-            if(missing(curveType)){
+            if(missing(curveType)) {
+              curveType <- unique(unlist(lapply(1:length(object@records),
+                                                function(x) {
+                                                  object@records[[x]]@curveType
+                                                })))
 
-              curveType <- unique(
-                unlist(
-                  lapply(1:length(object@records),
-                         function(x){object@records[[x]]@curveType})))
-
-            }else if (!is(curveType, "character")){
-
+            }else if (!is(curveType, "character")) {
               stop("[get_RLum()] Error: 'curveType' has to be of type 'character'!")
 
             }
 
             ##RLum.type
-            if(missing(RLum.type) == TRUE){
-
+            if (missing(RLum.type)) {
               RLum.type <- c("RLum.Data.Curve","RLum.Data.Spectrum")
 
-            }else if (is(RLum.type, "character") == FALSE){
-
+            }else if (!is(RLum.type, "character")) {
               stop("[get_RLum()] 'RLum.type' has to be of type 'character'!")
 
             }
 
             ##get.index
-            if(missing(get.index) == TRUE){
-
+            if (missing(get.index)) {
               get.index <- FALSE
 
-            }else if (is(get.index, "logical") == FALSE){
-
+            }else if (!is(get.index, "logical")) {
               stop("[get_RLum()] 'get.index' has to be of type 'logical'!")
 
             }
-
-
 
 
             ##-----------------------------------------------------------------##
@@ -355,11 +341,13 @@ setMethod("get_RLum",
                     if(grepl(recordType[k],object@records[[x]]@recordType) == TRUE &
                        object@records[[x]]@curveType%in%curveType){
 
-                      if(get.index == FALSE){
+                      if(!get.index){
 
-                        object@records[[x]]
+                          object@records[[x]]
 
-                      }else{x}
+                      }else{
+                        x
+                      }
 
                     }
 
@@ -387,27 +375,21 @@ setMethod("get_RLum",
               }
 
               ##remove list for get.index
-              if(get.index == TRUE){
-
+              if (get.index) {
                 return(unlist(temp))
 
               }else{
-
-                if(keep.object == TRUE){
-
+                if (keep.object) {
                   temp <- set_RLum(class = "RLum.Analysis",
                                    records = temp,
                                    protocol = object@protocol)
                   return(temp)
 
                 }else{
-
-                  if(length(temp) == 1 & recursive == TRUE){
-
+                  if (length(temp) == 1 & recursive == TRUE) {
                     return(temp[[1]])
 
                   }else{
-
                     return(temp)
 
                   }
@@ -458,3 +440,5 @@ setMethod("length_RLum",
             length(object@records)
 
           })
+
+

@@ -10,6 +10,20 @@
 #' \code{background.count.distribution} and \code{sigmab}, which will be passed to the function
 #' \link{calc_OSLLxTxRatio}.\cr\cr
 #'
+#' \bold{Argument \code{object} is of type \code{list}}\cr\cr
+#'
+#' If the argument \code{object} is of type \code{\link{list}} containing \bold{only}
+#' \code{\linkS4class{RLum.Analysis}} objects, the function re-calls itself as often as elements
+#' are in the list. This is usefull if an entire measurement wanted to be analysed without
+#' writing separate for-loops. To gain in full control of the parameters (e.g., \code{dose.points}) for
+#' every aliquot (corresponding to one \code{\linkS4class{RLum.Analysis}} object in the list), in
+#' this case the arguments can be provided as \code{\link{list}}. This \code{list} should
+#' be of similar length as the \code{list} provided with the argument \code{object}, otherwise the function
+#' will create an own list of the requested lenght. Function output will be just one single \code{\linkS4class{RLum.Results}} object.
+#'
+#' Please be careful when using this option. It may allow a fast an efficient data analysis, but
+#' the function may also break with an unclear error message, due to wrong input data.\cr\cr
+#'
 #' \bold{Working with IRSL data}\cr\cr
 #'
 #' The function was originally designed to work just for 'OSL' curves,
@@ -36,23 +50,29 @@
 #' \sQuote{palaeodose.error}: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
-#' object containing data for analysis
+#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
+#' object containing data for analysis, alternatively a \code{\link{list}} of
+#' \code{\linkS4class{RLum.Analysis}} objects can be provided.
 #'
 #' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
-#' bound of the signal integral
+#' bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
+#' of type \code{\link{list}}
 #'
 #' @param signal.integral.max \code{\link{integer}} (\bold{required}): upper
-#' bound of the signal integral
+#' bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
+#' of type \code{\link{list}}
 #'
 #' @param background.integral.min \code{\link{integer}} (\bold{required}):
-#' lower bound of the background integral
+#' lower bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
+#' of type \code{\link{list}}
 #'
 #' @param background.integral.max \code{\link{integer}} (\bold{required}):
-#' upper bound of the background integral
+#' upper bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
+#' of type \code{\link{list}}
 #'
 #' @param rejection.criteria \code{\link{list}} (with default): provide a named list
-#' and set rejection criteria in percentage for further calculation.
+#' and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
+#' a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 #'
 #' Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
 #' \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS}.
@@ -61,10 +81,12 @@
 #'
 #' @param dose.points \code{\link{numeric}} (optional): a numeric vector
 #' containg the dose points values Using this argument overwrites dose point
-#' values in the signal curves.
+#' values in the signal curves. Can be a \code{\link{list}} of \code{\link{numeric}} vectors,
+#' if \code{object} is of type \code{\link{list}}
 #'
 #' @param mtext.outer \code{\link{character}} (optional): option to provide an
-#' outer margin mtext
+#' outer margin mtext. Can be a \code{\link{list}} of \code{\link{character}s},
+#' if \code{object} is of type \code{\link{list}}
 #'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot
 #' output.
@@ -100,7 +122,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.5.5
+#' @section Function version: 0.6.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -166,6 +188,64 @@ analyse_SAR.CWOSL<- function(
   plot.single = FALSE,
   ...
 ) {
+
+# SELF CALL -----------------------------------------------------------------------------------
+if(is.list(object)){
+
+  ##now we have to extend everything to allow list of arguments ... this is just consequent
+  signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
+  signal.integral.max <- rep(as.list(signal.integral.max), length = length(object))
+  background.integral.min <- rep(as.list(background.integral.min), length = length(object))
+  background.integral.max <- rep(as.list(background.integral.max), length = length(object))
+
+
+  if(!missing(rejection.criteria)){
+    rejection.criteria <- rep(as.list(rejection.criteria), length = length(object))
+
+  }
+
+
+  if(!missing(dose.points)){
+
+    if(is(dose.points, "list")){
+      dose.points <- rep(dose.points, length = length(object))
+
+    }else{
+      dose.points <- rep(list(dose.points), length = length(object))
+
+    }
+
+  }
+
+  if(!missing(mtext.outer)){
+    mtext.outer <- rep(as.list(mtext.outer), length = length(object))
+
+  }else{
+    mtext.outer <- rep(list(""), length = length(object))
+
+  }
+
+   ##run analysis
+   temp <- lapply(1:length(object), function(x){
+
+    analyse_SAR.CWOSL(object[[x]],
+                      signal.integral.min = signal.integral.min[[x]],
+                      signal.integral.max = signal.integral.max[[x]],
+                      background.integral.min = background.integral.min[[x]],
+                      background.integral.max = background.integral.max[[x]] ,
+                      dose.points = dose.points[[x]],
+                      mtext.outer = mtext.outer[[x]],
+                      plot = plot,
+                      plot.single = plot.single,
+                      main = paste0("ALQ #",x),
+                      ...)
+
+  })
+
+  ##combine everything to one RLum.Results object as this as what was written ... only
+  ##one object
+  return(merge_RLum(temp))
+}
 
 # CONFIG  -----------------------------------------------------------------
 
@@ -1218,3 +1298,4 @@ temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
   return(temp.results.final)
 
 }
+
