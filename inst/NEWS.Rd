@@ -7,9 +7,20 @@
       \item Extend class definition for \code{RLum}-class by slots \code{originator} and \code{.uid}
       (and with that for all \code{RLum}classes),
 
-      \item the \code{get_RLum} method for the \code{RLum.Results} object returned \code{NULL} if
-      nothing was defined for a specific function, corrected. Now, if nothing is defined the first
-      object in the slot \code{data} is returned (#223).
+
+      \item \code{get_RLum}
+      \itemize{
+        \item the method for the \code{RLum.Results} object returned \code{NULL} if nothing was
+        defined for a specific function, corrected. Now, if nothing is defined the first  object
+        in the slot \code{data} is returned (#223),
+        \item the method was enhanced to deal with objects of type \code{list} containing only
+        \code{RLum} objects. Depending of the object in the list the corresponding method is
+        called of the \code{RLum} objects.
+
+
+
+      }
+
    }
   }
 
@@ -30,7 +41,10 @@
         \item Internal curve selection now works using the \code{get_RLum}. This should give
         a little bit more flexibility and prevent errors with odd curve names,
         \item in the rare case where no recuperation rate can be calculated due to the missing
-        R0 point the function stopped with an error. Corrected.
+        R0 point the function stopped with an error. Corrected,
+        \item function now how to deal with a \code{list} of \code{RLum.Analysis} objects and will
+        re-call itself as elements are in the \code{list} (argument \code{object}). In particular
+        cases this may lead to a tremendous efficient data analysis process.
 
       }
 
@@ -81,8 +95,8 @@
         \item for the option \code{fit.method = "LIN"} and \code{fit.method = "EXP OR LIN"} weights had been
         not considered; corrected,
         \item add argument \code{fit.force_through_origin}, it does excatly what you may expect from such
-        argument (#225, requested by Alice Versendaal).
-
+        argument (#225, requested by Alice Versendaal),
+        \item get rid of some not very informative warning messages if some fitting failed.
 
 
       }

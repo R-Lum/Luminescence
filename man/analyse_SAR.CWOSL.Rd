@@ -9,23 +9,29 @@ analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max,
   dose.points, mtext.outer, plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): input
-object containing data for analysis}
+\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
+object containing data for analysis, alternatively a \code{\link{list}} of
+\code{\linkS4class{RLum.Analysis}} objects can be provided.}
 
 \item{signal.integral.min}{\code{\link{integer}} (\bold{required}): lower
-bound of the signal integral}
+bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
+of type \code{\link{list}}}
 
 \item{signal.integral.max}{\code{\link{integer}} (\bold{required}): upper
-bound of the signal integral}
+bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
+of type \code{\link{list}}}
 
 \item{background.integral.min}{\code{\link{integer}} (\bold{required}):
-lower bound of the background integral}
+lower bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
+of type \code{\link{list}}}
 
 \item{background.integral.max}{\code{\link{integer}} (\bold{required}):
-upper bound of the background integral}
+upper bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
+of type \code{\link{list}}}
 
 \item{rejection.criteria}{\code{\link{list}} (with default): provide a named list
-and set rejection criteria in percentage for further calculation.
+and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
+a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 
 Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
 \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS}.
@@ -34,10 +40,12 @@ Per default all numericla values are set to 10.}
 
 \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector
 containg the dose points values Using this argument overwrites dose point
-values in the signal curves.}
+values in the signal curves. Can be a \code{\link{list}} of \code{\link{numeric}} vectors,
+if \code{object} is of type \code{\link{list}}}
 
 \item{mtext.outer}{\code{\link{character}} (optional): option to provide an
-outer margin mtext}
+outer margin mtext. Can be a \code{\link{list}} of \code{\link{character}s},
+if \code{object} is of type \code{\link{list}}}
 
 \item{plot}{\code{\link{logical}} (with default): enables or disables plot
 output.}
@@ -78,6 +86,20 @@ used. For \bold{changing the way the Lx/Tx error is calculated} use the argument
 \code{background.count.distribution} and \code{sigmab}, which will be passed to the function
 \link{calc_OSLLxTxRatio}.\cr\cr
 
+\bold{Argument \code{object} is of type \code{list}}\cr\cr
+
+If the argument \code{object} is of type \code{\link{list}} containing \bold{only}
+\code{\linkS4class{RLum.Analysis}} objects, the function re-calls itself as often as elements
+are in the list. This is usefull if an entire measurement wanted to be analysed without
+writing separate for-loops. To gain in full control of the parameters (e.g., \code{dose.points}) for
+every aliquot (corresponding to one \code{\linkS4class{RLum.Analysis}} object in the list), in
+this case the arguments can be provided as \code{\link{list}}. This \code{list} should
+be of similar length as the \code{list} provided with the argument \code{object}, otherwise the function
+will create an own list of the requested lenght. Function output will be just one single \code{\linkS4class{RLum.Results}} object.
+
+Please be careful when using this option. It may allow a fast an efficient data analysis, but
+the function may also break with an unclear error message, due to wrong input data.\cr\cr
+
 \bold{Working with IRSL data}\cr\cr
 
 The function was originally designed to work just for 'OSL' curves,
@@ -112,7 +134,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.5.5 (2015-08-13 17:21:43)
+ 0.6.0 (2015-08-18 11:33:25)
 }
 \examples{
 ##load data

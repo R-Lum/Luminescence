@@ -107,7 +107,7 @@
 #' .. $Formula : \code{expression} \cr
 #' .. $call : \code{call} (the original function call)\cr
 #'
-#' @section Function version: 1.7.1
+#' @section Function version: 1.7.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -415,7 +415,7 @@ plot_GrowthCurve <- function(
 
 
         #calculate De
-        De<-round(-c-b*log(1-sample[1,2]/a), digits=2)
+        De<-suppressWarnings(round(-c-b*log(1-sample[1,2]/a), digits=2))
 
         #print D01 value
         D01<-round(b,digits=2)
@@ -472,7 +472,8 @@ plot_GrowthCurve <- function(
             var.c[i]<-as.vector((parameters["c"]))
 
             #calculate x.natural for error calculatio
-            x.natural[i]<-round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2)
+            x.natural[i]<-suppressWarnings(
+              round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2))
 
           }
 
@@ -1141,7 +1142,7 @@ plot_GrowthCurve <- function(
       try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
 
       #to avoid errors plot only if histogram exists
-      if (exists("histogram")) {
+      if (exists("histogram") && length(histogram$counts) > 2) {
 
         ##calculate normal distribution curves for overlay
         norm.curve.x <- seq(min(x.natural, na.rm = TRUE),

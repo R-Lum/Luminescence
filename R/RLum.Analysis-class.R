@@ -440,3 +440,5 @@ setMethod("length_RLum",
             length(object@records)
 
           })
+
+

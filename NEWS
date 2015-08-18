@@ -8,10 +8,17 @@ Changes in version 0.5.0 (, 2015):
            ‘originator’ and ‘.uid’ (and with that for all
            ‘RLum’classes),
 
-         • the ‘get_RLum’ method for the ‘RLum.Results’ object returned
-           ‘NULL’ if nothing was defined for a specific function,
-           corrected. Now, if nothing is defined the first object in
-           the slot ‘data’ is returned (#223).
+         • ‘get_RLum’
+
+             • the method for the ‘RLum.Results’ object returned ‘NULL’
+               if nothing was defined for a specific function,
+               corrected. Now, if nothing is defined the first object
+               in the slot ‘data’ is returned (#223),
+
+             • the method was enhanced to deal with objects of type
+               ‘list’ containing only ‘RLum’ objects. Depending of the
+               object in the list the corresponding method is called of
+               the ‘RLum’ objects.
 
   New functions:
 
@@ -36,7 +43,13 @@ Changes in version 0.5.0 (, 2015):
 
              • in the rare case where no recuperation rate can be
                calculated due to the missing R0 point the function
-               stopped with an error. Corrected.
+               stopped with an error. Corrected,
+
+             • function now how to deal with a ‘list’ of
+               ‘RLum.Analysis’ objects and will re-call itself as
+               elements are in the ‘list’ (argument ‘object’). In
+               particular cases this may lead to a tremendous efficient
+               data analysis process.
 
          • ‘calc_Statistics()’
 
@@ -91,7 +104,10 @@ Changes in version 0.5.0 (, 2015):
 
              • add argument ‘fit.force_through_origin’, it does excatly
                what you may expect from such argument (#225, requested
-               by Alice Versendaal).
+               by Alice Versendaal),
+
+             • get rid of some not very informative warning messages if
+               some fitting failed.
 
          • ‘plot_RLum()’
 

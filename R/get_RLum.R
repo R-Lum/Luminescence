@@ -8,7 +8,8 @@
 #' in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 #'
 #' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
-#' class \code{RLum}
+#' class \code{RLum} or an object of type \code{\link{list}} containing only objects of type
+#' \code{\linkS4class{RLum}}
 #'
 #' @param \dots further arguments that will be passed to the object specific methods. For
 #' furter details on the supported arguments please see the class
@@ -18,7 +19,7 @@
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
-#' @section Function version: 0.1
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -52,6 +53,33 @@
 #'
 #'
 setGeneric("get_RLum", function (object, ...) { standardGeneric("get_RLum") })
+
+# Method for get_RLum method for RLum objects in a list for a list of objects  -------------------
+#' @describeIn get_RLum
+#' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
+#'
+setMethod("get_RLum",
+          signature = "list",
+          function(object,...){
+
+            lapply(1:length(object), function(x){
+
+              ##get rid of all objects that are not of type RLum, this is better than leaving that
+              ##to the user
+              if(inherits(object[[x]], what = "RLum")){
+
+                get_RLum(object[[x]],...)
+
+              }else{
+
+               warning(paste0("[get_RLum()] object #",x," in the list was not of type 'RLum' and has been removed!"),
+                       call. = FALSE)
+
+              }
+
+            })
+
+          })
 
 
 ## ---- DEPRECATED GENERICS
