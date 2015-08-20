@@ -1,4 +1,4 @@
-#' Use DRAC to calculate dose rate data.
+#' Use DRAC to calculate dose rate data
 #'
 #' The function provides an interface from R to DRAC. An R-object or a
 #' pre-formatted XLS/XLSX file is passed to the DRAC website and the
@@ -11,13 +11,33 @@
 #'
 #' @param name \code{\link{character}}: Optional user name submitted to DRAC. If
 #' omitted, a random name will be generated
+#' 
+#' @param ... Further arguments.
 #'
-#' @return A results data set from the DRAC website.
+#' @return Returns an \code{\linkS4class{RLum.Results}} object containing the following elements:
+#' 
+#' \item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@@data}:
+#' 
+#' \tabular{lll}{
+#'    \code{$highlights} \tab \code{\link{data.frame}} \tab summary of 25 most important input/output fields \cr
+#'    \code{$header} \tab \code{\link{character}} \tab HTTP header from the DRAC server response \cr
+#'    \code{$labels} \tab \code{\link{data.frame}} \tab descriptive headers of all input/output fields \cr
+#'    \code{$content} \tab \code{\link{data.frame}} \tab complete DRAC input/output table \cr
+#'    \code{$input} \tab \code{\link{data.frame}} \tab DRAC input table \cr
+#'    \code{$output} \tab \code{\link{data.frame}} \tab DRAC output table \cr
+#' }
+#' 
+#' }
+#' \item{data}{\link{character} or \link{list} path to the input spreadsheet or a DRAC template} 
+#' \item{call}{\link{call} the function call}
+#' \item{args}{\link{list} used arguments}
+#' 
+#' The output should be accessed using the function \code{\link{get_RLum}}.
 #' 
 #' @section Function version: 0.1.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,
-#' GFZ Potsdam (Germany)\cr
+#' GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
 #'
 #' @references
 #'
@@ -25,69 +45,67 @@
 #' Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 #'
 #' @examples
-#'
-#' \dontrun{
-#' ## re-create DRAC example data set
-#' text <- paste0("DRAC-example Quartz Q AdamiecAitken1998 3.4000 0.5100 14.4700 ",
-#'                "1.6900 1.2000 0.1400 0.0000 0.0000 N X X X X X X X X X X X X ",
-#'                "X X X X X N 90.0000 125.0000 Brennanetal1991 Guerinetal2012-Q ",
-#'                "8.0000 10.0000 Bell1979 0.0000 0.0000 5.0000 2.0000 2.2000 ",
-#'                "0.2200 1.8000 0.1000 30.0000 70.0000 150.0000 X X 20.0000 ",
-#'                "0.2000\n",
-#'                "DRAC-example Feldspar F AdamiecAitken1998 2.0000 0.2000 8.0000 ",
-#'                "0.4000 1.7500 0.0500 0.0000 0.0000 Y X X X X 12.5000 0.5000 X ",
-#'                "X N X X X X X X X X Y 180.0000 212.0000 Bell1980 Mejdahl1979 ",
-#'                "0.0000 0.0000 Bell1979 0.1500 0.0500 10.0000 3.0000 0.1500 ",
-#'                "0.0150 1.8000 0.1000 60.0000 100.0000 200.0000 X X 15.0000 ",
-#'                "1.5000\n",
-#'                "DRAC-example Polymineral PM AdamiecAitken1998 4.0000 0.4000 ",
-#'                "12.0000 0.1200 0.8300 0.0800 0.0000 0.0000 Y X X X X 12.5000 ",
-#'                "0.5000 X X N X X 2.5000 0.1500 X X X X Y 4.0000 11.0000 ",
-#'                "Bell1980 Mejdahl1979 0.0000 0.0000 X 0.0860 0.0038 10.0000 ",
-#'                "5.0000 X X X X X X X 0.2000 0.1000 204.4700 2.6900")
-#'                
-#' ## send example data set let DRAC do the calculations
-#' Reply <- use_DRAC(file = text)
-#'
+#' 
+#' ## (1) Method using the DRAC spreadsheet
+#' 
+#' file <-  "/PATH/TO/DRAC_Input_and_Output_Template.xlsx"
+#' 
 #' # send the actual IO template spreadsheet to DRAC 
-#' file <-  "~/DRAC_Input_and_Output_Template-2.xlsx"
+#' \dontrun{
 #' use_DRAC(file = file)
 #' }
 #' 
+#' 
+#' 
+#' ## (2) Method using an R template object
+#' 
+#' # Create a template
+#' input <- template_DRAC()
+#' 
+#' # Fill the template with values
+#' input$`Project ID` <- "DRAC-Example"
+#' input$`Sample ID` <- "Quartz"
+#' input$`Conversion factors` <- "AdamiecAitken1998"
+#' input$`ExternalU (ppm)` <- 3.4
+#' input$`errExternal U (ppm)` <- 0.51
+#' input$`External Th (ppm)` <- 14.47
+#' input$`errExternal Th (ppm)` <- 1.69
+#' input$`External K (%)` <- 1.2
+#' input$`errExternal K (%)` <- 0.14
+#' input$`Calculate external Rb from K conc?` <- "N"
+#' input$`Calculate internal Rb from K conc?` <- "N"
+#' input$`Scale gammadoserate at shallow depths?` <- "N"
+#' input$`Grain size min (microns)` <- 90
+#' input$`Grain size max (microns)` <- 125
+#' input$`Water content ((wet weight - dry weight)/dry weight) %` <- 5
+#' input$`errWater content %` <- 2
+#' input$`Depth (m)` <- 2.2
+#' input$`errDepth (m)` <- 0.22
+#' input$`Overburden density (g cm-3)` <- 1.8
+#' input$`errOverburden density (g cm-3)` <- 0.1
+#' input$`Latitude (decimal degrees)` <- 30.0000
+#' input$`Longitude (decimal degrees)` <- 70.0000
+#' input$`Altitude (m)` <- 150
+#' input$`De (Gy)` <- 20
+#' input$`errDe (Gy)` <- 0.2
+#'
+#' # use DRAC
+#' \dontrun{
+#' output <- use_DRAC(input)
+#' }
+#'
 #' @export
 use_DRAC <- function(
   file,
   name,
   ...
 ){
-  
-  ##When providing a *.xls or *.xlsx input file please make sure to maintain
-  ## TODO
-  ##
-  ## (1)
-  ## THE DATA SET AS UNMODIFIED AS POSSIBLE. THIS IS A CLEAR CASE FOR ERROR
-  ## HANDLING OF THE MOST STUPID USER. MAYBE CHECK STRUCTURE OF THE ORDER OF
-  ## PARAMETERS FOR MEANINGFUL COMBINATION. WRITE DISCLAIMER THAT THE FUNCTION
-  ## HAS BEEN CHECKED WITH DRAC EXAMPLE DATA SET.
+  ## TODO: 
+  ## (1) Keep the data set as unmodified as possible. Check structure and order of parameters
+  ## for meaningful cominbination.
   ##
   ## (2)
   ## Leave it to the user where the calculations made in our package should be used
-  ##
-  ## (3)
-  ## DO NOT forget to mention that everything was calculated in DRAC
-  ##
-  ##  (a) reference
-  ##  (b) legal statement ... why? The DRAC website may prohibit a usage like suggested
-  ##
-  ##  (4)
-  ##  @CB: Add your name in the authors list wherever you feel it should belong to
-  ##
-  ##  (5)
-  ##  Example is necessary, however, the example must not pass data to DRAC!
-  ##
-  ##  (6)
-  ##  If everything is ready we should anyway keed the dependency for XLS import to
-  ##  keep the function as easy as possible.
   
   # Integrity tests -----------------------------------------------------------------------------
   if (inherits(file, "character")) {
@@ -224,7 +242,7 @@ use_DRAC <- function(
   } else {
     if (settings$verbose) message("\t Finalising the results...")
   }
-    
+  
   ## split header and content
   DRAC.content.split <- strsplit(x = DRAC.content,
                                  split = "DRAC Outputs\n\n")
@@ -283,20 +301,32 @@ use_DRAC <- function(
   
   ## Final Disclaimer
   messages <- list("\t Done! \n",
+                   "\t We, the authors of the R package 'Luminescence', do not take any responsibility and we are not liable for any ",
+                   "\t mistakes or unforeseen misbehaviour. All calculations are done by DRAC and it is outside our reference to",
+                   "\t verify the input and output. \n",
+                   "\t Note that this function is only compatible with DRAC version 1.1. Before using this function make sure that",
+                   "\t this is the correct version, otherwise expect unspecified errors.\n",
                    "\t Please ensure you cite the use of DRAC in your work, published or otherwise. Please cite the website name and",
                    "\t version (e.g. DRAC v1.1) and the accompanying journal article:",
                    "\t Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose rate and age calculation for trapped charge",
                    "\t dating. Quaternary Geochronology 28, 54-61. \n",
-                   "\t Use 'verbose = FALSE' to hide all messages. \n")
+                   "\t Use 'verbose = FALSE' to hide this message. \n")
   
   if (settings$verbose) lapply(messages, message)
   
   
   ## return output
-  invisible(list(DRAC.header = DRAC.header,
-                 DRAC.labels = DRAC.labels,
-                 DRAC.content = DRAC.content,
-                 DRAC.highlights = DRAC.highlights,
-                 DRAC.input = DRAC.content.input,
-                 DRAC.output = DRAC.content.output))
+  DRAC.return <- set_RLum("RLum.Results",
+                          data = list(
+                            DRAC = list(highlights = DRAC.highlights,
+                                        header = DRAC.header,
+                                        labels = DRAC.labels,
+                                        content = DRAC.content,
+                                        input = DRAC.content.input,
+                                        output = DRAC.content.output),
+                            data = file,
+                            call = sys.call(),
+                            args = as.list(sys.call()[-1])))
+  
+  invisible(DRAC.return)
 }
