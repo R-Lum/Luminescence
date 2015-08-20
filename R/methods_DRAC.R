@@ -1,7 +1,7 @@
 ##################################################################################
 ##                      METHODS FOR S3 GENERICS                                 ##
 ##################################################################################
- 
+
 ## ---------------------------------------------------------------------------##
 ## DATA FRAME COERCION METHOD
 
@@ -74,6 +74,15 @@ print.DRAC.list <- function(x, ...) {
 #' @export
 `[[<-.DRAC.list` <- function(x, i, value) {
   
+  
+  ## REJECT ALL INADEQUATE CLASSES ----
+  acceptedClasses <- c("integer", "character", "numeric", "factor")
+  if (is.na(match(class(value), acceptedClasses))) {
+    warning(paste("I cannot use objects of class", class(value)), 
+            call. = FALSE)
+    return(x)
+  }
+  
   ## CHECK INPUT LENGTH ----
   length.old <- length(x[[i]])
   length.new <- length(value)
@@ -88,18 +97,53 @@ print.DRAC.list <- function(x, ...) {
   class.old <- class(x[[i]])
   class.new <- class(value)
   
-  # some input fields allow 'X' as input, so in terms of R can be of class
-  # "character" or "numeric/integer". hence, we check if input is "X" and 
-  # if the filed allows it. If so, we change the old class to "character".
-  if (any(value == "X") && attributes(x[[i]])$allowsX) {
-    class.old <- "character"
+  ## CHECK INPUT FIELDS THAT ALLOW 'X' -----
+  # the following checks apply to fields that are normally numeric, but also 
+  # accept 'X' as input. this EXCLUDES factors!
+  if (class.old != "factor") {
+    # some input fields allow 'X' as input, so in terms of R can be of class
+    # "character" or "numeric/integer". hence, we check if input is "X" and 
+    # if the filed allows it. If so, we change the old class to "character".
+    if (any(value == "X") && attributes(x[[i]])$allowsX) {
+      
+      if (any(is.na(as.numeric(value[which(value != "X")])))) {
+        warning(paste("Cannot coerce <", value[which(value != "X")], "> to a numeric value.",
+                      "Input must be numeric or 'X'."), 
+                call. = FALSE)
+        return(x)
+      }
+      class.old <- "character" 
+    }
+    
+    # where the input field is alreay "X" we have to check whether the new
+    # non-character input is allowed
+    if (any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
+      if (any(is.na(as.numeric(value[which(value != "X")])))) {
+        warning(paste("Cannot coerce <", value[which(value != "X")], "> to a numeric value.",
+                      "Input must be numeric or 'X'. \n"), 
+                call. = FALSE)
+        return(x)
+      }
+      class.new <- "character"
+      value <- as.character(value)
+    }
+    
+    # when a numeric input field was inserted an "X" it was coerced to class
+    # character. since we are now allowed to insert any character (later tests)
+    # we need to make sure that the new input can be coerced to class numeric.
+    # and if the new values are numeric, we coerce them to character
+    if (attributes(x[[i]])$allowsX && class.old == "character") {
+      if (any(is.na(as.numeric(value[which(value != "X")])))) {
+        warning(paste("Cannot coerce <", value[which(value != "X")], "> to a numeric value.",
+                      "Input must be numeric or 'X'. \n"), 
+                call. = FALSE)
+        return(x)
+      } 
+      class.new <- "character"
+      value <- as.character(value)
+    }
   }
-  # where the input field is alreay "X" we have to check whether the new
-  # non-character input is allowed
-  if (any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
-    class.new <- "character"
-    value <- as.character(value)
-  }
+  
   
   # numeric input can be both of class 'integer' or 'numeric'. We will
   # allow any combination and reject only non-numeric/integer input
@@ -107,6 +151,7 @@ print.DRAC.list <- function(x, ...) {
     if (class.new != "numeric" && class.new != "integer") {
       warning(paste(names(x)[i], ": Input must be of class", class.old),
               call. = FALSE)
+      return(x)
     }
   }
   
@@ -125,7 +170,7 @@ print.DRAC.list <- function(x, ...) {
   # the input is converted to a factor to keep the information.
   if (class.old == "factor") {
     levels <- levels(x[[i]])
-    if (any(`%in%`(value, levels)) == FALSE) {
+    if (any(`%in%`(value, levels) == FALSE)) {
       warning(paste(names(x)[i], ": Invalid option. Valid options are:", paste(levels, collapse = ", ")),
               call. = FALSE)
       return(x)

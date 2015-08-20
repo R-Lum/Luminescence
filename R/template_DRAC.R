@@ -113,7 +113,7 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
                 description = "The mineral used for dating: quartz, feldspar or polymineral. Input must be 'Q', 'F' or 'PM'."), #
     
     `Conversion factors` = 
-      structure(factor(rep("Liritzisetal2013", nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "X")), required = FALSE, allowsX = FALSE, key = "TI:4",
+      structure(factor(rep("Liritzisetal2013", nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "X")), required = FALSE, allowsX = TRUE, key = "TI:4",
                 description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required."), #
     
     `ExternalU (ppm)` = 
@@ -149,7 +149,7 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `Calculate external Rb from K conc?` = 
-      structure(factor(rep("Y", nrow), c("Y", "N")), required = FALSE, allowsX = TRUE, key = "TI:13",
+      structure(factor(rep("Y", nrow), c("Y", "N")), required = FALSE, allowsX = FALSE, key = "TI:13",
                 description = "Option to calculate a Rubidium concentration from Potassium, using the 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'."), #
     
     `Internal U (ppm)` = 
