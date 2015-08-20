@@ -349,12 +349,29 @@ as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) 
 
 #' @export
 print.DRAC.list <- function(x, ...) {
+  
+  limit <- 80
+  
   for (i in 1:length(x)) {
+    
+    # for pretty printing we insert newlines and tabs at specified lengths
+    ls <- attributes(x[[i]])$description
+    ls.n <- nchar(ls)
+    ls.block <- floor(ls.n / limit)
+    strStarts <- seq(0, ls.n, limit)
+    strEnds <- seq(limit-1, ls.n + limit, limit)
+    blockString <- paste(mapply(function(start, end) { 
+      trimmedString <- paste(substr(ls, start, end), "\n\t\t\t")
+      if (substr(trimmedString, 1, 1) == " ")
+        trimmedString <- gsub("^[ ]*", "", trimmedString)
+      return(trimmedString)
+    }, strStarts, strEnds), collapse="")
+    
     msg <- paste(attributes(x[[i]])$key, "=>",names(x)[i], "\n",
                  "\t VALUES =", paste(x[[i]], collapse = ", "), "\n",
                  "\t ALLOWS 'X' = ", attributes(x[[i]])$allowsX, "\n",
                  "\t REQUIRED =", attributes(x[[i]])$required, "\n",
-                 "\t DESCRIPTION =", attributes(x[[i]])$description, "\n"
+                 "\t DESCRIPTION = ", blockString, "\n"
     )
     
     if (!is.null(levels(x[[i]]))) {
