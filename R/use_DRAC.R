@@ -57,7 +57,8 @@
 #' @export
 use_DRAC <- function(
   file,
-  name
+  name,
+  ...
 ){
   
   ##When providing a *.xls or *.xlsx input file please make sure to maintain
@@ -115,6 +116,20 @@ use_DRAC <- function(
   }
   
   
+  # Settings ------------------------------------------------------------------------------------
+  settings <- list(name = ifelse(missing(name), 
+                                 paste(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, 
+                                              runif(1, 2, 4)), collapse = ""),
+                                 name),
+                   verbose = TRUE,
+                   url = "http://zerk.canopus.uberspace.de/drac/?show=calculator")
+  
+  # override defaults with args in ...
+  settings <- modifyList(settings, list(...))
+  
+  # "https://www.aber.ac.uk/en/iges/research-groups/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
+  
+  
   # Set helper function -------------------------------------------------------------------------
   ## The real data are transferred without any encryption, so we have to mask the original
   
@@ -131,6 +146,7 @@ use_DRAC <- function(
   
   
   # Process data --------------------------------------------------------------------------------
+  if (settings$verbose) message("\n\t Preparing data...")
   
   ##(1) expand the rows in the data.frame a little bit
   mask.df <-  input.raw[rep(1:nrow(input.raw), each = 3), ]
@@ -167,6 +183,8 @@ use_DRAC <- function(
   for (i in 1:ncol(DRAC_submission.df)) 
     DRAC_submission.df[ ,i] <- as.character(DRAC_submission.df[, i])
   
+  
+  if (settings$verbose) message("\t Creating submission string...")
   ##get line by line and remove unwanted characters
   DRAC_submission.string <- sapply(1:nrow(DRAC_submission.df), function(x) {
     paste0(gsub(",", "", toString(DRAC_submission.df[x, ])), "\n")
@@ -177,21 +195,19 @@ use_DRAC <- function(
   
   
   # Send data to DRAC ---------------------------------------------------------------------------
+  if (settings$verbose) message(paste("\t Establishing connection to", settings$url))
   
   ## send data set to DRAC website and receive repsonse
-  # url <- paste0("https://www.aber.ac.uk/en/iges/research-groups/quaternary/luminescence-",
-  #               "research-laboratory/dose-rate-calculator/?show=calculator")
-  url <- "http://zerk.canopus.uberspace.de/drac/?show=calculator"
-    
-  DRAC.response <- httr::POST(url,
-                              body = list("drac_data[name]"  = paste(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, 
-                                                                            runif(1, 2, 4)), collapse = ""),
+  DRAC.response <- httr::POST(settings$url,
+                              body = list("drac_data[name]"  = settings$name,
                                           "drac_data[table]" = DRAC_input))
   
   ## check for correct response
   if (DRAC.response$status_code != 200) {
     stop(paste0("[use_DRAC()] transmission failed with HTTP status code: ",
                 DRAC.response$status_code))
+  } else {
+    if (settings$verbose) message("\t The request was successful, processing the reply...")
   }
   
   ## assign DRAC response data to variables
@@ -205,6 +221,8 @@ use_DRAC <- function(
                        "\t did not contain DRAC output. Please check\n",
                        "\t your data and verify its validity.\n")),
          call. = FALSE)
+  } else {
+    if (settings$verbose) message("\t Finalising the results...")
   }
     
   ## split header and content
@@ -262,6 +280,16 @@ use_DRAC <- function(
   for (i in 1:length(DRAC.highlights)) {
     attr(DRAC.highlights[ ,i], "key") <- highlight.keys[i]
   }
+  
+  ## Final Disclaimer
+  messages <- list("\t Done! \n",
+                   "\t Please ensure you cite the use of DRAC in your work, published or otherwise. Please cite the website name and",
+                   "\t version (e.g. DRAC v1.1) and the accompanying journal article:",
+                   "\t Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose rate and age calculation for trapped charge",
+                   "\t dating. Quaternary Geochronology 28, 54-61. \n",
+                   "\t Use 'verbose = FALSE' to hide all messages. \n")
+  
+  if (settings$verbose) lapply(messages, message)
   
   
   ## return output
