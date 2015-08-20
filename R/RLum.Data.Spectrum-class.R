@@ -24,7 +24,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Data.Spectrum", ...)}.
 #'
-#' @section Class version: 0.2.0
+#' @section Class version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -52,8 +52,8 @@ setClass(
   ),
   contains = "RLum.Data",
   prototype = list (
-    recordType = character(),
-    curveType = character(),
+    recordType = NA_character_,
+    curveType = NA_character_,
     data = matrix(),
     info = list()
   )
@@ -115,8 +115,8 @@ setMethod("show",
           signature(object = "RLum.Data.Spectrum"),
           function(object){
 
-            x.range <- range(as.numeric(rownames(object@data)))
-            y.range <- range(as.numeric(colnames(object@data)))
+            x.range <- suppressWarnings(range(as.numeric(rownames(object@data))))
+            y.range <- suppressWarnings(range(as.numeric(colnames(object@data))))
             z.range <- range(object@data)
 
             ##print information
@@ -174,7 +174,7 @@ setMethod("set_RLum",
                 collapse=", ")
 
               ##set error message
-              temp.error.message <- paste("[set_RLum] Missing required arguments " ,
+              temp.error.message <- paste("[set_RLum] missing required arguments " ,
                                           temp.error.missing,"!", sep="")
               stop(temp.error.message, call. = FALSE)
             }
@@ -186,7 +186,7 @@ setMethod("set_RLum",
 
             }else if (is(info, "list") == FALSE){
 
-              stop("[set_RLum] Error: 'info' has to be of type 'list'!")
+              stop("[set_RLum] error: 'info' has to be of type 'list'!")
 
             }
 

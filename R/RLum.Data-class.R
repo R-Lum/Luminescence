@@ -28,4 +28,5 @@
 #' @export
 setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")
-         )
+)
+

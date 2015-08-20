@@ -66,7 +66,7 @@ additional elements the slot \code{info} can be used.
 }
 
 \section{Class version}{
- 0.2.0
+ 0.2.1
 }
 \examples{
 showClass("RLum.Data.Spectrum")

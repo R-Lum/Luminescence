@@ -37,6 +37,6 @@ setClass("RLum",
            prototype = prototype(
              originator = NA_character_,
              .uid = NA_character_
-           ),
-         sealed = TRUE)
+           )
+         )
 
