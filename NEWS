@@ -20,6 +20,10 @@ Changes in version 0.5.0 (, 2015):
                ‘RLum’ objects in the list the corresponding ‘get_RLum’
                methods are called.
 
+         • ‘Risoe.BINfileData-class’
+
+             • Show method now returns the valid grain range.
+
   New functions:
 
          • ‘calc_gSGC()’ Calculate De value based on the gSGC by Li et
@@ -136,6 +140,26 @@ Changes in version 0.5.0 (, 2015):
          • ‘readXSYG2R()’
 
              • Set function to deprecated, new name: ‘read_XSYG2R()’
+
+         • ‘Risoe.BINfileData2RLum.Analysis()’
+
+             • A new argument ‘grain’ can be used to further limit the
+               transformation to specific grains in the data set,
+
+             • the arguement ‘pos’ is no longer required. If nothing is
+               provided every position will be transformed and the
+               function returns a list of ‘RLum.Analysis’-objects,
+
+             • along with this the argument ‘pos’ now accepts a vector
+               as input (i.e., more than on position can be provided
+               for the conversion),
+
+             • new argument ‘txtProgressBar’ addd. The default is set
+               to ‘FALSE’ as the computation time just become relevant
+               for single grain data,
+
+             • an error was fixed that occurred if the curves used for
+               the transformation had been of zero length.
 
          • ‘writeR2BIN()’
 

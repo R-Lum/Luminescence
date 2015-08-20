@@ -17,8 +17,11 @@
         \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding \code{get_RLum} methods
         are called.
 
+      }
 
-
+     \item \code{Risoe.BINfileData-class}
+      \itemize{
+        \item Show method now returns the valid grain range.
       }
 
    }
@@ -142,6 +145,23 @@
         \item Set function to deprecated, new name: \code{read_XSYG2R()}
 
       }
+
+     \item \code{Risoe.BINfileData2RLum.Analysis()}
+      \itemize{
+
+        \item A new argument \code{grain} can be used to further limit the transformation to
+        specific grains in the data set,
+        \item the arguement \code{pos} is no longer required. If nothing is provided every position
+        will be transformed and the function returns a list of \code{RLum.Analysis}-objects,
+        \item along with this the argument \code{pos} now accepts a vector as input (i.e., more than
+        on position can be provided for the conversion),
+        \item new argument \code{txtProgressBar} addd. The default is set to \code{FALSE} as the computation
+        time just become relevant for single grain data,
+        \item an error was fixed that occurred if the curves used for the transformation had been
+        of zero length.
+
+      }
+
 
       \item \code{writeR2BIN()}
       \itemize{

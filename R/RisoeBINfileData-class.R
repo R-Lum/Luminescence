@@ -180,6 +180,7 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
             date<-paste(unique(as.character(object@METADATA[,"DATE"])), collapse = ", ")
             run.range<-range(object@METADATA[,"RUN"])
             set.range<-range(object@METADATA[,"SET"])
+            grain.range <- range(object@METADATA[,"GRAIN"])
             pos.range<-range(object@METADATA[,"POSITION"])
 
             records.type.count <- sapply(1:length(records.type),
@@ -202,6 +203,7 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
             cat("\n\tOverall records:     ", records.overall)
             cat("\n\tRecords type:        ", records.type.count)
             cat("\n\tPosition range:      ",pos.range[1],":",pos.range[2])
+            cat("\n\tGrain range:         ",grain.range[1],":",grain.range[2])
             cat("\n\tRun range:           ",run.range[1],":",run.range[2])
             cat("\n\tSet range:           ",set.range[1],":",set.range[2])
           }#end function

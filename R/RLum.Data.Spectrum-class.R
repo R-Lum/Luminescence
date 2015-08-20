@@ -146,7 +146,7 @@ setMethod("show",
 #' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
 #' @param data \code{\link{matrix}}: raw curve data
 #' @param info \code{\link{list}}: info elements
-#' 
+#'
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Data.Spectrum"),
@@ -154,13 +154,13 @@ setMethod("set_RLum",
           definition = function(class, recordType, curveType, data, info){
 
             ##check for missing curveType
-            if(missing(curveType)==TRUE){
+            if(missing(curveType)){
 
               curveType <- "NA"
 
             }else if (is(curveType, "character") == FALSE){
 
-              stop("[set_RLum] Error: 'curveType' has to be of type 'character'!")
+              stop("[set_RLum] 'curveType' has to be of type 'character'!")
 
             }
 
@@ -174,9 +174,9 @@ setMethod("set_RLum",
                 collapse=", ")
 
               ##set error message
-              temp.error.message <- paste("[set_RLum] Error: Missing required arguments " ,
+              temp.error.message <- paste("[set_RLum] Missing required arguments " ,
                                           temp.error.missing,"!", sep="")
-              stop(temp.error.message)
+              stop(temp.error.message, call. = FALSE)
             }
 
             ##handle missing info argument
@@ -207,7 +207,7 @@ setMethod("set_RLum",
 #'
 #' @param object an object of class \code{\linkS4class{RLum.Data.Image}}
 #' @param info.object object of class "list" containing further meta information objects
-#' 
+#'
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),

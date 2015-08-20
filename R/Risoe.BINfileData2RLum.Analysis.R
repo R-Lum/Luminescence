@@ -11,30 +11,53 @@
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 #' \code{Risoe.BINfileData} object
-#' @param pos \code{\link{integer}} (\bold{required}): position number of the
+#'
+#' @param pos \code{\link{numeric}} (optional): position number of the
 #' \code{Risoe.BINfileData} object for which the curves are stored in the
-#' \code{RLum.Analysis} object. If the position is not valid \code{NA} is
+#' \code{RLum.Analysis} object. If \code{length(position)>1} a list of \code{RLum.Analysis} objects
+#' is returned. If nothing is provided every position will be converted. If the position is not valid \code{NA} is
 #' returned.
+#'
+#' @param grain \code{\link{vector}, \link{numeric}} (optional): grain number from
+#' the measurement to limit the converted data set (e.g., \code{grain =
+#' c(1:48)}). Please be aware that this option may lead to unwanted effects, as the output
+#' is strictly limited to the choosen grain number for all position numbers
+#'
 #' @param run \code{\link{vector}, \link{numeric}} (optional): run number from
 #' the measurement to limit the converted data set (e.g., \code{run =
 #' c(1:48)}).
+#'
 #' @param set \code{\link{vector}, \link{numeric}} (optional): set number from
 #' the measurement to limit the converted data set (e.g., \code{set =
 #' c(1:48)}).
+#'
 #' @param ltype \code{\link{vector}, \link{character}} (optional): curve type
 #' to limit the converted data. Allowed values are: \code{IRSL}, \code{OSL},
 #' \code{TL}, \code{RIR}, \code{RBR} and \code{USER}
+#'
 #' @param protocol \code{\link{character}} (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
+#'
+#' @param txtProgressBar \link{logical} (with default): enables or disables
+#' \code{\link{txtProgressBar}}.
+#'
 #' @return Returns an \code{\linkS4class{RLum.Analysis}} object.
+#'
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
-#' @section Function version: 0.1.2
+#'
+#' @section Function version: 0.2.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
 #' @seealso \code{\linkS4class{Risoe.BINfileData}},
+#'
 #' \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
+#'
 #' @references #
+#'
 #' @keywords manip
+#'
 #' @examples
 #'
 #'
@@ -48,31 +71,35 @@
 Risoe.BINfileData2RLum.Analysis<- function(
   object,
   pos,
+  grain,
   run,
   set,
   ltype,
-  protocol = "unknown"
+  protocol = "unknown",
+  txtProgressBar = FALSE
 ){
 
 
   # Integrity Check ---------------------------------------------------------
 
-  if (is(object,"Risoe.BINfileData")==FALSE){
-    stop("[Risoe.BINfileData2RLum.Analysis] Error: Input object is not of type 'Risoe.BINfileData'.")
+  if (!is(object,"Risoe.BINfileData")){
+    stop("[Risoe.BINfileData2RLum.Analysis()] Input object is not of type 'Risoe.BINfileData'.")
   }
 
-  if (missing(pos)==TRUE){
-    stop("[Risoe.BINfileData2RLum.Analysis] Error: No value for 'pos' set.")
+  if (missing(pos)){
+    pos <- unique(object@METADATA[,"POSITION"])
   }
 
-  if (is(pos,"numeric")==FALSE){
-    stop("[Risoe.BINfileData2RLum.Analysis] Error: Argument 'pos' has to be of data type integer.")
+  if (!is(pos,"numeric")){
+    stop("[Risoe.BINfileData2RLum.Analysis] Argument 'pos' has to be of type numeric.")
   }
 
   ##get and check valid positions
   positions.valid <- paste(as.character(unique(object@METADATA[,"POSITION"])), collapse=", ")
 
-  if ((pos %in% unique(object@METADATA[,"POSITION"])) == FALSE){
+
+  if (!all(pos %in% unique(object@METADATA[,"POSITION"]))){
+
     warning(paste("[Risoe.BINfileData2RLum.Analysis] Error: pos=",pos, " invalid.
               Valid positions are: ", positions.valid, sep=""))
 
@@ -86,7 +113,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
   }
 
   ##WARNINGS
-  if (length(which(pos/1:48 == 1)) == 0){
+  if (length(which(max(pos)/1:48 == 1)) == 0){
     warning("[Risoe.BINfileData2RLum.Analysis] Value for 'pos' out bounds specified for
             a Risoe BIN-file.")
   }
@@ -94,17 +121,38 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
   # Grep run and set data ---------------------------------------------------
 
-  if(pos.valid == TRUE){
+  if(pos.valid){
     ##grep values according to their criteria and check for validity
+
+    ##grain
+    if (missing(grain)) {
+      grain <- unique(object@METADATA[, "GRAIN"])
+    }
+    else{
+
+      if(grain %in% unique(unique(object@METADATA[, "GRAIN"])) == FALSE){
+
+        ##get only valid grain numbers
+        grain.valid <- paste(as.character(unique(object@METADATA[,"GRAIN"])), collapse=", ")
+
+        stop(paste("[Risoe.BINfileData2RLum.Analysis()] grain = ", grain, " contain invalid run(s).
+                   Valid grain values are: ", grain.valid, sep=""))
+
+
+      }
+
+
+    }
+
     ##run
-    if(missing(run) == TRUE){run <- unique(object@METADATA[, "RUN"])} else{
+    if(missing(run)){run <- unique(object@METADATA[, "RUN"])} else{
 
       if(TRUE %in% unique(unique(object@METADATA[, "RUN"]) %in% run) != TRUE){
 
         ##get and check valid positions
         run.valid <- paste(as.character(unique(object@METADATA[,"RUN"])), collapse=", ")
 
-        stop(paste("[Risoe.BINfileData2RLum.Analysis] run = ", run, " contain invalid run(s).
+        stop(paste("[Risoe.BINfileData2RLum.Analysis()] run = ", run, " contain invalid run(s).
                    Valid runs are: ", run.valid, sep=""))
 
       }
@@ -112,7 +160,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
     }
 
     #set
-    if(missing(set) == TRUE){set <- unique(object@METADATA[, "SET"])} else{
+    if(missing(set)){set <- unique(object@METADATA[, "SET"])} else{
 
       if(TRUE %in% unique(unique(object@METADATA[, "SET"]) %in% set) != TRUE){
 
@@ -127,7 +175,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
     }
 
     ##ltype
-    if(missing(ltype) == TRUE){ltype <- unique(object@METADATA[, "LTYPE"])} else{
+    if(missing(ltype)){ltype <- unique(object@METADATA[, "LTYPE"])} else{
 
       if(TRUE %in% unique(unique(object@METADATA[, "LTYPE"]) %in% ltype) != TRUE){
 
@@ -142,55 +190,109 @@ Risoe.BINfileData2RLum.Analysis<- function(
     }
 
 
-    # Select values -----------------------------------------------------------
+    # Select values and convert them-----------------------------------------------------------
 
-    ##deselect all values
-    object@METADATA[, "SEL"] <- FALSE
+    ##set progressbar to false if only one position is provided
+    if(txtProgressBar & length(pos)<2){
+      txtProgressBar <- FALSE
 
-    ##select data
-    object@METADATA[
-      which(
+    }
+
+      ##set progress bar
+      if(txtProgressBar){
+        pb<-txtProgressBar(min=min(pos),max=max(pos), char="=", style=3)
+      }
+
+    object <- lapply(pos, function(pos){
+
+      ##update progress bar
+      if(txtProgressBar==TRUE){
+        setTxtProgressBar(pb, value = pos)
+      }
+
+      ##deselect all values
+      object@METADATA[, "SEL"] <- FALSE
+
+      ##select data
+      object@METADATA[which(
         object@METADATA[,"POSITION"] == pos &
-          object@METADATA[,"RUN"] %in% run == TRUE &
-          object@METADATA[,"SET"] %in% set == TRUE &
-          object@METADATA[,"LTYPE"] %in% ltype == TRUE
+          object@METADATA[,"GRAIN"] %in% grain &
+          object@METADATA[,"RUN"] %in% run &
+          object@METADATA[,"SET"] %in% set &
+          object@METADATA[,"LTYPE"] %in% ltype
       )
       , "SEL"] <- TRUE
 
-    # Limit object to selection -----------------------------------------------
+      # Limit object to selection -----------------------------------------------
 
-    object@DATA <- object@DATA[object@METADATA[object@METADATA[,"SEL"] == TRUE,"ID"]]
-    object@METADATA <- object@METADATA[object@METADATA[,"SEL"] == TRUE,]
+      object@DATA <-
+        object@DATA[object@METADATA[object@METADATA[,"SEL"] == TRUE,"ID"]]
+      object@METADATA <-
+        object@METADATA[object@METADATA[,"SEL"] == TRUE,]
 
-    # Convert values ----------------------------------------------------------
 
-    object <- set_RLum(
-      class = "RLum.Analysis",
-      records = lapply(1:length(object@DATA),function(x){
+      # Convert values ----------------------------------------------------------
+      object <- set_RLum(
+        class = "RLum.Analysis",
+        records = lapply(1:length(object@DATA),function(x) {
 
-        ##calculate values for matrix
-        i<-seq(object@METADATA[x,"HIGH"]/object@METADATA[x,"NPOINTS"],
-               object@METADATA[x,"HIGH"],
-               by=object@METADATA[x,"HIGH"]/object@METADATA[x,"NPOINTS"])
+          if(object@METADATA[x,"NPOINTS"][1] != 0){
 
-        j<-unlist(object@DATA[x])
+            i <-
+              seq(
+                object@METADATA[x,"HIGH"] / object@METADATA[x,"NPOINTS"],
+                object@METADATA[x,"HIGH"],
+                by = object@METADATA[x,"HIGH"] / object@METADATA[x,"NPOINTS"]
+              )
 
-        ##set RLum.Data.Curve object
-        set_RLum(
-          class = "RLum.Data.Curve",
-          recordType = as.character(object@METADATA[x,"LTYPE"]),
-          data = matrix(c(i,j),nrow=length(i),ncol=2),
-          info = as.list(object@METADATA[x,]))
+            j <- unlist(object@DATA[x])
 
-      }),
-      protocol = protocol
-    )
+          }else{
+            i <- NA
+            j <- NA
 
-    return(object)
+            warning(
+              paste0(
+                "[Risoe.BINfileData2RLum.Analysis()]
+                In position ", pos, ", (record ID ", x,") NPOINTS was 0, RLum.Data.Curve-object with NA-values produced."
+              ),
+              call. = FALSE
+              )
+
+          }
+
+          ##set RLum.Data.Curve object
+          set_RLum(
+            class = "RLum.Data.Curve",
+            recordType = as.character(object@METADATA[x,"LTYPE"]),
+            data = matrix(c(i,j),nrow = length(i),ncol = 2),
+            info = as.list(object@METADATA[x,])
+          )
+
+        }),
+        protocol = protocol
+      )
+
+
+      return(object)
+
+    })
+
+    if(txtProgressBar==TRUE){close(pb)}
+
+    ##this is necassart to not break with previous code
+    if(length(object) == 1){
+      invisible(object[[1]])
+
+    }else{
+      invisible(object)
+
+    }
+
 
   }else{
 
-    return(NA)
+    invisible(NA)
 
   }
 }

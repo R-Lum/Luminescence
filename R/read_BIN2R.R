@@ -1051,11 +1051,13 @@ read_BIN2R <- function(
   ##return values
   ##with fast fastForward they will be converted directly to a list of RLum.Analysis objects
   if(fastForward){
-    object <- sapply(unique(object@METADATA[,"POSITION"]), function(x){
-        Risoe.BINfileData2RLum.Analysis(object, pos = x)
+     object <- Risoe.BINfileData2RLum.Analysis(object)
 
-    })
+     ##because we expect a list
+     if(!is(object, "list")){
+       object <- list(object)
 
+     }
 
   }
 
