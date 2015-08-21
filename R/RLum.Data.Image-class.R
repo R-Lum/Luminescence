@@ -52,7 +52,7 @@ setClass(
   prototype = list (
     recordType = character(),
     curveType = character(),
-    data = raster::brick(raster::raster()),
+    data = raster::brick(raster::raster(matrix())),
     info = list()
   )
 )
