@@ -28,7 +28,7 @@ create either an empty or a default layout object and fill/modify the
 definitions (\code{user.layout <- get_Layout(data = "empty")}).
 }
 \section{Function version}{
- 0.1 (2015-08-18 19:09:26)
+ 0.1
 }
 \examples{
 ## read example data set
@@ -54,5 +54,5 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+}
 

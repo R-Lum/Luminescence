@@ -63,7 +63,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested so far.}.
 }
 \section{Function version}{
- 0.9.1 (2015-08-20 14:42:27)
+ 0.9.1
 }
 \examples{
 ##(1) import Risoe BIN-file to R (uncomment for usage)
@@ -75,7 +75,7 @@ implementation of version 07 support could not been tested so far.}.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Margret C. Fuchs, TU Bergakademie Freiberg (Germany)
-\cr R Luminescence Package Team}
+}
 \references{
 Duller, G., 2007. Analyst.
 \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}

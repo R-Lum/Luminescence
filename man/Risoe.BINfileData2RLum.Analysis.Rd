@@ -4,23 +4,17 @@
 \alias{Risoe.BINfileData2RLum.Analysis}
 \title{Convert Risoe.BINfileData object to an RLum.Analysis object}
 \usage{
-Risoe.BINfileData2RLum.Analysis(object, pos, grain, run, set, ltype,
-  protocol = "unknown", txtProgressBar = FALSE)
+Risoe.BINfileData2RLum.Analysis(object, pos, run, set, ltype,
+  protocol = "unknown")
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 \code{Risoe.BINfileData} object}
 
-\item{pos}{\code{\link{numeric}} (optional): position number of the
+\item{pos}{\code{\link{integer}} (\bold{required}): position number of the
 \code{Risoe.BINfileData} object for which the curves are stored in the
-\code{RLum.Analysis} object. If \code{length(position)>1} a list of \code{RLum.Analysis} objects
-is returned. If nothing is provided every position will be converted. If the position is not valid \code{NA} is
+\code{RLum.Analysis} object. If the position is not valid \code{NA} is
 returned.}
-
-\item{grain}{\code{\link{vector}, \link{numeric}} (optional): grain number from
-the measurement to limit the converted data set (e.g., \code{grain =
-c(1:48)}). Please be aware that this option may lead to unwanted effects, as the output
-is strictly limited to the choosen grain number for all position numbers}
 
 \item{run}{\code{\link{vector}, \link{numeric}} (optional): run number from
 the measurement to limit the converted data set (e.g., \code{run =
@@ -36,9 +30,6 @@ to limit the converted data. Allowed values are: \code{IRSL}, \code{OSL},
 
 \item{protocol}{\code{\link{character}} (optional): sets protocol type for
 analysis object. Value may be used by subsequent analysis functions.}
-
-\item{txtProgressBar}{\link{logical} (with default): enables or disables
-\code{\link{txtProgressBar}}.}
 }
 \value{
 Returns an \code{\linkS4class{RLum.Analysis}} object.
@@ -59,7 +50,7 @@ The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.2.0 (2015-08-20 14:39:34)
+ 0.1.2
 }
 \examples{
 ##load data
@@ -70,13 +61,12 @@ Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \references{
 #
 }
 \seealso{
 \code{\linkS4class{Risoe.BINfileData}},
-
 \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
 }
 \keyword{manip}

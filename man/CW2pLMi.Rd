@@ -63,7 +63,7 @@ provided manually and more than two points are extrapolated, a warning
 message is returned.
 }
 \section{Function version}{
- 0.3.1 (2015-08-18 19:09:26)
+ 0.3.1
 }
 \examples{
 ##(1)
@@ -110,7 +110,7 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux
 Montaigne\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
 Delft University of Technology, The Netherlands\cr
-\cr R Luminescence Package Team}
+}
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr

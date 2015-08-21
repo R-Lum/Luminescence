@@ -22,47 +22,47 @@
 #'
 #' @examples
 #' 
-#' # create a new DRAC input template
-#' template <- template_DRAC()
+#' # create a new DRAC input input
+#' input <- template_DRAC()
 #' 
-#' # show content of the template
-#' print(template)
-#' print(template$`Project ID`)
-#' print(template[[4]])
+#' # show content of the input
+#' print(input)
+#' print(input$`Project ID`)
+#' print(input[[4]])
 #' 
 #' 
 #' ## Example: DRAC Quartz example
 #' # note that you only have to assign new values where they 
 #' # are different to the default values
-#' template$`Project ID` <- "DRAC-Example"
-#' template$`Sample ID` <- "Quartz"
-#' template$`Conversion factors` <- "AdamiecAitken1998"
-#' template$`ExternalU (ppm)` <- 3.4
-#' template$`errExternal U (ppm)` <- 0.51
-#' template$`External Th (ppm)` <- 14.47
-#' template$`errExternal Th (ppm)` <- 1.69
-#' template$`External K (%)` <- 1.2
-#' template$`errExternal K (%)` <- 0.14
-#' template$`Calculate external Rb from K conc?` <- "N"
-#' template$`Calculate internal Rb from K conc?` <- "N"
-#' template$`Scale gammadoserate at shallow depths?` <- "N"
-#' template$`Grain size min (microns)` <- 90
-#' template$`Grain size max (microns)` <- 125
-#' template$`Water content ((wet weight - dry weight)/dry weight) %` <- 5
-#' template$`errWater content %` <- 2
-#' template$`Depth (m)` <- 2.2
-#' template$`errDepth (m)` <- 0.22
-#' template$`Overburden density (g cm-3)` <- 1.8
-#' template$`errOverburden density (g cm-3)` <- 0.1
-#' template$`Latitude (decimal degrees)` <- 30.0000
-#' template$`Longitude (decimal degrees)` <- 70.0000
-#' template$`Altitude (m)` <- 150
-#' template$`De (Gy)` <- 20
-#' template$`errDe (Gy)` <- 0.2
+#' input$`Project ID` <- "DRAC-Example"
+#' input$`Sample ID` <- "Quartz"
+#' input$`Conversion factors` <- "AdamiecAitken1998"
+#' input$`ExternalU (ppm)` <- 3.4
+#' input$`errExternal U (ppm)` <- 0.51
+#' input$`External Th (ppm)` <- 14.47
+#' input$`errExternal Th (ppm)` <- 1.69
+#' input$`External K (%)` <- 1.2
+#' input$`errExternal K (%)` <- 0.14
+#' input$`Calculate external Rb from K conc?` <- "N"
+#' input$`Calculate internal Rb from K conc?` <- "N"
+#' input$`Scale gammadoserate at shallow depths?` <- "N"
+#' input$`Grain size min (microns)` <- 90
+#' input$`Grain size max (microns)` <- 125
+#' input$`Water content ((wet weight - dry weight)/dry weight) %` <- 5
+#' input$`errWater content %` <- 2
+#' input$`Depth (m)` <- 2.2
+#' input$`errDepth (m)` <- 0.22
+#' input$`Overburden density (g cm-3)` <- 1.8
+#' input$`errOverburden density (g cm-3)` <- 0.1
+#' input$`Latitude (decimal degrees)` <- 30.0000
+#' input$`Longitude (decimal degrees)` <- 70.0000
+#' input$`Altitude (m)` <- 150
+#' input$`De (Gy)` <- 20
+#' input$`errDe (Gy)` <- 0.2
 #' 
 #' # use DRAC
 #' \dontrun{
-#' Reply <- use_DRAC(template)
+#' output <- use_DRAC(input)
 #' }
 #' 
 #' @export
@@ -113,7 +113,7 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
                 description = "The mineral used for dating: quartz, feldspar or polymineral. Input must be 'Q', 'F' or 'PM'."), #
     
     `Conversion factors` = 
-      structure(factor(rep("Liritzisetal2013", nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "X")), required = FALSE, allowsX = FALSE, key = "TI:4",
+      structure(factor(rep("Liritzisetal2013", nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "X")), required = FALSE, allowsX = TRUE, key = "TI:4",
                 description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required."), #
     
     `ExternalU (ppm)` = 
@@ -149,7 +149,7 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `Calculate external Rb from K conc?` = 
-      structure(factor(rep("Y", nrow), c("Y", "N")), required = FALSE, allowsX = TRUE, key = "TI:13",
+      structure(factor(rep("Y", nrow), c("Y", "N")), required = FALSE, allowsX = FALSE, key = "TI:13",
                 description = "Option to calculate a Rubidium concentration from Potassium, using the 270:1 ratio suggested by Mejdahl (1987). Input should be yes 'Y' or no 'N'."), #
     
     `Internal U (ppm)` = 
@@ -318,153 +318,4 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
   # add an additional DRAC class so we can define our own S3 method for as.data.frame
   class(template) <- c("DRAC.list", "list")
   invisible(template)
-}
-
-
-## ---------------------------------------------------------------------------##
-## DATA FRAME COERCION METHOD
-
-## This is a method for the as.data.frame S3 generic. We need this to intercept the
-## DRAC list object after it hast passed the actual list-method. After it was 
-## coerced to a data.frame we assign new column names (DRAC ID keys) and 
-## make sure that all columns are either of class 'character' or 'numeric'.
-## Finally, we attach a further class name to identify it as a valid DRAC object 
-## when passed to use_DRAC
-
-#' @export
-as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) {
-  DF <- as.data.frame.list(x)
-  colnames(DF) <- paste0("TI:", 1:ncol(DF))
-  for (i in 1:ncol(DF)) {
-    if (is.factor(DF[ ,i])) 
-      DF[ ,i] <- as.character(DF[, i])
-  }
-  class(DF) <- c("data.frame", "DRAC.data.frame")
-  return(DF)
-}
-
-
-## ---------------------------------------------------------------------------##
-## PRINT METHOD
-
-#' @export
-print.DRAC.list <- function(x, ...) {
-  for (i in 1:length(x)) {
-    msg <- paste(attributes(x[[i]])$key, "=>",names(x)[i], "\n",
-                 "\t VALUES =", paste(x[[i]], collapse = ", "), "\n",
-                 "\t ALLOWS 'X' = ", attributes(x[[i]])$allowsX, "\n",
-                 "\t REQUIRED =", attributes(x[[i]])$required, "\n",
-                 "\t DESCRIPTION =", attributes(x[[i]])$description, "\n"
-    )
-    
-    if (!is.null(levels(x[[i]]))) {
-      msg <- paste(msg,
-                   "\t OPTIONS = ", paste(levels(x[[i]]), collapse = ", "),
-                   "\n\n")
-    } else {
-      msg <- paste(msg, "\n")
-    }
-    
-    cat(msg)
-  }
-}
-
-
-## ---------------------------------------------------------------------------##
-## DOUBLE SQUARE BRACKETS METHOD
-
-#' @export
-`[[<-.DRAC.list` <- function(x, i, value) {
-  
-  ## CHECK INPUT LENGTH ----
-  length.old <- length(x[[i]])
-  length.new <- length(value)
-  
-  if (length.old != length.new) {
-    warning(paste(names(x)[i], ": Input must be of length", length.old), 
-            call. = FALSE)
-    return(x)
-  }
-  
-  ## CHECK INPUT CLASS ----
-  class.old <- class(x[[i]])
-  class.new <- class(value)
-  
-  # some input fields allow 'X' as input, so in terms of R can be of class
-  # "character" or "numeric/integer". hence, we check if input is "X" and 
-  # if the filed allows it. If so, we change the old class to "character".
-  if (any(value == "X") && attributes(x[[i]])$allowsX) {
-    class.old <- "character"
-  }
-  # where the input field is alreay "X" we have to check whether the new
-  # non-character input is allowed
-  if (any(x[[i]] == "X") && attributes(x[[i]])$allowsX) {
-    class.new <- "character"
-    value <- as.character(value)
-  }
-  
-  # numeric input can be both of class 'integer' or 'numeric'. We will
-  # allow any combination and reject only non-numeric/integer input
-  if (class.old == "numeric" || class.old == "integer") {
-    if (class.new != "numeric" && class.new != "integer") {
-      warning(paste(names(x)[i], ": Input must be of class", class.old),
-              call. = FALSE)
-    }
-  }
-  
-  # for 'factor' and 'character' elements only 'character' input is allowed 
-  if (class.old == "factor" || class.old == "character") {
-    if (class.new != "character") {
-      warning(paste(names(x)[i], ": Input must be of class", "character"),
-              call. = FALSE)
-      return(x)
-    }
-  }
-  
-  ## CHECK IF VALID OPTION ----
-  # in case of 'factor's the user is only allowed input that matches one of 
-  # the options specified by the factor levels. if it is a valid option,
-  # the input is converted to a factor to keep the information.
-  if (class.old == "factor") {
-    levels <- levels(x[[i]])
-    if (any(`%in%`(value, levels)) == FALSE) {
-      warning(paste(names(x)[i], ": Invalid option. Valid options are:", paste(levels, collapse = ", ")),
-              call. = FALSE)
-      return(x)
-    } else {
-      value <- factor(value, levels)
-    }
-  }
-  
-  ## WRITE NEW VALUES ----
-  # we strip our custom class and the attributes, pass the object to the default generic and 
-  # finally re-attach our class and attributes
-  tmp.attributes <- attributes(x[[i]])[names(attributes(x[[i]])) != "class"]
-  class(x) <- "list"
-  x <- `[[<-`(x, i, value)
-  attributes(x[[i]]) <- tmp.attributes
-  if (class.old == "factor")
-    class(x[[i]]) <- "factor"
-  class(x) <- c("DRAC.list", "list")
-  return(x)
-}
-
-## ---------------------------------------------------------------------------##
-## SINGLE SQUARE BRACKET METHOD
-
-#' @export
-`[<-.DRAC.list` <- function(x, i, value) {
-  return(`[[<-`(x, i, value))
-}
-
-## ---------------------------------------------------------------------------##
-## DOLLAR SIGN METHOD
-
-#' @export
-`$<-.DRAC.list`<- function(x, name, value) {
-  # this is straightforward; retrieve the index and pass the object
-  # to the custom [[<- function, which does the data verification
-  index <- which(names(x) == name)
-  x[[index]] <- value
-  return(x)
 }

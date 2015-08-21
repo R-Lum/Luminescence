@@ -2,9 +2,9 @@
 % Please edit documentation in R/use_DRAC.R
 \name{use_DRAC}
 \alias{use_DRAC}
-\title{Use DRAC to calculate dose rate data.}
+\title{Use DRAC to calculate dose rate data}
 \usage{
-use_DRAC(file, name)
+use_DRAC(file, name, ...)
 }
 \arguments{
 \item{file}{\code{\link{character}}: spreadsheet to be passed
@@ -13,9 +13,29 @@ obtained from \code{template_DRAC()}.}
 
 \item{name}{\code{\link{character}}: Optional user name submitted to DRAC. If
 omitted, a random name will be generated}
+
+\item{...}{Further arguments.}
 }
 \value{
-A results data set from the DRAC website.
+Returns an \code{\linkS4class{RLum.Results}} object containing the following elements:
+
+\item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@data}:
+
+\tabular{lll}{
+   \code{$highlights} \tab \code{\link{data.frame}} \tab summary of 25 most important input/output fields \cr
+   \code{$header} \tab \code{\link{character}} \tab HTTP header from the DRAC server response \cr
+   \code{$labels} \tab \code{\link{data.frame}} \tab descriptive headers of all input/output fields \cr
+   \code{$content} \tab \code{\link{data.frame}} \tab complete DRAC input/output table \cr
+   \code{$input} \tab \code{\link{data.frame}} \tab DRAC input table \cr
+   \code{$output} \tab \code{\link{data.frame}} \tab DRAC output table \cr
+}
+
+}
+\item{data}{\link{character} or \link{list} path to the input spreadsheet or a DRAC template}
+\item{call}{\link{call} the function call}
+\item{args}{\link{list} used arguments}
+
+The output should be accessed using the function \code{\link{get_RLum}}.
 }
 \description{
 The function provides an interface from R to DRAC. An R-object or a
@@ -23,41 +43,61 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.0 (2015-08-18 19:09:26)
+ 0.1.0
 }
 \examples{
-\dontrun{
-## re-create DRAC example data set
-text <- paste0("DRAC-example Quartz Q AdamiecAitken1998 3.4000 0.5100 14.4700 ",
-               "1.6900 1.2000 0.1400 0.0000 0.0000 N X X X X X X X X X X X X ",
-               "X X X X X N 90.0000 125.0000 Brennanetal1991 Guerinetal2012-Q ",
-               "8.0000 10.0000 Bell1979 0.0000 0.0000 5.0000 2.0000 2.2000 ",
-               "0.2200 1.8000 0.1000 30.0000 70.0000 150.0000 X X 20.0000 ",
-               "0.2000\\n",
-               "DRAC-example Feldspar F AdamiecAitken1998 2.0000 0.2000 8.0000 ",
-               "0.4000 1.7500 0.0500 0.0000 0.0000 Y X X X X 12.5000 0.5000 X ",
-               "X N X X X X X X X X Y 180.0000 212.0000 Bell1980 Mejdahl1979 ",
-               "0.0000 0.0000 Bell1979 0.1500 0.0500 10.0000 3.0000 0.1500 ",
-               "0.0150 1.8000 0.1000 60.0000 100.0000 200.0000 X X 15.0000 ",
-               "1.5000\\n",
-               "DRAC-example Polymineral PM AdamiecAitken1998 4.0000 0.4000 ",
-               "12.0000 0.1200 0.8300 0.0800 0.0000 0.0000 Y X X X X 12.5000 ",
-               "0.5000 X X N X X 2.5000 0.1500 X X X X Y 4.0000 11.0000 ",
-               "Bell1980 Mejdahl1979 0.0000 0.0000 X 0.0860 0.0038 10.0000 ",
-               "5.0000 X X X X X X X 0.2000 0.1000 204.4700 2.6900")
+## (1) Method using the DRAC spreadsheet
 
-## send example data set let DRAC do the calculations
-Reply <- use_DRAC(file = text)
+file <-  "/PATH/TO/DRAC_Input_and_Output_Template.xlsx"
 
 # send the actual IO template spreadsheet to DRAC
-file <-  "~/DRAC_Input_and_Output_Template-2.xlsx"
+\dontrun{
 use_DRAC(file = file)
+}
+
+
+
+## (2) Method using an R template object
+
+# Create a template
+input <- template_DRAC()
+
+# Fill the template with values
+input$`Project ID` <- "DRAC-Example"
+input$`Sample ID` <- "Quartz"
+input$`Conversion factors` <- "AdamiecAitken1998"
+input$`ExternalU (ppm)` <- 3.4
+input$`errExternal U (ppm)` <- 0.51
+input$`External Th (ppm)` <- 14.47
+input$`errExternal Th (ppm)` <- 1.69
+input$`External K (\%)` <- 1.2
+input$`errExternal K (\%)` <- 0.14
+input$`Calculate external Rb from K conc?` <- "N"
+input$`Calculate internal Rb from K conc?` <- "N"
+input$`Scale gammadoserate at shallow depths?` <- "N"
+input$`Grain size min (microns)` <- 90
+input$`Grain size max (microns)` <- 125
+input$`Water content ((wet weight - dry weight)/dry weight) \%` <- 5
+input$`errWater content \%` <- 2
+input$`Depth (m)` <- 2.2
+input$`errDepth (m)` <- 0.22
+input$`Overburden density (g cm-3)` <- 1.8
+input$`errOverburden density (g cm-3)` <- 0.1
+input$`Latitude (decimal degrees)` <- 30.0000
+input$`Longitude (decimal degrees)` <- 70.0000
+input$`Altitude (m)` <- 150
+input$`De (Gy)` <- 20
+input$`errDe (Gy)` <- 0.2
+
+# use DRAC
+\dontrun{
+output <- use_DRAC(input)
 }
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,
-GFZ Potsdam (Germany)\cr
-\cr R Luminescence Package Team}
+GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
+}
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012

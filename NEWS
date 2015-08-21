@@ -32,10 +32,14 @@ Changes in version 0.5.0 (, 2015):
          • ‘plot_NRt()’ Creates a Natural/Regenerated signal vs. time
            (NR(t)) plot as shown in Steffen et al. 2009
 
-         • ‘read_Daybreak2R()’ Imports data produced by a Daybreak
-           TL/OSL reader
+         • ‘read_Daybreak2R()’ Imports ASCII data produced by a
+           Daybreak TL/OSL reader
 
-         • ‘use_DRAC()’ Provides an R interface to
+         • ‘use_DRAC()’ Provides an R interface to the 'Dose Rate
+           Calculator' (DRAC)
+
+         • ‘template_DRAC()’ Creates a DRAC input template (v1.1) to be
+           used for ‘use_DRAC()’
 
   Bugfixes and changes:
 
@@ -47,13 +51,13 @@ Changes in version 0.5.0 (, 2015):
 
              • in the rare case where no recuperation rate can be
                calculated due to the missing R0 point the function
-               stopped with an error. Corrected,
+               stopped with an error. This has been corrected.
 
              • function now how to deal with a ‘list’ of
                ‘RLum.Analysis’ objects and will re-call itself as
                elements are in the ‘list’ (argument ‘object’). In
                particular cases this may lead to a tremendous efficient
-               data analysis process,
+               data analysis process.
 
              • add 'call' to data output object,
 
@@ -169,9 +173,22 @@ Changes in version 0.5.0 (, 2015):
 
          • Re-adding the package 'zoo' in imports,
 
-         • adding package 'readxl' to imports (used in ‘use_DRAC’ to
+         • Adding package 'readxl' to imports (used in ‘use_DRAC’ to
            import the XLS file)
 
-         • adding package 'httr' to imports (used in ‘use_DRAC’ to
+         • Adding package 'httr' to imports (used in ‘use_DRAC’ to
            establish the connection)
+
+         • Fixed a bug in ‘RLum.Data.Image’ class that most likely
+           caused the 'rgdal' NAMESPACE issue
+
+         • Added methods for S3 generics ‘`$`, `[<-`, `[[<-`, print,
+           as.data.frame’ for objects of class ‘DRAC.list’
+
+         • Added methods for S3 generics ‘print’ for objects of class
+           ‘DRAC.highlights’
+
+         • Roxygen2: replaced ‘@exportPattern ^[[:alpha:]]+’ with with
+           explicit ‘@export’ statements to allow better NAMESPACE
+           housekeeping
 

@@ -34,7 +34,7 @@ found in the documentations of each merge function.
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1 (2015-08-18 19:09:26)
+ 0.1
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function
@@ -54,7 +54,7 @@ temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 #
 }

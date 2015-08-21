@@ -134,7 +134,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.6.1 (2015-08-18 22:41:43)
+ 0.6.0
 }
 \examples{
 ##load data
@@ -163,7 +163,7 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.

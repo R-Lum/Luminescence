@@ -392,6 +392,15 @@ setMethod("get_RLum",
                 return(object@data$irr.times)
 
               }
+              
+              ##-------------------------------------------------------------
+              ## extract_IrradiationTimes()
+              if(object@originator == "use_DRAC") {
+                
+                return(object@data$DRAC$highlights)
+                
+              }
+              
 
               ##-------------------------------------------------------------
               ##CATCHER - IF NOTHING ELSE IS DEFINED return always the first object

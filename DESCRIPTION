@@ -106,6 +106,7 @@ Collate:
     'merge_RLum.Analysis.R'
     'merge_RLum.Data.Curve.R'
     'merge_Risoe.BINfileData.R'
+    'methods_DRAC.R'
     'plot_AbanicoPlot.R'
     'plot_DRTResults.R'
     'plot_GrowthCurve.R'

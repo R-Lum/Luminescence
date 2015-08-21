@@ -59,6 +59,7 @@ assign("col",
 #'
 #' ##no example available
 #'
+#' @export
 sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
 
   ## allow new overlay plot

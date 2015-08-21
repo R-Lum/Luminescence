@@ -21,47 +21,47 @@ This function returns a DRAC input template (v1.1) to be used in conjunction
 with the use_DRAC() function
 }
 \examples{
-# create a new DRAC input template
-template <- template_DRAC()
+# create a new DRAC input input
+input <- template_DRAC()
 
-# show content of the template
-print(template)
-print(template$`Project ID`)
-print(template[[4]])
+# show content of the input
+print(input)
+print(input$`Project ID`)
+print(input[[4]])
 
 
 ## Example: DRAC Quartz example
 # note that you only have to assign new values where they
 # are different to the default values
-template$`Project ID` <- "DRAC-Example"
-template$`Sample ID` <- "Quartz"
-template$`Conversion factors` <- "AdamiecAitken1998"
-template$`ExternalU (ppm)` <- 3.4
-template$`errExternal U (ppm)` <- 0.51
-template$`External Th (ppm)` <- 14.47
-template$`errExternal Th (ppm)` <- 1.69
-template$`External K (\%)` <- 1.2
-template$`errExternal K (\%)` <- 0.14
-template$`Calculate external Rb from K conc?` <- "N"
-template$`Calculate internal Rb from K conc?` <- "N"
-template$`Scale gammadoserate at shallow depths?` <- "N"
-template$`Grain size min (microns)` <- 90
-template$`Grain size max (microns)` <- 125
-template$`Water content ((wet weight - dry weight)/dry weight) \%` <- 5
-template$`errWater content \%` <- 2
-template$`Depth (m)` <- 2.2
-template$`errDepth (m)` <- 0.22
-template$`Overburden density (g cm-3)` <- 1.8
-template$`errOverburden density (g cm-3)` <- 0.1
-template$`Latitude (decimal degrees)` <- 30.0000
-template$`Longitude (decimal degrees)` <- 70.0000
-template$`Altitude (m)` <- 150
-template$`De (Gy)` <- 20
-template$`errDe (Gy)` <- 0.2
+input$`Project ID` <- "DRAC-Example"
+input$`Sample ID` <- "Quartz"
+input$`Conversion factors` <- "AdamiecAitken1998"
+input$`ExternalU (ppm)` <- 3.4
+input$`errExternal U (ppm)` <- 0.51
+input$`External Th (ppm)` <- 14.47
+input$`errExternal Th (ppm)` <- 1.69
+input$`External K (\%)` <- 1.2
+input$`errExternal K (\%)` <- 0.14
+input$`Calculate external Rb from K conc?` <- "N"
+input$`Calculate internal Rb from K conc?` <- "N"
+input$`Scale gammadoserate at shallow depths?` <- "N"
+input$`Grain size min (microns)` <- 90
+input$`Grain size max (microns)` <- 125
+input$`Water content ((wet weight - dry weight)/dry weight) \%` <- 5
+input$`errWater content \%` <- 2
+input$`Depth (m)` <- 2.2
+input$`errDepth (m)` <- 0.22
+input$`Overburden density (g cm-3)` <- 1.8
+input$`errOverburden density (g cm-3)` <- 0.1
+input$`Latitude (decimal degrees)` <- 30.0000
+input$`Longitude (decimal degrees)` <- 70.0000
+input$`Altitude (m)` <- 150
+input$`De (Gy)` <- 20
+input$`errDe (Gy)` <- 0.2
 
 # use DRAC
 \dontrun{
-Reply <- use_DRAC(template)
+output <- use_DRAC(input)
 }
 }
 \author{
