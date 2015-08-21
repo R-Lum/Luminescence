@@ -193,7 +193,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.2 (2015-08-21 10:26:35)
 }
 \examples{
 ## store original graphics parameters
@@ -361,7 +361,7 @@ par(par.old)
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
 introduced by Galbraith & Green (1990)
-}
+\cr R Luminescence Package Team}
 \references{
 Galbraith, R. & Green, P., 1990. Estimating the component ages
 in a finite mixture. International Journal of Radiation Applications and

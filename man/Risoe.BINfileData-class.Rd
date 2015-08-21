@@ -174,7 +174,7 @@ showClass("Risoe.BINfileData")
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \references{
 Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2015. The
 Sequence Editor User Manual - March 2015

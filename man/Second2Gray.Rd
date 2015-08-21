@@ -41,7 +41,7 @@ stopped. Furthermore, if a \code{data.frame} is provided for the dose rate value
 be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.5.0
+ 0.5.0 (2015-08-21 10:26:35)
 }
 \examples{
 ##(A) for known source dose rate at date of measurement
@@ -71,7 +71,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, HZDR,
 Helmholtz-Institute Freiberg for Resource Technology
 (Germany)
-}
+\cr R Luminescence Package Team}
 \references{
 #
 }

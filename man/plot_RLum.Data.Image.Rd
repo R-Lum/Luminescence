@@ -76,7 +76,7 @@ function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
 \section{Function version}{
- 0.1
+ 0.1 (2015-08-21 10:26:35)
 }
 \examples{
 ##load data
@@ -88,7 +88,7 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \references{
 -
 }
