@@ -28,8 +28,9 @@
    \itemize{
       \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015
       \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009
-       \item \code{read_Daybreak2R()} Imports data produced by a Daybreak TL/OSL reader
-       \item \code{use_DRAC()} Provides an R interface to
+       \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader
+       \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC)
+       \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()}
    }
   }
 
@@ -41,7 +42,7 @@
         \item Internal curve selection now works using the \code{get_RLum}. This should give
         a little bit more flexibility and prevent errors with odd curve names,
         \item in the rare case where no recuperation rate can be calculated due to the missing
-        R0 point the function stopped with an error. Corrected,
+        R0 point the function stopped with an error. This has been corrected.
         \item function now how to deal with a \code{list} of \code{RLum.Analysis} objects and will
         re-call itself as elements are in the \code{list} (argument \code{object}). In particular
         cases this may lead to a tremendous efficient data analysis process.
@@ -154,9 +155,13 @@
    \subsection{Internals}{
    \itemize{
       \item Re-adding the package 'zoo' in imports,
-      \item adding package 'readxl' to imports (used in \code{use_DRAC} to import the XLS file)
-      \item adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
-
+      \item Adding package 'readxl' to imports (used in \code{use_DRAC} to import the XLS file)
+      \item Adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
+      \item Fixed a bug in \code{RLum.Data.Image} class that most likely caused the 'rgdal' NAMESPACE issue
+      \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame} for objects of class \code{DRAC.list}
+      \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}
+      \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export} statements to 
+      allow better NAMESPACE housekeeping
 
    }
   }
