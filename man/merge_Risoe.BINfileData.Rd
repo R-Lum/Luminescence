@@ -63,7 +63,7 @@ With no additional summand the new position numbers would be:
 The validity of the output objects is not further checked.
 }
 \section{Function version}{
- 0.2.3 (2015-08-21 10:26:35)
+ 0.2.3 (2015-08-21 14:53:14)
 }
 \examples{
 ##merge two objects

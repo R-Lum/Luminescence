@@ -59,7 +59,7 @@ follows\cr\cr 1. subtract the x-offset \cr 2. multiply the natural logs by
 \bold{Further documentation} \cr\cr Please see \code{\link{calc_MinDose}}.
 }
 \section{Function version}{
- 0.3 (2015-08-21 10:26:35)
+ 0.3 (2015-08-21 14:53:14)
 }
 \examples{
 ## load example data
