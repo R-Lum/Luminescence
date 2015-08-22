@@ -62,7 +62,12 @@ Changes in version 0.5.0 (, 2015):
              • add 'call' to data output object,
 
              • add 'UID' column to data object 'De.values' and
-               'rejection.criteria'.
+               'rejection.criteria',
+
+             • if the function is not able to proceed to due to unequal
+               number of OSL curves the analysis will no longer break
+               with an error. Instead ‘NULL’ is returned. This allows
+               to use the function more efficiently in a loop.
 
          • ‘calc_Statistics()’
 
@@ -95,6 +100,11 @@ Changes in version 0.5.0 (, 2015):
 
              • new return data object added ‘call’ containing the
                original function call.
+
+         • ‘merge_RLum()’
+
+             • The function now removes empty list objects before
+               proceeding.
 
          • ‘plot_AbanicoPlot()’
 
