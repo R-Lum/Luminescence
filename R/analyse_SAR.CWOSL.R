@@ -122,7 +122,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.6.1
+#' @section Function version: 0.6.2
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -489,9 +489,9 @@ object!")
     OSL.Curves.ID.Tx <-
       OSL.Curves.ID[seq(2,length(OSL.Curves.ID),by = 2)]
 
-    ##get index of OSL curves
+    ##get index of TL curves
     TL.Curves.ID <-
-      get_RLum(object, recordType = "TL", get.index = TRUE)
+      suppressWarnings(get_RLum(object, recordType = "TL", get.index = TRUE))
 
     ##separate TL curves
     TL.Curves.ID.Lx <-
