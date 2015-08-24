@@ -260,6 +260,7 @@ use_DRAC <- function(
   
   ##Get rid of all the value we do not need anymore
   DRAC.content <-  subset(DRAC.content, DRAC.content$V1 %in% DRAC_results.id)
+  DRAC.content <- DRAC.content[with(DRAC.content, order(V1)), ]
   
   ##replace by original names
   DRAC.content[ ,1] <- input.raw[ ,1]
