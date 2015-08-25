@@ -300,6 +300,9 @@ use_DRAC <- function(
     attr(DRAC.highlights[ ,i], "key") <- highlight.keys[i]
   }
   
+  ## finally, we add the 'DRAC.highlights' class so that we can use a custom print method
+  class(DRAC.highlights) <- c("DRAC.highlights", "data.frame")
+  
   ## Final Disclaimer
   messages <- list("\t Done! \n",
                    "\t We, the authors of the R package 'Luminescence', do not take any responsibility and we are not liable for any ",
