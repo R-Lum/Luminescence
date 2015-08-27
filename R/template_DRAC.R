@@ -72,6 +72,9 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
   # 1 - allow mineral specific presets; new argument 'mineral'
   # 2 - add option to return the DRAC example data set
   
+  if (nrow < 0 | nrow > 33) 
+    stop("'nrow' must be a number between 0 and 33.", call. = FALSE)
+  
   ## LEGAL NOTICE ----
   messages <- list("\n",
                    "\t-------------------- IMPORTANT NOTE ------------------------\n",
