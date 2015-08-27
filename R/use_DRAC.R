@@ -156,8 +156,8 @@ use_DRAC <- function(
     temp <- rnorm(n = 30 * n, mean = mean,sd = sd)
     temp.result <-
       sapply(seq(1, length(temp), by = 30), function(x) {
-        c(round(mean(temp[x:(x + 29)], digits = 2)),
-          round(sd(temp[x:(x + 29)]), digits = 2))
+        c(format(mean(temp[x:(x + 29)]), digits = 2),
+          format(sd(temp[x:(x + 29)]), digits = 2)) 
       })
     return(t(temp.result))
   }
@@ -172,23 +172,30 @@ use_DRAC <- function(
   ##(2) generate some meaningful randome variables
   mask.df <- lapply(seq(1, nrow(input.raw), by = 3), function(x) {
     
-    ##replace some values - the De value
-    mask.df[x:(x + 2), c("TI:52","TI:53")] <- .masking(
-      mean = as.numeric(mask.df[x,"TI:52"]),
-      sd = as.numeric(mask.df[x,"TI:53"]),
-      n = 3)
-    return(mask.df)
+    if (mask.df[x,"TI:52"] != "X") {
+      ##replace some values - the De value
+      mask.df[x:(x + 2), c("TI:52","TI:53")] <- .masking(
+        mean = as.numeric(mask.df[x,"TI:52"]),
+        sd = as.numeric(mask.df[x,"TI:53"]),
+        n = 3)
+      return(mask.df)
+    }
+    
   })
+  
   
   ##(3) bin values
   DRAC_submission.df <- rbind(input.raw,mask.df[[1]])
   
+  
   ##(4) replace ID values
-  DRAC_submission.df$`TI:1` <- paste0(paste0(paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, 
-                                                           runif(1, 2, 4)), collapse = ""), 
-                                             ifelse(runif(1,-10,10)>0, "-", "")), 
-                                      seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE), 
-                                          by = 1, length.out = nrow(DRAC_submission.df)))
+  DRAC_submission.df$`TI:1` <-   paste0(paste0(paste0(sample(if(runif(1,-10,10)>0){LETTERS}else{letters}, 
+                                                             runif(1, 2, 4)), collapse = ""), 
+                                               ifelse(runif(1,-10,10)>0, "-", "")), 
+                                        gsub(" ", "0", prettyNum(seq(sample(1:50, 1, prob = 50:1/50, replace = FALSE), 
+                                                                     by = 1, length.out = nrow(DRAC_submission.df)), width = 2)))
+  
+
   
   ##(5) store the real IDs in a sperate object
   DRAC_results.id <-  DRAC_submission.df[1:nrow(input.raw), "TI:1"]
@@ -201,7 +208,6 @@ use_DRAC <- function(
   for (i in 1:ncol(DRAC_submission.df)) 
     DRAC_submission.df[ ,i] <- as.character(DRAC_submission.df[, i])
   
-  
   if (settings$verbose) message("\t Creating submission string...")
   ##get line by line and remove unwanted characters
   DRAC_submission.string <- sapply(1:nrow(DRAC_submission.df), function(x) {
@@ -210,7 +216,6 @@ use_DRAC <- function(
   
   ##paste everything together to get the format we want
   DRAC_input <- paste(DRAC_submission.string, collapse = "")
-  
   
   # Send data to DRAC ---------------------------------------------------------------------------
   if (settings$verbose) message(paste("\t Establishing connection to", settings$url))
@@ -235,9 +240,9 @@ use_DRAC <- function(
   ## if the input was valid from a technical standpoint, but not with regard
   ## contents, we indeed get a valid response, but no DRAC output
   if (!grepl("DRAC Outputs", DRAC.content)) {
-    stop(message(paste("\n\t We got a response from the server, but it\n",
+    stop(paste("\n\t We got a response from the server, but it\n",
                        "\t did not contain DRAC output. Please check\n",
-                       "\t your data and verify its validity.\n")),
+                       "\t your data and verify its validity.\n"),
          call. = FALSE)
   } else {
     if (settings$verbose) message("\t Finalising the results...")
