@@ -117,35 +117,35 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
                 description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required."), #
     
     `ExternalU (ppm)` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:5",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:5",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), # 
     
     `errExternal U (ppm)` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:6",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:6",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `External Th (ppm)` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:7",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:7",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errExternal Th (ppm)` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:8",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:8",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `External K (%)` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:9",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:9",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errExternal K (%)` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:10",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:10",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `External Rb (ppm)` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:11",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:11",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `errExternal Rb (ppm)` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:12",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:12",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), #
     
     `Calculate external Rb from K conc?` = 
@@ -253,11 +253,11 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
                 description = "The etch depth attenuation factors for the beta dose rate. Users have the option of datasets from Bell (1979) and Brennan (2003). Input must be 'Bell1979' or 'Brennan2003'. Note: only the dataset of Bell (1980) is provided for attenuation of the alpha dose rate by etching."), #
     
     `a-value` = 
-      structure(rep(0, nrow), required = FALSE, allowsX = FALSE, key = "TI:39",
+      structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:39",
                 description = "Alpha track efficiency value and uncertainty defined by the user. Inputs should be 0 or positive and not left blank."), #
     
     `erra-value` = 
-      structure(rep(0, nrow), required = TRUE, allowsX = FALSE, key = "TI:40",
+      structure(rep(0, nrow), required = TRUE, allowsX = TRUE, key = "TI:40",
                 description = "Alpha track efficiency value and uncertainty defined by the user. Inputs should be 0 or positive and not left blank."), #
     
     `Water content ((wet weight - dry weight)/dry weight) %` = 
