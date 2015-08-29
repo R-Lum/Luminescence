@@ -103,7 +103,7 @@ The plot output is no 'PD' plot (cf. the discussion of Berger and
 Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5 (2015-08-21 10:26:35)
+ 3.5 (2015-08-21 14:53:14)
 }
 \examples{
 ## read example data set

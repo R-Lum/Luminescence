@@ -23,7 +23,9 @@ Function calls object-specific merge functions for RLum S4 class objects.
 The function provides a generalised access point for merge specific
 \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
 corresponding merge function will be selected.  Allowed arguments can be
-found in the documentations of each merge function.
+found in the documentations of each merge function. Empty list elements (\code{NULL}) are
+automatically removed from the input \code{list}.
+
 \tabular{lll}{
 \bold{object} \tab \tab \bold{corresponding merge function} \cr
 
@@ -34,7 +36,7 @@ found in the documentations of each merge function.
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1 (2015-08-21 10:26:35)
+ 0.1.1 (2015-08-21 18:01:28)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function

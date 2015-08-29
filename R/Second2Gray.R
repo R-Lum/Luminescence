@@ -16,7 +16,7 @@
 #'
 #' @param dose.rate \code{\linkS4class{RLum.Results}} or \code{\link{data.frame}} or \code{\link{numeric}}
 #' (\bold{required}): \code{RLum.Results} needs to be orginated from the
-#' function \code{\link{calc_SourceDoseRate}}, for \code{vector}dose rate in
+#' function \code{\link{calc_SourceDoseRate}}, for \code{vector} dose rate in
 #' Gy/s and dose rate error in Gy/s
 #'
 #' @param method \link{character} (with default): method used for error
@@ -77,7 +77,7 @@ Second2Gray <- function(
   # Integrity tests -----------------------------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  if(is(data, "data.frame") == FALSE){
+  if(!is(data, "data.frame")){
 
     stop("[Second2Gray()] 'data' object has to be of type 'data.frame'!")
 

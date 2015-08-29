@@ -59,7 +59,7 @@ Please consider the requirements and the constraints of this method
 (see Fuchs & Lang, 2001)
 }
 \section{Function version}{
- 0.4.1 (2015-08-21 10:26:35)
+ 0.4.1 (2015-08-21 14:53:14)
 }
 \examples{
 ##load example data

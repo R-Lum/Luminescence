@@ -50,7 +50,10 @@
         re-call itself as elements are in the \code{list} (argument \code{object}). In particular
         cases this may lead to a tremendous efficient data analysis process,
         \item add 'call' to data output object,
-        \item add 'UID' column to data object 'De.values' and 'rejection.criteria'.
+        \item add 'UID' column to data object 'De.values' and 'rejection.criteria',
+        \item if the function is not able to proceed to due to unequal number of OSL curves the
+        analysis will no longer break with an error. Instead \code{NULL} is returned. This allows
+        to use the function more efficiently in a loop.
 
       }
 
@@ -83,6 +86,14 @@
 
 
       }
+
+      \item \code{merge_RLum()}
+      \itemize{
+
+        \item The function now removes empty list objects before proceeding.
+
+      }
+
 
       \item \code{plot_AbanicoPlot()}
        \itemize{
@@ -135,7 +146,7 @@
     \item \code{readSPE2R()}
       \itemize{
 
-        \item Set function on deprecated, new name: \code{read_SPE2R()}
+        \item Set function on deprecated, new name: \code{read_SPE2R()}.
 
       }
 
@@ -143,7 +154,10 @@
       \item \code{readXSYG2R()}
       \itemize{
 
-        \item Set function to deprecated, new name: \code{read_XSYG2R()}
+        \item Set function to deprecated, new name: \code{read_XSYG2R()},
+        \item the argument \code{file} can now handle a \code{list} of files, along with this
+        just a path to directory is allowed instead a path to a file.
+        In this case the function tries to import all XSYG-files that can be found in the directory.
 
       }
 
@@ -182,7 +196,7 @@
       \item Fixed a bug in \code{RLum.Data.Image} class that most likely caused the 'rgdal' NAMESPACE issue
       \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame} for objects of class \code{DRAC.list}
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}
-      \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export} statements to 
+      \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export} statements to
       allow better NAMESPACE housekeeping
 
    }

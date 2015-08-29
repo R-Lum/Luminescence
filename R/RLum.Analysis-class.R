@@ -113,7 +113,7 @@ setMethod("show",
 #' Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
 #'
 #' @param object [\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})
-#' 
+#'
 #' @export
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
@@ -172,12 +172,18 @@ setMethod("structure_RLum",
             }))
 
             ##combine output to a data.frame
-            return(data.frame(id=temp.id, recordType=temp.recordType,
-                              protocol.step=temp.protocol.step,
-                              n.channels=temp.n.channels,
-                              x.min=temp.x.min, x.max=temp.x.max,
-                              y.min=temp.y.min, y.max=temp.y.max,
-                              info.elements=temp.info.elements))
+            return(
+              data.frame(
+                id = temp.id, recordType = temp.recordType,
+                protocol.step = temp.protocol.step,
+                n.channels = temp.n.channels,
+                x.min = temp.x.min,
+                x.max = temp.x.max,
+                y.min = temp.y.min,
+                y.max = temp.y.max,
+                info.elements = temp.info.elements
+              )
+            )
 
           })
 
@@ -194,7 +200,7 @@ setMethod("structure_RLum",
 #' @param protocol [\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions. \code{UNKNOWN}
 #' by default.
-#' 
+#'
 #' @export
 setMethod("set_RLum",
           signature = "RLum.Analysis",
@@ -253,7 +259,7 @@ setMethod("set_RLum",
 #'
 #' @param keep.object [\code{get_RLum}] \code{\link{logical}} (with default):
 #' return an RLum.Analysis object instead of the single elements.
-#' 
+#'
 #' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),

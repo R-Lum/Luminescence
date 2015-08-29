@@ -9,8 +9,10 @@ read_XSYG2R(file, recalculate.TL.curves = TRUE, fastForward = FALSE,
   import = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\link{character} (\bold{required}): path and file name of the
-XSYG file.}
+\item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
+XSYG file. If input is a \code{list} it should comprise only \code{character}s representing each valid
+path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
+the function tries to detect and import all xsyg files found in the directory.}
 
 \item{recalculate.TL.curves}{\link{logical} (with default): if set to
 \code{TRUE}, TL curves are returned as temperature against count values (see
@@ -87,7 +89,15 @@ and count values from the PMT. \cr
 \emph{Note: Please note that due to the recalculation of the temperature
 values based on values delivered by the heating element, it may happen that
 mutiple count values exists for each temperature value and temperature
-values may also decrease during heating, not only increase. }
+values may also decrease during heating, not only increase. }\cr
+
+\bold{Advanced file import}\cr
+
+To allow for a more efficient usage of the function, instead of single path to a file just
+a directory can be passed as input. In this particular case the function tries to extract
+all XSYG-files found in the directory and import them all. Using this option internally the function
+constructs as list of the XSYG-files found in the directory. Please note no recursive detection
+is supported as this may lead to endless loops.
 }
 \note{
 This function is a beta version as the XSYG file format is not yet
@@ -98,7 +108,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.4.5 (2015-08-21 10:26:35)
+ 0.5.0 (2015-08-29 13:25:41)
 }
 \examples{
 ##(1) import XSYG file to R (uncomment for usage)
