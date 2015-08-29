@@ -122,7 +122,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)  Based on suggestion by Willian Amidon and Andrew Louis Gorin.<br />  R Luminescence Package Team"
 "read_SPE2R","Import Princeton Intruments (TM) SPE-file into R","<br /> Function imports Princeton Instruments (TM) SPE-files into R environment and<br /> provides  RLum  objects as output.<br />","0.1.0","2015-08-21","14:53:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"read_XSYG2R","Import XSYG files to R","<br /> Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.<br />","0.4.5","2015-08-21","14:53:14
+"read_XSYG2R","Import XSYG files to R","<br /> Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.<br />","0.5.0","2015-08-29","13:25:41
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "Risoe.BINfileData-class","Class  \"Risoe.BINfileData\"","<br /> S4 class object for luminescence data in R. The object is produced as output<br /> of the function  read_BIN2R .<br />","0.2.0
 ",NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -137,7 +137,7 @@
 "RLum.Data.Image-class","Class  \"RLum.Data.Image\"","<br /> Class for luminescence image data (TL/OSL/RF).<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Data.Spectrum-class","Class  \"RLum.Data.Spectrum\"","<br /> Class for luminescence spectra data (TL/OSL/RF).<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Results-class","Class  \"RLum.Results\"","<br /> Object class contains results data from functions.<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />"
-"Second2Gray","Converting values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.5.0","2015-08-21","14:53:14
+"Second2Gray","Converting values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.5.0","2015-08-23","19:59:37
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, HZDR,<br /> Helmholtz-Institute Freiberg for Resource Technology<br /> (Germany)<br />  R Luminescence Package Team"
 "set_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1","2015-08-21","14:53:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

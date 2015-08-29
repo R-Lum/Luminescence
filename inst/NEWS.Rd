@@ -146,7 +146,7 @@
     \item \code{readSPE2R()}
       \itemize{
 
-        \item Set function on deprecated, new name: \code{read_SPE2R()}
+        \item Set function on deprecated, new name: \code{read_SPE2R()}.
 
       }
 
@@ -154,7 +154,10 @@
       \item \code{readXSYG2R()}
       \itemize{
 
-        \item Set function to deprecated, new name: \code{read_XSYG2R()}
+        \item Set function to deprecated, new name: \code{read_XSYG2R()},
+        \item the argument \code{file} can now handle a \code{list} of files, along with this
+        just a path to directory is allowed instead a path to a file.
+        In this case the function tries to import all XSYG-files that can be found in the directory.
 
       }
 

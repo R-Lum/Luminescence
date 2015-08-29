@@ -48,11 +48,20 @@
 #' \emph{Note: Please note that due to the recalculation of the temperature
 #' values based on values delivered by the heating element, it may happen that
 #' mutiple count values exists for each temperature value and temperature
-#' values may also decrease during heating, not only increase. }
-
+#' values may also decrease during heating, not only increase. }\cr
 #'
-#' @param file \link{character} (\bold{required}): path and file name of the
-#' XSYG file.
+#' \bold{Advanced file import}\cr
+#'
+#' To allow for a more efficient usage of the function, instead of single path to a file just
+#' a directory can be passed as input. In this particular case the function tries to extract
+#' all XSYG-files found in the directory and import them all. Using this option internally the function
+#' constructs as list of the XSYG-files found in the directory. Please note no recursive detection
+#' is supported as this may lead to endless loops.
+#'
+#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
+#' XSYG file. If input is a \code{list} it should comprise only \code{character}s representing each valid
+#' path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
+#' the function tries to detect and import all xsyg files found in the directory.
 #'
 #' @param recalculate.TL.curves \link{logical} (with default): if set to
 #' \code{TRUE}, TL curves are returned as temperature against count values (see
@@ -86,7 +95,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.4.5
+#' @section Function version: 0.5.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -144,11 +153,54 @@ read_XSYG2R <- function(
   txtProgressBar = TRUE
 ){
 
+  # Self Call -----------------------------------------------------------------------------------
+  # Option (a): Input is a list, every element in the list will be treated as file connection
+  # with that many file can be read in at the same time
+  # Option (b): The input is just a path, the function tries to grep ALL xsyg/XSYG files in the
+  # directory and import them, if this is detected, we proceed as list
+
+  if(is(file, "character")) {
+
+    ##If this is not really a path we skip this here
+    if (dir.exists(file) & length(dir(file)) > 0) {
+      cat("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
+      file <-
+        as.list(paste0(file,dir(
+          file, recursive = FALSE, pattern = ".xsyg"
+        )))
+
+    }
+
+  }
+
+  if (is(file, "list")) {
+    temp.return <- lapply(1:length(file), function(x) {
+      read_XSYG2R(
+        file = file[[x]],
+        recalculate.TL.curves = recalculate.TL.curves,
+        fastForward = fastForward,
+        import = import,
+        txtProgressBar = txtProgressBar
+      )
+    })
+
+    ##return
+    if (fastForward) {
+      return(unlist(temp.return, recursive = FALSE))
+
+    }else{
+      return(temp.return)
+
+    }
+
+  }
+
 
   # Consistency check -------------------------------------------------------
 
+
   ##check if file exists
-  if(file.exists(file) == FALSE){
+  if(!file.exists(file)){
 
     stop("[read_XSYG2R()] Wrong file name or file does not exsits!")
 

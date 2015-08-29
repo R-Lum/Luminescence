@@ -13,7 +13,7 @@ required}
 
 \item{dose.rate}{\code{\linkS4class{RLum.Results}} or \code{\link{data.frame}} or \code{\link{numeric}}
 (\bold{required}): \code{RLum.Results} needs to be orginated from the
-function \code{\link{calc_SourceDoseRate}}, for \code{vector}dose rate in
+function \code{\link{calc_SourceDoseRate}}, for \code{vector} dose rate in
 Gy/s and dose rate error in Gy/s}
 
 \item{method}{\link{character} (with default): method used for error
@@ -41,7 +41,7 @@ stopped. Furthermore, if a \code{data.frame} is provided for the dose rate value
 be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.5.0 (2015-08-21 14:53:14)
+ 0.5.0 (2015-08-23 19:59:37)
 }
 \examples{
 ##(A) for known source dose rate at date of measurement
