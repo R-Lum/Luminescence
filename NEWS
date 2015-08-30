@@ -133,6 +133,9 @@ Changes in version 0.5.0 (, 2015):
              • Function struggled with RLum.Results objects as input;
                corrected.
 
+             • improve graphical representation using groups of
+               boxplots.
+
          • ‘plot_GrowthCurve()’
 
              • Final fitting and fitting during the MC runs is now done

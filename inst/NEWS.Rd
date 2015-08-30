@@ -122,6 +122,7 @@
        \itemize{
 
         \item Function struggled with RLum.Results objects as input; corrected.
+        \item improve graphical representation using groups of boxplots.
 
 
       }
