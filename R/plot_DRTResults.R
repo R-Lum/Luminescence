@@ -58,17 +58,23 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot}}.
 #' @return A plot is returned.
+#'
 #' @note Further data and plot arguments can be added by using the appropiate R
 #' commands.
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Michael Dietze, GFZ Potsdam (Germany)
+#'
 #' @seealso \code{\link{plot}}
+#'
 #' @references Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 #' stimulated luminescence characteristics and their relevance in
 #' single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 #' 369-391.
+#'
 #' @keywords dplot
+#'
 #' @examples
 #'
 #'
@@ -174,7 +180,7 @@ plot_DRTResults <- function(
                  "(!= 'data.frame' or 'RLum.Results')"))
     } else {
       if(is(values[[i]], "RLum.Results")==TRUE){
-        values[[i]] <- get_RLum(values[[i]], "data")
+        values[[i]] <- get_RLum(values[[i]])[,1:2]
       }
     }
   }

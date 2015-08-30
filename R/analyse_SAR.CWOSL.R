@@ -481,6 +481,12 @@ object!")
       background.integral <-
         c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
 
+      ##prevent that the background integral becomes negative
+      if(min(background.integral) < max(signal.integral)){
+        background.integral <- c(max(signal.integral) + 1, background.integral[2])
+
+      }
+
       warning(
         "Background integral out of bounds. Set to: c(",
         min(background.integral),":", max(background.integral),")"
