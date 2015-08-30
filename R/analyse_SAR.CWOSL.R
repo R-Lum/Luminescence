@@ -250,7 +250,7 @@ if(is.list(object)){
                       mtext.outer = mtext.outer[[x]],
                       plot = plot,
                       plot.single = plot.single,
-                      main = paste0("ALQ #",x),
+                      main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
                       ...)
 
   })
@@ -886,7 +886,7 @@ object!")
                 expression(paste(
                   "TL previous ", L[n],",",L[x]," curves",sep = ""
                 )),
-                cex = cex * 0.8)
+                cex = cex * 0.7)
 
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Lx) ,function(x) {
@@ -933,7 +933,7 @@ object!")
 
         #provide curve information as mtext, to keep the space for the header
         mtext(side = 3, expression(paste(L[n],",",L[x]," curves",sep = "")),
-              cex = cex * 0.8)
+              cex = cex * 0.7)
 
         ##plot curves
         sapply(1:length(OSL.Curves.ID.Lx), function(x) {
@@ -1009,7 +1009,7 @@ object!")
                 expression(paste(
                   "TL previous ", T[n],",",T[x]," curves",sep = ""
                 )),
-                cex = cex * 0.8)
+                cex = cex * 0.7)
 
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Tx) ,function(x) {
@@ -1059,7 +1059,7 @@ object!")
         #provide curve information as mtext, to keep the space for the header
         mtext(side = 3,
               expression(paste(T[n],",",T[x]," curves",sep = "")),
-              cex = cex * 0.8)
+              cex = cex * 0.7)
 
 
         ##plot curves and get legend values
