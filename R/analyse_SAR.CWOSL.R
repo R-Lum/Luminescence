@@ -261,11 +261,12 @@ if(is.list(object)){
   ##merge results and check if the output became NULL
   results <- merge_RLum(temp)
 
+  ##DO NOT use invisible here, this will stop the function from stopping
   if(length(results) == 0){
-    invisible(NULL)
+    return(NULL)
 
   }else{
-    invisible(results)
+    return(results)
 
   }
 
