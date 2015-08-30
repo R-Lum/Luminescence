@@ -58,6 +58,19 @@
       }
 
 
+
+      \item \code{calc_SourceDoseRate()}
+       \itemize{
+
+        \item Function now returns the original function call as data.object,
+        \item argument \code{predict} added to allow for source dose rate prediction in days,
+        \item adding plotting method for object output, available via (\code{plot_RLum}),
+        \item extend examples.
+
+
+
+      }
+
        \item \code{calc_Statistics()}
        \itemize{
 

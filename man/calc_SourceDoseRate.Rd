@@ -5,11 +5,12 @@
 \title{Calculation of the source dose rate via the date of measurement}
 \usage{
 calc_SourceDoseRate(measurement.date, calib.date, calib.dose.rate, calib.error,
-  source.type = "Sr-90", dose.rate.unit = "Gy/s")
+  source.type = "Sr-90", dose.rate.unit = "Gy/s", predict = NULL)
 }
 \arguments{
 \item{measurement.date}{\code{\link{character}} or \code{\link{Date}} (\bold{required}): date of
-measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.}
+measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
+The argument can be provided as vector.}
 
 \item{calib.date}{\code{\link{character}} or \code{\link{Date}} (\bold{required}): date of source
 calibration in "YYYY-MM-DD"}
@@ -27,13 +28,28 @@ details for further information}
 \item{dose.rate.unit}{\code{\link{character}} (with default): specify dose
 rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
 Gy/s as valid for the function \code{\link{Second2Gray}}}
+
+\item{predict}{\code{\link{integer}} (with default): option allowing to predicit the dose
+rate of the source over time in days set by the provided value. Starting date is the value set
+with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(...,predict = 100)} calculates
+the source dose rate for the next 100 days.}
 }
 \value{
 Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 Slot \code{data} contains a \code{\link{list}} with the following
-structure:\cr $ dose.rate (data.frame)\cr .. $ dose.rate \cr .. $
-dose.rate.error \cr $ parameters (list) \cr .. $ source.type\cr .. $
-halflife\cr .. $ dose.rate.unit
+structure:\cr
+$ dose.rate (data.frame)\cr
+.. $ dose.rate \cr
+.. $ dose.rate.error \cr
+.. $ date (corresponding measurement date)\cr
+$ parameters (list) \cr
+.. $ source.type\cr
+.. $ halflife\cr
+.. $ dose.rate.unit\cr
+$ call (the original function call)\cr
+
+The output should be accessed using the function \code{\link{get_RLum}}.\cr
+A plot method of the output is provided via \code{\link{plot_RLum}}
 }
 \description{
 Calculating the dose rate of the irradiation source via the date of
@@ -62,10 +78,17 @@ National Laboratory \cr [3] \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven
 National Laboratory }
 }
 \note{
-#
+Please be careful when using the option \code{predict}, especially when a multiple set
+for \code{measurement.date} and \code{calib.date} is provided. For the source dose rate prediction
+the function takes the last value \code{measurement.date} and predicts from that the the source
+source dose rate for the number of days requested,
+means: the (multiple) orignal input will be replaced. However, the function
+do not change entries for the calibration dates, but mix them up. Therefore,
+it is not recommended to use this option when multiple calibration dates (\code{calib.date})
+are provided.
 }
 \section{Function version}{
- 0.2.0 (2015-08-21 14:53:14)
+ 0.3.0 (2015-08-30 16:29:29)
 }
 \examples{
 ##(1) Simple function usage
@@ -85,6 +108,21 @@ data(ExampleData.DeValues, envir = environment())
 ## use the calculated variable dose.rate as input argument
 ## to convert De(s) to De(Gy)
 Second2Gray(ExampleData.DeValues$BT998, dose.rate)
+
+##(3) source rate prediction and plotting
+dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
+                                  calib.date = "2014-12-19",
+                                  calib.dose.rate = 0.0438,
+                                  calib.error = 0.0019,
+                                  predict = 1000)
+plot_RLum(dose.rate)
+
+
+##(4) export output to a LaTeX table (example using the package 'xtable')
+\dontrun{
+xtable::xtable(get_RLum(dose.rate))
+
+}
 }
 \author{
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),
@@ -95,7 +133,7 @@ NNDC, Brookhaven National Laboratory
 (\code{http://www.nndc.bnl.gov/})
 }
 \seealso{
-\code{\link{Second2Gray}}
+\code{\link{Second2Gray}}, \code{\link{get_RLum}}, \code{\link{plot_RLum}}
 }
 \keyword{manip}
 

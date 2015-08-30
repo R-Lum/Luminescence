@@ -69,6 +69,19 @@ Changes in version 0.5.0 (, 2015):
                with an error. Instead ‘NULL’ is returned. This allows
                to use the function more efficiently in a loop.
 
+         • ‘calc_SourceDoseRate()’
+
+             • Function now returns the original function call as
+               data.object,
+
+             • argument ‘predict’ added to allow for source dose rate
+               prediction in days,
+
+             • adding plotting method for object output, available via
+               (‘plot_RLum’),
+
+             • extend examples.
+
          • ‘calc_Statistics()’
 
              • Weighted median is now completly removed from the

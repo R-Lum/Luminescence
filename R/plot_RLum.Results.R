@@ -8,19 +8,30 @@
 #'
 #' @param data \code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
 #' of class \code{RLum.Results}
+#'
 #' @param single \code{\link{logical}} (with default): single plot output
 #' (\code{TRUE/FALSE}) to allow for plotting the results in as few plot windows
 #' as possible.
+#'
 #' @param \dots further arguments and graphical parameters will be passed to
 #' the \code{plot} function.
+#'
 #' @return Returns multiple plots.
+#'
 #' @note Not all arguments available for \code{\link{plot}} will be passed!
 #' Only plotting of \code{RLum.Results} objects are supported.
-#' @section Function version: 0.1
-#' @author Christoph Burow, University of Cologne (Germany)
+#'
+#' @section Function version: 0.2.0
+#'
+#' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,
+#' Universite Bordeaux Montaigne (France)
+#'
 #' @seealso \code{\link{plot}}, \code{\link{plot_RLum}},
+#'
 #' @references #
+#'
 #' @keywords aplot
+#'
 #' @examples
 #'
 #'
@@ -964,5 +975,81 @@ plot_RLum.Results<- function(
       boxplot(MC.n, horizontal = TRUE, add = TRUE, bty="n")
     }
   }#EndOf::Case 5 - calc_AliqoutSize()
+
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+  ## CASE 6: calc_SourceDoseRate()
+  if(data@originator=="calc_SourceDoseRate") {
+
+    ##prepare data
+    ##get data
+    df <- get_RLum(data, data.object = "dose.rate")
+
+    ##reduce the size for plotting, more than 100 points makes no sense
+    if(nrow(df)>100) {
+      df <- df[seq(1,nrow(df), length = 100),]
+
+    }
+
+
+    ##plot settings
+      plot.settings <- list(
+        main = "Source Dose Rate Prediction",
+        xlab = "Date",
+        ylab = paste0(
+          "Dose rate/(",get_RLum(data, data.object = "parameters")$dose.rate.unit,")"),
+        log = "",
+        cex = 1,
+        xlim = NULL,
+        ylim = c(min(df[,1]) - max(df[,2]), max(df[,1]) + max(df[,2])),
+        pch = 1,
+        mtext = paste0(
+          "source type: ", get_RLum(data, data.object = "parameters")$source.type,
+          " | ",
+          "half-life: ", get_RLum(data, data.object = "parameters")$halflife,
+          " a"
+        ),
+        grid = expression(nx = 10, ny = 10),
+        col = 1,
+        type = "b",
+        lty = 1,
+        lwd = 1,
+        segments = ""
+      )
+
+      ##modify list if something was set
+      plot.settings <- modifyList(plot.settings, list(...))
+
+
+    ##plot
+      plot(
+        df[,3], df[,1],
+        main = plot.settings$main,
+        xlab = plot.settings$xlab,
+        ylab = plot.settings$ylab,
+        xlim = plot.settings$xlim,
+        ylim = plot.settings$ylim,
+        log = plot.settings$log,
+        pch = plot.settings$pch,
+        col = plot.settings$pch,
+        type = plot.settings$type,
+        lty = plot.settings$lty,
+        lwd = plot.settings$lwd
+      )
+
+      if(!is.null(plot.settings$segments)){
+        segments(
+          x0 = df[,3], y0 = df[,1] + df[,2],
+          x1 = df[,3], y1 = df[,1] - df[,2]
+        )
+      }
+
+      mtext(side = 3, plot.settings$mtext)
+
+      if(!is.null(plot.settings$grid)){
+        grid(eval(plot.settings$grid))
+
+      }
+
+  }#EndOf::Case 6 - calc_SourceDoseRate()
 
 }

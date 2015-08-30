@@ -91,7 +91,7 @@ plot_RLum<- function(
 
     }else{
       stop(paste0(
-        "[plot_RLum] Sorry, I don't know what to do for object of type '", is(object)[1], "'."
+        "[plot_RLum()] Sorry, I don't know what to do for object of type '", is(object)[1], "'."
       ))
 
     }
