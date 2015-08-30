@@ -122,7 +122,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.6.2
+#' @section Function version: 0.6.3
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -257,7 +257,18 @@ if(is.list(object)){
 
   ##combine everything to one RLum.Results object as this as what was written ... only
   ##one object
-  return(merge_RLum(temp))
+
+  ##merge results and check if the output became NULL
+  results <- merge_RLum(temp)
+
+  if(length(results) == 0){
+    invisible(NULL)
+
+  }else{
+    invisible(results)
+
+  }
+
 }
 
 # CONFIG  -----------------------------------------------------------------
@@ -1415,7 +1426,7 @@ object!")
     invisible(temp.results.final)
 
   }else{
-    cat(paste0(paste(error.list, collapse = "\n"), ": >> nothing was done here!"))
+    cat(paste0("\n",paste(unlist(error.list), collapse = "\n"), "\n... >> nothing was done here!"))
     invisible(NULL)
 
   }

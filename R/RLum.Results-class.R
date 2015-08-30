@@ -106,7 +106,7 @@ setMethod("show",
 #' @param originator [\code{set_RLum}] \code{\link{character}} (optional): argument to manually set
 #' the originator.
 #' @param data [\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to be stored in the object
-#' 
+#'
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
@@ -146,7 +146,7 @@ setMethod("set_RLum",
 #' @param object [\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
 #' \code{\linkS4class{RLum.Results}} to be evaluated
 #' @param data.object [\code{get_RLum}] \code{\link{character}}: name of the data slot to be returned
-#' 
+#'
 #' @export
 setMethod("get_RLum",
           signature = signature("RLum.Results"),
@@ -392,15 +392,15 @@ setMethod("get_RLum",
                 return(object@data$irr.times)
 
               }
-              
+
               ##-------------------------------------------------------------
               ## extract_IrradiationTimes()
               if(object@originator == "use_DRAC") {
-                
+
                 return(object@data$DRAC$highlights)
-                
+
               }
-              
+
 
               ##-------------------------------------------------------------
               ##CATCHER - IF NOTHING ELSE IS DEFINED return always the first object
@@ -420,7 +420,7 @@ setMethod("get_RLum",
 #' Merging is done by appending similar elements to the first object of the input list.
 #'
 #' @param object.list [\code{merge_RLum.Results}] \code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects
-#' 
+#'
 #' @export
 setMethod("merge_RLum.Results",
           signature=signature(object.list = "list"),
@@ -430,7 +430,7 @@ setMethod("merge_RLum.Results",
             ##Some integrity checks
 
             ##check if input object is a list
-            if(is(object.list, "list") == FALSE){
+            if(!is(object.list, "list")){
 
               stop("[merge_RLum.Results()] 'object.list' has to of type 'list'!")
 
@@ -441,7 +441,7 @@ setMethod("merge_RLum.Results",
 
                 if(is(object.list[[x]], "RLum.Results") == FALSE){
 
-                  stop("[merge_RLum.Results] Error: objects to merge have
+                  stop("[merge_RLum.Results()] objects to merge have
                        to be of type 'RLum.Results'!")
 
                 }
