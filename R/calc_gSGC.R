@@ -8,7 +8,7 @@
 #' Large values for \code{n.MC} will significantly increase the computation time.
 #'
 #'
-#' @param data \code{\link{data.frame}} (\bold{required}): input data of prodiding the following
+#' @param data \code{\link{data.frame}} (\bold{required}): input data of providing the following
 #' columns: 'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'
 #' Note: column names are not required the function, expect the input data in the given order
 #'
@@ -39,9 +39,10 @@
 #'  .. $ Eta \cr
 #' $ De.MC (list) contains the matricies from the error estimation.\cr
 #' $ uniroot (list) contains the uniroot outputs of the De estimations
+#' $ call (call) the original function call
 #'
 #'
-#' @section Function version: 0.1
+#' @section Function version: 0.1.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
@@ -315,13 +316,15 @@ calc_gSGC<- function(
 ##OUTPUT RLUM
 ##============================================================================##
 
-  temp.RLum.Results <- set_RLum(
-    class = "RLum.Results",
-    data = list(
-    De = as.data.frame(output.data),
-    De.MC =  output.De.MC,
-    uniroot = output.uniroot
-    ))
+    temp.RLum.Results <- set_RLum(
+      class = "RLum.Results",
+      data = list(
+        De = as.data.frame(output.data),
+        De.MC =  output.De.MC,
+        uniroot = output.uniroot,
+        call = sys.call()
+      )
+    )
 
   return(temp.RLum.Results)
 }
