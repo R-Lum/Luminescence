@@ -58,17 +58,23 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot}}.
 #' @return A plot is returned.
+#'
 #' @note Further data and plot arguments can be added by using the appropiate R
 #' commands.
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.8
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Michael Dietze, GFZ Potsdam (Germany)
+#'
 #' @seealso \code{\link{plot}}
+#'
 #' @references Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 #' stimulated luminescence characteristics and their relevance in
 #' single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 #' 369-391.
+#'
 #' @keywords dplot
+#'
 #' @examples
 #'
 #'
@@ -174,7 +180,7 @@ plot_DRTResults <- function(
                  "(!= 'data.frame' or 'RLum.Results')"))
     } else {
       if(is(values[[i]], "RLum.Results")==TRUE){
-        values[[i]] <- get_RLum(values[[i]], "data")
+        values[[i]] <- get_RLum(values[[i]])[,1:2]
       }
     }
   }
@@ -636,12 +642,54 @@ plot_DRTResults <- function(
             ylim = ylim,
             xlab = xlab,
             ylab = ylab,
+            xaxt = "n",
             main = "",
             border = col)
 
     ## add axis label, if necessary
-    if(length(modes.plot) == 1) {
+    if (length(modes.plot) == 1) {
       axis(side = 1, at = 1, labels = modes.plot)
+
+    } else if (length(modes.plot) > length(unique(modes.plot))){
+
+      ticks <- seq(from = 1 + ((length(values.boxplot)/length(unique(modes.plot)) - 1)/2),
+                   to = length(values.boxplot),
+                   by = length(values.boxplot)/length(unique(modes.plot)))
+
+      axis(
+        side = 1,
+        at = ticks,
+        labels = unique(modes.plot)
+      )
+
+      ##polygon for a better graphical representation of the groups
+      polygon.x <- seq(
+        1,length(values.boxplot),
+        by = length(values.boxplot) / length(unique(modes.plot))
+      )
+
+      polygon.step <- unique(diff(polygon.x) - 1)
+
+      for (x.plyg in polygon.x) {
+        polygon(
+          x = c(x.plyg,x.plyg,x.plyg + polygon.step, x.plyg + polygon.step),
+          y = c(
+            par()$usr[3],
+            ylim[1] - (ylim[1] - par()$usr[3]) / 2,
+            ylim[1] - (ylim[1] - par()$usr[3]) / 2,
+            par()$usr[3]
+          ),
+          col = "grey",
+          border = "grey"
+
+        )
+
+      }
+
+    }else{
+
+      axis(side = 1, at = 1:length(unique(modes.plot)), labels = unique(modes.plot))
+
     }
 
     ## add title

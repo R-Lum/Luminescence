@@ -53,10 +53,25 @@
         \item add 'UID' column to data object 'De.values' and 'rejection.criteria',
         \item if the function is not able to proceed to due to unequal number of OSL curves the
         analysis will no longer break with an error. Instead \code{NULL} is returned. This allows
-        to use the function more efficiently in a loop.
+        to use the function more efficiently in a loop,
+        \item improve behaviour if wrong background integrals are provided, even the values make
+        no sense the functions tries to do the best without breaking.
 
       }
 
+
+
+      \item \code{calc_SourceDoseRate()}
+       \itemize{
+
+        \item Function now returns the original function call as data.object,
+        \item argument \code{predict} added to allow for source dose rate prediction in days,
+        \item adding plotting method for object output, available via (\code{plot_RLum}),
+        \item extend examples.
+
+
+
+      }
 
        \item \code{calc_Statistics()}
        \itemize{
@@ -99,6 +114,15 @@
        \itemize{
 
         \item Further adjustment to deal with zero values (will now be removed automatically)
+
+
+      }
+
+     \item \code{plot_DRTResults()}
+       \itemize{
+
+        \item Function struggled with RLum.Results objects as input; corrected.
+        \item improve graphical representation using groups of boxplots.
 
 
       }

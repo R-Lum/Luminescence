@@ -26,6 +26,7 @@
 #'
 #' @param measurement.date \code{\link{character}} or \code{\link{Date}} (\bold{required}): date of
 #' measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
+#' The argument can be provided as vector.
 #'
 #' @param calib.date \code{\link{character}} or \code{\link{Date}} (\bold{required}): date of source
 #' calibration in "YYYY-MM-DD"
@@ -44,21 +45,43 @@
 #' rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
 #' Gy/s as valid for the function \code{\link{Second2Gray}}
 #'
+#' @param predict \code{\link{integer}} (with default): option allowing to predicit the dose
+#' rate of the source over time in days set by the provided value. Starting date is the value set
+#' with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(...,predict = 100)} calculates
+#' the source dose rate for the next 100 days.
+#'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #' Slot \code{data} contains a \code{\link{list}} with the following
-#' structure:\cr $ dose.rate (data.frame)\cr .. $ dose.rate \cr .. $
-#' dose.rate.error \cr $ parameters (list) \cr .. $ source.type\cr .. $
-#' halflife\cr .. $ dose.rate.unit
+#' structure:\cr
+#' $ dose.rate (data.frame)\cr
+#' .. $ dose.rate \cr
+#' .. $ dose.rate.error \cr
+#' .. $ date (corresponding measurement date)\cr
+#' $ parameters (list) \cr
+#' .. $ source.type\cr
+#' .. $ halflife\cr
+#' .. $ dose.rate.unit\cr
+#' $ call (the original function call)\cr
 #'
-#' @note #
+#' The output should be accessed using the function \code{\link{get_RLum}}.\cr
+#' A plot method of the output is provided via \code{\link{plot_RLum}}
 #'
-#' @section Function version: 0.2.0
+#' @note Please be careful when using the option \code{predict}, especially when a multiple set
+#' for \code{measurement.date} and \code{calib.date} is provided. For the source dose rate prediction
+#' the function takes the last value \code{measurement.date} and predicts from that the the source
+#' source dose rate for the number of days requested,
+#' means: the (multiple) orignal input will be replaced. However, the function
+#' do not change entries for the calibration dates, but mix them up. Therefore,
+#' it is not recommended to use this option when multiple calibration dates (\code{calib.date})
+#' are provided.
+#'
+#' @section Function version: 0.3.0
 #'
 #' @author Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),
 #' \cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso \code{\link{Second2Gray}}
+#' @seealso \code{\link{Second2Gray}}, \code{\link{get_RLum}}, \code{\link{plot_RLum}}
 #'
 #' @references NNDC, Brookhaven National Laboratory
 #' (\code{http://www.nndc.bnl.gov/})
@@ -86,6 +109,21 @@
 #' ## to convert De(s) to De(Gy)
 #' Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 #'
+#' ##(3) source rate prediction and plotting
+#' dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
+#'                                   calib.date = "2014-12-19",
+#'                                   calib.dose.rate = 0.0438,
+#'                                   calib.error = 0.0019,
+#'                                   predict = 1000)
+#' plot_RLum(dose.rate)
+#'
+#'
+#'##(4) export output to a LaTeX table (example using the package 'xtable')
+#'\dontrun{
+#' xtable::xtable(get_RLum(dose.rate))
+#'
+#'}
+#'
 #'
 #' @export
 calc_SourceDoseRate <- function(
@@ -94,7 +132,8 @@ calc_SourceDoseRate <- function(
   calib.dose.rate,
   calib.error,
   source.type = "Sr-90",
-  dose.rate.unit = "Gy/s"
+  dose.rate.unit = "Gy/s",
+  predict = NULL
 ){
 
 
@@ -115,6 +154,12 @@ calc_SourceDoseRate <- function(
   ##calibration date
   if(is(calib.date, "character")) {
     calib.date <- as.Date(calib.date)
+  }
+
+  # --- if predict is set
+  if(!is.null(predict) && predict > 1){
+    measurement.date <- seq(tail(measurement.date), by = 1, length = predict)
+
   }
 
   # -- calc days since source calibration
@@ -162,7 +207,12 @@ calc_SourceDoseRate <- function(
 
   # Output --------------------------------------------------------------------------------------
 
-  dose_rate <- data.frame(dose.rate = source.dose.rate, dose.rate.error = source.dose.rate.error)
+  dose_rate <- data.frame(
+    dose.rate = source.dose.rate,
+    dose.rate.error = source.dose.rate.error,
+    date = measurement.date,
+    stringsAsFactors = TRUE
+  )
 
   temp.return <- set_RLum(
     class = "RLum.Results",
@@ -170,7 +220,8 @@ calc_SourceDoseRate <- function(
       dose.rate = dose_rate,
       parameters = list(source.type = source.type,
                         halflife = halflife.years,
-                        dose.rate.unit = dose.rate.unit)
+                        dose.rate.unit = dose.rate.unit),
+      call = sys.call()
     ))
 
   return(temp.return)

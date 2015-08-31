@@ -67,7 +67,24 @@ Changes in version 0.5.0 (, 2015):
              • if the function is not able to proceed to due to unequal
                number of OSL curves the analysis will no longer break
                with an error. Instead ‘NULL’ is returned. This allows
-               to use the function more efficiently in a loop.
+               to use the function more efficiently in a loop,
+
+             • improve behaviour if wrong background integrals are
+               provided, even the values make no sense the functions
+               tries to do the best without breaking.
+
+         • ‘calc_SourceDoseRate()’
+
+             • Function now returns the original function call as
+               data.object,
+
+             • argument ‘predict’ added to allow for source dose rate
+               prediction in days,
+
+             • adding plotting method for object output, available via
+               (‘plot_RLum’),
+
+             • extend examples.
 
          • ‘calc_Statistics()’
 
@@ -110,6 +127,14 @@ Changes in version 0.5.0 (, 2015):
 
              • Further adjustment to deal with zero values (will now be
                removed automatically)
+
+         • ‘plot_DRTResults()’
+
+             • Function struggled with RLum.Results objects as input;
+               corrected.
+
+             • improve graphical representation using groups of
+               boxplots.
 
          • ‘plot_GrowthCurve()’
 

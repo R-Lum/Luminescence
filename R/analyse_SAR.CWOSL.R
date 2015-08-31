@@ -122,7 +122,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.6.2
+#' @section Function version: 0.6.3
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -250,14 +250,26 @@ if(is.list(object)){
                       mtext.outer = mtext.outer[[x]],
                       plot = plot,
                       plot.single = plot.single,
-                      main = paste0("ALQ #",x),
+                      main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
                       ...)
 
   })
 
   ##combine everything to one RLum.Results object as this as what was written ... only
   ##one object
-  return(merge_RLum(temp))
+
+  ##merge results and check if the output became NULL
+  results <- merge_RLum(temp)
+
+  ##DO NOT use invisible here, this will stop the function from stopping
+  if(length(results) == 0){
+    return(NULL)
+
+  }else{
+    return(results)
+
+  }
+
 }
 
 # CONFIG  -----------------------------------------------------------------
@@ -468,6 +480,12 @@ object!")
     if (max(background.integral) > temp.matrix.length[1]) {
       background.integral <-
         c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
+
+      ##prevent that the background integral becomes negative
+      if(min(background.integral) < max(signal.integral)){
+        background.integral <- c(max(signal.integral) + 1, background.integral[2])
+
+      }
 
       warning(
         "Background integral out of bounds. Set to: c(",
@@ -868,7 +886,7 @@ object!")
                 expression(paste(
                   "TL previous ", L[n],",",L[x]," curves",sep = ""
                 )),
-                cex = cex * 0.8)
+                cex = cex * 0.7)
 
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Lx) ,function(x) {
@@ -915,7 +933,7 @@ object!")
 
         #provide curve information as mtext, to keep the space for the header
         mtext(side = 3, expression(paste(L[n],",",L[x]," curves",sep = "")),
-              cex = cex * 0.8)
+              cex = cex * 0.7)
 
         ##plot curves
         sapply(1:length(OSL.Curves.ID.Lx), function(x) {
@@ -991,7 +1009,7 @@ object!")
                 expression(paste(
                   "TL previous ", T[n],",",T[x]," curves",sep = ""
                 )),
-                cex = cex * 0.8)
+                cex = cex * 0.7)
 
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Tx) ,function(x) {
@@ -1041,7 +1059,7 @@ object!")
         #provide curve information as mtext, to keep the space for the header
         mtext(side = 3,
               expression(paste(T[n],",",T[x]," curves",sep = "")),
-              cex = cex * 0.8)
+              cex = cex * 0.7)
 
 
         ##plot curves and get legend values
@@ -1415,7 +1433,7 @@ object!")
     invisible(temp.results.final)
 
   }else{
-    cat(paste0(paste(error.list, collapse = "\n"), ": >> nothing was done here!"))
+    cat(paste0("\n",paste(unlist(error.list), collapse = "\n"), "\n... >> nothing was done here!"))
     invisible(NULL)
 
   }
