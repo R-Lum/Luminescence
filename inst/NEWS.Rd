@@ -19,6 +19,13 @@
 
       }
 
+      \item \code{merge_RLum}
+      \itemize{
+        \item Method for \code{RLum.Results} objects now combines the data.frame using the function
+        \code{data.table::rbindList} this should give a little bit more speed.
+
+      }
+
      \item \code{Risoe.BINfileData-class}
       \itemize{
         \item Show method now returns the valid grain range.

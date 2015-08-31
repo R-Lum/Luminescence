@@ -89,7 +89,7 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.8 (2015-08-30 23:39:57)
+ 0.1.8 (2015-08-31 09:06:41)
 }
 \examples{
 ## read example data set and misapply them for this plot type
