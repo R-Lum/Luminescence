@@ -20,6 +20,12 @@ Changes in version 0.5.0 (, 2015):
                ‘RLum’ objects in the list the corresponding ‘get_RLum’
                methods are called.
 
+         • ‘merge_RLum’
+
+             • Method for ‘RLum.Results’ objects now combines the
+               data.frame using the function ‘data.table::rbindList’
+               this should give a little bit more speed.
+
          • ‘Risoe.BINfileData-class’
 
              • Show method now returns the valid grain range.

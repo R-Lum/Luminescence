@@ -28,7 +28,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2006.  <br />  R Luminescence Package Team"
 "calc_FuchsLang2001","Apply the model after Fuchs & Lang (2001) to a given De distribution.","<br /> This function applies the method according to Fuchs & Lang (2001) for<br /> heterogeneously bleached samples with a given coefficient of variation<br /> threshold.<br />","0.4.1","2015-08-21","14:53:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France) Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
-"calc_gSGC","Calculate De value based on the gSGC by Li et al., 2015","<br /> Function returns De value and De value error using the global standardised growth<br /> curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz<br />","0.1","2015-08-21","14:53:14
+"calc_gSGC","Calculate De value based on the gSGC by Li et al., 2015","<br /> Function returns De value and De value error using the global standardised growth<br /> curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz<br />","0.1.0","2015-09-01","10:42:38
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France) <br />  R Luminescence Package Team"
 "calc_HomogeneityTest","Apply a simple homogeneity test after Galbraith (2003)","<br /> A simple homogeneity test for De estimates<br />","0.2","2015-08-21","14:53:14
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
@@ -67,7 +67,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "fit_CWCurve","Nonlinear Least Squares Fit for CW-OSL curves [beta version]","<br /> The function determines the weighted least-squares estimates of the<br /> component parameters of a CW-OSL signal for a given maximum number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the  nls  function with the  port  algorithm.<br />","0.5.1","2015-08-21","14:53:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"fit_LMCurve","Nonlinear Least Squares Fit for LM-OSL curves","<br /> The function determines weighted nonlinear least-squares estimates of the<br /> component parameters of an LM-OSL curve (Bulur 1996) for a given number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the function  nls  with the  port  algorithm.<br />","0.3.0","2015-08-21","14:53:14
+"fit_LMCurve","Nonlinear Least Squares Fit for LM-OSL curves","<br /> The function determines weighted nonlinear least-squares estimates of the<br /> component parameters of an LM-OSL curve (Bulur 1996) for a given number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the function  nls  with the  port  algorithm.<br />","0.3.0","2015-08-31","23:40:18
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "get_Layout","Collection of layout definitions","<br /> This helper function returns a list with layout definitions for homogeneous<br /> plotting.<br />","0.1","2015-08-21","14:53:14
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
