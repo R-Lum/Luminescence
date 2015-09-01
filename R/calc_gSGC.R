@@ -8,9 +8,9 @@
 #' Large values for \code{n.MC} will significantly increase the computation time.
 #'
 #'
-#' @param data \code{\link{data.frame}} (\bold{required}): input data of prodiding the following
+#' @param data \code{\link{data.frame}} (\bold{required}): input data of providing the following
 #' columns: 'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'
-#' Note: column names are not required the function, expect the input data in the given order
+#' Note: column names are not required. The function expect the input data in the given order
 #'
 #' @param gSGC.type \code{\link{character}} (with default): define the function parameters that
 #' should be used for the iteration procedure: Li et al., 2015 (Table 2)
@@ -31,6 +31,8 @@
 #'
 #' @param plot \code{\link{logical}}: enable or disable graphical feedback as plot
 #'
+#' @param ... parameters will be passed to the plot output
+#'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #' Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
 #' $ De.value (data.frame) \cr
@@ -39,9 +41,10 @@
 #'  .. $ Eta \cr
 #' $ De.MC (list) contains the matricies from the error estimation.\cr
 #' $ uniroot (list) contains the uniroot outputs of the De estimations
+#' $ call (call) the original function call
 #'
 #'
-#' @section Function version: 0.1
+#' @section Function version: 0.1.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
@@ -68,7 +71,8 @@ calc_gSGC<- function(
   gSGC.parameters,
   n.MC = 100,
   verbose = TRUE,
-  plot = TRUE
+  plot = TRUE,
+  ...
 ){
 
 ##============================================================================##
@@ -177,6 +181,7 @@ calc_gSGC<- function(
                   Dr1 = Dr1,
                   Lr1Tr1 = Lr1Tr1,
                   LnTn = LnTn,
+                  extendInt = 'yes',
                   check.conv = TRUE)
 
   ##get De
@@ -202,7 +207,9 @@ calc_gSGC<- function(
     ##run uniroot to get the De
     temp.MC.matrix[,7] <- sapply(1:n.MC, function(x){
 
-      uniroot(f, c(0.1,450), tol = 0.001,
+      uniroot(f,
+              interval = c(0.1,450),
+              tol = 0.001,
               A = temp.MC.matrix[x,3],
               D0 = temp.MC.matrix[x,4],
               c = temp.MC.matrix[x,5],
@@ -210,7 +217,9 @@ calc_gSGC<- function(
               Dr1 = Dr1,
               Lr1Tr1 =temp.MC.matrix[x,2],
               LnTn = temp.MC.matrix[x,1],
-              check.conv = TRUE)$root
+              check.conv = TRUE,
+              extendInt = 'yes'
+              )$root
 
     })
 
@@ -232,14 +241,46 @@ calc_gSGC<- function(
 
   if (plot) {
 
+    ##set plot settings
+    plot.settings <- list(
+      main = "gSGC and resulting De",
+      xlab = "Dose/(a.u.)",
+      ylab = expression(paste("Re-norm. ", L[x]/T[x])),
+      xlim = NULL,
+      ylim = NULL,
+      lwd = 1,
+      lty = 1,
+      pch = 1,
+      col = "red",
+      grid = expression(nx = 10, ny = 10),
+      mtext = ""
+    )
+
+    plot.settings <-  modifyList(plot.settings, list(...))
+
+
+
     ##graphical feedback
     x <- NA
-    curve(A * (1 - exp(-x / D0)) + c * x + Y0, from = 0, to = 500,
-          xlab = "Dose/(a.u.)",
-          main = "gSGC and resulting De"
-          )
+    curve(
+      A * (1 - exp(-x / D0)) + c * x + Y0, from = 0, to = 500,
+      xlab = plot.settings$xlab,
+      ylab = plot.settings$ylab,
+      main = plot.settings$main,
+      xlim = plot.settings$xlim,
+      ylim = plot.settings$ylim,
+      lwd = plot.settings$lwd,
+      lty = plot.settings$lty
+    )
 
-    points(temp$root,Eta*LnTn, col = 'red')
+    mtext(side = 3, plot.settings$mtext)
+
+    if(!is.null(plot.settings$grid)){
+      grid(eval(plot.settings$grid))
+
+    }
+
+    points(temp$root,Eta*LnTn, col = plot.settings$col, pch = plot.settings$pch)
     segments(De - De.error,Eta * LnTn,
              De + De.error,Eta * LnTn)
 
@@ -249,7 +290,7 @@ calc_gSGC<- function(
   }
 
 ##============================================================================##
-##OUTPUT VISUAL
+##OUTPUT VISUALISATION
 ##============================================================================##
 
     if (verbose) {
@@ -315,13 +356,15 @@ calc_gSGC<- function(
 ##OUTPUT RLUM
 ##============================================================================##
 
-  temp.RLum.Results <- set_RLum(
-    class = "RLum.Results",
-    data = list(
-    De = as.data.frame(output.data),
-    De.MC =  output.De.MC,
-    uniroot = output.uniroot
-    ))
+    temp.RLum.Results <- set_RLum(
+      class = "RLum.Results",
+      data = list(
+        De = as.data.frame(output.data),
+        De.MC =  output.De.MC,
+        uniroot = output.uniroot,
+        call = sys.call()
+      )
+    )
 
   return(temp.RLum.Results)
 }

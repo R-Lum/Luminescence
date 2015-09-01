@@ -20,7 +20,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Results", ...)}.
 #'
-#' @section Class version: 0.2.0
+#' @section Class version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -483,8 +483,8 @@ differs!")
 
                 }
 
-                ##combine them using rbind
-                object.list[[1]]@data[[i]] <- do.call(rbind, temp.list)
+                ##combine them using data.table::rbindList
+                object.list[[1]]@data[[i]] <- as.data.frame(data.table::rbindlist(temp.list))
 
 
               }else{

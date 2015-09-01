@@ -876,7 +876,7 @@ fit_LMCurve<- function(
     mtext(side=3,sample_code,cex=0.8*cex)
 
     ##plotting measured signal
-    points(values[,1],values[,2],pch=20, col="grey")
+    points(values[,1],values[,2],pch=20, col=rgb(0.4,0.4,0.4,0.5))
 
     ##==pseudo curve==##------------------------------------------------------#
 

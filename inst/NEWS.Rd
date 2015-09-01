@@ -19,6 +19,13 @@
 
       }
 
+      \item \code{merge_RLum}
+      \itemize{
+        \item Method for \code{RLum.Results} objects now combines the data.frame using the function
+        \code{data.table::rbindList} this should give a little bit more speed.
+
+      }
+
      \item \code{Risoe.BINfileData-class}
       \itemize{
         \item Show method now returns the valid grain range.
@@ -29,11 +36,14 @@
 
   \subsection{New functions}{
    \itemize{
-      \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015
-      \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009
-       \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader
-       \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC)
-       \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()}
+      \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015,
+      \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009,
+       \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader,
+       \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC),
+       \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()},
+       \item \code{plot_VolcanoPlot()} Creates a combination of a volcano plot with a boxplot. This plot
+       was especially written for visualisation of data where standard errors are zero or to small to be
+       visualised at all.
    }
   }
 

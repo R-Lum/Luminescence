@@ -68,7 +68,7 @@ method \code{get_RLum}.
 }
 
 \section{Class version}{
- 0.2.0
+ 0.2.1
 }
 \examples{
 showClass("RLum.Results")

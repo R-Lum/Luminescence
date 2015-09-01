@@ -30,8 +30,11 @@
 #' (France)
 #'
 #' @seealso \code{\linkS4class{RLum.Results}},
+#'
 #' @references #
+#'
 #' @keywords utilities
+#'
 #' @examples
 #'
 #'

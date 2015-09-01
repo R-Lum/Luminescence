@@ -5,12 +5,12 @@
 \title{Calculate De value based on the gSGC by Li et al., 2015}
 \usage{
 calc_gSGC(data, gSGC.type = "0-250", gSGC.parameters, n.MC = 100,
-  verbose = TRUE, plot = TRUE)
+  verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} (\bold{required}): input data of prodiding the following
+\item{data}{\code{\link{data.frame}} (\bold{required}): input data of providing the following
 columns: 'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'
-Note: column names are not required the function, expect the input data in the given order}
+Note: column names are not required. The function expect the input data in the given order}
 
 \item{gSGC.type}{\code{\link{character}} (with default): define the function parameters that
 should be used for the iteration procedure: Li et al., 2015 (Table 2)
@@ -30,6 +30,8 @@ error estimation, s. details.}
 \item{verbose}{\code{\link{logical}}: enable or disable terminal output}
 
 \item{plot}{\code{\link{logical}}: enable or disable graphical feedback as plot}
+
+\item{...}{parameters will be passed to the plot output}
 }
 \value{
 Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
@@ -40,6 +42,7 @@ $ De.value (data.frame) \cr
  .. $ Eta \cr
 $ De.MC (list) contains the matricies from the error estimation.\cr
 $ uniroot (list) contains the uniroot outputs of the De estimations
+$ call (call) the original function call
 }
 \description{
 Function returns De value and De value error using the global standardised growth
@@ -51,7 +54,7 @@ Solving of the equation is realised using \code{\link{uniroot}}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1 (2015-08-21 14:53:14)
+ 0.1.0 (2015-09-01 10:42:38)
 }
 \examples{
 results <- calc_gSGC(data = data.frame(

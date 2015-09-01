@@ -20,6 +20,12 @@ Changes in version 0.5.0 (, 2015):
                ‘RLum’ objects in the list the corresponding ‘get_RLum’
                methods are called.
 
+         • ‘merge_RLum’
+
+             • Method for ‘RLum.Results’ objects now combines the
+               data.frame using the function ‘data.table::rbindList’
+               this should give a little bit more speed.
+
          • ‘Risoe.BINfileData-class’
 
              • Show method now returns the valid grain range.
@@ -27,19 +33,24 @@ Changes in version 0.5.0 (, 2015):
   New functions:
 
          • ‘calc_gSGC()’ Calculate De value based on the gSGC by Li et
-           al., 2015
+           al., 2015,
 
          • ‘plot_NRt()’ Creates a Natural/Regenerated signal vs. time
-           (NR(t)) plot as shown in Steffen et al. 2009
+           (NR(t)) plot as shown in Steffen et al. 2009,
 
          • ‘read_Daybreak2R()’ Imports ASCII data produced by a
-           Daybreak TL/OSL reader
+           Daybreak TL/OSL reader,
 
          • ‘use_DRAC()’ Provides an R interface to the 'Dose Rate
-           Calculator' (DRAC)
+           Calculator' (DRAC),
 
          • ‘template_DRAC()’ Creates a DRAC input template (v1.1) to be
-           used for ‘use_DRAC()’
+           used for ‘use_DRAC()’,
+
+         • ‘plot_VolcanoPlot()’ Creates a combination of a volcano plot
+           with a boxplot. This plot was especially written for
+           visualisation of data where standard errors are zero or to
+           small to be visualised at all.
 
   Bugfixes and changes:
 

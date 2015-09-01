@@ -1,0 +1,215 @@
+#' Plot a volcano plot
+#'
+#' Plot a volcano plot in combination with a boxplot in the middle. The shape of the volcano
+#' is constructed using a mirrored density curve. This plot is especially designed for cases
+#' where the individual errors are zero or to small to be visualised.
+#'
+#' The function is passing several arguments to the function \code{\link{plot}},
+#' \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}: Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
+#' \code{ylab}, \code{col.volcano}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
+#'
+#' @param data \code{\link{numeric}} or \code{\linkS4class{RLum.Results}}
+#' object (required): input data for plotting. Alternatively a \code{\link{data.frame}} or
+#' a \code{\link{matrix}} can be provided, but only the first column will be considered by the
+#' function
+#'
+#' @param boxplot \code{\link{logical}} (with default): enable or disable boxplot
+#'
+#' @param rug \code{\link{logical}} (with default): enable or disable rug
+#'
+#' @param summary \code{\link{character}} (optional): add statistic measures of
+#' centrality and dispersion to the plot. Can be one or more of several
+#' keywords. See details for available keywords.
+#'
+#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' default): optional position keywords (cf., \code{\link{legend}})
+#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
+#' specified to place the summary below the plot header. However, this latter
+#' option in only possible if \code{mtext} is not used.
+#'
+#' @param na.rm \code{\link{logical}} (with default): exclude NA values
+#' from the data set prior to any further operations.
+#'
+#' @param \dots further arguments and graphical parameters passed to
+#' \code{\link{plot.default}}, \code{\link[stats]{density}} and \code{\link{boxplot}}. See details for
+#' further information
+#'
+#' @note  -
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
+#' @seealso \code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}}
+#'
+#' @examples
+#' ## read example data set
+#' data(ExampleData.DeValues, envir = environment())
+#' ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+#'
+#' ## create plot straightforward
+#' plot_VolcanoPlot(data = ExampleData.DeValues)
+#'
+#' @export
+plot_VolcanoPlot <- function(
+  data,
+  boxplot = TRUE,
+  rug = TRUE,
+  summary = NULL,
+  summary.pos = "sub",
+  na.rm = FALSE,
+  ...
+) {
+
+
+  # Integrity tests and conversion --------------------------------------------------------------
+
+    ##Prechecks
+
+    if(missing(data)){
+      stop("[plot_VolcanoPlot()] I don't know what to do, data input needed." )
+
+    }else{
+
+      ##check for RLum.Results object
+      if(is(data, "RLum.Results")){
+        data <- get_RLum(data)
+
+      }
+
+      ##if data.frame or matrix
+      if(is(data, "data.frame") | is(data, "matrix")){
+        data <- data[,1]
+
+      }
+
+    }
+
+    ##Remove NA values
+    if(na.rm){
+      data <- na.exclude(data)
+
+    }
+
+    #Further checks
+    assertive::assert_is_character(summary.pos)
+
+  # Pre-calculations ----------------------------------------------------------------------------
+
+  ##density for the volcano
+  density <-
+    density(x = data,
+            bw = ifelse("bw" %in% names(list(...)),list(...)$bw,"nrd0"))
+
+  ##some statistical parameter, get rid of the weighted statistics
+  stat.summary <- suppressWarnings(calc_Statistics(as.data.frame(data)))[[-1]]
+
+    ##make valid summary string
+    if(is.null(summary)){
+      summary <- c("n","median")
+
+    }
+
+    ##make sure that only valid keywords make it
+    summary <- summary[(summary %in% names(stat.summary))]
+
+    stat.text <-
+      paste(names(stat.summary[summary]), " = ", stat.summary[summary], collapse = " \n")
+
+    stat.mtext <-
+      paste(names(stat.summary[summary]), " = ", stat.summary[summary], collapse = " | ")
+
+
+
+
+
+  # Plot settings -------------------------------------------------------------------------------
+
+  ##set default values
+  plot.settings <- list(
+    xlim = range(density$x),
+    main = "Volcano Plot",
+    xlab = expression(paste(D[e], "/(a.u.)")),
+    ylab = "Density",
+    col.volcano = rgb(0,0,0,0.2),
+    col.boxplot = NULL,
+    mtext = ifelse(summary.pos != 'sub', "", stat.mtext),
+    cex = 1
+  )
+
+  ##modify list accordingly
+  plot.settings <- modifyList(plot.settings, val = list(...))
+
+
+  # Plot ----------------------------------------------------------------------------------------
+
+  ##open empty plot area
+  plot(
+    NA,NA,
+    xlim = plot.settings$xlim,
+    ylim = c(0.2,1.8),
+    xlab = plot.settings$xlab,
+    ylab = plot.settings$ylab,
+    yaxt = "n",
+    main = plot.settings$main,
+    cex = plot.settings$cex
+  )
+
+  ##add polygon ... the volcano
+  polygon(
+    x = c(density$x, rev(density$x)),
+    y = c(1 + density$y / max(density$y) * 0.5,
+          rev(1 - density$y / max(density$y) * 0.5)),
+    col = plot.settings$col.volcano,
+    border = plot.settings$col.volcano
+  )
+
+  ##add the boxplot
+  if(boxplot){
+    boxplot(
+      data,
+      outline = TRUE,
+      boxwex = 0.4,
+      horizontal = TRUE,
+      axes = FALSE,
+      add = TRUE,
+      col = plot.settings$col.boxplot
+    )
+
+  }
+
+  ##add rug
+  if(rug){
+    rug(x = data)
+
+  }
+
+  ##add mtext
+  if(!is.null(plot.settings$mtext)){
+    mtext(side = 3, text = plot.settings$mtext)
+
+  }
+
+  ##add stat.text
+  if (summary.pos != "sub") {
+
+    valid_keywords <-
+      c(
+        "bottomright", "bottom", "bottomleft", "left", "topleft", "top", "topright", "right", "center"
+      )
+
+    if (any(
+      summary.pos %in% valid_keywords
+    )) {
+      legend(summary.pos, legend = stat.text, bty = "n")
+
+    }else{
+      warning_text <- paste0("Value provided for 'summary.pos' is not a valid keyword, valid keywords are:",
+                             paste(valid_keywords, collapse = ", "))
+      warning(warning_text)
+
+    }
+
+  }
+
+}

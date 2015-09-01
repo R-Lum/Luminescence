@@ -121,6 +121,7 @@ Collate:
     'plot_RLum.Results.R'
     'plot_RadialPlot.R'
     'plot_Risoe.BINfileData.R'
+    'plot_VolcanoPlot.R'
     'read_BIN2R.R'
     'read_Daybreak2R.R'
     'read_SPE2R.R'
