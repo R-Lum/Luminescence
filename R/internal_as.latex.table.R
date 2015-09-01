@@ -36,7 +36,21 @@
                             digits = 3,
                             select,
                             ...) {
- UseMethod(".as.latex.table", x) 
+  
+  args <- list(x = x,
+               row.names = row.names,
+               col.names = col.names,
+               comments = comments,
+               pos = pos,
+               digits = digits,
+               ... = ...)
+  if (!missing(select))
+    args$select <- select
+  
+  switch(class(x)[1],
+         data.frame = do.call(".as.latex.table.data.frame", args),
+         DRAC.highlights = do.call(".as.latex.table.data.frame", args),
+         RLum.Results = do.call(".as.latex.table.RLum.Results", args))
 }
 
 
@@ -66,7 +80,7 @@
   }# EndOf::use_DRAC
   
 }
-  
+
 .as.latex.table.data.frame <- function(x, 
                                        row.names = NULL, 
                                        col.names = NULL, 
