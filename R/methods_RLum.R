@@ -41,7 +41,7 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 
 # methods for generic: length()
 #' @export
-length.RLum.Results <- function(x, ...) nrow(x@data$data)
+# length.RLum.Results <- function(x, ...) length(x) # makes no sense yet
 #' @export
 length.RLum.Analysis <- function(x, ...) length_RLum(x)
 #' @export
