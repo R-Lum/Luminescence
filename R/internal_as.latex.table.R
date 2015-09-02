@@ -12,6 +12,8 @@
 #' and right alignment
 #' @param digits \code{\link{numeric}} number of digits (numeric fields)
 #' @param select a \code{\link{character}} vector passed to \code{\link{subset}}
+#' @param split an \code{\link{integer}} specifying the number of individual tables
+#' the data frame is split into. Useful for wide tables. Currently unnused.
 #' @param ... options: \code{verbose}
 #'
 #' @section TODO:
@@ -35,6 +37,7 @@
                             pos = "c",
                             digits = 3,
                             select,
+                            split = NULL,
                             ...) {
   
   args <- list(x = x,
@@ -43,6 +46,7 @@
                comments = comments,
                pos = pos,
                digits = digits,
+               split = split,
                ... = ...)
   if (!missing(select))
     args$select <- select
@@ -54,6 +58,7 @@
 }
 
 
+
 .as.latex.table.RLum.Results <- function(x, 
                                          row.names = NULL, 
                                          col.names = NULL, 
@@ -61,21 +66,17 @@
                                          pos = "c",
                                          digits = 3,
                                          select,
+                                         split = NULL,
                                          ...) {
   
-  ## CUSTOM TEMPLATES ----
-  
   ## Object: DRAC.highlights
-  # -> Combine value and error fields
   if (x@originator == "use_DRAC") {
     x <- get_RLum(x)
-    if (inherits(x, "DRAC.highlights")) {
-      fields.w.error <- seq(4, 25, 2)
-      for(i in fields.w.error) {
-        x[ ,i] <- paste0(x[ ,i], "$\\pm{}$", x[ ,i+1])
-      }
-      x <- x[-c(fields.w.error + 1)]
-    }
+    x <- .digits(x, digits)
+    fields.w.error <- seq(4, 25, 2)
+    for(i in fields.w.error)
+      x[ ,i] <- paste0(x[ ,i], "$\\pm{}$", x[ ,i+1])
+    x <- x[-c(fields.w.error + 1)]
     .as.latex.table(x)
   }# EndOf::use_DRAC
   
@@ -88,6 +89,7 @@
                                        pos = "c",
                                        digits = 3,
                                        select,
+                                       split = NULL,
                                        ...) {
   ## Integrity checks ----
   if (!is.data.frame(x))
@@ -118,17 +120,11 @@
   }
   
   ## Format numeric fields ----
-  for (i in 1:ncol(x)) {
-    if (is.factor(x[ ,i]))
-      x[ ,i] <- as.character(x[ ,i])
-    test.numeric <- suppressWarnings(as.numeric(x[ ,i]))
-    if (!is.na(test.numeric[1]))
-      x[ ,i] <- format(test.numeric, nsmall = digits, digits = digits)
-  }
+  x <- .digits(x, digits)
   
   ## Comments ----
   tex.comment.usePackage <- ifelse(comments,
-                                   "% add \\usepackage{adjustbox} to latex preamble \n",
+                                   "% add usepackage{adjustbox} to latex preamble \n",
                                    "")
   
   ## Header ----
@@ -180,4 +176,17 @@
     cat(tex.table)
   
   invisible(tex.table)
+}
+
+# This function takes a data.frame, checks each column and tries to
+# force the specified amount of digits if numeric or coercable to numeric
+.digits <- function(x, digits) {
+  for (i in 1:ncol(x)) {
+    if (is.factor(x[ ,i]))
+      x[ ,i] <- as.character(x[ ,i])
+    test.numeric <- suppressWarnings(as.numeric(x[ ,i]))
+    if (!is.na(test.numeric[1]))
+      x[ ,i] <- format(test.numeric, nsmall = digits, digits = digits)
+  }
+  return(x)
 }
