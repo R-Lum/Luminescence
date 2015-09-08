@@ -1,6 +1,6 @@
-#' Plot a volcano plot
+#' Create a volcano plot
 #'
-#' Plot a volcano plot in combination with a boxplot in the middle. The shape of the volcano
+#' Draws a volcano plot in combination with a boxplot in its middle. The shape of the volcano
 #' is constructed using a mirrored density curve. This plot is especially designed for cases
 #' where the individual errors are zero or to small to be visualised.
 #'
@@ -213,3 +213,9 @@ plot_VolcanoPlot <- function(
   }
 
 }
+## read example data set
+data(ExampleData.DeValues, envir = environment())
+ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+
+## create plot straightforward
+plot_VolcanoPlot(data = ExampleData.DeValues)
