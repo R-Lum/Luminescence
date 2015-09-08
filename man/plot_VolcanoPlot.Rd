@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_VolcanoPlot.R
 \name{plot_VolcanoPlot}
 \alias{plot_VolcanoPlot}
-\title{Plot a volcano plot}
+\title{Create a volcano plot}
 \usage{
 plot_VolcanoPlot(data, boxplot = TRUE, rug = TRUE, summary = NULL,
   summary.pos = "sub", na.rm = FALSE, ...)
@@ -35,7 +35,7 @@ from the data set prior to any further operations.}
 further information}
 }
 \description{
-Plot a volcano plot in combination with a boxplot in the middle. The shape of the volcano
+Draws a volcano plot in combination with a boxplot in its middle. The shape of the volcano
 is constructed using a mirrored density curve. This plot is especially designed for cases
 where the individual errors are zero or to small to be visualised.
 }
@@ -48,7 +48,7 @@ The function is passing several arguments to the function \code{\link{plot}},
 -
 }
 \section{Function version}{
- 0.1.0 (2015-09-01 18:48:41)
+ 0.1.0 (2015-09-08 19:48:39)
 }
 \examples{
 ## read example data set
