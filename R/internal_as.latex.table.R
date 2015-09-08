@@ -57,8 +57,9 @@
          RLum.Results = do.call(".as.latex.table.RLum.Results", args))
 }
 
-
-
+################################################################################
+## "Method"                  RLum.Results                                     ##
+##----------------------------------------------------------------------------##
 .as.latex.table.RLum.Results <- function(x, 
                                          row.names = NULL, 
                                          col.names = NULL, 
@@ -77,11 +78,14 @@
     for(i in fields.w.error)
       x[ ,i] <- paste0(x[ ,i], "$\\pm{}$", x[ ,i+1])
     x <- x[-c(fields.w.error + 1)]
-    .as.latex.table(x)
+    .as.latex.table(x, comments = comments, pos = pos, split = split, ...)
   }# EndOf::use_DRAC
   
 }
 
+################################################################################
+## "Method"                     data.frame                                    ##
+##----------------------------------------------------------------------------##
 .as.latex.table.data.frame <- function(x, 
                                        row.names = NULL, 
                                        col.names = NULL, 
@@ -122,60 +126,77 @@
   ## Format numeric fields ----
   x <- .digits(x, digits)
   
-  ## Comments ----
-  tex.comment.usePackage <- ifelse(comments,
-                                   "% add usepackage{adjustbox} to latex preamble \n",
-                                   "")
+  ## Split the table
+  if (is.null(split))
+    split <- 1
+  chunks <- ceiling(ncol(x) / split)
+  chunks.start <- seq(1, ncol(x), chunks)
+  chunks.end <- chunks.start + chunks - 1
+  chunks.end[length(chunks.end)] <- ncol(x)
   
-  ## Header ----
-  col.names <-   tex.table.header <- gsub(pattern = " ", 
-                                          x = names(x), 
+  tex.table.list <- vector("list", split)
+  
+  for (i in 1:length(tex.table.list)) {
+    
+    x.chunk <- x[ ,chunks.start[i]:chunks.end[i]]
+    
+    ## Comments ----
+    tex.comment.usePackage <- ifelse(comments,
+                                     "% add usepackage{adjustbox} to latex preamble \n",
+                                     "")
+    
+    ## Header ----
+    col.names <- tex.table.header <- gsub(pattern = " ", 
+                                          x = names(x.chunk), 
                                           replacement = " \\\\\\\\ ")
-  tex.table.header <- paste0("\t", 
-                             paste("\\multicolumn{1}{p{2cm}}{\\centering", 
-                                   col.names, 
-                                   "}", 
-                                   collapse = " & \n\t"),
-                             "\\\\ \n")
-  
-  ## Rows ----
-  tex.table.rows <- ""
-  for (i in 1:nrow(x)) {
-    tex.table.rows <- paste0(tex.table.rows, 
-                             paste(paste(x[i, ], collapse = " & "),
-                                   "\\\\ \n"))
+    tex.table.header <- paste0("\t", 
+                               paste("\\multicolumn{1}{p{2cm}}{\\centering", 
+                                     col.names, 
+                                     "}", 
+                                     collapse = " & \n\t"),
+                               "\\\\ \n")
+    
+    ## Rows ----
+    tex.table.rows <- ""
+    for (j in 1:nrow(x.chunk)) {
+      tex.table.rows <- paste0(tex.table.rows, 
+                               paste(paste(x.chunk[j, ], collapse = " & "),
+                                     "\\\\ \n"))
+    }
+    
+    ## Tex table ----
+    if (nchar(pos) != 1 && nchar(pos) != ncol(x))
+      pos <- "c"
+    if (!any(strsplit(pos, split = "")[[1]] %in% c("l", "c", "r")))
+      pos <- "c"
+    if (nchar(pos) == 1)
+      pos <- strrep(pos, ncol(x))
+    
+    tex.table.begin <- paste0("\\begin{table}[ht] \n",
+                              "  \\centering \n",
+                              "  \\begin{adjustbox}{max width=\\textwidth} \n",
+                              paste("  \\begin{tabular}{", pos, "}\n"),
+                              "     \\hline \n")
+    
+    tex.table.end <-  paste0("     \\hline \n",
+                             "   \\end{tabular} \n",
+                             "   \\end{adjustbox} \n",
+                             "\\end{table}")
+    
+    tex.table <- paste0(tex.comment.usePackage,
+                        tex.table.begin,
+                        tex.table.header,
+                        "\\hline \n",
+                        tex.table.rows,
+                        tex.table.end)
+    
+    if (options$verbose)
+      cat(tex.table)
+    
+    tex.table.list[[i]] <- tex.table
   }
   
-  ## Tex table ----
-  if (nchar(pos) != 1 && nchar(pos) != ncol(x))
-    pos <- "c"
-  if (!any(strsplit(pos, split = "")[[1]] %in% c("l", "c", "r")))
-    pos <- "c"
-  if (nchar(pos) == 1)
-    pos <- strrep(pos, ncol(x))
-  
-  tex.table.begin <- paste0("\\begin{table}[ht] \n",
-                            "  \\centering \n",
-                            "  \\begin{adjustbox}{max width=\\textwidth} \n",
-                            paste("  \\begin{tabular}{", pos, "}\n"),
-                            "     \\hline \n")
-  
-  tex.table.end <-  paste0("     \\hline \n",
-                           "   \\end{tabular} \n",
-                           "   \\end{adjustbox} \n",
-                           "\\end{table}")
-  
-  tex.table <- paste0(tex.comment.usePackage,
-                      tex.table.begin,
-                      tex.table.header,
-                      "\\hline \n",
-                      tex.table.rows,
-                      tex.table.end)
-  
-  if (options$verbose)
-    cat(tex.table)
-  
-  invisible(tex.table)
+  invisible(tex.table.list)
 }
 
 # This function takes a data.frame, checks each column and tries to
