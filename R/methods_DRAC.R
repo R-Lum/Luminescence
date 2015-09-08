@@ -33,7 +33,7 @@ print.DRAC.highlights <- function(x, ...) {
   x <- as.list(x)
   names <- names(x)
   mapply(function(el, name) { 
-    cat(paste0(attributes(el)$key, " = ", name,":\n  ", paste(el, collapse = ", ", "\n"), "\n"))
+    cat(paste0(attributes(el)$key, " = ", name,":\n  ", paste(el, collapse = ",\n  "), "\n"))
     }, x, names)
 }
 
