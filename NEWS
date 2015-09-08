@@ -242,5 +242,36 @@ Changes in version 0.5.0 (, 2015):
 
          • Roxygen2: replaced ‘@exportPattern ^[[:alpha:]]+’ with with
            explicit ‘@export’ statements to allow better NAMESPACE
-           housekeeping
+           housekeeping,
+
+         • Add methods for S3 generics for RLum-objects:
+
+             • ‘`+`’ : ‘RLum.Data.Curve’
+
+             • ‘`-`’ : ‘RLum.Data.Curve’
+
+             • ‘`*`’ : ‘RLum.Data.Curve’
+
+             • ‘`"\"`’ : ‘RLum.Data.Curve’
+
+             • ‘plot()’ : ‘RLum.Data.Curve’, ‘RLum.Data.Image’,
+               ‘RLum.Data.Image’, ‘RLum.Data.Spectrum’,
+               ‘RLum.Analysis’, ‘RLum.Results’, ‘Risoe.BINfileData’
+
+             • ‘hist()’: ‘RLum.Results’, ‘RLum.Data.Image’,
+               ‘RLum.Data.Curve’, ‘RLum.Analysis’
+
+             • ‘summary()’: ‘RLum.Results’, ‘RLum.Data.Image’,
+               ‘RLum.Data.Curve’, ‘RLum.Analysis’
+
+             • ‘length()’: ‘RLum.Data.Curve’, ‘RLum.Analysis’,
+               ‘Risoe.BINfileData’
+
+             • ‘as.data.frame()’: ‘RLum.Data.Curve’, ‘RLum.Results’
+
+             • ‘as.list()’: ‘RLum.Data.Curve’, ‘RLum.Results’
+
+             • ‘as.matrix()’: ‘RLum.Data.Curve’, ‘RLum.Results’
+
+             • ‘merge()’: ‘RLum’
 

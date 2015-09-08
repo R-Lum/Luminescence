@@ -2,7 +2,7 @@
 ##                      METHODS FOR S3 GENERICS                                 ##
 ##################################################################################
 
-## -------------------- INTRODUCE IN 0.5.0 ----------------------- ##
+## -------------------- INTRODUCED IN 0.5.0 ----------------------- ##
 
 # methods for generic: plot()
 #' @export
@@ -70,3 +70,20 @@ as.matrix.RLum.Data.Curve <- function(x, ...) as.matrix(get_RLum(x))
 # methods for generic: merge()
 #' @export
 merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y)))
+
+# methods for generic: `+`
+#' @export
+`+.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "sum")
+
+# methods for generic: `-`
+#' @export
+`-.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "-")
+
+# methods for generic: `*`
+#' @export
+`*.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "*")
+
+# methods for generic: `/`
+#' @export
+`/.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "/")
+

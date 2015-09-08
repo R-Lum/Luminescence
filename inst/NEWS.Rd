@@ -231,7 +231,28 @@
       \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame} for objects of class \code{DRAC.list}
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}
       \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export} statements to
-      allow better NAMESPACE housekeeping
+      allow better NAMESPACE housekeeping,
+      \item Add methods for S3 generics for RLum-objects:
+      \itemize{
+
+        \item \code{`+`} : \code{RLum.Data.Curve}
+        \item \code{`-`} : \code{RLum.Data.Curve}
+        \item \code{`*`} : \code{RLum.Data.Curve}
+        \item \code{`"\"`} : \code{RLum.Data.Curve}
+        \item \code{plot()} : \code{RLum.Data.Curve}, \code{RLum.Data.Image}, \code{RLum.Data.Image},
+        \code{RLum.Data.Spectrum}, \code{RLum.Analysis}, \code{RLum.Results}, \code{Risoe.BINfileData}
+        \item \code{hist()}: \code{RLum.Results}, \code{RLum.Data.Image}, \code{RLum.Data.Curve},
+        \code{RLum.Analysis}
+        \item \code{summary()}: \code{RLum.Results}, \code{RLum.Data.Image}, \code{RLum.Data.Curve},
+        \code{RLum.Analysis}
+        \item \code{length()}: \code{RLum.Data.Curve}, \code{RLum.Analysis}, \code{Risoe.BINfileData}
+        \item \code{as.data.frame()}: \code{RLum.Data.Curve}, \code{RLum.Results}
+        \item \code{as.list()}: \code{RLum.Data.Curve}, \code{RLum.Results}
+        \item \code{as.matrix()}:  \code{RLum.Data.Curve}, \code{RLum.Results}
+        \item \code{merge()}: \code{RLum}
+
+
+      }
 
    }
   }
