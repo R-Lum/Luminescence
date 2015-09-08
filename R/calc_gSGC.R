@@ -173,16 +173,21 @@ calc_gSGC<- function(
     LnTn.error <- data[i,"LnTn.error"]
 
   ##calculate mean value
-  temp <- uniroot(f, c(0.1,450), tol = 0.001,
-                  A = A,
-                  D0 = D0,
-                  c = c,
-                  Y0 = Y0,
-                  Dr1 = Dr1,
-                  Lr1Tr1 = Lr1Tr1,
-                  LnTn = LnTn,
-                  extendInt = 'yes',
-                  check.conv = TRUE)
+    temp <- uniroot(
+      f,
+      interval = c(0.1,450),
+      tol = 0.001,
+      A = A,
+      D0 = D0,
+      c = c,
+      Y0 = Y0,
+      Dr1 = Dr1,
+      Lr1Tr1 = Lr1Tr1,
+      LnTn = LnTn,
+      extendInt = 'yes',
+      check.conv = TRUE
+    )
+
 
   ##get De
   De <- temp$root
