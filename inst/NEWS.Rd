@@ -70,6 +70,15 @@
       }
 
 
+       \item \code{calc_OSLLxTxRatio()}
+       \itemize{
+
+        \item The function produced nonsense if only Lx data are provided as RLum.Data.Curve object;
+        corrected (raised by Andrea Junge).
+
+      }
+
+
 
       \item \code{calc_SourceDoseRate()}
        \itemize{

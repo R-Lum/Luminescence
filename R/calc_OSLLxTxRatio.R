@@ -61,7 +61,7 @@
 #' (vers. 3.24b). Access to the results object via
 #' \code{\link{get_RLum}}.
 #'
-#' @section Function version: 0.5.1
+#' @section Function version: 0.5.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -145,8 +145,24 @@ calc_OSLLxTxRatio <- function(
 
   }else{
 
-    Tx.data<-data.frame(x=NA,y=NA)
-    if(is(Lx.data)[1]!="data.frame"){Lx.data<-data.frame(x=1:length(Lx.data),y=Lx.data)}
+    Tx.data <- data.frame(x = NA,y = NA)
+
+    ##support RLum.objects
+    if(is(Lx.data)[1] == "RLum.Data.Curve"){
+      Lx.data <- as(Lx.data, "data.frame")
+
+    }
+
+    ##check for matrix
+    if(is(Lx.data)[1] == "matrix"){
+      Lx.data <- as.data.frame(Lx.data)
+
+    }
+
+    ##no it should be a data.frame, if not, try to produce one
+    if(is(Lx.data)[1]!="data.frame") {
+      Lx.data <- data.frame(x = 1:length(Lx.data),y = Lx.data)
+    }
 
   }#endif::missing Tx.data
 
