@@ -173,7 +173,7 @@ calc_gSGC<- function(
     LnTn.error <- data[i,"LnTn.error"]
 
   ##calculate mean value
-    temp <- uniroot(
+    temp <- try(uniroot(
       f,
       interval = c(0.1,450),
       tol = 0.001,
@@ -185,60 +185,81 @@ calc_gSGC<- function(
       Lr1Tr1 = Lr1Tr1,
       LnTn = LnTn,
       extendInt = 'yes',
-      check.conv = TRUE
-    )
+      check.conv = TRUE,
+      maxiter = 1000
+    ), silent = TRUE)
+
+  if(!inherits(temp, "try-error")){
+
+    ##get De
+    De <- temp$root
+
+    ##calculate Eta, which is the normalisation factor
+    Eta <- ((A * (1 - exp( - Dr1 / D0))) + c * Dr1 + Y0)/Lr1Tr1
+
+    ##--------------------------------------------------------------------------##
+    ##Monte Carlo simulation for error estimation
+
+    ##set matrix
+    temp.MC.matrix <- matrix(nrow = n.MC, ncol = 8)
+
+    ##fill matrix
+    temp.MC.matrix[,1:6] <- matrix(rnorm(
+      n.MC * 6,
+      mean = c(LnTn, Lr1Tr1, A, D0, c, Y0),
+      sd = c(LnTn.error, Lr1Tr1.error, A.error, D0.error, c.error, Y0.error)
+    ), ncol = 6, byrow = TRUE)
 
 
-  ##get De
-  De <- temp$root
+      ##run uniroot to get the De
+      temp.MC.matrix[,7] <- sapply(1:n.MC, function(x){
 
-  ##calculate Eta, which is the normalisation factor
-  Eta <- ((A * (1 - exp( - Dr1 / D0))) + c * Dr1 + Y0)/Lr1Tr1
+        uniroot(f,
+                interval = c(0.1,450),
+                tol = 0.001,
+                A = temp.MC.matrix[x,3],
+                D0 = temp.MC.matrix[x,4],
+                c = temp.MC.matrix[x,5],
+                Y0 = temp.MC.matrix[x,6],
+                Dr1 = Dr1,
+                Lr1Tr1 =temp.MC.matrix[x,2],
+                LnTn = temp.MC.matrix[x,1],
+                check.conv = TRUE,
+                extendInt = 'yes',
+                maxiter = 1000
+                )$root
 
-  ##--------------------------------------------------------------------------##
-  ##Monte Carlo simulation for error estimation
+      })
 
-  ##set matrix
-  temp.MC.matrix <- matrix(nrow = n.MC, ncol = 8)
-
-  ##fill matrix
-  temp.MC.matrix[,1:6] <- matrix(rnorm(
-    n.MC * 6,
-    mean = c(LnTn, Lr1Tr1, A, D0, c, Y0),
-    sd = c(LnTn.error, Lr1Tr1.error, A.error, D0.error, c.error, Y0.error)
-  ), ncol = 6, byrow = TRUE)
-
-
-    ##run uniroot to get the De
-    temp.MC.matrix[,7] <- sapply(1:n.MC, function(x){
-
-      uniroot(f,
-              interval = c(0.1,450),
-              tol = 0.001,
-              A = temp.MC.matrix[x,3],
-              D0 = temp.MC.matrix[x,4],
-              c = temp.MC.matrix[x,5],
-              Y0 = temp.MC.matrix[x,6],
-              Dr1 = Dr1,
-              Lr1Tr1 =temp.MC.matrix[x,2],
-              LnTn = temp.MC.matrix[x,1],
-              check.conv = TRUE,
-              extendInt = 'yes'
-              )$root
-
-    })
-
-    ##calculate also the normalisation factor
-    temp.MC.matrix[,8] <- (temp.MC.matrix[,3] * (1 - exp( - Dr1 / temp.MC.matrix[,4])) +
-      temp.MC.matrix[,5] * Dr1 + temp.MC.matrix[,6])/temp.MC.matrix[,2]
+      ##calculate also the normalisation factor
+      temp.MC.matrix[,8] <- (temp.MC.matrix[,3] * (1 - exp( - Dr1 / temp.MC.matrix[,4])) +
+        temp.MC.matrix[,5] * Dr1 + temp.MC.matrix[,6])/temp.MC.matrix[,2]
 
 
-    ##re-name matrix
-    colnames(temp.MC.matrix) <- c("LnTn","Lr1Tr1","A","D0","c","Y0","De","Eta")
+      ##re-name matrix
+      colnames(temp.MC.matrix) <- c("LnTn","Lr1Tr1","A","D0","c","Y0","De","Eta")
 
-    ##get De error as SD
-    De.error <- sd(temp.MC.matrix[,7])
+      ##get De error as SD
+      De.error <- sd(temp.MC.matrix[,7])
 
+  }else{
+    warning("No solution was found!")
+    De <- NA
+    Eta <- NA
+    De.error <- NA
+
+    ##set matrix
+    temp.MC.matrix <- matrix(nrow = n.MC, ncol = 8)
+
+    ##fill matrix
+    temp.MC.matrix[,1:6] <- matrix(rnorm(
+      n.MC * 6,
+      mean = c(LnTn, Lr1Tr1, A, D0, c, Y0),
+      sd = c(LnTn.error, Lr1Tr1.error, A.error, D0.error, c.error, Y0.error)
+    ), ncol = 6, byrow = TRUE)
+
+
+  }
 
 ##============================================================================##
 ##PLOT OUTPUT
