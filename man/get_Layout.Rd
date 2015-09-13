@@ -28,7 +28,7 @@ create either an empty or a default layout object and fill/modify the
 definitions (\code{user.layout <- get_Layout(data = "empty")}).
 }
 \section{Function version}{
- 0.1 (2015-05-12 14:57:50)
+ 0.1 (2015-09-13 10:44:05)
 }
 \examples{
 ## read example data set

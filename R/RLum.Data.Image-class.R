@@ -37,7 +37,7 @@ NULL
 #' showClass("RLum.Data.Image")
 #'
 #' ##so far no further example available
-#'
+#' @importClassesFrom raster RasterBrick
 setClass(
   "RLum.Data.Image",
   slots = list(
