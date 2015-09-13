@@ -31,7 +31,7 @@ corresponding set function will be selected.  Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1 (2015-08-21 14:53:14)
+ 0.1 (2015-09-13 18:55:08)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
