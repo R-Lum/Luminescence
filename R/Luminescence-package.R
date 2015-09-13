@@ -63,9 +63,14 @@
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
 #' "Scientific Networks". Project title: "Lum.Network: Ein
 #' Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2017)
+#'
 #' @references Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
 #' Schmidt, C., 2013. A practical guide to the R package Luminescence.  Ancient
 #' TL, 31, pp. 11-18.
+#'
+#' Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2015. The abanico plot:
+#' visualising chronometric data with individual standard errors. Quaternary Geochronology, pp. 1-7.
+#' http://dx.doi.org/10.1016/j.quageo.2015.09.003
 #'
 #' Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C.,
 #' Fuchs, M., 2015. Data processing in luminescence dating analysis: An
@@ -78,8 +83,8 @@
 #'
 #' @keywords package
 #'
-#' @import utils methods data.table bbmle 
-#' @importFrom raster nlayers raster contour plotRGB brick 
+#' @import utils methods data.table bbmle
+#' @importFrom raster nlayers raster contour plotRGB brick
 #' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors
 #' @importFrom stats approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean

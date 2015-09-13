@@ -236,7 +236,6 @@
       \item Re-adding the package 'zoo' in imports,
       \item Adding package 'readxl' to imports (used in \code{use_DRAC} to import the XLS file)
       \item Adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
-      \item Fixed a bug in \code{RLum.Data.Image} class that most likely caused the 'rgdal' NAMESPACE issue
       \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame} for objects of class \code{DRAC.list}
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}
       \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export} statements to

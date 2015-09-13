@@ -158,7 +158,12 @@
 #' @references Galbraith, R. & Green, P., 1990. Estimating the component ages
 #' in a finite mixture. International Journal of Radiation Applications and
 #' Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3),
-#' pp. 197-206.
+#' 197-206.
+#'
+#' Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2015.
+#' The abanico plot: visualising chronometric data with individual standard errors.
+#' Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
+#'
 #' @examples
 #'
 #' ## store original graphics parameters
@@ -388,36 +393,36 @@ plot_AbanicoPlot <- function(
       }
     }
   }
-  
+
   ## optionally, remove NA-values
   if(na.rm == TRUE) {
     for(i in 1:length(data)) {
-      
+
       n.NA <- sum(!complete.cases(data[[i]]))
-      
+
       if(n.NA == 1) {print("1 NA value excluded.")
       } else if(n.NA > 1) {
         print(paste(n.NA, "NA values excluded."))
       }
-      
+
       data[[i]] <- na.exclude(data[[i]])
     }
   }
-  
+
   ## check for zero-error values
   for(i in 1:length(data)) {
-    
+
     if(length(data[[i]]) < 2) {
       stop("Data without errors cannot be displayed!")
     }
-    
+
     if(sum(data[[i]][,2] == 0) > 0) {
       data[[i]] <- data[[i]][data[[i]][,2] > 0,]
-      
+
       if(nrow(data[[i]]) < 1) {
         stop("Data set contains only values with zero errors.")
       }
-      
+
       warning("Values with zero errors cannot be displayed and were removed!")
     }
   }
@@ -522,11 +527,11 @@ plot_AbanicoPlot <- function(
   } else {
     breaks <- "Sturges"
   }
-  
+
   ## check/set bw-parameter
   for(i in 1:length(data)) {
-    bw.test <- try(density(x = data[[i]][,1], 
-                           bw = bw), 
+    bw.test <- try(density(x = data[[i]][,1],
+                           bw = bw),
                    silent = TRUE)
     if(grepl(pattern = "Error", x = bw.test[1]) == TRUE) {
       bw <- "nrd0"
@@ -992,7 +997,7 @@ plot_AbanicoPlot <- function(
                                            limits.z[1]]
   tick.values.minor <- tick.values.minor[tick.values.minor <=
                                            limits.z[2]]
-  
+
 
   if(log.z == TRUE) {
 
@@ -1024,7 +1029,7 @@ plot_AbanicoPlot <- function(
                                  limits.z[2]),
                           tick.values.major,
                           tick.values.minor))
-  
+
   ## correct for unpleasant value
   ellipse.values[ellipse.values == -Inf] <- 0
 

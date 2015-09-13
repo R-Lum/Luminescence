@@ -193,7 +193,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.2 (2015-08-21 14:53:14)
+ 0.1.2 (2015-09-13 19:02:24)
 }
 \examples{
 ## store original graphics parameters
@@ -366,7 +366,11 @@ introduced by Galbraith & Green (1990)
 Galbraith, R. & Green, P., 1990. Estimating the component ages
 in a finite mixture. International Journal of Radiation Applications and
 Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3),
-pp. 197-206.
+197-206.
+
+Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2015.
+The abanico plot: visualising chronometric data with individual standard errors.
+Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 }
 \seealso{
 \code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}},

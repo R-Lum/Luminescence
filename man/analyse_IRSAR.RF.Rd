@@ -202,7 +202,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.4.0 (2015-08-21 14:53:14)
+ 0.4.0 (2015-09-13 18:55:08)
 }
 \examples{
 ##load data

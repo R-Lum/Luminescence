@@ -27,7 +27,7 @@ This function calculates a number of descriptive statistics for De-data,
 most fundamentally using error-weighted approaches.
 }
 \section{Function version}{
- 0.1.3 (2015-08-21 14:53:14)
+ 0.1.3 (2015-09-13 18:55:08)
 }
 \examples{
 ## load example data

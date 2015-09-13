@@ -159,7 +159,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.0 (2015-09-01 18:48:41)
+ 0.3.0 (2015-09-13 18:55:08)
 }
 \examples{
 ##(1) fit LM data without background subtraction

@@ -48,7 +48,7 @@ The function is passing several arguments to the function \code{\link{plot}},
 -
 }
 \section{Function version}{
- 0.1.0 (2015-09-10 08:27:47)
+ 0.1.0 (2015-09-13 18:55:08)
 }
 \examples{
 ## read example data set
