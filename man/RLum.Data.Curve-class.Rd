@@ -10,7 +10,8 @@
 \usage{
 \S4method{show}{RLum.Data.Curve}(object)
 
-\S4method{set_RLum}{RLum.Data.Curve}(class, recordType, curveType, data, info)
+\S4method{set_RLum}{RLum.Data.Curve}(class, recordType = character(),
+  curveType = character(), data = matrix(0, 0, 2), info = list())
 
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object)
 }
@@ -51,7 +52,11 @@ provided, the raw curve data (matrix) will be returned.
 
 \item{\code{curveType}}{Object of class "character" containing curve type, allowed values are measured or predefined}
 
-\item{\code{data}}{Object of class "matrix" containing curve x and y data}
+\item{\code{data}}{Object of class \code{\link{matrix}} containing curve x and y data.
+'data' can also be of type \code{RLum.Data.Curve} to change object values without deconstructing the object.
+For example: #' \code{set_RLum(class = 'RLum.Data.Curve', data = Your.RLum.Data.Curve, recordType = 'never seen before')}
+would just change the recordType. Missing arguements  the value is taken from the input object
+in 'data' (which is already an RLum.Data.Curve object in this example)}
 
 \item{\code{info}}{Object of class "list" containing further meta information objects}
 }}
@@ -66,7 +71,7 @@ ramp curve).
 }
 
 \section{Class version}{
- 0.2.0
+ 0.2.1
 }
 \examples{
 showClass("RLum.Data.Curve")

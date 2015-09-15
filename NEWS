@@ -30,6 +30,19 @@ Changes in version 0.5.0 (, 2015):
 
              • Show method now returns the valid grain range.
 
+         • RLum.Data.Curve
+
+             • The corresponding ‘set_RLum’ method of this class now
+               comes with default values, corresponding to the
+               prototype of this class and the method itself does not
+               check any longer for missing values, means, empty
+               objects can be produced,
+
+             • furthermore the ‘set_RLum’ method now accepts an
+               ‘RLum.Data.Curve’ object as input for the argument
+               ‘data’. With this the object can be changed (e.g.
+               recordType) without deconstructing the object.
+
   New functions:
 
          • ‘calc_gSGC()’ Calculate De value based on the gSGC by Li et

@@ -13,7 +13,12 @@ NULL
 #'
 #' @slot curveType Object of class "character" containing curve type, allowed values are measured or predefined
 #'
-#' @slot data Object of class "matrix" containing curve x and y data
+#' @slot data Object of class \code{\link{matrix}} containing curve x and y data.
+#' 'data' can also be of type \code{RLum.Data.Curve} to change object values without deconstructing the object.
+#' For example: #' \code{set_RLum(class = 'RLum.Data.Curve', data = Your.RLum.Data.Curve, recordType = 'never seen before')}
+#' would just change the recordType. Missing arguements  the value is taken from the input object
+#' in 'data' (which is already an RLum.Data.Curve object in this example)
+#'
 #'
 #' @slot info Object of class "list" containing further meta information objects
 #'
@@ -24,7 +29,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Data.Curve", ...)}.
 #'
-#' @section Class version: 0.2.0
+#' @section Class version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -118,8 +123,8 @@ setMethod("show",
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
             cat("\n\t measured values:", length(object@data[,1]))
-            cat("\n\t .. range of x-values:", range(object@data[,1]))
-            cat("\n\t .. range of y-values:", range(object@data[,2]))
+            cat("\n\t .. range of x-values:", suppressWarnings(range(object@data[,1])))
+            cat("\n\t .. range of y-values:",  suppressWarnings(range(object@data[,2])))
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
           }
@@ -139,57 +144,74 @@ setMethod("show",
 #' @param curveType [\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")
 #' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data
 #' @param info [\code{set_RLum}] \code{\link{list}} (optional): info elements
-#' 
+#'
 #' @export
-setMethod("set_RLum",
-          signature = signature("RLum.Data.Curve"),
+setMethod(
+  "set_RLum",
+  signature = signature("RLum.Data.Curve"),
 
-          definition = function(class, recordType, curveType, data, info){
+  definition = function(class,
+                        recordType = character(),
+                        curveType = character(),
+                        data = matrix(0,0,2),
+                        info = list()) {
+    ##with this RLum.Data.Curve objects can be provided to be reconstructed
+    if (is(data, "RLum.Data.Curve")) {
 
-              ##check for missing curveType
-              if(missing(curveType)){
+      ##check for missing curveType
+      if (missing(curveType)) {
+        curveType <- data@curveType
 
-                curveType <- "NA"
+      }
 
-              }else if (!is(curveType, "character")){
+      ##check for missing recordType
+      if(missing(recordType)){
+        recordType <- data@recordType
 
-                stop("[set_RLum] 'curveType' has to be of type 'character'!")
+      }
 
-              }
+      ##check for missing data ... not possible as data is the object itself
 
-              ##check for missing arguments
-              if(missing(recordType) | missing(data)){
+      ##check for missing info
+      if(missing(info)){
+       info <- data@info
 
-                temp.error.missing <- paste(c(
+      }
 
-                  if(missing(recordType)){"'recordType'"}else{},
-                  if(missing(data)){"'data'"}else{}),
-                                            collapse=", ")
+      new(
+        "RLum.Data.Curve",
+        recordType = recordType,
+        curveType = curveType,
+        data = data@data,
+        info = info
+      )
 
-                ##set error message
-                temp.error.message <- paste("[set_RLum] Missing required arguments " ,
-                                       temp.error.missing,"!", sep="")
-                stop(temp.error.message)
-              }
+    }else{
+      ##check for missing curveType
+      if (missing(curveType)) {
+        curveType <- "NA"
 
-              ##handle missing info argument
-              if(missing(info)){
+      }
 
-                info <- list()
+      ##check for missing recordType
+      if (missing(recordType)) {
+        recordType <- "NA"
 
-              }else if (!is(info, "list")){
+      }
 
-                stop("[set_RLum] 'info' has to be of type 'list'!")
 
-              }
+      new(
+        "RLum.Data.Curve",
+        recordType = recordType,
+        curveType = curveType,
+        data = data,
+        info = info
+      )
 
-              new("RLum.Data.Curve",
-                  recordType = recordType,
-                  curveType = curveType,
-                  data = data,
-                  info = info)
+    }
 
-            })
+  }
+)
 
 # constructor (get) method for object class -----------------------------------
 
@@ -201,7 +223,7 @@ setMethod("set_RLum",
 #' @param object [\code{get_RLum}] an object of class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})
 #' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 #' element
-#' 
+#'
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),

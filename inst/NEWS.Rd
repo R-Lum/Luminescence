@@ -31,6 +31,18 @@
         \item Show method now returns the valid grain range.
       }
 
+      \item {RLum.Data.Curve}
+      \itemize{
+        \item The corresponding \code{set_RLum} method of this class now comes with default values,
+        corresponding to the prototype of this class and the method itself does not check any longer
+        for missing values, means, empty objects can be produced,
+        \item furthermore the  \code{set_RLum} method now accepts an \code{RLum.Data.Curve} object
+        as input for the argument \code{data}. With this the object can be changed (e.g. recordType)
+        without deconstructing the object.
+
+
+      }
+
    }
   }
 
