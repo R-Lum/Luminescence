@@ -146,7 +146,7 @@
 #' length 2, specifying the upper and lower x-axes labels.
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
@@ -376,7 +376,7 @@ plot_AbanicoPlot <- function(
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]], "data")
+        data[[i]] <- get_RLum(data[[i]])
       }
     }
   }
@@ -389,7 +389,7 @@ plot_AbanicoPlot <- function(
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]], "data")
+        data[[i]] <- get_RLum(data[[i]])
       }
     }
   }
