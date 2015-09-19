@@ -13,16 +13,16 @@ get_rightAnswer(...)
 Returns the right answer
 }
 \description{
-This function returns the right answer
+This function returns just the right answer
 }
 \section{Function version}{
- 0.1.0 (2015-09-19 16:10:25)
+ 0.1.0 (2015-09-19 16:33:25)
 }
 \examples{
 ## you really want to know?
 get_rightAnswer()
 }
 \author{
-NA
+inspired by R.G.
 \cr R Luminescence Package Team}
 

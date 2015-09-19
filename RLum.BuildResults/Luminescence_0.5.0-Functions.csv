@@ -73,8 +73,8 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "get_Quote","Function to return essential quotes","<br /> This function returns one of the collected essential quotes in the<br /> growing library. If called without any parameters, a random quote is<br /> returned.<br />","0.1.1","2015-09-13","18:55:08
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"get_rightAnswer","Function to get the right answer","<br /> This function returns the right answer<br />","0.1.0","2015-09-19","16:10:25
-","<br /> NA<br />  R Luminescence Package Team"
+"get_rightAnswer","Function to get the right answer","<br /> This function returns just the right answer<br />","0.1.0","2015-09-19","16:33:25
+","<br /> inspired by R.G.<br />  R Luminescence Package Team"
 "get_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1","2015-09-13","18:55:08
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "get_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.2.0","2015-09-13","18:55:08
