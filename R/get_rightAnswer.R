@@ -5,11 +5,11 @@
 #' @param ... you can pass an infinite number of further arguments
 #' @return Returns the right answer
 #' @section Function version: 0.1.0
-#' @author RLum.Team
+#' @author NA
 #' @examples
 #'
-#' ## ask for an arbitrary qoute
-#' get_Quote()
+#' ## you really want to know?
+#' get_rightAnswer()
 #'
 #' @export
 get_rightAnswer <- function(...) {

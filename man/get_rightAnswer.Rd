@@ -16,13 +16,13 @@ Returns the right answer
 This function returns the right answer
 }
 \section{Function version}{
- 0.1.0 (2015-09-19 16:05:43)
+ 0.1.0 (2015-09-19 16:10:25)
 }
 \examples{
-## ask for an arbitrary qoute
-get_Quote()
+## you really want to know?
+get_rightAnswer()
 }
 \author{
-RLum.Team
+NA
 \cr R Luminescence Package Team}
 
