@@ -33,15 +33,16 @@ e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 value is taken for both (LnTx and TnTx) signals.}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}. Slot
-\code{data} contains a \code{\link{list}} with the following structure:\cr $
+Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+
+Slot \code{data} contains a \code{\link{list}} with the following structure:\cr $
 LxTx.table (data.frame) .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $
 TnTx.BG \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr .. $ Net_TnTx.Error\cr
 .. $ LxTx\cr .. $ LxTx.Error \cr $ calc.parameters (list)\cr .. $
 sigmab.LnTx\cr .. $ sigmab.TnTx\cr .. $ k
 }
 \description{
-Calculate Lx/Tx ratios from a given set of CW-OSL curves.
+Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.
 }
 \details{
 The integrity of the chosen values for the signal and background integral is
@@ -80,10 +81,10 @@ The results of this function have been cross-checked with the Analyst
 (vers. 3.24b). Access to the results object via  \code{\link{get_RLum}}.\cr
 
 \bold{Caution:} If you are using early light subtraction (EBG), please either provide your
-own \code{sigmab} value or use \code{background.count.distribution = "poisson"'poission'}.
+own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.5.2 (2015-09-19 19:22:32)
+ 0.5.2 (2015-09-21 11:34:13)
 }
 \examples{
 ##load data

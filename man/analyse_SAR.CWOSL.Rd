@@ -60,7 +60,9 @@ growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 
 \item{\dots}{further arguments that will be passed to the function
 \code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
-(supported: \code{background.count.distribution} and \code{sigmab})}
+(supported: \code{background.count.distribution} and \code{sigmab}). \bold{Please note} that
+if you consider to use the early light subtraction method you should provide your own \code{sigmab}
+value!}
 }
 \value{
 A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
@@ -134,7 +136,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.6.3 (2015-09-13 18:55:08)
+ 0.6.3 (2015-09-21 12:16:38)
 }
 \examples{
 ##load data

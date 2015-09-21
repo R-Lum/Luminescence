@@ -1,6 +1,6 @@
 #' Calculate Lx/Tx ratio for CW-OSL curves
 #'
-#' Calculate Lx/Tx ratios from a given set of CW-OSL curves.
+#' Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.
 #'
 #' The integrity of the chosen values for the signal and background integral is
 #' checked by the function; the signal integral limits have to be lower than
@@ -57,8 +57,9 @@
 #' e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 #' value is taken for both (LnTx and TnTx) signals.
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}. Slot
-#' \code{data} contains a \code{\link{list}} with the following structure:\cr $
+#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+#'
+#' Slot \code{data} contains a \code{\link{list}} with the following structure:\cr $
 #' LxTx.table (data.frame) .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $
 #' TnTx.BG \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr .. $ Net_TnTx.Error\cr
 #' .. $ LxTx\cr .. $ LxTx.Error \cr $ calc.parameters (list)\cr .. $
@@ -68,7 +69,7 @@
 #' (vers. 3.24b). Access to the results object via  \code{\link{get_RLum}}.\cr
 #'
 #' \bold{Caution:} If you are using early light subtraction (EBG), please either provide your
-#' own \code{sigmab} value or use \code{background.count.distribution = "poisson"'poission'}.
+#' own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 #'
 #'
 #' @section Function version: 0.5.2
