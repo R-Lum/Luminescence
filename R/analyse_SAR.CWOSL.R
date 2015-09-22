@@ -78,7 +78,7 @@
 #' \code{plot = TRUE}.
 #'
 #' @param \dots further arguments that will be passed to the function
-#' \code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
+#' \code{\link{plot_GrowthCurve}} (e.g., \code{fit.method}) or \code{\link{calc_OSLLxTxRatio}}
 #' (supported: \code{background.count.distribution} and \code{sigmab})
 #'
 #'

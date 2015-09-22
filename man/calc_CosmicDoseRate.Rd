@@ -159,7 +159,7 @@ for near-surface samples as there is no equation known to the author of this
 function at the time of writing.
 }
 \section{Function version}{
- 0.5.2 (2015-09-13 10:44:05)
+ 0.5.2 (2015-09-21 15:05:38)
 }
 \examples{
 ##(1) calculate cosmic dose rate (one absorber)

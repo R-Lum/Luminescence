@@ -36,7 +36,7 @@ sufficiently correct for spectral efficiency of the entire optical system
 This function has BETA status.
 }
 \section{Function version}{
- 0.1 (2015-09-13 10:44:05)
+ 0.1 (2015-09-21 15:05:38)
 }
 \examples{
 ##(1) - use with your own data (uncomment for usage)

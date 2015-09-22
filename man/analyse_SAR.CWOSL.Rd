@@ -51,7 +51,7 @@ growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 \code{plot = TRUE}.}
 
 \item{\dots}{further arguments that will be passed to the function
-\code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
+\code{\link{plot_GrowthCurve}} (e.g., \code{fit.method}) or \code{\link{calc_OSLLxTxRatio}}
 (supported: \code{background.count.distribution} and \code{sigmab})}
 }
 \value{
@@ -112,7 +112,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.5.3 (2015-09-13 10:44:05)
+ 0.5.3 (2015-09-21 15:43:27)
 }
 \examples{
 ##load data

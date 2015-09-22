@@ -117,7 +117,7 @@ provide an empty user mtext \code{mtext = ""}. To plot any other subtitle
 text, use \code{mtext}.
 }
 \section{Function version}{
- 1.6.1 (2015-09-13 10:44:05)
+ 1.6.1 (2015-09-21 15:05:38)
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value

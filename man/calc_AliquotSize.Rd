@@ -101,7 +101,7 @@ default, \code{10^5} iterations are used, but can be reduced/increased with
 boxplot together with a statistical summary.
 }
 \section{Function version}{
- 0.31 (2015-09-13 10:44:05)
+ 0.31 (2015-09-21 15:05:38)
 }
 \examples{
 ## Estimate the amount of grains on a small aliquot

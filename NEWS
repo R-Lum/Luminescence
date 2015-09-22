@@ -4,7 +4,7 @@ Changes in version 0.4.6 (21st September, 2015):
 
         • This update is fixing only one specific issue that causes a
           warning message on the CRAN servers (and on packages that
-          inversely importing this package), due the way the protoype
-          for the ‘RLum.Data.Image’ object was constructed ('rgdal'
-          issue).
+          inversely importing this package), due to the way the
+          protoype for the ‘RLum.Data.Image’ object was constructed
+          ('rgdal' issue).
 
