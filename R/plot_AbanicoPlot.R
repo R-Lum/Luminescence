@@ -1350,7 +1350,7 @@ plot_AbanicoPlot <- function(
                                  ""),
                           ifelse("sdabs.weighted" %in% summary[j] == TRUE,
                                  paste("abs. weighted sd = ",
-                                       round(De.stats[i,15], 2), " %",
+                                       round(De.stats[i,15], 2),
                                        " | ",
                                        sep = ""),
                                  ""),
