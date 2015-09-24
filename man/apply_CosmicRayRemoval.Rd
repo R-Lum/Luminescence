@@ -69,7 +69,7 @@ dataset (see example).
 -
 }
 \section{Function version}{
- 0.1.3 (2015-09-13 18:55:08)
+ 0.1.3 (2015-09-22 09:41:30)
 }
 \examples{
 ##(1) - use with your own data and combine (uncomment for usage)

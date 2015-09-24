@@ -108,7 +108,7 @@ consider using the functions \code{\link{analyse_SAR.CWOSL}} or
 to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.16 (2015-09-13 18:55:08)
+ 0.2.16 (2015-09-22 09:41:30)
 }
 \examples{
 ##load data

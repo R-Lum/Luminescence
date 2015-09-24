@@ -129,6 +129,7 @@ Collate:
     'read_SPE2R.R'
     'read_XSYG2R.R'
     'template_DRAC.R'
+    'tune_Data.R'
     'use_DRAC.R'
     'write_R2BIN.R'
     'zzz.R'

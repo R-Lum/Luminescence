@@ -22,7 +22,7 @@ growing library. If called without any parameters, a random quote is
 returned.
 }
 \section{Function version}{
- 0.1.1 (2015-09-13 18:55:08)
+ 0.1.1 (2015-09-22 09:41:30)
 }
 \examples{
 ## ask for an arbitrary qoute

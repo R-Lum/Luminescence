@@ -43,7 +43,7 @@ in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 \item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 }}
 \section{Function version}{
- 0.2.0 (2015-09-13 18:55:08)
+ 0.2.0 (2015-09-22 09:41:30)
 }
 \examples{
 ##Example based using data and from the calc_CentralDose() function

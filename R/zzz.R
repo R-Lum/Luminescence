@@ -5,7 +5,7 @@
 ##==============================================================================
 ##author: R Luminescence Package Team
 ##organisation:
-##version.: 0.2.0
+##version.: 0.2.1
 ##date: 2013-11-10
 ##==============================================================================
 # Set namespace .LuminescenceEnv ------------------------------------------
@@ -28,7 +28,7 @@ assign("col",
   try(packageStartupMessage(paste("Welcome to the R package Luminescence version ",
                               packageDescription(pkg="Luminescence")$Version,
                               " [Built: ",
-                           #   strsplit(packageDescription(pkg="Luminescence")$Packaged, ";")[[1]][1],
+                              strsplit(packageDescription(pkg="Luminescence")$Packaged, ";")[[1]][1],
                              "]", sep=""),
                             "\n",
                             get_Quote()), silent=TRUE)
