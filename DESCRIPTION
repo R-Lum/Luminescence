@@ -103,6 +103,7 @@ Collate:
     'fit_LMCurve.R'
     'get_Layout.R'
     'get_Quote.R'
+    'get_rightAnswer.R'
     'internal_as.latex.table.R'
     'merge_RLum.Analysis.R'
     'merge_RLum.Data.Curve.R'

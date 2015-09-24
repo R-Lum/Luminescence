@@ -33,15 +33,16 @@ e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 value is taken for both (LnTx and TnTx) signals.}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}. Slot
-\code{data} contains a \code{\link{list}} with the following structure:\cr $
+Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+
+Slot \code{data} contains a \code{\link{list}} with the following structure:\cr $
 LxTx.table (data.frame) .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $
 TnTx.BG \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr .. $ Net_TnTx.Error\cr
 .. $ LxTx\cr .. $ LxTx.Error \cr $ calc.parameters (list)\cr .. $
 sigmab.LnTx\cr .. $ sigmab.TnTx\cr .. $ k
 }
 \description{
-Calculate Lx/Tx ratios from a given set of CW-OSL curves.
+Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.
 }
 \details{
 The integrity of the chosen values for the signal and background integral is
@@ -49,6 +50,12 @@ checked by the function; the signal integral limits have to be lower than
 the background integral limits. If a \link{vector} is given as input instead
 of a \link{data.frame}, an artificial \code{data.frame} is produced. The
 error calculation is done according to Galbraith (2002).\cr
+
+\bold{sigmab}\cr
+
+The default value of \code{sigmab} is calculated assuming the background is
+constant and \bold{would not} applicable when the background varies as,
+e.g., as observed for the early light substraction method.
 
 \bold{background.count.distribution}\cr
 
@@ -63,18 +70,25 @@ standard error is calculated as:\cr\cr (a) \code{poisson}\cr
 \code{non-poisson}\cr \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 +
 \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
 
-\bold{Please note that when using the early background subtraction method in combination with the
-'non-poisson' distribution argument, the corresponding Lx/Tx error may considerably increase due
-to a high sigmab value. Please check whether this is valid for your data set and  if necessary
-consider to provide an own sigmab value using the corresponding argument \code{sigmab}.}
+\bold{Please note} that when using the early background subtraction method in
+combination with the 'non-poisson' distribution argument, the corresponding Lx/Tx error
+may considerably increase due to a high sigmab value.
+Please check whether this is valid for your data set and  if necessary
+consider to provide an own sigmab value using the corresponding argument \code{sigmab}.
 }
 \note{
 The results of this function have been cross-checked with the Analyst
-(vers. 3.24b). Access to the results object via
-\code{\link{get_RLum}}.
+(vers. 3.24b). Access to the results object via  \code{\link{get_RLum}}.\cr
+
+\bold{Caution:} If you are using early light subtraction (EBG), please either provide your
+own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
+<<<<<<< HEAD
  0.5.2 (2015-09-24 09:05:42)
+=======
+ 0.5.2 (2015-09-21 11:34:13)
+>>>>>>> origin/dev_0.5.0_SK
 }
 \examples{
 ##load data
