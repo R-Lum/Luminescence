@@ -84,11 +84,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.5.2 (2015-09-24 09:05:42)
-=======
- 0.5.2 (2015-09-21 11:34:13)
->>>>>>> origin/dev_0.5.0_SK
+ 0.5.2 (2015-09-24 16:32:32)
 }
 \examples{
 ##load data

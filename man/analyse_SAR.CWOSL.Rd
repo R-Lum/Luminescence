@@ -136,11 +136,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.6.3 (2015-09-24 09:05:42)
-=======
- 0.6.3 (2015-09-21 12:16:38)
->>>>>>> origin/dev_0.5.0_SK
+ 0.6.3 (2015-09-24 16:32:32)
 }
 \examples{
 ##load data
