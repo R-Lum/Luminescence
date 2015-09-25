@@ -107,7 +107,7 @@
 #' .. $Formula : \code{expression} \cr
 #' .. $call : \code{call} (the original function call)\cr
 #'
-#' @section Function version: 1.7.2
+#' @section Function version: 1.7.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -329,12 +329,19 @@ plot_GrowthCurve <- function(
 
   ##draw 50 start values from a normal distribution a start values
   a.MC<-rnorm(50,mean=a,sd=a/100)
-  b.MC<-rnorm(50,mean=b,sd=b/100)
+
+  if(!is.na(b)) {
+    b.MC <- rnorm(50,mean = b,sd = b / 100)
+  }else{
+    b <- NA
+
+  }
+
   c.MC<-rnorm(50,mean=c,sd=c/100)
   g.MC<-rnorm(50,mean=g,sd=g/1)
 
   ##set start vector (to avoid errors witin the loop)
-  a.start<-NA; b.start<-NA; c.start<-NA; g.start<-NA
+  a.start <- NA; b.start <- NA; c.start <- NA; g.start <- NA
 
 
 
