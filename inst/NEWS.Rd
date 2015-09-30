@@ -53,7 +53,7 @@
        \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader,
        \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC),
        \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()},
-       \item \code{plot_VolcanoPlot()} Creates a combination of a volcano plot with a boxplot. This plot
+       \item \code{plot_ViolinPlot()} Creates a combination of a kernal density plot with a boxplot. This plot
        was especially written for visualisation of data where standard errors are zero or to small to be
        visualised at all.
    }

@@ -60,10 +60,10 @@ Changes in version 0.5.0 (, 2015):
          • ‘template_DRAC()’ Creates a DRAC input template (v1.1) to be
            used for ‘use_DRAC()’,
 
-         • ‘plot_VolcanoPlot()’ Creates a combination of a volcano plot
-           with a boxplot. This plot was especially written for
-           visualisation of data where standard errors are zero or to
-           small to be visualised at all.
+         • ‘plot_ViolinPlot()’ Creates a combination of a kernal
+           density plot with a boxplot. This plot was especially
+           written for visualisation of data where standard errors are
+           zero or to small to be visualised at all.
 
   Bugfixes and changes:
 

@@ -1,12 +1,14 @@
-#' Create a volcano plot
+#' Create a violin plot
 #'
-#' Draws a volcano plot in combination with a boxplot in its middle. The shape of the volcano
+#' Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin
 #' is constructed using a mirrored density curve. This plot is especially designed for cases
-#' where the individual errors are zero or to small to be visualised.
+#' where the individual errors are zero or to small to be visualised. The idea for this plot is
+#' based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.
+#' The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
 #'
 #' The function is passing several arguments to the function \code{\link{plot}},
 #' \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}: Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
-#' \code{ylab}, \code{col.volcano}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
+#' \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 #'
 #' @param data \code{\link{numeric}} or \code{\linkS4class{RLum.Results}}
 #' object (required): input data for plotting. Alternatively a \code{\link{data.frame}} or
@@ -34,11 +36,26 @@
 #' \code{\link{plot.default}}, \code{\link[stats]{density}} and \code{\link{boxplot}}. See details for
 #' further information
 #'
-#' @note  -
+#' @note Although the code for this function was developed independently and just the idea for the plot
+#' was based on the 'ggplot2' package plot type 'volcano', it should be mentioned that, beyond this,
+#' two other R packages exist providing a possibility to produces this kind of plot, namely:
+#' 'vioplot' and 'violinmplot' (see References for details).
 #'
 #' @section Function version: 0.1.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
+#' @references
+#'
+#' Daniel Adler (2005). vioplot: A violin plot is a combination of a box plot and a kernel density plot.
+#' R package version 0.2 http://CRAN.R-project.org/package=violplot
+#'
+#' Hintze, J.L., Nelson, R.D., 1998. A Box Plot-Density Trace Synergism. The American Statistician 52, 181-184.
+#'
+#' Raphael W. Majeed (2012). violinmplot: Combination of violin plot with mean and standard deviation.
+#' R package version 0.2.1. http://CRAN.R-project.org/package=violinmplot
+#'
+#' Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 #'
 #' @seealso \code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}}
 #'
@@ -48,10 +65,10 @@
 #' ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 #'
 #' ## create plot straightforward
-#' plot_VolcanoPlot(data = ExampleData.DeValues)
+#' plot_ViolinPlot(data = ExampleData.DeValues)
 #'
 #' @export
-plot_VolcanoPlot <- function(
+plot_ViolinPlot <- function(
   data,
   boxplot = TRUE,
   rug = TRUE,
@@ -67,7 +84,7 @@ plot_VolcanoPlot <- function(
     ##Prechecks
 
     if(missing(data)){
-      stop("[plot_VolcanoPlot()] I don't know what to do, data input needed." )
+      stop("[plot_ViolinPlot()] I don't know what to do, data input needed." )
 
     }else{
 
@@ -96,7 +113,7 @@ plot_VolcanoPlot <- function(
 
   # Pre-calculations ----------------------------------------------------------------------------
 
-  ##density for the volcano
+  ##density for the violin
   density <-
     density(x = data,
             bw = ifelse("bw" %in% names(list(...)),list(...)$bw,"nrd0"))
@@ -128,10 +145,10 @@ plot_VolcanoPlot <- function(
   ##set default values
   plot.settings <- list(
     xlim = range(density$x),
-    main = "Volcano Plot",
+    main = "Violin Plot",
     xlab = expression(paste(D[e], "/(a.u.)")),
     ylab = "Density",
-    col.volcano = rgb(0,0,0,0.2),
+    col.violin = rgb(0,0,0,0.2),
     col.boxplot = NULL,
     mtext = ifelse(summary.pos != 'sub', "", stat.mtext),
     cex = 1
@@ -155,13 +172,13 @@ plot_VolcanoPlot <- function(
     cex = plot.settings$cex
   )
 
-  ##add polygon ... the volcano
+  ##add polygon ... the violin
   polygon(
     x = c(density$x, rev(density$x)),
     y = c(1 + density$y / max(density$y) * 0.5,
           rev(1 - density$y / max(density$y) * 0.5)),
-    col = plot.settings$col.volcano,
-    border = plot.settings$col.volcano
+    col = plot.settings$col.violin,
+    border = plot.settings$col.violin
   )
 
   ##add the boxplot
