@@ -16,7 +16,7 @@
 "BaseDataSet.CosmicDoseRate","Base data set for cosmic dose rate calculation","<br /> Collection of data from various sources needed for cosmic dose rate<br /> calculation<br />",NA,NA,NA,NA
 "calc_AliquotSize","Estimate the amount of grains on an aliquot","<br /> Estimate the number of grains on an aliquot. Alternatively, the packing<br /> density of an aliquot is computed.<br />","0.31","2015-09-22","09:41:30
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
-"calc_CentralDose","Apply the central age model (CAM) after Galbraith et al. (1999) to a given<br /> De distribution","<br /> This function calculates the central dose and dispersion of the De<br /> distribution, their standard errors and the profile log likelihood function<br /> for sigma.<br />","1.3.1","2015-09-22","09:41:30
+"calc_CentralDose","Apply the central age model (CAM) after Galbraith et al. (1999) to a given<br /> De distribution","<br /> This function calculates the central dose and dispersion of the De<br /> distribution, their standard errors and the profile log likelihood function<br /> for sigma.<br />","1.3.1","2015-09-28","12:02:50
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
 "calc_CommonDose","Apply the (un-)logged common age model after Galbraith et al. (1999) to a<br /> given De distribution","<br /> Function to calculate the common dose of a De distribution.<br />","0.1","2015-09-22","09:41:30
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
@@ -141,7 +141,7 @@
 "RLum.Data.Image-class","Class  \"RLum.Data.Image\"","<br /> Class for luminescence image data (TL/OSL/RF).<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Data.Spectrum-class","Class  \"RLum.Data.Spectrum\"","<br /> Class for luminescence spectra data (TL/OSL/RF).<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Results-class","Class  \"RLum.Results\"","<br /> Object class contains results data from functions.<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />"
-"Second2Gray","Converting values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.5.0","2015-09-22","09:41:30
+"Second2Gray","Converting equivalent dose values from seconds (s) to gray (Gy)","<br /> Conversion of absorbed radiation dose in seconds (s) to the SI unit gray<br /> (Gy) including error propagation. Normally used for equivalent dose data.<br />","0.6.0","2015-09-30","12:51:40
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, HZDR,<br /> Helmholtz-Institute Freiberg for Resource Technology<br /> (Germany)<br />  R Luminescence Package Team"
 "set_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

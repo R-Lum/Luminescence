@@ -2,7 +2,7 @@
 ### R package Luminescence BUILDSCRIPTS
 ### roxygen2
 ### sebastian.kreutzer@u-bordeaux-montaigne.fr
-### 2015-04-29
+### 2015-09-30
 ### ===============================================================================================
 
 if(!require("devtools"))
@@ -10,4 +10,4 @@ if(!require("devtools"))
 
 library(devtools)
 
-document(pkg = ".", roclets = NULL, reload = TRUE)
+document(pkg = ".", roclets = NULL)

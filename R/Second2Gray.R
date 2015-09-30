@@ -1,14 +1,30 @@
-#' Converting values from seconds (s) to gray (Gy)
+#' Converting equivalent dose values from seconds (s) to gray (Gy)
 #'
 #' Conversion of absorbed radiation dose in seconds (s) to the SI unit gray
 #' (Gy) including error propagation. Normally used for equivalent dose data.
 #'
 #' Calculation of De values from seconds (s) to gray (Gy) \deqn{De [Gy] = De
 #' [s] * Dose Rate [Gy/s])} \cr Provided calculation methods for error
-#' calculation: \bold{gaussian} error propagation \cr \deqn{De.error.gray =
-#' \sqrt(dose.rate * De.error.seconds)^2 + (De.seconds * dose.rate.error)^2 ))}
-#' \bold{absolute} error propagation \cr \deqn{De.error.gray = abs(dose.rate *
-#' De.error.seconds) + abs(De.seconds * dose.rate.error)}
+#' calculation (with 'se' as the standard error and 'DR' of the dose rate of the beta-source):\cr
+#'
+#'
+#' \bold{(1) \code{no-propagation}} (default)\cr
+#'
+#' \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
+#'
+#' In this case the standard error of the dose rate of the beta-source is treated as systematic
+#' (i.e. non-random), it means no error propagation is used and the error has to be consider later on
+#' when the final age is calculated (cf. Aitken, 1985, pp. 242). This approach can be seen as
+#' method (2) (gaussian) for the case the (random) standard error of the beta-source calibration is
+#' 0. Which particular method is requested depends on the situation and cannot be prescriptive.
+#'
+#' \bold{(2) \code{gaussian}} error propagation \cr
+#'
+#' \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
+#'
+#' \bold{(3) \code{absolute}} error propagation \cr
+#'
+#' \deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
 #'
 #' @param data \code{\link{data.frame}} (\bold{required}): input values,
 #' structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
@@ -29,16 +45,18 @@
 #' stopped. Furthermore, if a \code{data.frame} is provided for the dose rate values is has to
 #' be of the same length as the data frame provided with the argument \code{data}
 #'
-#' @section Function version: 0.5.0
+#' @section Function version: 0.6.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, HZDR,
 #' Helmholtz-Institute Freiberg for Resource Technology
 #' (Germany)
 #'
-#' @seealso #
+#' @seealso \code{\link{calc_SourceDoseRate}}
 #'
-#' @references #
+#' @references
+#'
+#' Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 #'
 #' @keywords manip
 #'
@@ -71,7 +89,7 @@
 Second2Gray <- function(
   data,
   dose.rate,
-  method = "gaussian"
+  method = "no-propagation"
 ){
 
   # Integrity tests -----------------------------------------------------------------------------
@@ -148,8 +166,17 @@ Second2Gray <- function(
 
   }
 
+  if(method == "no-propagation"){
 
-  if(method == "gaussian"){
+    if(is(dose.rate,"data.frame")){
+      De.error.gray <- round(dose.rate[,1]*De.error.seconds, digits=3)
+
+    }else{
+      De.error.gray <- round(dose.rate[1]*De.error.seconds, digits=3)
+
+    }
+
+  }else if(method == "gaussian"){
 
     if(is(dose.rate,"data.frame")){
        De.error.gray <- round(sqrt((De.seconds*dose.rate[,2])^2+(dose.rate[,1]*De.error.seconds)^2), digits=3)
@@ -175,7 +202,10 @@ Second2Gray <- function(
 
   }
 
+  # Return --------------------------------------------------------------------------------------
+
   data <- data.frame(De=De.gray, De.error=De.error.gray)
+
 
   return(data)
 

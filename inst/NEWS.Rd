@@ -233,6 +233,15 @@
 
       }
 
+   \item \code{Seconds2Gray()}
+      \itemize{
+
+        \item Add new method for the error calculation \code{no-propagation} and set this method
+        to 'default' to avoid biasing the De-distributions.
+
+      }
+
+
 
       \item \code{writeR2BIN()}
       \itemize{

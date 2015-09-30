@@ -2,9 +2,9 @@
 % Please edit documentation in R/Second2Gray.R
 \name{Second2Gray}
 \alias{Second2Gray}
-\title{Converting values from seconds (s) to gray (Gy)}
+\title{Converting equivalent dose values from seconds (s) to gray (Gy)}
 \usage{
-Second2Gray(data, dose.rate, method = "gaussian")
+Second2Gray(data, dose.rate, method = "no-propagation")
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} (\bold{required}): input values,
@@ -30,10 +30,25 @@ Conversion of absorbed radiation dose in seconds (s) to the SI unit gray
 \details{
 Calculation of De values from seconds (s) to gray (Gy) \deqn{De [Gy] = De
 [s] * Dose Rate [Gy/s])} \cr Provided calculation methods for error
-calculation: \bold{gaussian} error propagation \cr \deqn{De.error.gray =
-\sqrt(dose.rate * De.error.seconds)^2 + (De.seconds * dose.rate.error)^2 ))}
-\bold{absolute} error propagation \cr \deqn{De.error.gray = abs(dose.rate *
-De.error.seconds) + abs(De.seconds * dose.rate.error)}
+calculation (with 'se' as the standard error and 'DR' of the dose rate of the beta-source):\cr
+
+\bold{(1) \code{no-propagation}} (default)\cr
+
+\deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
+
+In this case the standard error of the dose rate of the beta-source is treated as systematic
+(i.e. non-random), it means no error propagation is used and the error has to be consider later on
+when the final age is calculated (cf. Aitken, 1985, pp. 242). This approach can be seen as
+method (2) (gaussian) for the case the (random) standard error of the beta-source calibration is
+0. Which particular method is requested depends on the situation and cannot be prescriptive.
+
+\bold{(2) \code{gaussian}} error propagation \cr
+
+\deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
+
+\bold{(3) \code{absolute}} error propagation \cr
+
+\deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
 }
 \note{
 If no or a wrong method is given, the execution of the function is
@@ -41,7 +56,7 @@ stopped. Furthermore, if a \code{data.frame} is provided for the dose rate value
 be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.5.0 (2015-09-22 09:41:30)
+ 0.6.0 (2015-09-30 12:51:40)
 }
 \examples{
 ##(A) for known source dose rate at date of measurement
@@ -73,10 +88,10 @@ Helmholtz-Institute Freiberg for Resource Technology
 (Germany)
 \cr R Luminescence Package Team}
 \references{
-#
+Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 }
 \seealso{
-#
+\code{\link{calc_SourceDoseRate}}
 }
 \keyword{manip}
 
