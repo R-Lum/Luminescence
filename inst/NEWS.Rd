@@ -28,7 +28,10 @@
 
      \item \code{Risoe.BINfileData-class}
       \itemize{
-        \item Show method now returns the valid grain range.
+        \item Show method now returns the valid grain range,
+        \item the method \code{get_Risoe.BINfileData} was never active, but the corresponding message
+        on using the function \code{Risoe.BINfileData2RLum.Analysis()} disappeard
+        if a user tried to pass aditional (unused) arguments. Corrected (thanks to Alice Versendaal).
       }
 
       \item {RLum.Data.Curve}
@@ -283,6 +286,7 @@
 
 
       }
+
 
    }
   }

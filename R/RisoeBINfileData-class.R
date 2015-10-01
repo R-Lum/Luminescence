@@ -251,12 +251,15 @@ setMethod("set_Risoe.BINfileData",
 #' the object directly, it is just showing a terminal message.
 #'
 #' @param object an object of class \code{\linkS4class{Risoe.BINfileData}}
+#'
+#' @param ... other arguments that might be passed
+#'
 #' @export
 setMethod("get_Risoe.BINfileData",
           signature= "Risoe.BINfileData",
-          definition = function(object) {
+          definition = function(object, ...) {
 
-            cat("[get_Risoe.BINfileData()]: No direct access is provided for this object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing.")
+            cat("[get_Risoe.BINfileData()] No direct access is provided for this object type. Use the function 'Risoe.BINfileData2RLum.Analysis' for object coercing.")
 
           })##end setMethod
 

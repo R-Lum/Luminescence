@@ -28,7 +28,13 @@ Changes in version 0.5.0 (, 2015):
 
          • ‘Risoe.BINfileData-class’
 
-             • Show method now returns the valid grain range.
+             • Show method now returns the valid grain range,
+
+             • the method ‘get_Risoe.BINfileData’ was never active, but
+               the corresponding message on using the function
+               ‘Risoe.BINfileData2RLum.Analysis()’ disappeard if a user
+               tried to pass aditional (unused) arguments. Corrected
+               (thanks to Alice Versendaal).
 
          • RLum.Data.Curve
 

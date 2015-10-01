@@ -12,7 +12,7 @@
 
 \S4method{set_Risoe.BINfileData}{data.frame,list}(METADATA, DATA, .RESERVED)
 
-\S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object)
+\S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
 \item{object}{an object of class \code{\linkS4class{Risoe.BINfileData}}}
@@ -24,6 +24,8 @@ for each curve.}
 
 \item{.RESERVED}{Object of class "list" containing list of undocumented raw
 values for internal use only.}
+
+\item{...}{other arguments that might be passed}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output

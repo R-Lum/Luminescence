@@ -12,12 +12,18 @@
 #' @param \dots further arguments that one might want to pass to the specific
 #' get function
 #' @return Return is the same as input objects as provided in the list.
-#' @section Function version: 0.1
+#' @section Function version: 0.1.0
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso
 #' \code{\linkS4class{Risoe.BINfileData}}
 #' @keywords utilities
-#' 
+#'
 #' @export
-setGeneric("get_Risoe.BINfileData", function(object) { standardGeneric("get_Risoe.BINfileData") })
+setGeneric(
+  name = "get_Risoe.BINfileData",
+  def = function(object, ...) {
+    standardGeneric("get_Risoe.BINfileData")
+  },
+  package = "Luminescence"
+)
