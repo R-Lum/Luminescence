@@ -4,17 +4,19 @@
 #' (Gy) including error propagation. Normally used for equivalent dose data.
 #'
 #' Calculation of De values from seconds (s) to gray (Gy) \deqn{De [Gy] = De
-#' [s] * Dose Rate [Gy/s])} \cr Provided calculation methods for error
-#' calculation (with 'se' as the standard error and 'DR' of the dose rate of the beta-source):\cr
+#' [s] * Dose Rate [Gy/s])} \cr
+#'
+#' Provided calculation error propagation methods for error calculation (with 'se' as the standard error
+#' and 'DR' of the dose rate of the beta-source):\cr
 #'
 #'
-#' \bold{(1) \code{no-propagation}} (default)\cr
+#' \bold{(1) \code{omit}} (default)\cr
 #'
 #' \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
 #'
 #' In this case the standard error of the dose rate of the beta-source is treated as systematic
-#' (i.e. non-random), it means no error propagation is used and the error has to be consider later on
-#' when the final age is calculated (cf. Aitken, 1985, pp. 242). This approach can be seen as
+#' (i.e. non-random), it error propagation is omitted. However, the error must be considered during
+#' calculation of the final age. (cf. Aitken, 1985, pp. 242). This approach can be seen as
 #' method (2) (gaussian) for the case the (random) standard error of the beta-source calibration is
 #' 0. Which particular method is requested depends on the situation and cannot be prescriptive.
 #'
@@ -22,9 +24,13 @@
 #'
 #' \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
 #'
+#' Applicable under the assumption that errors of De and se are uncorrelated.
+#'
 #' \bold{(3) \code{absolute}} error propagation \cr
 #'
 #' \deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
+#'
+#' Applicable under the assumption that errors of De and se are not uncorrelated.
 #'
 #' @param data \code{\link{data.frame}} (\bold{required}): input values,
 #' structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
@@ -35,13 +41,13 @@
 #' function \code{\link{calc_SourceDoseRate}}, for \code{vector} dose rate in
 #' Gy/s and dose rate error in Gy/s
 #'
-#' @param method \link{character} (with default): method used for error
-#' calculation (\code{gaussian} or \code{absolute}), see details for further
+#' @param error.propagation \code{\link{character}} (with default): error propagation method used for error
+#' calculation (\code{omit}, \code{gaussian} or \code{absolute}), see details for further
 #' information
 #'
 #' @return Returns a \link{data.frame} with converted values.
 #'
-#' @note If no or a wrong method is given, the execution of the function is
+#' @note If no or a wrong error propagation method is given, the execution of the function is
 #' stopped. Furthermore, if a \code{data.frame} is provided for the dose rate values is has to
 #' be of the same length as the data frame provided with the argument \code{data}
 #'
@@ -89,7 +95,7 @@
 Second2Gray <- function(
   data,
   dose.rate,
-  method = "no-propagation"
+  error.propagation = "omit"
 ){
 
   # Integrity tests -----------------------------------------------------------------------------
@@ -166,7 +172,7 @@ Second2Gray <- function(
 
   }
 
-  if(method == "no-propagation"){
+  if(error.propagation == "omit"){
 
     if(is(dose.rate,"data.frame")){
       De.error.gray <- round(dose.rate[,1]*De.error.seconds, digits=3)
@@ -176,7 +182,7 @@ Second2Gray <- function(
 
     }
 
-  }else if(method == "gaussian"){
+  }else if(error.propagation == "gaussian"){
 
     if(is(dose.rate,"data.frame")){
        De.error.gray <- round(sqrt((De.seconds*dose.rate[,2])^2+(dose.rate[,1]*De.error.seconds)^2), digits=3)
@@ -186,7 +192,7 @@ Second2Gray <- function(
 
     }
 
-  }else if (method == "absolute"){
+  }else if (error.propagation == "absolute"){
 
     if(is(dose.rate,"data.frame")){
       De.error.gray <- round(abs(dose.rate[,1] * De.error.seconds) + abs(De.seconds * dose.rate[,2]), digits=3)
@@ -198,7 +204,7 @@ Second2Gray <- function(
 
   }else{
 
-    stop("[Second2Gray()] unsupported error calculation method!" )
+    stop("[Second2Gray()] unsupported error propagation method!" )
 
   }
 

@@ -245,9 +245,11 @@ Changes in version 0.5.0 (, 2015):
 
          • ‘Seconds2Gray()’
 
-             • Add new method for the error calculation
-               ‘no-propagation’ and set this method to 'default' to
-               avoid biasing the De-distributions.
+             • Add new method for the error calculation ‘omit’ and set
+               this method to 'default' to avoid biasing the
+               De-distributions,
+
+             • argument ‘method’ renamed to ‘error.propagation’.
 
          • ‘writeR2BIN()’
 

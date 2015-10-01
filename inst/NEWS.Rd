@@ -239,8 +239,9 @@
    \item \code{Seconds2Gray()}
       \itemize{
 
-        \item Add new method for the error calculation \code{no-propagation} and set this method
-        to 'default' to avoid biasing the De-distributions.
+        \item Add new method for the error calculation \code{omit} and set this method
+        to 'default' to avoid biasing the De-distributions,
+        \item argument \code{method} renamed to \code{error.propagation}.
 
       }
 
@@ -265,6 +266,7 @@
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}
       \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export} statements to
       allow better NAMESPACE housekeeping,
+      \item Roxygen2: The documentation for ExampleData.DeValues was not produced automatically. Corrected.
       \item Add methods for S3 generics for RLum-objects:
       \itemize{
 
@@ -286,6 +288,7 @@
 
 
       }
+      \item Roxygen2:
 
 
    }

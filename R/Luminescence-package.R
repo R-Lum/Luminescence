@@ -574,20 +574,21 @@ NULL
 #' Coarse grain quartz (200-250 microns) measured on single grain discs on a
 #' Risoe TL/OSL DA-20 reader\cr Units: \tab Values are given in Gray \cr
 #' Measurement Date: \tab 2012 }
+#' @keywords datasets
 #' @examples
 #'
 #' ##(1) plot values as histogram
 #' data(ExampleData.DeValues, envir = environment())
 #' plot_Histogram(ExampleData.DeValues$BT998, xlab = "De [s]")
 #'
-#' ##(2) plot value as histogram (with Second to Gray convertion)
+#' ##(2) plot values as histogram (with second to gray conversion)
 #' data(ExampleData.DeValues, envir = environment())
 #'
 #' De.values <- Second2Gray(ExampleData.DeValues$BT998,
-#'                          dose.rate = c(0.0438, 0.0019),
-#'                          method = "gaussian")
+#'                          dose.rate = c(0.0438, 0.0019))
+#'
 #'
 #' plot_Histogram(De.values, xlab = "De [Gy]")
 #'
-#'
-#'
+#' @name ExampleData.DeValues
+NULL
