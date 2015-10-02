@@ -207,7 +207,11 @@ Changes in version 0.5.0 (, 2015):
 
          • ‘readBIN2R()’
 
-             • Set function on deprecated, new name: ‘read_BIN2R()’
+             • Set function on deprecated, new name: ‘read_BIN2R()’,
+
+             • new argument ‘position’ implemented that allows to limit
+               the import to specific positions (this will have,
+               however, no positive effect on the import performance).
 
          • ‘readSPE2R()’
 
@@ -275,6 +279,9 @@ Changes in version 0.5.0 (, 2015):
            explicit ‘@export’ statements to allow better NAMESPACE
            housekeeping,
 
+         • Roxygen2: The documentation for ExampleData.DeValues was not
+           produced automatically. Corrected.
+
          • Add methods for S3 generics for RLum-objects:
 
              • ‘`+`’ : ‘RLum.Data.Curve’
@@ -305,4 +312,6 @@ Changes in version 0.5.0 (, 2015):
              • ‘as.matrix()’: ‘RLum.Data.Curve’, ‘RLum.Results’
 
              • ‘merge()’: ‘RLum’
+
+         • Roxygen2:
 

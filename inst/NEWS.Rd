@@ -197,7 +197,9 @@
     \item \code{readBIN2R()}
       \itemize{
 
-        \item Set function on deprecated, new name: \code{read_BIN2R()}
+        \item Set function on deprecated, new name: \code{read_BIN2R()},
+        \item new argument \code{position} implemented that allows to limit the import to specific positions
+        (this will have, however, no positive effect on the import performance).
 
       }
 

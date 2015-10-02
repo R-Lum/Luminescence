@@ -20,6 +20,9 @@
 #' records. Can be used in combination with \code{show.record.number} for
 #' debugging purposes, e.g. corrupt BIN files.
 #'
+#' @param position \code{\link{numeric}} (optional): imports only the selected position. Note:
+#' the import performance will not benefit by any selection made here.
+#'
 #' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
 #' more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
 #' of a \link{Risoe.BINfileData-class} object
@@ -51,7 +54,7 @@
 #' implementation of version 07 support could not been tested so far.}.
 #'
 #'
-#' @section Function version: 0.9.1
+#' @section Function version: 0.9.2
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -84,6 +87,7 @@
 read_BIN2R <- function(
   file,
   show.raw.values = FALSE,
+  position,
   n.records,
   fastForward = FALSE,
   show.record.number = FALSE,
@@ -1006,6 +1010,28 @@ read_BIN2R <- function(
 
   ##output
   cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))
+
+  # Further limitation --------------------------------------------------------------------------
+  if(!missing(position)){
+
+    ##check whether the position is valid at all
+    if (all(position %in% results.METADATA$POSITION)) {
+
+      results.METADATA <- results.METADATA[results.METADATA$POSITION == position,]
+      results.DATA <- results.DATA[results.METADATA$ID]
+
+
+    }else{
+      valid.position <-
+        paste(unique(results.METADATA$POSITION), collapse = ", ")
+      warning(
+        paste0(
+          "Position limitation omitted. At least one position number is not valid, valid position numbers are: ", valid.position
+        )
+      )
+    }
+
+  }
 
   ##produce S4 object for output
   object <- set_Risoe.BINfileData(METADATA = results.METADATA,

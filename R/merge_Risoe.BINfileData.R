@@ -131,7 +131,7 @@ merge_Risoe.BINfileData <- function(
     }else{
 
       stop("[merge_Risoe.BINfileData()]
-                Error: Input object is not a 'character' nor a 'list'!")
+                Input object is not a 'character' nor a 'list'!")
 
     }
 

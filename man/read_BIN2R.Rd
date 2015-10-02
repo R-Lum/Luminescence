@@ -5,8 +5,9 @@
 \alias{read_BIN2R}
 \title{Import Risoe BIN-file into R}
 \usage{
-read_BIN2R(file, show.raw.values = FALSE, n.records, fastForward = FALSE,
-  show.record.number = FALSE, txtProgressBar = TRUE, forced.VersionNumber)
+read_BIN2R(file, show.raw.values = FALSE, position, n.records,
+  fastForward = FALSE, show.record.number = FALSE, txtProgressBar = TRUE,
+  forced.VersionNumber)
 }
 \arguments{
 \item{file}{\link{character} (\bold{required}): bin-file name (including
@@ -16,6 +17,9 @@ path), e.g. \cr [WIN]: \code{read_BIN2R("C:/Desktop/test.bin")}, \cr
 \item{show.raw.values}{\link{logical} (with default): shows raw values from
 BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
 translation in characters.}
+
+\item{position}{\code{\link{numeric}} (optional): imports only the selected position. Note:
+the import performance will not benefit by any selection made here.}
 
 \item{n.records}{\link{raw} (optional): limits the number of imported
 records. Can be used in combination with \code{show.record.number} for
@@ -63,7 +67,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested so far.}.
 }
 \section{Function version}{
- 0.9.1 (2015-09-22 09:41:30)
+ 0.9.2 (2015-10-02 17:42:21)
 }
 \examples{
 ##(1) import Risoe BIN-file to R (uncomment for usage)

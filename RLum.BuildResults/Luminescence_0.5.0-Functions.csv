@@ -120,7 +120,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,<br /> Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "plot_ViolinPlot","Create a violin plot","<br /> Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin<br /> is constructed using a mirrored density curve. This plot is especially designed for cases<br /> where the individual errors are zero or to small to be visualised. The idea for this plot is<br /> based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.<br /> The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).<br />","0.1.0","2015-09-30","15:16:28
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"read_BIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.9.1","2015-09-22","09:41:30
+"read_BIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.9.2","2015-10-02","17:42:21
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, TU Bergakademie Freiberg (Germany)<br />  R Luminescence Package Team"
 "read_Daybreak2R","Import Daybreak ASCII dato into R","<br /> Import a *.txt (ASCII) file produced by a Daybreak reader into R.<br />","0.1.0","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)  Based on suggestion by Willian Amidon and Andrew Louis Gorin.<br />  R Luminescence Package Team"
