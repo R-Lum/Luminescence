@@ -143,6 +143,14 @@
 
       }
 
+     \item \code{merge_RisoeBINfileData()}
+      \itemize{
+
+        \item The position number of the merged BIN-files was not appropriately recalculated due
+        to a coding error (#251). Report and fix was gratefully provided by Alice Versandaal.
+
+      }
+
 
       \item \code{plot_AbanicoPlot()}
        \itemize{
