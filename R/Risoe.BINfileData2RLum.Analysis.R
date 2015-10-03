@@ -265,7 +265,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
           set_RLum(
             class = "RLum.Data.Curve",
             recordType = as.character(object@METADATA[x,"LTYPE"]),
-            data = matrix(c(i,j),nrow = length(i),ncol = 2),
+            data = matrix(c(i,j), nrow = length(i), ncol = 2),
             info = as.list(object@METADATA[x,])
           )
 

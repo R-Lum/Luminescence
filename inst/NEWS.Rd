@@ -30,8 +30,8 @@
       \itemize{
         \item Show method now returns the valid grain range,
         \item the method \code{get_Risoe.BINfileData} was never active, but the corresponding message
-        on using the function \code{Risoe.BINfileData2RLum.Analysis()} disappeard
-        if a user tried to pass aditional (unused) arguments. Corrected (thanks to Alice Versendaal).
+        on using the function \code{Risoe.BINfileData2RLum.Analysis()} disappeared
+        if a user tried to pass additional (unused) arguments. Corrected (thanks to Alice Versendaal).
       }
 
       \item {RLum.Data.Curve}
@@ -41,7 +41,7 @@
         for missing values, means, empty objects can be produced,
         \item furthermore the  \code{set_RLum} method now accepts an \code{RLum.Data.Curve} object
         as input for the argument \code{data}. With this the object can be changed (e.g. recordType)
-        without deconstructing the object.
+        without de-constructing the object.
 
 
       }
@@ -56,7 +56,7 @@
        \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader,
        \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC),
        \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()},
-       \item \code{plot_ViolinPlot()} Creates a combination of a kernal density plot with a boxplot. This plot
+       \item \code{plot_ViolinPlot()} Creates a combination of a kernel density plot with a boxplot. This plot
        was especially written for visualisation of data where standard errors are zero or to small to be
        visualised at all.
    }
@@ -239,7 +239,7 @@
         will be transformed and the function returns a list of \code{RLum.Analysis}-objects,
         \item along with this the argument \code{pos} now accepts a vector as input (i.e., more than
         on position can be provided for the conversion),
-        \item new argument \code{txtProgressBar} addd. The default is set to \code{FALSE} as the computation
+        \item new argument \code{txtProgressBar} added. The default is set to \code{FALSE} as the computation
         time just become relevant for single grain data,
         \item an error was fixed that occurred if the curves used for the transformation had been
         of zero length.

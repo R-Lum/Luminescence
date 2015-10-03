@@ -67,7 +67,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested so far.}.
 }
 \section{Function version}{
- 0.9.2 (2015-10-02 19:04:55)
+ 0.9.2 (2015-10-03 15:42:45)
 }
 \examples{
 ##(1) import Risoe BIN-file to R (uncomment for usage)
@@ -78,7 +78,7 @@ implementation of version 07 support could not been tested so far.}.
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), Margret C. Fuchs, TU Bergakademie Freiberg (Germany)
+(France), Margret C. Fuchs, HZDR Freiberg, (Germany)
 \cr R Luminescence Package Team}
 \references{
 Duller, G., 2007. Analyst.

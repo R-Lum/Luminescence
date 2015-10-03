@@ -32,9 +32,9 @@ Changes in version 0.5.0 (, 2015):
 
              • the method ‘get_Risoe.BINfileData’ was never active, but
                the corresponding message on using the function
-               ‘Risoe.BINfileData2RLum.Analysis()’ disappeard if a user
-               tried to pass aditional (unused) arguments. Corrected
-               (thanks to Alice Versendaal).
+               ‘Risoe.BINfileData2RLum.Analysis()’ disappeared if a
+               user tried to pass additional (unused) arguments.
+               Corrected (thanks to Alice Versendaal).
 
          • RLum.Data.Curve
 
@@ -47,7 +47,7 @@ Changes in version 0.5.0 (, 2015):
              • furthermore the ‘set_RLum’ method now accepts an
                ‘RLum.Data.Curve’ object as input for the argument
                ‘data’. With this the object can be changed (e.g.
-               recordType) without deconstructing the object.
+               recordType) without de-constructing the object.
 
   New functions:
 
@@ -66,7 +66,7 @@ Changes in version 0.5.0 (, 2015):
          • ‘template_DRAC()’ Creates a DRAC input template (v1.1) to be
            used for ‘use_DRAC()’,
 
-         • ‘plot_ViolinPlot()’ Creates a combination of a kernal
+         • ‘plot_ViolinPlot()’ Creates a combination of a kernel
            density plot with a boxplot. This plot was especially
            written for visualisation of data where standard errors are
            zero or to small to be visualised at all.
@@ -247,7 +247,7 @@ Changes in version 0.5.0 (, 2015):
                as input (i.e., more than on position can be provided
                for the conversion),
 
-             • new argument ‘txtProgressBar’ addd. The default is set
+             • new argument ‘txtProgressBar’ added. The default is set
                to ‘FALSE’ as the computation time just become relevant
                for single grain data,
 

@@ -58,7 +58,7 @@
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), Margret C. Fuchs, TU Bergakademie Freiberg (Germany)
+#' (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
 #'
 #'
 #' @seealso \code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
@@ -1017,7 +1017,7 @@ read_BIN2R <- function(
     ##check whether the position is valid at all
     if (all(position %in% results.METADATA$POSITION)) {
 
-      results.METADATA <- results.METADATA[results.METADATA$POSITION == position,]
+      results.METADATA <- results.METADATA[which(results.METADATA$POSITION %in% position),]
       results.DATA <- results.DATA[results.METADATA$ID]
 
 
