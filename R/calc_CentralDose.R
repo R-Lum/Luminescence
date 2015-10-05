@@ -5,10 +5,15 @@
 #' distribution, their standard errors and the profile log likelihood function
 #' for sigma.
 #'
-#' This function uses the equations of Galbraith et al. (1999, 358-359).  The
-#' parameter \code{sigma} is estimated using the maximum likelihood approach. A
-#' detailed explanation on maximum likelihood estimation can be found in the
-#' appendix of Galbraith & Laslett (1993, 468-470)
+#' This function uses the equations of Galbraith & Roberts (2012). The
+#' parameters \code{delta} and \code{sigma} are estimated by numerically solving
+#' eq. 15 and 16. Their standard errors are approximated using eq. 17.
+#' In addition, the profile log-likelihood function for \code{sigma} is
+#' calculated using eq. 18 and presented as a plot. Numerical values of the 
+#' maximum likelihood approach are \bold{only} presented in the plot and \bold{not}
+#' in the console. A detailed explanation on maximum likelihood estimation can be found in the
+#' appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
+#' (2012, 15)
 #'
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
@@ -66,182 +71,162 @@
 #' calc_CentralDose(ExampleData.DeValues$CA1)
 #'
 #' @export
-calc_CentralDose <- function(
-  data,
-  sigmab,
-  plot=TRUE,
-  ...
-) {
-
-  ##============================================================================##
+calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
+  
+  ## ============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
-  ##============================================================================##
-
-  if(missing(data)==FALSE){
-    if(is(data, "data.frame") == FALSE & is(data,"RLum.Results") == FALSE){
-      stop("[calc_CentralDose] Error: 'data' object has to be of type
+  ## ============================================================================##
+  
+  if (!missing(data)) {
+    if (!is(data, "data.frame") & !is(data, "RLum.Results")) {
+      stop("[calc_CentralDose] Error: 'data' object has to be of type\n 
            'data.frame' or 'RLum.Results'!")
-    }else{
-      if(is(data, "RLum.Results") == TRUE){
+    } else {
+      if (is(data, "RLum.Results")) {
         data <- get_RLum(data, signature(object = "De.values"))
       }
     }
   }
-  try(colnames(data)<- c("ED","ED_Error"), silent = TRUE)
-  if(colnames(data[1])!="ED"||colnames(data[2])!="ED_Error") {
+  try(colnames(data) <- c("ED", "ED_Error"), silent = TRUE)
+  if (colnames(data[1]) != "ED" || colnames(data[2]) != "ED_Error") {
     cat(paste("Columns must be named 'ED' and 'ED_Error'"), fill = FALSE)
-    stop(domain=NA)
+    stop(domain = NA)
   }
-  if(!missing(sigmab)) {
-    if(sigmab <0 | sigmab >1) {
-      cat(paste("sigmab needs to be given as a fraction between",
-                "0 and 1 (e.g. 0.2)"), fill = FALSE)
-      stop(domain=NA)
+  if (!missing(sigmab)) {
+    if (sigmab < 0 | sigmab > 1) {
+      cat(paste("sigmab needs to be given as a fraction between", "0 and 1 (e.g. 0.2)"), 
+          fill = FALSE)
+      stop(domain = NA)
     }
   }
-
-  ##============================================================================##
+  
+  ## ============================================================================##
   ## ... ARGUMENTS
-  ##============================================================================##
-
-  extraArgs <- list(...)
-
-  ## console output
-  if("verbose" %in% names(extraArgs)) {
-    verbose<- extraArgs$verbose
-  } else {
-    verbose<- TRUE
-  }
-  # trace calculations
-  if("trace" %in% names(extraArgs)) {
-    trace<- extraArgs$trace
-  } else {
-    trace<- FALSE
-  }
-
-  ##============================================================================##
+  ## ============================================================================##
+  
+  options <- list(verbose = TRUE,
+                  trace = FALSE)
+  
+  options <- modifyList(options, list(...))
+  
+  
+  ## ============================================================================##
   ## CALCULATIONS
-  ##============================================================================##
-
+  ## ============================================================================##
+  
   # set default value of sigmab
-  if(missing(sigmab)) sigmab<- 0
-
-  # calculate  yu = log(ED) and su = se(logED)
-  yu<- log(data$ED)
-  su<- sqrt((data$ED_Error/data$ED)^2 + sigmab^2)
-
+  if (missing(sigmab)) 
+    sigmab <- 0
+  
+  # calculate yu = log(ED) and su = se(logED)
+  yu <- log(data$ED)
+  su <- sqrt((data$ED_Error / data$ED)^2 + sigmab^2)
+  
   # calculate starting values and weights
-  sigma<- 0.15
-  wu<- 1/(sigma^2 + su^2)
-  delta<- sum(wu*yu)/sum(wu)
-  n<- length(yu)
-
+  sigma <- 0.15
+  wu <- 1 / (sigma^2 + su^2)
+  delta <- sum(wu * yu) / sum(wu)
+  n <- length(yu)
+  
   # compute mle's
-  for(j in 1:200){
-    delta<- sum(wu*yu)/sum(wu)
-    sigma<- sigma*sqrt(sum( (wu^2)*(yu-delta)^2/sum(wu) ))
-    wu<- 1/(sigma^2 + su^2)
-
+  for (j in 1:200) {
+    delta <- sum(wu * yu) / sum(wu)
+    sigma <- sigma * sqrt(sum((wu^2) * (yu - delta)^2 / sum(wu)))
+    wu <- 1 / (sigma^2 + su^2)
+    
     # print iterations
-    if(trace==TRUE) {
-      print(round(c(delta, sigma),4))
-    }
+    if (options$trace) 
+      print(round(c(delta, sigma), 4))
   }
-
+  
   # save parameters for terminal output
-  out.delta<- exp(delta)
-  out.sigma<- sigma*100
-
+  out.delta <- exp(delta)
+  out.sigma <- sigma * 100
+  
   # log likelihood
-  llik<-  0.5*sum(log(wu)) - 0.5*sum(wu*(yu-delta)^2)
+  llik <- 0.5 * sum(log(wu)) - 0.5 * sum(wu * (yu - delta)^2)
   # save parameter for terminal output
-  out.llik<- round(llik,4)
-  Lmax<- llik
-
+  out.llik <- round(llik, 4)
+  Lmax <- llik
+  
   # standard errors
-  sedelta<- 1/sqrt(sum(wu))
-  sesigma<- 1/sqrt(2*sigma*sum(wu^2))
-
+  sedelta <- 1 / sqrt(sum(wu))
+  sesigma <- 1 / sqrt(2 * sigma * sum(wu^2))
+  
   # save parameters for terminal output
-  out.sedelta<- sedelta*100
-  out.sesigma<- sesigma
-
+  out.sedelta <- sedelta * 100
+  out.sesigma <- sesigma
+  
   # profile log likelihood
-  sigmax<- sigma
-  llik<- 0
-  sig0<- max(0,sigmax-8*sesigma)
-  sig1<- sigmax + 9.5*sesigma
-  sig<- try(seq(sig0,sig1,sig1/1000), silent = TRUE)
-
+  sigmax <- sigma
+  llik <- 0
+  sig0 <- max(0, sigmax - 8 * sesigma)
+  sig1 <- sigmax + 9.5 * sesigma
+  sig <- try(seq(sig0, sig1, sig1 / 1000), silent = TRUE)
+  
   if (class(sig) != "try-error") {
-    # TODO: rewrite this loop as a function and maximise with mle2
-    # ll is the actual log likelihood, llik is a vector of all ll
+    # TODO: rewrite this loop as a function and maximise with mle2 ll is the actual
+    # log likelihood, llik is a vector of all ll
     for (sigma in sig) {
-      wu <- 1 / (sigma ^ 2 + su ^ 2)
-      mu <- sum(wu * yu) / sum(wu)
-      ll <-  0.5 * sum(log(wu)) - 0.5 * sum(wu * (yu - mu) ^ 2)
-      llik <- c(llik,ll)
+      wu <- 1 / (sigma^2 + su^2)
+      mu <- sum(wu * yu)/sum(wu)
+      ll <- 0.5 * sum(log(wu)) - 0.5 * sum(wu * (yu - mu)^2)
+      llik <- c(llik, ll)
     }
     llik <- llik[-1] - Lmax
-  }#endif::try-error
-
-  ##============================================================================##
+  }  #endif::try-error
+  
+  ## ============================================================================##
   ## TERMINAL OUTPUT
-  ##============================================================================##
-
-  if(verbose==TRUE) {
+  ## ============================================================================##
+  
+  if (options$verbose) {
     cat("\n [calc_CentralDose]")
     cat(paste("\n\n----------- meta data ----------------"))
-    cat(paste("\n n:                      ",n))
-    cat(paste("\n log:                    ","TRUE"))
+    cat(paste("\n n:                      ", n))
+    cat(paste("\n log:                    ", "TRUE"))
     cat(paste("\n----------- dose estimate ------------"))
-    cat(paste("\n central dose:           ",round(out.delta,2)))
-    cat(paste("\n SE:                     ",round(out.delta*out.sedelta/100,2)))
-    cat(paste("\n rel. SE [%]:            ",round(out.sedelta,2)))
+    cat(paste("\n central dose:           ", round(out.delta, 2)))
+    cat(paste("\n SE:                     ", round(out.delta * out.sedelta/100, 
+                                                   2)))
+    cat(paste("\n rel. SE [%]:            ", round(out.sedelta, 2)))
     cat(paste("\n----------- overdispersion -----------"))
-    cat(paste("\n OD [%]:                 ",round(out.sigma,2)))
-    cat(paste("\n SE:                     ",if(class(sig) != "try-error") {
-      round(out.sesigma,4)*100 } else {"-"}))
+    cat(paste("\n OD [%]:                 ", round(out.sigma, 2)))
+    cat(paste("\n SE:                     ", if (class(sig) != "try-error") {
+      round(out.sesigma, 4) * 100
+    } else {
+      "-"
+    }))
     cat(paste("\n-------------------------------------\n\n"))
   }
-
-  ##============================================================================##
+  
+  ## ============================================================================##
   ## RETURN VALUES
-  ##============================================================================##
-
-  if(class(sig) == "try-error") {
-    out.sigma<- 0
-    out.sesigma<- NA
+  ## ============================================================================##
+  
+  if (class(sig) == "try-error") {
+    out.sigma <- 0
+    out.sesigma <- NA
   }
-
-  summary<- data.frame(de=out.delta,
-                       de_err=out.delta*out.sedelta/100,
-                       OD=out.sigma,
-                       OD_err=out.sesigma*100,
-                       Lmax=Lmax)
-
-  call<- sys.call()
-  args<- list(log="TRUE", sigmab=sigmab)
-
-  newRLumResults.calc_CentralDose<- set_RLum(
-    class = "RLum.Results",
-    data = list(summary = summary,
-                data = data,
-                args = args,
-                call = call,
-                profile=data.frame(
-                  sig=ifelse(inherits(sig,"try-error"), NA,sig), llik=llik)
-                )
-    )
-
-  ##=========##
-  ## PLOTTING
-  if(plot==TRUE) {
-    if(class(sig) != "try-error") {
-      try(plot_RLum.Results(newRLumResults.calc_CentralDose, ...))
-    }#endif::try-error
-  }#endif::plot
+  
+  summary <- data.frame(de = out.delta, de_err = out.delta * out.sedelta / 100, 
+                        OD = out.sigma, OD_err = out.sesigma * 100, Lmax = Lmax)
+  
+  call <- sys.call()
+  args <- list(log = "TRUE", sigmab = sigmab)
+  
+  newRLumResults.calc_CentralDose <- set_RLum(class = "RLum.Results", 
+                                              data = list(summary = summary, 
+                                                          data = data, 
+                                                          args = args,
+                                                          call = call, 
+                                                          profile = data.frame(sig = sig, 
+                                                                               llik = llik)))
+  
+  ## =========## PLOTTING
+  if (plot && class(sig) != "try-error") 
+    try(plot_RLum.Results(newRLumResults.calc_CentralDose, ...))
 
   invisible(newRLumResults.calc_CentralDose)
-
 }
+

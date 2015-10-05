@@ -83,8 +83,15 @@
         no sense the functions tries to do the best without breaking.
 
       }
+      
+      \item \code{calc_CentralDose()}
+       \itemize{
 
+        \item Fixed a bug in the \code{RLum.Results} object, which returned false profile
+        log-likelihood values for \code{sigma}. Report was gratefully provided by Eike F. Rades.
 
+      }
+      
        \item \code{calc_OSLLxTxRatio()}
        \itemize{
 

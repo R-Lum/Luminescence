@@ -40,13 +40,18 @@ distribution, their standard errors and the profile log likelihood function
 for sigma.
 }
 \details{
-This function uses the equations of Galbraith et al. (1999, 358-359).  The
-parameter \code{sigma} is estimated using the maximum likelihood approach. A
-detailed explanation on maximum likelihood estimation can be found in the
-appendix of Galbraith & Laslett (1993, 468-470)
+This function uses the equations of Galbraith & Roberts (2012). The
+parameters \code{delta} \code{sigma} are estimated by numerically solving
+eq. 15 and 16. Their standard errors are approximated using eq. 17.
+In addition, the profile log-likelihood function for \code{sigma} is
+calculated using eq. 18 and presented as a plot. Numerical values of the
+maximum likelihood approach are \bold{only} presented in the plot and \bold{not}
+in the console. A detailed explanation on maximum likelihood estimation can be found in the
+appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
+(2012, 15)
 }
 \section{Function version}{
- 1.3.1 (2015-09-28 12:02:50)
+ 1.3.1
 }
 \examples{
 ##load example data
@@ -58,7 +63,7 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2010 \cr
-\cr R Luminescence Package Team}
+}
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.

@@ -103,6 +103,12 @@ Changes in version 0.5.0 (, 2015):
                provided, even the values make no sense the functions
                tries to do the best without breaking.
 
+         • ‘calc_CentralDose()’
+
+             • Fixed a bug in the ‘RLum.Results’ object, which returned
+               false profile log-likelihood values for ‘sigma’. Report
+               was gratefully provided by Eike F. Rades.
+
          • ‘calc_OSLLxTxRatio()’
 
              • The function produced nonsense if only Lx data are
