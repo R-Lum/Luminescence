@@ -345,7 +345,7 @@ write_R2BIN <- function(
   con<-file(file, "wb")
 
   ##get records
-  n.records <- max(object@METADATA[,"ID"])
+  n.records <- length(object@METADATA[,"ID"])
 
   ##output
   cat(paste("\n[write_R2BIN()]\n\t >> ",file,sep=""), fill=TRUE)
