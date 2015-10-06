@@ -255,8 +255,8 @@
 #' ##show De results and test paramter results
 #' get_RLum(temp, data.object = "De.values")
 #' get_RLum(temp, data.object = "test_parameter")
-#' 
-#' 
+#'
+#'
 #' @export
 analyse_IRSAR.RF<- function(
   object,
@@ -288,10 +288,9 @@ analyse_IRSAR.RF<- function(
   }
 
   ##CHECK OTHER ARGUMENTS
-  assertive::assert_is_character(sequence.structure)
-  assertive::assert_is_logical(plot)
-  assertive::assert_is_logical(txtProgressBar)
-
+  if(!is(sequence.structure, "character")){
+    stop("[analyse_IRSAR.RF()] argument 'sequence.structure' needs to be of type character.")
+  }
 
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
