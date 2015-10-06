@@ -282,6 +282,8 @@ Changes in version 0.5.0 (, 2015):
          • Adding package 'httr' to imports (used in ‘use_DRAC’ to
            establish the connection)
 
+         • Remove dependency to package 'assertive'
+
          • Added methods for S3 generics ‘`$`, `[<-`, `[[<-`, print,
            as.data.frame’ for objects of class ‘DRAC.list’
 

@@ -28,7 +28,7 @@
 #' @examples
 #'
 #' ## This function has no example yet.
-#' 
+#'
 #' @export
 read_Daybreak2R <- function(
   file,
@@ -43,7 +43,10 @@ read_Daybreak2R <- function(
   # Integrity checks ----------------------------------------------------------------------------
 
   ##check if file exists
-  assertive::is_existing_file(file)
+  if(!file.exists(file)){
+    stop("[read_Daybreak2R()] file name doesn't seem to exist.")
+
+  }
 
 
   # Read ASCII file -----------------------------------------------------------------------------

@@ -109,7 +109,10 @@ plot_ViolinPlot <- function(
     }
 
     #Further checks
-    assertive::assert_is_character(summary.pos)
+    if(!is(summary.pos, "character")){
+      stop("[plot_ViolinPlot()] argument 'summary.pos' needs to be of type character!")
+
+    }
 
   # Pre-calculations ----------------------------------------------------------------------------
 

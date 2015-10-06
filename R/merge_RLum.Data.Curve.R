@@ -139,7 +139,7 @@ merge_RLum.Data.Curve<- function(
 
       }
 
-      warning("The channel between the curves differes. Resulting curve has length of shortest curve.")
+      warning("[merge_RLum.Data.Curve()] The number of channels between the curves differes. Resulting curve has the length of shortest curve.")
 
       ##if this is ok, we cann continue and shorten the rest of the objects
       return(object[[x]]@data[1:min(check.length),2])
