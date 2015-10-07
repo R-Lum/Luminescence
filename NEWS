@@ -73,6 +73,17 @@ Changes in version 0.5.0 (, 2015):
 
   Bugfixes and changes:
 
+         • ‘analyse_IRSAR.RF()’
+
+             • Argument ‘fit.trace’ removed. It can be controlled by
+               the new argument ‘method.control’ instead,
+
+             • argument ‘method.control’ added allowing to control
+               parameters of the choosen method,
+
+             • now also the sliding matrix is returned with the
+               RLum.Results 'data.object' ‘slide’.
+
          • ‘analyse_SAR.CWOSL()’
 
              • Internal curve selection now works using the ‘get_RLum’.

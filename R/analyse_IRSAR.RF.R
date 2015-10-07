@@ -46,7 +46,16 @@
 #' model. This approach was introduced for RF curves by Buylaert et al., 2012
 #' and Lapp et al., 2012.
 #'
-#' Here the sliding is done by searching for the minimum of the squared residuals.
+#' Here the sliding is done by searching for the minimum of the squared residuals.\cr
+#'
+#' \bold{\code{method.control}}\cr
+#'
+#' This argument allow to keep in control with some parameters for the methoed choosen for the De-estimation.
+#' For \code{method = "FIT"} the following arguments are supported and passed to \code{\link{nls}}:
+#' 'trace', 'maxiter', 'warnOnly', 'minFactor'. For \code{method = "SLIDE"} the logical argument 'correct.onset'
+#' literally spoken, shifts the curves along the x-axis by the first channel, as light is expected
+#' in the first channel. The default value is \code{TRUE}.\cr
+#'
 #'
 #' \bold{Error estimation}\cr
 #'
@@ -125,6 +134,10 @@
 #' @param method \code{\link{character}} (with default): setting method applied
 #' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
 #'
+#' @param method.control \code{\link{list}} (optional): parameters to control the method, that can
+#' be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
+#' 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct.onset'. See details.
+#'
 #' @param test_parameter \code{\link{list} (with default)}: set test parameter
 #' Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 #' \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
@@ -132,9 +145,6 @@
 #' values, \code{NA} and \code{NULL} (s. Details)
 #'
 #' (see Details for further information)
-#'
-#' @param fit.trace \code{\link{logical}} (with default): trace fitting (for
-#' debugging use)
 #'
 #' @param n.MC \code{\link{numeric}} (with default): set number of Monte
 #' Carlo runs for start parameter estimation (\code{method = "FIT"}) or
@@ -174,7 +184,7 @@
 #' ..$ UID : \code{character}: unique data set ID \cr
 #' $ test_parameter : \code{\link{data.frame}} table test parameters \cr
 #' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
-#' $ slide : \code{\link{list}} data from the sliding process\cr
+#' $ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
 #' $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 #'
 #' The output (\code{De.values}) should be accessed using the
@@ -191,7 +201,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -264,8 +274,8 @@ analyse_IRSAR.RF<- function(
   RF_nat.lim,
   RF_reg.lim,
   method = "FIT",
+  method.control,
   test_parameter,
-  fit.trace = FALSE,
   n.MC = 10,
   slide.show_density = FALSE,
   txtProgressBar = TRUE,
@@ -445,6 +455,49 @@ analyse_IRSAR.RF<- function(
 
 
   ##===============================================================================================#
+  ## SET METHOD CONTROL PARAMETER - FOR BOTH METHODS
+  ##===============================================================================================#
+  ##
+  ##set supported values with default
+  method.control.settings <- list(
+    trace = FALSE,
+    maxiter = 500,
+    warnOnly = FALSE,
+    minFactor = 1 / 4096,
+    correct.onset = TRUE
+  )
+
+  ##modify list if necessary
+  if(!missing(method.control)){
+
+    if(!is(method.control, "list")){
+      stop("[analyse_IRSAR.RF()] 'method.control' has to be of type 'list'!")
+
+    }
+
+    ##check whether this arguments are supported at all
+    if (length(which(
+      names(method.control) %in% names(method.control.settings) == FALSE
+    ) != 0)) {
+      temp.text <- paste0(
+        "[analyse_IRSAR.RF()] Argument(s) '",
+        paste(names(method.control)[which(names(method.control) %in% names(method.control.settings) == FALSE)], collapse = " and "),
+        "' are not supported for 'method.control'. Supported arguments are: ",
+        paste(names(method.control.settings), collapse = ", ")
+      )
+
+      warning(temp.text)
+      rm(temp.text)
+
+    }
+
+    ##modify list
+    method.control.settings <- modifyList(x = method.control.settings, val = method.control)
+
+  }
+
+
+  ##===============================================================================================#
   ## SET PLOT PARAMETERS
   ##===============================================================================================#
 
@@ -473,7 +526,14 @@ analyse_IRSAR.RF<- function(
   RF_reg <- as.data.frame(object@records[[
     temp.sequence.structure[temp.sequence.structure$protocol.step=="REGENERATED","id"]]]@data)
 
-  RF_reg<- as.data.frame(object@records[[2]]@data)
+    ##correct of the onset of detection by using the first time value
+    if (method == "SLIDE" &
+        method.control.settings$correct.onset == TRUE) {
+      RF_reg[,1] <- RF_reg[,1] - RF_reg[1,1]
+
+    }
+
+
   RF_reg.x <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],1]
   RF_reg.y <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],2]
 
@@ -481,6 +541,13 @@ analyse_IRSAR.RF<- function(
   ##grep values from natural signal
   RF_nat <- as.data.frame(object@records[[
     temp.sequence.structure[temp.sequence.structure$protocol.step=="NATURAL","id"]]]@data)
+
+    ##correct of the onset of detection by using the first time value
+  if (method == "SLIDE" &
+      method.control.settings$correct.onset == TRUE) {
+    RF_nat[,1] <- RF_nat[,1] - RF_nat[1,1]
+  }
+
 
   ##limit values to fit range (at least to the minimum)
   RF_nat.limited<- RF_nat[min(RF_nat.lim):max(RF_nat.lim),]
@@ -491,6 +558,7 @@ analyse_IRSAR.RF<- function(
 
   RF_nat.error.lower <- quantile(RF_nat.limited[,2], 0.975)
   RF_nat.error.upper <- quantile(RF_nat.limited[,2], 0.025)
+
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
   ##METHOD FIT
@@ -590,7 +658,7 @@ analyse_IRSAR.RF<- function(
       ##try final fitting
       fit <- try(nls(
         fit.function,
-        trace = fit.trace,
+        trace = method.control.settings$trace,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
         algorithm = "port",
         start = list(
@@ -600,9 +668,9 @@ analyse_IRSAR.RF<- function(
           beta = fit.parameters.results.MC.results["beta"]
         ),
         nls.control(
-          maxiter = 500,
-          warnOnly = FALSE,
-          minFactor = 1 / 4096
+          maxiter = method.control.settings$maxiter,
+          warnOnly = method.control.settings$warnOnly,
+          minFactor = method.control.settings$minFactor
         ),
         lower = c(
           phi.0 = .Machine$double.xmin,
@@ -737,7 +805,8 @@ analyse_IRSAR.RF<- function(
             residuals = residuals,
             trend.fit = temp.trend.fit,
             RF_nat.slided = RF_nat.slided,
-            t_n.id = t_n.id
+            t_n.id = t_n.id,
+            sliding.matrix = temp.sum.residuals
           )
         )
       }else{

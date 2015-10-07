@@ -5,7 +5,7 @@
 \title{Analyse IRSAR RF measurements}
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
-  RF_nat.lim, RF_reg.lim, method = "FIT", test_parameter, fit.trace = FALSE,
+  RF_nat.lim, RF_reg.lim, method = "FIT", method.control, test_parameter,
   n.MC = 10, slide.show_density = FALSE, txtProgressBar = TRUE,
   plot = TRUE, ...)
 }
@@ -30,6 +30,10 @@ will be treated as minimum value and the maximum limit will be added automatical
 \item{method}{\code{\link{character}} (with default): setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
+\item{method.control}{\code{\link{list}} (optional): parameters to control the method, that can
+be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
+'minFactor' and for (2) \code{method = "SLIDE"}: 'correct.onset'. See details.}
+
 \item{test_parameter}{\code{\link{list} (with default)}: set test parameter
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
@@ -37,9 +41,6 @@ Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 values, \code{NA} and \code{NULL} (s. Details)
 
 (see Details for further information)}
-
-\item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
-debugging use)}
 
 \item{n.MC}{\code{\link{numeric}} (with default): set number of Monte
 Carlo runs for start parameter estimation (\code{method = "FIT"}) or
@@ -79,7 +80,7 @@ $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 ..$ UID : \code{character}: unique data set ID \cr
 $ test_parameter : \code{\link{data.frame}} table test parameters \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
-$ slide : \code{\link{list}} data from the sliding process\cr
+$ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
 $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 
 The output (\code{De.values}) should be accessed using the
@@ -132,7 +133,15 @@ allows to work with the original data without the need of any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
-Here the sliding is done by searching for the minimum of the squared residuals.
+Here the sliding is done by searching for the minimum of the squared residuals.\cr
+
+\bold{\code{method.control}}\cr
+
+This argument allow to keep in control with some parameters for the methoed choosen for the De-estimation.
+For \code{method = "FIT"} the following arguments are supported and passed to \code{\link{nls}}:
+'trace', 'maxiter', 'warnOnly', 'minFactor'. For \code{method = "SLIDE"} the logical argument 'correct.onset'
+literally spoken, shifts the curves along the x-axis by the first channel, as light is expected
+in the first channel. The default value is \code{TRUE}.\cr
 
 \bold{Error estimation}\cr
 
@@ -202,7 +211,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.4.0 (2015-10-06 19:45:27)
+ 0.4.1 (2015-10-07 16:37:07)
 }
 \examples{
 ##load data

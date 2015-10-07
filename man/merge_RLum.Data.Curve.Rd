@@ -62,7 +62,7 @@ The information from the slot 'recordType' is taken from the first
 'curveType' is filled with the name \code{merged}.
 }
 \section{Function version}{
- 0.1.1 (2015-10-06 11:32:06)
+ 0.1.1 (2015-10-06 23:28:52)
 }
 \examples{
 ##load example data

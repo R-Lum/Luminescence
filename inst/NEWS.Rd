@@ -64,6 +64,21 @@
 
   \subsection{Bugfixes and changes}{
    \itemize{
+
+
+      \item \code{analyse_IRSAR.RF()}
+      \itemize{
+
+        \item Argument \code{fit.trace} removed. It can be controlled by the new argument \code{method.control}
+        instead,
+        \item argument \code{method.control} added allowing to control parameters of the choosen method,
+        \item now also the sliding matrix is returned with the RLum.Results 'data.object' \code{slide}.
+
+      }
+
+
+
+
       \item \code{analyse_SAR.CWOSL()}
       \itemize{
 
@@ -83,7 +98,7 @@
         no sense the functions tries to do the best without breaking.
 
       }
-      
+
       \item \code{calc_CentralDose()}
        \itemize{
 
@@ -91,7 +106,7 @@
         log-likelihood values for \code{sigma}. Report was gratefully provided by Eike F. Rades.
 
       }
-      
+
        \item \code{calc_OSLLxTxRatio()}
        \itemize{
 
