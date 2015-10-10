@@ -31,7 +31,7 @@ for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{method.control}{\code{\link{list}} (optional): parameters to control the method, that can
 be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
-'minFactor' and for (2) \code{method = "SLIDE"}: 'correct.onset', 'show_density'. See details.}
+'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density'. See details.}
 
 \item{test_parameter}{\code{\link{list} (with default)}: set test parameter
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
@@ -133,21 +133,22 @@ Here the sliding is done by searching for the minimum of the squared residuals.\
 
 \bold{\code{method.control}}\cr
 
-This argument allow to keep in control with some parameters for the methoed choosen for the De-estimation.
-For \code{method = "FIT"} the following arguments are supported and passed to \code{\link{nls}}:
-'trace', 'maxiter', 'warnOnly', 'minFactor'.\cr
-
-For \code{method = "SLIDE"}\cr
-
-\code{correct.onset} The logical argument literally spoken, shifts the curves along the x-axis
-by the first channel, as light is expected in the first channel. The default value is \code{TRUE}.\cr
-
-\code{show_density} \code{\link{logical}} (with default) enables or disables KDE plots for MC run results.
-If the distribution is too narrow nothing is shown, nothing is plotted.\cr
-
-\code{n.MC} \code{\link{integer}} (wiht default): This controls the number of MC runs within
-the sliding (assesing the possible minimum values). The default \code{n.MC = 1000}. Note: This
-parameter is not the same as controlled by the function argument \code{n.MC} \cr
+\tabular{lll}{
+ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
+\code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \code{\link{nls}}; shows sum of squared residuals\cr
+\code{maxiter} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
+\code{warnOnly} \tab \code{FIT}           \tab as in \code{\link{nls}}\cr
+\code{minFactor} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
+\code{correct_onset} \tab \code{SLIDE}      \tab The logical argument literally spoken,
+shifts the curves along the x-axis by the first channel, as light is expected in the first channel.
+ The default value is \code{TRUE}.\cr
+\code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
+enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
+\code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
+This controls the number of MC runs within the sliding (assesing the possible minimum values).
+The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
+function argument \code{n.MC} \cr
+}
 
 \bold{Error estimation}\cr
 
@@ -217,7 +218,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.5.0 (2015-10-10 22:30:24)
+ 0.5.0 (2015-10-11 01:44:57)
 }
 \examples{
 ##load data

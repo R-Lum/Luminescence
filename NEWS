@@ -89,7 +89,11 @@ Changes in version 0.5.0 (, 2015):
                parameters of the choosen method,
 
              • now also the sliding matrix is returned with the
-               RLum.Results 'data.object' ‘slide’.
+               RLum.Results 'data.object' ‘slide’,
+
+             • TODO . errror ....
+
+             • some graphical adjustments.
 
          • ‘analyse_SAR.CWOSL()’
 
