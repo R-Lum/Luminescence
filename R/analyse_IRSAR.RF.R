@@ -766,6 +766,7 @@ analyse_IRSAR.RF<- function(
     sliding <- function(RF_nat,
                         RF_nat.limited,
                         RF_reg.limited,
+                        n.MC = method.control.settings$n.MC,
                         numerical.only = FALSE){
 
 
@@ -786,7 +787,7 @@ analyse_IRSAR.RF<- function(
         .analyse_IRSARRF_SRS(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
-          n_MC =  method.control.settings$n.MC
+          n_MC =  n.MC
         )
 
       #(2) get minimum value (index and time value)
@@ -833,7 +834,7 @@ analyse_IRSAR.RF<- function(
             trend.fit = temp.trend.fit,
             RF_nat.slided = RF_nat.slided,
             t_n.id = t_n.id,
-            sliding.minimum_values = temp.sum.residuals$sliding_vector
+            sliding.minimum_values = temp.sum.residuals$sliding_vector ##TODO - rename to minimum values
           )
         )
       }else{
@@ -884,7 +885,9 @@ analyse_IRSAR.RF<- function(
     }
 
 
-    De.MC <- sapply(1:n.MC, function(i){
+    De.MC <- as.vector(vapply(1:n.MC,
+                    FUN.VALUE = vector("numeric", length = method.control.settings$n.MC),
+                    function(i){
 
       temp.slide.MC <- sliding(
         RF_nat = RF_nat,
@@ -901,7 +904,7 @@ analyse_IRSAR.RF<- function(
        ##do nothing else, just report all possible values
        return(temp.slide.MC[[2]])
 
-    })
+    }))
 
     ##close
     if(txtProgressBar){close(pb)}

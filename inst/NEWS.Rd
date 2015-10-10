@@ -22,7 +22,9 @@
       \item \code{merge_RLum}
       \itemize{
         \item Method for \code{RLum.Results} objects now combines the data.frame using the function
-        \code{data.table::rbindList} this should give a little bit more speed.
+        \code{data.table::rbindList} this should give a little bit more speed,
+        \item the method was not working properely for objects of types \code{RLum.Results} if they
+        tried to combine matrices and vectors found in the 'data.object' list.
 
       }
 
@@ -297,8 +299,7 @@
       \item Re-adding the package 'zoo' in imports,
       \item Adding package 'readxl' to imports (used in \code{use_DRAC} to import the XLS file)
       \item Adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
-      \item Adding dependency 'Rcpp' instead of importing it
-      \item This package is now linked to 'RcppArmadillo' (used within the function \code{.analyse_IRSARRF_SRS)},
+      \item This package is now linked to 'Rcpp' and 'RcppArmadillo' (used within the function \code{.analyse_IRSARRF_SRS)},
       \item Remove dependency to package 'assertive'
       \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame} for objects of class \code{DRAC.list}
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}

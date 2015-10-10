@@ -24,7 +24,11 @@ Changes in version 0.5.0 (, 2015):
 
              • Method for ‘RLum.Results’ objects now combines the
                data.frame using the function ‘data.table::rbindList’
-               this should give a little bit more speed.
+               this should give a little bit more speed,
+
+             • the method was not working properely for objects of
+               types ‘RLum.Results’ if they tried to combine matrices
+               and vectors found in the 'data.object' list.
 
          • ‘Risoe.BINfileData-class’
 

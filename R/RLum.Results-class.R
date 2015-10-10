@@ -20,7 +20,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Results", ...)}.
 #'
-#' @section Class version: 0.2.1
+#' @section Class version: 0.2.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -464,10 +464,10 @@ differs!")
             for(i in 1:length(object.list[[1]]@data)){
 
               ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-              ##vector or data.frame or matrix
-              if(is(object.list[[1]]@data[[i]]) == "data.frame"||
-                 is(object.list[[1]]@data[[i]])[1] == "vector" ||
-                 is(object.list[[1]]@data[[i]])[1] == "matrix"){
+              ##numeric vector or data.frame or matrix
+              if(is(object.list[[1]]@data[[i]], "data.frame")||
+                 is(object.list[[1]]@data[[i]], "numeric") ||
+                 is(object.list[[1]]@data[[i]], "matrix")){
 
                 ##grep elements and combine them into a list
                 temp.list <-
@@ -483,8 +483,17 @@ differs!")
 
                 }
 
-                ##combine them using data.table::rbindList
-                object.list[[1]]@data[[i]] <- as.data.frame(data.table::rbindlist(temp.list))
+                ##combine them using rbind or data.table::rbindList (depends on the data type)
+                if(is(object.list[[1]]@data[[i]], "numeric")){
+                  object.list[[1]]@data[[i]] <- unlist(temp.list)
+
+                }else if(is(object.list[[1]]@data[[i]], "matrix")){
+                  object.list[[1]]@data[[i]] <- do.call("rbind", temp.list)
+
+                }else{
+                  object.list[[1]]@data[[i]] <- as.data.frame(data.table::rbindlist(temp.list))
+
+                }
 
 
               }else{
