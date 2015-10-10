@@ -6,8 +6,7 @@
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim, RF_reg.lim, method = "FIT", method.control, test_parameter,
-  n.MC = 10, slide.show_density = FALSE, txtProgressBar = TRUE,
-  plot = TRUE, ...)
+  n.MC = 10, txtProgressBar = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -32,7 +31,7 @@ for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{method.control}{\code{\link{list}} (optional): parameters to control the method, that can
 be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
-'minFactor' and for (2) \code{method = "SLIDE"}: 'correct.onset'. See details.}
+'minFactor' and for (2) \code{method = "SLIDE"}: 'correct.onset', 'show_density'. See details.}
 
 \item{test_parameter}{\code{\link{list} (with default)}: set test parameter
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
@@ -46,9 +45,6 @@ values, \code{NA} and \code{NULL} (s. Details)
 Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 error estimation (\code{method = "SLIDE"}). Note: Large values will
 significantly increase the computation time}
-
-\item{slide.show_density}{\code{\link{logical}} (with default): enable or
-disable KDE for MC run results. If the distribution is too narrow nothing is shown}
 
 \item{txtProgressBar}{\code{\link{logical}} (with default): enables \code{TRUE} or
 disables \code{FALSE} the progression bar during MC runs}
@@ -139,9 +135,19 @@ Here the sliding is done by searching for the minimum of the squared residuals.\
 
 This argument allow to keep in control with some parameters for the methoed choosen for the De-estimation.
 For \code{method = "FIT"} the following arguments are supported and passed to \code{\link{nls}}:
-'trace', 'maxiter', 'warnOnly', 'minFactor'. For \code{method = "SLIDE"} the logical argument 'correct.onset'
-literally spoken, shifts the curves along the x-axis by the first channel, as light is expected
-in the first channel. The default value is \code{TRUE}.\cr
+'trace', 'maxiter', 'warnOnly', 'minFactor'.\cr
+
+For \code{method = "SLIDE"}\cr
+
+\code{correct.onset} The logical argument literally spoken, shifts the curves along the x-axis
+by the first channel, as light is expected in the first channel. The default value is \code{TRUE}.\cr
+
+\code{show_density} \code{\link{logical}} (with default) enables or disables KDE plots for MC run results.
+If the distribution is too narrow nothing is shown, nothing is plotted.\cr
+
+\code{n.MC} \code{\link{integer}} (wiht default): This controls the number of MC runs within
+the sliding (assesing the possible minimum values). The default \code{n.MC = 1000}. Note: This
+parameter is not the same as controlled by the function argument \code{n.MC} \cr
 
 \bold{Error estimation}\cr
 
@@ -211,7 +217,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.4.1 (2015-10-07 16:37:07)
+ 0.5.0 (2015-10-10 19:53:54)
 }
 \examples{
 ##load data

@@ -71,8 +71,11 @@
 
         \item Argument \code{fit.trace} removed. It can be controlled by the new argument \code{method.control}
         instead,
+        \item argument \code{slide.show_density} removed and can now be controlled by within the new argument
+        \code{method.control},
         \item argument \code{method.control} added allowing to control parameters of the choosen method,
         \item now also the sliding matrix is returned with the RLum.Results 'data.object' \code{slide}.
+
 
       }
 
@@ -294,6 +297,8 @@
       \item Re-adding the package 'zoo' in imports,
       \item Adding package 'readxl' to imports (used in \code{use_DRAC} to import the XLS file)
       \item Adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
+      \item Adding dependency 'Rcpp' instead of importing it
+      \item This package is now linked to 'RcppArmadillo' (used within the function \code{.analyse_IRSARRF_SRS)},
       \item Remove dependency to package 'assertive'
       \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame} for objects of class \code{DRAC.list}
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}

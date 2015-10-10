@@ -52,9 +52,19 @@
 #'
 #' This argument allow to keep in control with some parameters for the methoed choosen for the De-estimation.
 #' For \code{method = "FIT"} the following arguments are supported and passed to \code{\link{nls}}:
-#' 'trace', 'maxiter', 'warnOnly', 'minFactor'. For \code{method = "SLIDE"} the logical argument 'correct.onset'
-#' literally spoken, shifts the curves along the x-axis by the first channel, as light is expected
-#' in the first channel. The default value is \code{TRUE}.\cr
+#' 'trace', 'maxiter', 'warnOnly', 'minFactor'.\cr
+#'
+#' For \code{method = "SLIDE"}\cr
+#'
+#' \code{correct.onset} The logical argument literally spoken, shifts the curves along the x-axis
+#' by the first channel, as light is expected in the first channel. The default value is \code{TRUE}.\cr
+#'
+#' \code{show_density} \code{\link{logical}} (with default) enables or disables KDE plots for MC run results.
+#' If the distribution is too narrow nothing is shown, nothing is plotted.\cr
+#'
+#' \code{n.MC} \code{\link{integer}} (wiht default): This controls the number of MC runs within
+#' the sliding (assesing the possible minimum values). The default \code{n.MC = 1000}. Note: This
+#' parameter is not the same as controlled by the function argument \code{n.MC} \cr
 #'
 #'
 #' \bold{Error estimation}\cr
@@ -136,7 +146,7 @@
 #'
 #' @param method.control \code{\link{list}} (optional): parameters to control the method, that can
 #' be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
-#' 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct.onset'. See details.
+#' 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct.onset', 'show_density'. See details.
 #'
 #' @param test_parameter \code{\link{list} (with default)}: set test parameter
 #' Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
@@ -150,9 +160,6 @@
 #' Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 #' error estimation (\code{method = "SLIDE"}). Note: Large values will
 #' significantly increase the computation time
-#'
-#' @param slide.show_density \code{\link{logical}} (with default): enable or
-#' disable KDE for MC run results. If the distribution is too narrow nothing is shown
 #'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables \code{TRUE} or
 #' disables \code{FALSE} the progression bar during MC runs
@@ -201,7 +208,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.5.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -277,7 +284,6 @@ analyse_IRSAR.RF<- function(
   method.control,
   test_parameter,
   n.MC = 10,
-  slide.show_density = FALSE,
   txtProgressBar = TRUE,
   plot = TRUE,
   ...
@@ -464,7 +470,9 @@ analyse_IRSAR.RF<- function(
     maxiter = 500,
     warnOnly = FALSE,
     minFactor = 1 / 4096,
-    correct.onset = TRUE
+    correct.onset = TRUE,
+    show_density = TRUE,
+    n.MC = 1000
   )
 
   ##modify list if necessary
@@ -774,23 +782,41 @@ analyse_IRSAR.RF<- function(
       temp.sum.residuals <- vector("numeric", length = t_max.id - t_max_nat.id)
 
       ##calculate sum of squared residuals ... for the entire set
-      temp.sum.residuals <- .analyse_IRSARRF_SRS(RF_reg.limited[,2], RF_nat.limited[,2])
+      temp.sum.residuals <-
+        .analyse_IRSARRF_SRS(
+          values_regenerated_limited =  RF_reg.limited[,2],
+          values_natural_limited = RF_nat.limited[,2],
+          n_MC =  method.control.settings$n.MC
+        )
 
       #(2) get minimum value (index and time value)
       #important: correct min value for the set limit, otherwise the sliding will be wrong
       #as the sliding has to be done with the full dataset
-      t_n.id <- which.min(temp.sum.residuals) + RF_nat.lim[1] - 1
+      t_n.id <- which.min(temp.sum.residuals$sliding_vector) + RF_nat.lim[1] - 1
+
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
       ##(3) slide curve graphically ... full data set we need this for the plotting later
       RF_nat.slided <- matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2]), ncol = 2)
       t_n <- RF_nat.slided[1,1]
 
-      ##(4) get residuals
+      ##the same for the MC runs of the minimum values
+      t_n.MC <-
+        sapply(1:length(temp.sum.residuals$sliding_vector_min_MC), function(x) {
+          t_n.id.MC <-
+            which(temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x]) + RF_nat.lim[1] - 1
+          temp.sliding.step.MC <- RF_reg.limited[t_n.id.MC] - t_min
+          t_n.MC <- (RF_nat[,1] + temp.sliding.step.MC)[1]
+          return(t_n.MC)
+
+        })
+
+      ##(4) get residuals (need to be plotted later)
       residuals <- RF_nat.limited[,2] - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
 
-      ##(4.1) calculate De from the first channel
+      ##(4.1) calculate De from the first channel ... which is t_n here
       De <- round(t_n, digits = 2)
+      De.MC <- round(t_n.MC, digits = 2)
       temp.trend.fit <- NA
 
       ##(5) calculate trend fit
@@ -802,15 +828,16 @@ analyse_IRSAR.RF<- function(
         return(
           list(
             De = De,
+            De.MC = De.MC,
             residuals = residuals,
             trend.fit = temp.trend.fit,
             RF_nat.slided = RF_nat.slided,
             t_n.id = t_n.id,
-            sliding.matrix = temp.sum.residuals
+            sliding.minimum_values = temp.sum.residuals$sliding_vector
           )
         )
       }else{
-        return(list(De))
+        return(list(De = De, De.MC = De.MC))
       }
 
     }##end of function sliding()
@@ -820,8 +847,12 @@ analyse_IRSAR.RF<- function(
     slide <-  sliding(
       RF_nat = RF_nat,
       RF_nat.limited = RF_nat.limited,
-      RF_reg.limited = RF_reg.limited,
+      RF_reg.limited = RF_reg.limited
     )
+
+    ##CLEAN - CONTROL PLOT!
+#     plot(1:length(slide$sliding.minimum_values), slide$sliding.minimum_values, log = "y")
+#     rug((which(RF_reg.limited[,1]%in%slide$De.MC)))
 
     ##write results in variables
     De <- slide$De
@@ -833,6 +864,7 @@ analyse_IRSAR.RF<- function(
     # MC runs for error calculation ---------------------------------------------------------------
 
     ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
+    ##(i.e., bootstrap from the natural curve distribution)
     slide.MC.list <- lapply(1:n.MC,function(x) {
       cbind(
         RF_nat.limited[,1],
@@ -842,8 +874,6 @@ analyse_IRSAR.RF<- function(
       )
     })
 
-    ##predefine vector
-    De.MC <- vector(length = n.MC)
 
     if(txtProgressBar){
       ##terminal output fo MC
@@ -853,7 +883,9 @@ analyse_IRSAR.RF<- function(
       pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
     }
 
-    for (i in 1:n.MC) {
+
+    De.MC <- sapply(1:n.MC, function(i){
+
       temp.slide.MC <- sliding(
         RF_nat = RF_nat,
         RF_reg.limited = RF_reg.limited,
@@ -861,14 +893,15 @@ analyse_IRSAR.RF<- function(
         numerical.only = TRUE
       )
 
-      De.MC[i] <- temp.slide.MC[[1]]
-
       ##update progress bar
       if (txtProgressBar) {
         setTxtProgressBar(pb, i)
       }
 
-    }
+       ##do nothing else, just report all possible values
+       return(temp.slide.MC[[2]])
+
+    })
 
     ##close
     if(txtProgressBar){close(pb)}
@@ -1282,7 +1315,7 @@ analyse_IRSAR.RF<- function(
     else if(method == "SLIDE"){
 
       ##(0) density plot
-      if (slide.show_density) {
+      if ( method.control.settings$show_density) {
 
         ##showing the density makes only sense when we see at least 10 data points
         if (length(unique(De.MC)) >= 10) {

@@ -78,6 +78,9 @@ Changes in version 0.5.0 (, 2015):
              • Argument ‘fit.trace’ removed. It can be controlled by
                the new argument ‘method.control’ instead,
 
+             • argument ‘slide.show_density’ removed and can now be
+               controlled by within the new argument ‘method.control’,
+
              • argument ‘method.control’ added allowing to control
                parameters of the choosen method,
 
@@ -292,6 +295,11 @@ Changes in version 0.5.0 (, 2015):
 
          • Adding package 'httr' to imports (used in ‘use_DRAC’ to
            establish the connection)
+
+         • Adding dependency 'Rcpp' instead of importing it
+
+         • This package is now linked to 'RcppArmadillo' (used within
+           the function ‘.analyse_IRSARRF_SRS)’,
 
          • Remove dependency to package 'assertive'
 
