@@ -1318,30 +1318,28 @@ analyse_IRSAR.RF<- function(
     else if(method == "SLIDE"){
 
       ##(0) density plot
-      if ( method.control.settings$show_density) {
+      if (method.control.settings$show_density) {
 
         ##showing the density makes only sense when we see at least 10 data points
         if (length(unique(De.MC)) >= 10) {
-          ##normal De
-          density.mean.MC <- density(De.MC)
 
-          if (plot.settings$log == "y" | plot.settings$log == "xy") {
-            temp.scale.ratio <-
-              abs(((unique(
-                max(RF_nat.limited[,2])
-              ) - par("usr")[3]) / 1.75 + par("usr")[3]) /
-                unique(max(density.mean.MC$y)))
+          ##calculate density De.MC
+          density.De.MC <- density(De.MC)
 
-          }else{
-            temp.scale.ratio <-
-              ((unique(max(
-                RF_nat.limited[,2]
-              )) - par("usr")[3]) / 2 + par("usr")[3]) /
-              unique(max(density.mean.MC$y))
-          }
+            ##calculate transformation function
+            x.1 <- max(density.De.MC$y)
+            x.2 <- min(density.De.MC$y)
+            y.1 <- min(unique(RF_reg.limited[,2]))
+            y.2 <- par("usr")[3]
 
-          polygon(density.mean.MC$x,
-                  density.mean.MC$y * temp.scale.ratio,
+            m <- (y.1 - y.2)/(x.1 + x.2)
+            n <- y.1 - m * x.1
+
+            density.De.MC$y <- m*density.De.MC$y + n
+            rm(x.1,x.2,y.1,y.2,m,n)
+
+          polygon(density.De.MC$x,
+                  density.De.MC$y,
                   col = rgb(0,0,1,0.5))
 
         }else{

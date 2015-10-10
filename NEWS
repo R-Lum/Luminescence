@@ -300,10 +300,8 @@ Changes in version 0.5.0 (, 2015):
          • Adding package 'httr' to imports (used in ‘use_DRAC’ to
            establish the connection)
 
-         • Adding dependency 'Rcpp' instead of importing it
-
-         • This package is now linked to 'RcppArmadillo' (used within
-           the function ‘.analyse_IRSARRF_SRS)’,
+         • This package is now linked to 'Rcpp' and 'RcppArmadillo'
+           (used within the function ‘.analyse_IRSARRF_SRS)’,
 
          • Remove dependency to package 'assertive'
 

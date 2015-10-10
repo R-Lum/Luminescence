@@ -76,7 +76,9 @@
         \item argument \code{slide.show_density} removed and can now be controlled by within the new argument
         \code{method.control},
         \item argument \code{method.control} added allowing to control parameters of the choosen method,
-        \item now also the sliding matrix is returned with the RLum.Results 'data.object' \code{slide}.
+        \item now also the sliding matrix is returned with the RLum.Results 'data.object' \code{slide},
+        \item TODO . errror ....
+        \item some graphical adjustments.
 
 
       }
