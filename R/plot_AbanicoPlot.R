@@ -146,7 +146,7 @@
 #' length 2, specifying the upper and lower x-axes labels.
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
@@ -546,9 +546,10 @@ plot_AbanicoPlot <- function(
     fun <- FALSE
   }
 
-  ## check for negative values
+  ## check for negative values, stoppp function, but do not stop
   if(min(De.global) <= 0) {
-    stop("[plot_AbanicoPlot] Error: Data contains negative or zero values.")
+    warning("\n [plot_AbanicoPlot()] Data contains negative or zero values. Nothing plotted!")
+    return(NULL)
   }
 
   ## calculate and append statistical measures --------------------------------

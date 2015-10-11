@@ -200,7 +200,10 @@
       \item \code{plot_AbanicoPlot()}
        \itemize{
 
-        \item Further adjustment to deal with zero values (will now be removed automatically)
+        \item Further adjustment to deal with zero error values (will now be removed automatically),
+        \item if the De was zero or negative the function stopped with an error, changed to a
+        warning message and a return of \code{NULL} (this is a much better behaviour when
+        the function is used within a loop, #253).
 
 
       }

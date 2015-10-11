@@ -212,8 +212,13 @@ Changes in version 0.5.0 (, 2015):
 
          • ‘plot_AbanicoPlot()’
 
-             • Further adjustment to deal with zero values (will now be
-               removed automatically)
+             • Further adjustment to deal with zero error values (will
+               now be removed automatically),
+
+             • if the De was zero or negative the function stopped with
+               an error, changed to a warning message and a return of
+               ‘NULL’ (this is a much better behaviour when the
+               function is used within a loop, #253).
 
          • ‘plot_DRTResults()’
 
