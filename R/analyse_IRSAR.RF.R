@@ -1327,9 +1327,9 @@ analyse_IRSAR.RF<- function(
           x.2 <- min(density.De.MC$y)
 
           ##with have to limit the scaling a little bit
-          if (min(unique(RF_nat.limited[,2])) > max(unique(RF_reg.limited[,2])) /
-              2) {
-            y.1 <- max(unique(RF_reg.limited[,2])) / 2
+          if (min(unique(RF_nat.limited[,2])) > (max(unique(RF_reg.limited[,2])) * 0.98)) {
+            y.1 <- max(unique(RF_reg.limited[,2])) * 0.95
+
           }else{
             y.1 <- min(unique(RF_nat.limited[,2]))
           }
