@@ -2,6 +2,20 @@ NEWS for the R Package Luminescence
 
 Changes in version 0.5.0 (, 2015):
 
+  General remarks:
+
+         • This major major update provides, apart from few new
+           functions, many bugfixes and non-visible improvements in the
+           underlying code to make the growing package still usable.
+           The most important changes are provided by the support of
+           generic S3-functions, e.g., the wellknown R function
+           ‘plot()’ now knows how to deal with ‘RLum’-objects. However,
+           this also went along with a more standardised way how RLum
+           objects can be treated. For example: To access and object
+           now it is enough to use only the function ‘get_RLum()’. The
+           function will subsequently patch the right method on the
+           basis of the object.
+
   Changes S4-objects, methods, classes:
 
          • Extend class definition for ‘RLum’-class by slots
@@ -71,7 +85,7 @@ Changes in version 0.5.0 (, 2015):
            used for ‘use_DRAC()’,
 
          • ‘plot_ViolinPlot()’ Creates a combination of a kernel
-           density plot with a boxplot. This plot was especially
+           density plot with a boxplot.  This plot was especially
            written for visualisation of data where standard errors are
            zero or to small to be visualised at all.
 
@@ -86,12 +100,14 @@ Changes in version 0.5.0 (, 2015):
                controlled by within the new argument ‘method.control’,
 
              • argument ‘method.control’ added allowing to control
-               parameters of the choosen method,
+               parameters of the chosen method,
 
              • now also the sliding matrix is returned with the
                RLum.Results 'data.object' ‘slide’,
 
-             • TODO . errror ....
+             • the way the error is calculated was changed again to
+               account for drawbacks if always just the global minimum
+               is chosen (details see manual),
 
              • some graphical adjustments.
 
@@ -352,6 +368,4 @@ Changes in version 0.5.0 (, 2015):
              • ‘as.matrix()’: ‘RLum.Data.Curve’, ‘RLum.Results’
 
              • ‘merge()’: ‘RLum’
-
-         • Roxygen2:
 

@@ -2,6 +2,19 @@
 \title{NEWS for the R Package Luminescence}
 \section{Changes in version 0.5.0 (, 2015)}{
 
+  \subsection{General remarks}{
+  \itemize{
+  \item This major major update provides, apart from few new functions, many bugfixes and non-visible
+  improvements in the underlying code to make the growing package still usable. The most important
+  changes are provided by the support of generic S3-functions, e.g., the wellknown R function
+  \code{plot()} now knows how to deal with \code{RLum}-objects. However, this also went
+  along with a more standardised way how RLum objects can be treated. For example: To access and
+  object now it is enough to use only the function \code{get_RLum()}. The function will subsequently patch
+  the right method on the basis of the object.
+  }
+
+  }
+
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
       \item Extend class definition for \code{RLum}-class by slots \code{originator} and \code{.uid}
@@ -14,7 +27,8 @@
         defined for a specific function, corrected. Now, if nothing is defined the first  object
         in the slot \code{data} is returned (#223),
         \item the method was enhanced to deal with objects of type \code{list} containing only
-        \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding \code{get_RLum} methods
+        \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding
+         \code{get_RLum} methods
         are called.
 
       }
@@ -54,13 +68,14 @@
   \subsection{New functions}{
    \itemize{
       \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015,
-      \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009,
+      \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in
+      Steffen et al. 2009,
        \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader,
        \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC),
        \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()},
-       \item \code{plot_ViolinPlot()} Creates a combination of a kernel density plot with a boxplot. This plot
-       was especially written for visualisation of data where standard errors are zero or to small to be
-       visualised at all.
+       \item \code{plot_ViolinPlot()} Creates a combination of a kernel density plot with a boxplot.
+       This plot was especially written for visualisation of data where standard errors are zero or
+       to small to be visualised at all.
    }
   }
 
@@ -75,9 +90,10 @@
         instead,
         \item argument \code{slide.show_density} removed and can now be controlled by within the new argument
         \code{method.control},
-        \item argument \code{method.control} added allowing to control parameters of the choosen method,
+        \item argument \code{method.control} added allowing to control parameters of the chosen method,
         \item now also the sliding matrix is returned with the RLum.Results 'data.object' \code{slide},
-        \item TODO . errror ....
+        \item the way the error is calculated was changed again to account for drawbacks if always
+        just the global minimum is chosen (details see manual),
         \item some graphical adjustments.
 
 
@@ -201,11 +217,12 @@
       \item \code{plot_GrowthCurve()}
        \itemize{
 
-        \item Final fitting and fitting during the MC runs is now done using the Levenberg-Marquardt from the package 'minpack.lm'. This
+        \item Final fitting and fitting during the MC runs is now done using the Levenberg-Marquardt
+        from the package 'minpack.lm'. This
         increases the fitting stability and the computation step markedly (#5),
         \item output object is enhanced by the \code{call} containing the function call,
-        \item for the option \code{fit.method = "LIN"} and \code{fit.method = "EXP OR LIN"} weights had been
-        not considered; corrected,
+        \item for the option \code{fit.method = "LIN"} and \code{fit.method = "EXP OR LIN"} weights
+        had been not considered; corrected,
         \item add argument \code{fit.force_through_origin}, it does exactly what you may expect from such
         argument (#225, requested by Alice Versendaal),
         \item get rid of some not very informative warning messages if some fitting failed and if start
@@ -268,8 +285,8 @@
         will be transformed and the function returns a list of \code{RLum.Analysis}-objects,
         \item along with this the argument \code{pos} now accepts a vector as input (i.e., more than
         on position can be provided for the conversion),
-        \item new argument \code{txtProgressBar} added. The default is set to \code{FALSE} as the computation
-        time just become relevant for single grain data,
+        \item new argument \code{txtProgressBar} added. The default is set to \code{FALSE} as the
+        computation time just become relevant for single grain data,
         \item an error was fixed that occurred if the curves used for the transformation had been
         of zero length.
 
@@ -301,12 +318,14 @@
       \item Re-adding the package 'zoo' in imports,
       \item Adding package 'readxl' to imports (used in \code{use_DRAC} to import the XLS file)
       \item Adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
-      \item This package is now linked to 'Rcpp' and 'RcppArmadillo' (used within the function \code{.analyse_IRSARRF_SRS)},
+      \item This package is now linked to 'Rcpp' and 'RcppArmadillo' (used within the function
+      \code{.analyse_IRSARRF_SRS)},
       \item Remove dependency to package 'assertive'
-      \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame} for objects of class \code{DRAC.list}
+      \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame}
+      for objects of class \code{DRAC.list}
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}
-      \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export} statements to
-      allow better NAMESPACE housekeeping,
+      \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export}
+      statements to allow better NAMESPACE housekeeping,
       \item Roxygen2: The documentation for ExampleData.DeValues was not produced automatically. Corrected.
       \item Add methods for S3 generics for RLum-objects:
       \itemize{
@@ -329,7 +348,6 @@
 
 
       }
-      \item Roxygen2:
 
 
    }

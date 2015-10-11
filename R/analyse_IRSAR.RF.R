@@ -50,6 +50,11 @@
 #'
 #' \bold{\code{method.control}}\cr
 #'
+#' To keep the generic argument list as clear as possible, arguments to control the methods
+#' for De estimation are all preset with meaningful default parameters and can be
+#' handled using the argument \code{method.control} only, e.g.,
+#' \code{method.control = list(trace = TRUE)}. Supported arguments are:\cr
+#'
 #' \tabular{lll}{
 #' ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
 #' \code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \code{\link{nls}}; shows sum of squared residuals\cr
@@ -1327,11 +1332,14 @@ analyse_IRSAR.RF<- function(
           x.2 <- min(density.De.MC$y)
 
           ##with have to limit the scaling a little bit
-          if (min(unique(RF_nat.limited[,2])) > (max(unique(RF_reg.limited[,2])) * 0.98)) {
-            y.1 <- max(unique(RF_reg.limited[,2])) * 0.95
+          if (RF_nat.limited[1,2] >
+            max(RF_reg.limited[,2]) - (max(RF_reg.limited[,2]) - min(RF_reg.limited[,2]))*.5) {
+
+            y.1 <- max(RF_reg.limited[,2]) - (max(RF_reg.limited[,2]) - min(RF_reg.limited[,2]))*.5
 
           }else{
-            y.1 <- min(unique(RF_nat.limited[,2]))
+            y.1 <- RF_nat.limited[1,2]
+
           }
 
           y.2 <- par("usr")[3]

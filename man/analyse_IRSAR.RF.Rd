@@ -133,6 +133,11 @@ Here the sliding is done by searching for the minimum of the squared residuals.\
 
 \bold{\code{method.control}}\cr
 
+To keep the generic argument list as clear as possible, arguments to control the methods
+for De estimation are all preset with meaningful default parameters and can be
+handled using the argument \code{method.control} only, e.g.,
+\code{method.control = list(trace = TRUE)}. Supported arguments are:\cr
+
 \tabular{lll}{
 ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
 \code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \code{\link{nls}}; shows sum of squared residuals\cr
@@ -218,7 +223,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.5.0 (2015-10-11 03:05:33)
+ 0.5.0 (2015-10-11 11:47:28)
 }
 \examples{
 ##load data
