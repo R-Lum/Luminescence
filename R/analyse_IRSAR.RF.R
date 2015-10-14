@@ -214,7 +214,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.5.0
+#' @section Function version: 0.5.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -294,6 +294,11 @@ analyse_IRSAR.RF<- function(
   plot = TRUE,
   ...
 ){
+
+  ##TODO
+  ## - standard path to a file should be allowed as well as a function self call
+  ## - if a file path is given, the function should try to find out whether an XSYG-file or
+  ##   a BIN-file is provided
 
   ##===============================================================================================#
   ## INTEGRITY TESTS AND SEQUENCE STRUCTURE TESTS
@@ -818,8 +823,16 @@ analyse_IRSAR.RF<- function(
 
         })
 
-      ##(4) get residuals (need to be plotted later)
-      residuals <- RF_nat.limited[,2] - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
+      ##(4) get residuals (needed to be plotted later)
+      ## they cannot be longer than the RF_reg.limited curve
+      if((t_n.id+length(RF_nat.limited[,2])-1) >= nrow(RF_reg.limited)){
+        residuals <- RF_nat.limited[1:length(t_n.id:nrow(RF_reg.limited)),2]
+        - RF_reg.limited[t_n.id:nrow(RF_reg.limited), 2]
+
+      }else{
+        residuals <- RF_nat.limited[,2] - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
+
+      }
 
       ##(4.1) calculate De from the first channel ... which is t_n here
       De <- round(t_n, digits = 2)
@@ -827,7 +840,15 @@ analyse_IRSAR.RF<- function(
       temp.trend.fit <- NA
 
       ##(5) calculate trend fit
-      temp.trend.fit <- coef(lm(y~x, data.frame(x = RF_nat.limited[,1], y = residuals)))
+      if(length(RF_nat.limited[,1]) > length(residuals)){
+        temp.trend.fit <- coef(lm(y~x,
+                                  data.frame(x = RF_nat.limited[1:length(residuals),1], y = residuals)))
+
+      }else{
+        temp.trend.fit <- coef(lm(y~x, data.frame(x = RF_nat.limited[,1], y = residuals)))
+
+      }
+
 
 
       ##return values and limited if they are not needed
@@ -869,13 +890,30 @@ analyse_IRSAR.RF<- function(
 
     ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
     ##(i.e., bootstrap from the natural curve distribution)
+
     slide.MC.list <- lapply(1:n.MC,function(x) {
-      cbind(
-        RF_nat.limited[,1],
-        (RF_reg.limited[slide$t_n.id:(slide$t_n.id + nrow(RF_nat.limited)-1) ,2]
-         + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
+
+      ##also here we have to account for the case that user do not understand
+      ##what they are doing ...
+      if(slide$t_n.id + nrow(RF_nat.limited)-1 > nrow(RF_reg.limited)){
+        cbind(
+          RF_nat.limited[1:length(slide$t_n.id:nrow(RF_reg.limited)),1],
+          (RF_reg.limited[slide$t_n.id:nrow(RF_reg.limited) ,2]
+           + sample(residuals,
+                    size = length(slide$t_n.id:nrow(RF_reg.limited)),
+                    replace = TRUE)
+          )
         )
-      )
+
+      }else{
+        cbind(
+          RF_nat.limited[,1],
+          (RF_reg.limited[slide$t_n.id:(slide$t_n.id + nrow(RF_nat.limited)-1) ,2]
+           + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
+          )
+        )
+      }
+
     })
 
 
@@ -937,7 +975,7 @@ analyse_IRSAR.RF<- function(
   TP <- list(
     curves_ratio = 1.001,
     residuals_slope = NA,
-    curves_bounds = as.integer(max(RF_reg.x)),
+    curves_bounds = ceiling(max(RF_reg.x)),
     dynamic_ratio = NA,
     lambda = 1e-04,
     beta = NA,
@@ -1052,11 +1090,12 @@ analyse_IRSAR.RF<- function(
   ##TP$curves_bounds
   if (!is.null(TP$curves_bounds)) {
     if(exists("slide")){
-      TP$curves_bounds$VALUE <- max(RF_nat.slided[,1])
+      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1])
 
        if (!is.na(TP$curves_bounds$THRESHOLD)){
-        TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= max(RF_reg.x), "FAILED", "OK")
+        TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")
        }
+
 
     }else if(exists("fit")){
       TP$curves_bounds$VALUE <- De.upper
@@ -1153,7 +1192,7 @@ analyse_IRSAR.RF<- function(
       ##build list of failed TP
       mtext.message <- paste0(
         "Threshold exceeded for:  ",
-        paste(subset(TP.data.frame, TP.data.frame$STATUS == "FAILED")$PARAMETER, collapse = ", "))
+        paste(subset(TP.data.frame, TP.data.frame$STATUS == "FAILED")$PARAMETER, collapse = ", "),". For details see manual.")
 
       ##print mtext
       mtext(text = mtext.message,
@@ -1323,7 +1362,7 @@ analyse_IRSAR.RF<- function(
       ##(0) density plot
       if (method.control.settings$show_density) {
         ##showing the density makes only sense when we see at least 10 data points
-        if (length(unique(De.MC)) >= 10) {
+        if (length(unique(De.MC)) >= 15) {
           ##calculate density De.MC
           density.De.MC <- density(De.MC)
 
@@ -1490,8 +1529,18 @@ analyse_IRSAR.RF<- function(
 
 
       ##add residual points
-      points(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)),1], residuals,
-             pch = 20, col = col[19])
+      if(length(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)),1]) > length(residuals)){
+        temp.points.diff <- length(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)),1]) -
+          length(residuals)
+
+        points(RF_nat.slided[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)),1], residuals,
+               pch = 20, col = col[19])
+
+      }else{
+        points(RF_nat.slided[c(min(RF_nat.lim):max(RF_nat.lim)),1], residuals,
+               pch = 20, col = col[19])
+
+      }
 
       ##add vertical line to mark De (t_n)
       abline(v = De, lty = 2, col = col[2])

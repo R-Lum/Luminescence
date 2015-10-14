@@ -94,6 +94,12 @@
         \item now also the sliding matrix is returned with the RLum.Results 'data.object' \code{slide},
         \item the way the error is calculated was changed again to account for drawbacks if always
         just the global minimum is chosen (details see manual),
+        \item adjust the threshold finding for the criterium 'curve_bounds' to ensure that a warning message
+        is shown, if results should not be used,
+        \item the 'curve_bounds' message will no longer be shown, if the natural curve was limited
+        by the argument \code{RF_nat.lim} and within the curve limits the bounds have not been reached,
+        \item fix a bug that forces the function to crash if a limited atural curve reached the end
+        of the regenerated curve after sliding and remains longer (#254),
         \item some graphical adjustments.
 
 
@@ -256,7 +262,12 @@
 
         \item Set function on deprecated, new name: \code{read_BIN2R()},
         \item new argument \code{position} implemented that allows to limit the import to specific positions
-        (this will have, however, no positive effect on the import performance).
+        (this will have, however, no positive effect on the import performance),
+        \item add argument \code{...} to let arguments pass to the function \code{Risoe.BINfileData2RLum.Analysis},
+        this case the argument \code{fastForward} will forced to \code{TRUE},
+        \item argument \code{file} now supports a \code{list} of file names or just a path, in this
+        case the funtions tries to detect and import all possible BIN/BINX files found in this path.
+
 
       }
 
