@@ -8,9 +8,11 @@
 #' general BIN-file structure, the reader is referred to the Risoe website:
 #' \code{http://www.nutech.dtu.dk/}
 #'
-#' @param file \link{character} (\bold{required}): bin-file name (including
-#' path), e.g. \cr [WIN]: \code{read_BIN2R("C:/Desktop/test.bin")}, \cr
-#' [MAC/LINUX]: \code{read_BIN2R("/User/test/Desktop/test.bin")}
+#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
+#' BIN/BINX file. If input is a \code{list} it should comprise only \code{character}s representing
+#' each valid path and BIN/BINX-file names.
+#' Alternatively the input character can be just a directory (path), in this case the
+#' the function tries to detect and import all BIN/BINX files found in the directory.
 #'
 #' @param show.raw.values \link{logical} (with default): shows raw values from
 #' BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
@@ -38,6 +40,10 @@
 #' BIN-file version is not supported.\cr Note: The usage is at own risk, only
 #' supported BIN-file versions have been tested.
 #'
+#' @param \dots further arguments that will be passed to the function
+#' \code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument
+#' automatically sets \code{fastForward = TRUE}
+#'
 #' @return Returns an S4 \link{Risoe.BINfileData-class} object containing two
 #' slots:\cr \item{METADATA}{A \link{data.frame} containing all variables
 #' stored in the bin-file.} \item{DATA}{A \link{list} containing a numeric
@@ -54,7 +60,7 @@
 #' implementation of version 07 support could not been tested so far.}.
 #'
 #'
-#' @section Function version: 0.9.2
+#' @section Function version: 0.10.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -87,13 +93,72 @@
 read_BIN2R <- function(
   file,
   show.raw.values = FALSE,
-  position,
-  n.records,
+  position = NULL,
+  n.records = NULL,
   fastForward = FALSE,
   show.record.number = FALSE,
   txtProgressBar = TRUE,
-  forced.VersionNumber
+  forced.VersionNumber = NULL,
+  ...
 ){
+
+  # Self Call -----------------------------------------------------------------------------------
+  # Option (a): Input is a list, every element in the list will be treated as file connection
+  # with that many file can be read in at the same time
+  # Option (b): The input is just a path, the function tries to grep ALL BIN/BINX files in the
+  # directory and import them, if this is detected, we proceed as list
+
+  if(is(file, "character")) {
+
+    ##If this is not really a path we skip this here
+    if (dir.exists(file) & length(dir(file)) > 0) {
+      cat("[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n")
+      file <-
+        as.list(c(
+          paste0(file,dir(
+            file, recursive = FALSE, pattern = ".bin"
+          )),
+          paste0(file,dir(
+            file, recursive = FALSE, pattern = ".binx"
+          )),
+          paste0(file,dir(
+            file, recursive = FALSE, pattern = ".BIN"
+          )),  paste0(file,dir(
+            file, recursive = FALSE, pattern = ".BINX"
+          ))
+        ))
+
+    }
+
+  }
+
+  if (is(file, "list")) {
+    temp.return <- lapply(1:length(file), function(x) {
+      read_BIN2R(
+        file = file[[x]],
+        fastForward = fastForward,
+        position = position,
+        n.records = n.records,
+        show.raw.values =  show.raw.values,
+        show.record.number = show.record.number,
+        txtProgressBar = txtProgressBar,
+        forced.VersionNumber = forced.VersionNumber,
+        ...
+      )
+    })
+
+    ##return
+    if (fastForward) {
+      return(unlist(temp.return, recursive = FALSE))
+
+    }else{
+      return(temp.return)
+
+    }
+
+  }
+
+
 
   # Integrity checks ------------------------------------------------------
 
@@ -135,7 +200,7 @@ read_BIN2R <- function(
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
     ##force version number
-    if(!missing(forced.VersionNumber)){
+    if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
@@ -346,7 +411,7 @@ read_BIN2R <- function(
 
   ##show warning if version number check has been cheated
 
-  if(missing(forced.VersionNumber) == FALSE){
+  if(!is.null(forced.VersionNumber)){
     warning("Argument 'forced.VersionNumber' has been used. BIN-file version might be not supported!")
   }
 
@@ -376,7 +441,7 @@ read_BIN2R <- function(
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
     ##force version number
-    if(!missing(forced.VersionNumber)){
+    if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
@@ -987,7 +1052,7 @@ read_BIN2R <- function(
 
     ##BREAK
     ##stop loop if record limit is reached
-    if (missing(n.records) == FALSE) {
+    if (!is.null(n.records)) {
       if (n.records == temp.ID) {
         break()
       }
@@ -1012,7 +1077,7 @@ read_BIN2R <- function(
   cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))
 
   # Further limitation --------------------------------------------------------------------------
-  if(!missing(position)){
+  if(!is.null(position)){
 
     ##check whether the position is valid at all
     if (all(position %in% results.METADATA$POSITION)) {
@@ -1074,10 +1139,20 @@ read_BIN2R <- function(
   }
 
 
+  # Fast Forward --------------------------------------------------------------------------------
+  ## set fastForward to TRUE if one of this arguments is used
+  if(any(names(list(...)) %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]) &
+     fastForward == FALSE) {
+    fastForward <- TRUE
+    warning("[read_BIN2R()] automatically reset 'fastForward = TRUE'")
+
+  }
+
   ##return values
   ##with fast fastForward they will be converted directly to a list of RLum.Analysis objects
   if(fastForward){
-     object <- Risoe.BINfileData2RLum.Analysis(object)
+     object <- Risoe.BINfileData2RLum.Analysis(object, ...)
+
 
      ##because we expect a list
      if(!is(object, "list")){

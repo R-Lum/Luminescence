@@ -262,7 +262,12 @@
 
         \item Set function on deprecated, new name: \code{read_BIN2R()},
         \item new argument \code{position} implemented that allows to limit the import to specific positions
-        (this will have, however, no positive effect on the import performance).
+        (this will have, however, no positive effect on the import performance),
+        \item add argument \code{...} to let arguments pass to the function \code{Risoe.BINfileData2RLum.Analysis},
+        this case the argument \code{fastForward} will forced to \code{TRUE},
+        \item argument \code{file} now supports a \code{list} of file names or just a path, in this
+        case the funtions tries to detect and import all possible BIN/BINX files found in this path.
+
 
       }
 

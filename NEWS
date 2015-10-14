@@ -280,7 +280,16 @@ Changes in version 0.5.0 (, 2015):
 
              • new argument ‘position’ implemented that allows to limit
                the import to specific positions (this will have,
-               however, no positive effect on the import performance).
+               however, no positive effect on the import performance),
+
+             • add argument ‘...’ to let arguments pass to the function
+               ‘Risoe.BINfileData2RLum.Analysis’, this case the
+               argument ‘fastForward’ will forced to ‘TRUE’,
+
+             • argument ‘file’ now supports a ‘list’ of file names or
+               just a path, in this case the funtions tries to detect
+               and import all possible BIN/BINX files found in this
+               path.
 
          • ‘readSPE2R()’
 
