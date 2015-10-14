@@ -94,6 +94,12 @@
         \item now also the sliding matrix is returned with the RLum.Results 'data.object' \code{slide},
         \item the way the error is calculated was changed again to account for drawbacks if always
         just the global minimum is chosen (details see manual),
+        \item adjust the threshold finding for the criterium 'curve_bounds' to ensure that a warning message
+        is shown, if results should not be used,
+        \item the 'curve_bounds' message will no longer be shown, if the natural curve was limited
+        by the argument \code{RF_nat.lim} and within the curve limits the bounds have not been reached,
+        \item fix a bug that forces the function to crash if a limited atural curve reached the end
+        of the regenerated curve after sliding and remains longer (#254),
         \item some graphical adjustments.
 
 
