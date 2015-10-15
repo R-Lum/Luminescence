@@ -29,7 +29,11 @@
         \item the method was enhanced to deal with objects of type \code{list} containing only
         \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding
          \code{get_RLum} methods
-        are called.
+        are called,
+        \item argument \code{keep.object} (for \code{RLum.Analysis} objects) has been replace by
+        \code{drop}. The default is \code{drop = TRUE}, this mean common behaviour changes
+        as former it was \code{keep.object = TRUE}. However, \code{drop} is behaviour consistent
+        with standard R code.
 
       }
 

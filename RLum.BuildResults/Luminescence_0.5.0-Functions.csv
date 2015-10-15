@@ -1,7 +1,7 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
-"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.5.1","2015-10-15","10:31:55
+"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.5.1","2015-10-15","18:01:11
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.1.4","2015-09-22","09:41:30
+"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.1.4","2015-10-15","18:01:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.6.3","2015-09-24","16:32:32
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -63,7 +63,7 @@
 "ExampleData.RLum.Analysis","Example data as  RLum.Analysis  objects","<br /> Collection of different  RLum.Analysis  objects for<br /> protocol analysis.<br />",NA,NA,NA,NA
 "ExampleData.RLum.Data.Image","Example data as  RLum.Data.Image  objects","<br /> Measurement of Princton Instruments camera imported with the function<br /> read_SPE2R  to R to produce an<br /> RLum.Data.Image  object.<br />",NA,NA,NA,NA
 "ExampleData.XSYG","Example data for a SAR OSL measurement and a TL spectrum using a lexsyg<br /> reader","<br /> Example data from a SAR OSL measurement and a TL spectrum for package<br /> Luminescence imported from a Freiberg Instruments XSYG file using the<br /> function  read_XSYG2R .<br />",NA,NA,NA,NA
-"extract_IrradiationTimes","Extract irradiation times from an XSYG file","<br /> Extracts irradiation times, dose and times since last irradiation, from a<br /> Freiberg Instruments XSYG-file. These information can be further used to<br /> update an existing BINX-file<br />","0.2.1","2015-09-22","09:41:30
+"extract_IrradiationTimes","Extract irradiation times from an XSYG file","<br /> Extracts irradiation times, dose and times since last irradiation, from a<br /> Freiberg Instruments XSYG-file. These information can be further used to<br /> update an existing BINX-file<br />","0.2.1","2015-10-15","18:02:09
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "fit_CWCurve","Nonlinear Least Squares Fit for CW-OSL curves [beta version]","<br /> The function determines the weighted least-squares estimates of the<br /> component parameters of a CW-OSL signal for a given maximum number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the  nls  function with the  port  algorithm.<br />","0.5.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -106,7 +106,7 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> read_BIN2R  function.<br />","0.4.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.7","2015-09-22","09:41:30
+"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.7","2015-10-15","18:03:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Curve","Plot function for an RLum.Data.Curve S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Data.Curve S4 class object<br />","0.1.5","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

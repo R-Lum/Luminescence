@@ -17,7 +17,7 @@
 \S4method{set_RLum}{RLum.Analysis}(class, records, protocol)
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
-  RLum.type, protocol = "UNKNOWN", subset, get.index, keep.object = FALSE,
+  RLum.type, protocol = "UNKNOWN", subset, get.index, drop = TRUE,
   recursive = TRUE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
@@ -47,8 +47,8 @@ and "RLum.Data.Spectrum".}
 \item{get.index}{[\code{get_RLum}] \code{\link{logical}} (optional): return a numeric vector with the index of each
 element in the RLum.Analysis object.}
 
-\item{keep.object}{[\code{get_RLum}] \code{\link{logical}} (with default):
-return an RLum.Analysis object instead of the single elements.}
+\item{drop}{[\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
+(which are \code{RLum.Data}-objects), \code{drop = FALSE} keeps the original \code{RLum.Analysis}}
 
 \item{recursive}{[\code{get_RLum}] \code{\link{logical}} (with default): if \code{TRUE} (the default)
 and the result of the 'get_RLum' request is a single object this object will be unlisted, means
@@ -102,7 +102,7 @@ avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 showClass("RLum.Analysis")
 
 ## usage of get_RLum() with returning an RLum.Analysis object
-#  get_RLum(object, keep.object = TRUE)
+#  get_RLum(object, drop = TRUE)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

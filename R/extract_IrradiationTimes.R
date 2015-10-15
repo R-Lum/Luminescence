@@ -175,7 +175,7 @@ extract_IrradiationTimes <- function(
       ##select sequence and reduce the data set to really wanted values
       temp.sequence.list[[i]] <- get_RLum(temp.XSYG[[i]]$Sequence.Object,
                                                    recordType = recordType,
-                                                   keep.object = TRUE)
+                                                   drop = FALSE)
 
 
       ##get corresponding position number, this will be needed later on

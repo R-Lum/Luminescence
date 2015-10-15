@@ -77,7 +77,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.7 (2015-09-22 09:41:30)
+ 0.2.7 (2015-10-15 18:03:14)
 }
 \examples{
 ###load data
@@ -90,7 +90,7 @@ temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 plot_RLum.Analysis(temp)
 
 ##plot (combine) TL curves in one plot
-temp.sel <- get_RLum(temp, recordType = "TL", keep.object = TRUE)
+temp.sel <- get_RLum(temp, recordType = "TL", drop = FALSE)
 plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 }
 \author{

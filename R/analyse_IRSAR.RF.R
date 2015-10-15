@@ -329,7 +329,7 @@ analyse_IRSAR.RF<- function(
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
   if(!length(suppressWarnings(get_RLum(object, curveType= "measured"))) == 0){
-    object <- get_RLum(object, curveType= "measured", keep.object = TRUE)
+    object <- get_RLum(object, curveType= "measured", drop = FALSE)
 
   }
 
