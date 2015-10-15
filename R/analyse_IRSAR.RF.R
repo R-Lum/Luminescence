@@ -319,6 +319,13 @@ analyse_IRSAR.RF<- function(
     stop("[analyse_IRSAR.RF()] argument 'sequence.structure' needs to be of type character.")
   }
 
+    ##n.MC
+    if(!is(n.MC, "numeric") || n.MC <= 0){
+      stop("[analyse_IRSAR.RF()] argument 'n.MC' has to be of type integer and >= 0")
+    }
+
+
+
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
   if(!length(suppressWarnings(get_RLum(object, curveType= "measured"))) == 0){
