@@ -204,7 +204,7 @@ analyse_pIRIRSequence <- function(
 
   ##removed record from data set
   object <- get_RLum(object, record.id = -temp.sequence.rm.id,
-        keep.object = TRUE
+        drop = FALSE
       )
 
   ##compile warning message
@@ -234,7 +234,7 @@ analyse_pIRIRSequence <- function(
 
     ##remove from object
     object  <- get_RLum(
-      object, record.id = -temp.sequence.rm.id, keep.object = TRUE)
+      object, record.id = -temp.sequence.rm.id, drop = FALSE)
 
     ##remove from sequence structure
     sequence.structure  <- sequence.structure[sequence.structure != "EXCLUDE"]
@@ -372,7 +372,7 @@ analyse_pIRIRSequence <- function(
       sort(c(TL.curves.id, IRSL.curves.id[seq(i,length(IRSL.curves.id),by=n.loops)]))
 
     ##(a) select data set (TL curves has to be considered for the data set)
-    temp.curves <- get_RLum(object, record.id = temp.id.sel, keep.object = TRUE)
+    temp.curves <- get_RLum(object, record.id = temp.id.sel, drop = FALSE)
 
     ##(b) grep integral limits as they might be different for different curves
     if(length(signal.integral.min)>1){

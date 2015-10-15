@@ -32,7 +32,16 @@ Changes in version 0.5.0 (, 2015):
              • the method was enhanced to deal with objects of type
                ‘list’ containing only ‘RLum’ objects. Depending on the
                ‘RLum’ objects in the list the corresponding ‘get_RLum’
-               methods are called.
+               methods are called,
+
+             • argument ‘keep.object’ (for ‘RLum.Analysis’ objects) has
+               been replace by ‘drop’. The default is ‘drop = TRUE’,
+               this mean common behaviour changes as former it was
+               ‘keep.object = TRUE’. However, ‘drop’ is behaviour
+               consistent with standard R code,
+
+             • argument ‘data.object’ (‘get_RLum’ for 'RLum.Results'
+               objects can now handle numeric values)
 
          • ‘merge_RLum’
 
@@ -366,6 +375,13 @@ Changes in version 0.5.0 (, 2015):
            produced automatically. Corrected.
 
          • Add methods for S3 generics for RLum-objects:
+
+             • ‘`[`’ : ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’,
+               ‘RLum.Data.Image’, ‘RLum.Analysis’
+
+             • ‘`[[`’ : ‘RLum.Analysis’, ‘RLum.Results’
+
+             • ‘`$`’ : ‘RLum.Results’
 
              • ‘`+`’ : ‘RLum.Data.Curve’
 

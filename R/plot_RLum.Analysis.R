@@ -85,7 +85,7 @@
 #' plot_RLum.Analysis(temp)
 #'
 #' ##plot (combine) TL curves in one plot
-#' temp.sel <- get_RLum(temp, recordType = "TL", keep.object = TRUE)
+#' temp.sel <- get_RLum(temp, recordType = "TL", drop = FALSE)
 #' plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
 #'
 #'
@@ -165,9 +165,9 @@ plot_RLum.Analysis <- function(
   # Make selection if wanted  -------------------------------------------------------------------
   if(!missing(subset)){
 
-    ##check whether the user set the keep.object option ...
-    subset <- subset[!sapply(names(subset), function(x){"keep.object" %in% x})]
-    object <- do.call(get_RLum,c(object,subset, keep.object = TRUE))
+    ##check whether the user set the drop option ...
+    subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
+    object <- do.call(get_RLum,c(object,subset, drop = FALSE))
 
   }
 
@@ -375,7 +375,7 @@ plot_RLum.Analysis <- function(
 
       ###get type of curves
       temp.object <-
-        get_RLum(object, recordType = temp.recordType[k], keep.object = TRUE)
+        get_RLum(object, recordType = temp.recordType[k], drop = FALSE)
 
       ##get structure
       object.structure  <- structure_RLum(temp.object)

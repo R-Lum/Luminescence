@@ -29,7 +29,13 @@
         \item the method was enhanced to deal with objects of type \code{list} containing only
         \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding
          \code{get_RLum} methods
-        are called.
+        are called,
+        \item argument \code{keep.object} (for \code{RLum.Analysis} objects) has been replace by
+        \code{drop}. The default is \code{drop = TRUE}, this mean common behaviour changes
+        as former it was \code{keep.object = TRUE}. However, \code{drop} is behaviour consistent
+        with standard R code,
+        \item argument \code{data.object} (\code{get_RLum} for 'RLum.Results' objects can now handle
+        numeric values)
 
       }
 
@@ -344,6 +350,9 @@
       \item Add methods for S3 generics for RLum-objects:
       \itemize{
 
+        \item \code{`[`} : \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image}, \code{RLum.Analysis}
+        \item \code{`[[`} : \code{RLum.Analysis}, \code{RLum.Results}
+        \item \code{`$`} :  \code{RLum.Results}
         \item \code{`+`} : \code{RLum.Data.Curve}
         \item \code{`-`} : \code{RLum.Data.Curve}
         \item \code{`*`} : \code{RLum.Data.Curve}
