@@ -259,7 +259,8 @@
       \item \code{plot_RLum.Analysis()}
       \itemize{
 
-        \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE}.
+        \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE},
+        \item this methods now supports a vector for the argument \code{main}.
 
       }
 

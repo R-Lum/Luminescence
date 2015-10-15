@@ -281,7 +281,10 @@ Changes in version 0.5.0 (, 2015):
          • ‘plot_RLum.Analysis()’
 
              • The ‘...’ argument ‘main’ can now be provided as vector
-               if ‘combine = TRUE’.
+               if ‘combine = TRUE’,
+
+             • this methods now supports a vector for the argument
+               ‘main’.
 
          • ‘readBIN2R()’
 
