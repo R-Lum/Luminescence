@@ -134,6 +134,14 @@
 
       }
 
+       \item \code{analyse_SAR.TL()}
+      \itemize{
+
+        \item New argument \code{dose.points} and its functionality added.
+
+      }
+
+
       \item \code{calc_CentralDose()}
        \itemize{
 
@@ -302,6 +310,8 @@
      \item \code{Risoe.BINfileData2RLum.Analysis()}
       \itemize{
 
+        \item If the lower temperature for the TL curve calculation was not at 0, wrong shifted
+        TL curves had been produced (this happens normally for BIN-files produced by FI lexsyg readers),
         \item A new argument \code{grain} can be used to further limit the transformation to
         specific grains in the data set,
         \item the arguement \code{pos} is no longer required. If nothing is provided every position

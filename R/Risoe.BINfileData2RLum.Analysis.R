@@ -46,7 +46,7 @@
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -240,9 +240,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
             i <-
               seq(
-                object@METADATA[x,"HIGH"] / object@METADATA[x,"NPOINTS"],
+                object@METADATA[x,"LOW"],
                 object@METADATA[x,"HIGH"],
-                by = object@METADATA[x,"HIGH"] / object@METADATA[x,"NPOINTS"]
+                length.out = object@METADATA[x,"NPOINTS"]
               )
 
             j <- unlist(object@DATA[x])
