@@ -55,7 +55,8 @@ get_Quote <- function(
     c("Response to the reviewer", "You are right, it was just a guess."),
     c("An aliquot disc", "The answer [...] is: 48"),
     c("Push Pin", "Made of used sample carriers"),
-    c("A motivated R-Team member", "We are doing this not just for statistical reasons, there is real science behind it!"))
+    c("A motivated R-Team member", "We are doing this not just for statistical reasons, there is real science behind it!"),
+    c("An enthusiastic cabaret artist", "Political elections are like brushing teeth: if you don't do it, things become brown."))
 
   ## Check input data
   if(missing(ID) == TRUE & missing(author) == TRUE) {
