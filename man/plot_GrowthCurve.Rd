@@ -9,7 +9,8 @@ plot_GrowthCurve(sample, na.rm = TRUE, fit.method = "EXP",
   fit.includingRepeatedRegPoints = TRUE, fit.NumberRegPoints,
   fit.NumberRegPointsReal, fit.bounds = TRUE, NumberIterations.MC = 100,
   output.plot = TRUE, output.plotExtended = TRUE,
-  output.plotExtended.single = FALSE, cex.global = 1, ...)
+  output.plotExtended.single = FALSE, cex.global = 1,
+  txtProgressBar = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{sample}{\code{\link{data.frame}} (\bold{required}): data frame with
@@ -67,6 +68,11 @@ single plot windows. Requires \code{output.plot = TRUE} and
 \item{cex.global}{\code{\link{numeric}} (with default): global scaling
 factor.}
 
+\item{txtProgressBar}{\code{\link{logical}} (with default): enables or disables txtProgressBar.
+If \code{verbose = FALSE} also no txtProgressBar is shown.}
+
+\item{verbose}{\code{\link{logical}} (with default): enables or disables terminal feedback.}
+
 \item{\dots}{Further arguments and graphical parameters to be passed. Note:
 Standard arguments will only be passed to the growth curve plot. Supported:
 \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}}
@@ -123,7 +129,7 @@ provide an empty user mtext \code{mtext = ""}. To plot any other subtitle
 text, use \code{mtext}.
 }
 \section{Function version}{
- 1.7.3 (2015-10-02 19:04:55)
+ 1.7.4 (2015-10-16 13:28:09)
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value

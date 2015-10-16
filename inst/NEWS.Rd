@@ -241,7 +241,9 @@
         \item add argument \code{fit.force_through_origin}, it does exactly what you may expect from such
         argument (#225, requested by Alice Versendaal),
         \item get rid of some not very informative warning messages if some fitting failed and if start
-        parameters are not set sufficiently.
+        parameters are not set sufficiently,
+        \item add argument \code{txtProgressBar} and \code{verbose} to provide more output options
+        (this is helpful when writing tutorials).
 
 
       }
