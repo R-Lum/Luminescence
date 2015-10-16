@@ -29,6 +29,9 @@
 #' relevant for the protocol analysis.  (Note: None TL are removed by default)
 #' @param rejection.criteria \link{list} (with default): list containing
 #' rejection criteria in percentage for the calculation.
+#'
+#' @param dose.points \code{\link{numeric}} (optional): option set dose points manually
+#'
 #' @param log \link{character} (with default): a character string which
 #' contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
 #' logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
@@ -83,6 +86,7 @@ analyse_SAR.TL <- function(
   signal.integral.max,
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
+  dose.points,
   log = "",
   ...
 ){
@@ -142,7 +146,7 @@ analyse_SAR.TL <- function(
       temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","x.max"]))>1){
 
     stop(paste(
-      "[analyse_SAR.TL] Error: Signal range differs. Check sequence structure.\n",
+      "[analyse_SAR.TL()] Signal range differs. Check sequence structure.\n",
       temp.sequence.structure
     ))
   }
@@ -150,7 +154,7 @@ analyse_SAR.TL <- function(
   ##check if the wanted curves are a multiple of the structure
   if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0){
 
-    stop("[analyse_SAR.TL] Input TL curves are not a multiple of the sequence structure.")
+    stop("[analyse_SAR.TL()] Input TL curves are not a multiple of the sequence structure.")
 
   }
 
@@ -185,6 +189,7 @@ analyse_SAR.TL <- function(
     ##grep dose
     temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME
 
+
     temp.LnLxTnTx <- cbind(Dose=temp.Dose, temp.LnLxTnTx)
 
     if(exists("LnLxTnTx")==FALSE){
@@ -198,18 +203,22 @@ analyse_SAR.TL <- function(
     }
   }
 
+  ##set dose.points manual if argument was set
+  if(!missing(dose.points)){
+    temp.Dose <- dose.points
+    LnLxTnTx$Dose <- dose.points
+
+  }
 
   # Set regeneration points -------------------------------------------------
 
   #generate unique dose id - this are also the # for the generated points
-  temp.DoseID <- c(0:(length(LnLxTnTx$Dose)-1))
+  temp.DoseID <- c(0:(length(temp.Dose)-1))
   temp.DoseName <- paste("R",temp.DoseID,sep="")
-  temp.DoseName <- cbind(Name=temp.DoseName,Dose=LnLxTnTx$Dose)
-
+  temp.DoseName <- cbind(Name=temp.DoseName,Dose=temp.Dose)
 
   ##set natural
   temp.DoseName[temp.DoseName[,"Name"]=="R0","Name"]<-"Natural"
-
 
   ##set R0
   temp.DoseName[temp.DoseName[,"Name"]!="Natural" & temp.DoseName[,"Dose"]==0,"Name"]<-"R0"
@@ -226,6 +235,7 @@ analyse_SAR.TL <- function(
   ##combine in the data frame
   temp.LnLxTnTx<-data.frame(Name=temp.DoseName[,"Name"],
                             Repeated=as.logical(temp.DoseName[,"Repeated"]))
+
 
   LnLxTnTx<-cbind(temp.LnLxTnTx,LnLxTnTx)
   LnLxTnTx[,"Name"]<-as.character(LnLxTnTx[,"Name"])
@@ -270,7 +280,6 @@ analyse_SAR.TL <- function(
 
 
   ##Recuperation Rate
-
   if("R0" %in% LnLxTnTx[,"Name"]==TRUE){
     Recuperation<-round(LnLxTnTx[LnLxTnTx[,"Name"]=="R0","LxTx"]/
                           LnLxTnTx[LnLxTnTx[,"Name"]=="Natural","LxTx"],digits=4)

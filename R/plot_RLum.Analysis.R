@@ -64,14 +64,18 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
 #'
-#' @section Function version: 0.2.7
+#' @section Function version: 0.2.8
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
 #' @seealso \code{\link{plot}}, \code{\link{plot_RLum}},
 #' \code{\link{plot_RLum.Data.Curve}}
+#'
 #' @references #
+#'
 #' @keywords aplot
+#'
 #' @examples
 #'
 #'
@@ -115,12 +119,23 @@ plot_RLum.Analysis <- function(
   extraArgs <- list(...)
 
   ##main
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {""}
+  main <- if ("main" %in% names(extraArgs)) {
+
+      ##main - allow to set different mains
+      if(length(extraArgs$main) == 1 | length(extraArgs$main) < length(object)){
+        rep(x =  extraArgs$main, length(object))
+
+      } else{
+        extraArgs$main
+
+      }
+    } else{
+      NULL
+    }
 
   ##mtext
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else
-  {""}
+  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$text} else
+  {NULL}
 
   ##log
   log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
@@ -282,7 +297,7 @@ plot_RLum.Analysis <- function(
                              },
                              mtext = paste("#",i,sep=""),
                              par.local = FALSE,
-                             main = if(main==""){temp[[i]]@recordType}else{main},
+                             main = if(is.null(main)){temp[[i]]@recordType}else{main[i]},
                              log = log,
                              lwd = lwd,
                              type = type,
@@ -311,7 +326,7 @@ plot_RLum.Analysis <- function(
 
                                 mtext = paste("#",i,sep=""),
                                 par.local = FALSE,
-                                main = if(main==""){temp[[i]]@recordType}else{main})
+                                main = if(main==""){temp[[i]]@recordType}else{main[i]})
 
       }
 

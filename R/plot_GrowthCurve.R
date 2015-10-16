@@ -94,6 +94,11 @@
 #' @param cex.global \code{\link{numeric}} (with default): global scaling
 #' factor.
 #'
+#' @param txtProgressBar \code{\link{logical}} (with default): enables or disables txtProgressBar.
+#' If \code{verbose = FALSE} also no txtProgressBar is shown.
+#'
+#' @param verbose \code{\link{logical}} (with default): enables or disables terminal feedback.
+#'
 #' @param \dots Further arguments and graphical parameters to be passed. Note:
 #' Standard arguments will only be passed to the growth curve plot. Supported:
 #' \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}
@@ -107,7 +112,7 @@
 #' .. $Formula : \code{expression} \cr
 #' .. $call : \code{call} (the original function call)\cr
 #'
-#' @section Function version: 1.7.3
+#' @section Function version: 1.7.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -151,6 +156,8 @@ plot_GrowthCurve <- function(
   output.plotExtended = TRUE,
   output.plotExtended.single = FALSE,
   cex.global = 1,
+  txtProgressBar = TRUE,
+  verbose = TRUE,
   ...
 ) {
 
@@ -167,19 +174,29 @@ plot_GrowthCurve <- function(
   ## optionally, count and exclude NA values and print result
   if(na.rm == TRUE) {
     n.NA <- sum(!complete.cases(sample))
-    if(n.NA == 1) {cat("\n [plot_GrowthCurve()] 1 NA value excluded.")
-    } else if(n.NA > 1) {cat(paste("\n [plot_GrowthCurve()]", n.NA, "NA values excluded."))}
+
+    if (n.NA == 1) {
+      warning("[plot_GrowthCurve()] 1 NA value excluded.")
+    } else if (n.NA > 1) {
+      warning(paste(" [plot_GrowthCurve()]", n.NA, "NA values excluded."))
+    }
 
     sample <- na.exclude(sample)
 
     ##Check if anything is left after removal
     if(nrow(sample) == 0){
 
-      stop("[plot_GrowthCurve()] Sorry, after NA removal nothing is left from the data set!")
-
+      warning("[plot_GrowthCurve()] Sorry, after NA removal nothing is left from the data set! NULL returned")
+      return(NULL)
     }
 
   }
+
+  ##3. verbose mode
+  if(!verbose){
+    txtProgressBar <- FALSE
+  }
+
 
   ##remove rownames from data.frame, as this could causes errors for the reg point calculation
   rownames(sample) <- NULL
@@ -187,9 +204,8 @@ plot_GrowthCurve <- function(
 
   ##NULL values in the data.frame are not allowed for the y-column
   if(length(sample[sample[,2]==0,2])>0){
-    cat("\n[plot_GrowthCurve()] Warning:",
-        length(sample[sample[,2]==0,2]),"values with 0 for Lx/Tx detected; replaced by 0.0001.\n")
-    sample[sample[,2]==0,2]<-0.0001
+     sample[sample[,2]==0,2]<-0.0001
+     warning(paste("[plot_GrowthCurve()]", length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by 0.0001."))
   }
 
   ##1. INPUT
@@ -411,7 +427,7 @@ plot_GrowthCurve <- function(
 
       if (class(fit)=="try-error"){
 
-        writeLines("[plot_GrowthCurve()] >> try-error for EXP fit")
+        if(verbose) writeLines("[plot_GrowthCurve()] >> try-error for EXP fit")
 
       }else{
         #get parameters out of it
@@ -427,7 +443,7 @@ plot_GrowthCurve <- function(
 
         #print D01 value
         D01<-round(b,digits=2)
-        writeLines(paste0("[plot_GrowthCurve()] >> D01 = ",D01, " | De = ", De))
+        if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> D01 = ",D01, " | De = ", De))
 
 
         ##Monte Carlo Simulation
@@ -680,7 +696,7 @@ plot_GrowthCurve <- function(
       }
 
 
-      writeLines(paste0("[plot_GrowthCurve()] >> De = ", De))
+      if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> De = ", De))
 
       ##Monte Carlo Simulation for error estimation
       #	--Fit many curves and calculate a new De +/- De_Error
@@ -693,10 +709,15 @@ plot_GrowthCurve <- function(
       var.g <- vector(mode="numeric", length=NumberIterations.MC)
 
       ##terminal output fo MC
-      cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
+      if(verbose){
+        cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
+      }
 
       ##set progressbar
-      pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
+      if(txtProgressBar){
+        pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
+      }
+
 
       #start Monto Carlo loops
       for(i in  1:NumberIterations.MC){
@@ -755,17 +776,17 @@ plot_GrowthCurve <- function(
 
         }
         ##update progress bar
-        setTxtProgressBar(pb, i)
+        if(txtProgressBar) setTxtProgressBar(pb, i)
 
       }#end for loop
 
       ##close
-      close(pb)
+      if(txtProgressBar) close(pb)
 
     }else{
 
       #print message
-      writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
+      if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
 
     } #end if "try-error" Fit Method
 
@@ -874,7 +895,9 @@ plot_GrowthCurve <- function(
       rm(temp.De)
 
       #print D0 and De value values
-      writeLines(paste0("\n [plot_GrowthCurve()] >> D01 = ",D01, " | D02 = ",D02, " | De = ", De))
+      if(verbose){
+        writeLines(paste0("\n [plot_GrowthCurve()] >> D01 = ",D01, " | D02 = ",D02, " | De = ", De))
+      }
 
 
       ##Monte Carlo Simulation for error estimation
@@ -889,16 +912,20 @@ plot_GrowthCurve <- function(
       var.a2<-vector(mode="numeric", length=NumberIterations.MC)
 
       ##terminal output fo MC
-      cat("\n\t Run Monte Carlo loops for error estimation of the EXP+EXP fit\n")
+      if(verbose){
+        cat("\n\t Run Monte Carlo loops for error estimation of the EXP+EXP fit\n")
+      }
 
       ##progress bar
-      pb<-txtProgressBar(min=0,max=NumberIterations.MC, initial=0, char="=", style=3)
+      if(txtProgressBar){
+        pb<-txtProgressBar(min=0,max=NumberIterations.MC, initial=0, char="=", style=3)
+      }
 
       #start Monto Carlo loops
       for (i in 1:NumberIterations.MC) {
 
         #update progress bar
-        setTxtProgressBar(pb,i)
+        if(txtProgressBar) setTxtProgressBar(pb,i)
 
         data<-data.frame(x=xy$x,y=data.MC[,i])
 
@@ -957,13 +984,13 @@ plot_GrowthCurve <- function(
     }else{
 
       #print message
-      writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
+      if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
 
     } #end if "try-error" Fit Method
 
 
     ##close
-    if(exists("pb")){close(pb)}
+    if(txtProgressBar) if(exists("pb")){close(pb)}
     #===========================================================================
   } #End if Fit Method
 

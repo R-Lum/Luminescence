@@ -134,6 +134,14 @@
 
       }
 
+       \item \code{analyse_SAR.TL()}
+      \itemize{
+
+        \item New argument \code{dose.points} and its functionality added.
+
+      }
+
+
       \item \code{calc_CentralDose()}
        \itemize{
 
@@ -241,7 +249,9 @@
         \item add argument \code{fit.force_through_origin}, it does exactly what you may expect from such
         argument (#225, requested by Alice Versendaal),
         \item get rid of some not very informative warning messages if some fitting failed and if start
-        parameters are not set sufficiently.
+        parameters are not set sufficiently,
+        \item add argument \code{txtProgressBar} and \code{verbose} to provide more output options
+        (this is helpful when writing tutorials).
 
 
       }
@@ -259,7 +269,8 @@
       \item \code{plot_RLum.Analysis()}
       \itemize{
 
-        \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE}.
+        \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE},
+        \item this methods now supports a vector for the argument \code{main}.
 
       }
 
@@ -299,6 +310,8 @@
      \item \code{Risoe.BINfileData2RLum.Analysis()}
       \itemize{
 
+        \item If the lower temperature for the TL curve calculation was not at 0, wrong shifted
+        TL curves had been produced (this happens normally for BIN-files produced by FI lexsyg readers),
         \item A new argument \code{grain} can be used to further limit the transformation to
         specific grains in the data set,
         \item the arguement \code{pos} is no longer required. If nothing is provided every position

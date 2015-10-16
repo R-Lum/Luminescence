@@ -223,7 +223,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.5.1 (2015-10-15 18:01:11)
+ 0.5.1 (2015-10-15 20:56:50)
 }
 \examples{
 ##load data

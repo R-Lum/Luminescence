@@ -163,6 +163,10 @@ Changes in version 0.5.0 (, 2015):
                provided, even the values make no sense the functions
                tries to do the best without breaking.
 
+         • ‘analyse_SAR.TL()’
+
+             • New argument ‘dose.points’ and its functionality added.
+
          • ‘calc_CentralDose()’
 
              • Fixed a bug in the ‘RLum.Results’ object, which returned
@@ -270,7 +274,11 @@ Changes in version 0.5.0 (, 2015):
 
              • get rid of some not very informative warning messages if
                some fitting failed and if start parameters are not set
-               sufficiently.
+               sufficiently,
+
+             • add argument ‘txtProgressBar’ and ‘verbose’ to provide
+               more output options (this is helpful when writing
+               tutorials).
 
          • ‘plot_RLum()’
 
@@ -281,7 +289,10 @@ Changes in version 0.5.0 (, 2015):
          • ‘plot_RLum.Analysis()’
 
              • The ‘...’ argument ‘main’ can now be provided as vector
-               if ‘combine = TRUE’.
+               if ‘combine = TRUE’,
+
+             • this methods now supports a vector for the argument
+               ‘main’.
 
          • ‘readBIN2R()’
 
@@ -315,6 +326,11 @@ Changes in version 0.5.0 (, 2015):
                directory.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
+
+             • If the lower temperature for the TL curve calculation
+               was not at 0, wrong shifted TL curves had been produced
+               (this happens normally for BIN-files produced by FI
+               lexsyg readers),
 
              • A new argument ‘grain’ can be used to further limit the
                transformation to specific grains in the data set,
