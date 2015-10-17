@@ -15,18 +15,23 @@
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
 #' object containing data for analysis
+#'
 #' @param object.background currently not used
+#'
 #' @param signal.integral.min \link{integer} (\bold{required}): requires the
 #' channel number for the lower signal integral bound (e.g.
 #' \code{signal.integral.min = 100})
+#'
 #' @param signal.integral.max \link{integer} (\bold{required}): requires the
 #' channel number for the upper signal integral bound (e.g.
 #' \code{signal.integral.max = 200})
+#'
 #' @param sequence.structure \link{vector} \link{character} (with default):
 #' specifies the general sequence structure. Three steps are allowed (
 #' \code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
 #' parameter \code{"EXCLUDE"}. This allows excluding TL curves which are not
 #' relevant for the protocol analysis.  (Note: None TL are removed by default)
+#'
 #' @param rejection.criteria \link{list} (with default): list containing
 #' rejection criteria in percentage for the calculation.
 #'
@@ -36,8 +41,10 @@
 #' contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
 #' logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 #' \link{plot.default}).
+#'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{plot_GrowthCurve}}
+#'
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned containing the following elements:
 #' \item{De.values}{\link{data.frame} containing De-values and further
@@ -50,10 +57,13 @@
 #' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
 #' from the input object without further warning.
 #' @section Function version: 0.1.4
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
 #' @seealso \code{\link{calc_TLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 #' \code{\link{get_RLum}}
+#'
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching.  Quaternary Science Reviews 7, 387-393.
 #'

@@ -1485,8 +1485,3 @@ plot_GrowthCurve <- function(
   invisible(output)
 
 }
-
-# ##(1) plot growth curve for a dummy data.set and show De value
-data(ExampleData.LxTxData, envir = environment())
-temp <- plot_GrowthCurve(LxTxData, fit.method = "QDR",fit.force_through_origin = TRUE)
-#get_RLum(temp)

@@ -150,7 +150,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.8.0 (2015-10-17 14:07:27)
+ 1.8.0 (2015-10-17 14:24:54)
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value
