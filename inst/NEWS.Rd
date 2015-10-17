@@ -251,7 +251,8 @@
         \item get rid of some not very informative warning messages if some fitting failed and if start
         parameters are not set sufficiently,
         \item add argument \code{txtProgressBar} and \code{verbose} to provide more output options
-        (this is helpful when writing tutorials).
+        (this is helpful when writing tutorials),
+        \item new fit options added \code{QDR} (polynominal function) to account for superlinear signal grow.
 
 
       }
@@ -303,7 +304,11 @@
         \item Set function to deprecated, new name: \code{read_XSYG2R()},
         \item the argument \code{file} can now handle a \code{list} of files, along with this
         just a path to directory is allowed instead a path to a file.
-        In this case the function tries to import all XSYG-files that can be found in the directory.
+        In this case the function tries to import all XSYG-files that can be found in the directory,
+        \item the curves were not 'named' IRSL if laser diods instead of LEDs are facilitated in the
+        lexsyg reader; fixed\
+        \item the element 'stimulator' and 'detecteur' appeared twice in the info element list after
+        import, corrected.
 
       }
 

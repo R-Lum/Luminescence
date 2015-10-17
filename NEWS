@@ -278,7 +278,10 @@ Changes in version 0.5.0 (, 2015):
 
              • add argument ‘txtProgressBar’ and ‘verbose’ to provide
                more output options (this is helpful when writing
-               tutorials).
+               tutorials),
+
+             • new fit options added ‘QDR’ (polynominal function) to
+               account for superlinear signal grow.
 
          • ‘plot_RLum()’
 
@@ -323,7 +326,13 @@ Changes in version 0.5.0 (, 2015):
                along with this just a path to directory is allowed
                instead a path to a file.  In this case the function
                tries to import all XSYG-files that can be found in the
-               directory.
+               directory,
+
+             • the curves were not 'named' IRSL if laser diods instead
+               of LEDs are facilitated in the lexsyg reader; fixed\
+
+             • the element 'stimulator' and 'detecteur' appeared twice
+               in the info element list after import, corrected.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 
