@@ -108,7 +108,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.5.0 (2015-09-22 09:41:30)
+ 0.5.1 (2015-10-17 02:34:48)
 }
 \examples{
 ##(1) import XSYG file to R (uncomment for usage)

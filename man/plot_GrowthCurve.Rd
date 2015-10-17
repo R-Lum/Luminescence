@@ -21,7 +21,7 @@ test dose response is optional, but requires 'TnTx' as column name if used.}
 from the data set prior to any further operations.}
 
 \item{fit.method}{\code{\link{character}} (with default): function used for
-fitting. Possible options are: \code{LIN}, \code{EXP}, \code{EXP OR LIN},
+fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP}, \code{EXP OR LIN},
 \code{EXP+LIN} or \code{EXP+EXP}. See details.}
 
 \item{fit.force_through_origin}{\code{\link{logical}} (with default) allow to force
@@ -78,42 +78,62 @@ Standard arguments will only be passed to the growth curve plot. Supported:
 \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}}
 }
 \value{
-Along with a plot (so far wanted) an \code{RLum.Results} object is returned containing:
+Along with a plot (so far wanted) an \code{RLum.Results} object is returned containing,
+the slot \code{data} contains the following elements:\cr
 
-data: \cr
-.. $De : \code{data.frame} (table of De values)\cr
-.. $Fit : \code{\link{nls}} object from the fitting for \code{EXP}, \code{EXP+LIN} and \code{EXP+EXP}.
-In case of a resulting  linear fit when using \code{EXP OR LIN}, a \code{\link{lm}} object is returned.\cr
-.. $Formula : \code{expression} \cr
-.. $call : \code{call} (the original function call)\cr
+\tabular{lll}{
+\bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
+\code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
+\code{..$Fit} : \tab \code{\link{nls}} or \code{\link{lm}} \tab object from the fitting for \code{EXP},
+\code{EXP+LIN} and \code{EXP+EXP}. In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or
+\code{EXP OR LIN} \cr
+\code{..$Formula} : \tab \code{\link{expression}} \tab Fitting formula as R expression \cr
+\code{..$call} : \tab \code{call} \tab The original function call\cr
+}
 }
 \description{
 A dose response curve is produced for luminescence measurements using a
 regenerative protocol.
 }
 \details{
-\bold{Fitting methods} \cr\cr For all options (except for the \code{LIN} and
-the \code{EXP OR LIN}), the \link{nls} function with the \code{port}
-algorithm is used. \cr \code{LIN}: fits a linear function to the data using
-\link{lm}: \deqn{y = m*x+n} \code{EXP}: try to fit a function of the form
+\bold{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
+the \code{EXP OR LIN}), the \code{\link[minpack.lm]{nlsLM}} function with the
+\code{LM} (Levenberg-Marquardt algorithm) algorithm is used. Note: For historical reasons
+for the Monte Carlo simulations partly  the function \code{\link{nls}} using the \code{port} algorithm.
+
+The solution is found by transforming the function or using \code{\link{uniroot}}. \cr
+
+\code{LIN}: fits a linear function to the data using
+\link{lm}: \deqn{y = m*x+n}
+
+\code{QDR}: fits a linear function to the data using
+\link{lm}: \deqn{y = a + b * x + c * x^2}
+
+\code{EXP}: try to fit a function of the form
 \deqn{y = a*(1-exp(-(x+c)/b))} Parameters b and c are approximated by a
 linear fit using \link{lm}. Note: b = D0\cr
 
 \code{EXP OR LIN}: works for some cases where an \code{EXP} fit fails. If
 the \code{EXP} fit fails, a \code{LIN} fit is done instead. \cr
+
 \code{EXP+LIN}: tries to fit an exponential plus linear function of the
 form: \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))} The De is calculated by
 iteration.\cr \bold{Note:} In the context of luminescence dating, this
 function has no physical meaning. Therefore, no D0 value is returned.\cr
+
 \code{EXP+EXP}: tries to fit a double exponential function of the form
 \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))} This fitting
 procedure is not robust against wrong start parameters and should be further
-improved.\cr\cr \bold{Fit weighting}\cr If the option \code{fit.weights =
-TRUE} is chosen, weights are calculated using provided signal errors (Lx/Tx
-error): \deqn{fit.weights = 1/error/(sum(1/error))}
+improved.\cr\cr
 
-\bold{Error estimation using Monte Carlo simulation}\cr Error estimation is
-done using a Monte Carlo (MC) simulation approach. A set of Lx/Tx values is
+\bold{Fit weighting}\cr
+
+If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
+provided signal errors (Lx/Tx error): \deqn{fit.weights = 1/error/(sum(1/error))}\cr
+
+\bold{Error estimation using Monte Carlo simulation}\cr
+
+Error estimation is done using a Monte Carlo (MC) simulation approach. A set of Lx/Tx values is
 constructed by randomly drawing curve data from samled from normal
 distributions. The normal distribution is defined by the input values (mean
 = value, sd = value.error). Then, a growth curve fit is attempted for each
@@ -124,12 +144,13 @@ some calculation time with increasing MC runs, especially for the composed
 functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr Each error estimation is
 done with the function of the chosen fitting method. \cr
 
-\bold{Subtitle information}\cr To avoid plotting the subtitle information,
-provide an empty user mtext \code{mtext = ""}. To plot any other subtitle
-text, use \code{mtext}.
+\bold{Subtitle information}\cr
+
+To avoid plotting the subtitle information, provide an empty user mtext \code{mtext = ""}.
+To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.7.4 (2015-10-16 13:28:09)
+ 1.8.0 (2015-10-17 14:07:27)
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value
@@ -156,6 +177,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team}
 \seealso{
 \code{\link{nls}}, \code{\linkS4class{RLum.Results}},
-\code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link{lm}}
+\code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link{lm}}, \code{uniroot}
 }
 

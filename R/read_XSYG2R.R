@@ -95,7 +95,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.0
+#' @section Function version: 0.5.1
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -355,7 +355,9 @@ read_XSYG2R <- function(
         if(temp.sequence.object.recordType == "OSL"){
 
           if(XML::xmlAttrs(temp[[x]][[i]][[
-            XML::xmlSize(temp[[x]][[i]])]])["stimulator"] == "ir_LED_850"){
+            XML::xmlSize(temp[[x]][[i]])]])["stimulator"] == "ir_LED_850" |
+            XML::xmlAttrs(temp[[x]][[i]][[
+              XML::xmlSize(temp[[x]][[i]])]])["stimulator"] == "ir_LD_850"){
 
             temp.sequence.object.recordType  <- "IRSL"
 
@@ -393,8 +395,6 @@ read_XSYG2R <- function(
 
           ##add stimulator and detector and so on
           temp.sequence.object.info <- c(temp.sequence.object.info,
-                                         detector = temp.sequence.object.detector,
-                                         stimulator = temp.sequence.object.stimulator,
                                          partentID = temp.sequence.object.parentID,
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
