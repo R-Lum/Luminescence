@@ -252,7 +252,10 @@
         parameters are not set sufficiently,
         \item add argument \code{txtProgressBar} and \code{verbose} to provide more output options
         (this is helpful when writing tutorials),
-        \item new fit options added \code{QDR} (polynominal function) to account for superlinear signal grow.
+        \item new fit options added \code{QDR} (polynominal function) to account for superlinear
+        signal grow,
+        \item improve fitting behaviour for modelled data, especially causing errors due to singular
+        convergence failures.
 
 
       }

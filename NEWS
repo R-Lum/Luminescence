@@ -281,7 +281,10 @@ Changes in version 0.5.0 (, 2015):
                tutorials),
 
              • new fit options added ‘QDR’ (polynominal function) to
-               account for superlinear signal grow.
+               account for superlinear signal grow,
+
+             • improve fitting behaviour for modelled data, especially
+               causing errors due to singular convergence failures.
 
          • ‘plot_RLum()’
 
