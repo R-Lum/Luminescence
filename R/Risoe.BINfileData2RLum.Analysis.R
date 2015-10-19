@@ -226,10 +226,10 @@ Risoe.BINfileData2RLum.Analysis<- function(
       # Limit object to selection -----------------------------------------------
 
       object@DATA <-
-        object@DATA[object@METADATA[object@METADATA[,"SEL"] == TRUE,"ID"]]
-      object@METADATA <-
-        object@METADATA[object@METADATA[,"SEL"] == TRUE,]
+        object@DATA[object@METADATA[object@METADATA[,"SEL"],"ID"]]
 
+      object@METADATA <-
+        object@METADATA[object@METADATA[,"SEL"],]
 
       # Convert values ----------------------------------------------------------
       object <- set_RLum(
@@ -237,13 +237,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
         records = lapply(1:length(object@DATA),function(x) {
 
           if(object@METADATA[x,"NPOINTS"][1] != 0){
-
-            i <-
-              seq(
-                object@METADATA[x,"LOW"],
-                object@METADATA[x,"HIGH"],
-                length.out = object@METADATA[x,"NPOINTS"]
-              )
+            i <- seq(object@METADATA[x, "LOW"],
+                     object@METADATA[x, "HIGH"],
+                     length.out = object@METADATA[x, "NPOINTS"])
 
             j <- unlist(object@DATA[x])
 

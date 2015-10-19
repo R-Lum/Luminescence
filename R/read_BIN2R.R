@@ -60,7 +60,7 @@
 #' implementation of version 07 support could not been tested so far.}.
 #'
 #'
-#' @section Function version: 0.10.0
+#' @section Function version: 0.10.1
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -1084,6 +1084,12 @@ read_BIN2R <- function(
 
       results.METADATA <- results.METADATA[which(results.METADATA$POSITION %in% position),]
       results.DATA <- results.DATA[results.METADATA$ID]
+
+        ##re-calculate ID ... otherwise it will not match
+        results.METADATA$ID <- 1:length(results.DATA )
+
+        ##show a message
+        message("[read_BIN2R()] The record index has been recalculated!")
 
 
     }else{
