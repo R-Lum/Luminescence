@@ -95,7 +95,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.1
+#' @section Function version: 0.5.2
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -293,8 +293,7 @@ read_XSYG2R <- function(
   if(import == FALSE){
 
     ##sample information
-    temp.sample <- as.data.frame(XML::xmlAttrs(temp))
-    colnames(temp.sample) <- ""
+    temp.sample <- as.data.frame(XML::xmlAttrs(temp), stringsAsFactors = FALSE)
 
     ##grep sequences files
 

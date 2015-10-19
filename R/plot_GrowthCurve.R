@@ -515,7 +515,7 @@ plot_GrowthCurve <- function(
 
         a<-a.MC[i];b<-b.MC[i];c<-c.MC[i]
 
-        fit<-try(nls(y~fit.functionEXP(a,b,c,x),
+        fit.initial<-try(nls(y~fit.functionEXP(a,b,c,x),
                      data=data,
                      start=c(a=a,b=b,c=c),
                      trace=FALSE,
@@ -524,9 +524,9 @@ plot_GrowthCurve <- function(
                      nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
         ),silent=TRUE)
 
-        if(class(fit)!="try-error"){
+        if(class(fit.initial)!="try-error"){
           #get parameters out of it
-          parameters<-(coef(fit))
+          parameters<-(coef(fit.initial))
           b.start[i]<-as.vector((parameters["b"]))
           a.start[i]<-as.vector((parameters["a"]))
           c.start[i]<-as.vector((parameters["c"]))
@@ -561,11 +561,20 @@ plot_GrowthCurve <- function(
         ), silent = TRUE
       )
 
-      if (class(fit)=="try-error"){
+      if (inherits(fit, "try-error") & inherits(fit.initial, "try-error")){
 
         if(verbose) writeLines("[plot_GrowthCurve()] >> try-error for EXP fit")
 
       }else{
+
+        ##this is to avoid the singular convergence failure due to a perfect fit at the beginning
+        ##this may happen especially for simulated data
+        if(inherits(fit, "try-error") & !inherits(fit.initial, "try-error")){
+          fit <- fit.initial
+          rm(fit.initial)
+
+        }
+
         #get parameters out of it
         parameters<-(coef(fit))
         b<-as.vector((parameters["b"]))
