@@ -21,7 +21,7 @@
 #' @note Not all arguments available for \code{\link{plot}} will be passed!
 #' Only plotting of \code{RLum.Results} objects are supported.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,
 #' Universite Bordeaux Montaigne (France)
@@ -66,6 +66,12 @@ plot_RLum.Results<- function(
   if(is(data,"RLum.Results") == FALSE){
     stop("[plot_RLum.Results]: Input object is not of type 'RLum.Results'")
   }
+
+  ##============================================================================##
+  ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT
+  ##============================================================================##
+  par.old <- par(no.readonly = TRUE)
+  on.exit(par(par.old))
 
   ##============================================================================##
   ## ... ARGUMENTS

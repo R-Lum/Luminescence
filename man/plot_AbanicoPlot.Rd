@@ -193,11 +193,11 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.4 (2015-10-11 21:38:03)
+ 0.1.4 (2015-10-20 10:25:53)
 }
 \examples{
 ## store original graphics parameters
-par.old <- par(no.readonly = TRUE)
+#par.old <- par(no.readonly = TRUE)
 
 ## load example data and recalculate to Gray
 data(ExampleData.DeValues, envir = environment())
@@ -355,7 +355,7 @@ plot_AbanicoPlot(data = data.3,
 ## of function get_Layout()
 
 ## restore original graphical parameters
-par(par.old)
+#par(par.old)
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,

@@ -167,7 +167,7 @@
 #' @examples
 #'
 #' ## store original graphics parameters
-#' par.old <- par(no.readonly = TRUE)
+#' #par.old <- par(no.readonly = TRUE)
 #'
 #' ## load example data and recalculate to Gray
 #' data(ExampleData.DeValues, envir = environment())
@@ -326,7 +326,7 @@
 #' ## of function get_Layout()
 #'
 #' ## restore original graphical parameters
-#' par(par.old)
+#' #par(par.old)
 #'
 #' @export
 plot_AbanicoPlot <- function(
@@ -427,14 +427,9 @@ plot_AbanicoPlot <- function(
     }
   }
 
-  ## save original plot parameters
-  par.old.bg <- par()$bg
-  par.old.mar <- par()$mar
-  par.old.xpd <- par()$xpd
-  par.old.cex <- par()$cex
-  par.old.mai <- par()$mai
-  par.old.pin <- par()$pin
-  par.old.family <- par()$family
+  ## save original plot parameters and restore them when the function ends or stops
+  par.old.full <- par(no.readonly = TRUE)
+  on.exit(par(par.old.full))
 
   ## check/set layout definitions
   if("layout" %in% names(list(...))) {
@@ -3256,15 +3251,6 @@ plot_AbanicoPlot <- function(
       }
     }
   }
-
-  ## restore potentially modified parameters
-  par(bg = par.old.bg,
-      mar = par.old.mar,
-      xpd = par.old.xpd,
-      cex = par.old.cex,
-      mai = par.old.mai,
-      pin = par.old.pin,
-      family = par.old.family)
 
   ##sTeve
   if(fun){sTeve()}

@@ -75,6 +75,7 @@ setMethod("get_RLum",
 
                warning(paste0("[get_RLum()] object #",x," in the list was not of type 'RLum' and has been removed!"),
                        call. = FALSE)
+                return(NULL)
 
                 return(NULL)
               }
