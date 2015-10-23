@@ -5,14 +5,16 @@
 \alias{read_BIN2R}
 \title{Import Risoe BIN-file into R}
 \usage{
-read_BIN2R(file, show.raw.values = FALSE, position, n.records,
-  fastForward = FALSE, show.record.number = FALSE, txtProgressBar = TRUE,
-  forced.VersionNumber)
+read_BIN2R(file, show.raw.values = FALSE, position = NULL,
+  n.records = NULL, fastForward = FALSE, show.record.number = FALSE,
+  txtProgressBar = TRUE, forced.VersionNumber = NULL, ...)
 }
 \arguments{
-\item{file}{\link{character} (\bold{required}): bin-file name (including
-path), e.g. \cr [WIN]: \code{read_BIN2R("C:/Desktop/test.bin")}, \cr
-[MAC/LINUX]: \code{read_BIN2R("/User/test/Desktop/test.bin")}}
+\item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
+BIN/BINX file. If input is a \code{list} it should comprise only \code{character}s representing
+each valid path and BIN/BINX-file names.
+Alternatively the input character can be just a directory (path), in this case the
+the function tries to detect and import all BIN/BINX files found in the directory.}
 
 \item{show.raw.values}{\link{logical} (with default): shows raw values from
 BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
@@ -39,6 +41,10 @@ of the imported record, for debugging usage only.}
 version number check in the function by own values for cases where the
 BIN-file version is not supported.\cr Note: The usage is at own risk, only
 supported BIN-file versions have been tested.}
+
+\item{\dots}{further arguments that will be passed to the function
+\code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument
+automatically sets \code{fastForward = TRUE}}
 }
 \value{
 Returns an S4 \link{Risoe.BINfileData-class} object containing two
@@ -67,7 +73,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested so far.}.
 }
 \section{Function version}{
- 0.9.2 (2015-10-03 15:51:11)
+ 0.10.1 (2015-10-19 18:38:01)
 }
 \examples{
 ##(1) import Risoe BIN-file to R (uncomment for usage)

@@ -77,6 +77,7 @@ setMethod("get_RLum",
                        call. = FALSE)
                 return(NULL)
 
+                return(NULL)
               }
 
             })

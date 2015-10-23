@@ -15,26 +15,36 @@
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
 #' object containing data for analysis
+#'
 #' @param object.background currently not used
+#'
 #' @param signal.integral.min \link{integer} (\bold{required}): requires the
 #' channel number for the lower signal integral bound (e.g.
 #' \code{signal.integral.min = 100})
+#'
 #' @param signal.integral.max \link{integer} (\bold{required}): requires the
 #' channel number for the upper signal integral bound (e.g.
 #' \code{signal.integral.max = 200})
+#'
 #' @param sequence.structure \link{vector} \link{character} (with default):
 #' specifies the general sequence structure. Three steps are allowed (
 #' \code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
 #' parameter \code{"EXCLUDE"}. This allows excluding TL curves which are not
 #' relevant for the protocol analysis.  (Note: None TL are removed by default)
+#'
 #' @param rejection.criteria \link{list} (with default): list containing
 #' rejection criteria in percentage for the calculation.
+#'
+#' @param dose.points \code{\link{numeric}} (optional): option set dose points manually
+#'
 #' @param log \link{character} (with default): a character string which
 #' contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
 #' logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 #' \link{plot.default}).
+#'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{plot_GrowthCurve}}
+#'
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned containing the following elements:
 #' \item{De.values}{\link{data.frame} containing De-values and further
@@ -47,10 +57,13 @@
 #' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
 #' from the input object without further warning.
 #' @section Function version: 0.1.4
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
 #' @seealso \code{\link{calc_TLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 #' \code{\link{get_RLum}}
+#'
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching.  Quaternary Science Reviews 7, 387-393.
 #'
@@ -83,6 +96,7 @@ analyse_SAR.TL <- function(
   signal.integral.max,
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
+  dose.points,
   log = "",
   ...
 ){
@@ -142,7 +156,7 @@ analyse_SAR.TL <- function(
       temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","x.max"]))>1){
 
     stop(paste(
-      "[analyse_SAR.TL] Error: Signal range differs. Check sequence structure.\n",
+      "[analyse_SAR.TL()] Signal range differs. Check sequence structure.\n",
       temp.sequence.structure
     ))
   }
@@ -150,7 +164,7 @@ analyse_SAR.TL <- function(
   ##check if the wanted curves are a multiple of the structure
   if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0){
 
-    stop("[analyse_SAR.TL] Input TL curves are not a multiple of the sequence structure.")
+    stop("[analyse_SAR.TL()] Input TL curves are not a multiple of the sequence structure.")
 
   }
 
@@ -185,6 +199,7 @@ analyse_SAR.TL <- function(
     ##grep dose
     temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME
 
+
     temp.LnLxTnTx <- cbind(Dose=temp.Dose, temp.LnLxTnTx)
 
     if(exists("LnLxTnTx")==FALSE){
@@ -198,18 +213,22 @@ analyse_SAR.TL <- function(
     }
   }
 
+  ##set dose.points manual if argument was set
+  if(!missing(dose.points)){
+    temp.Dose <- dose.points
+    LnLxTnTx$Dose <- dose.points
+
+  }
 
   # Set regeneration points -------------------------------------------------
 
   #generate unique dose id - this are also the # for the generated points
-  temp.DoseID <- c(0:(length(LnLxTnTx$Dose)-1))
+  temp.DoseID <- c(0:(length(temp.Dose)-1))
   temp.DoseName <- paste("R",temp.DoseID,sep="")
-  temp.DoseName <- cbind(Name=temp.DoseName,Dose=LnLxTnTx$Dose)
-
+  temp.DoseName <- cbind(Name=temp.DoseName,Dose=temp.Dose)
 
   ##set natural
   temp.DoseName[temp.DoseName[,"Name"]=="R0","Name"]<-"Natural"
-
 
   ##set R0
   temp.DoseName[temp.DoseName[,"Name"]!="Natural" & temp.DoseName[,"Dose"]==0,"Name"]<-"R0"
@@ -226,6 +245,7 @@ analyse_SAR.TL <- function(
   ##combine in the data frame
   temp.LnLxTnTx<-data.frame(Name=temp.DoseName[,"Name"],
                             Repeated=as.logical(temp.DoseName[,"Repeated"]))
+
 
   LnLxTnTx<-cbind(temp.LnLxTnTx,LnLxTnTx)
   LnLxTnTx[,"Name"]<-as.character(LnLxTnTx[,"Name"])
@@ -270,7 +290,6 @@ analyse_SAR.TL <- function(
 
 
   ##Recuperation Rate
-
   if("R0" %in% LnLxTnTx[,"Name"]==TRUE){
     Recuperation<-round(LnLxTnTx[LnLxTnTx[,"Name"]=="R0","LxTx"]/
                           LnLxTnTx[LnLxTnTx[,"Name"]=="Natural","LxTx"],digits=4)

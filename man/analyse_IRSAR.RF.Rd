@@ -5,9 +5,8 @@
 \title{Analyse IRSAR RF measurements}
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
-  RF_nat.lim, RF_reg.lim, method = "FIT", test_parameter, fit.trace = FALSE,
-  n.MC = 10, slide.show_density = FALSE, txtProgressBar = TRUE,
-  plot = TRUE, ...)
+  RF_nat.lim, RF_reg.lim, method = "FIT", method.control, test_parameter,
+  n.MC = 10, txtProgressBar = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -30,6 +29,10 @@ will be treated as minimum value and the maximum limit will be added automatical
 \item{method}{\code{\link{character}} (with default): setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
+\item{method.control}{\code{\link{list}} (optional): parameters to control the method, that can
+be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
+'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density'. See details.}
+
 \item{test_parameter}{\code{\link{list} (with default)}: set test parameter
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
@@ -38,16 +41,10 @@ values, \code{NA} and \code{NULL} (s. Details)
 
 (see Details for further information)}
 
-\item{fit.trace}{\code{\link{logical}} (with default): trace fitting (for
-debugging use)}
-
 \item{n.MC}{\code{\link{numeric}} (with default): set number of Monte
 Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 error estimation (\code{method = "SLIDE"}). Note: Large values will
 significantly increase the computation time}
-
-\item{slide.show_density}{\code{\link{logical}} (with default): enable or
-disable KDE for MC run results. If the distribution is too narrow nothing is shown}
 
 \item{txtProgressBar}{\code{\link{logical}} (with default): enables \code{TRUE} or
 disables \code{FALSE} the progression bar during MC runs}
@@ -79,7 +76,7 @@ $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 ..$ UID : \code{character}: unique data set ID \cr
 $ test_parameter : \code{\link{data.frame}} table test parameters \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
-$ slide : \code{\link{list}} data from the sliding process\cr
+$ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
 $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 
 The output (\code{De.values}) should be accessed using the
@@ -132,7 +129,31 @@ allows to work with the original data without the need of any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
-Here the sliding is done by searching for the minimum of the squared residuals.
+Here the sliding is done by searching for the minimum of the squared residuals.\cr
+
+\bold{\code{method.control}}\cr
+
+To keep the generic argument list as clear as possible, arguments to control the methods
+for De estimation are all preset with meaningful default parameters and can be
+handled using the argument \code{method.control} only, e.g.,
+\code{method.control = list(trace = TRUE)}. Supported arguments are:\cr
+
+\tabular{lll}{
+ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
+\code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \code{\link{nls}}; shows sum of squared residuals\cr
+\code{maxiter} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
+\code{warnOnly} \tab \code{FIT}           \tab as in \code{\link{nls}}\cr
+\code{minFactor} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
+\code{correct_onset} \tab \code{SLIDE}      \tab The logical argument literally spoken,
+shifts the curves along the x-axis by the first channel, as light is expected in the first channel.
+ The default value is \code{TRUE}.\cr
+\code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
+enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
+\code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
+This controls the number of MC runs within the sliding (assesing the possible minimum values).
+The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
+function argument \code{n.MC} \cr
+}
 
 \bold{Error estimation}\cr
 
@@ -202,7 +223,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.4.0 (2015-10-06 19:45:27)
+ 0.5.1 (2015-10-15 20:56:50)
 }
 \examples{
 ##load data

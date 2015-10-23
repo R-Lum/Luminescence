@@ -35,7 +35,7 @@ NULL
 #' showClass("RLum.Analysis")
 #'
 #' ## usage of get_RLum() with returning an RLum.Analysis object
-#' #  get_RLum(object, keep.object = TRUE)
+#' #  get_RLum(object, drop = TRUE)
 #'
 #' @export
 setClass("RLum.Analysis",
@@ -257,15 +257,15 @@ setMethod("set_RLum",
 #' only the object itself and no list containing exactly one object is returned. Mostly this makes things
 #' easier, however, if this method in a loop this might become annoying
 #'
-#' @param keep.object [\code{get_RLum}] \code{\link{logical}} (with default):
-#' return an RLum.Analysis object instead of the single elements.
+#' @param drop [\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
+#' (which are \code{RLum.Data}-objects), \code{drop = FALSE} keeps the original \code{RLum.Analysis}
 #'
 #' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
           function(object, record.id, recordType, curveType, RLum.type,
-                   protocol = "UNKNOWN", subset, get.index, keep.object = FALSE, recursive = TRUE){
+                   protocol = "UNKNOWN", subset, get.index, drop = TRUE, recursive = TRUE){
 
             ##record.id
             if (missing(record.id)) {
@@ -393,7 +393,7 @@ setMethod("get_RLum",
                 return(unlist(temp))
 
               }else{
-                if (keep.object) {
+                if (!drop) {
                   temp <- set_RLum(class = "RLum.Analysis",
                                    records = temp,
                                    protocol = object@protocol)
@@ -417,9 +417,9 @@ setMethod("get_RLum",
               if(get.index == FALSE){
 
 
-                if(keep.object == TRUE){
+                if(drop == FALSE){
 
-                  ##needed to keep the argument keep.object == TRUE
+                  ##needed to keep the argument drop == TRUE
                   temp <- set_RLum(class = "RLum.Analysis",
                                    records = list(object@records[[record.id]]),
                                    protocol = object@protocol)

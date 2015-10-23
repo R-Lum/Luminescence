@@ -2,6 +2,19 @@
 \title{NEWS for the R Package Luminescence}
 \section{Changes in version 0.5.0 (, 2015)}{
 
+  \subsection{General remarks}{
+  \itemize{
+  \item This major major update provides, apart from few new functions, many bugfixes and non-visible
+  improvements in the underlying code to make the growing package still usable. The most important
+  changes are provided by the support of generic S3-functions, e.g., the wellknown R function
+  \code{plot()} now knows how to deal with \code{RLum}-objects. However, this also went
+  along with a more standardised way how RLum objects can be treated. For example: To access and
+  object now it is enough to use only the function \code{get_RLum()}. The function will subsequently patch
+  the right method on the basis of the object.
+  }
+
+  }
+
   \subsection{Changes S4-objects, methods, classes}{
    \itemize{
       \item Extend class definition for \code{RLum}-class by slots \code{originator} and \code{.uid}
@@ -14,15 +27,24 @@
         defined for a specific function, corrected. Now, if nothing is defined the first  object
         in the slot \code{data} is returned (#223),
         \item the method was enhanced to deal with objects of type \code{list} containing only
-        \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding \code{get_RLum} methods
-        are called.
+        \code{RLum} objects. Depending on the \code{RLum} objects in the list the corresponding
+         \code{get_RLum} methods
+        are called,
+        \item argument \code{keep.object} (for \code{RLum.Analysis} objects) has been replace by
+        \code{drop}. The default is \code{drop = TRUE}, this mean common behaviour changes
+        as former it was \code{keep.object = TRUE}. However, \code{drop} is behaviour consistent
+        with standard R code,
+        \item argument \code{data.object} (\code{get_RLum} for 'RLum.Results' objects can now handle
+        numeric values)
 
       }
 
       \item \code{merge_RLum}
       \itemize{
         \item Method for \code{RLum.Results} objects now combines the data.frame using the function
-        \code{data.table::rbindList} this should give a little bit more speed.
+        \code{data.table::rbindList} this should give a little bit more speed,
+        \item the method was not working properely for objects of types \code{RLum.Results} if they
+        tried to combine matrices and vectors found in the 'data.object' list.
 
       }
 
@@ -52,18 +74,46 @@
   \subsection{New functions}{
    \itemize{
       \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015,
-      \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in Steffen et al. 2009,
+      \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in
+      Steffen et al. 2009,
        \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader,
        \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC),
        \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()},
-       \item \code{plot_ViolinPlot()} Creates a combination of a kernel density plot with a boxplot. This plot
-       was especially written for visualisation of data where standard errors are zero or to small to be
-       visualised at all.
+       \item \code{plot_ViolinPlot()} Creates a combination of a kernel density plot with a boxplot.
+       This plot was especially written for visualisation of data where standard errors are zero or
+       to small to be visualised at all.
    }
   }
 
   \subsection{Bugfixes and changes}{
    \itemize{
+
+
+      \item \code{analyse_IRSAR.RF()}
+      \itemize{
+
+        \item Argument \code{fit.trace} removed. It can be controlled by the new argument \code{method.control}
+        instead,
+        \item argument \code{slide.show_density} removed and can now be controlled by within the new argument
+        \code{method.control},
+        \item argument \code{method.control} added allowing to control parameters of the chosen method,
+        \item now also the sliding matrix is returned with the RLum.Results 'data.object' \code{slide},
+        \item the way the error is calculated was changed again to account for drawbacks if always
+        just the global minimum is chosen (details see manual),
+        \item adjust the threshold finding for the criterium 'curve_bounds' to ensure that a warning message
+        is shown, if results should not be used,
+        \item the 'curve_bounds' message will no longer be shown, if the natural curve was limited
+        by the argument \code{RF_nat.lim} and within the curve limits the bounds have not been reached,
+        \item fix a bug that forces the function to crash if a limited atural curve reached the end
+        of the regenerated curve after sliding and remains longer (#254),
+        \item some graphical adjustments.
+
+
+      }
+
+
+
+
       \item \code{analyse_SAR.CWOSL()}
       \itemize{
 
@@ -83,7 +133,15 @@
         no sense the functions tries to do the best without breaking.
 
       }
-      
+
+       \item \code{analyse_SAR.TL()}
+      \itemize{
+
+        \item New argument \code{dose.points} and its functionality added.
+
+      }
+
+
       \item \code{calc_CentralDose()}
        \itemize{
 
@@ -91,7 +149,7 @@
         log-likelihood values for \code{sigma}. Report was gratefully provided by Eike F. Rades.
 
       }
-      
+
        \item \code{calc_OSLLxTxRatio()}
        \itemize{
 
@@ -162,7 +220,11 @@
       \item \code{plot_AbanicoPlot()}
        \itemize{
 
-        \item Further adjustment to deal with zero values (will now be removed automatically)
+        \item Further adjustment to deal with zero error values (will now be removed automatically),
+        \item if the De was zero or negative the function stopped with an error, changed to a
+        warning message and a return of \code{NULL} (this is a much better behaviour when
+        the function is used within a loop, #253),
+        \item make sure that the graphical parameters are restored properly after the function was run.
 
 
       }
@@ -179,15 +241,22 @@
       \item \code{plot_GrowthCurve()}
        \itemize{
 
-        \item Final fitting and fitting during the MC runs is now done using the Levenberg-Marquardt from the package 'minpack.lm'. This
+        \item Final fitting and fitting during the MC runs is now done using the Levenberg-Marquardt
+        from the package 'minpack.lm'. This
         increases the fitting stability and the computation step markedly (#5),
         \item output object is enhanced by the \code{call} containing the function call,
-        \item for the option \code{fit.method = "LIN"} and \code{fit.method = "EXP OR LIN"} weights had been
-        not considered; corrected,
+        \item for the option \code{fit.method = "LIN"} and \code{fit.method = "EXP OR LIN"} weights
+        had been not considered; corrected,
         \item add argument \code{fit.force_through_origin}, it does exactly what you may expect from such
         argument (#225, requested by Alice Versendaal),
         \item get rid of some not very informative warning messages if some fitting failed and if start
-        parameters are not set sufficiently.
+        parameters are not set sufficiently,
+        \item add argument \code{txtProgressBar} and \code{verbose} to provide more output options
+        (this is helpful when writing tutorials),
+        \item new fit options added \code{QDR} (polynominal function) to account for superlinear
+        signal grow,
+        \item improve fitting behaviour for modelled data, especially causing errors due to singular
+        convergence failures.
 
 
       }
@@ -205,7 +274,8 @@
       \item \code{plot_RLum.Analysis()}
       \itemize{
 
-        \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE}.
+        \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE},
+        \item this methods now supports a vector for the argument \code{main}.
 
       }
 
@@ -214,7 +284,12 @@
 
         \item Set function on deprecated, new name: \code{read_BIN2R()},
         \item new argument \code{position} implemented that allows to limit the import to specific positions
-        (this will have, however, no positive effect on the import performance).
+        (this will have, however, no positive effect on the import performance),
+        \item add argument \code{...} to let arguments pass to the function \code{Risoe.BINfileData2RLum.Analysis},
+        this case the argument \code{fastForward} will forced to \code{TRUE},
+        \item argument \code{file} now supports a \code{list} of file names or just a path, in this
+        case the funtions tries to detect and import all possible BIN/BINX files found in this path.
+
 
       }
 
@@ -233,21 +308,27 @@
         \item Set function to deprecated, new name: \code{read_XSYG2R()},
         \item the argument \code{file} can now handle a \code{list} of files, along with this
         just a path to directory is allowed instead a path to a file.
-        In this case the function tries to import all XSYG-files that can be found in the directory.
+        In this case the function tries to import all XSYG-files that can be found in the directory,
+        \item the curves were not 'named' IRSL if laser diods instead of LEDs are facilitated in the
+        lexsyg reader; fixed\
+        \item the element 'stimulator' and 'detecteur' appeared twice in the info element list after
+        import, corrected.
 
       }
 
      \item \code{Risoe.BINfileData2RLum.Analysis()}
       \itemize{
 
+        \item If the lower temperature for the TL curve calculation was not at 0, wrong shifted
+        TL curves had been produced (this happens normally for BIN-files produced by FI lexsyg readers),
         \item A new argument \code{grain} can be used to further limit the transformation to
         specific grains in the data set,
         \item the arguement \code{pos} is no longer required. If nothing is provided every position
         will be transformed and the function returns a list of \code{RLum.Analysis}-objects,
         \item along with this the argument \code{pos} now accepts a vector as input (i.e., more than
         on position can be provided for the conversion),
-        \item new argument \code{txtProgressBar} added. The default is set to \code{FALSE} as the computation
-        time just become relevant for single grain data,
+        \item new argument \code{txtProgressBar} added. The default is set to \code{FALSE} as the
+        computation time just become relevant for single grain data,
         \item an error was fixed that occurred if the curves used for the transformation had been
         of zero length.
 
@@ -279,15 +360,21 @@
       \item Re-adding the package 'zoo' in imports,
       \item Adding package 'readxl' to imports (used in \code{use_DRAC} to import the XLS file)
       \item Adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
+      \item This package is now linked to 'Rcpp' and 'RcppArmadillo' (used within the function
+      \code{.analyse_IRSARRF_SRS)},
       \item Remove dependency to package 'assertive'
-      \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame} for objects of class \code{DRAC.list}
+      \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame}
+      for objects of class \code{DRAC.list}
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}
-      \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export} statements to
-      allow better NAMESPACE housekeeping,
+      \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export}
+      statements to allow better NAMESPACE housekeeping,
       \item Roxygen2: The documentation for ExampleData.DeValues was not produced automatically. Corrected.
       \item Add methods for S3 generics for RLum-objects:
       \itemize{
 
+        \item \code{`[`} : \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image}, \code{RLum.Analysis}
+        \item \code{`[[`} : \code{RLum.Analysis}, \code{RLum.Results}
+        \item \code{`$`} :  \code{RLum.Results}
         \item \code{`+`} : \code{RLum.Data.Curve}
         \item \code{`-`} : \code{RLum.Data.Curve}
         \item \code{`*`} : \code{RLum.Data.Curve}
@@ -306,7 +393,6 @@
 
 
       }
-      \item Roxygen2:
 
 
    }

@@ -7,7 +7,7 @@
 analyse_SAR.TL(object, object.background, signal.integral.min,
   signal.integral.max, sequence.structure = c("PREHEAT", "SIGNAL",
   "BACKGROUND"), rejection.criteria = list(recycling.ratio = 10,
-  recuperation.rate = 10), log = "", ...)
+  recuperation.rate = 10), dose.points, log = "", ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): input
@@ -31,6 +31,8 @@ relevant for the protocol analysis.  (Note: None TL are removed by default)}
 
 \item{rejection.criteria}{\link{list} (with default): list containing
 rejection criteria in percentage for the calculation.}
+
+\item{dose.points}{\code{\link{numeric}} (optional): option set dose points manually}
 
 \item{log}{\link{character} (with default): a character string which
 contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
@@ -71,7 +73,7 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
- 0.1.4 (2015-09-22 09:41:30)
+ 0.1.4 (2015-10-17 14:30:28)
 }
 \examples{
 ##load data

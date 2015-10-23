@@ -2,8 +2,10 @@
 #'
 #' Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 #'
-#' @param file \code{\link{character}} (\bold{required}): path and file name of the
-#' file to import
+#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
+#' file to be imported. Alternatively a list of file names can be provided or just the path a folder
+#' containing measurement data. Please note that the specific, common, file extension (txt) is likely
+#' leading to function failures during import when just a path is provided.
 #'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
@@ -12,7 +14,7 @@
 #'
 #' @note \bold{[BETA VERSION]} This function version still needs to be properly tested.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.2.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -39,6 +41,42 @@ read_Daybreak2R <- function(
   ## - run tests
   ## - check where the warning messages are comming from
   ## - implement further integretiy tests
+
+  # Self Call -----------------------------------------------------------------------------------
+  # Option (a): Input is a list, every element in the list will be treated as file connection
+  # with that many file can be read in at the same time
+  # Option (b): The input is just a path, the function tries to grep ALL Daybreaks-txt files in the
+  # directory and import them, if this is detected, we proceed as list
+
+  if(is(file, "character")) {
+
+    ##If this is not really a path we skip this here
+    if (dir.exists(file) & length(dir(file)) > 0) {
+      cat("[read_Daybreak2R()] Directory detected, trying to extract '*.txt' files ...\n")
+      file <-
+        as.list(paste0(file,dir(
+          file, recursive = FALSE, pattern = ".txt"
+        )))
+
+    }
+
+  }
+
+  ##if the input is already a list
+  if (is(file, "list")) {
+    temp.return <- lapply(1:length(file), function(x) {
+      read_Daybreak2R(
+        file = file[[x]],
+        txtProgressBar = txtProgressBar
+      )
+    })
+
+    ##return
+      return(temp.return)
+
+  }
+
+
 
   # Integrity checks ----------------------------------------------------------------------------
 

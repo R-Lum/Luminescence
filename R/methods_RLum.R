@@ -87,3 +87,26 @@ merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y))
 #' @export
 `/.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "/")
 
+# methods for generic: `[`
+#' @export
+`[.RLum.Data.Curve` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
+
+#' @export
+`[.RLum.Data.Spectrum` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
+
+#' @export
+`[.RLum.Data.Image` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
+
+#' @export
+`[.RLum.Analysis` <- function(x, i) {as(get_RLum(x, record.id = i), "matrix")}
+
+# methods for generic: `[[`
+#' @export
+`[[.RLum.Analysis` <- function(x, i) {get_RLum(x, record.id = i)}
+
+#' @export
+`[[.RLum.Results` <- function(x, i) {get_RLum(x, data.object = i)}
+
+# methods for generic: `$`
+#' @export
+`$.RLum.Results` <- function(x, i) {get_RLum(x, data.object = i)}
