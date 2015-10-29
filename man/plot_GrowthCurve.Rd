@@ -84,6 +84,7 @@ the slot \code{data} contains the following elements:\cr
 \tabular{lll}{
 \bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
 \code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
+\code{..$De.MC} : \tab \code{numeric} \tab Table with De values from MC runs \cr
 \code{..$Fit} : \tab \code{\link{nls}} or \code{\link{lm}} \tab object from the fitting for \code{EXP},
 \code{EXP+LIN} and \code{EXP+EXP}. In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or
 \code{EXP OR LIN} \cr
@@ -150,7 +151,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.8.0 (2015-10-19 18:38:01)
+ 1.8.1 (2015-10-29 12:21:14)
 }
 \examples{
 ##(1) plot growth curve for a dummy data.set and show De value

@@ -287,7 +287,10 @@ Changes in version 0.5.0 (, 2015):
                account for superlinear signal grow,
 
              • improve fitting behaviour for modelled data, especially
-               causing errors due to singular convergence failures.
+               causing errors due to singular convergence failures,
+
+             • add ‘De.MC’, the De values from the MC runs, to the
+               output.
 
          • ‘plot_RLum()’
 

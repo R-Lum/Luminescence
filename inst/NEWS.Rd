@@ -256,7 +256,8 @@
         \item new fit options added \code{QDR} (polynominal function) to account for superlinear
         signal grow,
         \item improve fitting behaviour for modelled data, especially causing errors due to singular
-        convergence failures.
+        convergence failures,
+        \item add \code{De.MC}, the De values from the MC runs, to the output.
 
 
       }
