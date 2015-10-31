@@ -31,6 +31,22 @@ NULL
 #'
 #' @section Class version: 0.2.1
 #'
+#' @return Returns:\cr
+#'
+#' \bold{\code{set_RLum}}\cr
+#'
+#' Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+#'
+#' \bold{\code{get_RLum}}\cr
+#'
+#' Returns:\cr
+#' (1) A matrix with the curve values or \cr
+#' (2) only the info object if \code{info.object} was set.\cr
+#'
+#' \bold{\code{merge_RLum}}\cr
+#'
+#' Returns a new \code{\linkS4class{RLum.Data.Curve}} object.
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},

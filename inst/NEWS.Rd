@@ -385,7 +385,7 @@
 
         \item \code{`[`} : \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image}, \code{RLum.Analysis}, \code{RLum.Results}
         \item \code{`[[`} : \code{RLum.Analysis}, \code{RLum.Results}
-        \item \code{`$`} :  \code{RLum.Results}
+        \item \code{`$`} :  \code{RLum.Analysis}, \code{RLum.Results}
         \item \code{`+`} : \code{RLum.Data.Curve}
         \item \code{`-`} : \code{RLum.Data.Curve}
         \item \code{`*`} : \code{RLum.Data.Curve}

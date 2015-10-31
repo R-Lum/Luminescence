@@ -98,18 +98,37 @@ merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y))
 `[.RLum.Data.Image` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
 
 #' @export
-`[.RLum.Analysis` <- function(x, i, drop = FALSE) {get_RLum(x, record.id = i, drop = drop)}
+`[.RLum.Analysis` <- function(x, i, drop = FALSE) {
+  if (is(i, "character")) {
+    get_RLum(x, recordType = i, drop = drop)
+
+  } else{
+    get_RLum(x, record.id = i, drop = drop)
+
+  }
+}
 
 #' @export
-`[.RLum.Results` <- function(x, i, drop = FALSE) {get_RLum(x, data.object = i, drop = drop)}
+`[.RLum.Results` <- function(x, i, drop = TRUE) {get_RLum(x, data.object = i, drop = drop)}
 
 # methods for generic: `[[`
 #' @export
-`[[.RLum.Analysis` <- function(x, i) {get_RLum(x, record.id = i)}
+`[[.RLum.Analysis` <- function(x, i) {
+  if (is(i, "character")) {
+    get_RLum(x, recordType = i)
+
+  } else{
+    get_RLum(x, record.id = i)
+
+  }
+}
 
 #' @export
 `[[.RLum.Results` <- function(x, i) {get_RLum(x, data.object = i)}
 
 # methods for generic: `$`
+#' @export
+`$.RLum.Analysis` <- function(x, i) {get_RLum(x, recordType = i)}
+
 #' @export
 `$.RLum.Results` <- function(x, i) {get_RLum(x, data.object = i)}

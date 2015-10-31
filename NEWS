@@ -438,7 +438,7 @@ Changes in version 0.5.0 (, 2015):
 
              • ‘`[[`’ : ‘RLum.Analysis’, ‘RLum.Results’
 
-             • ‘`$`’ : ‘RLum.Results’
+             • ‘`$`’ : ‘RLum.Analysis’, ‘RLum.Results’
 
              • ‘`+`’ : ‘RLum.Data.Curve’
 

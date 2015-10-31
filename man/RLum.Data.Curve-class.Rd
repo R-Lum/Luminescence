@@ -31,6 +31,23 @@
 \item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 element}
 }
+\value{
+Returns:\cr
+
+\bold{\code{set_RLum}}\cr
+
+Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+
+\bold{\code{get_RLum}}\cr
+
+Returns:\cr
+(1) A matrix with the curve values or \cr
+(2) only the info object if \code{info.object} was set.\cr
+
+\bold{\code{merge_RLum}}\cr
+
+Returns a new \code{\linkS4class{RLum.Data.Curve}} object.
+}
 \description{
 Class for luminescence curve data.
 }
