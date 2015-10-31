@@ -53,7 +53,27 @@ element in the RLum.Analysis object.}
 \item{recursive}{[\code{get_RLum}] \code{\link{logical}} (with default): if \code{TRUE} (the default)
 and the result of the 'get_RLum' request is a single object this object will be unlisted, means
 only the object itself and no list containing exactly one object is returned. Mostly this makes things
-easier, however, if this method in a loop this might become annoying}
+easier, however, if this method is used within a loop this might undesired.}
+}
+\value{
+\bold{\code{set_RLum}}:\cr
+
+Returns an \code{\linkS4class{RLum.Analysis}} object.
+
+\bold{\code{get_RLum}}:\cr
+
+Returns: \cr
+(1) \code{\link{list}} of \code{\linkS4class{RLum.Data}} objects or \cr
+(2) Single \code{\linkS4class{RLum.Data}} object, if only one object is contained and \code{recursive = FALSE} or\cr
+(3) \code{\linkS4class{RLum.Analysis}} ojects for \code{drop = FALSE} \cr
+
+\bold{\code{merge_RLum}}:\cr
+
+Returns an \code{\linkS4class{RLum.Analysis}} object.
+
+\bold{\code{structure_RLum}}:\cr
+
+Returns \code{\linkS4class{data.frame}} showing the structure.
 }
 \description{
 Object class containing analysis data for protocol analysis.
