@@ -918,9 +918,19 @@ object!")
           range(object@records[[OSL.Curves.ID.Lx[x]]]@data[,2])
         })
 
+        if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Lx[[1]]]]@data[1,1] == 0){
+          xlim <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[2,1],
+                    max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]) +
+                      object@records[[OSL.Curves.ID.Lx[1]]]@data[2,1])
+
+
+        }else{
+
+
         xlim  <- c(object@records[[OSL.Curves.ID.Lx[1]]]@data[1,1],
                    max(object@records[[OSL.Curves.ID.Lx[1]]]@data[,1]))
 
+        }
         #open plot area LnLx
         plot(
           NA,NA,
@@ -939,6 +949,16 @@ object!")
 
         ##plot curves
         sapply(1:length(OSL.Curves.ID.Lx), function(x) {
+
+          if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,1] == 0){
+            object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] <-
+              object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,] +
+              diff(c(object@records[[OSL.Curves.ID.Lx[[x]]]]@data[1,1],
+                     object@records[[OSL.Curves.ID.Lx[[x]]]]@data[2,1]))
+
+            warnings("[analyse_SAR.CWOSL()] curves shifted by one chanel for log-plot.")
+          }
+
           lines(object@records[[OSL.Curves.ID.Lx[[x]]]]@data,col = col[x])
 
         })
@@ -1043,8 +1063,16 @@ object!")
 
         })
 
-        xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
-                  max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
+        if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Tx[[1]]]]@data[1,1] == 0){
+          xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1],
+                    max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]) +
+                      object@records[[OSL.Curves.ID.Tx[1]]]@data[2,1])
+
+
+        }else{
+          xlim <- c(object@records[[OSL.Curves.ID.Tx[1]]]@data[1,1],
+                    max(object@records[[OSL.Curves.ID.Tx[1]]]@data[,1]))
+        }
 
         #open plot area LnLx
         plot(
@@ -1063,9 +1091,20 @@ object!")
               expression(paste(T[n],",",T[x]," curves",sep = "")),
               cex = cex * 0.7)
 
-
         ##plot curves and get legend values
         sapply(1:length(OSL.Curves.ID.Tx) ,function(x) {
+
+          ##account for log-scale and 0 values
+          if((log == "x" | log == "xy") & object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,1] == 0){
+            object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,] <-
+              object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,] +
+                 diff(c(object@records[[OSL.Curves.ID.Tx[[x]]]]@data[1,1],
+                      object@records[[OSL.Curves.ID.Tx[[x]]]]@data[2,1]))
+
+            warnings("[analyse_SAR.CWOSL()] curves shifted by one chanel for log-plot.")
+
+          }
+
           lines(object@records[[OSL.Curves.ID.Tx[[x]]]]@data,col = col[x])
 
         })

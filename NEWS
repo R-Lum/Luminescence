@@ -161,7 +161,10 @@ Changes in version 0.5.0 (, 2015):
 
              • improve behaviour if wrong background integrals are
                provided, even the values make no sense the functions
-               tries to do the best without breaking.
+               tries to do the best without breaking,
+
+             • plot argumet ‘log = "x"’ results in non-plotting of the
+               Lx/Tx curves, fixed.
 
          • ‘analyse_SAR.TL()’
 
