@@ -59,8 +59,8 @@ Collate:
     'Luminescence-package.R'
     'RLum-class.R'
     'structure_RLum.R'
-    'set_RLum.R'
     'length_RLum.R'
+    'set_RLum.R'
     'get_RLum.R'
     'RLum.Analysis-class.R'
     'RLum.Data-class.R'
@@ -134,3 +134,4 @@ Collate:
     'use_DRAC.R'
     'write_R2BIN.R'
     'zzz.R'
+RoxygenNote: 5.0.0

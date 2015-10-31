@@ -69,7 +69,7 @@
 #'
 #' @param cex.global \link{numeric} (with default): global scaling factor.
 #'
-#' #' @param \dots further arguments that will be passed to the function
+#' @param \dots further arguments that will be passed to the function
 #' \code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution} and \code{sigmab})
 #'
 #' @return A plot (optional) and \link{list} is returned containing the

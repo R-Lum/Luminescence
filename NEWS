@@ -247,7 +247,11 @@ Changes in version 0.5.0 (, 2015):
                function is used within a loop, #253),
 
              • make sure that the graphical parameters are restored
-               properly after the function was run.
+               properly after the function was run,
+
+             • function now properly accepts ‘par()’ settings to allow
+               multiple plots on one page, e.g., ‘par(mfrow = c(3,3))’
+               (#247).
 
          • ‘plot_DRTResults()’
 

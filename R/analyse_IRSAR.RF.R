@@ -86,7 +86,7 @@
 #'
 #' \bold{Test parameters}\cr
 #'
-#' The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
+#' The argument \code{test_parameter} allows to pass some thresholds for several test parameters,
 #' which will be evaluated during the function run. If a threshold is set and it will be exceeded the
 #' test parameter status will be set to "FAILED". Intentionally this parameter is not termed
 #' 'rejection criteria' as not all test parameters are evaluated for both methods and some parameters
@@ -984,7 +984,7 @@ analyse_IRSAR.RF<- function(
     residuals_slope = NA,
     curves_bounds = ceiling(max(RF_reg.x)),
     dynamic_ratio = NA,
-    lambda = 1e-04,
+    lambda = NA,
     beta = NA,
     delta.phi = NA
   )

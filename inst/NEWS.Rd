@@ -224,7 +224,9 @@
         \item if the De was zero or negative the function stopped with an error, changed to a
         warning message and a return of \code{NULL} (this is a much better behaviour when
         the function is used within a loop, #253),
-        \item make sure that the graphical parameters are restored properly after the function was run.
+        \item make sure that the graphical parameters are restored properly after the function was run,
+        \item function now properly accepts \code{par()} settings to allow multiple plots on one
+        page, e.g., \code{par(mfrow = c(3,3))} (#247).
 
 
       }

@@ -146,7 +146,7 @@
 #' length 2, specifying the upper and lower x-axes labels.
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
@@ -165,9 +165,6 @@
 #' Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 #'
 #' @examples
-#'
-#' ## store original graphics parameters
-#' #par.old <- par(no.readonly = TRUE)
 #'
 #' ## load example data and recalculate to Gray
 #' data(ExampleData.DeValues, envir = environment())
@@ -325,9 +322,6 @@
 #' ## for further information on layout definitions see documentation
 #' ## of function get_Layout()
 #'
-#' ## restore original graphical parameters
-#' #par(par.old)
-#'
 #' @export
 plot_AbanicoPlot <- function(
   data,
@@ -429,7 +423,11 @@ plot_AbanicoPlot <- function(
 
   ## save original plot parameters and restore them when the function ends or stops
   par.old.full <- par(no.readonly = TRUE)
-  on.exit(par(par.old.full))
+
+  ##this ensures, that par() for several plots on one page is  respected ...
+  if(sum(par()$mfrow) == 2 & sum(par()$mfcol) == 2){
+    on.exit(par(par.old.full))
+  }
 
   ## check/set layout definitions
   if("layout" %in% names(list(...))) {
