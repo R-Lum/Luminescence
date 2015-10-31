@@ -254,7 +254,14 @@ Changes in version 0.5.0 (, 2015):
 
              • function now properly accepts ‘par()’ settings to allow
                multiple plots on one page, e.g., ‘par(mfrow = c(3,3))’
-               (#247).
+               (#247),
+
+             • function now accepts direct input from ‘RLum.Results’
+               objects produced by the function ‘analyse_SAR.CWOSL()’
+               without error (#245),
+
+             • function no longer breaks if an empty data set is
+               provided (#244).
 
          • ‘plot_DRTResults()’
 
@@ -357,7 +364,12 @@ Changes in version 0.5.0 (, 2015):
                (this happens normally for BIN-files produced by FI
                lexsyg readers),
 
-             • A new argument ‘grain’ can be used to further limit the
+             • along with this the x-values for the curves are now
+               consequently calcualted using the LOW and the HIGH
+               values given in the BIN-files. This may cause a shift of
+               the surves towards 0 for CW-curves (#235),
+
+             • a new argument ‘grain’ can be used to further limit the
                transformation to specific grains in the data set,
 
              • the arguement ‘pos’ is no longer required. If nothing is

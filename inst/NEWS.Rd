@@ -227,7 +227,10 @@
         the function is used within a loop, #253),
         \item make sure that the graphical parameters are restored properly after the function was run,
         \item function now properly accepts \code{par()} settings to allow multiple plots on one
-        page, e.g., \code{par(mfrow = c(3,3))} (#247).
+        page, e.g., \code{par(mfrow = c(3,3))} (#247),
+        \item function now accepts direct input from \code{RLum.Results} objects produced
+        by the function \code{analyse_SAR.CWOSL()} without error (#245),
+        \item function no longer breaks if an empty data set is provided (#244).
 
 
       }
@@ -325,7 +328,10 @@
 
         \item If the lower temperature for the TL curve calculation was not at 0, wrong shifted
         TL curves had been produced (this happens normally for BIN-files produced by FI lexsyg readers),
-        \item A new argument \code{grain} can be used to further limit the transformation to
+        \item along with this the x-values for the curves are now consequently calcualted using
+        the LOW and the HIGH values given in the BIN-files. This may cause a shift of the surves
+        towards 0 for CW-curves (#235),
+        \item a new argument \code{grain} can be used to further limit the transformation to
         specific grains in the data set,
         \item the arguement \code{pos} is no longer required. If nothing is provided every position
         will be transformed and the function returns a list of \code{RLum.Analysis}-objects,
