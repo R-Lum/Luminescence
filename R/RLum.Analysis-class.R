@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R
+#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R
 NULL
 
 #' Class \code{"RLum.Analysis"}
@@ -463,7 +463,7 @@ setMethod("get_RLum",
 
           })
 
-# constructor (length) method for object class ------------------------------------------
+# length method for object class ------------------------------------------
 
 #' @describeIn RLum.Analysis
 #' Returns the length of the object, i.e., number of stored records.
@@ -474,6 +474,21 @@ setMethod("length_RLum",
           function(object){
 
             length(object@records)
+
+          })
+
+# names method for object class ------------------------------------------
+
+
+#' @describeIn RLum.Analysis
+#' Returns the names of the \code{\linkS4class{RLum.Data}} objects objects (same as shown with the show method)
+#'
+#' @export
+setMethod("names_RLum",
+          "RLum.Analysis",
+          function(object){
+            sapply(1:length(object@records), function(x){
+              object@records[[x]]@recordType})
 
           })
 

@@ -26,11 +26,11 @@
 #' arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
 #' (e.g., \code{subset = list(curveType = "measured")})
 #'
-#' @param nrows \code{\link{integer}} (with default): sets number of rows for
-#' plot output
+#' @param nrows \code{\link{integer}} (optional): sets number of rows for
+#' plot output, if nothing is set the function tries to find a value.
 #'
-#' @param ncols \code{\link{integer}} (with default): sets number of columns
-#' for plot output
+#' @param ncols \code{\link{integer}} (optional): sets number of columns
+#' for plot output, if nothing is set the function tries to find a value.
 #'
 #' @param abline \code{\link{list}} (optional): allows to set similar ablines
 #' in each plot. This option uses the function \code{\link{do.call}}, meaning
@@ -64,7 +64,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
 #'
-#' @section Function version: 0.2.8
+#' @section Function version: 0.2.9
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -97,8 +97,8 @@
 plot_RLum.Analysis <- function(
   object,
   subset,
-  nrows = 3,
-  ncols = 2,
+  nrows,
+  ncols,
   abline,
   combine = FALSE,
   curve.transformation,
@@ -114,6 +114,69 @@ plot_RLum.Analysis <- function(
     stop("[plot_RLum.Analysis()]: Input object is not of type 'RLum.Analysis'")
 
   }
+
+  ##try to find optimal parameters, this is however, a little bit stupid, but
+  ##better than without any
+
+  if(combine){
+    n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
+
+  }else{
+    n.plots <- length_RLum(object)
+
+  }
+
+  if (missing(ncols) | missing(nrows)) {
+    if (missing(ncols) & !missing(nrows)) {
+      if (n.plots  == 1) {
+        ncols <- 1
+
+      } else{
+        ncols <- 2
+
+      }
+
+    }
+    else if (!missing(ncols) & missing(nrows)) {
+      if (n.plots  == 1) {
+        nrows <- 1
+
+      }
+      else if (n.plots  > 1 & n.plots <= 4) {
+        nrows <- 2
+
+      } else{
+        nrows <- 3
+
+      }
+
+
+    } else{
+      if (n.plots  == 1) {
+        nrows <- 1
+        ncols <- 1
+
+      }
+      else if (n.plots  > 1 & n.plots  <= 2) {
+        nrows <- 1
+        ncols <- 2
+
+      } else if (n.plots  > 2 & n.plots <= 4) {
+        nrows <- 2
+        ncols <- 2
+
+      }
+      else{
+        nrows <- 3
+        ncols <- 2
+
+      }
+
+    }
+
+  }
+
+
 
   ##deal with addition arguments
   extraArgs <- list(...)
@@ -368,7 +431,12 @@ plot_RLum.Analysis <- function(
     ##change graphic settings
     if(!plot.single){
       par.default <- par()[c("cex", "mfrow")]
-      par(mfrow = c(nrows, ncols))
+
+      if(!missing(ncols) & !missing(nrows)){
+        par(mfrow = c(nrows, ncols))
+
+      }
+
 
       ##this 2nd par request is needed as seeting mfrow resets the par settings ... this might
       ##not be wanted

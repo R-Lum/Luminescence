@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R
+#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R
 NULL
 
 #' Class \code{"RLum.Data.Curve"}
@@ -281,4 +281,33 @@ setMethod("get_RLum",
                     object@data
 
              }
+          })
+
+
+# names method for object class ------------------------------------------
+
+#' @describeIn RLum.Data.Curve
+#' Returns the length of the curve object, which is the maximum of the
+#' value time/temperature of the curve (corresponding to the stimulation length)
+#'
+#' @export
+setMethod("length_RLum",
+          "RLum.Data.Curve",
+          function(object){
+            max(object@data[,1])
+
+          })
+
+
+# names method for object class ------------------------------------------
+
+#' @describeIn RLum.Data.Curve
+#' Returns the names info elements coming along with this curve object
+#'
+#' @export
+setMethod("names_RLum",
+          "RLum.Data.Curve",
+          function(object){
+            names(object@info)
+
           })

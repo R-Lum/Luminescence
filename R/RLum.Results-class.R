@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R merge_RLum.R
+#' @include get_RLum.R set_RLum.R merge_RLum.R length_RLum.R names_RLum.R
 NULL
 
 #' Class \code{"RLum.Results"}
@@ -382,3 +382,31 @@ differs!")
 
 
           })##end set method
+
+
+# length method for object class ------------------------------------------
+
+#' @describeIn RLum.Results
+#' Returns the length of the object, i.e., number of stored data.objects
+#'
+#' @export
+setMethod("length_RLum",
+          "RLum.Results",
+          function(object){
+
+            length(object@data)
+
+          })
+
+# names method for object class ------------------------------------------
+
+#' @describeIn RLum.Results
+#' Returns the names data.objects
+#'
+#' @export
+setMethod("names_RLum",
+          "RLum.Results",
+          function(object){
+             names(object@data)
+
+          })

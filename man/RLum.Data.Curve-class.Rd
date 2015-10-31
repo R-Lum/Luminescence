@@ -4,6 +4,8 @@
 \name{RLum.Data.Curve-class}
 \alias{RLum.Data.Curve-class}
 \alias{get_RLum,RLum.Data.Curve-method}
+\alias{length_RLum,RLum.Data.Curve-method}
+\alias{names_RLum,RLum.Data.Curve-method}
 \alias{set_RLum,RLum.Data.Curve-method}
 \alias{show,RLum.Data.Curve-method}
 \title{Class \code{"RLum.Data.Curve"}}
@@ -14,6 +16,10 @@
   curveType = character(), data = matrix(0, 0, 2), info = list())
 
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object)
+
+\S4method{length_RLum}{RLum.Data.Curve}(object)
+
+\S4method{names_RLum}{RLum.Data.Curve}(object)
 }
 \arguments{
 \item{object}{[\code{get_RLum}] an object of class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
@@ -61,6 +67,11 @@ and predefined as empty list by default.
 \item \code{get_RLum}: Accessor method for RLum.Data.Curve object. The argument info.object is
 optional to directly access the info elements. If no info element name is
 provided, the raw curve data (matrix) will be returned.
+
+\item \code{length_RLum}: Returns the length of the curve object, which is the maximum of the
+value time/temperature of the curve (corresponding to the stimulation length)
+
+\item \code{names_RLum}: Returns the names info elements coming along with this curve object
 }}
 \section{Slots}{
 

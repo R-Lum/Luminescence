@@ -49,6 +49,27 @@
 
       }
 
+      \item \code{length_RLum}
+       \itemize{
+        \item Method added for \code{RLum.Results} objects.
+
+       }
+
+      \item \code{names_RLum}
+       \itemize{
+        \item Method added for \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum},
+        \code{RLum.Data.Image}, \code{RLum.Analysis} and \code{RLum.Results} objects.
+
+       }
+
+        \item \code{as}
+       \itemize{
+        \item Correct coercion method for \code{RLum.Data.Spectrum} to a \code{data.frame},
+        before only the first two columns had been returned.
+
+       }
+
+
      \item \code{Risoe.BINfileData-class}
       \itemize{
         \item Show method now returns the valid grain range,
@@ -283,7 +304,10 @@
       \itemize{
 
         \item The \code{...} argument \code{main} can now be provided as vector if \code{combine = TRUE},
-        \item this methods now supports a vector for the argument \code{main}.
+        \item this methods now supports a vector for the argument \code{main},
+        \item arguments \code{ncols} and \code{nrows} are no optional, the functions tries to set
+        a good value.
+
 
       }
 
@@ -396,7 +420,13 @@
         \code{RLum.Analysis}
         \item \code{summary()}: \code{RLum.Results}, \code{RLum.Data.Image}, \code{RLum.Data.Curve},
         \code{RLum.Analysis}
-        \item \code{length()}: \code{RLum.Data.Curve}, \code{RLum.Analysis}, \code{Risoe.BINfileData}
+        \item \code{length()}: \code{RLum.Data.Curve}, \code{RLum.Analysis}, \code{Risoe.BINfileData},
+        \code{RLum.Results}
+        \item \code{nrow()}: \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}
+        \item \code{dim()}: \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}
+        \item \code{row.names()}: \code{RLum.Data.Spectrum}
+        \item \code{names()}: \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image},
+        \code{RLum.Analysis}, \code{RLum.Results}, \code{Risoe.BINfileData}
         \item \code{as.data.frame()}: \code{RLum.Data.Curve}, \code{RLum.Results}
         \item \code{as.list()}: \code{RLum.Data.Curve}, \code{RLum.Results}
         \item \code{as.matrix()}:  \code{RLum.Data.Curve}, \code{RLum.Results}

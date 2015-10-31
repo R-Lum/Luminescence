@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R
+#' @include get_RLum.R set_RLum.R names_RLum.R
 NULL
 
 #' Class \code{"RLum.Data.Spectrum"}
@@ -24,7 +24,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Data.Spectrum", ...)}.
 #'
-#' @section Class version: 0.2.1
+#' @section Class version: 0.2.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -77,9 +77,7 @@ setAs("data.frame", "RLum.Data.Spectrum",
 
 setAs("RLum.Data.Spectrum", "data.frame",
       function(from){
-
-        data.frame(x = from@data[,1],
-                   y = from@data[,2])
+        as.data.frame(from@data)
 
       })
 
@@ -249,4 +247,18 @@ setMethod("get_RLum",
               object@data
 
             }
+          })
+
+
+# names method for object class ------------------------------------------
+
+#' @describeIn RLum.Data.Spectrum
+#' Returns the names info elements coming along with this curve object
+#'
+#' @export
+setMethod("names_RLum",
+          "RLum.Data.Spectrum",
+          function(object){
+            names(object@info)
+
           })

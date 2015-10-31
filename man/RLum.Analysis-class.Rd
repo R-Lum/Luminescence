@@ -5,6 +5,7 @@
 \alias{RLum.Analysis-class}
 \alias{get_RLum,RLum.Analysis-method}
 \alias{length_RLum,RLum.Analysis-method}
+\alias{names_RLum,RLum.Analysis-method}
 \alias{set_RLum,RLum.Analysis-method}
 \alias{show,RLum.Analysis-method}
 \alias{structure_RLum,RLum.Analysis-method}
@@ -21,6 +22,8 @@
   recursive = TRUE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
+
+\S4method{names_RLum}{RLum.Analysis}(object)
 }
 \arguments{
 \item{object}{[\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})}
@@ -98,6 +101,8 @@ The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 
 \item \code{length_RLum}: Returns the length of the object, i.e., number of stored records.
+
+\item \code{names_RLum}: Returns the names of the \code{\linkS4class{RLum.Data}} objects objects (same as shown with the show method)
 }}
 \section{Slots}{
 

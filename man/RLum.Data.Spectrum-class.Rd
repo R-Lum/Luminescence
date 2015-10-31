@@ -4,6 +4,7 @@
 \name{RLum.Data.Spectrum-class}
 \alias{RLum.Data.Spectrum-class}
 \alias{get_RLum,RLum.Data.Spectrum-method}
+\alias{names_RLum,RLum.Data.Spectrum-method}
 \alias{set_RLum,RLum.Data.Spectrum-method}
 \alias{show,RLum.Data.Spectrum-method}
 \title{Class \code{"RLum.Data.Spectrum"}}
@@ -14,6 +15,8 @@
   info)
 
 \S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object)
+
+\S4method{names_RLum}{RLum.Data.Spectrum}(object)
 }
 \arguments{
 \item{object}{an object of class \code{\linkS4class{RLum.Data.Image}}}
@@ -43,6 +46,8 @@ and predefined as empty list by default
 \item \code{get_RLum}: Accessor method for RLum.Data.Spectrum object. The argument info.object
 is optional to directly access the info elements. If no info element name
 is provided, the raw curve data (matrix) will be returned
+
+\item \code{names_RLum}: Returns the names info elements coming along with this curve object
 }}
 \section{Slots}{
 
@@ -66,7 +71,7 @@ additional elements the slot \code{info} can be used.
 }
 
 \section{Class version}{
- 0.2.1
+ 0.2.2
 }
 \examples{
 

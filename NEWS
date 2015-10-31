@@ -57,6 +57,22 @@ Changes in version 0.5.0 (, 2015):
                types ‘RLum.Results’ if they tried to combine matrices
                and vectors found in the 'data.object' list.
 
+         • ‘length_RLum’
+
+             • Method added for ‘RLum.Results’ objects.
+
+         • ‘names_RLum’
+
+             • Method added for ‘RLum.Data.Curve’,
+               ‘RLum.Data.Spectrum’, ‘RLum.Data.Image’, ‘RLum.Analysis’
+               and ‘RLum.Results’ objects.
+
+         • ‘as’
+
+             • Correct coercion method for ‘RLum.Data.Spectrum’ to a
+               ‘data.frame’, before only the first two columns had been
+               returned.
+
          • ‘Risoe.BINfileData-class’
 
              • Show method now returns the valid grain range,
@@ -322,7 +338,10 @@ Changes in version 0.5.0 (, 2015):
                if ‘combine = TRUE’,
 
              • this methods now supports a vector for the argument
-               ‘main’.
+               ‘main’,
+
+             • arguments ‘ncols’ and ‘nrows’ are no optional, the
+               functions tries to set a good value.
 
          • ‘readBIN2R()’
 
@@ -459,6 +478,16 @@ Changes in version 0.5.0 (, 2015):
                ‘RLum.Data.Curve’, ‘RLum.Analysis’
 
              • ‘length()’: ‘RLum.Data.Curve’, ‘RLum.Analysis’,
+               ‘Risoe.BINfileData’, ‘RLum.Results’
+
+             • ‘nrow()’: ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’
+
+             • ‘dim()’: ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’
+
+             • ‘row.names()’: ‘RLum.Data.Spectrum’
+
+             • ‘names()’: ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’,
+               ‘RLum.Data.Image’, ‘RLum.Analysis’, ‘RLum.Results’,
                ‘Risoe.BINfileData’
 
              • ‘as.data.frame()’: ‘RLum.Data.Curve’, ‘RLum.Results’

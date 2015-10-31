@@ -4,8 +4,8 @@
 \alias{plot_RLum.Analysis}
 \title{Plot function for an RLum.Analysis S4 class object}
 \usage{
-plot_RLum.Analysis(object, subset, nrows = 3, ncols = 2, abline,
-  combine = FALSE, curve.transformation, plot.single = FALSE, ...)
+plot_RLum.Analysis(object, subset, nrows, ncols, abline, combine = FALSE,
+  curve.transformation, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
@@ -15,11 +15,11 @@ object of class \code{RLum.Analysis}}
 arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
 (e.g., \code{subset = list(curveType = "measured")})}
 
-\item{nrows}{\code{\link{integer}} (with default): sets number of rows for
-plot output}
+\item{nrows}{\code{\link{integer}} (optional): sets number of rows for
+plot output, if nothing is set the function tries to find a value.}
 
-\item{ncols}{\code{\link{integer}} (with default): sets number of columns
-for plot output}
+\item{ncols}{\code{\link{integer}} (optional): sets number of columns
+for plot output, if nothing is set the function tries to find a value.}
 
 \item{abline}{\code{\link{list}} (optional): allows to set similar ablines
 in each plot. This option uses the function \code{\link{do.call}}, meaning
@@ -77,7 +77,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.8 (2015-10-16 18:19:05)
+ 0.2.9 (2015-10-31 20:45:39)
 }
 \examples{
 

@@ -4,6 +4,7 @@
 \name{RLum.Data.Image-class}
 \alias{RLum.Data.Image-class}
 \alias{get_RLum,RLum.Data.Image-method}
+\alias{names_RLum,RLum.Data.Image-method}
 \alias{set_RLum,RLum.Data.Image-method}
 \alias{show,RLum.Data.Image-method}
 \title{Class \code{"RLum.Data.Image"}}
@@ -13,6 +14,8 @@
 \S4method{set_RLum}{RLum.Data.Image}(class, recordType, curveType, data, info)
 
 \S4method{get_RLum}{RLum.Data.Image}(object, info.object)
+
+\S4method{names_RLum}{RLum.Data.Image}(object)
 }
 \arguments{
 \item{object}{an object of class \code{\linkS4class{RLum.Data.Image}}}
@@ -42,6 +45,8 @@ and predefined as empty list by default..
 \item \code{get_RLum}: Accessor method for RLum.Data.Image object. The argument info.object is
 optional to directly access the info elements. If no info element name is
 provided, the raw image data (RasterBrick) will be returned.
+
+\item \code{names_RLum}: Returns the names info elements coming along with this curve object
 }}
 \section{Slots}{
 
@@ -64,7 +69,7 @@ elements the slot \code{info} can be used.
 }
 
 \section{Class version}{
- 0.2.0
+ 0.2.1
 }
 \examples{
 

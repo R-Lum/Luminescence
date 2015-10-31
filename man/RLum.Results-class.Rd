@@ -4,7 +4,9 @@
 \name{RLum.Results-class}
 \alias{RLum.Results-class}
 \alias{get_RLum,RLum.Results-method}
+\alias{length_RLum,RLum.Results-method}
 \alias{merge_RLum.Results,list-method}
+\alias{names_RLum,RLum.Results-method}
 \alias{set_RLum,RLum.Results-method}
 \alias{show,RLum.Results-method}
 \title{Class \code{"RLum.Results"}}
@@ -16,6 +18,10 @@
 \S4method{get_RLum}{RLum.Results}(object, data.object, drop = TRUE)
 
 \S4method{merge_RLum.Results}{list}(object.list)
+
+\S4method{length_RLum}{RLum.Results}(object)
+
+\S4method{names_RLum}{RLum.Results}(object)
 }
 \arguments{
 \item{object}{[\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
@@ -72,6 +78,10 @@ receiving function if results are pipped.
 
 \item \code{merge_RLum.Results}: merge method for RLum.Results objects. The argument object.list requires a list of RLum.Results objects.
 Merging is done by appending similar elements to the first object of the input list.
+
+\item \code{length_RLum}: Returns the length of the object, i.e., number of stored data.objects
+
+\item \code{names_RLum}: Returns the names data.objects
 }}
 \section{Slots}{
 

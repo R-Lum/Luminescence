@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R
+#' @include get_RLum.R set_RLum.R names_RLum.R
 NULL
 
 #' Class \code{"RLum.Data.Image"}
@@ -23,7 +23,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Data.Image", ...)}.
 #'
-#' @section Class version: 0.2.0
+#' @section Class version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -249,4 +249,17 @@ setMethod("get_RLum",
               object@data
 
             }
+          })
+
+# names method for object class ------------------------------------------
+
+#' @describeIn RLum.Data.Image
+#' Returns the names info elements coming along with this curve object
+#'
+#' @export
+setMethod("names_RLum",
+          "RLum.Data.Image",
+          function(object){
+            names(object@info)
+
           })
