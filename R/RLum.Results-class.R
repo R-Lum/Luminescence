@@ -20,7 +20,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Results", ...)}.
 #'
-#' @section Class version: 0.2.2
+#' @section Class version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -46,19 +46,20 @@ setClass(
 
 # Validation --------------------------------------------------------------
 
-setValidity("RLum.Results",
-            function(object){
-
-              ##calc_OSLLxTxRatio
-              if(object@originator == "calc_OSLLxTxRatio"){
-
-                #print(is(object@data[[1]], "data.frame"))
-
-              }
-
-
-            }
-)
+##Not used currenlty
+# setValidity("RLum.Results",
+#             function(object){
+#
+#               ##calc_OSLLxTxRatio
+#               if(object@originator == "calc_OSLLxTxRatio"){
+#
+#                 #print(is(object@data[[1]], "data.frame"))
+#
+#               }
+#
+#
+#             }
+# )
 
 
 # show method for object ------------------------------------------------------
@@ -138,285 +139,133 @@ setMethod("set_RLum",
 
 #' @describeIn RLum.Results
 #' Accessor method for RLum.Results object. The argument data.object allows
-#' directly accessing objects delivered within the slot data. If no
-#' data.object is specified, a preselected object is returned. The default
+#' directly accessing objects delivered within the slot data. The default
 #' return object depends on the object originator (e.g., \code{fit_LMCurve}).
+#' If nothing is specified always the first \code{data.object} will be returned.
 #'
+#' Note: Detailed specification should be made in combination with the originator slot in the
+#' receiving function if results are pipped.
 #'
 #' @param object [\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
 #' \code{\linkS4class{RLum.Results}} to be evaluated
-#' @param data.object [\code{get_RLum}] \code{\link{character}}: name of the data slot to be returned
+#'
+#' @param data.object [\code{get_RLum}] \code{\link{character}} or
+#' \code{\link{numeric}}: name or index of the data slot to be returned
+#'
+#' @param drop [\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
+#' (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}
+#'
+#' @return
+#'
+#' \bold{\code{set_RLum}}:\cr
+#'
+#' Returns an \code{\linkS4class{RLum.Results}} object.  \cr
+#'
+#' \bold{\code{get_RLum}}:\cr
+#'
+#' Returns: \cr
+#' (1) Data object from the specified slot \cr
+#' (2) \code{\link{list}} of data objects from the slots if 'data.object' is vector or \cr
+#' (3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
+#'
+#' \bold{\code{merge_RLum}}:\cr
+#'
+#' Returns an \code{\linkS4class{RLum.Results}} object.
 #'
 #' @export
 setMethod("get_RLum",
           signature = signature("RLum.Results"),
-          definition = function(object, data.object) {
+          definition = function(object, data.object, drop = TRUE) {
 
-            if(!missing(data.object)){
-              if(!is(data.object, "character") && !is(data.object, "numeric")){
+            if (!missing(data.object)) {
 
-                stop("[get_RLum] 'data.object' has to be of type character or numeric!")
+              ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+              ##CASE1: data.object is of type 'character'
+              if (is(data.object, "character")) {
 
-              }
-            }
+                #check if the provided names are available
+                if (all(data.object %in% names(object@data))) {
 
-            ##allow to access a specific data object
-            if(!missing(data.object)){
+                  ##account for multiple inputs
+                  if (length(data.object) > 1) {
+                    temp.return <- sapply(data.object, function(x){
+                      object@data[[x]]
 
-                if(is(data.object, "character")){
+                    })
 
-                if(is.null(try(object@data[[data.object]]))){
+                  } else{
+                    temp.return <- list(data.object = object@data[[data.object]])
 
-                  error.message1 <- paste(names(object@data), collapse = ", ")
-                  error.message <- paste0("[get_RLum()] data.object '",data.object ,"' unknown. Valid object names are: ", error.message1)
+                  }
 
+
+                } else{
+                  error.message <- paste0(
+                    "[get_RLum()] data.object(s) unknown, valid names are: ",
+                    paste(names(object@data), collapse = ", ")
+
+                  )
                   stop(error.message)
 
-                }else{
-
-                  return(object@data[[data.object]])
-
-                }
-
-                }else{
-
-                  ##not further test for bounds to keep it fast
-                  return(object@data[[data.object]])
-              }
-
-            }else{
-
-              ##-------------------------------------------------------------
-              ##calc_OSLLxTxRatio
-              if(object@originator == "calc_OSLLxTxRatio") {
-
-                if(missing(data.object)==TRUE){
-
-                  return(object@data$LxTx.table)
-
-                }else{
-
-                  if(data.object%in%names(object@data)==FALSE){
-
-                    #valid.names <- names(object@data))
-                    stop(paste("\n[get_RLum()] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
-                             Valid 'data.objects' are: ",paste(names(object@data), collapse=", "), sep=""))
-
-                  }else{
-
-                    return(object@data[data.object][[1]])
-
-                  }
-
                 }
 
               }
 
+              ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+              ##CASE2: data.object is of type 'numeric'
+              else if (is(data.object, "numeric")) {
+                ##check if index is valid
+                if (max(data.object) > length(object@data)) {
+                  stop("[get_RLum] 'data.object' index out of bounds!")
 
-              ##-------------------------------------------------------------
-              ##calc_TLLxTxRatio
-              if(object@originator == "calc_TLLxTxRatio") {
+                } else if (length(data.object) > 1) {
+                  temp.return <- lapply(data.object, function(x) {
+                    object@data[[x]]
+
+                  })
 
 
-                if(missing(data.object)==TRUE){
-
-                  return(object@data$LxTx.table)
-
-                }else{
-
-                  if(data.object%in%names(object@data)==FALSE){
-
-                    #valid.names <- names(object@data))
-                    stop(paste("\n[get_RLum()] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
-                             Valid 'data.objects' are: ",paste(names(object@data), collapse=", "), sep=""))
-
-                  }else{
-
-                    return(object@data[data.object][[1]])
-
-                  }
+                } else{
+                  temp.return <- list(object@data[[data.object]])
 
                 }
 
-
-
-
-              }
-
-              ##-------------------------------------------------------------
-              ##calc_SourceDoseRate
-              if(object@originator == "calc_SourceDoseRate") {
-
-                return(object@data[[1]])
+                ##restore names as that get los with this method
+                names(temp.return) <- names(object@data)[data.object]
 
               }
-
-
-
-              ##-------------------------------------------------------------
-              ##plot_GrowthCurve
-              if(object@originator == "plot_GrowthCurve") {
-
-                if(missing(data.object)==TRUE){
-
-                  return(object@data$De)
-
-                }else{
-
-                  if(data.object%in%names(object@data)==FALSE){
-
-                    #valid.names <- names(object@data))
-                    stop(paste("\n[get_RLum] Error: 'data.object' is unknown for this RLum.Results object produced by ", object@originator,"()!
-                             Valid 'data.objects' are: ",paste(names(object@data), collapse=", "), sep=""))
-
-                  }else{
-
-                    return(object@data[data.object][[1]])
-
-                  }
-
-                }
-
+              ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+              ##CASE3: data.object is of an unsupported type
+              else{
+                stop("[get_RLum] 'data.object' has to be of type character or numeric!")
               }
 
-              ##-------------------------------------------------------------
-              ##analyse_SAR.CWOSL
-              if(object@originator == "analyse_SAR.CWOSL" | object@originator == "analyse_pIRIRSequence") {
+            ##the CASE data.object is missing
+            } else{
 
-                return(object@data[[1]])
+              ##return always the first object if nothing is specified
+              temp.return <- object@data[1]
 
-              }
+            }
 
-              ##-------------------------------------------------------------
-              ##analyse_IRSAR.RF
-              if(object@originator == "analyse_IRSAR.RF") {
+          ##CHECK whether an RLum.Results object needs to be produced ...
+          ##This will just be the case if the funtion havn't returned something before
+          if (drop) {
+            ##we need to access the list here, otherwise we get unexpected behaviour as drop = TRUE
+            ##should always return the lowest possible element here
+            return(temp.return[[1]])
 
-                return(object@data$De.values)
+          } else{
 
-              }
-
-              ##-------------------------------------------------------------
-              ##fit_CWCurve
-              if(object@originator == "fit_CWCurve") {
-
-                return(object@data$output.table)
-
-              }
-
-              ##-------------------------------------------------------------
-              ##fit_LMCurve
-              if(object@originator == "fit_LMCurve") {
-
-                return(object@data$output.table)
-
-              }
-
-              ##-------------------------------------------------------------
-              ##calc_MinDose
-              if(object@originator == "calc_MinDose") {
-
-                return(object@data$summary)
-
-              }
-
-              ##-------------------------------------------------------------
-              ##calc_MinDose
-              if(object@originator == "calc_MaxDose") {
-
-                return(object@data$summary)
-
-              }
-
-              ##-------------------------------------------------------------
-              ##calc_MinDose3
-              if(object@originator == "calc_MinDose3") {
-
-                return(object@data$results)
-
-              }
-
-              ##-------------------------------------------------------------
-              ##calc_MinDose4
-              if(object@originator == "calc_MinDose4") {
-
-                return(object@data$results)
-
-              }
-
-              ##-------------------------------------------------------------
-              ## calc_CommonDose
-              if(object@originator == "calc_CommonDose") {
-
-                return(object@data$summary)
-
-              }
-
-              ##-------------------------------------------------------------
-              ## calc_CentralDose
-              if(object@originator == "calc_CentralDose") {
-
-                return(object@data$summary)
-
-              }
-
-              ##-------------------------------------------------------------
-              ## calc_CosmicDoseRate
-              if(object@originator == "calc_CosmicDoseRate") {
-
-                return(object@data$summary)
-
-              }
-
-              ##-------------------------------------------------------------
-              ## calc_HomogeneityTest
-              if(object@originator == "calc_HomogeneityTest") {
-
-                return(object@data$summary)
-
-              }
-
-              ##-------------------------------------------------------------
-              ##calc_FadingCorr()
-
-              if(object@originator == "calc_FadingCorr") {
-
-                return(object@data$age.corr)
-
-              }
-
-              ##-------------------------------------------------------------
-              # calc_FuchsLang2001
-              if(object@originator == "calc_FuchsLang2001") {
-
-                return(object@data$summary)
-
-              }
-
-              ##-------------------------------------------------------------
-              ## extract_IrradiationTimes()
-              if(object@originator == "extract_IrradiationTimes") {
-
-                return(object@data$irr.times)
-
-              }
-
-              ##-------------------------------------------------------------
-              ## extract_IrradiationTimes()
-              if(object@originator == "use_DRAC") {
-
-                return(object@data$DRAC$highlights)
-
-              }
+            return(set_RLum(
+              "RLum.Results",
+              originator = object@originator,
+              data = temp.return
+            ))
 
 
-              ##-------------------------------------------------------------
-              ##CATCHER - IF NOTHING ELSE IS DEFINED return always the first object
-              return(object@data[1])
-
-
-
-            }##end if missing data.object
-          })
+          }
+    })
 
 ##=============================================================================##
 # merge_RLum.Results ------------------------------------------------------

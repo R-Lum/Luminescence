@@ -35,7 +35,8 @@
         as former it was \code{keep.object = TRUE}. However, \code{drop} is behaviour consistent
         with standard R code,
         \item argument \code{data.object} (\code{get_RLum} for 'RLum.Results' objects can now handle
-        numeric values)
+        numeric values) and numeric, as well as character vectors,
+        \item argument \code{drop} also added for \code{get_RLum} method for 'RLum.Results'.
 
       }
 
@@ -382,7 +383,7 @@
       \item Add methods for S3 generics for RLum-objects:
       \itemize{
 
-        \item \code{`[`} : \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image}, \code{RLum.Analysis}
+        \item \code{`[`} : \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image}, \code{RLum.Analysis}, \code{RLum.Results}
         \item \code{`[[`} : \code{RLum.Analysis}, \code{RLum.Results}
         \item \code{`$`} :  \code{RLum.Results}
         \item \code{`+`} : \code{RLum.Data.Curve}

@@ -97,8 +97,7 @@
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), Margret C. Fuchs, TU Bergakademie Freiberg
-#' (Germany)
+#' (France), Margret C. Fuchs, HZDR, Freiberg (Germany)
 #' @seealso \link{calc_OSLLxTxRatio}, \link{Risoe.BINfileData-class},
 #' \link{read_BIN2R}
 #'
@@ -261,33 +260,19 @@ Analyse_SAR.OSLdata <- function(
         return(list(Lx.curve,Tx.curve))
       }))
 
-      ##(3) calculate Lx/Tx ratios
-      for(k in 1:length(LnLxTnTx.curves[1,])){
-        if(exists("LnLxTnTx")==FALSE){
-          LnLxTnTx <-
-            get_RLum(
-              calc_OSLLxTxRatio(
-                as.data.frame(LnLxTnTx.curves[1,k]),
-                as.data.frame(LnLxTnTx.curves[2,k]),
-                signal.integral,background.integral,
-                background.count.distribution = background.count.distribution,
-                sigmab = sigmab
-              )
-            )
+      ##(3) calculate Lx/Tx ratio
+      LnLxTnTx <- get_RLum(
+        merge_RLum(lapply(1:length(LnLxTnTx.curves[1, ]), function(k) {
+          calc_OSLLxTxRatio(
+            as.data.frame(LnLxTnTx.curves[1, k]),
+            as.data.frame(LnLxTnTx.curves[2, k]),
+            signal.integral,
+            background.integral,
+            background.count.distribution = background.count.distribution,
+            sigmab = sigmab
+          )
+        })))
 
-        }else{
-          LnLxTnTx <-
-            rbind(LnLxTnTx, get_RLum(
-              calc_OSLLxTxRatio(
-                as.data.frame(LnLxTnTx.curves[1,k]),
-                as.data.frame(LnLxTnTx.curves[2,k]),
-                signal.integral,background.integral,
-                background.count.distribution = background.count.distribution,
-                sigmab = sigmab
-              )
-            ))
-        }
-      }
 
       ##finally combine to data.frame including the record ID for further analysis
       LnLxTnTx <- cbind(LnLxTnTx,LnLx.curveID,TnTx.curveID)

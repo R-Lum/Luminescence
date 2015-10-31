@@ -106,7 +106,7 @@ consider using the functions \code{\link{analyse_SAR.CWOSL}} or
 to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.16 (2015-10-29 18:02:50)
+ 0.2.16 (2015-10-31 17:11:18)
 }
 \examples{
 
@@ -130,8 +130,7 @@ output.SAR
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), Margret C. Fuchs, TU Bergakademie Freiberg
-(Germany)
+(France), Margret C. Fuchs, HZDR, Freiberg (Germany)
 \cr R Luminescence Package Team}
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

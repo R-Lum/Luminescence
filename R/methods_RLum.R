@@ -98,7 +98,10 @@ merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y))
 `[.RLum.Data.Image` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
 
 #' @export
-`[.RLum.Analysis` <- function(x, i) {as(get_RLum(x, record.id = i), "matrix")}
+`[.RLum.Analysis` <- function(x, i, drop = FALSE) {get_RLum(x, record.id = i, drop = drop)}
+
+#' @export
+`[.RLum.Results` <- function(x, i, drop = FALSE) {get_RLum(x, data.object = i, drop = drop)}
 
 # methods for generic: `[[`
 #' @export

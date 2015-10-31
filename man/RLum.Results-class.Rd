@@ -13,7 +13,7 @@
 
 \S4method{set_RLum}{RLum.Results}(class, originator, data)
 
-\S4method{get_RLum}{RLum.Results}(object, data.object)
+\S4method{get_RLum}{RLum.Results}(object, data.object, drop = TRUE)
 
 \S4method{merge_RLum.Results}{list}(object.list)
 }
@@ -28,9 +28,29 @@ the originator.}
 
 \item{data}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to be stored in the object}
 
-\item{data.object}{[\code{get_RLum}] \code{\link{character}}: name of the data slot to be returned}
+\item{data.object}{[\code{get_RLum}] \code{\link{character}} or
+\code{\link{numeric}}: name or index of the data slot to be returned}
+
+\item{drop}{[\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
+(which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}}
 
 \item{object.list}{[\code{merge_RLum.Results}] \code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects}
+}
+\value{
+\bold{\code{set_RLum}}:\cr
+
+Returns an \code{\linkS4class{RLum.Results}} object.  \cr
+
+\bold{\code{get_RLum}}:\cr
+
+Returns: \cr
+(1) Data object from the specified slot \cr
+(2) \code{\link{list}} of data objects from the slots if 'data.object' is vector or \cr
+(3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
+
+\bold{\code{merge_RLum}}:\cr
+
+Returns an \code{\linkS4class{RLum.Results}} object.
 }
 \description{
 Object class contains results data from functions.
@@ -43,9 +63,12 @@ Object class contains results data from functions.
 and predefined as the function that calls the function set_RLum.
 
 \item \code{get_RLum}: Accessor method for RLum.Results object. The argument data.object allows
-directly accessing objects delivered within the slot data. If no
-data.object is specified, a preselected object is returned. The default
+directly accessing objects delivered within the slot data. The default
 return object depends on the object originator (e.g., \code{fit_LMCurve}).
+If nothing is specified always the first \code{data.object} will be returned.
+
+Note: Detailed specification should be made in combination with the originator slot in the
+receiving function if results are pipped.
 
 \item \code{merge_RLum.Results}: merge method for RLum.Results objects. The argument object.list requires a list of RLum.Results objects.
 Merging is done by appending similar elements to the first object of the input list.
@@ -68,7 +91,7 @@ method \code{get_RLum}.
 }
 
 \section{Class version}{
- 0.2.2
+ 0.3.0
 }
 \examples{
 

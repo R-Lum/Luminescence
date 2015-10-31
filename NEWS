@@ -41,7 +41,11 @@ Changes in version 0.5.0 (, 2015):
                consistent with standard R code,
 
              • argument ‘data.object’ (‘get_RLum’ for 'RLum.Results'
-               objects can now handle numeric values)
+               objects can now handle numeric values) and numeric, as
+               well as character vectors,
+
+             • argument ‘drop’ also added for ‘get_RLum’ method for
+               'RLum.Results'.
 
          • ‘merge_RLum’
 
@@ -430,7 +434,7 @@ Changes in version 0.5.0 (, 2015):
          • Add methods for S3 generics for RLum-objects:
 
              • ‘`[`’ : ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’,
-               ‘RLum.Data.Image’, ‘RLum.Analysis’
+               ‘RLum.Data.Image’, ‘RLum.Analysis’, ‘RLum.Results’
 
              • ‘`[[`’ : ‘RLum.Analysis’, ‘RLum.Results’
 
