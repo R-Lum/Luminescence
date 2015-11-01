@@ -20,7 +20,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.2.0
+#' @section Class version: 0.2.1
 #'
 #' @return
 #'
@@ -70,6 +70,27 @@ setClass("RLum.Analysis",
            protocol = character()
          )
 )
+
+
+##----------------------------------------------
+##COERCE FROM AND TO list
+setAs("list", "RLum.Analysis",
+      function(from,to){
+
+        new(to,
+            protocol = "unknown",
+            records = from)
+      })
+
+setAs("RLum.Analysis", "list",
+      function(from){
+
+        lapply(1:length(from@records), function(x){
+          from@records[[x]]
+
+        })
+
+      })
 
 
 # show method for object -------------------------------------------------------

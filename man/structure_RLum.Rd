@@ -24,7 +24,7 @@ corresponding structure function will be selected. Allowed arguments can be foun
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1.0 (2015-10-31 21:03:50)
+ 0.1.0 (2015-10-31 22:27:15)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

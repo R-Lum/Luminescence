@@ -62,12 +62,6 @@
 
        }
 
-        \item \code{as}
-       \itemize{
-        \item Correct coercion method for \code{RLum.Data.Spectrum} to a \code{data.frame},
-        before only the first two columns had been returned.
-
-       }
 
 
      \item \code{Risoe.BINfileData-class}
@@ -85,10 +79,30 @@
         for missing values, means, empty objects can be produced,
         \item furthermore the  \code{set_RLum} method now accepts an \code{RLum.Data.Curve} object
         as input for the argument \code{data}. With this the object can be changed (e.g. recordType)
-        without de-constructing the object.
-
+        without de-constructing the object,
+        \item add coercing method from and to \code{list}.
 
       }
+
+        \item {RLum.Data.Spectrum}
+      \itemize{
+        \item orrect coercion method for \code{RLum.Data.Spectrum} to a \code{data.frame},
+        before only the first two columns had been returned.
+
+      }
+
+       \item {RLum.Analysis}
+      \itemize{
+        \item Add method for coercing to a \code{list} and the way back.
+
+      }
+
+      \item {RLum.Results}
+      \itemize{
+        \item Add method for coercing to a \code{list} and the way back.
+
+      }
+
 
    }
   }
@@ -428,7 +442,7 @@
         \item \code{names()}: \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image},
         \code{RLum.Analysis}, \code{RLum.Results}, \code{Risoe.BINfileData}
         \item \code{as.data.frame()}: \code{RLum.Data.Curve}, \code{RLum.Results}
-        \item \code{as.list()}: \code{RLum.Data.Curve}, \code{RLum.Results}
+        \item \code{as.list()}: \code{RLum.Data.Curve},\code{RLum.Analysis} ,\code{RLum.Results}
         \item \code{as.matrix()}:  \code{RLum.Data.Curve}, \code{RLum.Results}
         \item \code{merge()}: \code{RLum}
 

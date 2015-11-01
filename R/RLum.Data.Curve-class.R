@@ -77,6 +77,26 @@ setClass("RLum.Data.Curve",
 
 
 # setAs - coerce methods ------------------------------------------------------
+##----------------------------------------------
+##COERCE FROM AND TO list
+
+setAs("list", "RLum.Data.Curve",
+      function(from,to){
+
+        new(to,
+            recordType = "unkown curve type",
+            curveType = "NA",
+            data = matrix(unlist(from), ncol = 2),
+            info = list())
+      })
+
+setAs("RLum.Data.Curve", "list",
+      function(from){
+
+          list(x = from@data[,1], y = from@data[,2])
+
+      })
+
 
 ##----------------------------------------------
 ##COERCE FROM AND TO data.frame

@@ -67,12 +67,6 @@ Changes in version 0.5.0 (, 2015):
                ‘RLum.Data.Spectrum’, ‘RLum.Data.Image’, ‘RLum.Analysis’
                and ‘RLum.Results’ objects.
 
-         • ‘as’
-
-             • Correct coercion method for ‘RLum.Data.Spectrum’ to a
-               ‘data.frame’, before only the first two columns had been
-               returned.
-
          • ‘Risoe.BINfileData-class’
 
              • Show method now returns the valid grain range,
@@ -94,7 +88,23 @@ Changes in version 0.5.0 (, 2015):
              • furthermore the ‘set_RLum’ method now accepts an
                ‘RLum.Data.Curve’ object as input for the argument
                ‘data’. With this the object can be changed (e.g.
-               recordType) without de-constructing the object.
+               recordType) without de-constructing the object,
+
+             • add coercing method from and to ‘list’.
+
+         • RLum.Data.Spectrum
+
+             • orrect coercion method for ‘RLum.Data.Spectrum’ to a
+               ‘data.frame’, before only the first two columns had been
+               returned.
+
+         • RLum.Analysis
+
+             • Add method for coercing to a ‘list’ and the way back.
+
+         • RLum.Results
+
+             • Add method for coercing to a ‘list’ and the way back.
 
   New functions:
 
@@ -492,7 +502,8 @@ Changes in version 0.5.0 (, 2015):
 
              • ‘as.data.frame()’: ‘RLum.Data.Curve’, ‘RLum.Results’
 
-             • ‘as.list()’: ‘RLum.Data.Curve’, ‘RLum.Results’
+             • ‘as.list()’: ‘RLum.Data.Curve’,‘RLum.Analysis’
+               ,‘RLum.Results’
 
              • ‘as.matrix()’: ‘RLum.Data.Curve’, ‘RLum.Results’
 

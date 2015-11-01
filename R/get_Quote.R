@@ -51,7 +51,7 @@ get_Quote <- function(
     c("The natural dose", "You only life once."),
     c("A Windows user", "An apple a day keeps the doctor away."),
     c("The authors of sTeve", "We love to entertain you."),
-    c("Any arbitrary independent OSL device manufacutor", "Sure it will work, it was me who built it!"),
+    c("Any arbitrary independent OSL device manufacturer", "Sure it will work, it was me who built it!"),
     c("Response to the reviewer", "You are right, it was just a guess."),
     c("An aliquot disc", "The answer [...] is: 48"),
     c("Push Pin", "Made of used sample carriers"),

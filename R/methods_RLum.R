@@ -2,10 +2,15 @@
 ##                      METHODS FOR S3 GENERICS                                 ##
 ##################################################################################
 
-##CAUTION NOTE: Please DO NOT access to the S4 objects by using the slots
-##this causes inconsistent behaviour, please use the correspong RLum-methods
-##instead!
-##TODO
+##CAUTION NOTE:
+##(1) Please DO NOT access to the S4 objects by using the slots this causes inconsistent
+## behaviour, please use the correspong RLum-methods instead!
+##
+##(2) Especially, please DO NOT include S3-methods for which no S4-method is implemented! Especially
+##for coercing.
+##
+##(3) Finally, what ever you want to implemnt, check whether a S4-method exists, it should
+##be just passed to this methods, not the opposite, otherwise this will yield in undesired behaviour.
 
 ## -------------------- INTRODUCED IN 0.5.0 ----------------------- ##
 
@@ -44,6 +49,7 @@ summary.RLum.Data.Image <- function(object, ...) summary(object@data@data@values
 # summary.RLum.Data.Spectrum <- function(object, ...)
 #' @export
 summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
+
 
 # methods for generic: length()
 #' @export
@@ -89,9 +95,11 @@ as.data.frame.RLum.Data.Spectrum <- function(x,  row.names = NULL, optional = FA
 
 # methods for generic: as.list()
 #' @export
-as.list.RLum.Results <- function(x, slot = "summary", ...) as.list(get_RLum(x, slot))
+as.list.RLum.Results <- function(x, ...) as(x, "list")
 #' @export
-as.list.RLum.Data.Curve <- function(x, ...) as.list(as.data.frame(get_RLum(x)))
+as.list.RLum.Data.Curve <- function(x, ...) as(x, "list")
+#' @export
+as.list.RLum.Analysis <- function(x, ...) as(x, "list")
 
 # methods for generic: as.matrix()
 #' @export

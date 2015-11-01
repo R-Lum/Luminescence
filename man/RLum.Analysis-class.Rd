@@ -121,7 +121,7 @@ avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 
 \section{Class version}{
- 0.2.0
+ 0.2.1
 }
 \examples{
 

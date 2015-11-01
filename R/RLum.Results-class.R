@@ -62,6 +62,26 @@ setClass(
 # )
 
 
+##----------------------------------------------
+##COERCE FROM AND TO list
+
+setAs("list", "RLum.Results",
+      function(from,to){
+
+        new(to,
+            orginator = "coercion",
+            data = from)
+
+      })
+
+setAs("RLum.Results", "list",
+      function(from){
+
+        from@data
+
+      })
+
+
 # show method for object ------------------------------------------------------
 #' @describeIn RLum.Results
 #' Show structure of RLum and Risoe.BINfile class objects
