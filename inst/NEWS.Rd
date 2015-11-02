@@ -441,9 +441,9 @@
         \item \code{row.names()}: \code{RLum.Data.Spectrum}
         \item \code{names()}: \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image},
         \code{RLum.Analysis}, \code{RLum.Results}, \code{Risoe.BINfileData}
-        \item \code{as.data.frame()}: \code{RLum.Data.Curve}, \code{RLum.Results}
+        \item \code{as.data.frame()}: \code{RLum.Data.Curve}
         \item \code{as.list()}: \code{RLum.Data.Curve},\code{RLum.Analysis} ,\code{RLum.Results}
-        \item \code{as.matrix()}:  \code{RLum.Data.Curve}, \code{RLum.Results}
+        \item \code{as.matrix()}:  \code{RLum.Data.Curve}
         \item \code{merge()}: \code{RLum}
 
 

@@ -87,11 +87,10 @@ row.names.RLum.Data.Spectrum <- function(x, ...) rownames(as(x, "matrix"))
 
 # methods for generic: as.data.frame()
 #' @export
-as.data.frame.RLum.Results <- function(x, row.names = NULL, optional = FALSE, slot = "summary", ...) get_RLum(x, slot)
-#' @export
 as.data.frame.RLum.Data.Curve <- function(x, row.names = NULL, optional = FALSE, ...) as(x, "data.frame")
 #' @export
 as.data.frame.RLum.Data.Spectrum <- function(x,  row.names = NULL, optional = FALSE, ...) as(x, "data.frame")
+# for RLum.Results ... makes no sense and may yield in unpredictable behaviour
 
 # methods for generic: as.list()
 #' @export
@@ -103,11 +102,10 @@ as.list.RLum.Analysis <- function(x, ...) as(x, "list")
 
 # methods for generic: as.matrix()
 #' @export
-as.matrix.RLum.Results <- function(x, slot = "summary", ...) as.matrix(get_RLum(x, slot))
-#' @export
 as.matrix.RLum.Data.Curve <- function(x, ...) as(x, "matrix")
 #' @export
 as.matrix.RLum.Data.Spectrum <- function(x, ...) as(x, "matrix")
+# for RLum.Results ... makes no sense and may yield in unpredictable behaviour
 
 # methods for generic: merge()
 #' @export

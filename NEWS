@@ -500,12 +500,12 @@ Changes in version 0.5.0 (, 2015):
                ‘RLum.Data.Image’, ‘RLum.Analysis’, ‘RLum.Results’,
                ‘Risoe.BINfileData’
 
-             • ‘as.data.frame()’: ‘RLum.Data.Curve’, ‘RLum.Results’
+             • ‘as.data.frame()’: ‘RLum.Data.Curve’
 
              • ‘as.list()’: ‘RLum.Data.Curve’,‘RLum.Analysis’
                ,‘RLum.Results’
 
-             • ‘as.matrix()’: ‘RLum.Data.Curve’, ‘RLum.Results’
+             • ‘as.matrix()’: ‘RLum.Data.Curve’
 
              • ‘merge()’: ‘RLum’
 
