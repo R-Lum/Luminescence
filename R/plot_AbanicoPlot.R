@@ -177,7 +177,7 @@
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
@@ -425,22 +425,44 @@ plot_AbanicoPlot <- function(
 
       n.NA <- sum(!complete.cases(data[[i]]))
 
-      if(n.NA == 1) {print("1 NA value excluded.")
+      if(n.NA == 1) {message(paste0("[plot_AbanicoPlot()] data set (", i, "): 1 NA value excluded."))
       } else if(n.NA > 1) {
-        print(paste(n.NA, "NA values excluded."))
+        message(paste0("[plot_AbanicoPlot()] data set (", i,"): ",n.NA, " NA values excluded."))
       }
 
       data[[i]] <- na.exclude(data[[i]])
     }
   }
 
-  ##check whether the there is still data left
-  if(is.null(nrow(data))){
+  ##AFTER NA removal, we should check the data set carefully again ...
+  ##(1)
+  ##check if there is still data left in the entire set
+  if(all(sapply(data, nrow) == 0)){
 
-    message("[plot_AbanicoPlot()] Nothing plotted, data set empty!")
+    warning("[plot_AbanicoPlot()] Nothing plotted, your data set is empty!")
     return(NULL)
- }
 
+  }
+  ##(2)
+  ##check for sets with only 1 row or 0 rows at all
+  else if(any(sapply(data, nrow) <= 1)){
+
+    ##select problematic sets and remove the entries from the list
+    NArm.id <- which(sapply(data, nrow) <= 1)
+    data[NArm.id] <- NULL
+
+    warning(paste0("[plot_AbanicoPlot()] Data sets ",paste(NArm.id, collapse = ", ")," are found to be empty or consisting of only 1 row. Sets removed!"))
+
+    rm(NArm.id)
+
+    ##unfortunately, the data set might become now empty at all
+    if(length(data) == 0){
+      warning("[plot_AbanicoPlot()] After removing invalid entries, nothing is plotted!")
+      return(NULL)
+
+    }
+
+  }
 
   ## check for zero-error values
   for(i in 1:length(data)) {
@@ -801,11 +823,10 @@ plot_AbanicoPlot <- function(
   }
   data.global[,8] <- data.global.plot
 
-  ## print warning for too small scatter
+  ## print message for too small scatter
   if(max(abs(1 / data.global[6])) < 0.02) {
     small.sigma <- TRUE
-    print(paste("Attention, small standardised estimate scatter.",
-                "Toggle off y.axis?"))
+    message("[plot_AbanicoPlot()] Attention, small standardised estimate scatter. Toggle off y.axis?")
   }
 
   ## read out additional arguments---------------------------------------------
