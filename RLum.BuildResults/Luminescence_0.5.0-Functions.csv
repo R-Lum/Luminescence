@@ -93,7 +93,7 @@
 ",NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "names_RLum","S4-names function for RLum S4 class objects","<br /> Function calls object-specific names functions for RLum S4 class objects.<br />","0.1.0","2015-10-31","22:27:15
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_AbanicoPlot","Function to create an Abanico Plot.","<br /> A plot is produced which allows comprehensive presentation of data precision<br /> and its dispersion around a central value as well as illustration of a<br /> kernel density estimate, histogram and/or dot plot of the dose values.<br />","0.1.7","2015-11-03","11:33:13
+"plot_AbanicoPlot","Function to create an Abanico Plot.","<br /> A plot is produced which allows comprehensive presentation of data precision<br /> and its dispersion around a central value as well as illustration of a<br /> kernel density estimate, histogram and/or dot plot of the dose values.<br />","0.1.7","2015-11-03","11:40:32
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Inspired by a plot<br /> introduced by Galbraith & Green (1990)<br />  R Luminescence Package Team"
 "plot_DRTResults","Visualise dose recovery test results","<br /> The function provides a standardised plot output for dose recovery test<br /> measurements.<br />","0.1.8","2015-10-23","17:42:47
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
@@ -108,7 +108,7 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> read_BIN2R  function.<br />","0.4.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.9","2015-10-31","22:27:15
+"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.9","2015-11-05","09:46:39
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Curve","Plot function for an RLum.Data.Curve S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Data.Curve S4 class object<br />","0.1.5","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

@@ -640,7 +640,8 @@ plot_RLum.Analysis <- function(
       for (i in 1:length(object.list)) {
         lines(temp.data.list[[i]],
               col = col[i],
-              lty = lty)
+              lty = lty,
+              lwd = lwd)
 
       }
 
