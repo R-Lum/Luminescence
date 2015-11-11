@@ -36,9 +36,10 @@
 #' function \code{\link{Risoe.BINfileData2RLum.Analysis}} should be used for
 #' the conversion.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
+#' Christoph Burow, Universtiy of Cologne (Germany)
 #'
 #' @seealso \code{\link{Risoe.BINfileData2RLum.Analysis}},
 #' \code{\link{set_RLum}}, \code{\linkS4class{RLum.Data.Curve}},
@@ -70,12 +71,12 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
   # Integrity Check ---------------------------------------------------------
 
-  if (is(object,"Risoe.BINfileData")==FALSE){
-    stop("[Risoe.BINfileData2RLum.Data.Curve] Error: Input object is not of type 'Risoe.BINfileData'.")
+  if (!is(object,"Risoe.BINfileData")){
+    stop("[Risoe.BINfileData2RLum.Data.Curve()] Input object is not of type 'Risoe.BINfileData'.")
   }
 
   ##if id is set, no input for pos and rund is nescessary
-  if(missing(id) == TRUE){
+  if(missing(id)){
 
     if(missing(pos) == TRUE | missing(run) == TRUE | missing(set) == TRUE){
 
@@ -83,25 +84,25 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
                                         if(missing(set)==TRUE){"set"},
                                         if(missing(run)==TRUE){"run"}), collapse=", ")
 
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve] Error: Arguments are missing: ",
+      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] Arguments are missing: ",
                  temp.missing.arguments, ". Or set id.", sep = ""))
 
     }
 
     if (is(pos,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve] Error: Argument 'pos' has to be of data type integer.")
+      stop("[Risoe.BINfileData2RLum.Data.Curve()] Argument 'pos' has to be of data type integer.")
     }
 
     if (is(set,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve] Error: Argument 'set' has to be of data type integer.")
+      stop("[Risoe.BINfileData2RLum.Data.Curve()]Argument 'set' has to be of data type integer.")
     }
 
     if (is(run,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve] Error: Argument 'run' has to be of data type integer.")
+      stop("[Risoe.BINfileData2RLum.Data.Curve()] Argument 'run' has to be of data type integer.")
     }
 
     if (length(which(pos/1:48 == 1)) == 0){
-      stop("[Risoe.BINfileData2RLum.Data.Curve] Error: Value for 'pos' out of bounds.")
+      stop("[Risoe.BINfileData2RLum.Data.Curve()] Value for 'pos' out of bounds.")
     }
 
     ##get and check valid positions
@@ -131,11 +132,11 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
   }else{
 
-    ##check if id is valid
+    ##check if id is valid at all
     temp.range.id <- range(object@METADATA[,"ID"])
 
     if ((id %in% unique(object@METADATA[,"ID"])) == FALSE){
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve] Error: id = ",id, " is not a valid record id. Allowed value range ", min(temp.range.id), " : ", max(temp.range.id),".", sep=""))
+      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] id = ",id, " is not a valid record id. Allowed value range ", min(temp.range.id), " : ", max(temp.range.id),".", sep=""))
 
     }
 
@@ -145,13 +146,11 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
   # grep id of record -------------------------------------------------------
 
   ##if id is set, no input for pos and rund is nescessary
-  if(missing(id) == TRUE){
-
-    id <- object@METADATA[object@METADATA[,"POSITION"] == pos &
-                            object@METADATA[,"SET"] == set &
-                            object@METADATA[,"RUN"] == run,
+  if (missing(id)) {
+    id <- object@METADATA[object@METADATA[, "POSITION"] == pos &
+                            object@METADATA[, "SET"] == set &
+                            object@METADATA[, "RUN"] == run,
                           "ID"]
-
 
   }
 
@@ -161,11 +160,42 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
   ##build matrix
   if(object@METADATA[id,"NPOINTS"][1] != 0){
 
-    temp.x <- seq(object@METADATA[id,"HIGH"]/object@METADATA[id,"NPOINTS"],
-                  object@METADATA[id,"HIGH"],
-                  by=object@METADATA[id,"HIGH"]/object@METADATA[id,"NPOINTS"])
+    ##set variables
+    temp.x <- vector(mode = "numeric", length = object@METADATA[id,"NPOINTS"])
+    temp.y <- vector(mode = "integer", length = object@METADATA[id,"NPOINTS"])
+
+    if(object@METADATA[id, "LTYPE"] == "TL"){
+
+      temp.x <- c(
+        seq(
+          from = object@METADATA[id, "LOW"],
+          to = object@METADATA[id, "AN_TEMP"],
+          length.out = object@METADATA[id, "TOLDELAY"]
+        ),
+        seq(
+          from = object@METADATA[id, "AN_TEMP"],
+          to = object@METADATA[id, "AN_TEMP"],
+          length.out = object@METADATA[id, "TOLON"]
+        ),
+        seq(
+          from = object@METADATA[id, "AN_TEMP"],
+          to = object@METADATA[id, "HIGH"],
+          length.out = object@METADATA[id, "TOLOFF"]
+        )
+      )
+
+    }else{
+
+      temp.x <- seq(
+        from = object@METADATA[id, "LOW"],
+        to = object@METADATA[id, "HIGH"],
+        length.out = object@METADATA[id, "NPOINTS"]
+      )
+
+    }
 
     temp.y <- unlist(object@DATA[id])
+
 
   }else{
     temp.x <- NA

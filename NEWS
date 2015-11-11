@@ -415,11 +415,18 @@ Changes in version 0.5.0 (, 2015):
                lexsyg readers),
 
              • along with this the x-values for the curves are now
-               consequently calcualted using the LOW and the HIGH
+               consequently calculated using the LOW and the HIGH
                values given in the BIN-files. This may cause a shift of
                the surves towards 0 for CW-curves (#235),
 
-             • a new argument ‘grain’ can be used to further limit the
+             • TL curves can furthermore consists of different parts,
+               including preheat and a second TL rise. This was not
+               respected during calculting the x-axis values, leading
+               to wrong scaled temperature axis, corrected (#)
+
+         • ‘Risoe.BINfileData2RLum.Analysis()’
+
+             • A new argument ‘grain’ can be used to further limit the
                transformation to specific grains in the data set,
 
              • the arguement ‘pos’ is no longer required. If nothing is
@@ -435,7 +442,10 @@ Changes in version 0.5.0 (, 2015):
                for single grain data,
 
              • an error was fixed that occurred if the curves used for
-               the transformation had been of zero length.
+               the transformation had been of zero length,
+
+             • function nows uses ‘Risoe.BINfileData2RLum.Data.Curve’
+               for curve conversion.
 
          • ‘Seconds2Gray()’
 

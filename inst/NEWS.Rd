@@ -375,15 +375,25 @@
 
       }
 
-     \item \code{Risoe.BINfileData2RLum.Analysis()}
+      \item \code{Risoe.BINfileData2RLum.Analysis()}
       \itemize{
 
         \item If the lower temperature for the TL curve calculation was not at 0, wrong shifted
         TL curves had been produced (this happens normally for BIN-files produced by FI lexsyg readers),
-        \item along with this the x-values for the curves are now consequently calcualted using
+        \item along with this the x-values for the curves are now consequently calculated using
         the LOW and the HIGH values given in the BIN-files. This may cause a shift of the surves
         towards 0 for CW-curves (#235),
-        \item a new argument \code{grain} can be used to further limit the transformation to
+        \item TL curves can furthermore consists of different parts, including preheat and
+        a second TL rise. This was not respected during calculting the x-axis values, leading
+        to wrong scaled temperature axis, corrected (#255).
+
+
+      }
+
+     \item \code{Risoe.BINfileData2RLum.Analysis()}
+      \itemize{
+
+        \item A new argument \code{grain} can be used to further limit the transformation to
         specific grains in the data set,
         \item the arguement \code{pos} is no longer required. If nothing is provided every position
         will be transformed and the function returns a list of \code{RLum.Analysis}-objects,
@@ -392,7 +402,8 @@
         \item new argument \code{txtProgressBar} added. The default is set to \code{FALSE} as the
         computation time just become relevant for single grain data,
         \item an error was fixed that occurred if the curves used for the transformation had been
-        of zero length.
+        of zero length,
+        \item function nows uses \code{Risoe.BINfileData2RLum.Data.Curve} for curve conversion.
 
       }
 

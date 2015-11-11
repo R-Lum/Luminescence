@@ -48,7 +48,7 @@ function \code{\link{Risoe.BINfileData2RLum.Analysis}} should be used for
 the conversion.
 }
 \section{Function version}{
- 0.1.1 (2015-11-10 17:51:20)
+ 0.2.0 (2015-11-11 23:52:35)
 }
 \examples{
 
@@ -61,7 +61,8 @@ Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data, id = 1)
 
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
+Christoph Burow, Universtiy of Cologne (Germany)
 \cr R Luminescence Package Team}
 \references{
 #

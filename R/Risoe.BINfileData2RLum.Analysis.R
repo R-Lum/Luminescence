@@ -46,7 +46,7 @@
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -231,52 +231,26 @@ Risoe.BINfileData2RLum.Analysis<- function(
       object@METADATA <-
         object@METADATA[object@METADATA[,"SEL"],]
 
+      ##correct ID values after limitation, if we don't do that we get problems with
+      ##the conversion later on
+      object@METADATA$ID <- 1:nrow(object@METADATA)
+
+
       # Convert values ----------------------------------------------------------
       object <- set_RLum(
         class = "RLum.Analysis",
-        records = lapply(1:length(object@DATA),function(x) {
-
-          if(object@METADATA[x,"NPOINTS"][1] != 0){
-            i <- seq(object@METADATA[x, "LOW"],
-                     object@METADATA[x, "HIGH"],
-                     length.out = object@METADATA[x, "NPOINTS"])
-
-            j <- unlist(object@DATA[x])
-
-          }else{
-            i <- NA
-            j <- NA
-
-            warning(
-              paste0(
-                "[Risoe.BINfileData2RLum.Analysis()]
-                In position ", pos, ", (record ID ", x,") NPOINTS was 0, RLum.Data.Curve-object with NA-values produced."
-              ),
-              call. = FALSE
-              )
-
-          }
-
-          ##set RLum.Data.Curve object
-          set_RLum(
-            class = "RLum.Data.Curve",
-            recordType = as.character(object@METADATA[x,"LTYPE"]),
-            data = matrix(c(i,j), nrow = length(i), ncol = 2),
-            info = as.list(object@METADATA[x,])
-          )
-
+        records = lapply(object@METADATA$ID,function(x) {
+          Risoe.BINfileData2RLum.Data.Curve(object, id = x)
         }),
         protocol = protocol
       )
 
-
       return(object)
-
     })
 
-    if(txtProgressBar==TRUE){close(pb)}
+    if(txtProgressBar){close(pb)}
 
-    ##this is necassart to not break with previous code
+    ##this is necassary to not break with previous code
     if(length(object) == 1){
       invisible(object[[1]])
 
