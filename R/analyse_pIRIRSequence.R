@@ -11,34 +11,44 @@
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
 #' object containing data for analysis
+#'
 #' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
 #' bound of the signal integral. Provide this value as vector for different
 #' integration limits for the different IRSL curves.
+#'
 #' @param signal.integral.max \code{\link{integer}} (\bold{required}): upper
 #' bound of the signal integral. Provide this value as vector for different
 #' integration limits for the different IRSL curves.
+#'
 #' @param background.integral.min \code{\link{integer}} (\bold{required}):
 #' lower bound of the background integral. Provide this value as vector for
 #' different integration limits for the different IRSL curves.
+#'
 #' @param background.integral.max \code{\link{integer}} (\bold{required}):
 #' upper bound of the background integral. Provide this value as vector for
 #' different integration limits for the different IRSL curves.
+#'
 #' @param dose.points \code{\link{numeric}} (optional): a numeric vector
 #' containing the dose points values. Using this argument overwrites dose point
 #' values in the signal curves.
+#'
 #' @param sequence.structure \link{vector} \link{character} (with default):
 #' specifies the general sequence structure. Allowed values are \code{"TL"} and
 #' any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
 #' Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves from
 #' the analysis (Note: If a preheat without PMT measurement is used, i.e.
 #' preheat as non TL, remove the TL step.)
+#'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot
 #' output.
+#'
 #' @param plot.single \code{\link{logical}} (with default): single plot output
 #' (\code{TRUE/FALSE}) to allow for plotting the results in single plot
 #' windows. Requires \code{plot = TRUE}.
+#'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{analyse_SAR.CWOSL}} and \code{\link{plot_GrowthCurve}}
+#'
 #' @return Plots (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned containing the following elements:
 #' \item{De.values}{\link{data.frame} containing De-values, De-error and
@@ -53,7 +63,9 @@
 #' @note Best graphical output can be achieved by using the function \code{pdf}
 #' with the following options:\cr \code{pdf(file = "...", height = 15, width =
 #' 15)}
-#' @section Function version: 0.1.4
+#'
+#' @section Function version: 0.1.5
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
@@ -410,57 +422,67 @@ analyse_pIRIRSequence <- function(
 
     ##start analysis
     temp.results <- analyse_SAR.CWOSL(
-                    temp.curves,
-                    signal.integral.min = temp.signal.integral.min,
-                    signal.integral.max = temp.signal.integral.max,
-                    background.integral.min = temp.background.integral.min,
-                    background.integral.max = temp.background.integral.max,
-                    plot = plot,
-                    dose.points = dose.points,
-                    plot.single = temp.plot.single,
-                    output.plotExtended.single = TRUE,
-                    cex.global = cex,
-                    ...) ##TODO should be replaced be useful explizit arguments
+      temp.curves,
+      signal.integral.min = temp.signal.integral.min,
+      signal.integral.max = temp.signal.integral.max,
+      background.integral.min = temp.background.integral.min,
+      background.integral.max = temp.background.integral.max,
+      plot = plot,
+      dose.points = dose.points,
+      plot.single = temp.plot.single,
+      output.plotExtended.single = TRUE,
+      cex.global = cex,
+      ...
+    ) ##TODO should be replaced be useful explizit arguments
 
 
-    ##add signal nformation to the protocol step
-    temp.results.pIRIR.De <- as.data.frame(
-      c(get_RLum(temp.results, "De.values"),
-        data.frame(Signal = pIRIR.curve.names[i])))
+      ##check whether NULL was return
+      if (is.null(temp.results)) {
+        warning("[plot_pIRIRSequence()] An error occurred, analysis skipped. Check your sequence!", call. = FALSE)
+        return(NULL)
+      }
 
-    temp.results.pIRIR.LnLxTnTx <- as.data.frame(
-     c(get_RLum(temp.results, "LnLxTnTx.table"),
-       data.frame(Signal = pIRIR.curve.names[i])))
+      ##add signal information to the protocol step
+      temp.results.pIRIR.De <- as.data.frame(c(
+        get_RLum(temp.results, "De.values"),
+        data.frame(Signal = pIRIR.curve.names[i])
+      ))
 
-    temp.results.pIRIR.rejection.criteria <- as.data.frame(
-      c(get_RLum(temp.results, "rejection.criteria"),
-      data.frame(Signal = pIRIR.curve.names[i])))
+      temp.results.pIRIR.LnLxTnTx <- as.data.frame(c(
+        get_RLum(temp.results, "LnLxTnTx.table"),
+        data.frame(Signal = pIRIR.curve.names[i])
+      ))
 
-    temp.results.pIRIR.formula <- list(get_RLum(temp.results,
-                                                             "Formula"))
-    names(temp.results.pIRIR.formula)  <- pIRIR.curve.names[i]
+      temp.results.pIRIR.rejection.criteria <- as.data.frame(c(
+        get_RLum(temp.results, "rejection.criteria"),
+        data.frame(Signal = pIRIR.curve.names[i])
+      ))
 
-    ##create now object
-    temp.results  <- set_RLum(
-      class = "RLum.Results",
-      data = list(
-        De.values = temp.results.pIRIR.De,
-        LnLxTnTx.table = temp.results.pIRIR.LnLxTnTx,
-        rejection.criteria = temp.results.pIRIR.rejection.criteria,
-        Formula =temp.results.pIRIR.formula))
+      temp.results.pIRIR.formula <- list(get_RLum(temp.results,
+                                                  "Formula"))
+      names(temp.results.pIRIR.formula)  <- pIRIR.curve.names[i]
+
+      ##create now object
+      temp.results  <- set_RLum(
+        class = "RLum.Results",
+        data = list(
+          De.values = temp.results.pIRIR.De,
+          LnLxTnTx.table = temp.results.pIRIR.LnLxTnTx,
+          rejection.criteria = temp.results.pIRIR.rejection.criteria,
+          Formula = temp.results.pIRIR.formula
+        )
+      )
 
 
-    ##merge results
-    if(exists("temp.results.final")){
+      ##merge results
+      if (exists("temp.results.final")) {
+        temp.results.final <- merge_RLum.Results(list(temp.results.final, temp.results))
 
-      temp.results.final <- merge_RLum.Results(
-        list(temp.results.final, temp.results))
+      } else{
+        temp.results.final <- temp.results
 
-    }else{
+      }
 
-      temp.results.final <- temp.results
-
-   }
 
   }
 
@@ -469,7 +491,7 @@ analyse_pIRIRSequence <- function(
 # Plotting additionals--------------------------------------------------------
 ##============================================================================##
 
-if(plot == TRUE){
+if(plot){
 
   ##plot growth curves
   plot(NA, NA,
@@ -481,7 +503,7 @@ if(plot == TRUE){
          max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error)),
        xlab = "Dose [s]",
        ylab = expression(L[x]/T[x]),
-       main = "Summarised growth curves")
+       main = "Summarised Dose Response Curves")
 
 
     ##set x for expression evaluation

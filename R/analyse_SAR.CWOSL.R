@@ -1474,7 +1474,10 @@ object!")
     invisible(temp.results.final)
 
   }else{
-    cat(paste0("\n",paste(unlist(error.list), collapse = "\n"), "\n... >> nothing was done here!"))
+    warning(paste0(
+      "\n",
+      paste(unlist(error.list), collapse = "\n"),"\n... >> nothing was done here!"
+    ), call. = FALSE)
     invisible(NULL)
 
   }

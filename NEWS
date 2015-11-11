@@ -163,6 +163,12 @@ Changes in version 0.5.0 (, 2015):
 
              • some graphical adjustments.
 
+         • ‘analyse_pIRIRSequence()’
+
+             • Now acts a little bit more relaxed if something goes
+               wrong, function does not break, but returns ‘NULL’
+               instead.
+
          • ‘analyse_SAR.CWOSL()’
 
              • Internal curve selection now works using the ‘get_RLum’.

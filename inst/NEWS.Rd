@@ -148,6 +148,14 @@
       }
 
 
+  \item \code{analyse_pIRIRSequence()}
+      \itemize{
+
+        \item Now acts a little bit more relaxed if something goes wrong, function does not break,
+        but returns \code{NULL} instead.
+
+      }
+
 
 
       \item \code{analyse_SAR.CWOSL()}
