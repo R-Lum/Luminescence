@@ -559,10 +559,9 @@ object!")
       temp.LnLxTnTx <- get_RLum(
         calc_OSLLxTxRatio(
           Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
-          Tx.data = object@records[[OSL.Curves.ID[x +
-                                                    1]]]@data,
-          signal.integral,
-          background.integral,
+          Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
+          signal.integral = signal.integral,
+          background.integral = background.integral,
           background.count.distribution = background.count.distribution,
           sigmab = sigmab
         )

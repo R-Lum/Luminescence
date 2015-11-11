@@ -199,11 +199,16 @@
        \itemize{
 
         \item The function produced nonsense if only Lx data are provided as RLum.Data.Curve object;
-        corrected (raised by Andrea Junge).
+        corrected (raised by Andrea Junge),
+
+        \item new arguments added \code{signal.integral.Tx} and \code{background.integral.Tx} to
+        allow for independent signal and background integrals for the Lx and Tx curves (suggested
+        by Norbert Mercier). To avoid compatibily problems by default integrals are similar for
+        Lx and Tx,
+
+        \item new output data object \code{call} added.
 
       }
-
-
 
       \item \code{calc_SourceDoseRate()}
        \itemize{

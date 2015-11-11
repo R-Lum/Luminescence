@@ -264,10 +264,10 @@ Analyse_SAR.OSLdata <- function(
       LnLxTnTx <- get_RLum(
         merge_RLum(lapply(1:length(LnLxTnTx.curves[1, ]), function(k) {
           calc_OSLLxTxRatio(
-            as.data.frame(LnLxTnTx.curves[1, k]),
-            as.data.frame(LnLxTnTx.curves[2, k]),
-            signal.integral,
-            background.integral,
+            Lx.data = as.data.frame(LnLxTnTx.curves[1, k]),
+            Tx.data = as.data.frame(LnLxTnTx.curves[2, k]),
+            signal.integral = signal.integral,
+            background.integral = background.integral,
             background.count.distribution = background.count.distribution,
             sigmab = sigmab
           )

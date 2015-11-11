@@ -4,7 +4,9 @@
 \alias{calc_OSLLxTxRatio}
 \title{Calculate Lx/Tx ratio for CW-OSL curves}
 \usage{
-calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral, background.integral,
+calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral,
+  signal.integral.Tx = NULL, background.integral,
+  background.integral.Tx = NULL,
   background.count.distribution = "non-poisson", sigmab)
 }
 \arguments{
@@ -16,13 +18,21 @@ calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral, background.integral,
 input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 is calculated.}
 
-\item{signal.integral}{\link{vector} (\bold{required}): vector with the
+\item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
 limits for the signal integral.}
 
-\item{background.integral}{\link{vector} (\bold{required}): vector with the
+\item{signal.integral.Tx}{\code{\link{vector}} (optional): vector with the
+limits for the signal integral for the Tx curve. If nothing is provided the
+value from \code{signal.integral} is used.}
+
+\item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
 bounds for the background integral.}
 
-\item{background.count.distribution}{\link{character} (with default): Sets
+\item{background.integral.Tx}{\code{\link{vector}} (optional): vector with the
+limits for the background integral for the Tx curve. If nothing is provided the
+value from \code{background.integral} is used.}
+
+\item{background.count.distribution}{\code{\link{character}} (with default): Sets
 the count distribution assumed for the error calculation. Possible arguments
 \code{poisson} or \code{non-poisson}. See details for further information}
 
@@ -35,11 +45,22 @@ value is taken for both (LnTx and TnTx) signals.}
 \value{
 Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 
-Slot \code{data} contains a \code{\link{list}} with the following structure:\cr $
-LxTx.table (data.frame) .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $
-TnTx.BG \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr .. $ Net_TnTx.Error\cr
-.. $ LxTx\cr .. $ LxTx.Error \cr $ calc.parameters (list)\cr .. $
-sigmab.LnTx\cr .. $ sigmab.TnTx\cr .. $ k
+Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
+$LxTx.table (data.frame) \cr
+.. $ LnLx \cr
+.. $ LnLx.BG \cr
+.. $ TnTx \cr
+.. $ TnTx.BG \cr
+.. $ Net_LnLx \cr
+.. $ Net_LnLx.Error\cr
+.. $ Net_TnTx.Error\cr
+.. $ LxTx\cr
+.. $ LxTx.Error \cr
+$ calc.parameters (list) \cr
+.. $ sigmab.LnTx\cr
+.. $ sigmab.TnTx\cr
+.. $ k \cr
+$ call (original function call)\cr
 }
 \description{
 Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.
@@ -84,7 +105,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.5.2 (2015-09-24 16:32:32)
+ 0.6.0 (2015-11-12 00:47:21)
 }
 \examples{
 
