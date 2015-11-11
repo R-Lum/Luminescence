@@ -60,7 +60,7 @@
 #' implementation of version 07 support could not been tested so far.}.
 #'
 #'
-#' @section Function version: 0.10.1
+#' @section Function version: 0.11.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -241,47 +241,51 @@ read_BIN2R <- function(
   ##close con
   close(con)
 
-
-  # Set Translation Matrices ------------------------------------------------
+# Set Lookup tables  --------------------------------------------------------------------------
 
   ##LTYPE
-  LTYPE.TranslationMatrix <- matrix(NA, nrow=14, ncol=2)
-  LTYPE.TranslationMatrix[,1] <- 0:13
-  LTYPE.TranslationMatrix[,2] <- c("TL",
-                                   "OSL",
-                                   "IRSL",
-                                   "M-IR",
-                                   "M-VIS",
-                                   "TOL",
-                                   "TRPOSL",
-                                   "RIR",
-                                   "RBR",
-                                   "USER",
-                                   "POSL",
-                                   "SGOSL",
-                                   "RL",
-                                   "XRF")
+  LTYPE.lookup <- c(
+    "0" = "TL",
+    "1" = "OSL",
+    "2" = "IRSL",
+    "3" = "M-IR",
+    "4" = "M-VIS",
+    "5" = "TOL",
+    "6" = "TRPOSL",
+    "7" = "RIR",
+    "8" = "RBR",
+    "9" = "USER",
+    "10" = "POSL",
+    "11" = "SGOSL",
+    "12" = "RL",
+    "13" = "XRF"
+  )
 
   ##DTYPE
-  DTYPE.TranslationMatrix <- matrix(NA, nrow=8, ncol=2)
-  DTYPE.TranslationMatrix[,1] <- 0:7
-  DTYPE.TranslationMatrix[,2] <- c("Natural","N+dose","Bleach",
-                                   "Bleach+dose","Natural (Bleach)",
-                                   "N+dose (Bleach)","Dose","Background")
-
+  DTYPE.lookup <-
+    c(
+      "0" = "Natural",
+      "1" = "N+dose",
+      "2" = "Bleach",
+      "3" = "Bleach+dose",
+      "4" = "Natural (Bleach)",
+      "5" = "N+dose (Bleach)",
+      "6" = "Dose",
+      "7" = "Background"
+    )
 
   ##LIGHTSOURCE
-  LIGHTSOURCE.TranslationMatrix <- matrix(NA, nrow=8, ncol=2)
-  LIGHTSOURCE.TranslationMatrix[,1] <- 0:7
-  LIGHTSOURCE.TranslationMatrix[,2] <- c("None",
-                                         "Lamp",
-                                         "IR diodes/IR Laser",
-                                         "Calibration LED",
-                                         "Blue Diodes",
-                                         "White light",
-                                         "Green laser (single grain)",
-                                         "IR laser (single grain)"
+  LIGHTSOURCE.lookup <- c(
+    "0" = "None",
+    "1" = "Lamp",
+    "2" = "IR diodes/IR Laser",
+    "3" = "Calibration LED",
+    "4" = "Blue Diodes",
+    "5" = "White light",
+    "6" = "Green laser (single grain)",
+    "7" = "IR laser (single grain)"
   )
+
 
   ##PRESET VALUES
   temp.CURVENO <- NA
@@ -452,7 +456,7 @@ read_BIN2R <- function(
       close(con)
 
       ##show error message
-      error.text <- paste("[read_BIN2R()] The BIN format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+      error.text <- paste("[read_BIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
       stop(error.text)
 
@@ -1043,12 +1047,10 @@ read_BIN2R <- function(
 
     )]
 
-
     results.DATA[[temp.ID]] <- temp.DPOINTS
 
     results.RESERVED[[temp.ID]][[1]] <- temp.RESERVED1
     results.RESERVED[[temp.ID]][[2]] <- temp.RESERVED2
-
 
     ##BREAK
     ##stop loop if record limit is reached
@@ -1111,37 +1113,45 @@ read_BIN2R <- function(
 
   # Convert Translation Matrix Values ---------------------------------------
 
-  if (show.raw.values == FALSE) {
-    ##LTYPE
-    object@METADATA[,"LTYPE"] <-
-      sapply(1:length(object@METADATA[,"LTYPE"]),function(x) {
-        as.character(LTYPE.TranslationMatrix[object@METADATA[x,"LTYPE"] == LTYPE.TranslationMatrix[,1],2])
+  if (!show.raw.values) {
+    ##LIGHTSOURCE CONVERSION
+    object@METADATA[, "LIGHTSOURCE"] <-
+      unname(LIGHTSOURCE.lookup[object@METADATA[, "LIGHTSOURCE"]])
 
-      })
+    ##LTYPE CONVERSION
+    object@METADATA[, "LTYPE"] <-
+      unname(LTYPE.lookup[object@METADATA[, "LTYPE"]])
+
+    ##DTYPE CONVERSION
+    object@METADATA[, "DTYPE"] <-
+      unname(DTYPE.lookup[object@METADATA[, "DTYPE"]])
+
+        ##CHECK for oddly set LTYPES, this may happen in old BIN-file versions
+        if (object@METADATA[1, "VERSION"] == 3) {
+          object@METADATA[, "LTYPE"] <-
+            sapply(1:length(object@METADATA[, "LTYPE"]), function(x) {
+              if (object@METADATA[x, "LTYPE"] == "OSL" &
+                  object@METADATA[x, "LIGHTSOURCE"] == "IR diodes/IR Laser") {
+                return("IRSL")
+
+              } else{
+                return(object@METADATA[x, "LTYPE"])
+
+              }
+
+            })
+
+        }
 
     ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
     if (TIME_SIZE == 6) {
-      object@METADATA[,"TIME"] <-
-        sapply(1:length(object@METADATA[,"TIME"]),function(x) {
-          format(strptime(as.character(object@METADATA[x,"TIME"]),"%H%M%S"),"%H:%M:%S")
+      object@METADATA[, "TIME"] <-
+        sapply(1:length(object@METADATA[, "TIME"]), function(x) {
+          format(strptime(as.character(object@METADATA[x, "TIME"]), "%H%M%S"), "%H:%M:%S")
 
         })
     }
 
-    ##DTYPE CONVERSION
-    object@METADATA[,"DTYPE"] <-
-      sapply(1:length(object@METADATA[,"DTYPE"]),function(x) {
-        as.character(DTYPE.TranslationMatrix[object@METADATA[x,"DTYPE"] == DTYPE.TranslationMatrix[,1],2])
-
-      })
-
-    ##LIGHTSOURCE CONVERSION
-    object@METADATA[,"LIGHTSOURCE"] <-
-      sapply(1:length(object@METADATA[,"LIGHTSOURCE"]),function(x) {
-        as.character(LIGHTSOURCE.TranslationMatrix[object@METADATA[x,"LIGHTSOURCE"] ==
-                                                     LIGHTSOURCE.TranslationMatrix[,1],2])
-
-      })
   }
 
 

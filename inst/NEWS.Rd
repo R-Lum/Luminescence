@@ -334,7 +334,12 @@
         \item add argument \code{...} to let arguments pass to the function \code{Risoe.BINfileData2RLum.Analysis},
         this case the argument \code{fastForward} will forced to \code{TRUE},
         \item argument \code{file} now supports a \code{list} of file names or just a path, in this
-        case the funtions tries to detect and import all possible BIN/BINX files found in this path.
+        case the funtions tries to detect and import all possible BIN/BINX files found in this path,
+        \item in really seldom cases, if an old BIN-file (03) version was used, the 'LTYPE' become OSL, while
+        the used 'LIGHTSOURCE' was "IR diodes/IR Laser". Sometimes this led to unexpected behaviour in the
+        subsequent analysis functions. Now the import function checks imported BIN-files (only version 03) for
+        such discrepancy and correct the 'LTYPE' accordingly,
+        \item import speed improvements by using lookup talbes instead of 'sapply'-translation matrices.
 
 
       }
