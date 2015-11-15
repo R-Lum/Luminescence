@@ -125,6 +125,16 @@
    \itemize{
 
 
+      \item \code{Analyse_SAR.OSLdata()}
+      \itemize{
+
+        \item Argument \code{log} removed, but option still supported via \code{...} (means
+        log can be used as usual but it is not listed as explict argument),
+        \item enhanced support for graphical parameters such as: \code{mtext}
+
+
+      }
+
       \item \code{analyse_IRSAR.RF()}
       \itemize{
 

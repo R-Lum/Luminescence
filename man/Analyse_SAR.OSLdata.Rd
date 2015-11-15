@@ -6,7 +6,7 @@
 \usage{
 Analyse_SAR.OSLdata(input.data, signal.integral, background.integral, position,
   run, set, dtype, keep.SEL = FALSE,
-  info.measurement = "unkown measurement", log = "", output.plot = FALSE,
+  info.measurement = "unkown measurement", output.plot = FALSE,
   output.plot.single = FALSE, cex.global = 1, ...)
 }
 \arguments{
@@ -45,11 +45,6 @@ are ignored!}
 information about the measurement on the plot output (e.g. name of the BIN
 or BINX file).}
 
-\item{log}{\link{character} (with default): a character string which
-contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
-logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
-\link{plot.default}.}
-
 \item{output.plot}{\link{logical} (with default): plot output
 (\code{TRUE/FALSE})}
 
@@ -60,7 +55,8 @@ windows. Requires \code{output.plot = TRUE}.}
 \item{cex.global}{\link{numeric} (with default): global scaling factor.}
 
 \item{\dots}{further arguments that will be passed to the function
-\code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution} and \code{sigmab})}
+\code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution} and \code{sigmab})
+and can be used to adjust the plot. Supported" \code{mtext}, \code{log}}
 }
 \value{
 A plot (optional) and \link{list} is returned containing the
@@ -106,7 +102,7 @@ consider using the functions \code{\link{analyse_SAR.CWOSL}} or
 to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.16 (2015-11-12 00:38:18)
+ 0.2.17 (2015-11-14 19:47:49)
 }
 \examples{
 

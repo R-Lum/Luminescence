@@ -130,6 +130,15 @@ Changes in version 0.5.0 (, 2015):
 
   Bugfixes and changes:
 
+         • ‘Analyse_SAR.OSLdata()’
+
+             • Argument ‘log’ removed, but option still supported via
+               ‘...’ (means log can be used as usual but it is not
+               listed as explict argument),
+
+             • enhanced support for graphical parameters such as:
+               ‘mtext’
+
          • ‘analyse_IRSAR.RF()’
 
              • Argument ‘fit.trace’ removed. It can be controlled by

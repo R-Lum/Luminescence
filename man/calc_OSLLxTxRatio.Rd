@@ -105,10 +105,9 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.0 (2015-11-12 00:47:21)
+ 0.6.0 (2015-11-12 00:50:34)
 }
 \examples{
-
 
 ##load data
 data(ExampleData.LxTxOSLData, envir = environment())

@@ -55,11 +55,6 @@
 #' information about the measurement on the plot output (e.g. name of the BIN
 #' or BINX file).
 #'
-#' @param log \link{character} (with default): a character string which
-#' contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
-#' logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
-#' \link{plot.default}.
-#'
 #' @param output.plot \link{logical} (with default): plot output
 #' (\code{TRUE/FALSE})
 #'
@@ -71,6 +66,7 @@
 #'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution} and \code{sigmab})
+#' and can be used to adjust the plot. Supported" \code{mtext}, \code{log}
 #'
 #' @return A plot (optional) and \link{list} is returned containing the
 #' following elements: \item{LnLxTnTx}{\link{data.frame} of all calculated
@@ -93,7 +89,7 @@
 #' to use the function \link{analyse_SAR.CWOSL} or instead.}
 #'
 #'
-#' @section Function version: 0.2.16
+#' @section Function version: 0.2.17
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -102,6 +98,7 @@
 #' \link{read_BIN2R}
 #'
 #' and for further analysis \link{plot_GrowthCurve}
+#'
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching. Quaternary Science Reviews 7, 387-393.
 #'
@@ -112,6 +109,7 @@
 #' improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #' 32, 57-73.
 #' @keywords datagen dplot
+#'
 #' @examples
 #'
 #'
@@ -142,7 +140,6 @@ Analyse_SAR.OSLdata <- function(
   dtype,
   keep.SEL = FALSE,
   info.measurement = "unkown measurement",
-  log = "",
   output.plot = FALSE,
   output.plot.single = FALSE,
   cex.global = 1,
@@ -387,7 +384,19 @@ Analyse_SAR.OSLdata <- function(
       ##PLOTTING
       ##============================================================================##
 
-      if(output.plot==TRUE){
+      if(output.plot){
+
+        ##set plot settings
+        plot.settings <- list(
+          mtext = sample.data@METADATA[sample.data@METADATA[,"ID"]==LnLx.curveID[1],"SAMPLE"],
+          log = ""
+
+        )
+
+        ##modify arguments
+        plot.settings <- modifyList(plot.settings, list(...))
+
+
 
         if(output.plot.single==FALSE){
           layout(matrix(c(1,2,1,2,3,4,3,5),4,2,byrow=TRUE))
@@ -418,7 +427,7 @@ Analyse_SAR.OSLdata <- function(
              xlim=c(HIGH/NPOINTS,HIGH),
              ylim=c(1,max(unlist(sample.data@DATA[LnLx.curveID]))),
              main=expression(paste(L[n],",",L[x]," curves",sep="")),
-             log=log
+             log=plot.settings$log
         )
         ##plot curves and get legend values
         sapply(1:length(LnLx.curveID),function(x){
@@ -438,7 +447,7 @@ Analyse_SAR.OSLdata <- function(
                cex=0.8*cex.global,col=col, bg="gray")
 
         ##sample name
-        mtext(side=3,sample.data@METADATA[sample.data@METADATA[,"ID"]==LnLx.curveID[1],"SAMPLE"],cex=0.7*cex.global)
+        mtext(side=3,plot.settings$mtext,cex=0.7*cex.global)
 
         ##========================================================================
         ##open plot area TnTx
@@ -448,7 +457,7 @@ Analyse_SAR.OSLdata <- function(
              xlim=c(HIGH/NPOINTS,HIGH),
              ylim=c(1,max(unlist(sample.data@DATA[TnTx.curveID]))),
              main=expression(paste(T[n],",",T[x]," curves",sep="")),
-             log=log
+             log=plot.settings$log
         )
         ##plot curves and get legend values
         sapply(1:length(TnTx.curveID),function(x){
@@ -468,7 +477,7 @@ Analyse_SAR.OSLdata <- function(
                cex=0.8*cex.global,col=col, bg="gray")
 
         ##sample name
-        mtext(side=3,sample.data@METADATA[sample.data@METADATA[,"ID"]==LnLx.curveID[1],"SAMPLE"],cex=0.7*cex.global)
+        mtext(side=3,plot.settings$mtext,cex=0.7*cex.global)
 
         ##========================================================================
         ##Print TL curves for TnTx -
@@ -510,7 +519,7 @@ Analyse_SAR.OSLdata <- function(
                ylim=c(1,TL.curveMax),
                main="Cutheat - TL curves",
                sub=paste("(",RATE," K/s)",sep=""),
-               log=if(log=="y" | log=="xy"){"y"}else{""}
+               log=if(plot.settings$log=="y" | plot.settings$log=="xy"){"y"}else{""}
           )
 
           ##plot curves and get legend values
@@ -524,7 +533,8 @@ Analyse_SAR.OSLdata <- function(
                  cex=0.8*cex.global,col=col, bg="white", bty="n")
 
           ##sample name
-          mtext(side=3,sample.data@METADATA[sample.data@METADATA[,"ID"]==LnLx.curveID[1],"SAMPLE"],cex=0.7*cex.global)
+          mtext(side=3,plot.settings$mtext,cex=0.7*cex.global)
+
 
         }else{
           plot(NA,NA,xlim=c(0,100),ylim=c(0,100), main="Cutheat - TL curves")
