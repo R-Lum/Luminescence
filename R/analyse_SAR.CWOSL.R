@@ -56,19 +56,23 @@
 #'
 #' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
 #' bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-#' of type \code{\link{list}}
+#' of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+#' as the minimum signal integral for the Tx curve.
 #'
 #' @param signal.integral.max \code{\link{integer}} (\bold{required}): upper
 #' bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-#' of type \code{\link{list}}
+#' of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+#' as the maximum signal integral for the Tx curve.
 #'
 #' @param background.integral.min \code{\link{integer}} (\bold{required}):
 #' lower bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-#' of type \code{\link{list}}
+#' of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+#' as the minimum background integral for the Tx curve.
 #'
 #' @param background.integral.max \code{\link{integer}} (\bold{required}):
 #' upper bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-#' of type \code{\link{list}}
+#' of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+#' as the maximum background integral for the Tx curve.
 #'
 #' @param rejection.criteria \code{\link{list}} (with default): provide a named list
 #' and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
@@ -124,8 +128,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.6.4
-#'
+#' @section Function version: 0.7.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -314,13 +317,46 @@ if(is.list(object)){
 
 
       ##build signal and background integrals
-      signal.integral <- c(signal.integral.min:signal.integral.max)
-      background.integral <- c(background.integral.min:background.integral.max)
+      signal.integral <- c(signal.integral.min[1]:signal.integral.max[1])
+      background.integral <- c(background.integral.min[1]:background.integral.max[1])
+
+        ##account for the case that Lx and Tx integral differ
+        if (length(signal.integral.min) == 2 &
+            length(signal.integral.max) == 2) {
+          signal.integral.Tx <-
+            c(signal.integral.min[2]:signal.integral.max[2])
+
+        }else{
+          signal.integral.Tx <- NULL
+
+        }
+
+        if (length(background.integral.min) == 2 &
+            length(background.integral.max) == 2) {
+          background.integral.Tx <-
+            c(background.integral.min[2]:background.integral.max[2])
+
+        }else{
+          background.integral.Tx <- NULL
+
+        }
+
+        ##Account for the case that the use did not provide everything ...
+        if(is.null(signal.integral.Tx) & !is.null(background.integral.Tx)){
+          signal.integral.Tx <- signal.integral
+
+          warning("[analyse_SAR.CWOSL()] background integral for Tx curves set, but not for the signal integral; signal integral for Tx automatically set.")
+        }
+
+      if(!is.null(signal.integral.Tx) & is.null(background.integral.Tx)){
+        background.integral.Tx <- background.integral
+
+        warning("[analyse_SAR.CWOSL()] signal integral for Tx curves set, but not for the background integral; background integral for Tx automatically set.")
+      }
 
 
     ##INTEGRAL LIMITS
-    if(is(signal.integral, "integer")==FALSE | is(background.integral,
-                                                  "integer")==FALSE){
+    if(!is(signal.integral, "integer") | !is(background.integral, "integer")){
       stop("[analyse_SAR.CWOSL()] 'signal.integral' or 'background.integral' is not
            of type integer!")
     }
@@ -437,7 +473,7 @@ object!")
   })
 
 
-  ##problem: FI lexsyg devices provide irradiation information in a separat curve
+  ##problem: FI lexsyg devices provide irradiation information in a separate curve
   if("irradiation"%in%temp.ltype){
 
     ##grep irraditation times
@@ -478,22 +514,70 @@ object!")
   if (length(error.list) == 0) {
 
     ##check background integral
+    if (max(signal.integral) == min(signal.integral)) {
+      signal.integral <-
+        c(min(signal.integral) : (max(signal.integral) + 1))
+
+      warning("[analyse_SAR.CWOSL()] integral signal limits cannot be equal, reset automatically!")
+
+    }
+
+
     ##background integral should not longer than curve channel length
+    if (max(background.integral) == min(background.integral)) {
+      background.integral <-
+        c((min(background.integral) - 1) : max(background.integral))
+
+    }
+
     if (max(background.integral) > temp.matrix.length[1]) {
       background.integral <-
-        c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
+          c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
 
       ##prevent that the background integral becomes negative
       if(min(background.integral) < max(signal.integral)){
-        background.integral <- c(max(signal.integral) + 1, background.integral[2])
+        background.integral <- c((max(signal.integral) + 1):max(background.integral))
 
       }
 
       warning(
-        "Background integral out of bounds. Set to: c(",
+        "[analyse_SAR.CWOSL()] Background integral out of bounds. Set to: c(",
         min(background.integral),":", max(background.integral),")"
       )
 
+    }
+
+    ##Do the same for the Tx-if set
+    if (!is.null(background.integral.Tx)) {
+
+      if (max(background.integral.Tx) == min(background.integral.Tx)) {
+        background.integral.Tx <-
+          c((min(background.integral.Tx) - 1) : max(background.integral.Tx))
+
+      }
+
+      if (max(background.integral.Tx) > temp.matrix.length[2]) {
+        background.integral.Tx <-
+          c((temp.matrix.length[2] - length(background.integral.Tx)):temp.matrix.length[2])
+
+
+        ##prevent that the background integral becomes negative
+        if (min(background.integral.Tx) < max(signal.integral.Tx)) {
+          background.integral.Tx <-
+            c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
+
+
+        }
+
+        warning(
+          "Background integral for Tx out of bounds. Set to: c(",
+          min(background.integral.Tx),
+          ":",
+          max(background.integral.Tx),
+          ")"
+        )
+
+      }
     }
 
 
@@ -561,7 +645,9 @@ object!")
           Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
           Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
           signal.integral = signal.integral,
+          signal.integral.Tx = signal.integral.Tx,
           background.integral = background.integral,
+          background.integral.Tx = background.integral.Tx,
           background.count.distribution = background.count.distribution,
           sigmab = sigmab
         )
@@ -1282,10 +1368,15 @@ object!")
     ##add information on the integration limits
     temp.GC.extened <-
       data.frame(
-        signal.range = paste(signal.integral.min,":",
-                             signal.integral.max),
-        background.range = paste(background.integral.min,":",
-                                 background.integral.max)
+        signal.range = paste(min(signal.integral),":",
+                             max(signal.integral)),
+        background.range = paste(min(background.integral),":",
+                                 max(background.integral)),
+        signal.range.Tx = paste(min(ifelse(is.null(signal.integral.Tx),NA,signal.integral.Tx)),":",
+                                max(ifelse(is.null(signal.integral.Tx),NA,signal.integral.Tx))),
+        background.range.Tx = paste(min(ifelse(is.null(background.integral.Tx), NA,background.integral.Tx)) ,":",
+                                    max(ifelse(is.null(background.integral.Tx), NA,background.integral.Tx))),
+        stringsAsFactors = FALSE
       )
 
 

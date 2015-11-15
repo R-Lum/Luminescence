@@ -15,19 +15,23 @@ object containing data for analysis, alternatively a \code{\link{list}} of
 
 \item{signal.integral.min}{\code{\link{integer}} (\bold{required}): lower
 bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-of type \code{\link{list}}}
+of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+as the minimum signal integral for the Tx curve.}
 
 \item{signal.integral.max}{\code{\link{integer}} (\bold{required}): upper
 bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-of type \code{\link{list}}}
+of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+as the maximum signal integral for the Tx curve.}
 
 \item{background.integral.min}{\code{\link{integer}} (\bold{required}):
 lower bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-of type \code{\link{list}}}
+of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+as the minimum background integral for the Tx curve.}
 
 \item{background.integral.max}{\code{\link{integer}} (\bold{required}):
 upper bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-of type \code{\link{list}}}
+of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+as the maximum background integral for the Tx curve.}
 
 \item{rejection.criteria}{\code{\link{list}} (with default): provide a named list
 and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
@@ -136,7 +140,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.6.4 (2015-11-15 11:07:07)
+ 0.7.0 (2015-11-15 12:41:43)
 }
 \examples{
 

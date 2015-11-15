@@ -185,7 +185,8 @@
         to use the function more efficiently in a loop,
         \item improve behaviour if wrong background integrals are provided, even the values make
         no sense the functions tries to do the best without breaking,
-        \item plot argumet \code{log = "x"} results in non-plotting of the Lx/Tx curves, fixed.
+        \item plot argumet \code{log = "x"} results in non-plotting of the Lx/Tx curves, fixed,
+        \item support for independent Lx and Tx integral limites added.
 
       }
 
