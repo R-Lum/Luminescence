@@ -168,7 +168,10 @@
       \itemize{
 
         \item Now acts a little bit more relaxed if something goes wrong, function does not break,
-        but returns \code{NULL} instead.
+        but returns \code{NULL} instead,
+        \item argument \code{dose.points} now preset with \code{NULL},
+        \item function now supports a list of RLum-objects as input,
+        \item add data.object \code{call} to the output.
 
       }
 
@@ -192,7 +195,9 @@
         \item improve behaviour if wrong background integrals are provided, even the values make
         no sense the functions tries to do the best without breaking,
         \item plot argumet \code{log = "x"} results in non-plotting of the Lx/Tx curves, fixed,
-        \item support for independent Lx and Tx integral limites added.
+        \item support for independent Lx and Tx integral limites added,
+        \item argument \code{dose.points} preset with \code{NULL},
+        \item correct self call behaviour.
 
       }
 

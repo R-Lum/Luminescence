@@ -6,7 +6,7 @@
 \usage{
 analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max,
   background.integral.min, background.integral.max, rejection.criteria,
-  dose.points, mtext.outer, plot = TRUE, plot.single = FALSE, ...)
+  dose.points = NULL, mtext.outer, plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -140,7 +140,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.0 (2015-11-15 12:41:43)
+ 0.7.0 (2015-11-15 14:56:04)
 }
 \examples{
 

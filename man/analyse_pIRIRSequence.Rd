@@ -5,13 +5,14 @@
 \title{Analyse post-IR IRSL sequences}
 \usage{
 analyse_pIRIRSequence(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max, dose.points,
+  background.integral.min, background.integral.max, dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"), plot = TRUE,
   plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): input
-object containing data for analysis}
+\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}) or \code{\link{list}} of
+\code{\linkS4class{RLum.Analysis}} objects: input object containing data for analysis. If a \code{\link{list}}
+is provided the functions tries to iteratre over the list.}
 
 \item{signal.integral.min}{\code{\link{integer}} (\bold{required}): lower
 bound of the signal integral. Provide this value as vector for different
@@ -53,12 +54,15 @@ windows. Requires \code{plot = TRUE}.}
 \value{
 Plots (optional) and an \code{\linkS4class{RLum.Results}} object is
 returned containing the following elements:
-\item{De.values}{\link{data.frame} containing De-values, De-error and
-further parameters}. \item{LnLxTnTx.values}{\link{data.frame} of all
-calculated Lx/Tx values including signal, background counts and the dose
-points.} \item{rejection.criteria}{\link{data.frame} with values that might
-by used as rejection criteria. NA is produced if no R0 dose point
-exists.}\cr
+
+\tabular{lll}{
+\bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
+\code{..$De.values} : \tab  \code{data.frame} \tab Table with De values \cr
+\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
+\code{..$rejection.criteria} : \tab \code{\link{data.frame}} \tab rejection criteria \cr
+\code{..$Formula} : \tab \code{\link{list}} \tab Function used for fitting of the dose response curve \cr
+\code{..$call} : \tab \code{\link{call}} \tab the original function call
+}
 
 The output should be accessed using the function
 \code{\link{get_RLum}}.
@@ -67,20 +71,13 @@ The output should be accessed using the function
 The function performs an analysis of post-IR IRSL sequences including curve
 fitting on \code{\linkS4class{RLum.Analysis}} objects.
 }
-\details{
-To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analysis
-this function has been written as extended wrapper function for the function
-\code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis in
-one run. With this, its functionality is strictly limited by the
-functionality of the function \code{\link{analyse_SAR.CWOSL}}.
-}
 \note{
 Best graphical output can be achieved by using the function \code{pdf}
 with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.1.5 (2015-11-15 13:22:22)
+ 0.1.5 (2015-11-15 15:10:14)
 }
 \examples{
 

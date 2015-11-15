@@ -189,7 +189,7 @@ analyse_SAR.CWOSL<- function(
   background.integral.min,
   background.integral.max,
   rejection.criteria,
-  dose.points,
+  dose.points = NULL,
   mtext.outer,
   plot = TRUE,
   plot.single = FALSE,
@@ -211,19 +211,19 @@ if(is.list(object)){
   }
 
   ##now we have to extend everything to allow list of arguments ... this is just consequent
-  signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
-  signal.integral.max <- rep(as.list(signal.integral.max), length = length(object))
-  background.integral.min <- rep(as.list(background.integral.min), length = length(object))
-  background.integral.max <- rep(as.list(background.integral.max), length = length(object))
+  signal.integral.min <- rep(list(signal.integral.min), length = length(object))
+  signal.integral.max <- rep(list(signal.integral.max), length = length(object))
+  background.integral.min <- rep(list(background.integral.min), length = length(object))
+  background.integral.max <- rep(list(background.integral.max), length = length(object))
 
 
   if(!missing(rejection.criteria)){
-    rejection.criteria <- rep(as.list(rejection.criteria), length = length(object))
+    rejection.criteria <- rep(list(rejection.criteria), length = length(object))
 
   }
 
 
-  if(!missing(dose.points)){
+  if(!is.null(dose.points)){
 
     if(is(dose.points, "list")){
       dose.points <- rep(dose.points, length = length(object))
@@ -232,6 +232,9 @@ if(is.list(object)){
       dose.points <- rep(list(dose.points), length = length(object))
 
     }
+
+  }else{
+    dose.points <- rep(list(NULL), length(object))
 
   }
 
@@ -682,7 +685,7 @@ object!")
     # Set regeneration points -------------------------------------------------
 
     ##overwrite dose point manually
-    if (!missing(dose.points)) {
+    if (!is.null(dose.points)) {
       if (length(dose.points) != length(LnLxTnTx$Dose)) {
         stop("[analyse_SAR.CWOSL()] length 'dose.points' differs from number of curves.")
 
@@ -693,7 +696,7 @@ object!")
     }
 
     ##check whether we have dose points at all
-    if (missing(dose.points) & anyNA(LnLxTnTx$Dose)) {
+    if (is.null(dose.points) & anyNA(LnLxTnTx$Dose)) {
       stop("[analyse_SAR.CWOSL()] 'dose.points' contains NA values or have not been set!")
 
     }

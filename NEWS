@@ -181,7 +181,13 @@ Changes in version 0.5.0 (, 2015):
 
              • Now acts a little bit more relaxed if something goes
                wrong, function does not break, but returns ‘NULL’
-               instead.
+               instead,
+
+             • argument ‘dose.points’ now preset with ‘NULL’,
+
+             • function now supports a list of RLum-objects as input,
+
+             • add data.object ‘call’ to the output.
 
          • ‘analyse_SAR.CWOSL()’
 
@@ -217,7 +223,11 @@ Changes in version 0.5.0 (, 2015):
                Lx/Tx curves, fixed,
 
              • support for independent Lx and Tx integral limites
-               added.
+               added,
+
+             • argument ‘dose.points’ preset with ‘NULL’,
+
+             • correct self call behaviour.
 
          • ‘analyse_SAR.TL()’
 

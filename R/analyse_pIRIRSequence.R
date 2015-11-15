@@ -7,10 +7,16 @@
 #' this function has been written as extended wrapper function for the function
 #' \code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
-#' functionality of the function \code{\link{analyse_SAR.CWOSL}}.
+#' functionality of the function \code{\link{analyse_SAR.CWOSL}}.\cr
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
-#' object containing data for analysis
+#' \bold{Input if a \code{list}}\cr
+#'
+#' If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow for different sets of
+#' parameters for every single input element. For further information see \code{\link{analyse_SAR.CWOSL}.
+#'
+#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}) or \code{\link{list}} of
+#' \code{\linkS4class{RLum.Analysis}} objects: input object containing data for analysis. If a \code{\link{list}}
+#' is provided the functions tries to iteratre over the list.
 #'
 #' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
 #' bound of the signal integral. Provide this value as vector for different
@@ -51,26 +57,32 @@
 #'
 #' @return Plots (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned containing the following elements:
-#' \item{De.values}{\link{data.frame} containing De-values, De-error and
-#' further parameters}. \item{LnLxTnTx.values}{\link{data.frame} of all
-#' calculated Lx/Tx values including signal, background counts and the dose
-#' points.} \item{rejection.criteria}{\link{data.frame} with values that might
-#' by used as rejection criteria. NA is produced if no R0 dose point
-#' exists.}\cr
+#'
+#' \tabular{lll}{
+#' \bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
+#' \code{..$De.values} : \tab  \code{data.frame} \tab Table with De values \cr
+#' \code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
+#' \code{..$rejection.criteria} : \tab \code{\link{data.frame}} \tab rejection criteria \cr
+#' \code{..$Formula} : \tab \code{\link{list}} \tab Function used for fitting of the dose response curve \cr
+#' \code{..$call} : \tab \code{\link{call}} \tab the original function call
+#' }
 #'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum}}.
+#'
 #' @note Best graphical output can be achieved by using the function \code{pdf}
 #' with the following options:\cr \code{pdf(file = "...", height = 15, width =
 #' 15)}
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
 #' \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}} \code{\link{get_RLum}}
+#'
 #' @references Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 #' using an improved single-aliquot regenerative-dose protocol. Radiation
 #' Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
@@ -79,7 +91,9 @@
 #' fading rates of various luminescence signals from feldspar-rich sediment
 #' extracts. Radiation Measurements 43, 1474-1486.
 #' doi:10.1016/j.radmeas.2008.06.002
+#'
 #' @keywords datagen plot
+#'
 #' @examples
 #'
 #'
@@ -143,7 +157,7 @@ analyse_pIRIRSequence <- function(
   signal.integral.max,
   background.integral.min,
   background.integral.max,
-  dose.points,
+  dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   plot = TRUE,
   plot.single = FALSE,
@@ -164,13 +178,15 @@ analyse_pIRIRSequence <- function(
       warning("[analyse_pIRIRSequence()] 'signal.integral.max' missing, set to 2", call. = FALSE)
     }
 
-    ##now we have to extend everything to allow list of arguments ... this is just consequent
-    signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
-    signal.integral.max <- rep(as.list(signal.integral.max), length = length(object))
-    background.integral.min <- rep(as.list(background.integral.min), length = length(object))
-    background.integral.max <- rep(as.list(background.integral.max), length = length(object))
 
-    if(!missing(dose.points)){
+    ##now we have to extend everything to allow list of arguments ... this is just consequent
+    signal.integral.min <- rep(list(signal.integral.min), length = length(object))
+    signal.integral.max <- rep(list(signal.integral.max), length = length(object))
+    background.integral.min <- rep(list(background.integral.min), length = length(object))
+    background.integral.max <- rep(list(background.integral.max), length = length(object))
+    sequence.structure <- rep(list(sequence.structure), length = length(object))
+
+    if(!is.null(dose.points)){
 
       if(is(dose.points, "list")){
         dose.points <- rep(dose.points, length = length(object))
@@ -179,6 +195,9 @@ analyse_pIRIRSequence <- function(
         dose.points <- rep(list(dose.points), length = length(object))
 
       }
+
+    }else{
+      dose.points <- rep(list(NULL), length(object))
 
     }
 
@@ -191,7 +210,7 @@ analyse_pIRIRSequence <- function(
                         background.integral.min = background.integral.min[[x]],
                         background.integral.max = background.integral.max[[x]] ,
                         dose.points = dose.points[[x]],
-                        mtext.outer = mtext.outer[[x]],
+                        sequence.structure = sequence.structure[[x]],
                         plot = plot,
                         plot.single = plot.single,
                         main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
@@ -533,14 +552,15 @@ analyse_pIRIRSequence <- function(
           De.values = temp.results.pIRIR.De,
           LnLxTnTx.table = temp.results.pIRIR.LnLxTnTx,
           rejection.criteria = temp.results.pIRIR.rejection.criteria,
-          Formula = temp.results.pIRIR.formula
+          Formula = temp.results.pIRIR.formula,
+          call = sys.call()
         )
       )
 
 
       ##merge results
       if (exists("temp.results.final")) {
-        temp.results.final <- merge_RLum.Results(list(temp.results.final, temp.results))
+        temp.results.final <- merge_RLum(list(temp.results.final, temp.results))
 
       } else{
         temp.results.final <- temp.results
