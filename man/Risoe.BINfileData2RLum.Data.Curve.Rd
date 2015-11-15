@@ -40,15 +40,15 @@ object to an RLum.Data.Curve object.
 }
 \details{
 The function extracts all \code{METADATA} from the \code{Risoe.BINfileData}
-object and stores them in the \code{RLum.Data.Curve} object.
+object and stores them in the \code{RLum.Data.Curve} object. This function
+can be used stand-alone, but is the base function for \code{\link{Risoe.BINfileData2RLum.Analysis}}.
 }
 \note{
-The function is intended for experimental usage. Normally, the
-function \code{\link{Risoe.BINfileData2RLum.Analysis}} should be used for
-the conversion.
+Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
+overall correct for cases where the TL measurement is combined with a preheat.
 }
 \section{Function version}{
- 0.2.0 (2015-11-12 00:50:34)
+ 0.2.1 (2015-11-15 11:05:10)
 }
 \examples{
 

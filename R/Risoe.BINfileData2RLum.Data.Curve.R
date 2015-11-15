@@ -5,7 +5,8 @@
 #' object to an RLum.Data.Curve object.
 #'
 #' The function extracts all \code{METADATA} from the \code{Risoe.BINfileData}
-#' object and stores them in the \code{RLum.Data.Curve} object.
+#' object and stores them in the \code{RLum.Data.Curve} object. This function
+#' can be used stand-alone, but is the base function for \code{\link{Risoe.BINfileData2RLum.Analysis}}.
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 #' \code{Risoe.BINfileData} object
@@ -32,11 +33,10 @@
 #'
 #' @return Returns an \code{\linkS4class{RLum.Data.Curve}} object.
 #'
-#' @note The function is intended for experimental usage. Normally, the
-#' function \code{\link{Risoe.BINfileData2RLum.Analysis}} should be used for
-#' the conversion.
+#' @note Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
+#' overall correct for cases where the TL measurement is combined with a preheat.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 #' Christoph Burow, Universtiy of Cologne (Germany)
@@ -164,7 +164,7 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
     temp.x <- vector(mode = "numeric", length = object@METADATA[id,"NPOINTS"])
     temp.y <- vector(mode = "integer", length = object@METADATA[id,"NPOINTS"])
 
-    if(object@METADATA[id, "LTYPE"] == "TL"){
+    if(object@METADATA[id, "LTYPE"] == "TL" && as.numeric(object@METADATA[id, "VERSION"]) >=4){
 
       temp.x <- c(
         seq(
