@@ -67,6 +67,11 @@ Changes in version 0.5.0 (, 2015):
                ‘RLum.Data.Spectrum’, ‘RLum.Data.Image’, ‘RLum.Analysis’
                and ‘RLum.Results’ objects.
 
+         • ‘replicate_RLum’
+
+             • New method to replicate RLum objects (valid for all
+               objects)
+
          • ‘Risoe.BINfileData-class’
 
              • Show method now returns the valid grain range,
@@ -555,4 +560,6 @@ Changes in version 0.5.0 (, 2015):
              • ‘as.matrix()’: ‘RLum.Data.Curve’
 
              • ‘merge()’: ‘RLum’
+
+             • ‘rep()’: ‘RLum’
 

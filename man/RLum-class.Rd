@@ -3,10 +3,24 @@
 \docType{class}
 \name{RLum-class}
 \alias{RLum-class}
+\alias{replicate_RLum,RLum-method}
 \title{Class \code{"RLum"}}
+\usage{
+\S4method{replicate_RLum}{RLum}(object, times = NULL)
+}
+\arguments{
+\item{object}{an object of class \code{\linkS4class{RLum}} (\bold{required})}
+
+\item{times}{\code{\link{integer}} (optional): number for times each element is repeated
+element}
+}
 \description{
 Abstract class for data in the package Luminescence
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{replicate_RLum}: Replication method RLum-objects
+}}
 \section{Slots}{
 
 \describe{

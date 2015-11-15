@@ -67,6 +67,10 @@ dim.RLum.Data.Curve <- function(x) dim(as(x, "matrix"))
 #' @export
 dim.RLum.Data.Spectrum <- function(x) dim(as(x, "matrix"))
 
+# methods for generic: rep()
+#' @export
+rep.RLum <- function(x, ...) replicate_RLum(x, ...)
+
 # methods for generic: names()
 #' @export
 names.RLum.Data.Curve <- function(x, ...) names_RLum(x)

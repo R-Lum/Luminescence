@@ -57,6 +57,7 @@ Collate:
     'CW2pLMi.R'
     'CW2pPMi.R'
     'Luminescence-package.R'
+    'replicate_RLum.R'
     'RLum-class.R'
     'names_RLum.R'
     'structure_RLum.R'

@@ -7,7 +7,7 @@
 \alias{set_RLum.Data.Image}
 \alias{set_RLum.Data.Spectrum}
 \alias{set_RLum.Results}
-\title{General accessor function for RLum S4 class objects}
+\title{General set function for RLum S4 class objects}
 \usage{
 set_RLum(class, ...)
 }
@@ -31,7 +31,7 @@ corresponding set function will be selected.  Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1 (2015-09-22 09:41:30)
+ 0.1 (2015-11-15 13:34:36)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

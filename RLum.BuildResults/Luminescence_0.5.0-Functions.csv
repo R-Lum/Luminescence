@@ -1,7 +1,7 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
 "analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.5.1","2015-10-31","14:56:58
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.1.5","2015-11-11","18:18:13
+"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.1.5","2015-11-15","13:22:22
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.7.0","2015-11-15","12:41:43
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -130,6 +130,8 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "read_XSYG2R","Import XSYG files to R","<br /> Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.<br />","0.5.2","2015-10-19","18:38:01
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
+"replicate_RLum","General replication function for RLum S4 class objects","<br /> Function replicates RLum S4 class objects and returns a list for this objects<br />","0.1.0","2015-11-15","14:10:12
+","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "Risoe.BINfileData-class","Class  \"Risoe.BINfileData\"","<br /> S4 class object for luminescence data in R. The object is produced as output<br /> of the function  read_BIN2R .<br />","0.2.0
 ",NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "Risoe.BINfileData2RLum.Analysis","Convert Risoe.BINfileData object to an RLum.Analysis object","<br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object. Internally the function uses the function<br /> Risoe.BINfileData2RLum.Data.Curve  to recalculate the curves.<br />","0.2.2","2015-11-15","11:06:53
@@ -147,7 +149,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, HZDR,<br /> Helmholtz-Institute Freiberg for Resource Technology<br /> (Germany)<br />  R Luminescence Package Team"
 "set_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"set_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific set functions for RLum S4 class objects.<br />","0.1","2015-09-22","09:41:30
+"set_RLum","General set function for RLum S4 class objects","<br /> Function calls object-specific set functions for RLum S4 class objects.<br />","0.1","2015-11-15","13:34:36
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "sTeve","sTeve - sophisticated tool for efficient data validation and evaluation","<br /> This function provides a sophisticated routine for comprehensive<br /> luminescence dating data analysis.<br />",NA,NA,NA,"<br /> R Luminescence Team, 2012-2013<br />"
 "structure_RLum","General structure function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.1.0","2015-10-31","22:27:15

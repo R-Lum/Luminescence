@@ -1,3 +1,6 @@
+#' @include replicate_RLum.R
+NULL
+
 #' Class \code{"RLum"}
 #'
 #' Abstract class for data in the package Luminescence
@@ -40,3 +43,32 @@ setClass("RLum",
            )
          )
 
+
+# replication method for object class ------------------------------------------
+
+#' @describeIn RLum
+#' Replication method RLum-objects
+#'
+#' @param object an object of class \code{\linkS4class{RLum}} (\bold{required})
+#'
+#' @param times \code{\link{integer}} (optional): number for times each element is repeated
+#' element
+#'
+#' @export
+setMethod(
+  "replicate_RLum",
+  "RLum",
+  definition = function(object, times = NULL) {
+
+    ##The case this is NULL
+    if (is.null(times)) {
+      times <- 1
+    }
+
+    lapply(1:times, function(x) {
+      object
+
+    })
+
+  }
+)

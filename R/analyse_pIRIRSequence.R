@@ -150,7 +150,71 @@ analyse_pIRIRSequence <- function(
   ...
 ){
 
-# CONFIG  -----------------------------------------------------------------
+# SELF CALL -----------------------------------------------------------------------------------
+ if(is.list(object)){
+
+    ##make live easy
+    if(missing("signal.integral.min")){
+      signal.integral.min <- 1
+      warning("[analyse_pIRIRSequence()] 'signal.integral.min' missing, set to 1", call. = FALSE)
+    }
+
+    if(missing("signal.integral.max")){
+      signal.integral.max <- 2
+      warning("[analyse_pIRIRSequence()] 'signal.integral.max' missing, set to 2", call. = FALSE)
+    }
+
+    ##now we have to extend everything to allow list of arguments ... this is just consequent
+    signal.integral.min <- rep(as.list(signal.integral.min), length = length(object))
+    signal.integral.max <- rep(as.list(signal.integral.max), length = length(object))
+    background.integral.min <- rep(as.list(background.integral.min), length = length(object))
+    background.integral.max <- rep(as.list(background.integral.max), length = length(object))
+
+    if(!missing(dose.points)){
+
+      if(is(dose.points, "list")){
+        dose.points <- rep(dose.points, length = length(object))
+
+      }else{
+        dose.points <- rep(list(dose.points), length = length(object))
+
+      }
+
+    }
+
+    ##run analysis
+    temp <- lapply(1:length(object), function(x){
+
+      analyse_pIRIRSequence(object[[x]],
+                        signal.integral.min = signal.integral.min[[x]],
+                        signal.integral.max = signal.integral.max[[x]],
+                        background.integral.min = background.integral.min[[x]],
+                        background.integral.max = background.integral.max[[x]] ,
+                        dose.points = dose.points[[x]],
+                        mtext.outer = mtext.outer[[x]],
+                        plot = plot,
+                        plot.single = plot.single,
+                        main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
+                        ...)
+
+    })
+
+    ##combine everything to one RLum.Results object as this as what was written ... only
+    ##one object
+
+    ##merge results and check if the output became NULL
+    results <- merge_RLum(temp)
+
+    ##DO NOT use invisible here, this will stop the function from stopping
+    if(length(results) == 0){
+      return(NULL)
+
+    }else{
+      return(results)
+
+    }
+
+  }
 
 
 # General Integrity Checks ---------------------------------------------------

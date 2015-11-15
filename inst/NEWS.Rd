@@ -62,6 +62,12 @@
 
        }
 
+       \item \code{replicate_RLum}
+       \itemize{
+        \item New method to replicate RLum objects (valid for all objects)
+
+       }
+
 
 
      \item \code{Risoe.BINfileData-class}
@@ -485,6 +491,7 @@
         \item \code{as.list()}: \code{RLum.Data.Curve},\code{RLum.Analysis} ,\code{RLum.Results}
         \item \code{as.matrix()}:  \code{RLum.Data.Curve}
         \item \code{merge()}: \code{RLum}
+        \item \code{rep()}: \code{RLum}
 
 
       }

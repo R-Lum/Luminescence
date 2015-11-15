@@ -1,4 +1,4 @@
-#' General accessor function for RLum S4 class objects
+#' General set function for RLum S4 class objects
 #'
 #' Function calls object-specific set functions for RLum S4 class objects.
 #'
@@ -26,9 +26,9 @@
 #' set_RLum.Analysis set_RLum.Results
 #'
 #' @export
-setGeneric("set_RLum", function (class, ...) { 
+setGeneric("set_RLum", function (class, ...) {
   class(class) <- as.character(class)
-  standardGeneric("set_RLum") 
+  standardGeneric("set_RLum")
 })
 
 
