@@ -114,6 +114,7 @@ Collate:
     'methods_RLum.R'
     'plot_AbanicoPlot.R'
     'plot_DRTResults.R'
+    'plot_DetPlot.R'
     'plot_GrowthCurve.R'
     'plot_Histogram.R'
     'plot_KDE.R'

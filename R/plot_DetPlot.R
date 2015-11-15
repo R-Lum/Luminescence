@@ -1,0 +1,244 @@
+#' Create De(t) plot
+#'
+#' Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003)
+#'
+#' The function is passing several arguments to the function \code{\link{plot}} and the used
+#' analysis functions
+#'
+#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
+#' object containing data for analysis
+#'
+#' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
+#' bound of the signal integral.
+#'
+#' @param signal.integral.max \code{\link{integer}} (\bold{required}): upper
+#' bound of the signal integral.
+#'
+#' @param background.integral.min \code{\link{integer}} (\bold{required}):
+#' lower bound of the background integral.
+#'
+#' @param background.integral.max \code{\link{integer}} (\bold{required}):
+#' upper bound of the background integral.
+#'
+#' @param analyse_function \code{\link{character}} (with default): name of the analyse function
+#' to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}
+#'
+#' @param analyse_function.control \code{\link{list}} (optional): arguments to be passed to the
+#' supported analyse functions (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})
+#'
+#' @param n.channels \code{\link{integer}} (optional): number of channels used for the De(t) plot.
+#' If nothing is provided all De-values are calculated and plotted until the start of the background
+#' integral.
+#'
+#' @param show_ShineDownCurve  \code{\link{logical}} (with default): enables or disables shine down
+#' curve in the plot output
+#'
+#' @param respect_RC.Status \code{\link{logical} (with default)}: remove De-values with 'FAILED' RC.Status
+#' from the plot (cf. \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}})
+#'
+#' @param verbose \code{\link{logical} (with default)}: enables or disables terminal feedback
+#'
+#' @param \dots further arguments and graphical parameters passed to
+#' \code{\link{plot.default}}, \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}.
+#' See details for further information.
+#'
+#' @return A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
+#'
+#' @note -
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
+#' @references
+#'
+#' Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
+#' using De as a function of illumination time. Radiation Measurements 37, 511-518.
+#' doi:10.1016/S1350-4487(03)00063-5
+#'
+#' @seealso \code{\link{plot}}, \code{\link{analyse_SAR.CWOSL}}, \code{\link{analyse_pIRIRSequence}}
+#'
+#' @examples
+#'
+#' \dontrun{
+#' ##load data
+#' ##ExampleData.BINfileData contains two BINfileData objects
+#' ##CWOSL.SAR.Data and TL.SAR.Data
+#' data(ExampleData.BINfileData, envir = environment())
+#'
+#' ##transform the values from the first position in a RLum.Analysis object
+#' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+#'
+#' plot_DetPlot(object,
+#'              signal.integral.min = 1,
+#'              signal.integral.max = 3,
+#'              background.integral.min = 900,
+#'              background.integral.max = 1000,
+#'              n.channels = 10,
+#' )
+#' }
+#'
+#' @export
+plot_DetPlot <- function(
+  object,
+  signal.integral.min,
+  signal.integral.max,
+  background.integral.min,
+  background.integral.max,
+  analyse_function = "analyse_SAR.CWOSL",
+  analyse_function.control = list(),
+  n.channels = NULL,
+  show_ShineDownCurve = TRUE,
+  respect_RC.Status = TRUE,
+  verbose = TRUE,
+  ...
+) {
+
+
+# Integrity Tests -----------------------------------------------------------------------------
+
+
+
+  ##get structure
+  object.structure <- structure_RLum(object)
+
+
+# Set parameters ------------------------------------------------------------------------------
+
+  ##set n.channels
+  if(is.null(n.channels)){
+
+    n.channels <- ceiling(
+      (background.integral.min - 1 - signal.integral.max) / (signal.integral.max - signal.integral.min)
+    )
+
+  }
+
+  analyse_function.settings <- list(
+     dose.points = NULL,
+     mtext.outer = "",
+     plot = FALSE,
+     plot.single = FALSE
+
+
+  )
+
+  analyse_function.settings <- modifyList(analyse_function.settings, analyse_function.control)
+
+
+# Analyse -------------------------------------------------------------------------------------
+
+  ##set integral sequence
+  signal.integral.seq <-
+    seq(signal.integral.min,
+        background.integral.min - 1,
+        by = signal.integral.max - signal.integral.min + 1)
+
+  if(analyse_function  == "analyse_SAR.CWOSL"){
+
+    results <- merge_RLum(lapply(1:n.channels, function(x){
+      analyse_SAR.CWOSL(
+        object = object,
+        signal.integral.min = signal.integral.seq[x],
+        signal.integral.max = signal.integral.seq[x+1] - 1,
+        background.integral.min = background.integral.min,
+        background.integral.max = background.integral.max,
+        dose.points = analyse_function.settings$dose.points,
+        mtext.outer = analyse_function.settings$mtext.outer,
+        plot = analyse_function.settings$plot,
+        plot.single = analyse_function.settings$plot.single,
+        verbose = verbose
+
+      )
+
+    }))
+
+
+  }
+  else if(analyse_function  == "analyse_pIRIRSequence"){
+
+
+  }
+  else{
+   stop("[plot_DetPlot()] 'analyse_function' unknown!")
+
+  }
+
+
+# Plot ----------------------------------------------------------------------------------------
+
+  ##get De results
+  df <- get_RLum(results)
+
+  ##add shine down curve, which is by definition the first IRSL/OSL curve
+  ##and normalise on the highest De value
+  OSL_curve <- as(get_RLum(object, recordType = "SL")[[1]], "matrix")
+
+    ##limit to what we see
+    OSL_curve <- OSL_curve[1:signal.integral.seq[n.channels], ]
+
+    m <- ((min(df$De) - max(df$De.Error)) - (max(df$De) + max(df$De.Error)))/(min(OSL_curve[,2]) - max(OSL_curve[,2]))
+    n <- (max(df$De) + max(df$De.Error)) - m*max(OSL_curve[,2])
+
+    OSL_curve[,2] <- m * OSL_curve[,2] + n
+    rm(n,m)
+
+  ##set plot settings
+  plot.settings <- list(
+    ylim = c((min(df$De) - max(df$De.Error)),
+             (max(df$De) + max(df$De.Error))),
+    xlim = c(min(OSL_curve[,1]), max(OSL_curve[,1])),
+    ylab = expression(D[e]/s),
+    xlab = "Stimulation time/s",
+    main = "De(t) plot",
+    pch = 1
+  )
+  plot.settings <- modifyList(plot.settings, list(...))
+
+  ##open plot area
+  plot(
+    NA,
+    NA,
+    xlim = plot.settings$xlim,
+    ylim = plot.settings$ylim,
+    xlab = plot.settings$xlab,
+    ylab = plot.settings$ylab,
+    main = plot.settings$main
+  )
+
+  if (show_ShineDownCurve) {
+    lines(OSL_curve, type = "b", pch = 20)
+  }
+
+  ##set x-axis
+  df_x <- seq(OSL_curve[2,1], max(OSL_curve[,1]), length.out = nrow(df))
+
+  #combine everything to allow excluding unwanted values
+  df_final <- cbind(df, df_x)
+
+      if(respect_RC.Status){
+        df_final <- df_final[df_final$RC.Status != "FAILED",]
+
+      }
+
+
+  ##plot points and error bars
+  points(df_final[,c("df_x", "De")], pch = plot.settings$pch)
+  segments(
+    x0 = df_final$df_x,
+    y0 = df_final$De + df_final$De.Error,
+    x1 = df_final$df_x,
+    y1 = df_final$De - df_final$De.Error
+  )
+
+
+  # Return --------------------------------------------------------------------------------------
+  return(set_RLum(
+    class = "RLum.Results",
+    data = list(De.values = df_final,
+                call = sys.call())
+  ))
+
+
+
+}

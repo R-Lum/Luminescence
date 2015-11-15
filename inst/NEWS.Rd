@@ -123,7 +123,9 @@
        \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()},
        \item \code{plot_ViolinPlot()} Creates a combination of a kernel density plot with a boxplot.
        This plot was especially written for visualisation of data where standard errors are zero or
-       to small to be visualised at all.
+       to small to be visualised at all,
+       \item \code{plot_DetPlot()}: Plots the equivalent dose (De) in dependency of the chosen
+       signal integral (cf. Bailey et al., 2003).
    }
   }
 
