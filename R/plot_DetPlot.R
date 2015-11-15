@@ -1,9 +1,8 @@
 #' Create De(t) plot
 #'
-#' Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003)
-#'
-#' The function is passing several arguments to the function \code{\link{plot}} and the used
-#' analysis functions
+#' Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
+#' The function is simply passing several arguments to the function \code{\link{plot}} and the used
+#' analysis functions and runs it in a loop.
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
 #' object containing data for analysis
@@ -44,7 +43,11 @@
 #'
 #' @return A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
 #'
-#' @note -
+#' @note The entire analysis is based on the used analysis functions, namely
+#' \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}. However, the integrity
+#' checks of this function are not that thoughtful as in these functions itself. It means, that
+#' every sequence should be checked carefully before running long calculations using serveral
+#' hundreds of channels.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -115,12 +118,11 @@ plot_DetPlot <- function(
   }
 
   analyse_function.settings <- list(
+     sequence.structure = c("TL", "IR50", "pIRIR225"),
      dose.points = NULL,
      mtext.outer = "",
      plot = FALSE,
      plot.single = FALSE
-
-
   )
 
   analyse_function.settings <- modifyList(analyse_function.settings, analyse_function.control)
@@ -157,6 +159,25 @@ plot_DetPlot <- function(
   }
   else if(analyse_function  == "analyse_pIRIRSequence"){
 
+    results <- merge_RLum(lapply(1:n.channels, function(x){
+      analyse_pIRIRSequence(
+        object = object,
+        signal.integral.min = signal.integral.seq[x],
+        signal.integral.max = signal.integral.seq[x+1] - 1,
+        background.integral.min = background.integral.min,
+        background.integral.max = background.integral.max,
+        dose.points = analyse_function.settings$dose.points,
+        mtext.outer = analyse_function.settings$mtext.outer,
+        plot = analyse_function.settings$plot,
+        plot.single = analyse_function.settings$plot.single,
+        sequence.structure = analyse_function.settings$sequence.structure,
+        verbose = verbose
+
+      )
+
+    }))
+
+
 
   }
   else{
@@ -168,77 +189,110 @@ plot_DetPlot <- function(
 # Plot ----------------------------------------------------------------------------------------
 
   ##get De results
-  df <- get_RLum(results)
+  if(analyse_function == "analyse_pIRIRSequence"){
+    pIRIR_signals <- unique(get_RLum(results)$Signal)
 
-  ##add shine down curve, which is by definition the first IRSL/OSL curve
-  ##and normalise on the highest De value
-  OSL_curve <- as(get_RLum(object, recordType = "SL")[[1]], "matrix")
+  }else{
+    pIRIR_signals <- NA
 
-    ##limit to what we see
-    OSL_curve <- OSL_curve[1:signal.integral.seq[n.channels], ]
-
-    m <- ((min(df$De) - max(df$De.Error)) - (max(df$De) + max(df$De.Error)))/(min(OSL_curve[,2]) - max(OSL_curve[,2]))
-    n <- (max(df$De) + max(df$De.Error)) - m*max(OSL_curve[,2])
-
-    OSL_curve[,2] <- m * OSL_curve[,2] + n
-    rm(n,m)
-
-  ##set plot settings
-  plot.settings <- list(
-    ylim = c((min(df$De) - max(df$De.Error)),
-             (max(df$De) + max(df$De.Error))),
-    xlim = c(min(OSL_curve[,1]), max(OSL_curve[,1])),
-    ylab = expression(D[e]/s),
-    xlab = "Stimulation time/s",
-    main = "De(t) plot",
-    pch = 1
-  )
-  plot.settings <- modifyList(plot.settings, list(...))
-
-  ##open plot area
-  plot(
-    NA,
-    NA,
-    xlim = plot.settings$xlim,
-    ylim = plot.settings$ylim,
-    xlab = plot.settings$xlab,
-    ylab = plot.settings$ylab,
-    main = plot.settings$main
-  )
-
-  if (show_ShineDownCurve) {
-    lines(OSL_curve, type = "b", pch = 20)
   }
 
-  ##set x-axis
-  df_x <- seq(OSL_curve[2,1], max(OSL_curve[,1]), length.out = nrow(df))
+  ##run this in a loop to account for pIRIR data
+  df_final <- lapply(1:length(pIRIR_signals), function(i){
 
-  #combine everything to allow excluding unwanted values
-  df_final <- cbind(df, df_x)
+    ##get data.frame
+    df <- get_RLum(results)
 
-      if(respect_RC.Status){
-        df_final <- df_final[df_final$RC.Status != "FAILED",]
+    ##further limit
+    if(!is.na(pIRIR_signals[1])){
+      df <- df[df$Signal == pIRIR_signals[i],]
 
-      }
+    }
+
+    ##add shine down curve, which is by definition the first IRSL/OSL curve
+    ##and normalise on the highest De value
+    OSL_curve <-
+      as(get_RLum(object, recordType = "SL")[[i]], "matrix")
+
+    ##limit to what we see
+    OSL_curve <- OSL_curve[1:signal.integral.seq[n.channels],]
+
+    m <-
+      ((min(df$De) - max(df$De.Error)) - (max(df$De) + max(df$De.Error))) / (min(OSL_curve[, 2]) - max(OSL_curve[, 2]))
+    n <- (max(df$De) + max(df$De.Error)) - m * max(OSL_curve[, 2])
+
+    OSL_curve[, 2] <- m * OSL_curve[, 2] + n
+    rm(n, m)
+
+    ##set plot settings
+    plot.settings <- list(
+      ylim = c((min(df$De) - max(df$De.Error)),
+               (max(df$De) + max(df$De.Error))),
+      xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
+      ylab = expression(D[e] / s),
+      xlab = "Stimulation time/s",
+      main = "De(t) plot",
+      pch = 1,
+      mtext = ifelse(is.na(pIRIR_signals[1]), "", paste0("Signal: ",pIRIR_signals[i])),
+      cex = 1
+    )
+    plot.settings <- modifyList(plot.settings, list(...))
+
+    ##general settings
+    par(cex = plot.settings$cex)
+
+    ##open plot area
+    plot(
+      NA,
+      NA,
+      xlim = plot.settings$xlim,
+      ylim = plot.settings$ylim,
+      xlab = plot.settings$xlab,
+      ylab = plot.settings$ylab,
+      main = plot.settings$main
+    )
+
+    if (show_ShineDownCurve) {
+      lines(OSL_curve, type = "b", pch = 20)
+    }
+
+    ##set x-axis
+    df_x <-
+      seq(OSL_curve[2, 1], max(OSL_curve[, 1]), length.out = nrow(df))
+
+    #combine everything to allow excluding unwanted values
+    df_final <- cbind(df, df_x)
+
+    if (respect_RC.Status) {
+      df_final <- df_final[df_final$RC.Status != "FAILED", ]
+
+    }
 
 
-  ##plot points and error bars
-  points(df_final[,c("df_x", "De")], pch = plot.settings$pch)
-  segments(
-    x0 = df_final$df_x,
-    y0 = df_final$De + df_final$De.Error,
-    x1 = df_final$df_x,
-    y1 = df_final$De - df_final$De.Error
-  )
+    ##plot points and error bars
+    points(df_final[, c("df_x", "De")], pch = plot.settings$pch)
+    segments(
+      x0 = df_final$df_x,
+      y0 = df_final$De + df_final$De.Error,
+      x1 = df_final$df_x,
+      y1 = df_final$De - df_final$De.Error
+    )
 
+    ##set mtext
+    mtext(side = 3, plot.settings$mtext)
 
-  # Return --------------------------------------------------------------------------------------
+    ##set return
+    return(df_final)
+
+  })
+
+  ##merge results
   return(set_RLum(
     class = "RLum.Results",
-    data = list(De.values = df_final,
-                call = sys.call())
+    data = list(
+      De.values = as.data.frame(data.table::rbindlist(df_final)),
+      call = sys.call
+    )
   ))
-
-
 
 }

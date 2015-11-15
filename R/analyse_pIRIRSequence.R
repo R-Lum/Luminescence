@@ -372,7 +372,7 @@ analyse_pIRIRSequence <- function(
   ## unfortunately a little bit more complicated then expected previously due
   ## the order of the produced plots by the previous functions
 
-  if(plot.single == FALSE){
+  if(plot.single == FALSE & plot == TRUE){
   ##first (Tx,Tn, Lx,Ln)
   temp.IRSL.layout.vector.first <- c(3,5,6,7,3,5,6,8)
 
@@ -448,7 +448,7 @@ analyse_pIRIRSequence <- function(
   }
 
   ##(1) INFO PLOT
-  if (plot == TRUE) {
+  if (plot) {
     plot(NA,NA,
          ylim = c(0,1), xlab = "",
          xlim = c(0,1), ylab = "",
@@ -817,7 +817,7 @@ if(plot){
 # Return Values -----------------------------------------------------------
 ##============================================================================##
 
-  temp.results.final
+  return(temp.results.final)
 
 
 }

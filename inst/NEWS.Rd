@@ -125,7 +125,7 @@
        This plot was especially written for visualisation of data where standard errors are zero or
        to small to be visualised at all,
        \item \code{plot_DetPlot()}: Plots the equivalent dose (De) in dependency of the chosen
-       signal integral (cf. Bailey et al., 2003).
+       signal integral (cf. Bailey et al., 2003; #23).
    }
   }
 
@@ -173,7 +173,8 @@
         but returns \code{NULL} instead,
         \item argument \code{dose.points} now preset with \code{NULL},
         \item function now supports a list of RLum-objects as input,
-        \item add data.object \code{call} to the output.
+        \item add data.object \code{call} to the output,
+        \item the plot device is no longer changed if \code{plot = FALSE}.
 
       }
 

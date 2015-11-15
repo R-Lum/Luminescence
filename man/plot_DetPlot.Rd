@@ -52,17 +52,19 @@ See details for further information.}
 A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
 }
 \description{
-Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003)
-}
-\details{
-The function is passing several arguments to the function \code{\link{plot}} and the used
-analysis functions
+Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
+The function is simply passing several arguments to the function \code{\link{plot}} and the used
+analysis functions and runs it in a loop.
 }
 \note{
--
+The entire analysis is based on the used analysis functions, namely
+\code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}. However, the integrity
+checks of this function are not that thoughtful as in these functions itself. It means, that
+every sequence should be checked carefully before running long calculations using serveral
+hundreds of channels.
 }
 \section{Function version}{
- 0.1.0 (2015-11-15 22:27:51)
+ 0.1.0 (2015-11-15 23:12:43)
 }
 \examples{
 
