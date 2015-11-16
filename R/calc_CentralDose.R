@@ -151,7 +151,7 @@ calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
   
   # standard errors
   sedelta <- 1 / sqrt(sum(wu))
-  sesigma <- 1 / sqrt(2 * sigma * sum(wu^2))
+  sesigma <- 1 / sqrt(2 * sigma^2 * sum(wu^2))
   
   # save parameters for terminal output
   out.sedelta <- sedelta * 100
