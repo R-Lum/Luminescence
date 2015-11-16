@@ -18,12 +18,19 @@
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
+#' 
 #' @param sigmab \code{\link{numeric}} (with default): spread in De values
 #' given as a fraction (e.g. 0.2). This value represents the expected
 #' overdispersion in the data should the sample be well-bleached (Cunningham &
 #' Walling 2012, p. 100).
+#' 
+#' @param log \code{\link{logical}} (with default): fit the (un-)logged central
+#' age model to De data
+#' 
 #' @param plot \code{\link{logical}} (with default): plot output
+#' 
 #' @param \dots further arguments (\code{trace, verbose}).
+#' 
 #' @return Returns a plot (optional) and terminal output. In addition an
 #' \code{\linkS4class{RLum.Results}} object is returned containing the
 #' following element:
@@ -71,7 +78,7 @@
 #' calc_CentralDose(ExampleData.DeValues$CA1)
 #'
 #' @export
-calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
+calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   
   ## ============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
@@ -93,7 +100,7 @@ calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
     stop(domain = NA)
   }
   if (!missing(sigmab)) {
-    if (sigmab < 0 | sigmab > 1) {
+    if (sigmab < 0 | sigmab > 1 & log) {
       cat(paste("sigmab needs to be given as a fraction between", "0 and 1 (e.g. 0.2)"), 
           fill = FALSE)
       stop(domain = NA)
@@ -119,8 +126,14 @@ calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
     sigmab <- 0
   
   # calculate yu = log(ED) and su = se(logED)
-  yu <- log(data$ED)
-  su <- sqrt((data$ED_Error / data$ED)^2 + sigmab^2)
+  if (log) {
+    yu <- log(data$ED)
+    su <- sqrt((data$ED_Error / data$ED)^2 + sigmab^2)
+  } else {
+    yu <- data$ED
+    su<- sqrt((data$ED_Error)^2 + sigmab^2)
+  }
+
   
   # calculate starting values and weights
   sigma <- 0.15
@@ -140,8 +153,8 @@ calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
   }
   
   # save parameters for terminal output
-  out.delta <- exp(delta)
-  out.sigma <- sigma * 100
+  out.delta <- ifelse(log, exp(delta), delta)
+  out.sigma <- ifelse(log, sigma * 100, sigma / out.delta * 100)
   
   # log likelihood
   llik <- 0.5 * sum(log(wu)) - 0.5 * sum(wu * (yu - delta)^2)
@@ -154,10 +167,21 @@ calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
   sesigma <- 1 / sqrt(2 * sigma^2 * sum(wu^2))
   
   # save parameters for terminal output
-  out.sedelta <- sedelta * 100
-  out.sesigma <- sesigma
-  
+  if (log) {
+    out.sedelta <- sedelta * 100
+    out.sesigma <- sesigma
+  } else {
+    out.sedelta <- sedelta / out.delta * 100
+    out.sesigma <- sqrt((sedelta / delta)^2 + 
+                          (sesigma / out.delta * 100 / out.sigma)^2) * out.sigma / 100
+    
+  }
+
   # profile log likelihood
+  if (!log) {
+    #sigma <-  sigma / delta
+    #sesigma <- sesigma / delta
+  }
   sigmax <- sigma
   llik <- 0
   sig0 <- max(0, sigmax - 8 * sesigma)
@@ -174,7 +198,8 @@ calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
       llik <- c(llik, ll)
     }
     llik <- llik[-1] - Lmax
-  }  #endif::try-error
+  } #endif::try-error
+  
   
   ## ============================================================================##
   ## TERMINAL OUTPUT
@@ -184,7 +209,7 @@ calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
     cat("\n [calc_CentralDose]")
     cat(paste("\n\n----------- meta data ----------------"))
     cat(paste("\n n:                      ", n))
-    cat(paste("\n log:                    ", "TRUE"))
+    cat(paste("\n log:                    ", log))
     cat(paste("\n----------- dose estimate ------------"))
     cat(paste("\n central dose:           ", round(out.delta, 2)))
     cat(paste("\n SE:                     ", round(out.delta * out.sedelta/100, 
@@ -208,6 +233,10 @@ calc_CentralDose <- function(data, sigmab, plot = TRUE, ...) {
     out.sigma <- 0
     out.sesigma <- NA
   }
+  
+  if(!log)
+    sig <- sig / delta
+    
   
   summary <- data.frame(de = out.delta, de_err = out.delta * out.sedelta / 100, 
                         OD = out.sigma, OD_err = out.sesigma * 100, Lmax = Lmax)

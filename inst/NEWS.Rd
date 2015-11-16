@@ -217,6 +217,11 @@
 
         \item Fixed a bug in the \code{RLum.Results} object, which returned false profile
         log-likelihood values for \code{sigma}. Report was gratefully provided by Eike F. Rades.
+        
+        \item Fixed a bug in the calculation of the standard error of sigma ('overdispersion'),
+        which was carried over from RGs original S script
+        
+        \item new argument \code{log} added to apply the un-logged central age model
 
       }
 

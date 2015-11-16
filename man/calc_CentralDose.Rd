@@ -5,7 +5,7 @@
 \title{Apply the central age model (CAM) after Galbraith et al. (1999) to a given
 De distribution}
 \usage{
-calc_CentralDose(data, sigmab, plot = TRUE, ...)
+calc_CentralDose(data, sigmab, log = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
@@ -16,6 +16,9 @@ calc_CentralDose(data, sigmab, plot = TRUE, ...)
 given as a fraction (e.g. 0.2). This value represents the expected
 overdispersion in the data should the sample be well-bleached (Cunningham &
 Walling 2012, p. 100).}
+
+\item{log}{\code{\link{logical}} (with default): fit the (un-)logged central
+age model to De data}
 
 \item{plot}{\code{\link{logical}} (with default): plot output}
 
@@ -51,7 +54,7 @@ appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
 (2012, 15)
 }
 \section{Function version}{
- 1.3.1 (2015-10-06 23:28:25)
+ 1.3.1
 }
 \examples{
 
@@ -65,7 +68,7 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2010 \cr
-\cr R Luminescence Package Team}
+}
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
