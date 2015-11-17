@@ -176,12 +176,8 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
                           (sesigma / out.delta * 100 / out.sigma)^2) * out.sigma / 100
     
   }
-
+  
   # profile log likelihood
-  if (!log) {
-    #sigma <-  sigma / delta
-    #sesigma <- sesigma / delta
-  }
   sigmax <- sigma
   llik <- 0
   sig0 <- max(0, sigmax - 8 * sesigma)
@@ -211,13 +207,15 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
     cat(paste("\n n:                      ", n))
     cat(paste("\n log:                    ", log))
     cat(paste("\n----------- dose estimate ------------"))
-    cat(paste("\n central dose:           ", format(out.delta, digits = 2, nsmall = 2)))
-    cat(paste("\n SE:                     ", format(out.delta * out.sedelta/100, 
+    cat(paste("\n central dose [Gy]:      ", format(out.delta, digits = 2, nsmall = 2)))
+    cat(paste("\n SE [Gy]:                ", format(out.delta * out.sedelta/100, 
                                                    digits = 2, nsmall = 2)))
     cat(paste("\n rel. SE [%]:            ", format(out.sedelta, digits = 2, nsmall = 2)))
     cat(paste("\n----------- overdispersion -----------"))
+    cat(paste("\n OD [Gy]:                ", format(ifelse(log, sigma * out.delta, sigma), digits = 2, nsmall = 2)))
+    cat(paste("\n SE [Gy]:                ", format(ifelse(log, sesigma * out.delta, sesigma), digits = 2, nsmall = 2)))
     cat(paste("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2)))
-    cat(paste("\n SE:                     ", if (class(sig) != "try-error") {
+    cat(paste("\n SE [%]:                 ", if (class(sig) != "try-error") {
       format(out.sesigma * 100, digits = 2, nsmall = 2)
     } else {
       "-"
