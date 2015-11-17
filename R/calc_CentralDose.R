@@ -191,8 +191,8 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   if (class(sig) != "try-error") {
     # TODO: rewrite this loop as a function and maximise with mle2 ll is the actual
     # log likelihood, llik is a vector of all ll
-    for (sigma in sig) {
-      wu <- 1 / (sigma^2 + su^2)
+    for (s in sig) {
+      wu <- 1 / (s^2 + su^2)
       mu <- sum(wu * yu)/sum(wu)
       ll <- 0.5 * sum(log(wu)) - 0.5 * sum(wu * (yu - mu)^2)
       llik <- c(llik, ll)
