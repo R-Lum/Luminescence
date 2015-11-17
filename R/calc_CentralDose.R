@@ -211,14 +211,14 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
     cat(paste("\n n:                      ", n))
     cat(paste("\n log:                    ", log))
     cat(paste("\n----------- dose estimate ------------"))
-    cat(paste("\n central dose:           ", round(out.delta, 2)))
-    cat(paste("\n SE:                     ", round(out.delta * out.sedelta/100, 
-                                                   2)))
-    cat(paste("\n rel. SE [%]:            ", round(out.sedelta, 2)))
+    cat(paste("\n central dose:           ", format(out.delta, digits = 2, nsmall = 2)))
+    cat(paste("\n SE:                     ", format(out.delta * out.sedelta/100, 
+                                                   digits = 2, nsmall = 2)))
+    cat(paste("\n rel. SE [%]:            ", format(out.sedelta, digits = 2, nsmall = 2)))
     cat(paste("\n----------- overdispersion -----------"))
-    cat(paste("\n OD [%]:                 ", round(out.sigma, 2)))
+    cat(paste("\n OD [%]:                 ", format(out.sigma, digits = 2, nsmall = 2)))
     cat(paste("\n SE:                     ", if (class(sig) != "try-error") {
-      round(out.sesigma, 4) * 100
+      format(out.sesigma * 100, digits = 2, nsmall = 2)
     } else {
       "-"
     }))
