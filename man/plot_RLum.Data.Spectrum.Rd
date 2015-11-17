@@ -112,9 +112,9 @@ internal R plot functions. \cr
 \bold{\code{plot.type = "persp"}}
 
 Arguments that will be passed to \code{\link{persp}}: \itemize{ \item
-\code{shade}: default is \code{0.4} \item \code{phi}: default is \code{30}
-\item \code{theta}: default is \code{30} \item \code{expand}: default is
-\code{1} \item \code{ticktype}: default is \code{detailed} }
+\code{shade}: default is \code{0.4} \item \code{phi}: default is \code{15}
+\item \code{theta}: default is \code{-30} \item \code{expand}: default is
+\code{1} \item \code{ticktype}: default is \code{detailed}, \code{r}: default is \code{10}}
 
 \emph{Note: Further parameters can be adjusted via \code{par}. For example
 to set the background transparent and reduce the thickness of the lines use:
@@ -148,7 +148,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.4.0 (2015-09-22 09:41:30)
+ 0.4.1 (2015-11-17 13:36:51)
 }
 \examples{
 
@@ -164,7 +164,7 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
                         bin.rows=10,
                         bin.cols = 1)
 
-##(2) plot simple spectrum (2D) - multiple.lines (with ylim)
+##(2) plot spectrum (3D)
 plot_RLum.Data.Spectrum(TL.Spectrum,
                         plot.type="persp",
                         xlim = c(310,750),
@@ -172,11 +172,20 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
                         bin.rows=10,
                         bin.cols = 1)
 
-##(3) plot 3d spectrum (uncomment for usage)
-# plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp",
-# xlim = c(310,750), ylim = c(0,300), bin.rows=10,
-# bin.cols = 1)
+##(3) plot multiple lines (2D) - multiple.lines (with ylim)
+plot_RLum.Data.Spectrum(TL.Spectrum,
+                        plot.type="multiple.lines",
+                        xlim = c(310,750),
+                        ylim = c(0,100),
+                        bin.rows=10,
+                        bin.cols = 1)
 
+\dontrun{
+ ##(4) plot real 3d spectrum using rgl
+ plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp3d",
+ xlim = c(310,750), ylim = c(0,300), bin.rows=10,
+ bin.cols = 1)
+}
 
 }
 \author{
