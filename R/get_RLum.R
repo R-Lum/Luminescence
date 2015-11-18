@@ -19,7 +19,7 @@
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -58,12 +58,14 @@ setGeneric("get_RLum", function (object, ...) { standardGeneric("get_RLum") })
 #' @describeIn get_RLum
 #' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 #'
+#' @param null.rm \code{\link{logical}} (with default): option to get rid of empty and NULL objects
+#'
 #' @export
 setMethod("get_RLum",
           signature = "list",
-          function(object,...){
+          function(object, null.rm = FALSE, ...){
 
-            lapply(1:length(object), function(x){
+            selection <- lapply(1:length(object), function(x){
 
               ##get rid of all objects that are not of type RLum, this is better than leaving that
               ##to the user
@@ -81,6 +83,29 @@ setMethod("get_RLum",
               }
 
             })
+
+            ##remove empty or NULL objects
+            if(null.rm){
+
+                ##first set all empty objects to NULL
+                selection <- lapply(1:length(selection), function(x){
+                  if(length(selection[[x]]@records) == 0){
+                    return(NULL)
+
+                  }else{
+                    return(selection[[x]])
+
+                  }
+
+                })
+
+                ##get rid of all NULL objects
+                selection <- selection[!sapply(selection, is.null)]
+
+
+            }
+
+            return(selection)
 
           })
 

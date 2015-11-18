@@ -13,12 +13,14 @@
 \usage{
 get_RLum(object, ...)
 
-\S4method{get_RLum}{list}(object, ...)
+\S4method{get_RLum}{list}(object, null.rm = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
 class \code{RLum} or an object of type \code{\link{list}} containing only objects of type
 \code{\linkS4class{RLum}}}
+
+\item{null.rm}{\code{\link{logical}} (with default): option to get rid of empty and NULL objects}
 
 \item{\dots}{further arguments that will be passed to the object specific methods. For
 furter details on the supported arguments please see the class
@@ -43,7 +45,7 @@ in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 \item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 }}
 \section{Function version}{
- 0.2.0 (2015-10-28 10:50:06)
+ 0.3.0 (2015-11-18 19:38:41)
 }
 \examples{
 

@@ -1,7 +1,7 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
 "analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.5.1","2015-10-31","14:56:58
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.0","2015-11-15","23:27:50
+"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.0","2015-11-18","19:48:43
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.7.0","2015-11-15","23:27:50
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -77,7 +77,7 @@
 ","<br /> inspired by R.G.<br />  R Luminescence Package Team"
 "get_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1.0","2015-10-02","19:04:55
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"get_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.2.0","2015-10-28","10:50:06
+"get_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.3.0","2015-11-18","19:38:41
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "length_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

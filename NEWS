@@ -456,7 +456,7 @@ Changes in version 0.5.0 (4th, December, 2015):
                is returned. This ensures that the function can be
                safely run within a loop,
 
-             • press the turbo button by more efficient coding.
+             • pressing the turbo key by more efficient coding.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 
