@@ -72,8 +72,11 @@
 #' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
 #' more efficient data processing only a list of \code{RLum.Analysis} objects is returned.
 #'
-#' @param import \link{logical} (with default): if set to \code{FALSE}, only
+#' @param import \code{\link{logical}} (with default): if set to \code{FALSE}, only
 #' the XSYG file structure is shown.
+#'
+#' @param pattern \code{\link{regex}} (with default): optional regular expression if \code{file} is
+#' a link to a folder, to select just specific XSYG-files
 #'
 #' @param txtProgressBar \link{logical} (with default): enables \code{TRUE} or
 #' disables \code{FALSE} the progression bar during import
@@ -95,7 +98,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.5.3
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -150,6 +153,7 @@ read_XSYG2R <- function(
   recalculate.TL.curves = TRUE,
   fastForward = FALSE,
   import = TRUE,
+  pattern = ".xsyg",
   txtProgressBar = TRUE
 ){
 
@@ -163,10 +167,10 @@ read_XSYG2R <- function(
 
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      cat("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
+      message("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
       file <-
         as.list(paste0(file,dir(
-          file, recursive = FALSE, pattern = ".xsyg"
+          file, recursive = TRUE, pattern = pattern
         )))
 
     }
@@ -320,7 +324,7 @@ read_XSYG2R <- function(
     ##IMPORT XSYG FILE
 
     ##Display output
-    cat("[read_XSYG2R()]\n")
+    message(paste0("[read_XSYG2R()]\n  Importing: ",file))
 
     ##PROGRESS BAR
     if(txtProgressBar == TRUE){
@@ -695,11 +699,11 @@ read_XSYG2R <- function(
     ##show output informatioj
     if(length(output[sapply(output, is.null)]) == 0){
 
-      cat(paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n"), sep = "")
+      message(paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n"), sep = "")
 
     }else{
 
-      cat(paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.",
+      message(paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.",
                 XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n"), sep = "")
 
       warning(paste0(length(output[sapply(output, is.null)])), " incomplete sequence(s) removed.")

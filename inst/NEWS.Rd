@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.5.0 (, 2015)}{
+\section{Changes in version 0.5.0 (4th, December, 2015)}{
 
   \subsection{General remarks}{
   \itemize{
@@ -401,7 +401,9 @@
         \item the curves were not 'named' IRSL if laser diods instead of LEDs are facilitated in the
         lexsyg reader; fixed\
         \item the element 'stimulator' and 'detecteur' appeared twice in the info element list after
-        import, corrected.
+        import, corrected.,
+        \item functioned gained a new argument \code{pattern} to be used if more than one XSYG-file is
+        imported at one time.
 
       }
 

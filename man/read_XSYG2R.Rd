@@ -6,7 +6,7 @@
 \title{Import XSYG files to R}
 \usage{
 read_XSYG2R(file, recalculate.TL.curves = TRUE, fastForward = FALSE,
-  import = TRUE, txtProgressBar = TRUE)
+  import = TRUE, pattern = ".xsyg", txtProgressBar = TRUE)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
@@ -23,8 +23,11 @@ lexsyg. Works for TL curves and spectra.}
 \item{fastForward}{\code{\link{logical}} (with default): if \code{TRUE} for a
 more efficient data processing only a list of \code{RLum.Analysis} objects is returned.}
 
-\item{import}{\link{logical} (with default): if set to \code{FALSE}, only
+\item{import}{\code{\link{logical}} (with default): if set to \code{FALSE}, only
 the XSYG file structure is shown.}
+
+\item{pattern}{\code{\link{regex}} (with default): optional regular expression if \code{file} is
+a link to a folder, to select just specific XSYG-files}
 
 \item{txtProgressBar}{\link{logical} (with default): enables \code{TRUE} or
 disables \code{FALSE} the progression bar during import}
@@ -108,7 +111,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.5.2 (2015-10-19 18:38:01)
+ 0.5.3 (2015-11-18 17:06:56)
 }
 \examples{
 

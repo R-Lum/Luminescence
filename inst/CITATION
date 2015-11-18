@@ -3,7 +3,7 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 	 citation(auto = meta)
 
 	 bibentry(bibtype = "Article",
-			  	title = "A practical guide to the R package Luminescence",
+			    title = "A practical guide to the R package Luminescence",
 				author = "Michael Dietze, Sebastian Kreutzer, Margret C. Fuchs, Christoph Burow, Manfred Fischer, Christoph Schmidt",
 				year = "2013",
 				journal = "Ancient TL",
@@ -11,7 +11,7 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 				pages = "11-18")
 
 	  bibentry(bibtype = "Article",
-			  	title = "Introducing an R package for luminescence dating analysis",
+			    title = "Introducing an R package for luminescence dating analysis",
 				author = "Sebastian Kreutzer, Christoph Schmidt, Margret C. Fuchs, Michael Dietze, Manfred Fischer, Markus Fuchs",
 				year = "2012",
 				journal = "Ancient TL",
@@ -26,6 +26,15 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 				volume = "362",
 				pages = "8-13",
 				doi = "10.1016/j.quaint.2014.06.034")
+
+		bibentry(bibtype = "Article",
+		      title = "A new R function for the Internal External Uncertainty (IEU) model",
+		    author = "Smedley, Rachel K",
+        journal = "Ancient TL",
+        year = "2015",
+        volume = "33",
+        number = "1",
+        pages = "16-21")
 
 		bibentry(bibtype = "Article",
 			  	title = "The abanico plot: visualising chronometric data with individual standard errors",
