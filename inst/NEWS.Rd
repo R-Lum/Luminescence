@@ -117,9 +117,9 @@
    \itemize{
       \item \code{calc_gSGC()} Calculate De value based on the gSGC by Li et al., 2015,
       \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in
-      Steffen et al. 2009,
+      Steffen et al. 2009 (#234),
        \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader,
-       \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC),
+       \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC) (#219), 
        \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()},
        \item \code{plot_ViolinPlot()} Creates a combination of a kernel density plot with a boxplot.
        This plot was especially written for visualisation of data where standard errors are zero or
