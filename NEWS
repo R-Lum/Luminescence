@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.5.0 (, 2015):
+Changes in version 0.5.0 (4th, December, 2015):
 
   General remarks:
 
@@ -45,7 +45,11 @@ Changes in version 0.5.0 (, 2015):
                well as character vectors,
 
              • argument ‘drop’ also added for ‘get_RLum’ method for
-               'RLum.Results'.
+               'RLum.Results',
+
+             • add argument ‘null.rm’ for input of type ‘list’ of
+               ‘RLum’ objects, with this option the resulting ‘list’
+               can be cleaned up.
 
          • ‘merge_RLum’
 
@@ -453,7 +457,17 @@ Changes in version 0.5.0 (, 2015):
                of LEDs are facilitated in the lexsyg reader; fixed\
 
              • the element 'stimulator' and 'detecteur' appeared twice
-               in the info element list after import, corrected.
+               in the info element list after import, corrected.,
+
+             • functioned gained a new argument ‘pattern’ to be used if
+               more than one XSYG-file is imported at one time,
+
+             • all hard function stops had been removed (e.g., wrong
+               file name etc.), instead a warning is shown and ‘NULL’
+               is returned. This ensures that the function can be
+               safely run within a loop,
+
+             • pressing the turbo key by more efficient coding.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 

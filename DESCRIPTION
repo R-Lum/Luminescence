@@ -2,7 +2,7 @@ Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
 Version: 0.5.0
-Date: 2015-XX-XX
+Date: 2015-12-04
 Author: Sebastian Kreutzer [aut, trl, cre],
     Michael Dietze [aut],
     Christoph Burow [aut],
@@ -29,22 +29,22 @@ Description: A collection of various R functions for the purpose of Luminescence
 Contact: Package Developer Team <team@r-luminescence.de>
 License: GPL-3
 Depends:
-    R (>= 3.2.0),
+    R (>= 3.2.2),
     utils
 LinkingTo: Rcpp,
-    RcppArmadillo (>= 0.6.100.0.0)
+    RcppArmadillo (>= 0.6.200.2.0)
 Imports:
-    bbmle (>= 1.0-4),
-    data.table (>= 1.9.4),
+    bbmle (>= 1.0.17),
+    data.table (>= 1.9.6),
     digest (>= 0.6.8),
     httr (>= 1.0.0),
     matrixStats (>= 0.14.2),
     methods,
-    Rcpp (>= 0.12.1),
-    minpack.lm (>= 1.1-8),
-    raster (>= 2.4-15),
+    Rcpp (>= 0.12.2),
+    minpack.lm (>= 1.1-9),
+    raster (>= 2.4-20),
     readxl (>= 0.1.0),
-    rgl (>= 0.95.1247),
+    rgl (>= 0.95.1367),
     shape (>= 1.4.2),
     parallel,
     XML (>= 3.98-1.3),

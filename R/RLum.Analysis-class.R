@@ -347,7 +347,7 @@ setMethod("get_RLum",
                                                 })))
 
             }else if (!is(curveType, "character")) {
-              stop("[get_RLum()] Error: 'curveType' has to be of type 'character'!")
+              stop("[get_RLum()] 'curveType' has to be of type 'character'!")
 
             }
 
@@ -423,10 +423,10 @@ setMethod("get_RLum",
               ##remove empty list element
               temp <- temp[!sapply(temp, is.null)]
 
-              ##check if produced object is empty and show warning message
+              ##check if the produced object is empty and show warning message
               if(length(temp) == 0){
 
-                warning("This request has produced an empty 'RLum.Analysis' object!")
+                warning("[get_RLum] This request has produced an empty 'RLum.Analysis' object!")
 
               }
 

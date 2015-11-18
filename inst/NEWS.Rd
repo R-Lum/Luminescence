@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.5.0 (, 2015)}{
+\section{Changes in version 0.5.0 (4th, December, 2015)}{
 
   \subsection{General remarks}{
   \itemize{
@@ -36,7 +36,9 @@
         with standard R code,
         \item argument \code{data.object} (\code{get_RLum} for 'RLum.Results' objects can now handle
         numeric values) and numeric, as well as character vectors,
-        \item argument \code{drop} also added for \code{get_RLum} method for 'RLum.Results'.
+        \item argument \code{drop} also added for \code{get_RLum} method for 'RLum.Results',
+        \item add argument \code{null.rm} for input of type \code{list} of \code{RLum} objects, with
+        this option the resulting \code{list} can be cleaned up.
 
       }
 
@@ -406,7 +408,13 @@
         \item the curves were not 'named' IRSL if laser diods instead of LEDs are facilitated in the
         lexsyg reader; fixed\
         \item the element 'stimulator' and 'detecteur' appeared twice in the info element list after
-        import, corrected.
+        import, corrected.,
+        \item functioned gained a new argument \code{pattern} to be used if more than one XSYG-file is
+        imported at one time,
+        \item all hard function stops had been removed (e.g., wrong file name etc.), instead a warning
+        is shown and \code{NULL} is returned. This ensures that the function can be safely run within
+        a loop,
+        \item pressing the turbo key by more efficient coding.
 
       }
 

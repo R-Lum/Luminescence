@@ -71,13 +71,26 @@ The output should be accessed using the function
 The function performs an analysis of post-IR IRSL sequences including curve
 fitting on \code{\linkS4class{RLum.Analysis}} objects.
 }
+\details{
+To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
+this function has been written as extended wrapper function for the function
+\code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis in
+one run. With this, its functionality is strictly limited by the
+functionality of the function \code{\link{analyse_SAR.CWOSL}}.\cr
+
+\bold{If the input is a \code{list}}\cr
+
+If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
+for different sets of parameters for every single input element.
+For further information see \code{\link{analyse_SAR.CWOSL}}.
+}
 \note{
 Best graphical output can be achieved by using the function \code{pdf}
 with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.2.0 (2015-11-15 23:27:50)
+ 0.2.0 (2015-11-18 19:48:43)
 }
 \examples{
 
@@ -110,30 +123,30 @@ object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR"
 ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Note: output as single plots to avoid problems with this example
 results <- analyse_pIRIRSequence(object,
-                             signal.integral.min = 1,
-                             signal.integral.max = 2,
-                             background.integral.min = 900,
-                             background.integral.max = 1000,
-                             fit.method = "EXP",
-                             sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
-                             main = "Pseudo pIRIR data set based on quartz OSL",
-                             plot.single = TRUE)
+     signal.integral.min = 1,
+     signal.integral.max = 2,
+     background.integral.min = 900,
+     background.integral.max = 1000,
+     fit.method = "EXP",
+     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+     main = "Pseudo pIRIR data set based on quartz OSL",
+     plot.single = TRUE)
 
 
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Alternative for PDF output, uncomment and complete for usage
-##
-# pdf(file = "...", height = 15, width = 15)
-#  results <- analyse_pIRIRSequence(object,
-#         signal.integral.min = 1,
-#         signal.integral.max = 2,
-#         background.integral.min = 900,
-#         background.integral.max = 1000,
-#         fit.method = "EXP",
-#         main = "Pseudo pIRIR data set based on quartz OSL")
-#
-#  dev.off()
+\dontrun{
+pdf(file = "...", height = 15, width = 15)
+  results <- analyse_pIRIRSequence(object,
+         signal.integral.min = 1,
+         signal.integral.max = 2,
+         background.integral.min = 900,
+         background.integral.max = 1000,
+         fit.method = "EXP",
+         main = "Pseudo pIRIR data set based on quartz OSL")
 
+  dev.off()
+}
 
 }
 \author{

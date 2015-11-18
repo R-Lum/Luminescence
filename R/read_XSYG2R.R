@@ -72,8 +72,11 @@
 #' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
 #' more efficient data processing only a list of \code{RLum.Analysis} objects is returned.
 #'
-#' @param import \link{logical} (with default): if set to \code{FALSE}, only
+#' @param import \code{\link{logical}} (with default): if set to \code{FALSE}, only
 #' the XSYG file structure is shown.
+#'
+#' @param pattern \code{\link{regex}} (with default): optional regular expression if \code{file} is
+#' a link to a folder, to select just specific XSYG-files
 #'
 #' @param txtProgressBar \link{logical} (with default): enables \code{TRUE} or
 #' disables \code{FALSE} the progression bar during import
@@ -95,7 +98,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.5.4
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -150,6 +153,7 @@ read_XSYG2R <- function(
   recalculate.TL.curves = TRUE,
   fastForward = FALSE,
   import = TRUE,
+  pattern = ".xsyg",
   txtProgressBar = TRUE
 ){
 
@@ -163,10 +167,10 @@ read_XSYG2R <- function(
 
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      cat("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
+      message("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
       file <-
         as.list(paste0(file,dir(
-          file, recursive = FALSE, pattern = ".xsyg"
+          file, recursive = TRUE, pattern = pattern
         )))
 
     }
@@ -202,15 +206,16 @@ read_XSYG2R <- function(
   ##check if file exists
   if(!file.exists(file)){
 
-    stop("[read_XSYG2R()] Wrong file name or file does not exsits!")
-
+    warning("[read_XSYG2R()] Wrong file name or file does not exist, nothing imported!")
+    return(NULL)
   }
 
   ##check if file is XML file
   if(tail(unlist(strsplit(file, split = "\\.")), 1) != "xsyg" &
      tail(unlist(strsplit(file, split = "\\.")), 1) != "XSYG" ){
 
-    stop("[read_XSYG2R()] File is not of type 'XSYG'!")
+    warning("[read_XSYG2R()] File is not of type 'XSYG', nothing imported!")
+    return(NULL)
 
   }
 
@@ -221,14 +226,18 @@ read_XSYG2R <- function(
   ##get curve values
   get_XSYG.curve.values <- function(curve.node){
 
-    ##1st string split
-    curve.node <- unlist(strsplit(XML::xmlValue(curve.node), ";"))
-
-    ##2nd string split
-    curve.node <- as.numeric(unlist(strsplit(curve.node,"[:,:]")))
-
-    ##set as matrix
-    curve.node <- t(matrix(curve.node, nrow=2))
+    ##Four steps
+    ##(1) split string to paris of xy-values
+    ##(2) split string to xy-values itself
+    ##(3) convert to numeric
+    ##(4) transpose matrix
+    curve.node <- t(
+      sapply(
+        strsplit(
+          strsplit(
+            XML::xmlValue(curve.node), split = ";", fixed = TRUE)[[1]],
+          split = ",", fixed = TRUE),
+        as.numeric))
 
   }
 
@@ -238,11 +247,11 @@ read_XSYG2R <- function(
     wavelength <- XML::xmlAttrs(curve.node)["wavelengthTable"]
 
     ##string split
-    wavelength <- as.numeric(unlist(strsplit(wavelength, ";")))
+    wavelength <- as.numeric(unlist(strsplit(wavelength, split = ";", fixed = TRUE)))
 
     ##2nd grep time values
-    curve.node <- unlist(strsplit(XML::xmlValue(curve.node), ";"))
-    curve.node <- unlist(strsplit(curve.node, ","), recursive = FALSE)
+    curve.node <- unlist(strsplit(XML::xmlValue(curve.node), split = ";", fixed = TRUE))
+    curve.node <- unlist(strsplit(curve.node, split = ",", fixed = TRUE), recursive = FALSE)
 
     curve.node.time <- as.numeric(curve.node[seq(1,length(curve.node),2)])
 
@@ -282,7 +291,8 @@ read_XSYG2R <- function(
   ##show error
   if(is(temp, "try-error") == TRUE){
 
-    stop("[read_XSYG2R()] XML file not readable!)")
+    warning("[read_XSYG2R()] XML file not readable, nothing imported!)")
+    return(NULL)
 
   }
 
@@ -320,15 +330,12 @@ read_XSYG2R <- function(
     ##IMPORT XSYG FILE
 
     ##Display output
-    cat("[read_XSYG2R()]\n")
+    message(paste0("[read_XSYG2R()]\n  Importing: ",file))
 
     ##PROGRESS BAR
     if(txtProgressBar == TRUE){
       pb <- txtProgressBar(min=0,max=XML::xmlSize(temp), char = "=", style=3)
     }
-
-    ##create list
-    output <- list()
 
     ##loop over the entire sequence by sequence
     output <- lapply(1:XML::xmlSize(temp), function(x){
@@ -573,7 +580,7 @@ read_XSYG2R <- function(
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
 
-                    warning("Temperatures values are found duplicated and increased by 1 K")
+                    warning("read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K")
 
                   }
 
@@ -695,11 +702,11 @@ read_XSYG2R <- function(
     ##show output informatioj
     if(length(output[sapply(output, is.null)]) == 0){
 
-      cat(paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n"), sep = "")
+      message(paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n"), sep = "")
 
     }else{
 
-      cat(paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.",
+      message(paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.",
                 XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n"), sep = "")
 
       warning(paste0(length(output[sapply(output, is.null)])), " incomplete sequence(s) removed.")
@@ -711,7 +718,7 @@ read_XSYG2R <- function(
 
   }#end if
 
-  ##get rid of the NULL elementsn (as stated before ... invalid files)
+  ##get rid of the NULL elements (as stated before ... invalid files)
   return(output[!sapply(output,is.null)])
 
 }
@@ -725,4 +732,3 @@ readXSYG2R <- function(...) {
   .Deprecated("read_XSYG2R")
   read_XSYG2R(...)
 }
-
