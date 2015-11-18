@@ -403,7 +403,11 @@
         \item the element 'stimulator' and 'detecteur' appeared twice in the info element list after
         import, corrected.,
         \item functioned gained a new argument \code{pattern} to be used if more than one XSYG-file is
-        imported at one time.
+        imported at one time,
+        \item all hard function stops had been removed (e.g., wrong file name etc.), instead a warning
+        is shown and \code{NULL} is returned. This ensures that the function can be safely run within
+        a loop,
+        \item pressing the turbo key by more efficient coding.
 
       }
 

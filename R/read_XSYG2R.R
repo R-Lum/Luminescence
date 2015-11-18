@@ -98,7 +98,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.3
+#' @section Function version: 0.5.4
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -206,15 +206,16 @@ read_XSYG2R <- function(
   ##check if file exists
   if(!file.exists(file)){
 
-    stop("[read_XSYG2R()] Wrong file name or file does not exsits!")
-
+    warning("[read_XSYG2R()] Wrong file name or file does not exist, nothing imported!")
+    return(NULL)
   }
 
   ##check if file is XML file
   if(tail(unlist(strsplit(file, split = "\\.")), 1) != "xsyg" &
      tail(unlist(strsplit(file, split = "\\.")), 1) != "XSYG" ){
 
-    stop("[read_XSYG2R()] File is not of type 'XSYG'!")
+    warning("[read_XSYG2R()] File is not of type 'XSYG', nothing imported!")
+    return(NULL)
 
   }
 
@@ -225,14 +226,18 @@ read_XSYG2R <- function(
   ##get curve values
   get_XSYG.curve.values <- function(curve.node){
 
-    ##1st string split
-    curve.node <- unlist(strsplit(XML::xmlValue(curve.node), ";"))
-
-    ##2nd string split
-    curve.node <- as.numeric(unlist(strsplit(curve.node,"[:,:]")))
-
-    ##set as matrix
-    curve.node <- t(matrix(curve.node, nrow=2))
+    ##Four steps
+    ##(1) split string to paris of xy-values
+    ##(2) split string to xy-values itself
+    ##(3) convert to numeric
+    ##(4) transpose matrix
+    curve.node <- t(
+      sapply(
+        strsplit(
+          strsplit(
+            XML::xmlValue(curve.node), split = ";", fixed = TRUE)[[1]],
+          split = ",", fixed = TRUE),
+        as.numeric))
 
   }
 
@@ -242,11 +247,11 @@ read_XSYG2R <- function(
     wavelength <- XML::xmlAttrs(curve.node)["wavelengthTable"]
 
     ##string split
-    wavelength <- as.numeric(unlist(strsplit(wavelength, ";")))
+    wavelength <- as.numeric(unlist(strsplit(wavelength, split = ";", fixed = TRUE)))
 
     ##2nd grep time values
-    curve.node <- unlist(strsplit(XML::xmlValue(curve.node), ";"))
-    curve.node <- unlist(strsplit(curve.node, ","), recursive = FALSE)
+    curve.node <- unlist(strsplit(XML::xmlValue(curve.node), split = ";", fixed = TRUE))
+    curve.node <- unlist(strsplit(curve.node, split = ",", fixed = TRUE), recursive = FALSE)
 
     curve.node.time <- as.numeric(curve.node[seq(1,length(curve.node),2)])
 
@@ -286,7 +291,8 @@ read_XSYG2R <- function(
   ##show error
   if(is(temp, "try-error") == TRUE){
 
-    stop("[read_XSYG2R()] XML file not readable!)")
+    warning("[read_XSYG2R()] XML file not readable, nothing imported!)")
+    return(NULL)
 
   }
 
@@ -330,9 +336,6 @@ read_XSYG2R <- function(
     if(txtProgressBar == TRUE){
       pb <- txtProgressBar(min=0,max=XML::xmlSize(temp), char = "=", style=3)
     }
-
-    ##create list
-    output <- list()
 
     ##loop over the entire sequence by sequence
     output <- lapply(1:XML::xmlSize(temp), function(x){
@@ -577,7 +580,7 @@ read_XSYG2R <- function(
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
 
-                    warning("Temperatures values are found duplicated and increased by 1 K")
+                    warning("read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K")
 
                   }
 
@@ -715,7 +718,7 @@ read_XSYG2R <- function(
 
   }#end if
 
-  ##get rid of the NULL elementsn (as stated before ... invalid files)
+  ##get rid of the NULL elements (as stated before ... invalid files)
   return(output[!sapply(output,is.null)])
 
 }
@@ -729,4 +732,3 @@ readXSYG2R <- function(...) {
   .Deprecated("read_XSYG2R")
   read_XSYG2R(...)
 }
-

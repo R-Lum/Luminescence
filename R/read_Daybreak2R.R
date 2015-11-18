@@ -18,7 +18,7 @@
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)\cr Based on suggestion by Willian Amidon and Andrew Louis Gorin.
+#' (France)\cr Based on a suggestion by Willian Amidon and Andrew Louis Gorin.
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
 #'
@@ -137,10 +137,10 @@ read_Daybreak2R <- function(
     header.length <- grep(pattern = "Points", x = data.list[[x]])
 
     if(length(header.length)>0){
-      temp.meta_data <- unlist(strsplit(data.list[[x]][2:header.length], split = "="))
+      temp.meta_data <- unlist(strsplit(data.list[[x]][2:header.length], split = "=", fixed = TRUE))
 
     }else{
-      temp.meta_data <- unlist(strsplit(data.list[[x]][2:length(data.list[[x]])], split = "="))
+      temp.meta_data <- unlist(strsplit(data.list[[x]][2:length(data.list[[x]])], split = "=", fixed = TRUE))
 
     }
 

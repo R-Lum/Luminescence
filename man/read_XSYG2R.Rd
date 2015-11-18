@@ -111,7 +111,7 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.5.3 (2015-11-18 17:06:56)
+ 0.5.4 (2015-11-18 18:42:42)
 }
 \examples{
 
