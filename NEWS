@@ -45,7 +45,11 @@ Changes in version 0.5.0 (4th, December, 2015):
                well as character vectors,
 
              • argument ‘drop’ also added for ‘get_RLum’ method for
-               'RLum.Results'.
+               'RLum.Results',
+
+             • add argument ‘null.rm’ for input of type ‘list’ of
+               ‘RLum’ objects, with this option the resulting ‘list’
+               can be cleaned up.
 
          • ‘merge_RLum’
 

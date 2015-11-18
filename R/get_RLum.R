@@ -87,9 +87,9 @@ setMethod("get_RLum",
             ##remove empty or NULL objects
             if(null.rm){
 
-                ##first set all empty objects to NULL
+                ##first set all empty objects to NULL ... for RLum.Analysis objects
                 selection <- lapply(1:length(selection), function(x){
-                  if(length(selection[[x]]@records) == 0){
+                  if(is(selection[[x]], "RLum.Analysis") && length(selection[[x]]@records) == 0){
                     return(NULL)
 
                   }else{

@@ -36,7 +36,9 @@
         with standard R code,
         \item argument \code{data.object} (\code{get_RLum} for 'RLum.Results' objects can now handle
         numeric values) and numeric, as well as character vectors,
-        \item argument \code{drop} also added for \code{get_RLum} method for 'RLum.Results'.
+        \item argument \code{drop} also added for \code{get_RLum} method for 'RLum.Results',
+        \item add argument \code{null.rm} for input of type \code{list} of \code{RLum} objects, with
+        this option the resulting \code{list} can be cleaned up.
 
       }
 
