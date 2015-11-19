@@ -116,7 +116,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Image","Plot function for an  RLum.Data.Image  S4 class object","<br /> The function provides a standardised plot output for image data of an<br /> RLum.Data.Image S4 class object, mainly using the plot functions<br /> provided by the  raster  package.<br />","0.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.1","2015-11-17","21:11:44
+"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.2","2015-11-19","15:08:37
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

@@ -219,10 +219,10 @@
 
         \item Fixed a bug in the \code{RLum.Results} object, which returned false profile
         log-likelihood values for \code{sigma}. Report was gratefully provided by Eike F. Rades.
-        
+
         \item Fixed a bug in the calculation of the standard error of sigma ('overdispersion'),
         which was carried over from RGs original S script
-        
+
         \item new argument \code{log} added to apply the un-logged central age model
 
       }
@@ -478,6 +478,8 @@
       \item Adding package 'httr' to imports (used in \code{use_DRAC} to establish the connection)
       \item This package is now linked to 'Rcpp' and 'RcppArmadillo' (used within the function
       \code{.analyse_IRSARRF_SRS)},
+      \item Package 'rgl' is no longer requested, but suggested. This frees most of the users from
+      installing this package as it just be used by one specific plot type for \code{RLum.Data.Spectrum} objects.
       \item Remove dependency to package 'assertive'
       \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame}
       for objects of class \code{DRAC.list}

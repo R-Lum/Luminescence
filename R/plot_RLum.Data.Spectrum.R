@@ -132,7 +132,7 @@
 #'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -606,7 +606,7 @@ plot_RLum.Data.Spectrum <- function(
   ##rest plot type for 1 column matrix
   if(ncol(temp.xyz) == 1){
     plot.type = "single"
-    warning("Single column matrix: plot.type has been automatically reset to 'single'")
+    warning("[plot_RLum.Data.Spectrum()] Single column matrix: plot.type has been automatically reset to 'single'")
   }
 
   if(plot.type == "persp3d" && ncol(temp.xyz) > 1){
@@ -614,6 +614,15 @@ plot_RLum.Data.Spectrum <- function(
     ## ==========================================================================#
     ##perspective plot 3D screen (package rgl)
     ## ==========================================================================#
+
+    ##check whether rgl is available
+    ##code snippet taken from
+    ##http://r-pkgs.had.co.nz/description.html
+    if (!requireNamespace("rgl", quietly = TRUE)) {
+      stop("[plot_RLum.Data.Spectrum()] Package 'rgl' needed for this plot type. Please install it.",
+           call. = FALSE)
+    }
+
     rgl::persp3d(x, y, temp.xyz,
             xlab = xlab,
             ylab = ylab,

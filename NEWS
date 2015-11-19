@@ -534,6 +534,11 @@ Changes in version 0.5.0 (4th, December, 2015):
          • This package is now linked to 'Rcpp' and 'RcppArmadillo'
            (used within the function ‘.analyse_IRSARRF_SRS)’,
 
+         • Package 'rgl' is no longer requested, but suggested. This
+           frees most of the users from installing this package as it
+           just be used by one specific plot type for
+           ‘RLum.Data.Spectrum’ objects.
+
          • Remove dependency to package 'assertive'
 
          • Added methods for S3 generics ‘`$`, `[<-`, `[[<-`, print,
