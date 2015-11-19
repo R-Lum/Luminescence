@@ -2,7 +2,8 @@
 #'
 #' Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
 #' The function is simply passing several arguments to the function \code{\link{plot}} and the used
-#' analysis functions and runs it in a loop.
+#' analysis functions and runs it in a loop. Example: \code{legend.pos} for legend position,
+#' \code{legend} for legend text.
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
 #' object containing data for analysis
@@ -229,12 +230,14 @@ plot_DetPlot <- function(
       ylim = c((min(df$De) - max(df$De.Error)),
                (max(df$De) + max(df$De.Error))),
       xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
-      ylab = expression(D[e] / s),
+      ylab = expression(paste(D[e] / s, " and ", L[n]/(a.u.))),
       xlab = "Stimulation time/s",
       main = "De(t) plot",
       pch = 1,
       mtext = ifelse(is.na(pIRIR_signals[1]), "", paste0("Signal: ",pIRIR_signals[i])),
-      cex = 1
+      cex = 1,
+      legend = c(expression(L[n]-signal), expression(D[e])),
+      legend.pos = "bottomleft"
     )
     plot.settings <- modifyList(plot.settings, list(...))
 
@@ -280,6 +283,14 @@ plot_DetPlot <- function(
 
     ##set mtext
     mtext(side = 3, plot.settings$mtext)
+
+    ##legend
+    legend(
+      plot.settings$legend.pos,
+      legend = plot.settings$legend,
+      pch = c(plot.settings$pch, 20),
+      bty = "n"
+    )
 
     ##set return
     return(df_final)

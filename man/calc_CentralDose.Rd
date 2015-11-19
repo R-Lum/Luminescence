@@ -54,7 +54,7 @@ appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
 (2012, 15)
 }
 \section{Function version}{
- 1.3.1
+ 1.3.1 (2015-11-18 20:01:19)
 }
 \examples{
 
@@ -68,7 +68,7 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2010 \cr
-}
+\cr R Luminescence Package Team}
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
