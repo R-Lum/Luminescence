@@ -219,7 +219,7 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
 
   ## RETURN VALUES ----
   obj <- set_RLum("RLum.Analysis", protocol = "UNKNOWN",
-                  records = mapply(function(curve, id) {
+                  records = mapply(FUN = function(curve, id) {
                     set_RLum("RLum.Data.Curve",
                              recordType = paste0("N/R", id),
                              curveType = "NRt",

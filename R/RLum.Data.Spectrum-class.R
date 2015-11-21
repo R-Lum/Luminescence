@@ -22,7 +22,7 @@ NULL
 #' additional elements the slot \code{info} can be used.
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Data.Spectrum", ...)}.
+#' \code{set_RLum("RLum.Data.Spectrum", ...)}.
 #'
 #' @section Class version: 0.2.2
 #'
@@ -37,10 +37,17 @@ NULL
 #'
 #' showClass("RLum.Data.Spectrum")
 #'
-#' ##show example data (uncomment for usage)
-#' # data(ExampleData.XSYG, envir = environment())
-#' # TL.Spectrum
+#' ##show example data
+#' data(ExampleData.XSYG, envir = environment())
+#' TL.Spectrum
 #'
+#' ##show data matrix
+#' get_RLum(TL.Spectrum)
+#'
+#' ##plot spectrum
+#' \dontrun{
+#' plot_RLum(TL.Spectrum)
+#' }
 #' @export
 setClass(
   "RLum.Data.Spectrum",
@@ -60,11 +67,29 @@ setClass(
 )
 
 
-# setAs - coerce methods ------------------------------------------------------
-
-##----------------------------------------------
-##COERCE FROM AND TO data.frame
-
+####################################################################################################
+###as()
+####################################################################################################
+##data.frame
+##COERCE RLum.Data.Spectrum >> data.frame AND data.frame >> RLum.Data.Spectrum
+#' as()
+#'
+#' for \code{[RLum.Data.Spectrum]}
+#'
+#'
+#' \bold{[RLum.Data.Spectrum]}\cr
+#'
+#' \tabular{ll}{
+#'  \bold{from} \tab \bold{to}\cr
+#'   \code{data.frame} \tab \code{data.frame}\cr
+#'   \code{matrix} \tab \code{matrix}
+#'
+#' }
+#'
+#'
+#' @name as
+#'
+#'
 setAs("data.frame", "RLum.Data.Spectrum",
       function(from,to){
 
@@ -82,12 +107,10 @@ setAs("RLum.Data.Spectrum", "data.frame",
       })
 
 
-# ##----------------------------------------------
-##COERCE FROM AND TO matrix
-
+##MATRIX
+##COERCE RLum.Data.Spectrum >> matrix AND matrix >> RLum.Data.Spectrum
 setAs("matrix", "RLum.Data.Spectrum",
       function(from,to){
-
         new(to,
             recordType = "unkown curve type",
             curveType = "NA",
@@ -97,17 +120,16 @@ setAs("matrix", "RLum.Data.Spectrum",
 
 setAs("RLum.Data.Spectrum", "matrix",
       function(from){
-
         from@data
 
       })
 
 
-
-
-# show method for object ------------------------------------------------------
+####################################################################################################
+###show()
+####################################################################################################
 #' @describeIn RLum.Data.Spectrum
-#' Show structure of RLum and Risoe.BINfile class objects
+#' Show structure of RLum.Data.Spectrum object
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Spectrum"),
@@ -133,23 +155,26 @@ setMethod("show",
 )
 
 
-# # constructor (set) method for object class -----------------------------------
-
+####################################################################################################
+###set_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Spectrum
 #' Construction method for RLum.Data.Spectrum object. The slot info is optional
 #'  and predefined as empty list by default
 #'
-#' @param class \code{\link{character}}: name of the \code{RLum} class to create
-#' @param recordType \code{\link{character}}: record type (e.g. "OSL")
-#' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
-#' @param data \code{\link{matrix}}: raw curve data
-#' @param info \code{\link{list}}: info elements
+#' @param class [\code{set_RLum}] \code{\link{character}}: name of the \code{RLum} class to create
+#' @param originator \code{\link{character}} (automatic): contains the name of the calling function
+#' (the function that produces this object); can be set manually.
+#' @param recordType [\code{set_RLum}] \code{\link{character}}: record type (e.g. "OSL")
+#' @param curveType [\code{set_RLum}] \code{\link{character}}: curve type (e.g. "predefined" or "measured")
+#' @param data [\code{set_RLum}] \code{\link{matrix}}: raw curve data
+#' @param info [\code{set_RLum}] \code{\link{list}}: info elements
 #'
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Data.Spectrum"),
 
-          definition = function(class, recordType, curveType, data, info){
+          definition = function(class, originator, recordType, curveType, data, info){
 
             ##check for missing curveType
             if(missing(curveType)){
@@ -184,11 +209,12 @@ setMethod("set_RLum",
 
             }else if (is(info, "list") == FALSE){
 
-              stop("[set_RLum] error: 'info' has to be of type 'list'!")
+              stop("[set_RLum] 'info' has to be of type 'list'!")
 
             }
 
             new("RLum.Data.Spectrum",
+                originator = originator,
                 recordType = recordType,
                 curveType = curveType,
                 data = data,
@@ -196,15 +222,16 @@ setMethod("set_RLum",
 
           })
 
-# constructor (get) method for object class -----------------------------------
-
+####################################################################################################
+###get_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Spectrum
 #' Accessor method for RLum.Data.Spectrum object. The argument info.object
 #' is optional to directly access the info elements. If no info element name
 #' is provided, the raw curve data (matrix) will be returned
 #'
-#' @param object an object of class \code{\linkS4class{RLum.Data.Image}}
-#' @param info.object object of class "list" containing further meta information objects
+#' @param object [\code{show_RLum}] [\code{get_RLum}] [\code{names_RLum}] an object of class \code{\linkS4class{RLum.Data.Spectrum}}
+#' @param info.object [\code{get_RLum}] object of class "list" containing further meta information objects
 #'
 #' @export
 setMethod("get_RLum",
@@ -250,8 +277,9 @@ setMethod("get_RLum",
           })
 
 
-# names method for object class ------------------------------------------
-
+####################################################################################################
+###names_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Spectrum
 #' Returns the names info elements coming along with this curve object
 #'

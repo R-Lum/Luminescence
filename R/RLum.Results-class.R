@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R merge_RLum.R length_RLum.R names_RLum.R
+#' @include get_RLum.R set_RLum.R length_RLum.R names_RLum.R
 NULL
 
 #' Class \code{"RLum.Results"}
@@ -61,10 +61,27 @@ setClass(
 #             }
 # )
 
-
-##----------------------------------------------
-##COERCE FROM AND TO list
-
+####################################################################################################
+###as()
+####################################################################################################
+##LIST
+##COERCE RLum.Results >> list AND list >> RLum.Results
+#' as() - RLum-object coercion
+#'
+#' for \code{[RLum.Results]}
+#'
+#' \bold{[RLum.Results]}\cr
+#'
+#' \tabular{ll}{
+#'  \bold{from} \tab \bold{to}\cr
+#'   \code{list} \tab \code{list}\cr
+#' }
+#'
+#' Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Results}} objects.
+#'
+#' @name as
+#'
+#'
 setAs("list", "RLum.Results",
       function(from,to){
 
@@ -81,8 +98,9 @@ setAs("RLum.Results", "list",
 
       })
 
-
-# show method for object ------------------------------------------------------
+####################################################################################################
+###show()
+####################################################################################################
 #' @describeIn RLum.Results
 #' Show structure of RLum and Risoe.BINfile class objects
 #' @export
@@ -93,16 +111,23 @@ setMethod("show",
 
             ##data elements
             temp.names <- names(object@data)
-            temp.type <- sapply(1:length(object@data),
-                                function(x){
 
-                                  paste("\t .. $", temp.names[x],
-                                        " : ",
-                                        is(object@data[[x]])[1],
-                                        sep = "")
+            if(length(object) > 0){
+              temp.type <- sapply(1:length(object@data),
+                                  function(x){
+
+                                    paste("\t .. $", temp.names[x],
+                                          " : ",
+                                          is(object@data[[x]])[1],
+                                          sep = "")
 
 
-                                })
+                                  })
+            }else{
+              temp.type <- paste0("\t .. $", temp.names, " : ",is(object@data)[1])
+
+            }
+
             temp.type <- paste(temp.type, collapse="\n")
 
             ##print information
@@ -117,8 +142,9 @@ setMethod("show",
 
 
 
-# constructor (set) method for object class -------------------------------
-
+####################################################################################################
+###set_RLum()
+####################################################################################################
 #' @describeIn RLum.Results
 #' Construction method for RLum.Results object. The slot originator is optional
 #' and predefined as the function that calls the function set_RLum.
@@ -134,29 +160,15 @@ setMethod("set_RLum",
 
           function(class, originator, data){
 
-            if(missing(originator) == TRUE){
-
-              ##originator is the calling function (function in which the
-              ##function set_RLum is called)
-              originator <- as.character(sys.call(which=-3)[[1]])
-
-              # temporary fallback due to the change of set_RLum in 0.5.0:
-              # When a user/function calls the deprecated set_RLum.Results()
-              # the call stack decreases by 1
-              if (originator == "set_RLum.Results")
-                originator <- as.character(sys.call(which=-4)[[1]])
-
-            }
-
             new("RLum.Results",
                 originator = originator,
                 data = data)
           })
 
 
-# GetMethods --------------------------------------------------------------
-
-
+####################################################################################################
+###get_RLum()
+####################################################################################################
 #' @describeIn RLum.Results
 #' Accessor method for RLum.Results object. The argument data.object allows
 #' directly accessing objects delivered within the slot data. The default
@@ -287,125 +299,11 @@ setMethod("get_RLum",
           }
     })
 
-##=============================================================================##
-# merge_RLum.Results ------------------------------------------------------
-## merging is done by append objects to the first object in a list
-
-#' @describeIn RLum.Results
-#' merge method for RLum.Results objects. The argument object.list requires a list of RLum.Results objects.
-#' Merging is done by appending similar elements to the first object of the input list.
-#'
-#' @param object.list [\code{merge_RLum.Results}] \code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects
-#'
-#' @export
-setMethod("merge_RLum.Results",
-          signature=signature(object.list = "list"),
-          definition = function(object.list){
-
-            ##-------------------------------------------------------------
-            ##Some integrity checks
-
-            ##check if input object is a list
-            if(!is(object.list, "list")){
-
-              stop("[merge_RLum.Results()] 'object.list' has to of type 'list'!")
-
-            }else{
-
-              ##check if objects in the list are of type RLum.Results
-              temp.originator <- sapply(1:length(object.list), function(x){
-
-                if(is(object.list[[x]], "RLum.Results") == FALSE){
-
-                  stop("[merge_RLum.Results()] objects to merge have
-                       to be of type 'RLum.Results'!")
-
-                }
-
-                object.list[[x]]@originator
-
-              })
-            }
-
-            ##check if originator is different
-            if(length(unique(temp.originator))>1){
-
-              stop("[merge_RLum.Results()] 'RLum.Results' object originator
-differs!")
-            }
-
-            ##-------------------------------------------------------------
-            ##merge objects depending on the data structure
-
-            for(i in 1:length(object.list[[1]]@data)){
-
-              ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-              ##numeric vector or data.frame or matrix
-              if(is(object.list[[1]]@data[[i]], "data.frame")||
-                 is(object.list[[1]]@data[[i]], "numeric") ||
-                 is(object.list[[1]]@data[[i]], "matrix")){
-
-                ##grep elements and combine them into a list
-                temp.list <-
-                  lapply(1:length(object.list), function(x) {
-                    object.list[[x]]@data[[i]]
-
-                  })
-
-                ##check whetger the objects can be combined by rbind
-                if(length(unique(unlist(lapply(temp.list, FUN = ncol)))) > 1){
-
-                  stop("[merge_RLum.Results()] Objects cannot be combined, number of columns differs.")
-
-                }
-
-                ##combine them using rbind or data.table::rbindList (depends on the data type)
-                if(is(object.list[[1]]@data[[i]], "numeric")){
-                  object.list[[1]]@data[[i]] <- unlist(temp.list)
-
-                }else if(is(object.list[[1]]@data[[i]], "matrix")){
-                  object.list[[1]]@data[[i]] <- do.call("rbind", temp.list)
-
-                }else{
-                  object.list[[1]]@data[[i]] <- as.data.frame(data.table::rbindlist(temp.list))
-
-                }
 
 
-              }else{
-
-                ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                ##all other elements
-
-                ##grep elements and write them into a list
-                object.list[[1]]@data[[i]] <- lapply(1:length(object.list),
-                                                     function(x){
-
-                                                       object.list[[x]]@data[[i]]
-
-                                                     })
-
-
-                ##unlist to flatten list if necessary for the elements
-                if(is(object.list[[1]]@data[[i]][[1]])[1] == "list"){
-
-                  object.list[[1]]@data[[i]] <- unlist(object.list[[1]]@data[[i]],
-                                                       recursive = FALSE)
-                }
-              }
-
-
-            }##end loop
-
-            ##return
-            return(object.list[[1]])
-
-
-          })##end set method
-
-
-# length method for object class ------------------------------------------
-
+####################################################################################################
+###length_RLum()
+####################################################################################################
 #' @describeIn RLum.Results
 #' Returns the length of the object, i.e., number of stored data.objects
 #'
@@ -418,8 +316,9 @@ setMethod("length_RLum",
 
           })
 
-# names method for object class ------------------------------------------
-
+####################################################################################################
+###names_RLum()
+####################################################################################################
 #' @describeIn RLum.Results
 #' Returns the names data.objects
 #'

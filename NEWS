@@ -554,6 +554,9 @@ Changes in version 0.5.0 (4th, December, 2015):
          • Roxygen2: The documentation for ExampleData.DeValues was not
            produced automatically. Corrected.
 
+         • ‘merge_RLum.Results’ now became an explicit function,
+           instead of a S4-method for the sake of consistency.
+
          • Add methods for S3 generics for RLum-objects:
 
              • ‘`[`’ : ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’,

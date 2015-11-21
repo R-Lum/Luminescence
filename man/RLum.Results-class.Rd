@@ -5,7 +5,6 @@
 \alias{RLum.Results-class}
 \alias{get_RLum,RLum.Results-method}
 \alias{length_RLum,RLum.Results-method}
-\alias{merge_RLum.Results,list-method}
 \alias{names_RLum,RLum.Results-method}
 \alias{set_RLum,RLum.Results-method}
 \alias{show,RLum.Results-method}
@@ -16,8 +15,6 @@
 \S4method{set_RLum}{RLum.Results}(class, originator, data)
 
 \S4method{get_RLum}{RLum.Results}(object, data.object, drop = TRUE)
-
-\S4method{merge_RLum.Results}{list}(object.list)
 
 \S4method{length_RLum}{RLum.Results}(object)
 
@@ -39,8 +36,6 @@ the originator.}
 
 \item{drop}{[\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
 (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}}
-
-\item{object.list}{[\code{merge_RLum.Results}] \code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects}
 }
 \value{
 \bold{\code{set_RLum}}:\cr
@@ -75,9 +70,6 @@ If nothing is specified always the first \code{data.object} will be returned.
 
 Note: Detailed specification should be made in combination with the originator slot in the
 receiving function if results are pipped.
-
-\item \code{merge_RLum.Results}: merge method for RLum.Results objects. The argument object.list requires a list of RLum.Results objects.
-Merging is done by appending similar elements to the first object of the input list.
 
 \item \code{length_RLum}: Returns the length of the object, i.e., number of stored data.objects
 

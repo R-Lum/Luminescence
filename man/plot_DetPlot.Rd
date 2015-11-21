@@ -7,8 +7,8 @@
 plot_DetPlot(object, signal.integral.min, signal.integral.max,
   background.integral.min, background.integral.max,
   analyse_function = "analyse_SAR.CWOSL", analyse_function.control = list(),
-  n.channels = NULL, show_ShineDownCurve = TRUE, respect_RC.Status = TRUE,
-  verbose = TRUE, ...)
+  n.channels = NULL, show_ShineDownCurve = TRUE,
+  respect_RC.Status = FALSE, verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -65,7 +65,7 @@ every sequence should be checked carefully before running long calculations usin
 hundreds of channels.
 }
 \section{Function version}{
- 0.1.0 (2015-11-19 13:37:06)
+ 0.1.0 (2015-11-20 17:02:01)
 }
 \examples{
 

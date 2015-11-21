@@ -12,8 +12,9 @@
 \usage{
 \S4method{show}{RLum.Data.Curve}(object)
 
-\S4method{set_RLum}{RLum.Data.Curve}(class, recordType = character(),
-  curveType = character(), data = matrix(0, 0, 2), info = list())
+\S4method{set_RLum}{RLum.Data.Curve}(class, originator,
+  recordType = character(), curveType = character(), data = matrix(0, 0,
+  2), info = list())
 
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object)
 
@@ -25,6 +26,9 @@
 \item{object}{[\code{get_RLum}] an object of class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
 
 \item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create}
+
+\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
+(the function that produces this object); can be set manually.}
 
 \item{recordType}{[\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")}
 
@@ -38,21 +42,14 @@
 element}
 }
 \value{
-Returns:\cr
-
 \bold{\code{set_RLum}}\cr
 
 Returns an \code{\linkS4class{RLum.Data.Curve}} object.
 
 \bold{\code{get_RLum}}\cr
 
-Returns:\cr
-(1) A matrix with the curve values or \cr
+(1) A \code{\link{matrix}} with the curve values or \cr
 (2) only the info object if \code{info.object} was set.\cr
-
-\bold{\code{merge_RLum}}\cr
-
-Returns a new \code{\linkS4class{RLum.Data.Curve}} object.
 }
 \description{
 Class for luminescence curve data.
@@ -93,9 +90,9 @@ The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
 ramp curve).
 }
-\section{Objects from the Class}{
+\section{Create objects from this Class}{
  Objects can be created by calls of the form
-\code{new("RLum.Data.Curve", ...)}.
+\code{set_RLum(class = "RLum.Data.Curve", ...)}.
 }
 
 \section{Class version}{
@@ -105,13 +102,16 @@ ramp curve).
 
 showClass("RLum.Data.Curve")
 
+##set empty curve object
+set_RLum(class = "RLum.Data.Curve")
+
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}
+\code{\link{plot_RLum}}, \code{\link{merge_RLum}}
 }
 \keyword{classes}
 

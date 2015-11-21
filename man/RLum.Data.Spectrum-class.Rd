@@ -11,34 +11,37 @@
 \usage{
 \S4method{show}{RLum.Data.Spectrum}(object)
 
-\S4method{set_RLum}{RLum.Data.Spectrum}(class, recordType, curveType, data,
-  info)
+\S4method{set_RLum}{RLum.Data.Spectrum}(class, originator, recordType,
+  curveType, data, info)
 
 \S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object)
 
 \S4method{names_RLum}{RLum.Data.Spectrum}(object)
 }
 \arguments{
-\item{object}{an object of class \code{\linkS4class{RLum.Data.Image}}}
+\item{object}{[\code{show_RLum}] [\code{get_RLum}] [\code{names_RLum}] an object of class \code{\linkS4class{RLum.Data.Spectrum}}}
 
-\item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
+\item{class}{[\code{set_RLum}] \code{\link{character}}: name of the \code{RLum} class to create}
 
-\item{recordType}{\code{\link{character}}: record type (e.g. "OSL")}
+\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
+(the function that produces this object); can be set manually.}
 
-\item{curveType}{\code{\link{character}}: curve type (e.g. "predefined" or "measured")}
+\item{recordType}{[\code{set_RLum}] \code{\link{character}}: record type (e.g. "OSL")}
 
-\item{data}{\code{\link{matrix}}: raw curve data}
+\item{curveType}{[\code{set_RLum}] \code{\link{character}}: curve type (e.g. "predefined" or "measured")}
 
-\item{info}{\code{\link{list}}: info elements}
+\item{data}{[\code{set_RLum}] \code{\link{matrix}}: raw curve data}
 
-\item{info.object}{object of class "list" containing further meta information objects}
+\item{info}{[\code{set_RLum}] \code{\link{list}}: info elements}
+
+\item{info.object}{[\code{get_RLum}] object of class "list" containing further meta information objects}
 }
 \description{
 Class for luminescence spectra data (TL/OSL/RF).
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of RLum and Risoe.BINfile class objects
+\item \code{show}: Show structure of RLum.Data.Spectrum object
 
 \item \code{set_RLum}: Construction method for RLum.Data.Spectrum object. The slot info is optional
 and predefined as empty list by default
@@ -67,7 +70,7 @@ additional elements the slot \code{info} can be used.
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
-\code{new("RLum.Data.Spectrum", ...)}.
+\code{set_RLum("RLum.Data.Spectrum", ...)}.
 }
 
 \section{Class version}{
@@ -77,10 +80,17 @@ additional elements the slot \code{info} can be used.
 
 showClass("RLum.Data.Spectrum")
 
-##show example data (uncomment for usage)
-# data(ExampleData.XSYG, envir = environment())
-# TL.Spectrum
+##show example data
+data(ExampleData.XSYG, envir = environment())
+TL.Spectrum
 
+##show data matrix
+get_RLum(TL.Spectrum)
+
+##plot spectrum
+\dontrun{
+plot_RLum(TL.Spectrum)
+}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

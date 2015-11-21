@@ -9,11 +9,14 @@
 \alias{set_RLum.Results}
 \title{General set function for RLum S4 class objects}
 \usage{
-set_RLum(class, ...)
+set_RLum(class, originator, ...)
 }
 \arguments{
 \item{class}{\code{\linkS4class{RLum}} (\bold{required}): name of the S4 class to
 create}
+
+\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
+(the function that produces this object); can be set manually.}
 
 \item{\dots}{further arguments that one might want to pass to the specific
 get function}
@@ -31,7 +34,7 @@ corresponding set function will be selected.  Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1 (2015-11-15 23:27:50)
+ 0.2.0 (2015-11-21 02:55:25)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

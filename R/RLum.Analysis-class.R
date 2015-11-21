@@ -18,7 +18,7 @@ NULL
 #' avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Analysis", ...)}.
+#' \code{set_RLum("RLum.Analysis", ...)}.
 #'
 #' @section Class version: 0.2.1
 #'
@@ -72,8 +72,27 @@ setClass("RLum.Analysis",
 )
 
 
-##----------------------------------------------
-##COERCE FROM AND TO list
+####################################################################################################
+###as()
+####################################################################################################
+##LIST
+##COERCE RLum.Analyse >> list AND list >> RLum.Analysis
+#' as() - RLum-object coercion
+#'
+#' for \code{[RLum.Analysis]}
+#'
+#' \bold{[RLum.Analysis]}\cr
+#'
+#' \tabular{ll}{
+#'  \bold{from} \tab \bold{to}\cr
+#'   \code{list} \tab \code{list}\cr
+#' }
+#'
+#' Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Analysis}} objects.
+#'
+#' @name as
+#'
+#'
 setAs("list", "RLum.Analysis",
       function(from,to){
 
@@ -93,8 +112,9 @@ setAs("RLum.Analysis", "list",
       })
 
 
-# show method for object -------------------------------------------------------
-
+####################################################################################################
+###show()
+####################################################################################################
 #' @describeIn RLum.Analysis
 #' Show structure of RLum and Risoe.BINfile class objects
 #' @export
@@ -149,94 +169,16 @@ setMethod("show",
           }
 )##end show method
 
-# get object structure ----------------------------------------------------
 
-#' @describeIn RLum.Analysis
-#' Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
-#'
-#' @param object [\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})
-#'
-#' @export
-setMethod("structure_RLum",
-          signature= "RLum.Analysis",
-          definition = function(object) {
-
-            ##check if the object containing other elements than allowed
-            if(length(grep(FALSE, sapply(object@records, is, class="RLum.Data.Curve")))!=0){
-
-              stop("[structure_RLum()]  Only 'RLum.Data.Curve' objects are allowed!" )
-
-            }
-
-            ##get length object
-            temp.object.length <- length(object@records)
-
-            ##ID
-            temp.id <- 1:temp.object.length
-
-            ##OBJECT TYPE
-            temp.recordType <- c(NA)
-            length(temp.recordType) <- temp.object.length
-            temp.recordType <- sapply(1:temp.object.length,
-                                      function(x){object@records[[x]]@recordType})
-
-            ##PROTOCOL STEP
-            temp.protocol.step <- c(NA)
-            length(temp.protocol.step) <- temp.object.length
-
-            ##n.channels
-            temp.n.channels <- sapply(1:temp.object.length,
-                                      function(x){length(object@records[[x]]@data[,1])})
-
-            ##X.MIN
-            temp.x.min <- sapply(1:temp.object.length,
-                                 function(x){min(object@records[[x]]@data[,1])})
-
-            ##X.MAX
-            temp.x.max <- sapply(1:temp.object.length,
-                                 function(x){max(object@records[[x]]@data[,1])})
-
-            ##y.MIN
-            temp.y.min <- sapply(1:temp.object.length,
-                                 function(x){min(object@records[[x]]@data[,2])})
-
-            ##X.MAX
-            temp.y.max <- sapply(1:temp.object.length,
-                                 function(x){max(object@records[[x]]@data[,2])})
-
-            ##info elements as character value
-            temp.info.elements <- unlist(sapply(1:temp.object.length, function(x){
-
-              if(length(object@records[[x]]@info)!=0){
-                do.call(paste, as.list(names(object@records[[x]]@info)))
-              }else{NA}
-
-            }))
-
-            ##combine output to a data.frame
-            return(
-              data.frame(
-                id = temp.id, recordType = temp.recordType,
-                protocol.step = temp.protocol.step,
-                n.channels = temp.n.channels,
-                x.min = temp.x.min,
-                x.max = temp.x.max,
-                y.min = temp.y.min,
-                y.max = temp.y.max,
-                info.elements = temp.info.elements
-              )
-            )
-
-          })
-
-
-# constructor (set) method for object  ------------------------------------------
-
+####################################################################################################
+###set_RLum()
+####################################################################################################
 #' @describeIn RLum.Analysis
 #' Construction method for \code{\linkS4class{RLum.Analysis}} objects.
 #'
 #' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to be created
-#'
+#' @param originator \code{\link{character}} (automatic): contains the name of the calling function
+#' (the function that produces this object); can be set manually.
 #' @param records [\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
 #'
 #' @param protocol [\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
@@ -247,7 +189,7 @@ setMethod("structure_RLum",
 setMethod("set_RLum",
           signature = "RLum.Analysis",
 
-          definition = function(class, records, protocol) {
+          definition = function(class, originator, records, protocol) {
 
             if(missing(protocol)){
 
@@ -260,14 +202,16 @@ setMethod("set_RLum",
             }
 
             new("RLum.Analysis",
+                originator = originator,
                 records = records,
                 protocol = protocol
             )
 
           })
 
-# constructor (set) method for object class ------------------------------------------
-
+####################################################################################################
+###get_RLum()
+####################################################################################################
 #' @describeIn RLum.Analysis
 #' Accessor method for RLum.Analysis object.
 #'
@@ -484,8 +428,92 @@ setMethod("get_RLum",
 
           })
 
-# length method for object class ------------------------------------------
 
+####################################################################################################
+###structure_RLum()
+####################################################################################################
+#' @describeIn RLum.Analysis
+#' Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
+#'
+#' @param object [\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})
+#'
+#' @export
+setMethod("structure_RLum",
+          signature= "RLum.Analysis",
+          definition = function(object) {
+
+            ##check if the object containing other elements than allowed
+            if(length(grep(FALSE, sapply(object@records, is, class="RLum.Data.Curve")))!=0){
+
+              stop("[structure_RLum()]  Only 'RLum.Data.Curve' objects are allowed!" )
+
+            }
+
+            ##get length object
+            temp.object.length <- length(object@records)
+
+            ##ID
+            temp.id <- 1:temp.object.length
+
+            ##OBJECT TYPE
+            temp.recordType <- c(NA)
+            length(temp.recordType) <- temp.object.length
+            temp.recordType <- sapply(1:temp.object.length,
+                                      function(x){object@records[[x]]@recordType})
+
+            ##PROTOCOL STEP
+            temp.protocol.step <- c(NA)
+            length(temp.protocol.step) <- temp.object.length
+
+            ##n.channels
+            temp.n.channels <- sapply(1:temp.object.length,
+                                      function(x){length(object@records[[x]]@data[,1])})
+
+            ##X.MIN
+            temp.x.min <- sapply(1:temp.object.length,
+                                 function(x){min(object@records[[x]]@data[,1])})
+
+            ##X.MAX
+            temp.x.max <- sapply(1:temp.object.length,
+                                 function(x){max(object@records[[x]]@data[,1])})
+
+            ##y.MIN
+            temp.y.min <- sapply(1:temp.object.length,
+                                 function(x){min(object@records[[x]]@data[,2])})
+
+            ##X.MAX
+            temp.y.max <- sapply(1:temp.object.length,
+                                 function(x){max(object@records[[x]]@data[,2])})
+
+            ##info elements as character value
+            temp.info.elements <- unlist(sapply(1:temp.object.length, function(x){
+
+              if(length(object@records[[x]]@info)!=0){
+                do.call(paste, as.list(names(object@records[[x]]@info)))
+              }else{NA}
+
+            }))
+
+            ##combine output to a data.frame
+            return(
+              data.frame(
+                id = temp.id, recordType = temp.recordType,
+                protocol.step = temp.protocol.step,
+                n.channels = temp.n.channels,
+                x.min = temp.x.min,
+                x.max = temp.x.max,
+                y.min = temp.y.min,
+                y.max = temp.y.max,
+                info.elements = temp.info.elements
+              )
+            )
+
+          })
+
+
+####################################################################################################
+###length_RLum()
+####################################################################################################
 #' @describeIn RLum.Analysis
 #' Returns the length of the object, i.e., number of stored records.
 #'
@@ -493,14 +521,13 @@ setMethod("get_RLum",
 setMethod("length_RLum",
           "RLum.Analysis",
           function(object){
-
             length(object@records)
 
           })
 
-# names method for object class ------------------------------------------
-
-
+####################################################################################################
+###names_RLum()
+####################################################################################################
 #' @describeIn RLum.Analysis
 #' Returns the names of the \code{\linkS4class{RLum.Data}} objects objects (same as shown with the show method)
 #'
@@ -512,5 +539,4 @@ setMethod("names_RLum",
               object@records[[x]]@recordType})
 
           })
-
 

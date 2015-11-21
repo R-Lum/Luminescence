@@ -21,7 +21,7 @@ NULL
 #' elements the slot \code{info} can be used.
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Data.Image", ...)}.
+#' \code{set_RLum("RLum.Data.Image", ...)}.
 #'
 #' @section Class version: 0.2.1
 #'
@@ -58,12 +58,28 @@ setClass(
 )
 
 
-# setAs - coerce methods ------------------------------------------------------
+####################################################################################################
+###as()
+####################################################################################################
 
-##note: This conversion will not work for multi layers!
-##----------------------------------------------
-##COERCE FROM AND TO data.frame
-
+##DATA.FRAME
+##COERCE RLum.Data.Image >> data.frame AND data.frame >> RLum.Data.Image
+#' as()
+#'
+#' for \code{[RLum.Data.Image]}
+#'
+#' \bold{[RLum.Data.Image]}\cr
+#'
+#' \tabular{ll}{
+#'  \bold{from} \tab \bold{to}\cr
+#'   \code{data.frame} \tab \code{data.frame}\cr
+#'   \code{matrix} \tab \code{matrix}
+#'
+#' }
+#'
+#' @name as
+#'
+#'
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
 
@@ -83,9 +99,8 @@ setAs("RLum.Data.Image", "data.frame",
       })
 
 
-# ##----------------------------------------------
-##COERCE FROM AND TO matrix
-
+##MATRIX
+##COERCE RLum.Data.Image >> matrix AND matrix >> RLum.Data.Image
 setAs("matrix", "RLum.Data.Image",
       function(from,to){
 
@@ -105,9 +120,9 @@ setAs("RLum.Data.Image", "matrix",
       })
 
 
-
-
-# show method for object ------------------------------------------------------
+####################################################################################################
+###show()
+####################################################################################################
 #' @describeIn RLum.Data.Image
 #' Show structure of RLum and Risoe.BINfile class objects
 #' @export
@@ -135,13 +150,16 @@ setMethod("show",
 )
 
 
-# # constructor (set) method for object class -----------------------------------
-
+####################################################################################################
+###set_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Image
 #' Construction method for RLum.Data.Image object. The slot info is optional
 #' and predefined as empty list by default..
 #'
 #' @param class \code{\link{character}}: name of the \code{RLum} class to create
+#' @param originator \code{\link{character}} (automatic): contains the name of the calling function
+#' (the function that produces this object); can be set manually.
 #' @param recordType \code{\link{character}}: record type (e.g. "OSL")
 #' @param curveType \code{\link{character}}: curve type (e.g. "predefined" or "measured")
 #' @param data \code{\link{matrix}}: raw curve data
@@ -151,7 +169,7 @@ setMethod("show",
 setMethod("set_RLum",
           signature = signature("RLum.Data.Image"),
 
-          definition = function(class, recordType, curveType, data, info){
+          definition = function(class, originator, recordType, curveType, data, info){
 
             ##check for missing curveType
             if(missing(curveType)==TRUE){
@@ -191,6 +209,7 @@ setMethod("set_RLum",
             }
 
             new("RLum.Data.Image",
+                originator = originator,
                 recordType = recordType,
                 curveType = curveType,
                 data = data,
@@ -198,8 +217,9 @@ setMethod("set_RLum",
 
           })
 
-# constructor (get) method for object class -----------------------------------
-
+####################################################################################################
+###get_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Image
 #' Accessor method for RLum.Data.Image object. The argument info.object is
 #'  optional to directly access the info elements. If no info element name is
@@ -251,15 +271,16 @@ setMethod("get_RLum",
             }
           })
 
-# names method for object class ------------------------------------------
-
+####################################################################################################
+###names_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Image
 #' Returns the names info elements coming along with this curve object
 #'
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Image",
-          function(object){
+          function(object) {
             names(object@info)
 
           })

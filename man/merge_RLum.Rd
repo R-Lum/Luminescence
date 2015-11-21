@@ -36,7 +36,7 @@ automatically removed from the input \code{list}.
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1.2 (2015-09-22 09:41:30)
+ 0.1.2 (2015-11-20 14:56:59)
 }
 \examples{
 
@@ -65,7 +65,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #
 }
 \seealso{
-\code{\linkS4class{RLum.Results}},
+\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}},
+\code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 }
 \keyword{utilities}
 

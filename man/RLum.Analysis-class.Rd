@@ -13,13 +13,13 @@
 \usage{
 \S4method{show}{RLum.Analysis}(object)
 
-\S4method{structure_RLum}{RLum.Analysis}(object)
-
-\S4method{set_RLum}{RLum.Analysis}(class, records, protocol)
+\S4method{set_RLum}{RLum.Analysis}(class, originator, records, protocol)
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
   RLum.type, protocol = "UNKNOWN", subset, get.index, drop = TRUE,
   recursive = TRUE)
+
+\S4method{structure_RLum}{RLum.Analysis}(object)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
 
@@ -29,6 +29,9 @@
 \item{object}{[\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})}
 
 \item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to be created}
+
+\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
+(the function that produces this object); can be set manually.}
 
 \item{records}{[\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects}
 
@@ -85,8 +88,6 @@ Object class containing analysis data for protocol analysis.
 \itemize{
 \item \code{show}: Show structure of RLum and Risoe.BINfile class objects
 
-\item \code{structure_RLum}: Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
-
 \item \code{set_RLum}: Construction method for \code{\linkS4class{RLum.Analysis}} objects.
 
 \item \code{get_RLum}: Accessor method for RLum.Analysis object.
@@ -99,6 +100,8 @@ Example: curve type (e.g. curveType = "predefined" or curveType ="measured")
 
 The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
+
+\item \code{structure_RLum}: Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
 
 \item \code{length_RLum}: Returns the length of the object, i.e., number of stored records.
 
@@ -117,7 +120,7 @@ avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
-\code{new("RLum.Analysis", ...)}.
+\code{set_RLum("RLum.Analysis", ...)}.
 }
 
 \section{Class version}{

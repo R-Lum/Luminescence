@@ -26,12 +26,12 @@ NULL
 #' elements the slot \code{info} can be used (e.g. providing additional heating
 #' ramp curve).
 #'
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("RLum.Data.Curve", ...)}.
+#' @section Create objects from this Class: Objects can be created by calls of the form
+#' \code{set_RLum(class = "RLum.Data.Curve", ...)}.
 #'
 #' @section Class version: 0.2.1
 #'
-#' @return Returns:\cr
+#' @return
 #'
 #' \bold{\code{set_RLum}}\cr
 #'
@@ -39,24 +39,22 @@ NULL
 #'
 #' \bold{\code{get_RLum}}\cr
 #'
-#' Returns:\cr
-#' (1) A matrix with the curve values or \cr
+#' (1) A \code{\link{matrix}} with the curve values or \cr
 #' (2) only the info object if \code{info.object} was set.\cr
-#'
-#' \bold{\code{merge_RLum}}\cr
-#'
-#' Returns a new \code{\linkS4class{RLum.Data.Curve}} object.
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}
+#' \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
 #'
 #' @keywords classes
 #'
 #' @examples
 #'
 #' showClass("RLum.Data.Curve")
+#'
+#' ##set empty curve object
+#' set_RLum(class = "RLum.Data.Curve")
 #'
 #' @export
 setClass("RLum.Data.Curve",
@@ -75,11 +73,37 @@ setClass("RLum.Data.Curve",
            )
          )
 
-
-# setAs - coerce methods ------------------------------------------------------
-##----------------------------------------------
-##COERCE FROM AND TO list
-
+####################################################################################################
+###as()
+####################################################################################################
+##LIST
+##COERCE RLum.Data.Curve >> list AND list >> RLum.Data.Curve
+#' as() - RLum-object coercion
+#'
+#' for \code{[RLum.Data.Curve]}
+#'
+#' \bold{[RLum.Data.Curve]}\cr
+#'
+#' \tabular{ll}{
+#'  \bold{from} \tab \bold{to}\cr
+#'   \code{list} \tab \code{list} \cr
+#'   \code{data.frame} \tab \code{data.frame}\cr
+#'   \code{matrix} \tab \code{matrix}
+#'
+#' }
+#'
+#' @param from \code{\linkS4class{RLum}} or \code{\link{list}}, \code{\link{data.frame}}, \code{\link{matrix}}
+#' (\bold{required}): object to be coerced from
+#'
+#' @param to \code{\link{character}} (\bold{required}): class name to be coerced to
+#'
+#' @seealso \code{\link[methods]{as}}
+#'
+#' @note Due to the complex structure of the \code{RLum} objects itself a coercing to standard
+#' R data structures will be always loosely!
+#'
+#' @name as
+#'
 setAs("list", "RLum.Data.Curve",
       function(from,to){
 
@@ -90,6 +114,7 @@ setAs("list", "RLum.Data.Curve",
             info = list())
       })
 
+
 setAs("RLum.Data.Curve", "list",
       function(from){
 
@@ -97,10 +122,8 @@ setAs("RLum.Data.Curve", "list",
 
       })
 
-
-##----------------------------------------------
-##COERCE FROM AND TO data.frame
-
+##DATA.FRAME
+##COERCE RLum.Data.Curve >> data.frame AND data.frame >> RLum.Data.Curve
 setAs("data.frame", "RLum.Data.Curve",
       function(from,to){
 
@@ -120,9 +143,8 @@ setAs("RLum.Data.Curve", "data.frame",
       })
 
 
-##----------------------------------------------
-##COERCE FROM AND TO matrix
-
+##MATRIX
+##COERCE RLum.Data.Curve >> matrix AND matrix >> RLum.Data.Curve
 setAs("matrix", "RLum.Data.Curve",
       function(from,to){
 
@@ -134,17 +156,17 @@ setAs("matrix", "RLum.Data.Curve",
 
       })
 
+
 setAs("RLum.Data.Curve", "matrix",
       function(from){
-
         from@data
 
       })
 
 
-
-
-# show method for object ------------------------------------------------------
+####################################################################################################
+###show()
+####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Show structure of RLum and Risoe.BINfile class objects
 #' @export
@@ -169,13 +191,16 @@ setMethod("show",
 
 
 
-# constructor (set) method for object class -----------------------------------
-
+####################################################################################################
+###set_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Construction method for RLum.Data.Curve object. The slot info is optional
 #' and predefined as empty list by default.
 #'
 #' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create
+#' @param originator \code{\link{character}} (automatic): contains the name of the calling function
+#' (the function that produces this object); can be set manually.
 #' @param recordType [\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")
 #' @param curveType [\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")
 #' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data
@@ -187,10 +212,12 @@ setMethod(
   signature = signature("RLum.Data.Curve"),
 
   definition = function(class,
+                        originator,
                         recordType = character(),
                         curveType = character(),
                         data = matrix(0,0,2),
                         info = list()) {
+
     ##with this RLum.Data.Curve objects can be provided to be reconstructed
     if (is(data, "RLum.Data.Curve")) {
 
@@ -238,6 +265,7 @@ setMethod(
 
       new(
         "RLum.Data.Curve",
+        originator = originator,
         recordType = recordType,
         curveType = curveType,
         data = data,
@@ -249,8 +277,9 @@ setMethod(
   }
 )
 
-# constructor (get) method for object class -----------------------------------
-
+####################################################################################################
+###get_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Accessor method for RLum.Data.Curve object. The argument info.object is
 #' optional to directly access the info elements. If no info element name is
@@ -289,7 +318,7 @@ setMethod("get_RLum",
                   ##grep names
                   temp.element.names <- paste(names(object@info), collapse = ", ")
 
-                  stop.text <- paste("[get_RLum] Error: Invalid element name. Valid names are:", temp.element.names)
+                  stop.text <- paste("[get_RLum] Invalid element name. Valid names are:", temp.element.names)
 
                   stop(stop.text)
 
@@ -303,9 +332,9 @@ setMethod("get_RLum",
              }
           })
 
-
-# names method for object class ------------------------------------------
-
+####################################################################################################
+###length_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Returns the length of the curve object, which is the maximum of the
 #' value time/temperature of the curve (corresponding to the stimulation length)
@@ -318,9 +347,9 @@ setMethod("length_RLum",
 
           })
 
-
-# names method for object class ------------------------------------------
-
+####################################################################################################
+###names_RLum()
+####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Returns the names info elements coming along with this curve object
 #'

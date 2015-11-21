@@ -487,6 +487,8 @@
       \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export}
       statements to allow better NAMESPACE housekeeping,
       \item Roxygen2: The documentation for ExampleData.DeValues was not produced automatically. Corrected.
+      \item \code{merge_RLum.Results} now became an explicit function, instead of a S4-method for the sake
+      of consistency.
       \item Add methods for S3 generics for RLum-objects:
       \itemize{
 

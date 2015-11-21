@@ -29,7 +29,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Results}},
+#' @seealso \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}},
+#' \code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 #'
 #' @references #
 #'
@@ -112,38 +113,9 @@ merge_RLum<- function(
 
     }else{
 
-      warning("Nothing was merged as object list was found to be empty!")
+      warning("[merge_RLum()] Nothing was merged as object list was found to be empty!")
       return(NULL)
 
     }
 
 }
-
-
-#' General accessor function for RLum S4 class objects
-#'
-#' Function calls object-specific get functions for RLum S4 class objects.
-#'
-#' The function provides a generalised access point for specific
-#' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
-#' corresponding merge function will be selected. Allowed arguments can be found
-#' in the documentations of the corresponding \code{\linkS4class{RLum}} class.
-#'
-#' @param object.list \code{\linkS4class{RLum}} (\bold{required}): a list of S4
-#' objects of class \code{RLum}
-#' @return Return is the same as input objects as provided in the list.
-#' @section Function version: 0.1
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
-#' @seealso
-#' \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Image}},
-#' \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}}
-#' @keywords utilities
-#'
-#' @export
-setGeneric("merge_RLum.Results",  function(object.list) {
-  standardGeneric("merge_RLum.Results")
-})

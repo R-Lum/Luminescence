@@ -93,7 +93,7 @@ plot_DetPlot <- function(
   analyse_function.control = list(),
   n.channels = NULL,
   show_ShineDownCurve = TRUE,
-  respect_RC.Status = TRUE,
+  respect_RC.Status = FALSE,
   verbose = TRUE,
   ...
 ) {
@@ -272,6 +272,7 @@ plot_DetPlot <- function(
     }
 
 
+    ##TodDo:color failed points red
     ##plot points and error bars
     points(df_final[, c("df_x", "De")], pch = plot.settings$pch)
     segments(

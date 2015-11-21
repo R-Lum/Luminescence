@@ -11,7 +11,8 @@
 \usage{
 \S4method{show}{RLum.Data.Image}(object)
 
-\S4method{set_RLum}{RLum.Data.Image}(class, recordType, curveType, data, info)
+\S4method{set_RLum}{RLum.Data.Image}(class, originator, recordType, curveType,
+  data, info)
 
 \S4method{get_RLum}{RLum.Data.Image}(object, info.object)
 
@@ -21,6 +22,9 @@
 \item{object}{an object of class \code{\linkS4class{RLum.Data.Image}}}
 
 \item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
+
+\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
+(the function that produces this object); can be set manually.}
 
 \item{recordType}{\code{\link{character}}: record type (e.g. "OSL")}
 
@@ -65,7 +69,7 @@ elements the slot \code{info} can be used.
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
-\code{new("RLum.Data.Image", ...)}.
+\code{set_RLum("RLum.Data.Image", ...)}.
 }
 
 \section{Class version}{
