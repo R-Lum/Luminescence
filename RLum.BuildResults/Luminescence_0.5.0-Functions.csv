@@ -86,16 +86,17 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "merge_RLum.Analysis","Merge function for RLum.Analysis S4 class objects","<br /> Function allows merging of RLum.Analysis objects and adding of allowed<br /> objects to an RLum.Analysis.<br />","0.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"merge_RLum.Data.Curve","Merge function for RLum.Data.Curve S4 class objects","<br /> Function allows merging of RLum.Data.Curve objects in different ways<br />","0.1.1","2015-11-23","01:58:32
+"merge_RLum.Data.Curve","Merge function for RLum.Data.Curve S4 class objects","<br /> Function allows merging of RLum.Data.Curve objects in different ways<br />","0.1.1","2015-11-23","02:02:12
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"merge_RLum","General merge function for RLum S4 class objects","<br /> Function calls object-specific merge functions for RLum S4 class objects.<br />","0.1.2","2015-11-20","14:56:59
+"merge_RLum","General merge function for RLum S4 class objects","<br /> Function calls object-specific merge functions for RLum S4 class objects.<br />","0.1.2","2015-11-23","02:02:12
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "merge_RLum.Results","Merge function for RLum.Results S4-class objects","<br /> Function merges objects of class  RLum.Results . The slots in the objects<br /> are combined depending on the object type, e.g., for  data.frame  and  matrix <br /> rows are appended.<br />",NA,NA,NA,NA
+"methods_RLum","methods_RLum","<br /> Methods for S3-generics implemented for the package 'Luminescence'.<br /> This document summarises all implemented S3-generics. The name of the function<br /> is given before the first dot, after the dot the name of the object that is supported by this method<br /> is given, e.g.  plot.RLum.Data.Curve  can be called by  plot(object, ...) , where<br /> object  is the  RLum.Data.Curve  object.<br />",NA,NA,NA,NA
 "names_RLum","S4-names function for RLum S4 class objects","<br /> Function calls object-specific names functions for RLum S4 class objects.<br />","0.1.0","2015-10-31","22:27:15
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_AbanicoPlot","Function to create an Abanico Plot.","<br /> A plot is produced which allows comprehensive presentation of data precision<br /> and its dispersion around a central value as well as illustration of a<br /> kernel density estimate, histogram and/or dot plot of the dose values.<br />","0.1.7","2015-11-03","11:40:32
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Inspired by a plot<br /> introduced by Galbraith & Green (1990)<br />  R Luminescence Package Team"
-"plot_DetPlot","Create De(t) plot","<br /> Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).<br /> The function is simply passing several arguments to the function  plot  and the used<br /> analysis functions and runs it in a loop. Example:  legend.pos  for legend position,<br /> legend  for legend text.<br />","0.1.0","2015-11-20","17:02:01
+"plot_DetPlot","Create De(t) plot","<br /> Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).<br /> The function is simply passing several arguments to the function  plot  and the used<br /> analysis functions and runs it in a loop. Example:  legend.pos  for legend position,<br /> legend  for legend text.<br />","0.1.0","2015-11-23","02:02:12
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "plot_DRTResults","Visualise dose recovery test results","<br /> The function provides a standardised plot output for dose recovery test<br /> measurements.<br />","0.1.8","2015-10-23","17:42:47
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
@@ -116,7 +117,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Image","Plot function for an  RLum.Data.Image  S4 class object","<br /> The function provides a standardised plot output for image data of an<br /> RLum.Data.Image S4 class object, mainly using the plot functions<br /> provided by the  raster  package.<br />","0.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.2","2015-11-19","15:08:37
+"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.2","2015-11-23","02:02:12
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -151,7 +152,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, HZDR,<br /> Helmholtz-Institute Freiberg for Resource Technology<br /> (Germany)<br />  R Luminescence Package Team"
 "set_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1","2015-09-22","09:41:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"set_RLum","General set function for RLum S4 class objects","<br /> Function calls object-specific set functions for RLum S4 class objects.<br />","0.2.0","2015-11-22","16:46:54
+"set_RLum","General set function for RLum S4 class objects","<br /> Function calls object-specific set functions for RLum S4 class objects.<br />","0.2.0","2015-11-23","02:02:12
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "sTeve","sTeve - sophisticated tool for efficient data validation and evaluation","<br /> This function provides a sophisticated routine for comprehensive<br /> luminescence dating data analysis.<br />",NA,NA,NA,"<br /> R Luminescence Team, 2012-2013<br />"
 "structure_RLum","General structure function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.1.0","2015-10-31","22:27:15

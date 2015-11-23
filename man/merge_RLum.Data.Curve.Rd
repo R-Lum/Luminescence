@@ -69,7 +69,7 @@ This function fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.1.1 (2015-11-23 01:58:32)
+ 0.1.1 (2015-11-23 02:02:12)
 }
 \examples{
 
