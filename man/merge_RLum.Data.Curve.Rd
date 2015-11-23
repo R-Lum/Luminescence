@@ -61,8 +61,15 @@ The information from the slot 'recordType' is taken from the first
 \code{\linkS4class{RLum.Data.Curve}} object in the input list. The slot
 'curveType' is filled with the name \code{merged}.
 }
+\section{S3-generic support}{
+
+
+This function fully operational via S3-generics:
+\code{`+`}, \code{`-`}, \code{`/`}, \code{`*`}, \code{merge}
+}
+
 \section{Function version}{
- 0.1.1 (2015-10-06 23:28:52)
+ 0.1.1 (2015-11-23 01:58:32)
 }
 \examples{
 

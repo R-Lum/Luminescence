@@ -12,7 +12,7 @@
 \usage{
 \S4method{show}{RLum.Results}(object)
 
-\S4method{set_RLum}{RLum.Results}(class, originator, data)
+\S4method{set_RLum}{RLum.Results}(class, originator, data = list())
 
 \S4method{get_RLum}{RLum.Results}(object, data.object, drop = TRUE)
 
@@ -24,12 +24,14 @@
 \item{object}{[\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
 \code{\linkS4class{RLum.Results}} to be evaluated}
 
-\item{class}{[\code{set_RLum}] \code{\link{character}} (required): name of the \code{RLum} class to create}
+\item{class}{[\code{set_RLum}] \code{\link{character}} \bold{(required)}: name of the \code{RLum} class to create}
 
-\item{originator}{[\code{set_RLum}] \code{\link{character}} (optional): argument to manually set
-the originator.}
+\item{originator}{[\code{set_RLum}] \code{\link{character}} (automatic): contains the
+name of the calling function
+(the function that produces this object); can be set manually.}
 
-\item{data}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to be stored in the object}
+\item{data}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to
+be stored in the object}
 
 \item{data.object}{[\code{get_RLum}] \code{\link{character}} or
 \code{\link{numeric}}: name or index of the data slot to be returned}
@@ -40,7 +42,7 @@ the originator.}
 \value{
 \bold{\code{set_RLum}}:\cr
 
-Returns an \code{\linkS4class{RLum.Results}} object.  \cr
+Returns an object from the class \code{\linkS4class{RLum.Results}}\cr
 
 \bold{\code{get_RLum}}:\cr
 
@@ -49,19 +51,22 @@ Returns: \cr
 (2) \code{\link{list}} of data objects from the slots if 'data.object' is vector or \cr
 (3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
 
-\bold{\code{merge_RLum}}:\cr
+\bold{\code{length_RLum}}\cr
 
-Returns an \code{\linkS4class{RLum.Results}} object.
+Returns the number of data elements in the \code{RLum.Results} object.
+
+\bold{\code{names_RLum}}\cr
+
+Returns the names of the data elements in the object.
 }
 \description{
-Object class contains results data from functions.
+Object class contains results data from functions (e.g. \code{\link{analyse_SAR.CWOSL}}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of RLum and Risoe.BINfile class objects
+\item \code{show}: Show structure of \code{RLum.Results} object
 
-\item \code{set_RLum}: Construction method for RLum.Results object. The slot originator is optional
-and predefined as the function that calls the function set_RLum.
+\item \code{set_RLum}: Construction method for an RLum.Results object.
 
 \item \code{get_RLum}: Accessor method for RLum.Results object. The argument data.object allows
 directly accessing objects delivered within the slot data. The default
@@ -78,8 +83,6 @@ receiving function if results are pipped.
 \section{Slots}{
 
 \describe{
-\item{\code{originator}}{Object of class "character" containing name of the producing function}
-
 \item{\code{data}}{Object of class "list" containing output data}
 }}
 \note{
@@ -93,11 +96,35 @@ method \code{get_RLum}.
 }
 
 \section{Class version}{
- 0.3.0
+ 0.4.0
 }
 \examples{
 
 showClass("RLum.Results")
+
+##create an empty object from this class
+set_RLum(class = "RLum.Results")
+
+##use another function to show how it works
+
+##Basic calculation of the dose rate for a specific date
+ dose.rate <-  calc_SourceDoseRate(
+   measurement.date = "2012-01-27",
+   calib.date = "2014-12-19",
+   calib.dose.rate = 0.0438,
+   calib.error = 0.0019)
+
+##show object
+dose.rate
+
+##get results
+get_RLum(dose.rate)
+
+##get parameters used for the calcualtion from the same object
+get_RLum(dose.rate, data.object = "parameters")
+
+##alternatively objects can be accessed using S3 generics, such as
+dose.rate$parameters
 
 }
 \author{
@@ -105,7 +132,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
 }
 \seealso{
-\code{\linkS4class{RLum}}
+\code{\linkS4class{RLum}}, \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
 }
 \keyword{classes}
 \keyword{methods}

@@ -3,13 +3,11 @@ NULL
 
 #' Class \code{"RLum.Results"}
 #'
-#' Object class contains results data from functions.
+#' Object class contains results data from functions (e.g. \code{\link{analyse_SAR.CWOSL}}.
 #'
 #' @name RLum.Results-class
 #'
 #' @docType class
-#'
-#' @slot originator Object of class "character" containing name of the producing function
 #'
 #' @slot data Object of class "list" containing output data
 #'
@@ -20,12 +18,12 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Results", ...)}.
 #'
-#' @section Class version: 0.3.0
+#' @section Class version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}
+#' @seealso \code{\linkS4class{RLum}}, \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
 #'
 #' @keywords classes methods
 #'
@@ -33,33 +31,38 @@ NULL
 #'
 #' showClass("RLum.Results")
 #'
+#' ##create an empty object from this class
+#' set_RLum(class = "RLum.Results")
+#'
+#' ##use another function to show how it works
+#'
+#' ##Basic calculation of the dose rate for a specific date
+#'  dose.rate <-  calc_SourceDoseRate(
+#'    measurement.date = "2012-01-27",
+#'    calib.date = "2014-12-19",
+#'    calib.dose.rate = 0.0438,
+#'    calib.error = 0.0019)
+#'
+#' ##show object
+#' dose.rate
+#'
+#' ##get results
+#' get_RLum(dose.rate)
+#'
+#' ##get parameters used for the calcualtion from the same object
+#' get_RLum(dose.rate, data.object = "parameters")
+#'
+#' ##alternatively objects can be accessed using S3 generics, such as
+#' dose.rate$parameters
+#'
 #' @export
 setClass(
-  "RLum.Results",
-  slots = list(originator = "character",
-               data = "list"),
+  Class = "RLum.Results",
+  slots = list(data = "list"),
   contains = "RLum",
-  prototype = list (originator = character(),
-                    data = list())
+  prototype = list (data = list())
 )
 
-
-# Validation --------------------------------------------------------------
-
-##Not used currenlty
-# setValidity("RLum.Results",
-#             function(object){
-#
-#               ##calc_OSLLxTxRatio
-#               if(object@originator == "calc_OSLLxTxRatio"){
-#
-#                 #print(is(object@data[[1]], "data.frame"))
-#
-#               }
-#
-#
-#             }
-# )
 
 ####################################################################################################
 ###as()
@@ -102,7 +105,7 @@ setAs("RLum.Results", "list",
 ###show()
 ####################################################################################################
 #' @describeIn RLum.Results
-#' Show structure of RLum and Risoe.BINfile class objects
+#' Show structure of \code{RLum.Results} object
 #' @export
 setMethod("show",
           signature(object = "RLum.Results"),
@@ -146,23 +149,31 @@ setMethod("show",
 ###set_RLum()
 ####################################################################################################
 #' @describeIn RLum.Results
-#' Construction method for RLum.Results object. The slot originator is optional
-#' and predefined as the function that calls the function set_RLum.
+#' Construction method for an RLum.Results object.
 #'
-#' @param class [\code{set_RLum}] \code{\link{character}} (required): name of the \code{RLum} class to create
-#' @param originator [\code{set_RLum}] \code{\link{character}} (optional): argument to manually set
-#' the originator.
-#' @param data [\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to be stored in the object
+#' @param class [\code{set_RLum}] \code{\link{character}} \bold{(required)}: name of the \code{RLum} class to create
+#' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the
+#' name of the calling function
+#' (the function that produces this object); can be set manually.
+#' @param data [\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to
+#' be stored in the object
+#'
+#' @return
+#'
+#' \bold{\code{set_RLum}}:\cr
+#'
+#' Returns an object from the class \code{\linkS4class{RLum.Results}}\cr
 #'
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
 
-          function(class, originator, data){
+          function(class, originator, data = list()){
 
-            new("RLum.Results",
-                originator = originator,
-                data = data)
+            new(
+              Class = "RLum.Results",
+              originator = originator,
+              data = data)
           })
 
 
@@ -189,10 +200,6 @@ setMethod("set_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{set_RLum}}:\cr
-#'
-#' Returns an \code{\linkS4class{RLum.Results}} object.  \cr
-#'
 #' \bold{\code{get_RLum}}:\cr
 #'
 #' Returns: \cr
@@ -200,9 +207,6 @@ setMethod("set_RLum",
 #' (2) \code{\link{list}} of data objects from the slots if 'data.object' is vector or \cr
 #' (3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
 #'
-#' \bold{\code{merge_RLum}}:\cr
-#'
-#' Returns an \code{\linkS4class{RLum.Results}} object.
 #'
 #' @export
 setMethod("get_RLum",
@@ -307,6 +311,12 @@ setMethod("get_RLum",
 #' @describeIn RLum.Results
 #' Returns the length of the object, i.e., number of stored data.objects
 #'
+#' @return
+#'
+#' \bold{\code{length_RLum}}\cr
+#'
+#' Returns the number of data elements in the \code{RLum.Results} object.
+#'
 #' @export
 setMethod("length_RLum",
           "RLum.Results",
@@ -321,6 +331,12 @@ setMethod("length_RLum",
 ####################################################################################################
 #' @describeIn RLum.Results
 #' Returns the names data.objects
+#'
+#' @return
+#'
+#' \bold{\code{names_RLum}}\cr
+#'
+#' Returns the names of the data elements in the object.
 #'
 #' @export
 setMethod("names_RLum",

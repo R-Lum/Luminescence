@@ -11,17 +11,19 @@
 \usage{
 \S4method{show}{RLum.Data.Spectrum}(object)
 
-\S4method{set_RLum}{RLum.Data.Spectrum}(class, originator, recordType,
-  curveType, data, info)
+\S4method{set_RLum}{RLum.Data.Spectrum}(class, originator,
+  recordType = "Spectrum", curveType = NA_character_, data = matrix(),
+  info = list())
 
 \S4method{get_RLum}{RLum.Data.Spectrum}(object, info.object)
 
 \S4method{names_RLum}{RLum.Data.Spectrum}(object)
 }
 \arguments{
-\item{object}{[\code{show_RLum}] [\code{get_RLum}] [\code{names_RLum}] an object of class \code{\linkS4class{RLum.Data.Spectrum}}}
+\item{object}{[\code{show_RLum}][\code{get_RLum}][\code{names_RLum}] an object of
+class \code{\linkS4class{RLum.Data.Spectrum}}}
 
-\item{class}{[\code{set_RLum}] \code{\link{character}}: name of the \code{RLum} class to create}
+\item{class}{[\code{set_RLum}] \code{\link{character}} (automatic): name of the \code{RLum} class to create.}
 
 \item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
@@ -30,18 +32,34 @@
 
 \item{curveType}{[\code{set_RLum}] \code{\link{character}}: curve type (e.g. "predefined" or "measured")}
 
-\item{data}{[\code{set_RLum}] \code{\link{matrix}}: raw curve data}
+\item{data}{[\code{set_RLum}] \code{\link{matrix}}: raw curve data. If data is of
+type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.}
 
 \item{info}{[\code{set_RLum}] \code{\link{list}}: info elements}
 
-\item{info.object}{[\code{get_RLum}] object of class "list" containing further meta information objects}
+\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): the name of the info
+object to be called}
+}
+\value{
+\bold{\code{[set_RLum]}}\cr
+
+An object from the class \code{RLum.Data.Spectrum}
+
+\bold{\code{get_RLum}}\cr
+
+(1) A \code{\link{matrix}} with the spectrum values or \cr
+(2) only the info object if \code{info.object} was set.\cr
+
+\bold{\code{names_RLum}}\cr
+
+The names of the info objects
 }
 \description{
-Class for luminescence spectra data (TL/OSL/RF).
+Class for representing luminescence spectra data (TL/OSL/RF).
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of RLum.Data.Spectrum object
+\item \code{show}: Show structure of \code{RLum.Data.Spectrum} object
 
 \item \code{set_RLum}: Construction method for RLum.Data.Spectrum object. The slot info is optional
 and predefined as empty list by default
@@ -55,18 +73,20 @@ is provided, the raw curve data (matrix) will be returned
 \section{Slots}{
 
 \describe{
-\item{\code{recordType}}{Object of class "character" containing the type of the curve (e.g. "TL" or "OSL")}
+\item{\code{recordType}}{Object of class \code{\link{character}} containing the type of the curve (e.g. "TL" or "OSL")}
 
-\item{\code{curveType}}{Object of class "character" containing curve type, allowed values are measured or predefined}
+\item{\code{curveType}}{Object of class \code{\link{character}} containing curve type, allowed values
+are measured or predefined}
 
-\item{\code{data}}{Object of class "matrix" containing spectrum (count) values. Row labels indicate wavelength/pixel values,
-column labels are temperature or time values.}
+\item{\code{data}}{Object of class \code{\link{matrix}} containing spectrum (count) values.
+Row labels indicate wavelength/pixel values, column labels are temperature or time values.}
 
-\item{\code{info}}{Object of class "list" containing further meta information objects}
+\item{\code{info}}{Object of class \code{\link{list}} containing further meta information objects}
 }}
 \note{
 The class should only contain data for a single spectra data set. For
-additional elements the slot \code{info} can be used.
+additional elements the slot \code{info} can be used. Objects from this class are automatically
+created by, e.g., \code{\link{read_XSYG2R}}
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
@@ -74,7 +94,7 @@ additional elements the slot \code{info} can be used.
 }
 
 \section{Class version}{
- 0.2.2
+ 0.3.0
 }
 \examples{
 

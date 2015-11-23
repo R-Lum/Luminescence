@@ -13,7 +13,8 @@
 \usage{
 \S4method{show}{RLum.Analysis}(object)
 
-\S4method{set_RLum}{RLum.Analysis}(class, originator, records, protocol)
+\S4method{set_RLum}{RLum.Analysis}(class, originator,
+  protocol = NA_character_, records = list())
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
   RLum.type, protocol = "UNKNOWN", subset, get.index, drop = TRUE,
@@ -26,32 +27,38 @@
 \S4method{names_RLum}{RLum.Analysis}(object)
 }
 \arguments{
-\item{object}{[\code{structure_RLum}] an object of class \code{\linkS4class{RLum.Analysis}} (\bold{required})}
+\item{object}{\code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]}\code{[length_RLum]}
+\code{[structure_RLum]}] an object of class \code{\linkS4class{RLum.Analysis}}
+(\bold{required})}
 
 \item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to be created}
 
-\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
-(the function that produces this object); can be set manually.}
-
-\item{records}{[\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects}
+\item{originator}{[\code{set_RLum}] \code{\link{character}} (automatic): contains the name
+of the calling function (the function that produces this object); can be set manually.}
 
 \item{protocol}{[\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
-analysis object. Value may be used by subsequent analysis functions. \code{UNKNOWN}
-by default.}
+analysis object. Value may be used by subsequent analysis functions.}
+
+\item{records}{[\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
+
+\bold{\code{set_RLum}}:\cr
+
+Returns an \code{\linkS4class{RLum.Analysis}} object.}
 
 \item{record.id}{[\code{get_RLum}] \code{\link{numeric}} (optional): IDs of specific records}
 
 \item{recordType}{[\code{get_RLum}] \code{\link{character}} (optional): record type (e.g. "OSL")}
 
-\item{curveType}{[\code{get_RLum}] \code{\link{character}} (optional): curve type (e.g. "predefined" or "measured")}
+\item{curveType}{[\code{get_RLum}] \code{\link{character}} (optional): curve
+type (e.g. "predefined" or "measured")}
 
-\item{RLum.type}{[\code{get_RLum}] \code{\link{character}} (optional): RLum object type. Defaults to "RLum.Data.Curve"
-and "RLum.Data.Spectrum".}
+\item{RLum.type}{[\code{get_RLum}] \code{\link{character}} (optional): RLum object type.
+Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".}
 
 \item{subset}{[\code{get_RLum}] \code{\link{list}}: currently not used.}
 
-\item{get.index}{[\code{get_RLum}] \code{\link{logical}} (optional): return a numeric vector with the index of each
-element in the RLum.Analysis object.}
+\item{get.index}{[\code{get_RLum}] \code{\link{logical}} (optional): return a numeric
+vector with the index of each element in the RLum.Analysis object.}
 
 \item{drop}{[\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
 (which are \code{RLum.Data}-objects), \code{drop = FALSE} keeps the original \code{RLum.Analysis}}
@@ -62,31 +69,34 @@ only the object itself and no list containing exactly one object is returned. Mo
 easier, however, if this method is used within a loop this might undesired.}
 }
 \value{
-\bold{\code{set_RLum}}:\cr
-
-Returns an \code{\linkS4class{RLum.Analysis}} object.
-
 \bold{\code{get_RLum}}:\cr
 
 Returns: \cr
 (1) \code{\link{list}} of \code{\linkS4class{RLum.Data}} objects or \cr
-(2) Single \code{\linkS4class{RLum.Data}} object, if only one object is contained and \code{recursive = FALSE} or\cr
+(2) Single \code{\linkS4class{RLum.Data}} object, if only one object is contained and
+\code{recursive = FALSE} or\cr
 (3) \code{\linkS4class{RLum.Analysis}} ojects for \code{drop = FALSE} \cr
-
-\bold{\code{merge_RLum}}:\cr
-
-Returns an \code{\linkS4class{RLum.Analysis}} object.
 
 \bold{\code{structure_RLum}}:\cr
 
 Returns \code{\linkS4class{data.frame}} showing the structure.
+
+\bold{\code{length_RLum}}\cr
+
+Returns the number records in this object.
+
+\bold{\code{names_RLum}}\cr
+
+Returns the names of the record types (recordType) in this object.
 }
 \description{
-Object class containing analysis data for protocol analysis.
+Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc.
+from one measurements. Objects from this class are produced, by e.g. \code{\link{read_XSYG2R}},
+\code{\link{read_Daybreak2R}}
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of RLum and Risoe.BINfile class objects
+\item \code{show}: Show structure of \code{RLum.Analysis} object
 
 \item \code{set_RLum}: Construction method for \code{\linkS4class{RLum.Analysis}} objects.
 
@@ -110,13 +120,13 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \section{Slots}{
 
 \describe{
-\item{\code{records}}{Object of class "list" containing objects of class RLum.Data}
+\item{\code{protocol}}{Object of class \code{\link{character}} describing the applied measurement protocol}
 
-\item{\code{protocol}}{Object of class "character" describing the applied measurement protocol}
+\item{\code{records}}{Object of class \code{\link{list}} containing objects of class \code{\linkS4class{RLum.Data}}}
 }}
 \note{
-The method \code{get_structure} is currently just
-avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
+The method \code{\link{structure_RLum}} is currently just avaiblable for objects
+containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
@@ -124,14 +134,24 @@ avaiblable for objects containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 
 \section{Class version}{
- 0.2.1
+ 0.3.0
 }
 \examples{
 
 showClass("RLum.Analysis")
 
-## usage of get_RLum() with returning an RLum.Analysis object
-#  get_RLum(object, drop = TRUE)
+##set empty object
+set_RLum(class = "RLum.Analysis")
+
+###use example data
+##load data
+data(ExampleData.RLum.Analysis, envir = environment())
+
+##show curves in object
+get_RLum(IRSAR.RF.Data)
+
+##show only the first object, but by keeping the object
+get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 
 }
 \author{

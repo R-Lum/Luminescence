@@ -480,16 +480,20 @@
       \code{.analyse_IRSARRF_SRS)},
       \item Package 'rgl' is no longer requested, but suggested. This frees most of the users from
       installing this package as it just be used by one specific plot type for \code{RLum.Data.Spectrum} objects.
-      \item Remove dependency to package 'assertive'
+      \item Remove dependency to package 'assertive',
+      \item The slot 'originator' in \code{RLum.Results} is no longer explicit, but inherited from
+      the class \code{RLum},
       \item Added methods for S3 generics \code{`$`, `[<-`, `[[<-`, print, as.data.frame}
-      for objects of class \code{DRAC.list}
+      for objects of class \code{DRAC.list},
       \item Added methods for S3 generics \code{print} for objects of class \code{DRAC.highlights}
       \item Roxygen2: replaced \code{@exportPattern ^[[:alpha:]]+} with with explicit \code{@export}
       statements to allow better NAMESPACE housekeeping,
       \item Roxygen2: The documentation for ExampleData.DeValues was not produced automatically. Corrected.
       \item \code{merge_RLum.Results} now became an explicit function, instead of a S4-method for the sake
       of consistency.
-      \item Add methods for S3 generics for RLum-objects:
+      \item Add the following methods for S3 generics for RLum-objects. Please note that so far all
+      these generics are not properely documented within the package as the implementation is not
+      finished yet.
       \itemize{
 
         \item \code{`[`} : \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image}, \code{RLum.Analysis}, \code{RLum.Results}

@@ -11,37 +11,55 @@
 \usage{
 \S4method{show}{RLum.Data.Image}(object)
 
-\S4method{set_RLum}{RLum.Data.Image}(class, originator, recordType, curveType,
-  data, info)
+\S4method{set_RLum}{RLum.Data.Image}(class, originator, recordType = "Image",
+  curveType = NA_character_, data = raster::brick(raster::raster(matrix())),
+  info = list())
 
 \S4method{get_RLum}{RLum.Data.Image}(object, info.object)
 
 \S4method{names_RLum}{RLum.Data.Image}(object)
 }
 \arguments{
-\item{object}{an object of class \code{\linkS4class{RLum.Data.Image}}}
+\item{object}{\code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]} an object
+of class \code{\linkS4class{RLum.Data.Image}}}
 
-\item{class}{\code{\link{character}}: name of the \code{RLum} class to create}
+\item{class}{\code{[set_RLum]}\code{\link{character}}: name of the \code{RLum} class to create}
 
-\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
-(the function that produces this object); can be set manually.}
+\item{originator}{\code{[set_RLum]} \code{\link{character}} (automatic):
+contains the name of the calling function (the function that produces this object); can be set manually.}
 
-\item{recordType}{\code{\link{character}}: record type (e.g. "OSL")}
+\item{recordType}{\code{[set_RLum]} \code{\link{character}}: record type (e.g. "OSL")}
 
-\item{curveType}{\code{\link{character}}: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{\code{[set_RLum]} \code{\link{character}}: curve type (e.g. "predefined" or "measured")}
 
-\item{data}{\code{\link{matrix}}: raw curve data}
+\item{data}{\code{[set_RLum]} \code{\link{matrix}}: raw curve data. If data is of type \code{RLum.Data.Image}
+this can be used to re-construct the object.}
 
-\item{info}{\code{\link{list}}: info elements}
+\item{info}{\code{[set_RLum]} \code{\link{list}}: info elements}
 
-\item{info.object}{object of class "list" containing further meta information objects}
+\item{info.object}{\code{[get_RLum]} \code{\link{character}} name of the info object to returned}
+}
+\value{
+\bold{\code{set_RLum}}\cr
+
+Returns an object from class \code{RLum.Data.Image}
+
+\bold{\code{get_RLum}}\cr
+
+(1) Returns the data object (\code{\link[raster]{brick}})\cr
+(2) only the info object if \code{info.object} was set.\cr
+
+\bold{\code{names_RLum}}\cr
+
+Returns the names of the info elements
 }
 \description{
-Class for luminescence image data (TL/OSL/RF).
+Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced
+by the function \code{\link{read_SPE2R}}
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of RLum and Risoe.BINfile class objects
+\item \code{show}: Show structure of \code{RLum.Data.Image} object
 
 \item \code{set_RLum}: Construction method for RLum.Data.Image object. The slot info is optional
 and predefined as empty list by default..
@@ -55,13 +73,15 @@ provided, the raw image data (RasterBrick) will be returned.
 \section{Slots}{
 
 \describe{
-\item{\code{recordType}}{Object of class "character" containing the type of the curve (e.g. "OSL image", "TL image")}
+\item{\code{recordType}}{Object of class \code{\link{character}}
+containing the type of the curve (e.g. "OSL image", "TL image")}
 
-\item{\code{curveType}}{Object of class "character" containing curve type, allowed values are measured or predefined}
+\item{\code{curveType}}{Object of class \code{\link{character}} containing curve type, allowed values
+are measured or predefined}
 
-\item{\code{data}}{Object of class "RasterBrick" containing images (raster data).}
+\item{\code{data}}{Object of class \code{\link[raster]{brick}} containing images (raster data).}
 
-\item{\code{info}}{Object of class "list" containing further meta information objects}
+\item{\code{info}}{Object of class \code{\link{list}} containing further meta information objects}
 }}
 \note{
 The class should only contain data for a set of images. For additional
@@ -73,13 +93,14 @@ elements the slot \code{info} can be used.
 }
 
 \section{Class version}{
- 0.2.1
+ 0.3.0
 }
 \examples{
 
 showClass("RLum.Data.Image")
 
-##so far no further example available
+##create empty RLum.Data.Image object
+set_RLum(class = "RLum.Data.Image")
 
 }
 \author{
@@ -87,7 +108,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}
+\code{\link{plot_RLum}}, \code{\link{read_SPE2R}}
 }
 \keyword{classes}
 

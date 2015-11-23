@@ -3,7 +3,7 @@ NULL
 
 #' Class \code{"RLum.Data.Curve"}
 #'
-#' Class for luminescence curve data.
+#' Class for representing luminescence curve data.
 #'
 #' @name RLum.Data.Curve-class
 #'
@@ -15,7 +15,8 @@ NULL
 #'
 #' @slot data Object of class \code{\link{matrix}} containing curve x and y data.
 #' 'data' can also be of type \code{RLum.Data.Curve} to change object values without deconstructing the object.
-#' For example: #' \code{set_RLum(class = 'RLum.Data.Curve', data = Your.RLum.Data.Curve, recordType = 'never seen before')}
+#' For example: \code{set_RLum(class = 'RLum.Data.Curve',
+#' data = Your.RLum.Data.Curve, recordType = 'never seen before')}
 #' would just change the recordType. Missing arguements  the value is taken from the input object
 #' in 'data' (which is already an RLum.Data.Curve object in this example)
 #'
@@ -24,23 +25,15 @@ NULL
 #'
 #' @note The class should only contain data for a single curve. For additional
 #' elements the slot \code{info} can be used (e.g. providing additional heating
-#' ramp curve).
+#' ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
+#' functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
+#' namely: \code{\link{Risoe.BINfileData2RLum.Data.Curve}},
+#' \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
 #'
 #' @section Create objects from this Class: Objects can be created by calls of the form
 #' \code{set_RLum(class = "RLum.Data.Curve", ...)}.
 #'
-#' @section Class version: 0.2.1
-#'
-#' @return
-#'
-#' \bold{\code{set_RLum}}\cr
-#'
-#' Returns an \code{\linkS4class{RLum.Data.Curve}} object.
-#'
-#' \bold{\code{get_RLum}}\cr
-#'
-#' (1) A \code{\link{matrix}} with the curve values or \cr
-#' (2) only the info object if \code{info.object} was set.\cr
+#' @section Class version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -66,9 +59,9 @@ setClass("RLum.Data.Curve",
            ),
          contains = "RLum.Data",
          prototype = list (
-           recordType = character(),
-           curveType = character(),
-           data = matrix(0,0,2),
+           recordType = NA_character_,
+           curveType = NA_character_,
+           data = matrix(data = 0, ncol = 2),
            info = list()
            )
          )
@@ -109,7 +102,7 @@ setAs("list", "RLum.Data.Curve",
 
         new(to,
             recordType = "unkown curve type",
-            curveType = "NA",
+            curveType = NA_character_,
             data = matrix(unlist(from), ncol = 2),
             info = list())
       })
@@ -129,7 +122,7 @@ setAs("data.frame", "RLum.Data.Curve",
 
               new(to,
                   recordType = "unkown curve type",
-                  curveType = "NA",
+                  curveType = NA_character_,
                   data = as.matrix(from),
                   info = list())
             })
@@ -150,7 +143,7 @@ setAs("matrix", "RLum.Data.Curve",
 
         new(to,
             recordType = "unkown curve type",
-            curveType = "NA",
+            curveType = NA_character_,
             data = from,
             info = list())
 
@@ -168,7 +161,7 @@ setAs("RLum.Data.Curve", "matrix",
 ###show()
 ####################################################################################################
 #' @describeIn RLum.Data.Curve
-#' Show structure of RLum and Risoe.BINfile class objects
+#' Show structure of \code{RLum.Data.Curve} object
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Curve"),
@@ -199,12 +192,20 @@ setMethod("show",
 #' and predefined as empty list by default.
 #'
 #' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create
-#' @param originator \code{\link{character}} (automatic): contains the name of the calling function
+#' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
 #' @param recordType [\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")
 #' @param curveType [\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")
-#' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data
+#' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
+#' If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
+#' (s. Details)
 #' @param info [\code{set_RLum}] \code{\link{list}} (optional): info elements
+#'
+#' @return
+#'
+#' \bold{\code{set_RLum}}\cr
+#'
+#' Returns an \code{\linkS4class{RLum.Data.Curve}} object.
 #'
 #' @export
 setMethod(
@@ -213,11 +214,12 @@ setMethod(
 
   definition = function(class,
                         originator,
-                        recordType = character(),
-                        curveType = character(),
-                        data = matrix(0,0,2),
+                        recordType = NA_character_,
+                        curveType = NA_character_,
+                        data = matrix(0, ncol = 2),
                         info = list()) {
 
+    ##The case where an RLum.Data.Curve object can be provided
     ##with this RLum.Data.Curve objects can be provided to be reconstructed
     if (is(data, "RLum.Data.Curve")) {
 
@@ -250,21 +252,8 @@ setMethod(
       )
 
     }else{
-      ##check for missing curveType
-      if (missing(curveType)) {
-        curveType <- "NA"
-
-      }
-
-      ##check for missing recordType
-      if (missing(recordType)) {
-        recordType <- "NA"
-
-      }
-
-
       new(
-        "RLum.Data.Curve",
+        Class = "RLum.Data.Curve",
         originator = originator,
         recordType = recordType,
         curveType = curveType,
@@ -285,9 +274,17 @@ setMethod(
 #' optional to directly access the info elements. If no info element name is
 #' provided, the raw curve data (matrix) will be returned.
 #'
-#' @param object [\code{get_RLum}] an object of class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})
+#' @param object [\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
+#' class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})
 #' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 #' element
+#'
+#' @return
+#'
+#' \bold{\code{get_RLum}}\cr
+#'
+#' (1) A \code{\link{matrix}} with the curve values or \cr
+#' (2) only the info object if \code{info.object} was set.\cr
 #'
 #' @export
 setMethod("get_RLum",
@@ -339,6 +336,11 @@ setMethod("get_RLum",
 #' Returns the length of the curve object, which is the maximum of the
 #' value time/temperature of the curve (corresponding to the stimulation length)
 #'
+#' @return
+#' \bold{\code{length_RLum}}\cr
+#'
+#' Number of channels in the curve (row number of the matrix)
+#'
 #' @export
 setMethod("length_RLum",
           "RLum.Data.Curve",
@@ -352,6 +354,12 @@ setMethod("length_RLum",
 ####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Returns the names info elements coming along with this curve object
+#'
+#' @return
+#'
+#' \bold{\code{names_RLum}}\cr
+#'
+#' Names of the info elements (slot \code{info})
 #'
 #' @export
 setMethod("names_RLum",

@@ -13,8 +13,8 @@
 \S4method{show}{RLum.Data.Curve}(object)
 
 \S4method{set_RLum}{RLum.Data.Curve}(class, originator,
-  recordType = character(), curveType = character(), data = matrix(0, 0,
-  2), info = list())
+  recordType = NA_character_, curveType = NA_character_, data = matrix(0,
+  ncol = 2), info = list())
 
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object)
 
@@ -23,18 +23,21 @@
 \S4method{names_RLum}{RLum.Data.Curve}(object)
 }
 \arguments{
-\item{object}{[\code{get_RLum}] an object of class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
+\item{object}{[\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
+class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
 
 \item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create}
 
-\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
+\item{originator}{[\code{set_RLum}] \code{\link{character}} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
 
 \item{recordType}{[\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")}
 
 \item{curveType}{[\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")}
 
-\item{data}{[\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data}
+\item{data}{[\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
+If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
+(s. Details)}
 
 \item{info}{[\code{set_RLum}] \code{\link{list}} (optional): info elements}
 
@@ -50,13 +53,21 @@ Returns an \code{\linkS4class{RLum.Data.Curve}} object.
 
 (1) A \code{\link{matrix}} with the curve values or \cr
 (2) only the info object if \code{info.object} was set.\cr
+
+\bold{\code{length_RLum}}\cr
+
+Number of channels in the curve (row number of the matrix)
+
+\bold{\code{names_RLum}}\cr
+
+Names of the info elements (slot \code{info})
 }
 \description{
-Class for luminescence curve data.
+Class for representing luminescence curve data.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{show}: Show structure of RLum and Risoe.BINfile class objects
+\item \code{show}: Show structure of \code{RLum.Data.Curve} object
 
 \item \code{set_RLum}: Construction method for RLum.Data.Curve object. The slot info is optional
 and predefined as empty list by default.
@@ -79,7 +90,8 @@ value time/temperature of the curve (corresponding to the stimulation length)
 
 \item{\code{data}}{Object of class \code{\link{matrix}} containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without deconstructing the object.
-For example: #' \code{set_RLum(class = 'RLum.Data.Curve', data = Your.RLum.Data.Curve, recordType = 'never seen before')}
+For example: \code{set_RLum(class = 'RLum.Data.Curve',
+data = Your.RLum.Data.Curve, recordType = 'never seen before')}
 would just change the recordType. Missing arguements  the value is taken from the input object
 in 'data' (which is already an RLum.Data.Curve object in this example)}
 
@@ -88,7 +100,10 @@ in 'data' (which is already an RLum.Data.Curve object in this example)}
 \note{
 The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
-ramp curve).
+ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
+functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
+namely: \code{\link{Risoe.BINfileData2RLum.Data.Curve}},
+\code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
 }
 \section{Create objects from this Class}{
  Objects can be created by calls of the form
@@ -96,7 +111,7 @@ ramp curve).
 }
 
 \section{Class version}{
- 0.2.1
+ 0.3.0
 }
 \examples{
 

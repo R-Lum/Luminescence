@@ -539,10 +539,13 @@ Changes in version 0.5.0 (4th, December, 2015):
            just be used by one specific plot type for
            ‘RLum.Data.Spectrum’ objects.
 
-         • Remove dependency to package 'assertive'
+         • Remove dependency to package 'assertive',
+
+         • The slot 'originator' in ‘RLum.Results’ is no longer
+           explicit, but inherited from the class ‘RLum’,
 
          • Added methods for S3 generics ‘`$`, `[<-`, `[[<-`, print,
-           as.data.frame’ for objects of class ‘DRAC.list’
+           as.data.frame’ for objects of class ‘DRAC.list’,
 
          • Added methods for S3 generics ‘print’ for objects of class
            ‘DRAC.highlights’
@@ -557,7 +560,10 @@ Changes in version 0.5.0 (4th, December, 2015):
          • ‘merge_RLum.Results’ now became an explicit function,
            instead of a S4-method for the sake of consistency.
 
-         • Add methods for S3 generics for RLum-objects:
+         • Add the following methods for S3 generics for RLum-objects.
+           Please note that so far all these generics are not properely
+           documented within the package as the implementation is not
+           finished yet.
 
              • ‘`[`’ : ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’,
                ‘RLum.Data.Image’, ‘RLum.Analysis’, ‘RLum.Results’

@@ -50,6 +50,11 @@
 #' \code{\linkS4class{RLum.Data.Curve}} object in the input list. The slot
 #' 'curveType' is filled with the name \code{merged}.
 #'
+#' @section S3-generic support:
+#'
+#' This function fully operational via S3-generics:
+#' \code{`+`}, \code{`-`}, \code{`/`}, \code{`*`}, \code{merge}
+#'
 #' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
