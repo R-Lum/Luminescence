@@ -256,7 +256,8 @@
        \itemize{
 
         \item Weighted median is now completly removed from the calculation, values is replaced
-        by the unweighted median.
+        by the unweighted median,
+        \item parameter \code{digits} added to allow rounding to the number of specified digits.
 
 
       }

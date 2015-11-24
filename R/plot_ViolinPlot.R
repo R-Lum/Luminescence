@@ -10,6 +10,10 @@
 #' \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}: Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
 #' \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 #'
+#' \bold{\code{Valid summary keywords}}\cr
+#'
+#' 'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis' \cr
+#'
 #' @param data \code{\link{numeric}} or \code{\linkS4class{RLum.Results}}
 #' object (required): input data for plotting. Alternatively a \code{\link{data.frame}} or
 #' a \code{\link{matrix}} can be provided, but only the first column will be considered by the
@@ -57,7 +61,8 @@
 #'
 #' Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 #'
-#' @seealso \code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}}
+#' @seealso \code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}},
+#' \code{\link{calc_Statistics}}
 #'
 #' @examples
 #' ## read example data set
@@ -128,6 +133,12 @@ plot_ViolinPlot <- function(
     if(is.null(summary)){
       summary <- c("n","median")
 
+    }
+
+    ##at least show a warning for invalid keywords
+    if(!all(summary %in% names(stat.summary))){
+      warning(paste0("[plot_ViolinePlot()] At least one 'summary' keyword is invalid. Valid keywords are: ",
+                     paste(names(stat.summary), collapse = ", ")), call. = FALSE)
     }
 
     ##make sure that only valid keywords make it

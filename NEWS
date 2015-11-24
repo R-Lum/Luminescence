@@ -283,7 +283,10 @@ Changes in version 0.5.0 (4th, December, 2015):
 
              • Weighted median is now completly removed from the
                calculation, values is replaced by the unweighted
-               median.
+               median,
+
+             • parameter ‘digits’ added to allow rounding to the number
+               of specified digits.
 
          • ‘fit_LMCurve()’
 

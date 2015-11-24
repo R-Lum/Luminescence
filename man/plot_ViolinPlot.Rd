@@ -45,6 +45,10 @@ The general idea for the Violin Plot seems to be introduced by Hintze and Nelson
 The function is passing several arguments to the function \code{\link{plot}},
 \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}: Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
 \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
+
+\bold{\code{Valid summary keywords}}\cr
+
+'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis' \cr
 }
 \note{
 Although the code for this function was developed independently and just the idea for the plot
@@ -53,7 +57,7 @@ two other R packages exist providing a possibility to produces this kind of plot
 'vioplot' and 'violinmplot' (see References for details).
 }
 \section{Function version}{
- 0.1.0 (2015-11-24 11:24:14)
+ 0.1.0 (2015-11-24 19:44:53)
 }
 \examples{
 ## read example data set
@@ -79,6 +83,7 @@ R package version 0.2.1. http://CRAN.R-project.org/package=violinmplot
 Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 }
 \seealso{
-\code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}}
+\code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}},
+\code{\link{calc_Statistics}}
 }
 
