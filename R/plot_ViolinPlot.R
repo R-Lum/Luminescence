@@ -127,7 +127,7 @@ plot_ViolinPlot <- function(
             bw = ifelse("bw" %in% names(list(...)),list(...)$bw,"nrd0"))
 
   ##some statistical parameter, get rid of the weighted statistics
-  stat.summary <- suppressWarnings(calc_Statistics(as.data.frame(data)))[[-1]]
+  stat.summary <- suppressWarnings(calc_Statistics(as.data.frame(data), digits = 2))[[-1]]
 
     ##make valid summary string
     if(is.null(summary)){
