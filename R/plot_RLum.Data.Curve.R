@@ -23,7 +23,7 @@
 #'
 #' @note Not all arguments of \code{\link{plot}} will be passed!
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -72,6 +72,8 @@ plot_RLum.Data.Curve<- function(
     lab.unit <- if (object@recordType == "OSL" |
                     object@recordType == "IRSL" |
                     object@recordType == "RL" |
+                    object@recordType == "RF" |
+                    object@recordType == "LM-OSL" |
                     object@recordType == "RBR") {
       "s"
     }
@@ -85,8 +87,9 @@ plot_RLum.Data.Curve<- function(
     lab.xlab <- if (object@recordType == "OSL" |
                     object@recordType == "IRSL" |
                     object@recordType == "RL" |
+                    object@recordType == "RF" |
                     object@recordType == "RBR") {
-      "Time"
+      "Stimulation time"
     }
     else if (object@recordType == "TL") {
       "Temperature"
@@ -284,7 +287,7 @@ plot_RLum.Data.Curve<- function(
 
   }else{
 
-    warning("Curve contains NA-values, nothing plotted.")
+    warning("[plot_RLum.Data.Curve()] Curve contains NA-values, nothing plotted.")
 
   }
 
