@@ -19,7 +19,7 @@ Returns a \code{\link{list}} of the object to be repeated
 Function replicates RLum S4 class objects and returns a list for this objects
 }
 \section{Function version}{
- 0.1.0 (2015-11-15 23:27:50)
+ 0.1.0 (2015-11-24 11:24:14)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

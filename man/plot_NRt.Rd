@@ -51,7 +51,7 @@ the counts of each curve.
 \examples{
 
 ## load example data
-data("ExampleData.BINfileData")
+data("ExampleData.BINfileData", envir = environment())
 
 ## EXAMPLE 1
 

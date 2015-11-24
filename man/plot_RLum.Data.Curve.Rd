@@ -35,7 +35,7 @@ according to \code{\link{plot}}.
 Not all arguments of \code{\link{plot}} will be passed!
 }
 \section{Function version}{
- 0.1.5 (2015-09-22 09:41:30)
+ 0.1.5 (2015-11-24 11:24:14)
 }
 \examples{
 

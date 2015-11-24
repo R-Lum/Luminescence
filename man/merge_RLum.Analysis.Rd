@@ -37,7 +37,7 @@ least one object of type \code{\linkS4class{RLum.Analysis}} has to be
 provided.
 }
 \section{Function version}{
- 0.1 (2015-09-22 09:41:30)
+ 0.1 (2015-11-24 11:24:14)
 }
 \examples{
 
