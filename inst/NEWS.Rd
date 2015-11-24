@@ -160,6 +160,7 @@
         by the argument \code{RF_nat.lim} and within the curve limits the bounds have not been reached,
         \item fix a bug that forces the function to crash if a limited atural curve reached the end
         of the regenerated curve after sliding and remains longer (#254),
+        \item if no IRSL curve is detected it is now stated so as plot,
         \item some graphical adjustments.
 
 

@@ -1548,9 +1548,16 @@ object!")
 
     if (plot == TRUE && 8 %in% plot.single.sel) {
       ##graphical represenation of IR-curve
-      temp.IRSL <-
-        suppressWarnings(get_RLum(object, recordType = "IRSL"))
-      try(plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE), silent = TRUE)
+      temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
+
+      if(length(temp.IRSL) != 0){
+        plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
+
+      }else{
+        plot(1, type="n", axes=F, xlab="", ylab="")
+        text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
+
+      }
 
     }
 

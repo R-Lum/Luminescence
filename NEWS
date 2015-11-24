@@ -179,6 +179,9 @@ Changes in version 0.5.0 (4th, December, 2015):
                atural curve reached the end of the regenerated curve
                after sliding and remains longer (#254),
 
+             • if no IRSL curve is detected it is now stated so as
+               plot,
+
              • some graphical adjustments.
 
          • ‘analyse_pIRIRSequence()’
