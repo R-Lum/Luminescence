@@ -57,6 +57,11 @@
 #' @note \code{methods_RLum} are not really new functions, everything given here are mostly just
 #' surrogates for existing functions in the package.
 #'
+#' @examples
+#'
+#' ##load example data
+#' data(ExampleData.RLum.Analysis, envir = environment())
+#'
 #' @name methods_RLum
 NULL
 
@@ -253,6 +258,17 @@ merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y))
 # methods for generic: `+`
 ####################################################################################################
 #' @rdname methods_RLum
+#'
+#' @examples
+#'
+#' ##combine curve is various ways
+#' curve1 <- IRSAR.RF.Data[[1]]
+#' curve2 <-  IRSAR.RF.Data[[1]]
+#' curve1 + curve2
+#' curve1 - curve2
+#' curve1 / curve2
+#' curve1 * curve2
+#'
 #' @export
 `+.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "sum")
 
@@ -332,6 +348,12 @@ merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y))
 # methods for generic: `$`
 ####################################################################################################
 #' @rdname methods_RLum
+#'
+#' @examples
+#'
+#' ##`$` access curves
+#' IRSAR.RF.Data$RF
+#'
 #' @export
 `$.RLum.Analysis` <- function(x, i) {get_RLum(x, recordType = i)}
 

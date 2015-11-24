@@ -191,4 +191,23 @@ of the R package 'Luminescence'. For examples see the example section.
 \code{methods_RLum} are not really new functions, everything given here are mostly just
 surrogates for existing functions in the package.
 }
+\examples{
+
+##load example data
+data(ExampleData.RLum.Analysis, envir = environment())
+
+
+##combine curve is various ways
+curve1 <- IRSAR.RF.Data[[1]]
+curve2 <-  IRSAR.RF.Data[[1]]
+curve1 + curve2
+curve1 - curve2
+curve1 / curve2
+curve1 * curve2
+
+
+##`$` access curves
+IRSAR.RF.Data$RF
+
+}
 
