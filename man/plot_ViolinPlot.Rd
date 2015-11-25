@@ -57,7 +57,7 @@ two other R packages exist providing a possibility to produces this kind of plot
 'vioplot' and 'violinmplot' (see References for details).
 }
 \section{Function version}{
- 0.1.0 (2015-11-24 22:21:03)
+ 0.1.0 (2015-11-25 11:36:46)
 }
 \examples{
 ## read example data set
