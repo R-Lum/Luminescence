@@ -135,7 +135,9 @@ use_DRAC <- function(
   } else {
     stop("The provided data object is not a valid DRAC template.", call. = FALSE)
   }
-
+  
+  if (nrow(input.raw) > 50)
+    stop("DRAC can only handle 50 data sets at once. Please reduce the number of rows and re-run this function again.", call. = FALSE)
 
   # Settings ------------------------------------------------------------------------------------
   settings <- list(name = ifelse(missing(name),
@@ -143,13 +145,10 @@ use_DRAC <- function(
                                               runif(1, 2, 4)), collapse = ""),
                                  name),
                    verbose = TRUE,
-                   url = "http://zerk.canopus.uberspace.de/drac/?show=calculator")
-
+                   url = "https://www.aber.ac.uk/en/iges/research-groups/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
+  
   # override defaults with args in ...
   settings <- modifyList(settings, list(...))
-
-  # "https://www.aber.ac.uk/en/iges/research-groups/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
-
 
   # Set helper function -------------------------------------------------------------------------
   ## The real data are transferred without any encryption, so we have to mask the original
@@ -185,7 +184,6 @@ use_DRAC <- function(
     }
 
   })
-
 
   ##(3) bin values
   DRAC_submission.df <- rbind(input.raw,mask.df[[1]])
