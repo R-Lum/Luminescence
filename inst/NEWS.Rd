@@ -121,7 +121,7 @@
       \item \code{plot_NRt()} Creates a Natural/Regenerated signal vs. time (NR(t)) plot as shown in
       Steffen et al. 2009 (#234),
        \item \code{read_Daybreak2R()} Imports ASCII data produced by a Daybreak TL/OSL reader,
-       \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC) (#219), 
+       \item \code{use_DRAC()} Provides an R interface to the 'Dose Rate Calculator' (DRAC) (#219),
        \item \code{template_DRAC()} Creates a DRAC input template (v1.1) to be used for \code{use_DRAC()},
        \item \code{plot_ViolinPlot()} Creates a combination of a kernel density plot with a boxplot.
        This plot was especially written for visualisation of data where standard errors are zero or
@@ -137,7 +137,7 @@
       \itemize{
 
         \item Argument \code{log} removed, but option still supported via \code{...} (means
-        log can be used as usual but it is not listed as explict argument),
+        log can be used as usual but it is not listed as explicit argument),
         \item enhanced support for graphical parameters such as: \code{mtext}
 
 
@@ -172,7 +172,7 @@
 
         \item Now acts a little bit more relaxed if something goes wrong, function does not break,
         but returns \code{NULL} instead,
-        \item argument \code{dose.points} now preset with \code{NULL},
+        \item argument \code{dose.points} now pre-set with \code{NULL},
         \item function now supports a list of RLum-objects as input,
         \item add data.object \code{call} to the output,
         \item the plot device is no longer changed if \code{plot = FALSE}.
@@ -200,7 +200,7 @@
         no sense the functions tries to do the best without breaking,
         \item plot argumet \code{log = "x"} results in non-plotting of the Lx/Tx curves, fixed,
         \item support for independent Lx and Tx integral limites added,
-        \item argument \code{dose.points} preset with \code{NULL},
+        \item argument \code{dose.points} pre-set with \code{NULL},
         \item correct self call behaviour.
 
       }
@@ -234,7 +234,7 @@
 
         \item new arguments added \code{signal.integral.Tx} and \code{background.integral.Tx} to
         allow for independent signal and background integrals for the Lx and Tx curves (suggested
-        by Norbert Mercier). To avoid compatibily problems by default integrals are similar for
+        by Norbert Mercier). To avoid compatibly problems by default integrals are similar for
         Lx and Tx,
 
         \item new output data object \code{call} added.
@@ -340,7 +340,7 @@
         parameters are not set sufficiently,
         \item add argument \code{txtProgressBar} and \code{verbose} to provide more output options
         (this is helpful when writing tutorials),
-        \item new fit options added \code{QDR} (polynominal function) to account for superlinear
+        \item new fit options added \code{QDR} (polynomial function) to account for super-linear
         signal grow,
         \item improve fitting behaviour for modelled data, especially causing errors due to singular
         convergence failures,
@@ -379,7 +379,7 @@
         \item add argument \code{...} to let arguments pass to the function \code{Risoe.BINfileData2RLum.Analysis},
         this case the argument \code{fastForward} will forced to \code{TRUE},
         \item argument \code{file} now supports a \code{list} of file names or just a path, in this
-        case the funtions tries to detect and import all possible BIN/BINX files found in this path,
+        case the functions tries to detect and import all possible BIN/BINX files found in this path,
         \item in really seldom cases, if an old BIN-file (03) version was used, the 'LTYPE' become OSL, while
         the used 'LIGHTSOURCE' was "IR diodes/IR Laser". Sometimes this led to unexpected behaviour in the
         subsequent analysis functions. Now the import function checks imported BIN-files (only version 03) for

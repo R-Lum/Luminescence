@@ -143,7 +143,7 @@ Changes in version 0.5.0 (4th, December, 2015):
 
              • Argument ‘log’ removed, but option still supported via
                ‘...’ (means log can be used as usual but it is not
-               listed as explict argument),
+               listed as explicit argument),
 
              • enhanced support for graphical parameters such as:
                ‘mtext’
@@ -190,7 +190,7 @@ Changes in version 0.5.0 (4th, December, 2015):
                wrong, function does not break, but returns ‘NULL’
                instead,
 
-             • argument ‘dose.points’ now preset with ‘NULL’,
+             • argument ‘dose.points’ now pre-set with ‘NULL’,
 
              • function now supports a list of RLum-objects as input,
 
@@ -234,7 +234,7 @@ Changes in version 0.5.0 (4th, December, 2015):
              • support for independent Lx and Tx integral limites
                added,
 
-             • argument ‘dose.points’ preset with ‘NULL’,
+             • argument ‘dose.points’ pre-set with ‘NULL’,
 
              • correct self call behaviour.
 
@@ -264,7 +264,7 @@ Changes in version 0.5.0 (4th, December, 2015):
              • new arguments added ‘signal.integral.Tx’ and
                ‘background.integral.Tx’ to allow for independent signal
                and background integrals for the Lx and Tx curves
-               (suggested by Norbert Mercier). To avoid compatibily
+               (suggested by Norbert Mercier). To avoid compatibly
                problems by default integrals are similar for Lx and Tx,
 
              • new output data object ‘call’ added.
@@ -387,8 +387,8 @@ Changes in version 0.5.0 (4th, December, 2015):
                more output options (this is helpful when writing
                tutorials),
 
-             • new fit options added ‘QDR’ (polynominal function) to
-               account for superlinear signal grow,
+             • new fit options added ‘QDR’ (polynomial function) to
+               account for super-linear signal grow,
 
              • improve fitting behaviour for modelled data, especially
                causing errors due to singular convergence failures,
@@ -426,7 +426,7 @@ Changes in version 0.5.0 (4th, December, 2015):
                argument ‘fastForward’ will forced to ‘TRUE’,
 
              • argument ‘file’ now supports a ‘list’ of file names or
-               just a path, in this case the funtions tries to detect
+               just a path, in this case the functions tries to detect
                and import all possible BIN/BINX files found in this
                path,
 

@@ -15,8 +15,7 @@
 #' @note \bold{[BETA VERSION]} This function version still needs to be properly tested.
 #'
 #' @section Function version: 0.2.0
-#'
-#'
+#'#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)\cr Based on a suggestion by Willian Amidon and Andrew Louis Gorin.
 #'
@@ -25,7 +24,6 @@
 #' @references -
 #'
 #' @keywords IO
-#'
 #'
 #' @examples
 #'
@@ -40,7 +38,7 @@ read_Daybreak2R <- function(
   ##TODO
   ## - run tests
   ## - check where the warning messages are comming from
-  ## - implement further integretiy tests
+  ## - implement further integegrity tests
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
@@ -120,7 +118,7 @@ read_Daybreak2R <- function(
 
 
   ##PROGRESS BAR
-  if(txtProgressBar == TRUE){
+  if(txtProgressBar){
     pb <- txtProgressBar(min=0,max=length(data.list), char = "=", style=3)
   }
 

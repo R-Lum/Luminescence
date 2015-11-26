@@ -47,7 +47,8 @@ Returns an \code{\linkS4class{RLum.Analysis}} object.}
 
 \item{record.id}{[\code{get_RLum}] \code{\link{numeric}} (optional): IDs of specific records}
 
-\item{recordType}{[\code{get_RLum}] \code{\link{character}} (optional): record type (e.g. "OSL")}
+\item{recordType}{[\code{get_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL").
+Can be also a vector, for multiple matching, e.g., \code{recordType = c("OSL", "IRSL")}}
 
 \item{curveType}{[\code{get_RLum}] \code{\link{character}} (optional): curve
 type (e.g. "predefined" or "measured")}
