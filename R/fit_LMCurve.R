@@ -227,9 +227,11 @@ fit_LMCurve<- function(
 
   }else{
 
-    if(is(values, "RLum.Data.Curve") == TRUE && values@recordType!="RBR"){
+    if(is(values, "RLum.Data.Curve") == TRUE && (
+      values@recordType!="RBR" & values@recordType!="LM-OSL")){
 
-      stop("[fit_LMCurve()] recordType should be 'RBR'! Consider as(object,'data.frame') if you had used the pseudo transformation functions.")
+      stop("[fit_LMCurve()] recordType should be 'RBR' or 'LM-OSL'!
+           Consider as(object,'data.frame') if you had used the pseudo transformation functions.")
 
     }else if(is(values, "RLum.Data.Curve") == TRUE){
 
