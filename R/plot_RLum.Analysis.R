@@ -245,7 +245,7 @@ plot_RLum.Analysis <- function(
 
     ##check whether the user set the drop option ...
     subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
-    object <- do.call(get_RLum,c(object = object,subset = subset, drop = FALSE))
+    object <- do.call(get_RLum, c(object = object, subset, drop = FALSE))
 
   }
 

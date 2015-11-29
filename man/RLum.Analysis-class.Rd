@@ -17,7 +17,7 @@
   protocol = NA_character_, records = list())
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
-  RLum.type, protocol = "UNKNOWN", subset, get.index, drop = TRUE,
+  RLum.type, protocol = "UNKNOWN", get.index, drop = TRUE,
   recursive = TRUE)
 
 \S4method{structure_RLum}{RLum.Analysis}(object)
@@ -56,8 +56,6 @@ type (e.g. "predefined" or "measured")}
 
 \item{RLum.type}{[\code{get_RLum}] \code{\link{character}} (optional): RLum object type.
 Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".}
-
-\item{subset}{[\code{get_RLum}] \code{\link{list}}: currently not used.}
 
 \item{get.index}{[\code{get_RLum}] \code{\link{logical}} (optional): return a numeric
 vector with the index of each element in the RLum.Analysis object.}

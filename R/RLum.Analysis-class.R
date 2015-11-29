@@ -234,8 +234,6 @@ setMethod("set_RLum",
 #' @param RLum.type [\code{get_RLum}] \code{\link{character}} (optional): RLum object type.
 #' Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
 #'
-#' @param subset [\code{get_RLum}] \code{\link{list}}: currently not used.
-#'
 #' @param get.index [\code{get_RLum}] \code{\link{logical}} (optional): return a numeric
 #' vector with the index of each element in the RLum.Analysis object.
 #'
@@ -262,7 +260,7 @@ setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
           function(object, record.id, recordType, curveType, RLum.type,
-                   protocol = "UNKNOWN", subset, get.index, drop = TRUE, recursive = TRUE){
+                   protocol = "UNKNOWN", get.index, drop = TRUE, recursive = TRUE){
 
             ##record.id
             if (missing(record.id)) {
