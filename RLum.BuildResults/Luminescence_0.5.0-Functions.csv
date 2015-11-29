@@ -37,7 +37,7 @@
 ","<br /> Rachel Smedley, Geography & Earth Sciences, Aberystwyth University<br /> (United Kingdom)   Based on an excel spreadsheet and accompanying macro<br /> written by Kristina Thomsen.<br />  R Luminescence Package Team"
 "calc_MaxDose","Apply the maximum age model to a given De distribution","<br /> Function to fit the maximum age model to De data. This is a wrapper function<br /> that calls calc_MinDose() and applies a similiar approach as described in<br /> Olley et al. (2006).<br />","0.3","2015-11-24","11:24:14
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
-"calc_MinDose","Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)<br /> to a given De distribution","<br /> Function to fit the (un-)logged three or four parameter minimum dose model<br /> (MAM-3/4) to De data.<br />","0.4.1","2015-11-24","11:24:14
+"calc_MinDose","Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)<br /> to a given De distribution","<br /> Function to fit the (un-)logged three or four parameter minimum dose model<br /> (MAM-3/4) to De data.<br />","0.4.1","2015-11-29","17:07:12
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010   The bootstrap approach is<br /> based on a rewritten MATLAB script of Alastair Cunningham.   Alastair<br /> Cunningham is thanked for his help in implementing and cross-checking the<br /> code.<br />  R Luminescence Package Team"
 "calc_OSLLxTxRatio","Calculate Lx/Tx ratio for CW-OSL curves","<br /> Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.<br />","0.6.0","2015-11-24","11:24:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -109,7 +109,7 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> read_BIN2R  function.<br />","0.4.1","2015-11-24","11:24:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.9","2015-11-24","11:24:14
+"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.2.9","2015-11-29","16:25:23
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Curve","Plot function for an RLum.Data.Curve S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Data.Curve S4 class object<br />","0.1.6","2015-11-25","11:36:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -117,13 +117,13 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.2","2015-11-24","11:24:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.1","2015-11-24","11:24:14
+"plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.2","2015-11-29","17:15:28
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum.Results","Plot function for an RLum.Results S4 class object","<br /> The function provides a standardised plot output for data of an RLum.Results<br /> S4 class object<br />","0.2.1","2015-11-24","11:24:14
+"plot_RLum.Results","Plot function for an RLum.Results S4 class object","<br /> The function provides a standardised plot output for data of an RLum.Results<br /> S4 class object<br />","0.2.1","2015-11-29","17:11:12
 ","<br /> Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,<br /> Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "plot_ViolinPlot","Create a violin plot","<br /> Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin<br /> is constructed using a mirrored density curve. This plot is especially designed for cases<br /> where the individual errors are zero or to small to be visualised. The idea for this plot is<br /> based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.<br /> The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).<br />","0.1.0","2015-11-25","11:36:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"read_BIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.11.0","2015-11-24","11:24:14
+"read_BIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.11.0","2015-11-28","18:45:40
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, HZDR Freiberg, (Germany)<br />  R Luminescence Package Team"
 "read_Daybreak2R","Import Daybreak ASCII dato into R","<br /> Import a *.txt (ASCII) file produced by a Daybreak reader into R.<br />","0.2.0","2015-11-26","19:07:06
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)  Based on a suggestion by Willian Amidon and Andrew Louis Gorin.<br />  R Luminescence Package Team"
@@ -135,7 +135,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "Risoe.BINfileData-class","Class  \"Risoe.BINfileData\"","<br /> S4 class object for luminescence data in R. The object is produced as output<br /> of the function  read_BIN2R .<br />","0.2.0
 ",NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"Risoe.BINfileData2RLum.Analysis","Convert Risoe.BINfileData object to an RLum.Analysis object","<br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object. Internally the function uses the function<br /> Risoe.BINfileData2RLum.Data.Curve  to recalculate the curves.<br />","0.2.2","2015-11-24","11:24:14
+"Risoe.BINfileData2RLum.Analysis","Convert Risoe.BINfileData object to an RLum.Analysis object","<br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object. Internally the function uses the function<br /> Risoe.BINfileData2RLum.Data.Curve  to recalculate the curves.<br />","0.2.2","2015-11-28","18:42:12
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "Risoe.BINfileData2RLum.Data.Curve","Convert an element from a Risoe.BINfileData object to an RLum.Data.Curve<br /> object","<br /> The function converts one specified single record from a Risoe.BINfileData<br /> object to an RLum.Data.Curve object.<br />","0.2.1","2015-11-24","11:24:14
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),<br /> Christoph Burow, Universtiy of Cologne (Germany)<br />  R Luminescence Package Team"

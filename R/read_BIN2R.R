@@ -134,7 +134,7 @@ read_BIN2R <- function(
 
   if (is(file, "list")) {
     temp.return <- lapply(1:length(file), function(x) {
-      read_BIN2R(
+      temp <- read_BIN2R(
         file = file[[x]],
         fastForward = fastForward,
         position = position,
@@ -145,6 +145,7 @@ read_BIN2R <- function(
         forced.VersionNumber = forced.VersionNumber,
         ...
       )
+
     })
 
     ##return
@@ -1175,6 +1176,7 @@ read_BIN2R <- function(
        object <- list(object)
 
      }
+
 
   }
 

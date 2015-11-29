@@ -222,7 +222,8 @@ setMethod("set_RLum",
 #' \code{[structure_RLum]}] an object of class \code{\linkS4class{RLum.Analysis}}
 #' (\bold{required})
 #'
-#' @param record.id [\code{get_RLum}] \code{\link{numeric}} (optional): IDs of specific records
+#' @param record.id [\code{get_RLum}] \code{\link{numeric}} or \code{\link{logical}} (optional): IDs of specific records.
+#' If of type \code{logical} the entire id range is assuemd and \code{TRUE} and \code{FALSE} indicates the selection.
 #'
 #' @param recordType [\code{get_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL").
 #' Can be also a vector, for multiple matching, e.g., \code{recordType = c("OSL", "IRSL")}
@@ -267,10 +268,17 @@ setMethod("get_RLum",
             if (missing(record.id)) {
               record.id <- c(1:length(object@records))
 
-            }else if (!is(record.id, "numeric")) {
-              stop("[get_RLum()] 'record.id' has to be of type 'numeric'!")
+            }else if (!is(record.id, "numeric") & !is(record.id, "logical")) {
+              stop("[get_RLum()] 'record.id' has to be of type 'numeric' or 'logical'!")
 
             }
+              ##logical needs a slightly different treatment
+              ##Why do we need this? Because a lot of standard R functions work with logical
+              ##values instead of numerical indicies
+              if(is(record.id, "logical")){
+                record.id <- c(1:length(object@records))[record.id]
+
+              }
 
             ##check if record.id exists
             if (FALSE %in% (abs(record.id) %in% (1:length(object@records)))) {

@@ -4,17 +4,18 @@ Changes in version 0.5.0 (4th, December, 2015):
 
   General remarks:
 
-         • This major major update provides, apart from few new
-           functions, many bugfixes and non-visible improvements in the
-           underlying code to make the growing package still usable.
-           The most important changes are provided by the support of
-           generic S3-functions, e.g., the wellknown R function
-           ‘plot()’ now knows how to deal with ‘RLum’-objects. However,
-           this also went along with a more standardised way how RLum
-           objects can be treated. For example: To access and object
-           now it is enough to use only the function ‘get_RLum()’. The
-           function will subsequently patch the right method on the
-           basis of the object.
+         • This major update provides, apart from few new functions,
+           many bugfixes and non-visible improvements in the underlying
+           code to keep the growing package still usable and efficient.
+           The most important change is provided with the support of
+           S3-generics.  For example: The well known R function
+           ‘plot()’ can now deal with ‘RLum’-objects.  However, this
+           improvement also went along with a more standardised way how
+           RLum objects can be treated.  In particular, to access
+           RLum-objects only one function is nessary: ‘get_RLum()’.
+           The function will subsequently dispatch the right method on
+           the basis of the provided object.  Due to this a couple of
+           functions had bee deprecated. See below for details.
 
   Changes S4-objects, methods, classes:
 
@@ -49,7 +50,11 @@ Changes in version 0.5.0 (4th, December, 2015):
 
              • add argument ‘null.rm’ for input of type ‘list’ of
                ‘RLum’ objects, with this option the resulting ‘list’
-               can be cleaned up.
+               can be cleaned up,
+
+             • argument ‘record.id’ (‘RLum.Analysis’ objects) now
+               accepts as input ‘logical’ values. This was necessary to
+               be consistent with standard R behaviour.
 
          • ‘merge_RLum’
 
@@ -398,9 +403,14 @@ Changes in version 0.5.0 (4th, December, 2015):
 
          • ‘plot_RLum()’
 
-             • The ‘...’ argument ‘main’ can be now be of type ‘list’
-               if a ‘list’ of objects is provided. This allows to set
-               different plot titles for this specific plot option.
+             • The ‘...’ argument ‘main’ and ‘mtext’ can be now be of
+               type ‘list’ if a ‘list’ of objects is provided. This
+               allows to set different plot titles for this specific
+               plot option,
+
+             • on the top of this argument ‘mtext’ will be set
+               automatically if the object is of type ‘RLum.Analysis’
+               to indicate the different records.
 
          • ‘plot_RLum.Analysis()’
 
@@ -412,6 +422,11 @@ Changes in version 0.5.0 (4th, December, 2015):
 
              • arguments ‘ncols’ and ‘nrows’ are no optional, the
                functions tries to set a good value.
+
+         • ‘plot_RLum.Results()’
+
+             • Argument ‘data’ renamed to ‘object’ to be consistent
+               within. the package.
 
          • ‘readBIN2R()’
 

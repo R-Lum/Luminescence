@@ -4,13 +4,14 @@
 
   \subsection{General remarks}{
   \itemize{
-  \item This major major update provides, apart from few new functions, many bugfixes and non-visible
-  improvements in the underlying code to make the growing package still usable. The most important
-  changes are provided by the support of generic S3-functions, e.g., the wellknown R function
-  \code{plot()} now knows how to deal with \code{RLum}-objects. However, this also went
-  along with a more standardised way how RLum objects can be treated. For example: To access and
-  object now it is enough to use only the function \code{get_RLum()}. The function will subsequently patch
-  the right method on the basis of the object.
+  \item This major update provides, apart from few new functions, many bugfixes and non-visible
+  improvements in the underlying code to keep the growing package still usable and efficient.
+  The most important change is provided with the support of S3-generics.
+  For example: The well known R function \code{plot()} can now deal with \code{RLum}-objects.
+  However, this improvement also went along with a more standardised way how RLum objects can be treated.
+  In particular, to access RLum-objects only one function is nessary: \code{get_RLum()}.
+  The function will subsequently dispatch the right method on the basis of the provided object.
+  Due to this a couple of functions had bee deprecated. See below for details.
   }
 
   }
@@ -38,7 +39,9 @@
         numeric values) and numeric, as well as character vectors,
         \item argument \code{drop} also added for \code{get_RLum} method for 'RLum.Results',
         \item add argument \code{null.rm} for input of type \code{list} of \code{RLum} objects, with
-        this option the resulting \code{list} can be cleaned up.
+        this option the resulting \code{list} can be cleaned up,
+        \item argument \code{record.id} (\code{RLum.Analysis} objects) now accepts as input \code{logical}
+        values. This was necessary to be consistent with standard R behaviour.
 
       }
 
@@ -353,8 +356,10 @@
      \item \code{plot_RLum()}
       \itemize{
 
-        \item The \code{...} argument \code{main} can be now be of type \code{list} if a \code{list} of
-        objects is provided. This allows to set different plot titles for this specific plot option.
+        \item The \code{...} argument \code{main} and \code{mtext} can be now be of type \code{list} if a \code{list} of
+        objects is provided. This allows to set different plot titles for this specific plot option,
+        \item on the top of this argument \code{mtext} will be set automatically if the object is of
+        type \code{RLum.Analysis} to indicate the different records.
 
       }
 
@@ -367,6 +372,16 @@
         \item arguments \code{ncols} and \code{nrows} are no optional, the functions tries to set
         a good value.
 
+
+      }
+
+      \item \code{plot_RLum.Results()}{
+
+        \itemize{
+
+          \item Argument \code{data} renamed to \code{object} to be consistent within. the package.
+
+        }
 
       }
 

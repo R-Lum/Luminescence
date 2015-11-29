@@ -197,7 +197,7 @@ plot_RLum.Analysis <- function(
     }
 
   ##mtext
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$text} else
+  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else
   {NULL}
 
   ##log
@@ -245,7 +245,7 @@ plot_RLum.Analysis <- function(
 
     ##check whether the user set the drop option ...
     subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
-    object <- do.call(get_RLum,c(object,subset, drop = FALSE))
+    object <- do.call(get_RLum,c(object = object,subset = subset, drop = FALSE))
 
   }
 
@@ -369,7 +369,8 @@ plot_RLum.Analysis <- function(
                              ylim = ylim.set,
                              pch = pch,
                              norm = norm,
-                             cex = cex)
+                             cex = cex,
+                             ...)
 
         ##add abline
         if(!missing(abline)){

@@ -45,7 +45,8 @@ analysis object. Value may be used by subsequent analysis functions.}
 
 Returns an \code{\linkS4class{RLum.Analysis}} object.}
 
-\item{record.id}{[\code{get_RLum}] \code{\link{numeric}} (optional): IDs of specific records}
+\item{record.id}{[\code{get_RLum}] \code{\link{numeric}} or \code{\link{logical}} (optional): IDs of specific records.
+If of type \code{logical} the entire id range is assuemd and \code{TRUE} and \code{FALSE} indicates the selection.}
 
 \item{recordType}{[\code{get_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL").
 Can be also a vector, for multiple matching, e.g., \code{recordType = c("OSL", "IRSL")}}
