@@ -9,7 +9,7 @@
 
 > [![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/dev_0.6.0?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/dev_0.6.0)
 [![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=dev_0.6.0)](https://travis-ci.org/R-Lum/Luminescence)
-**@dev_0.5.0**
+**@dev_0.6.0**
 
 
 > Follow us on [![alt text][1.1]][1] <a href="http://www.twitter.com/RLuminescence" target="_blank">@RLuminescence</a>
