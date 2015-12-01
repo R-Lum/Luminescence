@@ -834,7 +834,11 @@ plot_AbanicoPlot <- function(
 
   if("xlab" %in% names(extraArgs)) {
     if(length(extraArgs$xlab) != 2) {
-      stop("Argmuent xlab is not of length 2!")
+      if (length(extraArgs$xlab) == 3) {
+        xlab <- c(extraArgs$xlab[1:2], "Density")
+      } else {
+        stop("Argmuent xlab is not of length 2!")
+      }
     } else {xlab <- c(extraArgs$xlab, "Density")}
   } else {
     xlab <- c(if(log.z == TRUE) {
