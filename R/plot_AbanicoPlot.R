@@ -252,7 +252,7 @@
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  z.0 = 70)
 #'
-#' ## now with weighted median as central value
+#' ## now with median as central value
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  z.0 = "median")
 #'
@@ -304,11 +304,11 @@
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  stats = c("min", "max", "median"))
 #'
-#' ## now with a brief statistical summary
+#' ## now with a brief statistical summary as subheader
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  summary = c("n", "in.2s"))
 #'
-#' ## now with another statistical summary as subheader
+#' ## now with another statistical summary
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  summary = c("mean.weighted", "median"),
 #'                  summary.pos = "topleft")
@@ -643,28 +643,22 @@ plot_AbanicoPlot <- function(
   ## calculate initial data statistics
   stats.init <- list(NA)
   for(i in 1:length(data)) {
-    stats.init[[length(stats.init) + 1]] <- calc_Statistics(data = data[[i]])
+    stats.init[[length(stats.init) + 1]] <- calc_Statistics(data = data[[i]][,3:4])
   }
   stats.init[[1]] <- NULL
 
   ## calculate central values
   if(z.0 == "mean") {
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE,
-                 log(stats.init[[x]]$unweighted$mean),
-                 stats.init[[x]]$unweighted$mean),
+      rep(stats.init[[x]]$unweighted$mean,
           length(data[[x]][,3]))})
   } else if(z.0 == "median") {
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE,
-                 log(stats.init[[x]]$unweighted$median),
-                 stats.init[[x]]$unweighted$median),
+      rep(stats.init[[x]]$unweighted$median,
           length(data[[x]][,3]))})
   } else  if(z.0 == "mean.weighted") {
     z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z == TRUE,
-                 log(stats.init[[x]]$weighted$mean),
-                 stats.init[[x]]$weighted$mean),
+      rep(stats.init[[x]]$weighted$mean,
           length(data[[x]][,3]))})
   } else if(is.numeric(z.0) == TRUE) {
     z.central <- lapply(1:length(data), function(x){
@@ -774,21 +768,15 @@ plot_AbanicoPlot <- function(
                              "data set")
 
   ## calculate global data statistics
-  stats.global <- calc_Statistics(data = data.global)
+  stats.global <- calc_Statistics(data = data.global[,3:4])
 
   ## calculate global central value
   if(z.0 == "mean") {
-    z.central.global <- ifelse(log.z == TRUE,
-                               log(stats.global$unweighted$mean),
-                               stats.global$unweighted$mean)
+    z.central.global <- stats.global$unweighted$mean
   } else if(z.0 == "median") {
-    z.central.global <- ifelse(log.z == TRUE,
-                               log(stats.global$unweighted$median),
-                               stats.global$unweighted$median)
+    z.central.global <- stats.global$unweighted$median
   } else  if(z.0 == "mean.weighted") {
-    z.central.global <- ifelse(log.z == TRUE,
-                               log(stats.global$weighted$mean),
-                               stats.global$weighted$mean)
+    z.central.global <- stats.global$weighted$mean
   } else if(is.numeric(z.0) == TRUE) {
     z.central.global <- ifelse(log.z == TRUE,
                                log(z.0),
@@ -1172,10 +1160,12 @@ plot_AbanicoPlot <- function(
 
   for(i in 1:length(data)) {
     statistics <- calc_Statistics(data[[i]])
+    statistics.2 <- calc_Statistics(data[[i]][,3:4])
+    
     De.stats[i,1] <- statistics$weighted$n
-    De.stats[i,2] <- statistics$unweighted$mean
-    De.stats[i,3] <- statistics$weighted$mean
-    De.stats[i,4] <- statistics$unweighted$median
+    De.stats[i,2] <- statistics.2$unweighted$mean
+    De.stats[i,3] <- statistics.2$weighted$mean
+    De.stats[i,4] <- statistics.2$unweighted$median
     De.stats[i,7] <- statistics$unweighted$sd.abs
     De.stats[i,8] <- statistics$unweighted$sd.rel
     De.stats[i,9] <- statistics$unweighted$se.abs
@@ -1188,6 +1178,11 @@ plot_AbanicoPlot <- function(
     De.stats[i,16] <- statistics$weighted$sd.rel
     De.stats[i,17] <- statistics$weighted$se.abs
     De.stats[i,18] <- statistics$weighted$se.rel
+    
+    ## account for log.z-option
+    if(log.z == TRUE) {
+      De.stats[i,2:4] <- exp(De.stats[i,2:4])
+    }
 
     ##kdemax - here a little doubled as it appears below again
     De.density <-density(x = data[[i]][,1],
