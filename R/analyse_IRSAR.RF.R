@@ -1021,7 +1021,7 @@ analyse_IRSAR.RF<- function(
       }
     }
 
-   ##(1.§) check if RF_nat > RF_reg, considering the fit range
+   ##(1.1) check if RF_nat > RF_reg, considering the fit range
    ##TP$intersection_ratio
     if ("intersection_ratio" %in% names(TP)) {
       TP$intersection_ratio$VALUE <-

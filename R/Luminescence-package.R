@@ -88,7 +88,7 @@
 #'
 #' @import utils methods data.table bbmle
 #' @importFrom raster nlayers raster contour plotRGB brick
-#' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title
+#' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors
 #' @importFrom stats approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean
 #' @importFrom parallel parLapply makeCluster stopCluster
