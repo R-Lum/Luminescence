@@ -395,7 +395,7 @@ setMethod("get_RLum",
               ##check if the produced object is empty and show warning message
               if(length(temp) == 0){
 
-                warning("[get_RLum] This request produced an empty list of records!")
+                warning("[get_RLum()] This request produced an empty list of records!")
 
               }
 

@@ -624,6 +624,7 @@ read_XSYG2R <- function(
 
             set_RLum(
               class = "RLum.Data.Curve",
+              originator = "read_XSYG2R",
               recordType = paste(temp.sequence.object.recordType,
                                  " (", temp.sequence.object.detector,")",
                                  sep = ""),
@@ -644,6 +645,7 @@ read_XSYG2R <- function(
 
             set_RLum(
               class = "RLum.Data.Spectrum",
+              originator = "read_XSYG2R",
               recordType = paste(temp.sequence.object.recordType,
                                  " (",temp.sequence.object.detector,")",
                                  sep = ""),
@@ -668,6 +670,7 @@ read_XSYG2R <- function(
       if (!is.null(temp.sequence.object)) {
         ##set RLum.Analysis object
         temp.sequence.object <-  set_RLum(
+          originator = "read_XSYG2R",
           class = "RLum.Analysis",
           records = temp.sequence.object,
           protocol = as.character(temp.sequence.header["protocol",1])

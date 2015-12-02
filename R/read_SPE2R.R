@@ -381,6 +381,7 @@ read_SPE2R <- function(
     ##set output object
     object <- set_RLum(
       class = "RLum.Data.Spectrum",
+      originator = "read_SPE2R",
       recordType = "Spectrum",
                                      curveType = "measured",
                                      data = data.spectrum.matrix,
@@ -416,6 +417,7 @@ read_SPE2R <- function(
     ##Create RLum.object
     object <- set_RLum(
       class = "RLum.Data.Image",
+      originator = "read_SPE2R",
       recordType = "Image",
                                   curveType = "measured",
                                   data = data.raster,

@@ -191,6 +191,7 @@ read_Daybreak2R <- function(
     return(
       set_RLum(
         class = "RLum.Data.Curve",
+        originator = "read_Daybreak2R",
         recordType = sub(" ", replacement = "_", x = info$DataType),
         curveType = "measured",
         data = data,
@@ -227,6 +228,7 @@ read_Daybreak2R <- function(
     ##put in RLum.Analysis obect
     return(set_RLum(
       class = "RLum.Analysis",
+      originator = "read_Daybreak2R",
       protocol = "Custom",
       records = temp.list
     )
