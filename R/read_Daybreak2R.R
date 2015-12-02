@@ -7,6 +7,8 @@
 #' containing measurement data. Please note that the specific, common, file extension (txt) is likely
 #' leading to function failures during import when just a path is provided.
 #'
+#' @param verbose \code{\link{logical}} (with default): enables or disables terminal feedback
+#'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
 #'
@@ -15,7 +17,7 @@
 #' @note \bold{[BETA VERSION]} This function version still needs to be properly tested.
 #'
 #' @section Function version: 0.2.0
-#'#'
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)\cr Based on a suggestion by Willian Amidon and Andrew Louis Gorin.
 #'
@@ -32,6 +34,7 @@
 #' @export
 read_Daybreak2R <- function(
   file,
+  verbose = TRUE,
   txtProgressBar = TRUE
 ){
 
@@ -50,7 +53,10 @@ read_Daybreak2R <- function(
 
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      cat("[read_Daybreak2R()] Directory detected, trying to extract '*.txt' files ...\n")
+      if(verbose){
+        cat("[read_Daybreak2R()] Directory detected, trying to extract '*.txt' files ...\n")
+      }
+
       file <-
         as.list(paste0(file,dir(
           file, recursive = FALSE, pattern = ".txt"
@@ -117,11 +123,16 @@ read_Daybreak2R <- function(
     rm(file2read)
 
 
-  ##PROGRESS BAR
-  if(txtProgressBar){
-    pb <- txtProgressBar(min=0,max=length(data.list), char = "=", style=3)
+  ##TERMINAL FEEDBACK
+  if(verbose){
+    cat("\n[read_Daybreak2R()]")
+    cat(paste("\n >> Importing:", file[1],"\n"))
   }
 
+  ##PROGRESS BAR
+  if(txtProgressBar & verbose){
+    pb <- txtProgressBar(min=0,max=length(data.list), char = "=", style=3)
+  }
 
   ##(2)
   ##Loop over the list to create RLum.Data.Curve objects
@@ -160,9 +171,9 @@ read_Daybreak2R <- function(
 
       ##grep only data of interest
       point.x <-
-        as.numeric(gsub("^\\s+|\\s+$", "", temp.data[seq(2,length(temp.data), by = 4)]))
+        suppressWarnings(as.numeric(gsub("^\\s+|\\s+$", "", temp.data[seq(2, length(temp.data), by = 4)])))
       point.y <-
-        as.numeric(gsub("^\\s+|\\s+$", "", temp.data[seq(3,length(temp.data), by = 4)]))
+        suppressWarnings(as.numeric(gsub("^\\s+|\\s+$", "", temp.data[seq(3,length(temp.data), by = 4)])))
 
 
       ##combine it into a matrix
@@ -183,7 +194,7 @@ read_Daybreak2R <- function(
     }
 
     ##update progress bar
-    if (txtProgressBar == TRUE) {
+    if (txtProgressBar & verbose) {
       setTxtProgressBar(pb, x)
     }
 
@@ -202,7 +213,7 @@ read_Daybreak2R <- function(
   })
 
   ##close ProgressBar
-  if(txtProgressBar == TRUE){close(pb)}
+  if(txtProgressBar & verbose){close(pb)}
 
   ##(3)
   ##Now we have to find out how many aliquots we do have
@@ -225,7 +236,7 @@ read_Daybreak2R <- function(
 
     })
 
-    ##put in RLum.Analysis obect
+    ##put in RLum.Analysis object
     return(set_RLum(
       class = "RLum.Analysis",
       originator = "read_Daybreak2R",
@@ -235,4 +246,11 @@ read_Daybreak2R <- function(
     )
 
   })
+
+  ##TERMINAL FEEDBACK
+  if(verbose){
+    cat(paste0("\n ",length(unlist(get_RLum(RLum.Analysis.list))), " records have been read sucessfully!\n"))
+  }
+
+  return(RLum.Analysis.list)
 }

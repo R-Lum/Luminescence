@@ -259,11 +259,11 @@ setMethod("set_RLum",
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
-          function(object, record.id, recordType, curveType, RLum.type,
-                   protocol = "UNKNOWN", get.index, drop = TRUE, recursive = TRUE){
+          function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
+                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE){
 
             ##record.id
-            if (missing(record.id)) {
+            if (is.null(record.id)) {
               record.id <- c(1:length(object@records))
 
             }else if (!is(record.id, "numeric") & !is(record.id, "logical")) {
@@ -285,7 +285,7 @@ setMethod("get_RLum",
             }
 
             ##recordType
-            if (missing(recordType)) {
+            if (is.null(recordType)) {
               recordType <- unique(unlist(lapply(1:length(object@records),
                                                  function(x) {
                                                    object@records[[x]]@recordType
@@ -300,7 +300,7 @@ setMethod("get_RLum",
             }
 
             ##curveType
-            if(missing(curveType)) {
+            if(is.null(curveType)) {
               curveType <- unique(unlist(lapply(1:length(object@records),
                                                 function(x) {
                                                   object@records[[x]]@curveType
@@ -312,7 +312,7 @@ setMethod("get_RLum",
             }
 
             ##RLum.type
-            if (missing(RLum.type)) {
+            if (is.null(RLum.type)) {
               RLum.type <- c("RLum.Data.Curve","RLum.Data.Spectrum")
 
             }else if (!is(RLum.type, "character")) {
@@ -321,7 +321,7 @@ setMethod("get_RLum",
             }
 
             ##get.index
-            if (missing(get.index)) {
+            if (is.null(get.index)) {
               get.index <- FALSE
 
             }else if (!is(get.index, "logical")) {

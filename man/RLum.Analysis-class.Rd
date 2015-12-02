@@ -16,9 +16,9 @@
 \S4method{set_RLum}{RLum.Analysis}(class, originator,
   protocol = NA_character_, records = list())
 
-\S4method{get_RLum}{RLum.Analysis}(object, record.id, recordType, curveType,
-  RLum.type, protocol = "UNKNOWN", get.index, drop = TRUE,
-  recursive = TRUE)
+\S4method{get_RLum}{RLum.Analysis}(object, record.id = NULL,
+  recordType = NULL, curveType = NULL, RLum.type = NULL,
+  protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE)
 
 \S4method{structure_RLum}{RLum.Analysis}(object)
 

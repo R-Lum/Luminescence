@@ -527,6 +527,7 @@
         \item \code{length()}: \code{RLum.Data.Curve}, \code{RLum.Analysis}, \code{Risoe.BINfileData},
         \code{RLum.Results}
         \item \code{nrow()}: \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}
+        \item \code{unlist()}: \code{RLum.Analysis}
         \item \code{dim()}: \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}
         \item \code{row.names()}: \code{RLum.Data.Spectrum}
         \item \code{names()}: \code{RLum.Data.Curve}, \code{RLum.Data.Spectrum}, \code{RLum.Data.Image},
@@ -547,5 +548,3 @@
 
 
 }
-
-

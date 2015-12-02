@@ -612,6 +612,8 @@ Changes in version 0.5.0 (4th, December, 2015):
 
              • ‘nrow()’: ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’
 
+             • ‘unlist()’: ‘RLum.Analysis’
+
              • ‘dim()’: ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’
 
              • ‘row.names()’: ‘RLum.Data.Spectrum’
