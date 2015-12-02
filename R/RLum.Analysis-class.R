@@ -406,6 +406,7 @@ setMethod("get_RLum",
               }else{
                 if (!drop) {
                   temp <- set_RLum(class = "RLum.Analysis",
+                                   originator = originator,
                                    records = temp,
                                    protocol = object@protocol)
                   return(temp)
