@@ -12,7 +12,7 @@ Changes in version 0.5.0 (4th, December, 2015):
            ‘plot()’ can now deal with ‘RLum’-objects.  However, this
            improvement also went along with a more standardised way how
            RLum objects can be treated.  In particular, to access
-           RLum-objects only one function is nessary: ‘get_RLum()’.
+           RLum-objects only one function is necessary: ‘get_RLum()’.
            The function will subsequently dispatch the right method on
            the basis of the provided object.  Due to this a couple of
            functions had bee deprecated. See below for details.

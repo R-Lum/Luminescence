@@ -9,7 +9,7 @@
   The most important change is provided with the support of S3-generics.
   For example: The well known R function \code{plot()} can now deal with \code{RLum}-objects.
   However, this improvement also went along with a more standardised way how RLum objects can be treated.
-  In particular, to access RLum-objects only one function is nessary: \code{get_RLum()}.
+  In particular, to access RLum-objects only one function is necessary: \code{get_RLum()}.
   The function will subsequently dispatch the right method on the basis of the provided object.
   Due to this a couple of functions had bee deprecated. See below for details.
   }
