@@ -17,7 +17,8 @@
 #' Please note: The curve transformation within this functions works roughly,
 #' i.e. every IRSL or OSL curve is transformed, without considerung whether it
 #' is measured with the PMT or not! However, for a fast look it might be
-#' helpful.
+#' helpful.\cr
+#'
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 #' object of class \code{RLum.Analysis}
@@ -40,7 +41,7 @@
 #' arguments supported by \code{\link{abline}} are fully supported,
 #'
 #' @param combine \code{\link{logical}} (with default): allows to combine all
-#' code\linkS4class{RLum.Data.Curve} objects in one single plot.
+#' \code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
 #'
 #' @param curve.transformation \code{\link{character}} (optional): allows
 #' transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
