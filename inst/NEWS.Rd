@@ -399,7 +399,9 @@
         the used 'LIGHTSOURCE' was "IR diodes/IR Laser". Sometimes this led to unexpected behaviour in the
         subsequent analysis functions. Now the import function checks imported BIN-files (only version 03) for
         such discrepancy and correct the 'LTYPE' accordingly,
-        \item import speed improvements by using lookup talbes instead of 'sapply'-translation matrices.
+        \item import speed improvements by using lookup talbes instead of 'sapply'-translation matrices,
+        \item add argument \code{duplicated.rm} to account for duplicated entries that might have been
+        produced during single grain measurements.
 
 
       }

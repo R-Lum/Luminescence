@@ -454,7 +454,11 @@ Changes in version 0.5.0 (4th, December, 2015):
                correct the 'LTYPE' accordingly,
 
              • import speed improvements by using lookup talbes instead
-               of 'sapply'-translation matrices.
+               of 'sapply'-translation matrices,
+
+             • add argument ‘duplicated.rm’ to account for duplicated
+               entries that might have been produced during single
+               grain measurements.
 
          • ‘readSPE2R()’
 

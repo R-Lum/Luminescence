@@ -22,6 +22,10 @@
 #' records. Can be used in combination with \code{show.record.number} for
 #' debugging purposes, e.g. corrupt BIN files.
 #'
+#' @param duplicated.rm \code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
+#' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
+#' predeccessor and successor.
+#'
 #' @param position \code{\link{numeric}} (optional): imports only the selected position. Note:
 #' the import performance will not benefit by any selection made here.
 #'
@@ -60,7 +64,7 @@
 #' implementation of version 07 support could not been tested so far.}.
 #'
 #'
-#' @section Function version: 0.11.0
+#' @section Function version: 0.12.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -95,6 +99,7 @@ read_BIN2R <- function(
   show.raw.values = FALSE,
   position = NULL,
   n.records = NULL,
+  duplicated.rm = FALSE,
   fastForward = FALSE,
   show.record.number = FALSE,
   txtProgressBar = TRUE,
@@ -1103,6 +1108,35 @@ read_BIN2R <- function(
           "Position limitation omitted. At least one position number is not valid, valid position numbers are: ", valid.position
         )
       )
+    }
+
+  }
+
+  ##check for duplicated entries and remove them if wanted
+  duplication.check <- suppressWarnings(which(c(0, vapply(
+    2:length(results.DATA),
+    FUN = function(x) {
+      all(results.DATA[[x - 1]] == results.DATA[[x]])
+    },
+    FUN.VALUE = 1
+  )) == 1))
+
+  if(length(duplication.check) != 0){
+
+    if(duplicated.rm){
+
+      ##remove records
+      results.METADATA <- results.METADATA[-duplication.check,]
+      results.DATA[duplication.check] <- NULL
+
+      ##message
+      message(paste0("[read_BIN2R()] duplicated record(s) detected and removed: ", paste(duplication.check, collapse = ", ")))
+
+    }else{
+
+      warning(paste0("[read_BIN2R()] duplicated record(s) detected: ",
+                     paste(duplication.check, collapse = ", "), " You should consider 'duplicated.rm = TRUE'." ))
+
     }
 
   }
