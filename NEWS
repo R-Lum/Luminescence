@@ -458,7 +458,7 @@ Changes in version 0.5.0 (4th, December, 2015):
 
              • add argument ‘duplicated.rm’ to account for duplicated
                entries that might have been produced during single
-               grain measurements.
+               grain measurements (thanks for Norbert Mercier).
 
          • ‘readSPE2R()’
 

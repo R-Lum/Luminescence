@@ -401,7 +401,7 @@
         such discrepancy and correct the 'LTYPE' accordingly,
         \item import speed improvements by using lookup talbes instead of 'sapply'-translation matrices,
         \item add argument \code{duplicated.rm} to account for duplicated entries that might have been
-        produced during single grain measurements.
+        produced during single grain measurements (thanks for Norbert Mercier).
 
 
       }

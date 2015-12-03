@@ -1142,9 +1142,10 @@ read_BIN2R <- function(
   }
 
   ##produce S4 object for output
-  object <- set_Risoe.BINfileData(METADATA = results.METADATA,
-                                  DATA = results.DATA,
-                                  .RESERVED =  results.RESERVED)
+  object <- set_Risoe.BINfileData(
+    METADATA = results.METADATA,
+    DATA = results.DATA,
+    .RESERVED =  results.RESERVED)
 
   # Convert Translation Matrix Values ---------------------------------------
 
