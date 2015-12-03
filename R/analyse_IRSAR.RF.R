@@ -543,7 +543,7 @@ analyse_IRSAR.RF<- function(
     log = "",
     cex = 1,
     legend.pos = "top"
-    ##xlim and ylim see below as they has to be modifid differently
+    ##xlim and ylim see below as they has to be modified differently
   )
 
   ##modify list if something was set
@@ -1637,17 +1637,8 @@ analyse_IRSAR.RF<- function(
     stringsAsFactors = FALSE
   )
 
-  ##add data set identifyer
-  token <- paste(
-             De.values$De,
-             De.values$POSITION,
-             De.values$DATE,
-             De.values$SEQUENCE_NAME,
-             ifelse(is.null(TP.data.frame), NA, TP.data.frame$VALUE),
-            collapse = "" )
-
   ##generate unique identifier
-  UID <- digest::digest(object = token, algo = "md5")
+  UID <- .create_UID()
 
     ##update data.frames accordingly
     De.values$UID <- UID

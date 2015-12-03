@@ -1381,15 +1381,8 @@ object!")
 
     # Set return Values -----------------------------------------------------------
 
-    ##add data set identifyer
-    token <- paste(temp.GC[,1],
-                   temp.GC[,2],
-                   temp.GC[,3],
-                   RejectionCriteria[,4],
-                   collapse = "")
-
     ##generate unique identifier
-    UID <- digest::digest(object = token, algo = "md5")
+    UID <- .create_UID()
 
     temp.results.final <- set_RLum(
       class = "RLum.Results",

@@ -74,13 +74,20 @@
        }
 
 
-
      \item \code{Risoe.BINfileData-class}
       \itemize{
         \item Show method now returns the valid grain range,
         \item the method \code{get_Risoe.BINfileData} was never active, but the corresponding message
         on using the function \code{Risoe.BINfileData2RLum.Analysis()} disappeared
         if a user tried to pass additional (unused) arguments. Corrected (thanks to Alice Versendaal).
+      }
+
+      \item {RLum-class}
+      \itemize{
+        \item Two new slots have been added: \code{originator} and \code{.uid}. Due to inheritance
+        they are now available for all \code{RLum} objects and both are set automatically
+        if an \code{RLum} object is created.
+
       }
 
       \item {RLum.Data.Curve}
@@ -111,9 +118,7 @@
       \item {RLum.Results}
       \itemize{
         \item Add method for coercing to a \code{list} and the way back.
-
       }
-
 
    }
   }

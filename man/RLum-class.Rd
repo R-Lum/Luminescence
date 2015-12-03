@@ -24,9 +24,12 @@ Abstract class for data in the package Luminescence
 \section{Slots}{
 
 \describe{
-\item{\code{originator}}{Object of class "character" containing the name of the producing function for the object}
+\item{\code{originator}}{Object of class \code{\link{character}} containing the name of the producing
+function for the object. Set automatically by using the function \code{\link{set_RLum}}.}
 
-\item{\code{.uid}}{Object of class "character" containing a unified object identifier}
+\item{\code{.uid}}{Object of class \code{\link{character}} containing a unique object identifier (md5 hash)
+calculated using the internal function \code{.create_UID()}. This id is calculated everytime and
+object is created.}
 }}
 \note{
 \code{RLum} is a virtual class.

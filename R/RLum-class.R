@@ -1,4 +1,4 @@
-#' @include replicate_RLum.R
+#' @include replicate_RLum.R internals_RLum.R
 NULL
 
 #' Class \code{"RLum"}
@@ -10,9 +10,12 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot originator Object of class "character" containing the name of the producing function for the object
+#' @slot originator Object of class \code{\link{character}} containing the name of the producing
+#' function for the object. Set automatically by using the function \code{\link{set_RLum}}.
 #'
-#' @slot .uid Object of class "character" containing a unified object identifier
+#' @slot .uid Object of class \code{\link{character}} containing a unique object identifier (md5 hash)
+#' calculated using the internal function \code{.create_UID()}. This id is calculated everytime and
+#' object is created.
 #'
 #' @note \code{RLum} is a virtual class.
 #'
@@ -39,7 +42,7 @@ setClass("RLum",
            contains = "VIRTUAL",
            prototype = prototype(
              originator = NA_character_,
-             .uid = NA_character_
+             .uid = .create_UID()
            )
          )
 
