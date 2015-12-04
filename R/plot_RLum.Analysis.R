@@ -112,71 +112,18 @@ plot_RLum.Analysis <- function(
   ##check if object is of class RLum.Data.Curve
   if(is(object,"RLum.Analysis") == FALSE){
 
-    stop("[plot_RLum.Analysis()]: Input object is not of type 'RLum.Analysis'")
+    stop("[plot_RLum.Analysis()] Input object is not of type 'RLum.Analysis'")
 
   }
 
-  ##try to find optimal parameters, this is however, a little bit stupid, but
-  ##better than without any
+  # Make selection if wanted  -------------------------------------------------------------------
+  if(!missing(subset)){
 
-  if(combine){
-    n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
-
-  }else{
-    n.plots <- length_RLum(object)
+    ##check whether the user set the drop option ...
+    subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
+    object <- do.call(get_RLum, c(object = object, subset, drop = FALSE))
 
   }
-
-  if (missing(ncols) | missing(nrows)) {
-    if (missing(ncols) & !missing(nrows)) {
-      if (n.plots  == 1) {
-        ncols <- 1
-
-      } else{
-        ncols <- 2
-
-      }
-
-    }
-    else if (!missing(ncols) & missing(nrows)) {
-      if (n.plots  == 1) {
-        nrows <- 1
-
-      }
-      else if (n.plots  > 1 & n.plots <= 4) {
-        nrows <- 2
-
-      } else{
-        nrows <- 3
-
-      }
-
-
-    } else{
-      if (n.plots  == 1) {
-        nrows <- 1
-        ncols <- 1
-
-      }
-      else if (n.plots  > 1 & n.plots  <= 2) {
-        nrows <- 1
-        ncols <- 2
-
-      } else if (n.plots  > 2 & n.plots <= 4) {
-        nrows <- 2
-        ncols <- 2
-
-      }
-      else{
-        nrows <- 3
-        ncols <- 2
-
-      }
-
-    }
-
-  }
-
 
 
   ##deal with addition arguments
@@ -241,14 +188,69 @@ plot_RLum.Analysis <- function(
   cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
   {1}
 
-  # Make selection if wanted  -------------------------------------------------------------------
-  if(!missing(subset)){
+  ##try to find optimal parameters, this is however, a little bit stupid, but
+  ##better than without any
 
-    ##check whether the user set the drop option ...
-    subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
-    object <- do.call(get_RLum, c(object = object, subset, drop = FALSE))
+  if(combine){
+    n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
+
+  }else{
+    n.plots <- length_RLum(object)
 
   }
+
+  if (missing(ncols) | missing(nrows)) {
+    if (missing(ncols) & !missing(nrows)) {
+      if (n.plots  == 1) {
+        ncols <- 1
+
+      } else{
+        ncols <- 2
+
+      }
+
+    }
+    else if (!missing(ncols) & missing(nrows)) {
+      if (n.plots  == 1) {
+        nrows <- 1
+
+      }
+      else if (n.plots  > 1 & n.plots <= 4) {
+        nrows <- 2
+
+      } else{
+        nrows <- 3
+
+      }
+
+
+    } else{
+      if (n.plots  == 1) {
+        nrows <- 1
+        ncols <- 1
+
+      }
+      else if (n.plots  > 1 & n.plots  <= 2) {
+        nrows <- 1
+        ncols <- 2
+
+      } else if (n.plots  > 2 & n.plots <= 4) {
+        nrows <- 2
+        ncols <- 2
+
+      }
+      else{
+        nrows <- 3
+        ncols <- 2
+
+      }
+
+    }
+
+  }
+
+
+
 
   # Plotting ------------------------------------------------------------------
 

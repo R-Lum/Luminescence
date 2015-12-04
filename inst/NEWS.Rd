@@ -10,10 +10,11 @@
    \itemize{
 
 
-      \item \code{Dummy()}
+      \item \code{plot_RLum.Analysis()}
       \itemize{
 
-        \item Dummy
+        \item If the option \code{subset} was used, the automatic par() setting was a little bit
+        overruled. Corrected.
       }
 
     }

@@ -4,7 +4,8 @@ Changes in version 0.5.1 (, 2016):
 
   Bugfixes and changes:
 
-         • ‘Dummy()’
+         • ‘plot_RLum.Analysis()’
 
-             • Dummy
+             • If the option ‘subset’ was used, the automatic par()
+               setting was a little bit overruled. Corrected.
 
