@@ -102,6 +102,12 @@
 #' The ratio of \eqn{RF_{nat}} over \eqn{RF_{reg}} in the range of\eqn{RF_{nat}} of is calculated
 #' and should not exceed the threshold value. \cr
 #'
+#' \code{intersection_ratio} \code{\link{numeric}} (default: \code{NA}):\cr
+#'
+#' Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves.
+#' This value indicates intersection of the RF-curves and should be close to 0 if the curves
+#' have a similar shape.\cr
+#'
 #' \code{residuals_slope} \code{\link{numeric}} (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
 #'
 #' A linear function is fitted on the residuals after sliding.
@@ -537,7 +543,7 @@ analyse_IRSAR.RF<- function(
     log = "",
     cex = 1,
     legend.pos = "top"
-    ##xlim and ylim see below as they has to be modifid differently
+    ##xlim and ylim see below as they has to be modified differently
   )
 
   ##modify list if something was set
@@ -981,6 +987,7 @@ analyse_IRSAR.RF<- function(
   ##set defaults
   TP <- list(
     curves_ratio = 1.001,
+    intersection_ratio = NA,
     residuals_slope = NA,
     curves_bounds = ceiling(max(RF_reg.x)),
     dynamic_ratio = NA,
@@ -1011,6 +1018,20 @@ analyse_IRSAR.RF<- function(
       if (!is.na(TP$curves_ratio$THRESHOLD)) {
         TP$curves_ratio$STATUS <-
           ifelse(TP$curves_ratio$VALUE >= TP$curves_ratio$THRESHOLD, "FAILED", "OK")
+      }
+    }
+
+   ##(1.1) check if RF_nat > RF_reg, considering the fit range
+   ##TP$intersection_ratio
+    if ("intersection_ratio" %in% names(TP)) {
+      TP$intersection_ratio$VALUE <-
+        abs(
+          1 - sum((RF_nat.limited[,2]/max(RF_nat.limited[,2])))/
+            sum(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2]/max(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2])))
+
+      if (!is.na(TP$intersection_ratio$THRESHOLD)) {
+        TP$intersection_ratio$STATUS <-
+          ifelse(TP$intersection_ratio$VALUE >= TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
       }
     }
 
@@ -1616,17 +1637,8 @@ analyse_IRSAR.RF<- function(
     stringsAsFactors = FALSE
   )
 
-  ##add data set identifyer
-  token <- paste(
-             De.values$De,
-             De.values$POSITION,
-             De.values$DATE,
-             De.values$SEQUENCE_NAME,
-             ifelse(is.null(TP.data.frame), NA, TP.data.frame$VALUE),
-            collapse = "" )
-
   ##generate unique identifier
-  UID <- digest::digest(object = token, algo = "md5")
+  UID <- .create_UID()
 
     ##update data.frames accordingly
     De.values$UID <- UID

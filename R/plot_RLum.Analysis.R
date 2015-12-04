@@ -17,7 +17,8 @@
 #' Please note: The curve transformation within this functions works roughly,
 #' i.e. every IRSL or OSL curve is transformed, without considerung whether it
 #' is measured with the PMT or not! However, for a fast look it might be
-#' helpful.
+#' helpful.\cr
+#'
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 #' object of class \code{RLum.Analysis}
@@ -40,7 +41,7 @@
 #' arguments supported by \code{\link{abline}} are fully supported,
 #'
 #' @param combine \code{\link{logical}} (with default): allows to combine all
-#' code\linkS4class{RLum.Data.Curve} objects in one single plot.
+#' \code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
 #'
 #' @param curve.transformation \code{\link{character}} (optional): allows
 #' transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
@@ -111,9 +112,81 @@ plot_RLum.Analysis <- function(
   ##check if object is of class RLum.Data.Curve
   if(is(object,"RLum.Analysis") == FALSE){
 
-    stop("[plot_RLum.Analysis()]: Input object is not of type 'RLum.Analysis'")
+    stop("[plot_RLum.Analysis()] Input object is not of type 'RLum.Analysis'")
 
   }
+
+  # Make selection if wanted  -------------------------------------------------------------------
+  if(!missing(subset)){
+
+    ##check whether the user set the drop option ...
+    subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
+    object <- do.call(get_RLum, c(object = object, subset, drop = FALSE))
+
+  }
+
+
+  ##deal with addition arguments
+  extraArgs <- list(...)
+
+  ##main
+  main <- if ("main" %in% names(extraArgs)) {
+
+      ##main - allow to set different mains
+      if(length(extraArgs$main) == 1 | length(extraArgs$main) < length(object)){
+        rep(x =  extraArgs$main, length(object))
+
+      } else{
+        extraArgs$main
+
+      }
+    } else{
+      NULL
+    }
+
+  ##mtext
+  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else
+  {NULL}
+
+  ##log
+  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
+  {""}
+
+  ##lwd
+  lwd <- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else
+  {1}
+
+  ##lty
+  lty <- if("lty" %in% names(extraArgs)) {extraArgs$lty} else
+  {1}
+
+  ##type
+  type <- if("type" %in% names(extraArgs)) {extraArgs$type} else
+  {"l"}
+
+  ##xlim
+  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
+  {NULL}
+
+  ##ylim
+  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
+  {NULL}
+
+  ##pch
+  pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
+  {1}
+
+  ##col
+  col <- if("col" %in% names(extraArgs)) {extraArgs$col} else
+  {"black"}
+
+  ##norm (for RLum.Data.Curve)
+  norm <- if("norm" %in% names(extraArgs)) {extraArgs$norm} else
+  {FALSE}
+
+  ##cex
+  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
+  {1}
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any
@@ -178,76 +251,6 @@ plot_RLum.Analysis <- function(
 
 
 
-  ##deal with addition arguments
-  extraArgs <- list(...)
-
-  ##main
-  main <- if ("main" %in% names(extraArgs)) {
-
-      ##main - allow to set different mains
-      if(length(extraArgs$main) == 1 | length(extraArgs$main) < length(object)){
-        rep(x =  extraArgs$main, length(object))
-
-      } else{
-        extraArgs$main
-
-      }
-    } else{
-      NULL
-    }
-
-  ##mtext
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$text} else
-  {NULL}
-
-  ##log
-  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  ##lwd
-  lwd <- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else
-  {1}
-
-  ##lty
-  lty <- if("lty" %in% names(extraArgs)) {extraArgs$lty} else
-  {1}
-
-  ##type
-  type <- if("type" %in% names(extraArgs)) {extraArgs$type} else
-  {"l"}
-
-  ##xlim
-  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  {NULL}
-
-  ##ylim
-  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {NULL}
-
-  ##pch
-  pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
-  {1}
-
-  ##col
-  col <- if("col" %in% names(extraArgs)) {extraArgs$col} else
-  {"black"}
-
-  ##norm (for RLum.Data.Curve)
-  norm <- if("norm" %in% names(extraArgs)) {extraArgs$norm} else
-  {FALSE}
-
-  ##cex
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
-  {1}
-
-  # Make selection if wanted  -------------------------------------------------------------------
-  if(!missing(subset)){
-
-    ##check whether the user set the drop option ...
-    subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
-    object <- do.call(get_RLum,c(object,subset, drop = FALSE))
-
-  }
 
   # Plotting ------------------------------------------------------------------
 
@@ -369,7 +372,8 @@ plot_RLum.Analysis <- function(
                              ylim = ylim.set,
                              pch = pch,
                              norm = norm,
-                             cex = cex)
+                             cex = cex,
+                             ...)
 
         ##add abline
         if(!missing(abline)){

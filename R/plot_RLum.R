@@ -33,7 +33,7 @@
 #'
 #' @note The provided plot output depends on the input object.
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -73,19 +73,19 @@ plot_RLum<- function(
   ##check if object is of class RLum
   RLum.dispatcher <- function(object, ...) {
     if (inherits(object, "RLum")) {
+
       ##grep object class
       object.class <- is(object)[1]
 
-      ##select which plot function should be used
-
+      ##select which plot function should be used and call it
       switch (
         object.class,
 
-        RLum.Data.Curve = plot_RLum.Data.Curve(object, ...),
-        RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object, ...),
-        RLum.Data.Image = plot_RLum.Data.Image(object, ...),
-        RLum.Analysis = plot_RLum.Analysis(object, ...),
-        RLum.Results = plot_RLum.Results(object, ...)
+        RLum.Data.Curve = plot_RLum.Data.Curve(object = object, ...),
+        RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object = object, ...),
+        RLum.Data.Image = plot_RLum.Data.Image(object = object, ...),
+        RLum.Analysis = plot_RLum.Analysis(object = object, ...),
+        RLum.Results = plot_RLum.Results(object = object, ...)
 
       )
 
@@ -127,26 +127,47 @@ plot_RLum<- function(
         }
       }
 
+      ##set also mtext, but in a different way
+      if(!"mtext" %in% names(list(...))){
+
+
+        if(is(object[[1]], "RLum.Analysis")){
+          mtext <- paste("Record:", 1:length(object.cleaned))
+
+        }else{
+          mtext <- NULL
+
+        }
+      }else{
+        mtext <- rep(list(...)$mtext, lenth.out = length(object.cleaned))
+
+      }
+
+
       if(exists("main.list")){
         ##dispatch objects
         for (i in 1:length(object.cleaned)) {
-          RLum.dispatcher(object[[i]],
+          RLum.dispatcher(object = object[[i]],
                           main = main.list[[i]],
+                          mtext = mtext[[i]],
                           ...)
         }
       }else{
-        ##dispatch objects
         for (i in 1:length(object.cleaned)) {
-          RLum.dispatcher(object[[i]], ...)
 
+
+          RLum.dispatcher(object = object[[i]],
+                          mtext = mtext[[i]],
+                          ...)
         }
+
       }
 
     }
 
   }else{
     ##dispatch object
-    RLum.dispatcher(object, ...)
+    RLum.dispatcher(object = object, ...)
 
   }
 

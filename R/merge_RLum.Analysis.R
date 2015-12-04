@@ -120,6 +120,7 @@ merge_RLum.Analysis<- function(
 
   temp.new.RLum.Analysis <- set_RLum(
     class = "RLum.Analysis",
+    originator = "merge_RLum.Analysis",
     records = temp.element.list,
     protocol = temp.meta.data.first)
 

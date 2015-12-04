@@ -240,6 +240,7 @@ merge_RLum.Data.Curve<- function(
 
   temp.new.Data.Curve <- set_RLum(
     class = "RLum.Data.Curve",
+    originator = "merge_RLum.Data.Curve",
     recordType = object[[1]]@recordType,
     curveType =  "merged",
     data = temp.matrix,

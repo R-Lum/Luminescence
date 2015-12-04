@@ -4,10 +4,10 @@
 \alias{plot_RLum.Results}
 \title{Plot function for an RLum.Results S4 class object}
 \usage{
-plot_RLum.Results(data, single = TRUE, ...)
+plot_RLum.Results(object, single = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
+\item{object}{\code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
 of class \code{RLum.Results}}
 
 \item{single}{\code{\link{logical}} (with default): single plot output
@@ -33,7 +33,7 @@ Not all arguments available for \code{\link{plot}} will be passed!
 Only plotting of \code{RLum.Results} objects are supported.
 }
 \section{Function version}{
- 0.2.1 (2015-10-28 11:02:52)
+ 0.2.1 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -42,7 +42,7 @@ Only plotting of \code{RLum.Results} objects are supported.
 data(ExampleData.DeValues, envir = environment())
 
 # apply the un-logged minimum age model
-mam<- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
+mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
 
 ##plot
 plot_RLum.Results(mam)

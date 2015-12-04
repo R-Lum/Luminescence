@@ -72,7 +72,7 @@
   
   ## Object: DRAC.highlights
   if (x@originator == "use_DRAC") {
-    x <- get_RLum(x)
+    x <- get_RLum(x)$highlights
     x <- .digits(x, digits)
     fields.w.error <- seq(4, 25, 2)
     for(i in fields.w.error)
@@ -140,6 +140,12 @@
     
     x.chunk <- x[ ,chunks.start[i]:chunks.end[i]]
     
+    if (ncol(x) == 1) {
+      x.chunk <- as.data.frame(x.chunk)
+      colnames(x.chunk) <- names(x[i])
+    }
+      
+    
     ## Comments ----
     tex.comment.usePackage <- ifelse(comments,
                                      "% add usepackage{adjustbox} to latex preamble \n",
@@ -170,7 +176,7 @@
     if (!any(strsplit(pos, split = "")[[1]] %in% c("l", "c", "r")))
       pos <- "c"
     if (nchar(pos) == 1)
-      pos <- strrep(pos, ncol(x))
+      pos <- paste0(rep(pos, ncol(x)), collapse = "")
     
     tex.table.begin <- paste0("\\begin{table}[ht] \n",
                               "  \\centering \n",

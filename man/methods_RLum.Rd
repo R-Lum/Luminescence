@@ -51,6 +51,7 @@
 \alias{summary.RLum.Data.Curve}
 \alias{summary.RLum.Data.Image}
 \alias{summary.RLum.Results}
+\alias{unlist.RLum.Analysis}
 \title{methods_RLum}
 \usage{
 \method{plot}{RLum.Results}(x, y, ...)
@@ -127,6 +128,8 @@
 
 \method{merge}{RLum}(x, y, ...)
 
+\method{unlist}{RLum.Analysis}(x, recursive = TRUE, ...)
+
 \method{+}{RLum.Data.Curve}(x, y)
 
 \method{-}{RLum.Data.Curve}(x, y)
@@ -166,6 +169,8 @@
 
 \item{optional}{\code{\link{logical}} (with default): logical. If TRUE, setting row names and
 converting column names (to syntactic names: see make.names) is optional (see \code{\link[base]{as.data.frame}})}
+
+\item{recursive}{\code{\link{logical}} (with default): enables or disables further subsetting (\code{unlist})}
 
 \item{z}{\code{\link{integer}} (optional): the column index of the matrix, data.frame}
 

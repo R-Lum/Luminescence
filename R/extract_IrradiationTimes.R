@@ -112,7 +112,7 @@ extract_IrradiationTimes <- function(
   ##check whether an character or an RLum.Analysis object is provided
   if(is(object)[1] != "character" & is(object)[1] != "RLum.Analysis"){
 
-    stop("[extract_IrradiationTImes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.")
+    stop("[extract_IrradiationTimes()] Input object is neither of type 'character' nor of type 'RLum.Analysis'.")
 
   }else if(is(object)[1] == "character"){
 
@@ -201,7 +201,7 @@ extract_IrradiationTimes <- function(
   ##merge objects
   if(length(temp.sequence.list)>1){
 
-    temp.sequence <- merge_RLum.Analysis(temp.sequence.list)
+    temp.sequence <- merge_RLum(temp.sequence.list)
 
   }else{
 

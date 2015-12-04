@@ -193,7 +193,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.7 (2015-11-03 11:40:32)
+ 0.1.7 (2015-12-02 12:06:05)
 }
 \examples{
 
@@ -251,7 +251,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  z.0 = 70)
 
-## now with weighted median as central value
+## now with median as central value
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  z.0 = "median")
 
@@ -303,11 +303,11 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  stats = c("min", "max", "median"))
 
-## now with a brief statistical summary
+## now with a brief statistical summary as subheader
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  summary = c("n", "in.2s"))
 
-## now with another statistical summary as subheader
+## now with another statistical summary
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  summary = c("mean.weighted", "median"),
                  summary.pos = "topleft")

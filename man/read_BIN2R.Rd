@@ -6,8 +6,9 @@
 \title{Import Risoe BIN-file into R}
 \usage{
 read_BIN2R(file, show.raw.values = FALSE, position = NULL,
-  n.records = NULL, fastForward = FALSE, show.record.number = FALSE,
-  txtProgressBar = TRUE, forced.VersionNumber = NULL, ...)
+  n.records = NULL, duplicated.rm = FALSE, fastForward = FALSE,
+  show.record.number = FALSE, txtProgressBar = TRUE,
+  forced.VersionNumber = NULL, ...)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
@@ -26,6 +27,10 @@ the import performance will not benefit by any selection made here.}
 \item{n.records}{\link{raw} (optional): limits the number of imported
 records. Can be used in combination with \code{show.record.number} for
 debugging purposes, e.g. corrupt BIN files.}
+
+\item{duplicated.rm}{\code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
+This may happen due to an erroneous produced BIN/BINX-file. This option compares only
+predeccessor and successor.}
 
 \item{fastForward}{\code{\link{logical}} (with default): if \code{TRUE} for a
 more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
@@ -73,7 +78,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested so far.}.
 }
 \section{Function version}{
- 0.11.0 (2015-11-11 18:18:13)
+ 0.12.0 (2015-12-03 13:23:04)
 }
 \examples{
 

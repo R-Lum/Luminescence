@@ -13,12 +13,15 @@
 #' out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
 #' 1/error^2). Default is \code{"square"}.
 #'
+#' @param digits \code{\link{integer}} (with default): round numbers to the specified digits. If
+#' digits is set to \code{NULL} nothing is rounded.
+#'
 #' @param na.rm \code{\link{logical}} (with default): indicating whether NA
 #' values should be stripped before the computation proceeds.
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany)
 #'
@@ -44,6 +47,7 @@
 calc_Statistics <- function(
   data,
   weight.calc = "square",
+  digits = NULL,
   na.rm = TRUE
 ) {
   ## Check input data
@@ -139,6 +143,15 @@ calc_Statistics <- function(
                      se.abs = S.wg.se.abs,
                      se.rel = S.wg.se.rel)
 
+
+  if(!is.null(digits)){
+     S.weighted <- sapply(names(S.weighted), simplify = FALSE, USE.NAMES = TRUE, function(x){
+      round(S.weighted[[x]], digits = digits)
+
+    })
+
+  }
+
   S.unweighted <- list(n = S.n,
                        mean = S.mean,
                        median = S.median,
@@ -149,6 +162,16 @@ calc_Statistics <- function(
                        skewness = S.skewness,
                        kurtosis = S.kurtosis)
 
+  if(!is.null(digits)){
+    S.unweighted  <- sapply(names(S.unweighted), simplify = FALSE, USE.NAMES = TRUE, function(x){
+      round(S.unweighted [[x]], digits = digits)
+
+    })
+
+  }
+
   list(weighted = S.weighted,
        unweighted = S.unweighted)
+
 }
+

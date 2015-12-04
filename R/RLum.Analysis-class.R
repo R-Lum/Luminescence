@@ -222,17 +222,17 @@ setMethod("set_RLum",
 #' \code{[structure_RLum]}] an object of class \code{\linkS4class{RLum.Analysis}}
 #' (\bold{required})
 #'
-#' @param record.id [\code{get_RLum}] \code{\link{numeric}} (optional): IDs of specific records
+#' @param record.id [\code{get_RLum}] \code{\link{numeric}} or \code{\link{logical}} (optional): IDs of specific records.
+#' If of type \code{logical} the entire id range is assuemd and \code{TRUE} and \code{FALSE} indicates the selection.
 #'
-#' @param recordType [\code{get_RLum}] \code{\link{character}} (optional): record type (e.g. "OSL")
+#' @param recordType [\code{get_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL").
+#' Can be also a vector, for multiple matching, e.g., \code{recordType = c("OSL", "IRSL")}
 #'
 #' @param curveType [\code{get_RLum}] \code{\link{character}} (optional): curve
 #' type (e.g. "predefined" or "measured")
 #'
 #' @param RLum.type [\code{get_RLum}] \code{\link{character}} (optional): RLum object type.
 #' Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
-#'
-#' @param subset [\code{get_RLum}] \code{\link{list}}: currently not used.
 #'
 #' @param get.index [\code{get_RLum}] \code{\link{logical}} (optional): return a numeric
 #' vector with the index of each element in the RLum.Analysis object.
@@ -259,17 +259,24 @@ setMethod("set_RLum",
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
-          function(object, record.id, recordType, curveType, RLum.type,
-                   protocol = "UNKNOWN", subset, get.index, drop = TRUE, recursive = TRUE){
+          function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
+                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE){
 
             ##record.id
-            if (missing(record.id)) {
+            if (is.null(record.id)) {
               record.id <- c(1:length(object@records))
 
-            }else if (!is(record.id, "numeric")) {
-              stop("[get_RLum()] 'record.id' has to be of type 'numeric'!")
+            }else if (!is(record.id, "numeric") & !is(record.id, "logical")) {
+              stop("[get_RLum()] 'record.id' has to be of type 'numeric' or 'logical'!")
 
             }
+              ##logical needs a slightly different treatment
+              ##Why do we need this? Because a lot of standard R functions work with logical
+              ##values instead of numerical indicies
+              if(is(record.id, "logical")){
+                record.id <- c(1:length(object@records))[record.id]
+
+              }
 
             ##check if record.id exists
             if (FALSE %in% (abs(record.id) %in% (1:length(object@records)))) {
@@ -278,7 +285,7 @@ setMethod("get_RLum",
             }
 
             ##recordType
-            if (missing(recordType)) {
+            if (is.null(recordType)) {
               recordType <- unique(unlist(lapply(1:length(object@records),
                                                  function(x) {
                                                    object@records[[x]]@recordType
@@ -293,7 +300,7 @@ setMethod("get_RLum",
             }
 
             ##curveType
-            if(missing(curveType)) {
+            if(is.null(curveType)) {
               curveType <- unique(unlist(lapply(1:length(object@records),
                                                 function(x) {
                                                   object@records[[x]]@curveType
@@ -305,7 +312,7 @@ setMethod("get_RLum",
             }
 
             ##RLum.type
-            if (missing(RLum.type)) {
+            if (is.null(RLum.type)) {
               RLum.type <- c("RLum.Data.Curve","RLum.Data.Spectrum")
 
             }else if (!is(RLum.type, "character")) {
@@ -314,7 +321,7 @@ setMethod("get_RLum",
             }
 
             ##get.index
-            if (missing(get.index)) {
+            if (is.null(get.index)) {
               get.index <- FALSE
 
             }else if (!is(get.index, "logical")) {
@@ -388,7 +395,7 @@ setMethod("get_RLum",
               ##check if the produced object is empty and show warning message
               if(length(temp) == 0){
 
-                warning("[get_RLum] This request has produced an empty 'RLum.Analysis' object!")
+                warning("[get_RLum()] This request produced an empty list of records!")
 
               }
 
@@ -399,6 +406,7 @@ setMethod("get_RLum",
               }else{
                 if (!drop) {
                   temp <- set_RLum(class = "RLum.Analysis",
+                                   originator = originator,
                                    records = temp,
                                    protocol = object@protocol)
                   return(temp)

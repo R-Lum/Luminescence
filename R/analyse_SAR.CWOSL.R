@@ -79,7 +79,7 @@
 #' a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 #'
 #' Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
-#' \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS}.
+#' \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
 #' Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
 #' Per default all numericla values are set to 10.
 #'
@@ -128,7 +128,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.0
+#' @section Function version: 0.7.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -642,7 +642,7 @@ object!")
     # Calculate LnLxTnTx values  --------------------------------------------------
 
     ##calculate LxTx values using external function
-    for (x in seq(1,length(OSL.Curves.ID),by = 2)) {
+    LnLxTnTx <- lapply(seq(1,length(OSL.Curves.ID),by = 2), function(x){
       temp.LnLxTnTx <- get_RLum(
         calc_OSLLxTxRatio(
           Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
@@ -656,31 +656,26 @@ object!")
         )
       )
 
-      ##grep dose
-      if (exists("temp.irradiation") == FALSE) {
-        temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME
+        ##grep dose
+        if (exists("temp.irradiation") == FALSE) {
+          temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME
 
-        ##for the case that no information on the dose can be found
-        if (is.null(temp.Dose)) {
-          temp.Dose <- NA
+          ##for the case that no information on the dose can be found
+          if (is.null(temp.Dose)) {
+            temp.Dose <- NA
+          }
+
+          temp.LnLxTnTx <-
+            cbind(Dose = temp.Dose, temp.LnLxTnTx)
+
+        }else{
+          temp.LnLxTnTx <- cbind(Dose = temp.Dose[x], temp.LnLxTnTx)
+
         }
+      })
 
-        temp.LnLxTnTx <-
-          cbind(Dose = temp.Dose, temp.LnLxTnTx)
-
-      }else{
-        temp.LnLxTnTx <- cbind(Dose = temp.Dose[x], temp.LnLxTnTx)
-
-      }
-
-      if (exists("LnLxTnTx") == FALSE) {
-        LnLxTnTx <- data.frame(temp.LnLxTnTx)
-
-      }else{
-        LnLxTnTx <- rbind(LnLxTnTx,temp.LnLxTnTx)
-
-      }
-    }
+    ##combine
+    LnLxTnTx <- data.table::rbindlist(LnLxTnTx)
 
     # Set regeneration points -------------------------------------------------
 
@@ -1386,22 +1381,15 @@ object!")
 
     # Set return Values -----------------------------------------------------------
 
-    ##add data set identifyer
-    token <- paste(temp.GC[,1],
-                   temp.GC[,2],
-                   temp.GC[,3],
-                   RejectionCriteria[,4],
-                   collapse = "")
-
     ##generate unique identifier
-    UID <- digest::digest(object = token, algo = "md5")
+    UID <- .create_UID()
 
     temp.results.final <- set_RLum(
       class = "RLum.Results",
       data = list(
-        De.values = as.data.frame(c(temp.GC, temp.GC.extened, UID = UID)),
-        LnLxTnTx.table = LnLxTnTx,
-        rejection.criteria = cbind(RejectionCriteria, UID),
+        De.values = as.data.frame(c(temp.GC, temp.GC.extened, UID = UID), stringsAsFactors = FALSE),
+        LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
+        rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),
         Formula = temp.GC.fit.Formula,
         call = sys.call()
       )
@@ -1548,9 +1536,16 @@ object!")
 
     if (plot == TRUE && 8 %in% plot.single.sel) {
       ##graphical represenation of IR-curve
-      temp.IRSL <-
-        suppressWarnings(get_RLum(object, recordType = "IRSL"))
-      try(plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE), silent = TRUE)
+      temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
+
+      if(length(temp.IRSL) != 0){
+        plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE)
+
+      }else{
+        plot(1, type="n", axes=F, xlab="", ylab="")
+        text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
+
+      }
 
     }
 

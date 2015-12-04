@@ -241,7 +241,8 @@ Risoe.BINfileData2RLum.Analysis<- function(
         records = lapply(object@METADATA$ID,function(x) {
           Risoe.BINfileData2RLum.Data.Curve(object, id = x)
         }),
-        protocol = protocol
+        protocol = protocol,
+        originator = "Risoe.BINfileData2RLum.Analysis"
       )
 
       return(object)

@@ -4,13 +4,15 @@
 \alias{read_Daybreak2R}
 \title{Import Daybreak ASCII dato into R}
 \usage{
-read_Daybreak2R(file, txtProgressBar = TRUE)
+read_Daybreak2R(file, verbose = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
 file to be imported. Alternatively a list of file names can be provided or just the path a folder
 containing measurement data. Please note that the specific, common, file extension (txt) is likely
 leading to function failures during import when just a path is provided.}
+
+\item{verbose}{\code{\link{logical}} (with default): enables or disables terminal feedback}
 
 \item{txtProgressBar}{\code{\link{logical}} (with default): enables or disables
 \code{\link{txtProgressBar}}.}
@@ -25,7 +27,7 @@ Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 \bold{[BETA VERSION]} This function version still needs to be properly tested.
 }
 \section{Function version}{
- 0.2.0 (2015-11-18 19:59:32)
+ 0.2.0 (2015-12-02 16:10:52)
 }
 \examples{
 

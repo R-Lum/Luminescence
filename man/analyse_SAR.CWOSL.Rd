@@ -38,7 +38,7 @@ and set rejection criteria in percentage for further calculation. Can be a \code
 a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 
 Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
-\code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALS}.
+\code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
 Per default all numericla values are set to 10.}
 
@@ -140,7 +140,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.0 (2015-11-15 23:27:50)
+ 0.7.1 (2015-12-03 18:11:00)
 }
 \examples{
 

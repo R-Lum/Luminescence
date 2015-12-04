@@ -49,6 +49,8 @@
 #'
 #' @param row.names \code{\link{logical}} (with default): enables or disables row names (\code{as.data.frame})
 #'
+#' @param recursive \code{\link{logical}} (with default): enables or disables further subsetting (\code{unlist})
+#'
 #' @param optional \code{\link{logical}} (with default): logical. If TRUE, setting row names and
 #' converting column names (to syntactic names: see make.names) is optional (see \code{\link[base]{as.data.frame}})
 #'
@@ -253,6 +255,26 @@ as.matrix.RLum.Data.Spectrum <- function(x, ...) as(x, "matrix")
 #' @export
 merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y)))
 
+####################################################################################################
+# methods for generic: unlist()
+####################################################################################################
+#' @rdname methods_RLum
+#' @method unlist RLum.Analysis
+#' @export
+unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
+
+  temp <- get_RLum(object = x, recursive = recursive, ... )
+  if(recursive){
+    unlist(lapply(1:length(temp), function(x){
+      get_RLum(temp)
+    }), recursive = FALSE)
+
+  }else{
+    return(temp)
+
+  }
+
+}
 
 ####################################################################################################
 # methods for generic: `+`

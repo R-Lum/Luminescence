@@ -29,7 +29,7 @@ vertical ablines: One at 150 and another one at 350. Within the call all
 arguments supported by \code{\link{abline}} are fully supported,}
 
 \item{combine}{\code{\link{logical}} (with default): allows to combine all
-code\linkS4class{RLum.Data.Curve} objects in one single plot.}
+\code{\linkS4class{RLum.Data.Curve}} objects in one single plot.}
 
 \item{curve.transformation}{\code{\link{character}} (optional): allows
 transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
@@ -69,7 +69,7 @@ the transformation functions. The argument works only for \code{ltype}
 Please note: The curve transformation within this functions works roughly,
 i.e. every IRSL or OSL curve is transformed, without considerung whether it
 is measured with the PMT or not! However, for a fast look it might be
-helpful.
+helpful.\cr
 }
 \note{
 Not all arguments available for \code{\link{plot}} will be passed!
@@ -77,7 +77,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.9 (2015-11-11 18:18:13)
+ 0.2.9 (2015-12-04 10:54:16)
 }
 \examples{
 

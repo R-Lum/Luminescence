@@ -302,7 +302,7 @@ calc_gSGC<- function(
     mtext(side = 3, plot.settings$mtext)
 
     if(!is.null(plot.settings$grid)){
-      grid(eval(plot.settings$grid))
+      graphics::grid(eval(plot.settings$grid))
 
     }
 

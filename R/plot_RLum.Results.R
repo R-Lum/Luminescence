@@ -6,7 +6,7 @@
 #' The function produces a multiple plot output.  A file output is recommended
 #' (e.g., \code{\link{pdf}}).
 #'
-#' @param data \code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
+#' @param object \code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
 #' of class \code{RLum.Results}
 #'
 #' @param single \code{\link{logical}} (with default): single plot output
@@ -39,7 +39,7 @@
 #' data(ExampleData.DeValues, envir = environment())
 #'
 #' # apply the un-logged minimum age model
-#' mam<- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
+#' mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
 #'
 #' ##plot
 #' plot_RLum.Results(mam)
@@ -53,7 +53,7 @@
 #'
 #' @export
 plot_RLum.Results<- function(
-  data,
+  object,
   single = TRUE,
   ...
 ){
@@ -63,8 +63,8 @@ plot_RLum.Results<- function(
   ##============================================================================##
 
   ##check if object is of class RLum.Data.Curve
-  if(is(data,"RLum.Results") == FALSE){
-    stop("[plot_RLum.Results]: Input object is not of type 'RLum.Results'")
+  if(!is(object,"RLum.Results")){
+    stop("[plot_RLum.Results()] Input object is not of type 'RLum.Results'")
   }
 
   ##============================================================================##
@@ -111,23 +111,23 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 1: Minimum Age Model / Maximum Age Model
-  if(data@originator=="calc_MinDose" || data@originator=="calc_MaxDose") {
+  if(object@originator=="calc_MinDose" || object@originator=="calc_MaxDose") {
 
     ## single MAM estimate
     # plot profile log likelhood
     tryCatch({
       suppressWarnings(
-        bbmle::plot(data@data$profile, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
+        bbmle::plot(object@data$profile, show.points=FALSE, plot.confstr=TRUE, onepage = single, ask = FALSE)
       )
     }, error = function(e) {
       if (single)
         par(mfrow=c(2, 2))
       param <- c("gamma", "sigma", "p0", "mu")
       for (i in param) {
-        if (data@data$summary$par == 3 && i == "mu")
+        if (object@data$summary$par == 3 && i == "mu")
           break
         tryCatch({
-          bbmle::plot(data@data$profile, which = i)
+          bbmle::plot(object@data$profile, which = i)
         }, error = function(e)  {
           message(paste("Unable to plot the Likelihood profile for:", i))
         })
@@ -136,19 +136,19 @@ plot_RLum.Results<- function(
     })
 
     ## bootstrap MAM estimates
-    if(data@data$args$bootstrap==TRUE) {
+    if(object@data$args$bootstrap==TRUE) {
 
       # save previous plot parameter and set new ones
       .pardefault<- par(no.readonly = TRUE)
 
       # get De-llik pairs
-      pairs<- data@data$bootstrap$pairs$gamma
+      pairs<- object@data$bootstrap$pairs$gamma
 
       # get polynomial fit objects
-      poly.lines<- list(poly.three=data@data$bootstrap$poly.fits$poly.three,
-                        poly.four=data@data$bootstrap$poly.fits$poly.four,
-                        poly.five=data@data$bootstrap$poly.fits$poly.five,
-                        poly.six=data@data$bootstrap$poly.fits$poly.six)
+      poly.lines<- list(poly.three=object@data$bootstrap$poly.fits$poly.three,
+                        poly.four=object@data$bootstrap$poly.fits$poly.four,
+                        poly.five=object@data$bootstrap$poly.fits$poly.five,
+                        poly.six=object@data$bootstrap$poly.fits$poly.six)
 
       # define polynomial curve functions for plotting
       poly.curves<- list(poly.three.curve=function(x) { poly.lines$poly.three$coefficient[4]*x^3 + poly.lines$poly.three$coefficient[3]*x^2 + poly.lines$poly.three$coefficient[2]*x + poly.lines$poly.three$coefficient[1] },
@@ -193,11 +193,11 @@ plot_RLum.Results<- function(
         axis(side = 1, labels = FALSE, tick = FALSE)
 
         # add subtitle
-        mtext(as.expression(bquote(italic(M) == .(data@data$args$bs.M) ~ "|" ~
-                                     italic(N) == .(data@data$args$bs.N) ~ "|" ~
-                                     italic(sigma[b])  == .(data@data$args$sigmab) ~
-                                     "\u00B1" ~ .(data@data$args$sigmab.sd) ~ "|" ~
-                                     italic(h) == .(round(data@data$args$bs.h,1))
+        mtext(as.expression(bquote(italic(M) == .(object@data$args$bs.M) ~ "|" ~
+                                     italic(N) == .(object@data$args$bs.N) ~ "|" ~
+                                     italic(sigma[b])  == .(object@data$args$sigmab) ~
+                                     "\u00B1" ~ .(object@data$args$sigmab.sd) ~ "|" ~
+                                     italic(h) == .(round(object@data$args$bs.h,1))
         )
         ),
         side = 3, line = 0.3, adj = 0.5,
@@ -262,8 +262,8 @@ plot_RLum.Results<- function(
       ### possibly integrate this in the prior polynomial plot loop
 
       ### LOESS PLOT
-      pairs<- data@data$bootstrap$pairs$gamma
-      pred<- predict(data@data$bootstrap$loess.fit)
+      pairs<- object@data$bootstrap$pairs$gamma
+      pred<- predict(object@data$bootstrap$loess.fit)
       loess<- cbind(pairs[,1], pred)
       loess<- loess[order(loess[,1]),]
 
@@ -281,9 +281,9 @@ plot_RLum.Results<- function(
 
       par(mar=c(5,4,4,4))
 
-      xlim<- range(pretty(data@data$data[,1]))
-      xlim[1]<- xlim[1]-data@data$data[which.min(data@data$data[,1]),2]
-      xlim[2]<- xlim[2]+data@data$data[which.max(data@data$data[,1]),2]
+      xlim<- range(pretty(object@data$data[,1]))
+      xlim[1]<- xlim[1]-object@data$data[which.min(object@data$data[,1]),2]
+      xlim[2]<- xlim[2]+object@data$data[which.max(object@data$data[,1]),2]
       xlim<- range(pretty(xlim))
 
       # empty plot
@@ -327,8 +327,8 @@ plot_RLum.Results<- function(
       ### ----- PLOT MAM SINGLE ESTIMATE
 
       # symmetric errors, might not be appropriate
-      mean<- data@data$summary$de
-      sd<- data@data$summary$de_err
+      mean<- object@data$summary$de
+      sd<- object@data$summary$de_err
 
       x<- seq(mean-5*sd, mean+5*sd, 0.001)
       y<- dnorm(seq(mean-5*sd, mean+5*sd, 0.001), mean, sd)
@@ -340,10 +340,10 @@ plot_RLum.Results<- function(
              col="red")
 
       ## asymmetric errors
-      x<- unlist(data@data$profile@profile$gamma$par.vals[,1])
-      y<- abs(unlist(data@data$profile@profile$gamma$z))
+      x<- unlist(object@data$profile@profile$gamma$par.vals[,1])
+      y<- abs(unlist(object@data$profile@profile$gamma$z))
 
-      if(data@data$args$log == TRUE) {
+      if(object@data$args$log == TRUE) {
         x<- exp(x)
       }
 
@@ -368,10 +368,10 @@ plot_RLum.Results<- function(
       par(new = TRUE)
 
       # sort the data in ascending order
-      dat<- data@data$data[order(data@data$data[,1]),]
+      dat<- object@data$data[order(object@data$data[,1]),]
 
       x<- dat[,1]
-      y<- 1:length(data@data$data[,1])
+      y<- 1:length(object@data$data[,1])
 
       plot(x = x, y = y,
            xlim=xlim,
@@ -387,7 +387,7 @@ plot_RLum.Results<- function(
       mtext(text = "# Grain / aliquot", side = 4, line = 2.5)
 
       # get sorted errors
-      err<- data@data$data[order(data@data$data[,1]),2]
+      err<- object@data$data[order(object@data$data[,1]),2]
 
       # fancy error bars
       arrows(x0 = x-err, y0 = y,
@@ -412,11 +412,11 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 2: Central Age Model
-  if(data@originator=="calc_CentralDose") {
+  if(object@originator=="calc_CentralDose") {
 
     # get profile log likelihood data
-    sig<- data@data$profile$sig*100
-    llik<- data@data$profile$llik
+    sig<- object@data$profile$sig*100
+    llik<- object@data$profile$llik
 
     # save previous plot parameter and set new ones
     .pardefault<- par(no.readonly = TRUE)
@@ -454,7 +454,7 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 3: Fuchs & Lang 2001
-  if(data@originator=="calc_FuchsLang2001") {
+  if(object@originator=="calc_FuchsLang2001") {
 
     ##deal with addition arguments
     extraArgs <- list(...)
@@ -466,15 +466,15 @@ plot_RLum.Results<- function(
     cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else {1}
     lwd <- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else {1}
     pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else {19}
-    ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else {c(1,length(data@data$data[,1])+3)}
-    xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else {c(min(data@data$data[,1])-max(data@data$data[,2]), max(data@data$data[,1])+max(data@data$data[,2]))}
+    ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else {c(1,length(object@data$data[,1])+3)}
+    xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else {c(min(object@data$data[,1])-max(object@data$data[,2]), max(object@data$data[,1])+max(object@data$data[,2]))}
     mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else {"unknown sample"}
 
     # extract relevant plotting parameters
-    o<- order(data@data$data[1])
-    data_ordered<- data@data$data[o,]
-    usedDeValues<- data@data$usedDeValues
-    n.usedDeValues<- data@data$summary$n.usedDeValues
+    o<- order(object@data$data[1])
+    data_ordered<- object@data$data[o,]
+    usedDeValues<- object@data$usedDeValues
+    n.usedDeValues<- object@data$summary$n.usedDeValues
 
     par(cex = cex, mfrow=c(1,1))
 
@@ -539,8 +539,8 @@ plot_RLum.Results<- function(
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 4: Finite Mixture Model
 
-  if(data@originator == "calc_FiniteMixture") {
-    if(length(data@data$args$n.components) > 1L) {
+  if(object@originator == "calc_FiniteMixture") {
+    if(length(object@data$args$n.components) > 1L) {
 
       ##deal with addition arguments
       extraArgs <- list(...)
@@ -552,11 +552,11 @@ plot_RLum.Results<- function(
       pdf.sigma<- if("pdf.sigma" %in% names(extraArgs)) {extraArgs$pdf.sigma} else {"sigmab"}
 
       # extract relevant data from object
-      n.components<- data@data$args$n.components
-      comp.n<- data@data$components
-      sigmab<- data@data$args$sigmab
-      BIC.n<- data@data$BIC$BIC
-      LLIK.n<- data@data$llik$llik
+      n.components<- object@data$args$n.components
+      comp.n<- object@data$components
+      sigmab<- object@data$args$sigmab
+      BIC.n<- object@data$BIC$BIC
+      LLIK.n<- object@data$llik$llik
 
       # save previous plot parameter and set new ones
       .pardefault<- par(no.readonly = TRUE)
@@ -647,7 +647,7 @@ plot_RLum.Results<- function(
         for(j in 1:max(n.components)) {
 
           # draw random values of the ND to check for NA values
-          comp.nd.n<- sort(rnorm(n = length(data@data$data[,1]),
+          comp.nd.n<- sort(rnorm(n = length(object@data$data[,1]),
                                  mean = comp.n[pos.n[j],i],
                                  sd = comp.n[pos.n[j]+1,i]))
 
@@ -668,8 +668,8 @@ plot_RLum.Results<- function(
 
             # x-axis scaling - determine highest dose in first cycle
             if(i==1 && j==1){
-              max.dose<- max(data@data$data[,1])+sd(data@data$data[,1])/2
-              min.dose<- min(data@data$data[,1])-sd(data@data$data[,1])/2
+              max.dose<- max(object@data$data[,1])+sd(object@data$data[,1])/2
+              min.dose<- min(object@data$data[,1])-sd(object@data$data[,1])/2
 
               # density function to determine y-scaling if no weights are used
               fooY<- function(x) {
@@ -687,7 +687,7 @@ plot_RLum.Results<- function(
               for(b in 1:max(n.components)){
 
                 # draw random values of the ND to check for NA values
-                comp.nd.n<- sort(rnorm(n = length(data@data$data[,1]),
+                comp.nd.n<- sort(rnorm(n = length(object@data$data[,1]),
                                        mean = comp.n[pos.n[b],i],
                                        sd = comp.n[pos.n[b]+1,i]))
 
@@ -774,7 +774,7 @@ plot_RLum.Results<- function(
 
           # subtitle
           mtext(as.expression(bquote(italic(sigma[b]) == .(sigmab) ~
-                                       "|" ~ n == .(length(data@data$data[,1])))),
+                                       "|" ~ n == .(length(object@data$data[,1])))),
                 side = 3, font = 1, line = 2.2, adj = 0.5,
                 at = grconvertX(0.5, from = "ndc", to = "user"), cex = 0.9)
 
@@ -913,8 +913,8 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 5: Aliquot Size
-  if(data@originator=="calc_AliquotSize") {
-    if(data@data$args$MC == TRUE) {
+  if(object@originator=="calc_AliquotSize") {
+    if(object@data$args$MC == TRUE) {
 
       extraArgs <- list(...)
 
@@ -922,11 +922,11 @@ plot_RLum.Results<- function(
       xlab<- if("xlab" %in% names(extraArgs)) { extraArgs$xlab } else { "Amount of grains on aliquot" }
 
       # extract relevant data
-      MC.n<- data@data$MC$estimates
-      MC.n.kde<- data@data$MC$kde
-      MC.stats<- data@data$MC$statistics
-      MC.q<- data@data$MC$quantile
-      MC.iter<- data@data$args$MC.iter
+      MC.n<- object@data$MC$estimates
+      MC.n.kde<- object@data$MC$kde
+      MC.stats<- object@data$MC$statistics
+      MC.q<- object@data$MC$quantile
+      MC.iter<- object@data$args$MC.iter
 
       # set layout of plotting device
       layout(matrix(c(1,1,2)),2,1)
@@ -984,11 +984,11 @@ plot_RLum.Results<- function(
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 6: calc_SourceDoseRate()
-  if(data@originator=="calc_SourceDoseRate") {
+  if(object@originator=="calc_SourceDoseRate") {
 
     ##prepare data
     ##get data
-    df <- get_RLum(data, data.object = "dose.rate")
+    df <- get_RLum(object = object, data.object = "dose.rate")
 
     ##reduce the size for plotting, more than 100 points makes no sense
     if(nrow(df)>100) {
@@ -1002,16 +1002,16 @@ plot_RLum.Results<- function(
         main = "Source Dose Rate Prediction",
         xlab = "Date",
         ylab = paste0(
-          "Dose rate/(",get_RLum(data, data.object = "parameters")$dose.rate.unit,")"),
+          "Dose rate/(",get_RLum(object = object, data.object = "parameters")$dose.rate.unit,")"),
         log = "",
         cex = 1,
         xlim = NULL,
         ylim = c(min(df[,1]) - max(df[,2]), max(df[,1]) + max(df[,2])),
         pch = 1,
         mtext = paste0(
-          "source type: ", get_RLum(data, data.object = "parameters")$source.type,
+          "source type: ", get_RLum(object = object, data.object = "parameters")$source.type,
           " | ",
-          "half-life: ", get_RLum(data, data.object = "parameters")$halflife,
+          "half-life: ", get_RLum(object = object, data.object = "parameters")$halflife,
           " a"
         ),
         grid = expression(nx = 10, ny = 10),

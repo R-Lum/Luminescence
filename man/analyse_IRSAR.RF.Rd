@@ -184,6 +184,12 @@ asks for long computation times. Currently supported parameters are:
 The ratio of \eqn{RF_{nat}} over \eqn{RF_{reg}} in the range of\eqn{RF_{nat}} of is calculated
 and should not exceed the threshold value. \cr
 
+\code{intersection_ratio} \code{\link{numeric}} (default: \code{NA}):\cr
+
+Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves.
+This value indicates intersection of the RF-curves and should be close to 0 if the curves
+have a similar shape.\cr
+
 \code{residuals_slope} \code{\link{numeric}} (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
 
 A linear function is fitted on the residuals after sliding.
@@ -223,7 +229,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.5.1 (2015-10-31 14:56:58)
+ 0.5.1 (2015-12-03 17:19:24)
 }
 \examples{
 
