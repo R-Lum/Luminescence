@@ -39,10 +39,10 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 		bibentry(bibtype = "Article",
 			  	title = "The abanico plot: visualising chronometric data with individual standard errors",
 				author = "Michael Dietze, Sebastian Kreutzer, Christoph Burow, Margret C. Fuchs, Manfred Fischer, Christoph Schmidt",
-				year = "2015",
+				year = "2016",
 				journal = "Quaternary Geochronology",
-				volume = "",
-				pages = "1-7",
+				volume = "31",
+				pages = "12-18",
 				doi = "10.1016/j.quageo.2015.09.003")
 
 

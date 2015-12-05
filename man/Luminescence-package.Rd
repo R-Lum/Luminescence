@@ -74,8 +74,8 @@ Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
 Schmidt, C., 2013. A practical guide to the R package Luminescence.
 Ancient TL, 31, 11-18.
 
-Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2015. The abanico plot:
-visualising chronometric data with individual standard errors. Quaternary Geochronology, 1-7.
+Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016. The abanico plot:
+visualising chronometric data with individual standard errors. Quaternary Geochronology 31, 12-18.
 http://dx.doi.org/10.1016/j.quageo.2015.09.003
 
 Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C.,
