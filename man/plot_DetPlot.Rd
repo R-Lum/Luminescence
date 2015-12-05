@@ -65,7 +65,7 @@ every sequence should be checked carefully before running long calculations usin
 hundreds of channels.
 }
 \section{Function version}{
- 0.1.0 (2015-12-04 18:01:13)
+ 0.1.0 (2015-12-05 11:39:48)
 }
 \examples{
 
