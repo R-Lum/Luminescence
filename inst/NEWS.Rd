@@ -14,10 +14,11 @@
    \itemize{
 
 
-      \item \code{Dummy()}
+      \item \code{calc_FadingCorr()}
       \itemize{
 
-        \item dummy
+        \item Table column headers now have all capital letters,
+        \item minor performance improvements.
 
 
       }

@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.1
+#' @section Function version: 1.8.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -288,13 +288,16 @@ plot_GrowthCurve <- function(
 
   fun   <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
 
-
   #1.2 Prepare data sets regeneration points for MC Simulation
-  data.MC<-t(matrix(sapply(seq(2,fit.NumberRegPoints+1,by=1),
-                           function(x){sample(rnorm(10000,mean=sample[x,2], sd=abs(sample[x,3])),
-                                              NumberIterations.MC, replace=TRUE)}), nrow=NumberIterations.MC
-  )#end matrix
-  )#end transpose matrix
+  data.MC<-t(vapply(
+    X = seq(2,fit.NumberRegPoints+1,by=1),
+    FUN = function(x){
+      sample(
+        rnorm(n = 10000,
+              mean = sample[x,2], sd = abs(sample[x,3])),
+              size = NumberIterations.MC, replace=TRUE)
+      },
+    FUN.VALUE = vector("numeric", length = NumberIterations.MC)))
 
   #1.3 Do the same for the natural signal
   data.MC.De <- numeric(NumberIterations.MC)
@@ -302,7 +305,7 @@ plot_GrowthCurve <- function(
                        NumberIterations.MC, replace=TRUE)
 
   #1.3 set x.natural
-  x.natural<-numeric(NumberIterations.MC)
+  x.natural <- vector("numeric", length = NumberIterations.MC)
   x.natural <- NA
 
   ##1.4 set initialise variables
@@ -577,10 +580,10 @@ plot_GrowthCurve <- function(
         }
 
         #get parameters out of it
-        parameters<-(coef(fit))
-        b<-as.vector((parameters["b"]))
-        a<-as.vector((parameters["a"]))
-        c<-as.vector((parameters["c"]))
+        parameters <- (coef(fit))
+        b <- as.vector((parameters["b"]))
+        a <- as.vector((parameters["a"]))
+        c <- as.vector((parameters["c"]))
 
 
         #calculate De

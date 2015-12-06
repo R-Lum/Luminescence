@@ -98,7 +98,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.4
+#' @section Function version: 0.5.5
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -230,14 +230,16 @@ read_XSYG2R <- function(
     ##(1) split string to paris of xy-values
     ##(2) split string to xy-values itself
     ##(3) convert to numeric
-    ##(4) transpose matrix
-    curve.node <- t(
-      sapply(
+    ##(4) create matrix
+
+   curve.node <- t(
+      vapply(
         strsplit(
           strsplit(
             XML::xmlValue(curve.node), split = ";", fixed = TRUE)[[1]],
           split = ",", fixed = TRUE),
-        as.numeric))
+        FUN = as.numeric,
+        FUN.VALUE = c(1,1L)))
 
   }
 
@@ -333,7 +335,7 @@ read_XSYG2R <- function(
     message(paste0("[read_XSYG2R()]\n  Importing: ",file))
 
     ##PROGRESS BAR
-    if(txtProgressBar == TRUE){
+    if(txtProgressBar){
       pb <- txtProgressBar(min=0,max=XML::xmlSize(temp), char = "=", style=3)
     }
 
@@ -663,7 +665,8 @@ read_XSYG2R <- function(
 
         }##if-try condition
 
-      }))
+      }),
+       use.names = FALSE)
 
 
       ##if the XSYG file is broken we get NULL as list element
@@ -678,7 +681,7 @@ read_XSYG2R <- function(
 
 
         ##update progress bar
-        if (txtProgressBar == TRUE) {
+        if (txtProgressBar) {
           setTxtProgressBar(pb, x)
         }
 
@@ -700,7 +703,7 @@ read_XSYG2R <- function(
     })##end loop for sequence list
 
     ##close ProgressBar
-    if(txtProgressBar == TRUE){close(pb)}
+    if(txtProgressBar ){close(pb)}
 
     ##show output informatioj
     if(length(output[sapply(output, is.null)]) == 0){
