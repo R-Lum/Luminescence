@@ -5,7 +5,8 @@
 \title{Convert an element from a Risoe.BINfileData object to an RLum.Data.Curve
 object}
 \usage{
-Risoe.BINfileData2RLum.Data.Curve(object, id, pos, run, set)
+Risoe.BINfileData2RLum.Data.Curve(object, id, pos = NULL, run = NULL,
+  set = NULL)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
@@ -48,10 +49,9 @@ Due to changes in the BIN-file (version 3 to version 4) format the recalculation
 overall correct for cases where the TL measurement is combined with a preheat.
 }
 \section{Function version}{
- 0.2.1 (2015-11-29 17:27:48)
+ 0.2.2 (2015-12-06 14:09:20)
 }
 \examples{
-
 
 ##get package example data
 data(ExampleData.BINfileData, envir = environment())

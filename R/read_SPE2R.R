@@ -437,16 +437,3 @@ read_SPE2R <- function(
   return(object)
 
 }
-
-## ---- DEPRECATED GENERICS
-# .Deprecated in package version 0.5.0
-# .Defunct in 0.5.X
-# Removed in 0.6.0
-#' @noRd
-#' @export
-readSPE2R <- function(...) {
-  .Deprecated("read_SPE2R")
-  read_SPE2R(...)
-}
-
-

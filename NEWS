@@ -8,9 +8,39 @@ Changes in version 0.6.0 (,2016):
            dependency of the chosen signal integral (cf. Bailey et al.,
            2003; #23).
 
+  Removed functions:
+
+         • ‘readBIN2R()’, replacement ‘read_BIN2R()’,
+
+         • ‘readSPE2R()’, replacement ‘read_SPE2R()’,
+
+         • ‘readXSYG2R()’, replacement ‘read_XSYG2R()’,
+
+         • ‘get_RLum.Data.Curve()’, replacement ‘get_RLum()’,
+
+         • ‘get_RLum.Data.Spectrum()’, replacement ‘get_RLum()’,
+
+         • ‘get_RLum.Data.Image()’, replacement ‘get_RLum()’,
+
+         • ‘get_RLum.Analysis()’, replacement ‘get_RLum()’,
+
+         • ‘get_RLum.Results()’, replacement ‘get_RLum()’,
+
+         • ‘set_RLum.Data.Curve()’, replacement ‘set_RLum()’,
+
+         • ‘set_RLum.Data.Spectrum()’, replacement ‘set_RLum()’,
+
+         • ‘set_RLum.Data.Image()’, replacement ‘set_RLum()’,
+
+         • ‘set_RLum.Analysis()’, replacement ‘set_RLum()’,
+
+         • ‘set_RLum.Results()’, replacement ‘set_RLum()’,
+
   Bugfixes and changes:
 
-         • ‘Dummy()’
+         • ‘calc_FadingCorr()’
 
-             • dummy
+             • Table column headers now have all capital letters,
+
+             • minor performance improvements.
 

@@ -728,13 +728,3 @@ read_XSYG2R <- function(
   return(output[!sapply(output,is.null)])
 
 }
-## ---- DEPRECATED GENERICS
-# .Deprecated in package version 0.5.0
-# .Defunct in 0.5.X
-# Removed in 0.6.0
-#' @noRd
-#' @export
-readXSYG2R <- function(...) {
-  .Deprecated("read_XSYG2R")
-  read_XSYG2R(...)
-}
