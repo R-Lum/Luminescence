@@ -16,6 +16,8 @@ Changes in version 0.6.0 (,2016):
 
          • ‘readXSYG2R()’, replacement ‘read_XSYG2R()’,
 
+         • ‘writeR2BIN()’, replacement ‘write_R2BIN()’,
+
          • ‘get_RLum.Data.Curve()’, replacement ‘get_RLum()’,
 
          • ‘get_RLum.Data.Spectrum()’, replacement ‘get_RLum()’,
