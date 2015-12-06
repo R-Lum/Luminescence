@@ -2,7 +2,7 @@ Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
 Version: 0.5.1
-Date: 2015-XX-XX
+Date: 2015-12-07
 Author: Sebastian Kreutzer [aut, trl, cre],
     Michael Dietze [aut],
     Christoph Burow [aut],
@@ -42,7 +42,7 @@ Imports:
     methods,
     Rcpp (>= 0.12.2),
     minpack.lm (>= 1.2-0),
-    raster (>= 2.4-20),
+    raster (>= 2.4-18),
     readxl (>= 0.1.0),
     shape (>= 1.4.2),
     parallel,

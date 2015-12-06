@@ -1,11 +1,663 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.5.1 (, 2016):
+Changes in version 0.5.1 (7th December, 2016):
 
-  Bugfixes and changes:
+  Changes with unplanned version 0.5.1:
+
+         • Due to problems in the package 'sp' a couple of subsequent
+           packages could not built for Mac OSX Mavericks, including
+           the package 'raster' which is imported by the package
+           'Luminescence'. Consequently no recent Mac OSX version of
+           'Luminescence' was available on CRAN. This update fixes this
+           by reducing the required version number for 'ratser to the
+           last version available for Mac OSX for Mavericks on CRAN.
 
          • ‘plot_RLum.Analysis()’
 
              • If the option ‘subset’ was used, the automatic par()
                setting was a little bit overruled. Corrected.
+
+Changes in version 0.5.0 (4th, December, 2015):
+
+  General remarks:
+
+         • This major update provides, apart from few new functions,
+           many bugfixes and non-visible improvements in the underlying
+           code to keep the growing package still usable and efficient.
+           The most important change is provided with the support of
+           S3-generics.  For example: The well known R function
+           ‘plot()’ can now deal with ‘RLum’-objects.  However, this
+           improvement also went along with a more standardised way how
+           RLum objects can be treated.  In particular, to access
+           RLum-objects only one function is necessary: ‘get_RLum()’.
+           The function will subsequently dispatch the right method on
+           the basis of the provided object.  Due to this a couple of
+           functions had bee deprecated. See below for details.
+
+  Changes S4-objects, methods, classes:
+
+         • Extend class definition for ‘RLum’-class by slots
+           ‘originator’ and ‘.uid’ (and with that for all
+           ‘RLum’classes),
+
+         • ‘get_RLum’
+
+             • the method for the ‘RLum.Results’ object returned ‘NULL’
+               if nothing was defined for a specific function,
+               corrected. Now, if nothing is defined the first object
+               in the slot ‘data’ is returned (#223),
+
+             • the method was enhanced to deal with objects of type
+               ‘list’ containing only ‘RLum’ objects. Depending on the
+               ‘RLum’ objects in the list the corresponding ‘get_RLum’
+               methods are called,
+
+             • argument ‘keep.object’ (for ‘RLum.Analysis’ objects) has
+               been replace by ‘drop’. The default is ‘drop = TRUE’,
+               this mean common behaviour changes as former it was
+               ‘keep.object = TRUE’. However, ‘drop’ is behaviour
+               consistent with standard R code,
+
+             • argument ‘data.object’ (‘get_RLum’ for 'RLum.Results'
+               objects can now handle numeric values) and numeric, as
+               well as character vectors,
+
+             • argument ‘drop’ also added for ‘get_RLum’ method for
+               'RLum.Results',
+
+             • add argument ‘null.rm’ for input of type ‘list’ of
+               ‘RLum’ objects, with this option the resulting ‘list’
+               can be cleaned up,
+
+             • argument ‘record.id’ (‘RLum.Analysis’ objects) now
+               accepts as input ‘logical’ values. This was necessary to
+               be consistent with standard R behaviour.
+
+         • ‘merge_RLum’
+
+             • Method for ‘RLum.Results’ objects now combines the
+               data.frame using the function ‘data.table::rbindList’
+               this should give a little bit more speed,
+
+             • the method was not working properely for objects of
+               types ‘RLum.Results’ if they tried to combine matrices
+               and vectors found in the 'data.object' list.
+
+         • ‘length_RLum’
+
+             • Method added for ‘RLum.Results’ objects.
+
+         • ‘names_RLum’
+
+             • Method added for ‘RLum.Data.Curve’,
+               ‘RLum.Data.Spectrum’, ‘RLum.Data.Image’, ‘RLum.Analysis’
+               and ‘RLum.Results’ objects.
+
+         • ‘replicate_RLum’
+
+             • New method to replicate RLum objects (valid for all
+               objects)
+
+         • ‘Risoe.BINfileData-class’
+
+             • Show method now returns the valid grain range,
+
+             • the method ‘get_Risoe.BINfileData’ was never active, but
+               the corresponding message on using the function
+               ‘Risoe.BINfileData2RLum.Analysis()’ disappeared if a
+               user tried to pass additional (unused) arguments.
+               Corrected (thanks to Alice Versendaal).
+
+         • RLum-class
+
+             • Two new slots have been added: ‘originator’ and ‘.uid’.
+               Due to inheritance they are now available for all ‘RLum’
+               objects and both are set automatically if an ‘RLum’
+               object is created.
+
+         • RLum.Data.Curve
+
+             • The corresponding ‘set_RLum’ method of this class now
+               comes with default values, corresponding to the
+               prototype of this class and the method itself does not
+               check any longer for missing values, means, empty
+               objects can be produced,
+
+             • furthermore the ‘set_RLum’ method now accepts an
+               ‘RLum.Data.Curve’ object as input for the argument
+               ‘data’. With this the object can be changed (e.g.
+               recordType) without de-constructing the object,
+
+             • add coercing method from and to ‘list’.
+
+         • RLum.Data.Spectrum
+
+             • orrect coercion method for ‘RLum.Data.Spectrum’ to a
+               ‘data.frame’, before only the first two columns had been
+               returned.
+
+         • RLum.Analysis
+
+             • Add method for coercing to a ‘list’ and the way back.
+
+         • RLum.Results
+
+             • Add method for coercing to a ‘list’ and the way back.
+
+  New functions:
+
+         • ‘calc_gSGC()’ Calculate De value based on the gSGC by Li et
+           al., 2015,
+
+         • ‘plot_NRt()’ Creates a Natural/Regenerated signal vs. time
+           (NR(t)) plot as shown in Steffen et al. 2009 (#234),
+
+         • ‘read_Daybreak2R()’ Imports ASCII data produced by a
+           Daybreak TL/OSL reader,
+
+         • ‘use_DRAC()’ Provides an R interface to the 'Dose Rate
+           Calculator' (DRAC) (#219),
+
+         • ‘template_DRAC()’ Creates a DRAC input template (v1.1) to be
+           used for ‘use_DRAC()’,
+
+         • ‘plot_ViolinPlot()’ Creates a combination of a kernel
+           density plot with a boxplot.  This plot was especially
+           written for visualisation of data where standard errors are
+           zero or to small to be visualised at all.
+
+  Bugfixes and changes:
+
+         • ‘Analyse_SAR.OSLdata()’
+
+             • Argument ‘log’ removed, but option still supported via
+               ‘...’ (means log can be used as usual but it is not
+               listed as explicit argument),
+
+             • enhanced support for graphical parameters such as:
+               ‘mtext’
+
+         • ‘analyse_IRSAR.RF()’
+
+             • Argument ‘fit.trace’ removed. It can be controlled by
+               the new argument ‘method.control’ instead,
+
+             • argument ‘slide.show_density’ removed and can now be
+               controlled by within the new argument ‘method.control’,
+
+             • argument ‘method.control’ added allowing to control
+               parameters of the chosen method,
+
+             • now also the sliding matrix is returned with the
+               RLum.Results 'data.object' ‘slide’,
+
+             • the way the error is calculated was changed again to
+               account for drawbacks if always just the global minimum
+               is chosen (details see manual),
+
+             • adjust the threshold finding for the criterium
+               'curve_bounds' to ensure that a warning message is
+               shown, if results should not be used,
+
+             • the 'curve_bounds' message will no longer be shown, if
+               the natural curve was limited by the argument
+               ‘RF_nat.lim’ and within the curve limits the bounds have
+               not been reached,
+
+             • fix a bug that forces the function to crash if a limited
+               atural curve reached the end of the regenerated curve
+               after sliding and remains longer (#254),
+
+             • if no IRSL curve is detected it is now stated so as
+               plot,
+
+             • some graphical adjustments.
+
+         • ‘analyse_pIRIRSequence()’
+
+             • Now acts a little bit more relaxed if something goes
+               wrong, function does not break, but returns ‘NULL’
+               instead,
+
+             • argument ‘dose.points’ now pre-set with ‘NULL’,
+
+             • function now supports a list of RLum-objects as input,
+
+             • add data.object ‘call’ to the output,
+
+             • the plot device is no longer changed if ‘plot = FALSE’.
+
+         • ‘analyse_SAR.CWOSL()’
+
+             • Internal curve selection now works using the ‘get_RLum’.
+               This should give a little bit more flexibility and
+               prevent errors with odd curve names,
+
+             • in the rare case where no recuperation rate can be
+               calculated due to the missing R0 point the function
+               stopped with an error. This has been corrected.
+
+             • function now how to deal with a ‘list’ of
+               ‘RLum.Analysis’ objects and will re-call itself as
+               elements are in the ‘list’ (argument ‘object’). In
+               particular cases this may lead to a tremendous efficient
+               data analysis process,
+
+             • add 'call' to data output object,
+
+             • add 'UID' column to data object 'De.values' and
+               'rejection.criteria',
+
+             • if the function is not able to proceed to due to unequal
+               number of OSL curves the analysis will no longer break
+               with an error. Instead ‘NULL’ is returned. This allows
+               to use the function more efficiently in a loop,
+
+             • improve behaviour if wrong background integrals are
+               provided, even the values make no sense the functions
+               tries to do the best without breaking,
+
+             • plot argumet ‘log = "x"’ results in non-plotting of the
+               Lx/Tx curves, fixed,
+
+             • support for independent Lx and Tx integral limites
+               added,
+
+             • argument ‘dose.points’ pre-set with ‘NULL’,
+
+             • correct self call behaviour.
+
+         • ‘analyse_SAR.TL()’
+
+             • New argument ‘dose.points’ and its functionality added.
+
+         • ‘calc_CentralDose()’
+
+             • Fixed a bug in the ‘RLum.Results’ object, which returned
+               false profile log-likelihood values for ‘sigma’. Report
+               was gratefully provided by Eike F. Rades.
+
+             • Fixed a bug in the calculation of the standard error of
+               sigma ('overdispersion'), which was carried over from
+               RGs original S script
+
+             • new argument ‘log’ added to apply the un-logged central
+               age model
+
+         • ‘calc_OSLLxTxRatio()’
+
+             • The function produced nonsense if only Lx data are
+               provided as RLum.Data.Curve object; corrected (raised by
+               Andrea Junge),
+
+             • new arguments added ‘signal.integral.Tx’ and
+               ‘background.integral.Tx’ to allow for independent signal
+               and background integrals for the Lx and Tx curves
+               (suggested by Norbert Mercier). To avoid compatibly
+               problems by default integrals are similar for Lx and Tx,
+
+             • new output data object ‘call’ added.
+
+         • ‘calc_SourceDoseRate()’
+
+             • Function now returns the original function call as
+               data.object,
+
+             • argument ‘predict’ added to allow for source dose rate
+               prediction in days,
+
+             • adding plotting method for object output, available via
+               (‘plot_RLum’),
+
+             • extend examples.
+
+         • ‘calc_Statistics()’
+
+             • Weighted median is now completly removed from the
+               calculation, values is replaced by the unweighted
+               median,
+
+             • parameter ‘digits’ added to allow rounding to the number
+               of specified digits.
+
+         • ‘fit_LMCurve()’
+
+             • Argument ‘output.plot’ renamed to ‘plot’,
+
+             • argument ‘output.plotBG’ renamed to ‘plot.BG’,
+
+             • arguemtn ‘output.terminal’ renamed to ‘verbose’,
+
+             • argument ‘output.path’ removed without replacement,
+               corresponding code has been removed from the function,
+
+             • argument ‘cex.global’ removed, scaling can be still used
+               via ‘cex’
+
+             • argument ‘output.terminaladvanced’ has been removed
+               without replacement, terminal output can just be
+               triggered via ‘verbose’,
+
+             • new argument added ‘fit.method’. Argument works similar
+               as in ‘fit_CWCurve()’ and allows to use the
+               Levenberg-Marquardt algorithm for fitting (addressing
+               #55)
+
+             • new return data object added ‘call’ containing the
+               original function call.
+
+         • ‘merge_RLum()’
+
+             • The function now removes empty list objects before
+               proceeding.
+
+         • ‘merge_RisoeBINfileData()’
+
+             • The position number of the merged BIN-files was not
+               appropriately recalculated due to a coding error (#251).
+               Report and fix was gratefully provided by Alice
+               Versandaal.
+
+         • ‘plot_AbanicoPlot()’
+
+             • Further adjustment to deal with zero error values (will
+               now be removed automatically),
+
+             • if the De was zero or negative the function stopped with
+               an error, changed to a warning message and a return of
+               ‘NULL’ (this is a much better behaviour when the
+               function is used within a loop, #253),
+
+             • make sure that the graphical parameters are restored
+               properly after the function was run,
+
+             • function now properly accepts ‘par()’ settings to allow
+               multiple plots on one page, e.g., ‘par(mfrow = c(3,3))’
+               (#247),
+
+             • function now accepts direct input from ‘RLum.Results’
+               objects produced by the function ‘analyse_SAR.CWOSL()’
+               without error (#245),
+
+             • function no longer breaks if an empty data set is
+               provided (#244).
+
+         • ‘plot_DRTResults()’
+
+             • Function struggled with RLum.Results objects as input;
+               corrected.
+
+             • improve graphical representation using groups of
+               boxplots.
+
+         • ‘plot_GrowthCurve()’
+
+             • Final fitting and fitting during the MC runs is now done
+               using the Levenberg-Marquardt from the package
+               'minpack.lm'. This increases the fitting stability and
+               the computation step markedly (#5),
+
+             • output object is enhanced by the ‘call’ containing the
+               function call,
+
+             • for the option ‘fit.method = "LIN"’ and ‘fit.method =
+               "EXP OR LIN"’ weights had been not considered;
+               corrected,
+
+             • add argument ‘fit.force_through_origin’, it does exactly
+               what you may expect from such argument (#225, requested
+               by Alice Versendaal),
+
+             • get rid of some not very informative warning messages if
+               some fitting failed and if start parameters are not set
+               sufficiently,
+
+             • add argument ‘txtProgressBar’ and ‘verbose’ to provide
+               more output options (this is helpful when writing
+               tutorials),
+
+             • new fit options added ‘QDR’ (polynomial function) to
+               account for super-linear signal grow,
+
+             • improve fitting behaviour for modelled data, especially
+               causing errors due to singular convergence failures,
+
+             • add ‘De.MC’, the De values from the MC runs, to the
+               output.
+
+         • ‘plot_RLum()’
+
+             • The ‘...’ argument ‘main’ and ‘mtext’ can be now be of
+               type ‘list’ if a ‘list’ of objects is provided. This
+               allows to set different plot titles for this specific
+               plot option,
+
+             • on the top of this argument ‘mtext’ will be set
+               automatically if the object is of type ‘RLum.Analysis’
+               to indicate the different records.
+
+         • ‘plot_RLum.Analysis()’
+
+             • The ‘...’ argument ‘main’ can now be provided as vector
+               if ‘combine = TRUE’,
+
+             • this methods now supports a vector for the argument
+               ‘main’,
+
+             • arguments ‘ncols’ and ‘nrows’ are no optional, the
+               functions tries to set a good value.
+
+         • ‘plot_RLum.Results()’
+
+             • Argument ‘data’ renamed to ‘object’ to be consistent
+               within. the package.
+
+         • ‘readBIN2R()’
+
+             • Set function on deprecated, new name: ‘read_BIN2R()’,
+
+             • new argument ‘position’ implemented that allows to limit
+               the import to specific positions (this will have,
+               however, no positive effect on the import performance),
+
+             • add argument ‘...’ to let arguments pass to the function
+               ‘Risoe.BINfileData2RLum.Analysis’, this case the
+               argument ‘fastForward’ will forced to ‘TRUE’,
+
+             • argument ‘file’ now supports a ‘list’ of file names or
+               just a path, in this case the functions tries to detect
+               and import all possible BIN/BINX files found in this
+               path,
+
+             • in really seldom cases, if an old BIN-file (03) version
+               was used, the 'LTYPE' become OSL, while the used
+               'LIGHTSOURCE' was "IR diodes/IR Laser". Sometimes this
+               led to unexpected behaviour in the subsequent analysis
+               functions. Now the import function checks imported
+               BIN-files (only version 03) for such discrepancy and
+               correct the 'LTYPE' accordingly,
+
+             • import speed improvements by using lookup talbes instead
+               of 'sapply'-translation matrices,
+
+             • add argument ‘duplicated.rm’ to account for duplicated
+               entries that might have been produced during single
+               grain measurements (thanks for Norbert Mercier).
+
+         • ‘readSPE2R()’
+
+             • Set function on deprecated, new name: ‘read_SPE2R()’.
+
+         • ‘readXSYG2R()’
+
+             • Set function to deprecated, new name: ‘read_XSYG2R()’,
+
+             • the argument ‘file’ can now handle a ‘list’ of files,
+               along with this just a path to directory is allowed
+               instead a path to a file.  In this case the function
+               tries to import all XSYG-files that can be found in the
+               directory,
+
+             • the curves were not 'named' IRSL if laser diods instead
+               of LEDs are facilitated in the lexsyg reader; fixed\
+
+             • the element 'stimulator' and 'detecteur' appeared twice
+               in the info element list after import, corrected.,
+
+             • functioned gained a new argument ‘pattern’ to be used if
+               more than one XSYG-file is imported at one time,
+
+             • all hard function stops had been removed (e.g., wrong
+               file name etc.), instead a warning is shown and ‘NULL’
+               is returned. This ensures that the function can be
+               safely run within a loop,
+
+             • pressing the turbo key by more efficient coding.
+
+         • ‘Risoe.BINfileData2RLum.Analysis()’
+
+             • If the lower temperature for the TL curve calculation
+               was not at 0, wrong shifted TL curves had been produced
+               (this happens normally for BIN-files produced by FI
+               lexsyg readers),
+
+             • along with this the x-values for the curves are now
+               consequently calculated using the LOW and the HIGH
+               values given in the BIN-files. This may cause a shift of
+               the surves towards 0 for CW-curves (#235),
+
+             • TL curves can furthermore consists of different parts,
+               including preheat and a second TL rise. This was not
+               respected during calculting the x-axis values, leading
+               to wrong scaled temperature axis, corrected (#255).
+
+         • ‘Risoe.BINfileData2RLum.Analysis()’
+
+             • A new argument ‘grain’ can be used to further limit the
+               transformation to specific grains in the data set,
+
+             • the arguement ‘pos’ is no longer required. If nothing is
+               provided every position will be transformed and the
+               function returns a list of ‘RLum.Analysis’-objects,
+
+             • along with this the argument ‘pos’ now accepts a vector
+               as input (i.e., more than on position can be provided
+               for the conversion),
+
+             • new argument ‘txtProgressBar’ added. The default is set
+               to ‘FALSE’ as the computation time just become relevant
+               for single grain data,
+
+             • an error was fixed that occurred if the curves used for
+               the transformation had been of zero length,
+
+             • function nows uses ‘Risoe.BINfileData2RLum.Data.Curve’
+               for curve conversion.
+
+         • ‘Seconds2Gray()’
+
+             • Add new method for the error calculation ‘omit’ and set
+               this method to 'default' to avoid biasing the
+               De-distributions,
+
+             • argument ‘method’ renamed to ‘error.propagation’.
+
+         • ‘writeR2BIN()’
+
+             • Set function to deprecated, new name: ‘write_R2BIN()’
+
+  Internals:
+
+         • Re-adding the package 'zoo' in imports,
+
+         • Adding package 'readxl' to imports (used in ‘use_DRAC’ to
+           import the XLS file)
+
+         • Adding package 'httr' to imports (used in ‘use_DRAC’ to
+           establish the connection)
+
+         • This package is now linked to 'Rcpp' and 'RcppArmadillo'
+           (used within the function ‘.analyse_IRSARRF_SRS)’,
+
+         • Package 'rgl' is no longer requested, but suggested. This
+           frees most of the users from installing this package as it
+           just be used by one specific plot type for
+           ‘RLum.Data.Spectrum’ objects.
+
+         • Remove dependency to package 'assertive',
+
+         • The slot 'originator' in ‘RLum.Results’ is no longer
+           explicit, but inherited from the class ‘RLum’,
+
+         • Added methods for S3 generics ‘`$`, `[<-`, `[[<-`, print,
+           as.data.frame’ for objects of class ‘DRAC.list’,
+
+         • Added methods for S3 generics ‘print’ for objects of class
+           ‘DRAC.highlights’
+
+         • Roxygen2: replaced ‘@exportPattern ^[[:alpha:]]+’ with with
+           explicit ‘@export’ statements to allow better NAMESPACE
+           housekeeping,
+
+         • Roxygen2: The documentation for ExampleData.DeValues was not
+           produced automatically. Corrected.
+
+         • ‘merge_RLum.Results’ now became an explicit function,
+           instead of a S4-method for the sake of consistency.
+
+         • Add the following methods for S3 generics for RLum-objects.
+           Please note that so far all these generics are not properely
+           documented within the package as the implementation is not
+           finished yet.
+
+             • ‘`[`’ : ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’,
+               ‘RLum.Data.Image’, ‘RLum.Analysis’, ‘RLum.Results’
+
+             • ‘`[[`’ : ‘RLum.Analysis’, ‘RLum.Results’
+
+             • ‘`$`’ : ‘RLum.Analysis’, ‘RLum.Results’
+
+             • ‘`+`’ : ‘RLum.Data.Curve’
+
+             • ‘`-`’ : ‘RLum.Data.Curve’
+
+             • ‘`*`’ : ‘RLum.Data.Curve’
+
+             • ‘`"\"`’ : ‘RLum.Data.Curve’
+
+             • ‘plot()’ : ‘RLum.Data.Curve’, ‘RLum.Data.Image’,
+               ‘RLum.Data.Image’, ‘RLum.Data.Spectrum’,
+               ‘RLum.Analysis’, ‘RLum.Results’, ‘Risoe.BINfileData’
+
+             • ‘hist()’: ‘RLum.Results’, ‘RLum.Data.Image’,
+               ‘RLum.Data.Curve’, ‘RLum.Analysis’
+
+             • ‘summary()’: ‘RLum.Results’, ‘RLum.Data.Image’,
+               ‘RLum.Data.Curve’, ‘RLum.Analysis’
+
+             • ‘length()’: ‘RLum.Data.Curve’, ‘RLum.Analysis’,
+               ‘Risoe.BINfileData’, ‘RLum.Results’
+
+             • ‘nrow()’: ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’
+
+             • ‘unlist()’: ‘RLum.Analysis’
+
+             • ‘dim()’: ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’
+
+             • ‘row.names()’: ‘RLum.Data.Spectrum’
+
+             • ‘names()’: ‘RLum.Data.Curve’, ‘RLum.Data.Spectrum’,
+               ‘RLum.Data.Image’, ‘RLum.Analysis’, ‘RLum.Results’,
+               ‘Risoe.BINfileData’
+
+             • ‘as.data.frame()’: ‘RLum.Data.Curve’
+
+             • ‘as.list()’: ‘RLum.Data.Curve’,‘RLum.Analysis’
+               ,‘RLum.Results’
+
+             • ‘as.matrix()’: ‘RLum.Data.Curve’
+
+             • ‘merge()’: ‘RLum’
+
+             • ‘rep()’: ‘RLum’
 
