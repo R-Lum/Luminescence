@@ -112,40 +112,40 @@ setMethod("get_RLum",
 
 ## ---- DEPRECATED GENERICS
 # .Deprecated in package version 0.5.0
-# .Defunct in 0.5.X
+# .Defunct in 0.5.1
 # Removed in 0.6.0
 
 #' @noRd
 #' @export
 get_RLum.Analysis <- function(...) {
-  .Deprecated("get_RLum")
+  .Defunct("get_RLum")
   get_RLum(...)
 }
 
 #' @noRd
 #' @export
 get_RLum.Data.Curve <- function(...) {
-  .Deprecated("get_RLum")
+  .Defunct("get_RLum")
   get_RLum(...)
 }
 
 #' @noRd
 #' @export
 get_RLum.Data.Image <- function(...) {
-  .Deprecated("get_RLum")
+  .Defunct("get_RLum")
   get_RLum(...)
 }
 
 #' @noRd
 #' @export
 get_RLum.Data.Spectrum <- function(...) {
-  .Deprecated("get_RLum")
+  .Defunct("get_RLum")
   get_RLum(...)
 }
 
 #' @noRd
 #' @export
 get_RLum.Results <- function(...) {
-  .Deprecated("get_RLum")
+  .Defunct("get_RLum")
   get_RLum(...)
 }

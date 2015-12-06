@@ -74,13 +74,13 @@ setGeneric("set_RLum", function (class, originator, ... ) {
 
 ## ---- DEPRECATED GENERICS
 # .Deprecated in package version 0.5.0
-# .Defunct in 0.5.X
+# .Defunct in 0.5.1
 # Removed in 0.6.0
 
 #' @noRd
 #' @export
 set_RLum.Analysis <- function(...) {
-  .Deprecated("set_RLum")
+  .Defunct("set_RLum")
 
   if(missing(originator)) {
     if (is(sys.call(which = -1)[[1]], "name")) {
@@ -96,7 +96,7 @@ set_RLum.Analysis <- function(...) {
 #' @noRd
 #' @export
 set_RLum.Data.Curve <- function(...) {
-  .Deprecated("set_RLum")
+  .Defunct("set_RLum")
 
   if(missing(originator)) {
     if (is(sys.call(which = -1)[[1]], "name")) {
@@ -112,7 +112,7 @@ set_RLum.Data.Curve <- function(...) {
 #' @noRd
 #' @export
 set_RLum.Data.Image <- function(...) {
-  .Deprecated("set_RLum")
+  .Defunct("set_RLum")
 
   if(missing(originator)) {
     if (is(sys.call(which = -1)[[1]], "name")) {
@@ -128,7 +128,7 @@ set_RLum.Data.Image <- function(...) {
 #' @noRd
 #' @export
 set_RLum.Data.Spectrum <- function(...) {
-  .Deprecated("set_RLum")
+  .Defunct("set_RLum")
 
   if(missing(originator)) {
     if (is(sys.call(which = -1)[[1]], "name")) {
@@ -144,7 +144,7 @@ set_RLum.Data.Spectrum <- function(...) {
 #' @noRd
 #' @export
 set_RLum.Results <- function(originator,...) {
-  .Deprecated("set_RLum")
+  .Defunct("set_RLum")
 
   if(missing(originator)) {
     if (is(sys.call(which = -1)[[1]], "name")) {
