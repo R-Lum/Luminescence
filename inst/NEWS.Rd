@@ -5,14 +5,14 @@
  \subsection{Changes with unplanned version 0.5.1}{
    \itemize{
 
-      \item Due to problems in the package 'sp' a couple of subsequent packages could not
+      \item Due to problems in the package 'sp' a couple of subsequent binary packages could not
       built for Mac OSX Mavericks, including the package 'raster' which is imported by
       the package 'Luminescence'. Consequently no recent Mac OSX version of 'Luminescence'
       was available on CRAN. This update fixes this by reducing the required version
-      number for 'ratser to the last version available for Mac OSX for Mavericks on CRAN.
+      number for 'raster' down to the last binary version available for Mac OSX for Mavericks on CRAN.
 
-      \item With this version the version requirement for 'rgl' has been also reduced to
-      0.95.1201 (last binary version available for Mac OSX Mavericks)
+      \item With this version the version requirement for 'rgl' has been also reduced down to
+      0.95.1201 (last binary version available for Mac OSX Mavericks on CRAN)
 
          \item \code{plot_RLum.Analysis()}
       \itemize{
