@@ -11,6 +11,9 @@
       was available on CRAN. This update fixes this by reducing the required version
       number for 'ratser to the last version available for Mac OSX for Mavericks on CRAN.
 
+      \item With this version the version requirement for 'rgl' has been also reduced to
+      0.95.1201 (last binary version available for Mac OSX Mavericks)
+
          \item \code{plot_RLum.Analysis()}
       \itemize{
 

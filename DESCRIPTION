@@ -49,7 +49,7 @@ Imports:
     XML (>= 3.98-1.3),
     zoo (>= 1.7-12)
 Suggests:
-    rgl (>= 0.95.1367)
+    rgl (>= 0.95.1201)
 URL: http://CRAN.R-project.org/package=Luminescence
 Collate:
     'Analyse_SAR.OSLdata.R'
