@@ -6,7 +6,7 @@
 #' plotting of equivalent dose distributions.
 #'
 #' \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-#' \tab 0.5.1\cr Date: \tab 2016-12-07 \cr License: \tab GPL-3\cr }
+#' \tab 0.5.1\cr Date: \tab 2015-12-07 \cr License: \tab GPL-3\cr }
 #'
 #' @name Luminescence-package
 #' @aliases Luminescence-package Luminescence
