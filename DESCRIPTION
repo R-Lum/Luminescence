@@ -31,7 +31,7 @@ Description: A collection of various R functions for the purpose of Luminescence
 Contact: Package Developer Team <team@r-luminescence.de>
 License: GPL-3
 Depends:
-    R (>= 3.2.2),
+    R (>= 3.2.3),
     utils
 LinkingTo: Rcpp,
     RcppArmadillo (>= 0.6.200.2.0)

@@ -49,7 +49,7 @@ Due to changes in the BIN-file (version 3 to version 4) format the recalculation
 overall correct for cases where the TL measurement is combined with a preheat.
 }
 \section{Function version}{
- 0.2.2 (2015-12-06 14:55:17)
+ 0.2.2 (2015-12-11 09:33:16)
 }
 \examples{
 
