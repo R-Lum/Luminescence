@@ -21,7 +21,10 @@ For an introduction and further details, visit the [R-Luminescence homepage](htt
 
 #### i. Requirements
 
-With release of version 0.4.2 part of the *analyse_IRSAR.RF()* function was rewritten in C to increase its perfomance. This inevitably introduced the requirement for the GNU Compiler Collection (*gcc*) when the R package 'Luminescence' is installed from source. Depending on your OS please download and install one of the following:
+With release of version 0.4.2 part of the *analyse_IRSAR.RF()* function was rewritten in C++ to 
+increase its perfomance. This inevitably introduced the requirement for the GNU Compiler Collection (*gcc*) 
+when the R package 'Luminescence' is installed from source. 
+Depending on your OS please download and install one of the following:
 
 **Windows (32/64bit)** - 'Rtools' (provided by CRAN)
 
