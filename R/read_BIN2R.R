@@ -1129,13 +1129,16 @@ read_BIN2R <- function(
       results.METADATA <- results.METADATA[-duplication.check,]
       results.DATA[duplication.check] <- NULL
 
+      ##recalculate record index
+      results.METADATA$ID <- 1:nrow(results.METADATA)
+
       ##message
-      message(paste0("[read_BIN2R()] duplicated record(s) detected and removed: ", paste(duplication.check, collapse = ", ")))
+      message(paste0("[read_BIN2R()] duplicated record(s) detected and removed: ", paste(duplication.check, collapse = ", "), ". Record index re-calculated."))
 
     }else{
 
       warning(paste0("[read_BIN2R()] duplicated record(s) detected: ",
-                     paste(duplication.check, collapse = ", "), " You should consider 'duplicated.rm = TRUE'." ))
+                     paste(duplication.check, collapse = ", "), ". >> You should consider 'duplicated.rm = TRUE'." ))
 
     }
 
