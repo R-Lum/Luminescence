@@ -158,7 +158,7 @@ NULL
 #' @export
 setClass("Risoe.BINfileData",
          slots = list(
-           METADATA="data.frame",
+           METADATA = "data.frame",
            DATA = "list",
            .RESERVED = "list"
            )

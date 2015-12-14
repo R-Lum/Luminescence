@@ -144,7 +144,6 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
 
   # grep id of record -------------------------------------------------------
-
   ##if id is set, no input for pos and rund is nescessary
   if (missing(id)) {
     id <- object@METADATA[object@METADATA[, "POSITION"] == pos &
@@ -159,10 +158,6 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
   ##build matrix
   if(object@METADATA[id,"NPOINTS"][1] != 0){
-
-    ##set variables
-    temp.x <- vector(mode = "numeric", length = object@METADATA[id,"NPOINTS"])
-    temp.y <- vector(mode = "integer", length = object@METADATA[id,"NPOINTS"])
 
     if(object@METADATA[id, "LTYPE"] == "TL" && as.numeric(object@METADATA[id, "VERSION"]) >=4){
 
@@ -194,7 +189,7 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
     }
 
-    temp.y <- unlist(object@DATA[id])
+    temp.y <- unlist(object@DATA[id], use.names = FALSE)
 
 
   }else{
@@ -206,19 +201,11 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
   }
 
 
-  temp.data <- matrix(c(temp.x,temp.y), ncol=2, byrow=FALSE)
-  temp.recordType <- as.character(object@METADATA[id,"LTYPE"])
-  temp.info <- as.list(object@METADATA[id,])
-
-
   # Build object ------------------------------------------------------------
-
-  newRLumDataCurve.Risoe.BINfileData2RLum.Data.Curve <- set_RLum(
+  set_RLum(
     class = "RLum.Data.Curve",
-    recordType = temp.recordType,
-    data = temp.data,
-    info = temp.info)
-
-  return(newRLumDataCurve.Risoe.BINfileData2RLum.Data.Curve)
+    recordType = as.character(object@METADATA[id,"LTYPE"]),
+    data = matrix(c(temp.x, temp.y), ncol = 2),
+    info = as.list(object@METADATA[id,]))
 
 }
