@@ -36,7 +36,7 @@
 #' @note Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
 #' overall correct for cases where the TL measurement is combined with a preheat.
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 #' Christoph Burow, Universtiy of Cologne (Germany)
@@ -52,6 +52,7 @@
 #'
 #' @examples
 #'
+#'
 #' ##get package example data
 #' data(ExampleData.BINfileData, envir = environment())
 #'
@@ -62,9 +63,9 @@
 Risoe.BINfileData2RLum.Data.Curve <- function(
   object,
   id,
-  pos = NULL,
-  run = NULL,
-  set = NULL
+  pos,
+  run,
+  set
 ){
 
 
@@ -77,11 +78,11 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
   ##if id is set, no input for pos and rund is nescessary
   if(missing(id)){
 
-    if(is.null(pos) | is.null(run) | is.null(set)){
+    if(missing(pos) == TRUE | missing(run) == TRUE | missing(set) == TRUE){
 
-      temp.missing.arguments <- paste(c(if(is.null(pos)){"pos"},
-                                        if(is.null(set)){"set"},
-                                        if(is.null(run)){"run"}), collapse=", ")
+      temp.missing.arguments <- paste(c(if(missing(pos)==TRUE){"pos"},
+                                        if(missing(set)==TRUE){"set"},
+                                        if(missing(run)==TRUE){"run"}), collapse=", ")
 
       stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] Arguments NULL whil 'id' is missing: ",
                  temp.missing.arguments, ". Or set id.", sep = ""))
@@ -144,7 +145,6 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
 
   # grep id of record -------------------------------------------------------
-
   ##if id is set, no input for pos and rund is nescessary
   if (missing(id)) {
     id <- object@METADATA[object@METADATA[, "POSITION"] == pos &
@@ -159,10 +159,6 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
   ##build matrix
   if(object@METADATA[id,"NPOINTS"][1] != 0){
-
-    ##set variables
-    temp.x <- vector(mode = "numeric", length = object@METADATA[id,"NPOINTS"])
-    temp.y <- vector(mode = "integer", length = object@METADATA[id,"NPOINTS"])
 
     if(object@METADATA[id, "LTYPE"] == "TL" && as.numeric(object@METADATA[id, "VERSION"]) >=4){
 
@@ -206,19 +202,11 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
   }
 
 
-  temp.data <- matrix(c(temp.x, temp.y), ncol = 2, byrow = FALSE)
-  temp.recordType <- as.character(object@METADATA[id,"LTYPE"])
-  temp.info <- as.list(object@METADATA[id,])
-
-
   # Build object ------------------------------------------------------------
-
-  newRLumDataCurve.Risoe.BINfileData2RLum.Data.Curve <- set_RLum(
+  set_RLum(
     class = "RLum.Data.Curve",
-    recordType = temp.recordType,
-    data = temp.data,
-    info = temp.info)
-
-  return(newRLumDataCurve.Risoe.BINfileData2RLum.Data.Curve)
+    recordType = as.character(object@METADATA[id,"LTYPE"]),
+    data = matrix(c(temp.x, temp.y), ncol = 2),
+    info = as.list(object@METADATA[id,]))
 
 }

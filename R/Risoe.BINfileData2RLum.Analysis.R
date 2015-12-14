@@ -90,7 +90,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
   }
 
   if (!is(pos,"numeric")){
-    stop("[Risoe.BINfileData2RLum.Analysis] Argument 'pos' has to be of type numeric.")
+    stop("[Risoe.BINfileData2RLum.Analysis()] Argument 'pos' has to be of type numeric.")
   }
 
   ##get and check valid positions
@@ -205,12 +205,12 @@ Risoe.BINfileData2RLum.Analysis<- function(
     object <- lapply(pos, function(pos){
 
       ##update progress bar
-      if(txtProgressBar==TRUE){
+      if(txtProgressBar){
         setTxtProgressBar(pb, value = pos)
       }
 
       ##deselect all values
-      object@METADATA[, "SEL"] <- FALSE
+      object@METADATA$SEL <- FALSE
 
       ##select data
       object@METADATA[which(
