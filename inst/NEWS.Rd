@@ -5,7 +5,14 @@
   \subsection{Bugfixes and changes}{
    \itemize{
 
-      \item \code{Dummy}
+      \item \code{read_BIN2R()}
+
+        \itemize{
+
+          \item The record index was not re-calulated when the argument \code{duplicated.rm} was used.
+          This caused some unwanted errors in rare cases (reported by Norbert Mercier).
+
+        }
 
       }
   }

@@ -4,5 +4,9 @@ Changes in version 0.5.2 (, 2016):
 
   Bugfixes and changes:
 
-         • ‘Dummy’
+         • ‘read_BIN2R()’
+
+             • The record index was not re-calulated when the argument
+               ‘duplicated.rm’ was used.  This caused some unwanted
+               errors in rare cases (reported by Norbert Mercier).
 
