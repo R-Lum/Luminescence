@@ -38,6 +38,15 @@ Changes in version 0.6.0 (,2016):
 
          • ‘set_RLum.Results()’, replacement ‘set_RLum()’,
 
+         • ‘Risoe.BINfileData2RLum.Data.Curve’, replacement
+           ‘.Risoe.BINfileData2RLum.Data.Curve’ The function was made
+           an internal function, as this function was used only rarely
+           by users, but often needed internally. The function and its
+           functionally is still available under its new name but a lot
+           of integrity checks had been removed from the code, which
+           doubles the speed when transforming objects, but makes the
+           function failing fast.
+
   Bugfixes and changes:
 
          • ‘calc_FadingCorr()’

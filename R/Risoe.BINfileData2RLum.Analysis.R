@@ -1,8 +1,7 @@
 #' Convert Risoe.BINfileData object to an RLum.Analysis object
 #'
 #' Converts values from one specific position of a Risoe.BINfileData S4-class
-#' object to an RLum.Analysis object. Internally the function uses the function
-#' \code{\link{Risoe.BINfileData2RLum.Data.Curve}} to recalculate the curves.
+#' object to an RLum.Analysis object.
 #'
 #' The \code{\linkS4class{RLum.Analysis}} object requires a set of curves for
 #' specific further protocol analyses. However, the
@@ -51,8 +50,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\link{Risoe.BINfileData2RLum.Data.Curve}}
-#' \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
+#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
 #'
 #' @references #
 #'
@@ -239,7 +237,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
       object <- set_RLum(
         class = "RLum.Analysis",
         records = lapply(object@METADATA$ID,function(x) {
-          Risoe.BINfileData2RLum.Data.Curve(object, id = x)
+          .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
         }),
         protocol = protocol,
         originator = "Risoe.BINfileData2RLum.Analysis"

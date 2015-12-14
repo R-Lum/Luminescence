@@ -36,7 +36,7 @@
 #' @note Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
 #' overall correct for cases where the TL measurement is combined with a preheat.
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 #' Christoph Burow, Universtiy of Cologne (Germany)
@@ -52,96 +52,20 @@
 #'
 #' @examples
 #'
-#'
 #' ##get package example data
 #' data(ExampleData.BINfileData, envir = environment())
 #'
 #' ##convert one record
 #' Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data, id = 1)
 #'
-#' @export
-Risoe.BINfileData2RLum.Data.Curve <- function(
+#' @noRd
+.Risoe.BINfileData2RLum.Data.Curve <- function(
   object,
   id,
   pos,
   run,
   set
 ){
-
-
-  # Integrity Check ---------------------------------------------------------
-
-  if (!is(object,"Risoe.BINfileData")){
-    stop("[Risoe.BINfileData2RLum.Data.Curve()] Input object is not of type 'Risoe.BINfileData'.")
-  }
-
-  ##if id is set, no input for pos and rund is nescessary
-  if(missing(id)){
-
-    if(missing(pos) == TRUE | missing(run) == TRUE | missing(set) == TRUE){
-
-      temp.missing.arguments <- paste(c(if(missing(pos)==TRUE){"pos"},
-                                        if(missing(set)==TRUE){"set"},
-                                        if(missing(run)==TRUE){"run"}), collapse=", ")
-
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] Arguments NULL whil 'id' is missing: ",
-                 temp.missing.arguments, ". Or set id.", sep = ""))
-
-    }
-
-    if (is(pos,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve()] Argument 'pos' has to be of data type integer.")
-    }
-
-    if (is(set,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve()]Argument 'set' has to be of data type integer.")
-    }
-
-    if (is(run,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve()] Argument 'run' has to be of data type integer.")
-    }
-
-    if (length(which(pos/1:48 == 1)) == 0){
-      stop("[Risoe.BINfileData2RLum.Data.Curve()] Value for 'pos' out of bounds. Max. 48.")
-    }
-
-    ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"POSITION"])), collapse=", ")
-
-    if (!any(pos == object@METADATA[,"POSITION"])){
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] pos = ",pos, " is not valid.
-               Valid positions are: ", positions.valid, sep=""))
-    }
-
-    ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"SET"])), collapse=", ")
-
-    if (!any(set == object@METADATA[,"SET"])){
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] set = ",set, " is not valid.
-               Valid values are: ", positions.valid, sep=""))
-    }
-
-
-    ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"RUN"])), collapse=", ")
-
-    if (!any(run == object@METADATA[,"RUN"])){
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] run = ",run, " is not valid.
-               Valid values are: ", positions.valid, sep=""))
-    }
-
-  }else{
-
-    if (!any(id == object@METADATA[,"ID"])){
-
-      ##check if id is valid at all
-      temp.range.id <- range(object@METADATA[,"ID"])
-
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] id = ",id, " is not a valid record id. Allowed value range ", min(temp.range.id), " : ", max(temp.range.id),".", sep=""))
-
-    }
-
-  }
 
 
   # grep id of record -------------------------------------------------------
@@ -197,7 +121,7 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
     temp.x <- NA
     temp.y <- NA
 
-    warning("[Risoe.BINfileData2RLum.Data.Curve()] NPOINTS was 0, RLum.Data.Curve-object with NA-values produced.")
+    warning("[.Risoe.BINfileData2RLum.Data.Curve()] NPOINTS was 0, RLum.Data.Curve-object with NA-values produced.")
 
   }
 

@@ -27,6 +27,11 @@
       \item \code{set_RLum.Data.Image()}, replacement \code{set_RLum()},
       \item \code{set_RLum.Analysis()}, replacement \code{set_RLum()},
       \item \code{set_RLum.Results()}, replacement \code{set_RLum()},
+      \item \code{Risoe.BINfileData2RLum.Data.Curve}, replacement \code{.Risoe.BINfileData2RLum.Data.Curve}
+      The function was made an internal function, as this function was used only rarely by users,
+      but often needed internally. The function and its functionally is still available under its new
+      name but a lot of integrity checks had been removed from the code, which doubles the
+      speed when transforming objects, but makes the function failing fast.
 
 
   }

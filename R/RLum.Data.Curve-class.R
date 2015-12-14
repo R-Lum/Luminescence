@@ -27,8 +27,7 @@ NULL
 #' elements the slot \code{info} can be used (e.g. providing additional heating
 #' ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
 #' functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
-#' namely: \code{\link{Risoe.BINfileData2RLum.Data.Curve}},
-#' \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
+#' namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
 #'
 #' @section Create objects from this Class: Objects can be created by calls of the form
 #' \code{set_RLum(class = "RLum.Data.Curve", ...)}.

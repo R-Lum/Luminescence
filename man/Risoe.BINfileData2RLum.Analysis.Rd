@@ -45,8 +45,7 @@ Returns an \code{\linkS4class{RLum.Analysis}} object.
 }
 \description{
 Converts values from one specific position of a Risoe.BINfileData S4-class
-object to an RLum.Analysis object. Internally the function uses the function
-\code{\link{Risoe.BINfileData2RLum.Data.Curve}} to recalculate the curves.
+object to an RLum.Analysis object.
 }
 \details{
 The \code{\linkS4class{RLum.Analysis}} object requires a set of curves for
@@ -60,7 +59,7 @@ The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.2.2 (2015-12-14 19:10:57)
+ 0.2.2 (2015-12-14 19:34:57)
 }
 \examples{
 
@@ -78,8 +77,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #
 }
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}, \code{\link{Risoe.BINfileData2RLum.Data.Curve}}
-\code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
+\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
 }
 \keyword{manip}
 
