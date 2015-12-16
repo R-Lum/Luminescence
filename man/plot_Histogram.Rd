@@ -5,7 +5,7 @@
 \title{Plot a histogram with separate error plot}
 \usage{
 plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug, normal_curve,
-  summary, summary.pos, colour, ...)
+  summary, summary.pos, colour, interactive = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -48,6 +48,9 @@ plot items in exactly this order: histogram bars, rug lines, normal
 distribution curve and standard error points\cr (e.g., \code{c("grey",
 "black", "red", "grey")}).}
 
+\item{interactive}{\code{\link{logical}} (with default): create an interactive 
+histogram plot (requires the 'plotly' package)}
+
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot}} or \code{\link{hist}}. If y-axis labels are provided,
 these must be specified as a vector of length 2 since the plot features two
@@ -80,7 +83,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4 (2015-11-29 17:27:48)
+ 0.4.4
 }
 \examples{
 
@@ -113,7 +116,7 @@ plot_Histogram(ExampleData.DeValues,
 \author{
 Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \seealso{
 \code{\link{hist}}, \code{\link{plot}}
 }

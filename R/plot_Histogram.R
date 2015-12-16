@@ -21,33 +21,46 @@
 #' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
 #' object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}) 
+#' 
 #' @param na.rm \code{\link{logical}} (with default): excludes \code{NA}
 #' values from the data set prior to any further operations.
+#' 
 #' @param mtext \code{\link{character}} (optional): further sample information
 #' (\link{mtext}).
+#' 
 #' @param cex.global \code{\link{numeric}} (with default): global scaling
 #' factor.
+#' 
 #' @param se \code{\link{logical}} (optional): plots standard error points over
 #' the histogram, default is \code{FALSE}.
+#' 
 #' @param rug \code{\link{logical}} (optional): adds rugs to the histogram,
 #' default is \code{TRUE}.
+#' 
 #' @param normal_curve \code{\link{logical}} (with default): adds a normal
 #' curve to the histogram. Mean and sd are calculated from the input data. More
 #' see details section.
+#' 
 #' @param summary \code{\link{character}} (optional): add statistic measures of 
 #' centrality and dispersion to the plot. Can be one or more of several 
 #' keywords. See details for available keywords.
+#' 
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if \code{mtext} is not used. In case of coordinate
 #' specification, y-coordinate refers to the right y-axis.
+#' 
 #' @param colour \code{\link{numeric}} or \link{character} (with default):
 #' optional vector of length 4 which specifies the colours of the following
 #' plot items in exactly this order: histogram bars, rug lines, normal
 #' distribution curve and standard error points\cr (e.g., \code{c("grey",
 #' "black", "red", "grey")}).
+#' 
+#' @param interactive \code{\link{logical}} (with default): create an interactive 
+#' histogram plot (requires the 'plotly' package)
+#' 
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot}} or \code{\link{hist}}. If y-axis labels are provided,
 #' these must be specified as a vector of length 2 since the plot features two
@@ -55,6 +68,7 @@
 #' (\code{ylim}) must be provided as vector of length four, with the first two
 #' elements specifying the left axes limits and the latter two elements giving
 #' the right axis limits.
+#' 
 #' @note The input data is not restricted to a special type.
 #' @section Function version: 0.4.4
 #' @author Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
@@ -99,6 +113,7 @@ plot_Histogram <- function(
   summary,
   summary.pos,
   colour,
+  interactive = FALSE,
   ...
 ) {
   
@@ -664,6 +679,65 @@ plot_Histogram <- function(
         cex = 0.8 * cex.global)
   
   ## FUN by R Luminescence Team
-  if(fun==TRUE){sTeve()}
+  if(fun & !interactive)
+    sTeve()
+  
+  ## Optionally: Interactive Plot ----------------------------------------------
+  if (interactive & requireNamespace("plotly", quietly = TRUE)) {
+
+    ## tidy data ----
+    data <- as.data.frame(data)
+    colnames(data) <- c("x", "y")
+    x <- y <- NULL # suffice CRAN check for no visible binding
+    if (length(grep("paste", as.character(xlab.plot))) > 0)
+      xlab.plot <- "Equivalent dose (Gy)"
+    
+    
+    ## create plots ----
+    
+    # histogram
+    hist <- plotly::plot_ly(data = data, x = x,
+                            type = "histogram",
+                            showlegend = FALSE,
+                            name = "ED", opacity = 0.75,
+                            marker = list(color = "84CAFF",
+                                          line = list(width = 1.0,
+                                                      color = "white"))
+                            )
+    
+    # scatter plot of individual errors
+    # 
+    if (se) {
+      yaxis2 <- list(overlaying = "y", side = "right", 
+                     showgrid = FALSE, title = ylab.plot[2])
+      
+      hist <- plotly::add_trace(hist, x = x, y = y,
+                                type = "scatter", mode = "markers",
+                                name = "Error",
+                                marker = list(color = "black"),
+                                yaxis = "y2")
+      hist <- plotly::layout(yaxis2 = yaxis2)
+    }
+    
+    # normal curve ----
+    if (normal_curve) {
+      # TODO: add normal curve
+    }
+
+    # set layout ----
+    hist <- plotly::layout(hist, hovermode = "closest",
+                           title = paste("<b>", main.plot, "</b>"),
+                           margin = list(r = 90),
+                           xaxis = list(title = xlab.plot),
+                           yaxis = list(title = ylab.plot[1],
+                                        showgrid = FALSE)
+                           )
+    
+    ## show plot ----
+    print(hist)
+  } else {
+    message("The interactive histogram requires the 'plotly' package. To install",
+            " this package run 'install.packages('plotly')' in your R console.")
+  }
   
 }
