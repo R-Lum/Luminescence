@@ -139,7 +139,7 @@ plot_RLum<- function(
 
         }
       }else{
-        mtext <- rep(list(...)$mtext, lenth.out = length(object.cleaned))
+        mtext <- rep(list(...)$mtext, length.out = length(object.cleaned))
 
       }
 
