@@ -683,8 +683,13 @@ plot_Histogram <- function(
     sTeve()
   
   ## Optionally: Interactive Plot ----------------------------------------------
-  if (interactive & requireNamespace("plotly", quietly = TRUE)) {
-
+  if (interactive) {
+    
+    if (!requireNamespace("plotly", quietly = TRUE))
+      stop("The interactive histogram requires the 'plotly' package. To install",
+           " this package run 'install.packages('plotly')' in your R console.", 
+           call. = FALSE)
+    
     ## tidy data ----
     data <- as.data.frame(data)
     colnames(data) <- c("x", "y")
@@ -705,11 +710,11 @@ plot_Histogram <- function(
                                                       color = "white")),
                             histnorm = ifelse(normal_curve, "probability density", ""),
                             yaxis = "y"
-                            )
+    )
     
     # normal curve ----
     if (normal_curve) {
-
+      
       density.curve <- density(data$x)
       normal.curve <- data.frame(x = density.curve$x, y = density.curve$y)
       
@@ -718,7 +723,7 @@ plot_Histogram <- function(
                                 marker = list(color = "red"),
                                 name = "Normal curve",
                                 yaxis = "y")
-        
+      
     }
     
     # scatter plot of individual errors
@@ -746,13 +751,10 @@ plot_Histogram <- function(
                                         ticks = "",
                                         showline = FALSE,
                                         showgrid = FALSE)
-                           )
+    )
     
     ## show plot ----
     print(hist)
-  } else {
-    message("The interactive histogram requires the 'plotly' package. To install",
-            " this package run 'install.packages('plotly')' in your R console.")
   }
   
 }
