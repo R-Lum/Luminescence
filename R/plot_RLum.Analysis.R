@@ -371,7 +371,6 @@ plot_RLum.Analysis <- function(
                              xlim = xlim.set,
                              ylim = ylim.set,
                              pch = pch,
-                             norm = norm,
                              cex = cex,
                              ...)
 
