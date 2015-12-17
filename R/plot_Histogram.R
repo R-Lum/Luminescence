@@ -716,6 +716,7 @@ plot_Histogram <- function(
       hist <- plotly::add_trace(hist, data = normal.curve, x = x, y = y,
                                 type = "scatter", mode = "lines",
                                 marker = list(color = "red"),
+                                name = "Normal curve",
                                 yaxis = "y")
         
     }
@@ -723,13 +724,15 @@ plot_Histogram <- function(
     # scatter plot of individual errors
     if (se) {
       yaxis2 <- list(overlaying = "y", side = "right", 
-                     showgrid = FALSE, title = ylab.plot[2])
+                     showgrid = FALSE, title = ylab.plot[2],
+                     ticks = "", showline = FALSE)
       
       hist <- plotly::add_trace(hist, data = data, x = x, y = y,
                                 type = "scatter", mode = "markers",
                                 name = "Error",
                                 marker = list(color = "black"),
                                 yaxis = "y2")
+      
       hist <- plotly::layout(yaxis2 = yaxis2)
     }
     
@@ -737,8 +740,11 @@ plot_Histogram <- function(
     hist <- plotly::layout(hist, hovermode = "closest",
                            title = paste("<b>", main.plot, "</b>"),
                            margin = list(r = 90),
-                           xaxis = list(title = xlab.plot),
+                           xaxis = list(title = xlab.plot,
+                                        ticks = ""),
                            yaxis = list(title = ylab.plot[1],
+                                        ticks = "",
+                                        showline = FALSE,
                                         showgrid = FALSE)
                            )
     
