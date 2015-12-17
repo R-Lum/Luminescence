@@ -109,7 +109,7 @@ plot_RLum.Data.Curve<- function(
     }
 
     ##normalise curves if argument has been set
-    if (norm == TRUE) {
+    if (norm) {
       object@data[,2] <- object@data[,2] / max(object@data[,2])
 
     }
