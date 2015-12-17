@@ -170,6 +170,9 @@
 #' @param output \code{\link{logical}}: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' \code{FALSE}.
+#' 
+#' @param interactive \code{\link{logical}} (with default): create an interactive 
+#' abanico plot (requires the 'plotly' package)
 #'
 #' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
@@ -384,6 +387,7 @@ plot_AbanicoPlot <- function(
   frame = 1,
   bw = "SJ",
   output = FALSE,
+  interactive = FALSE,
   ...
 ) {
   ## check data and parameter consistency--------------------------------------
@@ -1057,6 +1061,7 @@ plot_AbanicoPlot <- function(
   ## calculate z-axis radius
   r <- max(sqrt((limits.x[2])^2 + (data.global[,7] * f)^2))
 
+  
   ## create z-axes labels
   if(log.z == TRUE) {
     label.z.text <- signif(exp(tick.values.major), 3)
@@ -2294,6 +2299,7 @@ plot_AbanicoPlot <- function(
             col = layout$abanico$colour$ztck)
     }
 
+    
     ## plot major z-ticks
     for(i in 1:length(tick.values.major)) {
       lines(x = c(par()$usr[2],
@@ -2310,6 +2316,7 @@ plot_AbanicoPlot <- function(
     lines(ellipse, col = layout$abanico$colour$border)
     lines(rep(par()$usr[2], nrow(ellipse)), ellipse[,2],
           col = layout$abanico$colour$ztck)
+    
 
     ## plot z-axis text
     text(x = (1 + 0.04 * cex * layout$abanico$dimension$ztcl / 100) *
@@ -2322,6 +2329,7 @@ plot_AbanicoPlot <- function(
                         layout$abanico$font.deco$ztck],
          cex = cex * layout$abanico$font.size$ztck/12)
 
+    
     ## plot z-label
     mtext(text = zlab,
           at = mean(x = c(min(ellipse[,2]),
@@ -3050,7 +3058,6 @@ plot_AbanicoPlot <- function(
     }
     KDE.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max * 1.05)
 
-
     ## optionally add KDE plot
     if(kde == TRUE) {
 
@@ -3310,25 +3317,134 @@ plot_AbanicoPlot <- function(
   }
 
   ##sTeve
-  if(fun){sTeve()}
+  if(fun & !interactive){sTeve()}
 
+  ## create numeric output
+  plot.output <- list(xlim = limits.x,
+                      ylim = limits.y,
+                      zlim = limits.z,
+                      polar.box = c(limits.x[1],
+                                    limits.x[2],
+                                    min(ellipse[,2]),
+                                    max(ellipse[,2])),
+                      cartesian.box = c(xy.0[1],
+                                        par()$usr[2],
+                                        xy.0[2],
+                                        max(ellipse[,2])),
+                      plot.ratio = plot.ratio,
+                      data = data,
+                      data.global = data.global,
+                      KDE = KDE)
+  
+  ## INTERACTIVE PLOT ----------------------------------------------------------
+  if (interactive) {
+    if (!requireNamespace("plotly", quietly = TRUE))
+      stop("The interactive abanico plot requires the 'plotly' package. To install",
+           " this package run 'install.packages('plotly')' in your R console.", 
+           call. = FALSE)
+    
+    ## tidy data ----
+    #
+    data <- plot.output
+    kde <- data.frame(x = data$KDE[[1]][ ,2], y = data$KDE[[1]][ ,1])
+    
+    # radial scatter plot ----
+    IAP.scatter <- plotly::plot_ly(data = data$data.global, x = precision, y = std.estimate,
+                           type = "scatter", mode = "markers",
+                           name = "Points",
+                           yaxis = "y")
+    
+    ellipse <- as.data.frame(ellipse)
+    IAP.scatter <- plotly::add_trace(IAP.scatter, data = ellipse, 
+                                     x = ellipse.x, y = ellipse.y,
+                                     name = "z-axis (left)",
+                                     type = "scatter", mode = "lines",
+                                     line = list(color = "black",
+                                                 width = 1))
+    
+    ellipse.right <- ellipse
+    ellipse.right$ellipse.x <- ellipse.right$ellipse.x * 1/0.75
+    
+    IAP.scatter <- plotly::add_trace(IAP.scatter, data = ellipse.right, 
+                                     x = ellipse.x, y = ellipse.y,
+                                     name = "z-axis (right)",
+                                     type = "scatter", mode = "lines",
+                                     line = list(color = "black",
+                                                 width = 1))
 
+    # z-axis ticks
+    major.ticks.x <- c(data$xlim[2] * 1/0.75, 
+                       (1 + 0.015 * layout$abanico$dimension$ztcl / 100) *
+                         data$xlim[2] * 1/0.75)
+    major.ticks.y <- (tick.values.major - z.central.global) *  min(ellipse[ ,1])
+    
+    for (i in 1:length(major.ticks.y)) {
+      major.tick <- data.frame(x = major.ticks.x, y = rep(major.ticks.y[i], 2))
+      
+      # actual z-tick line
+      IAP.scatter <- plotly::add_trace(IAP.scatter, data = major.tick,
+                                       x = x, y = y, showlegend = FALSE,
+                                       type = "scatter", mode = "lines+text",
+                                       line = list(color = "black",
+                                                   width = 1))
+    }
+    # z-tick label
+    tick.text <- exp(tick.values.major)
+    print(tick.text)
+    tick.pos <- data.frame(x = major.ticks.x[2], 
+                           y = major.ticks.y)
+    
+    IAP.scatter <- plotly::add_trace(IAP.scatter, data = tick.pos,
+                                     x = x, y = y, showlegend = FALSE,
+                                     text = tick.text, textposition = "right",
+                                     type = "scatter", mode = "text")
+    
+    
+    # for(i in 1:length(tick.values.major)) {
+    #   lines(x = c(par()$usr[2],
+    #               (1 + 0.015 * cex * layout$abanico$dimension$ztcl / 100) *
+    #                 par()$usr[2]),
+    #         y = c((tick.values.major[i] - z.central.global) *
+    #                 min(ellipse[,1]),
+    #               (tick.values.major[i] - z.central.global) *
+    #                 min(ellipse[,1])),
+    #         col = layout$abanico$colour$ztck)
+    # }
+    
+    
+    # KDE plot ----
+    KDE.x <- xy.0[1] + KDE[[1]][ ,2] * KDE.scale
+    KDE.y <- (KDE[[1]][,1] - z.central.global) * min(ellipse[,1])
+    KDE.curve <- data.frame(x = KDE.x, y = KDE.y)
+    KDE.curve <- KDE.curve[KDE.curve$x != xy.0[1], ]
+    
+    IAP.scatter <- plotly::add_trace(IAP.scatter, data = KDE.curve,
+                                     x = x, y = y, name = "KDE",
+                                     type = "scatter", mode = "lines",
+                                     line = list(color = "red"))
+    
+    # set layout ----
+    
+    IAP.scatter <- plotly::layout(IAP.scatter, 
+                                  hovermode = "closest",
+                                  dragmode = "pan",
+                                  xaxis = list(range = c(data$xlim[1], data$xlim[2] * 1/0.65),
+                                               zeroline = FALSE,
+                                               showgrid = FALSE),
+                                  yaxis = list(range = data$ylim,
+                                               zeroline = FALSE,
+                                               showline = FALSE,
+                                               tickmode = "array",
+                                               tickvals = c(-2, 0, 2))
+                                  )
+    
+    # show interactive plot ----
+    #print(plotly::subplot(IAP.scatter, IAP.kde))
+    print(IAP.scatter)
+  }
+  
   ## create and resturn numeric output
   if(output == TRUE) {
-    return(list(xlim = limits.x,
-                ylim = limits.y,
-                zlim = limits.z,
-                polar.box = c(limits.x[1],
-                              limits.x[2],
-                              min(ellipse[,2]),
-                              max(ellipse[,2])),
-                cartesian.box = c(xy.0[1],
-                                  par()$usr[2],
-                                  xy.0[2],
-                                  max(ellipse[,2])),
-                plot.ratio = plot.ratio,
-                data = data,
-                data.global = data.global,
-                KDE = KDE))
+    return(plot.output)
   }
 }
