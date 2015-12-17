@@ -700,18 +700,32 @@ plot_Histogram <- function(
                             type = "histogram",
                             showlegend = FALSE,
                             name = "ED", opacity = 0.75,
-                            marker = list(color = "84CAFF",
+                            marker = list(color = "428BCA",
                                           line = list(width = 1.0,
-                                                      color = "white"))
+                                                      color = "white")),
+                            histnorm = ifelse(normal_curve, "probability density", ""),
+                            yaxis = "y"
                             )
     
+    # normal curve ----
+    if (normal_curve) {
+
+      density.curve <- density(data$x)
+      normal.curve <- data.frame(x = density.curve$x, y = density.curve$y)
+      
+      hist <- plotly::add_trace(hist, data = normal.curve, x = x, y = y,
+                                type = "scatter", mode = "lines",
+                                marker = list(color = "red"),
+                                yaxis = "y")
+        
+    }
+    
     # scatter plot of individual errors
-    # 
     if (se) {
       yaxis2 <- list(overlaying = "y", side = "right", 
                      showgrid = FALSE, title = ylab.plot[2])
       
-      hist <- plotly::add_trace(hist, x = x, y = y,
+      hist <- plotly::add_trace(hist, data = data, x = x, y = y,
                                 type = "scatter", mode = "markers",
                                 name = "Error",
                                 marker = list(color = "black"),
@@ -719,11 +733,6 @@ plot_Histogram <- function(
       hist <- plotly::layout(yaxis2 = yaxis2)
     }
     
-    # normal curve ----
-    if (normal_curve) {
-      # TODO: add normal curve
-    }
-
     # set layout ----
     hist <- plotly::layout(hist, hovermode = "closest",
                            title = paste("<b>", main.plot, "</b>"),
