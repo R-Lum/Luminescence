@@ -5,6 +5,19 @@
   \subsection{Bugfixes and changes}{
    \itemize{
 
+
+      \item \code{plot_RLum.Analysis()}{
+
+      \itemize{
+
+          \item Argument 'norm' did not work for single curves, corrected (#261).
+
+
+      }
+
+
+      }
+
       \item \code{read_BIN2R()}
 
         \itemize{
