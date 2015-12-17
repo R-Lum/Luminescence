@@ -4,6 +4,11 @@ Changes in version 0.5.2 (, 2016):
 
   Bugfixes and changes:
 
+         • ‘plot_RLum.Analysis()’
+
+             • Argument 'norm' did not work for single curves,
+               corrected (#261).
+
          • ‘read_BIN2R()’
 
              • The record index was not re-calulated when the argument
