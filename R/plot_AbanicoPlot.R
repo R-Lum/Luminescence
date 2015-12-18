@@ -3427,7 +3427,20 @@ plot_AbanicoPlot <- function(
                              hoverinfo = "none",
                              type = "scatter", mode = "text",
                              yaxis = "y")
+
+    # Central Line ----
+    central.line <- data.frame(x = c(-100, data$xlim[2]*1/0.75), y = c(0, 0))
+    central.line.text <- paste0("Central value: ", 
+                                format(exp(z.central.global), digits = 2, nsmall = 1))
     
+    IAP <- plotly::add_trace(IAP, data = central.line, 
+                             x = x, y = y, name = "Central line",
+                             type = "scatter", mode = "lines",
+                             hoverinfo = "text", text = central.line.text,
+                             yaxis = "y",
+                             line = list(color = "black",
+                                         width = 0.5,
+                                         dash = 2))
     
     # KDE plot ----
     KDE.x <- xy.0[1] + KDE[[1]][ ,2] * KDE.scale
@@ -3460,11 +3473,12 @@ plot_AbanicoPlot <- function(
                           yaxis = list(range = data$ylim,
                                        zeroline = FALSE,
                                        showline = FALSE,
+                                       showgrid = FALSE,
                                        tickmode = "array",
                                        tickvals = c(-2, 0, 2)),
-                          shapes = list(list(type = "rect",
+                          shapes = list(list(type = "rect", # 2 sigma bar
                                              x0 = 0, y0 = -2,
-                                             x1 = bars[ ,3], y1 = 2,
+                                             x1 = bars[1,3], y1 = 2,
                                              xref = "x", yref = "y",
                                              fillcolor = "grey",
                                              opacity = 0.2))
