@@ -55,3 +55,14 @@ Changes in version 0.6.0 (,2016):
 
              • minor performance improvements.
 
+         • ‘plot_RLum.Analysis()’
+
+             • All ‘...’ arguments can now be provided as ‘vector’ or
+               ‘list’ to gain more control of the plot appearance,
+
+             • argument ‘abline’ now works also in combination with
+               ‘combine = TRUE’ and allows to set ablines independently
+               over different plots (#260),
+
+             • automatic axes labelling improved for ‘combine = TRUE’.
+

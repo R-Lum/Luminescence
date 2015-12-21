@@ -46,6 +46,16 @@
         \item Table column headers now have all capital letters,
         \item minor performance improvements.
       }
+
+       \item \code{plot_RLum.Analysis()}
+      \itemize{
+
+        \item All \code{...} arguments can now be provided as \code{vector} or \code{list} to
+        gain more control of the plot appearance,
+        \item argument \code{abline} now works also in combination with \code{combine = TRUE} and
+        allows to set ablines independently over different plots (#260),
+        \item automatic axes labelling improved for \code{combine = TRUE}.
+      }
    }
   }
  }
