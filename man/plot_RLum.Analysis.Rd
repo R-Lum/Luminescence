@@ -4,8 +4,8 @@
 \alias{plot_RLum.Analysis}
 \title{Plot function for an RLum.Analysis S4 class object}
 \usage{
-plot_RLum.Analysis(object, subset, nrows, ncols, abline, combine = FALSE,
-  curve.transformation, plot.single = FALSE, ...)
+plot_RLum.Analysis(object, subset, nrows, ncols, abline = NULL,
+  combine = FALSE, curve.transformation, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
@@ -21,12 +21,10 @@ plot output, if nothing is set the function tries to find a value.}
 \item{ncols}{\code{\link{integer}} (optional): sets number of columns
 for plot output, if nothing is set the function tries to find a value.}
 
-\item{abline}{\code{\link{list}} (optional): allows to set similar ablines
-in each plot. This option uses the function \code{\link{do.call}}, meaning
-that every argument in the \code{list} has to be provided as \code{list},
-e.g. \code{abline = list(list(v = 120), list(v = 350))} produces two
-vertical ablines: One at 150 and another one at 350. Within the call all
-arguments supported by \code{\link{abline}} are fully supported,}
+\item{abline}{\code{\link{list}} (optional): allows to add ablines to the plot. Argument are provided
+in a list and will be forwared to the function \code{\link{abline}}, e.g., \code{list(v = c(10, 100))}
+adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = c(10), v = c(100)}
+adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.}
 
 \item{combine}{\code{\link{logical}} (with default): allows to combine all
 \code{\linkS4class{RLum.Data.Curve}} objects in one single plot.}
@@ -40,12 +38,12 @@ transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 considered, normally this should end in one plot per page}
 
 \item{\dots}{further arguments and graphical parameters will be passed to
-the \code{plot} function. Supported arguments: \code{main} (can be provided as
-vector for \code{combine = TRUE}), \code{mtext},
+the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
-\code{norm}, \code{ylim}, \code{xlab} ... and for \code{combine = TRUE}
-also: \code{xlim}, \code{ylab}, \code{sub}, \code{legend.text},
-\code{legend.pos} (typical plus 'outside'), \code{legend.col}}
+\code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}... and for \code{combine = TRUE}
+also: \code{sub}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}.
+All arguments can be provided as \code{vector} or \code{list} to gain in full control
+of all plot settings.}
 }
 \value{
 Returns multiple plots.
@@ -77,24 +75,24 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.
 }
 \section{Function version}{
- 0.2.9 (2015-12-17 11:01:04)
+ 0.3.0 (2015-12-21 23:41:39)
 }
 \examples{
 
-
-###load data
+##load data
 data(ExampleData.BINfileData, envir = environment())
 
 ##convert values for position 1
 temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
-##plot all values
-plot_RLum.Analysis(temp)
-
 ##plot (combine) TL curves in one plot
-temp.sel <- get_RLum(temp, recordType = "TL", drop = FALSE)
-plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
-
+plot_RLum.Analysis(
+temp,
+subset = list(recordType = "TL"),
+combine = TRUE,
+norm = TRUE,
+abline = list(v = c(110))
+)
 
 }
 \author{
