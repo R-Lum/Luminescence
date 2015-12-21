@@ -704,7 +704,7 @@ plot_Histogram <- function(
     hist <- plotly::plot_ly(data = data, x = x,
                             type = "histogram",
                             showlegend = FALSE,
-                            name = "ED", opacity = 0.75,
+                            name = "Bin", opacity = 0.75,
                             marker = list(color = "428BCA",
                                           line = list(width = 1.0,
                                                       color = "white")),
@@ -732,9 +732,13 @@ plot_Histogram <- function(
                      showgrid = FALSE, title = ylab.plot[2],
                      ticks = "", showline = FALSE)
       
+      se.text <- paste0("Measured value:</br>", 
+                        data$x, " &plusmn; ", data$y,"</br>")
+        
       hist <- plotly::add_trace(hist, data = data, x = x, y = y,
                                 type = "scatter", mode = "markers",
-                                name = "Error",
+                                name = "Error", hoverinfo = "text",
+                                text = se.text,
                                 marker = list(color = "black"),
                                 yaxis = "y2")
       
