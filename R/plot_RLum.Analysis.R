@@ -63,7 +63,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -458,7 +458,8 @@ plot_RLum.Analysis <- function(
           rep_len(plot.settings[[x]], length.out = length(temp.recordType))
 
         }else{
-          rep_len(as.list(plot.settings[[x]]), length.out = length(temp.recordType))
+          rep_len(list(plot.settings[[x]]), length.out = length(temp.recordType))
+
         }
 
 
@@ -643,16 +644,15 @@ plot_RLum.Analysis <- function(
         sub = plot.settings$sub[[k]]
       )
 
-      ##convert and use matplots
-      temp.data.matrix <- matrix(unlist(temp.data.list), ncol = length(object.list) * 2)
-      matlines(
-        x = temp.data.matrix[,seq(1,ncol(temp.data.matrix), by = 2)],
-        y = temp.data.matrix[,seq(2,ncol(temp.data.matrix), by = 2)],
-        col = col,
-        lty = lty,
-        lwd = plot.settings$lwd[[k]]
+      ##plot single curve values
+      ## ...?Why using matplot is a bad idea: The channel resolution might be different
+      for (n in 1:length(temp.data.list)) {
+        lines(temp.data.list[[n]],
+              col = col[n],
+              lty = lty[n],
+              lwd = plot.settings$lwd[[k]])
 
-      )
+      }
 
       ##add abline
       if(!is.null(abline[[k]])){
