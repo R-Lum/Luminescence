@@ -55,6 +55,11 @@ Changes in version 0.6.0 (,2016):
 
              • minor performance improvements.
 
+         • ‘calc_OSLLxTxRatio()’
+
+             • New argument ‘digits’ introduced to allow direct
+               rounding of the numbers.
+
          • ‘plot_RLum.Analysis()’
 
              • All ‘...’ arguments can now be provided as ‘vector’ or

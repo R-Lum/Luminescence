@@ -45,6 +45,13 @@
 
         \item Table column headers now have all capital letters,
         \item minor performance improvements.
+
+      }
+
+     \item \code{calc_OSLLxTxRatio()}
+      \itemize{
+
+        \item New argument \code{digits} introduced to allow direct rounding of the numbers.
       }
 
        \item \code{plot_RLum.Analysis()}

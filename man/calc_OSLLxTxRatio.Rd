@@ -7,7 +7,7 @@
 calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson", sigmab)
+  background.count.distribution = "non-poisson", sigmab, digits = NULL)
 }
 \arguments{
 \item{Lx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
@@ -41,6 +41,9 @@ the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 calculation. The value should be provided as absolute squared count values,
 e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 value is taken for both (LnTx and TnTx) signals.}
+
+\item{digits}{\code{\link{integer}} (with default): round numbers to the specified digits. If
+digits is set to \code{NULL} nothing is rounded.}
 }
 \value{
 Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
@@ -105,7 +108,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.0 (2015-11-29 17:27:48)
+ 0.6.1 (2016-01-09 19:40:22)
 }
 \examples{
 
