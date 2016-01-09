@@ -61,7 +61,7 @@
 #'
 #' @note Not all arguments available for \code{\link{plot}} will be passed!
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
-#' objects are currently supported.
+#' objects are currently supported.\cr
 #'
 #' @section Function version: 0.3.1
 #'
@@ -580,7 +580,7 @@ plot_RLum.Analysis <- function(
       }
 
       ##col (again)
-      col <- if(plot.settings$col[[k]] != "black"){
+      col <- if(length(plot.settings$col[[k]]) > 1 || plot.settings$col[[k]][1] != "black"){
         plot.settings$col[[k]]
 
       }else{

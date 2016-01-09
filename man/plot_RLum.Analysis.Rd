@@ -72,10 +72,10 @@ helpful.\cr
 \note{
 Not all arguments available for \code{\link{plot}} will be passed!
 Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
-objects are currently supported.
+objects are currently supported.\cr
 }
 \section{Function version}{
- 0.3.1 (2016-01-03 18:51:16)
+ 0.3.1 (2016-01-09 19:25:50)
 }
 \examples{
 
