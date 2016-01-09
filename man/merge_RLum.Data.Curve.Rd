@@ -44,6 +44,31 @@ All count values will be summed up using the function \code{\link{rowSums}}.
 The mean over the count values is calculated using the function
 \code{\link{rowMeans}}.
 
+\code{"median"}\cr
+
+The median over the count values is calculated using the function
+\code{\link[matrixStats]{rowMedians}}.
+
+\code{"sd"}\cr
+
+The standard deviation over the count values is calculated using the function
+\code{\link[matrixStats]{rowSds}}.
+
+\code{"var"}\cr
+
+The variance over the count values is calculated using the function
+\code{\link[matrixStats]{rowVars}}.
+
+\code{"min"}\cr
+
+The min values from the count values is chosen using the function
+\code{\link[matrixStats]{rowMins}}.
+
+\code{"max"}\cr
+
+The max values from the count values is chosen using the function
+\code{\link[matrixStats]{rowMins}}.
+
 \code{"-"}\cr
 
 The row sums of the last objects are subtracted from the first object.
@@ -64,12 +89,12 @@ The information from the slot 'recordType' is taken from the first
 \section{S3-generic support}{
 
 
-This function fully operational via S3-generics:
+This function is fully operational via S3-generics:
 \code{`+`}, \code{`-`}, \code{`/`}, \code{`*`}, \code{merge}
 }
 
 \section{Function version}{
- 0.1.1 (2015-12-05 15:52:49)
+ 0.1.2 (2016-01-09 22:37:57)
 }
 \examples{
 

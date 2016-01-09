@@ -18,6 +18,31 @@
 #' The mean over the count values is calculated using the function
 #' \code{\link{rowMeans}}.
 #'
+#' \code{"median"}\cr
+#'
+#' The median over the count values is calculated using the function
+#' \code{\link[matrixStats]{rowMedians}}.
+#'
+#' \code{"sd"}\cr
+#'
+#' The standard deviation over the count values is calculated using the function
+#' \code{\link[matrixStats]{rowSds}}.
+#'
+#' \code{"var"}\cr
+#'
+#' The variance over the count values is calculated using the function
+#' \code{\link[matrixStats]{rowVars}}.
+#'
+#' \code{"min"}\cr
+#'
+#' The min values from the count values is chosen using the function
+#' \code{\link[matrixStats]{rowMins}}.
+#'
+#' \code{"max"}\cr
+#'
+#' The max values from the count values is chosen using the function
+#' \code{\link[matrixStats]{rowMins}}.
+#'
 #' \code{"-"}\cr
 #'
 #' The row sums of the last objects are subtracted from the first object.
@@ -44,7 +69,7 @@
 #' info elements from the 2 object etc.  If nothing is provided all elements
 #' are combined.
 #'
-#' @return Return an \code{\linkS4class{RLum.Data.Curve}} object.
+#' @return Returns an \code{\linkS4class{RLum.Data.Curve}} object.
 #'
 #' @note The information from the slot 'recordType' is taken from the first
 #' \code{\linkS4class{RLum.Data.Curve}} object in the input list. The slot
@@ -52,10 +77,10 @@
 #'
 #' @section S3-generic support:
 #'
-#' This function fully operational via S3-generics:
+#' This function is fully operational via S3-generics:
 #' \code{`+`}, \code{`-`}, \code{`/`}, \code{`*`}, \code{merge}
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -171,9 +196,25 @@ merge_RLum.Data.Curve<- function(
 
     temp.matrix <- rowMeans(temp.matrix)
 
-  }else if(merge.method == "mean"){
+  }else if(merge.method == "median"){
 
-    temp.matrix <- rowMeans(temp.matrix)
+    temp.matrix <- matrixStats::rowMedians(temp.matrix)
+
+  }else if(merge.method == "sd"){
+
+    temp.matrix <- matrixStats::rowSds(temp.matrix)
+
+  }else if(merge.method == "var"){
+
+    temp.matrix <- matrixStats::rowVars(temp.matrix)
+
+  }else if(merge.method == "max"){
+
+    temp.matrix <- matrixStats::rowMaxs(temp.matrix)
+
+  }else if(merge.method == "min"){
+
+    temp.matrix <- matrixStats::rowMins(temp.matrix)
 
   }else if(merge.method == "-"){
 
@@ -208,6 +249,9 @@ merge_RLum.Data.Curve<- function(
     temp.matrix[id.inf]  <- 0
 
     warning(paste0(length(id.inf), " 'inf' values have been replaced by 0 in the matrix."))
+
+  }else{
+    stop("[merge_RLum.Data.Curve()] unsupported or unknown merge method!")
 
   }
 

@@ -65,6 +65,9 @@
 #' e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 #' value is taken for both (LnTx and TnTx) signals.
 #'
+#' @param digits \code{\link{integer}} (with default): round numbers to the specified digits. If
+#' digits is set to \code{NULL} nothing is rounded.
+#'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #'
 #' Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
@@ -91,7 +94,7 @@
 #' own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 #'
 #'
-#' @section Function version: 0.6.0
+#' @section Function version: 0.6.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -132,7 +135,8 @@ calc_OSLLxTxRatio <- function(
   background.integral,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson",
-  sigmab
+  sigmab,
+  digits = NULL
 ){
 
   ##--------------------------------------------------------------------------##
@@ -436,6 +440,13 @@ calc_OSLLxTxRatio <- function(
 
   ##return combined values
   temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)
+
+  ##apply digits if wanted
+  if(!is.null(digits)){
+    temp[1,] <- round(temp[1,], digits = digits)
+
+  }
+
   calc.parameters <- list(sigmab.LnLx = sigmab.LnLx,
                           sigmab.TnTx = sigmab.TnTx,
                           k = k)

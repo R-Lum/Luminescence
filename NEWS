@@ -55,6 +55,11 @@ Changes in version 0.6.0 (,2016):
 
              • minor performance improvements.
 
+         • ‘calc_OSLLxTxRatio()’
+
+             • New argument ‘digits’ introduced to allow direct
+               rounding of the numbers.
+
          • ‘plot_RLum.Analysis()’
 
              • All ‘...’ arguments can now be provided as ‘vector’ or
@@ -64,5 +69,12 @@ Changes in version 0.6.0 (,2016):
                ‘combine = TRUE’ and allows to set ablines independently
                over different plots (#260),
 
-             • automatic axes labelling improved for ‘combine = TRUE’.
+             • automatic axes labelling improved for ‘combine = TRUE’,
+
+             • support further ‘...’ argument ‘legend’ (TRUE/FALSE).
+
+         • ‘merge_RLum.Data.Curve()’
+
+             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
+               ‘min’, ‘max’.
 
