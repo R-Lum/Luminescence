@@ -61,7 +61,14 @@
         gain more control of the plot appearance,
         \item argument \code{abline} now works also in combination with \code{combine = TRUE} and
         allows to set ablines independently over different plots (#260),
-        \item automatic axes labelling improved for \code{combine = TRUE}.
+        \item automatic axes labelling improved for \code{combine = TRUE},
+        \item support further \code{...} argument \code{legend} (TRUE/FALSE).
+      }
+
+    \item \code{merge_RLum.Data.Curve()}
+      \itemize{
+
+        \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
       }
    }
   }

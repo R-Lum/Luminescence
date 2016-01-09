@@ -53,7 +53,7 @@
 #' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 #' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 #' \code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}... and for \code{combine = TRUE}
-#' also: \code{sub}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}.
+#' also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}.
 #' All arguments can be provided as \code{vector} or \code{list} to gain in full control
 #' of all plot settings.
 #'
@@ -63,7 +63,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.\cr
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -142,6 +142,7 @@ plot_RLum.Analysis <- function(
     norm = FALSE,
     sub = NULL,
     cex = 1,
+    legend = TRUE,
     legend.text = NULL,
     legend.pos = NULL,
     legend.col = NULL
@@ -664,17 +665,23 @@ plot_RLum.Analysis <- function(
       mtext(plot.settings$mtext[[k]], side = 3, cex = .8 * plot.settings$cex[[k]])
 
       ##legend
-      legend(
-        x = ifelse(legend.pos == "outside", par()$usr[2], legend.pos),
-        y = ifelse(legend.pos == "outside", par()$usr[4], NULL),
-        legend = legend.text,
-        lwd = plot.settings$lwd[[k]],
-        lty = plot.settings$lty[[k]],
-        col = if(is.null(legend.col)){col[1:length(object.list)]}else{legend.col},
-        bty = "n",
-        cex = 0.8 * plot.settings$cex[[k]]
-      )
+      if (plot.settings$legend[[k]]) {
+        legend(
+          x = ifelse(legend.pos == "outside", par()$usr[2], legend.pos),
+          y = ifelse(legend.pos == "outside", par()$usr[4], NULL),
+          legend = legend.text,
+          lwd = plot.settings$lwd[[k]],
+          lty = plot.settings$lty[[k]],
+          col = if (is.null(legend.col)) {
+            col[1:length(object.list)]
+          } else{
+            legend.col
+          },
+          bty = "n",
+          cex = 0.8 * plot.settings$cex[[k]]
+        )
 
+      }
 
     }
 

@@ -41,7 +41,7 @@ considered, normally this should end in one plot per page}
 the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 \code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}... and for \code{combine = TRUE}
-also: \code{sub}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}.
+also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}.
 All arguments can be provided as \code{vector} or \code{list} to gain in full control
 of all plot settings.}
 }
@@ -75,7 +75,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.\cr
 }
 \section{Function version}{
- 0.3.1 (2016-01-09 19:25:50)
+ 0.3.2 (2016-01-09 21:28:17)
 }
 \examples{
 
