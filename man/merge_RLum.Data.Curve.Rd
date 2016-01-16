@@ -22,7 +22,7 @@ info elements from the 2 object etc.  If nothing is provided all elements
 are combined.}
 }
 \value{
-Return an \code{\linkS4class{RLum.Data.Curve}} object.
+Returns an \code{\linkS4class{RLum.Data.Curve}} object.
 }
 \description{
 Function allows merging of RLum.Data.Curve objects in different ways
@@ -94,7 +94,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.1.2 (2016-01-09 22:37:57)
+ 0.1.2 (2016-01-09 23:06:05)
 }
 \examples{
 
