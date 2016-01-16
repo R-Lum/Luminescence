@@ -4,6 +4,10 @@ Changes in version 0.5.2 (, 2016):
 
   Bugfixes and changes:
 
+         • ‘analyse_pIRIRSequence()’
+
+             • Fix graphical output for MET protocol.
+
          • ‘plot_RLum.Analysis()’
 
              • Argument 'norm' did not work for single curves,

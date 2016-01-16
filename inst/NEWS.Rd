@@ -14,6 +14,8 @@
 
       }
 
+      }
+
       \item \code{plot_RLum.Analysis()}{
 
       \itemize{
@@ -37,6 +39,4 @@
       }
   }
 }
-
-
 
