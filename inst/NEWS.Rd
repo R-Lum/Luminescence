@@ -6,12 +6,19 @@
    \itemize{
 
 
+    \item \code{analyse_pIRIRSequence()}{
+
+      \itemize{
+
+          \item Fix graphical output for MET protocol.
+
+      }
+
       \item \code{plot_RLum.Analysis()}{
 
       \itemize{
 
           \item Argument 'norm' did not work for single curves, corrected (#261).
-
 
       }
 

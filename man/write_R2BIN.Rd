@@ -60,7 +60,7 @@ directly produced by the Risoe readers!\cr
 Implementation of support for version 07 could so far not properly tested.
 }
 \section{Function version}{
- 0.3.2 (2015-12-17 18:11:56)
+ 0.3.2 (2016-01-16 18:15:55)
 }
 \examples{
 
