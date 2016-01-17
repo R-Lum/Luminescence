@@ -18,18 +18,18 @@
 #' behaviour specify the desired order of line types (e.g. \code{lty = c(1, 3,
 #' 2, 5)}). See examples for some further explanations. For details on the
 #' calculation of the bin-width (parameter \code{bw}) see
-#' \code{\link{density}}.\cr\cr 
-#' A statistic summary, i.e. a collection of statistic measures of 
-#' centrality and dispersion (and further measures) can be added by specifying 
+#' \code{\link{density}}.\cr\cr
+#' A statistic summary, i.e. a collection of statistic measures of
+#' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords: \code{"n"} (number of samples),
 #' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
 #' \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative 
+#' deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
 #' standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
-#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation), 
+#' \code{"sdabs.weighted"} (error-weighted absolute standard deviation),
 #' \code{"serel"} (relative standard error), \code{"serel.weighted"} (
 #' error-weighted relative standard error), \code{"seabs"} (absolute standard
-#' error), \code{"seabs.weighted"} (error-weighted absolute standard error), 
+#' error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 #' \code{"in.2s"} (percent of samples in 2-sigma range),
 #' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 #'
@@ -54,8 +54,8 @@
 #' drawing the polygon that depicts the dose distribution. One out of
 #' \code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations)
 #' \code{"qr"} (quartile range).
-#' @param summary \code{\link{character}} (optional): add statistic measures of 
-#' centrality and dispersion to the plot. Can be one or more of several 
+#' @param summary \code{\link{character}} (optional): add statistic measures of
+#' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
@@ -63,23 +63,33 @@
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if \code{mtext} is not used. In case of coordinate
 #' specification, y-coordinate refers to the right y-axis.
+#'
 #' @param polygon.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the polygon showing the dose dispersion around the
 #' central value. Only relevant if \code{dispersion} is specified.
+#'
 #' @param order \code{\link{logical}}: Order data in ascending order.
+#'
 #' @param bw \code{\link{character}} (with default): bin-width, chose a numeric
 #' value for manual setting.
+#'
 #' @param output \code{\link{logical}}: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' \code{FALSE}.
+#'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot}}.
+#'
 #' @note The plot output is no 'PD' plot (cf. the discussion of Berger and
 #' Galbraith in Ancient TL; see references)!
-#' @section Function version: 3.5
+#'
+#' @section Function version: 3.5.1
+#'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#'
 #' @seealso \code{\link{density}}, \code{\link{plot}}
+#'
 #' @examples
 #'
 #' ## read example data set
@@ -589,6 +599,13 @@ plot_KDE <- function(
     main <- expression(bold(paste(D[e], " distribution")))
   }
 
+  if("sub" %in% names(list(...))) {
+    sub <- list(...)$sub
+  } else {
+    sub <- NULL
+  }
+
+
   if("xlab" %in% names(list(...))) {
     xlab <- list(...)$xlab
   } else {
@@ -742,7 +759,7 @@ plot_KDE <- function(
     toplines <- length(data)
   } else {toplines <- 1}
 
-  par(mar = c(4.5, 5.5, 2.5 + toplines, 4.5),
+  par(mar = c(5, 5.5, 2.5 + toplines, 4.5),
       xpd = FALSE,
       cex = cex)
 
@@ -753,6 +770,7 @@ plot_KDE <- function(
        main = "",
        xlab = "",
        ylab = "",
+       sub = sub,
        log = log.option,
        axes = FALSE,
        frame.plot = FALSE)
