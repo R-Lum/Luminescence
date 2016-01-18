@@ -2767,19 +2767,22 @@ plot_AbanicoPlot <- function(
       }
     }
     
-    #     ## optionally, plot central value lines
-    #     if(lwd[1] > 0 & lty[1] > 0) {
-    #       for(i in 1:length(data)) {
-    #         x2 <- r / sqrt(1 + f^2 * (
-    #           data[[i]][1,5] - z.central.global)^2)
-    #         y2 <- (data[[i]][1,5] - z.central.global) * x2
-    #         lines(y = c(limits.x[1], x2, xy.0[2],y.max),
-    #               x = c(0, y2, y2, y2),
-    #               lty = lty[i],
-    #               lwd = lwd[i],
-    #               col = centrality.col[i])
-    #       }
-    #     }
+    ## optionally, plot lines for each bar
+    if(lwd[1] > 0 & lty[1] > 0 & bar[1] != FALSE & length(data) == 1) {
+      if(bar[1] == TRUE & length(bar) == 1) {
+        bar[1] <- z.central.global
+      }
+      for(i in 1:length(bar)) {
+        x2 <- r / sqrt(1 + f^2 * (
+          bar[i] - z.central.global)^2)
+        y2 <- (bar[i] - z.central.global) * x2
+        lines(x = c(0, y2, y2, y2),
+              y = c(limits.x[1], x2, xy.0[2], par()$usr[4]),
+              lty = lty[i],
+              lwd = lwd[i],
+              col = centrality.col[i])
+      }
+    } 
     
     ## optionally add further lines
     if(missing(line) == FALSE) {
