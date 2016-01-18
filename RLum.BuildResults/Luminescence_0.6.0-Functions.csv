@@ -9,7 +9,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, HZDR, Freiberg (Germany)<br />  R Luminescence Package Team"
 "analyse_SAR.TL","Analyse SAR TL measurements","<br /> The function performs a SAR TL analysis on a<br /> RLum.Analysis  object including growth curve fitting.<br />","0.1.4","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"apply_CosmicRayRemoval","Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object","<br /> The function provides several methods for cosmic ray removal and spectrum<br /> smoothing for an RLum.Data.Spectrum S4 class object<br />","0.1.3","2015-11-29","17:27:48
+"apply_CosmicRayRemoval","Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object","<br /> The function provides several methods for cosmic ray removal and spectrum<br /> smoothing for an RLum.Data.Spectrum S4 class object<br />","0.2.0","2016-01-18","18:14:05
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "apply_EfficiencyCorrection","Function to apply spectral efficiency correction to RLum.Data.Spectrum S4<br /> class objects","<br /> The function allows spectral efficiency corrections for RLum.Data.Spectrum<br /> S4 class objects<br />","0.1.1","2016-01-18","16:19:50
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Johannes Friedrich, University of Bayreuth (Germany)<br />  R Luminescence Package Team"
