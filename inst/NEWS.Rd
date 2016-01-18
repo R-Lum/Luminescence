@@ -16,6 +16,20 @@
 
       }
 
+
+
+      \item \code{plot_GrowthCurve()}{
+
+      \itemize{
+
+          \item The function partly couldn't fit if negative weights had been provided, fixed (thanks
+          to Norbert Mercier).
+
+      }
+
+      }
+
+
       \item \code{plot_RLum.Analysis()}{
 
       \itemize{

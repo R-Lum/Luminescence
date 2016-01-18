@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.1
+#' @section Function version: 1.8.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -250,17 +250,17 @@ plot_GrowthCurve <- function(
   ##1.1.1 produce weights for weighted fitting
   if(fit.weights){
 
-    fit.weights <- 1 / y.Error / (sum(1 / y.Error))
+    fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
     if(is.na(fit.weights[1])){
 
       fit.weights <- NULL
-      warning("fit.weights set to NULL as error column is invalid or 0.")
+      warning("fit.weights set to NULL as the error column is invalid or 0.")
 
     }
 
   }else{
-    fit.weights <- rep(1, length(y.Error))
+    fit.weights <- rep(1, length(abs(y.Error)))
 
   }
 
@@ -454,6 +454,7 @@ plot_GrowthCurve <- function(
 
         ##give function for uniroot
         De.fs.MC <- function(x, y) {
+          0 + coef(fit.MC)[1] * x + coef(fit.MC)[2] * x ^ 2 - y
           0 + coef(fit.MC)[1] * x + coef(fit.MC)[2] * x ^ 2 - y
 
         }

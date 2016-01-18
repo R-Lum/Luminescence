@@ -8,6 +8,11 @@ Changes in version 0.5.2 (, 2016):
 
              • Fix graphical output for MET protocol.
 
+         • ‘plot_GrowthCurve()’
+
+             • The function partly couldn't fit if negative weights had
+               been provided, fixed (thanks to Norbert Mercier).
+
          • ‘plot_RLum.Analysis()’
 
              • Argument 'norm' did not work for single curves,
