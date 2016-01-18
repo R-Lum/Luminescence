@@ -376,18 +376,25 @@ analyse_pIRIRSequence <- function(
   ## the order of the produced plots by the previous functions
 
   if(plot.single == FALSE & plot == TRUE){
-  ##first (Tx,Tn, Lx,Ln)
-  temp.IRSL.layout.vector.first <- c(3,5,6,7,3,5,6,8)
+
+    ##first (Tx,Tn, Lx,Ln)
+    temp.IRSL.layout.vector.first <- c(3,5,6,7,3,5,6,8)
 
   ##middle (any other Lx,Ln)
   if(n.loops > 2){
-  temp.IRSL.layout.vector.middle <- as.vector(sapply(2:n.loops-1, function(x){
+    temp.IRSL.layout.vector.middle <-
+      vapply(
+        2:(n.loops - 1),
+        FUN = function(x) {
 
-    offset <- (5*x)-1
-    c((offset):(offset+3),
-      (offset):(offset+2),offset+4)
+          offset <- 5 * x - 1
+          c((offset):(offset + 3),
+            (offset):(offset + 2), offset + 4)
 
-  }))}
+        },
+        FUN.VALUE = vector(mode = "numeric", length = 8)
+      )
+  }
 
   ##last (Lx,Ln and legend)
   temp.IRSL.layout.vector.last <- c(
@@ -440,13 +447,13 @@ analyse_pIRIRSequence <- function(
 
   ##set layout
   nf <- layout(
-    matrix(layout.matrix,(max(layout.matrix)/2+2), 4, byrow = TRUE),
+    matrix(layout.matrix,(max(layout.matrix)/2 +
+                            ifelse(n.loops > 2, 0,2)), 4, byrow = TRUE),
      widths = c(rep(c(1,1,1,.75),6),c(1,1,1,1)),
      heights = c(rep(c(1),(2+2*n.loops)),c(0.20, 0.20)))
 
-
   ## show the regions that have been allocated to each plot for debug
-  ##layout.show(nf)
+  #layout.show(nf)
 
   }
 
