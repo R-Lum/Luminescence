@@ -1703,7 +1703,7 @@ plot_AbanicoPlot <- function(
     data.in.2s[data[[i]][,8] > -2 & data[[i]][,8] < 2] <- TRUE
     data[[i]] <- cbind(data[[i]], data.in.2s)
   }
-  
+
   ## calculate coordinates for 2-sigma bar overlay
   if(bar[1] == TRUE) {
     bars <- matrix(nrow = length(data), ncol = 8)
@@ -1750,6 +1750,9 @@ plot_AbanicoPlot <- function(
                        (bar[i] - z.central.global) *
                          bars[i,3] - 2)
     }
+  }
+  if (rotate == TRUE) {
+    bars <- matrix(bars[, rev(seq_len(ncol(bars)))], ncol = 8)
   }
   
   ## calculate error bar coordinates
@@ -2002,7 +2005,7 @@ plot_AbanicoPlot <- function(
                 border = bar.line[i])
       }
     }
-    
+
     ## remove unwanted parts
     polygon(x = c(par()$usr[2],
                   par()$usr[2],
@@ -2698,25 +2701,15 @@ plot_AbanicoPlot <- function(
       as.character(round(1/axTicks(side = 2)[-1], 1))
     }
     
-    #     ## optionally, plot 2-sigma-bar
-    #     if(bar.fill[1] != "none") {
-    #
-    #       if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
-    #         for(i in 1:length(centrality)) {
-    #           polygon(x = bars[i,1:4],
-    #                   y = bars[i,5:8],
-    #                   col = bar.fill[i],
-    #                   border = bar.line[i])
-    #         }
-    #       } else {
-    #         for(i in 1:length(data)) {
-    #           polygon(y = bars[i,1:4],
-    #                   x = bars[i,5:8],
-    #                   col = bar.fill[i],
-    #                   border = bar.line[i])
-    #         }
-    #       }
-    #     }
+    # optionally, plot 2-sigma-bar
+    if(bar[1] != FALSE) {
+      for(i in 1:length(bar)) {
+        polygon(x = bars[i,1:4],
+                y = bars[i,5:8],
+                col = bar.fill[i],
+                border = bar.line[i])
+      }
+    }
     
     ## remove unwanted parts
     polygon(y = c(par()$usr[2],
