@@ -271,7 +271,7 @@ apply_CosmicRayRemoval <- function(
 
       ##(9) - return information on the amount of removed cosmic-rays
 
-      if(verbose == FALSE){
+      if(verbose){
         #sum up removed counts values above the threshold
         sum.corrected.channels <- try(
           sum(temp.hist$counts[temp.hist.thres:length(temp.hist$counts)]),
