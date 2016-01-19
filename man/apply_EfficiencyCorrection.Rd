@@ -26,17 +26,19 @@ S4 class objects
 \details{
 The efficiency correction is based on a spectral response dataset provided
 by the user. Usually the data set for the quantum efficiency is of lower
-resolution and values are interpolated for the required spectral resolution.
+resolution and values are interpolated for the required spectral resolution using
+the function \code{\link[stats]{approx}}
+
+If the energy calibration differes for both data set \code{NA} values are produces that
+will be removed from the matrix.
 }
 \note{
-Please note that the spectral efficiency data from the camera may not
+Please note that the spectral efficiency data from the camera alone may not
 sufficiently correct for spectral efficiency of the entire optical system
 (e.g., spectrometer, camera ...).
-
-This function has BETA status.
 }
 \section{Function version}{
- 0.1 (2015-11-29 17:27:48)
+ 0.1.1 (2016-01-18 16:19:50)
 }
 \examples{
 
