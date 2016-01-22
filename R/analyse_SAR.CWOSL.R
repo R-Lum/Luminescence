@@ -1312,12 +1312,11 @@ object!")
 
     }else{
       palaeodose.error.status <- ifelse(
-        palaeodose.error.calculated <= rejection.criteria$palaeodose.error,
+        palaeodose.error.calculated <= palaeodose.error.threshold,
         "OK", "FAILED"
       )
 
     }
-
 
     palaeodose.error.data.frame <- data.frame(
       Criteria = "Palaeodose error",
