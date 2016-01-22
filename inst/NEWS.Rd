@@ -40,6 +40,19 @@
    \itemize{
 
 
+      \item \code{apply_CosmicRayRemoval()}
+      \itemize{
+
+          \item Argument \code{silent} renamed to \code{verbose},
+          \item new argument \code{method.Pych.threshold_factor} added to have a better control
+          for the threshold value used for the removal,
+          \item new argument \code{MARGIN} added to allow the application of the methods along
+          the wavelength or the time.
+
+
+      }
+
+
       \item \code{calc_FadingCorr()}
       \itemize{
 

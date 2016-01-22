@@ -49,6 +49,17 @@ Changes in version 0.6.0 (,2016):
 
   Bugfixes and changes:
 
+         • ‘apply_CosmicRayRemoval()’
+
+             • Argument ‘silent’ renamed to ‘verbose’,
+
+             • new argument ‘method.Pych.threshold_factor’ added to
+               have a better control for the threshold value used for
+               the removal,
+
+             • new argument ‘MARGIN’ added to allow the application of
+               the methods along the wavelength or the time.
+
          • ‘calc_FadingCorr()’
 
              • Table column headers now have all capital letters,

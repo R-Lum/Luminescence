@@ -90,7 +90,7 @@ appear similar, but they are not comparable!
 The upper age limit is set to 500 ka!
 }
 \section{Function version}{
- 0.3.1 (2016-01-18 10:43:43)
+ 0.3.1 (2016-01-18 15:07:03)
 }
 \examples{
 results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,

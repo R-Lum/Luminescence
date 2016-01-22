@@ -5,7 +5,8 @@
 \title{Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object}
 \usage{
 apply_CosmicRayRemoval(object, method = "Pych", method.Pych.smoothing = 2,
-  silent = FALSE, plot = FALSE, ...)
+  method.Pych.threshold_factor = 3, MARGIN = 2, verbose = FALSE,
+  plot = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
@@ -21,7 +22,15 @@ parameter for cosmic ray removal according to Pych (2003). The value defines
 how many neighboring values in each frame are used for smoothing (e.g.,
 \code{2} means that the two previous and two following values are used).}
 
-\item{silent}{\code{\link{logical}} (with default): Option to suppress
+\item{method.Pych.threshold_factor}{\code{\link{numeric}} (with default): Threshold
+for zero-bins in the histogram. Small values mean that more peaks are removed, but signal
+might be also affected by this removal.}
+
+\item{MARGIN}{\code{\link{integer}} (with default): on which part the function cosmic ray removal
+should be applied on: 1 = along the time axis (line by line), 2 = along the wavelength axis (column by
+column). Note: This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
+
+\item{verbose}{\code{\link{logical}} (with default): Option to suppress
 terminal output.,}
 
 \item{plot}{\code{\link{logical}} (with default): If \code{TRUE} the
@@ -69,7 +78,7 @@ dataset (see example).
 -
 }
 \section{Function version}{
- 0.1.3 (2015-11-29 17:27:48)
+ 0.2.0 (2016-01-18 18:30:51)
 }
 \examples{
 
