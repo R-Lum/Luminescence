@@ -1318,7 +1318,6 @@ object!")
 
     }
 
-
     palaeodose.error.data.frame <- data.frame(
       Criteria = "Palaeodose error",
       Value = palaeodose.error.calculated,
