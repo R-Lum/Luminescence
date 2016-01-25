@@ -69,7 +69,10 @@ Changes in version 0.6.0 (,2016):
          • ‘calc_OSLLxTxRatio()’
 
              • New argument ‘digits’ introduced to allow direct
-               rounding of the numbers.
+               rounding of the numbers,
+
+             • add argument ‘sig0’ to allow for an extra component of
+               error.
 
          • ‘plot_RLum.Analysis()’
 

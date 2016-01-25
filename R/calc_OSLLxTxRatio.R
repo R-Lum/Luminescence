@@ -12,7 +12,16 @@
 #'
 #' The default value of \code{sigmab} is calculated assuming the background is
 #' constant and \bold{would not} applicable when the background varies as,
-#' e.g., as observed for the early light substraction method.
+#' e.g., as observed for the early light substraction method.\cr
+#'
+#' \bold{sig0}\cr
+#'
+#' This argument allows to add an extra component of error to the final Lx/Tx error value.
+#' The input will be treated as factor that is multiplied with the already calculated
+#' se(LxTx) and the result is add up by:
+#'
+#' \deqn{LxTx.Error) = \sqrt(LxTx.Error^2 + (LxTx.Error * sig0)^2)}
+#'
 #'
 #' \bold{background.count.distribution}\cr
 #'
@@ -55,15 +64,18 @@
 #' limits for the background integral for the Tx curve. If nothing is provided the
 #' value from \code{background.integral} is used.
 #'
-#' @param background.count.distribution \code{\link{character}} (with default): Sets
+#' @param background.count.distribution \code{\link{character}} (with default): sets
 #' the count distribution assumed for the error calculation. Possible arguments
 #' \code{poisson} or \code{non-poisson}. See details for further information
 #'
-#' @param sigmab \link{numeric} (optional): Option to set a manual value for
+#' @param sigmab \code{\link{numeric}} (optional): option to set a manual value for
 #' the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 #' calculation. The value should be provided as absolute squared count values,
 #' e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 #' value is taken for both (LnTx and TnTx) signals.
+#'
+#' @param sig0 \code{\link{numeric}} (with default): allow adding an extra component of error
+#' to the final Lx/Tx error value (see details).
 #'
 #' @param digits \code{\link{integer}} (with default): round numbers to the specified digits. If
 #' digits is set to \code{NULL} nothing is rounded.
@@ -103,7 +115,7 @@
 #' \code{\link{Analyse_SAR.OSLdata}}, \code{\link{plot_GrowthCurve}},
 #' \code{\link{analyse_SAR.CWOSL}}
 #'
-#'  @references Duller, G., 2007. Analyst.
+#' @references Duller, G., 2007. Analyst.
 #' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
@@ -136,6 +148,7 @@ calc_OSLLxTxRatio <- function(
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson",
   sigmab,
+  sig0 = 0,
   digits = NULL
 ){
 
@@ -437,6 +450,9 @@ calc_OSLLxTxRatio <- function(
   ##calculate Ln/Tx error
   LxTx.relError <- sqrt(LnLx.relError^2 + TnTx.relError^2)
   LxTx.Error <- abs(LxTx * LxTx.relError)
+
+    ##add an extra component of error
+    LxTx.Error <- sqrt(LxTx.Error^2 + (sig0 * LxTx.Error)^2)
 
   ##return combined values
   temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)

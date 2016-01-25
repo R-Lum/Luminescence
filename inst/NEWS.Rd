@@ -64,7 +64,8 @@
      \item \code{calc_OSLLxTxRatio()}
       \itemize{
 
-        \item New argument \code{digits} introduced to allow direct rounding of the numbers.
+        \item New argument \code{digits} introduced to allow direct rounding of the numbers,
+        \item add argument \code{sig0} to allow for an extra component of error.
       }
 
        \item \code{plot_RLum.Analysis()}

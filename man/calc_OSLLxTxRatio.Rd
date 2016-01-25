@@ -7,7 +7,8 @@
 calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson", sigmab, digits = NULL)
+  background.count.distribution = "non-poisson", sigmab, sig0 = 0,
+  digits = NULL)
 }
 \arguments{
 \item{Lx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
@@ -32,15 +33,18 @@ bounds for the background integral.}
 limits for the background integral for the Tx curve. If nothing is provided the
 value from \code{background.integral} is used.}
 
-\item{background.count.distribution}{\code{\link{character}} (with default): Sets
+\item{background.count.distribution}{\code{\link{character}} (with default): sets
 the count distribution assumed for the error calculation. Possible arguments
 \code{poisson} or \code{non-poisson}. See details for further information}
 
-\item{sigmab}{\link{numeric} (optional): Option to set a manual value for
+\item{sigmab}{\code{\link{numeric}} (optional): option to set a manual value for
 the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 calculation. The value should be provided as absolute squared count values,
 e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 value is taken for both (LnTx and TnTx) signals.}
+
+\item{sig0}{\code{\link{numeric}} (with default): allow adding an extra component of error
+to the final Lx/Tx error value (see details).}
 
 \item{digits}{\code{\link{integer}} (with default): round numbers to the specified digits. If
 digits is set to \code{NULL} nothing is rounded.}
@@ -79,7 +83,15 @@ error calculation is done according to Galbraith (2002).\cr
 
 The default value of \code{sigmab} is calculated assuming the background is
 constant and \bold{would not} applicable when the background varies as,
-e.g., as observed for the early light substraction method.
+e.g., as observed for the early light substraction method.\cr
+
+\bold{sig0}\cr
+
+This argument allows to add an extra component of error to the final Lx/Tx error value.
+The input will be treated as factor that is multiplied with the already calculated
+se(LxTx) and the result is add up by:
+
+\deqn{LxTx.Error) = \sqrt(LxTx.Error^2 + (LxTx.Error * sig0)^2)}
 
 \bold{background.count.distribution}\cr
 
@@ -108,7 +120,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.1 (2016-01-18 15:07:03)
+ 0.6.1 (2016-01-25 21:24:43)
 }
 \examples{
 
@@ -127,12 +139,8 @@ get_RLum(results)
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
 \cr R Luminescence Package Team}
-\seealso{
-\code{\linkS4class{RLum.Data.Curve}},
-\code{\link{Analyse_SAR.OSLdata}}, \code{\link{plot_GrowthCurve}},
-\code{\link{analyse_SAR.CWOSL}}
-
- @references Duller, G., 2007. Analyst.
+\references{
+Duller, G., 2007. Analyst.
 \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
 
 Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
@@ -140,6 +148,11 @@ count. Ancient TL, 20 (2), 49-51.
 
 Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3.
+}
+\seealso{
+\code{\linkS4class{RLum.Data.Curve}},
+\code{\link{Analyse_SAR.OSLdata}}, \code{\link{plot_GrowthCurve}},
+\code{\link{analyse_SAR.CWOSL}}
 }
 \keyword{datagen}
 
