@@ -78,6 +78,14 @@
         \item support further \code{...} argument \code{legend} (TRUE/FALSE).
       }
 
+    \item \code{plot_GrowthCurve()}
+      \itemize{
+
+        \item If the input data contain a least one infinite value the function will not crash
+        any longer, but return \code{NULL}.
+
+      }
+
     \item \code{merge_RLum.Data.Curve()}
       \itemize{
 
@@ -87,9 +95,9 @@
       \item \code{Risoe.BINfileData2RLum.Analysis()}
       \itemize{
 
-        \item The use of single grain data could lead to a wrong conversion in the sense that only positions
-        had been converted, but not single grains and the curves belonging to one grain within a position
-        (fixed).
+        \item Single grain data had not been converted correctly to \code{RLum.Analysis} objects.
+        Each grain within a position should represent one \code{RLum.Analysis} object with a set
+        of curve. This was so far not the case; corrected.
       }
 
    }

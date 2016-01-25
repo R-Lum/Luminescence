@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.3
+#' @section Function version: 1.8.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -191,6 +191,12 @@ plot_GrowthCurve <- function(
   ##2. check if sample contains a least three rows
   if(length(sample[,1])<3){
     stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!")
+  }
+
+  ##2.1 check for inf data in the data.frame
+  if(any(is.infinite(unlist(sample)))){
+    warning("[plot_GrowthCurve()] the input data contain at least one Inf value. NULL returned!")
+    return(NULL)
   }
 
   ## optionally, count and exclude NA values and print result

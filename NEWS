@@ -84,6 +84,11 @@ Changes in version 0.6.0 (,2016):
 
              • support further ‘...’ argument ‘legend’ (TRUE/FALSE).
 
+         • ‘plot_GrowthCurve()’
+
+             • If the input data contain a least one infinite value the
+               function will not crash any longer, but return ‘NULL’.
+
          • ‘merge_RLum.Data.Curve()’
 
              • Support further merge operations: ‘median’, ‘var’, ‘sd’,
@@ -91,8 +96,8 @@ Changes in version 0.6.0 (,2016):
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 
-             • The use of single grain data could lead to a wrong
-               conversion in the sense that only positions had been
-               converted, but not single grains and the curves
-               belonging to one grain within a position (fixed).
+             • Single grain data had not been converted correctly to
+               ‘RLum.Analysis’ objects.  Each grain within a position
+               should represent one ‘RLum.Analysis’ object with a set
+               of curve. This was so far not the case; corrected.
 
