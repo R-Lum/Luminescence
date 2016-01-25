@@ -89,3 +89,10 @@ Changes in version 0.6.0 (,2016):
              • Support further merge operations: ‘median’, ‘var’, ‘sd’,
                ‘min’, ‘max’.
 
+         • ‘Risoe.BINfileData2RLum.Analysis()’
+
+             • The use of single grain data could lead to a wrong
+               conversion in the sense that only positions had been
+               converted, but not single grains and the curves
+               belonging to one grain within a position (fixed).
+

@@ -83,7 +83,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4
+ 0.4.4 (2016-01-19 20:14:49)
 }
 \examples{
 
@@ -116,7 +116,7 @@ plot_Histogram(ExampleData.DeValues,
 \author{
 Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\link{hist}}, \code{\link{plot}}
 }

@@ -219,6 +219,8 @@ plot_GrowthCurve <- function(
     txtProgressBar <- FALSE
   }
 
+  ##4. check for Inf values
+
 
   ##remove rownames from data.frame, as this could causes errors for the reg point calculation
   rownames(sample) <- NULL

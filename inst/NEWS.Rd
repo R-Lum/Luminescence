@@ -83,6 +83,15 @@
 
         \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
       }
+
+      \item \code{Risoe.BINfileData2RLum.Analysis()}
+      \itemize{
+
+        \item The use of single grain data could lead to a wrong conversion in the sense that only positions
+        had been converted, but not single grains and the curves belonging to one grain within a position
+        (fixed).
+      }
+
    }
   }
  }

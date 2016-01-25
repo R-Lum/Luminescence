@@ -4,8 +4,9 @@
 \alias{Risoe.BINfileData2RLum.Analysis}
 \title{Convert Risoe.BINfileData object to an RLum.Analysis object}
 \usage{
-Risoe.BINfileData2RLum.Analysis(object, pos, grain, run, set, ltype,
-  protocol = "unknown", txtProgressBar = FALSE)
+Risoe.BINfileData2RLum.Analysis(object, pos = NULL, grain = NULL,
+  run = NULL, set = NULL, ltype = NULL, protocol = "unknown",
+  txtProgressBar = FALSE)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
@@ -59,7 +60,7 @@ The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.2.2 (2016-01-18 15:07:03)
+ 0.3.0 (2016-01-25 19:19:29)
 }
 \examples{
 

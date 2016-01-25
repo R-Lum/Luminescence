@@ -46,7 +46,7 @@
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -67,11 +67,11 @@
 #' @export
 Risoe.BINfileData2RLum.Analysis<- function(
   object,
-  pos,
-  grain,
-  run,
-  set,
-  ltype,
+  pos = NULL,
+  grain = NULL,
+  run = NULL,
+  set = NULL,
+  ltype = NULL,
   protocol = "unknown",
   txtProgressBar = FALSE
 ){
@@ -83,7 +83,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
     stop("[Risoe.BINfileData2RLum.Analysis()] Input object is not of type 'Risoe.BINfileData'.")
   }
 
-  if (missing(pos)){
+  if (is.null(pos)){
     pos <- unique(object@METADATA[,"POSITION"])
   }
 
@@ -97,7 +97,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
   if (!all(pos %in% unique(object@METADATA[,"POSITION"]))){
 
-    warning(paste("[Risoe.BINfileData2RLum.Analysis] Error: pos=",pos, " invalid.
+    warning(paste("[Risoe.BINfileData2RLum.Analysis] pos=",pos, " invalid.
               Valid positions are: ", positions.valid, sep=""))
 
     ##flag position
@@ -111,8 +111,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
   ##WARNINGS
   if (length(which(max(pos)/1:48 == 1)) == 0){
-    warning("[Risoe.BINfileData2RLum.Analysis] Value for 'pos' out bounds specified for
-            a Risoe BIN-file.")
+    warning("[Risoe.BINfileData2RLum.Analysis] Value for 'pos' out bounds specified for a Risoe BIN-file.")
   }
 
 
@@ -122,12 +121,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
     ##grep values according to their criteria and check for validity
 
     ##grain
-    if (missing(grain)) {
-      grain <- unique(object@METADATA[, "GRAIN"])
-    }
-    else{
+    if (!is.null(grain)) {
 
-      if(grain %in% unique(unique(object@METADATA[, "GRAIN"])) == FALSE){
+     if(grain %in% unique(unique(object@METADATA[, "GRAIN"])) == FALSE){
 
         ##get only valid grain numbers
         grain.valid <- paste(as.character(unique(object@METADATA[,"GRAIN"])), collapse=", ")
@@ -138,11 +134,10 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
       }
 
-
     }
 
     ##run
-    if(missing(run)){run <- unique(object@METADATA[, "RUN"])} else{
+    if(is.null(run)){run <- unique(object@METADATA[, "RUN"])} else{
 
       if(TRUE %in% unique(unique(object@METADATA[, "RUN"]) %in% run) != TRUE){
 
@@ -157,7 +152,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
     }
 
     #set
-    if(missing(set)){set <- unique(object@METADATA[, "SET"])} else{
+    if(is.null(set)){set <- unique(object@METADATA[, "SET"])} else{
 
       if(TRUE %in% unique(unique(object@METADATA[, "SET"]) %in% set) != TRUE){
 
@@ -172,7 +167,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
     }
 
     ##ltype
-    if(missing(ltype)){ltype <- unique(object@METADATA[, "LTYPE"])} else{
+    if(is.null(ltype)){ltype <- unique(object@METADATA[, "LTYPE"])} else{
 
       if(TRUE %in% unique(unique(object@METADATA[, "LTYPE"]) %in% ltype) != TRUE){
 
@@ -195,10 +190,16 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     }
 
-      ##set progress bar
-      if(txtProgressBar){
-        pb<-txtProgressBar(min=min(pos),max=max(pos), char="=", style=3)
-      }
+    ##This loop does:
+    ## (a) iterating over all possible positions
+    ## (b) consider grains in all possible positions
+    ## (c) consider other selections
+    ## (d) create the RLum.Analysis objects
+
+    ##set progress bar
+    if(txtProgressBar){
+      pb<-txtProgressBar(min=min(pos),max=max(pos), char="=", style=3)
+    }
 
     object <- lapply(pos, function(pos){
 
@@ -207,56 +208,50 @@ Risoe.BINfileData2RLum.Analysis<- function(
         setTxtProgressBar(pb, value = pos)
       }
 
-      ##deselect all values
-      object@METADATA$SEL <- FALSE
+      ##if no grain information is given, we select all grains in the particular position
+      if(is.null(grain)){
+        grain <- unique(object@METADATA[object@METADATA[, "POSITION"] == pos, "GRAIN"])
 
-      ##select data
-      object@METADATA[which(
-        object@METADATA[,"POSITION"] == pos &
-          object@METADATA[,"GRAIN"] %in% grain &
-          object@METADATA[,"RUN"] %in% run &
-          object@METADATA[,"SET"] %in% set &
-          object@METADATA[,"LTYPE"] %in% ltype
-      )
-      , "SEL"] <- TRUE
+      }
 
-      # Limit object to selection -----------------------------------------------
+      ##loop over the grains and produce RLum.Analysis objects
+      object <- lapply(grain, function(grain){
 
-      object@DATA <-
-        object@DATA[object@METADATA[object@METADATA[,"SEL"],"ID"]]
-
-      object@METADATA <-
-        object@METADATA[object@METADATA[,"SEL"],]
-
-      ##correct ID values after limitation, if we don't do that we get problems with
-      ##the conversion later on
-      object@METADATA$ID <- 1:nrow(object@METADATA)
+        ##select data
+        temp_id <- object@METADATA[
+          object@METADATA[,"POSITION"] == pos &
+            object@METADATA[,"GRAIN"] == grain &
+            object@METADATA[,"RUN"] %in% run &
+            object@METADATA[,"SET"] %in% set &
+            object@METADATA[,"LTYPE"] %in% ltype
+        , "ID"]
 
 
-      # Convert values ----------------------------------------------------------
-      object <- set_RLum(
-        class = "RLum.Analysis",
-        records = lapply(object@METADATA$ID,function(x) {
-          .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
-        }),
-        protocol = protocol,
-        originator = "Risoe.BINfileData2RLum.Analysis"
-      )
+        ##create curve object
+        set_RLum(
+          class = "RLum.Analysis",
+          records = lapply(temp_id,function(x) {
+            .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
+          }),
+          protocol = protocol,
+          originator = "Risoe.BINfileData2RLum.Analysis"
+        )
+
+      })
+
 
       return(object)
-    })
 
-    if(txtProgressBar){close(pb)}
+    })
 
     ##this is necassary to not break with previous code
     if(length(object) == 1){
-      invisible(object[[1]])
+      invisible(object[[1]][[1]])
 
     }else{
-      invisible(object)
+      invisible(unlist(object))
 
     }
-
 
   }else{
 

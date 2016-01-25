@@ -78,7 +78,7 @@ dataset (see example).
 -
 }
 \section{Function version}{
- 0.2.0 (2016-01-18 18:30:51)
+ 0.2.0 (2016-01-19 20:07:38)
 }
 \examples{
 
