@@ -124,7 +124,7 @@ a numeric value for manual setting.}
 parameters. These can be useful to reproduce similar plots. Default is
 \code{FALSE}.}
 
-\item{interactive}{\code{\link{logical}} (with default): create an interactive 
+\item{interactive}{\code{\link{logical}} (with default): create an interactive
 abanico plot (requires the 'plotly' package)}
 
 \item{\dots}{Further plot arguments to pass. \code{xlab} must be a vector of
@@ -196,7 +196,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.7 (2016-01-19 20:14:49)
+ 0.1.7 (2016-01-25 19:38:40)
 }
 \examples{
 
