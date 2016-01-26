@@ -49,6 +49,13 @@ Changes in version 0.6.0 (,2016):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • Fixed a bug in the evaluation of the rejection criteria
+               where the status of the palaedose error criterion was
+               returned as 'OK' even though it was not (Annette
+               Kadereit)
+
          • ‘apply_CosmicRayRemoval()’
 
              • Argument ‘silent’ renamed to ‘verbose’,

@@ -38,6 +38,15 @@
   }
   \subsection{Bugfixes and changes}{
    \itemize{
+   
+      
+      \item \code{analyse_SAR.CWOSL()}
+      \itemize{
+
+        \item Fixed a bug in the evaluation of the rejection criteria where the status of the palaedose 
+        error criterion was returned as 'OK' even though it was not (Annette Kadereit) 
+
+      }
 
 
       \item \code{apply_CosmicRayRemoval()}
