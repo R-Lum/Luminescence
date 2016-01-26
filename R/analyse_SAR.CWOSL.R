@@ -754,17 +754,20 @@ if(is.list(object)){
                      LnLxTnTx[,"Repeated"] == FALSE,c("Name","Dose","LxTx")]
         }))
 
+
       ##convert to data.frame
       temp.Previous <- as.data.frame(temp.Previous)
 
       ##set column names
       temp.ColNames <-
-        sapply(1:length(temp.Repeated[,1]),function(x) {
-          paste("Recycling ratio (", temp.Repeated[x,"Name"],"/",
+        unlist(lapply(1:length(temp.Repeated[,1]),function(x) {
+          temp <- paste("Recycling ratio (", temp.Repeated[x,"Name"],"/",
                 temp.Previous[temp.Previous[,"Dose"] == temp.Repeated[x,"Dose"],"Name"],
                 ")",
                 sep = "")
-        })
+          return(temp[1])
+        }))
+
 
       ##Calculate Recycling Ratio
       RecyclingRatio <-
@@ -809,11 +812,15 @@ if(is.list(object)){
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
 
+    temp.criteria <- c(
+      if(!is.null(colnames(RecyclingRatio))){
+       colnames(RecyclingRatio)}else{NA},
+      if(!is.null(colnames(Recuperation))){
+        colnames(Recuperation)}else{NA})
 
-    temp.criteria <- c(ifelse(is.null(colnames(RecyclingRatio)), NA,colnames(RecyclingRatio)),
-                       ifelse(is.null(colnames(Recuperation)), NA,colnames(Recuperation)))
 
     temp.value <- c(RecyclingRatio,Recuperation)
+
     temp.threshold <-
       c(rep(
         rejection.criteria$recycling.ratio / 100, length(RecyclingRatio)
@@ -852,11 +859,6 @@ if(is.list(object)){
       temp.status.Recuperation <- "OK"
 
     }
-
-    ##TODO
-    print(temp.criteria)
-    print(temp.value)
-    print(LnLxTnTx)
 
     RejectionCriteria <- data.frame(
       Criteria = temp.criteria,

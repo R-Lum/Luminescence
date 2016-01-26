@@ -56,7 +56,11 @@ Changes in version 0.6.0 (,2016):
                will not stop with an error if no such record type is
                detected, but return ‘NULL’ and print a warning. This
                was necessary to prevent a misuse of the function, which
-               may end up in undesiered (wrong) results.
+               may end up in undesiered (wrong) results,
+
+             • under really rare circumstances, many recycling points
+               and recuperation points the function could crash
+               (fixed).
 
          • ‘apply_CosmicRayRemoval()’
 

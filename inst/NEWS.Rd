@@ -46,7 +46,9 @@
         \item The function now checks more strict for allowed record types ('OSL' or 'IRSL'). At
         the same time the function will not stop with an error if no such record type is detected,
         but return \code{NULL} and print a warning. This was necessary to prevent a misuse of
-        the function, which may end up in undesiered (wrong) results.
+        the function, which may end up in undesiered (wrong) results,
+        \item under really rare circumstances, many recycling points and recuperation points the
+        function could crash (fixed).
 
       }
 
