@@ -55,7 +55,7 @@ Changes in version 0.6.0 (,2016):
                types ('OSL' or 'IRSL'). At the same time the function
                will not stop with an error if no such record type is
                detected, but return ‘NULL’ and print a warning. This
-               was necessary to prevent a misuse of the function which
+               was necessary to prevent a misuse of the function, which
                may end up in undesiered (wrong) results.
 
          • ‘apply_CosmicRayRemoval()’
@@ -99,7 +99,8 @@ Changes in version 0.6.0 (,2016):
          • ‘plot_GrowthCurve()’
 
              • If the input data contain a least one infinite value the
-               function will not crash any longer, but return ‘NULL’.
+               function will not crash any longer, but return ‘NULL’
+               (#263, Norbert Mercier).
 
          • ‘merge_RLum.Data.Curve()’
 

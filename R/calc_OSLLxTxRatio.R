@@ -18,9 +18,9 @@
 #'
 #' This argument allows to add an extra component of error to the final Lx/Tx error value.
 #' The input will be treated as factor that is multiplied with the already calculated
-#' se(LxTx) and the result is add up by:
+#' LxTx and the result is add up by:
 #'
-#' \deqn{LxTx.Error) = \sqrt(LxTx.Error^2 + (LxTx.Error * sig0)^2)}
+#' \deqn{LxTx.Error) = \sqrt(LxTx.Error^2 + (LxTx * sig0)^2)}
 #'
 #'
 #' \bold{background.count.distribution}\cr
@@ -452,7 +452,7 @@ calc_OSLLxTxRatio <- function(
   LxTx.Error <- abs(LxTx * LxTx.relError)
 
     ##add an extra component of error
-    LxTx.Error <- sqrt(LxTx.Error^2 + (sig0 * LxTx.Error)^2)
+    LxTx.Error <- sqrt(LxTx.Error^2 + (sig0 * LxTx)^2)
 
   ##return combined values
   temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)

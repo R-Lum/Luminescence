@@ -93,7 +93,7 @@
       \itemize{
 
         \item If the input data contain a least one infinite value the function will not crash
-        any longer, but return \code{NULL}.
+        any longer, but return \code{NULL} (#263, Norbert Mercier).
 
       }
 

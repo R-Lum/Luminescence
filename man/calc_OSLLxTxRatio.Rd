@@ -89,9 +89,9 @@ e.g., as observed for the early light substraction method.\cr
 
 This argument allows to add an extra component of error to the final Lx/Tx error value.
 The input will be treated as factor that is multiplied with the already calculated
-se(LxTx) and the result is add up by:
+LxTx and the result is add up by:
 
-\deqn{LxTx.Error) = \sqrt(LxTx.Error^2 + (LxTx.Error * sig0)^2)}
+\deqn{LxTx.Error) = \sqrt(LxTx.Error^2 + (LxTx * sig0)^2)}
 
 \bold{background.count.distribution}\cr
 
@@ -120,7 +120,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.1 (2016-01-26 09:17:35)
+ 0.6.1 (2016-01-26 11:16:28)
 }
 \examples{
 
