@@ -103,6 +103,14 @@
         \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
       }
 
+
+    \item \code{read_BIN2R()}
+      \itemize{
+
+        \item Handling of corrupt BIN-files improved, the functions tries to import whatever possible,
+        \item the argument \code{n.records} was not respected under rare circumstances.
+      }
+
       \item \code{Risoe.BINfileData2RLum.Analysis()}
       \itemize{
 

@@ -853,6 +853,11 @@ if(is.list(object)){
 
     }
 
+    ##TODO
+    print(temp.criteria)
+    print(temp.value)
+    print(LnLxTnTx)
+
     RejectionCriteria <- data.frame(
       Criteria = temp.criteria,
       Value = temp.value,

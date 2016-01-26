@@ -20,7 +20,7 @@
 #'
 #' @param n.records \link{raw} (optional): limits the number of imported
 #' records. Can be used in combination with \code{show.record.number} for
-#' debugging purposes, e.g. corrupt BIN files.
+#' debugging purposes, e.g. corrupt BIN-files.
 #'
 #' @param duplicated.rm \code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
 #' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
@@ -61,10 +61,10 @@
 #' @note The function works for BIN/BINX-format versions 03, 04, 06 and 07. The
 #' version number depends on the used Sequence Editor.\cr\cr \bold{Potential
 #' other BIN/BINX-format versions are currently not supported. The
-#' implementation of version 07 support could not been tested so far.}.
+#' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.0
+#' @section Function version: 0.12.1
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -195,17 +195,17 @@ read_BIN2R <- function(
   con<-file(file, "rb")
 
   ##get information about file size
-  file.size<-file.info(file)
+  file.size <- file.info(file)
 
   ##read data up to the end of con
 
   ##set ID
-  temp.ID<-0
+  temp.ID <- 0
 
   ##start for BIN-file check up
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
-    ##force version number
+     ##force version number
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
@@ -213,13 +213,31 @@ read_BIN2R <- function(
     ##stop input if wrong VERSION
     if((temp.VERSION%in%VERSION.supported) == FALSE){
 
-      ##close connection
-      close(con)
+      if(temp.ID > 0){
 
-      ##show error message
-      error.text <- paste("[read_BIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+        if(is.null(n.records)){
+          warning(paste0("[read_BIN2R()] BIN-file seems to be corrupt. Import limited to the first ", temp.ID-1," records."))
 
-      stop(error.text)
+        }else{
+          warning(paste0("[read_BIN2R()] BIN-file seems to be corrupt. 'n.records' reset to ", temp.ID-1,"."))
+
+        }
+
+        ##set or reset n.records
+        n.records <- temp.ID-1
+        break()
+
+      }else{
+        ##show error message
+        error.text <- paste("[read_BIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+
+        ##close connection
+        close(con)
+
+        ##show error
+        stop(error.text)
+
+      }
 
     }
 
@@ -241,6 +259,11 @@ read_BIN2R <- function(
     }
 
     temp.ID<-temp.ID+1
+
+    if(!is.null(n.records) && temp.ID == n.records){
+      break()
+
+    }
 
   }
 

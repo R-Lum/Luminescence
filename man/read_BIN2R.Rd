@@ -26,7 +26,7 @@ the import performance will not benefit by any selection made here.}
 
 \item{n.records}{\link{raw} (optional): limits the number of imported
 records. Can be used in combination with \code{show.record.number} for
-debugging purposes, e.g. corrupt BIN files.}
+debugging purposes, e.g. corrupt BIN-files.}
 
 \item{duplicated.rm}{\code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
 This may happen due to an erroneous produced BIN/BINX-file. This option compares only
@@ -75,10 +75,10 @@ general BIN-file structure, the reader is referred to the Risoe website:
 The function works for BIN/BINX-format versions 03, 04, 06 and 07. The
 version number depends on the used Sequence Editor.\cr\cr \bold{Potential
 other BIN/BINX-format versions are currently not supported. The
-implementation of version 07 support could not been tested so far.}.
+implementation of version 07 support could not been tested properly so far.}.
 }
 \section{Function version}{
- 0.12.0 (2016-01-18 15:07:03)
+ 0.12.1 (2016-01-26 15:47:55)
 }
 \examples{
 

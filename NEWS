@@ -107,6 +107,14 @@ Changes in version 0.6.0 (,2016):
              • Support further merge operations: ‘median’, ‘var’, ‘sd’,
                ‘min’, ‘max’.
 
+         • ‘read_BIN2R()’
+
+             • Handling of corrupt BIN-files improved, the functions
+               tries to import whatever possible,
+
+             • the argument ‘n.records’ was not respected under rare
+               circumstances.
+
          • ‘Risoe.BINfileData2RLum.Analysis()’
 
              • Single grain data had not been converted correctly to
