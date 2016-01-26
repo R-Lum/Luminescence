@@ -49,6 +49,15 @@ Changes in version 0.6.0 (,2016):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • The function now checks more strict for allowed record
+               types ('OSL' or 'IRSL'). At the same time the function
+               will not stop with an error if no such record type is
+               detected, but return ‘NULL’ and print a warning. This
+               was necessary to prevent a misuse of the function which
+               may end up in undesiered (wrong) results.
+
          • ‘apply_CosmicRayRemoval()’
 
              • Argument ‘silent’ renamed to ‘verbose’,
