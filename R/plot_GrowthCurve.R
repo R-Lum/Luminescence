@@ -517,6 +517,13 @@ plot_GrowthCurve <- function(
 
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
+    if(is.na(a) | is.na(b) | is.na(c)){
+
+      warning("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!")
+      return(NULL)
+
+    }
+
     if(fit.method!="LIN" & length(data[,1])>=2){
 
       ##FITTING on GIVEN VALUES##

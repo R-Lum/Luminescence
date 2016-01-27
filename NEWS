@@ -104,7 +104,10 @@ Changes in version 0.6.0 (,2016):
 
              • If the input data contain a least one infinite value the
                function will not crash any longer, but return ‘NULL’
-               (#263, Norbert Mercier).
+               (#263, Norbert Mercier),
+
+             • check for insufficient values in the data set and return
+               ‘NULL’ prior a function crash.
 
          • ‘merge_RLum.Data.Curve()’
 

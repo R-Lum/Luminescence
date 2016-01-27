@@ -95,7 +95,8 @@
       \itemize{
 
         \item If the input data contain a least one infinite value the function will not crash
-        any longer, but return \code{NULL} (#263, Norbert Mercier).
+        any longer, but return \code{NULL} (#263, Norbert Mercier),
+        \item check for insufficient values in the data set and return \code{NULL} prior a function crash.
 
       }
 
