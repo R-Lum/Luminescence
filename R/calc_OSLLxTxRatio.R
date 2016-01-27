@@ -20,7 +20,7 @@
 #' The input will be treated as factor that is multiplied with the already calculated
 #' LxTx and the result is add up by:
 #'
-#' \deqn{LxTx.Error) = \sqrt(LxTx.Error^2 + (LxTx * sig0)^2)}
+#' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
 #'
 #' \bold{background.count.distribution}\cr
