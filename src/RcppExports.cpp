@@ -19,13 +19,3 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// create_UID
-CharacterVector create_UID();
-RcppExport SEXP Luminescence_create_UID() {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    __result = Rcpp::wrap(create_UID());
-    return __result;
-END_RCPP
-}
