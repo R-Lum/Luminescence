@@ -43,10 +43,8 @@
       \item \code{analyse_SAR.CWOSL()}
       \itemize{
 
-        \item The function now checks more strict for allowed record types ('OSL' or 'IRSL'). At
-        the same time the function will not stop with an error if no such record type is detected,
-        but return \code{NULL} and print a warning. This was necessary to prevent a misuse of
-        the function, which may end up in undesiered (wrong) results,
+        \item The function will not stop with an error if no 'OSL' or 'IRSL' record is detected,
+        but return \code{NULL} and print a warning,
         \item under really rare circumstances, many recycling points and recuperation points the
         function could crash (fixed).
 
@@ -96,7 +94,7 @@
 
         \item If the input data contain a least one infinite value the function will not crash
         any longer, but return \code{NULL} (#263, Norbert Mercier),
-        \item check for insufficient values in the data set and return \code{NULL} prior a function crash.
+        \item check for insufficient values in the data set and return \code{NULL} (before the function crashed).
 
       }
 

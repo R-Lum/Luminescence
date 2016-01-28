@@ -365,15 +365,18 @@ if(is.list(object)){
     }
 
 
-    ##CHECK IF DATA SET CONTAINS ANY OSL curve
-    if(!any("OSL" == structure_RLum(object)$recordType) &&
-       !any("IRSL" == structure_RLum(object)$recordType)){
 
-      warning("[analyse_SAR.CWOSL()] No record of type 'OSL' or 'IRSL' are detected in the sequence object! NULL returned.", call. = FALSE)
+      ##CHECK IF DATA SET CONTAINS ANY OSL curve
+      if (!any(grepl("OSL", structure_RLum(object)$recordType)) &&
+          !any(grepl("IRSL", structure_RLum(object)$recordType))) {
+        warning(
+          "[analyse_SAR.CWOSL()] No record of type 'OSL' or 'IRSL' are detected in the sequence object! NULL returned.",
+          call. = FALSE
+        )
 
-      return(NULL)
+        return(NULL)
 
-    }
+      }
 
     ##Check if any OSL curve is measured, if not set curve type on IRSL
     ##to allow further proceedings
