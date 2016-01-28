@@ -1,4 +1,4 @@
-#' @include replicate_RLum.R internals_RLum.R
+#' @include replicate_RLum.R RcppExports.R
 NULL
 
 #' Class \code{"RLum"}

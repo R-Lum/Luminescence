@@ -23,7 +23,7 @@ corresponding 'names' function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1.0 (2015-11-29 17:27:48)
+ 0.1.0 (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48) (2015-11-29 17:27:48)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
