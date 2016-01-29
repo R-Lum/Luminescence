@@ -88,7 +88,9 @@ plot_RLum.Data.Curve<- function(
                     object@recordType == "IRSL" |
                     object@recordType == "RL" |
                     object@recordType == "RF" |
-                    object@recordType == "RBR") {
+                    object@recordType == "RBR" |
+                    object@recordType == "LM-OSL"){
+
       "Stimulation time"
     }
     else if (object@recordType == "TL") {

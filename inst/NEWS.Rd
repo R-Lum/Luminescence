@@ -18,7 +18,7 @@
         \item The function \code{set_RLum()} gained the new argument \code{.uid} which is by default
         presetting the slot with the same name using the internal function \code{.create_UID()}.
         In the previous package version this slot of the RLum-object was filled automatically as well,
-        but the way it was done was a little bit intransparent and a different function was used.
+        but the way it was done was a little bit semitransparent and a different function was used.
 
     }
 
@@ -150,8 +150,8 @@
   \subsection{Internals}{
      \itemize{
 
-        \item New internal function \code{.create_UID()} added to create the unique indentifier for
-        RLum-objects. The new function reduces significnatly the overhead while producing the objects.
+        \item New internal function \code{.create_UID()} added to create the unique identifier for
+        RLum-objects. The new function reduces significantly the overhead while producing the objects.
 
         \item Package 'digits' removed from the dependency list and the functionality (creating a
         unique identifier for RLum-objects) was implemented using a self-written function.

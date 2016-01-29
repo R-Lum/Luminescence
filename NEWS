@@ -17,7 +17,7 @@ Changes in version 0.6.0 (,2016):
                name using the internal function ‘.create_UID()’.  In
                the previous package version this slot of the
                RLum-object was filled automatically as well, but the
-               way it was done was a little bit intransparent and a
+               way it was done was a little bit semitransparent and a
                different function was used.
 
          • ‘RLum’
@@ -148,9 +148,8 @@ Changes in version 0.6.0 (,2016):
   Internals:
 
          • New internal function ‘.create_UID()’ added to create the
-           unique indentifier for RLum-objects. The new function
-           reduces significnatly the overhead while producing the
-           objects.
+           unique identifier for RLum-objects. The new function reduces
+           significantly the overhead while producing the objects.
 
          • Package 'digits' removed from the dependency list and the
            functionality (creating a unique identifier for
