@@ -26,7 +26,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Data.Image", ...)}.
 #'
-#' @section Class version: 0.3.0
+#' @section Class version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -164,6 +164,10 @@ setMethod("show",
 #' @param class \code{[set_RLum]}\code{\link{character}}: name of the \code{RLum} class to create
 #' @param originator \code{[set_RLum]} \code{\link{character}} (automatic):
 #' contains the name of the calling function (the function that produces this object); can be set manually.
+#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
 #' @param recordType \code{[set_RLum]} \code{\link{character}}: record type (e.g. "OSL")
 #' @param curveType \code{[set_RLum]} \code{\link{character}}: curve type (e.g. "predefined" or "measured")
 #' @param data \code{[set_RLum]} \code{\link{matrix}}: raw curve data. If data is of type \code{RLum.Data.Image}
@@ -177,62 +181,86 @@ setMethod("show",
 #' Returns an object from class \code{RLum.Data.Image}
 #'
 #' @export
-setMethod("set_RLum",
-          signature = signature("RLum.Data.Image"),
+setMethod(
+  "set_RLum",
+  signature = signature("RLum.Data.Image"),
 
-          definition = function(class,
-                                originator,
-                                recordType = "Image",
-                                curveType = NA_character_,
-                                data = raster::brick(raster::raster(matrix())),
-                                info = list()){
+  definition = function(class,
+                        originator,
+                        .uid,
+                        .pid,
+                        recordType = "Image",
+                        curveType = NA_character_,
+                        data = raster::brick(raster::raster(matrix())),
+                        info = list()) {
+    ##The case where an RLum.Data.Image object can be provided
+    ##with this RLum.Data.Image objects can be provided to be reconstructed
 
-            if (is(data, "RLum.Data.Image")) {
+    if (is(data, "RLum.Data.Image")) {
+      ##check for missing curveType
+      if (missing(curveType)) {
+        curveType <- data@curveType
 
-              ##check for missing curveType
-              if (missing(curveType)) {
-                curveType <- data@curveType
+      }
 
-              }
+      ##check for missing recordType
+      if (missing(recordType)) {
+        recordType <- data@recordType
 
-              ##check for missing recordType
-              if(missing(recordType)){
-                recordType <- data@recordType
+      }
 
-              }
+      ##check for missing data ... not possible as data is the object itself
 
-              ##check for missing data ... not possible as data is the object itself
+      ##check for missing info
+      if (missing(info)) {
+        info <- data@info
 
-              ##check for missing info
-              if(missing(info)){
-                info <- data@info
+      }
 
-              }
+      ##check for missing .uid
+      if (missing(.uid)) {
+        info <- data@.uid
 
+      }
 
-            new(
-              Class = "RLum.Data.Image",
-              originator = originator,
-              recordType = recordType,
-              curveType = curveType,
-              data = data@data,
-              info = info
-            )
+      ##check for missing .pid
+      if (missing(.pid)) {
+        info <- data@.pid
 
-            }else{
+      }
 
-              new(
-                Class = "RLum.Data.Image",
-                originator = originator,
-                recordType = recordType,
-                curveType = curveType,
-                data = data,
-                info = info
-              )
+      ##set empty clas form object
+      newRLumDataImage <- new("RLum.Data.Image")
 
-            }
+      ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataImage@recordType = recordType
+      newRLumDataImage@curveType = curveType
+      newRLumDataImage@data = data@data
+      newRLumDataImage@info = info
+      newRLumDataImage@.uid = data@.uid
+      newRLumDataImage@.pid = data@.pid
 
-          })
+      return(newRLumDataImage)
+
+    } else{
+      ##set empty clas form object
+      newRLumDataImage <- new("RLum.Data.Image")
+
+      ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataImage@originator = originator
+      newRLumDataImage@recordType = recordType
+      newRLumDataImage@curveType = curveType
+      newRLumDataImage@data = data
+      newRLumDataImage@info = info
+      newRLumDataImage@.uid = .uid
+      newRLumDataImage@.pid = .pid
+
+      return(newRLumDataImage)
+
+    }
+
+  }
+)
 
 ####################################################################################################
 ###get_RLum()

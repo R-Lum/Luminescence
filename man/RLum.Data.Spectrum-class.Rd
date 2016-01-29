@@ -11,7 +11,7 @@
 \usage{
 \S4method{show}{RLum.Data.Spectrum}(object)
 
-\S4method{set_RLum}{RLum.Data.Spectrum}(class, originator,
+\S4method{set_RLum}{RLum.Data.Spectrum}(class, originator, .uid, .pid,
   recordType = "Spectrum", curveType = NA_character_, data = matrix(),
   info = list())
 
@@ -27,6 +27,12 @@ class \code{\linkS4class{RLum.Data.Spectrum}}}
 
 \item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
+
+\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+using the internal C++ function \code{.create_UID}.}
+
+\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+at will.}
 
 \item{recordType}{[\code{set_RLum}] \code{\link{character}}: record type (e.g. "OSL")}
 
@@ -94,7 +100,7 @@ created by, e.g., \code{\link{read_XSYG2R}}
 }
 
 \section{Class version}{
- 0.3.0
+ 0.4.0
 }
 \examples{
 

@@ -18,7 +18,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Results", ...)}.
 #'
-#' @section Class version: 0.4.0
+#' @section Class version: 0.5.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -109,16 +109,13 @@ setAs("RLum.Results", "list",
 #' @export
 setMethod("show",
           signature(object = "RLum.Results"),
-          function(object){
-
-
+          function(object) {
             ##data elements
             temp.names <- names(object@data)
 
-            if(length(object) > 0){
+            if (length(object) > 0) {
               temp.type <- sapply(1:length(object@data),
-                                  function(x){
-
+                                  function(x) {
                                     paste("\t .. $", temp.names[x],
                                           " : ",
                                           is(object@data[[x]])[1],
@@ -126,22 +123,22 @@ setMethod("show",
 
 
                                   })
-            }else{
-              temp.type <- paste0("\t .. $", temp.names, " : ",is(object@data)[1])
+            } else{
+              temp.type <- paste0("\t .. $", temp.names, " : ", is(object@data)[1])
 
             }
 
-            temp.type <- paste(temp.type, collapse="\n")
+            temp.type <- paste(temp.type, collapse = "\n")
+
 
             ##print information
             cat("\n [RLum.Results]")
-            cat("\n\t originator: ", object@originator,"()", sep="")
+            cat("\n\t originator: ", object@originator, "()", sep = "")
             cat("\n\t data:", length(object@data))
             cat("\n", temp.type)
+            cat("\n\t additional info elements: ", length(object@info))
 
-
-          }
-)
+          })
 
 
 
@@ -155,9 +152,14 @@ setMethod("show",
 #' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the
 #' name of the calling function
 #' (the function that produces this object); can be set manually.
+#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
 #' @param data [\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to
 #' be stored in the object
-#'
+#' @param info [\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
+#' info data for the object
 #' @return
 #'
 #' \bold{\code{set_RLum}}:\cr
@@ -168,12 +170,25 @@ setMethod("show",
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
 
-          function(class, originator, data = list()){
+          function(class,
+                   originator,
+                   .uid,
+                   .pid,
+                   data = list(),
+                   info = list()) {
 
-            new(
-              Class = "RLum.Results",
-              originator = originator,
-              data = data)
+            ##create new class
+            newRLumReuslts <- new("RLum.Results")
+
+            ##fill object
+            newRLumReuslts@originator <- originator
+            newRLumReuslts@data <- data
+            newRLumReuslts@info <- info
+            newRLumReuslts@.uid <- .uid
+            newRLumReuslts@.pid <- .pid
+
+            return(newRLumReuslts)
+
           })
 
 

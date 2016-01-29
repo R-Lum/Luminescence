@@ -30,7 +30,7 @@ NULL
 #' @section Create objects from this Class: Objects can be created by calls of the form
 #' \code{set_RLum(class = "RLum.Data.Curve", ...)}.
 #'
-#' @section Class version: 0.3.0
+#' @section Class version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -189,6 +189,10 @@ setMethod("show",
 #' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create
 #' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
+#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
 #' @param recordType [\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")
 #' @param curveType [\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")
 #' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
@@ -209,6 +213,8 @@ setMethod(
 
   definition = function(class,
                         originator,
+                        .uid,
+                        .pid,
                         recordType = NA_character_,
                         curveType = NA_character_,
                         data = matrix(0, ncol = 2),
@@ -238,23 +244,46 @@ setMethod(
 
       }
 
-      new(
-        "RLum.Data.Curve",
-        recordType = recordType,
-        curveType = curveType,
-        data = data@data,
-        info = info
-      )
+      ##check for missing .uid
+      if(missing(.uid)){
+        info <- data@.uid
+
+      }
+
+      ##check for missing .pid
+      if(missing(.pid)){
+        info <- data@.pid
+
+      }
+
+      ##set empty clas form object
+      newRLumDataCurve <- new("RLum.Data.Curve")
+
+      ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataCurve@recordType = recordType
+      newRLumDataCurve@curveType = curveType
+      newRLumDataCurve@data = data@data
+      newRLumDataCurve@info = info
+      newRLumDataCurve@.uid = data@.uid
+      newRLumDataCurve@.pid = data@.pid
+
+      return(newRLumDataCurve)
 
     }else{
-      new(
-        Class = "RLum.Data.Curve",
-        originator = originator,
-        recordType = recordType,
-        curveType = curveType,
-        data = data,
-        info = info
-      )
+
+      ##set empty clas form object
+      newRLumDataCurve <- new("RLum.Data.Curve")
+
+      ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataCurve@originator = originator
+      newRLumDataCurve@recordType = recordType
+      newRLumDataCurve@curveType = curveType
+      newRLumDataCurve@data = data
+      newRLumDataCurve@info = info
+      newRLumDataCurve@.uid = .uid
+      newRLumDataCurve@.pid = .pid
+
+      return(newRLumDataCurve)
 
     }
 

@@ -22,7 +22,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.3.0
+#' @section Class version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -121,6 +121,7 @@ setMethod("show",
             if(.hasSlot(object, "originator")){cat("\n\t originator:", paste0(object@originator,"()"))}
 
             cat("\n\t protocol:", object@protocol)
+            cat("\n\t additional info elements: ", if(.hasSlot(object, "info")){length(object@info)}else{0})
             cat("\n\t number of records:", length(object@records))
 
             #skip this part if nothing is included in the object
@@ -175,33 +176,49 @@ setMethod("show",
 #' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to be created
 #' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the name
 #' of the calling function (the function that produces this object); can be set manually.
+#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
 #' @param protocol [\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
 #' @param records [\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
+#' @param info [\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
+#' info data for the object
 #'
 #' \bold{\code{set_RLum}}:\cr
 #'
 #' Returns an \code{\linkS4class{RLum.Analysis}} object.
 #'
 #' @export
-setMethod("set_RLum",
-          signature = "RLum.Analysis",
+setMethod(
+  "set_RLum",
+  signature = "RLum.Analysis",
 
-          definition = function(class,
-                                originator,
-                                protocol = NA_character_,
-                                records = list()) {
+  definition = function(class,
+                        originator,
+                        .uid,
+                        .pid,
+                        protocol = NA_character_,
+                        records = list(),
+                        info = list()
+                        ) {
 
+    ##produce empty class object
+    newRLumAnalysis <- new(Class = "RLum.Analysis")
 
-            new(
-              Class = "RLum.Analysis",
-              originator = originator,
-              protocol = protocol,
-              records = records
-            )
+    #fill slots (this is much faster than the old code!)
+    newRLumAnalysis@protocol <- protocol
+    newRLumAnalysis@originator <- originator
+    newRLumAnalysis@records <- records
+    newRLumAnalysis@info <- info
+    newRLumAnalysis@.uid <- .uid
+    newRLumAnalysis@.pid <- .pid
 
+    return(newRLumAnalysis)
 
-          })
+  }
+)
 
 ####################################################################################################
 ###get_RLum()

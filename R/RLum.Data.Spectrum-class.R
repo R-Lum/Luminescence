@@ -26,7 +26,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Data.Spectrum", ...)}.
 #'
-#' @section Class version: 0.3.0
+#' @section Class version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -167,6 +167,10 @@ setMethod("show",
 #' @param class [\code{set_RLum}] \code{\link{character}} (automatic): name of the \code{RLum} class to create.
 #' @param originator \code{\link{character}} (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
+#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
 #' @param recordType [\code{set_RLum}] \code{\link{character}}: record type (e.g. "OSL")
 #' @param curveType [\code{set_RLum}] \code{\link{character}}: curve type (e.g. "predefined" or "measured")
 #' @param data [\code{set_RLum}] \code{\link{matrix}}: raw curve data. If data is of
@@ -180,61 +184,86 @@ setMethod("show",
 #' An object from the class \code{RLum.Data.Spectrum}
 #'
 #' @export
-setMethod("set_RLum",
-          signature = signature("RLum.Data.Spectrum"),
-          definition = function(
-            class,
-            originator,
-            recordType = "Spectrum",
-            curveType = NA_character_,
-            data = matrix(),
-            info = list()){
+setMethod(
+  "set_RLum",
+  signature = signature("RLum.Data.Spectrum"),
+  definition = function(class,
+                        originator,
+                        .uid,
+                        .pid,
+                        recordType = "Spectrum",
+                        curveType = NA_character_,
+                        data = matrix(),
+                        info = list()) {
 
-            if (is(data, "RLum.Data.Spectrum")) {
+    ##The case where an RLum.Data.Spectrum object can be provided
+    ##with this RLum.Data.Spectrum objects can be provided to be reconstructed
 
-              ##check for missing curveType
-              if (missing(curveType)) {
-                curveType <- data@curveType
+    if (is(data, "RLum.Data.Spectrum")) {
+      ##check for missing curveType
+      if (missing(curveType)) {
+        curveType <- data@curveType
 
-              }
+      }
 
-              ##check for missing recordType
-              if(missing(recordType)){
-                recordType <- data@recordType
+      ##check for missing recordType
+      if (missing(recordType)) {
+        recordType <- data@recordType
 
-              }
+      }
 
-              ##check for missing data ... not possible as data is the object itself
+      ##check for missing data ... not possible as data is the object itself
 
-              ##check for missing info
-              if(missing(info)){
-                info <- data@info
+      ##check for missing info
+      if (missing(info)) {
+        info <- data@info
 
-              }
+      }
 
+      ##check for missing .uid
+      if (missing(.uid)) {
+        info <- data@.uid
 
-              new(
-                Class = "RLum.Data.Spectrum",
-                originator = originator,
-                recordType = recordType,
-                curveType = curveType,
-                data = data@data,
-                info = info
-              )
+      }
 
-            }else{
-            ##construct object
-            new(
-              Class = "RLum.Data.Spectrum",
-              originator = originator,
-              recordType = recordType,
-              curveType = curveType,
-              data = data,
-              info = info
-            )
+      ##check for missing .pid
+      if (missing(.pid)) {
+        info <- data@.pid
 
-            }
-          })
+      }
+
+      ##set empty clas form object
+      newRLumDataSpectrum <- new("RLum.Data.Spectrum")
+
+      ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataSpectrum@recordType = recordType
+      newRLumDataSpectrum@curveType = curveType
+      newRLumDataSpectrum@data = data@data
+      newRLumDataSpectrum@info = info
+      newRLumDataSpectrum@.uid = data@.uid
+      newRLumDataSpectrum@.pid = data@.pid
+
+      return(newRLumDataSpectrum)
+
+    } else{
+      ##set empty clas form object
+      newRLumDataSpectrum <- new("RLum.Data.Spectrum")
+
+      ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataSpectrum@originator = originator
+      newRLumDataSpectrum@recordType = recordType
+      newRLumDataSpectrum@curveType = curveType
+      newRLumDataSpectrum@data = data
+      newRLumDataSpectrum@info = info
+      newRLumDataSpectrum@.uid = .uid
+      newRLumDataSpectrum@.pid = .pid
+
+      return(newRLumDataSpectrum)
+
+    }
+
+  }
+)
 
 ####################################################################################################
 ###get_RLum()

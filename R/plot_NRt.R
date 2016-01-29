@@ -226,8 +226,8 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
                              data = matrix(c(time, curve), ncol = 2),
                              info = list(
                                data = curves,
-                               call = sys.call(-8L),
-                               args = as.list(sys.call(-8L)[-1])
+                               call = sys.call(-6L),
+                               args = as.list(sys.call(-6L)[-1])
                              ))
                   }, NRnorm, seq_len(length(NRnorm)))
   )

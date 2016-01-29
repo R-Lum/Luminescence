@@ -19,12 +19,15 @@
 #' @param .uid \code{\link{character}} (automatic): sets an unique ID for this object
 #' using the internal C++ function \code{.create_UID}.
 #'
+#' @param .pid \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
+#'
 #' @param \dots further arguments that one might want to pass to the specific
 #' set method
 #'
 #' @return Returns an object of the specified class.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -61,7 +64,7 @@
 #' plot_RLum(object)
 #'
 #' @export
-setGeneric("set_RLum", function (class, originator, .uid = .create_UID(), ... ) {
+setGeneric("set_RLum", function (class, originator, .uid = .create_UID(), .pid = NA_character_, ... ) {
   class(class) <- as.character(class)
 
   if(missing(originator)) {

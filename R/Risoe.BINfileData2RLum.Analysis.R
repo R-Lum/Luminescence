@@ -239,6 +239,8 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
       })
 
+      ##add parent id of RLum.Analysis object to each curve object
+
 
       return(object)
 
