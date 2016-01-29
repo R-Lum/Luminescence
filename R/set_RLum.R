@@ -16,6 +16,9 @@
 #' @param originator \code{\link{character}} (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
 #'
+#' @param .uid \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#'
 #' @param \dots further arguments that one might want to pass to the specific
 #' set method
 #'
@@ -58,7 +61,7 @@
 #' plot_RLum(object)
 #'
 #' @export
-setGeneric("set_RLum", function (class, originator, ... ) {
+setGeneric("set_RLum", function (class, originator, .uid = .create_UID(), ... ) {
   class(class) <- as.character(class)
 
   if(missing(originator)) {
@@ -68,6 +71,7 @@ setGeneric("set_RLum", function (class, originator, ... ) {
       originator <- NA_character_
     }
   }
+
   standardGeneric("set_RLum")
 })
 

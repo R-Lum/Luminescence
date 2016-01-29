@@ -38,7 +38,6 @@ LinkingTo: Rcpp,
 Imports:
     bbmle (>= 1.0.17),
     data.table (>= 1.9.6),
-    digest (>= 0.6.8),
     httr (>= 1.0.0),
     matrixStats (>= 0.50.0),
     methods,
@@ -61,7 +60,7 @@ Collate:
     'CW2pLMi.R'
     'CW2pPMi.R'
     'Luminescence-package.R'
-    'internals_RLum.R'
+    'RcppExports.R'
     'replicate_RLum.R'
     'RLum-class.R'
     'names_RLum.R'
@@ -75,7 +74,6 @@ Collate:
     'RLum.Data.Image-class.R'
     'RLum.Data.Spectrum-class.R'
     'RLum.Results-class.R'
-    'RcppExports.R'
     'Risoe.BINfileData2RLum.Analysis.R'
     'Risoe.BINfileData2RLum.Data.Curve.R'
     'set_Risoe.BINfileData.R'

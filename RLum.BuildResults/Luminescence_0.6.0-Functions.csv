@@ -150,7 +150,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, HZDR,<br /> Helmholtz-Institute Freiberg for Resource Technology<br /> (Germany)<br />  R Luminescence Package Team"
 "set_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"set_RLum","General set function for RLum S4 class objects","<br /> Function calls object-specific set functions for RLum S4 class objects.<br />","0.2.0","2016-01-18","15:07:03
+"set_RLum","General set function for RLum S4 class objects","<br /> Function calls object-specific set functions for RLum S4 class objects.<br />","0.2.0","2016-01-29","11:13:19
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "sTeve","sTeve - sophisticated tool for efficient data validation and evaluation","<br /> This function provides a sophisticated routine for comprehensive<br /> luminescence dating data analysis.<br />",NA,NA,NA,"<br /> R Luminescence Team, 2012-2013<br />"
 "structure_RLum","General structure function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.1.0","2015-11-29","17:27:48

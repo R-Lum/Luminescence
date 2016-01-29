@@ -8,6 +8,25 @@ Changes in version 0.6.0 (,2016):
            dependency of the chosen signal integral (cf. Bailey et al.,
            2003; #23).
 
+  Changes in S4-objects and related methods:
+
+         • ‘set_RLum’
+
+             • The function ‘set_RLum()’ gained the new argument ‘.uid’
+               which is by default presetting the slot with the same
+               name using the internal function ‘.create_UID()’.  In
+               the previous package version this slot of the
+               RLum-object was filled automatically as well, but the
+               way it was done was a little bit intransparent and a
+               different function was used.
+
+         • ‘RLum’
+
+             • The slot ‘.uid’ from objects of this class has now the
+               prototype ‘NA_character_’.  The unique id is only set if
+               the corresponding ‘set_RLum’ function is called, which
+               should be, however, the usual case.
+
   Removed functions:
 
          • ‘readBIN2R()’, replacement ‘read_BIN2R()’,
@@ -125,4 +144,15 @@ Changes in version 0.6.0 (,2016):
                ‘RLum.Analysis’ objects.  Each grain within a position
                should represent one ‘RLum.Analysis’ object with a set
                of curve. This was so far not the case; corrected.
+
+  Internals:
+
+         • New internal function ‘.create_UID()’ added to create the
+           unique indentifier for RLum-objects. The new function
+           reduces significnatly the overhead while producing the
+           objects.
+
+         • Package 'digits' removed from the dependency list and the
+           functionality (creating a unique identifier for
+           RLum-objects) was implemented using a self-written function.
 

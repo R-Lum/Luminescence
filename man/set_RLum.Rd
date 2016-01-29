@@ -9,7 +9,7 @@
 \alias{set_RLum.Results}
 \title{General set function for RLum S4 class objects}
 \usage{
-set_RLum(class, originator, ...)
+set_RLum(class, originator, .uid = .create_UID(), ...)
 }
 \arguments{
 \item{class}{\code{\linkS4class{RLum}} (\bold{required}): name of the S4 class to
@@ -17,6 +17,9 @@ create}
 
 \item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
+
+\item{.uid}{\code{\link{character}} (automatic): sets an unique ID for this object
+using the internal C++ function \code{.create_UID}.}
 
 \item{\dots}{further arguments that one might want to pass to the specific
 set method}
@@ -37,7 +40,7 @@ corresponding \code{\linkS4class{RLum}} class: \code{\linkS4class{RLum.Data.Curv
 \code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}
 }
 \section{Function version}{
- 0.2.0 (2016-01-18 15:07:03)
+ 0.2.0 (2016-01-29 11:13:19)
 }
 \examples{
 

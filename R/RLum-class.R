@@ -1,4 +1,4 @@
-#' @include replicate_RLum.R internals_RLum.R
+#' @include replicate_RLum.R RcppExports.R
 NULL
 
 #' Class \code{"RLum"}
@@ -42,7 +42,7 @@ setClass("RLum",
            contains = "VIRTUAL",
            prototype = prototype(
              originator = NA_character_,
-             .uid = .create_UID()
+             .uid = NA_character_
            )
          )
 
