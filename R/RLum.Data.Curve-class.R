@@ -21,8 +21,6 @@ NULL
 #' in 'data' (which is already an RLum.Data.Curve object in this example)
 #'
 #'
-#' @slot info Object of class "list" containing further meta information objects
-#'
 #' @note The class should only contain data for a single curve. For additional
 #' elements the slot \code{info} can be used (e.g. providing additional heating
 #' ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
@@ -53,15 +51,13 @@ setClass("RLum.Data.Curve",
          slots = list(
            recordType = "character",
            curveType = "character",
-           data = "matrix",
-           info = "list"
+           data = "matrix"
            ),
          contains = "RLum.Data",
          prototype = list (
            recordType = NA_character_,
            curveType = NA_character_,
-           data = matrix(data = 0, ncol = 2),
-           info = list()
+           data = matrix(data = 0, ncol = 2)
            )
          )
 

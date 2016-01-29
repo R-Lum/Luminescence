@@ -27,6 +27,8 @@ Abstract class for data in the package Luminescence
 \item{\code{originator}}{Object of class \code{\link{character}} containing the name of the producing
 function for the object. Set automatically by using the function \code{\link{set_RLum}}.}
 
+\item{\code{info}}{Object of class \code{\link{list}} for additional information on the object itself}
+
 \item{\code{.uid}}{Object of class \code{\link{character}} containing a unique object identifier (md5 hash)
 calculated using the internal function \code{.create_UID()}. This id is calculated everytime and
 object is created.}

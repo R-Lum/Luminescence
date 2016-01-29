@@ -25,7 +25,12 @@ Changes in version 0.6.0 (,2016):
              • The slot ‘.uid’ from objects of this class has now the
                prototype ‘NA_character_’.  The unique id is only set if
                the corresponding ‘set_RLum’ function is called, which
-               should be, however, the usual case.
+               should be, however, the usual case,
+
+             • all inhertied object classes of the class ‘RLum’ gained
+               a new slot called ‘info’, with this a more consistent
+               workflow with the objects should be possible, before
+               only objects of the class ‘RLum.Data’ had such slot.
 
   Removed functions:
 

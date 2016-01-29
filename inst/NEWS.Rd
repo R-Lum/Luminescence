@@ -26,7 +26,10 @@
       \itemize{
         \item The slot \code{.uid} from objects of this class has now the prototype \code{NA_character_}.
         The unique id is only set if the corresponding \code{set_RLum} function is called, which should be,
-        however, the usual case.
+        however, the usual case,
+        \item all inhertied object classes of the class \code{RLum} gained a new slot called \code{info},
+        with this a more consistent workflow with the objects should be possible, before only objects
+        of the class \code{RLum.Data} had such slot.
 
       }
 

@@ -94,8 +94,6 @@ For example: \code{set_RLum(class = 'RLum.Data.Curve',
 data = Your.RLum.Data.Curve, recordType = 'never seen before')}
 would just change the recordType. Missing arguements  the value is taken from the input object
 in 'data' (which is already an RLum.Data.Curve object in this example)}
-
-\item{\code{info}}{Object of class "list" containing further meta information objects}
 }}
 \note{
 The class should only contain data for a single curve. For additional

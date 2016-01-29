@@ -13,6 +13,8 @@ NULL
 #' @slot originator Object of class \code{\link{character}} containing the name of the producing
 #' function for the object. Set automatically by using the function \code{\link{set_RLum}}.
 #'
+#' @slot info Object of class \code{\link{list}} for additional information on the object itself
+#'
 #' @slot .uid Object of class \code{\link{character}} containing a unique object identifier (md5 hash)
 #' calculated using the internal function \code{.create_UID()}. This id is calculated everytime and
 #' object is created.
@@ -38,10 +40,12 @@ NULL
 setClass("RLum",
            slots = list(
              originator = "character",
+             info = "list",
              .uid = "character"),
            contains = "VIRTUAL",
            prototype = prototype(
              originator = NA_character_,
+             info = list(),
              .uid = NA_character_
            )
          )
