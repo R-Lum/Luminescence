@@ -30,7 +30,11 @@ Changes in version 0.6.0 (,2016):
              • all inhertied object classes of the class ‘RLum’ gained
                a new slot called ‘info’, with this a more consistent
                workflow with the objects should be possible, before
-               only objects of the class ‘RLum.Data’ had such slot.
+               only objects of the class ‘RLum.Data’ had such slot,
+
+             • all inherited object classes gained a new slot called
+               ‘.pid’. This slot is reserved for storing parent ids so
+               that objects can be nested at free will.
 
   Removed functions:
 

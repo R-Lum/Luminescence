@@ -40,7 +40,7 @@ corresponding \code{\linkS4class{RLum}} class: \code{\linkS4class{RLum.Data.Curv
 \code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}
 }
 \section{Function version}{
- 0.2.0 (2016-01-29 11:13:19)
+ 0.2.0 (2016-01-29 12:42:02)
 }
 \examples{
 

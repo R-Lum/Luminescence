@@ -29,7 +29,9 @@
         however, the usual case,
         \item all inhertied object classes of the class \code{RLum} gained a new slot called \code{info},
         with this a more consistent workflow with the objects should be possible, before only objects
-        of the class \code{RLum.Data} had such slot.
+        of the class \code{RLum.Data} had such slot,
+        \item all inherited object classes gained a new slot called \code{.pid}. This slot is reserved
+        for storing parent ids so that objects can be nested at free will.
 
       }
 
