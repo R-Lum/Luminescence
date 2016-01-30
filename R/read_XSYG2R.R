@@ -98,7 +98,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.5
+#' @section Function version: 0.5.6
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

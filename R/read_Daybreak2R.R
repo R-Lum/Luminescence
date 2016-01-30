@@ -16,7 +16,7 @@
 #'
 #' @note \bold{[BETA VERSION]} This function version still needs to be properly tested.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)\cr Based on a suggestion by Willian Amidon and Andrew Louis Gorin.
@@ -237,13 +237,18 @@ read_Daybreak2R <- function(
     })
 
     ##put in RLum.Analysis object
-    return(set_RLum(
+    object <- set_RLum(
       class = "RLum.Analysis",
       originator = "read_Daybreak2R",
       protocol = "Custom",
       records = temp.list
     )
-    )
+
+    ##set parent id of records
+    object <- .set_pid(object)
+
+    return(object)
+
 
   })
 
