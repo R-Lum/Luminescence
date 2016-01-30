@@ -64,7 +64,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.1
+#' @section Function version: 0.12.2
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -1177,27 +1177,27 @@ read_BIN2R <- function(
 
   if (!show.raw.values) {
     ##LIGHTSOURCE CONVERSION
-    object@METADATA[, "LIGHTSOURCE"] <-
-      unname(LIGHTSOURCE.lookup[object@METADATA[, "LIGHTSOURCE"]])
+    object@METADATA$LIGHTSOURCE <-
+      unname(LIGHTSOURCE.lookup[object@METADATA$LIGHTSOURCE])
 
     ##LTYPE CONVERSION
-    object@METADATA[, "LTYPE"] <-
-      unname(LTYPE.lookup[object@METADATA[, "LTYPE"]])
+    object@METADATA$LTYPE <-
+      unname(LTYPE.lookup[object@METADATA$LTYPE])
 
     ##DTYPE CONVERSION
-    object@METADATA[, "DTYPE"] <-
-      unname(DTYPE.lookup[object@METADATA[, "DTYPE"]])
+    object@METADATA$DTYPE <-
+      unname(DTYPE.lookup[object@METADATA$DTYPE])
 
         ##CHECK for oddly set LTYPES, this may happen in old BIN-file versions
-        if (object@METADATA[1, "VERSION"] == 3) {
-          object@METADATA[, "LTYPE"] <-
-            sapply(1:length(object@METADATA[, "LTYPE"]), function(x) {
-              if (object@METADATA[x, "LTYPE"] == "OSL" &
-                  object@METADATA[x, "LIGHTSOURCE"] == "IR diodes/IR Laser") {
+        if (object@METADATA$VERSION[1] == 3) {
+          object@METADATA$LTYPE <-
+            sapply(1:length(object@METADATA$LTYPE), function(x) {
+              if (object@METADATA$LTYPE[x] == "OSL" &
+                  object@METADATA$LIGHTSOURCE[x] == "IR diodes/IR Laser") {
                 return("IRSL")
 
               } else{
-                return(object@METADATA[x, "LTYPE"])
+                return(object@METADATA$LTYPE[x])
 
               }
 
@@ -1207,9 +1207,9 @@ read_BIN2R <- function(
 
     ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
     if (TIME_SIZE == 6) {
-      object@METADATA[, "TIME"] <-
-        sapply(1:length(object@METADATA[, "TIME"]), function(x) {
-          format(strptime(as.character(object@METADATA[x, "TIME"]), "%H%M%S"), "%H:%M:%S")
+      object@METADATA$TIME <-
+        sapply(1:length(object@METADATA$TIME), function(x) {
+          format(strptime(as.character(object@METADATA$TIME[x]), "%H%M%S"), "%H:%M:%S")
 
         })
     }
