@@ -679,6 +679,8 @@ read_XSYG2R <- function(
           protocol = as.character(temp.sequence.header["protocol",1])
         )
 
+        ##set parent uid of RLum.Anlaysis as parent ID of the records
+        temp.sequence.object <- .set_pid(temp.sequence.object)
 
         ##update progress bar
         if (txtProgressBar) {
