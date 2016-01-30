@@ -288,7 +288,12 @@ merge_RLum.Data.Curve<- function(
     recordType = object[[1]]@recordType,
     curveType =  "merged",
     data = temp.matrix,
-    info = temp.info)
+    info = temp.info,
+    .pid = unlist(lapply(object, function(x) {
+      x@.uid
+    }))
+
+  )
 
 
   # Return object -------------------------------------------------------------------------------
