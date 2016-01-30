@@ -419,9 +419,9 @@ read_SPE2R <- function(
       class = "RLum.Data.Image",
       originator = "read_SPE2R",
       recordType = "Image",
-                                  curveType = "measured",
-                                  data = data.raster,
-                                  info = temp.info)
+      curveType = "measured",
+      data = data.raster,
+      info = temp.info)
 
   }else{
 

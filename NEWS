@@ -18,7 +18,10 @@ Changes in version 0.6.0 (,2016):
                the previous package version this slot of the
                RLum-object was filled automatically as well, but the
                way it was done was a little bit semitransparent and a
-               different function was used.
+               different function was used,
+
+             • the performance of the function was improved
+               significantly.
 
          • ‘RLum’
 
@@ -27,14 +30,16 @@ Changes in version 0.6.0 (,2016):
                the corresponding ‘set_RLum’ function is called, which
                should be, however, the usual case,
 
+             • all inherited object classes gained a new slot called
+               ‘.pid’. This slot is reserved for storing parent ids so
+               that objects can be nested at free will. Corresponding
+               import function had been adapted in the way the pid will
+               become an inhertied uid from the ‘RLum.Analysis’ object,
+
              • all inhertied object classes of the class ‘RLum’ gained
                a new slot called ‘info’, with this a more consistent
                workflow with the objects should be possible, before
-               only objects of the class ‘RLum.Data’ had such slot,
-
-             • all inherited object classes gained a new slot called
-               ‘.pid’. This slot is reserved for storing parent ids so
-               that objects can be nested at free will.
+               only objects of the class ‘RLum.Data’ had such slot.
 
   Removed functions:
 
@@ -152,7 +157,10 @@ Changes in version 0.6.0 (,2016):
              • Single grain data had not been converted correctly to
                ‘RLum.Analysis’ objects.  Each grain within a position
                should represent one ‘RLum.Analysis’ object with a set
-               of curve. This was so far not the case; corrected.
+               of curve. This was so far not the case; corrected,
+
+             • significant performance improvements, especially for big
+               Risoe.BINfileData2RLum.Analysis() objects.
 
   Internals:
 

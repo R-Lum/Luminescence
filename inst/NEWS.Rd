@@ -18,7 +18,8 @@
         \item The function \code{set_RLum()} gained the new argument \code{.uid} which is by default
         presetting the slot with the same name using the internal function \code{.create_UID()}.
         In the previous package version this slot of the RLum-object was filled automatically as well,
-        but the way it was done was a little bit semitransparent and a different function was used.
+        but the way it was done was a little bit semitransparent and a different function was used,
+        \item the performance of the function was improved significantly.
 
     }
 
@@ -27,11 +28,12 @@
         \item The slot \code{.uid} from objects of this class has now the prototype \code{NA_character_}.
         The unique id is only set if the corresponding \code{set_RLum} function is called, which should be,
         however, the usual case,
+        \item all inherited object classes gained a new slot called \code{.pid}. This slot is reserved
+        for storing parent ids so that objects can be nested at free will. Corresponding import function
+        had been adapted in the way the pid will become an inhertied uid from the \code{RLum.Analysis} object,
         \item all inhertied object classes of the class \code{RLum} gained a new slot called \code{info},
         with this a more consistent workflow with the objects should be possible, before only objects
-        of the class \code{RLum.Data} had such slot,
-        \item all inherited object classes gained a new slot called \code{.pid}. This slot is reserved
-        for storing parent ids so that objects can be nested at free will.
+        of the class \code{RLum.Data} had such slot.
 
       }
 
@@ -146,7 +148,9 @@
 
         \item Single grain data had not been converted correctly to \code{RLum.Analysis} objects.
         Each grain within a position should represent one \code{RLum.Analysis} object with a set
-        of curve. This was so far not the case; corrected.
+        of curve. This was so far not the case; corrected,
+        \item significant performance improvements, especially for big Risoe.BINfileData2RLum.Analysis()
+        objects.
       }
 
    }
