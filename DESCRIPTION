@@ -109,6 +109,7 @@ Collate:
     'get_Quote.R'
     'get_rightAnswer.R'
     'internal_as.latex.table.R'
+    'internals_RLum.R'
     'merge_RLum.Analysis.R'
     'merge_RLum.Data.Curve.R'
     'merge_RLum.R'
