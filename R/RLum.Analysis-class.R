@@ -22,7 +22,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.4.0
+#' @section Class version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -533,6 +533,18 @@ setMethod("structure_RLum",
             temp.y.max <- sapply(1:temp.object.length,
                                  function(x){max(object@records[[x]]@data[,2])})
 
+            ##.uid
+            temp.uid <- unlist(lapply(object@records, function(x){x@.uid}))
+
+            ##.pid
+            temp.pid <- unlist(lapply(object@records, function(x){x@.pid}))
+
+            ##originator
+            temp.originator <- unlist(lapply(object@records, function(x){x@originator}))
+
+            ##curveType
+            temp.curveType <- unlist(lapply(object@records, function(x){x@curveType}))
+
             ##info elements as character value
             temp.info.elements <- unlist(sapply(1:temp.object.length, function(x){
 
@@ -545,14 +557,20 @@ setMethod("structure_RLum",
             ##combine output to a data.frame
             return(
               data.frame(
-                id = temp.id, recordType = temp.recordType,
+                id = temp.id,
+                recordType = temp.recordType,
+                curveType = temp.curveType,
                 protocol.step = temp.protocol.step,
                 n.channels = temp.n.channels,
                 x.min = temp.x.min,
                 x.max = temp.x.max,
                 y.min = temp.y.min,
                 y.max = temp.y.max,
-                info.elements = temp.info.elements
+                originator = temp.originator,
+                .uid = temp.uid,
+                .pid = temp.pid,
+                info.elements = temp.info.elements,
+                stringsAsFactors = FALSE
               )
             )
 
