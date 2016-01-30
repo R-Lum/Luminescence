@@ -3,7 +3,7 @@ NULL
 
 #' Class \code{"RLum.Results"}
 #'
-#' Object class contains results data from functions (e.g. \code{\link{analyse_SAR.CWOSL}}.
+#' Object class contains results data from functions (e.g., \code{\link{analyse_SAR.CWOSL}}).
 #'
 #' @name RLum.Results-class
 #'

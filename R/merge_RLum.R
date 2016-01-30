@@ -11,8 +11,11 @@
 #' \tabular{lll}{
 #' \bold{object} \tab \tab \bold{corresponding merge function} \cr
 #'
-#' \code{\linkS4class{RLum.Results}} \tab : \tab
-#' \code{merge_RLum} }
+#' \code{\linkS4class{RLum.Data.Curve}} \tab : \tab \code{merge_RLum.Data.Curve} \cr
+#' \code{\linkS4class{RLum.Analysis}} \tab : \tab \code{merge_RLum.Analysis} \cr
+#' \code{\linkS4class{RLum.Results}} \tab : \tab \code{merge_RLum.Results}
+#
+#' }
 #'
 #' @param objects \code{\link{list}} of \code{\linkS4class{RLum}}
 #' (\bold{required}): list of S4 object of class \code{RLum}

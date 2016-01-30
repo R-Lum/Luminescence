@@ -80,7 +80,7 @@
 #' This function is fully operational via S3-generics:
 #' \code{`+`}, \code{`-`}, \code{`/`}, \code{`*`}, \code{merge}
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)

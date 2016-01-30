@@ -70,7 +70,7 @@ Returns the number of data elements in the \code{RLum.Results} object.
 Returns the names of the data elements in the object.
 }
 \description{
-Object class contains results data from functions (e.g. \code{\link{analyse_SAR.CWOSL}}.
+Object class contains results data from functions (e.g., \code{\link{analyse_SAR.CWOSL}}).
 }
 \section{Methods (by generic)}{
 \itemize{
