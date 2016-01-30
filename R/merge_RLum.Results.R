@@ -4,7 +4,14 @@
 #' are combined depending on the object type, e.g., for \code{\link{data.frame}} and \code{\link{matrix}}
 #' rows are appended.
 #'
+#' @note The originator is taken from the first element and not reset to \code{merge_RLum}
+#'
 #' @param objects \code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects
+#'
+#' @section Function version: 0.2.0
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+#' (France)
 #'
 #' @export
 merge_RLum.Results <- function(
@@ -25,7 +32,7 @@ merge_RLum.Results <- function(
 
                 if(is(objects[[x]], "RLum.Results") == FALSE){
 
-                  stop("[merge_RLum.Results()] objects to merge have
+                  stop("[merge_RLum.Results()] Objects to merge have
                        to be of type 'RLum.Results'!")
 
                 }
@@ -105,8 +112,21 @@ merge_RLum.Results <- function(
 
             }##end loop
 
-            ##return
-            return(objects[[1]])
+            #return by setting a new RLum.Results (for the .uid)
+            #the originator is not reset
+            objects_merged <- set_RLum(
+              class = "RLum.Results",
+              originator = objects[[1]]@originator,
+              data = objects[[1]]@data,
+              info = unlist(lapply(objects, function(x) {
+                x@info
+              }), recursive = FALSE),
+              .pid = unlist(lapply(objects, function(x) {
+                x@.uid
+              }))
 
+            )
+
+            return(objects_merged)
 
 }

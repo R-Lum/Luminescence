@@ -14,4 +14,14 @@ Function merges objects of class \code{\linkS4class{RLum.Results}}. The slots in
 are combined depending on the object type, e.g., for \code{\link{data.frame}} and \code{\link{matrix}}
 rows are appended.
 }
+\note{
+The originator is taken from the first element and not reset to \code{merge_RLum}
+}
+\section{Function version}{
+ 0.2.0 (2016-01-30 22:22:30)
+}
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 

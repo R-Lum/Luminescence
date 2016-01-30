@@ -280,7 +280,7 @@ merge_RLum.Data.Curve<- function(
   }
 
 
-  # Build new RLum.Analysis object --------------------------------------------------------------
+  # Build new RLum.Data.Curve object --------------------------------------------------------------
 
   temp.new.Data.Curve <- set_RLum(
     class = "RLum.Data.Curve",

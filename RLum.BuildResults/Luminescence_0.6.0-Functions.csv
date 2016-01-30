@@ -86,11 +86,12 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "merge_RLum.Analysis","Merge function for RLum.Analysis S4 class objects","<br /> Function allows merging of RLum.Analysis objects and adding of allowed<br /> objects to an RLum.Analysis.<br />","0.1","2015-12-05","15:52:49
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"merge_RLum.Data.Curve","Merge function for RLum.Data.Curve S4 class objects","<br /> Function allows merging of RLum.Data.Curve objects in different ways<br />","0.1.2","2016-01-18","15:07:03
+"merge_RLum.Data.Curve","Merge function for RLum.Data.Curve S4 class objects","<br /> Function allows merging of RLum.Data.Curve objects in different ways<br />","0.1.2","2016-01-30","22:20:10
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "merge_RLum","General merge function for RLum S4 class objects","<br /> Function calls object-specific merge functions for RLum S4 class objects.<br />","0.1.2","2016-01-30","14:09:33
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"merge_RLum.Results","Merge function for RLum.Results S4-class objects","<br /> Function merges objects of class  RLum.Results . The slots in the objects<br /> are combined depending on the object type, e.g., for  data.frame  and  matrix <br /> rows are appended.<br />",NA,NA,NA,NA
+"merge_RLum.Results","Merge function for RLum.Results S4-class objects","<br /> Function merges objects of class  RLum.Results . The slots in the objects<br /> are combined depending on the object type, e.g., for  data.frame  and  matrix <br /> rows are appended.<br />","0.2.0","2016-01-30","22:22:30
+","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "methods_RLum","methods_RLum","<br /> Methods for S3-generics implemented for the package 'Luminescence'.<br /> This document summarises all implemented S3-generics. The name of the function<br /> is given before the first dot, after the dot the name of the object that is supported by this method<br /> is given, e.g.  plot.RLum.Data.Curve  can be called by  plot(object, ...) , where<br /> object  is the  RLum.Data.Curve  object.<br />",NA,NA,NA,NA
 "names_RLum","S4-names function for RLum S4 class objects","<br /> Function calls object-specific names functions for RLum S4 class objects.<br />","0.1.0","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
