@@ -36,7 +36,7 @@ automatically removed from the input \code{list}.
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1.2 (2015-11-29 17:27:48)
+ 0.1.2 (2016-01-30 14:09:33)
 }
 \examples{
 

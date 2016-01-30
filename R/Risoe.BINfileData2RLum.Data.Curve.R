@@ -36,7 +36,7 @@
 #' @note Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
 #' overall correct for cases where the TL measurement is combined with a preheat.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 #' Christoph Burow, Universtiy of Cologne (Germany)
@@ -88,28 +88,28 @@
 
       temp.x <- c(
         seq(
-          from = object@METADATA[id, "LOW"],
-          to = object@METADATA[id, "AN_TEMP"],
-          length.out = object@METADATA[id, "TOLDELAY"]
+          from = object@METADATA$LOW[id],
+          to = object@METADATA$AN_TEMP[id],
+          length.out = object@METADATA$TOLDELAY[id]
         ),
         seq(
-          from = object@METADATA[id, "AN_TEMP"],
-          to = object@METADATA[id, "AN_TEMP"],
-          length.out = object@METADATA[id, "TOLON"]
+          from = object@METADATA$AN_TEMP[id],
+          to = object@METADATA$AN_TEMP[id],
+          length.out = object@METADATA$TOLON[id]
         ),
         seq(
-          from = object@METADATA[id, "AN_TEMP"],
-          to = object@METADATA[id, "HIGH"],
-          length.out = object@METADATA[id, "TOLOFF"]
+          from = object@METADATA$AN_TEMP[id],
+          to = object@METADATA$HIGH[id],
+          length.out = object@METADATA$TOLOFF[id]
         )
       )
 
     }else{
 
       temp.x <- seq(
-        from = object@METADATA[id, "LOW"],
-        to = object@METADATA[id, "HIGH"],
-        length.out = object@METADATA[id, "NPOINTS"]
+        from = object@METADATA$LOW[id],
+        to = object@METADATA$HIGH[id],
+        length.out = object@METADATA$NPOINTS[id]
       )
 
     }
@@ -125,12 +125,17 @@
 
   }
 
+  ##convert info elements to list ... this procedure halfs the time needed in comparison to
+  ##to simply as.list(object@METADATA)
+  info <- lapply(1:length(names(object@METADATA)), function(x){.subset2(object@METADATA, x)[id]})
+  names(info) <- names(object@METADATA)
 
   # Build object ------------------------------------------------------------
   set_RLum(
     class = "RLum.Data.Curve",
-    recordType = as.character(object@METADATA[id,"LTYPE"]),
+    recordType = as.character(object@METADATA[id, "LTYPE"]),
     data = matrix(c(temp.x, temp.y), ncol = 2),
-    info = as.list(object@METADATA[id,]))
+    info = info
+  )
 
 }
