@@ -113,7 +113,7 @@ merge_RLum<- function(
 
     }else{
 
-      warning("[merge_RLum()] Nothing was merged as object list was found to be empty!")
+      warning("[merge_RLum()] Nothing was merged as the object list was found to be empty!")
       return(NULL)
 
     }

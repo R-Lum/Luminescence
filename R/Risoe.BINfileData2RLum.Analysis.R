@@ -228,7 +228,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
 
         ##create curve object
-        set_RLum(
+        object <- set_RLum(
           class = "RLum.Analysis",
           records = lapply(temp_id,function(x) {
             .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
@@ -237,10 +237,17 @@ Risoe.BINfileData2RLum.Analysis<- function(
           originator = "Risoe.BINfileData2RLum.Analysis"
         )
 
+        ##add unique id of RLum.Analysis object to each curve object as .pid
+        object@records <-
+          lapply(object@records, function(x) {
+            x@.pid  <- object@.uid
+            return(x)
+          })
+
+        return(object)
+
+
       })
-
-      ##add parent id of RLum.Analysis object to each curve object
-
 
       return(object)
 
