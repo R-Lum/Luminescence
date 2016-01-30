@@ -2,6 +2,7 @@
 % Please edit documentation in R/methods_RLum.R
 \name{methods_RLum}
 \alias{$.RLum.Analysis}
+\alias{$.RLum.Data.Curve}
 \alias{$.RLum.Results}
 \alias{*.RLum.Data.Curve}
 \alias{+.RLum.Data.Curve}
@@ -151,6 +152,8 @@
 \method{[[}{RLum.Analysis}(x, i)
 
 \method{[[}{RLum.Results}(x, i)
+
+\method{$}{RLum.Data.Curve}(x, i)
 
 \method{$}{RLum.Analysis}(x, i)
 

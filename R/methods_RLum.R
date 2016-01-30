@@ -370,6 +370,10 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 # methods for generic: `$`
 ####################################################################################################
 #' @rdname methods_RLum
+#' @export
+`$.RLum.Data.Curve` <- function(x, i) {get_RLum(x, info.object = i)}
+
+#' @rdname methods_RLum
 #'
 #' @examples
 #'
