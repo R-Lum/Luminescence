@@ -15,7 +15,8 @@
 \S4method{set_RLum}{RLum.Results}(class, originator, .uid, .pid,
   data = list(), info = list())
 
-\S4method{get_RLum}{RLum.Results}(object, data.object, drop = TRUE)
+\S4method{get_RLum}{RLum.Results}(object, data.object, info.object = NULL,
+  drop = TRUE)
 
 \S4method{length_RLum}{RLum.Results}(object)
 
@@ -45,6 +46,9 @@ info data for the object}
 
 \item{data.object}{[\code{get_RLum}] \code{\link{character}} or
 \code{\link{numeric}}: name or index of the data slot to be returned}
+
+\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+element}
 
 \item{drop}{[\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
 (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}}
@@ -106,7 +110,7 @@ method \code{get_RLum}.
 }
 
 \section{Class version}{
- 0.5.0
+ 0.5.1
 }
 \examples{
 
