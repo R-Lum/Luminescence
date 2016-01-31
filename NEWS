@@ -8,6 +8,9 @@ Changes in version 0.6.0 (,2016):
            dependency of the chosen signal integral (cf. Bailey et al.,
            2003; #23).
 
+         • ‘verify_SingleGrainData()’: Verify single grain data sets
+           and check for invalid grains, i.e. zero light level grains
+
   Changes in S4-objects and related methods:
 
          • ‘set_RLum’

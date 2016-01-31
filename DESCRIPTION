@@ -140,6 +140,7 @@ Collate:
     'template_DRAC.R'
     'tune_Data.R'
     'use_DRAC.R'
+    'verify_SingleGrainData.R'
     'write_R2BIN.R'
     'zzz.R'
 RoxygenNote: 5.0.1
