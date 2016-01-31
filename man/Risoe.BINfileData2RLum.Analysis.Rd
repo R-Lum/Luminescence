@@ -60,7 +60,7 @@ The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.3.0 (2016-01-30 16:28:29)
+ 0.3.0 (2016-01-31 00:21:27)
 }
 \examples{
 

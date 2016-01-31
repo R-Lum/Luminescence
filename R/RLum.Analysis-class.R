@@ -22,7 +22,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.4.1
+#' @section Class version: 0.4.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -479,6 +479,10 @@ setMethod("get_RLum",
 #' @describeIn RLum.Analysis
 #' Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
 #'
+#' @param fullExtent [structure_RLum] \code{\link{logical}} (with default): extents the returned \code{data.frame}
+#' to its full extent, i.e. all info elements are part of the return as well. The default valule
+#' is \code{FALSE} as the data frame might become rather big.
+#'
 #' @return
 #'
 #' \bold{\code{structure_RLum}}:\cr
@@ -488,7 +492,7 @@ setMethod("get_RLum",
 #' @export
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
-          definition = function(object) {
+          definition = function(object, fullExtent = FALSE) {
 
             ##check if the object containing other elements than allowed
             if(length(grep(FALSE, sapply(object@records, is, class="RLum.Data.Curve")))!=0){
@@ -546,13 +550,23 @@ setMethod("structure_RLum",
             temp.curveType <- unlist(lapply(object@records, function(x){x@curveType}))
 
             ##info elements as character value
-            temp.info.elements <- unlist(sapply(1:temp.object.length, function(x){
+            if (fullExtent) {
+              temp.info.elements <- as.data.frame(data.table::rbindlist(lapply(object@records, function(x) {
+                x@info
+              }), fill = TRUE))
 
-              if(length(object@records[[x]]@info)!=0){
-                do.call(paste, as.list(names(object@records[[x]]@info)))
-              }else{NA}
+            } else{
+              temp.info.elements <-
+                unlist(sapply(1:temp.object.length, function(x) {
+                  if (length(object@records[[x]]@info) != 0) {
+                    do.call(paste, as.list(names(object@records[[x]]@info)))
+                  } else{
+                    NA
+                  }
 
-            }))
+                }))
+
+            }
 
             ##combine output to a data.frame
             return(
@@ -569,7 +583,7 @@ setMethod("structure_RLum",
                 originator = temp.originator,
                 .uid = temp.uid,
                 .pid = temp.pid,
-                info.elements = temp.info.elements,
+                info = temp.info.elements,
                 stringsAsFactors = FALSE
               )
             )

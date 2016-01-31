@@ -23,6 +23,20 @@
 
     }
 
+    \item{\code{structure_RLum}}
+
+    \itemize{
+      \item The method gained a \code{\dots} argument for further passing information to the specific
+      class methods,
+      \item The method for the class \code{RLum.Analysis} gained the new argument \code{fullExtent}
+      to extent the returned data frame to all info elements. This makes it possible to investigate
+      \code{RLum.Analysis} objects in great detail and subset them efficiently.
+
+
+    }
+
+
+
     \item{\code{RLum}}
       \itemize{
         \item The slot \code{.uid} from objects of this class has now the prototype \code{NA_character_}.
@@ -30,7 +44,7 @@
         however, the usual case,
         \item all inherited object classes gained a new slot called \code{.pid}. This slot is reserved
         for storing parent ids so that objects can be nested at free will. Corresponding import function
-        had been adapted in the way the pid will become an inhertied uid from the \code{RLum.Analysis} object,
+        had been adapted in the way the pid will become an inherited uid from the \code{RLum.Analysis} object,
         \item all inhertied object classes of the class \code{RLum} gained a new slot called \code{info},
         with this a more consistent workflow with the objects should be possible, before only objects
         of the class \code{RLum.Data} had such slot.

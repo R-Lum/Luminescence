@@ -20,7 +20,7 @@
   recordType = NULL, curveType = NULL, RLum.type = NULL,
   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE)
 
-\S4method{structure_RLum}{RLum.Analysis}(object)
+\S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
 
@@ -76,6 +76,10 @@ vector with the index of each element in the RLum.Analysis object.}
 and the result of the 'get_RLum' request is a single object this object will be unlisted, means
 only the object itself and no list containing exactly one object is returned. Mostly this makes things
 easier, however, if this method is used within a loop this might undesired.}
+
+\item{fullExtent}{[structure_RLum] \code{\link{logical}} (with default): extents the returned \code{data.frame}
+to its full extent, i.e. all info elements are part of the return as well. The default valule
+is \code{FALSE} as the data frame might become rather big.}
 }
 \value{
 \bold{\code{get_RLum}}:\cr
@@ -143,7 +147,7 @@ containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 
 \section{Class version}{
- 0.4.1
+ 0.4.2
 }
 \examples{
 

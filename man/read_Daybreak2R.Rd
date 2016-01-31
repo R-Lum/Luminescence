@@ -27,7 +27,7 @@ Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 \bold{[BETA VERSION]} This function version still needs to be properly tested.
 }
 \section{Function version}{
- 0.2.1 (2016-01-30 16:43:55)
+ 0.2.1 (2016-01-31 00:21:27)
 }
 \examples{
 

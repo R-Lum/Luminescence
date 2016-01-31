@@ -4,11 +4,14 @@
 \alias{structure_RLum}
 \title{General structure function for RLum S4 class objects}
 \usage{
-structure_RLum(object)
+structure_RLum(object, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
 class \code{RLum}}
+
+\item{\dots}{further arguments that one might want to pass to the specific
+structure method}
 }
 \value{
 Returns a \code{data.frame} with structure of the object.
@@ -23,7 +26,7 @@ corresponding structure function will be selected. Allowed arguments can be foun
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1.1 (2016-01-30 23:35:29)
+ 0.2.0 (2016-01-31 13:32:05)
 }
 \examples{
 
