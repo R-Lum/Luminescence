@@ -23,6 +23,16 @@ Changes in version 0.6.0 (,2016):
              • the performance of the function was improved
                significantly.
 
+         • ‘get_RLum’
+
+             • Methods for ‘RLum.Analysis’ and ‘RLum.Results’ objects
+               updated, so that they can handle the new info slot,
+
+             • method for ‘RLum.Data.Curve’ objects new reacts more
+               relaxed for wrong info object names. Instead of a
+               function error, ‘NULL’ is returned. This makes handling
+               in loops easier.
+
          • ‘structure_RLum’
 
              • The method gained a ‘...’ argument for further passing

@@ -23,6 +23,18 @@
 
     }
 
+     \item{\code{get_RLum}}
+
+       \itemize{
+        \item Methods for \code{RLum.Analysis} and \code{RLum.Results} objects updated, so that
+        they can handle the new info slot,
+        \item method for \code{RLum.Data.Curve} objects new reacts more relaxed for wrong info
+        object names. Instead of a function error, \code{NULL} is returned. This makes handling
+        in loops easier.
+
+
+       }
+
     \item{\code{structure_RLum}}
 
     \itemize{
