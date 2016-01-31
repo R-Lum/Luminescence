@@ -32,7 +32,7 @@ or for \code{cleanup = TRUE} the same object as the input, but with cleaned up (
 removed)
 }
 \description{
-This function tries to automatically identify zero light level grains from single grain data
+This function tries to identify automatically zero light level curves (grains) from single grain data
 measurements. \cr
 }
 \details{
@@ -57,7 +57,7 @@ Reg0 curves are likely to removed as well. Therefore it is strongly recommended 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.1.0 (2016-01-31 22:10:04)
+ 0.1.0 (2016-01-31 22:21:17)
 }
 \examples{
 

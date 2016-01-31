@@ -1,6 +1,6 @@
 #' Verify single grain data sets and check for invalid grains, i.e. zero light level grains
 #'
-#' This function tries to automatically identify zero light level grains from single grain data
+#' This function tries to identify automatically zero light level curves (grains) from single grain data
 #' measurements. \cr
 #'
 #' \bold{method}\cr
@@ -76,7 +76,8 @@ verify_SingleGrainData <- function(
 
   ##TODO
   ##The fucntion should better remove only grains indentified as invalid entirely ... a single
-  ##curve from a grain position should not set all grain as invalid
+  ##curve from a grain position should not set all grain as invalid, however, in the data frame
+  ##another column would be needed
 
   ##three types of input are allowed:
   ##(1) RisoeBINfileData
