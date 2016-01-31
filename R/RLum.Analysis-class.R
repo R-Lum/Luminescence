@@ -22,7 +22,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.4.3
+#' @section Class version: 0.4.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -207,13 +207,29 @@ setMethod(
     ##produce empty class object
     newRLumAnalysis <- new(Class = "RLum.Analysis")
 
-    #fill slots (this is much faster than the old code!)
-    newRLumAnalysis@protocol <- protocol
-    newRLumAnalysis@originator <- originator
-    newRLumAnalysis@records <- records
-    newRLumAnalysis@info <- info
-    newRLumAnalysis@.uid <- .uid
-    newRLumAnalysis@.pid <- .pid
+    ##allow self set to reset an RLum.Analysis object
+    if(is(records, "RLum.Analysis")){
+
+      #fill slots (this is much faster than the old code!)
+      newRLumAnalysis@protocol <- if(missing(protocol)){records@protocol}else{protocol}
+      newRLumAnalysis@originator <- originator
+      newRLumAnalysis@records <- records@records
+      newRLumAnalysis@info <- if(missing(info)){records@info}else{c(records@info, info)}
+      newRLumAnalysis@.uid <- .uid
+      newRLumAnalysis@.pid <- if(missing(.pid)){records@.uid}else{.pid}
+
+
+    }else{
+
+      #fill slots (this is much faster than the old code!)
+      newRLumAnalysis@protocol <- protocol
+      newRLumAnalysis@originator <- originator
+      newRLumAnalysis@records <- records
+      newRLumAnalysis@info <- info
+      newRLumAnalysis@.uid <- .uid
+      newRLumAnalysis@.pid <- .pid
+
+    }
 
     return(newRLumAnalysis)
 

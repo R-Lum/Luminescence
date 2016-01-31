@@ -1647,15 +1647,17 @@ analyse_IRSAR.RF<- function(
 
 
   ##produce results object
-  newRLumResults.analyse_IRSAR.RF <- set_RLum(class = "RLum.Results",
-                                              data = list(
-                                                De.values = De.values,
-                                                De.MC = De.MC,
-                                                test_parameter = TP.data.frame,
-                                                fit = fit,
-                                                slide = slide,
-                                                call = sys.call()
-                                              ))
+    newRLumResults.analyse_IRSAR.RF <- set_RLum(
+      class = "RLum.Results",
+      data = list(
+        De.values = De.values,
+        De.MC = De.MC,
+        test_parameter = TP.data.frame,
+        fit = fit,
+        slide = slide,
+        call = sys.call()
+      )
+    )
 
   invisible(newRLumResults.analyse_IRSAR.RF)
 
