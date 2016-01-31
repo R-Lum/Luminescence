@@ -16,7 +16,7 @@
   recordType = NA_character_, curveType = NA_character_, data = matrix(0,
   ncol = 2), info = list())
 
-\S4method{get_RLum}{RLum.Data.Curve}(object, info.object)
+\S4method{get_RLum}{RLum.Data.Curve}(object, info.object = NULL)
 
 \S4method{length_RLum}{RLum.Data.Curve}(object)
 
@@ -114,7 +114,7 @@ namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
 }
 
 \section{Class version}{
- 0.4.0
+ 0.4.1
 }
 \examples{
 

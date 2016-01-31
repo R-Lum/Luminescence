@@ -220,7 +220,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.5.1
+#' @section Function version: 0.5.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -346,8 +346,7 @@ analyse_IRSAR.RF<- function(
 
   ##grep name of the sequence and the position this will be useful later on
   ##name
-  if (!inherits(try(get_RLum(get_RLum(object, record.id = 1), info.object = "name"), silent = TRUE)
-                , "try-error")) {
+  if (!is.null(suppressWarnings(get_RLum(get_RLum(object, record.id = 1), info.object = "name")))) {
     aliquot.sequence_name <-
       get_RLum(get_RLum(object, record.id = 1), info.object = "name")
 
@@ -358,8 +357,7 @@ analyse_IRSAR.RF<- function(
 
 
   ##position
-  if (!inherits(try(get_RLum(get_RLum(object, record.id = 1), info.object = "position"), silent = TRUE)
-                , "try-error")) {
+  if (!is.null(suppressWarnings(get_RLum(get_RLum(object, record.id = 1), info.object = "position")))){
     aliquot.position <-
       get_RLum(get_RLum(object, record.id = 1), info.object = "position")
 
@@ -369,8 +367,7 @@ analyse_IRSAR.RF<- function(
   }
 
   ##date
-  if (!inherits(try(get_RLum(get_RLum(object, record.id = 1), info.object = "startDate"), silent = TRUE)
-                , "try-error")) {
+  if (!is.null(suppressWarnings(get_RLum(get_RLum(object, record.id = 1), info.object = "startDate")))){
     aliquot.date <-
       get_RLum(get_RLum(object, record.id = 1), info.object = "startDate")
 

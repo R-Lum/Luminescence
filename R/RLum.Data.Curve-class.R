@@ -30,7 +30,7 @@ NULL
 #' @section Create objects from this Class: Objects can be created by calls of the form
 #' \code{set_RLum(class = "RLum.Data.Curve", ...)}.
 #'
-#' @section Class version: 0.4.0
+#' @section Class version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -313,7 +313,7 @@ setMethod(
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),
-          definition = function(object, info.object) {
+          definition = function(object, info.object = NULL) {
 
            ##Check if function is of type RLum.Data.Curve
            if(is(object, "RLum.Data.Curve") == FALSE){
@@ -322,28 +322,34 @@ setMethod("get_RLum",
 
            }
 
-           ##if missing info.object just show the curve values
+           ##if info.object == NULL just show the curve values
+          if(!is.null(info.object)) {
 
-           if(missing(info.object) == FALSE){
+              if(info.object %in% names(object@info)){
 
-                if(is(info.object, "character") == FALSE){
-                  stop("[get_RLum] Error: 'info.object' has to be a character!")
-                }
+                unlist(object@info[info.object])
 
-                if(info.object %in% names(object@info) == TRUE){
+              }else{
 
-                  unlist(object@info[info.object])
+                ##check for entries
+                if(length(object@info) == 0){
+
+                  warning("[get_RLum] This RLum.Data.Curve object has no info objects! NULL returned!)")
+                  return(NULL)
 
                 }else{
 
                   ##grep names
                   temp.element.names <- paste(names(object@info), collapse = ", ")
 
-                  stop.text <- paste("[get_RLum] Invalid element name. Valid names are:", temp.element.names)
+                  warning.text <- paste("[get_RLum] Invalid info.object name. Valid names are:", temp.element.names)
 
-                  stop(stop.text)
+                  warning(warning.text, call. = FALSE)
+                  return(NULL)
 
                 }
+
+              }
 
 
              }else{
