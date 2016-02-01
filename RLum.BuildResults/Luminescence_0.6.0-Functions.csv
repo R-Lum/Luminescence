@@ -1,5 +1,5 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
-"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.5.2","2016-01-31","21:18:57
+"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.5.2","2016-01-31","22:25:19
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.0","2016-01-18","15:07:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -138,7 +138,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "Risoe.BINfileData-class","Class  \"Risoe.BINfileData\"","<br /> S4 class object for luminescence data in R. The object is produced as output<br /> of the function  read_BIN2R .<br />","0.2.0
 ",NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"Risoe.BINfileData2RLum.Analysis","Convert Risoe.BINfileData object to an RLum.Analysis object","<br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object.<br />","0.3.1","2016-01-31","19:56:02
+"Risoe.BINfileData2RLum.Analysis","Convert Risoe.BINfileData object to an RLum.Analysis object","<br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object.<br />","0.3.1","2016-01-31","22:25:19
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "RLum-class","Class  \"RLum\"","<br /> Abstract class for data in the package Luminescence<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Analysis-class","Class  \"RLum.Analysis\"","<br /> Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc.<br /> from one measurements. Objects from this class are produced, by e.g.  read_XSYG2R ,<br /> read_Daybreak2R <br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />"
@@ -154,14 +154,14 @@
 "set_RLum","General set function for RLum S4 class objects","<br /> Function calls object-specific set functions for RLum S4 class objects.<br />","0.3.0","2016-01-31","00:21:27
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "sTeve","sTeve - sophisticated tool for efficient data validation and evaluation","<br /> This function provides a sophisticated routine for comprehensive<br /> luminescence dating data analysis.<br />",NA,NA,NA,"<br /> R Luminescence Team, 2012-2013<br />"
-"structure_RLum","General structure function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.2.0","2016-01-31","13:32:05
+"structure_RLum","General structure function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.2.0","2016-01-31","22:25:19
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "template_DRAC","Create a DRAC input data template (v1.1)","<br /> This function returns a DRAC input template (v1.1) to be used in conjunction<br /> with the use_DRAC() function<br />",NA,NA,NA,"<br /> Christoph Burow, University of Cologne (Germany)<br />"
 "tune_Data","Tune data for experimental purpose","<br /> The error can be reduced and sample size increased for specific purpose.<br />","0.5.0","2015-11-29","17:27:48
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "use_DRAC","Use DRAC to calculate dose rate data","<br /> The function provides an interface from R to DRAC. An R-object or a<br /> pre-formatted XLS/XLSX file is passed to the DRAC website and the<br /> results are re-imported into R.<br />","0.1.0","2015-12-05","15:52:49
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,<br /> GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany) <br />  R Luminescence Package Team"
-"verify_SingleGrainData","Verify single grain data sets and check for invalid grains, i.e. zero light level grains","<br /> This function tries to identify automatically zero light level curves (grains) from single grain data<br /> measurements.  <br />","0.1.0","2016-01-31","22:21:17
+"verify_SingleGrainData","Verify single grain data sets and check for invalid grains, i.e. zero light level grains","<br /> This function tries to identify automatically zero light level curves (grains) from single grain data<br /> measurements.  <br />","0.1.0","2016-02-01","12:16:37
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "write_R2BIN","Export Risoe.BINfileData into Risoe BIN-file","<br /> Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be<br /> opened by the Analyst software or other Risoe software.<br />","0.3.2","2016-01-18","15:07:03
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

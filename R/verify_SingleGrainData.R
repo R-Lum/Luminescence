@@ -70,7 +70,7 @@
 #' @export
 verify_SingleGrainData <- function(
   object,
-  threshold = 10,
+  threshold = 20,
   cleanup = FALSE
 ){
 
@@ -78,6 +78,7 @@ verify_SingleGrainData <- function(
   ##The fucntion should better remove only grains indentified as invalid entirely ... a single
   ##curve from a grain position should not set all grain as invalid, however, in the data frame
   ##another column would be needed
+  ##Consider to use the ratio instead of the diff
 
   ##three types of input are allowed:
   ##(1) RisoeBINfileData
@@ -113,10 +114,12 @@ verify_SingleGrainData <- function(
       ##run test on DATA slot
 
         ##MEAN + SD
-        temp.results_matrix <- matrix(unlist(lapply(X = object@DATA, FUN = function(x){
+        temp.results_matrix <- lapply(X = object@DATA, FUN = function(x){
             c(mean(x), var(x))
 
-        })), ncol = 2)
+        })
+
+        temp.results_matrix <- do.call(rbind,  temp.results_matrix)
 
         ##DIFF
         temp.results_matrix_DIFF <- abs(matrixStats::rowDiffs(temp.results_matrix))
@@ -179,11 +182,12 @@ verify_SingleGrainData <- function(
     })
 
     ##MEAN + SD
-    temp.results_matrix <- matrix(unlist(lapply(X = object_list, FUN = function(x){
+    temp.results_matrix <- lapply(X = object_list, FUN = function(x){
       c(mean(x), var(x))
 
-     })), ncol = 2)
+     })
 
+    temp.results_matrix <- do.call(rbind,  temp.results_matrix)
 
     ##DIFF
     temp.results_matrix_DIFF <- abs(matrixStats::rowDiffs(temp.results_matrix))
