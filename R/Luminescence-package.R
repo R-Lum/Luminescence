@@ -85,7 +85,6 @@
 #' Ancient TL 33, 16-21.
 #'
 #' @keywords package
-#'
 #' @import utils methods data.table bbmle
 #' @importFrom raster nlayers raster contour plotRGB brick
 #' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid

@@ -45,6 +45,7 @@ Imports:
     minpack.lm (>= 1.1-9),
     raster (>= 2.4-20),
     readxl (>= 0.1.0),
+    RLumModel (>= 0.1.0),
     shape (>= 1.4.2),
     parallel,
     XML (>= 3.98-1.3),
@@ -117,6 +118,7 @@ Collate:
     'merge_Risoe.BINfileData.R'
     'methods_DRAC.R'
     'methods_RLum.R'
+    'model_LuminescenceSignals.R'
     'plot_AbanicoPlot.R'
     'plot_DRTResults.R'
     'plot_DetPlot.R'

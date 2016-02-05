@@ -4,7 +4,7 @@
 \alias{verify_SingleGrainData}
 \title{Verify single grain data sets and check for invalid grains, i.e. zero light level grains}
 \usage{
-verify_SingleGrainData(object, threshold = 20, cleanup = FALSE)
+verify_SingleGrainData(object, threshold = 10, cleanup = FALSE)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
@@ -24,7 +24,7 @@ $ selection (data.frame) \cr
 .. $ GRAIN \cr
 .. $ MEAN \cr
 .. $ VAR \cr
-.. $ DIFF \cr
+.. $ RATIO \cr
 .. $ THRESHOLD \cr
 .. $ VALID \cr
 
@@ -57,7 +57,7 @@ Reg0 curves are likely to removed as well. Therefore it is strongly recommended 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.1.0 (2016-02-01 12:16:37)
+ 0.1.0 (2016-02-05 03:15:04)
 }
 \examples{
 
