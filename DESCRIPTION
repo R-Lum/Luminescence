@@ -45,13 +45,13 @@ Imports:
     minpack.lm (>= 1.1-9),
     raster (>= 2.4-20),
     readxl (>= 0.1.0),
-    RLumModel (>= 0.1.0),
     shape (>= 1.4.2),
     parallel,
     XML (>= 3.98-1.3),
     zoo (>= 1.7-12)
 Suggests:
     rgl (>= 0.95.1367),
+    RLumModel (>= 0.1.0),
     plotly (>= 2.0.3)
 URL: http://CRAN.R-project.org/package=Luminescence
 Collate:

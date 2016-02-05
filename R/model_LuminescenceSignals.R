@@ -1,13 +1,17 @@
 #' Model Luminescence Signals (wrapper)
 #'
 #' Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from the package
-#' \code{RLumModel}. For the further details please see the help page of this package.
+#' \link[RLumModel]{RLumModel-package}. For the further details and examples please
+#' see the manual of this package.
 #'
 #' @inheritParams RLumModel::model_LuminescenceSignals
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr orignal function:
-#' Johannes Friedrich, University of Bayreuth (Germany)
+#' @author Johannes Friedrich, University of Bayreuth (Germany),\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
+#'
+#'
 #' @section Function version: 0.1.0
+#'
 #' @export
 model_LuminescenceSignals <-
   function(model,

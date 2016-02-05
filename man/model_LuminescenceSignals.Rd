@@ -33,13 +33,14 @@ Recommended to show record.id to analyse concentrations.}
 }
 \description{
 Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from the package
-\code{RLumModel}. For the further details please see the help page of this package.
+\link[RLumModel]{RLumModel-package}. For the further details and examples please
+see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-02-05 03:58:41)
+ 0.1.0 (2016-02-05 04:26:32)
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr orignal function:
-Johannes Friedrich, University of Bayreuth (Germany)
+Johannes Friedrich, University of Bayreuth (Germany),\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
 \cr R Luminescence Package Team}
 
