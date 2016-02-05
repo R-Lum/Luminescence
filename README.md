@@ -1,18 +1,18 @@
 # Luminescence
 
-> [![CRAN](http://www.r-pkg.org/badges/version/Luminescence)](http://cran.rstudio.com/package=Luminescence)
-> [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
+[![CRAN](http://www.r-pkg.org/badges/version/Luminescence)](http://cran.rstudio.com/package=Luminescence)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
 
-> [![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
 [![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
 **@master**
 
-> [![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/dev_0.6.0?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/dev_0.6.0)
+[![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/dev_0.6.0?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/dev_0.6.0)
 [![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=dev_0.6.0)](https://travis-ci.org/R-Lum/Luminescence)
 **@dev_0.6.0**
 
 
-> Follow us on [![alt text][1.1]][1] <a href="http://www.twitter.com/RLuminescence" target="_blank">@RLuminescence</a>
+Follow us on [![alt text][1.1]][1] <a href="http://www.twitter.com/RLuminescence" target="_blank">@RLuminescence</a>
 [1.1]: http://i.imgur.com/wWzX9uB.png (twitter icon without padding)
 [1]: http://www.twitter.com/RLuminescence
 
