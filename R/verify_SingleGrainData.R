@@ -30,7 +30,7 @@
 #' .. $ GRAIN \cr
 #' .. $ MEAN \cr
 #' .. $ VAR \cr
-#' .. $ DIFF \cr
+#' .. $ RATIO \cr
 #' .. $ THRESHOLD \cr
 #' .. $ VALID \cr
 #'
@@ -70,7 +70,7 @@
 #' @export
 verify_SingleGrainData <- function(
   object,
-  threshold = 20,
+  threshold = 10,
   cleanup = FALSE
 ){
 
@@ -122,10 +122,10 @@ verify_SingleGrainData <- function(
         temp.results_matrix <- do.call(rbind,  temp.results_matrix)
 
         ##DIFF
-        temp.results_matrix_DIFF <- abs(matrixStats::rowDiffs(temp.results_matrix))
+        temp.results_matrix_RATIO <- temp.results_matrix[,2]/temp.results_matrix[,1]
 
         ##SEL
-        temp.results_matrix_VALID <- temp.results_matrix_DIFF > threshold
+        temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold
 
       ##combine everything to in a data.frame
         selection <- data.frame(
@@ -133,10 +133,16 @@ verify_SingleGrainData <- function(
           GRAIN = object@METADATA$GRAIN,
           MEAN = temp.results_matrix[, 1],
           VAR = temp.results_matrix[, 2],
-          DIFF = temp.results_matrix_DIFF,
+          RATIO = temp.results_matrix_RATIO,
           THRESHOLD = rep_len(threshold, length(object@DATA)),
           VALID = temp.results_matrix_VALID
         )
+
+        ##get unique pairs for POSITION and GRAIN and VALID
+      #  unique_pairs <- unique(selection[,c("POSITION", "GRAIN", "VALID")])
+       # to_check.id <- as.numeric(rownames(unique_pairs)[duplicated(unique_pairs[,c("POSITION", "GRAIN")])])
+
+       # print(to_check.id)##TODO THIS IS NOT FINISHED YET
 
       ##select output on the chosen input
       if(cleanup){
@@ -190,10 +196,10 @@ verify_SingleGrainData <- function(
     temp.results_matrix <- do.call(rbind,  temp.results_matrix)
 
     ##DIFF
-    temp.results_matrix_DIFF <- abs(matrixStats::rowDiffs(temp.results_matrix))
+    temp.results_matrix_RATIO <- temp.results_matrix[,2]/temp.results_matrix[,1]
 
     ##SEL
-    temp.results_matrix_VALID <- temp.results_matrix_DIFF > threshold
+    temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold
 
     ##get structure for the RLum.Anlaysis object
     temp_structure <- structure_RLum(object, fullExtent = TRUE)
@@ -207,7 +213,7 @@ verify_SingleGrainData <- function(
           GRAIN = temp_structure$info.GRAIN,
           MEAN = temp.results_matrix[, 1],
           VAR = temp.results_matrix[, 2],
-          DIFF = temp.results_matrix_DIFF,
+          RATIO = temp.results_matrix_RATIO,
           THRESHOLD = rep_len(threshold, length(object_list)),
           VALID = temp.results_matrix_VALID
         )
@@ -223,7 +229,7 @@ verify_SingleGrainData <- function(
           GRAIN = NA,
           MEAN = temp.results_matrix[, 1],
           VAR = temp.results_matrix[, 2],
-          DIFF = temp.results_matrix_DIFF,
+          RATIO = temp.results_matrix_RATIO,
           THRESHOLD = rep_len(threshold, length(object_list)),
           VALID = temp.results_matrix_VALID
         )

@@ -56,6 +56,8 @@ visit our project website (link below).
 \bold{Related package projects}\cr
 \url{http://cran.r-project.org/package=RLumShiny}\cr
 \url{http://shiny.r-luminescence.de}\cr
+\url{http://cran.r-project.org/package=RLumModel}\cr
+\url{http://model.r-luminescence.de}\cr
 
 \bold{Package maintainer}
 

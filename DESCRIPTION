@@ -51,6 +51,7 @@ Imports:
     zoo (>= 1.7-12)
 Suggests:
     rgl (>= 0.95.1367),
+    RLumModel (>= 0.1.0),
     plotly (>= 2.0.3)
 URL: http://CRAN.R-project.org/package=Luminescence
 Collate:
@@ -117,6 +118,7 @@ Collate:
     'merge_Risoe.BINfileData.R'
     'methods_DRAC.R'
     'methods_RLum.R'
+    'model_LuminescenceSignals.R'
     'plot_AbanicoPlot.R'
     'plot_DRTResults.R'
     'plot_DetPlot.R'
