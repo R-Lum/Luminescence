@@ -5,6 +5,7 @@
 
   \subsection{New functions}{
    \itemize{
+    \item \code{analyse_baSAR()}: Bayesian models (baSAR) applied on luminescence data
     \item \code{model_LuminescenceSignals()}: Wrapper for the function \code{model_LuminescenceSignals()}
     from the package \code{RLumModel} by Johannes Friedrich, Sebastian Kreutzer and Christoph Schmidt
      \item \code{plot_DetPlot()}: Plots the equivalent dose (De) in dependency of the chosen

@@ -4,6 +4,9 @@ Changes in version 0.6.0 (,2016):
 
   New functions:
 
+         • ‘analyse_baSAR()’: Bayesian models (baSAR) applied on
+           luminescence data
+
          • ‘model_LuminescenceSignals()’: Wrapper for the function
            ‘model_LuminescenceSignals()’ from the package ‘RLumModel’
            by Johannes Friedrich, Sebastian Kreutzer and Christoph
