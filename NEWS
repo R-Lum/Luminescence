@@ -152,6 +152,20 @@ Changes in version 0.6.0 (,2016):
              • add argument ‘sig0’ to allow for an extra component of
                error.
 
+         • ‘merge_RLum.Data.Curve()’
+
+             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
+               ‘min’, ‘max’.
+
+         • ‘plot_GrowthCurve()’
+
+             • If the input data contain a least one infinite value the
+               function will not crash any longer, but return ‘NULL’
+               (#263, Norbert Mercier),
+
+             • check for insufficient values in the data set and return
+               ‘NULL’ (before the function crashed).
+
          • ‘plot_RLum.Analysis()’
 
              • All ‘...’ arguments can now be provided as ‘vector’ or
@@ -165,19 +179,11 @@ Changes in version 0.6.0 (,2016):
 
              • support further ‘...’ argument ‘legend’ (TRUE/FALSE).
 
-         • ‘plot_GrowthCurve()’
+         • ‘plot_RLum.Data.Curve()’
 
-             • If the input data contain a least one infinite value the
-               function will not crash any longer, but return ‘NULL’
-               (#263, Norbert Mercier),
-
-             • check for insufficient values in the data set and return
-               ‘NULL’ (before the function crashed).
-
-         • ‘merge_RLum.Data.Curve()’
-
-             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
-               ‘min’, ‘max’.
+             • Fix seldom bug that causes unexpected function behaviour
+               if ‘xlab’ or ‘ylab’ exist as objects on the global
+               environment (#265).
 
          • ‘read_BIN2R()’
 

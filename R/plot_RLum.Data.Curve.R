@@ -23,7 +23,7 @@
 #'
 #' @note Not all arguments of \code{\link{plot}} will be passed!
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -102,11 +102,18 @@ plot_RLum.Data.Curve<- function(
 
     ##XSYG
     ##check for curveDescripter
-    if ("curveDescripter" %in% names(object@info) == TRUE) {
-      temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
+    if ("curveDescripter" %in% names(object@info)) {
+      temp.lab <-
+        strsplit(object@info$curveDescripter,
+                 split = ";",
+                 fixed = TRUE)[[1]]
 
-      xlab <- temp.lab[1]
-      ylab <- temp.lab[2]
+      xlab.xsyg <- temp.lab[1]
+      ylab.xsyg <- temp.lab[2]
+
+    } else{
+      xlab.xsyg <- NA
+      ylab.xsyg <- NA
 
     }
 
@@ -130,19 +137,18 @@ plot_RLum.Data.Curve<- function(
       extraArgs$xlab
     } else
     {
-      if (exists("xlab") == TRUE) {
-        xlab
+      if (!is.na(xlab.xsyg)) {
+        xlab.xsyg
       } else
       {
-        paste(lab.xlab," [",lab.unit,"]", sep = "")
+        paste0(lab.xlab, " [", lab.unit, "]")
       }
     }
 
     ylab <- if ("ylab" %in% names(extraArgs)) {
       extraArgs$ylab
-    }
-    else if (exists("ylab") == TRUE) {
-      ylab
+    }else if (!is.na(ylab.xsyg)) {
+      ylab.xsyg
     }
     else if (lab.xlab == "Independent") {
       "Dependent [unknown]"
@@ -242,7 +248,7 @@ plot_RLum.Data.Curve<- function(
       ""
     }
 
-    fun       <-
+    fun  <-
       if ("fun" %in% names(extraArgs)) {
         extraArgs$fun
       } else {

@@ -141,15 +141,10 @@
         \item add argument \code{sig0} to allow for an extra component of error.
       }
 
-       \item \code{plot_RLum.Analysis()}
+    \item \code{merge_RLum.Data.Curve()}
       \itemize{
 
-        \item All \code{...} arguments can now be provided as \code{vector} or \code{list} to
-        gain more control of the plot appearance,
-        \item argument \code{abline} now works also in combination with \code{combine = TRUE} and
-        allows to set ablines independently over different plots (#260),
-        \item automatic axes labelling improved for \code{combine = TRUE},
-        \item support further \code{...} argument \code{legend} (TRUE/FALSE).
+        \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
       }
 
     \item \code{plot_GrowthCurve()}
@@ -161,10 +156,23 @@
 
       }
 
-    \item \code{merge_RLum.Data.Curve()}
+
+             \item \code{plot_RLum.Analysis()}
       \itemize{
 
-        \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
+        \item All \code{...} arguments can now be provided as \code{vector} or \code{list} to
+        gain more control of the plot appearance,
+        \item argument \code{abline} now works also in combination with \code{combine = TRUE} and
+        allows to set ablines independently over different plots (#260),
+        \item automatic axes labelling improved for \code{combine = TRUE},
+        \item support further \code{...} argument \code{legend} (TRUE/FALSE).
+      }
+
+         \item \code{plot_RLum.Data.Curve()}
+      \itemize{
+        \item Fix seldom bug that causes unexpected function behaviour if \code{xlab} or \code{ylab}
+        exist as objects on the global environment (#265).
+
       }
 
 
