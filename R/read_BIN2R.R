@@ -79,7 +79,6 @@
 #' @references Duller, G., 2007. Analyst.
 #' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}
 #'
-#' @aliases readBIN2R
 #'
 #' @keywords IO
 #'

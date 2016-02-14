@@ -4,11 +4,6 @@
 \name{get_RLum}
 \alias{get_RLum}
 \alias{get_RLum,list-method}
-\alias{get_RLum.Analysis}
-\alias{get_RLum.Data.Curve}
-\alias{get_RLum.Data.Image}
-\alias{get_RLum.Data.Spectrum}
-\alias{get_RLum.Results}
 \title{General accessor function for RLum S4 class objects}
 \usage{
 get_RLum(object, ...)
@@ -45,7 +40,7 @@ in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 \item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 }}
 \section{Function version}{
- 0.3.0 (2016-02-05 05:21:29)
+ 0.3.0 (2016-02-14 16:28:13)
 }
 \examples{
 

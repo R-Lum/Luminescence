@@ -41,9 +41,6 @@
 #'
 #' @keywords utilities
 #'
-#' @aliases set_RLum.Data.Curve set_RLum.Data.Image set_RLum.Data.Spectrum
-#' set_RLum.Analysis set_RLum.Results
-#'
 #' @examples
 #'
 #' ##produce empty objects from each class

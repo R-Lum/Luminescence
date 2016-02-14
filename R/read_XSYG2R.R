@@ -117,8 +117,6 @@
 #'
 #' @keywords IO
 #'
-#' @aliases readXSYG2R
-#'
 #' @examples
 #'
 #'

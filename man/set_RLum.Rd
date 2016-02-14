@@ -2,11 +2,6 @@
 % Please edit documentation in R/set_RLum.R
 \name{set_RLum}
 \alias{set_RLum}
-\alias{set_RLum.Analysis}
-\alias{set_RLum.Data.Curve}
-\alias{set_RLum.Data.Image}
-\alias{set_RLum.Data.Spectrum}
-\alias{set_RLum.Results}
 \title{General set function for RLum S4 class objects}
 \usage{
 set_RLum(class, originator, .uid = .create_UID(), .pid = NA_character_, ...)
@@ -43,7 +38,7 @@ corresponding \code{\linkS4class{RLum}} class: \code{\linkS4class{RLum.Data.Curv
 \code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}
 }
 \section{Function version}{
- 0.3.0 (2016-02-05 05:21:29)
+ 0.3.0 (2016-02-14 16:27:51)
 }
 \examples{
 
