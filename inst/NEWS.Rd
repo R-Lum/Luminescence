@@ -100,7 +100,7 @@
   }
   \subsection{Bugfixes and changes}{
    \itemize{
-
+   
 
       \item \code{analyse_SAR.CWOSL()}
       \itemize{
@@ -109,6 +109,8 @@
         but return \code{NULL} and print a warning,
         \item under really rare circumstances, many recycling points and recuperation points the
         function could crash (fixed).
+        \item Fixed a bug in the evaluation of the rejection criteria where the status of the palaedose 
+        error criterion was returned as 'OK' even though it was not (Thanks to Annette Kadereit) 
 
       }
 
@@ -140,6 +142,16 @@
         \item add argument \code{sig0} to allow for an extra component of error.
       }
 
+
+      \item \code{plot_AbanicoPlot()}
+      \itemize{
+
+        \item New argument \code{interactive} to produce an interactive plot 
+        using the JavaScript graphing library 'plotly.js' (requires the
+        'plotly' package). 
+
+      }
+
        \item \code{plot_RLum.Analysis()}
       \itemize{
 
@@ -157,6 +169,15 @@
         \item If the input data contain a least one infinite value the function will not crash
         any longer, but return \code{NULL} (#263, Norbert Mercier),
         \item check for insufficient values in the data set and return \code{NULL} (before the function crashed).
+
+      }
+      
+    \item \code{plot_Histogram()}
+      \itemize{
+
+        \item New argument \code{interactive} to produce an interactive plot 
+        using the JavaScript graphing library 'plotly.js' (requires the
+        'plotly' package). 
 
       }
 

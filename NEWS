@@ -124,6 +124,11 @@ Changes in version 0.6.0 (,2016):
                and recuperation points the function could crash
                (fixed).
 
+             • Fixed a bug in the evaluation of the rejection criteria
+               where the status of the palaedose error criterion was
+               returned as 'OK' even though it was not (Thanks to
+               Annette Kadereit)
+
          • ‘apply_CosmicRayRemoval()’
 
              • Argument ‘silent’ renamed to ‘verbose’,
@@ -149,6 +154,12 @@ Changes in version 0.6.0 (,2016):
              • add argument ‘sig0’ to allow for an extra component of
                error.
 
+         • ‘plot_AbanicoPlot()’
+
+             • New argument ‘interactive’ to produce an interactive
+               plot using the JavaScript graphing library 'plotly.js'
+               (requires the 'plotly' package).
+
          • ‘plot_RLum.Analysis()’
 
              • All ‘...’ arguments can now be provided as ‘vector’ or
@@ -170,6 +181,12 @@ Changes in version 0.6.0 (,2016):
 
              • check for insufficient values in the data set and return
                ‘NULL’ (before the function crashed).
+
+         • ‘plot_Histogram()’
+
+             • New argument ‘interactive’ to produce an interactive
+               plot using the JavaScript graphing library 'plotly.js'
+               (requires the 'plotly' package).
 
          • ‘merge_RLum.Data.Curve()’
 
