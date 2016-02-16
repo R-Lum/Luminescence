@@ -51,6 +51,7 @@ Imports:
     XML (>= 3.98-1.3),
     zoo (>= 1.7-12)
 Suggests:
+    RLumShiny (>= 0.1.0)
     rgl (>= 0.95.1367),
     plotly (>= 2.0.3)
 URL: http://CRAN.R-project.org/package=Luminescence
