@@ -77,6 +77,16 @@
         \item add argument \code{sig0} to allow for an extra component of error.
       }
 
+
+      \item \code{plot_AbanicoPlot()}
+      \itemize{
+
+        \item New argument \code{interactive} to produce an interactive plot 
+        using the JavaScript graphing library 'plotly.js' (requires the
+        'plotly' package). 
+
+      }
+
        \item \code{plot_RLum.Analysis()}
       \itemize{
 
@@ -93,6 +103,15 @@
 
         \item If the input data contain a least one infinite value the function will not crash
         any longer, but return \code{NULL}.
+
+      }
+      
+    \item \code{plot_Histogram()}
+      \itemize{
+
+        \item New argument \code{interactive} to produce an interactive plot 
+        using the JavaScript graphing library 'plotly.js' (requires the
+        'plotly' package). 
 
       }
 

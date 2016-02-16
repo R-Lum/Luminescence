@@ -81,6 +81,12 @@ Changes in version 0.6.0 (,2016):
              • add argument ‘sig0’ to allow for an extra component of
                error.
 
+         • ‘plot_AbanicoPlot()’
+
+             • New argument ‘interactive’ to produce an interactive
+               plot using the JavaScript graphing library 'plotly.js'
+               (requires the 'plotly' package).
+
          • ‘plot_RLum.Analysis()’
 
              • All ‘...’ arguments can now be provided as ‘vector’ or
@@ -98,6 +104,12 @@ Changes in version 0.6.0 (,2016):
 
              • If the input data contain a least one infinite value the
                function will not crash any longer, but return ‘NULL’.
+
+         • ‘plot_Histogram()’
+
+             • New argument ‘interactive’ to produce an interactive
+               plot using the JavaScript graphing library 'plotly.js'
+               (requires the 'plotly' package).
 
          • ‘merge_RLum.Data.Curve()’
 
