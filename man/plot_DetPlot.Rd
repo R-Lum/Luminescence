@@ -5,10 +5,11 @@
 \title{Create De(t) plot}
 \usage{
 plot_DetPlot(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max,
-  analyse_function = "analyse_SAR.CWOSL", analyse_function.control = list(),
-  n.channels = NULL, show_ShineDownCurve = TRUE,
-  respect_RC.Status = FALSE, verbose = TRUE, ...)
+  background.integral.min, background.integral.max, method = "shift",
+  signal_integral.seq = NULL, analyse_function = "analyse_SAR.CWOSL",
+  analyse_function.control = list(), n.channels = NULL,
+  show_ShineDownCurve = TRUE, respect_RC.Status = FALSE, verbose = TRUE,
+  ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
@@ -25,6 +26,13 @@ lower bound of the background integral.}
 
 \item{background.integral.max}{\code{\link{integer}} (\bold{required}):
 upper bound of the background integral.}
+
+\item{method}{\code{\link{character}} (with default): method applied for constructing the De(t) plot.
+\code{shift} (the default): the chosen signal integral is shifted the shine down curve,
+\code{expansion}: the chosen signal integral is expanded each time by its length}
+
+\item{signal_integral.seq}{\code{\link{numeric}} (optional): argument to provide an own
+signal integral sequence for constructing the De(t) plot}
 
 \item{analyse_function}{\code{\link{character}} (with default): name of the analyse function
 to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
@@ -50,12 +58,37 @@ See details for further information.}
 }
 \value{
 A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
+
+\code{@data}:
+\tabular{lll}{
+\bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
+De.values \tab \code{data.frame} \tab table with De values \cr
+signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
+}
+
+\code{@info}:
+
+\tabular{lll}{
+\bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
+call \tab \code{call} \tab the original function call
+}
 }
 \description{
 Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
 The function is simply passing several arguments to the function \code{\link{plot}} and the used
 analysis functions and runs it in a loop. Example: \code{legend.pos} for legend position,
-\code{legend} for legend text.
+\code{legend} for legend text.\cr
+}
+\details{
+\bold{method}\cr
+
+The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
+extended them accounting for changes in the counting statistics. Example: \code{c(1:3, 3:5, 5:7)}.
+However, here also another method is provided allowing to expand the signal integral by
+consectutively expaning the integral by its chosen length. Example: \code{c(1:3, 1:5, 1:7)}
+
+Note that in both cases the integral limits are overlap. The finally applied limits are part
+of the function output.\cr
 }
 \note{
 The entire analysis is based on the used analysis functions, namely
@@ -65,7 +98,7 @@ every sequence should be checked carefully before running long calculations usin
 hundreds of channels.
 }
 \section{Function version}{
- 0.1.0 (2016-02-05 05:21:29)
+ 0.1.0 (2016-02-18 12:25:20)
 }
 \examples{
 
@@ -83,7 +116,7 @@ plot_DetPlot(object,
              signal.integral.max = 3,
              background.integral.min = 900,
              background.integral.max = 1000,
-             n.channels = 10,
+             n.channels = 5,
 )
 }
 

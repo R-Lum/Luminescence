@@ -10,7 +10,6 @@
     from the package \code{RLumModel} by Johannes Friedrich, Sebastian Kreutzer and Christoph Schmidt
      \item \code{plot_DetPlot()}: Plots the equivalent dose (De) in dependency of the chosen
        signal integral (cf. Bailey et al., 2003; #23).
-
      \item \code{verify_SingleGrainData()}: Verify single grain data sets and check for invalid grains, i.e. zero light level grains
    }
   }

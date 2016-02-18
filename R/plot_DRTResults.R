@@ -15,6 +15,7 @@
 #' (\bold{required}): input values containing at least De and De error. To plot
 #' more than one data set in one figure, a \code{list} of the individual data
 #' sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).
+#'
 #' @param given.dose \code{\link{numeric}} (optional): given dose used for the
 #' dose recovery test to normalise data. If only one given dose is provided
 #' this given dose is valid for all input data sets (i.e., \code{values} is a
@@ -23,16 +24,21 @@
 #' plotted without normalisation (might be useful for preheat plateau tests).
 #' Note: Unit has to be the same as from the input values (e.g., Seconds or
 #' Gray).
+#'
 #' @param error.range \code{\link{numeric}}: symmetric error range in percent
 #' will be shown as dashed lines in the plot. Set \code{error.range} to 0 to
 #' void plotting of error ranges.
+#'
 #' @param preheat \code{\link{numeric}}: optional vector of preheat
 #' temperatures to be used for grouping the De values. If specified, the
 #' temperatures are assigned to the x-axis.
+#'
 #' @param boxplot \code{\link{logical}}: optionally plot values, that are
 #' grouped by preheat temperature as boxplots. Only possible when
 #' \code{preheat} vector is specified.
+#'
 #' @param mtext \code{\link{character}}: additional text below the plot title.
+#'
 #' @param summary \code{\link{character}} (optional): adds numerical output to
 #' the plot.  Can be one or more out of: \code{"n"} (number of samples),
 #' \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
@@ -40,13 +46,16 @@
 #' deviation in percent), \code{"sdabs"} (absolute standard deviation),
 #' \code{"serel"} (relative standard error) and \code{"seabs"} (absolute
 #' standard error).
+#'
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if \code{mtext} is not used.
+#'
 #' @param legend \code{\link{character}} vector (optional): legend content to
 #' be added to the plot.
+#'
 #' @param legend.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the legend to be plotted.
