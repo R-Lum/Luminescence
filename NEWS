@@ -4,6 +4,9 @@ Changes in version 0.6.0 (,2016):
 
   New functions:
 
+         • ‘analyse_baSAR()’: Bayesian models (baSAR) applied on
+           luminescence data
+
          • ‘model_LuminescenceSignals()’: Wrapper for the function
            ‘model_LuminescenceSignals()’ from the package ‘RLumModel’
            by Johannes Friedrich, Sebastian Kreutzer and Christoph
@@ -127,7 +130,11 @@ Changes in version 0.6.0 (,2016):
              • Fixed a bug in the evaluation of the rejection criteria
                where the status of the palaedose error criterion was
                returned as 'OK' even though it was not (Thanks to
-               Annette Kadereit)
+               Annette Kadereit) function could crash (fixed),
+
+             • add support for testdose error as rejection criteria,
+
+             • minor graphical adjustments.
 
          • ‘apply_CosmicRayRemoval()’
 
@@ -160,18 +167,10 @@ Changes in version 0.6.0 (,2016):
                plot using the JavaScript graphing library 'plotly.js'
                (requires the 'plotly' package).
 
-         • ‘plot_RLum.Analysis()’
+         • ‘merge_RLum.Data.Curve()’
 
-             • All ‘...’ arguments can now be provided as ‘vector’ or
-               ‘list’ to gain more control of the plot appearance,
-
-             • argument ‘abline’ now works also in combination with
-               ‘combine = TRUE’ and allows to set ablines independently
-               over different plots (#260),
-
-             • automatic axes labelling improved for ‘combine = TRUE’,
-
-             • support further ‘...’ argument ‘legend’ (TRUE/FALSE).
+             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
+               ‘min’, ‘max’.
 
          • ‘plot_GrowthCurve()’
 
@@ -188,10 +187,24 @@ Changes in version 0.6.0 (,2016):
                plot using the JavaScript graphing library 'plotly.js'
                (requires the 'plotly' package).
 
-         • ‘merge_RLum.Data.Curve()’
+         • ‘plot_RLum.Analysis()’
 
-             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
-               ‘min’, ‘max’.
+             • All ‘...’ arguments can now be provided as ‘vector’ or
+               ‘list’ to gain more control of the plot appearance,
+
+             • argument ‘abline’ now works also in combination with
+               ‘combine = TRUE’ and allows to set ablines independently
+               over different plots (#260),
+
+             • automatic axes labelling improved for ‘combine = TRUE’,
+
+             • support further ‘...’ argument ‘legend’ (TRUE/FALSE).
+
+         • ‘plot_RLum.Data.Curve()’
+
+             • Fix seldom bug that causes unexpected function behaviour
+               if ‘xlab’ or ‘ylab’ exist as objects on the global
+               environment (#265).
 
          • ‘read_BIN2R()’
 
@@ -199,7 +212,11 @@ Changes in version 0.6.0 (,2016):
                tries to import whatever possible,
 
              • the argument ‘n.records’ was not respected under rare
-               circumstances.
+               circumstances,
+
+             • in course of this (corrupt BIN-files, not respected
+               ‘n.records’) the output data frame was longer than the
+               list of count values; corrected.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 

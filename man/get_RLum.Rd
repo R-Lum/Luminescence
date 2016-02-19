@@ -40,7 +40,7 @@ in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 \item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 }}
 \section{Function version}{
- 0.3.0 (2016-02-14 16:28:13)
+ 0.3.0 (2016-02-19 16:35:35)
 }
 \examples{
 

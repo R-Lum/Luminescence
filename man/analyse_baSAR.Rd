@@ -33,7 +33,7 @@ curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods:
 This function allows the application of Bayesian models (baSAR) on luminescecence data
 }
 \section{Function version}{
- 0.1.0 (2016-02-12 10:11:45)
+ 0.1.0 (2016-02-19 16:35:35)
 }
 \examples{
 
