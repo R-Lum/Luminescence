@@ -191,7 +191,11 @@ Changes in version 0.6.0 (,2016):
                tries to import whatever possible,
 
              • the argument ‘n.records’ was not respected under rare
-               circumstances.
+               circumstances,
+
+             • in course of this (corrupt BIN-files, not respected
+               ‘n.records’) the output data frame was longer than the
+               list of count values; corrected.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 

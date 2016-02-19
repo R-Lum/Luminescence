@@ -127,6 +127,8 @@ verify_SingleGrainData <- function(
         ##SEL
         temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold
 
+        print(length(object@DATA))
+
       ##combine everything to in a data.frame
         selection <- data.frame(
           POSITION = object@METADATA$POSITION,
