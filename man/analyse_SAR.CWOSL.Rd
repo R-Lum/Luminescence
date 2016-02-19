@@ -129,6 +129,9 @@ Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
 ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).\cr
 
+\sQuote{testdose.error}: set the allowed error for the testdose, which per
+default should not exceed 10\%. The testdose error is calculated as Tx_net.error/Tx_net.
+
 \sQuote{palaeodose.error}: set the allowed error for the De value, which per
 default should not exceed 10\%.
 }
@@ -140,7 +143,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.1 (2016-02-05 05:21:29)
+ 0.7.2 (2016-02-19 16:29:57)
 }
 \examples{
 

@@ -125,7 +125,11 @@ Changes in version 0.6.0 (,2016):
 
              • under really rare circumstances, many recycling points
                and recuperation points the function could crash
-               (fixed).
+               (fixed),
+
+             • add support for testdose error as rejection criteria,
+
+             • minor graphical adjustments.
 
          • ‘apply_CosmicRayRemoval()’
 

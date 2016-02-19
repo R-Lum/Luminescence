@@ -108,7 +108,10 @@
         \item The function will not stop with an error if no 'OSL' or 'IRSL' record is detected,
         but return \code{NULL} and print a warning,
         \item under really rare circumstances, many recycling points and recuperation points the
-        function could crash (fixed).
+        function could crash (fixed),
+        \item add support for testdose error as rejection criteria,
+        \item minor graphical adjustments.
+
 
       }
 
