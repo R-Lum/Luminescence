@@ -5,13 +5,15 @@
 \title{Analyse IRSAR RF measurements}
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
-  RF_nat.lim, RF_reg.lim, method = "FIT", method.control, test_parameter,
-  n.MC = 10, txtProgressBar = TRUE, plot = TRUE, ...)
+  RF_nat.lim = NULL, RF_reg.lim = NULL, method = "FIT",
+  method.control = NULL, test_parameter = NULL, n.MC = 10,
+  txtProgressBar = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
+\item{object}{\code{\linkS4class{RLum.Analysis}} or a \code{\link{list}} of \code{RLum.Analysis} objects (\bold{required}): input
 object containing data for protocol analysis. The function expects to find at least two curves in the
-\code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg}
+\code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
+input all other parameters can be provided as \code{list} as well to gain full control.}
 
 \item{sequence.structure}{\code{\link{vector}} \link{character} (with
 default): specifies the general sequence structure. Allowed steps are
@@ -59,9 +61,9 @@ Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 }
 \value{
 A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
-returned. The slot data contains the following elements: \cr
+returned:\cr
 
-
+\bold{@data}\cr
 $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 ..$ DE : \code{numeric}: the obtained equivalent dose\cr
 ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
@@ -77,6 +79,8 @@ $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 $ test_parameter : \code{\link{data.frame}} table test parameters \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 $ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
+
+\bold{@info}\cr
 $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 
 The output (\code{De.values}) should be accessed using the
@@ -229,7 +233,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.5.2 (2016-02-05 05:21:29)
+ 0.6.0 (2016-02-19 19:03:35)
 }
 \examples{
 

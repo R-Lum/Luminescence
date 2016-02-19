@@ -117,6 +117,12 @@ Changes in version 0.6.0 (,2016):
 
   Bugfixes and changes:
 
+         • ‘analyse_IRSAR.RF()’
+
+             • Add self call to the function, i.e. as input
+               alternatively now a list of ‘RLum.Analysis’ objects can
+               be provided for a higher efficiency.
+
          • ‘analyse_SAR.CWOSL()’
 
              • The function will not stop with an error if no 'OSL' or

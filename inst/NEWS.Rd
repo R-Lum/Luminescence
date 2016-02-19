@@ -101,6 +101,13 @@
   \subsection{Bugfixes and changes}{
    \itemize{
 
+       \item \code{analyse_IRSAR.RF()}
+      \itemize{
+        \item Add self call to the function, i.e. as input alternatively now a list of \code{RLum.Analysis}
+        objects can be provided for a higher efficiency.
+
+      }
+
 
       \item \code{analyse_SAR.CWOSL()}
       \itemize{

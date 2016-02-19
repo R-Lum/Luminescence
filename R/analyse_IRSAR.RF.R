@@ -136,9 +136,10 @@
 #'to \code{NULL} also prevents a calculation of the remaining two.
 #'
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
+#' @param object \code{\linkS4class{RLum.Analysis}} or a \code{\link{list}} of \code{RLum.Analysis} objects (\bold{required}): input
 #' object containing data for protocol analysis. The function expects to find at least two curves in the
-#' \code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg
+#' \code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
+#' input all other parameters can be provided as \code{list} as well to gain full control.
 #'
 #' @param sequence.structure \code{\link{vector}} \link{character} (with
 #' default): specifies the general sequence structure. Allowed steps are
@@ -186,9 +187,9 @@
 #'
 #'
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
-#' returned. The slot data contains the following elements: \cr
+#' returned:\cr
 #'
-#'
+#' \bold{@data}\cr
 #' $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 #' ..$ DE : \code{numeric}: the obtained equivalent dose\cr
 #' ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
@@ -204,6 +205,8 @@
 #' $ test_parameter : \code{\link{data.frame}} table test parameters \cr
 #' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 #' $ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
+#'
+#' \bold{@info}\cr
 #' $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 #'
 #' The output (\code{De.values}) should be accessed using the
@@ -220,7 +223,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.6.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -290,11 +293,11 @@
 analyse_IRSAR.RF<- function(
   object,
   sequence.structure = c("NATURAL", "REGENERATED"),
-  RF_nat.lim,
-  RF_reg.lim,
+  RF_nat.lim = NULL,
+  RF_reg.lim = NULL,
   method = "FIT",
-  method.control,
-  test_parameter,
+  method.control = NULL,
+  test_parameter = NULL,
   n.MC = 10,
   txtProgressBar = TRUE,
   plot = TRUE,
@@ -302,9 +305,71 @@ analyse_IRSAR.RF<- function(
 ){
 
   ##TODO
-  ## - standard path to a file should be allowed as well as a function self call
   ## - if a file path is given, the function should try to find out whether an XSYG-file or
   ##   a BIN-file is provided
+
+  # SELF CALL -----------------------------------------------------------------------------------
+  if(is.list(object)){
+
+    ##extent the list of arguments if set
+
+    ##sequence.structure
+    sequence.structure <- rep(list(sequence.structure), length = length(object))
+
+    ##RF_nat.lim
+    RF_nat.lim <- rep(list(RF_nat.lim), length = length(object))
+
+    ##RF_reg.lim
+    RF_reg.lim <- rep(list(RF_reg.lim), length = length(object))
+
+    ##method
+    method <- rep(list(method), length = length(object))
+
+    ##method.control
+    method.control <- rep(list(method.control), length = length(object))
+
+    ##test_parameter
+    test_parameter <- rep(list(test_parameter), length = length(object))
+
+    ##n.MC
+    n.MC <- rep(list(n.MC), length = length(object))
+
+
+    ##run analysis
+    temp <- lapply(1:length(object), function(x){
+
+      analyse_IRSAR.RF(
+        object = object[[x]],
+        sequence.structure = sequence.structure[[x]],
+        RF_nat.lim = RF_nat.lim[[x]],
+        RF_reg.lim = RF_reg.lim[[x]],
+        method = method[[x]],
+        method.control = method.control[[x]],
+        test_parameter = test_parameter[[x]],
+        n.MC = n.MC[[x]],
+        txtProgressBar = txtProgressBar,
+        plot = plot,
+        main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
+        ...)
+    })
+
+    ##combine everything to one RLum.Results object as this as what was written ... only
+    ##one object
+
+    ##merge results and check if the output became NULL
+    results <- merge_RLum(temp)
+
+    ##DO NOT use invisible here, this will stop the function from stopping
+    if(length(results) == 0){
+      return(NULL)
+
+    }else{
+      return(results)
+
+    }
+
+  }
+
 
   ##===============================================================================================#
   ## INTEGRITY TESTS AND SEQUENCE STRUCTURE TESTS
@@ -425,7 +490,7 @@ analyse_IRSAR.RF<- function(
 
   ##02 - check boundaris
   ##RF_nat.lim
-  if (missing(RF_nat.lim)) {
+  if (is.null(RF_nat.lim)) {
     RF_nat.lim <- RF_nat.lim.default
 
   }else {
@@ -449,7 +514,7 @@ analyse_IRSAR.RF<- function(
 
   ##RF_reg.lim
   ##
-  if (missing(RF_reg.lim)) {
+  if (is.null(RF_reg.lim)) {
     RF_reg.lim <- RF_reg.lim.default
 
   }else {
@@ -497,7 +562,7 @@ analyse_IRSAR.RF<- function(
   )
 
   ##modify list if necessary
-  if(!missing(method.control)){
+  if(!is.null(method.control)){
 
     if(!is(method.control, "list")){
       stop("[analyse_IRSAR.RF()] 'method.control' has to be of type 'list'!")
@@ -994,7 +1059,7 @@ analyse_IRSAR.RF<- function(
   )
 
     ##modify default values by given input
-    if(!missing(test_parameter)){TP <- modifyList(TP, test_parameter)}
+    if(!is.null(test_parameter)){TP <- modifyList(TP, test_parameter)}
 
     ##remove NULL elements from list
     TP <- TP[!sapply(TP, is.null)]
@@ -1654,9 +1719,9 @@ analyse_IRSAR.RF<- function(
         De.MC = De.MC,
         test_parameter = TP.data.frame,
         fit = fit,
-        slide = slide,
-        call = sys.call()
-      )
+        slide = slide
+      ),
+      info = list(call = sys.call())
     )
 
   invisible(newRLumResults.analyse_IRSAR.RF)
