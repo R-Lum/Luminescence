@@ -53,8 +53,6 @@
 #'
 #' @references Duller, G., 2007. Analyst.
 #'
-#' @aliases writeR2BIN
-#'
 #' @keywords IO
 #'
 #' @examples
