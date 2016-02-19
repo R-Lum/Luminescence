@@ -5,11 +5,11 @@
 
   \subsection{New functions}{
    \itemize{
+    \item \code{analyse_baSAR()}: Bayesian models (baSAR) applied on luminescence data
     \item \code{model_LuminescenceSignals()}: Wrapper for the function \code{model_LuminescenceSignals()}
     from the package \code{RLumModel} by Johannes Friedrich, Sebastian Kreutzer and Christoph Schmidt
      \item \code{plot_DetPlot()}: Plots the equivalent dose (De) in dependency of the chosen
        signal integral (cf. Bailey et al., 2003; #23).
-
      \item \code{verify_SingleGrainData()}: Verify single grain data sets and check for invalid grains, i.e. zero light level grains
    }
   }
@@ -111,6 +111,10 @@
         function could crash (fixed).
         \item Fixed a bug in the evaluation of the rejection criteria where the status of the palaedose 
         error criterion was returned as 'OK' even though it was not (Thanks to Annette Kadereit) 
+        function could crash (fixed),
+        \item add support for testdose error as rejection criteria,
+        \item minor graphical adjustments.
+
 
       }
 
@@ -152,15 +156,10 @@
 
       }
 
-       \item \code{plot_RLum.Analysis()}
+    \item \code{merge_RLum.Data.Curve()}
       \itemize{
 
-        \item All \code{...} arguments can now be provided as \code{vector} or \code{list} to
-        gain more control of the plot appearance,
-        \item argument \code{abline} now works also in combination with \code{combine = TRUE} and
-        allows to set ablines independently over different plots (#260),
-        \item automatic axes labelling improved for \code{combine = TRUE},
-        \item support further \code{...} argument \code{legend} (TRUE/FALSE).
+        \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
       }
 
     \item \code{plot_GrowthCurve()}
@@ -181,10 +180,23 @@
 
       }
 
-    \item \code{merge_RLum.Data.Curve()}
+
+             \item \code{plot_RLum.Analysis()}
       \itemize{
 
-        \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
+        \item All \code{...} arguments can now be provided as \code{vector} or \code{list} to
+        gain more control of the plot appearance,
+        \item argument \code{abline} now works also in combination with \code{combine = TRUE} and
+        allows to set ablines independently over different plots (#260),
+        \item automatic axes labelling improved for \code{combine = TRUE},
+        \item support further \code{...} argument \code{legend} (TRUE/FALSE).
+      }
+
+         \item \code{plot_RLum.Data.Curve()}
+      \itemize{
+        \item Fix seldom bug that causes unexpected function behaviour if \code{xlab} or \code{ylab}
+        exist as objects on the global environment (#265).
+
       }
 
 
@@ -192,7 +204,9 @@
       \itemize{
 
         \item Handling of corrupt BIN-files improved, the functions tries to import whatever possible,
-        \item the argument \code{n.records} was not respected under rare circumstances.
+        \item the argument \code{n.records} was not respected under rare circumstances,
+        \item in course of this (corrupt BIN-files, not respected \code{n.records}) the output data frame
+        was longer than the list of count values; corrected.
       }
 
       \item \code{Risoe.BINfileData2RLum.Analysis()}

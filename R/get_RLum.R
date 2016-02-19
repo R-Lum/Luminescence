@@ -33,9 +33,6 @@
 #'
 #' @keywords utilities
 #'
-#' @aliases get_RLum.Data.Curve get_RLum.Data.Image get_RLum.Data.Spectrum
-#' get_RLum.Analysis get_RLum.Results
-#'
 #' @examples
 #'
 #'

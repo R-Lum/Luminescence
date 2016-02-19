@@ -10,6 +10,7 @@ Author: Sebastian Kreutzer [aut, trl, cre],
     Christoph Schmidt [aut],
     Manfred Fischer [aut, trl],
     Johannes Friedrich [aut],
+    Norbert Mercier [aut],
     Rachel K. Smedley [aut],
     Markus Fuchs [ths]
 Authors@R: c(
@@ -20,6 +21,7 @@ Authors@R: c(
     person("Christoph", "Schmidt", role = c("aut")),
     person("Manfred", "Fischer", role = c("aut","trl")),
     person("Johannes", "Friedrich", role = c("aut")),
+    person("Norbert", "Mercier", role = c("aut")),
     person("Rachel K.", "Smedley", role = c("aut")),
     person("Markus", "Fuchs", role = "ths")
     )
@@ -53,6 +55,7 @@ Suggests:
     RLumShiny (>= 0.1.0),
     rgl (>= 0.95.1367),
     RLumModel (>= 0.1.0),
+    rjags (>= 4-5),
     plotly (>= 2.0.3)
 URL: http://CRAN.R-project.org/package=Luminescence
 Collate:
@@ -85,6 +88,7 @@ Collate:
     'analyse_IRSAR.RF.R'
     'analyse_SAR.CWOSL.R'
     'analyse_SAR.TL.R'
+    'analyse_baSAR.R'
     'analyse_pIRIRSequence.R'
     'apply_CosmicRayRemoval.R'
     'apply_EfficiencyCorrection.R'

@@ -68,8 +68,6 @@
 #' Hall, C., 2012: readSPE.m.
 #' \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
 #'
-#' @aliases readSPE2R
-#'
 #' @keywords IO
 #'
 #' @examples

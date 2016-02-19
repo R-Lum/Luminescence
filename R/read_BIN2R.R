@@ -64,7 +64,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.2
+#' @section Function version: 0.12.3
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -79,7 +79,6 @@
 #' @references Duller, G., 2007. Analyst.
 #' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}
 #'
-#' @aliases readBIN2R
 #'
 #' @keywords IO
 #'
@@ -202,6 +201,7 @@ read_BIN2R <- function(
   ##set ID
   temp.ID <- 0
 
+
   ##start for BIN-file check up
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
@@ -216,10 +216,10 @@ read_BIN2R <- function(
       if(temp.ID > 0){
 
         if(is.null(n.records)){
-          warning(paste0("[read_BIN2R()] BIN-file seems to be corrupt. Import limited to the first ", temp.ID-1," records."))
+          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. Import limited to the first ", temp.ID-1," records."))
 
         }else{
-          warning(paste0("[read_BIN2R()] BIN-file seems to be corrupt. 'n.records' reset to ", temp.ID-1,"."))
+          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. 'n.records' reset to ", temp.ID-1,"."))
 
         }
 
@@ -229,7 +229,7 @@ read_BIN2R <- function(
 
       }else{
         ##show error message
-        error.text <- paste("[read_BIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+        error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
         ##close connection
         close(con)
@@ -346,9 +346,13 @@ read_BIN2R <- function(
   temp.UPPERFILTER_ID <- NA
   temp.ENOISEFACTOR <- NA
   temp.SEQUENCE <- NA
+  temp.GRAIN <- NA
+  temp.GRAINNUMBER <- NA
+  temp.LIGHTPOWER <- NA
+  temp.LPOWER <- NA
 
   ##SET length of entire record
-  n.length = temp.ID
+  n.length <- n.records
   rm(temp.ID)
 
   ##initialise data.frame
@@ -434,6 +438,7 @@ read_BIN2R <- function(
 
   ) #end set data table
 
+
   #set variable for DPOINTS handling
   results.DATA<-list()
 
@@ -485,7 +490,7 @@ read_BIN2R <- function(
       close(con)
 
       ##show error message
-      error.text <- paste("[read_BIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+      error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
       stop(error.text)
 
@@ -986,16 +991,17 @@ read_BIN2R <- function(
     #SET UNIQUE ID
     temp.ID <- temp.ID+1
 
-    ##update progress bar
+     ##update progress bar
     if(txtProgressBar==TRUE){
       setTxtProgressBar(pb, seek(con,origin="current"))
     }
-    ##set for equal values with different names
-    if(exists("temp.GRAINNUMBER") == TRUE){temp.GRAIN <- temp.GRAINNUMBER}
-    if(exists("temp.GRAIN") == TRUE){temp.GRAINNUMBER <- temp.GRAIN}
 
-    if(exists("temp.LIGHTPOWER") == TRUE){temp.LPOWER <- temp.LIGHTPOWER}
-    if(exists("temp.LPOWER") == TRUE){temp.LIGHTPOWER <- temp.LPOWER}
+    ##set for equal values with different names
+    if(!is.na("temp.GRAINNUMBER")){temp.GRAIN <- temp.GRAINNUMBER}
+    if(!is.na("temp.GRAIN")){temp.GRAINNUMBER <- temp.GRAIN}
+
+    if(!is.na("temp.LIGHTPOWER")){temp.LPOWER <- temp.LIGHTPOWER}
+    if(!is.na("temp.LPOWER")){temp.LIGHTPOWER <- temp.LPOWER}
 
     temp.SEL <- if(temp.TAG == 1){TRUE}else{FALSE}
 
@@ -1090,13 +1096,12 @@ read_BIN2R <- function(
 
     }
 
-    ##remove some unwanted objects
-    rm(temp.GRAINNUMBER)
-    rm(temp.GRAIN)
+    ##reset values
+    temp.GRAINNUMBER <- NA
+    temp.GRAIN <- NA
 
 
   }#endwhile::end lopp
-
 
   ##close con
   close(con)
@@ -1145,7 +1150,6 @@ read_BIN2R <- function(
   )) == 1))
 
   if(length(duplication.check) != 0){
-
     if(duplicated.rm){
 
       ##remove records

@@ -3,7 +3,17 @@
 #' Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
 #' The function is simply passing several arguments to the function \code{\link{plot}} and the used
 #' analysis functions and runs it in a loop. Example: \code{legend.pos} for legend position,
-#' \code{legend} for legend text.
+#' \code{legend} for legend text.\cr
+#'
+#' \bold{method}\cr
+#'
+#' The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
+#' extended them accounting for changes in the counting statistics. Example: \code{c(1:3, 3:5, 5:7)}.
+#' However, here also another method is provided allowing to expand the signal integral by
+#' consectutively expaning the integral by its chosen length. Example: \code{c(1:3, 1:5, 1:7)}
+#'
+#' Note that in both cases the integral limits are overlap. The finally applied limits are part
+#' of the function output.\cr
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
 #' object containing data for analysis
@@ -19,6 +29,13 @@
 #'
 #' @param background.integral.max \code{\link{integer}} (\bold{required}):
 #' upper bound of the background integral.
+#'
+#' @param method \code{\link{character}} (with default): method applied for constructing the De(t) plot.
+#' \code{shift} (the default): the chosen signal integral is shifted the shine down curve,
+#' \code{expansion}: the chosen signal integral is expanded each time by its length
+#'
+#' @param signal_integral.seq \code{\link{numeric}} (optional): argument to provide an own
+#' signal integral sequence for constructing the De(t) plot
 #'
 #' @param analyse_function \code{\link{character}} (with default): name of the analyse function
 #' to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}
@@ -43,6 +60,22 @@
 #' See details for further information.
 #'
 #' @return A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
+#'
+#' \code{@data}:
+#' \tabular{lll}{
+#' \bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
+#' De.values \tab \code{data.frame} \tab table with De values \cr
+#' signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
+#' }
+#'
+#' \code{@info}:
+#'
+#' \tabular{lll}{
+#' \bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
+#' call \tab \code{call} \tab the original function call
+#' }
+#'
+#'
 #'
 #' @note The entire analysis is based on the used analysis functions, namely
 #' \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}. However, the integrity
@@ -78,7 +111,7 @@
 #'              signal.integral.max = 3,
 #'              background.integral.min = 900,
 #'              background.integral.max = 1000,
-#'              n.channels = 10,
+#'              n.channels = 5,
 #' )
 #' }
 #'
@@ -89,6 +122,8 @@ plot_DetPlot <- function(
   signal.integral.max,
   background.integral.min,
   background.integral.max,
+  method = "shift",
+  signal_integral.seq = NULL,
   analyse_function = "analyse_SAR.CWOSL",
   analyse_function.control = list(),
   n.channels = NULL,
@@ -100,8 +135,6 @@ plot_DetPlot <- function(
 
 
 # Integrity Tests -----------------------------------------------------------------------------
-
-
 
   ##get structure
   object.structure <- structure_RLum(object)
@@ -132,18 +165,21 @@ plot_DetPlot <- function(
 # Analyse -------------------------------------------------------------------------------------
 
   ##set integral sequence
-  signal.integral.seq <-
-    seq(signal.integral.min,
-        background.integral.min - 1,
-        by = signal.integral.max - signal.integral.min + 1)
+  if (is.null(signal_integral.seq)) {
+    signal_integral.seq <-
+      seq(signal.integral.min,
+          background.integral.min - 1,
+          by = signal.integral.max - signal.integral.min)
+  }
+
 
   if(analyse_function  == "analyse_SAR.CWOSL"){
 
     results <- merge_RLum(lapply(1:n.channels, function(x){
       analyse_SAR.CWOSL(
         object = object,
-        signal.integral.min = signal.integral.seq[x],
-        signal.integral.max = signal.integral.seq[x+1] - 1,
+        signal.integral.min = if(method == "shift"){signal_integral.seq[x]}else{signal_integral.seq[1]},
+        signal.integral.max =  signal_integral.seq[x+1],
         background.integral.min = background.integral.min,
         background.integral.max = background.integral.max,
         dose.points = analyse_function.settings$dose.points,
@@ -163,8 +199,8 @@ plot_DetPlot <- function(
     results <- merge_RLum(lapply(1:n.channels, function(x){
       analyse_pIRIRSequence(
         object = object,
-        signal.integral.min = signal.integral.seq[x],
-        signal.integral.max = signal.integral.seq[x+1] - 1,
+        signal.integral.min = if(method == "shift"){signal_integral.seq[x]}else{signal_integral.seq[1]},
+        signal.integral.max = signal_integral.seq[x+1],
         background.integral.min = background.integral.min,
         background.integral.max = background.integral.max,
         dose.points = analyse_function.settings$dose.points,
@@ -216,19 +252,19 @@ plot_DetPlot <- function(
       as(get_RLum(object, recordType = "SL")[[i]], "matrix")
 
     ##limit to what we see
-    OSL_curve <- OSL_curve[1:signal.integral.seq[n.channels],]
+    OSL_curve <- OSL_curve[1:signal_integral.seq[n.channels + 1],]
 
     m <-
-      ((min(df$De) - max(df$De.Error)) - (max(df$De) + max(df$De.Error))) / (min(OSL_curve[, 2]) - max(OSL_curve[, 2]))
-    n <- (max(df$De) + max(df$De.Error)) - m * max(OSL_curve[, 2])
+      ((min(df$De, na.rm = TRUE) - max(df$De.Error, na.rm = TRUE)) - (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))) / (min(OSL_curve[, 2], na.rm = TRUE) - max(OSL_curve[, 2], na.rm = TRUE))
+    n <- (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE)) - m * max(OSL_curve[, 2])
 
     OSL_curve[, 2] <- m * OSL_curve[, 2] + n
     rm(n, m)
 
     ##set plot settings
     plot.settings <- list(
-      ylim = c((min(df$De) - max(df$De.Error)),
-               (max(df$De) + max(df$De.Error))),
+      ylim = c((min(df$De, na.rm = TRUE) - max(df$De.Error, na.rm = TRUE)),
+               (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))),
       xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
       ylab = expression(paste(D[e] / s, " and ", L[n]/(a.u.))),
       xlab = "Stimulation time/s",
@@ -261,7 +297,7 @@ plot_DetPlot <- function(
 
     ##set x-axis
     df_x <-
-      seq(OSL_curve[2, 1], max(OSL_curve[, 1]), length.out = nrow(df))
+      OSL_curve[seq(signal.integral.max, signal_integral.seq[n.channels+1], length.out = nrow(df)),1]
 
     #combine everything to allow excluding unwanted values
     df_final <- cbind(df, df_x)
@@ -303,8 +339,9 @@ plot_DetPlot <- function(
     class = "RLum.Results",
     data = list(
       De.values = as.data.frame(data.table::rbindlist(df_final)),
-      call = sys.call
-    )
+      signal_integral.seq = signal_integral.seq
+      ),
+    info = list(call = sys.call())
   ))
 
 }
