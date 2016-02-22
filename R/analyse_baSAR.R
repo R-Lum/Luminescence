@@ -87,7 +87,7 @@ analyse_baSAR <- function(
             model {
             central_D ~  dunif(low_De,up_De)
 
-            precision_D ~ dt (0, 0.16 * central_D, 1) T(0, )    #    Alternative plus directe proposée par Philippe L.
+            precision_D ~ dt (0, 0.16 * central_D, 1) T(0, )    #    Alternative plus directe proposee par Philippe L.
             sigma_D <-  1/sqrt(precision_D)
 
             for (i in 1:Nb_aliquots) {
@@ -322,7 +322,7 @@ analyse_baSAR <- function(
       for (g in 1:100) {
         Disc_Grain.list[[k]][[d]][[g]] <- list()  # data.file number ,  disc_number, grain_number
         for (z in 1:5) {
-          Disc_Grain.list[[k]][[d]][[g]][[z]] <- list()  # 1 = index numbers, 2 = irradiation doses,  3 = LxTx , 4 = sLxTx,  5 = N° d'aliquot
+          Disc_Grain.list[[k]][[d]][[g]][[z]] <- list()  # 1 = index numbers, 2 = irradiation doses,  3 = LxTx , 4 = sLxTx,  5 = N d'aliquot
         }
       }
     }
@@ -350,7 +350,7 @@ analyse_baSAR <- function(
     ### META_DATA
     length_BIN <-  length(fileBIN.list[[k]])
     n_index.vector <- fileBIN.list[[k]]@METADATA[[1]][1:length_BIN]             #  curves indexes vector
-    logical_selection.vector <- fileBIN.list[[k]]@METADATA[[2]][1:length_BIN]   # TRUE / FALSE vector                                              #   sélection à revoir
+    logical_selection.vector <- fileBIN.list[[k]]@METADATA[[2]][1:length_BIN]   # TRUE / FALSE vector                                              #   selection a revoir
 
     nb_points.vector  <- fileBIN.list[[k]]@METADATA[[6]][1:length_BIN]          # recorded points vector
     measured_discs.vector <-  fileBIN.list[[k]]@METADATA[[9]][1:length_BIN]     # measured discs vector
