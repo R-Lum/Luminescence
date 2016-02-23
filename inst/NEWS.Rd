@@ -174,7 +174,8 @@
 
         \item If the input data contain a least one infinite value the function will not crash
         any longer, but return \code{NULL} (#263, Norbert Mercier),
-        \item check for insufficient values in the data set and return \code{NULL} (before the function crashed).
+        \item check for insufficient values in the data set and return \code{NULL} (before the function crashed),
+        \item data frame also exports now error of the D0-values based on the MC runs for the De error.
 
       }
 

@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.4
+#' @section Function version: 1.8.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -370,7 +370,10 @@ plot_GrowthCurve <- function(
   g <- max(data[,2]/max(data[,1]))
 
   #set D01 and D02 (in case of EXp+EXP)
-  D01 <- NA; D02 <- NA
+  D01 <- NA
+  D01.ERROR <- NA
+  D02 <- NA
+  D02.ERROR <- NA
 
   ##--------------------------------------------------------------------------##
   ##to be a little bit more flexible the start parameters varries within a normal distribution
@@ -655,11 +658,11 @@ plot_GrowthCurve <- function(
 
             #get parameters out
             parameters<-coef(fit.MC)
-            var.b[i]<-as.vector((parameters["b"]))
+            var.b[i]<-as.vector((parameters["b"])) #D0
             var.a[i]<-as.vector((parameters["a"])) #Imax
             var.c[i]<-as.vector((parameters["c"]))
 
-            #calculate x.natural for error calculatio
+            #calculate x.natural for error calculation
             x.natural[i]<-suppressWarnings(
               round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2))
 
@@ -667,6 +670,13 @@ plot_GrowthCurve <- function(
 
         }#end for loop
       }#endif::try-error fit
+
+      ##write D01.ERROR
+      D01.ERROR <- sd(var.b, na.rm = TRUE)
+
+      ##remove values
+      rm(var.b, var.a, var.c)
+
     }#endif:fit.method!="LIN"
     #========================================================================
     #LIN#
@@ -955,6 +965,9 @@ plot_GrowthCurve <- function(
 
     } #end if "try-error" Fit Method
 
+    ##remove objects
+    rm(var.b, var.a, var.c, var.g)
+
   } #End if EXP+LIN
   #==========================================================================
   #===========================================================================
@@ -1156,6 +1169,14 @@ plot_GrowthCurve <- function(
 
     ##close
     if(txtProgressBar) if(exists("pb")){close(pb)}
+
+    ##write D01.ERROR
+    D01.ERROR <- sd(var.b1, na.rm = TRUE)
+    D02.ERROR <- sd(var.b2, na.rm = TRUE)
+
+    ##remove values
+    rm(var.b1, var.b2, var.a1, var.a2)
+
     #===========================================================================
   } #End if Fit Method
 
@@ -1172,6 +1193,8 @@ plot_GrowthCurve <- function(
   De.Error <- ifelse(De.Error <= 0.01,
                      format(De.Error, scientific = TRUE, digits = 2),
                      round(De.Error, digits = 2))
+
+
 
 
   # Formula creation --------------------------------------------------------
@@ -1503,7 +1526,9 @@ plot_GrowthCurve <- function(
     De = De,
     De.Error = De.Error,
     D01 = D01,
+    D01.ERROR = D01.ERROR,
     D02 = D02,
+    D02.ERROR = D02.ERROR,
     De.MC = De.MonteCarlo,
     Fit = fit.method
   ),
@@ -1524,3 +1549,4 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
+

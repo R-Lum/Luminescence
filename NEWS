@@ -185,7 +185,10 @@ Changes in version 0.6.0 (,2016):
                (#263, Norbert Mercier),
 
              • check for insufficient values in the data set and return
-               ‘NULL’ (before the function crashed).
+               ‘NULL’ (before the function crashed),
+
+             • data frame also exports now error of the D0-values based
+               on the MC runs for the De error.
 
          • ‘plot_Histogram()’
 
