@@ -9,8 +9,9 @@ plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour",
   bin.cols = 1, rug = TRUE, xaxis.energy = FALSE, legend.text, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
-object of class \code{RLum.Data.Spectrum}}
+\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
+object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
+Please note that in case of a matrix rownames and colnames are set automatically if not provided.}
 
 \item{par.local}{\code{\link{logical}} (with default): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
@@ -148,7 +149,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.4.2 (2015-11-29 17:27:48)
+ 0.4.3 (2016-02-23 10:09:15)
 }
 \examples{
 

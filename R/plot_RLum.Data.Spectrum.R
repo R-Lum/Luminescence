@@ -81,8 +81,10 @@
 #' \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type}, \code{col},
 #' \code{border}, \code{box} \code{lwd}, \code{bty} \cr
 #'
-#' @param object \code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
-#' object of class \code{RLum.Data.Spectrum}
+#' @param object \code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
+#' object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
+#' Please note that in case of a matrix rownames and colnames are set automatically if not provided.
+#'
 #' @param par.local \code{\link{logical}} (with default): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If \code{par.local = FALSE} global parameters are inherited.
@@ -132,7 +134,7 @@
 #'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -204,7 +206,29 @@ plot_RLum.Data.Spectrum <- function(
   ##check if object is of class RLum.Data.Spectrum
   if(class(object) != "RLum.Data.Spectrum"){
 
-    stop("[plot_RLum.Data.Spectrum()] Input object is not of type RLum.Data.Spectrum")
+    if(class(object) == "matrix"){
+
+      if(is.null(colnames(object))){
+        colnames(object) <- 1:ncol(object)
+
+      }
+
+      if(is.null(rownames(object))){
+        rownames(object) <- 1:nrow(object)
+
+      }
+
+
+      object <- set_RLum(class = "RLum.Data.Spectrum",
+                         data = object)
+
+      message("[plot_RLum.Data.Spectrum()] Input has been converted to a RLum.Data.Spectrum object using set_RLum()")
+
+
+    }else{
+      stop("[plot_RLum.Data.Spectrum()] Input object neither of class 'RLum.Data.Spectrum' nor 'matrix'")
+
+    }
 
   }
 
