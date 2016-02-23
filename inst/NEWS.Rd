@@ -206,6 +206,12 @@
 
       }
 
+            \item \code{plot_RLum.Data.Spectrum()}
+      \itemize{
+        \item Added \code{matrix} as allowed input.
+
+      }
+
 
     \item \code{read_BIN2R()}
       \itemize{

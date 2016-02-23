@@ -212,6 +212,10 @@ Changes in version 0.6.0 (,2016):
                if ‘xlab’ or ‘ylab’ exist as objects on the global
                environment (#265).
 
+         • ‘plot_RLum.Data.Spectrum()’
+
+             • Added ‘matrix’ as allowed input.
+
          • ‘read_BIN2R()’
 
              • Handling of corrupt BIN-files improved, the functions
