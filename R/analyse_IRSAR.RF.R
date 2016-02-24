@@ -223,7 +223,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.6.0
+#' @section Function version: 0.6.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -329,7 +329,14 @@ analyse_IRSAR.RF<- function(
     method.control <- rep(list(method.control), length = length(object))
 
     ##test_parameter
-    test_parameter <- rep(list(test_parameter), length = length(object))
+    if(is(test_parameter[[1]], "list")){
+      test_parameter <- rep(test_parameter, length = length(object))
+
+    }else{
+     test_parameter <- rep(list(test_parameter), length = length(object))
+
+    }
+
 
     ##n.MC
     n.MC <- rep(list(n.MC), length = length(object))
