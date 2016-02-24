@@ -140,6 +140,12 @@ Changes in version 0.6.0 (,2016):
 
              • add support for testdose error as rejection criteria,
 
+             • recuperation rate was not show properely in the
+               Rejection criteria plot,
+
+             • instead of showing failed, the polygons are now plotted
+               red in the rejection criteria plot,
+
              • minor graphical adjustments.
 
          • ‘apply_CosmicRayRemoval()’

@@ -131,7 +131,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.2
+#' @section Function version: 0.7.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -862,6 +862,7 @@ if(is.list(object)){
             "OK"
           }
         })
+
     }else{
       temp.status.RecyclingRatio <- "OK"
 
@@ -882,6 +883,32 @@ if(is.list(object)){
 
     }
 
+    # Provide Rejection Criteria for Testdose error --------------------------
+    testdose.error.calculated <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
+
+    testdose.error.threshold <-
+      rejection.criteria$testdose.error / 100
+
+    if (is.na(testdose.error.calculated)) {
+      testdose.error.status <- "FAILED"
+
+    }else{
+      testdose.error.status <- ifelse(
+        testdose.error.calculated <= testdose.error.threshold,
+        "OK", "FAILED"
+      )
+
+    }
+
+    testdose.error.data.frame <- data.frame(
+      Criteria = "Testdose error",
+      Value = testdose.error.calculated,
+      Threshold = testdose.error.threshold,
+      Status =  testdose.error.status,
+      stringsAsFactors = FALSE
+    )
+
+
     RejectionCriteria <- data.frame(
       Criteria = temp.criteria,
       Value = temp.value,
@@ -889,6 +916,8 @@ if(is.list(object)){
       Status = c(temp.status.RecyclingRatio,temp.status.Recuperation),
       stringsAsFactors = FALSE
     )
+
+    RejectionCriteria <- rbind(RejectionCriteria, testdose.error.data.frame)
 
     ##============================================================================##
     ##PLOTTING
@@ -1278,13 +1307,6 @@ if(is.list(object)){
         ##add line
         abline(h = 10,lwd = 0.5)
 
-        ##set failed text and mark De as failed
-        if (length(grep("FAILED", RejectionCriteria$status)) > 0) {
-          mtext("[FAILED]", col = "red")
-
-
-        }
-
         #reset margin
         par(mar = par.margin, mai = par.mai)
 
@@ -1355,33 +1377,6 @@ if(is.list(object)){
       stringsAsFactors = FALSE
     )
 
-    # Provide Rejection Criteria for Testdose error --------------------------
-    testdose.error.calculated <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
-
-    testdose.error.threshold <-
-      rejection.criteria$testdose.error / 100
-
-    if (is.na(testdose.error.calculated)) {
-      testdose.error.status <- "FAILED"
-
-    }else{
-      testdose.error.status <- ifelse(
-        testdose.error.calculated <= testdose.error.threshold,
-        "OK", "FAILED"
-      )
-
-    }
-
-    testdose.error.data.frame <- data.frame(
-      Criteria = "Testdose error",
-      Value = testdose.error.calculated,
-      Threshold = testdose.error.threshold,
-      Status =  testdose.error.status,
-      stringsAsFactors = FALSE
-    )
-
-
-
 
     ##add exceed.max.regpoint
     if (!is.na(temp.GC[,1])) {
@@ -1404,7 +1399,6 @@ if(is.list(object)){
     ##add to RejectionCriteria data.frame
     RejectionCriteria <- rbind(RejectionCriteria,
                                palaeodose.error.data.frame,
-                               testdose.error.data.frame,
                                exceed.max.regpoint.data.frame)
 
 
@@ -1501,9 +1495,17 @@ if(is.list(object)){
           as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
           as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1]
         ),
-        y = c(31,39,39,31), col = "gray", border = NA
+        y = c(31,39,39,31),
+        col = "gray",
+        border = NA
       )
-      polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(31,39,39,31))
+      polygon(
+        x = c(-0.3, -0.3, 0.3, 0.3) ,
+        y = c(31, 39, 39, 31),
+        border = ifelse(any(
+          grepl(pattern = "FAILED", temp.rc.reycling.ratio$Status)
+        ), "red", "black")
+      )
 
 
       ##consider possibility of multiple pIRIR signals and multiple recycling ratios
@@ -1541,17 +1543,25 @@ if(is.list(object)){
               temp.rc.recuperation.rate$Threshold
             ))[1]
           ),
-          y = c(21,29,29,21), col = "gray", border = NA
+          y = c(21,29,29,21),
+          col = "gray",
+          border = NA
         )
 
-        polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(21,29,29,21))
+        polygon(
+          x = c(-0.3, -0.3, 0.3, 0.3) ,
+          y = c(21, 29, 29, 21),
+          border = ifelse(any(
+            grepl(pattern = "FAILED", temp.rc.recuperation.rate$Status)
+          ), "red", "black")
+        )
         polygon(
           x = c(-0.3,-0.3,0,0) , y = c(21,29,29,21), border = NA, density = 10, angle = 45
         )
 
         for (i in 1:nrow(temp.rc.recuperation.rate)) {
           points(
-            temp.rc.palaedose.error[i, "Value"],
+            temp.rc.recuperation.rate[i, "Value"],
             y = 25,
             pch = i,
             col = i,
@@ -1566,6 +1576,7 @@ if(is.list(object)){
       text(
         x = -0.35, y = 15, "Testdose Err.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
       )
+
       polygon(
         x = c(
           0,
@@ -1573,9 +1584,17 @@ if(is.list(object)){
           as.numeric(as.character(temp.rc.testdose.error$Threshold))[1],
           as.numeric(as.character(temp.rc.testdose.error$Threshold))[1]
         ),
-        y = c(11,19,19,11), col = "gray", border = NA
+        y = c(11,19,19,11),
+        col = "gray",
+        border = NA
       )
-      polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(11,19,19,11))
+      polygon(
+        x = c(-0.3, -0.3, 0.3, 0.3) ,
+        y = c(11, 19, 19, 11),
+        border = ifelse(any(
+          grepl(pattern = "FAILED", temp.rc.testdose.error$Status)
+        ), "red", "black")
+      )
       polygon(
         x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45
       )
@@ -1603,9 +1622,17 @@ if(is.list(object)){
           as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1],
           as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1]
         ),
-        y = c(1,9,9,1), col = "gray", border = NA
+        y = c(1,9,9,1),
+        col = "gray",
+        border = NA
       )
-      polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(1,9,9,1))
+      polygon(
+        x = c(-0.3, -0.3, 0.3, 0.3) ,
+        y = c(1, 9, 9, 1),
+        border = ifelse(any(
+          grepl(pattern = "FAILED", temp.rc.palaedose.error$Status)
+        ), "red", "black")
+      )
       polygon(
         x = c(-0.3,-0.3,0,0) , y = c(1,9,9,1), border = NA, density = 10, angle = 45
       )

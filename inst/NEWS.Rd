@@ -120,6 +120,8 @@
         error criterion was returned as 'OK' even though it was not (Thanks to Annette Kadereit)
         function could crash (fixed),
         \item add support for testdose error as rejection criteria,
+        \item recuperation rate was not show properely in the Rejection criteria plot,
+        \item instead of showing failed, the polygons are now plotted red in the rejection criteria plot,
         \item minor graphical adjustments.
 
 
