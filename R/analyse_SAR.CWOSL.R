@@ -131,7 +131,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.3
+#' @section Function version: 0.7.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -191,7 +191,7 @@ analyse_SAR.CWOSL<- function(
   signal.integral.max,
   background.integral.min,
   background.integral.max,
-  rejection.criteria,
+  rejection.criteria = NULL,
   dose.points = NULL,
   mtext.outer,
   plot = TRUE,
@@ -220,7 +220,11 @@ if(is.list(object)){
   background.integral.max <- rep(list(background.integral.max), length = length(object))
 
 
-  if(!missing(rejection.criteria)){
+  ##it is a little bit more complex, as we have a list in a list
+  if(is(rejection.criteria[[1]], "list")){
+    rejection.criteria <- rep(rejection.criteria, length = length(object))
+
+  }else{
     rejection.criteria <- rep(list(rejection.criteria), length = length(object))
 
   }
@@ -260,6 +264,7 @@ if(is.list(object)){
                       dose.points = dose.points[[x]],
                       mtext.outer = mtext.outer[[x]],
                       plot = plot,
+                      rejection.criteria = rejection.criteria[[x]],
                       plot.single = plot.single,
                       main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
                       ...)
@@ -389,73 +394,25 @@ if(is.list(object)){
 
 # Rejection criteria ------------------------------------------------------
 
-  #Set rejection criteria
-  if(missing(rejection.criteria)){
-
-    rejection.criteria <- list(
+    ##set list
+    rejection.criteria.default <- list(
       recycling.ratio = 10,
       recuperation.rate = 10,
       palaeodose.error = 10,
       testdose.error = 10,
       exceed.max.regpoint = FALSE
+
     )
 
-  }else{
+    ##modify list on the request
+    if(!is.null(rejection.criteria)){
+      rejection.criteria <- modifyList(rejection.criteria.default, rejection.criteria)
 
-    ##recycling ratio
-    temp.recycling.ratio <- if("recycling.ratio" %in% names(rejection.criteria)) {
+    }else{
+      rejection.criteria <- rejection.criteria.default
 
-      rejection.criteria$recycling.ratio
+    }
 
-    } else {10}
-
-    ##recuperation rate
-    temp.recuperation.rate <- if("recuperation.rate" %in% names(rejection.criteria)) {
-
-      rejection.criteria$recuperation.rate
-
-    } else {10}
-
-    ##paleaodose error
-    temp.palaeodose.error <- if("palaeodose.error" %in% names(rejection.criteria)) {
-
-      rejection.criteria$palaeodose.error
-
-    } else {10}
-
-    ##testdose error
-    temp.testdose.error <- if("testdose.error" %in% names(rejection.criteria)) {
-
-      rejection.criteria$testdose.error
-
-    } else {10}
-
-    ##exceed.max.regpoint
-    temp.exceed.max.regpoint <- if("exceed.max.regpoint" %in% names(rejection.criteria)) {
-
-      rejection.criteria$exceed.max.regpoint
-
-    } else {FALSE}
-
-
-
-    ##combine
-    rejection.criteria <- list(
-      recycling.ratio = temp.recycling.ratio,
-      recuperation.rate = temp.recuperation.rate,
-      palaeodose.error = temp.palaeodose.error,
-      testdose.error = temp.testdose.error,
-      exceed.max.regpoint = temp.exceed.max.regpoint)
-
-    ##remove objects
-    rm(
-      temp.recycling.ratio,
-      temp.recuperation.rate,
-      temp.palaeodose.error,
-      temp.testdose.error
-    )
-
-  }
 
 # Deal with extra arguments ----------------------------------------------------
 

@@ -120,8 +120,10 @@
         error criterion was returned as 'OK' even though it was not (Thanks to Annette Kadereit)
         function could crash (fixed),
         \item add support for testdose error as rejection criteria,
-        \item recuperation rate was not show properely in the Rejection criteria plot,
-        \item instead of showing failed, the polygons are now plotted red in the rejection criteria plot,
+        \item recuperation rate was not shown properely in the rejection criteria plot,
+        \item instead of showing failed, the polygon borders are now plotted in red in the rejection criteria plot,
+        \item if a list of RLum-objects was provided the rejection criteria could not be change any more
+        fixed (thanks to Andrea Junge),
         \item minor graphical adjustments.
 
 

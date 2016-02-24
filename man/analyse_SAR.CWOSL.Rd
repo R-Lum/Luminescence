@@ -5,7 +5,7 @@
 \title{Analyse SAR CW-OSL measurements}
 \usage{
 analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max, rejection.criteria,
+  background.integral.min, background.integral.max, rejection.criteria = NULL,
   dose.points = NULL, mtext.outer, plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
@@ -143,7 +143,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.3 (2016-02-24 18:28:47)
+ 0.7.4 (2016-02-24 19:11:11)
 }
 \examples{
 
