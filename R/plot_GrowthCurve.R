@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.5
+#' @section Function version: 1.8.6
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -669,13 +669,15 @@ plot_GrowthCurve <- function(
           }
 
         }#end for loop
+
+
+        ##write D01.ERROR
+        D01.ERROR <- sd(var.b, na.rm = TRUE)
+
+        ##remove values
+        rm(var.b, var.a, var.c)
+
       }#endif::try-error fit
-
-      ##write D01.ERROR
-      D01.ERROR <- sd(var.b, na.rm = TRUE)
-
-      ##remove values
-      rm(var.b, var.a, var.c)
 
     }#endif:fit.method!="LIN"
     #========================================================================
@@ -958,15 +960,16 @@ plot_GrowthCurve <- function(
       ##close
       if(txtProgressBar) close(pb)
 
+      ##remove objects
+      rm(var.b, var.a, var.c, var.g)
+
     }else{
 
       #print message
       if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
 
-    } #end if "try-error" Fit Method
 
-    ##remove objects
-    rm(var.b, var.a, var.c, var.g)
+    } #end if "try-error" Fit Method
 
   } #End if EXP+LIN
   #==========================================================================
@@ -1159,6 +1162,13 @@ plot_GrowthCurve <- function(
 
       } #end for loop
 
+      ##write D01.ERROR
+      D01.ERROR <- sd(var.b1, na.rm = TRUE)
+      D02.ERROR <- sd(var.b2, na.rm = TRUE)
+
+      ##remove values
+      rm(var.b1, var.b2, var.a1, var.a2)
+
     }else{
 
       #print message
@@ -1170,12 +1180,6 @@ plot_GrowthCurve <- function(
     ##close
     if(txtProgressBar) if(exists("pb")){close(pb)}
 
-    ##write D01.ERROR
-    D01.ERROR <- sd(var.b1, na.rm = TRUE)
-    D02.ERROR <- sd(var.b2, na.rm = TRUE)
-
-    ##remove values
-    rm(var.b1, var.b2, var.a1, var.a2)
 
     #===========================================================================
   } #End if Fit Method

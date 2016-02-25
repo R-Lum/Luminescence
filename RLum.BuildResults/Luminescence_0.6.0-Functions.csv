@@ -5,7 +5,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.0","2016-01-18","15:07:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.7.5","2016-02-25","12:18:55
+"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.7.5","2016-02-25","12:23:51
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "Analyse_SAR.OSLdata","Analyse SAR CW-OSL measurements.","<br /> The function analyses SAR CW-OSL curve data and provides a summary of the<br /> measured data for every position. The output of the function is optimised<br /> for SAR OSL measurements on quartz.<br />","0.2.17","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, HZDR, Freiberg (Germany)<br />  R Luminescence Package Team"
@@ -105,7 +105,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "plot_DRTResults","Visualise dose recovery test results","<br /> The function provides a standardised plot output for dose recovery test<br /> measurements.<br />","0.1.8","2016-02-19","16:35:35
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_GrowthCurve","Fit and plot a growth curve for luminescence data (Lx/Tx against dose)","<br /> A dose response curve is produced for luminescence measurements using a<br /> regenerative protocol.<br />","1.8.5","2016-02-24","18:33:54
+"plot_GrowthCurve","Fit and plot a growth curve for luminescence data (Lx/Tx against dose)","<br /> A dose response curve is produced for luminescence measurements using a<br /> regenerative protocol.<br />","1.8.6","2016-02-25","13:43:02
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),   Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "plot_Histogram","Plot a histogram with separate error plot","<br /> Function plots a predefined histogram with an accompanying error plot as<br /> suggested by Rex Galbraith at the UK LED in Oxford 2010.<br />","0.4.4","2016-02-05","05:21:29
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),   Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
