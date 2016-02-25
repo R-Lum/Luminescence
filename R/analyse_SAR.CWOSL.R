@@ -81,10 +81,12 @@
 #' and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
 #' a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 #'
-#' Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
-#' \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
+#' Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
+#' \code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
 #' Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
-#' Per default all numericla values are set to 10.
+#' Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
+#' Every criterium can be set to \code{NA}. In this value are calculated, but not considered, i.e.
+#' the RC.Status becomes always \code{'OK'}
 #'
 #' @param dose.points \code{\link{numeric}} (optional): a numeric vector
 #' containg the dose points values Using this argument overwrites dose point
@@ -131,7 +133,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.4
+#' @section Function version: 0.7.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -169,14 +171,22 @@
 #' ##transform the values from the first position in a RLum.Analysis object
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 #'
-#' ##perform SAR analysis
-#' results <- analyse_SAR.CWOSL(object,
-#'                   signal.integral.min = 1,
-#'                   signal.integral.max = 2,
-#'                   background.integral.min = 900,
-#'                   background.integral.max = 1000,
-#'                   log = "x",
-#'                   fit.method = "EXP")
+#' ##perform SAR analysis and set rejection criteria
+#' results <- analyse_SAR.CWOSL(
+#' object = object,
+#' signal.integral.min = 1,
+#' signal.integral.max = 2,
+#' background.integral.min = 900,
+#' background.integral.max = 1000,
+#' log = "x",
+#' fit.method = "EXP",
+#' rejection.criteria = list(
+#'   recycling.ratio = 10,
+#'   recuperation.rate = 10,
+#'   testdose.error = 10,
+#'   palaeodose.error = 10,
+#'   exceed.max.regpoint = TRUE)
+#')
 #'
 #' ##show De results
 #' get_RLum(results)
@@ -400,7 +410,7 @@ if(is.list(object)){
       recuperation.rate = 10,
       palaeodose.error = 10,
       testdose.error = 10,
-      exceed.max.regpoint = FALSE
+      exceed.max.regpoint = TRUE
 
     )
 
@@ -580,7 +590,7 @@ if(is.list(object)){
 
     ##get index of TL curves
     TL.Curves.ID <-
-      suppressWarnings(get_RLum(object, recordType = "TL", get.index = TRUE))
+      suppressWarnings(get_RLum(object, recordType = "TL$", get.index = TRUE))
 
     ##separate TL curves
     TL.Curves.ID.Lx <-
@@ -805,12 +815,12 @@ if(is.list(object)){
         rejection.criteria$recycling.ratio / 100, length(RecyclingRatio)
       ),
       rep(
-        paste("", rejection.criteria$recuperation.rate / 100),
+        rejection.criteria$recuperation.rate / 100,
         length(Recuperation)
       ))
 
     ##RecyclingRatio
-    if (is.na(RecyclingRatio)[1] == FALSE) {
+    if (!is.na(RecyclingRatio)[1] & !is.na(rejection.criteria$recycling.ratio)) {
       temp.status.RecyclingRatio <-
         sapply(1:length(RecyclingRatio), function(x) {
           if (abs(1 - RecyclingRatio[x]) > (rejection.criteria$recycling.ratio / 100)) {
@@ -826,16 +836,20 @@ if(is.list(object)){
     }
 
     ##Recuperation
-    if (is.na(Recuperation)[1] == FALSE) {
+    if (!is.na(Recuperation)[1] & !is.na(rejection.criteria$recuperation.rate)) {
       temp.status.Recuperation  <-
         sapply(1:length(Recuperation), function(x) {
-          ifelse(Recuperation[x] > rejection.criteria$recuperation.rate,
-                 "FAILED", "OK")
+          if(Recuperation[x] > rejection.criteria$recuperation.rate){
+            "FAILED"
 
+          }else{
+            "OK"
+
+          }
 
         })
 
-    }else{
+    } else{
       temp.status.Recuperation <- "OK"
 
     }
@@ -850,10 +864,16 @@ if(is.list(object)){
       testdose.error.status <- "FAILED"
 
     }else{
-      testdose.error.status <- ifelse(
-        testdose.error.calculated <= testdose.error.threshold,
-        "OK", "FAILED"
-      )
+      if(!is.na(testdose.error.threshold)){
+        testdose.error.status <- ifelse(
+          testdose.error.calculated <= testdose.error.threshold,
+          "OK", "FAILED"
+        )
+
+      }else{
+        testdose.error.status <- "OK"
+
+      }
 
     }
 
@@ -1319,10 +1339,18 @@ if(is.list(object)){
       palaeodose.error.status <- "FAILED"
 
     }else{
-      palaeodose.error.status <- ifelse(
-        palaeodose.error.calculated <= palaeodose.error.threshold,
-        "OK", "FAILED"
-      )
+      if(!is.na(palaeodose.error.threshold)){
+        palaeodose.error.status <- ifelse(
+          palaeodose.error.calculated <= palaeodose.error.threshold,
+          "OK", "FAILED"
+        )
+
+
+      }else{
+        palaeodose.error.status <- "OK"
+
+
+      }
 
     }
 
@@ -1336,7 +1364,7 @@ if(is.list(object)){
 
 
     ##add exceed.max.regpoint
-    if (!is.na(temp.GC[,1])) {
+    if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
       status.exceed.max.regpoint <-
         ifelse(max(LnLxTnTx$Dose) < temp.GC[,1], "FAILED", "OK")
 
@@ -1348,7 +1376,13 @@ if(is.list(object)){
     exceed.max.regpoint.data.frame <- data.frame(
       Criteria = "De > max. dose point",
       Value = as.numeric(temp.GC[,1]),
-      Threshold = as.numeric(max(LnLxTnTx$Dose)),
+      Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
+          NA
+        }else if(!rejection.criteria$exceed.max.regpoint){
+          Inf
+        }else{
+          as.numeric(max(LnLxTnTx$Dose))
+        },
       Status =  status.exceed.max.regpoint
     )
 

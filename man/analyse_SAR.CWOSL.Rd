@@ -37,10 +37,12 @@ as the maximum background integral for the Tx curve.}
 and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
 a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 
-Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
-\code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
+Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
+\code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
-Per default all numericla values are set to 10.}
+Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
+Every criterium can be set to \code{NA}. In this value are calculated, but not considered, i.e.
+the RC.Status becomes always \code{'OK'}}
 
 \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector
 containg the dose points values Using this argument overwrites dose point
@@ -143,7 +145,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.4 (2016-02-24 19:11:11)
+ 0.7.5 (2016-02-25 12:18:55)
 }
 \examples{
 
@@ -155,14 +157,22 @@ data(ExampleData.BINfileData, envir = environment())
 ##transform the values from the first position in a RLum.Analysis object
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
-##perform SAR analysis
-results <- analyse_SAR.CWOSL(object,
-                  signal.integral.min = 1,
-                  signal.integral.max = 2,
-                  background.integral.min = 900,
-                  background.integral.max = 1000,
-                  log = "x",
-                  fit.method = "EXP")
+##perform SAR analysis and set rejection criteria
+results <- analyse_SAR.CWOSL(
+object = object,
+signal.integral.min = 1,
+signal.integral.max = 2,
+background.integral.min = 900,
+background.integral.max = 1000,
+log = "x",
+fit.method = "EXP",
+rejection.criteria = list(
+  recycling.ratio = 10,
+  recuperation.rate = 10,
+  testdose.error = 10,
+  palaeodose.error = 10,
+  exceed.max.regpoint = TRUE)
+)
 
 ##show De results
 get_RLum(results)

@@ -150,6 +150,11 @@ Changes in version 0.6.0 (,2016):
                criteria could not be change any more fixed (thanks to
                Andrea Junge),
 
+             • every rejection criterium now allows the input value
+               ‘NA’, in this case values are calculated, but not
+               considered as rejection criterium, i.e. the RC.Status
+               will be always ‘'OK'’,
+
              • minor graphical adjustments.
 
          • ‘apply_CosmicRayRemoval()’

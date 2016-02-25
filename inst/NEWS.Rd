@@ -124,6 +124,8 @@
         \item instead of showing failed, the polygon borders are now plotted in red in the rejection criteria plot,
         \item if a list of RLum-objects was provided the rejection criteria could not be change any more
         fixed (thanks to Andrea Junge),
+        \item every rejection criterium now allows the input value \code{NA}, in this case values are calculated,
+        but not considered as rejection criterium, i.e. the RC.Status will be always \code{'OK'},
         \item minor graphical adjustments.
 
 
