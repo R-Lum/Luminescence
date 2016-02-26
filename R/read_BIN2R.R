@@ -270,6 +270,15 @@ read_BIN2R <- function(
   ##close con
   close(con)
 
+  ##set n.records
+  if(is.null(n.records)){
+    n.records <- temp.ID
+
+  }
+  rm(temp.ID)
+
+
+
 # Set Lookup tables  --------------------------------------------------------------------------
 
   ##LTYPE
@@ -353,7 +362,6 @@ read_BIN2R <- function(
 
   ##SET length of entire record
   n.length <- n.records
-  rm(temp.ID)
 
   ##initialise data.frame
   results.METADATA <- data.table(
@@ -1107,7 +1115,7 @@ read_BIN2R <- function(
   close(con)
 
   ##close
-  if(txtProgressBar==TRUE){close(pb)}
+  if(txtProgressBar){close(pb)}
 
   ##output
   cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))
@@ -1140,32 +1148,46 @@ read_BIN2R <- function(
 
   }
 
-  ##check for duplicated entries and remove them if wanted
-  duplication.check <- suppressWarnings(which(c(0, vapply(
-    2:length(results.DATA),
-    FUN = function(x) {
-      all(results.DATA[[x - 1]] == results.DATA[[x]])
-    },
-    FUN.VALUE = 1
-  )) == 1))
+  ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
+  if (n.records > 1) {
+    duplication.check <- suppressWarnings(which(c(
+      0, vapply(
+        2:length(results.DATA),
+        FUN = function(x) {
+          all(results.DATA[[x - 1]] == results.DATA[[x]])
+        },
+        FUN.VALUE = 1
+      )
+    ) == 1))
 
-  if(length(duplication.check) != 0){
-    if(duplicated.rm){
+    if (length(duplication.check) != 0) {
+      if (duplicated.rm) {
+        ##remove records
+        results.METADATA <- results.METADATA[-duplication.check, ]
+        results.DATA[duplication.check] <- NULL
 
-      ##remove records
-      results.METADATA <- results.METADATA[-duplication.check,]
-      results.DATA[duplication.check] <- NULL
+        ##recalculate record index
+        results.METADATA$ID <- 1:nrow(results.METADATA)
 
-      ##recalculate record index
-      results.METADATA$ID <- 1:nrow(results.METADATA)
+        ##message
+        message(
+          paste0(
+            "[read_BIN2R()] duplicated record(s) detected and removed: ",
+            paste(duplication.check, collapse = ", "),
+            ". Record index re-calculated."
+          )
+        )
 
-      ##message
-      message(paste0("[read_BIN2R()] duplicated record(s) detected and removed: ", paste(duplication.check, collapse = ", "), ". Record index re-calculated."))
+      } else{
+        warning(
+          paste0(
+            "[read_BIN2R()] duplicated record(s) detected: ",
+            paste(duplication.check, collapse = ", "),
+            ". >> You should consider 'duplicated.rm = TRUE'."
+          )
+        )
 
-    }else{
-
-      warning(paste0("[read_BIN2R()] duplicated record(s) detected: ",
-                     paste(duplication.check, collapse = ", "), ". >> You should consider 'duplicated.rm = TRUE'." ))
+      }
 
     }
 
