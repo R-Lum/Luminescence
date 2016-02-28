@@ -7,6 +7,9 @@ Changes in version 0.6.0 (,2016):
          • ‘analyse_baSAR()’: Bayesian models (baSAR) applied on
            luminescence data
 
+         • ‘calc_ThermalLifetime(): Function to calculate thermal
+           lifetime of a charge using the Arrhenius equation’
+
          • ‘model_LuminescenceSignals()’: Wrapper for the function
            ‘model_LuminescenceSignals()’ from the package ‘RLumModel’
            by Johannes Friedrich, Sebastian Kreutzer and Christoph

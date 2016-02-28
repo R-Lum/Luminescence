@@ -47,6 +47,8 @@
 ","<br /> Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),<br />  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "calc_Statistics","Function to calculate statistic measures","<br /> This function calculates a number of descriptive statistics for De-data,<br /> most fundamentally using error-weighted approaches.<br />","0.1.4","2015-12-05","15:52:49
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
+"calc_ThermalLifetime","Calculates the Thermal Lifetime using the Arrhenius equation","<br /> The function calculates the thermal lifetime of charges for given E (in eV), s (in 1/s) and<br /> T (in deg. C.) parameters. The function can be used in two operational modes: <br />","0.1.0","2016-02-28","18:17:32
+","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "calc_TLLxTxRatio","Calculate the Lx/Tx ratio for a given set of TL curves [beta version]","<br /> Calculate Lx/Tx ratio for a given set of TL curves.<br />","0.3.0","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Christoph Schmidt, University of Bayreuth (Germany)<br />  R Luminescence Package Team"
 "CW2pHMi","Transform a CW-OSL curve into a pHM-OSL curve via interpolation under<br /> hyperbolic modulation conditions","<br /> This function transforms a conventionally measured continuous-wave (CW)<br /> OSL-curve to a pseudo hyperbolic modulated (pHM) curve under hyperbolic<br /> modulation conditions using the interpolation procedure described by Bos &<br /> Wallinga (2012).<br />","0.2.2","2015-11-29","17:27:48
@@ -130,7 +132,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,<br /> Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "plot_ViolinPlot","Create a violin plot","<br /> Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin<br /> is constructed using a mirrored density curve. This plot is especially designed for cases<br /> where the individual errors are zero or to small to be visualised. The idea for this plot is<br /> based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.<br /> The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).<br />","0.1.0","2015-12-05","15:52:49
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"read_BIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.12.3","2016-02-26","11:47:39
+"read_BIN2R","Import Risoe BIN-file into R","<br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />","0.12.3","2016-02-26","13:12:50
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, HZDR Freiberg, (Germany)<br />  R Luminescence Package Team"
 "read_Daybreak2R","Import Daybreak ASCII dato into R","<br /> Import a *.txt (ASCII) file produced by a Daybreak reader into R.<br />","0.2.1","2016-02-05","05:21:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)  Based on a suggestion by Willian Amidon and Andrew Louis Gorin.<br />  R Luminescence Package Team"
