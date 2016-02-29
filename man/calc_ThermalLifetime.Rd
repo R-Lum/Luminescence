@@ -89,7 +89,7 @@ The profiling is currently based on resampling from a normal distribution, this
 distribution assumption might be, however, not valid for given E and s paramters.
 }
 \section{Function version}{
- 0.1.0 (2016-02-28 18:17:32)
+ 0.1.0
 }
 \examples{
 
@@ -127,7 +127,7 @@ calc_ThermalLifetime(
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed.
 World Scientific.

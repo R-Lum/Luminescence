@@ -71,26 +71,32 @@ NULL
 # methods for generic: plot()
 # ##################################################################################################
 #' @rdname methods_RLum
+#' @method plot RLum.Results
 #' @export
 plot.RLum.Results <- function(x, y, ...) plot_RLum(object = x, ...)
 
 #' @rdname methods_RLum
+#' @method plot RLum.Analysis
 #' @export
 plot.RLum.Analysis <- function(x, y, ...) plot_RLum(object = x, ...)
 
 #' @rdname methods_RLum
+#' @method plot RLum.Data.Curve
 #' @export
 plot.RLum.Data.Curve <- function(x, y, ...) plot_RLum(object = x, ...)
 
 #' @rdname methods_RLum
+#' @method plot RLum.Data.Spectrum
 #' @export
 plot.RLum.Data.Spectrum <- function(x, y, ...) plot_RLum(object = x, ...)
 
 #' @rdname methods_RLum
+#' @method plot RLum.Data.Image
 #' @export
 plot.RLum.Data.Image <- function(x, y, ...) plot_RLum(object = x, ...)
 
 #' @rdname methods_RLum
+#' @method plot Risoe.BINfileData
 #' @export
 plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(BINfileData = x, ...)
 
@@ -120,20 +126,24 @@ hist.RLum.Analysis <- function(x, ...) lapply(1:length_RLum(x), function(z){
 # ##################################################################################################
 # methods for generic: summary()
 #' @rdname methods_RLum
+#' @method summary RLum.Results
 #' @export
 summary.RLum.Results <- function(object, ...) get_RLum(object = object, ...)
 
 #' @rdname methods_RLum
+#' @method summary RLum.Analysis
 #' @export
 summary.RLum.Analysis <- function(object, ...) lapply(object@records, function(x) summary(x@data))
 
 #' @rdname methods_RLum
+#' @method summary RLum.Data.Image
 #' @export
 summary.RLum.Data.Image <- function(object, ...) summary(object@data@data@values)
 
 # summary.RLum.Data.Spectrum <- function(object, ...)
 
 #' @rdname methods_RLum
+#' @method summary RLum.Data.Curve
 #' @export
 summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 

@@ -131,7 +131,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.3 (2015-11-29 17:27:48)
+ 0.5.3
 }
 \examples{
 
@@ -229,7 +229,7 @@ plot_RadialPlot(data = data.3,
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
 S script of Rex Galbraith, 2010
-\cr R Luminescence Package Team}
+}
 \references{
 Galbraith, R.F., 1988. Graphical Display of Estimates Having
 Differing Standard Errors. Technometrics, 30 (3), 271-281.

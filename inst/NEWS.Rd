@@ -6,6 +6,8 @@
   \subsection{New functions}{
    \itemize{
     \item \code{analyse_baSAR()}: Bayesian models (baSAR) applied on luminescence data
+    \item \code{app_RLum()}: Wrapper for the function \code{app_RLum()} from the package
+    \code{RLumShiny} by Christoph Burow
     \item \code{calc_ThermalLifetime(): Function to calculate thermal lifetime of a charge
     using the Arrhenius equation}
     \item \code{model_LuminescenceSignals()}: Wrapper for the function \code{model_LuminescenceSignals()}

@@ -77,7 +77,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested properly so far.}.
 }
 \section{Function version}{
- 0.12.3 (2016-02-26 13:12:50)
+ 0.12.3
 }
 \examples{
 
@@ -92,7 +92,7 @@ implementation of version 07 support could not been tested properly so far.}.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
-\cr R Luminescence Package Team}
+}
 \references{
 Duller, G., 2007. Analyst.
 \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}

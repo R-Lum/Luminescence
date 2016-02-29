@@ -27,7 +27,7 @@ Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 \bold{[BETA VERSION]} This function version still needs to be properly tested.
 }
 \section{Function version}{
- 0.2.1 (2016-02-05 05:21:29)
+ 0.2.1
 }
 \examples{
 
@@ -37,7 +37,7 @@ Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)\cr Based on a suggestion by Willian Amidon and Andrew Louis Gorin.
-\cr R Luminescence Package Team}
+}
 \references{
 -
 }

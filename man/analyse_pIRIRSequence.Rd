@@ -90,7 +90,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.2.0 (2016-01-18 15:07:46)
+ 0.2.0
 }
 \examples{
 
@@ -152,7 +152,7 @@ pdf(file = "...", height = 15, width = 15)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 using an improved single-aliquot regenerative-dose protocol. Radiation

@@ -105,7 +105,7 @@ per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{
- 0.4 (2015-11-29 17:27:48)
+ 0.4
 }
 \examples{
 
@@ -138,7 +138,7 @@ get_RLum(object = FMM, data.object = "components")
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2006. \cr
-\cr R Luminescence Package Team}
+}
 \references{
 Galbraith, R.F. & Green, P.F., 1990. Estimating the component
 ages in a finite mixture. Nuclear Tracks and Radiation Measurements 17,

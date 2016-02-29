@@ -62,7 +62,7 @@ stopped. Furthermore, if a \code{data.frame} is provided for the dose rate value
 be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.6.0 (2015-11-29 17:27:48)
+ 0.6.0
 }
 \examples{
 
@@ -95,7 +95,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, HZDR,
 Helmholtz-Institute Freiberg for Resource Technology
 (Germany)
-\cr R Luminescence Package Team}
+}
 \references{
 Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 }

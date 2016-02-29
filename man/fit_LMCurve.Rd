@@ -159,7 +159,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.0 (2015-12-05 15:52:49)
+ 0.3.0
 }
 \examples{
 
@@ -189,7 +189,7 @@ fit_LMCurve(values = values.curve,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Bulur, E., 1996. An Alternative Technique For Optically
 Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,

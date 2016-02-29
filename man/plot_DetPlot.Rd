@@ -98,7 +98,7 @@ every sequence should be checked carefully before running long calculations usin
 hundreds of channels.
 }
 \section{Function version}{
- 0.1.0 (2016-02-19 16:35:35)
+ 0.1.0
 }
 \examples{
 
@@ -123,7 +123,7 @@ plot_DetPlot(object,
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
 using De as a function of illumination time. Radiation Measurements 37, 511-518.

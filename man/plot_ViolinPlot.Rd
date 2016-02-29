@@ -57,7 +57,7 @@ two other R packages exist providing a possibility to produces this kind of plot
 'vioplot' and 'violinmplot' (see References for details).
 }
 \section{Function version}{
- 0.1.0 (2015-12-05 15:52:49)
+ 0.1.0
 }
 \examples{
 ## read example data set
@@ -70,7 +70,7 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Daniel Adler (2005). vioplot: A violin plot is a combination of a box plot and a kernel density plot.
 R package version 0.2 http://CRAN.R-project.org/package=violplot

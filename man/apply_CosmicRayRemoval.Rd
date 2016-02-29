@@ -78,7 +78,7 @@ dataset (see example).
 -
 }
 \section{Function version}{
- 0.2.0 (2016-02-05 05:21:29)
+ 0.2.0
 }
 \examples{
 
@@ -93,7 +93,7 @@ dataset (see example).
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 Single Images. Astrophysics 116, 148-153.
