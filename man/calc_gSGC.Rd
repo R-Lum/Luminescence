@@ -54,7 +54,7 @@ Solving of the equation is realised using \code{\link{uniroot}}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.0 (2015-12-05 15:52:49)
+ 0.1.0
 }
 \examples{
 results <- calc_gSGC(data = data.frame(
@@ -67,7 +67,7 @@ get_RLum(results, data.object = "De")
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
-\cr R Luminescence Package Team}
+}
 \references{
 Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.

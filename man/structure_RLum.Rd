@@ -26,7 +26,7 @@ corresponding structure function will be selected. Allowed arguments can be foun
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.2.0 (2016-02-05 05:21:29)
+ 0.2.0
 }
 \examples{
 
@@ -40,7 +40,7 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \seealso{
 \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Image}},

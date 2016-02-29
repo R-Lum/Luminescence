@@ -159,7 +159,7 @@ for near-surface samples as there is no equation known to the author of this
 function at the time of writing.
 }
 \section{Function version}{
- 0.5.2 (2015-11-29 17:27:48)
+ 0.5.2
 }
 \examples{
 
@@ -207,7 +207,7 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \references{
 Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.
 Letter to the editor. The absolute cosmic ray flux at sea level. Journal of

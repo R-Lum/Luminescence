@@ -38,7 +38,7 @@ sufficiently correct for spectral efficiency of the entire optical system
 (e.g., spectrometer, camera ...).
 }
 \section{Function version}{
- 0.1.1 (2016-02-05 05:21:29)
+ 0.1.1
 }
 \examples{
 
@@ -52,7 +52,7 @@ sufficiently correct for spectral efficiency of the entire optical system
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France),\cr Johannes Friedrich, University of Bayreuth (Germany)
-\cr R Luminescence Package Team}
+}
 \references{
 -
 }
