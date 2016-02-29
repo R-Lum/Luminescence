@@ -46,7 +46,7 @@
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -244,14 +244,29 @@ Risoe.BINfileData2RLum.Analysis<- function(
       object <- lapply(grain, function(grain){
 
         ##select data
-        temp_id <- object@METADATA[
-          object@METADATA$POSITION == pos &
-            object@METADATA$GRAIN == grain &
-            object@METADATA$RUN %in% run &
-            object@METADATA$SET %in% set &
-            object@METADATA$LTYPE %in% ltype
-        , "ID"]
+        ##the NA is necessary, as FI readers like to write a NA instead of 0 in the column
+        ##and this causes some trouble
 
+        if(is.na(grain)){
+          temp_id <- object@METADATA[
+            object@METADATA$POSITION == pos &
+              object@METADATA$RUN %in% run &
+              object@METADATA$SET %in% set &
+              object@METADATA$LTYPE %in% ltype
+            , "ID"]
+
+
+        }else{
+          temp_id <- object@METADATA[
+            object@METADATA$POSITION == pos &
+              object@METADATA$GRAIN == grain &
+              object@METADATA$RUN %in% run &
+              object@METADATA$SET %in% set &
+              object@METADATA$LTYPE %in% ltype
+            , "ID"]
+
+
+        }
 
         ##create curve object
         object <- set_RLum(
