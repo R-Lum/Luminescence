@@ -22,6 +22,12 @@ model_LuminescenceSignals <-
            verbose = TRUE,
            show.structure = FALSE,
            ...) {
+    
+    if (!requireNamespace("RLumModel", quietly = TRUE))
+      stop("Simulation of luminescence signals requires the 'RLumModel' package.",
+           " To install this package run 'install.packages('RLumModel')' in your R console.", 
+           call. = FALSE)
+    
     RLumModel::model_LuminescenceSignals (
       model = model,
       sequence = sequence,
@@ -32,5 +38,4 @@ model_LuminescenceSignals <-
       show.structure = show.structure,
       ...
     )
-
   }
