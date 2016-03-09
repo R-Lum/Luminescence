@@ -1,0 +1,69 @@
+RLum.Analysis2TLum.Analysis
+                        Convert RLum.Analysis object to an
+                        TLum.Analysis.
+Risoe.BINfileData2TLum.BIN.File
+                        Convert Risoe.BINfileData object to an
+                        TLum.BIN.File object.
+TLdating-package        Tools for Thermoluminescences Dating
+TLum-class              Class '"TLum"'
+TLum.Analysis-class     Class '"TLum.Analysis"'
+TLum.Analysis2RLum.Analysis
+                        Convert RLum.Analysis object to an
+                        TLum.Analysis.
+TLum.Analysis2TLum.BIN.File
+                        Convert TLum.Analysis object to an
+                        TLum.BIN.File object.
+TLum.BIN.File-class     Class '"TLum.BIN.File"'
+TLum.BIN.File2Risoe.BINfileData
+                        Convert TLum.BIN.File object to an
+                        Risoe.BINfileData object.
+TLum.BIN.File2TLum.Analysis
+                        Convert TLum.BIN.File object to an
+                        TLum.Analysis object.
+TLum.BIN.File2TLum.Data.Curve
+                        Convert an element from a TLum.BIN.File object
+                        into a TLum.Data.Curve objet
+TLum.Data-class         Class '"TLum.Data"'
+TLum.Data.Curve-class   Class '"TLum.Data.Curve"'
+TLum.Results-class      Class '"TLum.Results"'
+analyse_TL.MAAD         MAAD protocol for TL dating
+analyse_TL.SAR          SAR protocol for thermoluminescence dating
+analyse_TL.plateau      Plateau test function for TL dating
+calc_TL.LxTx            calculation of the Lx/Tx matrix
+calc_TL.MAAD.average    Estimate average additive curves for the MAAD
+                        protocol.
+calc_TL.MAAD.fit.I      Estimation of the sublinearity value for the
+                        MAAD protocol
+calc_TL.MAAD.fit.Q      Estimation of the palaeodose (Q) with the MAAD
+                        protocol
+calc_TL.MAAD.separate   Separate the additive and the regenerative
+                        curves
+calc_TL.SAR.fit         Estimation of the equivalent dose (ED) value
+                        for the SAR protocol
+calc_TL.plateau         Estimate value for plateau test
+calc_TL.temperature     calculate temperature vector
+mod_align.peaks         Aligning the TL peaks
+mod_extract.TL          Extract TL
+mod_extract.aliquot     extract aliquots
+mod_extract.preheat     Extract preheat
+mod_remove.aliquot      Remove aliquots
+mod_remove.preheat      Remove preheat
+mod_substract.background
+                        Creates a new TLum.Analysis object where the
+                        background was removed from the signal.
+mod_update.dType        mod identify dType
+plot_TL.MAAD            plot MAAD result
+plot_TL.SAR             plots MAAD results
+plot_TL.plateau         plot plateau test result
+plot_align.peaks        Plots mod_alignPeaks results
+plot_extract.TL         plot the TL curves
+plot_remove.preheat     Plotting of the preheat and TL curves
+plot_substract.background
+                        Plotting function for mod_substract.background.
+script_TL.MAAD          Script for the MAAD protocol
+script_TL.SAR           Easy script for the SAR protocol
+script_TL.export        Script for data export
+script_TL.import        Script for data pretreatment
+script_TL.plateau       Script for the plateau test
+script_TL.pretreatment
+                        Script for data pretreatment

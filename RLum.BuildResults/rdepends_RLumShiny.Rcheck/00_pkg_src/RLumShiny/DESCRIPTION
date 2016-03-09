@@ -1,0 +1,31 @@
+Package: RLumShiny
+Type: Package
+Title: 'Shiny' Applications for the R Package 'Luminescence'
+Version: 0.1.0
+Date: 2015-03-31
+Authors@R: c(
+    person("Christoph", "Burow", role = c("aut", "cre"), email = "christoph.burow@uni-koeln.de"),
+    person("Jan", "Odvarko", role = "cph", comment = "jscolor.js in www/jscolor"),
+    person(family = "AnalytixWare", role = "cph", comment = "ShinySky package" )
+    )
+Maintainer: Christoph Burow <christoph.burow@uni-koeln.de>
+Description: A collection of 'shiny' applications for the R package 'Luminescence'. 
+      These mainly, but not exclusively, include applications for plotting chronometric 
+      data from e.g. luminescence or radiocarbon dating. It further provides access to 
+      bootstraps tooltip and popover functionality and contains the 'jscolor.js' library
+      with a custom 'shiny' output binding.
+License: GPL-3
+Depends: R (>= 3.1.2)
+Imports: Luminescence (>= 0.4.2), shiny (>= 0.11.1), digest, googleVis,
+        RCurl
+URL: https://github.com/tzerk/RLumShiny
+BugReports: https://github.com/tzerk/RLumShiny/issues
+Collate: 'app_RLum.R' 'jscolor.R' 'tooltip.R' 'popover.R' 'RLumShiny.R'
+        'zzz.R'
+NeedsCompilation: no
+Packaged: 2015-03-31 10:50:21 UTC; C
+Author: Christoph Burow [aut, cre],
+  Jan Odvarko [cph] (jscolor.js in www/jscolor),
+  AnalytixWare [cph] (ShinySky package)
+Repository: CRAN
+Date/Publication: 2015-03-31 14:57:30

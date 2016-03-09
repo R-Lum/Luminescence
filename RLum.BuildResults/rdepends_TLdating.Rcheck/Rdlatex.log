@@ -1,0 +1,2227 @@
+Hmm ... looks like a package
+
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 79 languages loaded.
+(./Rd2.tex
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.05, 2014/06/22 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty)))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/hyperref.cfg))
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1enc.dfu)))
+Writing index file Rd2.idx
+No file Rd2.aux.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ts1ptm.fd) [1{/usr/local/t
+exlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--100
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--104
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 109--111
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 150--157
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 158--160
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--195
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 235--236
+
+
+Overfull \hbox (32.37755pt too wide) in paragraph at lines 239--246
+[][][]\T1/ptm/m/n/10 calc_TL.LxTx[][][], [][]calc_TL.plateau[][][], [][]calc_TL
+.MAAD.average[][][], [][]calc_TL.MAAD.separate[][][], [][]calc_TL.MAAD.fit.I[][
+][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (1.94788pt too wide) in paragraph at lines 273--274
+[][][]\T1/zi4/m/n/10 TLum.Analysis[][][] \T1/ptm/m/n/10 (\T1/ptm/b/n/10 require
+d\T1/ptm/m/n/10 ): ob-ject con-tain-ing the TL curves used for the Plateau
+
+Underfull \hbox (badness 10000) in paragraph at lines 280--282
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [6]
+Underfull \hbox (badness 10000) in paragraph at lines 349--352
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--355
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 356--358
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 372--374
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 389--391
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 402--403
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 406--407
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 408--409
+
+
+Overfull \hbox (0.8175pt too wide) in paragraph at lines 415--417
+[][][]\T1/ptm/m/n/10 list[][][]: Re-sults ob-tained with the growth curve ap-pr
+oach and their un-cer-tain-ties. (\T1/zi4/m/n/10 De\T1/ptm/m/n/10 , \T1/zi4/m/n
+/10 De.error\T1/ptm/m/n/10 ) 
+
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
+
+
+Overfull \hbox (14.74747pt too wide) in paragraph at lines 434--435
+[]\T1/ptm/m/n/10 Murray & Win-tle (2000). Lu-mi-nes-cence dat-ing of quartz us-
+ing an im-proved single-aliquot regenerative-
+
+Underfull \hbox (badness 10000) in paragraph at lines 434--435
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 447--451
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 466--467
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 501--502
+
+
+Overfull \hbox (14.74747pt too wide) in paragraph at lines 503--504
+[]\T1/ptm/m/n/10 Murray & Win-tle (2000). Lu-mi-nes-cence dat-ing of quartz us-
+ing an im-proved single-aliquot regenerative-
+
+Underfull \hbox (badness 10000) in paragraph at lines 503--504
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 537--538
+
+[9] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 595--597
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 668--671
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 672--674
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 692--693
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [12]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 775--776
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [13]
+Underfull \hbox (badness 10000) in paragraph at lines 823--826
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 827--829
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 847--848
+
+[14] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 898--899
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [15]
+Underfull \hbox (badness 10000) in paragraph at lines 936--938
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 950--952
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [16]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1023--1025
+
+[17] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1072--1074
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1084
+
+[18] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1161
+
+[19] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1207--1209
+
+[20] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1257--1258
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [21]
+Underfull \hbox (badness 10000) in paragraph at lines 1294--1296
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [22]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [23]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.89774pt too wide) in paragraph at lines 1395--1396
+[][][]\T1/ptm/m/n/10 numeric[][][]: Ma-trix con-tain-ing the lu-mi-nes-cence si
+g-nal from the back-ground curves. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [24] [25]
+Underfull \hbox (badness 10000) in paragraph at lines 1532--1534
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1553--1554
+
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1557
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1568--1569
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1622--1624
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 1635--1636
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [28]
+Underfull \hbox (badness 10000) in paragraph at lines 1727--1729
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1742--1743
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1744--1746
+
+[29]
+Underfull \hbox (badness 10000) in paragraph at lines 1757--1758
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (43.2069pt too wide) in paragraph at lines 1796--1797
+[][][]\T1/ptm/m/n/10 TLum.BIN.File2Risoe.BINfileData[][][], [][]TLum.BIN.File2T
+Lum.Analysis[][][] and [][]TLum.BIN.File2TLum.Data.Curve[][][]. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [30]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1853--1855
+
+[31] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1912--1914
+
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 1925--1926
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1927--1929
+
+
+Overfull \hbox (8.59718pt too wide) in paragraph at lines 1949--1954
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]TLum.BIN.File2TLum.Analysis[][][], [][]mod_extract.TL[][][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [33]
+Underfull \hbox (badness 10000) in paragraph at lines 2002--2004
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2017--2019
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2031--2033
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2052--2053
+
+[34]
+Underfull \hbox (badness 10000) in paragraph at lines 2054--2056
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2067--2068
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2069--2071
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2083--2089
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2083--2089
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2092--2093
+
+
+Overfull \hbox (42.15758pt too wide) in paragraph at lines 2111--2122
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot
+[][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2111--2122
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [35]
+Underfull \hbox (badness 10000) in paragraph at lines 2158--2160
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2172--2174
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2187--2189
+
+[36]
+Underfull \hbox (badness 10000) in paragraph at lines 2200--2201
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2204--2210
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2204--2210
+
+
+Overfull \hbox (37.15758pt too wide) in paragraph at lines 2217--2228
+[][][]\T1/ptm/m/n/10 readBIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][]
+, [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot[
+][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2217--2228
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [37]
+Underfull \hbox (badness 10000) in paragraph at lines 2264--2266
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2278--2280
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2291--2292
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2293--2295
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2310--2317
+
+[38]
+Overfull \hbox (42.15758pt too wide) in paragraph at lines 2324--2333
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot
+[][][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 2382--2384
+
+[39]
+Underfull \hbox (badness 10000) in paragraph at lines 2397--2399
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2410--2412
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2426--2428
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2441--2442
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2443--2445
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2456--2457
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2460--2466
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2460--2466
+
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 2469--2470
+
+
+Overfull \hbox (37.15758pt too wide) in paragraph at lines 2488--2499
+[][][]\T1/ptm/m/n/10 readBIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][]
+, [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot[
+][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2488--2499
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [41]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [42]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (34.79639pt too wide) in paragraph at lines 2642--2644
+[]\T1/ptm/m/n/10 This func-tion re-turn an [][]Risoe.BINfileData[][][] con-tain
+-ing all in-for-ma-tion pre-vi-ously stored in the [][]TLum.BIN.File[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [43]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 2671--2672
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 2692--2692
+[]\T1/ptm/m/it/10 Convert an el-e-ment from a [][]TLum.BIN.File[][][] ob-ject i
+nto a
+[44]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 2718--2719
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+No file Rd2.ind.
+[45] (./Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.Luminescence} has been referenced but does not exist, replaced by a fixed 
+one
+
+pdfTeX warning (dest): name{Rfn.readBIN2R} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.writeR2BIN} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.data.frame} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.read.Rul.BIN2R} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.write.Rul.R2BIN} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.RLum.Analysis.Rdash.class} has been referenced 
+but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.Risoe.BINfileData.Rdash.class} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.lm.Rdash.class} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.matrix} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.numeric} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.list} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.integer} has been referenced but does not exist
+, replaced by a fixed one
+
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/tex
+live/2015/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texl
+ive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/t
+exmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/
+fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type
+1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (45 pages, 173335 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (711 entries accepted, 0 rejected).
+Sorting entries.........done (7597 comparisons).
+Generating output file Rd2.ind....done (334 lines written, 4 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 79 languages loaded.
+(./Rd2.tex
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.05, 2014/06/22 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty)))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/hyperref.cfg))
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1enc.dfu)))
+Writing index file Rd2.idx
+(./Rd2.aux) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(./Rd2.out) (./Rd2.out)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ts1ptm.fd) [1{/usr/local/t
+exlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1phv.fd) (./Rd2.toc
+[2]) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--100
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--104
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--111
+
+[3] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 150--157
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 158--160
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--195
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 235--236
+
+
+Overfull \hbox (32.37755pt too wide) in paragraph at lines 239--246
+[][][]\T1/ptm/m/n/10 calc_TL.LxTx[][][], [][]calc_TL.plateau[][][], [][]calc_TL
+.MAAD.average[][][], [][]calc_TL.MAAD.separate[][][], [][]calc_TL.MAAD.fit.I[][
+][],
+[5] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (1.94788pt too wide) in paragraph at lines 273--274
+[][][]\T1/zi4/m/n/10 TLum.Analysis[][][] \T1/ptm/m/n/10 (\T1/ptm/b/n/10 require
+d\T1/ptm/m/n/10 ): ob-ject con-tain-ing the TL curves used for the Plateau
+
+Underfull \hbox (badness 10000) in paragraph at lines 280--282
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 349--352
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--355
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 356--358
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 372--374
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 389--391
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 402--403
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 406--407
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 408--409
+
+
+Overfull \hbox (0.8175pt too wide) in paragraph at lines 415--417
+[][][]\T1/ptm/m/n/10 list[][][]: Re-sults ob-tained with the growth curve ap-pr
+oach and their un-cer-tain-ties. (\T1/zi4/m/n/10 De\T1/ptm/m/n/10 , \T1/zi4/m/n
+/10 De.error\T1/ptm/m/n/10 ) 
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
+
+
+Overfull \hbox (14.74747pt too wide) in paragraph at lines 434--435
+[]\T1/ptm/m/n/10 Murray & Win-tle (2000). Lu-mi-nes-cence dat-ing of quartz us-
+ing an im-proved single-aliquot regenerative-
+
+Underfull \hbox (badness 10000) in paragraph at lines 434--435
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 447--451
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 466--467
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 501--502
+
+
+Overfull \hbox (14.74747pt too wide) in paragraph at lines 503--504
+[]\T1/ptm/m/n/10 Murray & Win-tle (2000). Lu-mi-nes-cence dat-ing of quartz us-
+ing an im-proved single-aliquot regenerative-
+
+Underfull \hbox (badness 10000) in paragraph at lines 503--504
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 537--538
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [10]
+Underfull \hbox (badness 10000) in paragraph at lines 595--597
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
+
+[11] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 668--671
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 672--674
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 692--693
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [13]
+Underfull \hbox (badness 10000) in paragraph at lines 775--776
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [14]
+Underfull \hbox (badness 10000) in paragraph at lines 823--826
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 827--829
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 847--848
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [15]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 898--899
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [16]
+Underfull \hbox (badness 10000) in paragraph at lines 936--938
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 950--952
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [17]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1023--1025
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [18]
+Underfull \hbox (badness 10000) in paragraph at lines 1072--1074
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1084
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [19]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1161
+
+[20] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1207--1209
+
+[21] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1257--1258
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [22]
+Underfull \hbox (badness 10000) in paragraph at lines 1294--1296
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [23]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [24]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.89774pt too wide) in paragraph at lines 1395--1396
+[][][]\T1/ptm/m/n/10 numeric[][][]: Ma-trix con-tain-ing the lu-mi-nes-cence si
+g-nal from the back-ground curves. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 1532--1534
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1553--1554
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1557
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1568--1569
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1622--1624
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 1635--1636
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [29]
+Underfull \hbox (badness 10000) in paragraph at lines 1727--1729
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1742--1743
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1744--1746
+
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 1757--1758
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (43.2069pt too wide) in paragraph at lines 1796--1797
+[][][]\T1/ptm/m/n/10 TLum.BIN.File2Risoe.BINfileData[][][], [][]TLum.BIN.File2T
+Lum.Analysis[][][] and [][]TLum.BIN.File2TLum.Data.Curve[][][]. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [31]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1853--1855
+
+[32] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1912--1914
+
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 1925--1926
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1927--1929
+
+
+Overfull \hbox (8.59718pt too wide) in paragraph at lines 1949--1954
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]TLum.BIN.File2TLum.Analysis[][][], [][]mod_extract.TL[][][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [34]
+Underfull \hbox (badness 10000) in paragraph at lines 2002--2004
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2017--2019
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2031--2033
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2052--2053
+
+[35]
+Underfull \hbox (badness 10000) in paragraph at lines 2054--2056
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2067--2068
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2069--2071
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2083--2089
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2083--2089
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2092--2093
+
+
+Overfull \hbox (42.15758pt too wide) in paragraph at lines 2111--2122
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot
+[][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2111--2122
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [36]
+Underfull \hbox (badness 10000) in paragraph at lines 2158--2160
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2172--2174
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2187--2189
+
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 2200--2201
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2204--2210
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2204--2210
+
+
+Overfull \hbox (37.15758pt too wide) in paragraph at lines 2217--2228
+[][][]\T1/ptm/m/n/10 readBIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][]
+, [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot[
+][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2217--2228
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [38]
+Underfull \hbox (badness 10000) in paragraph at lines 2264--2266
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2278--2280
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2291--2292
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2293--2295
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2310--2317
+
+[39]
+Overfull \hbox (42.15758pt too wide) in paragraph at lines 2324--2333
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot
+[][][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 2382--2384
+
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 2397--2399
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2410--2412
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2426--2428
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2441--2442
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2443--2445
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2456--2457
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2460--2466
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2460--2466
+
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 2469--2470
+
+
+Overfull \hbox (37.15758pt too wide) in paragraph at lines 2488--2499
+[][][]\T1/ptm/m/n/10 readBIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][]
+, [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot[
+][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2488--2499
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [42]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [43]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (34.79639pt too wide) in paragraph at lines 2642--2644
+[]\T1/ptm/m/n/10 This func-tion re-turn an [][]Risoe.BINfileData[][][] con-tain
+-ing all in-for-ma-tion pre-vi-ously stored in the [][]TLum.BIN.File[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [44]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 2671--2672
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 2692--2692
+[]\T1/ptm/m/it/10 Convert an el-e-ment from a [][]TLum.BIN.File[][][] ob-ject i
+nto a
+[45]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 2718--2719
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) (./Rd2.ind
+[46]
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 61.
+
+
+Overfull \hbox (50.8567pt too wide) in paragraph at lines 74--76
+[]\T1/zi4/m/it/10 get_structure.TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 78--80
+[]\T1/zi4/m/it/10 get_TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (15.8567pt too wide) in paragraph at lines 113--115
+[]\T1/zi4/m/it/10 length_TLum.Analysis,TLum.Analysis-method 
+[47]
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 254--256
+[]\T1/zi4/m/it/10 set_TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 258--260
+[]\T1/zi4/m/it/10 set_TLum.BIN.File,TLum.BIN.File-method 
+
+Overfull \hbox (20.8567pt too wide) in paragraph at lines 268--270
+[]\T1/zi4/m/it/10 set_TLum.Data.Curve,TLum.Data.Curve-method 
+[48]) (./Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.Luminescence} has been referenced but does not exist, replaced by a fixed 
+one
+
+pdfTeX warning (dest): name{Rfn.readBIN2R} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.writeR2BIN} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.data.frame} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.read.Rul.BIN2R} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.write.Rul.R2BIN} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.RLum.Analysis.Rdash.class} has been referenced 
+but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.Risoe.BINfileData.Rdash.class} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.lm.Rdash.class} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.matrix} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.numeric} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.list} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.integer} has been referenced but does not exist
+, replaced by a fixed one
+
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/tex
+live/2015/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
+/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (48 pages, 200156 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (711 entries accepted, 0 rejected).
+Sorting entries........done (7478 comparisons).
+Generating output file Rd2.ind....done (335 lines written, 4 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 79 languages loaded.
+(./Rd2.tex
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.05, 2014/06/22 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty)))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/hyperref.cfg))
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1enc.dfu)))
+Writing index file Rd2.idx
+(./Rd2.aux) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(./Rd2.out) (./Rd2.out)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ts1ptm.fd) [1{/usr/local/t
+exlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1phv.fd) (./Rd2.toc
+[2]) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--100
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--104
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 109--111
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 150--157
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 158--160
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--195
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 235--236
+
+[5]
+Overfull \hbox (32.37755pt too wide) in paragraph at lines 239--246
+[][][]\T1/ptm/m/n/10 calc_TL.LxTx[][][], [][]calc_TL.plateau[][][], [][]calc_TL
+.MAAD.average[][][], [][]calc_TL.MAAD.separate[][][], [][]calc_TL.MAAD.fit.I[][
+][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (1.94788pt too wide) in paragraph at lines 273--274
+[][][]\T1/zi4/m/n/10 TLum.Analysis[][][] \T1/ptm/m/n/10 (\T1/ptm/b/n/10 require
+d\T1/ptm/m/n/10 ): ob-ject con-tain-ing the TL curves used for the Plateau
+
+Underfull \hbox (badness 10000) in paragraph at lines 280--282
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 349--352
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--355
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 356--358
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 372--374
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 389--391
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 402--403
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 406--407
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 408--409
+
+
+Overfull \hbox (0.8175pt too wide) in paragraph at lines 415--417
+[][][]\T1/ptm/m/n/10 list[][][]: Re-sults ob-tained with the growth curve ap-pr
+oach and their un-cer-tain-ties. (\T1/zi4/m/n/10 De\T1/ptm/m/n/10 , \T1/zi4/m/n
+/10 De.error\T1/ptm/m/n/10 ) 
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
+
+
+Overfull \hbox (14.74747pt too wide) in paragraph at lines 434--435
+[]\T1/ptm/m/n/10 Murray & Win-tle (2000). Lu-mi-nes-cence dat-ing of quartz us-
+ing an im-proved single-aliquot regenerative-
+
+Underfull \hbox (badness 10000) in paragraph at lines 434--435
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 447--451
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 466--467
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 501--502
+
+
+Overfull \hbox (14.74747pt too wide) in paragraph at lines 503--504
+[]\T1/ptm/m/n/10 Murray & Win-tle (2000). Lu-mi-nes-cence dat-ing of quartz us-
+ing an im-proved single-aliquot regenerative-
+
+Underfull \hbox (badness 10000) in paragraph at lines 503--504
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 537--538
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [10]
+Underfull \hbox (badness 10000) in paragraph at lines 595--597
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
+
+[11] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 668--671
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 672--674
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 692--693
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [13]
+Underfull \hbox (badness 10000) in paragraph at lines 775--776
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [14]
+Underfull \hbox (badness 10000) in paragraph at lines 823--826
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 827--829
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 847--848
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [15]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 898--899
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [16]
+Underfull \hbox (badness 10000) in paragraph at lines 936--938
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 950--952
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [17]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1023--1025
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [18]
+Underfull \hbox (badness 10000) in paragraph at lines 1072--1074
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1084
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [19]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1161
+
+[20] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1207--1209
+
+[21] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1257--1258
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [22]
+Underfull \hbox (badness 10000) in paragraph at lines 1294--1296
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [23]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [24]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.89774pt too wide) in paragraph at lines 1395--1396
+[][][]\T1/ptm/m/n/10 numeric[][][]: Ma-trix con-tain-ing the lu-mi-nes-cence si
+g-nal from the back-ground curves. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 1532--1534
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1553--1554
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1557
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1568--1569
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1622--1624
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 1635--1636
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [29]
+Underfull \hbox (badness 10000) in paragraph at lines 1727--1729
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1742--1743
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1744--1746
+
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 1757--1758
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (43.2069pt too wide) in paragraph at lines 1796--1797
+[][][]\T1/ptm/m/n/10 TLum.BIN.File2Risoe.BINfileData[][][], [][]TLum.BIN.File2T
+Lum.Analysis[][][] and [][]TLum.BIN.File2TLum.Data.Curve[][][]. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [31]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1853--1855
+
+[32] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1912--1914
+
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 1925--1926
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1927--1929
+
+
+Overfull \hbox (8.59718pt too wide) in paragraph at lines 1949--1954
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]TLum.BIN.File2TLum.Analysis[][][], [][]mod_extract.TL[][][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [34]
+Underfull \hbox (badness 10000) in paragraph at lines 2002--2004
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2017--2019
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2031--2033
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2052--2053
+
+[35]
+Underfull \hbox (badness 10000) in paragraph at lines 2054--2056
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2067--2068
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2069--2071
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2083--2089
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2083--2089
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2092--2093
+
+
+Overfull \hbox (42.15758pt too wide) in paragraph at lines 2111--2122
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot
+[][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2111--2122
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [36]
+Underfull \hbox (badness 10000) in paragraph at lines 2158--2160
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2172--2174
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2187--2189
+
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 2200--2201
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2204--2210
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2204--2210
+
+
+Overfull \hbox (37.15758pt too wide) in paragraph at lines 2217--2228
+[][][]\T1/ptm/m/n/10 readBIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][]
+, [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot[
+][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2217--2228
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [38]
+Underfull \hbox (badness 10000) in paragraph at lines 2264--2266
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2278--2280
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2291--2292
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2293--2295
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2310--2317
+
+[39]
+Overfull \hbox (42.15758pt too wide) in paragraph at lines 2324--2333
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot
+[][][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 2382--2384
+
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 2397--2399
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2410--2412
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2426--2428
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2441--2442
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2443--2445
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2456--2457
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2460--2466
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2460--2466
+
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 2469--2470
+
+
+Overfull \hbox (37.15758pt too wide) in paragraph at lines 2488--2499
+[][][]\T1/ptm/m/n/10 readBIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][]
+, [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot[
+][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2488--2499
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [42]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [43]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (34.79639pt too wide) in paragraph at lines 2642--2644
+[]\T1/ptm/m/n/10 This func-tion re-turn an [][]Risoe.BINfileData[][][] con-tain
+-ing all in-for-ma-tion pre-vi-ously stored in the [][]TLum.BIN.File[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [44]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 2671--2672
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 2692--2692
+[]\T1/ptm/m/it/10 Convert an el-e-ment from a [][]TLum.BIN.File[][][] ob-ject i
+nto a
+[45]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 2718--2719
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) (./Rd2.ind
+[46]
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 63.
+
+
+Overfull \hbox (50.8567pt too wide) in paragraph at lines 76--78
+[]\T1/zi4/m/it/10 get_structure.TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 80--82
+[]\T1/zi4/m/it/10 get_TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (15.8567pt too wide) in paragraph at lines 115--117
+[]\T1/zi4/m/it/10 length_TLum.Analysis,TLum.Analysis-method 
+[47]
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 254--256
+[]\T1/zi4/m/it/10 set_TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 258--260
+[]\T1/zi4/m/it/10 set_TLum.BIN.File,TLum.BIN.File-method 
+
+Overfull \hbox (20.8567pt too wide) in paragraph at lines 268--270
+[]\T1/zi4/m/it/10 set_TLum.Data.Curve,TLum.Data.Curve-method 
+[48]) (./Rd2.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.Luminescence} has been referenced but does not exist, replaced by a fixed 
+one
+
+pdfTeX warning (dest): name{Rfn.readBIN2R} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.writeR2BIN} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.data.frame} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.read.Rul.BIN2R} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.write.Rul.R2BIN} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.RLum.Analysis.Rdash.class} has been referenced 
+but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.Risoe.BINfileData.Rdash.class} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.lm.Rdash.class} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.matrix} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.numeric} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.list} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.integer} has been referenced but does not exist
+, replaced by a fixed one
+
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/tex
+live/2015/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
+/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (48 pages, 200801 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (711 entries accepted, 0 rejected).
+Sorting entries........done (7478 comparisons).
+Generating output file Rd2.ind....done (335 lines written, 4 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 79 languages loaded.
+(./Rd2.tex
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/bk10.clo))
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.05, 2014/06/22 Text macros for Inconsolata (msharpe)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty)))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/local/texlive/2015/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/hyperref.cfg))
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 366.
+
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1enc.dfu)))
+Writing index file Rd2.idx
+(./Rd2.aux) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(./Rd2.out) (./Rd2.out)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ts1ptm.fd) [1{/usr/local/t
+exlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1phv.fd) (./Rd2.toc
+[2]) (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--100
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--104
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 109--111
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 150--157
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 158--160
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--195
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 235--236
+
+[5]
+Overfull \hbox (32.37755pt too wide) in paragraph at lines 239--246
+[][][]\T1/ptm/m/n/10 calc_TL.LxTx[][][], [][]calc_TL.plateau[][][], [][]calc_TL
+.MAAD.average[][][], [][]calc_TL.MAAD.separate[][][], [][]calc_TL.MAAD.fit.I[][
+][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (1.94788pt too wide) in paragraph at lines 273--274
+[][][]\T1/zi4/m/n/10 TLum.Analysis[][][] \T1/ptm/m/n/10 (\T1/ptm/b/n/10 require
+d\T1/ptm/m/n/10 ): ob-ject con-tain-ing the TL curves used for the Plateau
+
+Underfull \hbox (badness 10000) in paragraph at lines 280--282
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 349--352
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--355
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 356--358
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 372--374
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 389--391
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 402--403
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 406--407
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 408--409
+
+
+Overfull \hbox (0.8175pt too wide) in paragraph at lines 415--417
+[][][]\T1/ptm/m/n/10 list[][][]: Re-sults ob-tained with the growth curve ap-pr
+oach and their un-cer-tain-ties. (\T1/zi4/m/n/10 De\T1/ptm/m/n/10 , \T1/zi4/m/n
+/10 De.error\T1/ptm/m/n/10 ) 
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
+
+
+Overfull \hbox (14.74747pt too wide) in paragraph at lines 434--435
+[]\T1/ptm/m/n/10 Murray & Win-tle (2000). Lu-mi-nes-cence dat-ing of quartz us-
+ing an im-proved single-aliquot regenerative-
+
+Underfull \hbox (badness 10000) in paragraph at lines 434--435
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 447--451
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 466--467
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 501--502
+
+
+Overfull \hbox (14.74747pt too wide) in paragraph at lines 503--504
+[]\T1/ptm/m/n/10 Murray & Win-tle (2000). Lu-mi-nes-cence dat-ing of quartz us-
+ing an im-proved single-aliquot regenerative-
+
+Underfull \hbox (badness 10000) in paragraph at lines 503--504
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 537--538
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [10]
+Underfull \hbox (badness 10000) in paragraph at lines 595--597
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
+
+[11] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 668--671
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 672--674
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 692--693
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [13]
+Underfull \hbox (badness 10000) in paragraph at lines 775--776
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [14]
+Underfull \hbox (badness 10000) in paragraph at lines 823--826
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 827--829
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 847--848
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [15]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 898--899
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [16]
+Underfull \hbox (badness 10000) in paragraph at lines 936--938
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 950--952
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [17]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1023--1025
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [18]
+Underfull \hbox (badness 10000) in paragraph at lines 1072--1074
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1084
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [19]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1159--1161
+
+[20] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1207--1209
+
+[21] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1257--1258
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [22]
+Underfull \hbox (badness 10000) in paragraph at lines 1294--1296
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [23]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [24]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.89774pt too wide) in paragraph at lines 1395--1396
+[][][]\T1/ptm/m/n/10 numeric[][][]: Ma-trix con-tain-ing the lu-mi-nes-cence si
+g-nal from the back-ground curves. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 1532--1534
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1553--1554
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 1555--1557
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1568--1569
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1622--1624
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 1635--1636
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [29]
+Underfull \hbox (badness 10000) in paragraph at lines 1727--1729
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1742--1743
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1744--1746
+
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 1757--1758
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (43.2069pt too wide) in paragraph at lines 1796--1797
+[][][]\T1/ptm/m/n/10 TLum.BIN.File2Risoe.BINfileData[][][], [][]TLum.BIN.File2T
+Lum.Analysis[][][] and [][]TLum.BIN.File2TLum.Data.Curve[][][]. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [31]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1853--1855
+
+[32] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 1912--1914
+
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 1925--1926
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1927--1929
+
+
+Overfull \hbox (8.59718pt too wide) in paragraph at lines 1949--1954
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]TLum.BIN.File2TLum.Analysis[][][], [][]mod_extract.TL[][][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [34]
+Underfull \hbox (badness 10000) in paragraph at lines 2002--2004
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2017--2019
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2031--2033
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2052--2053
+
+[35]
+Underfull \hbox (badness 10000) in paragraph at lines 2054--2056
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2067--2068
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2069--2071
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2083--2089
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2083--2089
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2092--2093
+
+
+Overfull \hbox (42.15758pt too wide) in paragraph at lines 2111--2122
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot
+[][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2111--2122
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [36]
+Underfull \hbox (badness 10000) in paragraph at lines 2158--2160
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2172--2174
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2187--2189
+
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 2200--2201
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2204--2210
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2204--2210
+
+
+Overfull \hbox (37.15758pt too wide) in paragraph at lines 2217--2228
+[][][]\T1/ptm/m/n/10 readBIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][]
+, [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot[
+][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2217--2228
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [38]
+Underfull \hbox (badness 10000) in paragraph at lines 2264--2266
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2278--2280
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2291--2292
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2293--2295
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2310--2317
+
+[39]
+Overfull \hbox (42.15758pt too wide) in paragraph at lines 2324--2333
+[][][]\T1/ptm/m/n/10 read_BIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][
+], [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot
+[][][],
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 2382--2384
+
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 2397--2399
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2410--2412
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2426--2428
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2441--2442
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2443--2445
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2456--2457
+
+
+Overfull \hbox (39.66629pt too wide) in paragraph at lines 2460--2466
+[]\T1/ptm/m/n/10 This func-tion plots the re-sults from the dif-fer-ents func-t
+ions called us-ing: [][]plot_extract.TL[][][], [][]plot_remove.preheat[][][]
+
+Underfull \hbox (badness 10000) in paragraph at lines 2460--2466
+
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 2469--2470
+
+
+Overfull \hbox (37.15758pt too wide) in paragraph at lines 2488--2499
+[][][]\T1/ptm/m/n/10 readBIN2R[][][], [][]Risoe.BINfileData2TLum.BIN.File[][][]
+, [][]mod_extract.TL[][][], [][]mod_update.dType[][][], [][]mod_remove.aliquot[
+][][],
+
+Overfull \hbox (62.94713pt too wide) in paragraph at lines 2488--2499
+[][]\T1/ptm/m/n/10 mod_remove.preheat[][][], [][]mod_substract.background[][][]
+, [][]mod_align.peaks[][][], [][]writeR2BIN[][][], [][]TLum.BIN.File2TLum.Analy
+sis[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [42]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [43]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (34.79639pt too wide) in paragraph at lines 2642--2644
+[]\T1/ptm/m/n/10 This func-tion re-turn an [][]Risoe.BINfileData[][][] con-tain
+-ing all in-for-ma-tion pre-vi-ously stored in the [][]TLum.BIN.File[][][]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [44]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 2671--2672
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+Underfull \hbox (badness 10000) in paragraph at lines 2692--2692
+[]\T1/ptm/m/it/10 Convert an el-e-ment from a [][]TLum.BIN.File[][][] ob-ject i
+nto a
+[45]
+Overfull \hbox (2.41731pt too wide) in paragraph at lines 2718--2719
+[][][]\T1/ptm/m/n/10 logical[][][] (with de-fault): In-di-cate if the sig-nal w
+as record dur-ing the pre-heat plateau. 
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) (./Rd2.ind
+[46]
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 63.
+
+
+Overfull \hbox (50.8567pt too wide) in paragraph at lines 76--78
+[]\T1/zi4/m/it/10 get_structure.TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 80--82
+[]\T1/zi4/m/it/10 get_TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (15.8567pt too wide) in paragraph at lines 115--117
+[]\T1/zi4/m/it/10 length_TLum.Analysis,TLum.Analysis-method 
+[47]
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 254--256
+[]\T1/zi4/m/it/10 set_TLum.Analysis,TLum.Analysis-method 
+
+Overfull \hbox (0.8567pt too wide) in paragraph at lines 258--260
+[]\T1/zi4/m/it/10 set_TLum.BIN.File,TLum.BIN.File-method 
+
+Overfull \hbox (20.8567pt too wide) in paragraph at lines 268--270
+[]\T1/zi4/m/it/10 set_TLum.Data.Curve,TLum.Data.Curve-method 
+[48]) (./Rd2.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.Luminescence} has been referenced but does not exist, replaced by a fixed 
+one
+
+pdfTeX warning (dest): name{Rfn.readBIN2R} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.writeR2BIN} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.data.frame} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.read.Rul.BIN2R} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.write.Rul.R2BIN} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.RLum.Analysis.Rdash.class} has been referenced 
+but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.Risoe.BINfileData.Rdash.class} has been referen
+ced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.lm.Rdash.class} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.matrix} has been referenced but does not exist,
+ replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.logical} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.character} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.numeric} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.list} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{Rfn.integer} has been referenced but does not exist
+, replaced by a fixed one
+
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/tex
+live/2015/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
+/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (48 pages, 200761 bytes).
+Transcript written on Rd2.log.
+Saving output to 'TLdating-manual.pdf' ...
+Done
+You may want to clean up by 'rm -rf /var/folders/yz/3s5p1pss4352wtlzt9_bzbp00000gp/T//Rtmp19jwGC/Rd2pdf528d7abda542'
