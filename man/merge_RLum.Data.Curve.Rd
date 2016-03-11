@@ -94,7 +94,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.0
+ 0.2.0 (2016-02-05 05:21:29)
 }
 \examples{
 
@@ -119,7 +119,7 @@ plot_RLum(TL.curve.merged)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \references{
 -
 }

@@ -38,7 +38,7 @@ corresponding \code{\linkS4class{RLum}} class: \code{\linkS4class{RLum.Data.Curv
 \code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}
 }
 \section{Function version}{
- 0.3.0
+ 0.3.0 (2016-02-19 16:35:35)
 }
 \examples{
 
@@ -63,7 +63,7 @@ plot_RLum(object)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Image}},

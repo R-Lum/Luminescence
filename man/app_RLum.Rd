@@ -18,9 +18,9 @@ Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2016-03-01 13:39:32)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 

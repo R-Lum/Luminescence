@@ -49,7 +49,7 @@ This function uses the equations of Thomsen et al. (2007).  The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -64,7 +64,7 @@ ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
 (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
 written by Kristina Thomsen.
-}
+\cr R Luminescence Package Team}
 \references{
 Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 Ancient TL 33, 16-21.

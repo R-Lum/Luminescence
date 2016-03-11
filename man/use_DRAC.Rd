@@ -43,7 +43,7 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2015-12-05 15:52:49)
 }
 \examples{
 
@@ -99,7 +99,7 @@ output <- use_DRAC(input)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,
 GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
-}
+\cr R Luminescence Package Team}
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012

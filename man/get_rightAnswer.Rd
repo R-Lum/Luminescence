@@ -16,7 +16,7 @@ Returns the right answer
 This function returns just the right answer
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -26,5 +26,5 @@ get_rightAnswer()
 }
 \author{
 inspired by R.G.
-}
+\cr R Luminescence Package Team}
 

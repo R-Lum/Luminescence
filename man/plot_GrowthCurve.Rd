@@ -151,7 +151,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.8.6
+ 1.8.6 (2016-02-25 13:46:11)
 }
 \examples{
 
@@ -177,7 +177,7 @@ plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), \cr Michael Dietze, GFZ Potsdam (Germany)
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\link{nls}}, \code{\linkS4class{RLum.Results}},
 \code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link{lm}}, \code{uniroot}

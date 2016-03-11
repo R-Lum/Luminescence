@@ -40,7 +40,7 @@ in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 \item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 }}
 \section{Function version}{
- 0.3.0
+ 0.3.0 (2016-02-19 16:35:35)
 }
 \examples{
 
@@ -61,7 +61,7 @@ temp.get <- get_RLum(object = temp1)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Image}},

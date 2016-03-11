@@ -118,6 +118,10 @@
 #' rug. Currently only implemented for plot type \code{multiple.lines} and
 #' \code{single}
 #'
+#' @param limit_counts \code{\link{numeric}} (optional): value to limit all count values to
+#' this value, i.e. all count values above this threshold will be replaced by this threshold. This
+#' is helpfull especially in case of TL-spectra.
+#'
 #' @param xaxis.energy \code{\link{logical}} (with default): enables or
 #' disables energy instead of wavelength axis. Note: This option means not only
 #' simnply redrawing the axis, insteadly the spectrum in terms of intensity is
@@ -134,7 +138,7 @@
 #'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
 #'
-#' @section Function version: 0.4.3
+#' @section Function version: 0.4.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -195,6 +199,7 @@ plot_RLum.Data.Spectrum <- function(
   bin.rows = 1,
   bin.cols = 1,
   rug = TRUE,
+  limit_counts = NULL,
   xaxis.energy = FALSE,
   legend.text,
   ...
@@ -315,7 +320,7 @@ plot_RLum.Data.Spectrum <- function(
   {0.4}
 
   expand <- if("expand" %in% names(extraArgs)) {extraArgs$expand} else
-  {1}
+  {0.6}
 
   border <- if("border" %in% names(extraArgs)) {extraArgs$border} else
   {NULL}
@@ -472,6 +477,12 @@ plot_RLum.Data.Spectrum <- function(
 
   }
 
+  ##limit z-values if requested, this idea was taken from the Diss. by Thomas Schilles, 2002
+  if(!is.null(limit_counts)){
+    temp.xyz[temp.xyz[]>limit_counts] <- limit_counts
+
+  }
+
   ##check for zlim
   zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
   {range(temp.xyz)}
@@ -481,7 +492,7 @@ plot_RLum.Data.Spectrum <- function(
 
   if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
 
-    if(optical.wavelength.colours == TRUE | rug == TRUE){
+    if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "persp3d"))){
 
       ##make different colour palette for energy valuesw
       if (xaxis.energy) {

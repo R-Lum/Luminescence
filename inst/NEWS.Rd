@@ -219,7 +219,11 @@
 
             \item \code{plot_RLum.Data.Spectrum()}
       \itemize{
-        \item Added \code{matrix} as allowed input.
+        \item Added \code{matrix} as allowed input,
+        \item add new argument \code{limit_counts} to further the counts to a maximum value (the value
+        provided), this might be especially helpful in case of TL spectra,
+        \item the argument \code{optical.wavelength.colours} was not working in all cases sufficiently; corrected,
+        \item minor graphical adjustments.
 
       }
 

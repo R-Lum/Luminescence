@@ -48,7 +48,7 @@ Calculate Lx/Tx ratio for a given set of TL curves.
 \bold{This function has still BETA status!}
 }
 \section{Function version}{
- 0.3.0
+ 0.3.0 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -77,7 +77,7 @@ get_RLum(output)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Christoph Schmidt, University of Bayreuth (Germany)
-}
+\cr R Luminescence Package Team}
 \references{
 -
 }

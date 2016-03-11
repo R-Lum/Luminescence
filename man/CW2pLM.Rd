@@ -38,7 +38,7 @@ The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
- 0.4.1
+ 0.4.1 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -67,7 +67,7 @@ plot(values.transformed)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \references{
 Bulur, E., 2000. A simple transformation for converting CW-OSL
 curves to LM-OSL curves. Radiation Measurements, 32, 141-145.

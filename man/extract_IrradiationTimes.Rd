@@ -92,7 +92,7 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.2.1
+ 0.2.1 (2015-12-05 15:52:49)
 }
 \examples{
 
@@ -117,7 +117,7 @@ towards a correct time order.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \references{
 Duller, G., 2007. Analyst.
 }

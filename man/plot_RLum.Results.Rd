@@ -33,7 +33,7 @@ Not all arguments available for \code{\link{plot}} will be passed!
 Only plotting of \code{RLum.Results} objects are supported.
 }
 \section{Function version}{
- 0.2.1
+ 0.2.1 (2015-12-05 15:52:49)
 }
 \examples{
 
@@ -58,7 +58,7 @@ plot_RLum.Results(grains)
 \author{
 Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,
 Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \references{
 #
 }

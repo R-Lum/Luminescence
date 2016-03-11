@@ -6,7 +6,8 @@
 \usage{
 plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour",
   optical.wavelength.colours = TRUE, bg.channels, bin.rows = 1,
-  bin.cols = 1, rug = TRUE, xaxis.energy = FALSE, legend.text, ...)
+  bin.cols = 1, rug = TRUE, limit_counts = NULL, xaxis.energy = FALSE,
+  legend.text, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
@@ -46,6 +47,10 @@ channels are summed up}
 \item{rug}{\code{\link{logical}} (with default): enables or disables colour
 rug. Currently only implemented for plot type \code{multiple.lines} and
 \code{single}}
+
+\item{limit_counts}{\code{\link{numeric}} (optional): value to limit all count values to
+this value, i.e. all count values above this threshold will be replaced by this threshold. This
+is helpfull especially in case of TL-spectra.}
 
 \item{xaxis.energy}{\code{\link{logical}} (with default): enables or
 disables energy instead of wavelength axis. Note: This option means not only
@@ -149,7 +154,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.4.3
+ 0.4.5 (2016-03-11 15:58:12)
 }
 \examples{
 
@@ -192,7 +197,7 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 \references{
 Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
 Springer.

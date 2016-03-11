@@ -89,7 +89,7 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.8
+ 0.1.8 (2016-02-19 16:35:35)
 }
 \examples{
 
@@ -158,7 +158,7 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Michael Dietze, GFZ Potsdam (Germany)
-}
+\cr R Luminescence Package Team}
 \references{
 Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 stimulated luminescence characteristics and their relevance in

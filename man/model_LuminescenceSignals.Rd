@@ -37,10 +37,10 @@ Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2016-03-01 13:39:32)
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
-}
+\cr R Luminescence Package Team}
 

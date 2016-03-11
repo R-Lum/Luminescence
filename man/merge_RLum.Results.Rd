@@ -18,10 +18,10 @@ rows are appended.
 The originator is taken from the first element and not reset to \code{merge_RLum}
 }
 \section{Function version}{
- 0.2.0
+ 0.2.0 (2016-02-05 05:21:29)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-}
+\cr R Luminescence Package Team}
 
