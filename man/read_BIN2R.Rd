@@ -77,7 +77,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested properly so far.}.
 }
 \section{Function version}{
- 0.12.3 (2016-02-26 13:12:50)
+ 0.12.3 (2016-03-02 11:15:14)
 }
 \examples{
 
