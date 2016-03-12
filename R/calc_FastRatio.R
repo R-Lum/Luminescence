@@ -182,5 +182,5 @@ calc_FastRatio <- function(object,
   })
   if (length(fast.ratios) == 1)
     fast.ratios <- fast.ratios[[1]]
-  return(fast.ratios)
+  invisible(fast.ratios)
 }
