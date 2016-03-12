@@ -149,6 +149,12 @@ calc_FastRatio <- function(object,
       Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
     }
     
+    # Warn if counts are not in decreasing order
+    if (Cts_L3 >= Cts_L2)
+      warning(sprintf("L3 contains more counts (%.f) than L2 (%.f).",
+                      Cts_L3, Cts_L2), call. = FALSE)
+    
+    
     ## Fast Ratio
     FR <- (Cts_L1-Cts_L3) / (Cts_L2-Cts_L3)
     if (length(FR) != 1)
