@@ -46,7 +46,7 @@ get_Quote <- function(
     c("An arbitrary member of the CRAN team", "No shirt, no shoes, no service!"),
     c("Rubber mallet to steel cylinder", "Let's rock and roll."),
     c("A data import function", "Better late than never."),
-    c("A luminescence lab staff member to its customer", "Tell me the age, I tell you to price."),
+    c("A luminescence lab staff member to its customer", "Tell me the age, I tell you the price."),
     c("The NSA", "O'zapft is."),
     c("The natural dose", "You only life once."),
     c("A Windows user", "An apple a day keeps the doctor away."),
