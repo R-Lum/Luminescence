@@ -78,7 +78,7 @@ calc_FastRatio <- function(object,
     object <-list(object)
   
   ## Settings ------------------------------------------------------------------
-  settings <- list()
+  settings <- list(verbose = TRUE)
   
   # override defaults with args in ... [currently not used]
   settings <- modifyList(settings, list(...))
@@ -177,10 +177,31 @@ calc_FastRatio <- function(object,
                                        call = sys.call(-2L))
     )
     
-    return(fast.ratio)
+    ## Console Output ----------------------------------------------------------
+    if (settings$verbose) {
+      
+      table.names <- c(
+        "Fast Ratio\t", "Channels\t",
+        "-\n Time L1 (s)\t", "Time L2 (s)\t", "Time L3 start (s)", "Time L3 end (s)",
+        "-\n Channel L1\t", "Channel L2\t", "Channel L3 start", "Channel L3 end\t",
+        "-\n Counts L1\t", "Counts L3\t", "Counts L3\t")
+      
+      cat("\n[calc_FastRatio()]\n")
+      cat("\n -------------------------------")
+      for (i in 1:ncol(summary)) {
+        cat(paste0("\n ", table.names[i],"\t: ",
+                   format(summary[1, i], digits = 2, nsmall = 2)))
+      }
+      cat("\n -------------------------------\n\n")
+      
+    }
     
-  })
+    # return
+    return(fast.ratio)
+  }) # End of lapply
+  
   if (length(fast.ratios) == 1)
     fast.ratios <- fast.ratios[[1]]
+  
   invisible(fast.ratios)
 }
