@@ -26,6 +26,10 @@
 #' @param dead.channels \code{\link{numeric}}: Vector of length 2 in the form of
 #' \code{c(x, y)}.
 #' 
+#' @param fitCW \code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' to calculate \code{sigmaF} and \fit{sigmaM} and apply the fast ratio on the
+#' non-linear least-square fit (highly experimental!).
+#' 
 #' @param plot \code{\link{numeric}}: plot output (\code{TRUE}/\code{FALSE})
 #' 
 #' @param ... available options: \code{verbose} \code{\link{logical}}.
@@ -70,6 +74,7 @@ calc_FastRatio <- function(object,
                            x = 1,
                            x2 = 0.1,
                            dead.channels = c(0,0),
+                           fitCW = FALSE,
                            plot = TRUE,
                            ...) {
   
@@ -114,6 +119,26 @@ calc_FastRatio <- function(object,
     # remove dead channels
     A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ])
     A[ ,1] <- A[ ,1] - A[1,1]
+    
+    # estimate the photo-ionisation crossections of the fast and medium
+    # component using the fit_CWCurve function
+    if (fitCW) {
+      message("\n [calc_FitCWCurve()]\n")
+      fitCW.res <- try(fit_CWCurve(A, n.components.max = 2, fit.method = "LM", 
+                                   LED.power = stimulation.power, 
+                                   LED.wavelength = wavelength, 
+                                   output.terminal = FALSE, plot = plot))
+      if (!inherits(fitCW.res, "try-error")) {
+        sigmaF <- get_RLum(fitCW.res, "output.table")$cs1
+        sigmaM <- get_RLum(fitCW.res, "output.table")$cs2
+        message("New value for sigmaF: ", format(sigmaF, digits = 3, nsmall = 2))
+        message("New value for sigmaM: ", format(sigmaM, digits = 3, nsmall = 2))
+      } else {
+        message("Fitting failed! Please call 'fit_CWCurve() manually before ",
+                "calculating the fast ratio.")
+      }
+    }
+    
     
     ## The equivalent time in s of L1, L2, L3
     # Use these values to look up the channel

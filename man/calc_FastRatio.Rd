@@ -6,7 +6,7 @@
 \usage{
 calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
   sigmaF = 2.6e-17, sigmaM = 4.28e-18, Ch_L1 = 1, x = 1, x2 = 0.1,
-  dead.channels = c(0, 0), plot = TRUE, ...)
+  dead.channels = c(0, 0), fitCW = FALSE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}}, 
@@ -29,6 +29,10 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
 
 \item{dead.channels}{\code{\link{numeric}}: Vector of length 2 in the form of
 \code{c(x, y)}.}
+
+\item{fitCW}{\code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+to calculate \code{sigmaF} and \fit{sigmaM} and apply the fast ratio on the
+non-linear least-square fit (highly experimental!).}
 
 \item{plot}{\code{\link{numeric}}: plot output (\code{TRUE}/\code{FALSE})}
 
