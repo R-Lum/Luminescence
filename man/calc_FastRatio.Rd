@@ -60,7 +60,7 @@ Durcan & Duller (2001).
 Some more details on the function.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2016-03-13 20:00:10)
 }
 \examples{
 # load example CW-OSL curve
@@ -77,7 +77,7 @@ get_RLum(res)
 Georgina King, University of Cologne (Germany) \cr
 Julie A. Durcan, Institute of Geography and Earth Sciences, Aberystwyth University (United Kingdom) \cr
 Christoph Burow, University of Cologne (Germany) \cr
-}
+\cr R Luminescence Package Team}
 \references{
 Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 the dominance of the fast component in the initial OSL signal from quartz.
