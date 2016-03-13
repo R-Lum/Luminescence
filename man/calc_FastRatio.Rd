@@ -6,7 +6,8 @@
 \usage{
 calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
   sigmaF = 2.6e-17, sigmaM = 4.28e-18, Ch_L1 = 1, x = 1, x2 = 0.1,
-  dead.channels = c(0, 0), fitCW = FALSE, plot = TRUE, ...)
+  dead.channels = c(0, 0), fitCW.sigma = FALSE, fitCW.curve = FALSE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}}, 
@@ -30,20 +31,24 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
 \item{dead.channels}{\code{\link{numeric}}: Vector of length 2 in the form of
 \code{c(x, y)}.}
 
-\item{fitCW}{\code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
-to calculate \code{sigmaF} and \fit{sigmaM} and apply the fast ratio on the
-non-linear least-square fit (highly experimental!).}
+\item{fitCW.sigma}{\code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+to calculate \code{sigmaF} and \code{sigmaM} and apply the fast ratio on the
+non-linear least-square fit (experimental).}
+
+\item{fitCW.curve}{\code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+and derive the counts of L2 and L3 from the fitted OSL curve (experimental).}
 
 \item{plot}{\code{\link{numeric}}: plot output (\code{TRUE}/\code{FALSE})}
 
-\item{...}{available options: \code{verbose} \code{\link{logical}}.}
+\item{...}{available options: \code{verbose} (\code{\link{logical}}). Further
+arguments passed to \code{\link{fit_CWCurve}}.}
 }
 \value{
 Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
-The slot \code{data} contains a \code{\link{list}} with the following structure:\cr
-$ selection (data.frame) \cr
+The slot \code{data} contains a \code{\link{list}} with the following elements:\cr
 .. $ summary \cr
 .. $ data \cr
+.. $ fit \cr
 .. $ args \cr
 .. $ call \cr
 }
@@ -55,7 +60,7 @@ Durcan & Duller (2001).
 Some more details on the function.
 }
 \section{Function version}{
- 0.1.0 (2016-03-12 16:50:44)
+ 0.1.0
 }
 \examples{
 # load example CW-OSL curve

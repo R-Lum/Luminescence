@@ -26,19 +26,23 @@
 #' @param dead.channels \code{\link{numeric}}: Vector of length 2 in the form of
 #' \code{c(x, y)}.
 #' 
-#' @param fitCW \code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
-#' to calculate \code{sigmaF} and \fit{sigmaM} and apply the fast ratio on the
-#' non-linear least-square fit (highly experimental!).
+#' @param fitCW.sigma \code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' to calculate \code{sigmaF} and \code{sigmaM} and apply the fast ratio on the
+#' non-linear least-square fit (experimental).
+#' 
+#' @param fitCW.curve \code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' and derive the counts of L2 and L3 from the fitted OSL curve (experimental).
 #' 
 #' @param plot \code{\link{numeric}}: plot output (\code{TRUE}/\code{FALSE})
 #' 
-#' @param ... available options: \code{verbose} \code{\link{logical}}.
+#' @param ... available options: \code{verbose} (\code{\link{logical}}). Further
+#' arguments passed to \code{\link{fit_CWCurve}}.
 #'
 #' @return Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
-#' The slot \code{data} contains a \code{\link{list}} with the following structure:\cr
-#' $ selection (data.frame) \cr
+#' The slot \code{data} contains a \code{\link{list}} with the following elements:\cr
 #' .. $ summary \cr
 #' .. $ data \cr
+#' .. $ fit \cr
 #' .. $ args \cr
 #' .. $ call \cr
 #' 
@@ -74,7 +78,8 @@ calc_FastRatio <- function(object,
                            x = 1,
                            x2 = 0.1,
                            dead.channels = c(0,0),
-                           fitCW = FALSE,
+                           fitCW.sigma = FALSE,
+                           fitCW.curve = FALSE,
                            plot = TRUE,
                            ...) {
   
@@ -87,7 +92,11 @@ calc_FastRatio <- function(object,
   
   ## Settings ------------------------------------------------------------------
   settings <- list(verbose = TRUE,
-                   info = list())
+                   n.components.max = 2,
+                   fit.method = "LM",
+                   output.terminal = FALSE,
+                   info = list(),
+                   fit = NULL)
   
   # override defaults with args in ...
   settings <- modifyList(settings, list(...))
@@ -115,28 +124,46 @@ calc_FastRatio <- function(object,
     
     I0 <- (P / 1000) / (h * c / (lamdaLED * 10^-9))
     Ch_width <- max(A[ ,1]) / length(A[ ,1])
-
+    
     # remove dead channels
     A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ])
     A[ ,1] <- A[ ,1] - A[1,1]
     
     # estimate the photo-ionisation crossections of the fast and medium
     # component using the fit_CWCurve function
-    if (fitCW) {
-      message("\n [calc_FitCWCurve()]\n")
-      fitCW.res <- try(fit_CWCurve(A, n.components.max = 2, fit.method = "LM", 
+    if (fitCW.sigma | fitCW.curve) {
+      if (settings$verbose) 
+        message("\n [calc_FitCWCurve()]\n")
+      fitCW.res <- try(fit_CWCurve(A, n.components.max = settings$n.components.max, 
+                                   fit.method = settings$fit.method, 
                                    LED.power = stimulation.power, 
                                    LED.wavelength = wavelength, 
-                                   output.terminal = FALSE, plot = plot))
-      if (!inherits(fitCW.res, "try-error")) {
-        sigmaF <- get_RLum(fitCW.res, "output.table")$cs1
-        sigmaM <- get_RLum(fitCW.res, "output.table")$cs2
-        message("New value for sigmaF: ", format(sigmaF, digits = 3, nsmall = 2))
-        message("New value for sigmaM: ", format(sigmaM, digits = 3, nsmall = 2))
-      } else {
-        message("Fitting failed! Please call 'fit_CWCurve() manually before ",
-                "calculating the fast ratio.")
+                                   output.terminal = settings$output.terminal, 
+                                   plot = plot))
+      settings$fit <- fitCW.res
+      
+      if (fitCW.sigma) {
+        if (!inherits(fitCW.res, "try-error")) {
+          sigmaF <- get_RLum(fitCW.res, "output.table")$cs1
+          sigmaM <- get_RLum(fitCW.res, "output.table")$cs2
+          if (settings$verbose) {
+            message("New value for sigmaF: ", format(sigmaF, digits = 3, nsmall = 2))
+            message("New value for sigmaM: ", format(sigmaM, digits = 3, nsmall = 2))
+          }
+        } else {
+          if (settings$verbose)
+            message("Fitting failed! Please call 'fit_CWCurve() manually before ",
+                    "calculating the fast ratio.")
+        }
       }
+      
+      if (fitCW.curve) {
+        if (!inherits(fitCW.res, "try-error")) {
+          nls <- get_RLum(fitCW.res, "fit")
+          A[ ,2] <- predict(nls)
+        }
+      }
+
     }
     
     
@@ -152,7 +179,7 @@ calc_FastRatio <- function(object,
     
     if (Ch_L2 <= 1) {
       msg <- sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
-              t_L2, Ch_L2)
+                     t_L2, Ch_L2)
       settings$info <- modifyList(settings$info, list(L2 = msg))
       warning(msg, call. = FALSE)
       return(NULL)
@@ -162,36 +189,58 @@ calc_FastRatio <- function(object,
     Ch_L3end <- which.min(abs(A[,1] - t_L3_end))
     
     ## Counts in channels L1, L2, L3
+    # L1 ----
     Cts_L1 <- A[Ch_L1, 2]
     
+    # L2 ----
     if (Ch_L2 > nrow(A)) {
-      msg <- sprintf(paste("The calculated channel for L2 (%i)", 
-                           "is larger than available channels (%i).",
+      msg <- sprintf(paste("The calculated channel for L2 (%i) is equal", 
+                           "to or larger than the number of available channels (%i).",
                            "Returned NULL."), Ch_L2, nrow(A))
       settings$info <- modifyList(settings$info, list(L2 = msg))
       warning(msg, call. = FALSE)
       return(NULL)
-    } else {
-      Cts_L2 <- A[Ch_L2, 2]
-    }
+    } 
+  
+    Cts_L2 <- A[Ch_L2, 2]
     
+    # optional: predict the counts from the fitted curve
+    if (fitCW.curve) {
+      if (!inherits(fitCW.res, "try-error")) {
+        nls <- get_RLum(fitCW.res, "fit")
+        Cts_L2 <- predict(nls, list(x = t_L2))
+      }
+    }
+
+    
+    # L3 ----
     if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {
-      msg <- sprintf(paste("The calculated channels for L3 (%i, %i)", 
-                           "are larger than available channels (%i).",
-                           "The background was estimated from the last",
+      msg <- sprintf(paste("The calculated channels for L3 (%i, %i) are equal to or", 
+                           "larger than the number of available channels (%i).",
+                           "\nThe background was estimated from the last",
                            "5 channels instead."), Ch_L3st, Ch_L3end, nrow(A))
       settings$info <- modifyList(settings$info, list(L3 = msg))
       warning(msg, call. = FALSE)
       Ch_L3st <- nrow(A) - 5
       Ch_L3end <- nrow(A)
+      t_L3_start <- A[Ch_L3st,1]
+      t_L3_end <- A[Ch_L3end,1]
     }
+    
     Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
+    
+    # optional: predict the counts from the fitted curve
+    if (fitCW.curve) {
+      if (!inherits(fitCW.res, "try-error")) {
+        nls <- get_RLum(fitCW.res, "fit")
+        Cts_L3 <- mean(predict(nls, list(x = c(t_L3_start, t_L3_end))))
+      }
+    }
     
     # Warn if counts are not in decreasing order
     if (Cts_L3 >= Cts_L2)
       warning(sprintf("L3 contains more counts (%.f) than L2 (%.f).",
                       Cts_L3, Cts_L2), call. = FALSE)
-    
     
     ## Fast Ratio
     FR <- (Cts_L1-Cts_L3) / (Cts_L2-Cts_L3)
@@ -220,6 +269,7 @@ calc_FastRatio <- function(object,
                            originator = "calc_FastRatio",
                            data = list(summary = summary,
                                        data = obj,
+                                       fit = settings$fit,
                                        args = as.list(sys.call(-2L)[-1]),
                                        call = sys.call(-2L)),
                            info = settings$info
@@ -246,7 +296,7 @@ calc_FastRatio <- function(object,
     ## Plotting ----------------------------------------------------------------
     if (plot) 
       try(plot_RLum.Results(fast.ratio, ...))
-    
+
     # return
     return(fast.ratio)
   }) # End of lapply
