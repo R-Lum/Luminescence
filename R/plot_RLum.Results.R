@@ -1058,4 +1058,49 @@ plot_RLum.Results<- function(
 
   }#EndOf::Case 6 - calc_SourceDoseRate()
 
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+  ## CASE 7: Fast Ratio
+  if (object@originator=="calc_FastRatio") {
+    
+    # graphical settings
+    settings <- list(main = "Fast Ratio",
+                     xlab = "t/s",
+                     ylab = "Signal/cts",
+                     cex = 1.0)
+    settings <- modifyList(settings, list(...))
+    
+    par(cex = settings$cex)
+    
+    # fetch data from RLum.Results object
+    curve <- get_RLum(object, "data")
+    if (inherits(curve, "RLum.Data.Curve"))
+      curve <- get_RLum(curve)
+    res <- get_RLum(object, "summary")
+    
+    # calculate the dead channel time offset
+    offset <- res$dead.channels.start * res$channel.width
+    
+    # plot the OSL curve
+    plot(curve, type = "l", main = settings$main,
+         xlab = settings$xlab, ylab = settings$ylab)
+    
+    # plot points to show measured data points (i.e., the channels)
+    points(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end),],
+           pch = 16)
+    
+    # plot dead channels as empty circles
+    points(curve[1:res$dead.channels.start,])
+    points(curve[(nrow(curve) - res$dead.channels.end):nrow(curve), ])
+    
+    # add vertical lines and labels for L1, L2, L3
+    L_times <- c(curve[res$Ch_L1, 1],
+                curve[res$Ch_L2, 1],
+                curve[res$Ch_L3_start, 1],
+                curve[res$Ch_L3_end, 1]) + offset
+    abline(v = L_times,
+           lty = 2)
+    text(L_times, max(curve[ ,2]) * 0.95, pos = 4,
+         labels = expression('L'[1], 'L'[2], 'L'[3['start']], 'L'[3['end']]))
+    
+  }#EndOf::Case7 - calc_FastRatio()
 }

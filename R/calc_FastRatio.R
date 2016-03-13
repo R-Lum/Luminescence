@@ -26,10 +26,12 @@
 #' @param dead.channels \code{\link{numeric}}: Vector of length 2 in the form of
 #' \code{c(x, y)}.
 #' 
+#' @param plot \code{\link{numeric}}: plot output (\code{TRUE}/\code{FALSE})
+#' 
 #' @param ... available options: \code{verbose} \code{\link{logical}}.
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}} and the slot
-#' \code{data} contains a \code{\link{list}} with the following structure:\cr
+#' @return Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
+#' The slot \code{data} contains a \code{\link{list}} with the following structure:\cr
 #' $ selection (data.frame) \cr
 #' .. $ summary \cr
 #' .. $ data \cr
@@ -68,6 +70,7 @@ calc_FastRatio <- function(object,
                            x = 1,
                            x2 = 0.1,
                            dead.channels = c(0,0),
+                           plot = TRUE,
                            ...) {
   
   ## Input object handling -----------------------------------------------------
@@ -80,7 +83,7 @@ calc_FastRatio <- function(object,
   ## Settings ------------------------------------------------------------------
   settings <- list(verbose = TRUE)
   
-  # override defaults with args in ... [currently not used]
+  # override defaults with args in ...
   settings <- modifyList(settings, list(...))
   
   
@@ -109,6 +112,7 @@ calc_FastRatio <- function(object,
     
     # remove dead channels
     A <- A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ]
+    A[ ,1] <- A[ ,1] - A[1,1]
     
     ## The equivalent time in s of L1, L2, L3
     # Use these values to look up the channel
@@ -119,8 +123,7 @@ calc_FastRatio <- function(object,
     
     ## Channel number(s) of L2 and L3
     Ch_L2 <- floor(t_L2 / Ch_width)
-    if (dead.channels[1] > 0)
-      Ch_L2 <- Ch_L2 - dead.channels[1]
+    
     if (Ch_L2 <= 1) {
       warning(sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
               t_L2, Ch_L2), call. = FALSE)
@@ -149,10 +152,10 @@ calc_FastRatio <- function(object,
                             "The background was estimated from the last",
                             "5 channels instead."), Ch_L3st, Ch_L3end, nrow(A)), 
               call. = FALSE)
-      Cts_L3 <- mean(A[(nrow(A)-5):(nrow(A)), 2])
-    } else {
-      Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
+      Ch_L3st <- nrow(A) - 5
+      Ch_L3end <- nrow(A)
     }
+    Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
     
     # Warn if counts are not in decreasing order
     if (Cts_L3 >= Cts_L2)
@@ -168,6 +171,9 @@ calc_FastRatio <- function(object,
     ## Return values -----------------------------------------------------------
     summary <- data.frame(fast.ratio = FR,
                           channels = nrow(A),
+                          channel.width = Ch_width,
+                          dead.channels.start = dead.channels[1],
+                          dead.channels.end = dead.channels[2],
                           t_L1 = t_L1,
                           t_L2 = t_L2,
                           t_L3_start = t_L3_start,
@@ -192,10 +198,10 @@ calc_FastRatio <- function(object,
     if (settings$verbose) {
       
       table.names <- c(
-        "Fast Ratio\t", "Channels\t",
+        "Fast Ratio\t", "Channels\t", "Channel width (s)", "Dead channels start", "Dead channels end",
         "-\n Time L1 (s)\t", "Time L2 (s)\t", "Time L3 start (s)", "Time L3 end (s)",
         "-\n Channel L1\t", "Channel L2\t", "Channel L3 start", "Channel L3 end\t",
-        "-\n Counts L1\t", "Counts L3\t", "Counts L3\t")
+        "-\n Counts L1\t", "Counts L2\t", "Counts L3\t")
       
       cat("\n[calc_FastRatio()]\n")
       cat("\n -------------------------------")
@@ -206,6 +212,9 @@ calc_FastRatio <- function(object,
       cat("\n -------------------------------\n\n")
       
     }
+    ## Plotting ----------------------------------------------------------------
+    if (plot) 
+      try(plot_RLum.Results(fast.ratio, ...))
     
     # return
     return(fast.ratio)

@@ -6,7 +6,7 @@
 \usage{
 calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
   sigmaF = 2.6e-17, sigmaM = 4.28e-18, Ch_L1 = 1, x = 1, x2 = 0.1,
-  dead.channels = c(0, 0), ...)
+  dead.channels = c(0, 0), plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}}, 
@@ -30,11 +30,13 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
 \item{dead.channels}{\code{\link{numeric}}: Vector of length 2 in the form of
 \code{c(x, y)}.}
 
+\item{plot}{\code{\link{numeric}}: plot output (\code{TRUE}/\code{FALSE})}
+
 \item{...}{available options: \code{verbose} \code{\link{logical}}.}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}} and the slot
-\code{data} contains a \code{\link{list}} with the following structure:\cr
+Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
+The slot \code{data} contains a \code{\link{list}} with the following structure:\cr
 $ selection (data.frame) \cr
 .. $ summary \cr
 .. $ data \cr
@@ -66,7 +68,7 @@ get_RLum(res)
 Georgina King, University of Cologne (Germany) \cr
 Julie A. Durcan, Institute of Geography and Earth Sciences, Aberystwyth University (United Kingdom) \cr
 Christoph Burow, University of Cologne (Germany) \cr
-\cr R Luminescence Package Team}
+}
 \references{
 Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 the dominance of the fast component in the initial OSL signal from quartz.
