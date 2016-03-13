@@ -110,9 +110,9 @@ calc_FastRatio <- function(object,
     
     I0 <- (P / 1000) / (h * c / (lamdaLED * 10^-9))
     Ch_width <- max(A[ ,1]) / length(A[ ,1])
-    
+
     # remove dead channels
-    A <- A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ]
+    A <- as.data.frame(A[(dead.channels[1] + 1):(nrow(A)-dead.channels[2]), ])
     A[ ,1] <- A[ ,1] - A[1,1]
     
     ## The equivalent time in s of L1, L2, L3
@@ -126,7 +126,7 @@ calc_FastRatio <- function(object,
     Ch_L2 <- which.min(abs(A[,1] - t_L2))
     
     if (Ch_L2 <= 1) {
-      sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
+      msg <- sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
               t_L2, Ch_L2)
       settings$info <- modifyList(settings$info, list(L2 = msg))
       warning(msg, call. = FALSE)
