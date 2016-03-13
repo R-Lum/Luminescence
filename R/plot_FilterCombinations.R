@@ -72,7 +72,21 @@
 #'
 #' @examples
 #'
-#' ##still pending
+#' ##(For legal no real filter data are provided)
+#'
+#' ##Create filter sets
+#' filter1 <- density(rnorm(100, mean = 450, sd = 20))
+#' filter1 <- matrix(c(filter1$x, filter1$y/max(filter1$y)), ncol = 2)
+#' filter2 <- matrix(c(200:799,rep(c(0,0.8,0),each = 200)), ncol = 2)
+#'
+#' ##Example 1 (standard)
+#' plot_FilterCombinations(filters = list(filter1, filter2))
+#'
+#' ##Example 2 (with d and P value and name for filter 2)
+#' results <- plot_FilterCombinations(
+#' filters = list(filter_1 = filter1, Rectangle = list(filter2, d = 2, P = 0.6)))
+#' results
+#'
 #'
 #' @export
 plot_FilterCombinations <- function(
@@ -104,15 +118,6 @@ plot_FilterCombinations <- function(
 
   })
 
-  #check if there are transmission values greater than one, this is not possible
-  lapply(filters, function(x) {
-    if (max(x[, 2]) > 1.01) {
-      stop("[plot_FilterCombinations()] transmission values > 1 found. Check your data.")
-
-    }
-
-  })
-
   #check for named list, if not set names
   if (is.null(names(filters))) {
     names(filters) <- paste("Filter ", 1:length(filters))
@@ -126,22 +131,38 @@ plot_FilterCombinations <- function(
   ##transmission for this ... relevant for glass filters
   filters <- lapply(filters, function(x) {
     if (is(x, "list")) {
+
       ##correction for the transmission accounting for filter tickness, the
       ##provided thickness is always assumed to be 1
-      x[[1]][, 2] <- x[[1]][, 2] ^ (x[[2]])
-
-      ##account for potentially provided transmission relexion factor
-      if(length(x[[1]])){
-       x[[1]][,2] <-  x[[3]]
-
+      if(length(x) > 1){
+        x[[1]][, 2] <- x[[1]][, 2] ^ (x[[2]])
 
       }else{
-       x[[1]]
+        return(x[[1]])
+
+      }
+
+      ##account for potentially provided transmission relexion factor
+      if(length(x) > 2){
+       x[[1]][,2] <-  x[[1]][,2] * x[[3]]
+       return(x[[1]])
+
+      }else{
+       return(x[[1]])
 
       }
 
     } else{
-      x
+      return(x)
+
+    }
+
+  })
+
+  #check if there are transmission values greater than one, this is not possible
+  lapply(filters, function(x) {
+    if (max(x[, 2]) > 1.01) {
+      stop("[plot_FilterCombinations()] transmission values > 1 found. Check your data.")
 
     }
 
@@ -244,10 +265,3 @@ plot_FilterCombinations <- function(
 
 
 }
-
-# filter1 <- read.csv("~/Documents/Assignments/20140509_Al2O3_Measurements/R/Chroma_D410_30x.txt", sep = "\t", header = FALSE)
-#
-# filter2 <- read.csv("~/Documents/Assignments/20140509_Al2O3_Measurements/R/BrightLine_407.txt", sep = "\t", header = FALSE)
-#
-#
-# print(plot_FilterCombinations(filters = list(filter1, filter2)))
