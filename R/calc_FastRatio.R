@@ -121,6 +121,11 @@ calc_FastRatio <- function(object,
     Ch_L2 <- floor(t_L2 / Ch_width)
     if (dead.channels[1] > 0)
       Ch_L2 <- Ch_L2 - dead.channels[1]
+    if (Ch_L2 <= 1) {
+      warning(sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
+              t_L2, Ch_L2), call. = FALSE)
+      return(NULL)
+    }
     
     Ch_L3st<- floor(t_L3_start / Ch_width)
     Ch_L3end <- floor(t_L3_end / Ch_width)
