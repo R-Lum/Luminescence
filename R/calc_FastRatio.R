@@ -81,7 +81,8 @@ calc_FastRatio <- function(object,
     object <-list(object)
   
   ## Settings ------------------------------------------------------------------
-  settings <- list(verbose = TRUE)
+  settings <- list(verbose = TRUE,
+                   info = list())
   
   # override defaults with args in ...
   settings <- modifyList(settings, list(...))
@@ -125,8 +126,10 @@ calc_FastRatio <- function(object,
     Ch_L2 <- floor(t_L2 / Ch_width)
     
     if (Ch_L2 <= 1) {
-      warning(sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
-              t_L2, Ch_L2), call. = FALSE)
+      sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
+              t_L2, Ch_L2)
+      settings$info <- modifyList(settings$info, list(L2 = msg))
+      warning(msg, call. = FALSE)
       return(NULL)
     }
     
@@ -137,21 +140,23 @@ calc_FastRatio <- function(object,
     Cts_L1 <- A[Ch_L1, 2]
     
     if (Ch_L2 > nrow(A)) {
-      warning(sprintf(paste("The calculated channel for L2 (%i)", 
-                            "is larger than available channels (%i).",
-                            "Returned NULL."), Ch_L2, nrow(A)), 
-              call. = FALSE)
+      msg <- sprintf(paste("The calculated channel for L2 (%i)", 
+                           "is larger than available channels (%i).",
+                           "Returned NULL."), Ch_L2, nrow(A))
+      settings$info <- modifyList(settings$info, list(L2 = msg))
+      warning(msg, call. = FALSE)
       return(NULL)
     } else {
       Cts_L2 <- A[Ch_L2, 2]
     }
     
     if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {
-      warning(sprintf(paste("The calculated channels for L3 (%i, %i)", 
-                            "are larger than available channels (%i).",
-                            "The background was estimated from the last",
-                            "5 channels instead."), Ch_L3st, Ch_L3end, nrow(A)), 
-              call. = FALSE)
+      msg <- sprintf(paste("The calculated channels for L3 (%i, %i)", 
+                           "are larger than available channels (%i).",
+                           "The background was estimated from the last",
+                           "5 channels instead."), Ch_L3st, Ch_L3end, nrow(A))
+      settings$info <- modifyList(settings$info, list(L3 = msg))
+      warning(msg, call. = FALSE)
       Ch_L3st <- nrow(A) - 5
       Ch_L3end <- nrow(A)
     }
@@ -191,7 +196,8 @@ calc_FastRatio <- function(object,
                            data = list(summary = summary,
                                        data = obj,
                                        args = as.list(sys.call(-2L)[-1]),
-                                       call = sys.call(-2L))
+                                       call = sys.call(-2L)),
+                           info = settings$info
     )
     
     ## Console Output ----------------------------------------------------------
