@@ -133,8 +133,8 @@ calc_FastRatio <- function(object,
       return(NULL)
     }
     
-    Ch_L3st<- floor(t_L3_start / Ch_width)
-    Ch_L3end <- floor(t_L3_end / Ch_width)
+    Ch_L3st<- which.min(abs(A[,1] - t_L3_start))
+    Ch_L3end <- which.min(abs(A[,1] - t_L3_end))
     
     ## Counts in channels L1, L2, L3
     Cts_L1 <- A[Ch_L1, 2]
