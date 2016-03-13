@@ -1090,8 +1090,10 @@ plot_RLum.Results<- function(
            pch = 16)
     
     # plot dead channels as empty circles
-    points(curve[1:res$dead.channels.start,])
-    points(curve[(nrow(curve) - res$dead.channels.end):nrow(curve), ])
+    if (res$dead.channels.start > 0)
+      points(curve[1:res$dead.channels.start,])
+    if (res$dead.channels.end > 0)
+      points(curve[(nrow(curve) - res$dead.channels.end):nrow(curve), ])
     
     # optional: plot fitted CW curve
     if (!is.null(fit)) {
@@ -1113,7 +1115,7 @@ plot_RLum.Results<- function(
                  curve[res$Ch_L3_end, 1]) + offset
     abline(v = L_times,
            lty = 2)
-    text(L_times, max(curve[ ,2]) * 0.95, pos = 4,
+    text(L_times, max(curve[ ,2]) * 0.95, pos = c(4,4,2,2),
          labels = expression('L'[1], 'L'[2], 'L'[3['start']], 'L'[3['end']]))
     
   }#EndOf::Case7 - calc_FastRatio()
