@@ -123,7 +123,7 @@ calc_FastRatio <- function(object,
     t_L3_end <- (log(x2 / 100)) / (-sigmaM * I0)
     
     ## Channel number(s) of L2 and L3
-    Ch_L2 <- floor(t_L2 / Ch_width)
+    Ch_L2 <- which.min(abs(A[,1] - t_L2))
     
     if (Ch_L2 <= 1) {
       sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
