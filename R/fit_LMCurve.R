@@ -360,7 +360,7 @@ fit_LMCurve<- function(
       writeLines("[fit_LMCurve.R] >> Background subtracted (method=\"linear\")!")
 
       ##plot Background measurement if needed
-      if(plot.BG==TRUE){
+      if(plot.BG){
 
         plot(values.bg, ylab="LM-OSL [a.u.]", xlab="Time [s]", main="Background")
         curve((glm.coef[2]*x+glm.coef[1]),add=TRUE,col="red",lwd=1.5)
@@ -450,8 +450,8 @@ fit_LMCurve<- function(
     while(fit.trigger==FALSE){
 
 
-      xm<-xm.pseudo[b.pseudo_start:(n.components+b.pseudo_end)]
-      Im<-Im.pseudo[b.pseudo_start:(n.components+b.pseudo_end)]
+      xm <- xm.pseudo[b.pseudo_start:(n.components + b.pseudo_end)]
+      Im <- Im.pseudo[b.pseudo_start:(n.components + b.pseudo_end)]
 
       if(fit.advanced){
         ##---------------------------------------------------------------##
@@ -462,6 +462,7 @@ fit_LMCurve<- function(
         xm.MC<-sapply(1:length(xm),function(x){
           xm.MC<-sample(rnorm(30,mean=xm[x],sd=xm[x]/10), replace=TRUE)
         })
+
 
         Im.MC<-sapply(1:length(xm),function(x){
           Im.MC<-sample(rnorm(30,mean=Im[x],sd=Im[x]/10), replace=TRUE)
@@ -516,9 +517,9 @@ fit_LMCurve<- function(
           names(xm) <- paste0("xm.", 1:n.components)
           start.list <- c(as.list(Im), as.list(xm))
           lower <-
-            sapply(start.list, function(x) {
+            vapply(start.list, function(x) {
               start.list[[x]] <- 0
-            })
+            }, FUN.VALUE = vector(mode = "numeric", length = 1))
 
           fit <- try(minpack.lm::nlsLM(
             fit.formula(n.components),

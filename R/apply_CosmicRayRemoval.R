@@ -31,9 +31,9 @@
 #' object of class \code{RLum.Data.Spectrum}
 #'
 #' @param method \code{\link{character}} (with default): Defines method that is
-#' applied for cosmic ray removal. Allowed methods are \code{smooth}
+#' applied for cosmic ray removal. Allowed methods are \code{smooth}, the default,
 #' (\code{\link{smooth}}), \code{smooth.spline} (\code{\link{smooth.spline}})
-#' and \code{Pych} (default). See details for further information.
+#' and \code{Pych}. See details for further information.
 #'
 #' @param method.Pych.smoothing \code{\link{integer}} (with default): Smoothing
 #' parameter for cosmic ray removal according to Pych (2003). The value defines
@@ -64,7 +64,7 @@
 #'
 #' @note -
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -90,7 +90,7 @@
 #' @export
 apply_CosmicRayRemoval <- function(
   object,
-  method = "Pych",
+  method = "smooth",
   method.Pych.smoothing = 2,
   method.Pych.threshold_factor = 3,
   MARGIN = 2,

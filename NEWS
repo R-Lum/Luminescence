@@ -172,7 +172,9 @@ Changes in version 0.6.0 (,2016):
                the removal,
 
              • new argument ‘MARGIN’ added to allow the application of
-               the methods along the wavelength or the time.
+               the methods along the wavelength or the time,
+
+             • set default method to ‘smooth’.
 
          • ‘calc_FadingCorr()’
 

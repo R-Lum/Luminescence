@@ -13,7 +13,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "app_RLum","Run Luminescence shiny apps (wrapper)","<br /> Wrapper for the function  app_RLum  from the package<br /> RLumShiny-package . For the further details and examples please<br /> see the manual of this package.<br />","0.1.0","2016-03-01","13:39:32
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
-"apply_CosmicRayRemoval","Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object","<br /> The function provides several methods for cosmic ray removal and spectrum<br /> smoothing for an RLum.Data.Spectrum S4 class object<br />","0.2.0","2016-02-05","05:21:29
+"apply_CosmicRayRemoval","Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object","<br /> The function provides several methods for cosmic ray removal and spectrum<br /> smoothing for an RLum.Data.Spectrum S4 class object<br />","0.2.1","2016-03-11","17:58:59
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "apply_EfficiencyCorrection","Function to apply spectral efficiency correction to RLum.Data.Spectrum S4<br /> class objects","<br /> The function allows spectral efficiency corrections for RLum.Data.Spectrum<br /> S4 class objects<br />","0.1.1","2016-02-05","05:21:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Johannes Friedrich, University of Bayreuth (Germany)<br />  R Luminescence Package Team"
@@ -74,7 +74,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "fit_CWCurve","Nonlinear Least Squares Fit for CW-OSL curves [beta version]","<br /> The function determines the weighted least-squares estimates of the<br /> component parameters of a CW-OSL signal for a given maximum number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the  nls  function with the  port  algorithm.<br />","0.5.1","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"fit_LMCurve","Nonlinear Least Squares Fit for LM-OSL curves","<br /> The function determines weighted nonlinear least-squares estimates of the<br /> component parameters of an LM-OSL curve (Bulur 1996) for a given number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the function  nls  with the  port  algorithm.<br />","0.3.0","2015-12-05","15:52:49
+"fit_LMCurve","Nonlinear Least Squares Fit for LM-OSL curves","<br /> The function determines weighted nonlinear least-squares estimates of the<br /> component parameters of an LM-OSL curve (Bulur 1996) for a given number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the function  nls  with the  port  algorithm.<br />","0.3.0","2016-03-11","18:38:04
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "get_Layout","Collection of layout definitions","<br /> This helper function returns a list with layout definitions for homogeneous<br /> plotting.<br />","0.1","2015-11-29","17:27:48
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
@@ -109,6 +109,8 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "plot_DRTResults","Visualise dose recovery test results","<br /> The function provides a standardised plot output for dose recovery test<br /> measurements.<br />","0.1.8","2016-02-19","16:35:35
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
+"plot_FilterCombinations","Plot filter combinations along with net transmission window","<br /> The function allows to plot transmission windows for different filters. Missing data for specific<br /> wavelenghts are automatically interpolated for the given filter data using the function  approx .<br /> With that a standardised output is reached and a net transmission window can be shown. <br />","0.1.0","2016-03-13","14:05:22
+","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France) <br />  R Luminescence Package Team"
 "plot_GrowthCurve","Fit and plot a growth curve for luminescence data (Lx/Tx against dose)","<br /> A dose response curve is produced for luminescence measurements using a<br /> regenerative protocol.<br />","1.8.6","2016-02-25","13:46:11
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),   Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "plot_Histogram","Plot a histogram with separate error plot","<br /> Function plots a predefined histogram with an accompanying error plot as<br /> suggested by Rex Galbraith at the UK LED in Oxford 2010.<br />","0.4.4","2016-02-05","05:21:29
@@ -126,7 +128,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Image","Plot function for an  RLum.Data.Image  S4 class object","<br /> The function provides a standardised plot output for image data of an<br /> RLum.Data.Image S4 class object, mainly using the plot functions<br /> provided by the  raster  package.<br />","0.1","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.5","2016-03-11","15:58:12
+"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.5","2016-03-11","16:48:23
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.2","2016-02-05","05:21:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

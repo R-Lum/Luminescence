@@ -4,7 +4,7 @@
 \alias{apply_CosmicRayRemoval}
 \title{Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object}
 \usage{
-apply_CosmicRayRemoval(object, method = "Pych", method.Pych.smoothing = 2,
+apply_CosmicRayRemoval(object, method = "smooth", method.Pych.smoothing = 2,
   method.Pych.threshold_factor = 3, MARGIN = 2, verbose = FALSE,
   plot = FALSE, ...)
 }
@@ -13,9 +13,9 @@ apply_CosmicRayRemoval(object, method = "Pych", method.Pych.smoothing = 2,
 object of class \code{RLum.Data.Spectrum}}
 
 \item{method}{\code{\link{character}} (with default): Defines method that is
-applied for cosmic ray removal. Allowed methods are \code{smooth}
+applied for cosmic ray removal. Allowed methods are \code{smooth}, the default,
 (\code{\link{smooth}}), \code{smooth.spline} (\code{\link{smooth.spline}})
-and \code{Pych} (default). See details for further information.}
+and \code{Pych}. See details for further information.}
 
 \item{method.Pych.smoothing}{\code{\link{integer}} (with default): Smoothing
 parameter for cosmic ray removal according to Pych (2003). The value defines
@@ -78,7 +78,7 @@ dataset (see example).
 -
 }
 \section{Function version}{
- 0.2.0 (2016-02-05 05:21:29)
+ 0.2.1 (2016-03-11 17:58:59)
 }
 \examples{
 
