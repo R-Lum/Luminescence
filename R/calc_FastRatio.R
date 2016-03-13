@@ -132,8 +132,6 @@ calc_FastRatio <- function(object,
     # estimate the photo-ionisation crossections of the fast and medium
     # component using the fit_CWCurve function
     if (fitCW.sigma | fitCW.curve) {
-      if (settings$verbose) 
-        message("\n [calc_FitCWCurve()]\n")
       fitCW.res <- try(fit_CWCurve(A, n.components.max = settings$n.components.max, 
                                    fit.method = settings$fit.method, 
                                    LED.power = stimulation.power, 
@@ -147,6 +145,7 @@ calc_FastRatio <- function(object,
           sigmaF <- get_RLum(fitCW.res, "output.table")$cs1
           sigmaM <- get_RLum(fitCW.res, "output.table")$cs2
           if (settings$verbose) {
+            message("\n [calc_FitCWCurve()]\n")
             message("New value for sigmaF: ", format(sigmaF, digits = 3, nsmall = 2))
             message("New value for sigmaM: ", format(sigmaM, digits = 3, nsmall = 2))
           }
@@ -251,16 +250,16 @@ calc_FastRatio <- function(object,
     summary <- data.frame(fast.ratio = FR,
                           channels = nrow(A),
                           channel.width = Ch_width,
-                          dead.channels.start = dead.channels[1],
-                          dead.channels.end = dead.channels[2],
+                          dead.channels.start = as.integer(dead.channels[1]),
+                          dead.channels.end = as.integer(dead.channels[2]),
                           t_L1 = t_L1,
                           t_L2 = t_L2,
                           t_L3_start = t_L3_start,
                           t_L3_end = t_L3_end,
-                          Ch_L1 = Ch_L1,
-                          Ch_L2 = Ch_L2,
-                          Ch_L3_start = Ch_L3st,
-                          Ch_L3_end = Ch_L3end,
+                          Ch_L1 = as.integer(Ch_L1),
+                          Ch_L2 = as.integer(Ch_L2),
+                          Ch_L3_start = as.integer(Ch_L3st),
+                          Ch_L3_end = as.integer(Ch_L3end),
                           Cts_L1 = Cts_L1,
                           Cts_L2 = Cts_L2,
                           Cts_L3 = Cts_L3)
