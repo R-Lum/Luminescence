@@ -233,9 +233,10 @@ plot_FilterCombinations <- function(
       x = c(wavelength_range, rev(wavelength_range)),
       y = c(
         net_transmission_window[,2],
-        rev(net_transmission_window[,2])
+        rep(0,length(wavelength_range))
       ),
-      col = "grey"
+      col = "grey",
+      border = NA
     )
 
     #legend
