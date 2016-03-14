@@ -235,7 +235,8 @@
         \item Handling of corrupt BIN-files improved, the functions tries to import whatever possible,
         \item the argument \code{n.records} was not respected under rare circumstances,
         \item in course of this (corrupt BIN-files, not respected \code{n.records}) the output data frame
-        was longer than the list of count values; corrected.
+        was longer than the list of count values; corrected,
+        \item in some cases the grain number was not imported correctly; fixed.
       }
 
       \item \code{Risoe.BINfileData2RLum.Analysis()}

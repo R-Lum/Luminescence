@@ -261,7 +261,10 @@ Changes in version 0.6.0 (,2016):
 
              • in course of this (corrupt BIN-files, not respected
                ‘n.records’) the output data frame was longer than the
-               list of count values; corrected.
+               list of count values; corrected,
+
+             • in some cases the grain number was not imported
+               correctly; fixed.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 
