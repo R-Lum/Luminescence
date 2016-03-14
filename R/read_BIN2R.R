@@ -64,7 +64,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.3
+#' @section Function version: 0.12.4
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -1005,11 +1005,11 @@ read_BIN2R <- function(
     }
 
     ##set for equal values with different names
-    if(!is.na("temp.GRAINNUMBER")){temp.GRAIN <- temp.GRAINNUMBER}
-    if(!is.na("temp.GRAIN")){temp.GRAINNUMBER <- temp.GRAIN}
+    if(!is.na(temp.GRAINNUMBER)){temp.GRAIN <- temp.GRAINNUMBER}
+    if(!is.na(temp.GRAIN)){temp.GRAINNUMBER <- temp.GRAIN}
 
-    if(!is.na("temp.LIGHTPOWER")){temp.LPOWER <- temp.LIGHTPOWER}
-    if(!is.na("temp.LPOWER")){temp.LIGHTPOWER <- temp.LPOWER}
+    if(!is.na(temp.LIGHTPOWER)){temp.LPOWER <- temp.LIGHTPOWER}
+    if(!is.na(temp.LPOWER)){temp.LIGHTPOWER <- temp.LPOWER}
 
     temp.SEL <- if(temp.TAG == 1){TRUE}else{FALSE}
 
