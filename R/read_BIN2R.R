@@ -1005,11 +1005,11 @@ read_BIN2R <- function(
     }
 
     ##set for equal values with different names
-    if(!is.na("temp.GRAINNUMBER")){temp.GRAIN <- temp.GRAINNUMBER}
-    if(!is.na("temp.GRAIN")){temp.GRAINNUMBER <- temp.GRAIN}
+    if(!is.na(temp.GRAINNUMBER)){temp.GRAIN <- temp.GRAINNUMBER}
+    if(!is.na(temp.GRAIN)){temp.GRAINNUMBER <- temp.GRAIN}
 
-    if(!is.na("temp.LIGHTPOWER")){temp.LPOWER <- temp.LIGHTPOWER}
-    if(!is.na("temp.LPOWER")){temp.LIGHTPOWER <- temp.LPOWER}
+    if(!is.na(temp.LIGHTPOWER)){temp.LPOWER <- temp.LIGHTPOWER}
+    if(!is.na(temp.LPOWER)){temp.LIGHTPOWER <- temp.LPOWER}
 
     temp.SEL <- if(temp.TAG == 1){TRUE}else{FALSE}
 
