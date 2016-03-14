@@ -73,7 +73,7 @@ becomes:
 \deqn{Transmission = Transmission^(d) * P}
 }
 \section{Function version}{
- 0.1.0 (2016-03-13 14:55:04)
+ 0.1.0 (2016-03-13 15:16:11)
 }
 \examples{
 

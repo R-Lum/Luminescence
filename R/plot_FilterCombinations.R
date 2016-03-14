@@ -161,7 +161,7 @@ plot_FilterCombinations <- function(
 
   #check if there are transmission values greater than one, this is not possible
   lapply(filters, function(x) {
-    if (max(x[, 2]) > 1.01) {
+    if (max(x[, 2], na.rm = TRUE) > 1.01) {
       stop("[plot_FilterCombinations()] transmission values > 1 found. Check your data.")
 
     }
