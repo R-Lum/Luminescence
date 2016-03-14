@@ -287,8 +287,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     })
 
-    ##this is necassary to not break with previous code
-    if(length(object[[1]]) == 1){
+    ##this is necessary to not break with previous code, i.e. if only one element is included
+    ##the output is RLum.Analysis and not a list of it
+    if(length(object) == 1){
       invisible(object[[1]][[1]])
 
     }else{
