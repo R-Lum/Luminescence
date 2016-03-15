@@ -32,7 +32,24 @@
 #' \code{list(filter1 = list(filter_matrix, d = 2, P = 0.9))}. The final transmission
 #' becomes:
 #'
-#' \deqn{Transmission = Transmission^(d) * P}
+#' \deqn{Transmission = Transmission^(d) * P}\cr
+#'
+#' \bold{Advanced plotting parameters}\cr
+#'
+#' The following further non-common plotting parameters can be passed to the function:\cr
+#'
+#' \tabular{lll}{
+#' \bold{Argument} \tab \bold{Datatype} \tab \bold{Description}\cr
+#' \code{legend} \tab \code{logical} \tab enable/disable legend \cr
+#' \code{legend.pos} \tab \code{character} \tab change legend position (\code{\link[graphics]{legend}}) \cr
+#' \code{legend.text} \tab \code{character} \tab same as the argument \code{legend} in (\code{\link[graphics]{legend}}) \cr
+#' \code{net_transmission.col} \tab \code{col} \tab colour of net transmission window polygon \cr
+#' \code{grid} \tab \code{list} \tab full list of arguments that can be passd to the function \code{\link[graphics]{grid}}
+#' }
+#'
+#' For further modifications standard additional R plot functions are recommend, e.g., the legend
+#' can be fully customised by disabling the standard legend and use the function \code{\link[graphics]{legend}}
+#' instead.
 #'
 #'
 #' @param filters \code{\link{list}} (\bold{required}): a named list of filter data for each filter to be shown.
@@ -41,9 +58,14 @@
 #'
 #' @param wavelength_range \code{\link{numeric}} (with default): wavelength range used for the interpolation
 #'
+#' @param show_net_transmission \code{\link{logical}} (with default): show net transmission window
+#' as polygon.
+#'
 #' @param plot \code{\link{logical}} (with default): enables or disables the plot output
 #'
-#' @param \dots further arguments that can be passed to control the plot output
+#' @param \dots further arguments that can be passed to control the plot output. Suppored are \code{main},
+#' \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}. For non common plotting
+#' parameters see the details section.
 #'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #'
@@ -92,6 +114,7 @@
 plot_FilterCombinations <- function(
   filters,
   wavelength_range = 200:1000,
+  show_net_transmission = TRUE,
   plot = TRUE,
   ...) {
   # Integrity tests -----------------------------------------------------------------------------
@@ -200,7 +223,10 @@ plot_FilterCombinations <- function(
       lty = 1,
       lwd = 1,
       col = 1:length(filters),
-      grid = expression(nx = 10, ny = 10)
+      grid = expression(nx = 10, ny = 10),
+      legend = TRUE,
+      legend.text = colnames(filter_matrix),
+      net_transmission.col = "grey"
 
     )
 
@@ -229,24 +255,27 @@ plot_FilterCombinations <- function(
     }
 
     ##show effective transmission, which is the minimum for each row
-    polygon(
-      x = c(wavelength_range, rev(wavelength_range)),
-      y = c(
-        net_transmission_window[,2],
-        rep(0,length(wavelength_range))
-      ),
-      col = "grey",
-      border = NA
-    )
+    if (show_net_transmission) {
+      polygon(
+        x = c(wavelength_range, rev(wavelength_range)),
+        y = c(net_transmission_window[, 2],
+              rep(0, length(wavelength_range))),
+        col = plot_settings$net_transmission.col,
+        border = NA
+      )
+
+    }
 
     #legend
-    legend(
-      plot_settings$legend.pos,
-      legend = colnames(filter_matrix),
-      col = plot_settings$col,
-      lty = plot_settings$lty,
-      bty = "n"
-    )
+    if (plot_settings$legend) {
+      legend(
+        plot_settings$legend.pos,
+        legend = plot_settings$legend.text,
+        col = plot_settings$col,
+        lty = plot_settings$lty,
+        bty = "n"
+      )
+    }
 
 
   }
