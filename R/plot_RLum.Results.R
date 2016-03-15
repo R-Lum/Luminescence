@@ -1098,15 +1098,16 @@ plot_RLum.Results<- function(
     # optional: plot fitted CW curve
     if (!is.null(fit)) {
       nls.fit <- get_RLum(fit, "fit")
-      if (!inherits(fit, "try-error")) {
+      if (!inherits(fit, "try-error") & "fitCW.curve" %in% names(object@data$args)) {
         if (object@data$args$fitCW.curve == "T" | object@data$args$fitCW.curve == TRUE) {
           lines(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), 1], 
                 predict(nls.fit), col = "red", lty = 1)
         }
       }
-    } else {
-      lines(curve)
-    }
+    } 
+    
+    lines(curve)
+    
     
     # add vertical lines and labels for L1, L2, L3
     L_times <- c(curve[res$Ch_L1, 1],
