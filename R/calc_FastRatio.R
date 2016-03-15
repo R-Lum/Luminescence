@@ -1,63 +1,87 @@
 #' Calculate the Fast Ratio for CW-OSL curves
 #' 
-#' This function calculates the fast ratio of CW-OSL curves after
-#' Durcan & Duller (2001). 
+#' Function to calculate the fast ratio of quartz CW-OSL single grain or single 
+#' aliquot curves after Durcan & Duller (2011). 
 #' 
-#' Some more details on the function.
+#' This function follows the equations of Durcan & Duller (2011). The energy
+#' required to reduce the fast and medium quartz OSL components to \code{x} and
+#' \code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start 
+#' and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}. 
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}}, 
 #' \code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}} 
-#' (\bold{required}):
+#' (\bold{required}): x, y data of measured values (time and counts).
 #' 
-#' @param stimulation.power \code{\link{numeric}}:
+#' @param stimulation.power \code{\link{numeric}} (with default): Stimulation power in mW/cm^2
 #' 
-#' @param wavelength \code{\link{numeric}}:
+#' @param wavelength \code{\link{numeric}} (with default): Stimulation wavelength in nm
 #' 
-#' @param sigmaF \code{\link{numeric}}:
+#' @param sigmaF \code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
+#' fast component. Default value after Durcan & Duller (2011).
 #' 
-#' @param sigmaM \code{\link{numeric}}:
+#' @param sigmaM \code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
+#' medium component. Default value after Durcan & Duller (2011).
 #' 
-#' @param Ch_L1 \code{\link{numeric}}:
+#' @param Ch_L1 \code{\link{numeric}} (with default): An integer specifying the channel for L1.
 #' 
-#' @param x \code{\link{numeric}}:
+#' @param x \code{\link{numeric}} (with default): \% of signal remaining from the fast component.
+#' Used to define the location of L2 and L3 (start).
 #' 
-#' @param x2 \code{\link{numeric}}:
+#' @param x2 \code{\link{numeric}} (with default): \% of signal remaining from the medium component.
+#' Used to define the location of L3 (end). 
 #' 
-#' @param dead.channels \code{\link{numeric}}: Vector of length 2 in the form of
-#' \code{c(x, y)}.
+#' @param dead.channels \code{\link{numeric}} (with default): Vector of length 2 in the form of
+#' \code{c(x, y)}. Channels that do not contain OSL data, i.e. at the start or end of
+#' measurement.
 #' 
-#' @param fitCW.sigma \code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
-#' to calculate \code{sigmaF} and \code{sigmaM} and apply the fast ratio on the
-#' non-linear least-square fit (experimental).
+#' @param fitCW.sigma \code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' to calculate \code{sigmaF} and \code{sigmaM} (experimental).
 #' 
-#' @param fitCW.curve \code{\link{logical}}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' @param fitCW.curve \code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
 #' and derive the counts of L2 and L3 from the fitted OSL curve (experimental).
 #' 
-#' @param plot \code{\link{numeric}}: plot output (\code{TRUE}/\code{FALSE})
+#' @param plot \code{\link{logical}} (with default): plot output (\code{TRUE}/\code{FALSE})
 #' 
 #' @param ... available options: \code{verbose} (\code{\link{logical}}). Further
 #' arguments passed to \code{\link{fit_CWCurve}}.
 #'
 #' @return Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
 #' The slot \code{data} contains a \code{\link{list}} with the following elements:\cr
-#' .. $ summary \cr
-#' .. $ data \cr
-#' .. $ fit \cr
-#' .. $ args \cr
-#' .. $ call \cr
+#'
+#' \item{summary}{\code{\link{data.frame}} summary of all relevant results}
+#' \item{data}{the original input data}
+#' \item{fit}{\code{\linkS4class{RLum.Results}} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
+#' \item{args}{\code{\link{list}} of used arguments}
+#' \item{call}{\code{\link{call}} the function call}
 #' 
 #' @section Function version: 0.1.0
 #'
 #' @author 
 #' Georgina King, University of Cologne (Germany) \cr
-#' Julie A. Durcan, Institute of Geography and Earth Sciences, Aberystwyth University (United Kingdom) \cr
+#' Julie A. Durcan, University of Oxford (United Kingdom) \cr
 #' Christoph Burow, University of Cologne (Germany) \cr
 #'
 #' @references 
 #' Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 #' the dominance of the fast component in the initial OSL signal from quartz.
-#' Radiation Measurements 46, 1065-1072. \cr
+#' Radiation Measurements 46, 1065-1072. \cr\cr
+#' 
+#' Madsen, A.T., Duller, G.A.T., Donnelly, J.P., Roberts, H.M. & Wintle, A.G., 2009.
+#' A chronology of hurricane landfalls at Little Sippewissett Marsh, Massachusetts, USA,
+#' using optical dating. Geomorphology 109, 36-45. \cr\cr
 #'
+#' \bold{Further reading} \cr\cr
+#' 
+#' Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation 
+#' due to unstable signal components. Quaternary Geochronology 4, 353-362.
+#' 
+#' @note 
+#' Calculation of standard errors for (L1-L3) and (L2-L3) is currently not 
+#' implemented.
+#'
+#' @seealso \code{\link{fit_CWCurve}}, \code{\link{get_RLum}}, \code{\linkS4class{RLum.Analysis}},
+#' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{RLum.Data.Curve}}
+#' 
 #' @examples
 #' # load example CW-OSL curve
 #' data("ExampleData.CW_OSL_Curve")
@@ -92,7 +116,7 @@ calc_FastRatio <- function(object,
   
   ## Settings ------------------------------------------------------------------
   settings <- list(verbose = TRUE,
-                   n.components.max = 2,
+                   n.components.max = 3,
                    fit.method = "LM",
                    output.terminal = FALSE,
                    info = list(),
@@ -151,7 +175,7 @@ calc_FastRatio <- function(object,
           }
         } else {
           if (settings$verbose)
-            message("Fitting failed! Please call 'fit_CWCurve() manually before ",
+            message("Fitting failed! Please call 'fit_CWCurve()' manually before ",
                     "calculating the fast ratio.")
         }
       }
@@ -216,8 +240,8 @@ calc_FastRatio <- function(object,
     if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {
       msg <- sprintf(paste("The calculated channels for L3 (%i, %i) are equal to or", 
                            "larger than the number of available channels (%i).",
-                           "\nThe background was estimated from the last",
-                           "5 channels instead."), Ch_L3st, Ch_L3end, nrow(A))
+                           "\nThe background has instead been estimated from the last",
+                           "5 channels."), Ch_L3st, Ch_L3end, nrow(A))
       settings$info <- modifyList(settings$info, list(L3 = msg))
       warning(msg, call. = FALSE)
       Ch_L3st <- nrow(A) - 5
@@ -252,6 +276,11 @@ calc_FastRatio <- function(object,
                           channel.width = Ch_width,
                           dead.channels.start = as.integer(dead.channels[1]),
                           dead.channels.end = as.integer(dead.channels[2]),
+                          sigmaF = sigmaF,
+                          sigmaM = sigmaM,
+                          I0 = I0,
+                          stimulation.power = stimulation.power,
+                          wavelength = wavelength,
                           t_L1 = t_L1,
                           t_L2 = t_L2,
                           t_L3_start = t_L3_start,
@@ -279,6 +308,7 @@ calc_FastRatio <- function(object,
       
       table.names <- c(
         "Fast Ratio\t", "Channels\t", "Channel width (s)", "Dead channels start", "Dead channels end",
+        "Sigma Fast\t", "Sigma Medium\t", "I0\t\t", "Stim. power (mW/cm^2)", "Wavelength (nm)",
         "-\n Time L1 (s)\t", "Time L2 (s)\t", "Time L3 start (s)", "Time L3 end (s)",
         "-\n Channel L1\t", "Channel L2\t", "Channel L3 start", "Channel L3 end\t",
         "-\n Counts L1\t", "Counts L2\t", "Counts L3\t")
