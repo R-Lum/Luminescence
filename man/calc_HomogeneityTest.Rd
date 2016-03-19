@@ -35,7 +35,7 @@ A simple homogeneity test for De estimates
 For details see Galbraith (2003).
 }
 \section{Function version}{
- 0.2 (2015-11-29 17:27:48)
+ 0.2 (2016-03-02 11:15:14)
 }
 \examples{
 

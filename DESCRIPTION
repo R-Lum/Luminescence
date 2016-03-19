@@ -98,6 +98,7 @@ Collate:
     'calc_CommonDose.R'
     'calc_CosmicDoseRate.R'
     'calc_FadingCorr.R'
+    'calc_FastRatio.R'
     'calc_FiniteMixture.R'
     'calc_FuchsLang2001.R'
     'calc_HomogeneityTest.R'
