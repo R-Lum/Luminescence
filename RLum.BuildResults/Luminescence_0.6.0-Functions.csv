@@ -7,7 +7,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.7.5","2016-03-21","23:55:32
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"Analyse_SAR.OSLdata","Analyse SAR CW-OSL measurements.","<br /> The function analyses SAR CW-OSL curve data and provides a summary of the<br /> measured data for every position. The output of the function is optimised<br /> for SAR OSL measurements on quartz.<br />","0.2.17","2015-11-29","17:27:48
+"Analyse_SAR.OSLdata","Analyse SAR CW-OSL measurements.","<br /> The function analyses SAR CW-OSL curve data and provides a summary of the<br /> measured data for every position. The output of the function is optimised<br /> for SAR OSL measurements on quartz.<br />","0.2.17","2016-03-22","00:01:23
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, HZDR, Freiberg (Germany)<br />  R Luminescence Package Team"
 "analyse_SAR.TL","Analyse SAR TL measurements","<br /> The function performs a SAR TL analysis on a<br /> RLum.Analysis  object including growth curve fitting.<br />","0.1.4","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
