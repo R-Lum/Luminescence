@@ -75,7 +75,7 @@
 #' value is taken for both (LnTx and TnTx) signals.
 #'
 #' @param sig0 \code{\link{numeric}} (with default): allow adding an extra component of error
-#' to the final Lx/Tx error value (see details).
+#' to the final Lx/Tx error value (e.g., instrumental errror, see details).
 #'
 #' @param digits \code{\link{integer}} (with default): round numbers to the specified digits. If
 #' digits is set to \code{NULL} nothing is rounded.

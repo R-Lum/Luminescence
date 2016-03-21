@@ -44,7 +44,7 @@ e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 value is taken for both (LnTx and TnTx) signals.}
 
 \item{sig0}{\code{\link{numeric}} (with default): allow adding an extra component of error
-to the final Lx/Tx error value (see details).}
+to the final Lx/Tx error value (e.g., instrumental errror, see details).}
 
 \item{digits}{\code{\link{integer}} (with default): round numbers to the specified digits. If
 digits is set to \code{NULL} nothing is rounded.}
@@ -120,7 +120,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.1 (2016-02-05 05:21:29)
+ 0.6.1 (2016-03-21 23:53:38)
 }
 \examples{
 

@@ -353,6 +353,17 @@ plot_RLum.Data.Spectrum <- function(
   # prepare values for plot ---------------------------------------------------
   temp.xyz <- get_RLum(object)
 
+  ##check for NULL column names
+  if(is.null(colnames(temp.xyz))){
+    colnames(temp.xyz) <- 1:ncol(temp.xyz)
+
+  }
+
+  if(is.null(rownames(temp.xyz))){
+    rownames(temp.xyz) <- 1:nrow(temp.xyz)
+
+  }
+
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
 

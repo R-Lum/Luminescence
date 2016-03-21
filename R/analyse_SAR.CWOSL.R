@@ -110,7 +110,7 @@
 #'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
-#' (supported: \code{background.count.distribution} and \code{sigmab}). \bold{Please note} that
+#' (supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}). \bold{Please note} that
 #' if you consider to use the early light subtraction method you should provide your own \code{sigmab}
 #' value!
 #'
