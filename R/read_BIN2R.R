@@ -64,7 +64,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.4
+#' @section Function version: 0.12.5
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -1124,13 +1124,13 @@ read_BIN2R <- function(
   if(!is.null(position)){
 
     ##check whether the position is valid at all
-    if (all(position %in% results.METADATA$POSITION)) {
+    if (all(position %in% results.METADATA[["POSITION"]])) {
 
-      results.METADATA <- results.METADATA[which(results.METADATA$POSITION %in% position),]
-      results.DATA <- results.DATA[results.METADATA$ID]
+      results.METADATA <- results.METADATA[which(results.METADATA[["POSITION"]] %in% position),]
+      results.DATA <- results.DATA[results.METADATA[["ID"]]]
 
         ##re-calculate ID ... otherwise it will not match
-        results.METADATA$ID <- 1:length(results.DATA )
+        results.METADATA[["ID"]] <- 1:length(results.DATA )
 
         ##show a message
         message("[read_BIN2R()] The record index has been recalculated!")
@@ -1138,7 +1138,7 @@ read_BIN2R <- function(
 
     }else{
       valid.position <-
-        paste(unique(results.METADATA$POSITION), collapse = ", ")
+        paste(unique(results.METADATA[["POSITION"]]), collapse = ", ")
       warning(
         paste0(
           "Position limitation omitted. At least one position number is not valid, valid position numbers are: ", valid.position
@@ -1167,7 +1167,7 @@ read_BIN2R <- function(
         results.DATA[duplication.check] <- NULL
 
         ##recalculate record index
-        results.METADATA$ID <- 1:nrow(results.METADATA)
+        results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
 
         ##message
         message(
@@ -1203,27 +1203,27 @@ read_BIN2R <- function(
 
   if (!show.raw.values) {
     ##LIGHTSOURCE CONVERSION
-    object@METADATA$LIGHTSOURCE <-
-      unname(LIGHTSOURCE.lookup[object@METADATA$LIGHTSOURCE])
+    object@METADATA[["LIGHTSOURCE"]] <-
+      unname(LIGHTSOURCE.lookup[object@METADATA[["LIGHTSOURCE"]]])
 
     ##LTYPE CONVERSION
-    object@METADATA$LTYPE <-
-      unname(LTYPE.lookup[object@METADATA$LTYPE])
+    object@METADATA[["LTYPE"]] <-
+      unname(LTYPE.lookup[object@METADATA[["LTYPE"]]])
 
     ##DTYPE CONVERSION
-    object@METADATA$DTYPE <-
-      unname(DTYPE.lookup[object@METADATA$DTYPE])
+    object@METADATA[["DTYPE"]] <-
+      unname(DTYPE.lookup[object@METADATA[["DTYPE"]]])
 
         ##CHECK for oddly set LTYPES, this may happen in old BIN-file versions
-        if (object@METADATA$VERSION[1] == 3) {
-          object@METADATA$LTYPE <-
-            sapply(1:length(object@METADATA$LTYPE), function(x) {
-              if (object@METADATA$LTYPE[x] == "OSL" &
-                  object@METADATA$LIGHTSOURCE[x] == "IR diodes/IR Laser") {
+        if (object@METADATA[["VERSION"]][1] == 3) {
+          object@METADATA[["LTYPE"]] <-
+            sapply(1:length(object@METADATA[["LTYPE"]]), function(x) {
+              if (object@METADATA[["LTYPE"]][x] == "OSL" &
+                  object@METADATA[["LIGHTSOURCE"]][x] == "IR diodes/IR Laser") {
                 return("IRSL")
 
               } else{
-                return(object@METADATA$LTYPE[x])
+                return(object@METADATA[["LTYPE"]][x])
 
               }
 
@@ -1233,9 +1233,9 @@ read_BIN2R <- function(
 
     ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
     if (TIME_SIZE == 6) {
-      object@METADATA$TIME <-
-        sapply(1:length(object@METADATA$TIME), function(x) {
-          format(strptime(as.character(object@METADATA$TIME[x]), "%H%M%S"), "%H:%M:%S")
+      object@METADATA[["TIME"]] <-
+        sapply(1:length(object@METADATA[["TIME"]]), function(x) {
+          format(strptime(as.character(object@METADATA[["TIME"]][x]), "%H%M%S"), "%H:%M:%S")
 
         })
     }

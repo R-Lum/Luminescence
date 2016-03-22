@@ -4,37 +4,37 @@ Changes in version 0.6.0 (,2016):
 
   New functions:
 
-         • 'analyse_baSAR()': Bayesian models (baSAR) applied on
+         • ‘analyse_baSAR()’: Bayesian models (baSAR) applied on
            luminescence data
 
-         • 'app_RLum()': Wrapper for the function 'app_RLum()' from the
-           package 'RLumShiny' by Christoph Burow
+         • ‘app_RLum()’: Wrapper for the function ‘app_RLum()’ from the
+           package ‘RLumShiny’ by Christoph Burow
 
-         • 'calc_FastRatio(): Function to calculate the fast ratio of
-           CW-OSL curves after Durcan & Duller (2011)'
+         • ‘calc_FastRatio(): Function to calculate the fast ratio of
+           CW-OSL curves after Durcan & Duller (2011)’
 
-         • 'calc_ThermalLifetime(): Function to calculate thermal
-           lifetime of a charge using the Arrhenius equation'
+         • ‘calc_ThermalLifetime(): Function to calculate thermal
+           lifetime of a charge using the Arrhenius equation’
 
-         • 'model_LuminescenceSignals()': Wrapper for the function
-           'model_LuminescenceSignals()' from the package 'RLumModel'
+         • ‘model_LuminescenceSignals()’: Wrapper for the function
+           ‘model_LuminescenceSignals()’ from the package ‘RLumModel’
            by Johannes Friedrich, Sebastian Kreutzer and Christoph
            Schmidt
 
-         • 'plot_DetPlot()': Plots the equivalent dose (De) in
+         • ‘plot_DetPlot()’: Plots the equivalent dose (De) in
            dependency of the chosen signal integral (cf. Bailey et al.,
            2003; #23).
 
-         • 'verify_SingleGrainData()': Verify single grain data sets
+         • ‘verify_SingleGrainData()’: Verify single grain data sets
            and check for invalid grains, i.e. zero light level grains
 
   Changes in S4-objects and related methods:
 
-         • 'set_RLum'
+         • ‘set_RLum’
 
-             • The function 'set_RLum()' gained the new argument '.uid'
+             • The function ‘set_RLum()’ gained the new argument ‘.uid’
                which is by default presetting the slot with the same
-               name using the internal function '.create_UID()'.  In
+               name using the internal function ‘.create_UID()’.  In
                the previous package version this slot of the
                RLum-object was filled automatically as well, but the
                way it was done was a little bit semitransparent and a
@@ -43,80 +43,80 @@ Changes in version 0.6.0 (,2016):
              • the performance of the function was improved
                significantly.
 
-         • 'get_RLum'
+         • ‘get_RLum’
 
-             • Methods for 'RLum.Analysis' and 'RLum.Results' objects
+             • Methods for ‘RLum.Analysis’ and ‘RLum.Results’ objects
                updated, so that they can handle the new info slot,
 
-             • method for 'RLum.Data.Curve' objects new reacts more
+             • method for ‘RLum.Data.Curve’ objects new reacts more
                relaxed for wrong info object names. Instead of a
-               function error, 'NULL' is returned. This makes handling
+               function error, ‘NULL’ is returned. This makes handling
                in loops easier.
 
-         • 'structure_RLum'
+         • ‘structure_RLum’
 
-             • The method gained a '...' argument for further passing
+             • The method gained a ‘...’ argument for further passing
                information to the specific class methods,
 
-             • The method for the class 'RLum.Analysis' gained the new
-               argument 'fullExtent' to extent the returned data frame
+             • The method for the class ‘RLum.Analysis’ gained the new
+               argument ‘fullExtent’ to extent the returned data frame
                to all info elements. This makes it possible to
-               investigate 'RLum.Analysis' objects in great detail and
+               investigate ‘RLum.Analysis’ objects in great detail and
                subset them efficiently.
 
-         • 'RLum'
+         • ‘RLum’
 
-             • The slot '.uid' from objects of this class has now the
-               prototype 'NA_character_'.  The unique id is only set if
-               the corresponding 'set_RLum' function is called, which
+             • The slot ‘.uid’ from objects of this class has now the
+               prototype ‘NA_character_’.  The unique id is only set if
+               the corresponding ‘set_RLum’ function is called, which
                should be, however, the usual case,
 
              • all inherited object classes gained a new slot called
-               '.pid'. This slot is reserved for storing parent ids so
+               ‘.pid’. This slot is reserved for storing parent ids so
                that objects can be nested at free will. Corresponding
                import function had been adapted in the way the pid will
-               become an inherited uid from the 'RLum.Analysis' object,
+               become an inherited uid from the ‘RLum.Analysis’ object,
 
-             • all inhertied object classes of the class 'RLum' gained
-               a new slot called 'info', with this a more consistent
+             • all inhertied object classes of the class ‘RLum’ gained
+               a new slot called ‘info’, with this a more consistent
                workflow with the objects should be possible, before
-               only objects of the class 'RLum.Data' had such slot.
+               only objects of the class ‘RLum.Data’ had such slot.
 
   Removed functions:
 
-         • 'readBIN2R()', replacement 'read_BIN2R()',
+         • ‘readBIN2R()’, replacement ‘read_BIN2R()’,
 
-         • 'readSPE2R()', replacement 'read_SPE2R()',
+         • ‘readSPE2R()’, replacement ‘read_SPE2R()’,
 
-         • 'readXSYG2R()', replacement 'read_XSYG2R()',
+         • ‘readXSYG2R()’, replacement ‘read_XSYG2R()’,
 
-         • 'writeR2BIN()', replacement 'write_R2BIN()',
+         • ‘writeR2BIN()’, replacement ‘write_R2BIN()’,
 
-         • 'get_RLum.Data.Curve()', replacement 'get_RLum()',
+         • ‘get_RLum.Data.Curve()’, replacement ‘get_RLum()’,
 
-         • 'get_RLum.Data.Spectrum()', replacement 'get_RLum()',
+         • ‘get_RLum.Data.Spectrum()’, replacement ‘get_RLum()’,
 
-         • 'get_RLum.Data.Image()', replacement 'get_RLum()',
+         • ‘get_RLum.Data.Image()’, replacement ‘get_RLum()’,
 
-         • 'get_RLum.Analysis()', replacement 'get_RLum()',
+         • ‘get_RLum.Analysis()’, replacement ‘get_RLum()’,
 
-         • 'get_RLum.Results()', replacement 'get_RLum()',
+         • ‘get_RLum.Results()’, replacement ‘get_RLum()’,
 
-         • 'set_RLum.Data.Curve()', replacement 'set_RLum()',
+         • ‘set_RLum.Data.Curve()’, replacement ‘set_RLum()’,
 
-         • 'set_RLum.Data.Spectrum()', replacement 'set_RLum()',
+         • ‘set_RLum.Data.Spectrum()’, replacement ‘set_RLum()’,
 
-         • 'set_RLum.Data.Image()', replacement 'set_RLum()',
+         • ‘set_RLum.Data.Image()’, replacement ‘set_RLum()’,
 
-         • 'set_RLum.Analysis()', replacement 'set_RLum()',
+         • ‘set_RLum.Analysis()’, replacement ‘set_RLum()’,
 
-         • 'set_RLum.Results()', replacement 'set_RLum()',
+         • ‘set_RLum.Results()’, replacement ‘set_RLum()’,
 
-         • 'get_structure.RLum.Analysis()', replacement
-           'structure_RLum',
+         • ‘get_structure.RLum.Analysis()’, replacement
+           ‘structure_RLum’,
 
-         • 'Risoe.BINfileData2RLum.Data.Curve', replacement
-           '.Risoe.BINfileData2RLum.Data.Curve' The function was made
+         • ‘Risoe.BINfileData2RLum.Data.Curve’, replacement
+           ‘.Risoe.BINfileData2RLum.Data.Curve’ The function was made
            an internal function, as this function was used only rarely
            by users, but often needed internally. The function and its
            functionally is still available under its new name but a lot
@@ -126,16 +126,16 @@ Changes in version 0.6.0 (,2016):
 
   Bugfixes and changes:
 
-         • 'analyse_IRSAR.RF()'
+         • ‘analyse_IRSAR.RF()’
 
              • Add self call to the function, i.e. as input
-               alternatively now a list of 'RLum.Analysis' objects can
+               alternatively now a list of ‘RLum.Analysis’ objects can
                be provided for a higher efficiency.
 
-         • 'analyse_SAR.CWOSL()'
+         • ‘analyse_SAR.CWOSL()’
 
              • The function will not stop with an error if no 'OSL' or
-               'IRSL' record is detected, but return 'NULL' and print a
+               'IRSL' record is detected, but return ‘NULL’ and print a
                warning,
 
              • under really rare circumstances, many recycling points
@@ -160,17 +160,17 @@ Changes in version 0.6.0 (,2016):
                Andrea Junge),
 
              • every rejection criterium now allows the input value
-               'NA', in this case values are calculated, but not
+               ‘NA’, in this case values are calculated, but not
                considered as rejection criterium, i.e. the RC.Status
-               will be always ''OK'',
+               will be always ‘'OK'’,
 
              • minor graphical adjustments.
 
-         • 'apply_CosmicRayRemoval()'
+         • ‘apply_CosmicRayRemoval()’
 
-             • Argument 'silent' renamed to 'verbose',
+             • Argument ‘silent’ renamed to ‘verbose’,
 
-             • new argument 'method.Pych.threshold_factor' added to
+             • new argument ‘method.Pych.threshold_factor’ added to
                have a better control for the threshold value used for
                the removal,
 
@@ -179,87 +179,87 @@ Changes in version 0.6.0 (,2016):
 
              • set default method to ‘smooth’.
 
-         • 'calc_FadingCorr()'
+         • ‘calc_FadingCorr()’
 
              • Table column headers now have all capital letters,
 
              • minor performance improvements.
 
-         • 'calc_OSLLxTxRatio()'
+         • ‘calc_OSLLxTxRatio()’
 
-             • New argument 'digits' introduced to allow direct
+             • New argument ‘digits’ introduced to allow direct
                rounding of the numbers,
 
-             • add argument 'sig0' to allow for an extra component of
+             • add argument ‘sig0’ to allow for an extra component of
                error.
 
-         • 'plot_AbanicoPlot()'
+         • ‘plot_AbanicoPlot()’
 
-             • New argument 'interactive' to produce an interactive
+             • New argument ‘interactive’ to produce an interactive
                plot using the JavaScript graphing library 'plotly.js'
                (requires the 'plotly' package).
 
-         • 'merge_RLum.Data.Curve()'
+         • ‘merge_RLum.Data.Curve()’
 
-             • Support further merge operations: 'median', 'var', 'sd',
-               'min', 'max'.
+             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
+               ‘min’, ‘max’.
 
-         • 'plot_GrowthCurve()'
+         • ‘plot_GrowthCurve()’
 
              • If the input data contain a least one infinite value the
-               function will not crash any longer, but return 'NULL'
+               function will not crash any longer, but return ‘NULL’
                (#263, Norbert Mercier),
 
              • check for insufficient values in the data set and return
-               'NULL' (before the function crashed),
+               ‘NULL’ (before the function crashed),
 
              • data frame also exports now error of the D0-values based
                on the MC runs for the De error.
 
-         • 'plot_Histogram()'
+         • ‘plot_Histogram()’
 
-             • New argument 'interactive' to produce an interactive
+             • New argument ‘interactive’ to produce an interactive
                plot using the JavaScript graphing library 'plotly.js'
                (requires the 'plotly' package).
 
-         • 'plot_RLum.Analysis()'
+         • ‘plot_RLum.Analysis()’
 
-             • All '...' arguments can now be provided as 'vector' or
-               'list' to gain more control of the plot appearance,
+             • All ‘...’ arguments can now be provided as ‘vector’ or
+               ‘list’ to gain more control of the plot appearance,
 
-             • argument 'abline' now works also in combination with
-               'combine = TRUE' and allows to set ablines independently
+             • argument ‘abline’ now works also in combination with
+               ‘combine = TRUE’ and allows to set ablines independently
                over different plots (#260),
 
-             • automatic axes labelling improved for 'combine = TRUE',
+             • automatic axes labelling improved for ‘combine = TRUE’,
 
-             • support further '...' argument 'legend' (TRUE/FALSE).
+             • support further ‘...’ argument ‘legend’ (TRUE/FALSE).
 
-         • 'plot_RLum.Data.Curve()'
+         • ‘plot_RLum.Data.Curve()’
 
              • Fix seldom bug that causes unexpected function behaviour
-               if 'xlab' or 'ylab' exist as objects on the global
+               if ‘xlab’ or ‘ylab’ exist as objects on the global
                environment (#265).
 
-         • 'plot_RLum.Data.Spectrum()'
+         • ‘plot_RLum.Data.Spectrum()’
 
-             • Added 'matrix' as allowed input,
+             • Added ‘matrix’ as allowed input,
 
-             • add new argument 'limit_counts' to further the counts to
+             • add new argument ‘limit_counts’ to further the counts to
                a maximum value (the value provided), this might be
                especially helpful in case of TL spectra,
 
-             • the argument 'optical.wavelength.colours' was not
+             • the argument ‘optical.wavelength.colours’ was not
                working in all cases sufficiently; corrected,
 
              • minor graphical adjustments.
 
-         • 'read_BIN2R()'
+         • ‘read_BIN2R()’
 
              • Handling of corrupt BIN-files improved, the functions
                tries to import whatever possible,
 
-             • the argument 'n.records' was not respected under rare
+             • the argument ‘n.records’ was not respected under rare
                circumstances,
 
              • in course of this (corrupt BIN-files, not respected
@@ -269,11 +269,11 @@ Changes in version 0.6.0 (,2016):
              • in some cases the grain number was not imported
                correctly; fixed.
 
-         • 'Risoe.BINfileData2RLum.Analysis()'
+         • ‘Risoe.BINfileData2RLum.Analysis()’
 
              • Single grain data had not been converted correctly to
-               'RLum.Analysis' objects.  Each grain within a position
-               should represent one 'RLum.Analysis' object with a set
+               ‘RLum.Analysis’ objects.  Each grain within a position
+               should represent one ‘RLum.Analysis’ object with a set
                of curve. This was so far not the case; corrected,
 
              • significant performance improvements, especially for big
@@ -281,7 +281,7 @@ Changes in version 0.6.0 (,2016):
 
   Internals:
 
-         • New internal function '.create_UID()' added to create the
+         • New internal function ‘.create_UID()’ added to create the
            unique identifier for RLum-objects. The new function reduces
            significantly the overhead while producing the objects.
 

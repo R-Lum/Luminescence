@@ -92,7 +92,7 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.2.1 (2016-03-02 11:15:14)
+ 0.2.1 (2015-12-05 15:52:49)
 }
 \examples{
 
