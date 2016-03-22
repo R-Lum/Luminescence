@@ -88,28 +88,28 @@
 
       temp.x <- c(
         seq(
-          from = object@METADATA$LOW[id],
-          to = object@METADATA$AN_TEMP[id],
-          length.out = object@METADATA$TOLDELAY[id]
+          from = object@METADATA[["LOW"]][id],
+          to = object@METADATA[["AN_TEMP"]][id],
+          length.out = object@METADATA[["TOLDELAY"]][id]
         ),
         seq(
-          from = object@METADATA$AN_TEMP[id],
-          to = object@METADATA$AN_TEMP[id],
-          length.out = object@METADATA$TOLON[id]
+          from = object@METADATA[["AN_TEMP"]][id],
+          to = object@METADATA[["AN_TEMP"]][id],
+          length.out = object@METADATA[["TOLON"]][id]
         ),
         seq(
-          from = object@METADATA$AN_TEMP[id],
-          to = object@METADATA$HIGH[id],
-          length.out = object@METADATA$TOLOFF[id]
+          from = object@METADATA[["AN_TEMP"]][id],
+          to = object@METADATA[["HIGH"]][id],
+          length.out = object@METADATA[["TOLOFF"]][id]
         )
       )
 
     }else{
 
       temp.x <- seq(
-        from = object@METADATA$LOW[id],
-        to = object@METADATA$HIGH[id],
-        length.out = object@METADATA$NPOINTS[id]
+        from = object@METADATA[["LOW"]][id],
+        to = object@METADATA[["HIGH"]][id],
+        length.out = object@METADATA[["NPOINTS"]][id]
       )
 
     }
