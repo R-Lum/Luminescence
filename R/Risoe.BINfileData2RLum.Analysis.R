@@ -46,7 +46,7 @@
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -84,7 +84,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
   }
 
   if (is.null(pos)){
-    pos <- unique(object@METADATA$POSITION)
+    pos <- unique(object@METADATA[["POSITION"]])
   }
 
   if (!is(pos,"numeric")){
@@ -122,10 +122,10 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     ##grain
     if (!is.null(grain)) {
-      if (grain %in% unique(unique(object@METADATA$GRAIN)) == FALSE) {
+      if (grain %in% unique(unique(object@METADATA[["GRAIN"]])) == FALSE) {
         ##get only valid grain numbers
         grain.valid <-
-          paste(as.character(unique(object@METADATA$GRAIN)), collapse = ", ")
+          paste(as.character(unique(object@METADATA[["GRAIN"]])), collapse = ", ")
 
         stop(
           paste(
@@ -145,9 +145,9 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     ##run
     if (is.null(run)) {
-      run <- unique(object@METADATA$RUN)
+      run <- unique(object@METADATA[["RUN"]])
     } else{
-      if (TRUE %in% unique(unique(object@METADATA$RUN) %in% run) != TRUE) {
+      if (TRUE %in% unique(unique(object@METADATA[["RUN"]]) %in% run) != TRUE) {
         ##get and check valid positions
         run.valid <-
           paste(as.character(unique(object@METADATA[, "RUN"])), collapse = ", ")
@@ -168,10 +168,10 @@ Risoe.BINfileData2RLum.Analysis<- function(
     }
 
     #set
-    if(is.null(set)){set <- unique(object@METADATA$SET)
+    if(is.null(set)){set <- unique(object@METADATA[["SET"]])
     } else{
 
-      if(TRUE %in% unique(unique(object@METADATA$SET) %in% set) != TRUE){
+      if(TRUE %in% unique(unique(object@METADATA[["SET"]]) %in% set) != TRUE){
 
         ##get and check valid positions
         set.valid <- paste(as.character(unique(object@METADATA[,"SET"])), collapse=", ")
@@ -185,7 +185,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     ##ltype
     if (is.null(ltype)) {
-      ltype <- unique(object@METADATA$LTYPE)
+      ltype <- unique(object@METADATA[["LTYPE"]])
     } else{
       if (TRUE %in% unique(unique(object@METADATA[, "LTYPE"]) %in% ltype) != TRUE) {
         ##get and check valid positions
@@ -236,7 +236,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
       ##if no grain information is given, we select all grains in the particular position
       if(is.null(grain)){
-        grain <- unique(object@METADATA[object@METADATA$POSITION == pos, "GRAIN"])
+        grain <- unique(object@METADATA[object@METADATA[["POSITION"]] == pos, "GRAIN"])
 
       }
 
@@ -249,20 +249,20 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
         if(is.na(grain)){
           temp_id <- object@METADATA[
-            object@METADATA$POSITION == pos &
-              object@METADATA$RUN %in% run &
-              object@METADATA$SET %in% set &
-              object@METADATA$LTYPE %in% ltype
+            object@METADATA[["POSITION"]] == pos &
+              object@METADATA[["RUN"]] %in% run &
+              object@METADATA[["SET"]] %in% set &
+              object@METADATA[["LTYPE"]] %in% ltype
             , "ID"]
 
 
         }else{
           temp_id <- object@METADATA[
-            object@METADATA$POSITION == pos &
-              object@METADATA$GRAIN == grain &
-              object@METADATA$RUN %in% run &
-              object@METADATA$SET %in% set &
-              object@METADATA$LTYPE %in% ltype
+            object@METADATA[["POSITION"]] == pos &
+              object@METADATA[["GRAIN"]] == grain &
+              object@METADATA[["RUN"]] %in% run &
+              object@METADATA[["SET"]] %in% set &
+              object@METADATA[["LTYPE"]] %in% ltype
             , "ID"]
 
 
