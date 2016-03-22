@@ -5,9 +5,9 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.0","2016-01-18","15:07:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.7.5","2016-02-25","12:23:51
+"analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.7.5","2016-03-21","23:55:32
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"Analyse_SAR.OSLdata","Analyse SAR CW-OSL measurements.","<br /> The function analyses SAR CW-OSL curve data and provides a summary of the<br /> measured data for every position. The output of the function is optimised<br /> for SAR OSL measurements on quartz.<br />","0.2.17","2015-11-29","17:27:48
+"Analyse_SAR.OSLdata","Analyse SAR CW-OSL measurements.","<br /> The function analyses SAR CW-OSL curve data and provides a summary of the<br /> measured data for every position. The output of the function is optimised<br /> for SAR OSL measurements on quartz.<br />","0.2.17","2016-03-22","00:01:23
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, HZDR, Freiberg (Germany)<br />  R Luminescence Package Team"
 "analyse_SAR.TL","Analyse SAR TL measurements","<br /> The function performs a SAR TL analysis on a<br /> RLum.Analysis  object including growth curve fitting.<br />","0.1.4","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
@@ -43,7 +43,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
 "calc_MinDose","Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)<br /> to a given De distribution","<br /> Function to fit the (un-)logged three or four parameter minimum dose model<br /> (MAM-3/4) to De data.<br />","0.4.1","2015-11-29","17:27:48
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010   The bootstrap approach is<br /> based on a rewritten MATLAB script of Alastair Cunningham.   Alastair<br /> Cunningham is thanked for his help in implementing and cross-checking the<br /> code.<br />  R Luminescence Package Team"
-"calc_OSLLxTxRatio","Calculate Lx/Tx ratio for CW-OSL curves","<br /> Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.<br />","0.6.1","2016-02-05","05:21:29
+"calc_OSLLxTxRatio","Calculate Lx/Tx ratio for CW-OSL curves","<br /> Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.<br />","0.6.1","2016-03-21","23:53:38
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "calc_SourceDoseRate","Calculation of the source dose rate via the date of measurement","<br /> Calculating the dose rate of the irradiation source via the date of<br /> measurement based on: source calibration date, source dose rate, dose rate<br /> error. The function returns a data.frame that provides the input argument<br /> dose_rate for the function  Second2Gray .<br />","0.3.0","2015-11-29","17:27:48
 ","<br /> Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),<br />  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
@@ -122,13 +122,13 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> read_BIN2R  function.<br />","0.4.1","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.3.3","2016-03-18","17:13:31
+"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.3.3","2016-03-18","17:18:04
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Curve","Plot function for an RLum.Data.Curve S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Data.Curve S4 class object<br />","0.1.7","2016-02-19","16:35:35
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Image","Plot function for an  RLum.Data.Image  S4 class object","<br /> The function provides a standardised plot output for image data of an<br /> RLum.Data.Image S4 class object, mainly using the plot functions<br /> provided by the  raster  package.<br />","0.1","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.5","2016-03-11","16:48:23
+"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.4.5","2016-03-21","23:07:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.2","2016-02-05","05:21:29
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

@@ -65,7 +65,8 @@
 #' @param cex.global \link{numeric} (with default): global scaling factor.
 #'
 #' @param \dots further arguments that will be passed to the function
-#' \code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution} and \code{sigmab})
+#' \code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution}, \code{sigmab},
+#' \code{sig0}; e.g., for instrumental error)
 #' and can be used to adjust the plot. Supported" \code{mtext}, \code{log}
 #'
 #' @return A plot (optional) and \link{list} is returned containing the
