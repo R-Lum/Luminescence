@@ -89,12 +89,12 @@ The profiling is currently based on resampling from a normal distribution, this
 distribution assumption might be, however, not valid for given E and s paramters.
 }
 \section{Function version}{
- 0.1.0 (2016-02-29 11:53:35)
+ 0.1.0 (2016-04-03 08:32:40)
 }
 \examples{
 
 ##EXAMPLE 1
-##calculation for two trap-depths with similar frequence factor for different temperatures
+##calculation for two trap-depths with similar frequency factor for different temperatures
 E <- c(1.66, 1.70)
 s <- 1e+13
 T <- 10:20
@@ -111,7 +111,7 @@ contour(x = E, y = T, z = temp$lifetimes[1,,],
 )
 mtext(side = 3, "(values quoted in Ma)")
 
-##EXAMPLE 12
+##EXAMPLE 2
 ##profiling of thermal life time for E and s and their standard error
 E <- c(1.600, 0.003)
 s <- c(1e+13,1e+011)

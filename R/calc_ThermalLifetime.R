@@ -90,7 +90,7 @@
 #' @examples
 #'
 #' ##EXAMPLE 1
-#' ##calculation for two trap-depths with similar frequence factor for different temperatures
+#' ##calculation for two trap-depths with similar frequency factor for different temperatures
 #' E <- c(1.66, 1.70)
 #' s <- 1e+13
 #' T <- 10:20
@@ -107,7 +107,7 @@
 #' )
 #' mtext(side = 3, "(values quoted in Ma)")
 #'
-#' ##EXAMPLE 12
+#' ##EXAMPLE 2
 #' ##profiling of thermal life time for E and s and their standard error
 #' E <- c(1.600, 0.003)
 #' s <- c(1e+13,1e+011)
@@ -212,8 +212,6 @@ calc_ThermalLifetime <- function(
         stop("[calc_ThermalLifetime()] unknown distribution setting for s profiling")
 
       }
-
-      print( profiling_matrix[, 2])
 
     ##T
     profiling_matrix[, 3] <-
