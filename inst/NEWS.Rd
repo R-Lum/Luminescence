@@ -166,6 +166,12 @@
         \item add argument \code{sig0} to allow for an extra component of error.
       }
 
+         \item \code{merge_RLum.Data.Curve()}
+      \itemize{
+
+        \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
+      }
+
 
       \item \code{plot_AbanicoPlot()}
       \itemize{
@@ -176,11 +182,14 @@
 
       }
 
-    \item \code{merge_RLum.Data.Curve()}
-      \itemize{
+     \item \code{plot_DRTResults()}
+       \itemize{
 
-        \item Support further merge operations: \code{median}, \code{var}, \code{sd}, \code{min}, \code{max}.
-      }
+       \item If no given dose is provided the horizontal 'ab-lines' (1.0 and +/- 0.1) are no
+       longer plotted,
+       \item default value for the argument \code{given.dose} is now \code{NULL}.
+
+    }
 
     \item \code{plot_GrowthCurve()}
       \itemize{

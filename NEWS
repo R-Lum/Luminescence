@@ -193,16 +193,24 @@ Changes in version 0.6.0 (,2016):
              • add argument ‘sig0’ to allow for an extra component of
                error.
 
+         • ‘merge_RLum.Data.Curve()’
+
+             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
+               ‘min’, ‘max’.
+
          • ‘plot_AbanicoPlot()’
 
              • New argument ‘interactive’ to produce an interactive
                plot using the JavaScript graphing library 'plotly.js'
                (requires the 'plotly' package).
 
-         • ‘merge_RLum.Data.Curve()’
+         • ‘plot_DRTResults()’
 
-             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
-               ‘min’, ‘max’.
+             • If no given dose is provided the horizontal 'ab-lines'
+               (1.0 and +/- 0.1) are no longer plotted,
+
+             • default value for the argument ‘given.dose’ is now
+               ‘NULL’.
 
          • ‘plot_GrowthCurve()’
 

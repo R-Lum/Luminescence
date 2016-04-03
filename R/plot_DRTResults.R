@@ -70,7 +70,7 @@
 #'
 #' @note Further data and plot arguments can be added by using the appropiate R
 #' commands.
-#' @section Function version: 0.1.8
+#' @section Function version: 0.1.9
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Michael Dietze, GFZ Potsdam (Germany)
@@ -150,7 +150,7 @@
 #' @export
 plot_DRTResults <- function(
   values,
-  given.dose,
+  given.dose = NULL,
   error.range = 10,
   preheat,
   boxplot = FALSE,
@@ -263,7 +263,7 @@ plot_DRTResults <- function(
   ## calculations and settings-------------------------------------------------
 
   ## normalise data if given.dose is given
-  if(!missing(given.dose)){
+  if(!is.null(given.dose)){
 
     if(length(given.dose) > 1){
 
@@ -536,18 +536,31 @@ plot_DRTResults <- function(
             line = shift.lines + 2)
 
       ## add additional lines
-      abline(h = 1)
+      if (!is.null(given.dose)) {
+        abline(h = 1)
 
-      if(error.range > 0){
-        ## error range lines
-        abline(h = 1 * (1 + error.range / 100), lty = 2)
-        abline(h = 1 * (1 - error.range / 100), lty = 2)
+        if (error.range > 0) {
+          ## error range lines
+          abline(h = 1 * (1 + error.range / 100), lty = 2)
+          abline(h = 1 * (1 - error.range / 100), lty = 2)
 
-        ## error range labels
-        text(par()$usr[2], (1 + error.range / 100) + 0.02,
-             paste("+", error.range ," %", sep = ""), pos = 2, cex = 0.8)
-        text(par()$usr[2], (1 - error.range / 100) - 0.02,
-             paste("-", error.range ,"%", sep = ""), pos = 2, cex = 0.8)
+          ## error range labels
+          text(
+            par()$usr[2],
+            (1 + error.range / 100) + 0.02,
+            paste("+", error.range , " %", sep = ""),
+            pos = 2,
+            cex = 0.8
+          )
+          text(
+            par()$usr[2],
+            (1 - error.range / 100) - 0.02,
+            paste("-", error.range , "%", sep = ""),
+            pos = 2,
+            cex = 0.8
+          )
+        }
+
       }
 
       ## add data and error bars
