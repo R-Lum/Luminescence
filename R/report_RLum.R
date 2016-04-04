@@ -7,6 +7,7 @@
 #'
 #' @param object an object
 #' @param file filename
+#' @parm title title of the document
 #' @param timestamp prefix for the filename
 #' @param clean remove intermediate files
 #' @param ... currently not used
@@ -27,7 +28,8 @@
 #' @examples
 #' # coming soon
 report_RLum <- function(object, 
-                        file, 
+                        file,
+                        title = "RLum.Report",
                         timestamp = TRUE, 
                         clean = TRUE, 
                         ...) {
@@ -85,7 +87,7 @@ report_RLum <- function(object,
   else
     pkg <- data.frame(LibPath = "-", Version = "not installed", Built = "-")
   
-  writeLines(paste("# RLum.Report \n\n<hr>", #<div align='center'></div>
+  writeLines(paste("<div align='center'><h1>", title, "</h1></div>\n\n<hr>", #<div align='center'></div>
                    "<b>Date:</b>", Sys.time(), "\n\n",
                    "<b>R version:</b>", R.version.string, "\n\n",
                    "<b>Luminescence package</b> \n\n",
@@ -97,10 +99,13 @@ report_RLum <- function(object,
                    try(paste(paste(strsplit(obj@.uid, '-|\\.')[[1]][1:3], collapse = "-"),
                              strsplit(obj@.uid, '-|\\.')[[1]][4])), "\n\n",
                    "<b>&nbsp;&nbsp;&raquo; Class:</b>", class(object), "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Originator:</b>", try(object@originator), "\n\n",
+                   "<b>&nbsp;&nbsp;&raquo; Originator:</b>", 
+                   tryCatch(object@originator, error = function(e) "-"), "\n\n",
                    "<b>&nbsp;&nbsp;&raquo; Name:</b>", deparse(substitute(object)), "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Parent ID:</b>", try(object@.pid), "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Unique ID:</b>", try(object@.uid), "\n\n",
+                   "<b>&nbsp;&nbsp;&raquo; Parent ID:</b>", 
+                   tryCatch(object@.pid, error = function(e) "-"), "\n\n",
+                   "<b>&nbsp;&nbsp;&raquo; Unique ID:</b>", 
+                   tryCatch(object@.uid, error = function(e) "-"), "\n\n",
                    "<hr>"),
              tmp)
   
