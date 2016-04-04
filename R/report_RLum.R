@@ -88,12 +88,12 @@
 #' report_RLum(object = data.curve, file = "~/Data_Curve")
 #' 
 #' ## Example: Any other object ----
-#' list <- list(x = 1:10, 
-#'                y = runif(10, -5, 5), 
-#'                z = data.frame(a = LETTERS[1:20], b = dnorm(0:9)),
-#'                NA)
+#' x <- list(x = 1:10, 
+#'           y = runif(10, -5, 5), 
+#'           z = data.frame(a = LETTERS[1:20], b = dnorm(0:9)),
+#'           NA)
 #' 
-#' report_RLum(object = list, file = "~/arbitray_list")
+#' report_RLum(object = x, file = "~/arbitray_list")
 #' }
 report_RLum <- function(object, 
                         file,
