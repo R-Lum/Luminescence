@@ -242,7 +242,7 @@ plot_DRTResults <- function(
   }
 
   ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {if(!missing(given.dose)){
+  {if(!is.null(given.dose)){
     expression(paste("Normalised ", D[e], sep=""))
   }else{expression(paste(D[e], " [s]"), sep = "")}}
 
