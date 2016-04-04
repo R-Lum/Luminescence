@@ -266,12 +266,37 @@ calc_FastRatio <- function(object,
                       Cts_L3, Cts_L2), call. = FALSE)
     
     ## Fast Ratio
-    FR <- (Cts_L1-Cts_L3) / (Cts_L2-Cts_L3)
+    FR <- (Cts_L1 - Cts_L3) / (Cts_L2 - Cts_L3)
     if (length(FR) != 1)
       FR <- NA
     
+    ## Fast Ratio - Error calculation
+    if (!is.na(FR)) {
+      
+      # number of channels the background was derived from
+      nBG <- abs(Ch_L3end - Ch_L3st)
+      
+      # relative standard errors
+      rse_L1 <- sqrt(Cts_L1 + Cts_L3 / nBG) / (Cts_L1 - Cts_L3)
+      rse_L2 <- sqrt(Cts_L2 + Cts_L3 / nBG) / (Cts_L2 - Cts_L3)
+      
+      # absolute standard errors
+      se_L1 <- rse_L1 * (Cts_L1 - Cts_L3)
+      se_L2 <- rse_L2 * (Cts_L2 - Cts_L3)
+      
+      # absolute standard error on fast ratio
+      FR_se <- (sqrt((se_L1 / (Cts_L1 - Cts_L3))^2 + ((se_L2 / (Cts_L2 - Cts_L3))^2) )) * FR
+      FR_rse <- FR_se / FR * 100
+      
+    } else {
+      FR_se <- NA
+      FR_rse <- NA
+    }
+    
     ## Return values -----------------------------------------------------------
     summary <- data.frame(fast.ratio = FR,
+                          fast.ratio.se = FR_se,
+                          fast.ratio.rse = FR_rse,
                           channels = nrow(A),
                           channel.width = Ch_width,
                           dead.channels.start = as.integer(dead.channels[1]),
@@ -307,7 +332,8 @@ calc_FastRatio <- function(object,
     if (settings$verbose) {
       
       table.names <- c(
-        "Fast Ratio\t", "Channels\t", "Channel width (s)", "Dead channels start", "Dead channels end",
+        "Fast Ratio\t", " \U02EA Absolute error", " \U02EA Relative error (%)", "Channels\t", 
+        "Channel width (s)", "Dead channels start", "Dead channels end",
         "Sigma Fast\t", "Sigma Medium\t", "I0\t\t", "Stim. power (mW/cm^2)", "Wavelength (nm)",
         "-\n Time L1 (s)\t", "Time L2 (s)\t", "Time L3 start (s)", "Time L3 end (s)",
         "-\n Channel L1\t", "Channel L2\t", "Channel L3 start", "Channel L3 end\t",

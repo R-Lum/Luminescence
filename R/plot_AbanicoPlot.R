@@ -405,7 +405,7 @@ plot_AbanicoPlot <- function(
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]])[,c(1:2)]
+        data[[i]] <- get_RLum(data[[i]], "data")[,c(1:2)]
       }
     }
   }
