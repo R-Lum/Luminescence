@@ -110,7 +110,7 @@ report_RLum <- function(object,
   for (i in 1:nrow(elements)) {
     
     # HEADER
-    short.name <- strsplit(as.character(elements$branch[i]), split = "\\$|@|\\[\\[")[[1]]
+    short.name <- elements$bud[i]
     links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
     type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
     if (type == "[")
@@ -124,6 +124,7 @@ report_RLum <- function(object,
     writeLines(paste0(hlevel, " ",
                       paste(rep(".", elements$depth[i]), collapse = ""),
                       type,
+                      paste(rep("&zwnj;", elements$bud.freq[i]), collapse = ""),
                       short.name[length(short.name)],
                       "\n\n"),
                tmp)
@@ -336,5 +337,14 @@ report_RLum <- function(object,
   df$depth <- as.integer(df$depth)
   df$length <- as.numeric(df$depth)
   df$endpoint <- as.logical(df$endpoint)
+  df$bud <- do.call(c, lapply(strsplit(df$branch, "\\$|@|\\[\\["), 
+                              function(x) x[length(x)]))
+  df$bud.freq <- 0
+  
+  # for the report we must not have the same last element names with the same
+  # depth (HTML cannot discriminate between #links of <h> headers)
+  for (n in unique(df$bud))
+    df$bud.freq[which(df$bud == n)] <- seq(0, length(df$bud.freq[which(df$bud == n)]) -1, 1)
+  
   invisible(df)
 }
