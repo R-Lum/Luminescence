@@ -14,9 +14,11 @@
     using the Arrhenius equation}
     \item \code{model_LuminescenceSignals()}: Wrapper for the function \code{model_LuminescenceSignals()}
     from the package \code{RLumModel} by Johannes Friedrich, Sebastian Kreutzer and Christoph Schmidt
-     \item \code{plot_DetPlot()}: Plots the equivalent dose (De) in dependency of the chosen
-       signal integral (cf. Bailey et al., 2003; #23).
-     \item \code{verify_SingleGrainData()}: Verify single grain data sets and check for invalid grains, i.e. zero light level grains
+    \item \code{plot_DetPlot()}: Plots the equivalent dose (De) in dependency of the chosen
+    signal integral (cf. Bailey et al., 2003; #23).
+    \item \code{report_RLum()}: Function to create a HTML report of RLum objects (or any other), containing
+    the complete structure and content of the provided object. Requires the packages 'rmarkdown' and 'pander'.
+    \item \code{verify_SingleGrainData()}: Verify single grain data sets and check for invalid grains, i.e. zero light level grains
    }
   }
 
@@ -170,6 +172,8 @@
       \item \code{plot_AbanicoPlot()}
       \itemize{
 
+        \item Fixed a bug where the function failed to get input data from
+        \code{RLum.Results} objects.
         \item New argument \code{interactive} to produce an interactive plot
         using the JavaScript graphing library 'plotly.js' (requires the
         'plotly' package).

@@ -1,22 +1,50 @@
-#' Create HTML report of (RLum) objects
+#' Create HTML report for (RLum) objects
 #'
 #' This function creates a HTML report for a given object, listing its complete
 #' structure and content. The object itself is saved as a serialised .Rds file.
+#' The report file serves both as a convenient way of browsing through objects with 
+#' complex data structures as well as a mean of properly documenting and saving
+#' objects.
 #'
-#' Provide some details here.
+#' The HTML report is created with \code{\link[rmarkdown]{render}} and has the
+#' following structure:
+#' 
+#' \tabular{ll}{
+#'  \bold{Section} \tab \bold{Description} \cr
+#'  \code{Header} \tab A summary of general characteristics of the object \cr
+#'  \code{Object content} \tab A comprehensive list of the complete structure
+#'  and content of the provided object. \cr
+#'  \code{Object structure} \tab Summary of the objects structure given as a table \cr
+#'  \code{File} \tab Information on the saved RDS file \cr
+#'  \code{Session Info} \tab Captured output from sessionInfo() \cr
+#'  \code{Plots} \tab (optional) For \code{RLum-class} objects a variable number of plots \cr
+#' }
 #'
-#' @param object an object
-#' @param file filename
-#' @parm title title of the document
-#' @param timestamp prefix for the filename
-#' @param clean remove intermediate files
-#' @param ... currently not used
+#' @param object (\bold{required}): 
+#' The object to be reported on, preferably of any \code{RLum}-class.
+#' 
+#' @param file \code{\link{character}} (\bold{required}): 
+#' A character string naming the output file.
+#' 
+#' @param title \code{\link{character}} (with default):
+#' A character string specifying the title of the document.
+#' 
+#' @param timestamp \code{\link{logical}} (with default):
+#' \code{TRUE} to add a timestamp to the filename (suffix).
+#' 
+#' @param clean \code{\link{logical}} (with default): 
+#' \code{TRUE} to clean intermediate files created during rendering.
+#' 
+#' @param ... further arguments passed to or from other methods 
+#' (currently not used).
 #' 
 #' @section Function version: 0.1.0
 #' 
 #' @author 
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' 
+#' @note
+#' This function requires the R packages 'rmarkdown' and 'pander'.
 #' 
 #' @seealso \code{\link[rmarkdown]{render}}
 #' 
@@ -26,7 +54,47 @@
 #' @export
 #'
 #' @examples
-#' # coming soon
+#' 
+#' \dontrun{
+#' ## Example: RLum.Results ----
+#' # load example data
+#' data("ExampleData.DeValues")
+#' 
+#' # apply the MAM-3 age model and save results
+#' mam <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2) 
+#' 
+#' # create the HTML report
+#' report_RLum(object = mam, file = "~/CA1_MAM.Rmd",
+#'             timestamp = FALSE,
+#'             title = "MAM-3 for sample CA1")
+#' 
+#' # when creating a report the input file is automatically saved to a 
+#' # .Rds file (see saveRDS()).
+#' mam_report <- readRDS("~/CA1_MAM.Rds")
+#' all.equal(mam, mam_report)
+#' 
+#' ## Example: RLum.Analysis ----
+#' data("ExampleData.RLum.Analysis")
+#' 
+#' # create the HTML report (note that specifying a file
+#' # extension is not necessary)
+#' report_RLum(object = IRSAR.RF.Data, file = "~/IRSAR_RF")
+#' 
+#' 
+#' ## Example: RLum.Data.Curve ----
+#' data.curve <- get_RLum(IRSAR.RF.Data)[[1]]
+#' 
+#' # create the HTML report
+#' report_RLum(object = data.curve, file = "~/Data_Curve")
+#' 
+#' ## Example: Any other object ----
+#' list <- list(x = 1:10, 
+#'                y = runif(10, -5, 5), 
+#'                z = data.frame(a = LETTERS[1:20], b = dnorm(0:9)),
+#'                NA)
+#' 
+#' report_RLum(object = list, file = "~/arbitray_list")
+#' }
 report_RLum <- function(object, 
                         file,
                         title = "RLum.Report",
