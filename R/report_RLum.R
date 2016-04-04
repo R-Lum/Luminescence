@@ -177,7 +177,7 @@ report_RLum <- function(object,
   # SAVE SERIALISED OBJECT (.rds file)
   writeLines(paste("<hr># File \n\n"), tmp)
   
-  file.rds <- gsub(".rmd$", ".Rsd", file, ignore.case = TRUE)
+  file.rds <- gsub(".rmd$", ".Rds", file, ignore.case = TRUE)
   saveRDS(object, file.rds)
   
   writeLines(paste0("<code>",
