@@ -56,7 +56,9 @@ Suggests:
     rgl (>= 0.95.1367),
     RLumModel (>= 0.1.0),
     rjags (>= 4-5),
-    plotly (>= 2.0.3)
+    plotly (>= 2.0.3),
+    rmarkdown (>= 0.9.5),
+    pander (>= 0.6.0)
 URL: http://CRAN.R-project.org/package=Luminescence
 Collate:
     'Analyse_SAR.OSLdata.R'
@@ -148,6 +150,7 @@ Collate:
     'read_Daybreak2R.R'
     'read_SPE2R.R'
     'read_XSYG2R.R'
+    'report_RLum.R'
     'template_DRAC.R'
     'tune_Data.R'
     'use_DRAC.R'
