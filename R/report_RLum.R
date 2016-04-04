@@ -250,11 +250,11 @@ report_RLum <- function(object,
   saveRDS(object, file.rds)
   
   writeLines(paste0("<code>",
-                    "<a href='", file.rds,"'>",
+                    "<a href='", gsub("\\~\\/", "", file.rds),"'>",
                     "Click here to access the data file", "</a>",
                     "</code>"), tmp)
   
-  writeLines(paste("\nThe R object was saved to", file.rds,
+  writeLines(paste("\nThe R object was saved to <span style='color:#428bca'>", file.rds, "</span>.",
                    "To import the object into your R session with the following command:",
                    paste0("<pre>",
                           "x <- readRDS('", file.rds, "')",
@@ -284,8 +284,16 @@ report_RLum <- function(object,
     
     if (inherits(object, "RLum.Results")) {
       
-      # AGE MODELS ---- 
-      if (grepl("Dose$", object@originator)) {
+      # AGE MODELS ----
+      models <- c("calc_CommonDose",
+                  "calc_CentralDose",
+                  "calc_FiniteMixture",
+                  "calc_MinDose",
+                  "calc_MaxDose",
+                  "calc_IEU",
+                  "calc_FuchsLang2001")
+      
+      if (object@originator %in% models) {
         writeLines(paste0(
           "```{r}\n",
           "plot_AbanicoPlot(get_RLum(x, 'data')) \n",
@@ -409,7 +417,7 @@ report_RLum <- function(object,
   df <- as.data.frame(do.call(rbind, strsplit(s, ",")), stringsAsFactors = FALSE)
   names(df) <- c("branch", "class", "length", "depth", "endpoint")
   df$depth <- as.integer(df$depth)
-  df$length <- as.numeric(df$depth)
+  df$length <- as.numeric(df$length)
   df$endpoint <- as.logical(df$endpoint)
   df$bud <- do.call(c, lapply(strsplit(df$branch, "\\$|@|\\[\\["), 
                               function(x) x[length(x)]))
