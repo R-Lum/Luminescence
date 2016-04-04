@@ -72,7 +72,7 @@ Calculation of standard errors for (L1-L3) and (L2-L3) is currently not
 implemented.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2016-03-30 11:12:55)
 }
 \examples{
 # load example CW-OSL curve
@@ -89,7 +89,7 @@ get_RLum(res)
 Georgina King, University of Cologne (Germany) \cr
 Julie A. Durcan, University of Oxford (United Kingdom) \cr
 Christoph Burow, University of Cologne (Germany) \cr
-}
+\cr R Luminescence Package Team}
 \references{
 Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 the dominance of the fast component in the initial OSL signal from quartz.

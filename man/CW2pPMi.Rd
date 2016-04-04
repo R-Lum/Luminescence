@@ -70,7 +70,7 @@ should be limited to avoid artificial intensity data. If \code{P} is
 provided manually, not more than two points are extrapolated.
 }
 \section{Function version}{
- 0.2.1 (2016-03-02 11:15:14)
+ 0.2.1 (2016-03-14 18:30:33)
 }
 \examples{
 

@@ -38,7 +38,7 @@ sufficiently correct for spectral efficiency of the entire optical system
 (e.g., spectrometer, camera ...).
 }
 \section{Function version}{
- 0.1.1 (2016-03-02 11:15:14)
+ 0.1.1 (2016-03-14 18:30:33)
 }
 \examples{
 

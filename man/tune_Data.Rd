@@ -27,7 +27,7 @@ The error can be reduced and sample size increased for specific purpose.
 You should not use this function to improve your poor data set!
 }
 \section{Function version}{
- 0.5.0 (2016-03-02 11:15:14)
+ 0.5.0 (2016-03-14 18:30:33)
 }
 \examples{
 ## load example data set

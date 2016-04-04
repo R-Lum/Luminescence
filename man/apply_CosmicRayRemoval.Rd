@@ -78,11 +78,7 @@ dataset (see example).
 -
 }
 \section{Function version}{
-<<<<<<< HEAD
- 0.2.1 (2016-03-14 10:34:41)
-=======
- 0.2.0 (2016-03-02 11:15:14)
->>>>>>> origin/dev_0.6.0_CB
+ 0.2.1 (2016-03-20 20:51:42)
 }
 \examples{
 

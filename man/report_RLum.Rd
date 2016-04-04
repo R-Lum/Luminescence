@@ -55,12 +55,12 @@ following structure:
 This function requires the R packages 'rmarkdown' and 'pander'.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2016-04-04 17:29:56)
 }
 \examples{
 
 \dontrun{
-## Example: RLum.Results
+## Example: RLum.Results ----
 # load example data
 data("ExampleData.DeValues")
 
@@ -77,20 +77,21 @@ report_RLum(object = mam, file = "~/CA1_MAM.Rmd",
 mam_report <- readRDS("~/CA1_MAM.Rds")
 all.equal(mam, mam_report)
 
-## Example: RLum.Analysis
+## Example: RLum.Analysis ----
 data("ExampleData.RLum.Analysis")
 
-# create the HTML report
+# create the HTML report (note that specifying a file
+# extension is not necessary)
 report_RLum(object = IRSAR.RF.Data, file = "~/IRSAR_RF")
 
 
-# Example: RLum.Data.Curve
+## Example: RLum.Data.Curve ----
 data.curve <- get_RLum(IRSAR.RF.Data)[[1]]
 
 # create the HTML report
 report_RLum(object = data.curve, file = "~/Data_Curve")
 
-## Example: Any other object
+## Example: Any other object ----
 list <- list(x = 1:10, 
                y = runif(10, -5, 5), 
                z = data.frame(a = LETTERS[1:20], b = dnorm(0:9)),
@@ -101,7 +102,7 @@ report_RLum(object = list, file = "~/arbitray_list")
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\link[rmarkdown]{render}}
 }
