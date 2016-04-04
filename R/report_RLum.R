@@ -55,7 +55,7 @@ report_RLum <- function(object,
   # timestamp currently added as a suffix to the filename
   # if we were to change it to a prefix, we need to first figure out the filename
   # (i.e., separate it from the possible path) using the following regular 
-  # expression strsplit(s, "\\\\|\\\\\\\\|\\/|\\/\\/"). This looks for
+  # expression strsplit(string, "\\\\|\\\\\\\\|\\/|\\/\\/"). This looks for
   # \, \\, /, // and the last element is the filename.
   if (timestamp)
     file <- gsub(".rmd$", paste0(format(Sys.time(), "_%Y%b%d"), ".Rmd"), file,
@@ -268,7 +268,10 @@ report_RLum <- function(object,
       
       for (i in 1:length(x)) {
         element <- names(x)
-        list.root <- paste0(root, "$", element[i])
+        if (element[i] == "")
+          list.root <- paste0(root, "[[", i, "]]")
+        else
+          list.root <- paste0(root, "$", element[i])
         .tree_RLum(x[[i]], root = list.root)
       }
     } else if (length(x) != 0) {
@@ -281,7 +284,6 @@ report_RLum <- function(object,
         list.root <- paste0(root, element[i])
         .tree_RLum(x[[i]], root = list.root)
       }
-      # TODO: add support for list with only partially named elements
     }
     
     invisible()
