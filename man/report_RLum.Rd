@@ -55,7 +55,7 @@ following structure:
 This function requires the R packages 'rmarkdown' and 'pander'.
 }
 \section{Function version}{
- 0.1.0 (2016-04-04 17:29:56)
+ 0.1.0
 }
 \examples{
 
@@ -92,17 +92,17 @@ data.curve <- get_RLum(IRSAR.RF.Data)[[1]]
 report_RLum(object = data.curve, file = "~/Data_Curve")
 
 ## Example: Any other object ----
-list <- list(x = 1:10, 
-               y = runif(10, -5, 5), 
-               z = data.frame(a = LETTERS[1:20], b = dnorm(0:9)),
-               NA)
+x <- list(x = 1:10, 
+          y = runif(10, -5, 5), 
+          z = data.frame(a = LETTERS[1:20], b = dnorm(0:9)),
+          NA)
 
-report_RLum(object = list, file = "~/arbitray_list")
+report_RLum(object = x, file = "~/arbitray_list")
 }
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-\cr R Luminescence Package Team}
+}
 \seealso{
 \code{\link[rmarkdown]{render}}
 }
