@@ -62,6 +62,7 @@
 #' 
 #' \dontrun{
 #' ## Example: RLum.Results ----
+#' 
 #' # load example data
 #' data("ExampleData.DeValues")
 #' 
@@ -78,7 +79,22 @@
 #' mam_report <- readRDS("~/CA1_MAM.Rds")
 #' all.equal(mam, mam_report)
 #' 
+#' 
+#' ## Example: Temporary file & Viewer/Browser ----
+#' 
+#' # (a)
+#' # Specifying a filename is not necessarily required. If no filename is provided,
+#' # the report is rendered in a temporary file. If you use the RStudio IDE, the
+#' # temporary report is shown in the interactive Viewer pane.
+#' report_RLum(object = mam)
+#' 
+#' # (b)
+#' # Additionally, you can view the HTML report in your system's defaul web browser.
+#' report_RLum(object = mam, launch.browser = TRUE)
+#' 
+#' 
 #' ## Example: RLum.Analysis ----
+#' 
 #' data("ExampleData.RLum.Analysis")
 #' 
 #' # create the HTML report (note that specifying a file
@@ -87,6 +103,7 @@
 #' 
 #' 
 #' ## Example: RLum.Data.Curve ----
+#' 
 #' data.curve <- get_RLum(IRSAR.RF.Data)[[1]]
 #' 
 #' # create the HTML report
@@ -109,7 +126,7 @@ report_RLum <- function(object,
                         ...) {
   
   ## INPUT VALIDATION ----
- 
+  
   # check if required namespace(s) are available
   if (!requireNamespace("rmarkdown", quietly = TRUE))
     stop("Creating object reports requires the 'rmarkdown' package.",
@@ -119,6 +136,14 @@ report_RLum <- function(object,
     stop("Creating object reports requires the 'pander' package.",
          " To install this package run 'install.packages('pander')' in your R console.", 
          call. = FALSE)
+  if (!requireNamespace("rstudioapi", quietly = TRUE)) {
+    warning("Creating object reports requires the 'rstudioapi' package.",
+            " To install this package run 'install.packages('rstudioapi')' in your R console.", 
+            call. = FALSE)
+    isRStudio <- FALSE
+  } else {
+    isRStudio <- TRUE
+  }
   
   # CREATE FILE
   isTemp <- missing(file)
@@ -172,7 +197,7 @@ report_RLum <- function(object,
                    "<b>Object</b> \n\n",
                    "<b>&nbsp;&nbsp;&raquo; Created:</b>", 
                    tryCatch(paste(paste(strsplit(object@.uid, '-|\\.')[[1]][1:3], collapse = "-"),
-                             strsplit(object@.uid, '-|\\.')[[1]][4]),
+                                  strsplit(object@.uid, '-|\\.')[[1]][4]),
                             error = function(e) "-"), "\n\n",
                    "<b>&nbsp;&nbsp;&raquo; Class:</b>", class(object), "\n\n",
                    "<b>&nbsp;&nbsp;&raquo; Originator:</b>", 
@@ -279,7 +304,7 @@ report_RLum <- function(object,
   
   # PLOTTING
   if (length(grep("RLum", class(object)))) {
-
+    
     writeLines(paste("\n\n<hr># Plots\n\n"), tmp)
     writeLines(paste0(
       "```{r}\n",
@@ -321,15 +346,18 @@ report_RLum <- function(object,
   # SHOW FILE
   file.html <- gsub(".rmd$", ".html", file, ignore.case = TRUE)
   
-  if (isTemp) {
-    try(rstudioapi::viewer(file.html))
-  } else {
-    # The Viewer Pane only works for files in a sessions temp directory
-    # see: https://support.rstudio.com/hc/en-us/articles/202133558-Extending-RStudio-with-the-Viewer-Pane
-    file.copy(file.html, file.path(tempdir(), "report.html"))
-    try(rstudioapi::viewer(file.path(tempdir(), "report.html")))
+  # SHOW REPORT IN RSTUDIOS VIEWER PANE
+  if (isRStudio) {
+    if (isTemp) {
+      try(rstudioapi::viewer(file.html))
+    } else {
+      # The Viewer Pane only works for files in a sessions temp directory
+      # see: https://support.rstudio.com/hc/en-us/articles/202133558-Extending-RStudio-with-the-Viewer-Pane
+      file.copy(file.html, file.path(tempdir(), "report.html"))
+      try(rstudioapi::viewer(file.path(tempdir(), "report.html")))
+    }
   }
-    
+  
   if (launch.browser)
     try(browseURL(file.html))
   

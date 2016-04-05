@@ -66,6 +66,7 @@ This function requires the R packages 'rmarkdown' and 'pander'.
 
 \dontrun{
 ## Example: RLum.Results ----
+
 # load example data
 data("ExampleData.DeValues")
 
@@ -82,7 +83,22 @@ report_RLum(object = mam, file = "~/CA1_MAM.Rmd",
 mam_report <- readRDS("~/CA1_MAM.Rds")
 all.equal(mam, mam_report)
 
+
+## Example: Temporary file & Viewer/Browser ----
+
+# (a)
+# Specifying a filename is not necessarily required. If no filename is provided,
+# the report is rendered in a temporary file. If you use the RStudio IDE, the
+# temporary report is shown in the interactive Viewer pane.
+report_RLum(object = mam)
+
+# (b)
+# Additionally, you can view the HTML report in your system's defaul web browser.
+report_RLum(object = mam, launch.browser = TRUE)
+
+
 ## Example: RLum.Analysis ----
+
 data("ExampleData.RLum.Analysis")
 
 # create the HTML report (note that specifying a file
@@ -91,6 +107,7 @@ report_RLum(object = IRSAR.RF.Data, file = "~/IRSAR_RF")
 
 
 ## Example: RLum.Data.Curve ----
+
 data.curve <- get_RLum(IRSAR.RF.Data)[[1]]
 
 # create the HTML report

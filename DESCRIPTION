@@ -58,7 +58,8 @@ Suggests:
     rjags (>= 4-5),
     plotly (>= 2.0.3),
     rmarkdown (>= 0.9.5),
-    pander (>= 0.6.0)
+    pander (>= 0.6.0),
+    rstudioapi (>= 0.5)
 URL: http://CRAN.R-project.org/package=Luminescence
 Collate:
     'Analyse_SAR.OSLdata.R'
