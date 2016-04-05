@@ -23,14 +23,19 @@
 #' @param object (\bold{required}): 
 #' The object to be reported on, preferably of any \code{RLum}-class.
 #' 
-#' @param file \code{\link{character}} (\bold{required}): 
-#' A character string naming the output file.
+#' @param file \code{\link{character}} (\bold{with default}): 
+#' A character string naming the output file. If no filename is provided a 
+#' temporary file is created.
 #' 
 #' @param title \code{\link{character}} (with default):
 #' A character string specifying the title of the document.
 #' 
 #' @param timestamp \code{\link{logical}} (with default):
 #' \code{TRUE} to add a timestamp to the filename (suffix).
+#' 
+#' @param launch.browser \code{\link{logical}} (with default):
+#' \code{TRUE} to open the HTML file in the system's default web browser after
+#' it has been rendered.
 #' 
 #' @param clean \code{\link{logical}} (with default): 
 #' \code{TRUE} to clean intermediate files created during rendering.
@@ -57,6 +62,7 @@
 #' 
 #' \dontrun{
 #' ## Example: RLum.Results ----
+#' 
 #' # load example data
 #' data("ExampleData.DeValues")
 #' 
@@ -73,7 +79,22 @@
 #' mam_report <- readRDS("~/CA1_MAM.Rds")
 #' all.equal(mam, mam_report)
 #' 
+#' 
+#' ## Example: Temporary file & Viewer/Browser ----
+#' 
+#' # (a)
+#' # Specifying a filename is not necessarily required. If no filename is provided,
+#' # the report is rendered in a temporary file. If you use the RStudio IDE, the
+#' # temporary report is shown in the interactive Viewer pane.
+#' report_RLum(object = mam)
+#' 
+#' # (b)
+#' # Additionally, you can view the HTML report in your system's defaul web browser.
+#' report_RLum(object = mam, launch.browser = TRUE)
+#' 
+#' 
 #' ## Example: RLum.Analysis ----
+#' 
 #' data("ExampleData.RLum.Analysis")
 #' 
 #' # create the HTML report (note that specifying a file
@@ -82,6 +103,7 @@
 #' 
 #' 
 #' ## Example: RLum.Data.Curve ----
+#' 
 #' data.curve <- get_RLum(IRSAR.RF.Data)[[1]]
 #' 
 #' # create the HTML report
@@ -96,9 +118,10 @@
 #' report_RLum(object = x, file = "~/arbitray_list")
 #' }
 report_RLum <- function(object, 
-                        file,
+                        file  = tempfile(),
                         title = "RLum.Report",
-                        timestamp = TRUE, 
+                        timestamp = TRUE,
+                        launch.browser = FALSE,
                         clean = TRUE, 
                         ...) {
   
@@ -113,12 +136,18 @@ report_RLum <- function(object,
     stop("Creating object reports requires the 'pander' package.",
          " To install this package run 'install.packages('pander')' in your R console.", 
          call. = FALSE)
-  
-  # has a filename been provided?
-  if (missing(file))
-    stop("Please provide a directory/filename.", call. = FALSE)
+  if (!requireNamespace("rstudioapi", quietly = TRUE)) {
+    warning("Creating object reports requires the 'rstudioapi' package.",
+            " To install this package run 'install.packages('rstudioapi')' in your R console.", 
+            call. = FALSE)
+    isRStudio <- FALSE
+  } else {
+    isRStudio <- TRUE
+  }
   
   # CREATE FILE
+  isTemp <- missing(file)
+  
   if (!grepl(".rmd$", file, ignore.case = TRUE))
     file <- paste0(file, ".Rmd")
   
@@ -132,6 +161,9 @@ report_RLum <- function(object,
                  ignore.case = TRUE)
   
   file.create(file)
+  
+  # sanitize file name
+  file <- gsub("\\\\", "\\/", file)
   
   # OPEN CONNECTION
   tmp <- file(file, open = "w")
@@ -165,7 +197,7 @@ report_RLum <- function(object,
                    "<b>Object</b> \n\n",
                    "<b>&nbsp;&nbsp;&raquo; Created:</b>", 
                    tryCatch(paste(paste(strsplit(object@.uid, '-|\\.')[[1]][1:3], collapse = "-"),
-                             strsplit(object@.uid, '-|\\.')[[1]][4]),
+                                  strsplit(object@.uid, '-|\\.')[[1]][4]),
                             error = function(e) "-"), "\n\n",
                    "<b>&nbsp;&nbsp;&raquo; Class:</b>", class(object), "\n\n",
                    "<b>&nbsp;&nbsp;&raquo; Originator:</b>", 
@@ -296,7 +328,7 @@ report_RLum <- function(object,
       if (object@originator %in% models) {
         writeLines(paste0(
           "```{r}\n",
-          "plot_AbanicoPlot(get_RLum(x, 'data')) \n",
+          "plot_AbanicoPlot(x) \n",
           "plot_Histogram(x) \n",
           "plot_KDE(x) \n", 
           "```"),
@@ -311,8 +343,27 @@ report_RLum <- function(object,
   on.exit(closeAllConnections())
   rmarkdown::render(file, clean = clean)
   
+  # SHOW FILE
+  file.html <- gsub(".rmd$", ".html", file, ignore.case = TRUE)
+  
+  # SHOW REPORT IN RSTUDIOS VIEWER PANE
+  if (isRStudio) {
+    if (isTemp) {
+      try(rstudioapi::viewer(file.html))
+    } else {
+      # The Viewer Pane only works for files in a sessions temp directory
+      # see: https://support.rstudio.com/hc/en-us/articles/202133558-Extending-RStudio-with-the-Viewer-Pane
+      file.copy(file.html, file.path(tempdir(), "report.html"))
+      try(rstudioapi::viewer(file.path(tempdir(), "report.html")))
+    }
+  }
+  
+  if (launch.browser)
+    try(browseURL(file.html))
+  
   # CLEANUP
-  file.remove(file)
+  if (clean)
+    file.remove(file)
 }
 
 

@@ -4,21 +4,26 @@
 \alias{report_RLum}
 \title{Create HTML report for (RLum) objects}
 \usage{
-report_RLum(object, file, title = "RLum.Report", timestamp = TRUE,
-  clean = TRUE, ...)
+report_RLum(object, file = tempfile(), title = "RLum.Report",
+  timestamp = TRUE, launch.browser = FALSE, clean = TRUE, ...)
 }
 \arguments{
 \item{object}{(\bold{required}): 
 The object to be reported on, preferably of any \code{RLum}-class.}
 
-\item{file}{\code{\link{character}} (\bold{required}): 
-A character string naming the output file.}
+\item{file}{\code{\link{character}} (\bold{with default}): 
+A character string naming the output file. If no filename is provided a 
+temporary file is created.}
 
 \item{title}{\code{\link{character}} (with default):
 A character string specifying the title of the document.}
 
 \item{timestamp}{\code{\link{logical}} (with default):
 \code{TRUE} to add a timestamp to the filename (suffix).}
+
+\item{launch.browser}{\code{\link{logical}} (with default):
+\code{TRUE} to open the HTML file in the system's default web browser after
+it has been rendered.}
 
 \item{clean}{\code{\link{logical}} (with default): 
 \code{TRUE} to clean intermediate files created during rendering.}
@@ -61,6 +66,7 @@ This function requires the R packages 'rmarkdown' and 'pander'.
 
 \dontrun{
 ## Example: RLum.Results ----
+
 # load example data
 data("ExampleData.DeValues")
 
@@ -77,7 +83,22 @@ report_RLum(object = mam, file = "~/CA1_MAM.Rmd",
 mam_report <- readRDS("~/CA1_MAM.Rds")
 all.equal(mam, mam_report)
 
+
+## Example: Temporary file & Viewer/Browser ----
+
+# (a)
+# Specifying a filename is not necessarily required. If no filename is provided,
+# the report is rendered in a temporary file. If you use the RStudio IDE, the
+# temporary report is shown in the interactive Viewer pane.
+report_RLum(object = mam)
+
+# (b)
+# Additionally, you can view the HTML report in your system's defaul web browser.
+report_RLum(object = mam, launch.browser = TRUE)
+
+
 ## Example: RLum.Analysis ----
+
 data("ExampleData.RLum.Analysis")
 
 # create the HTML report (note that specifying a file
@@ -86,6 +107,7 @@ report_RLum(object = IRSAR.RF.Data, file = "~/IRSAR_RF")
 
 
 ## Example: RLum.Data.Curve ----
+
 data.curve <- get_RLum(IRSAR.RF.Data)[[1]]
 
 # create the HTML report
