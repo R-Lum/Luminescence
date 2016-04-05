@@ -63,7 +63,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.\cr
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -258,7 +258,14 @@ plot_RLum.Analysis <- function(
                             function(x) {
                               if (!is.null(plot.settings[[x]])) {
                                 if(length(plot.settings[[x]]) > 1){
-                                  rep_len(list(plot.settings[[x]]), length.out = length(temp))
+
+                                  if(is(plot.settings[[x]], "list")){
+                                    rep_len(plot.settings[[x]], length.out = length(temp))
+
+                                  }else{
+                                   rep_len(list(plot.settings[[x]]), length.out = length(temp))
+
+                                  }
 
                                 }else{
                                   rep_len(plot.settings[[x]], length.out = length(temp))
@@ -355,12 +362,11 @@ plot_RLum.Analysis <- function(
         }
 
         ##main
-        main <- if (is.null(plot.settings$main)) {
+        main <- if (is.null(plot.settings$main[[i]])) {
           temp[[i]]@recordType
         } else{
           plot.settings$main[[i]]
         }
-
 
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##PLOT
