@@ -4,21 +4,26 @@
 \alias{report_RLum}
 \title{Create HTML report for (RLum) objects}
 \usage{
-report_RLum(object, file, title = "RLum.Report", timestamp = TRUE,
-  clean = TRUE, ...)
+report_RLum(object, file = tempfile(), title = "RLum.Report",
+  timestamp = TRUE, launch.browser = FALSE, clean = TRUE, ...)
 }
 \arguments{
 \item{object}{(\bold{required}): 
 The object to be reported on, preferably of any \code{RLum}-class.}
 
-\item{file}{\code{\link{character}} (\bold{required}): 
-A character string naming the output file.}
+\item{file}{\code{\link{character}} (\bold{with default}): 
+A character string naming the output file. If no filename is provided a 
+temporary file is created.}
 
 \item{title}{\code{\link{character}} (with default):
 A character string specifying the title of the document.}
 
 \item{timestamp}{\code{\link{logical}} (with default):
 \code{TRUE} to add a timestamp to the filename (suffix).}
+
+\item{launch.browser}{\code{\link{logical}} (with default):
+\code{TRUE} to open the HTML file in the system's default web browser after
+it has been rendered.}
 
 \item{clean}{\code{\link{logical}} (with default): 
 \code{TRUE} to clean intermediate files created during rendering.}
