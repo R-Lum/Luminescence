@@ -286,7 +286,7 @@ report_RLum <- function(object,
   saveRDS(object, file.rds)
   
   writeLines(paste0("<code>",
-                    "<a href='", gsub("\\~\\/", "", file.rds),"'>",
+                    "<a href='", gsub("\\~\\/", "", file.rds),"' download>",
                     "Click here to access the data file", "</a>",
                     "</code>"), tmp)
   
