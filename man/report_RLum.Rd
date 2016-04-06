@@ -5,7 +5,8 @@
 \title{Create HTML report for (RLum) objects}
 \usage{
 report_RLum(object, file = tempfile(), title = "RLum.Report",
-  timestamp = TRUE, launch.browser = FALSE, clean = TRUE, ...)
+  timestamp = TRUE, launch.browser = FALSE, quiet = TRUE, clean = TRUE,
+  ...)
 }
 \arguments{
 \item{object}{(\bold{required}): 
@@ -24,6 +25,9 @@ A character string specifying the title of the document.}
 \item{launch.browser}{\code{\link{logical}} (with default):
 \code{TRUE} to open the HTML file in the system's default web browser after
 it has been rendered.}
+
+\item{quiet}{\code{\link{logical}} (with default):
+\code{TRUE} to supress printing of the pandoc command line.}
 
 \item{clean}{\code{\link{logical}} (with default): 
 \code{TRUE} to clean intermediate files created during rendering.}
