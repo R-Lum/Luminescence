@@ -1,7 +1,7 @@
 #' Run Luminescence shiny apps (wrapper)
 #'
 #' Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
-#' \link[RLumShiny]{RLumShiny-package}. For the further details and examples please
+#' \link[RLumShiny]{RLumShiny-package}. For further details and examples please
 #' see the manual of this package.
 #'
 #' @param app \code{\link{character}} (required): name of the application to start. See details for a list
