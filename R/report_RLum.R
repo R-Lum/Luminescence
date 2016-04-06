@@ -353,7 +353,7 @@ report_RLum <- function(object,
     } else {
       # The Viewer Pane only works for files in a sessions temp directory
       # see: https://support.rstudio.com/hc/en-us/articles/202133558-Extending-RStudio-with-the-Viewer-Pane
-      file.copy(file.html, file.path(tempdir(), "report.html"))
+      file.copy(file.html, file.path(tempdir(), "report.html"), overwrite = TRUE)
       try(rstudioapi::viewer(file.path(tempdir(), "report.html")))
     }
   }
