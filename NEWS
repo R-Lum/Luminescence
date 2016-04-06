@@ -25,12 +25,12 @@ Changes in version 0.6.0 (,2016):
            dependency of the chosen signal integral (cf. Bailey et al.,
            2003; #23).
 
-         • 'report_RLum()': Function to create a HTML report of RLum
+         • ‘report_RLum()’: Function to create a HTML report of RLum
            objects (or any other), containing the complete structure
            and content of the provided object. Requires the packages
            'rmarkdown' and 'pander'.
 
-         • 'verify_SingleGrainData()': Verify single grain data sets
+         • ‘verify_SingleGrainData()’: Verify single grain data sets
            and check for invalid grains, i.e. zero light level grains
 
   Changes in S4-objects and related methods:
@@ -179,10 +179,10 @@ Changes in version 0.6.0 (,2016):
                have a better control for the threshold value used for
                the removal,
 
-             • new argument 'MARGIN' added to allow the application of
+             • new argument ‘MARGIN’ added to allow the application of
                the methods along the wavelength or the time,
 
-             • set default method to 'smooth'.
+             • set default method to ‘smooth’.
 
          • ‘calc_FadingCorr()’
 
@@ -206,9 +206,9 @@ Changes in version 0.6.0 (,2016):
          • ‘plot_AbanicoPlot()’
 
              • Fixed a bug where the function failed to get input data
-               from 'RLum.Results' objects.
+               from ‘RLum.Results’ objects.
 
-             • New argument 'interactive' to produce an interactive
+             • New argument ‘interactive’ to produce an interactive
                plot using the JavaScript graphing library 'plotly.js'
                (requires the 'plotly' package).
 
@@ -255,7 +255,10 @@ Changes in version 0.6.0 (,2016):
 
              • Fix seldom bug that causes unexpected function behaviour
                if ‘xlab’ or ‘ylab’ exist as objects on the global
-               environment (#265).
+               environment (#265),
+
+             • add argument ‘smooth’ to provide an automatic curve
+               smoothing for plotting based on a running mean.
 
          • ‘plot_RLum.Data.Spectrum()’
 
@@ -279,7 +282,7 @@ Changes in version 0.6.0 (,2016):
                circumstances,
 
              • in course of this (corrupt BIN-files, not respected
-               'n.records') the output data frame was longer than the
+               ‘n.records’) the output data frame was longer than the
                list of count values; corrected,
 
              • in some cases the grain number was not imported

@@ -16,6 +16,9 @@
 #' @param norm \code{\link{logical}} (with default): allows curve normalisation
 #' to the highest count value
 #'
+#' @param smooth \code{\link{logical}} (with default): provides an automatic curve smoothing
+#' based on \code{\link[zoo]{rollmean}}
+#'
 #' @param \dots further arguments and graphical parameters that will be passed
 #' to the \code{plot} function
 #'
@@ -23,7 +26,7 @@
 #'
 #' @note Not all arguments of \code{\link{plot}} will be passed!
 #'
-#' @section Function version: 0.1.7
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -54,6 +57,7 @@ plot_RLum.Data.Curve<- function(
   object,
   par.local = TRUE,
   norm = FALSE,
+  smooth = FALSE,
   ...
 ){
 
@@ -268,6 +272,15 @@ plot_RLum.Data.Curve<- function(
     if (par.local == TRUE) {
       par(mfrow = c(1,1), cex = cex)
     }
+
+    ##smooth
+    if(smooth){
+
+      k <- ceiling(length(object@data[, 2])/100)
+      object@data[, 2] <- zoo::rollmean(object@data[, 2],
+                                        k = k, fill = NA)
+    }
+
 
     ##plot curve
     plot(

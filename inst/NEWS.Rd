@@ -229,7 +229,9 @@
          \item \code{plot_RLum.Data.Curve()}
       \itemize{
         \item Fix seldom bug that causes unexpected function behaviour if \code{xlab} or \code{ylab}
-        exist as objects on the global environment (#265).
+        exist as objects on the global environment (#265),
+        \item add argument \code{smooth} to provide an automatic curve smoothing for plotting based
+        on a running mean.
 
       }
 

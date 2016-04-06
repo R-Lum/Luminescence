@@ -55,7 +55,7 @@ following structure:
 This function requires the R packages 'rmarkdown' and 'pander'.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2016-04-05 10:03:00)
 }
 \examples{
 
@@ -102,7 +102,7 @@ report_RLum(object = x, file = "~/arbitray_list")
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\link[rmarkdown]{render}}
 }
