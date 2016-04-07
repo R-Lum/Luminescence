@@ -249,7 +249,10 @@ Changes in version 0.6.0 (,2016):
 
              • automatic axes labelling improved for ‘combine = TRUE’,
 
-             • support further ‘...’ argument ‘legend’ (TRUE/FALSE).
+             • support further ‘...’ argument ‘legend’ (TRUE/FALSE),
+
+             • add support for argument ‘smooth’ for ‘RLum.Data.Curve’
+               objects (see entry for ‘plot_RLum.Data.Curve’.
 
          • ‘plot_RLum.Data.Curve()’
 

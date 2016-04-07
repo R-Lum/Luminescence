@@ -53,7 +53,7 @@
 #' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 #' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 #' \code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}... and for \code{combine = TRUE}
-#' also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}.
+#' also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}, \code{smooth}.
 #' All arguments can be provided as \code{vector} or \code{list} to gain in full control
 #' of all plot settings.
 #'
@@ -63,7 +63,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.\cr
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -145,7 +145,8 @@ plot_RLum.Analysis <- function(
     legend = TRUE,
     legend.text = NULL,
     legend.pos = NULL,
-    legend.col = NULL
+    legend.col = NULL,
+    smooth = FALSE
   )
 
   plot.settings <- modifyList(x = plot.settings, val = list(...), keep.null = TRUE)
@@ -390,6 +391,7 @@ plot_RLum.Analysis <- function(
           ylim = ylim.set,
           pch = plot.settings$pch[[i]],
           cex = plot.settings$cex[[i]],
+          smooth = plot.settings$smooth[[i]],
           ...
         )
 
@@ -659,6 +661,19 @@ plot_RLum.Analysis <- function(
       ##plot single curve values
       ## ...?Why using matplot is a bad idea: The channel resolution might be different
       for (n in 1:length(temp.data.list)) {
+
+
+        ##smooth
+        ##Why here again ... because the call differs from the one before, where the argument
+        ##is passed to plot_RLum.Data.Curve()
+        if(plot.settings$smooth[[k]]){
+
+          k_factor <- ceiling(length(temp.data.list[[n]][, 2])/100)
+          temp.data.list[[n]][, 2] <- zoo::rollmean(temp.data.list[[n]][, 2],
+                                            k = k_factor, fill = NA)
+        }
+
+        ##print lines
         lines(temp.data.list[[n]],
               col = col[n],
               lty = lty[n],
