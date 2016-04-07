@@ -308,7 +308,7 @@ report_RLum <- function(object,
   
   # PLOTTING
   isRLumObject <- length(grep("RLum", class(object)))
-  isRLumList <- all(sapply(x, function(y) inherits(y, "RLum.Data.Curve")))
+  isRLumList <- all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
   
   if (isRLumObject | isRLumList) {
     
