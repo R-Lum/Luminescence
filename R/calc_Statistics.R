@@ -57,7 +57,7 @@ calc_Statistics <- function(
                "'data.frame' nor 'RLum.Results'"))
   } else {
     if(is(data, "RLum.Results") == TRUE) {
-      data <- get_RLum(data)[,1:2]
+      data <- get_RLum(data, "data")[,1:2]
     }
   }
 
