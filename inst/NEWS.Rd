@@ -246,7 +246,14 @@
         \item minor graphical adjustments.
 
       }
+      
+            \item \code{plot_ViolinPlot()}
+      \itemize{
 
+        \item Fixed a bug where the function failed to get input data from
+        \code{RLum.Results} objects.
+
+      }
 
     \item \code{read_BIN2R()}
       \itemize{

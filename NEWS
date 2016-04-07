@@ -276,6 +276,11 @@ Changes in version 0.6.0 (,2016):
 
              • minor graphical adjustments.
 
+         • ‘plot_ViolinPlot()’
+
+             • Fixed a bug where the function failed to get input data
+               from ‘RLum.Results’ objects.
+
          • ‘read_BIN2R()’
 
              • Handling of corrupt BIN-files improved, the functions

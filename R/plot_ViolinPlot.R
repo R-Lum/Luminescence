@@ -95,7 +95,7 @@ plot_ViolinPlot <- function(
 
       ##check for RLum.Results object
       if(is(data, "RLum.Results")){
-        data <- get_RLum(data)
+        data <- get_RLum(data, "data")
 
       }
 
