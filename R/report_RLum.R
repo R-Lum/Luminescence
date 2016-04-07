@@ -37,6 +37,9 @@
 #' \code{TRUE} to open the HTML file in the system's default web browser after
 #' it has been rendered.
 #' 
+#' @param quiet \code{\link{logical}} (with default):
+#' \code{TRUE} to supress printing of the pandoc command line.
+#' 
 #' @param clean \code{\link{logical}} (with default): 
 #' \code{TRUE} to clean intermediate files created during rendering.
 #' 
@@ -122,6 +125,7 @@ report_RLum <- function(object,
                         title = "RLum.Report",
                         timestamp = TRUE,
                         launch.browser = FALSE,
+                        quiet = TRUE,
                         clean = TRUE, 
                         ...) {
   
@@ -282,7 +286,7 @@ report_RLum <- function(object,
   saveRDS(object, file.rds)
   
   writeLines(paste0("<code>",
-                    "<a href='", gsub("\\~\\/", "", file.rds),"'>",
+                    "<a href='", gsub("\\~\\/", "", file.rds),"' download>",
                     "Click here to access the data file", "</a>",
                     "</code>"), tmp)
   
@@ -341,7 +345,7 @@ report_RLum <- function(object,
   # CLOSE & RENDER
   close(tmp)
   on.exit(closeAllConnections())
-  rmarkdown::render(file, clean = clean)
+  rmarkdown::render(file, clean = clean, quiet = quiet, ...)
   
   # SHOW FILE
   file.html <- gsub(".rmd$", ".html", file, ignore.case = TRUE)
@@ -353,7 +357,7 @@ report_RLum <- function(object,
     } else {
       # The Viewer Pane only works for files in a sessions temp directory
       # see: https://support.rstudio.com/hc/en-us/articles/202133558-Extending-RStudio-with-the-Viewer-Pane
-      file.copy(file.html, file.path(tempdir(), "report.html"))
+      file.copy(file.html, file.path(tempdir(), "report.html"), overwrite = TRUE)
       try(rstudioapi::viewer(file.path(tempdir(), "report.html")))
     }
   }
@@ -364,6 +368,8 @@ report_RLum <- function(object,
   # CLEANUP
   if (clean)
     file.remove(file)
+  
+  invisible()
 }
 
 

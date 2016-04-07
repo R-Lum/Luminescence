@@ -16,7 +16,7 @@ Author: Sebastian Kreutzer [aut, trl, cre],
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut","trl","cre"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr"),
     person("Michael", "Dietze", role = c("aut")),
-    person("Christoph", "Burow", role = c("aut")),
+    person("Christoph", "Burow", role = c("aut", "trl")),
     person("Margret C.", "Fuchs", role = c("aut")),
     person("Christoph", "Schmidt", role = c("aut")),
     person("Manfred", "Fischer", role = c("aut","trl")),
@@ -35,7 +35,8 @@ License: GPL-3
 Depends:
     R (>= 3.2.3),
     utils
-LinkingTo: Rcpp,
+LinkingTo: 
+    Rcpp,
     RcppArmadillo (>= 0.6.200.2.0)
 Imports:
     bbmle (>= 1.0.17),
