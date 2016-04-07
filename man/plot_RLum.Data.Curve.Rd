@@ -4,7 +4,8 @@
 \alias{plot_RLum.Data.Curve}
 \title{Plot function for an RLum.Data.Curve S4 class object}
 \usage{
-plot_RLum.Data.Curve(object, par.local = TRUE, norm = FALSE, ...)
+plot_RLum.Data.Curve(object, par.local = TRUE, norm = FALSE,
+  smooth = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
@@ -16,6 +17,9 @@ If \code{par.local = FALSE}, global parameters are inherited.}
 
 \item{norm}{\code{\link{logical}} (with default): allows curve normalisation
 to the highest count value}
+
+\item{smooth}{\code{\link{logical}} (with default): provides an automatic curve smoothing
+based on \code{\link[zoo]{rollmean}}}
 
 \item{\dots}{further arguments and graphical parameters that will be passed
 to the \code{plot} function}
@@ -35,7 +39,7 @@ according to \code{\link{plot}}.
 Not all arguments of \code{\link{plot}} will be passed!
 }
 \section{Function version}{
- 0.1.7 (2016-02-19 16:35:35)
+ 0.2.0 (2016-04-06 23:29:17)
 }
 \examples{
 

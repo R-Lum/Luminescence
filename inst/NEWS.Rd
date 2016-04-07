@@ -223,13 +223,17 @@
         \item argument \code{abline} now works also in combination with \code{combine = TRUE} and
         allows to set ablines independently over different plots (#260),
         \item automatic axes labelling improved for \code{combine = TRUE},
-        \item support further \code{...} argument \code{legend} (TRUE/FALSE).
+        \item support further \code{...} argument \code{legend} (TRUE/FALSE),
+        \item add support for argument \code{smooth} for \code{RLum.Data.Curve} objects (see
+        entry for \code{plot_RLum.Data.Curve}.
       }
 
          \item \code{plot_RLum.Data.Curve()}
       \itemize{
         \item Fix seldom bug that causes unexpected function behaviour if \code{xlab} or \code{ylab}
-        exist as objects on the global environment (#265).
+        exist as objects on the global environment (#265),
+        \item add argument \code{smooth} to provide an automatic curve smoothing for plotting based
+        on a running mean.
 
       }
 
