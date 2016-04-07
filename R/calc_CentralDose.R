@@ -90,7 +90,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
            'data.frame' or 'RLum.Results'!")
     } else {
       if (is(data, "RLum.Results")) {
-        data <- get_RLum(data, signature(object = "De.values"))
+        data <- get_RLum(data, "data")
       }
     }
   }

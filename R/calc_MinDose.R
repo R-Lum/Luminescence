@@ -245,6 +245,21 @@ calc_MinDose <- function(
   ...
 ){
 
+  ## ============================================================================##
+  ## CONSISTENCY CHECK OF INPUT DATA
+  ## ============================================================================##
+  if (!missing(data)) {
+    if (!is(data, "data.frame") & !is(data, "RLum.Results")) {
+      stop("[calc_CentralDose] Error: 'data' object has to be of type\n
+           'data.frame' or 'RLum.Results'!")
+    } else {
+      if (is(data, "RLum.Results")) {
+        data <- get_RLum(data, "data")
+      }
+    }
+  }
+
+  
   ##============================================================================##
   ## ... ARGUMENTS
   ##============================================================================##
