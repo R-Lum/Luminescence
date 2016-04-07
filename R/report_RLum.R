@@ -192,24 +192,24 @@ report_RLum <- function(object,
     pkg <- data.frame(LibPath = "-", Version = "not installed", Built = "-")
   
   writeLines(paste("<div align='center'><h1>", title, "</h1></div>\n\n<hr>", #<div align='center'></div>
-                   "<b>Date:</b>", Sys.time(), "\n\n",
-                   "<b>R version:</b>", R.version.string, "\n\n",
-                   "<b>Luminescence package</b> \n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Path:</b>", pkg$LibPath, "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Version:</b>", pkg$Version, "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Built:</b>", pkg$Built, "\n\n",
-                   "<b>Object</b> \n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Created:</b>", 
+                   "**Date:**", Sys.time(), "\n\n",
+                   "**R version:**", R.version.string, "\n\n",
+                   "**Luminescence package** \n\n",
+                   "**&nbsp;&nbsp;&raquo; Path:**", pkg$LibPath, "\n\n",
+                   "**&nbsp;&nbsp;&raquo; Version:**", pkg$Version, "\n\n",
+                   "**&nbsp;&nbsp;&raquo; Built:**", pkg$Built, "\n\n",
+                   "**Object** \n\n",
+                   "**&nbsp;&nbsp;&raquo; Created:**", 
                    tryCatch(paste(paste(strsplit(object@.uid, '-|\\.')[[1]][1:3], collapse = "-"),
                                   strsplit(object@.uid, '-|\\.')[[1]][4]),
                             error = function(e) "-"), "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Class:</b>", class(object), "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Originator:</b>", 
+                   "**&nbsp;&nbsp;&raquo; Class:**", class(object), "\n\n",
+                   "**&nbsp;&nbsp;&raquo; Originator:**", 
                    tryCatch(object@originator, error = function(e) "-"), "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Name:</b>", deparse(substitute(object)), "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Parent ID:</b>", 
+                   "**&nbsp;&nbsp;&raquo; Name:**", deparse(substitute(object)), "\n\n",
+                   "**&nbsp;&nbsp;&raquo; Parent ID:**", 
                    tryCatch(object@.pid, error = function(e) "-"), "\n\n",
-                   "<b>&nbsp;&nbsp;&raquo; Unique ID:</b>", 
+                   "**&nbsp;&nbsp;&raquo; Unique ID:**", 
                    tryCatch(object@.uid, error = function(e) "-"), "\n\n",
                    "<hr>"),
              tmp)
@@ -295,7 +295,7 @@ report_RLum <- function(object,
                    paste0("<pre>",
                           "x <- readRDS('", file.rds, "')",
                           "</pre>"),
-                   "<b>NOTE:</b> If you moved the file to another directory or",
+                   "**NOTE:** If you moved the file to another directory or",
                    "renamed the file you need to change the path/filename in the",
                    "code above accordingly!"),
              tmp)
@@ -307,14 +307,23 @@ report_RLum <- function(object,
              tmp)
   
   # PLOTTING
-  if (length(grep("RLum", class(object)))) {
+  isRLumObject <- length(grep("RLum", class(object)))
+  isRLumList <- all(sapply(x, function(y) inherits(y, "RLum.Data.Curve")))
+  
+  if (isRLumObject | isRLumList) {
+    
+    # mutual exclusivity: it is either a list or an RLum-Object 
+    if (isRLumList)
+      plotCommand <- "invisible(sapply(x, plot)) \n"
+    else
+      plotCommand <- "plot(x) \n"
     
     writeLines(paste("\n\n<hr># Plots\n\n"), tmp)
     writeLines(paste0(
       "```{r}\n",
       "library(Luminescence) \n",
       "x <- readRDS('", file.rds,"') \n",
-      "plot(x) \n", 
+      plotCommand,
       "```"),
       tmp)
     
@@ -334,7 +343,8 @@ report_RLum <- function(object,
           "```{r}\n",
           "plot_AbanicoPlot(x) \n",
           "plot_Histogram(x) \n",
-          "plot_KDE(x) \n", 
+          "plot_KDE(x) \n",
+          "plot_ViolinPlot(x) \n",
           "```"),
           tmp)
       }
