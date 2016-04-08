@@ -257,8 +257,12 @@ report_RLum <- function(object,
                         error = function(e) {
                           return(NULL)
                         })
+      
       if (is.null(table))
         table <- "NULL"
+      if (class(table) == "raw")
+        table <- as.character(table)
+      
       if (elements$class[i] == "call") {
         table <- capture.output(table)
         writeLines("<pre>", tmp)
