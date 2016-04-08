@@ -282,7 +282,8 @@ report_RLum <- function(object,
   
   # OBJECT STRUCTURE
   writeLines(paste("\n\n# Object structure\n\n"), tmp)
-  writeLines(pander::pander_return(elements),
+  writeLines(pander::pander_return(elements, 
+                                   justify = paste(rep("l", ncol(elements)), collapse = "")),
              tmp)
   writeLines("\n\n", tmp)
   
@@ -505,6 +506,10 @@ report_RLum <- function(object,
   df$bud <- do.call(c, lapply(strsplit(df$branch, "\\$|@|\\[\\["), 
                               function(x) x[length(x)]))
   df$bud.freq <- 0
+  
+  # reorder data.frame
+  df <- df[ ,c("branch", "bud", "bud.freq", "class", 
+               "length", "depth", "row", "col", "endpoint")]
   
   # for the report we must not have the same last element names with the same
   # depth (HTML cannot discriminate between #links of <h> headers)
