@@ -129,7 +129,8 @@ report_RLum <- function(object,
                         clean = TRUE, 
                         ...) {
   
-  ## INPUT VALIDATION ----
+  ## ------------------------------------------------------------------------ ##
+  ## PRE-CHECKS ----
   
   # check if required namespace(s) are available
   if (!requireNamespace("rmarkdown", quietly = TRUE))
@@ -149,13 +150,17 @@ report_RLum <- function(object,
     isRStudio <- TRUE
   }
   
-  # CREATE FILE
+  
+  ## ------------------------------------------------------------------------ ##
+  ## CREATE FILE ----
+  
   isTemp <- missing(file)
   
+  # make sure the filename ends with .Rmd extension
   if (!grepl(".rmd$", file, ignore.case = TRUE))
     file <- paste0(file, ".Rmd")
   
-  # timestamp currently added as a suffix to the filename
+  # Timestamp: currently added as a suffix to the filename
   # if we were to change it to a prefix, we need to first figure out the filename
   # (i.e., separate it from the possible path) using the following regular 
   # expression strsplit(string, "\\\\|\\\\\\\\|\\/|\\/\\/"). This looks for
@@ -164,15 +169,18 @@ report_RLum <- function(object,
     file <- gsub(".rmd$", paste0(format(Sys.time(), "_%Y%b%d"), ".Rmd"), file,
                  ignore.case = TRUE)
   
-  file.create(file)
-  
   # sanitize file name
   file <- gsub("\\\\", "\\/", file)
   
-  # OPEN CONNECTION
+  # Create and open the file
+  file.create(file)
   tmp <- file(file, open = "w")
+
   
-  # HEADER
+  ## ------------------------------------------------------------------------ ##
+  ## WRITE CONTENT ----
+    
+  # HEADER ----
   writeLines("---", tmp)
   writeLines("output:", tmp)
   writeLines("  html_document:", tmp)
@@ -184,13 +192,15 @@ report_RLum <- function(object,
   writeLines("    toc_depth: 6", tmp)
   writeLines("---", tmp)
   
-  # INFO
+  # INFO ----
+  # check if Luminescence package is installed and get details
   pkg <- as.data.frame(installed.packages(), row.names = FALSE)
   if ("Luminescence" %in% pkg$Package)
     pkg <- pkg[which(pkg$Package == "Luminescence"), ]
   else
     pkg <- data.frame(LibPath = "-", Version = "not installed", Built = "-")
   
+  # write information on R, Luminescence package, Object
   writeLines(paste("<div align='center'><h1>", title, "</h1></div>\n\n<hr>", #<div align='center'></div>
                    "**Date:**", Sys.time(), "\n\n",
                    "**R version:**", R.version.string, "\n\n",
@@ -214,7 +224,7 @@ report_RLum <- function(object,
                    "<hr>"),
              tmp)
   
-  # OBJECT
+  # OBJECT ----
   elements <- .struct_RLum(object, root = deparse(substitute(object)))
   
   for (i in 1:nrow(elements)) {
@@ -226,11 +236,16 @@ report_RLum <- function(object,
     if (type == "[")
       type <- "[["
     
+    # HTML header level is determined by the elements depth in the object
+    # exception: first row is always the object's name and has depth zero
     if (i == 1)
       hlevel <- "#"
     else
       hlevel <- paste(rep("#", elements$depth[i]), collapse = "")
     
+    # write header; number of dots represents depth in the object. because there
+    # may be duplicate header names, for each further occurence of a name
+    # Zero-width non-joiner entities are added to the name (non visible)
     writeLines(paste0(hlevel, " ",
                       paste(rep(".", elements$depth[i]), collapse = ""),
                       type,
@@ -240,6 +255,7 @@ report_RLum <- function(object,
                tmp)
     
     # SUBHEADER
+    # contains information on Class, Length, Dimensions, Path
     writeLines(paste0("<pre style='padding:0px;border:0px'>",
                       "<span style='color:#428bca'>",
                       " Class: </span>", elements$class[i],
@@ -255,17 +271,22 @@ report_RLum <- function(object,
                tmp)
     
     # TABLE CONTENT
+    # the content of a branch is only printed if it was determined an endpoint
+    # in the objects structure
     if (elements$endpoint[i]) {
       table <- tryCatch(eval(parse(text = elements$branch[i])),
                         error = function(e) {
                           return(NULL)
                         })
-      
+      # exceptions: content may be NULL; convert raw to character to stay
+      # compatible with pander::pander
       if (is.null(table))
         table <- "NULL"
       if (class(table) == "raw")
         table <- as.character(table)
       
+      # exception: surround objects of class "call" with <pre> tags to prevent
+      # HTML autoformatting
       if (elements$class[i] == "call") {
         table <- capture.output(table)
         writeLines("<pre>", tmp)
@@ -274,20 +295,22 @@ report_RLum <- function(object,
         writeLines("</pre>", tmp)
         table <- NULL
       }
+      
+      # write table using pander and end each table with a horizontal line
       writeLines(pander::pander_return(table),
                  tmp)
       writeLines("\n\n<hr>", tmp)
     }
   }
   
-  # OBJECT STRUCTURE
+  # OBJECT STRUCTURE ----
   writeLines(paste("\n\n# Object structure\n\n"), tmp)
   writeLines(pander::pander_return(elements, 
                                    justify = paste(rep("l", ncol(elements)), collapse = "")),
              tmp)
   writeLines("\n\n", tmp)
   
-  # SAVE SERIALISED OBJECT (.rds file)
+  # SAVE SERIALISED OBJECT (.rds file) ----
   writeLines(paste("<hr># File \n\n"), tmp)
   
   file.rds <- gsub(".rmd$", ".Rds", file, ignore.case = TRUE)
@@ -308,13 +331,13 @@ report_RLum <- function(object,
                    "code above accordingly!"),
              tmp)
   
-  # SESSION INFO
+  # SESSION INFO ----
   writeLines(paste("\n\n<hr># Session Info\n\n"), tmp)
   sessionInfo <- capture.output(sessionInfo())
   writeLines(paste(sessionInfo, collapse = "\n\n"),
              tmp)
   
-  # PLOTTING
+  # PLOTTING ----
   isRLumObject <- length(grep("RLum", class(object)))
   isRLumList <- all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
   
@@ -360,15 +383,17 @@ report_RLum <- function(object,
     
   }
   
-  # CLOSE & RENDER
+  ## ------------------------------------------------------------------------ ##
+  ## CLOSE & RENDER ----
   close(tmp)
   on.exit(closeAllConnections())
   rmarkdown::render(file, clean = clean, quiet = quiet, ...)
   
-  # SHOW FILE
+  ## ------------------------------------------------------------------------ ##
+  ## SHOW FILE -----
   file.html <- gsub(".rmd$", ".html", file, ignore.case = TRUE)
   
-  # SHOW REPORT IN RSTUDIOS VIEWER PANE
+  # SHOW REPORT IN RSTUDIOS VIEWER PANE ----
   if (isRStudio) {
     if (isTemp) {
       try(rstudioapi::viewer(file.html))
@@ -380,10 +405,14 @@ report_RLum <- function(object,
     }
   }
   
+  # launch browser if desired
   if (launch.browser)
     try(browseURL(file.html))
   
-  # CLEANUP
+  ## ------------------------------------------------------------------------ ##
+  ## CLEANUP ----
+  
+  # note that 'clean' as also passed to rmarkdown::render
   if (clean)
     file.remove(file)
   
@@ -511,7 +540,7 @@ report_RLum <- function(object,
   df <- df[ ,c("branch", "bud", "bud.freq", "class", 
                "length", "depth", "row", "col", "endpoint")]
   
-  # for the report we must not have the same last element names with the same
+  # for the report we must not have the same last element names of same
   # depth (HTML cannot discriminate between #links of <h> headers)
   for (n in unique(df$bud))
     df$bud.freq[which(df$bud == n)] <- seq(0, length(df$bud.freq[which(df$bud == n)]) -1, 1)
