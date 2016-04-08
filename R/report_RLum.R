@@ -190,6 +190,7 @@ report_RLum <- function(object,
   writeLines("    toc: true", tmp)
   writeLines("    toc_float: true", tmp)
   writeLines("    toc_depth: 6", tmp)
+  writeLines("    md_extensions: -autolink_bare_uris", tmp)
   writeLines("---", tmp)
   
   # INFO ----
