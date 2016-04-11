@@ -30,9 +30,12 @@
 #' from the input data.  If the final estimates of \emph{gamma}, \emph{mu},
 #' \emph{sigma} and \emph{p0} are totally off target, consider providing custom
 #' starting values via \code{init.values}. \cr In contrast to previous versions
-#' of this function the boundaries for the individual model parameters can no
-#' longer be specified. Appropriate boundary are now hard-coded and are valid
-#' for all input data sets. \cr\cr \bold{Bootstrap} \cr\cr When
+#' of this function the boundaries for the individual model parameters are no
+#' longer required to be explicitly specified. If you want to override the default
+#' boundary values use the arguments \code{gamma.lower}, \code{gamma.upper},
+#' \code{sigma.lower}, \code{sigma.upper}, \code{p0.lower}, \code{p0.upper},
+#' \code{mu.lower} and \code{mu.upper}.  \cr\cr 
+#' \bold{Bootstrap} \cr\cr When
 #' \code{bootstrap=TRUE} the function applies the bootstrapping method as
 #' described in Wallinga & Cunningham (2012). By default, the minimum age model
 #' produces 1000 first level and 3000 second level bootstrap replicates
@@ -108,7 +111,7 @@
 #' when running this function. If the results seem odd consider re-running the
 #' model with \code{debug=TRUE} which provides extended console output and
 #' forwards all internal warning messages.
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
 #' based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
