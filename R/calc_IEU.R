@@ -83,7 +83,7 @@ calc_IEU <- function(
            'data.frame' or 'RLum.Results'!")
     }else{
       if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum(data, signature(object = "De.values"))
+        data <- get_RLum(data, "data")
       }
     }
   }

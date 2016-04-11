@@ -51,7 +51,7 @@ To install the latest development builds directly from GitHub, run
 ```r
 if(!require("devtools"))
   install.packages("devtools")
-devtools::install_github("R-Lum/Luminescence@master")
+devtools::install_github("R-Lum/Luminescence@dev_0.6.0_CB")
 ```
 
 To install a developer build other than 'master', replace the term 'master' in the codeline by the name

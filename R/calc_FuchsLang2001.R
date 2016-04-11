@@ -78,7 +78,7 @@ calc_FuchsLang2001 <- function(
       stop("[calc_FuchsLang2001] 'data' has to be of type 'data.frame' or 'RLum.Results'!")
     } else {
       if(is(data, "RLum.Results") == TRUE){
-        data <- get_RLum(data,data.object="De.values")
+        data <- get_RLum(data, "data")
       }
     }
   }
