@@ -484,6 +484,10 @@ report_RLum <- function(object,
         list.root <- paste0(root, element[i])
         .tree_RLum(x[[i]], root = list.root)
       }
+    } else if (length(x) == 0) {
+      
+      cat(c(root, class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
+      
     }
     
     invisible()
