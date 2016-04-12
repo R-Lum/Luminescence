@@ -244,8 +244,8 @@ report_RLum <- function(object,
     links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
     type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
     if (type == "[")
-      type <- "[["
-    
+      type = ""
+
     # HTML header level is determined by the elements depth in the object
     # exception: first row is always the object's name and has depth zero
     if (i == 1)
@@ -545,6 +545,8 @@ report_RLum <- function(object,
   df$col <- as.integer(df$col)
   df$bud <- do.call(c, lapply(strsplit(df$branch, "\\$|@|\\[\\["), 
                               function(x) x[length(x)]))
+  if (length(grep("]", df$bud)) != 0)
+    df$bud[grep("]", df$bud)] <- paste0("[[", df$bud[grep("]", df$bud)])
   df$bud.freq <- 0
   
   # reorder data.frame
