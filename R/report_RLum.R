@@ -415,10 +415,17 @@ report_RLum <- function(object,
       try(rstudioapi::viewer(file.path(tempdir(), "report.html")))
     }
   }
-  
+
   # launch browser if desired
-  if (launch.browser)
-    try(browseURL(file.html))
+  # browseURL() listens on localhost to show the file with the problem that
+  # the download links dont work anymore. hence, we try to open the file
+  # with pander::openFileInOS and use browseURL() only as fallback
+  if (launch.browser) {
+    opened <- tryCatch(pander::openFileInOS(file.html), error = function(e) "error")
+    if (!is.null(opened))
+      try(browseURL(file.html))
+  }
+    
   
   ## ------------------------------------------------------------------------ ##
   ## CLEANUP ----
