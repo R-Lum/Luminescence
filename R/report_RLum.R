@@ -171,6 +171,8 @@ report_RLum <- function(object,
   
   # sanitize file name
   file <- gsub("\\\\", "\\/", file)
+  file.html <- gsub(".rmd$", ".html", file, ignore.case = TRUE)
+  file.rds <- gsub(".rmd$", ".Rds", file, ignore.case = TRUE)
   
   # Create and open the file
   file.create(file)
@@ -224,6 +226,13 @@ report_RLum <- function(object,
                    tryCatch(object@.uid, error = function(e) "-"), "\n\n",
                    "<hr>"),
              tmp)
+  
+  if (isTemp) {
+    writeLines(paste("<a href=", paste0("file:///", file.html),
+                     "class='btn btn-primary' download>Save report</a>"), tmp)
+    writeLines(paste("<a href=", paste0("file:///", file.rds),
+                     "class='btn btn-primary' download>Save data</a> \n\n"), tmp)
+  }
   
   # OBJECT ----
   elements <- .struct_RLum(object, root = deparse(substitute(object)))
@@ -314,11 +323,10 @@ report_RLum <- function(object,
   # SAVE SERIALISED OBJECT (.rds file) ----
   writeLines(paste("<hr># File \n\n"), tmp)
   
-  file.rds <- gsub(".rmd$", ".Rds", file, ignore.case = TRUE)
   saveRDS(object, file.rds)
   
   writeLines(paste0("<code>",
-                    "<a href='", gsub("\\~\\/", "", file.rds),"' download>",
+                    "<a href='", paste0("file:///", gsub("\\~\\/", "", file.rds)),"' download>",
                     "Click here to access the data file", "</a>",
                     "</code>"), tmp)
   
@@ -392,7 +400,6 @@ report_RLum <- function(object,
   
   ## ------------------------------------------------------------------------ ##
   ## SHOW FILE -----
-  file.html <- gsub(".rmd$", ".html", file, ignore.case = TRUE)
   
   # SHOW REPORT IN RSTUDIOS VIEWER PANE ----
   if (isRStudio) {
