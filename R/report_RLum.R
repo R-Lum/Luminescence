@@ -315,7 +315,10 @@ report_RLum <- function(object,
   
   # OBJECT STRUCTURE ----
   writeLines(paste("\n\n# Object structure\n\n"), tmp)
-  writeLines(pander::pander_return(elements, 
+
+  elements.html <- elements
+  elements.html$branch <- gsub("\\$", "&#36;", elements$branch)
+  writeLines(pander::pander_return(elements.html, 
                                    justify = paste(rep("l", ncol(elements)), collapse = "")),
              tmp)
   writeLines("\n\n", tmp)
