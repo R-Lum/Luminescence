@@ -171,6 +171,8 @@ report_RLum <- function(object,
   
   # sanitize file name
   file <- gsub("\\\\", "\\/", file)
+  file.html <- gsub(".rmd$", ".html", file, ignore.case = TRUE)
+  file.rds <- gsub(".rmd$", ".Rds", file, ignore.case = TRUE)
   
   # Create and open the file
   file.create(file)
@@ -225,6 +227,13 @@ report_RLum <- function(object,
                    "<hr>"),
              tmp)
   
+  if (isTemp) {
+    writeLines(paste("<a href=", paste0("file:///", file.html),
+                     "class='btn btn-primary' download>Save report</a>"), tmp)
+    writeLines(paste("<a href=", paste0("file:///", file.rds),
+                     "class='btn btn-primary' download>Save data</a> \n\n"), tmp)
+  }
+  
   # OBJECT ----
   elements <- .struct_RLum(object, root = deparse(substitute(object)))
   
@@ -235,8 +244,8 @@ report_RLum <- function(object,
     links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
     type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
     if (type == "[")
-      type <- "[["
-    
+      type = ""
+
     # HTML header level is determined by the elements depth in the object
     # exception: first row is always the object's name and has depth zero
     if (i == 1)
@@ -306,7 +315,10 @@ report_RLum <- function(object,
   
   # OBJECT STRUCTURE ----
   writeLines(paste("\n\n# Object structure\n\n"), tmp)
-  writeLines(pander::pander_return(elements, 
+
+  elements.html <- elements
+  elements.html$branch <- gsub("\\$", "&#36;", elements$branch)
+  writeLines(pander::pander_return(elements.html, 
                                    justify = paste(rep("l", ncol(elements)), collapse = "")),
              tmp)
   writeLines("\n\n", tmp)
@@ -314,11 +326,10 @@ report_RLum <- function(object,
   # SAVE SERIALISED OBJECT (.rds file) ----
   writeLines(paste("<hr># File \n\n"), tmp)
   
-  file.rds <- gsub(".rmd$", ".Rds", file, ignore.case = TRUE)
   saveRDS(object, file.rds)
   
   writeLines(paste0("<code>",
-                    "<a href='", gsub("\\~\\/", "", file.rds),"' download>",
+                    "<a href='", paste0("file:///", gsub("\\~\\/", "", file.rds)),"' download>",
                     "Click here to access the data file", "</a>",
                     "</code>"), tmp)
   
@@ -392,7 +403,6 @@ report_RLum <- function(object,
   
   ## ------------------------------------------------------------------------ ##
   ## SHOW FILE -----
-  file.html <- gsub(".rmd$", ".html", file, ignore.case = TRUE)
   
   # SHOW REPORT IN RSTUDIOS VIEWER PANE ----
   if (isRStudio) {
@@ -405,10 +415,17 @@ report_RLum <- function(object,
       try(rstudioapi::viewer(file.path(tempdir(), "report.html")))
     }
   }
-  
+
   # launch browser if desired
-  if (launch.browser)
-    try(browseURL(file.html))
+  # browseURL() listens on localhost to show the file with the problem that
+  # the download links dont work anymore. hence, we try to open the file
+  # with pander::openFileInOS and use browseURL() only as fallback
+  if (launch.browser) {
+    opened <- tryCatch(pander::openFileInOS(file.html), error = function(e) "error")
+    if (!is.null(opened))
+      try(browseURL(file.html))
+  }
+    
   
   ## ------------------------------------------------------------------------ ##
   ## CLEANUP ----
@@ -474,6 +491,10 @@ report_RLum <- function(object,
         list.root <- paste0(root, element[i])
         .tree_RLum(x[[i]], root = list.root)
       }
+    } else if (length(x) == 0) {
+      
+      cat(c(root, class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
+      
     }
     
     invisible()
@@ -535,6 +556,8 @@ report_RLum <- function(object,
   df$col <- as.integer(df$col)
   df$bud <- do.call(c, lapply(strsplit(df$branch, "\\$|@|\\[\\["), 
                               function(x) x[length(x)]))
+  if (length(grep("]", df$bud)) != 0)
+    df$bud[grep("]", df$bud)] <- paste0("[[", df$bud[grep("]", df$bud)])
   df$bud.freq <- 0
   
   # reorder data.frame
