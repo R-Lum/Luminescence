@@ -19,12 +19,9 @@ parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE} global parameters are inherited.}
 
 \item{plot.type}{\code{\link{character}} (with default): plot type, for
-3D-plot use \code{persp}, or \code{persp3d}, for a 2D-plot \code{contour},
+3D-plot use \code{persp}, or \code{interactive}, for a 2D-plot \code{contour},
 \code{single} or \code{multiple.lines} (along the time or temperature axis)
-or \code{transect} (along the wavelength axis) \cr
-
-Note: The use of \code{\link[rgl]{persp3d}} will produce a dynamic 3D surface plot on
-the screen.}
+or \code{transect} (along the wavelength axis) \cr}
 
 \item{optical.wavelength.colours}{\code{\link{logical}} (with default): use
 optical wavelength colour palette. Note: For this, the spectrum range is
@@ -154,7 +151,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.4.5 (2016-04-03 08:31:59)
+ 0.5.0 (2016-04-13 18:21:41)
 }
 \examples{
 
@@ -187,8 +184,8 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
                         bin.cols = 1)
 
 \dontrun{
- ##(4) plot real 3d spectrum using rgl
- plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp3d",
+ ##(4) interactive plot using the package plotly
+ plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
  bin.cols = 1)
 }
@@ -204,7 +201,7 @@ Springer.
 }
 \seealso{
 \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-\code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[rgl]{persp3d}},
+\code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[plotly]{plot_ly}},
 \code{\link{contour}}
 }
 \keyword{aplot}

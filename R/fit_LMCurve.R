@@ -143,7 +143,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -604,7 +604,7 @@ fit_LMCurve<- function(
 
     ##Energy - E = h*v
     h<-6.62606957e-34 #in W*s^2 - Planck constant
-    ny<-299792458/(LED.wavelength/10^9) #frequency of light
+    ny<-299792458/(LED.wavelength/10^9) #frequency of the light
     E<-h*ny
 
     ##transform LED.power in W/cm^2
@@ -619,7 +619,7 @@ fit_LMCurve<- function(
     n0<-as.vector((Im/exp(-0.5))*xm)
 
 
-    ##CALCULATE 1- sigma CONFIDENCE INTERVALL
+    ##CALCULATE 1- sigma CONFIDENCE INTERVAL
     ##------------------------------------------------------------------------##
     b.error<-rep(NA, n.components)
     n0.error<-rep(NA, n.components)
@@ -858,6 +858,15 @@ fit_LMCurve<- function(
     ##grep package colour gallery
     col <- get("col", pos = .LuminescenceEnv)
 
+    ##change xlim values in case of the log plot the avoid problems
+    if((log == "x" | log == "xy") && xlim[1] == 0){
+      warning("[fit_LMCurve()] x-axis limitation change to avoid 0 values for log-scale!", call. = FALSE)
+      xlim <- c(2^0.5/2 * max(values[,1])/length(values[,1]), xlim[2])
+
+
+    }
+
+
     ##set plot frame
     par.default <- par(no.readonly = TRUE)
 
@@ -866,20 +875,25 @@ fit_LMCurve<- function(
 
     ##==uppper plot==##
     ##open plot area
-    plot(NA,NA,
-         xlim=xlim,
-         ylim=ylim,
-         xlab="",
-         xaxt="n",
-         main=main,
-         log=log,
-         ylab=ylab
+    plot(
+      NA,
+      NA,
+      xlim = xlim,
+      ylim = ylim,
+      xlab = "",
+      xaxt = "n",
+      main = main,
+      log = log,
+      ylab = ylab
     )#endplot
 
     mtext(side=3,sample_code,cex=0.8*cex)
 
     ##plotting measured signal
-    points(values[,1],values[,2],pch=20, col=rgb(0.4,0.4,0.4,0.5))
+    points(values[, 1],
+           values[, 2],
+           pch = 20,
+           col = rgb(0.4, 0.4, 0.4, 0.5))
 
     ##==pseudo curve==##------------------------------------------------------#
 

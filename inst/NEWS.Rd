@@ -168,6 +168,16 @@
         \item add argument \code{sig0} to allow for an extra component of error.
       }
 
+      \item \code{fit_LMCurve()}
+       \itemize{
+
+          \item Fix bug that caused a function break if data set contained 0 time values but a
+          log-scale was wanted; now the \code{xlim} is adjusted and a warning is given.
+
+
+
+     }
+
          \item \code{merge_RLum.Data.Curve()}
       \itemize{
 
@@ -243,10 +253,14 @@
         \item add new argument \code{limit_counts} to further the counts to a maximum value (the value
         provided), this might be especially helpful in case of TL spectra,
         \item the argument \code{optical.wavelength.colours} was not working in all cases sufficiently; corrected,
-        \item minor graphical adjustments.
+        \item minor graphical adjustments,
+        \item the 3D plot is now produced using the package \code{plotly} which allows an interative
+        visualisation. The new plot type added is called \code{interactive}, the suggestion of the
+        package \code{rgl} has been removed with this change.
+
 
       }
-      
+
             \item \code{plot_ViolinPlot()}
       \itemize{
 
@@ -286,6 +300,21 @@
 
         \item Package 'digits' removed from the dependency list and the functionality (creating a
         unique identifier for RLum-objects) was implemented using a self-written function.
+
+        \item Package 'rgl' was removed from suggests and replaced by the package 'plotly'.
+
+        \item Package 'RLumModel' added as suggested package.
+
+        \item Package 'RLumShiny' added as suggested package.
+
+        \item Package 'rmarkdown' added as suggested package.
+
+        \item Package 'pander' added as suggested package.
+
+        \item Package 'rstudioapi' added as suggested package.
+
+        \item Package 'rjags' added as suggested package.
+
 
 
      }

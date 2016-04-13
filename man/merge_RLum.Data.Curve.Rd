@@ -94,7 +94,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.0 (2016-02-05 05:21:29)
+ 0.2.0 (2016-04-08 12:43:43)
 }
 \examples{
 

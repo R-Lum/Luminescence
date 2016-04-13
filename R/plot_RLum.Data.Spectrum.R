@@ -89,12 +89,9 @@
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If \code{par.local = FALSE} global parameters are inherited.
 #' @param plot.type \code{\link{character}} (with default): plot type, for
-#' 3D-plot use \code{persp}, or \code{persp3d}, for a 2D-plot \code{contour},
+#' 3D-plot use \code{persp}, or \code{interactive}, for a 2D-plot \code{contour},
 #' \code{single} or \code{multiple.lines} (along the time or temperature axis)
 #' or \code{transect} (along the wavelength axis) \cr
-#'
-#' Note: The use of \code{\link[rgl]{persp3d}} will produce a dynamic 3D surface plot on
-#' the screen.
 #'
 #' @param optical.wavelength.colours \code{\link{logical}} (with default): use
 #' optical wavelength colour palette. Note: For this, the spectrum range is
@@ -138,13 +135,13 @@
 #'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
 #'
-#' @section Function version: 0.4.5
+#' @section Function version: 0.5.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
 #' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[rgl]{persp3d}},
+#' \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[plotly]{plot_ly}},
 #' \code{\link{contour}}
 #'
 #' @references Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
@@ -183,8 +180,8 @@
 #'                         bin.cols = 1)
 #'
 #' \dontrun{
-#'  ##(4) plot real 3d spectrum using rgl
-#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp3d",
+#'  ##(4) interactive plot using the package plotly
+#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
 #'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
 #'  bin.cols = 1)
 #' }
@@ -503,7 +500,7 @@ plot_RLum.Data.Spectrum <- function(
 
   if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
 
-    if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "persp3d"))){
+    if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
 
       ##make different colour palette for energy valuesw
       if (xaxis.energy) {
@@ -655,29 +652,14 @@ plot_RLum.Data.Spectrum <- function(
     warning("[plot_RLum.Data.Spectrum()] Single column matrix: plot.type has been automatically reset to 'single'")
   }
 
-  if(plot.type == "persp3d" && ncol(temp.xyz) > 1){
+  ##do not let old code break down ...
+  if(plot.type == "persp3d"){
+    plot.type <- "interactive"
+    warning("[plot_RLum.Data.Spectrum()] 'plot.type' has been automatically reset to interactive!")
 
-    ## ==========================================================================#
-    ##perspective plot 3D screen (package rgl)
-    ## ==========================================================================#
+  }
 
-    ##check whether rgl is available
-    ##code snippet taken from
-    ##http://r-pkgs.had.co.nz/description.html
-    if (!requireNamespace("rgl", quietly = TRUE)) {
-      stop("[plot_RLum.Data.Spectrum()] Package 'rgl' needed for this plot type. Please install it.",
-           call. = FALSE)
-    }
-
-    rgl::persp3d(x, y, temp.xyz,
-            xlab = xlab,
-            ylab = ylab,
-            zlab = zlab,
-            zlim = zlim,
-            col = col,
-            main = main)
-
-  }else if(plot.type == "persp" && ncol(temp.xyz) > 1){
+  if(plot.type == "persp" && ncol(temp.xyz) > 1){
     ## ==========================================================================#
     ##perspective plot
     ## ==========================================================================#
@@ -702,6 +684,41 @@ plot_RLum.Data.Spectrum <- function(
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
+
+  }else if(plot.type == "interactive" && ncol(temp.xyz) > 1) {
+    ## ==========================================================================#
+    ##interactive plot and former persp3d
+    ## ==========================================================================#
+
+    ##http://r-pkgs.had.co.nz/description.html
+    if (!requireNamespace("plotly", quietly = TRUE)) {
+      stop("[plot_RLum.Data.Spectrum()] Package 'plotly' needed for this plot type. Please install it.",
+           call. = FALSE)
+    }
+
+       ##set up plot
+       p <- plotly::plot_ly(
+         x = y,
+         y = x,
+         z = temp.xyz,
+         type = "surface",
+         showscale = FALSE
+         #colors = col[1:(length(col)-1)],
+         )
+
+       ##change graphical parameters
+       p <-  plotly::layout(
+         p = p,
+         scene = list(
+           xaxis = list(title = ylab),
+           yaxis = list(title = xlab),
+           zaxis = list(title = zlab)
+
+         ),
+         title = main
+       )
+
+       print(p)
 
 
   }else if(plot.type == "contour" && ncol(temp.xyz) > 1) {
