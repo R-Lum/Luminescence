@@ -168,6 +168,16 @@
         \item add argument \code{sig0} to allow for an extra component of error.
       }
 
+      \item \code{fit_LMCurve()}
+       \itemize{
+
+          \item Fix bug that caused a function break if data set contained 0 time values but a
+          log-scale was wanted; now the \code{xlim} is adjusted and a warning is given.
+
+
+
+     }
+
          \item \code{merge_RLum.Data.Curve()}
       \itemize{
 
@@ -246,7 +256,7 @@
         \item minor graphical adjustments.
 
       }
-      
+
             \item \code{plot_ViolinPlot()}
       \itemize{
 

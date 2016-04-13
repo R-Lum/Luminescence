@@ -72,7 +72,7 @@ Calculation of standard errors for (L1-L3) and (L2-L3) is currently not
 implemented.
 }
 \section{Function version}{
- 0.1.0 (2016-04-05 10:03:00)
+ 0.1.0 (2016-04-08 12:43:43)
 }
 \examples{
 # load example CW-OSL curve

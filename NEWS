@@ -198,6 +198,12 @@ Changes in version 0.6.0 (,2016):
              • add argument ‘sig0’ to allow for an extra component of
                error.
 
+         • ‘fit_LMCurve()’
+
+             • Fix bug that caused a function break if data set
+               contained 0 time values but a log-scale was wanted; now
+               the ‘xlim’ is adjusted and a warning is given.
+
          • ‘merge_RLum.Data.Curve()’
 
              • Support further merge operations: ‘median’, ‘var’, ‘sd’,
