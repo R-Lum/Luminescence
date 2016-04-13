@@ -35,7 +35,7 @@ License: GPL-3
 Depends:
     R (>= 3.2.3),
     utils
-LinkingTo: 
+LinkingTo:
     Rcpp,
     RcppArmadillo (>= 0.6.200.2.0)
 Imports:
@@ -54,7 +54,6 @@ Imports:
     zoo (>= 1.7-12)
 Suggests:
     RLumShiny (>= 0.1.0),
-    rgl (>= 0.95.1367),
     RLumModel (>= 0.1.0),
     rjags (>= 4-5),
     plotly (>= 2.0.3),

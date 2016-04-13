@@ -280,7 +280,12 @@ Changes in version 0.6.0 (,2016):
              • the argument ‘optical.wavelength.colours’ was not
                working in all cases sufficiently; corrected,
 
-             • minor graphical adjustments.
+             • minor graphical adjustments,
+
+             • the 3D plot is now produced using the package ‘plotly’
+               which allows an interative visualisation. The new plot
+               type added is called ‘interactive’, the suggestion of
+               the package ‘rgl’ has been removed with this change.
 
          • ‘plot_ViolinPlot()’
 
@@ -321,4 +326,19 @@ Changes in version 0.6.0 (,2016):
          • Package 'digits' removed from the dependency list and the
            functionality (creating a unique identifier for
            RLum-objects) was implemented using a self-written function.
+
+         • Package 'rgl' was removed from suggests and replaced by the
+           package 'plotly'.
+
+         • Package 'RLumModel' added as suggested package.
+
+         • Package 'RLumShiny' added as suggested package.
+
+         • Package 'rmarkdown' added as suggested package.
+
+         • Package 'pander' added as suggested package.
+
+         • Package 'rstudioapi' added as suggested package.
+
+         • Package 'rjags' added as suggested package.
 
