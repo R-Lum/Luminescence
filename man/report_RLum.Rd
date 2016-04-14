@@ -64,7 +64,7 @@ following structure:
 This function requires the R packages 'rmarkdown' and 'pander'.
 }
 \section{Function version}{
- 0.1.0 (2016-04-12 12:58:56)
+ 0.1.0 (2016-04-13 18:27:06)
 }
 \examples{
 

@@ -151,7 +151,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.5.0 (2016-04-13 18:21:41)
+ 0.5.0 (2016-04-14 14:44:21)
 }
 \examples{
 
@@ -188,6 +188,11 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
  bin.cols = 1)
+
+ ##(5) alternative using the package fields
+ fields::image.plot(get_RLum(TL.Spectrum))
+ contour(get_RLum(TL.Spectrum), add = TRUE)
+
 }
 
 }

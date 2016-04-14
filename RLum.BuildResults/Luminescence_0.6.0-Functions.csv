@@ -76,7 +76,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "fit_CWCurve","Nonlinear Least Squares Fit for CW-OSL curves [beta version]","<br /> The function determines the weighted least-squares estimates of the<br /> component parameters of a CW-OSL signal for a given maximum number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the  nls  function with the  port  algorithm.<br />","0.5.1","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"fit_LMCurve","Nonlinear Least Squares Fit for LM-OSL curves","<br /> The function determines weighted nonlinear least-squares estimates of the<br /> component parameters of an LM-OSL curve (Bulur 1996) for a given number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the function  nls  with the  port  algorithm.<br />","0.3.1","2016-04-13","15:57:04
+"fit_LMCurve","Nonlinear Least Squares Fit for LM-OSL curves","<br /> The function determines weighted nonlinear least-squares estimates of the<br /> component parameters of an LM-OSL curve (Bulur 1996) for a given number of<br /> components and returns various component parameters. The fitting procedure<br /> uses the function  nls  with the  port  algorithm.<br />","0.3.1","2016-04-13","18:26:44
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "get_Layout","Collection of layout definitions","<br /> This helper function returns a list with layout definitions for homogeneous<br /> plotting.<br />","0.1","2015-11-29","17:27:48
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
@@ -130,7 +130,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Image","Plot function for an  RLum.Data.Image  S4 class object","<br /> The function provides a standardised plot output for image data of an<br /> RLum.Data.Image S4 class object, mainly using the plot functions<br /> provided by the  raster  package.<br />","0.1","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.5.0","2016-04-13","18:21:41
+"plot_RLum.Data.Spectrum","Plot function for an RLum.Data.Spectrum S4 class object","<br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />","0.5.0","2016-04-14","14:44:21
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.2","2016-04-08","12:43:43
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -148,7 +148,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "replicate_RLum","General replication function for RLum S4 class objects","<br /> Function replicates RLum S4 class objects and returns a list for this objects<br />","0.1.0","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"report_RLum","Create HTML report for (RLum) objects","<br /> This function creates a HTML report for a given object, listing its complete<br /> structure and content. The object itself is saved as a serialised .Rds file.<br /> The report file serves both as a convenient way of browsing through objects with <br /> complex data structures as well as a mean of properly documenting and saving<br /> objects.<br />","0.1.0","2016-04-12","12:58:56
+"report_RLum","Create HTML report for (RLum) objects","<br /> This function creates a HTML report for a given object, listing its complete<br /> structure and content. The object itself is saved as a serialised .Rds file.<br /> The report file serves both as a convenient way of browsing through objects with <br /> complex data structures as well as a mean of properly documenting and saving<br /> objects.<br />","0.1.0","2016-04-13","18:27:06
 ","<br /> Christoph Burow, University of Cologne (Germany)  <br />  R Luminescence Package Team"
 "Risoe.BINfileData-class","Class  \"Risoe.BINfileData\"","<br /> S4 class object for luminescence data in R. The object is produced as output<br /> of the function  read_BIN2R .<br />","0.2.0
 ",NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
