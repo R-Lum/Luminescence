@@ -343,7 +343,14 @@ analyse_IRSAR.RF<- function(
 
     ##main
     if("main"%in% names(list(...))){
-      temp_main <- rep(list(list(...)$main), length = length(object))
+
+      if(is(list(...)$main, "list")){
+        temp_main <- rep(list(...)$main, length = length(object))
+
+      }else{
+        temp_main <- rep(list(list(...)$main), length = length(object))
+
+      }
 
     }else{
       temp_main <- as.list(paste0("ALQ #",1:length(object)))
