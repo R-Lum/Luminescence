@@ -223,7 +223,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.6.1
+#' @section Function version: 0.6.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -341,6 +341,15 @@ analyse_IRSAR.RF<- function(
     ##n.MC
     n.MC <- rep(list(n.MC), length = length(object))
 
+    ##main
+    if("main"%in% names(list(...))){
+      temp_main <- rep(list(list(...)$main), length = length(object))
+
+    }else{
+      temp_main <- as.list(paste0("ALQ #",1:length(object)))
+
+    }
+
 
     ##run analysis
     temp <- lapply(1:length(object), function(x){
@@ -356,7 +365,7 @@ analyse_IRSAR.RF<- function(
         n.MC = n.MC[[x]],
         txtProgressBar = txtProgressBar,
         plot = plot,
-        main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
+        main = temp_main[[x]],
         ...)
     })
 
