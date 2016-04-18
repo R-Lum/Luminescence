@@ -67,12 +67,8 @@ required to reduce the fast and medium quartz OSL components to \code{x} and
 \code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start 
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
-\note{
-Calculation of standard errors for (L1-L3) and (L2-L3) is currently not 
-implemented.
-}
 \section{Function version}{
- 0.1.0 (2016-04-05 10:03:00)
+ 0.1.0
 }
 \examples{
 # load example CW-OSL curve
@@ -89,7 +85,7 @@ get_RLum(res)
 Georgina King, University of Cologne (Germany) \cr
 Julie A. Durcan, University of Oxford (United Kingdom) \cr
 Christoph Burow, University of Cologne (Germany) \cr
-\cr R Luminescence Package Team}
+}
 \references{
 Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 the dominance of the fast component in the initial OSL signal from quartz.
