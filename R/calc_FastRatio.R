@@ -75,9 +75,6 @@
 #' Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation 
 #' due to unstable signal components. Quaternary Geochronology 4, 353-362.
 #' 
-#' @note 
-#' Calculation of standard errors for (L1-L3) and (L2-L3) is currently not 
-#' implemented.
 #'
 #' @seealso \code{\link{fit_CWCurve}}, \code{\link{get_RLum}}, \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{RLum.Data.Curve}}
@@ -110,6 +107,9 @@ calc_FastRatio <- function(object,
   ## Input object handling -----------------------------------------------------
   if (inherits(object, "RLum.Analysis"))
     object <- get_RLum(object)
+  
+  if (inherits(object, "RLum.Results"))
+    object <- get_RLum(object, "data")
   
   if (!inherits(object, "list"))
     object <-list(object)
