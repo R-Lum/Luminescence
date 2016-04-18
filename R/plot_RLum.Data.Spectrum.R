@@ -184,6 +184,11 @@
 #'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
 #'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
 #'  bin.cols = 1)
+#'
+#'  ##(5) alternative using the package fields
+#'  fields::image.plot(get_RLum(TL.Spectrum))
+#'  contour(get_RLum(TL.Spectrum), add = TRUE)
+#'
 #' }
 #'
 #' @export
