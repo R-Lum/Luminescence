@@ -258,7 +258,10 @@ Changes in version 0.6.0 (,2016):
              • support further ‘...’ argument ‘legend’ (TRUE/FALSE),
 
              • add support for argument ‘smooth’ for ‘RLum.Data.Curve’
-               objects (see entry for ‘plot_RLum.Data.Curve’.
+               objects (see entry for ‘plot_RLum.Data.Curve’,
+
+             • fix minor bug introduced for the acceptence of the
+               argument ‘lty’.
 
          • ‘plot_RLum.Data.Curve()’
 

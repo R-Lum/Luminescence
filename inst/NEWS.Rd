@@ -235,7 +235,8 @@
         \item automatic axes labelling improved for \code{combine = TRUE},
         \item support further \code{...} argument \code{legend} (TRUE/FALSE),
         \item add support for argument \code{smooth} for \code{RLum.Data.Curve} objects (see
-        entry for \code{plot_RLum.Data.Curve}.
+        entry for \code{plot_RLum.Data.Curve},
+        \item fix minor bug introduced for the acceptence of the argument \code{lty}.
       }
 
          \item \code{plot_RLum.Data.Curve()}
