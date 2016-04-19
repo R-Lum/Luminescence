@@ -279,6 +279,15 @@
         \item in some cases the grain number was not imported correctly; fixed.
       }
 
+
+     \item \code{read_BIN2R()}
+      \itemize{
+          \item Behaviour while using the option \code{import = TRUE} and \code{fastForward = TRUE}
+          have been improved. If both arguments are combined now only a single data frame with all information
+          is returned.
+
+      }
+
       \item \code{Risoe.BINfileData2RLum.Analysis()}
       \itemize{
 

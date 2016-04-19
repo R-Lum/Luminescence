@@ -307,6 +307,13 @@ Changes in version 0.6.0 (,2016):
              • in some cases the grain number was not imported
                correctly; fixed.
 
+         • ‘read_BIN2R()’
+
+             • Behaviour while using the option ‘import = TRUE’ and
+               ‘fastForward = TRUE’ have been improved. If both
+               arguments are combined now only a single data frame with
+               all information is returned.
+
          • ‘Risoe.BINfileData2RLum.Analysis()’
 
              • Single grain data had not been converted correctly to

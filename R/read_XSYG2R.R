@@ -98,7 +98,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.6
+#' @section Function version: 0.5.7
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -188,7 +188,15 @@ read_XSYG2R <- function(
 
     ##return
     if (fastForward) {
-      return(unlist(temp.return, recursive = FALSE))
+
+      if(import){
+        return(unlist(temp.return, recursive = FALSE))
+
+      }else{
+        return(as.data.frame(data.table::rbindlist(temp.return)))
+
+      }
+
 
     }else{
       return(temp.return)
@@ -320,7 +328,22 @@ read_XSYG2R <- function(
 
     }
 
-    output <-  list(Sample = temp.sample, Sequences = temp.sequence.header)
+
+      ##additional option for fastForward == TRUE
+      if(fastForward){
+
+        ##change column header
+        temp.sample <- t(temp.sample)
+        colnames(temp.sample) <- paste0("sample::", colnames(temp.sample))
+        output <- cbind(temp.sequence.header, temp.sample)
+
+
+      }else{
+        output <-  list(Sample = temp.sample, Sequences = temp.sequence.header)
+
+
+      }
+
     return(output)
 
   }else{
