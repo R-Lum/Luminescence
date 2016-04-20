@@ -8,8 +8,7 @@
 #' @param source_doserate \code{\link{numeric}} (with default): source dose rate of beta-source used
 #' for the measuremnt in Gy/s
 #'
-#' @param signal.integration.limits \code{\link{numeric}} (with default): signal integration limits
-#' TODO: ask Norbert what does it mean here!
+#' @inheritParams calc_OSLLxTxRatio
 #'
 #' @param distribution \code{\link{character}} (with default): type of distribution that is used for
 #' the Bayesian calculation. Allowed inputs are \code{normal}, \code{cauchy} and \code{log_normal}
@@ -27,15 +26,22 @@
 #' @section Function version: 0.1.0
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
-#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#'
+#' The underlying Bayesian model based on a contribution by Combes et al., 2015.
 #'
 #' @seealso \code{\link{read_BIN2R}}, \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
 #'
 #' @references
 #'
-#' nothing so far
+#' Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
+#' A Bayesian central equivalent dose model for optically stimulated luminescence dating.
+#' Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
+#'
+#' @note The current version of the function works with standard Risoe BIN-files only!
 #'
 #' @keywords datagen
+#'
 #'
 #' @examples
 #'
@@ -44,9 +50,18 @@
 #' @export
 analyse_baSAR <- function(
   object,
-  source_doserate = 1,
-  signal.integration.limits =  c(6,16,26,60,6,16,26,60),
-  distribution = "normal",
+  source_doserate,
+  Lx.data,
+  Tx.data,
+  signal.integral,
+  signal.integral.Tx = NULL,
+  background.integral,
+  background.integral.Tx = NULL,
+  background.count.distribution = "non-poisson",
+  sigmab,
+  sig0 = 0,
+  digits = NULL,
+  distribution = "n",
   fit.method = "EXP",
   XLS_file = NULL,
   plot = TRUE,
@@ -54,12 +69,13 @@ analyse_baSAR <- function(
 ){
 
   ##TODO
-  ## - Standardise output
   ## - Check for input data, plain R should be possible
-  ## - check with Norbert input arguments, not all of them are logic
+  ## - inherit parameter list from calc_OSLLxTxRatio
   ## - check for plot and verbose options
   ## - add running example ... a short one
-  ## - prevent that the function writes data without request ... this is forbidden
+  ## - make model part of the output of the RLum.Result object
+  ## - implement a selfcall (RLum.Results) along with the XLS sheet
+
 
   ##FUNCTION TO BE CALLED to RUN the Bayesian Model
   ###############  START : baSAR_function
@@ -95,7 +111,7 @@ analyse_baSAR <- function(
       ########################################        MODELS      ########################################
 
       #   Cauchy distribution
-      write('
+      baSARc_model.bug <- "
             model {
             central_D ~  dunif(low_De,up_De)
 
@@ -121,10 +137,10 @@ analyse_baSAR <- function(
             Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
             }
             }
-            }', 'baSARc_model.bug')
+          }"
 
       # Normal distribution
-      write('
+      baSARn_model.bug <- "
             model {
             central_D ~  dunif(low_De,up_De)
 
@@ -149,10 +165,10 @@ analyse_baSAR <- function(
             Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
             }
             }
-            }', 'baSARn_model.bug')
+            }"
 
       # Log-Normal distribution
-      write('
+      baSARl_model.bug <- "
             model {
             central_D ~  dunif(low_De,up_De)
 
@@ -180,7 +196,7 @@ analyse_baSAR <- function(
             Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
             }
             }
-            }', 'baSARl_model.bug')
+        }"
 
       ### Bayesian inputs
       data_Liste  <- list(
@@ -207,9 +223,9 @@ analyse_baSAR <- function(
       if (distribution == "c") {
 
         if(verbose){cat("\n>> Calculation assuming a Cauchy distribution:\n")}
-        distribution <-  "Cauchy distib."
+        distribution <-  "Cauchy distribution"
         jagsfit <- rjags::jags.model(
-          "baSARc_model.bug",
+          textConnection(baSARc_model.bug),
           data = data_Liste,
           n.chains = 3,
           n.adapt = Nb_Iterations,
@@ -218,9 +234,9 @@ analyse_baSAR <- function(
       }
       if (distribution == "n") {
         if(verbose){cat("\n>> Calculation assuming a Normal distribution:\n")}
-        distribution <-  "Normal distib."
+        distribution <-  "Normal distribution"
         jagsfit <- rjags::jags.model(
-          "baSARn_model.bug",
+          textConnection(baSARn_model.bug),
           data = data_Liste,
           n.chains = 3,
           n.adapt= Nb_Iterations,
@@ -229,9 +245,9 @@ analyse_baSAR <- function(
       }
       if (distribution == "ln") {
         if(verbose){cat("\n>> Calculation assuming a Log-Normal distribution:\n")}
-        distribution <-  "Log-Normal distib."
+        distribution <-  "Log-Normal distribution"
         jagsfit <- rjags::jags.model(
-          "baSARl_model.bug",
+          textConnection(baSARl_model.bug),
           data = data_Liste,
           n.chains = 3,
           n.adapt = Nb_Iterations,
@@ -239,9 +255,11 @@ analyse_baSAR <- function(
         )
       }
 
-      ##TODO check for rjags
+      ##update
       update(jagsfit, Nb_Iterations)
 
+      ##TODO... check for potential output limiting options, D can be removed ... plot maybe just
+      ##the last two
       sampling <- rjags::coda.samples(jagsfit,c('central_D','sigma_D','D'),Nb_Iterations/10,thin=10)
 
       ##CHECK FOR RJAGS
@@ -264,7 +282,7 @@ analyse_baSAR <- function(
       output.mean[3] <-  round(summary(sampling)[[1]][(pt_zero+2)], 2)
       output.mean[4] <- round(summary(sampling)[[1]][(2*pt_zero+4)], 2)
 
-      #### Output Object.list TODO: check with Norbert whether this output format is sufficient
+      #### output data.frame with results
       baSAR.output <- data.frame(
         DISTRIBUTION = distribution,
         NB_ALIQUOTS = Nb_aliquots,
@@ -275,8 +293,11 @@ analyse_baSAR <- function(
         SIGMA.SD = output.mean[4]
       )
 
+      return(baSAR.output = list(
+        baSAR.output_summary = baSAR.output,
+        baSAR.output_matrix = sampling
+      ))
 
-      return(baSAR.output)
     }
   ###############  End : baSAR_function
   ####++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++####
@@ -307,16 +328,6 @@ analyse_baSAR <- function(
 
   }
 
-  ##SET distribution
-  distri <- switch(
-    distribution,
-    cauchy = "c",
-    normal = "n",
-    log_lormal = "ln",
-    stop("[analyse_baSAR()] Unsupported distribution. Supported: 'cauchy', 'normal' and 'log_normal.")
-
-  )
-
   ##SET fit.method
   if(fit.method == "EXP"){
     fit <- "e"
@@ -337,7 +348,7 @@ analyse_baSAR <- function(
   ##SET xls file
   fichier <- XLS_file
 
-  ##TODO: data should be provided also wihout(!) XLS sheet ...
+  ##TODO: data should be provided also without(!) XLS sheet ...
 
   #################################        DECLARE
   Dose <-  list()
@@ -350,7 +361,7 @@ analyse_baSAR <- function(
 
   Limited_cycles <- vector()
 
-  Nb_aliquots <-  0 ; previous.Nb_aliquots <- 0 ; carousel <-  1:80
+  Nb_aliquots <-  0 ; previous.Nb_aliquots <- 0 ;
 
 
   for (i in 1 : length(fileBIN.list)) {
@@ -369,13 +380,23 @@ analyse_baSAR <- function(
 
     }
 
+
   ###################################### loop on files_number
   for (k in 1:length(fileBIN.list)) {
 
+    ##set number of aliquots
+    n_aliquots <- length(unique(fileBIN.list[[k]]@METADATA[["POSITION"]]))
+
     Disc_Grain.list[[k]] <- list()   # data.file number
-    for (d in 1:80) {
+    for (d in 1:n_aliquots) {
+
+      ##set number of grains for position d
+      n_grains <- length(
+        unique(fileBIN.list[[k]]@METADATA[fileBIN.list[[k]]@METADATA[["POSITION"]] == d, "GRAIN"])
+        )
       Disc_Grain.list[[k]][[d]] <- list()  # data.file number , disc_number
-      for (g in 1:100) {
+
+      for (g in 1:n_grains) {
         Disc_Grain.list[[k]][[d]][[g]] <- list()  # data.file number ,  disc_number, grain_number
         for (z in 1:5) {
           Disc_Grain.list[[k]][[d]][[g]][[z]] <- list()  # 1 = index numbers, 2 = irradiation doses,  3 = LxTx , 4 = sLxTx,  5 = N d'aliquot
@@ -415,7 +436,7 @@ analyse_baSAR <- function(
 
     ### Test if Single-Grain  file
     Mono_grain <- TRUE    # by default
-    grains_numbers <-  1:100
+    grains_numbers <-  1:100 #TODO, check whether this might become problematic
     measured_grains.vector_list <-  intersect(grains_numbers,measured_grains.vector)   # vector with list of measured grains
     if ( length(measured_grains.vector_list) < 10) {Mono_grain <- FALSE}
 
@@ -435,10 +456,6 @@ analyse_baSAR <- function(
     if(verbose){cat("\n[analyse_baSAR()] Preliminary analysis in progress ...")}
 
     ######################  Data associated with a single Disc/Grain
-
-    # channels limits
-    signal.integral<- signal.integration.limits[1:2]  ; background.integral<- signal.integration.limits[3:4]
-    signal.integral.Tx <- signal.integration.limits[5:6]  ; background.integral.Tx <- signal.integration.limits[7:8]
 
     if (Mono_grain == TRUE) (max.grains <- 100) else (max.grains <- 1)
 
@@ -518,7 +535,7 @@ analyse_baSAR <- function(
   results <-
     baSAR_function(
       Nb_aliquots = Nb_aliquots,
-      distribution = distri,
+      distribution = distribution,
       data.Dose = Doses,
       data.Lum = LxTx,
       data.sLum = LxTx.error,
@@ -539,7 +556,9 @@ analyse_baSAR <- function(
   return(set_RLum(
     class = "RLum.Results",
     data = list(
-      results = results),
+      summary = results[[1]],
+      mcmc_list = results[[2]]
+      ),
     info = list(call = sys.call())
   ))
 
