@@ -6,7 +6,7 @@
 \usage{
 analyse_baSAR(object, source_doserate = 1, signal.integration.limits = c(6,
   16, 26, 60, 6, 16, 26, 60), distribution = "normal", fit.method = "EXP",
-  XLS_file = NULL, verbose = TRUE)
+  XLS_file = NULL, plot = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{object}{\code{\link{character}} (\bold{required}): BIN-file, either a single file or a list
@@ -27,13 +27,15 @@ curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods:
 
 \item{XLS_file}{\code{\link{character}} (with default): XLS_file with data for the analysis}
 
+\item{plot}{\code{\link{logical}} (with default): enables or disables plot output}
+
 \item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
 }
 \description{
 This function allows the application of Bayesian models (baSAR) on luminescecence data
 }
 \section{Function version}{
- 0.1.0 (2016-04-08 12:43:43)
+ 0.1.0 (2016-04-20 11:47:27)
 }
 \examples{
 
@@ -48,7 +50,7 @@ IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 nothing so far
 }
 \seealso{
-\code{\link{read_BIN2R}}
+\code{\link{read_BIN2R}}, \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
 }
 \keyword{datagen}
 

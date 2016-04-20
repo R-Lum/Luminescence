@@ -20,6 +20,8 @@
 #'
 #' @param XLS_file \code{\link{character}} (with default): XLS_file with data for the analysis
 #'
+#' @param plot \code{\link{logical}} (with default): enables or disables plot output
+#'
 #' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
 #'
 #' @section Function version: 0.1.0
@@ -27,7 +29,7 @@
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{read_BIN2R}}
+#' @seealso \code{\link{read_BIN2R}}, \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
 #'
 #' @references
 #'
@@ -47,8 +49,17 @@ analyse_baSAR <- function(
   distribution = "normal",
   fit.method = "EXP",
   XLS_file = NULL,
+  plot = TRUE,
   verbose = TRUE
 ){
+
+  ##TODO
+  ## - Standardise output
+  ## - Check for input data, plain R should be possible
+  ## - check with Norbert input arguments, not all of them are logic
+  ## - check for plot and verbose options
+  ## - add running example ... a short one
+  ## - prevent that the function writes data without request ... this is forbidden
 
   ##FUNCTION TO BE CALLED to RUN the Bayesian Model
   ###############  START : baSAR_function
@@ -61,6 +72,7 @@ analyse_baSAR <- function(
              fit.method,
              fit.force_through_origin,
              fit.includingRecyclingPoints,
+             plot,
              verbose)
     {
 
@@ -171,11 +183,23 @@ analyse_baSAR <- function(
             }', 'baSARl_model.bug')
 
       ### Bayesian inputs
-      data_Liste  <- list( 'Dose'=data.Dose, 'Lum'=data.Lum, 'sLum'=data.sLum, 'LinGC'=LinGC, 'ExpoGC'=ExpoGC, 'GC_Origin'=GC_Origin, 'Limited_cycles'=Limited_cycles,'low_De'=low_De, 'up_De'=up_De, 'Nb_aliquots'=Nb_aliquots)
+      data_Liste  <- list(
+        'Dose' = data.Dose,
+        'Lum' = data.Lum,
+        'sLum' = data.sLum,
+        'LinGC' = LinGC,
+        'ExpoGC' = ExpoGC,
+        'GC_Origin' = GC_Origin,
+        'Limited_cycles' = Limited_cycles,
+        'low_De' = low_De,
+        'up_De' = up_De,
+        'Nb_aliquots' = Nb_aliquots
+      )
 
 
       if(verbose){
-        cat("\n[analyse_baSAR()]\n\n $$$$$$$$$$$$         Bayesian Analysis in progress ...         $$$$$$$$$$$\n")
+        cat("\n[analyse_baSAR()] hang on, this may take a long time ... \n\n")
+        cat(" $$$$$$$$$$$$         Bayesian Analysis in progress ...         $$$$$$$$$$$\n")
       }
 
       Nb_Iterations <-  100000
@@ -184,27 +208,47 @@ analyse_baSAR <- function(
 
         if(verbose){cat("\n>> Calculation assuming a Cauchy distribution:\n")}
         distribution <-  "Cauchy distib."
-        jagsfit <- rjags::jags.model("baSARc_model.bug", data = data_Liste, n.chains = 3, n.adapt= Nb_Iterations)
+        jagsfit <- rjags::jags.model(
+          "baSARc_model.bug",
+          data = data_Liste,
+          n.chains = 3,
+          n.adapt = Nb_Iterations,
+          quiet = if(verbose){FALSE}else{TRUE}
+         )
       }
       if (distribution == "n") {
         if(verbose){cat("\n>> Calculation assuming a Normal distribution:\n")}
         distribution <-  "Normal distib."
-        jagsfit <- rjags::jags.model("baSARn_model.bug", data = data_Liste, n.chains = 3, n.adapt= Nb_Iterations)
+        jagsfit <- rjags::jags.model(
+          "baSARn_model.bug",
+          data = data_Liste,
+          n.chains = 3,
+          n.adapt= Nb_Iterations,
+          quiet = if(verbose){FALSE}else{TRUE}
+          )
       }
       if (distribution == "ln") {
         if(verbose){cat("\n>> Calculation assuming a Log-Normal distribution:\n")}
         distribution <-  "Log-Normal distib."
-        jagsfit <- rjags::jags.model("baSARl_model.bug", data = data_Liste, n.chains = 3, n.adapt= Nb_Iterations)
+        jagsfit <- rjags::jags.model(
+          "baSARl_model.bug",
+          data = data_Liste,
+          n.chains = 3,
+          n.adapt = Nb_Iterations,
+          quiet = if(verbose){FALSE}else{TRUE}
+        )
       }
 
-      ##TODO checj for rjags
+      ##TODO check for rjags
       update(jagsfit, Nb_Iterations)
 
       sampling <- rjags::coda.samples(jagsfit,c('central_D','sigma_D','D'),Nb_Iterations/10,thin=10)
 
       ##CHECK FOR RJAGS
-      print(summary(sampling)[[1]])
-      plot(sampling)
+      if(verbose){print(summary(sampling)[[1]])}
+      if(plot){
+        plot(sampling)
+      }
 
       pt_zero <- 0
       nb_decal <-  2
@@ -220,11 +264,19 @@ analyse_baSAR <- function(
       output.mean[3] <-  round(summary(sampling)[[1]][(pt_zero+2)], 2)
       output.mean[4] <- round(summary(sampling)[[1]][(2*pt_zero+4)], 2)
 
-      #### Output Object.list
-      baSAR.output <-  list()
-      baSAR.output <- list("   Distribution, Nb.aliquots,   Fitting function"=c(distribution, Nb_aliquots, fit.method), "   Central, sd. ; Sigma, sd."=c( output.mean[1], output.mean[2], output.mean[3], output.mean[4]))
-      print(paste("  "))
-      print (baSAR.output)
+      #### Output Object.list TODO: check with Norbert whether this output format is sufficient
+      baSAR.output <- data.frame(
+        DISTRIBUTION = distribution,
+        NB_ALIQUOTS = Nb_aliquots,
+        FIT_METHOD = fit.method,
+        CENTRAL = output.mean[1],
+        CENTRAL.SD = output.mean[2],
+        SIGMA = output.mean[3],
+        SIGMA.SD = output.mean[4]
+      )
+
+
+      return(baSAR.output)
     }
   ###############  End : baSAR_function
   ####++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++####
@@ -285,6 +337,8 @@ analyse_baSAR <- function(
   ##SET xls file
   fichier <- XLS_file
 
+  ##TODO: data should be provided also wihout(!) XLS sheet ...
+
   #################################        DECLARE
   Dose <-  list()
   LxTx <-  list()
@@ -305,7 +359,9 @@ analyse_baSAR <- function(
   }
 
   ### Read BIN file
-  fileBIN.list <- read_BIN2R(object, duplicated.rm = TRUE)
+  fileBIN.list <- read_BIN2R(object,
+                             duplicated.rm = TRUE,
+                             txtProgressBar = if(verbose){TRUE}else{FALSE})
 
     ##we need a list, so take care that we get one
     if(!is(fileBIN.list, "list")){
@@ -401,8 +457,20 @@ analyse_baSAR <- function(
         Lx.data <- data.frame(seq(1:nb_points.vector[index1]), fileBIN.list[[k]]@DATA[[index1]])
         Tx.data <- data.frame(seq(1:nb_points.vector[index2]), fileBIN.list[[k]]@DATA[[index2]])
 
-        temp_LxTx <- calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral,signal.integral.Tx, background.integral, background.integral.Tx,
-                                       background.count.distribution = "non-poisson", sigmab=sigma_b, sig0=sig_0, digits = NULL)
+        # call calc_OSLLxTxRatio()
+        temp_LxTx <- calc_OSLLxTxRatio(
+          Lx.data = Lx.data,
+          Tx.data = Tx.data,
+          signal.integral = signal.integral,
+          signal.integral.Tx = signal.integral.Tx,
+          background.integral = background.integral,
+          background.integral.Tx = background.integral.Tx,
+          background.count.distribution = "non-poisson",
+          sigmab = sigma_b,
+          sig0 = sig_0,
+          digits = NULL
+        )
+
         Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[3]][s] <- temp_LxTx$LxTx.table[9]
         Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]][s] <- temp_LxTx$LxTx.table[10]
         Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]] <- i                           }
@@ -447,12 +515,32 @@ analyse_baSAR <- function(
   LxTx.error <-  apply(LxTx.error, MARGIN = 2, FUN = "as.single")
 
   ##CALL internal baSAR function
-  baSAR_function(Nb_aliquots=Nb_aliquots, distribution = distri, data.Dose=Doses, data.Lum=LxTx, data.sLum=LxTx.error, fit.method=fit, fit.force_through_origin=TRUE,fit.includingRecyclingPoints=FALSE, verbose = verbose)
+  results <-
+    baSAR_function(
+      Nb_aliquots = Nb_aliquots,
+      distribution = distri,
+      data.Dose = Doses,
+      data.Lum = LxTx,
+      data.sLum = LxTx.error,
+      fit.method = fit,
+      fit.force_through_origin = TRUE,
+      fit.includingRecyclingPoints = FALSE,
+      plot = plot,
+      verbose = verbose
+    )
 
 
-  print(paste("Done !"))
-  print(paste( "For another calculation with the same data, just copy and paste into the console"))
-  print(paste ( "the baSAR_function command, modify the parameters and ENTER. "))
+  if(verbose){
+    cat(paste0("Everything was done!"))
 
+  }
+
+  # Return --------------------------------------------------------------------------------------
+  return(set_RLum(
+    class = "RLum.Results",
+    data = list(
+      results = results),
+    info = list(call = sys.call())
+  ))
 
 }
