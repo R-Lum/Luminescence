@@ -44,6 +44,8 @@
 #' BIN-file version is not supported.\cr Note: The usage is at own risk, only
 #' supported BIN-file versions have been tested.
 #'
+#' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
+#'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument
 #' automatically sets \code{fastForward = TRUE}
@@ -64,7 +66,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.6
+#' @section Function version: 0.12.7
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -103,6 +105,7 @@ read_BIN2R <- function(
   show.record.number = FALSE,
   txtProgressBar = TRUE,
   forced.VersionNumber = NULL,
+  verbose = TRUE,
   ...
 ){
 
@@ -116,7 +119,9 @@ read_BIN2R <- function(
 
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      cat("[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n")
+      if(verbose){
+        cat("[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n")
+      }
       file <-
         as.list(c(
           paste0(file,dir(
@@ -468,10 +473,10 @@ read_BIN2R <- function(
   file.size<-file.info(file)
 
   ##output
-  cat(paste("\n[read_BIN2R()]\n\t >> ",file,sep=""), fill=TRUE)
+  if(verbose){cat(paste("\n[read_BIN2R()]\n\t >> ",file,sep=""), fill=TRUE)}
 
   ##set progressbar
-  if(txtProgressBar==TRUE){
+  if(txtProgressBar & verbose){
     pb<-txtProgressBar(min=0,max=file.size$size, char="=", style=3)
   }
 
@@ -505,15 +510,17 @@ read_BIN2R <- function(
     }
 
     ##print record ID for debugging purposes
-    if(show.record.number == TRUE){
+    if(verbose){
+      if(show.record.number == TRUE){
 
 
 
-      cat(temp.ID,",", sep = "")
-      if(temp.ID%%10==0){
-        cat("\n")
+        cat(temp.ID,",", sep = "")
+        if(temp.ID%%10==0){
+          cat("\n")
+        }
       }
-    }
+   }
 
 
     #empty byte position
@@ -1000,7 +1007,7 @@ read_BIN2R <- function(
     temp.ID <- temp.ID+1
 
      ##update progress bar
-    if(txtProgressBar==TRUE){
+    if(txtProgressBar & verbose){
       setTxtProgressBar(pb, seek(con,origin="current"))
     }
 
@@ -1115,10 +1122,10 @@ read_BIN2R <- function(
   close(con)
 
   ##close
-  if(txtProgressBar){close(pb)}
+  if(txtProgressBar & verbose){close(pb)}
 
   ##output
-  cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))
+  if(verbose){cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))}
 
   # Further limitation --------------------------------------------------------------------------
   if(!is.null(position)){
@@ -1170,13 +1177,15 @@ read_BIN2R <- function(
         results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
 
         ##message
-        message(
-          paste0(
-            "[read_BIN2R()] duplicated record(s) detected and removed: ",
-            paste(duplication.check, collapse = ", "),
-            ". Record index re-calculated."
+        if(verbose) {
+          message(
+            paste0(
+              "[read_BIN2R()] duplicated record(s) detected and removed: ",
+              paste(duplication.check, collapse = ", "),
+              ". Record index re-calculated."
+            )
           )
-        )
+        }
 
       } else{
         warning(

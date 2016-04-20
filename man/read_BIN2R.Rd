@@ -7,7 +7,7 @@
 read_BIN2R(file, show.raw.values = FALSE, position = NULL,
   n.records = NULL, duplicated.rm = FALSE, fastForward = FALSE,
   show.record.number = FALSE, txtProgressBar = TRUE,
-  forced.VersionNumber = NULL, ...)
+  forced.VersionNumber = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
@@ -46,6 +46,8 @@ version number check in the function by own values for cases where the
 BIN-file version is not supported.\cr Note: The usage is at own risk, only
 supported BIN-file versions have been tested.}
 
+\item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
+
 \item{\dots}{further arguments that will be passed to the function
 \code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument
 automatically sets \code{fastForward = TRUE}}
@@ -77,7 +79,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested properly so far.}.
 }
 \section{Function version}{
- 0.12.6 (2016-04-20 17:04:51)
+ 0.12.7 (2016-04-20 17:19:07)
 }
 \examples{
 

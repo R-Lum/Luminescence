@@ -308,7 +308,11 @@ Changes in version 0.6.0 (,2016):
                list of count values; corrected,
 
              • in some cases the grain number was not imported
-               correctly; fixed.
+               correctly; fixed,
+
+             • new argument ‘verbose’ added,
+
+             • minor performance improvements.
 
          • ‘read_BIN2R()’
 
