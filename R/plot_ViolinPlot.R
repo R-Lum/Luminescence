@@ -160,7 +160,7 @@ plot_ViolinPlot <- function(
   plot.settings <- list(
     xlim = range(density$x),
     main = "Violin Plot",
-    xlab = expression(paste(D[e], "/(a.u.)")),
+    xlab = expression(paste(D[e], " [a.u.]")),
     ylab = "Density",
     col.violin = rgb(0,0,0,0.2),
     col.boxplot = NULL,

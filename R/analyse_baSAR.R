@@ -21,6 +21,8 @@
 #'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot output
 #'
+#' @param plot_reduced \code{\link{logical}} (with default): enables or disables the advanced plot output
+#'
 #' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
 #'
 #' @section Function version: 0.1.0
@@ -65,15 +67,15 @@ analyse_baSAR <- function(
   fit.method = "EXP",
   XLS_file = NULL,
   plot = TRUE,
+  plot_reduced = TRUE,
   verbose = TRUE
 ){
 
   ##TODO
   ## - Check for input data, plain R should be possible
-  ## - inherit parameter list from calc_OSLLxTxRatio
-  ## - check for plot and verbose options
   ## - add running example ... a short one
   ## - implement a selfcall (RLum.Results) along with the XLS sheet
+  ## - there is something missing in the code for calculating the De ... ask Norbert
 
 
   ##FUNCTION TO BE CALLED to RUN the Bayesian Model
@@ -110,8 +112,8 @@ analyse_baSAR <- function(
       ########################################        MODELS      ########################################
 
       #   Cauchy distribution
-      baSARc_model.bug <- "
-            model {
+      baSARc_model.bug <- "model {
+
             central_D ~  dunif(low_De,up_De)
 
             precision_D ~ dt (0, 0.16 * central_D, 1) T(0, )    #    Alternative plus directe proposee par Philippe L.
@@ -139,8 +141,8 @@ analyse_baSAR <- function(
           }"
 
       # Normal distribution
-      baSARn_model.bug <- "
-            model {
+      baSARn_model.bug <- "model {
+
             central_D ~  dunif(low_De,up_De)
 
             sigma_D ~ dunif(0.01, 1 * central_D)
@@ -167,8 +169,8 @@ analyse_baSAR <- function(
             }"
 
       # Log-Normal distribution
-      baSARl_model.bug <- "
-            model {
+      baSARl_model.bug <- "model {
+
             central_D ~  dunif(low_De,up_De)
 
             log_central_D <-  log(central_D) - 0.5 * l_sigma_D^2
@@ -258,28 +260,52 @@ analyse_baSAR <- function(
 
       }
 
-      ##update jags model
+      ##update jags model (it is a S3-method)
       update(
         object = jagsfit,
         n.iter = Nb_Iterations,
         progress.bar = if(verbose){"text"}else{NULL}
         )
 
-      ##TODO... check for potential output limiting options, D can be removed ... plot maybe just
-      ##the last two
-      sampling <- rjags::coda.samples(jagsfit,c('central_D','sigma_D','D'),Nb_Iterations/10,thin=10)
+      ##get data ... full and reduced, the reduced one to limit the plot output
+      sampling <- rjags::coda.samples(
+        model = jagsfit,
+        variable.names = c('central_D', 'sigma_D', 'D'),
+        n.iter = Nb_Iterations / 10,
+        thin = 10,
+        progress.bar = if(verbose){"text"}else{NULL}
+      )
+
+      sampling_reduced <- rjags::coda.samples(
+        model = jagsfit,
+        variable.names = c('central_D', 'sigma_D'),
+        n.iter = Nb_Iterations / 10,
+        thin = 10,
+        progress.bar = if(verbose){"text"}else{NULL}
+      )
+
 
       ##CHECK FOR RJAGS
       if(verbose){print(summary(sampling)[[1]])}
       if(plot){
-        plot(sampling)
+
+        if(plot_reduced){
+          plot(sampling_reduced)
+
+        }else{
+          plot(sampling)
+        }
+
       }
 
       pt_zero <- 0
       nb_decal <-  2
       if ( nb_decal != length(summary(sampling)[[1]])/4 ) {
         histo_points <-  summary(sampling)[[1]] [1:((length(summary(sampling)[[1]])/4)-nb_decal), 1]
-        hist(histo_points, main = paste("Histogram of sample :" , fichier), xlab = "Dose")
+        plot_ViolinPlot(
+          histo_points,
+          main = paste("Distribution sample :" , fichier),
+          xlab = "Dose [Gy]")
         pt_zero <- Nb_aliquots
       }
       output.mean <- vector("numeric")
@@ -498,7 +524,7 @@ analyse_baSAR <- function(
           background.count.distribution = "non-poisson",
           sigmab = sigma_b,
           sig0 = sig_0,
-          digits = NULL
+          digits = digits
         )
 
         Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[3]][s] <- temp_LxTx$LxTx.table[9]

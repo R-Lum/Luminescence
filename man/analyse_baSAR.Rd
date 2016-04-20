@@ -9,7 +9,7 @@ analyse_baSAR(object, source_doserate = 1, Lx.data, Tx.data, signal.integral,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson", sigmab, sig0 = 0,
   digits = NULL, distribution = "normal", fit.method = "EXP",
-  XLS_file = NULL, plot = TRUE, verbose = TRUE)
+  XLS_file = NULL, plot = TRUE, plot_reduced = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{object}{\code{\link{character}} (\bold{required}): BIN-file, either a single file or a list
@@ -67,6 +67,8 @@ curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods:
 
 \item{plot}{\code{\link{logical}} (with default): enables or disables plot output}
 
+\item{plot_reduced}{\code{\link{logical}} (with default): enables or disables the advanced plot output}
+
 \item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
 }
 \description{
@@ -76,7 +78,7 @@ This function allows the application of Bayesian models (baSAR) on luminescecenc
 The current version of the function works with standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-04-20 17:39:17)
+ 0.1.0 (2016-04-20 18:21:06)
 }
 \examples{
 
