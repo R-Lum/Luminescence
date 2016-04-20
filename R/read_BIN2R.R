@@ -64,7 +64,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.5
+#' @section Function version: 0.12.6
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -1183,7 +1183,7 @@ read_BIN2R <- function(
           paste0(
             "[read_BIN2R()] duplicated record(s) detected: ",
             paste(duplication.check, collapse = ", "),
-            ". >> You should consider 'duplicated.rm = TRUE'."
+            ". \n\n >> You should consider 'duplicated.rm = TRUE'."
           )
         )
 
@@ -1234,10 +1234,8 @@ read_BIN2R <- function(
     ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
     if (TIME_SIZE == 6) {
       object@METADATA[["TIME"]] <-
-        sapply(1:length(object@METADATA[["TIME"]]), function(x) {
-          format(strptime(as.character(object@METADATA[["TIME"]][x]), "%H%M%S"), "%H:%M:%S")
+        format(strptime(as.character(object@METADATA[["TIME"]]), "%H%M%S"), "%H:%M:%S")
 
-        })
     }
 
   }
