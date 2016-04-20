@@ -50,7 +50,7 @@
 #' @export
 analyse_baSAR <- function(
   object,
-  source_doserate,
+  source_doserate = 1,
   Lx.data,
   Tx.data,
   signal.integral,
@@ -61,7 +61,7 @@ analyse_baSAR <- function(
   sigmab,
   sig0 = 0,
   digits = NULL,
-  distribution = "n",
+  distribution = "normal",
   fit.method = "EXP",
   XLS_file = NULL,
   plot = TRUE,
@@ -73,7 +73,6 @@ analyse_baSAR <- function(
   ## - inherit parameter list from calc_OSLLxTxRatio
   ## - check for plot and verbose options
   ## - add running example ... a short one
-  ## - make model part of the output of the RLum.Result object
   ## - implement a selfcall (RLum.Results) along with the XLS sheet
 
 
@@ -220,7 +219,7 @@ analyse_baSAR <- function(
 
       Nb_Iterations <-  100000
 
-      if (distribution == "c") {
+      if (distribution == "cauchy") {
 
         if(verbose){cat("\n>> Calculation assuming a Cauchy distribution:\n")}
         distribution <-  "Cauchy distribution"
@@ -231,8 +230,8 @@ analyse_baSAR <- function(
           n.adapt = Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
          )
-      }
-      if (distribution == "n") {
+
+      }else if (distribution == "normal") {
         if(verbose){cat("\n>> Calculation assuming a Normal distribution:\n")}
         distribution <-  "Normal distribution"
         jagsfit <- rjags::jags.model(
@@ -242,8 +241,8 @@ analyse_baSAR <- function(
           n.adapt= Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
           )
-      }
-      if (distribution == "ln") {
+
+      }else if (distribution == "log_normal") {
         if(verbose){cat("\n>> Calculation assuming a Log-Normal distribution:\n")}
         distribution <-  "Log-Normal distribution"
         jagsfit <- rjags::jags.model(
@@ -253,10 +252,18 @@ analyse_baSAR <- function(
           n.adapt = Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
         )
+      }else{
+        stop("[analyse_baSAR()] unknown input for 'distribution'. Allowed are: 'cauchy', 'normal' or 'log-normal'")
+
+
       }
 
-      ##update
-      update(jagsfit, Nb_Iterations)
+      ##update jags model
+      update(
+        object = jagsfit,
+        n.iter = Nb_Iterations,
+        progress.bar = if(verbose){"text"}else{NULL}
+        )
 
       ##TODO... check for potential output limiting options, D can be removed ... plot maybe just
       ##the last two
@@ -295,7 +302,12 @@ analyse_baSAR <- function(
 
       return(baSAR.output = list(
         baSAR.output_summary = baSAR.output,
-        baSAR.output_matrix = sampling
+        baSAR.output_matrix = sampling,
+        models = list(
+          cauchy = baSARc_model.bug,
+          normal = baSARn_model.bug,
+          log_normal = baSARl_model.bug
+          )
       ))
 
     }
@@ -372,7 +384,8 @@ analyse_baSAR <- function(
   ### Read BIN file
   fileBIN.list <- read_BIN2R(object,
                              duplicated.rm = TRUE,
-                             txtProgressBar = if(verbose){TRUE}else{FALSE})
+                             verbose = verbose)
+
 
     ##we need a list, so take care that we get one
     if(!is(fileBIN.list, "list")){
@@ -557,7 +570,8 @@ analyse_baSAR <- function(
     class = "RLum.Results",
     data = list(
       summary = results[[1]],
-      mcmc_list = results[[2]]
+      mcmc = results[[2]],
+      models = results[[3]]
       ),
     info = list(call = sys.call())
   ))

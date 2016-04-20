@@ -4,11 +4,11 @@
 \alias{analyse_baSAR}
 \title{Bayesian models (baSAR) applied on luminescence data}
 \usage{
-analyse_baSAR(object, source_doserate, Lx.data, Tx.data, signal.integral,
+analyse_baSAR(object, source_doserate = 1, Lx.data, Tx.data, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson", sigmab, sig0 = 0,
-  digits = NULL, distribution = "n", fit.method = "EXP",
+  digits = NULL, distribution = "normal", fit.method = "EXP",
   XLS_file = NULL, plot = TRUE, verbose = TRUE)
 }
 \arguments{
@@ -76,7 +76,7 @@ This function allows the application of Bayesian models (baSAR) on luminescecenc
 The current version of the function works with standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-04-20 16:13:52)
+ 0.1.0 (2016-04-20 17:39:17)
 }
 \examples{
 
