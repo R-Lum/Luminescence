@@ -38,7 +38,7 @@ Description:
 Contact: Package Developer Team <team@r-luminescence.de>
 License: GPL-3
 Depends:
-    R (>= 3.2.5),
+    R (>= 3.2.4),
     utils
 LinkingTo:
     Rcpp,
