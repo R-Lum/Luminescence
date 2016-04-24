@@ -9,8 +9,11 @@
 #'
 #' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
 #' class \code{RLum}
+#'
 #' @return Return is the same as input objects as provided in the list.
-#' @section Function version: 0.1
+#'
+#' @section Function version: 0.1.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso
@@ -20,16 +23,10 @@
 #' \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}
 #' @keywords utilities
-#' @aliases length_RLum.Analysis
+#'
 #'
 #' @export
 setGeneric("length_RLum", function(object) {
   standardGeneric("length_RLum")
 })
 
-#' @noRd
-#' @export
-length_RLum.Analysis <- function(...) {
-  .Deprecated("length_RLum")
-  length_RLum(...)
-}

@@ -19,7 +19,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Johannes Friedrich, University of Bayreuth (Germany)<br />  R Luminescence Package Team"
 "as","as() - RLum-object coercion","<br /> for  [RLum.Analysis] <br /> <br /> for  [RLum.Data.Curve] <br /> <br /> for  [RLum.Data.Image] <br /> <br /> for  [RLum.Data.Spectrum] <br /> <br /> for  [RLum.Results] <br />",NA,NA,NA,NA
 "BaseDataSet.CosmicDoseRate","Base data set for cosmic dose rate calculation","<br /> Collection of data from various sources needed for cosmic dose rate<br /> calculation<br />",NA,NA,NA,NA
-"bin_RLum.Data","Channel binning - method dispatchter","<br /> Function calls the object-specific bin functions for RLum.Data S4 class objects.<br />","0.1.0","2016-04-24","22:17:18
+"bin_RLum.Data","Channel binning - method dispatchter","<br /> Function calls the object-specific bin functions for RLum.Data S4 class objects.<br />","0.1.0","2016-04-24","22:54:59
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "calc_AliquotSize","Estimate the amount of grains on an aliquot","<br /> Estimate the number of grains on an aliquot. Alternatively, the packing<br /> density of an aliquot is computed.<br />","0.31","2015-11-29","17:27:48
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
@@ -88,9 +88,9 @@
 ","<br /> inspired by R.G.<br />  R Luminescence Package Team"
 "get_Risoe.BINfileData","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RisoeBINfileData S4 class objects.<br />","0.1.0","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"get_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.3.0","2016-04-08","12:43:43
+"get_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.3.0","2016-04-24","22:50:32
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"length_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.1","2015-11-29","17:27:48
+"length_RLum","General accessor function for RLum S4 class objects","<br /> Function calls object-specific get functions for RLum S4 class objects.<br />","0.1.0","2016-04-24","22:51:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "merge_Risoe.BINfileData","Merge Risoe.BINfileData objects or Risoe BIN-files","<br /> Function allows merging Risoe BIN/BINX files or Risoe.BINfileData objects.<br />","0.2.4","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

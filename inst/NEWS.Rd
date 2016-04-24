@@ -98,6 +98,7 @@
       \item \code{set_RLum.Data.Image()}, replacement \code{set_RLum()},
       \item \code{set_RLum.Analysis()}, replacement \code{set_RLum()},
       \item \code{set_RLum.Results()}, replacement \code{set_RLum()},
+      \item \code{length_RLum.Analysis()}, replacement \code{length_RLum()},
       \item \code{get_structure.RLum.Analysis()}, replacement \code{structure_RLum},
       \item \code{Risoe.BINfileData2RLum.Data.Curve}, replacement \code{.Risoe.BINfileData2RLum.Data.Curve}
       The function was made an internal function, as this function was used only rarely by users,

@@ -19,6 +19,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
+#' @note Currenlty only \code{RLum.Data} objects of class \code{RLum.Data.Curve} are supported!
+#'
 #' @seealso
 #' \code{\linkS4class{RLum.Data.Curve}}
 #'

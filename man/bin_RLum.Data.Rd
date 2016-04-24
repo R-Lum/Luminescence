@@ -24,8 +24,11 @@ The function provides a generalised access point for specific
 corresponding function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum.Data}} class.
 }
+\note{
+Currenlty only \code{RLum.Data} objects of class \code{RLum.Data.Curve} are supported!
+}
 \section{Function version}{
- 0.1.0 (2016-04-24 22:17:18)
+ 0.1.0 (2016-04-24 22:54:59)
 }
 \examples{
 

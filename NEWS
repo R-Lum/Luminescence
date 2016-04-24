@@ -120,6 +120,8 @@ Changes in version 0.6.0 (,2016):
 
          • ‘set_RLum.Results()’, replacement ‘set_RLum()’,
 
+         • ‘length_RLum.Analysis()’, replacement ‘length_RLum()’,
+
          • ‘get_structure.RLum.Analysis()’, replacement
            ‘structure_RLum’,
 
