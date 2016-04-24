@@ -10,6 +10,9 @@ Changes in version 0.6.0 (,2016):
          • ‘app_RLum()’: Wrapper for the function ‘app_RLum()’ from the
            package ‘RLumShiny’ by Christoph Burow
 
+         • ‘bin_RLum.Data’: Function for binning in ‘RLum.Data’
+           objects, e.g., binning of ‘RLum.Data.Curve’ objects
+
          • ‘calc_FastRatio(): Function to calculate the fast ratio of
            CW-OSL curves after Durcan & Duller (2011)’
 
@@ -355,4 +358,7 @@ Changes in version 0.6.0 (,2016):
          • Package 'rstudioapi' added as suggested package.
 
          • Package 'rjags' added as suggested package.
+
+         • New S3 generic ‘bin’ implemented, this method dispatches to
+           the S4 method ‘bin_RLum.Data’ for the ‘RLum.Data’ objects.
 

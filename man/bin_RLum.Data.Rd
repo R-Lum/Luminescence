@@ -2,7 +2,7 @@
 % Please edit documentation in R/bin_RLum.Data.R
 \name{bin_RLum.Data}
 \alias{bin_RLum.Data}
-\title{General accessor function for RLum.Data S4 class objects}
+\title{Channel binning - method dispatchter}
 \usage{
 bin_RLum.Data(object, ...)
 }
@@ -13,10 +13,10 @@ class \code{RLum.Data}}
 \item{...}{further arguments passed to the specifc class method}
 }
 \value{
-Return is the same as input
+An object of the same type as the input object is provided
 }
 \description{
-Function calls object-specific bin functions for RLum.Data S4 class objects.
+Function calls the object-specific bin functions for RLum.Data S4 class objects.
 }
 \details{
 The function provides a generalised access point for specific
@@ -25,14 +25,33 @@ corresponding function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum.Data}} class.
 }
 \section{Function version}{
- 0.1.0 (2016-04-24 17:21:35)
+ 0.1.0 (2016-04-24 22:17:18)
+}
+\examples{
+
+##load example data
+data(ExampleData.CW_OSL_Curve, envir = environment())
+
+##create RLum.Data.Curve object from this example
+curve <-
+  set_RLum(
+      class = "RLum.Data.Curve",
+      recordType = "OSL",
+      data = as.matrix(ExampleData.CW_OSL_Curve)
+  )
+
+##plot data without and with 2 and 4 channel binning
+plot_RLum(curve)
+plot_RLum(bin_RLum.Data(curve, bin_size = 2))
+plot_RLum(bin_RLum.Data(curve, bin_size = 4))
+
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
 \cr R Luminescence Package Team}
 \seealso{
-\code{\linkS4class{RLum.Data}}
+\code{\linkS4class{RLum.Data.Curve}}
 }
 \keyword{utilities}
 

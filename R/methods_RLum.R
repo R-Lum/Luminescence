@@ -148,6 +148,13 @@ summary.RLum.Data.Image <- function(object, ...) summary(object@data@data@values
 summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 
 ####################################################################################################
+# methods for generic: bin()
+# ##################################################################################################
+#' @rdname methods_RLum
+#' @export
+bin.RLum.Data.Curve <- function(x, ...) bin_RLum.Data(x)
+
+####################################################################################################
 # methods for generic: length()
 # ##################################################################################################
 #' @rdname methods_RLum

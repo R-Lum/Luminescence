@@ -8,6 +8,8 @@
     \item \code{analyse_baSAR()}: Bayesian models (baSAR) applied on luminescence data
     \item \code{app_RLum()}: Wrapper for the function \code{app_RLum()} from the package
     \code{RLumShiny} by Christoph Burow
+    \item \code{bin_RLum.Data}: Function for binning in \code{RLum.Data} objects, e.g., binning of
+    \code{RLum.Data.Curve} objects
     \item \code{calc_FastRatio(): Function to calculate the fast ratio of CW-OSL
     curves after Durcan & Duller (2011)}
     \item \code{calc_ThermalLifetime(): Function to calculate thermal lifetime of a charge
@@ -326,6 +328,9 @@
         \item Package 'rstudioapi' added as suggested package.
 
         \item Package 'rjags' added as suggested package.
+
+        \item New S3 generic \code{bin} implemented, this method dispatches to the S4 method
+        \code{bin_RLum.Data} for the \code{RLum.Data} objects.
 
 
 
