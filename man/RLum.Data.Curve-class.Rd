@@ -3,6 +3,7 @@
 \docType{class}
 \name{RLum.Data.Curve-class}
 \alias{RLum.Data.Curve-class}
+\alias{bin_RLum.Data,RLum.Data.Curve-method}
 \alias{get_RLum,RLum.Data.Curve-method}
 \alias{length_RLum,RLum.Data.Curve-method}
 \alias{names_RLum,RLum.Data.Curve-method}
@@ -21,6 +22,8 @@
 \S4method{length_RLum}{RLum.Data.Curve}(object)
 
 \S4method{names_RLum}{RLum.Data.Curve}(object)
+
+\S4method{bin_RLum.Data}{RLum.Data.Curve}(object, bin_size = 2)
 }
 \arguments{
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
@@ -49,6 +52,9 @@ If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-
 
 \item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 element}
+
+\item{bin_size}{[\code{bin_RLum}] \code{\link{integer}} (with default): set number of channels
+used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.}
 }
 \value{
 \bold{\code{set_RLum}}\cr
@@ -67,6 +73,10 @@ Number of channels in the curve (row number of the matrix)
 \bold{\code{names_RLum}}\cr
 
 Names of the info elements (slot \code{info})
+
+\bold{\code{bin_RLum.Data}}\cr
+
+Same object as input, after applying the binning.
 }
 \description{
 Class for representing luminescence curve data.
@@ -86,6 +96,8 @@ provided, the raw curve data (matrix) will be returned.
 value time/temperature of the curve (corresponding to the stimulation length)
 
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
+
+\item \code{bin_RLum.Data}: Allows binning of specific objects
 }}
 \section{Slots}{
 

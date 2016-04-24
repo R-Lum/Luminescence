@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R
+#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R
 NULL
 
 #' Class \code{"RLum.Data.Curve"}
@@ -396,5 +396,63 @@ setMethod("names_RLum",
           "RLum.Data.Curve",
           function(object){
             names(object@info)
+
+          })
+
+####################################################################################################
+###bin_RLum.Data()
+####################################################################################################
+#' @describeIn RLum.Data.Curve
+#' Allows binning of specific objects
+#'
+#' @param bin_size [\code{bin_RLum}] \code{\link{integer}} (with default): set number of channels
+#' used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.
+#'
+#' @return
+#'
+#' \bold{\code{bin_RLum.Data}}\cr
+#'
+#' Same object as input, after applying the binning.
+#'
+#' @export
+setMethod(f = "bin_RLum.Data",
+          signature = "RLum.Data.Curve",
+          function(object, bin_size = 2) {
+
+            ##check for invalid bin_size values
+            if (!is.null(bin_size) && bin_size > 0) {
+              ##set stepping vector
+              stepping <- seq(1, nrow(object@data), by = bin_size)
+
+              ##get bin vector
+              bin_vector <- object@data[, 2]
+
+              ##set desired length of the vector
+              ##to avoid add effects later
+              length(bin_vector) <-
+                suppressWarnings(prod(dim(matrix(
+                  bin_vector, ncol = length(stepping)
+                ))))
+
+              ##define new matrix for binning
+              bin_matrix <-
+                matrix(bin_vector, ncol = length(stepping))
+
+              ##calcuate column sums and replace matrix
+              ##this is much faster than anly apply loop
+              object@data <-
+                matrix(c(object@data[stepping], colSums(bin_matrix, na.rm = TRUE)), ncol = 2)
+
+              ##set matrix
+              return(set_RLum(class = "RLum.Data.Curve",
+                              data = object))
+            } else{
+              warning("Argument 'bin_size' invald, nothing was done!")
+
+              ##set matrix
+              return(set_RLum(class = "RLum.Data.Curve",
+                              data = object))
+
+            }
 
           })

@@ -184,7 +184,7 @@ verify_SingleGrainData <- function(
     ##first extract all count values from all curves
     object_list <- lapply(get_RLum(object), function(x){
 
-        ##yes, would work differently, but it faster
+        ##yes, would work differently, but it is faster
         x@data[,2]
 
     })

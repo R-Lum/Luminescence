@@ -374,7 +374,7 @@ analyse_baSAR <- function(
     fit <- "l"
 
   }else if(fit.method == "EXP+LIN"){
-    fit <- "EXP+LIN"
+    fit <- "el"
 
   }else{
     stop(

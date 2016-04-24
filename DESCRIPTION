@@ -3,8 +3,7 @@ Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
 Version: 0.6.0
 Date: 2016-XX-XX
-Author:
-    Sebastian Kreutzer [aut, trl, cre],
+Author: Sebastian Kreutzer [aut, trl, cre],
     Michael Dietze [aut],
     Christoph Burow [aut, trl, dtc],
     Margret C. Fuchs [aut],
@@ -30,8 +29,7 @@ Authors@R: c(
     person("Georgina", "King", role = c("aut")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
-Description:
-    A collection of various R functions for the purpose of Luminescence
+Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
     plotting of equivalent dose distributions.
@@ -40,8 +38,7 @@ License: GPL-3
 Depends:
     R (>= 3.2.4),
     utils
-LinkingTo:
-    Rcpp,
+LinkingTo: Rcpp,
     RcppArmadillo (>= 0.6.700.3.0)
 Imports:
     bbmle (>= 1.0.18),
@@ -83,6 +80,7 @@ Collate:
     'get_RLum.R'
     'RLum.Analysis-class.R'
     'RLum.Data-class.R'
+    'bin_RLum.Data.R'
     'RLum.Data.Curve-class.R'
     'RLum.Data.Image-class.R'
     'RLum.Data.Spectrum-class.R'
