@@ -6,7 +6,7 @@
 #' plotting of equivalent dose distributions.
 #'
 #' \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-#' \tab 0.6.0 \cr Date: \tab 2016-XX-XX [upcoming] \cr License: \tab GPL-3\cr }
+#' \tab 0.6.0 \cr Date: \tab 2016-05-20 \cr License: \tab GPL-3\cr }
 #'
 #' @name Luminescence-package
 #' @aliases Luminescence-package Luminescence
@@ -15,13 +15,13 @@
 #'
 #' \tabular{ll}{
 #' Christoph Burow \tab University of Cologne, Germany \cr
-#' Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr 
-#' Manfred Fischer\tab University of Bayreuth, Germany \cr 
+#' Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr
+#' Manfred Fischer\tab University of Bayreuth, Germany \cr
 #' Margret C. Fuchs \tab Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology,
-#' Freiberg, Germany \cr 
+#' Freiberg, Germany \cr
 #' Johannes Friedrich \tab University of Bayreuth, Germany \cr
 #' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
-#' Christoph Schmidt \tab University of Bayreuth, Germany \cr 
+#' Christoph Schmidt \tab University of Bayreuth, Germany \cr
 #' Rachel K. Smedley \tab Aberystwyth University, United Kingdom \cr
 #' Julie Durcan \tab University of Oxford, United Kingdom \cr
 #' Georgina King \tab University of Cologne, Germany \cr
@@ -566,19 +566,19 @@ NULL
 #' sample from a loess section in Rottewitz.\cr\cr \code{$CA1}: Single grain De
 #' and De error values for a coarse grain quartz sample from a fluvial deposit
 #' in the rock shelter of Cueva Anton }
-#' @references \bold{BT998} \cr\cr Unpublished data \cr\cr 
+#' @references \bold{BT998} \cr\cr Unpublished data \cr\cr
 #' \bold{CA1} \cr\cr
 #' Burow, C., Kehl, M., Hilgers, A., Weniger, G.-C., Angelucci, D., Villaverde,
 #' V., Zapata, J. and Zilhao, J.  (2015). Luminescence dating of fluvial
 #' deposits in the rock shelter of Cueva Anton, Spain. Geochronometria 52, 107-125.
 #'
-#' \bold{BT998} \cr 
+#' \bold{BT998} \cr
 #' \tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr
 #' Lab-Code: \tab BT998\cr Location: \tab Rottewitz (Saxony/Germany)\cr
 #' Material: \tab Fine grain quartz measured on aluminum discs on a Risoe
 #' TL/OSL DA-15 reader\cr Units: \tab Values are given in seconds \cr Dose
 #' Rate: \tab Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/-
-#' 0.0019 Gy/s\cr Measurement Date: \tab 2012-01-27 } 
+#' 0.0019 Gy/s\cr Measurement Date: \tab 2012-01-27 }
 #' \bold{CA1} \cr
 #' \tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory (CLL)\cr Lab-Code:
 #' \tab C-L2941\cr Location: \tab Cueva Anton (Murcia/Spain)\cr Material: \tab

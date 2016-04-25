@@ -2,7 +2,7 @@ Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
 Version: 0.6.0
-Date: 2016-XX-XX
+Date: 2016-05-20
 Author: Sebastian Kreutzer [aut, trl, cre],
     Michael Dietze [aut],
     Christoph Burow [aut, trl, dtc],
@@ -10,7 +10,6 @@ Author: Sebastian Kreutzer [aut, trl, cre],
     Christoph Schmidt [aut],
     Manfred Fischer [aut, trl],
     Johannes Friedrich [aut],
-    Norbert Mercier [aut],
     Rachel K. Smedley [aut],
     Julie Durcan [aut],
     Georgina King [aut],
@@ -23,7 +22,6 @@ Authors@R: c(
     person("Christoph", "Schmidt", role = c("aut")),
     person("Manfred", "Fischer", role = c("aut", "trl")),
     person("Johannes", "Friedrich", role = c("aut")),
-    person("Norbert", "Mercier", role = c("aut")),
     person("Rachel K.", "Smedley", role = c("aut")),
     person("Julie", "Durcan", role = c("aut")),
     person("Georgina", "King", role = c("aut")),
@@ -57,7 +55,6 @@ Imports:
 Suggests:
     RLumShiny (>= 0.1.0),
     RLumModel (>= 0.1.0),
-    rjags (>= 4-6),
     plotly (>= 2.0.3),
     rmarkdown (>= 0.9.5),
     pander (>= 0.6.0),
@@ -94,7 +91,6 @@ Collate:
     'analyse_IRSAR.RF.R'
     'analyse_SAR.CWOSL.R'
     'analyse_SAR.TL.R'
-    'analyse_baSAR.R'
     'analyse_pIRIRSequence.R'
     'app_RLum.R'
     'apply_CosmicRayRemoval.R'

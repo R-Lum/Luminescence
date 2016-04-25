@@ -57,7 +57,7 @@ Reg0 curves are likely to removed as well. Therefore it is strongly recommended 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.1.0 (2016-04-21 17:04:31)
+ 0.1.0 (2016-04-24 23:04:04)
 }
 \examples{
 
