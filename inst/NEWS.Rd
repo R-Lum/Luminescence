@@ -1,11 +1,10 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.6.0 (,2016)}{
+\section{Changes in version 0.6.0 (May 20th ,2016)}{
 
 
   \subsection{New functions}{
    \itemize{
-    \item \code{analyse_baSAR()}: Bayesian models (baSAR) applied on luminescence data
     \item \code{app_RLum()}: Wrapper for the function \code{app_RLum()} from the package
     \code{RLumShiny} by Christoph Burow
     \item \code{bin_RLum.Data}: Function for binning in \code{RLum.Data} objects, e.g., binning of
