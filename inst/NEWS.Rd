@@ -159,7 +159,8 @@
       \itemize{
 
         \item Table column headers now have all capital letters,
-        \item minor performance improvements.
+        \item minor performance improvements,
+        \item for very large standard errors uniroot failed, causing a function break; corrected (#270).
 
       }
 

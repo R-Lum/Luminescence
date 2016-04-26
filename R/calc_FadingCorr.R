@@ -82,7 +82,7 @@
 #' @note The upper age limit is set to 500 ka!
 #'
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -189,19 +189,29 @@ calc_FadingCorr <- function(
     kappaMC <- g_valueMC / log(10) / 100
 
 
+
     ##calculate for all values
-    tempMC[i:j] <- vapply(X = 1:length(age.fadedMC), FUN = function(x) {
-      uniroot(
+    tempMC[i:j] <- suppressWarnings(vapply(X = 1:length(age.fadedMC), FUN = function(x) {
+      temp <- uniroot(
         f,
         c(0.1,500),
         tol = 0.001,
         tc = tc,
         af = age.fadedMC[[x]],
         kappa = kappaMC[[x]],
-        check.conv = TRUE
+        check.conv = TRUE,
+        extendInt = "yes"
       )$root
 
-    }, FUN.VALUE = 1)
+      ##otherwise the automatic error value finding
+      ##will never work
+      if(temp<1e10) {
+        temp
+      } else{
+        NA
+      }
+
+    }, FUN.VALUE = 1))
 
     i <- j + 1
     j <- j + n.MCruns.i
@@ -241,7 +251,7 @@ calc_FadingCorr <- function(
   ##--------------------------------------------------------------------------##
 
   ##remove all NA values from tempMC
-  tempMC <- na.exclude(tempMC)
+  tempMC <- tempMC[!is.na(tempMC)]
 
   ##obtain corrected age
   age.corr <- data.frame(
