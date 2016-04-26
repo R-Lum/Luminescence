@@ -16,20 +16,21 @@ plotting of equivalent dose distributions.
 \tab 0.6.0 \cr Date: \tab 2016-05-20 \cr License: \tab GPL-3\cr }
 }
 \author{
-\bold{Authors}
+\bold{Authors} (alphabetic order)
 
 \tabular{ll}{
 Christoph Burow \tab University of Cologne, Germany \cr
 Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr
+Julie Durcan \tab University of Oxford, United Kingdom \cr
 Manfred Fischer\tab University of Bayreuth, Germany \cr
 Margret C. Fuchs \tab Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology,
 Freiberg, Germany \cr
 Johannes Friedrich \tab University of Bayreuth, Germany \cr
-Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
-Christoph Schmidt \tab University of Bayreuth, Germany \cr
-Rachel K. Smedley \tab Aberystwyth University, United Kingdom \cr
-Julie Durcan \tab University of Oxford, United Kingdom \cr
 Georgina King \tab University of Cologne, Germany \cr
+Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
+Norbert Mercier \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
+Christoph Schmidt \tab University of Bayreuth, Germany \cr
+Rachel K. Smedley \tab Aberystwyth University, United Kingdom
 }
 
 \bold{Beta-Tester}
