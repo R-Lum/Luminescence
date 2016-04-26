@@ -5,8 +5,8 @@
 \title{Create HTML report for (RLum) objects}
 \usage{
 report_RLum(object, file = tempfile(), title = "RLum.Report",
-  timestamp = TRUE, launch.browser = FALSE, quiet = TRUE, clean = TRUE,
-  ...)
+  compact = TRUE, timestamp = TRUE, launch.browser = FALSE,
+  quiet = TRUE, clean = TRUE, ...)
 }
 \arguments{
 \item{object}{(\bold{required}): 
@@ -18,6 +18,12 @@ temporary file is created.}
 
 \item{title}{\code{\link{character}} (with default):
 A character string specifying the title of the document.}
+
+\item{compact}{\code{\link{logical}} (with default):
+When \code{TRUE} the following report components are hidden: 
+\code{@.pid}, \code{@.uid}, \code{Object structure}, \code{Session Info}.
+Only the first and last 5 rows of long matrices and data frames are shown.
+See details.}
 
 \item{timestamp}{\code{\link{logical}} (with default):
 \code{TRUE} to add a timestamp to the filename (suffix).}
@@ -32,8 +38,8 @@ it has been rendered.}
 \item{clean}{\code{\link{logical}} (with default): 
 \code{TRUE} to clean intermediate files created during rendering.}
 
-\item{...}{further arguments passed to or from other methods 
-(currently not used).}
+\item{...}{further arguments passed to or from other methods and to control
+the document's structure (see details).}
 }
 \value{
 Writes a HTML and .Rds file.
@@ -64,7 +70,7 @@ following structure:
 This function requires the R packages 'rmarkdown' and 'pander'.
 }
 \section{Function version}{
- 0.1.0 (2016-04-13 18:27:06)
+ 0.1.0
 }
 \examples{
 
@@ -128,7 +134,7 @@ report_RLum(object = x, file = "~/arbitray_list")
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-\cr R Luminescence Package Team}
+}
 \seealso{
 \code{\link[rmarkdown]{render}}
 }

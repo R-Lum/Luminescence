@@ -30,6 +30,12 @@
 #' @param title \code{\link{character}} (with default):
 #' A character string specifying the title of the document.
 #' 
+#' @param compact \code{\link{logical}} (with default):
+#' When \code{TRUE} the following report components are hidden: 
+#' \code{@@.pid}, \code{@@.uid}, \code{Object structure}, \code{Session Info}.
+#' Only the first and last 5 rows of long matrices and data frames are shown.
+#' See details.
+#' 
 #' @param timestamp \code{\link{logical}} (with default):
 #' \code{TRUE} to add a timestamp to the filename (suffix).
 #' 
@@ -43,8 +49,8 @@
 #' @param clean \code{\link{logical}} (with default): 
 #' \code{TRUE} to clean intermediate files created during rendering.
 #' 
-#' @param ... further arguments passed to or from other methods 
-#' (currently not used).
+#' @param ... further arguments passed to or from other methods and to control
+#' the document's structure (see details).
 #' 
 #' @section Function version: 0.1.0
 #' 
@@ -123,6 +129,7 @@
 report_RLum <- function(object, 
                         file  = tempfile(),
                         title = "RLum.Report",
+                        compact = TRUE,
                         timestamp = TRUE,
                         launch.browser = FALSE,
                         quiet = TRUE,
@@ -152,6 +159,19 @@ report_RLum <- function(object,
   
   
   ## ------------------------------------------------------------------------ ##
+  ## STRUCTURE ----
+  structure <- list(header = TRUE,
+                    main = ifelse(compact, FALSE, TRUE),
+                    structure = ifelse(compact, FALSE, TRUE),
+                    file = TRUE,
+                    session = ifelse(compact, FALSE, TRUE),
+                    plot = TRUE)
+  
+  # specifying report components has higher precedence than the 'compact' arg
+  structure <- modifyList(structure, list(...))
+  
+  
+  ## ------------------------------------------------------------------------ ##
   ## CREATE FILE ----
   
   isTemp <- missing(file)
@@ -177,11 +197,13 @@ report_RLum <- function(object,
   # Create and open the file
   file.create(file)
   tmp <- file(file, open = "w")
-
+  
+  # save RDS file
+  saveRDS(object, file.rds)
   
   ## ------------------------------------------------------------------------ ##
   ## WRITE CONTENT ----
-    
+  
   # HEADER ----
   writeLines("---", tmp)
   writeLines("output:", tmp)
@@ -203,41 +225,52 @@ report_RLum <- function(object,
   else
     pkg <- data.frame(LibPath = "-", Version = "not installed", Built = "-")
   
-  # write information on R, Luminescence package, Object
-  writeLines(paste("<div align='center'><h1>", title, "</h1></div>\n\n<hr>", #<div align='center'></div>
-                   "**Date:**", Sys.time(), "\n\n",
-                   "**R version:**", R.version.string, "\n\n",
-                   "**Luminescence package** \n\n",
-                   "**&nbsp;&nbsp;&raquo; Path:**", pkg$LibPath, "\n\n",
-                   "**&nbsp;&nbsp;&raquo; Version:**", pkg$Version, "\n\n",
-                   "**&nbsp;&nbsp;&raquo; Built:**", pkg$Built, "\n\n",
-                   "**Object** \n\n",
-                   "**&nbsp;&nbsp;&raquo; Created:**", 
-                   tryCatch(paste(paste(strsplit(object@.uid, '-|\\.')[[1]][1:3], collapse = "-"),
-                                  strsplit(object@.uid, '-|\\.')[[1]][4]),
-                            error = function(e) "-"), "\n\n",
-                   "**&nbsp;&nbsp;&raquo; Class:**", class(object), "\n\n",
-                   "**&nbsp;&nbsp;&raquo; Originator:**", 
-                   tryCatch(object@originator, error = function(e) "-"), "\n\n",
-                   "**&nbsp;&nbsp;&raquo; Name:**", deparse(substitute(object)), "\n\n",
-                   "**&nbsp;&nbsp;&raquo; Parent ID:**", 
-                   tryCatch(object@.pid, error = function(e) "-"), "\n\n",
-                   "**&nbsp;&nbsp;&raquo; Unique ID:**", 
-                   tryCatch(object@.uid, error = function(e) "-"), "\n\n",
-                   "<hr>"),
-             tmp)
+  # Title
+  writeLines(paste("<div align='center'><h1>", title, "</h1></div>\n\n<hr>"), tmp) 
   
-  if (isTemp) {
-    writeLines(paste("<a href=", paste0("file:///", file.html),
-                     "class='btn btn-primary' download>Save report</a>"), tmp)
-    writeLines(paste("<a href=", paste0("file:///", file.rds),
-                     "class='btn btn-primary' download>Save data</a> \n\n"), tmp)
-  }
+  # write information on R, Luminescence package, Object
+  if (structure$header) {
+    writeLines(paste("**Date:**", Sys.time(), "\n\n",
+                     "**R version:**", R.version.string, "\n\n",
+                     "**Luminescence package** \n\n",
+                     "**&nbsp;&nbsp;&raquo; Path:**", pkg$LibPath, "\n\n",
+                     "**&nbsp;&nbsp;&raquo; Version:**", pkg$Version, "\n\n",
+                     "**&nbsp;&nbsp;&raquo; Built:**", pkg$Built, "\n\n",
+                     "**Object** \n\n",
+                     "**&nbsp;&nbsp;&raquo; Created:**", 
+                     tryCatch(paste(paste(strsplit(object@.uid, '-|\\.')[[1]][1:3], collapse = "-"),
+                                    strsplit(object@.uid, '-|\\.')[[1]][4]),
+                              error = function(e) "-"), "\n\n",
+                     "**&nbsp;&nbsp;&raquo; Class:**", class(object), "\n\n",
+                     "**&nbsp;&nbsp;&raquo; Originator:**", 
+                     tryCatch(object@originator, error = function(e) "-"), "\n\n",
+                     "**&nbsp;&nbsp;&raquo; Name:**", deparse(substitute(object)), "\n\n",
+                     "**&nbsp;&nbsp;&raquo; Parent ID:**", 
+                     tryCatch(object@.pid, error = function(e) "-"), "\n\n",
+                     "**&nbsp;&nbsp;&raquo; Unique ID:**", 
+                     tryCatch(object@.uid, error = function(e) "-"), "\n\n",
+                     "<hr>"),
+               tmp)
+    
+    if (isTemp) {
+      writeLines(paste("<a href=", paste0("file:///", file.html),
+                       "class='btn btn-primary' download>Save report</a>"), tmp)
+      writeLines(paste("<a href=", paste0("file:///", file.rds),
+                       "class='btn btn-primary' download>Save data</a> \n\n"), tmp)
+    }
+    
+  }#EndOf::Header
   
   # OBJECT ----
   elements <- .struct_RLum(object, root = deparse(substitute(object)))
   
   for (i in 1:nrow(elements)) {
+    
+    # SKIP ELEMENT?
+    # hide @.pid and @.uid if this is a shortened report (default)
+    if (elements$bud[i] %in% c(".uid", ".pid") && structure$main == FALSE)
+      next
+    
     
     # HEADER
     short.name <- elements$bud[i]
@@ -245,7 +278,7 @@ report_RLum <- function(object,
     type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
     if (type == "[")
       type = ""
-
+    
     # HTML header level is determined by the elements depth in the object
     # exception: first row is always the object's name and has depth zero
     if (i == 1)
@@ -306,100 +339,119 @@ report_RLum <- function(object,
         table <- NULL
       }
       
+      # shorten the table if it has more than 15 rows
+      if (!structure$main) {
+        if (is.matrix(table) || is.data.frame(table)) {
+          if (nrow(table) > 15) {
+            
+            writeLines(pander::pander_return(rbind(head(table, 5),
+                                                   tail(table, 5)),
+                                             caption = "shortened (only first and last five rows shown)"), tmp)
+            next
+            
+          }
+        }
+      }
+      
       # write table using pander and end each table with a horizontal line
       writeLines(pander::pander_return(table),
                  tmp)
       writeLines("\n\n<hr>", tmp)
+      
     }
   }
   
   # OBJECT STRUCTURE ----
-  writeLines(paste("\n\n# Object structure\n\n"), tmp)
-
-  elements.html <- elements
-  elements.html$branch <- gsub("\\$", "&#36;", elements$branch)
-  writeLines(pander::pander_return(elements.html, 
-                                   justify = paste(rep("l", ncol(elements)), collapse = "")),
-             tmp)
-  writeLines("\n\n", tmp)
-  
-  # SAVE SERIALISED OBJECT (.rds file) ----
-  writeLines(paste("<hr># File \n\n"), tmp)
-  
-  saveRDS(object, file.rds)
-  
-  writeLines(paste0("<code>",
-                    "<a href='", paste0("file:///", gsub("\\~\\/", "", file.rds)),"' download>",
-                    "Click here to access the data file", "</a>",
-                    "</code>"), tmp)
-  
-  writeLines(paste("\nThe R object was saved to <span style='color:#428bca'>", file.rds, "</span>.",
-                   "To import the object into your R session with the following command:",
-                   paste0("<pre>",
-                          "x <- readRDS('", file.rds, "')",
-                          "</pre>"),
-                   "**NOTE:** If you moved the file to another directory or",
-                   "renamed the file you need to change the path/filename in the",
-                   "code above accordingly!"),
-             tmp)
+  if (structure$structure) {
+    writeLines(paste("\n\n# Object structure\n\n"), tmp)
+    
+    elements.html <- elements
+    elements.html$branch <- gsub("\\$", "&#36;", elements$branch)
+    writeLines(pander::pander_return(elements.html, 
+                                     justify = paste(rep("l", ncol(elements)), collapse = "")),
+               tmp)
+    writeLines("\n\n", tmp)
+    
+    # SAVE SERIALISED OBJECT (.rds file) ----
+    writeLines(paste("<hr># File \n\n"), tmp)
+    
+    writeLines(paste0("<code>",
+                      "<a href='", paste0("file:///", gsub("\\~\\/", "", file.rds)),"' download>",
+                      "Click here to access the data file", "</a>",
+                      "</code>"), tmp)
+    
+    writeLines(paste("\nThe R object was saved to <span style='color:#428bca'>", file.rds, "</span>.",
+                     "To import the object into your R session with the following command:",
+                     paste0("<pre>",
+                            "x <- readRDS('", file.rds, "')",
+                            "</pre>"),
+                     "**NOTE:** If you moved the file to another directory or",
+                     "renamed the file you need to change the path/filename in the",
+                     "code above accordingly!"),
+               tmp)
+  }#EndOf::Structure
   
   # SESSION INFO ----
-  writeLines(paste("\n\n<hr># Session Info\n\n"), tmp)
-  sessionInfo <- capture.output(sessionInfo())
-  writeLines(paste(sessionInfo, collapse = "\n\n"),
-             tmp)
+  if (structure$session) {
+    writeLines(paste("\n\n<hr># Session Info\n\n"), tmp)
+    sessionInfo <- capture.output(sessionInfo())
+    writeLines(paste(sessionInfo, collapse = "\n\n"),
+               tmp)
+  }
   
   # PLOTTING ----
-  isRLumObject <- length(grep("RLum", class(object)))
-  isRLumList <- all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
-  
-  if (isRLumObject | isRLumList) {
+  if (structure$plot) {
+    isRLumObject <- length(grep("RLum", class(object)))
+    isRLumList <- all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
     
-    # mutual exclusivity: it is either a list or an RLum-Object 
-    if (isRLumList)
-      plotCommand <- "invisible(sapply(x, plot)) \n"
-    else
-      plotCommand <- "plot(x) \n"
-    
-    writeLines(paste("\n\n<hr># Plots\n\n"), tmp)
-    writeLines(paste0(
-      "```{r}\n",
-      "library(Luminescence) \n",
-      "x <- readRDS('", file.rds,"') \n",
-      plotCommand,
-      "```"),
-      tmp)
-    
-    if (inherits(object, "RLum.Results")) {
+    if (isRLumObject | isRLumList) {
       
-      # AGE MODELS ----
-      models <- c("calc_CommonDose",
-                  "calc_CentralDose",
-                  "calc_FiniteMixture",
-                  "calc_MinDose",
-                  "calc_MaxDose",
-                  "calc_IEU",
-                  "calc_FuchsLang2001")
+      # mutual exclusivity: it is either a list or an RLum-Object 
+      if (isRLumList)
+        plotCommand <- "invisible(sapply(x, plot)) \n"
+      else
+        plotCommand <- "plot(x) \n"
       
-      if (object@originator %in% models) {
-        writeLines(paste0(
-          "```{r}\n",
-          "plot_AbanicoPlot(x) \n",
-          "plot_Histogram(x) \n",
-          "plot_KDE(x) \n",
-          "plot_ViolinPlot(x) \n",
-          "```"),
-          tmp)
+      writeLines(paste("\n\n<hr># Plots\n\n"), tmp)
+      writeLines(paste0(
+        "```{r}\n",
+        "library(Luminescence) \n",
+        "x <- readRDS('", file.rds,"') \n",
+        plotCommand,
+        "```"),
+        tmp)
+      
+      if (inherits(object, "RLum.Results")) {
+        
+        # AGE MODELS ----
+        models <- c("calc_CommonDose",
+                    "calc_CentralDose",
+                    "calc_FiniteMixture",
+                    "calc_MinDose",
+                    "calc_MaxDose",
+                    "calc_IEU",
+                    "calc_FuchsLang2001")
+        
+        if (object@originator %in% models) {
+          writeLines(paste0(
+            "```{r}\n",
+            "plot_AbanicoPlot(x) \n",
+            "plot_Histogram(x) \n",
+            "plot_KDE(x) \n",
+            "plot_ViolinPlot(x) \n",
+            "```"),
+            tmp)
+        }
       }
+      
     }
-    
-  }
+  }#EndOf::Plot
   
   ## ------------------------------------------------------------------------ ##
   ## CLOSE & RENDER ----
   close(tmp)
   on.exit(closeAllConnections())
-  rmarkdown::render(file, clean = clean, quiet = quiet, ...)
+  rmarkdown::render(file, clean = clean, quiet = quiet)
   
   ## ------------------------------------------------------------------------ ##
   ## SHOW FILE -----
@@ -415,7 +467,7 @@ report_RLum <- function(object,
       try(rstudioapi::viewer(file.path(tempdir(), "report.html")))
     }
   }
-
+  
   # launch browser if desired
   # browseURL() listens on localhost to show the file with the problem that
   # the download links dont work anymore. hence, we try to open the file
@@ -425,7 +477,7 @@ report_RLum <- function(object,
     if (!is.null(opened))
       try(browseURL(file.html))
   }
-    
+  
   
   ## ------------------------------------------------------------------------ ##
   ## CLEANUP ----
