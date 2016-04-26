@@ -567,8 +567,10 @@ report_RLum <- function(object,
       # print -----
       cat(c(root, class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
       
+      element <- names(x)
+      
       for (i in 1:length(x)) {
-        element <- names(x)
+        
         if (element[i] == "")
           list.root <- paste0(root, "[[", i, "]]")
         else
@@ -580,8 +582,9 @@ report_RLum <- function(object,
       # print -----
       cat(c(root, class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
       
+      element <- paste0("[[", seq(1, length(x),1), "]]")
+      
       for (i in 1:length(x)) {
-        element <- paste0("[[", seq(1, length(x),1), "]]")
         list.root <- paste0(root, element[i])
         .tree_RLum(x[[i]], root = list.root)
       }
