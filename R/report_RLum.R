@@ -20,10 +20,38 @@
 #'  \code{Plots} \tab (optional) For \code{RLum-class} objects a variable number of plots \cr
 #' }
 #'
+#' The structure of the report can be controlled individually by providing one or more of the
+#' following arguments (all \code{logical}):
+#' 
+#' \tabular{ll}{
+#' \bold{Argument} \tab \bold{Description} \cr
+#' \code{header} \tab Hide or show general information on the object \cr
+#' \code{main} \tab Hide or show the object's content \cr
+#' \code{structure} \tab Hide or show object's structure \cr
+#' \code{rds} \tab Hide or show information on the saved RDS file \cr
+#' \code{session} \tab Hide or show the session info \cr
+#' \code{plot} \tab Hide or show the plots (depending on object) \cr
+#' }
+#' 
+#' Note that these arguments have higher precedence than \code{compact}.
+#'
+#' Further options that can be provided via the \code{...} argument:
+#' 
+#' \tabular{ll}{
+#' \bold{Argument} \tab \bold{Description} \cr
+#' \code{short_table} \tab If \code{TRUE} only show the first and last 5 rows of lang tables. \cr
+#' \code{theme} \tab Specifies the Bootstrap
+#' theme to use for the report. Valid themes include "default", "cerulean", "journal", "flatly", 
+#' "readable", "spacelab", "united", "cosmo", "lumen", "paper", "sandstone", "simplex", and "yeti". \cr
+#' \code{highlight} \tab Specifies the syntax highlighting
+#'  style. Supported styles include "default", "tango", "pygments", "kate", "monochrome", 
+#'  "espresso", "zenburn", "haddock", and "textmate". \cr
+#' }
+#'
 #' @param object (\bold{required}): 
 #' The object to be reported on, preferably of any \code{RLum}-class.
 #' 
-#' @param file \code{\link{character}} (\bold{with default}): 
+#' @param file \code{\link{character}} (with default): 
 #' A character string naming the output file. If no filename is provided a 
 #' temporary file is created.
 #' 
@@ -32,8 +60,8 @@
 #' 
 #' @param compact \code{\link{logical}} (with default):
 #' When \code{TRUE} the following report components are hidden: 
-#' \code{@@.pid}, \code{@@.uid}, \code{Object structure}, \code{Session Info}.
-#' Only the first and last 5 rows of long matrices and data frames are shown.
+#' \code{@@.pid}, \code{@@.uid}, \code{'Object structure'}, \code{'Session Info'}
+#' and only the first and last 5 rows of long matrices and data frames are shown.
 #' See details.
 #' 
 #' @param timestamp \code{\link{logical}} (with default):
@@ -58,9 +86,11 @@
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' 
 #' @note
-#' This function requires the R packages 'rmarkdown' and 'pander'.
+#' This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 #' 
-#' @seealso \code{\link[rmarkdown]{render}}
+#' @seealso \code{\link[rmarkdown]{render}}, \code{\link[pander]{pander_return}},
+#' \code{\link[pander]{openFileInOS}}, \code{\link[rstudioapi]{viewer}},
+#' \code{\link{browseURL}}
 #' 
 #' @return
 #' Writes a HTML and .Rds file.
@@ -98,7 +128,7 @@
 #' report_RLum(object = mam)
 #' 
 #' # (b)
-#' # Additionally, you can view the HTML report in your system's defaul web browser.
+#' # Additionally, you can view the HTML report in your system's default web browser.
 #' report_RLum(object = mam, launch.browser = TRUE)
 #' 
 #' 
@@ -161,15 +191,22 @@ report_RLum <- function(object,
   ## ------------------------------------------------------------------------ ##
   ## STRUCTURE ----
   structure <- list(header = TRUE,
-                    main = ifelse(compact, FALSE, TRUE),
+                    main = TRUE,
                     structure = ifelse(compact, FALSE, TRUE),
-                    file = TRUE,
+                    rds = TRUE,
                     session = ifelse(compact, FALSE, TRUE),
                     plot = TRUE)
   
   # specifying report components has higher precedence than the 'compact' arg
   structure <- modifyList(structure, list(...))
   
+  
+  ## OPTIONS ----
+  options <- list(short_table = ifelse(compact, TRUE, FALSE),
+                  theme = "cerulean",
+                  highlight = "haddock")
+  
+  options <- modifyList(options, list(...))
   
   ## ------------------------------------------------------------------------ ##
   ## CREATE FILE ----
@@ -210,7 +247,8 @@ report_RLum <- function(object,
   writeLines("  html_document:", tmp)
   writeLines("    mathjax: null", tmp)
   writeLines("    title: RLum.Report", tmp)
-  writeLines("    theme: united", tmp)
+  writeLines(paste("    theme:", options$theme), tmp)
+  writeLines(paste("    highlight:", options$highlight), tmp)
   writeLines("    toc: true", tmp)
   writeLines("    toc_float: true", tmp)
   writeLines("    toc_depth: 6", tmp)
@@ -264,102 +302,104 @@ report_RLum <- function(object,
   # OBJECT ----
   elements <- .struct_RLum(object, root = deparse(substitute(object)))
   
-  for (i in 1:nrow(elements)) {
-    
-    # SKIP ELEMENT?
-    # hide @.pid and @.uid if this is a shortened report (default)
-    if (elements$bud[i] %in% c(".uid", ".pid") && structure$main == FALSE)
-      next
-    
-    
-    # HEADER
-    short.name <- elements$bud[i]
-    links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
-    type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
-    if (type == "[")
-      type = ""
-    
-    # HTML header level is determined by the elements depth in the object
-    # exception: first row is always the object's name and has depth zero
-    if (i == 1)
-      hlevel <- "#"
-    else
-      hlevel <- paste(rep("#", elements$depth[i]), collapse = "")
-    
-    # write header; number of dots represents depth in the object. because there
-    # may be duplicate header names, for each further occurence of a name
-    # Zero-width non-joiner entities are added to the name (non visible)
-    writeLines(paste0(hlevel, " ",
-                      paste(rep(".", elements$depth[i]), collapse = ""),
-                      type,
-                      paste(rep("&zwnj;", elements$bud.freq[i]), collapse = ""),
-                      short.name[length(short.name)],
-                      "\n\n"),
-               tmp)
-    
-    # SUBHEADER
-    # contains information on Class, Length, Dimensions, Path
-    writeLines(paste0("<pre style='padding:0px;border:0px'>",
-                      "<span style='color:#428bca'>",
-                      " Class: </span>", elements$class[i],
-                      "<span style='color:#428bca'>",
-                      "   Length: </span>", elements$length[i],
-                      "<span style='color:#428bca'>",
-                      "   Dimensions: </span>", 
-                      ifelse(elements$row[i] != 0, paste0(elements$row[i], ", ", elements$col[i]), "-"),
-                      "<span style='color:#428bca'>",
-                      "\n Path: </span>", gsub("@", "<span>@</span>", elements$branch[i]),
-                      "</pre>",
-                      "\n\n"),
-               tmp)
-    
-    # TABLE CONTENT
-    # the content of a branch is only printed if it was determined an endpoint
-    # in the objects structure
-    if (elements$endpoint[i]) {
-      table <- tryCatch(eval(parse(text = elements$branch[i])),
-                        error = function(e) {
-                          return(NULL)
-                        })
-      # exceptions: content may be NULL; convert raw to character to stay
-      # compatible with pander::pander
-      if (is.null(table))
-        table <- "NULL"
-      if (class(table) == "raw")
-        table <- as.character(table)
+  if (structure$main) {
+    for (i in 1:nrow(elements)) {
       
-      # exception: surround objects of class "call" with <pre> tags to prevent
-      # HTML autoformatting
-      if (elements$class[i] == "call") {
-        table <- capture.output(table)
-        writeLines("<pre>", tmp)
-        for (i in 1:length(table))
-          writeLines(table[i], tmp)
-        writeLines("</pre>", tmp)
-        table <- NULL
-      }
+      # SKIP ELEMENT?
+      # hide @.pid and @.uid if this is a shortened report (default)
+      if (elements$bud[i] %in% c(".uid", ".pid") && compact == TRUE)
+        next
       
-      # shorten the table if it has more than 15 rows
-      if (!structure$main) {
-        if (is.matrix(table) || is.data.frame(table)) {
-          if (nrow(table) > 15) {
-            
-            writeLines(pander::pander_return(rbind(head(table, 5),
-                                                   tail(table, 5)),
-                                             caption = "shortened (only first and last five rows shown)"), tmp)
-            next
-            
+      
+      # HEADER
+      short.name <- elements$bud[i]
+      links <- gsub("[^@$\\[]", "", as.character(elements$branch[i]))
+      type <- ifelse(nchar(links) == 0, "", substr(links, nchar(links), nchar(links)))
+      if (type == "[")
+        type = ""
+      
+      # HTML header level is determined by the elements depth in the object
+      # exception: first row is always the object's name and has depth zero
+      if (i == 1)
+        hlevel <- "#"
+      else
+        hlevel <- paste(rep("#", elements$depth[i]), collapse = "")
+      
+      # write header; number of dots represents depth in the object. because there
+      # may be duplicate header names, for each further occurence of a name
+      # Zero-width non-joiner entities are added to the name (non visible)
+      writeLines(paste0(hlevel, " ",
+                        paste(rep(".", elements$depth[i]), collapse = ""),
+                        type,
+                        paste(rep("&zwnj;", elements$bud.freq[i]), collapse = ""),
+                        short.name[length(short.name)],
+                        "\n\n"),
+                 tmp)
+      
+      # SUBHEADER
+      # contains information on Class, Length, Dimensions, Path
+      writeLines(paste0("<pre style='padding:0px;border:0px'>",
+                        "<span style='color:#428bca'>",
+                        " Class: </span>", elements$class[i],
+                        "<span style='color:#428bca'>",
+                        "   Length: </span>", elements$length[i],
+                        "<span style='color:#428bca'>",
+                        "   Dimensions: </span>", 
+                        ifelse(elements$row[i] != 0, paste0(elements$row[i], ", ", elements$col[i]), "-"),
+                        "<span style='color:#428bca'>",
+                        "\n Path: </span>", gsub("@", "<span>@</span>", elements$branch[i]),
+                        "</pre>",
+                        "\n\n"),
+                 tmp)
+      
+      # TABLE CONTENT
+      # the content of a branch is only printed if it was determined an endpoint
+      # in the objects structure
+      if (elements$endpoint[i]) {
+        table <- tryCatch(eval(parse(text = elements$branch[i])),
+                          error = function(e) {
+                            return(NULL)
+                          })
+        # exceptions: content may be NULL; convert raw to character to stay
+        # compatible with pander::pander
+        if (is.null(table))
+          table <- "NULL"
+        if (class(table) == "raw")
+          table <- as.character(table)
+        
+        # exception: surround objects of class "call" with <pre> tags to prevent
+        # HTML autoformatting
+        if (elements$class[i] == "call") {
+          table <- capture.output(table)
+          writeLines("<pre>", tmp)
+          for (i in 1:length(table))
+            writeLines(table[i], tmp)
+          writeLines("</pre>", tmp)
+          table <- NULL
+        }
+        
+        # shorten the table if it has more than 15 rows
+        if (options$short_table) {
+          if (is.matrix(table) || is.data.frame(table)) {
+            if (nrow(table) > 15) {
+              
+              writeLines(pander::pander_return(rbind(head(table, 5),
+                                                     tail(table, 5)),
+                                               caption = "shortened (only first and last five rows shown)"), tmp)
+              next
+              
+            }
           }
         }
+        
+        # write table using pander and end each table with a horizontal line
+        writeLines(pander::pander_return(table),
+                   tmp)
+        writeLines("\n\n<hr>", tmp)
+        
       }
-      
-      # write table using pander and end each table with a horizontal line
-      writeLines(pander::pander_return(table),
-                 tmp)
-      writeLines("\n\n<hr>", tmp)
-      
     }
-  }
+  }#EndOf::Main
   
   # OBJECT STRUCTURE ----
   if (structure$structure) {
@@ -371,7 +411,9 @@ report_RLum <- function(object,
                                      justify = paste(rep("l", ncol(elements)), collapse = "")),
                tmp)
     writeLines("\n\n", tmp)
+  }#EndOf::Structure
     
+  if (structure$rds) {
     # SAVE SERIALISED OBJECT (.rds file) ----
     writeLines(paste("<hr># File \n\n"), tmp)
     
@@ -389,7 +431,7 @@ report_RLum <- function(object,
                      "renamed the file you need to change the path/filename in the",
                      "code above accordingly!"),
                tmp)
-  }#EndOf::Structure
+  }#EndOf::File
   
   # SESSION INFO ----
   if (structure$session) {
