@@ -663,8 +663,11 @@ report_RLum <- function(object,
   
   # for the report we must not have the same last element names of same
   # depth (HTML cannot discriminate between #links of <h> headers)
-  for (n in unique(df$bud))
-    df$bud.freq[which(df$bud == n)] <- seq(0, length(df$bud.freq[which(df$bud == n)]) -1, 1)
+  counts <- as.data.frame(table(df$bud))
+  duplicates <- as.character(counts[counts[ ,2] > 1, 1])
+  
+  for (n in duplicates)
+    df$bud.freq[df$bud == n] <- seq(0, length(df$bud.freq[df$bud == n]) -1, 1)
   
   invisible(df)
 }
