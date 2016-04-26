@@ -114,7 +114,8 @@
        \item \code{analyse_IRSAR.RF()}
       \itemize{
         \item Add self call to the function, i.e. as input alternatively now a list of \code{RLum.Analysis}
-        objects can be provided for a higher efficiency.
+        objects can be provided for a higher efficiency,
+        \item the test parameter \code{intersection_ratio} was wrongly calculated; corrected.
 
       }
 

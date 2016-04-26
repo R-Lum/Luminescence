@@ -190,9 +190,12 @@ and should not exceed the threshold value. \cr
 
 \code{intersection_ratio} \code{\link{numeric}} (default: \code{NA}):\cr
 
-Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves.
+Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 This value indicates intersection of the RF-curves and should be close to 0 if the curves
-have a similar shape.\cr
+have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
+curve is obtained using the maximum count value of the RF_nat curve and only this segment (fitting to
+the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
+found at all, \code{Inf} is returned. \cr
 
 \code{residuals_slope} \code{\link{numeric}} (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
 
@@ -233,7 +236,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.2 (2016-04-18 12:33:54)
+ 0.6.3 (2016-04-26 18:30:30)
 }
 \examples{
 

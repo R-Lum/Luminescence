@@ -137,7 +137,10 @@ Changes in version 0.6.0 (May 20th ,2016):
 
              • Add self call to the function, i.e. as input
                alternatively now a list of ‘RLum.Analysis’ objects can
-               be provided for a higher efficiency.
+               be provided for a higher efficiency,
+
+             • the test parameter ‘intersection_ratio’ was wrongly
+               calculated; corrected.
 
          • ‘analyse_SAR.CWOSL()’
 
@@ -190,7 +193,10 @@ Changes in version 0.6.0 (May 20th ,2016):
 
              • Table column headers now have all capital letters,
 
-             • minor performance improvements.
+             • minor performance improvements,
+
+             • for very large standard errors uniroot failed, causing a
+               function break; corrected (#270).
 
          • ‘calc_OSLLxTxRatio()’
 

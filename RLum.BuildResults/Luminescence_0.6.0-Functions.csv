@@ -1,5 +1,5 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
-"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.6.2","2016-04-18","12:33:54
+"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.6.3","2016-04-26","18:30:30
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.0","2016-01-18","15:07:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -27,7 +27,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "calc_CosmicDoseRate","Calculate the cosmic dose rate","<br /> This function calculates the cosmic dose rate taking into account the soft-<br /> and hard-component of the cosmic ray flux and allows corrections for<br /> geomagnetic latitude, altitude above sea-level and geomagnetic field<br /> changes.<br />","0.5.2","2015-11-29","17:27:48
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
-"calc_FadingCorr","Apply a fading correction according to Huntley & Lamothe (2001) for a given<br /> g-value.","<br /> This function runs the iterations that are needed to calculate the corrected<br /> age including the error for a given g-value according to Huntley & Lamothe<br /> (2001).<br />","0.3.1","2016-04-08","12:43:43
+"calc_FadingCorr","Apply a fading correction according to Huntley & Lamothe (2001) for a given<br /> g-value.","<br /> This function runs the iterations that are needed to calculate the corrected<br /> age including the error for a given g-value according to Huntley & Lamothe<br /> (2001).<br />","0.3.2","2016-04-26","18:15:15
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "calc_FastRatio","Calculate the Fast Ratio for CW-OSL curves","<br /> Function to calculate the fast ratio of quartz CW-OSL single grain or single <br /> aliquot curves after Durcan & Duller (2011).<br />","0.1.0","2016-04-18","12:34:32
 ","<br /> Georgina King, University of Cologne (Germany)  <br /> Julie A. Durcan, University of Oxford (United Kingdom)  <br /> Christoph Burow, University of Cologne (Germany)  <br />  R Luminescence Package Team"
@@ -124,7 +124,7 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team"
 "plot_Risoe.BINfileData","Plot single luminescence curves from a BIN file object","<br /> Plots single luminescence curves from an object returned by the<br /> read_BIN2R  function.<br />","0.4.1","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.3.6","2016-04-20","18:37:31
+"plot_RLum.Analysis","Plot function for an RLum.Analysis S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Analysis S4 class object<br />","0.3.6","2016-04-26","18:19:02
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum.Data.Curve","Plot function for an RLum.Data.Curve S4 class object","<br /> The function provides a standardised plot output for curve data of an<br /> RLum.Data.Curve S4 class object<br />","0.2.0","2016-04-08","12:43:43
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

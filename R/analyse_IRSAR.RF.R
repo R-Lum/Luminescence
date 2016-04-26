@@ -104,9 +104,12 @@
 #'
 #' \code{intersection_ratio} \code{\link{numeric}} (default: \code{NA}):\cr
 #'
-#' Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves.
+#' Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 #' This value indicates intersection of the RF-curves and should be close to 0 if the curves
-#' have a similar shape.\cr
+#' have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
+#' curve is obtained using the maximum count value of the RF_nat curve and only this segment (fitting to
+#' the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
+#' found at all, \code{Inf} is returned. \cr
 #'
 #' \code{residuals_slope} \code{\link{numeric}} (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
 #'
@@ -223,7 +226,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.6.2
+#' @section Function version: 0.6.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -623,8 +626,8 @@ analyse_IRSAR.RF<- function(
 
   plot.settings <- list(
     main = "IR-RF",
-    xlab = "Time/s",
-    ylab = paste0("IR-RF/(cts/", resolution.RF," s)"),
+    xlab = "Time [s]",
+    ylab = paste0("IR-RF [cts/", resolution.RF," s]"),
     log = "",
     cex = 1,
     legend.pos = "top"
@@ -1109,14 +1112,39 @@ analyse_IRSAR.RF<- function(
    ##(1.1) check if RF_nat > RF_reg, considering the fit range
    ##TP$intersection_ratio
     if ("intersection_ratio" %in% names(TP)) {
+
+      ##It is, as always, a little bit more complicated ...
+      ##We cannot just normalise both curves and compare ratios. With increasing De the curve
+      ##shape of the RF_nat curve cannot be the same as the RF_reg curve at t = 0. Therefore we
+      ##have to find the segment in the RF_reg curve that fits to the RF_nat curve
+      ##
+      ##(1) get maximum count value for RF_nat
+      IR_RF_nat.max <- max(RF_nat.limited[,2])
+
+      ##(2) find corresponding time value for RF_reg (here no limited)
+      IR_RF_reg.corresponding_id <- which.min(abs(RF_reg[,2] - IR_RF_nat.max))
+
+      ##(3) calculate ratio, but just starting from the point where both curves correspond
+      ##in terms of intensiy, otherwise the ratio cannot be correct
+
+      ##the boundary check is necessary to avoid errors
+      if((IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2])) > length(RF_reg[,2])){
+        TP$intersection_ratio$VALUE <- Inf
+
+      }else{
+
       TP$intersection_ratio$VALUE <-
-        abs(
-          1 - sum((RF_nat.limited[,2]/max(RF_nat.limited[,2])))/
-            sum(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2]/max(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2])))
+        abs(1 - sum((RF_nat.limited[, 2] / max(RF_nat.limited[, 2]))) /
+              sum(RF_reg[IR_RF_reg.corresponding_id:(IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2]) - 1), 2] /
+                    max(RF_reg[IR_RF_reg.corresponding_id:(IR_RF_reg.corresponding_id + length(RF_nat.lim[1]:RF_nat.lim[2]) - 1), 2])))
 
       if (!is.na(TP$intersection_ratio$THRESHOLD)) {
         TP$intersection_ratio$STATUS <-
           ifelse(TP$intersection_ratio$VALUE >= TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
+      }
+
+      rm(IR_RF_nat.max, IR_RF_reg.corresponding_id)
+
       }
     }
 
