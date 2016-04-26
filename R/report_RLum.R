@@ -444,7 +444,11 @@ report_RLum <- function(object,
   # PLOTTING ----
   if (structure$plot) {
     isRLumObject <- length(grep("RLum", class(object)))
-    isRLumList <- all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
+    
+    if (is.list(object))
+      isRLumList <- all(sapply(object, function(x) inherits(x, "RLum.Data.Curve")))
+    else
+      isRLumList <- FALSE
     
     if (isRLumObject | isRLumList) {
       
@@ -663,9 +667,9 @@ report_RLum <- function(object,
   
   # for the report we must not have the same last element names of same
   # depth (HTML cannot discriminate between #links of <h> headers)
-  counts <- as.data.frame(table(df$bud))
-  duplicates <- as.character(counts[counts[ ,2] > 1, 1])
+  duplicates <- df$bud[duplicated(df$bud)]
   
+  ## TODO: this is highly inefficient for unnamed list due to recurrent indices
   for (n in duplicates)
     df$bud.freq[df$bud == n] <- seq(0, length(df$bud.freq[df$bud == n]) -1, 1)
   
