@@ -46,6 +46,7 @@
 #' \code{highlight} \tab Specifies the syntax highlighting
 #'  style. Supported styles include "default", "tango", "pygments", "kate", "monochrome", 
 #'  "espresso", "zenburn", "haddock", and "textmate". \cr
+#' \code{css} \tab \code{TRUE} or \code{FALSE} to enable/disable custom CSS styling \cr
 #' }
 #'
 #' @param object (\bold{required}): 
@@ -204,7 +205,8 @@ report_RLum <- function(object,
   ## OPTIONS ----
   options <- list(short_table = ifelse(compact, TRUE, FALSE),
                   theme = "cerulean",
-                  highlight = "haddock")
+                  highlight = "haddock",
+                  css = TRUE)
   
   options <- modifyList(options, list(...))
   
@@ -254,6 +256,17 @@ report_RLum <- function(object,
   writeLines("    toc_depth: 6", tmp)
   writeLines("    md_extensions: -autolink_bare_uris", tmp)
   writeLines("---", tmp)
+  
+  # CASCADING STYLE SHEETS ----
+  if (options$css) {
+    writeLines(paste0(
+      "<style>",
+      "h1, h2, h3, h4, h5, h6 { font-size: 166%; } \n",
+      "#root { color: #d9534f; }",
+      "</style>"
+    ),
+    tmp)
+  }
   
   # INFO ----
   # check if Luminescence package is installed and get details
@@ -333,6 +346,7 @@ report_RLum <- function(object,
                         type,
                         paste(rep("&zwnj;", elements$bud.freq[i]), collapse = ""),
                         short.name[length(short.name)],
+                        ifelse(elements$endpoint[i], "", "{#root}"),
                         "\n\n"),
                  tmp)
       
@@ -669,11 +683,11 @@ report_RLum <- function(object,
   # depth (HTML cannot discriminate between #links of <h> headers)
   ## TODO: this is highly inefficient for unnamed list due to recurrent indices
   dlevel <- max(table(df$bud))
-
+  
   for (i in 1:dlevel) {
     unique.bud <- unique(df[is.na(df$bud.freq), ]$bud)
     df[is.na(df$bud.freq), ][match(unique.bud, df[is.na(df$bud.freq), ]$bud), ]$bud.freq <- i - 1
   }
-    
+  
   invisible(df)
 }

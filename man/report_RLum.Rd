@@ -92,6 +92,7 @@ theme to use for the report. Valid themes include "default", "cerulean", "journa
 \code{highlight} \tab Specifies the syntax highlighting
  style. Supported styles include "default", "tango", "pygments", "kate", "monochrome", 
  "espresso", "zenburn", "haddock", and "textmate". \cr
+\code{css} \tab \code{TRUE} or \code{FALSE} to enable/disable custom CSS styling \cr
 }
 }
 \note{
