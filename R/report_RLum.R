@@ -329,7 +329,7 @@ report_RLum <- function(object,
       # may be duplicate header names, for each further occurence of a name
       # Zero-width non-joiner entities are added to the name (non visible)
       writeLines(paste0(hlevel, " ",
-                        paste(rep(".", elements$depth[i]), collapse = ""),
+                        paste(rep("..", elements$depth[i]), collapse = ""),
                         type,
                         paste(rep("&zwnj;", elements$bud.freq[i]), collapse = ""),
                         short.name[length(short.name)],
