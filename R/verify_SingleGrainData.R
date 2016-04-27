@@ -7,8 +7,8 @@
 #'
 #' The function compares the mean and the variance of the count values for each curve. Assuming that
 #' the background roughly follows a poission distribution the absolute difference of both values
-#' should be zero or at least around zero. Values significantly above indicates that the curves
-#' contain a signal. The threshold can be freely chosen by the user.\cr
+#' should be zero or at least around zero. Values significantly above the threshold indicate that the curves
+#' comprises a signal. The threshold can be freely chosen by the user.\cr
 #'
 #' Note: the difference instead of the ratio was chosen as the mean and the variance can both become
 #' 0 which would result in \code{Inf} values.
@@ -23,9 +23,21 @@
 #' @param cleanup \code{\link{logical}} (with default): if set to \code{TRUE} curves indentified as
 #' zero light level curves are automatically removed. Ouput is an object as same type as the input.
 #'
+#' @param cleanup_level \code{\link{character}} (with default): selects the level for the cleanup
+#' of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
+#' is selected every single curve marked as \code{invalid} is removed. If \code{"aliquot"} is selected,
+#' curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
+#' will be only removed if all curves of this aliquot are marked as invalid.
+#'
+#' @param verbose \code{\link{logical}} (with default): enables or disables terminal feedback
+#'
 #' @return Returns either an S4 object of type \code{\linkS4class{RLum.Results}} and the slot
 #' \code{data} contains a \code{\link{list}} with the following structure:\cr
-#' $ selection (data.frame) \cr
+#' $ unique_paris data.frame) \cr
+#' .. $ POSITION \cr
+#' .. $ GRAIN \cr
+#'
+#' $ selection_full (data.frame) \cr
 #' .. $ POSITION \cr
 #' .. $ GRAIN \cr
 #' .. $ MEAN \cr
@@ -65,13 +77,15 @@
 #' data(ExampleData.XSYG, envir = environment())
 #'
 #' ##verify and get data.frame out of it
-#' verify_SingleGrainData(OSL.SARMeasurement$Sequence.Object)$selection
+#' verify_SingleGrainData(OSL.SARMeasurement$Sequence.Object)$selection_full
 #'
 #' @export
 verify_SingleGrainData <- function(
   object,
   threshold = 10,
-  cleanup = FALSE
+  cleanup = FALSE,
+  cleanup_level = 'aliquot',
+  verbose = TRUE
 ){
 
   ##TODO
@@ -88,19 +102,21 @@ verify_SingleGrainData <- function(
   # Self Call -----------------------------------------------------------------------------------
   if(is(object, "list")){
 
-      results <- lapply(object, function(x){
-
-        verify_SingleGrainData(x, threshold = threshold, cleanup = cleanup)
-
-      })
+    results <- lapply(1:length(object), function(x) {
+      verify_SingleGrainData(
+        object = object[[x]],
+        threshold = threshold,
+        cleanup = cleanup,
+        cleanup_level = cleanup_level,
+        verbose = verbose
+      )
+    })
 
       ##account for cleanup
       if(cleanup){
-
         return(results)
 
       }else{
-
         return(merge_RLum(results))
 
       }
@@ -127,8 +143,6 @@ verify_SingleGrainData <- function(
         ##SEL
         temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold
 
-        print(length(object@DATA))
-
       ##combine everything to in a data.frame
         selection <- data.frame(
           POSITION = object@METADATA$POSITION,
@@ -140,28 +154,47 @@ verify_SingleGrainData <- function(
           VALID = temp.results_matrix_VALID
         )
 
-        ##get unique pairs for POSITION and GRAIN and VALID
-      #  unique_pairs <- unique(selection[,c("POSITION", "GRAIN", "VALID")])
-       # to_check.id <- as.numeric(rownames(unique_pairs)[duplicated(unique_pairs[,c("POSITION", "GRAIN")])])
+        ##get unique pairs for POSITION and GRAIN for VALID == TRUE
+        unique_pairs <- unique(
+          selection[selection[["VALID"]], c("POSITION", "GRAIN")])
 
-       # print(to_check.id)##TODO THIS IS NOT FINISHED YET
 
       ##select output on the chosen input
       if(cleanup){
 
-        ##reduce data to TRUE selection
-        selection_id <- which(selection$VALID)
+        if(cleanup_level == "aliquot"){
 
-          ##selected wanted elemennts
-          object@DATA <- object@DATA[selection_id]
-          object@METADATA <- object@METADATA[selection_id,]
-          object@METADATA$ID <- 1:length(object@DATA)
+          selection_id <- sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
+            which(
+              .subset2(selection, 1) == .subset2(unique_pairs, 1)[x] &
+                .subset2(selection, 2) == .subset2(unique_pairs, 2)[x]
+            )
+
+
+          })))
+
+
+        }else{
+
+         ##reduce data to TRUE selection
+         selection_id <- which(selection[["VALID"]])
+
+        }
+
+        ##selected wanted elemennts
+        object@DATA <- object@DATA[selection_id]
+        object@METADATA <- object@METADATA[selection_id,]
+        object@METADATA$ID <- 1:length(object@DATA)
 
 
         ##print message
         selection_id <- paste(selection_id, collapse = ", ")
-        message(paste0("[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: ", selection_id))
-        message("[verify_SingleGrainData()] Risoe.BINfileData object record index reset.")
+        if(verbose){
+          message(paste0("[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: \n", selection_id))
+          message("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.")
+
+        }
+
 
         ##return
         return(object)
@@ -169,7 +202,9 @@ verify_SingleGrainData <- function(
       }else{
         return(set_RLum(
           class = "RLum.Results",
-          data = list(selection = selection),
+          data = list(
+            unique_pairs =  unique_pairs,
+            selection_full = selection),
           info = list(call = sys.call())
         ))
 
@@ -183,7 +218,6 @@ verify_SingleGrainData <- function(
 
     ##first extract all count values from all curves
     object_list <- lapply(get_RLum(object), function(x){
-
         ##yes, would work differently, but it is faster
         x@data[,2]
 
@@ -220,6 +254,11 @@ verify_SingleGrainData <- function(
           VALID = temp.results_matrix_VALID
         )
 
+        ##get unique pairs for POSITION and GRAIN for VALID == TRUE
+        unique_pairs <- unique(
+          selection[selection[["VALID"]], c("POSITION", "GRAIN")])
+
+
       } else if (object@originator == "read_XSYG2R") {
 
         ##combine everything to in a data.frame
@@ -236,27 +275,61 @@ verify_SingleGrainData <- function(
           VALID = temp.results_matrix_VALID
         )
 
+        ##get unique pairs for POSITION for VALID == TRUE
+        unique_pairs <- unique(
+          selection[["POSITION"]][selection[["VALID"]]])
 
       } else{
 
         stop("[verify_SingleGrainData()] I don't know what to do object 'originator' not supported!")
       }
 
+
      ##return value
     ##select output on the chosen input
     if(cleanup){
 
-      ##reduce data to TRUE selection
-      selection_id <- which(selection$VALID)
+      if(cleanup_level == "aliquot") {
+        if (object@originator == "read_XSYG2R") {
+          selection_id <-
+            sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
+              which(.subset2(selection, 1) == .subset2(unique_pairs, 1)[x])
 
-      ##selected wanted elemennts
+
+            })))
+
+
+        } else if (object@originator == "Risoe.BINfileData2RLum.Analysis") {
+          selection_id <-
+            sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
+              which(
+                .subset2(selection, 1) == .subset2(unique_pairs, 1)[x] &
+                  .subset2(selection, 2) == .subset2(unique_pairs, 2)[x]
+              )
+
+
+            })))
+
+        }
+
+
+
+      } else{
+        ##reduce data to TRUE selection
+        selection_id <- which(selection[["VALID"]])
+
+      }
+
+      ##selected wanted elements
       if (length(selection_id) == 0) {
         object <- set_RLum(
           class = "RLum.Analysis",
           originator = object@originator,
           protocol = object@protocol,
           records = list(),
-          info = list(selection = selection)
+          info = list(
+            unique_pairs = unique_pairs,
+            selection_full = selection)
         )
 
       } else{
@@ -264,14 +337,20 @@ verify_SingleGrainData <- function(
         object <- set_RLum(
           class = "RLum.Analysis",
           records = get_RLum(object, record.id = selection_id, drop = FALSE),
-          info = list(selection = selection)
+          info = list(
+            unique_pairs = unique_pairs,
+            selection_full = selection)
         )
 
      }
 
       ##print message
-      selection_id <- paste(selection_id, collapse = ", ")
-      message(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ", selection_id))
+      if(verbose){
+        selection_id <- paste(selection_id, collapse = ", ")
+        message(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ", selection_id))
+
+      }
+
 
       ##return
       return(object)
@@ -279,7 +358,9 @@ verify_SingleGrainData <- function(
     }else{
       return(set_RLum(
         class = "RLum.Results",
-        data = list(selection = selection),
+        data = list(
+          unique_pairs = unique_pairs,
+          selection_full = selection),
         info = list(call = sys.call())
       ))
 

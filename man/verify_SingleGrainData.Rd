@@ -4,7 +4,8 @@
 \alias{verify_SingleGrainData}
 \title{Verify single grain data sets and check for invalid grains, i.e. zero light level grains}
 \usage{
-verify_SingleGrainData(object, threshold = 10, cleanup = FALSE)
+verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
+  cleanup_level = "aliquot", verbose = TRUE)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
@@ -15,11 +16,23 @@ the \code{mean} and the \code{var} of the count values (see details)}
 
 \item{cleanup}{\code{\link{logical}} (with default): if set to \code{TRUE} curves indentified as
 zero light level curves are automatically removed. Ouput is an object as same type as the input.}
+
+\item{cleanup_level}{\code{\link{character}} (with default): selects the level for the cleanup
+of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
+is selected every single curve marked as \code{invalid} is removed. If \code{"aliquot"} is selected,
+curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
+will be only removed if all curves of this aliquot are marked as invalid.}
+
+\item{verbose}{\code{\link{logical}} (with default): enables or disables terminal feedback}
 }
 \value{
 Returns either an S4 object of type \code{\linkS4class{RLum.Results}} and the slot
 \code{data} contains a \code{\link{list}} with the following structure:\cr
-$ selection (data.frame) \cr
+$ unique_paris data.frame) \cr
+.. $ POSITION \cr
+.. $ GRAIN \cr
+
+$ selection_full (data.frame) \cr
 .. $ POSITION \cr
 .. $ GRAIN \cr
 .. $ MEAN \cr
@@ -40,8 +53,8 @@ measurements. \cr
 
 The function compares the mean and the variance of the count values for each curve. Assuming that
 the background roughly follows a poission distribution the absolute difference of both values
-should be zero or at least around zero. Values significantly above indicates that the curves
-contain a signal. The threshold can be freely chosen by the user.\cr
+should be zero or at least around zero. Values significantly above the threshold indicate that the curves
+comprises a signal. The threshold can be freely chosen by the user.\cr
 
 Note: the difference instead of the ratio was chosen as the mean and the variance can both become
 0 which would result in \code{Inf} values.
@@ -57,7 +70,7 @@ Reg0 curves are likely to removed as well. Therefore it is strongly recommended 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.1.0 (2016-04-24 23:04:04)
+ 0.1.0 (2016-04-27 18:49:31)
 }
 \examples{
 
@@ -65,7 +78,7 @@ Reg0 curves are likely to removed as well. Therefore it is strongly recommended 
 data(ExampleData.XSYG, envir = environment())
 
 ##verify and get data.frame out of it
-verify_SingleGrainData(OSL.SARMeasurement$Sequence.Object)$selection
+verify_SingleGrainData(OSL.SARMeasurement$Sequence.Object)$selection_full
 
 }
 \author{

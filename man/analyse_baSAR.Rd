@@ -78,7 +78,7 @@ This function allows the application of Bayesian models (baSAR) on luminescecenc
 The current version of the function works with standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-04-24 23:04:04)
+ 0.1.0 (2016-04-26 18:49:45)
 }
 \examples{
 
