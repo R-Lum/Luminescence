@@ -564,7 +564,7 @@ report_RLum <- function(object,
     invisible()
     
     ## List objects -----
-  }  else if (inherits(x, "list") | inherits(x, "nls")) {
+  }  else if (inherits(x, "list") | inherits(x, "nls") | inherits(x, "nlsModel")) {
     
     if (!is.null(names(x)) && length(x) != 0) {
       
