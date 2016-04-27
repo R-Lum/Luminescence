@@ -659,7 +659,7 @@ report_RLum <- function(object,
                               function(x) x[length(x)]))
   if (length(grep("]", df$bud)) != 0)
     df$bud[grep("]", df$bud)] <- paste0("[[", df$bud[grep("]", df$bud)])
-  df$bud.freq <- 0
+  df$bud.freq <- NA # 1:nrow(df)
   
   # reorder data.frame
   df <- df[ ,c("branch", "bud", "bud.freq", "class", 
@@ -667,11 +667,13 @@ report_RLum <- function(object,
   
   # for the report we must not have the same last element names of same
   # depth (HTML cannot discriminate between #links of <h> headers)
-  duplicates <- df$bud[duplicated(df$bud)]
-  
   ## TODO: this is highly inefficient for unnamed list due to recurrent indices
-  for (n in duplicates)
-    df$bud.freq[df$bud == n] <- seq(0, length(df$bud.freq[df$bud == n]) -1, 1)
-  
+  dlevel <- max(table(df$bud))
+
+  for (i in 1:dlevel) {
+    unique.bud <- unique(df[is.na(df$bud.freq), ]$bud)
+    df[is.na(df$bud.freq), ][match(unique.bud, df[is.na(df$bud.freq), ]$bud), ]$bud.freq <- i - 1
+  }
+    
   invisible(df)
 }
