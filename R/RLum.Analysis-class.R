@@ -22,7 +22,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.4.4
+#' @section Class version: 0.4.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -416,10 +416,10 @@ setMethod("get_RLum",
 
               ##select curves according to the chosen parameter
               if (length(record.id) > 1) {
-                temp <- sapply(record.id, function(x) {
+                temp <- lapply(record.id, function(x) {
                   if (is(object@records[[x]])[1] %in% RLum.type == TRUE) {
                     ##as input a vector is allowed
-                    temp <- sapply(1:length(recordType), function(k) {
+                    temp <- lapply(1:length(recordType), function(k) {
                       ##translate input to regular expression
                       recordType[k] <- glob2rx(recordType[k])
                       recordType[k] <- substr(recordType[k],
