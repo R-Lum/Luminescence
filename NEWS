@@ -56,7 +56,11 @@ Changes in version 0.6.0 (May 20th ,2016):
              • method for ‘RLum.Data.Curve’ objects new reacts more
                relaxed for wrong info object names. Instead of a
                function error, ‘NULL’ is returned. This makes handling
-               in loops easier.
+               in loops easier,
+
+             • the function crashed under very rare circumstances if a
+               provided list with RLum-objects contained
+               ‘RLum.Analysis’ objects with zero records; corrected.
 
          • ‘structure_RLum’
 
@@ -294,7 +298,7 @@ Changes in version 0.6.0 (May 20th ,2016):
              • minor graphical adjustments,
 
              • the 3D plot is now produced using the package ‘plotly’
-               which allows an interative visualisation. The new plot
+               which allows an interactive visualisation. The new plot
                type added is called ‘interactive’, the suggestion of
                the package ‘rgl’ has been removed with this change.
 

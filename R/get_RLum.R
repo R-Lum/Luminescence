@@ -49,7 +49,7 @@
 #'
 #'
 #' @export
-setGeneric("get_RLum", function (object, ...) { standardGeneric("get_RLum") })
+setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 
 # Method for get_RLum method for RLum objects in a list for a list of objects  -------------------
 #' @describeIn get_RLum
@@ -62,13 +62,22 @@ setMethod("get_RLum",
           signature = "list",
           function(object, null.rm = FALSE, ...){
 
+
             selection <- lapply(1:length(object), function(x){
 
               ##get rid of all objects that are not of type RLum, this is better than leaving that
               ##to the user
               if(inherits(object[[x]], what = "RLum")){
 
-                get_RLum(object[[x]],...)
+                ##it might be the case the object already comes with empty objects, this would
+                ##cause a crash
+                if(is(object[[x]], "RLum.Analysis") && length(object[[x]]@records) != 0){
+                  get_RLum(object[[x]],...)
+
+                }else{
+                  return(NULL)
+
+                }
 
               }else{
 
@@ -80,8 +89,10 @@ setMethod("get_RLum",
 
             })
 
-            ##remove empty or NULL objects
+
+            ##remove empty or NULL objects after the selection ... if wanted
             if(null.rm){
+
 
                 ##first set all empty objects to NULL ... for RLum.Analysis objects
                 selection <- lapply(1:length(selection), function(x){

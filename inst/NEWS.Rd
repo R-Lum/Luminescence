@@ -43,7 +43,9 @@
         they can handle the new info slot,
         \item method for \code{RLum.Data.Curve} objects new reacts more relaxed for wrong info
         object names. Instead of a function error, \code{NULL} is returned. This makes handling
-        in loops easier.
+        in loops easier,
+        \item the function crashed under very rare circumstances if a provided list with RLum-objects
+        contained \code{RLum.Analysis} objects with zero records; corrected.
 
 
        }
@@ -259,7 +261,7 @@
         provided), this might be especially helpful in case of TL spectra,
         \item the argument \code{optical.wavelength.colours} was not working in all cases sufficiently; corrected,
         \item minor graphical adjustments,
-        \item the 3D plot is now produced using the package \code{plotly} which allows an interative
+        \item the 3D plot is now produced using the package \code{plotly} which allows an interactive
         visualisation. The new plot type added is called \code{interactive}, the suggestion of the
         package \code{rgl} has been removed with this change.
 
