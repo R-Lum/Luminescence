@@ -5,6 +5,7 @@
 
   \subsection{New functions}{
    \itemize{
+    \item \code{analyse_baSAR()}: This function allows the application of Bayesian models (baSAR) on luminescecence data
     \item \code{app_RLum()}: Wrapper for the function \code{app_RLum()} from the package
     \code{RLumShiny} by Christoph Burow
     \item \code{bin_RLum.Data}: Function for binning in \code{RLum.Data} objects, e.g., binning of
