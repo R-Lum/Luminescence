@@ -362,7 +362,7 @@ report_RLum <- function(object,
                           })
         # exceptions: content may be NULL; convert raw to character to stay
         # compatible with pander::pander
-        if (is.null(table))
+        if (is.null(table) | length(table) == 0)
           table <- "NULL"
         if (class(table) == "raw")
           table <- as.character(table)
