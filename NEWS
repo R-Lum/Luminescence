@@ -149,7 +149,10 @@ Changes in version 0.6.0 (May 20th ,2016):
              • the test parameter ‘intersection_ratio’ was wrongly
                calculated; corrected,
 
-             • correct wrong shift if the option ‘RF_nat.lim’ was used.
+             • correct wrong shift if the option ‘RF_nat.lim’ was used,
+
+             • internal parameter added that allows to show the applied
+               fit, while using ‘method = "SLIDE"’.
 
          • ‘analyse_SAR.CWOSL()’
 

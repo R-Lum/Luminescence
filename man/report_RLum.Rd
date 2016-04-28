@@ -115,7 +115,7 @@ CSS styling can be turned of using \code{css = FALSE}.
 This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2016-04-28 18:17:02)
 }
 \examples{
 
@@ -179,7 +179,7 @@ report_RLum(object = x, file = "~/arbitray_list")
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\link[rmarkdown]{render}}, \code{\link[pander]{pander_return}},
 \code{\link[pander]{openFileInOS}}, \code{\link[rstudioapi]{viewer}},

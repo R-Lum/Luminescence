@@ -66,6 +66,8 @@
 #'  The default value is \code{TRUE}.\cr
 #' \code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
 #' enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
+#' \code{show_fit} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
+#' enables or disables the plot of the fitted curve rountinly obtained during the evaluation.\cr
 #'\code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
 #' This controls the number of MC runs within the sliding (assesing the possible minimum values).
 #' The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
@@ -162,7 +164,7 @@
 #'
 #' @param method.control \code{\link{list}} (optional): parameters to control the method, that can
 #' be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
-#' 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density'. See details.
+#' 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit'. See details.
 #'
 #' @param test_parameter \code{\link{list} (with default)}: set test parameter
 #' Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
@@ -584,6 +586,7 @@ analyse_IRSAR.RF<- function(
     minFactor = 1 / 4096,
     correct_onset = TRUE,
     show_density = TRUE,
+    show_fit = FALSE,
     n.MC = 1000
   )
 
@@ -703,7 +706,7 @@ analyse_IRSAR.RF<- function(
       phi.0 = max(RF_reg.y),
       lambda = 0.0001,
       beta = 1,
-      delta.phi = 2 * (max(RF_reg.y) - min(RF_reg.y))
+      delta.phi = 1.5 * (max(RF_reg.y) - min(RF_reg.y))
     )
 
   if(method == "FIT"){
@@ -1365,6 +1368,30 @@ analyse_IRSAR.RF<- function(
              pch=c(19,3), col=c("red", col[10]),
              horiz=TRUE, bty = "n", cex=.9)
 
+
+    }
+
+
+    ##Add fitted curve, if possible. This is a graphical control that might be considered
+    ##as useful before further analysis will be applied
+    if (method.control.settings$show_fit) {
+
+      if(!is(fit.lambda, "try-error")){
+        fit.lambda_coef <- coef(fit.lambda)
+
+        curve(fit.lambda_coef[[1]]-
+                (fit.lambda_coef[[2]]*
+                   ((1-exp(-fit.lambda_coef[[3]]*x))^fit.lambda_coef[[4]])),
+              add=TRUE,
+              lty = 2,
+              col="red")
+
+        rm(fit.lambda_coef)
+      }else{
+        warning("[analyse_IRSAR.RF()] No fit possible, no fit shown.")
+
+
+      }
 
     }
 

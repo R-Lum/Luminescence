@@ -33,7 +33,7 @@ for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{method.control}{\code{\link{list}} (optional): parameters to control the method, that can
 be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
-'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density'. See details.}
+'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit'. See details.}
 
 \item{test_parameter}{\code{\link{list} (with default)}: set test parameter
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
@@ -153,6 +153,8 @@ shifts the curves along the x-axis by the first channel, as light is expected in
  The default value is \code{TRUE}.\cr
 \code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
+\code{show_fit} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
+enables or disables the plot of the fitted curve rountinly obtained during the evaluation.\cr
 \code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
 This controls the number of MC runs within the sliding (assesing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
@@ -236,7 +238,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.4 (2016-04-28 17:52:51)
+ 0.6.4 (2016-04-28 19:33:45)
 }
 \examples{
 
