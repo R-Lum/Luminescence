@@ -622,10 +622,14 @@ report_RLum <- function(object,
       
       for (i in 1:length(x)) {
         
+        if (grepl(" ", element[i]))
+          element[i] <- paste0("`", element[i], "`")
+        
         if (element[i] == "")
           list.root <- paste0(root, "[[", i, "]]")
         else
           list.root <- paste0(root, "$", element[i])
+        
         .tree_RLum(x[[i]], root = list.root)
       }
     } else if (length(x) != 0) {
@@ -636,6 +640,9 @@ report_RLum <- function(object,
       element <- paste0("[[", seq(1, length(x),1), "]]")
       
       for (i in 1:length(x)) {
+        if (grepl(" ", element[i]))
+          element[i] <- paste0("`", element[i], "`")
+        
         list.root <- paste0(root, element[i])
         .tree_RLum(x[[i]], root = list.root)
       }
