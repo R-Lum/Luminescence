@@ -2,11 +2,11 @@
 % Please edit documentation in R/report_RLum.R
 \name{report_RLum}
 \alias{report_RLum}
-\title{Create HTML report for (RLum) objects}
+\title{Create a HTML report for (RLum) objects}
 \usage{
 report_RLum(object, file = tempfile(), title = "RLum.Report",
   compact = TRUE, timestamp = TRUE, launch.browser = FALSE,
-  quiet = TRUE, clean = TRUE, ...)
+  css.file = NULL, quiet = TRUE, clean = TRUE, ...)
 }
 \arguments{
 \item{object}{(\bold{required}): 
@@ -31,6 +31,9 @@ See details.}
 \item{launch.browser}{\code{\link{logical}} (with default):
 \code{TRUE} to open the HTML file in the system's default web browser after
 it has been rendered.}
+
+\item{css.file}{\code{\link{character}} (optional):
+Path to a CSS file to change the default styling of the HTML document.}
 
 \item{quiet}{\code{\link{logical}} (with default):
 \code{TRUE} to supress printing of the pandoc command line.}
@@ -94,6 +97,19 @@ theme to use for the report. Valid themes include "default", "cerulean", "journa
  "espresso", "zenburn", "haddock", and "textmate". \cr
 \code{css} \tab \code{TRUE} or \code{FALSE} to enable/disable custom CSS styling \cr
 }
+
+The following arguments can be used to customise the report via CSS (Cascading Style Sheets):
+
+\tabular{ll}{
+\bold{Argument} \tab \bold{Description} \cr
+\code{font_family} \tab Define the font family of the HTML document (default: arial) \cr
+\code{headings_size} \tab Size of the <h1> to <h6> tags used to define HTML headings (default: 166\%). \cr
+\code{content_color} \tab Color of the object's content (default: #a72925). \cr
+}
+
+Note that these arguments must all be of class \code{\link{character}} and follow standard CSS syntax.
+For exhaustive CSS styling you can provide a custom CSS file for argument \code{css.file}. 
+CSS styling can be turned of using \code{css = FALSE}.
 }
 \note{
 This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.

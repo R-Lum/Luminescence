@@ -1,4 +1,4 @@
-#' Create HTML report for (RLum) objects
+#' Create a HTML report for (RLum) objects
 #'
 #' This function creates a HTML report for a given object, listing its complete
 #' structure and content. The object itself is saved as a serialised .Rds file.
@@ -48,6 +48,19 @@
 #'  "espresso", "zenburn", "haddock", and "textmate". \cr
 #' \code{css} \tab \code{TRUE} or \code{FALSE} to enable/disable custom CSS styling \cr
 #' }
+#' 
+#' The following arguments can be used to customise the report via CSS (Cascading Style Sheets):
+#' 
+#' \tabular{ll}{
+#' \bold{Argument} \tab \bold{Description} \cr
+#' \code{font_family} \tab Define the font family of the HTML document (default: arial) \cr
+#' \code{headings_size} \tab Size of the <h1> to <h6> tags used to define HTML headings (default: 166\%). \cr
+#' \code{content_color} \tab Color of the object's content (default: #a72925). \cr
+#' }
+#' 
+#' Note that these arguments must all be of class \code{\link{character}} and follow standard CSS syntax.
+#' For exhaustive CSS styling you can provide a custom CSS file for argument \code{css.file}. 
+#' CSS styling can be turned of using \code{css = FALSE}.
 #'
 #' @param object (\bold{required}): 
 #' The object to be reported on, preferably of any \code{RLum}-class.
@@ -71,6 +84,9 @@
 #' @param launch.browser \code{\link{logical}} (with default):
 #' \code{TRUE} to open the HTML file in the system's default web browser after
 #' it has been rendered.
+#' 
+#' @param css.file \code{\link{character}} (optional):
+#' Path to a CSS file to change the default styling of the HTML document.
 #' 
 #' @param quiet \code{\link{logical}} (with default):
 #' \code{TRUE} to supress printing of the pandoc command line.
@@ -163,6 +179,7 @@ report_RLum <- function(object,
                         compact = TRUE,
                         timestamp = TRUE,
                         launch.browser = FALSE,
+                        css.file = NULL,
                         quiet = TRUE,
                         clean = TRUE, 
                         ...) {
@@ -188,6 +205,10 @@ report_RLum <- function(object,
     isRStudio <- TRUE
   }
   
+  # check if files exist
+  if (!is.null(css.file))
+    if(!file.exists(css.file))
+      stop("Couldn't find the specified CSS file at '", css.file, "'", call. = FALSE)
   
   ## ------------------------------------------------------------------------ ##
   ## STRUCTURE ----
@@ -209,6 +230,13 @@ report_RLum <- function(object,
                   css = TRUE)
   
   options <- modifyList(options, list(...))
+  
+  ## CSS DEFAULTS ----
+  css <- list(font_family = "arial",
+              headings_size = "166%",
+              content_color = "#a72925")
+  
+  css <- modifyList(css, list(...))
   
   ## ------------------------------------------------------------------------ ##
   ## CREATE FILE ----
@@ -254,6 +282,8 @@ report_RLum <- function(object,
   writeLines("    toc: true", tmp)
   writeLines("    toc_float: true", tmp)
   writeLines("    toc_depth: 6", tmp)
+  if (!is.null(css.file))
+    writeLines(paste("    css:", css.file), tmp)
   writeLines("    md_extensions: -autolink_bare_uris", tmp)
   writeLines("---", tmp)
   
@@ -261,8 +291,9 @@ report_RLum <- function(object,
   if (options$css) {
     writeLines(paste0(
       "<style>",
-      "h1, h2, h3, h4, h5, h6 { font-size: 166%; } \n",
-      "#root { color: #d9534f; }",
+      paste0("h1, h2, h3, h4, h5, h6 { font-size:", css$headings_size," } \n"),
+      paste0("#root { color: ", css$content_color," } \n"),
+      paste0("BODY { font-family:", css$font_family, " } \n"),
       "</style>"
     ),
     tmp)
@@ -342,8 +373,10 @@ report_RLum <- function(object,
       # may be duplicate header names, for each further occurence of a name
       # Zero-width non-joiner entities are added to the name (non visible)
       writeLines(paste0(hlevel, " ",
+                        "<span style='color:#74a9d8'>",
                         paste(rep("..", elements$depth[i]), collapse = ""),
                         type,
+                        "</span>",
                         paste(rep("&zwnj;", elements$bud.freq[i]), collapse = ""),
                         short.name[length(short.name)],
                         ifelse(elements$endpoint[i], "", "{#root}"),
