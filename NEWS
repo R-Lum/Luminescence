@@ -255,7 +255,11 @@ Changes in version 0.6.0 (May 20th ,2016):
                ‘NULL’ (before the function crashed),
 
              • data frame also exports now error of the D0-values based
-               on the MC runs for the De error.
+               on the MC runs for the De error,
+
+             • the option ‘fit.includingRepeatedRegPoints = FALSE’ was
+               not respected properly under all circumstances;
+               corrected.
 
          • ‘plot_Histogram()’
 

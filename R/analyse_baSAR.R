@@ -1,3 +1,4 @@
+
 #' Bayesian models (baSAR) applied on luminescence data
 #'
 #' This function allows the application of Bayesian models (baSAR) on luminescecence data
@@ -32,7 +33,8 @@
 #'
 #' The underlying Bayesian model based on a contribution by Combes et al., 2015.
 #'
-#' @seealso \code{\link{read_BIN2R}}, \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
+#' @seealso \code{\link{read_BIN2R}}, \code{\link{plot_GrowthCurve}},
+#' \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
 #'
 #' @references
 #'
@@ -126,7 +128,7 @@ analyse_baSAR <- function(
             g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
             sigma_f[i]  ~  dexp (20)
 
-            D[i] ~ dt ( central_D , precision_D, 1)    #     loi Cauchy
+            D[i] ~ dt ( central_D , precision_D, 1)    #      Cauchy distribution
 
             S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
             Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
@@ -154,7 +156,7 @@ analyse_baSAR <- function(
             g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
             sigma_f[i]  ~  dexp (20)
 
-            D[i] ~ dnorm ( central_D , 1/(sigma_D^2) )   #          loi Normale
+            D[i] ~ dnorm ( central_D , 1/(sigma_D^2) )   #           Normal distribution
 
             S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
             Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
@@ -184,7 +186,7 @@ analyse_baSAR <- function(
             g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
             sigma_f[i]  ~  dexp (20)
 
-            log_D[i] ~ dnorm ( log_central_D , 1/(l_sigma_D^2) )  #          loi log-normale
+            log_D[i] ~ dnorm ( log_central_D , 1/(l_sigma_D^2) )  #          Log-Normal distribution
             D[i] <-  exp(log_D[i])
 
             S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
@@ -198,6 +200,8 @@ analyse_baSAR <- function(
             }
             }
         }"
+
+      ########################################     END   MODELS      ########################################
 
       ### Bayesian inputs
       data_Liste  <- list(
@@ -455,12 +459,16 @@ analyse_baSAR <- function(
     ### Parameters for Lx/Tx calculations
     sigma_b <- 0 ; sig_0<-0.025    # by default
 
+
+    ##########################################################   READ Excel sheet
+
     datalu <- readxl::read_excel(fichier,sheet = 1)
 
     Nb_aliquots <- length(datalu[,1])
 
     Disc[[k]] <-  datalu[,1]
     Grain[[k]] <- datalu[,2]
+
     rm(datalu)
 
     ### META_DATA
@@ -478,6 +486,11 @@ analyse_baSAR <- function(
     grains_numbers <-  1:100 #TODO, check whether this might become problematic
     measured_grains.vector_list <-  intersect(grains_numbers,measured_grains.vector)   # vector with list of measured grains
     if ( length(measured_grains.vector_list) < 10) {Mono_grain <- FALSE}
+
+
+
+
+
 
     ### Automatic Filling - Disc_Grain.list
     for (t in 1:length(n_index.vector)) {
@@ -530,6 +543,35 @@ analyse_baSAR <- function(
         Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[3]][s] <- temp_LxTx$LxTx.table[9]
         Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]][s] <- temp_LxTx$LxTx.table[10]
         Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]] <- i                           }
+
+
+
+
+
+      # Fitting Growth curve and Plot
+      sample_dose <-  unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
+      sample_LxTx <-  unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[3]])
+      sample_sLxTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]])
+      TnTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]])
+      selected_sample <- data.frame ( sample_dose, sample_LxTx, sample_sLxTx, TnTx )
+
+      fitcurve <-
+        plot_GrowthCurve(
+          selected_sample,
+          na.rm = TRUE,
+          fit.method = "EXP OR LIN",
+          fit.force_through_origin = TRUE,
+          fit.weights = TRUE,
+          fit.includingRepeatedRegPoints = FALSE,
+          fit.bounds = TRUE,
+          NumberIterations.MC = 1000,
+          output.plot = FALSE,
+          output.plotExtended = TRUE,
+          output.plotExtended.single = FALSE,
+          cex.global = 1,
+          txtProgressBar = FALSE,
+          verbose = FALSE
+        )
 
       Limited_cycles[previous.Nb_aliquots + i]<- length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
     }

@@ -78,7 +78,7 @@ This function allows the application of Bayesian models (baSAR) on luminescecenc
 The current version of the function works with standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-04-26 18:49:45)
+ 0.1.0 (2016-04-28 14:00:51)
 }
 \examples{
 
@@ -97,7 +97,8 @@ A Bayesian central equivalent dose model for optically stimulated luminescence d
 Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 }
 \seealso{
-\code{\link{read_BIN2R}}, \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
+\code{\link{read_BIN2R}}, \code{\link{plot_GrowthCurve}},
+\code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
 }
 \keyword{datagen}
 
