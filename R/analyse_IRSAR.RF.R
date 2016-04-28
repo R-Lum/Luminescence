@@ -226,7 +226,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.6.3
+#' @section Function version: 0.6.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -902,10 +902,9 @@ analyse_IRSAR.RF<- function(
           n_MC =  n.MC
         )
 
+
       #(2) get minimum value (index and time value)
-      #important: correct min value for the set limit, otherwise the sliding will be wrong
-      #as the sliding has to be done with the full dataset
-      t_n.id <- which.min(temp.sum.residuals$sliding_vector) + RF_nat.lim[1] - 1
+      t_n.id <- which.min(temp.sum.residuals$sliding_vector)
 
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
@@ -915,14 +914,15 @@ analyse_IRSAR.RF<- function(
 
       ##the same for the MC runs of the minimum values
       t_n.MC <-
-        sapply(1:length(temp.sum.residuals$sliding_vector_min_MC), function(x) {
+        vapply(X = 1:length(temp.sum.residuals$sliding_vector_min_MC), FUN = function(x) {
           t_n.id.MC <-
-            which(temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x]) + RF_nat.lim[1] - 1
+            which(temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x])
           temp.sliding.step.MC <- RF_reg.limited[t_n.id.MC] - t_min
           t_n.MC <- (RF_nat[,1] + temp.sliding.step.MC)[1]
           return(t_n.MC)
 
-        })
+        }, FUN.VALUE = vector(mode = "numeric", length = 1))
+
 
       ##(4) get residuals (needed to be plotted later)
       ## they cannot be longer than the RF_reg.limited curve
@@ -1027,9 +1027,9 @@ analyse_IRSAR.RF<- function(
     }
 
 
-    De.MC <- as.vector(vapply(1:n.MC,
+    De.MC <- c(vapply(X = 1:n.MC,
                     FUN.VALUE = vector("numeric", length = method.control.settings$n.MC),
-                    function(i){
+                    FUN = function(i){
 
       temp.slide.MC <- sliding(
         RF_nat = RF_nat,
