@@ -411,7 +411,7 @@ report_RLum <- function(object,
         # compatible with pander::pander
         if (is.null(table) | length(table) == 0)
           table <- "NULL"
-        if (class(table) == "raw")
+        if (any(class(table) == "raw"))
           table <- as.character(table)
         
         # exception: surround objects of class "call" with <pre> tags to prevent
@@ -602,7 +602,7 @@ report_RLum <- function(object,
   if (isS4(x)) {
     
     # print -----
-    cat(c(root, class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",")
+    cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",")
     
     for (slot in slotNames(x)) {
       s4.root <- paste0(root, "@", slot)
@@ -616,7 +616,7 @@ report_RLum <- function(object,
     if (!is.null(names(x)) && length(x) != 0) {
       
       # print -----
-      cat(c(root, class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
+      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
       
       element <- names(x)
       
@@ -635,7 +635,7 @@ report_RLum <- function(object,
     } else if (length(x) != 0) {
       
       # print -----
-      cat(c(root, class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
+      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
       
       element <- paste0("[[", seq(1, length(x),1), "]]")
       
@@ -648,7 +648,7 @@ report_RLum <- function(object,
       }
     } else if (length(x) == 0) {
       
-      cat(c(root, class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
+      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
       
     }
     
@@ -658,14 +658,16 @@ report_RLum <- function(object,
   } else if (inherits(x, "data.frame")) { 
     
     if (any(sapply(x, class) == "matrix")) {
+      
+      element <- names(x)
+      
       for (i in 1:length(x)) {
-        element <- names(x)
         list.root <- paste0(root, "$", element[[i]])
         .tree_RLum(x[[i]], root = list.root)
       }
     } else {
       # print ----
-      cat(c(root, class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = ",")
+      cat(c(root, .class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = ",")
     }
     invisible()
     
@@ -673,7 +675,7 @@ report_RLum <- function(object,
   }  else {
     
     # print ----
-    cat(c(root, class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = ",") 
+    cat(c(root, .class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = ",") 
     
     invisible()
   }
@@ -683,6 +685,7 @@ report_RLum <- function(object,
 # a) Derive depth in the structure tree by splitting the directory by 
 # indicative accessors @, $, [[
 # b) Wrapper for dim() to cope with NULL values
+# c) Wrapper for class() that collapses the classes of an object
 # ---------------------------------------------------------------------------- #
 .depth <- function(x) {
   length(strsplit(x, split = "\\$|@|\\[\\[")[[1]]) - 1
@@ -692,6 +695,9 @@ report_RLum <- function(object,
     dim <- paste(dim(x), collapse = ",")
   else
     dim <- c(0, 0)
+}
+.class <- function(x) {
+  paste(class(x), collapse = "/")
 }
 
 # ---------------------------------------------------------------------------- #
