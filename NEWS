@@ -203,7 +203,11 @@ Changes in version 0.6.0 (May 20th ,2016):
              • minor performance improvements,
 
              • for very large standard errors uniroot failed, causing a
-               function break; corrected (#270).
+               function break; corrected (#270),
+
+             • if uniroot is not able to solve the equation during the
+               MC runs the function will not stop anymore with an
+               error.
 
          • ‘calc_OSLLxTxRatio()’
 

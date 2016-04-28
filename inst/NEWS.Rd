@@ -164,7 +164,9 @@
 
         \item Table column headers now have all capital letters,
         \item minor performance improvements,
-        \item for very large standard errors uniroot failed, causing a function break; corrected (#270).
+        \item for very large standard errors uniroot failed, causing a function break; corrected (#270),
+        \item if uniroot is not able to solve the equation during the MC runs the function will not stop
+        anymore with an error.
 
       }
 

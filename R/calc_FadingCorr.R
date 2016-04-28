@@ -82,7 +82,7 @@
 #' @note The upper age limit is set to 500 ka!
 #'
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -134,8 +134,16 @@ calc_FadingCorr <- function(
   tc <- tc / 60 / 60 / 24 / 365 / 1000
 
   ##calculate mean value
-  temp <- uniroot(f, c(0.1,500), tol = 0.001, tc = tc, af = age.faded[1], kappa = kappa,
-                  check.conv = TRUE)
+  temp <-
+    uniroot(
+      f,
+      c(0.1, 500),
+      tol = 0.001,
+      tc = tc,
+      af = age.faded[1],
+      kappa = kappa,
+      check.conv = FALSE
+    )
 
   ##--------------------------------------------------------------------------##
   ##Monte Carlo simulation for error estimation
@@ -192,7 +200,7 @@ calc_FadingCorr <- function(
 
     ##calculate for all values
     tempMC[i:j] <- suppressWarnings(vapply(X = 1:length(age.fadedMC), FUN = function(x) {
-      temp <- uniroot(
+      temp <- try(uniroot(
         f,
         c(0.1,500),
         tol = 0.001,
@@ -200,15 +208,16 @@ calc_FadingCorr <- function(
         af = age.fadedMC[[x]],
         kappa = kappaMC[[x]],
         check.conv = TRUE,
+        maxiter = 1000,
         extendInt = "yes"
-      )$root
+      ), silent = TRUE)
 
       ##otherwise the automatic error value finding
       ##will never work
-      if(temp<1e10) {
-        temp
+      if(!is(temp,"try-error") && temp$root<1e8) {
+        return(temp$root)
       } else{
-        NA
+        return(NA)
       }
 
     }, FUN.VALUE = 1))
