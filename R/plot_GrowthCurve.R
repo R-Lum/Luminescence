@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.6
+#' @section Function version: 1.8.7
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -343,7 +343,11 @@ plot_GrowthCurve <- function(
   ##input data for fitting; exclude repeated RegPoints
   if (fit.includingRepeatedRegPoints == FALSE) {
     data <-
-      data.frame(x = xy[-which(duplicated(xy[,1])),1],y = xy[-which(duplicated(xy[,1])),2])
+      data.frame(x = xy[-which(duplicated(xy[,1])),1], y = xy[-which(duplicated(xy[,1])),2])
+    fit.weights <- fit.weights[-which(duplicated(xy[,1]))]
+    data.MC <- data.MC[-which(duplicated(xy[,1])),]
+    xy <- xy[-which(duplicated(xy[,1])),]
+
   }else{
     data <- data.frame(xy)
   }
