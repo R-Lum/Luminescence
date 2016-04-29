@@ -504,23 +504,23 @@ analyse_baSAR <- function(
       ##remove grain position 0 (this are TL measurements on the cup)
       datalu <- aliquot_selection$unique_pairs[!aliquot_selection$unique_pairs[["GRAIN"]] == 0, ]
 
-      fitcurve <-
-        plot_GrowthCurve(
-          selected_sample,
-          na.rm = TRUE,
-          fit.method = "EXP OR LIN",
-          fit.force_through_origin = TRUE,
-          fit.weights = TRUE,
-          fit.includingRepeatedRegPoints = FALSE,
-          fit.bounds = TRUE,
-          NumberIterations.MC = 1000,
-          output.plot = TRUE,
-          output.plotExtended = TRUE,
-          output.plotExtended.single = FALSE,
-          cex.global = 1,
-          txtProgressBar = FALSE,
-          verbose = FALSE
-        )
+      # fitcurve <-
+      #   plot_GrowthCurve(
+      #     selected_sample,
+      #     na.rm = TRUE,
+      #     fit.method = "EXP OR LIN",
+      #     fit.force_through_origin = TRUE,
+      #     fit.weights = TRUE,
+      #     fit.includingRepeatedRegPoints = FALSE,
+      #     fit.bounds = TRUE,
+      #     NumberIterations.MC = 1000,
+      #     output.plot = TRUE,
+      #     output.plotExtended = TRUE,
+      #     output.plotExtended.single = FALSE,
+      #     cex.global = 1,
+      #     txtProgressBar = FALSE,
+      #     verbose = FALSE
+      #   )
 
       Nb_aliquots <- nrow(datalu[,1])
 
@@ -631,6 +631,27 @@ analyse_baSAR <- function(
       sample_sLxTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]])
       TnTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]])
       selected_sample <- data.frame (sample_dose, sample_LxTx, sample_sLxTx, TnTx)
+
+
+      fitcurve <-
+        plot_GrowthCurve(
+          selected_sample,
+          na.rm = TRUE,
+          fit.method = "EXP OR LIN",
+          fit.force_through_origin = TRUE,
+          fit.weights = TRUE,
+          fit.includingRepeatedRegPoints = FALSE,
+          fit.bounds = TRUE,
+          NumberIterations.MC = 1000,
+          output.plot = TRUE,
+          output.plotExtended = TRUE,
+          output.plotExtended.single = FALSE,
+          cex.global = 1,
+          txtProgressBar = FALSE,
+          verbose = FALSE
+        )
+
+
 
       Limited_cycles[previous.Nb_aliquots + i]<- length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
     }

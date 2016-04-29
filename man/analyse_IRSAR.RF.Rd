@@ -238,7 +238,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.5 (2016-04-29 12:16:45)
+ 0.6.5 (2016-04-29 15:28:11)
 }
 \examples{
 
