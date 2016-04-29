@@ -430,8 +430,6 @@ analyse_baSAR <- function(
 
   }
 
-  ##SET xls file
-  fichier <- XLS_file
 
   ##TODO: data should be provided also without(!) XLS sheet ...
 
@@ -446,7 +444,8 @@ analyse_baSAR <- function(
 
   Limited_cycles <- vector()
 
-  Nb_aliquots <-  0 ; previous.Nb_aliquots <- 0 ;
+  Nb_aliquots <-  0
+  previous.Nb_aliquots <- 0 ;
 
 
   for (i in 1 : length(fileBIN.list)) {
@@ -488,19 +487,70 @@ analyse_baSAR <- function(
     irrad_time.vector <- vector("numeric")
 
     ### Parameters for Lx/Tx calculations
-    sigma_b <- 0 ; sig_0<-0.025    # by default
+    sigma_b <- 0
+    sig_0 <- 0.025    # by default
 
 
     ##########################################################   READ Excel sheet
+    ##TODO this is not working for more than one BIN files
+    if(is.null(XLS_file)){
 
-    datalu <- readxl::read_excel(fichier,sheet = 1)
+      ##select aliquot with light only
+      aliquot_selection <- verify_SingleGrainData(
+        object = fileBIN.list,
+        threshold = 20,
+        cleanup = FALSE)
 
-    Nb_aliquots <- length(datalu[,1])
+      ##remove grain position 0 (this are TL measurements on the cup)
+      datalu <- aliquot_selection$unique_pairs[!aliquot_selection$unique_pairs[["GRAIN"]] == 0, ]
 
-    Disc[[k]] <-  datalu[,1]
-    Grain[[k]] <- datalu[,2]
+      fitcurve <-
+        plot_GrowthCurve(
+          selected_sample,
+          na.rm = TRUE,
+          fit.method = "EXP OR LIN",
+          fit.force_through_origin = TRUE,
+          fit.weights = TRUE,
+          fit.includingRepeatedRegPoints = FALSE,
+          fit.bounds = TRUE,
+          NumberIterations.MC = 1000,
+          output.plot = TRUE,
+          output.plotExtended = TRUE,
+          output.plotExtended.single = FALSE,
+          cex.global = 1,
+          txtProgressBar = FALSE,
+          verbose = FALSE
+        )
 
-    rm(datalu)
+      Nb_aliquots <- nrow(datalu[,1])
+
+      Disc[[k]] <-  datalu[,1]
+      Grain[[k]] <- datalu[,2]
+
+      rm(datalu, aliquot_selection)
+
+    }else if(is(XLS_file, "data.frame")){
+
+          ##TODO nothing is done here
+
+    }else if(is(XLS_file, "character")){
+
+      fichier <- XLS_file
+      datalu <- readxl::read_excel(fichier,sheet = 1)
+
+      Nb_aliquots <- length(datalu[,1])
+
+      Disc[[k]] <-  datalu[,1]
+      Grain[[k]] <- datalu[,2]
+
+      rm(datalu)
+
+    }else{
+      stop("[analyse_baSAR()] input type for 'XLS_file' not supported!")
+
+
+    }
+
 
     ### META_DATA
     length_BIN <-  length(fileBIN.list[[k]])
@@ -517,8 +567,6 @@ analyse_baSAR <- function(
     grains_numbers <-  1:100 #TODO, check whether this might become problematic
     measured_grains.vector_list <-  intersect(grains_numbers,measured_grains.vector)   # vector with list of measured grains
     if ( length(measured_grains.vector_list) < 10) {Mono_grain <- FALSE}
-
-
 
 
 
@@ -577,32 +625,12 @@ analyse_baSAR <- function(
 
 
 
-
-
       # Fitting Growth curve and Plot
       sample_dose <-  unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
       sample_LxTx <-  unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[3]])
       sample_sLxTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]])
       TnTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]])
-      selected_sample <- data.frame ( sample_dose, sample_LxTx, sample_sLxTx, TnTx )
-
-      fitcurve <-
-        plot_GrowthCurve(
-          selected_sample,
-          na.rm = TRUE,
-          fit.method = "EXP OR LIN",
-          fit.force_through_origin = TRUE,
-          fit.weights = TRUE,
-          fit.includingRepeatedRegPoints = FALSE,
-          fit.bounds = TRUE,
-          NumberIterations.MC = 1000,
-          output.plot = FALSE,
-          output.plotExtended = TRUE,
-          output.plotExtended.single = FALSE,
-          cex.global = 1,
-          txtProgressBar = FALSE,
-          verbose = FALSE
-        )
+      selected_sample <- data.frame (sample_dose, sample_LxTx, sample_sLxTx, TnTx)
 
       Limited_cycles[previous.Nb_aliquots + i]<- length(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]])
     }
