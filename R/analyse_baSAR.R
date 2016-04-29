@@ -3,8 +3,10 @@
 #'
 #' This function allows the application of Bayesian models (baSAR) on luminescecence data
 #'
-#' @param object \code{\link{character}} (\bold{required}): BIN-file, either a single file or a list
-#' of file names
+#' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{{character}} or \code{\link{list}} (\bold{required}): input object used for the Bayesian analysis. If a \code{character} is provided the function
+#' assums a file connection an tries to import a BIN-file using the provided path. If a \code{list} is
+#' provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
+#' providing a file connection. Mixing of both types is not allowed.
 #'
 #' @param source_doserate \code{\link{numeric}} (with default): source dose rate of beta-source used
 #' for the measuremnt in Gy/s
@@ -358,17 +360,58 @@ analyse_baSAR <- function(
 
   # Set input -----------------------------------------------------------------------------------
 
-  if(is(object, "character")){
+  ##read BIN-file or use existing Risoe.BINfileData object ...
+  ##to make it a little bit more complicated we also support lists
+  if (is(object, "Risoe.BINfileData")) {
     fileBIN.list <- list(object)
 
-  }else if(is(object, "list")){
-    fileBIN.list <- object
+  } else if (is(object, "character")) {
+    fileBIN.list <- list(read_BIN2R(object,
+                                    duplicated.rm = TRUE,
+                                    verbose = verbose))
+
+  } else if (is(object, "list")) {
+    ##check what the list containes ...
+    object_type <-
+      unique(unlist(lapply(
+        1:length(object),
+        FUN = function(x) {
+          is(object[[x]])[1]
+        }
+      )))
+
+    if (length(object_type)  == 1) {
+      if (object_type == "Risoe.BINfileData") {
+        fileBIN.list <- object
 
 
-  }else{
-    stop("[analyse_baSAR()] input for 'object' not supported!")
+      } else if (object_type == "list") {
+        fileBIN.list <- read_BIN2R(object,
+                                   duplicated.rm = TRUE,
+                                   verbose = verbose)
+      } else{
+        stop(
+          "[analyse_baSAR()] data type in the input list provided for 'object' is not supported!"
+        )
+
+      }
+
+    } else{
+      stop("[analyse_baSAR()] 'object' only accepts a list with objects of similar type!")
+
+    }
+
+  } else{
+    stop(
+      paste0(
+        "[analyse_baSAR()] '",
+        is(object)[1],
+        "' as input is not supported. Check manual for allowed input objects."
+      )
+    )
 
   }
+
 
   ##SET fit.method
   if(fit.method == "EXP"){
@@ -410,18 +453,6 @@ analyse_baSAR <- function(
     Disc[[i]] <-  list()
     Grain[[i]] <-  list()
   }
-
-  ### Read BIN file
-  fileBIN.list <- read_BIN2R(object,
-                             duplicated.rm = TRUE,
-                             verbose = verbose)
-
-
-    ##we need a list, so take care that we get one
-    if(!is(fileBIN.list, "list")){
-      fileBIN.list <- list(fileBIN.list)
-
-    }
 
 
   ###################################### loop on files_number
