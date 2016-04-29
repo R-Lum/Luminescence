@@ -179,6 +179,17 @@
         \item add argument \code{sig0} to allow for an extra component of error.
       }
 
+
+      \item \code{extrac_IrradiationTimes()}
+      \itemize{
+
+        \item Function now supports the self call mode, i.e. a \code{list} of \code{RLum.Analysis}
+        objects can be provided as input and the function iterates of this list.
+
+      }
+
+
+
       \item \code{fit_LMCurve()}
        \itemize{
 

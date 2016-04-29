@@ -222,6 +222,12 @@ Changes in version 0.6.0 (May 20th ,2016):
              • add argument ‘sig0’ to allow for an extra component of
                error.
 
+         • ‘extrac_IrradiationTimes()’
+
+             • Function now supports the self call mode, i.e. a ‘list’
+               of ‘RLum.Analysis’ objects can be provided as input and
+               the function iterates of this list.
+
          • ‘fit_LMCurve()’
 
              • Fix bug that caused a function break if data set
