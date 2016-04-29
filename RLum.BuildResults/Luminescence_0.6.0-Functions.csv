@@ -1,7 +1,7 @@
 "Name","Title","Description","Version","m.Date","m.Time","Author"
 "analyse_baSAR","Bayesian models (baSAR) applied on luminescence data","<br /> This function allows the application of Bayesian models (baSAR) on luminescecence data<br />","0.1.0","2016-04-29","10:03:06
 ","<br /> Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  <br /> <br /> The underlying Bayesian model based on a contribution by Combes et al., 2015.<br />  R Luminescence Package Team"
-"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.6.4","2016-04-28","19:33:45
+"analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.6.5","2016-04-29","12:16:45
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.0","2016-01-18","15:07:46
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

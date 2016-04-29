@@ -228,7 +228,7 @@
 #' of the current package.\cr
 #'
 #'
-#' @section Function version: 0.6.4
+#' @section Function version: 0.6.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -518,7 +518,7 @@ analyse_IRSAR.RF<- function(
 
   ##02 - check boundaris
   ##RF_nat.lim
-  if (is.null(RF_nat.lim)) {
+  if (is.null(RF_nat.lim) || is.na(RF_nat.lim)) {
     RF_nat.lim <- RF_nat.lim.default
 
   }else {
