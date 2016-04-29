@@ -12,8 +12,10 @@ analyse_baSAR(object, source_doserate = 1, Lx.data, Tx.data, signal.integral,
   XLS_file = NULL, plot = TRUE, plot_reduced = TRUE, verbose = TRUE)
 }
 \arguments{
-\item{object}{\code{\link{character}} (\bold{required}): BIN-file, either a single file or a list
-of file names}
+\item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{{character}} or \code{\link{list}} (\bold{required}): input object used for the Bayesian analysis. If a \code{character} is provided the function
+assums a file connection an tries to import a BIN-file using the provided path. If a \code{list} is
+provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
+providing a file connection. Mixing of both types is not allowed.}
 
 \item{source_doserate}{\code{\link{numeric}} (with default): source dose rate of beta-source used
 for the measuremnt in Gy/s}
@@ -78,7 +80,7 @@ This function allows the application of Bayesian models (baSAR) on luminescecenc
 The current version of the function works with standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-04-28 14:06:04)
+ 0.1.0 (2016-04-29 10:03:06)
 }
 \examples{
 
