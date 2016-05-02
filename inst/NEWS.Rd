@@ -47,11 +47,10 @@
         in loops easier,
         \item the function crashed under very rare circumstances if a provided list with RLum-objects
         contained \code{RLum.Analysis} objects with zero records; corrected.
+        
+        
+        }
 
-    \item \code{analyse_pIRIRSequence()}{
-
-
-       }
 
     \item{\code{structure_RLum}}
 
@@ -84,7 +83,7 @@
 
    }
   }
-  }
+  
 
  \subsection{Removed functions}{
    \itemize{

@@ -65,38 +65,34 @@ Changes in version 0.6.0 (May 20th ,2016):
                provided list with RLum-objects contained
                ‘RLum.Analysis’ objects with zero records; corrected.
 
-             • ‘analyse_pIRIRSequence()’
+         • ‘structure_RLum’
 
-             • ‘structure_RLum’
+             • The method gained a ‘...’ argument for further passing
+               information to the specific class methods,
 
-                 • The method gained a ‘...’ argument for further
-                   passing information to the specific class methods,
+             • The method for the class ‘RLum.Analysis’ gained the new
+               argument ‘fullExtent’ to extent the returned data frame
+               to all info elements. This makes it possible to
+               investigate ‘RLum.Analysis’ objects in great detail and
+               subset them efficiently.
 
-                 • The method for the class ‘RLum.Analysis’ gained the
-                   new argument ‘fullExtent’ to extent the returned
-                   data frame to all info elements. This makes it
-                   possible to investigate ‘RLum.Analysis’ objects in
-                   great detail and subset them efficiently.
+         • ‘RLum’
 
-             • ‘RLum’
+             • The slot ‘.uid’ from objects of this class has now the
+               prototype ‘NA_character_’.  The unique id is only set if
+               the corresponding ‘set_RLum’ function is called, which
+               should be, however, the usual case,
 
-                 • The slot ‘.uid’ from objects of this class has now
-                   the prototype ‘NA_character_’.  The unique id is
-                   only set if the corresponding ‘set_RLum’ function is
-                   called, which should be, however, the usual case,
+             • all inherited object classes gained a new slot called
+               ‘.pid’. This slot is reserved for storing parent ids so
+               that objects can be nested at free will. Corresponding
+               import function had been adapted in the way the pid will
+               become an inherited uid from the ‘RLum.Analysis’ object,
 
-                 • all inherited object classes gained a new slot
-                   called ‘.pid’. This slot is reserved for storing
-                   parent ids so that objects can be nested at free
-                   will. Corresponding import function had been adapted
-                   in the way the pid will become an inherited uid from
-                   the ‘RLum.Analysis’ object,
-
-                 • all inhertied object classes of the class ‘RLum’
-                   gained a new slot called ‘info’, with this a more
-                   consistent workflow with the objects should be
-                   possible, before only objects of the class
-                   ‘RLum.Data’ had such slot.
+             • all inhertied object classes of the class ‘RLum’ gained
+               a new slot called ‘info’, with this a more consistent
+               workflow with the objects should be possible, before
+               only objects of the class ‘RLum.Data’ had such slot.
 
   Removed functions:
 
