@@ -84,6 +84,7 @@
 
    }
   }
+  }
 
  \subsection{Removed functions}{
    \itemize{
@@ -361,8 +362,4 @@
      }
    }
 
-
 }
-
-
-

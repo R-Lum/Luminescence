@@ -10,9 +10,10 @@ extract_IrradiationTimes(object, file.BINX, recordType = c("irradiation (NA)",
 }
 \arguments{
 \item{object}{\code{\link{character}} (\bold{required}) or
-\code{\linkS4class{RLum.Analysis}} object: path and file name of the XSYG
+\code{\linkS4class{RLum.Analysis}} object or \code{\link{list}}: path and file name of the XSYG
 file or an \code{\linkS4class{RLum.Analysis}} produced by the function
-\code{\link{read_XSYG2R}}. \cr
+\code{\link{read_XSYG2R}}; alternatively a \code{list} of \code{\linkS4class{RLum.Analysis}} can
+be provided. \cr
 
 \bold{Note}: If an \code{\linkS4class{RLum.Analysis}} is used, any input for
 the arguments \code{file.BINX} and \code{recordType} will be ignored!}
@@ -47,10 +48,13 @@ An \code{\linkS4class{RLum.Results}} object is returned with the
 following structure:\cr .. $irr.times (data.frame)\cr
 
 If a BINX-file path and name is set, the output will be additionally
-transferred to a new BINX-file with the function name as suffix. For the
+transferred into a new BINX-file with the function name as suffix. For the
 output the path of the input BINX-file itself is used. Note that this will
 not work if the input object is a file path to an XSYG-file. In this case
-the argument input is ignored.
+the argument input is ignored.\cr
+
+In the self call mode (input is a \code{list} of \code{\linkS4class{RLum.Analysis}} objects
+a list of \code{\linkS4class{RLum.Results}} is returned.
 }
 \description{
 Extracts irradiation times, dose and times since last irradiation, from a
@@ -92,7 +96,7 @@ the time stamps this could produce negative values as the important function
 towards a correct time order.
 }
 \section{Function version}{
- 0.2.1 (2015-12-05 15:52:49)
+ 0.3.0 (2016-05-02 09:36:06)
 }
 \examples{
 

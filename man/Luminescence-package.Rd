@@ -13,19 +13,25 @@ plotting of equivalent dose distributions.
 }
 \details{
 \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-\tab 0.5.2\cr Date: \tab 2016-XX-XX [upcoming] \cr License: \tab GPL-3\cr }
+\tab 0.6.0 \cr Date: \tab 2016-05-20 \cr License: \tab GPL-3\cr }
 }
 \author{
-\bold{Authors}
+\bold{Authors} (alphabetic order)
 
-\tabular{ll}{ Christoph Burow \tab University of Cologne, Germany \cr
-Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr Manfred
-Fischer\tab University of Bayreuth, Germany \cr Margret C. Fuchs \tab
-Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology,
+\tabular{ll}{
+Christoph Burow \tab University of Cologne, Germany \cr
+Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr
+Julie Durcan \tab University of Oxford, United Kingdom \cr
+Manfred Fischer\tab University of Bayreuth, Germany \cr
+Margret C. Fuchs \tab Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology,
 Freiberg, Germany \cr
-Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France,
-France\cr Christoph Schmidt \tab University of Bayreuth, Germany\cr Rachel
-K. Smedley\tab Aberystwyth University, United Kingdom }
+Johannes Friedrich \tab University of Bayreuth, Germany \cr
+Georgina King \tab University of Cologne, Germany \cr
+Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
+Norbert Mercier \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
+Christoph Schmidt \tab University of Bayreuth, Germany \cr
+Rachel K. Smedley \tab Aberystwyth University, United Kingdom
+}
 
 \bold{Beta-Tester}
 
@@ -56,6 +62,8 @@ visit our project website (link below).
 \bold{Related package projects}\cr
 \url{http://cran.r-project.org/package=RLumShiny}\cr
 \url{http://shiny.r-luminescence.de}\cr
+\url{http://cran.r-project.org/package=RLumModel}\cr
+\url{http://model.r-luminescence.de}\cr
 
 \bold{Package maintainer}
 
@@ -75,7 +83,7 @@ Schmidt, C., 2013. A practical guide to the R package Luminescence.
 Ancient TL, 31, 11-18.
 
 Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016. The abanico plot:
-visualising chronometric data with individual standard errors. Quaternary Geochronology 31, 12-18.
+visualising chronometric data with individual standard errors. Quaternary Geochronology 31, 1-7.
 http://dx.doi.org/10.1016/j.quageo.2015.09.003
 
 Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C.,

@@ -5,13 +5,15 @@
 \title{Analyse IRSAR RF measurements}
 \usage{
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
-  RF_nat.lim, RF_reg.lim, method = "FIT", method.control, test_parameter,
-  n.MC = 10, txtProgressBar = TRUE, plot = TRUE, ...)
+  RF_nat.lim = NULL, RF_reg.lim = NULL, method = "FIT",
+  method.control = NULL, test_parameter = NULL, n.MC = 10,
+  txtProgressBar = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
+\item{object}{\code{\linkS4class{RLum.Analysis}} or a \code{\link{list}} of \code{RLum.Analysis} objects (\bold{required}): input
 object containing data for protocol analysis. The function expects to find at least two curves in the
-\code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg}
+\code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
+input all other parameters can be provided as \code{list} as well to gain full control.}
 
 \item{sequence.structure}{\code{\link{vector}} \link{character} (with
 default): specifies the general sequence structure. Allowed steps are
@@ -31,7 +33,7 @@ for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{method.control}{\code{\link{list}} (optional): parameters to control the method, that can
 be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
-'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density'. See details.}
+'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit'. See details.}
 
 \item{test_parameter}{\code{\link{list} (with default)}: set test parameter
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
@@ -59,9 +61,9 @@ Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 }
 \value{
 A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
-returned. The slot data contains the following elements: \cr
+returned:\cr
 
-
+\bold{@data}\cr
 $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 ..$ DE : \code{numeric}: the obtained equivalent dose\cr
 ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
@@ -77,6 +79,8 @@ $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 $ test_parameter : \code{\link{data.frame}} table test parameters \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 $ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
+
+\bold{@info}\cr
 $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 
 The output (\code{De.values}) should be accessed using the
@@ -149,6 +153,8 @@ shifts the curves along the x-axis by the first channel, as light is expected in
  The default value is \code{TRUE}.\cr
 \code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
+\code{show_fit} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
+enables or disables the plot of the fitted curve rountinly obtained during the evaluation.\cr
 \code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
 This controls the number of MC runs within the sliding (assesing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
@@ -186,9 +192,12 @@ and should not exceed the threshold value. \cr
 
 \code{intersection_ratio} \code{\link{numeric}} (default: \code{NA}):\cr
 
-Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves.
+Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 This value indicates intersection of the RF-curves and should be close to 0 if the curves
-have a similar shape.\cr
+have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
+curve is obtained using the maximum count value of the RF_nat curve and only this segment (fitting to
+the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
+found at all, \code{Inf} is returned. \cr
 
 \code{residuals_slope} \code{\link{numeric}} (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
 
@@ -229,7 +238,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.5.1 (2015-12-05 15:52:49)
+ 0.6.5 (2016-05-02 09:36:06)
 }
 \examples{
 

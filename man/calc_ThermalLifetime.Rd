@@ -89,7 +89,7 @@ The profiling is currently based on resampling from a normal distribution, this
 distribution assumption might be, however, not valid for given E and s paramters.
 }
 \section{Function version}{
- 0.1.0 (2016-04-08 12:43:43)
+ 0.1.0 (2016-05-02 09:36:06)
 }
 \examples{
 

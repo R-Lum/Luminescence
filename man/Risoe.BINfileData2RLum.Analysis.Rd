@@ -4,8 +4,9 @@
 \alias{Risoe.BINfileData2RLum.Analysis}
 \title{Convert Risoe.BINfileData object to an RLum.Analysis object}
 \usage{
-Risoe.BINfileData2RLum.Analysis(object, pos, grain, run, set, ltype,
-  protocol = "unknown", txtProgressBar = FALSE)
+Risoe.BINfileData2RLum.Analysis(object, pos = NULL, grain = NULL,
+  run = NULL, set = NULL, ltype = NULL, protocol = "unknown",
+  txtProgressBar = FALSE)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
@@ -45,8 +46,7 @@ Returns an \code{\linkS4class{RLum.Analysis}} object.
 }
 \description{
 Converts values from one specific position of a Risoe.BINfileData S4-class
-object to an RLum.Analysis object. Internally the function uses the function
-\code{\link{Risoe.BINfileData2RLum.Data.Curve}} to recalculate the curves.
+object to an RLum.Analysis object.
 }
 \details{
 The \code{\linkS4class{RLum.Analysis}} object requires a set of curves for
@@ -60,7 +60,7 @@ The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.2.2 (2016-01-18 14:58:19)
+ 0.3.3 (2016-05-02 09:43:05)
 }
 \examples{
 
@@ -78,8 +78,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #
 }
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}, \code{\link{Risoe.BINfileData2RLum.Data.Curve}}
-\code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
+\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
 }
 \keyword{manip}
 

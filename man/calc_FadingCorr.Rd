@@ -5,24 +5,24 @@
 \title{Apply a fading correction according to Huntley & Lamothe (2001) for a given
 g-value.}
 \usage{
-calc_FadingCorr(g_value, tc, age.faded, n.MCruns = 10000, seed,
+calc_FadingCorr(g_value, tc, age.faded, n.MCruns = 10000, seed = NULL,
   txtProgressBar = TRUE)
 }
 \arguments{
-\item{g_value}{\link{vector} (\bold{required}): g-value and error obtained
+\item{g_value}{\code{\link{vector}} (\bold{required}): g-value and error obtained
 from separate fading measurements (see example)}
 
-\item{tc}{\link{numeric} (\bold{required}): time in seconds (time between
+\item{tc}{\code{\link{numeric}} (\bold{required}): time in seconds (time between
 irradiation and the prompt measurement, cf. Huntely & Lamothe 2001)}
 
-\item{age.faded}{\link{numeric} \link{vector} (\bold{required}): uncorrected
+\item{age.faded}{\code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
 age with error in ka (see example)}
 
-\item{n.MCruns}{\link{integer} (with default): number of Monte Carlo
+\item{n.MCruns}{\code{\link{integer}} (with default): number of Monte Carlo
 simulation runs for error estimation. If \code{n.MCruns = 'auto'} is used the function
 tries to find a 'stable' error for the age. Note: This may take a while!}
 
-\item{seed}{\link{integer} (optional): sets the seed for the random number generator
+\item{seed}{\code{\link{integer}} (optional): sets the seed for the random number generator
 in R using \code{\link{set.seed}}}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
@@ -90,7 +90,7 @@ appear similar, but they are not comparable!
 The upper age limit is set to 500 ka!
 }
 \section{Function version}{
- 0.3.0 (2016-01-18 14:58:19)
+ 0.3.3 (2016-05-02 09:36:06)
 }
 \examples{
 results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
@@ -101,7 +101,7 @@ get_RLum(results)
 
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading

@@ -105,7 +105,7 @@ per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{
- 0.4 (2016-04-12 12:58:56)
+ 0.4 (2016-05-02 09:36:06)
 }
 \examples{
 

@@ -5,7 +5,7 @@
 \title{Analyse SAR CW-OSL measurements}
 \usage{
 analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max,
-  background.integral.min, background.integral.max, rejection.criteria,
+  background.integral.min, background.integral.max, rejection.criteria = NULL,
   dose.points = NULL, mtext.outer, plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
@@ -37,10 +37,12 @@ as the maximum background integral for the Tx curve.}
 and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
 a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 
-Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
-\code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
+Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
+\code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
-Per default all numericla values are set to 10.}
+Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
+Every criterium can be set to \code{NA}. In this value are calculated, but not considered, i.e.
+the RC.Status becomes always \code{'OK'}}
 
 \item{dose.points}{\code{\link{numeric}} (optional): a numeric vector
 containg the dose points values Using this argument overwrites dose point
@@ -64,7 +66,7 @@ growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 
 \item{\dots}{further arguments that will be passed to the function
 \code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
-(supported: \code{background.count.distribution} and \code{sigmab}). \bold{Please note} that
+(supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}). \bold{Please note} that
 if you consider to use the early light subtraction method you should provide your own \code{sigmab}
 value!}
 }
@@ -129,6 +131,9 @@ Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
 ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).\cr
 
+\sQuote{testdose.error}: set the allowed error for the testdose, which per
+default should not exceed 10\%. The testdose error is calculated as Tx_net.error/Tx_net.
+
 \sQuote{palaeodose.error}: set the allowed error for the De value, which per
 default should not exceed 10\%.
 }
@@ -140,7 +145,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.1 (2015-12-05 15:52:49)
+ 0.7.5 (2016-05-02 09:36:06)
 }
 \examples{
 
@@ -152,14 +157,22 @@ data(ExampleData.BINfileData, envir = environment())
 ##transform the values from the first position in a RLum.Analysis object
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
-##perform SAR analysis
-results <- analyse_SAR.CWOSL(object,
-                  signal.integral.min = 1,
-                  signal.integral.max = 2,
-                  background.integral.min = 900,
-                  background.integral.max = 1000,
-                  log = "x",
-                  fit.method = "EXP")
+##perform SAR analysis and set rejection criteria
+results <- analyse_SAR.CWOSL(
+object = object,
+signal.integral.min = 1,
+signal.integral.max = 2,
+background.integral.min = 900,
+background.integral.max = 1000,
+log = "x",
+fit.method = "EXP",
+rejection.criteria = list(
+  recycling.ratio = 10,
+  recuperation.rate = 10,
+  testdose.error = 10,
+  palaeodose.error = 10,
+  exceed.max.regpoint = TRUE)
+)
 
 ##show De results
 get_RLum(results)
