@@ -18,3 +18,5 @@ packrat/lib*/
 packrat/src/
 src/*.o
 src/*.dll
+src-i386/
+src-x64/
