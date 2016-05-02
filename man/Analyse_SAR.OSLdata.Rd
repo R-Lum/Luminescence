@@ -55,7 +55,8 @@ windows. Requires \code{output.plot = TRUE}.}
 \item{cex.global}{\link{numeric} (with default): global scaling factor.}
 
 \item{\dots}{further arguments that will be passed to the function
-\code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution} and \code{sigmab})
+\code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution}, \code{sigmab},
+\code{sig0}; e.g., for instrumental error)
 and can be used to adjust the plot. Supported" \code{mtext}, \code{log}}
 }
 \value{
@@ -102,7 +103,7 @@ consider using the functions \code{\link{analyse_SAR.CWOSL}} or
 to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.17 (2015-11-29 17:27:48)
+ 0.2.17 (2016-04-08 12:43:43)
 }
 \examples{
 

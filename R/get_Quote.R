@@ -40,13 +40,13 @@ get_Quote <- function(
     c("A common luminescence reader customer", "If anything can go wrong, it will."),
     c("A blue LED to a trapped electron", "Resistance is futile."),
     c("A trapped electron to a yellow LED", "Well, that's all?"),
-    c("A weathering rock", "Who want's to live forever?"),
+    c("A weathering rock", "Who wants to live forever?"),
     c("A new pIRIR derivative", "20000 miles below the sea."),
     c("Robert Oppenheimer", "I want this thing to work by just pressing one button."),
     c("An arbitrary member of the CRAN team", "No shirt, no shoes, no service!"),
     c("Rubber mallet to steel cylinder", "Let's rock and roll."),
     c("A data import function", "Better late than never."),
-    c("A luminescence lab staff member to its customer", "Tell me the age, I tell you to price."),
+    c("A luminescence lab staff member to its customer", "Tell me the age, I tell you the price."),
     c("The NSA", "O'zapft is."),
     c("The natural dose", "You only life once."),
     c("A Windows user", "An apple a day keeps the doctor away."),
@@ -58,7 +58,9 @@ get_Quote <- function(
     c("A motivated R-Team member", "We are doing this not just for statistical reasons, there is real science behind it!"),
     c("An enthusiastic cabaret artist", "Political elections are like brushing teeth: if you don't do it, things become brown."),
     c("An unbiased reviewer", "The data is too poor to be published in QG, try a higher ranked journal."),
-    c("R Team member, aksed about statistical details", "No idea, I'm just here for visualisation.")
+    c("R Team member, aksed about statistical details", "No idea, I'm just here for visualisation."),
+    c("An arbitrary unexperienced RLum-user", "Little by little, the bird builds its nest."),
+    c("The answer to life, the universe and everything", "get_rightAnswer()")
 
     )
 

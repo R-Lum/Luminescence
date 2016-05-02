@@ -13,14 +13,15 @@
 \usage{
 \S4method{show}{RLum.Analysis}(object)
 
-\S4method{set_RLum}{RLum.Analysis}(class, originator,
-  protocol = NA_character_, records = list())
+\S4method{set_RLum}{RLum.Analysis}(class, originator, .uid, .pid,
+  protocol = NA_character_, records = list(), info = list())
 
 \S4method{get_RLum}{RLum.Analysis}(object, record.id = NULL,
   recordType = NULL, curveType = NULL, RLum.type = NULL,
-  protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE)
+  protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
+  info.object = NULL)
 
-\S4method{structure_RLum}{RLum.Analysis}(object)
+\S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
 
@@ -36,10 +37,19 @@
 \item{originator}{[\code{set_RLum}] \code{\link{character}} (automatic): contains the name
 of the calling function (the function that produces this object); can be set manually.}
 
+\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+using the internal C++ function \code{.create_UID}.}
+
+\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+at will.}
+
 \item{protocol}{[\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
 analysis object. Value may be used by subsequent analysis functions.}
 
-\item{records}{[\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
+\item{records}{[\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects}
+
+\item{info}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
+info data for the object
 
 \bold{\code{set_RLum}}:\cr
 
@@ -67,6 +77,13 @@ vector with the index of each element in the RLum.Analysis object.}
 and the result of the 'get_RLum' request is a single object this object will be unlisted, means
 only the object itself and no list containing exactly one object is returned. Mostly this makes things
 easier, however, if this method is used within a loop this might undesired.}
+
+\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+element}
+
+\item{fullExtent}{[structure_RLum] \code{\link{logical}} (with default): extents the returned \code{data.frame}
+to its full extent, i.e. all info elements are part of the return as well. The default valule
+is \code{FALSE} as the data frame might become rather big.}
 }
 \value{
 \bold{\code{get_RLum}}:\cr
@@ -134,7 +151,7 @@ containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 
 \section{Class version}{
- 0.3.0
+ 0.4.6
 }
 \examples{
 

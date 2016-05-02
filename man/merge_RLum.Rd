@@ -29,14 +29,16 @@ automatically removed from the input \code{list}.
 \tabular{lll}{
 \bold{object} \tab \tab \bold{corresponding merge function} \cr
 
-\code{\linkS4class{RLum.Results}} \tab : \tab
-\code{merge_RLum} }
+\code{\linkS4class{RLum.Data.Curve}} \tab : \tab \code{merge_RLum.Data.Curve} \cr
+\code{\linkS4class{RLum.Analysis}} \tab : \tab \code{merge_RLum.Analysis} \cr
+\code{\linkS4class{RLum.Results}} \tab : \tab \code{merge_RLum.Results}
+}
 }
 \note{
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1.2 (2015-11-29 17:27:48)
+ 0.1.2 (2016-04-08 12:43:43)
 }
 \examples{
 

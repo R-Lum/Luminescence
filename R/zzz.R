@@ -11,6 +11,7 @@
 # Set namespace .LuminescenceEnv ------------------------------------------
 .LuminescenceEnv <- new.env(parent = emptyenv())
 
+
 # Assign variables to Namespace -------------------------------------------
 ##variable col to define colours in the functions for output
 assign("col",

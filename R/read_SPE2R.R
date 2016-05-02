@@ -68,8 +68,6 @@
 #' Hall, C., 2012: readSPE.m.
 #' \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
 #'
-#' @aliases readSPE2R
-#'
 #' @keywords IO
 #'
 #' @examples
@@ -419,9 +417,9 @@ read_SPE2R <- function(
       class = "RLum.Data.Image",
       originator = "read_SPE2R",
       recordType = "Image",
-                                  curveType = "measured",
-                                  data = data.raster,
-                                  info = temp.info)
+      curveType = "measured",
+      data = data.raster,
+      info = temp.info)
 
   }else{
 
@@ -437,16 +435,3 @@ read_SPE2R <- function(
   return(object)
 
 }
-
-## ---- DEPRECATED GENERICS
-# .Deprecated in package version 0.5.0
-# .Defunct in 0.5.1
-# Removed in 0.6.0
-#' @noRd
-#' @export
-readSPE2R <- function(...) {
-  .Defunct("read_SPE2R")
-  read_SPE2R(...)
-}
-
-

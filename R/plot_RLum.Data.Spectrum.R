@@ -81,18 +81,17 @@
 #' \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type}, \code{col},
 #' \code{border}, \code{box} \code{lwd}, \code{bty} \cr
 #'
-#' @param object \code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
-#' object of class \code{RLum.Data.Spectrum}
+#' @param object \code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
+#' object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
+#' Please note that in case of a matrix rownames and colnames are set automatically if not provided.
+#'
 #' @param par.local \code{\link{logical}} (with default): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If \code{par.local = FALSE} global parameters are inherited.
 #' @param plot.type \code{\link{character}} (with default): plot type, for
-#' 3D-plot use \code{persp}, or \code{persp3d}, for a 2D-plot \code{contour},
+#' 3D-plot use \code{persp}, or \code{interactive}, for a 2D-plot \code{contour},
 #' \code{single} or \code{multiple.lines} (along the time or temperature axis)
 #' or \code{transect} (along the wavelength axis) \cr
-#'
-#' Note: The use of \code{\link[rgl]{persp3d}} will produce a dynamic 3D surface plot on
-#' the screen.
 #'
 #' @param optical.wavelength.colours \code{\link{logical}} (with default): use
 #' optical wavelength colour palette. Note: For this, the spectrum range is
@@ -116,6 +115,10 @@
 #' rug. Currently only implemented for plot type \code{multiple.lines} and
 #' \code{single}
 #'
+#' @param limit_counts \code{\link{numeric}} (optional): value to limit all count values to
+#' this value, i.e. all count values above this threshold will be replaced by this threshold. This
+#' is helpfull especially in case of TL-spectra.
+#'
 #' @param xaxis.energy \code{\link{logical}} (with default): enables or
 #' disables energy instead of wavelength axis. Note: This option means not only
 #' simnply redrawing the axis, insteadly the spectrum in terms of intensity is
@@ -132,13 +135,13 @@
 #'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.5.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
 #' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[rgl]{persp3d}},
+#' \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[plotly]{plot_ly}},
 #' \code{\link{contour}}
 #'
 #' @references Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
@@ -177,10 +180,15 @@
 #'                         bin.cols = 1)
 #'
 #' \dontrun{
-#'  ##(4) plot real 3d spectrum using rgl
-#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp3d",
+#'  ##(4) interactive plot using the package plotly
+#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
 #'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
 #'  bin.cols = 1)
+#'
+#'  ##(5) alternative using the package fields
+#'  fields::image.plot(get_RLum(TL.Spectrum))
+#'  contour(get_RLum(TL.Spectrum), add = TRUE)
+#'
 #' }
 #'
 #' @export
@@ -193,6 +201,7 @@ plot_RLum.Data.Spectrum <- function(
   bin.rows = 1,
   bin.cols = 1,
   rug = TRUE,
+  limit_counts = NULL,
   xaxis.energy = FALSE,
   legend.text,
   ...
@@ -204,7 +213,29 @@ plot_RLum.Data.Spectrum <- function(
   ##check if object is of class RLum.Data.Spectrum
   if(class(object) != "RLum.Data.Spectrum"){
 
-    stop("[plot_RLum.Data.Spectrum()] Input object is not of type RLum.Data.Spectrum")
+    if(class(object) == "matrix"){
+
+      if(is.null(colnames(object))){
+        colnames(object) <- 1:ncol(object)
+
+      }
+
+      if(is.null(rownames(object))){
+        rownames(object) <- 1:nrow(object)
+
+      }
+
+
+      object <- set_RLum(class = "RLum.Data.Spectrum",
+                         data = object)
+
+      message("[plot_RLum.Data.Spectrum()] Input has been converted to a RLum.Data.Spectrum object using set_RLum()")
+
+
+    }else{
+      stop("[plot_RLum.Data.Spectrum()] Input object neither of class 'RLum.Data.Spectrum' nor 'matrix'")
+
+    }
 
   }
 
@@ -291,7 +322,7 @@ plot_RLum.Data.Spectrum <- function(
   {0.4}
 
   expand <- if("expand" %in% names(extraArgs)) {extraArgs$expand} else
-  {1}
+  {0.6}
 
   border <- if("border" %in% names(extraArgs)) {extraArgs$border} else
   {NULL}
@@ -323,6 +354,17 @@ plot_RLum.Data.Spectrum <- function(
 
   # prepare values for plot ---------------------------------------------------
   temp.xyz <- get_RLum(object)
+
+  ##check for NULL column names
+  if(is.null(colnames(temp.xyz))){
+    colnames(temp.xyz) <- 1:ncol(temp.xyz)
+
+  }
+
+  if(is.null(rownames(temp.xyz))){
+    rownames(temp.xyz) <- 1:nrow(temp.xyz)
+
+  }
 
   ##check for the case of a single column matrix
   if(ncol(temp.xyz)>1){
@@ -448,6 +490,12 @@ plot_RLum.Data.Spectrum <- function(
 
   }
 
+  ##limit z-values if requested, this idea was taken from the Diss. by Thomas Schilles, 2002
+  if(!is.null(limit_counts)){
+    temp.xyz[temp.xyz[]>limit_counts] <- limit_counts
+
+  }
+
   ##check for zlim
   zlim <- if("zlim" %in% names(extraArgs)) {extraArgs$zlim} else
   {range(temp.xyz)}
@@ -457,7 +505,7 @@ plot_RLum.Data.Spectrum <- function(
 
   if("col" %in% names(extraArgs) == FALSE | plot.type == "single" | plot.type == "multiple.lines"){
 
-    if(optical.wavelength.colours == TRUE | rug == TRUE){
+    if(optical.wavelength.colours == TRUE | (rug == TRUE & (plot.type != "persp" & plot.type != "interactive"))){
 
       ##make different colour palette for energy valuesw
       if (xaxis.energy) {
@@ -609,29 +657,14 @@ plot_RLum.Data.Spectrum <- function(
     warning("[plot_RLum.Data.Spectrum()] Single column matrix: plot.type has been automatically reset to 'single'")
   }
 
-  if(plot.type == "persp3d" && ncol(temp.xyz) > 1){
+  ##do not let old code break down ...
+  if(plot.type == "persp3d"){
+    plot.type <- "interactive"
+    warning("[plot_RLum.Data.Spectrum()] 'plot.type' has been automatically reset to interactive!")
 
-    ## ==========================================================================#
-    ##perspective plot 3D screen (package rgl)
-    ## ==========================================================================#
+  }
 
-    ##check whether rgl is available
-    ##code snippet taken from
-    ##http://r-pkgs.had.co.nz/description.html
-    if (!requireNamespace("rgl", quietly = TRUE)) {
-      stop("[plot_RLum.Data.Spectrum()] Package 'rgl' needed for this plot type. Please install it.",
-           call. = FALSE)
-    }
-
-    rgl::persp3d(x, y, temp.xyz,
-            xlab = xlab,
-            ylab = ylab,
-            zlab = zlab,
-            zlim = zlim,
-            col = col,
-            main = main)
-
-  }else if(plot.type == "persp" && ncol(temp.xyz) > 1){
+  if(plot.type == "persp" && ncol(temp.xyz) > 1){
     ## ==========================================================================#
     ##perspective plot
     ## ==========================================================================#
@@ -656,6 +689,41 @@ plot_RLum.Data.Spectrum <- function(
 
     ##plot additional mtext
     mtext(mtext, side = 3, cex = cex*0.8)
+
+  }else if(plot.type == "interactive" && ncol(temp.xyz) > 1) {
+    ## ==========================================================================#
+    ##interactive plot and former persp3d
+    ## ==========================================================================#
+
+    ##http://r-pkgs.had.co.nz/description.html
+    if (!requireNamespace("plotly", quietly = TRUE)) {
+      stop("[plot_RLum.Data.Spectrum()] Package 'plotly' needed for this plot type. Please install it.",
+           call. = FALSE)
+    }
+
+       ##set up plot
+       p <- plotly::plot_ly(
+         x = y,
+         y = x,
+         z = temp.xyz,
+         type = "surface",
+         showscale = FALSE
+         #colors = col[1:(length(col)-1)],
+         )
+
+       ##change graphical parameters
+       p <-  plotly::layout(
+         p = p,
+         scene = list(
+           xaxis = list(title = ylab),
+           yaxis = list(title = xlab),
+           zaxis = list(title = zlab)
+
+         ),
+         title = main
+       )
+
+       print(p)
 
 
   }else if(plot.type == "contour" && ncol(temp.xyz) > 1) {

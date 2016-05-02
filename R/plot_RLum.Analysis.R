@@ -33,12 +33,10 @@
 #' @param ncols \code{\link{integer}} (optional): sets number of columns
 #' for plot output, if nothing is set the function tries to find a value.
 #'
-#' @param abline \code{\link{list}} (optional): allows to set similar ablines
-#' in each plot. This option uses the function \code{\link{do.call}}, meaning
-#' that every argument in the \code{list} has to be provided as \code{list},
-#' e.g. \code{abline = list(list(v = 120), list(v = 350))} produces two
-#' vertical ablines: One at 150 and another one at 350. Within the call all
-#' arguments supported by \code{\link{abline}} are fully supported,
+#' @param abline \code{\link{list}} (optional): allows to add ablines to the plot. Argument are provided
+#' in a list and will be forwared to the function \code{\link{abline}}, e.g., \code{list(v = c(10, 100))}
+#' adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = c(10), v = c(100)}
+#' adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.
 #'
 #' @param combine \code{\link{logical}} (with default): allows to combine all
 #' \code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
@@ -52,20 +50,20 @@
 #' considered, normally this should end in one plot per page
 #'
 #' @param \dots further arguments and graphical parameters will be passed to
-#' the \code{plot} function. Supported arguments: \code{main} (can be provided as
-#' vector for \code{combine = TRUE}), \code{mtext},
+#' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 #' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
-#' \code{norm}, \code{ylim}, \code{xlab} ... and for \code{combine = TRUE}
-#' also: \code{xlim}, \code{ylab}, \code{sub}, \code{legend.text},
-#' \code{legend.pos} (typical plus 'outside'), \code{legend.col}
+#' \code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}... and for \code{combine = TRUE}
+#' also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}, \code{smooth}.
+#' All arguments can be provided as \code{vector} or \code{list} to gain in full control
+#' of all plot settings.
 #'
 #' @return Returns multiple plots.
 #'
 #' @note Not all arguments available for \code{\link{plot}} will be passed!
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
-#' objects are currently supported.
+#' objects are currently supported.\cr
 #'
-#' @section Function version: 0.2.9
+#' @section Function version: 0.3.6
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -79,20 +77,20 @@
 #'
 #' @examples
 #'
+#'##load data
+#'data(ExampleData.BINfileData, envir = environment())
 #'
-#' ###load data
-#' data(ExampleData.BINfileData, envir = environment())
+#'##convert values for position 1
+#'temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 #'
-#' ##convert values for position 1
-#' temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-#'
-#' ##plot all values
-#' plot_RLum.Analysis(temp)
-#'
-#' ##plot (combine) TL curves in one plot
-#' temp.sel <- get_RLum(temp, recordType = "TL", drop = FALSE)
-#' plot_RLum.Analysis(temp.sel, combine = TRUE, norm = TRUE, main = "TL combined")
-#'
+#'##plot (combine) TL curves in one plot
+#'plot_RLum.Analysis(
+#' temp,
+#' subset = list(recordType = "TL"),
+#' combine = TRUE,
+#' norm = TRUE,
+#' abline = list(v = c(110))
+#' )
 #'
 #' @export
 plot_RLum.Analysis <- function(
@@ -100,7 +98,7 @@ plot_RLum.Analysis <- function(
   subset,
   nrows,
   ncols,
-  abline,
+  abline = NULL,
   combine = FALSE,
   curve.transformation,
   plot.single = FALSE,
@@ -109,87 +107,52 @@ plot_RLum.Analysis <- function(
 
   # Integrity check ----------------------------------------------------------------------------
 
-  ##check if object is of class RLum.Data.Curve
-  if(is(object,"RLum.Analysis") == FALSE){
-
+  ##check if object is of class RLum.Analysis (lists are handled via plot_RLum())
+  if (!is(object, "RLum.Analysis")) {
     stop("[plot_RLum.Analysis()] Input object is not of type 'RLum.Analysis'")
 
   }
 
   # Make selection if wanted  -------------------------------------------------------------------
+
   if(!missing(subset)){
 
-    ##check whether the user set the drop option ...
+    ##check whether the user set the drop option and remove it, as we cannot work with it
     subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
     object <- do.call(get_RLum, c(object = object, subset, drop = FALSE))
 
   }
 
+  # Deal with additional arguments.  ------------------------------------------------------------
 
-  ##deal with addition arguments
-  extraArgs <- list(...)
+  ##create plot settings list
+  plot.settings <- list(
+    main = NULL,
+    mtext = NULL,
+    log = "",
+    lwd = 1,
+    lty = 1,
+    type = "l",
+    xlab = NULL,
+    ylab = NULL,
+    xlim = NULL,
+    ylim = NULL,
+    pch = 1,
+    col = "black",
+    norm = FALSE,
+    sub = NULL,
+    cex = 1,
+    legend = TRUE,
+    legend.text = NULL,
+    legend.pos = NULL,
+    legend.col = NULL,
+    smooth = FALSE
+  )
 
-  ##main
-  main <- if ("main" %in% names(extraArgs)) {
-
-      ##main - allow to set different mains
-      if(length(extraArgs$main) == 1 | length(extraArgs$main) < length(object)){
-        rep(x =  extraArgs$main, length(object))
-
-      } else{
-        extraArgs$main
-
-      }
-    } else{
-      NULL
-    }
-
-  ##mtext
-  mtext <- if("mtext" %in% names(extraArgs)) {extraArgs$mtext} else
-  {NULL}
-
-  ##log
-  log <- if("log" %in% names(extraArgs)) {extraArgs$log} else
-  {""}
-
-  ##lwd
-  lwd <- if("lwd" %in% names(extraArgs)) {extraArgs$lwd} else
-  {1}
-
-  ##lty
-  lty <- if("lty" %in% names(extraArgs)) {extraArgs$lty} else
-  {1}
-
-  ##type
-  type <- if("type" %in% names(extraArgs)) {extraArgs$type} else
-  {"l"}
-
-  ##xlim
-  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  {NULL}
-
-  ##ylim
-  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {NULL}
-
-  ##pch
-  pch <- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
-  {1}
-
-  ##col
-  col <- if("col" %in% names(extraArgs)) {extraArgs$col} else
-  {"black"}
-
-  ##norm (for RLum.Data.Curve)
-  norm <- if("norm" %in% names(extraArgs)) {extraArgs$norm} else
-  {FALSE}
-
-  ##cex
-  cex <- if("cex" %in% names(extraArgs)) {extraArgs$cex} else
-  {1}
+  plot.settings <- modifyList(x = plot.settings, val = list(...), keep.null = TRUE)
 
   ##try to find optimal parameters, this is however, a little bit stupid, but
-  ##better than without any
+  ##better than without any presetting
 
   if(combine){
     n.plots <- length(unique(as.character(structure_RLum(object)$recordType)))
@@ -198,6 +161,7 @@ plot_RLum.Analysis <- function(
     n.plots <- length_RLum(object)
 
   }
+
 
   if (missing(ncols) | missing(nrows)) {
     if (missing(ncols) & !missing(nrows)) {
@@ -250,17 +214,15 @@ plot_RLum.Analysis <- function(
   }
 
 
-
-
   # Plotting ------------------------------------------------------------------
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##(1) NORMAL (combine == FALSE)
-  if(combine == FALSE || length(object@records) == 1){
+  ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  if(!combine || length(object@records) == 1){
 
     ##show warning message
-    if(combine == TRUE & length(object@records) == 1){
-
+    if(combine & length(object@records) == 1){
       warning("Nothing to combine, object contains a single curve.")
 
     }
@@ -268,55 +230,85 @@ plot_RLum.Analysis <- function(
     ##grep RLum.Data.Curve or RLum.Data.Spectrum objects
     temp <- lapply(1:length(object@records), function(x){
 
-      if(is(object@records[[x]], "RLum.Data.Curve") == TRUE ||
-           is(object@records[[x]], "RLum.Data.Spectrum") == TRUE){
+      if(is(object@records[[x]], "RLum.Data.Curve") ||
+         is(object@records[[x]], "RLum.Data.Spectrum")){
 
         object@records[[x]]
 
       }})
 
     ##calculate number of pages for mtext
-    if(length(temp)%%(nrows*ncols)>0){
+    if (length(temp) %% (nrows * ncols) > 0) {
+      n.pages <- round(length(temp) / (nrows * ncols), digits = 0) + 1
 
-      n.pages <- round(length(temp)/(nrows*ncols), digits=0)+1
-
-    }else{
-
-      n.pages <- length(temp)/(nrows*ncols)
+    } else{
+      n.pages <- length(temp) / (nrows * ncols)
 
     }
 
     ##set par
     par.default <- par("mfrow")
-    if(!plot.single){par(mfrow=c(nrows,ncols))}
+    if(!plot.single){on.exit(par(mfrow = par.default))}
+    if(!plot.single) {
+      par(mfrow = c(nrows, ncols))
+    }
 
-    ##plot curves
+
+    ##expand plot settings list
+    plot.settings <- lapply(setNames(1:length(plot.settings), names(plot.settings)),
+                            function(x) {
+                              if (!is.null(plot.settings[[x]])) {
+                                if(length(plot.settings[[x]]) > 1){
+
+                                  if(is(plot.settings[[x]], "list")){
+                                    rep_len(plot.settings[[x]], length.out = length(temp))
+
+                                  }else{
+                                   rep_len(list(plot.settings[[x]]), length.out = length(temp))
+
+                                  }
+
+                                }else{
+                                  rep_len(plot.settings[[x]], length.out = length(temp))
+
+                                }
+
+                              } else{
+                                plot.settings[[x]]
+
+                              }
+                            })
+
+    ##expand abline
+    if(!is.null(abline)){
+      abline.names <- rep_len(names(abline), length.out = length(temp))
+      abline <- rep_len(abline, length.out = length(temp))
+      names(abline) <- abline.names
+
+    }
+
+    ##apply curve transformation
     for(i in 1:length(temp)){
 
       if(is(temp[[i]], "RLum.Data.Curve") == TRUE){
 
         ##set curve transformation if wanted
         if((grepl("IRSL", temp[[i]]@recordType) | grepl("OSL", temp[[i]]@recordType)) &
-             !missing(curve.transformation)){
+           !missing(curve.transformation)){
 
           if(curve.transformation=="CW2pLM"){
-
             temp[[i]] <- CW2pLM(temp[[i]])
 
           }else if(curve.transformation=="CW2pLMi"){
-
             temp[[i]] <- CW2pLMi(temp[[i]])
 
           }else if(curve.transformation=="CW2pHMi"){
-
             temp[[i]]<- CW2pHMi(temp[[i]])
 
           }else if(curve.transformation=="CW2pPMi"){
-
             temp[[i]] <- CW2pPMi(temp[[i]])
 
           }else{
-
             warning("Function for 'curve.transformation' is unknown. No transformation is performed.")
 
           }
@@ -324,101 +316,121 @@ plot_RLum.Analysis <- function(
         }
 
 
-        ##check xlim and ylim values and adjust if where necessary
+        ##check plot settings and adjust
         ##xlim
-        if (!is.null(xlim)) {
-          xlim.set <- xlim
-          if (xlim[1] < min(temp[[i]]@data[,1])) {
+        if (!is.null(plot.settings$xlim)) {
+          xlim.set <- plot.settings$xlim[[i]]
+          if (plot.settings$xlim[[i]][1] < min(temp[[i]]@data[,1])) {
             xlim.set[1] <- min(temp[[i]]@data[,1])
           }
-          if (xlim[2] > max(temp[[i]]@data[,1])) {
+          if (plot.settings$xlim[[i]][2] > max(temp[[i]]@data[,1])) {
             xlim.set[2] <- max(temp[[i]]@data[,1])
           }
 
         }else{
-          xlim.set <- xlim
+          xlim.set <- plot.settings$xlim[[i]]
 
         }
 
         ##ylim
-        if (!is.null(ylim)) {
-          ylim.set <- ylim
-          if (ylim[1] < min(temp[[i]]@data[,2])) {
+        if (!is.null(plot.settings$ylim)) {
+          ylim.set <- plot.settings$ylim
+          if (plot.settings$ylim[[i]][1] < min(temp[[i]]@data[,2])) {
             ylim.set[1] <- min(temp[[i]]@data[,2])
           }
-          if (ylim[2] > max(temp[[i]]@data[,2])) {
+          if (plot.settings$ylim[[i]][2] > max(temp[[i]]@data[,2])) {
             ylim.set[2] <- max(temp[[i]]@data[,2])
           }
 
         }else{
-          ylim.set <- ylim
+          ylim.set <- plot.settings$ylim[[i]]
 
         }
 
-        plot_RLum.Data.Curve(temp[[i]],
-                             col = if(unique(col) != "black"){col} else{
-                               if(grepl("IRSL", temp[[i]]@recordType) == TRUE){"red"} else
-                                 if(grepl("OSL", temp[[i]]@recordType) == TRUE){"blue"} else
-                                 {col}
-                             },
-                             mtext = paste("#",i,sep=""),
-                             par.local = FALSE,
-                             main = if(is.null(main)){temp[[i]]@recordType}else{main[i]},
-                             log = log,
-                             lwd = lwd,
-                             type = type,
-                             lty = lty,
-                             xlim = xlim.set,
-                             ylim = ylim.set,
-                             pch = pch,
-                             cex = cex,
-                             ...)
+        ##col
+        if (unique(plot.settings$col) != "black") {
+          col <- plot.settings$col[i]
+        } else{
+          if (grepl("IRSL", temp[[i]]@recordType)) {
+            col <- "red"
+          } else
+            if (grepl("OSL", temp[[i]]@recordType)) {
+              col <- "blue"
+            } else
+            {
+              col <- plot.settings$col[[i]]
+            }
+        }
+
+        ##main
+        main <- if (is.null(plot.settings$main[[i]])) {
+          temp[[i]]@recordType
+        } else{
+          plot.settings$main[[i]]
+        }
+
+        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##PLOT
+        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##plot RLum.Data.Curve curve
+        plot_RLum.Data.Curve(
+          temp[[i]],
+          col = col,
+          mtext = if(!is.null(plot.settings$mtext[[i]])){
+            plot.settings$mtext[[i]]
+          }else{
+            paste("#", i, sep = "")
+          },
+          par.local = FALSE,
+          main = main,
+          log = plot.settings$log[[i]],
+          lwd = plot.settings$lwd[[i]],
+          type = plot.settings$type[[i]],
+          lty = plot.settings$lty[[i]],
+          xlim = xlim.set,
+          ylim = ylim.set,
+          pch = plot.settings$pch[[i]],
+          cex = plot.settings$cex[[i]],
+          smooth = plot.settings$smooth[[i]],
+          ...
+        )
 
         ##add abline
-        if(!missing(abline)){
-
-          for(k in 1:length(abline)){
-
-            do.call("abline", abline[[k]])
-
-          }
+        if(!is.null(abline[[i]])){
+          do.call(what = "abline", args = abline[i])
 
         }
 
 
-      } else if(is(temp[[i]], "RLum.Data.Spectrum") == TRUE) {
+      } else if(is(temp[[i]], "RLum.Data.Spectrum")) {
 
         plot_RLum.Data.Spectrum(temp[[i]],
-
-                                mtext = paste("#",i,sep=""),
+                                mtext =  if(!is.null(plot.settings$mtext[[i]])){
+                                  plot.settings$mtext[[i]]
+                                }else{
+                                  paste("#", i, sep = "")
+                                },
                                 par.local = FALSE,
-                                main = if(main==""){temp[[i]]@recordType}else{main[i]})
+                                main = if(!is.null(plot.settings$main)){
+                                  plot.settings$main
+                                }else{
+                                  temp[[i]]@recordType
+                                })
 
-      }
-
-      if(i%%(nrows*ncols)==0){
-        mtext(mtext, outer = TRUE, side=3, line=-2)
       }
 
     }#end for loop
 
-
-    ##reset par
-    if(!plot.single){par(mfrow = par.default)}
-
   }else{
 
-    ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ##(2) NORMAL (combine == TRUE)
-
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ##(1) check RLum objects in the set
     object.list <- get_RLum(object)
 
-
     sapply(1:length(object.list), function(x){
-
       if(is(object.list[[x]])[1] != "RLum.Data.Curve"){
-
         stop("[plot_RLum.Analysis()] Using 'combine' is limited to 'RLum.Data.Curve' objects.")
 
       }
@@ -443,21 +455,45 @@ plot_RLum.Analysis <- function(
 
       ##this 2nd par request is needed as seeting mfrow resets the par settings ... this might
       ##not be wanted
-      par(cex = cex)
+      par(cex = plot.settings$cex[1])
 
     }else{
       par.default <- par()[c("cex")]
-      par(cex = cex)
+      par(cex = plot.settings$cex)
 
     }
 
+
+    ##expand plot settings list
+    ##expand list
+    plot.settings <- lapply(setNames(1:length(plot.settings), names(plot.settings)), function(x) {
+      if (!is.null(plot.settings[[x]])) {
+        if(is.list(plot.settings[[x]])){
+          rep_len(plot.settings[[x]], length.out = length(temp.recordType))
+
+        }else{
+          rep_len(list(plot.settings[[x]]), length.out = length(temp.recordType))
+
+        }
+
+
+      } else{
+        plot.settings[[x]]
+
+      }
+    })
+
+    ##expand abline
+    if(!is.null(abline)){
+      abline.names <- rep_len(names(abline), length.out = length(temp.recordType))
+      abline <- rep_len(abline, length.out = length(temp.recordType))
+      names(abline) <- abline.names
+
+    }
+
+
     ##(2) PLOT values
-
     for(k in 1:length(temp.recordType)) {
-
-      ##main 2
-      main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-      {paste0(temp.recordType[[k]], " combined")}
 
       ###get type of curves
       temp.object <-
@@ -465,7 +501,6 @@ plot_RLum.Analysis <- function(
 
       ##get structure
       object.structure  <- structure_RLum(temp.object)
-
 
       ##now get the real list object (note the argument recursive = FALSE)
       object.list <-
@@ -481,7 +516,7 @@ plot_RLum.Analysis <- function(
         ##set curve transformation if wanted
 
         if (grepl("IRSL", object.list[[x]]@recordType) |
-              grepl("OSL", object.list[[x]]@recordType)) {
+            grepl("OSL", object.list[[x]]@recordType)) {
           if (curve.transformation == "CW2pLM") {
             object.list[[x]] <- CW2pLM(object.list[[x]])
 
@@ -502,7 +537,7 @@ plot_RLum.Analysis <- function(
         temp.data <- as(object.list[[x]], "data.frame")
 
         ##normalise curves if argument has been set
-        if (norm == TRUE) {
+        if (plot.settings$norm[[k]]) {
           temp.data[,2] <- temp.data[,2] / max(temp.data[,2])
 
         }
@@ -511,61 +546,59 @@ plot_RLum.Analysis <- function(
 
       })
 
-      ##get some extra arguments, here new, as the values have to considered differently
-      sub <- if ("sub" %in% names(extraArgs)) {
-        extraArgs$sub
-      } else
-      {
-        ""
+      ##set plot parameters
+      ##main
+      main <- if (!is.null(plot.settings$main[[k]])) {
+        plot.settings$main[[k]]
+      } else{
+        paste0(temp.recordType[[k]], " combined")
       }
 
-
       ##xlab
-      xlab <- if ("xlab" %in% names(extraArgs)) {
-        extraArgs$xlab
-      } else
-      {
-        "x"
+      xlab <- if(!is.null(plot.settings$xlab[[k]])){
+        plot.settings$xlab[[k]]
+      }else{
+        switch(temp.recordType[[k]],
+               "TL" = "Temperature [\u00B0C]",
+               "IRSL" = "Time [s]",
+               "OSL" = "Time [s]",
+               "RF" = "Time [s]",
+               "RBR" = "Time [s]",
+               "LM-OSL" = "Time [s]"
+        )
+
       }
 
       ##ylab
-      ylab <- if ("ylab" %in% names(extraArgs)) {
-        extraArgs$ylab
-      } else
-      {
-        "y"
+      ylab <- if(!is.null(plot.settings$ylab[[k]])){
+        plot.settings$ylab[[k]]
+      }else{
+        paste0(temp.recordType[[k]], " [a.u.]")
       }
 
       ##xlim
-      xlim <- if ("xlim" %in% names(extraArgs)) {
-        extraArgs$xlim
-      } else
-      {
+      xlim <- if (!is.null(plot.settings$xlim[[k]]) & length(plot.settings$xlim[[k]]) >1) {
+        plot.settings$xlim[[k]]
+      } else {
         c(min(object.structure$x.min), max(object.structure$x.max))
       }
 
       ##ylim
-      ylim <- if ("ylim" %in% names(extraArgs)) {
-        extraArgs$ylim
-      } else
-      {
-        temp.ylim  <- t(sapply(1:length(temp.data.list), function(x) {
-          temp.data <- temp.data.list[[x]]
-          range(temp.data[temp.data[,1] >= min(xlim) &
-                            temp.data[,1] <= max(xlim),2])
-
-        }))
-
-        c(min(temp.ylim), max(temp.ylim))
+      ylim <- if (!is.null(plot.settings$ylim[[k]]) & length(plot.settings$ylim[[k]]) > 1) {
+        plot.settings$ylim[[k]]
+      } else {
+        range(unlist(lapply(X = temp.data.list, FUN = function(x){
+          range(x[,2])
+        })))
 
       }
 
       ##col (again)
-      col <- if ("col" %in% names(extraArgs)) {
-        extraArgs$col
-      } else
-      {
-        get("col", pos = .LuminescenceEnv)
+      col <- if(length(plot.settings$col[[k]]) > 1 || plot.settings$col[[k]][1] != "black"){
+        plot.settings$col[[k]]
+
+      }else{
+        col <- get("col", pos = .LuminescenceEnv)
       }
 
       ##if length of provided colours is < the number of objects, just one colour is supported
@@ -574,96 +607,110 @@ plot_RLum.Analysis <- function(
 
       }
 
-      ##col (again)
-      lty <- if ("lty" %in% names(extraArgs)) {
-        extraArgs$lty
-      } else
-      {
-        1
-      }
+      ##lty
+      if (length(plot.settings$lty[[k]]) < length(object.list)) {
+        lty <- rep(plot.settings$lty[[k]], times = length(object.list))
 
-      ##if length of provided lty values is < the number of objects, just the first supported
-      if (length(lty) < length(object.list)) {
-        lty <- rep(lty[1], times = length(object.list))
+      }else{
+        lty <- plot.settings$lty[[k]]
 
       }
 
       ##legend.text
-      legend.text <-
-        if ("legend.text" %in% names(extraArgs)) {
-          extraArgs$legend.text
-        } else
-        {
-          paste("Curve", 1:length(object.list))
-        }
+      legend.text <- if(!is.null(plot.settings$legend.text[[k]])){
+        plot.settings$legend.text[[k]]
+
+      }else{
+        paste("Curve", 1:length(object.list))
+
+      }
 
       ##legend.col
-      legend.col <-
-        if ("legend.col" %in% names(extraArgs)) {
-          extraArgs$legend.col
-        } else
-        {
-          NULL
-        }
+      legend.col <- if(!is.null(plot.settings$legend.col[[k]])){
+        plot.settings$legend.col[[k]]
 
+      }else{
+        NULL
+
+      }
 
       ##legend.pos
-      legend.pos <-
-        if ("legend.pos" %in% names(extraArgs)) {
-          extraArgs$legend.pos
-        } else
-        {
-          "topright"
-        }
+      legend.pos <- if(!is.null(plot.settings$legend.pos[[k]])){
+        plot.settings$legend.pos[[k]]
+
+      }else{
+        "topright"
+
+      }
 
       if (legend.pos == "outside") {
         par.default.outside <- par()[c("mar", "xpd")]
         par(mar = c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
       }
 
-      ##main - allow to set different mains
-      if(length(main) == 1 | length(main) < length(temp.recordType)){
-        main <- rep(x = main, length(temp.recordType))
-
-      }
 
       ##open plot area
       plot(
         NA,NA,
         xlim = xlim,
         ylim = ylim,
-        main = main[k],
+        main = main,
         xlab = xlab,
         ylab = ylab,
-        log = log,
-        sub = sub
+        log = plot.settings$log[[k]],
+        sub = plot.settings$sub[[k]]
       )
 
-      ##loop over all records
-      for (i in 1:length(object.list)) {
-        lines(temp.data.list[[i]],
-              col = col[i],
-              lty = lty,
-              lwd = lwd)
+      ##plot single curve values
+      ## ...?Why using matplot is a bad idea: The channel resolution might be different
+      for (n in 1:length(temp.data.list)) {
+
+
+        ##smooth
+        ##Why here again ... because the call differs from the one before, where the argument
+        ##is passed to plot_RLum.Data.Curve()
+        if(plot.settings$smooth[[k]]){
+
+          k_factor <- ceiling(length(temp.data.list[[n]][, 2])/100)
+          temp.data.list[[n]][, 2] <- zoo::rollmean(temp.data.list[[n]][, 2],
+                                            k = k_factor, fill = NA)
+        }
+
+        ##print lines
+        lines(temp.data.list[[n]],
+              col = col[n],
+              lty = lty[n],
+              lwd = plot.settings$lwd[[k]])
 
       }
 
+      ##add abline
+      if(!is.null(abline[[k]])){
+        do.call(what = "abline", args = abline[k])
+
+      }
 
       ##mtext
-      mtext(mtext, side = 3, cex = .8 * cex)
+      mtext(plot.settings$mtext[[k]], side = 3, cex = .8 * plot.settings$cex[[k]])
 
       ##legend
-      legend(
-        x = ifelse(legend.pos == "outside", par()$usr[2], legend.pos),
-        y = ifelse(legend.pos == "outside", par()$usr[4], NULL),
-        legend = legend.text,
-        lwd = lwd,
-        lty = lty,
-        col = if(is.null(legend.col)){col[1:length(object.list)]}else{legend.col},
-        bty = "n",
-        cex = 0.8 * cex
-      )
+      if (plot.settings$legend[[k]]) {
+        legend(
+          x = ifelse(legend.pos == "outside", par()$usr[2], legend.pos),
+          y = ifelse(legend.pos == "outside", par()$usr[4], NULL),
+          legend = legend.text,
+          lwd = plot.settings$lwd[[k]],
+          lty = plot.settings$lty[[k]],
+          col = if (is.null(legend.col)) {
+            col[1:length(object.list)]
+          } else{
+            legend.col
+          },
+          bty = "n",
+          cex = 0.8 * plot.settings$cex[[k]]
+        )
 
+      }
 
     }
 

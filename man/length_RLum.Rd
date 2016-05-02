@@ -2,7 +2,6 @@
 % Please edit documentation in R/length_RLum.R
 \name{length_RLum}
 \alias{length_RLum}
-\alias{length_RLum.Analysis}
 \title{General accessor function for RLum S4 class objects}
 \usage{
 length_RLum(object)
@@ -24,7 +23,7 @@ corresponding get function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Function version}{
- 0.1 (2015-11-29 17:27:48)
+ 0.1.0 (2016-04-27 19:11:02)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

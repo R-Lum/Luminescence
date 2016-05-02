@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.3
+#' @section Function version: 1.8.7
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -193,6 +193,12 @@ plot_GrowthCurve <- function(
     stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!")
   }
 
+  ##2.1 check for inf data in the data.frame
+  if(any(is.infinite(unlist(sample)))){
+    warning("[plot_GrowthCurve()] the input data contain at least one Inf value. NULL returned!")
+    return(NULL)
+  }
+
   ## optionally, count and exclude NA values and print result
   if(na.rm == TRUE) {
     n.NA <- sum(!complete.cases(sample))
@@ -218,6 +224,8 @@ plot_GrowthCurve <- function(
   if(!verbose){
     txtProgressBar <- FALSE
   }
+
+  ##4. check for Inf values
 
 
   ##remove rownames from data.frame, as this could causes errors for the reg point calculation
@@ -288,13 +296,16 @@ plot_GrowthCurve <- function(
 
   fun   <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
 
-
   #1.2 Prepare data sets regeneration points for MC Simulation
-  data.MC<-t(matrix(sapply(seq(2,fit.NumberRegPoints+1,by=1),
-                           function(x){sample(rnorm(10000,mean=sample[x,2], sd=abs(sample[x,3])),
-                                              NumberIterations.MC, replace=TRUE)}), nrow=NumberIterations.MC
-  )#end matrix
-  )#end transpose matrix
+  data.MC<-t(vapply(
+    X = seq(2,fit.NumberRegPoints+1,by=1),
+    FUN = function(x){
+      sample(
+        rnorm(n = 10000,
+              mean = sample[x,2], sd = abs(sample[x,3])),
+              size = NumberIterations.MC, replace=TRUE)
+      },
+    FUN.VALUE = vector("numeric", length = NumberIterations.MC)))
 
   #1.3 Do the same for the natural signal
   data.MC.De <- numeric(NumberIterations.MC)
@@ -302,7 +313,7 @@ plot_GrowthCurve <- function(
                        NumberIterations.MC, replace=TRUE)
 
   #1.3 set x.natural
-  x.natural<-numeric(NumberIterations.MC)
+  x.natural <- vector("numeric", length = NumberIterations.MC)
   x.natural <- NA
 
   ##1.4 set initialise variables
@@ -332,7 +343,11 @@ plot_GrowthCurve <- function(
   ##input data for fitting; exclude repeated RegPoints
   if (fit.includingRepeatedRegPoints == FALSE) {
     data <-
-      data.frame(x = xy[-which(duplicated(xy[,1])),1],y = xy[-which(duplicated(xy[,1])),2])
+      data.frame(x = xy[-which(duplicated(xy[,1])),1], y = xy[-which(duplicated(xy[,1])),2])
+    fit.weights <- fit.weights[-which(duplicated(xy[,1]))]
+    data.MC <- data.MC[-which(duplicated(xy[,1])),]
+    xy <- xy[-which(duplicated(xy[,1])),]
+
   }else{
     data <- data.frame(xy)
   }
@@ -359,7 +374,10 @@ plot_GrowthCurve <- function(
   g <- max(data[,2]/max(data[,1]))
 
   #set D01 and D02 (in case of EXp+EXP)
-  D01 <- NA; D02 <- NA
+  D01 <- NA
+  D01.ERROR <- NA
+  D02 <- NA
+  D02.ERROR <- NA
 
   ##--------------------------------------------------------------------------##
   ##to be a little bit more flexible the start parameters varries within a normal distribution
@@ -506,6 +524,13 @@ plot_GrowthCurve <- function(
 
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
+    if(is.na(a) | is.na(b) | is.na(c)){
+
+      warning("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!")
+      return(NULL)
+
+    }
+
     if(fit.method!="LIN" & length(data[,1])>=2){
 
       ##FITTING on GIVEN VALUES##
@@ -578,10 +603,10 @@ plot_GrowthCurve <- function(
         }
 
         #get parameters out of it
-        parameters<-(coef(fit))
-        b<-as.vector((parameters["b"]))
-        a<-as.vector((parameters["a"]))
-        c<-as.vector((parameters["c"]))
+        parameters <- (coef(fit))
+        b <- as.vector((parameters["b"]))
+        a <- as.vector((parameters["a"]))
+        c <- as.vector((parameters["c"]))
 
 
         #calculate De
@@ -637,18 +662,27 @@ plot_GrowthCurve <- function(
 
             #get parameters out
             parameters<-coef(fit.MC)
-            var.b[i]<-as.vector((parameters["b"]))
+            var.b[i]<-as.vector((parameters["b"])) #D0
             var.a[i]<-as.vector((parameters["a"])) #Imax
             var.c[i]<-as.vector((parameters["c"]))
 
-            #calculate x.natural for error calculatio
+            #calculate x.natural for error calculation
             x.natural[i]<-suppressWarnings(
               round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2))
 
           }
 
         }#end for loop
+
+
+        ##write D01.ERROR
+        D01.ERROR <- sd(var.b, na.rm = TRUE)
+
+        ##remove values
+        rm(var.b, var.a, var.c)
+
       }#endif::try-error fit
+
     }#endif:fit.method!="LIN"
     #========================================================================
     #LIN#
@@ -930,10 +964,14 @@ plot_GrowthCurve <- function(
       ##close
       if(txtProgressBar) close(pb)
 
+      ##remove objects
+      rm(var.b, var.a, var.c, var.g)
+
     }else{
 
       #print message
       if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
+
 
     } #end if "try-error" Fit Method
 
@@ -1128,6 +1166,13 @@ plot_GrowthCurve <- function(
 
       } #end for loop
 
+      ##write D01.ERROR
+      D01.ERROR <- sd(var.b1, na.rm = TRUE)
+      D02.ERROR <- sd(var.b2, na.rm = TRUE)
+
+      ##remove values
+      rm(var.b1, var.b2, var.a1, var.a2)
+
     }else{
 
       #print message
@@ -1138,6 +1183,8 @@ plot_GrowthCurve <- function(
 
     ##close
     if(txtProgressBar) if(exists("pb")){close(pb)}
+
+
     #===========================================================================
   } #End if Fit Method
 
@@ -1154,6 +1201,8 @@ plot_GrowthCurve <- function(
   De.Error <- ifelse(De.Error <= 0.01,
                      format(De.Error, scientific = TRUE, digits = 2),
                      round(De.Error, digits = 2))
+
+
 
 
   # Formula creation --------------------------------------------------------
@@ -1485,7 +1534,9 @@ plot_GrowthCurve <- function(
     De = De,
     De.Error = De.Error,
     D01 = D01,
+    D01.ERROR = D01.ERROR,
     D02 = D02,
+    D02.ERROR = D02.ERROR,
     De.MC = De.MonteCarlo,
     Fit = fit.method
   ),
@@ -1506,3 +1557,4 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
+

@@ -16,12 +16,18 @@
 #' @param originator \code{\link{character}} (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
 #'
+#' @param .uid \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#'
+#' @param .pid \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
+#'
 #' @param \dots further arguments that one might want to pass to the specific
 #' set method
 #'
 #' @return Returns an object of the specified class.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -34,9 +40,6 @@
 #' \code{\linkS4class{RLum.Results}}
 #'
 #' @keywords utilities
-#'
-#' @aliases set_RLum.Data.Curve set_RLum.Data.Image set_RLum.Data.Spectrum
-#' set_RLum.Analysis set_RLum.Results
 #'
 #' @examples
 #'
@@ -58,7 +61,7 @@
 #' plot_RLum(object)
 #'
 #' @export
-setGeneric("set_RLum", function (class, originator, ... ) {
+setGeneric("set_RLum", function (class, originator, .uid = .create_UID(), .pid = NA_character_, ... ) {
   class(class) <- as.character(class)
 
   if(missing(originator)) {
@@ -68,90 +71,7 @@ setGeneric("set_RLum", function (class, originator, ... ) {
       originator <- NA_character_
     }
   }
+
   standardGeneric("set_RLum")
 })
 
-
-## ---- DEPRECATED GENERICS
-# .Deprecated in package version 0.5.0
-# .Defunct in 0.5.1
-# Removed in 0.6.0
-
-#' @noRd
-#' @export
-set_RLum.Analysis <- function(...) {
-  .Defunct("set_RLum")
-
-  if(missing(originator)) {
-    if (is(sys.call(which = -1)[[1]], "name")) {
-      originator <- as.character(sys.call(which = -1)[[1]])
-    } else{
-      originator <- NA_character_
-    }
-  }
-
-  set_RLum("RLum.Analysis", ...)
-}
-
-#' @noRd
-#' @export
-set_RLum.Data.Curve <- function(...) {
-  .Defunct("set_RLum")
-
-  if(missing(originator)) {
-    if (is(sys.call(which = -1)[[1]], "name")) {
-      originator <- as.character(sys.call(which = -1)[[1]])
-    } else{
-      originator <- NA_character_
-    }
-  }
-
-  set_RLum("RLum.Data.Curve", ...)
-}
-
-#' @noRd
-#' @export
-set_RLum.Data.Image <- function(...) {
-  .Defunct("set_RLum")
-
-  if(missing(originator)) {
-    if (is(sys.call(which = -1)[[1]], "name")) {
-      originator <- as.character(sys.call(which = -1)[[1]])
-    } else{
-      originator <- NA_character_
-    }
-  }
-
-  set_RLum("RLum.Data.Image", ...)
-}
-
-#' @noRd
-#' @export
-set_RLum.Data.Spectrum <- function(...) {
-  .Defunct("set_RLum")
-
-  if(missing(originator)) {
-    if (is(sys.call(which = -1)[[1]], "name")) {
-      originator <- as.character(sys.call(which = -1)[[1]])
-    } else{
-      originator <- NA_character_
-    }
-  }
-
-  set_RLum("RLum.Data.Spectrum", ...)
-}
-
-#' @noRd
-#' @export
-set_RLum.Results <- function(originator,...) {
-  .Defunct("set_RLum")
-
-  if(missing(originator)) {
-    if (is(sys.call(which = -1)[[1]], "name")) {
-      originator <- as.character(sys.call(which = -1)[[1]])
-    } else{
-      originator <- NA_character_
-    }
-  }
-  set_RLum(class = "RLum.Results", originator = originator, ...)
-}

@@ -47,6 +47,9 @@
 #' ratio of the natural signal). For methodological background see Aitken and
 #' Smith (1988).\cr
 #'
+#' \sQuote{testdose.error}: set the allowed error for the testdose, which per
+#' default should not exceed 10\%. The testdose error is calculated as Tx_net.error/Tx_net.
+#'
 #' \sQuote{palaeodose.error}: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
 #'
@@ -78,10 +81,12 @@
 #' and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
 #' a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 #'
-#' Allowed #' arguments are \code{recycling.ratio}, \code{recuperation.rate},
-#' \code{palaeodose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
+#' Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
+#' \code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
 #' Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
-#' Per default all numericla values are set to 10.
+#' Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
+#' Every criterium can be set to \code{NA}. In this value are calculated, but not considered, i.e.
+#' the RC.Status becomes always \code{'OK'}
 #'
 #' @param dose.points \code{\link{numeric}} (optional): a numeric vector
 #' containg the dose points values Using this argument overwrites dose point
@@ -105,7 +110,7 @@
 #'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
-#' (supported: \code{background.count.distribution} and \code{sigmab}). \bold{Please note} that
+#' (supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}). \bold{Please note} that
 #' if you consider to use the early light subtraction method you should provide your own \code{sigmab}
 #' value!
 #'
@@ -128,7 +133,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.1
+#' @section Function version: 0.7.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -166,14 +171,22 @@
 #' ##transform the values from the first position in a RLum.Analysis object
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 #'
-#' ##perform SAR analysis
-#' results <- analyse_SAR.CWOSL(object,
-#'                   signal.integral.min = 1,
-#'                   signal.integral.max = 2,
-#'                   background.integral.min = 900,
-#'                   background.integral.max = 1000,
-#'                   log = "x",
-#'                   fit.method = "EXP")
+#' ##perform SAR analysis and set rejection criteria
+#' results <- analyse_SAR.CWOSL(
+#' object = object,
+#' signal.integral.min = 1,
+#' signal.integral.max = 2,
+#' background.integral.min = 900,
+#' background.integral.max = 1000,
+#' log = "x",
+#' fit.method = "EXP",
+#' rejection.criteria = list(
+#'   recycling.ratio = 10,
+#'   recuperation.rate = 10,
+#'   testdose.error = 10,
+#'   palaeodose.error = 10,
+#'   exceed.max.regpoint = TRUE)
+#')
 #'
 #' ##show De results
 #' get_RLum(results)
@@ -188,7 +201,7 @@ analyse_SAR.CWOSL<- function(
   signal.integral.max,
   background.integral.min,
   background.integral.max,
-  rejection.criteria,
+  rejection.criteria = NULL,
   dose.points = NULL,
   mtext.outer,
   plot = TRUE,
@@ -217,7 +230,11 @@ if(is.list(object)){
   background.integral.max <- rep(list(background.integral.max), length = length(object))
 
 
-  if(!missing(rejection.criteria)){
+  ##it is a little bit more complex, as we have a list in a list
+  if(is(rejection.criteria[[1]], "list")){
+    rejection.criteria <- rep(rejection.criteria, length = length(object))
+
+  }else{
     rejection.criteria <- rep(list(rejection.criteria), length = length(object))
 
   }
@@ -257,6 +274,7 @@ if(is.list(object)){
                       dose.points = dose.points[[x]],
                       mtext.outer = mtext.outer[[x]],
                       plot = plot,
+                      rejection.criteria = rejection.criteria[[x]],
                       plot.single = plot.single,
                       main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
                       ...)
@@ -365,14 +383,18 @@ if(is.list(object)){
     }
 
 
-    ##CHECK IF DATA SET CONTAINS ANY OSL curve
-    if(!TRUE%in%grepl("OSL", structure_RLum(object)$recordType) &&
-       !TRUE%in%grepl("IRSL", structure_RLum(object)$recordType)){
 
-      stop("[analyse_SAR.CWOSL()] No record of type 'OSL' or 'IRSL' are detected in the sequence
-object!")
+      ##CHECK IF DATA SET CONTAINS ANY OSL curve
+      if (!any(grepl("OSL", structure_RLum(object)$recordType)) &&
+          !any(grepl("IRSL", structure_RLum(object)$recordType))) {
+        warning(
+          "[analyse_SAR.CWOSL()] No record of type 'OSL' or 'IRSL' are detected in the sequence object! NULL returned.",
+          call. = FALSE
+        )
 
-    }
+        return(NULL)
+
+      }
 
     ##Check if any OSL curve is measured, if not set curve type on IRSL
     ##to allow further proceedings
@@ -382,55 +404,25 @@ object!")
 
 # Rejection criteria ------------------------------------------------------
 
-  #Set rejection criteria
-  if(missing(rejection.criteria)){
+    ##set list
+    rejection.criteria.default <- list(
+      recycling.ratio = 10,
+      recuperation.rate = 10,
+      palaeodose.error = 10,
+      testdose.error = 10,
+      exceed.max.regpoint = TRUE
 
-    rejection.criteria <- list(
-      recycling.ratio = 10, recuperation.rate = 10, palaeodose.error = 10, exceed.max.regpoint = FALSE)
+    )
 
-  }else{
+    ##modify list on the request
+    if(!is.null(rejection.criteria)){
+      rejection.criteria <- modifyList(rejection.criteria.default, rejection.criteria)
 
-    ##recycling ratio
-    temp.recycling.ratio <- if("recycling.ratio" %in% names(rejection.criteria)) {
+    }else{
+      rejection.criteria <- rejection.criteria.default
 
-      rejection.criteria$recycling.ratio
+    }
 
-    } else {10}
-
-    ##recuperation rate
-    temp.recuperation.rate <- if("recuperation.rate" %in% names(rejection.criteria)) {
-
-      rejection.criteria$recuperation.rate
-
-    } else {10}
-
-    ##paleaodose error
-    temp.palaeodose.error <- if("palaeodose.error" %in% names(rejection.criteria)) {
-
-      rejection.criteria$palaeodose.error
-
-    } else {10}
-
-    ##exceed.max.regpoint
-    temp.exceed.max.regpoint <- if("exceed.max.regpoint" %in% names(rejection.criteria)) {
-
-      rejection.criteria$exceed.max.regpoint
-
-    } else {FALSE}
-
-
-
-    ##combine
-    rejection.criteria <- list(
-      recycling.ratio = temp.recycling.ratio,
-      recuperation.rate = temp.recuperation.rate,
-      palaeodose.error = temp.palaeodose.error,
-      exceed.max.regpoint = temp.exceed.max.regpoint)
-
-    ##remove objects
-    rm(temp.recycling.ratio,temp.recuperation.rate, temp.palaeodose.error )
-
-  }
 
 # Deal with extra arguments ----------------------------------------------------
 
@@ -598,7 +590,7 @@ object!")
 
     ##get index of TL curves
     TL.Curves.ID <-
-      suppressWarnings(get_RLum(object, recordType = "TL", get.index = TRUE))
+      suppressWarnings(get_RLum(object, recordType = "TL$", get.index = TRUE))
 
     ##separate TL curves
     TL.Curves.ID.Lx <-
@@ -740,7 +732,6 @@ object!")
     # Calculate Recycling Ratio -----------------------------------------------
 
     ##Calculate Recycling Ratio
-
     if (length(LnLxTnTx[LnLxTnTx[,"Repeated"] == TRUE,"Repeated"]) > 0) {
       ##identify repeated doses
       temp.Repeated <-
@@ -753,17 +744,20 @@ object!")
                      LnLxTnTx[,"Repeated"] == FALSE,c("Name","Dose","LxTx")]
         }))
 
+
       ##convert to data.frame
       temp.Previous <- as.data.frame(temp.Previous)
 
       ##set column names
       temp.ColNames <-
-        sapply(1:length(temp.Repeated[,1]),function(x) {
-          paste("Recycling ratio (", temp.Repeated[x,"Name"],"/",
+        unlist(lapply(1:length(temp.Repeated[,1]),function(x) {
+          temp <- paste("Recycling ratio (", temp.Repeated[x,"Name"],"/",
                 temp.Previous[temp.Previous[,"Dose"] == temp.Repeated[x,"Dose"],"Name"],
                 ")",
                 sep = "")
-        })
+          return(temp[1])
+        }))
+
 
       ##Calculate Recycling Ratio
       RecyclingRatio <-
@@ -784,7 +778,6 @@ object!")
 
 
     ##Recuperation Rate (capable to handle multiple type of recuperation values)
-
     if (length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]) > 0) {
       Recuperation <-
         sapply(1:length(LnLxTnTx[LnLxTnTx[,"Name"] == "R0","Name"]),
@@ -808,22 +801,26 @@ object!")
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
 
+    temp.criteria <- c(
+      if(!is.null(colnames(RecyclingRatio))){
+       colnames(RecyclingRatio)}else{NA},
+      if(!is.null(colnames(Recuperation))){
+        colnames(Recuperation)}else{NA})
 
-    temp.criteria <- c(ifelse(is.null(colnames(RecyclingRatio)), NA,colnames(RecyclingRatio)),
-                       ifelse(is.null(colnames(Recuperation)), NA,colnames(Recuperation)))
 
     temp.value <- c(RecyclingRatio,Recuperation)
+
     temp.threshold <-
       c(rep(
         rejection.criteria$recycling.ratio / 100, length(RecyclingRatio)
       ),
       rep(
-        paste("", rejection.criteria$recuperation.rate / 100),
+        rejection.criteria$recuperation.rate / 100,
         length(Recuperation)
       ))
 
     ##RecyclingRatio
-    if (is.na(RecyclingRatio)[1] == FALSE) {
+    if (!is.na(RecyclingRatio)[1] & !is.na(rejection.criteria$recycling.ratio)) {
       temp.status.RecyclingRatio <-
         sapply(1:length(RecyclingRatio), function(x) {
           if (abs(1 - RecyclingRatio[x]) > (rejection.criteria$recycling.ratio / 100)) {
@@ -832,25 +829,62 @@ object!")
             "OK"
           }
         })
+
     }else{
       temp.status.RecyclingRatio <- "OK"
 
     }
 
     ##Recuperation
-    if (is.na(Recuperation)[1] == FALSE) {
+    if (!is.na(Recuperation)[1] & !is.na(rejection.criteria$recuperation.rate)) {
       temp.status.Recuperation  <-
         sapply(1:length(Recuperation), function(x) {
-          ifelse(Recuperation[x] > rejection.criteria$recuperation.rate,
-                 "FAILED", "OK")
+          if(Recuperation[x] > rejection.criteria$recuperation.rate){
+            "FAILED"
 
+          }else{
+            "OK"
+
+          }
 
         })
 
-    }else{
+    } else{
       temp.status.Recuperation <- "OK"
 
     }
+
+    # Provide Rejection Criteria for Testdose error --------------------------
+    testdose.error.calculated <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
+
+    testdose.error.threshold <-
+      rejection.criteria$testdose.error / 100
+
+    if (is.na(testdose.error.calculated)) {
+      testdose.error.status <- "FAILED"
+
+    }else{
+      if(!is.na(testdose.error.threshold)){
+        testdose.error.status <- ifelse(
+          testdose.error.calculated <= testdose.error.threshold,
+          "OK", "FAILED"
+        )
+
+      }else{
+        testdose.error.status <- "OK"
+
+      }
+
+    }
+
+    testdose.error.data.frame <- data.frame(
+      Criteria = "Testdose error",
+      Value = testdose.error.calculated,
+      Threshold = testdose.error.threshold,
+      Status =  testdose.error.status,
+      stringsAsFactors = FALSE
+    )
+
 
     RejectionCriteria <- data.frame(
       Criteria = temp.criteria,
@@ -859,6 +893,8 @@ object!")
       Status = c(temp.status.RecyclingRatio,temp.status.Recuperation),
       stringsAsFactors = FALSE
     )
+
+    RejectionCriteria <- rbind(RejectionCriteria, testdose.error.data.frame)
 
     ##============================================================================##
     ##PLOTTING
@@ -1248,13 +1284,6 @@ object!")
         ##add line
         abline(h = 10,lwd = 0.5)
 
-        ##set failed text and mark De as failed
-        if (length(grep("FAILED", RejectionCriteria$status)) > 0) {
-          mtext("[FAILED]", col = "red")
-
-
-        }
-
         #reset margin
         par(mar = par.margin, mai = par.mai)
 
@@ -1299,7 +1328,6 @@ object!")
     temp.GC <- get_RLum(temp.GC)
 
     # Provide Rejection Criteria for Palaedose error --------------------------
-
     palaeodose.error.calculated <- ifelse(is.na(temp.GC[,1]) == FALSE,
                                           round(temp.GC[,2] / temp.GC[,1], digits = 5),
                                           NA)
@@ -1311,13 +1339,20 @@ object!")
       palaeodose.error.status <- "FAILED"
 
     }else{
-      palaeodose.error.status <- ifelse(
-        palaeodose.error.calculated <= rejection.criteria$palaeodose.error,
-        "OK", "FAILED"
-      )
+      if(!is.na(palaeodose.error.threshold)){
+        palaeodose.error.status <- ifelse(
+          palaeodose.error.calculated <= palaeodose.error.threshold,
+          "OK", "FAILED"
+        )
+
+
+      }else{
+        palaeodose.error.status <- "OK"
+
+
+      }
 
     }
-
 
     palaeodose.error.data.frame <- data.frame(
       Criteria = "Palaeodose error",
@@ -1327,8 +1362,9 @@ object!")
       stringsAsFactors = FALSE
     )
 
+
     ##add exceed.max.regpoint
-    if (!is.na(temp.GC[,1])) {
+    if (!is.na(temp.GC[,1]) & !is.na(rejection.criteria$exceed.max.regpoint) && rejection.criteria$exceed.max.regpoint) {
       status.exceed.max.regpoint <-
         ifelse(max(LnLxTnTx$Dose) < temp.GC[,1], "FAILED", "OK")
 
@@ -1340,7 +1376,13 @@ object!")
     exceed.max.regpoint.data.frame <- data.frame(
       Criteria = "De > max. dose point",
       Value = as.numeric(temp.GC[,1]),
-      Threshold = as.numeric(max(LnLxTnTx$Dose)),
+      Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
+          NA
+        }else if(!rejection.criteria$exceed.max.regpoint){
+          Inf
+        }else{
+          as.numeric(max(LnLxTnTx$Dose))
+        },
       Status =  status.exceed.max.regpoint
     )
 
@@ -1390,9 +1432,9 @@ object!")
         De.values = as.data.frame(c(temp.GC, temp.GC.extened, UID = UID), stringsAsFactors = FALSE),
         LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
         rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),
-        Formula = temp.GC.fit.Formula,
-        call = sys.call()
-      )
+        Formula = temp.GC.fit.Formula
+      ),
+      info = list(call = sys.call())
     )
 
 
@@ -1417,10 +1459,12 @@ object!")
 
       temp.rc.palaedose.error <- temp.rejection.criteria[grep("Palaeodose error",temp.rejection.criteria[,"Criteria"]),]
 
+      temp.rc.testdose.error <- temp.rejection.criteria[grep("Testdose error",temp.rejection.criteria[,"Criteria"]),]
+
       plot(
         NA,NA,
         xlim = c(-0.5,0.5),
-        ylim = c(0,30),
+        ylim = c(0,40),
         yaxt = "n", ylab = "",
         xaxt = "n", xlab = "",
         bty = "n",
@@ -1434,7 +1478,7 @@ object!")
       ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
       ##polygon for recycling ratio
       text(
-        x = 0, y = 30.5, "Recycling ratio", pos = 1, srt = 0
+        x = -0.35, y = 35, "Recycling R.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
       )
       polygon(
         x = c(
@@ -1442,9 +1486,17 @@ object!")
           as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1],
           as.numeric(as.character(temp.rc.reycling.ratio$Threshold))[1]
         ),
-        y = c(21,29,29,21), col = "gray", border = NA
+        y = c(31,39,39,31),
+        col = "gray",
+        border = NA
       )
-      polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(21,29,29,21))
+      polygon(
+        x = c(-0.3, -0.3, 0.3, 0.3) ,
+        y = c(31, 39, 39, 31),
+        border = ifelse(any(
+          grepl(pattern = "FAILED", temp.rc.reycling.ratio$Status)
+        ), "red", "black")
+      )
 
 
       ##consider possibility of multiple pIRIR signals and multiple recycling ratios
@@ -1455,7 +1507,7 @@ object!")
           for (j in 0:length(unique(temp.rc.recuperation.rate[,"Criteria"]))) {
             points(
               temp.rc.reycling.ratio[i + j, "Value"] - 1,
-              y = 25,
+              y = 35,
               pch = col.id,
               col = col.id,
               cex = 1.3 * cex
@@ -1469,7 +1521,7 @@ object!")
         ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
         ##polygon for recuperation rate
         text(
-          x = 0, y = 20.5, "Recuperation rate", pos = 1, srt = 0
+          x = -0.35, y = 25, "Recuperation", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
         )
         polygon(
           x = c(
@@ -1482,18 +1534,26 @@ object!")
               temp.rc.recuperation.rate$Threshold
             ))[1]
           ),
-          y = c(11,19,19,11), col = "gray", border = NA
+          y = c(21,29,29,21),
+          col = "gray",
+          border = NA
         )
 
-        polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(11,19,19,11))
         polygon(
-          x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45
+          x = c(-0.3, -0.3, 0.3, 0.3) ,
+          y = c(21, 29, 29, 21),
+          border = ifelse(any(
+            grepl(pattern = "FAILED", temp.rc.recuperation.rate$Status)
+          ), "red", "black")
+        )
+        polygon(
+          x = c(-0.3,-0.3,0,0) , y = c(21,29,29,21), border = NA, density = 10, angle = 45
         )
 
         for (i in 1:nrow(temp.rc.recuperation.rate)) {
           points(
-            temp.rc.palaedose.error[i, "Value"],
-            y = 15,
+            temp.rc.recuperation.rate[i, "Value"],
+            y = 25,
             pch = i,
             col = i,
             cex = 1.3 * cex
@@ -1503,9 +1563,48 @@ object!")
       }
 
       ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+      ##polygon for testdose error
+      text(
+        x = -0.35, y = 15, "Testdose Err.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
+      )
+
+      polygon(
+        x = c(
+          0,
+          0,
+          as.numeric(as.character(temp.rc.testdose.error$Threshold))[1],
+          as.numeric(as.character(temp.rc.testdose.error$Threshold))[1]
+        ),
+        y = c(11,19,19,11),
+        col = "gray",
+        border = NA
+      )
+      polygon(
+        x = c(-0.3, -0.3, 0.3, 0.3) ,
+        y = c(11, 19, 19, 11),
+        border = ifelse(any(
+          grepl(pattern = "FAILED", temp.rc.testdose.error$Status)
+        ), "red", "black")
+      )
+      polygon(
+        x = c(-0.3,-0.3,0,0) , y = c(11,19,19,11), border = NA, density = 10, angle = 45
+      )
+
+
+      for (i in 1:nrow(temp.rc.testdose.error)) {
+        points(
+          temp.rc.testdose.error[i, "Value"],
+          y = 15,
+          pch = i,
+          col = i,
+          cex = 1.3 * cex
+        )
+      }
+
+      ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
       ##polygon for palaeodose error
       text(
-        x = 0, y = 10.5, "Palaeodose error", pos = 1, srt = 0
+        x = -0.35, y = 5, "Palaeodose Err.", pos = 3, srt = 90, cex = 0.8*cex, offset = 0,
       )
       polygon(
         x = c(
@@ -1514,9 +1613,17 @@ object!")
           as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1],
           as.numeric(as.character(temp.rc.palaedose.error$Threshold))[1]
         ),
-        y = c(1,9,9,1), col = "gray", border = NA
+        y = c(1,9,9,1),
+        col = "gray",
+        border = NA
       )
-      polygon(x = c(-0.3,-0.3,0.3,0.3) , y = c(1,9,9,1))
+      polygon(
+        x = c(-0.3, -0.3, 0.3, 0.3) ,
+        y = c(1, 9, 9, 1),
+        border = ifelse(any(
+          grepl(pattern = "FAILED", temp.rc.palaedose.error$Status)
+        ), "red", "black")
+      )
       polygon(
         x = c(-0.3,-0.3,0,0) , y = c(1,9,9,1), border = NA, density = 10, angle = 45
       )

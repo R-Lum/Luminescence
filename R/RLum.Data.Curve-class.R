@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R
+#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R
 NULL
 
 #' Class \code{"RLum.Data.Curve"}
@@ -21,19 +21,16 @@ NULL
 #' in 'data' (which is already an RLum.Data.Curve object in this example)
 #'
 #'
-#' @slot info Object of class "list" containing further meta information objects
-#'
 #' @note The class should only contain data for a single curve. For additional
 #' elements the slot \code{info} can be used (e.g. providing additional heating
 #' ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
 #' functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
-#' namely: \code{\link{Risoe.BINfileData2RLum.Data.Curve}},
-#' \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
+#' namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
 #'
 #' @section Create objects from this Class: Objects can be created by calls of the form
 #' \code{set_RLum(class = "RLum.Data.Curve", ...)}.
 #'
-#' @section Class version: 0.3.0
+#' @section Class version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -54,15 +51,13 @@ setClass("RLum.Data.Curve",
          slots = list(
            recordType = "character",
            curveType = "character",
-           data = "matrix",
-           info = "list"
+           data = "matrix"
            ),
          contains = "RLum.Data",
          prototype = list (
            recordType = NA_character_,
            curveType = NA_character_,
-           data = matrix(data = 0, ncol = 2),
-           info = list()
+           data = matrix(data = 0, ncol = 2)
            )
          )
 
@@ -194,6 +189,10 @@ setMethod("show",
 #' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create
 #' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
+#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
 #' @param recordType [\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")
 #' @param curveType [\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")
 #' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
@@ -214,6 +213,8 @@ setMethod(
 
   definition = function(class,
                         originator,
+                        .uid,
+                        .pid,
                         recordType = NA_character_,
                         curveType = NA_character_,
                         data = matrix(0, ncol = 2),
@@ -243,23 +244,46 @@ setMethod(
 
       }
 
-      new(
-        "RLum.Data.Curve",
-        recordType = recordType,
-        curveType = curveType,
-        data = data@data,
-        info = info
-      )
+      ##check for missing .uid
+      if(missing(.uid)){
+        info <- data@.uid
+
+      }
+
+      ##check for missing .pid
+      if(missing(.pid)){
+        info <- data@.pid
+
+      }
+
+      ##set empty clas form object
+      newRLumDataCurve <- new("RLum.Data.Curve")
+
+      ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataCurve@recordType = recordType
+      newRLumDataCurve@curveType = curveType
+      newRLumDataCurve@data = data@data
+      newRLumDataCurve@info = info
+      newRLumDataCurve@.uid = data@.uid
+      newRLumDataCurve@.pid = data@.pid
+
+      return(newRLumDataCurve)
 
     }else{
-      new(
-        Class = "RLum.Data.Curve",
-        originator = originator,
-        recordType = recordType,
-        curveType = curveType,
-        data = data,
-        info = info
-      )
+
+      ##set empty clas form object
+      newRLumDataCurve <- new("RLum.Data.Curve")
+
+      ##fill - this is the faster way, filling in new() costs ...
+      newRLumDataCurve@originator = originator
+      newRLumDataCurve@recordType = recordType
+      newRLumDataCurve@curveType = curveType
+      newRLumDataCurve@data = data
+      newRLumDataCurve@info = info
+      newRLumDataCurve@.uid = .uid
+      newRLumDataCurve@.pid = .pid
+
+      return(newRLumDataCurve)
 
     }
 
@@ -289,7 +313,7 @@ setMethod(
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),
-          definition = function(object, info.object) {
+          definition = function(object, info.object = NULL) {
 
            ##Check if function is of type RLum.Data.Curve
            if(is(object, "RLum.Data.Curve") == FALSE){
@@ -298,28 +322,34 @@ setMethod("get_RLum",
 
            }
 
-           ##if missing info.object just show the curve values
+           ##if info.object == NULL just show the curve values
+          if(!is.null(info.object)) {
 
-           if(missing(info.object) == FALSE){
+              if(info.object %in% names(object@info)){
 
-                if(is(info.object, "character") == FALSE){
-                  stop("[get_RLum] Error: 'info.object' has to be a character!")
-                }
+                unlist(object@info[info.object])
 
-                if(info.object %in% names(object@info) == TRUE){
+              }else{
 
-                  unlist(object@info[info.object])
+                ##check for entries
+                if(length(object@info) == 0){
+
+                  warning("[get_RLum] This RLum.Data.Curve object has no info objects! NULL returned!)")
+                  return(NULL)
 
                 }else{
 
                   ##grep names
                   temp.element.names <- paste(names(object@info), collapse = ", ")
 
-                  stop.text <- paste("[get_RLum] Invalid element name. Valid names are:", temp.element.names)
+                  warning.text <- paste("[get_RLum] Invalid info.object name. Valid names are:", temp.element.names)
 
-                  stop(stop.text)
+                  warning(warning.text, call. = FALSE)
+                  return(NULL)
 
                 }
+
+              }
 
 
              }else{
@@ -366,5 +396,63 @@ setMethod("names_RLum",
           "RLum.Data.Curve",
           function(object){
             names(object@info)
+
+          })
+
+####################################################################################################
+###bin_RLum.Data()
+####################################################################################################
+#' @describeIn RLum.Data.Curve
+#' Allows binning of specific objects
+#'
+#' @param bin_size [\code{bin_RLum}] \code{\link{integer}} (with default): set number of channels
+#' used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.
+#'
+#' @return
+#'
+#' \bold{\code{bin_RLum.Data}}\cr
+#'
+#' Same object as input, after applying the binning.
+#'
+#' @export
+setMethod(f = "bin_RLum.Data",
+          signature = "RLum.Data.Curve",
+          function(object, bin_size = 2) {
+
+            ##check for invalid bin_size values
+            if (!is.null(bin_size) && bin_size > 0) {
+              ##set stepping vector
+              stepping <- seq(1, nrow(object@data), by = bin_size)
+
+              ##get bin vector
+              bin_vector <- object@data[, 2]
+
+              ##set desired length of the vector
+              ##to avoid add effects later
+              length(bin_vector) <-
+                suppressWarnings(prod(dim(matrix(
+                  bin_vector, ncol = length(stepping)
+                ))))
+
+              ##define new matrix for binning
+              bin_matrix <-
+                matrix(bin_vector, ncol = length(stepping))
+
+              ##calcuate column sums and replace matrix
+              ##this is much faster than anly apply loop
+              object@data <-
+                matrix(c(object@data[stepping], colSums(bin_matrix, na.rm = TRUE)), ncol = 2)
+
+              ##set matrix
+              return(set_RLum(class = "RLum.Data.Curve",
+                              data = object))
+            } else{
+              warning("Argument 'bin_size' invald, nothing was done!")
+
+              ##set matrix
+              return(set_RLum(class = "RLum.Data.Curve",
+                              data = object))
+
+            }
 
           })

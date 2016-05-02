@@ -171,6 +171,9 @@
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' \code{FALSE}.
 #'
+#' @param interactive \code{\link{logical}} (with default): create an interactive
+#' abanico plot (requires the 'plotly' package)
+#'
 #' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
 #'
@@ -384,6 +387,7 @@ plot_AbanicoPlot <- function(
   frame = 1,
   bw = "SJ",
   output = FALSE,
+  interactive = FALSE,
   ...
 ) {
   ## check data and parameter consistency--------------------------------------
@@ -391,17 +395,17 @@ plot_AbanicoPlot <- function(
   ## Homogenise input data format
   if(is(data, "list") == FALSE) {
     data <- list(data)
-    }
+  }
 
   ## Check input data
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE &
-         is(data[[i]], "data.frame") == FALSE) {
+       is(data[[i]], "data.frame") == FALSE) {
       stop(paste("[plot_AbanicoPlot()] Input data format is neither",
                  "'data.frame' nor 'RLum.Results'"))
     } else {
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]])[,c(1:2)]
+        data[[i]] <- get_RLum(data[[i]], "data")[,c(1:2)]
       }
     }
   }
@@ -409,7 +413,7 @@ plot_AbanicoPlot <- function(
   ## Check input data
   for(i in 1:length(data)) {
     if(is(data[[i]], "RLum.Results") == FALSE &
-         is(data[[i]], "data.frame") == FALSE) {
+       is(data[[i]], "data.frame") == FALSE) {
       stop(paste("[plot_AbanicoPlot()] Input data format is neither",
                  "'data.frame' nor 'RLum.Results'"))
     } else {
@@ -507,20 +511,20 @@ plot_AbanicoPlot <- function(
 
   if(missing(bar.col) == TRUE) {
     bar.fill <- rep(x = rep(x = layout$abanico$colour$bar.fill,
-                    length.out = length(data)), length(bar))
+                            length.out = length(data)), length(bar))
     bar.line <- rep(rep(layout$abanico$colour$bar.line,
-                    length.out = length(data)), length(bar))
+                        length.out = length(data)), length(bar))
   } else {
     bar.fill <- bar.col
     bar.line <- NA
   }
 
-    if(missing(polygon.col) == TRUE) {
-      polygon.fill <- rep(layout$abanico$colour$poly.fill,
-                          length.out = length(data))
-      polygon.line <- rep(layout$abanico$colour$poly.line,
-                          length.out = length(data))
-    } else {
+  if(missing(polygon.col) == TRUE) {
+    polygon.fill <- rep(layout$abanico$colour$poly.fill,
+                        length.out = length(data))
+    polygon.line <- rep(layout$abanico$colour$poly.line,
+                        length.out = length(data))
+  } else {
     polygon.fill <- polygon.col
     polygon.line <- NA
   }
@@ -612,32 +616,32 @@ plot_AbanicoPlot <- function(
   z <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {
       log(data[[x]][,1])
-      } else {
-        data[[x]][,1]
-        }
-    })
+    } else {
+      data[[x]][,1]
+    }
+  })
   if(is(z, "list") == FALSE) {
     z <- list(z)
-    }
+  }
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], z[[x]])
-    })
+  })
   rm(z)
 
   ## calculate dispersion based on log-option
   se <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {
       data[[x]][,2] / data[[x]][,1]
-      } else {
-        data[[x]][,2]
-        }
-    })
+    } else {
+      data[[x]][,2]
+    }
+  })
   if(is(se, "list") == FALSE) {
     se <- list(se)
-    }
+  }
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], se[[x]])
-    })
+  })
   rm(se)
 
   ## calculate initial data statistics
@@ -823,14 +827,14 @@ plot_AbanicoPlot <- function(
   main <- if("main" %in% names(extraArgs)) {
     extraArgs$main
   } else {
-      expression(paste(D[e], " distribution"))
-    }
+    expression(paste(D[e], " distribution"))
+  }
 
   sub <- if("sub" %in% names(extraArgs)) {
     extraArgs$sub
   } else {
-      ""
-    }
+    ""
+  }
 
   if("xlab" %in% names(extraArgs)) {
     if(length(extraArgs$xlab) != 2) {
@@ -1057,6 +1061,7 @@ plot_AbanicoPlot <- function(
   ## calculate z-axis radius
   r <- max(sqrt((limits.x[2])^2 + (data.global[,7] * f)^2))
 
+
   ## create z-axes labels
   if(log.z == TRUE) {
     label.z.text <- signif(exp(tick.values.major), 3)
@@ -1165,7 +1170,7 @@ plot_AbanicoPlot <- function(
   for(i in 1:length(data)) {
     statistics <- calc_Statistics(data[[i]])
     statistics.2 <- calc_Statistics(data[[i]][,3:4])
-    
+
     De.stats[i,1] <- statistics$weighted$n
     De.stats[i,2] <- statistics.2$unweighted$mean
     De.stats[i,3] <- statistics.2$weighted$mean
@@ -1182,7 +1187,7 @@ plot_AbanicoPlot <- function(
     De.stats[i,16] <- statistics$weighted$sd.rel
     De.stats[i,17] <- statistics$weighted$se.abs
     De.stats[i,18] <- statistics$weighted$se.rel
-    
+
     ## account for log.z-option
     if(log.z == TRUE) {
       De.stats[i,2:4] <- exp(De.stats[i,2:4])
@@ -1425,7 +1430,7 @@ plot_AbanicoPlot <- function(
                                        " | ",
                                        sep = ""),
                                  "")
-                          )
+        )
       }
 
       summary.text <- paste(summary.text, collapse = "")
@@ -1746,6 +1751,9 @@ plot_AbanicoPlot <- function(
                          bars[i,3] - 2)
     }
   }
+  if (rotate == TRUE) {
+    bars <- matrix(bars[, rev(seq_len(ncol(bars)))], ncol = 8)
+  }
 
   ## calculate error bar coordinates
   if(error.bars == TRUE) {
@@ -1845,11 +1853,11 @@ plot_AbanicoPlot <- function(
       if(is.list(line) == TRUE) {
         if(is(line[[i]], "RLum.Results")) {
           line[[i]] <- as.numeric(get_RLum(object = line[[i]],
-                                                   data.object = "summary")$de)
+                                           data.object = "summary")$de)
         }
       } else if(is(object = line, class2 = "RLum.Results")) {
         line <- as.numeric(get_RLum(object = line,
-                                            data.object = "summary")$de)
+                                    data.object = "summary")$de)
       }
     }
 
@@ -1942,7 +1950,7 @@ plot_AbanicoPlot <- function(
         cex = cex)
 
     if(layout$abanico$dimension$figure.width != "auto" |
-         layout$abanico$dimension$figure.height != "auto") {
+       layout$abanico$dimension$figure.height != "auto") {
       par(mai = layout$abanico$dimension$margin / 25.4,
           pin = c(layout$abanico$dimension$figure.width / 25.4 -
                     layout$abanico$dimension$margin[2] / 25.4 -
@@ -2294,6 +2302,7 @@ plot_AbanicoPlot <- function(
             col = layout$abanico$colour$ztck)
     }
 
+
     ## plot major z-ticks
     for(i in 1:length(tick.values.major)) {
       lines(x = c(par()$usr[2],
@@ -2311,6 +2320,7 @@ plot_AbanicoPlot <- function(
     lines(rep(par()$usr[2], nrow(ellipse)), ellipse[,2],
           col = layout$abanico$colour$ztck)
 
+
     ## plot z-axis text
     text(x = (1 + 0.04 * cex * layout$abanico$dimension$ztcl / 100) *
            par()$usr[2],
@@ -2321,6 +2331,7 @@ plot_AbanicoPlot <- function(
          font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
                         layout$abanico$font.deco$ztck],
          cex = cex * layout$abanico$font.size$ztck/12)
+
 
     ## plot z-label
     mtext(text = zlab,
@@ -2511,7 +2522,7 @@ plot_AbanicoPlot <- function(
                                  dots.y.i <= max(ellipse[,2])]
 
           if(max(c(0, dots.x.i), na.rm = TRUE) >= (par()$usr[2] -
-                                                     par()$cxy[1] * 0.4)) {
+                                                   par()$cxy[1] * 0.4)) {
             dots.y.i <- dots.y.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
             dots.x.i <- dots.x.i[dots.x.i < (par()$usr[2] - par()$cxy[1] * 0.4)]
             pch.dots <- c(rep(20, length(dots.x.i) - 1), 15)
@@ -2647,7 +2658,7 @@ plot_AbanicoPlot <- function(
         cex = cex)
 
     if(layout$abanico$dimension$figure.width != "auto" |
-         layout$abanico$dimension$figure.height != "auto") {
+       layout$abanico$dimension$figure.height != "auto") {
       par(mai = layout$abanico$dimension$margin / 25.4,
           pin = c(layout$abanico$dimension$figure.width / 25.4 -
                     layout$abanico$dimension$margin[2] / 25.4 -
@@ -2690,25 +2701,15 @@ plot_AbanicoPlot <- function(
       as.character(round(1/axTicks(side = 2)[-1], 1))
     }
 
-#     ## optionally, plot 2-sigma-bar
-#     if(bar.fill[1] != "none") {
-#
-#       if(is.numeric(centrality) == TRUE & length(centrality) > length(data)) {
-#         for(i in 1:length(centrality)) {
-#           polygon(x = bars[i,1:4],
-#                   y = bars[i,5:8],
-#                   col = bar.fill[i],
-#                   border = bar.line[i])
-#         }
-#       } else {
-#         for(i in 1:length(data)) {
-#           polygon(y = bars[i,1:4],
-#                   x = bars[i,5:8],
-#                   col = bar.fill[i],
-#                   border = bar.line[i])
-#         }
-#       }
-#     }
+    # optionally, plot 2-sigma-bar
+    if(bar[1] != FALSE) {
+      for(i in 1:length(bar)) {
+        polygon(x = bars[i,1:4],
+                y = bars[i,5:8],
+                col = bar.fill[i],
+                border = bar.line[i])
+      }
+    }
 
     ## remove unwanted parts
     polygon(y = c(par()$usr[2],
@@ -2766,19 +2767,22 @@ plot_AbanicoPlot <- function(
       }
     }
 
-#     ## optionally, plot central value lines
-#     if(lwd[1] > 0 & lty[1] > 0) {
-#       for(i in 1:length(data)) {
-#         x2 <- r / sqrt(1 + f^2 * (
-#           data[[i]][1,5] - z.central.global)^2)
-#         y2 <- (data[[i]][1,5] - z.central.global) * x2
-#         lines(y = c(limits.x[1], x2, xy.0[2],y.max),
-#               x = c(0, y2, y2, y2),
-#               lty = lty[i],
-#               lwd = lwd[i],
-#               col = centrality.col[i])
-#       }
-#     }
+    ## optionally, plot lines for each bar
+    if(lwd[1] > 0 & lty[1] > 0 & bar[1] != FALSE & length(data) == 1) {
+      if(bar[1] == TRUE & length(bar) == 1) {
+        bar[1] <- z.central.global
+      }
+      for(i in 1:length(bar)) {
+        x2 <- r / sqrt(1 + f^2 * (
+          bar[i] - z.central.global)^2)
+        y2 <- (bar[i] - z.central.global) * x2
+        lines(x = c(0, y2, y2, y2),
+              y = c(limits.x[1], x2, xy.0[2], par()$usr[4]),
+              lty = lty[i],
+              lwd = lwd[i],
+              col = centrality.col[i])
+      }
+    }
 
     ## optionally add further lines
     if(missing(line) == FALSE) {
@@ -3050,7 +3054,6 @@ plot_AbanicoPlot <- function(
     }
     KDE.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max * 1.05)
 
-
     ## optionally add KDE plot
     if(kde == TRUE) {
 
@@ -3195,7 +3198,7 @@ plot_AbanicoPlot <- function(
                                  dots.y.i <= max(ellipse[,1])]
 
           if(max(c(0, dots.x.i), na.rm = TRUE) >= (par()$usr[4] -
-                                                     par()$cxy[2] * 0.4)) {
+                                                   par()$cxy[2] * 0.4)) {
             dots.y.i <- dots.y.i[dots.x.i < (par()$usr[4] - par()$cxy[2] * 0.4)]
             dots.x.i <- dots.x.i[dots.x.i < (par()$usr[4] - par()$cxy[2] * 0.4)]
             pch.dots <- c(rep(20, length(dots.x.i) - 1), 15)
@@ -3310,25 +3313,186 @@ plot_AbanicoPlot <- function(
   }
 
   ##sTeve
-  if(fun){sTeve()}
+  if(fun & !interactive){sTeve()}
 
+  ## create numeric output
+  plot.output <- list(xlim = limits.x,
+                      ylim = limits.y,
+                      zlim = limits.z,
+                      polar.box = c(limits.x[1],
+                                    limits.x[2],
+                                    min(ellipse[,2]),
+                                    max(ellipse[,2])),
+                      cartesian.box = c(xy.0[1],
+                                        par()$usr[2],
+                                        xy.0[2],
+                                        max(ellipse[,2])),
+                      plot.ratio = plot.ratio,
+                      data = data,
+                      data.global = data.global,
+                      KDE = KDE)
+
+  ## INTERACTIVE PLOT ----------------------------------------------------------
+  if (interactive) {
+    if (!requireNamespace("plotly", quietly = TRUE))
+      stop("The interactive abanico plot requires the 'plotly' package. To install",
+           " this package run 'install.packages('plotly')' in your R console.",
+           call. = FALSE)
+
+    ##cheat R check (global visible binding error)
+    x <- NA
+    y <- NA
+
+
+    ## tidy data ----
+    data <- plot.output
+    kde <- data.frame(x = data$KDE[[1]][ ,2], y = data$KDE[[1]][ ,1])
+
+    # radial scatter plot ----
+    point.text <- paste0("Measured value:</br>",
+                         data$data.global$De, " &plusmn; ", data$data.global$error,"</br>",
+                         "P(",format(data$data.global$precision,  digits = 2, nsmall = 1),", ",
+                         format(data$data.global$std.estimate,  digits = 2, nsmall = 1),")")
+
+    IAP <- plotly::plot_ly(data = data$data.global, x = precision, y = std.estimate,
+                           type = "scatter", mode = "markers",
+                           hoverinfo = "text", text = point.text,
+                           name = "Points",
+                           yaxis = "y")
+
+    ellipse <- as.data.frame(ellipse)
+    IAP <- plotly::add_trace(IAP, data = ellipse,
+                             x = ellipse.x, y = ellipse.y,
+                             hoverinfo = "none",
+                             name = "z-axis (left)",
+                             type = "scatter", mode = "lines",
+                             line = list(color = "black",
+                                         width = 1),
+                             yaxis = "y")
+
+    ellipse.right <- ellipse
+    ellipse.right$ellipse.x <- ellipse.right$ellipse.x * 1/0.75
+
+    IAP <- plotly::add_trace(IAP, data = ellipse.right,
+                             x = ellipse.x, y = ellipse.y,
+                             hoverinfo = "none",
+                             name = "z-axis (right)",
+                             type = "scatter", mode = "lines",
+                             line = list(color = "black",
+                                         width = 1),
+                             yaxis = "y")
+
+    # z-axis ticks
+    major.ticks.x <- c(data$xlim[2] * 1/0.75,
+                       (1 + 0.015 * layout$abanico$dimension$ztcl / 100) *
+                         data$xlim[2] * 1/0.75)
+    minor.ticks.x <- c(data$xlim[2] * 1/0.75,
+                       (1 + 0.01 * layout$abanico$dimension$ztcl / 100) *
+                         data$xlim[2] * 1/0.75)
+    major.ticks.y <- (tick.values.major - z.central.global) *  min(ellipse[ ,1])
+    minor.ticks.y <- (tick.values.minor - z.central.global) *  min(ellipse[ ,1])
+
+    # major z-tick lines
+    for (i in 1:length(major.ticks.y)) {
+      major.tick <- data.frame(x = major.ticks.x, y = rep(major.ticks.y[i], 2))
+      IAP <- plotly::add_trace(IAP, data = major.tick,
+                               x = x, y = y, showlegend = FALSE,
+                               hoverinfo = "none",
+                               type = "scatter", mode = "lines",
+                               line = list(color = "black",
+                                           width = 1),
+                               yaxis = "y")
+    }
+
+    # minor z-tick lines
+    for (i in 1:length(minor.ticks.y)) {
+      minor.tick <- data.frame(x = minor.ticks.x, y = rep(minor.ticks.y[i], 2))
+      IAP <- plotly::add_trace(IAP, data = minor.tick,
+                               hoverinfo = "none",
+                               x = x, y = y, showlegend = FALSE,
+                               type = "scatter", mode = "lines",
+                               line = list(color = "black",
+                                           width = 1),
+                               yaxis = "y")
+    }
+
+
+    # z-tick label
+    tick.text <- paste(" ", exp(tick.values.major))
+    tick.pos <- data.frame(x = major.ticks.x[2],
+                           y = major.ticks.y)
+
+    IAP <- plotly::add_trace(IAP, data = tick.pos,
+                             x = x, y = y, showlegend = FALSE,
+                             text = tick.text, textposition = "right",
+                             hoverinfo = "none",
+                             type = "scatter", mode = "text",
+                             yaxis = "y")
+
+    # Central Line ----
+    central.line <- data.frame(x = c(-100, data$xlim[2]*1/0.75), y = c(0, 0))
+    central.line.text <- paste0("Central value: ",
+                                format(exp(z.central.global), digits = 2, nsmall = 1))
+
+    IAP <- plotly::add_trace(IAP, data = central.line,
+                             x = x, y = y, name = "Central line",
+                             type = "scatter", mode = "lines",
+                             hoverinfo = "text", text = central.line.text,
+                             yaxis = "y",
+                             line = list(color = "black",
+                                         width = 0.5,
+                                         dash = 2))
+
+    # KDE plot ----
+    KDE.x <- xy.0[1] + KDE[[1]][ ,2] * KDE.scale
+    KDE.y <- (KDE[[1]][ ,1] - z.central.global) * min(ellipse[,1])
+    KDE.curve <- data.frame(x = KDE.x, y = KDE.y)
+    KDE.curve <- KDE.curve[KDE.curve$x != xy.0[1], ]
+
+    KDE.text <- paste0("Value:",
+                       format(exp(KDE[[1]][ ,1]), digits = 2, nsmall = 1), "</br>",
+                       "Density:",
+                       format(KDE[[1]][ ,2], digits = 2, nsmall = 1))
+
+    IAP <- plotly::add_trace(IAP, data = KDE.curve,
+                             hoverinfo = "text",
+                             text = KDE.text,
+                             x = x, y = y, name = "KDE",
+                             type = "scatter", mode = "lines",
+                             line = list(color = "red"),
+                             yaxis = "y")
+
+    # set layout ----
+    IAP <- plotly::layout(IAP,
+                          hovermode = "closest",
+                          dragmode = "pan",
+                          xaxis = list(range = c(data$xlim[1], data$xlim[2] * 1/0.65),
+                                       zeroline = FALSE,
+                                       showgrid = FALSE,
+                                       tickmode = "array",
+                                       tickvals = x.axis.ticks),
+                          yaxis = list(range = data$ylim,
+                                       zeroline = FALSE,
+                                       showline = FALSE,
+                                       showgrid = FALSE,
+                                       tickmode = "array",
+                                       tickvals = c(-2, 0, 2)),
+                          shapes = list(list(type = "rect", # 2 sigma bar
+                                             x0 = 0, y0 = -2,
+                                             x1 = bars[1,3], y1 = 2,
+                                             xref = "x", yref = "y",
+                                             fillcolor = "grey",
+                                             opacity = 0.2))
+
+    )
+
+    # show interactive plot ----
+    #print(plotly::subplot(IAP, IAP.kde))
+    print(IAP)
+  }
 
   ## create and resturn numeric output
   if(output == TRUE) {
-    return(list(xlim = limits.x,
-                ylim = limits.y,
-                zlim = limits.z,
-                polar.box = c(limits.x[1],
-                              limits.x[2],
-                              min(ellipse[,2]),
-                              max(ellipse[,2])),
-                cartesian.box = c(xy.0[1],
-                                  par()$usr[2],
-                                  xy.0[2],
-                                  max(ellipse[,2])),
-                plot.ratio = plot.ratio,
-                data = data,
-                data.global = data.global,
-                KDE = KDE))
+    return(plot.output)
   }
 }

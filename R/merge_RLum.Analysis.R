@@ -17,20 +17,28 @@
 #' (\bold{required}): list of S4 objects of class \code{RLum.Analysis}.
 #' Furthermore other objects of class \code{\linkS4class{RLum}} can be added,
 #' see details.
+#'
 #' @return Return an \code{\linkS4class{RLum.Analysis}} object.
+#'
 #' @note The information for the slot 'protocol' is taken from the first
 #' \code{\linkS4class{RLum.Analysis}} object in the input list. Therefore at
 #' least one object of type \code{\linkS4class{RLum.Analysis}} has to be
 #' provided.
-#' @section Function version: 0.1
+#'
+#' @section Function version: 0.2.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Data.Curve}},
 #' \code{\linkS4class{RLum.Data.Spectrum}},
 #' \code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum}}
+#'
 #' @references -
+#'
 #' @keywords utilities
+#'
 #' @examples
 #'
 #'
@@ -83,8 +91,8 @@ merge_RLum.Analysis<- function(
   temp.environment  <- environment()
   temp.meta.data.first <- NA; rm(temp.meta.data.first) #to avoid problems with the R check routine
 
-  ##(1) collect all elements a a list
-  temp.element.list <- unlist(sapply(1:length(objects), function(x){
+  ##(1) collect all elements in a list
+  temp.element.list <- unlist(lapply(1:length(objects), function(x){
 
     ##Depending on the element the right functions is used
     if(is(objects[[x]])[1] == "RLum.Analysis"){
@@ -108,7 +116,7 @@ merge_RLum.Analysis<- function(
 
     }else{
 
-      stop("[merge_RLum.Anlysis()] What ever you provided, this 'RLum' object is not supported here!")
+      stop("[merge_RLum.Anlysis()] What ever was provided, this 'RLum' object is not supported!")
 
     }
 
@@ -117,16 +125,21 @@ merge_RLum.Analysis<- function(
 
 
   # Build new RLum.Analysis object --------------------------------------------------------------
-
   temp.new.RLum.Analysis <- set_RLum(
     class = "RLum.Analysis",
     originator = "merge_RLum.Analysis",
     records = temp.element.list,
-    protocol = temp.meta.data.first)
+    protocol = temp.meta.data.first,
+    info = unlist(lapply(objects, function(x) {
+      x@info
+    }), recursive = FALSE),
+    .pid = unlist(lapply(objects, function(x) {
+      x@.uid
+    }))
+    )
 
 
   # Return object -------------------------------------------------------------------------------
-
   return( temp.new.RLum.Analysis)
 
 }

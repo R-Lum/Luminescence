@@ -6,23 +6,22 @@
 \usage{
 plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour",
   optical.wavelength.colours = TRUE, bg.channels, bin.rows = 1,
-  bin.cols = 1, rug = TRUE, xaxis.energy = FALSE, legend.text, ...)
+  bin.cols = 1, rug = TRUE, limit_counts = NULL, xaxis.energy = FALSE,
+  legend.text, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
-object of class \code{RLum.Data.Spectrum}}
+\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
+object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
+Please note that in case of a matrix rownames and colnames are set automatically if not provided.}
 
 \item{par.local}{\code{\link{logical}} (with default): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE} global parameters are inherited.}
 
 \item{plot.type}{\code{\link{character}} (with default): plot type, for
-3D-plot use \code{persp}, or \code{persp3d}, for a 2D-plot \code{contour},
+3D-plot use \code{persp}, or \code{interactive}, for a 2D-plot \code{contour},
 \code{single} or \code{multiple.lines} (along the time or temperature axis)
-or \code{transect} (along the wavelength axis) \cr
-
-Note: The use of \code{\link[rgl]{persp3d}} will produce a dynamic 3D surface plot on
-the screen.}
+or \code{transect} (along the wavelength axis) \cr}
 
 \item{optical.wavelength.colours}{\code{\link{logical}} (with default): use
 optical wavelength colour palette. Note: For this, the spectrum range is
@@ -45,6 +44,10 @@ channels are summed up}
 \item{rug}{\code{\link{logical}} (with default): enables or disables colour
 rug. Currently only implemented for plot type \code{multiple.lines} and
 \code{single}}
+
+\item{limit_counts}{\code{\link{numeric}} (optional): value to limit all count values to
+this value, i.e. all count values above this threshold will be replaced by this threshold. This
+is helpfull especially in case of TL-spectra.}
 
 \item{xaxis.energy}{\code{\link{logical}} (with default): enables or
 disables energy instead of wavelength axis. Note: This option means not only
@@ -148,7 +151,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.4.2 (2015-11-29 17:27:48)
+ 0.5.0 (2016-04-27 19:11:02)
 }
 \examples{
 
@@ -181,10 +184,15 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
                         bin.cols = 1)
 
 \dontrun{
- ##(4) plot real 3d spectrum using rgl
- plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp3d",
+ ##(4) interactive plot using the package plotly
+ plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
  bin.cols = 1)
+
+ ##(5) alternative using the package fields
+ fields::image.plot(get_RLum(TL.Spectrum))
+ contour(get_RLum(TL.Spectrum), add = TRUE)
+
 }
 
 }
@@ -198,7 +206,7 @@ Springer.
 }
 \seealso{
 \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-\code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[rgl]{persp3d}},
+\code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[plotly]{plot_ly}},
 \code{\link{contour}}
 }
 \keyword{aplot}

@@ -5,3 +5,7 @@
     .Call('Luminescence_analyse_IRSARRF_SRS', PACKAGE = 'Luminescence', values_regenerated_limited, values_natural_limited, n_MC)
 }
 
+.create_UID <- function() {
+    .Call('Luminescence_create_UID', PACKAGE = 'Luminescence')
+}
+

@@ -53,8 +53,6 @@
 #'
 #' @references Duller, G., 2007. Analyst.
 #'
-#' @aliases writeR2BIN
-#'
 #' @keywords IO
 #'
 #' @examples
@@ -1267,15 +1265,3 @@ write_R2BIN <- function(
   cat(paste("\t >> ",ID-1,"records have been written successfully!\n\n",paste=""))
 
 }
-
-## ---- DEPRECATED GENERICS
-# .Deprecated in package version 0.5.0
-# .Defunct in 0.5.1
-# Removed in 0.6.0
-#' @noRd
-#' @export
-writeR2BIN <- function(...) {
-  .Defunct("write_R2BIN")
-  write_R2BIN(...)
-}
-

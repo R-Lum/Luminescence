@@ -4,7 +4,7 @@
 \alias{plot_DRTResults}
 \title{Visualise dose recovery test results}
 \usage{
-plot_DRTResults(values, given.dose, error.range = 10, preheat,
+plot_DRTResults(values, given.dose = NULL, error.range = 10, preheat,
   boxplot = FALSE, mtext, summary, summary.pos, legend, legend.pos,
   par.local = TRUE, na.rm = FALSE, ...)
 }
@@ -89,7 +89,7 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.8 (2015-11-29 17:27:48)
+ 0.1.10 (2016-04-08 12:43:43)
 }
 \examples{
 

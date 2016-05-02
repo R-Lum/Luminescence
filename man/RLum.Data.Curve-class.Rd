@@ -3,6 +3,7 @@
 \docType{class}
 \name{RLum.Data.Curve-class}
 \alias{RLum.Data.Curve-class}
+\alias{bin_RLum.Data,RLum.Data.Curve-method}
 \alias{get_RLum,RLum.Data.Curve-method}
 \alias{length_RLum,RLum.Data.Curve-method}
 \alias{names_RLum,RLum.Data.Curve-method}
@@ -12,15 +13,17 @@
 \usage{
 \S4method{show}{RLum.Data.Curve}(object)
 
-\S4method{set_RLum}{RLum.Data.Curve}(class, originator,
+\S4method{set_RLum}{RLum.Data.Curve}(class, originator, .uid, .pid,
   recordType = NA_character_, curveType = NA_character_, data = matrix(0,
   ncol = 2), info = list())
 
-\S4method{get_RLum}{RLum.Data.Curve}(object, info.object)
+\S4method{get_RLum}{RLum.Data.Curve}(object, info.object = NULL)
 
 \S4method{length_RLum}{RLum.Data.Curve}(object)
 
 \S4method{names_RLum}{RLum.Data.Curve}(object)
+
+\S4method{bin_RLum.Data}{RLum.Data.Curve}(object, bin_size = 2)
 }
 \arguments{
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
@@ -30,6 +33,12 @@ class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
 
 \item{originator}{[\code{set_RLum}] \code{\link{character}} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
+
+\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+using the internal C++ function \code{.create_UID}.}
+
+\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+at will.}
 
 \item{recordType}{[\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")}
 
@@ -43,6 +52,9 @@ If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-
 
 \item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 element}
+
+\item{bin_size}{[\code{bin_RLum}] \code{\link{integer}} (with default): set number of channels
+used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.}
 }
 \value{
 \bold{\code{set_RLum}}\cr
@@ -61,6 +73,10 @@ Number of channels in the curve (row number of the matrix)
 \bold{\code{names_RLum}}\cr
 
 Names of the info elements (slot \code{info})
+
+\bold{\code{bin_RLum.Data}}\cr
+
+Same object as input, after applying the binning.
 }
 \description{
 Class for representing luminescence curve data.
@@ -80,6 +96,8 @@ provided, the raw curve data (matrix) will be returned.
 value time/temperature of the curve (corresponding to the stimulation length)
 
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
+
+\item \code{bin_RLum.Data}: Allows binning of specific objects
 }}
 \section{Slots}{
 
@@ -94,16 +112,13 @@ For example: \code{set_RLum(class = 'RLum.Data.Curve',
 data = Your.RLum.Data.Curve, recordType = 'never seen before')}
 would just change the recordType. Missing arguements  the value is taken from the input object
 in 'data' (which is already an RLum.Data.Curve object in this example)}
-
-\item{\code{info}}{Object of class "list" containing further meta information objects}
 }}
 \note{
 The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
 ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
 functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
-namely: \code{\link{Risoe.BINfileData2RLum.Data.Curve}},
-\code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
+namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
 }
 \section{Create objects from this Class}{
  Objects can be created by calls of the form
@@ -111,7 +126,7 @@ namely: \code{\link{Risoe.BINfileData2RLum.Data.Curve}},
 }
 
 \section{Class version}{
- 0.3.0
+ 0.4.1
 }
 \examples{
 

@@ -16,6 +16,9 @@
 #' @param norm \code{\link{logical}} (with default): allows curve normalisation
 #' to the highest count value
 #'
+#' @param smooth \code{\link{logical}} (with default): provides an automatic curve smoothing
+#' based on \code{\link[zoo]{rollmean}}
+#'
 #' @param \dots further arguments and graphical parameters that will be passed
 #' to the \code{plot} function
 #'
@@ -23,7 +26,7 @@
 #'
 #' @note Not all arguments of \code{\link{plot}} will be passed!
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -54,6 +57,7 @@ plot_RLum.Data.Curve<- function(
   object,
   par.local = TRUE,
   norm = FALSE,
+  smooth = FALSE,
   ...
 ){
 
@@ -88,7 +92,9 @@ plot_RLum.Data.Curve<- function(
                     object@recordType == "IRSL" |
                     object@recordType == "RL" |
                     object@recordType == "RF" |
-                    object@recordType == "RBR") {
+                    object@recordType == "RBR" |
+                    object@recordType == "LM-OSL"){
+
       "Stimulation time"
     }
     else if (object@recordType == "TL") {
@@ -100,16 +106,23 @@ plot_RLum.Data.Curve<- function(
 
     ##XSYG
     ##check for curveDescripter
-    if ("curveDescripter" %in% names(object@info) == TRUE) {
-      temp.lab <- strsplit(object@info$curveDescripter, split = ";")[[1]]
+    if ("curveDescripter" %in% names(object@info)) {
+      temp.lab <-
+        strsplit(object@info$curveDescripter,
+                 split = ";",
+                 fixed = TRUE)[[1]]
 
-      xlab <- temp.lab[1]
-      ylab <- temp.lab[2]
+      xlab.xsyg <- temp.lab[1]
+      ylab.xsyg <- temp.lab[2]
+
+    } else{
+      xlab.xsyg <- NA
+      ylab.xsyg <- NA
 
     }
 
     ##normalise curves if argument has been set
-    if (norm == TRUE) {
+    if (norm) {
       object@data[,2] <- object@data[,2] / max(object@data[,2])
 
     }
@@ -128,19 +141,18 @@ plot_RLum.Data.Curve<- function(
       extraArgs$xlab
     } else
     {
-      if (exists("xlab") == TRUE) {
-        xlab
+      if (!is.na(xlab.xsyg)) {
+        xlab.xsyg
       } else
       {
-        paste(lab.xlab," [",lab.unit,"]", sep = "")
+        paste0(lab.xlab, " [", lab.unit, "]")
       }
     }
 
     ylab <- if ("ylab" %in% names(extraArgs)) {
       extraArgs$ylab
-    }
-    else if (exists("ylab") == TRUE) {
-      ylab
+    }else if (!is.na(ylab.xsyg)) {
+      ylab.xsyg
     }
     else if (lab.xlab == "Independent") {
       "Dependent [unknown]"
@@ -240,7 +252,7 @@ plot_RLum.Data.Curve<- function(
       ""
     }
 
-    fun       <-
+    fun  <-
       if ("fun" %in% names(extraArgs)) {
         extraArgs$fun
       } else {
@@ -260,6 +272,15 @@ plot_RLum.Data.Curve<- function(
     if (par.local == TRUE) {
       par(mfrow = c(1,1), cex = cex)
     }
+
+    ##smooth
+    if(smooth){
+
+      k <- ceiling(length(object@data[, 2])/100)
+      object@data[, 2] <- zoo::rollmean(object@data[, 2],
+                                        k = k, fill = NA)
+    }
+
 
     ##plot curve
     plot(

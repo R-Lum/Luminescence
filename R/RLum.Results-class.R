@@ -3,7 +3,7 @@ NULL
 
 #' Class \code{"RLum.Results"}
 #'
-#' Object class contains results data from functions (e.g. \code{\link{analyse_SAR.CWOSL}}.
+#' Object class contains results data from functions (e.g., \code{\link{analyse_SAR.CWOSL}}).
 #'
 #' @name RLum.Results-class
 #'
@@ -18,7 +18,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("RLum.Results", ...)}.
 #'
-#' @section Class version: 0.4.0
+#' @section Class version: 0.5.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -109,16 +109,13 @@ setAs("RLum.Results", "list",
 #' @export
 setMethod("show",
           signature(object = "RLum.Results"),
-          function(object){
-
-
+          function(object) {
             ##data elements
             temp.names <- names(object@data)
 
-            if(length(object) > 0){
+            if (length(object) > 0) {
               temp.type <- sapply(1:length(object@data),
-                                  function(x){
-
+                                  function(x) {
                                     paste("\t .. $", temp.names[x],
                                           " : ",
                                           is(object@data[[x]])[1],
@@ -126,22 +123,22 @@ setMethod("show",
 
 
                                   })
-            }else{
-              temp.type <- paste0("\t .. $", temp.names, " : ",is(object@data)[1])
+            } else{
+              temp.type <- paste0("\t .. $", temp.names, " : ", is(object@data)[1])
 
             }
 
-            temp.type <- paste(temp.type, collapse="\n")
+            temp.type <- paste(temp.type, collapse = "\n")
+
 
             ##print information
             cat("\n [RLum.Results]")
-            cat("\n\t originator: ", object@originator,"()", sep="")
+            cat("\n\t originator: ", object@originator, "()", sep = "")
             cat("\n\t data:", length(object@data))
             cat("\n", temp.type)
+            cat("\n\t additional info elements: ", length(object@info))
 
-
-          }
-)
+          })
 
 
 
@@ -155,9 +152,14 @@ setMethod("show",
 #' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the
 #' name of the calling function
 #' (the function that produces this object); can be set manually.
+#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' using the internal C++ function \code{.create_UID}.
+#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' at will.
 #' @param data [\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to
 #' be stored in the object
-#'
+#' @param info [\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
+#' info data for the object
 #' @return
 #'
 #' \bold{\code{set_RLum}}:\cr
@@ -168,12 +170,25 @@ setMethod("show",
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
 
-          function(class, originator, data = list()){
+          function(class,
+                   originator,
+                   .uid,
+                   .pid,
+                   data = list(),
+                   info = list()) {
 
-            new(
-              Class = "RLum.Results",
-              originator = originator,
-              data = data)
+            ##create new class
+            newRLumReuslts <- new("RLum.Results")
+
+            ##fill object
+            newRLumReuslts@originator <- originator
+            newRLumReuslts@data <- data
+            newRLumReuslts@info <- info
+            newRLumReuslts@.uid <- .uid
+            newRLumReuslts@.pid <- .pid
+
+            return(newRLumReuslts)
+
           })
 
 
@@ -195,6 +210,9 @@ setMethod("set_RLum",
 #' @param data.object [\code{get_RLum}] \code{\link{character}} or
 #' \code{\link{numeric}}: name or index of the data slot to be returned
 #'
+#' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+#' element
+#'
 #' @param drop [\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
 #' (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}
 #'
@@ -209,99 +227,125 @@ setMethod("set_RLum",
 #'
 #'
 #' @export
-setMethod("get_RLum",
-          signature = signature("RLum.Results"),
-          definition = function(object, data.object, drop = TRUE) {
+setMethod(
+  "get_RLum",
+  signature = signature("RLum.Results"),
+  definition = function(object, data.object, info.object = NULL, drop = TRUE) {
+    ##if info.object is set, only the info objects are returned
+    if (!is.null(info.object)) {
+      if (info.object %in% names(object@info)) {
+        unlist(object@info[info.object])
 
-            if (!missing(data.object)) {
+      } else{
+        ##check for entries
+        if (length(object@info) == 0) {
+          warning("[get_RLum] This RLum.Results object has no info objects! NULL returned!)")
+          return(NULL)
 
-              ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-              ##CASE1: data.object is of type 'character'
-              if (is(data.object, "character")) {
+        } else{
+          ##grep names
+          temp.element.names <-
+            paste(names(object@info), collapse = ", ")
 
-                #check if the provided names are available
-                if (all(data.object %in% names(object@data))) {
+          warning.text <-
+            paste("[get_RLum] Invalid info.object name. Valid names are:",
+                  temp.element.names)
 
-                  ##account for multiple inputs
-                  if (length(data.object) > 1) {
-                    temp.return <- sapply(data.object, function(x){
-                      object@data[[x]]
+          warning(warning.text, call. = FALSE)
+          return(NULL)
 
-                    })
+        }
+      }
 
-                  } else{
-                    temp.return <- list(data.object = object@data[[data.object]])
+    } else{
+      if (!missing(data.object)) {
+        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##CASE1: data.object is of type 'character'
+        if (is(data.object, "character")) {
+          #check if the provided names are available
+          if (all(data.object %in% names(object@data))) {
+            ##account for multiple inputs
+            if (length(data.object) > 1) {
+              temp.return <- sapply(data.object, function(x) {
+                object@data[[x]]
 
-                  }
+              })
 
-
-                } else{
-                  error.message <- paste0(
-                    "[get_RLum()] data.object(s) unknown, valid names are: ",
-                    paste(names(object@data), collapse = ", ")
-
-                  )
-                  stop(error.message)
-
-                }
-
-              }
-
-              ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-              ##CASE2: data.object is of type 'numeric'
-              else if (is(data.object, "numeric")) {
-                ##check if index is valid
-                if (max(data.object) > length(object@data)) {
-                  stop("[get_RLum] 'data.object' index out of bounds!")
-
-                } else if (length(data.object) > 1) {
-                  temp.return <- lapply(data.object, function(x) {
-                    object@data[[x]]
-
-                  })
-
-
-                } else{
-                  temp.return <- list(object@data[[data.object]])
-
-                }
-
-                ##restore names as that get los with this method
-                names(temp.return) <- names(object@data)[data.object]
-
-              }
-              ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-              ##CASE3: data.object is of an unsupported type
-              else{
-                stop("[get_RLum] 'data.object' has to be of type character or numeric!")
-              }
-
-            ##the CASE data.object is missing
             } else{
-
-              ##return always the first object if nothing is specified
-              temp.return <- object@data[1]
+              temp.return <- list(data.object = object@data[[data.object]])
 
             }
 
-          ##CHECK whether an RLum.Results object needs to be produced ...
-          ##This will just be the case if the funtion havn't returned something before
-          if (drop) {
-            ##we need to access the list here, otherwise we get unexpected behaviour as drop = TRUE
-            ##should always return the lowest possible element here
-            return(temp.return[[1]])
 
           } else{
+            error.message <- paste0(
+              "[get_RLum()] data.object(s) unknown, valid names are: ",
+              paste(names(object@data), collapse = ", ")
 
-            return(set_RLum(
-              "RLum.Results",
-              originator = object@originator,
-              data = temp.return
-            ))
-
+            )
+            stop(error.message)
 
           }
-    })
+
+        }
+
+        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##CASE2: data.object is of type 'numeric'
+        else if (is(data.object, "numeric")) {
+          ##check if index is valid
+          if (max(data.object) > length(object@data)) {
+            stop("[get_RLum] 'data.object' index out of bounds!")
+
+          } else if (length(data.object) > 1) {
+            temp.return <- lapply(data.object, function(x) {
+              object@data[[x]]
+
+            })
+
+
+          } else{
+            temp.return <- list(object@data[[data.object]])
+
+          }
+
+          ##restore names as that get los with this method
+          names(temp.return) <-
+            names(object@data)[data.object]
+
+        }
+        ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        ##CASE3: data.object is of an unsupported type
+        else{
+          stop("[get_RLum] 'data.object' has to be of type character or numeric!")
+        }
+
+        ##the CASE data.object is missing
+      } else{
+        ##return always the first object if nothing is specified
+        temp.return <- object@data[1]
+
+      }
+
+      ##CHECK whether an RLum.Results object needs to be produced ...
+      ##This will just be the case if the funtion havn't returned something before
+      if (drop) {
+        ##we need to access the list here, otherwise we get unexpected behaviour as drop = TRUE
+        ##should always return the lowest possible element here
+        return(temp.return[[1]])
+
+      } else{
+        return(set_RLum(
+          "RLum.Results",
+          originator = object@originator,
+          data = temp.return
+        ))
+
+
+      }
+
+    }
+  }
+)
 
 
 

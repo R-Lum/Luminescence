@@ -20,7 +20,7 @@
 #'
 #' @param n.records \link{raw} (optional): limits the number of imported
 #' records. Can be used in combination with \code{show.record.number} for
-#' debugging purposes, e.g. corrupt BIN files.
+#' debugging purposes, e.g. corrupt BIN-files.
 #'
 #' @param duplicated.rm \code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
 #' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
@@ -44,6 +44,8 @@
 #' BIN-file version is not supported.\cr Note: The usage is at own risk, only
 #' supported BIN-file versions have been tested.
 #'
+#' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
+#'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument
 #' automatically sets \code{fastForward = TRUE}
@@ -61,10 +63,10 @@
 #' @note The function works for BIN/BINX-format versions 03, 04, 06 and 07. The
 #' version number depends on the used Sequence Editor.\cr\cr \bold{Potential
 #' other BIN/BINX-format versions are currently not supported. The
-#' implementation of version 07 support could not been tested so far.}.
+#' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.0
+#' @section Function version: 0.12.7
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -79,7 +81,6 @@
 #' @references Duller, G., 2007. Analyst.
 #' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}
 #'
-#' @aliases readBIN2R
 #'
 #' @keywords IO
 #'
@@ -104,6 +105,7 @@ read_BIN2R <- function(
   show.record.number = FALSE,
   txtProgressBar = TRUE,
   forced.VersionNumber = NULL,
+  verbose = TRUE,
   ...
 ){
 
@@ -117,7 +119,9 @@ read_BIN2R <- function(
 
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      cat("[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n")
+      if(verbose){
+        cat("[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n")
+      }
       file <-
         as.list(c(
           paste0(file,dir(
@@ -195,17 +199,18 @@ read_BIN2R <- function(
   con<-file(file, "rb")
 
   ##get information about file size
-  file.size<-file.info(file)
+  file.size <- file.info(file)
 
   ##read data up to the end of con
 
   ##set ID
-  temp.ID<-0
+  temp.ID <- 0
+
 
   ##start for BIN-file check up
   while(length(temp.VERSION<-readBin(con, what="raw", 1, size=1, endian="litte"))>0) {
 
-    ##force version number
+     ##force version number
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
@@ -213,13 +218,31 @@ read_BIN2R <- function(
     ##stop input if wrong VERSION
     if((temp.VERSION%in%VERSION.supported) == FALSE){
 
-      ##close connection
-      close(con)
+      if(temp.ID > 0){
 
-      ##show error message
-      error.text <- paste("[read_BIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+        if(is.null(n.records)){
+          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. Import limited to the first ", temp.ID-1," records."))
 
-      stop(error.text)
+        }else{
+          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. 'n.records' reset to ", temp.ID-1,"."))
+
+        }
+
+        ##set or reset n.records
+        n.records <- temp.ID-1
+        break()
+
+      }else{
+        ##show error message
+        error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+
+        ##close connection
+        close(con)
+
+        ##show error
+        stop(error.text)
+
+      }
 
     }
 
@@ -242,10 +265,24 @@ read_BIN2R <- function(
 
     temp.ID<-temp.ID+1
 
+    if(!is.null(n.records) && temp.ID == n.records){
+      break()
+
+    }
+
   }
 
   ##close con
   close(con)
+
+  ##set n.records
+  if(is.null(n.records)){
+    n.records <- temp.ID
+
+  }
+  rm(temp.ID)
+
+
 
 # Set Lookup tables  --------------------------------------------------------------------------
 
@@ -323,10 +360,13 @@ read_BIN2R <- function(
   temp.UPPERFILTER_ID <- NA
   temp.ENOISEFACTOR <- NA
   temp.SEQUENCE <- NA
+  temp.GRAIN <- NA
+  temp.GRAINNUMBER <- NA
+  temp.LIGHTPOWER <- NA
+  temp.LPOWER <- NA
 
   ##SET length of entire record
-  n.length = temp.ID
-  rm(temp.ID)
+  n.length <- n.records
 
   ##initialise data.frame
   results.METADATA <- data.table(
@@ -411,6 +451,7 @@ read_BIN2R <- function(
 
   ) #end set data table
 
+
   #set variable for DPOINTS handling
   results.DATA<-list()
 
@@ -432,10 +473,10 @@ read_BIN2R <- function(
   file.size<-file.info(file)
 
   ##output
-  cat(paste("\n[read_BIN2R()]\n\t >> ",file,sep=""), fill=TRUE)
+  if(verbose){cat(paste("\n[read_BIN2R()]\n\t >> ",file,sep=""), fill=TRUE)}
 
   ##set progressbar
-  if(txtProgressBar==TRUE){
+  if(txtProgressBar & verbose){
     pb<-txtProgressBar(min=0,max=file.size$size, char="=", style=3)
   }
 
@@ -462,22 +503,24 @@ read_BIN2R <- function(
       close(con)
 
       ##show error message
-      error.text <- paste("[read_BIN2R()] The BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+      error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
       stop(error.text)
 
     }
 
     ##print record ID for debugging purposes
-    if(show.record.number == TRUE){
+    if(verbose){
+      if(show.record.number == TRUE){
 
 
 
-      cat(temp.ID,",", sep = "")
-      if(temp.ID%%10==0){
-        cat("\n")
+        cat(temp.ID,",", sep = "")
+        if(temp.ID%%10==0){
+          cat("\n")
+        }
       }
-    }
+   }
 
 
     #empty byte position
@@ -963,16 +1006,17 @@ read_BIN2R <- function(
     #SET UNIQUE ID
     temp.ID <- temp.ID+1
 
-    ##update progress bar
-    if(txtProgressBar==TRUE){
+     ##update progress bar
+    if(txtProgressBar & verbose){
       setTxtProgressBar(pb, seek(con,origin="current"))
     }
-    ##set for equal values with different names
-    if(exists("temp.GRAINNUMBER") == TRUE){temp.GRAIN <- temp.GRAINNUMBER}
-    if(exists("temp.GRAIN") == TRUE){temp.GRAINNUMBER <- temp.GRAIN}
 
-    if(exists("temp.LIGHTPOWER") == TRUE){temp.LPOWER <- temp.LIGHTPOWER}
-    if(exists("temp.LPOWER") == TRUE){temp.LIGHTPOWER <- temp.LPOWER}
+    ##set for equal values with different names
+    if(!is.na(temp.GRAINNUMBER)){temp.GRAIN <- temp.GRAINNUMBER}
+    if(!is.na(temp.GRAIN)){temp.GRAINNUMBER <- temp.GRAIN}
+
+    if(!is.na(temp.LIGHTPOWER)){temp.LPOWER <- temp.LIGHTPOWER}
+    if(!is.na(temp.LPOWER)){temp.LIGHTPOWER <- temp.LPOWER}
 
     temp.SEL <- if(temp.TAG == 1){TRUE}else{FALSE}
 
@@ -1067,34 +1111,33 @@ read_BIN2R <- function(
 
     }
 
-    ##remove some unwanted objects
-    rm(temp.GRAINNUMBER)
-    rm(temp.GRAIN)
+    ##reset values
+    temp.GRAINNUMBER <- NA
+    temp.GRAIN <- NA
 
 
   }#endwhile::end lopp
-
 
   ##close con
   close(con)
 
   ##close
-  if(txtProgressBar==TRUE){close(pb)}
+  if(txtProgressBar & verbose){close(pb)}
 
   ##output
-  cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))
+  if(verbose){cat(paste("\t >> ",temp.ID," records have been read successfully!\n\n", sep=""))}
 
   # Further limitation --------------------------------------------------------------------------
   if(!is.null(position)){
 
     ##check whether the position is valid at all
-    if (all(position %in% results.METADATA$POSITION)) {
+    if (all(position %in% results.METADATA[["POSITION"]])) {
 
-      results.METADATA <- results.METADATA[which(results.METADATA$POSITION %in% position),]
-      results.DATA <- results.DATA[results.METADATA$ID]
+      results.METADATA <- results.METADATA[which(results.METADATA[["POSITION"]] %in% position),]
+      results.DATA <- results.DATA[results.METADATA[["ID"]]]
 
         ##re-calculate ID ... otherwise it will not match
-        results.METADATA$ID <- 1:length(results.DATA )
+        results.METADATA[["ID"]] <- 1:length(results.DATA )
 
         ##show a message
         message("[read_BIN2R()] The record index has been recalculated!")
@@ -1102,7 +1145,7 @@ read_BIN2R <- function(
 
     }else{
       valid.position <-
-        paste(unique(results.METADATA$POSITION), collapse = ", ")
+        paste(unique(results.METADATA[["POSITION"]]), collapse = ", ")
       warning(
         paste0(
           "Position limitation omitted. At least one position number is not valid, valid position numbers are: ", valid.position
@@ -1112,33 +1155,48 @@ read_BIN2R <- function(
 
   }
 
-  ##check for duplicated entries and remove them if wanted
-  duplication.check <- suppressWarnings(which(c(0, vapply(
-    2:length(results.DATA),
-    FUN = function(x) {
-      all(results.DATA[[x - 1]] == results.DATA[[x]])
-    },
-    FUN.VALUE = 1
-  )) == 1))
+  ##check for duplicated entries and remove them if wanted, but only if we have more than 2 records
+  if (n.records > 1) {
+    duplication.check <- suppressWarnings(which(c(
+      0, vapply(
+        2:length(results.DATA),
+        FUN = function(x) {
+          all(results.DATA[[x - 1]] == results.DATA[[x]])
+        },
+        FUN.VALUE = 1
+      )
+    ) == 1))
 
-  if(length(duplication.check) != 0){
+    if (length(duplication.check) != 0) {
+      if (duplicated.rm) {
+        ##remove records
+        results.METADATA <- results.METADATA[-duplication.check, ]
+        results.DATA[duplication.check] <- NULL
 
-    if(duplicated.rm){
+        ##recalculate record index
+        results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
 
-      ##remove records
-      results.METADATA <- results.METADATA[-duplication.check,]
-      results.DATA[duplication.check] <- NULL
+        ##message
+        if(verbose) {
+          message(
+            paste0(
+              "[read_BIN2R()] duplicated record(s) detected and removed: ",
+              paste(duplication.check, collapse = ", "),
+              ". Record index re-calculated."
+            )
+          )
+        }
 
-      ##recalculate record index
-      results.METADATA$ID <- 1:nrow(results.METADATA)
+      } else{
+        warning(
+          paste0(
+            "[read_BIN2R()] duplicated record(s) detected: ",
+            paste(duplication.check, collapse = ", "),
+            ". \n\n >> You should consider 'duplicated.rm = TRUE'."
+          )
+        )
 
-      ##message
-      message(paste0("[read_BIN2R()] duplicated record(s) detected and removed: ", paste(duplication.check, collapse = ", "), ". Record index re-calculated."))
-
-    }else{
-
-      warning(paste0("[read_BIN2R()] duplicated record(s) detected: ",
-                     paste(duplication.check, collapse = ", "), ". >> You should consider 'duplicated.rm = TRUE'." ))
+      }
 
     }
 
@@ -1154,27 +1212,27 @@ read_BIN2R <- function(
 
   if (!show.raw.values) {
     ##LIGHTSOURCE CONVERSION
-    object@METADATA[, "LIGHTSOURCE"] <-
-      unname(LIGHTSOURCE.lookup[object@METADATA[, "LIGHTSOURCE"]])
+    object@METADATA[["LIGHTSOURCE"]] <-
+      unname(LIGHTSOURCE.lookup[object@METADATA[["LIGHTSOURCE"]]])
 
     ##LTYPE CONVERSION
-    object@METADATA[, "LTYPE"] <-
-      unname(LTYPE.lookup[object@METADATA[, "LTYPE"]])
+    object@METADATA[["LTYPE"]] <-
+      unname(LTYPE.lookup[object@METADATA[["LTYPE"]]])
 
     ##DTYPE CONVERSION
-    object@METADATA[, "DTYPE"] <-
-      unname(DTYPE.lookup[object@METADATA[, "DTYPE"]])
+    object@METADATA[["DTYPE"]] <-
+      unname(DTYPE.lookup[object@METADATA[["DTYPE"]]])
 
         ##CHECK for oddly set LTYPES, this may happen in old BIN-file versions
-        if (object@METADATA[1, "VERSION"] == 3) {
-          object@METADATA[, "LTYPE"] <-
-            sapply(1:length(object@METADATA[, "LTYPE"]), function(x) {
-              if (object@METADATA[x, "LTYPE"] == "OSL" &
-                  object@METADATA[x, "LIGHTSOURCE"] == "IR diodes/IR Laser") {
+        if (object@METADATA[["VERSION"]][1] == 3) {
+          object@METADATA[["LTYPE"]] <-
+            sapply(1:length(object@METADATA[["LTYPE"]]), function(x) {
+              if (object@METADATA[["LTYPE"]][x] == "OSL" &
+                  object@METADATA[["LIGHTSOURCE"]][x] == "IR diodes/IR Laser") {
                 return("IRSL")
 
               } else{
-                return(object@METADATA[x, "LTYPE"])
+                return(object@METADATA[["LTYPE"]][x])
 
               }
 
@@ -1184,11 +1242,9 @@ read_BIN2R <- function(
 
     ##TIME CONVERSION, do not do for odd time formats as this could cause problems during export
     if (TIME_SIZE == 6) {
-      object@METADATA[, "TIME"] <-
-        sapply(1:length(object@METADATA[, "TIME"]), function(x) {
-          format(strptime(as.character(object@METADATA[x, "TIME"]), "%H%M%S"), "%H:%M:%S")
+      object@METADATA[["TIME"]] <-
+        format(strptime(as.character(object@METADATA[["TIME"]]), "%H%M%S"), "%H:%M:%S")
 
-        })
     }
 
   }
@@ -1223,15 +1279,3 @@ read_BIN2R <- function(
 
 
 }
-
-## ---- DEPRECATED GENERICS
-# .Deprecated in package version 0.5.0
-# .Defunct in 0.5.1
-# Removed in 0.6.0
-#' @noRd
-#' @export
-readBIN2R <- function(...) {
-  .Defunct("read_BIN2R")
-  read_BIN2R(...)
-}
-

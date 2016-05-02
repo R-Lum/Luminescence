@@ -98,7 +98,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.4
+#' @section Function version: 0.5.7
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -116,8 +116,6 @@
 #'
 #'
 #' @keywords IO
-#'
-#' @aliases readXSYG2R
 #'
 #' @examples
 #'
@@ -190,7 +188,15 @@ read_XSYG2R <- function(
 
     ##return
     if (fastForward) {
-      return(unlist(temp.return, recursive = FALSE))
+
+      if(import){
+        return(unlist(temp.return, recursive = FALSE))
+
+      }else{
+        return(as.data.frame(data.table::rbindlist(temp.return)))
+
+      }
+
 
     }else{
       return(temp.return)
@@ -230,14 +236,16 @@ read_XSYG2R <- function(
     ##(1) split string to paris of xy-values
     ##(2) split string to xy-values itself
     ##(3) convert to numeric
-    ##(4) transpose matrix
-    curve.node <- t(
-      sapply(
+    ##(4) create matrix
+
+   curve.node <- t(
+      vapply(
         strsplit(
           strsplit(
             XML::xmlValue(curve.node), split = ";", fixed = TRUE)[[1]],
           split = ",", fixed = TRUE),
-        as.numeric))
+        FUN = as.numeric,
+        FUN.VALUE = c(1,1L)))
 
   }
 
@@ -320,7 +328,22 @@ read_XSYG2R <- function(
 
     }
 
-    output <-  list(Sample = temp.sample, Sequences = temp.sequence.header)
+
+      ##additional option for fastForward == TRUE
+      if(fastForward){
+
+        ##change column header
+        temp.sample <- t(temp.sample)
+        colnames(temp.sample) <- paste0("sample::", colnames(temp.sample))
+        output <- cbind(temp.sequence.header, temp.sample)
+
+
+      }else{
+        output <-  list(Sample = temp.sample, Sequences = temp.sequence.header)
+
+
+      }
+
     return(output)
 
   }else{
@@ -333,7 +356,7 @@ read_XSYG2R <- function(
     message(paste0("[read_XSYG2R()]\n  Importing: ",file))
 
     ##PROGRESS BAR
-    if(txtProgressBar == TRUE){
+    if(txtProgressBar){
       pb <- txtProgressBar(min=0,max=XML::xmlSize(temp), char = "=", style=3)
     }
 
@@ -663,7 +686,8 @@ read_XSYG2R <- function(
 
         }##if-try condition
 
-      }))
+      }),
+       use.names = FALSE)
 
 
       ##if the XSYG file is broken we get NULL as list element
@@ -676,9 +700,11 @@ read_XSYG2R <- function(
           protocol = as.character(temp.sequence.header["protocol",1])
         )
 
+        ##set parent uid of RLum.Anlaysis as parent ID of the records
+        temp.sequence.object <- .set_pid(temp.sequence.object)
 
         ##update progress bar
-        if (txtProgressBar == TRUE) {
+        if (txtProgressBar) {
           setTxtProgressBar(pb, x)
         }
 
@@ -700,7 +726,7 @@ read_XSYG2R <- function(
     })##end loop for sequence list
 
     ##close ProgressBar
-    if(txtProgressBar == TRUE){close(pb)}
+    if(txtProgressBar ){close(pb)}
 
     ##show output informatioj
     if(length(output[sapply(output, is.null)]) == 0){
@@ -724,14 +750,4 @@ read_XSYG2R <- function(
   ##get rid of the NULL elements (as stated before ... invalid files)
   return(output[!sapply(output,is.null)])
 
-}
-## ---- DEPRECATED GENERICS
-# .Deprecated in package version 0.5.0
-# .Defunct in 0.5.X
-# Removed in 0.6.0
-#' @noRd
-#' @export
-readXSYG2R <- function(...) {
-  .Deprecated("read_XSYG2R")
-  read_XSYG2R(...)
 }

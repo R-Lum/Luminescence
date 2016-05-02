@@ -11,9 +11,9 @@
 \usage{
 \S4method{show}{RLum.Data.Image}(object)
 
-\S4method{set_RLum}{RLum.Data.Image}(class, originator, recordType = "Image",
-  curveType = NA_character_, data = raster::brick(raster::raster(matrix())),
-  info = list())
+\S4method{set_RLum}{RLum.Data.Image}(class, originator, .uid, .pid,
+  recordType = "Image", curveType = NA_character_,
+  data = raster::brick(raster::raster(matrix())), info = list())
 
 \S4method{get_RLum}{RLum.Data.Image}(object, info.object)
 
@@ -27,6 +27,12 @@ of class \code{\linkS4class{RLum.Data.Image}}}
 
 \item{originator}{\code{[set_RLum]} \code{\link{character}} (automatic):
 contains the name of the calling function (the function that produces this object); can be set manually.}
+
+\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+using the internal C++ function \code{.create_UID}.}
+
+\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+at will.}
 
 \item{recordType}{\code{[set_RLum]} \code{\link{character}}: record type (e.g. "OSL")}
 
@@ -93,7 +99,7 @@ elements the slot \code{info} can be used.
 }
 
 \section{Class version}{
- 0.3.0
+ 0.4.0
 }
 \examples{
 

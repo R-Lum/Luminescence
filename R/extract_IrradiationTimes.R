@@ -18,17 +18,20 @@
 #' \code{\link{write_R2BIN}} for data import and export.
 #'
 #' @param object \code{\link{character}} (\bold{required}) or
-#' \code{\linkS4class{RLum.Analysis}} object: path and file name of the XSYG
+#' \code{\linkS4class{RLum.Analysis}} object or \code{\link{list}}: path and file name of the XSYG
 #' file or an \code{\linkS4class{RLum.Analysis}} produced by the function
-#' \code{\link{read_XSYG2R}}. \cr
+#' \code{\link{read_XSYG2R}}; alternatively a \code{list} of \code{\linkS4class{RLum.Analysis}} can
+#' be provided. \cr
 #'
 #' \bold{Note}: If an \code{\linkS4class{RLum.Analysis}} is used, any input for
 #' the arguments \code{file.BINX} and \code{recordType} will be ignored!
+#'
 #' @param file.BINX \code{\link{character}} (optional): path and file name of
 #' an existing BINX-file. If a file name is provided the file will be updated
 #' with the information from the XSYG file in the same folder as the original
 #' BINX-file.\cr Note: The XSYG and the BINX-file have to be originate from the
 #' same measurement!
+#'
 #' @param recordType \code{\link{character}} (with default): select relevant
 #' curves types from the XSYG file or \code{\linkS4class{RLum.Analysis}}
 #' object. As the XSYG-file format comprises much more information than usually
@@ -45,14 +48,19 @@
 #' @param txtProgressBar \code{\link{logical}} (with default): enables
 #' \code{TRUE} or disables \code{FALSE} the progression bars during import and
 #' export
+#'
 #' @return An \code{\linkS4class{RLum.Results}} object is returned with the
 #' following structure:\cr .. $irr.times (data.frame)\cr
 #'
 #' If a BINX-file path and name is set, the output will be additionally
-#' transferred to a new BINX-file with the function name as suffix. For the
+#' transferred into a new BINX-file with the function name as suffix. For the
 #' output the path of the input BINX-file itself is used. Note that this will
 #' not work if the input object is a file path to an XSYG-file. In this case
-#' the argument input is ignored.
+#' the argument input is ignored.\cr
+#'
+#' In the self call mode (input is a \code{list} of \code{\linkS4class{RLum.Analysis}} objects
+#' a list of \code{\linkS4class{RLum.Results}} is returned.
+#'
 #' @note The produced output object contains still the irradiation steps to
 #' keep the output transparent. However, for the BINX-file export this steps
 #' are removed as the BINX-file format description does not allow irradiations
@@ -71,14 +79,20 @@
 #' the time stamps this could produce negative values as the important function
 #' (\code{\link{read_XSYG2R}}) do not change the order of entries for one step
 #' towards a correct time order.
-#' @section Function version: 0.2.1
+#'
+#' @section Function version: 0.3.0
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
 #' \code{\link{read_XSYG2R}}, \code{\link{read_BIN2R}}, \code{\link{write_R2BIN}}
+#'
 #' @references Duller, G., 2007. Analyst.
+#'
 #' @keywords IO manip
+#'
 #' @examples
 #'
 #'
@@ -106,6 +120,52 @@ extract_IrradiationTimes <- function(
   compatibility.mode = TRUE,
   txtProgressBar = TRUE
 ){
+
+  # SELF CALL -----------------------------------------------------------------------------------
+  if(is.list(object)){
+
+    ##show message for non-supported arguments
+    if(!missing(file.BINX)){
+      warning("[extract_IrradiationTimes()] argument 'file.BINX' is not supported in the self call mode.",
+              call. = FALSE)
+
+    }
+
+    ##extent arguments
+      ##extent recordType
+      if(is(recordType, "list")){
+        recordType <-
+          rep(recordType, length = length(object))
+
+
+      }else{
+        recordType <-
+          rep(list(recordType), length = length(object))
+
+      }
+
+      ##run function
+      results <- lapply(1:length(object), function(x) {
+        extract_IrradiationTimes(
+          object = object[[x]],
+          recordType = recordType[[x]],
+          txtProgressBar = txtProgressBar
+        )
+
+      })
+
+      ##DO NOT use invisible here, this will stop the function from stopping
+      if(length(results) == 0){
+        return(NULL)
+
+      }else{
+        return(results)
+
+      }
+
+  }
+
+
 
   # Integrity tests -----------------------------------------------------------------------------
 

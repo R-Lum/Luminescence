@@ -33,9 +33,6 @@
 #'
 #' @keywords utilities
 #'
-#' @aliases get_RLum.Data.Curve get_RLum.Data.Image get_RLum.Data.Spectrum
-#' get_RLum.Analysis get_RLum.Results
-#'
 #' @examples
 #'
 #'
@@ -52,7 +49,7 @@
 #'
 #'
 #' @export
-setGeneric("get_RLum", function (object, ...) { standardGeneric("get_RLum") })
+setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 
 # Method for get_RLum method for RLum objects in a list for a list of objects  -------------------
 #' @describeIn get_RLum
@@ -65,13 +62,22 @@ setMethod("get_RLum",
           signature = "list",
           function(object, null.rm = FALSE, ...){
 
+
             selection <- lapply(1:length(object), function(x){
 
               ##get rid of all objects that are not of type RLum, this is better than leaving that
               ##to the user
               if(inherits(object[[x]], what = "RLum")){
 
-                get_RLum(object[[x]],...)
+                ##it might be the case the object already comes with empty objects, this would
+                ##cause a crash
+                if(is(object[[x]], "RLum.Analysis") && length(object[[x]]@records) != 0){
+                  get_RLum(object[[x]],...)
+
+                }else{
+                  return(NULL)
+
+                }
 
               }else{
 
@@ -79,13 +85,14 @@ setMethod("get_RLum",
                        call. = FALSE)
                 return(NULL)
 
-                return(NULL)
               }
 
             })
 
-            ##remove empty or NULL objects
+
+            ##remove empty or NULL objects after the selection ... if wanted
             if(null.rm){
+
 
                 ##first set all empty objects to NULL ... for RLum.Analysis objects
                 selection <- lapply(1:length(selection), function(x){
@@ -108,44 +115,3 @@ setMethod("get_RLum",
             return(selection)
 
           })
-
-
-## ---- DEPRECATED GENERICS
-# .Deprecated in package version 0.5.0
-# .Defunct in 0.5.1
-# Removed in 0.6.0
-
-#' @noRd
-#' @export
-get_RLum.Analysis <- function(...) {
-  .Defunct("get_RLum")
-  get_RLum(...)
-}
-
-#' @noRd
-#' @export
-get_RLum.Data.Curve <- function(...) {
-  .Defunct("get_RLum")
-  get_RLum(...)
-}
-
-#' @noRd
-#' @export
-get_RLum.Data.Image <- function(...) {
-  .Defunct("get_RLum")
-  get_RLum(...)
-}
-
-#' @noRd
-#' @export
-get_RLum.Data.Spectrum <- function(...) {
-  .Defunct("get_RLum")
-  get_RLum(...)
-}
-
-#' @noRd
-#' @export
-get_RLum.Results <- function(...) {
-  .Defunct("get_RLum")
-  get_RLum(...)
-}

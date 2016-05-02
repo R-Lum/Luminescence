@@ -1,26 +1,395 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.5.2 (, 2016):
+Changes in version 0.6.0 (May 20th ,2016):
+
+  New functions:
+
+         • ‘analyse_baSAR()’: This function allows the application of
+           Bayesian models (baSAR) on luminescecence data
+
+         • ‘app_RLum()’: Wrapper for the function ‘app_RLum()’ from the
+           package ‘RLumShiny’ by Christoph Burow
+
+         • ‘bin_RLum.Data’: Function for binning in ‘RLum.Data’
+           objects, e.g., binning of ‘RLum.Data.Curve’ objects
+
+         • ‘calc_FastRatio(): Function to calculate the fast ratio of
+           CW-OSL curves after Durcan & Duller (2011)’
+
+         • ‘calc_ThermalLifetime(): Function to calculate thermal
+           lifetime of a charge using the Arrhenius equation’
+
+         • ‘model_LuminescenceSignals()’: Wrapper for the function
+           ‘model_LuminescenceSignals()’ from the package ‘RLumModel’
+           by Johannes Friedrich, Sebastian Kreutzer and Christoph
+           Schmidt
+
+         • ‘plot_DetPlot()’: Plots the equivalent dose (De) in
+           dependency of the chosen signal integral (cf. Bailey et al.,
+           2003; #23).
+
+         • ‘report_RLum()’: Function to create a HTML report of RLum
+           objects (or any other), containing the complete structure
+           and content of the provided object. Requires the packages
+           'rmarkdown' and 'pander'.
+
+         • ‘verify_SingleGrainData()’: Verify single grain data sets
+           and check for invalid grains, i.e. zero light level grains
+
+  Changes in S4-objects and related methods:
+
+         • ‘set_RLum’
+
+             • The function ‘set_RLum()’ gained the new argument ‘.uid’
+               which is by default presetting the slot with the same
+               name using the internal function ‘.create_UID()’.  In
+               the previous package version this slot of the
+               RLum-object was filled automatically as well, but the
+               way it was done was a little bit semitransparent and a
+               different function was used,
+
+             • the performance of the function was improved
+               significantly.
+
+         • ‘get_RLum’
+
+             • Methods for ‘RLum.Analysis’ and ‘RLum.Results’ objects
+               updated, so that they can handle the new info slot,
+
+             • method for ‘RLum.Data.Curve’ objects new reacts more
+               relaxed for wrong info object names. Instead of a
+               function error, ‘NULL’ is returned. This makes handling
+               in loops easier,
+
+             • the function crashed under very rare circumstances if a
+               provided list with RLum-objects contained
+               ‘RLum.Analysis’ objects with zero records; corrected.
+
+         • ‘structure_RLum’
+
+             • The method gained a ‘...’ argument for further passing
+               information to the specific class methods,
+
+             • The method for the class ‘RLum.Analysis’ gained the new
+               argument ‘fullExtent’ to extent the returned data frame
+               to all info elements. This makes it possible to
+               investigate ‘RLum.Analysis’ objects in great detail and
+               subset them efficiently.
+
+         • ‘RLum’
+
+             • The slot ‘.uid’ from objects of this class has now the
+               prototype ‘NA_character_’.  The unique id is only set if
+               the corresponding ‘set_RLum’ function is called, which
+               should be, however, the usual case,
+
+             • all inherited object classes gained a new slot called
+               ‘.pid’. This slot is reserved for storing parent ids so
+               that objects can be nested at free will. Corresponding
+               import function had been adapted in the way the pid will
+               become an inherited uid from the ‘RLum.Analysis’ object,
+
+             • all inhertied object classes of the class ‘RLum’ gained
+               a new slot called ‘info’, with this a more consistent
+               workflow with the objects should be possible, before
+               only objects of the class ‘RLum.Data’ had such slot.
+
+  Removed functions:
+
+         • ‘readBIN2R()’, replacement ‘read_BIN2R()’,
+
+         • ‘readSPE2R()’, replacement ‘read_SPE2R()’,
+
+         • ‘readXSYG2R()’, replacement ‘read_XSYG2R()’,
+
+         • ‘writeR2BIN()’, replacement ‘write_R2BIN()’,
+
+         • ‘get_RLum.Data.Curve()’, replacement ‘get_RLum()’,
+
+         • ‘get_RLum.Data.Spectrum()’, replacement ‘get_RLum()’,
+
+         • ‘get_RLum.Data.Image()’, replacement ‘get_RLum()’,
+
+         • ‘get_RLum.Analysis()’, replacement ‘get_RLum()’,
+
+         • ‘get_RLum.Results()’, replacement ‘get_RLum()’,
+
+         • ‘set_RLum.Data.Curve()’, replacement ‘set_RLum()’,
+
+         • ‘set_RLum.Data.Spectrum()’, replacement ‘set_RLum()’,
+
+         • ‘set_RLum.Data.Image()’, replacement ‘set_RLum()’,
+
+         • ‘set_RLum.Analysis()’, replacement ‘set_RLum()’,
+
+         • ‘set_RLum.Results()’, replacement ‘set_RLum()’,
+
+         • ‘length_RLum.Analysis()’, replacement ‘length_RLum()’,
+
+         • ‘get_structure.RLum.Analysis()’, replacement
+           ‘structure_RLum’,
+
+         • ‘Risoe.BINfileData2RLum.Data.Curve’, replacement
+           ‘.Risoe.BINfileData2RLum.Data.Curve’ The function was made
+           an internal function, as this function was used only rarely
+           by users, but often needed internally. The function and its
+           functionally is still available under its new name but a lot
+           of integrity checks had been removed from the code, which
+           doubles the speed when transforming objects, but makes the
+           function failing fast.
 
   Bugfixes and changes:
 
-         • ‘analyse_pIRIRSequence()’
+         • ‘analyse_IRSAR.RF()’
 
-             • Fix graphical output for MET protocol.
+             • Add self call to the function, i.e. as input
+               alternatively now a list of ‘RLum.Analysis’ objects can
+               be provided for a higher efficiency,
+
+             • the test parameter ‘intersection_ratio’ was wrongly
+               calculated; corrected,
+
+             • correct wrong shift if the option ‘RF_nat.lim’ was used,
+
+             • internal parameter added that allows to show the applied
+               fit, while using ‘method = "SLIDE"’.
+
+         • ‘analyse_SAR.CWOSL()’
+
+             • The function will not stop with an error if no 'OSL' or
+               'IRSL' record is detected, but return ‘NULL’ and print a
+               warning,
+
+             • under really rare circumstances, many recycling points
+               and recuperation points the function could crash
+               (fixed).
+
+             • Fixed a bug in the evaluation of the rejection criteria
+               where the status of the palaedose error criterion was
+               returned as 'OK' even though it was not (Thanks to
+               Annette Kadereit) function could crash (fixed),
+
+             • add support for testdose error as rejection criteria,
+
+             • recuperation rate was not shown properely in the
+               rejection criteria plot,
+
+             • instead of showing failed, the polygon borders are now
+               plotted in red in the rejection criteria plot,
+
+             • if a list of RLum-objects was provided the rejection
+               criteria could not be change any more fixed (thanks to
+               Andrea Junge),
+
+             • every rejection criterium now allows the input value
+               ‘NA’, in this case values are calculated, but not
+               considered as rejection criterium, i.e. the RC.Status
+               will be always ‘'OK'’,
+
+             • minor graphical adjustments.
+
+         • ‘apply_CosmicRayRemoval()’
+
+             • Argument ‘silent’ renamed to ‘verbose’,
+
+             • new argument ‘method.Pych.threshold_factor’ added to
+               have a better control for the threshold value used for
+               the removal,
+
+             • new argument ‘MARGIN’ added to allow the application of
+               the methods along the wavelength or the time,
+
+             • set default method to ‘smooth’.
+
+         • ‘calc_FadingCorr()’
+
+             • Table column headers now have all capital letters,
+
+             • minor performance improvements,
+
+             • for very large standard errors uniroot failed, causing a
+               function break; corrected (#270),
+
+             • if uniroot is not able to solve the equation during the
+               MC runs the function will not stop anymore with an
+               error.
+
+         • ‘calc_OSLLxTxRatio()’
+
+             • New argument ‘digits’ introduced to allow direct
+               rounding of the numbers,
+
+             • add argument ‘sig0’ to allow for an extra component of
+               error.
+
+         • ‘extrac_IrradiationTimes()’
+
+             • Function now supports the self call mode, i.e. a ‘list’
+               of ‘RLum.Analysis’ objects can be provided as input and
+               the function iterates of this list.
+
+         • ‘fit_LMCurve()’
+
+             • Fix bug that caused a function break if data set
+               contained 0 time values but a log-scale was wanted; now
+               the ‘xlim’ is adjusted and a warning is given.
+
+         • ‘merge_RLum.Data.Curve()’
+
+             • Support further merge operations: ‘median’, ‘var’, ‘sd’,
+               ‘min’, ‘max’.
+
+         • ‘plot_AbanicoPlot()’
+
+             • Fixed a bug where the function failed to get input data
+               from ‘RLum.Results’ objects.
+
+             • New argument ‘interactive’ to produce an interactive
+               plot using the JavaScript graphing library 'plotly.js'
+               (requires the 'plotly' package).
+
+         • ‘plot_DRTResults()’
+
+             • If no given dose is provided the horizontal 'ab-lines'
+               (1.0 and +/- 0.1) are no longer plotted,
+
+             • default value for the argument ‘given.dose’ is now
+               ‘NULL’.
 
          • ‘plot_GrowthCurve()’
 
-             • The function partly couldn't fit if negative weights had
-               been provided, fixed (thanks to Norbert Mercier).
+             • If the input data contain a least one infinite value the
+               function will not crash any longer, but return ‘NULL’
+               (#263, Norbert Mercier),
+
+             • check for insufficient values in the data set and return
+               ‘NULL’ (before the function crashed),
+
+             • data frame also exports now error of the D0-values based
+               on the MC runs for the De error,
+
+             • the option ‘fit.includingRepeatedRegPoints = FALSE’ was
+               not respected properly under all circumstances;
+               corrected.
+
+         • ‘plot_Histogram()’
+
+             • New argument ‘interactive’ to produce an interactive
+               plot using the JavaScript graphing library 'plotly.js'
+               (requires the 'plotly' package).
 
          • ‘plot_RLum.Analysis()’
 
-             • Argument 'norm' did not work for single curves,
-               corrected (#261).
+             • All ‘...’ arguments can now be provided as ‘vector’ or
+               ‘list’ to gain more control of the plot appearance,
+
+             • argument ‘abline’ now works also in combination with
+               ‘combine = TRUE’ and allows to set ablines independently
+               over different plots (#260),
+
+             • automatic axes labelling improved for ‘combine = TRUE’,
+
+             • support further ‘...’ argument ‘legend’ (TRUE/FALSE),
+
+             • add support for argument ‘smooth’ for ‘RLum.Data.Curve’
+               objects (see entry for ‘plot_RLum.Data.Curve’,
+
+             • fix minor bug introduced for the acceptence of the
+               argument ‘lty’.
+
+         • ‘plot_RLum.Data.Curve()’
+
+             • Fix seldom bug that causes unexpected function behaviour
+               if ‘xlab’ or ‘ylab’ exist as objects on the global
+               environment (#265),
+
+             • add argument ‘smooth’ to provide an automatic curve
+               smoothing for plotting based on a running mean.
+
+         • ‘plot_RLum.Data.Spectrum()’
+
+             • Added ‘matrix’ as allowed input,
+
+             • add new argument ‘limit_counts’ to further the counts to
+               a maximum value (the value provided), this might be
+               especially helpful in case of TL spectra,
+
+             • the argument ‘optical.wavelength.colours’ was not
+               working in all cases sufficiently; corrected,
+
+             • minor graphical adjustments,
+
+             • the 3D plot is now produced using the package ‘plotly’
+               which allows an interactive visualisation. The new plot
+               type added is called ‘interactive’, the suggestion of
+               the package ‘rgl’ has been removed with this change.
+
+         • ‘plot_ViolinPlot()’
+
+             • Fixed a bug where the function failed to get input data
+               from ‘RLum.Results’ objects.
 
          • ‘read_BIN2R()’
 
-             • The record index was not re-calulated when the argument
-               ‘duplicated.rm’ was used.  This caused some unwanted
-               errors in rare cases (reported by Norbert Mercier).
+             • Handling of corrupt BIN-files improved, the functions
+               tries to import whatever possible,
+
+             • the argument ‘n.records’ was not respected under rare
+               circumstances,
+
+             • in course of this (corrupt BIN-files, not respected
+               ‘n.records’) the output data frame was longer than the
+               list of count values; corrected,
+
+             • in some cases the grain number was not imported
+               correctly; fixed,
+
+             • new argument ‘verbose’ added,
+
+             • minor performance improvements.
+
+         • ‘read_BIN2R()’
+
+             • Behaviour while using the option ‘import = TRUE’ and
+               ‘fastForward = TRUE’ have been improved. If both
+               arguments are combined now only a single data frame with
+               all information is returned.
+
+         • ‘Risoe.BINfileData2RLum.Analysis()’
+
+             • Single grain data had not been converted correctly to
+               ‘RLum.Analysis’ objects.  Each grain within a position
+               should represent one ‘RLum.Analysis’ object with a set
+               of curve. This was so far not the case; corrected,
+
+             • significant performance improvements, especially for big
+               Risoe.BINfileData2RLum.Analysis() objects.
+
+  Internals:
+
+         • New internal function ‘.create_UID()’ added to create the
+           unique identifier for RLum-objects. The new function reduces
+           significantly the overhead while producing the objects.
+
+         • Package 'digits' removed from the dependency list and the
+           functionality (creating a unique identifier for
+           RLum-objects) was implemented using a self-written function.
+
+         • Package 'rgl' was removed from suggests and replaced by the
+           package 'plotly'.
+
+         • Package 'RLumModel' added as suggested package.
+
+         • Package 'RLumShiny' added as suggested package.
+
+         • Package 'rmarkdown' added as suggested package.
+
+         • Package 'pander' added as suggested package.
+
+         • Package 'rstudioapi' added as suggested package.
+
+         • Package 'rjags' added as suggested package.
+
+         • New S3 generic ‘bin’ implemented, this method dispatches to
+           the S4 method ‘bin_RLum.Data’ for the ‘RLum.Data’ objects.
 

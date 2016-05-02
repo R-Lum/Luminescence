@@ -36,7 +36,7 @@
 #' @note Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
 #' overall correct for cases where the TL measurement is combined with a preheat.
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 #' Christoph Burow, Universtiy of Cologne (Germany)
@@ -52,95 +52,20 @@
 #'
 #' @examples
 #'
-#'
 #' ##get package example data
 #' data(ExampleData.BINfileData, envir = environment())
 #'
 #' ##convert one record
 #' Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data, id = 1)
 #'
-#' @export
-Risoe.BINfileData2RLum.Data.Curve <- function(
+#' @noRd
+.Risoe.BINfileData2RLum.Data.Curve <- function(
   object,
   id,
   pos,
   run,
   set
 ){
-
-
-  # Integrity Check ---------------------------------------------------------
-
-  if (!is(object,"Risoe.BINfileData")){
-    stop("[Risoe.BINfileData2RLum.Data.Curve()] Input object is not of type 'Risoe.BINfileData'.")
-  }
-
-  ##if id is set, no input for pos and rund is nescessary
-  if(missing(id)){
-
-    if(missing(pos) == TRUE | missing(run) == TRUE | missing(set) == TRUE){
-
-      temp.missing.arguments <- paste(c(if(missing(pos)==TRUE){"pos"},
-                                        if(missing(set)==TRUE){"set"},
-                                        if(missing(run)==TRUE){"run"}), collapse=", ")
-
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] Arguments are missing: ",
-                 temp.missing.arguments, ". Or set id.", sep = ""))
-
-    }
-
-    if (is(pos,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve()] Argument 'pos' has to be of data type integer.")
-    }
-
-    if (is(set,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve()]Argument 'set' has to be of data type integer.")
-    }
-
-    if (is(run,"numeric")==FALSE){
-      stop("[Risoe.BINfileData2RLum.Data.Curve()] Argument 'run' has to be of data type integer.")
-    }
-
-    if (length(which(pos/1:48 == 1)) == 0){
-      stop("[Risoe.BINfileData2RLum.Data.Curve()] Value for 'pos' out of bounds.")
-    }
-
-    ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"POSITION"])), collapse=", ")
-
-    if ((pos %in% unique(object@METADATA[,"POSITION"])) == FALSE){
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve] Error: pos = ",pos, " is not valid.
-               Valid positions are: ", positions.valid, sep=""))
-    }
-
-    ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"SET"])), collapse=", ")
-
-    if ((set %in% unique(object@METADATA[,"SET"])) == FALSE){
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve] Error: set = ",set, " is not valid.
-               Valid values are: ", positions.valid, sep=""))
-    }
-
-
-    ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"RUN"])), collapse=", ")
-
-    if ((run %in% unique(object@METADATA[,"RUN"])) == FALSE){
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve] Error: run = ",run, " is not valid.
-               Valid values are: ", positions.valid, sep=""))
-    }
-
-  }else{
-
-    ##check if id is valid at all
-    temp.range.id <- range(object@METADATA[,"ID"])
-
-    if ((id %in% unique(object@METADATA[,"ID"])) == FALSE){
-      stop(paste("[Risoe.BINfileData2RLum.Data.Curve()] id = ",id, " is not a valid record id. Allowed value range ", min(temp.range.id), " : ", max(temp.range.id),".", sep=""))
-
-    }
-
-  }
 
 
   # grep id of record -------------------------------------------------------
@@ -163,28 +88,28 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
 
       temp.x <- c(
         seq(
-          from = object@METADATA[id, "LOW"],
-          to = object@METADATA[id, "AN_TEMP"],
-          length.out = object@METADATA[id, "TOLDELAY"]
+          from = object@METADATA[["LOW"]][id],
+          to = object@METADATA[["AN_TEMP"]][id],
+          length.out = object@METADATA[["TOLDELAY"]][id]
         ),
         seq(
-          from = object@METADATA[id, "AN_TEMP"],
-          to = object@METADATA[id, "AN_TEMP"],
-          length.out = object@METADATA[id, "TOLON"]
+          from = object@METADATA[["AN_TEMP"]][id],
+          to = object@METADATA[["AN_TEMP"]][id],
+          length.out = object@METADATA[["TOLON"]][id]
         ),
         seq(
-          from = object@METADATA[id, "AN_TEMP"],
-          to = object@METADATA[id, "HIGH"],
-          length.out = object@METADATA[id, "TOLOFF"]
+          from = object@METADATA[["AN_TEMP"]][id],
+          to = object@METADATA[["HIGH"]][id],
+          length.out = object@METADATA[["TOLOFF"]][id]
         )
       )
 
     }else{
 
       temp.x <- seq(
-        from = object@METADATA[id, "LOW"],
-        to = object@METADATA[id, "HIGH"],
-        length.out = object@METADATA[id, "NPOINTS"]
+        from = object@METADATA[["LOW"]][id],
+        to = object@METADATA[["HIGH"]][id],
+        length.out = object@METADATA[["NPOINTS"]][id]
       )
 
     }
@@ -196,16 +121,21 @@ Risoe.BINfileData2RLum.Data.Curve <- function(
     temp.x <- NA
     temp.y <- NA
 
-    warning("NPOINTS was 0, RLum.Data.Curve-object with NA-values produced.")
+    warning("[.Risoe.BINfileData2RLum.Data.Curve()] NPOINTS was 0, RLum.Data.Curve-object with NA-values produced.")
 
   }
 
+  ##convert info elements to list ... this procedure halfs the time needed in comparison to
+  ##to simply as.list(object@METADATA)
+  info <- lapply(1:length(names(object@METADATA)), function(x){.subset2(object@METADATA, x)[id]})
+  names(info) <- names(object@METADATA)
 
   # Build object ------------------------------------------------------------
   set_RLum(
     class = "RLum.Data.Curve",
-    recordType = as.character(object@METADATA[id,"LTYPE"]),
+    recordType = as.character(object@METADATA[id, "LTYPE"]),
     data = matrix(c(temp.x, temp.y), ncol = 2),
-    info = as.list(object@METADATA[id,]))
+    info = info
+  )
 
 }
