@@ -310,23 +310,57 @@ calc_gSGC<- function(
     }
 
     if(!inherits(temp, "try-error")){
-      points(temp$root,Eta*LnTn, col = plot.settings$col, pch = plot.settings$pch)
 
-      segments(De - De.error,Eta * LnTn,
-               De + De.error,Eta * LnTn)
+      if(temp$root < 450 & temp$root > 0){
+        points(temp$root,Eta*LnTn, col = plot.settings$col, pch = plot.settings$pch)
 
-      hist <-
-        hist(
-          temp.MC.matrix[, 7],
-          freq = FALSE,
-          add = TRUE,
-          col = rgb(0, 0, 0, 0.2),
-          border = rgb(0, 0, 0, 0.5)
-        )
-      lines(hist$mids,hist$density)
+        segments(De - De.error,Eta * LnTn,
+                 De + De.error,Eta * LnTn)
+
+        hist <-
+          hist(
+            temp.MC.matrix[, 7],
+            freq = FALSE,
+            add = TRUE,
+            col = rgb(0, 0, 0, 0.2),
+            border = rgb(0, 0, 0, 0.5)
+          )
+        lines(hist$mids,hist$density)
+
+      }else{
+
+        if(temp$root < 450){
+          shape::Arrows(
+            x0 = 450,
+            y0 = par()$usr[4] - 0.2,
+            x1 = 500,
+            y1 = par()$usr[4] - 0.2,
+            arr.type = "triangle",
+            col = "red"
+          )
+
+        }else{
+
+            shape::Arrows(
+              x0 = 50,
+              y0 = par()$usr[4] - 0.2,
+              x1 = 0,
+              y1 = par()$usr[4] - 0.2,
+              arr.type = "triangle",
+              col = "red"
+            )
+
+
+        }
+
+        mtext(side = 1, text = "Out of bounds!", col = "red")
+
+
+      }
+
 
     }else{
-      mtext(side = 3, text = "No solution found!", col = "red")
+      mtext(side = 1, text = "No solution found!", col = "red")
 
     }
 
