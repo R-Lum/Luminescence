@@ -34,14 +34,17 @@ error estimation, s. details.}
 \item{...}{parameters will be passed to the plot output}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
-Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
+Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
+
+\bold{@data}\cr
 $ De.value (data.frame) \cr
  .. $ De  \cr
  .. $ De.error \cr
  .. $ Eta \cr
 $ De.MC (list) contains the matricies from the error estimation.\cr
-$ uniroot (list) contains the uniroot outputs of the De estimations
+$ uniroot (list) contains the uniroot outputs of the De estimations\cr
+
+\bold{@info}\cr
 $ call (call) the original function call
 }
 \description{
@@ -54,7 +57,7 @@ Solving of the equation is realised using \code{\link{uniroot}}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.0 (2015-12-05 15:52:49)
+ 0.1.1 (2016-05-03 10:49:02)
 }
 \examples{
 results <- calc_gSGC(data = data.frame(

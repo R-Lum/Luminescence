@@ -273,27 +273,27 @@ extract_IrradiationTimes <- function(
   # Grep relevant information -------------------------------------------------------------------
 
   ##Sequence STEP
-  STEP <- sapply(1:length_RLum(temp.sequence), function(x){
-
+  STEP <- vapply(X = 1:length_RLum(temp.sequence), FUN = function(x){
     get_RLum(temp.sequence, record.id = x)@recordType
 
-  })
+  }, FUN.VALUE = vector(mode = "character", length = 1))
 
   #START time of each step
-  temp.START <- unname(sapply(1:length_RLum(temp.sequence), function(x){
-
+  temp.START <- unname(vapply(X = 1:length_RLum(temp.sequence), FUN = function(x){
     get_RLum(get_RLum(temp.sequence, record.id = x), info.object = c("startDate"))
 
-  }))
+  }, FUN.VALUE = vector(mode = "character", length = 1)))
+
 
   ##DURATION of each STEP
-  DURATION.STEP <- sapply(1:length_RLum(temp.sequence), function(x){
-
+  DURATION.STEP <- vapply(X = 1:length_RLum(temp.sequence), FUN = function(x){
+   # get_RLum(get_RLum(temp.sequence, record.id = x), info.object = c("endDate"))
     max(get_RLum(get_RLum(temp.sequence, record.id = x))[,1])
+   #print(get_RLum(temp.sequence, record.id = x))
 
-  })
+  }, FUN.VALUE = vector(mode = "numeric", length = 1))
 
-
+  #print(DURATION.STEP)
 
   ##a little bit reformatting.
   START <- strptime(temp.START, format = "%Y%m%d%H%M%S", tz = "GMT")

@@ -3,7 +3,8 @@
 #'
 #' This function allows the application of Bayesian models (baSAR) on luminescecence data
 #'
-#' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{{character}} or \code{\link{list}} (\bold{required}): input object used for the Bayesian analysis. If a \code{character} is provided the function
+#' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{\link{character}} or \code{\link{list}}
+#' (\bold{required}): input object used for the Bayesian analysis. If a \code{character} is provided the function
 #' assums a file connection an tries to import a BIN-file using the provided path. If a \code{list} is
 #' provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
 #' providing a file connection. Mixing of both types is not allowed.
