@@ -4,7 +4,7 @@
 \alias{analyse_IRSAR.RF}
 \title{Analyse IRSAR RF measurements}
 \usage{
-analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
+analyse_IRSAR.RF(object, sequence_structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim = NULL, RF_reg.lim = NULL, method = "FIT",
   method.control = NULL, test_parameter = NULL, n.MC = 10,
   txtProgressBar = TRUE, plot = TRUE, plot_reduced = FALSE, ...)
@@ -15,7 +15,7 @@ object containing data for protocol analysis. The function expects to find at le
 \code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
 input all other parameters can be provided as \code{list} as well to gain full control.}
 
-\item{sequence.structure}{\code{\link{vector}} \link{character} (with
+\item{sequence_structure}{\code{\link{vector}} \link{character} (with
 default): specifies the general sequence structure. Allowed steps are
 \code{NATURAL}, \code{REGENERATED}. In addition any other character is
 allowed in the sequence structure; such curves will be ignored during the analysis.}
@@ -244,7 +244,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.8 (2016-05-04 11:57:38)
+ 0.6.9 (2016-05-04 12:05:02)
 }
 \examples{
 

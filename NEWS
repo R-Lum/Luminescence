@@ -156,7 +156,10 @@ Changes in version 0.6.0 (May 20th ,2016):
 
              • add argument ‘plot_reduced’ for a better plot control,
 
-             • support more standard R plot arguments.
+             • argument ‘sequence.structure’ renamed to
+               ‘sequence_structure’,
+
+             • support further plot arguments via ‘...’.
 
          • ‘analyse_SAR.CWOSL()’
 

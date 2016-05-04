@@ -146,7 +146,7 @@
 #' \code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
 #' input all other parameters can be provided as \code{list} as well to gain full control.
 #'
-#' @param sequence.structure \code{\link{vector}} \link{character} (with
+#' @param sequence_structure \code{\link{vector}} \link{character} (with
 #' default): specifies the general sequence structure. Allowed steps are
 #' \code{NATURAL}, \code{REGENERATED}. In addition any other character is
 #' allowed in the sequence structure; such curves will be ignored during the analysis.
@@ -233,7 +233,7 @@
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#' @section Function version: 0.6.8
+#' @section Function version: 0.6.9
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -314,7 +314,7 @@
 #' @export
 analyse_IRSAR.RF<- function(
   object,
-  sequence.structure = c("NATURAL", "REGENERATED"),
+  sequence_structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim = NULL,
   RF_reg.lim = NULL,
   method = "FIT",
@@ -336,8 +336,8 @@ analyse_IRSAR.RF<- function(
 
     ##extent the list of arguments if set
 
-    ##sequence.structure
-    sequence.structure <- rep(list(sequence.structure), length = length(object))
+    ##sequence_structure
+    sequence_structure <- rep(list(sequence_structure), length = length(object))
 
     ##RF_nat.lim
     RF_nat.lim <- rep(list(RF_nat.lim), length = length(object))
@@ -386,7 +386,7 @@ analyse_IRSAR.RF<- function(
 
       analyse_IRSAR.RF(
         object = object[[x]],
-        sequence.structure = sequence.structure[[x]],
+        sequence_structure = sequence_structure[[x]],
         RF_nat.lim = RF_nat.lim[[x]],
         RF_reg.lim = RF_reg.lim[[x]],
         method = method[[x]],
@@ -433,8 +433,8 @@ analyse_IRSAR.RF<- function(
   }
 
   ##CHECK OTHER ARGUMENTS
-  if(!is(sequence.structure, "character")){
-    stop("[analyse_IRSAR.RF()] argument 'sequence.structure' needs to be of type character.")
+  if(!is(sequence_structure, "character")){
+    stop("[analyse_IRSAR.RF()] argument 'sequence_structure' needs to be of type character.")
   }
 
     ##n.MC
@@ -454,7 +454,7 @@ analyse_IRSAR.RF<- function(
   ##INVESTIGATE SEQUENCE OBJECT STRUCTURE
 
   ##grep object strucute
-  temp.sequence.structure <- structure_RLum(object)
+  temp.sequence_structure <- structure_RLum(object)
 
   ##grep name of the sequence and the position this will be useful later on
   ##name
@@ -501,11 +501,11 @@ analyse_IRSAR.RF<- function(
 
 
   ##set structure values
-  temp.sequence.structure$protocol.step <-
-    rep(sequence.structure, length_RLum(object))[1:length_RLum(object)]
+  temp.sequence_structure$protocol.step <-
+    rep(sequence_structure, length_RLum(object))[1:length_RLum(object)]
 
   ##check if the first curve is shorter than the first curve
-  if (temp.sequence.structure[1,"n.channels"] > temp.sequence.structure[2,"n.channels"]) {
+  if (temp.sequence_structure[1,"n.channels"] > temp.sequence_structure[2,"n.channels"]) {
     stop(
       "[analyse_IRSAR.RF()] Number of data channels in RF_nat > RF_reg. This is not supported!"
     )
@@ -522,15 +522,15 @@ analyse_IRSAR.RF<- function(
   ##more easier to read
   RF_nat.lim.default <- c(1,max(
     subset(
-      temp.sequence.structure,
-      temp.sequence.structure$protocol.step == "NATURAL"
+      temp.sequence_structure,
+      temp.sequence_structure$protocol.step == "NATURAL"
     )$n.channels
   ))
 
   RF_reg.lim.default <- c(1,max(
     subset(
-      temp.sequence.structure,
-      temp.sequence.structure$protocol.step == "REGENERATED"
+      temp.sequence_structure,
+      temp.sequence_structure$protocol.step == "REGENERATED"
     )$n.channels
   ))
 
@@ -644,7 +644,7 @@ analyse_IRSAR.RF<- function(
   ##===============================================================================================#
 
   ##get channel resolution (should be equal for all curves, but if not the mean is taken)
-  resolution.RF <- round(mean((temp.sequence.structure$x.max/temp.sequence.structure$n.channels)),digits=1)
+  resolution.RF <- round(mean((temp.sequence_structure$x.max/temp.sequence_structure$n.channels)),digits=1)
 
 
   plot.settings <- list(
@@ -669,7 +669,7 @@ analyse_IRSAR.RF<- function(
 
   ##grep first regenerated curve
   RF_reg <- as.data.frame(object@records[[
-    temp.sequence.structure[temp.sequence.structure$protocol.step=="REGENERATED","id"]]]@data)
+    temp.sequence_structure[temp.sequence_structure$protocol.step=="REGENERATED","id"]]]@data)
 
     ##correct of the onset of detection by using the first time value
     if (method == "SLIDE" &
@@ -685,7 +685,7 @@ analyse_IRSAR.RF<- function(
 
   ##grep values from natural signal
   RF_nat <- as.data.frame(object@records[[
-    temp.sequence.structure[temp.sequence.structure$protocol.step=="NATURAL","id"]]]@data)
+    temp.sequence_structure[temp.sequence_structure$protocol.step=="NATURAL","id"]]]@data)
 
     ##correct of the onset of detection by using the first time value
   if (method == "SLIDE" &
@@ -1190,8 +1190,8 @@ analyse_IRSAR.RF<- function(
   ##(3) calculate dynamic range of regenrated curve
   ##TP$dynamic_ratio
   if ("dynamic_ratio"%in%names(TP)){
-    TP.dynamic_ratio <- subset(temp.sequence.structure,
-                               temp.sequence.structure$protocol.step == "REGENERATED")
+    TP.dynamic_ratio <- subset(temp.sequence_structure,
+                               temp.sequence_structure$protocol.step == "REGENERATED")
     TP$dynamic_ratio$VALUE <- TP.dynamic_ratio$y.max/TP.dynamic_ratio$y.min
 
     if (!is.na(TP$dynamic_ratio$THRESHOLD)){
@@ -1343,10 +1343,10 @@ analyse_IRSAR.RF<- function(
     } else
     {
       if (plot.settings$log == "x" | plot.settings$log == "xy") {
-        c(min(temp.sequence.structure$x.min),max(temp.sequence.structure$x.max))
+        c(min(temp.sequence_structure$x.min),max(temp.sequence_structure$x.max))
 
       }else{
-        c(0,max(temp.sequence.structure$x.max))
+        c(0,max(temp.sequence_structure$x.max))
 
       }
 
@@ -1354,7 +1354,7 @@ analyse_IRSAR.RF<- function(
 
     ##ylim
     ylim  <- if("ylim" %in% names(list(...))) {list(...)$ylim} else
-    {c(min(temp.sequence.structure$y.min), max(temp.sequence.structure$y.max))}
+    {c(min(temp.sequence_structure$y.min), max(temp.sequence_structure$y.max))}
 
 
     ##open plot area
@@ -1487,7 +1487,7 @@ analyse_IRSAR.RF<- function(
       if (plot.settings$legend) {
         legend(
           plot.settings$legend.pos,
-          legend = legend.text,
+          legend = plot.settings$legend.text,
           pch = c(19, 3),
           col = c("red", col[10]),
           horiz = TRUE,
@@ -1559,7 +1559,7 @@ analyse_IRSAR.RF<- function(
           plot(
             RF_reg.x,
             residuals(fit),
-            xlim = c(0, max(temp.sequence.structure$x.max)),
+            xlim = c(0, max(temp.sequence_structure$x.max)),
             xlab = plot.settings$xlab,
             yaxt = "n",
             xaxt = plot.settings$xaxt,
@@ -1576,13 +1576,13 @@ analyse_IRSAR.RF<- function(
           plot(
             NA,
             NA,
-            xlim = c(0, max(temp.sequence.structure$x.max)),
+            xlim = c(0, max(temp.sequence_structure$x.max)),
             ylab = "E",
             xlab = plot.settings$xlab,
             xaxt = plot.settings$xaxt,
             ylim = c(-1, 1)
           )
-          text(x = max(temp.sequence.structure$x.max) / 2,
+          text(x = max(temp.sequence_structure$x.max) / 2,
                y = 0,
                "Fitting Error!")
         }
@@ -1681,7 +1681,7 @@ analyse_IRSAR.RF<- function(
       if (plot.settings$legend) {
         legend(
           plot.settings$legend.pos,
-          legend = legend.text,
+          legend = plot.settings$legend.text,
           pch = c(19, 3),
           col = c("red", col[10]),
           horiz = TRUE,
