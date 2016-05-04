@@ -7,7 +7,7 @@
 analyse_IRSAR.RF(object, sequence.structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim = NULL, RF_reg.lim = NULL, method = "FIT",
   method.control = NULL, test_parameter = NULL, n.MC = 10,
-  txtProgressBar = TRUE, plot = TRUE, ...)
+  txtProgressBar = TRUE, plot = TRUE, plot_reduced = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} or a \code{\link{list}} of \code{RLum.Analysis} objects (\bold{required}): input
@@ -33,7 +33,8 @@ for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
 \item{method.control}{\code{\link{list}} (optional): parameters to control the method, that can
 be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
-'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit'. See details.}
+'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
+See details.}
 
 \item{test_parameter}{\code{\link{list} (with default)}: set test parameter
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
@@ -54,10 +55,14 @@ disables \code{FALSE} the progression bar during MC runs}
 \item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}
 or \code{FALSE})}
 
+\item{plot_reduced}{\code{\link{logical}} (optional): provides a reduced plot output if enabled
+to allow common R plot combinations, e.g., \code{par(mfrow(...))}. If \code{TRUE} no residual plot
+is returned; it has no effect if \code{plot = FALSE}}
+
 \item{\dots}{further arguments that will be passed to the plot output.
 Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 \code{xlim}, \code{ylim}, \code{log}, \code{legend.pos} (passes argument to x,y in
-\code{\link[graphics]{legend}})}
+\code{\link[graphics]{legend}}), \code{xaxt}}
 }
 \value{
 A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
@@ -238,20 +243,32 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.5 (2016-05-02 09:36:06)
+ 0.6.6 (2016-05-04 10:14:10)
 }
 \examples{
 
 ##load data
 data(ExampleData.RLum.Analysis, envir = environment())
 
-##perform analysis
-temp <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
+##(1) perform analysis using the method 'FIT'
+results <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 
 ##show De results and test paramter results
-get_RLum(temp, data.object = "De.values")
-get_RLum(temp, data.object = "test_parameter")
+get_RLum(results, data.object = "De.values")
+get_RLum(results, data.object = "test_parameter")
 
+##(2) perform analysis using the method 'SLIDE'
+results <- analyse_IRSAR.RF(object = IRSAR.RF.Data, method = "SLIDE", n.MC = 1)
+
+\dontrun{
+##(3) perform analysis using the method 'SLIDE' and method control option
+## 'trace
+results <- analyse_IRSAR.RF(
+ object = IRSAR.RF.Data,
+ method = "SLIDE",
+ method.control = list(trace = TRUE))
+
+}
 
 }
 \author{

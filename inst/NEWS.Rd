@@ -47,8 +47,8 @@
         in loops easier,
         \item the function crashed under very rare circumstances if a provided list with RLum-objects
         contained \code{RLum.Analysis} objects with zero records; corrected.
-        
-        
+
+
         }
 
 
@@ -83,7 +83,7 @@
 
    }
   }
-  
+
 
  \subsection{Removed functions}{
    \itemize{
@@ -122,7 +122,9 @@
         objects can be provided for a higher efficiency,
         \item the test parameter \code{intersection_ratio} was wrongly calculated; corrected,
         \item correct wrong shift if the option \code{RF_nat.lim} was used,
-        \item internal parameter added that allows to show the applied fit, while using \code{method = "SLIDE"}.
+        \item internal parameter added that allows to show the applied fit, while using \code{method = "SLIDE"},
+        \item add argument \code{plot_reduced} for a better plot control,
+        \item support more standard R plot arguments.
 
       }
 
