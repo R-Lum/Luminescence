@@ -654,7 +654,7 @@ analyse_IRSAR.RF<- function(
     log = "",
     cex = 1,
     legend = TRUE,
-    legend.text = "RF_nat","RF_reg",
+    legend.text = c("RF_nat","RF_reg"),
     legend.pos = "top",
     xaxt = "s"
     ##xlim and ylim see below as they has to be modified differently
