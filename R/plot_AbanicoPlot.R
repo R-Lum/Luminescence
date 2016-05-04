@@ -45,7 +45,11 @@
 #' error-weighted relative standard error), \code{"seabs"} (absolute standard
 #' error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 #' \code{"in.2s"} (percent of samples in 2-sigma range),
-#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). \cr\cr
+#' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).\cr
+#' Note that the input data for the statistic summary is sent to the function 
+#' \code{"calc_Statistics()"} depending on the log-option for the z-scale. If  
+#' \code{"log.z = TRUE"}, the summary is based on the logarithms of the input 
+#' data. If \code{"log.z = FALSE"} the linearly scaled data is used.\cr\cr
 #'
 #' The optional parameter \code{layout} allows to modify the entire plot more
 #' sophisticated. Each element of the plot can be addressed and its properties
@@ -93,7 +97,8 @@
 #'
 #' @param summary \code{\link{character}} (optional): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
-#' keywords. See details for available keywords.
+#' keywords. See details for available keywords. Results differ depending on 
+#' the log-option for the z-scale (see details).
 #'
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
