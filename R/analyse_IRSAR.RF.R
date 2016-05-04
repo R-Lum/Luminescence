@@ -232,8 +232,7 @@
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#'
-#' @section Function version: 0.6.6
+#' @section Function version: 0.6.7
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -1306,8 +1305,10 @@ analyse_IRSAR.RF<- function(
     col <- get("col", pos = .LuminescenceEnv)
 
     if (!plot_reduced) {
-      ##grep par default
+
+      ##grep par default and define reset
       def.par <- par(no.readonly = TRUE)
+      on.exit(par(def.par))
 
       ##set plot frame, if a method was choosen
       if (method == "SLIDE" | method == "FIT") {
@@ -1319,6 +1320,17 @@ analyse_IRSAR.RF<- function(
         )
 
       }
+    }else{
+
+      if(plot.settings[["cex"]] != 1){
+
+        def.par <- par()[["cex"]]
+        on.exit(par(def.par))
+
+        par(cex = plot.settings[["cex"]])
+
+      }
+
     }
 
     ##here control xlim and ylim behaviour
@@ -1366,7 +1378,7 @@ analyse_IRSAR.RF<- function(
       ##print mtext
       mtext(text = mtext.message,
             side = 3, outer = TRUE, col = "red",
-            cex = 0.8)
+            cex = 0.8 * par()[["cex"]])
       warning(mtext.message)
 
     }
@@ -1391,7 +1403,7 @@ analyse_IRSAR.RF<- function(
       ##legend
       legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
              pch=c(19,3), col=c("red", col[10]),
-             horiz=TRUE, bty = "n", cex=.9)
+             horiz=TRUE, bty = "n", cex=.9 * par()[["cex"]])
 
 
     }
@@ -1463,7 +1475,7 @@ analyse_IRSAR.RF<- function(
       ##legend
       legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
              pch=c(19,3), col=c("red", col[10]),
-             horiz=TRUE, bty = "n", cex=.9)
+             horiz=TRUE, bty = "n", cex=.9 * par()[["cex"]])
 
       ##plot range choosen for fitting
       abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
@@ -1492,7 +1504,7 @@ analyse_IRSAR.RF<- function(
         try(mtext(side=3, substitute(D[e] == De,
                                      list(De=paste(
                                        De," (",De.lower," ", De.upper,")", sep=""))),
-                  line=0, cex=0.8, col="red"), silent=TRUE)
+                  line=0, cex=0.8 * par()[["cex"]], col="red"), silent=TRUE)
 
         De.status <- "VALUE OUT OF BOUNDS"
 
@@ -1509,7 +1521,7 @@ analyse_IRSAR.RF<- function(
                                       "")
                        )),
             line = 0,
-            cex = 0.7
+            cex = 0.7 * par()[["cex"]]
           ),
           silent = TRUE)
         }
@@ -1630,7 +1642,7 @@ analyse_IRSAR.RF<- function(
           y1 = ylim[1],
           x1 = RF_nat.slided[1,1],
           arr.type = "triangle",
-          arr.length = 0.3 * plot.settings$cex,
+          arr.length = 0.3 * par()[["cex"]],
           code = 2,
           col = col[2],
           arr.adj = 1,
@@ -1649,7 +1661,7 @@ analyse_IRSAR.RF<- function(
 
       legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
              pch=c(19,3), col=c("red", col[10]),
-             horiz=TRUE, bty = "n", cex=.9)
+             horiz=TRUE, bty = "n", cex=.9 * par()[["cex"]])
 
 
       ##write information on the De in the plot
@@ -1662,7 +1674,7 @@ analyse_IRSAR.RF<- function(
         try(mtext(side=3,
                   substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
                   line=0,
-                  cex=0.7),
+                  cex=0.7 * par()[["cex"]]),
             silent=TRUE)
 
       }
@@ -1799,10 +1811,6 @@ analyse_IRSAR.RF<- function(
       }
 
     }
-
-    #reset par to default
-    if(!plot_reduced){par(def.par)}
-
 
   }#endif::plot
   ##=============================================================================#
