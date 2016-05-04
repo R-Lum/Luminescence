@@ -75,3 +75,9 @@ the package on [CRAN 'Luminescence'](http://cran.r-project.org/package=Luminesce
 The Luminescence package is licensed under the GPLv3. See these files in the main directory for additional details: 
 
 - LICENSE - Luminescence package license (GPLv3)
+
+## Related projects 
+
+* [RLumModel](https://github.com/R-Lum/RLumModel)
+* [RLumShiny](https://github.com/R-Lum/RLumShiny)
+
