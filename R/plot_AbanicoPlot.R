@@ -129,6 +129,9 @@
 #' @param dots \code{\link{logical}}: Option to add a dot plot to the
 #' dispersion part. If number of dots exceeds space in the dispersion part, a
 #' square indicates this.
+#' 
+#' @param boxplot \code{\link{logical}}: Option to add a boxplot to the
+#' dispersion part, default is \code{FALSE}.
 #'
 #' @param y.axis \code{\link{logical}}: Option to hide y-axis labels. Useful
 #' for data with small scatter.
@@ -380,6 +383,7 @@ plot_AbanicoPlot <- function(
   kde = TRUE,
   hist = FALSE,
   dots = FALSE,
+  boxplot = FALSE,
   y.axis = TRUE,
   error.bars = FALSE,
   bar,
@@ -434,9 +438,11 @@ plot_AbanicoPlot <- function(
 
       n.NA <- sum(!complete.cases(data[[i]]))
 
-      if(n.NA == 1) {message(paste0("[plot_AbanicoPlot()] data set (", i, "): 1 NA value excluded."))
+      if(n.NA == 1) {message(paste0("[plot_AbanicoPlot()] data set (", 
+                                    i, "): 1 NA value excluded."))
       } else if(n.NA > 1) {
-        message(paste0("[plot_AbanicoPlot()] data set (", i,"): ",n.NA, " NA values excluded."))
+        message(paste0("[plot_AbanicoPlot()] data set (", i,"): ",
+                       n.NA, " NA values excluded."))
       }
 
       data[[i]] <- na.exclude(data[[i]])
@@ -460,7 +466,9 @@ plot_AbanicoPlot <- function(
     NArm.id <- which(sapply(data, nrow) <= 1)
     data[NArm.id] <- NULL
 
-    warning(paste0("[plot_AbanicoPlot()] Data sets ",paste(NArm.id, collapse = ", ")," are found to be empty or consisting of only 1 row. Sets removed!"))
+    warning(paste0("[plot_AbanicoPlot()] Data sets ",
+                   paste(NArm.id, collapse = ", "),
+                   " are found to be empty or consisting of only 1 row. Sets removed!"))
 
     rm(NArm.id)
 
@@ -491,10 +499,10 @@ plot_AbanicoPlot <- function(
     }
   }
 
-  ## save original plot parameters and restore them when the function ends or stops
+  ## save original plot parameters and restore them upon end or stop
   par.old.full <- par(no.readonly = TRUE)
 
-  ##this ensures, that par() for several plots on one page is  respected ...
+  ## this ensures par() is respected for several plots on one page
   if(sum(par()$mfrow) == 2 & sum(par()$mfcol) == 2){
     on.exit(par(par.old.full))
   }
@@ -1001,6 +1009,16 @@ plot_AbanicoPlot <- function(
 
   ## define auxiliary plot parameters -----------------------------------------
 
+  ## set space between z-axis and baseline of cartesian part
+  if(boxplot == FALSE) {
+    
+    lostintranslation <- 1.03
+  } else {
+    
+    lostintranslation <- 1.09
+    plot.ratio <- plot.ratio * 0.97
+  }
+  
   ## create empty plot to update plot parameters
   if(rotate == FALSE) {
     plot(NA,
@@ -1605,9 +1623,9 @@ plot_AbanicoPlot <- function(
 
   ## define cartesian plot origins
   if(rotate == FALSE) {
-    xy.0 <- c(min(ellipse[,1]) * 1.03, min(ellipse[,2]))
+    xy.0 <- c(min(ellipse[,1]) * lostintranslation, min(ellipse[,2]))
   } else {
-    xy.0 <- c(min(ellipse[,1]), min(ellipse[,2]) * 1.03)
+    xy.0 <- c(min(ellipse[,1]), min(ellipse[,2]) * lostintranslation)
   }
 
   ## calculate coordinates for dispersion polygon overlay
@@ -1849,7 +1867,21 @@ plot_AbanicoPlot <- function(
     hist.data[[i]]$density <- hist.data[[i]]$counts / hist.max.plot *
       KDE.max.plot
   }
-
+  
+  ## calculate boxplot data without plotting
+  
+  ## create dummy list
+  boxplot.data <- list(NA)
+  
+  for(i in 1:length(data)) {
+    boxplot.i <- boxplot(x = data[[i]][,3],
+                   plot = FALSE)
+    boxplot.data[[length(boxplot.data) + 1]] <- boxplot.i
+  }
+  
+  ## remove dummy list object
+  boxplot.data[[1]] <- NULL
+  
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
 
@@ -2320,6 +2352,21 @@ plot_AbanicoPlot <- function(
             col = layout$abanico$colour$ztck)
     }
 
+    ## optionally draw white area over scatter bar 
+    if(boxplot == TRUE) {
+      
+      polygon(x = c(min(ellipse[,1]), 
+                    min(ellipse[,1]), 
+                    xy.0[1], 
+                    xy.0[1]),
+              y = c(min(ellipse[,2]), 
+                    max(ellipse[,2]), 
+                    max(ellipse[,2]), 
+                    min(ellipse[,2])),
+              lty = 0,
+              col = "white")
+    }
+
     ## plot z-axes
     lines(ellipse, col = layout$abanico$colour$border)
     lines(rep(par()$usr[2], nrow(ellipse)), ellipse[,2],
@@ -2543,6 +2590,66 @@ plot_AbanicoPlot <- function(
                  col = kde.line[i])
 
         }
+      }
+    }
+    
+    ## optionally add box plot
+    if(boxplot == TRUE) {
+      
+      for(i in 1:length(data)) {
+        
+        ## draw p25-p75-polygon
+        polygon(x = c(min(ellipse[,1]) * 1.025, 
+                      min(ellipse[,1]) * 1.025, 
+                      xy.0[1] * 0.975, 
+                      xy.0[1] * 0.975),
+                y = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
+                        min(ellipse[,1]), 
+                      (boxplot.data[[i]]$stats[4,1] - z.central.global) *
+                        min(ellipse[,1]), 
+                      (boxplot.data[[i]]$stats[4,1] - z.central.global) *
+                        min(ellipse[,1]),
+                      (boxplot.data[[i]]$stats[2,1] - z.central.global) *
+                        min(ellipse[,1])),
+                border = kde.line[i])
+        
+        ## draw whiskers
+        lines(x = rep(mean(c(min(ellipse[,1]) * 1.025, 
+                             xy.0[1] * 0.975)), 2),
+              y = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
+                      min(ellipse[,1]),
+                    (boxplot.data[[i]]$stats[1,1] - z.central.global) *
+                      min(ellipse[,1])),
+              col = kde.line[i])
+        
+        lines(x = c(min(ellipse[,1]) * 1.035, 
+                    xy.0[1] * 0.965),
+              y = rep((boxplot.data[[i]]$stats[1,1] - z.central.global) *
+                        min(ellipse[,1]), 2),
+              col = kde.line[i])
+        
+        lines(x = rep(mean(c(min(ellipse[,1]) * 1.025, 
+                             xy.0[1] * 0.975)), 2),
+              y = c((boxplot.data[[i]]$stats[4,1] - z.central.global) *
+                      min(ellipse[,1]),
+                    (boxplot.data[[i]]$stats[5,1] - z.central.global) *
+                      min(ellipse[,1])),
+              col = kde.line[i])
+        
+        lines(x = c(min(ellipse[,1]) * 1.035, 
+                    xy.0[1] * 0.965),
+              y = rep((boxplot.data[[i]]$stats[5,1] - z.central.global) *
+                        min(ellipse[,1]), 2),
+              col = kde.line[i])
+        
+        ## draw outlier points
+        points(x = rep(mean(c(min(ellipse[,1]) * 1.025, 
+                              xy.0[1] * 0.975)), 
+                       length(boxplot.data[[i]]$out)),
+               y = (boxplot.data[[i]]$out - z.central.global) *
+                 min(ellipse[,1]),
+               cex = cex * 0.8,
+               col = kde.line[i])
       }
     }
 
@@ -2999,6 +3106,22 @@ plot_AbanicoPlot <- function(
                     min(ellipse[,2])),
             col = layout$abanico$colour$ztck)
     }
+    
+    ## optionally draw white area over scatter bar 
+    if(boxplot == TRUE) {
+
+      polygon(x = c(min(ellipse[,1]), 
+                    min(ellipse[,1]), 
+                    max(ellipse[,1]), 
+                    max(ellipse[,1])),
+              y = c(min(ellipse[,2]), 
+                    xy.0[2],
+                    xy.0[2],
+                    min(ellipse[,2])),
+              lty = 0,
+              col = "white")
+    }
+    
 
     ## plot z-axes
     lines(ellipse, col = layout$abanico$colour$border)
@@ -3218,6 +3341,66 @@ plot_AbanicoPlot <- function(
                  cex = 0.7 * cex,
                  col = kde.line[i])
         }
+      }
+    }
+    
+    ## optionally add box plot
+    if(boxplot == TRUE) {
+      
+      for(i in 1:length(data)) {
+
+        ## draw p25-p75-polygon
+        polygon(y = c(min(ellipse[,2]) * 1.025, 
+                      min(ellipse[,2]) * 1.025, 
+                      xy.0[2] * 0.975, 
+                      xy.0[2] * 0.975),
+                x = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
+                        min(ellipse[,2]), 
+                      (boxplot.data[[i]]$stats[4,1] - z.central.global) *
+                        min(ellipse[,2]), 
+                      (boxplot.data[[i]]$stats[4,1] - z.central.global) *
+                        min(ellipse[,2]),
+                      (boxplot.data[[i]]$stats[2,1] - z.central.global) *
+                        min(ellipse[,2])),
+                border = kde.line[i])
+        
+        ## draw whiskers
+        lines(y = rep(mean(c(min(ellipse[,2]) * 1.025, 
+                             xy.0[2] * 0.975)), 2),
+              x = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
+                      min(ellipse[,2]),
+                    (boxplot.data[[i]]$stats[1,1] - z.central.global) *
+                      min(ellipse[,2])),
+              col = kde.line[i])
+        
+        lines(y = c(min(ellipse[,2]) * 1.035, 
+                    xy.0[2] * 0.965),
+              x = rep((boxplot.data[[i]]$stats[1,1] - z.central.global) *
+                        min(ellipse[,2]), 2),
+              col = kde.line[i])
+        
+        lines(y = rep(mean(c(min(ellipse[,2]) * 1.025, 
+                             xy.0[2] * 0.975)), 2),
+              x = c((boxplot.data[[i]]$stats[4,1] - z.central.global) *
+                      min(ellipse[,2]),
+                    (boxplot.data[[i]]$stats[5,1] - z.central.global) *
+                      min(ellipse[,2])),
+              col = kde.line[i])
+        
+        lines(y = c(min(ellipse[,2]) * 1.035, 
+                    xy.0[2] * 0.965),
+              x = rep((boxplot.data[[i]]$stats[5,1] - z.central.global) *
+                        min(ellipse[,2]), 2),
+              col = kde.line[i])
+        
+        ## draw outlier points
+        points(y = rep(mean(c(min(ellipse[,2]) * 1.025, 
+                              xy.0[2] * 0.975)), 
+                       length(boxplot.data[[i]]$out)),
+               x = (boxplot.data[[i]]$out - z.central.global) *
+                 min(ellipse[,2]),
+               cex = cex * 0.8,
+               col = kde.line[i])
       }
     }
 
