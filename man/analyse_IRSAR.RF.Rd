@@ -61,7 +61,8 @@ is returned; it has no effect if \code{plot = FALSE}}
 
 \item{\dots}{further arguments that will be passed to the plot output.
 Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
-\code{xlim}, \code{ylim}, \code{log}, \code{legend.pos} (passes argument to x,y in
+\code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
+\code{legend.pos}, \code{legend.text} (passes argument to x,y in
 \code{\link[graphics]{legend}}), \code{xaxt}}
 }
 \value{
@@ -243,7 +244,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.7 (2016-05-04 10:35:43)
+ 0.6.8 (2016-05-04 11:57:38)
 }
 \examples{
 

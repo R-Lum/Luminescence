@@ -192,7 +192,8 @@
 #'
 #' @param \dots further arguments that will be passed to the plot output.
 #' Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
-#' \code{xlim}, \code{ylim}, \code{log}, \code{legend.pos} (passes argument to x,y in
+#' \code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
+#' \code{legend.pos}, \code{legend.text} (passes argument to x,y in
 #' \code{\link[graphics]{legend}}), \code{xaxt}
 #'
 #'
@@ -232,7 +233,7 @@
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#' @section Function version: 0.6.7
+#' @section Function version: 0.6.8
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -645,12 +646,15 @@ analyse_IRSAR.RF<- function(
   ##get channel resolution (should be equal for all curves, but if not the mean is taken)
   resolution.RF <- round(mean((temp.sequence.structure$x.max/temp.sequence.structure$n.channels)),digits=1)
 
+
   plot.settings <- list(
     main = "IR-RF",
     xlab = "Time [s]",
     ylab = paste0("IR-RF [cts/", resolution.RF," s]"),
     log = "",
     cex = 1,
+    legend = TRUE,
+    legend.text = "RF_nat","RF_reg",
     legend.pos = "top",
     xaxt = "s"
     ##xlim and ylim see below as they has to be modified differently
@@ -658,7 +662,6 @@ analyse_IRSAR.RF<- function(
 
   ##modify list if something was set
   plot.settings <- modifyList(plot.settings, list(...))
-
 
   ##=============================================================================#
   ## ANALYSIS
@@ -1360,7 +1363,7 @@ analyse_IRSAR.RF<- function(
       xlim = xlim,
       ylim = ylim,
       xlab = ifelse((method != "SLIDE" & method != "FIT") | plot_reduced, plot.settings$xlab," "),
-      xaxt = ifelse((method != "SLIDE" & method != "FIT") | plot_reduced,plot.settings$xaxt,"n"),
+      xaxt = ifelse((method != "SLIDE" & method != "FIT") | plot_reduced, plot.settings$xaxt,"n"),
       yaxt = "n",
       ylab = plot.settings$ylab,
       main = plot.settings$main,
@@ -1401,9 +1404,17 @@ analyse_IRSAR.RF<- function(
       points(RF_nat.limited, pch = 20, col = "red")
 
       ##legend
-      legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
-             pch=c(19,3), col=c("red", col[10]),
-             horiz=TRUE, bty = "n", cex=.9 * par()[["cex"]])
+      if (plot.settings$legend) {
+        legend(
+          plot.settings$legend.pos,
+          legend = plot.settings$legend.text,
+          pch = c(19, 3),
+          col = c("red", col[10]),
+          horiz = TRUE,
+          bty = "n",
+          cex = .9 * par()[["cex"]]
+        )
+      }
 
 
     }
@@ -1473,9 +1484,17 @@ analyse_IRSAR.RF<- function(
       points(RF_nat.limited, pch = 20, col = col[2])
 
       ##legend
-      legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
-             pch=c(19,3), col=c("red", col[10]),
-             horiz=TRUE, bty = "n", cex=.9 * par()[["cex"]])
+      if (plot.settings$legend) {
+        legend(
+          plot.settings$legend.pos,
+          legend = legend.text,
+          pch = c(19, 3),
+          col = c("red", col[10]),
+          horiz = TRUE,
+          bty = "n",
+          cex = .9 * par()[["cex"]]
+        )
+      }
 
       ##plot range choosen for fitting
       abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
@@ -1659,9 +1678,19 @@ analyse_IRSAR.RF<- function(
       abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
       abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
-      legend(plot.settings$legend.pos, legend=c("RF_nat","RF_reg"),
-             pch=c(19,3), col=c("red", col[10]),
-             horiz=TRUE, bty = "n", cex=.9 * par()[["cex"]])
+      if (plot.settings$legend) {
+        legend(
+          plot.settings$legend.pos,
+          legend = legend.text,
+          pch = c(19, 3),
+          col = c("red", col[10]),
+          horiz = TRUE,
+          bty = "n",
+          cex = .9 * par()[["cex"]]
+        )
+
+      }
+
 
 
       ##write information on the De in the plot
