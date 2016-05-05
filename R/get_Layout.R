@@ -50,8 +50,9 @@ get_Layout <- function(
 
     if(layout == "empty") {
 
-      # empty layout definition -------------------------------------------------
       layout = list(
+        
+        ## empty Abanico plot -------------------------------------------------
         abanico = list(
           font.type = list(
             main    = character(1),
@@ -69,6 +70,7 @@ get_Layout <- function(
             stats   = character(1), # optionally vector
             legend  = character(1) # optionally vector
           ),
+          
           font.size = list(
             main    = numeric(1),
             xlab1   = numeric(1),
@@ -86,6 +88,7 @@ get_Layout <- function(
             stats   = numeric(1), # optionally vector
             legend  = numeric(1)  # optionally vector
           ),
+          
           font.deco = list(
             main    = character(1),
             xlab1   = character(1),
@@ -103,6 +106,7 @@ get_Layout <- function(
             stats   = character(1), # optionally vector
             legend  = character(1) # optionally vector
           ),
+          
           colour = list(
             main    = numeric(1), # plot title colour
             xlab1   = numeric(1), # left x-axis label colour
@@ -133,6 +137,7 @@ get_Layout <- function(
             grid.minor = numeric(1),
             border     = numeric(1),
             background = numeric(1)),
+          
           dimension = list(
             figure.width    = numeric(1), # figure width in mm
             figure.height   = numeric(1), # figure height in mm
@@ -157,9 +162,10 @@ get_Layout <- function(
             mtext           = numeric(1), # line height in %
             summary.line    = numeric(1) # line height in %
           )),
+        
+        ## empty KDE plot -----------------------------------------------------
         kde = list(
           font.type = list(
-            ## run font_import() when using user-defined fonts for the first time
             main   = character(1),
             xlab   = character(1),
             ylab1  = character(1),
@@ -170,6 +176,7 @@ get_Layout <- function(
             stats  = character(1), # optionally vector
             legend = character(1) # optionally vector
           ),
+          
           font.size = list(
             main   = numeric(1),
             xlab   = numeric(1),
@@ -181,6 +188,7 @@ get_Layout <- function(
             stats  = numeric(1), # optionally vector
             legend = numeric(1) # optionally vector
           ),
+          
           font.deco = list(
             main   = character(1),
             xlab   = character(1),
@@ -192,6 +200,7 @@ get_Layout <- function(
             stats  = character(1), # optionally vector
             legend = character(1) # optionally vector
           ),
+          
           colour = list(
             main   = numeric(1), # plot title colour
             xlab   = numeric(1), # x-axis label colour
@@ -216,6 +225,7 @@ get_Layout <- function(
             poly.line       = numeric(1), # polygon line colour
             poly.fill       = numeric(1), # polygon fill colour
             background      = numeric(1)),
+          
           dimension = list(
             figure.width    = numeric(1), # figure width in mm
             figure.height   = numeric(1), # figure height in mm
@@ -236,8 +246,9 @@ get_Layout <- function(
       )
     } else if(layout == "default") {
 
-      # default layout definition -----------------------------------------------
       layout = list(
+        
+        ## default Abanico plot -----------------------------------------------
         abanico = list(
           font.type = list(
             main    = "",
@@ -255,6 +266,7 @@ get_Layout <- function(
             stats   = "", # optionally vector
             legend  = "" # optionally vector
           ),
+          
           font.size = list(
             main    = 12,
             xlab1   = 12,
@@ -272,6 +284,7 @@ get_Layout <- function(
             stats   = 10, # optionally vector
             legend  = 10 # optionally vector
           ),
+          
           font.deco = list(
             main    = "bold",
             xlab1   = "normal",
@@ -289,6 +302,7 @@ get_Layout <- function(
             stats   = "normal", # optionally vector
             legend  = "normal" # optionally vector
           ),
+          
           colour = list(
             main    = 1, # plot title colour
             xlab1   = 1, # left x-axis label colour
@@ -319,6 +333,7 @@ get_Layout <- function(
             grid.minor = "none",
             border     = 1,
             background = NA),
+          
           dimension = list(
             figure.width    = "auto", # figure width in mm
             figure.height   = "auto", # figure height in mm
@@ -343,9 +358,10 @@ get_Layout <- function(
             mtext           = 100, # line height in %
             summary.line    = 100 # line height in %
           )),
+        
+        ## default KDE plot ---------------------------------------------------
         kde = list(
           font.type = list(
-            ## run font_import() when using user-defined fonts for the first time
             main   = "",
             xlab   = "",
             ylab1  = "",
@@ -356,6 +372,7 @@ get_Layout <- function(
             stats  = "", # optionally vector
             legend = "" # optionally vector
           ),
+          
           font.size = list(
             main   = 14,
             xlab   = 12,
@@ -367,6 +384,7 @@ get_Layout <- function(
             stats  = 12, # optionally vector
             legend = 12 # optionally vector
           ),
+          
           font.deco = list(
             main   = "bold",
             xlab   = "normal",
@@ -378,6 +396,7 @@ get_Layout <- function(
             stats  = "normal", # optionally vector
             legend = "normal" # optionally vector
           ),
+          
           colour = list(
             main   = 1, # plot title colour
             xlab   = 1, # x-axis label colour
@@ -402,6 +421,7 @@ get_Layout <- function(
             poly.line       = NA, # polygon line colour
             poly.fill       = "grey80", # polygon fill colour
             background      = NULL),
+          
           dimension = list(
             figure.width    = 50, # figure width in mm
             figure.height   = 50, # figure height in mm
@@ -422,8 +442,9 @@ get_Layout <- function(
       )
     } else if(layout == "journal") {
 
-      # journal layout definition -----------------------------------------------
       layout = list(
+        
+        ## journal Abanico plot -----------------------------------------------
         abanico = list(
           font.type = list(
             main    = "",
@@ -441,6 +462,7 @@ get_Layout <- function(
             stats   = "", # optionally vector
             legend  = "" # optionally vector
           ),
+          
           font.size = list(
             main    = 8,
             xlab1   = 7,
@@ -458,6 +480,7 @@ get_Layout <- function(
             stats   = 6, # optionally vector
             legend  = 6 # optionally vector
           ),
+          
           font.deco = list(
             main    = "bold",
             xlab1   = "normal",
@@ -475,6 +498,7 @@ get_Layout <- function(
             stats   = "normal", # optionally vector
             legend  = "normal" # optionally vector
           ),
+          
           colour = list(
             main    = 1, # plot title colour
             xlab1   = 1, # left x-axis label colour
@@ -505,6 +529,7 @@ get_Layout <- function(
             grid.minor = "none",
             border     = 1,
             background = NA),
+          
           dimension = list(
             figure.width    = 100, # figure width in mm
             figure.height   = 100, # figure height in mm
@@ -530,9 +555,10 @@ get_Layout <- function(
             summary.line    = 70, # line height in %
             pch             = 50  # point size in %
           )),
+        
+        ## journal KDE plot ---------------------------------------------------
         kde = list(
           font.type = list(
-            ## run font_import() when using user-defined fonts for the first time
             main   = "",
             xlab   = "",
             ylab1  = "",
@@ -543,6 +569,7 @@ get_Layout <- function(
             stats  = "", # optionally vector
             legend = "" # optionally vector
           ),
+          
           font.size = list(
             main   = 14,
             xlab   = 12,
@@ -554,6 +581,7 @@ get_Layout <- function(
             stats  = 12, # optionally vector
             legend = 12 # optionally vector
           ),
+          
           font.deco = list(
             main   = "bold",
             xlab   = "normal",
@@ -565,6 +593,7 @@ get_Layout <- function(
             stats  = "normal", # optionally vector
             legend = "normal" # optionally vector
           ),
+          
           colour = list(
             main   = 1, # plot title colour
             xlab   = 1, # x-axis label colour
@@ -589,6 +618,7 @@ get_Layout <- function(
             poly.line       = NA, # polygon line colour
             poly.fill       = "grey80", # polygon fill colour
             background      = NULL),
+          
           dimension = list(
             figure.width    = 50, # figure width in mm
             figure.height   = 50, # figure height in mm
@@ -608,7 +638,9 @@ get_Layout <- function(
         )
       )
     } else {
-      stop("Layout definition not supported!")
+      warning("Layout definition not supported! Default layout is used.")
+      
+      layout <- get_Layout(layout = "default")
     }
   } else if(is.list(layout) == TRUE) {
 
