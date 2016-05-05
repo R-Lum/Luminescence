@@ -192,7 +192,9 @@ calc_Statistics <- function(
                      sd.abs = S.wg.sd.abs,
                      sd.rel = S.wg.sd.rel,
                      se.abs = S.wg.se.abs,
-                     se.rel = S.wg.se.rel)
+                     se.rel = S.wg.se.rel,
+                     skewness = S.skewness,
+                     kurtosis = S.kurtosis)
 
 
   if(!is.null(digits)) {
