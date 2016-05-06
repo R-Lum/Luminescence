@@ -4,7 +4,8 @@
 \alias{calc_Statistics}
 \title{Function to calculate statistic measures}
 \usage{
-calc_Statistics(data, weight.calc = "square", digits = NULL, na.rm = TRUE)
+calc_Statistics(data, weight.calc = "square", digits = NULL, n.MCM = 1000,
+  na.rm = TRUE)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -16,8 +17,11 @@ data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
 1/error^2). Default is \code{"square"}.}
 
-\item{digits}{\code{\link{integer}} (with default): round numbers to the specified digits. If
-digits is set to \code{NULL} nothing is rounded.}
+\item{digits}{\code{\link{integer}} (with default): round numbers to the
+specified digits. If digits is set to \code{NULL} nothing is rounded.}
+
+\item{n.MCM}{\code{\link{numeric}} (with default): number of samples drawn
+for Monte Carlo-based statistics. Set to zero to disable this option.}
 
 \item{na.rm}{\code{\link{logical}} (with default): indicating whether NA
 values should be stripped before the computation proceeds.}
@@ -29,8 +33,19 @@ Returns a list with weighted and unweighted statistic measures.
 This function calculates a number of descriptive statistics for De-data,
 most fundamentally using error-weighted approaches.
 }
+\details{
+The option to use Monte Carlo Methods (\code{n.MCM > 0}) allows calculating
+all descriptive statistics based on random values. The distribution of these
+random values is based on the Normal distribution with \code{De} values as
+means and \code{De_error} values as one standard deviation. Increasing the
+number of MCM-samples linearly increases computation time. On a Lenovo X230
+machine evaluation of 25 Aliquots with n.MCM = 1000 takes 0.01 s, with
+n = 100000, ca. 1.65 s. It might be useful to work with logarithms of these
+values. See Dietze et al. (2016, Quaternary Geochronology) and the function
+\code{\link{plot_AbanicoPlot}} for details.
+}
 \section{Function version}{
- 0.1.4 (2016-05-02 09:36:06)
+ 0.1.5 (2016-05-06 14:53:47)
 }
 \examples{
 
@@ -43,15 +58,18 @@ plot_KDE(ExampleData.DeValues$BT998)
 ## calculate statistics and show output
 str(calc_Statistics(ExampleData.DeValues$BT998))
 
+\dontrun{
 ## now the same for 10000 normal distributed random numbers with equal errors
 x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
                          rep(0.001, 10^5)))
 
 ## note the congruent results for weighted and unweighted measures
 str(calc_Statistics(x))
+}
 
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team}
+\keyword{datagen}
 
