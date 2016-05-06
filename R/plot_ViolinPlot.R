@@ -7,12 +7,13 @@
 #' The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
 #'
 #' The function is passing several arguments to the function \code{\link{plot}},
-#' \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}: Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
+#' \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}:
+#' Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
 #' \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 #'
 #' \bold{\code{Valid summary keywords}}\cr
 #'
-#' 'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis' \cr
+#' 'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis'
 #'
 #' @param data \code{\link{numeric}} or \code{\linkS4class{RLum.Results}}
 #' object (required): input data for plotting. Alternatively a \code{\link{data.frame}} or
@@ -45,7 +46,7 @@
 #' two other R packages exist providing a possibility to produces this kind of plot, namely:
 #' 'vioplot' and 'violinmplot' (see References for details).
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -127,7 +128,7 @@ plot_ViolinPlot <- function(
             bw = ifelse("bw" %in% names(list(...)),list(...)$bw,"nrd0"))
 
   ##some statistical parameter, get rid of the weighted statistics
-  stat.summary <- suppressWarnings(calc_Statistics(as.data.frame(data), digits = 2))[[-1]]
+  stat.summary <- suppressWarnings(calc_Statistics(as.data.frame(data), digits = 2)[["unweighted"]])
 
     ##make valid summary string
     if(is.null(summary)){
@@ -244,3 +245,9 @@ plot_ViolinPlot <- function(
   }
 
 }
+
+ data(ExampleData.DeValues, envir = environment())
+ ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+
+## create plot straightforward
+plot_ViolinPlot(data = ExampleData.DeValues)
