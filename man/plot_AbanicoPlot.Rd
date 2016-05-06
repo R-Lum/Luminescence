@@ -6,10 +6,11 @@
 \usage{
 plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, z.0 = "mean.weighted",
   dispersion = "qr", plot.ratio = 0.75, rotate = FALSE, mtext, summary,
-  summary.pos, legend, legend.pos, stats, rug = FALSE, kde = TRUE,
-  hist = FALSE, dots = FALSE, y.axis = TRUE, error.bars = FALSE, bar,
-  bar.col, polygon.col, line, line.col, line.label, grid.col, frame = 1,
-  bw = "SJ", output = FALSE, interactive = FALSE, ...)
+  summary.pos, summary.method = "MCM", legend, legend.pos, stats,
+  rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE,
+  boxplot = FALSE, y.axis = TRUE, error.bars = FALSE, bar, bar.col,
+  polygon.col, line, line.col, line.label, grid.col, frame = 1, bw = "SJ",
+  output = FALSE, interactive = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -46,13 +47,19 @@ versus the cartesian plot part, deault is \code{0.75}.}
 
 \item{summary}{\code{\link{character}} (optional): add statistic measures of
 centrality and dispersion to the plot. Can be one or more of several
-keywords. See details for available keywords.}
+keywords. See details for available keywords. Results differ depending on
+the log-option for the z-scale (see details).}
 
 \item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used.}
+
+\item{summary.method}{\code{\link{character}} (with default): keyword
+indicating the method used to calcualte the statistic summary. One out of
+\code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
+\code{\link{calc_Statistics}} for details.}
 
 \item{legend}{\code{\link{character}} vector (optional): legend content to
 be added to the plot.}
@@ -77,6 +84,9 @@ dispersion part. Only meaningful when not more than one data set is plotted.}
 \item{dots}{\code{\link{logical}}: Option to add a dot plot to the
 dispersion part. If number of dots exceeds space in the dispersion part, a
 square indicates this.}
+
+\item{boxplot}{\code{\link{logical}}: Option to add a boxplot to the
+dispersion part, default is \code{FALSE}.}
 
 \item{y.axis}{\code{\link{logical}}: Option to hide y-axis labels. Useful
 for data with small scatter.}
@@ -171,17 +181,30 @@ cartesian part of the Abanico Plot can be modfied for display reasons
 and leaves 25 \% for the part that shows the KDE graph.\cr\cr
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
-one or more of the following keywords: \code{"n"} (number of samples),
-\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
-standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
-\code{"sdabs.weighted"} (error-weighted absolute standard deviation),
-\code{"serel"} (relative standard error), \code{"serel.weighted"} (
-error-weighted relative standard error), \code{"seabs"} (absolute standard
-error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-\code{"in.2s"} (percent of samples in 2-sigma range),
-\code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness). \cr\cr
+one or more of the following keywords:
+
+\itemize{
+\item \code{"n"} (number of samples)
+\item \code{"mean"} (mean De value)
+\item \code{"median"} (median of the De values)
+\item \code{"sd.rel"} (relative standard deviation in percent)
+\item \code{"sd.abs"} (absolute standard deviation)
+\item \code{"se.rel"} (relative standard error)
+\item \code{"se.abs"} (absolute standard error)
+\item \code{"in.2s"} (percent of samples in 2-sigma range)
+\item \code{"kurtosis"} (kurtosis)
+\item \code{"skewness"} (skewness)
+}
+
+Note that the input data for the statistic summary is sent to the function
+\code{calc_Statistics()} depending on the log-option for the z-scale. If
+\code{"log.z = TRUE"}, the summary is based on the logarithms of the input
+data. If \code{"log.z = FALSE"} the linearly scaled data is used. \cr
+Note as well, that \code{"calc_Statistics()"} calculates these statistic
+measures in three different ways: \code{unweighted}, \code{weighted} and
+\code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
+MCM-based version is used. If you wish to use another method, indicate this
+with the appropriate keyword using the argument \code{summary.method}.\cr\cr
 
 The optional parameter \code{layout} allows to modify the entire plot more
 sophisticated. Each element of the plot can be addressed and its properties
@@ -196,7 +219,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.7 (2016-05-02 09:36:06)
+ 0.1.7 (2016-05-06 15:11:16)
 }
 \examples{
 

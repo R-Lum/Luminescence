@@ -36,6 +36,7 @@
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords:
+#'
 #' \itemize{
 #' \item \code{"n"} (number of samples)
 #' \item \code{"mean"} (mean De value)
@@ -43,18 +44,19 @@
 #' \item \code{"sd.rel"} (relative standard deviation in percent)
 #' \item \code{"sd.abs"} (absolute standard deviation)
 #' \item \code{"se.rel"} (relative standard error)
-#' \item \code{"se.abs"} (absolute standard error) 
+#' \item \code{"se.abs"} (absolute standard error)
 #' \item \code{"in.2s"} (percent of samples in 2-sigma range)
 #' \item \code{"kurtosis"} (kurtosis)
 #' \item \code{"skewness"} (skewness)
-#' } \cr
-#' Note that the input data for the statistic summary is sent to the function 
-#' \code{calc_Statistics()} depending on the log-option for the z-scale. If  
-#' \code{"log.z = TRUE"}, the summary is based on the logarithms of the input 
+#' }
+#'
+#' Note that the input data for the statistic summary is sent to the function
+#' \code{calc_Statistics()} depending on the log-option for the z-scale. If
+#' \code{"log.z = TRUE"}, the summary is based on the logarithms of the input
 #' data. If \code{"log.z = FALSE"} the linearly scaled data is used. \cr
-#' Note as well, that \code{"calc_Statistics()"} calculates these statistic 
-#' measures in three different ways: \code{unweighted}, \code{weighted} and 
-#' \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the 
+#' Note as well, that \code{"calc_Statistics()"} calculates these statistic
+#' measures in three different ways: \code{unweighted}, \code{weighted} and
+#' \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. If you wish to use another method, indicate this
 #' with the appropriate keyword using the argument \code{summary.method}.\cr\cr
 #'
@@ -104,7 +106,7 @@
 #'
 #' @param summary \code{\link{character}} (optional): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
-#' keywords. See details for available keywords. Results differ depending on 
+#' keywords. See details for available keywords. Results differ depending on
 #' the log-option for the z-scale (see details).
 #'
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
@@ -112,10 +114,10 @@
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if \code{mtext} is not used.
-#' 
-#' @param summary.method \code{\link{character}} (with default): keyword 
-#' indicating the method used to calcualte the statistic summary. One out of 
-#' \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See 
+#'
+#' @param summary.method \code{\link{character}} (with default): keyword
+#' indicating the method used to calcualte the statistic summary. One out of
+#' \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
 #' \code{\link{calc_Statistics}} for details.
 #'
 #' @param legend \code{\link{character}} vector (optional): legend content to
@@ -141,7 +143,7 @@
 #' @param dots \code{\link{logical}}: Option to add a dot plot to the
 #' dispersion part. If number of dots exceeds space in the dispersion part, a
 #' square indicates this.
-#' 
+#'
 #' @param boxplot \code{\link{logical}}: Option to add a boxplot to the
 #' dispersion part, default is \code{FALSE}.
 #'
@@ -451,7 +453,7 @@ plot_AbanicoPlot <- function(
 
       n.NA <- sum(!complete.cases(data[[i]]))
 
-      if(n.NA == 1) {message(paste0("[plot_AbanicoPlot()] data set (", 
+      if(n.NA == 1) {message(paste0("[plot_AbanicoPlot()] data set (",
                                     i, "): 1 NA value excluded."))
       } else if(n.NA > 1) {
         message(paste0("[plot_AbanicoPlot()] data set (", i,"): ",
@@ -1024,14 +1026,14 @@ plot_AbanicoPlot <- function(
 
   ## set space between z-axis and baseline of cartesian part
   if(boxplot == FALSE) {
-    
+
     lostintranslation <- 1.03
   } else {
-    
+
     lostintranslation <- 1.09
     plot.ratio <- plot.ratio * 0.97
   }
-  
+
   ## create empty plot to update plot parameters
   if(rotate == FALSE) {
     plot(NA,
@@ -1809,21 +1811,21 @@ plot_AbanicoPlot <- function(
     hist.data[[i]]$density <- hist.data[[i]]$counts / hist.max.plot *
       KDE.max.plot
   }
-  
+
   ## calculate boxplot data without plotting
-  
+
   ## create dummy list
   boxplot.data <- list(NA)
-  
+
   for(i in 1:length(data)) {
     boxplot.i <- boxplot(x = data[[i]][,3],
                    plot = FALSE)
     boxplot.data[[length(boxplot.data) + 1]] <- boxplot.i
   }
-  
+
   ## remove dummy list object
   boxplot.data[[1]] <- NULL
-  
+
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
 
@@ -2294,16 +2296,16 @@ plot_AbanicoPlot <- function(
             col = layout$abanico$colour$ztck)
     }
 
-    ## optionally draw white area over scatter bar 
+    ## optionally draw white area over scatter bar
     if(boxplot == TRUE) {
-      
-      polygon(x = c(min(ellipse[,1]), 
-                    min(ellipse[,1]), 
-                    xy.0[1], 
+
+      polygon(x = c(min(ellipse[,1]),
+                    min(ellipse[,1]),
+                    xy.0[1],
                     xy.0[1]),
-              y = c(min(ellipse[,2]), 
-                    max(ellipse[,2]), 
-                    max(ellipse[,2]), 
+              y = c(min(ellipse[,2]),
+                    max(ellipse[,2]),
+                    max(ellipse[,2]),
                     min(ellipse[,2])),
               lty = 0,
               col = "white")
@@ -2534,59 +2536,59 @@ plot_AbanicoPlot <- function(
         }
       }
     }
-    
+
     ## optionally add box plot
     if(boxplot == TRUE) {
-      
+
       for(i in 1:length(data)) {
-        
+
         ## draw p25-p75-polygon
-        polygon(x = c(min(ellipse[,1]) * 1.025, 
-                      min(ellipse[,1]) * 1.025, 
-                      xy.0[1] * 0.975, 
+        polygon(x = c(min(ellipse[,1]) * 1.025,
+                      min(ellipse[,1]) * 1.025,
+                      xy.0[1] * 0.975,
                       xy.0[1] * 0.975),
                 y = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
-                        min(ellipse[,1]), 
+                        min(ellipse[,1]),
                       (boxplot.data[[i]]$stats[4,1] - z.central.global) *
-                        min(ellipse[,1]), 
+                        min(ellipse[,1]),
                       (boxplot.data[[i]]$stats[4,1] - z.central.global) *
                         min(ellipse[,1]),
                       (boxplot.data[[i]]$stats[2,1] - z.central.global) *
                         min(ellipse[,1])),
                 border = kde.line[i])
-        
+
         ## draw whiskers
-        lines(x = rep(mean(c(min(ellipse[,1]) * 1.025, 
+        lines(x = rep(mean(c(min(ellipse[,1]) * 1.025,
                              xy.0[1] * 0.975)), 2),
               y = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
                       min(ellipse[,1]),
                     (boxplot.data[[i]]$stats[1,1] - z.central.global) *
                       min(ellipse[,1])),
               col = kde.line[i])
-        
-        lines(x = c(min(ellipse[,1]) * 1.035, 
+
+        lines(x = c(min(ellipse[,1]) * 1.035,
                     xy.0[1] * 0.965),
               y = rep((boxplot.data[[i]]$stats[1,1] - z.central.global) *
                         min(ellipse[,1]), 2),
               col = kde.line[i])
-        
-        lines(x = rep(mean(c(min(ellipse[,1]) * 1.025, 
+
+        lines(x = rep(mean(c(min(ellipse[,1]) * 1.025,
                              xy.0[1] * 0.975)), 2),
               y = c((boxplot.data[[i]]$stats[4,1] - z.central.global) *
                       min(ellipse[,1]),
                     (boxplot.data[[i]]$stats[5,1] - z.central.global) *
                       min(ellipse[,1])),
               col = kde.line[i])
-        
-        lines(x = c(min(ellipse[,1]) * 1.035, 
+
+        lines(x = c(min(ellipse[,1]) * 1.035,
                     xy.0[1] * 0.965),
               y = rep((boxplot.data[[i]]$stats[5,1] - z.central.global) *
                         min(ellipse[,1]), 2),
               col = kde.line[i])
-        
+
         ## draw outlier points
-        points(x = rep(mean(c(min(ellipse[,1]) * 1.025, 
-                              xy.0[1] * 0.975)), 
+        points(x = rep(mean(c(min(ellipse[,1]) * 1.025,
+                              xy.0[1] * 0.975)),
                        length(boxplot.data[[i]]$out)),
                y = (boxplot.data[[i]]$out - z.central.global) *
                  min(ellipse[,1]),
@@ -3048,22 +3050,22 @@ plot_AbanicoPlot <- function(
                     min(ellipse[,2])),
             col = layout$abanico$colour$ztck)
     }
-    
-    ## optionally draw white area over scatter bar 
+
+    ## optionally draw white area over scatter bar
     if(boxplot == TRUE) {
 
-      polygon(x = c(min(ellipse[,1]), 
-                    min(ellipse[,1]), 
-                    max(ellipse[,1]), 
+      polygon(x = c(min(ellipse[,1]),
+                    min(ellipse[,1]),
+                    max(ellipse[,1]),
                     max(ellipse[,1])),
-              y = c(min(ellipse[,2]), 
+              y = c(min(ellipse[,2]),
                     xy.0[2],
                     xy.0[2],
                     min(ellipse[,2])),
               lty = 0,
               col = "white")
     }
-    
+
 
     ## plot z-axes
     lines(ellipse, col = layout$abanico$colour$border)
@@ -3285,59 +3287,59 @@ plot_AbanicoPlot <- function(
         }
       }
     }
-    
+
     ## optionally add box plot
     if(boxplot == TRUE) {
-      
+
       for(i in 1:length(data)) {
 
         ## draw p25-p75-polygon
-        polygon(y = c(min(ellipse[,2]) * 1.025, 
-                      min(ellipse[,2]) * 1.025, 
-                      xy.0[2] * 0.975, 
+        polygon(y = c(min(ellipse[,2]) * 1.025,
+                      min(ellipse[,2]) * 1.025,
+                      xy.0[2] * 0.975,
                       xy.0[2] * 0.975),
                 x = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
-                        min(ellipse[,2]), 
+                        min(ellipse[,2]),
                       (boxplot.data[[i]]$stats[4,1] - z.central.global) *
-                        min(ellipse[,2]), 
+                        min(ellipse[,2]),
                       (boxplot.data[[i]]$stats[4,1] - z.central.global) *
                         min(ellipse[,2]),
                       (boxplot.data[[i]]$stats[2,1] - z.central.global) *
                         min(ellipse[,2])),
                 border = kde.line[i])
-        
+
         ## draw whiskers
-        lines(y = rep(mean(c(min(ellipse[,2]) * 1.025, 
+        lines(y = rep(mean(c(min(ellipse[,2]) * 1.025,
                              xy.0[2] * 0.975)), 2),
               x = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
                       min(ellipse[,2]),
                     (boxplot.data[[i]]$stats[1,1] - z.central.global) *
                       min(ellipse[,2])),
               col = kde.line[i])
-        
-        lines(y = c(min(ellipse[,2]) * 1.035, 
+
+        lines(y = c(min(ellipse[,2]) * 1.035,
                     xy.0[2] * 0.965),
               x = rep((boxplot.data[[i]]$stats[1,1] - z.central.global) *
                         min(ellipse[,2]), 2),
               col = kde.line[i])
-        
-        lines(y = rep(mean(c(min(ellipse[,2]) * 1.025, 
+
+        lines(y = rep(mean(c(min(ellipse[,2]) * 1.025,
                              xy.0[2] * 0.975)), 2),
               x = c((boxplot.data[[i]]$stats[4,1] - z.central.global) *
                       min(ellipse[,2]),
                     (boxplot.data[[i]]$stats[5,1] - z.central.global) *
                       min(ellipse[,2])),
               col = kde.line[i])
-        
-        lines(y = c(min(ellipse[,2]) * 1.035, 
+
+        lines(y = c(min(ellipse[,2]) * 1.035,
                     xy.0[2] * 0.965),
               x = rep((boxplot.data[[i]]$stats[5,1] - z.central.global) *
                         min(ellipse[,2]), 2),
               col = kde.line[i])
-        
+
         ## draw outlier points
-        points(y = rep(mean(c(min(ellipse[,2]) * 1.025, 
-                              xy.0[2] * 0.975)), 
+        points(y = rep(mean(c(min(ellipse[,2]) * 1.025,
+                              xy.0[2] * 0.975)),
                        length(boxplot.data[[i]]$out)),
                x = (boxplot.data[[i]]$out - z.central.global) *
                  min(ellipse[,2]),
