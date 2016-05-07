@@ -116,7 +116,7 @@
 #' option in only possible if \code{mtext} is not used.
 #'
 #' @param summary.method \code{\link{character}} (with default): keyword
-#' indicating the method used to calcualte the statistic summary. One out of
+#' indicating the method used to calculate the statistic summary. One out of
 #' \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
 #' \code{\link{calc_Statistics}} for details.
 #'
