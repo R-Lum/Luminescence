@@ -230,7 +230,19 @@ plot_KDE <- function(
     summary.pos <- "sub"
   }
 
-  mtext <- ""
+  ## set mtext output
+  if("mtext" %in% names(list(...))) {
+    mtext <- list(...)$mtext
+  } else {
+    mtext <- ""
+  }
+
+  ## check/set layout definitions
+  if("layout" %in% names(list(...))) {
+    layout <- get_Layout(layout = list(...)$layout)
+  } else {
+    layout <- get_Layout(layout = "default")
+  }
 
   ## data preparation steps ---------------------------------------------------
 
@@ -569,24 +581,148 @@ plot_KDE <- function(
     log.option <- ""
   }
 
-  if(length(data) > 1) {
-    if("col" %in% names(list(...))) {
-      colours <- matrix(rep(list(...)$col, each = 4),
-                        nrow = length(data),
-                        byrow = TRUE)
-    } else {
-      colours <- matrix(rep(1:length(data), 4),
-                        nrow = length(data))
-    }
+  if("col" %in% names(list(...))) {
+    
+    col.main <- list(...)$col
+    col.xlab <- 1
+    col.ylab1 <- 1
+    col.ylab2 <- 1
+    col.xtck <- 1
+    col.ytck1 <- 1
+    col.ytck2 <- 1
+    col.box <- 1
+    col.mtext <- 1
+    col.stats <- list(...)$col
+    col.kde.line <- list(...)$col
+    col.kde.fill <- NA
+    col.value.dot <- list(...)$col
+    col.value.bar <- list(...)$col
+    col.value.rug <- list(...)$col
+    col.boxplot <- list(...)$col
+    col.mean.line <- adjustcolor(col = list(...)$col, 
+                                 alpha.f = 0.4)
+    col.sd.bar <- adjustcolor(col = list(...)$col, 
+                              alpha.f = 0.4)
+    col.background <- NA
   } else {
-    if("col" %in% names(list(...))) {
-      colours <- matrix(c(list(...)$col),
-                        nrow = 1)
+    
+    if(length(layout$kde$colour$main) == 1) {
+      col.main <- 1:length(data)
     } else {
-      colours <- cbind(rep(1, length(data)))
+      col.main <- layout$kde$colour$main
     }
+    
+    if(length(layout$kde$colour$xlab) == 1) {
+      col.xlab <- 1:length(data)
+    } else {
+      col.xlab <- layout$kde$colour$xlab
+    }
+    
+    if(length(layout$kde$colour$ylab1) == 1) {
+      col.ylab1 <- 1:length(data)
+    } else {
+      col.ylab1 <- layout$kde$colour$ylab1
+    }
+    
+    if(length(layout$kde$colour$ylab2) == 1) {
+      col.ylab2 <- 1:length(data)
+    } else {
+      col.ylab2 <- layout$kde$colour$ylab2
+    }
+    
+    if(length(layout$kde$colour$xtck) == 1) {
+      col.xtck <- 1:length(data)
+    } else {
+      col.xtck <- layout$kde$colour$xtck
+    }
+    
+    if(length(layout$kde$colour$ytck1) == 1) {
+      col.ytck1 <- 1:length(data)
+    } else {
+      col.ytck1 <- layout$kde$colour$ytck1
+    }
+    
+    if(length(layout$kde$colour$ytck2) == 1) {
+      col.ytck2 <- 1:length(data)
+    } else {
+      col.ytck2 <- layout$kde$colour$ytck2
+    }
+    
+    if(length(layout$kde$colour$box) == 1) {
+      col.box <- 1:length(data)
+    } else {
+      col.box <- layout$kde$colour$box
+    }
+    
+    if(length(layout$kde$colour$mtext) == 1) {
+      col.mtext <- 1:length(data)
+    } else {
+      col.mtext <- layout$kde$colour$mtext
+    }
+    
+    if(length(layout$kde$colour$stats) == 1) {
+      col.stats <- 1:length(data)
+    } else {
+      col.stats <- layout$kde$colour$stats
+    }
+    
+    if(length(layout$kde$colour$kde.line) == 1) {
+      col.kde.line <- 1:length(data)
+    } else {
+      col.kde.line <- layout$kde$colour$kde.line
+    }
+    
+    if(length(layout$kde$colour$kde.fill) == 1) {
+      col.kde.fill <- 1:length(data)
+    } else {
+      col.kde.fill <- layout$kde$colour$kde.fill
+    }
+    
+    if(length(layout$kde$colour$value.dot) == 1) {
+      col.value.dot <- 1:length(data)
+    } else {
+      col.value.dot <- layout$kde$colour$value.dot
+    }
+    
+    if(length(layout$kde$colour$value.bar) == 1) {
+      col.value.bar <- 1:length(data)
+    } else {
+      col.value.bar <- layout$kde$colour$value.bar
+    }
+    
+    if(length(layout$kde$colour$value.rug) == 1) {
+      col.value.rug <- 1:length(data)
+    } else {
+      col.value.rug <- layout$kde$colour$value.rug
+    }
+    
+    if(length(layout$kde$colour$boxplot) == 1) {
+      col.boxplot <- 1:length(data)
+    } else {
+      col.boxplot <- layout$kde$colour$boxplot
+    }
+    
+    if(length(layout$kde$colour$mean.line) == 1) {
+      col.mean.line <- adjustcolor(col = 1:length(data), 
+                                   alpha.f = 0.4)
+    } else {
+      col.mean.line <- layout$kde$colour$mean.line
+    }
+    
+    if(length(layout$kde$colour$sd.bar) == 1) {
+      col.sd.bar <- 1:length(data)
+    } else {
+      col.sd.bar <- layout$kde$colour$sd.bar
+    }
+    
+    if(length(layout$kde$colour$background) == 1) {
+      col.background <- 1:length(data)
+    } else {
+      col.background <- layout$kde$colour$background
+    }
+    
   }
-
+  
   if("lty" %in% names(list(...))) {
     lty <- list(...)$lty
   } else {
@@ -651,24 +787,40 @@ plot_KDE <- function(
 
   ## setup plot area
   if(length(summary) >= 1 & summary.pos[1] == "sub") {
+    
     toplines <- length(data)
-  } else {toplines <- 1}
+  } else {
+    
+    toplines <- 1
+  }
 
+  ## extract original plot parameters
+  par(bg = layout$kde$colour$background)
+  bg.original <- par()$bg
+  
   par(mar = c(5, 5.5, 2.5 + toplines, 4.5),
       xpd = FALSE,
       cex = cex)
+  
+  if(layout$kde$dimension$figure.width != "auto" |
+     layout$kde$dimension$figure.height != "auto") {
+    par(mai = layout$kde$dimension$margin / 25.4,
+        pin = c(layout$kde$dimension$figure.width / 25.4 -
+                  layout$kde$dimension$margin[2] / 25.4 -
+                  layout$kde$dimension$margin[4] / 25.4,
+                layout$kde$dimension$figure.height / 25.4 -
+                  layout$kde$dimension$margin[1] / 25.4 -
+                  layout$kde$dimension$margin[3]/25.4))
+  }
 
   ## create empty plot to get plot dimensions
   plot(NA,
        xlim = xlim.plot,
        ylim = ylim.plot[1:2],
-       main = "",
-       xlab = "",
-       ylab = "",
        sub = sub,
        log = log.option,
        axes = FALSE,
-       frame.plot = FALSE)
+       ann = FALSE)
   
   ## get line height in xy coordinates
   l_height <- par()$cxy[2]
@@ -681,67 +833,127 @@ plot_KDE <- function(
 
   ## create empty plot to set adjusted plot dimensions
   par(new = TRUE)
-  
   plot(NA,
-       xlim = xlim.plot,
-       ylim = ylim.plot[1:2],
-       main = "",
-       xlab = "",
-       ylab = "",
-       sub = sub,
-       log = log.option,
-       axes = FALSE,
-       frame.plot = FALSE)
-  
-  ## add probability density plot
-  par(new = TRUE)
-  plot(NA,
-       main     = "",
-       xlab     = xlab,
-       ylab     = ylab[1],
        xlim     = xlim.plot,
        ylim     = ylim.plot[1:2],
        log      = log.option,
        cex      = cex,
-       cex.lab  = cex,
-       cex.main = cex,
-       axes = FALSE)
+       axes = FALSE,
+       ann = FALSE)
   
   ## add box
-  box(which = "plot")
+  box(which = "plot", 
+      col = layout$kde$colour$box)
 
-  ## add axes
-  axis(side = 1)
-  axis(side = 2, 
-       at = pretty(x = range(De.density.range[3:4])))
+  ## add x-axis
+  axis(side = 1,
+       col = layout$kde$colour$xtck,
+       col.axis = layout$kde$colour$xtck,
+       labels = NA,
+       tcl = -layout$kde$dimension$xtcl / 200,
+       cex = cex)
+
+  axis(side = 1,
+       line = 2 * layout$kde$dimension$xtck.line / 100 - 2,
+       lwd = 0,
+       col = layout$kde$colour$xtck,
+       family = layout$kde$font.type$xtck,
+       font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                      layout$kde$font.deco$xtck],
+       col.axis = layout$kde$colour$xtck,
+       cex.axis = layout$kde$font.size$xlab/12)
+
+  mtext(text = xlab,
+        side = 1,
+        line = 3 * layout$kde$dimension$xlab.line / 100,
+        col = layout$kde$colour$xlab,
+        family = layout$kde$font.type$xlab,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                       layout$kde$font.deco$xlab],
+        cex = cex * layout$kde$font.size$xlab/12)
+
+  ## add left y-axis
+  axis(side = 2,
+       at = pretty(x = range(De.density.range[3:4])),
+       col = layout$kde$colour$ytck1,
+       col.axis = layout$kde$colour$ytck1,
+       labels = NA,
+       tcl = -layout$kde$dimension$ytck1 / 200,
+       cex = cex)
+  
+  axis(side = 2,
+       at = pretty(x = range(De.density.range[3:4])),
+       line = 2 * layout$kde$dimension$ytck1.line / 100 - 2,
+       lwd = 0,
+       col = layout$kde$colour$ytck1,
+       family = layout$kde$font.type$ytck1,
+       font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                      layout$kde$font.deco$ytck1],
+       col.axis = layout$kde$colour$ytck1,
+       cex.axis = layout$kde$font.size$ylab1/12)
+  
+  mtext(text = ylab[1],
+        side = 2,
+        line = 3 * layout$kde$dimension$ylab1.line / 100,
+        col = layout$kde$colour$ylab1,
+        family = layout$kde$font.type$ylab1,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                       layout$kde$font.deco$ylab1],
+        cex = cex * layout$kde$font.size$ylab1/12)
 
   for(i in 1:length(data)) {
-    lines(x = De.density[[i]]$x,
-          y = De.density[[i]]$y,
-          col = colours[i],
-          lty = lty[i],
-          lwd = lwd[i])
+    polygon(x = De.density[[i]]$x,
+            y = De.density[[i]]$y,
+            border = col.kde.line[i],
+            col = col.kde.fill,
+            lty = lty[i],
+            lwd = lwd[i])
   }
 
   ## add plot title
-  title(main, line = toplines + 1.2)
+  cex.old <- par()$cex
+  par(cex = layout$kde$font.size$main / 12)
+  title(main = main,
+        family = layout$kde$font.type$main,
+        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                       layout$kde$font.deco$main],
+        col.main = layout$kde$colour$main,
+        line = (toplines + 1.2) * layout$kde$dimension$main / 100)
+  par(cex = cex.old)
+
+  ## optionally add mtext line
+  if(mtext != "") {
+    
+    mtext(text = mtext,
+          side = 3,
+          line = 0.5,
+          family = layout$kde$font.type$mtext,
+          font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                         layout$kde$font.deco$mtext],
+          col.main = layout$kde$colour$mtext,
+          cex = layout$kde$font.size$mtext / 12)
+  }
 
   ## add summary content
   for(i in 1:length(data)) {
+    
     if(summary.pos[1] != "sub") {
+
       text(x = summary.pos[1],
            y = summary.pos[2],
            adj = summary.adj,
            labels = label.text[[i]],
-           col = colours[i],
-           cex = cex * 0.8)
+           col = col.stats[i],
+           cex = layout$kde$font.size$stats / 12)
     } else {
+      
       if(mtext == "") {
+        
         mtext(side = 3,
-              line = toplines + 0.3 - i,
+              line = (toplines + 0.3 - i) * layout$kde$dimension$stats.line / 100,
               text = label.text[[i]],
-              col = colours[i],
-              cex = cex * 0.8)
+              col = col.stats[i],
+              cex = layout$kde$font.size$stats / 12)
       }
     }
   }
@@ -752,15 +964,12 @@ plot_KDE <- function(
     par(new = TRUE) # adjust plot options
 
     ## add empty plot, scaled to preliminary secondary plot content
-    plot(NA,
+    plot(x = NA,
          xlim = xlim.plot,
          ylim = ylim.plot[3:4],
          log  = log.option,
-         main = "",
-         xlab = "",
-         ylab = "",
-         axes = FALSE,
-         frame.plot = FALSE)
+         ann = FALSE,
+         axes = FALSE)
 
     ## get line height in xy coordinates
     l_height <- par()$cxy[2]
@@ -779,14 +988,9 @@ plot_KDE <- function(
          xlim = xlim.plot,
          ylim = ylim.plot[3:4],
          log  = log.option,
-         main = "",
-         xlab = "",
-         ylab = "",
-         axes = FALSE,
-         frame.plot = FALSE)
+         ann = FALSE,
+         axes = FALSE)
     
-    ## add zero line
-
     ## optinally add boxplot
     if(boxplot == TRUE) {
       
@@ -813,14 +1017,14 @@ plot_KDE <- function(
       l_height <- par()$cxy[2]
       
       for(i in 1:length(data)) {
-        
+
         ## draw mean line
         lines(x = c(boxplot.data[[i]]$group[1],
                     boxplot.data[[i]]$group[1]),
               y = c(-15.5/12 * l_height, 
                     -10.5/12 * l_height),
               lwd = 2.5,
-              col = adjustcolor(col = colours[i], alpha.f = 0.4))
+              col = col.mean.line[i])
         
         ## draw mean polygon
         polygon(x = c(boxplot.data[[i]]$group[1] - boxplot.data[[i]]$names[1],
@@ -831,7 +1035,7 @@ plot_KDE <- function(
                       -11.5/12 * l_height,
                       -11.5/12 * l_height,
                       -14.5/12 * l_height),
-                col = adjustcolor(col = colours[i], alpha.f = 0.4),
+                col = col.mean.line[i],
                 border = NA)
         
         ## draw median line
@@ -840,8 +1044,8 @@ plot_KDE <- function(
               y = c(-3/2 * l_height, 
                     -2/3 * l_height),
               lwd = 2,
-              col = colours[i])
-        
+              col = col.boxplot[i])
+
         ## draw q25-q75-polygon
         polygon(x = c(boxplot.data[[i]]$stats[2,1],
                       boxplot.data[[i]]$stats[2,1],
@@ -851,38 +1055,38 @@ plot_KDE <- function(
                       -2/3 * l_height,
                       -2/3 * l_height, 
                       -3/2 * l_height),
-                border = colours[i])
+                border = col.boxplot[i])
         
         ## draw whiskers
         lines(x = c(boxplot.data[[i]]$stats[2,1],
                     boxplot.data[[i]]$stats[1,1]),
               y = c(-13/12 * l_height,
                     -13/12 * l_height),
-              col = colours[i])
+              col = col.boxplot[i])
         
         lines(x = c(boxplot.data[[i]]$stats[1,1],
                     boxplot.data[[i]]$stats[1,1]),
               y = c(-15.5/12 * l_height,
                     -10.5/12 * l_height),
-              col = colours[i])
+              col = col.boxplot[i])
         
         lines(x = c(boxplot.data[[i]]$stats[4,1],
                     boxplot.data[[i]]$stats[5,1]),
               y = c(-13/12 * l_height,
                     -13/12 * l_height),
-              col = colours[i])
+              col = col.boxplot[i])
         
         lines(x = c(boxplot.data[[i]]$stats[5,1],
                     boxplot.data[[i]]$stats[5,1]),
               y = c(-15.5/12 * l_height,
                     -10.5/12 * l_height),
-              col = colours[i])
+              col = col.boxplot[i])
         
         ## draw outliers
         points(x = boxplot.data[[i]]$out,
                y = rep(-13/12 * l_height,
                        length(boxplot.data[[i]]$out)),
-               col = colours[i],
+               col = col.boxplot[i],
                cex = cex * 0.8)        
       }
 
@@ -899,7 +1103,7 @@ plot_KDE <- function(
                       data[[i]][j,1]),
                 y = c(0,
                       -4/12 * l_height),
-                col = colours[i])
+                col = col.value.rug[i])
         }
       }
     }
@@ -910,17 +1114,35 @@ plot_KDE <- function(
                          yes = NA, 
                          no = ticks_axis)
 
-    ## add second y-axis
-    axis(side = 4, 
-         at = ticks_axis, 
-         cex.axis = cex)
+    ## add right y-axis
+    axis(side = 4,
+         at = ticks_axis,
+         col = layout$kde$colour$ytck2,
+         col.axis = layout$kde$colour$ytck2,
+         labels = NA,
+         tcl = -layout$kde$dimension$ytck2 / 200,
+         cex = cex)
     
-    ##add second y-axis label
-    mtext(ylab[2], 
-          side = 4, 
-          line = 3, 
-          cex = cex)
-
+    axis(side = 4,
+         at = ticks_axis,
+         line = 2 * layout$kde$dimension$ytck2.line / 100 - 2,
+         lwd = 0,
+         col = layout$kde$colour$ytck2,
+         family = layout$kde$font.type$ytck2,
+         font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                        layout$kde$font.deco$ytck2],
+         col.axis = layout$kde$colour$ytck2,
+         cex.axis = layout$kde$font.size$ylab2/12)
+    
+    mtext(text = ylab[2],
+          side = 4,
+          line = 3 * layout$kde$dimension$ylab2.line / 100,
+          col = layout$kde$colour$ylab2,
+          family = layout$kde$font.type$ylab2,
+          font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
+                         layout$kde$font.deco$ylab2],
+          cex = cex * layout$kde$font.size$ylab2/12)
+    
     ## add De error bars
     for(i in 1:length(data)) {
       arrows(data[[i]][,1] - data[[i]][,2]/2,
@@ -930,11 +1152,11 @@ plot_KDE <- function(
              code = 3,
              angle = 90,
              length = 0.05,
-             col = colours[i])
+             col = col.value.bar[i])
 
       ## add De measurements
       points(data[[i]][,1], 1:De.stats[i,1],
-             col = colours[i],
+             col = col.value.dot[i],
              pch = 20)
     }
   }
