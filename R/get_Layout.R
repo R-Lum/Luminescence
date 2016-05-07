@@ -402,10 +402,10 @@ get_Layout <- function(
             ytck1  = 1, # primary y-axis tick colour
             ytck2  = 1, # secondary y-axis tick colour
             box    = 1, # plot frame box line colour
-            mtext  = 1, # subheader text colour
+            mtext  = 2, # subheader text colour
             stats  = "#2062B3", # statistic summary colour
             kde.line        = "#2062B3", # KDE line colour
-            kde.fill        = "none", # KDE fill colour
+            kde.fill        = NULL, # KDE fill colour
             value.dot       = 1, # De value dot colour
             value.bar       = 1, # De value error bar colour
             value.rug       = 1, # De value rug colour
@@ -417,8 +417,8 @@ get_Layout <- function(
             background      = NULL), # background colour
           
           dimension = list(
-            figure.width    = 50, # figure width in mm
-            figure.height   = 50, # figure height in mm
+            figure.width    = "auto", # figure width in mm
+            figure.height   = "auto", # figure height in mm
             margin = c(10, 10, 10, 10), # margin sizes in mm
             main.line       = 100, # line height in %
             xlab.line       = 100, # line height in %
@@ -565,15 +565,15 @@ get_Layout <- function(
           ),
           
           font.size = list(
-            main   = 14,
-            xlab   = 12,
-            ylab1  = 12,
-            ylab2  = 12,
-            xtck   = 12,
-            ytck1  = 12,
-            ytck2  = 12,
-            stats  = 12, # optionally vector
-            legend = 12 # optionally vector
+            main   = 8,
+            xlab   = 7,
+            ylab1  = 7,
+            ylab2  = 7,
+            xtck   = 7,
+            ytck1  = 7,
+            ytck2  = 7,
+            stats  = 7,
+            legend = 7
           ),
           
           font.deco = list(
@@ -600,10 +600,11 @@ get_Layout <- function(
             mtext  = 1, # subheader text colour
             stats  = "#2062B3", # statistic summary colour
             kde.line        = "#2062B3", # KDE line colour
-            kde.fill        = "none", # KDE fill colour
+            kde.fill        = NULL, # KDE fill colour
             value.dot       = 1, # De value dot colour
             value.bar       = 1, # De value error bar colour
             value.rug       = 1, # De value rug colour
+            boxplot         = 1, # boxplot colour
             mean.line       = adjustcolor(col = 1, 
                                           alpha.f = 0.4), # mean line colour
             sd.bar          = adjustcolor(col = 1, 
@@ -611,20 +612,20 @@ get_Layout <- function(
             background      = NULL),
           
           dimension = list(
-            figure.width    = 50, # figure width in mm
-            figure.height   = 50, # figure height in mm
+            figure.width    = 80, # figure width in mm
+            figure.height   = 80, # figure height in mm
             margin = c(10, 10, 10, 10), # margin sizes in mm
-            main.line       = 100, # line height in %
-            xlab.line       = 100, # line height in %
-            ylab1.line      = 100, # line height in %
-            ylab2.line      = 100, # line height in %
-            xtck.line       = 100, # line height in %
-            ytck1.line      = 100, # line height in %
-            ytck2.line      = 100, # line height in %
-            xtcl            = 100, # tick length in %
-            ytcl1           = 100, # tick length in %
-            ytcl2           = 100, # tick length in %
-            stats.line      = 100 # line height in %
+            main.line       = 70, # line height in %
+            xlab.line       = 30, # line height in %
+            ylab1.line      = 40, # line height in %
+            ylab2.line      = 30, # line height in %
+            xtck.line       = 50, # line height in %
+            ytck1.line      = 65, # line height in %
+            ytck2.line      = 50, # line height in %
+            xtcl            = 50, # tick length in %
+            ytcl1           = 20, # tick length in %
+            ytcl2           = 50, # tick length in %
+            stats.line      = 70 # line height in %
           )
         )
       )
