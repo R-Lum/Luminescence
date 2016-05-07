@@ -212,19 +212,15 @@ get_Layout <- function(
             box    = numeric(1), # plot frame box line colour
             mtext  = numeric(1), # subheader text colour
             stats  = numeric(1), # statistic summary colour
-            kde.line        = numeric(1), # KDE line colour
-            kde.fill        = numeric(1), # KDE fill colour
-            value.dot       = numeric(1), # De value dot colour
-            value.bar       = numeric(1), # De value error bar colour
-            value.rug       = numeric(1), # De value rug colour
-            mean            = numeric(1), # mean line colour
-            median          = numeric(1), # median line colour
-            mean.weighted   = numeric(1), # weighted mean line colour
-            median.weighted = numeric(1), # weighted median line colour
-            kdemax          = numeric(1), # KDE max line colour
-            poly.line       = numeric(1), # polygon line colour
-            poly.fill       = numeric(1), # polygon fill colour
-            background      = numeric(1)),
+            kde.line        = numeric(1),  # KDE line colour
+            kde.fill        = numeric(1),  # KDE fill colour
+            value.dot       = numeric(1),  # De value dot colour
+            value.bar       = numeric(1),  # De value error bar colour
+            value.rug       = numeric(1),  # De value rug colour
+            boxplot         = numeric(1),  # boxplot colour
+            mean.line       = numeric(1),  # mean line colour
+            sd.bar          = numeric(1),  # sd-line colour
+            background      = numeric(1)), # background colour
           
           dimension = list(
             figure.width    = numeric(1), # figure width in mm
@@ -413,14 +409,12 @@ get_Layout <- function(
             value.dot       = 1, # De value dot colour
             value.bar       = 1, # De value error bar colour
             value.rug       = 1, # De value rug colour
-            mean   = 1, # mean line colour
-            median = 1, # median line colour
-            mean.weighted   = 1, # weighted mean line colour
-            median.weighted = 1, # weighted median line colour
-            kdemax = 1, # KDE max line colour
-            poly.line       = NA, # polygon line colour
-            poly.fill       = "grey80", # polygon fill colour
-            background      = NULL),
+            boxplot         = 1, # boxplot colour
+            mean.line       = adjustcolor(col = 1, 
+                                          alpha.f = 0.4), # mean line colour
+            sd.bar          = adjustcolor(col = 1, 
+                                          alpha.f = 0.4), # sd bar colour
+            background      = NULL), # background colour
           
           dimension = list(
             figure.width    = 50, # figure width in mm
@@ -610,13 +604,10 @@ get_Layout <- function(
             value.dot       = 1, # De value dot colour
             value.bar       = 1, # De value error bar colour
             value.rug       = 1, # De value rug colour
-            mean   = 1, # mean line colour
-            median = 1, # median line colour
-            mean.weighted   = 1, # weighted mean line colour
-            median.weighted = 1, # weighted median line colour
-            kdemax = 1, # KDE max line colour
-            poly.line       = NA, # polygon line colour
-            poly.fill       = "grey80", # polygon fill colour
+            mean.line       = adjustcolor(col = 1, 
+                                          alpha.f = 0.4), # mean line colour
+            sd.bar          = adjustcolor(col = 1, 
+                                          alpha.f = 0.4), # sd bar colour
             background      = NULL),
           
           dimension = list(
