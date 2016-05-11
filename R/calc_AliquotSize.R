@@ -135,7 +135,10 @@ calc_AliquotSize <- function(
     cat(paste("\nPlease provide only positive integers.\n"))
     stop(domain=NA)
   }
-
+  
+  if (sample.diameter > 9.8) 
+    warning("\n A sample diameter of ", sample.diameter ," mm was specified, but common sample discs are 9.8 mm in diameter.", call. = FALSE)
+  
   if(missing(grains.counted) == FALSE) {
     if(MC == TRUE) {
       MC = FALSE
@@ -218,7 +221,8 @@ calc_AliquotSize <- function(
       # Also, the sample diameter can not be larger than the sample
       # disc, i.e. 9.8 mm.
       sd.mc[which(sd.mc <0.5)]<- 0.5
-      sd.mc[which(sd.mc >9.8)]<- 9.8
+      if (sample.diameter <= 9.8)
+        sd.mc[which(sd.mc >9.8)]<- 9.8
 
       # create random samples assuming a normal distribution
       # with the mean grain size as mean and half the range (min:max)

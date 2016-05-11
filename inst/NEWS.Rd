@@ -164,7 +164,14 @@
 
 
       }
+      
+      \item \code{calc_AliquotSize()}
+      \itemize{
 
+        \item Fixed a bug in the Monte Carlo Simulation that occured when estimating the number of grains for aliquots
+        with diameters larger than 9.8 mm. The user is, however, now warned that the function assumes common aliquot
+        discs not larger than 9.8 mm when providing larger sample diameters.
+      }
 
       \item \code{calc_FadingCorr()}
       \itemize{

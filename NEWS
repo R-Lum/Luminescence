@@ -208,6 +208,15 @@ Changes in version 0.6.0 (May 20th ,2016):
 
              • set default method to ‘smooth’.
 
+         • ‘calc_AliquotSize()’
+
+             • Fixed a bug in the Monte Carlo Simulation that occured
+               when estimating the number of grains for aliquots with
+               diameters larger than 9.8 mm. The user is, however, now
+               warned that the function assumes common aliquot discs
+               not larger than 9.8 mm when providing larger sample
+               diameters.
+
          • ‘calc_FadingCorr()’
 
              • Table column headers now have all capital letters,
