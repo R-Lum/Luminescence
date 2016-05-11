@@ -229,6 +229,10 @@ Changes in version 0.6.0 (May 20th ,2016):
              • add argument ‘sig0’ to allow for an extra component of
                error.
 
+         • ‘calc_Statistics()’
+
+             • MCM-option added.
+
          • ‘extrac_IrradiationTimes()’
 
              • Function now supports the self call mode, i.e. a ‘list’
@@ -253,7 +257,13 @@ Changes in version 0.6.0 (May 20th ,2016):
 
              • New argument ‘interactive’ to produce an interactive
                plot using the JavaScript graphing library 'plotly.js'
-               (requires the 'plotly' package).
+               (requires the 'plotly' package),
+
+             • Notes about consequences of ‘log.z = TRUE’ updated
+
+             • Boxplot option added
+
+             • Summary keywords homogenised.
 
          • ‘plot_DRTResults()’
 
@@ -284,6 +294,19 @@ Changes in version 0.6.0 (May 20th ,2016):
              • New argument ‘interactive’ to produce an interactive
                plot using the JavaScript graphing library 'plotly.js'
                (requires the 'plotly' package).
+
+         • ‘plot_KDE()’
+
+             • Boxplot option added,
+
+             • Depreciated arguments removed (centrality, dispersion,
+               weights, polygon.col),
+
+             • Colour specification simplified,
+
+             • Summary keywords homogenised,
+
+             • Layout functionality implemented.
 
          • ‘plot_RLum.Analysis()’
 

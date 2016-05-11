@@ -57,7 +57,7 @@ specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used.}
 
 \item{summary.method}{\code{\link{character}} (with default): keyword
-indicating the method used to calcualte the statistic summary. One out of
+indicating the method used to calculate the statistic summary. One out of
 \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
 \code{\link{calc_Statistics}} for details.}
 
@@ -219,7 +219,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.7 (2016-05-06 15:11:16)
+ 0.1.7 (2016-05-08 20:11:57)
 }
 \examples{
 

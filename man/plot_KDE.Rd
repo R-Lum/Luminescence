@@ -4,9 +4,9 @@
 \alias{plot_KDE}
 \title{Plot kernel density estimate with statistics}
 \usage{
-plot_KDE(data, na.rm = TRUE, weights = FALSE, values.cumulative = TRUE,
-  centrality, dispersion, summary, summary.pos, polygon.col, order = TRUE,
-  bw = "nrd0", output = FALSE, ...)
+plot_KDE(data, na.rm = TRUE, values.cumulative = TRUE, order = TRUE,
+  boxplot = TRUE, rug = TRUE, summary, summary.pos,
+  summary.method = "MCM", bw = "nrd0", output = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -18,23 +18,14 @@ dataset2)}).}
 \item{na.rm}{\code{\link{logical}} (with default): exclude NA values
 from the data set prior to any further operations.}
 
-\item{weights}{\code{\link{logical}} (with default): calculate the KDE with
-De-errors as weights. Attention, using errors as weights will result in a
-plot similar to a a probability density plot, with all ambiguities related
-to this plot type!}
-
 \item{values.cumulative}{\code{\link{logical}} (with default): show
 cumulative individual data.}
 
-\item{centrality}{\code{\link{character}}: measure(s) of centrality, used
-for plotting vertical lines of the respective measure. Can be one out of
-\code{"mean"}, \code{"median"}, \code{"mean.weighted"},
-\code{"median.weighted"} and \code{"kdemax"}.}
+\item{order}{\code{\link{logical}}: Order data in ascending order.}
 
-\item{dispersion}{\code{\link{character}}: measure of dispersion, used for
-drawing the polygon that depicts the dose distribution. One out of
-\code{"sd"} (standard deviation),\code{"2sd"} (2 standard deviations)
-\code{"qr"} (quartile range).}
+\item{boxplot}{\code{\link{logical}} (with default): optionally show boxplot.}
+
+\item{rug}{\code{\link{logical}} (with default): optionally add rug.}
 
 \item{summary}{\code{\link{character}} (optional): add statistic measures of
 centrality and dispersion to the plot. Can be one or more of several
@@ -47,11 +38,10 @@ specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used. In case of coordinate
 specification, y-coordinate refers to the right y-axis.}
 
-\item{polygon.col}{\code{\link{character}} or \code{\link{numeric}} (with
-default): colour of the polygon showing the dose dispersion around the
-central value. Only relevant if \code{dispersion} is specified.}
-
-\item{order}{\code{\link{logical}}: Order data in ascending order.}
+\item{summary.method}{\code{\link{character}} (with default): keyword
+indicating the method used to calculate the statistic summary. One out of
+\code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
+\code{\link{calc_Statistics}} for details.}
 
 \item{bw}{\code{\link{character}} (with default): bin-width, chose a numeric
 value for manual setting.}
@@ -65,45 +55,51 @@ parameters. These can be useful to reproduce similar plots. Default is
 }
 \description{
 Plot a kernel density estimate of measurement values in combination with the
-actual values and associated error bars in ascending order. Optionally,
-statistical measures such as mean, median, standard deviation, standard
-error and quartile range can be provided visually and numerically.
+actual values and associated error bars in ascending order. If enabled, the 
+boxplot will show the usual distribution parameters (median as
+bold line, box delimited by the first and third quartile, whiskers defined
+by the extremes and outliers shown as points) and also the mean and 
+standard deviation as pale bold line and pale polygon, respectively.
 }
 \details{
-The function allow passing several plot arguments, such as \code{main},
+The function allows passing several plot arguments, such as \code{main},
 \code{xlab}, \code{cex}. However, as the figure is an overlay of two
 separate plots, \code{ylim} must be specified in the order: c(ymin_axis1,
 ymax_axis1, ymin_axis2, ymax_axis2) when using the cumulative values plot
-option. Similarly, if other than the default colours are desired, the
-argument col must be provided with colours in the following order:
-probability density function, De values, De error bars, sd or qr polygon.
-The line type (\code{lty}) for additional measures of centrality will cycle
-through the default values (1, 2, ...) by default, i.e. KDE line solid,
-further vertical lines dashed, dotted, dash-dotted and so on. To change this
-behaviour specify the desired order of line types (e.g. \code{lty = c(1, 3,
-2, 5)}). See examples for some further explanations. For details on the
+option. See examples for some further explanations. For details on the
 calculation of the bin-width (parameter \code{bw}) see
 \code{\link{density}}.\cr\cr
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
-one or more of the following keywords: \code{"n"} (number of samples),
-\code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
-\code{"median"} (median of the De values), \code{"sdrel"} (relative standard
-deviation in percent), \code{"sdrel.weighted"} (error-weighted relative
-standard deviation in percent), \code{"sdabs"} (absolute standard deviation),
-\code{"sdabs.weighted"} (error-weighted absolute standard deviation),
-\code{"serel"} (relative standard error), \code{"serel.weighted"} (
-error-weighted relative standard error), \code{"seabs"} (absolute standard
-error), \code{"seabs.weighted"} (error-weighted absolute standard error),
-\code{"in.2s"} (percent of samples in 2-sigma range),
-\code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
+one or more of the following keywords:
+\itemize{
+\item \code{"n"} (number of samples)
+\item \code{"mean"} (mean De value)
+\item \code{"median"} (median of the De values)
+\item \code{"sd.rel"} (relative standard deviation in percent)
+\item \code{"sd.abs"} (absolute standard deviation)
+\item \code{"se.rel"} (relative standard error)
+\item \code{"se.abs"} (absolute standard error)
+\item \code{"in.2s"} (percent of samples in 2-sigma range)
+\item \code{"kurtosis"} (kurtosis)
+\item \code{"skewness"} (skewness)
+}
+Note that the input data for the statistic summary is sent to the function
+\code{calc_Statistics()} depending on the log-option for the z-scale. If
+\code{"log.z = TRUE"}, the summary is based on the logarithms of the input
+data. If \code{"log.z = FALSE"} the linearly scaled data is used. \cr
+Note as well, that \code{"calc_Statistics()"} calculates these statistic
+measures in three different ways: \code{unweighted}, \code{weighted} and
+\code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
+MCM-based version is used. If you wish to use another method, indicate this
+with the appropriate keyword using the argument \code{summary.method}.\cr\cr
 }
 \note{
-The plot output is no 'PD' plot (cf. the discussion of Berger and
-Galbraith in Ancient TL; see references)!
+The plot output is no 'probability density' plot (cf. the discussion 
+of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.1 (2016-05-02 09:35:31)
+ 3.5.2 (2016-05-08 20:11:57)
 }
 \examples{
 
@@ -127,20 +123,17 @@ plot_KDE(data = ExampleData.DeValues,
          xlim = c(100, 250),
          ylim = c(0, 0.08, 0, 30))
 
-## create plot with centrality lines and distribution polygons
+## create plot with boxplot option
 plot_KDE(data = ExampleData.DeValues,
-         ylim = c(0, 0.08, 0, 35),
-         centrality = c("median", "mean"),
-         dispersion = "sd",
-         polygon.col = "lightblue")
+         boxplot = TRUE)
 
 ## create plot with statistical summary below header
 plot_KDE(data = ExampleData.DeValues,
-         summary = c("n", "median", "skewness", "qr"))
+         summary = c("n", "median", "skewness", "in.2s"))
 
 ## create plot with statistical summary as legend
 plot_KDE(data = ExampleData.DeValues,
-         summary = c("n", "mean", "sdrel", "seabs"),
+         summary = c("n", "mean", "sd.rel", "se.abs"),
          summary.pos = "topleft")
 
 ## split data set into sub-groups, one is manipulated, and merge again
@@ -159,20 +152,8 @@ plot_KDE(data = data.3,
 
 ## example of how to use the numerical output of the function
 ## return plot output to draw a thicker KDE line
-KDE <- plot_KDE(data = ExampleData.DeValues,
-                output = TRUE)
-
-## read out coordinates of KDE graph
-KDE.x <- KDE$De.density[[1]]$x
-KDE.y <- KDE$De.density[[1]]$y
-
-## transform y-values to right y-axis dimensions
-KDE.y <- KDE.y / max(KDE.y) * (nrow(ExampleData.DeValues) - 1) + 1
-
-## draw the KDE line
-lines(x = KDE.x,
-      y = KDE.y,
-      lwd = 3)
+KDE_out <- plot_KDE(data = ExampleData.DeValues,
+output = TRUE)
 
 }
 \author{

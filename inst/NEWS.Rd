@@ -184,6 +184,12 @@
         \item add argument \code{sig0} to allow for an extra component of error.
       }
 
+        \item \code{calc_Statistics()}
+      \itemize{
+
+        \item MCM-option added.
+      }
+
 
       \item \code{extrac_IrradiationTimes()}
       \itemize{
@@ -219,7 +225,10 @@
         \code{RLum.Results} objects.
         \item New argument \code{interactive} to produce an interactive plot
         using the JavaScript graphing library 'plotly.js' (requires the
-        'plotly' package).
+        'plotly' package),
+        \item Notes about consequences of \code{log.z = TRUE} updated
+        \item Boxplot option added
+        \item Summary keywords homogenised.
 
       }
 
@@ -250,6 +259,18 @@
         \item New argument \code{interactive} to produce an interactive plot
         using the JavaScript graphing library 'plotly.js' (requires the
         'plotly' package).
+
+      }
+
+       \item \code{plot_KDE()}
+      \itemize{
+
+        \item Boxplot option added,
+        \item Depreciated arguments removed (centrality, dispersion, weights, polygon.col),
+        \item Colour specification simplified,
+        \item Summary keywords homogenised,
+        \item Layout functionality implemented.
+
 
       }
 
