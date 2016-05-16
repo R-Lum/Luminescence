@@ -97,11 +97,11 @@
 #' @examples
 #'
 #' ## Estimate the amount of grains on a small aliquot
-#' calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1)
+#' calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, MC.iter = 100)
 #'
 #' ## Calculate the mean packing density of large aliquots
 #' calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
-#'                  grains.counted = c(2525,2312,2880))
+#'                  grains.counted = c(2525,2312,2880), MC.iter = 100)
 #'
 #' @export
 calc_AliquotSize <- function(
@@ -135,10 +135,10 @@ calc_AliquotSize <- function(
     cat(paste("\nPlease provide only positive integers.\n"))
     stop(domain=NA)
   }
-  
-  if (sample.diameter > 9.8) 
+
+  if (sample.diameter > 9.8)
     warning("\n A sample diameter of ", sample.diameter ," mm was specified, but common sample discs are 9.8 mm in diameter.", call. = FALSE)
-  
+
   if(missing(grains.counted) == FALSE) {
     if(MC == TRUE) {
       MC = FALSE
