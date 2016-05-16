@@ -21,7 +21,7 @@
 "BaseDataSet.CosmicDoseRate","Base data set for cosmic dose rate calculation","<br /> Collection of data from various sources needed for cosmic dose rate<br /> calculation<br />",NA,NA,NA,NA
 "bin_RLum.Data","Channel binning - method dispatchter","<br /> Function calls the object-specific bin functions for RLum.Data S4 class objects.<br />","0.1.0","2016-05-02","09:36:06
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"calc_AliquotSize","Estimate the amount of grains on an aliquot","<br /> Estimate the number of grains on an aliquot. Alternatively, the packing<br /> density of an aliquot is computed.<br />","0.31","2015-11-29","17:27:48
+"calc_AliquotSize","Estimate the amount of grains on an aliquot","<br /> Estimate the number of grains on an aliquot. Alternatively, the packing<br /> density of an aliquot is computed.<br />","0.31","2016-05-16","22:20:28
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "calc_CentralDose","Apply the central age model (CAM) after Galbraith et al. (1999) to a given<br /> De distribution","<br /> This function calculates the central dose and dispersion of the De<br /> distribution, their standard errors and the profile log likelihood function<br /> for sigma.<br />","1.3.1","2016-05-02","09:36:06
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
@@ -51,7 +51,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "calc_SourceDoseRate","Calculation of the source dose rate via the date of measurement","<br /> Calculating the dose rate of the irradiation source via the date of<br /> measurement based on: source calibration date, source dose rate, dose rate<br /> error. The function returns a data.frame that provides the input argument<br /> dose_rate for the function  Second2Gray .<br />","0.3.0","2015-11-29","17:27:48
 ","<br /> Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),<br />  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"calc_Statistics","Function to calculate statistic measures","<br /> This function calculates a number of descriptive statistics for De-data,<br /> most fundamentally using error-weighted approaches.<br />","0.1.5","2016-05-06","14:53:47
+"calc_Statistics","Function to calculate statistic measures","<br /> This function calculates a number of descriptive statistics for De-data,<br /> most fundamentally using error-weighted approaches.<br />","0.1.6","2016-05-16","22:14:31
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "calc_ThermalLifetime","Calculates the Thermal Lifetime using the Arrhenius equation","<br /> The function calculates the thermal lifetime of charges for given E (in eV), s (in 1/s) and<br /> T (in deg. C.) parameters. The function can be used in two operational modes: <br />","0.1.0","2016-05-02","09:36:06
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
@@ -136,7 +136,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "plot_RLum","General plot function for RLum S4 class objects","<br /> Function calls object specific plot functions for RLum S4 class objects.<br />","0.4.2","2016-05-02","09:36:06
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"plot_RLum.Results","Plot function for an RLum.Results S4 class object","<br /> The function provides a standardised plot output for data of an RLum.Results<br /> S4 class object<br />","0.2.1","2016-05-02","09:36:06
+"plot_RLum.Results","Plot function for an RLum.Results S4 class object","<br /> The function provides a standardised plot output for data of an RLum.Results<br /> S4 class object<br />","0.2.1","2016-05-16","22:24:15
 ","<br /> Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,<br /> Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "plot_ViolinPlot","Create a violin plot","<br /> Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin<br /> is constructed using a mirrored density curve. This plot is especially designed for cases<br /> where the individual errors are zero or to small to be visualised. The idea for this plot is<br /> based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.<br /> The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).<br />","0.1.1","2016-05-06","14:49:56
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"

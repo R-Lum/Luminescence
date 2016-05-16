@@ -33,7 +33,7 @@ Not all arguments available for \code{\link{plot}} will be passed!
 Only plotting of \code{RLum.Results} objects are supported.
 }
 \section{Function version}{
- 0.2.1 (2016-05-02 09:36:06)
+ 0.2.1 (2016-05-16 22:24:15)
 }
 \examples{
 
@@ -48,7 +48,7 @@ mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, p
 plot_RLum.Results(mam)
 
 # estimate the number of grains on an aliquot
-grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = FALSE)
+grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = FALSE, MC.iter = 100)
 
 ##plot
 plot_RLum.Results(grains)
