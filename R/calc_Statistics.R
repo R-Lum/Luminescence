@@ -33,7 +33,7 @@
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @keywords datagen
 #'
@@ -108,19 +108,17 @@ calc_Statistics <- function(
   S.weights <- S.weights / sum(S.weights)
 
   ## create MCM data
-  if(n.MCM == 0) {
-
-    data.MCM <- cbind(data[,1])
+  if (n.MCM == 0) {
+    data.MCM <- cbind(data[, 1])
   } else {
+    data.MCM <-
+      matrix(data = rnorm(
+        n = n.MCM * nrow(data),
+        mean = data[, 1],
+        sd = data[, 2]
+      ),
+      ncol = n.MCM)
 
-    data.MCM <- matrix(nrow = nrow(data),
-                       ncol = n.MCM)
-
-    data.MCM <- (apply(X = data.MCM,
-                       MARGIN = 2,
-                       FUN = rnorm,
-                       mean = data[,1],
-                       sd = data[,2]))
   }
 
   ## calculate n
