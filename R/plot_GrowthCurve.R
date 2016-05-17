@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.7
+#' @section Function version: 1.8.8
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -398,8 +398,6 @@ plot_GrowthCurve <- function(
   ##set start vector (to avoid errors witin the loop)
   a.start <- NA; b.start <- NA; c.start <- NA; g.start <- NA
 
-
-
   ##--------------------------------------------------------------------------##
   #===========================================================================##
   #QDR#
@@ -531,7 +529,12 @@ plot_GrowthCurve <- function(
 
     }
 
-    if(fit.method!="LIN" & length(data[,1])>=2){
+    if(fit.method!="LIN" & length(data[,1])>=3){
+
+      ## for unknown reasons with only two points the nls() function is trapped in
+      ## an endless mode, therefore the minimum length for data is 3
+      ## (2016-05-17)
+
 
       ##FITTING on GIVEN VALUES##
       #	--use classic R fitting routine to fit the curve
@@ -542,14 +545,21 @@ plot_GrowthCurve <- function(
 
         a<-a.MC[i];b<-b.MC[i];c<-c.MC[i]
 
-        fit.initial<-try(nls(y~fit.functionEXP(a,b,c,x),
-                             data=data,
-                             start=c(a=a,b=b,c=c),
-                             trace=FALSE,
-                             algorithm="port",
-                             lower=c(a=0,b>0,c=0),
-                             nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
-        ),silent=TRUE)
+        fit.initial <- try(nls(
+          y ~ fit.functionEXP(a, b, c, x),
+          data = data,
+          start = c(a = a, b = b, c = c),
+          trace = FALSE,
+          algorithm = "port",
+          lower = c(a = 0, b > 0, c = 0),
+          nls.control(
+            maxiter = 100,
+            warnOnly = TRUE,
+            minFactor = 1 / 2048
+          )
+        ),
+        silent = FALSE
+        )
 
         if(class(fit.initial)!="try-error"){
           #get parameters out of it
@@ -559,7 +569,6 @@ plot_GrowthCurve <- function(
           c.start[i]<-as.vector((parameters["c"]))
         }
       }
-
 
       ##used median as start parameters for the final fitting
       a <- median(na.exclude(a.start))

@@ -256,7 +256,10 @@
         \item check for insufficient values in the data set and return \code{NULL} (before the function crashed),
         \item data frame also exports now error of the D0-values based on the MC runs for the De error,
         \item the option \code{fit.includingRepeatedRegPoints = FALSE} was not respected properly
-        under all circumstances; corrected.
+        under all circumstances; corrected,
+        \item under rather rare circumstances the function became trapped in an endless mode as the
+        function \code{nls} is trapped in such mode if only two points are provided. The minimum
+        of required data points for \code{EXP} was set to three.
 
       }
 
