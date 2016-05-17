@@ -16,33 +16,34 @@
 #'
 #' @param show.raw.values \link{logical} (with default): shows raw values from
 #' BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
-#' translation in characters.
+#' translation in characters. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
 #' @param n.records \link{raw} (optional): limits the number of imported
 #' records. Can be used in combination with \code{show.record.number} for
-#' debugging purposes, e.g. corrupt BIN-files.
+#' debugging purposes, e.g. corrupt BIN-files. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
 #' @param duplicated.rm \code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
 #' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
-#' predeccessor and successor.
+#' predeccessor and successor. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
 #' @param position \code{\link{numeric}} (optional): imports only the selected position. Note:
 #' the import performance will not benefit by any selection made here.
+#' Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
 #' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
 #' more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
-#' of a \link{Risoe.BINfileData-class} object
+#' of a \link{Risoe.BINfileData-class} object. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
 #' @param show.record.number \link{logical} (with default): shows record number
-#' of the imported record, for debugging usage only.
+#' of the imported record, for debugging usage only. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
 #'
 #' @param forced.VersionNumber \link{integer} (optional): allows to cheat the
 #' version number check in the function by own values for cases where the
-#' BIN-file version is not supported.\cr Note: The usage is at own risk, only
-#' supported BIN-file versions have been tested.
+#' BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
+#' Note: The usage is at own risk, only supported BIN-file versions have been tested.
 #'
 #' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
 #'
@@ -66,7 +67,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.7
+#' @section Function version: 0.12.8
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -142,16 +143,75 @@ read_BIN2R <- function(
   }
 
   if (is(file, "list")) {
+
+    ##extend list of parameters
+
+    ##position
+    position <- if(is(position, "list")){
+      rep(position, length = length(file))
+
+    }else{
+      rep(list(position), length = length(file))
+
+    }
+
+    ##n.records
+    n.records <- if(is(n.records, "list")){
+      rep(n.records, length = length(file))
+
+    }else{
+      rep(list(n.records), length = length(file))
+
+    }
+
+    ##duplicated.rm
+    duplicated.rm <- if(is(duplicated.rm, "list")){
+      rep(duplicated.rm, length = length(file))
+
+    }else{
+      rep(list(duplicated.rm), length = length(file))
+
+    }
+
+    ## show.raw.values
+    show.raw.values <- if(is( show.raw.values, "list")){
+      rep( show.raw.values, length = length(file))
+
+    }else{
+      rep(list( show.raw.values), length = length(file))
+
+    }
+
+    ## show.record.number
+    show.record.number <- if(is(show.record.number, "list")){
+      rep(show.record.number, length = length(file))
+
+    }else{
+      rep(list(show.record.number), length = length(file))
+
+    }
+
+    ##forced.VersionNumber
+    forced.VersionNumber <- if(is(forced.VersionNumber, "list")){
+      rep(forced.VersionNumber, length = length(file))
+
+    }else{
+      rep(list(forced.VersionNumber), length = length(file))
+
+    }
+
     temp.return <- lapply(1:length(file), function(x) {
       temp <- read_BIN2R(
         file = file[[x]],
         fastForward = fastForward,
-        position = position,
-        n.records = n.records,
-        show.raw.values =  show.raw.values,
-        show.record.number = show.record.number,
+        position = position[[x]],
+        n.records = n.records[[x]],
+        duplicated.rm = duplicated.rm[[x]],
+        show.raw.values =  show.raw.values[[x]],
+        show.record.number = show.record.number[[x]],
         txtProgressBar = txtProgressBar,
-        forced.VersionNumber = forced.VersionNumber,
+        forced.VersionNumber = forced.VersionNumber[[x]],
+        verbose = verbose,
         ...
       )
 

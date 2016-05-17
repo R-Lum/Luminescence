@@ -330,7 +330,7 @@ calc_OSLLxTxRatio <- function(
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
     if (m < 25) {
-      warning("[calc_OSLLxTxRatio()] Number of background integral channels < 25; error estimation might be not reliable!")
+      warning("[calc_OSLLxTxRatio()] Number of background channels for Lx < 25; error estimation might be not reliable!", call. = FALSE)
 
     }
 
@@ -361,10 +361,7 @@ calc_OSLLxTxRatio <- function(
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
     if (m.Tx < 25) {
-      warning(
-        "Number of background integral channels for Tx is < 25. The calculation
-        might be not reliable!"
-      )
+      warning("[calc_OSLLxTxRatio()] Number of background channels for Tx < 25; error estimation might be not reliable!", call. = FALSE)
 
     }
 

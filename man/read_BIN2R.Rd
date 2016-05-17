@@ -18,33 +18,34 @@ the function tries to detect and import all BIN/BINX files found in the director
 
 \item{show.raw.values}{\link{logical} (with default): shows raw values from
 BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
-translation in characters.}
+translation in characters. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{position}{\code{\link{numeric}} (optional): imports only the selected position. Note:
-the import performance will not benefit by any selection made here.}
+the import performance will not benefit by any selection made here.
+Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{n.records}{\link{raw} (optional): limits the number of imported
 records. Can be used in combination with \code{show.record.number} for
-debugging purposes, e.g. corrupt BIN-files.}
+debugging purposes, e.g. corrupt BIN-files. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{duplicated.rm}{\code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
 This may happen due to an erroneous produced BIN/BINX-file. This option compares only
-predeccessor and successor.}
+predeccessor and successor. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{fastForward}{\code{\link{logical}} (with default): if \code{TRUE} for a
 more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
-of a \link{Risoe.BINfileData-class} object}
+of a \link{Risoe.BINfileData-class} object. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{show.record.number}{\link{logical} (with default): shows record number
-of the imported record, for debugging usage only.}
+of the imported record, for debugging usage only. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
 \code{\link{txtProgressBar}}.}
 
 \item{forced.VersionNumber}{\link{integer} (optional): allows to cheat the
 version number check in the function by own values for cases where the
-BIN-file version is not supported.\cr Note: The usage is at own risk, only
-supported BIN-file versions have been tested.}
+BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
+Note: The usage is at own risk, only supported BIN-file versions have been tested.}
 
 \item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
 
@@ -79,7 +80,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested properly so far.}.
 }
 \section{Function version}{
- 0.12.7 (2016-05-02 09:42:18)
+ 0.12.8 (2016-05-17 22:27:05)
 }
 \examples{
 
