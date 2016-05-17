@@ -55,10 +55,10 @@ parameters. These can be useful to reproduce similar plots. Default is
 }
 \description{
 Plot a kernel density estimate of measurement values in combination with the
-actual values and associated error bars in ascending order. If enabled, the 
+actual values and associated error bars in ascending order. If enabled, the
 boxplot will show the usual distribution parameters (median as
 bold line, box delimited by the first and third quartile, whiskers defined
-by the extremes and outliers shown as points) and also the mean and 
+by the extremes and outliers shown as points) and also the mean and
 standard deviation as pale bold line and pale polygon, respectively.
 }
 \details{
@@ -95,11 +95,11 @@ MCM-based version is used. If you wish to use another method, indicate this
 with the appropriate keyword using the argument \code{summary.method}.\cr\cr
 }
 \note{
-The plot output is no 'probability density' plot (cf. the discussion 
+The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.2 (2016-05-08 20:11:57)
+ 3.5.2 (2016-05-16 22:55:11)
 }
 \examples{
 

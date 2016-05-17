@@ -36,29 +36,29 @@ Description: A collection of various R functions for the purpose of Luminescence
 Contact: Package Developer Team <team@r-luminescence.de>
 License: GPL-3
 Depends:
-    R (>= 3.2.4),
+    R (>= 3.3.0),
     utils
 LinkingTo: Rcpp,
-    RcppArmadillo (>= 0.6.700.3.0)
+    RcppArmadillo (>= 0.6.700.6.0)
 Imports:
     bbmle (>= 1.0.18),
     data.table (>= 1.9.6),
     httr (>= 1.1.0),
-    matrixStats (>= 0.50.1),
+    matrixStats (>= 0.50.2),
     methods,
-    Rcpp (>= 0.12.4),
+    Rcpp (>= 0.12.5),
     minpack.lm (>= 1.2-0),
     raster (>= 2.5-2),
     readxl (>= 0.1.1),
     shape (>= 1.4.2),
     parallel,
     XML (>= 3.98-1.4),
-    zoo (>= 1.7-12)
+    zoo (>= 1.7-13)
 Suggests:
     RLumShiny (>= 0.1.0),
-    RLumModel (>= 0.1.0),
-    plotly (>= 2.0.3),
-    rmarkdown (>= 0.9.5),
+    RLumModel (>= 0.1.1),
+    plotly (>= 3.4.13),
+    rmarkdown (>= 0.9.6),
     rjags (>= 4-6),
     pander (>= 0.6.0),
     rstudioapi (>= 0.5)

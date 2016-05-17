@@ -82,7 +82,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "get_Layout","Collection of layout definitions","<br /> This helper function returns a list with layout definitions for homogeneous<br /> plotting.<br />","0.1","2016-05-08","20:11:57
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
-"get_Quote","Function to return essential quotes","<br /> This function returns one of the collected essential quotes in the<br /> growing library. If called without any parameters, a random quote is<br /> returned.<br />","0.1.1","2016-05-02","09:36:06
+"get_Quote","Function to return essential quotes","<br /> This function returns one of the collected essential quotes in the<br /> growing library. If called without any parameters, a random quote is<br /> returned.<br />","0.1.1","2016-05-16","22:50:49
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "get_rightAnswer","Function to get the right answer","<br /> This function returns just the right answer<br />","0.1.0","2015-11-29","17:27:48
 ","<br /> inspired by R.G.<br />  R Luminescence Package Team"
@@ -119,7 +119,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),   Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "plot_Histogram","Plot a histogram with separate error plot","<br /> Function plots a predefined histogram with an accompanying error plot as<br /> suggested by Rex Galbraith at the UK LED in Oxford 2010.<br />","0.4.4","2016-05-02","09:36:06
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),   Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"plot_KDE","Plot kernel density estimate with statistics","<br /> Plot a kernel density estimate of measurement values in combination with the<br /> actual values and associated error bars in ascending order. If enabled, the <br /> boxplot will show the usual distribution parameters (median as<br /> bold line, box delimited by the first and third quartile, whiskers defined<br /> by the extremes and outliers shown as points) and also the mean and <br /> standard deviation as pale bold line and pale polygon, respectively.<br />","3.5.2","2016-05-08","20:11:57
+"plot_KDE","Plot kernel density estimate with statistics","<br /> Plot a kernel density estimate of measurement values in combination with the<br /> actual values and associated error bars in ascending order. If enabled, the<br /> boxplot will show the usual distribution parameters (median as<br /> bold line, box delimited by the first and third quartile, whiskers defined<br /> by the extremes and outliers shown as points) and also the mean and<br /> standard deviation as pale bold line and pale polygon, respectively.<br />","3.5.2","2016-05-16","22:55:11
 ","<br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne<br />  R Luminescence Package Team"
 "plot_NRt","Visualise natural/regenerated signal ratios","<br /> This function creates a Natural/Regenerated signal vs. time (NR(t)) plot<br /> as shown in Steffen et al. 2009<br />",NA,NA,NA,"<br /> Christoph Burow, University of Cologne (Germany)<br />"
 "plot_RadialPlot","Function to create a Radial Plot","<br /> A Galbraith's radial plot is produced on a logarithmic or a linear scale.<br />","0.5.3","2015-11-29","17:27:48
