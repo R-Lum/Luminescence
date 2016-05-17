@@ -7,14 +7,15 @@
 analyse_baSAR(object, source_doserate = 1, Lx.data, Tx.data, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson", sigmab, sig0 = 0,
-  digits = NULL, distribution = "normal", fit.method = "EXP",
-  XLS_file = NULL, plot = TRUE, plot_reduced = TRUE, verbose = TRUE)
+  background.count.distribution = "non-poisson", sigmab = 0, sig0 = 0.025,
+  digits = NULL, distribution = "cauchy", fit.method = "EXP",
+  fit.force_through_origin = TRUE, fit.includingRecyclingPoints = TRUE,
+  XLS_file = NULL, plot = TRUE, plot_reduced = TRUE, verbose = TRUE,
+  ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\link{character}} or \code{\link{list}}
-(\bold{required}): input object used for the Bayesian analysis. If a \code{character} is provided the function
-assums a file connection an tries to import a BIN-file using the provided path. If a \code{list} is
+\item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{{character}} or \code{\link{list}} (\bold{required}): input object used for the Bayesian analysis. If a \code{character} is provided the function
+assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
 providing a file connection. Mixing of both types is not allowed.}
 
@@ -60,11 +61,15 @@ to the final Lx/Tx error value (e.g., instrumental errror, see details).}
 digits is set to \code{NULL} nothing is rounded.}
 
 \item{distribution}{\code{\link{character}} (with default): type of distribution that is used for
-the Bayesian calculation. Allowed inputs are \code{normal}, \code{cauchy} and \code{log_normal}}
+the Bayesian calculation. Allowed inputs are  \code{cauchy},\code{normal} and \code{log_normal}}
 
 \item{fit.method}{\code{\link{character}} (with default): fit method used for fitting the growth
 curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods: \code{EXP},
 \code{EXP+LIN} and \code{LIN}}
+
+\item{fit.force_through_origin}{\code{\link{character}} (with default): force fitting through origin}
+
+\item{fit.includingRecyclingPoints}{\code{\link{character}} (with default): includes the recycling point (assuming measured during last cycle)}
 
 \item{XLS_file}{\code{\link{character}} (with default): XLS_file with data for the analysis}
 
@@ -73,6 +78,10 @@ curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods:
 \item{plot_reduced}{\code{\link{logical}} (with default): enables or disables the advanced plot output}
 
 \item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
+
+\item{...}{parameters that can be passed to the function
+\code{\link[readxl]{read_excel}} (all arguments are supported), \code{\link{read_BIN2R}} (\code{n.records},
+\code{position}, \code{duplicated.rm})}
 }
 \description{
 This function allows the application of Bayesian models (baSAR) on luminescecence data
@@ -81,19 +90,13 @@ This function allows the application of Bayesian models (baSAR) on luminescecenc
 The current version of the function works with standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-04 10:18:28)
+ 0.1.0
 }
 \examples{
 
 #nothing so far
 
 }
-\author{
-Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
-IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
-
-The underlying Bayesian model based on a contribution by Combes et al., 2015.
-\cr R Luminescence Package Team}
 \references{
 Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
