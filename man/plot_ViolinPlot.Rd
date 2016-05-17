@@ -5,7 +5,7 @@
 \title{Create a violin plot}
 \usage{
 plot_ViolinPlot(data, boxplot = TRUE, rug = TRUE, summary = NULL,
-  summary.pos = "sub", na.rm = FALSE, ...)
+  summary.pos = "sub", na.rm = TRUE, ...)
 }
 \arguments{
 \item{data}{\code{\link{numeric}} or \code{\linkS4class{RLum.Results}}
@@ -58,7 +58,7 @@ two other R packages exist providing a possibility to produces this kind of plot
 'vioplot' and 'violinmplot' (see References for details).
 }
 \section{Function version}{
- 0.1.1 (2016-05-06 14:49:56)
+ 0.1.2 (2016-05-17 13:27:04)
 }
 \examples{
 ## read example data set

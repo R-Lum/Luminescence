@@ -164,7 +164,7 @@
 
 
       }
-      
+
       \item \code{calc_AliquotSize()}
       \itemize{
 
@@ -323,7 +323,9 @@
       \itemize{
 
         \item Fixed a bug where the function failed to get input data from
-        \code{RLum.Results} objects.
+        \code{RLum.Results} objects,
+        \item argument \code{na.rm} got default value \code{TRUE},
+        \item function is now a little bit more robust against odd input values.
 
       }
 

@@ -366,7 +366,12 @@ Changes in version 0.6.0 (May 20th ,2016):
          • ‘plot_ViolinPlot()’
 
              • Fixed a bug where the function failed to get input data
-               from ‘RLum.Results’ objects.
+               from ‘RLum.Results’ objects,
+
+             • argument ‘na.rm’ got default value ‘TRUE’,
+
+             • function is now a little bit more robust against odd
+               input values.
 
          • ‘read_BIN2R()’
 
