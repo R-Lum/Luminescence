@@ -558,7 +558,7 @@ plot_GrowthCurve <- function(
             minFactor = 1 / 2048
           )
         ),
-        silent = FALSE
+        silent = TRUE
         )
 
         if(class(fit.initial)!="try-error"){
