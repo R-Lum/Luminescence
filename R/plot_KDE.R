@@ -52,7 +52,11 @@
 #'
 #' @param order \code{\link{logical}}: Order data in ascending order.
 #'
-#' @param boxplot \code{\link{logical}} (with default): optionally show boxplot.
+#' @param boxplot \code{\link{logical}} (with default): optionally show a 
+#' boxplot (depicting median as thick central line, first and third quartile 
+#' as box limits, whiskers denoting +/- 1.5 interquartile ranges and dots
+#' further outliers) and line with diamond depicting mean and standard 
+#' deviation of the distribution.
 #'
 #' @param rug \code{\link{logical}} (with default): optionally add rug.
 #'
@@ -706,13 +710,13 @@ plot_KDE <- function(
       col.mean.line <- adjustcolor(col = 1:length(data),
                                    alpha.f = 0.4)
     } else {
-      col.mean.line <- layout$kde$colour$mean.line
+      col.mean.line <- layout$kde$colour$mean.point
     }
 
     if(length(layout$kde$colour$sd.bar) == 1) {
       col.sd.bar <- 1:length(data)
     } else {
-      col.sd.bar <- layout$kde$colour$sd.bar
+      col.sd.bar <- layout$kde$colour$sd.line
     }
 
     if(length(layout$kde$colour$background) == 1) {
@@ -1018,31 +1022,24 @@ plot_KDE <- function(
 
       for(i in 1:length(data)) {
 
-        ## draw mean line
-        lines(x = c(boxplot.data[[i]]$group[1],
-                    boxplot.data[[i]]$group[1]),
-              y = c(-15.5/12 * l_height,
-                    -10.5/12 * l_height),
-              lwd = 2.5,
-              col = col.mean.line[i])
-
         ## draw mean polygon
-        polygon(x = c(boxplot.data[[i]]$group[1] - boxplot.data[[i]]$names[1],
-                      boxplot.data[[i]]$group[1] - boxplot.data[[i]]$names[1],
-                      boxplot.data[[i]]$group[1] + boxplot.data[[i]]$names[1],
-                      boxplot.data[[i]]$group[1] + boxplot.data[[i]]$names[1]),
-                y = c(-14.5/12 * l_height,
-                      -11.5/12 * l_height,
-                      -11.5/12 * l_height,
-                      -14.5/12 * l_height),
-                col = col.mean.line[i],
-                border = NA)
+        lines(x = c(boxplot.data[[i]]$group[1] - boxplot.data[[i]]$names[1],
+                    boxplot.data[[i]]$group[1] + boxplot.data[[i]]$names[1]),
+              y = c(-5/8 * l_height,
+                    -5/8 * l_height),
+              col = col.mean.line[i])
+        
+        ## draw mean line
+        points(x = boxplot.data[[i]]$group[1],
+              y = -5/8 * l_height,
+              pch = 18,
+              col = col.mean.line[i])
 
         ## draw median line
         lines(x = c(boxplot.data[[i]]$stats[3,1],
                     boxplot.data[[i]]$stats[3,1]),
-              y = c(-3/2 * l_height,
-                    -2/3 * l_height),
+              y = c(-11/8 * l_height,
+                    -7/8 * l_height),
               lwd = 2,
               col = col.boxplot[i])
 
@@ -1051,40 +1048,40 @@ plot_KDE <- function(
                       boxplot.data[[i]]$stats[2,1],
                       boxplot.data[[i]]$stats[4,1],
                       boxplot.data[[i]]$stats[4,1]),
-                y = c(-3/2 * l_height,
-                      -2/3 * l_height,
-                      -2/3 * l_height,
-                      -3/2 * l_height),
+                y = c(-11/8 * l_height,
+                      -7/8 * l_height,
+                      -7/8 * l_height,
+                      -11/8 * l_height),
                 border = col.boxplot[i])
 
         ## draw whiskers
         lines(x = c(boxplot.data[[i]]$stats[2,1],
                     boxplot.data[[i]]$stats[1,1]),
-              y = c(-13/12 * l_height,
-                    -13/12 * l_height),
+              y = c(-9/8 * l_height,
+                    -9/8 * l_height),
               col = col.boxplot[i])
 
         lines(x = c(boxplot.data[[i]]$stats[1,1],
                     boxplot.data[[i]]$stats[1,1]),
-              y = c(-15.5/12 * l_height,
-                    -10.5/12 * l_height),
+              y = c(-10/8 * l_height,
+                    -8/8 * l_height),
               col = col.boxplot[i])
 
         lines(x = c(boxplot.data[[i]]$stats[4,1],
                     boxplot.data[[i]]$stats[5,1]),
-              y = c(-13/12 * l_height,
-                    -13/12 * l_height),
+              y = c(-9/8 * l_height,
+                    -9/8 * l_height),
               col = col.boxplot[i])
 
         lines(x = c(boxplot.data[[i]]$stats[5,1],
                     boxplot.data[[i]]$stats[5,1]),
-              y = c(-15.5/12 * l_height,
-                    -10.5/12 * l_height),
+              y = c(-10/8 * l_height,
+                    -8/8 * l_height),
               col = col.boxplot[i])
 
         ## draw outliers
         points(x = boxplot.data[[i]]$out,
-               y = rep(-13/12 * l_height,
+               y = rep(-9/8 * l_height,
                        length(boxplot.data[[i]]$out)),
                col = col.boxplot[i],
                cex = cex * 0.8)
@@ -1102,7 +1099,7 @@ plot_KDE <- function(
           lines(x = c(data[[i]][j,1],
                       data[[i]][j,1]),
                 y = c(0,
-                      -4/12 * l_height),
+                      -2/8 * l_height),
                 col = col.value.rug[i])
         }
       }

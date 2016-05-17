@@ -410,10 +410,8 @@ get_Layout <- function(
             value.bar       = 1, # De value error bar colour
             value.rug       = 1, # De value rug colour
             boxplot         = 1, # boxplot colour
-            mean.line       = adjustcolor(col = 1, 
-                                          alpha.f = 0.4), # mean line colour
-            sd.bar          = adjustcolor(col = 1, 
-                                          alpha.f = 0.4), # sd bar colour
+            mean.point       = 1, # mean line colour
+            sd.line          = 1, # sd bar colour
             background      = NULL), # background colour
           
           dimension = list(
