@@ -154,7 +154,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)  <br />  R Luminescence Package Team"
 "Risoe.BINfileData-class","Class  \"Risoe.BINfileData\"","<br /> S4 class object for luminescence data in R. The object is produced as output<br /> of the function  read_BIN2R .<br />","0.2.0
 ",NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"Risoe.BINfileData2RLum.Analysis","Convert Risoe.BINfileData object to an RLum.Analysis object","<br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object.<br />","0.3.3","2016-05-02","09:43:05
+"Risoe.BINfileData2RLum.Analysis","Convert Risoe.BINfileData object to an RLum.Analysis object","<br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object.<br />","0.4.0","2016-05-18","13:46:01
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "RLum-class","Class  \"RLum\"","<br /> Abstract class for data in the package Luminescence<br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />"
 "RLum.Analysis-class","Class  \"RLum.Analysis\"","<br /> Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc.<br /> from one measurements. Objects from this class are produced, by e.g.  read_XSYG2R ,<br /> read_Daybreak2R <br />",NA,NA,NA,"<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />"

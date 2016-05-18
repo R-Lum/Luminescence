@@ -361,7 +361,10 @@
         Each grain within a position should represent one \code{RLum.Analysis} object with a set
         of curve. This was so far not the case; corrected,
         \item significant performance improvements, especially for big Risoe.BINfileData2RLum.Analysis()
-        objects.
+        objects,
+        \item if the argument \code{pos} or \code{grain} contains invalid entries the function will
+        not longer return an error. The invalid values are discarded and the function
+        tries to import values for valid positions or grains only.
       }
 
    }

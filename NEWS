@@ -416,7 +416,12 @@ Changes in version 0.6.0 (May 20th ,2016):
                of curve. This was so far not the case; corrected,
 
              • significant performance improvements, especially for big
-               Risoe.BINfileData2RLum.Analysis() objects.
+               Risoe.BINfileData2RLum.Analysis() objects,
+
+             • if the argument ‘pos’ or ‘grain’ contains invalid
+               entries the function will not longer return an error.
+               The invalid values are discarded and the function tries
+               to import values for valid positions or grains only.
 
   Internals:
 

@@ -46,7 +46,7 @@
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -83,61 +83,45 @@ Risoe.BINfileData2RLum.Analysis<- function(
     stop("[Risoe.BINfileData2RLum.Analysis()] Input object is not of type 'Risoe.BINfileData'.")
   }
 
-  if (is.null(pos)){
-    pos <- unique(object@METADATA[["POSITION"]])
-  }
-
-  if (!is(pos,"numeric")){
+  if (!is.null(pos) && !is(pos,"numeric")){
     stop("[Risoe.BINfileData2RLum.Analysis()] Argument 'pos' has to be of type numeric.")
   }
 
-  ##get and check valid positions
-  positions.valid <- paste(as.character(unique(object@METADATA[,"POSITION"])), collapse=", ")
+  if (is.null(pos)) {
+    pos <- unique(object@METADATA[["POSITION"]])
+  } else{
+    ##get and check valid positions and remove invalid numbers from the input
+    positions.valid <- unique(object@METADATA[, "POSITION"])
 
+    if (length(setdiff(pos, positions.valid)) > 0) {
+      warning(
+        paste0(
+          "[Risoe.BINfileData2RLum.Analysis()] invalid position number skipped: ",
+          paste(setdiff(pos, positions.valid), collapse = ", ")
+        ),
+        call. = FALSE
+      )
 
-  if (!all(pos %in% unique(object@METADATA[,"POSITION"]))){
+      pos <- intersect(pos, positions.valid)
 
-    warning(paste("[Risoe.BINfileData2RLum.Analysis] pos=",pos, " invalid.
-              Valid positions are: ", positions.valid, sep=""))
-
-    ##flag position
-    pos.valid <- FALSE
-
-  }else{
-
-    pos.valid <- TRUE
-
-  }
-
-  ##WARNINGS
-  if (length(which(max(pos)/1:48 == 1)) == 0){
-    warning("[Risoe.BINfileData2RLum.Analysis] Value for 'pos' out bounds specified for a Risoe BIN-file.")
+    }
   }
 
 
   # Grep run and set data ---------------------------------------------------
 
-  if(pos.valid){
-    ##grep values according to their criteria and check for validity
-
     ##grain
-    if (!is.null(grain)) {
-      if (grain %in% unique(unique(object@METADATA[["GRAIN"]])) == FALSE) {
-        ##get only valid grain numbers
-        grain.valid <-
-          paste(as.character(unique(object@METADATA[["GRAIN"]])), collapse = ", ")
+    if (is.null(grain)) {
+      grain <- unique(object@METADATA[,"GRAIN"])
 
-        stop(
-          paste(
-            "[Risoe.BINfileData2RLum.Analysis()] grain = ",
-            grain,
-            " contain invalid run(s).
-            Valid grain values are: ",
-            grain.valid,
-            sep = ""
-          )
-        )
+    }else{
+      if(length(setdiff(grain, grain.valid)) > 0){
+        grain.valid <- unique(object@METADATA[,"GRAIN"])
 
+        warning(paste0("[Risoe.BINfileData2RLum.Analysis()] invalid grain number skipped: ",
+                       paste(setdiff(grain, grain.valid), collapse = ", ")), call. = FALSE)
+
+        grain <- intersect(grain, grain.valid)
 
       }
 
@@ -298,9 +282,4 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     }
 
-  }else{
-
-    invisible(NA)
-
-  }
 }
