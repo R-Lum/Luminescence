@@ -79,24 +79,51 @@ includes the recycling point (assumed to be measured during the last cycle)}
 \description{
 This function allows the application of Bayesian models (baSAR) on luminescecence data
 }
+\details{
+\bold{Additional arguments support via the \code{...} argument}\cr
+
+\tabular{llll}{
+\bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description}\cr
+\code{sheet} \tab \code{\link[readxl]{read_excel}} \tab \code{1} \tab select XLS-sheet for import\cr
+\code{col_names} \tab \code{\link[readxl]{read_excel}} \tab \code{TRUE} \tab first column in XLS-file is header\cr
+\code{col_types} \tab \code{\link[readxl]{read_excel}} \tab \code{NULL} \tab limit import to specific columns\cr
+\code{skip} \tab \code{\link[readxl]{read_excel}} \tab \code{0} \tab number of rows to be skipped during import\cr
+\code{n.records} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit records during BIN-file import\cr
+\code{duplicated.rm} \tab \code{\link{read_BIN2R}} \tab \code{TRUE} \tab remove duplicated records in the BIN-file\cr
+\code{position} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit import to a specific position\cr
+\code{background.count.distribution} \tab \code{\link{calc_OSLLxTxRatio}} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
+\code{fit.weights} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enable/disable fit weights\cr
+\code{fit.bounds} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enable/disable fit bounds\cr
+\code{NumberIterations.MC} \tab \code{\link{plot_GrowthCurve}} \tab \code{100} \tab number of MC runs for error calculation\cr
+\code{output.plot} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables/disables dose repsonse curve plot\cr
+\code{output.plotExtended} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables/disables extended dose repsonse curve plot\cr
+}
+}
 \note{
 The current version of the function works with standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2016-05-18 19:58:26)
 }
 \examples{
 
 #nothing so far
 
 }
+\author{
+Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
+IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+
+The underlying Bayesian model based on a contribution by Combes et al., 2015.
+\cr R Luminescence Package Team}
 \references{
 Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 }
 \seealso{
-\code{\link{read_BIN2R}}, \code{\link{plot_GrowthCurve}},
+\code{\link{read_BIN2R}}, \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
+\code{\link[readxl]{read_excel}}, \code{\link{verify_SingleGrainData}},
 \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
 }
 \keyword{datagen}
