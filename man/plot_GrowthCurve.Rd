@@ -6,11 +6,11 @@
 \usage{
 plot_GrowthCurve(sample, na.rm = TRUE, fit.method = "EXP",
   fit.force_through_origin = FALSE, fit.weights = TRUE,
-  fit.includingRepeatedRegPoints = TRUE, fit.NumberRegPoints,
-  fit.NumberRegPointsReal, fit.bounds = TRUE, NumberIterations.MC = 100,
-  output.plot = TRUE, output.plotExtended = TRUE,
-  output.plotExtended.single = FALSE, cex.global = 1,
-  txtProgressBar = TRUE, verbose = TRUE, ...)
+  fit.includingRepeatedRegPoints = TRUE, fit.NumberRegPoints = NULL,
+  fit.NumberRegPointsReal = NULL, fit.bounds = TRUE,
+  NumberIterations.MC = 100, output.plot = TRUE,
+  output.plotExtended = TRUE, output.plotExtended.single = FALSE,
+  cex.global = 1, txtProgressBar = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{sample}{\code{\link{data.frame}} (\bold{required}): data frame with
@@ -151,7 +151,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.8.8 (2016-05-17 15:35:21)
+ 1.8.9 (2016-05-18 18:02:32)
 }
 \examples{
 

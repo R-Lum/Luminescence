@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.8
+#' @section Function version: 1.8.9
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -170,8 +170,8 @@ plot_GrowthCurve <- function(
   fit.force_through_origin = FALSE,
   fit.weights = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
-  fit.NumberRegPoints,
-  fit.NumberRegPointsReal,
+  fit.NumberRegPoints = NULL,
+  fit.NumberRegPointsReal = NULL,
   fit.bounds = TRUE,
   NumberIterations.MC = 100,
   output.plot = TRUE,
@@ -241,8 +241,10 @@ plot_GrowthCurve <- function(
   ##1. INPUT
 
   #1.0.1 calculate number of reg points if not set
-  if(missing(fit.NumberRegPoints)==TRUE){fit.NumberRegPoints<-length(sample[-1,1])}
-  if(missing(fit.NumberRegPointsReal)==TRUE){
+  if(is.null(fit.NumberRegPoints)){
+    fit.NumberRegPoints<-length(sample[-1,1])
+  }
+  if(is.null(fit.NumberRegPointsReal)){
 
     fit.RegPointsReal <- as.integer(
       rownames(sample[-which(duplicated(sample[,1]) | sample[,1]==0),]))
