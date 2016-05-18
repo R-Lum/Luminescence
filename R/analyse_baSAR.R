@@ -2,28 +2,59 @@
 #'
 #' This function allows the application of Bayesian models (baSAR) on luminescecence data
 #'
-#' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{{character}} or \code{\link{list}} (\bold{required}): input object used for the Bayesian analysis. If a \code{character} is provided the function
+#' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
+#' \code{{character}} or \code{\link{list}} (\bold{required}):
+#' input object used for the Bayesian analysis. If a \code{character} is provided the function
 #' assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 #' provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
-#' providing a file connection. Mixing of both types is not allowed.
+#' providing a file connection. Mixing of both types is not allowed. If an \code{\linkS4class{RLum.Results}}
+#' is provided the function direclty starts with the Bayesian Analysis (see details)
+#'
+#' @param XLS_file \code{\link{character}} (optional): XLS_file with data for the analysis TODO
+#'
+#' @param aliquot_range \code{\link{numeric}} (optional): allows to limit the range of the aliquots
+#' used for the analysis. This argument has only an effect of the argument \code{XLS_file} is used as
+#' well
 #'
 #' @param source_doserate \code{\link{numeric}} (with default): source dose rate of beta-source used
-#' for the measuremnt in Gy/s
+#' for the measuremnt and its uncertainty in Gy/s
 #'
-#' @inheritParams calc_OSLLxTxRatio
+#' @param signal.integral \code{\link{vector}} (optional): vector with the
+#' limits for the signal integral used for the calculation, e.g., \code{signal.integral = c(1:5)}
+#' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
+#'
+#' @param signal.integral.Tx \code{\link{vector}} (optional): vector with the
+#' limits for the signal integral for the Tx curve. If nothing is provided the
+#' value from \code{signal.integral} is used and it is ignored
+#' if \code{object} is an \code{\linkS4class{RLum.Results}} object.
+#'
+#' @param background.integral \code{\link{vector}} (\bold{required}): vector with the
+#' bounds for the background integral.
+#' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object
+#'
+#' @param background.integral.Tx \code{\link{vector}} (optional): vector with the
+#' limits for the background integral for the Tx curve. If nothing is provided the
+#' value from \code{background.integral} is used.
+#' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object
+#'
+#' @param sigmab \code{\link{numeric}} (with default): option to set a manual value for
+#' the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
+#' calculation. The value should be provided as absolute squared count values, cf. \code{\link{calc_OSLLxTxRatio}}
+#'
+#' @param sig0 \code{\link{numeric}} (with default): allow adding an extra component of error
+#' to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{\link{calc_OSLLxTxRatio}})
 #'
 #' @param distribution \code{\link{character}} (with default): type of distribution that is used for
-#' the Bayesian calculation. Allowed inputs are  \code{cauchy},\code{normal} and \code{log_normal}
+#' the Bayesian calculation. Allowed inputs are \code{cauchy},\code{normal} and \code{log_normal}
 #'
 #' @param fit.method \code{\link{character}} (with default): fit method used for fitting the growth
 #' curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods: \code{EXP},
 #' \code{EXP+LIN} and \code{LIN}
 #'
-#' @param fit.force_through_origin \code{\link{character}} (with default): force fitting through origin
+#' @param fit.force_through_origin \code{\link{logical}} (with default): force fitting through origin
 #'
-#' @param fit.includingRecyclingPoints \code{\link{character}} (with default): includes the recycling point (assuming measured during last cycle)
-#'
-#' @param XLS_file \code{\link{character}} (with default): XLS_file with data for the analysis
+#' @param fit.includingRepeatedRegPoints \code{\link{logical}} (with default):
+#' includes the recycling point (assumed to be measured during the last cycle)
 #'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot output
 #'
@@ -31,9 +62,9 @@
 #'
 #' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
 #'
-#' @param ... parameters that can be passed to the function
-#' \code{\link[readxl]{read_excel}} (all arguments are supported), \code{\link{read_BIN2R}} (\code{n.records},
-#' \code{position}, \code{duplicated.rm})
+#' @param ... parameters that can be passed to the function \code{\link{calc_OSLLxTxRatio}} (almost full support)
+#' \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
+#' \code{position}, \code{duplicated.rm}), see details.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -42,8 +73,8 @@
 #'
 #' The underlying Bayesian model based on a contribution by Combes et al., 2015.
 #'
-#' @seealso \code{\link{read_BIN2R}}, \code{\link{plot_GrowthCurve}},
-#' \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
+#' @seealso \code{\link{read_BIN2R}}, \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
+#' \code{\link[readxl]{read_excel}}, \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
 #'
 #' @references
 #'
@@ -63,22 +94,19 @@
 #' @export
 analyse_baSAR <- function(
   object,
-  source_doserate = 1,
-  Lx.data,
-  Tx.data,
+  XLS_file = NULL,
+  aliquot_range = NULL,
+  source_doserate = c(1,0),
   signal.integral,
   signal.integral.Tx = NULL,
   background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson",
   sigmab = 0,
   sig0 = 0.025,
-  digits = NULL,
   distribution = "cauchy",
   fit.method = "EXP",
   fit.force_through_origin = TRUE,
-  fit.includingRecyclingPoints = TRUE,
-  XLS_file = NULL,
+  fit.includingRepeatedRegPoints = TRUE,
   plot = TRUE,
   plot_reduced = TRUE,
   verbose = TRUE,
@@ -105,10 +133,11 @@ analyse_baSAR <- function(
              data.sLum,
              fit.method,
              fit.force_through_origin,
-             fit.includingRecyclingPoints,
+             fit.includingRepeatedRegPoints,
              plot,
              verbose)
     {
+
 
       Limited_cycles <- vector()
 
@@ -117,7 +146,7 @@ analyse_baSAR <- function(
       if (fit.method == "EXP+LIN") {ExpoGC <- 1 ; LinGC <-  1 }
       if (fit.force_through_origin == TRUE) {GC_Origin <- 1} else {GC_Origin <- 0}
 
-      if (fit.includingRecyclingPoints == TRUE) {
+      if (fit.includingRepeatedRegPoints == TRUE) {
         for (i in 1:Nb_aliquots) {
           Limited_cycles[i] <- length(na.exclude(data.Dose[,i]))}
       }
@@ -374,6 +403,10 @@ analyse_baSAR <- function(
   #capture additional piped arguments
   additional_arguments <- list(
 
+    ##calc_OSLLxTxRatio()
+    background.count.distribution = "non-poisson",
+    digits = NULL,
+
     ##readxl::read_excel()
     sheet = 1,
     col_names = TRUE,
@@ -384,7 +417,19 @@ analyse_baSAR <- function(
     ##read_BIN2R()
     n.records = NULL,
     duplicated.rm = TRUE,
-    position = NULL
+    position = NULL,
+
+    ##plot_GrowthCurve()
+    fit.includingRepeatedRegPoints = TRUE,
+    fit.NumberRegPoints = NULL,
+    fit.NumberRegPointsReal = NULL,
+    fit.weights = TRUE,
+    fit.bounds = TRUE,
+    NumberIterations.MC = 100,
+    output.plot = TRUE,
+    output.plotExtended = TRUE,
+    output.plotExtended.single = FALSE,
+    cex.global = 1
 
 
   )
@@ -417,10 +462,19 @@ analyse_baSAR <- function(
      ##get maximum cycles
      max_cycles <- max(object$input_object[["CYCLES_NB"]])
 
+     ##set Nb_aliquots
+     Nb_aliquots <- nrow(object$input_object)
+
+     ##return NULL if not a minium of three aliquots are used for the calculation
+     if(Nb_aliquots < 2){
+       warning("[analyse_baSAR()] number of aliquots < 3, this makes no sense, NULL returned!")
+       return(NULL)
+
+     }
+
      ##check whether this makes sense at all TODO
      ##set variables
      ##Why is.null() ... it prevents that the function crashed is nothing is provided ...
-     Nb_aliquots <- nrow(object$input_object) #TODO here we need more flexibility
 
      ##set changeable function arguments
 
@@ -439,9 +493,9 @@ analyse_baSAR <- function(
           fit.force_through_origin <- function_arguments.new$fit.force_through_origin
        }
 
-       ##fit.includingRecyclingPoints
-       if(!is.null(function_arguments.new$fit.includingRecyclingPoints)){
-          fit.includingRecyclingPoints <- function_arguments.new$fit.includingRecyclingPoints
+       ##fit.includingRepeatedRegPoints
+       if(!is.null(function_arguments.new$fit.includingRepeatedRegPoints)){
+          fit.includingRepeatedRegPoints <- function_arguments.new$fit.includingRepeatedRegPoints
        }
 
        ##plot
@@ -609,6 +663,9 @@ analyse_baSAR <- function(
 
   Mono_grain <-  TRUE
 
+  ##TODO
+  Limited_cycles <- vector()
+
   ##set information
   for (i in 1 : length(fileBIN.list)) {
     Disc[[i]] <-  list()
@@ -697,6 +754,7 @@ analyse_baSAR <- function(
 
     Nb_ali <-  0
 
+    ##import Excel sheet
     datalu <- readxl::read_excel(
       path = XLS_file,
       sheet = additional_arguments$sheet,
@@ -705,6 +763,15 @@ analyse_baSAR <- function(
       na = additional_arguments$na,
       skip = additional_arguments$skip
     )
+
+    ##get rid of empty rows if the BIN_FILE name column is empty
+    datalu <- datalu[!is.na(datalu[[1]]),]
+
+    ##limit aliquot range
+    if(!is.null(aliquot_range)){
+      datalu <- datalu[aliquot_range, ]
+
+    }
 
     for (nn in 1:length((datalu[,1]))) {
 
@@ -812,7 +879,7 @@ analyse_baSAR <- function(
 
             if (logical_selection.vector[index_liste[kn]] == TRUE){
               t <-  index_liste[kn]
-              dose.value <-  irrad_time.vector[t] * unlist(source_doserate[[k]])
+              dose.value <-  irrad_time.vector[t] * unlist(source_doserate[[k]][1])
               s <- 1 + length( Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]] )
               Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][s] <- n_index.vector[t]  # indexes
               if ( s%%2 == 1) { Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]][as.integer(1+s/2)] <- dose.value  }      # irradiation doses
@@ -856,10 +923,10 @@ analyse_baSAR <- function(
           signal.integral.Tx = signal.integral.Tx[[k]],
           background.integral = background.integral[[k]],
           background.integral.Tx = background.integral.Tx[[k]],
-          background.count.distribution = "non-poisson",
+          background.count.distribution = additional_arguments$background.count.distribution,
           sigmab = sigmab,
           sig0 = sig0,
-          digits = digits
+          digits = additional_arguments$digits
         )
 
 
@@ -885,23 +952,23 @@ analyse_baSAR <- function(
       selected_sample <- data.frame (sample_dose, sample_LxTx, sample_sLxTx, TnTx)
 
 
-      ##TODO support ... for this function
+      ##call plot_GrowthCurve() to get De and De value
       fitcurve <-
         plot_GrowthCurve(
-          selected_sample,
+          sample = selected_sample,
           na.rm = TRUE,
-          fit.method = "LIN", #"EXP OR LIN",
-      #    fit.force_through_origin = TRUE,
-          fit.weights = TRUE,
-      #    fit.includingRepeatedRegPoints = FALSE,
-          fit.bounds = TRUE,
-          NumberIterations.MC = 10,
-          output.plot = FALSE,
-          output.plotExtended = TRUE,
-          output.plotExtended.single = FALSE,
-          cex.global = 1,
+          fit.method = fit.method,
+          fit.force_through_origin = fit.force_through_origin,
+          fit.weights = additional_arguments$fit.weights,
+          fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
+          fit.bounds = additional_arguments$fit.bounds,
+          NumberIterations.MC = additional_arguments$NumberIterations.MC,
+          output.plot = additional_arguments$output.plot,
+          output.plotExtended = additional_arguments$output.plotExtended,
+          output.plotExtended.single = additional_arguments$output.plotExtended.single,
+          cex.global = additional_arguments$cex.global,
           txtProgressBar = FALSE,
-          verbose = FALSE
+          verbose = verbose
         )
 
 
@@ -1030,43 +1097,6 @@ analyse_baSAR <- function(
   }
 
 
-  ##ASK NORBERT _ TODO
-  # ### Prepare Matrix data for baSAR function
-  # Limited_cycles <- as.integer(na.omit(Limited_cycles))
-  # max_cycle <-  max(Limited_cycles)
-  #
-  # Doses <- matrix(NA, nrow = max_cycle, ncol = Nb_aliquots)
-  # LxTx <- matrix(NA, nrow = max_cycle, ncol = Nb_aliquots)
-  # LxTx.error <- matrix(NA, nrow = max_cycle, ncol = Nb_aliquots)
-  #
-  # p <-  0
-  #
-  # tempo_1 <-   vector("numeric")
-  # for (k in 1:length(fileBIN.list)) {
-  #   for (i in 1:length(Disc[[k]])) {
-  #     p  <-  p + 1
-  #     d <- as.numeric(Disc[[k]][i])
-  #     if (Mono_grain == TRUE)
-  #       (g <- as.numeric(Grain[[k]][i]))
-  #     else
-  #       (g <- 1)
-  #     tempo_1 <-  as.numeric(Disc_Grain.list[[k]][[d]][[g]][[2]])
-  #
-  #     for (h in 1:length(tempo_1)) {
-  #       Doses[h, p] <- as.numeric(Disc_Grain.list[[k]][[d]][[g]][[2]][h])
-  #       LxTx[h, p] <-
-  #         as.numeric(Disc_Grain.list[[k]][[d]][[g]][[3]][h])
-  #       LxTx.error[h, p] <-
-  #         as.numeric(Disc_Grain.list[[k]][[d]][[g]][[4]][h])
-  #     }
-  #   }
-  # }
-
-
-  # Doses <-  apply(Doses, MARGIN = 2, FUN = "as.single")
-  # LxTx <-  apply(LxTx, MARGIN = 2, FUN = "as.single")
-  # LxTx.error <-  apply(LxTx.error, MARGIN = 2, FUN = "as.single")
-
   ##Clean matrix and remove all unwanted entries
 
     ##remove NA values in DE
@@ -1097,7 +1127,7 @@ analyse_baSAR <- function(
   LxTx <- t(OUTPUT_results_reduced[, (9 + max_cycles):(8 + 2 * max_cycles)])
   LxTx.error <- t(OUTPUT_results_reduced[, (9 + 2 * max_cycles):(8 + 3 * max_cycles)])
 
-   ##prepare data frame for output that can used as input
+  ##prepare data frame for output that can used as input
   input_object <- data.frame(
     BIN_FILE = unlist(object.file_name)[OUTPUT_results_reduced[[1]]],
     OUTPUT_results_reduced[, -1],
@@ -1116,10 +1146,16 @@ analyse_baSAR <- function(
       data.sLum = LxTx.error,
       fit.method = fit.method,
       fit.force_through_origin = fit.force_through_origin,
-      fit.includingRecyclingPoints = fit.includingRecyclingPoints,
+      fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
       plot = plot,
       verbose = verbose
     )
+
+  ##add error from the source_doserate
+  DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + source_doserate[[1]][2]^2)
+
+  ##combine
+  results[[1]] <- cbind(results[[1]], DE_FINAL = results[[1]][["CENTRAL"]], DE_FINAL.ERROR = DE_FINAL.ERROR)
 
   if(verbose){
     cat("\n[analyse_baSAR()] - RESULTS\n")
@@ -1128,10 +1164,14 @@ analyse_baSAR <- function(
     cat(paste0("Number of aliquots used:\t\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
     cat(paste0("Considered fitting method:\t\t", results[[1]][["FIT_METHOD"]],"\n"))
     cat("---------------------------------------------------------------\n")
-    cat(paste0(">> Central dose:\t\t\t", results[[1]][["CENTRAL"]]," \u00b1 ", results[[1]][["SIGMA"]]))
-    cat(paste0("\n   .. SD central dose:\t\t\t", results[[1]][["CENTRAL.SD"]]))
-    cat(paste0("\n   .. SD sigma:\t\t\t\t", results[[1]][["SIGMA.SD"]]))
+    cat(paste0(">> Central dose:\t\t\t", results[[1]][["CENTRAL"]]," \u00b1 ", results[[1]][["CENTRAL.SD"]]))
+    cat(paste0("\n>> Overdispersion (sigma):\t\t", results[[1]][["SIGMA"]]," \u00b1 ", results[[1]][["SIGMA.SD"]]))
+    cat(paste0("\n>> Final central De:\t\t\t", results[[1]][["DE_FINAL"]]," \u00b1 ", round(results[[1]][["DE_FINAL.ERROR"]], digits = 2)))
     cat("\n---------------------------------------------------------------\n")
+    cat(
+      paste("(systematic error contribution to final De:",
+            format((1-results[[1]][["CENTRAL.SD"]]/results[[1]][["DE_FINAL.ERROR"]])*100, scientific = TRUE), "%)\n")
+      )
   }
 
   # Return --------------------------------------------------------------------------------------

@@ -4,74 +4,67 @@
 \alias{analyse_baSAR}
 \title{Bayesian models (baSAR) applied on luminescence data}
 \usage{
-analyse_baSAR(object, source_doserate = 1, Lx.data, Tx.data, signal.integral,
-  signal.integral.Tx = NULL, background.integral,
-  background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson", sigmab = 0, sig0 = 0.025,
-  digits = NULL, distribution = "cauchy", fit.method = "EXP",
-  fit.force_through_origin = TRUE, fit.includingRecyclingPoints = TRUE,
-  XLS_file = NULL, plot = TRUE, plot_reduced = TRUE, verbose = TRUE,
-  ...)
+analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
+  source_doserate = c(1, 0), signal.integral, signal.integral.Tx = NULL,
+  background.integral, background.integral.Tx = NULL, sigmab = 0,
+  sig0 = 0.025, distribution = "cauchy", fit.method = "EXP",
+  fit.force_through_origin = TRUE, fit.includingRepeatedRegPoints = TRUE,
+  plot = TRUE, plot_reduced = TRUE, verbose = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{{character}} or \code{\link{list}} (\bold{required}): input object used for the Bayesian analysis. If a \code{character} is provided the function
+\item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
+\code{{character}} or \code{\link{list}} (\bold{required}):
+input object used for the Bayesian analysis. If a \code{character} is provided the function
 assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
-providing a file connection. Mixing of both types is not allowed.}
+providing a file connection. Mixing of both types is not allowed. If an \code{\linkS4class{RLum.Results}}
+is provided the function direclty starts with the Bayesian Analysis (see details)}
+
+\item{XLS_file}{\code{\link{character}} (optional): XLS_file with data for the analysis TODO}
+
+\item{aliquot_range}{\code{\link{numeric}} (optional): allows to limit the range of the aliquots
+used for the analysis. This argument has only an effect of the argument \code{XLS_file} is used as
+well}
 
 \item{source_doserate}{\code{\link{numeric}} (with default): source dose rate of beta-source used
-for the measuremnt in Gy/s}
+for the measuremnt and its uncertainty in Gy/s}
 
-\item{Lx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
-(\bold{required}): requires a CW-OSL shine down curve (x = time, y = counts)}
-
-\item{Tx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
-(optional): requires a CW-OSL shine down curve (x = time, y = counts). If no
-input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
-is calculated.}
-
-\item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
-limits for the signal integral.}
+\item{signal.integral}{\code{\link{vector}} (optional): vector with the
+limits for the signal integral used for the calculation, e.g., \code{signal.integral = c(1:5)}
+Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.}
 
 \item{signal.integral.Tx}{\code{\link{vector}} (optional): vector with the
 limits for the signal integral for the Tx curve. If nothing is provided the
-value from \code{signal.integral} is used.}
+value from \code{signal.integral} is used and it is ignored
+if \code{object} is an \code{\linkS4class{RLum.Results}} object.}
 
 \item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
-bounds for the background integral.}
+bounds for the background integral.
+Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object}
 
 \item{background.integral.Tx}{\code{\link{vector}} (optional): vector with the
 limits for the background integral for the Tx curve. If nothing is provided the
-value from \code{background.integral} is used.}
+value from \code{background.integral} is used.
+Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object}
 
-\item{background.count.distribution}{\code{\link{character}} (with default): sets
-the count distribution assumed for the error calculation. Possible arguments
-\code{poisson} or \code{non-poisson}. See details for further information}
-
-\item{sigmab}{\code{\link{numeric}} (optional): option to set a manual value for
+\item{sigmab}{\code{\link{numeric}} (with default): option to set a manual value for
 the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
-calculation. The value should be provided as absolute squared count values,
-e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
-value is taken for both (LnTx and TnTx) signals.}
+calculation. The value should be provided as absolute squared count values, cf. \code{\link{calc_OSLLxTxRatio}}}
 
 \item{sig0}{\code{\link{numeric}} (with default): allow adding an extra component of error
-to the final Lx/Tx error value (e.g., instrumental errror, see details).}
-
-\item{digits}{\code{\link{integer}} (with default): round numbers to the specified digits. If
-digits is set to \code{NULL} nothing is rounded.}
+to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{\link{calc_OSLLxTxRatio}})}
 
 \item{distribution}{\code{\link{character}} (with default): type of distribution that is used for
-the Bayesian calculation. Allowed inputs are  \code{cauchy},\code{normal} and \code{log_normal}}
+the Bayesian calculation. Allowed inputs are \code{cauchy},\code{normal} and \code{log_normal}}
 
 \item{fit.method}{\code{\link{character}} (with default): fit method used for fitting the growth
 curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods: \code{EXP},
 \code{EXP+LIN} and \code{LIN}}
 
-\item{fit.force_through_origin}{\code{\link{character}} (with default): force fitting through origin}
+\item{fit.force_through_origin}{\code{\link{logical}} (with default): force fitting through origin}
 
-\item{fit.includingRecyclingPoints}{\code{\link{character}} (with default): includes the recycling point (assuming measured during last cycle)}
-
-\item{XLS_file}{\code{\link{character}} (with default): XLS_file with data for the analysis}
+\item{fit.includingRepeatedRegPoints}{\code{\link{logical}} (with default):
+includes the recycling point (assumed to be measured during the last cycle)}
 
 \item{plot}{\code{\link{logical}} (with default): enables or disables plot output}
 
@@ -79,9 +72,9 @@ curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods:
 
 \item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
 
-\item{...}{parameters that can be passed to the function
-\code{\link[readxl]{read_excel}} (all arguments are supported), \code{\link{read_BIN2R}} (\code{n.records},
-\code{position}, \code{duplicated.rm})}
+\item{...}{parameters that can be passed to the function \code{\link{calc_OSLLxTxRatio}} (almost full support)
+\code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
+\code{position}, \code{duplicated.rm}), see details.}
 }
 \description{
 This function allows the application of Bayesian models (baSAR) on luminescecence data
