@@ -1,12 +1,12 @@
 % latex table generated in R 3.4.0 by xtable 1.8-2 package
-% Thu May 19 16:59:55 2016
+% Thu May 19 19:01:05 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{rlllllll}
   \hline
  & Name & Title & Description & Version & m.Date & m.Time & Author \\ 
   \hline
-1 & analyse\_baSAR & Bayesian models (baSAR) applied on luminescence data & $<$br /$>$ This function allows the application of Bayesian models (baSAR) on luminescecence data based on the$<$br /$>$ contribution by Combes et al., 2015. Internally the function consists of two parts: (I) Bayesian core$<$br /$>$ for the bayesian calculations and (II) data preparation part. The Bayesian core can be run independently$<$br /$>$ and the second part was implemented to simplify the analysis. For the Bayesian analysis for each aliquot$<$br /$>$ the following information are needed from the SAR analysis. De and LxTx and dose values for all regeneration points.$<$br /$>$ & 0.1.0 & 2016-05-19 & 16:56:45
+1 & analyse\_baSAR & Bayesian models (baSAR) applied on luminescence data & $<$br /$>$ This function allows the application of Bayesian models (baSAR) on luminescecence data based on the$<$br /$>$ contribution by Combes et al., 2015. Internally the function consists of two parts: (I) Bayesian core$<$br /$>$ for the bayesian calculations and (II) data preparation part. The Bayesian core can be run independently$<$br /$>$ and the second part was implemented to simplify the analysis. For the Bayesian analysis for each aliquot$<$br /$>$ the following information are needed from the SAR analysis. De and LxTx and dose values for all regeneration points.$<$br /$>$ & 0.1.0 & 2016-05-19 & 18:42:09
  & $<$br /$>$ Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,$<$br /$>$ IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  $<$br /$>$ $<$br /$>$ The underlying Bayesian model based on a contribution by Combes et al., 2015.$<$br /$>$  R Luminescence Package Team \\ 
   2 & analyse\_IRSAR.RF & Analyse IRSAR RF measurements & $<$br /$>$ Function to analyse IRSAR RF measurements on K-feldspar samples, performed$<$br /$>$ using the protocol according to Erfurt et al. (2003) and beyond.$<$br /$>$ & 0.6.9 & 2016-05-19 & 16:19:20
  & $<$br /$>$ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)$<$br /$>$  R Luminescence Package Team \\ 
@@ -122,7 +122,7 @@
  & $<$br /$>$ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne$<$br /$>$ (France), Michael Dietze, GFZ Potsdam (Germany)$<$br /$>$  R Luminescence Package Team \\ 
   64 & plot\_FilterCombinations & Plot filter combinations along with net transmission window & $<$br /$>$ The function allows to plot transmission windows for different filters. Missing data for specific$<$br /$>$ wavelenghts are automatically interpolated for the given filter data using the function  approx .$<$br /$>$ With that a standardised output is reached and a net transmission window can be shown. $<$br /$>$ & 0.1.0 & 2016-05-02 & 09:36:06
  & $<$br /$>$ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France) $<$br /$>$  R Luminescence Package Team \\ 
-  65 & plot\_GrowthCurve & Fit and plot a growth curve for luminescence data (Lx/Tx against dose) & $<$br /$>$ A dose response curve is produced for luminescence measurements using a$<$br /$>$ regenerative protocol.$<$br /$>$ & 1.8.10 & 2016-05-19 & 14:58:27
+  65 & plot\_GrowthCurve & Fit and plot a growth curve for luminescence data (Lx/Tx against dose) & $<$br /$>$ A dose response curve is produced for luminescence measurements using a$<$br /$>$ regenerative protocol.$<$br /$>$ & 1.8.11 & 2016-05-19 & 18:51:38
  & $<$br /$>$ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne$<$br /$>$ (France),   Michael Dietze, GFZ Potsdam (Germany)$<$br /$>$  R Luminescence Package Team \\ 
   66 & plot\_Histogram & Plot a histogram with separate error plot & $<$br /$>$ Function plots a predefined histogram with an accompanying error plot as$<$br /$>$ suggested by Rex Galbraith at the UK LED in Oxford 2010.$<$br /$>$ & 0.4.4 & 2016-05-02 & 09:36:06
  & $<$br /$>$ Michael Dietze, GFZ Potsdam (Germany),   Sebastian Kreutzer,$<$br /$>$ IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)$<$br /$>$  R Luminescence Package Team \\ 
@@ -147,7 +147,7 @@
  & $<$br /$>$ Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,$<$br /$>$ Universite Bordeaux Montaigne (France)$<$br /$>$  R Luminescence Package Team \\ 
   77 & plot\_ViolinPlot & Create a violin plot & $<$br /$>$ Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin$<$br /$>$ is constructed using a mirrored density curve. This plot is especially designed for cases$<$br /$>$ where the individual errors are zero or to small to be visualised. The idea for this plot is$<$br /$>$ based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.$<$br /$>$ The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).$<$br /$>$ & 0.1.2 & 2016-05-17 & 13:27:04
  & $<$br /$>$ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)$<$br /$>$  R Luminescence Package Team \\ 
-  78 & read\_BIN2R & Import Risoe BIN-file into R & $<$br /$>$ Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL$<$br /$>$ reader into R.$<$br /$>$ & 0.13.0 & 2016-05-19 & 12:22:02
+  78 & read\_BIN2R & Import Risoe BIN-file into R & $<$br /$>$ Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL$<$br /$>$ reader into R.$<$br /$>$ & 0.13.1 & 2016-05-19 & 18:20:10
  & $<$br /$>$ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne$<$br /$>$ (France), Margret C. Fuchs, HZDR Freiberg, (Germany)$<$br /$>$  R Luminescence Package Team \\ 
   79 & read\_Daybreak2R & Import Daybreak ASCII dato into R & $<$br /$>$ Import a *.txt (ASCII) file produced by a Daybreak reader into R.$<$br /$>$ & 0.2.1 & 2016-05-02 & 09:36:06
  & $<$br /$>$ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne$<$br /$>$ (France)  Based on a suggestion by Willian Amidon and Andrew Louis Gorin.$<$br /$>$  R Luminescence Package Team \\ 
