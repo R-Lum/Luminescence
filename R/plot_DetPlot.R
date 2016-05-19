@@ -267,7 +267,7 @@ plot_DetPlot <- function(
                (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))),
       xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
       ylab = expression(paste(D[e] / s, " and ", L[n]/(a.u.))),
-      xlab = "Stimulation time/s",
+      xlab = "Stimulation time [s]",
       main = "De(t) plot",
       pch = 1,
       mtext = ifelse(is.na(pIRIR_signals[1]), "", paste0("Signal: ",pIRIR_signals[i])),

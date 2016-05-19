@@ -323,7 +323,7 @@
 #'                  xlab = c("Data error (%)",
 #'                           "Data precision"),
 #'                  ylab = "Scatter",
-#'                  zlab = "Equivalent dose (Gy)")
+#'                  zlab = "Equivalent dose [Gy]")
 #'
 #' ## now with minimum, maximum and median value indicated
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -891,7 +891,7 @@ plot_AbanicoPlot <- function(
   zlab <- if("zlab" %in% names(extraArgs)) {
     extraArgs$zlab
   } else {
-    expression(paste(D[e], " (Gy)"))
+    expression(paste(D[e], " [Gy]"))
   }
 
   if("zlim" %in% names(extraArgs)) {
@@ -1026,15 +1026,15 @@ plot_AbanicoPlot <- function(
 
   ## set space between z-axis and baseline of cartesian part
   if(boxplot == TRUE) {
-    
+
     lostintranslation <- 1.03
   } else {
-    
+
     lostintranslation <- 1.03
     plot.ratio <- plot.ratio * 1.05
   }
-  
-  
+
+
   ## create empty plot to update plot parameters
   if(rotate == FALSE) {
     plot(NA,
@@ -1219,7 +1219,7 @@ plot_AbanicoPlot <- function(
     if(log.z == TRUE) {
       De.stats[i,2:4] <- exp(De.stats[i,2:4])
     }
-    
+
     ##kdemax - here a little doubled as it appears below again
     De.density <-density(x = data[[i]][,1],
                          kernel = "gaussian",
@@ -2354,21 +2354,21 @@ plot_AbanicoPlot <- function(
 
     ## calculate KDE width
     KDE.max <- 0
-    
+
     for(i in 1:length(data)) {
-      
-      KDE.max <- ifelse(test = KDE.max < max(KDE[[i]][,2]), 
-                        yes = max(KDE[[i]][,2]), 
+
+      KDE.max <- ifelse(test = KDE.max < max(KDE[[i]][,2]),
+                        yes = max(KDE[[i]][,2]),
                         no = KDE.max)
-      
+
     }
-    
+
     ## optionally adjust KDE width for boxplot option
     if(boxplot == TRUE) {
-      
+
       KDE.max <- 1.25 * KDE.max
     }
-    
+
     KDE.scale <- (par()$usr[2] - xy.0[1]) / (KDE.max * 1.05)
 
     ## optionally add KDE plot
@@ -2538,11 +2538,11 @@ plot_AbanicoPlot <- function(
     if(boxplot == TRUE) {
 
       for(i in 1:length(data)) {
-        
+
         ## draw median line
         lines(x = c(xy.0[1] + KDE.max * 0.85, xy.0[1] + KDE.max * 0.95),
               y = c((boxplot.data[[i]]$stats[3,1] - z.central.global) *
-                      min(ellipse[,1]), 
+                      min(ellipse[,1]),
                     (boxplot.data[[i]]$stats[3,1] - z.central.global) *
                       min(ellipse[,1])),
               lwd = 2,
@@ -3300,14 +3300,14 @@ plot_AbanicoPlot <- function(
 
         ## draw median line
         lines(x = c((boxplot.data[[i]]$stats[3,1] - z.central.global) *
-                      min(ellipse[,2]), 
+                      min(ellipse[,2]),
                     (boxplot.data[[i]]$stats[3,1] - z.central.global) *
                       min(ellipse[,2])),
-              y = c(min(ellipse[,2]) * 1.025, 
+              y = c(min(ellipse[,2]) * 1.025,
                     xy.0[2] * 0.975),
               lwd = 2,
               col = kde.line[i])
-        
+
         ## draw p25-p75-polygon
         polygon(y = c(min(ellipse[,2]) * 1.025,
                       min(ellipse[,2]) * 1.025,

@@ -219,7 +219,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.7 (2016-05-17 22:39:50)
+ 0.1.7 (2016-05-19 23:46:25)
 }
 \examples{
 
@@ -323,7 +323,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
                  xlab = c("Data error (\%)",
                           "Data precision"),
                  ylab = "Scatter",
-                 zlab = "Equivalent dose (Gy)")
+                 zlab = "Equivalent dose [Gy]")
 
 ## now with minimum, maximum and median value indicated
 plot_AbanicoPlot(data = ExampleData.DeValues,

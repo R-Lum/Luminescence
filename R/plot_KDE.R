@@ -52,10 +52,10 @@
 #'
 #' @param order \code{\link{logical}}: Order data in ascending order.
 #'
-#' @param boxplot \code{\link{logical}} (with default): optionally show a 
-#' boxplot (depicting median as thick central line, first and third quartile 
+#' @param boxplot \code{\link{logical}} (with default): optionally show a
+#' boxplot (depicting median as thick central line, first and third quartile
 #' as box limits, whiskers denoting +/- 1.5 interquartile ranges and dots
-#' further outliers) and line with diamond depicting mean and standard 
+#' further outliers) and line with diamond depicting mean and standard
 #' deviation of the distribution.
 #'
 #' @param rug \code{\link{logical}} (with default): optionally add rug.
@@ -550,7 +550,7 @@ plot_KDE <- function(
   if("xlab" %in% names(list(...))) {
     xlab <- list(...)$xlab
   } else {
-    xlab <- expression(paste(D[e], " (Gy)"))
+    xlab <- expression(paste(D[e], " [Gy}"))
   }
 
   if("ylab" %in% names(list(...))) {
@@ -1028,7 +1028,7 @@ plot_KDE <- function(
               y = c(-5/8 * l_height,
                     -5/8 * l_height),
               col = col.mean.line[i])
-        
+
         ## draw mean line
         points(x = boxplot.data[[i]]$group[1],
               y = -5/8 * l_height,

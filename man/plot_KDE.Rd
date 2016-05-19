@@ -23,10 +23,10 @@ cumulative individual data.}
 
 \item{order}{\code{\link{logical}}: Order data in ascending order.}
 
-\item{boxplot}{\code{\link{logical}} (with default): optionally show a 
-boxplot (depicting median as thick central line, first and third quartile 
+\item{boxplot}{\code{\link{logical}} (with default): optionally show a
+boxplot (depicting median as thick central line, first and third quartile
 as box limits, whiskers denoting +/- 1.5 interquartile ranges and dots
-further outliers) and line with diamond depicting mean and standard 
+further outliers) and line with diamond depicting mean and standard
 deviation of the distribution.}
 
 \item{rug}{\code{\link{logical}} (with default): optionally add rug.}
@@ -103,7 +103,7 @@ The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.2 (2016-05-17 22:39:50)
+ 3.5.2 (2016-05-19 23:46:53)
 }
 \examples{
 

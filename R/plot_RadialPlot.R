@@ -180,7 +180,7 @@
 #'                 xlab = c("Data error (%)",
 #'                          "Data precision"),
 #'                 ylab = "Scatter",
-#'                 zlab = "Equivalent dose (Gy)")
+#'                 zlab = "Equivalent dose [Gy]")
 #'
 #' ## now with minimum, maximum and median value indicated
 #' plot_RadialPlot(data = ExampleData.DeValues,
@@ -591,7 +591,7 @@ if(centrality[1] == "mean") {
   zlab <- if("zlab" %in% names(extraArgs)) {
     extraArgs$zlab
     } else {
-      expression(paste(D[e], " (Gy)"))
+      expression(paste(D[e], " [Gy]"))
     }
 
   if("zlim" %in% names(extraArgs)) {

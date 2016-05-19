@@ -131,7 +131,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.3 (2015-11-29 17:27:48)
+ 0.5.3 (2016-05-19 23:47:38)
 }
 \examples{
 
@@ -189,7 +189,7 @@ plot_RadialPlot(data = ExampleData.DeValues,
                 xlab = c("Data error (\%)",
                          "Data precision"),
                 ylab = "Scatter",
-                zlab = "Equivalent dose (Gy)")
+                zlab = "Equivalent dose [Gy]")
 
 ## now with minimum, maximum and median value indicated
 plot_RadialPlot(data = ExampleData.DeValues,
