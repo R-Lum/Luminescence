@@ -13,7 +13,7 @@ analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
-\code{{character}} or \code{\link{list}} (\bold{required}):
+\code{\link{character}} or \code{\link{list}} (\bold{required}):
 input object used for the Bayesian analysis. If a \code{character} is provided the function
 assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
@@ -29,7 +29,7 @@ well}
 \item{source_doserate}{\code{\link{numeric}} (with default): source dose rate of beta-source used
 for the measuremnt and its uncertainty in Gy/s}
 
-\item{signal.integral}{\code{\link{vector}} (optional): vector with the
+\item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
 limits for the signal integral used for the calculation, e.g., \code{signal.integral = c(1:5)}
 Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.}
 
@@ -77,19 +77,77 @@ includes the recycling point (assumed to be measured during the last cycle)}
 \code{position}, \code{duplicated.rm}), see details.}
 }
 \description{
-This function allows the application of Bayesian models (baSAR) on luminescecence data
+This function allows the application of Bayesian models (baSAR) on luminescecence data based on the
+contribution by Combes et al., 2015. Internally the function consists of two parts: (I) Bayesian core
+for the bayesian calculations and (II) data preparation part. The Bayesian core can be run independently
+and the second part was implemented to simplify the analysis. For the Bayesian analysis for each aliquot
+the following information are needed from the SAR analysis. De and LxTx and dose values for all regeneration points.
 }
 \details{
+\bold{Allowed input data}\cr
+
+Various inputs are allowd for this function. Unfortunately this makes the function handling rather
+complex, but at the same time very powerful. Available scenarios:\cr
+
+\bold{(1) - \code{object} is BIN-file or link to a BIN-file}
+
+Finally it does not matter how the information of the BIN/BINX file are provided. The function
+supports (a) either a path to a file or directory or a \code{list} of file names or paths or (b)
+a \code{\linkS4class{Risoe.BINfileData}} object or a list of this objects. The latter one can
+be produced by using the function \code{\link{read_BIN2R}}, but this function is called automatically
+if only a filename and/or a path is provided. In both cases it will become the data that can be
+used for the analysis.
+
+\code{XLS_file = NULL}\cr
+
+If no XLS file (or data frame with the same format) is provided runs and automatic process that
+consists of the following steps:
+
+\itemize{
+ \item Select all valid aliquots using the function \code{\link{verify_SingleGrainData}}
+ \item Calculate Lx/Tx values using the function \code{\link{calc_OSLLxTxRatio}}
+ \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
+}
+
+This procded data are subsequently used in for the Bayesian analysis
+
+\code{XLS_file != NULL}\cr
+
+If an XLS-file is provided or a \code{data.frame} providing similar information the pre-processing
+steps consists of the following steps:
+
+\itemize{
+ \item Calculate Lx/Tx values using the function \code{\link{calc_OSLLxTxRatio}}
+ \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
+}
+
+Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
+for the further analysis. This allows a manual selection of input data, as the automatic selection
+by \code{\link{verify_SingleGrainData}} might be not totally suffcient.\cr
+
+\bold{(2) - \code{object} \code{RLum.Results object}}
+
+If an \code{\linkS4class{RLum.Results}} object is provided as input and(!) this object was
+previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
+is skipped and the function starts directly the Bayesian analysis. This option is very powerfull
+as it allows to change parameters for the Bayesian analysis without the need to repeat
+the data pre-processing.
+
 \bold{Additional arguments support via the \code{...} argument}\cr
+
+This list summarizes the additional arguments that can be passed to the internally used
+funtions.
 
 \tabular{llll}{
 \bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description}\cr
+\code{threshold} \tab \code{\link{verify_SingleGrainData}} \tab \code{30} \tab change rejection threshold for curve selection \cr
 \code{sheet} \tab \code{\link[readxl]{read_excel}} \tab \code{1} \tab select XLS-sheet for import\cr
 \code{col_names} \tab \code{\link[readxl]{read_excel}} \tab \code{TRUE} \tab first column in XLS-file is header\cr
 \code{col_types} \tab \code{\link[readxl]{read_excel}} \tab \code{NULL} \tab limit import to specific columns\cr
 \code{skip} \tab \code{\link[readxl]{read_excel}} \tab \code{0} \tab number of rows to be skipped during import\cr
 \code{n.records} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit records during BIN-file import\cr
 \code{duplicated.rm} \tab \code{\link{read_BIN2R}} \tab \code{TRUE} \tab remove duplicated records in the BIN-file\cr
+\code{pattern} \tab \code{\link{read_BIN2R}} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
 \code{position} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit import to a specific position\cr
 \code{background.count.distribution} \tab \code{\link{calc_OSLLxTxRatio}} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
 \code{fit.weights} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enable/disable fit weights\cr
@@ -100,10 +158,11 @@ This function allows the application of Bayesian models (baSAR) on luminescecenc
 }
 }
 \note{
-The current version of the function works with standard Risoe BIN-files only!
+\bold{This function has beta status!} and is limited to work with
+standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-18 19:58:26)
+ 0.1.0 (2016-05-19 15:01:35)
 }
 \examples{
 

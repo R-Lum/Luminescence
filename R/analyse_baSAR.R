@@ -1,17 +1,77 @@
 #' Bayesian models (baSAR) applied on luminescence data
 #'
-#' This function allows the application of Bayesian models (baSAR) on luminescecence data
+#' This function allows the application of Bayesian models (baSAR) on luminescecence data based on the
+#' contribution by Combes et al., 2015. Internally the function consists of two parts: (I) Bayesian core
+#' for the bayesian calculations and (II) data preparation part. The Bayesian core can be run independently
+#' and the second part was implemented to simplify the analysis. For the Bayesian analysis for each aliquot
+#' the following information are needed from the SAR analysis. De and LxTx and dose values for all regeneration points.
+#'
+#'
+#' \bold{Allowed input data}\cr
+#'
+#' Various inputs are allowd for this function. Unfortunately this makes the function handling rather
+#' complex, but at the same time very powerful. Available scenarios:\cr
+#'
+#' \bold{(1) - \code{object} is BIN-file or link to a BIN-file}
+#'
+#' Finally it does not matter how the information of the BIN/BINX file are provided. The function
+#' supports (a) either a path to a file or directory or a \code{list} of file names or paths or (b)
+#' a \code{\linkS4class{Risoe.BINfileData}} object or a list of this objects. The latter one can
+#' be produced by using the function \code{\link{read_BIN2R}}, but this function is called automatically
+#' if only a filename and/or a path is provided. In both cases it will become the data that can be
+#' used for the analysis.
+#'
+#' \code{XLS_file = NULL}\cr
+#'
+#' If no XLS file (or data frame with the same format) is provided runs and automatic process that
+#' consists of the following steps:
+#'
+#' \itemize{
+#'  \item Select all valid aliquots using the function \code{\link{verify_SingleGrainData}}
+#'  \item Calculate Lx/Tx values using the function \code{\link{calc_OSLLxTxRatio}}
+#'  \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
+#' }
+#'
+#' This procded data are subsequently used in for the Bayesian analysis
+#'
+#' \code{XLS_file != NULL}\cr
+#'
+#' If an XLS-file is provided or a \code{data.frame} providing similar information the pre-processing
+#' steps consists of the following steps:
+#'
+#' \itemize{
+#'  \item Calculate Lx/Tx values using the function \code{\link{calc_OSLLxTxRatio}}
+#'  \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
+#' }
+#'
+#' Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
+#' for the further analysis. This allows a manual selection of input data, as the automatic selection
+#' by \code{\link{verify_SingleGrainData}} might be not totally suffcient.\cr
+#'
+#'
+#' \bold{(2) - \code{object} \code{RLum.Results object}}
+#'
+#' If an \code{\linkS4class{RLum.Results}} object is provided as input and(!) this object was
+#' previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
+#' is skipped and the function starts directly the Bayesian analysis. This option is very powerfull
+#' as it allows to change parameters for the Bayesian analysis without the need to repeat
+#' the data pre-processing.
 #'
 #' \bold{Additional arguments support via the \code{...} argument}\cr
 #'
+#' This list summarizes the additional arguments that can be passed to the internally used
+#' funtions.
+#'
 #' \tabular{llll}{
 #' \bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description}\cr
+#' \code{threshold} \tab \code{\link{verify_SingleGrainData}} \tab \code{30} \tab change rejection threshold for curve selection \cr
 #' \code{sheet} \tab \code{\link[readxl]{read_excel}} \tab \code{1} \tab select XLS-sheet for import\cr
 #' \code{col_names} \tab \code{\link[readxl]{read_excel}} \tab \code{TRUE} \tab first column in XLS-file is header\cr
 #' \code{col_types} \tab \code{\link[readxl]{read_excel}} \tab \code{NULL} \tab limit import to specific columns\cr
 #' \code{skip} \tab \code{\link[readxl]{read_excel}} \tab \code{0} \tab number of rows to be skipped during import\cr
 #' \code{n.records} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit records during BIN-file import\cr
 #' \code{duplicated.rm} \tab \code{\link{read_BIN2R}} \tab \code{TRUE} \tab remove duplicated records in the BIN-file\cr
+#' \code{pattern} \tab \code{\link{read_BIN2R}} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
 #' \code{position} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit import to a specific position\cr
 #' \code{background.count.distribution} \tab \code{\link{calc_OSLLxTxRatio}} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
 #' \code{fit.weights} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enable/disable fit weights\cr
@@ -24,7 +84,7 @@
 #'
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
-#' \code{{character}} or \code{\link{list}} (\bold{required}):
+#' \code{\link{character}} or \code{\link{list}} (\bold{required}):
 #' input object used for the Bayesian analysis. If a \code{character} is provided the function
 #' assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 #' provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
@@ -40,7 +100,7 @@
 #' @param source_doserate \code{\link{numeric}} (with default): source dose rate of beta-source used
 #' for the measuremnt and its uncertainty in Gy/s
 #'
-#' @param signal.integral \code{\link{vector}} (optional): vector with the
+#' @param signal.integral \code{\link{vector}} (\bold{required}): vector with the
 #' limits for the signal integral used for the calculation, e.g., \code{signal.integral = c(1:5)}
 #' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
 #'
@@ -104,7 +164,9 @@
 #' A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 #' Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 #'
-#' @note The current version of the function works with standard Risoe BIN-files only!
+#' @note \bold{This function has beta status!} and is limited to work with
+#' standard Risoe BIN-files only!
+#'
 #'
 #' @keywords datagen
 #'
@@ -137,10 +199,6 @@ analyse_baSAR <- function(
 
 
   ##TODO :
-  ##
-  ## - argument description should be changed, as the copy and past from calc_OSLLxTxRatio()
-  ## makes not really sense ...
-  ## - add ... support for more functions used to get the user the maximum of control
   ## - data.frame as input is still untested
 
   ##////////////////////////////////////////////////////////////////////////////////////////////////
@@ -285,6 +343,7 @@ analyse_baSAR <- function(
       )
 
       if(verbose){
+        cat("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
         cat("[analyse_baSAR()] Bayesian analysis in progress ... ")
       }
 
@@ -292,7 +351,7 @@ analyse_baSAR <- function(
 
       if (distribution == "cauchy") {
 
-        if(verbose){cat("\n[analyse_baSAR()] Calculation assuming a Cauchy distribution:\n")}
+        if(verbose){message(".. >> calculation will be done assuming a Cauchy distribution\n")}
         distribution <-  "Cauchy distribution"
         jagsfit <- rjags::jags.model(
           textConnection(baSARc_model.bug),
@@ -303,7 +362,7 @@ analyse_baSAR <- function(
          )
 
       }else if (distribution == "normal") {
-        if(verbose){cat("\n[analyse_baSAR()] Calculation assuming a Normal distribution:\n")}
+        if(verbose){message(".. >> calculation will be done assuming a Normal distribution\n")}
         distribution <-  "Normal distribution"
         jagsfit <- rjags::jags.model(
           textConnection(baSARn_model.bug),
@@ -314,7 +373,7 @@ analyse_baSAR <- function(
           )
 
       }else if (distribution == "log_normal") {
-        if(verbose){cat("\n[analyse_baSAR()] Calculation assuming a Log-Normal distribution:\n")}
+        if(verbose){message(".. >> calculation will be done assuming a Log-Normal distribution")}
         distribution <-  "Log-Normal distribution"
         jagsfit <- rjags::jags.model(
           textConnection(baSARl_model.bug),
@@ -410,8 +469,6 @@ analyse_baSAR <- function(
   ##END
   ##////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
   # Integrity tests -----------------------------------------------------------------------------
 
   ##check whether rjags is available
@@ -424,6 +481,9 @@ analyse_baSAR <- function(
 
   #capture additional piped arguments
   additional_arguments <- list(
+
+    ##verify_SingleGrainData
+    threshold = 30,
 
     ##calc_OSLLxTxRatio()
     background.count.distribution = "non-poisson",
@@ -438,6 +498,7 @@ analyse_baSAR <- function(
     n.records = NULL,
     duplicated.rm = TRUE,
     position = NULL,
+    pattern = NULL,
 
     ##plot_GrowthCurve()
     fit.weights = TRUE,
@@ -487,7 +548,6 @@ analyse_baSAR <- function(
 
      }
 
-     ##check whether this makes sense at all TODO
      ##set variables
      ##Why is.null() ... it prevents that the function crashed is nothing is provided ...
 
@@ -573,6 +633,7 @@ analyse_baSAR <- function(
             position = additional_arguments$position,
             duplicated.rm = additional_arguments$duplicated.rm,
             n.records = additional_arguments$n.records,
+            pattern = additional_arguments$pattern,
             verbose = verbose
           )
         } else{
@@ -706,7 +767,7 @@ analyse_baSAR <- function(
         verify_SingleGrainData(
           object = fileBIN.list[[k]],
           cleanup_level = "aliquot",
-          threshold = 30,
+          threshold = additional_arguments$threshold,
           cleanup = FALSE
         )
 
@@ -736,68 +797,59 @@ analyse_baSAR <- function(
     rm(k)
 
 
-  }else if(is(XLS_file, "data.frame")){
+  } else if (is(XLS_file, "data.frame") || is(XLS_file, "character")) {
 
-    Nb_ali <-  0
-    datalu <- XLS_file
+    ##load file if we have an XLS file
+    if (is(XLS_file, "character")) {
 
-    for (nn in 1:length((datalu[,1]))) {
-      if ( is.na(datalu[nn,1]) == FALSE)  {
+      ##test for valid file
+      if(!file.exists(XLS_file)){
+        stop("[analyse_baSAR()] defined XLS_file does not exists!")
 
-        if ( length(intersect ((datalu[nn,1]), object)) == 1) {
-
-          k <- which(datalu[nn,1] == object)
-          nj <-  length(Disc[[k]]) + 1
-          Disc[[k]][nj] <-  as.numeric(datalu[nn,2])
-          Grain[[k]][nj] <-  as.numeric(datalu[nn,3])
-          Nb_ali <-  Nb_ali + 1
-          if (is.na(Grain[[k]][nj]) == TRUE) {Mono_grain =  FALSE}
-
-        }else{
-          stop(paste0(" '",(datalu[nn,1]), "' not known or not loaded."))
-        }
-
-      }else{
-        break
-        if (Nb_ali == 0) {  stop("[analyse_baSAR()] Nb. discs/grains  = 0 !") }
       }
+
+      ##import Excel sheet
+      datalu <- readxl::read_excel(
+        path = XLS_file,
+        sheet = additional_arguments$sheet,
+        col_names = additional_arguments$col_names,
+        col_types = additional_arguments$col_types,
+        skip = additional_arguments$skip
+      )
+
+      ##get rid of empty rows if the BIN_FILE name column is empty
+      datalu <- datalu[!is.na(datalu[[1]]), ]
+
+
+    } else{
+      datalu <- XLS_file
+
     }
-
-
-
-  }else if(is(XLS_file, "character")){
-
-    Nb_ali <-  0
-
-    ##import Excel sheet
-    datalu <- readxl::read_excel(
-      path = XLS_file,
-      sheet = additional_arguments$sheet,
-      col_names = additional_arguments$col_names,
-      col_types = additional_arguments$col_types,
-      skip = additional_arguments$skip
-    )
-
-    ##get rid of empty rows if the BIN_FILE name column is empty
-    datalu <- datalu[!is.na(datalu[[1]]),]
 
     ##limit aliquot range
-    if(!is.null(aliquot_range)){
-      datalu <- datalu[aliquot_range, ]
+    if (!is.null(aliquot_range)) {
+      datalu <- datalu[aliquot_range,]
 
     }
 
-    for (nn in 1:length((datalu[,1]))) {
+    Nb_ali <-  0
 
-      if (!is.na(datalu[nn,1]))  {
-
+    for (nn in 1:length((datalu[, 1]))) {
+      if (!is.na(datalu[nn, 1]))  {
         if (any(grepl(
-              pattern = strsplit(x = basename(datalu[nn, 1]),split = ".", fixed = TRUE)[[1]][1],
-              x = unlist(object.file_name)))) {
-
-          k <- grep(
-            pattern = strsplit(x = basename(datalu[nn, 1]), split = ".", fixed = TRUE)[[1]][1],
-            x = object.file_name)
+          pattern = strsplit(
+            x = basename(datalu[nn, 1]),
+            split = ".",
+            fixed = TRUE
+          )[[1]][1],
+          x = unlist(object.file_name)
+        ))) {
+          k <- grep(pattern = strsplit(
+            x = basename(datalu[nn, 1]),
+            split = ".",
+            fixed = TRUE
+          )[[1]][1],
+          x = object.file_name)
 
           nj <-  length(Disc[[k]]) + 1
           Disc[[k]][nj] <-  as.numeric(datalu[nn, 2])
@@ -808,19 +860,27 @@ analyse_baSAR <- function(
           }
 
         } else{
-          warning(paste0("[analyse_baSAR] '", (datalu[nn, 1]), "' not recognized or not loaded; skipped!"),
-                  call. = FALSE)
+          warning(
+            paste0(
+              "[analyse_baSAR] '",
+              (datalu[nn, 1]),
+              "' not recognized or not loaded; skipped!"
+            ),
+            call. = FALSE
+          )
         }
 
-      }else{
-             break
-             if (Nb_ali == 0) {  stop("[analyse_baSAR()] Nb. discs/grains  = 0 !") }
+      } else{
+        break
+        if (Nb_ali == 0) {
+          stop("[analyse_baSAR()] Nb. discs/grains  = 0 !")
+        }
       }
     }
 
-    }else{
-      stop("[analyse_baSAR()] input type for 'XLS_file' not supported!")
-    }
+  } else{
+    stop("[analyse_baSAR()] input type for 'XLS_file' not supported!")
+  }
 
 
   ###################################### loops on files_number
@@ -848,7 +908,7 @@ analyse_baSAR <- function(
 
   if(verbose){
     cat("\n[analyse_baSAR()] Preliminary analysis in progress ... ")
-    cat("\n[analyse_baSAR()] Hang on, this may take a long time ... \n\n")
+    cat("\n[analyse_baSAR()] Hang on, this may take a long time ... \n")
   }
 
 
@@ -1169,6 +1229,7 @@ analyse_baSAR <- function(
   results[[1]] <- cbind(results[[1]], DE_FINAL = results[[1]][["CENTRAL"]], DE_FINAL.ERROR = DE_FINAL.ERROR)
 
   if(verbose){
+    cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
     cat("\n[analyse_baSAR()] - RESULTS\n")
     cat("---------------------------------------------------------------\n")
     cat(paste0("Used distribution:\t\t\t", results[[1]][["DISTRIBUTION"]],"\n"))

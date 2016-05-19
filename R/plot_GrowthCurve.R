@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.9
+#' @section Function version: 1.8.10
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -449,13 +449,9 @@ plot_GrowthCurve <- function(
 
     # +++++++++++++++++++++++++++++++++++++++++
 
-    ##terminal output fo MC
-    if(verbose){
-      cat("\n\t Run Monte Carlo loops for error estimation of the QDR fit\n")
-    }
-
     ##set progressbar
     if(txtProgressBar){
+      cat("\n\t Run Monte Carlo loops for error estimation of the QDR fit\n")
       pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
     }
 
@@ -900,13 +896,9 @@ plot_GrowthCurve <- function(
       var.c <- vector(mode="numeric", length=NumberIterations.MC)
       var.g <- vector(mode="numeric", length=NumberIterations.MC)
 
-      ##terminal output fo MC
-      if(verbose){
-        cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
-      }
-
       ##set progressbar
       if(txtProgressBar){
+        cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
         pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
       }
 
@@ -1107,13 +1099,9 @@ plot_GrowthCurve <- function(
       var.a1<-vector(mode="numeric", length=NumberIterations.MC)
       var.a2<-vector(mode="numeric", length=NumberIterations.MC)
 
-      ##terminal output fo MC
-      if(verbose){
-        cat("\n\t Run Monte Carlo loops for error estimation of the EXP+EXP fit\n")
-      }
-
       ##progress bar
       if(txtProgressBar){
+        cat("\n\t Run Monte Carlo loops for error estimation of the EXP+EXP fit\n")
         pb<-txtProgressBar(min=0,max=NumberIterations.MC, initial=0, char="=", style=3)
       }
 
