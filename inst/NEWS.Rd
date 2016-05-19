@@ -370,7 +370,9 @@
         objects,
         \item if the argument \code{pos} or \code{grain} contains invalid entries the function will
         not longer return an error. The invalid values are discarded and the function
-        tries to import values for valid positions or grains only.
+        tries to import values for valid positions or grains only,
+        \item the function gained the new argument \code{dtype} to further limit the converted
+        data types during the conversion (#269)
       }
 
    }

@@ -434,7 +434,11 @@ Changes in version 0.6.0 (May 27th ,2016):
              • if the argument ‘pos’ or ‘grain’ contains invalid
                entries the function will not longer return an error.
                The invalid values are discarded and the function tries
-               to import values for valid positions or grains only.
+               to import values for valid positions or grains only,
+
+             • the function gained the new argument ‘dtype’ to further
+               limit the converted data types during the conversion
+               (#269)
 
   Internals:
 

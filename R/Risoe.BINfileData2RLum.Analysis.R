@@ -32,8 +32,11 @@
 #' c(1:48)}).
 #'
 #' @param ltype \code{\link{vector}, \link{character}} (optional): curve type
-#' to limit the converted data. Allowed values are: \code{IRSL}, \code{OSL},
-#' \code{TL}, \code{RIR}, \code{RBR} and \code{USER}
+#' to limit the converted data. Commonly allowed values are: \code{IRSL}, \code{OSL},
+#' \code{TL}, \code{RIR}, \code{RBR} and \code{USER} (see also \code{\linkS4class{Risoe.BINfileData}})
+#'
+#' @param dtype \code{\link{vector}, \link{character}} (optional): data type to
+#' limit the converted data. Commonly allowed values are listed in \code{\linkS4class{Risoe.BINfileData}}
 #'
 #' @param protocol \code{\link{character}} (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
@@ -46,7 +49,7 @@
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -72,6 +75,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
   run = NULL,
   set = NULL,
   ltype = NULL,
+  dtype = NULL,
   protocol = "unknown",
   txtProgressBar = FALSE
 ){
@@ -191,6 +195,30 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
     }
 
+    ##dtype
+    if (is.null(dtype)) {
+      dtype <- unique(object@METADATA[["DTYPE"]])
+    } else{
+      if (TRUE %in% unique(unique(object@METADATA[, "DTYPE"]) %in% dtype) != TRUE) {
+        ##get and check valid positions
+        dtype.valid <-
+          paste(as.character(unique(object@METADATA[, "DTYPE"])), collapse = ", ")
+
+        stop(
+          paste(
+            "[Risoe.BINfileData2RLum.Analysis] dtype = ",
+            dtype,
+            " contain invalid dtype(s).
+            Valid dtypes are: ",
+            dtype.valid,
+            sep = ""
+          )
+        )
+
+      }
+
+    }
+
 
     # Select values and convert them-----------------------------------------------------------
 
@@ -236,7 +264,8 @@ Risoe.BINfileData2RLum.Analysis<- function(
             object@METADATA[["POSITION"]] == pos &
               object@METADATA[["RUN"]] %in% run &
               object@METADATA[["SET"]] %in% set &
-              object@METADATA[["LTYPE"]] %in% ltype
+              object@METADATA[["LTYPE"]] %in% ltype &
+              object@METADATA[["DTYPE"]] %in% dtype
             , "ID"]
 
 
@@ -246,7 +275,8 @@ Risoe.BINfileData2RLum.Analysis<- function(
               object@METADATA[["GRAIN"]] == grain &
               object@METADATA[["RUN"]] %in% run &
               object@METADATA[["SET"]] %in% set &
-              object@METADATA[["LTYPE"]] %in% ltype
+              object@METADATA[["LTYPE"]] %in% ltype &
+              object@METADATA[["DTYPE"]] %in% dtype
             , "ID"]
 
 
