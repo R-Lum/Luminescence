@@ -406,7 +406,10 @@ Changes in version 0.6.0 (May 20th ,2016):
                all information is returned,
 
              • support more arguments in the function self-call mode
-               (argument ‘file’ is of type ‘list’).
+               (argument ‘file’ is of type ‘list’),
+
+             • function gained the new argument ‘pattern’, which can be
+               used to filter imported BIN-files by name.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 

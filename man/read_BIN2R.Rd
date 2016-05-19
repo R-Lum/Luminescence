@@ -7,7 +7,7 @@
 read_BIN2R(file, show.raw.values = FALSE, position = NULL,
   n.records = NULL, duplicated.rm = FALSE, fastForward = FALSE,
   show.record.number = FALSE, txtProgressBar = TRUE,
-  forced.VersionNumber = NULL, verbose = TRUE, ...)
+  forced.VersionNumber = NULL, pattern = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
@@ -42,10 +42,14 @@ of the imported record, for debugging usage only. Can be provided as \code{list}
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
 \code{\link{txtProgressBar}}.}
 
-\item{forced.VersionNumber}{\link{integer} (optional): allows to cheat the
+\item{forced.VersionNumber}{\code{\link{integer}} (optional): allows to cheat the
 version number check in the function by own values for cases where the
 BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
 Note: The usage is at own risk, only supported BIN-file versions have been tested.}
+
+\item{pattern}{\code{\link{character}} (optional): argument that is used if only a path is provided.
+The argument will than be passed to the function \code{\link{list.files}} used internally to
+construct a \code{list} of wanted files}
 
 \item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
 
@@ -80,7 +84,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested properly so far.}.
 }
 \section{Function version}{
- 0.12.8 (2016-05-17 22:39:50)
+ 0.13.0 (2016-05-19 12:22:02)
 }
 \examples{
 
@@ -103,7 +107,7 @@ Duller, G., 2007. Analyst.
 \seealso{
 \code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
 \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
-\code{\link[utils]{txtProgressBar}}
+\code{\link[utils]{txtProgressBar}}, \code{\link{list.files}}
 }
 \keyword{IO}
 

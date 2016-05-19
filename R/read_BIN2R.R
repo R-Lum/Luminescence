@@ -40,10 +40,14 @@
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
 #'
-#' @param forced.VersionNumber \link{integer} (optional): allows to cheat the
+#' @param forced.VersionNumber \code{\link{integer}} (optional): allows to cheat the
 #' version number check in the function by own values for cases where the
 #' BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
 #' Note: The usage is at own risk, only supported BIN-file versions have been tested.
+#'
+#' @param pattern \code{\link{character}} (optional): argument that is used if only a path is provided.
+#' The argument will than be passed to the function \code{\link{list.files}} used internally to
+#' construct a \code{list} of wanted files
 #'
 #' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
 #'
@@ -67,7 +71,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.12.8
+#' @section Function version: 0.13.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -76,7 +80,7 @@
 #'
 #' @seealso \code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
 #' \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
-#' \code{\link[utils]{txtProgressBar}}
+#' \code{\link[utils]{txtProgressBar}}, \code{\link{list.files}}
 #'
 #'
 #' @references Duller, G., 2007. Analyst.
@@ -106,6 +110,7 @@ read_BIN2R <- function(
   show.record.number = FALSE,
   txtProgressBar = TRUE,
   forced.VersionNumber = NULL,
+  pattern = NULL,
   verbose = TRUE,
   ...
 ){
@@ -116,27 +121,37 @@ read_BIN2R <- function(
   # Option (b): The input is just a path, the function tries to grep ALL BIN/BINX files in the
   # directory and import them, if this is detected, we proceed as list
 
-  if(is(file, "character")) {
-
-    ##If this is not really a path we skip this here
-    if (dir.exists(file) & length(dir(file)) > 0) {
-      if(verbose){
-        cat("[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n")
-      }
-      file <-
-        as.list(c(
-          paste0(file,dir(
-            file, recursive = FALSE, pattern = ".bin"
-          )),
-          paste0(file,dir(
-            file, recursive = FALSE, pattern = ".binx"
-          )),
-          paste0(file,dir(
-            file, recursive = FALSE, pattern = ".BIN"
-          )),  paste0(file,dir(
-            file, recursive = FALSE, pattern = ".BINX"
+  if (is(file, "character")) {
+    if (is.null(pattern)) {
+      ##If this is not really a path we skip this here
+      if (dir.exists(file) & length(dir(file)) > 0) {
+        if (verbose) {
+          cat(
+            "[read_BIN2R()] Directory detected, trying to extract '*.bin'/'*.binx' files ...\n"
+          )
+        }
+        file <-
+          as.list(c(
+            paste0(file, dir(
+              file, recursive = FALSE, pattern = ".bin"
+            )),
+            paste0(file, dir(
+              file, recursive = FALSE, pattern = ".binx"
+            )),
+            paste0(file, dir(
+              file, recursive = FALSE, pattern = ".BIN"
+            )),
+            paste0(file, dir(
+              file, recursive = FALSE, pattern = ".BINX"
+            ))
           ))
-        ))
+
+      }
+
+
+    }else{
+      file <- as.list(list.files(file, pattern = pattern, full.names = TRUE, recursive = TRUE))
+
 
     }
 

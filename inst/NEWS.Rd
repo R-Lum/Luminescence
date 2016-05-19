@@ -350,7 +350,8 @@
           \item Behaviour while using the option \code{import = TRUE} and \code{fastForward = TRUE}
           have been improved. If both arguments are combined now only a single data frame with all information
           is returned,
-          \item support more arguments in the function self-call mode (argument \code{file} is of type \code{list}).
+          \item support more arguments in the function self-call mode (argument \code{file} is of type \code{list}),
+          \item function gained the new argument \code{pattern}, which can be used to filter imported BIN-files by name.
 
       }
 
