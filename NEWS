@@ -159,7 +159,10 @@ Changes in version 0.6.0 (May 20th ,2016):
              • argument ‘sequence.structure’ renamed to
                ‘sequence_structure’,
 
-             • support further plot arguments via ‘...’.
+             • support further plot arguments via ‘...’,
+
+             • ‘method.control = list(trace = TRUE)’ now shows the
+               control graph as expected for the method ‘SLIDE’.
 
          • ‘analyse_SAR.CWOSL()’
 

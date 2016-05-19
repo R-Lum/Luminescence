@@ -1820,20 +1820,21 @@ analyse_IRSAR.RF<- function(
         )
 
 
-        ##TODO- CONTROL PLOT! ... can be implemented appropriate form in a later version
+        ##TODO- CONTROL PLOT! ... can be implemented in appropriate form in a later version
         if (method.control.settings$trace) {
           par(new = TRUE)
           plot(
-            1:length(slide$squared_residuals),
+            RF_reg.limited[1:length(slide$squared_residuals),1],
             slide$squared_residuals,
             ylab = "",
             type = "l",
             xlab = "",
             xaxt = plot.settings$xaxt,
             axes = FALSE,
+            xlim = xlim,
             log = "y"
           )
-          #rug((which(RF_reg.limited[,1]%in%slide$De.MC)))
+
 
         }
 
@@ -1909,3 +1910,4 @@ analyse_IRSAR.RF<- function(
   invisible(newRLumResults.analyse_IRSAR.RF)
 
 }
+

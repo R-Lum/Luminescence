@@ -125,7 +125,9 @@
         \item internal parameter added that allows to show the applied fit, while using \code{method = "SLIDE"},
         \item add argument \code{plot_reduced} for a better plot control,
         \item argument \code{sequence.structure} renamed to \code{sequence_structure},
-        \item support further plot arguments via \code{...}.
+        \item support further plot arguments via \code{...},
+        \item \code{method.control = list(trace = TRUE)} now shows the control graph as expected for the method
+        \code{SLIDE}.
 
       }
 
