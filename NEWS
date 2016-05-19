@@ -468,3 +468,6 @@ Changes in version 0.6.0 (May 27th ,2016):
          • New S3 generic ‘bin’ implemented, this method dispatches to
            the S4 method ‘bin_RLum.Data’ for the ‘RLum.Data’ objects.
 
+         • Add S3 generics to support all combinations for the function
+           ‘is’, e.g., ‘is.RLum.Data.Curve’.
+

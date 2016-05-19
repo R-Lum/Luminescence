@@ -404,6 +404,9 @@
         \item New S3 generic \code{bin} implemented, this method dispatches to the S4 method
         \code{bin_RLum.Data} for the \code{RLum.Data} objects.
 
+        \item Add S3 generics to support all combinations for the function \code{is}, e.g.,
+        \code{is.RLum.Data.Curve}.
+
 
 
      }

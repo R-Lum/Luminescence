@@ -29,6 +29,13 @@
 \alias{hist.RLum.Data.Curve}
 \alias{hist.RLum.Data.Image}
 \alias{hist.RLum.Results}
+\alias{is.RLum}
+\alias{is.RLum.Analysis}
+\alias{is.RLum.Data}
+\alias{is.RLum.Data.Curve}
+\alias{is.RLum.Data.Image}
+\alias{is.RLum.Data.Spectrum}
+\alias{is.RLum.Results}
 \alias{length.RLum.Analysis}
 \alias{length.RLum.Data.Curve}
 \alias{length.RLum.Results}
@@ -129,6 +136,20 @@ bin.RLum.Data.Curve(x, ...)
 \method{as.matrix}{RLum.Data.Curve}(x, ...)
 
 \method{as.matrix}{RLum.Data.Spectrum}(x, ...)
+
+is.RLum(x, ...)
+
+is.RLum.Data(x, ...)
+
+is.RLum.Data.Curve(x, ...)
+
+is.RLum.Data.Spectrum(x, ...)
+
+is.RLum.Data.Image(x, ...)
+
+is.RLum.Analysis(x, ...)
+
+is.RLum.Results(x, ...)
 
 \method{merge}{RLum}(x, y, ...)
 
