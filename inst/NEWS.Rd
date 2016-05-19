@@ -261,7 +261,8 @@
         under all circumstances; corrected,
         \item under rather rare circumstances the function became trapped in an endless mode as the
         function \code{nls} is trapped in such mode if only two points are provided. The minimum
-        of required data points for \code{EXP} was set to three.
+        of required data points for \code{EXP} was set to three,
+        \item homogenise terminal output.
 
       }
 

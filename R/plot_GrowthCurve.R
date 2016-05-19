@@ -134,7 +134,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.10
+#' @section Function version: 1.8.11
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -438,7 +438,9 @@ plot_GrowthCurve <- function(
 
     if(!inherits(De.uniroot, "try-error")){
       De <- round(De.uniroot$root, digits = 2)
-      if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> De = ", De))
+      if(verbose){
+        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De))
+      }
 
     }else{
       if(verbose) writeLines("[plot_GrowthCurve()] >> no solution found for QDR fit")
@@ -621,7 +623,9 @@ plot_GrowthCurve <- function(
 
         #print D01 value
         D01<-round(b,digits=2)
-        if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> D01 = ",D01, " | De = ", De))
+        if(verbose){
+          writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method," | De = ", De, " | D01 = ",D01))
+        }
 
 
         ##Monte Carlo Simulation
@@ -722,6 +726,10 @@ plot_GrowthCurve <- function(
 
       ##remove vector labels
       De <- as.numeric(as.character(De))
+
+      if(verbose){
+        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De))
+      }
 
 
       #start loop for Monte Carlo Error estimation
@@ -884,7 +892,10 @@ plot_GrowthCurve <- function(
       }
 
 
-      if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> De = ", De))
+      if(verbose){
+        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De))
+      }
+
 
       ##Monte Carlo Simulation for error estimation
       #	--Fit many curves and calculate a new De +/- De_Error
@@ -1084,7 +1095,7 @@ plot_GrowthCurve <- function(
 
       #print D0 and De value values
       if(verbose){
-        writeLines(paste0("\n [plot_GrowthCurve()] >> D01 = ",D01, " | D02 = ",D02, " | De = ", De))
+        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De, "| D01 = ",D01, " | D02 = ",D02))
       }
 
 

@@ -305,7 +305,9 @@ Changes in version 0.6.0 (May 20th ,2016):
                trapped in an endless mode as the function ‘nls’ is
                trapped in such mode if only two points are provided.
                The minimum of required data points for ‘EXP’ was set to
-               three.
+               three,
+
+             • homogenise terminal output.
 
          • ‘plot_Histogram()’
 
