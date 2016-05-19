@@ -38,7 +38,7 @@ License: GPL-3
 Depends:
     R (>= 3.3.0),
     utils
-LinkingTo: Rcpp,
+LinkingTo: Rcpp (>= 0.12.5),
     RcppArmadillo (>= 0.6.700.6.0)
 Imports:
     bbmle (>= 1.0.18),
