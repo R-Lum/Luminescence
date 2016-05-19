@@ -416,9 +416,9 @@ analyse_baSAR <- function(
         progress.bar = if(verbose){"text"}else{NULL}
       )
 
-
       ##CHECK FOR RJAGS
       if(verbose){print(summary(sampling)[[1]])}
+
       if(plot){
 
         if(plot_reduced){
@@ -433,21 +433,32 @@ analyse_baSAR <- function(
       ###############  Screen output
       pt_zero <- 0
       nb_decal <-  2
-      if ( nb_decal != length(summary(sampling)[[1]])/4 ) {
-        histo_points <-  summary(sampling)[[1]] [1:((length(summary(sampling)[[1]])/4)-nb_decal), 1]
-
-        plot_ViolinPlot(
-          histo_points,
-          main = paste("Distribution sample :" , XLS_file),
-          xlab = "Dose [Gy]")
-        pt_zero <- Nb_aliquots
-      }
+      pt_zero <- Nb_aliquots
       output.mean <- vector("numeric")
 
       output.mean[1] <-  round(summary(sampling)[[1]][(pt_zero+1)], 2)
       output.mean[2] <- round(summary(sampling)[[1]][(2*pt_zero+3)], 2)
       output.mean[3] <-  round(summary(sampling)[[1]][(pt_zero+2)], 2)
       output.mean[4] <- round(summary(sampling)[[1]][(2*pt_zero+4)], 2)
+
+
+      ##show Abanico Plot
+      if(plot){
+        df <- as.data.frame(summary(sampling)[[1]])
+        plot_AbanicoPlot(
+          data = df[-c(nrow(df),nrow(df)-1),1:2],
+          z.0 = output.mean[1],
+          summary = c("n"),
+          summary.pos = "topleft",
+          zlab = expression(paste(D[e], " [a.u.]")),
+          mtext = paste("Central dose: ", output.mean[1], "\u00b1", output.mean[2])
+          )
+
+        rm(df)
+
+      }
+
+
 
       #### output data.frame with results
       baSAR.output <- data.frame(
@@ -1249,6 +1260,12 @@ analyse_baSAR <- function(
 
   ##add error from the source_doserate
   DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + source_doserate[[1]][2]^2)
+
+  ##consider the case that we get NA and this might be confusing
+  if(is.na(DE_FINAL.ERROR)){
+    DE_FINAL.ERROR <- results[[1]][["CENTRAL.SD"]]
+
+  }
 
   ##combine
   results[[1]] <- cbind(results[[1]], DE_FINAL = results[[1]][["CENTRAL"]], DE_FINAL.ERROR = DE_FINAL.ERROR)
