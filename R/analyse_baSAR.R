@@ -812,7 +812,6 @@ analyse_baSAR <- function(
 
     ##load file if we have an XLS file
     if (is(XLS_file, "character")) {
-
       ##test for valid file
       if(!file.exists(XLS_file)){
         stop("[analyse_baSAR()] defined XLS_file does not exists!")
@@ -844,9 +843,12 @@ analyse_baSAR <- function(
     }
 
     Nb_ali <-  0
+    k <- NULL
 
     for (nn in 1:length((datalu[, 1]))) {
       if (!is.na(datalu[nn, 1]))  {
+
+        ##check wether one file fits
         if (any(grepl(
           pattern = strsplit(
             x = basename(datalu[nn, 1]),
@@ -855,6 +857,7 @@ analyse_baSAR <- function(
           )[[1]][1],
           x = unlist(object.file_name)
         ))) {
+
           k <- grep(pattern = strsplit(
             x = basename(datalu[nn, 1]),
             split = ".",
@@ -870,23 +873,28 @@ analyse_baSAR <- function(
             Mono_grain <- FALSE
           }
 
-        } else{
+        }else{
           warning(
-            paste0(
-              "[analyse_baSAR] '",
-              (datalu[nn, 1]),
-              "' not recognized or not loaded; skipped!"
-            ),
+            paste0("[analyse_baSAR] '", (datalu[nn, 1]), "' not recognized or not loaded; skipped!"),
             call. = FALSE
           )
         }
 
+
       } else{
         break
+
         if (Nb_ali == 0) {
           stop("[analyse_baSAR()] Nb. discs/grains  = 0 !")
         }
       }
+    }
+
+    ##if k is NULL it means it was not set so far, so there was
+    ##no corresponding BIN file found
+    if(is.null(k)){
+      stop("[analyse_baSAR()] BIN-file names in XLS-file do not fit to the loaded BIN-files!")
+
     }
 
   } else{
