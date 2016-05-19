@@ -869,7 +869,7 @@ analyse_baSAR <- function(
           Disc[[k]][nj] <-  as.numeric(datalu[nn, 2])
           Grain[[k]][nj] <-  as.numeric(datalu[nn, 3])
           Nb_ali <-  Nb_ali + 1
-          if (is.na(Grain[[k]][nj])) {
+          if (is.na(Grain[[k]][nj]) || Grain[[k]][nj] == 0) {
             Mono_grain <- FALSE
           }
 
@@ -882,11 +882,12 @@ analyse_baSAR <- function(
 
 
       } else{
-        break
 
         if (Nb_ali == 0) {
           stop("[analyse_baSAR()] Nb. discs/grains  = 0 !")
         }
+
+        break()
       }
     }
 
@@ -915,8 +916,12 @@ analyse_baSAR <- function(
 
     for (d in 1:n_aliquots_k) {
       dd <-  as.integer(unlist(Disc[[k]][d]))
-      if (Mono_grain == FALSE) {gg <-  1}
-      if (Mono_grain == TRUE)  {gg <-  as.integer(unlist(Grain[[k]][d]))}
+      if (Mono_grain == FALSE) {
+        gg <- 1
+      }
+      if (Mono_grain == TRUE)  {
+        gg <-  as.integer(unlist(Grain[[k]][d]))}
+
         Disc_Grain.list[[k]][[dd]][[gg]] <- list()  # data.file number ,  disc_number, grain_number
         for (z in 1:6) {
           Disc_Grain.list[[k]][[dd]][[gg]][[z]] <- list()
