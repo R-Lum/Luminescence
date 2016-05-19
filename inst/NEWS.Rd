@@ -353,7 +353,9 @@
           have been improved. If both arguments are combined now only a single data frame with all information
           is returned,
           \item support more arguments in the function self-call mode (argument \code{file} is of type \code{list}),
-          \item function gained the new argument \code{pattern}, which can be used to filter imported BIN-files by name.
+          \item function gained the new argument \code{pattern}, which can be used to filter imported BIN-files by name,
+          \item if the field \code{FNAME} is totally empty in the BIN-file the function files this field with the
+          name of the BIN-file itself. This can be rather useful in particular cases.
 
       }
 

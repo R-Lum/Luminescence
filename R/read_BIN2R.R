@@ -71,7 +71,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.13.0
+#' @section Function version: 0.13.1
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -1321,6 +1321,14 @@ read_BIN2R <- function(
         format(strptime(as.character(object@METADATA[["TIME"]]), "%H%M%S"), "%H:%M:%S")
 
     }
+
+  }
+
+  ## check for empty BIN-files names ... if so, set the name of the file as BIN-file name
+  ## This can happen if the user uses different equipment
+  if(all(is.na(object@METADATA[["FNAME"]]))){
+    object@METADATA[["FNAME"]] <- strsplit(x = basename(file), split = ".", fixed = TRUE)[[1]][1]
+
 
   }
 

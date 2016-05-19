@@ -412,7 +412,12 @@ Changes in version 0.6.0 (May 20th ,2016):
                (argument ‘file’ is of type ‘list’),
 
              • function gained the new argument ‘pattern’, which can be
-               used to filter imported BIN-files by name.
+               used to filter imported BIN-files by name,
+
+             • if the field ‘FNAME’ is totally empty in the BIN-file
+               the function files this field with the name of the
+               BIN-file itself. This can be rather useful in particular
+               cases.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 
