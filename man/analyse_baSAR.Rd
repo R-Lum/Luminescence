@@ -7,9 +7,10 @@
 analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   source_doserate = c(1, 0), signal.integral, signal.integral.Tx = NULL,
   background.integral, background.integral.Tx = NULL, sigmab = 0,
-  sig0 = 0.025, distribution = "cauchy", fit.method = "EXP",
-  fit.force_through_origin = TRUE, fit.includingRepeatedRegPoints = TRUE,
-  plot = TRUE, plot_reduced = TRUE, verbose = TRUE, ...)
+  sig0 = 0.025, distribution = "cauchy", n.MCMC = 1e+05,
+  fit.method = "EXP", fit.force_through_origin = TRUE,
+  fit.includingRepeatedRegPoints = TRUE, plot = TRUE, plot_reduced = TRUE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
@@ -56,6 +57,9 @@ to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{
 
 \item{distribution}{\code{\link{character}} (with default): type of distribution that is used for
 the Bayesian calculation. Allowed inputs are \code{cauchy},\code{normal} and \code{log_normal}}
+
+\item{n.MCMC}{\code{\link{integer}} (with default): number of iterations for the Markov chain Monte Carlo (MCMC)
+simulations}
 
 \item{fit.method}{\code{\link{character}} (with default): fit method used for fitting the growth
 curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods: \code{EXP},
@@ -162,7 +166,7 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-19 15:01:35)
+ 0.1.0 (2016-05-19 16:56:45)
 }
 \examples{
 

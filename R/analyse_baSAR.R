@@ -128,6 +128,9 @@
 #' @param distribution \code{\link{character}} (with default): type of distribution that is used for
 #' the Bayesian calculation. Allowed inputs are \code{cauchy},\code{normal} and \code{log_normal}
 #'
+#' @param n.MCMC \code{\link{integer}} (with default): number of iterations for the Markov chain Monte Carlo (MCMC)
+#' simulations
+#'
 #' @param fit.method \code{\link{character}} (with default): fit method used for fitting the growth
 #' curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods: \code{EXP},
 #' \code{EXP+LIN} and \code{LIN}
@@ -188,6 +191,7 @@ analyse_baSAR <- function(
   sigmab = 0,
   sig0 = 0.025,
   distribution = "cauchy",
+  n.MCMC = 100000,
   fit.method = "EXP",
   fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
@@ -212,6 +216,7 @@ analyse_baSAR <- function(
              data.Lum,
              data.sLum,
              fit.method,
+             n.MCMC,
              fit.force_through_origin,
              fit.includingRepeatedRegPoints,
              plot,
@@ -347,7 +352,7 @@ analyse_baSAR <- function(
         cat("[analyse_baSAR()] Bayesian analysis in progress ... ")
       }
 
-      Nb_Iterations <-  1000
+      Nb_Iterations <- n.MCMC
 
       if (distribution == "cauchy") {
 
@@ -448,6 +453,7 @@ analyse_baSAR <- function(
       baSAR.output <- data.frame(
         DISTRIBUTION = distribution,
         NB_ALIQUOTS = Nb_aliquots,
+        N.MCMC = n.MCMC,
         FIT_METHOD = fit.method,
         CENTRAL = output.mean[1],
         CENTRAL.SD = output.mean[2],
@@ -556,6 +562,11 @@ analyse_baSAR <- function(
        ##distribution
        if(!is.null(function_arguments.new$distribution)){
          distribution <- function_arguments.new$distribution
+       }
+
+       ##n.MCMC
+       if(!is.null(function_arguments.new$n.MCMC)){
+         n.MCMC <- function_arguments.new$n.MCMC
        }
 
        ##fit.method
@@ -1216,6 +1227,7 @@ analyse_baSAR <- function(
       data.Lum = LxTx,
       data.sLum = LxTx.error,
       fit.method = fit.method,
+      n.MCMC = n.MCMC,
       fit.force_through_origin = fit.force_through_origin,
       fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
       plot = plot,
@@ -1235,6 +1247,7 @@ analyse_baSAR <- function(
     cat(paste0("Used distribution:\t\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
     cat(paste0("Number of aliquots used:\t\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
     cat(paste0("Considered fitting method:\t\t", results[[1]][["FIT_METHOD"]],"\n"))
+    cat(paste0("Number MCMC iterations:\t\t\t", results[[1]][["N.MCMC"]],"\n"))
     cat("---------------------------------------------------------------\n")
     cat(paste0(">> Central dose:\t\t\t", results[[1]][["CENTRAL"]]," \u00b1 ", results[[1]][["CENTRAL.SD"]]))
     cat(paste0("\n>> Overdispersion (sigma):\t\t", results[[1]][["SIGMA"]]," \u00b1 ", results[[1]][["SIGMA.SD"]]))
