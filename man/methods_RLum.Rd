@@ -56,6 +56,7 @@
 \alias{plot.Risoe.BINfileData}
 \alias{rep.RLum}
 \alias{row.names.RLum.Data.Spectrum}
+\alias{subset.Risoe.BINfileData}
 \alias{summary.RLum.Analysis}
 \alias{summary.RLum.Data.Curve}
 \alias{summary.RLum.Data.Image}
@@ -90,6 +91,8 @@
 \method{summary}{RLum.Data.Image}(object, ...)
 
 \method{summary}{RLum.Data.Curve}(object, ...)
+
+\method{subset}{Risoe.BINfileData}(x, subset, ...)
 
 bin.RLum.Data.Curve(x, ...)
 
@@ -184,13 +187,17 @@ is.RLum.Results(x, ...)
 \method{$}{RLum.Results}(x, i)
 }
 \arguments{
-\item{x}{\code{\linkS4class{RLum}} (\bold{required}): input opject}
+\item{x}{\code{\linkS4class{RLum}} or \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): input opject}
 
 \item{y}{\code{\link{integer}} (optional): the row index of the matrix, data.frame}
 
 \item{...}{further arguments that can be passed to the method}
 
 \item{object}{\code{\linkS4class{RLum}} (\bold{required}): input opject}
+
+\item{subset}{\code{[subset]} \code{\link{expression}} (\bold{required}): logical expression indicating elements or rows to keep,
+this function works in \code{\linkS4class{Risoe.BINfileData}} objects like \code{\link{subset.data.frame}}, but takes care
+of the object structure}
 
 \item{row.names}{\code{\link{logical}} (with default): enables or disables row names (\code{as.data.frame})}
 

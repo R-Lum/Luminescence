@@ -471,3 +471,9 @@ Changes in version 0.6.0 (May 27th ,2016):
          • Add S3 generics to support all combinations for the function
            ‘is’, e.g., ‘is.RLum.Data.Curve’.
 
+         • Add S3 generic for method ‘subset’ of objects of type
+           ‘Risoe.BINfileData’.  This is a little bit inconsistent,
+           however, still a lot of user using this objects created by
+           the function ‘read_BIN2R(..., fastForward = FALSE)’ and this
+           method tremendously simplifies the work with this objects.
+
