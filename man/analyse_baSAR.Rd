@@ -189,9 +189,29 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-20 19:18:15)
+ 0.1.0 (2016-05-20 19:45:11)
 }
 \examples{
+
+##(1) load package test data set
+data(ExampleData.BINfileData, envir = environment())
+
+##(2) selecting relevant curves, and limit dataset
+CWOSL.SAR.Data <- subset(
+ CWOSL.SAR.Data,
+ subset = POSITION == c(1:3) & LTYPE == "OSL")
+
+##(3) run analysis
+##please not that the here selected parameters are
+##choosen for performance, not for reliability
+analyse_baSAR(
+ object = CWOSL.SAR.Data,
+ signal.integral = c(1:2),
+ background.integral = c(80:100),
+ fit.method = "LIN",
+ plot = FALSE,
+ n.MCMC = 200
+)
 
 \dontrun{
 
@@ -209,7 +229,6 @@ list(
    class = "data.frame",
    row.names = 1L
 )
-
 
 }
 

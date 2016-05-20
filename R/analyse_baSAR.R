@@ -206,6 +206,26 @@
 #'
 #' @examples
 #'
+#'##(1) load package test data set
+#'data(ExampleData.BINfileData, envir = environment())
+#'
+#'##(2) selecting relevant curves, and limit dataset
+#'CWOSL.SAR.Data <- subset(
+#'  CWOSL.SAR.Data,
+#'  subset = POSITION == c(1:3) & LTYPE == "OSL")
+#'
+#'##(3) run analysis
+#'##please not that the here selected parameters are
+#'##choosen for performance, not for reliability
+#'analyse_baSAR(
+#'  object = CWOSL.SAR.Data,
+#'  signal.integral = c(1:2),
+#'  background.integral = c(80:100),
+#'  fit.method = "LIN",
+#'  plot = FALSE,
+#'  n.MCMC = 200
+#')
+#'
 #' \dontrun{
 #'
 #' ##XLS_file template
@@ -222,7 +242,6 @@
 #'    class = "data.frame",
 #'    row.names = 1L
 #' )
-#'
 #'
 #' }
 #'
@@ -585,9 +604,8 @@ analyse_baSAR <- function(
     fit.weights = TRUE,
     fit.bounds = TRUE,
     NumberIterations.MC = 100,
-    output.plot = TRUE,
-    output.plotExtended = TRUE
-
+    output.plot = if(plot){TRUE}else{FALSE},
+    output.plotExtended = if(plot){TRUE}else{FALSE}
 
   )
 
