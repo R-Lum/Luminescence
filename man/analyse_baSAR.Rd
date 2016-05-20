@@ -9,8 +9,8 @@ analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   background.integral, background.integral.Tx = NULL, sigmab = 0,
   sig0 = 0.025, distribution = "cauchy", n.MCMC = 1e+05,
   fit.method = "EXP", fit.force_through_origin = TRUE,
-  fit.includingRepeatedRegPoints = TRUE, plot = TRUE, plot_reduced = TRUE,
-  verbose = TRUE, ...)
+  fit.includingRepeatedRegPoints = TRUE, method_control = list(),
+  plot = TRUE, plot_reduced = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
@@ -69,6 +69,10 @@ curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods:
 
 \item{fit.includingRepeatedRegPoints}{\code{\link{logical}} (with default):
 includes the recycling point (assumed to be measured during the last cycle)}
+
+\item{method_control}{\code{\link{list}} (optional): named list of control parameters that can be directly
+passed to the Bayesian analysis, e.g., \code{method_control = list(lower_De = 0.01)}.
+See details for further information}
 
 \item{plot}{\code{\link{logical}} (with default): enables or disables plot output}
 
@@ -143,7 +147,18 @@ If an \code{\linkS4class{RLum.Results}} object is provided as input and(!) this 
 previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
 is skipped and the function starts directly the Bayesian analysis. This option is very powerfull
 as it allows to change parameters for the Bayesian analysis without the need to repeat
-the data pre-processing.
+the data pre-processing.\cr
+
+\bold{\code{method_control}}\cr
+
+This are arguments that can be passed directly to the Bayesian calculation core, supported arguments
+are:
+
+\tabular{lll}{
+\bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
+\code{lower_De} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
+\code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
+}
 
 \bold{Additional arguments support via the \code{...} argument}\cr
 
@@ -174,7 +189,7 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-20 14:25:12)
+ 0.1.0 (2016-05-20 19:18:15)
 }
 \examples{
 

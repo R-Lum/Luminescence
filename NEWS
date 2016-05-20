@@ -5,7 +5,7 @@ Changes in version 0.6.0 (May 27th ,2016):
   New functions:
 
          • ‘analyse_baSAR()’: This function allows the application of
-           Bayesian models (baSAR) on luminescecence data
+           Bayesian models (baSAR) on luminescence data
 
          • ‘app_RLum()’: Wrapper for the function ‘app_RLum()’ from the
            package ‘RLumShiny’ by Christoph Burow

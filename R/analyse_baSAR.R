@@ -63,7 +63,18 @@
 #' previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
 #' is skipped and the function starts directly the Bayesian analysis. This option is very powerfull
 #' as it allows to change parameters for the Bayesian analysis without the need to repeat
-#' the data pre-processing.
+#' the data pre-processing.\cr
+#'
+#' \bold{\code{method_control}}\cr
+#'
+#' This are arguments that can be passed directly to the Bayesian calculation core, supported arguments
+#' are:
+#'
+#' \tabular{lll}{
+#' \bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
+#' \code{lower_De} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
+#' \code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
+#' }
 #'
 #' \bold{Additional arguments support via the \code{...} argument}\cr
 #'
@@ -148,6 +159,10 @@
 #' @param fit.includingRepeatedRegPoints \code{\link{logical}} (with default):
 #' includes the recycling point (assumed to be measured during the last cycle)
 #'
+#' @param method_control \code{\link{list}} (optional): named list of control parameters that can be directly
+#' passed to the Bayesian analysis, e.g., \code{method_control = list(lower_De = 0.01)}.
+#' See details for further information
+#'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot output
 #'
 #' @param plot_reduced \code{\link{logical}} (with default): enables or disables the advanced plot output
@@ -228,6 +243,7 @@ analyse_baSAR <- function(
   fit.method = "EXP",
   fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
+  method_control = list(),
   plot = TRUE,
   plot_reduced = TRUE,
   verbose = TRUE,
@@ -252,9 +268,28 @@ analyse_baSAR <- function(
              n.MCMC,
              fit.force_through_origin,
              fit.includingRepeatedRegPoints,
+             method_control,
              plot,
              verbose)
     {
+
+
+      ##we have to do that this way, as otherwise the Rjags function chrashes
+      lower_De <-
+        if (is.null(method_control[["lower_De"]])) {
+          0.01
+        } else{
+          method_control[["lower_De"]]
+        }
+      upper_De <-
+        if (is.null(method_control[["upper_De"]])) {
+          1000
+        } else{
+          method_control[["upper_De"]]
+        }
+
+      #check whether this makes sense at all, just a direty and quick test
+      stopifnot(lower_De > 0)
 
 
       Limited_cycles <- vector()
@@ -272,12 +307,11 @@ analyse_baSAR <- function(
         for (i in 1:Nb_aliquots) {
         Limited_cycles[i] <- length(na.exclude(data.Dose[,i])) - 1}
       }
-      low_De <-  0.01 ; up_De <-  500   # Gy
 
       # Bayesian Models ----------------------------------------------------------------------------
       baSARc_model.bug <- "model {
 
-            central_D ~  dunif(low_De,up_De)
+            central_D ~  dunif(lower_De,upper_De)
 
             precision_D ~ dt (0, 0.16 * central_D, 1) T(0, )    #    Alternative plus directe proposee par Philippe L.
             sigma_D <-  1/sqrt(precision_D)
@@ -306,7 +340,7 @@ analyse_baSAR <- function(
       # Normal distribution
       baSARn_model.bug <- "model {
 
-            central_D ~  dunif(low_De,up_De)
+            central_D ~  dunif(lower_De,upper_De)
 
             sigma_D ~ dunif(0.01, 1 * central_D)
 
@@ -334,7 +368,7 @@ analyse_baSAR <- function(
       # Log-Normal distribution
       baSARl_model.bug <- "model {
 
-            central_D ~  dunif(low_De,up_De)
+            central_D ~  dunif(lower_De,upper_De)
 
             log_central_D <-  log(central_D) - 0.5 * l_sigma_D^2
             l_sigma_D ~ dunif(0.01, 1 * log(central_D))
@@ -371,14 +405,15 @@ analyse_baSAR <- function(
         'ExpoGC' = ExpoGC,
         'GC_Origin' = GC_Origin,
         'Limited_cycles' = Limited_cycles,
-        'low_De' = low_De,
-        'up_De' = up_De,
+        'lower_De' = lower_De,
+        'upper_De' = upper_De,
         'Nb_aliquots' = Nb_aliquots
       )
 
       if(verbose){
         cat("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
         cat("[analyse_baSAR()] Bayesian analysis in progress ... ")
+        message(paste(".. >> bounds set to: lower_De =", lower_De, "| upper_De =", upper_De))
       }
 
       Nb_Iterations <- n.MCMC
@@ -995,6 +1030,7 @@ analyse_baSAR <- function(
     }
   }
 
+
   if(verbose){
     cat("\n[analyse_baSAR()] Preliminary analysis in progress ... ")
     cat("\n[analyse_baSAR()] Hang on, this may take a long time ... \n")
@@ -1122,7 +1158,7 @@ analyse_baSAR <- function(
 
       ##call plot_GrowthCurve() to get De and De value
       fitcurve <-
-        plot_GrowthCurve(
+        suppressWarnings(plot_GrowthCurve(
           sample = selected_sample,
           na.rm = TRUE,
           fit.method = fit.method,
@@ -1135,7 +1171,7 @@ analyse_baSAR <- function(
           output.plotExtended = additional_arguments$output.plotExtended,
           txtProgressBar = FALSE,
           verbose = verbose
-        )
+        ))
 
 
       if(!is.null(fitcurve)){
@@ -1257,7 +1293,7 @@ analyse_baSAR <- function(
          OUTPUT_results[comptage, (9 + 2*max_cycles):(8 + 2*max_cycles + llong)] <-
           as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[4]])
 
-      }
+     }
 
     }
   }
@@ -1300,7 +1336,7 @@ analyse_baSAR <- function(
     stringsAsFactors = FALSE
   )
 
-}
+  }
 
   ##CALL internal baSAR function
   results <-
@@ -1314,6 +1350,7 @@ analyse_baSAR <- function(
       n.MCMC = n.MCMC,
       fit.force_through_origin = fit.force_through_origin,
       fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
+      method_control = method_control,
       plot = plot,
       verbose = verbose
     )
