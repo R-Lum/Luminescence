@@ -81,13 +81,21 @@ includes the recycling point (assumed to be measured during the last cycle)}
 \code{position}, \code{duplicated.rm}), see details.}
 }
 \description{
-This function allows the application of Bayesian models (baSAR) on luminescecence data based on the
-contribution by Combes et al., 2015. Internally the function consists of two parts: (I) Bayesian core
-for the bayesian calculations and (II) data preparation part. The Bayesian core can be run independently
-and the second part was implemented to simplify the analysis. For the Bayesian analysis for each aliquot
-the following information are needed from the SAR analysis. De and LxTx and dose values for all regeneration points.
+This function allows the application of Bayesian models on luminescence data measured
+with the single aliquot regenerated protocol (SAR, Murray and Wintle, 2000). In particular,
+it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
+a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
+of this approach for the R environement and (II) an extension and a technical refinement. \cr
 }
 \details{
+Internally the function consists of two parts: (I) The Bayesian core for the bayesian calculations
+and applying the hierchical model and (II) a data pre-processing part. The Bayesian core can be run
+independently, if the input data are sufficient (see below). The data pre-processing part was
+implemented to simplify the analysis for the user as all needed data pre-processing is done
+by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the SAR measurement
+data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
+LxTx, the LxTx error and the dose values for all regeneration points.
+
 \bold{Allowed input data}\cr
 
 Various inputs are allowd for this function. Unfortunately this makes the function handling rather
@@ -166,11 +174,29 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-19 19:53:43)
+ 0.1.0 (2016-05-20 14:25:12)
 }
 \examples{
 
-#nothing so far
+\dontrun{
+
+##XLS_file template
+##copy and paste this the code below in the terminal
+##you can further use the function write.csv() to export the example
+
+XLS_file <-
+structure(
+list(
+ BIN_FILE = NA_character_,
+ DISC = NA_real_,
+ GRAIN = NA_real_),
+   .Names = c("BIN_FILE", "DISC", "GRAIN"),
+   class = "data.frame",
+   row.names = 1L
+)
+
+
+}
 
 }
 \author{
@@ -183,6 +209,14 @@ The underlying Bayesian model based on a contribution by Combes et al., 2015.
 Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
+
+\bold{Further reading}
+
+Gelman, A., Carlin, J.B., Stern, H.S., Dunson, D.B., Vehtari, A., Rubin, D.B., 2013.
+Bayesian Data Analysis, Third Edition. CRC Press.
+
+Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
+regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
 }
 \seealso{
 \code{\link{read_BIN2R}}, \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},

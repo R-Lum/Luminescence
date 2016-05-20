@@ -1,10 +1,18 @@
 #' Bayesian models (baSAR) applied on luminescence data
 #'
-#' This function allows the application of Bayesian models (baSAR) on luminescecence data based on the
-#' contribution by Combes et al., 2015. Internally the function consists of two parts: (I) Bayesian core
-#' for the bayesian calculations and (II) data preparation part. The Bayesian core can be run independently
-#' and the second part was implemented to simplify the analysis. For the Bayesian analysis for each aliquot
-#' the following information are needed from the SAR analysis. De and LxTx and dose values for all regeneration points.
+#' This function allows the application of Bayesian models on luminescence data measured
+#' with the single aliquot regenerated protocol (SAR, Murray and Wintle, 2000). In particular,
+#' it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
+#' a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
+#' of this approach for the R environement and (II) an extension and a technical refinement. \cr
+#'
+#' Internally the function consists of two parts: (I) The Bayesian core for the bayesian calculations
+#' and applying the hierchical model and (II) a data pre-processing part. The Bayesian core can be run
+#' independently, if the input data are sufficient (see below). The data pre-processing part was
+#' implemented to simplify the analysis for the user as all needed data pre-processing is done
+#' by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the SAR measurement
+#' data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
+#' LxTx, the LxTx error and the dose values for all regeneration points.
 #'
 #'
 #' \bold{Allowed input data}\cr
@@ -167,16 +175,41 @@
 #' A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 #' Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 #'
+#' \bold{Further reading}
+#'
+#' Gelman, A., Carlin, J.B., Stern, H.S., Dunson, D.B., Vehtari, A., Rubin, D.B., 2013.
+#' Bayesian Data Analysis, Third Edition. CRC Press.
+#'
+#' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
+#' regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
+#'
 #' @note \bold{This function has beta status!} and is limited to work with
 #' standard Risoe BIN-files only!
-#'
 #'
 #' @keywords datagen
 #'
 #'
 #' @examples
 #'
-#' #nothing so far
+#' \dontrun{
+#'
+#' ##XLS_file template
+#' ##copy and paste this the code below in the terminal
+#' ##you can further use the function write.csv() to export the example
+#'
+#' XLS_file <-
+#' structure(
+#' list(
+#'  BIN_FILE = NA_character_,
+#'  DISC = NA_real_,
+#'  GRAIN = NA_real_),
+#'    .Names = c("BIN_FILE", "DISC", "GRAIN"),
+#'    class = "data.frame",
+#'    row.names = 1L
+#' )
+#'
+#'
+#' }
 #'
 #' @export
 analyse_baSAR <- function(
@@ -241,9 +274,7 @@ analyse_baSAR <- function(
       }
       low_De <-  0.01 ; up_De <-  500   # Gy
 
-      ########################################        MODELS      ########################################
-
-      #   Cauchy distribution
+      # Bayesian Models ----------------------------------------------------------------------------
       baSARc_model.bug <- "model {
 
             central_D ~  dunif(low_De,up_De)
@@ -330,8 +361,6 @@ analyse_baSAR <- function(
             }
             }
         }"
-
-      ########################################     END   MODELS      ########################################
 
       ### Bayesian inputs
       data_Liste  <- list(
@@ -784,27 +813,52 @@ analyse_baSAR <- function(
 
     }
 
+
     for (k in 1:length(fileBIN.list)) {
-      aliquot_selection <-
-        verify_SingleGrainData(
-          object = fileBIN.list[[k]],
-          cleanup_level = "aliquot",
-          threshold = additional_arguments$threshold,
-          cleanup = FALSE
+
+      ##if the uses provides only multiple grain data (GRAIN == 0), the verification
+      ##here makes not really sense and should be skipped
+      if(length(unique(fileBIN.list[[k]]@METADATA[["GRAIN"]])) > 1){
+        aliquot_selection <-
+          verify_SingleGrainData(
+            object = fileBIN.list[[k]],
+            cleanup_level = "aliquot",
+            threshold = additional_arguments$threshold,
+            cleanup = FALSE
+          )
+
+
+        ##remove grain position 0 (this are usually TL measurements on the cup or we are talking about multipe aliquot)
+        warning(
+          paste(
+            "[analyse_baSAR()] Automatic grain selection:",
+            sum(aliquot_selection$unique_pairs[["GRAIN"]] == 0, na.rm = TRUE),
+            "curve(s) with grain index 0 had been removed from the dataset."
+          ),
+          call. = FALSE
         )
 
-      ##remove grain position 0 (this are usually TL measurements on the cup or we are talking about multipe aliquot)
-      warning(
-        paste(
-          "[analyse_baSAR()] Automatic grain selection:",
-          sum(aliquot_selection$unique_pairs[["GRAIN"]] == 0, na.rm = TRUE),
-          "curve(s) with grain index 0 had been removed from the dataset."
-        ),
-        call. = FALSE
-      )
+        datalu <-
+          aliquot_selection$unique_pairs[!aliquot_selection$unique_pairs[["GRAIN"]] == 0,]
 
-      datalu <-
-        aliquot_selection$unique_pairs[!aliquot_selection$unique_pairs[["GRAIN"]] == 0,]
+        if(nrow(datalu) == 0){
+
+          warning("[analyse_baSAR()] Sorry, nothing was left after the automatic grain selection! NULL returned!", call. = FALSE)
+          return(NULL)
+
+        }
+
+      }else{
+
+          warning("[analyse_baSAR()] Only multiple grain data provided, automatic selection skipped!")
+          datalu <- unique(fileBIN.list[[k]]@METADATA[, c("POSITION", "GRAIN")])
+
+          ##set mono grain to FALSE
+          Mono_grain <- FALSE
+          aliquot_selection <- NA
+
+
+      }
 
       ##get number of aliquots (one aliquot has a position and a grain number)
       Nb_aliquots <- nrow(datalu[, 1])
@@ -962,12 +1016,18 @@ analyse_baSAR <- function(
 
     ### META_DATA
     length_BIN <-  length(fileBIN.list[[k]])
-    n_index.vector <- fileBIN.list[[k]]@METADATA[[1]][1:length_BIN]             #  curves indexes vector
-    logical_selection.vector <- fileBIN.list[[k]]@METADATA[[2]][1:length_BIN]   # TRUE / FALSE vector
+    n_index.vector <- fileBIN.list[[k]]@METADATA[["ID"]][1:length_BIN]              #  curves indexes vector
+    logical_selection.vector <- fileBIN.list[[k]]@METADATA[["SEL"]][1:length_BIN]    # TRUE / FALSE vector
 
-    measured_discs.vector <-  fileBIN.list[[k]]@METADATA[[9]][1:length_BIN]     # measured discs vector
-    measured_grains.vector <- fileBIN.list[[k]]@METADATA[[10]][1:length_BIN]    # measured grains vector
-    irrad_time.vector <- fileBIN.list[[k]]@METADATA[[45]][1:length_BIN]         # irradiation durations vector
+    measured_discs.vector <-  fileBIN.list[[k]]@METADATA[["POSITION"]][1:length_BIN] # measured discs vector
+    measured_grains.vector <- fileBIN.list[[k]]@METADATA[["GRAIN"]][1:length_BIN]    # measured grains vector
+    irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
+
+    ##if all irradiation times are 0 we should stop here
+    if(length(unique(irrad_time.vector)) == 1){
+      warning("[analyse_baSAR()] It appears the the irradiation times are all the same. Analysis stopped an NULL returned!")
+      return()
+    }
 
     disc_pos <- as.integer(unlist(Disc[[k]]))
     grain_pos <- as.integer(unlist(Grain[[k]]))
@@ -1290,7 +1350,6 @@ analyse_baSAR <- function(
   }
 
   # Return --------------------------------------------------------------------------------------
-
   return(set_RLum(
     class = "RLum.Results",
     data = list(
