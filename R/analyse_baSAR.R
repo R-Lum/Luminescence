@@ -1,10 +1,11 @@
 #' Bayesian models (baSAR) applied on luminescence data
 #'
-#' This function allows the application of Bayesian models on luminescence data measured
-#' with the single aliquot regenerated protocol (SAR, Murray and Wintle, 2000). In particular,
+#' This function allows the application of Bayesian models on luminescence data, measured
+#' with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
 #' it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
 #' a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
-#' of this approach for the R environement and (II) an extension and a technical refinement. \cr
+#' of this approach for the R environement and (II) an extension and a technical refinement of the
+#' published code. \cr
 #'
 #' Internally the function consists of two parts: (I) The Bayesian core for the bayesian calculations
 #' and applying the hierchical model and (II) a data pre-processing part. The Bayesian core can be run
@@ -116,8 +117,9 @@
 #' used for the analysis. This argument has only an effect of the argument \code{XLS_file} is used as
 #' well
 #'
-#' @param source_doserate \code{\link{numeric}} (with default): source dose rate of beta-source used
-#' for the measuremnt and its uncertainty in Gy/s
+#' @param source_doserate \code{\link{numeric}} (optional): source dose rate of beta-source used
+#' for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0,04)}.
+#' If nothing is provided the results are returned in the same domain as the input values.
 #'
 #' @param signal.integral \code{\link{vector}} (\bold{required}): vector with the
 #' limits for the signal integral used for the calculation, e.g., \code{signal.integral = c(1:5)}
@@ -250,7 +252,7 @@ analyse_baSAR <- function(
   object,
   XLS_file = NULL,
   aliquot_range = NULL,
-  source_doserate = c(1,0),
+  source_doserate = NULL,
   signal.integral,
   signal.integral.Tx = NULL,
   background.integral,
@@ -633,7 +635,6 @@ analyse_baSAR <- function(
         ##changes
         function_arguments.new <- modifyList(x = function_arguments, val = as.list(match.call()))
 
-
      ##get maximum cycles
      max_cycles <- max(object$input_object[["CYCLES_NB"]])
 
@@ -675,6 +676,11 @@ analyse_baSAR <- function(
        ##fit.includingRepeatedRegPoints
        if(!is.null(function_arguments.new$fit.includingRepeatedRegPoints)){
           fit.includingRepeatedRegPoints <- function_arguments.new$fit.includingRepeatedRegPoints
+       }
+
+       ##source_doserate
+       if(!is.null(function_arguments.new$source_doserate)){
+         source_doserate <- function_arguments.new$source_doserate
        }
 
        ##plot
@@ -1102,7 +1108,16 @@ analyse_baSAR <- function(
 
             if (logical_selection.vector[index_liste[kn]] == TRUE){
               t <-  index_liste[kn]
-              dose.value <-  irrad_time.vector[t] * unlist(source_doserate[[k]][1])
+
+              ##check if the source_doserate is NULL or not
+              if(!is.null(unlist(source_doserate))){
+                dose.value <-  irrad_time.vector[t] * unlist(source_doserate[[k]][1])
+
+              }else{
+                dose.value <-  irrad_time.vector[t]
+
+              }
+
               s <- 1 + length( Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]] )
               Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][s] <- n_index.vector[t]  # indexes
               if ( s%%2 == 1) { Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]][as.integer(1+s/2)] <- dose.value  }      # irradiation doses
@@ -1374,7 +1389,13 @@ analyse_baSAR <- function(
     )
 
   ##add error from the source_doserate
-  DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + source_doserate[[1]][2]^2)
+  if(!is.null(unlist(source_doserate))){
+    DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + source_doserate[[1]][2]^2)
+
+  }else{
+    DE_FINAL.ERROR <- NA
+
+  }
 
   ##consider the case that we get NA and this might be confusing
   if(is.na(DE_FINAL.ERROR)){
@@ -1393,6 +1414,7 @@ analyse_baSAR <- function(
     cat(paste0("Number of aliquots used:\t\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
     cat(paste0("Considered fitting method:\t\t", results[[1]][["FIT_METHOD"]],"\n"))
     cat(paste0("Number MCMC iterations:\t\t\t", results[[1]][["N.MCMC"]],"\n"))
+
     cat("---------------------------------------------------------------\n")
     cat(paste0(">> Central dose:\t\t\t", results[[1]][["CENTRAL"]]," \u00b1 ", results[[1]][["CENTRAL.SD"]]))
     cat(paste0("\n>> Overdispersion (sigma):\t\t", results[[1]][["SIGMA"]]," \u00b1 ", results[[1]][["SIGMA.SD"]]))

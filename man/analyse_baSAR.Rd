@@ -5,7 +5,7 @@
 \title{Bayesian models (baSAR) applied on luminescence data}
 \usage{
 analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
-  source_doserate = c(1, 0), signal.integral, signal.integral.Tx = NULL,
+  source_doserate = NULL, signal.integral, signal.integral.Tx = NULL,
   background.integral, background.integral.Tx = NULL, sigmab = 0,
   sig0 = 0.025, distribution = "cauchy", n.MCMC = 1e+05,
   fit.method = "EXP", fit.force_through_origin = TRUE,
@@ -27,8 +27,9 @@ is provided the function direclty starts with the Bayesian Analysis (see details
 used for the analysis. This argument has only an effect of the argument \code{XLS_file} is used as
 well}
 
-\item{source_doserate}{\code{\link{numeric}} (with default): source dose rate of beta-source used
-for the measuremnt and its uncertainty in Gy/s}
+\item{source_doserate}{\code{\link{numeric}} (optional): source dose rate of beta-source used
+for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0,04)}.
+If nothing is provided the results are returned in the same domain as the input values.}
 
 \item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
 limits for the signal integral used for the calculation, e.g., \code{signal.integral = c(1:5)}
@@ -85,11 +86,12 @@ See details for further information}
 \code{position}, \code{duplicated.rm}), see details.}
 }
 \description{
-This function allows the application of Bayesian models on luminescence data measured
-with the single aliquot regenerated protocol (SAR, Murray and Wintle, 2000). In particular,
+This function allows the application of Bayesian models on luminescence data, measured
+with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
 it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
 a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
-of this approach for the R environement and (II) an extension and a technical refinement. \cr
+of this approach for the R environement and (II) an extension and a technical refinement of the
+published code. \cr
 }
 \details{
 Internally the function consists of two parts: (I) The Bayesian core for the bayesian calculations
@@ -189,7 +191,7 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-20 19:45:11)
+ 0.1.0 (2016-05-23 11:04:27)
 }
 \examples{
 
