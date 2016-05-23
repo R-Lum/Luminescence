@@ -216,6 +216,7 @@
 #'  CWOSL.SAR.Data,
 #'  subset = POSITION == c(1:3) & LTYPE == "OSL")
 #'
+#'\dontrun{
 #'##(3) run analysis
 #'##please not that the here selected parameters are
 #'##choosen for performance, not for reliability
@@ -228,7 +229,6 @@
 #'  n.MCMC = 200
 #')
 #'
-#' \dontrun{
 #'
 #' ##XLS_file template
 #' ##copy and paste this the code below in the terminal

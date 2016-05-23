@@ -191,7 +191,7 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-23 11:04:27)
+ 0.1.0 (2016-05-23 11:38:47)
 }
 \examples{
 
@@ -203,6 +203,7 @@ CWOSL.SAR.Data <- subset(
  CWOSL.SAR.Data,
  subset = POSITION == c(1:3) & LTYPE == "OSL")
 
+\dontrun{
 ##(3) run analysis
 ##please not that the here selected parameters are
 ##choosen for performance, not for reliability
@@ -215,7 +216,6 @@ analyse_baSAR(
  n.MCMC = 200
 )
 
-\dontrun{
 
 ##XLS_file template
 ##copy and paste this the code below in the terminal
