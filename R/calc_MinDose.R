@@ -34,7 +34,7 @@
 #' longer required to be explicitly specified. If you want to override the default
 #' boundary values use the arguments \code{gamma.lower}, \code{gamma.upper},
 #' \code{sigma.lower}, \code{sigma.upper}, \code{p0.lower}, \code{p0.upper},
-#' \code{mu.lower} and \code{mu.upper}.  \cr\cr 
+#' \code{mu.lower} and \code{mu.upper}.  \cr\cr
 #' \bold{Bootstrap} \cr\cr When
 #' \code{bootstrap=TRUE} the function applies the bootstrapping method as
 #' described in Wallinga & Cunningham (2012). By default, the minimum age model
@@ -77,7 +77,7 @@
 #' starting values for gamma, sigma, p0 and mu (e.g. \code{list(gamma=100
 #' sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
 #' are tried to be estimated from the data.
-#' @param level \code{\link{logical}} (with default): the confidence level 
+#' @param level \code{\link{logical}} (with default): the confidence level
 #' required (defaults to 0.95).
 #' @param plot \code{\link{logical}} (with default): plot output
 #' (\code{TRUE}/\code{FALSE})
@@ -251,13 +251,13 @@ calc_MinDose <- function(
   multicore = FALSE,
   ...
 ){
-  
+
   ## ============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ## ============================================================================##
   if (!missing(data)) {
     if (!is(data, "data.frame") & !is(data, "RLum.Results")) {
-      stop("[calc_CentralDose] Error: 'data' object has to be of type\n
+      stop("[calc_MinDose] Error: 'data' object has to be of type\n
            'data.frame' or 'RLum.Results'!")
     } else {
       if (is(data, "RLum.Results")) {
@@ -265,14 +265,14 @@ calc_MinDose <- function(
       }
     }
   }
-  
-  
+
+
   ##============================================================================##
   ## ... ARGUMENTS
   ##============================================================================##
-  
+
   extraArgs <- list(...)
-  
+
   ## check if this function is called by calc_MaxDose()
   if ("invert" %in% names(extraArgs)) {
     invert <- extraArgs$invert
@@ -284,14 +284,14 @@ calc_MinDose <- function(
   } else {
     invert <- FALSE
   }
-  
+
   ## console output
   if ("verbose" %in% names(extraArgs)) {
     verbose <- extraArgs$verbose
   } else {
     verbose <- TRUE
   }
-  
+
   ## bootstrap replications
   # first level bootstrap
   if ("bs.M" %in% names(extraArgs)) {
@@ -299,34 +299,34 @@ calc_MinDose <- function(
   } else {
     M <- 1000
   }
-  
+
   # second level bootstrap
   if ("bs.N" %in% names(extraArgs)) {
     N <- as.integer(extraArgs$bs.N)
   } else {
     N <- 3*M
   }
-  
+
   # KDE bandwith
   if ("bs.h" %in% names(extraArgs)) {
     h <- extraArgs$bs.h
   } else {
     h <- (sd(data[ ,1])/sqrt(length(data[ ,1])))*2
   }
-  
+
   # standard deviation of sigmab
   if ("sigmab.sd" %in% names(extraArgs)) {
     sigmab.sd <- extraArgs$sigmab.sd
   } else {
     sigmab.sd <- 0.04
   }
-  
+
   if ("debug" %in% names(extraArgs)) {
     debug <- extraArgs$debug
   } else {
     debug <- FALSE
   }
-  
+
   if ("cores" %in% names(extraArgs)) {
     cores <- extraArgs$cores
   } else {
@@ -334,15 +334,15 @@ calc_MinDose <- function(
     if (multicore)
       message(paste("Logical CPU cores detected:", cores))
   }
-  
+
   ## WARNINGS ----
   if (!debug)
     options(warn = -1)
-  
+
   ##============================================================================##
   ## START VALUES
   ##============================================================================##
-  
+
   if (missing(init.values)) {
     start <- list(gamma = ifelse(log, log(quantile(data[ ,1], probs = 0.25)),
                                  quantile(data[ ,1], probs = 0.25)),
@@ -356,11 +356,11 @@ calc_MinDose <- function(
                   p0 = init.values$p0,
                   mu = init.values$mu)
   }
-  
+
   ##============================================================================##
   ## ESTIMATE BOUNDARY PARAMETERS
   ##============================================================================##
-  
+
   boundaries <- list(
     # gamma.lower = min(data[ ,1]/10),
     # gamma.upper = max(data[ ,1]*1.1),
@@ -370,19 +370,19 @@ calc_MinDose <- function(
     # mu.upper = max(data[ ,1]*1.1)
     gamma.lower = -Inf,
     gamma.upper = Inf,
-    
+
     sigma.lower = 0,
     sigma.upper = Inf,
-    
+
     p0.lower = 0,
     p0.upper = 1,
-    
+
     mu.lower = -Inf,
     mu.upper = Inf
   )
-  
+
   boundaries <- modifyList(boundaries, list(...))
-  
+
   # combine lower and upper boundary values to vectors
   if (log) {
     xlb <- c(log(boundaries$gamma.lower), boundaries$sigma.lower, boundaries$p0.lower)
@@ -395,31 +395,31 @@ calc_MinDose <- function(
     xlb <- c(xlb, ifelse(log, log(boundaries$mu.lower), boundaries$mu.lower))
     xub <- c(xub, ifelse(log, log(boundaries$mu.upper), boundaries$mu.upper))
   }
-  
+
   ##============================================================================##
   ## AUXILLARY FUNCTIONS
   ##============================================================================##
-  
+
   # THIS FUNCTION CALCULATES THE NEGATIVE LOG LIKELIHOOD OF THE DATA
   Neglik_f <- function(gamma, sigma, p0, mu, data) {
     # this calculates the negative of the log likelihood of the
     # data (data) for a given set of parameters (gamma, sigma, p0)
     # data is a 2x2 matrix of data: De, rel_error (including sigma_b)
-    
+
     # recover the data
     zi <- data[ ,1]
     si <- data[ ,2]
     n <- length(zi)
-    
+
     # in the MAM-3 gamma and mu are assumed to be equal
     if (par == 3)
       mu <- gamma
-    
+
     # calculate sigma^2 + seld^2, mu0 and sigma0
     s2 <- sigma^2 + si^2
     sigma0 <- 1/sqrt(1/sigma^2 + 1/si^2)
     mu0 <- (mu/sigma^2 + zi/si^2)/(1/sigma^2 + 1/si^2)
-    
+
     # calculate the log-likelihood
     logsqrt2pi <- 0.5*log(2*pi)
     res0 <- (gamma - mu0)/sigma0
@@ -429,10 +429,10 @@ calc_MinDose <- function(
     lf2i <- lf2i + log(1-pnorm(res0)) - log(1-pnorm(res1))
     llik <- log( exp(lf1i) + exp(lf2i) )
     negll <- -sum(llik)
-    
+
     return(negll)
   }
-  
+
   # THIS MAXIMIZES THE Neglik_f LIKELIHOOD FUNCTION AND RETURNS AN MLE OBJECT
   Get_mle <- function(data) {
     # TODO: PROPER ERROR HANDLING
@@ -455,11 +455,11 @@ calc_MinDose <- function(
     })
     return(mle)
   }
-  
+
   ##============================================================================##
   ## MAIN PROGRAM
   ##============================================================================##
-  
+
   # combine errors
   if (log) {
     if (invert) {
@@ -474,29 +474,29 @@ calc_MinDose <- function(
     lcd <- data[ ,1]
     lse <- sqrt(data[ ,2]^2 + sigmab^2)
   }
-  
+
   # create new data frame with DE and combined relative error
   dat <- cbind(lcd, lse)
-  
+
   # get the maximum likelihood estimate
   ests <- Get_mle(dat)
-  
+
   # check if any standard errors are NA or NaN
   coef_err <- t(as.data.frame(bbmle::summary(ests)@coef[ ,2]))
-  
+
   if (debug)
     print(bbmle::summary(ests))
-  
+
   if (any(is.nan(coef_err)))
     coef_err[which(is.nan(coef_err))] <- t(as.data.frame(ests@coef))/100
   if (any(is.na(coef_err)))
     coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))/100
-  
+
   if (par == 3)
     which <- c("gamma", "sigma", "p0")
   if (par == 4)
     which <- c("gamma", "sigma", "p0", "mu")
-  
+
   # calculate profile log likelihoods
   prof <- bbmle::profile(ests,
                          which = which,
@@ -522,7 +522,7 @@ calc_MinDose <- function(
     if (maxsteps == 0L)
       stop(paste("Sorry, but I can't find a converging fit for the profile log-likelihood."),
            call. = FALSE)
-    
+
     prof <- bbmle::profile(ests,
                            which = which,
                            std.err = as.vector(coef_err),
@@ -543,7 +543,7 @@ calc_MinDose <- function(
     maxsteps <- maxsteps - 10
     cnt <- cnt + 1
   }
-  
+
   ## TODO: reduce the redundant code
   ## DELETE rows where z = -Inf/Inf
   prof@profile$gamma <-  prof@profile$gamma[which(prof@profile$gamma["z"] != Inf), ]
@@ -552,15 +552,15 @@ calc_MinDose <- function(
   prof@profile$sigma <-  prof@profile$sigma[which(prof@profile$sigma["z"] != -Inf), ]
   prof@profile$p0 <-  prof@profile$p0[which(prof@profile$p0["z"] != Inf), ]
   prof@profile$p0 <-  prof@profile$p0[which(prof@profile$p0["z"] != -Inf), ]
-  
+
   if (par == 4) {
     prof@profile$mu <-  prof@profile$mu[which(prof@profile$mu["z"] != Inf), ]
     prof@profile$mu <-  prof@profile$mu[which(prof@profile$mu["z"] != -Inf), ]
   }
-  
+
   # calculate Bayesian Information Criterion (BIC)
   BIC <- BIC(ests)
-  
+
   # retrieve results from mle2-object
   pal <- if (log) {
     if (invert) {
@@ -573,22 +573,22 @@ calc_MinDose <- function(
   }
   sig <- bbmle::coef(ests)[["sigma"]]
   p0end <- bbmle::coef(ests)[["p0"]]
-  
+
   if (par == 4) {
     muend <- ifelse(log, exp(bbmle::coef(ests)[["mu"]]), bbmle::coef(ests)[["mu"]])
   } else {
     muend <- NA
   }
-  
+
   ##============================================================================##
   ## ERROR CALCULATION
-  
+
   #### METHOD 1: follow the instructions of Galbraith & Roberts (2012) ####
   # "If the likelihood profile is symmetrical about the parameter, an approximate standard error
   #  can be calculated by dividing the length of this interval by 3.92"
   conf <- as.data.frame(bbmle::confint(prof, tol.newmin = Inf, quietly = TRUE, level = level))
   class(conf[,1]) <- class(conf[,2]) <- "numeric"
-  
+
   if (invert) {
     conf[1, ] <- (conf[1, ]-x.offset)*-1
     t <- conf[1,1]
@@ -600,7 +600,7 @@ calc_MinDose <- function(
   } else {
     (conf["gamma",2]-conf["gamma",1])/3.92
   }
-  
+
   ##============================================================================##
   ## AGGREGATE RESULTS
   summary <- data.frame(de=pal,
@@ -618,12 +618,12 @@ calc_MinDose <- function(
   args <- list(log=log, sigmab=sigmab, bootstrap=bootstrap,
                init.values=start,
                bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
-  
+
   ##============================================================================##
   ## BOOTSTRAP
   ##============================================================================##
   if (bootstrap) {
-    
+
     ## BOOTSTRAP FUNCTIONS ----
     # Function that draws N+M sets of integer values from 1:n and returns
     # both the indices and frequencies
@@ -635,7 +635,7 @@ calc_MinDose <- function(
       }
       return(list(R = R, freq = f))
     }
-    
+
     # Function that adds the additional error sigmab to each individual DE error
     combine_Errors <- function(d, e) {
       if (log) {
@@ -646,7 +646,7 @@ calc_MinDose <- function(
       }
       return(d)
     }
-    
+
     # Function that produces N+M replicates from the original data set using
     # randomly sampled indices with replacement and adding a randomly drawn
     # sigmab error
@@ -655,7 +655,7 @@ calc_MinDose <- function(
       r <- mapply(function(x, y) combine_Errors(x, y), d, s, SIMPLIFY = FALSE)
       return(r)
     }
-    
+
     # Function to extract the estimate of gamma from mle2 objects and converting
     # it back to the 'normal' scale
     save_Gamma <- function(d) {
@@ -670,7 +670,7 @@ calc_MinDose <- function(
       }
       return(m)
     }
-    
+
     # Function that takes each of the N replicates and produces a kernel density
     # estimate of length n. The normalised values are then returned as a matrix
     # with dimensions [N, n]
@@ -680,13 +680,13 @@ calc_MinDose <- function(
       x <- matrix(t(pStarTheta/(1/n)), N, n, byrow = TRUE)
       return(x)
     }
-    
+
     # Function that calculates the product term of the recycled bootstrap
     get_ProductTerm <- function(Pmat, b2Pmatrix) {
       prodterm <- apply(Pmat^b2Pmatrix$freq[1:N, ], 1, prod)
       return(prodterm)
     }
-    
+
     # Function that calculates the pseudo likelihoods for M replicates and
     # returns the dose-likelihood pairs
     make_Pairs <- function(theta, b2mamvec, prodterm) {
@@ -695,7 +695,7 @@ calc_MinDose <- function(
         thetavec <- matrix(theta[i], N, 1)
         kdthis <- (thetavec-b2mamvec)/h
         kd1 <- dnorm(kdthis)
-        
+
         kd2 <- kd1*prodterm[[i]]
         kd <- sum(kd2)
         likelihood <- (1/(N*h))*kd
@@ -703,7 +703,7 @@ calc_MinDose <- function(
       }
       return(pairs)
     }
-    
+
     ## START BOOTSTRAP ----
     msg <- sprintf(paste("\n [calc_MinDose] \n\nRecycled Bootstrap",
                          "\n\nParameters:",
@@ -714,7 +714,7 @@ calc_MinDose <- function(
                          "\n\n Creating %d bootstrap replicates..."),
                    M, N, sigmab, sigmab.sd, h, N+M)
     message(msg)
-    
+
     n <- length(data[ ,1])
     # Draw N+M samples of a normale distributed sigmab
     sigmab <- rnorm(N + M, sigmab, sigmab.sd)
@@ -722,7 +722,7 @@ calc_MinDose <- function(
     b2Pmatrix <- draw_Freq()
     # Finally draw N+M bootstrap replicates
     replicates <- create_Replicates(b2Pmatrix, sigmab)
-    
+
     # MULTICORE: The call to 'Get_mle' is the bottleneck of the function.
     # Using multiple CPU cores can reduce the computation cost, but may
     # not work for all machines.
@@ -736,7 +736,7 @@ calc_MinDose <- function(
       message("\n Applying the model to all replicates. This may take a while...")
       mle <- lapply(replicates, Get_mle)
     }
-    
+
     # Final bootstrap calculations
     message("\n Calculating the likelihoods...")
     # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
@@ -747,7 +747,7 @@ calc_MinDose <- function(
     prodterm <- lapply(Pmat, get_ProductTerm, b2Pmatrix)
     # Save the bootstrap results as dose-likelihood pairs
     pairs <- make_Pairs(theta, b2mamvec, prodterm)
-    
+
     ## --------- FIT POLYNOMIALS -------------- ##
     message("\n Fit curves to dose-likelihood pairs...")
     # polynomial fits of increasing degrees
@@ -755,7 +755,7 @@ calc_MinDose <- function(
     poly.four <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 4, raw = TRUE))
     poly.five <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 5, raw = TRUE))
     poly.six <- lm(pairs[ ,2] ~ poly(pairs[ ,1], degree = 6, raw = TRUE))
-    
+
     ## --------- FIT LOESS -------------- ##
     # Polynomials are probably not reasonable and often suffer badly from
     # overfitting, especially towards the margins of the fitted data. In this
@@ -764,9 +764,9 @@ calc_MinDose <- function(
     # LOESS (LOcal polynomial regrESSion) often yields better results than
     # standard polynomials.
     loess <- loess(pairs[ ,2] ~ pairs[ ,1])
-    
+
   }#EndOf::Bootstrap
-  
+
   ##============================================================================##
   ## CONSOLE PRINT
   ##============================================================================##
@@ -780,40 +780,40 @@ calc_MinDose <- function(
                        Lmax=-ests@min,
                        BIC=BIC,
                        row.names = ""))
-      
+
       cat("\n--- final parameter estimates ---\n")
       print(round(data.frame(gamma=ifelse(!invert, bbmle::coef(ests)[["gamma"]], (bbmle::coef(ests)[["gamma"]]-x.offset)*-1),
                              sigma=bbmle::coef(ests)[["sigma"]],
                              p0=bbmle::coef(ests)[["p0"]],
                              mu=ifelse(par==4, ifelse(log,log(muend),muend),0),
                              row.names=""), 2))
-      
+
       cat("\n------ confidence intervals -----\n")
       print(round(conf, 2))
-      
+
       cat("\n------ De (asymmetric error) -----\n")
       print(round(data.frame(De=pal,
                              "lower"=ifelse(log, ifelse(!invert, exp(conf["gamma",1]), exp((conf["gamma",2]-x.offset)*-1)), conf["gamma",1]),
                              "upper"=ifelse(log, ifelse(!invert, exp(conf["gamma",2]), exp((conf["gamma",1]-x.offset)*-1)), conf["gamma",2]),
                              row.names=""), 2))
-      
+
       cat("\n------ De (symmetric error) -----\n")
       print(round(data.frame(De=pal,
                              error=gamma_err,
                              row.names=""), 2))
-      
+
     } else if (bootstrap) {
       message("\n Finished!")
     }
   }
-  
+
   ##============================================================================##
   ## RETURN VALUES
   ##============================================================================##
-  
+
   if (!bootstrap)
     pairs <- poly.three <- poly.four <- poly.five <- poly.six <- loess <- NULL
-  
+
   newRLumResults.calc_MinDose <- set_RLum(
     class = "RLum.Results",
     data = list(summary = summary,
@@ -831,22 +831,22 @@ calc_MinDose <- function(
                                    poly.five = poly.five,
                                    poly.six = poly.six),
                   loess.fit = loess)))
-  
+
   ##=========##
   ## PLOTTING
   if (plot)
     try(plot_RLum.Results(newRLumResults.calc_MinDose, ...))
-  
-  
+
+
   if (!debug)
     options(warn = 0)
-  
+
   if (!is.na(summary$mu) && !is.na(summary$de)) {
     if (log(summary$de) > summary$mu)
       warning("Gamma is larger than mu. Consider re-running the model",
               " with new boundary values (see details '?calc_MinDose').", call. = FALSE)
   }
-  
+
   invisible(newRLumResults.calc_MinDose)
-  
+
 }
