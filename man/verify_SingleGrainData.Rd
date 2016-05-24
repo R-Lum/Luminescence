@@ -29,11 +29,13 @@ will be only removed if all curves of this aliquot are marked as invalid.}
 \value{
 Returns either an S4 object of type \code{\linkS4class{RLum.Results}} and the slot
 \code{data} contains a \code{\link{list}} with the following structure:\cr
-$ unique_paris data.frame) \cr
+$ unique_paris (\code{data.frame}): the unique position and grain pairs \cr
 .. $ POSITION \cr
 .. $ GRAIN \cr
 
-$ selection_full (data.frame) \cr
+$ selection_id (\code{numeric}): the made selection by record ID\cr
+
+$ selection_full (\code{data.frame}): the full set with all criteria\cr
 .. $ POSITION \cr
 .. $ GRAIN \cr
 .. $ MEAN \cr
@@ -42,9 +44,8 @@ $ selection_full (data.frame) \cr
 .. $ THRESHOLD \cr
 .. $ VALID \cr
 
-or for \code{cleanup = TRUE} the same object as the input,
-but with cleaned up (invalid curves removed). This means: Either an
-\code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}} object is returned.
+or for \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves removed).
+This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}} object is returned.
 An \code{\linkS4class{Risoe.BINfileData}} object can be exported to a BIN-file by using the function
 \code{\link{write_R2BIN}}.
 }
@@ -74,19 +75,24 @@ within a SAR cycle are removed as well. Therefore it is strongly recommended to 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.1.0 (2016-05-24 10:29:46)
+ 0.1.0 (2016-05-24 11:17:56)
 }
 \examples{
 
-##01 - Basic example
+##01 - basic example I
 ##just show how to apply the function
 data(ExampleData.XSYG, envir = environment())
 
 ##verify and get data.frame out of it
 verify_SingleGrainData(OSL.SARMeasurement$Sequence.Object)$selection_full
 
+##02 - basic example II
+data(ExampleData.BINfileData, envir = environment())
+id <- verify_SingleGrainData(object = CWOSL.SAR.Data,
+cleanup_level = "aliquot")$selection_id
+
 \dontrun{
-##02 - enhanced example
+##03 - advanced example
 ##importing and exporting a BIN-file
 
 ##select and import file

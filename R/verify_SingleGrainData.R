@@ -34,11 +34,13 @@
 #'
 #' @return Returns either an S4 object of type \code{\linkS4class{RLum.Results}} and the slot
 #' \code{data} contains a \code{\link{list}} with the following structure:\cr
-#' $ unique_paris data.frame) \cr
+#' $ unique_paris (\code{data.frame}): the unique position and grain pairs \cr
 #' .. $ POSITION \cr
 #' .. $ GRAIN \cr
 #'
-#' $ selection_full (data.frame) \cr
+#' $ selection_id (\code{numeric}): the made selection by record ID\cr
+#'
+#' $ selection_full (\code{data.frame}): the full set with all criteria\cr
 #' .. $ POSITION \cr
 #' .. $ GRAIN \cr
 #' .. $ MEAN \cr
@@ -47,12 +49,10 @@
 #' .. $ THRESHOLD \cr
 #' .. $ VALID \cr
 #'
-#' or for \code{cleanup = TRUE} the same object as the input,
-#' but with cleaned up (invalid curves removed). This means: Either an
-#' \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}} object is returned.
+#' or for \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves removed).
+#' This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}} object is returned.
 #' An \code{\linkS4class{Risoe.BINfileData}} object can be exported to a BIN-file by using the function
 #' \code{\link{write_R2BIN}}.
-#'
 #'
 #' @note This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
 #' \code{\linkS4class{RLum.Analysis}} objects (or a list of it). However, the function is highly optimised
@@ -78,15 +78,20 @@
 #'
 #' @examples
 #'
-#' ##01 - Basic example
+#' ##01 - basic example I
 #' ##just show how to apply the function
 #' data(ExampleData.XSYG, envir = environment())
 #'
 #' ##verify and get data.frame out of it
 #' verify_SingleGrainData(OSL.SARMeasurement$Sequence.Object)$selection_full
 #'
+#' ##02 - basic example II
+#' data(ExampleData.BINfileData, envir = environment())
+#' id <- verify_SingleGrainData(object = CWOSL.SAR.Data,
+#' cleanup_level = "aliquot")$selection_id
+#'
 #' \dontrun{
-#' ##02 - enhanced example
+#' ##03 - advanced example
 #' ##importing and exporting a BIN-file
 #'
 #' ##select and import file
@@ -175,9 +180,6 @@ verify_SingleGrainData <- function(
           selection[selection[["VALID"]], c("POSITION", "GRAIN")])
 
 
-      ##select output on the chosen input
-      if(cleanup){
-
         if(cleanup_level == "aliquot"){
 
           selection_id <- sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
@@ -196,6 +198,10 @@ verify_SingleGrainData <- function(
          selection_id <- which(selection[["VALID"]])
 
         }
+
+
+      ##select output on the chosen input
+      if(cleanup){
 
         ##selected wanted elements
         object@DATA <- object@DATA[selection_id]
@@ -220,6 +226,7 @@ verify_SingleGrainData <- function(
           class = "RLum.Results",
           data = list(
             unique_pairs =  unique_pairs,
+            selection_id = selection_id,
             selection_full = selection),
           info = list(call = sys.call())
         ))
@@ -301,18 +308,23 @@ verify_SingleGrainData <- function(
       }
 
 
-     ##return value
-    ##select output on the chosen input
-    if(cleanup){
-
+      ##set up cleanup
       if(cleanup_level == "aliquot") {
         if (object@originator == "read_XSYG2R") {
+
+          if(!is.na(unique_pairs)){
+
           selection_id <-
             sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
               which(.subset2(selection, 1) == .subset2(unique_pairs, 1)[x])
 
 
             })))
+
+          }else{
+           selection_id <- NA
+
+          }
 
 
         } else if (object@originator == "Risoe.BINfileData2RLum.Analysis") {
@@ -328,11 +340,20 @@ verify_SingleGrainData <- function(
 
         }
 
-
-
       } else{
         ##reduce data to TRUE selection
         selection_id <- which(selection[["VALID"]])
+
+      }
+
+    ##return value
+    ##select output on the chosen input
+    if(cleanup && !is.na(selection_id)){
+
+      ##print message
+      if(verbose){
+        selection_id <- paste(selection_id, collapse = ", ")
+        message(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ", selection_id))
 
       }
 
@@ -345,6 +366,7 @@ verify_SingleGrainData <- function(
           records = list(),
           info = list(
             unique_pairs = unique_pairs,
+            selection_id = selection_id,
             selection_full = selection)
         )
 
@@ -355,27 +377,26 @@ verify_SingleGrainData <- function(
           records = get_RLum(object, record.id = selection_id, drop = FALSE),
           info = list(
             unique_pairs = unique_pairs,
+            selection_id = selection_id,
             selection_full = selection)
         )
 
      }
 
-      ##print message
-      if(verbose){
-        selection_id <- paste(selection_id, collapse = ", ")
-        message(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ", selection_id))
-
-      }
-
-
       ##return
       return(object)
 
     }else{
+      if(is.na(selection_id)){
+        warning("[verify_SingleGrainData()] selection_id is NA, nothing removed, everything selected!")
+
+      }
+
       return(set_RLum(
         class = "RLum.Results",
         data = list(
           unique_pairs = unique_pairs,
+          selection_id = selection_id,
           selection_full = selection),
         info = list(call = sys.call())
       ))
