@@ -33,7 +33,7 @@ starting values for gamma, sigma, p0 and mu (e.g. \code{list(gamma=100
 sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
 are tried to be estimated from the data.}
 
-\item{level}{\code{\link{logical}} (with default): the confidence level 
+\item{level}{\code{\link{logical}} (with default): the confidence level
 required (defaults to 0.95).}
 
 \item{plot}{\code{\link{logical}} (with default): plot output
@@ -103,7 +103,7 @@ of this function the boundaries for the individual model parameters are no
 longer required to be explicitly specified. If you want to override the default
 boundary values use the arguments \code{gamma.lower}, \code{gamma.upper},
 \code{sigma.lower}, \code{sigma.upper}, \code{p0.lower}, \code{p0.upper},
-\code{mu.lower} and \code{mu.upper}.  \cr\cr 
+\code{mu.lower} and \code{mu.upper}.  \cr\cr
 \bold{Bootstrap} \cr\cr When
 \code{bootstrap=TRUE} the function applies the bootstrapping method as
 described in Wallinga & Cunningham (2012). By default, the minimum age model
@@ -138,7 +138,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.2
+ 0.4.3 (2016-05-24 12:14:20)
 }
 \examples{
 
@@ -238,7 +238,7 @@ rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
 based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
 Cunningham is thanked for his help in implementing and cross-checking the
 code.
-}
+\cr R Luminescence Package Team}
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young
