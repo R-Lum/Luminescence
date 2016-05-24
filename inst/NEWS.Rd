@@ -185,6 +185,17 @@
         anymore with an error.
 
       }
+      
+      
+      \item \code{calc_MinDose()}
+      \itemize{
+        
+        \item The user is now warned if the final estimate of \code{mu} is larger than \code{gamma},
+        \item New \code{...} arguments \code{gamma.lower, gamma.upper, sigma.lower, sigma.upper, p0.lower, p0.upper, mu.lower, mu.upper}
+        that can be used to override the default boundary values,
+        \item New argument \code{level} to allow specifying the required confidence level (defaults to 0.95).
+
+      }
 
      \item \code{calc_OSLLxTxRatio()}
       \itemize{

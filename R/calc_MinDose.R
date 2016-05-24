@@ -77,6 +77,8 @@
 #' starting values for gamma, sigma, p0 and mu (e.g. \code{list(gamma=100
 #' sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
 #' are tried to be estimated from the data.
+#' @param level \code{\link{logical}} (with default): the confidence level 
+#' required (defaults to 0.95).
 #' @param plot \code{\link{logical}} (with default): plot output
 #' (\code{TRUE}/\code{FALSE})
 #' @param multicore \code{\link{logical}} (with default): enable parallel
@@ -244,6 +246,7 @@ calc_MinDose <- function(
   par = 3,
   bootstrap = FALSE,
   init.values,
+  level = 0.95,
   plot = TRUE,
   multicore = FALSE,
   ...
@@ -583,7 +586,7 @@ calc_MinDose <- function(
   #### METHOD 1: follow the instructions of Galbraith & Roberts (2012) ####
   # "If the likelihood profile is symmetrical about the parameter, an approximate standard error
   #  can be calculated by dividing the length of this interval by 3.92"
-  conf <- as.data.frame(bbmle::confint(prof, tol.newmin = Inf, quietly = TRUE))
+  conf <- as.data.frame(bbmle::confint(prof, tol.newmin = Inf, quietly = TRUE, level = level))
   class(conf[,1]) <- class(conf[,2]) <- "numeric"
   
   if (invert) {
@@ -602,6 +605,7 @@ calc_MinDose <- function(
   ## AGGREGATE RESULTS
   summary <- data.frame(de=pal,
                         de_err=gamma_err,
+                        ci_level = level,
                         "ci_lower"=ifelse(log, exp(conf["gamma",1]), conf["gamma",1]),
                         "ci_upper"=ifelse(log, exp(conf["gamma",2]), conf["gamma",2]),
                         par=par,

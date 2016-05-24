@@ -6,7 +6,7 @@
 to a given De distribution}
 \usage{
 calc_MinDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE,
-  init.values, plot = TRUE, multicore = FALSE, ...)
+  init.values, level = 0.95, plot = TRUE, multicore = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
@@ -32,6 +32,9 @@ bootstrap approach of Cunningham & Wallinga (2012).}
 starting values for gamma, sigma, p0 and mu (e.g. \code{list(gamma=100
 sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
 are tried to be estimated from the data.}
+
+\item{level}{\code{\link{logical}} (with default): the confidence level 
+required (defaults to 0.95).}
 
 \item{plot}{\code{\link{logical}} (with default): plot output
 (\code{TRUE}/\code{FALSE})}
@@ -135,7 +138,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.2 (2016-05-02 09:36:06)
+ 0.4.2
 }
 \examples{
 
@@ -235,7 +238,7 @@ rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
 based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
 Cunningham is thanked for his help in implementing and cross-checking the
 code.
-\cr R Luminescence Package Team}
+}
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young

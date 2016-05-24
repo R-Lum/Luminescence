@@ -233,6 +233,19 @@ Changes in version 0.6.0 (May 27th ,2016):
                MC runs the function will not stop anymore with an
                error.
 
+         • ‘calc_MinDose()’
+
+             • The user is now warned if the final estimate of ‘mu’ is
+               larger than ‘gamma’,
+
+             • New ‘...’ arguments ‘gamma.lower, gamma.upper,
+               sigma.lower, sigma.upper, p0.lower, p0.upper, mu.lower,
+               mu.upper’ that can be used to override the default
+               boundary values,
+
+             • New argument ‘level’ to allow specifying the required
+               confidence level (defaults to 0.95).
+
          • ‘calc_OSLLxTxRatio()’
 
              • New argument ‘digits’ introduced to allow direct
