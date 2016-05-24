@@ -113,7 +113,7 @@
 #' when running this function. If the results seem odd consider re-running the
 #' model with \code{debug=TRUE} which provides extended console output and
 #' forwards all internal warning messages.
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.3
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
 #' based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
