@@ -91,7 +91,7 @@
 #' cleanup_level = "aliquot")$selection_id
 #'
 #' \dontrun{
-#' ##03 - advanced example
+#' ##03 - advanced example I
 #' ##importing and exporting a BIN-file
 #'
 #' ##select and import file
@@ -101,8 +101,8 @@
 #' ##remove invalid aliquots(!)
 #' object <- verify_SingleGrainData(object, cleanup = TRUE)
 #'
-#' ##export BIN-file
-#' write_R2BIN(object, file)
+#' ##export to new BIN-file
+#' write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 #' }
 #'
 #' @export

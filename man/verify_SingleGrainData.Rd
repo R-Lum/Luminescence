@@ -75,7 +75,7 @@ within a SAR cycle are removed as well. Therefore it is strongly recommended to 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.1.0 (2016-05-24 11:17:56)
+ 0.1.0 (2016-05-24 11:54:17)
 }
 \examples{
 
@@ -92,7 +92,7 @@ id <- verify_SingleGrainData(object = CWOSL.SAR.Data,
 cleanup_level = "aliquot")$selection_id
 
 \dontrun{
-##03 - advanced example
+##03 - advanced example I
 ##importing and exporting a BIN-file
 
 ##select and import file
@@ -102,8 +102,8 @@ object <- read_BIN2R(file)
 ##remove invalid aliquots(!)
 object <- verify_SingleGrainData(object, cleanup = TRUE)
 
-##export BIN-file
-write_R2BIN(object, file)
+##export to new BIN-file
+write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 }
 
 }
