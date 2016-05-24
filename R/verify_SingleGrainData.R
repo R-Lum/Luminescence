@@ -21,7 +21,8 @@
 #' the \code{mean} and the \code{var} of the count values (see details)
 #'
 #' @param cleanup \code{\link{logical}} (with default): if set to \code{TRUE} curves indentified as
-#' zero light level curves are automatically removed. Ouput is an object as same type as the input.
+#' zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
+#' either \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
 #'
 #' @param cleanup_level \code{\link{character}} (with default): selects the level for the cleanup
 #' of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
@@ -46,8 +47,11 @@
 #' .. $ THRESHOLD \cr
 #' .. $ VALID \cr
 #'
-#' or for \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves
-#' removed)
+#' or for \code{cleanup = TRUE} the same object as the input,
+#' but with cleaned up (invalid curves removed). This means: Either an
+#' \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}} object is returned.
+#' An \code{\linkS4class{Risoe.BINfileData}} object can be exported to a BIN-file by using the function
+#' \code{\link{write_R2BIN}}.
 #'
 #'
 #' @note This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
@@ -55,8 +59,8 @@
 #' for \code{\linkS4class{Risoe.BINfileData}} objects as it make sense to remove identify invalid
 #' grains before the conversion to an \code{\linkS4class{RLum.Analysis}} object.\cr
 #'
-#' Currently the function just check for invalid curves and work quite robost. Within a SAR cycle
-#' Reg0 curves are likely to removed as well. Therefore it is strongly recommended to use the argument
+#' The function checking for invalid curves works rather robust and it is likely that Reg0 curves
+#' within a SAR cycle are removed as well. Therefore it is strongly recommended to use the argument
 #' \code{cleanup = TRUE} carefully.
 #'
 #' @section Function version: 0.1.0
@@ -65,19 +69,36 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
+#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
+#' \code{\link{write_R2BIN}}, \code{\link{read_BIN2R}}
 #'
 #' @references -
 #'
-#' @keywords manip
+#' @keywords manip datagen
 #'
 #' @examples
 #'
+#' ##01 - Basic example
 #' ##just show how to apply the function
 #' data(ExampleData.XSYG, envir = environment())
 #'
 #' ##verify and get data.frame out of it
 #' verify_SingleGrainData(OSL.SARMeasurement$Sequence.Object)$selection_full
+#'
+#' \dontrun{
+#' ##02 - enhanced example
+#' ##importing and exporting a BIN-file
+#'
+#' ##select and import file
+#' file <- file.choose()
+#' object <- read_BIN2R(file)
+#'
+#' ##remove invalid aliquots(!)
+#' object <- verify_SingleGrainData(object, cleanup = TRUE)
+#'
+#' ##export BIN-file
+#' write_R2BIN(object, file)
+#' }
 #'
 #' @export
 verify_SingleGrainData <- function(
@@ -88,11 +109,6 @@ verify_SingleGrainData <- function(
   verbose = TRUE
 ){
 
-  ##TODO
-  ##The fucntion should better remove only grains indentified as invalid entirely ... a single
-  ##curve from a grain position should not set all grain as invalid, however, in the data frame
-  ##another column would be needed
-  ##Consider to use the ratio instead of the diff
 
   ##three types of input are allowed:
   ##(1) RisoeBINfileData
@@ -181,7 +197,7 @@ verify_SingleGrainData <- function(
 
         }
 
-        ##selected wanted elemennts
+        ##selected wanted elements
         object@DATA <- object@DATA[selection_id]
         object@METADATA <- object@METADATA[selection_id,]
         object@METADATA$ID <- 1:length(object@DATA)

@@ -15,7 +15,8 @@ verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
 the \code{mean} and the \code{var} of the count values (see details)}
 
 \item{cleanup}{\code{\link{logical}} (with default): if set to \code{TRUE} curves indentified as
-zero light level curves are automatically removed. Ouput is an object as same type as the input.}
+zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
+either \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}}
 
 \item{cleanup_level}{\code{\link{character}} (with default): selects the level for the cleanup
 of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
@@ -41,8 +42,11 @@ $ selection_full (data.frame) \cr
 .. $ THRESHOLD \cr
 .. $ VALID \cr
 
-or for \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves
-removed)
+or for \code{cleanup = TRUE} the same object as the input,
+but with cleaned up (invalid curves removed). This means: Either an
+\code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}} object is returned.
+An \code{\linkS4class{Risoe.BINfileData}} object can be exported to a BIN-file by using the function
+\code{\link{write_R2BIN}}.
 }
 \description{
 This function tries to identify automatically zero light level curves (grains) from single grain data
@@ -65,20 +69,36 @@ This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
 for \code{\linkS4class{Risoe.BINfileData}} objects as it make sense to remove identify invalid
 grains before the conversion to an \code{\linkS4class{RLum.Analysis}} object.\cr
 
-Currently the function just check for invalid curves and work quite robost. Within a SAR cycle
-Reg0 curves are likely to removed as well. Therefore it is strongly recommended to use the argument
+The function checking for invalid curves works rather robust and it is likely that Reg0 curves
+within a SAR cycle are removed as well. Therefore it is strongly recommended to use the argument
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.0 (2016-05-24 10:29:46)
 }
 \examples{
 
+##01 - Basic example
 ##just show how to apply the function
 data(ExampleData.XSYG, envir = environment())
 
 ##verify and get data.frame out of it
 verify_SingleGrainData(OSL.SARMeasurement$Sequence.Object)$selection_full
+
+\dontrun{
+##02 - enhanced example
+##importing and exporting a BIN-file
+
+##select and import file
+file <- file.choose()
+object <- read_BIN2R(file)
+
+##remove invalid aliquots(!)
+object <- verify_SingleGrainData(object, cleanup = TRUE)
+
+##export BIN-file
+write_R2BIN(object, file)
+}
 
 }
 \author{
@@ -88,7 +108,9 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 -
 }
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
+\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
+\code{\link{write_R2BIN}}, \code{\link{read_BIN2R}}
 }
+\keyword{datagen}
 \keyword{manip}
 
