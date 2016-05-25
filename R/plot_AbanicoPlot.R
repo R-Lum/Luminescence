@@ -3056,22 +3056,6 @@ plot_AbanicoPlot <- function(
             col = layout$abanico$colour$ztck)
     }
 
-    ## optionally draw white area over scatter bar
-    if(boxplot == TRUE) {
-
-      polygon(x = c(min(ellipse[,1]),
-                    min(ellipse[,1]),
-                    max(ellipse[,1]),
-                    max(ellipse[,1])),
-              y = c(min(ellipse[,2]),
-                    xy.0[2],
-                    xy.0[2],
-                    min(ellipse[,2])),
-              lty = 0,
-              col = "white")
-    }
-
-
     ## plot z-axes
     lines(ellipse, col = layout$abanico$colour$border)
     lines(y = rep(par()$usr[4], nrow(ellipse)),
@@ -3126,9 +3110,19 @@ plot_AbanicoPlot <- function(
 
     ## calculate KDE width
     KDE.max <- 0
+    
     for(i in 1:length(data)) {
-      KDE.max <- ifelse(KDE.max < max(KDE[[i]][,2]), max(KDE[[i]][,2]), KDE.max)
+      KDE.max <- ifelse(test = KDE.max < max(KDE[[i]][,2]), 
+                        yes = max(KDE[[i]][,2]), 
+                        no = KDE.max)
     }
+    
+    ## optionally adjust KDE width for boxplot option
+    if(boxplot == TRUE) {
+      
+      KDE.max <- 1.3 * KDE.max
+    }
+    
     KDE.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max * 1.05)
 
     ## optionally add KDE plot
@@ -3303,16 +3297,16 @@ plot_AbanicoPlot <- function(
                       min(ellipse[,2]),
                     (boxplot.data[[i]]$stats[3,1] - z.central.global) *
                       min(ellipse[,2])),
-              y = c(min(ellipse[,2]) * 1.025,
-                    xy.0[2] * 0.975),
+              y = c(min(ellipse[,2]) + KDE.max * 0.91,
+                    xy.0[2] + KDE.max * 0.96),
               lwd = 2,
               col = kde.line[i])
 
         ## draw p25-p75-polygon
-        polygon(y = c(min(ellipse[,2]) * 1.025,
-                      min(ellipse[,2]) * 1.025,
-                      xy.0[2] * 0.975,
-                      xy.0[2] * 0.975),
+        polygon(y = c(min(ellipse[,2]) + KDE.max * 0.91,
+                      min(ellipse[,2]) + KDE.max * 0.91,
+                      xy.0[2] + KDE.max * 0.96,
+                      xy.0[2] + KDE.max * 0.96),
                 x = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
                         min(ellipse[,2]),
                       (boxplot.data[[i]]$stats[4,1] - z.central.global) *
@@ -3324,37 +3318,37 @@ plot_AbanicoPlot <- function(
                 border = kde.line[i])
 
         ## draw whiskers
-        lines(y = rep(mean(c(min(ellipse[,2]) * 1.025,
-                             xy.0[2] * 0.975)), 2),
+        lines(y = rep(mean(c(min(ellipse[,2]) + KDE.max * 0.91,
+                             xy.0[2] + KDE.max * 0.96)), 2),
               x = c((boxplot.data[[i]]$stats[2,1] - z.central.global) *
                       min(ellipse[,2]),
                     (boxplot.data[[i]]$stats[1,1] - z.central.global) *
                       min(ellipse[,2])),
               col = kde.line[i])
 
-        lines(y = c(min(ellipse[,2]) * 1.035,
-                    xy.0[2] * 0.965),
+        lines(y = c(min(ellipse[,2]) + KDE.max * 0.91,
+                    xy.0[2] + KDE.max * 0.96),
               x = rep((boxplot.data[[i]]$stats[1,1] - z.central.global) *
                         min(ellipse[,2]), 2),
               col = kde.line[i])
 
-        lines(y = rep(mean(c(min(ellipse[,2]) * 1.025,
-                             xy.0[2] * 0.975)), 2),
+        lines(y = rep(mean(c(min(ellipse[,2]) + KDE.max * 0.91,
+                             xy.0[2] + KDE.max * 0.96)), 2),
               x = c((boxplot.data[[i]]$stats[4,1] - z.central.global) *
                       min(ellipse[,2]),
                     (boxplot.data[[i]]$stats[5,1] - z.central.global) *
                       min(ellipse[,2])),
               col = kde.line[i])
 
-        lines(y = c(min(ellipse[,2]) * 1.035,
-                    xy.0[2] * 0.965),
+        lines(y = c(min(ellipse[,2]) + KDE.max * 0.91,
+                    xy.0[2] + KDE.max * 0.96),
               x = rep((boxplot.data[[i]]$stats[5,1] - z.central.global) *
                         min(ellipse[,2]), 2),
               col = kde.line[i])
 
         ## draw outlier points
-        points(y = rep(mean(c(min(ellipse[,2]) * 1.025,
-                              xy.0[2] * 0.975)),
+        points(y = rep(mean(c(min(ellipse[,2]) + KDE.max * 0.91,
+                              xy.0[2] + KDE.max * 0.96)),
                        length(boxplot.data[[i]]$out)),
                x = (boxplot.data[[i]]$out - z.central.global) *
                  min(ellipse[,2]),
