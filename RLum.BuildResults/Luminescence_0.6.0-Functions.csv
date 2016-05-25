@@ -179,5 +179,5 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,<br /> GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany) <br />  R Luminescence Package Team"
 "verify_SingleGrainData","Verify single grain data sets and check for invalid grains, i.e. zero light level grains","<br /> This function tries to identify automatically zero light level curves (grains) from single grain data<br /> measurements.  <br />","0.1.0","2016-05-24","12:00:22
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"write_R2BIN","Export Risoe.BINfileData into Risoe BIN-file","<br /> Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be<br /> opened by the Analyst software or other Risoe software.<br />","0.3.2","2016-05-02","09:44:00
+"write_R2BIN","Export Risoe.BINfileData into Risoe BIN-file","<br /> Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be<br /> opened by the Analyst software or other Risoe software.<br />","0.3.3","2016-05-25","16:39:03
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

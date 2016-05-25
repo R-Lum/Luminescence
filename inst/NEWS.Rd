@@ -185,11 +185,11 @@
         anymore with an error.
 
       }
-      
-      
+
+
       \item \code{calc_MinDose()}
       \itemize{
-        
+
         \item The user is now warned if the final estimate of \code{mu} is larger than \code{gamma},
         \item New \code{...} arguments \code{gamma.lower, gamma.upper, sigma.lower, sigma.upper, p0.lower, p0.upper, mu.lower, mu.upper}
         that can be used to override the default boundary values,
@@ -384,6 +384,14 @@
         tries to import values for valid positions or grains only,
         \item the function gained the new argument \code{dtype} to further limit the converted
         data types during the conversion (#269)
+      }
+
+      \item \code{write_R2BIN()}
+
+      \itemize{
+        \item Output for \code{version = "06"} was a corrupt BINX-file ... fixed.
+
+
       }
 
    }

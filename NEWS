@@ -453,6 +453,11 @@ Changes in version 0.6.0 (May 27th ,2016):
                limit the converted data types during the conversion
                (#269)
 
+         • ‘write_R2BIN()’
+
+             • Output for ‘version = "06"’ was a corrupt BINX-file ...
+               fixed.
+
   Internals:
 
          • New internal function ‘.create_UID()’ added to create the

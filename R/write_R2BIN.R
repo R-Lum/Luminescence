@@ -43,7 +43,8 @@
 #' directly produced by the Risoe readers!\cr
 #'
 #' Implementation of support for version 07 could so far not properly tested.
-#' @section Function version: 0.3.2
+#'
+#' @section Function version: 0.3.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -116,7 +117,7 @@ write_R2BIN <- function(
 
     version.original <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version <- as.raw(version)
-    object@METADATA[,"VERSION"] <- version
+    object@METADATA[["VERSION"]] <- version
 
     ##Furthermore, entries length needed to be recalculated
     if(version.original != version){
@@ -1186,7 +1187,7 @@ write_R2BIN <- function(
 
         ##RESERVED 2
         if(length(object@.RESERVED) == 0 || version.original != version){
-          writeBin(raw(length=15),
+          writeBin(raw(length=24),
                    con,
                    size = 1,
                    endian="little")
