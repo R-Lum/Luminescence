@@ -26,8 +26,7 @@ cumulative individual data.}
 \item{boxplot}{\code{\link{logical}} (with default): optionally show a
 boxplot (depicting median as thick central line, first and third quartile
 as box limits, whiskers denoting +/- 1.5 interquartile ranges and dots
-further outliers) and line with diamond depicting mean and standard
-deviation of the distribution.}
+further outliers).}
 
 \item{rug}{\code{\link{logical}} (with default): optionally add rug.}
 
@@ -103,7 +102,7 @@ The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.2 (2016-05-19 23:46:53)
+ 3.5.2 (2016-05-25 11:10:50)
 }
 \examples{
 
