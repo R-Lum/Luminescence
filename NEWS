@@ -288,7 +288,10 @@ Changes in version 0.6.0 (May 27th ,2016):
 
              • Boxplot option added
 
-             • Summary keywords homogenised.
+             • Summary keywords homogenised,
+
+             • if data contain 0 dose values, the values are now
+               positively shifted by 0.001.
 
          • ‘plot_DRTResults()’
 

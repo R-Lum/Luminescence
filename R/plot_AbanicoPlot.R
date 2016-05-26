@@ -202,7 +202,7 @@
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
 #'
-#' @section Function version: 0.1.7
+#' @section Function version: 0.1.8
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
@@ -507,10 +507,10 @@ plot_AbanicoPlot <- function(
       data[[i]] <- data[[i]][data[[i]][,2] > 0,]
 
       if(nrow(data[[i]]) < 1) {
-        stop("Data set contains only values with zero errors.")
+        stop("[plot_AbanicoPlot()] Data set contains only values with zero errors.", call. = FALSE)
       }
 
-      warning("Values with zero errors cannot be displayed and were removed!")
+      warning("[plot_AbanicoPlot()] values with zero errors cannot be displayed and were removed!",call. = FALSE)
     }
   }
 
@@ -621,7 +621,7 @@ plot_AbanicoPlot <- function(
                    silent = TRUE)
     if(grepl(pattern = "Error", x = bw.test[1]) == TRUE) {
       bw <- "nrd0"
-      warning("Option for bw not possible. Set to nrd0!")
+      warning("[plot_AbanicoPlot()] Option for bw not possible. Set to nrd0!", call. = FALSE)
     }
   }
 
@@ -633,9 +633,23 @@ plot_AbanicoPlot <- function(
   }
 
   ## check for negative values, stoppp function, but do not stop
-  if(min(De.global) <= 0) {
-    message("\n [plot_AbanicoPlot()] Data contains negative or zero values. Nothing plotted!")
+  if(min(De.global) < 0) {
+    message("\n [plot_AbanicoPlot()] data contains negative values. Nothing plotted!")
     return(NULL)
+  }
+
+  ##check for 0 dose values and adjust for plotting ...
+  if((min(De.global) == 0)){
+    warning("\n [plot_AbanicoPlot()] data contains 0 values, values positively shifted by 0.01",
+            call. = FALSE)
+    data <- lapply(1:length(data), function(x){
+      df <- data.frame(
+        data[[x]][,1] + 0.01, data[[x]][,2])
+      colnames(df) <- colnames(data)
+      return(df)
+
+    })
+
   }
 
   ## calculate and append statistical measures --------------------------------
@@ -3110,19 +3124,19 @@ plot_AbanicoPlot <- function(
 
     ## calculate KDE width
     KDE.max <- 0
-    
+
     for(i in 1:length(data)) {
-      KDE.max <- ifelse(test = KDE.max < max(KDE[[i]][,2]), 
-                        yes = max(KDE[[i]][,2]), 
+      KDE.max <- ifelse(test = KDE.max < max(KDE[[i]][,2]),
+                        yes = max(KDE[[i]][,2]),
                         no = KDE.max)
     }
-    
+
     ## optionally adjust KDE width for boxplot option
     if(boxplot == TRUE) {
-      
+
       KDE.max <- 1.3 * KDE.max
     }
-    
+
     KDE.scale <- (par()$usr[4] - xy.0[2]) / (KDE.max * 1.05)
 
     ## optionally add KDE plot

@@ -248,7 +248,8 @@
         'plotly' package),
         \item Notes about consequences of \code{log.z = TRUE} updated
         \item Boxplot option added
-        \item Summary keywords homogenised.
+        \item Summary keywords homogenised,
+        \item if data contain 0 dose values, the values are now positively shifted by 0.001.
 
       }
 
