@@ -905,8 +905,8 @@ plot_KDE <- function(
         cex = cex * layout$kde$font.size$ylab1/12)
 
   for(i in 1:length(data)) {
-    polygon(x = De.density[[i]]$x,
-            y = De.density[[i]]$y,
+    polygon(x = c(par()$usr[1], De.density[[i]]$x, par()$usr[2]),
+            y = c(min(De.density[[i]]$y),De.density[[i]]$y, min(De.density[[i]]$y)),
             border = col.kde.line[i],
             col = col.kde.fill,
             lty = lty[i],
@@ -972,7 +972,8 @@ plot_KDE <- function(
          ylim = ylim.plot[3:4],
          log  = log.option,
          ann = FALSE,
-         axes = FALSE)
+         axes = FALSE
+         )
 
     ## get line height in xy coordinates
     l_height <- par()$cxy[2]
@@ -1027,7 +1028,7 @@ plot_KDE <- function(
         #       y = c(-5/8 * l_height,
         #             -5/8 * l_height),
         #       col = col.mean.line[i])
-        # 
+        #
         # ## draw mean line
         # points(x = boxplot.data[[i]]$group[1],
         #       y = -5/8 * l_height,
