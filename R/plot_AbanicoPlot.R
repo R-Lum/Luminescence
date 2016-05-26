@@ -639,7 +639,7 @@ plot_AbanicoPlot <- function(
   }
 
   ##check for 0 dose values and adjust for plotting ...
-  if((min(De.global) == 0)){
+  if((min(De.global) == 0) && log.z == TRUE){
     warning("\n [plot_AbanicoPlot()] data contains 0 values, values positively shifted by 0.01",
             call. = FALSE)
     data <- lapply(1:length(data), function(x){

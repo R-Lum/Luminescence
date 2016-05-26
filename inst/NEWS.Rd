@@ -242,14 +242,15 @@
       \itemize{
 
         \item Fixed a bug where the function failed to get input data from
-        \code{RLum.Results} objects.
-        \item New argument \code{interactive} to produce an interactive plot
+        \code{RLum.Results} objects,
+        \item new argument \code{interactive} to produce an interactive plot
         using the JavaScript graphing library 'plotly.js' (requires the
         'plotly' package),
-        \item Notes about consequences of \code{log.z = TRUE} updated
-        \item Boxplot option added
-        \item Summary keywords homogenised,
-        \item if data contain 0 dose values, the values are now positively shifted by 0.001.
+        \item notes about consequences of \code{log.z = TRUE} updated,
+        \item boxplot option added,
+        \item summary keywords homogenised,
+        \item if data contain 0 dose values, the values are now positively shifted by 0.01, but only
+        if \code{log.z == TRUE}.
 
       }
 

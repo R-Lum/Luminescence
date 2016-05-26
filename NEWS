@@ -278,20 +278,20 @@ Changes in version 0.6.0 (May 27th ,2016):
          • ‘plot_AbanicoPlot()’
 
              • Fixed a bug where the function failed to get input data
-               from ‘RLum.Results’ objects.
+               from ‘RLum.Results’ objects,
 
-             • New argument ‘interactive’ to produce an interactive
+             • new argument ‘interactive’ to produce an interactive
                plot using the JavaScript graphing library 'plotly.js'
                (requires the 'plotly' package),
 
-             • Notes about consequences of ‘log.z = TRUE’ updated
+             • notes about consequences of ‘log.z = TRUE’ updated,
 
-             • Boxplot option added
+             • boxplot option added,
 
-             • Summary keywords homogenised,
+             • summary keywords homogenised,
 
              • if data contain 0 dose values, the values are now
-               positively shifted by 0.001.
+               positively shifted by 0.01, but only if ‘log.z == TRUE’.
 
          • ‘plot_DRTResults()’
 
