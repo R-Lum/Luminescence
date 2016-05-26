@@ -4,8 +4,9 @@ Changes in version 0.6.0 (May 27th ,2016):
 
   New functions:
 
-         • ‘analyse_baSAR()’: This function allows the application of
-           Bayesian models (baSAR) on luminescence data
+         • ‘analyse_baSAR()’: Function to allow the application of
+           Bayesian models (baSAR) on luminescence data based on the
+           contribution by Combes et al. (2015)
 
          • ‘app_RLum()’: Wrapper for the function ‘app_RLum()’ from the
            package ‘RLumShiny’ by Christoph Burow
@@ -17,7 +18,8 @@ Changes in version 0.6.0 (May 27th ,2016):
            CW-OSL curves after Durcan & Duller (2011)’
 
          • ‘calc_ThermalLifetime(): Function to calculate thermal
-           lifetime of a charge using the Arrhenius equation’
+           lifetimes and their errors of a charge using the Arrhenius
+           equation’
 
          • ‘model_LuminescenceSignals()’: Wrapper for the function
            ‘model_LuminescenceSignals()’ from the package ‘RLumModel’
@@ -494,7 +496,8 @@ Changes in version 0.6.0 (May 27th ,2016):
 
          • Add S3 generic for method ‘subset’ of objects of type
            ‘Risoe.BINfileData’.  This is a little bit inconsistent,
-           however, still a lot of user using this objects created by
-           the function ‘read_BIN2R(..., fastForward = FALSE)’ and this
-           method tremendously simplifies the work with this objects.
+           however, still a lot of users are using this object created
+           by the function ‘read_BIN2R(..., fastForward = FALSE)’ and
+           this new method (subset) tremendously simplifies the work
+           with this object.
 

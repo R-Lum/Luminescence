@@ -5,14 +5,15 @@
 
   \subsection{New functions}{
    \itemize{
-    \item \code{analyse_baSAR()}: This function allows the application of Bayesian models (baSAR) on luminescence data
+    \item \code{analyse_baSAR()}: Function to allow the application of Bayesian models (baSAR) on luminescence data
+    based on the contribution by Combes et al. (2015)
     \item \code{app_RLum()}: Wrapper for the function \code{app_RLum()} from the package
     \code{RLumShiny} by Christoph Burow
     \item \code{bin_RLum.Data}: Function for binning in \code{RLum.Data} objects, e.g., binning of
     \code{RLum.Data.Curve} objects
     \item \code{calc_FastRatio(): Function to calculate the fast ratio of CW-OSL
     curves after Durcan & Duller (2011)}
-    \item \code{calc_ThermalLifetime(): Function to calculate thermal lifetime of a charge
+    \item \code{calc_ThermalLifetime(): Function to calculate thermal lifetimes and their errors of a charge
     using the Arrhenius equation}
     \item \code{model_LuminescenceSignals()}: Wrapper for the function \code{model_LuminescenceSignals()}
     from the package \code{RLumModel} by Johannes Friedrich, Sebastian Kreutzer and Christoph Schmidt
@@ -429,9 +430,9 @@
         \code{is.RLum.Data.Curve}.
 
         \item Add S3 generic for method \code{subset} of objects of type \code{Risoe.BINfileData}.
-        This is a little bit inconsistent, however, still a lot of user using this objects created
-        by the function \code{read_BIN2R(..., fastForward = FALSE)} and this method tremendously
-        simplifies the work with this objects.
+        This is a little bit inconsistent, however, still a lot of users are using this object created
+        by the function \code{read_BIN2R(..., fastForward = FALSE)} and this new method (subset)
+        tremendously simplifies the work with this object.
 
 
      }
