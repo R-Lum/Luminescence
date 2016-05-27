@@ -6,7 +6,7 @@
 \usage{
 analyse_IRSAR.RF(object, sequence_structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim = NULL, RF_reg.lim = NULL, method = "FIT",
-  method.control = NULL, test_parameter = NULL, n.MC = 10,
+  method.control = NULL, test_parameters = NULL, n.MC = 10,
   txtProgressBar = TRUE, plot = TRUE, plot_reduced = FALSE, ...)
 }
 \arguments{
@@ -36,7 +36,7 @@ be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace
 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 See details.}
 
-\item{test_parameter}{\code{\link{list} (with default)}: set test parameter
+\item{test_parameters}{\code{\link{list} (with default)}: set test parameters.
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
 \code{lambda}, \code{beta} and \code{delta.phi}. All input: \code{\link{numeric}}
@@ -82,7 +82,7 @@ $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
 ..$ DATE : \code{character}: (optional) measurement date\cr
 ..$ SEQUENCE_NAME : \code{character}: (optional) sequence name\cr
 ..$ UID : \code{character}: unique data set ID \cr
-$ test_parameter : \code{\link{data.frame}} table test parameters \cr
+$ test_parameters : \code{\link{data.frame}} table test parameters \cr
 $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 $ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
 
@@ -180,7 +180,7 @@ are returned with the function output. \cr
 
 \bold{Test parameters}\cr
 
-The argument \code{test_parameter} allows to pass some thresholds for several test parameters,
+The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
 which will be evaluated during the function run. If a threshold is set and it will be exceeded the
 test parameter status will be set to "FAILED". Intentionally this parameter is not termed
 'rejection criteria' as not all test parameters are evaluated for both methods and some parameters
@@ -244,7 +244,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.9 (2016-05-19 16:19:20)
+ 0.6.9 (2016-05-27 10:40:45)
 }
 \examples{
 
@@ -256,7 +256,7 @@ results <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 
 ##show De results and test paramter results
 get_RLum(results, data.object = "De.values")
-get_RLum(results, data.object = "test_parameter")
+get_RLum(results, data.object = "test_parameters")
 
 ##(2) perform analysis using the method 'SLIDE'
 results <- analyse_IRSAR.RF(object = IRSAR.RF.Data, method = "SLIDE", n.MC = 1)

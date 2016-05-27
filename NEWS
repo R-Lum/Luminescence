@@ -164,7 +164,9 @@ Changes in version 0.6.0 (May 27th ,2016):
              • support further plot arguments via ‘...’,
 
              • ‘method.control = list(trace = TRUE)’ now shows the
-               control graph as expected for the method ‘SLIDE’.
+               control graph as expected for the method ‘SLIDE’,
+
+             • argument ‘test_parameter’ renamed to ‘test_parameters’.
 
          • ‘analyse_SAR.CWOSL()’
 

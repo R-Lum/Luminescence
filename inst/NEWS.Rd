@@ -128,7 +128,8 @@
         \item argument \code{sequence.structure} renamed to \code{sequence_structure},
         \item support further plot arguments via \code{...},
         \item \code{method.control = list(trace = TRUE)} now shows the control graph as expected for the method
-        \code{SLIDE}.
+        \code{SLIDE},
+        \item argument \code{test_parameter} renamed to \code{test_parameters}.
 
       }
 

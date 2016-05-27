@@ -88,7 +88,7 @@
 #'
 #' \bold{Test parameters}\cr
 #'
-#' The argument \code{test_parameter} allows to pass some thresholds for several test parameters,
+#' The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
 #' which will be evaluated during the function run. If a threshold is set and it will be exceeded the
 #' test parameter status will be set to "FAILED". Intentionally this parameter is not termed
 #' 'rejection criteria' as not all test parameters are evaluated for both methods and some parameters
@@ -167,7 +167,7 @@
 #' 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 #' See details.
 #'
-#' @param test_parameter \code{\link{list} (with default)}: set test parameter
+#' @param test_parameters \code{\link{list} (with default)}: set test parameters.
 #' Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 #' \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
 #' \code{lambda}, \code{beta} and \code{delta.phi}. All input: \code{\link{numeric}}
@@ -213,7 +213,7 @@
 #' ..$ DATE : \code{character}: (optional) measurement date\cr
 #' ..$ SEQUENCE_NAME : \code{character}: (optional) sequence name\cr
 #' ..$ UID : \code{character}: unique data set ID \cr
-#' $ test_parameter : \code{\link{data.frame}} table test parameters \cr
+#' $ test_parameters : \code{\link{data.frame}} table test parameters \cr
 #' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
 #' $ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
 #'
@@ -296,7 +296,7 @@
 #'
 #' ##show De results and test paramter results
 #' get_RLum(results, data.object = "De.values")
-#' get_RLum(results, data.object = "test_parameter")
+#' get_RLum(results, data.object = "test_parameters")
 #'
 #' ##(2) perform analysis using the method 'SLIDE'
 #' results <- analyse_IRSAR.RF(object = IRSAR.RF.Data, method = "SLIDE", n.MC = 1)
@@ -319,7 +319,7 @@ analyse_IRSAR.RF<- function(
   RF_reg.lim = NULL,
   method = "FIT",
   method.control = NULL,
-  test_parameter = NULL,
+  test_parameters = NULL,
   n.MC = 10,
   txtProgressBar = TRUE,
   plot = TRUE,
@@ -351,12 +351,12 @@ analyse_IRSAR.RF<- function(
     ##method.control
     method.control <- rep(list(method.control), length = length(object))
 
-    ##test_parameter
-    if(is(test_parameter[[1]], "list")){
-      test_parameter <- rep(test_parameter, length = length(object))
+    ##test_parameters
+    if(is(test_parameters[[1]], "list")){
+      test_parameters <- rep(test_parameters, length = length(object))
 
     }else{
-     test_parameter <- rep(list(test_parameter), length = length(object))
+     test_parameters <- rep(list(test_parameters), length = length(object))
 
     }
 
@@ -391,7 +391,7 @@ analyse_IRSAR.RF<- function(
         RF_reg.lim = RF_reg.lim[[x]],
         method = method[[x]],
         method.control = method.control[[x]],
-        test_parameter = test_parameter[[x]],
+        test_parameters = test_parameters[[x]],
         n.MC = n.MC[[x]],
         txtProgressBar = txtProgressBar,
         plot = plot,
@@ -1110,7 +1110,7 @@ analyse_IRSAR.RF<- function(
   )
 
     ##modify default values by given input
-    if(!is.null(test_parameter)){TP <- modifyList(TP, test_parameter)}
+    if(!is.null(test_parameters)){TP <- modifyList(TP, test_parameters)}
 
     ##remove NULL elements from list
     TP <- TP[!sapply(TP, is.null)]
@@ -1900,7 +1900,7 @@ analyse_IRSAR.RF<- function(
       data = list(
         De.values = De.values,
         De.MC = De.MC,
-        test_parameter = TP.data.frame,
+        test_parameters = TP.data.frame,
         fit = fit,
         slide = slide
       ),
