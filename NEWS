@@ -439,7 +439,12 @@ Changes in version 0.6.0 (May 27th ,2016):
              • if the field ‘FNAME’ is totally empty in the BIN-file
                the function files this field with the name of the
                BIN-file itself. This can be rather useful in particular
-               cases.
+               cases,
+
+             • function gained a new argument ‘zero_data.rm’, which is
+               preset to ‘TRUE’ and removes data with zero data (no
+               count values) errorneously produced during the
+               measurement.
 
          • ‘Risoe.BINfileData2RLum.Analysis()’
 

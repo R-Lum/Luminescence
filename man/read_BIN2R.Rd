@@ -5,8 +5,8 @@
 \title{Import Risoe BIN-file into R}
 \usage{
 read_BIN2R(file, show.raw.values = FALSE, position = NULL,
-  n.records = NULL, duplicated.rm = FALSE, fastForward = FALSE,
-  show.record.number = FALSE, txtProgressBar = TRUE,
+  n.records = NULL, zero_data.rm = TRUE, duplicated.rm = FALSE,
+  fastForward = FALSE, show.record.number = FALSE, txtProgressBar = TRUE,
   forced.VersionNumber = NULL, pattern = NULL, verbose = TRUE, ...)
 }
 \arguments{
@@ -27,6 +27,10 @@ Can be provided as \code{list} if \code{file} is a \code{list}.}
 \item{n.records}{\link{raw} (optional): limits the number of imported
 records. Can be used in combination with \code{show.record.number} for
 debugging purposes, e.g. corrupt BIN-files. Can be provided as \code{list} if \code{file} is a \code{list}.}
+
+\item{zero_data.rm}{\code{\link{logical}} (with default): remove erroneous data with no count
+values. As such data are usally not needed for the subsequent data analysis they will be removed
+by default. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{duplicated.rm}{\code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
 This may happen due to an erroneous produced BIN/BINX-file. This option compares only
@@ -84,7 +88,7 @@ other BIN/BINX-format versions are currently not supported. The
 implementation of version 07 support could not been tested properly so far.}.
 }
 \section{Function version}{
- 0.13.1 (2016-05-19 18:20:10)
+ 0.14.0 (2016-05-29 17:32:46)
 }
 \examples{
 

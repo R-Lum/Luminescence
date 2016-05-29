@@ -22,6 +22,10 @@
 #' records. Can be used in combination with \code{show.record.number} for
 #' debugging purposes, e.g. corrupt BIN-files. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
+#' @param zero_data.rm \code{\link{logical}} (with default): remove erroneous data with no count
+#' values. As such data are usally not needed for the subsequent data analysis they will be removed
+#' by default. Can be provided as \code{list} if \code{file} is a \code{list}.
+#'
 #' @param duplicated.rm \code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
 #' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
 #' predeccessor and successor. Can be provided as \code{list} if \code{file} is a \code{list}.
@@ -71,7 +75,7 @@
 #' implementation of version 07 support could not been tested properly so far.}.
 #'
 #'
-#' @section Function version: 0.13.1
+#' @section Function version: 0.14.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -105,6 +109,7 @@ read_BIN2R <- function(
   show.raw.values = FALSE,
   position = NULL,
   n.records = NULL,
+  zero_data.rm = TRUE,
   duplicated.rm = FALSE,
   fastForward = FALSE,
   show.record.number = FALSE,
@@ -176,6 +181,15 @@ read_BIN2R <- function(
 
     }else{
       rep(list(n.records), length = length(file))
+
+    }
+
+    ##zero_data.rm
+    zero_data.rm<- if(is(zero_data.rm, "list")){
+      rep(zero_data.rm, length = length(file))
+
+    }else{
+      rep(list(zero_data.rm), length = length(file))
 
     }
 
@@ -1226,6 +1240,31 @@ read_BIN2R <- function(
           "Position limitation omitted. At least one position number is not valid, valid position numbers are: ", valid.position
         )
       )
+    }
+
+  }
+
+
+  ##check for position that have no data at all (error during the measurement)
+  if(zero_data.rm){
+    zero_data.check <- which(sapply(results.DATA, length) == 0)
+
+    ##remove records if there is something to remove
+    if(length(zero_data.check) != 0){
+      results.METADATA <- results.METADATA[-zero_data.check, ]
+      results.DATA[zero_data.check] <- NULL
+
+      ##recalculate record index
+      results.METADATA[["ID"]] <- 1:nrow(results.METADATA)
+
+      warning(
+        paste0(
+          "[read_BIN2R()] zero data records detected and removed: ",
+          paste(zero_data.check, collapse = ", "),
+          ". Record index re-calculated."
+        )
+      )
+
     }
 
   }
