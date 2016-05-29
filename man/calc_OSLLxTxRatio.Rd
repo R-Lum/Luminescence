@@ -7,7 +7,7 @@
 calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson", sigmab, sig0 = 0,
+  background.count.distribution = "non-poisson", sigmab = NULL, sig0 = 0,
   digits = NULL)
 }
 \arguments{
@@ -120,7 +120,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.1 (2016-05-17 22:39:50)
+ 0.6.2 (2016-05-29 16:01:32)
 }
 \examples{
 

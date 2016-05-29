@@ -119,31 +119,39 @@
 #' @param source_doserate \code{\link{numeric}} (optional): source dose rate of beta-source used
 #' for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}.
 #' If nothing is provided the results are returned in the same domain as the input values.
+#' Paramater can be provided as \code{list}, for the case that more than one BIN-file is provided, e.g.,
+#' \code{source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))}.
 #'
 #' @param signal.integral \code{\link{vector}} (\bold{required}): vector with the
 #' limits for the signal integral used for the calculation, e.g., \code{signal.integral = c(1:5)}
 #' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
+#' The parameter can be provided as \code{list}, \code{source_doserate}.
 #'
 #' @param signal.integral.Tx \code{\link{vector}} (optional): vector with the
 #' limits for the signal integral for the Tx curve. If nothing is provided the
 #' value from \code{signal.integral} is used and it is ignored
 #' if \code{object} is an \code{\linkS4class{RLum.Results}} object.
+#' The parameter can be provided as \code{list}, \code{source_doserate}.
 #'
 #' @param background.integral \code{\link{vector}} (\bold{required}): vector with the
 #' bounds for the background integral.
-#' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object
+#' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
+#' The parameter can be provided as \code{list}, \code{source_doserate}.
 #'
 #' @param background.integral.Tx \code{\link{vector}} (optional): vector with the
 #' limits for the background integral for the Tx curve. If nothing is provided the
 #' value from \code{background.integral} is used.
-#' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object
+#' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
+#' The parameter can be provided as \code{list}, \code{source_doserate}.
 #'
 #' @param sigmab \code{\link{numeric}} (with default): option to set a manual value for
 #' the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
-#' calculation. The value should be provided as absolute squared count values, cf. \code{\link{calc_OSLLxTxRatio}}
+#' calculation. The value should be provided as absolute squared count values, cf. \code{\link{calc_OSLLxTxRatio}}.
+#' The parameter can be provided as \code{list}, \code{source_doserate}.
 #'
 #' @param sig0 \code{\link{numeric}} (with default): allow adding an extra component of error
-#' to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{\link{calc_OSLLxTxRatio}})
+#' to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{\link{calc_OSLLxTxRatio}}).
+#' The parameter can be provided as \code{list}, \code{source_doserate}.
 #'
 #' @param distribution \code{\link{character}} (with default): type of distribution that is used during
 #' Bayesian calculations for determining the Central dose and overdispersion values.
@@ -685,7 +693,6 @@ analyse_baSAR <- function(
        }
 
        ##method_control
-       print(function_arguments.new$method_control)
        if(!is.null(function_arguments.new$method_control)){
          method_control <- eval(function_arguments.new$method_control)
        }
@@ -785,17 +792,32 @@ analyse_baSAR <- function(
       )
     }
 
-  ##################################### Extending parameters to lists ...
+  ##################################### Extent parameters to lists ... and expand if necessary
 
   ##test_parameter = source_doserate
-  if(is(source_doserate[[1]], "list")){
+  if(is(source_doserate, "list")){
     source_doserate <- rep(source_doserate, length = length(fileBIN.list))
   }else{
     source_doserate <- rep(list(source_doserate), length = length(fileBIN.list))
   }
 
+  ##sigmab
+  if(is(sigmab, "list")){
+    sigmab <- rep(sigmab, length = length(fileBIN.list))
+    }else{
+    sigmab <- rep(list(sigmab), length = length(fileBIN.list))
+    }
+
+  ##sig0
+  if(is(sig0, "list")){
+    sig0 <- rep(sig0, length = length(fileBIN.list))
+  }else{
+    sig0 <- rep(list(sig0), length = length(fileBIN.list))
+  }
+
+
   ##test_parameter = signal.integral
-  if(is(signal.integral[[1]], "list")){
+  if(is(signal.integral, "list")){
     signal.integral <- rep(signal.integral, length = length(fileBIN.list))
   }else{
     signal.integral <- rep(list(signal.integral), length = length(fileBIN.list))
@@ -804,7 +826,7 @@ analyse_baSAR <- function(
 
   ##test_parameter = signal.integral.Tx
   if (!is.null(signal.integral.Tx)) {
-    if (is(signal.integral.Tx[[1]], "list")) {
+    if (is(signal.integral.Tx, "list")) {
       signal.integral.Tx <- rep(signal.integral.Tx, length = length(fileBIN.list))
     } else{
       signal.integral.Tx <- rep(list(signal.integral.Tx), length = length(fileBIN.list))
@@ -812,7 +834,14 @@ analyse_baSAR <- function(
   }
 
   ##test_parameter = background.integral
-  if(is(background.integral[[1]], "list")){
+  if(is(background.integral, "list")){
+    background.integral <- rep(background.integral, length = length(fileBIN.list))
+  }else{
+    background.integral <- rep(list(background.integral), length = length(fileBIN.list))
+  }
+
+  ##test_parameter = background.integral
+  if(is(background.integral, "list")){
     background.integral <- rep(background.integral, length = length(fileBIN.list))
   }else{
     background.integral <- rep(list(background.integral), length = length(fileBIN.list))
@@ -822,7 +851,7 @@ analyse_baSAR <- function(
 
   ##test_parameter = background.integral.Tx
   if (!is.null(background.integral.Tx)) {
-    if (is(background.integral.Tx[[1]], "list")) {
+    if (is(background.integral.Tx, "list")) {
       background.integral.Tx <-
         rep(background.integral.Tx, length = length(fileBIN.list))
     } else{
@@ -1170,8 +1199,8 @@ analyse_baSAR <- function(
           background.integral = background.integral[[k]],
           background.integral.Tx = background.integral.Tx[[k]],
           background.count.distribution = additional_arguments$background.count.distribution,
-          sigmab = sigmab,
-          sig0 = sig0
+          sigmab = sigmab[[k]],
+          sig0 = sig0[[k]]
         )
 
 

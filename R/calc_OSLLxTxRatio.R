@@ -106,7 +106,7 @@
 #' own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 #'
 #'
-#' @section Function version: 0.6.1
+#' @section Function version: 0.6.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -147,7 +147,7 @@ calc_OSLLxTxRatio <- function(
   background.integral,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson",
-  sigmab,
+  sigmab = NULL,
   sig0 = 0,
   digits = NULL
 ){
@@ -251,8 +251,7 @@ calc_OSLLxTxRatio <- function(
 
 
   ##check sigmab
-  if (!missing(sigmab)) {
-    if (!is.null(sigmab)) {
+  if (!is.null(sigmab)) {
       if (!is(sigmab, "numeric")) {
         stop("[calc_OSLLxTxRatio()] 'sigmab' has to be of type numeric.")
       }
@@ -260,8 +259,8 @@ calc_OSLLxTxRatio <- function(
       if (length(sigmab) > 2) {
         stop("[calc_OSLLxTxRatio()] Maximum allowed vector length for 'sigmab' is 2.")
       }
-    }
   }
+
 
 
   ##--------------------------------------------------------------------------##
@@ -371,8 +370,7 @@ calc_OSLLxTxRatio <- function(
 
 
   ##account for a manually set sigmab value
-  if (!missing(sigmab)) {
-    if (!is.null(sigmab)) {
+  if (!is.null(sigmab)) {
       if (length(sigmab) == 2) {
         sigmab.LnLx <- sigmab[1]
         sigmab.TnTx <- sigmab[2]
@@ -382,7 +380,6 @@ calc_OSLLxTxRatio <- function(
         sigmab.TnTx <- sigmab[1]
 
       }
-    }
   }
 
   ##(c)
