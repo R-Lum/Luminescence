@@ -680,13 +680,21 @@ analyse_baSAR <- function(
 
        ##source_doserate
        if(!is.null(function_arguments.new$source_doserate)){
-         source_doserate <- function_arguments.new$source_doserate
+         source_doserate <- eval(function_arguments.new$source_doserate)
+
+       }
+
+       ##method_control
+       print(function_arguments.new$method_control)
+       if(!is.null(function_arguments.new$method_control)){
+         method_control <- eval(function_arguments.new$method_control)
        }
 
        ##plot
        if(!is.null(function_arguments.new$plot)){
          plot <- function_arguments.new$plot
        }
+
 
        ##verbose
        if(!is.null(function_arguments.new$verbose)){

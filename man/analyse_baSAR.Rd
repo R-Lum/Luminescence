@@ -191,7 +191,7 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-23 11:38:47)
+ 0.1.0 (2016-05-29 14:48:16)
 }
 \examples{
 
