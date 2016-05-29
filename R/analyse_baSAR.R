@@ -1302,6 +1302,7 @@ analyse_baSAR <- function(
 
   )
 
+
   comptage <- 0
   for (k in 1:length(fileBIN.list)) {
     for (i in 1:length(Disc[[k]])) {
@@ -1387,6 +1388,12 @@ analyse_baSAR <- function(
     }, FUN.VALUE = vector(mode = "logical", length = 1))
 
     OUTPUT_results_reduced <- t(OUTPUT_results_reduced[,selection])
+
+    ##finally, check for difference in the number of dose points ... they should be the same
+    if(unique(OUTPUT_results_reduced[,"CYCLES_NB"])>1){
+       warning("[analyse_baSAR()] the number of dose points differs across your data set. Check your data!")
+
+    }
 
   ##correct number of aliquots if necessary
   if(Nb_aliquots > nrow(OUTPUT_results_reduced)) {

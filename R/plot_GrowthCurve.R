@@ -348,9 +348,9 @@ plot_GrowthCurve <- function(
   if (fit.includingRepeatedRegPoints == FALSE) {
     data <-
       data.frame(x = xy[[1]][!duplicated(xy[[1]])], y = xy[[2]][!duplicated(xy[[1]])])
-    fit.weights <- fit.weights[-which(duplicated(xy[,1]))]
-    data.MC <- data.MC[-which(duplicated(xy[,1])),]
-    xy <- xy[-which(duplicated(xy[,1])),]
+    fit.weights <- fit.weights[!duplicated(xy[[1]])]
+    data.MC <- data.MC[!duplicated(xy[[1]]),]
+    xy <- xy[!duplicated(xy[[1]]),]
 
   }else{
     data <- data.frame(xy)
