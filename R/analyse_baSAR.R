@@ -840,6 +840,7 @@ analyse_baSAR <- function(
     background.integral <- rep(list(background.integral), length = length(fileBIN.list))
   }
 
+
   ##test_parameter = background.integral
   if(is(background.integral, "list")){
     background.integral <- rep(background.integral, length = length(fileBIN.list))
@@ -1427,7 +1428,8 @@ analyse_baSAR <- function(
 
   ##add error from the source_doserate
   if(!is.null(unlist(source_doserate))){
-    DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + source_doserate[[1]][2]^2)
+    DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + sum(unlist(
+      source_doserate[1:length(source_doserate)][2])^2))
 
   }else{
     DE_FINAL.ERROR <- NA
