@@ -21,14 +21,14 @@ provided the list can only contain either \code{Risoe.BINfileData} objects or \c
 providing a file connection. Mixing of both types is not allowed. If an \code{\linkS4class{RLum.Results}}
 is provided the function direclty starts with the Bayesian Analysis (see details)}
 
-\item{XLS_file}{\code{\link{character}} (optional): XLS_file with data for the analysis TODO}
+\item{XLS_file}{\code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements)}
 
 \item{aliquot_range}{\code{\link{numeric}} (optional): allows to limit the range of the aliquots
-used for the analysis. This argument has only an effect of the argument \code{XLS_file} is used as
+used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used as
 well}
 
 \item{source_doserate}{\code{\link{numeric}} (optional): source dose rate of beta-source used
-for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0,04)}.
+for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}.
 If nothing is provided the results are returned in the same domain as the input values.}
 
 \item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
@@ -56,8 +56,9 @@ calculation. The value should be provided as absolute squared count values, cf. 
 \item{sig0}{\code{\link{numeric}} (with default): allow adding an extra component of error
 to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{\link{calc_OSLLxTxRatio}})}
 
-\item{distribution}{\code{\link{character}} (with default): type of distribution that is used for
-the Bayesian calculation. Allowed inputs are \code{cauchy},\code{normal} and \code{log_normal}}
+\item{distribution}{\code{\link{character}} (with default): type of distribution that is used during
+Bayesian calculations for determining the Central dose and overdispersion values.
+Allowed inputs are \code{"cauchy"}, \code{"normal"} and \code{"log_normal"}.}
 
 \item{n.MCMC}{\code{\link{integer}} (with default): number of iterations for the Markov chain Monte Carlo (MCMC)
 simulations}
@@ -104,21 +105,21 @@ LxTx, the LxTx error and the dose values for all regeneration points.
 
 \bold{Allowed input data}\cr
 
-Various inputs are allowd for this function. Unfortunately this makes the function handling rather
+Various inputs are allowed for this function. Unfortunately this makes the function handling rather
 complex, but at the same time very powerful. Available scenarios:\cr
 
 \bold{(1) - \code{object} is BIN-file or link to a BIN-file}
 
 Finally it does not matter how the information of the BIN/BINX file are provided. The function
 supports (a) either a path to a file or directory or a \code{list} of file names or paths or (b)
-a \code{\linkS4class{Risoe.BINfileData}} object or a list of this objects. The latter one can
+a \code{\linkS4class{Risoe.BINfileData}} object or a list of these objects. The latter one can
 be produced by using the function \code{\link{read_BIN2R}}, but this function is called automatically
 if only a filename and/or a path is provided. In both cases it will become the data that can be
 used for the analysis.
 
 \code{XLS_file = NULL}\cr
 
-If no XLS file (or data frame with the same format) is provided runs and automatic process that
+If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
 consists of the following steps:
 
 \itemize{
@@ -127,7 +128,7 @@ consists of the following steps:
  \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
 }
 
-This procded data are subsequently used in for the Bayesian analysis
+These proceded data are subsequently used in for the Bayesian analysis
 
 \code{XLS_file != NULL}\cr
 
@@ -171,7 +172,7 @@ funtions.
 \bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description}\cr
 \code{threshold} \tab \code{\link{verify_SingleGrainData}} \tab \code{30} \tab change rejection threshold for curve selection \cr
 \code{sheet} \tab \code{\link[readxl]{read_excel}} \tab \code{1} \tab select XLS-sheet for import\cr
-\code{col_names} \tab \code{\link[readxl]{read_excel}} \tab \code{TRUE} \tab first column in XLS-file is header\cr
+\code{col_names} \tab \code{\link[readxl]{read_excel}} \tab \code{TRUE} \tab first row in XLS-file is header\cr
 \code{col_types} \tab \code{\link[readxl]{read_excel}} \tab \code{NULL} \tab limit import to specific columns\cr
 \code{skip} \tab \code{\link[readxl]{read_excel}} \tab \code{0} \tab number of rows to be skipped during import\cr
 \code{n.records} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit records during BIN-file import\cr
@@ -191,7 +192,7 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-29 14:48:16)
+ 0.1.0 (2016-05-29 15:16:43)
 }
 \examples{
 
