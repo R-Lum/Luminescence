@@ -200,7 +200,7 @@ funtions.
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-29 16:13:27)
+ 0.1.0 (2016-05-29 16:57:13)
 }
 \examples{
 

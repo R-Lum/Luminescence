@@ -58,7 +58,8 @@
 #'
 #' @param sample \code{\link{data.frame}} (\bold{required}): data frame with
 #' three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the
-#' test dose response is optional, but requires 'TnTx' as column name if used.
+#' test dose response is optional, but requires 'TnTx' as column name if used. For exponential
+#' fits at least three dose points (including the natural) should be provided.
 #'
 #' @param na.rm \code{\link{logical}} (with default): excludes \code{NA} values
 #' from the data set prior to any further operations.
@@ -134,7 +135,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.11
+#' @section Function version: 1.8.12
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -219,6 +220,7 @@ plot_GrowthCurve <- function(
     }
 
   }
+
 
   ##3. verbose mode
   if(!verbose){
@@ -345,13 +347,30 @@ plot_GrowthCurve <- function(
   ##input data for fitting; exclude repeated RegPoints
   if (fit.includingRepeatedRegPoints == FALSE) {
     data <-
-      data.frame(x = xy[-which(duplicated(xy[,1])),1], y = xy[-which(duplicated(xy[,1])),2])
+      data.frame(x = xy[[1]][!duplicated(xy[[1]])], y = xy[[2]][!duplicated(xy[[1]])])
     fit.weights <- fit.weights[-which(duplicated(xy[,1]))]
     data.MC <- data.MC[-which(duplicated(xy[,1])),]
     xy <- xy[-which(duplicated(xy[,1])),]
 
   }else{
     data <- data.frame(xy)
+  }
+
+
+  ## for unknown reasons with only two points the nls() function is trapped in
+  ## an endless mode, therefore the minimum length for data is 3
+  ## (2016-05-17)
+  if((fit.method == "EXP" | fit.method == "EXP+LIN" | fit.method == "EXP+EXP" | fit.method == "EXP OR LIN")
+     && length(data[,1])<=2){
+
+    warning("[plot_GrowthCurve()] fitting using an exponential term requires at least 3 dose points! NULL returned")
+
+    if(verbose){
+      if(verbose) writeLines("[plot_GrowthCurve()] No fitting applied. NULL returned, see warnings()")
+
+    }
+    return(NULL)
+
   }
 
 
@@ -443,7 +462,7 @@ plot_GrowthCurve <- function(
       }
 
     }else{
-      if(verbose) writeLines("[plot_GrowthCurve()] >> no solution found for QDR fit")
+      if(verbose) writeLines("[plot_GrowthCurve()] no solution found for QDR fit")
       De <- NA
 
     }
@@ -529,12 +548,7 @@ plot_GrowthCurve <- function(
 
     }
 
-    if(fit.method!="LIN" & length(data[,1])>=3){
-
-      ## for unknown reasons with only two points the nls() function is trapped in
-      ## an endless mode, therefore the minimum length for data is 3
-      ## (2016-05-17)
-
+    if(fit.method!="LIN"){
 
       ##FITTING on GIVEN VALUES##
       #	--use classic R fitting routine to fit the curve
@@ -599,7 +613,7 @@ plot_GrowthCurve <- function(
 
       if (inherits(fit, "try-error") & inherits(fit.initial, "try-error")){
 
-        if(verbose) writeLines("[plot_GrowthCurve()] >> try-error for EXP fit")
+        if(verbose) writeLines("[plot_GrowthCurve()] try-error for EXP fit")
 
       }else{
 
@@ -984,7 +998,10 @@ plot_GrowthCurve <- function(
     }else{
 
       #print message
-      if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
+      if(verbose){
+        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = NA (fitting FAILED)"))
+
+      }
 
 
     } #end if "try-error" Fit Method
@@ -1186,7 +1203,10 @@ plot_GrowthCurve <- function(
     }else{
 
       #print message
-      if(verbose) writeLines(paste0("[plot_GrowthCurve()] >> FITTING FAILED"))
+      if(verbose){
+        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = NA (fitting FAILED)"))
+
+      }
 
     } #end if "try-error" Fit Method
 
