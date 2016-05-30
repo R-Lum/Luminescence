@@ -208,7 +208,14 @@
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
 #' regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
 #'
-#' @note \bold{This function has beta status!} and is limited to work with
+#' @note \bold{If you provide more than one BIN-file}, it is \bold{strongly} recommanded to provide
+#' a \code{list} with the same number of elements for the following parameters:\cr
+#' \code{source_doserate}, \code{signal.integral}, \code{signal.integral.Tx}, \code{background.integral},
+#' \code{background.integral.Tx}, \code{sigmab}, \code{sig0}.\cr
+#'
+#' Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))}\cr
+#'
+#' \bold{This function has beta status!} and is limited to work with
 #' standard Risoe BIN-files only!
 #'
 #' @keywords datagen

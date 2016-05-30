@@ -196,11 +196,18 @@ funtions.
 }
 }
 \note{
+\bold{If you provide more than one BIN-file}, it is \bold{strongly} recommanded to provide
+a \code{list} with the same number of elements for the following parameters:\cr
+\code{source_doserate}, \code{signal.integral}, \code{signal.integral.Tx}, \code{background.integral},
+\code{background.integral.Tx}, \code{sigmab}, \code{sig0}.\cr
+
+Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))}\cr
+
 \bold{This function has beta status!} and is limited to work with
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.0 (2016-05-29 18:24:00)
+ 0.1.0 (2016-05-30 11:29:10)
 }
 \examples{
 
