@@ -13,7 +13,7 @@ plotting of equivalent dose distributions.
 }
 \details{
 \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-\tab 0.6.0 \cr Date: \tab 2016-05-30 \cr License: \tab GPL-3\cr }
+\tab 0.6.1 \cr Date: \tab 2016-XX-XX \cr License: \tab GPL-3\cr }
 }
 \author{
 \bold{Authors} (alphabetic order)

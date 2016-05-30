@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
-Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.6.0
-Date: 2016-05-30
+Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
+Version: 0.6.1
+Date: 2016-XX-XX
 Author: Sebastian Kreutzer [aut, trl, cre],
     Michael Dietze [aut],
     Christoph Burow [aut, trl, dtc],
