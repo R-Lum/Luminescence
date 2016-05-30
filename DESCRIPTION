@@ -116,6 +116,7 @@ Collate:
     'calc_Statistics.R'
     'calc_TLLxTxRatio.R'
     'calc_ThermalLifetime.R'
+    'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'

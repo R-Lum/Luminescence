@@ -1,0 +1,244 @@
+#' Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008
+#'
+#' The description section
+#'
+#' The details section
+#'
+#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
+#' object (required): for \code{data.frame}: two columns: De
+#' (\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
+#' data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
+#' dataset2)}).
+#'
+#' @param breaks \code{\link{numeric}}: Either number or locations of breaks.
+#' See \code{\link{hist}} for details. If missing, the number of breaks will
+#' be estimated based on the bin width (as function of median error).
+#'
+#' @param plot \code{\link{logical}} (with default): enable plot output.
+#'
+#' @param \dots Further plot arguments passed to the function.
+#'
+#' @note The notes section
+#'
+#' @section Function version: 0.2.0
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
+#' Michael Dietze, GFZ Potsdam (Germany)
+#'
+#' @seealso \code{\link{calc_FuchsLang2001}}, \code{\link{calc_CentralDose}}
+#'
+#' @references Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
+#' obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.
+#'
+#' @examples
+#'
+#' ## read example data set
+#' data(ExampleData.DeValues, envir = environment())
+#' ExampleData.DeValues <-
+#'   Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+#'
+#' @export
+calc_WodaFuchs2008 <- function(
+  data,
+  breaks,
+  plot = TRUE,
+  ...
+) {
+
+  ## check data and parameter consistency -------------------------------------
+
+    if(is(data, "RLum.Results") == FALSE &
+         is(data, "data.frame") == FALSE &
+         is.numeric(data) == FALSE) {
+
+      warning(paste("[calc_WodaFuchs()] Input data format is neither",
+                    "'data.frame', 'RLum.Results' nor 'numeric'.",
+                    "No output generated!"))
+
+      return(NULL)
+
+    } else {
+
+      if(is(data, "RLum.Results") == TRUE) {
+
+        data <- get_RLum(data, "data")
+
+      }
+
+      if(length(data) < 2) {
+
+        data <- cbind(data,
+                      rep(x = NA,
+                          times = length(data)))
+
+      }
+    }
+
+  ## read additional arguments
+
+  if("trace" %in% names(list(...))) {
+
+    trace <- list(...)$trace
+
+  } else {
+
+    trace <- FALSE
+
+  }
+
+  if("xlab" %in% names(list(...))) {
+
+    xlab <- list(...)$xlab
+
+  } else {
+
+    xlab <- expression(paste(D[e], " (Gy)"))
+
+  }
+
+  if("xlim" %in% names(list(...))) {
+
+    xlim <- list(...)$xlim
+
+  } else {
+
+    xlim <- range(data[,1], na.rm = TRUE) + c(-10, 20)
+
+  }
+
+  if("main" %in% names(list(...))) {
+
+    main <- list(...)$main
+
+  } else {
+
+    main <- expression(paste(D[e],
+                             " estimation applying Woda and Fuchs (2008)"))
+
+  }
+
+  ## calculations -------------------------------------------------------------
+
+  ## estimate bin width based on Woda and Fuchs (2008)
+  if(sum(is.na(data[,2]) == nrow(data))) {
+
+    print("No errors provided. Bin width set by 10 percent of input data!")
+
+    bin_width <- median(data[,1] / 10,
+                        na.rm = TRUE)
+  } else {
+
+    bin_width <- median(data[,2],
+                        na.rm = TRUE)
+
+  }
+
+  ## optionally estimate class breaks based on bin width
+  if(missing(breaks) == TRUE) {
+
+    n_breaks <- (max(data[,1],
+                     na.rm = TRUE) -
+                   min(data[,1],
+                       na.rm = TRUE) / bin_width)
+
+  } else {
+
+    n_breaks <- breaks
+  }
+
+  ## calculate histogram
+  H <- hist(x = data[,1],
+            breaks = n_breaks,
+            plot = FALSE)
+
+  ## check/do log-normal model fit if needed
+  if(n_breaks <= 3) {
+
+    warning("[calc_WodaFuchs()] Less than four bins, now set to four!")
+
+    ## calculate histogram
+    H <- hist(x = data[,1],
+              breaks = 4,
+              plot = FALSE)
+
+  }
+
+  ## extract values from histogram object
+  H_c <- H$counts
+  H_m <- H$mids
+
+  ## log counts
+  counts_log <- log(H_c)
+
+  ## estimate curvature
+  curvature <- (counts_log[1] - counts_log[2]) /
+    (counts_log[1] - counts_log[3])
+
+  ## do some other black magic
+  class_center <- H$mids[H_c == max(H_c)]
+
+  ## optionally print warning
+  if(length(class_center) != 1) {
+
+    warning("[calc_WodaFuchs()] More than one maximum. Fit may be invalid!")
+
+    class_center <- class_center[1]
+  }
+
+  ## fit normal distribution to data
+  fit <-	nls(H_c ~ (A / sqrt(2 * pi * sigma^2)) *
+               exp(-(H_m - class_center)^2 / (2 * sigma^2)),
+             start = c(A = mean(H_m),
+                       sigma = bin_width),
+             control = c(maxiter = 5000),
+             algorithm = "port",
+             trace = trace)
+
+  ## extract fitted parameters
+  A <- coef(fit)["A"]
+  sigma <- coef(fit)["sigma"]
+
+  ## recalculate data based on normal distribution
+  H_m_fit <- seq(from = min(H_m),
+                 to = class_center,
+                 by = 1)
+
+  H_c_fit <- (A / sqrt(2 * pi * sigma^2)) *
+    exp(-(H_m_fit - class_center)^2 / (2 * sigma^2))
+
+  ## estimate dose
+  D_estimate <- as.numeric(x = class_center - sigma)
+
+  ## count number of values smaller than center class
+  count_ID<-length(which(H_m <= class_center))
+
+  ## extract H_m values smaller than center class
+  H_m_smaller <- H_m[1:count_ID]
+
+  ## calculate uncertainty applying Wodaand Fuchs (2008)
+  s <- round(sqrt(sum((H_m_smaller - D_estimate)^2) / (count_ID - 1)),
+             digits = 2)
+
+  ## plot output --------------------------------------------------------------
+  if(plot == TRUE) {
+
+    plot(x = H,
+         xlab = xlab,
+         xlim = xlim,
+         main = main)
+
+    lines(x = H_m_fit,
+          y = H_c_fit,
+          col = 2)
+  }
+
+  ## return output ------------------------------------------------------------
+  return(list(D_estimate = D_estimate,
+              s = s,
+              class_center = class_center,
+              bin_width = bin_width,
+              breaks = H$breaks,
+              sigma = as.numeric(sigma),
+              A = as.numeric(A)))
+
+}

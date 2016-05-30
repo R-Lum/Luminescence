@@ -57,6 +57,8 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "calc_TLLxTxRatio","Calculate the Lx/Tx ratio for a given set of TL curves [beta version]","<br /> Calculate Lx/Tx ratio for a given set of TL curves.<br />","0.3.0","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Christoph Schmidt, University of Bayreuth (Germany)<br />  R Luminescence Package Team"
+"calc_WodaFuchs2008","Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008","<br /> The description section<br />","0.2.0","2016-05-31","00:18:44
+","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), <br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "CW2pHMi","Transform a CW-OSL curve into a pHM-OSL curve via interpolation under<br /> hyperbolic modulation conditions","<br /> This function transforms a conventionally measured continuous-wave (CW)<br /> OSL-curve to a pseudo hyperbolic modulated (pHM) curve under hyperbolic<br /> modulation conditions using the interpolation procedure described by Bos &<br /> Wallinga (2012).<br />","0.2.2","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)   Based on comments and suggestions from:  Adrie J.J. Bos,<br /> Delft University of Technology, The Netherlands <br />  R Luminescence Package Team"
 "CW2pLM","Transform a CW-OSL curve into a pLM-OSL curve","<br /> Transforms a conventionally measured continuous-wave (CW) curve into a<br /> pseudo linearly modulated (pLM) curve using the equations given in Bulur<br /> (2000).<br />","0.4.1","2015-11-29","17:27:48
