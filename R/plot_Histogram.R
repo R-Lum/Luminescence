@@ -757,8 +757,9 @@ plot_Histogram <- function(
                                         showgrid = FALSE)
     )
 
-    ## show plot ----
+    ## show and return plot ----
     print(hist)
+    return(hist)
   }
 
 }
