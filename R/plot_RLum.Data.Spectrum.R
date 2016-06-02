@@ -724,6 +724,7 @@ plot_RLum.Data.Spectrum <- function(
        )
 
        print(p)
+       on.exit(return(p))
 
 
   }else if(plot.type == "contour" && ncol(temp.xyz) > 1) {
