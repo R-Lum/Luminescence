@@ -92,7 +92,7 @@
 
 \method{summary}{RLum.Data.Curve}(object, ...)
 
-\method{subset}{Risoe.BINfileData}(x, subset, rm.records = TRUE, ...)
+\method{subset}{Risoe.BINfileData}(x, subset, records.rm = TRUE, ...)
 
 bin.RLum.Data.Curve(x, ...)
 
@@ -199,7 +199,7 @@ is.RLum.Results(x, ...)
 this function works in \code{\linkS4class{Risoe.BINfileData}} objects like \code{\link{subset.data.frame}}, but takes care
 of the object structure}
 
-\item{rm.records}{[subset]\code{\link{logical}} (with default): remove records from data set, can
+\item{records.rm}{[subset] \code{\link{logical}} (with default): remove records from data set, can
 be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
 
 \item{row.names}{\code{\link{logical}} (with default): enables or disables row names (\code{as.data.frame})}
