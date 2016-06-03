@@ -1,4 +1,4 @@
-#' Bayesian models (baSAR) applied on luminescence data
+ #' Bayesian models (baSAR) applied on luminescence data
 #'
 #' This function allows the application of Bayesian models on luminescence data, measured
 #' with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
@@ -183,7 +183,7 @@
 #' \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 #' \code{position}, \code{duplicated.rm}), see details.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -447,6 +447,7 @@ analyse_baSAR <- function(
       )
 
       if(verbose){
+        cat("\n[analyse_baSAR()] ---- baSAR-model ---- \n")
         cat("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
         cat("[analyse_baSAR()] Bayesian analysis in progress ... ")
         message(paste(".. >> bounds set to: lower_De =", lower_De, "| upper_De =", upper_De))
@@ -633,12 +634,16 @@ analyse_baSAR <- function(
 
   # Set input -----------------------------------------------------------------------------------
 
+  if(verbose){
+    cat("\n[analyse_baSAR()] ---- PREPROCESSING ----")
+
+  }
+
   ##if the input is alreayd of type RLum.Results, use the input and do not run
   ##all pre-calculations again
   if(is(object, "RLum.Results")){
 
     if(object@originator == "analyse_baSAR"){
-
 
       ##We want to use previous function arguments and recycle them
 
@@ -797,6 +802,30 @@ analyse_baSAR <- function(
           "' as input is not supported. Check manual for allowed input objects."
         )
       )
+    }
+
+    ##Problem ... the user might have made a pre-selection in the Analyst software, if this the
+    ##we respect this selection
+    if(!all(unlist(lapply(fileBIN.list, FUN = function(x){(x@METADATA[["SEL"]])})))){
+
+      fileBIN.list <- lapply(fileBIN.list, function(x){
+
+            ##reduce data
+            x@DATA <- x@DATA[x@METADATA[["SEL"]]]
+            x@METADATA <- x@METADATA[x@METADATA[["SEL"]], ]
+
+            ##reset index
+            x@METADATA[["ID"]] <- 1:nrow(x@METADATA)
+            return(x)
+
+
+      })
+
+      if(verbose){
+        cat("\n[analyse_baSAR()] Record pre-selection in BIN-file detected >> record reduced to selection")
+
+      }
+
     }
 
   ##################################### Extent parameters to lists ... and expand if necessary
@@ -1109,7 +1138,6 @@ analyse_baSAR <- function(
   for (k in 1:length(fileBIN.list)) {
 
     n_index.vector <- vector("numeric")
-    logical_selection.vector <- vector("logical")
 
     measured_discs.vector <- vector("numeric")
     measured_grains.vector <- vector("numeric")
@@ -1119,10 +1147,9 @@ analyse_baSAR <- function(
     disc_pos <- vector("numeric")
     grain_pos <- vector("numeric")
 
-    ### META_DATA
+    ### METADATA
     length_BIN <-  length(fileBIN.list[[k]])
     n_index.vector <- fileBIN.list[[k]]@METADATA[["ID"]][1:length_BIN]              #  curves indexes vector
-    logical_selection.vector <- fileBIN.list[[k]]@METADATA[["SEL"]][1:length_BIN]    # TRUE / FALSE vector
 
     measured_discs.vector <-  fileBIN.list[[k]]@METADATA[["POSITION"]][1:length_BIN] # measured discs vector
     measured_grains.vector <- fileBIN.list[[k]]@METADATA[["GRAIN"]][1:length_BIN]    # measured grains vector
@@ -1151,7 +1178,6 @@ analyse_baSAR <- function(
 
           for (kn in 1: length(index_liste)) {
 
-            if (logical_selection.vector[index_liste[kn]] == TRUE){
               t <-  index_liste[kn]
 
               ##check if the source_doserate is NULL or not
@@ -1166,7 +1192,7 @@ analyse_baSAR <- function(
               s <- 1 + length( Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]] )
               Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][s] <- n_index.vector[t]  # indexes
               if ( s%%2 == 1) { Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]][as.integer(1+s/2)] <- dose.value  }      # irradiation doses
-            }
+
 
           }
     }
@@ -1461,7 +1487,7 @@ analyse_baSAR <- function(
 
   if(verbose){
     cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
-    cat("\n[analyse_baSAR()] - RESULTS\n")
+    cat("\n[analyse_baSAR()] ---- RESULTS ---- \n")
     cat("---------------------------------------------------------------\n")
     cat(paste0("Used distribution:\t\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
     cat(paste0("Number of aliquots used:\t\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
