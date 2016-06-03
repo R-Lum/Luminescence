@@ -156,8 +156,10 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 # ##################################################################################################
 #' @rdname methods_RLum
 #' @method subset Risoe.BINfileData
+#' @param rm.records [subset] \code{\link{logical}} (with default): remove records from data set, can
+#' be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}
 #' @export
-subset.Risoe.BINfileData <- function(x, subset, ...) {
+subset.Risoe.BINfileData <- function(x, subset, rm.records = TRUE, ...) {
 
   if(length(list(...))){
     warning(paste("Argument not supported and skipped:", names(list(...))))
@@ -172,14 +174,20 @@ subset.Risoe.BINfileData <- function(x, subset, ...) {
   )
 
   ##probably everything is FALSE now?
-  if (any(sel)) {
-    x@METADATA <- x@METADATA[sel,]
-    x@DATA <- x@DATA[sel]
-    x@METADATA[["ID"]] <- 1:length(x@METADATA[["ID"]])
-    return(x)
+  if (rm.records) {
+    if (any(sel)) {
+      x@METADATA <- x@METADATA[sel, ]
+      x@DATA <- x@DATA[sel]
+      x@METADATA[["ID"]] <- 1:length(x@METADATA[["ID"]])
+      return(x)
 
-  } else{
-    return(NULL)
+    } else{
+      return(NULL)
+
+    }
+  }else{
+    x@METADATA[["SEL"]] <- sel
+    return(x)
 
   }
 
