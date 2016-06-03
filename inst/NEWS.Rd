@@ -10,5 +10,19 @@
 
     }
 
+
+
+    }
+
+ \subsection{S3-generics}{
+   \itemize{
+      \item The method \code{subset} for \code{RisoeBINfileData} objects got a new
+      argument \code{records.rm}. If set to \code{FALSE} curves are only selected/deselected,
+      but not removed all.
+
+    }
+
+
+
     }
   }
