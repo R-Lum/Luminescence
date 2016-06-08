@@ -135,7 +135,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.12
+#' @section Function version: 1.8.13
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -1580,7 +1580,9 @@ plot_GrowthCurve <- function(
       De = output,
       De.MC = x.natural,
       Fit = fit,
-      Formula = f,
+      Formula = f
+    ),
+    info = list(
       call = sys.call()
     )
   )
