@@ -153,6 +153,7 @@ Collate:
     'plot_ViolinPlot.R'
     'read_BIN2R.R'
     'read_Daybreak2R.R'
+    'read_PSL2R.R'
     'read_SPE2R.R'
     'read_XSYG2R.R'
     'report_RLum.R'
