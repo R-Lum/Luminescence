@@ -3641,9 +3641,10 @@ plot_AbanicoPlot <- function(
 
     )
 
-    # show interactive plot ----
+    # show and return interactive plot ----
     #print(plotly::subplot(IAP, IAP.kde))
     print(IAP)
+    return(IAP)
   }
 
   ## create and resturn numeric output
