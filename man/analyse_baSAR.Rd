@@ -169,6 +169,8 @@ are:
 \bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
 \code{lower_De} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
 \code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
+\code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
+(cf. \code{\link[rjags]{jags.model}})\cr
 }
 
 \bold{Additional arguments support via the \code{...} argument}\cr
@@ -207,7 +209,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.1 (2016-06-03 17:38:01)
+ 0.1.2 (2016-06-08 09:50:33)
 }
 \examples{
 
