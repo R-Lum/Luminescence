@@ -75,6 +75,8 @@
 #' \bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
 #' \code{lower_De} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
 #' \code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
+#' \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
+#' (cf. \code{\link[rjags]{jags.model}})\cr
 #' }
 #'
 #' \bold{Additional arguments support via the \code{...} argument}\cr
@@ -183,7 +185,7 @@
 #' \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 #' \code{position}, \code{duplicated.rm}), see details.
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -324,6 +326,15 @@ analyse_baSAR <- function(
           method_control[["upper_De"]]
         }
 
+      ##number of MCMC
+      n.chains <-  if (is.null(method_control[["n.chains"]])) {
+        3
+      } else{
+        method_control[["n.chains"]]
+      }
+
+
+
       #check whether this makes sense at all, just a direty and quick test
       stopifnot(lower_De > 0)
 
@@ -462,7 +473,7 @@ analyse_baSAR <- function(
         jagsfit <- rjags::jags.model(
           textConnection(baSARc_model.bug),
           data = data_Liste,
-          n.chains = 3,
+          n.chains = n.chains,
           n.adapt = Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
          )
@@ -473,7 +484,7 @@ analyse_baSAR <- function(
         jagsfit <- rjags::jags.model(
           textConnection(baSARn_model.bug),
           data = data_Liste,
-          n.chains = 3,
+          n.chains = n.chains,
           n.adapt= Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
           )
@@ -484,7 +495,7 @@ analyse_baSAR <- function(
         jagsfit <- rjags::jags.model(
           textConnection(baSARl_model.bug),
           data = data_Liste,
-          n.chains = 3,
+          n.chains = n.chains,
           n.adapt = Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
         )
