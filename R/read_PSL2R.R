@@ -22,6 +22,9 @@
 #' encouraged if you see random signal drops within the decay curves related 
 #' to hardware errors.
 #' 
+#' @param merge \code{\link{logical}} (with default): \code{TRUE} to merge all 
+#' \code{RLum.Analysis} objects. Only applicable if multiple files are imported.
+#' 
 #' @param ... currently not used.
 #'
 #' @return Returns an S4 \code{\linkS4class{RLum.Analysis}} object containing
@@ -41,7 +44,7 @@
 #' # none available yet
 #' 
 #' @export
-read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, ...) {
+read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
   
   results <- vector("list", length(file))
   
@@ -118,6 +121,10 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
                              info = header,
                              records = measurements_formatted)
   }#Eof::Loop
+  
+  ## MERGE ----
+  if (length(results) > 1 && merge)
+    results <- merge_RLum(results)
   
   ## RETURN ----
   if (length(results) == 1)
