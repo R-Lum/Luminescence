@@ -43,78 +43,87 @@
 #' @export
 read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, ...) {
   
-  ## Read in file ----
-  doc <- readLines(file)
+  results <- vector("list", length(file))
   
-  ## Document formatting ----
-  # remove lines with i) blanks only, ii) dashes, iii) equal signs
-  doc <- gsub("^[ ]*$", "", doc)
-  doc <- gsub("^[ -]*$", "", doc)
-  doc <- gsub("^[ =]*$", "", doc)
-  
-  # the header ends with date and time with the previous line starting with a single slash
-  lines_with_slashes <- doc[grepl("\\", doc, fixed = TRUE)]
-  doc <- gsub(lines_with_slashes[length(lines_with_slashes)],
-              "", fixed = TRUE, doc)
-  
-  # last delimiting line before measurements are only apostrophes and dashes
-  lines_with_apostrophes <- doc[grepl("'", doc, fixed = TRUE)]
-  doc <- gsub(lines_with_apostrophes[length(lines_with_apostrophes)],
-              "", fixed = TRUE, doc)
-  
-  # finally remove all empty lines
-  doc <- doc[doc != ""]
-  
-  ## Split document ----
-  begin_of_measurements <- grep("Measurement :", doc, fixed = TRUE)
-  number_of_measurements <- length(begin_of_measurements)
-  
-  
-  # Parse and format header
-  header <- doc[1:(begin_of_measurements[1]-1)]
-  header <- format_Header(header)
-  
-  # Parse and format the easurement values
-  measurements_split <- vector("list", number_of_measurements)
-  
-  # save lines of each measurement to individual list elements
-  for (i in seq_len(number_of_measurements)) {
-    if (i != max(number_of_measurements))
-      measurements_split[[i]] <- doc[begin_of_measurements[i]:(begin_of_measurements[i+1] - 1)]
-    else 
-      measurements_split[[i]] <- doc[begin_of_measurements[i]:length(doc)]
-  }
-  
-  # format each measurement; this will return a list of RLum.Data.Curve objects
-  measurements_formatted <- lapply(measurements_split, function(x) { 
-    format_Measurements(x, convert = as_decay_curve)
-  })
-  
-  # drop dark count measurements if needed
-  if (drop_bg) {
-    measurements_formatted <- lapply(measurements_formatted, function(x) {
-      if (x@recordType != "USER")
+  for (i in 1:length(file)) {
+    
+    ## Read in file ----
+    doc <- readLines(file[i])
+    
+    ## Document formatting ----
+    # remove lines with i) blanks only, ii) dashes, iii) equal signs
+    doc <- gsub("^[ ]*$", "", doc)
+    doc <- gsub("^[ -]*$", "", doc)
+    doc <- gsub("^[ =]*$", "", doc)
+    
+    # the header ends with date and time with the previous line starting with a single slash
+    lines_with_slashes <- doc[grepl("\\", doc, fixed = TRUE)]
+    doc <- gsub(lines_with_slashes[length(lines_with_slashes)],
+                "", fixed = TRUE, doc)
+    
+    # last delimiting line before measurements are only apostrophes and dashes
+    lines_with_apostrophes <- doc[grepl("'", doc, fixed = TRUE)]
+    doc <- gsub(lines_with_apostrophes[length(lines_with_apostrophes)],
+                "", fixed = TRUE, doc)
+    
+    # finally remove all empty lines
+    doc <- doc[doc != ""]
+    
+    ## Split document ----
+    begin_of_measurements <- grep("Measurement :", doc, fixed = TRUE)
+    number_of_measurements <- length(begin_of_measurements)
+    
+    
+    # Parse and format header
+    header <- doc[1:(begin_of_measurements[1]-1)]
+    header <- format_Header(header)
+    
+    # Parse and format the easurement values
+    measurements_split <- vector("list", number_of_measurements)
+    
+    # save lines of each measurement to individual list elements
+    for (j in seq_len(number_of_measurements)) {
+      if (j != max(number_of_measurements))
+        measurements_split[[j]] <- doc[begin_of_measurements[j]:(begin_of_measurements[j+1] - 1)]
+      else 
+        measurements_split[[j]] <- doc[begin_of_measurements[j]:length(doc)]
+    }
+    
+    # format each measurement; this will return a list of RLum.Data.Curve objects
+    measurements_formatted <- lapply(measurements_split, function(x) { 
+      format_Measurements(x, convert = as_decay_curve)
+    })
+    
+    # drop dark count measurements if needed
+    if (drop_bg) {
+      measurements_formatted <- lapply(measurements_formatted, function(x) {
+        if (x@recordType != "USER")
+          return(x)
+      })
+      measurements_formatted <- measurements_formatted[!sapply(measurements_formatted, is.null)]
+    }
+    
+    # decay curve smoothing using Tukey's Running Median Smoothing (?smooth)
+    if (smooth) {
+      measurements_formatted <- lapply(measurements_formatted, function(x) {
+        if (x@recordType != "USER")
+          x@data[,2] <- smooth(x@data[ ,2])
         return(x)
-    })
-    measurements_formatted <- measurements_formatted[!sapply(measurements_formatted, is.null)]
-  }
-  
-  # decay curve smoothing using Tukey's Running Median Smoothing (?smooth)
-  if (smooth) {
-    measurements_formatted <- lapply(measurements_formatted, function(x) {
-      if (x@recordType != "USER")
-        x@data[,2] <- smooth(x@data[ ,2])
-      return(x)
-    })
-  }
+      })
+    }
+    
+    ## RETURN ----
+    results[[i]] <- set_RLum("RLum.Analysis",
+                             protocol = "portable OSL",
+                             info = header,
+                             records = measurements_formatted)
+  }#Eof::Loop
   
   ## RETURN ----
-  object <- set_RLum("RLum.Analysis",
-                     protocol = "portable OSL",
-                     info = header,
-                     records = measurements_formatted)
+  if (length(results) == 1)
+    results <- results[[1]]
   
-  return(object)
+  return(results)
 }  
 
 ################################################################################
