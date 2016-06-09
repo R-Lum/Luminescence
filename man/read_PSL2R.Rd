@@ -4,7 +4,8 @@
 \alias{read_PSL2R}
 \title{Import PSL files to R}
 \usage{
-read_PSL2R(file, drop.bg = FALSE, as.decay.curve = TRUE, ...)
+read_PSL2R(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE,
+  ...)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
@@ -13,17 +14,23 @@ valid paths and PSL file names.
 Alternatively the input character can be just a directory (path). In this case the
 the function tries to detect and import all PSL files found in the directory.}
 
-\item{drop.bg}{\code{\link{logical}} (with default):  \code{TRUE} to automatically 
+\item{drop_bg}{\code{\link{logical}} (with default): \code{TRUE} to automatically 
 remove all non-OSL/IRSL curves.}
 
-\item{as.decay.curve}{\code{\link{logical}} (with default): Portable OSL Reader curves
+\item{as_decay_curve}{\code{\link{logical}} (with default): Portable OSL Reader curves
 are often given as cumulative light sum curves. Use \code{TRUE} (default) to convert
 the curves to the more usual decay form.}
+
+\item{smooth}{\code{\link{logical}} (with default): \code{TRUE} to apply 
+Tukey's Running Median Smoothing for OSL and IRSL decay curves. Smoothing is
+encouraged if you see random signal drops within the decay curves related 
+to hardware errors.}
 
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 \code{\linkS4class{RLum.Analysis}} object.
+Returns an S4 \code{\linkS4class{RLum.Analysis}} object containing
+\code{\linkS4class{RLum.Data.Curve}} objects for each curve.
 }
 \description{
 Imports PSL files produced by a SUERC portable OSL reader into R
@@ -42,7 +49,7 @@ Imports PSL files produced by a SUERC portable OSL reader into R
 Christoph Burow, University of Cologne (Germany)
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}},
+\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Curve}}
 }
 \keyword{IO}

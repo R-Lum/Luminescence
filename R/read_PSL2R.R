@@ -10,18 +10,24 @@
 #' Alternatively the input character can be just a directory (path). In this case the
 #' the function tries to detect and import all PSL files found in the directory.
 #'
-#' @param drop.bg \code{\link{logical}} (with default):  \code{TRUE} to automatically 
+#' @param drop_bg \code{\link{logical}} (with default): \code{TRUE} to automatically 
 #' remove all non-OSL/IRSL curves.
 #'
-#' @param as.decay.curve  \code{\link{logical}} (with default): Portable OSL Reader curves
+#' @param as_decay_curve  \code{\link{logical}} (with default): Portable OSL Reader curves
 #' are often given as cumulative light sum curves. Use \code{TRUE} (default) to convert
 #' the curves to the more usual decay form.
 #' 
+#' @param smooth \code{\link{logical}} (with default): \code{TRUE} to apply 
+#' Tukey's Running Median Smoothing for OSL and IRSL decay curves. Smoothing is
+#' encouraged if you see random signal drops within the decay curves related 
+#' to hardware errors.
+#' 
 #' @param ... currently not used.
 #'
-#' @return Returns an S4 \code{\linkS4class{RLum.Analysis}} object.
+#' @return Returns an S4 \code{\linkS4class{RLum.Analysis}} object containing
+#' \code{\linkS4class{RLum.Data.Curve}} objects for each curve.  
 #' 
-#' @seealso \code{\linkS4class{RLum.Analysis}},
+#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
 #' \code{\linkS4class{RLum.Data.Curve}}
 #' 
 #'
@@ -35,7 +41,7 @@
 #' # none available yet
 #' 
 #' @export
-read_PSL2R <- function(file, drop.bg = FALSE, as.decay.curve = TRUE, ...) {
+read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, ...) {
   
   ## Read in file ----
   doc <- readLines(file)
@@ -64,13 +70,14 @@ read_PSL2R <- function(file, drop.bg = FALSE, as.decay.curve = TRUE, ...) {
   number_of_measurements <- length(begin_of_measurements)
   
   
-  # Header
+  # Parse and format header
   header <- doc[1:(begin_of_measurements[1]-1)]
   header <- format_Header(header)
   
-  # Measurements
+  # Parse and format the easurement values
   measurements_split <- vector("list", number_of_measurements)
   
+  # save lines of each measurement to individual list elements
   for (i in seq_len(number_of_measurements)) {
     if (i != max(number_of_measurements))
       measurements_split[[i]] <- doc[begin_of_measurements[i]:(begin_of_measurements[i+1] - 1)]
@@ -78,17 +85,27 @@ read_PSL2R <- function(file, drop.bg = FALSE, as.decay.curve = TRUE, ...) {
       measurements_split[[i]] <- doc[begin_of_measurements[i]:length(doc)]
   }
   
+  # format each measurement; this will return a list of RLum.Data.Curve objects
   measurements_formatted <- lapply(measurements_split, function(x) { 
-    format_Measurements(x, convert = as.decay.curve)
-    })
+    format_Measurements(x, convert = as_decay_curve)
+  })
   
-  if (drop.bg) {
+  # drop dark count measurements if needed
+  if (drop_bg) {
     measurements_formatted <- lapply(measurements_formatted, function(x) {
-      if (x@recordType != "BG")
+      if (x@recordType != "USER")
         return(x)
     })
-    
     measurements_formatted <- measurements_formatted[!sapply(measurements_formatted, is.null)]
+  }
+  
+  # decay curve smoothing using Tukey's Running Median Smoothing (?smooth)
+  if (smooth) {
+    measurements_formatted <- lapply(measurements_formatted, function(x) {
+      if (x@recordType != "USER")
+        x@data[,2] <- smooth(x@data[ ,2])
+      return(x)
+    })
   }
   
   ## RETURN ----
@@ -105,14 +122,29 @@ read_PSL2R <- function(file, drop.bg = FALSE, as.decay.curve = TRUE, ...) {
 ################################################################################
 
 
-## -------------------------------------------------------------------------- ##
-
+## ------------------------- FORMAT MEASUREMENT ----------------------------- ##
 format_Measurements <- function(x, convert) {
   
   
   ## measurement parameters are given in the first line
   settings <- x[1]
-  # settings_split <- unlist(strsplit(settings, "|", fixed = TRUE))
+  
+  settings_split <- unlist(strsplit(settings, "|", fixed = TRUE))
+  
+  # welcome to regex/strsplit hell
+  settings_measurement <- trimws(gsub(".*: ", "", settings_split[which(grepl("Measure", settings_split))]))
+  settings_stimulation_unit <- gsub("[^0-9]", "", settings_split[which(grepl("Stim", settings_split))])
+  settings_on_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("Off", settings_split))]), ","))[1])
+  settings_off_time <- as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("Off", settings_split))]), ","))[2])
+  settings_cycle <- na.omit(as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("No", settings_split))]), ","))))[1]
+  settings_stimulation_time <- na.omit(as.integer(unlist(strsplit(gsub("[^0-9,]", "", settings_split[which(grepl("No", settings_split))]), ","))))[2]
+  
+  settings_list <- list("measurement" = settings_measurement,
+                        "stimulation_unit" = switch(settings_stimulation_unit, "0" = "USER", "1" = "IRSL", "2" = "OSL"),
+                        "on_time" = settings_on_time,
+                        "off_time" = settings_off_time,
+                        "cycle" = settings_cycle,
+                        "stimulation_time" = settings_stimulation_time)
   
   ## terminal counts are given in the last line
   terminal_count_text <- x[length(x)]
@@ -126,7 +158,7 @@ format_Measurements <- function(x, convert) {
   
   ## parse values and create a data frame
   x_stripped <- x[-c(1, 2, length(x))]
-
+  
   df <- data.frame(matrix(NA, ncol = 5, nrow = length(x_stripped)))
   
   for (i in 1:length(x_stripped)) {
@@ -150,7 +182,7 @@ format_Measurements <- function(x, convert) {
   
   # determine the stimulation type
   if (grepl("Stim 0", settings)) {
-    recordType <- "BG"
+    recordType <- "USER"
   } 
   if (grepl("Stim 1", settings)) {
     recordType <- "IRSL"
@@ -160,24 +192,28 @@ format_Measurements <- function(x, convert) {
   }
   
   object <- set_RLum(class = "RLum.Data.Curve",
+                     originator = "read_PSL2R",
                      recordType = recordType,
                      curveType = "measured",
                      data = data,
-                     info = list(settings = settings,
-                                 raw_data = df)
-                     )
+                     info = list(settings = settings_list,
+                                 raw_data = df))
   
   return(object)
   
 }
 
-## -------------------------------------------------------------------------- ##
+## ---------------------------- FORMAT HEADER ------------------------------- ##
 format_Header <- function(x) {
   
   header_formatted <- list()
   
+  # split by double blanks 
   header_split <- strsplit(x, "  ", fixed = TRUE)
   
+  # check wether there are twice as many values
+  # as colons; if there is an equal amount, the previous split was not sufficient
+  # and we need to further split by a colon (that is followed by a blank)
   header_split_clean <- lapply(header_split, function(x) {
     
     x <- x[x != ""]
@@ -190,6 +226,8 @@ format_Header <- function(x) {
     return(x)
   })
   
+  
+  # format parameter/settings names and corresponding values
   values <- vector(mode = "character")
   names <- vector(mode = "character")
   
@@ -200,10 +238,11 @@ format_Header <- function(x) {
     }
   }
   
+  # some RegExing for nice reading
   names <- gsub("[: ]$", "", names, perl = TRUE)
   names <- gsub("^ ", "", names)
   names <- gsub(" $", "", names)
-  # for some weird reason "offset subtract" starts with a "256 "
+  # for some weird reason "offset subtract" starts with '256 '
   names <- gsub("256 ", "", names)
   # finally, replace all blanks with underscores
   names <- gsub(" ", "_", names)
@@ -212,8 +251,9 @@ format_Header <- function(x) {
   values <- gsub("^ ", "", values)
   values <- gsub(" $", "", values)
   
+  # return header as list
   header <- as.list(values)
   names(header) <- names
- 
+  
   return(header) 
 }
