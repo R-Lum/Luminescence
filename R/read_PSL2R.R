@@ -46,6 +46,12 @@
 #' @export
 read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
   
+  ## INPUT VALIDATION ----
+  if (!all(file.exists(file)))
+    stop("One or more files do not exist, please check: \n",
+         paste(file[!file.exists(file)], collapse = "\n"), call. = FALSE)
+  
+  ## MAIN ----
   results <- vector("list", length(file))
   
   for (i in 1:length(file)) {
