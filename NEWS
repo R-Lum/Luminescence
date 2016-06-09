@@ -4,7 +4,20 @@ Changes in version 0.6.1 ( ,2016):
 
   Bugfixes and changes:
 
-         • dummy
+         • ‘analyse_baSAR()’
+
+             • Add ‘n.chains’ option to ‘method_control’.
+
+         • ‘merge_RisoeBINfileData()’
+
+             • Account for 'implicit list embedding of S4 objects is
+               deprecated' warning by changing the code (no visible
+               user effect, apart from no visible warning anymore).
+
+         • ‘plot_GrowthCurve()’
+
+             • Move ‘call’ output in the ‘RLum.Results’ output element
+               ‘list’.
 
   S3-generics:
 
