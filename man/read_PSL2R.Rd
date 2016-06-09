@@ -4,7 +4,7 @@
 \alias{read_PSL2R}
 \title{Import PSL files to R}
 \usage{
-read_PSL2R(file, ...)
+read_PSL2R(file, drop.bg = FALSE, as.decay.curve = TRUE, ...)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
@@ -12,6 +12,13 @@ PSL file. If input is a \code{list} it should comprise only \code{character}s re
 valid paths and PSL file names.
 Alternatively the input character can be just a directory (path). In this case the
 the function tries to detect and import all PSL files found in the directory.}
+
+\item{drop.bg}{\code{\link{logical}} (with default):  \code{TRUE} to automatically 
+remove all non-OSL/IRSL curves.}
+
+\item{as.decay.curve}{\code{\link{logical}} (with default): Portable OSL Reader curves
+are often given as cumulative light sum curves. Use \code{TRUE} (default) to convert
+the curves to the more usual decay form.}
 
 \item{...}{currently not used.}
 }
