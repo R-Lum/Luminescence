@@ -56,7 +56,7 @@
 #' @note The validity of the output objects is not further checked.
 #'
 #'
-#' @section Function version: 0.2.4
+#' @section Function version: 0.2.5
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -140,21 +140,11 @@ merge_Risoe.BINfileData <- function(
 
   # Import Files ------------------------------------------------------------
 
-
-
-  ##set temp object
-  temp <- list()
-
-
   ##loop over all files to store the results in a list
   ##or the input is already a list
 
   if(is(input.objects, "character") == TRUE){
-    for(i in 1:length(input.objects)){
-
-      temp[i] <- read_BIN2R(input.objects[i])
-
-    }
+    temp <- lapply(input.objects, read_BIN2R)
 
   }else{
 
