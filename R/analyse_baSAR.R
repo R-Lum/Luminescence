@@ -185,7 +185,7 @@
 #' \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 #' \code{position}, \code{duplicated.rm}), see details.
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -288,10 +288,10 @@ analyse_baSAR <- function(
   ...
 ){
 
-
-  ##TODO :
-  ## - data.frame as input is still untested
-
+  ##TODO:
+  ##1. Function should potentially support "EXP OR LIN", however, for this the
+  ##code needs to be adjusted and the output should become a data.frame, instead a matrix
+  ##
   ##////////////////////////////////////////////////////////////////////////////////////////////////
   ##FUNCTION TO BE CALLED to RUN the Bayesian Model
   ##////////////////////////////////////////////////////////////////////////////////////////////////
@@ -910,12 +910,11 @@ analyse_baSAR <- function(
   #############################################################################
 
     ##SET fit.method
-    if (fit.method == "EXP" |
-        fit.method == "EXP+LIN" |
-        fit.method == "LIN") {
+    if (fit.method != "EXP" &
+        fit.method != "EXP+LIN" &
+        fit.method != "LIN"){
 
-    } else{
-      stop("[analyse_baSAR()] Unsupported fit method. Supported: 'EXP', 'EXP+LIN' and 'LIN'")
+      stop("[analyse_baSAR()] unsupported fit method. Supported: 'EXP', 'EXP+LIN' and 'LIN'")
     }
 
 
@@ -1041,7 +1040,15 @@ analyse_baSAR <- function(
 
 
     } else{
+
       datalu <- XLS_file
+
+      ##problem: the first column should be of type charcter, the others are
+      ##of type numeric, unfortunately it is too risky to rely on the user, we do the
+      ##proper conversion by ourself ...
+      datalu[[1]] <- as.character(datalu[[1]])
+      datalu[[2]] <- as.numeric(datalu[[2]])
+      datalu[[3]] <- as.numeric(datalu[[3]])
 
     }
 
