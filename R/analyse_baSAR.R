@@ -77,7 +77,15 @@
 #' \code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
 #' \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 #' (cf. \code{\link[rjags]{jags.model}})\cr
+#' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
 #' }
+#'
+#' \bold{Model parameter - FAQ}\cr
+#'
+#' Q: How can I set the seed for the random number generator (RNG)?
+#' A: Use the argument \code{method_control}, e.g.,
+#' \code{method_control = list(
+#' inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
 #'
 #' \bold{Additional arguments support via the \code{...} argument}\cr
 #'
@@ -185,7 +193,7 @@
 #' \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 #' \code{position}, \code{duplicated.rm}), see details.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -333,6 +341,12 @@ analyse_baSAR <- function(
         method_control[["n.chains"]]
       }
 
+      ##inits
+      inits <-  if (is.null(method_control[["inits"]])) {
+        NULL
+      } else{
+        method_control[["inits"]]
+      }
 
 
       #check whether this makes sense at all, just a direty and quick test
@@ -473,6 +487,7 @@ analyse_baSAR <- function(
         jagsfit <- rjags::jags.model(
           textConnection(baSARc_model.bug),
           data = data_Liste,
+          inits = inits,
           n.chains = n.chains,
           n.adapt = Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
@@ -484,6 +499,7 @@ analyse_baSAR <- function(
         jagsfit <- rjags::jags.model(
           textConnection(baSARn_model.bug),
           data = data_Liste,
+          inits = inits,
           n.chains = n.chains,
           n.adapt= Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
@@ -495,6 +511,7 @@ analyse_baSAR <- function(
         jagsfit <- rjags::jags.model(
           textConnection(baSARl_model.bug),
           data = data_Liste,
+          inits = inits,
           n.chains = n.chains,
           n.adapt = Nb_Iterations,
           quiet = if(verbose){FALSE}else{TRUE}
