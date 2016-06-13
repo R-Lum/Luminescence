@@ -27,7 +27,7 @@ The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
 \code{\link{write_R2BIN}}.
 }
 \section{Function version}{
- 0.0.1
+ 0.0.1 (2016-06-13 16:18:45)
 }
 \examples{
 
@@ -51,7 +51,7 @@ write_R2BIN(bin, "~/portableOSL.binx")
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{Risoe.BINfileData}}

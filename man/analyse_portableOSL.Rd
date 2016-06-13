@@ -40,7 +40,7 @@ are pairwise combined for calculating the IRSL/OSL ratio. For calculating the de
 the signal of the last three signals is divided by the first three signals of the same curve.
 }
 \section{Function version}{
- 0.0.1
+ 0.0.1 (2016-06-13 16:39:08)
 }
 \examples{
 
@@ -61,7 +61,7 @@ get_RLum(results)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
 }

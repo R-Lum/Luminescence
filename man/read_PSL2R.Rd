@@ -51,7 +51,7 @@ a specific PSL file please report to <christoph.burow@uni-koeln.de> so the
 function can be updated.
 }
 \section{Function version}{
- 0.0.1
+ 0.0.1 (2016-06-13 16:07:52)
 }
 \examples{
 
@@ -66,7 +66,7 @@ temp
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Curve}}

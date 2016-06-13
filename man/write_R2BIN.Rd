@@ -59,7 +59,7 @@ directly produced by the Risoe readers!\cr
 Implementation of support for version 07 could so far not properly tested.
 }
 \section{Function version}{
- 0.3.3 (2016-05-25 16:39:03)
+ 0.3.3 (2016-06-09 16:42:43)
 }
 \examples{
 

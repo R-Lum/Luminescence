@@ -4,7 +4,7 @@ Changes in version 0.7.0 ( ,2016):
 
   New functions:
 
-         • ‘calc_WodaFuchs2008()’: function to obtained the equivalent
+         • 'calc_WodaFuchs2008()': function to obtained the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008
 
   Bugfixes and changes:
