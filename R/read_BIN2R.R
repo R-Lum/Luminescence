@@ -69,10 +69,10 @@
 #' internal coercing is done using the function \code{\link{Risoe.BINfileData2RLum.Analysis}}
 #'
 #'
-#' @note The function works for BIN/BINX-format versions 03, 04, 06 and 07. The
+#' @note The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.\cr\cr \bold{Potential
 #' other BIN/BINX-format versions are currently not supported. The
-#' implementation of version 07 support could not been tested properly so far.}.
+#' implementation of version 07 and 08 support could not been tested properly so far.}.
 #'
 #'
 #' @section Function version: 0.14.0
@@ -279,7 +279,7 @@ read_BIN2R <- function(
   # Config ------------------------------------------------------------------
 
   ##set supported BIN format version
-  VERSION.supported <- as.raw(c(03, 04, 06, 07))
+  VERSION.supported <- as.raw(c(03, 04, 06, 07, 08))
 
 
   # Short file parsing to get number of records -------------------------------------------------
@@ -338,7 +338,7 @@ read_BIN2R <- function(
     #empty byte position
     EMPTY<-readBin(con, what="raw", 1, size=1, endian="litte")
 
-    if(temp.VERSION==06 | temp.VERSION==07){
+    if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
 
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=4, endian="little")
@@ -453,6 +453,15 @@ read_BIN2R <- function(
   temp.GRAINNUMBER <- NA
   temp.LIGHTPOWER <- NA
   temp.LPOWER <- NA
+  temp.RECTYPE <- NA
+  temp.MARKPOS_X1 <- NA
+  temp.MARKPOS_Y1 <- NA
+  temp.MARKPOS_X2 <- NA
+  temp.MARKPOS_Y2 <- NA
+  temp.MARKPOS_X3 <- NA
+  temp.MARKPOS_Y3 <- NA
+  temp.EXTR_START <- NA
+  temp.EXTR_STOP <- NA
 
   ##SET length of entire record
   n.length <- n.records
@@ -466,6 +475,7 @@ read_BIN2R <- function(
     LENGTH = integer(length = n.length),
     PREVIOUS = integer(length = n.length),
     NPOINTS = integer(length = n.length),
+    RECTYPE = integer(length = n.length),
 
     RUN = integer(length = n.length),
     SET = integer(length = n.length),
@@ -535,6 +545,14 @@ read_BIN2R <- function(
     LOWERFILTER_ID = integer(length = n.length),
     UPPERFILTER_ID = integer(length = n.length),
     ENOISEFACTOR = numeric(length = n.length),
+    MARKPOS_X1 = numeric(length = n.length),
+    MARKPOS_Y1 = numeric(length = n.length),
+    MARKPOS_X2 = numeric(length = n.length),
+    MARKPOS_Y2 = numeric(length = n.length),
+    MARKPOS_X3 = numeric(length = n.length),
+    MARKPOS_Y3 = numeric(length = n.length),
+    EXTR_START = numeric(length = n.length),
+    EXTR_STOP = numeric(length = n.length),
 
     SEQUENCE = character(length = n.length)
 
@@ -617,7 +635,7 @@ read_BIN2R <- function(
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # BINX FORMAT SUPPORT -----------------------------------------------------
-    if(temp.VERSION==06 | temp.VERSION==07){
+    if(temp.VERSION == 06 | temp.VERSION == 07 | temp.VERSION == 08){
 
       ##(1) Header size and strucutre
       ##LENGTH, PREVIOUS, NPOINTS, LTYPE
@@ -626,6 +644,13 @@ read_BIN2R <- function(
       temp.LENGTH <- temp[1]
       temp.PREVIOUS <- temp[2]
       temp.NPOINTS <- temp[3]
+
+      ##for temp.VERSION == 08
+      ##RECTYPE
+      if(temp.VERSION == 08){
+        temp.RECTYPE <- readBin(con, what="int", 1, size=1, endian="little")
+
+      }
 
       ##(2) Sample characteristics
       ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
@@ -864,8 +889,35 @@ read_BIN2R <- function(
         ##ENOISEFACTOR
         temp.ENOISEFACTOR <- readBin(con, what="double", 1, size=4, endian="little")
 
-        ##RESERVED
-        temp.RESERVED2<-readBin(con, what="raw", 15, size=1, endian="little")
+        ##CHECK FOR VERSION 08
+        if(temp.VERSION == 07){
+
+           ##RESERVED for version 07
+          temp.RESERVED2<-readBin(con, what="raw", 15, size=1, endian="little")
+
+        }else{
+
+          ##MARKER_POSITION
+          temp <- readBin(con, what="double", 6, size=4, endian="little")
+
+            temp.MARPOS_X1 <- temp[1]
+            temp.MARPOS_Y1 <- temp[2]
+            temp.MARPOS_X2 <- temp[3]
+            temp.MARPOS_Y2 <- temp[4]
+            temp.MARPOS_X3 <- temp[5]
+            temp.MARPOS_Y3 <- temp[6]
+
+
+          ###EXTR_START, EXTR_STOP
+          temp <- readBin(con, what="double", 2, size=4, endian="little")
+
+            temp.EXTR_START <- temp[1]
+            temp.EXTR_STOP <- temp[2]
+
+          temp.RESERVED2<-readBin(con, what="raw", 42, size=1, endian="little")
+
+        }
+
 
       }
 
@@ -1117,6 +1169,7 @@ read_BIN2R <- function(
       LENGTH = temp.LENGTH,
       PREVIOUS = temp.PREVIOUS,
       NPOINTS = temp.NPOINTS,
+      RECTYPE = temp.RECTYPE,
       RUN = temp.RUN,
       SET = temp.SET,
       POSITION = temp.POSITION,
@@ -1181,8 +1234,13 @@ read_BIN2R <- function(
       LOWERFILTER_ID = temp.LOWERFILTER_ID,
       UPPERFILTER_ID = temp.UPPERFILTER_ID,
       ENOISEFACTOR = temp.ENOISEFACTOR,
+      MARKPOS_X1 = temp.MARKPOS_X1,
+      MARKPOS_Y1 = temp.MARKPOS_Y1,
+      MARKPOS_X2 = temp.MARKPOS_X2,
+      MARKPOS_Y2 = temp.MARKPOS_Y2,
+      MARKPOS_X3 = temp.MARKPOS_X3,
+      MARKPOS_Y3 = temp.MARKPOS_Y3,
       SEQUENCE = temp.SEQUENCE
-
 
     )]
 
