@@ -29,7 +29,7 @@ NULL
 #' [,4]  \tab LENGTH \tab \code{integer} \tab 03-08 \tab Length of this record\cr
 #' [,5]  \tab PREVIOUS \tab \code{integer} \tab 03-08 \tab Length of previous record\cr
 #' [,6]  \tab NPOINTS \tab \code{integer} \tab 03-08 \tab Number of data points in the record\cr
-#' [,7]  \tab RECTYPE \tab \code{integer} \tab 08 \tab Record type
+#' [,7]  \tab RECTYPE \tab \code{integer} \tab 08 \tab Record type \cr
 #' [,8]  \tab RUN \tab \code{integer} \tab 03-08 \tab Run number\cr
 #' [,9]  \tab SET \tab \code{integer} \tab 03-08 \tab Set number\cr
 #' [,10]  \tab POSITION \tab  \code{integer} \tab 03-08 \tab Position number\cr
@@ -103,7 +103,7 @@ NULL
 #' [,78] \tab MARKPOS_X4 \tab \code{numeric} \tab 08 \tab Coordinates marker position 4 \cr
 #' [,79] \tab MARKPOS_Y4 \tab \code{numeric} \tab 08 \tab Coordinates marker position 4 \cr
 #' [,80] \tab EXTR_START \tab \code{numeric} \tab 08 \tab usage unknown \cr
-#' [,81] \tab EXTR_STOP \tab \code{numeric} \tab 08 \tab usage unknown
+#' [,81] \tab EXTR_END \tab \code{numeric} \tab 08 \tab usage unknown
 #' } V = BIN-file version (RLum means that it does not depend on a specific BIN
 #' version)\cr
 #'
