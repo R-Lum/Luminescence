@@ -97,6 +97,7 @@ Collate:
     'analyse_SAR.TL.R'
     'analyse_baSAR.R'
     'analyse_pIRIRSequence.R'
+    'analyse_portableOSL.R'
     'app_RLum.R'
     'apply_CosmicRayRemoval.R'
     'apply_EfficiencyCorrection.R'
