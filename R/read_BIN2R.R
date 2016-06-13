@@ -70,12 +70,13 @@
 #'
 #'
 #' @note The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
-#' version number depends on the used Sequence Editor.\cr\cr \bold{Potential
-#' other BIN/BINX-format versions are currently not supported. The
-#' implementation of version 07 and 08 support could not been tested properly so far.}.
+#' version number depends on the used Sequence Editor.\cr\cr
+#'
+#' \bold{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint
+#' import.}
 #'
 #'
-#' @section Function version: 0.14.0
+#' @section Function version: 0.15.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -87,8 +88,9 @@
 #' \code{\link[utils]{txtProgressBar}}, \code{\link{list.files}}
 #'
 #'
-#' @references Duller, G., 2007. Analyst.
-#' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}
+#' @references
+#' DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
+#' \url{http://www.nutech.dtu.dk/english/Products-and-Services/Dosimetry/Radiation-Measurement-Instruments/TL_OSL_reader/Manuals}
 #'
 #'
 #' @keywords IO
@@ -342,6 +344,7 @@ read_BIN2R <- function(
 
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=4, endian="little")
+
       STEPPING <- readBin(con, what="raw", temp.LENGTH-6, size=1, endian="litte")
 
     }else{
@@ -453,7 +456,7 @@ read_BIN2R <- function(
   temp.GRAINNUMBER <- NA
   temp.LIGHTPOWER <- NA
   temp.LPOWER <- NA
-  temp.RECTYPE <- NA
+  temp.RECTYPE <- 0
   temp.MARKPOS_X1 <- NA
   temp.MARKPOS_Y1 <- NA
   temp.MARKPOS_X2 <- NA
@@ -461,13 +464,13 @@ read_BIN2R <- function(
   temp.MARKPOS_X3 <- NA
   temp.MARKPOS_Y3 <- NA
   temp.EXTR_START <- NA
-  temp.EXTR_STOP <- NA
+  temp.EXTR_END <- NA
 
   ##SET length of entire record
   n.length <- n.records
 
   ##initialise data.frame
-  results.METADATA <- data.table(
+  results.METADATA <- data.table::data.table(
 
     ID = integer(length = n.length),
     SEL = logical(length = n.length),
@@ -552,7 +555,7 @@ read_BIN2R <- function(
     MARKPOS_X3 = numeric(length = n.length),
     MARKPOS_Y3 = numeric(length = n.length),
     EXTR_START = numeric(length = n.length),
-    EXTR_STOP = numeric(length = n.length),
+    EXTR_END = numeric(length = n.length),
 
     SEQUENCE = character(length = n.length)
 
@@ -590,7 +593,7 @@ read_BIN2R <- function(
   ##read data up to the end of con
 
   ##set ID
-  temp.ID<-0
+  temp.ID <- 0
 
 
   # LOOP --------------------------------------------------------------------
@@ -648,9 +651,16 @@ read_BIN2R <- function(
       ##for temp.VERSION == 08
       ##RECTYPE
       if(temp.VERSION == 08){
-        temp.RECTYPE <- readBin(con, what="int", 1, size=1, endian="little")
+        temp.RECTYPE <- readBin(con, what="int", 1, size=1, endian="little", signed = FALSE)
+        if(temp.RECTYPE == 128){
+          STEPPING<-readBin(con, what="raw", temp.LENGTH)
 
+          warning("[read_BIN2R()] ROI definition in data set detected, but currently not supported, skipped!", call. = FALSE)
+
+          next()
+        }
       }
+
 
       ##(2) Sample characteristics
       ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD
@@ -908,11 +918,11 @@ read_BIN2R <- function(
             temp.MARPOS_Y3 <- temp[6]
 
 
-          ###EXTR_START, EXTR_STOP
+          ###EXTR_START, EXTR_END
           temp <- readBin(con, what="double", 2, size=4, endian="little")
 
             temp.EXTR_START <- temp[1]
-            temp.EXTR_STOP <- temp[2]
+            temp.EXTR_END <- temp[2]
 
           temp.RESERVED2<-readBin(con, what="raw", 42, size=1, endian="little")
 
@@ -967,6 +977,7 @@ read_BIN2R <- function(
 
       ##TIME
       TIME_SIZE<-readBin(con, what="int", 1, size=1, endian="little")
+
 
       ##time size corrections for wrong time formats; set n to 6 for all values
       ##accoording the handbook of Geoff Duller, 2007

@@ -82,13 +82,14 @@ general BIN-file structure, the reader is referred to the Risoe website:
 \code{http://www.nutech.dtu.dk/}
 }
 \note{
-The function works for BIN/BINX-format versions 03, 04, 06 and 07. The
-version number depends on the used Sequence Editor.\cr\cr \bold{Potential
-other BIN/BINX-format versions are currently not supported. The
-implementation of version 07 support could not been tested properly so far.}.
+The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
+version number depends on the used Sequence Editor.\cr\cr
+
+\bold{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint
+import.}
 }
 \section{Function version}{
- 0.14.0 (2016-05-29 17:32:46)
+ 0.15.0 (2016-06-13 17:48:33)
 }
 \examples{
 
@@ -105,8 +106,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
 \cr R Luminescence Package Team}
 \references{
-Duller, G., 2007. Analyst.
-\url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}
+DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
+\url{http://www.nutech.dtu.dk/english/Products-and-Services/Dosimetry/Radiation-Measurement-Instruments/TL_OSL_reader/Manuals}
 }
 \seealso{
 \code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},

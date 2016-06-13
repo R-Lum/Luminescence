@@ -46,7 +46,7 @@ The function just roughly checks the data structures. The validity of
 the output data depends on the user.\cr\cr The validity of the file path is
 not further checked. \cr BIN-file conversions using the argument
 \code{version} may be a lossy conversion, depending on the chosen input and
-output data (e.g., conversion from version 07 to 06 to 04 or 03).\cr
+output data (e.g., conversion from version 08 to 07 to 06 to 04 or 03).\cr
 
 \bold{Warning}\cr
 
@@ -56,13 +56,13 @@ No obvious differences are observed in the METADATA, however, the
 BIN/BINX-file may not fully compatible, at least not similar to the once
 directly produced by the Risoe readers!\cr
 
-Implementation of support for version 07 could so far not properly tested.
+ROI definitions (introduced in BIN-file version 8) are not supported! There are furthermore
+ignored by the function \code{\link{read_BIN2R}}.
 }
 \section{Function version}{
- 0.3.3 (2016-05-25 16:39:03)
+ 0.4.0 (2016-06-13 17:57:52)
 }
 \examples{
-
 
 ##uncomment for usage
 
@@ -75,7 +75,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
 \cr R Luminescence Package Team}
 \references{
-Duller, G., 2007. Analyst.
+DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
+\url{http://www.nutech.dtu.dk/english/Products-and-Services/Dosimetry/Radiation-Measurement-Instruments/TL_OSL_reader/Manuals}
 }
 \seealso{
 \code{\link{read_BIN2R}}, \code{\linkS4class{Risoe.BINfileData}},
