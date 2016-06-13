@@ -26,7 +26,6 @@
 #' Norbert Mercier \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
 #' Christoph Schmidt \tab University of Bayreuth, Germany \cr
 #' Rachel K. Smedley \tab Aberystwyth University, United Kingdom
-#
 #' }
 #'
 #' \bold{Beta-Tester}
@@ -96,7 +95,7 @@
 #' @keywords package
 #' @import utils methods data.table bbmle
 #' @importFrom raster nlayers raster contour plotRGB brick
-#' @importFrom graphics abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid
+#' @importFrom graphics frame abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors
 #' @importFrom stats approx as.formula complete.cases density dnorm glm lm median na.exclude na.omit nls nls.control pchisq pnorm quantile rnorm runif sd smooth smooth.spline spline t.test uniroot var weighted.mean setNames
 #' @importFrom parallel parLapply makeCluster stopCluster
@@ -310,6 +309,29 @@ NULL
 NULL
 
 
+
+#' Example portable OSL curve data for the package Luminescence
+#'
+#' A \code{list} of \code{\linkS4class{RLum.Analysis}} objects, each containing
+#' the same number of \code{\linkS4class{RLum.Data.Curve}} objects representing
+#' individual OSL, IRSL and dark count measurements of a sample.
+#'
+#' @name ExampleData.portableOSL
+#' @docType data
+#'
+#' @source \bold{ExampleData.portableOSL}
+#'
+#' \tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory\cr Lab-Code: \tab
+#' - \cr Location: \tab Nievenheim/Germany\cr Material: \tab Fine grain quartz
+#' \cr Reference: \tab unpublished data }
+#'
+#' @keywords datasets
+#' @examples
+#'
+#' data(ExampleData.portableOSL, envir = environment())
+#' plot_RLum(ExampleData.portableOSL)
+#'
+NULL
 
 
 
