@@ -47,10 +47,16 @@
 read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
   
   ## INPUT VALIDATION ----
+  if (length(file) == 1) {
+    if (!grepl(".psl$", file, ignore.case = TRUE)) {
+      file <- list.files(file, pattern = ".psl$", full.names = TRUE, ignore.case = TRUE) 
+      message("The following files were found and imported: \n", paste(file, collapse = "\n"))
+    }
+  }
   if (!all(file.exists(file)))
-    stop("One or more files do not exist, please check: \n",
+    stop("The following files do not exist, please check: \n",
          paste(file[!file.exists(file)], collapse = "\n"), call. = FALSE)
-  
+    
   ## MAIN ----
   results <- vector("list", length(file))
   
@@ -67,7 +73,15 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
     
     # the header ends with date and time with the previous line starting with a single slash
     lines_with_slashes <- doc[grepl("\\", doc, fixed = TRUE)]
-    doc <- gsub(lines_with_slashes[length(lines_with_slashes)],
+
+    ## OFFENDING LINE: this deletes the line with sample name and time and date
+    sample_and_date <- lines_with_slashes[length(lines_with_slashes)]
+    sample <- gsub("[^0-9a-zA-Z\\-_]", "",strsplit(sample_and_date, "@")[[1]][1], perl = TRUE)
+    date_and_time <- strsplit(strsplit(sample_and_date, "@")[[1]][2], " ")[[1]]
+    date_and_time_clean <- date_and_time[date_and_time != "" & date_and_time != "/" & date_and_time != "PM" & date_and_time != "AM"]
+    date <- as.Date(date_and_time_clean[1], "%m/%d/%Y")
+    time <- format(date_and_time_clean[2], format = "%h:%M:%S")
+    doc <- gsub(lines_with_slashes[length(lines_with_slashes)], 
                 "", fixed = TRUE, doc)
     
     # last delimiting line before measurements are only apostrophes and dashes
@@ -82,10 +96,14 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
     begin_of_measurements <- grep("Measurement :", doc, fixed = TRUE)
     number_of_measurements <- length(begin_of_measurements)
     
-    
     # Parse and format header
     header <- doc[1:(begin_of_measurements[1]-1)]
     header <- format_Header(header)
+    
+    # add sample name, date and time to header list
+    header$Date <- date
+    header$Time <- time
+    header$Sample <- sample
     
     # Parse and format the easurement values
     measurements_split <- vector("list", number_of_measurements)
@@ -100,7 +118,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
     
     # format each measurement; this will return a list of RLum.Data.Curve objects
     measurements_formatted <- lapply(measurements_split, function(x) { 
-      format_Measurements(x, convert = as_decay_curve)
+      format_Measurements(x, convert = as_decay_curve, header = header)
     })
     
     # drop dark count measurements if needed
@@ -145,7 +163,7 @@ read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FA
 
 
 ## ------------------------- FORMAT MEASUREMENT ----------------------------- ##
-format_Measurements <- function(x, convert) {
+format_Measurements <- function(x, convert, header) {
   
   
   ## measurement parameters are given in the first line
@@ -218,7 +236,7 @@ format_Measurements <- function(x, convert) {
                      recordType = recordType,
                      curveType = "measured",
                      data = data,
-                     info = list(settings = settings_list,
+                     info = list(settings = c(settings_list, header),
                                  raw_data = df))
   
   return(object)
