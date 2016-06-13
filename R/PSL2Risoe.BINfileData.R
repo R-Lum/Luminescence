@@ -41,18 +41,31 @@ PSL2Risoe.BINfileData <- function(object, ...) {
   curves <- get_RLum(object)
   
   ## COLLECT META INFORMATION ----
-  NPOINTS <- sapply(curves, function(x) {
-    as.integer(x@info$settings$stimulation_time)
-  })
-  LTYPE <- sapply(curves, function(x) {
-    x@info$settings$stimulation_unit
-  })
-  COMMENT <- sapply(curves, function(x) {
-    x@info$settings$measurement
-  })
-  HIGH <- sapply(curves, function(x) {
-    x@info$settings$stimulation_time
-  })
+  META <- do.call(rbind, lapply(curves, function(x) {
+    
+    NPOINTS <- as.integer(x@info$settings$stimulation_time)
+    LTYPE <- x@info$settings$stimulation_unit
+    COMMENT <- x@info$settings$measurement
+    HIGH <- x@info$settings$stimulation_time
+    DATE <- format(x@info$settings$Date, format = "%d%m%y")
+    TIME <- x@info$settings$Time
+    if (nchar(TIME) < 8)
+      TIME <- paste0("0", TIME)
+    SAMPLE <- x@info$settings$Sample
+    FNAME <- x@info$settings$Filename
+    SEQUENCE <- paste(x@info$settings$Run_Name, x@info$settings$Sample_no)
+    
+    
+    return(data.frame(NPOINTS = NPOINTS,
+                LTYPE = LTYPE,
+                COMMENT = COMMENT,
+                HIGH = HIGH,
+                DATE = DATE,
+                TIME = TIME,
+                SAMPLE = SAMPLE,
+                FNAME = FNAME,
+                SEQUENCE = SEQUENCE))
+  }))
   
   ## SAVE DATA ----
   DATA <- lapply(curves, function(x) {
@@ -63,9 +76,9 @@ PSL2Risoe.BINfileData <- function(object, ...) {
   METADATA <- data.frame(ID = seq(1, length(curves), 1),
                          SEL = rep(TRUE, length(curves)),
                          VERSION = rep(7, length(curves)),
-                         LENGTH = 447 + 4 * NPOINTS,
-                         PREVIOUS = 447 + 4 * NPOINTS,
-                         NPOINTS = NPOINTS,
+                         LENGTH = 447 + 4 * META$NPOINTS,
+                         PREVIOUS = 447 + 4 * META$NPOINTS,
+                         NPOINTS = META$NPOINTS,
                          RUN = seq(1, length(curves), 1),
                          SET = rep(1, length(curves)),
                          POSITION = rep(1, length(curves)),
@@ -74,13 +87,13 @@ PSL2Risoe.BINfileData <- function(object, ...) {
                          CURVENO = rep(0, length(curves)),
                          XCOORD = rep(0, length(curves)),
                          YCOORD = rep(0, length(curves)),
-                         SAMPLE = rep(paste(object@info$Run_Name, object@info$Sample_no), length(curves)),
-                         COMMENT = COMMENT,
+                         SAMPLE = META$SAMPLE,
+                         COMMENT = META$COMMENT,
                          SYSTEMID = rep(0, length(curves)),
-                         FNAME = rep(object@info$Filename, length(curves)),
+                         FNAME = META$FNAME, 
                          USER = rep("RLum", length(curves)),
-                         TIME = rep(format(Sys.time(), "%H:%M:%S"), length(curves)),
-                         DATE = rep(format(Sys.Date()+10, "%d%m%y"), length(curves)),
+                         TIME = META$TIME,
+                         DATE = META$DATE,
                          DTYPE = rep("Natural", length(curves)),
                          BL_TIME = rep(0, length(curves)),
                          BL_UNIT = rep(0, length(curves)),
@@ -90,12 +103,12 @@ PSL2Risoe.BINfileData <- function(object, ...) {
                          BG = rep(0, length(curves)),
                          SHIFT = rep(0, length(curves)),
                          TAG = rep(1, length(curves)),
-                         LTYPE = LTYPE,
+                         LTYPE = META$LTYPE,
                          LIGHTSOURCE = rep("None", length(curves)),
                          LPOWER = rep(100, length(curves)),
                          LIGHTPOWER = rep(100, length(curves)),
                          LOW = rep(0, length(curves)),
-                         HIGH = HIGH,
+                         HIGH = META$HIGH,
                          RATE = rep(0, length(curves)),
                          TEMPERATURE = rep(0, length(curves)),
                          MEASTEMP = rep(0, length(curves)),
@@ -130,7 +143,7 @@ PSL2Risoe.BINfileData <- function(object, ...) {
                          LOWERFILTER_ID = rep(NA, length(curves)),
                          UPPERFILTER_ID = rep(NA, length(curves)),
                          ENOISEFACTOR = rep(NA, length(curves)),
-                         SEQUENCE = rep(NA, length(curves)))
+                         SEQUENCE = META$SEQUENCE)
   
   ## CREATE Risoe.BINfileData OBJECT ----
   bin <- set_Risoe.BINfileData(METADATA = METADATA,
