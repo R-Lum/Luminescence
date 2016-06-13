@@ -78,6 +78,7 @@
 #' \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 #' (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
+#' \code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
 #' }
 #'
 #' \bold{Model parameter - FAQ}\cr
@@ -348,6 +349,20 @@ analyse_baSAR <- function(
         method_control[["inits"]]
       }
 
+      ##thin
+      thin <-  if (is.null(method_control[["thin"]])) {
+        if(n.MCMC >= 1e+06){
+          thin <- n.MCMC/1e+06 * 1000
+
+        }else{
+          thin <- 1
+
+        }
+      } else{
+        method_control[["thin"]]
+      }
+
+
 
       #check whether this makes sense at all, just a direty and quick test
       stopifnot(lower_De > 0)
@@ -517,7 +532,7 @@ analyse_baSAR <- function(
           quiet = if(verbose){FALSE}else{TRUE}
         )
       }else{
-        stop("[analyse_baSAR()] unknown input for 'distribution'. Allowed are: 'cauchy', 'normal' or 'log_normal'")
+        stop("[analyse_baSAR()] Unknown input for 'distribution'. Allowed are: 'cauchy', 'normal' or 'log_normal'")
 
       }
 
@@ -529,27 +544,27 @@ analyse_baSAR <- function(
         )
 
       ##get data ... full and reduced, the reduced one to limit the plot output
+      ## ... output is reduced by the factor of 10 * 10 to reduced the memory load
       sampling <- rjags::coda.samples(
         model = jagsfit,
-        variable.names = c('central_D', 'sigma_D', 'D'),
-        n.iter = Nb_Iterations / 10,
-        thin = 10,
-        progress.bar = if(verbose){"text"}else{NULL}
+        variable.names = c('central_D', 'sigma_D', 'D', 'Q', 'a', 'b', 'c', 'g'),
+        n.iter = Nb_Iterations,
+        thin = thin
       )
 
+      ##this we need for the output of the terminal
+      ##Why sampling reduced? Because the summary() method produces a considerable overhead while
+      ##running over all the variables
       sampling_reduced <- rjags::coda.samples(
         model = jagsfit,
         variable.names = c('central_D', 'sigma_D'),
-        n.iter = Nb_Iterations / 10,
-        thin = 10,
-        progress.bar = if(verbose){"text"}else{NULL}
+        n.iter = Nb_Iterations,
+        thin = thin
       )
 
+
       ##CHECK FOR RJAGS
-      if(verbose){print(summary(sampling)[[1]])}
-
       if(plot){
-
         if(plot_reduced){
           plot(sampling_reduced)
 
@@ -559,34 +574,40 @@ analyse_baSAR <- function(
 
       }
 
+
       ###############  Screen output
       pt_zero <- 0
       nb_decal <-  2
       pt_zero <- Nb_aliquots
       output.mean <- vector("numeric")
+      output.quantiles <- vector("numeric")
 
-      output.mean[1] <-  round(summary(sampling)[[1]][(pt_zero+1)], 2)
-      output.mean[2] <- round(summary(sampling)[[1]][(2*pt_zero+3)], 2)
-      output.mean[3] <-  round(summary(sampling)[[1]][(pt_zero+2)], 2)
-      output.mean[4] <- round(summary(sampling)[[1]][(2*pt_zero+4)], 2)
 
+      ##standard error and mean
+      output.mean <-
+        round(summary(sampling_reduced)[[1]][c("central_D", "sigma_D"), 1:2], 2)
+
+      ##quantiles
+      ##68% + 95%
+      output.quantiles <-
+        round(summary(sampling_reduced, quantiles = c(0.025, 0.16, 0.84, 0.975))[[2]][c("central_D", "sigma_D"), 1:4], 2)
 
       ##show Abanico Plot
+      ##TODO ... this is not meaningful
       if(plot){
-        df <- as.data.frame(summary(sampling)[[1]])
-        plot_AbanicoPlot(
-          data = df[-c(nrow(df),nrow(df)-1),1:2],
-          z.0 = output.mean[1],
-          summary = c("n"),
-          summary.pos = "topleft",
-          zlab = expression(paste(D[e], " [a.u.]")),
-          mtext = paste("Central dose: ", output.mean[1], "\u00b1", output.mean[2])
-          )
-
-        rm(df)
+        # df <- as.data.frame(summary(sampling)[[1]])
+        # plot_AbanicoPlot(
+        #   data = df[-c(nrow(df),nrow(df)-1),1:2],
+        #   z.0 = output.mean[1],
+        #   summary = c("n"),
+        #   summary.pos = "topleft",
+        #   zlab = expression(paste(D[e], " [a.u.]")),
+        #   mtext = paste("Central dose: ", output.mean[1], "\u00b1", output.mean[2])
+        #   )
+        #
+        # rm(df)
 
       }
-
 
 
       #### output data.frame with results
@@ -598,7 +619,15 @@ analyse_baSAR <- function(
         CENTRAL = output.mean[1],
         CENTRAL.SD = output.mean[2],
         SIGMA = output.mean[3],
-        SIGMA.SD = output.mean[4]
+        SIGMA.SD = output.mean[4],
+        CENTRAL_Q_.16 = output.quantiles[1,2],
+        CENTRAL_Q_.84 = output.quantiles[1,3],
+        SIGMA_Q_.16 = output.quantiles[2,2],
+        SIGMA_Q_.84 = output.quantiles[2,3],
+        CENTRAL_Q_.025 = output.quantiles[1,1],
+        CENTRAL_Q_.975 = output.quantiles[1,4],
+        SIGMA_Q_.025 = output.quantiles[2,1],
+        SIGMA_Q_.975 = output.quantiles[2,4]
       )
 
       return(baSAR.output = list(
@@ -662,11 +691,6 @@ analyse_baSAR <- function(
 
   # Set input -----------------------------------------------------------------------------------
 
-  if(verbose){
-    cat("\n[analyse_baSAR()] ---- PREPROCESSING ----")
-
-  }
-
   ##if the input is alreayd of type RLum.Results, use the input and do not run
   ##all pre-calculations again
   if(is(object, "RLum.Results")){
@@ -727,8 +751,8 @@ analyse_baSAR <- function(
        }
 
        ##source_doserate
-       if(!is.null(function_arguments.new$source_doserate)){
-         source_doserate <- eval(function_arguments.new$source_doserate)
+       if(length(as.list(match.call())$source_doserate) > 0){
+         warning("[analyse_baSAR()] argument 'source_doserate' is ignored in this modus.", call. = FALSE)
 
        }
 
@@ -766,6 +790,11 @@ analyse_baSAR <- function(
 
 
   }else{
+
+    if(verbose){
+      cat("\n[analyse_baSAR()] ---- PREPROCESSING ----")
+
+    }
 
     ##Supported input types are:
     ##  (1) BIN-file
@@ -1010,7 +1039,7 @@ analyse_baSAR <- function(
 
       }else{
 
-          warning("[analyse_baSAR()] Only multiple grain data provided, automatic selection skipped!")
+          warning("[analyse_baSAR()] Only multiple grain data provided, automatic selection skipped!", call. = FALSE)
           datalu <- unique(fileBIN.list[[k]]@METADATA[, c("POSITION", "GRAIN")])
 
           ##set mono grain to FALSE
@@ -1069,6 +1098,7 @@ analyse_baSAR <- function(
 
     }
 
+
     ##limit aliquot range
     if (!is.null(aliquot_range)) {
       datalu <- datalu[aliquot_range,]
@@ -1125,7 +1155,7 @@ analyse_baSAR <- function(
     }
 
     ##if k is NULL it means it was not set so far, so there was
-    ##no corresponding BIN file found
+    ##no corresponding BIN-file found
     if(is.null(k)){
       stop("[analyse_baSAR()] BIN-file names in XLS-file do not fit to the loaded BIN-files!")
 
@@ -1459,14 +1489,14 @@ analyse_baSAR <- function(
 
     ##finally, check for difference in the number of dose points ... they should be the same
     if(unique(OUTPUT_results_reduced[,"CYCLES_NB"])>1){
-       warning("[analyse_baSAR()] the number of dose points differs across your data set. Check your data!")
+       warning("[analyse_baSAR()] The number of dose points differs across your data set. Check your data!", call. = FALSE)
 
     }
 
   ##correct number of aliquots if necessary
   if(Nb_aliquots > nrow(OUTPUT_results_reduced)) {
     Nb_aliquots <- nrow(OUTPUT_results_reduced)
-    warning(paste("[analyse_baSAR()] 'Nb_aliquots' corrected to ", Nb_aliquots), call. = FALSE)
+    warning(paste("[analyse_baSAR()] 'Nb_aliquots' corrected due to NaN values to ", Nb_aliquots), call. = FALSE)
 
   }
 
@@ -1501,6 +1531,7 @@ analyse_baSAR <- function(
       verbose = verbose
     )
 
+
   ##add error from the source_doserate
   if(!is.null(unlist(source_doserate))){
     DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + sum(unlist(
@@ -1517,23 +1548,32 @@ analyse_baSAR <- function(
 
   }
 
+
   ##combine
   results[[1]] <- cbind(results[[1]], DE_FINAL = results[[1]][["CENTRAL"]], DE_FINAL.ERROR = DE_FINAL.ERROR)
 
   if(verbose){
     cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
     cat("\n[analyse_baSAR()] ---- RESULTS ---- \n")
-    cat("---------------------------------------------------------------\n")
-    cat(paste0("Used distribution:\t\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
-    cat(paste0("Number of aliquots used:\t\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
-    cat(paste0("Considered fitting method:\t\t", results[[1]][["FIT_METHOD"]],"\n"))
-    cat(paste0("Number MCMC iterations:\t\t\t", results[[1]][["N.MCMC"]],"\n"))
+    cat("-----------------------------------------------------------------------------\n")
+    cat(paste0("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
+    cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
+    cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],"\n"))
+    cat(paste0("Number MCMC iterations:\t\t", results[[1]][["N.MCMC"]],"\n"))
 
-    cat("---------------------------------------------------------------\n")
-    cat(paste0(">> Central dose:\t\t\t", results[[1]][["CENTRAL"]]," \u00b1 ", results[[1]][["CENTRAL.SD"]]))
-    cat(paste0("\n>> Overdispersion (sigma):\t\t", results[[1]][["SIGMA"]]," \u00b1 ", results[[1]][["SIGMA.SD"]]))
-    cat(paste0("\n>> Final central De:\t\t\t", results[[1]][["DE_FINAL"]]," \u00b1 ", round(results[[1]][["DE_FINAL.ERROR"]], digits = 2)))
-    cat("\n---------------------------------------------------------------\n")
+    cat("-----------------------------------------------------------------------------\n")
+    cat("\t\t\t\tmean\tsd\tHPD (68 %)\tHPD (95 %)\n")
+
+    cat(paste0(">> Central dose:\t\t", results[[1]][["CENTRAL"]],"\t",
+               results[[1]][["CENTRAL.SD"]],"\t",
+               "[", results[[1]][["CENTRAL_Q_.16"]]," ; ", results[[1]][["CENTRAL_Q_.84"]], "]\t",
+               "[", results[[1]][["CENTRAL_Q_.025"]]," ; ", results[[1]][["CENTRAL_Q_.975"]],"]"))
+    cat(paste0("\n>> Overdispersion (sigma):\t", results[[1]][["SIGMA"]],"\t", results[[1]][["SIGMA.SD"]], "\t",
+               "[",results[[1]][["SIGMA_Q_.16"]]," ; ", results[[1]][["SIGMA_Q_.84"]], "]\t",
+               "[",results[[1]][["SIGMA_Q_.025"]]," ; ", results[[1]][["SIGMA_Q_.975"]], "]"))
+    cat(paste0("\n>> Final central De:\t\t", results[[1]][["DE_FINAL"]],"\t", round(results[[1]][["DE_FINAL.ERROR"]], digits = 2), "\t",
+               " - \t - \t - \t - "))
+    cat("\n-----------------------------------------------------------------------------\n")
     cat(
       paste("(systematic error contribution to final De:",
             format((1-results[[1]][["CENTRAL.SD"]]/results[[1]][["DE_FINAL.ERROR"]])*100, scientific = TRUE), "%)\n")
@@ -1552,3 +1592,15 @@ analyse_baSAR <- function(
   ))
 
 }
+
+# results <-  analyse_baSAR(
+#   object=temp,
+#   distribution = "log_normal",
+#   plot = TRUE,
+#   #source_doserate = c(0.04, 0.001),
+#   n.MCMC = 100
+# )
+#
+
+
+

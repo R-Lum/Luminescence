@@ -172,6 +172,7 @@ are:
 \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 (cf. \code{\link[rjags]{jags.model}})\cr
 \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
+\code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
 }
 
 \bold{Model parameter - FAQ}\cr
@@ -217,7 +218,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.4 (2016-06-12 20:10:16)
+ 0.1.4 (2016-06-13 15:58:45)
 }
 \examples{
 
