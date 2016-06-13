@@ -8,7 +8,12 @@
    \itemize{
     \item \code{analyse_baSAR()}
         \itemize{
-          \item Add \code{n.chains} option to \code{method_control}.
+          \item Add \code{n.chains} option to \code{method_control},
+          \item add \code{inits} to \code{method_control} to set the RNG,
+          \item add \code{thin} to \code{method_control} to control the monitoring,
+          \item account for probable odd use input if the \code{XLS_file} is a \code{data.frame}
+          (column 1 is of type \code{factor} instead \code{character}),
+          \item a lots of minor improvements.
 
       }
 
@@ -22,6 +27,30 @@
        \item \code{plot_GrowthCurve()}
         \itemize{
           \item Move \code{call} output in the \code{RLum.Results} output element \code{list}.
+
+      }
+
+      \item \code{read_BIN2R()}
+      \itemize{
+        \item Add suppurt for BIN-file version 8; thanks for the support by Kristina Thomsen from Risoe.
+
+      }
+
+      \item \code{Risoe.BINfileData-class}{
+          \itemize{
+            \item Add support for BIN-file version 8.
+
+
+          }
+
+      }
+
+      \item \code{write_R2BIN()}{
+          \itemize{
+            \item Add support for BIN-file version 8.
+
+
+          }
 
       }
 

@@ -171,7 +171,16 @@ are:
 \code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
 \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 (cf. \code{\link[rjags]{jags.model}})\cr
+\code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
+\code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
 }
+
+\bold{Model parameter - FAQ}\cr
+
+Q: How can I set the seed for the random number generator (RNG)?
+A: Use the argument \code{method_control}, e.g.,
+\code{method_control = list(
+inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
 
 \bold{Additional arguments support via the \code{...} argument}\cr
 
@@ -209,7 +218,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.2 (2016-06-09 11:30:44)
+ 0.1.4 (2016-06-13 21:17:28)
 }
 \examples{
 
