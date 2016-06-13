@@ -17,17 +17,36 @@ Returns an S4 \code{\linkS4class{Risoe.BINfileData}} object that can
 be used to write a BIN file using \code{\link{write_R2BIN}}.
 }
 \description{
-Converts an RLum.Analysis object produced by the function 'read_PSL2R()' to
-an Risoe.BINfileData object
+Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to
+an \code{Risoe.BINfileData} object \bold{(BETA)}.
 }
 \details{
-<placeholder>
+This function converts an \code{\linkS4class{RLum.Analysis}} object that was produced
+by the \code{\link{read_PSL2R}} function to an \code{\linkS4class{Risoe.BINfileData}}.
+The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via 
+\code{\link{write_R2BIN}}.
 }
 \section{Function version}{
  0.0.1
 }
 \examples{
-# none available yet
+
+# (1) load and plot example data set
+data("ExampleData.portableOSL", envir = environment())
+plot_RLum(ExampleData.portableOSL)
+
+# (2) merge all RLum.Analysis objects into one
+merged <- merge_RLum(ExampleData.portableOSL)
+merged
+
+# (3) convert to RisoeBINfile object
+bin <- PSL2Risoe.BINfileData(merged)
+bin
+
+# (4) write Risoe BIN file
+\dontrun{
+write_R2BIN(bin, "~/portableOSL.binx")
+}
 
 }
 \author{
