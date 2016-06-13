@@ -5,11 +5,11 @@
 \title{Import PSL files to R}
 \usage{
 read_PSL2R(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE,
-  ...)
+  merge = FALSE, ...)
 }
 \arguments{
-\item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
-PSL file. If input is a \code{list} it should comprise only \code{character}s representing
+\item{file}{\code{\link{character}} (\bold{required}): path and file name of the
+PSL file. If input is a \code{vector} it should comprise only \code{character}s representing
 valid paths and PSL file names.
 Alternatively the input character can be just a directory (path). In this case the
 the function tries to detect and import all PSL files found in the directory.}
@@ -26,6 +26,9 @@ Tukey's Running Median Smoothing for OSL and IRSL decay curves. Smoothing is
 encouraged if you see random signal drops within the decay curves related 
 to hardware errors.}
 
+\item{merge}{\code{\link{logical}} (with default): \code{TRUE} to merge all 
+\code{RLum.Analysis} objects. Only applicable if multiple files are imported.}
+
 \item{...}{currently not used.}
 }
 \value{
@@ -33,16 +36,32 @@ Returns an S4 \code{\linkS4class{RLum.Analysis}} object containing
 \code{\linkS4class{RLum.Data.Curve}} objects for each curve.
 }
 \description{
-Imports PSL files produced by a SUERC portable OSL reader into R
+Imports PSL files produced by a SUERC portable OSL reader into R \bold{(BETA)}.
 }
 \details{
-<placeholder>
+This function provides an import routine for the SUERC portable OSL Reader PSL format.
+PSL files are just plain text and can be viewed with any text editor. Due to the 
+formatting of PSL files this import function relies heavily on regular expression to find and 
+extract all relevant information. See \bold{note}.
+}
+\note{
+Because this function relies heavily on regular expressions to parse 
+PSL files it is currently only in beta status. If the routine fails to import
+a specific PSL file please report to <christoph.burow@uni-koeln.de> so the
+function can be updated.
 }
 \section{Function version}{
  0.0.1
 }
 \examples{
-# none available yet
+
+# (1) Import PSL file to R
+
+\dontrun{
+FILE <- file.choose()
+temp <- read_PSL2R(FILE)
+temp
+}
 
 }
 \author{

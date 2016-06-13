@@ -1,11 +1,14 @@
 #' Import PSL files to R
 #' 
-#' Imports PSL files produced by a SUERC portable OSL reader into R
+#' Imports PSL files produced by a SUERC portable OSL reader into R \bold{(BETA)}.
 #'
-#' <placeholder>
+#' This function provides an import routine for the SUERC portable OSL Reader PSL format.
+#' PSL files are just plain text and can be viewed with any text editor. Due to the 
+#' formatting of PSL files this import function relies heavily on regular expression to find and 
+#' extract all relevant information. See \bold{note}.
 #'
-#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
-#' PSL file. If input is a \code{list} it should comprise only \code{character}s representing
+#' @param file \code{\link{character}} (\bold{required}): path and file name of the
+#' PSL file. If input is a \code{vector} it should comprise only \code{character}s representing
 #' valid paths and PSL file names.
 #' Alternatively the input character can be just a directory (path). In this case the
 #' the function tries to detect and import all PSL files found in the directory.
@@ -32,16 +35,27 @@
 #' 
 #' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
 #' \code{\linkS4class{RLum.Data.Curve}}
-#' 
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
 #' @section Function version: 0.0.1
+#' 
+#' @note Because this function relies heavily on regular expressions to parse 
+#' PSL files it is currently only in beta status. If the routine fails to import
+#' a specific PSL file please report to <christoph.burow@@uni-koeln.de> so the
+#' function can be updated.
 #'
 #' @keywords IO
 #' 
 #' @examples
-#' # none available yet
+#' 
+#' # (1) Import PSL file to R
+#' 
+#' \dontrun{
+#' FILE <- file.choose()
+#' temp <- read_PSL2R(FILE)
+#' temp
+#' }
 #' 
 #' @export
 read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
