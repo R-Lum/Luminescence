@@ -194,7 +194,7 @@
 #' \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 #' \code{position}, \code{duplicated.rm}), see details.
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1236,14 +1236,28 @@ analyse_baSAR <- function(
       disc_selected <-  as.integer(Disc[[k]][i])
       if (Mono_grain == TRUE) {grain_selected <- as.integer(Grain[[k]][i])} else { grain_selected <-0}
 
-          disc_logic <-   (disc_selected == measured_discs.vector)
-          grain_logic <-  (grain_selected == measured_grains.vector)
+          disc_logic <- (disc_selected == measured_discs.vector)
+
+            ##hard break if the position does not fit
+            if(!any(disc_logic)){
+              message(paste("[analyse_baSAR()] disc number", disc_selected, "does not exist in the BIN-file! NULL returned!"))
+              return(NULL)
+            }
+
+          grain_logic <- (grain_selected == measured_grains.vector)
+
+            if(!any(grain_logic)){
+              message(paste("[analyse_baSAR()] grain number", grain_selected, "does not exist in the BIN-file! NULL returned!"))
+              return(NULL)
+            }
+
           index_liste <- n_index.vector[disc_logic & grain_logic]
+
       if (Mono_grain == FALSE)  { grain_selected <-1}
 
           for (kn in 1: length(index_liste)) {
 
-              t <-  index_liste[kn]
+              t <- index_liste[kn]
 
               ##check if the source_doserate is NULL or not
               if(!is.null(unlist(source_doserate))){
