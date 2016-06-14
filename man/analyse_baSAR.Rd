@@ -10,7 +10,8 @@ analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   sig0 = 0.025, distribution = "cauchy", n.MCMC = 1e+05,
   fit.method = "EXP", fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE, method_control = list(),
-  plot = TRUE, plot_reduced = TRUE, verbose = TRUE, ...)
+  plot = TRUE, plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE,
+  ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
@@ -87,6 +88,9 @@ See details for further information}
 \item{plot}{\code{\link{logical}} (with default): enables or disables plot output}
 
 \item{plot_reduced}{\code{\link{logical}} (with default): enables or disables the advanced plot output}
+
+\item{plot.single}{\code{\link{logical}} (with default): enables or disables single plots or plots
+arranged by analyse_baSAR}
 
 \item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
 
@@ -238,7 +242,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.5 (2016-06-14 12:30:37)
+ 0.1.6 (2016-06-15 01:53:05)
 }
 \examples{
 

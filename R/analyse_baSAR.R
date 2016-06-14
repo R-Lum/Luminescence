@@ -188,6 +188,9 @@
 #'
 #' @param plot_reduced \code{\link{logical}} (with default): enables or disables the advanced plot output
 #'
+#' @param plot.single \code{\link{logical}} (with default): enables or disables single plots or plots
+#' arranged by analyse_baSAR
+#'
 #' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
 #'
 #' @param ... parameters that can be passed to the function \code{\link{calc_OSLLxTxRatio}} (almost full support)
@@ -214,7 +217,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -313,6 +316,7 @@ analyse_baSAR <- function(
   method_control = list(),
   plot = TRUE,
   plot_reduced = TRUE,
+  plot.single = FALSE,
   verbose = TRUE,
   ...
 ){
@@ -336,7 +340,6 @@ analyse_baSAR <- function(
              fit.force_through_origin,
              fit.includingRepeatedRegPoints,
              method_control,
-             plot,
              verbose)
     {
 
@@ -371,8 +374,8 @@ analyse_baSAR <- function(
 
       ##thin
       thin <-  if (is.null(method_control[["thin"]])) {
-        if(n.MCMC >= 1e+06){
-          thin <- n.MCMC/1e+06 * 1000
+        if(n.MCMC >= 1e+05){
+          thin <- n.MCMC/1e+05 * 500
 
         }else{
           thin <- 1
@@ -395,6 +398,7 @@ analyse_baSAR <- function(
       if (fit.method == "EXP+LIN") {ExpoGC <- 1 ; LinGC <-  1 }
       if (fit.force_through_origin == TRUE) {GC_Origin <- 1} else {GC_Origin <- 0}
 
+      ##TODO ... this selection makes no sense !
       if (fit.includingRepeatedRegPoints == TRUE) {
         for (i in 1:Nb_aliquots) {
           Limited_cycles[i] <- length(na.exclude(data.Dose[,i]))}
@@ -580,18 +584,6 @@ analyse_baSAR <- function(
       )
 
 
-      ##CHECK FOR RJAGS
-      if(plot){
-        if(plot_reduced){
-          plot(sampling_reduced)
-
-        }else{
-          plot(sampling)
-        }
-
-      }
-
-
       ###############  Screen output
       pt_zero <- 0
       nb_decal <-  2
@@ -620,22 +612,6 @@ analyse_baSAR <- function(
       output.quantiles <-
         round(summary(sampling_reduced, quantiles = c(0.025, 0.16, 0.84, 0.975))[[2]][c("central_D", "sigma_D"), 1:4], 2)
 
-      ##show Abanico Plot
-      ##TODO ... this is not meaningful
-      if(plot){
-        # df <- as.data.frame(summary(sampling)[[1]])
-        # plot_AbanicoPlot(
-        #   data = df[-c(nrow(df),nrow(df)-1),1:2],
-        #   z.0 = output.mean[1],
-        #   summary = c("n"),
-        #   summary.pos = "topleft",
-        #   zlab = expression(paste(D[e], " [a.u.]")),
-        #   mtext = paste("Central dose: ", output.mean[1], "\u00b1", output.mean[2])
-        #   )
-        #
-        # rm(df)
-
-      }
 
       #### output data.frame with results
       baSAR.output <- data.frame(
@@ -659,7 +635,7 @@ analyse_baSAR <- function(
 
       return(baSAR.output = list(
         baSAR.output_summary = baSAR.output,
-        baSAR.output_matrix = sampling,
+        baSAR.output_mcmc = sampling,
         models = list(
           cauchy = baSARc_model.bug,
           normal = baSARn_model.bug,
@@ -1380,7 +1356,8 @@ analyse_baSAR <- function(
           output.plot = additional_arguments$output.plot,
           output.plotExtended = additional_arguments$output.plotExtended,
           txtProgressBar = FALSE,
-          verbose = verbose
+          verbose = verbose,
+          main = paste0("ALQ: ", i)
         ))
 
 
@@ -1568,7 +1545,6 @@ analyse_baSAR <- function(
       fit.force_through_origin = fit.force_through_origin,
       fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
       method_control = method_control,
-      plot = plot,
       verbose = verbose
     )
 
@@ -1593,18 +1569,21 @@ analyse_baSAR <- function(
   ##combine
   results[[1]] <- cbind(results[[1]], DE_FINAL = results[[1]][["CENTRAL"]], DE_FINAL.ERROR = DE_FINAL.ERROR)
 
+
+
+  # Terminal output -----------------------------------------------------------------------------
   if(verbose){
     cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
     cat("\n[analyse_baSAR()] ---- RESULTS ---- \n")
-    cat("-----------------------------------------------------------------------------\n")
+    cat("------------------------------------------------------------------\n")
     cat(paste0("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
     cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
     cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],"\n"))
     cat(paste0("Number MCMC iterations:\t\t", results[[1]][["N.MCMC"]],"\n"))
 
-    cat("-----------------------------------------------------------------------------\n")
+    cat("------------------------------------------------------------------\n")
     if(distribution == "log_normal"){
-      cat("\t\t\t\tmean*\tsd\tHPD (68 %)\tHPD (95 %)\n")
+      cat("\t\t\t\tmean*\tsd\tHPD\n")
 
     }else{
       cat("\t\t\t\tmean\tsd\tHPD (68 %)\tHPD (95 %)\n")
@@ -1614,21 +1593,262 @@ analyse_baSAR <- function(
 
     cat(paste0(">> Central dose:\t\t", results[[1]][["CENTRAL"]],"\t",
                results[[1]][["CENTRAL.SD"]],"\t",
-               "[", results[[1]][["CENTRAL_Q_.16"]]," ; ", results[[1]][["CENTRAL_Q_.84"]], "]\t",
-               "[", results[[1]][["CENTRAL_Q_.025"]]," ; ", results[[1]][["CENTRAL_Q_.975"]],"]"))
-    cat(paste0("\n>> Overdispersion (sigma):\t", results[[1]][["SIGMA"]],"\t", results[[1]][["SIGMA.SD"]], "\t",
-               "[",results[[1]][["SIGMA_Q_.16"]]," ; ", results[[1]][["SIGMA_Q_.84"]], "]\t",
-               "[",results[[1]][["SIGMA_Q_.025"]]," ; ", results[[1]][["SIGMA_Q_.975"]], "]"))
+               "[", results[[1]][["CENTRAL_Q_.16"]]," ; ", results[[1]][["CENTRAL_Q_.84"]], "]**\t"))
+    cat(paste0("\n\t\t\t\t\t\t[", results[[1]][["CENTRAL_Q_.025"]]," ; ", results[[1]][["CENTRAL_Q_.975"]],"]***"))
+
+    cat(paste0("\n>> sigma_D:\t\t\t", results[[1]][["SIGMA"]],"\t", results[[1]][["SIGMA.SD"]], "\t",
+               "[",results[[1]][["SIGMA_Q_.16"]]," ; ", results[[1]][["SIGMA_Q_.84"]], "]**\t"))
+    cat(paste0("\n\t\t\t\t\t\t[",results[[1]][["SIGMA_Q_.025"]]," ; ", results[[1]][["SIGMA_Q_.975"]], "]***"))
     cat(paste0("\n>> Final central De:\t\t", results[[1]][["DE_FINAL"]],"\t", round(results[[1]][["DE_FINAL.ERROR"]], digits = 2), "\t",
-               " - \t - \t - \t - "))
-    cat("\n-----------------------------------------------------------------------------\n")
-    if(distribution == "log_normal"){
-     cat("* mean of the central dose is the geometric mean\n")
-    }
+               " - \t -"))
+    cat("\n------------------------------------------------------------------\n")
     cat(
       paste("(systematic error contribution to final De:",
             format((1-results[[1]][["CENTRAL.SD"]]/results[[1]][["DE_FINAL.ERROR"]])*100, scientific = TRUE), "%)\n")
+    )
+    if(distribution == "log_normal"){
+     cat("*\t mean of the central dose is the geometric mean\n")
+    }
+    cat("**\t 68 % level\n***\t 95 % level\n")
+
+  }
+
+
+  # Plotting ------------------------------------------------------------------------------------
+  if(plot){
+
+    ##colours and double for plotting
+    col <- get("col", pos = .LuminescenceEnv)
+
+    if(plot_reduced){
+      plot(results[[2]][,c("central_D","sigma_D"),drop = FALSE])
+
+    }else{
+      plot(results[[2]])
+
+
+    }
+
+
+    ##get list of variable names
+    varnames <- varnames(results[[2]])
+
+    ##////////////////////////////////////////////////////////////////////////////////////////////
+    ##Dose values to allow a individual decision ...
+    ##(1)
+    ##
+    if(!plot.single){par(mfrow = c(2,2))}
+
+    ##get list with D values
+    ##get list out of it
+    plot_matrix <- as.matrix(results[[2]][,grep(x = varnames, pattern = "D[", fixed = TRUE)])
+
+    aliquot_quantiles <- t(matrixStats::colQuantiles(x = plot_matrix, probs = c(0.25,0.75)))
+
+    ##define boxplot colours ... we have red and orange
+    box.col <- vapply(1:ncol(aliquot_quantiles), function(x){
+      if(aliquot_quantiles[2,x] < results[[1]][,c("CENTRAL_Q_.025")] |
+         aliquot_quantiles[1,x] > results[[1]][,c("CENTRAL_Q_.975")]
+      ){
+        col[2]
+      }else if(aliquot_quantiles[2,x] < results[[1]][,c("CENTRAL_Q_.16")] |
+               aliquot_quantiles[1,x] > results[[1]][,c("CENTRAL_Q_.84")]){
+
+        "orange"
+      }else{
+        "white"
+      }
+
+    }, FUN.VALUE = vector(mode = "character", length = 1))
+
+    ##to assure a minium of quality not more then 15 boxes a plotted in each plot
+    i <- 1
+    while(i < ncol(plot_matrix)){
+
+      step <- if((i + 14) > ncol(plot_matrix)){ncol(plot_matrix)}else{i + 14}
+
+      boxplot(
+        x = plot_matrix[,i:step],
+        use.cols = TRUE,
+        horizontal = TRUE,
+        outline = TRUE,
+        col = box.col[i:step],
+        xlab = "Dose [a.u.]",
+        ylab = "Aliquot index",
+        yaxt = "n",
+        xlim = c(1,19),
+        main = paste0("Individual True Dose Boxplots | ALQ:", i,":",step)
       )
+      if(step == ncol(plot_matrix)){
+        axis(side = 2, at = 1:15, labels = as.character(c(i:step, rep(" ", length = 15 - length(i:step)))),
+             cex.axis = 0.8
+        )
+
+      }else{
+        axis(side = 2, at = 1:15, labels = as.character(i:step), cex.axis = 0.8)
+      }
+
+      ##add HPD with text
+      lines(
+        x = c(
+          results[[1]][, c("CENTRAL_Q_.16")], results[[1]][, c("CENTRAL_Q_.16")],
+          results[[1]][, c("CENTRAL_Q_.84")], results[[1]][, c("CENTRAL_Q_.84")]),
+        y = c(par()$usr[3], 16, 16, par()$usr[3]),
+        lty = 3,
+        col = col[3],
+        lwd = 1.5
+      )
+      text(
+        x = results[[1]][, c("CENTRAL")],
+        y = 15.5,
+        labels = "68 %",
+        pos = 3,
+        col = col[3],
+        cex = 0.9 * par()$cex
+      )
+
+      lines(
+        x = c(
+          results[[1]][, c("CENTRAL_Q_.025")], results[[1]][, c("CENTRAL_Q_.025")],
+          results[[1]][, c("CENTRAL_Q_.975")], results[[1]][, c("CENTRAL_Q_.975")]),
+        y = c(par()$usr[3], 17.5, 17.5, par()$usr[3]),
+        lty = 3,
+        col = col[2],
+        lwd = 1.5
+      )
+
+      text(
+        x = results[[1]][, c("CENTRAL")],
+        y = 17.5,
+        labels = "95 %",
+        pos = 3,
+        col = col[2],
+        cex = 0.9 * par()$cex)
+
+      ##update counter
+      i <- i + 15
+
+    }
+    rm(plot_matrix)
+
+    if(!plot.single){
+      par(mfrow = c(1,2))
+      on.exit(par(mfrow = c(1,1), bg = "white"))
+    }
+    ##plot dose response curves
+    ##(2)
+
+      ##define selection vector
+      selection <- c("a[", "b[", "c[", "g[", "Q[1,")
+
+      ##get list out of it
+      list_selection <- lapply(X = selection, FUN = function(x){
+        unlist(results[[2]][,grep(x = varnames, pattern = x, fixed = TRUE)])
+
+      })
+
+      ##create matrix
+      plot_matrix <- t(do.call(what = "cbind", args = list_selection))
+      rm(list_selection)
+
+      if (fit.method == "EXP") {ExpoGC <- 1 ; LinGC <-  0 }
+      if (fit.method == "LIN") {ExpoGC <- 0 ; LinGC <-  1 }
+      if (fit.method == "EXP+LIN") {ExpoGC <- 1 ; LinGC <-  1 }
+      if (fit.force_through_origin == TRUE) {GC_Origin <- 1} else {GC_Origin <- 0}
+
+
+      ##open plot area
+
+        ##for the xlim and ylim we have to identify the proper ranges based on the input
+        xlim <- c(0, max(input_object[,grep(x = colnames(input_object), pattern = "DOSE")])*1.1)
+        ylim <- c(
+          min(input_object[,grep(x = colnames(input_object), pattern = "LxTx")]),
+          max(input_object[,grep(x = colnames(input_object), pattern = "LxTx")])*1.1)
+
+        ##set plot area
+        plot(
+          NA,
+          NA,
+          ylim = ylim,
+          xlim = xlim,
+          ylab = expression(paste(L[x] / T[x])),
+          xlab = "Dose [a.u.]",
+          main = "baSAR Dose Response Curves"
+        )
+
+        ##add mtext
+        mtext(side = 3, text = paste("Fit:", fit.method))
+
+      ##plot individual dose reponse curves
+      x <- NA
+      for(i in seq(1, ncol(plot_matrix), length.out = 1000)){
+        curve(
+          GC_Origin * plot_matrix[4,i] + LinGC * (plot_matrix[3,i] * x) +
+            ExpoGC * (plot_matrix[1,i] * (1 - exp (-x /plot_matrix[2,i]))), add = TRUE, col = rgb(0,0,0,.1))
+
+      }
+
+      ##add dose points
+      n.col <-
+        length(input_object[, grep(x = colnames(input_object), pattern = "DOSE")])
+
+      ##add rug with natural Lx/Tx
+      rug(side = 2, x = input_object[[9 + n.col]])
+
+      ##plot Lx/Tx values .. without errors ... this is enough here
+      for (i in 2:length(input_object[, grep(x = colnames(input_object), pattern = "DOSE")])) {
+          points(x = input_object[[8 + i]],
+                 y = input_object[[8 + n.col + i]], pch = 21, col = col[11], bg = "grey")
+
+      }
+
+      ##add ablines
+      abline(v = results[[1]][,c("CENTRAL_Q_.16", "CENTRAL_Q_.84")], lty = 3, col = col[3], lwd = 1.2)
+      abline(v = results[[1]][,c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
+
+      ##add legend1
+      legend(
+        "topleft",
+        bty = "n",
+        horiz = FALSE,
+        lty = c(3, 2),
+        col = c(col[3], col[2]),
+        legend = c("HPD - 68 %", "HPD - 95 %")
+        )
+
+      ##add legend2
+      legend(
+        "bottomright",
+        bty = "n",
+        horiz = FALSE,
+        pch = 21,
+        col = col[11],
+        bg = "grey",
+        legend = "measured dose points"
+      )
+
+      ##remove object, it might be rather big
+      rm(plot_matrix)
+
+
+      ##03 Abanico Plot
+      plot_AbanicoPlot(
+        data = input_object[, c("DE", "DE.SD")],
+        zlab = "Dose [a.u.]",
+        log.z = if (distribution == "log_normal") {
+          FALSE
+        } else{
+          TRUE
+        },
+        z.0 = results[[1]]$CENTRAL,
+        polygon.col = FALSE,
+        mtext = "(dashed line: central dose)",
+        summary.pos = "topleft",
+        summary = c("n")
+
+
+      )
+
   }
 
   # Return --------------------------------------------------------------------------------------
@@ -1646,12 +1866,9 @@ analyse_baSAR <- function(
 
 # results <-  analyse_baSAR(
 #   object=temp,
-#   distribution = "log_normal",
+#   distribution = "normal",
 #   plot = TRUE,
+#   fit.method = "EXP",
 #   #source_doserate = c(0.04, 0.001),
-#   n.MCMC = 100
+#   n.MCMC = 1000
 # )
-
-
-
-
