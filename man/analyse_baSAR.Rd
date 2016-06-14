@@ -94,6 +94,26 @@ See details for further information}
 \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 \code{position}, \code{duplicated.rm}), see details.}
 }
+\value{
+Function returns an \code{\linkS4class{RLum.Results}}-object with the following structure:\cr
+
+\bold{@data}\cr
+\tabular{lll}{
+\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+ \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
+ \code{$mcmc} \tab \code{mcmc} \tab object including raw output of \code{\link[rjags]{rjags}} \cr
+ \code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
+ \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values
+}
+
+\bold{@info}\cr
+The original function call\cr
+
+Additionally for \code{plot = TRUE} graphical feedback is returned!\cr
+
+\bold{Please note: In case where the distribution was set to \code{log_normal} the central dose is given
+as geometric mean!}
+}
 \description{
 This function allows the application of Bayesian models on luminescence data, measured
 with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
@@ -218,7 +238,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.5 (2016-06-14 11:19:55)
+ 0.1.5 (2016-06-14 12:30:37)
 }
 \examples{
 
