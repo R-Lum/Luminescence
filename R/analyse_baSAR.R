@@ -390,10 +390,10 @@ analyse_baSAR <- function(
       ##thin
       thin <-  if (is.null(method_control[["thin"]])) {
         if(n.MCMC >= 1e+05){
-          thin <- n.MCMC/1e+05 * 500
+          thin <- n.MCMC/1e+05 * 250
 
         }else{
-          thin <- 1
+          thin <- 10
 
         }
       } else{
@@ -1618,7 +1618,7 @@ analyse_baSAR <- function(
       cat("\t\t\t\tmean*\tsd\tHPD\n")
 
     }else{
-      cat("\t\t\t\tmean\tsd\tHPD (68 %)\tHPD (95 %)\n")
+      cat("\t\t\t\tmean\tsd\tHPD\n")
 
     }
 
@@ -1641,7 +1641,7 @@ analyse_baSAR <- function(
     if(distribution == "log_normal"){
      cat("*\t mean of the central dose is the geometric mean\n")
     }
-    cat("**\t 68 % level\n***\t 95 % level\n")
+    cat("** 68 % level \t *** 95 % level\n")
 
   }
 
@@ -1829,9 +1829,24 @@ analyse_baSAR <- function(
 
       ##plot Lx/Tx values .. without errors ... this is enough here
       for (i in 2:length(input_object[, grep(x = colnames(input_object), pattern = "DOSE")])) {
-          points(x = input_object[[8 + i]],
-                 y = input_object[[8 + n.col + i]], pch = 21, col = col[11], bg = "grey")
 
+        ##add error bars
+        segments(
+          x0 = input_object[[8 + i]],
+          x1 = input_object[[8 + i]],
+          y0 = input_object[[8 + n.col + i]] - input_object[[8 + 2 * n.col + i]],
+          y1 = input_object[[8 + n.col + i]] + input_object[[8 + 2 * n.col + i]],
+          col = "grey"
+        )
+
+        ##add points in the top of it
+        points(
+          x = input_object[[8 + i]],
+          y = input_object[[8 + n.col + i]],
+          pch = 21,
+          col = col[11],
+          bg = "grey"
+        )
       }
 
       ##add ablines
@@ -1909,12 +1924,12 @@ analyse_baSAR <- function(
 
 }
 
-# results <-  analyse_baSAR(
-#   object=temp,
-#   distribution = "normal",
-#   plot = TRUE,
-#   fit.method = "EXP",
-#   #source_doserate = c(0.04, 0.001),
-#   n.MCMC = 500
-# )
-#
+results <-  analyse_baSAR(
+  object=temp,
+  distribution = "normal",
+  plot = TRUE,
+  fit.method = "EXP",
+  n.MCMC = 500,
+  plot.single = TRUE
+)
+
