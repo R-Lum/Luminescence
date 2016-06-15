@@ -60,6 +60,7 @@ Suggests:
     plotly (>= 3.4.13),
     rmarkdown (>= 0.9.6),
     rjags (>= 4-6),
+    coda (>= 0.18-1),
     pander (>= 0.6.0),
     rstudioapi (>= 0.5)
 URL: http://CRAN.R-project.org/package=Luminescence
