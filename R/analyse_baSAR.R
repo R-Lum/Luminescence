@@ -390,7 +390,6 @@ analyse_baSAR <- function(
       #check whether this makes sense at all, just a direty and quick test
       stopifnot(lower_De > 0)
 
-
       Limited_cycles <- vector()
 
       if (fit.method == "EXP") {ExpoGC <- 1 ; LinGC <-  0 }
@@ -398,14 +397,14 @@ analyse_baSAR <- function(
       if (fit.method == "EXP+LIN") {ExpoGC <- 1 ; LinGC <-  1 }
       if (fit.force_through_origin == TRUE) {GC_Origin <- 1} else {GC_Origin <- 0}
 
-      ##TODO ... this selection makes no sense !
+      ##TODO
       if (fit.includingRepeatedRegPoints == TRUE) {
         for (i in 1:Nb_aliquots) {
           Limited_cycles[i] <- length(na.exclude(data.Dose[,i]))}
-      }
-      else {
+      }else{
+
         for (i in 1:Nb_aliquots) {
-        Limited_cycles[i] <- length(na.exclude(data.Dose[,i])) - 1}
+          Limited_cycles[i] <- length(na.exclude(data.Dose[,i])) - 1}
       }
 
       # Bayesian Models ----------------------------------------------------------------------------
@@ -1053,11 +1052,10 @@ analyse_baSAR <- function(
           Mono_grain <- FALSE
           aliquot_selection <- NA
 
-
       }
 
       ##get number of aliquots (one aliquot has a position and a grain number)
-      Nb_aliquots <- nrow(datalu[, 1])
+      Nb_aliquots <- nrow(datalu)
 
       ##write information in variables
       Disc[[k]] <-  datalu[["POSITION"]]
@@ -1238,7 +1236,7 @@ analyse_baSAR <- function(
     ##if all irradiation times are 0 we should stop here
     if(length(unique(irrad_time.vector)) == 1){
       warning("[analyse_baSAR()] It appears the the irradiation times are all the same. Analysis stopped an NULL returned!")
-      return()
+      return(NULL)
     }
 
     disc_pos <- as.integer(unlist(Disc[[k]]))
@@ -1296,6 +1294,7 @@ analyse_baSAR <- function(
   ######################  Data associated with a single Disc/Grain
 
   max_cycles <-  0
+  count <- 1
 
   for (k in 1:length(fileBIN.list)) {
 
@@ -1317,6 +1316,7 @@ analyse_baSAR <- function(
         index2 <- as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][2*nb_index])
         Lx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index1]])), fileBIN.list[[k]]@DATA[[index1]])
         Tx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index2]])), fileBIN.list[[k]]@DATA[[index2]])
+
 
         # call calc_OSLLxTxRatio()
         temp_LxTx <- calc_OSLLxTxRatio(
@@ -1354,6 +1354,7 @@ analyse_baSAR <- function(
       selected_sample <- data.frame (sample_dose, sample_LxTx, sample_sLxTx, TnTx)
 
       ##call plot_GrowthCurve() to get De and De value
+      ##
       fitcurve <-
         suppressWarnings(plot_GrowthCurve(
           sample = selected_sample,
@@ -1368,11 +1369,13 @@ analyse_baSAR <- function(
           output.plotExtended = additional_arguments$output.plotExtended,
           txtProgressBar = FALSE,
           verbose = verbose,
-          main = paste0("ALQ: ", i)
+          main = paste0("ALQ: ", count," | POS: ", Disc[[k]][i], " | GRAIN: ", Grain[[k]][i])
         ))
 
-
       if(!is.null(fitcurve)){
+
+        ##set counter
+        count <- count + 1
 
         ##get data.frame with De values
         fitcurve_De <- get_RLum(fitcurve, data.object = "De")
@@ -1395,13 +1398,15 @@ analyse_baSAR <- function(
         }
 
 
-
       previous.Nb_aliquots <-
         length(Limited_cycles) # Total count of aliquots
 
       }
 
     }
+
+    ##remove object
+    rm(count)
 
   }    ##  END of loop on BIN files ################################################################
 
@@ -1504,7 +1509,8 @@ analyse_baSAR <- function(
     OUTPUT_results_reduced <- OUTPUT_results[!is.na(OUTPUT_results[,4]),]
 
     ##remove DE values <= 0
-    OUTPUT_results_reduced <- OUTPUT_results_reduced[OUTPUT_results_reduced[,4] > 0,]
+    ##TODO ... uncommented
+    #OUTPUT_results_reduced <- OUTPUT_results_reduced[OUTPUT_results_reduced[,4] > 0,]
 
     ##clean up NaN values in the LxTx and corresponding error values
     ##the transposition of the matrix may increase the performance for very large matricies
@@ -1525,7 +1531,7 @@ analyse_baSAR <- function(
   ##correct number of aliquots if necessary
   if(Nb_aliquots > nrow(OUTPUT_results_reduced)) {
     Nb_aliquots <- nrow(OUTPUT_results_reduced)
-    warning(paste("[analyse_baSAR()] 'Nb_aliquots' corrected due to NaN values to ", Nb_aliquots), call. = FALSE)
+    warning(paste("[analyse_baSAR()] 'Nb_aliquots' corrected due to NaN values to", Nb_aliquots), call. = FALSE)
 
   }
 
@@ -1843,7 +1849,7 @@ analyse_baSAR <- function(
 
 
       ##03 Abanico Plot
-      plot_AbanicoPlot(
+      plot_check <- plot_AbanicoPlot(
         data = input_object[, c("DE", "DE.SD")],
         zlab = "Dose [a.u.]",
         log.z = if (distribution == "log_normal") {
@@ -1855,11 +1861,17 @@ analyse_baSAR <- function(
         polygon.col = FALSE,
         mtext = "(dashed line: central dose)",
         summary.pos = "topleft",
-        summary = c("n")
-
-
+        summary = c("n"),
+        output = TRUE
       )
 
+      ##TODO
+      ##this the case for negative values
+      if(is.null(plot_check)){
+        plot_KDE(input_object[, c("DE", "DE.SD")])
+
+
+      }
   }
 
   # Return --------------------------------------------------------------------------------------
@@ -1875,12 +1887,12 @@ analyse_baSAR <- function(
 
 }
 
-# results <-  analyse_baSAR(
-#   object=temp,
-#   distribution = "normal",
-#   plot = TRUE,
-#   fit.method = "EXP",
-#   #source_doserate = c(0.04, 0.001),
-#   n.MCMC = 200
-# )
+results <-  analyse_baSAR(
+  object=temp,
+  distribution = "cauchy",
+  plot = TRUE,
+  fit.method = "EXP",
+  #source_doserate = c(0.04, 0.001),
+  n.MCMC = 200
+)
 
