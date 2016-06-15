@@ -81,6 +81,15 @@
 #' \code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
 #' }
 #'
+#' \bold{User defined models}\cr
+#'
+#' The function provides the option to modifiy and to define own models that can be used for
+#' the Bayesian calculation. In the case the user wants to modify a model a new model
+#' can be piped into the funtion via the argument \code{baSAR_model} as \code{character}.
+#' The model has to be provided in the JAGS dialect of the BUGS language (cf. \code{\link[rjags]{jags.model}})
+#' and the in the pre-defined models defined paramter names have to be respected, otherwise the function
+#' will break with an unexcpected output.\cr
+#'
 #' \bold{Model parameter - FAQ}\cr
 #'
 #' Q: How can I set the seed for the random number generator (RNG)?
@@ -168,6 +177,10 @@
 #' Bayesian calculations for determining the Central dose and overdispersion values.
 #' Allowed inputs are \code{"cauchy"}, \code{"normal"} and \code{"log_normal"}.
 #'
+#' @param baSAR_model \code{\link{character}} (optional): option to provide an own modified or new model for the
+#' Bayesian calculation (see details). If an own model is provided the argument \code{distribution} is ignored
+#' and set to \code{'user_defined'}
+#'
 #' @param n.MCMC \code{\link{integer}} (with default): number of iterations for the Markov chain Monte Carlo (MCMC)
 #' simulations
 #'
@@ -232,7 +245,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -324,6 +337,7 @@ analyse_baSAR <- function(
   sigmab = 0,
   sig0 = 0.025,
   distribution = "cauchy",
+  baSAR_model = NULL,
   n.MCMC = 100000,
   fit.method = "EXP",
   fit.force_through_origin = TRUE,
@@ -355,9 +369,9 @@ analyse_baSAR <- function(
              fit.force_through_origin,
              fit.includingRepeatedRegPoints,
              method_control,
+             baSAR_model,
              verbose)
     {
-
 
       ##we have to do that this way, as otherwise the Rjags function chrashes
       lower_De <-
@@ -412,18 +426,42 @@ analyse_baSAR <- function(
       if (fit.method == "EXP+LIN") {ExpoGC <- 1 ; LinGC <-  1 }
       if (fit.force_through_origin == TRUE) {GC_Origin <- 1} else {GC_Origin <- 0}
 
-      ##TODO
-      if (fit.includingRepeatedRegPoints == TRUE) {
+      ##Include or exclude repeated dose points
+      if (fit.includingRepeatedRegPoints) {
         for (i in 1:Nb_aliquots) {
-          Limited_cycles[i] <- length(na.exclude(data.Dose[,i]))}
+          Limited_cycles[i] <- length(na.exclude(data.Dose[,i]))
+        }
+
       }else{
 
         for (i in 1:Nb_aliquots) {
-          Limited_cycles[i] <- length(na.exclude(data.Dose[,i])) - 1}
+
+          temp.logic <- !duplicated(data.Dose[,i], incomparables=c(0))  # logical excluding 0
+
+          m <- length(which(!temp.logic))
+
+          data.Dose[,i] <-  c(data.Dose[,i][temp.logic], rep(NA, m))
+          data.Lum[,i] <-  c(data.Lum[,i][temp.logic], rep(NA, m))
+          data.sLum[,i]  <-  c(data.sLum[,i][temp.logic], rep(NA, m))
+
+          rm(m)
+          rm(temp.logic)
+
+        }
+
+        for (i in 1:Nb_aliquots) {
+          Limited_cycles[i] <- length(data.Dose[, i]) - length(which(is.na(data.Dose[, i])))
+
+        }
+
+
+
       }
 
       # Bayesian Models ----------------------------------------------------------------------------
-      baSARc_model.bug <- "model {
+      baSAR_model <- list(
+
+        cauchy = "model {
 
             central_D ~  dunif(lower_De,upper_De)
 
@@ -449,10 +487,9 @@ analyse_baSAR <- function(
             Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
             }
             }
-          }"
+          }",
 
-      # Normal distribution
-      baSARn_model.bug <- "model {
+       normal =  "model {
 
             central_D ~  dunif(lower_De,upper_De)
 
@@ -477,10 +514,9 @@ analyse_baSAR <- function(
             Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
             }
             }
-            }"
+            }",
 
-      # Log-Normal distribution
-      baSARl_model.bug <- "model {
+       log_normal = "model {
 
             central_D ~  dunif(lower_De,upper_De)
 
@@ -508,7 +544,27 @@ analyse_baSAR <- function(
             Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
             }
             }
-        }"
+        }",
+
+        user_defined = baSAR_model
+       )
+
+      ##check whether the input for distribution was sufficient
+      if(!any(distribution%in%names(baSAR_model)[-1])){
+        stop(paste0("[analyse_baSAR()] No model is pre-defined for the requested distribution. Please select ", paste(rev(names(baSAR_model))[-1], collapse = ", ")), " or define an own model using the argument 'baSAR_model'!")
+
+      }
+
+      ##check and correct for distribution
+      if(!is.null(baSAR_model)){
+        if(distribution != "user_defined"){
+          warning("[analyse_baSAR()] Argument 'distribution' is ignored if an own model via 'baSAR_model' is provided.", call. = FALSE)
+
+        }
+
+        distribution <- "user_defined"
+
+      }
 
       ### Bayesian inputs
       data_Liste  <- list(
@@ -533,43 +589,24 @@ analyse_baSAR <- function(
 
       Nb_Iterations <- n.MCMC
 
-      if (distribution == "cauchy") {
-
-        if(verbose){message(".. >> calculation will be done assuming a Cauchy distribution\n")}
-        jagsfit <- rjags::jags.model(
-          textConnection(baSARc_model.bug),
-          data = data_Liste,
-          inits = inits,
-          n.chains = n.chains,
-          n.adapt = Nb_Iterations,
-          quiet = if(verbose){FALSE}else{TRUE}
-         )
-
-      }else if (distribution == "normal") {
-        if(verbose){message(".. >> calculation will be done assuming a Normal distribution\n")}
-        jagsfit <- rjags::jags.model(
-          textConnection(baSARn_model.bug),
-          data = data_Liste,
-          inits = inits,
-          n.chains = n.chains,
-          n.adapt= Nb_Iterations,
-          quiet = if(verbose){FALSE}else{TRUE}
-          )
-
-      }else if (distribution == "log_normal") {
-        if(verbose){message(".. >> calculation will be done assuming a Log-Normal distribution")}
-        jagsfit <- rjags::jags.model(
-          textConnection(baSARl_model.bug),
-          data = data_Liste,
-          inits = inits,
-          n.chains = n.chains,
-          n.adapt = Nb_Iterations,
-          quiet = if(verbose){FALSE}else{TRUE}
-        )
-      }else{
-        stop("[analyse_baSAR()] Unknown input for 'distribution'. Allowed are: 'cauchy', 'normal' or 'log_normal'")
-
+      if (verbose) {
+        message(paste0(
+          ".. >> calculation will be done assuming a '",
+          distribution,
+          "' distribution\n"
+        ))
       }
+
+      ##set model
+      jagsfit <- rjags::jags.model(
+          file = textConnection(baSAR_model[[distribution]]),
+          data = data_Liste,
+          inits = inits,
+          n.chains = n.chains,
+          n.adapt = Nb_Iterations,
+          quiet = if(verbose){FALSE}else{TRUE}
+       )
+
 
       ##update jags model (it is a S3-method)
       update(
@@ -651,9 +688,10 @@ analyse_baSAR <- function(
         baSAR.output_summary = baSAR.output,
         baSAR.output_mcmc = sampling,
         models = list(
-          cauchy = baSARc_model.bug,
-          normal = baSARn_model.bug,
-          log_normal = baSARl_model.bug
+          cauchy = baSAR_model[["cauchy"]],
+          normal = baSAR_model[["normal"]],
+          log_normal = baSAR_model[["log_normal"]],
+          user_defined = baSAR_model[["user_defined"]]
           )
       ))
 
@@ -780,6 +818,11 @@ analyse_baSAR <- function(
        ##method_control
        if(!is.null(function_arguments.new$method_control)){
          method_control <- eval(function_arguments.new$method_control)
+       }
+
+       ##baSAR_model
+       if(!is.null(function_arguments.new$baSAR_model)){
+         baSAR_model <- eval(function_arguments.new$baSAR_model)
        }
 
        ##plot
@@ -1577,6 +1620,7 @@ analyse_baSAR <- function(
       fit.force_through_origin = fit.force_through_origin,
       fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
       method_control = method_control,
+      baSAR_model = baSAR_model,
       verbose = verbose
     )
 
@@ -1610,7 +1654,11 @@ analyse_baSAR <- function(
     cat("------------------------------------------------------------------\n")
     cat(paste0("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
     cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
-    cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],"\n"))
+    if(!is.null(baSAR_model)){
+      cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]]," (user defined)\n"))
+    }else{
+      cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],"\n"))
+    }
     cat(paste0("Number MCMC iterations:\t\t", results[[1]][["N.MCMC"]],"\n"))
 
     cat("------------------------------------------------------------------\n")
@@ -1788,6 +1836,11 @@ analyse_baSAR <- function(
       if (fit.method == "EXP+LIN") {ExpoGC <- 1 ; LinGC <-  1 }
       if (fit.force_through_origin == TRUE) {GC_Origin <- 1} else {GC_Origin <- 0}
 
+      ##add choise for own provided model
+      if(!is.null(baSAR_model)){
+        fit.method_plot <- paste(fit.method, "(user defined)")
+
+      }
 
       ##open plot area
 
@@ -1809,7 +1862,7 @@ analyse_baSAR <- function(
         )
 
         ##add mtext
-        mtext(side = 3, text = paste("Fit:", fit.method))
+        mtext(side = 3, text = paste("Fit:", fit.method_plot))
 
       ##plot individual dose reponse curves
       x <- NA
@@ -1935,12 +1988,14 @@ analyse_baSAR <- function(
 
 }
 
-results <-  analyse_baSAR(
-  object=temp,
-  distribution = "normal",
-  plot = TRUE,
-  fit.method = "EXP",
-  n.MCMC = 500,
-  plot.single = FALSE
-)
+# results <-  analyse_baSAR(
+#   object=temp,
+#   distribution = "normal",
+#   plot = TRUE,
+#   fit.method = "EXP",
+#   n.MCMC = 500,
+#   baSAR_model = model,
+#   fit.includingRepeatedRegPoints = FALSE,
+#   plot.single = FALSE
+# )
 

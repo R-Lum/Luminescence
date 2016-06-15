@@ -7,8 +7,8 @@
 analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   source_doserate = NULL, signal.integral, signal.integral.Tx = NULL,
   background.integral, background.integral.Tx = NULL, sigmab = 0,
-  sig0 = 0.025, distribution = "cauchy", n.MCMC = 1e+05,
-  fit.method = "EXP", fit.force_through_origin = TRUE,
+  sig0 = 0.025, distribution = "cauchy", baSAR_model = NULL,
+  n.MCMC = 1e+05, fit.method = "EXP", fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE, method_control = list(),
   plot = TRUE, plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE,
   ...)
@@ -68,6 +68,10 @@ The parameter can be provided as \code{list}, \code{source_doserate}.}
 \item{distribution}{\code{\link{character}} (with default): type of distribution that is used during
 Bayesian calculations for determining the Central dose and overdispersion values.
 Allowed inputs are \code{"cauchy"}, \code{"normal"} and \code{"log_normal"}.}
+
+\item{baSAR_model}{\code{\link{character}} (optional): option to provide an own modified or new model for the
+Bayesian calculation (see details). If an own model is provided the argument \code{distribution} is ignored
+and set to \code{'user_defined'}}
 
 \item{n.MCMC}{\code{\link{integer}} (with default): number of iterations for the Markov chain Monte Carlo (MCMC)
 simulations}
@@ -214,6 +218,15 @@ are:
 \code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
 }
 
+\bold{User defined models}\cr
+
+The function provides the option to modifiy and to define own models that can be used for
+the Bayesian calculation. In the case the user wants to modify a model a new model
+can be piped into the funtion via the argument \code{baSAR_model} as \code{character}.
+The model has to be provided in the JAGS dialect of the BUGS language (cf. \code{\link[rjags]{jags.model}})
+and the in the pre-defined models defined paramter names have to be respected, otherwise the function
+will break with an unexcpected output.\cr
+
 \bold{Model parameter - FAQ}\cr
 
 Q: How can I set the seed for the random number generator (RNG)?
@@ -257,7 +270,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.6 (2016-06-15 15:32:23)
+ 0.1.7 (2016-06-15 19:28:18)
 }
 \examples{
 
