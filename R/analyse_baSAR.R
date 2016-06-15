@@ -1732,7 +1732,7 @@ analyse_baSAR <- function(
       )
       text(
         x = results[[1]][, c("CENTRAL")],
-        y = 15.7,
+        y = 16,
         labels = "68 %",
         pos = 3,
         col = col[3],
@@ -1882,7 +1882,7 @@ analyse_baSAR <- function(
       plot_check <- plot_AbanicoPlot(
         data = input_object[, c("DE", "DE.SD")],
         zlab = expression(paste(D[e], " [a.u.]")),
-        log.z = if (distribution == "log_normal") {
+        log.z = if (distribution != "log_normal") {
           FALSE
         } else{
           TRUE
@@ -1890,9 +1890,20 @@ analyse_baSAR <- function(
         z.0 = results[[1]]$CENTRAL,
         polygon.col = FALSE,
         mtext = "(dashed line: central dose)",
-        summary.pos = "topleft",
+        summary.pos = "bottomleft",
         summary = c("n"),
+        line = results[[1]][,c("CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
+        line.col = c(col[3], col[3], col[2], col[2]),
         output = TRUE
+      )
+
+      legend(
+        "topleft",
+        legend = c("HPD - 68%", "HPD - 95 %"),
+        lty = 1,
+        col = c(col[3], col[2]),
+        bty = "n",
+        cex = par()$cex * 0.8
       )
 
       ##In case the Abanico plot will not work because of negative values
@@ -1930,6 +1941,6 @@ results <-  analyse_baSAR(
   plot = TRUE,
   fit.method = "EXP",
   n.MCMC = 500,
-  plot.single = TRUE
+  plot.single = FALSE
 )
 
