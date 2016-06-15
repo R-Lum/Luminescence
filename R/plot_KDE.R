@@ -549,7 +549,7 @@ plot_KDE <- function(
   if("xlab" %in% names(list(...))) {
     xlab <- list(...)$xlab
   } else {
-    xlab <- expression(paste(D[e], " [Gy}"))
+    xlab <- expression(paste(D[e], " [Gy]"))
   }
 
   if("ylab" %in% names(list(...))) {
