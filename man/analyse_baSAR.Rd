@@ -113,7 +113,22 @@ Function returns an \code{\linkS4class{RLum.Results}}-object with the following 
 \bold{@info}\cr
 The original function call\cr
 
+\bold{The plot output}\cr
 Additionally for \code{plot = TRUE} graphical feedback is returned!\cr
+
+\itemize{
+ \item (A) Trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
+ and the resulting kernel density plots. If \code{plot_reduced = FALSE} for every(!) dose a trace and
+ a density plot is returned (this may take a long time)
+ \item (B) True dose polts showing the true dose for every aliquot as boxplots and the marked
+ HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked.
+ \item (C) The dose response curve resulting from the monitoring of the Bayesian modelling are
+ are provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
+ is limited to 1000 (random choice) for graphical reasons.
+ \item (D) The final plot is the De distribution as calculated using the conventional approach
+ and the central dose marked within.
+
+}
 
 \bold{Please note: In case where the distribution was set to \code{log_normal} the central dose is given
 as geometric mean!}
@@ -242,7 +257,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 standard Risoe BIN-files only!
 }
 \section{Function version}{
- 0.1.6 (2016-06-15 12:28:22)
+ 0.1.6 (2016-06-15 15:32:23)
 }
 \examples{
 
@@ -308,7 +323,7 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
 \seealso{
 \code{\link{read_BIN2R}}, \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 \code{\link[readxl]{read_excel}}, \code{\link{verify_SingleGrainData}},
-\code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
+\code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}, \code{\link{boxplot.default}}
 }
 \keyword{datagen}
 
