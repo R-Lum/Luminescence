@@ -255,7 +255,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.8
+#' @section Function version: 0.1.9
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -572,7 +572,7 @@ analyse_baSAR <- function(
        )
 
       ##check whether the input for distribution was sufficient
-      if(!any(distribution%in%names(baSAR_model)[-1])){
+      if(!any(distribution%in%rev(names(baSAR_model))[-1])){
         stop(paste0("[analyse_baSAR()] No model is pre-defined for the requested distribution. Please select ", paste(rev(names(baSAR_model))[-1], collapse = ", ")), " or define an own model using the argument 'baSAR_model'!")
 
       }
@@ -1620,8 +1620,10 @@ analyse_baSAR <- function(
   }
 
   ##CALL internal baSAR function
+  ##>> try here is much better, as the user might run a very long preprocessing and do not
+  ##want to fail here
   results <-
-    .baSAR_function(
+    try(.baSAR_function(
       Nb_aliquots = Nb_aliquots,
       distribution = distribution,
       data.Dose = Doses,
@@ -1634,30 +1636,37 @@ analyse_baSAR <- function(
       method_control = method_control,
       baSAR_model = baSAR_model,
       verbose = verbose
-    )
+    ))
+
+  ##check whether this became NULL
+  if(!is(results, "try-error")){
+
+    ##add error from the source_doserate
+    if(!is.null(unlist(source_doserate))){
+      DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + sum(unlist(
+        source_doserate[1:length(source_doserate)][2])^2))
+
+    }else{
+      DE_FINAL.ERROR <- NA
+
+    }
+
+    ##consider the case that we get NA and this might be confusing
+    if(is.na(DE_FINAL.ERROR)){
+      DE_FINAL.ERROR <- results[[1]][["CENTRAL.SD"]]
+
+    }
 
 
-  ##add error from the source_doserate
-  if(!is.null(unlist(source_doserate))){
-    DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + sum(unlist(
-      source_doserate[1:length(source_doserate)][2])^2))
+    ##combine
+    results[[1]] <- cbind(results[[1]], DE_FINAL = results[[1]][["CENTRAL"]], DE_FINAL.ERROR = DE_FINAL.ERROR)
 
   }else{
-    DE_FINAL.ERROR <- NA
+    results <- NULL
+    verbose <- FALSE
+    plot <- FALSE
 
   }
-
-  ##consider the case that we get NA and this might be confusing
-  if(is.na(DE_FINAL.ERROR)){
-    DE_FINAL.ERROR <- results[[1]][["CENTRAL.SD"]]
-
-  }
-
-
-  ##combine
-  results[[1]] <- cbind(results[[1]], DE_FINAL = results[[1]][["CENTRAL"]], DE_FINAL.ERROR = DE_FINAL.ERROR)
-
-
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){
