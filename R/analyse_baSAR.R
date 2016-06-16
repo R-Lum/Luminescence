@@ -16,7 +16,7 @@
 #' LxTx, the LxTx error and the dose values for all regeneration points.
 #'
 #'
-#' \bold{Allowed input data}\cr
+#' \bold{Input / output scenarious}\cr
 #'
 #' Various inputs are allowed for this function. Unfortunately this makes the function handling rather
 #' complex, but at the same time very powerful. Available scenarios:\cr
@@ -30,7 +30,7 @@
 #' if only a filename and/or a path is provided. In both cases it will become the data that can be
 #' used for the analysis.
 #'
-#' \code{XLS_file = NULL}\cr
+#' \code{[XLS_file = NULL]}\cr
 #'
 #' If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
 #' consists of the following steps:
@@ -43,7 +43,7 @@
 #'
 #' These proceded data are subsequently used in for the Bayesian analysis
 #'
-#' \code{XLS_file != NULL}\cr
+#' \code{[XLS_file != NULL]}\cr
 #'
 #' If an XLS-file is provided or a \code{data.frame} providing similar information the pre-processing
 #' steps consists of the following steps:
@@ -84,18 +84,20 @@
 #' \bold{User defined models}\cr
 #'
 #' The function provides the option to modifiy and to define own models that can be used for
-#' the Bayesian calculation. In the case the user wants to modify a model a new model
+#' the Bayesian calculation. In the case the user wants to modify a model, a new model
 #' can be piped into the funtion via the argument \code{baSAR_model} as \code{character}.
 #' The model has to be provided in the JAGS dialect of the BUGS language (cf. \code{\link[rjags]{jags.model}})
-#' and the in the pre-defined models defined paramter names have to be respected, otherwise the function
-#' will break with an unexcpected output.\cr
+#' and parameter names given with the pre-defined names have to be respected, otherwise the function
+#' will break.\cr
 #'
-#' \bold{Model parameter - FAQ}\cr
+#' \bold{FAQ}\cr
 #'
-#' Q: How can I set the seed for the random number generator (RNG)?
+#' Q: How can I set the seed for the random number generator (RNG)?\cr
 #' A: Use the argument \code{method_control}, e.g.,
-#' \code{method_control = list(
-#' inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
+#' \code{method_control = list(inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
+#'
+#' Q: How can I modify the output plots?\cr
+#' A: You can't, but you can use the function output to create own, modified plots.\cr
 #'
 #' \bold{Additional arguments support via the \code{...} argument}\cr
 #'
@@ -210,9 +212,15 @@
 #' \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 #' \code{position}, \code{duplicated.rm}), see details.
 #'
-#' @return Function returns an \code{\linkS4class{RLum.Results}}-object with the following structure:\cr
 #'
-#' \bold{@data}\cr
+#' @return Function returns results numerically and graphically:\cr
+#'
+#' -----------------------------------\cr
+#' [ NUMERICAL OUTPUT ]\cr
+#' -----------------------------------\cr
+#' \bold{\code{RLum.Reuslts}}-object\cr
+#'
+#' \bold{slot:} \bold{\code{@data}}\cr
 #' \tabular{lll}{
 #' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
 #'  \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
@@ -221,31 +229,33 @@
 #'  \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values
 #' }
 #'
-#'\bold{@info}\cr
+#'\bold{slot:} \bold{\code{@info}}\cr
+#'
 #' The original function call\cr
 #'
-#' \bold{The plot output}\cr
-#' Additionally for \code{plot = TRUE} graphical feedback is returned!\cr
+#' ------------------------\cr
+#' [ PLOT OUTPUT ]\cr
+#' ------------------------\cr
 #'
 #' \itemize{
 #'  \item (A) Trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
 #'  and the resulting kernel density plots. If \code{plot_reduced = FALSE} for every(!) dose a trace and
 #'  a density plot is returned (this may take a long time)
-#'  \item (B) True dose polts showing the true dose for every aliquot as boxplots and the marked
+#'  \item (B) Dose plots showing the dose for every aliquot as boxplots and the marked
 #'  HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked.
 #'  \item (C) The dose response curve resulting from the monitoring of the Bayesian modelling are
-#'  are provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
-#'  is limited to 1000 (random choice) for graphical reasons.
+#'  provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
+#'  is limited to 1000 (random choice) for performance reasons.
 #'  \item (D) The final plot is the De distribution as calculated using the conventional approach
-#'  and the central dose marked within.
+#'  and the central dose with the HPDs marked within.
 #'
 #' }
 #'
-#' \bold{Please note: In case where the distribution was set to \code{log_normal} the central dose is given
+#' \bold{Please note: If distribution was set to \code{log_normal} the central dose is given
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.7
+#' @section Function version: 0.1.8
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -255,6 +265,7 @@
 #' @seealso \code{\link{read_BIN2R}}, \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 #' \code{\link[readxl]{read_excel}}, \code{\link{verify_SingleGrainData}},
 #' \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}, \code{\link{boxplot.default}}
+#'
 #'
 #' @references
 #'
@@ -277,11 +288,9 @@
 #'
 #' Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))}\cr
 #'
-#' \bold{This function has beta status!} and is limited to work with
-#' standard Risoe BIN-files only!
+#' \bold{The function is currently limited to work with standard Risoe BIN-files only!
 #'
 #' @keywords datagen
-#'
 #'
 #' @examples
 #'
@@ -297,7 +306,7 @@
 #'##(3) run analysis
 #'##please not that the here selected parameters are
 #'##choosen for performance, not for reliability
-#'analyse_baSAR(
+#'results <- analyse_baSAR(
 #'  object = CWOSL.SAR.Data,
 #'  signal.integral = c(1:2),
 #'  background.integral = c(80:100),
@@ -305,6 +314,8 @@
 #'  plot = FALSE,
 #'  n.MCMC = 200
 #')
+#'
+#'print(results)
 #'
 #'
 #' ##XLS_file template
@@ -812,7 +823,7 @@ analyse_baSAR <- function(
 
        ##source_doserate
        if(length(as.list(match.call())$source_doserate) > 0){
-         warning("[analyse_baSAR()] argument 'source_doserate' is ignored in this modus.", call. = FALSE)
+         warning("[analyse_baSAR()] Argument 'source_doserate' is ignored in this modus.", call. = FALSE)
 
        }
 
@@ -1690,7 +1701,7 @@ analyse_baSAR <- function(
     if(distribution == "log_normal"){
      cat("*\t mean of the central dose is the geometric mean\n")
     }
-    cat("** 68 % level \t *** 95 % level\n")
+    cat("** 68 % level | *** 95 % level\n")
 
   }
 
@@ -1698,27 +1709,30 @@ analyse_baSAR <- function(
   # Plotting ------------------------------------------------------------------------------------
   if(plot){
 
-    ##colours and double for plotting
+    ##get colours from the package Luminescence
     col <- get("col", pos = .LuminescenceEnv)
 
+    ##get list of variable names (we need them later)
+    varnames <- coda::varnames(results[[2]])
+
+
+    ##////////////////////////////////////////////////////////////////////////////////////////////
+    ##TRACE AND DENSITY PLOT
+    ####//////////////////////////////////////////////////////////////////////////////////////////
     if(plot_reduced){
       plot(results[[2]][,c("central_D","sigma_D"),drop = FALSE])
 
     }else{
       plot(results[[2]])
 
-
     }
 
-
-    ##get list of variable names
-    varnames <- coda::varnames(results[[2]])
-
     ##////////////////////////////////////////////////////////////////////////////////////////////
-    ##Dose values to allow a individual decision ...
-    ##(1)
-    ##
-    if(!plot.single){par(mfrow = c(2,2))}
+    ##TRUE DOSE PLOT AND DECISION MAKER
+    ####//////////////////////////////////////////////////////////////////////////////////////////
+    if (!plot.single) {
+      par(mfrow = c(2, 2))
+    }
 
     ##get list with D values
     ##get list out of it
@@ -1754,11 +1768,11 @@ analyse_baSAR <- function(
         horizontal = TRUE,
         outline = TRUE,
         col = box.col[i:step],
-        xlab = "Dose [a.u.]",
+        xlab = if(is.null(unlist(source_doserate))){"Dose [s]"}else{"Dose [Gy]"},
         ylab = "Aliquot index",
         yaxt = "n",
         xlim = c(1,19),
-        main = paste0("Individual True Dose Boxplots | ALQ: ", i,":",step)
+        main = paste0("Individual Doses | ALQ: ", i,":",step)
       )
       if(step == ncol(plot_matrix)){
         axis(side = 2, at = 1:15, labels = as.character(c(i:step, rep(" ", length = 15 - length(i:step)))),
@@ -1770,6 +1784,7 @@ analyse_baSAR <- function(
       }
 
       ##add HPD with text
+      ##HPD - 68%
       lines(
         x = c(
           results[[1]][, c("CENTRAL_Q_.16")], results[[1]][, c("CENTRAL_Q_.16")],
@@ -1788,6 +1803,7 @@ analyse_baSAR <- function(
         cex = 0.9 * par()$cex
       )
 
+      ##HPD - 98 %%
       lines(
         x = c(
           results[[1]][, c("CENTRAL_Q_.025")], results[[1]][, c("CENTRAL_Q_.025")],
@@ -1814,10 +1830,11 @@ analyse_baSAR <- function(
 
     if(!plot.single){
       par(mfrow = c(1,2))
-      on.exit(par(mfrow = c(1,1), bg = "white"))
+      on.exit(par(mfrow = c(1,1), bg = "white", xpd = FALSE))
     }
-    ##plot dose response curves
-    ##(2)
+    ##////////////////////////////////////////////////////////////////////////////////////////////
+    ##DOSE RESPONSE CURVES AND Lx/Tx VALUES
+    ####//////////////////////////////////////////////////////////////////////////////////////////
 
       ##define selection vector
       selection <- c("a[", "b[", "c[", "g[", "Q[1,")
@@ -1830,8 +1847,11 @@ analyse_baSAR <- function(
 
       ##create matrix
       plot_matrix <- t(do.call(what = "cbind", args = list_selection))
+
+      ##free memory
       rm(list_selection)
 
+      ##make selection according to the model for the curve plotting
       if (fit.method == "EXP") {ExpoGC <- 1 ; LinGC <-  0 }
       if (fit.method == "LIN") {ExpoGC <- 0 ; LinGC <-  1 }
       if (fit.method == "EXP+LIN") {ExpoGC <- 1 ; LinGC <-  1 }
@@ -1846,8 +1866,7 @@ analyse_baSAR <- function(
 
       }
 
-      ##open plot area
-
+       ##open plot area
         ##for the xlim and ylim we have to identify the proper ranges based on the input
         xlim <- c(0, max(input_object[,grep(x = colnames(input_object), pattern = "DOSE")])*1.1)
         ylim <- c(
@@ -1861,7 +1880,7 @@ analyse_baSAR <- function(
           ylim = ylim,
           xlim = xlim,
           ylab = expression(paste(L[x] / T[x])),
-          xlab = "Dose [a.u.]",
+          xlab = if(is.null(unlist(source_doserate))){"Dose [s]"}else{"Dose [Gy]"},
           main = "baSAR Dose Response Curves"
         )
 
@@ -1938,7 +1957,7 @@ analyse_baSAR <- function(
       ##03 Abanico Plot
       plot_check <- plot_AbanicoPlot(
         data = input_object[, c("DE", "DE.SD")],
-        zlab = expression(paste(D[e], " [a.u.]")),
+        zlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
         log.z = if (distribution != "log_normal") {
           FALSE
         } else{
@@ -1946,9 +1965,9 @@ analyse_baSAR <- function(
         },
         z.0 = results[[1]]$CENTRAL,
         polygon.col = FALSE,
-        summary.pos = "bottomleft",
         summary = c("n"),
-        line = results[[1]][,c("CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
+        line = results[[1]][,c(
+          "CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
         line.col = c(col[3], col[3], col[2], col[2]),
         line.lty = c(3,3,2,2),
         output = TRUE
@@ -1969,12 +1988,20 @@ analyse_baSAR <- function(
         plot_KDE(
           data = input_object[, c("DE", "DE.SD")],
           summary = c("n"),
-          summary.pos = "topleft",
-          xlab = expression(paste(D[e], " [a.u.]")),
-          mtext = "(dashed line: central dose)"
+          xlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
         )
        abline(v = results[[1]]$CENTRAL, lty = 2)
+       abline(v = results[[1]][,c("CENTRAL_Q_.16", "CENTRAL_Q_.84")], lty = 3, col = col[3], lwd = 1.2)
+       abline(v = results[[1]][,c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
 
+       legend(
+         "topleft",
+         legend = c("Central dose","HPD - 68%", "HPD - 95 %"),
+         lty = c(2, 3,2),
+         col = c("black", col[3], col[2]),
+         bty = "n",
+         cex = par()$cex * 0.8
+       )
 
       }
   }
@@ -1991,15 +2018,3 @@ analyse_baSAR <- function(
   ))
 
 }
-
-# results <-  analyse_baSAR(
-#   object=temp,
-#   distribution = "normal",
-#   plot = TRUE,
-#   fit.method = "EXP",
-#   n.MCMC = 1000,
-#   #baSAR_model = model,
-#   fit.includingRepeatedRegPoints = FALSE,
-#   plot.single = FALSE
-# )
-
