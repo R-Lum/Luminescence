@@ -1362,7 +1362,6 @@ analyse_baSAR <- function(
 
 
   ######################  Data associated with a single Disc/Grain
-
   max_cycles <-  0
   count <- 1
 
@@ -1475,10 +1474,10 @@ analyse_baSAR <- function(
 
     }
 
-    ##remove object
-    rm(count)
-
   }    ##  END of loop on BIN files ################################################################
+
+  ##remove object
+  rm(count)
 
   Nb_aliquots <-  previous.Nb_aliquots
 
