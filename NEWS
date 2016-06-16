@@ -57,6 +57,14 @@ Changes in version 0.6.1 ( ,2016):
 
              • Add support for BIN-file version 8.
 
+         • ‘verify_SingleGrainData()’
+
+             • Add argument ‘plot’ to function and with this a
+               graphical feedback (default is ‘FALSE’),
+
+             • enhance manual to better describe the applied selection
+               method.
+
          • ‘write_R2BIN()’
 
              • Add support for BIN-file version 8.

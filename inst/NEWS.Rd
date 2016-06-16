@@ -62,6 +62,18 @@
 
       }
 
+        \item \code{verify_SingleGrainData()}{
+          \itemize{
+            \item Add argument \code{plot} to function and with this a graphical feedback
+            (default is \code{FALSE}),
+            \item enhance manual to better describe the applied selection method.
+
+
+
+          }
+
+      }
+
       \item \code{write_R2BIN()}{
           \itemize{
             \item Add support for BIN-file version 8.
