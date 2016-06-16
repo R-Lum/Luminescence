@@ -13,10 +13,12 @@
           \item add \code{thin} to \code{method_control} to control the monitoring,
           \item account for probable odd use input if the \code{XLS_file} is a \code{data.frame}
           (column 1 is of type \code{factor} instead \code{character}),
+          \item function will not stop anymore if grain and position number do not match,
+
           \item a lots of minor improvements.
 
       }
-      
+
       \item \code{analyse_SAR.CWOSL()}
         \itemize{
           \item The argument 'sig0' was not passed to \code{calc_OSLLxTxRatio()} as stated
@@ -28,6 +30,14 @@
         \itemize{
           \item Account for 'implicit list embedding of S4 objects is deprecated' warning by changing
           the code (no visible user effect, apart from no visible warning anymore).
+      }
+
+
+     \item \code{plot_AbanicoPlot()}
+        \itemize{
+          \item Function got a new argument \code{line.lty} to controll the appearance of additional
+          lines.
+
       }
 
        \item \code{plot_GrowthCurve()}
