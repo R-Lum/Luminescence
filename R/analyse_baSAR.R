@@ -194,7 +194,27 @@
 #' \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 #' \code{position}, \code{duplicated.rm}), see details.
 #'
-#' @section Function version: 0.1.4
+#' @return Function returns an \code{\linkS4class{RLum.Results}}-object with the following structure:\cr
+#'
+#' \bold{@data}\cr
+#' \tabular{lll}{
+#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+#'  \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
+#'  \code{$mcmc} \tab \code{mcmc} \tab object including raw output of \code{\link[rjags]{rjags}} \cr
+#'  \code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
+#'  \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values
+#' }
+#'
+#'\bold{@info}\cr
+#' The original function call\cr
+#'
+#' Additionally for \code{plot = TRUE} graphical feedback is returned!\cr
+#'
+#' \bold{Please note: In case where the distribution was set to \code{log_normal} the central dose is given
+#' as geometric mean!}
+#'
+#'
+#' @section Function version: 0.1.5
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -498,7 +518,6 @@ analyse_baSAR <- function(
       if (distribution == "cauchy") {
 
         if(verbose){message(".. >> calculation will be done assuming a Cauchy distribution\n")}
-        distribution <-  "Cauchy distribution"
         jagsfit <- rjags::jags.model(
           textConnection(baSARc_model.bug),
           data = data_Liste,
@@ -510,7 +529,6 @@ analyse_baSAR <- function(
 
       }else if (distribution == "normal") {
         if(verbose){message(".. >> calculation will be done assuming a Normal distribution\n")}
-        distribution <-  "Normal distribution"
         jagsfit <- rjags::jags.model(
           textConnection(baSARn_model.bug),
           data = data_Liste,
@@ -522,7 +540,6 @@ analyse_baSAR <- function(
 
       }else if (distribution == "log_normal") {
         if(verbose){message(".. >> calculation will be done assuming a Log-Normal distribution")}
-        distribution <-  "Log-Normal distribution"
         jagsfit <- rjags::jags.model(
           textConnection(baSARl_model.bug),
           data = data_Liste,
@@ -587,6 +604,17 @@ analyse_baSAR <- function(
       output.mean <-
         round(summary(sampling_reduced)[[1]][c("central_D", "sigma_D"), 1:2], 2)
 
+        ##calculate geometric mean for the case that the distribution is log-normal
+        if(distribution == "log_normal"){
+          temp.vector <- unlist(lapply(sampling_reduced, function(x){as.vector(x[,1])}))
+          gm <- round(exp(sum(log(temp.vector))/length(temp.vector)),2)
+          rm(temp.vector)
+        }else{
+          gm <- NULL
+
+        }
+
+
       ##quantiles
       ##68% + 95%
       output.quantiles <-
@@ -609,14 +637,13 @@ analyse_baSAR <- function(
 
       }
 
-
       #### output data.frame with results
       baSAR.output <- data.frame(
         DISTRIBUTION = distribution,
         NB_ALIQUOTS = Nb_aliquots,
         N.MCMC = n.MCMC,
         FIT_METHOD = fit.method,
-        CENTRAL = output.mean[1],
+        CENTRAL = if(is.null(gm)){output.mean[1]}else{gm},
         CENTRAL.SD = output.mean[2],
         SIGMA = output.mean[3],
         SIGMA.SD = output.mean[4],
@@ -1236,14 +1263,28 @@ analyse_baSAR <- function(
       disc_selected <-  as.integer(Disc[[k]][i])
       if (Mono_grain == TRUE) {grain_selected <- as.integer(Grain[[k]][i])} else { grain_selected <-0}
 
-          disc_logic <-   (disc_selected == measured_discs.vector)
-          grain_logic <-  (grain_selected == measured_grains.vector)
+          disc_logic <- (disc_selected == measured_discs.vector)
+
+            ##hard break if the position does not fit
+            if(!any(disc_logic)){
+              message(paste("[analyse_baSAR()] disc number", disc_selected, "does not exist in the BIN-file! NULL returned!"))
+              return(NULL)
+            }
+
+          grain_logic <- (grain_selected == measured_grains.vector)
+
+            if(!any(grain_logic)){
+              message(paste("[analyse_baSAR()] grain number", grain_selected, "does not exist in the BIN-file! NULL returned!"))
+              return(NULL)
+            }
+
           index_liste <- n_index.vector[disc_logic & grain_logic]
+
       if (Mono_grain == FALSE)  { grain_selected <-1}
 
           for (kn in 1: length(index_liste)) {
 
-              t <-  index_liste[kn]
+              t <- index_liste[kn]
 
               ##check if the source_doserate is NULL or not
               if(!is.null(unlist(source_doserate))){
@@ -1562,7 +1603,14 @@ analyse_baSAR <- function(
     cat(paste0("Number MCMC iterations:\t\t", results[[1]][["N.MCMC"]],"\n"))
 
     cat("-----------------------------------------------------------------------------\n")
-    cat("\t\t\t\tmean\tsd\tHPD (68 %)\tHPD (95 %)\n")
+    if(distribution == "log_normal"){
+      cat("\t\t\t\tmean*\tsd\tHPD (68 %)\tHPD (95 %)\n")
+
+    }else{
+      cat("\t\t\t\tmean\tsd\tHPD (68 %)\tHPD (95 %)\n")
+
+    }
+
 
     cat(paste0(">> Central dose:\t\t", results[[1]][["CENTRAL"]],"\t",
                results[[1]][["CENTRAL.SD"]],"\t",
@@ -1574,6 +1622,9 @@ analyse_baSAR <- function(
     cat(paste0("\n>> Final central De:\t\t", results[[1]][["DE_FINAL"]],"\t", round(results[[1]][["DE_FINAL.ERROR"]], digits = 2), "\t",
                " - \t - \t - \t - "))
     cat("\n-----------------------------------------------------------------------------\n")
+    if(distribution == "log_normal"){
+     cat("* mean of the central dose is the geometric mean\n")
+    }
     cat(
       paste("(systematic error contribution to final De:",
             format((1-results[[1]][["CENTRAL.SD"]]/results[[1]][["DE_FINAL.ERROR"]])*100, scientific = TRUE), "%)\n")
@@ -1600,7 +1651,7 @@ analyse_baSAR <- function(
 #   #source_doserate = c(0.04, 0.001),
 #   n.MCMC = 100
 # )
-#
+
 
 
 
