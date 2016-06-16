@@ -5,7 +5,7 @@
 \title{Verify single grain data sets and check for invalid grains, i.e. zero light level grains}
 \usage{
 verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
-  cleanup_level = "aliquot", verbose = TRUE)
+  cleanup_level = "aliquot", verbose = TRUE, plot = FALSE)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
@@ -25,44 +25,58 @@ curves of one aliquot (grain or disc) can be marked as invalid, but will not be 
 will be only removed if all curves of this aliquot are marked as invalid.}
 
 \item{verbose}{\code{\link{logical}} (with default): enables or disables terminal feedback}
+
+\item{plot}{\code{\link{logical}} (with default): enables or disables graphical feedback}
 }
 \value{
-Returns either an S4 object of type \code{\linkS4class{RLum.Results}} and the slot
-\code{data} contains a \code{\link{list}} with the following structure:\cr
-$ unique_paris (\code{data.frame}): the unique position and grain pairs \cr
-.. $ POSITION \cr
-.. $ GRAIN \cr
+The function returns
 
-$ selection_id (\code{numeric}): the made selection by record ID\cr
+-----------------------------------\cr
+[ NUMERICAL OUTPUT ]\cr
+-----------------------------------\cr
+\bold{\code{RLum.Reuslts}}-object\cr
 
-$ selection_full (\code{data.frame}): the full set with all criteria\cr
-.. $ POSITION \cr
-.. $ GRAIN \cr
-.. $ MEAN \cr
-.. $ VAR \cr
-.. $ RATIO \cr
-.. $ THRESHOLD \cr
-.. $ VALID \cr
+\bold{slot:} \bold{\code{@data}}\cr
+\tabular{lll}{
+\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+ \code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
+ \code{$selection_id} \tab \code{numeric} \tab the selection as record ID \cr
+ \code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
+}
 
-or for \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves removed).
-This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}} object is returned.
-An \code{\linkS4class{Risoe.BINfileData}} object can be exported to a BIN-file by using the function
-\code{\link{write_R2BIN}}.
+\bold{slot:} \bold{\code{@info}}\cr
+
+The original function call\cr
+
+\bold{Output variation}\cr
+
+For \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves removed).
+This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}}
+object is returned in such cases. An \code{\linkS4class{Risoe.BINfileData}} object can be exported
+to a BIN-file by using the function \code{\link{write_R2BIN}}.
 }
 \description{
 This function tries to identify automatically zero light level curves (grains) from single grain data
 measurements. \cr
 }
 \details{
-\bold{method}\cr
+\bold{How the method works?}\cr
 
-The function compares the mean and the variance of the count values for each curve. Assuming that
-the background roughly follows a poission distribution the absolute difference of both values
-should be zero or at least around zero. Values significantly above the threshold indicate that the curves
-comprises a signal. The threshold can be freely chosen by the user.\cr
+The function compares the expected values (\eqn{E(X)}) and the variance (\eqn{Var(X)})
+of the count values for each curve. Assuming that the background roughly follows a poisson
+distribution the absolute difference of both values should be zero or at least around zero as
 
-Note: the difference instead of the ratio was chosen as the mean and the variance can both become
-0 which would result in \code{Inf} values.
+\deqn{E(x) = Var(x) = \lambda}
+
+Thus the function checks for:
+
+\deqn{abs(E(x) - Var(x)) >= \Theta}
+
+With \eqn{\Theta} an arbitray, user defined, threshold. Values above indicating curves
+comprising a signal.\cr
+
+Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the ratio was chosen as
+both can become 0 which would result in \code{Inf} values.
 }
 \note{
 This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
@@ -75,7 +89,7 @@ within a SAR cycle are removed as well. Therefore it is strongly recommended to 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.1.0 (2016-06-01 12:18:58)
+ 0.2.0 (2016-06-16 18:51:23)
 }
 \examples{
 
