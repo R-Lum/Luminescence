@@ -16,6 +16,12 @@
           \item a lots of minor improvements.
 
       }
+      
+      \item \code{analyse_SAR.CWOSL()}
+        \itemize{
+          \item The argument 'sig0' was not passed to \code{calc_OSLLxTxRatio()} as stated
+          in the description of the \code{...} argument. Fixed.
+      }
 
 
       \item \code{merge_RisoeBINfileData()}
