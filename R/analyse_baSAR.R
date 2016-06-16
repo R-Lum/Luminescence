@@ -443,6 +443,17 @@ analyse_baSAR <- function(
 
       }
 
+      ##check and correct for distribution
+      if(!is.null(baSAR_model)){
+        if(distribution != "user_defined"){
+          warning("[analyse_baSAR()] Argument 'distribution' is ignored if an own model via 'baSAR_model' is provided.", call. = FALSE)
+
+        }
+
+        distribution <- "user_defined"
+
+      }
+
       # Bayesian Models ----------------------------------------------------------------------------
       baSAR_model <- list(
 
@@ -540,16 +551,6 @@ analyse_baSAR <- function(
 
       }
 
-      ##check and correct for distribution
-      if(!is.null(baSAR_model)){
-        if(distribution != "user_defined"){
-          warning("[analyse_baSAR()] Argument 'distribution' is ignored if an own model via 'baSAR_model' is provided.", call. = FALSE)
-
-        }
-
-        distribution <- "user_defined"
-
-      }
 
       ### Bayesian inputs
       data_Liste  <- list(
@@ -1825,6 +1826,9 @@ analyse_baSAR <- function(
       if(!is.null(baSAR_model)){
         fit.method_plot <- paste(fit.method, "(user defined)")
 
+      }else{
+        fit.method_plot <- fit.method
+
       }
 
       ##open plot area
@@ -1927,19 +1931,19 @@ analyse_baSAR <- function(
         },
         z.0 = results[[1]]$CENTRAL,
         polygon.col = FALSE,
-        mtext = "(dashed line: central dose)",
         summary.pos = "bottomleft",
         summary = c("n"),
         line = results[[1]][,c("CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
         line.col = c(col[3], col[3], col[2], col[2]),
+        line.lty = c(3,3,2,2),
         output = TRUE
       )
 
       legend(
         "topleft",
-        legend = c("HPD - 68%", "HPD - 95 %"),
-        lty = 1,
-        col = c(col[3], col[2]),
+        legend = c("Central dose","HPD - 68%", "HPD - 95 %"),
+        lty = c(2, 3,2),
+        col = c("black", col[3], col[2]),
         bty = "n",
         cex = par()$cex * 0.8
       )
@@ -1971,8 +1975,8 @@ analyse_baSAR <- function(
 #   distribution = "normal",
 #   plot = TRUE,
 #   fit.method = "EXP",
-#   n.MCMC = 500,
-#   baSAR_model = model,
+#   n.MCMC = 1000,
+#   #baSAR_model = model,
 #   fit.includingRepeatedRegPoints = FALSE,
 #   plot.single = FALSE
 # )
