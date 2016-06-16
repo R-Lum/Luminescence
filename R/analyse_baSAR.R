@@ -1995,23 +1995,32 @@ analyse_baSAR <- function(
       ##In case the Abanico plot will not work because of negative values
       ##provide a KDE
       if(is.null(plot_check)){
-        plot_KDE(
+        plot_check <- try(plot_KDE(
           data = input_object[, c("DE", "DE.SD")],
           summary = c("n"),
           xlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
-        )
-       abline(v = results[[1]]$CENTRAL, lty = 2)
-       abline(v = results[[1]][,c("CENTRAL_Q_.16", "CENTRAL_Q_.84")], lty = 3, col = col[3], lwd = 1.2)
-       abline(v = results[[1]][,c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
+        ))
 
-       legend(
-         "topleft",
-         legend = c("Central dose","HPD - 68%", "HPD - 95 %"),
-         lty = c(2, 3,2),
-         col = c("black", col[3], col[2]),
-         bty = "n",
-         cex = par()$cex * 0.8
-       )
+        if(!is(plot_check, "try-error")) {
+          abline(v = results[[1]]$CENTRAL, lty = 2)
+          abline(
+            v = results[[1]][, c("CENTRAL_Q_.16", "CENTRAL_Q_.84")],
+            lty = 3,
+            col = col[3],
+            lwd = 1.2
+          )
+          abline(v = results[[1]][, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
+
+          legend(
+            "topleft",
+            legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
+            lty = c(2, 3, 2),
+            col = c("black", col[3], col[2]),
+            bty = "n",
+            cex = par()$cex * 0.8
+
+          )
+        }
 
       }
   }
