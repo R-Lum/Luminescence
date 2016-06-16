@@ -7,10 +7,11 @@
 analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   source_doserate = NULL, signal.integral, signal.integral.Tx = NULL,
   background.integral, background.integral.Tx = NULL, sigmab = 0,
-  sig0 = 0.025, distribution = "cauchy", n.MCMC = 1e+05,
-  fit.method = "EXP", fit.force_through_origin = TRUE,
+  sig0 = 0.025, distribution = "cauchy", baSAR_model = NULL,
+  n.MCMC = 1e+05, fit.method = "EXP", fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE, method_control = list(),
-  plot = TRUE, plot_reduced = TRUE, verbose = TRUE, ...)
+  plot = TRUE, plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE,
+  ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
@@ -68,6 +69,10 @@ The parameter can be provided as \code{list}, \code{source_doserate}.}
 Bayesian calculations for determining the Central dose and overdispersion values.
 Allowed inputs are \code{"cauchy"}, \code{"normal"} and \code{"log_normal"}.}
 
+\item{baSAR_model}{\code{\link{character}} (optional): option to provide an own modified or new model for the
+Bayesian calculation (see details). If an own model is provided the argument \code{distribution} is ignored
+and set to \code{'user_defined'}}
+
 \item{n.MCMC}{\code{\link{integer}} (with default): number of iterations for the Markov chain Monte Carlo (MCMC)
 simulations}
 
@@ -88,11 +93,56 @@ See details for further information}
 
 \item{plot_reduced}{\code{\link{logical}} (with default): enables or disables the advanced plot output}
 
+\item{plot.single}{\code{\link{logical}} (with default): enables or disables single plots or plots
+arranged by analyse_baSAR}
+
 \item{verbose}{\code{\link{logical}} (with default): enables or disables verbose mode}
 
 \item{...}{parameters that can be passed to the function \code{\link{calc_OSLLxTxRatio}} (almost full support)
 \code{\link[readxl]{read_excel}} (full support), \code{\link{read_BIN2R}} (\code{n.records},
 \code{position}, \code{duplicated.rm}), see details.}
+}
+\value{
+Function returns results numerically and graphically:\cr
+
+-----------------------------------\cr
+[ NUMERICAL OUTPUT ]\cr
+-----------------------------------\cr
+\bold{\code{RLum.Reuslts}}-object\cr
+
+\bold{slot:} \bold{\code{@data}}\cr
+\tabular{lll}{
+\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+ \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
+ \code{$mcmc} \tab \code{mcmc} \tab object including raw output of \code{\link[rjags]{rjags}} \cr
+ \code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
+ \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values
+}
+
+\bold{slot:} \bold{\code{@info}}\cr
+
+The original function call\cr
+
+------------------------\cr
+[ PLOT OUTPUT ]\cr
+------------------------\cr
+
+\itemize{
+ \item (A) Trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
+ and the resulting kernel density plots. If \code{plot_reduced = FALSE} for every(!) dose a trace and
+ a density plot is returned (this may take a long time)
+ \item (B) Dose plots showing the dose for every aliquot as boxplots and the marked
+ HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked.
+ \item (C) The dose response curve resulting from the monitoring of the Bayesian modelling are
+ provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
+ is limited to 1000 (random choice) for performance reasons.
+ \item (D) The final plot is the De distribution as calculated using the conventional approach
+ and the central dose with the HPDs marked within.
+
+}
+
+\bold{Please note: If distribution was set to \code{log_normal} the central dose is given
+as geometric mean!}
 }
 \description{
 This function allows the application of Bayesian models on luminescence data, measured
@@ -111,7 +161,7 @@ by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
 LxTx, the LxTx error and the dose values for all regeneration points.
 
-\bold{Allowed input data}\cr
+\bold{Input / output scenarious}\cr
 
 Various inputs are allowed for this function. Unfortunately this makes the function handling rather
 complex, but at the same time very powerful. Available scenarios:\cr
@@ -125,7 +175,7 @@ be produced by using the function \code{\link{read_BIN2R}}, but this function is
 if only a filename and/or a path is provided. In both cases it will become the data that can be
 used for the analysis.
 
-\code{XLS_file = NULL}\cr
+\code{[XLS_file = NULL]}\cr
 
 If no XLS file (or data frame with the same format) is provided the functions runs an automatic process that
 consists of the following steps:
@@ -138,7 +188,7 @@ consists of the following steps:
 
 These proceded data are subsequently used in for the Bayesian analysis
 
-\code{XLS_file != NULL}\cr
+\code{[XLS_file != NULL]}\cr
 
 If an XLS-file is provided or a \code{data.frame} providing similar information the pre-processing
 steps consists of the following steps:
@@ -175,12 +225,23 @@ are:
 \code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
 }
 
-\bold{Model parameter - FAQ}\cr
+\bold{User defined models}\cr
 
-Q: How can I set the seed for the random number generator (RNG)?
+The function provides the option to modifiy and to define own models that can be used for
+the Bayesian calculation. In the case the user wants to modify a model, a new model
+can be piped into the funtion via the argument \code{baSAR_model} as \code{character}.
+The model has to be provided in the JAGS dialect of the BUGS language (cf. \code{\link[rjags]{jags.model}})
+and parameter names given with the pre-defined names have to be respected, otherwise the function
+will break.\cr
+
+\bold{FAQ}\cr
+
+Q: How can I set the seed for the random number generator (RNG)?\cr
 A: Use the argument \code{method_control}, e.g.,
-\code{method_control = list(
-inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
+\code{method_control = list(inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
+
+Q: How can I modify the output plots?\cr
+A: You can't, but you can use the function output to create own, modified plots.\cr
 
 \bold{Additional arguments support via the \code{...} argument}\cr
 
@@ -206,19 +267,8 @@ funtions.
 \code{output.plotExtended} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables/disables extended dose repsonse curve plot\cr
 }
 }
-\note{
-\bold{If you provide more than one BIN-file}, it is \bold{strongly} recommanded to provide
-a \code{list} with the same number of elements for the following parameters:\cr
-\code{source_doserate}, \code{signal.integral}, \code{signal.integral.Tx}, \code{background.integral},
-\code{background.integral.Tx}, \code{sigmab}, \code{sig0}.\cr
-
-Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))}\cr
-
-\bold{This function has beta status!} and is limited to work with
-standard Risoe BIN-files only!
-}
 \section{Function version}{
- 0.1.4 (2016-06-13 21:17:28)
+ 0.1.8 (2016-06-16 13:30:41)
 }
 \examples{
 
@@ -234,7 +284,7 @@ CWOSL.SAR.Data <- subset(
 ##(3) run analysis
 ##please not that the here selected parameters are
 ##choosen for performance, not for reliability
-analyse_baSAR(
+results <- analyse_baSAR(
  object = CWOSL.SAR.Data,
  signal.integral = c(1:2),
  background.integral = c(80:100),
@@ -242,6 +292,8 @@ analyse_baSAR(
  plot = FALSE,
  n.MCMC = 200
 )
+
+print(results)
 
 
 ##XLS_file template

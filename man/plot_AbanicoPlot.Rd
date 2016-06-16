@@ -9,8 +9,8 @@ plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, z.0 = "mean.weighted",
   summary.pos, summary.method = "MCM", legend, legend.pos, stats,
   rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE,
   boxplot = FALSE, y.axis = TRUE, error.bars = FALSE, bar, bar.col,
-  polygon.col, line, line.col, line.label, grid.col, frame = 1, bw = "SJ",
-  output = FALSE, interactive = FALSE, ...)
+  polygon.col, line, line.col, line.lty, line.label, grid.col, frame = 1,
+  bw = "SJ", output = FALSE, interactive = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -113,6 +113,8 @@ be added.}
 
 \item{line.col}{\code{\link{character}} or \code{\link{numeric}}: colour of
 the additional lines.}
+
+\item{line.lty}{\code{\link{integer}}: line type of additional lines}
 
 \item{line.label}{\code{\link{character}}: labels for the additional lines.}
 
@@ -219,7 +221,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.8 (2016-06-13 21:15:01)
+ 0.1.9 (2016-06-16 13:12:06)
 }
 \examples{
 

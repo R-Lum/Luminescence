@@ -17,6 +17,13 @@ Changes in version 0.6.1 ( ,2016):
                a ‘data.frame’ (column 1 is of type ‘factor’ instead
                ‘character’),
 
+             • function will not stop anymore if grain and position
+               number do not match,
+
+             • adjust graphical ouptut,
+
+             • add new argument ‘model_baSAR’ for user defined models,
+
              • a lots of minor improvements.
 
          • ‘analyse_SAR.CWOSL()’
@@ -30,6 +37,11 @@ Changes in version 0.6.1 ( ,2016):
              • Account for 'implicit list embedding of S4 objects is
                deprecated' warning by changing the code (no visible
                user effect, apart from no visible warning anymore).
+
+         • ‘plot_AbanicoPlot()’
+
+             • Function got a new argument ‘line.lty’ to controll the
+               appearance of additional lines.
 
          • ‘plot_GrowthCurve()’
 
@@ -54,4 +66,8 @@ Changes in version 0.6.1 ( ,2016):
          • The method ‘subset’ for ‘RisoeBINfileData’ objects got a new
            argument ‘records.rm’. If set to ‘FALSE’ curves are only
            selected/deselected, but not removed all.
+
+  Internals:
+
+         • Add package ‘coda’ as suggested package.
 
