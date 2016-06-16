@@ -465,18 +465,15 @@ analyse_baSAR <- function(
 
         }
 
-
-
       }
 
-      ##check and correct for distribution
+      ##check and correct for distribution name
       if(!is.null(baSAR_model)){
         if(distribution != "user_defined"){
-          warning("[analyse_baSAR()] Argument 'distribution' is ignored if an own model via 'baSAR_model' is provided.", call. = FALSE)
+          distribution <- "user_defined"
+          warning("[analyse_baSAR()] 'distribution' set to 'user_defined'.", call. = FALSE)
 
         }
-
-        distribution <- "user_defined"
 
       }
 
@@ -511,7 +508,7 @@ analyse_baSAR <- function(
             }
           }",
 
-       normal =  "model {
+       normal = "model {
 
             central_D ~  dunif(lower_De,upper_De)
 
@@ -572,11 +569,16 @@ analyse_baSAR <- function(
        )
 
       ##check whether the input for distribution was sufficient
-      if(!any(distribution%in%rev(names(baSAR_model))[-1])){
+      if(!any(distribution%in%names(baSAR_model))){
         stop(paste0("[analyse_baSAR()] No model is pre-defined for the requested distribution. Please select ", paste(rev(names(baSAR_model))[-1], collapse = ", ")), " or define an own model using the argument 'baSAR_model'!")
 
-      }
+      }else{
+        if(is.null(baSAR_model)){
+          stop("[analyse_baSAR()] You have specified a 'user_defined' distribution, but you have not provided a model via 'baSAR_model'!")
 
+        }
+
+      }
 
       ### Bayesian inputs
       data_Liste  <- list(
