@@ -288,7 +288,7 @@
 #'
 #' Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))}\cr
 #'
-#' \bold{The function is currently limited to work with standard Risoe BIN-files only!
+#' \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 #'
 #' @keywords datagen
 #'
