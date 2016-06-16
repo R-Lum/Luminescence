@@ -268,7 +268,7 @@ funtions.
 }
 }
 \section{Function version}{
- 0.1.8 (2016-06-16 12:16:06)
+ 0.1.9 (2016-06-16 14:11:46)
 }
 \examples{
 
