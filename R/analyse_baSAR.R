@@ -657,6 +657,11 @@ analyse_baSAR <- function(
          call. = FALSE)
   }
 
+  if (!requireNamespace("coda", quietly = TRUE)) {
+    stop("[analyse_baSAR()] To use this function you have to first install the package 'coda'.",
+         call. = FALSE)
+  }
+
   #capture additional piped arguments
   additional_arguments <- list(
 
@@ -690,7 +695,6 @@ analyse_baSAR <- function(
   #modify this list on purpose
   additional_arguments <- modifyList(x = additional_arguments,
                                      val = list(...))
-
 
   # Set input -----------------------------------------------------------------------------------
 
@@ -1341,7 +1345,6 @@ analyse_baSAR <- function(
       ##create needed data.frame
       selected_sample <- data.frame (sample_dose, sample_LxTx, sample_sLxTx, TnTx)
 
-
       ##call plot_GrowthCurve() to get De and De value
       fitcurve <-
         suppressWarnings(plot_GrowthCurve(
@@ -1631,7 +1634,7 @@ analyse_baSAR <- function(
 
 
     ##get list of variable names
-    varnames <- varnames(results[[2]])
+    varnames <- coda::varnames(results[[2]])
 
     ##////////////////////////////////////////////////////////////////////////////////////////////
     ##Dose values to allow a individual decision ...
@@ -1870,5 +1873,5 @@ analyse_baSAR <- function(
 #   plot = TRUE,
 #   fit.method = "EXP",
 #   #source_doserate = c(0.04, 0.001),
-#   n.MCMC = 1000
+#   n.MCMC = 200
 # )
