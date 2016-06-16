@@ -101,7 +101,7 @@ default, \code{10^5} iterations are used, but can be reduced/increased with
 boxplot together with a statistical summary.
 }
 \section{Function version}{
- 0.31 (2016-05-16 22:20:28)
+ 0.31 (2016-06-01 12:18:58)
 }
 \examples{
 

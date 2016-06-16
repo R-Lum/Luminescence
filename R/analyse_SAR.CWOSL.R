@@ -448,6 +448,9 @@ if(is.list(object)){
 
   sigmab <- if("sigmab" %in% names(extraArgs)) {extraArgs$sigmab} else
   {NULL}
+  
+  sig0 <- if("sig0" %in% names(extraArgs)) {extraArgs$sig0} else
+  {0}
 
 
 # Protocol Integrity Checks --------------------------------------------------
@@ -644,7 +647,8 @@ if(is.list(object)){
           background.integral = background.integral,
           background.integral.Tx = background.integral.Tx,
           background.count.distribution = background.count.distribution,
-          sigmab = sigmab
+          sigmab = sigmab,
+          sig0 = sig0
         )
       )
 
