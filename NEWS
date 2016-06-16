@@ -4,8 +4,20 @@ Changes in version 0.7.0 ( ,2016):
 
   New functions:
 
-         • 'calc_WodaFuchs2008()': function to obtained the equivalent
-           dose using the approach proposed by Woda and Fuchs, 2008
+         • ‘analyse_portableOSL()’: The function analyses CW-OSL curve
+           data produced by a SUERC portable OSL reader and produces a
+           combined plot of OSL/IRSL signal intensities, OSL/IRSL
+           depletion ratios and the IRSL/OSL ratio.
+
+         • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
+           dose using the approach proposed by Woda and Fuchs, 2008.
+
+         • ‘PSL2Risoe.BINfileData()’: Converts an ‘RLum.Analysis’
+           object produced by the function ‘read_PSL2R()’ to an
+           ‘Risoe.BINfileData’ object (BETA).
+
+         • ‘read_PSL2R()’: Imports PSL files produced by a SUERC
+           portable OSL reader into R (BETA).
 
   Bugfixes and changes:
 
