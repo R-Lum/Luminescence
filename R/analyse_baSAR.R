@@ -1179,6 +1179,15 @@ analyse_baSAR <- function(
     Disc_Grain.list[[k]] <- list()   # data.file number
     n_aliquots_k <- length((Disc[[k]]))
 
+      if(n_aliquots_k == 0){
+        fileBIN.list[[k]] <- NULL
+        if(verbose){
+          message(paste("[analyse_baSAR()] No data has been seletecd from BIN-file", k, ">> BIN-file removed from input!"))
+        }
+        warning(paste("[analyse_baSAR()] No data has been seletecd from BIN-file", k, ">> BIN-file removed from input!"), call. = FALSE)
+        next()
+      }
+
     for (d in 1:n_aliquots_k) {
       dd <-  as.integer(unlist(Disc[[k]][d]))
       Disc_Grain.list[[k]][[dd]] <- list()  # data.file number ,  disc_number
@@ -1199,7 +1208,6 @@ analyse_baSAR <- function(
         }
     }
   }
-
 
   if(verbose){
     cat("\n[analyse_baSAR()] Preliminary analysis in progress ... ")
@@ -1703,7 +1711,7 @@ analyse_baSAR <- function(
       )
       text(
         x = results[[1]][, c("CENTRAL")],
-        y = 15.5,
+        y = 15.7,
         labels = "68 %",
         pos = 3,
         col = col[3],
@@ -1875,3 +1883,4 @@ analyse_baSAR <- function(
 #   #source_doserate = c(0.04, 0.001),
 #   n.MCMC = 200
 # )
+

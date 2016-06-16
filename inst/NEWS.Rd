@@ -14,7 +14,8 @@
           \item account for probable odd use input if the \code{XLS_file} is a \code{data.frame}
           (column 1 is of type \code{factor} instead \code{character}),
           \item function will not stop anymore if grain and position number do not match,
-
+          \item adjust graphical ouptut,
+          \item add new argument \code{model_baSAR} for user defined models,
           \item a lots of minor improvements.
 
       }
@@ -84,8 +85,15 @@
       but not removed all.
 
     }
+  }
 
-
+  \subsection{Internals}{
+   \itemize{
+      \item Add package \code{coda} as suggested package.
 
     }
+
+    }
+
+
   }
