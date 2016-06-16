@@ -3,16 +3,23 @@
 #' This function tries to identify automatically zero light level curves (grains) from single grain data
 #' measurements. \cr
 #'
-#' \bold{method}\cr
+#' \bold{How the method works?}\cr
 #'
-#' The function compares the mean and the variance of the count values for each curve. Assuming that
-#' the background roughly follows a poission distribution the absolute difference of both values
-#' should be zero or at least around zero. Values significantly above the threshold indicate that the curves
-#' comprises a signal. The threshold can be freely chosen by the user.\cr
+#' The function compares the expected values (\eqn{E(X)}) and the variance (\eqn{Var(X)})
+#' of the count values for each curve. Assuming that the background roughly follows a poisson
+#' distribution the absolute difference of both values should be zero or at least around zero as
 #'
-#' Note: the difference instead of the ratio was chosen as the mean and the variance can both become
-#' 0 which would result in \code{Inf} values.
+#' \deqn{E(x) = Var(x) = \lambda}
 #'
+#' Thus the function checks for:
+#'
+#' \deqn{abs(E(x) - Var(x)) >= \Theta}
+#'
+#' With \eqn{\Theta} an arbitray, user defined, threshold. Values above indicating curves
+#' comprising a signal.\cr
+#'
+#' Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the ratio was chosen as
+#' both can become 0 which would result in \code{Inf} values.
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
 #' (\bold{required}): input object. The function also accepts a list with objects of allowed type.
@@ -32,27 +39,33 @@
 #'
 #' @param verbose \code{\link{logical}} (with default): enables or disables terminal feedback
 #'
-#' @return Returns either an S4 object of type \code{\linkS4class{RLum.Results}} and the slot
-#' \code{data} contains a \code{\link{list}} with the following structure:\cr
-#' $ unique_paris (\code{data.frame}): the unique position and grain pairs \cr
-#' .. $ POSITION \cr
-#' .. $ GRAIN \cr
+#' @param plot \code{\link{logical}} (with default): enables or disables graphical feedback
 #'
-#' $ selection_id (\code{numeric}): the made selection by record ID\cr
+#' @return The function returns
 #'
-#' $ selection_full (\code{data.frame}): the full set with all criteria\cr
-#' .. $ POSITION \cr
-#' .. $ GRAIN \cr
-#' .. $ MEAN \cr
-#' .. $ VAR \cr
-#' .. $ RATIO \cr
-#' .. $ THRESHOLD \cr
-#' .. $ VALID \cr
+#' -----------------------------------\cr
+#' [ NUMERICAL OUTPUT ]\cr
+#' -----------------------------------\cr
+#' \bold{\code{RLum.Reuslts}}-object\cr
 #'
-#' or for \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves removed).
-#' This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}} object is returned.
-#' An \code{\linkS4class{Risoe.BINfileData}} object can be exported to a BIN-file by using the function
-#' \code{\link{write_R2BIN}}.
+#' \bold{slot:} \bold{\code{@data}}\cr
+#' \tabular{lll}{
+#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+#'  \code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
+#'  \code{$selection_id} \tab \code{numeric} \tab the selection as record ID \cr
+#'  \code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
+#' }
+#'
+#'\bold{slot:} \bold{\code{@info}}\cr
+#'
+#' The original function call\cr
+#'
+#' \bold{Output variation}\cr
+#'
+#' For \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves removed).
+#' This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}}
+#' object is returned in such cases. An \code{\linkS4class{Risoe.BINfileData}} object can be exported
+#' to a BIN-file by using the function \code{\link{write_R2BIN}}.
 #'
 #' @note This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
 #' \code{\linkS4class{RLum.Analysis}} objects (or a list of it). However, the function is highly optimised
@@ -63,7 +76,7 @@
 #' within a SAR cycle are removed as well. Therefore it is strongly recommended to use the argument
 #' \code{cleanup = TRUE} carefully.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.2.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -111,7 +124,8 @@ verify_SingleGrainData <- function(
   threshold = 10,
   cleanup = FALSE,
   cleanup_level = 'aliquot',
-  verbose = TRUE
+  verbose = TRUE,
+  plot = FALSE
 ){
 
 
@@ -149,7 +163,6 @@ verify_SingleGrainData <- function(
   if(is(object, "Risoe.BINfileData")){
 
       ##run test on DATA slot
-
         ##MEAN + SD
         temp.results_matrix <- lapply(X = object@DATA, FUN = function(x){
             c(mean(x), var(x))
@@ -212,24 +225,23 @@ verify_SingleGrainData <- function(
         ##print message
         selection_id <- paste(selection_id, collapse = ", ")
         if(verbose){
-          message(paste0("[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: \n", selection_id))
-          message("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.")
+          cat(paste0("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records: \n", selection_id))
+          cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.")
 
         }
 
-
-        ##return
-        return(object)
+         ##return
+        return_object <- object
 
       }else{
-        return(set_RLum(
+        return_object <- set_RLum(
           class = "RLum.Results",
           data = list(
             unique_pairs =  unique_pairs,
             selection_id = selection_id,
             selection_full = selection),
           info = list(call = sys.call())
-        ))
+        )
 
       }
 
@@ -353,7 +365,7 @@ verify_SingleGrainData <- function(
       ##print message
       if(verbose){
         selection_id <- paste(selection_id, collapse = ", ")
-        message(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ", selection_id))
+        cat(paste0("[verify_SingleGrainData()] RLum.Analysis object reduced to records: ", selection_id))
 
       }
 
@@ -384,7 +396,7 @@ verify_SingleGrainData <- function(
      }
 
       ##return
-      return(object)
+      return_object <- object
 
     }else{
       if(is.na(selection_id)){
@@ -392,23 +404,58 @@ verify_SingleGrainData <- function(
 
       }
 
-      return(set_RLum(
+      return_object <- set_RLum(
         class = "RLum.Results",
         data = list(
           unique_pairs = unique_pairs,
           selection_id = selection_id,
           selection_full = selection),
         info = list(call = sys.call())
-      ))
+      )
 
     }
 
 
   }else{
-
     stop(paste0("[verify_SingleGrainData()] Input type '", is(object)[1], "' is not allowed for this function!"), call. = FALSE)
 
   }
 
+  # Plot ----------------------------------------------------------------------------------------
+  if(plot){
+
+    ##plot area
+    plot(
+      NA,
+      NA,
+      xlim = c(1,nrow(selection)),
+      ylim = range(selection[["RATIO"]]),
+      log = "y",
+      xlab = "Record index",
+      ylab = "Calculated ratio [a.u.]",
+      main = "Record selection"
+    )
+
+    ##plot points above the threshold
+    points(x = which(selection[["VALID"]]),
+           y = selection[["RATIO"]][selection[["VALID"]]], pch = 20, col = "darkgreen")
+    points(x = which(!selection[["VALID"]]),
+           y = selection[["RATIO"]][!selection[["VALID"]]], pch = 20, col = rgb(0,0,0,0.5))
+
+    abline(h = threshold, col = "red", lty = 1, lwd = 2)
+
+    mtext(
+      side = 3,
+      text = paste0(
+        "(total: ", nrow(selection),
+        " | valid: ", length(which(selection[["VALID"]])),
+        " | invalid: ", length(which(!selection[["VALID"]])), ")"))
+
+  }
+
+  # Return --------------------------------------------------------------------------------------
+  return(return_object)
+
 
 }
+
