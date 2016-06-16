@@ -173,6 +173,8 @@
 #' @param line.col \code{\link{character}} or \code{\link{numeric}}: colour of
 #' the additional lines.
 #'
+#' @param line.lty \code{\link{integer}}: line type of additional lines
+#'
 #' @param line.label \code{\link{character}}: labels for the additional lines.
 #'
 #' @param grid.col \code{\link{character}} or \code{\link{numeric}} (with
@@ -202,7 +204,7 @@
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
 #'
-#' @section Function version: 0.1.8
+#' @section Function version: 0.1.9
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
@@ -406,6 +408,7 @@ plot_AbanicoPlot <- function(
   polygon.col,
   line,
   line.col,
+  line.lty,
   line.label,
   grid.col,
   frame = 1,
@@ -1891,6 +1894,10 @@ plot_AbanicoPlot <- function(
       line.col <- seq(from = 1, to = length(line.coords))
     }
 
+    if(missing(line.lty) == TRUE) {
+      line.lty <- rep(1, length(line.coords))
+    }
+
     if(missing(line.label) == TRUE) {
       line.label <- rep("", length(line.coords))
     }
@@ -2103,7 +2110,9 @@ plot_AbanicoPlot <- function(
       for(i in 1:length(line)) {
         lines(x = line.coords[[i]][1,1:3],
               y = line.coords[[i]][2,1:3],
-              col = line.col[i])
+              col = line.col[i],
+              lty = line.lty[i]
+              )
         text(x = line.coords[[i]][1,3],
              y = line.coords[[i]][2,3] + par()$cxy[2] * 0.3,
              labels = line.label[i],
@@ -2864,7 +2873,9 @@ plot_AbanicoPlot <- function(
       for(i in 1:length(line)) {
         lines(y = line.coords[[i]][1,1:3],
               x = line.coords[[i]][2,1:3],
-              col = line.col[i])
+              col = line.col[i],
+              lty = line.lty[i]
+              )
         text(y = line.coords[[i]][1,3],
              x = line.coords[[i]][2,3] + par()$cxy[2] * 0.3,
              labels = line.label[i],
