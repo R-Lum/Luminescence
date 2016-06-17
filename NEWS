@@ -32,6 +32,12 @@ Changes in version 0.6.1 ( ,2016):
                ‘calc_OSLLxTxRatio()’ as stated in the description of
                the ‘...’ argument. Fixed.
 
+             • Now also works for dose recovery measurement data where
+               the dose of the first OSL signal is not zero. Previously
+               the function crashed with an arbitrary error.  Now it
+               checks if the natural dose is 0, and if not, overwrites
+               it whilst warning the user about this.
+
          • ‘merge_RisoeBINfileData()’
 
              • Account for 'implicit list embedding of S4 objects is

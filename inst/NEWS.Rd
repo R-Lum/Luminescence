@@ -24,6 +24,10 @@
         \itemize{
           \item The argument 'sig0' was not passed to \code{calc_OSLLxTxRatio()} as stated
           in the description of the \code{...} argument. Fixed.
+          \item Now also works for dose recovery measurement data where the dose of the
+          first OSL signal is not zero. Previously the function crashed with an arbitrary error.
+          Now it checks if the natural dose is 0, and if not, overwrites it whilst warning
+          the user about this.
       }
 
 

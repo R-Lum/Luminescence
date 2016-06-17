@@ -691,6 +691,15 @@ if(is.list(object)){
       stop("[analyse_SAR.CWOSL()] 'dose.points' contains NA values or have not been set!")
 
     }
+    
+    ##check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If not
+    ##not, it is probably a Dose Recovery Test with the given dose that is treated as the
+    ##unknown dose. We overwrite this value and warn the user.
+    if (LnLxTnTx$Dose[1] != 0) {
+      warning("[analyse_SAR.CWOSL()] The natural signal has a dose of ", LnLxTnTx$Dose[1],
+              " s, which is indicative of a dose recovery test. The natural dose was set to 0.", call. = FALSE)
+      LnLxTnTx$Dose[1] <- 0
+    }
 
     #generate unique dose id - this are also the # for the generated points
     temp.DoseID <- c(0:(length(LnLxTnTx$Dose) - 1))
