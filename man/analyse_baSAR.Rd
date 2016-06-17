@@ -116,7 +116,8 @@ Function returns results numerically and graphically:\cr
  \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
  \code{$mcmc} \tab \code{mcmc} \tab object including raw output of \code{\link[rjags]{rjags}} \cr
  \code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
- \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values
+ \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
+ \code{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
 }
 
 \bold{slot:} \bold{\code{@info}}\cr
@@ -161,7 +162,20 @@ by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
 LxTx, the LxTx error and the dose values for all regeneration points.
 
-\bold{Input / output scenarious}\cr
+\bold{How the systematic error contribution}\cr
+
+Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
+and added to final central dose by:
+
+\deqn{systematic.error = 1/n \sum SE(source.doserate)}
+
+\deqn{SE(central.dose.final) = \sqrt{SE(central.dose)^2 + systematic.error^2}}
+
+Please note that this approach is rather rough and can be only valid if the source dose rate
+errors, in the case different readers had been used, are similar. In the case that more than
+one source dose rate is provided a warning is given.\cr
+
+\bold{Input / output scenarios}\cr
 
 Various inputs are allowed for this function. Unfortunately this makes the function handling rather
 complex, but at the same time very powerful. Available scenarios:\cr
@@ -278,7 +292,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.10 (2016-06-17 14:31:48)
+ 0.1.12 (2016-06-17 19:26:06)
 }
 \examples{
 
