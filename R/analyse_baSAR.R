@@ -1023,7 +1023,7 @@ analyse_baSAR <- function(
           paste(
             object.file_name[which(duplicated(unlist(object.file_name)))],
             collapse = ", ",
-            "' is duplicated and therefore removed from the input!"
+            "' is a duplicate and therefore removed from the input!"
           )
         ))
 
@@ -1034,7 +1034,7 @@ analyse_baSAR <- function(
         paste(
           object.file_name[which(duplicated(unlist(object.file_name)))],
           collapse = ", ",
-          "' is duplicated and therefore removed from the input!"
+          "' is a duplicate and therefore removed from the input!"
         )
       ))
 
