@@ -671,12 +671,10 @@ analyse_baSAR <- function(
 
         }
 
-
       ##quantiles
       ##68% + 95%
       output.quantiles <-
         round(summary(sampling_reduced, quantiles = c(0.025, 0.16, 0.84, 0.975))[[2]][c("central_D", "sigma_D"), 1:4], 2)
-
 
       #### output data.frame with results
       baSAR.output <- data.frame(
@@ -684,10 +682,10 @@ analyse_baSAR <- function(
         NB_ALIQUOTS = Nb_aliquots,
         N.MCMC = n.MCMC,
         FIT_METHOD = fit.method,
-        CENTRAL = if(is.null(gm)){output.mean[1]}else{gm},
-        CENTRAL.SD = output.mean[2],
-        SIGMA = output.mean[3],
-        SIGMA.SD = output.mean[4],
+        CENTRAL = if(is.null(gm)){output.mean[1,1]}else{gm},
+        CENTRAL.SD = output.mean[1,2],
+        SIGMA = output.mean[2,1],
+        SIGMA.SD = output.mean[2,2],
         CENTRAL_Q_.16 = output.quantiles[1,2],
         CENTRAL_Q_.84 = output.quantiles[1,3],
         SIGMA_Q_.16 = output.quantiles[2,2],
@@ -1057,7 +1055,6 @@ analyse_baSAR <- function(
 
   Mono_grain <-  TRUE
 
-  ##TODO
   Limited_cycles <- vector()
 
   ##set information
@@ -1772,7 +1769,7 @@ analyse_baSAR <- function(
             format((1-results[[1]][["CENTRAL.SD"]]/results[[1]][["DE_FINAL.ERROR"]])*100, scientific = TRUE), "%)\n")
     )
     if(distribution == "log_normal"){
-     cat("*\t mean of the central dose is the geometric mean\n")
+     cat("* mean of the central dose is the geometric mean\n")
     }
     cat("** 68 % level | *** 95 % level\n")
 
