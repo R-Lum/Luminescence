@@ -1669,7 +1669,7 @@ analyse_baSAR <- function(
 
 
     ##finally, check for difference in the number of dose points ... they should be the same
-    if(unique(OUTPUT_results_reduced[,"CYCLES_NB"])>1){
+    if(length(unique(OUTPUT_results_reduced[,"CYCLES_NB"])) > 1){
        warning("[analyse_baSAR()] The number of dose points differs across your data set. Check your data!", call. = FALSE)
 
     }
