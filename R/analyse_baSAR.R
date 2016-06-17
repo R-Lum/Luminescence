@@ -255,7 +255,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.9
+#' @section Function version: 0.1.10
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1068,7 +1068,42 @@ analyse_baSAR <- function(
     ##get BIN-file name
     object.file_name[[i]] <- unique(fileBIN.list[[i]]@METADATA[["FNAME"]])
 
+
   }
+
+  ##check for duplicated entries; remove them as they would cause a function crash
+  if(any(duplicated(unlist(object.file_name)))){
+
+    ##provide messages
+    if(verbose){
+      message(paste0(
+        "[analyse_baSAR()] '",
+        paste(
+          object.file_name[which(duplicated(unlist(object.file_name)))],
+          collapse = ", ",
+          "' is duplicated and therefore removed from the input!"
+        )
+      ))
+
+    }
+
+    warning(paste0(
+      "[analyse_baSAR()] '",
+      paste(
+        object.file_name[which(duplicated(unlist(object.file_name)))],
+        collapse = ", ",
+        "' is duplicated and therefore removed from the input!"
+      )
+    ))
+
+    ##remove entry
+    Disc[which(duplicated(unlist(object.file_name)))] <- NULL
+    Grain[which(duplicated(unlist(object.file_name)))] <- NULL
+    fileBIN.list[which(duplicated(unlist(object.file_name)))] <- NULL
+    object.file_name[which(duplicated(unlist(object.file_name)))] <- NULL
+
+  }
+
 
   ##########################################################   READ Excel sheet
 
@@ -1138,14 +1173,13 @@ analyse_baSAR <- function(
     }
     rm(k)
 
-
   } else if (is(XLS_file, "data.frame") || is(XLS_file, "character")) {
 
     ##load file if we have an XLS file
     if (is(XLS_file, "character")) {
       ##test for valid file
       if(!file.exists(XLS_file)){
-        stop("[analyse_baSAR()] defined XLS_file does not exists!")
+        stop("[analyse_baSAR()] Defined XLS_file does not exists!")
 
       }
 
@@ -1206,6 +1240,7 @@ analyse_baSAR <- function(
           x = object.file_name)
 
           nj <-  length(Disc[[k]]) + 1
+
           Disc[[k]][nj] <-  as.numeric(datalu[nn, 2])
           Grain[[k]][nj] <-  as.numeric(datalu[nn, 3])
           Nb_ali <-  Nb_ali + 1
@@ -1269,7 +1304,7 @@ analyse_baSAR <- function(
         gg <- 1
       }
       if (Mono_grain == TRUE)  {
-        gg <-  as.integer(unlist(Grain[[k]][d]))}
+        gg <- as.integer(unlist(Grain[[k]][d]))}
 
         Disc_Grain.list[[k]][[dd]][[gg]] <- list()  # data.file number ,  disc_number, grain_number
         for (z in 1:6) {
@@ -1306,8 +1341,11 @@ analyse_baSAR <- function(
     irrad_time.vector <- fileBIN.list[[k]]@METADATA[["IRR_TIME"]][1:length_BIN]      # irradiation durations vector
 
     ##if all irradiation times are 0 we should stop here
-    if(length(unique(irrad_time.vector)) == 1){
-      warning("[analyse_baSAR()] It appears the the irradiation times are all the same. Analysis stopped an NULL returned!")
+    if (length(unique(irrad_time.vector)) == 1) {
+      try(stop(
+        "[analyse_baSAR()] It appears the the irradiation times are all the same. Analysis stopped an NULL returned!",
+        call. = FALSE
+      ))
       return(NULL)
     }
 
@@ -1315,27 +1353,49 @@ analyse_baSAR <- function(
     grain_pos <- as.integer(unlist(Grain[[k]]))
 
     ### Automatic Filling - Disc_Grain.list
-
     for (i in 1: length(Disc[[k]])) {
 
       disc_selected <-  as.integer(Disc[[k]][i])
+
       if (Mono_grain == TRUE) {grain_selected <- as.integer(Grain[[k]][i])} else { grain_selected <-0}
 
-          disc_logic <- (disc_selected == measured_discs.vector)
+         ##hard break if the disc number or grain number does not fit
 
-            ##hard break if the position does not fit
-            if(!any(disc_logic)){
-              message(paste("[analyse_baSAR()] disc number", disc_selected, "does not exist in the BIN-file! NULL returned!"))
-              return(NULL)
-            }
+         ##disc (position)
+         disc_logic <- (disc_selected == measured_discs.vector)
 
+          if (!any(disc_logic)) {
+            try(stop(
+              paste0(
+                "[analyse_baSAR()] In BIN-file '",
+                unique(fileBIN.list[[k]]@METADATA[["FNAME"]]),
+                "' position number ",
+                disc_selected,
+                " does not exist! NULL returned!"
+              ),
+              call. = FALSE
+            ))
+            return(NULL)
+          }
+
+          ##grain
           grain_logic <- (grain_selected == measured_grains.vector)
 
-            if(!any(grain_logic)){
-              message(paste("[analyse_baSAR()] grain number", grain_selected, "does not exist in the BIN-file! NULL returned!"))
-              return(NULL)
-            }
+          if (!any(grain_logic)) {
+            try(stop(
+              paste0(
+                "[analyse_baSAR()] In BIN-file '",
+                unique(fileBIN.list[[k]]@METADATA[["FNAME"]]),
+                "' grain number ",
+                grain_selected,
+                " does not exist! NULL returned!"
+              ),
+              call. = FALSE
+            ))
+            return(NULL)
+          }
 
+          ##if the test passed, compile index list
           index_liste <- n_index.vector[disc_logic & grain_logic]
 
       if (Mono_grain == FALSE)  { grain_selected <-1}
@@ -1360,6 +1420,8 @@ analyse_baSAR <- function(
 
           }
     }
+
+
   }
 
 
@@ -1508,6 +1570,7 @@ analyse_baSAR <- function(
 
   comptage <- 0
   for (k in 1:length(fileBIN.list)) {
+
     for (i in 1:length(Disc[[k]])) {
 
       disc_selected <-  as.numeric(Disc[[k]][i])
@@ -1878,10 +1941,10 @@ analyse_baSAR <- function(
 
        ##open plot area
         ##for the xlim and ylim we have to identify the proper ranges based on the input
-        xlim <- c(0, max(input_object[,grep(x = colnames(input_object), pattern = "DOSE")])*1.1)
+        xlim <- c(0, max(input_object[,grep(x = colnames(input_object), pattern = "DOSE")], na.rm = TRUE)*1.1)
         ylim <- c(
-          min(input_object[,grep(x = colnames(input_object), pattern = "LxTx")]),
-          max(input_object[,grep(x = colnames(input_object), pattern = "LxTx")])*1.1)
+          min(input_object[,grep(x = colnames(input_object), pattern = "LxTx")], na.rm = TRUE),
+          max(input_object[,grep(x = colnames(input_object), pattern = "LxTx")], na.rm = TRUE)*1.1)
 
         ##set plot area
         plot(
@@ -1995,23 +2058,32 @@ analyse_baSAR <- function(
       ##In case the Abanico plot will not work because of negative values
       ##provide a KDE
       if(is.null(plot_check)){
-        plot_KDE(
+        plot_check <- try(plot_KDE(
           data = input_object[, c("DE", "DE.SD")],
           summary = c("n"),
           xlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
-        )
-       abline(v = results[[1]]$CENTRAL, lty = 2)
-       abline(v = results[[1]][,c("CENTRAL_Q_.16", "CENTRAL_Q_.84")], lty = 3, col = col[3], lwd = 1.2)
-       abline(v = results[[1]][,c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
+        ))
 
-       legend(
-         "topleft",
-         legend = c("Central dose","HPD - 68%", "HPD - 95 %"),
-         lty = c(2, 3,2),
-         col = c("black", col[3], col[2]),
-         bty = "n",
-         cex = par()$cex * 0.8
-       )
+        if(!is(plot_check, "try-error")) {
+          abline(v = results[[1]]$CENTRAL, lty = 2)
+          abline(
+            v = results[[1]][, c("CENTRAL_Q_.16", "CENTRAL_Q_.84")],
+            lty = 3,
+            col = col[3],
+            lwd = 1.2
+          )
+          abline(v = results[[1]][, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
+
+          legend(
+            "topleft",
+            legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
+            lty = c(2, 3, 2),
+            col = c("black", col[3], col[2]),
+            bty = "n",
+            cex = par()$cex * 0.8
+
+          )
+        }
 
       }
   }
