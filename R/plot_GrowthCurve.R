@@ -163,6 +163,14 @@
 #' plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 #' ##dev.off()
 #'
+#' ##(4) plot resulting function for given intervall x
+#' x <- seq(1,10000, by = 100)
+#' plot(
+#'  x = x,
+#'  y = eval(temp$Formula),
+#'  type = "l"
+#' )
+#'
 #' @export
 plot_GrowthCurve <- function(
   sample,
@@ -1559,7 +1567,6 @@ plot_GrowthCurve <- function(
   }#end if plotOutput
 
   ##RETURN - return De values and parameter
-
   output <- try(data.frame(
     De = De,
     De.Error = De.Error,
@@ -1589,4 +1596,3 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
-
