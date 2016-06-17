@@ -374,10 +374,6 @@ analyse_baSAR <- function(
   ...
 ){
 
-  ##TODO:
-  ##1. Function should potentially support "EXP OR LIN", however, for this the
-  ##code needs to be adjusted and the output should become a data.frame, instead a matrix
-  ##
   ##////////////////////////////////////////////////////////////////////////////////////////////////
   ##FUNCTION TO BE CALLED to RUN the Bayesian Model
   ##////////////////////////////////////////////////////////////////////////////////////////////////
@@ -497,7 +493,7 @@ analyse_baSAR <- function(
 
             central_D ~  dunif(lower_De,upper_De)
 
-            precision_D ~ dt (0, 0.16 * central_D, 1) T(0, )    #    Alternative plus directe proposee par Philippe L.
+            precision_D ~ dt (0, 0.16 * central_D, 1) T(0, )  #  Alternative plus directe proposee par Philippe L.
             sigma_D <-  1/sqrt(precision_D)
 
             for (i in 1:Nb_aliquots) {
@@ -507,7 +503,7 @@ analyse_baSAR <- function(
             g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
             sigma_f[i]  ~  dexp (20)
 
-            D[i] ~ dt ( central_D , precision_D, 1)    #      Cauchy distribution
+            D[i] ~ dt ( central_D , precision_D, 1)    #  Cauchy distribution
 
             S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
             Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
@@ -534,7 +530,7 @@ analyse_baSAR <- function(
             g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
             sigma_f[i]  ~  dexp (20)
 
-            D[i] ~ dnorm ( central_D , 1/(sigma_D^2) )   #           Normal distribution
+            D[i] ~ dnorm ( central_D , 1/(sigma_D^2) )   #   Normal distribution
 
             S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
             Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
@@ -563,7 +559,7 @@ analyse_baSAR <- function(
             g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
             sigma_f[i]  ~  dexp (20)
 
-            log_D[i] ~ dnorm ( log_central_D , 1/(l_sigma_D^2) )  #          Log-Normal distribution
+            log_D[i] ~ dnorm ( log_central_D , 1/(l_sigma_D^2) )  #   Log-Normal distribution
             D[i] <-  exp(log_D[i])
 
             S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
@@ -662,13 +658,9 @@ analyse_baSAR <- function(
       )
 
 
-      ###############  Screen output
       pt_zero <- 0
       nb_decal <-  2
       pt_zero <- Nb_aliquots
-      output.mean <- vector("numeric")
-      output.quantiles <- vector("numeric")
-
 
       ##standard error and mean
       output.mean <-
@@ -709,16 +701,18 @@ analyse_baSAR <- function(
         SIGMA_Q_.975 = output.quantiles[2,4]
       )
 
-      return(baSAR.output = list(
-        baSAR.output_summary = baSAR.output,
-        baSAR.output_mcmc = sampling,
-        models = list(
-          cauchy = baSAR_model[["cauchy"]],
-          normal = baSAR_model[["normal"]],
-          log_normal = baSAR_model[["log_normal"]],
-          user_defined = baSAR_model[["user_defined"]]
+      return(
+        baSAR.output = list(
+          baSAR.output_summary = baSAR.output,
+          baSAR.output_mcmc = sampling,
+          models = list(
+            cauchy = baSAR_model[["cauchy"]],
+            normal = baSAR_model[["normal"]],
+            log_normal = baSAR_model[["log_normal"]],
+            user_defined = baSAR_model[["user_defined"]]
           )
-      ))
+        )
+      )
 
     }
   ##END
