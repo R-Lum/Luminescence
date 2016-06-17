@@ -267,8 +267,18 @@ funtions.
 \code{output.plotExtended} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables/disables extended dose repsonse curve plot\cr
 }
 }
+\note{
+\bold{If you provide more than one BIN-file}, it is \bold{strongly} recommanded to provide
+a \code{list} with the same number of elements for the following parameters:\cr
+\code{source_doserate}, \code{signal.integral}, \code{signal.integral.Tx}, \code{background.integral},
+\code{background.integral.Tx}, \code{sigmab}, \code{sig0}.\cr
+
+Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))}\cr
+
+\bold{The function is currently limited to work with standard Risoe BIN-files only!}
+}
 \section{Function version}{
- 0.1.9 (2016-06-16 14:11:46)
+ 0.1.10 (2016-06-17 14:24:43)
 }
 \examples{
 
