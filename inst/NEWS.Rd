@@ -31,6 +31,16 @@
       }
 
 
+
+      \item \code{calc_OSLLxTxRatio()}
+        \itemize{
+          \item \code{NaN} values now are automatically changed to 0. With regard to the underlying equations
+          this is mathematically not correct, as the function returns \code{NaN} in cases where 0 is divided by 0,
+          but \code{NaN} makes no sense for the further data processing and is therefore not meaningful,
+          \item object \code{call} is moved into the info slot.
+
+      }
+
       \item \code{merge_RisoeBINfileData()}
         \itemize{
           \item Account for 'implicit list embedding of S4 objects is deprecated' warning by changing
