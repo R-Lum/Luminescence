@@ -271,7 +271,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.14
+#' @section Function version: 0.1.15
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1447,6 +1447,7 @@ analyse_baSAR <- function(
   ######################  Data associated with a single Disc/Grain
   max_cycles <-  0
   count <- 1
+  calc_OSLLxTxRatio_warning <- list()
 
   for (k in 1:length(fileBIN.list)) {
 
@@ -1470,19 +1471,26 @@ analyse_baSAR <- function(
         Tx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index2]])), fileBIN.list[[k]]@DATA[[index2]])
 
 
-        # call calc_OSLLxTxRatio()
-        temp_LxTx <- calc_OSLLxTxRatio(
-          Lx.data = Lx.data,
-          Tx.data = Tx.data,
-          signal.integral = signal.integral[[k]],
-          signal.integral.Tx = signal.integral.Tx[[k]],
-          background.integral = background.integral[[k]],
-          background.integral.Tx = background.integral.Tx[[k]],
-          background.count.distribution = additional_arguments$background.count.distribution,
-          sigmab = sigmab[[k]],
-          sig0 = sig0[[k]]
-        )
 
+        ## call calc_OSLLxTxRatio()
+        ## we run this function with a warnings catcher to reduce the load of warnings for the user
+        temp_LxTx <- withCallingHandlers(
+          calc_OSLLxTxRatio(
+            Lx.data = Lx.data,
+            Tx.data = Tx.data,
+            signal.integral = signal.integral[[k]],
+            signal.integral.Tx = signal.integral.Tx[[k]],
+            background.integral = background.integral[[k]],
+            background.integral.Tx = background.integral.Tx[[k]],
+            background.count.distribution = additional_arguments$background.count.distribution,
+            sigmab = sigmab[[k]],
+            sig0 = sig0[[k]]
+          ),
+          warning = function(c) {
+            calc_OSLLxTxRatio_warning[[i]] <<- c
+            invokeRestart("muffleWarning")
+          }
+        )
 
         ##get LxTx table
         LxTx.table <- temp_LxTx$LxTx.table
@@ -1562,6 +1570,22 @@ analyse_baSAR <- function(
 
   }   ##  END of loop on BIN files
   rm(count)
+
+  ##evaluate warnings from calc_OSLLxTxRatio()
+  if(length(calc_OSLLxTxRatio_warning)>0){
+    w_table <- table(unlist(calc_OSLLxTxRatio_warning))
+    w_table_names <- names(w_table)
+
+    for(w in 1:length(w_table)){
+      warning(paste(w_table_names[w], "This warning occurred", w_table[w], "times!"), call. = FALSE)
+
+    }
+    rm(w_table)
+    rm(w_table_names)
+
+  }
+  rm(calc_OSLLxTxRatio_warning)
+
 
   Nb_aliquots <- previous.Nb_aliquots
 
