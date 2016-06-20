@@ -8,6 +8,10 @@
 #' of a \link{data.frame}, an artificial \code{data.frame} is produced. The
 #' error calculation is done according to Galbraith (2002).\cr
 #'
+#' \bold{Please note:} In cases where the calculation results in \code{NaN} values (for
+#' example due to zero-signal, and therefore a division of 0 by 0), these \code{NaN} values are replaced
+#' by 0.
+#'
 #' \bold{sigmab}\cr
 #'
 #' The default value of \code{sigmab} is calculated assuming the background is
@@ -106,7 +110,7 @@
 #' own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 #'
 #'
-#' @section Function version: 0.6.2
+#' @section Function version: 0.6.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -413,6 +417,11 @@ calc_OSLLxTxRatio <- function(
   LnLx.Error <- abs(LnLx*LnLx.relError)
   TnTx.Error <- abs(TnTx*TnTx.relError)
 
+    ##we do not want to have NaN values, as they are mathematically correct, but make
+    ##no sense and would result in aliquots that become rejected later
+    if(is.nan(LnLx.Error)) LnLx.Error <- 0
+    if(is.nan(TnTx.Error)) TnTx.Error <- 0
+
   ##combine results
   LnLxTnTx <- cbind(
     Lx.signal,
@@ -440,15 +449,22 @@ calc_OSLLxTxRatio <- function(
   ##calculate Ln/Tx
   LxTx <- LnLxTnTx$Net_LnLx/LnLxTnTx$Net_TnTx
 
+    ##set NaN
+    if(is.nan(LxTx)) LxTx <- 0
+
   ##calculate Ln/Tx error
   LxTx.relError <- sqrt(LnLx.relError^2 + TnTx.relError^2)
   LxTx.Error <- abs(LxTx * LxTx.relError)
+
+    ##set NaN
+    if(is.nan(LxTx.Error)) LxTx.Error <- 0
 
     ##add an extra component of error
     LxTx.Error <- sqrt(LxTx.Error^2 + (sig0 * LxTx)^2)
 
   ##return combined values
   temp <- cbind(LnLxTnTx,LxTx,LxTx.Error)
+
 
   ##apply digits if wanted
   if(!is.null(digits)){
