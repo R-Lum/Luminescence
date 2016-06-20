@@ -1727,7 +1727,7 @@ analyse_baSAR <- function(
     ##(1) source_doserate is a list, not a vector, but the user can
     ##provide many source dose rates and he can provide only a single vector (no error)
 
-    if(!is.null(source_doserate) || !is.null(function_arguments$source_doserate)){
+    if(!is.null(unlist(source_doserate)) || !is.null(function_arguments$source_doserate)){
 
       ##if it comes from the previous call, it is, unfortunately not that simple
       if(!is.null(function_arguments$source_doserate)){
@@ -1749,7 +1749,7 @@ analyse_baSAR <- function(
 
         }))
 
-      }else{
+    }else{
       systematic_error <- 0
 
 
