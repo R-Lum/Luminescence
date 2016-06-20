@@ -79,6 +79,10 @@ the background integral limits. If a \link{vector} is given as input instead
 of a \link{data.frame}, an artificial \code{data.frame} is produced. The
 error calculation is done according to Galbraith (2002).\cr
 
+\bold{Please note:} In cases where the calculation results in \code{NaN} values (for
+example due to zero-signal, and therefore a division of 0 by 0), these \code{NaN} values are replaced
+by 0.
+
 \bold{sigmab}\cr
 
 The default value of \code{sigmab} is calculated assuming the background is
@@ -120,7 +124,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.2 (2016-06-17 16:11:11)
+ 0.6.3 (2016-06-20 18:09:42)
 }
 \examples{
 
