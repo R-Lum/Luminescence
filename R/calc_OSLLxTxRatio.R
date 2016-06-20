@@ -87,6 +87,8 @@
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #'
 #' Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
+#'
+#' \bold{@data}\cr
 #' $LxTx.table (data.frame) \cr
 #' .. $ LnLx \cr
 #' .. $ LnLx.BG \cr
@@ -101,6 +103,8 @@
 #' .. $ sigmab.LnTx\cr
 #' .. $ sigmab.TnTx\cr
 #' .. $ k \cr
+#'
+#' \bold{@info}\cr
 #' $ call (original function call)\cr
 #'
 #' @note The results of this function have been cross-checked with the Analyst
@@ -482,8 +486,8 @@ calc_OSLLxTxRatio <- function(
       class = "RLum.Results",
       data = list(
         LxTx.table = temp,
-        calc.parameters = calc.parameters,
-        call = sys.call())
+        calc.parameters = calc.parameters),
+      info = list(call = sys.call())
     )
 
   invisible(temp.return)
