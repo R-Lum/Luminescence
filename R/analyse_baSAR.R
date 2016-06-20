@@ -497,23 +497,23 @@ analyse_baSAR <- function(
             sigma_D <-  1/sqrt(precision_D)
 
             for (i in 1:Nb_aliquots) {
-            a[i] ~  dnorm(6.5 , 1/(9.2^2) ) T(0, )
-            b[i] ~  dnorm(50 , 1/(1000^2) )  T(0, )
-            c[i] ~  dnorm(1.002 , 1/(0.9^2) ) T(0, )
-            g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
-            sigma_f[i]  ~  dexp (20)
+              a[i] ~  dnorm(6.5 , 1/(9.2^2) ) T(0, )
+              b[i] ~  dnorm(50 , 1/(1000^2) )  T(0, )
+              c[i] ~  dnorm(1.002 , 1/(0.9^2) ) T(0, )
+              g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
+              sigma_f[i]  ~  dexp (20)
 
-            D[i] ~ dt ( central_D , precision_D, 1)    #  Cauchy distribution
+              D[i] ~ dt ( central_D , precision_D, 1)    #  Cauchy distribution
 
-            S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
-            Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
-            Q[1,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * D[i] ) + ExpoGC * (a[i] * (1 - exp (-D[i] /b[i])) )
+              S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
+              Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
+              Q[1,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * D[i] ) + ExpoGC * (a[i] * (1 - exp (-D[i] /b[i])) )
 
-            for (m in 2:Limited_cycles[i]) {
-            S_y[m,i] <-  1/(sLum[m,i]^2 + sigma_f[i]^2)
-            Lum[m,i] ~ dnorm( Q[m,i] , S_y[m,i] )
-            Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
-            }
+              for (m in 2:Limited_cycles[i]) {
+                S_y[m,i] <-  1/(sLum[m,i]^2 + sigma_f[i]^2)
+                Lum[m,i] ~ dnorm( Q[m,i] , S_y[m,i] )
+                Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
+              }
             }
           }",
 
@@ -524,23 +524,23 @@ analyse_baSAR <- function(
             sigma_D ~ dunif(0.01, 1 * central_D)
 
             for (i in 1:Nb_aliquots) {
-            a[i] ~  dnorm(6.5 , 1/(9.2^2) ) T(0, )
-            b[i] ~  dnorm(50 , 1/(1000^2) )  T(0, )
-            c[i] ~  dnorm(1.002 , 1/(0.9^2) ) T(0, )
-            g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
-            sigma_f[i]  ~  dexp (20)
+              a[i] ~  dnorm(6.5 , 1/(9.2^2) ) T(0, )
+              b[i] ~  dnorm(50 , 1/(1000^2) )  T(0, )
+              c[i] ~  dnorm(1.002 , 1/(0.9^2) ) T(0, )
+              g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
+              sigma_f[i]  ~  dexp (20)
 
-            D[i] ~ dnorm ( central_D , 1/(sigma_D^2) )   #   Normal distribution
+              D[i] ~ dnorm ( central_D , 1/(sigma_D^2) )   #   Normal distribution
 
-            S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
-            Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
-            Q[1,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * D[i] ) + ExpoGC * (a[i] * (1 - exp (-D[i] /b[i])) )
+              S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
+              Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
+              Q[1,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * D[i] ) + ExpoGC * (a[i] * (1 - exp (-D[i] /b[i])) )
 
-            for (m in 2:Limited_cycles[i]) {
-            S_y[m,i] <-  1/(sLum[m,i]^2 + sigma_f[i]^2)
-            Lum[m,i] ~ dnorm( Q[m,i] , S_y[m,i] )
-            Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
-            }
+              for (m in 2:Limited_cycles[i]) {
+                S_y[m,i] <-  1/(sLum[m,i]^2 + sigma_f[i]^2)
+                Lum[m,i] ~ dnorm( Q[m,i] , S_y[m,i] )
+                Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
+              }
             }
             }",
 
@@ -553,24 +553,24 @@ analyse_baSAR <- function(
             sigma_D <-  sqrt((exp(l_sigma_D^2) -1) * exp( 2*log_central_D + l_sigma_D^2) )
 
             for (i in 1:Nb_aliquots) {
-            a[i] ~  dnorm(6.5 , 1/(9.2^2) ) T(0, )
-            b[i] ~  dnorm(50 , 1/(1000^2) )  T(0, )
-            c[i] ~  dnorm(1.002 , 1/(0.9^2) ) T(0, )
-            g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
-            sigma_f[i]  ~  dexp (20)
+              a[i] ~  dnorm(6.5 , 1/(9.2^2) ) T(0, )
+              b[i] ~  dnorm(50 , 1/(1000^2) )  T(0, )
+              c[i] ~  dnorm(1.002 , 1/(0.9^2) ) T(0, )
+              g[i] ~  dnorm(0.5 , 1/(2.5^2) ) I(-a[i], )
+              sigma_f[i]  ~  dexp (20)
 
-            log_D[i] ~ dnorm ( log_central_D , 1/(l_sigma_D^2) )  #   Log-Normal distribution
-            D[i] <-  exp(log_D[i])
+              log_D[i] ~ dnorm ( log_central_D , 1/(l_sigma_D^2) )  #   Log-Normal distribution
+              D[i] <-  exp(log_D[i])
 
-            S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
-            Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
-            Q[1,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * D[i] ) + ExpoGC * (a[i] * (1 - exp (-D[i] /b[i])) )
+              S_y[1,i] <-  1/(sLum[1,i]^2 + sigma_f[i]^2)
+              Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
+              Q[1,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * D[i] ) + ExpoGC * (a[i] * (1 - exp (-D[i] /b[i])) )
 
             for (m in 2:Limited_cycles[i]) {
-            S_y[m,i] <-  1/(sLum[m,i]^2 + sigma_f[i]^2)
-            Lum[m,i] ~ dnorm( Q[m,i] , S_y[m,i] )
-            Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
-            }
+                S_y[m,i] <-  1/(sLum[m,i]^2 + sigma_f[i]^2)
+                Lum[m,i] ~ dnorm( Q[m,i] , S_y[m,i] )
+                Q[m,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * Dose[m,i]) + ExpoGC * (a[i] * (1 - exp (-Dose[m,i]/b[i])) )
+              }
             }
         }",
 
@@ -588,6 +588,7 @@ analyse_baSAR <- function(
         }
 
       }
+
 
       ### Bayesian inputs
       data_Liste  <- list(
@@ -2174,6 +2175,6 @@ analyse_baSAR <- function(
 
 results <-  analyse_baSAR(
   object=temp,
-  distribution = "log_normal",
+  distribution = "cauchy",
   n.MCMC = 200
 )
