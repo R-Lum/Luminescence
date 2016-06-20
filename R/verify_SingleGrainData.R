@@ -449,7 +449,8 @@ verify_SingleGrainData <- function(
       text = paste0(
         "(total: ", nrow(selection),
         " | valid: ", length(which(selection[["VALID"]])),
-        " | invalid: ", length(which(!selection[["VALID"]])), ")"))
+        " | invalid: ", length(which(!selection[["VALID"]])), ")"),
+      cex = 0.9 * par()$cex)
 
   }
 
