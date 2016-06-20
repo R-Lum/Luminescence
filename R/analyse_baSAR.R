@@ -91,6 +91,9 @@
 #' (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
 #' \code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
+#' \code{variables.names} \code{\link{character}} \tab set variables to be monitored during the MCMC run, default:
+#' \code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}. Note: only variable names
+#' present in the model can be monitored.)
 #' }
 #'
 #' \bold{User defined models}\cr
@@ -268,7 +271,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.13
+#' @section Function version: 0.1.14
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -433,6 +436,14 @@ analyse_baSAR <- function(
       } else{
         method_control[["thin"]]
       }
+
+      ##variable.names
+      variable.names <-  if (is.null(method_control[["variable.names"]])) {
+        c('central_D', 'sigma_D', 'D', 'Q', 'a', 'b', 'c', 'g')
+      } else{
+        method_control[["variable.names"]]
+      }
+
 
 
 
@@ -640,10 +651,9 @@ analyse_baSAR <- function(
         )
 
       ##get data ... full and reduced, the reduced one to limit the plot output
-      ## ... output is reduced by the factor of 10 * 10 to reduced the memory load
       sampling <- rjags::coda.samples(
         model = jagsfit,
-        variable.names = c('central_D', 'sigma_D', 'D', 'Q', 'a', 'b', 'c', 'g'),
+        variable.names = variable.names,
         n.iter = Nb_Iterations,
         thin = thin
       )
@@ -1674,7 +1684,7 @@ analyse_baSAR <- function(
   ##correct number of aliquots if necessary
   if(Nb_aliquots > nrow(OUTPUT_results_reduced)) {
     Nb_aliquots <- nrow(OUTPUT_results_reduced)
-    warning(paste("[analyse_baSAR()] 'Nb_aliquots' corrected due to NaN or Inf values for Lx and/or Tx to", Nb_aliquots), call. = FALSE)
+    warning(paste("[analyse_baSAR()] 'Nb_aliquots' corrected due to NaN or Inf values in Lx and/or Tx to", Nb_aliquots), call. = FALSE)
 
   }
 
@@ -1843,17 +1853,24 @@ analyse_baSAR <- function(
     ##get list of variable names (we need them later)
     varnames <- coda::varnames(results[[2]])
 
-
     ##////////////////////////////////////////////////////////////////////////////////////////////
     ##TRACE AND DENSITY PLOT
     ####//////////////////////////////////////////////////////////////////////////////////////////
     if(plot_reduced){
-      try(plot(results[[2]][,c("central_D","sigma_D"),drop = FALSE]))
+      plot_check <- try(plot(results[[2]][,c("central_D","sigma_D"),drop = FALSE]), silent = TRUE)
+
+      ##show error
+      if(is(plot_check, "try-error")){
+        stop("[analyse_baSAR()] Plots for 'central_D' and 'sigma_D' could not be produced. You are probably monitoring the wrong variables!", .call = FALSE)
+
+      }
 
     }else{
       try(plot(results[[2]]))
 
     }
+
+
 
     ##////////////////////////////////////////////////////////////////////////////////////////////
     ##TRUE DOSE PLOT AND DECISION MAKER
@@ -1886,6 +1903,7 @@ analyse_baSAR <- function(
 
     ##to assure a minium of quality not more then 15 boxes a plotted in each plot
     i <- 1
+
     while(i < ncol(plot_matrix)){
 
       step <- if((i + 14) > ncol(plot_matrix)){ncol(plot_matrix)}else{i + 14}
@@ -1983,6 +2001,7 @@ analyse_baSAR <- function(
       ##free memory
       rm(list_selection)
 
+
       ##make selection according to the model for the curve plotting
       if (fit.method == "EXP") {ExpoGC <- 1 ; LinGC <-  0 }
       if (fit.method == "LIN") {ExpoGC <- 0 ; LinGC <-  1 }
@@ -2016,21 +2035,29 @@ analyse_baSAR <- function(
           main = "baSAR Dose Response Curves"
         ))
 
+
         if (!is(plot_check, "try-error")) {
           ##add mtext
           mtext(side = 3, text = paste("Fit:", fit.method_plot))
 
-          ##plot individual dose reponse curves
-          x <- NA
-          for (i in seq(1, ncol(plot_matrix), length.out = 1000)) {
-            curve(
-              GC_Origin * plot_matrix[4, i] + LinGC * (plot_matrix[3, i] * x) +
-                ExpoGC * (plot_matrix[1, i] * (1 - exp (
-                  -x / plot_matrix[2, i]
-                ))),
-              add = TRUE,
-              col = rgb(0, 0, 0, .1)
-            )
+          ##check whether we have all data we need (might be not the case of the user
+          ##selects own variables)
+          if (ncol(plot_matrix) != 0) {
+            ##plot individual dose reponse curves
+            x <- NA
+            for (i in seq(1, ncol(plot_matrix), length.out = 1000)) {
+              curve(
+                GC_Origin * plot_matrix[4, i] + LinGC * (plot_matrix[3, i] * x) +
+                  ExpoGC * (plot_matrix[1, i] * (1 - exp (
+                    -x / plot_matrix[2, i]
+                  ))),
+                add = TRUE,
+                col = rgb(0, 0, 0, .1)
+              )
+
+            }
+          }else{
+            try(stop("[analyse_baSAR()] Wrong 'variable.names' monitored, dose responses curves could not be plotted!", call. = FALSE))
 
           }
 
@@ -2095,7 +2122,6 @@ analyse_baSAR <- function(
         }
       ##remove object, it might be rather big
       rm(plot_matrix)
-
 
       ##03 Abanico Plot
       plot_check <- plot_AbanicoPlot(
