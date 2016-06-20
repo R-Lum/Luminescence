@@ -89,7 +89,7 @@ within a SAR cycle are removed as well. Therefore it is strongly recommended to 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.2.0 (2016-06-16 20:22:10)
+ 0.2.0 (2016-06-20 19:34:56)
 }
 \examples{
 
