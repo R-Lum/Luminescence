@@ -860,7 +860,6 @@ analyse_baSAR <- function(
          plot <- function_arguments.new$plot
        }
 
-
        ##verbose
        if(!is.null(function_arguments.new$verbose)){
          verbose <- function_arguments.new$verbose
@@ -874,6 +873,9 @@ analyse_baSAR <- function(
 
      ##set input object as new input_object
      input_object <- object$input_object
+
+     ##set removed aliquots
+     removed_aliquots <- object$removed_aliquots
 
      rm(max_cycles)
 
@@ -2169,3 +2171,9 @@ analyse_baSAR <- function(
   ))
 
 }
+
+results <-  analyse_baSAR(
+  object=temp,
+  distribution = "log_normal",
+  n.MCMC = 200
+)
