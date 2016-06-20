@@ -237,6 +237,9 @@ are:
 (cf. \code{\link[rjags]{jags.model}})\cr
 \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
 \code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
+\code{variables.names} \code{\link{character}} \tab set variables to be monitored during the MCMC run, default:
+\code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}. Note: only variable names
+present in the model can be monitored.)
 }
 
 \bold{User defined models}\cr
@@ -292,7 +295,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.12 (2016-06-17 20:09:09)
+ 0.1.14 (2016-06-20 17:41:29)
 }
 \examples{
 
