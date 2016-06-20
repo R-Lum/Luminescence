@@ -268,7 +268,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.12
+#' @section Function version: 0.1.13
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1657,7 +1657,7 @@ analyse_baSAR <- function(
     ##the transposition of the matrix may increase the performance for very large matricies
     OUTPUT_results_reduced <- t(OUTPUT_results)
     selection <- vapply(X = 1:ncol(OUTPUT_results_reduced), FUN = function(x){
-        !any(is.nan(OUTPUT_results_reduced[9:(8+2*max_cycles), x]) | is.infinite(OUTPUT_results_reduced[9:(8+2*max_cycles), x]))
+        !any(is.nan(OUTPUT_results_reduced[9:(8+3*max_cycles), x]) | is.infinite(OUTPUT_results_reduced[9:(8+3*max_cycles), x]))
 
     }, FUN.VALUE = vector(mode = "logical", length = 1))
 
@@ -2172,9 +2172,3 @@ analyse_baSAR <- function(
   ))
 
 }
-
-results <-  analyse_baSAR(
-  object=temp,
-  distribution = "cauchy",
-  n.MCMC = 200
-)
