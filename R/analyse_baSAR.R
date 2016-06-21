@@ -4,10 +4,10 @@
 #' with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
 #' it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
 #' a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
-#' of this approach for the R environement and (II) an extension and a technical refinement of the
-#' published code. \cr
+#' of this approach for the R environment and (II) an extension and a technical refinement of the
+#' published code.\cr
 #'
-#' Internally the function consists of two parts: (I) The Bayesian core for the bayesian calculations
+#' Internally the function consists of two parts: (I) The Bayesian core for the Bayesian calculations
 #' and applying the hierchical model and (II) a data pre-processing part. The Bayesian core can be run
 #' independently, if the input data are sufficient (see below). The data pre-processing part was
 #' implemented to simplify the analysis for the user as all needed data pre-processing is done
@@ -53,7 +53,7 @@
 #'  \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
 #' }
 #'
-#' These proceded data are subsequently used in for the Bayesian analysis
+#' These proceeded data are subsequently used in for the Bayesian analysis
 #'
 #' \code{[XLS_file != NULL]}\cr
 #'
@@ -67,14 +67,14 @@
 #'
 #' Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
 #' for the further analysis. This allows a manual selection of input data, as the automatic selection
-#' by \code{\link{verify_SingleGrainData}} might be not totally suffcient.\cr
+#' by \code{\link{verify_SingleGrainData}} might be not totally sufficient.\cr
 #'
 #'
 #' \bold{(2) - \code{object} \code{RLum.Results object}}
 #'
 #' If an \code{\linkS4class{RLum.Results}} object is provided as input and(!) this object was
 #' previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
-#' is skipped and the function starts directly the Bayesian analysis. This option is very powerfull
+#' is skipped and the function starts directly the Bayesian analysis. This option is very powerful
 #' as it allows to change parameters for the Bayesian analysis without the need to repeat
 #' the data pre-processing.\cr
 #'
@@ -90,7 +90,7 @@
 #' \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 #' (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
-#' \code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
+#' \code{thin} \tab \code{\link{numeric}} \tab thinning interval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{variables.names} \code{\link{character}} \tab set variables to be monitored during the MCMC run, default:
 #' \code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}. Note: only variable names
 #' present in the model can be monitored.)
@@ -98,7 +98,7 @@
 #'
 #' \bold{User defined models}\cr
 #'
-#' The function provides the option to modifiy and to define own models that can be used for
+#' The function provides the option to modify and to define own models that can be used for
 #' the Bayesian calculation. In the case the user wants to modify a model, a new model
 #' can be piped into the funtion via the argument \code{baSAR_model} as \code{character}.
 #' The model has to be provided in the JAGS dialect of the BUGS language (cf. \code{\link[rjags]{jags.model}})
@@ -114,13 +114,13 @@
 #' Q: How can I modify the output plots?\cr
 #' A: You can't, but you can use the function output to create own, modified plots.\cr
 #'
-#' \bold{Additional arguments support via the \code{...} argument}\cr
+#' \bold{Additional arguments support via the \code{...} argument }\cr
 #'
 #' This list summarizes the additional arguments that can be passed to the internally used
-#' funtions.
+#' functions.
 #'
 #' \tabular{llll}{
-#' \bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description}\cr
+#' \bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description }\cr
 #' \code{threshold} \tab \code{\link{verify_SingleGrainData}} \tab \code{30} \tab change rejection threshold for curve selection \cr
 #' \code{sheet} \tab \code{\link[readxl]{read_excel}} \tab \code{1} \tab select XLS-sheet for import\cr
 #' \code{col_names} \tab \code{\link[readxl]{read_excel}} \tab \code{TRUE} \tab first row in XLS-file is header\cr
@@ -131,11 +131,11 @@
 #' \code{pattern} \tab \code{\link{read_BIN2R}} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
 #' \code{position} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit import to a specific position\cr
 #' \code{background.count.distribution} \tab \code{\link{calc_OSLLxTxRatio}} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
-#' \code{fit.weights} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enable/disable fit weights\cr
-#' \code{fit.bounds} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enable/disable fit bounds\cr
+#' \code{fit.weights} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables / disables fit weights\cr
+#' \code{fit.bounds} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables / disables fit bounds\cr
 #' \code{NumberIterations.MC} \tab \code{\link{plot_GrowthCurve}} \tab \code{100} \tab number of MC runs for error calculation\cr
-#' \code{output.plot} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables/disables dose repsonse curve plot\cr
-#' \code{output.plotExtended} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables/disables extended dose repsonse curve plot\cr
+#' \code{output.plot} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables / disables dose response curve plot\cr
+#' \code{output.plotExtended} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables / disables extended dose response curve plot\cr
 #' }
 #'
 #'
@@ -146,7 +146,7 @@
 #' assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 #' provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
 #' providing a file connection. Mixing of both types is not allowed. If an \code{\linkS4class{RLum.Results}}
-#' is provided the function direclty starts with the Bayesian Analysis (see details)
+#' is provided the function directly starts with the Bayesian Analysis (see details)
 #'
 #' @param XLS_file \code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements)
 #' @param aliquot_range \code{\link{numeric}} (optional): allows to limit the range of the aliquots
@@ -786,7 +786,7 @@ analyse_baSAR <- function(
       fit.method != "EXP+LIN" &
       fit.method != "LIN"){
 
-    stop("[analyse_baSAR()] Unsupported fit method. Supported: 'EXP', 'EXP+LIN' and 'LIN'")
+    stop("[analyse_baSAR()] Unsupported fitting method. Supported: 'EXP', 'EXP+LIN' and 'LIN'")
   }
 
   # Set input -----------------------------------------------------------------------------------
@@ -815,7 +815,7 @@ analyse_baSAR <- function(
 
      ##return NULL if not a minium of three aliquots are used for the calculation
      if(Nb_aliquots < 2){
-       warning("[analyse_baSAR()] number of aliquots < 3, this makes no sense, NULL returned!")
+       try(stop("[analyse_baSAR()] number of aliquots < 3, this makes no sense, NULL returned!", call. = FALSE))
        return(NULL)
 
      }
@@ -1164,7 +1164,7 @@ analyse_baSAR <- function(
 
         if(nrow(datalu) == 0){
 
-          warning("[analyse_baSAR()] Sorry, nothing was left after the automatic grain selection! NULL returned!", call. = FALSE)
+          try(stop("[analyse_baSAR()] Sorry, nothing was left after the automatic grain selection! NULL returned!", call. = FALSE))
           return(NULL)
 
         }
@@ -2067,7 +2067,7 @@ analyse_baSAR <- function(
           ##check whether we have all data we need (might be not the case of the user
           ##selects own variables)
           if (ncol(plot_matrix) != 0) {
-            ##plot individual dose reponse curves
+            ##plot individual dose response curves
             x <- NA
             for (i in seq(1, ncol(plot_matrix), length.out = 1000)) {
               curve(
