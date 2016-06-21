@@ -33,10 +33,6 @@ Christoph Schmidt \tab University of Bayreuth, Germany \cr
 Rachel K. Smedley \tab Aberystwyth University, United Kingdom
 }
 
-\bold{Beta-Tester}
-
-Thomas Kolb, University of Bayreuth, Germany\cr
-
 \bold{Supervisor}
 
 Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
