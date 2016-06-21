@@ -54,6 +54,7 @@
 \alias{plot.RLum.Data.Spectrum}
 \alias{plot.RLum.Results}
 \alias{plot.Risoe.BINfileData}
+\alias{plot.list}
 \alias{rep.RLum}
 \alias{row.names.RLum.Data.Spectrum}
 \alias{subset.Risoe.BINfileData}
@@ -64,6 +65,8 @@
 \alias{unlist.RLum.Analysis}
 \title{methods_RLum}
 \usage{
+\method{plot}{list}(x, y, ...)
+
 \method{plot}{RLum.Results}(x, y, ...)
 
 \method{plot}{RLum.Analysis}(x, y, ...)
