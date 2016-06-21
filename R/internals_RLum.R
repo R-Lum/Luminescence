@@ -43,3 +43,69 @@
 
   return(object)
 }
+
+#+++++++++++++++++++++
+#+ .warningCatcher()        +
+#+++++++++++++++++++++
+
+#' Catches warning returned by a function and merges them.
+#' The original return of the function is returned. This function is in particular
+#' helpful if a function returns a lot of warnings with the same content.
+#'
+#' @param expr \code{\link{expression}} (\bold{required}): the R expression, usually a
+#' function
+#'
+#' @return
+#' Returns the same object as the input and a warning table
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
+#' @examples
+#'
+#' f <- function() {
+#'  warning("warning 1")
+#'  warning("warning 1")
+#'  warning("warnigs 2")
+#'  1:10
+#' }
+#' print(.warningCatcher(f()))
+#'
+#' @noRd
+.warningCatcher <- function(expr) {
+  ##set variables
+  warning_collector <- list()
+  env <-  environment()
+
+  ##run function and catch warnings
+  results <- withCallingHandlers(
+    expr = expr,
+    warning = function(c) {
+      assign(x = "warning_collector",
+             value = c,
+             envir = env)
+      invokeRestart("muffleWarning")
+    }
+  )
+
+  ##set new warning messages with merged results
+  if (length(warning_collector) > 0) {
+    w_table <- table(as.character(unlist(warning_collector)))
+    w_table_names <- names(w_table)
+
+    for (w in 1:length(w_table)) {
+      warning(paste(
+        w_table_names[w],
+        "This warning occurred",
+        w_table[w],
+        "times!"
+      ),
+      call. = FALSE)
+
+    }
+
+  }
+  return(results)
+
+}
