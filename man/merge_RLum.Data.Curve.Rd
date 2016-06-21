@@ -69,6 +69,12 @@ The min values from the count values is chosen using the function
 The max values from the count values is chosen using the function
 \code{\link[matrixStats]{rowMins}}.
 
+\code{"append"}\cr
+
+Appends count values of all curves to one combined data curve. The channel width
+is automatically re-calculated, but requires a constant channel width of the 
+original data.
+
 \code{"-"}\cr
 
 The row sums of the last objects are subtracted from the first object.
@@ -94,7 +100,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.0 (2016-05-02 09:36:06)
+ 0.2.0
 }
 \examples{
 
@@ -119,7 +125,7 @@ plot_RLum(TL.curve.merged)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \references{
 -
 }
