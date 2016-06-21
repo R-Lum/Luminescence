@@ -255,8 +255,14 @@ will break.\cr
 \bold{FAQ}\cr
 
 Q: How can I set the seed for the random number generator (RNG)?\cr
-A: Use the argument \code{method_control}, e.g.,
-\code{method_control = list(inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
+A: Use the argument \code{method_control}, e.g., for three MCMC chains (as it is the default):
+\code{method_control = list(
+inits = list(
+ list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
+ list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
+ list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
+))}\cr
+This sets a reproducible set for every chain separately.\cr
 
 Q: How can I modify the output plots?\cr
 A: You can't, but you can use the function output to create own, modified plots.\cr
@@ -296,7 +302,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.16 (2016-06-21 18:02:15)
+ 0.1.16 (2016-06-21 19:42:35)
 }
 \examples{
 

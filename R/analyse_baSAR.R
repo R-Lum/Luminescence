@@ -108,8 +108,14 @@
 #' \bold{FAQ}\cr
 #'
 #' Q: How can I set the seed for the random number generator (RNG)?\cr
-#' A: Use the argument \code{method_control}, e.g.,
-#' \code{method_control = list(inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
+#' A: Use the argument \code{method_control}, e.g., for three MCMC chains (as it is the default):
+#' \code{method_control = list(
+#' inits = list(
+#'  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
+#'  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
+#'  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
+#' ))}\cr
+#' This sets a reproducible set for every chain separately.\cr
 #'
 #' Q: How can I modify the output plots?\cr
 #' A: You can't, but you can use the function output to create own, modified plots.\cr
@@ -2103,6 +2109,15 @@ analyse_baSAR <- function(
           min(input_object[,grep(x = colnames(input_object), pattern = "LxTx")], na.rm = TRUE),
           max(input_object[,grep(x = colnames(input_object), pattern = "LxTx")], na.rm = TRUE)*1.1)
 
+        ##check for position of the legend ... we can do better
+        if(results[[1]][["CENTRAL_Q_.975"]] < max(xlim)/2){
+          legend_pos <- "topright"
+
+        }else{
+          legend_pos <- "topleft"
+
+        }
+
         ##set plot area
         plot_check <- try(plot(
           NA,
@@ -2177,15 +2192,6 @@ analyse_baSAR <- function(
           )
           abline(v = results[[1]][, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
 
-          ##check for position of the legend ... we can do better
-          if(results[[1]][["CENTRAL_Q_.975"]] < max(xlim)/2){
-            legend_pos <- "topright"
-
-          }else{
-            legend_pos <- "topleft"
-
-          }
-
           ##add legend1
           legend(
             legend_pos,
@@ -2230,23 +2236,25 @@ analyse_baSAR <- function(
         output = TRUE
       )
 
-      legend(
-        "topleft",
-        legend = c("Central dose","HPD - 68%", "HPD - 95 %"),
-        lty = c(2, 3,2),
-        col = c("black", col[3], col[2]),
-        bty = "n",
-        cex = par()$cex * 0.8
-      )
+      if (!is.null(plot_check)) {
+        legend(
+          "topleft",
+          legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
+          lty = c(2, 3, 2),
+          col = c("black", col[3], col[2]),
+          bty = "n",
+          cex = par()$cex * 0.8
+        )
+      }
 
       ##In case the Abanico plot will not work because of negative values
       ##provide a KDE
       if(is.null(plot_check)){
-        plot_check <- try(plot_KDE(
+        plot_check <- try(suppressWarnings(plot_KDE(
           data = input_object[, c("DE", "DE.SD")],
           summary = c("n"),
           xlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
-        ))
+        )))
 
         if(!is(plot_check, "try-error")) {
           abline(v = results[[1]]$CENTRAL, lty = 2)
@@ -2258,8 +2266,17 @@ analyse_baSAR <- function(
           )
           abline(v = results[[1]][, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
 
+          ##check for position of the legend
+          if(results[[1]][["CENTRAL_Q_.975"]] < max(xlim)/2){
+            legend_pos <- "right"
+
+          }else{
+            legend_pos <- "topleft"
+
+          }
+
           legend(
-            "topleft",
+            legend_pos,
             legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
             lty = c(2, 3, 2),
             col = c("black", col[3], col[2]),
