@@ -135,7 +135,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.13
+#' @section Function version: 1.8.14
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -371,13 +371,16 @@ plot_GrowthCurve <- function(
   if((fit.method == "EXP" | fit.method == "EXP+LIN" | fit.method == "EXP+EXP" | fit.method == "EXP OR LIN")
      && length(data[,1])<=2){
 
-    warning("[plot_GrowthCurve()] fitting using an exponential term requires at least 3 dose points! NULL returned")
+    ##set to LIN
+    fit.method <- "LIN"
+
+    warning("[plot_GrowthCurve()] fitting using an exponential term requires at least 3 dose points! fit.method set to 'LIN'")
 
     if(verbose){
-      if(verbose) writeLines("[plot_GrowthCurve()] No fitting applied. NULL returned, see warnings()")
+      if(verbose) message("[plot_GrowthCurve()] fit.method set to 'LIN', see warnings()")
 
     }
-    return(NULL)
+
 
   }
 
@@ -1304,7 +1307,7 @@ plot_GrowthCurve <- function(
   ##============================================================================##
 
   ##5. Plotting if plotOutput==TRUE
-  if(output.plot==TRUE) {
+  if(output.plot) {
 
 
     ##cheat the R check
@@ -1596,3 +1599,4 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
+
