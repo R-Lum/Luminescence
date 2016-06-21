@@ -221,7 +221,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.9 (2016-06-20 19:55:30)
+ 0.1.9 (2016-06-21 13:08:01)
 }
 \examples{
 

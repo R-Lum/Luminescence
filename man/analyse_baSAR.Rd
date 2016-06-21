@@ -25,8 +25,9 @@ is provided the function directly starts with the Bayesian Analysis (see details
 \item{XLS_file}{\code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements)}
 
 \item{aliquot_range}{\code{\link{numeric}} (optional): allows to limit the range of the aliquots
-used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used as
-well}
+used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used or
+the input is the previous output (i.e. is \code{\linkS4class{RLum.Results}}). In this case the
+new selection will add the aliquots to the removed aliquots table.}
 
 \item{source_doserate}{\code{\link{numeric}} (optional): source dose rate of beta-source used
 for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}.
@@ -295,7 +296,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.15 (2016-06-21 10:32:26)
+ 0.1.16 (2016-06-21 18:02:15)
 }
 \examples{
 

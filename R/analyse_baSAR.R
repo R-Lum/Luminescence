@@ -149,9 +149,11 @@
 #' is provided the function directly starts with the Bayesian Analysis (see details)
 #'
 #' @param XLS_file \code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements)
+#'
 #' @param aliquot_range \code{\link{numeric}} (optional): allows to limit the range of the aliquots
-#' used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used as
-#' well
+#' used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used or
+#' the input is the previous output (i.e. is \code{\linkS4class{RLum.Results}}). In this case the
+#' new selection will add the aliquots to the removed aliquots table.
 #'
 #' @param source_doserate \code{\link{numeric}} (optional): source dose rate of beta-source used
 #' for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}.
@@ -271,7 +273,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.15
+#' @section Function version: 0.1.16
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -856,6 +858,11 @@ analyse_baSAR <- function(
 
        }
 
+       ##aliquot_range
+       if(!is.null(function_arguments.new$aliquot_range)){
+         aliquot_range <- eval(function_arguments.new$aliquot_range)
+       }
+
        ##method_control
        if(!is.null(function_arguments.new$method_control)){
          method_control <- eval(function_arguments.new$method_control)
@@ -877,16 +884,48 @@ analyse_baSAR <- function(
        }
 
 
+     ##limit according to aliquot_range
+     ##TODO Take car of the case that this was provided, otherwise more and more is removed!
+     if (!is.null(aliquot_range)) {
+       if (max(aliquot_range) <= nrow(object$input_object)) {
+         input_object <- object$input_object[aliquot_range, ]
+
+         ##update list of removed aliquots
+         removed_aliquots <-rbind(object$removed_aliquots, object$input_object[-aliquot_range,])
+
+         ##correct Nb_aliquots
+         Nb_aliquots <- nrow(input_object)
+
+       } else{
+         try(stop("[analyse_basAR()] aliquot_range out of bounds! Input ignored!",
+                  call. = FALSE))
+
+         ##reset aliquot range
+         aliquot_range <- NULL
+
+         ##take entire object
+         input_object <- object$input_object
+
+         ##set removed aliquots
+         removed_aliquots <- object$removed_aliquots
+
+       }
+
+
+     } else{
+       ##set the normal case
+       input_object <- object$input_object
+
+       ##set removed aliquots
+       removed_aliquots <- object$removed_aliquots
+
+
+     }
+
      ##set non function arguments
-     Doses <- t(object$input_object[,9:(8 + max_cycles)])
-     LxTx <- t(object$input_object[,(9 + max_cycles):(8 + 2 * max_cycles)])
-     LxTx.error <-  t(object$input_object[,(9 + 2 * max_cycles):(8 + 3 * max_cycles)])
-
-     ##set input object as new input_object
-     input_object <- object$input_object
-
-     ##set removed aliquots
-     removed_aliquots <- object$removed_aliquots
+     Doses <- t(input_object[,9:(8 + max_cycles)])
+     LxTx <- t(input_object[,(9 + max_cycles):(8 + 2 * max_cycles)])
+     LxTx.error <-  t(input_object[,(9 + 2 * max_cycles):(8 + 3 * max_cycles)])
 
      rm(max_cycles)
 
@@ -1827,7 +1866,23 @@ analyse_baSAR <- function(
     cat("\n[analyse_baSAR()] ---- RESULTS ---- \n")
     cat("------------------------------------------------------------------\n")
     cat(paste0("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]],"\n"))
-    cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"\n"))
+    if(!is.null(removed_aliquots)){
+      if(!is.null(aliquot_range)){
+        cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"/",
+                   results[[1]][["NB_ALIQUOTS"]] + nrow(removed_aliquots),
+                   " (manually removed: " ,length(aliquot_range),")\n"))
+
+      }else{
+        cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"/",
+                   results[[1]][["NB_ALIQUOTS"]] + nrow(removed_aliquots),"\n"))
+
+      }
+
+    }else{
+      cat(paste0("Number of aliquots used:\t", results[[1]][["NB_ALIQUOTS"]],"/", results[[1]][["NB_ALIQUOTS"]],"\n"))
+
+    }
+
     if(!is.null(baSAR_model)){
       cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]]," (user defined)\n"))
     }else{
@@ -2122,9 +2177,18 @@ analyse_baSAR <- function(
           )
           abline(v = results[[1]][, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
 
+          ##check for position of the legend ... we can do better
+          if(results[[1]][["CENTRAL_Q_.975"]] < max(ylim)/2){
+            legend_pos <- "topright"
+
+          }else{
+            legend_pos <- "topleft"
+
+          }
+
           ##add legend1
           legend(
-            "topleft",
+            legend_pos,
             bty = "n",
             horiz = FALSE,
             lty = c(3, 2),
