@@ -78,10 +78,14 @@ NULL
 #' @method plot list
 #' @export
 plot.list <- function(x, y, ...) {
-  if (all(sapply(x, function(x) inherits(x, "RLum"))))
+  if (all(sapply(x, function(x) inherits(x, "RLum")))) {
     plot_RLum(object = x, ...)
-  else
+  }
+  else {
+    if (missing(y))
+      y <- NULL
     plot.default(x, y, ...)
+  }
 }
 
 
