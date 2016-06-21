@@ -75,6 +75,17 @@ NULL
 # methods for generic: plot()
 # ##################################################################################################
 #' @rdname methods_RLum
+#' @method plot list
+#' @export
+plot.list <- function(x, y, ...) {
+  if (all(sapply(x, function(x) inherits(x, "RLum"))))
+    plot_RLum(object = x, ...)
+  else
+    plot.default(x, y, ...)
+}
+
+
+#' @rdname methods_RLum
 #' @method plot RLum.Results
 #' @export
 plot.RLum.Results <- function(x, y, ...) plot_RLum(object = x, ...)
