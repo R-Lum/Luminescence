@@ -2178,7 +2178,7 @@ analyse_baSAR <- function(
           abline(v = results[[1]][, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
 
           ##check for position of the legend ... we can do better
-          if(results[[1]][["CENTRAL_Q_.975"]] < max(ylim)/2){
+          if(results[[1]][["CENTRAL_Q_.975"]] < max(xlim)/2){
             legend_pos <- "topright"
 
           }else{
