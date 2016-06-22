@@ -16,7 +16,7 @@ plotting of equivalent dose distributions.
 \tab 0.7.0 \cr Date: \tab 2016-XX-XX \cr License: \tab GPL-3\cr }
 }
 \author{
-\bold{Authors} (alphabetic order)
+\bold{Full list of authors and contributors} (alphabetic order)
 
 \tabular{ll}{
 Christoph Burow \tab University of Cologne, Germany \cr
@@ -33,7 +33,7 @@ Christoph Schmidt \tab University of Bayreuth, Germany \cr
 Rachel K. Smedley \tab Aberystwyth University, United Kingdom
 }
 
-\bold{Supervisor}
+\bold{Supervisor of initial version in 2012}
 
 Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
 
@@ -46,7 +46,8 @@ visit our project website (link below).
 
 \bold{Bug reporting}
 
-\email{bugtracker@r-luminescence.de} \cr
+\email{bugtracker@r-luminescence.de} or \cr
+\url{https://github.com/R-Lum/Luminescence/issues} \cr
 
 \bold{Project website}
 
@@ -70,7 +71,7 @@ France, \cr \email{sebastian.kreutzer@u-bordeaux-montaigne.fr}
 
 Cooperation and personal exchange between the developers is gratefully
 funded by the DFG (SCHM 3051/3-1) in the framework of the program
-"Scientific Networks". Project title: "Lum.Network: Ein
+"Scientific Networks". Project title: "RLum.Network: Ein
 Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2017)
 }
 \references{

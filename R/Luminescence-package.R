@@ -11,7 +11,7 @@
 #' @name Luminescence-package
 #' @aliases Luminescence-package Luminescence
 #' @docType package
-#' @author \bold{Authors} (alphabetic order)
+#' @author \bold{Full list of authors and contributors} (alphabetic order)
 #'
 #' \tabular{ll}{
 #' Christoph Burow \tab University of Cologne, Germany \cr
@@ -28,7 +28,7 @@
 #' Rachel K. Smedley \tab Aberystwyth University, United Kingdom
 #' }
 #'
-#' \bold{Supervisor}
+#' \bold{Supervisor of initial version in 2012}
 #'
 #' Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
 #'
@@ -41,7 +41,8 @@
 #'
 #' \bold{Bug reporting}
 #'
-#' \email{bugtracker@@r-luminescence.de} \cr
+#' \email{bugtracker@@r-luminescence.de} or \cr
+#' \url{https://github.com/R-Lum/Luminescence/issues} \cr
 #'
 #' \bold{Project website}
 #'
@@ -65,7 +66,7 @@
 #'
 #' Cooperation and personal exchange between the developers is gratefully
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
-#' "Scientific Networks". Project title: "Lum.Network: Ein
+#' "Scientific Networks". Project title: "RLum.Network: Ein
 #' Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2017)
 #'
 #' @references Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
