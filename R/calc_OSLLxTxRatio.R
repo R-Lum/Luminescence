@@ -114,7 +114,7 @@
 #' own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 #'
 #'
-#' @section Function version: 0.6.3
+#' @section Function version: 0.6.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -149,7 +149,7 @@
 #' @export
 calc_OSLLxTxRatio <- function(
   Lx.data,
-  Tx.data,
+  Tx.data = NULL,
   signal.integral,
   signal.integral.Tx = NULL,
   background.integral,
@@ -164,7 +164,7 @@ calc_OSLLxTxRatio <- function(
   ##(1) - integrity checks
 
 
-  if(missing(Tx.data) == FALSE){
+  if(!is.null(Tx.data)){
 
     ##(a) - check data type
     if(is(Lx.data)[1]!=is(Tx.data)[1]){

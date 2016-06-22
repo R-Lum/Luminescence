@@ -94,6 +94,7 @@ Collate:
     'get_Risoe.BINfileData.R'
     'RisoeBINfileData-class.R'
     'Second2Gray.R'
+    'analyse_FadingMeasurement.R'
     'analyse_IRSAR.RF.R'
     'analyse_SAR.CWOSL.R'
     'analyse_SAR.TL.R'
