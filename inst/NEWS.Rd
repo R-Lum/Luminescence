@@ -57,7 +57,10 @@
 
        \item \code{plot_GrowthCurve()}
         \itemize{
-          \item Move \code{call} output in the \code{RLum.Results} output element \code{list}.
+          \item Move \code{call} output in the \code{RLum.Results} output element \code{list},
+          \item if less than 3 regeneration points are provided the function will not stop and
+          return \code{NULL}, but set \code{fit.method = "LIN"}, return a message and continue.
+          With this the user gets at least a plot.
 
       }
 

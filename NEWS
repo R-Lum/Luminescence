@@ -63,7 +63,12 @@ Changes in version 0.6.1 ( ,2016):
          • ‘plot_GrowthCurve()’
 
              • Move ‘call’ output in the ‘RLum.Results’ output element
-               ‘list’.
+               ‘list’,
+
+             • if less than 3 regeneration points are provided the
+               function will not stop and return ‘NULL’, but set
+               ‘fit.method = "LIN"’, return a message and continue.
+               With this the user gets at least a plot.
 
          • ‘read_BIN2R()’
 
