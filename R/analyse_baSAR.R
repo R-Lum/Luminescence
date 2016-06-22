@@ -281,7 +281,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.16
+#' @section Function version: 0.1.17
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1500,6 +1500,102 @@ analyse_baSAR <- function(
 
     if (Mono_grain == TRUE) (max.grains <- 100) else (max.grains <- 1)
 
+
+    ##plot Ln and Tn curves if wanted
+    ##we want to plot the Ln and Tn curves to get a better feeling
+    ##The approach here is rather rough coded, but it works
+    if (plot) {
+      curve_index <- vapply((1:length(Disc[[k]])), function(i) {
+        disc_selected <-  as.integer(Disc[[k]][i])
+        if (Mono_grain == TRUE) {
+          grain_selected <- as.integer(Grain[[k]][i])
+        } else {
+          grain_selected <- 1
+        }
+
+        Ln_index <-
+          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][1])
+        Tn_index <-
+          as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][2])
+
+        return(c(Ln_index, Tn_index))
+      }, FUN.VALUE = vector(mode = "numeric", length = 2))
+
+
+      ##set matrix for Ln values
+      Ln_matrix <- cbind(1:length(fileBIN.list[[k]]@DATA[[curve_index[1, 1]]]),
+                         matrix(unlist(fileBIN.list[[k]]@DATA[curve_index[1, ]]), ncol = ncol(curve_index)))
+
+      Tn_matrix <- cbind(1:length(fileBIN.list[[k]]@DATA[[curve_index[2, 1]]]),
+                         matrix(unlist(fileBIN.list[[k]]@DATA[curve_index[2, ]]), ncol = ncol(curve_index)))
+
+      ##open plot are
+      if(!plot.single){
+        par.default <- par()$mfrow
+        par(mfrow = c(1, 2))
+
+      }
+
+      ##get natural curve and combine them in matrix
+      graphics::matplot(
+        x = Ln_matrix[, 1],
+        y = Ln_matrix[, -1],
+        col = rgb(0, 0, 0, 0.3),
+        ylab = "Luminescence [a.u.]",
+        xlab = "Channel",
+        main = expression(paste(L[n], " - curves")),
+        type = "l"
+
+      )
+
+      ##add integration limits
+      abline(v = range(signal.integral[[k]]), lty = 2, col = "green")
+      abline(v = range(background.integral[[k]]), lty = 2, col = "red")
+      mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
+
+      graphics::matplot(
+        x = Tn_matrix[, 1],
+        y = Tn_matrix[, -1],
+        col = rgb(0, 0, 0, 0.3),
+        ylab = "Luminescence [a.u.]",
+        xlab = "Channel",
+        main = expression(paste(T[n], " - curves")),
+        type = "l"
+
+      )
+
+      ##add integration limits depending on the choosen value
+      if(is.null(signal.integral.Tx[[k]])){
+        abline(v = range(signal.integral[[k]]), lty = 2, col = "green")
+
+      }else{
+        abline(v = range(signal.integral.Tx[[k]]), lty = 2, col = "green")
+
+      }
+
+      if(is.null(background.integral.Tx[[k]])){
+        abline(v = range(background.integral[[k]]), lty = 2, col = "green")
+
+      }else{
+        abline(v = range(background.integral.Tx[[k]]), lty = 2, col = "red")
+
+      }
+
+      mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
+
+
+      ##reset par
+      if(!plot.single){
+        par(mfrow = par.default)
+
+      }
+
+      ##remove some variables
+      rm(curve_index, Ln_matrix, Tn_matrix)
+
+    }
+
+
     for (i in 1:length(Disc[[k]])) {
 
       disc_selected <-  as.integer(Disc[[k]][i])
@@ -1516,8 +1612,6 @@ analyse_baSAR <- function(
         index2 <- as.numeric(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][2*nb_index])
         Lx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index1]])), fileBIN.list[[k]]@DATA[[index1]])
         Tx.data <- data.frame(seq(1:length( fileBIN.list[[k]]@DATA[[index2]])), fileBIN.list[[k]]@DATA[[index2]])
-
-
 
         ## call calc_OSLLxTxRatio()
         ## we run this function with a warnings catcher to reduce the load of warnings for the user
