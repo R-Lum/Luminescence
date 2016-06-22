@@ -28,7 +28,7 @@
 #' Rachel K. Smedley \tab Aberystwyth University, United Kingdom
 #' }
 #'
-#' \bold{Supervisor of initial version in 2012}
+#' \bold{Supervisor of the initial version in 2012}
 #'
 #' Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
 #'

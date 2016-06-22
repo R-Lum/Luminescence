@@ -130,15 +130,16 @@ The original function call\cr
 ------------------------\cr
 
 \itemize{
- \item (A) Trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
+ \item (A) Ln/Tn curves with set integration limits,
+ \item (B) trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
  and the resulting kernel density plots. If \code{plot_reduced = FALSE} for every(!) dose a trace and
- a density plot is returned (this may take a long time)
- \item (B) Dose plots showing the dose for every aliquot as boxplots and the marked
- HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked.
- \item (C) The dose response curve resulting from the monitoring of the Bayesian modelling are
+ a density plot is returned (this may take a long time),
+ \item (C) dose plots showing the dose for every aliquot as boxplots and the marked
+ HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked,
+ \item (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
  provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
- is limited to 1000 (random choice) for performance reasons.
- \item (D) The final plot is the De distribution as calculated using the conventional approach
+ is limited to 1000 (random choice) for performance reasons,
+ \item (E) the final plot is the De distribution as calculated using the conventional approach
  and the central dose with the HPDs marked within.
 
 }
@@ -239,9 +240,9 @@ are:
 (cf. \code{\link[rjags]{jags.model}})\cr
 \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
 \code{thin} \tab \code{\link{numeric}} \tab thinning interval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
-\code{variables.names} \code{\link{character}} \tab set variables to be monitored during the MCMC run, default:
-\code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}. Note: only variable names
-present in the model can be monitored.)
+\code{variables.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
+\code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}.
+Note: only variables present in the model can be monitored.
 }
 
 \bold{User defined models}\cr
@@ -304,7 +305,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.17 (2016-06-22 12:18:40)
+ 0.1.17 (2016-06-22 16:20:46)
 }
 \examples{
 

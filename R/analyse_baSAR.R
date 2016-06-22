@@ -92,9 +92,9 @@
 #' (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
 #' \code{thin} \tab \code{\link{numeric}} \tab thinning interval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
-#' \code{variables.names} \code{\link{character}} \tab set variables to be monitored during the MCMC run, default:
-#' \code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}. Note: only variable names
-#' present in the model can be monitored.)
+#' \code{variables.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
+#' \code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}.
+#' Note: only variables present in the model can be monitored.
 #' }
 #'
 #' \bold{User defined models}\cr
@@ -264,15 +264,16 @@
 #' ------------------------\cr
 #'
 #' \itemize{
-#'  \item (A) Trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
+#'  \item (A) Ln/Tn curves with set integration limits,
+#'  \item (B) trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
 #'  and the resulting kernel density plots. If \code{plot_reduced = FALSE} for every(!) dose a trace and
-#'  a density plot is returned (this may take a long time)
-#'  \item (B) Dose plots showing the dose for every aliquot as boxplots and the marked
-#'  HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked.
-#'  \item (C) The dose response curve resulting from the monitoring of the Bayesian modelling are
+#'  a density plot is returned (this may take a long time),
+#'  \item (C) dose plots showing the dose for every aliquot as boxplots and the marked
+#'  HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked,
+#'  \item (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
 #'  provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
-#'  is limited to 1000 (random choice) for performance reasons.
-#'  \item (D) The final plot is the De distribution as calculated using the conventional approach
+#'  is limited to 1000 (random choice) for performance reasons,
+#'  \item (E) the final plot is the De distribution as calculated using the conventional approach
 #'  and the central dose with the HPDs marked within.
 #'
 #' }
@@ -1197,14 +1198,16 @@ analyse_baSAR <- function(
 
 
         ##remove grain position 0 (this are usually TL measurements on the cup or we are talking about multipe aliquot)
-        warning(
-          paste(
-            "[analyse_baSAR()] Automatic grain selection:",
-            sum(aliquot_selection$unique_pairs[["GRAIN"]] == 0, na.rm = TRUE),
-            "curve(s) with grain index 0 had been removed from the dataset."
-          ),
-          call. = FALSE
-        )
+        if (sum(aliquot_selection$unique_pairs[["GRAIN"]] == 0, na.rm = TRUE) > 0) {
+          warning(
+            paste(
+              "[analyse_baSAR()] Automatic grain selection:",
+              sum(aliquot_selection$unique_pairs[["GRAIN"]] == 0, na.rm = TRUE),
+              "curve(s) with grain index 0 had been removed from the dataset."
+            ),
+            call. = FALSE
+          )
+        }
 
         datalu <-
           aliquot_selection$unique_pairs[!aliquot_selection$unique_pairs[["GRAIN"]] == 0,]
@@ -1849,7 +1852,9 @@ analyse_baSAR <- function(
   ##correct number of aliquots if necessary
   if(Nb_aliquots > nrow(OUTPUT_results_reduced)) {
     Nb_aliquots <- nrow(OUTPUT_results_reduced)
-    warning(paste("[analyse_baSAR()] 'Nb_aliquots' corrected due to NaN or Inf values in Lx and/or Tx to", Nb_aliquots), call. = FALSE)
+    warning(
+      paste0(
+        "[analyse_baSAR()] 'Nb_aliquots' corrected due to NaN or Inf values in Lx and/or Tx to ", Nb_aliquots, ". You might want to check 'removed_aliquots' in the function output."), call. = FALSE)
 
   }
 
@@ -2323,13 +2328,19 @@ analyse_baSAR <- function(
           TRUE
         },
         z.0 = results[[1]]$CENTRAL,
+        y.axis = FALSE,
         polygon.col = FALSE,
-        summary = c("n"),
         line = results[[1]][,c(
           "CENTRAL_Q_.16", "CENTRAL_Q_.84", "CENTRAL_Q_.025", "CENTRAL_Q_.975")],
         line.col = c(col[3], col[3], col[2], col[2]),
         line.lty = c(3,3,2,2),
-        output = TRUE
+        output = TRUE,
+        mtext = paste0(
+          nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
+          "/",
+          nrow(input_object),
+          " plotted (removed are NA values)"
+        )
       )
 
       if (!is.null(plot_check)) {
@@ -2341,6 +2352,7 @@ analyse_baSAR <- function(
           bty = "n",
           cex = par()$cex * 0.8
         )
+
       }
 
       ##In case the Abanico plot will not work because of negative values
@@ -2348,8 +2360,13 @@ analyse_baSAR <- function(
       if(is.null(plot_check)){
         plot_check <- try(suppressWarnings(plot_KDE(
           data = input_object[, c("DE", "DE.SD")],
-          summary = c("n"),
           xlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
+          mtext =   paste0(
+            nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
+            "/",
+            nrow(input_object),
+            " (removed are NA values)"
+          )
         )))
 
         if(!is(plot_check, "try-error")) {
@@ -2380,6 +2397,7 @@ analyse_baSAR <- function(
             cex = par()$cex * 0.8
 
           )
+
         }
 
       }
