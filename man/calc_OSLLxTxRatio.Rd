@@ -4,7 +4,7 @@
 \alias{calc_OSLLxTxRatio}
 \title{Calculate Lx/Tx ratio for CW-OSL curves}
 \usage{
-calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral,
+calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson", sigmab = NULL, sig0 = 0,
@@ -128,7 +128,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.3 (2016-06-22 12:18:40)
+ 0.6.4 (2016-06-22 17:21:58)
 }
 \examples{
 
