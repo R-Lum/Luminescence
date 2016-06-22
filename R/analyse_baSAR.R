@@ -15,7 +15,7 @@
 #' data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
 #' LxTx, the LxTx error and the dose values for all regeneration points.
 #'
-#' \bold{How the systematic error contribution}\cr
+#' \bold{How the systematic error contribution is calculated?}\cr
 #'
 #' Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
 #' and added to final central dose by:
@@ -24,8 +24,8 @@
 #'
 #' \deqn{SE(central.dose.final) = \sqrt{SE(central.dose)^2 + systematic.error^2}}
 #'
-#' Please note that this approach is rather rough and can be only valid if the source dose rate
-#' errors, in the case different readers had been used, are similar. In the case that more than
+#' Please note that this approach is rather rough and can only be valid if the source dose rate
+#' errors, in case different readers had been used, are similar. In cases where more than
 #' one source dose rate is provided a warning is given.\cr
 #'
 #' \bold{Input / output scenarios}\cr
@@ -76,11 +76,12 @@
 #' previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
 #' is skipped and the function starts directly the Bayesian analysis. This option is very powerful
 #' as it allows to change parameters for the Bayesian analysis without the need to repeat
-#' the data pre-processing.\cr
+#' the data pre-processing. If furthermore the argument \code{aliquot_range} is set, aliquots
+#' can be manually excluded based on previous runs. \cr
 #'
 #' \bold{\code{method_control}}\cr
 #'
-#' This are arguments that can be passed directly to the Bayesian calculation core, supported arguments
+#' These are arguments that can be passed directly to the Bayesian calculation core, supported arguments
 #' are:
 #'
 #' \tabular{lll}{
@@ -108,7 +109,8 @@
 #' \bold{FAQ}\cr
 #'
 #' Q: How can I set the seed for the random number generator (RNG)?\cr
-#' A: Use the argument \code{method_control}, e.g., for three MCMC chains (as it is the default):
+#' A: Use the argument \code{method_control}, e.g., for three MCMC chains
+#' (as it is the default):\cr
 #' \code{method_control = list(
 #' inits = list(
 #'  list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
