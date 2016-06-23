@@ -339,7 +339,10 @@
 #'  background.integral = c(80:100),
 #'  fit.method = "LIN",
 #'  plot = FALSE,
-#'  n.MCMC = 200
+#'  n.MCMC = 200,
+#'  method control = list (
+#'  lower De = 1, upper De = 3000)
+#'
 #')
 #'
 #'print(results)

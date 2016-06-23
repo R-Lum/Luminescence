@@ -305,7 +305,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.17 (2016-06-23 13:01:07)
+ 0.1.17 (2016-06-23 15:43:12)
 }
 \examples{
 
@@ -327,7 +327,10 @@ results <- analyse_baSAR(
  background.integral = c(80:100),
  fit.method = "LIN",
  plot = FALSE,
- n.MCMC = 200
+ n.MCMC = 200,
+ method control = list (
+ lower De = 1, upper De = 3000)
+
 )
 
 print(results)

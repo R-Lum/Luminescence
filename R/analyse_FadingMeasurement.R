@@ -48,7 +48,7 @@
 #'
 #' ##nothing so far
 #'
-#' @return
+#' @export
 analyse_FadingMeasurement <- function(
   object,
   structure = c("Lx", "Tx"),
