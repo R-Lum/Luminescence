@@ -305,7 +305,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.17 (2016-06-22 16:20:46)
+ 0.1.17 (2016-06-23 13:01:07)
 }
 \examples{
 
@@ -315,7 +315,7 @@ data(ExampleData.BINfileData, envir = environment())
 ##(2) selecting relevant curves, and limit dataset
 CWOSL.SAR.Data <- subset(
  CWOSL.SAR.Data,
- subset = POSITION == c(1:3) & LTYPE == "OSL")
+ subset = POSITION\%in\%c(1:3) & LTYPE == "OSL")
 
 \dontrun{
 ##(3) run analysis

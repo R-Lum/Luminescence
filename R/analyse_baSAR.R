@@ -327,7 +327,7 @@
 #'##(2) selecting relevant curves, and limit dataset
 #'CWOSL.SAR.Data <- subset(
 #'  CWOSL.SAR.Data,
-#'  subset = POSITION == c(1:3) & LTYPE == "OSL")
+#'  subset = POSITION%in%c(1:3) & LTYPE == "OSL")
 #'
 #'\dontrun{
 #'##(3) run analysis
