@@ -70,7 +70,7 @@ analyse_FadingMeasurement <- function(
 
     }
 
-  } else if (class(object) == "RLum.Analyis") {
+  } else if (class(object) == "RLum.Analysis") {
     object <- list(object)
 
   } else{
@@ -125,6 +125,9 @@ analyse_FadingMeasurement <- function(
   }
 
   # Calculation ---------------------------------------------------------------------------------
+
+  ##create unique identifier
+  uid <- .create_UID()
 
   ##calculate Lx/Tx or ... just Lx, it depends on the patttern
   if(length(structure) == 2){
@@ -191,7 +194,6 @@ analyse_FadingMeasurement <- function(
   ##normalise time since irradtion
   TIMESINCEIRR_NORM <- TIMESINCEIRR/tc
 
-
   ##add dose and time since irradiation
   LxTx_table <-
     cbind(
@@ -200,7 +202,8 @@ analyse_FadingMeasurement <- function(
       TIMESINCEIRR_NORM = TIMESINCEIRR_NORM,
       TIMESINCEIRR_NORM.LOG = log10(TIMESINCEIRR_NORM),
       LxTx_NORM = LxTx_NORM,
-      LxTx_NORM.ERROR = LxTx_NORM.ERROR
+      LxTx_NORM.ERROR = LxTx_NORM.ERROR,
+      UID = uid
     )
 
 
@@ -238,6 +241,13 @@ analyse_FadingMeasurement <- function(
   fit <-
      lm(y ~ x, data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                                  y = LxTx_table[["LxTx_NORM"]]))
+
+
+
+  fit_power <- lm(y ~ I(x^3) + I(x^2) + I(x) ,
+                  data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+                                    y = LxTx_table[["LxTx_NORM"]]))
+
 
   ##for predicting
   fit_predict <-
@@ -320,9 +330,23 @@ analyse_FadingMeasurement <- function(
         legend.col = c(col[1:length(irradiation_times.unique)], rgb(0,0,0,0.3)),
         xlab = plot_settings$xlab,
         log = plot_settings$log,
+        legend.pos = "outside",
         main = expression(paste(L[x], " - curves")),
         mtext = plot_settings$mtext
       )
+
+      ##add integration limits
+      abline(
+        v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+        lty = 2,
+        col = "green"
+      )
+      abline(
+        v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+        lty = 2,
+        col = "red"
+      )
+
 
       plot_RLum(
         set_RLum(class = "RLum.Analysis", records = object_clean[seq(2, length(object_clean), by = 2)]),
@@ -333,9 +357,39 @@ analyse_FadingMeasurement <- function(
         legend.col = c(col[1:length(irradiation_times.unique)], rgb(0,0,0,0.3)),
         xlab = plot_settings$xlab,
         log = plot_settings$log,
+        legend.pos = "outside",
         main = expression(paste(T[x], " - curves")),
         mtext = plot_settings$mtext
       )
+
+      if(is.null(list(...)$signal.integral.Tx)){
+        ##add integration limits
+        abline(
+          v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+          lty = 2,
+          col = "green"
+        )
+        abline(
+          v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+          lty = 2,
+          col = "red"
+        )
+
+      }else{
+        ##add integration limits
+        abline(
+          v = range(list(...)$signal.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+          lty = 2,
+          col = "green"
+        )
+        abline(
+          v = range(list(...)$background.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+          lty = 2,
+          col = "red"
+        )
+
+      }
+
 
 
 
@@ -347,12 +401,24 @@ analyse_FadingMeasurement <- function(
         plot.single = TRUE,
         legend.text = c(paste(irradiation_times.unique, "s"), "others"),
         legend.col = c(col[1:length(irradiation_times.unique)], rgb(0,0,0,0.3)),
+        legend.pos = "outside",
         xlab = plot_settings$xlab,
         log = plot_settings$log,
         main = expression(paste(L[x], " - curves")),
         mtext = plot_settings$mtext
       )
 
+      ##add integration limits
+      abline(
+        v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+        lty = 2,
+        col = "green"
+      )
+      abline(
+        v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+        lty = 2,
+        col = "red"
+      )
 
       ##empty Tx plot
       plot(NA,NA, xlim = c(0,1), ylim = c(0,1), xlab = "",
@@ -372,7 +438,11 @@ analyse_FadingMeasurement <- function(
       xaxt = "n",
       xlab = "Time since irradition [s]",
       sub = expression(paste("[", log[10](t / t[c]), "]")),
-      ylim = c(0.1, 1.1),
+      ylim = if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
+        c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
+      } else{
+        c(0.1, 1.1)
+      },
       xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]]),
       main = "Signal Fading"
     )
@@ -404,6 +474,13 @@ analyse_FadingMeasurement <- function(
     ##add master curve in red
     curve(fit$coefficient[2] * x + fit$coefficient[1], col = "red", add = TRUE, lwd = 1.5)
 
+    ##add power law curve
+    curve(
+      x ^ 3 * fit_power$coefficient[2] + x ^ 2 * fit_power$coefficient[3] + x * fit_power$coefficient[4] + fit_power$coefficient[1],
+      add = TRUE,
+      col = "blue",
+      lty = 2
+    )
 
     ##addpoints
     points(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
@@ -419,6 +496,16 @@ analyse_FadingMeasurement <- function(
       y1 = LxTx_table[["LxTx_NORM"]] - LxTx_table[["LxTx_NORM.ERROR"]],
       col = "grey"
 
+    )
+
+    ##add legend
+    legend(
+      "bottom",
+      legend = c("fit", "fit MC", "trend"),
+      col = c("red", "grey", "blue"),
+      lty = c(1, 1, 2),
+      bty = "n",
+      horiz = TRUE
     )
 
     plot(density(g_value.MC),
@@ -460,9 +547,7 @@ analyse_FadingMeasurement <- function(
   return(
     set_RLum(class = "RLum.Results",
              data = list(
-               g_value = g_value,
-               T_0.5 =   T_0.5,
-               tc = tc,
+               fading_results = cbind(g_value, tc = tc, T_0.5, UID = uid),
                fit = fit,
                LxTx_table = LxTx_table,
                irr.times = irradiation_times
