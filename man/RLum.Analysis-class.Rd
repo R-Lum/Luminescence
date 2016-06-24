@@ -151,7 +151,7 @@ containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 
 \section{Class version}{
- 0.4.6
+ 0.4.7
 }
 \examples{
 

@@ -29,7 +29,19 @@
     }
   }
 
+    \subsection{Changes in S4-classes and methods}{
+      \itemize{
+      \item Method \code{get_RLum} for \code{RLum.Analysis}-objects did not respect \code{.pid}, fixed.
+
+
+      }
+
+
+
+    }
+
   \subsection{Bugfixes and changes}{
+
    \itemize{
       \item dummy
 

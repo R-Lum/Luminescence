@@ -22,6 +22,11 @@ Changes in version 0.7.0 ( ,2016):
          • ‘read_PSL2R()’: Imports PSL files produced by a SUERC
            portable OSL reader into R (BETA).
 
+  Changes in S4-classes and methods:
+
+         • Method ‘get_RLum’ for ‘RLum.Analysis’-objects did not
+           respect ‘.pid’, fixed.
+
   Bugfixes and changes:
 
          • dummy

@@ -22,7 +22,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.4.6
+#' @section Class version: 0.4.7
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -474,7 +474,8 @@ setMethod("get_RLum",
                       class = "RLum.Analysis",
                       originator = originator,
                       records = temp,
-                      protocol = object@protocol
+                      protocol = object@protocol,
+                      .pid = object@.pid
                     )
                     return(temp)
 
@@ -499,7 +500,8 @@ setMethod("get_RLum",
                       class = "RLum.Analysis",
                       originator = originator,
                       records = list(object@records[[record.id]]),
-                      protocol = object@protocol
+                      protocol = object@protocol,
+                      .pid = object@.pid
                     )
                     return(temp)
 
