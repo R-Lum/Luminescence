@@ -282,7 +282,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.17
+#' @section Function version: 0.1.18
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -410,19 +410,10 @@ analyse_baSAR <- function(
              verbose)
     {
 
-      ##we have to do that this way, as otherwise the Rjags function chrashes
-      lower_De <-
-        if (is.null(method_control[["lower_De"]])) {
-          0.01
-        } else{
-          method_control[["lower_De"]]
-        }
-      upper_De <-
-        if (is.null(method_control[["upper_De"]])) {
-          1000
-        } else{
-          method_control[["upper_De"]]
-        }
+      ##lower and uppder De, grep from method_control ... for sure we find it here,
+      ##as it was set before the function call
+      lower_De <- method_control[["lower_De"]]
+      upper_De <- method_control[["upper_De"]]
 
       ##number of MCMC
       n.chains <-  if (is.null(method_control[["n.chains"]])) {
@@ -710,6 +701,7 @@ analyse_baSAR <- function(
       baSAR.output <- data.frame(
         DISTRIBUTION = distribution,
         NB_ALIQUOTS = Nb_aliquots,
+        N.CHAINS = n.chains,
         N.MCMC = n.MCMC,
         FIT_METHOD = fit.method,
         CENTRAL = if(is.null(gm)){output.mean[1,1]}else{gm},
@@ -1887,7 +1879,23 @@ analyse_baSAR <- function(
 
 }
 
-  ##CALL internal baSAR function
+  # Call baSAR-function -------------------------------------------------------------------------
+
+  ##we have to reset the De-bounds in the method control ... if nothing is provided by the user,
+  ##as a fixed value is not sufficient; it is enough to set the upper De bound
+
+    ##check if something is set in method control, if not, set it
+    if (is.null(method_control[["upper_De"]])) {
+      method_control <- c(
+        method_control,
+        upper_De = round(max(input_object[["DE"]], na.rm = TRUE) * 10, digits = 0))
+    }
+
+    ##we do the same for the lower_De, just to have everthing in one place
+    if (is.null(method_control[["lower_De"]])) {
+      method_control <- c(method_control, lower_De = 0.01)
+    }
+
   ##>> try here is much better, as the user might run a very long preprocessing and do not
   ##want to fail here
   results <-
@@ -1998,7 +2006,8 @@ analyse_baSAR <- function(
     }else{
       cat(paste0("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],"\n"))
     }
-    cat(paste0("Number MCMC iterations:\t\t", results[[1]][["N.MCMC"]],"\n"))
+    cat(paste0("Number of independent chains:\t", results[[1]][["N.CHAINS"]],"\n"))
+    cat(paste0("Number MCMC iterations/chain:\t", results[[1]][["N.MCMC"]],"\n"))
 
     cat("------------------------------------------------------------------\n")
     if(distribution == "log_normal"){
