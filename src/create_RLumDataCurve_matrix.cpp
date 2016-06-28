@@ -10,6 +10,7 @@ using namespace Rcpp;
 // .. but we do not export them to avoid side effects, as this function is not the same as the
 // .. base R function seq()
 // ..no export
+// [[Rcpp::export(".seq")]]
 NumericVector seq(int from, int to, double length_out) {
 
   //set variables
@@ -17,7 +18,7 @@ NumericVector seq(int from, int to, double length_out) {
   double by = (to - from) / (length_out  - 1);
 
   //loop and create sequence
-  for (int i=0; i<=length_out; ++i){
+  for (int i=0; i < length_out; ++i){
     if(i == 0){
       sequence[i] = from;
 
