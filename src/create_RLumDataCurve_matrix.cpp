@@ -73,14 +73,14 @@ NumericMatrix create_RLumDataCurve_matrix(
       int c = 0;
 
       //fill vector for temperature
-      for(int i = 0; i <= X.length(); i++){
-        if(i <= heat_ramp_start.length()){
+      for(int i = 0; i < X.length(); i++){
+        if(i < heat_ramp_start.length()){
           X[i] = heat_ramp_start[i];
 
-        }else if(i > heat_ramp_start.length() && i <= heat_ramp_start.length() + TOLON){
+        }else if(i >= heat_ramp_start.length() && i < heat_ramp_start.length() + TOLON){
           X[i] = AN_TEMP;
 
-        }else if(i > heat_ramp_start.length() + TOLON){
+        }else if(i >= heat_ramp_start.length() + TOLON){
           X[i] = heat_ramp_end[c];
           c++;
 
@@ -104,8 +104,8 @@ NumericMatrix create_RLumDataCurve_matrix(
 
     //set final matrix
     NumericMatrix curve_matrix(1, 2);
-    curve_matrix[0] = NumericVector::get_na();
-    curve_matrix[1] = NumericVector::get_na();
+    curve_matrix(0,0) = NumericVector::get_na();
+    curve_matrix(0,1) = NumericVector::get_na();
 
     return(curve_matrix);
 
