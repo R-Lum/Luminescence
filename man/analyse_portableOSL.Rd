@@ -40,7 +40,7 @@ are pairwise combined for calculating the IRSL/OSL ratio. For calculating the de
 the signal of the last three signals is divided by the first three signals of the same curve.
 }
 \section{Function version}{
- 0.0.1 (2016-06-22 12:18:40)
+ 0.0.1 (2016-06-27 17:14:51)
 }
 \examples{
 

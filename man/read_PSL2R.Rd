@@ -51,7 +51,7 @@ a specific PSL file please report to <christoph.burow@uni-koeln.de> so the
 function can be updated.
 }
 \section{Function version}{
- 0.0.1 (2016-06-22 12:18:40)
+ 0.0.1 (2016-06-27 17:14:51)
 }
 \examples{
 

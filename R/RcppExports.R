@@ -5,6 +5,10 @@
     .Call('Luminescence_analyse_IRSARRF_SRS', PACKAGE = 'Luminescence', values_regenerated_limited, values_natural_limited, n_MC)
 }
 
+.create_RLumDataCurve_matrix <- function(DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF) {
+    .Call('Luminescence_create_RLumDataCurve_matrix', PACKAGE = 'Luminescence', DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF)
+}
+
 .create_UID <- function() {
     .Call('Luminescence_create_UID', PACKAGE = 'Luminescence')
 }

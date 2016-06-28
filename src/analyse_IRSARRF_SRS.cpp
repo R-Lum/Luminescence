@@ -21,7 +21,6 @@ RcppExport SEXP analyse_IRSARRF_SRS(NumericVector values_regenerated_limited,
   NumericVector results = values_regenerated_limited.size() - values_natural_limited.size();
   NumericVector results_vector_min_MC = n_MC;
 
-
   //(1) calculate sum of the squared residuals
   // this will be used to find the best fit of the curves (which is the minimum)
   for (int i=0; i<results.length(); ++i){
