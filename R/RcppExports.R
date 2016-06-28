@@ -5,10 +5,6 @@
     .Call('Luminescence_analyse_IRSARRF_SRS', PACKAGE = 'Luminescence', values_regenerated_limited, values_natural_limited, n_MC)
 }
 
-.seq <- function(from, to, length_out) {
-    .Call('Luminescence_seq', PACKAGE = 'Luminescence', from, to, length_out)
-}
-
 .create_RLumDataCurve_matrix <- function(DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF) {
     .Call('Luminescence_create_RLumDataCurve_matrix', PACKAGE = 'Luminescence', DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF)
 }

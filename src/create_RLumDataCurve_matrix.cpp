@@ -10,7 +10,6 @@ using namespace Rcpp;
 // .. but we do not export them to avoid side effects, as this function is not the same as the
 // .. base R function seq()
 // ..no export
-// [[Rcpp::export(".seq")]]
 NumericVector seq(int from, int to, double length_out) {
 
   //set variables

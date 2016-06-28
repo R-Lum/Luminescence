@@ -19,19 +19,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// seq
-NumericVector seq(int from, int to, double length_out);
-RcppExport SEXP Luminescence_seq(SEXP fromSEXP, SEXP toSEXP, SEXP length_outSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< int >::type from(fromSEXP);
-    Rcpp::traits::input_parameter< int >::type to(toSEXP);
-    Rcpp::traits::input_parameter< double >::type length_out(length_outSEXP);
-    __result = Rcpp::wrap(seq(from, to, length_out));
-    return __result;
-END_RCPP
-}
 // create_RLumDataCurve_matrix
 NumericMatrix create_RLumDataCurve_matrix(NumericVector DATA, int VERSION, int NPOINTS, String LTYPE, int LOW, int HIGH, int AN_TEMP, int TOLDELAY, int TOLON, int TOLOFF);
 RcppExport SEXP Luminescence_create_RLumDataCurve_matrix(SEXP DATASEXP, SEXP VERSIONSEXP, SEXP NPOINTSSEXP, SEXP LTYPESEXP, SEXP LOWSEXP, SEXP HIGHSEXP, SEXP AN_TEMPSEXP, SEXP TOLDELAYSEXP, SEXP TOLONSEXP, SEXP TOLOFFSEXP) {

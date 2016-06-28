@@ -46,7 +46,7 @@ Lamothe 2001.
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2016-06-28 13:16:03)
+ 0.1.0 (2016-06-28 15:36:25)
 }
 \examples{
 

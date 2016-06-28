@@ -225,7 +225,7 @@ analyse_FadingMeasurement <- function(
   fit_matrix <- vapply(X = 2:(n.MC+1), FUN = function(x){
 
     ##fit
-    lm(y~x, data = data.frame(
+    stats::lm(y~x, data = data.frame(
       x = MC_matrix[,1],
       y = MC_matrix[,x]))$coefficients
 
@@ -239,19 +239,19 @@ analyse_FadingMeasurement <- function(
 
   ##for plotting
   fit <-
-     lm(y ~ x, data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+     stats::lm(y ~ x, data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                                  y = LxTx_table[["LxTx_NORM"]]))
 
 
 
-  fit_power <- lm(y ~ I(x^3) + I(x^2) + I(x) ,
+  fit_power <- stats::lm(y ~ I(x^3) + I(x^2) + I(x) ,
                   data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                                     y = LxTx_table[["LxTx_NORM"]]))
 
 
   ##for predicting
   fit_predict <-
-    lm(y ~ x, data = data.frame(y = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+    stats::lm(y ~ x, data = data.frame(y = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                                 x = LxTx_table[["LxTx_NORM"]]))
 
   ##calculate final g_value
