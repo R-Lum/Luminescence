@@ -43,7 +43,14 @@
   \subsection{Bugfixes and changes}{
 
    \itemize{
-      \item dummy
+      \item \code{plot_GrowthCurve()}{
+        \itemize{
+          \item Allow linear fitting with only 1 dose point if the curve is forced through the origin.
+
+        }
+
+
+      }
 
     }
 

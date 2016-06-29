@@ -135,7 +135,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.14
+#' @section Function version: 1.8.15
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -198,7 +198,7 @@ plot_GrowthCurve <- function(
   }
 
   ##2. check if sample contains a least three rows
-  if(length(sample[,1])<3){
+  if(length(sample[,1])<3 & fit.method != "LIN"){
     stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!")
   }
 
@@ -300,8 +300,18 @@ plot_GrowthCurve <- function(
 
   if("cex" %in% names(extraArgs)) {cex.global <- extraArgs$cex}
 
-  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {c(min(xy$y)-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))}
+  ylim <- if("ylim" %in% names(extraArgs)) {
+    extraArgs$ylim
+  } else {
+    if(fit.force_through_origin){
+      c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+
+    }else{
+      c(min(xy$y)-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+    }
+
+ }
+
 
   xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
   {c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))}
@@ -415,20 +425,25 @@ plot_GrowthCurve <- function(
   ##to be a little bit more flexible the start parameters varries within a normal distribution
 
   ##draw 50 start values from a normal distribution a start values
-  a.MC<-rnorm(50,mean=a,sd=a/100)
+  if (fit.method != "LIN") {
+    a.MC <- rnorm(50, mean = a, sd = a / 100)
 
-  if(!is.na(b)) {
-    b.MC <- rnorm(50,mean = b,sd = b / 100)
-  }else{
-    b <- NA
+    if (!is.na(b)) {
+      b.MC <- rnorm(50, mean = b, sd = b / 100)
+    } else{
+      b <- NA
 
+    }
+
+    c.MC <- rnorm(50, mean = c, sd = c / 100)
+    g.MC <- rnorm(50, mean = g, sd = g / 1)
+
+    ##set start vector (to avoid errors witin the loop)
+    a.start <- NA
+    b.start <- NA
+    c.start <- NA
+    g.start <- NA
   }
-
-  c.MC<-rnorm(50,mean=c,sd=c/100)
-  g.MC<-rnorm(50,mean=g,sd=g/1)
-
-  ##set start vector (to avoid errors witin the loop)
-  a.start <- NA; b.start <- NA; c.start <- NA; g.start <- NA
 
   ##--------------------------------------------------------------------------##
   #===========================================================================##
@@ -552,7 +567,7 @@ plot_GrowthCurve <- function(
 
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
-    if(is.na(a) | is.na(b) | is.na(c)){
+    if((is.na(a) | is.na(b) | is.na(c)) && fit.method != "LIN"){
 
       warning("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!")
       return(NULL)
@@ -728,7 +743,7 @@ plot_GrowthCurve <- function(
     if(exists("fit")==FALSE){fit<-NA}
 
     if ((fit.method=="EXP OR LIN" & class(fit)=="try-error") |
-        fit.method=="LIN" | length(data[,1])<3) {
+        fit.method=="LIN" | length(data[,1])<2) {
 
       ##Do fitting again as just allows fitting through the origin
       if(fit.force_through_origin){
