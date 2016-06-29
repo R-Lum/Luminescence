@@ -151,7 +151,6 @@
 #' }
 #'
 #'
-#'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
 #' \code{\link{character}} or \code{\link{list}} (\bold{required}):
 #' input object used for the Bayesian analysis. If a \code{character} is provided the function
@@ -285,7 +284,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.21
+#' @section Function version: 0.1.22
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -452,10 +451,8 @@ analyse_baSAR <- function(
       }
 
 
-
-
       #check whether this makes sense at all, just a direty and quick test
-      stopifnot(lower_centralD > 0)
+      stopifnot(lower_centralD >= 0)
 
       Limited_cycles <- vector()
 
@@ -1888,10 +1885,12 @@ analyse_baSAR <- function(
 
   # Call baSAR-function -------------------------------------------------------------------------
 
-  ##we have to reset the De-bounds in the method control ... if nothing is provided by the user,
-  ##as a fixed value is not sufficient; it is enough to set the upper De bound
+  ##check for the central_D bound settings
+  ##Why do we use 0 and 1000: Combes et al., 2015 wrote
+  ## that "We set the bounds for the prior on the central dose D, Dmin = 0 Gy and
+  ## Dmax = 1000 Gy, to cover the likely range of possible values for D.
 
-    ##TODO
+
     ##check if something is set in method control, if not, set it
     if (is.null(method_control[["upper_centralD"]])) {
       method_control <- c(method_control, upper_centralD = 1000)
@@ -1908,7 +1907,8 @@ analyse_baSAR <- function(
 
     ##we do the same for the lower_centralD, just to have everthing in one place
     if (is.null(method_control[["lower_centralD"]])) {
-      method_control <- c(method_control, lower_centralD = 0.01)
+      method_control <- c(method_control, lower_centralD = 0)
+
     }else{
       if(distribution == "normal" | distribution == "cauchy" | distribution == "log_normal"){
         warning("[analyse_baSAR()] You have modified the lower central_D boundary while applying a predefined model. This is possible but not recommended!", call. = FALSE)
