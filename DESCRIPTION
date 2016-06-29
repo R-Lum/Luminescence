@@ -47,7 +47,6 @@ Imports:
     httr (>= 1.1.0),
     matrixStats (>= 0.50.2),
     methods,
-    Rcpp (>= 0.12.5),
     minpack.lm (>= 1.2-0),
     raster (>= 2.5-2),
     readxl (>= 0.1.1),
