@@ -86,8 +86,8 @@
 #'
 #' \tabular{lll}{
 #' \bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
-#' \code{lower_centralD} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
-#' \code{upper_centralD} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
+#' \code{lower_centralD} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
+#' \code{upper_centralD} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 #' \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 #' (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
@@ -121,6 +121,10 @@
 #'
 #' Q: How can I modify the output plots?\cr
 #' A: You can't, but you can use the function output to create own, modified plots.\cr
+#'
+#' Q: Can I change the boundaries for the central_D?\cr
+#' A: Yes, we made it possible, but we DO NOT recommend it, except you know what you are doing!
+#' Example: \code{method_control = list(lower_centralD = 10))}\cr
 #'
 #' \bold{Additional arguments support via the \code{...} argument }\cr
 #'
@@ -220,7 +224,7 @@
 #' includes the recycling point (assumed to be measured during the last cycle)
 #'
 #' @param method_control \code{\link{list}} (optional): named list of control parameters that can be directly
-#' passed to the Bayesian analysis, e.g., \code{method_control = list(lower_centralD = 0.01)}.
+#' passed to the Bayesian analysis, e.g., \code{method_control = list(n.chains = 4)}.
 #' See details for further information
 #'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot output
@@ -281,7 +285,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.20
+#' @section Function version: 0.1.21
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -339,9 +343,7 @@
 #'  background.integral = c(80:100),
 #'  fit.method = "LIN",
 #'  plot = FALSE,
-#'  n.MCMC = 200,
-#'  method control = list (
-#'  lower De = 1, upper De = 3000)
+#'  n.MCMC = 200
 #'
 #')
 #'
@@ -1895,12 +1897,25 @@ analyse_baSAR <- function(
       method_control <- c(method_control, upper_centralD = 1000)
 
 
+    }else{
+      if(distribution == "normal" | distribution == "cauchy" | distribution == "log_normal"){
+        warning("[analyse_baSAR()] You have modified the upper central_D boundary, while applying a predefined model. This is possible but not recommended!", call. = FALSE)
+
+      }
+
+
     }
 
     ##we do the same for the lower_centralD, just to have everthing in one place
     if (is.null(method_control[["lower_centralD"]])) {
       method_control <- c(method_control, lower_centralD = 0.01)
+    }else{
+      if(distribution == "normal" | distribution == "cauchy" | distribution == "log_normal"){
+        warning("[analyse_baSAR()] You have modified the lower central_D boundary while applying a predefined model. This is possible but not recommended!", call. = FALSE)
+      }
+
     }
+
 
     if(min(input_object[["DE"]][input_object[["DE"]] > 0], na.rm = TRUE) < method_control$lower_centralD |
        max(input_object[["DE"]], na.rm = TRUE) > method_control$upper_centralD){
