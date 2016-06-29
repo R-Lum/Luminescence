@@ -29,9 +29,8 @@ used for the analysis. This argument has only an effect if the argument \code{XL
 the input is the previous output (i.e. is \code{\linkS4class{RLum.Results}}). In this case the
 new selection will add the aliquots to the removed aliquots table.}
 
-\item{source_doserate}{\code{\link{numeric}} (optional): source dose rate of beta-source used
+\item{source_doserate}{\code{\link{numeric}} \bold{(required)}: source dose rate of beta-source used
 for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}.
-If nothing is provided the results are returned in the same domain as the input values.
 Paramater can be provided as \code{list}, for the case that more than one BIN-file is provided, e.g.,
 \code{source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))}.}
 
@@ -44,27 +43,27 @@ The parameter can be provided as \code{list}, \code{source_doserate}.}
 limits for the signal integral for the Tx curve. If nothing is provided the
 value from \code{signal.integral} is used and it is ignored
 if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
 bounds for the background integral.
 Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{background.integral.Tx}{\code{\link{vector}} (optional): vector with the
 limits for the background integral for the Tx curve. If nothing is provided the
 value from \code{background.integral} is used.
 Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{sigmab}{\code{\link{numeric}} (with default): option to set a manual value for
 the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 calculation. The value should be provided as absolute squared count values, cf. \code{\link{calc_OSLLxTxRatio}}.
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{sig0}{\code{\link{numeric}} (with default): allow adding an extra component of error
 to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{\link{calc_OSLLxTxRatio}}).
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{distribution}{\code{\link{character}} (with default): type of distribution that is used during
 Bayesian calculations for determining the Central dose and overdispersion values.
@@ -305,7 +304,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.18 (2016-06-28 13:16:03)
+ 0.1.19 (2016-06-29 13:22:42)
 }
 \examples{
 
@@ -323,6 +322,7 @@ CWOSL.SAR.Data <- subset(
 ##choosen for performance, not for reliability
 results <- analyse_baSAR(
  object = CWOSL.SAR.Data,
+ source_doserate = c(0.04, 0.001),
  signal.integral = c(1:2),
  background.integral = c(80:100),
  fit.method = "LIN",

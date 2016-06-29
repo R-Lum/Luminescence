@@ -163,9 +163,8 @@
 #' the input is the previous output (i.e. is \code{\linkS4class{RLum.Results}}). In this case the
 #' new selection will add the aliquots to the removed aliquots table.
 #'
-#' @param source_doserate \code{\link{numeric}} (optional): source dose rate of beta-source used
+#' @param source_doserate \code{\link{numeric}} \bold{(required)}: source dose rate of beta-source used
 #' for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}.
-#' If nothing is provided the results are returned in the same domain as the input values.
 #' Paramater can be provided as \code{list}, for the case that more than one BIN-file is provided, e.g.,
 #' \code{source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))}.
 #'
@@ -178,27 +177,27 @@
 #' limits for the signal integral for the Tx curve. If nothing is provided the
 #' value from \code{signal.integral} is used and it is ignored
 #' if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-#' The parameter can be provided as \code{list}, \code{source_doserate}.
+#' The parameter can be provided as \code{list}, see \code{source_doserate}.
 #'
 #' @param background.integral \code{\link{vector}} (\bold{required}): vector with the
 #' bounds for the background integral.
 #' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-#' The parameter can be provided as \code{list}, \code{source_doserate}.
+#' The parameter can be provided as \code{list}, see \code{source_doserate}.
 #'
 #' @param background.integral.Tx \code{\link{vector}} (optional): vector with the
 #' limits for the background integral for the Tx curve. If nothing is provided the
 #' value from \code{background.integral} is used.
 #' Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-#' The parameter can be provided as \code{list}, \code{source_doserate}.
+#' The parameter can be provided as \code{list}, see \code{source_doserate}.
 #'
 #' @param sigmab \code{\link{numeric}} (with default): option to set a manual value for
 #' the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 #' calculation. The value should be provided as absolute squared count values, cf. \code{\link{calc_OSLLxTxRatio}}.
-#' The parameter can be provided as \code{list}, \code{source_doserate}.
+#' The parameter can be provided as \code{list}, see \code{source_doserate}.
 #'
 #' @param sig0 \code{\link{numeric}} (with default): allow adding an extra component of error
 #' to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{\link{calc_OSLLxTxRatio}}).
-#' The parameter can be provided as \code{list}, \code{source_doserate}.
+#' The parameter can be provided as \code{list}, see \code{source_doserate}.
 #'
 #' @param distribution \code{\link{character}} (with default): type of distribution that is used during
 #' Bayesian calculations for determining the Central dose and overdispersion values.
@@ -282,7 +281,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.18
+#' @section Function version: 0.1.19
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -335,6 +334,7 @@
 #'##choosen for performance, not for reliability
 #'results <- analyse_baSAR(
 #'  object = CWOSL.SAR.Data,
+#'  source_doserate = c(0.04, 0.001),
 #'  signal.integral = c(1:2),
 #'  background.integral = c(80:100),
 #'  fit.method = "LIN",
@@ -465,7 +465,7 @@ analyse_baSAR <- function(
       ##Include or exclude repeated dose points
       if (fit.includingRepeatedRegPoints) {
         for (i in 1:Nb_aliquots) {
-          Limited_cycles[i] <- length(na.exclude(data.Dose[,i]))
+          Limited_cycles[i] <- length(stats::na.exclude(data.Dose[,i]))
         }
 
       }else{
@@ -858,7 +858,7 @@ analyse_baSAR <- function(
 
        ##source_doserate
        if(length(as.list(match.call())$source_doserate) > 0){
-         warning("[analyse_baSAR()] Argument 'source_doserate' is ignored in this modus.", call. = FALSE)
+         warning("[analyse_baSAR()] Argument 'source_doserate' is ignored in this modus, as it was alreay set.", call. = FALSE)
 
        }
 
@@ -1100,10 +1100,15 @@ analyse_baSAR <- function(
   # Expand parameter list -----------------------------------------------------------------------
 
   ##test_parameter = source_doserate
-  if(is(source_doserate, "list")){
-    source_doserate <- rep(source_doserate, length = length(fileBIN.list))
+  if(!is.null(source_doserate)){
+    if(is(source_doserate, "list")){
+      source_doserate <- rep(source_doserate, length = length(fileBIN.list))
+    }else{
+      source_doserate <- rep(list(source_doserate), length = length(fileBIN.list))
+    }
   }else{
-    source_doserate <- rep(list(source_doserate), length = length(fileBIN.list))
+    stop("[analyse_baSAR()] 'source_doserate' is missing, but required as the current implementation expects dose values in Gy!")
+
   }
 
   ##sigmab
