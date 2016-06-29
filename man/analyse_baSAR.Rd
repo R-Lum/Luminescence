@@ -304,7 +304,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.19 (2016-06-29 13:49:43)
+ 0.1.20 (2016-06-29 14:08:15)
 }
 \examples{
 

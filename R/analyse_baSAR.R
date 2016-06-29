@@ -281,7 +281,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.19
+#' @section Function version: 0.1.20
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1889,16 +1889,25 @@ analyse_baSAR <- function(
   ##we have to reset the De-bounds in the method control ... if nothing is provided by the user,
   ##as a fixed value is not sufficient; it is enough to set the upper De bound
 
+    ##TODO
     ##check if something is set in method control, if not, set it
     if (is.null(method_control[["upper_centralD"]])) {
-      method_control <- c(
-        method_control,
-        upper_centralD = round(max(input_object[["DE"]], na.rm = TRUE) * 10, digits = 0))
+      method_control <- c(method_control, upper_centralD = 1000)
+
+
     }
 
     ##we do the same for the lower_centralD, just to have everthing in one place
     if (is.null(method_control[["lower_centralD"]])) {
       method_control <- c(method_control, lower_centralD = 0.01)
+    }
+
+    if(min(input_object[["DE"]][input_object[["DE"]] > 0], na.rm = TRUE) < method_control$lower_centralD |
+       max(input_object[["DE"]], na.rm = TRUE) > method_control$upper_centralD){
+
+      warning("[analyse_baSAR()] Your set lower_centralD and/or upper_centralD value seem to do not fit to your input data. This may indicate a wronlgy set 'source_doserate'.", call. = FALSE)
+
+
     }
 
   ##>> try here is much better, as the user might run a very long preprocessing and do not
