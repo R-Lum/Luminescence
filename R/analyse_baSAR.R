@@ -86,8 +86,8 @@
 #'
 #' \tabular{lll}{
 #' \bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
-#' \code{lower_De} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
-#' \code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
+#' \code{lower_centralD} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
+#' \code{upper_centralD} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
 #' \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 #' (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
@@ -220,7 +220,7 @@
 #' includes the recycling point (assumed to be measured during the last cycle)
 #'
 #' @param method_control \code{\link{list}} (optional): named list of control parameters that can be directly
-#' passed to the Bayesian analysis, e.g., \code{method_control = list(lower_De = 0.01)}.
+#' passed to the Bayesian analysis, e.g., \code{method_control = list(lower_centralD = 0.01)}.
 #' See details for further information
 #'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot output
@@ -412,8 +412,8 @@ analyse_baSAR <- function(
 
       ##lower and uppder De, grep from method_control ... for sure we find it here,
       ##as it was set before the function call
-      lower_De <- method_control[["lower_De"]]
-      upper_De <- method_control[["upper_De"]]
+      lower_centralD <- method_control[["lower_centralD"]]
+      upper_centralD <- method_control[["upper_centralD"]]
 
       ##number of MCMC
       n.chains <-  if (is.null(method_control[["n.chains"]])) {
@@ -453,7 +453,7 @@ analyse_baSAR <- function(
 
 
       #check whether this makes sense at all, just a direty and quick test
-      stopifnot(lower_De > 0)
+      stopifnot(lower_centralD > 0)
 
       Limited_cycles <- vector()
 
@@ -507,7 +507,7 @@ analyse_baSAR <- function(
 
         cauchy = "model {
 
-            central_D ~  dunif(lower_De,upper_De)
+            central_D ~  dunif(lower_centralD,upper_centralD)
 
             precision_D ~ dt (0, 0.16 * central_D, 1) T(0, )  #  Alternative plus directe proposee par Philippe L.
             sigma_D <-  1/sqrt(precision_D)
@@ -535,7 +535,7 @@ analyse_baSAR <- function(
 
        normal = "model {
 
-            central_D ~  dunif(lower_De,upper_De)
+            central_D ~  dunif(lower_centralD,upper_centralD)
 
             sigma_D ~ dunif(0.01, 1 * central_D)
 
@@ -562,7 +562,7 @@ analyse_baSAR <- function(
 
        log_normal = "model {
 
-            central_D ~  dunif(lower_De,upper_De)
+            central_D ~  dunif(lower_centralD,upper_centralD)
 
             log_central_D <-  log(central_D) - 0.5 * l_sigma_D^2
             l_sigma_D ~ dunif(0.01, 1 * log(central_D))
@@ -615,8 +615,8 @@ analyse_baSAR <- function(
         'ExpoGC' = ExpoGC,
         'GC_Origin' = GC_Origin,
         'Limited_cycles' = Limited_cycles,
-        'lower_De' = lower_De,
-        'upper_De' = upper_De,
+        'lower_centralD' = lower_centralD,
+        'upper_centralD' = upper_centralD,
         'Nb_aliquots' = Nb_aliquots
       )
 
@@ -624,7 +624,7 @@ analyse_baSAR <- function(
         cat("\n[analyse_baSAR()] ---- baSAR-model ---- \n")
         cat("\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
         cat("[analyse_baSAR()] Bayesian analysis in progress ... ")
-        message(paste(".. >> bounds set to: lower_De =", lower_De, "| upper_De =", upper_De))
+        message(paste(".. >> bounds set to: lower_centralD =", lower_centralD, "| upper_centralD =", upper_centralD))
       }
 
       Nb_Iterations <- n.MCMC
@@ -1890,15 +1890,15 @@ analyse_baSAR <- function(
   ##as a fixed value is not sufficient; it is enough to set the upper De bound
 
     ##check if something is set in method control, if not, set it
-    if (is.null(method_control[["upper_De"]])) {
+    if (is.null(method_control[["upper_centralD"]])) {
       method_control <- c(
         method_control,
-        upper_De = round(max(input_object[["DE"]], na.rm = TRUE) * 10, digits = 0))
+        upper_centralD = round(max(input_object[["DE"]], na.rm = TRUE) * 10, digits = 0))
     }
 
-    ##we do the same for the lower_De, just to have everthing in one place
-    if (is.null(method_control[["lower_De"]])) {
-      method_control <- c(method_control, lower_De = 0.01)
+    ##we do the same for the lower_centralD, just to have everthing in one place
+    if (is.null(method_control[["lower_centralD"]])) {
+      method_control <- c(method_control, lower_centralD = 0.01)
     }
 
   ##>> try here is much better, as the user might run a very long preprocessing and do not

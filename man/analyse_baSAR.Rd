@@ -86,7 +86,7 @@ curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods:
 includes the recycling point (assumed to be measured during the last cycle)}
 
 \item{method_control}{\code{\link{list}} (optional): named list of control parameters that can be directly
-passed to the Bayesian analysis, e.g., \code{method_control = list(lower_De = 0.01)}.
+passed to the Bayesian analysis, e.g., \code{method_control = list(lower_centralD = 0.01)}.
 See details for further information}
 
 \item{plot}{\code{\link{logical}} (with default): enables or disables plot output}
@@ -233,8 +233,8 @@ are:
 
 \tabular{lll}{
 \bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
-\code{lower_De} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
-\code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
+\code{lower_centralD} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
+\code{upper_centralD} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
 \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 (cf. \code{\link[rjags]{jags.model}})\cr
 \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
@@ -304,7 +304,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.19 (2016-06-29 13:22:42)
+ 0.1.19 (2016-06-29 13:49:43)
 }
 \examples{
 
