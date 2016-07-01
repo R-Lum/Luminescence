@@ -1645,14 +1645,13 @@ plot_GrowthCurve <- function(
 
     }#end if plotOutput
 
-  }
+    ##reset graphic device if the plotting failed!
+    if(is(plot_check, "try-error")){
+      try(stop("[plot_GrowthCurve()] Figure margins too large, nothing plotted, but results returned!", call. = FALSE),)
+      dev.off()
+    }
 
-  ##reset graphic device if the plotting failed!
-  if(is(plot_check, "try-error")){
-    try(stop("[plot_GrowthCurve()] Figure margins too large, nothing plotted, but results returned!", call. = FALSE),)
-    dev.off()
   }
-
 
   ##RETURN - return De values and parameter
   output <- try(data.frame(
