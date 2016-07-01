@@ -226,6 +226,8 @@
 #' passed to the Bayesian analysis, e.g., \code{method_control = list(n.chains = 4)}.
 #' See details for further information
 #'
+#' @param digits \code{\link{integer}} (with default): round output to the number of given digits
+#'
 #' @param plot \code{\link{logical}} (with default): enables or disables plot output
 #'
 #' @param plot_reduced \code{\link{logical}} (with default): enables or disables the advanced plot output
@@ -284,7 +286,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.22
+#' @section Function version: 0.1.23
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -385,6 +387,7 @@ analyse_baSAR <- function(
   fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
   method_control = list(),
+  digits = 3L,
   plot = TRUE,
   plot_reduced = TRUE,
   plot.single = FALSE,
@@ -679,12 +682,12 @@ analyse_baSAR <- function(
 
       ##standard error and mean
       output.mean <-
-        round(summary(sampling_reduced)[[1]][c("central_D", "sigma_D"), 1:2], 4)
+        round(summary(sampling_reduced)[[1]][c("central_D", "sigma_D"), 1:2], digits)
 
         ##calculate geometric mean for the case that the distribution is log-normal
         if(distribution == "log_normal"){
           temp.vector <- unlist(lapply(sampling_reduced, function(x){as.vector(x[,1])}))
-          gm <- round(exp(sum(log(temp.vector))/length(temp.vector)),2)
+          gm <- round(exp(sum(log(temp.vector))/length(temp.vector)),digits)
           rm(temp.vector)
         }else{
           gm <- NULL
@@ -694,7 +697,7 @@ analyse_baSAR <- function(
       ##quantiles
       ##68% + 95%
       output.quantiles <-
-        round(summary(sampling_reduced, quantiles = c(0.025, 0.16, 0.84, 0.975))[[2]][c("central_D", "sigma_D"), 1:4], 4)
+        round(summary(sampling_reduced, quantiles = c(0.025, 0.16, 0.84, 0.975))[[2]][c("central_D", "sigma_D"), 1:4], digits)
 
       #### output data.frame with results
       baSAR.output <- data.frame(
@@ -2056,7 +2059,7 @@ analyse_baSAR <- function(
     cat(paste0("\n>> sigma_D:\t\t\t", results[[1]][["SIGMA"]],"\t", results[[1]][["SIGMA.SD"]], "\t",
                "[",results[[1]][["SIGMA_Q_.16"]]," ; ", results[[1]][["SIGMA_Q_.84"]], "]**\t"))
     cat(paste0("\n\t\t\t\t\t\t[",results[[1]][["SIGMA_Q_.025"]]," ; ", results[[1]][["SIGMA_Q_.975"]], "]***"))
-    cat(paste0("\n>> Final central De:\t\t", results[[1]][["DE_FINAL"]],"\t", round(results[[1]][["DE_FINAL.ERROR"]], digits = 2), "\t",
+    cat(paste0("\n>> Final central De:\t\t", results[[1]][["DE_FINAL"]],"\t", round(results[[1]][["DE_FINAL.ERROR"]], digits = digits), "\t",
                " - \t -"))
     cat("\n------------------------------------------------------------------\n")
     cat(

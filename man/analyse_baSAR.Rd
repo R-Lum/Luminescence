@@ -10,8 +10,8 @@ analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   sig0 = 0.025, distribution = "cauchy", baSAR_model = NULL,
   n.MCMC = 1e+05, fit.method = "EXP", fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE, method_control = list(),
-  plot = TRUE, plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE,
-  ...)
+  digits = 3L, plot = TRUE, plot_reduced = TRUE, plot.single = FALSE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
@@ -88,6 +88,8 @@ includes the recycling point (assumed to be measured during the last cycle)}
 \item{method_control}{\code{\link{list}} (optional): named list of control parameters that can be directly
 passed to the Bayesian analysis, e.g., \code{method_control = list(n.chains = 4)}.
 See details for further information}
+
+\item{digits}{\code{\link{integer}} (with default): round output to the number of given digits}
 
 \item{plot}{\code{\link{logical}} (with default): enables or disables plot output}
 
@@ -308,7 +310,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.22 (2016-07-01 19:17:31)
+ 0.1.23 (2016-07-01 19:46:38)
 }
 \examples{
 
