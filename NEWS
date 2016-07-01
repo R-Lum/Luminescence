@@ -29,7 +29,13 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
-         • dummy
+         • ‘plot_GrowthCurve()’
+
+             • Allow linear fitting with only 1 dose point if the curve
+               is forced through the origin,
+
+             • function now returns values even the error 'figure
+               margins too large' shows up.
 
   Internals:
 

@@ -45,7 +45,8 @@
    \itemize{
       \item \code{plot_GrowthCurve()}{
         \itemize{
-          \item Allow linear fitting with only 1 dose point if the curve is forced through the origin.
+          \item Allow linear fitting with only 1 dose point if the curve is forced through the origin,
+          \item function now returns values even the error 'figure margins too large' shows up.
 
         }
 
