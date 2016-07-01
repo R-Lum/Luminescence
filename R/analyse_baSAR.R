@@ -679,7 +679,7 @@ analyse_baSAR <- function(
 
       ##standard error and mean
       output.mean <-
-        round(summary(sampling_reduced)[[1]][c("central_D", "sigma_D"), 1:2], 2)
+        round(summary(sampling_reduced)[[1]][c("central_D", "sigma_D"), 1:2], 4)
 
         ##calculate geometric mean for the case that the distribution is log-normal
         if(distribution == "log_normal"){
@@ -694,7 +694,7 @@ analyse_baSAR <- function(
       ##quantiles
       ##68% + 95%
       output.quantiles <-
-        round(summary(sampling_reduced, quantiles = c(0.025, 0.16, 0.84, 0.975))[[2]][c("central_D", "sigma_D"), 1:4], 2)
+        round(summary(sampling_reduced, quantiles = c(0.025, 0.16, 0.84, 0.975))[[2]][c("central_D", "sigma_D"), 1:4], 4)
 
       #### output data.frame with results
       baSAR.output <- data.frame(

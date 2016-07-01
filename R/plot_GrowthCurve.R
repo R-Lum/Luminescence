@@ -1324,6 +1324,9 @@ plot_GrowthCurve <- function(
   ##5. Plotting if plotOutput==TRUE
   if(output.plot) {
 
+    ##set plot check
+    plot_check <- NULL
+
     ##cheat the R check
     x<-NULL; rm(x)
 
