@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.6.1 ( ,2016):
+Changes in version 0.6.1 (July 5th ,2016):
 
   Bugfixes and changes:
 
@@ -68,7 +68,13 @@ Changes in version 0.6.1 ( ,2016):
              • if less than 3 regeneration points are provided the
                function will not stop and return ‘NULL’, but set
                ‘fit.method = "LIN"’, return a message and continue.
-               With this the user gets at least a plot.
+               With this the user gets at least a plot,
+
+             • allow linear fitting with only 1 dose point if the curve
+               is forced through the origin,
+
+             • function now returns values even the error 'figure
+               margins too large' shows up.
 
          • ‘read_BIN2R()’
 

@@ -152,7 +152,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.8.14 (2016-06-28 13:09:22)
+ 1.8.16 (2016-07-01 19:34:34)
 }
 \examples{
 
@@ -173,6 +173,14 @@ plot_GrowthCurve(LxTxData)
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
 plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 ##dev.off()
+
+##(4) plot resulting function for given intervall x
+x <- seq(1,10000, by = 100)
+plot(
+ x = x,
+ y = eval(temp$Formula),
+ type = "l"
+)
 
 }
 \author{

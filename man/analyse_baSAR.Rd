@@ -10,8 +10,8 @@ analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
   sig0 = 0.025, distribution = "cauchy", baSAR_model = NULL,
   n.MCMC = 1e+05, fit.method = "EXP", fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE, method_control = list(),
-  plot = TRUE, plot_reduced = TRUE, plot.single = FALSE, verbose = TRUE,
-  ...)
+  digits = 3L, plot = TRUE, plot_reduced = TRUE, plot.single = FALSE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Results}} or
@@ -20,17 +20,17 @@ input object used for the Bayesian analysis. If a \code{character} is provided t
 assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
 providing a file connection. Mixing of both types is not allowed. If an \code{\linkS4class{RLum.Results}}
-is provided the function direclty starts with the Bayesian Analysis (see details)}
+is provided the function directly starts with the Bayesian Analysis (see details)}
 
 \item{XLS_file}{\code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements)}
 
 \item{aliquot_range}{\code{\link{numeric}} (optional): allows to limit the range of the aliquots
-used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used as
-well}
+used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used or
+the input is the previous output (i.e. is \code{\linkS4class{RLum.Results}}). In this case the
+new selection will add the aliquots to the removed aliquots table.}
 
-\item{source_doserate}{\code{\link{numeric}} (optional): source dose rate of beta-source used
+\item{source_doserate}{\code{\link{numeric}} \bold{(required)}: source dose rate of beta-source used
 for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}.
-If nothing is provided the results are returned in the same domain as the input values.
 Paramater can be provided as \code{list}, for the case that more than one BIN-file is provided, e.g.,
 \code{source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))}.}
 
@@ -43,27 +43,27 @@ The parameter can be provided as \code{list}, \code{source_doserate}.}
 limits for the signal integral for the Tx curve. If nothing is provided the
 value from \code{signal.integral} is used and it is ignored
 if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
 bounds for the background integral.
 Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{background.integral.Tx}{\code{\link{vector}} (optional): vector with the
 limits for the background integral for the Tx curve. If nothing is provided the
 value from \code{background.integral} is used.
 Ignored if \code{object} is an \code{\linkS4class{RLum.Results}} object.
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{sigmab}{\code{\link{numeric}} (with default): option to set a manual value for
 the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 calculation. The value should be provided as absolute squared count values, cf. \code{\link{calc_OSLLxTxRatio}}.
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{sig0}{\code{\link{numeric}} (with default): allow adding an extra component of error
 to the final Lx/Tx error value (e.g., instrumental errror, see details is \code{\link{calc_OSLLxTxRatio}}).
-The parameter can be provided as \code{list}, \code{source_doserate}.}
+The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{distribution}{\code{\link{character}} (with default): type of distribution that is used during
 Bayesian calculations for determining the Central dose and overdispersion values.
@@ -86,8 +86,10 @@ curve using the function \code{\link{plot_GrowthCurve}}. Here supported methods:
 includes the recycling point (assumed to be measured during the last cycle)}
 
 \item{method_control}{\code{\link{list}} (optional): named list of control parameters that can be directly
-passed to the Bayesian analysis, e.g., \code{method_control = list(lower_De = 0.01)}.
+passed to the Bayesian analysis, e.g., \code{method_control = list(n.chains = 4)}.
 See details for further information}
+
+\item{digits}{\code{\link{integer}} (with default): round output to the number of given digits}
 
 \item{plot}{\code{\link{logical}} (with default): enables or disables plot output}
 
@@ -129,15 +131,16 @@ The original function call\cr
 ------------------------\cr
 
 \itemize{
- \item (A) Trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
+ \item (A) Ln/Tn curves with set integration limits,
+ \item (B) trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
  and the resulting kernel density plots. If \code{plot_reduced = FALSE} for every(!) dose a trace and
- a density plot is returned (this may take a long time)
- \item (B) Dose plots showing the dose for every aliquot as boxplots and the marked
- HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked.
- \item (C) The dose response curve resulting from the monitoring of the Bayesian modelling are
+ a density plot is returned (this may take a long time),
+ \item (C) dose plots showing the dose for every aliquot as boxplots and the marked
+ HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked,
+ \item (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
  provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
- is limited to 1000 (random choice) for performance reasons.
- \item (D) The final plot is the De distribution as calculated using the conventional approach
+ is limited to 1000 (random choice) for performance reasons,
+ \item (E) the final plot is the De distribution as calculated using the conventional approach
  and the central dose with the HPDs marked within.
 
 }
@@ -150,11 +153,11 @@ This function allows the application of Bayesian models on luminescence data, me
 with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
 it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating
 a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption
-of this approach for the R environement and (II) an extension and a technical refinement of the
-published code. \cr
+of this approach for the R environment and (II) an extension and a technical refinement of the
+published code.\cr
 }
 \details{
-Internally the function consists of two parts: (I) The Bayesian core for the bayesian calculations
+Internally the function consists of two parts: (I) The Bayesian core for the Bayesian calculations
 and applying the hierchical model and (II) a data pre-processing part. The Bayesian core can be run
 independently, if the input data are sufficient (see below). The data pre-processing part was
 implemented to simplify the analysis for the user as all needed data pre-processing is done
@@ -162,7 +165,7 @@ by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
 LxTx, the LxTx error and the dose values for all regeneration points.
 
-\bold{How the systematic error contribution}\cr
+\bold{How the systematic error contribution is calculated?}\cr
 
 Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
 and added to final central dose by:
@@ -171,8 +174,8 @@ and added to final central dose by:
 
 \deqn{SE(central.dose.final) = \sqrt{SE(central.dose)^2 + systematic.error^2}}
 
-Please note that this approach is rather rough and can be only valid if the source dose rate
-errors, in the case different readers had been used, are similar. In the case that more than
+Please note that this approach is rather rough and can only be valid if the source dose rate
+errors, in case different readers had been used, are similar. In cases where more than
 one source dose rate is provided a warning is given.\cr
 
 \bold{Input / output scenarios}\cr
@@ -200,7 +203,7 @@ consists of the following steps:
  \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
 }
 
-These proceded data are subsequently used in for the Bayesian analysis
+These proceeded data are subsequently used in for the Bayesian analysis
 
 \code{[XLS_file != NULL]}\cr
 
@@ -214,34 +217,38 @@ steps consists of the following steps:
 
 Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected
 for the further analysis. This allows a manual selection of input data, as the automatic selection
-by \code{\link{verify_SingleGrainData}} might be not totally suffcient.\cr
+by \code{\link{verify_SingleGrainData}} might be not totally sufficient.\cr
 
 \bold{(2) - \code{object} \code{RLum.Results object}}
 
 If an \code{\linkS4class{RLum.Results}} object is provided as input and(!) this object was
 previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
-is skipped and the function starts directly the Bayesian analysis. This option is very powerfull
+is skipped and the function starts directly the Bayesian analysis. This option is very powerful
 as it allows to change parameters for the Bayesian analysis without the need to repeat
-the data pre-processing.\cr
+the data pre-processing. If furthermore the argument \code{aliquot_range} is set, aliquots
+can be manually excluded based on previous runs. \cr
 
 \bold{\code{method_control}}\cr
 
-This are arguments that can be passed directly to the Bayesian calculation core, supported arguments
+These are arguments that can be passed directly to the Bayesian calculation core, supported arguments
 are:
 
 \tabular{lll}{
 \bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
-\code{lower_De} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range\cr
-\code{upper_De} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range\cr
+\code{lower_centralD} \tab \code{\link{numeric}} \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
+\code{upper_centralD} \tab \code{\link{numeric}} \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{n.chains} \tab \code{\link{integer}} \tab sets number of parallel chains for the model (default = 3)
 (cf. \code{\link[rjags]{jags.model}})\cr
 \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
-\code{thin} \tab \code{\link{numeric}} \tab thinning internval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
+\code{thin} \tab \code{\link{numeric}} \tab thinning interval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
+\code{variables.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
+\code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}.
+Note: only variables present in the model can be monitored.
 }
 
 \bold{User defined models}\cr
 
-The function provides the option to modifiy and to define own models that can be used for
+The function provides the option to modify and to define own models that can be used for
 the Bayesian calculation. In the case the user wants to modify a model, a new model
 can be piped into the funtion via the argument \code{baSAR_model} as \code{character}.
 The model has to be provided in the JAGS dialect of the BUGS language (cf. \code{\link[rjags]{jags.model}})
@@ -251,19 +258,30 @@ will break.\cr
 \bold{FAQ}\cr
 
 Q: How can I set the seed for the random number generator (RNG)?\cr
-A: Use the argument \code{method_control}, e.g.,
-\code{method_control = list(inits = list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1))} \cr
+A: Use the argument \code{method_control}, e.g., for three MCMC chains
+(as it is the default):\cr
+\code{method_control = list(
+inits = list(
+ list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
+ list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 2),
+ list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 3)
+))}\cr
+This sets a reproducible set for every chain separately.\cr
 
 Q: How can I modify the output plots?\cr
 A: You can't, but you can use the function output to create own, modified plots.\cr
 
-\bold{Additional arguments support via the \code{...} argument}\cr
+Q: Can I change the boundaries for the central_D?\cr
+A: Yes, we made it possible, but we DO NOT recommend it, except you know what you are doing!
+Example: \code{method_control = list(lower_centralD = 10))}\cr
+
+\bold{Additional arguments support via the \code{...} argument }\cr
 
 This list summarizes the additional arguments that can be passed to the internally used
-funtions.
+functions.
 
 \tabular{llll}{
-\bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description}\cr
+\bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description }\cr
 \code{threshold} \tab \code{\link{verify_SingleGrainData}} \tab \code{30} \tab change rejection threshold for curve selection \cr
 \code{sheet} \tab \code{\link[readxl]{read_excel}} \tab \code{1} \tab select XLS-sheet for import\cr
 \code{col_names} \tab \code{\link[readxl]{read_excel}} \tab \code{TRUE} \tab first row in XLS-file is header\cr
@@ -274,11 +292,11 @@ funtions.
 \code{pattern} \tab \code{\link{read_BIN2R}} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
 \code{position} \tab \code{\link{read_BIN2R}} \tab \code{NULL} \tab limit import to a specific position\cr
 \code{background.count.distribution} \tab \code{\link{calc_OSLLxTxRatio}} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
-\code{fit.weights} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enable/disable fit weights\cr
-\code{fit.bounds} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enable/disable fit bounds\cr
+\code{fit.weights} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables / disables fit weights\cr
+\code{fit.bounds} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables / disables fit bounds\cr
 \code{NumberIterations.MC} \tab \code{\link{plot_GrowthCurve}} \tab \code{100} \tab number of MC runs for error calculation\cr
-\code{output.plot} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables/disables dose repsonse curve plot\cr
-\code{output.plotExtended} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables/disables extended dose repsonse curve plot\cr
+\code{output.plot} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables / disables dose response curve plot\cr
+\code{output.plotExtended} \tab \code{\link{plot_GrowthCurve}} \tab \code{TRUE} \tab enables / disables extended dose response curve plot\cr
 }
 }
 \note{
@@ -292,7 +310,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.12 (2016-06-28 13:09:22)
+ 0.1.23 (2016-07-03 14:41:17)
 }
 \examples{
 
@@ -302,7 +320,7 @@ data(ExampleData.BINfileData, envir = environment())
 ##(2) selecting relevant curves, and limit dataset
 CWOSL.SAR.Data <- subset(
  CWOSL.SAR.Data,
- subset = POSITION == c(1:3) & LTYPE == "OSL")
+ subset = POSITION\%in\%c(1:3) & LTYPE == "OSL")
 
 \dontrun{
 ##(3) run analysis
@@ -310,11 +328,13 @@ CWOSL.SAR.Data <- subset(
 ##choosen for performance, not for reliability
 results <- analyse_baSAR(
  object = CWOSL.SAR.Data,
+ source_doserate = c(0.04, 0.001),
  signal.integral = c(1:2),
  background.integral = c(80:100),
  fit.method = "LIN",
  plot = FALSE,
  n.MCMC = 200
+
 )
 
 print(results)
@@ -360,7 +380,7 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
 \seealso{
 \code{\link{read_BIN2R}}, \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
 \code{\link[readxl]{read_excel}}, \code{\link{verify_SingleGrainData}},
-\code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}
+\code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}, \code{\link{boxplot.default}}
 }
 \keyword{datagen}
 

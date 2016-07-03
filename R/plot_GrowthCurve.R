@@ -135,7 +135,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.14
+#' @section Function version: 1.8.16
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -162,6 +162,14 @@
 #' ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
 #' plot_GrowthCurve(LxTxData, output.plotExtended.single = TRUE)
 #' ##dev.off()
+#'
+#' ##(4) plot resulting function for given intervall x
+#' x <- seq(1,10000, by = 100)
+#' plot(
+#'  x = x,
+#'  y = eval(temp$Formula),
+#'  type = "l"
+#' )
 #'
 #' @export
 plot_GrowthCurve <- function(
@@ -190,7 +198,7 @@ plot_GrowthCurve <- function(
   }
 
   ##2. check if sample contains a least three rows
-  if(length(sample[,1])<3){
+  if(length(sample[,1])<3 & fit.method != "LIN"){
     stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!")
   }
 
@@ -292,8 +300,18 @@ plot_GrowthCurve <- function(
 
   if("cex" %in% names(extraArgs)) {cex.global <- extraArgs$cex}
 
-  ylim <- if("ylim" %in% names(extraArgs)) {extraArgs$ylim} else
-  {c(min(xy$y)-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))}
+  ylim <- if("ylim" %in% names(extraArgs)) {
+    extraArgs$ylim
+  } else {
+    if(fit.force_through_origin){
+      c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+
+    }else{
+      c(min(xy$y)-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+    }
+
+ }
+
 
   xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
   {c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))}
@@ -407,20 +425,25 @@ plot_GrowthCurve <- function(
   ##to be a little bit more flexible the start parameters varries within a normal distribution
 
   ##draw 50 start values from a normal distribution a start values
-  a.MC<-rnorm(50,mean=a,sd=a/100)
+  if (fit.method != "LIN") {
+    a.MC <- rnorm(50, mean = a, sd = a / 100)
 
-  if(!is.na(b)) {
-    b.MC <- rnorm(50,mean = b,sd = b / 100)
-  }else{
-    b <- NA
+    if (!is.na(b)) {
+      b.MC <- rnorm(50, mean = b, sd = b / 100)
+    } else{
+      b <- NA
 
+    }
+
+    c.MC <- rnorm(50, mean = c, sd = c / 100)
+    g.MC <- rnorm(50, mean = g, sd = g / 1)
+
+    ##set start vector (to avoid errors witin the loop)
+    a.start <- NA
+    b.start <- NA
+    c.start <- NA
+    g.start <- NA
   }
-
-  c.MC<-rnorm(50,mean=c,sd=c/100)
-  g.MC<-rnorm(50,mean=g,sd=g/1)
-
-  ##set start vector (to avoid errors witin the loop)
-  a.start <- NA; b.start <- NA; c.start <- NA; g.start <- NA
 
   ##--------------------------------------------------------------------------##
   #===========================================================================##
@@ -544,7 +567,7 @@ plot_GrowthCurve <- function(
 
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
-    if(is.na(a) | is.na(b) | is.na(c)){
+    if((is.na(a) | is.na(b) | is.na(c)) && fit.method != "LIN"){
 
       warning("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!")
       return(NULL)
@@ -720,7 +743,7 @@ plot_GrowthCurve <- function(
     if(exists("fit")==FALSE){fit<-NA}
 
     if ((fit.method=="EXP OR LIN" & class(fit)=="try-error") |
-        fit.method=="LIN" | length(data[,1])<3) {
+        fit.method=="LIN" | length(data[,1])<2) {
 
       ##Do fitting again as just allows fitting through the origin
       if(fit.force_through_origin){
@@ -1301,6 +1324,8 @@ plot_GrowthCurve <- function(
   ##5. Plotting if plotOutput==TRUE
   if(output.plot) {
 
+    ##set plot check
+    plot_check <- NULL
 
     ##cheat the R check
     x<-NULL; rm(x)
@@ -1312,6 +1337,7 @@ plot_GrowthCurve <- function(
 
       ####grep recent plot parameter for later reset
       par.default.complex <- par(no.readonly = TRUE)
+      on.exit(par(par.default.complex))
 
       ##set new parameter
       layout(matrix(c(1,1,1,1,2,3), 3, 2, byrow=TRUE), respect=TRUE)
@@ -1320,6 +1346,7 @@ plot_GrowthCurve <- function(
     }else{
 
       par.default.single <- par(no.readonly = TRUE)$cex
+      on.exit(par(cex = par.default.single))
       par(cex=cex.global)
 
     }
@@ -1338,231 +1365,295 @@ plot_GrowthCurve <- function(
 
     }
 
-    plot(
+    plot_check <- try(plot(
       temp.xy.plot[, 1:2],
       ylim = ylim,
       xlim = xlim,
       pch = 19,
       xlab = xlab,
       ylab = ylab
-    )
+    ),
+    silent = TRUE)
 
-    #ADD HEADER
-    title(main=main,line=3)
+    if (!is(plot_check, "try-error")) {
+      #ADD HEADER
+      title(main = main, line = 3)
 
-    #CURVE	#plot fitted curve
-    if (fit.method=="EXP+LIN") {
-      try(curve(a * (1 - exp(-(x + c) / b) + (g * x)), lwd = 1.5, add = TRUE))
-    }
-    else
-      if (fit.method  ==  "LIN" &
-          fit.force_through_origin)
-      {
-        curve(
-          fit.lm$coefficients[1]  *  x, lwd  =  1.5,
-          add  =  TRUE)
+      #CURVE	#plot fitted curve
+      if (fit.method == "EXP+LIN") {
+        try(curve(a * (1 - exp(-(x + c) / b) + (g * x)), lwd = 1.5, add = TRUE))
       }
-    else if (fit.method == "LIN") {
-      curve(fit.lm$coefficients[2] * x + fit.lm$coefficients[1],
-            lwd = 1.5,
-            add = TRUE)
-    }
-    else if (fit.method == "QDR" & fit.force_through_origin) {
-      curve(coef(fit)[1] * x + coef(fit)[2] * x ^ 2,
-            lwd = 1.5,
-            add = TRUE)
-    }
-    else if (fit.method == "QDR") {
-      curve(coef(fit)[1] + coef(fit)[2] * x + coef(fit)[3] * x ^ 2,
-            lwd = 1.5,
-            add = TRUE)
-    }
-    else if (fit.method == "EXP") {
-      try(curve(fit.functionEXP(a, b, c, x), lwd = 1.5, add = TRUE))
-    }
-    else
-      if (fit.method  ==  "EXP+EXP")
-      {
-        try(curve(fit.functionEXPEXP(a1, a2, b1, b2, x),
-                  lwd  =  1.5,
-                  add  =  TRUE))
+      else
+        if (fit.method  ==  "LIN" &
+            fit.force_through_origin)
+        {
+          curve(fit.lm$coefficients[1]  *  x, lwd  =  1.5,
+                add  =  TRUE)
+        }
+      else if (fit.method == "LIN") {
+        curve(fit.lm$coefficients[2] * x + fit.lm$coefficients[1],
+              lwd = 1.5,
+              add = TRUE)
       }
-
-    ##POINTS	#Plot Reg0 and Repeated Points
-
-    #Natural value
-    points(sample[1,1:2], col = "red")
-    segments(sample[1,1],sample[1,2]-sample[1,3],
-             sample[1,1],sample[1,2]+sample[1,3], col = "red")
-
-    #Repeated Point
-    points(xy[which(duplicated(xy[,1])),1],xy[which(duplicated(xy[,1])),2],
-           pch=2)
-
-    #Reg Point 0
-    points(xy[which(xy==0),1],xy[which(xy==0),2], pch=1, cex = 1.5*cex.global)
-
-    ##ARROWS	#y-error Bars
-
-    segments(xy$x,xy$y-y.Error,xy$x,xy$y+y.Error)
-
-    ##LINES	#Insert Ln/Tn
-    if(is.na(De)){
-
-      lines(c(0,max(sample[,1])*2),c(sample[1,2],sample[1,2]), col="red", lty=2,lwd=1.25)
-
-    }else{
-
-      try(lines(c(0,De),c(sample[1,2],sample[1,2]), col="red", lty=2,lwd=1.25),silent=TRUE)
-
-    }
-
-    try(lines(c(De,De),c(0,sample[1,2]), col="red", lty=2, lwd=1.25),silent=TRUE)
-    try(points(De,sample[1,2], col="red", pch=19),silent=TRUE)
-
-    ## check/set mtext
-    mtext <- if("mtext" %in% names(list(...))) {
-      list(...)$mtext
-    } else {
-      substitute(D[e] == De,
-                 list(De=paste(De,"\u00B1",De.Error, " | fit: ",fit.method)))
-    }
-
-
-
-    ##TEXT		#Insert fit and result
-    try(mtext(side=3, mtext, line=0.5, cex=0.8*cex.global),silent=TRUE)
-
-    #write error message in plot if De is NaN
-    try(if (De=="NaN") {
-      text(sample[2,1],0,"Error: De could not be calculated!",
-           adj=c(0,0), cex=0.8, col="red")
-    },silent=TRUE)
-
-    ##LEGEND	#plot legend
-
-    legend("topleft", c("REG points", "REG point repeated", "REG point 0"),
-           pch=c(19,2,1), cex=0.8*cex.global, bty="n")
-
-    ##plot only if wanted
-    if(output.plot==TRUE & output.plotExtended==TRUE){
-
-      ##HIST		#try to plot histogramm of De values from the Monte Carlo simulation
-
-      if(output.plotExtended.single != TRUE){
-
-        par(cex=0.7*cex.global)
-
+      else if (fit.method == "QDR" & fit.force_through_origin) {
+        curve(coef(fit)[1] * x + coef(fit)[2] * x ^ 2,
+              lwd = 1.5,
+              add = TRUE)
       }
+      else if (fit.method == "QDR") {
+        curve(coef(fit)[1] + coef(fit)[2] * x + coef(fit)[3] * x ^ 2,
+              lwd = 1.5,
+              add = TRUE)
+      }
+      else if (fit.method == "EXP") {
+        try(curve(fit.functionEXP(a, b, c, x), lwd = 1.5, add = TRUE))
+      }
+      else
+        if (fit.method  ==  "EXP+EXP")
+        {
+          try(curve(fit.functionEXPEXP(a1, a2, b1, b2, x),
+                    lwd  =  1.5,
+                    add  =  TRUE))
+        }
 
+      ##POINTS	#Plot Reg0 and Repeated Points
 
-      ##(A) Calculate histogram data
-      try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
+      #Natural value
+      points(sample[1, 1:2], col = "red")
+      segments(sample[1, 1], sample[1, 2] - sample[1, 3],
+               sample[1, 1], sample[1, 2] + sample[1, 3], col = "red")
 
-      #to avoid errors plot only if histogram exists
-      if (exists("histogram") && length(histogram$counts) > 2) {
+      #Repeated Point
+      points(xy[which(duplicated(xy[, 1])), 1], xy[which(duplicated(xy[, 1])), 2],
+             pch = 2)
 
-        ##calculate normal distribution curves for overlay
-        norm.curve.x <- seq(min(x.natural, na.rm = TRUE),
-                            max(x.natural, na.rm = TRUE),
-                            length = 101)
+      #Reg Point 0
+      points(xy[which(xy == 0), 1], xy[which(xy == 0), 2], pch = 1, cex = 1.5 *
+               cex.global)
 
-        norm.curve.y <- dnorm(norm.curve.x,
-                              mean=mean(x.natural, na.rm = TRUE),
-                              sd=sd(x.natural, na.rm = TRUE))
+      ##ARROWS	#y-error Bars
 
-        ##plot histogram
-        histogram <- hist(x.natural,
-                          xlab = xlab,
-                          ylab = "Frequency",
-                          main=expression(paste(D[e], " from MC simulation")),
-                          freq=FALSE,
-                          border = "white",
-                          axes = FALSE,
-                          ylim = c(0,max(norm.curve.y)),
-                          sub =
-                            paste("n = ", NumberIterations.MC, ", valid fits =", length(na.exclude(x.natural))),
-                          col="grey")
+      segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
-        ##add axes
-        axis(side = 1)
-        axis(side = 2,
-             at = seq(min(histogram$density),max(histogram$density), length = 5),
-             labels = round(
-               seq(min(histogram$counts),max(histogram$counts), length = 5),
-               digits = 0))
-
-        ##add norm curve
-        lines(norm.curve.x, norm.curve.y, col = "red")
-
-        ##add rug
-        rug(x.natural)
-
-        ##write De + Error from Monte Carlo simulation + write quality of error estimation
-        try(mtext(side=3,substitute(D[e[MC]] == De,
-                                    list(De=paste(De.MonteCarlo,"\u00B1",De.Error,
-                                                  " | quality = ",round((1-abs(De-De.MonteCarlo)/De)*100,
-                                                                        digits=1),"%"))),cex=0.6*cex.global),silent=TRUE)
-
-      } else {
-
-        plot(NA,NA,
-             xlim=c(0,10),
-             ylim=c(0,10),
-             main=expression(paste(D[e], " from Monte Carlo simulation")))
-        text(5,5,"not available")
-
-      }#end ifelse
-
-
-      ##PLOT		#PLOT test dose response curve if available if not plot not available
-      #plot Tx/Tn value for sensitiviy change
-
-      if ("TnTx" %in% colnames(sample)==TRUE) {
-
-        plot(1:length(sample[,"TnTx"]),sample[1:(length(sample[,"TnTx"])),"TnTx"]/sample[1,"TnTx"],
-             xlab="SAR cycle",
-             ylab=expression(paste(T[n]/T[x])),
-             main="Test dose response",
-             type="o",
-             pch=20,
+      ##LINES	#Insert Ln/Tn
+      if (is.na(De)) {
+        lines(
+          c(0, max(sample[, 1]) * 2),
+          c(sample[1, 2], sample[1, 2]),
+          col = "red",
+          lty = 2,
+          lwd = 1.25
         )
 
-        ##LINES		#plot 1 line
-        lines(c(1,length(sample[,"TnTx"])),c(1,1), lty=2, col="gray")
+      } else{
+        try(lines(
+          c(0, De),
+          c(sample[1, 2], sample[1, 2]),
+          col = "red",
+          lty = 2,
+          lwd = 1.25
+        ), silent = TRUE)
+
+      }
+
+      try(lines(c(De, De),
+                c(0, sample[1, 2]),
+                col = "red",
+                lty = 2,
+                lwd = 1.25), silent = TRUE)
+      try(points(De, sample[1, 2], col = "red", pch = 19), silent = TRUE)
+
+      ## check/set mtext
+      mtext <- if ("mtext" %in% names(list(...))) {
+        list(...)$mtext
       } else {
-
-        plot(NA,NA,xlim=c(0,10), ylim=c(0,10), main="Test dose response")
-        text(5,5,"not available\n no TnTx column")
-      }#end if else
-
-
-      ## FUN by R Luminescence Team
-      if(fun==TRUE){sTeve()}
-
-      ##END lines
-    }#endif::output.plotExtended
+        substitute(D[e] == De,
+                   list(De = paste(
+                     De, "\u00B1", De.Error, " | fit: ", fit.method
+                   )))
+      }
 
 
-    ##reset only the parameter that have been changed!
-    if(exists("par.default.single")){
 
-      par(cex = par.default.single)
-      rm(par.default.single)
+      ##TEXT		#Insert fit and result
+      try(mtext(side = 3,
+                mtext,
+                line = 0.5,
+                cex = 0.8 * cex.global), silent = TRUE)
 
+      #write error message in plot if De is NaN
+      try(if (De == "NaN") {
+        text(
+          sample[2, 1],
+          0,
+          "Error: De could not be calculated!",
+          adj = c(0, 0),
+          cex = 0.8,
+          col = "red"
+        )
+      }, silent = TRUE)
+
+      ##LEGEND	#plot legend
+
+      legend(
+        "topleft",
+        c("REG points", "REG point repeated", "REG point 0"),
+        pch = c(19, 2, 1),
+        cex = 0.8 * cex.global,
+        bty = "n"
+      )
+
+      ##plot only if wanted
+      if (output.plot == TRUE & output.plotExtended == TRUE) {
+        ##HIST		#try to plot histogramm of De values from the Monte Carlo simulation
+
+        if (output.plotExtended.single != TRUE) {
+          par(cex = 0.7 * cex.global)
+
+        }
+
+        ##(A) Calculate histogram data
+        try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
+
+        #to avoid errors plot only if histogram exists
+        if (exists("histogram") && length(histogram$counts) > 2) {
+          ##calculate normal distribution curves for overlay
+          norm.curve.x <- seq(min(x.natural, na.rm = TRUE),
+                              max(x.natural, na.rm = TRUE),
+                              length = 101)
+
+          norm.curve.y <- dnorm(
+            norm.curve.x,
+            mean = mean(x.natural, na.rm = TRUE),
+            sd = sd(x.natural, na.rm = TRUE)
+          )
+
+          ##plot histogram
+          histogram <- try(hist(
+            x.natural,
+            xlab = xlab,
+            ylab = "Frequency",
+            main = expression(paste(D[e], " from MC simulation")),
+            freq = FALSE,
+            border = "white",
+            axes = FALSE,
+            ylim = c(0, max(norm.curve.y)),
+            sub =
+              paste(
+                "n = ",
+                NumberIterations.MC,
+                ", valid fits =",
+                length(na.exclude(x.natural))
+              ),
+            col = "grey"
+          ), silent = TRUE)
+
+          if (!is(histogram, "try-error")) {
+            ##add axes
+            axis(side = 1)
+            axis(
+              side = 2,
+              at = seq(min(histogram$density),
+                       max(histogram$density),
+                       length = 5),
+              labels = round(seq(
+                min(histogram$counts), max(histogram$counts), length = 5
+              ),
+              digits = 0)
+            )
+
+            ##add norm curve
+            lines(norm.curve.x, norm.curve.y, col = "red")
+
+            ##add rug
+            rug(x.natural)
+
+            ##write De + Error from Monte Carlo simulation + write quality of error estimation
+            try(mtext(side = 3,
+                      substitute(D[e[MC]] == De,
+                                 list(
+                                   De = paste(
+                                     De.MonteCarlo,
+                                     "\u00B1",
+                                     De.Error,
+                                     " | quality = ",
+                                     round((1 - abs(De - De.MonteCarlo) / De) * 100,
+                                           digits =
+                                             1),
+                                     "%"
+                                   )
+                                 )),
+                      cex = 0.6 * cex.global), silent = TRUE)
+
+          }else{
+            plot_check <- histogram
+          }
+
+        } else {
+          plot_check <- try(plot(
+            NA,
+            NA,
+            xlim = c(0, 10),
+            ylim = c(0, 10),
+            main = expression(paste(D[e], " from Monte Carlo simulation"))),
+            silent = TRUE
+          )
+
+          if(!is(plot_check,"try-error")){
+            text(5, 5, "not available")
+
+          }
+
+        }#end ifelse
+
+
+        ##PLOT		#PLOT test dose response curve if available if not plot not available
+        #plot Tx/Tn value for sensitiviy change
+        if (!is(plot_check, "try-error")) {
+          if ("TnTx" %in% colnames(sample) == TRUE) {
+            plot(
+              1:length(sample[, "TnTx"]),
+              sample[1:(length(sample[, "TnTx"])), "TnTx"] / sample[1, "TnTx"],
+              xlab = "SAR cycle",
+              ylab = expression(paste(T[n] / T[x])),
+              main = "Test dose response",
+              type = "o",
+              pch = 20,
+            )
+
+            ##LINES		#plot 1 line
+            lines(c(1, length(sample[, "TnTx"])), c(1, 1), lty = 2, col = "gray")
+          } else {
+            plot(
+              NA,
+              NA,
+              xlim = c(0, 10),
+              ylim = c(0, 10),
+              main = "Test dose response"
+            )
+            text(5, 5, "not available\n no TnTx column")
+          }#end if else
+        }
+
+
+        ## FUN by R Luminescence Team
+        if (fun == TRUE) {
+          sTeve()
+        }
+
+      }#endif::output.plotExtended
+
+    }#end if plotOutput
+
+    ##reset graphic device if the plotting failed!
+    if(is(plot_check, "try-error")){
+      try(stop("[plot_GrowthCurve()] Figure margins too large, nothing plotted, but results returned!", call. = FALSE),)
+      dev.off()
     }
 
-    if(exists("par.default.complex")){
-
-      par(par.default.complex)
-      rm(par.default.complex)
-
-    }
-
-  }#end if plotOutput
+  }
 
   ##RETURN - return De values and parameter
-
   output <- try(data.frame(
     De = De,
     De.Error = De.Error,
@@ -1592,4 +1683,3 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
-

@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.6.1 ( ,2016)}{
+\section{Changes in version 0.6.1 (July 5th ,2016)}{
 
 
 
@@ -60,7 +60,9 @@
           \item Move \code{call} output in the \code{RLum.Results} output element \code{list},
           \item if less than 3 regeneration points are provided the function will not stop and
           return \code{NULL}, but set \code{fit.method = "LIN"}, return a message and continue.
-          With this the user gets at least a plot.
+          With this the user gets at least a plot,
+          \item allow linear fitting with only 1 dose point if the curve is forced through the origin,
+          \item function now returns values even the error 'figure margins too large' shows up.
 
       }
 
