@@ -81,3 +81,5 @@ The Luminescence package is licensed under the GPLv3. See these files in the mai
 * [RLumModel](https://github.com/R-Lum/RLumModel)
 * [RLumShiny](https://github.com/R-Lum/RLumShiny)
 
+## R package dependencies
+![](RLum.Images/Package_DependencyGraph.png)
