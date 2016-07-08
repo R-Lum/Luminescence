@@ -377,6 +377,18 @@ plot_DRTResults <- function(
                      "\n",
                      sep = ""),
                ""),
+        ifelse("serel" %in% summary == TRUE,
+               paste("se = ",
+                     round(calc_Statistics(values[[i]])$unweighted$se.rel, 2),
+                     " %\n",
+                     sep = ""),
+               ""),
+        ifelse("seabs" %in% summary == TRUE,
+               paste("sd = ",
+                     round(calc_Statistics(values[[i]])$unweighted$se.abs, 2),
+                     "\n",
+                     sep = ""),
+               ""),
         sep = ""), stops, sep = "")
 
     }
@@ -422,7 +434,20 @@ plot_DRTResults <- function(
                      " | ",
                      sep = ""),
                ""),
+        ifelse("serel" %in% summary == TRUE,
+               paste("se = ",
+                     round(calc_Statistics(values[[i]])$unweighted$se.rel, 2),
+                     " % | ",
+                     sep = ""),
+               ""),
+        ifelse("seabs" %in% summary == TRUE,
+               paste("sd = ",
+                     round(calc_Statistics(values[[i]])$unweighted$se.abs, 2),
+                     " | ",
+                     sep = ""),
+               ""),
         sep = "")
+    
     }
   }
 
@@ -511,6 +536,8 @@ plot_DRTResults <- function(
   ## setup plot area
   if(par.local){
 
+    if (shift.lines <= 0) 
+      shift.lines <- 1
     par.default <- par()[c("mfrow", "cex", "oma")]
     par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
   }
