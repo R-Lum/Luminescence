@@ -95,7 +95,7 @@
 #' @export
 plot_RLum.Analysis <- function(
   object,
-  subset,
+  subset = NULL,
   nrows,
   ncols,
   abline = NULL,
@@ -115,7 +115,7 @@ plot_RLum.Analysis <- function(
 
   # Make selection if wanted  -------------------------------------------------------------------
 
-  if(!missing(subset)){
+  if(!is.null(subset)){
 
     ##check whether the user set the drop option and remove it, as we cannot work with it
     subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
@@ -437,7 +437,6 @@ plot_RLum.Analysis <- function(
 
     })
 
-
     ##account for different curve types, combine similar
     temp.object.structure  <- structure_RLum(object)
     temp.recordType <- as.character(unique(temp.object.structure$recordType))
@@ -647,7 +646,6 @@ plot_RLum.Analysis <- function(
         par.default.outside <- par()[c("mar", "xpd")]
         par(mar = c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
       }
-
 
       ##open plot area
       plot(
