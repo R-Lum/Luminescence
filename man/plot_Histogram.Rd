@@ -83,7 +83,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4 (2016-07-03 14:54:54)
+ 0.4.4 (2016-07-05 15:39:52)
 }
 \examples{
 

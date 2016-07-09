@@ -233,7 +233,7 @@
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#' @section Function version: 0.6.9
+#' @section Function version: 0.6.10
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -1256,7 +1256,8 @@ analyse_IRSAR.RF<- function(
   ##TP$curves_bounds
   if (!is.null(TP$curves_bounds)) {
     if(exists("slide")){
-      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1])
+      ## add one channel on the top to make sure that it works
+      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1]) + RF_nat.slided[1,1]
 
        if (!is.na(TP$curves_bounds$THRESHOLD)){
         TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")

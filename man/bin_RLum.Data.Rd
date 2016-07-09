@@ -28,7 +28,7 @@ in the documentations of the corresponding \code{\linkS4class{RLum.Data}} class.
 Currenlty only \code{RLum.Data} objects of class \code{RLum.Data.Curve} are supported!
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.0 (2016-05-02 08:36:06)
 }
 \examples{
 
