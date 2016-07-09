@@ -1257,7 +1257,7 @@ analyse_IRSAR.RF<- function(
   if (!is.null(TP$curves_bounds)) {
     if(exists("slide")){
       ## add one channel on the top to make sure that it works
-      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1]) + RF_nat[1,1]
+      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1]) + (RF_nat[2,1] - RF_nat[1,1])
 
        if (!is.na(TP$curves_bounds$THRESHOLD)){
         TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")
