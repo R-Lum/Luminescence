@@ -244,7 +244,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.10 (2016-07-09 12:26:29)
+ 0.6.10 (2016-07-09 12:40:36)
 }
 \examples{
 

@@ -1130,7 +1130,7 @@ analyse_IRSAR.RF<- function(
 
       if (!is.na(TP$curves_ratio$THRESHOLD)) {
         TP$curves_ratio$STATUS <-
-          ifelse(TP$curves_ratio$VALUE >= TP$curves_ratio$THRESHOLD, "FAILED", "OK")
+          ifelse(TP$curves_ratio$VALUE > TP$curves_ratio$THRESHOLD, "FAILED", "OK")
       }
     }
 
@@ -1165,7 +1165,7 @@ analyse_IRSAR.RF<- function(
 
       if (!is.na(TP$intersection_ratio$THRESHOLD)) {
         TP$intersection_ratio$STATUS <-
-          ifelse(TP$intersection_ratio$VALUE >= TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
+          ifelse(TP$intersection_ratio$VALUE > TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
       }
 
       rm(IR_RF_nat.max, IR_RF_reg.corresponding_id)
@@ -1181,7 +1181,7 @@ analyse_IRSAR.RF<- function(
 
         if (!is.na(TP$residuals_slope$THRESHOLD)) {
           TP$residuals_slope$STATUS <- ifelse(
-            TP$residuals_slope$VALUE >= TP$residuals_slope$THRESHOLD, "FAILED", "OK")
+            TP$residuals_slope$VALUE > TP$residuals_slope$THRESHOLD, "FAILED", "OK")
 
         }
       }
@@ -1196,7 +1196,7 @@ analyse_IRSAR.RF<- function(
 
     if (!is.na(TP$dynamic_ratio$THRESHOLD)){
       TP$dynamic_ratio$STATUS  <- ifelse(
-        TP$dynamic_ratio$VALUE <= TP$dynamic_ratio$THRESHOLD , "FAILED", "OK")
+        TP$dynamic_ratio$VALUE < TP$dynamic_ratio$THRESHOLD , "FAILED", "OK")
     }
   }
 
@@ -1257,7 +1257,7 @@ analyse_IRSAR.RF<- function(
   if (!is.null(TP$curves_bounds)) {
     if(exists("slide")){
       ## add one channel on the top to make sure that it works
-      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1]) + RF_nat.slided[1,1]
+      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1]) + RF_nat[1,1]
 
        if (!is.na(TP$curves_bounds$THRESHOLD)){
         TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")
