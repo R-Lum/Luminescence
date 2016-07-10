@@ -4,7 +4,7 @@
 \alias{calc_WodaFuchs2008}
 \title{Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008}
 \usage{
-calc_WodaFuchs2008(data, breaks, plot = TRUE, ...)
+calc_WodaFuchs2008(data, breaks = NULL, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -31,7 +31,7 @@ The details section
 The notes section
 }
 \section{Function version}{
- 0.2.0 (2016-07-05 15:39:52)
+ 0.2.0 (2016-07-10 16:00:26)
 }
 \examples{
 
@@ -39,6 +39,8 @@ The notes section
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <-
   Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+
+results <- calc_WodaFuchs2008(data = ExampleData.DeValues)
 
 }
 \author{

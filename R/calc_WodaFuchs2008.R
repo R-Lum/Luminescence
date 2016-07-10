@@ -37,10 +37,12 @@
 #' ExampleData.DeValues <-
 #'   Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 #'
+#' results <- calc_WodaFuchs2008(data = ExampleData.DeValues)
+#'
 #' @export
 calc_WodaFuchs2008 <- function(
   data,
-  breaks,
+  breaks = NULL,
   plot = TRUE,
   ...
 ) {
@@ -92,7 +94,7 @@ calc_WodaFuchs2008 <- function(
 
   } else {
 
-    xlab <- expression(paste(D[e], " (Gy)"))
+    xlab <- expression(paste(D[e], " [Gy]"))
 
   }
 
@@ -134,7 +136,7 @@ calc_WodaFuchs2008 <- function(
   }
 
   ## optionally estimate class breaks based on bin width
-  if(missing(breaks) == TRUE) {
+  if(is.null(breaks)) {
 
     n_breaks <- (max(data[,1],
                      na.rm = TRUE) -
@@ -179,8 +181,7 @@ calc_WodaFuchs2008 <- function(
 
   ## optionally print warning
   if(length(class_center) != 1) {
-
-    warning("[calc_WodaFuchs()] More than one maximum. Fit may be invalid!")
+    warning("[calc_WodaFuchs()] More than one maximum. Fit may be invalid!", call. = FALSE)
 
     class_center <- class_center[1]
   }
@@ -220,7 +221,7 @@ calc_WodaFuchs2008 <- function(
              digits = 2)
 
   ## plot output --------------------------------------------------------------
-  if(plot == TRUE) {
+  if(plot) {
 
     plot(x = H,
          xlab = xlab,
@@ -233,12 +234,23 @@ calc_WodaFuchs2008 <- function(
   }
 
   ## return output ------------------------------------------------------------
-  return(list(D_estimate = D_estimate,
-              s = s,
-              class_center = class_center,
-              bin_width = bin_width,
-              breaks = H$breaks,
-              sigma = as.numeric(sigma),
-              A = as.numeric(A)))
+  return(set_RLum(
+    class = "RLum.Results",
+    data = list(
+      D_estimate = data.frame(
+        DP = D_estimate,
+        DP.ERROR = s,
+        CLASS_CENTER = class_center,
+        BIN_WIDT = bin_width,
+        SIGMA = sigma,
+        A = A,
+        row.names = NULL
+      ),
+      breaks = H$breaks
+    ),
+    info = list(call = sys.call())
+
+  ))
+
 
 }
