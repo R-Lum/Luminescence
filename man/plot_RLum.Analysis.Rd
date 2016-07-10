@@ -4,7 +4,7 @@
 \alias{plot_RLum.Analysis}
 \title{Plot function for an RLum.Analysis S4 class object}
 \usage{
-plot_RLum.Analysis(object, subset, nrows, ncols, abline = NULL,
+plot_RLum.Analysis(object, subset = NULL, nrows, ncols, abline = NULL,
   combine = FALSE, curve.transformation, plot.single = FALSE, ...)
 }
 \arguments{
@@ -75,7 +75,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.\cr
 }
 \section{Function version}{
- 0.3.6 (2016-05-02 08:41:37)
+ 0.3.6 (2016-07-10 12:31:45)
 }
 \examples{
 

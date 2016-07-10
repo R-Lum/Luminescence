@@ -27,6 +27,9 @@ Changes in version 0.7.0 ( ,2016):
          • Method ‘get_RLum’ for ‘RLum.Analysis’-objects did not
            respect ‘.pid’, fixed.
 
+         • ‘plot_RLum’ was not passing the argument ‘sub’, as it was
+           fetched by the partial argument matching; fixed.
+
   Bugfixes and changes:
 
          • ‘plot_GrowthCurve()’
