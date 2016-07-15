@@ -327,9 +327,8 @@ plot_DRTResults <- function(
     } else {
       rep(seq(from = 1, to = length(values)), length(modes))
     }
-
   }
-
+  
   ## calculate and paste statistical summary
   label.text = list(NA)
 
@@ -592,10 +591,11 @@ plot_DRTResults <- function(
 
       ## add data and error bars
       for(i in 1:length(values)) {
+
         points(x = c(1:nrow(values[[i]])),
                y = values[[i]][,1],
-               pch = pch[i],
-               col = col[i],
+               pch = if(nrow(values[[i]]) == length(pch)){ pch } else { pch[i] },
+               col = if(nrow(values[[i]]) == length(col)){ col } else { col[i] },
                cex = 1.2 * cex)
 
         arrows(c(1:nrow(values[[i]])),
@@ -605,7 +605,7 @@ plot_DRTResults <- function(
                angle = 90,
                length = 0.075,
                code = 3,
-               col = col[i])
+               col = if(nrow(values[[i]]) == length(col)){ col } else { col[i] })
 
         ## add summary content
         if(summary.pos[1] != "sub") {
