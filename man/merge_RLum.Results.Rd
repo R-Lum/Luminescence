@@ -18,7 +18,7 @@ rows are appended.
 The originator is taken from the first element and not reset to \code{merge_RLum}
 }
 \section{Function version}{
- 0.2.0 (2016-05-02 08:36:06)
+ 0.2.0 (2016-05-02 09:36:06)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

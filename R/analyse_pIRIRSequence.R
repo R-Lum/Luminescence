@@ -63,7 +63,7 @@
 #'
 #' \tabular{lll}{
 #' \bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
-#' \code{..$De.values} : \tab  \code{data.frame} \tab Table with De values \cr
+#' \code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
 #' \code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
 #' \code{..$rejection.criteria} : \tab \code{\link{data.frame}} \tab rejection criteria \cr
 #' \code{..$Formula} : \tab \code{\link{list}} \tab Function used for fitting of the dose response curve \cr
@@ -77,7 +77,7 @@
 #' with the following options:\cr \code{pdf(file = "...", height = 15, width =
 #' 15)}
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -537,7 +537,7 @@ analyse_pIRIRSequence <- function(
 
       ##add signal information to the protocol step
       temp.results.pIRIR.De <- as.data.frame(c(
-        get_RLum(temp.results, "De.values"),
+        get_RLum(temp.results, "data"),
         data.frame(Signal = pIRIR.curve.names[i])
       ))
 
@@ -559,10 +559,12 @@ analyse_pIRIRSequence <- function(
       temp.results  <- set_RLum(
         class = "RLum.Results",
         data = list(
-          De.values = temp.results.pIRIR.De,
+          data = temp.results.pIRIR.De,
           LnLxTnTx.table = temp.results.pIRIR.LnLxTnTx,
           rejection.criteria = temp.results.pIRIR.rejection.criteria,
-          Formula = temp.results.pIRIR.formula,
+          Formula = temp.results.pIRIR.formula
+        ),
+        info = list(
           call = sys.call()
         )
       )
@@ -625,12 +627,12 @@ if(plot){
               col = j)
 
      ##De values
-     lines(c(0, get_RLum(temp.results.final, "De.values")[j,1]),
+     lines(c(0, get_RLum(temp.results.final, "data")[j,1]),
            c(temp.curve.points[1,c("LxTx")], temp.curve.points[1,c("LxTx")]),
            col = j,
            lty = 2)
 
-     lines(c(rep(get_RLum(temp.results.final, "De.values")[j,1], 2)),
+     lines(c(rep(get_RLum(temp.results.final, "data")[j,1], 2)),
            c(temp.curve.points[1,c("LxTx")], 0),
            col = j,
            lty = 2)

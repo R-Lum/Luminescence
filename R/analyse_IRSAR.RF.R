@@ -201,7 +201,7 @@
 #' returned:\cr
 #'
 #' \bold{@data}\cr
-#' $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
+#' $ data: \code{\link{data.frame}} table with De and corresponding values\cr
 #' ..$ DE : \code{numeric}: the obtained equivalent dose\cr
 #' ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
 #' ..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtained by MC runs \cr
@@ -220,7 +220,7 @@
 #' \bold{@info}\cr
 #' $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 #'
-#' The output (\code{De.values}) should be accessed using the
+#' The output (\code{data}) should be accessed using the
 #' function \code{\link{get_RLum}}
 #'
 #' @note \bold{[THIS FUNCTION HAS BETA-STATUS]}\cr
@@ -233,7 +233,7 @@
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#' @section Function version: 0.6.10
+#' @section Function version: 0.6.11
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -295,7 +295,7 @@
 #' results <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 #'
 #' ##show De results and test paramter results
-#' get_RLum(results, data.object = "De.values")
+#' get_RLum(results, data.object = "data")
 #' get_RLum(results, data.object = "test_parameters")
 #'
 #' ##(2) perform analysis using the method 'SLIDE'
@@ -1899,7 +1899,7 @@ analyse_IRSAR.RF<- function(
     newRLumResults.analyse_IRSAR.RF <- set_RLum(
       class = "RLum.Results",
       data = list(
-        De.values = De.values,
+        data = De.values,
         De.MC = De.MC,
         test_parameters = TP.data.frame,
         fit = fit,

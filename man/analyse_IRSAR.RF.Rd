@@ -70,7 +70,7 @@ A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 returned:\cr
 
 \bold{@data}\cr
-$ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
+$ data: \code{\link{data.frame}} table with De and corresponding values\cr
 ..$ DE : \code{numeric}: the obtained equivalent dose\cr
 ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
 ..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtained by MC runs \cr
@@ -89,7 +89,7 @@ $ slide : \code{\link{list}} data from the sliding process, including the slidin
 \bold{@info}\cr
 $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 
-The output (\code{De.values}) should be accessed using the
+The output (\code{data}) should be accessed using the
 function \code{\link{get_RLum}}
 }
 \description{
@@ -244,7 +244,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.10 (2016-07-09 12:53:04)
+ 0.6.11 (2016-07-15 19:44:49)
 }
 \examples{
 
@@ -255,7 +255,7 @@ data(ExampleData.RLum.Analysis, envir = environment())
 results <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 
 ##show De results and test paramter results
-get_RLum(results, data.object = "De.values")
+get_RLum(results, data.object = "data")
 get_RLum(results, data.object = "test_parameters")
 
 ##(2) perform analysis using the method 'SLIDE'
