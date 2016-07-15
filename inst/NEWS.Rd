@@ -6,7 +6,12 @@
 
   \subsection{Bugfixes and changes}{
    \itemize{
-    \item dummy
+    \item plot_GrowthCurve()
+
+       \itemize{
+         \item \code{fit.method} set to linear for problematic cases (two reg points).
+
+       }
 
       }
 
