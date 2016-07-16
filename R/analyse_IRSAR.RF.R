@@ -201,7 +201,7 @@
 #' returned:\cr
 #'
 #' \bold{@data}\cr
-#' $ De.values: \code{\link{data.frame}} table with De and corresponding values\cr
+#' $ data: \code{\link{data.frame}} table with De and corresponding values\cr
 #' ..$ DE : \code{numeric}: the obtained equivalent dose\cr
 #' ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
 #' ..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtained by MC runs \cr
@@ -220,7 +220,7 @@
 #' \bold{@info}\cr
 #' $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
 #'
-#' The output (\code{De.values}) should be accessed using the
+#' The output (\code{data}) should be accessed using the
 #' function \code{\link{get_RLum}}
 #'
 #' @note \bold{[THIS FUNCTION HAS BETA-STATUS]}\cr
@@ -233,7 +233,7 @@
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#' @section Function version: 0.6.9
+#' @section Function version: 0.6.11
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -295,7 +295,7 @@
 #' results <- analyse_IRSAR.RF(object = IRSAR.RF.Data)
 #'
 #' ##show De results and test paramter results
-#' get_RLum(results, data.object = "De.values")
+#' get_RLum(results, data.object = "data")
 #' get_RLum(results, data.object = "test_parameters")
 #'
 #' ##(2) perform analysis using the method 'SLIDE'
@@ -1130,7 +1130,7 @@ analyse_IRSAR.RF<- function(
 
       if (!is.na(TP$curves_ratio$THRESHOLD)) {
         TP$curves_ratio$STATUS <-
-          ifelse(TP$curves_ratio$VALUE >= TP$curves_ratio$THRESHOLD, "FAILED", "OK")
+          ifelse(TP$curves_ratio$VALUE > TP$curves_ratio$THRESHOLD, "FAILED", "OK")
       }
     }
 
@@ -1165,7 +1165,7 @@ analyse_IRSAR.RF<- function(
 
       if (!is.na(TP$intersection_ratio$THRESHOLD)) {
         TP$intersection_ratio$STATUS <-
-          ifelse(TP$intersection_ratio$VALUE >= TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
+          ifelse(TP$intersection_ratio$VALUE > TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
       }
 
       rm(IR_RF_nat.max, IR_RF_reg.corresponding_id)
@@ -1181,7 +1181,7 @@ analyse_IRSAR.RF<- function(
 
         if (!is.na(TP$residuals_slope$THRESHOLD)) {
           TP$residuals_slope$STATUS <- ifelse(
-            TP$residuals_slope$VALUE >= TP$residuals_slope$THRESHOLD, "FAILED", "OK")
+            TP$residuals_slope$VALUE > TP$residuals_slope$THRESHOLD, "FAILED", "OK")
 
         }
       }
@@ -1196,7 +1196,7 @@ analyse_IRSAR.RF<- function(
 
     if (!is.na(TP$dynamic_ratio$THRESHOLD)){
       TP$dynamic_ratio$STATUS  <- ifelse(
-        TP$dynamic_ratio$VALUE <= TP$dynamic_ratio$THRESHOLD , "FAILED", "OK")
+        TP$dynamic_ratio$VALUE < TP$dynamic_ratio$THRESHOLD , "FAILED", "OK")
     }
   }
 
@@ -1256,7 +1256,8 @@ analyse_IRSAR.RF<- function(
   ##TP$curves_bounds
   if (!is.null(TP$curves_bounds)) {
     if(exists("slide")){
-      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1])
+      ## add one channel on the top to make sure that it works
+      TP$curves_bounds$VALUE <- max(RF_nat.slided[RF_nat.lim,1]) + (RF_nat[2,1] - RF_nat[1,1])
 
        if (!is.na(TP$curves_bounds$THRESHOLD)){
         TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")
@@ -1898,7 +1899,7 @@ analyse_IRSAR.RF<- function(
     newRLumResults.analyse_IRSAR.RF <- set_RLum(
       class = "RLum.Results",
       data = list(
-        De.values = De.values,
+        data = De.values,
         De.MC = De.MC,
         test_parameters = TP.data.frame,
         fit = fit,

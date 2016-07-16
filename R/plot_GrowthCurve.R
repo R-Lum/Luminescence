@@ -1683,3 +1683,4 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
+

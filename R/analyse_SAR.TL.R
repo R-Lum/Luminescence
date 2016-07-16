@@ -56,7 +56,8 @@
 #' \code{\link{get_RLum}}
 #' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
 #' from the input object without further warning.
-#' @section Function version: 0.1.4
+#'
+#' @section Function version: 0.1.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -568,10 +569,12 @@ analyse_SAR.TL <- function(
   newRLumResults.analyse_SAR.TL <- set_RLum(
     class = "RLum.Results",
     data = list(
-      De.values = temp.GC,
+      data = temp.GC,
       LnLxTnTx.table = LnLxTnTx,
-      rejection.criteria = RejectionCriteria))
-
+      rejection.criteria = RejectionCriteria
+    ),
+    info = list(info = sys.call())
+  )
 
   return(newRLumResults.analyse_SAR.TL)
 

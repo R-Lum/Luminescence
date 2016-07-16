@@ -448,7 +448,7 @@ if(is.list(object)){
 
   sigmab <- if("sigmab" %in% names(extraArgs)) {extraArgs$sigmab} else
   {NULL}
-  
+
   sig0 <- if("sig0" %in% names(extraArgs)) {extraArgs$sig0} else
   {0}
 
@@ -691,7 +691,7 @@ if(is.list(object)){
       stop("[analyse_SAR.CWOSL()] 'dose.points' contains NA values or have not been set!")
 
     }
-    
+
     ##check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If not
     ##not, it is probably a Dose Recovery Test with the given dose that is treated as the
     ##unknown dose. We overwrite this value and warn the user.
@@ -1442,7 +1442,7 @@ if(is.list(object)){
     temp.results.final <- set_RLum(
       class = "RLum.Results",
       data = list(
-        De.values = as.data.frame(c(temp.GC, temp.GC.extened, UID = UID), stringsAsFactors = FALSE),
+        data = as.data.frame(c(temp.GC, temp.GC.extened, UID = UID), stringsAsFactors = FALSE),
         LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
         rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),
         Formula = temp.GC.fit.Formula

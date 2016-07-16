@@ -102,7 +102,7 @@ The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.2 (2016-06-22 12:08:51)
+ 3.5.3 (2016-07-16 10:56:09)
 }
 \examples{
 

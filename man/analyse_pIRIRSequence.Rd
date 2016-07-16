@@ -57,7 +57,7 @@ returned containing the following elements:
 
 \tabular{lll}{
 \bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
-\code{..$De.values} : \tab  \code{data.frame} \tab Table with De values \cr
+\code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
 \code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
 \code{..$rejection.criteria} : \tab \code{\link{data.frame}} \tab rejection criteria \cr
 \code{..$Formula} : \tab \code{\link{list}} \tab Function used for fitting of the dose response curve \cr
@@ -90,7 +90,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.2.0 (2016-01-18 15:07:46)
+ 0.2.1 (2016-07-16 10:56:09)
 }
 \examples{
 

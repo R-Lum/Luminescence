@@ -4,5 +4,47 @@ Changes in version 0.6.2 (,2016):
 
   Bugfixes and changes:
 
-         • dummy
+         • ‘analyse_IRSAR.RF()’
+
+             • Test parameter ‘curves_bounds’ was not calculated
+               correctly; fixed,
+
+             • first output object renamed to ‘data’, instead of
+               ‘De.values’.
+
+         • ‘analyse_SAR.CWOSL()’
+
+             • The first object in the returned ‘RLum.Results’ objects
+               was renamed to ‘data’ to gain consistency with the other
+               functions.
+
+         • ‘analyse_SAR.TL()’
+
+             • The first object in the returned ‘RLum.Results’ objects
+               was renamed to ‘data’ to gain consistency with the other
+               functions.
+
+         • ‘analyse_pIRIRSequence()’
+
+             • The first object in the returned ‘RLum.Results’ objects
+               was renamed to ‘data’ to gain consistency with the other
+               functions.
+
+         • ‘plot_GrowthCurve()’
+
+             • ‘fit.method’ set to linear for problematic cases (two
+               reg points).
+
+         • ‘plot_Histogram()’
+
+             • Fix a problem while dealing with ‘RLum.Results’ objects
+               as input (#7, thanks to Alice Versendaal).
+
+         • ‘plot_KDE()’
+
+             • Fix a problem while dealing with ‘RLum.Results’ objects
+               as input (#7, thanks to Alice Versendaal),
+
+             • function will not break any longe if only one point is
+               provided, but in this case no density curve is returned.
 

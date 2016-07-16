@@ -127,7 +127,7 @@ plot_Histogram <- function(
   } else {
 
     if(is(data, "RLum.Results") == TRUE) {
-      data <- get_RLum(data, "data")
+      data <- get_RLum(data, "data")[,1:2]
     }
   }
 
@@ -330,12 +330,20 @@ plot_Histogram <- function(
     De.stats[i,18] <- statistics$weighted$se.rel
 
     ##kdemax - here a little doubled as it appears below again
-    De.density <-density(x = data[,1],
-                         kernel = "gaussian",
-                         from = xlim.plot[1],
-                         to = xlim.plot[2])
+    if(nrow(data) >= 2){
+      De.density <-density(x = data[,1],
+                           kernel = "gaussian",
+                           from = xlim.plot[1],
+                           to = xlim.plot[2])
 
-    De.stats[i,6] <- De.density$x[which.max(De.density$y)]
+      De.stats[i,6] <- De.density$x[which.max(De.density$y)]
+
+    }else{
+      De.denisty <- NA
+      De.stats[i,6] <- NA
+
+    }
+
   }
 
   label.text = list(NA)
@@ -757,8 +765,9 @@ plot_Histogram <- function(
                                         showgrid = FALSE)
     )
 
-    ## show plot ----
+    ## show and return plot ----
     print(hist)
+    return(hist)
   }
 
 }

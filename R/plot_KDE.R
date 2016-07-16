@@ -88,7 +88,7 @@
 #' @note The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
-#' @section Function version: 3.5.2
+#' @section Function version: 3.5.3
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -215,7 +215,7 @@ plot_KDE <- function(
     } else {
 
       if(is(data[[i]], "RLum.Results") == TRUE) {
-        data[[i]] <- get_RLum(data[[i]], "data")
+        data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
       }
 
       if(length(data[[i]]) < 2) {
@@ -301,9 +301,17 @@ plot_KDE <- function(
     De.stats[i,11] <- statistics$skewness
     De.stats[i,12] <- statistics$kurtosis
 
-    De.density[[length(De.density) + 1]] <- density(data[[i]][,1],
-                                                    kernel = "gaussian",
-                                                    bw = bw)
+    if(nrow(data[[i]]) >= 2){
+      De.density[[length(De.density) + 1]] <- density(data[[i]][,1],
+                                                      kernel = "gaussian",
+                                                      bw = bw)
+
+    }else{
+      De.density[[length(De.density) + 1]] <- NA
+      warning("[plot_KDE()] Less than 2 points provided, no density plotted.", call. = FALSE)
+
+    }
+
   }
 
   ## remove dummy list element
@@ -320,14 +328,22 @@ plot_KDE <- function(
     De.global <- c(De.global, data[[i]][,1])
     De.error.global <- c(De.error.global, data[[i]][,2])
 
-    ## density ranges
-    De.density.range[i,1] <- min(De.density[[i]]$x)
-    De.density.range[i,2] <- max(De.density[[i]]$x)
-    De.density.range[i,3] <- min(De.density[[i]]$y)
-    De.density.range[i,4] <- max(De.density[[i]]$y)
+    ## density range
+    if(!is.na(De.density[[i]])){
+      De.density.range[i,1] <- min(De.density[[i]]$x)
+      De.density.range[i,2] <- max(De.density[[i]]$x)
+      De.density.range[i,3] <- min(De.density[[i]]$y)
+      De.density.range[i,4] <- max(De.density[[i]]$y)
 
-    ## position of maximum KDE value
-    De.stats[i,4] <- De.density[[i]]$x[which.max(De.density[[i]]$y)]
+      ## position of maximum KDE value
+      De.stats[i,4] <- De.density[[i]]$x[which.max(De.density[[i]]$y)]
+
+    }else{
+      De.density.range[i,1:4] <- NA
+      De.stats[i,4] <- NA
+    }
+
+
   }
 
   ## Get global range of densities
@@ -572,10 +588,20 @@ plot_KDE <- function(
   if("ylim" %in% names(list(...))) {
     ylim.plot <- list(...)$ylim
   } else {
-    ylim.plot <- c(De.density.range[3],
-                   De.density.range[4],
-                   0,
-                   max(De.stats[,1]))
+    if(!is.na(De.density.range[1])){
+      ylim.plot <- c(De.density.range[3],
+                     De.density.range[4],
+                     0,
+                     max(De.stats[,1]))
+
+    }else{
+      ylim.plot <- c(0,
+                     max(De.stats[,1]),
+                     0,
+                     max(De.stats[,1]))
+
+    }
+
   }
 
   if("log" %in% names(list(...))) {
@@ -905,12 +931,16 @@ plot_KDE <- function(
         cex = cex * layout$kde$font.size$ylab1/12)
 
   for(i in 1:length(data)) {
-    polygon(x = c(par()$usr[1], De.density[[i]]$x, par()$usr[2]),
-            y = c(min(De.density[[i]]$y),De.density[[i]]$y, min(De.density[[i]]$y)),
-            border = col.kde.line[i],
-            col = col.kde.fill,
-            lty = lty[i],
-            lwd = lwd[i])
+    if(!is.na(De.density[[i]])){
+      polygon(x = c(par()$usr[1], De.density[[i]]$x, par()$usr[2]),
+              y = c(min(De.density[[i]]$y),De.density[[i]]$y, min(De.density[[i]]$y)),
+              border = col.kde.line[i],
+              col = col.kde.fill,
+              lty = lty[i],
+              lwd = lwd[i])
+
+    }
+
   }
 
   ## add plot title

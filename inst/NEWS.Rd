@@ -6,12 +6,76 @@
 
   \subsection{Bugfixes and changes}{
    \itemize{
-    \item plot_GrowthCurve()
+
+
+      \item \code{analyse_IRSAR.RF()}
+
+       \itemize{
+         \item Test parameter \code{curves_bounds} was not calculated correctly; fixed,
+
+         \item first output object renamed to \code{data}, instead of \code{De.values}.
+
+       }
+
+
+
+      \item \code{analyse_SAR.CWOSL()}
+
+       \itemize{
+         \item The first object in the returned \code{RLum.Results} objects was renamed to \code{data}
+         to gain consistency with the other functions.
+
+       }
+
+      \item \code{analyse_SAR.TL()}
+
+       \itemize{
+         \item The first object in the returned \code{RLum.Results} objects was renamed to \code{data}
+         to gain consistency with the other functions.
+
+       }
+
+
+
+      \item \code{analyse_pIRIRSequence()}
+
+       \itemize{
+         \item The first object in the returned \code{RLum.Results} objects was renamed to \code{data}
+         to gain consistency with the other functions.
+
+       }
+
+
+    \item \code{plot_GrowthCurve()}
 
        \itemize{
          \item \code{fit.method} set to linear for problematic cases (two reg points).
 
        }
+
+
+    \item \code{plot_Histogram()}
+
+       \itemize{
+
+         \item Fix a problem while dealing with \code{RLum.Results} objects as input (#7, thanks
+         to Alice Versendaal).
+       }
+
+      \item \code{plot_KDE()}
+
+       \itemize{
+
+         \item Fix a problem while dealing with \code{RLum.Results} objects as input (#7, thanks
+         to Alice Versendaal),
+
+         \item function will not break any longe if only one point is provided, but in this case
+         no density curve is returned.
+
+
+       }
+
+
 
       }
 
