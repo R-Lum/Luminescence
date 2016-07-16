@@ -46,6 +46,14 @@
        }
 
 
+    \item \code{plot_DRT()}
+
+       \itemize{
+         \item Fix statistical summay keyword issue (reported by Alice Versendaal),
+         \item improve customised colouring and pch settings.
+
+       }
+
     \item \code{plot_GrowthCurve()}
 
        \itemize{

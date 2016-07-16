@@ -30,6 +30,13 @@ Changes in version 0.6.2 (,2016):
                was renamed to ‘data’ to gain consistency with the other
                functions.
 
+         • ‘plot_DRT()’
+
+             • Fix statistical summay keyword issue (reported by Alice
+               Versendaal),
+
+             • improve customised colouring and pch settings.
+
          • ‘plot_GrowthCurve()’
 
              • ‘fit.method’ set to linear for problematic cases (two
