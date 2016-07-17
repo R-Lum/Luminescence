@@ -82,7 +82,7 @@
 #' @note The upper age limit is set to 500 ka!
 #'
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -127,11 +127,12 @@ calc_FadingCorr <- function(
   ##CALCULATION
   ##============================================================================##
 
-  ##calculate kappa
+  ##calculate kappa (equation [5] in Huntley and Lamothe, 2001)
   kappa <- g_value[1] / log(10) / 100
 
   ##transform tc in ka years
-  tc <- tc / 60 / 60 / 24 / 365 / 1000
+  ##duration of the year over a long term taken from Wikipedia
+  tc <- tc / 60 / 60 / 24 / 365.2425  / 1000
 
   ##calculate mean value
   temp <-
