@@ -44,7 +44,7 @@
 #' from separate fading measurements (see example)
 #'
 #' @param tc \code{\link{numeric}} (\bold{required}): time in seconds (time between
-#' irradiation and the prompt measurement, cf. Huntely & Lamothe 2001)
+#' irradiation and the prompt measurement, cf. Huntley & Lamothe 2001).
 #'
 #' @param age.faded \code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
 #' age with error in ka (see example)
@@ -79,10 +79,11 @@
 #' simulation.
 #'
 #'
-#' @note The upper age limit is set to 500 ka!
+#' @note The upper age limit is set to 500 ka! \cr
+#' Special thanks to Sebastien Huot for his support via e-mail.
 #'
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -101,9 +102,32 @@
 #'
 #'
 #' @examples
-#' results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
-#'                 age.faded = c(100,10),
-#'                 n.MCruns=100)
+#'
+#' ##run the examples given in Huntley and Lamothe, 2001
+#' ##(1) calculate g-value for given kappa
+#' g_value <- c(100 * 0.0231 * log(10), 100 * 0.0044 * log(10))
+#'
+#' ##run examples from the appendix
+#' ##100 a
+#' results <- calc_FadingCorr(
+#'    g_value,
+#'    tc = 2592000,
+#'    age.faded = c(0.1,0),
+#'    n.MCruns=100)
+#'
+#' ## 1 ka
+#' results <- calc_FadingCorr(
+#'    g_value,
+#'    tc = 2592000,
+#'    age.faded = c(1,0),
+#'    n.MCruns=100)
+#'
+#' ## 10.0 ka
+#' results <- calc_FadingCorr(
+#'    g_value,
+#'    tc = 2592000,
+#'    age.faded = c(10,0),
+#'    n.MCruns=100)
 #'
 #' get_RLum(results)
 #'
@@ -265,8 +289,8 @@ calc_FadingCorr <- function(
 
   ##obtain corrected age
   age.corr <- data.frame(
-    AGE = round(temp$root, digits = 2),
-    AGE.ERROR = round(sd(tempMC), digits = 2),
+    AGE = round(temp$root, digits = 4),
+    AGE.ERROR = round(sd(tempMC), digits = 4),
     AGE_FADED = age.faded[1],
     AGE_FADED.ERROR = age.faded[2],
     G_VALUE = g_value[1],
@@ -285,17 +309,17 @@ calc_FadingCorr <- function(
   cat("\n\t Fading correction according to Huntley & Lamothe (2001):\n")
   cat(paste("\n\t Age (faded): ",age.faded[1]," ka \u00b1 ",
             age.faded[2]," ka",sep=""))
-  cat(paste("\n\t g-value: ",g_value[1], "%/decade \u00b1 ",
-            g_value[2]," %/decade",sep=""))
+  cat(paste("\n\t g-value: ",round(g_value[1], digits = 3), "%/decade \u00b1 ",
+            round(g_value[2], digits = 3)," %/decade",sep=""))
   cat(paste("\n\t tc: ",format(tc, digits = 4, scientific = TRUE), " ka",sep=""))
   cat(paste("\n\t kappa: ",mean(kappa),sep=""))
   cat(paste("\n\t seed: ", ifelse(is.null(seed), NA, seed)))
   cat(paste("\n\t n.MCruns: ",n.MCruns))
   cat(paste("\n\t observations: ",
             format(length(tempMC), digits = 2, scientific =TRUE),sep=""))
-  cat("\n\n\t ----------------------------------")
+  cat("\n\n\t ------------------------------------")
   cat(paste("\n\t Age (corr.): ",age.corr[1]," ka \u00b1 ",age.corr[2]," ka",sep=""))
-  cat("\n\t ----------------------------------\n")
+  cat("\n\t ------------------------------------\n")
 
   ##============================================================================##
   ##OUTPUT RLUM

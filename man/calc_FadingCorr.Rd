@@ -13,7 +13,7 @@ calc_FadingCorr(g_value, tc, age.faded, n.MCruns = 10000, seed = NULL,
 from separate fading measurements (see example)}
 
 \item{tc}{\code{\link{numeric}} (\bold{required}): time in seconds (time between
-irradiation and the prompt measurement, cf. Huntely & Lamothe 2001)}
+irradiation and the prompt measurement, cf. Huntley & Lamothe 2001).}
 
 \item{age.faded}{\code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
 age with error in ka (see example)}
@@ -87,15 +87,39 @@ should not be mixed up with the option \bold{\code{n.MCruns = 'auto'}}. The resu
 appear similar, but they are not comparable!
 }
 \note{
-The upper age limit is set to 500 ka!
+The upper age limit is set to 500 ka! \cr
+Special thanks to Sebastien Huot for his support via e-mail.
 }
 \section{Function version}{
- 0.3.3 (2016-05-02 09:36:06)
+ 0.3.5 (2016-07-18 17:54:25)
 }
 \examples{
-results <- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
-                age.faded = c(100,10),
-                n.MCruns=100)
+
+##run the examples given in Huntley and Lamothe, 2001
+##(1) calculate g-value for given kappa
+g_value <- c(100 * 0.0231 * log(10), 100 * 0.0044 * log(10))
+
+##run examples from the appendix
+##100 a
+results <- calc_FadingCorr(
+   g_value,
+   tc = 2592000,
+   age.faded = c(0.1,0),
+   n.MCruns=100)
+
+## 1 ka
+results <- calc_FadingCorr(
+   g_value,
+   tc = 2592000,
+   age.faded = c(1,0),
+   n.MCruns=100)
+
+## 10.0 ka
+results <- calc_FadingCorr(
+   g_value,
+   tc = 2592000,
+   age.faded = c(10,0),
+   n.MCruns=100)
 
 get_RLum(results)
 
