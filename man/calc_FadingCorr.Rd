@@ -5,15 +5,21 @@
 \title{Apply a fading correction according to Huntley & Lamothe (2001) for a given
 g-value.}
 \usage{
-calc_FadingCorr(g_value, tc, age.faded, n.MCruns = 10000, seed = NULL,
-  txtProgressBar = TRUE)
+calc_FadingCorr(g_value, tc, tc.g_value = tc, age.faded, n.MCruns = 10000,
+  seed = NULL, txtProgressBar = TRUE)
 }
 \arguments{
 \item{g_value}{\code{\link{vector}} (\bold{required}): g-value and error obtained
 from separate fading measurements (see example)}
 
-\item{tc}{\code{\link{numeric}} (\bold{required}): time in seconds (time between
-irradiation and the prompt measurement, cf. Huntley & Lamothe 2001).}
+\item{tc}{\code{\link{numeric}} (\bold{required}): time in seconds between
+irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).}
+
+\item{tc.g_value}{\code{\link{numeric}} (with default): the time in seconds between irradiation
+and the prompt measurement used for estimating the g-value. If the g-value was normalised
+to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If nothing is provided
+the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
+that had been not normalised to 2 days.}
 
 \item{age.faded}{\code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
 age with error in ka (see example)}
@@ -29,23 +35,23 @@ in R using \code{\link{set.seed}}}
 \code{\link{txtProgressBar}}}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}. Slot
-\code{data} contains a \code{\link{list}} with the following structure:\cr
-$ age.corr (data.frame) \cr
-.. $ age \cr
-.. $ age.error \cr
-.. $ age.faded \cr
-.. $ age.faded.error \cr
-.. $ g_value \cr
-.. $ g_value.error \cr
-.. $ tc \cr
-.. $ n.MCruns \cr
-.. $ observations \cr
-.. $ seed \cr
-$ age.corr.MC (numeric)\cr
+Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
 
-\code{Age.corr.MC} contain all possible ages from the Monte Carlo (error)
-simulation.
+Slot: \bold{@data}\cr
+\tabular{lll}{
+\bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
+ \code{age.corr} \tab \code{data.frame} \tab Corrected age \cr
+ \code{age.corr.MC} \tab \code{numeric} \tab MC simulation results with all possible ages from
+ that simulation\cr
+}
+
+Slot: \bold{@info}\cr
+
+\tabular{lll}{
+\bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
+ \code{info} \tab \code{character} \tab the original function call
+
+}
 }
 \description{
 This function runs the iterations that are needed to calculate the corrected
@@ -91,7 +97,7 @@ The upper age limit is set to 500 ka! \cr
 Special thanks to Sebastien Huot for his support via e-mail.
 }
 \section{Function version}{
- 0.3.5 (2016-07-18 17:54:25)
+ 0.4.0 (2016-07-19 14:51:52)
 }
 \examples{
 

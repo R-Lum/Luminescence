@@ -5,6 +5,7 @@
 #' age including the error for a given g-value according to Huntley & Lamothe
 #' (2001).
 #'
+#'
 #' The error of the fading-corrected age is determined using a Monte Carlo
 #' simulation approach. Solving of the equation is realised using
 #' \code{\link{uniroot}}. Large values for \code{n.MCruns} will significantly
@@ -43,8 +44,14 @@
 #' @param g_value \code{\link{vector}} (\bold{required}): g-value and error obtained
 #' from separate fading measurements (see example)
 #'
-#' @param tc \code{\link{numeric}} (\bold{required}): time in seconds (time between
-#' irradiation and the prompt measurement, cf. Huntley & Lamothe 2001).
+#' @param tc \code{\link{numeric}} (\bold{required}): time in seconds between
+#' irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
+#'
+#' @param tc.g_value \code{\link{numeric}} (with default): the time in seconds between irradiation
+#' and the prompt measurement used for estimating the g-value. If the g-value was normalised
+#' to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If nothing is provided
+#' the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
+#' that had been not normalised to 2 days.
 #'
 #' @param age.faded \code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
 #' age with error in ka (see example)
@@ -60,30 +67,31 @@
 #' \code{\link{txtProgressBar}}
 #'
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}. Slot
-#' \code{data} contains a \code{\link{list}} with the following structure:\cr
-#' $ age.corr (data.frame) \cr
-#' .. $ age \cr
-#' .. $ age.error \cr
-#' .. $ age.faded \cr
-#' .. $ age.faded.error \cr
-#' .. $ g_value \cr
-#' .. $ g_value.error \cr
-#' .. $ tc \cr
-#' .. $ n.MCruns \cr
-#' .. $ observations \cr
-#' .. $ seed \cr
-#' $ age.corr.MC (numeric)\cr
+#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
 #'
-#' \code{Age.corr.MC} contain all possible ages from the Monte Carlo (error)
-#' simulation.
+#' Slot: \bold{@data}\cr
+#' \tabular{lll}{
+#' \bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
+#'  \code{age.corr} \tab \code{data.frame} \tab Corrected age \cr
+#'  \code{age.corr.MC} \tab \code{numeric} \tab MC simulation results with all possible ages from
+#'  that simulation\cr
+#' }
+#'
+#' Slot: \bold{@info}\cr
+#'
+#' \tabular{lll}{
+#' \bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
+#'  \code{info} \tab \code{character} \tab the original function call
+#'
+#' }
+#'
 #'
 #'
 #' @note The upper age limit is set to 500 ka! \cr
 #' Special thanks to Sebastien Huot for his support via e-mail.
 #'
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.4.0
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -135,6 +143,7 @@
 calc_FadingCorr <- function(
   g_value,
   tc,
+  tc.g_value = tc,
   age.faded,
   n.MCruns = 10000,
   seed = NULL,
@@ -150,6 +159,14 @@ calc_FadingCorr <- function(
   ##============================================================================##
   ##CALCULATION
   ##============================================================================##
+
+  ##recalculate the g-value to the given tc ... should be similar
+  ##of tc = tc.g_value
+  ##re-calulation thanks to the help by Sebastien Huot, e-mail: 2016-07-19
+  ##Please note that we take the vector for the g_value here
+  k0 <- g_value / log(10) / 100
+  k1 <- k0 / (1 - k0 * log(tc.g_value/tc))
+  g_value <-  100 * k1 * log(10)
 
   ##calculate kappa (equation [5] in Huntley and Lamothe, 2001)
   kappa <- g_value[1] / log(10) / 100
@@ -296,6 +313,7 @@ calc_FadingCorr <- function(
     G_VALUE = g_value[1],
     G_VALUE.ERROR = g_value[2],
     TC = tc,
+    TC.G_VALUE = tc.g_value,
     N.MCRUNS = n.MCruns,
     OBSERVATIONS = length(tempMC),
     SEED = ifelse(is.null(seed), NA, seed)
@@ -306,30 +324,31 @@ calc_FadingCorr <- function(
   ##============================================================================##
 
   cat("\n\n[calc_FadingCorr()]\n")
-  cat("\n\t Fading correction according to Huntley & Lamothe (2001):\n")
-  cat(paste("\n\t Age (faded): ",age.faded[1]," ka \u00b1 ",
+  cat("\n Fading correction according to Huntley & Lamothe (2001):\n")
+  cat(paste("\n Age (faded):\t\t",age.faded[1]," ka \u00b1 ",
             age.faded[2]," ka",sep=""))
-  cat(paste("\n\t g-value: ",round(g_value[1], digits = 3), "%/decade \u00b1 ",
+  cat(paste("\n .. used g-value:\t",round(g_value[1], digits = 3), " \u00b1 ",
             round(g_value[2], digits = 3)," %/decade",sep=""))
-  cat(paste("\n\t tc: ",format(tc, digits = 4, scientific = TRUE), " ka",sep=""))
-  cat(paste("\n\t kappa: ",mean(kappa),sep=""))
-  cat(paste("\n\t seed: ", ifelse(is.null(seed), NA, seed)))
-  cat(paste("\n\t n.MCruns: ",n.MCruns))
-  cat(paste("\n\t observations: ",
+  cat(paste("\n .. used tc:\t\t",format(tc, digits = 4, scientific = TRUE), " ka",sep=""))
+  cat(paste("\n .. used kappa:\t\t",mean(kappa),sep=""))
+  cat("\n ------------------------------------")
+  cat(paste0("\n seed: \t\t\t", ifelse(is.null(seed), NA, seed)))
+  cat(paste0("\n n.MCruns: \t\t",n.MCruns))
+  cat(paste0("\n observations: \t\t",
             format(length(tempMC), digits = 2, scientific =TRUE),sep=""))
-  cat("\n\n\t ------------------------------------")
-  cat(paste("\n\t Age (corr.): ",age.corr[1]," ka \u00b1 ",age.corr[2]," ka",sep=""))
-  cat("\n\t ------------------------------------\n")
+  cat("\n ------------------------------------")
+  cat(paste("\n Age (corr.): ",age.corr[1]," ka \u00b1 ",age.corr[2]," ka",sep=""))
+  cat("\n ------------------------------------\n")
 
   ##============================================================================##
   ##OUTPUT RLUM
   ##============================================================================##
-
-  temp.RLum.Results <- set_RLum(
+  return(set_RLum(
     class = "RLum.Results",
     data = list(age.corr = age.corr,
-                age.corr.MC = tempMC))
-
-  return(temp.RLum.Results)
+                age.corr.MC = tempMC),
+    info = list(call = sys.call())
+  ))
 
 }
+
