@@ -4,6 +4,10 @@
 #' The function is not limited to standard fading measurements, as can be seen, e.g., Huntely and
 #' Lamothe 2001.
 #'
+#' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
+#' in the output object the g-value normalised to 2-days is provided. The output of this function
+#' can be passed to the function \code{\link{calc_FadingCorr}}.
+#'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
 #' measurement data. Alternatively a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
 #' objects can be provided
@@ -29,7 +33,26 @@
 #'
 #' @param \dots (optional) further arguments that can be passed to internally used functions (see details)
 #'
-#' @return An RLum.Results objects is returned ... TODO
+#' @return An \code{\linkS4class{RLum.Results}} object is returned:
+#'
+#' Slot: \bold{@data}\cr
+#'
+#' \tabular{lll}{
+#' \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+#' \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
+#' \code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \code{\link[stats]{lm}}\cr
+#' \code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
+#' \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds\cr
+#' }
+#'
+#' Slot: \bold{@info}\cr
+#'
+#' \tabular{lll}{
+#' \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+#' \code{call} \tab \code{call} \tab the original function call\cr
+#'
+#' }
+#'
 #'
 #' @section Function version: 0.1.0
 #'
@@ -303,6 +326,12 @@ analyse_FadingMeasurement <- function(
 
   )
 
+  ##normalise the g-value to 2-days using the equation provided by Sebastien Huot via e-mail
+  ##this means the data is extended
+  k0 <- g_value[,c("FIT", "SD")] / 100 / log(10)
+  k1 <- k0 / (1 - k0 * log(172800/tc))
+  g_value_2days <-  100 * k1 * log(10)
+  names(g_value_2days) <- c("G_VALUE_2DAYS", "G_VALUE_2DAYS.ERROR")
 
   # Approximation -------------------------------------------------------------------------------
   T_0.5.interpolated <- approx(x = LxTx_table[["LxTx_NORM"]],
@@ -617,6 +646,9 @@ analyse_FadingMeasurement <- function(
     cat(paste0("\nT_0.5 predicted:\t",format(T_0.5$T_0.5_PREDICTED, digits = 2, scientific = TRUE)))
     cat(paste0("\ng-value:\t\t", round(g_value$FIT, digits = 2), " \u00b1 ", round(g_value$SD, digits = 2),
       " (%/decade)"))
+    cat(paste0("\ng-value (norm. 2 days):\t", round(g_value_2days[1], digits = 2), " \u00b1 ", round(g_value_2days[2], digits = 2),
+               " (%/decade)"))
+
     cat("\n---------------------------------------------------")
 
 
@@ -625,17 +657,22 @@ analyse_FadingMeasurement <- function(
   }
 
   # Return --------------------------------------------------------------------------------------
-  return(
-    set_RLum(class = "RLum.Results",
-             data = list(
-               fading_results = cbind(g_value, tc = tc, T_0.5, UID = uid),
-               fit = fit,
-               LxTx_table = LxTx_table,
-               irr.times = irradiation_times
-             ),
-             info = list(call = sys.call()))
-
-
-  )
+  return(set_RLum(
+    class = "RLum.Results",
+    data = list(
+      fading_results = cbind(
+        g_value,
+        TC = tc,
+        G_VALUE_2DAYS = g_value_2days[1],
+        G_VALUE_2DAYS.ERROR = g_value_2days[2],
+        T_0.5,
+        UID = uid
+      ),
+      fit = fit,
+      LxTx_table = LxTx_table,
+      irr.times = irradiation_times
+    ),
+    info = list(call = sys.call())
+  ))
 
 }

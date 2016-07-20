@@ -35,18 +35,41 @@ mode, i.e. one plot window per plot}
 \item{\dots}{(optional) further arguments that can be passed to internally used functions (see details)}
 }
 \value{
-An RLum.Results objects is returned ... TODO
+An \code{\linkS4class{RLum.Results}} object is returned:
+
+Slot: \bold{@data}\cr
+
+\tabular{lll}{
+\bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+\code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
+\code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \code{\link[stats]{lm}}\cr
+\code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
+\code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds\cr
+}
+
+Slot: \bold{@info}\cr
+
+\tabular{lll}{
+\bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+\code{call} \tab \code{call} \tab the original function call\cr
+
+}
 }
 \description{
 The function analysis fading measurements and returns a fading rate including an error estimation.
 The function is not limited to standard fading measurements, as can be seen, e.g., Huntely and
 Lamothe 2001.
 }
+\details{
+All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
+in the output object the g-value normalised to 2-days is provided. The output of this function
+can be passed to the function \code{\link{calc_FadingCorr}}.
+}
 \note{
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2016-07-05 16:39:52)
+ 0.1.0 (2016-07-20 12:03:26)
 }
 \examples{
 
@@ -57,7 +80,12 @@ Lamothe 2001.
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team}
 \references{
--
+Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
+SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0
+
+Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
+and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
+1093-1106. doi:10.1139/cjes-38-7-1093
 }
 \seealso{
 \code{\link{calc_OSLLxTxRatio}}, \code{\link{read_BIN2R}}, \code{\link{read_XSYG2R}},
