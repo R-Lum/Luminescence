@@ -1,9 +1,13 @@
 #' Apply a fading correction according to Huntley & Lamothe (2001) for a given
-#' g-value.
+#' g-value and a given tc
 #'
-#' This function runs the iterations that are needed to calculate the corrected
-#' age including the error for a given g-value according to Huntley & Lamothe
-#' (2001).
+#' This function solves the equation used for correcting the fading affected age
+#' including the error for a given g-value according to Huntley & Lamothe (2001).
+#' As the g-value sligthly depends on the time between irradiation and the prompt measurement,
+#' this is tc, always a tc value needs to be provided. If the g-value was normalised to a distinct
+#' time or evaluated with a different tc value (e.g., external irradiation), also the tc value
+#' for the g-value needs to be given (argument \code{tc.g_value} and the g-value is recalcualted
+#' to tc of the measurement used for estimating the age applying the following equation:
 #'
 #'
 #' The error of the fading-corrected age is determined using a Monte Carlo
@@ -38,8 +42,17 @@
 #' This option allows to recreate previously calculated results by setting the seed
 #' for the R random number generator (see \code{\link{set.seed}} for details). This option
 #' should not be mixed up with the option \bold{\code{n.MCruns = 'auto'}}. The results may
-#' appear similar, but they are not comparable!
+#' appear similar, but they are not comparable!\cr
 #'
+#' \bold{FAQ}\cr
+#' Q: Which tc value is expected?\cr
+#' A: tc is the time in seconds between irradiation and the prompt measurement applied during your
+#' De measurement. However, this tc might differ from the tc used for estimating the g-value. In the
+#' case of an SAR measurement tc should be similar, however, if it differs, you have to provide this
+#' tc value (the one used for estimating the g-value) using the argument \code{tc.g_value}.\cr
+#'
+#' @param age.faded \code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
+#' age with error in ka (see example)
 #'
 #' @param g_value \code{\link{vector}} (\bold{required}): g-value and error obtained
 #' from separate fading measurements (see example)
@@ -53,9 +66,6 @@
 #' the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
 #' that had been not normalised to 2 days.
 #'
-#' @param age.faded \code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
-#' age with error in ka (see example)
-#'
 #' @param n.MCruns \code{\link{integer}} (with default): number of Monte Carlo
 #' simulation runs for error estimation. If \code{n.MCruns = 'auto'} is used the function
 #' tries to find a 'stable' error for the age. Note: This may take a while!
@@ -65,6 +75,8 @@
 #'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}
+#'
+#' @param verbose \code{\link{logical}} (with default): enables or disables terminal output
 #'
 #'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
@@ -86,9 +98,8 @@
 #' }
 #'
 #'
-#'
 #' @note The upper age limit is set to 500 ka! \cr
-#' Special thanks to Sebastien Huot for his support via e-mail.
+#' Special thanks to Sebastien Huot for his support and clarification via e-mail.
 #'
 #'
 #' @section Function version: 0.4.0
@@ -113,41 +124,44 @@
 #'
 #' ##run the examples given in Huntley and Lamothe, 2001
 #' ##(1) calculate g-value for given kappa
-#' g_value <- c(100 * 0.0231 * log(10), 100 * 0.0044 * log(10))
 #'
 #' ##run examples from the appendix
 #' ##100 a
 #' results <- calc_FadingCorr(
-#'    g_value,
-#'    tc = 2592000,
 #'    age.faded = c(0.1,0),
+#'    g_value = c(5.0, 1.0),
+#'    tc = 2592000,
+#'    tc.g_value = 172800,
 #'    n.MCruns=100)
 #'
 #' ## 1 ka
 #' results <- calc_FadingCorr(
-#'    g_value,
+#'    age.faded = c(0.1,0),
+#'    g_value = c(5.0, 1.0),
 #'    tc = 2592000,
-#'    age.faded = c(1,0),
+#'    tc.g_value = 172800,
 #'    n.MCruns=100)
 #'
 #' ## 10.0 ka
 #' results <- calc_FadingCorr(
-#'    g_value,
+#'    age.faded = c(0.1,0),
+#'    g_value = c(5.0, 1.0),
 #'    tc = 2592000,
-#'    age.faded = c(10,0),
+#'    tc.g_value = 172800,
 #'    n.MCruns=100)
 #'
 #' get_RLum(results)
 #'
 #' @export
 calc_FadingCorr <- function(
+  age.faded,
   g_value,
   tc,
   tc.g_value = tc,
-  age.faded,
   n.MCruns = 10000,
   seed = NULL,
-  txtProgressBar = TRUE
+  txtProgressBar = TRUE,
+  verbose = TRUE
 ){
 
   ##============================================================================##
@@ -164,15 +178,15 @@ calc_FadingCorr <- function(
   ##of tc = tc.g_value
   ##re-calulation thanks to the help by Sebastien Huot, e-mail: 2016-07-19
   ##Please note that we take the vector for the g_value here
-  k0 <- g_value / log(10) / 100
-  k1 <- k0 / (1 - k0 * log(tc.g_value/tc))
+  k0 <- g_value / 100 / log(10)
+  k1 <- k0 / (1 - k0 * log(tc/tc.g_value))
   g_value <-  100 * k1 * log(10)
 
   ##calculate kappa (equation [5] in Huntley and Lamothe, 2001)
-  kappa <- g_value[1] / log(10) / 100
+  kappa <- g_value / log(10) / 100
 
   ##transform tc in ka years
-  ##duration of the year over a long term taken from Wikipedia
+  ##duration of the year over a long term taken from http://wikipedia.org
   tc <- tc / 60 / 60 / 24 / 365.2425  / 1000
 
   ##calculate mean value
@@ -183,7 +197,7 @@ calc_FadingCorr <- function(
       tol = 0.001,
       tc = tc,
       af = age.faded[1],
-      kappa = kappa,
+      kappa = kappa[1],
       check.conv = FALSE
     )
 
@@ -312,6 +326,8 @@ calc_FadingCorr <- function(
     AGE_FADED.ERROR = age.faded[2],
     G_VALUE = g_value[1],
     G_VALUE.ERROR = g_value[2],
+    KAPPA = kappa[1],
+    KAPPA.ERROR = kappa[2],
     TC = tc,
     TC.G_VALUE = tc.g_value,
     N.MCRUNS = n.MCruns,
@@ -322,23 +338,61 @@ calc_FadingCorr <- function(
   ##============================================================================##
   ##OUTPUT VISUAL
   ##============================================================================##
+  if(verbose) {
+    cat("\n\n[calc_FadingCorr()]\n")
+    cat("\n >> Fading correction according to Huntley & Lamothe (2001)")
 
-  cat("\n\n[calc_FadingCorr()]\n")
-  cat("\n Fading correction according to Huntley & Lamothe (2001):\n")
-  cat(paste("\n Age (faded):\t\t",age.faded[1]," ka \u00b1 ",
-            age.faded[2]," ka",sep=""))
-  cat(paste("\n .. used g-value:\t",round(g_value[1], digits = 3), " \u00b1 ",
-            round(g_value[2], digits = 3)," %/decade",sep=""))
-  cat(paste("\n .. used tc:\t\t",format(tc, digits = 4, scientific = TRUE), " ka",sep=""))
-  cat(paste("\n .. used kappa:\t\t",mean(kappa),sep=""))
-  cat("\n ------------------------------------")
-  cat(paste0("\n seed: \t\t\t", ifelse(is.null(seed), NA, seed)))
-  cat(paste0("\n n.MCruns: \t\t",n.MCruns))
-  cat(paste0("\n observations: \t\t",
-            format(length(tempMC), digits = 2, scientific =TRUE),sep=""))
-  cat("\n ------------------------------------")
-  cat(paste("\n Age (corr.): ",age.corr[1]," ka \u00b1 ",age.corr[2]," ka",sep=""))
-  cat("\n ------------------------------------\n")
+    if (tc != tc.g_value) {
+      cat("\n >> g-value re-calculated to the given tc")
+
+    }
+
+    cat(paste(
+      "\n\n .. used g-value:\t",
+      round(g_value[1], digits = 3),
+      " \u00b1 ",
+      round(g_value[2], digits = 3),
+      " %/decade",
+      sep = ""
+    ))
+    cat(paste(
+      "\n .. used tc:\t\t",
+      format(tc, digits = 4, scientific = TRUE),
+      " ka",
+      sep = ""
+    ))
+    cat(paste0(
+      "\n .. used kappa:\t\t",
+      round(kappa[1], digits = 4),
+      " \u00b1 ",
+      round(kappa[2], digits = 4)
+    ))
+    cat("\n ----------------------------------------------")
+    cat(paste0("\n seed: \t\t\t", ifelse(is.null(seed), NA, seed)))
+    cat(paste0("\n n.MCruns: \t\t", n.MCruns))
+    cat(paste0(
+      "\n observations: \t\t",
+      format(length(tempMC), digits = 2, scientific = TRUE),
+      sep = ""
+    ))
+    cat("\n ----------------------------------------------")
+    cat(paste0(
+      "\n Age (faded):\t\t",
+      round(age.faded[1], digits = 4),
+      " ka \u00b1 ",
+      round(age.faded[2], digits = 4),
+      " ka"
+    ))
+    cat(paste0(
+      "\n Age (corr.):\t\t",
+      round(age.corr[1], digits = 4),
+      " ka \u00b1 ",
+      round(age.corr[2], digits = 4),
+      " ka"
+    ))
+    cat("\n ---------------------------------------------- \n")
+
+  }
 
   ##============================================================================##
   ##OUTPUT RLUM
@@ -351,4 +405,3 @@ calc_FadingCorr <- function(
   ))
 
 }
-
