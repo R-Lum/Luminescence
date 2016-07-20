@@ -64,10 +64,13 @@
 #' age with error in ka (see example)
 #'
 #' @param g_value \code{\link{vector}} (\bold{required}): g-value and error obtained
-#' from separate fading measurements (see example)
+#' from separate fading measurements (see example). Alternatively an \code{\linkS4class{RLum.Results}} object
+#' can be provided produced by the function \code{analyse_FadingMeasurement}, in this case tc is set
+#' automatically
 #'
 #' @param tc \code{\link{numeric}} (\bold{required}): time in seconds between
-#' irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
+#' irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). Argument will be ignored
+#' if \code{g_value} was an \code{RLum.Results} object
 #'
 #' @param tc.g_value \code{\link{numeric}} (with default): the time in seconds between irradiation
 #' and the prompt measurement used for estimating the g-value. If the g-value was normalised
@@ -164,7 +167,7 @@
 calc_FadingCorr <- function(
   age.faded,
   g_value,
-  tc,
+  tc = NULL,
   tc.g_value = tc,
   n.MC = 10000,
   seed = NULL,
@@ -172,8 +175,36 @@ calc_FadingCorr <- function(
   verbose = TRUE
 ){
 
+  ##TODO set link after the function analyse_FadingMeasurement was released
+  ## ... this option should be tested as well
+
   # Integrity checks ---------------------------------------------------------------------------
-  stopifnot(!missing(age.faded), !missing(g_value), !missing(tc))
+  stopifnot(!missing(age.faded), !missing(g_value))
+
+  ##check input
+  if(class(g_value)[1] == "RLum.Results"){
+    if(g_value@originator == "analyse_FadingMeasurement"){
+
+      g_value <- get_RLum(g_value)[,c("FIT", "SD")]
+      tc <- get_RLum(g_value)[["TC"]]
+
+
+    }else{
+      try(stop("[calc_FadingCorr()] Unknown originator for the provided RLum.Results object via 'g_value'!", call. = FALSE))
+      return(NULL)
+
+
+    }
+
+
+  }
+
+  ##check if tc is still NULL
+  if(is.null(tc)){
+    try(stop("[calc_FadingCorr()] 'tc' needs to be set!", call. = FALSE))
+    return(NULL)
+
+  }
 
 
   ##============================================================================##

@@ -5,18 +5,21 @@
 \title{Apply a fading correction according to Huntley & Lamothe (2001) for a given
 g-value and a given tc}
 \usage{
-calc_FadingCorr(age.faded, g_value, tc, tc.g_value = tc, n.MC = 10000,
-  seed = NULL, txtProgressBar = TRUE, verbose = TRUE)
+calc_FadingCorr(age.faded, g_value, tc = NULL, tc.g_value = tc,
+  n.MC = 10000, seed = NULL, txtProgressBar = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{age.faded}{\code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
 age with error in ka (see example)}
 
 \item{g_value}{\code{\link{vector}} (\bold{required}): g-value and error obtained
-from separate fading measurements (see example)}
+from separate fading measurements (see example). Alternatively an \code{\linkS4class{RLum.Results}} object
+can be provided produced by the function \code{analyse_FadingMeasurement}, in this case tc is set
+automatically}
 
 \item{tc}{\code{\link{numeric}} (\bold{required}): time in seconds between
-irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).}
+irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). Argument will be ignored
+if \code{g_value} was an \code{RLum.Results} object}
 
 \item{tc.g_value}{\code{\link{numeric}} (with default): the time in seconds between irradiation
 and the prompt measurement used for estimating the g-value. If the g-value was normalised
@@ -119,7 +122,7 @@ The upper age limit is set to 500 ka! \cr
 Special thanks to Sebastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.0 (2016-07-20 11:51:48)
+ 0.4.0 (2016-07-20 12:16:22)
 }
 \examples{
 
