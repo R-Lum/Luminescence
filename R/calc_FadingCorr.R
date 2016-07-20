@@ -3,23 +3,32 @@
 #'
 #' This function solves the equation used for correcting the fading affected age
 #' including the error for a given g-value according to Huntley & Lamothe (2001).
+#'
 #' As the g-value sligthly depends on the time between irradiation and the prompt measurement,
 #' this is tc, always a tc value needs to be provided. If the g-value was normalised to a distinct
 #' time or evaluated with a different tc value (e.g., external irradiation), also the tc value
-#' for the g-value needs to be given (argument \code{tc.g_value} and the g-value is recalcualted
+#' for the g-value needs to be provided (argument \code{tc.g_value} and then the g-value is recalcualted
 #' to tc of the measurement used for estimating the age applying the following equation:
+#'
+#' \deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * log(tc/tc.g))}
+#'
+#' where
+#'
+#' \deqn{\kappa_{tc.g} = g / 100 / log(10)}
+#'
+#' with \eqn{log} the natural logarithm.
 #'
 #'
 #' The error of the fading-corrected age is determined using a Monte Carlo
 #' simulation approach. Solving of the equation is realised using
-#' \code{\link{uniroot}}. Large values for \code{n.MCruns} will significantly
+#' \code{\link{uniroot}}. Large values for \code{n.MC} will significantly
 #' increase the computation time.\cr
 #'
-#' \bold{\code{n.MCruns = 'auto'}}
+#' \bold{\code{n.MC = 'auto'}}
 #'
 #' The error estimation based on a stochastic process, i.e. for a small number of MC runs the calculated
 #' error varies considerably every time the function is called, even with the same input values.
-#' The argument option \code{n.MCruns = 'auto'} tries to find a stable value for the standard error, i.e.
+#' The argument option \code{n.MC = 'auto'} tries to find a stable value for the standard error, i.e.
 #' the standard deviation of values calculated during the MC runs (\code{age.corr.MC}),
 #' within a given precision (2 digits) by increasing the number of MC runs stepwise and
 #' calculating the corresponding error.
@@ -33,7 +42,7 @@
 #'
 #' To avoid an endless loop the calculation is stopped if the number of observations exceeds 10^7.
 #' This limitation can be overwritten by setting the number of MC runs manually,
-#' e.g. \code{n.MCruns = 10000001}. Note: For this case the function is not checking whether the calculated
+#' e.g. \code{n.MC = 10000001}. Note: For this case the function is not checking whether the calculated
 #' error is stable.\cr
 #'
 #'
@@ -41,7 +50,7 @@
 #'
 #' This option allows to recreate previously calculated results by setting the seed
 #' for the R random number generator (see \code{\link{set.seed}} for details). This option
-#' should not be mixed up with the option \bold{\code{n.MCruns = 'auto'}}. The results may
+#' should not be mixed up with the option \bold{\code{n.MC = 'auto'}}. The results may
 #' appear similar, but they are not comparable!\cr
 #'
 #' \bold{FAQ}\cr
@@ -66,8 +75,8 @@
 #' the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
 #' that had been not normalised to 2 days.
 #'
-#' @param n.MCruns \code{\link{integer}} (with default): number of Monte Carlo
-#' simulation runs for error estimation. If \code{n.MCruns = 'auto'} is used the function
+#' @param n.MC \code{\link{integer}} (with default): number of Monte Carlo
+#' simulation runs for error estimation. If \code{n.MC = 'auto'} is used the function
 #' tries to find a 'stable' error for the age. Note: This may take a while!
 #'
 #' @param seed \code{\link{integer}} (optional): sets the seed for the random number generator
@@ -122,34 +131,33 @@
 #'
 #' @examples
 #'
-#' ##run the examples given in Huntley and Lamothe, 2001
-#' ##(1) calculate g-value for given kappa
+#' ##run the examples given in the appendix of Huntley and Lamothe, 2001
 #'
-#' ##run examples from the appendix
-#' ##100 a
+#' ##(1) faded age: 100 a
 #' results <- calc_FadingCorr(
 #'    age.faded = c(0.1,0),
 #'    g_value = c(5.0, 1.0),
 #'    tc = 2592000,
 #'    tc.g_value = 172800,
-#'    n.MCruns=100)
+#'    n.MC = 100)
 #'
-#' ## 1 ka
+#' ##(2) faded age: 1 ka
 #' results <- calc_FadingCorr(
 #'    age.faded = c(0.1,0),
 #'    g_value = c(5.0, 1.0),
 #'    tc = 2592000,
 #'    tc.g_value = 172800,
-#'    n.MCruns=100)
+#'    n.MC = 100)
 #'
-#' ## 10.0 ka
+#' ##(3) faded age: 10.0 ka
 #' results <- calc_FadingCorr(
 #'    age.faded = c(0.1,0),
 #'    g_value = c(5.0, 1.0),
 #'    tc = 2592000,
 #'    tc.g_value = 172800,
-#'    n.MCruns=100)
+#'    n.MC = 100)
 #'
+#' ##access the last output
 #' get_RLum(results)
 #'
 #' @export
@@ -158,15 +166,20 @@ calc_FadingCorr <- function(
   g_value,
   tc,
   tc.g_value = tc,
-  n.MCruns = 10000,
+  n.MC = 10000,
   seed = NULL,
   txtProgressBar = TRUE,
   verbose = TRUE
 ){
 
+  # Integrity checks ---------------------------------------------------------------------------
+  stopifnot(!missing(age.faded), !missing(g_value), !missing(tc))
+
+
   ##============================================================================##
   ##DEFINE FUNCTION
   ##============================================================================##
+
 
   f <- function(x, af,kappa,tc){1-kappa*(log(x/tc)-1) - (af/x)}
 
@@ -179,7 +192,7 @@ calc_FadingCorr <- function(
   ##re-calulation thanks to the help by Sebastien Huot, e-mail: 2016-07-19
   ##Please note that we take the vector for the g_value here
   k0 <- g_value / 100 / log(10)
-  k1 <- k0 / (1 - k0 * log(tc/tc.g_value))
+  k1 <- k0 / (1 - k0 * log(tc[1]/tc.g_value[1]))
   g_value <-  100 * k1 * log(10)
 
   ##calculate kappa (equation [5] in Huntley and Lamothe, 2001)
@@ -187,7 +200,7 @@ calc_FadingCorr <- function(
 
   ##transform tc in ka years
   ##duration of the year over a long term taken from http://wikipedia.org
-  tc <- tc / 60 / 60 / 24 / 365.2425  / 1000
+  tc <- tc[1] / 60 / 60 / 24 / 365.2425  / 1000
 
   ##calculate mean value
   temp <-
@@ -208,8 +221,8 @@ calc_FadingCorr <- function(
   counter <- 1
 
   ##show some progression bar of the process
-  if (n.MCruns == 'auto') {
-    n.MCruns.i <- 10000
+  if (n.MC == 'auto') {
+    n.MC.i <- 10000
 
     cat("\n[calc_FadingCorr()] ... trying to find stable error value ...")
     if (txtProgressBar) {
@@ -217,7 +230,7 @@ calc_FadingCorr <- function(
       cat(paste0("   ",paste0("(",0:9,")", collapse = "   "), "\n"))
     }
   }else{
-    n.MCruns.i <- n.MCruns
+    n.MC.i <- n.MC
 
   }
 
@@ -229,7 +242,7 @@ calc_FadingCorr <- function(
   tempMC <- vector("numeric", length = 1e+07)
   tempMC[] <- NA
   i <- 1
-  j <- n.MCruns.i
+  j <- n.MC.i
 
   while(length(unique(tempMC.sd.count))>1 | j > 1e+07){
 
@@ -243,13 +256,13 @@ calc_FadingCorr <- function(
     if (!is.null(seed)) set.seed(seed)
 
     ##pre-allocate memory
-    g_valueMC <- vector("numeric", length = n.MCruns.i)
-    age.fadeMC <- vector("numeric", length = n.MCruns.i)
-    kappaMC <- vector("numeric", length = n.MCruns.i)
+    g_valueMC <- vector("numeric", length = n.MC.i)
+    age.fadeMC <- vector("numeric", length = n.MC.i)
+    kappaMC <- vector("numeric", length = n.MC.i)
 
     ##set-values
-    g_valueMC <- rnorm(n.MCruns.i,mean = g_value[1],sd = g_value[2])
-    age.fadedMC <- rnorm(n.MCruns.i,mean = age.faded[1],sd = age.faded[2])
+    g_valueMC <- rnorm(n.MC.i,mean = g_value[1],sd = g_value[2])
+    age.fadedMC <- rnorm(n.MC.i,mean = age.faded[1],sd = age.faded[2])
     kappaMC <- g_valueMC / log(10) / 100
 
 
@@ -279,10 +292,10 @@ calc_FadingCorr <- function(
     }, FUN.VALUE = 1))
 
     i <- j + 1
-    j <- j + n.MCruns.i
+    j <- j + n.MC.i
 
     ##stop here if a fixed value is set
-    if(n.MCruns != 'auto'){
+    if(n.MC != 'auto'){
       break
     }
 
@@ -330,7 +343,7 @@ calc_FadingCorr <- function(
     KAPPA.ERROR = kappa[2],
     TC = tc,
     TC.G_VALUE = tc.g_value,
-    N.MCRUNS = n.MCruns,
+    n.MC = n.MC,
     OBSERVATIONS = length(tempMC),
     SEED = ifelse(is.null(seed), NA, seed)
   )
@@ -343,7 +356,7 @@ calc_FadingCorr <- function(
     cat("\n >> Fading correction according to Huntley & Lamothe (2001)")
 
     if (tc != tc.g_value) {
-      cat("\n >> g-value re-calculated to the given tc")
+      cat("\n >> g-value re-calculated for the given tc")
 
     }
 
@@ -369,7 +382,7 @@ calc_FadingCorr <- function(
     ))
     cat("\n ----------------------------------------------")
     cat(paste0("\n seed: \t\t\t", ifelse(is.null(seed), NA, seed)))
-    cat(paste0("\n n.MCruns: \t\t", n.MCruns))
+    cat(paste0("\n n.MC: \t\t", n.MC))
     cat(paste0(
       "\n observations: \t\t",
       format(length(tempMC), digits = 2, scientific = TRUE),

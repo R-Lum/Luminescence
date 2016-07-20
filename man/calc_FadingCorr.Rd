@@ -5,7 +5,7 @@
 \title{Apply a fading correction according to Huntley & Lamothe (2001) for a given
 g-value and a given tc}
 \usage{
-calc_FadingCorr(age.faded, g_value, tc, tc.g_value = tc, n.MCruns = 10000,
+calc_FadingCorr(age.faded, g_value, tc, tc.g_value = tc, n.MC = 10000,
   seed = NULL, txtProgressBar = TRUE, verbose = TRUE)
 }
 \arguments{
@@ -24,8 +24,8 @@ to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If n
 the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
 that had been not normalised to 2 days.}
 
-\item{n.MCruns}{\code{\link{integer}} (with default): number of Monte Carlo
-simulation runs for error estimation. If \code{n.MCruns = 'auto'} is used the function
+\item{n.MC}{\code{\link{integer}} (with default): number of Monte Carlo
+simulation runs for error estimation. If \code{n.MC = 'auto'} is used the function
 tries to find a 'stable' error for the age. Note: This may take a while!}
 
 \item{seed}{\code{\link{integer}} (optional): sets the seed for the random number generator
@@ -58,23 +58,32 @@ Slot: \bold{@info}\cr
 \description{
 This function solves the equation used for correcting the fading affected age
 including the error for a given g-value according to Huntley & Lamothe (2001).
+}
+\details{
 As the g-value sligthly depends on the time between irradiation and the prompt measurement,
 this is tc, always a tc value needs to be provided. If the g-value was normalised to a distinct
 time or evaluated with a different tc value (e.g., external irradiation), also the tc value
-for the g-value needs to be given (argument \code{tc.g_value} and the g-value is recalcualted
+for the g-value needs to be provided (argument \code{tc.g_value} and then the g-value is recalcualted
 to tc of the measurement used for estimating the age applying the following equation:
-}
-\details{
+
+\deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * log(tc/tc.g))}
+
+where
+
+\deqn{\kappa_{tc.g} = g / 100 / log(10)}
+
+with \eqn{log} the natural logarithm.
+
 The error of the fading-corrected age is determined using a Monte Carlo
 simulation approach. Solving of the equation is realised using
-\code{\link{uniroot}}. Large values for \code{n.MCruns} will significantly
+\code{\link{uniroot}}. Large values for \code{n.MC} will significantly
 increase the computation time.\cr
 
-\bold{\code{n.MCruns = 'auto'}}
+\bold{\code{n.MC = 'auto'}}
 
 The error estimation based on a stochastic process, i.e. for a small number of MC runs the calculated
 error varies considerably every time the function is called, even with the same input values.
-The argument option \code{n.MCruns = 'auto'} tries to find a stable value for the standard error, i.e.
+The argument option \code{n.MC = 'auto'} tries to find a stable value for the standard error, i.e.
 the standard deviation of values calculated during the MC runs (\code{age.corr.MC}),
 within a given precision (2 digits) by increasing the number of MC runs stepwise and
 calculating the corresponding error.
@@ -88,14 +97,14 @@ equals the number of MC runs (here termed observations).
 
 To avoid an endless loop the calculation is stopped if the number of observations exceeds 10^7.
 This limitation can be overwritten by setting the number of MC runs manually,
-e.g. \code{n.MCruns = 10000001}. Note: For this case the function is not checking whether the calculated
+e.g. \code{n.MC = 10000001}. Note: For this case the function is not checking whether the calculated
 error is stable.\cr
 
 \bold{\code{seed}}
 
 This option allows to recreate previously calculated results by setting the seed
 for the R random number generator (see \code{\link{set.seed}} for details). This option
-should not be mixed up with the option \bold{\code{n.MCruns = 'auto'}}. The results may
+should not be mixed up with the option \bold{\code{n.MC = 'auto'}}. The results may
 appear similar, but they are not comparable!\cr
 
 \bold{FAQ}\cr
@@ -110,38 +119,37 @@ The upper age limit is set to 500 ka! \cr
 Special thanks to Sebastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.0 (2016-07-20 10:09:45)
+ 0.4.0 (2016-07-20 11:51:48)
 }
 \examples{
 
-##run the examples given in Huntley and Lamothe, 2001
-##(1) calculate g-value for given kappa
+##run the examples given in the appendix of Huntley and Lamothe, 2001
 
-##run examples from the appendix
-##100 a
+##(1) faded age: 100 a
 results <- calc_FadingCorr(
    age.faded = c(0.1,0),
    g_value = c(5.0, 1.0),
    tc = 2592000,
    tc.g_value = 172800,
-   n.MCruns=100)
+   n.MC = 100)
 
-## 1 ka
+##(2) faded age: 1 ka
 results <- calc_FadingCorr(
    age.faded = c(0.1,0),
    g_value = c(5.0, 1.0),
    tc = 2592000,
    tc.g_value = 172800,
-   n.MCruns=100)
+   n.MC = 100)
 
-## 10.0 ka
+##(3) faded age: 10.0 ka
 results <- calc_FadingCorr(
    age.faded = c(0.1,0),
    g_value = c(5.0, 1.0),
    tc = 2592000,
    tc.g_value = 172800,
-   n.MCruns=100)
+   n.MC = 100)
 
+##access the last output
 get_RLum(results)
 
 }
