@@ -26,7 +26,7 @@ test_that("check values from output", {
 
 })
 
-test_that("check values from output", {
+test_that("check values from output with sigmab", {
   
   temp <- calc_CentralDose(ExampleData.DeValues$CA1, sigmab = 0.2)
   
