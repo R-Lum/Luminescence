@@ -122,7 +122,7 @@ The upper age limit is set to 500 ka! \cr
 Special thanks to Sebastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.0 (2016-07-20 12:16:22)
+ 0.4.1 (2016-07-21 10:36:31)
 }
 \examples{
 
@@ -138,7 +138,7 @@ results <- calc_FadingCorr(
 
 ##(2) faded age: 1 ka
 results <- calc_FadingCorr(
-   age.faded = c(0.1,0),
+   age.faded = c(1,0),
    g_value = c(5.0, 1.0),
    tc = 2592000,
    tc.g_value = 172800,
@@ -146,7 +146,7 @@ results <- calc_FadingCorr(
 
 ##(3) faded age: 10.0 ka
 results <- calc_FadingCorr(
-   age.faded = c(0.1,0),
+   age.faded = c(10,0),
    g_value = c(5.0, 1.0),
    tc = 2592000,
    tc.g_value = 172800,

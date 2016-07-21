@@ -6,7 +6,14 @@
 #'
 #' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
-#' can be passed to the function \code{\link{calc_FadingCorr}}.
+#' can be passed to the function \code{\link{calc_FadingCorr}}.\cr
+#'
+#' \bold{Fitting and error estimation}\cr
+#'
+#' For the fitting the function \code{\link[stats]{lm}} is used without applying weights. For the
+#' error estimation all input values, except tc, as the precision can be consdiered as sufficiently
+#' high enough with regard to the underlying problem, are sampled assuming a normal distribution
+#' for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
 #' measurement data. Alternatively a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
@@ -276,7 +283,6 @@ analyse_FadingMeasurement <- function(
 
 
   ##apply the fit
-  ##TODO: This fit is not weighted!
   fit_matrix <- vapply(X = 2:(n.MC+1), FUN = function(x){
 
     ##fit
@@ -296,8 +302,7 @@ analyse_FadingMeasurement <- function(
   fit <-
      stats::lm(y ~ x,
                data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                 y = LxTx_table[["LxTx_NORM"]]),
-               weights = LxTx_table[["LxTx_NORM.ERROR"]])
+                                 y = LxTx_table[["LxTx_NORM"]]))
 
 
   fit_power <- stats::lm(y ~ I(x^3) + I(x^2) + I(x) ,

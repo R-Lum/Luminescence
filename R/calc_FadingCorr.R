@@ -114,7 +114,7 @@
 #' Special thanks to Sebastien Huot for his support and clarification via e-mail.
 #'
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -146,7 +146,7 @@
 #'
 #' ##(2) faded age: 1 ka
 #' results <- calc_FadingCorr(
-#'    age.faded = c(0.1,0),
+#'    age.faded = c(1,0),
 #'    g_value = c(5.0, 1.0),
 #'    tc = 2592000,
 #'    tc.g_value = 172800,
@@ -154,7 +154,7 @@
 #'
 #' ##(3) faded age: 10.0 ka
 #' results <- calc_FadingCorr(
-#'    age.faded = c(0.1,0),
+#'    age.faded = c(10,0),
 #'    g_value = c(5.0, 1.0),
 #'    tc = 2592000,
 #'    tc.g_value = 172800,
@@ -232,6 +232,7 @@ calc_FadingCorr <- function(
   ##transform tc in ka years
   ##duration of the year over a long term taken from http://wikipedia.org
   tc <- tc[1] / 60 / 60 / 24 / 365.2425  / 1000
+  tc.g_value <- tc.g_value[1] / 60 / 60 / 24 / 365.2425  / 1000
 
   ##calculate mean value
   temp <-
@@ -413,7 +414,7 @@ calc_FadingCorr <- function(
     ))
     cat("\n ----------------------------------------------")
     cat(paste0("\n seed: \t\t\t", ifelse(is.null(seed), NA, seed)))
-    cat(paste0("\n n.MC: \t\t", n.MC))
+    cat(paste0("\n n.MC: \t\t\t", n.MC))
     cat(paste0(
       "\n observations: \t\t",
       format(length(tempMC), digits = 2, scientific = TRUE),

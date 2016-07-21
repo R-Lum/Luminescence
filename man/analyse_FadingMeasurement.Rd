@@ -63,13 +63,20 @@ Lamothe 2001.
 \details{
 All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 in the output object the g-value normalised to 2-days is provided. The output of this function
-can be passed to the function \code{\link{calc_FadingCorr}}.
+can be passed to the function \code{\link{calc_FadingCorr}}.\cr
+
+\bold{Fitting and error estimation}\cr
+
+For the fitting the function \code{\link[stats]{lm}} is used without applying weights. For the
+error estimation all input values, except tc, as the precision can be consdiered as sufficiently
+high enough with regard to the underlying problem, are sampled assuming a normal distribution
+for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
 }
 \note{
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2016-07-20 12:03:26)
+ 0.1.0 (2016-07-21 09:32:47)
 }
 \examples{
 
