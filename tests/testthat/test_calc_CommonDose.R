@@ -1,7 +1,7 @@
 context("calc_CommonDose")
 
 data(ExampleData.DeValues, envir = environment())
-temp <- calc_CommonDose(ExampleData.DeValues$CA1, plot = FALSE)
+temp <- calc_CommonDose(ExampleData.DeValues$CA1, plot = FALSE, verbose = FALSE)
 
 
 test_that("check class and length of output", {
