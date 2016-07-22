@@ -327,9 +327,8 @@ plot_DRTResults <- function(
     } else {
       rep(seq(from = 1, to = length(values)), length(modes))
     }
-
   }
-
+  
   ## calculate and paste statistical summary
   label.text = list(NA)
 
@@ -374,6 +373,18 @@ plot_DRTResults <- function(
         ifelse("sdabs" %in% summary == TRUE,
                paste("sd = ",
                      round(sd(values[[i]][,1]), 2),
+                     "\n",
+                     sep = ""),
+               ""),
+        ifelse("serel" %in% summary == TRUE,
+               paste("se = ",
+                     round(calc_Statistics(values[[i]])$unweighted$se.rel, 2),
+                     " %\n",
+                     sep = ""),
+               ""),
+        ifelse("seabs" %in% summary == TRUE,
+               paste("se = ",
+                     round(calc_Statistics(values[[i]])$unweighted$se.abs, 2),
                      "\n",
                      sep = ""),
                ""),
@@ -422,7 +433,20 @@ plot_DRTResults <- function(
                      " | ",
                      sep = ""),
                ""),
+        ifelse("serel" %in% summary == TRUE,
+               paste("se = ",
+                     round(calc_Statistics(values[[i]])$unweighted$se.rel, 2),
+                     " % | ",
+                     sep = ""),
+               ""),
+        ifelse("seabs" %in% summary == TRUE,
+               paste("se = ",
+                     round(calc_Statistics(values[[i]])$unweighted$se.abs, 2),
+                     " | ",
+                     sep = ""),
+               ""),
         sep = "")
+    
     }
   }
 
@@ -511,6 +535,8 @@ plot_DRTResults <- function(
   ## setup plot area
   if(par.local){
 
+    if (shift.lines <= 0) 
+      shift.lines <- 1
     par.default <- par()[c("mfrow", "cex", "oma")]
     par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
   }
@@ -565,10 +591,11 @@ plot_DRTResults <- function(
 
       ## add data and error bars
       for(i in 1:length(values)) {
+
         points(x = c(1:nrow(values[[i]])),
                y = values[[i]][,1],
-               pch = pch[i],
-               col = col[i],
+               pch = if(nrow(values[[i]]) == length(pch)){ pch } else { pch[i] },
+               col = if(nrow(values[[i]]) == length(col)){ col } else { col[i] },
                cex = 1.2 * cex)
 
         arrows(c(1:nrow(values[[i]])),
@@ -578,7 +605,7 @@ plot_DRTResults <- function(
                angle = 90,
                length = 0.075,
                code = 3,
-               col = col[i])
+               col = if(nrow(values[[i]]) == length(col)){ col } else { col[i] })
 
         ## add summary content
         if(summary.pos[1] != "sub") {
@@ -587,13 +614,13 @@ plot_DRTResults <- function(
                adj = summary.adj,
                labels = label.text[[i]],
                cex = 0.8 * cex,
-               col = col[i])
+               col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
         } else {
           if(mtext == "") {
             mtext(side = 3,
                   line = - i + 2.5,
                   text = label.text[[i]],
-                  col = col[i],
+                  col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
                   cex = cex * 0.8)
           }
         }
@@ -754,13 +781,13 @@ plot_DRTResults <- function(
              adj = summary.adj,
              labels = label.text[[i]],
              cex = 0.8 * cex,
-             col = col[i])
+             col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
       } else {
         if(mtext == "") {
           mtext(side = 3,
                 line = - i + 2.5,
                 text = label.text[[i]],
-                col = col[i],
+                col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
                 cex = cex * 0.8)
         }
       }
@@ -774,8 +801,8 @@ plot_DRTResults <- function(
            xjust = legend.adj[1],
            yjust = legend.adj[2],
            legend = legend,
-           col = col,
-           pch = pch,
+           col = unique(col),
+           pch = unique(pch),
            lty = 1,
            cex = cex * 0.8)
   }

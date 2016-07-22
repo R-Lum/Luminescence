@@ -69,6 +69,12 @@ The min values from the count values is chosen using the function
 The max values from the count values is chosen using the function
 \code{\link[matrixStats]{rowMins}}.
 
+\code{"append"}\cr
+
+Appends count values of all curves to one combined data curve. The channel width
+is automatically re-calculated, but requires a constant channel width of the 
+original data.
+
 \code{"-"}\cr
 
 The row sums of the last objects are subtracted from the first object.
