@@ -89,7 +89,7 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.10 (2016-07-16 11:28:47)
+ 0.1.10 (2016-07-22 10:42:10)
 }
 \examples{
 

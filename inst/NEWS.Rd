@@ -45,6 +45,17 @@
 
        }
 
+       \item \code{calc_FadingCorr()}
+
+       \itemize{
+         \item New argument \code{tc.g_value} introduced allowing to specify the tc value of the g-value.
+         This might be useful with regard to the common normalisation to two days. Internally the function
+         re-calculates the g-value to the tc of the De measurement.
+         \item new argument \code{verbose} introduced,
+         \item documention and examples extended.
+
+       }
+
 
     \item \code{plot_DRT()}
 

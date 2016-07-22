@@ -30,6 +30,18 @@ Changes in version 0.6.2 (,2016):
                was renamed to ‘data’ to gain consistency with the other
                functions.
 
+         • ‘calc_FadingCorr()’
+
+             • New argument ‘tc.g_value’ introduced allowing to specify
+               the tc value of the g-value.  This might be useful with
+               regard to the common normalisation to two days.
+               Internally the function re-calculates the g-value to the
+               tc of the De measurement.
+
+             • new argument ‘verbose’ introduced,
+
+             • documention and examples extended.
+
          • ‘plot_DRT()’
 
              • Fix statistical summay keyword issue (reported by Alice
