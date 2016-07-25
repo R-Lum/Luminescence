@@ -37,10 +37,11 @@ and the IRSL/OSL ratio.
 This function only works with \code{RLum.Analysis} objects produced by \code{\link{read_PSL2R}}.
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-the signal of the last three signals is divided by the first three signals of the same curve.
+the cumulative signal of the last n channels (same number of channels as specified by \code{signal.integral}) 
+is divided by cumulative signal of the first n channels (\code{signal.integral}).
 }
 \section{Function version}{
- 0.0.1 (2016-07-16 18:01:53)
+ 0.0.2
 }
 \examples{
 
@@ -61,7 +62,7 @@ get_RLum(results)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
 }
