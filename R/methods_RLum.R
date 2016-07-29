@@ -181,11 +181,14 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
   
 
   ##select relevant rows
-  sel <- eval(
+  sel <- tryCatch(eval(
     expr = substitute(subset),
     envir = x@METADATA,
     enclos = parent.frame()
-  )
+  ),
+  error = function(e) {
+    stop("\n\nInvalid subset options. \nValid terms are: ", paste(names(x@METADATA), collapse = ", "))
+  })
 
   ##probably everything is FALSE now?
   if (records.rm) {
