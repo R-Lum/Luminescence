@@ -19,7 +19,7 @@
 \S4method{get_RLum}{RLum.Analysis}(object, record.id = NULL,
   recordType = NULL, curveType = NULL, RLum.type = NULL,
   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
-  info.object = NULL)
+  info.object = NULL, subset = NULL)
 
 \S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 
@@ -80,6 +80,10 @@ easier, however, if this method is used within a loop this might undesired.}
 
 \item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 element}
+
+\item{subset}{\code{\link{expression}} (optional): logical expression indicating elements or rows 
+to keep: missing values are taken as false. This argument takes highest precedence so that all
+other arguments are not considered when subsetting the object.}
 
 \item{fullExtent}{[structure_RLum] \code{\link{logical}} (with default): extents the returned \code{data.frame}
 to its full extent, i.e. all info elements are part of the return as well. The default valule

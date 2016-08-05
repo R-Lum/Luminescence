@@ -214,49 +214,8 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 #' @method subset RLum.Analysis
 #' @export
 subset.RLum.Analysis <- function(x, subset, ...) {
-  
-  if(length(list(...)))
-    warning(paste("Argument not supported and skipped:", names(list(...))))
-  
-  # To account for different lengths and elements in the @info slot we first
-  # check all unique elements
-  info_el <- unique(unlist(sapply(x@records, function(el) names(el@info))))
-  
-  envir <- as.data.frame(do.call(rbind, 
-                                 lapply(x@records, function(el) {
-                                   val <- c(curveType = el@curveType, recordType = el@recordType, unlist(el@info))
-                                   
-                                   # add missing info elements and set NA
-                                   if (any(!info_el %in% names(val))) {
-                                     val_new <- setNames(rep(NA, length(info_el[!info_el %in% names(val)])), info_el[!info_el %in% names(val)])
-                                     val <- c(val, val_new)
-                                   }
-                                   
-                                   # order the named char vector by its names so we dont mix up the columns
-                                   val <- val[order(names(val))]
-                                   return(val)
-                                   })
-                                 ))
-  
-  ##select relevant rows
-  sel <- tryCatch(eval(
-    expr = substitute(subset),
-    envir = envir,
-    enclos = parent.frame()
-  ),
-  error = function(e) {
-    stop("\n\nInvalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "))
-  })
-  
-  if (any(sel)) {
-    x@records <- x@records[sel]
-    return(x)
-  } else {
-    return(NULL)
-  }
-  
-  
-} 
+  do.call(get_RLum, list(object = x, drop = FALSE, subset = substitute(subset))) }
+
 
 ####################################################################################################
 # methods for generic: bin()
