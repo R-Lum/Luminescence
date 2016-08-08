@@ -193,7 +193,7 @@
 #'
 #' @param output \code{\link{logical}}: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
-#' \code{FALSE}.
+#' \code{TRUE}.
 #'
 #' @param interactive \code{\link{logical}} (with default): create an interactive
 #' abanico plot (requires the 'plotly' package)
@@ -413,7 +413,7 @@ plot_AbanicoPlot <- function(
   grid.col,
   frame = 1,
   bw = "SJ",
-  output = FALSE,
+  output = TRUE,
   interactive = FALSE,
   ...
 ) {
@@ -3660,6 +3660,6 @@ plot_AbanicoPlot <- function(
 
   ## create and resturn numeric output
   if(output == TRUE) {
-    return(plot.output)
+    return(invisible(plot.output))
   }
 }

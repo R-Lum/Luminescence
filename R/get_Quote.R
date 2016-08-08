@@ -61,7 +61,8 @@ get_Quote <- function(
     c("R Team member, asked about statistical details", "No idea, I'm just here for visualisation."),
     c("An arbitrary unexperienced RLum-user", "Little by little, the bird builds its nest."),
     c("The answer to life, the universe and everything", "get_rightAnswer()"),
-    c("Der Tatortreiniger", "Dreck ist nur Materie am falschen Ort.")
+    c("Der Tatortreiniger", "Dreck ist nur Materie am falschen Ort."),
+    c("Die Ex vom Tatortreiniger", "Das Ziel ist im Weg.")
 
     )
 
