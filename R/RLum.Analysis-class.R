@@ -378,7 +378,16 @@ setMethod("get_RLum",
               }
 
 
-            } else{
+            } else {
+              
+              ##check for records
+              if (length(object@records) == 0) {
+                
+                warning("[get_RLum] This RLum.Analysis object has no records! NULL returned!)")
+                return(NULL)
+                
+              }
+              
               ##record.id
               if (is.null(record.id)) {
                 record.id <- c(1:length(object@records))
