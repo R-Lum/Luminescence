@@ -291,17 +291,17 @@ Risoe.BINfileData2RLum.Analysis<- function(
         object <- set_RLum(
           class = "RLum.Analysis",
           records = lapply(temp_id,function(x) {
-            Luminescence:::.Risoe.BINfileData2RLum.Data.Curve(object, id = x)
+            .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
           }),
           protocol = protocol,
           originator = "Risoe.BINfileData2RLum.Analysis"
         )
-        
+
         if (!keep.empty && length(object@records) == 0)
           return(NULL)
 
         ##add unique id of RLum.Analysis object to each curve object as .pid using internal function
-        Luminescence:::.set_pid(object)
+         .set_pid(object)
 
       })
 

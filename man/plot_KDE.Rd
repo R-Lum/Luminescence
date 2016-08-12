@@ -6,7 +6,7 @@
 \usage{
 plot_KDE(data, na.rm = TRUE, values.cumulative = TRUE, order = TRUE,
   boxplot = TRUE, rug = TRUE, summary, summary.pos,
-  summary.method = "MCM", bw = "nrd0", output = FALSE, ...)
+  summary.method = "MCM", bw = "nrd0", output = TRUE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -51,7 +51,7 @@ value for manual setting.}
 
 \item{output}{\code{\link{logical}}: Optional output of numerical plot
 parameters. These can be useful to reproduce similar plots. Default is
-\code{FALSE}.}
+\code{TRUE}.}
 
 \item{\dots}{further arguments and graphical parameters passed to
 \code{\link{plot}}.}
@@ -102,7 +102,7 @@ The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.3 (2016-07-16 11:28:11)
+ 3.5.3 (2016-08-08 11:04:58)
 }
 \examples{
 

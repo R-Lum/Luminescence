@@ -31,7 +31,7 @@ The details section
 The notes section
 }
 \section{Function version}{
- 0.2.0 (2016-07-16 18:01:53)
+ 0.2.0 (2016-07-22 10:51:07)
 }
 \examples{
 

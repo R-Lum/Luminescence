@@ -10,7 +10,7 @@ plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, z.0 = "mean.weighted",
   rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE,
   boxplot = FALSE, y.axis = TRUE, error.bars = FALSE, bar, bar.col,
   polygon.col, line, line.col, line.lty, line.label, grid.col, frame = 1,
-  bw = "SJ", output = FALSE, interactive = FALSE, ...)
+  bw = "SJ", output = TRUE, interactive = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -134,7 +134,7 @@ a numeric value for manual setting.}
 
 \item{output}{\code{\link{logical}}: Optional output of numerical plot
 parameters. These can be useful to reproduce similar plots. Default is
-\code{FALSE}.}
+\code{TRUE}.}
 
 \item{interactive}{\code{\link{logical}} (with default): create an interactive
 abanico plot (requires the 'plotly' package)}
@@ -221,7 +221,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.9 (2016-07-16 18:01:53)
+ 0.1.9 (2016-08-08 11:04:58)
 }
 \examples{
 
