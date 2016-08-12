@@ -281,7 +281,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
 
         }
-
+        
         ##create curve object
         object <- set_RLum(
           class = "RLum.Analysis",
@@ -294,6 +294,8 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
         ##add unique id of RLum.Analysis object to each curve object as .pid using internal function
         .set_pid(object)
+        
+        return(object)
 
       })
 
@@ -304,7 +306,13 @@ Risoe.BINfileData2RLum.Analysis<- function(
     ##this is necessary to not break with previous code, i.e. if only one element is included
     ##the output is RLum.Analysis and not a list of it
     if(length(object) == 1){
-      invisible(object[[1]][[1]])
+      
+      # special case: single grain data with only 1 position produces a nested list
+      # the outer one is of length 1, the nested list has length 100 (100 grains)
+      if (is.list(object[[1]]) && length(object[[1]]) > 1)
+        invisible(unlist(object))
+      else
+        invisible(object[[1]][[1]])
 
     }else{
 
