@@ -41,6 +41,10 @@
 #' @param protocol \code{\link{character}} (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
 #'
+#' @param keep.empty \code{\link{logical}} (with default): If \code{TRUE} (default)
+#' an \code{RLum.Analysis} object is returned even if it does not contain any
+#' records. Set to \code{FALSE} to discard all empty objects.
+#'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
 #'
@@ -77,6 +81,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
   ltype = NULL,
   dtype = NULL,
   protocol = "unknown",
+  keep.empty = TRUE,
   txtProgressBar = FALSE
 ){
 
@@ -286,14 +291,17 @@ Risoe.BINfileData2RLum.Analysis<- function(
         object <- set_RLum(
           class = "RLum.Analysis",
           records = lapply(temp_id,function(x) {
-            .Risoe.BINfileData2RLum.Data.Curve(object, id = x)
+            Luminescence:::.Risoe.BINfileData2RLum.Data.Curve(object, id = x)
           }),
           protocol = protocol,
           originator = "Risoe.BINfileData2RLum.Analysis"
         )
+        
+        if (!keep.empty && length(object@records) == 0)
+          return(NULL)
 
         ##add unique id of RLum.Analysis object to each curve object as .pid using internal function
-        .set_pid(object)
+        Luminescence:::.set_pid(object)
 
       })
 
