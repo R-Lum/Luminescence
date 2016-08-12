@@ -176,17 +176,19 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 #' @export
 subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 
-  if(length(list(...))){
+  if(length(list(...)))
     warning(paste("Argument not supported and skipped:", names(list(...))))
-
-  }
+  
 
   ##select relevant rows
-  sel <- eval(
+  sel <- tryCatch(eval(
     expr = substitute(subset),
     envir = x@METADATA,
     enclos = parent.frame()
-  )
+  ),
+  error = function(e) {
+    stop("\n\nInvalid subset options. \nValid terms are: ", paste(names(x@METADATA), collapse = ", "))
+  })
 
   ##probably everything is FALSE now?
   if (records.rm) {
@@ -207,6 +209,13 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
   }
 
 }
+
+#' @rdname methods_RLum
+#' @method subset RLum.Analysis
+#' @export
+subset.RLum.Analysis <- function(x, subset, ...) {
+  do.call(get_RLum, list(object = x, drop = FALSE, subset = substitute(subset))) }
+
 
 ####################################################################################################
 # methods for generic: bin()

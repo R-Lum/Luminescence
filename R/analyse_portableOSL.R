@@ -7,7 +7,8 @@
 #' This function only works with \code{RLum.Analysis} objects produced by \code{\link{read_PSL2R}}.
 #' It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 #' are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-#' the signal of the last three signals is divided by the first three signals of the same curve.
+#' the cumulative signal of the last n channels (same number of channels as specified by \code{signal.integral}) 
+#' is divided by cumulative signal of the first n channels (\code{signal.integral}).
 #' 
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}):
 #' \code{RLum.Analysis} object produced by \code{\link{read_PSL2R}}.
@@ -33,7 +34,7 @@
 #' 
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
-#' @section Function version: 0.0.1
+#' @section Function version: 0.0.2
 #'
 #' @keywords datagen plot
 #' 
@@ -180,9 +181,9 @@ posl_get_signal <- function(x, signal.integral) {
               "exceeded the number of available data points (n = ", length(raw_signal),") and ",
               "has been automatically reduced to the maximum number.", call. = FALSE)
     }
-    sum_signal <- sum(raw_signal[sigint])
-    sum_signal_err <- sqrt(sum(x@info$raw_data$counts_per_cycle_error[sigint]^2))
-    sum_signal_depletion <- raw_signal[length(raw_signal)] / raw_signal[1]
+    sum_signal <- sum(raw_signal[sigint[1]:sigint[2]])
+    sum_signal_err <- sqrt(sum(x@info$raw_data$counts_per_cycle_error[sigint[1]:sigint[2]]^2))
+    sum_signal_depletion <- sum(raw_signal[(length(raw_signal)-length(sigint[1]:sigint[2])):length(raw_signal)]) / sum_signal
     return(data.frame(sum_signal, sum_signal_err, sum_signal_depletion))
 }
 
