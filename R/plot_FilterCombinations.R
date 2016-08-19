@@ -1,4 +1,4 @@
-#' Plot filter combinations along with net transmission window
+#' Plot filter combinations along with the (optional) net transmission window
 #'
 #' The function allows to plot transmission windows for different filters. Missing data for specific
 #' wavelenghts are automatically interpolated for the given filter data using the function \code{\link{approx}}.
@@ -64,8 +64,8 @@
 #' @param plot \code{\link{logical}} (with default): enables or disables the plot output
 #'
 #' @param \dots further arguments that can be passed to control the plot output. Suppored are \code{main},
-#' \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}. For non common plotting
-#' parameters see the details section.
+#' \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
+#' For non common plotting parameters see the details section.
 #'
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #'

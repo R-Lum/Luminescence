@@ -61,7 +61,8 @@
 #' for the legend to be plotted.
 #' @param par.local \code{\link{logical}} (with default): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
-#' If \code{par.local = FALSE}, global parameters are inherited.
+#' If \code{par.local = FALSE}, global parameters are inherited, i.e. parameters
+#' provided via \code{par()} work
 #' @param na.rm \code{\link{logical}}: indicating wether \code{NA} values are
 #' removed before plotting from the input data set
 #' @param \dots further arguments and graphical parameters passed to
@@ -328,7 +329,7 @@ plot_DRTResults <- function(
       rep(seq(from = 1, to = length(values)), length(modes))
     }
   }
-  
+
   ## calculate and paste statistical summary
   label.text = list(NA)
 
@@ -446,7 +447,7 @@ plot_DRTResults <- function(
                      sep = ""),
                ""),
         sep = "")
-    
+
     }
   }
 
@@ -535,7 +536,7 @@ plot_DRTResults <- function(
   ## setup plot area
   if(par.local){
 
-    if (shift.lines <= 0) 
+    if (shift.lines <= 0)
       shift.lines <- 1
     par.default <- par()[c("mfrow", "cex", "oma")]
     par(mfrow = c(1, 1), cex = cex, oma = c(0, 1, shift.lines - 1, 1))
