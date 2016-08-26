@@ -379,26 +379,26 @@
 #'
 #' ## for further information on layout definitions see documentation
 #' ## of function get_Layout()
-#' 
+#'
 #' ## now with manually added plot content
 #' ## create empty plot with numeric output
-#' AP <- plot_AbanicoPlot(data = ExampleData.DeValues$,
+#' AP <- plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                        pch = NA,
 #'                        output = TRUE)
-#' 
+#'
 #' ## identify data in 2 sigma range
 #' in_2sigma <- AP$data[[1]]$data.in.2s
-#' 
+#'
 #' ## restore function-internal plot parameters
 #' par(AP$par)
-#' 
+#'
 #' ## add points inside 2-sigma range
-#' points(x = AP$data[[1]]$precision[in_2sigma], 
+#' points(x = AP$data[[1]]$precision[in_2sigma],
 #'        y = AP$data[[1]]$std.estimate.plot[in_2sigma],
 #'        pch = 16)
-#' 
+#'
 #' ## add points outside 2-sigma range
-#' points(x = AP$data[[1]]$precision[!in_2sigma], 
+#' points(x = AP$data[[1]]$precision[!in_2sigma],
 #'        y = AP$data[[1]]$std.estimate.plot[!in_2sigma],
 #'        pch = 1)
 #'
@@ -3683,7 +3683,7 @@ plot_AbanicoPlot <- function(
 
   ## restore initial cex
   par(cex = cex_old)
-  
+
   ## create and return numeric output
   if(output == TRUE) {
     return(plot.output)

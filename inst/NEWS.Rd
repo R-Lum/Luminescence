@@ -56,6 +56,15 @@
 
        }
 
+     \item \code{plot_AbanicoPlot()}
+
+       \itemize{
+
+         \item Now returns the \code{par} settings and a numerical output is set to default,
+         this allows to reproduce the plot and add further information to it,
+         \item examples updated.
+    }
+
 
     \item \code{plot_DRT()}
 

@@ -42,6 +42,14 @@ Changes in version 0.6.2 (,2016):
 
              • documention and examples extended.
 
+         • ‘plot_AbanicoPlot()’
+
+             • Now returns the ‘par’ settings and a numerical output is
+               set to default, this allows to reproduce the plot and
+               add further information to it,
+
+             • examples updated.
+
          • ‘plot_DRT()’
 
              • Fix statistical summay keyword issue (reported by Alice
