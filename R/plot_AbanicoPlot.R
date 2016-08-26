@@ -519,6 +519,7 @@ plot_AbanicoPlot <- function(
 
   ## save original plot parameters and restore them upon end or stop
   par.old.full <- par(no.readonly = TRUE)
+  cex_old <- par()$cex
 
   ## this ensures par() is respected for several plots on one page
   if(sum(par()$mfrow) == 2 & sum(par()$mfcol) == 2){
@@ -3659,6 +3660,9 @@ plot_AbanicoPlot <- function(
     return(IAP)
   }
 
+  ## restore initial cex
+  par(cex = cex_old)
+  
   ## create and return numeric output
   if(output == TRUE) {
     return(invisible(plot.output))
