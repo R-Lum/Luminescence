@@ -63,18 +63,22 @@ of the wanted developer build.
 
 The R luminescence project is based on and evolves from ideas, contributions and constructive criticism of its users. Help us to maintain and develop the package, to find bugs and create new functions as well as a user-friendly design. Visit our [message board](https://forum.r-luminescence.de) or write us an [e-mail](mailto:team@r-luminescence.de) if anything crosses your mind or if you want your new self-written function to be to implemented. You are kindly invited to bring forward the package with us!
 
-## Note
+## License
 
-**The package comes without any guarantee!**
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ [GNU General Public License](https://github.com/R-Lum/Luminescence/blob/master/LICENSE) for more details.
+
+## Note 
 
 Please further note that this version is a development version and may change day by day. For stable branches please visit
 the package on [CRAN 'Luminescence'](http://cran.r-project.org/package=Luminescence).
-
-## License
-
-The Luminescence package is licensed under the GPLv3. See these files in the main directory for additional details: 
-
-- [LICENSE](https://github.com/R-Lum/Luminescence/blob/master/LICENSE) - Luminescence package license (GPLv3)
 
 ## Related projects 
 
