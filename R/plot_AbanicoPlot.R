@@ -3496,7 +3496,8 @@ plot_AbanicoPlot <- function(
                       plot.ratio = plot.ratio,
                       data = data,
                       data.global = data.global,
-                      KDE = KDE)
+                      KDE = KDE,
+                      par = par(no.readonly = TRUE))
 
   ## INTERACTIVE PLOT ----------------------------------------------------------
   if (interactive) {
@@ -3658,7 +3659,7 @@ plot_AbanicoPlot <- function(
     return(IAP)
   }
 
-  ## create and resturn numeric output
+  ## create and return numeric output
   if(output == TRUE) {
     return(invisible(plot.output))
   }
