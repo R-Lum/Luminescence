@@ -56,7 +56,7 @@
 #' @note The validity of the output objects is not further checked.
 #'
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -164,10 +164,11 @@ merge_Risoe.BINfileData <- function(
       temp.position.max +
       position.number.append.gap
 
-    temp.position.max <<- max(temp)
+    assign(x = "temp.position.max", value = max(temp), envir = parent.env(environment()))
 
     return(temp)
   }))
+
 
   temp.position.values <- c(temp[[1]]@METADATA[, "POSITION"], temp.position.values)
 
