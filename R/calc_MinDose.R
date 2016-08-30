@@ -265,7 +265,12 @@ calc_MinDose <- function(
       }
     }
   }
-
+  
+  if (any(!complete.cases(data))) {
+    message(paste("\n[calc_MinDose] Warning:\nInput data contained NA/NaN values,",
+                  "which were removed prior to calculations!"))
+    data <- data[complete.cases(data), ]
+  }
 
   ##============================================================================##
   ## ... ARGUMENTS
