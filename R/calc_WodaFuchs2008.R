@@ -34,10 +34,11 @@
 #'
 #' ## read example data set
 #' data(ExampleData.DeValues, envir = environment())
-#' ExampleData.DeValues <-
-#'   Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 #'
-#' results <- calc_WodaFuchs2008(data = ExampleData.DeValues)
+#' results <- calc_WodaFuchs2008(
+#'   data = ExampleData.DeValues$CA1,
+#'    xlab = expression(paste(D[e], " [Gy]"))
+#'  )
 #'
 #' @export
 calc_WodaFuchs2008 <- function(
@@ -46,6 +47,11 @@ calc_WodaFuchs2008 <- function(
   plot = TRUE,
   ...
 ) {
+
+  ##TODO
+  # - complete manual
+  # - add statistics to the plot
+  # - check whether this makes sense at all ...
 
   ## check data and parameter consistency -------------------------------------
 
@@ -88,43 +94,11 @@ calc_WodaFuchs2008 <- function(
 
   }
 
-  if("xlab" %in% names(list(...))) {
-
-    xlab <- list(...)$xlab
-
-  } else {
-
-    xlab <- expression(paste(D[e], " [Gy]"))
-
-  }
-
-  if("xlim" %in% names(list(...))) {
-
-    xlim <- list(...)$xlim
-
-  } else {
-
-    xlim <- range(data[,1], na.rm = TRUE) + c(-10, 20)
-
-  }
-
-  if("main" %in% names(list(...))) {
-
-    main <- list(...)$main
-
-  } else {
-
-    main <- expression(paste(D[e],
-                             " estimation applying Woda and Fuchs (2008)"))
-
-  }
-
   ## calculations -------------------------------------------------------------
 
   ## estimate bin width based on Woda and Fuchs (2008)
   if(sum(is.na(data[,2]) == nrow(data))) {
-
-    print("No errors provided. Bin width set by 10 percent of input data!")
+    message("[calc_WodFuchs2008()] No errors provided. Bin width set by 10 percent of input data!")
 
     bin_width <- median(data[,1] / 10,
                         na.rm = TRUE)
@@ -199,14 +173,6 @@ calc_WodaFuchs2008 <- function(
   A <- coef(fit)["A"]
   sigma <- coef(fit)["sigma"]
 
-  ## recalculate data based on normal distribution
-  H_m_fit <- seq(from = min(H_m),
-                 to = class_center,
-                 by = 1)
-
-  H_c_fit <- (A / sqrt(2 * pi * sigma^2)) *
-    exp(-(H_m_fit - class_center)^2 / (2 * sigma^2))
-
   ## estimate dose
   D_estimate <- as.numeric(x = class_center - sigma)
 
@@ -216,21 +182,45 @@ calc_WodaFuchs2008 <- function(
   ## extract H_m values smaller than center class
   H_m_smaller <- H_m[1:count_ID]
 
-  ## calculate uncertainty applying Wodaand Fuchs (2008)
+  ## calculate uncertainty according to Woda and Fuchs (2008)
   s <- round(sqrt(sum((H_m_smaller - D_estimate)^2) / (count_ID - 1)),
              digits = 2)
 
   ## plot output --------------------------------------------------------------
   if(plot) {
 
-    plot(x = H,
-         xlab = xlab,
-         xlim = xlim,
-         main = main)
+    ##define plot settings
+    plot_settings <- list(
+      xlab = expression(paste(D[e], " [s]")),
+      ylab = "Frequency",
+      xlim = range(data[,1], na.rm = TRUE) + c(-10, 20),
+      ylim = NULL,
+      main = expression(paste(D[e]," estimation applying Woda and Fuchs (2008)")),
+      sub = NULL
 
-    lines(x = H_m_fit,
-          y = H_c_fit,
-          col = 2)
+    )
+
+    plot_settings <- modifyList(x = plot_settings, val = list(...), keep.null = TRUE)
+
+    plot(
+      x = H,
+      xlab = plot_settings$xlab,
+      ylab = plot_settings$ylab,
+      xlim = plot_settings$xlim,
+      ylim = plot_settings$ylim,
+      main = plot_settings$main,
+      sub = plot_settings$sub
+    )
+
+    ##add curve with normal distribution
+    x <- 0
+    rm(x)
+    curve((A / sqrt(2 * pi * sigma^2)) * exp(-(x- class_center)^2 / (2 * sigma^2)),
+          add = TRUE,
+          to = class_center,
+          col = "red"
+          )
+
   }
 
   ## return output ------------------------------------------------------------
@@ -241,7 +231,7 @@ calc_WodaFuchs2008 <- function(
         DP = D_estimate,
         DP.ERROR = s,
         CLASS_CENTER = class_center,
-        BIN_WIDT = bin_width,
+        BIN_WIDTH = bin_width,
         SIGMA = sigma,
         A = A,
         row.names = NULL

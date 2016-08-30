@@ -31,16 +31,17 @@ The details section
 The notes section
 }
 \section{Function version}{
- 0.2.0 (2016-07-22 10:51:07)
+ 0.2.0 (2016-08-30 17:27:09)
 }
 \examples{
 
 ## read example data set
 data(ExampleData.DeValues, envir = environment())
-ExampleData.DeValues <-
-  Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 
-results <- calc_WodaFuchs2008(data = ExampleData.DeValues)
+results <- calc_WodaFuchs2008(
+  data = ExampleData.DeValues$CA1,
+   xlab = expression(paste(D[e], " [Gy]"))
+ )
 
 }
 \author{
