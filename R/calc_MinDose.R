@@ -344,11 +344,11 @@ calc_MinDose <- function(
   ##============================================================================##
 
   if (missing(init.values)) {
-    start <- list(gamma = ifelse(log, log(quantile(data[ ,1], probs = 0.25)),
-                                 quantile(data[ ,1], probs = 0.25)),
+    start <- list(gamma = ifelse(log, log(quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
+                                 quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                   sigma = 1.2,
                   p0 = 0.01,
-                  mu = ifelse(log, log(quantile(data[ ,1], probs = 0.25)),
+                  mu = ifelse(log, log(quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                               mean(data[ ,1])))
   } else {
     start <- list(gamma = init.values$gamma,
