@@ -697,7 +697,7 @@ calc_MinDose <- function(
         kd1 <- dnorm(kdthis)
 
         kd2 <- kd1*prodterm[[i]]
-        kd <- sum(kd2)
+        kd <- sum(kd2, na.rm = TRUE)
         likelihood <- (1/(N*h))*kd
         pairs[i, ] <- c(theta[i], likelihood)
       }
