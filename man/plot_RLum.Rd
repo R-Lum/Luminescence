@@ -45,7 +45,7 @@ found in the documentations of each plot function.  \tabular{lll}{
 The provided plot output depends on the input object.
 }
 \section{Function version}{
- 0.4.2 (2016-08-26 10:44:31)
+ 0.4.2 (2016-09-01 11:17:26)
 }
 \examples{
 
