@@ -48,7 +48,7 @@ get_Quote <- function(
     c("A data import function", "Better late than never."),
     c("A luminescence lab staff member to its customer", "Tell me the age, I tell you the price."),
     c("The NSA", "O'zapft is."),
-    c("The natural dose", "You only life once."),
+    c("The natural dose", "You only live once."),
     c("A Windows user", "An apple a day keeps the doctor away."),
     c("The authors of sTeve", "We love to entertain you."),
     c("Any arbitrary independent OSL device manufacturer", "Sure it will work, it was me who built it!"),
