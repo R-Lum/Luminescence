@@ -13,6 +13,7 @@
 \alias{[.RLum.Data.Image}
 \alias{[.RLum.Data.Spectrum}
 \alias{[.RLum.Results}
+\alias{[<-.RLum.Data.Curve}
 \alias{[[.RLum.Analysis}
 \alias{[[.RLum.Results}
 \alias{as.data.frame.RLum.Data.Curve}
@@ -57,6 +58,7 @@
 \alias{plot.list}
 \alias{rep.RLum}
 \alias{row.names.RLum.Data.Spectrum}
+\alias{subset.RLum.Analysis}
 \alias{subset.Risoe.BINfileData}
 \alias{summary.RLum.Analysis}
 \alias{summary.RLum.Data.Curve}
@@ -96,6 +98,8 @@
 \method{summary}{RLum.Data.Curve}(object, ...)
 
 \method{subset}{Risoe.BINfileData}(x, subset, records.rm = TRUE, ...)
+
+\method{subset}{RLum.Analysis}(x, subset, ...)
 
 bin.RLum.Data.Curve(x, ...)
 
@@ -179,6 +183,8 @@ is.RLum.Results(x, ...)
 
 \method{[}{RLum.Results}(x, i, drop = TRUE)
 
+\method{[}{RLum.Data.Curve}(x, i, j) <- value
+
 \method{[[}{RLum.Analysis}(x, i)
 
 \method{[[}{RLum.Results}(x, i)
@@ -216,7 +222,12 @@ converting column names (to syntactic names: see make.names) is optional (see \c
 
 \item{drop}{\code{\link{logical}} (with default): keep object structure or drop it}
 
-\item{i}{\code{\link{character}} (optional): name of the wanted record type or data object}
+\item{i}{\code{\link{character}} (optional): name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object}
+
+\item{j}{\code{\link{integer}} (optional): column of the data matrix in the \code{RLum.Data.Curve} object}
+
+\item{value}{\code{\link{numeric}} \bold{(required)}: numeric value which replace the value in the
+\code{RLum.Data.Curve} object}
 }
 \description{
 Methods for S3-generics implemented for the package 'Luminescence'.

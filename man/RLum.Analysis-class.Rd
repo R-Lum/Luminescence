@@ -82,8 +82,8 @@ easier, however, if this method is used within a loop this might undesired.}
 element}
 
 \item{subset}{\code{\link{expression}} (optional): logical expression indicating elements or rows 
-to keep: missing values are taken as false. This argument takes highest precedence so that all
-other arguments are not considered when subsetting the object.}
+to keep: missing values are taken as false. This argument takes precedence over all
+other arguments, meaning they are not considered when subsetting the object.}
 
 \item{fullExtent}{[structure_RLum] \code{\link{logical}} (with default): extents the returned \code{data.frame}
 to its full extent, i.e. all info elements are part of the return as well. The default valule

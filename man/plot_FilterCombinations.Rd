@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_FilterCombinations.R
 \name{plot_FilterCombinations}
 \alias{plot_FilterCombinations}
-\title{Plot filter combinations along with net transmission window}
+\title{Plot filter combinations along with the (optional) net transmission window}
 \usage{
 plot_FilterCombinations(filters, wavelength_range = 200:1000,
   show_net_transmission = TRUE, plot = TRUE, ...)
@@ -20,8 +20,8 @@ as polygon.}
 \item{plot}{\code{\link{logical}} (with default): enables or disables the plot output}
 
 \item{\dots}{further arguments that can be passed to control the plot output. Suppored are \code{main},
-\code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}. For non common plotting
-parameters see the details section.}
+\code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
+For non common plotting parameters see the details section.}
 }
 \value{
 Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
@@ -95,7 +95,7 @@ can be fully customised by disabling the standard legend and use the function \c
 instead.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.0 (2016-08-26 10:45:14)
 }
 \examples{
 

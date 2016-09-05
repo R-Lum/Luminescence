@@ -43,7 +43,12 @@
 #'
 #' @param z \code{\link{integer}} (optional): the column index of the matrix, data.frame
 #'
-#' @param i \code{\link{character}} (optional): name of the wanted record type or data object
+#' @param i \code{\link{character}} (optional): name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object
+#'
+#' @param j \code{\link{integer}} (optional): column of the data matrix in the \code{RLum.Data.Curve} object
+#'
+#' @param value \code{\link{numeric}} \bold{(required)}: numeric value which replace the value in the
+#' \code{RLum.Data.Curve} object
 #'
 #' @param drop \code{\link{logical}} (with default): keep object structure or drop it
 #'
@@ -178,7 +183,7 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 
   if(length(list(...)))
     warning(paste("Argument not supported and skipped:", names(list(...))))
-  
+
 
   ##select relevant rows
   sel <- tryCatch(eval(
@@ -467,6 +472,16 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 #' @export
 `[.RLum.Results` <- function(x, i, drop = TRUE) {get_RLum(x, data.object = i, drop = drop)}
 
+
+####################################################################################################
+# methods for generic: `[<-`
+####################################################################################################
+#' @rdname methods_RLum
+#' @export
+`[<-.RLum.Data.Curve` <- function(x, i, j, value){
+  x@data[i,j] <- value #this is without any S4-method, but otherwise the overhead it too high
+  return(x)
+}
 
 ####################################################################################################
 # methods for generic: `[[`

@@ -63,7 +63,9 @@
    \itemize{
       \item The internal function converting BIN-file curves to RLum.Data.Curve() objects had been
       optimised and, amongst others, now uses a function written using Rcpp to create the curve matrix.
-      The conversion now works ca. 2 times faster.
+      The conversion now works ca. 2 times faster,
+
+      \item add \code{`[<-]`} method for \code{RLum.Data.Curve} objects.
 
     }
 
