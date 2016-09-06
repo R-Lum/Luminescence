@@ -45,9 +45,9 @@
   \subsection{Bugfixes and changes}{
 
    \itemize{
-      \item \code{plot_GrowthCurve()}{
+      \item \code{analyse_pIRIRSequence()}{
         \itemize{
-          dummu
+           \item The combined dose response curves had been not scaled correctly, fixed.
 
         }
 

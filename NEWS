@@ -32,8 +32,10 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
-         • ‘plot_GrowthCurve()’
-               dummu
+         • ‘analyse_pIRIRSequence()’
+
+             • The combined dose response curves had been not scaled
+               correctly, fixed.
 
   Internals:
 

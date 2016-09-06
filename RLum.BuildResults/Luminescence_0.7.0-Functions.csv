@@ -5,7 +5,7 @@
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.6.11","2016-07-16","11:28:11
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.1","2016-07-16","11:28:11
+"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.2","2016-09-06","13:22:22
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "analyse_portableOSL","Analyse portable CW-OSL measurements","<br /> The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and<br /> produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion ratios<br /> and the IRSL/OSL ratio.<br />","0.0.2","2016-09-02","10:12:07
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
