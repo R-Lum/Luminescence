@@ -3,7 +3,7 @@
 ","<br /> Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  <br /> <br /> The underlying Bayesian model based on a contribution by Combes et al., 2015.<br />  R Luminescence Package Team"
 "analyse_IRSAR.RF","Analyse IRSAR RF measurements","<br /> Function to analyse IRSAR RF measurements on K-feldspar samples, performed<br /> using the protocol according to Erfurt et al. (2003) and beyond.<br />","0.6.11","2016-07-16","11:28:11
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
-"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.1","2016-07-16","11:28:11
+"analyse_pIRIRSequence","Analyse post-IR IRSL sequences","<br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />","0.2.2","2016-09-06","13:22:22
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "analyse_SAR.CWOSL","Analyse SAR CW-OSL measurements","<br /> The function performs a SAR CW-OSL analysis on an<br /> RLum.Analysis  object including growth curve fitting.<br />","0.7.5","2016-07-16","11:28:11
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

@@ -77,7 +77,7 @@
 #' with the following options:\cr \code{pdf(file = "...", height = 15, width =
 #' 15)}
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -593,8 +593,11 @@ if(plot){
   plot(NA, NA,
        xlim = range(get_RLum(temp.results.final, "LnLxTnTx.table")$Dose),
        ylim = c(
-         min(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)+
-         max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error),
+         if(min(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)-
+            max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error) < 0){
+           min(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)-
+             max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error)
+         }else{0},
          max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx)+
          max(get_RLum(temp.results.final, "LnLxTnTx.table")$LxTx.Error)),
        xlab = "Dose [s]",
