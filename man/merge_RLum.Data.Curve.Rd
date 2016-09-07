@@ -100,7 +100,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.0 (2016-09-02 10:12:07)
+ 0.2.0 (2016-09-07 11:50:11)
 }
 \examples{
 

@@ -32,10 +32,9 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
-         • ‘analyse_pIRIRSequence()’
+         • ‘dummy_dummy()’
 
-             • The combined dose response curves had been not scaled
-               correctly, fixed.
+             • dummy.
 
   Internals:
 

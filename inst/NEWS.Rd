@@ -45,9 +45,9 @@
   \subsection{Bugfixes and changes}{
 
    \itemize{
-      \item \code{analyse_pIRIRSequence()}{
+      \item \code{dummy_dummy()}{
         \itemize{
-           \item The combined dose response curves had been not scaled correctly, fixed.
+           \item dummy.
 
         }
 
