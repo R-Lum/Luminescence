@@ -204,7 +204,7 @@
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
 #'
-#' @section Function version: 0.1.9
+#' @section Function version: 0.1.10
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
@@ -1309,7 +1309,7 @@ plot_AbanicoPlot <- function(
                                          sep = ""),
                                    ""),
                             ifelse("sd.abs" %in% summary[j] == TRUE,
-                                   paste("sd = ",
+                                   paste("abs. sd = ",
                                          round(De.stats[i,5], 2),
                                          "\n",
                                          sep = ""),
@@ -1393,15 +1393,15 @@ plot_AbanicoPlot <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("sd.rel" %in% summary[j] == TRUE,
-                                 paste("rel. sd = ",
-                                       round(De.stats[i,5], 2), " %",
+                          ifelse("sd.abs" %in% summary[j] == TRUE,
+                                 paste("abs. sd = ",
+                                       round(De.stats[i,5], 2),
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("sd.abs" %in% summary[j] == TRUE,
-                                 paste("abs. sd = ",
-                                       round(De.stats[i,6], 2),
+                          ifelse("sd.rel" %in% summary[j] == TRUE,
+                                 paste("rel. sd = ",
+                                       round(De.stats[i,6], 2), " %",
                                        " | ",
                                        sep = ""),
                                  ""),
