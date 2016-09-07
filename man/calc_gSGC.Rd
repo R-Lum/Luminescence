@@ -57,7 +57,7 @@ Solving of the equation is realised using \code{\link{uniroot}}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.1 (2016-09-01 11:44:22)
+ 0.1.1 (2016-09-07 11:37:04)
 }
 \examples{
 results <- calc_gSGC(data = data.frame(
