@@ -286,7 +286,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.23
+#' @section Function version: 0.1.25
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -511,7 +511,7 @@ analyse_baSAR <- function(
 
             central_D ~  dunif(lower_centralD,upper_centralD)
 
-            precision_D ~ dt (0, 0.16 * central_D, 1) T(0, )  #  Alternative plus directe proposee par Philippe L.
+            precision_D ~ dt(0, pow(0.16*central_D, -2), 1)T(0, )
             sigma_D <-  1/sqrt(precision_D)
 
             for (i in 1:Nb_aliquots) {
@@ -1255,13 +1255,13 @@ analyse_baSAR <- function(
       }
 
       ##import Excel sheet
-      datalu <- readxl::read_excel(
+      datalu <- as.data.frame(readxl::read_excel(
         path = XLS_file,
         sheet = additional_arguments$sheet,
         col_names = additional_arguments$col_names,
         col_types = additional_arguments$col_types,
         skip = additional_arguments$skip
-      )
+      ), stringsAsFactors = FALSE)
 
       ##get rid of empty rows if the BIN_FILE name column is empty
       datalu <- datalu[!is.na(datalu[[1]]), ]
