@@ -22,6 +22,11 @@
        }
 
 
+      \item \code{plot_AbanicoPlot()}
+
+       \itemize{
+          \item The relative and absolute standard deviation had been mixed up in in the summary; fixed.
+       }
 
 
 

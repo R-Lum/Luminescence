@@ -14,3 +14,8 @@ Changes in version 0.6.3 (9th September 2016):
              • Account for minor layout problem while plotting the
                combined growth curve.
 
+         • ‘plot_AbanicoPlot()’
+
+             • The relative and absolute standard deviation had been
+               mixed up in in the summary; fixed.
+
