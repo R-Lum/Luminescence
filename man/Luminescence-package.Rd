@@ -13,7 +13,7 @@ plotting of equivalent dose distributions.
 }
 \details{
 \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-\tab 0.6.3 \cr Date: \tab 2016-XX-XX \cr License: \tab GPL-3\cr }
+\tab 0.6.4 \cr Date: \tab 2016-XX-XX \cr License: \tab GPL-3\cr }
 }
 \author{
 \bold{Authors} (alphabetic order)
@@ -60,9 +60,9 @@ visit our project website (link below).
 \url{https://github.com/R-Lum/Luminescence}\cr
 
 \bold{Related package projects}\cr
-\url{http://cran.r-project.org/package=RLumShiny}\cr
+\url{https://cran.r-project.org/package=RLumShiny}\cr
 \url{http://shiny.r-luminescence.de}\cr
-\url{http://cran.r-project.org/package=RLumModel}\cr
+\url{https://cran.r-project.org/package=RLumModel}\cr
 \url{http://model.r-luminescence.de}\cr
 
 \bold{Package maintainer}

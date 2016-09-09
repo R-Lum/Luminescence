@@ -1,7 +1,7 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 0.6.3
+Version: 0.6.4
 Date: 2016-09-09
 Author: Sebastian Kreutzer [aut, trl, cre],
     Michael Dietze [aut],
@@ -63,7 +63,7 @@ Suggests:
     coda (>= 0.18-1),
     pander (>= 0.6.0),
     rstudioapi (>= 0.5)
-URL: http://CRAN.R-project.org/package=Luminescence
+URL: https://CRAN.R-project.org/package=Luminescence
 Collate:
     'Analyse_SAR.OSLdata.R'
     'CW2pHMi.R'
