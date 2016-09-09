@@ -68,13 +68,19 @@ The R luminescence project is based on and evolves from ideas, contributions and
 **The package comes without any guarantee!**
 
 Please further note that this version is a development version and may change day by day. For stable branches please visit
-the package on [CRAN 'Luminescence'](http://cran.r-project.org/package=Luminescence).
+the package on [CRAN 'Luminescence'](https://cran.r-project.org/package=Luminescence).
 
 ## License
 
-The Luminescence package is licensed under the GPLv3. See these files in the main directory for additional details: 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
 
-- LICENSE - Luminescence package license (GPLv3)
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ [GNU General Public License](https://github.com/R-Lum/Luminescence/blob/master/LICENSE) for more details.
 
 ## Related projects 
 

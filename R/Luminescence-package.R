@@ -52,9 +52,9 @@
 #' \url{https://github.com/R-Lum/Luminescence}\cr
 #'
 #' \bold{Related package projects}\cr
-#' \url{http://cran.r-project.org/package=RLumShiny}\cr
+#' \url{https://cran.r-project.org/package=RLumShiny}\cr
 #' \url{http://shiny.r-luminescence.de}\cr
-#' \url{http://cran.r-project.org/package=RLumModel}\cr
+#' \url{https://cran.r-project.org/package=RLumModel}\cr
 #' \url{http://model.r-luminescence.de}\cr
 #'
 #' \bold{Package maintainer}
