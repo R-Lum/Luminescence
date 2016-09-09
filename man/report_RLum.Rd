@@ -115,7 +115,7 @@ CSS styling can be turned of using \code{css = FALSE}.
 This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 }
 \section{Function version}{
- 0.1.0 (2016-09-09 10:32:17)
+ 0.1.0 (2016-09-09 14:30:23)
 }
 \examples{
 

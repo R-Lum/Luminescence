@@ -1,22 +1,10 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.6.4 (9th September 2016):
+Changes in version 0.6.5 (,2016):
 
   Bugfixes and changes:
 
-         • ‘analyse_baSAR()’
+         • ‘dummy_dummy()’
 
-             • Fix problem that causes a function crash if an XLS-file
-               was provided as input for the grain selection.
-
-         • ‘analyse_pIRIRSequence()’
-
-             • Account for a minor layout problem while plotting the
-               combined growth curve (y-axis scaling was not
-               sufficient)
-
-         • ‘plot_AbanicoPlot()’
-
-             • The relative and absolute standard deviation were mixed
-               up in in the summary; fixed.
+             • dummy
 

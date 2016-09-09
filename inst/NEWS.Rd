@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.6.4 (9th September 2016)}{
+\section{Changes in version 0.6.5 (,2016)}{
 
 
 
@@ -8,31 +8,15 @@
    \itemize{
 
 
-      \item \code{analyse_baSAR()}
+      \item \code{dummy_dummy()}
 
        \itemize{
-          \item Fix problem that causes a function crash if an XLS-file was provided as input
-          for the grain selection.
-       }
-
-      \item \code{analyse_pIRIRSequence()}
-
-       \itemize{
-          \item Account for a minor layout problem while plotting the combined growth curve (y-axis
-          scaling was not sufficient)
+          \item dummy
        }
 
 
-      \item \code{plot_AbanicoPlot()}
-
-       \itemize{
-          \item The relative and absolute standard deviation were mixed up in in the summary; fixed.
-       }
-
-
-      }
 
     }
 
-
+ }
 }
