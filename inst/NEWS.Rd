@@ -12,23 +12,22 @@
 
        \itemize{
           \item Fix problem that causes a function crash if an XLS-file was provided as input
-          for the grain selection
+          for the grain selection.
        }
 
       \item \code{analyse_pIRIRSequence()}
 
        \itemize{
-          \item Account for minor layout problem while plotting the combined growth curve.
+          \item Account for a minor layout problem while plotting the combined growth curve (y-axis
+          scaling was not sufficient)
        }
 
 
       \item \code{plot_AbanicoPlot()}
 
        \itemize{
-          \item The relative and absolute standard deviation had been mixed up in in the summary; fixed.
+          \item The relative and absolute standard deviation were mixed up in in the summary; fixed.
        }
-
-
 
 
       }
