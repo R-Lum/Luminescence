@@ -32,9 +32,14 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
-         • ‘dummy_dummy()’
+         • ‘plot_GrowthCurve()’
 
-             • dummy.
+             • Reduce number of confusing warning,
+
+             • add new argument ‘mode’ to select the calculation mode
+               of the function.  This allows in particular to only fit
+               data without calculating a De or calculating a De
+               assuming an additive dose reponse curve.
 
   Internals:
 

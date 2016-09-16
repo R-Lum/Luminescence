@@ -4,11 +4,11 @@
 \alias{plot_GrowthCurve}
 \title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
 \usage{
-plot_GrowthCurve(sample, na.rm = TRUE, fit.method = "EXP",
-  fit.force_through_origin = FALSE, fit.weights = TRUE,
-  fit.includingRepeatedRegPoints = TRUE, fit.NumberRegPoints = NULL,
-  fit.NumberRegPointsReal = NULL, fit.bounds = TRUE,
-  NumberIterations.MC = 100, output.plot = TRUE,
+plot_GrowthCurve(sample, na.rm = TRUE, mode = "regenerative",
+  fit.method = "EXP", fit.force_through_origin = FALSE,
+  fit.weights = TRUE, fit.includingRepeatedRegPoints = TRUE,
+  fit.NumberRegPoints = NULL, fit.NumberRegPointsReal = NULL,
+  fit.bounds = TRUE, NumberIterations.MC = 100, output.plot = TRUE,
   output.plotExtended = TRUE, output.plotExtended.single = FALSE,
   cex.global = 1, txtProgressBar = TRUE, verbose = TRUE, ...)
 }
@@ -20,6 +20,12 @@ fits at least three dose points (including the natural) should be provided.}
 
 \item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA} values
 from the data set prior to any further operations.}
+
+\item{mode}{\code{\link{character}} (with default): selects calculation mode of the function.
+(A) \code{"regenerative"} (default) calculates the De by assuming a regenative curve,
+(B) \code{"additive"} calculates de De by assuming an additive curve and
+(C) \code{"alternate"} calculates no De and just fits the data points. Please note that
+for option \code{"regenrative"} the first point is considered as natural dose}
 
 \item{fit.method}{\code{\link{character}} (with default): function used for
 fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP}, \code{EXP OR LIN},
@@ -152,7 +158,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.8.16 (2016-09-09 14:17:55)
+ 1.8.19 (2016-09-16 16:58:13)
 }
 \examples{
 
