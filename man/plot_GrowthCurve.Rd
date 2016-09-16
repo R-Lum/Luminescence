@@ -158,7 +158,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.8.19 (2016-09-16 16:58:13)
+ 1.9.0 (2016-09-16 19:36:07)
 }
 \examples{
 
@@ -187,6 +187,14 @@ plot(
  y = eval(temp$Formula),
  type = "l"
 )
+
+##(5) plot using the 'additive' mode
+LxTxData[1,2:3] <- c(0.5, 0.001)
+print(plot_GrowthCurve(LxTxData,mode = "additive"))
+
+##(6) plot using the 'alternate' mode
+LxTxData[1,2:3] <- c(0.5, 0.001)
+print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 
 }
 \author{
