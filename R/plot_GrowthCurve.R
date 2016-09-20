@@ -497,7 +497,7 @@ plot_GrowthCurve <- function(
     }
 
     ##solve and get De
-    if (mode == "regeneration") {
+    if (mode == "regenerative") {
       De.uniroot <- try(uniroot(De.fs,
                                 y = sample[1, 2],
                                 lower = 0,
@@ -736,7 +736,7 @@ plot_GrowthCurve <- function(
 
 
         #calculate De
-        if(mode == "regeneration"){
+        if(mode == "regenerative"){
           De <- suppressWarnings(round(-c-b*log(1-sample[1,2]/a), digits=2))
 
         }else if (mode == "additive"){
@@ -858,7 +858,7 @@ plot_GrowthCurve <- function(
         fit.lm<-lm(data$y ~ 0 + data$x, weights = fit.weights)
 
         #calculate De
-        if(mode == "regeneration"){
+        if(mode == "regenerative"){
           De <- round((sample[1,2]/fit.lm$coefficients[1]), digits=2)
 
         }else{
@@ -1044,7 +1044,7 @@ plot_GrowthCurve <- function(
 
       #problem: analytically it is not easy to calculate x,
       #use uniroot to solve that problem ... readjust function first
-      if (mode == "regeneration") {
+      if (mode == "regenerative") {
         f.unirootEXPLIN <-
           function(a, b, c, g, x, LnTn) {
             fit.functionEXPLIN(a, b, c, g, x) - LnTn
@@ -1325,7 +1325,7 @@ plot_GrowthCurve <- function(
 
 
       #problem: analytically it is not easy to calculate x, use uniroot
-      if (mode == "regeneration") {
+      if (mode == "regenerative") {
         f.unirootEXPEXP <-
           function(a1, a2, b1, b2, x, LnTn) {
             fit.functionEXPEXP(a1, a2, b1, b2, x) - LnTn
