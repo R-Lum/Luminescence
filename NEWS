@@ -41,6 +41,12 @@ Changes in version 0.7.0 ( ,2016):
                data without calculating a De or calculating a De
                assuming an additive dose reponse curve.
 
+         • ‘read_BIN2R()’
+
+             • If BIN-files are automatically imported the function
+               skipped non BIN-files without crashing if it is used in
+               combination with the argument ‘pattern’.
+
   Internals:
 
          • The internal function converting BIN-file curves to

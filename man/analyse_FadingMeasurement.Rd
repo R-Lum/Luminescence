@@ -76,7 +76,7 @@ for each value with the value as the mean and the provided uncertainty as standa
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2016-09-09 15:19:47)
+ 0.1.0 (2016-09-22 10:11:42)
 }
 \examples{
 

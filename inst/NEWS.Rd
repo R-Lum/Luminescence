@@ -54,12 +54,19 @@
 
         }
 
-
       }
 
-    }
 
+    \item \code{read_BIN2R()}{
+        \itemize{
+
+        \item If BIN-files are automatically imported the function skipped non BIN-files
+        without crashing if it is used in combination with the argument \code{pattern}.
+      }
+
+     }
     }
+  }
 
   \subsection{Internals}{
 

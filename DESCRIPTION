@@ -3,14 +3,14 @@ Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
 Version: 0.7.0
 Date: 2016-XX-XX
-Author: Sebastian Kreutzer [aut, trl, cre],
+Author: Sebastian Kreutzer [aut, trl, cre, dtc],
     Michael Dietze [aut],
     Christoph Burow [aut, trl, dtc],
     Margret C. Fuchs [aut],
     Christoph Schmidt [aut],
     Manfred Fischer [aut, trl],
     Johannes Friedrich [aut],
-    Norbert Mercier [aut],
+    Norbert Mercier [ctb],
     Rachel K. Smedley [ctb],
     Julie Durcan [ctb],
     Georgina King [ctb],

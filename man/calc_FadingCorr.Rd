@@ -122,7 +122,7 @@ The upper age limit is set to 500 ka! \cr
 Special thanks to Sebastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.1 (2016-07-21 10:36:31)
+ 0.4.1 (2016-09-22 10:11:42)
 }
 \examples{
 
