@@ -32,6 +32,11 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
+         • ‘plot_DetPlot()’
+
+             • Correct negative y-axis, the minimum is now the real
+               minimum.
+
          • ‘plot_GrowthCurve()’
 
              • Reduce number of confusing warning,

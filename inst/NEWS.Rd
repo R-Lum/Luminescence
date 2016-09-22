@@ -45,6 +45,15 @@
   \subsection{Bugfixes and changes}{
 
    \itemize{
+    \item \code{plot_DetPlot()}{
+      \itemize{
+        \item Correct negative y-axis, the minimum is now the real minimum.
+
+
+      }
+
+    }
+
       \item \code{plot_GrowthCurve()}{
         \itemize{
            \item Reduce number of confusing warning,
