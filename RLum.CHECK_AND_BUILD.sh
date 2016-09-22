@@ -111,7 +111,7 @@ echo ""
 echo "[BUILD PACKAGE]"
 echo ""
 
-  eval R CMD BUILD ${PATHPACKAGE}
+  eval R CMD build ${PATHPACKAGE}
 
 #
 # CHECK PACKAGE
