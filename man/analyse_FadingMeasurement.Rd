@@ -76,7 +76,7 @@ for each value with the value as the mean and the provided uncertainty as standa
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2016-09-22 10:11:42)
+ 0.1.0 (2016-09-17 16:37:14)
 }
 \examples{
 
@@ -85,7 +85,12 @@ for each value with the value as the mean and the provided uncertainty as standa
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{Citation}{
+Kreutzer, S. (2016). analyse_FadingMeasurement: Analyse fading measurements and returns the fading rate per decade (g-value). In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
 SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0
