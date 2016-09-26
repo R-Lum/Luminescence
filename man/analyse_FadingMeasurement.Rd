@@ -76,7 +76,7 @@ for each value with the value as the mean and the provided uncertainty as standa
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2016-09-17 16:37:14)
+ 0.1.0 (2016-09-23 17:51:30)
 }
 \examples{
 
@@ -87,8 +87,8 @@ for each value with the value as the mean and the provided uncertainty as standa
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
-\section{Citation}{
-Kreutzer, S. (2016). analyse_FadingMeasurement: Analyse fading measurements and returns the fading rate per decade (g-value). In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite this function?}{
+Kreutzer, S. (2016). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). function version: 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

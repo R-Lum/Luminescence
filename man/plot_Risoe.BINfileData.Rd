@@ -79,7 +79,7 @@ The function has been successfully tested for the Sequence Editor file
 output version 3 and 4.
 }
 \section{Function version}{
- 0.4.1 (2016-03-14 18:30:33)
+ 0.4.1 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -103,7 +103,12 @@ data(ExampleData.BINfileData, envir = environment())
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France),\cr Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite this function?}{
+Kreutzer, S., Dietze, M. (2016). plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. function version: 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Duller, G., 2007. Analyst. pp. 1-45.
 }

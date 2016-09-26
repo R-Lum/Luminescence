@@ -1,4 +1,4 @@
-#' Analyse fading measurements and returns the fading rate per decade (g-value)
+ #' Analyse fading measurements and returns the fading rate per decade (g-value)
 #'
 #' The function analysis fading measurements and returns a fading rate including an error estimation.
 #' The function is not limited to standard fading measurements, as can be seen, e.g., Huntely and

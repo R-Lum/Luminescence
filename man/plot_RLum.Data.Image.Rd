@@ -76,7 +76,7 @@ function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
 \section{Function version}{
- 0.1 (2016-03-14 18:30:33)
+ 0.1 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -91,7 +91,12 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite this function?}{
+Kreutzer, S. (2016). plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. function version: 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 -
 }

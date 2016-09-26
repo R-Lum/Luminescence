@@ -159,7 +159,7 @@ for near-surface samples as there is no equation known to the author of this
 function at the time of writing.
 }
 \section{Function version}{
- 0.5.2 (2016-03-14 18:30:33)
+ 0.5.2 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -207,7 +207,12 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite this function?}{
+Burow, C. (2016). calc_CosmicDoseRate(): Calculate the cosmic dose rate. function version: 0.5.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.
 Letter to the editor. The absolute cosmic ray flux at sea level. Journal of

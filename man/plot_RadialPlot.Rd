@@ -131,7 +131,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.3 (2016-06-01 12:18:58)
+ 0.5.3 (2016-05-19 23:47:38)
 }
 \examples{
 
@@ -229,7 +229,12 @@ plot_RadialPlot(data = data.3,
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
 S script of Rex Galbraith, 2010
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite this function?}{
+Kreutzer, S., Dietze, M. (2016). plot_RadialPlot(): Function to create a Radial Plot. function version: 0.5.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Galbraith, R.F., 1988. Graphical Display of Estimates Having
 Differing Standard Errors. Technometrics, 30 (3), 271-281.
