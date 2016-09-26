@@ -291,7 +291,7 @@ use_DRAC <- function(
   DRAC.content.input <- DRAC.content.input[ ,-grep("\\.1", names(DRAC.content.input))]
   DRAC.content.output <- DRAC.content.output[ ,-grep("\\.1", names(DRAC.content.output))]
 
-  ## The output table (v1.1) has 198 columns, making it unreasonable complex
+  ## The output table (v1.2) has 198 columns, making it unreasonable complex
   ## for standard data evaluation. We reproduce the DRAC highlight table
   ## and use the descriptions (saved as attributes) as column names.
   highlight.keys <- c("TI:1","TI:2","TI:3","TO:FQ","TO:FR",
@@ -314,10 +314,10 @@ use_DRAC <- function(
                    "\t We, the authors of the R package 'Luminescence', do not take any responsibility and we are not liable for any ",
                    "\t mistakes or unforeseen misbehaviour. All calculations are done by DRAC and it is outside our reference to",
                    "\t verify the input and output. \n",
-                   "\t Note that this function is only compatible with DRAC version 1.1. Before using this function make sure that",
+                   "\t Note that this function is only compatible with DRAC version 1.2. Before using this function make sure that",
                    "\t this is the correct version, otherwise expect unspecified errors.\n",
                    "\t Please ensure you cite the use of DRAC in your work, published or otherwise. Please cite the website name and",
-                   "\t version (e.g. DRAC v1.1) and the accompanying journal article:",
+                   "\t version (e.g. DRAC v1.2) and the accompanying journal article:",
                    "\t Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose rate and age calculation for trapped charge",
                    "\t dating. Quaternary Geochronology 28, 54-61. \n",
                    "\t Use 'verbose = FALSE' to hide this message. \n")
