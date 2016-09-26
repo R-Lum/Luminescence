@@ -97,11 +97,21 @@ echo ""
   check_status
 
 #
-# PARSE RD files
+# PARSE RD files and add RLum.Team
 # =================================================================================================
 
   echo -ne "-> Add RLum.Team ... \t\t\t\t"
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_AddRLumTeam.R /dev/null
+  check_status
+
+#
+# PARSE RD files and add function citation
+# =================================================================================================
+
+  #this pause is needed, otherwise the first files might not be accessed correctly
+  sleep 2
+  echo -ne "-> Add 'How to cite this function' ... \t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Citation.R /dev/null
   check_status
 
 #
