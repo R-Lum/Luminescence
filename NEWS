@@ -59,5 +59,8 @@ Changes in version 0.7.0 ( ,2016):
            others, now uses a function written using Rcpp to create the
            curve matrix.  The conversion now works ca. 2 times faster,
 
-         • add ‘`[<-]`’ method for ‘RLum.Data.Curve’ objects.
+         • add ‘`[<-]`’ method for ‘RLum.Data.Curve’ objects,
+
+         • a hint on how to cite a function is now added automatically
+           to every major function.
 

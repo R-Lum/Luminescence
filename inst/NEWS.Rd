@@ -84,7 +84,9 @@
       optimised and, amongst others, now uses a function written using Rcpp to create the curve matrix.
       The conversion now works ca. 2 times faster,
 
-      \item add \code{`[<-]`} method for \code{RLum.Data.Curve} objects.
+      \item add \code{`[<-]`} method for \code{RLum.Data.Curve} objects,
+
+      \item a hint on how to cite a function is now added automatically to every major function.
 
     }
 
