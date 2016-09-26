@@ -56,8 +56,8 @@ Imports:
     zoo (>= 1.7-13)
 Suggests:
     RLumShiny (>= 0.1.0),
-    RLumModel (>= 0.1.1),
-    plotly (>= 3.6.4),
+    RLumModel (>= 0.1.2),
+    plotly (>= 3.6.0),
     rmarkdown (>= 0.9.6.14),
     rjags (>= 4-6),
     coda (>= 0.18-1),
