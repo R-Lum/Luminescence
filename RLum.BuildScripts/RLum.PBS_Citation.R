@@ -119,12 +119,11 @@ for (i in 1:length(file.list.man)) {
 
       }else{
         fun.version <- ""
-
       }
 
 
       citation.text <- paste0(
-        "\n\n\\section{How to cite this function?}{\n",
+        "\n\n\\section{How to cite}{\n",
         fun.authors,
         " (",
         format(Sys.time(), "%Y"),
@@ -132,7 +131,7 @@ for (i in 1:length(file.list.man)) {
         fun,
         "(): ",
         title,
-        ". function version: ",
+        ifelse(fun.version != "", ". Function version ", ""),
         fun.version,
         ". In: ",
         pkg.citation,
