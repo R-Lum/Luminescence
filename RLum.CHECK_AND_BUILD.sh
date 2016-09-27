@@ -3,7 +3,7 @@
 # =================================================================================================
 # RLum.CHECK_AND_BUILD shell script
 # author: R Luminescence Team
-# date: 2015-09-08
+# date: 2016-09-27
 #
 # Customized R check and build routine for the R package 'Luminescence'
 # =================================================================================================
@@ -110,7 +110,7 @@ echo ""
 
   #this pause is needed, otherwise the first files might not be accessed correctly
   sleep 2
-  echo -ne "-> Add 'How to cite this function' ... \t\t"
+  echo -ne "-> Add 'How to cite' section ... \t\t"
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Citation.R /dev/null
   check_status
 

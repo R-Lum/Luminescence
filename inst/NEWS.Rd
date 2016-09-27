@@ -86,7 +86,7 @@
 
       \item add \code{`[<-]`} method for \code{RLum.Data.Curve} objects,
 
-      \item a hint on how to cite a function is now added automatically to every major function.
+      \item a hint on how to cite a function is now added automatically to every major function manual page.
 
     }
 

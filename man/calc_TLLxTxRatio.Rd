@@ -79,8 +79,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Christoph Schmidt, University of Bayreuth (Germany)
 \cr R Luminescence Package Team} 
 
-\section{How to cite this function?}{
-Kreutzer, S., Schmidt, C. (2016). calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. function version: 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite}{
+Kreutzer, S., Schmidt, C. (2016). calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -126,8 +126,8 @@ par(mfrow = c(1, 1))
 Christoph Burow, University of Cologne (Germany)
 } 
 
-\section{How to cite this function?}{
-Burow, C. (2016). plot_NRt(): Visualise natural/regenerated signal ratios. function version: . In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite}{
+Burow, C. (2016). plot_NRt(): Visualise natural/regenerated signal ratios. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

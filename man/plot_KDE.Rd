@@ -102,7 +102,7 @@ The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.3 (2016-09-22 10:11:42)
+ 3.5.3 (2016-09-27 12:22:20)
 }
 \examples{
 
@@ -162,7 +162,12 @@ output = TRUE)
 \author{
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M. (2016). plot_KDE(): Plot kernel density estimate with statistics. Function version 3.5.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \seealso{
 \code{\link{density}}, \code{\link{plot}}
 }

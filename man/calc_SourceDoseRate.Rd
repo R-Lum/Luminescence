@@ -133,8 +133,8 @@ Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Ge
 \cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
-\section{How to cite this function?}{
-Kreutzer, S., Fuchs, M.C., Fuchs, M. (2016). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. function version: 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite}{
+Kreutzer, S., Fuchs, M.C., Fuchs, M. (2016). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

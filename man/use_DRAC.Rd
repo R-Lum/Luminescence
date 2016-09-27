@@ -101,8 +101,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michae
 GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
 \cr R Luminescence Package Team} 
 
-\section{How to cite this function?}{
-Kreutzer, S., Dietze, M., Burow, C. (2016). use_DRAC(): Use DRAC to calculate dose rate data. function version: 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite}{
+Kreutzer, S., Dietze, M., Burow, C. (2016). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

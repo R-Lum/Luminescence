@@ -106,8 +106,8 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
 \cr R Luminescence Package Team} 
 
-\section{How to cite this function?}{
-Kreutzer, S., Fuchs, M.C., Fuchs, M. (2016). read_BIN2R(): Import Risoe BIN-file into R. function version: 0.15.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite}{
+Kreutzer, S., Fuchs, M.C., Fuchs, M. (2016). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

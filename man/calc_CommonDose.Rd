@@ -64,8 +64,8 @@ calc_CommonDose(ExampleData.DeValues$CA1)
 Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
 
-\section{How to cite this function?}{
-Burow, C. (2016). calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. function version: 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite}{
+Burow, C. (2016). calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

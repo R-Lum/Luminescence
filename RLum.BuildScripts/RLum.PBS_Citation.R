@@ -64,17 +64,20 @@ pkg.citation <- paste0(pkg.authors, " (", format(Sys.time(), "%Y"), "). ",
                        "R package version ", packageVersion("Luminescence"), ". ",
                        "https://CRAN.R-project.org/package=Luminescence")
 
+
 for (i in 1:length(file.list.man)) {
-  temp.file.man <-  readLines(paste0("man/",file.list.man[i]))
+  temp.file.man <-  readLines(paste0("man/", file.list.man[i]))
 
   # determine function and title
-  fun <- temp.file.man[grep("\\\\name", temp.file.man, ignore.case = TRUE)]
+  fun <-
+    temp.file.man[grep("\\\\name", temp.file.man, ignore.case = TRUE)]
   fun <- stri_replace_all_regex(fun, "\\\\name|\\{|\\}", "")
 
-  title.start <- grep("\\\\title", temp.file.man, ignore.case = TRUE)
+  title.start <-
+    grep("\\\\title", temp.file.man, ignore.case = TRUE)
   title.end <- grep("\\\\usage", temp.file.man, ignore.case = TRUE)
 
-  if(length(title.end) != 0) {
+  if (length(title.end) != 0) {
     title <-
       paste(temp.file.man[title.start:c(title.end - 1)], collapse = " ")
     title <- stri_replace_all_regex(title, "\\\\title|\\{|\\}", "")
@@ -93,6 +96,11 @@ for (i in 1:length(file.list.man)) {
       author.end <- which(grepl("\\}", temp.file.man)) - author.start
       author.end <- min(author.end[author.end > 0]) + author.start
 
+      ##account for missing reference section
+      if(length(reference.start) == 0){
+        reference.start <- author.end + 1
+      }
+
       relevant.authors <- sapply(author.list$surname, function(x) {
         str <- paste(temp.file.man[author.start:author.end], collapse = " ")
         str <- stri_replace_all_regex(str, ",|\\.", " ")
@@ -100,24 +108,28 @@ for (i in 1:length(file.list.man)) {
       })
 
       fun.authors <- character()
-      for (j in 1:nrow(author.list[relevant.authors,])) {
+      for (j in 1:nrow(author.list[relevant.authors, ])) {
         fun.authors <- paste0(
           fun.authors,
-          author.list[relevant.authors,]$surname[j],
+          author.list[relevant.authors, ]$surname[j],
           ", ",
-          author.list[relevant.authors,]$name[j],
-          ifelse(j == nrow(author.list[relevant.authors,]), "", ", ")
+          author.list[relevant.authors, ]$name[j],
+          ifelse(j == nrow(author.list[relevant.authors, ]), "", ", ")
         )
       }
 
       ##search for function version
-      fun.version <- which(grepl("\\\\section\\{Function version\\}", temp.file.man))
+      fun.version <-
+        which(grepl("\\\\section\\{Function version\\}", temp.file.man))
 
-      if(length(fun.version) != 0){
-        fun.version <- stringr::str_trim(
-          strsplit(x = temp.file.man[fun.version + 1], split = "(", fixed = TRUE)[[1]][1])
+      if (length(fun.version) != 0) {
+        fun.version <- stringr::str_trim(strsplit(
+          x = temp.file.man[fun.version + 1],
+          split = "(",
+          fixed = TRUE
+        )[[1]][1])
 
-      }else{
+      } else{
         fun.version <- ""
       }
 
@@ -138,14 +150,14 @@ for (i in 1:length(file.list.man)) {
         "\n}\n"
       )
 
-      temp.file.man[reference.start - 1] <- paste(temp.file.man[reference.start - 1],
-                                         citation.text)
+      temp.file.man[reference.start - 1] <-
+        paste(temp.file.man[reference.start - 1],
+              citation.text)
 
-    }
-
-    ##write file back to the disc
-    if (length(author.start) > 0) {
-      write(temp.file.man, paste0("man/", file.list.man[i]))
+      ##write file back to the disc
+      if (length(author.start) > 0) {
+        write(temp.file.man, paste0("man/", file.list.man[i]))
+      }
     }
   }
 }

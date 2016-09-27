@@ -60,8 +60,8 @@ Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP
 Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
-\section{How to cite this function?}{
-Kreutzer, S., Burow, C. (2016). plot_RLum.Results(): Plot function for an RLum.Results S4 class object. function version: 0.2.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite}{
+Kreutzer, S., Burow, C. (2016). plot_RLum.Results(): Plot function for an RLum.Results S4 class object. Function version 0.2.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

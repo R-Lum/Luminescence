@@ -52,8 +52,8 @@ plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
 Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team} 
 
-\section{How to cite this function?}{
-Dietze, M. (2016). tune_Data(): Tune data for experimental purpose. function version: 0.5.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+\section{How to cite}{
+Dietze, M. (2016). tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

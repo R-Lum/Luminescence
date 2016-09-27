@@ -42,5 +42,10 @@ see the manual of this package.
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S., Friedrich, J. (2016). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 
