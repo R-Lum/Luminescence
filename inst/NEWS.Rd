@@ -65,6 +65,15 @@
 
       }
 
+    \item \code{plot_RadialPlot()}{
+        \itemize{
+           \item Sometimes the function crashed with an out of bonds error if more than one data set
+           was provided; fixed.
+
+        }
+
+      }
+
 
     \item \code{read_BIN2R()}{
         \itemize{

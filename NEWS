@@ -46,6 +46,11 @@ Changes in version 0.7.0 ( ,2016):
                data without calculating a De or calculating a De
                assuming an additive dose reponse curve.
 
+         • ‘plot_RadialPlot()’
+
+             • Sometimes the function crashed with an out of bonds
+               error if more than one data set was provided; fixed.
+
          • ‘read_BIN2R()’
 
              • If BIN-files are automatically imported the function

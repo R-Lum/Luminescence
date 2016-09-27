@@ -93,11 +93,15 @@
 #' \code{FALSE}.
 #' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
+#'
 #' @return Returns a plot object.
-#' @section Function version: 0.5.3
+#'
+#' @section Function version: 0.5.4
+#'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
 #' S script of Rex Galbraith, 2010
+#'
 #' @seealso \code{\link{plot}}, \code{\link{plot_KDE}},
 #' \code{\link{plot_Histogram}}
 #' @references Galbraith, R.F., 1988. Graphical Display of Estimates Having
@@ -369,15 +373,16 @@ plot_RadialPlot <- function(
   ## calculate and append statistical measures --------------------------------
 
   ## z-values based on log-option
-  z <- sapply(1:length(data), function(x){
+  z <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
   if(is(z, "list") == FALSE) {z <- list(z)}
+
   data <- lapply(1:length(data), function(x) {
      cbind(data[[x]], z[[x]])})
   rm(z)
 
   ## calculate se-values based on log-option
-  se <- sapply(1:length(data), function(x){
+  se <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {data[[x]][,2] / data[[x]][,1]} else {data[[x]][,2]}})
   if(is(se, "list") == FALSE) {se <- list(se)}
   data <- lapply(1:length(data), function(x) {
@@ -439,7 +444,7 @@ plot_RadialPlot <- function(
   rm(z.central)
 
   ## calculate precision
-  precision <- sapply(1:length(data), function(x){
+  precision <- lapply(1:length(data), function(x){
     1 / data[[x]][,4]})
   if(is(precision, "list") == FALSE) {precision <- list(precision)}
   data <- lapply(1:length(data), function(x) {
@@ -447,7 +452,7 @@ plot_RadialPlot <- function(
   rm(precision)
 
   ## calculate standard estimate
-  std.estimate <- sapply(1:length(data), function(x){
+  std.estimate <- lapply(1:length(data), function(x){
     (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
   if(is(std.estimate, "list") == FALSE) {std.estimate <- list(std.estimate)}
   data <- lapply(1:length(data), function(x) {
