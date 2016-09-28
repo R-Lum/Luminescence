@@ -4,8 +4,9 @@
 
   \subsection{New functions}{
     \itemize{
-        \item \code{analyse_FadingMeasurement()}: Analysing fading measurements
-        and calculating g-values
+        \item \code{analyse_FadingMeasurement()}: 
+        Analyse fading measurements to calculate g-values and to estimate
+        the density of recombination centres.
 
         \item \code{analyse_portableOSL()}:
         The function analyses CW-OSL curve data produced by a SUERC portable
@@ -91,7 +92,7 @@
    \itemize{
       \item The internal function converting BIN-file curves to RLum.Data.Curve() objects had been
       optimised and, amongst others, now uses a function written using Rcpp to create the curve matrix.
-      The conversion now works ca. 2 times faster,
+      The conversion now works ca. two times faster,
 
       \item add \code{`[<-]`} method for \code{RLum.Data.Curve} objects,
 

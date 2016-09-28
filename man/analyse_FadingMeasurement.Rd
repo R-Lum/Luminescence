@@ -10,8 +10,9 @@ analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
-measurement data. Alternatively a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
-objects can be provided}
+measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
+objects or a \code{\link{data.frame}} with three columns 
+(x = LxTx, y = LxTx error, z = time since irradiation) can be provided.}
 
 \item{structure}{\code{\link{character}} (with default): sets the structure of the measurement
 data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored}
@@ -43,8 +44,9 @@ Slot: \bold{@data}\cr
 \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
 \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
 \code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \code{\link[stats]{lm}}\cr
+\code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. 2008 \cr
 \code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
-\code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds\cr
+\code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds \cr
 }
 
 Slot: \bold{@info}\cr
@@ -57,8 +59,9 @@ Slot: \bold{@info}\cr
 }
 \description{
 The function analysis fading measurements and returns a fading rate including an error estimation.
-The function is not limited to standard fading measurements, as can be seen, e.g., Huntely and
-Lamothe 2001.
+The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
+Lamothe 2001. Additionally, the density of recombination centres (rho') is estimated after
+Kars et al. 2008.
 }
 \details{
 All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
@@ -71,12 +74,19 @@ For the fitting the function \code{\link[stats]{lm}} is used without applying we
 error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
 for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
+
+\bold{Density of recombination centres}
+
+The density of recombination centres, expressed by the dimensionless variable rho', is estimated
+by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
+\code{\link[stats]{nls}} is used without applying weights. For the error estimation the same
+procedure as for the g-value is applied (see above).
 }
 \note{
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2016-09-23 17:51:30)
+ 0.1.1
 }
 \examples{
 
@@ -84,13 +94,9 @@ for each value with the value as the mean and the provided uncertainty as standa
 
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
+Christoph Burow, University of Cologne (Germany)
 }
-
 \references{
 Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
 SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0
@@ -98,6 +104,9 @@ SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
 1093-1106. doi:10.1139/cjes-38-7-1093
+
+Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
+IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
 }
 \seealso{
 \code{\link{calc_OSLLxTxRatio}}, \code{\link{read_BIN2R}}, \code{\link{read_XSYG2R}},

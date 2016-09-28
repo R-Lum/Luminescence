@@ -1,8 +1,9 @@
- #' Analyse fading measurements and returns the fading rate per decade (g-value)
+#' Analyse fading measurements and returns the fading rate per decade (g-value)
 #'
 #' The function analysis fading measurements and returns a fading rate including an error estimation.
-#' The function is not limited to standard fading measurements, as can be seen, e.g., Huntely and
-#' Lamothe 2001.
+#' The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and
+#' Lamothe 2001. Additionally, the density of recombination centres (rho') is estimated after
+#' Kars et al. 2008.
 #'
 #' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
@@ -14,10 +15,18 @@
 #' error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 #' high enough with regard to the underlying problem, are sampled assuming a normal distribution
 #' for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
+#' 
+#' \bold{Density of recombination centres}
+#' 
+#' The density of recombination centres, expressed by the dimensionless variable rho', is estimated
+#' by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
+#' \code{\link[stats]{nls}} is used without applying weights. For the error estimation the same
+#' procedure as for the g-value is applied (see above).
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
-#' measurement data. Alternatively a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
-#' objects can be provided
+#' measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
+#' objects or a \code{\link{data.frame}} with three columns 
+#' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #'
 #' @param structure \code{\link{character}} (with default): sets the structure of the measurement
 #' data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored
@@ -48,8 +57,9 @@
 #' \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
 #' \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
 #' \code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \code{\link[stats]{lm}}\cr
+#' \code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. 2008 \cr
 #' \code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
-#' \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds\cr
+#' \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds \cr
 #' }
 #'
 #' Slot: \bold{@info}\cr
@@ -61,9 +71,10 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' Christoph Burow, University of Cologne (Germany)
 #'
 #' @note \bold{This function has BETA status and should not be used for publication work!}
 #'
@@ -77,6 +88,9 @@
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 #' and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
 #' 1093-1106. doi:10.1139/cjes-38-7-1093
+#' 
+#' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
+#' IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
 #'
 #' @seealso \code{\link{calc_OSLLxTxRatio}}, \code{\link{read_BIN2R}}, \code{\link{read_XSYG2R}},
 #' \code{\link{extract_IrradiationTimes}}
@@ -229,7 +243,7 @@ analyse_FadingMeasurement <- function(
   }
 
   ##create unique identifier
-  uid <- .create_UID()
+  uid <- Luminescence:::.create_UID()
 
   ##normalise data to prompt measurement
   tc <- min(TIMESINCEIRR)[1]
@@ -296,8 +310,36 @@ analyse_FadingMeasurement <- function(
 
   ##calculate g-values from matrix
   g_value.MC <- abs(fit_matrix[2, ]) * 1 / fit_matrix[1, ] * 100
-
-
+  
+  ##calculate rho prime (Kars et al. 2008; proposed by Georgina King)
+  
+  ##s value after Huntley (2006) J. Phys. D.
+  Hs <- 3e15
+  
+  ##sample for monte carlo runs
+  MC_matrix_rhop <-  matrix(rnorm(
+                       n = n.MC * nrow(LxTx_table),
+                       mean = LxTx_table[["LxTx_NORM"]],
+                       sd = LxTx_table[["LxTx_NORM.ERROR"]]
+                     ), ncol = n.MC)
+  
+  ## calculate rho prime for all MC samples
+  fit_vector_rhop <- apply(MC_matrix_rhop, MARGIN = 2, FUN = function(x) {
+    coef(stats::nls(x ~ c * exp(-rhop * (log(1.8 * Hs * LxTx_table$TIMESINCEIRR))^3),
+             start=list(c = x[1], rhop = 10^-5.5)))[["rhop"]]
+  })
+  
+  ## calculate mean and standard deviation of rho prime (in log10 space)
+  rhoPrime <- data.frame(
+    MEAN = mean(fit_vector_rhop),
+    SD = sd(fit_vector_rhop),
+    Q_0.025 = quantile(x = fit_vector_rhop, probs = 0.025),
+    Q_0.16 = quantile(x = fit_vector_rhop, probs = 0.16),
+    Q_0.84 = quantile(x = fit_vector_rhop, probs = 0.84),
+    Q_0.975 = quantile(x = fit_vector_rhop, probs = 0.975), 
+    row.names = NULL
+  )
+  
   ##for plotting
   fit <-
      stats::lm(y ~ x,
@@ -328,7 +370,6 @@ analyse_FadingMeasurement <- function(
     Q_0.16 = quantile(x = g_value.MC, probs = 0.16),
     Q_0.84 = quantile(x = g_value.MC, probs = 0.84),
     Q_0.975 = quantile(x = g_value.MC, probs = 0.975)
-
   )
 
   ##normalise the g-value to 2-days using the equation provided by Sebastien Huot via e-mail
@@ -363,7 +404,7 @@ analyse_FadingMeasurement <- function(
     }
 
     ##get package
-    col <- get("col", pos = .LuminescenceEnv)
+    col <- get("col", pos = Luminescence:::.LuminescenceEnv)
 
     ##set some plot settings
     plot_settings <- list(
@@ -641,7 +682,7 @@ analyse_FadingMeasurement <- function(
   }
 
   # Terminal ------------------------------------------------------------------------------------
-  if(verbose){
+  if (verbose){
 
     cat("\n[analyse_FadingMeasurement()]\n")
     cat(paste0("\n n.MC:\t",n.MC))
@@ -653,11 +694,10 @@ analyse_FadingMeasurement <- function(
       " (%/decade)"))
     cat(paste0("\ng-value (norm. 2 days):\t", round(g_value_2days[1], digits = 2), " \u00b1 ", round(g_value_2days[2], digits = 2),
                " (%/decade)"))
-
     cat("\n---------------------------------------------------")
-
-
-
+    cat(paste0("\nrho':\t\t\t", format(rhoPrime$MEAN, digits = 3), " \u00b1 ", format(rhoPrime$SD, digits = 3)))
+    cat(paste0("\nlog10(rho'):\t\t", round(log10(rhoPrime$MEAN), 2), " \u00b1 ", round(sd(log10(fit_vector_rhop)), 2)))
+    cat("\n---------------------------------------------------")
 
   }
 
@@ -674,6 +714,7 @@ analyse_FadingMeasurement <- function(
         UID = uid
       ),
       fit = fit,
+      rho_prime = rhoPrime,
       LxTx_table = LxTx_table,
       irr.times = irradiation_times
     ),
