@@ -404,7 +404,7 @@ analyse_FadingMeasurement <- function(
     }
 
     ##get package
-    col <- get("col", pos = Luminescence:::.LuminescenceEnv)
+    col <- get("col", pos = .LuminescenceEnv)
 
     ##set some plot settings
     plot_settings <- list(
