@@ -75,6 +75,15 @@
 
       }
 
+     \item \code{plot_RLum.Data.Spectrum()}{
+        \itemize{
+           \item The interactive plot option was broken with the last update of the
+           package 'plotly'; fixed.
+
+        }
+
+    }
+
 
     \item \code{read_BIN2R()}{
         \itemize{

@@ -135,7 +135,7 @@
 #'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
 #'
-#' @section Function version: 0.5.0
+#' @section Function version: 0.5.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -703,11 +703,9 @@ plot_RLum.Data.Spectrum <- function(
 
        ##set up plot
        p <- plotly::plot_ly(
-         x = y,
-         y = x,
          z = temp.xyz,
          type = "surface",
-         showscale = FALSE
+         showscale = FALSE,
          #colors = col[1:(length(col)-1)],
          )
 

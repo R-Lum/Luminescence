@@ -52,6 +52,11 @@ Changes in version 0.7.0 ( ,2016):
              • Sometimes the function crashed with an out of bonds
                error if more than one data set was provided; fixed.
 
+         • ‘plot_RLum.Data.Spectrum()’
+
+             • The interactive plot option was broken with the last
+               update of the package 'plotly'; fixed.
+
          • ‘read_BIN2R()’
 
              • If BIN-files are automatically imported the function
