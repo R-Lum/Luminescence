@@ -914,12 +914,12 @@ plot_RLum.Results<- function(
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 5: Aliquot Size
   if(object@originator=="calc_AliquotSize") {
-    if(object@data$args$MC == TRUE) {
+    if(!is.null(object@data$MC$estimates)) {
 
       extraArgs <- list(...)
 
-      main<- if("main" %in% names(extraArgs)) { extraArgs$main } else { "Monte Carlo Simulation"  }
-      xlab<- if("xlab" %in% names(extraArgs)) { extraArgs$xlab } else { "Amount of grains on aliquot" }
+      main <- if("main" %in% names(extraArgs)) { extraArgs$main } else { "Monte Carlo Simulation"  }
+      xlab <- if("xlab" %in% names(extraArgs)) { extraArgs$xlab } else { "Amount of grains on aliquot" }
 
       # extract relevant data
       MC.n<- object@data$MC$estimates

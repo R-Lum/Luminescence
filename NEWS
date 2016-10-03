@@ -33,6 +33,11 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
+         • ‘calc_AliquotSize()’
+
+             • Console output can now be suppressed via 'verbose =
+               TRUE'.
+
          • ‘plot_DetPlot()’
 
              • Correct negative y-axis, the minimum is now the real

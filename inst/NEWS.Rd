@@ -45,7 +45,16 @@
 
   \subsection{Bugfixes and changes}{
 
-   \itemize{
+  \itemize{
+  \item \code{calc_AliquotSize()}{
+    \itemize{
+       \item Console output can now be suppressed via 'verbose = TRUE'.
+
+    }
+
+  }
+
+
     \item \code{plot_DetPlot()}{
       \itemize{
         \item Correct negative y-axis, the minimum is now the real minimum.
