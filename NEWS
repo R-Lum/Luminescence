@@ -23,6 +23,15 @@ Changes in version 0.7.0 ( ,2016):
          • ‘read_PSL2R()’: Imports PSL files produced by a SUERC
            portable OSL reader into R (BETA).
 
+  New example data:
+
+         • ‘ExampleData.fading’: Example data set for fading
+           measurements of the IR50, IR100, IR150 and IR225 feldspar
+           signals of sample UNIL/NB123. It further contains regular
+           equivalent dose measurement data of the same sample, which
+           can be used to apply a fading correction to. These data were
+           kindly provided by Georgina King.
+
   Changes in S4-classes and methods:
 
          • Method ‘get_RLum’ for ‘RLum.Analysis’-objects did not
@@ -32,6 +41,16 @@ Changes in version 0.7.0 ( ,2016):
            fetched by the partial argument matching; fixed.
 
   Bugfixes and changes:
+
+         • ‘calc_AliquotSize()’
+
+             • Console output can now be suppressed via 'verbose =
+               TRUE'.
+
+         • ‘calc_FadingCorr()’
+
+             • Fixed a bug where the function would crash when
+               providing an ‘RLum.Results’ object for ‘g_value’.
 
          • ‘plot_DetPlot()’
 

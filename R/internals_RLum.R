@@ -109,3 +109,47 @@
   return(results)
 
 }
+
+#++++++++++++++++++++++++++++
+#+ Scientific axis annotation        +
+#++++++++++++++++++++++++++++
+
+#' Bored of the 1e10 notation of large numbers in R? Already tried to force
+#' R to produce more fancy labels? Worry not, fancy_scientific() (written by
+#' Jack Aidley) is at your help! 
+#' 
+#' Source: 
+#' http://stackoverflow.com/questions/11610377/how-do-i-change-the-formatting-of-numbers-on-an-axis-with-ggplot
+#'
+#' @param l \code{\link{numeric}} (\bold{required}): a numeric vector, i.e. the
+#' labels that you want to add to your plot
+#'
+#' @return
+#' Returns an expression
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author Jack Aidley
+#'
+#' @examples
+#'
+#' plot(seq(1e10, 1e20, length.out = 10), 
+#'      1:10,
+#'      xaxt = "n")
+#'      
+#' axis(1, at = axTicks(1),
+#'      labels = fancy_scientific(axTicks(1)))
+#'
+#' @noRd
+fancy_scientific <- function(l) {
+  # turn in to character string in scientific notation
+  l <- format(l, scientific = TRUE)
+  # quote the part before the exponent to keep all the digits
+  l <- gsub("^(.*)e", "'\\1'e", l)
+  # turn the 'e+' into plotmath format
+  l <- gsub("e", "%*%10^", l)
+  # remove plus sign
+  l <- gsub("\\+", "", l)
+  # return this as an expression
+  parse(text=l)
+}

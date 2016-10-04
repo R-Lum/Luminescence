@@ -51,25 +51,32 @@
 #' @param grain.size \code{\link{numeric}} (\bold{required}): mean grain size
 #' (microns) or a range of grain sizes from which the mean grain size is
 #' computed (e.g. \code{c(100,200)}).
+#' 
 #' @param sample.diameter \code{\link{numeric}} (\bold{required}): diameter
 #' (mm) of the targeted area on the sample carrier.
+#' 
 #' @param packing.density \code{\link{numeric}} (with default) empirical value
 #' for mean packing density. \cr If \code{packing.density = "inf"} a hexagonal
 #' structure on an infinite plane with a packing density of \eqn{0.906\ldots}
 #' is assumed.
+#' 
 #' @param MC \code{\link{logical}} (optional): if \code{TRUE} the function
 #' performs a monte carlo simulation for estimating the amount of grains on the
 #' sample carrier and assumes random errors in grain size distribution and
 #' packing density. Requires a vector with min and max grain size for
 #' \code{grain.size}. For more information see details.
+#' 
 #' @param grains.counted \code{\link{numeric}} (optional) grains counted on a
 #' sample carrier. If a non-zero positive integer is provided this function
 #' will calculate the packing density of the aliquot. If more than one value is
 #' provided the mean packing density and its standard deviation is calculated.
 #' Note that this overrides \code{packing.density}.
+#' 
 #' @param plot \code{\link{logical}} (with default): plot output
 #' (\code{TRUE}/\code{FALSE})
+#' 
 #' @param \dots further arguments to pass (\code{main, xlab, MC.iter}).
+#' 
 #' @return Returns a terminal output. In addition an
 #' \code{\linkS4class{RLum.Results}} object is returned containing the
 #' following element:
@@ -81,19 +88,33 @@
 #'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum}}
+#' 
 #' @section Function version: 0.31
+#' 
 #' @author Christoph Burow, University of Cologne (Germany)
-#' @references Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
+#' 
+#' @references 
+#' Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
 #' sediments: why aliquot size matters in luminescence dating. Boreas 37,
-#' 589-612.  \cr\cr Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains
-#' are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr \bold{Further
-#' reading} \cr\cr Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
+#' 589-612.  \cr\cr 
+#' 
+#' Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains
+#' are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr 
+#' 
+#' \bold{Further reading} \cr\cr 
+#' 
+#' Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
 #' Theorem on Circle Packing. \url{http://arxiv.org/pdf/1009.4322v1.pdf},
-#' 2013-09-13. \cr\cr Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
+#' 2013-09-13. 
+#' 
+#' \cr\cr Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
 #' Oestergard, P.R.J., 1998.  Dense packings of congruent circles in a circle.
-#' Discrete Mathematics 181, 139-154. \cr\cr Huang, W., Ye, T., 2011. Global
+#' Discrete Mathematics 181, 139-154. 
+#' 
+#' \cr\cr Huang, W., Ye, T., 2011. Global
 #' optimization method for finding dense packings of equal circles in a circle.
 #' European Journal of Operational Research 210, 474-481.
+#' 
 #' @examples
 #'
 #' ## Estimate the amount of grains on a small aliquot
@@ -116,13 +137,13 @@ calc_AliquotSize <- function(
   ##==========================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##==========================================================================##
-
+  
   if(length(grain.size) == 0 | length(grain.size) > 2) {
     cat(paste("\nPlease provide the mean grain size or a range",
               "of grain sizes (in microns).\n"), fill = FALSE)
     stop(domain=NA)
   }
-
+  
   if(packing.density < 0 | packing.density > 1) {
     if(packing.density == "inf") {
     } else {
@@ -130,15 +151,15 @@ calc_AliquotSize <- function(
       stop(domain=NA)
     }
   }
-
+  
   if(sample.diameter < 0) {
     cat(paste("\nPlease provide only positive integers.\n"))
     stop(domain=NA)
   }
-
+  
   if (sample.diameter > 9.8)
     warning("\n A sample diameter of ", sample.diameter ," mm was specified, but common sample discs are 9.8 mm in diameter.", call. = FALSE)
-
+  
   if(missing(grains.counted) == FALSE) {
     if(MC == TRUE) {
       MC = FALSE
@@ -147,31 +168,30 @@ calc_AliquotSize <- function(
                 "FALSE.\n"))
     }
   }
-
+  
   if(MC == TRUE && length(grain.size) != 2) {
     cat(paste("\nPlease provide a vector containing the min and max grain",
               "grain size(e.g. c(100,150) when using Monte Carlo simulations.\n"))
     stop(domain=NA)
   }
-
-
+  
+  
   ##==========================================================================##
   ## ... ARGUMENTS
   ##==========================================================================##
-
-  extraArgs <- list(...)
-
-  ## set number of Monte Carlo iterations
-  if("MC.iter" %in% names(extraArgs)) {
-    MC.iter<- extraArgs$MC.iter
-  } else {
-    MC.iter<- 10^4
-  }
-
+  
+  # set default parameters
+  settings <- list(MC.iter = 10^4,
+                   verbose = TRUE)
+  
+  # override settings with user arguments
+  settings <- modifyList(settings, list(...))
+  
+  
   ##==========================================================================##
   ## CALCULATIONS
   ##==========================================================================##
-
+  
   # calculate the mean grain size
   range.flag<- FALSE
   if(length(grain.size) == 2) {
@@ -179,42 +199,42 @@ calc_AliquotSize <- function(
     grain.size<- mean(grain.size)
     range.flag<- TRUE
   }
-
+  
   # use ~0.907... from Thue's Theorem as packing density
   if(packing.density == "inf") {
     packing.density = pi/sqrt(12)
   }
-
+  
   # function to calculate the amount of grains
   calc_n<- function(sd, gs, d) {
     n<- ((pi*(sd/2)^2)/
            (pi*(gs/2000)^2))*d
     return(n)
   }
-
+  
   # calculate the amount of grains on the aliquot
   if(missing(grains.counted) == TRUE) {
     n.grains<- calc_n(sample.diameter, grain.size, packing.density)
-
+    
     ##========================================================================##
     ## MONTE CARLO SIMULATION
-
+    
     if(MC == TRUE && range.flag == TRUE) {
-
+      
       # create a random set of packing densities assuming a normal
       # distribution with the empirically determined standard deviation of
       # 0.18.
-      d.mc<- rnorm(MC.iter, packing.density, 0.18)
-
+      d.mc<- rnorm(settings$MC.iter, packing.density, 0.18)
+      
       # in a PECC the packing density can not be larger than ~0.87
       d.mc[which(d.mc > 0.87)]<- 0.87
       d.mc[which(d.mc < 0.25)]<- 0.25
-
+      
       # create a random set of sample diameters assuming a normal
       # distribution with an assumed standard deviation of
       # 0.2. For a more conservative estimate this is divided by 2.
-      sd.mc<- rnorm(MC.iter, sample.diameter, 0.2)
-
+      sd.mc<- rnorm(settings$MC.iter, sample.diameter, 0.2)
+      
       # it is assumed that sample diameters < 0.5 mm either do not
       # occur, or are discarded. Either way, any smaller sample
       # diameter is capped at 0.5.
@@ -223,20 +243,20 @@ calc_AliquotSize <- function(
       sd.mc[which(sd.mc <0.5)]<- 0.5
       if (sample.diameter <= 9.8)
         sd.mc[which(sd.mc >9.8)]<- 9.8
-
+      
       # create random samples assuming a normal distribution
       # with the mean grain size as mean and half the range (min:max)
       # as standard deviation. For a more conservative estimate this
       # is further devided by 2, so half the range is regarded as
       # two sigma.
-      gs.mc<- rnorm(MC.iter, grain.size, diff(gs.range)/4)
-
+      gs.mc<- rnorm(settings$MC.iter, grain.size, diff(gs.range)/4)
+      
       # draw random samples from the grain size spectrum (gs.mc) and calculate
       # the mean for each sample. This gives an approximation of the variation
       # in mean grain size on the sample disc
       gs.mc.sampleMean<- vector(mode = "numeric")
-
-
+      
+      
       for(i in 1:length(gs.mc)) {
         gs.mc.sampleMean[i]<- mean(sample(gs.mc, calc_n(
           sample(sd.mc, size = 1),
@@ -244,42 +264,42 @@ calc_AliquotSize <- function(
           sample(d.mc, size = 1)
         ), replace = TRUE))
       }
-
+      
       # create empty vector for MC estimates of n
       MC.n<- vector(mode="numeric")
-
+      
       # calculate n for each MC data set
       for(i in 1:length(gs.mc)) {
         MC.n[i]<- calc_n(sd.mc[i],
                          gs.mc.sampleMean[i],
                          d.mc[i])
       }
-
+      
       # summarize MC estimates
       MC.q<- quantile(MC.n, c(0.05,0.95))
       MC.n.kde<- density(MC.n, n = 10000)
-
+      
       # apply student's t-test
       MC.t.test<- t.test(MC.n)
       MC.t.lower<- MC.t.test["conf.int"]$conf.int[1]
       MC.t.upper<- MC.t.test["conf.int"]$conf.int[2]
       MC.t.se<- (MC.t.upper-MC.t.lower)/3.92
-
-
+      
+      
       # get unweighted statistics from calc_Statistics() function
       MC.stats<- calc_Statistics(as.data.frame(cbind(MC.n,0.0001)))$unweighted
-
+      
     }
   }#EndOf:estimate number of grains
-
-
+  
+  
   ##========================================================================##
   ## CALCULATE PACKING DENSITY
-
+  
   if(missing(grains.counted) == FALSE) {
-
+    
     area.container<- pi*sample.diameter^2
-
+    
     if(length(grains.counted) == 1) {
       area.grains<- (pi*(grain.size/1000)^2)*grains.counted
       packing.density<- area.grains/area.container
@@ -293,59 +313,61 @@ calc_AliquotSize <- function(
       std.d<- sd(packing.densities)
     }
   }
-
+  
   ##==========================================================================##
   ##TERMINAL OUTPUT
   ##==========================================================================##
-
-  cat("\n [calc_AliquotSize]")
-  cat(paste("\n\n ---------------------------------------------------------"))
-  cat(paste("\n mean grain size (microns)  :", grain.size))
-  cat(paste("\n sample diameter (mm)       :", sample.diameter))
-  if(missing(grains.counted) == FALSE) {
-    if(length(grains.counted) == 1) {
-      cat(paste("\n counted grains             :", grains.counted))
-    } else {
-      cat(paste("\n mean counted grains        :", round(mean(grains.counted))))
+  if (settings$verbose) {
+    
+    cat("\n [calc_AliquotSize]")
+    cat(paste("\n\n ---------------------------------------------------------"))
+    cat(paste("\n mean grain size (microns)  :", grain.size))
+    cat(paste("\n sample diameter (mm)       :", sample.diameter))
+    if(missing(grains.counted) == FALSE) {
+      if(length(grains.counted) == 1) {
+        cat(paste("\n counted grains             :", grains.counted))
+      } else {
+        cat(paste("\n mean counted grains        :", round(mean(grains.counted))))
+      }
     }
-  }
-  if(missing(grains.counted) == TRUE) {
-    cat(paste("\n packing density            :", round(packing.density,3)))
-  }
-  if(missing(grains.counted) == FALSE) {
-    if(length(grains.counted) == 1) {
+    if(missing(grains.counted) == TRUE) {
       cat(paste("\n packing density            :", round(packing.density,3)))
-    } else {
-      cat(paste("\n mean packing density       :", round(mean(packing.densities),3)))
-      cat(paste("\n standard deviation         :", round(std.d,3)))
     }
+    if(missing(grains.counted) == FALSE) {
+      if(length(grains.counted) == 1) {
+        cat(paste("\n packing density            :", round(packing.density,3)))
+      } else {
+        cat(paste("\n mean packing density       :", round(mean(packing.densities),3)))
+        cat(paste("\n standard deviation         :", round(std.d,3)))
+      }
+    }
+    if(missing(grains.counted) == TRUE) {
+      cat(paste("\n number of grains           :", round(n.grains,0)))
+    }
+    
+    
+    
+    if(MC == TRUE && range.flag == TRUE) {
+      cat(paste(cat(paste("\n\n --------------- Monte Carlo Estimates -------------------"))))
+      cat(paste("\n number of iterations (n)     :", settings$MC.iter))
+      cat(paste("\n median                       :", round(MC.stats$median)))
+      cat(paste("\n mean                         :", round(MC.stats$mean)))
+      cat(paste("\n standard deviation (mean)    :", round(MC.stats$sd.abs)))
+      cat(paste("\n standard error (mean)        :", round(MC.stats$se.abs, 1)))
+      cat(paste("\n 95% CI from t-test (mean)    :", round(MC.t.lower), "-", round(MC.t.upper)))
+      cat(paste("\n standard error from CI (mean):", round(MC.t.se, 1)))
+      cat(paste("\n ---------------------------------------------------------\n"))
+      
+    } else {
+      cat(paste("\n ---------------------------------------------------------\n"))
+    }
+    
   }
-  if(missing(grains.counted) == TRUE) {
-    cat(paste("\n number of grains           :", round(n.grains,0)))
-  }
-
-
-
-  if(MC == TRUE && range.flag == TRUE) {
-    cat(paste(cat(paste("\n\n --------------- Monte Carlo Estimates -------------------"))))
-    cat(paste("\n number of iterations (n)     :", MC.iter))
-    cat(paste("\n median                       :", round(MC.stats$median)))
-    cat(paste("\n mean                         :", round(MC.stats$mean)))
-    cat(paste("\n standard deviation (mean)    :", round(MC.stats$sd.abs)))
-    cat(paste("\n standard error (mean)        :", round(MC.stats$se.abs, 1)))
-    cat(paste("\n 95% CI from t-test (mean)    :", round(MC.t.lower), "-", round(MC.t.upper)))
-    cat(paste("\n standard error from CI (mean):", round(MC.t.se, 1)))
-    cat(paste("\n ---------------------------------------------------------\n"))
-
-  } else {
-    cat(paste("\n ---------------------------------------------------------\n"))
-  }
-
   ##==========================================================================##
   ##RETURN VALUES
   ##==========================================================================##
-
-
+  
+  
   # prepare return values for mode: estimate grains
   if(missing(grains.counted) == TRUE) {
     summary<- data.frame(grain.size = grain.size,
@@ -354,10 +376,10 @@ calc_AliquotSize <- function(
                          n.grains = round(n.grains,0),
                          grains.counted = NA)
   }
-
+  
   # prepare return values for mode: estimate packing density/densities
   if(missing(grains.counted) == FALSE) {
-
+    
     # return values if only one value for counted.grains is provided
     if(length(grains.counted) == 1) {
       summary<- data.frame(grain.size = grain.size,
@@ -376,41 +398,40 @@ calc_AliquotSize <- function(
       }
     }
   }
-
-  if(MC == FALSE) {
+  
+  if(!MC) {
     MC.n<- NULL
     MC.stats<- NULL
     MC.n.kde<- NULL
     MC.t.test<- NULL
     MC.q<- NULL
   }
-
+  
   if(missing(grains.counted)) grains.counted<- NA
-
+  
   call<- sys.call()
-  args<- list(grain.size = grain.size, sample.diameter = sample.diameter, packing.density = packing.density, MC = MC, grains.counted = grains.counted, MC.iter=MC.iter)
-
+  args<- as.list(sys.call())[-1]
+  
   # create S4 object
   newRLumResults.calc_AliquotSize <- set_RLum(
     class = "RLum.Results",
     data = list(
       summary=summary,
-      args=args,
-      call=call,
       MC=list(estimates=MC.n,
               statistics=MC.stats,
               kde=MC.n.kde,
               t.test=MC.t.test,
-              quantile=MC.q)
-    ))
-
+              quantile=MC.q)),
+    info = list(call=call,
+                args=args))
+  
   ##=========##
   ## PLOTTING
   if(plot==TRUE) {
     try(plot_RLum.Results(newRLumResults.calc_AliquotSize, ...))
   }
-
+  
   # Return values
   invisible(newRLumResults.calc_AliquotSize)
-
+  
 }

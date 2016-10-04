@@ -184,11 +184,10 @@ calc_FadingCorr <- function(
   ##check input
   if(class(g_value)[1] == "RLum.Results"){
     if(g_value@originator == "analyse_FadingMeasurement"){
-
-      g_value <- get_RLum(g_value)[,c("FIT", "SD")]
+      
       tc <- get_RLum(g_value)[["TC"]]
-
-
+      g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
+      
     }else{
       try(stop("[calc_FadingCorr()] Unknown originator for the provided RLum.Results object via 'g_value'!", call. = FALSE))
       return(NULL)

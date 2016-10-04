@@ -29,6 +29,17 @@
 
     }
   }
+  
+    \subsection{New example data}{
+    \itemize{
+      
+      \item \code{ExampleData.fading}: 
+        Example data set for fading measurements of the IR50, IR100, IR150 and IR225
+        feldspar signals of sample UNIL/NB123. It further contains regular 
+        equivalent dose measurement data of the same sample, which can be used 
+        to apply a fading correction to. These data were kindly provided by Georgina King.
+    }
+  }
 
     \subsection{Changes in S4-classes and methods}{
       \itemize{
@@ -45,7 +56,26 @@
 
   \subsection{Bugfixes and changes}{
 
-   \itemize{
+  \itemize{
+  
+  \item \code{calc_AliquotSize()}{
+    \itemize{
+       \item Console output can now be suppressed via 'verbose = TRUE'.
+
+    }
+
+  }
+  
+  \item \code{calc_FadingCorr()}{
+    \itemize{
+       \item Fixed a bug where the function would crash when providing an
+       \code{RLum.Results} object for \code{g_value}.
+
+    }
+
+  }
+
+
     \item \code{plot_DetPlot()}{
       \itemize{
         \item Correct negative y-axis, the minimum is now the real minimum.
