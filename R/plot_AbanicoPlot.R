@@ -193,7 +193,7 @@
 #'
 #' @param output \code{\link{logical}}: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
-#' \code{FALSE}.
+#' \code{TRUE}.
 #'
 #' @param interactive \code{\link{logical}} (with default): create an interactive
 #' abanico plot (requires the 'plotly' package)
@@ -204,7 +204,7 @@
 #' @return returns a plot object and, optionally, a list with plot calculus
 #' data.
 #'
-#' @section Function version: 0.1.9
+#' @section Function version: 0.1.10
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
@@ -380,6 +380,28 @@
 #' ## for further information on layout definitions see documentation
 #' ## of function get_Layout()
 #'
+#' ## now with manually added plot content
+#' ## create empty plot with numeric output
+#' AP <- plot_AbanicoPlot(data = ExampleData.DeValues,
+#'                        pch = NA,
+#'                        output = TRUE)
+#'
+#' ## identify data in 2 sigma range
+#' in_2sigma <- AP$data[[1]]$data.in.2s
+#'
+#' ## restore function-internal plot parameters
+#' par(AP$par)
+#'
+#' ## add points inside 2-sigma range
+#' points(x = AP$data[[1]]$precision[in_2sigma],
+#'        y = AP$data[[1]]$std.estimate.plot[in_2sigma],
+#'        pch = 16)
+#'
+#' ## add points outside 2-sigma range
+#' points(x = AP$data[[1]]$precision[!in_2sigma],
+#'        y = AP$data[[1]]$std.estimate.plot[!in_2sigma],
+#'        pch = 1)
+#'
 #' @export
 plot_AbanicoPlot <- function(
   data,
@@ -413,7 +435,7 @@ plot_AbanicoPlot <- function(
   grid.col,
   frame = 1,
   bw = "SJ",
-  output = FALSE,
+  output = TRUE,
   interactive = FALSE,
   ...
 ) {
@@ -519,6 +541,7 @@ plot_AbanicoPlot <- function(
 
   ## save original plot parameters and restore them upon end or stop
   par.old.full <- par(no.readonly = TRUE)
+  cex_old <- par()$cex
 
   ## this ensures par() is respected for several plots on one page
   if(sum(par()$mfrow) == 2 & sum(par()$mfcol) == 2){
@@ -1286,7 +1309,7 @@ plot_AbanicoPlot <- function(
                                          sep = ""),
                                    ""),
                             ifelse("sd.abs" %in% summary[j] == TRUE,
-                                   paste("sd = ",
+                                   paste("abs. sd = ",
                                          round(De.stats[i,5], 2),
                                          "\n",
                                          sep = ""),
@@ -1370,15 +1393,15 @@ plot_AbanicoPlot <- function(
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("sd.rel" %in% summary[j] == TRUE,
-                                 paste("rel. sd = ",
-                                       round(De.stats[i,5], 2), " %",
+                          ifelse("sd.abs" %in% summary[j] == TRUE,
+                                 paste("abs. sd = ",
+                                       round(De.stats[i,5], 2),
                                        " | ",
                                        sep = ""),
                                  ""),
-                          ifelse("sd.abs" %in% summary[j] == TRUE,
-                                 paste("abs. sd = ",
-                                       round(De.stats[i,6], 2),
+                          ifelse("sd.rel" %in% summary[j] == TRUE,
+                                 paste("rel. sd = ",
+                                       round(De.stats[i,6], 2), " %",
                                        " | ",
                                        sep = ""),
                                  ""),
@@ -1411,7 +1434,7 @@ plot_AbanicoPlot <- function(
                                        round(sum(data[[i]][,7] > -2 &
                                                    data[[i]][,7] < 2) /
                                                nrow(data[[i]]) * 100 , 1),
-                                       " %   ",
+                                       " % |  ",
                                        sep = ""),
                                  "")
         )
@@ -3496,7 +3519,8 @@ plot_AbanicoPlot <- function(
                       plot.ratio = plot.ratio,
                       data = data,
                       data.global = data.global,
-                      KDE = KDE)
+                      KDE = KDE,
+                      par = par(no.readonly = TRUE))
 
   ## INTERACTIVE PLOT ----------------------------------------------------------
   if (interactive) {
@@ -3652,13 +3676,17 @@ plot_AbanicoPlot <- function(
 
     )
 
-    # show interactive plot ----
+    # show and return interactive plot ----
     #print(plotly::subplot(IAP, IAP.kde))
     print(IAP)
+    return(IAP)
   }
 
-  ## create and resturn numeric output
+  ## restore initial cex
+  par(cex = cex_old)
+
+  ## create and return numeric output
   if(output == TRUE) {
-    return(plot.output)
+    return(invisible(plot.output))
   }
 }

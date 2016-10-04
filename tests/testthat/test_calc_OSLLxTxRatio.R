@@ -1,6 +1,7 @@
 context("calc_OSLLxTxRatio")
 
 data(ExampleData.LxTxOSLData, envir = environment())
+
 temp <- calc_OSLLxTxRatio(
   Lx.data = Lx.data, 
   Tx.data = Tx.data, 
@@ -10,7 +11,7 @@ temp <- calc_OSLLxTxRatio(
 test_that("check class and length of output", {
   
   expect_equal(is(temp), c("RLum.Results", "RLum"))
-  expect_equal(length(temp), 2)
+  expect_equal(length(temp), 3)
   
 })
 

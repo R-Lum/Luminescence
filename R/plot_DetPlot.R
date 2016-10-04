@@ -83,7 +83,7 @@
 #' every sequence should be checked carefully before running long calculations using serveral
 #' hundreds of channels.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -255,7 +255,7 @@ plot_DetPlot <- function(
     OSL_curve <- OSL_curve[1:signal_integral.seq[n.channels + 1],]
 
     m <-
-      ((min(df$De, na.rm = TRUE) - max(df$De.Error, na.rm = TRUE)) - (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))) / (min(OSL_curve[, 2], na.rm = TRUE) - max(OSL_curve[, 2], na.rm = TRUE))
+      ((min(df$De - df$De.Error, na.rm = TRUE)) - (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))) / (min(OSL_curve[, 2], na.rm = TRUE) - max(OSL_curve[, 2], na.rm = TRUE))
     n <- (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE)) - m * max(OSL_curve[, 2])
 
     OSL_curve[, 2] <- m * OSL_curve[, 2] + n
@@ -263,7 +263,7 @@ plot_DetPlot <- function(
 
     ##set plot settings
     plot.settings <- list(
-      ylim = c((min(df$De, na.rm = TRUE) - max(df$De.Error, na.rm = TRUE)),
+      ylim = c(min(df$De - df$De.Error, na.rm = TRUE),
                (max(df$De, na.rm = TRUE) + max(df$De.Error, na.rm = TRUE))),
       xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
       ylab = expression(paste(D[e] / s, " and ", L[n]/(a.u.))),

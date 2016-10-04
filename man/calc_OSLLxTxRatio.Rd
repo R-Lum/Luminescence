@@ -4,7 +4,7 @@
 \alias{calc_OSLLxTxRatio}
 \title{Calculate Lx/Tx ratio for CW-OSL curves}
 \usage{
-calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral,
+calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson", sigmab = NULL, sig0 = 0,
@@ -53,6 +53,8 @@ digits is set to \code{NULL} nothing is rounded.}
 Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 
 Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
+
+\bold{@data}\cr
 $LxTx.table (data.frame) \cr
 .. $ LnLx \cr
 .. $ LnLx.BG \cr
@@ -67,6 +69,8 @@ $ calc.parameters (list) \cr
 .. $ sigmab.LnTx\cr
 .. $ sigmab.TnTx\cr
 .. $ k \cr
+
+\bold{@info}\cr
 $ call (original function call)\cr
 }
 \description{
@@ -124,7 +128,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.3 (2016-07-16 11:28:11)
+ 0.6.4 (2016-10-04 13:27:10)
 }
 \examples{
 

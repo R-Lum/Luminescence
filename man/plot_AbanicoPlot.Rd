@@ -10,7 +10,7 @@ plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, z.0 = "mean.weighted",
   rug = FALSE, kde = TRUE, hist = FALSE, dots = FALSE,
   boxplot = FALSE, y.axis = TRUE, error.bars = FALSE, bar, bar.col,
   polygon.col, line, line.col, line.lty, line.label, grid.col, frame = 1,
-  bw = "SJ", output = FALSE, interactive = FALSE, ...)
+  bw = "SJ", output = TRUE, interactive = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -134,7 +134,7 @@ a numeric value for manual setting.}
 
 \item{output}{\code{\link{logical}}: Optional output of numerical plot
 parameters. These can be useful to reproduce similar plots. Default is
-\code{FALSE}.}
+\code{TRUE}.}
 
 \item{interactive}{\code{\link{logical}} (with default): create an interactive
 abanico plot (requires the 'plotly' package)}
@@ -221,7 +221,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.9 (2016-07-16 11:28:11)
+ 0.1.10 (2016-10-04 13:27:10)
 }
 \examples{
 
@@ -379,6 +379,28 @@ plot_AbanicoPlot(data = data.3,
 
 ## for further information on layout definitions see documentation
 ## of function get_Layout()
+
+## now with manually added plot content
+## create empty plot with numeric output
+AP <- plot_AbanicoPlot(data = ExampleData.DeValues,
+                       pch = NA,
+                       output = TRUE)
+
+## identify data in 2 sigma range
+in_2sigma <- AP$data[[1]]$data.in.2s
+
+## restore function-internal plot parameters
+par(AP$par)
+
+## add points inside 2-sigma range
+points(x = AP$data[[1]]$precision[in_2sigma],
+       y = AP$data[[1]]$std.estimate.plot[in_2sigma],
+       pch = 16)
+
+## add points outside 2-sigma range
+points(x = AP$data[[1]]$precision[!in_2sigma],
+       y = AP$data[[1]]$std.estimate.plot[!in_2sigma],
+       pch = 1)
 
 }
 \author{

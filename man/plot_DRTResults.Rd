@@ -60,7 +60,8 @@ for the legend to be plotted.}
 
 \item{par.local}{\code{\link{logical}} (with default): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
-If \code{par.local = FALSE}, global parameters are inherited.}
+If \code{par.local = FALSE}, global parameters are inherited, i.e. parameters
+provided via \code{par()} work}
 
 \item{na.rm}{\code{\link{logical}}: indicating wether \code{NA} values are
 removed before plotting from the input data set}
@@ -89,7 +90,7 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.10 (2016-07-16 11:28:47)
+ 0.1.10 (2016-10-04 13:27:10)
 }
 \examples{
 

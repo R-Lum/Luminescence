@@ -63,7 +63,7 @@ With no additional summand the new position numbers would be:
 The validity of the output objects is not further checked.
 }
 \section{Function version}{
- 0.2.5 (2016-06-09 11:32:02)
+ 0.2.6 (2016-10-04 13:27:10)
 }
 \examples{
 

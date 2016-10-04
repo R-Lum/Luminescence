@@ -1,54 +1,54 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
-Version: 0.6.2
+Version: 0.7.0
 Date: 2016-XX-XX
-Author: Sebastian Kreutzer [aut, trl, cre],
+Author: Sebastian Kreutzer [aut, trl, cre, dtc],
     Michael Dietze [aut],
     Christoph Burow [aut, trl, dtc],
     Margret C. Fuchs [aut],
     Christoph Schmidt [aut],
     Manfred Fischer [aut, trl],
     Johannes Friedrich [aut],
-    Norbert Mercier [aut],
-    Rachel K. Smedley [aut],
-    Julie Durcan [aut],
-    Georgina King [aut],
+    Norbert Mercier [ctb],
+    Rachel K. Smedley [ctb],
+    Julie Durcan [ctb],
+    Georgina King [ctb],
     Markus Fuchs [ths]
 Authors@R: c(
-    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr"),
+    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr"),
     person("Michael", "Dietze", role = c("aut")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc")),
     person("Margret C.", "Fuchs", role = c("aut")),
     person("Christoph", "Schmidt", role = c("aut")),
     person("Manfred", "Fischer", role = c("aut", "trl")),
     person("Johannes", "Friedrich", role = c("aut")),
-    person("Norbert", "Mercier", role = c("aut")),
-    person("Rachel K.", "Smedley", role = c("aut")),
-    person("Julie", "Durcan", role = c("aut")),
-    person("Georgina", "King", role = c("aut")),
+    person("Norbert", "Mercier", role = c("ctb")),
+    person("Rachel K.", "Smedley", role = c("ctb")),
+    person("Julie", "Durcan", role = c("ctb")),
+    person("Georgina", "King", role = c("ctb")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
 Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
     plotting of equivalent dose distributions.
-Contact: Package Developer Team <team@r-luminescence.de>
+Contact: Package Developers <developers@r-luminescence.de>
 License: GPL-3
+BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 3.3.0),
+    R (>= 3.3.1),
     utils
 LinkingTo: Rcpp (>= 0.12.5),
-    RcppArmadillo (>= 0.6.700.6.0)
+    RcppArmadillo (>= 0.7.100.3.1)
 Imports:
     bbmle (>= 1.0.18),
     data.table (>= 1.9.6),
-    httr (>= 1.1.0),
+    httr (>= 1.2.0),
     matrixStats (>= 0.50.2),
     methods,
-    Rcpp (>= 0.12.5),
     minpack.lm (>= 1.2-0),
-    raster (>= 2.5-2),
+    raster (>= 2.5-8),
     readxl (>= 0.1.1),
     shape (>= 1.4.2),
     parallel,
@@ -56,15 +56,14 @@ Imports:
     zoo (>= 1.7-13)
 Suggests:
     RLumShiny (>= 0.1.0),
-    RLumModel (>= 0.1.1),
-    plotly (>= 3.4.13),
-    rmarkdown (>= 0.9.6),
+    RLumModel (>= 0.1.2),
+    plotly (>= 3.6.0),
+    rmarkdown (>= 0.9.6.14),
     rjags (>= 4-6),
     coda (>= 0.18-1),
     pander (>= 0.6.0),
-    rstudioapi (>= 0.5),
-    testthat
-URL: http://CRAN.R-project.org/package=Luminescence
+    rstudioapi (>= 0.6)
+URL: https://CRAN.R-project.org/package=Luminescence
 Collate:
     'Analyse_SAR.OSLdata.R'
     'CW2pHMi.R'
@@ -72,6 +71,7 @@ Collate:
     'CW2pLMi.R'
     'CW2pPMi.R'
     'Luminescence-package.R'
+    'PSL2Risoe.BINfileData.R'
     'RcppExports.R'
     'replicate_RLum.R'
     'RLum-class.R'
@@ -93,11 +93,13 @@ Collate:
     'get_Risoe.BINfileData.R'
     'RisoeBINfileData-class.R'
     'Second2Gray.R'
+    'analyse_FadingMeasurement.R'
     'analyse_IRSAR.RF.R'
     'analyse_SAR.CWOSL.R'
     'analyse_SAR.TL.R'
     'analyse_baSAR.R'
     'analyse_pIRIRSequence.R'
+    'analyse_portableOSL.R'
     'app_RLum.R'
     'apply_CosmicRayRemoval.R'
     'apply_EfficiencyCorrection.R'
@@ -118,6 +120,7 @@ Collate:
     'calc_Statistics.R'
     'calc_TLLxTxRatio.R'
     'calc_ThermalLifetime.R'
+    'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
@@ -154,6 +157,7 @@ Collate:
     'plot_ViolinPlot.R'
     'read_BIN2R.R'
     'read_Daybreak2R.R'
+    'read_PSL2R.R'
     'read_SPE2R.R'
     'read_XSYG2R.R'
     'report_RLum.R'

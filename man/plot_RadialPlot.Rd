@@ -4,7 +4,7 @@
 \alias{plot_RadialPlot}
 \title{Function to create a Radial Plot}
 \usage{
-plot_RadialPlot(data, na.rm = TRUE, negatives = "remove", log.z = TRUE,
+plot_RadialPlot(data, na.rm = TRUE, negatives.rm = TRUE, log.z = TRUE,
   central.value, centrality = "mean.weighted", mtext, summary, summary.pos,
   legend, legend.pos, stats, rug = FALSE, plot.ratio, bar.col,
   y.ticks = TRUE, grid.col, line, line.col, line.label, output = FALSE, ...)
@@ -18,9 +18,8 @@ data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 \item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA}
 values from the data set prior to any further operations.}
 
-\item{negatives}{\code{\link{character}} (with default): rule for negative
-values. Default is \code{"remove"} (i.e. negative values are removed from
-the data set).}
+\item{negatives.rm}{\code{\link{logical}} (with default): remove negative values (\code{TRUE})
+or keep them (\code{FALSE})}
 
 \item{log.z}{\code{\link{logical}} (with default): Option to display the
 z-axis in logarithmic scale. Default is \code{TRUE}.}
@@ -131,7 +130,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.3 (2016-05-19 23:47:38)
+ 0.5.5 (2016-10-04 13:27:10)
 }
 \examples{
 

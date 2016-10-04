@@ -1,6 +1,6 @@
 
 <p class='character'><h2 align="center">Major functions in the R package 'Luminescence'</h2>
-           <h4 align="center"> [version: 0.6.2 ]</h4>
+           <h4 align="center"> [version: 0.7.0 ]</h4>
            <style type="text/css">
            <!--
 
@@ -61,11 +61,11 @@
 </td>
 <td class=cellinside><br /> This function allows the application of Bayesian models on luminescence data, measured<br /> with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,<br /> it follows the idea proposed by Combes et al., 2015 of using an hierarchical model for estimating<br /> a central equivalent dose from a set of luminescence measurements. This function is (I) the adaption<br /> of this approach for the R environment and (II) an extension and a technical refinement of the<br /> published code. <br />
 </td>
-<td class=cellinside>0.1.23
+<td class=cellinside>0.1.25
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  <br /> <br /> The underlying Bayesian model based on a contribution by Combes et al., 2015.<br />  R Luminescence Package Team
@@ -73,6 +73,25 @@
  
 <tr> 
 <td class=firstcolumn>2
+</td>
+<td class=cellinside>analyse_FadingMeasurement
+</td>
+<td class=cellinside>Analyse fading measurements and returns the fading rate per decade (g-value)
+</td>
+<td class=cellinside><br /> The function analysis fading measurements and returns a fading rate including an error estimation.<br /> The function is not limited to standard fading measurements, as can be seen, e.g., Huntley and<br /> Lamothe 2001. Additionally, the density of recombination centres (rho') is estimated after<br /> Kars et al. 2008.<br />
+</td>
+<td class=cellinside>0.1.1
+</td>
+<td class=cellinside>2016-10-04
+</td>
+<td class=cellinside>13:27:10
+
+</td>
+<td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  <br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>3
 </td>
 <td class=cellinside>analyse_IRSAR.RF
 </td>
@@ -82,16 +101,16 @@
 </td>
 <td class=cellinside>0.6.11
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>12:47:23
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>3
+<td class=firstcolumn>4
 </td>
 <td class=cellinside>analyse_pIRIRSequence
 </td>
@@ -99,18 +118,37 @@
 </td>
 <td class=cellinside><br /> The function performs an analysis of post-IR IRSL sequences including curve<br /> fitting on  RLum.Analysis  objects.<br />
 </td>
-<td class=cellinside>0.2.1
+<td class=cellinside>0.2.2
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>4
+<td class=firstcolumn>5
+</td>
+<td class=cellinside>analyse_portableOSL
+</td>
+<td class=cellinside>Analyse portable CW-OSL measurements
+</td>
+<td class=cellinside><br /> The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and<br /> produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion ratios<br /> and the IRSL/OSL ratio.<br />
+</td>
+<td class=cellinside>0.0.2
+</td>
+<td class=cellinside>2016-10-04
+</td>
+<td class=cellinside>13:27:10
+
+</td>
+<td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>6
 </td>
 <td class=cellinside>analyse_SAR.CWOSL
 </td>
@@ -120,16 +158,16 @@
 </td>
 <td class=cellinside>0.7.5
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>12:47:23
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>5
+<td class=firstcolumn>7
 </td>
 <td class=cellinside>Analyse_SAR.OSLdata
 </td>
@@ -139,16 +177,16 @@
 </td>
 <td class=cellinside>0.2.17
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, HZDR, Freiberg (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>6
+<td class=firstcolumn>8
 </td>
 <td class=cellinside>analyse_SAR.TL
 </td>
@@ -158,35 +196,16 @@
 </td>
 <td class=cellinside>0.1.5
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>12:47:23
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>7
-</td>
-<td class=cellinside>app_RLum
-</td>
-<td class=cellinside>Run Luminescence shiny apps (wrapper)
-</td>
-<td class=cellinside><br /> Wrapper for the function  app_RLum  from the package<br /> RLumShiny-package . For further details and examples please<br /> see the manual of this package.<br />
-</td>
-<td class=cellinside>0.1.0
-</td>
-<td class=cellinside>2016-05-02
-</td>
-<td class=cellinside>09:36:06
-
-</td>
-<td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
-</td></tr>
- 
-<tr> 
-<td class=firstcolumn>8
+<td class=firstcolumn>9
 </td>
 <td class=cellinside>apply_CosmicRayRemoval
 </td>
@@ -196,16 +215,16 @@
 </td>
 <td class=cellinside>0.2.1
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>9
+<td class=firstcolumn>10
 </td>
 <td class=cellinside>apply_EfficiencyCorrection
 </td>
@@ -215,16 +234,35 @@
 </td>
 <td class=cellinside>0.1.1
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Johannes Friedrich, University of Bayreuth (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>10
+<td class=firstcolumn>11
+</td>
+<td class=cellinside>app_RLum
+</td>
+<td class=cellinside>Run Luminescence shiny apps (wrapper)
+</td>
+<td class=cellinside><br /> Wrapper for the function  app_RLum  from the package<br /> RLumShiny-package . For further details and examples please<br /> see the manual of this package.<br />
+</td>
+<td class=cellinside>0.1.0
+</td>
+<td class=cellinside>2016-10-02
+</td>
+<td class=cellinside>12:46:49
+
+</td>
+<td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>12
 </td>
 <td class=cellinside>as
 </td>
@@ -242,7 +280,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>11
+<td class=firstcolumn>13
 </td>
 <td class=cellinside>BaseDataSet.CosmicDoseRate
 </td>
@@ -260,7 +298,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>12
+<td class=firstcolumn>14
 </td>
 <td class=cellinside>bin_RLum.Data
 </td>
@@ -270,16 +308,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>13
+<td class=firstcolumn>15
 </td>
 <td class=cellinside>calc_AliquotSize
 </td>
@@ -289,16 +327,16 @@
 </td>
 <td class=cellinside>0.31
 </td>
-<td class=cellinside>2016-05-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>22:20:28
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>14
+<td class=firstcolumn>16
 </td>
 <td class=cellinside>calc_CentralDose
 </td>
@@ -308,16 +346,16 @@
 </td>
 <td class=cellinside>1.3.1
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>15
+<td class=firstcolumn>17
 </td>
 <td class=cellinside>calc_CommonDose
 </td>
@@ -327,16 +365,16 @@
 </td>
 <td class=cellinside>0.1
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>16
+<td class=firstcolumn>18
 </td>
 <td class=cellinside>calc_CosmicDoseRate
 </td>
@@ -346,35 +384,35 @@
 </td>
 <td class=cellinside>0.5.2
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>17
+<td class=firstcolumn>19
 </td>
 <td class=cellinside>calc_FadingCorr
 </td>
-<td class=cellinside>Apply a fading correction according to Huntley & Lamothe (2001) for a given<br /> g-value.
+<td class=cellinside>Apply a fading correction according to Huntley & Lamothe (2001) for a given<br /> g-value and a given tc
 </td>
-<td class=cellinside><br /> This function runs the iterations that are needed to calculate the corrected<br /> age including the error for a given g-value according to Huntley & Lamothe<br /> (2001).<br />
+<td class=cellinside><br /> This function solves the equation used for correcting the fading affected age<br /> including the error for a given g-value according to Huntley & Lamothe (2001).<br />
 </td>
-<td class=cellinside>0.3.3
+<td class=cellinside>0.4.1
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>18
+<td class=firstcolumn>20
 </td>
 <td class=cellinside>calc_FastRatio
 </td>
@@ -384,16 +422,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Georgina King, University of Cologne (Germany)  <br /> Julie A. Durcan, University of Oxford (United Kingdom)  <br /> Christoph Burow, University of Cologne (Germany)  <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>19
+<td class=firstcolumn>21
 </td>
 <td class=cellinside>calc_FiniteMixture
 </td>
@@ -403,16 +441,16 @@
 </td>
 <td class=cellinside>0.4
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2006.  <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>20
+<td class=firstcolumn>22
 </td>
 <td class=cellinside>calc_FuchsLang2001
 </td>
@@ -422,16 +460,16 @@
 </td>
 <td class=cellinside>0.4.1
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France) Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>21
+<td class=firstcolumn>23
 </td>
 <td class=cellinside>calc_gSGC
 </td>
@@ -441,16 +479,16 @@
 </td>
 <td class=cellinside>0.1.1
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:27:40
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France) <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>22
+<td class=firstcolumn>24
 </td>
 <td class=cellinside>calc_HomogeneityTest
 </td>
@@ -460,16 +498,16 @@
 </td>
 <td class=cellinside>0.2
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>23
+<td class=firstcolumn>25
 </td>
 <td class=cellinside>calc_IEU
 </td>
@@ -479,16 +517,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Rachel Smedley, Geography & Earth Sciences, Aberystwyth University<br /> (United Kingdom)   Based on an excel spreadsheet and accompanying macro<br /> written by Kristina Thomsen.<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>24
+<td class=firstcolumn>26
 </td>
 <td class=cellinside>calc_MaxDose
 </td>
@@ -498,16 +536,16 @@
 </td>
 <td class=cellinside>0.3
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>25
+<td class=firstcolumn>27
 </td>
 <td class=cellinside>calc_MinDose
 </td>
@@ -517,16 +555,16 @@
 </td>
 <td class=cellinside>0.4.3
 </td>
-<td class=cellinside>2016-05-24
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>12:14:20
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010   The bootstrap approach is<br /> based on a rewritten MATLAB script of Alastair Cunningham.   Alastair<br /> Cunningham is thanked for his help in implementing and cross-checking the<br /> code.<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>26
+<td class=firstcolumn>28
 </td>
 <td class=cellinside>calc_OSLLxTxRatio
 </td>
@@ -534,18 +572,18 @@
 </td>
 <td class=cellinside><br /> Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.<br />
 </td>
-<td class=cellinside>0.6.3
+<td class=cellinside>0.6.4
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>27
+<td class=firstcolumn>29
 </td>
 <td class=cellinside>calc_SourceDoseRate
 </td>
@@ -555,16 +593,16 @@
 </td>
 <td class=cellinside>0.3.0
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),<br />  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>28
+<td class=firstcolumn>30
 </td>
 <td class=cellinside>calc_Statistics
 </td>
@@ -574,16 +612,16 @@
 </td>
 <td class=cellinside>0.1.6
 </td>
-<td class=cellinside>2016-05-16
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>22:14:31
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>29
+<td class=firstcolumn>31
 </td>
 <td class=cellinside>calc_ThermalLifetime
 </td>
@@ -593,16 +631,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>30
+<td class=firstcolumn>32
 </td>
 <td class=cellinside>calc_TLLxTxRatio
 </td>
@@ -612,16 +650,35 @@
 </td>
 <td class=cellinside>0.3.0
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Christoph Schmidt, University of Bayreuth (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>31
+<td class=firstcolumn>33
+</td>
+<td class=cellinside>calc_WodaFuchs2008
+</td>
+<td class=cellinside>Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008
+</td>
+<td class=cellinside><br /> The description section<br />
+</td>
+<td class=cellinside>0.2.0
+</td>
+<td class=cellinside>2016-10-04
+</td>
+<td class=cellinside>13:27:10
+
+</td>
+<td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), <br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>34
 </td>
 <td class=cellinside>CW2pHMi
 </td>
@@ -631,35 +688,16 @@
 </td>
 <td class=cellinside>0.2.2
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)   Based on comments and suggestions from:  Adrie J.J. Bos,<br /> Delft University of Technology, The Netherlands <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>32
-</td>
-<td class=cellinside>CW2pLM
-</td>
-<td class=cellinside>Transform a CW-OSL curve into a pLM-OSL curve
-</td>
-<td class=cellinside><br /> Transforms a conventionally measured continuous-wave (CW) curve into a<br /> pseudo linearly modulated (pLM) curve using the equations given in Bulur<br /> (2000).<br />
-</td>
-<td class=cellinside>0.4.1
-</td>
-<td class=cellinside>2015-11-29
-</td>
-<td class=cellinside>17:27:48
-
-</td>
-<td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
-</td></tr>
- 
-<tr> 
-<td class=firstcolumn>33
+<td class=firstcolumn>35
 </td>
 <td class=cellinside>CW2pLMi
 </td>
@@ -669,16 +707,35 @@
 </td>
 <td class=cellinside>0.3.1
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux<br /> Montaigne  Based on comments and suggestions from:  Adrie J.J. Bos,<br /> Delft University of Technology, The Netherlands <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>34
+<td class=firstcolumn>36
+</td>
+<td class=cellinside>CW2pLM
+</td>
+<td class=cellinside>Transform a CW-OSL curve into a pLM-OSL curve
+</td>
+<td class=cellinside><br /> Transforms a conventionally measured continuous-wave (CW) curve into a<br /> pseudo linearly modulated (pLM) curve using the equations given in Bulur<br /> (2000).<br />
+</td>
+<td class=cellinside>0.4.1
+</td>
+<td class=cellinside>2016-10-02
+</td>
+<td class=cellinside>12:46:49
+
+</td>
+<td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>37
 </td>
 <td class=cellinside>CW2pPMi
 </td>
@@ -688,16 +745,16 @@
 </td>
 <td class=cellinside>0.2.1
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)  Based on comments and suggestions from:  Adrie J.J. Bos,<br /> Delft University of Technology, The Netherlands <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>35
+<td class=firstcolumn>38
 </td>
 <td class=cellinside>ExampleData.BINfileData
 </td>
@@ -715,7 +772,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>36
+<td class=firstcolumn>39
 </td>
 <td class=cellinside>ExampleData.CW_OSL_Curve
 </td>
@@ -733,7 +790,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>37
+<td class=firstcolumn>40
 </td>
 <td class=cellinside>ExampleData.DeValues
 </td>
@@ -751,7 +808,25 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>38
+<td class=firstcolumn>41
+</td>
+<td class=cellinside>ExampleData.Fading
+</td>
+<td class=cellinside>Example data for feldspar fading measurements
+</td>
+<td class=cellinside><br /> Example data set for fading measurements of the IR50, IR100, IR150 and<br /> IR225 feldspar signals of sample UNIL/NB123. It further contains regular equivalent dose <br /> measurement data of the same sample, which can be used to apply a<br /> fading correction to.<br />
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>42
 </td>
 <td class=cellinside>ExampleData.FittingLM
 </td>
@@ -769,7 +844,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>39
+<td class=firstcolumn>43
 </td>
 <td class=cellinside>ExampleData.LxTxData
 </td>
@@ -787,7 +862,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>40
+<td class=firstcolumn>44
 </td>
 <td class=cellinside>ExampleData.LxTxOSLData
 </td>
@@ -805,7 +880,25 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>41
+<td class=firstcolumn>45
+</td>
+<td class=cellinside>ExampleData.portableOSL
+</td>
+<td class=cellinside>Example portable OSL curve data for the package Luminescence
+</td>
+<td class=cellinside><br /> A  list  of  RLum.Analysis  objects, each containing<br /> the same number of  RLum.Data.Curve  objects representing<br /> individual OSL, IRSL and dark count measurements of a sample.<br />
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>46
 </td>
 <td class=cellinside>ExampleData.RLum.Analysis
 </td>
@@ -823,7 +916,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>42
+<td class=firstcolumn>47
 </td>
 <td class=cellinside>ExampleData.RLum.Data.Image
 </td>
@@ -841,7 +934,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>43
+<td class=firstcolumn>48
 </td>
 <td class=cellinside>ExampleData.XSYG
 </td>
@@ -859,7 +952,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>44
+<td class=firstcolumn>49
 </td>
 <td class=cellinside>extract_IrradiationTimes
 </td>
@@ -869,16 +962,16 @@
 </td>
 <td class=cellinside>0.3.0
 </td>
-<td class=cellinside>2016-05-03
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>11:10:26
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>45
+<td class=firstcolumn>50
 </td>
 <td class=cellinside>fit_CWCurve
 </td>
@@ -888,16 +981,16 @@
 </td>
 <td class=cellinside>0.5.1
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>46
+<td class=firstcolumn>51
 </td>
 <td class=cellinside>fit_LMCurve
 </td>
@@ -907,16 +1000,16 @@
 </td>
 <td class=cellinside>0.3.1
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>47
+<td class=firstcolumn>52
 </td>
 <td class=cellinside>get_Layout
 </td>
@@ -926,16 +1019,16 @@
 </td>
 <td class=cellinside>0.1
 </td>
-<td class=cellinside>2016-05-17
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>22:39:50
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>48
+<td class=firstcolumn>53
 </td>
 <td class=cellinside>get_Quote
 </td>
@@ -945,16 +1038,16 @@
 </td>
 <td class=cellinside>0.1.1
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:27:40
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>49
+<td class=firstcolumn>54
 </td>
 <td class=cellinside>get_rightAnswer
 </td>
@@ -964,16 +1057,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> inspired by R.G.<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>50
+<td class=firstcolumn>55
 </td>
 <td class=cellinside>get_Risoe.BINfileData
 </td>
@@ -983,16 +1076,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>51
+<td class=firstcolumn>56
 </td>
 <td class=cellinside>get_RLum
 </td>
@@ -1002,16 +1095,16 @@
 </td>
 <td class=cellinside>0.3.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:40:57
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>52
+<td class=firstcolumn>57
 </td>
 <td class=cellinside>length_RLum
 </td>
@@ -1021,16 +1114,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>53
+<td class=firstcolumn>58
 </td>
 <td class=cellinside>merge_Risoe.BINfileData
 </td>
@@ -1038,18 +1131,18 @@
 </td>
 <td class=cellinside><br /> Function allows merging Risoe BIN/BINX files or Risoe.BINfileData objects.<br />
 </td>
-<td class=cellinside>0.2.5
+<td class=cellinside>0.2.6
 </td>
-<td class=cellinside>2016-06-09
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:32:02
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>54
+<td class=firstcolumn>59
 </td>
 <td class=cellinside>merge_RLum.Analysis
 </td>
@@ -1059,16 +1152,16 @@
 </td>
 <td class=cellinside>0.2.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>55
+<td class=firstcolumn>60
 </td>
 <td class=cellinside>merge_RLum.Data.Curve
 </td>
@@ -1078,16 +1171,16 @@
 </td>
 <td class=cellinside>0.2.0
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>56
+<td class=firstcolumn>61
 </td>
 <td class=cellinside>merge_RLum
 </td>
@@ -1097,16 +1190,16 @@
 </td>
 <td class=cellinside>0.1.2
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>57
+<td class=firstcolumn>62
 </td>
 <td class=cellinside>merge_RLum.Results
 </td>
@@ -1116,16 +1209,16 @@
 </td>
 <td class=cellinside>0.2.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>58
+<td class=firstcolumn>63
 </td>
 <td class=cellinside>methods_RLum
 </td>
@@ -1143,7 +1236,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>59
+<td class=firstcolumn>64
 </td>
 <td class=cellinside>model_LuminescenceSignals
 </td>
@@ -1153,16 +1246,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Johannes Friedrich, University of Bayreuth (Germany), <br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France),  <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>60
+<td class=firstcolumn>65
 </td>
 <td class=cellinside>names_RLum
 </td>
@@ -1172,16 +1265,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>61
+<td class=firstcolumn>66
 </td>
 <td class=cellinside>plot_AbanicoPlot
 </td>
@@ -1189,18 +1282,18 @@
 </td>
 <td class=cellinside><br /> A plot is produced which allows comprehensive presentation of data precision<br /> and its dispersion around a central value as well as illustration of a<br /> kernel density estimate, histogram and/or dot plot of the dose values.<br />
 </td>
-<td class=cellinside>0.1.9
+<td class=cellinside>0.1.10
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Inspired by a plot<br /> introduced by Galbraith & Green (1990)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>62
+<td class=firstcolumn>67
 </td>
 <td class=cellinside>plot_DetPlot
 </td>
@@ -1208,18 +1301,18 @@
 </td>
 <td class=cellinside><br /> Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).<br /> The function is simply passing several arguments to the function  plot  and the used<br /> analysis functions and runs it in a loop. Example:  legend.pos  for legend position,<br /> legend  for legend text. <br />
 </td>
-<td class=cellinside>0.1.0
+<td class=cellinside>0.1.1
 </td>
-<td class=cellinside>2016-05-19
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>23:48:19
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>63
+<td class=firstcolumn>68
 </td>
 <td class=cellinside>plot_DRTResults
 </td>
@@ -1229,35 +1322,35 @@
 </td>
 <td class=cellinside>0.1.10
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:47
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>64
+<td class=firstcolumn>69
 </td>
 <td class=cellinside>plot_FilterCombinations
 </td>
-<td class=cellinside>Plot filter combinations along with net transmission window
+<td class=cellinside>Plot filter combinations along with the (optional) net transmission window
 </td>
 <td class=cellinside><br /> The function allows to plot transmission windows for different filters. Missing data for specific<br /> wavelenghts are automatically interpolated for the given filter data using the function  approx .<br /> With that a standardised output is reached and a net transmission window can be shown. <br />
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France) <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>65
+<td class=firstcolumn>70
 </td>
 <td class=cellinside>plot_GrowthCurve
 </td>
@@ -1265,18 +1358,18 @@
 </td>
 <td class=cellinside><br /> A dose response curve is produced for luminescence measurements using a<br /> regenerative protocol.<br />
 </td>
-<td class=cellinside>1.8.16
+<td class=cellinside>1.9.0
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),   Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>66
+<td class=firstcolumn>71
 </td>
 <td class=cellinside>plot_Histogram
 </td>
@@ -1286,16 +1379,16 @@
 </td>
 <td class=cellinside>0.4.4
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>12:47:23
 
 </td>
 <td class=cellinside><br /> Michael Dietze, GFZ Potsdam (Germany),   Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>67
+<td class=firstcolumn>72
 </td>
 <td class=cellinside>plot_KDE
 </td>
@@ -1305,16 +1398,16 @@
 </td>
 <td class=cellinside>3.5.3
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>68
+<td class=firstcolumn>73
 </td>
 <td class=cellinside>plot_NRt
 </td>
@@ -1332,7 +1425,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>69
+<td class=firstcolumn>74
 </td>
 <td class=cellinside>plot_RadialPlot
 </td>
@@ -1340,18 +1433,18 @@
 </td>
 <td class=cellinside><br /> A Galbraith's radial plot is produced on a logarithmic or a linear scale.<br />
 </td>
-<td class=cellinside>0.5.3
+<td class=cellinside>0.5.5
 </td>
-<td class=cellinside>2016-05-19
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>23:47:38
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Michael Dietze, GFZ Potsdam (Germany),  Sebastian Kreutzer,<br /> IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)  Based on a rewritten<br /> S script of Rex Galbraith, 2010<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>70
+<td class=firstcolumn>75
 </td>
 <td class=cellinside>plot_Risoe.BINfileData
 </td>
@@ -1361,16 +1454,16 @@
 </td>
 <td class=cellinside>0.4.1
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>71
+<td class=firstcolumn>76
 </td>
 <td class=cellinside>plot_RLum.Analysis
 </td>
@@ -1380,16 +1473,16 @@
 </td>
 <td class=cellinside>0.3.6
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:27:40
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>72
+<td class=firstcolumn>77
 </td>
 <td class=cellinside>plot_RLum.Data.Curve
 </td>
@@ -1399,16 +1492,16 @@
 </td>
 <td class=cellinside>0.2.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>73
+<td class=firstcolumn>78
 </td>
 <td class=cellinside>plot_RLum.Data.Image
 </td>
@@ -1418,16 +1511,16 @@
 </td>
 <td class=cellinside>0.1
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>74
+<td class=firstcolumn>79
 </td>
 <td class=cellinside>plot_RLum.Data.Spectrum
 </td>
@@ -1435,18 +1528,18 @@
 </td>
 <td class=cellinside><br /> The function provides a standardised plot output for spectrum data of an<br /> RLum.Data.Spectrum S4 class object<br />
 </td>
-<td class=cellinside>0.5.0
+<td class=cellinside>0.5.1
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:28:11
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>75
+<td class=firstcolumn>80
 </td>
 <td class=cellinside>plot_RLum
 </td>
@@ -1454,18 +1547,18 @@
 </td>
 <td class=cellinside><br /> Function calls object specific plot functions for RLum S4 class objects.<br />
 </td>
-<td class=cellinside>0.4.2
+<td class=cellinside>0.4.3
 </td>
-<td class=cellinside>2016-07-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>11:27:40
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>76
+<td class=firstcolumn>81
 </td>
 <td class=cellinside>plot_RLum.Results
 </td>
@@ -1475,16 +1568,16 @@
 </td>
 <td class=cellinside>0.2.1
 </td>
-<td class=cellinside>2016-05-16
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>22:24:15
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,<br /> Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>77
+<td class=firstcolumn>82
 </td>
 <td class=cellinside>plot_ViolinPlot
 </td>
@@ -1494,16 +1587,35 @@
 </td>
 <td class=cellinside>0.1.2
 </td>
-<td class=cellinside>2016-05-17
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>13:27:04
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>78
+<td class=firstcolumn>83
+</td>
+<td class=cellinside>PSL2Risoe.BINfileData
+</td>
+<td class=cellinside>Convert portable OSL data to an Risoe.BINfileData object
+</td>
+<td class=cellinside><br /> Converts an  RLum.Analysis  object produced by the function  read_PSL2R()  to<br /> an  Risoe.BINfileData  object  (BETA) .<br />
+</td>
+<td class=cellinside>0.0.1
+</td>
+<td class=cellinside>2016-10-04
+</td>
+<td class=cellinside>13:27:10
+
+</td>
+<td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>84
 </td>
 <td class=cellinside>read_BIN2R
 </td>
@@ -1511,18 +1623,18 @@
 </td>
 <td class=cellinside><br /> Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL<br /> reader into R.<br />
 </td>
-<td class=cellinside>0.15.0
+<td class=cellinside>0.15.1
 </td>
-<td class=cellinside>2016-06-13
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>21:17:19
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France), Margret C. Fuchs, HZDR Freiberg, (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>79
+<td class=firstcolumn>85
 </td>
 <td class=cellinside>read_Daybreak2R
 </td>
@@ -1532,16 +1644,35 @@
 </td>
 <td class=cellinside>0.2.1
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)  Based on a suggestion by Willian Amidon and Andrew Louis Gorin.<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>80
+<td class=firstcolumn>86
+</td>
+<td class=cellinside>read_PSL2R
+</td>
+<td class=cellinside>Import PSL files to R
+</td>
+<td class=cellinside><br /> Imports PSL files produced by a SUERC portable OSL reader into R  (BETA) .<br />
+</td>
+<td class=cellinside>0.0.1
+</td>
+<td class=cellinside>2016-10-04
+</td>
+<td class=cellinside>13:27:10
+
+</td>
+<td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>87
 </td>
 <td class=cellinside>read_SPE2R
 </td>
@@ -1551,16 +1682,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:42:32
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>81
+<td class=firstcolumn>88
 </td>
 <td class=cellinside>read_XSYG2R
 </td>
@@ -1570,16 +1701,16 @@
 </td>
 <td class=cellinside>0.5.7
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>82
+<td class=firstcolumn>89
 </td>
 <td class=cellinside>replicate_RLum
 </td>
@@ -1589,16 +1720,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>83
+<td class=firstcolumn>90
 </td>
 <td class=cellinside>report_RLum
 </td>
@@ -1608,16 +1739,35 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2016-05-20
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>00:29:23
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Christoph Burow, University of Cologne (Germany)  <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>84
+<td class=firstcolumn>91
+</td>
+<td class=cellinside>Risoe.BINfileData2RLum.Analysis
+</td>
+<td class=cellinside>Convert Risoe.BINfileData object to an RLum.Analysis object
+</td>
+<td class=cellinside><br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object.<br />
+</td>
+<td class=cellinside>0.4.1
+</td>
+<td class=cellinside>2016-10-04
+</td>
+<td class=cellinside>13:27:10
+
+</td>
+<td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>92
 </td>
 <td class=cellinside>Risoe.BINfileData-class
 </td>
@@ -1636,44 +1786,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>85
-</td>
-<td class=cellinside>Risoe.BINfileData2RLum.Analysis
-</td>
-<td class=cellinside>Convert Risoe.BINfileData object to an RLum.Analysis object
-</td>
-<td class=cellinside><br /> Converts values from one specific position of a Risoe.BINfileData S4-class<br /> object to an RLum.Analysis object.<br />
-</td>
-<td class=cellinside>0.4.1
-</td>
-<td class=cellinside>2016-05-19
-</td>
-<td class=cellinside>23:33:15
-
-</td>
-<td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
-</td></tr>
- 
-<tr> 
-<td class=firstcolumn>86
-</td>
-<td class=cellinside>RLum-class
-</td>
-<td class=cellinside>Class  "RLum"
-</td>
-<td class=cellinside><br /> Abstract class for data in the package Luminescence<br />
-</td>
-<td class=cellinside> 
-</td>
-<td class=cellinside> 
-</td>
-<td class=cellinside> 
-</td>
-<td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
-</td></tr>
- 
-<tr> 
-<td class=firstcolumn>87
+<td class=firstcolumn>93
 </td>
 <td class=cellinside>RLum.Analysis-class
 </td>
@@ -1691,7 +1804,25 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>88
+<td class=firstcolumn>94
+</td>
+<td class=cellinside>RLum-class
+</td>
+<td class=cellinside>Class  "RLum"
+</td>
+<td class=cellinside><br /> Abstract class for data in the package Luminescence<br />
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside> 
+</td>
+<td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />
+</td></tr>
+ 
+<tr> 
+<td class=firstcolumn>95
 </td>
 <td class=cellinside>RLum.Data-class
 </td>
@@ -1709,7 +1840,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>89
+<td class=firstcolumn>96
 </td>
 <td class=cellinside>RLum.Data.Curve-class
 </td>
@@ -1727,7 +1858,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>90
+<td class=firstcolumn>97
 </td>
 <td class=cellinside>RLum.Data.Image-class
 </td>
@@ -1745,7 +1876,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>91
+<td class=firstcolumn>98
 </td>
 <td class=cellinside>RLum.Data.Spectrum-class
 </td>
@@ -1763,7 +1894,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>92
+<td class=firstcolumn>99
 </td>
 <td class=cellinside>RLum.Results-class
 </td>
@@ -1781,7 +1912,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>93
+<td class=firstcolumn>100
 </td>
 <td class=cellinside>Second2Gray
 </td>
@@ -1791,16 +1922,16 @@
 </td>
 <td class=cellinside>0.6.0
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:49
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France),  Michael Dietze, GFZ Potsdam (Germany),  Margret C. Fuchs, HZDR,<br /> Helmholtz-Institute Freiberg for Resource Technology<br /> (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>94
+<td class=firstcolumn>101
 </td>
 <td class=cellinside>set_Risoe.BINfileData
 </td>
@@ -1810,16 +1941,16 @@
 </td>
 <td class=cellinside>0.1
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>95
+<td class=firstcolumn>102
 </td>
 <td class=cellinside>set_RLum
 </td>
@@ -1829,16 +1960,16 @@
 </td>
 <td class=cellinside>0.3.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:43:47
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>96
+<td class=firstcolumn>103
 </td>
 <td class=cellinside>sTeve
 </td>
@@ -1856,7 +1987,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>97
+<td class=firstcolumn>104
 </td>
 <td class=cellinside>structure_RLum
 </td>
@@ -1866,16 +1997,16 @@
 </td>
 <td class=cellinside>0.2.0
 </td>
-<td class=cellinside>2016-05-02
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>09:36:06
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>98
+<td class=firstcolumn>105
 </td>
 <td class=cellinside>template_DRAC
 </td>
@@ -1893,7 +2024,7 @@
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>99
+<td class=firstcolumn>106
 </td>
 <td class=cellinside>tune_Data
 </td>
@@ -1903,16 +2034,16 @@
 </td>
 <td class=cellinside>0.5.0
 </td>
-<td class=cellinside>2015-11-29
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>17:27:48
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>100
+<td class=firstcolumn>107
 </td>
 <td class=cellinside>use_DRAC
 </td>
@@ -1922,16 +2053,16 @@
 </td>
 <td class=cellinside>0.1.0
 </td>
-<td class=cellinside>2015-12-05
+<td class=cellinside>2016-10-04
 </td>
-<td class=cellinside>15:52:49
+<td class=cellinside>13:27:10
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,<br /> GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany) <br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>101
+<td class=firstcolumn>108
 </td>
 <td class=cellinside>verify_SingleGrainData
 </td>
@@ -1941,16 +2072,16 @@
 </td>
 <td class=cellinside>0.2.0
 </td>
-<td class=cellinside>2016-06-20
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>19:34:56
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team
 </td></tr>
  
 <tr> 
-<td class=firstcolumn>102
+<td class=firstcolumn>109
 </td>
 <td class=cellinside>write_R2BIN
 </td>
@@ -1960,9 +2091,9 @@
 </td>
 <td class=cellinside>0.4.0
 </td>
-<td class=cellinside>2016-06-13
+<td class=cellinside>2016-10-02
 </td>
-<td class=cellinside>21:17:19
+<td class=cellinside>12:46:50
 
 </td>
 <td class=cellinside><br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team

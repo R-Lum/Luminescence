@@ -66,6 +66,12 @@ echo -^> Add RLum.Team ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_AddRLumTeam.R" NULL
 call :check
 
+:: Citation
+:: -----------------------
+echo -^> Add function citation ...
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Citation.R" NULL
+call :check
+
 
 :: BUILD PACKAGE
 :: -----------------------

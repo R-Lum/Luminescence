@@ -87,6 +87,8 @@
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #'
 #' Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
+#'
+#' \bold{@data}\cr
 #' $LxTx.table (data.frame) \cr
 #' .. $ LnLx \cr
 #' .. $ LnLx.BG \cr
@@ -101,6 +103,8 @@
 #' .. $ sigmab.LnTx\cr
 #' .. $ sigmab.TnTx\cr
 #' .. $ k \cr
+#'
+#' \bold{@info}\cr
 #' $ call (original function call)\cr
 #'
 #' @note The results of this function have been cross-checked with the Analyst
@@ -110,7 +114,7 @@
 #' own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 #'
 #'
-#' @section Function version: 0.6.3
+#' @section Function version: 0.6.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -145,7 +149,7 @@
 #' @export
 calc_OSLLxTxRatio <- function(
   Lx.data,
-  Tx.data,
+  Tx.data = NULL,
   signal.integral,
   signal.integral.Tx = NULL,
   background.integral,
@@ -160,7 +164,7 @@ calc_OSLLxTxRatio <- function(
   ##(1) - integrity checks
 
 
-  if(missing(Tx.data) == FALSE){
+  if(!is.null(Tx.data)){
 
     ##(a) - check data type
     if(is(Lx.data)[1]!=is(Tx.data)[1]){
@@ -482,8 +486,8 @@ calc_OSLLxTxRatio <- function(
       class = "RLum.Results",
       data = list(
         LxTx.table = temp,
-        calc.parameters = calc.parameters,
-        call = sys.call())
+        calc.parameters = calc.parameters),
+      info = list(call = sys.call())
     )
 
   invisible(temp.return)

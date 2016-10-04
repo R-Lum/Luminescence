@@ -265,7 +265,12 @@ calc_MinDose <- function(
       }
     }
   }
-
+  
+  if (any(!complete.cases(data))) {
+    message(paste("\n[calc_MinDose] Warning:\nInput data contained NA/NaN values,",
+                  "which were removed prior to calculations!"))
+    data <- data[complete.cases(data), ]
+  }
 
   ##============================================================================##
   ## ... ARGUMENTS
@@ -344,11 +349,11 @@ calc_MinDose <- function(
   ##============================================================================##
 
   if (missing(init.values)) {
-    start <- list(gamma = ifelse(log, log(quantile(data[ ,1], probs = 0.25)),
-                                 quantile(data[ ,1], probs = 0.25)),
+    start <- list(gamma = ifelse(log, log(quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
+                                 quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                   sigma = 1.2,
                   p0 = 0.01,
-                  mu = ifelse(log, log(quantile(data[ ,1], probs = 0.25)),
+                  mu = ifelse(log, log(quantile(data[ ,1], probs = 0.25, na.rm = TRUE)),
                               mean(data[ ,1])))
   } else {
     start <- list(gamma = init.values$gamma,
@@ -697,7 +702,7 @@ calc_MinDose <- function(
         kd1 <- dnorm(kdthis)
 
         kd2 <- kd1*prodterm[[i]]
-        kd <- sum(kd2)
+        kd <- sum(kd2, na.rm = TRUE)
         likelihood <- (1/(N*h))*kd
         pairs[i, ] <- c(theta[i], likelihood)
       }

@@ -1,57 +1,103 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.6.2 (,2016):
+Changes in version 0.7.0 ( ,2016):
+
+  New functions:
+
+         • ‘analyse_FadingMeasurement()’: Analyse fading measurements
+           to calculate g-values and to estimate the density of
+           recombination centres.
+
+         • ‘analyse_portableOSL()’: The function analyses CW-OSL curve
+           data produced by a SUERC portable OSL reader and produces a
+           combined plot of OSL/IRSL signal intensities, OSL/IRSL
+           depletion ratios and the IRSL/OSL ratio.
+
+         • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
+           dose using the approach proposed by Woda and Fuchs, 2008.
+
+         • ‘PSL2Risoe.BINfileData()’: Converts an ‘RLum.Analysis’
+           object produced by the function ‘read_PSL2R()’ to an
+           ‘Risoe.BINfileData’ object (BETA).
+
+         • ‘read_PSL2R()’: Imports PSL files produced by a SUERC
+           portable OSL reader into R (BETA).
+
+  New example data:
+
+         • ‘ExampleData.fading’: Example data set for fading
+           measurements of the IR50, IR100, IR150 and IR225 feldspar
+           signals of sample UNIL/NB123. It further contains regular
+           equivalent dose measurement data of the same sample, which
+           can be used to apply a fading correction to. These data were
+           kindly provided by Georgina King.
+
+  Changes in S4-classes and methods:
+
+         • Method ‘get_RLum’ for ‘RLum.Analysis’-objects did not
+           respect ‘.pid’, fixed.
+
+         • ‘plot_RLum’ was not passing the argument ‘sub’, as it was
+           fetched by the partial argument matching; fixed.
 
   Bugfixes and changes:
 
-         • ‘analyse_IRSAR.RF()’
+         • ‘calc_AliquotSize()’
 
-             • Test parameter ‘curves_bounds’ was not calculated
-               correctly; fixed,
+             • Console output can now be suppressed via 'verbose =
+               TRUE'.
 
-             • first output object renamed to ‘data’, instead of
-               ‘De.values’.
+         • ‘calc_FadingCorr()’
 
-         • ‘analyse_SAR.CWOSL()’
+             • Fixed a bug where the function would crash when
+               providing an ‘RLum.Results’ object for ‘g_value’.
 
-             • The first object in the returned ‘RLum.Results’ objects
-               was renamed to ‘data’ to gain consistency with the other
-               functions.
+         • ‘plot_DetPlot()’
 
-         • ‘analyse_SAR.TL()’
-
-             • The first object in the returned ‘RLum.Results’ objects
-               was renamed to ‘data’ to gain consistency with the other
-               functions.
-
-         • ‘analyse_pIRIRSequence()’
-
-             • The first object in the returned ‘RLum.Results’ objects
-               was renamed to ‘data’ to gain consistency with the other
-               functions.
-
-         • ‘plot_DRT()’
-
-             • Fix statistical summay keyword issue (reported by Alice
-               Versendaal),
-
-             • improve customised colouring and pch settings.
+             • Correct negative y-axis, the minimum is now the real
+               minimum.
 
          • ‘plot_GrowthCurve()’
 
-             • ‘fit.method’ set to linear for problematic cases (two
-               reg points).
+             • Reduce number of confusing warning,
 
-         • ‘plot_Histogram()’
+             • add new argument ‘mode’ to select the calculation mode
+               of the function.  This allows in particular to only fit
+               data without calculating a De or calculating a De
+               assuming an additive dose reponse curve.
 
-             • Fix a problem while dealing with ‘RLum.Results’ objects
-               as input (#7, thanks to Alice Versendaal).
+         • ‘plot_RadialPlot()’
 
-         • ‘plot_KDE()’
+             • Sometimes the function crashed with an out of bonds
+               error if more than one data set was provided; fixed,
 
-             • Fix a problem while dealing with ‘RLum.Results’ objects
-               as input (#7, thanks to Alice Versendaal),
+             • argument ‘negatives’ caused an error if not set to
+               ‘'remove'’ and fix some errors around this option,
 
-             • function will not break any longe if only one point is
-               provided, but in this case no density curve is returned.
+             • argument ‘negatives’ renamed to ‘negatives.rm’ and
+               changed to type ‘logical’.
+
+         • ‘plot_RLum.Data.Spectrum()’
+
+             • The interactive plot option was broken with the last
+               update of the package 'plotly'; fixed.
+
+         • ‘read_BIN2R()’
+
+             • If BIN-files are automatically imported the function
+               skipped non BIN-files without crashing if it is used in
+               combination with the argument ‘pattern’.
+
+  Internals:
+
+         • The internal function converting BIN-file curves to
+           RLum.Data.Curve() objects had been optimised and, amongst
+           others, now uses a function written using Rcpp to create the
+           curve matrix.  The conversion now works ca. two times
+           faster,
+
+         • add ‘`[<-]`’ method for ‘RLum.Data.Curve’ objects,
+
+         • a hint on how to cite a function is now added automatically
+           to every major function manual page.
 

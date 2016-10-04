@@ -76,7 +76,7 @@
 #' import.}
 #'
 #'
-#' @section Function version: 0.15.0
+#' @section Function version: 0.15.1
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -274,7 +274,11 @@ read_BIN2R <- function(
   if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%tail(
     unlist(strsplit(file, split = "\\.")), n = 1)))){
 
-    stop("[read_BIN2R()] Input is not a file or not of type 'BIN' or 'BINX'!")
+    try(
+      stop(
+        paste0("[read_BIN2R()] '", file,"' is not a file or not of type 'BIN' or 'BINX'! Skipped!"),
+        call. = FALSE))
+    return(NULL)
 
   }
 

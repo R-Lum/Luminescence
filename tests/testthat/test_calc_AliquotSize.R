@@ -1,7 +1,12 @@
 context("calc_AliquotSize")
 
 set.seed(1)
-temp <- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, MC.iter = 100, plot = FALSE)
+temp <- calc_AliquotSize(
+  grain.size = c(100,150), 
+  sample.diameter = 1, 
+  MC.iter = 100, 
+  plot = FALSE,
+  verbose = FALSE)
 
 test_that("check class and length of output", {
   

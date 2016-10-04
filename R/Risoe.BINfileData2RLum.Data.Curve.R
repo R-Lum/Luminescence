@@ -36,7 +36,7 @@
 #' @note Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
 #' overall correct for cases where the TL measurement is combined with a preheat.
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.5.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 #' Christoph Burow, Universtiy of Cologne (Germany)
@@ -67,74 +67,44 @@
   set
 ){
 
+  ##disaggregate object ... this makes it much faster below
+  ##we could also access via index, not number, but this is far to risky, as
+  ##every update in the BIN-file version will break the code here
+  METADATA <- as.list(object@METADATA)
+  DATA <- object@DATA
 
   # grep id of record -------------------------------------------------------
   ##if id is set, no input for pos and rund is nescessary
   if (missing(id)) {
-    id <- object@METADATA[object@METADATA[, "POSITION"] == pos &
-                            object@METADATA[, "SET"] == set &
-                            object@METADATA[, "RUN"] == run,
-                          "ID"]
+    id <- METADATA[METADATA[["POSITION"]] == pos &
+                     METADATA[["SET"]] == set &
+                     METADATA[["RUN"]] == run,
+                   "ID"]
 
   }
 
 
-  # Select values -----------------------------------------------------------
-
-  ##build matrix
-  if(object@METADATA[id,"NPOINTS"][1] != 0){
-
-    if(object@METADATA[id, "LTYPE"] == "TL" && as.numeric(object@METADATA[id, "VERSION"]) >=4){
-
-      temp.x <- c(
-        seq(
-          from = object@METADATA[["LOW"]][id],
-          to = object@METADATA[["AN_TEMP"]][id],
-          length.out = object@METADATA[["TOLDELAY"]][id]
-        ),
-        seq(
-          from = object@METADATA[["AN_TEMP"]][id],
-          to = object@METADATA[["AN_TEMP"]][id],
-          length.out = object@METADATA[["TOLON"]][id]
-        ),
-        seq(
-          from = object@METADATA[["AN_TEMP"]][id],
-          to = object@METADATA[["HIGH"]][id],
-          length.out = object@METADATA[["TOLOFF"]][id]
-        )
-      )
-
-    }else{
-
-      temp.x <- seq(
-        from = object@METADATA[["LOW"]][id],
-        to = object@METADATA[["HIGH"]][id],
-        length.out = object@METADATA[["NPOINTS"]][id]
-      )
-
-    }
-
-    temp.y <- unlist(object@DATA[id], use.names = FALSE)
-
-
-  }else{
-    temp.x <- NA
-    temp.y <- NA
-
-    warning("[.Risoe.BINfileData2RLum.Data.Curve()] NPOINTS was 0, RLum.Data.Curve-object with NA-values produced.")
-
-  }
-
-  ##convert info elements to list ... this procedure halfs the time needed in comparison to
-  ##to simply as.list(object@METADATA)
-  info <- lapply(1:length(names(object@METADATA)), function(x){.subset2(object@METADATA, x)[id]})
-  names(info) <- names(object@METADATA)
+  ##grep info elements
+  info <- lapply(1:length(names(METADATA)), function(x){METADATA[[x]][id]})
+  names(info) <- names(METADATA)
 
   # Build object ------------------------------------------------------------
   set_RLum(
     class = "RLum.Data.Curve",
-    recordType = as.character(object@METADATA[id, "LTYPE"]),
-    data = matrix(c(temp.x, temp.y), ncol = 2),
+    recordType = METADATA[["LTYPE"]][id],
+    data =  .create_RLumDataCurve_matrix(
+      DATA = DATA[[id]],
+      NPOINTS = METADATA[["NPOINTS"]][id],
+      VERSION = METADATA[["VERSION"]][id],
+      LTYPE = METADATA[["LTYPE"]][id],
+      LOW =  METADATA[["LOW"]][id],
+      HIGH =  METADATA[["HIGH"]][id],
+      AN_TEMP = METADATA[["AN_TEMP"]][id],
+      TOLDELAY =METADATA[["TOLDELAY"]][id],
+      TOLON = METADATA[["TOLON"]][id],
+      TOLOFF = METADATA[["TOLOFF"]][id]
+
+    ),
     info = info
   )
 
