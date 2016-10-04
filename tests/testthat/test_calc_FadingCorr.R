@@ -1,10 +1,12 @@
 context("calc_FadingCorr")
 
 set.seed(1)
-temp<- calc_FadingCorr(g_value = c(3.3,0.03), tc = 752,
-                           age.faded = c(100,10),
-                           n.MCruns=100)
-
+temp <- calc_FadingCorr(
+  age.faded = c(0.1,0),
+  g_value = c(5.0, 1.0),
+  tc = 2592000,
+  tc.g_value = 172800,
+  n.MC = 100, verbose = FALSE)
 
 
 
@@ -20,14 +22,17 @@ test_that("check values from output example 1", {
   
   results <- get_RLum(temp)
   
-  expect_equal(results$AGE, 144.61)
-  expect_equal(results$AGE.ERROR, 14.17)
-  expect_equal(results$AGE_FADED, 100)
-  expect_equal(results$AGE_FADED.ERROR, 10)
-  expect_equal(results$G_VALUE, 3.3)
-  expect_equal(results$G_VALUE.ERROR, 0.03)
-  expect_equal(results$TC, 2.384576e-8)
-  expect_equal(results$N.MCRUNS, 100)
+  expect_equal(results$AGE, 0.1169)
+  expect_equal(results$AGE.ERROR, 0.0035)
+  expect_equal(results$AGE_FADED, 0.1)
+  expect_equal(results$AGE_FADED.ERROR, 0)
+  expect_equal(results$G_VALUE, 5.312393)
+  expect_equal(round(results$G_VALUE.ERROR, 5), 1.01190)
+  expect_equal(results$KAPPA, 0.02307143)
+  expect_equal(results$KAPPA.ERROR, 0.00439463)
+  expect_equal(results$TC, 8.213721e-05)
+  expect_equal(results$TC.G_VALUE, 5.475814e-06)
+  expect_equal(results$n.MC, 100)
   expect_equal(results$OBSERVATIONS, 100)
   expect_equal(results$SEED, NA)
   

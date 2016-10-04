@@ -11,19 +11,19 @@ temp <- calc_AliquotSize(
 test_that("check class and length of output", {
   
   expect_equal(is(temp), c("RLum.Results", "RLum"))
-  expect_equal(length(temp), 4)
+  expect_equal(length(temp), 2)
   
 })
 
 test_that("check summary output", {
   
-  expect_is(temp, c("RLum.Results", "RLum"))
-  expect_equal(temp$args$grain.size, 125)
-  expect_equal(temp$args$sample.diameter, 1)
-  expect_equal(temp$args$packing.density, 0.65)
-  expect_true(temp$args$MC)
-  expect_equal(temp$args$grains.counted, NA)
-  expect_equal(temp$args$MC.iter, 100)
+  result <- get_RLum(temp)
+  
+  expect_equal(result$grain.size, 125)
+  expect_equal(result$sample.diameter, 1)
+  expect_equal(result$packing.density, 0.65)
+  expect_equal(result$n.grains, 42)
+  expect_equal(result$grains.counted, NA)
 })
 
 test_that("check MC run", {

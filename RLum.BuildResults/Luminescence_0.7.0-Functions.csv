@@ -25,7 +25,7 @@
 "BaseDataSet.CosmicDoseRate","Base data set for cosmic dose rate calculation","<br /> Collection of data from various sources needed for cosmic dose rate<br /> calculation<br />",NA,NA,NA,NA
 "bin_RLum.Data","Channel binning - method dispatchter","<br /> Function calls the object-specific bin functions for RLum.Data S4 class objects.<br />","0.1.0","2016-10-02","12:46:49
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"calc_AliquotSize","Estimate the amount of grains on an aliquot","<br /> Estimate the number of grains on an aliquot. Alternatively, the packing<br /> density of an aliquot is computed.<br />","0.31","2016-10-04","13:27:10
+"calc_AliquotSize","Estimate the amount of grains on an aliquot","<br /> Estimate the number of grains on an aliquot. Alternatively, the packing<br /> density of an aliquot is computed.<br />","0.31","2016-10-04","14:55:13
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "calc_CentralDose","Apply the central age model (CAM) after Galbraith et al. (1999) to a given<br /> De distribution","<br /> This function calculates the central dose and dispersion of the De<br /> distribution, their standard errors and the profile log likelihood function<br /> for sigma.<br />","1.3.1","2016-10-02","12:46:49
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
@@ -111,7 +111,7 @@
 "merge_RLum.Results","Merge function for RLum.Results S4-class objects","<br /> Function merges objects of class  RLum.Results . The slots in the objects<br /> are combined depending on the object type, e.g., for  data.frame  and  matrix <br /> rows are appended.<br />","0.2.0","2016-10-02","12:46:50
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "methods_RLum","methods_RLum","<br /> Methods for S3-generics implemented for the package 'Luminescence'.<br /> This document summarises all implemented S3-generics. The name of the function<br /> is given before the first dot, after the dot the name of the object that is supported by this method<br /> is given, e.g.  plot.RLum.Data.Curve  can be called by  plot(object, ...) , where<br /> object  is the  RLum.Data.Curve  object.<br />",NA,NA,NA,NA
-"model_LuminescenceSignals","Model Luminescence Signals (wrapper)","<br /> Wrapper for the function  model_LuminescenceSignals  from the package<br /> RLumModel-package . For the further details and examples please<br /> see the manual of this package.<br />","0.1.0","2016-10-02","12:46:50
+"model_LuminescenceSignals","Model Luminescence Signals (wrapper)","<br /> Wrapper for the function  model_LuminescenceSignals  from the package<br /> RLumModel-package . For the further details and examples please<br /> see the manual of this package.<br />","0.1.0","2016-10-04","14:12:06
 ","<br /> Johannes Friedrich, University of Bayreuth (Germany), <br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France),  <br />  R Luminescence Package Team"
 "names_RLum","S4-names function for RLum S4 class objects","<br /> Function calls object-specific names functions for RLum S4 class objects.<br />","0.1.0","2016-10-02","12:46:50
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"

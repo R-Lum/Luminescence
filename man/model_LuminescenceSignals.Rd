@@ -6,7 +6,7 @@
 \usage{
 model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
   simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
-  show.structure = FALSE, ...)
+  show_structure = FALSE, ...)
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
@@ -25,6 +25,9 @@ TRUE: simulations begins at crystallization (all levels 0) process}
 
 \item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off}
 
+\item{show_structure}{\code{\link{logical}} (with default): Shows the structure of the result.
+Recommended to show record.id to analyse concentrations.}
+
 \item{...}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information.}
 }
@@ -34,7 +37,7 @@ Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-10-02 12:46:50)
+ 0.1.0 (2016-10-04 14:12:06)
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr

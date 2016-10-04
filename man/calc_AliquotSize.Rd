@@ -101,7 +101,7 @@ default, \code{10^5} iterations are used, but can be reduced/increased with
 boxplot together with a statistical summary.
 }
 \section{Function version}{
- 0.31 (2016-10-04 13:27:10)
+ 0.31 (2016-10-04 14:55:13)
 }
 \examples{
 
@@ -128,14 +128,14 @@ are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr
 
 Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
 Theorem on Circle Packing. \url{http://arxiv.org/pdf/1009.4322v1.pdf},
-2013-09-13. 
+2013-09-13. \cr\cr 
 
-\cr\cr Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
+Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
 Oestergard, P.R.J., 1998.  Dense packings of congruent circles in a circle.
-Discrete Mathematics 181, 139-154. 
+Discrete Mathematics 181, 139-154. \cr\cr
 
-\cr\cr Huang, W., Ye, T., 2011. Global
+Huang, W., Ye, T., 2011. Global
 optimization method for finding dense packings of equal circles in a circle.
-European Journal of Operational Research 210, 474-481.
+European Journal of Operational Research 210, 474-481. \cr\cr
 }
 

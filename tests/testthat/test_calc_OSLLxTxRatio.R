@@ -11,7 +11,7 @@ temp <- calc_OSLLxTxRatio(
 test_that("check class and length of output", {
   
   expect_equal(is(temp), c("RLum.Results", "RLum"))
-  expect_equal(length(temp), 3)
+  expect_equal(length(temp), 2)
   
 })
 
