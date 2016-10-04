@@ -15,9 +15,9 @@
 #' error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 #' high enough with regard to the underlying problem, are sampled assuming a normal distribution
 #' for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
-#' 
+#'
 #' \bold{Density of recombination centres}
-#' 
+#'
 #' The density of recombination centres, expressed by the dimensionless variable rho', is estimated
 #' by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
 #' \code{\link[stats]{nls}} is used without applying weights. For the error estimation the same
@@ -25,7 +25,7 @@
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
 #' measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
-#' objects or a \code{\link{data.frame}} with three columns 
+#' objects or a \code{\link{data.frame}} with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #'
 #' @param structure \code{\link{character}} (with default): sets the structure of the measurement
@@ -88,7 +88,7 @@
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 #' and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
 #' 1093-1106. doi:10.1139/cjes-38-7-1093
-#' 
+#'
 #' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 #' IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
 #'
@@ -243,7 +243,7 @@ analyse_FadingMeasurement <- function(
   }
 
   ##create unique identifier
-  uid <- Luminescence:::.create_UID()
+  uid <- .create_UID()
 
   ##normalise data to prompt measurement
   tc <- min(TIMESINCEIRR)[1]
@@ -310,25 +310,25 @@ analyse_FadingMeasurement <- function(
 
   ##calculate g-values from matrix
   g_value.MC <- abs(fit_matrix[2, ]) * 1 / fit_matrix[1, ] * 100
-  
+
   ##calculate rho prime (Kars et al. 2008; proposed by Georgina King)
-  
+
   ##s value after Huntley (2006) J. Phys. D.
   Hs <- 3e15
-  
+
   ##sample for monte carlo runs
   MC_matrix_rhop <-  matrix(rnorm(
                        n = n.MC * nrow(LxTx_table),
                        mean = LxTx_table[["LxTx_NORM"]],
                        sd = LxTx_table[["LxTx_NORM.ERROR"]]
                      ), ncol = n.MC)
-  
+
   ## calculate rho prime for all MC samples
   fit_vector_rhop <- apply(MC_matrix_rhop, MARGIN = 2, FUN = function(x) {
     coef(stats::nls(x ~ c * exp(-rhop * (log(1.8 * Hs * LxTx_table$TIMESINCEIRR))^3),
              start=list(c = x[1], rhop = 10^-5.5)))[["rhop"]]
   })
-  
+
   ## calculate mean and standard deviation of rho prime (in log10 space)
   rhoPrime <- data.frame(
     MEAN = mean(fit_vector_rhop),
@@ -336,10 +336,10 @@ analyse_FadingMeasurement <- function(
     Q_0.025 = quantile(x = fit_vector_rhop, probs = 0.025),
     Q_0.16 = quantile(x = fit_vector_rhop, probs = 0.16),
     Q_0.84 = quantile(x = fit_vector_rhop, probs = 0.84),
-    Q_0.975 = quantile(x = fit_vector_rhop, probs = 0.975), 
+    Q_0.975 = quantile(x = fit_vector_rhop, probs = 0.975),
     row.names = NULL
   )
-  
+
   ##for plotting
   fit <-
      stats::lm(y ~ x,
@@ -404,7 +404,7 @@ analyse_FadingMeasurement <- function(
     }
 
     ##get package
-    col <- get("col", pos = Luminescence:::.LuminescenceEnv)
+    col <- get("col", pos = .LuminescenceEnv)
 
     ##set some plot settings
     plot_settings <- list(
