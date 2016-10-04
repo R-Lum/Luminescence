@@ -337,9 +337,13 @@ plot_RadialPlot <- function(
 #   } else {De.add <- 0}
 
   ## optionally, reassign De.add to remove negative values
+
+  #preset values
   data_orignal <- NULL
+  De.add <- 0
+
+  #make the decision
   if(negatives.rm) {
-    De.add <- 0
 
     for(i in 1:length(data)) {
       data.test <- data[[i]][,1] <= 0
@@ -360,7 +364,6 @@ plot_RadialPlot <- function(
 
       ##make a copy of the orginal data
       data_orignal <- data
-
     }
   }
 

@@ -4,7 +4,7 @@
 \alias{plot_RadialPlot}
 \title{Function to create a Radial Plot}
 \usage{
-plot_RadialPlot(data, na.rm = TRUE, negatives = "remove", log.z = TRUE,
+plot_RadialPlot(data, na.rm = TRUE, negatives.rm = TRUE, log.z = TRUE,
   central.value, centrality = "mean.weighted", mtext, summary, summary.pos,
   legend, legend.pos, stats, rug = FALSE, plot.ratio, bar.col,
   y.ticks = TRUE, grid.col, line, line.col, line.label, output = FALSE, ...)
@@ -131,7 +131,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.4 (2016-10-04 14:59:03)
+ 0.5.5 (2016-10-04 16:06:28)
 }
 \examples{
 
