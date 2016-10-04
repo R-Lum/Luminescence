@@ -62,7 +62,8 @@ Suggests:
     rjags (>= 4-6),
     coda (>= 0.18-1),
     pander (>= 0.6.0),
-    rstudioapi (>= 0.6)
+    rstudioapi (>= 0.6),
+    testthat
 URL: https://CRAN.R-project.org/package=Luminescence
 Collate:
     'Analyse_SAR.OSLdata.R'
