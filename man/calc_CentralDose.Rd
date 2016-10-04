@@ -54,7 +54,7 @@ appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
 (2012, 15)
 }
 \section{Function version}{
- 1.3.1 (2016-05-02 11:24:11)
+ 1.3.1 (2016-05-02 09:36:06)
 }
 \examples{
 
