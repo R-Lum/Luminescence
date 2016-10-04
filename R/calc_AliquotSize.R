@@ -109,11 +109,11 @@
 #' 
 #' Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
 #' Oestergard, P.R.J., 1998.  Dense packings of congruent circles in a circle.
-#' Discrete Mathematics 181, 139-154. \cr\cr
+#' Discrete Mathematics 181, 139-154. \cr\cr 
 #' 
-#' Huang, W., Ye, T., 2011. Global
-#' optimization method for finding dense packings of equal circles in a circle.
-#' European Journal of Operational Research 210, 474-481. \cr\cr
+#' Huang, W., Ye, T., 2011. Global optimization method for finding dense 
+#' packings of equal circles in a circle.
+#' European Journal of Operational Research 210, 474-481.
 #' 
 #' @examples
 #'

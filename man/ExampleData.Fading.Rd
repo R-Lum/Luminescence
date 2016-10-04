@@ -68,6 +68,11 @@ IR50_De <- plot_GrowthCurve(IR50_De.LxTx,
 IR50_De.res <- get_RLum(IR50_De)
 De <- c(IR50_De.res$De, IR50_De.res$De.Error)
 
+## Apply fading correction (age conversion greatly simplified)
+IR50_Age <- De / 7.00
+IR50_Age.corr <- calc_FadingCorr(IR50_Age, g_value = IR50_fading.res)
+
+
 }
 \references{
 King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.

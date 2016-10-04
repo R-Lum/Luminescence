@@ -8,6 +8,7 @@ README\.md
 ^appveyor\.yml$
 ^cran-comments\.md$
 RLum.CHECK_AND_BUILD.sh
+RLum.CHECK_AND_BUILD_Linux.sh
 RLum.CHECK_AND_BUILD.BAT
 RLum.BuildScripts
 RLum.BuildResults
@@ -15,3 +16,4 @@ RLum.Debug
 RLum.Experiment
 ^packrat/
 packrat
+RLum.Images

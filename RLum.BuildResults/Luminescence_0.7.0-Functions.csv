@@ -25,7 +25,7 @@
 "BaseDataSet.CosmicDoseRate","Base data set for cosmic dose rate calculation","<br /> Collection of data from various sources needed for cosmic dose rate<br /> calculation<br />",NA,NA,NA,NA
 "bin_RLum.Data","Channel binning - method dispatchter","<br /> Function calls the object-specific bin functions for RLum.Data S4 class objects.<br />","0.1.0","2016-10-02","12:46:49
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"calc_AliquotSize","Estimate the amount of grains on an aliquot","<br /> Estimate the number of grains on an aliquot. Alternatively, the packing<br /> density of an aliquot is computed.<br />","0.31","2016-10-04","14:55:13
+"calc_AliquotSize","Estimate the amount of grains on an aliquot","<br /> Estimate the number of grains on an aliquot. Alternatively, the packing<br /> density of an aliquot is computed.<br />","0.31","2016-10-04","16:07:13
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "calc_CentralDose","Apply the central age model (CAM) after Galbraith et al. (1999) to a given<br /> De distribution","<br /> This function calculates the central dose and dispersion of the De<br /> distribution, their standard errors and the profile log likelihood function<br /> for sigma.<br />","1.3.1","2016-10-02","12:46:49
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
