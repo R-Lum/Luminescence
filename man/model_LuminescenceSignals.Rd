@@ -18,15 +18,12 @@ Riso sequence editor. To simulate SAR measurements there is an extra option to s
 \item{lab.dose_rate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX
 Gy/s for calculating seconds into Gray in the *.seq file.}
 
-\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, TRUE: simulations begins at crystallization (all levels 0)
-process}
+\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, 
+TRUE: simulations begins at crystallization (all levels 0) process}
 
 \item{plot}{\code{\link{logical}} (with default): Enables or disables plot output}
 
 \item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off}
-
-\item{show.structure}{\code{\link{logical}} (with default): Shows the structure of the result.
-Recommended to show record.id to analyse concentrations.}
 
 \item{...}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information.}
@@ -37,7 +34,7 @@ Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.0 (2016-05-02 11:24:11)
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr
