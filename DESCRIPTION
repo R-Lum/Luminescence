@@ -113,6 +113,7 @@ Collate:
     'calc_FuchsLang2001.R'
     'calc_HomogeneityTest.R'
     'calc_IEU.R'
+    'calc_Kars2008.R'
     'calc_MaxDose.R'
     'calc_MinDose.R'
     'calc_OSLLxTxRatio.R'

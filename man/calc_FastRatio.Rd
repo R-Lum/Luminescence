@@ -68,7 +68,7 @@ required to reduce the fast and medium quartz OSL components to \code{x} and
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.0 (2016-05-02 11:24:11)
 }
 \examples{
 # load example CW-OSL curve

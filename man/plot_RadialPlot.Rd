@@ -4,7 +4,7 @@
 \alias{plot_RadialPlot}
 \title{Function to create a Radial Plot}
 \usage{
-plot_RadialPlot(data, na.rm = TRUE, negatives.rm = TRUE, log.z = TRUE,
+plot_RadialPlot(data, na.rm = TRUE, negatives = "remove", log.z = TRUE,
   central.value, centrality = "mean.weighted", mtext, summary, summary.pos,
   legend, legend.pos, stats, rug = FALSE, plot.ratio, bar.col,
   y.ticks = TRUE, grid.col, line, line.col, line.label, output = FALSE, ...)
@@ -18,8 +18,9 @@ data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 \item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA}
 values from the data set prior to any further operations.}
 
-\item{negatives.rm}{\code{\link{logical}} (with default): remove negative values (\code{TRUE})
-or keep them (\code{FALSE})}
+\item{negatives}{\code{\link{character}} (with default): rule for negative
+values. Default is \code{"remove"} (i.e. negative values are removed from
+the data set).}
 
 \item{log.z}{\code{\link{logical}} (with default): Option to display the
 z-axis in logarithmic scale. Default is \code{TRUE}.}
@@ -130,7 +131,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.5 (2016-10-04 11:20:36)
+ 0.5.4 (2016-10-04 14:59:03)
 }
 \examples{
 
@@ -231,7 +232,7 @@ S script of Rex Galbraith, 2010
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2016). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2016). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

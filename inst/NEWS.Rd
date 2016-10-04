@@ -4,7 +4,8 @@
 
   \subsection{New functions}{
     \itemize{
-        \item \code{analyse_FadingMeasurement()}:
+    
+        \item \code{analyse_FadingMeasurement()}: 
         Analyse fading measurements to calculate g-values and to estimate
         the density of recombination centres.
 
@@ -13,7 +14,10 @@
         OSL reader and produces a combined plot of OSL/IRSL signal intensities,
         OSL/IRSL depletion ratios and the IRSL/OSL ratio.
 
-
+        \item \code{calc_Kars2008()}:
+        A function to calculate the expected sample specific fraction of saturation 
+        following Kars et al. (2008) and Huntley (2006).
+        
         \item \code{calc_WodaFuchs2008()}:
         Function to obtain the equivalent dose using
         the approach proposed by Woda and Fuchs, 2008.
@@ -100,7 +104,7 @@
         \itemize{
            \item Sometimes the function crashed with an out of bonds error if more than one data set
            was provided; fixed,
-           \item argumetn \code{negatives} caused an error if not set to \code{'remove'} and fix
+           \item argument \code{negatives} caused an error if not set to \code{'remove'} and fix
            some errors around this option,
            \item argument \code{negatives} renamed to \code{negatives.rm} and changed to type
            \code{logical}.
