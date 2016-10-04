@@ -4,7 +4,7 @@
 
   \subsection{New functions}{
     \itemize{
-        \item \code{analyse_FadingMeasurement()}: 
+        \item \code{analyse_FadingMeasurement()}:
         Analyse fading measurements to calculate g-values and to estimate
         the density of recombination centres.
 
@@ -69,7 +69,11 @@
     \item \code{plot_RadialPlot()}{
         \itemize{
            \item Sometimes the function crashed with an out of bonds error if more than one data set
-           was provided; fixed.
+           was provided; fixed,
+           \item argumetn \code{negatives} caused an error if not set to \code{'remove'} and fix
+           some errors around this option,
+           \item argument \code{negatives} renamed to \code{negatives.rm} and changed to type
+           \code{logical}.
 
         }
 

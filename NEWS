@@ -50,7 +50,13 @@ Changes in version 0.7.0 ( ,2016):
          • ‘plot_RadialPlot()’
 
              • Sometimes the function crashed with an out of bonds
-               error if more than one data set was provided; fixed.
+               error if more than one data set was provided; fixed,
+
+             • argumetn ‘negatives’ caused an error if not set to
+               ‘'remove'’ and fix some errors around this option,
+
+             • argument ‘negatives’ renamed to ‘negatives.rm’ and
+               changed to type ‘logical’.
 
          • ‘plot_RLum.Data.Spectrum()’
 

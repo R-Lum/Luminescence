@@ -36,67 +36,87 @@
 #' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}). To plot several data sets in one plot, the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
+#'
 #' @param na.rm \code{\link{logical}} (with default): excludes \code{NA}
 #' values from the data set prior to any further operations.
-#' @param negatives \code{\link{character}} (with default): rule for negative
-#' values. Default is \code{"remove"} (i.e. negative values are removed from
-#' the data set).
+#'
+#' @param negatives.rm \code{\link{logical}} (with default): remove negative values (\code{TRUE})
+#' or keep them (\code{FALSE})
+#'
 #' @param log.z \code{\link{logical}} (with default): Option to display the
 #' z-axis in logarithmic scale. Default is \code{TRUE}.
+#'
 #' @param central.value \code{\link{numeric}}: User-defined central value,
 #' primarily used for horizontal centering of the z-axis.
+#'
 #' @param centrality \code{\link{character}} or \code{\link{numeric}} (with
 #' default): measure of centrality, used for automatically centering the plot
 #' and drawing the central line. Can either be one out of \code{"mean"},
 #' \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or a
 #' numeric value used for the standardisation.
+#'
 #' @param mtext \code{\link{character}}: additional text below the plot title.
+#'
 #' @param summary \code{\link{character}} (optional): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
+#'
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 #' specified to place the summary below the plot header. However, this latter
 #' option is only possible if \code{mtext} is not used.
+#'
 #' @param legend \code{\link{character}} vector (optional): legend content to
 #' be added to the plot.
+#'
 #' @param legend.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the legend to be plotted.
+#'
 #' @param stats \code{\link{character}}: additional labels of statistically
 #' important values in the plot. One or more out of the following:
 #' \code{"min"}, \code{"max"}, \code{"median"}.
+#'
 #' @param rug \code{\link{logical}}: Option to add a rug to the z-scale, to
 #' indicate the location of individual values
+#'
 #' @param plot.ratio \code{\link{numeric}}: User-defined plot area ratio (i.e.
 #' curvature of the z-axis). If omitted, the default value (\code{4.5/5.5}) is
 #' used and modified automatically to optimise the z-axis curvature. The
 #' parameter should be decreased when data points are plotted outside the
 #' z-axis or when the z-axis gets too elliptic.
+#'
 #' @param bar.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the bar showing the 2-sigma range around the central
 #' value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.
+#'
 #' @param y.ticks \code{\link{logical}}: Option to hide y-axis labels. Useful
 #' for data with small scatter.
+#'
 #' @param grid.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the grid lines (originating at [0,0] and stretching to
 #' the z-scale). To disable grid lines, use \code{"none"}. Default is
 #' \code{"grey"}.
+#'
 #' @param line \code{\link{numeric}}: numeric values of the additional lines to
 #' be added.
+#'
 #' @param line.col \code{\link{character}} or \code{\link{numeric}}: colour of
 #' the additional lines.
+#'
 #' @param line.label \code{\link{character}}: labels for the additional lines.
+#'
 #' @param output \code{\link{logical}}: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' \code{FALSE}.
+#'
 #' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.4
+#' @section Function version: 0.5.5
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
@@ -223,7 +243,7 @@
 plot_RadialPlot <- function(
   data,
   na.rm = TRUE,
-  negatives = "remove",
+  negatives.rm = TRUE,
   log.z = TRUE,
   central.value,
   centrality = "mean.weighted",
@@ -317,7 +337,8 @@ plot_RadialPlot <- function(
 #   } else {De.add <- 0}
 
   ## optionally, reassign De.add to remove negative values
-  if(negatives == "remove") {
+  data_orignal <- NULL
+  if(negatives.rm) {
     De.add <- 0
 
     for(i in 1:length(data)) {
@@ -331,6 +352,15 @@ plot_RadialPlot <- function(
                       ".",
                       sep = ""))
       }
+    }
+  }else{
+    ##check if something is negative at all ...
+    if(min(unlist(data)) < 0){
+      De.add <- abs(min(unlist(data))) * 1.1
+
+      ##make a copy of the orginal data
+      data_orignal <- data
+
     }
   }
 
@@ -358,9 +388,10 @@ plot_RadialPlot <- function(
     De.add <- abs(ticks[length(ticks) - sum(ticks > limits.z[1])])
   } else {De.add <- 0}
 
-  if(negatives == "remove") {
+  if(negatives.rm) {
     De.add <- 0
   }
+
   ## optionally add correction dose to data set and adjust error
   for(i in 1:length(data)) {
     data[[i]][,1] <- data[[i]][,1] + De.add
@@ -560,10 +591,9 @@ if(centrality[1] == "mean") {
   data.global[,8] <- data.global.plot
 
   ## print warning for too small scatter
-  if(max(abs(1 / data.global[6])) < 0.02) {
+  if(max(abs(1 / data.global[[6]])) < 0.02) {
     small.sigma <- TRUE
-    print(paste("Attention, small standardised estimate scatter.",
-                "Toggle off y.ticks?"))
+    warning("[plot_RadialPlot()] Attention, small standardised estimate scatter. Toggle off y.ticks?", call. = FALSE)
 }
 
   ## read out additional arguments---------------------------------------------
@@ -866,7 +896,15 @@ if(centrality[1] == "mean") {
                           "se.rel.weighted")
 
   for(i in 1:length(data)) {
-    statistics <- calc_Statistics(data[[i]])
+
+    if(!is.null(data_orignal)){
+      statistics <- calc_Statistics(data_orignal[[i]])
+
+    }else{
+      statistics <- calc_Statistics(data[[i]])
+
+    }
+
     De.stats[i,1] <- statistics$weighted$n
     De.stats[i,2] <- statistics$unweighted$mean
     De.stats[i,3] <- statistics$weighted$mean
@@ -1539,19 +1577,23 @@ label.text[[1]] <- NULL
     if(fun==TRUE){sTeve()}
   }
 
-  if(output == TRUE) {
-    return(list(data = data,
-                data.global = data.global,
-                xlim = limits.x,
-                ylim = limits.y,
-                zlim = limits.z,
-                r = r,
-                plot.ratio = plot.ratio,
-                ticks.major = ticks.major,
-                ticks.minor = ticks.minor,
-                labels = labels,
-                polygons = polygons,
-                ellipse.lims = ellipse.lims))
+  if(output) {
+    return(
+      list(
+        data = data,
+        data.global = data.global,
+        xlim = limits.x,
+        ylim = limits.y,
+        zlim = limits.z,
+        r = r,
+        plot.ratio = plot.ratio,
+        ticks.major = ticks.major,
+        ticks.minor = ticks.minor,
+        labels = labels,
+        polygons = polygons,
+        ellipse.lims = ellipse.lims
+      )
+    )
   }
 
 }
