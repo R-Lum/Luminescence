@@ -46,9 +46,19 @@
   \subsection{Bugfixes and changes}{
 
   \itemize{
+  
   \item \code{calc_AliquotSize()}{
     \itemize{
        \item Console output can now be suppressed via 'verbose = TRUE'.
+
+    }
+
+  }
+  
+  \item \code{calc_FadingCorr()}{
+    \itemize{
+       \item Fixed a bug where the function would crash when providing an
+       \code{RLum.Results} object for \code{g_value}.
 
     }
 

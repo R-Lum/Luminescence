@@ -38,6 +38,11 @@ Changes in version 0.7.0 ( ,2016):
              • Console output can now be suppressed via 'verbose =
                TRUE'.
 
+         • ‘calc_FadingCorr()’
+
+             • Fixed a bug where the function would crash when
+               providing an ‘RLum.Results’ object for ‘g_value’.
+
          • ‘plot_DetPlot()’
 
              • Correct negative y-axis, the minimum is now the real
