@@ -1,5 +1,6 @@
 BaseDataSet.CosmicDoseRate
 ExampleData.DeValues
+ExampleData.Fading
 ExampleData.FittingLM
 ExampleData.LxTxData
 ExampleData.LxTxOSLData

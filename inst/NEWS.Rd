@@ -29,6 +29,17 @@
 
     }
   }
+  
+    \subsection{New example data}{
+    \itemize{
+      
+      \item \code{ExampleData.fading}: 
+        Example data set for fading measurements of the IR50, IR100, IR150 and IR225
+        feldspar signals of sample UNIL/NB123. It further contains regular 
+        equivalent dose measurement data of the same sample, which can be used 
+        to apply a fading correction to. These data were kindly provided by Georgina King.
+    }
+  }
 
     \subsection{Changes in S4-classes and methods}{
       \itemize{
