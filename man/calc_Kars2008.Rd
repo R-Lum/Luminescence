@@ -118,7 +118,7 @@ in the derivation of (n/N) and (n/N)SS.
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2016-10-04 14:34:30)
+ 0.1.0 (2016-10-04 16:58:49)
 }
 \examples{
 
@@ -152,7 +152,7 @@ Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Burow, C., King, G. (2016). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+King, G., Burow, C. (2016). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

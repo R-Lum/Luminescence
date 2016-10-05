@@ -11,7 +11,7 @@ analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
 measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
-objects or a \code{\link{data.frame}} with three columns 
+objects or a \code{\link{data.frame}} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.}
 
 \item{structure}{\code{\link{character}} (with default): sets the structure of the measurement
@@ -86,7 +86,7 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.1 (2016-10-04 14:59:03)
+ 0.1.1 (2016-10-04 16:11:50)
 }
 \examples{
 
