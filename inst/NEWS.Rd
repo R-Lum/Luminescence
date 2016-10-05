@@ -24,11 +24,11 @@
 
         \item \code{PSL2Risoe.BINfileData()}:
         Converts an \code{RLum.Analysis} object produced by the function
-        \code{read_PSL2R()} to an \code{Risoe.BINfileData} object (BETA).
+        \code{read_PSL2R()} to an \code{Risoe.BINfileData} object.
 
 
         \item \code{read_PSL2R()}:
-        Imports PSL files produced by a SUERC portable OSL reader into R (BETA).
+        Imports PSL files produced by a SUERC portable OSL reader into R.
 
 
     }

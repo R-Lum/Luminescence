@@ -22,10 +22,10 @@ Changes in version 0.7.0 ( ,2016):
 
          • ‘PSL2Risoe.BINfileData()’: Converts an ‘RLum.Analysis’
            object produced by the function ‘read_PSL2R()’ to an
-           ‘Risoe.BINfileData’ object (BETA).
+           ‘Risoe.BINfileData’ object.
 
          • ‘read_PSL2R()’: Imports PSL files produced by a SUERC
-           portable OSL reader into R (BETA).
+           portable OSL reader into R.
 
   New example data:
 
