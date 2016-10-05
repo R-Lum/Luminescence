@@ -14,6 +14,9 @@ library(tools)
 library(R2HTML)
 library(xtable)
 
+# Clean Workspace ---------------------------------------------------------
+rm(list = ls())
+
 # Reading file ------------------------------------------------------------
 
 file.list.man <- list.files("man/")
@@ -29,7 +32,6 @@ output.file <- paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions
 file.list.man <- file.list.man[which(file.list.man!="Luminescence-package.Rd")]
 
 for(i in 1:length(file.list.man)) {
-
 
   file <- paste0("man/",file.list.man[i])
   Rd <- parse_Rd(file)
@@ -64,6 +66,7 @@ for(i in 1:length(file.list.man)) {
     tag.mdate <- NA
 
   }
+
 
   ##TITLE
   if("\\title" %in% tags){
