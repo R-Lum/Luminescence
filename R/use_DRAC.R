@@ -34,7 +34,7 @@
 #'
 #' The output should be accessed using the function \code{\link{get_RLum}}.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,
 #' GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
