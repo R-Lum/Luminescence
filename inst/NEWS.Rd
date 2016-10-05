@@ -47,7 +47,12 @@
 
     \subsection{Changes in S4-classes and methods}{
       \itemize{
+      
       \item Method \code{get_RLum} for \code{RLum.Analysis}-objects did not respect \code{.pid}, fixed.
+      
+      \item Method \code{get_RLum} for \code{list}-objects now accepts lists with all kinds of 
+      \code{RLum}-objects. Previously, only lists of \code{RLum.Analysis}-objects were allowed.
+      
       \item \code{plot_RLum} was not passing the argument \code{sub}, as it was fetched by the partial
       argument matching; fixed.
 
