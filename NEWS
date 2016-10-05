@@ -92,6 +92,13 @@ Changes in version 0.7.0 ( ,2016):
                skipped non BIN-files without crashing if it is used in
                combination with the argument ‘pattern’.
 
+         • ‘use_DRAC()’
+
+             • Now supports DRAC v1.2 and the newly introduced CSV
+               input template.  Older v1.1 excel sheet input templates
+               are still supported, but users are highly encouraged to
+               use the new CSV file.
+
   Internals:
 
          • The internal function converting BIN-file curves to

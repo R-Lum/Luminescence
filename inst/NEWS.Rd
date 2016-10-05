@@ -65,9 +65,7 @@
   \item \code{calc_AliquotSize()}{
     \itemize{
        \item Console output can now be suppressed via 'verbose = TRUE'.
-
     }
-
   }
   
   \item \code{calc_FadingCorr()}{
@@ -131,6 +129,16 @@
       }
 
      }
+     
+     
+   \item \code{use_DRAC()}{
+    \itemize{
+       \item Now supports DRAC v1.2 and the newly introduced CSV input template.
+       Older v1.1 excel sheet input templates are still supported, but users
+       are highly encouraged to use the new CSV file.
+    }
+  }
+     
     }
   }
 
