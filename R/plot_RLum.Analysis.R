@@ -644,7 +644,7 @@ plot_RLum.Analysis <- function(
 
       if (legend.pos == "outside") {
         par.default.outside <- par()[c("mar", "xpd")]
-        par(mar = c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
+        par(mar = c(5.1, 4.1, 4.1, 8.1))
       }
 
       ##open plot area
@@ -691,6 +691,11 @@ plot_RLum.Analysis <- function(
       ##mtext
       mtext(plot.settings$mtext[[k]], side = 3, cex = .8 * plot.settings$cex[[k]])
 
+      ##if legend is outside of the plotting area we need to allow overplotting
+      ##AFTER all lines have been drawn
+      if (legend.pos == "outside")
+        par(xpd = TRUE)
+      
       ##legend
       if (plot.settings$legend[[k]]) {
         legend(
