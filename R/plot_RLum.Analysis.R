@@ -693,14 +693,20 @@ plot_RLum.Analysis <- function(
 
       ##if legend is outside of the plotting area we need to allow overplotting
       ##AFTER all lines have been drawn
-      if (legend.pos == "outside")
+      if (legend.pos == "outside") {
         par(xpd = TRUE)
+        
+        if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
+          ypos <- 10^par()$usr[4]
+        else
+          ypos <- par()$usr[4]
+      }
       
       ##legend
       if (plot.settings$legend[[k]]) {
         legend(
           x = ifelse(legend.pos == "outside", par()$usr[2], legend.pos),
-          y = ifelse(legend.pos == "outside", par()$usr[4], NULL),
+          y = ifelse(legend.pos == "outside", ypos, NULL),
           legend = legend.text,
           lwd = plot.settings$lwd[[k]],
           lty = plot.settings$lty[[k]],
@@ -712,7 +718,10 @@ plot_RLum.Analysis <- function(
           bty = "n",
           cex = 0.8 * plot.settings$cex[[k]]
         )
-
+        
+        # revert the overplotting
+        if (legend.pos == "outside")
+          par(xpd = FALSE)
       }
 
     }
