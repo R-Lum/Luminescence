@@ -581,6 +581,8 @@ plot_RLum.Analysis <- function(
       } else {
         c(min(object.structure$x.min), max(object.structure$x.max))
       }
+      if (grepl("x", plot.settings$log[[k]], ignore.case = TRUE))
+        xlim[which(xlim == 0)] <- 1
 
       ##ylim
       ylim <- if (!is.null(plot.settings$ylim[[k]]) & length(plot.settings$ylim[[k]]) > 1) {
@@ -591,13 +593,15 @@ plot_RLum.Analysis <- function(
         })))
 
       }
+      if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
+        ylim[which(ylim == 0)] <- 1
 
       ##col (again)
       col <- if(length(plot.settings$col[[k]]) > 1 || plot.settings$col[[k]][1] != "black"){
         plot.settings$col[[k]]
 
       }else{
-        col <- get("col", pos = Luminescence:::.LuminescenceEnv)
+        col <- get("col", pos = .LuminescenceEnv)
       }
 
       ##if length of provided colours is < the number of objects, just one colour is supported
@@ -674,6 +678,14 @@ plot_RLum.Analysis <- function(
                                             k = k_factor, fill = NA)
         }
 
+        ##remove 0 values if plotted on a log-scale
+        # y-Axis
+        if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
+          temp.data.list[[n]] <- temp.data.list[[n]][which(temp.data.list[[n]]$y > 0), ]
+        # x-Axis
+        if (grepl("x", plot.settings$log[[k]], ignore.case = TRUE))
+          temp.data.list[[n]] <- temp.data.list[[n]][which(temp.data.list[[n]]$x > 0), ]
+        
         ##print lines
         lines(temp.data.list[[n]],
               col = col[n],
@@ -707,7 +719,6 @@ plot_RLum.Analysis <- function(
           xpos <- 10^par()$usr[2]
         else
           xpos <- par()$usr[2]
-        
       }
       
       ##legend
