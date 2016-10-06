@@ -597,7 +597,7 @@ plot_RLum.Analysis <- function(
         plot.settings$col[[k]]
 
       }else{
-        col <- get("col", pos = .LuminescenceEnv)
+        col <- get("col", pos = Luminescence:::.LuminescenceEnv)
       }
 
       ##if length of provided colours is < the number of objects, just one colour is supported
@@ -696,16 +696,24 @@ plot_RLum.Analysis <- function(
       if (legend.pos == "outside") {
         par(xpd = TRUE)
         
+        # determine legend position on log(y) scale
         if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
           ypos <- 10^par()$usr[4]
         else
           ypos <- par()$usr[4]
+        
+        # determine position on log(x) scale
+        if (grepl("x", plot.settings$log[[k]], ignore.case = TRUE))
+          xpos <- 10^par()$usr[2]
+        else
+          xpos <- par()$usr[2]
+        
       }
       
       ##legend
       if (plot.settings$legend[[k]]) {
         legend(
-          x = ifelse(legend.pos == "outside", par()$usr[2], legend.pos),
+          x = ifelse(legend.pos == "outside", xpos, legend.pos),
           y = ifelse(legend.pos == "outside", ypos, NULL),
           legend = legend.text,
           lwd = plot.settings$lwd[[k]],
