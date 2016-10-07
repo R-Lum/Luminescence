@@ -13,7 +13,7 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc],
     Norbert Mercier [ctb],
     Rachel K. Smedley [ctb],
     Julie Durcan [ctb],
-    Georgina King [ctb],
+    Georgina King [ctb, dtc],
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr"),
