@@ -50,6 +50,11 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • Fix wrongly set threshold value for recuperation rate
+               (#26).
+
          • ‘calc_AliquotSize()’
 
              • Console output can now be suppressed via 'verbose =

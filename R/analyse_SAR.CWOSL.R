@@ -78,7 +78,7 @@
 #' as the maximum background integral for the Tx curve.
 #'
 #' @param rejection.criteria \code{\link{list}} (with default): provide a named list
-#' and set rejection criteria in percentage for further calculation. Can be a \code{\link{list}} in
+#' and set rejection criteria in \bold{percentage} for further calculation. Can be a \code{\link{list}} in
 #' a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
 #'
 #' Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
@@ -133,7 +133,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.5
+#' @section Function version: 0.7.6
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -287,7 +287,7 @@ if(is.list(object)){
   ##merge results and check if the output became NULL
   results <- merge_RLum(temp)
 
-  ##DO NOT use invisible here, this will stop the function from stopping
+  ##DO NOT use invisible here, this will prevent the function from stopping
   if(length(results) == 0){
     return(NULL)
 
@@ -849,13 +849,14 @@ if(is.list(object)){
     }
 
     ##Recuperation
-    if (!is.na(Recuperation)[1] & !is.na(rejection.criteria$recuperation.rate)) {
+    if (!is.na(Recuperation)[1] &
+        !is.na(rejection.criteria$recuperation.rate)) {
       temp.status.Recuperation  <-
         sapply(1:length(Recuperation), function(x) {
-          if(Recuperation[x] > rejection.criteria$recuperation.rate){
+          if (Recuperation[x] > rejection.criteria$recuperation.rate / 100) {
             "FAILED"
 
-          }else{
+          } else{
             "OK"
 
           }
@@ -866,6 +867,7 @@ if(is.list(object)){
       temp.status.Recuperation <- "OK"
 
     }
+
 
     # Provide Rejection Criteria for Testdose error --------------------------
     testdose.error.calculated <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]

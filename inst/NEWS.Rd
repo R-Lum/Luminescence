@@ -4,8 +4,8 @@
 
   \subsection{New functions}{
     \itemize{
-    
-        \item \code{analyse_FadingMeasurement()}: 
+
+        \item \code{analyse_FadingMeasurement()}:
         Analyse fading measurements to calculate g-values and to estimate
         the density of recombination centres.
 
@@ -15,9 +15,9 @@
         OSL/IRSL depletion ratios and the IRSL/OSL ratio.
 
         \item \code{calc_Kars2008()}:
-        A function to calculate the expected sample specific fraction of saturation 
+        A function to calculate the expected sample specific fraction of saturation
         following Kars et al. (2008) and Huntley (2006).
-        
+
         \item \code{calc_WodaFuchs2008()}:
         Function to obtain the equivalent dose using
         the approach proposed by Woda and Fuchs, 2008.
@@ -33,26 +33,26 @@
 
     }
   }
-  
+
     \subsection{New example data}{
     \itemize{
-      
-      \item \code{ExampleData.fading}: 
+
+      \item \code{ExampleData.fading}:
         Example data set for fading measurements of the IR50, IR100, IR150 and IR225
-        feldspar signals of sample UNIL/NB123. It further contains regular 
-        equivalent dose measurement data of the same sample, which can be used 
+        feldspar signals of sample UNIL/NB123. It further contains regular
+        equivalent dose measurement data of the same sample, which can be used
         to apply a fading correction to. These data were kindly provided by Georgina King.
     }
   }
 
     \subsection{Changes in S4-classes and methods}{
       \itemize{
-      
+
       \item Method \code{get_RLum} for \code{RLum.Analysis}-objects did not respect \code{.pid}, fixed.
-      
-      \item Method \code{get_RLum} for \code{list}-objects now accepts lists with all kinds of 
+
+      \item Method \code{get_RLum} for \code{list}-objects now accepts lists with all kinds of
       \code{RLum}-objects. Previously, only lists of \code{RLum.Analysis}-objects were allowed.
-      
+
       \item \code{plot_RLum} was not passing the argument \code{sub}, as it was fetched by the partial
       argument matching; fixed.
 
@@ -66,13 +66,19 @@
   \subsection{Bugfixes and changes}{
 
   \itemize{
-  
+
+  \item \code{analyse_SAR.CWOSL()}{
+    \itemize{
+       \item Fix wrongly set threshold value for recuperation rate (#26).
+    }
+  }
+
   \item \code{calc_AliquotSize()}{
     \itemize{
        \item Console output can now be suppressed via 'verbose = TRUE'.
     }
   }
-  
+
   \item \code{calc_FadingCorr()}{
     \itemize{
        \item Fixed a bug where the function would crash when providing an
@@ -134,8 +140,8 @@
       }
 
      }
-     
-     
+
+
    \item \code{use_DRAC()}{
     \itemize{
        \item Now supports DRAC v1.2 and the newly introduced CSV input template.
@@ -143,7 +149,7 @@
        are highly encouraged to use the new CSV file.
     }
   }
-     
+
     }
   }
 
