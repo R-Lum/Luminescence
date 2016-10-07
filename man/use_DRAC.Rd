@@ -43,13 +43,13 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.0 (2016-09-26 16:54:35)
+ 0.1.1 (2016-10-05 12:59:56)
 }
 \examples{
 
 ## (1) Method using the DRAC spreadsheet
 
-file <-  "/PATH/TO/DRAC_Input_and_Output_Template.xlsx"
+file <-  "/PATH/TO/DRAC_Input_Template.csv"
 
 # send the actual IO template spreadsheet to DRAC
 \dontrun{
@@ -102,7 +102,7 @@ GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C. (2016). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., Burow, C. (2016). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -7,6 +7,9 @@
 
 require(stringi)
 
+# clean workspace
+rm(list = ls())
+
 ## -------------------------------------------------------------------------- ##
 ## FIND AUTHORS ----
 ## -------------------------------------------------------------------------- ##
@@ -101,23 +104,34 @@ for (i in 1:length(file.list.man)) {
         reference.start <- author.end + 1
       }
 
-      relevant.authors <- sapply(author.list$surname, function(x) {
+      
+      relevant.authors <- do.call(rbind, sapply(author.list$surname, function(x) {
         str <- paste(temp.file.man[author.start:author.end], collapse = " ")
         str <- stri_replace_all_regex(str, ",|\\.", " ")
-        grepl(paste0(x, " "), str, ignore.case = TRUE)
-      })
+        included <- grepl(paste0(x, " "), str, ignore.case = TRUE)
+        if (included)
+          pos <- regexpr(x, str)[[1]]
+        else 
+          pos <- NA
+        return(data.frame(included = included, position = pos))
+      }, simplify = FALSE))
+      
+      # retain order of occurence, assuming that the name first mentioned is
+      # also the main author of the function
+      included.authors <- author.list[relevant.authors$included, ]
+      included.authors <- included.authors[order(na.omit(relevant.authors$position)), ]
 
       fun.authors <- character()
-      for (j in 1:nrow(author.list[relevant.authors, ])) {
+      for (j in 1:nrow(included.authors)) {
         fun.authors <- paste0(
           fun.authors,
-          author.list[relevant.authors, ]$surname[j],
+          included.authors$surname[j],
           ", ",
-          author.list[relevant.authors, ]$name[j],
-          ifelse(j == nrow(author.list[relevant.authors, ]), "", ", ")
+          included.authors$name[j],
+          ifelse(j == nrow(included.authors), "", ", ")
         )
       }
-
+      
       ##search for function version
       fun.version <-
         which(grepl("\\\\section\\{Function version\\}", temp.file.man))

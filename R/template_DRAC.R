@@ -273,31 +273,31 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
     
     `Depth (m)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:43",
-                description = "Depth and uncertainty from which sample was extracted beneath the ground surface. Inputs should be 0 or positive and not left blank. If user defined Dc will be used then an 'X' must be input."), #
+                description = "Depth and uncertainty from which sample was extracted beneath the ground surface. Inputs should be 0 or positive and not left blank."), #
     
     `errDepth (m)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:44",
-                description = "Depth and uncertainty from which sample was extracted beneath the ground surface. Inputs should be 0 or positive and not left blank. If user defined Dc will be used then an 'X' must be input."), #
+                description = "Depth and uncertainty from which sample was extracted beneath the ground surface. Inputs should be 0 or positive and not left blank."), #
     
     `Overburden density (g cm-3)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:45",
-                description = "Density of the overlying sediment matrix from which the sample was taken. Inputs should be 0 or positive and not be left blank. If user defined Dc will be used then an 'X' must be input."), #
+      structure(rep(1.8, nrow), required = TRUE, allowsX = FALSE, key = "TI:45",
+                description = "Density of the overlying sediment matrix from which the sample was taken. Inputs should be 0 or positive and not be left blank. The scaling calculation will use the overburden density and uncertainty provided."), #
     
     `errOverburden density (g cm-3)` = 
-      structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:46",
-                description = "Density of the overlying sediment matrix from which the sample was taken. Inputs should be 0 or positive and not be left blank. If user defined Dc will be used then an 'X' must be input."), #
+      structure(rep(0.1, nrow), required = TRUE, allowsX = FALSE, key = "TI:46",
+                description = "Density of the overlying sediment matrix from which the sample was taken. Inputs should be 0 or positive and not be left blank. The scaling calculation will use the overburden density and uncertainty provided."), #
     
     `Latitude (decimal degrees)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:47",
-                description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from -90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
+                description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from -90 to 90 degrees for latitudes and -180 to 180 degrees for longitude."), # 
     
     `Longitude (decimal degrees)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:48",
-                description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from -90 to 90 degrees for latitudes and -180 to 180 degrees for longitude. If user defined Dc will be used then an 'X' must be input."), # 
+                description = "Latitude and longitude of sample location (in degree decimals). Positive values should be used for northern latitudes and eastern longitudes and negative values for southern latitudes and western longitudes. Inputs should range from -90 to 90 degrees for latitudes and -180 to 180 degrees for longitude."), # 
     
     `Altitude (m)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:49",
-                description = "Altitude of sample location in metres above sea level. Input should be less than 5000 and not left blank. If user defined Dc will be used then an 'X' must be input."), #
+                description = "Altitude of sample location in metres above sea level. Input should be less than 5000 and not left blank."), #
     
     `User cosmicdoserate (Gy.ka-1)` = 
       structure(rep("X", nrow), required = FALSE, allowsX = TRUE, key = "TI:50",

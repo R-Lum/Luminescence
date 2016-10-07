@@ -24,11 +24,11 @@
 
         \item \code{PSL2Risoe.BINfileData()}:
         Converts an \code{RLum.Analysis} object produced by the function
-        \code{read_PSL2R()} to an \code{Risoe.BINfileData} object (BETA).
+        \code{read_PSL2R()} to an \code{Risoe.BINfileData} object.
 
 
         \item \code{read_PSL2R()}:
-        Imports PSL files produced by a SUERC portable OSL reader into R (BETA).
+        Imports PSL files produced by a SUERC portable OSL reader into R.
 
 
     }
@@ -47,7 +47,12 @@
 
     \subsection{Changes in S4-classes and methods}{
       \itemize{
+      
       \item Method \code{get_RLum} for \code{RLum.Analysis}-objects did not respect \code{.pid}, fixed.
+      
+      \item Method \code{get_RLum} for \code{list}-objects now accepts lists with all kinds of 
+      \code{RLum}-objects. Previously, only lists of \code{RLum.Analysis}-objects were allowed.
+      
       \item \code{plot_RLum} was not passing the argument \code{sub}, as it was fetched by the partial
       argument matching; fixed.
 
@@ -65,9 +70,7 @@
   \item \code{calc_AliquotSize()}{
     \itemize{
        \item Console output can now be suppressed via 'verbose = TRUE'.
-
     }
-
   }
   
   \item \code{calc_FadingCorr()}{
@@ -131,6 +134,16 @@
       }
 
      }
+     
+     
+   \item \code{use_DRAC()}{
+    \itemize{
+       \item Now supports DRAC v1.2 and the newly introduced CSV input template.
+       Older v1.1 excel sheet input templates are still supported, but users
+       are highly encouraged to use the new CSV file.
+    }
+  }
+     
     }
   }
 

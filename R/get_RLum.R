@@ -61,57 +61,54 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 setMethod("get_RLum",
           signature = "list",
           function(object, null.rm = FALSE, ...){
-
-
+            
+            
             selection <- lapply(1:length(object), function(x){
-
+              
               ##get rid of all objects that are not of type RLum, this is better than leaving that
               ##to the user
               if(inherits(object[[x]], what = "RLum")){
-
+                
                 ##it might be the case the object already comes with empty objects, this would
                 ##cause a crash
-                if(is(object[[x]], "RLum.Analysis") && length(object[[x]]@records) != 0){
-                  get_RLum(object[[x]],...)
-
-                }else{
+                if(is(object[[x]], "RLum.Analysis") && length(object[[x]]@records) == 0)
                   return(NULL)
-
-                }
-
-              }else{
-
-               warning(paste0("[get_RLum()] object #",x," in the list was not of type 'RLum' and has been removed!"),
-                       call. = FALSE)
+                
+                get_RLum(object[[x]], ...)
+                  
+                
+              } else {
+                
+                warning(paste0("[get_RLum()] object #",x," in the list was not of type 'RLum' and has been removed!"),
+                        call. = FALSE)
                 return(NULL)
-
+                
               }
-
+              
             })
-
-
+            
             ##remove empty or NULL objects after the selection ... if wanted
             if(null.rm){
-
-
-                ##first set all empty objects to NULL ... for RLum.Analysis objects
-                selection <- lapply(1:length(selection), function(x){
-                  if(is(selection[[x]], "RLum.Analysis") && length(selection[[x]]@records) == 0){
-                    return(NULL)
-
-                  }else{
-                    return(selection[[x]])
-
-                  }
-
-                })
-
-                ##get rid of all NULL objects
-                selection <- selection[!sapply(selection, is.null)]
-
-
+              
+              
+              ##first set all empty objects to NULL ... for RLum.Analysis objects
+              selection <- lapply(1:length(selection), function(x){
+                if(is(selection[[x]], "RLum.Analysis") && length(selection[[x]]@records) == 0){
+                  return(NULL)
+                  
+                }else{
+                  return(selection[[x]])
+                  
+                }
+                
+              })
+              
+              ##get rid of all NULL objects
+              selection <- selection[!sapply(selection, is.null)]
+              
+              
             }
-
+            
             return(selection)
-
+            
           })

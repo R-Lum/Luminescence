@@ -26,7 +26,7 @@ Authors@R: c(
     person("Norbert", "Mercier", role = c("ctb")),
     person("Rachel K.", "Smedley", role = c("ctb")),
     person("Julie", "Durcan", role = c("ctb")),
-    person("Georgina", "King", role = c("ctb")),
+    person("Georgina", "King", role = c("ctb", "dtc")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
 Description: A collection of various R functions for the purpose of Luminescence
