@@ -290,6 +290,9 @@ use_DRAC <- function(
   ## and remove them easily
   DRAC.content.input <- DRAC.content.input[ ,-grep("\\.1", names(DRAC.content.input))]
   DRAC.content.output <- DRAC.content.output[ ,-grep("\\.1", names(DRAC.content.output))]
+  
+  ## for some reason the returned input table is unsorted, so we resort it in increasing order
+  DRAC.content.input <- DRAC.content.input[ , paste0("TI:", 1:ncol(DRAC.content.input))]
 
   ## The output table (v1.2) has 198 columns, making it unreasonable complex
   ## for standard data evaluation. We reproduce the DRAC highlight table
