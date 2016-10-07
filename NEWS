@@ -60,6 +60,13 @@ Changes in version 0.7.0 ( ,2016):
              • Fixed a bug where the function would crash when
                providing an ‘RLum.Results’ object for ‘g_value’.
 
+         • ‘calc_FiniteMixture()’
+
+             • Fixed a bug where certain arguments where not passed to
+               `plot_RLum.Results` so that the plot was not as
+               customisable as intended.  Thanks to Daniele Questiaux
+               for reporting the bug.
+
          • ‘plot_DetPlot()’
 
              • Correct negative y-axis, the minimum is now the real

@@ -82,6 +82,14 @@
 
   }
 
+  \item \code{calc_FiniteMixture()}{
+    \itemize{
+       \item Fixed a bug where certain arguments where not passed to `plot_RLum.Results`
+       so that the plot was not as customisable as intended.
+       Thanks to Daniele Questiaux for reporting the bug.
+    }
+  }
+
 
     \item \code{plot_DetPlot()}{
       \itemize{

@@ -561,7 +561,7 @@ calc_FiniteMixture <- function(
   ##=========##
   ## PLOTTING
   if(plot==TRUE) {
-    try(plot_RLum.Results(newRLumResults.calc_FiniteMixture, ...))
+    try(do.call(plot_RLum.Results, c(list(newRLumResults.calc_FiniteMixture), as.list(sys.call())[-c(1,2)])))
   }#endif::plot
 
   # Return values
