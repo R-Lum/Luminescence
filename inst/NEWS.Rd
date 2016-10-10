@@ -75,7 +75,14 @@
 
   \item \code{calc_AliquotSize()}{
     \itemize{
-       \item Console output can now be suppressed via 'verbose = TRUE'.
+       \item Console output can now be suppressed via 'verbose = TRUE' (#24).
+    }
+  }
+  
+  
+  \item \code{calc_CosmicDoseRate()}{
+    \itemize{
+       \item Console output can now be suppressed via 'verbose = TRUE' (#24).
     }
   }
 
@@ -100,8 +107,6 @@
     \item \code{plot_DetPlot()}{
       \itemize{
         \item Correct negative y-axis, the minimum is now the real minimum.
-
-
       }
 
     }

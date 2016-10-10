@@ -58,7 +58,12 @@ Changes in version 0.7.0 ( ,2016):
          • ‘calc_AliquotSize()’
 
              • Console output can now be suppressed via 'verbose =
-               TRUE'.
+               TRUE' (#24).
+
+         • ‘calc_CosmicDoseRate()’
+
+             • Console output can now be suppressed via 'verbose =
+               TRUE' (#24).
 
          • ‘calc_FadingCorr()’
 
