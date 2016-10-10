@@ -24,10 +24,3 @@ test_that("check values from output", {
   
   
 })
-
-test_that("check values from output", {
-  
-  temp <- calc_CentralDose(ExampleData.DeValues$CA1, sigmab = 0.2)
-  
-  expect_equal(temp@data$args$sigmab, 0.2)
-})
