@@ -240,7 +240,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
                         OD = out.sigma, OD_err = out.sesigma * 100, Lmax = Lmax)
   
   call <- sys.call()
-  args <- list(log = "TRUE", sigmab = sigmab)
+  args <- list(log = log, sigmab = sigmab)
   
   newRLumResults.calc_CentralDose <- set_RLum(class = "RLum.Results", 
                                               data = list(summary = summary, 
