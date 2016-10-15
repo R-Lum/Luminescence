@@ -7,7 +7,7 @@ r:
 
 os:
   - linux
-  - osx
+  #- osx
   
 r_packages:
   - covr
