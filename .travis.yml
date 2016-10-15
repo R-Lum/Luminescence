@@ -8,6 +8,7 @@ r_packages:
   
 r_binary_packages:
   - rjags
+  - Rcpp
    
 ## test different platforms 
 matrix:
