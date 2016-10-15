@@ -3,9 +3,6 @@ cache: packages
 warnings_are_errors: true
 sudo: required
 
-r:
-  - devel
-  
 r_packages:
   - covr
   
@@ -16,7 +13,9 @@ r_binary_packages:
 matrix:
   include:  
   - os: linux
+    r: devel
   - os: osx
+    r: devel
     before_install:
       - brew update
       - brew install jags
