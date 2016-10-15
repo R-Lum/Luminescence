@@ -5,21 +5,20 @@ sudo: required
 
 r_packages:
   - covr
+  
+r_binary_packages:
+  - rjags
    
 ## test different platforms 
 matrix:
   include:  
   - os: linux
     r: devel
-    r_binary_packages:
-      - rjags
   - os: osx
     r: devel
-    r_binary_packages:
-      - Rcpp
-      - RcppArmadillo
-      - rjags
     before_install:
+      - curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+      - sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
       - brew update
       - brew install jags
       - brew install libssh2
