@@ -25,7 +25,7 @@ matrix:
       - curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
       - sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
     install: 
-      - Rscript -e 'deps <- devtools::dev_package_deps(dependencies = NA);devtools::install_deps(dependencies = TRUE);if (!all(deps$package %in% installed.packages())) {install.packages(deps, method = 'source')}'
+      - Rscript -e 'deps <- devtools::dev_package_deps(dependencies = NA);devtools::install_deps(dependencies = TRUE);if (!all(deps$package %in% installed.packages())) {install.packages(deps, method = 'source', dependencies = TRUE)}'
     env: CACHE_NAME=JOB2
 
 ##create notifications
