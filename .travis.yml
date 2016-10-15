@@ -5,7 +5,10 @@ sudo: required
 os:
   - linux
   - osx
-
+  
+r_packages:
+  - covr
+  
 r_binary_packages:
   - rjags
 
@@ -16,3 +19,6 @@ notifications:
       - sk@r-luminescence.de
     on_success: change
     on_failure: change
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
