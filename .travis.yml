@@ -25,7 +25,7 @@ matrix:
       - sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
     install: 
       - Rscript -e 'install.packages("devtools", type = "source", dependencies = TRUE)'
-      - Rscript -e 'deps <- devtools::install_deps(dependencies = TRUE); if (!all(deps$package %in% installed.packages()[,"Package"]) {install.packages(deps, method = 'source', dependencies = TRUE)}'
+      - Rscript -e 'deps <- devtools::install_deps(dependencies = TRUE); if (!all(deps$package %in% installed.packages()[,"Package"])) {install.packages(deps, method = 'source', dependencies = TRUE)}'
     env: CACHE_NAME=JOB2
 
 ##create notifications
