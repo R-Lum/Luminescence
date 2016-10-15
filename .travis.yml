@@ -17,9 +17,9 @@ matrix:
   include:  
   - os: linux
   - os: osx
-   before_install:
-    - brew update
-    - brew install jags
+    before_install:
+      - brew update
+      - brew install jags
 
 notifications:
   email:
