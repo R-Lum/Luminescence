@@ -5,20 +5,21 @@ sudo: required
 
 r:
   - devel
-
-os:
-  - linux
-  - osx
-
-before_install:
-  - brew update
-  - brew install jags
   
 r_packages:
   - covr
   
 r_binary_packages:
   - rjags
+  
+# account for requirements of different platforms
+matrix:
+  include:  
+  - os: linux
+  - os: osx
+   before_install:
+    - brew update
+    - brew install jags
 
 notifications:
   email:
