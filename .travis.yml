@@ -19,7 +19,7 @@ matrix:
     before_install:
       - brew update
       - brew install jags
-      - libssh2
+      - brew install libssh2
 
 ##create notifications
 notifications:
