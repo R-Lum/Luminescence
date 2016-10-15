@@ -2,6 +2,9 @@ language: r
 warnings_are_errors: true
 sudo: required
 
+r:
+  - devel
+
 os:
   - linux
   - osx
@@ -21,4 +24,4 @@ notifications:
     on_failure: change
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- Rscript -e 'covr::codecov()'
