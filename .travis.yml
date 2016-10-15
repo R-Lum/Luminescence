@@ -5,17 +5,20 @@ sudo: required
 
 r_packages:
   - covr
-  
-r_binary_packages:
-  - rjags
-  
+   
 ## test different platforms 
 matrix:
   include:  
   - os: linux
     r: devel
+    r_binary_packages:
+      - rjags
   - os: osx
     r: devel
+    r_binary_packages:
+      - Rcpp
+      - RcppArmadillo
+      - rjags
     before_install:
       - brew update
       - brew install jags
