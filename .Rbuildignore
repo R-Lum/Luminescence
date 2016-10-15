@@ -6,6 +6,7 @@ README\.md
 ^\test\*
 ^\.Rprofile$
 ^appveyor\.yml$
+^codecov\.yml$
 ^cran-comments\.md$
 RLum.CHECK_AND_BUILD.sh
 RLum.CHECK_AND_BUILD.BAT
