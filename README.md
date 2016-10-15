@@ -1,5 +1,7 @@
 # Luminescence
 
+The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
+
 ## Package metrics 
 ### CRAN statistics
 [![CRAN](http://www.r-pkg.org/badges/version/Luminescence)](http://cran.rstudio.com/package=Luminescence)
@@ -19,13 +21,10 @@
 ### Unit test status
 [![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=dev_0.7.0)
 
-
+## Social media and other resources 
 Follow us on [![alt text][1.1]][1] <a href="http://www.twitter.com/RLuminescence" target="_blank">@RLuminescence</a>
 [1.1]: http://i.imgur.com/wWzX9uB.png (twitter icon without padding)
 [1]: http://www.twitter.com/RLuminescence
-
-
-The R package 'Luminescence' by the R-Luminescence Group provides a collection of various R functions for luminescence dating data analysis.
 
 For an introduction and further details, visit the [R-Luminescence homepage](http://www.r-luminescence.de).
 
