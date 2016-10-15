@@ -1,13 +1,22 @@
 # Luminescence
 
+## Package metrics 
+### CRAN statistics
 [![CRAN](http://www.r-pkg.org/badges/version/Luminescence)](http://cran.rstudio.com/package=Luminescence)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](http://cranlogs.r-pkg.org/badges/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](http://cranlogs.r-pkg.org/badges/last-week/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](http://cranlogs.r-pkg.org/badges/last-day/Luminescence)](http://www.r-pkg.org/pkg/Luminescence)
 
+### Impact metrics
+[![Research software impact](http://depsy.org/api/package/cran/Luminescence/badge.svg)](http://depsy.org/package/r/Luminescence)
+[![Github Stars](https://img.shields.io/github/stars/R-Lum/Luminescence.svg?style=social&label=Github)](https://github.com/R-Lum/Luminescence)
+
+### Platform tests status 
 [![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/dev_0.7.0)
 [![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=dev_0.7.0)](https://travis-ci.org/R-Lum/Luminescence)
+
+### Unit test status
 [![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=dev_0.7.0)
 
 
