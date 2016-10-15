@@ -9,9 +9,10 @@ r:
 os:
   - linux
   - osx:
-    - before_install:
-      - brew update
-      - brew install jags
+
+before_install:
+  - brew update
+  - brew install jags
   
 r_packages:
   - covr
