@@ -37,15 +37,10 @@ Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.0
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Friedrich, J., Kreutzer, S. (2016). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 

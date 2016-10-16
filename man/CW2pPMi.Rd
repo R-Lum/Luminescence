@@ -70,7 +70,7 @@ should be limited to avoid artificial intensity data. If \code{P} is
 provided manually, not more than two points are extrapolated.
 }
 \section{Function version}{
- 0.2.1 (2015-11-29 17:27:48)
+ 0.2.1
 }
 \examples{
 
@@ -121,12 +121,7 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
 Delft University of Technology, The Netherlands\cr
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). CW2pPMi(): Transform a CW-OSL curve into a pPM-OSL curve via interpolation under parabolic modulation conditions. Function version 0.2.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr

@@ -68,7 +68,7 @@ required to reduce the fast and medium quartz OSL components to \code{x} and
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.0
 }
 \examples{
 # load example CW-OSL curve
@@ -85,12 +85,7 @@ get_RLum(res)
 Georgina King, University of Cologne (Germany) \cr
 Julie A. Durcan, University of Oxford (United Kingdom) \cr
 Christoph Burow, University of Cologne (Germany) \cr
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-King, G., Durcan, J., Burow, C. (2016). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 the dominance of the fast component in the initial OSL signal from quartz.

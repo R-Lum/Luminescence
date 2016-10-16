@@ -244,7 +244,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.11 (2016-07-16 11:28:11)
+ 0.6.11
 }
 \examples{
 
@@ -274,12 +274,7 @@ results <- analyse_IRSAR.RF(
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.6.11. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.

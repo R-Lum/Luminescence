@@ -45,7 +45,7 @@ found in the documentations of each plot function.  \tabular{lll}{
 The provided plot output depends on the input object.
 }
 \section{Function version}{
- 0.4.3 (2016-09-22 10:11:42)
+ 0.4.3
 }
 \examples{
 
@@ -64,12 +64,7 @@ plot_RLum(temp)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 #
 }

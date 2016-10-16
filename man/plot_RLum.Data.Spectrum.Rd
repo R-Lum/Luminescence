@@ -144,14 +144,15 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 \bold{Further arguments that will be passed (depending on the plot type)}
 
 \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
-\code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type}, \code{col},
-\code{border}, \code{box} \code{lwd}, \code{bty} \cr
+\code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} ("single", "multiple.lines",
+"interactive"), \code{col},
+\code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} ("interactive") \cr
 }
 \note{
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.5.1 (2016-10-04 16:11:50)
+ 0.5.2
 }
 \examples{
 
@@ -184,12 +185,19 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
                         bin.cols = 1)
 
 \dontrun{
- ##(4) interactive plot using the package plotly
+ ##(4) interactive plot using the package plotly ("surface")
  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
  bin.cols = 1)
 
- ##(5) alternative using the package fields
+ ##(5) interactive plot using the package plotly ("contour")
+ plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
+ xlim = c(310,750), ylim = c(0,300), bin.rows=10,
+ bin.cols = 1,
+ type = NULL,
+ showscale = TRUE)
+
+ ##(6) alternative using the package fields
  fields::image.plot(get_RLum(TL.Spectrum))
  contour(get_RLum(TL.Spectrum), add = TRUE)
 
@@ -199,12 +207,7 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
 Springer.

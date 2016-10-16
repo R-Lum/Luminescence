@@ -36,92 +36,65 @@
 #' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}). To plot several data sets in one plot, the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
-#'
 #' @param na.rm \code{\link{logical}} (with default): excludes \code{NA}
 #' values from the data set prior to any further operations.
-#'
-#' @param negatives.rm \code{\link{logical}} (with default): remove negative values (\code{TRUE})
-#' or keep them (\code{FALSE})
-#'
 #' @param log.z \code{\link{logical}} (with default): Option to display the
 #' z-axis in logarithmic scale. Default is \code{TRUE}.
-#'
 #' @param central.value \code{\link{numeric}}: User-defined central value,
 #' primarily used for horizontal centering of the z-axis.
-#'
 #' @param centrality \code{\link{character}} or \code{\link{numeric}} (with
 #' default): measure of centrality, used for automatically centering the plot
 #' and drawing the central line. Can either be one out of \code{"mean"},
 #' \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or a
 #' numeric value used for the standardisation.
-#'
 #' @param mtext \code{\link{character}}: additional text below the plot title.
-#'
 #' @param summary \code{\link{character}} (optional): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
-#'
 #' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 #' specified to place the summary below the plot header. However, this latter
 #' option is only possible if \code{mtext} is not used.
-#'
 #' @param legend \code{\link{character}} vector (optional): legend content to
 #' be added to the plot.
-#'
 #' @param legend.pos \code{\link{numeric}} or \code{\link{character}} (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the legend to be plotted.
-#'
 #' @param stats \code{\link{character}}: additional labels of statistically
 #' important values in the plot. One or more out of the following:
 #' \code{"min"}, \code{"max"}, \code{"median"}.
-#'
 #' @param rug \code{\link{logical}}: Option to add a rug to the z-scale, to
 #' indicate the location of individual values
-#'
 #' @param plot.ratio \code{\link{numeric}}: User-defined plot area ratio (i.e.
 #' curvature of the z-axis). If omitted, the default value (\code{4.5/5.5}) is
 #' used and modified automatically to optimise the z-axis curvature. The
 #' parameter should be decreased when data points are plotted outside the
 #' z-axis or when the z-axis gets too elliptic.
-#'
 #' @param bar.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the bar showing the 2-sigma range around the central
 #' value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.
-#'
 #' @param y.ticks \code{\link{logical}}: Option to hide y-axis labels. Useful
 #' for data with small scatter.
-#'
 #' @param grid.col \code{\link{character}} or \code{\link{numeric}} (with
 #' default): colour of the grid lines (originating at [0,0] and stretching to
 #' the z-scale). To disable grid lines, use \code{"none"}. Default is
 #' \code{"grey"}.
-#'
 #' @param line \code{\link{numeric}}: numeric values of the additional lines to
 #' be added.
-#'
 #' @param line.col \code{\link{character}} or \code{\link{numeric}}: colour of
 #' the additional lines.
-#'
 #' @param line.label \code{\link{character}}: labels for the additional lines.
-#'
 #' @param output \code{\link{logical}}: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' \code{FALSE}.
-#'
 #' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
-#'
 #' @return Returns a plot object.
-#'
-#' @section Function version: 0.5.5
-#'
+#' @section Function version: 0.5.3
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
 #' S script of Rex Galbraith, 2010
-#'
 #' @seealso \code{\link{plot}}, \code{\link{plot_KDE}},
 #' \code{\link{plot_Histogram}}
 #' @references Galbraith, R.F., 1988. Graphical Display of Estimates Having
@@ -243,7 +216,6 @@
 plot_RadialPlot <- function(
   data,
   na.rm = TRUE,
-  negatives.rm = TRUE,
   log.z = TRUE,
   central.value,
   centrality = "mean.weighted",
@@ -289,11 +261,25 @@ plot_RadialPlot <- function(
   if(missing(summary.pos) == TRUE) {
     summary.pos <- "sub"
   }
-  if(missing(bar.col) == TRUE) {bar.col <- rep("grey80", length(data))}
-  if(missing(grid.col) == TRUE) {grid.col <- rep("grey70", length(data))}
-  if(missing(summary) == TRUE) {summary <- NULL}
-  if(missing(summary.pos) == TRUE) {summary.pos <- "topleft"}
-  if(missing(mtext) == TRUE) {mtext <- ""}
+  if(missing(bar.col) == TRUE) {
+    bar.col <- rep("grey80", length(data))
+  }
+  
+  if(missing(grid.col) == TRUE) {
+    grid.col <- rep("grey70", length(data))
+  }
+  
+  if(missing(summary) == TRUE) {
+    summary <- NULL
+  }
+  
+  if(missing(summary.pos) == TRUE) {
+    summary.pos <- "topleft"
+  }
+  
+  if(missing(mtext) == TRUE) {
+    mtext <- ""
+  }
 
 
   ## check z-axis log-option for grouped data sets
@@ -324,55 +310,40 @@ plot_RadialPlot <- function(
   } else {
     z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((ifelse(min(De.global) <= 0, 1.1, 0.9) - z.span) * min(De.global),
+    limits.z <- c((ifelse(test = min(De.global) <= 0, 
+                          yes = 1.1,
+                          no =  0.9) - z.span) * min(De.global),
                   (1.1 + z.span) * max(De.global))
   }
 
   ticks <- round(pretty(limits.z, n = 5), 3)
   De.delta <- ticks[2] - ticks[1]
 
-#   ## calculate correction dose to shift negative values
-#   if(min(De.global) <= 0) {
-#     De.add <- abs(ticks[length(ticks) - sum(ticks > limits.z[1])])
-#   } else {De.add <- 0}
-
-  ## optionally, reassign De.add to remove negative values
-
-  #preset values
-  data_orignal <- NULL
-  De.add <- 0
-
-  #make the decision
-  if(negatives.rm) {
-
-    for(i in 1:length(data)) {
-      data.test <- data[[i]][,1] <= 0
-      data[[i]] <- data[[i]][!data.test,]
-      data.negative <- paste(seq(1, length(data.test))[data.test == TRUE],
-                             collapse = ", ")
-      if(sum(data.test) > 0) {
-        warning(paste("The following lines contain zero or negative values: ",
-                      data.negative,
-                      ".",
-                      sep = ""))
-      }
+  ## calculate correction dose to shift negative values
+  if(min(De.global) <= 0) {
+    
+    if("zlim" %in% names(extraArgs)) {
+      
+      De.add <- abs(extraArgs$zlim[1])
+    } else {
+    
+      De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
     }
-  }else{
-    ##check if something is negative at all ...
-    if(min(unlist(data)) < 0){
-      De.add <- abs(min(unlist(data))) * 1.1
-
-      ##make a copy of the orginal data
-      data_orignal <- data
-    }
+  } else {
+    De.add <- 0
   }
 
   ## optionally add correction dose to data set and adjust error
-  for(i in 1:length(data)) {
-    data[[i]][,1] <- data[[i]][,1] + De.add
-    data[[i]][,2] <- data[[i]][,2] * data[[i]][,1] / abs(data[[i]][,1] - De.add)
+  if(log.z == TRUE) {
+    
+    for(i in 1:length(data)) {
+      data[[i]][,1] <- data[[i]][,1] + De.add
+    }
+    
+    De.global <- De.global + De.add
+    
   }
-
+  
   ## calculate major preliminary tick values and tick difference
   extraArgs <- list(...)
   if("zlim" %in% names(extraArgs)) {
@@ -386,38 +357,28 @@ plot_RadialPlot <- function(
   ticks <- round(pretty(limits.z, n = 5), 3)
   De.delta <- ticks[2] - ticks[1]
 
-  ## calculate correction dose to shift negative values
-  if(min(De.global) <= 0) {
-    De.add <- abs(ticks[length(ticks) - sum(ticks > limits.z[1])])
-  } else {De.add <- 0}
-
-  if(negatives.rm) {
-    De.add <- 0
-  }
-
-  ## optionally add correction dose to data set and adjust error
-  for(i in 1:length(data)) {
-    data[[i]][,1] <- data[[i]][,1] + De.add
-    data[[i]][,2] <- data[[i]][,2] * data[[i]][,1] / abs(data[[i]][,1] - De.add)
-  }
-
-  ## adjust limits.z
-  limits.z <- limits.z + 2 * De.add
-
   ## calculate and append statistical measures --------------------------------
 
   ## z-values based on log-option
-  z <- lapply(1:length(data), function(x){
+  z <- sapply(1:length(data), function(x){
     if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
   if(is(z, "list") == FALSE) {z <- list(z)}
-
   data <- lapply(1:length(data), function(x) {
      cbind(data[[x]], z[[x]])})
   rm(z)
 
   ## calculate se-values based on log-option
-  se <- lapply(1:length(data), function(x){
-    if(log.z == TRUE) {data[[x]][,2] / data[[x]][,1]} else {data[[x]][,2]}})
+  se <- sapply(1:length(data), function(x, De.add){
+    if(log.z == TRUE) {
+      
+      if(De.add != 0) {
+        data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
+      } else {
+        data[[x]][,2] / data[[x]][,1]
+      }
+    } else {
+      data[[x]][,2]
+    }}, De.add = De.add)
   if(is(se, "list") == FALSE) {se <- list(se)}
   data <- lapply(1:length(data), function(x) {
     cbind(data[[x]], se[[x]])})
@@ -459,9 +420,9 @@ plot_RadialPlot <- function(
   } else if(is.numeric(centrality) == TRUE &
               length(centrality) == length(data)) {
     z.central.raw <- if(log.z == TRUE) {
-      log(centrality)
+      log(centrality + De.add)
     } else {
-      centrality
+      centrality + De.add
     }
     z.central <- lapply(1:length(data), function(x){
       rep(z.central.raw[x], length(data[[x]][,3]))})
@@ -478,7 +439,7 @@ plot_RadialPlot <- function(
   rm(z.central)
 
   ## calculate precision
-  precision <- lapply(1:length(data), function(x){
+  precision <- sapply(1:length(data), function(x){
     1 / data[[x]][,4]})
   if(is(precision, "list") == FALSE) {precision <- list(precision)}
   data <- lapply(1:length(data), function(x) {
@@ -486,7 +447,7 @@ plot_RadialPlot <- function(
   rm(precision)
 
   ## calculate standard estimate
-  std.estimate <- lapply(1:length(data), function(x){
+  std.estimate <- sapply(1:length(data), function(x){
     (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
   if(is(std.estimate, "list") == FALSE) {std.estimate <- list(std.estimate)}
   data <- lapply(1:length(data), function(x) {
@@ -561,11 +522,12 @@ if(centrality[1] == "mean") {
   ## optionally adjust zentral value by user-defined value
   if(missing(central.value) == FALSE) {
 
-    ## adjust central value for De.add
-    central.value <- central.value + 2 * De.add
+    # ## adjust central value for De.add
+    central.value <- central.value + De.add
 
     z.central.global <- ifelse(log.z == TRUE,
-                               log(central.value), central.value)
+                               log(central.value), 
+                               central.value)
   }
 
   ## create column names
@@ -594,9 +556,10 @@ if(centrality[1] == "mean") {
   data.global[,8] <- data.global.plot
 
   ## print warning for too small scatter
-  if(max(abs(1 / data.global[[6]])) < 0.02) {
+  if(max(abs(1 / data.global[6])) < 0.02) {
     small.sigma <- TRUE
-    warning("[plot_RadialPlot()] Attention, small standardised estimate scatter. Toggle off y.ticks?", call. = FALSE)
+    print(paste("Attention, small standardised estimate scatter.",
+                "Toggle off y.ticks?"))
 }
 
   ## read out additional arguments---------------------------------------------
@@ -639,9 +602,6 @@ if(centrality[1] == "mean") {
     z.span <- ifelse(z.span > 1, 0.9, z.span)
     limits.z <- c((0.9 - z.span) * min(data.global[[1]]),
                   (1.1 + z.span) * max(data.global[[1]]))
-  }
-  if(limits.z[1] <= 0) {
-    limits.z <- limits.z + 2 * De.add
   }
 
   if("xlim" %in% names(extraArgs)) {
@@ -756,7 +716,7 @@ if(centrality[1] == "mean") {
   }
 
   ## calculate z-axis radius
-  r.x <- limits.x[2] / max(data.global[,6]) + 0.03
+  r.x <- limits.x[2] / max(data.global[,6]) + 0.05
   r <- max(sqrt((data.global[,6])^2+(data.global[,7] * f)^2)) * r.x
 
   ## calculate major z-tick coordinates
@@ -797,7 +757,7 @@ if(centrality[1] == "mean") {
 
   ## subtract De.add from label values
   if(De.add != 0) {
-    label.z.text <- label.z.text - 2 * De.add
+    label.z.text <- label.z.text - De.add
   }
 
   labels <- cbind(label.x, label.y, label.z.text)
@@ -817,6 +777,7 @@ if(centrality[1] == "mean") {
                          (data[[i]][1,5] - z.central.global) *
                            polygons[i,4] - 2)
   }
+  
   ## calculate node coordinates for semi-circle
   user.limits <- if(log.z == TRUE) {
     log(limits.z)
@@ -835,11 +796,25 @@ if(centrality[1] == "mean") {
   ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
   ellipse <- cbind(ellipse.x, ellipse.y)
   ellipse.lims <- rbind(range(ellipse[,1]), range(ellipse[,2]))
+  
+  ## check if z-axis overlaps with 2s-polygon
+  polygon_y_max <- max(polygons[,7])
+  polygon_y_min <- min(polygons[,7])
+  
+  z_2s_upper <- ellipse.x[abs(ellipse.y - polygon_y_max) == 
+                            min(abs(ellipse.y - polygon_y_max))]
+  
+  z_2s_lower <- ellipse.x[abs(ellipse.y - polygon_y_min) == 
+                            min(abs(ellipse.y - polygon_y_min))]
+
+  if(max(polygons[,3]) >= z_2s_upper | max(polygons[,3]) >= z_2s_lower) {
+    print("[plot_RadialPlot] Warning: z-scale touches 2s-polygon. Decrease plot ratio.")
+  }
 
   ## calculate statistical labels
   if(length(stats == 1)) {stats <- rep(stats, 2)}
   stats.data <- matrix(nrow = 3, ncol = 3)
-  data.stats <- as.numeric(data.global[,1] - 2 * De.add)
+  data.stats <- as.numeric(data.global[,1])
 
   if("min" %in% stats == TRUE) {
     stats.data[1, 3] <- data.stats[data.stats == min(data.stats)][1]
@@ -869,7 +844,6 @@ if(centrality[1] == "mean") {
     if(limits.z.y[2] > 0.77 * limits.y[2]) {
       limits.y[2] <- 1.3 * limits.z.y[2]
     }
-#    limits.y <- c(-max(abs(limits.y)), max(abs(limits.y)))
   }
   if(!("xlim" %in% names(extraArgs))) {
     if(limits.z.x[2] > 1.1 * limits.x[2]) {
@@ -899,15 +873,9 @@ if(centrality[1] == "mean") {
                           "se.rel.weighted")
 
   for(i in 1:length(data)) {
-
-    if(!is.null(data_orignal)){
-      statistics <- calc_Statistics(data_orignal[[i]])
-
-    }else{
-      statistics <- calc_Statistics(data[[i]])
-
-    }
-
+    data_to_stats <- data[[i]]
+    data_to_stats$De <- data_to_stats$De - De.add
+    statistics <- calc_Statistics(data = data_to_stats)
     De.stats[i,1] <- statistics$weighted$n
     De.stats[i,2] <- statistics$unweighted$mean
     De.stats[i,3] <- statistics$weighted$mean
@@ -1269,6 +1237,9 @@ label.text[[1]] <- NULL
 
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
+    
+    line = line + De.add
+    
     if(log.z == TRUE) {line <- log(line)}
 
     line.coords <- list(NA)
@@ -1580,23 +1551,19 @@ label.text[[1]] <- NULL
     if(fun==TRUE){sTeve()}
   }
 
-  if(output) {
-    return(
-      list(
-        data = data,
-        data.global = data.global,
-        xlim = limits.x,
-        ylim = limits.y,
-        zlim = limits.z,
-        r = r,
-        plot.ratio = plot.ratio,
-        ticks.major = ticks.major,
-        ticks.minor = ticks.minor,
-        labels = labels,
-        polygons = polygons,
-        ellipse.lims = ellipse.lims
-      )
-    )
+  if(output == TRUE) {
+    return(list(data = data,
+                data.global = data.global,
+                xlim = limits.x,
+                ylim = limits.y,
+                zlim = limits.z,
+                r = r,
+                plot.ratio = plot.ratio,
+                ticks.major = ticks.major,
+                ticks.minor = ticks.minor,
+                labels = labels,
+                polygons = polygons,
+                ellipse.lims = ellipse.lims))
   }
 
 }

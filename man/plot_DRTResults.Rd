@@ -90,7 +90,7 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.10 (2016-09-22 10:11:42)
+ 0.1.10
 }
 \examples{
 
@@ -159,12 +159,7 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M. (2016). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.10. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 stimulated luminescence characteristics and their relevance in

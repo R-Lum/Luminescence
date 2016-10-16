@@ -122,7 +122,7 @@ The upper age limit is set to 500 ka! \cr
 Special thanks to Sebastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.1 (2016-10-04 12:11:26)
+ 0.4.1
 }
 \examples{
 
@@ -158,12 +158,7 @@ get_RLum(results)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading
 in K-feldspars and the measurement and correction for it in optical dating.
