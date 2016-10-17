@@ -27,7 +27,7 @@ Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 \bold{[BETA VERSION]} This function version still needs to be properly tested.
 }
 \section{Function version}{
- 0.2.1
+ 0.2.1 (2016-05-02 09:36:06)
 }
 \examples{
 
@@ -37,7 +37,12 @@ Import a *.txt (ASCII) file produced by a Daybreak reader into R.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)\cr Based on a suggestion by Willian Amidon and Andrew Louis Gorin.
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2016). read_Daybreak2R(): Import Daybreak ASCII dato into R. Function version 0.2.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 -
 }

@@ -137,7 +137,7 @@ the fitting procedure has reached a global minimum rather than a local
 minimum!
 }
 \section{Function version}{
- 0.5.1
+ 0.5.1 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -155,7 +155,12 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2016). fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves [beta version]. Function version 0.5.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.

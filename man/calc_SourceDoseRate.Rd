@@ -88,7 +88,7 @@ it is not recommended to use this option when multiple calibration dates (\code{
 are provided.
 }
 \section{Function version}{
- 0.3.0
+ 0.3.0 (2015-11-29 17:27:48)
 }
 \examples{
 
@@ -131,7 +131,12 @@ xtable::xtable(get_RLum(dose.rate))
 \author{
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),
 \cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Fuchs, M.C., Fuchs, M., Kreutzer, S. (2016). calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 NNDC, Brookhaven National Laboratory
 (\code{http://www.nndc.bnl.gov/})

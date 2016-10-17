@@ -159,7 +159,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.1
+ 0.3.1 (2016-05-02 09:36:06)
 }
 \examples{
 
@@ -189,7 +189,12 @@ fit_LMCurve(values = values.curve,
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2016). fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Bulur, E., 1996. An Alternative Technique For Optically
 Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,
