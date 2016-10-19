@@ -6,11 +6,11 @@
 #' This function applies the approach described in Kars et al. (2008), 
 #' developed from the model of Huntley (2006) to calculate the expected sample 
 #' specific fraction of saturation of a feldspar and also to calculate fading 
-#' corrected age using this model. Rho' (\code{rhop}), the density of recombination 
+#' corrected age using this model. \eqn{\rho}' (\code{rhop}), the density of recombination 
 #' centres, is a crucial parameter of this model and must be determined 
 #' separately from a fading measurement. The function 
 #' \code{\link[Luminescence]{analyse_FadingMeasurement}}
-#' can be used to calculate the sample specific rho' value.
+#' can be used to calculate the sample specific \eqn{\rho}' value.
 #' 
 #' Firstly the unfaded D0 value is determined through applying equation 5 of
 #' Kars et al. (2008) to the measured LxTx data as a function of irradiation 
@@ -20,29 +20,29 @@
 #' 
 #' where 
 #' 
-#' \deqn{\phi(t*) = exp(-\rho' x ln(1.8 x s~ x t*)^3)}
+#' \deqn{\phi(t*) = exp(-\rho' x ln(1.8 x s_tilde x t*)^3)}
 #' 
 #' after King et al. (2016) where \code{A} is a pre-exponential factor,
 #' \code{t*} (s) is the irradiation time, starting at the mid-point of 
-#' irradiation (Auclair et al. 2003) and \code{s~} (1/s) is the athermal
+#' irradiation (Auclair et al. 2003) and \code{s_tilde} (3x10^15 s^-1) is the athermal
 #' frequency factor after Huntley (2006). \cr
 #' 
 #' Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose 
-#' response curve using the environmental dose rate, \code{D} (Gy/s) and equations
+#' response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equations
 #' [1] and [2]. Computed LxTx values are then fitted using the
 #' \code{\link[Luminescence]{plot_GrowthCurve}} function and the laboratory measured LnTn can then 
 #' be interpolated onto this curve to determine the fading corrected 
 #' De value, from which the fading corrected age is calculated. \cr
 #'   
 #' The \code{calc_Kars2008} function also calculates the level of saturation (n/N)
-#' and the field saturation (i.e. athermal steady state, (n/N)SS) value for 
-#' the sample under investigation using the sample specific rho', 
-#' unfaded D0 and D values, following the approach of Kars et al. (2008). \cr
+#' and the field saturation (i.e. athermal steady state, (n/N)_SS) value for 
+#' the sample under investigation using the sample specific \eqn{\rho}', 
+#' unfaded \code{D0} and \code{D_dot} values, following the approach of Kars et al. (2008). \cr
 #'  
 #' Uncertainties are reported at 1 sigma and are assumed to be normally 
 #' distributed and are estimated using monte-carlo resamples (\code{n.MC = 1000})
-#' of rho' and LxTx during dose response curve fitting, and of rho'
-#' in the derivation of (n/N) and (n/N)SS.
+#' of \eqn{\rho}' and LxTx during dose response curve fitting, and of \eqn{\rho}'
+#' in the derivation of (n/N) and (n/N)_SS.
 #' 
 #' 
 #'
@@ -53,8 +53,8 @@
 #' with an arbitrary 5 \% error on the provided LxTx values. 
 #' 
 #' @param rhop \code{\link{numeric}} (\bold{required}): 
-#' The density of recombination centres (rho') and its error (see Huntley 2006), 
-#' given as numeric vector of length two. Note that rho' must \bold{not} be 
+#' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006), 
+#' given as numeric vector of length two. Note that \eqn{\rho}' must \bold{not} be 
 #' provided as the common logarithm. Example: \code{rhop = c(2.92e-06, 4.93e-07)}.
 #' 
 #' @param ddot \code{\link{numeric}} (\bold{required}): 
@@ -124,6 +124,9 @@
 #' 
 #' King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 #' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
+#' 
+#'
+#' \bold{Further reading}
 #' 
 #' Morthekai, P., Jain, M., Cunha, P.P., Azevedo, J.M., Singhvi, A.K., 2011. An attempt to correct
 #' for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
@@ -628,16 +631,16 @@ calc_Kars2008 <- function(data,
     ),
     info = list(call = sys.call(),
                 args = as.list(sys.call())[-1])
-  )
+)
   
   ## Console output ------------------------------------------------------------
   if (settings$verbose) {
     cat("\n[calc_Kars2008()]\n")
     cat("\n -------------------------------") 
-    cat("\n n/N [-]:\t", 
+    cat("\n (n/N) [-]:\t", 
         round(results@data$results$nN, 2), "\u00b1",
         round(results@data$results$nN.error, 2))
-    cat("\n n/N_SS [-]:\t", 
+    cat("\n (n/N)_SS [-]:\t", 
         round(results@data$results$nN_SS, 2),"\u00b1",
         round(results@data$results$nN_SS.error, 2))
     cat("\n\n ---------- Measured -----------")
@@ -667,7 +670,6 @@ calc_Kars2008 <- function(data,
     cat("\n -------------------------------\n\n")
     
   }
-  
   
   ## Return value --------------------------------------------------------------
   return(results)
