@@ -78,8 +78,8 @@
        \item Console output can now be suppressed via 'verbose = TRUE' (#24).
     }
   }
-  
-  
+
+
   \item \code{calc_CosmicDoseRate()}{
     \itemize{
        \item Console output can now be suppressed via 'verbose = TRUE' (#24).
@@ -175,7 +175,10 @@
 
       \item add \code{`[<-]`} method for \code{RLum.Data.Curve} objects,
 
-      \item a hint on how to cite a function is now added automatically to every major function manual page.
+      \item a hint on how to cite a function is now added automatically to every major function manual page,
+
+      \item add 'magrittr' to the package dependencies (imports) to further support the usage of this amazing
+      pipe operator.
 
     }
 

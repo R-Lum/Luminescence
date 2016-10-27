@@ -46,6 +46,7 @@ Imports:
     data.table (>= 1.9.6),
     httr (>= 1.2.0),
     matrixStats (>= 0.50.2),
+    magrittr (>= 1.5),
     methods,
     minpack.lm (>= 1.2-0),
     raster (>= 2.5-8),

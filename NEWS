@@ -131,5 +131,8 @@ Changes in version 0.7.0 ( ,2016):
          • add ‘`[<-]`’ method for ‘RLum.Data.Curve’ objects,
 
          • a hint on how to cite a function is now added automatically
-           to every major function manual page.
+           to every major function manual page,
+
+         • add 'magrittr' to the package dependencies (imports) to
+           further support the usage of this amazing pipe operator.
 
