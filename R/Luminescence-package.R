@@ -90,7 +90,7 @@
 #' Ancient TL 33, 16-21.
 #'
 #' @keywords package
-#' @import utils methods data.table
+#' @import utils methods data.table magrittr
 #' @importFrom raster nlayers raster contour plot plotRGB brick
 #' @importFrom graphics plot plot.default frame abline mtext text lines par layout lines arrows axTicks axis barplot box boxplot contour curve grconvertX grconvertY hist legend persp points polygon rug segments title grid
 #' @importFrom grDevices adjustcolor axisTicks colorRampPalette gray.colors rgb topo.colors xy.coords dev.off
@@ -628,7 +628,7 @@ NULL
 #' Example data for feldspar fading measurements
 #'
 #' Example data set for fading measurements of the IR50, IR100, IR150 and
-#' IR225 feldspar signals of sample UNIL/NB123. It further contains regular equivalent dose 
+#' IR225 feldspar signals of sample UNIL/NB123. It further contains regular equivalent dose
 #' measurement data of the same sample, which can be used to apply a
 #' fading correction to.
 #'
@@ -638,86 +638,86 @@ NULL
 #' on the fading and equivalent dose measurements:
 #'
 #' \describe{
-#' 
+#'
 #' \code{$fading.data}: A named \code{\link{list}} of \code{\link{data.frame}}s,
 #' each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).\cr
-#' \code{..$IR50}: Fading data of the IR50 signal.\cr 
+#' \code{..$IR50}: Fading data of the IR50 signal.\cr
 #' \code{..$IR100}: Fading data of the IR100 signal.\cr
 #' \code{..$IR150}: Fading data of the IR150 signal.\cr
 #' \code{..$IR225}: Fading data of the IR225 signal.\cr
-#' \cr\cr 
-#' 
-#' \code{$equivalentDose.data}: A named of \code{\link{data.frame}}s, 
+#' \cr\cr
+#'
+#' \code{$equivalentDose.data}: A named of \code{\link{data.frame}}s,
 #' each having three named columns (\code{dose, LxTx, LxTx.error}).\cr
 #' \code{..$IR50}: Equivalent dose measurement data of the IR50 signal.\cr
 #' \code{..$IR100}: Equivalent dose measurement data of the IR100 signal.\cr
 #' \code{..$IR150}: Equivalent dose measurement data of the IR150 signal.\cr
 #' \code{..$IR225}: Equivalent dose measurement data of the IR225 signal.\cr
 #' \cr\cr
-#' 
+#'
 #' }
-#' 
+#'
 #' @source
 #'
 #' These data were kindly provided by Georgina King. Detailed information
 #' on the sample UNIL/NB123 can be found in the reference given below. The raw
 #' data can be found in the accompanying supplementary information.
-#' 
+#'
 #' @references
-#' 
+#'
 #' King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 #' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
 #'
 #' \bold{Details} \cr
-#' \tabular{ll}{ 
+#' \tabular{ll}{
 #' Lab: \tab University of Lausanne \cr
-#' Lab-Code: \tab UNIL/NB123 \cr 
+#' Lab-Code: \tab UNIL/NB123 \cr
 #' Location: \tab Namche Barwa (eastern Himalaya)\cr
-#' Material: \tab Coarse grained (180-212 microns) potassium feldspar \cr 
-#' Units: \tab Values are given in seconds \cr 
+#' Material: \tab Coarse grained (180-212 microns) potassium feldspar \cr
+#' Units: \tab Values are given in seconds \cr
 #' Lab Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.1335 +/-
 #' 0.004 Gy/s \cr
-#' Environmental Dose Rate: \tab 7.00 +/- 0.92 Gy/ka (includes internal dose rate) 
+#' Environmental Dose Rate: \tab 7.00 +/- 0.92 Gy/ka (includes internal dose rate)
 #' }
-#' 
-#' 
+#'
+#'
 #' @keywords datasets
-#' 
+#'
 #' @examples
 #'
 #' ## Load example data
 #' data("ExampleData.Fading", envir = environment())
-#' 
+#'
 #' ## Get fading measurement data of the IR50 signal
 #' IR50_fading <- ExampleData.Fading$fading.data$IR50
 #' head(IR50_fading)
-#' 
+#'
 #' ## Determine g-value and rho' for the IR50 signal
 #' IR50_fading.res <- analyse_FadingMeasurement(IR50_fading)
-#' 
+#'
 #' ## Show g-value and rho' results
 #' gval <- get_RLum(IR50_fading.res)
 #' rhop <- get_RLum(IR50_fading.res, "rho_prime")
-#' 
+#'
 #' gval
 #' rhop
-#' 
+#'
 #' ## Get LxTx values of the IR50 DE measurement
 #' IR50_De.LxTx <- ExampleData.Fading$equivalentDose.data$IR50
-#' 
+#'
 #' ## Calculate the De of the IR50 signal
-#' IR50_De <- plot_GrowthCurve(IR50_De.LxTx, 
-#'                                 mode = "regenerative", 
+#' IR50_De <- plot_GrowthCurve(IR50_De.LxTx,
+#'                                 mode = "regenerative",
 #'                                 fit.method = "EXP")
-#' 
+#'
 #' ## Extract the calculated De and its error
 #' IR50_De.res <- get_RLum(IR50_De)
 #' De <- c(IR50_De.res$De, IR50_De.res$De.Error)
-#' 
+#'
 #' ## Apply fading correction (age conversion greatly simplified)
 #' IR50_Age <- De / 7.00
 #' IR50_Age.corr <- calc_FadingCorr(IR50_Age, g_value = IR50_fading.res)
-#' 
+#'
 #'
 #' @name ExampleData.Fading
 NULL
