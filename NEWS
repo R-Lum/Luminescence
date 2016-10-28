@@ -68,7 +68,10 @@ Changes in version 0.7.0 ( ,2016):
          • ‘calc_FadingCorr()’
 
              • Fixed a bug where the function would crash when
-               providing an ‘RLum.Results’ object for ‘g_value’.
+               providing an ‘RLum.Results’ object for ‘g_value’,
+
+             • new argument ‘interval’ to control the age interval for
+               solving the equation via ‘uniroot’.
 
          • ‘calc_FiniteMixture()’
 

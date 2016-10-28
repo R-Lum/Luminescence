@@ -89,7 +89,9 @@
   \item \code{calc_FadingCorr()}{
     \itemize{
        \item Fixed a bug where the function would crash when providing an
-       \code{RLum.Results} object for \code{g_value}.
+       \code{RLum.Results} object for \code{g_value},
+       \item new argument \code{interval} to control the age interval for solving the equation
+       via \code{uniroot}.
 
     }
 

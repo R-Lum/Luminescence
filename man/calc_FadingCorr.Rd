@@ -6,7 +6,8 @@
 g-value and a given tc}
 \usage{
 calc_FadingCorr(age.faded, g_value, tc = NULL, tc.g_value = tc,
-  n.MC = 10000, seed = NULL, txtProgressBar = TRUE, verbose = TRUE)
+  n.MC = 10000, seed = NULL, interval = c(0.01, 500),
+  txtProgressBar = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{age.faded}{\code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
@@ -33,6 +34,10 @@ tries to find a 'stable' error for the age. Note: This may take a while!}
 
 \item{seed}{\code{\link{integer}} (optional): sets the seed for the random number generator
 in R using \code{\link{set.seed}}}
+
+\item{interval}{\code{\link{numeric}} (with default): a vector containing the end-points (age interval) of the
+interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
+used for solving the equation.}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
 \code{\link{txtProgressBar}}}
@@ -118,11 +123,10 @@ case of an SAR measurement tc should be similar, however, if it differs, you hav
 tc value (the one used for estimating the g-value) using the argument \code{tc.g_value}.\cr
 }
 \note{
-The upper age limit is set to 500 ka! \cr
 Special thanks to Sebastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.1 (2016-10-04 12:11:26)
+ 0.4.2 (2016-10-28 16:25:55)
 }
 \examples{
 
@@ -161,7 +165,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2016). calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2016). calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
