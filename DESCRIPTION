@@ -38,7 +38,8 @@ License: GPL-3
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
     R (>= 3.3.1),
-    utils
+    utils,
+    magrittr (>= 1.5)
 LinkingTo: Rcpp (>= 0.12.5),
     RcppArmadillo (>= 0.7.100.3.1)
 Imports:
@@ -46,7 +47,6 @@ Imports:
     data.table (>= 1.9.6),
     httr (>= 1.2.0),
     matrixStats (>= 0.50.2),
-    magrittr (>= 1.5),
     methods,
     minpack.lm (>= 1.2-0),
     raster (>= 2.5-8),
