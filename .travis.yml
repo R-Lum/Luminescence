@@ -19,6 +19,7 @@ matrix:
     r: devel
     before_install:
       - brew update
+      - brew link --overwrite gcc
       - brew install jags
       - brew install libssh2
       - curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
