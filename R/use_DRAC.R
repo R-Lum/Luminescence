@@ -284,7 +284,9 @@ use_DRAC <- function(
                          stringsAsFactors = FALSE)
   
   ## remove first two lines
-  DRAC.content <- DRAC.raw[-c(1, 2), ]
+  DRAC.content <- read.table(text = as.character(DRAC.content.split[[1]][2]),
+                             sep = ",", skip = 2,
+                             stringsAsFactors = FALSE)
   
   ##Get rid of all the value we do not need anymore
   DRAC.content <-  subset(DRAC.content, DRAC.content$V1 %in% DRAC_results.id)
