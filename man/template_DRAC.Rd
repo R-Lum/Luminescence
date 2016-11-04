@@ -37,7 +37,7 @@ print(input[[4]])
 input$`Project ID` <- "DRAC-Example"
 input$`Sample ID` <- "Quartz"
 input$`Conversion factors` <- "AdamiecAitken1998"
-input$`ExternalU (ppm)` <- 3.4
+input$`External U (ppm)` <- 3.4
 input$`errExternal U (ppm)` <- 0.51
 input$`External Th (ppm)` <- 14.47
 input$`errExternal Th (ppm)` <- 1.69
@@ -68,12 +68,7 @@ output <- use_DRAC(input)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-} 
-
-\section{How to cite}{
-Burow, C. (2016). template_DRAC(): Create a DRAC input data template (v1.1). In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012

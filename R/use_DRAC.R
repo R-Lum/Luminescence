@@ -66,7 +66,7 @@
 #' input$`Project ID` <- "DRAC-Example"
 #' input$`Sample ID` <- "Quartz"
 #' input$`Conversion factors` <- "AdamiecAitken1998"
-#' input$`ExternalU (ppm)` <- 3.4
+#' input$`External U (ppm)` <- 3.4
 #' input$`errExternal U (ppm)` <- 0.51
 #' input$`External Th (ppm)` <- 14.47
 #' input$`errExternal Th (ppm)` <- 1.69
