@@ -5,9 +5,9 @@
 \title{Calculate the Fast Ratio for CW-OSL curves}
 \usage{
 calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
-  sigmaF = 2.6e-17, sigmaM = 4.28e-18, Ch_L1 = 1, x = 1, x2 = 0.1,
-  dead.channels = c(0, 0), fitCW.sigma = FALSE, fitCW.curve = FALSE,
-  plot = TRUE, ...)
+  sigmaF = 2.6e-17, sigmaM = 4.28e-18, Ch_L1 = 1, Ch_L2 = NULL,
+  Ch_L3 = NULL, x = 1, x2 = 0.1, dead.channels = c(0, 0),
+  fitCW.sigma = FALSE, fitCW.curve = FALSE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}}, 
@@ -25,6 +25,11 @@ fast component. Default value after Durcan & Duller (2011).}
 medium component. Default value after Durcan & Duller (2011).}
 
 \item{Ch_L1}{\code{\link{numeric}} (with default): An integer specifying the channel for L1.}
+
+\item{Ch_L2}{\code{\link{numeric}} (optional): An integer specifying the channel for L2.}
+
+\item{Ch_L3}{\code{\link{numeric}} (optional): A vector of length 2 with integer
+values specifying the start and end channels for L3 (e.g., \code{c(40, 50)}).}
 
 \item{x}{\code{\link{numeric}} (with default): \% of signal remaining from the fast component.
 Used to define the location of L2 and L3 (start).}
@@ -68,7 +73,7 @@ required to reduce the fast and medium quartz OSL components to \code{x} and
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.1
 }
 \examples{
 # load example CW-OSL curve
@@ -85,12 +90,7 @@ get_RLum(res)
 Georgina King, University of Cologne (Germany) \cr
 Julie A. Durcan, University of Oxford (United Kingdom) \cr
 Christoph Burow, University of Cologne (Germany) \cr
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-King, G., Durcan, J., Burow, C. (2016). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 the dominance of the fast component in the initial OSL signal from quartz.

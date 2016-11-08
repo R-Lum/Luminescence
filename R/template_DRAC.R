@@ -37,7 +37,7 @@
 #' input$`Project ID` <- "DRAC-Example"
 #' input$`Sample ID` <- "Quartz"
 #' input$`Conversion factors` <- "AdamiecAitken1998"
-#' input$`ExternalU (ppm)` <- 3.4
+#' input$`External U (ppm)` <- 3.4
 #' input$`errExternal U (ppm)` <- 0.51
 #' input$`External Th (ppm)` <- 14.47
 #' input$`errExternal Th (ppm)` <- 1.69
@@ -119,7 +119,7 @@ template_DRAC <- function(nrow = 1, notification = TRUE) {
       structure(factor(rep("Liritzisetal2013", nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "X")), required = FALSE, allowsX = TRUE, key = "TI:4",
                 description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011) or Liritzis et al. (2013). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013' or 'X' if conversion factors are not required."), #
     
-    `ExternalU (ppm)` = 
+    `External U (ppm)` = 
       structure(rep(0, nrow), required = FALSE, allowsX = TRUE, key = "TI:5",
                 description = "Radionuclide concentrations in parts per million for Uranium, Thorium and Rubidium and % for Potassium. Inputs must be 0 or positive and should not be left blank."), # 
     
