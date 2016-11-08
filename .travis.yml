@@ -18,6 +18,7 @@ matrix:
   - os: osx
     r: devel
     before_install:
+      - rm '/usr/local/bin/gfortran'
       - brew update
       - brew install jags
       - brew install libssh2
