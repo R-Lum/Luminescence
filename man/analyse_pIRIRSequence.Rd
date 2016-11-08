@@ -90,7 +90,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.2.2 (2016-09-22 10:11:42)
+ 0.2.2 (2016-09-29 10:58:12)
 }
 \examples{
 

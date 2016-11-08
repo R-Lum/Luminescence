@@ -11,13 +11,13 @@ on the fading and equivalent dose measurements:
 
 \code{$fading.data}: A named \code{\link{list}} of \code{\link{data.frame}}s,
 each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).\cr
-\code{..$IR50}: Fading data of the IR50 signal.\cr 
+\code{..$IR50}: Fading data of the IR50 signal.\cr
 \code{..$IR100}: Fading data of the IR100 signal.\cr
 \code{..$IR150}: Fading data of the IR150 signal.\cr
 \code{..$IR225}: Fading data of the IR225 signal.\cr
-\cr\cr 
+\cr\cr
 
-\code{$equivalentDose.data}: A named of \code{\link{data.frame}}s, 
+\code{$equivalentDose.data}: A named of \code{\link{data.frame}}s,
 each having three named columns (\code{dose, LxTx, LxTx.error}).\cr
 \code{..$IR50}: Equivalent dose measurement data of the IR50 signal.\cr
 \code{..$IR100}: Equivalent dose measurement data of the IR100 signal.\cr
@@ -33,7 +33,7 @@ data can be found in the accompanying supplementary information.
 }
 \description{
 Example data set for fading measurements of the IR50, IR100, IR150 and
-IR225 feldspar signals of sample UNIL/NB123. It further contains regular equivalent dose 
+IR225 feldspar signals of sample UNIL/NB123. It further contains regular equivalent dose
 measurement data of the same sample, which can be used to apply a
 fading correction to.
 }
@@ -60,8 +60,8 @@ rhop
 IR50_De.LxTx <- ExampleData.Fading$equivalentDose.data$IR50
 
 ## Calculate the De of the IR50 signal
-IR50_De <- plot_GrowthCurve(IR50_De.LxTx, 
-                                mode = "regenerative", 
+IR50_De <- plot_GrowthCurve(IR50_De.LxTx,
+                                mode = "regenerative",
                                 fit.method = "EXP")
 
 ## Extract the calculated De and its error
@@ -79,15 +79,15 @@ King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
 
 \bold{Details} \cr
-\tabular{ll}{ 
+\tabular{ll}{
 Lab: \tab University of Lausanne \cr
-Lab-Code: \tab UNIL/NB123 \cr 
+Lab-Code: \tab UNIL/NB123 \cr
 Location: \tab Namche Barwa (eastern Himalaya)\cr
-Material: \tab Coarse grained (180-212 microns) potassium feldspar \cr 
-Units: \tab Values are given in seconds \cr 
+Material: \tab Coarse grained (180-212 microns) potassium feldspar \cr
+Units: \tab Values are given in seconds \cr
 Lab Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.1335 +/-
 0.004 Gy/s \cr
-Environmental Dose Rate: \tab 7.00 +/- 0.92 Gy/ka (includes internal dose rate) 
+Environmental Dose Rate: \tab 7.00 +/- 0.92 Gy/ka (includes internal dose rate)
 }
 }
 \keyword{datasets}
