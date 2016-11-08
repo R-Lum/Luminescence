@@ -19,7 +19,7 @@ matrix:
     r: devel
     before_install:
       - rm '/usr/local/bin/gfortran'
-      - sudo chown -R $(travis) /usr/local
+      - sudo chown -R travis /usr/local
       - brew update
       - brew install jags
       - brew install libssh2
