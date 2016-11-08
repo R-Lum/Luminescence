@@ -4,32 +4,32 @@ Changes in version 0.7.0 ( ,2016):
 
   New functions:
 
-         • 'analyse_FadingMeasurement()': Analyse fading measurements
+         • ‘analyse_FadingMeasurement()’: Analyse fading measurements
            to calculate g-values and to estimate the density of
            recombination centres.
 
-         • 'analyse_portableOSL()': The function analyses CW-OSL curve
+         • ‘analyse_portableOSL()’: The function analyses CW-OSL curve
            data produced by a SUERC portable OSL reader and produces a
            combined plot of OSL/IRSL signal intensities, OSL/IRSL
            depletion ratios and the IRSL/OSL ratio.
 
-         • 'calc_Kars2008()': A function to calculate the expected
+         • ‘calc_Kars2008()’: A function to calculate the expected
            sample specific fraction of saturation following Kars et al.
            (2008) and Huntley (2006).
 
-         • 'calc_WodaFuchs2008()': Function to obtain the equivalent
+         • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
 
-         • 'PSL2Risoe.BINfileData()': Converts an 'RLum.Analysis'
-           object produced by the function 'read_PSL2R()' to an
-           'Risoe.BINfileData' object.
+         • ‘PSL2Risoe.BINfileData()’: Converts an ‘RLum.Analysis’
+           object produced by the function ‘read_PSL2R()’ to an
+           ‘Risoe.BINfileData’ object.
 
-         • 'read_PSL2R()': Imports PSL files produced by a SUERC
+         • ‘read_PSL2R()’: Imports PSL files produced by a SUERC
            portable OSL reader into R.
 
   New example data:
 
-         • 'ExampleData.fading': Example data set for fading
+         • ‘ExampleData.fading’: Example data set for fading
            measurements of the IR50, IR100, IR150 and IR225 feldspar
            signals of sample UNIL/NB123. It further contains regular
            equivalent dose measurement data of the same sample, which
@@ -38,90 +38,103 @@ Changes in version 0.7.0 ( ,2016):
 
   Changes in S4-classes and methods:
 
-         • Method 'get_RLum' for 'RLum.Analysis'-objects did not
-           respect '.pid', fixed.
+         • Method ‘get_RLum’ for ‘RLum.Analysis’-objects did not
+           respect ‘.pid’, fixed.
 
-         • Method 'get_RLum' for 'list'-objects now accepts lists with
-           all kinds of 'RLum'-objects. Previously, only lists of
-           'RLum.Analysis'-objects were allowed.
+         • Method ‘get_RLum’ for ‘list’-objects now accepts lists with
+           all kinds of ‘RLum’-objects. Previously, only lists of
+           ‘RLum.Analysis’-objects were allowed.
 
-         • 'plot_RLum' was not passing the argument 'sub', as it was
+         • ‘plot_RLum’ was not passing the argument ‘sub’, as it was
            fetched by the partial argument matching; fixed.
 
   Bugfixes and changes:
 
-         • 'analyse_SAR.CWOSL()'
+         • ‘analyse_SAR.CWOSL()’
 
              • Fix wrongly set threshold value for recuperation rate
                (#26).
 
-         • 'calc_AliquotSize()'
+         • ‘calc_AliquotSize()’
 
              • Console output can now be suppressed via 'verbose =
                TRUE' (#24).
 
-         • 'calc_CosmicDoseRate()'
+         • ‘calc_CosmicDoseRate()’
 
              • Console output can now be suppressed via 'verbose =
                TRUE' (#24).
 
-         • 'calc_FadingCorr()'
+         • ‘calc_FastRatio()’
+
+             • New arguments 'Ch_L2' and 'Ch_L3' to allow the user to
+               specify custom values for channels L2 and L3. Feature
+               requested by A. Versendaal (#29).
+
+         • ‘calc_FadingCorr()’
 
              • Fixed a bug where the function would crash when
-               providing an 'RLum.Results' object for 'g_value',
+               providing an ‘RLum.Results’ object for ‘g_value’,
 
-             • new argument 'interval' to control the age interval for
-               solving the equation via 'uniroot'.
+             • new argument ‘interval’ to control the age interval for
+               solving the equation via ‘uniroot’.
 
-         • 'calc_FiniteMixture()'
+         • ‘calc_FiniteMixture()’
 
              • Fixed a bug where certain arguments where not passed to
                `plot_RLum.Results` so that the plot was not as
                customisable as intended.  Thanks to Daniele Questiaux
                for reporting the bug.
 
-         • 'plot_DetPlot()'
+         • ‘plot_DetPlot()’
 
              • Correct negative y-axis, the minimum is now the real
                minimum.
 
-         • 'plot_GrowthCurve()'
+         • ‘plot_GrowthCurve()’
 
              • Reduce number of confusing warning,
 
-             • add new argument 'mode' to select the calculation mode
+             • add new argument ‘mode’ to select the calculation mode
                of the function.  This allows in particular to only fit
                data without calculating a De or calculating a De
                assuming an additive dose reponse curve.
 
-         • 'plot_RadialPlot()'
+         • ‘plot_RadialPlot()’
 
              • Sometimes the function crashed with an out of bonds
                error if more than one data set was provided; fixed,
 
-             • argument 'negatives' caused an error if not set to
-               ''remove'' and fix some errors around this option,
+             • argument ‘negatives’ caused an error if not set to
+               ‘'remove'’ and fix some errors around this option,
 
-             • argument 'negatives' renamed to 'negatives.rm' and
-               changed to type 'logical'.
+             • argument ‘negatives’ renamed to ‘negatives.rm’ and
+               changed to type ‘logical’.
 
-         • 'plot_RLum.Data.Spectrum()'
+         • ‘plot_RLum.Data.Spectrum()’
 
              • The interactive plot option was broken with the last
                update of the package 'plotly'; fixed.
 
-         • 'read_BIN2R()'
+         • ‘read_BIN2R()’
 
              • If BIN-files are automatically imported the function
                skipped non BIN-files without crashing if it is used in
-               combination with the argument 'pattern'.
+               combination with the argument ‘pattern’.
 
-         • 'use_DRAC()'
+         • ‘template_DRAC()’
+
+             • Fixed a typo in the column names (#28).
+
+         • ‘use_DRAC()’
 
              • Now supports DRAC v1.2 and the newly introduced CSV
                input template.  Older v1.1 excel sheet input templates
                are still supported, but users are highly encouraged to
                use the new CSV file.
+
+             • Columns in the output tables are now assigned proper
+               classes (#27).
 
   Internals:
 
@@ -131,7 +144,7 @@ Changes in version 0.7.0 ( ,2016):
            curve matrix.  The conversion now works ca. two times
            faster,
 
-         • add '`[<-]`' method for 'RLum.Data.Curve' objects,
+         • add ‘`[<-]`’ method for ‘RLum.Data.Curve’ objects,
 
          • a hint on how to cite a function is now added automatically
            to every major function manual page,
