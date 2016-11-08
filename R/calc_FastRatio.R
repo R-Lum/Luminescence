@@ -24,6 +24,11 @@
 #' 
 #' @param Ch_L1 \code{\link{numeric}} (with default): An integer specifying the channel for L1.
 #' 
+#' @param Ch_L2 \code{\link{numeric}} (optional): An integer specifying the channel for L2.
+#' 
+#' @param Ch_L3 \code{\link{numeric}} (optional): A vector of length 2 with integer
+#' values specifying the start and end channels for L3 (e.g., \code{c(40, 50)}).
+#' 
 #' @param x \code{\link{numeric}} (with default): \% of signal remaining from the fast component.
 #' Used to define the location of L2 and L3 (start).
 #' 
@@ -54,7 +59,7 @@
 #' \item{args}{\code{\link{list}} of used arguments}
 #' \item{call}{\code{\link{call}} the function call}
 #' 
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author 
 #' Georgina King, University of Cologne (Germany) \cr
@@ -96,6 +101,8 @@ calc_FastRatio <- function(object,
                            sigmaF = 2.6E-17,
                            sigmaM = 4.28E-18,
                            Ch_L1 = 1,
+                           Ch_L2 = NULL,
+                           Ch_L3 = NULL,
                            x = 1,
                            x2 = 0.1,
                            dead.channels = c(0,0),
@@ -103,6 +110,10 @@ calc_FastRatio <- function(object,
                            fitCW.curve = FALSE,
                            plot = TRUE,
                            ...) {
+  
+  ## Input verification --------------------------------------------------------
+  if (!is.null(Ch_L3) && length(Ch_L3) != 2)
+    stop("Input for 'Ch_L3' must be a vector of length 2 (e.g., c(40, 50).", call. = FALSE)
   
   ## Input object handling -----------------------------------------------------
   if (inherits(object, "RLum.Analysis"))
@@ -113,6 +124,7 @@ calc_FastRatio <- function(object,
   
   if (!inherits(object, "list"))
     object <-list(object)
+  
   
   ## Settings ------------------------------------------------------------------
   settings <- list(verbose = TRUE,
@@ -193,12 +205,23 @@ calc_FastRatio <- function(object,
     ## The equivalent time in s of L1, L2, L3
     # Use these values to look up the channel
     t_L1 <- 0
-    t_L2 <- (log(x / 100)) / (-sigmaF * I0)
-    t_L3_start <- (log(x / 100)) / (-sigmaM * I0)
-    t_L3_end <- (log(x2 / 100)) / (-sigmaM * I0)
+    
+    if (is.null(Ch_L2))
+      t_L2 <- (log(x / 100)) / (-sigmaF * I0)
+    else 
+      t_L2 <- A[Ch_L2, 1]
+    
+    if (is.null(Ch_L3)) {
+      t_L3_start <- (log(x / 100)) / (-sigmaM * I0)
+      t_L3_end <- (log(x2 / 100)) / (-sigmaM * I0)
+    } else {
+      t_L3_start <- A[Ch_L3[1], 1]
+      t_L3_end <- A[Ch_L3[2], 1]
+    }
     
     ## Channel number(s) of L2 and L3
-    Ch_L2 <- which.min(abs(A[,1] - t_L2))
+    if (is.null(Ch_L2))
+      Ch_L2 <- which.min(abs(A[,1] - t_L2))
     
     if (Ch_L2 <= 1) {
       msg <- sprintf("Calculated time/channel for L2 is too small (%.f, %.f). Returned NULL.", 
