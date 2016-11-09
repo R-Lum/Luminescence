@@ -380,7 +380,7 @@ calc_Kars2008 <- function(data,
   
   # Estimate nN_(steady state) by Monte Carlo Simulation
   ddot_MC <- rnorm(n = settings$n.MC, mean = ddot, sd = ddot.error)
-  UFD0_MC <- rnorm(n = settings$n.MC, mean = D0.sim, sd = D0.sim.error)
+  UFD0_MC <- rnorm(n = settings$n.MC, mean = D0.sim.Gy, sd = D0.sim.Gy.error)
   
   nN_SS_MC <- mapply(function(rhop_i, ddot_i, UFD0_i) {
     rprime <- seq(0.01, 5, length.out = settings$n.MC)
