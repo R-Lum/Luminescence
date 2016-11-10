@@ -18,6 +18,9 @@
         A function to calculate the expected sample specific fraction of saturation
         following Kars et al. (2008) and Huntley (2006).
 
+        \item \code{calc_MeanDose()}: Function to calculate the Mean Dose and their extrinisc
+        dispersion.
+
         \item \code{calc_WodaFuchs2008()}:
         Function to obtain the equivalent dose using
         the approach proposed by Woda and Fuchs, 2008.
@@ -85,10 +88,10 @@
        \item Console output can now be suppressed via 'verbose = TRUE' (#24).
     }
   }
-  
+
     \item \code{calc_FastRatio()}{
     \itemize{
-       \item New arguments 'Ch_L2' and 'Ch_L3' to allow the user to specify 
+       \item New arguments 'Ch_L2' and 'Ch_L3' to allow the user to specify
        custom values for channels L2 and L3. Feature requested by A. Versendaal (#29).
     }
   }
@@ -161,13 +164,13 @@
         without crashing if it is used in combination with the argument \code{pattern}.
       }
      }
-     
-     
+
+
     \item \code{template_DRAC()}{
         \itemize{
 
         \item Fixed a typo in the column names (#28).
-        
+
       }
 
      }
@@ -178,7 +181,7 @@
        \item Now supports DRAC v1.2 and the newly introduced CSV input template.
        Older v1.1 excel sheet input templates are still supported, but users
        are highly encouraged to use the new CSV file.
-       
+
        \item Columns in the output tables are now assigned proper classes (#27).
     }
   }

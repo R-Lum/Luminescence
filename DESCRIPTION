@@ -14,6 +14,9 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc],
     Rachel K. Smedley [ctb],
     Julie Durcan [ctb],
     Georgina King [ctb, dtc],
+    Claire Christophe [ctb],
+    Anne Philippe [ctb],
+    Guillaume Guerin [ctb],
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr"),
@@ -27,6 +30,9 @@ Authors@R: c(
     person("Rachel K.", "Smedley", role = c("ctb")),
     person("Julie", "Durcan", role = c("ctb")),
     person("Georgina", "King", role = c("ctb", "dtc")),
+    person("Claire", "Christophe", role = c("ctb")),
+    person("Anne", "Philippe", role = c("ctb")),
+    person("Guillaume", "Guerin", role = c("ctb")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
 Description: A collection of various R functions for the purpose of Luminescence
@@ -116,6 +122,7 @@ Collate:
     'calc_IEU.R'
     'calc_Kars2008.R'
     'calc_MaxDose.R'
+    'calc_MeanDose.R'
     'calc_MinDose.R'
     'calc_OSLLxTxRatio.R'
     'calc_SourceDoseRate.R'
