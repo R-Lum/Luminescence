@@ -23,8 +23,8 @@ unreconised measurement uncertainty.}
 
 \item{verbose}{\code{\link{logical}} (with default): enables/disables terminal output}
 
-\item{...}{further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
-are returned all arguments need to be provided as \code{\link{list}},
+\item{...}{further arguments that can be passed to \code{\link[graphics]{hist}}. All arguments
+needed to be provided as \code{\link{list}},
 e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
 supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 
@@ -46,7 +46,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.1 (2016-11-10 16:44:23)
+ 0.1.1 (2016-11-10 17:09:05)
 }
 \examples{
 

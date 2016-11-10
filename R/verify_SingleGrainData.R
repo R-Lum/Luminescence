@@ -1,9 +1,9 @@
-#' Verify single grain data sets and check for invalid grains, i.e. zero light level grains
+#' Verify single grain data sets and check for invalid grains, i.e. zero-light level grains
 #'
-#' This function tries to identify automatically zero light level curves (grains) from single grain data
+#' This function tries to identify automatically zero-light level curves (grains) from single grain data
 #' measurements. \cr
 #'
-#' \bold{How the method works?}\cr
+#' \bold{How does the method work?}\cr
 #'
 #' The function compares the expected values (\eqn{E(X)}) and the variance (\eqn{Var(X)})
 #' of the count values for each curve. Assuming that the background roughly follows a poisson
@@ -15,11 +15,11 @@
 #'
 #' \deqn{abs(E(x) - Var(x)) >= \Theta}
 #'
-#' With \eqn{\Theta} an arbitray, user defined, threshold. Values above indicating curves
+#' With \eqn{\Theta} an arbitray, user defined, threshold. Values above the threshold indicating curves
 #' comprising a signal.\cr
 #'
 #' Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the ratio was chosen as
-#' both can become 0 which would result in \code{Inf} values.
+#' both terms can become 0 which would result in 0 or \code{Inf}, if the ratio is calculated.
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
 #' (\bold{required}): input object. The function also accepts a list with objects of allowed type.
@@ -37,9 +37,9 @@
 #' curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
 #' will be only removed if all curves of this aliquot are marked as invalid.
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disables terminal feedback
+#' @param verbose \code{\link{logical}} (with default): enables or disables the terminal feedback
 #'
-#' @param plot \code{\link{logical}} (with default): enables or disables graphical feedback
+#' @param plot \code{\link{logical}} (with default): enables or disables the graphical feedback
 #'
 #' @return The function returns
 #'
@@ -62,7 +62,7 @@
 #'
 #' \bold{Output variation}\cr
 #'
-#' For \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves removed).
+#' For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up (invalid curves were removed).
 #' This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}}
 #' object is returned in such cases. An \code{\linkS4class{Risoe.BINfileData}} object can be exported
 #' to a BIN-file by using the function \code{\link{write_R2BIN}}.

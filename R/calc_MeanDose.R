@@ -25,8 +25,8 @@
 #'
 #' @param verbose \code{\link{logical}} (with default): enables/disables terminal output
 #'
-#' @param ... further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
-#' are returned all arguments need to be provided as \code{\link{list}},
+#' @param ... further arguments that can be passed to \code{\link[graphics]{hist}}. All arguments
+#' needed to be provided as \code{\link{list}},
 #' e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
 #' supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 #'
