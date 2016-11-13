@@ -144,14 +144,47 @@ setMethod("show",
                 ##set width option ... just an implementation for the tutorial output
                 ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 7)
 
-                cat("\n\t .. .. : ",
-                    unlist(lapply(1:length(object@records),  function(i) {
+                ##set linebreak variable
+                linebreak <- FALSE
+                env <- environment()
 
-                      if(names(table(temp)[x]) == is(object@records[[i]])[1]){
-                        paste0("[",i,": ", object@records[[i]]@recordType,"]",
-                              if(i%%temp.width==0 & i!=length(object@records)){"\n\t .. .. : "})
+                ##create terminal output
+                terminal_output <-
+                  vapply(1:length(object@records),  function(i) {
+                    if (names(table(temp)[x]) == is(object@records[[i]])[1]) {
+                      if (i %% temp.width == 0 & i != length(object@records)) {
+                        assign(x = "linebreak", value = TRUE, envir = env)
                       }
-                    }),use.names = FALSE))
+
+                      ##FIRST
+                      first <-  paste0("#", i, " ", object@records[[i]]@recordType)
+                      ##LAST
+                      if (i < length(object@records) &&
+                          !is.null(object@records[[i]]@info[["parentID"]]) &&
+                          (object@records[[i]]@info[["parentID"]] ==
+                           object@records[[i+1]]@info[["parentID"]])) {
+                        last <- " <> "
+
+                      }else {
+                        if(i == length(object@records)){
+                          last <- ""
+
+                        }else if (linebreak){
+                          last <- "\n\t .. .. : "
+                          assign(x = "linebreak", value = FALSE, envir = env)
+
+                        }else{
+                          last <- " | "
+                        }
+
+                      }
+                      return(paste0(first,last))
+                    }
+
+              }, FUN.VALUE = vector(mode = "character", length = 1))
+
+                 ##print combined output
+                 cat("\n\t .. .. : ", terminal_output, sep = "")
 
               })
 
@@ -738,4 +771,3 @@ setMethod("names_RLum",
               object@records[[x]]@recordType})
 
           })
-

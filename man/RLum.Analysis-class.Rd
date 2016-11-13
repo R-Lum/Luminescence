@@ -81,7 +81,7 @@ easier, however, if this method is used within a loop this might undesired.}
 \item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 element}
 
-\item{subset}{\code{\link{expression}} (optional): logical expression indicating elements or rows 
+\item{subset}{\code{\link{expression}} (optional): logical expression indicating elements or rows
 to keep: missing values are taken as false. This argument takes precedence over all
 other arguments, meaning they are not considered when subsetting the object.}
 
@@ -155,7 +155,7 @@ containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 
 \section{Class version}{
- 0.4.7
+ 0.4.8
 }
 \examples{
 
