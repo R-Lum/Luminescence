@@ -22,7 +22,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.4.7
+#' @section Class version: 0.4.8
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -128,31 +128,30 @@ setMethod("show",
             if(length(object@records) > 0){
 
               ##get object class types
-              temp <- sapply(1:length(object@records), function(x){
+              temp <- vapply(object@records, function(x){
+                is(x)[1]
 
-                is(object@records[[x]])[1]
+              }, FUN.VALUE = vector(mode = "character", length = 1))
 
-              })
 
               ##print object class types
-              sapply(1:length(table(temp)), function(x){
+              lapply(1:length(table(temp)), function(x){
 
                 ##show RLum class type
                 cat("\n\t .. :",names(table(temp)[x]),":",table(temp)[x])
 
-
                 ##show structure
                 ##set width option ... just an implementation for the tutorial output
-                ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 10)
+                ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 7)
 
                 cat("\n\t .. .. : ",
-                    unlist(sapply(1:length(object@records),  function(i) {
+                    unlist(lapply(1:length(object@records),  function(i) {
 
                       if(names(table(temp)[x]) == is(object@records[[i]])[1]){
-                        paste(object@records[[i]]@recordType,
+                        paste0("[",i,": ", object@records[[i]]@recordType,"]",
                               if(i%%temp.width==0 & i!=length(object@records)){"\n\t .. .. : "})
                       }
-                    })))
+                    }),use.names = FALSE))
 
               })
 
@@ -281,7 +280,7 @@ setMethod(
 #' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 #' element
 #'
-#' @param subset \code{\link{expression}} (optional): logical expression indicating elements or rows 
+#' @param subset \code{\link{expression}} (optional): logical expression indicating elements or rows
 #' to keep: missing values are taken as false. This argument takes precedence over all
 #' other arguments, meaning they are not considered when subsetting the object.
 #'
@@ -301,9 +300,9 @@ setMethod("get_RLum",
 
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
                    protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE, info.object = NULL, subset = NULL) {
-            
+
             if (!is.null(substitute(subset))) {
-              
+
               # To account for different lengths and elements in the @info slot we first
               # check all unique elements
               info_el <- unique(unlist(sapply(object@records, function(el) names(el@info))))
@@ -336,7 +335,7 @@ setMethod("get_RLum",
 
               if (all(is.na(sel)))
                 sel <- FALSE
-                
+
               if (any(sel)) {
                 object@records <- object@records[sel]
                 return(object)
@@ -345,9 +344,9 @@ setMethod("get_RLum",
                 message("\n [ERROR] Invalid value, please refer to unique options given above.")
                 return(NULL)
               }
-              
+
             }
-            
+
             ##if info.object is set, only the info objects are returned
             else if(!is.null(info.object)) {
 
@@ -379,15 +378,15 @@ setMethod("get_RLum",
 
 
             } else {
-              
+
               ##check for records
               if (length(object@records) == 0) {
-                
+
                 warning("[get_RLum] This RLum.Analysis object has no records! NULL returned!)")
                 return(NULL)
-                
+
               }
-              
+
               ##record.id
               if (is.null(record.id)) {
                 record.id <- c(1:length(object@records))
