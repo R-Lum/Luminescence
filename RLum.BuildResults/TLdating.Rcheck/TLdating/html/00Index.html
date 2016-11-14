@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>R: Tools for Thermoluminescences Dating</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+<h1> Tools for Thermoluminescences Dating
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;TLdating&rsquo; version 0.1.3</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../NEWS">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="TLdating-package.html">TLdating-package</a></td>
+<td>Tools for Thermoluminescences Dating</td></tr>
+<tr><td style="width: 25%;"><a href="analyse_TL.MAAD.html">analyse_TL.MAAD</a></td>
+<td>MAAD protocol for TL dating</td></tr>
+<tr><td style="width: 25%;"><a href="analyse_TL.plateau.html">analyse_TL.plateau</a></td>
+<td>Plateau test function for TL dating</td></tr>
+<tr><td style="width: 25%;"><a href="analyse_TL.SAR.html">analyse_TL.SAR</a></td>
+<td>SAR protocol for thermoluminescence dating</td></tr>
+<tr><td style="width: 25%;"><a href="calc_TL.LxTx.html">calc_TL.LxTx</a></td>
+<td>calculation of the Lx/Tx matrix</td></tr>
+<tr><td style="width: 25%;"><a href="calc_TL.MAAD.average.html">calc_TL.MAAD.average</a></td>
+<td>Estimate average additive curves for the MAAD protocol.</td></tr>
+<tr><td style="width: 25%;"><a href="calc_TL.MAAD.fit.I.html">calc_TL.MAAD.fit.I</a></td>
+<td>Estimation of the supralinearity value for the MAAD protocol</td></tr>
+<tr><td style="width: 25%;"><a href="calc_TL.MAAD.fit.Q.html">calc_TL.MAAD.fit.Q</a></td>
+<td>Estimation of the palaeodose (Q) with the MAAD protocol</td></tr>
+<tr><td style="width: 25%;"><a href="calc_TL.MAAD.separate.html">calc_TL.MAAD.separate</a></td>
+<td>Separate the additive and the regenerative curves</td></tr>
+<tr><td style="width: 25%;"><a href="calc_TL.plateau.html">calc_TL.plateau</a></td>
+<td>Estimate value for plateau test</td></tr>
+<tr><td style="width: 25%;"><a href="calc_TL.SAR.fit.html">calc_TL.SAR.fit</a></td>
+<td>Estimation of the equivalent dose (ED) value for the SAR protocol</td></tr>
+<tr><td style="width: 25%;"><a href="calc_TL.temperature.html">calc_TL.temperature</a></td>
+<td>calculate temperature vector</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Analysis-class.html">get_TLum.Analysis</a></td>
+<td>Class '"TLum.Analysis"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Analysis-class.html">get_TLum.Analysis-method</a></td>
+<td>Class '"TLum.Analysis"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File-class.html">get_TLum.BIN.File</a></td>
+<td>Class '"TLum.BIN.File"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File-class.html">get_TLum.BIN.File-method</a></td>
+<td>Class '"TLum.BIN.File"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Data.Curve-class.html">get_TLum.Data.Curve</a></td>
+<td>Class '"TLum.Data.Curve"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Data.Curve-class.html">get_TLum.Data.Curve-method</a></td>
+<td>Class '"TLum.Data.Curve"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Results-class.html">get_TLum.Results</a></td>
+<td>Class '"TLum.Results"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Results-class.html">get_TLum.Results-method</a></td>
+<td>Class '"TLum.Results"'</td></tr>
+<tr><td style="width: 25%;"><a href="mod_align.peaks.html">mod_align.peaks</a></td>
+<td>Aligning the TL peaks</td></tr>
+<tr><td style="width: 25%;"><a href="mod_extract.aliquot.html">mod_extract.aliquot</a></td>
+<td>extract aliquots</td></tr>
+<tr><td style="width: 25%;"><a href="mod_extract.preheat.html">mod_extract.preheat</a></td>
+<td>Extract preheat</td></tr>
+<tr><td style="width: 25%;"><a href="mod_extract.TL.html">mod_extract.TL</a></td>
+<td>Extract TL</td></tr>
+<tr><td style="width: 25%;"><a href="mod_remove.aliquot.html">mod_remove.aliquot</a></td>
+<td>Remove aliquots</td></tr>
+<tr><td style="width: 25%;"><a href="mod_remove.preheat.html">mod_remove.preheat</a></td>
+<td>Remove preheat</td></tr>
+<tr><td style="width: 25%;"><a href="mod_substract.background.html">mod_substract.background</a></td>
+<td>Creates a new TLum.Analysis object where the background was removed from the signal.</td></tr>
+<tr><td style="width: 25%;"><a href="mod_update.dType.html">mod_update.dType</a></td>
+<td>mod identify dType</td></tr>
+<tr><td style="width: 25%;"><a href="mod_update.error.html">mod_update.error</a></td>
+<td>Update the error matrix</td></tr>
+<tr><td style="width: 25%;"><a href="plot_align.peaks.html">plot_align.peaks</a></td>
+<td>Plots mod_alignPeaks results</td></tr>
+<tr><td style="width: 25%;"><a href="plot_extract.TL.html">plot_extract.TL</a></td>
+<td>plot the TL curves</td></tr>
+<tr><td style="width: 25%;"><a href="plot_remove.preheat.html">plot_remove.preheat</a></td>
+<td>Plotting of the preheat and TL curves</td></tr>
+<tr><td style="width: 25%;"><a href="plot_substract.background.html">plot_substract.background</a></td>
+<td>Plotting function for mod_substract.background.</td></tr>
+<tr><td style="width: 25%;"><a href="plot_TL.MAAD.html">plot_TL.MAAD</a></td>
+<td>plot MAAD result</td></tr>
+<tr><td style="width: 25%;"><a href="plot_TL.plateau.html">plot_TL.plateau</a></td>
+<td>plot plateau test result</td></tr>
+<tr><td style="width: 25%;"><a href="plot_TL.SAR.html">plot_TL.SAR</a></td>
+<td>plots MAAD results</td></tr>
+<tr><td style="width: 25%;"><a href="Risoe.BINfileData2TLum.BIN.File.html">Risoe.BINfileData2TLum.BIN.File</a></td>
+<td>Convert Risoe.BINfileData object to an TLum.BIN.File object.</td></tr>
+<tr><td style="width: 25%;"><a href="RLum.Analysis2TLum.Analysis.html">RLum.Analysis2TLum.Analysis</a></td>
+<td>Convert RLum.Analysis object to an TLum.Analysis.</td></tr>
+<tr><td style="width: 25%;"><a href="script_TL.export.html">script_TL.export</a></td>
+<td>Script for data export</td></tr>
+<tr><td style="width: 25%;"><a href="script_TL.import.html">script_TL.import</a></td>
+<td>Script for data pretreatment</td></tr>
+<tr><td style="width: 25%;"><a href="script_TL.MAAD.html">script_TL.MAAD</a></td>
+<td>Script for the MAAD protocol</td></tr>
+<tr><td style="width: 25%;"><a href="script_TL.plateau.html">script_TL.plateau</a></td>
+<td>Script for the plateau test</td></tr>
+<tr><td style="width: 25%;"><a href="script_TL.pretreatment.html">script_TL.pretreatment</a></td>
+<td>Script for data pretreatment</td></tr>
+<tr><td style="width: 25%;"><a href="script_TL.SAR.html">script_TL.SAR</a></td>
+<td>Easy script for the SAR protocol</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Analysis-class.html">set_TLum.Analysis</a></td>
+<td>Class '"TLum.Analysis"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Analysis-class.html">set_TLum.Analysis-method</a></td>
+<td>Class '"TLum.Analysis"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File-class.html">set_TLum.BIN.File</a></td>
+<td>Class '"TLum.BIN.File"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File-class.html">set_TLum.BIN.File-method</a></td>
+<td>Class '"TLum.BIN.File"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Data.Curve-class.html">set_TLum.Data.Curve</a></td>
+<td>Class '"TLum.Data.Curve"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Data.Curve-class.html">set_TLum.Data.Curve-method</a></td>
+<td>Class '"TLum.Data.Curve"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Results-class.html">set_TLum.Results</a></td>
+<td>Class '"TLum.Results"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Results-class.html">set_TLum.Results-method</a></td>
+<td>Class '"TLum.Results"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Analysis-class.html">show-method</a></td>
+<td>Class '"TLum.Analysis"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File-class.html">show-method</a></td>
+<td>Class '"TLum.BIN.File"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Data.Curve-class.html">show-method</a></td>
+<td>Class '"TLum.Data.Curve"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Results-class.html">show-method</a></td>
+<td>Class '"TLum.Results"'</td></tr>
+<tr><td style="width: 25%;"><a href="template_DRAC4brick.html">template_DRAC4brick</a></td>
+<td>Creation of a template for use_DRAC4brick input.</td></tr>
+<tr><td style="width: 25%;"><a href="template_DRAC4cave.html">template_DRAC4cave</a></td>
+<td>Creation of a template for use_DRAC4cave input.</td></tr>
+<tr><td style="width: 25%;"><a href="template_DRAC4ceramic.html">template_DRAC4ceramic</a></td>
+<td>Creation of a template for use_DRAC4flint input.</td></tr>
+<tr><td style="width: 25%;"><a href="template_DRAC4flint.html">template_DRAC4flint</a></td>
+<td>Creation of a template for use_DRAC4flint input.</td></tr>
+<tr><td style="width: 25%;"><a href="TLdating-package.html">TLdating</a></td>
+<td>Tools for Thermoluminescences Dating</td></tr>
+<tr><td style="width: 25%;"><a href="TLum-class.html">TLum-class</a></td>
+<td>Class '"TLum"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Analysis-class.html">TLum.Analysis-class</a></td>
+<td>Class '"TLum.Analysis"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Analysis2RLum.Analysis.html">TLum.Analysis2RLum.Analysis</a></td>
+<td>Convert RLum.Analysis object to an TLum.Analysis.</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Analysis2TLum.BIN.File.html">TLum.Analysis2TLum.BIN.File</a></td>
+<td>Convert TLum.Analysis object to an TLum.BIN.File object.</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File-class.html">TLum.BIN.File-class</a></td>
+<td>Class '"TLum.BIN.File"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File2Risoe.BINfileData.html">TLum.BIN.File2Risoe.BINfileData</a></td>
+<td>Convert TLum.BIN.File object to an Risoe.BINfileData object.</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File2TLum.Analysis.html">TLum.BIN.File2TLum.Analysis</a></td>
+<td>Convert TLum.BIN.File object to an TLum.Analysis object.</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.BIN.File2TLum.Data.Curve.html">TLum.BIN.File2TLum.Data.Curve</a></td>
+<td>Convert an element from a TLum.BIN.File object into a TLum.Data.Curve objet</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Data-class.html">TLum.Data-class</a></td>
+<td>Class '"TLum.Data"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Data.Curve-class.html">TLum.Data.Curve-class</a></td>
+<td>Class '"TLum.Data.Curve"'</td></tr>
+<tr><td style="width: 25%;"><a href="TLum.Results-class.html">TLum.Results-class</a></td>
+<td>Class '"TLum.Results"'</td></tr>
+<tr><td style="width: 25%;"><a href="use_DRAC4brick.html">use_DRAC4brick</a></td>
+<td>Calculation of the dose rate for a brick sample coming from a cave</td></tr>
+<tr><td style="width: 25%;"><a href="use_DRAC4cave.html">use_DRAC4cave</a></td>
+<td>Calculation of the dose rate for a sediment sample coming from a cave</td></tr>
+<tr><td style="width: 25%;"><a href="use_DRAC4ceramic.html">use_DRAC4ceramic</a></td>
+<td>Calculation of the dose rate for a ceramic sample</td></tr>
+<tr><td style="width: 25%;"><a href="use_DRAC4flint.html">use_DRAC4flint</a></td>
+<td>Calculation of the dose rate for a flint</td></tr>
+</table>
+</body></html>

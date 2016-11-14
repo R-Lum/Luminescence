@@ -1,0 +1,30 @@
+RLumShiny 0.1.1 (Release date: 2016-07-20)
+==============
+
+* New application to transform CW OSL curves (keyword 'transformCW') using the
+  functions 'CW2pHMi', 'CW2pLM', 'CW2pLMi' and 'CW2pPMi' of the R package
+  'Luminescence'.
+  
+* Removed UI elements that used now deprecated function arguments.
+
+* Added new UI elements for arguments added to functions after version 0.4.2 of
+  the 'Luminescence' package.
+  
+* Removed the database feature in the abanico plot application.
+
+* Removed dependencies on 'digest' and 'RCurl'.
+
+* Removed all 'Exit' buttons.
+
+* Code output to reproduce the plots is now generated dynamically and should
+  be more reliable.
+  
+* R Luminescence Package Team now properly mentioned as contributors.
+  
+* Fixed many typos.
+
+
+RLumShiny 0.1.0 (Release date: 2015-03-31)
+==============
+
+* Initial release
