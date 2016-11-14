@@ -15,5 +15,6 @@ RLum.BuildResults
 RLum.Debug
 RLum.Experiment
 RLum.Images
+revdep
 ^packrat/
 packrat
