@@ -95,7 +95,7 @@ can be fully customised by disabling the standard legend and use the function \c
 instead.
 }
 \section{Function version}{
- 0.1.0 (2016-08-31 16:48:46)
+ 0.1.0 (2016-10-18 10:21:27)
 }
 \examples{
 

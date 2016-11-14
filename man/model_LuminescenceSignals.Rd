@@ -37,7 +37,7 @@ Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-11-01 16:25:59)
+ 0.1.0 (2016-10-18 10:23:26)
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr

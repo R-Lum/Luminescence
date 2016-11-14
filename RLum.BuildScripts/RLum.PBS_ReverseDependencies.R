@@ -9,3 +9,24 @@
 devtools::revdep_check()
 devtools::revdep_check_save_summary()
 devtools::revdep_check_print_problems()
+
+
+##keep the old one ... just in case, as the devtools function is a little bit broken ..
+####check reverse dependencies
+results <-
+  tools::check_packages_in_dir(
+    "~/GitHub/R_Luminescence/RLum.BuildResults/",
+    reverse = list(repos = getOption("repos")["CRAN"],
+                   which = "most"),
+    clean = TRUE
+
+  )
+
+##show results
+print(summary(results))
+
+##remove unwanted data
+unlink("RLum.BuildResults/Library/", recursive = TRUE)
+unlink("RLum.BuildResults/Outputs/", recursive = TRUE)
+file.remove("RLum.BuildResults/PACKAGES")
+file.remove("RLum.BuildResults/PACKAGES.gz")

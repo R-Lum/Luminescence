@@ -51,7 +51,7 @@
 ","<br /> Georgina King, University of Cologne (Germany),  <br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "calc_MaxDose","Apply the maximum age model to a given De distribution","<br /> Function to fit the maximum age model to De data. This is a wrapper function<br /> that calls calc_MinDose() and applies a similiar approach as described in<br /> Olley et al. (2006).<br />","0.3","2015-11-29","17:27:48
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010  <br />  R Luminescence Package Team"
-"calc_MeanDose","Calculate the Mean Dose and their extrinisc dispersion","<br /> This functions calculates the Mean Dose and their extrinsic dispersion and estimates<br /> the standard errors by bootstrapping based on the Mean Dose Model by Guerin et al., 2016<br />","0.1.1","2016-11-10","16:44:23
+"calc_MeanDose","Calculate the Mean Dose and their extrinisc dispersion","<br /> This functions calculates the Mean Dose and their extrinsic dispersion and estimates<br /> the standard errors by bootstrapping based on the Mean Dose Model by Guerin et al., 2016<br />","0.1.1","2016-11-10","17:19:50
 ","<br /> Claire Christophe, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),<br /> Anne Philippe, Universite de Nantes, (France),<br /> Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)<br />  R Luminescence Package Team"
 "calc_MinDose","Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999)<br /> to a given De distribution","<br /> Function to fit the (un-)logged three or four parameter minimum dose model<br /> (MAM-3/4) to De data.<br />","0.4.3","2016-10-18","10:21:27
 ","<br /> Christoph Burow, University of Cologne (Germany)   Based on a<br /> rewritten S script of Rex Galbraith, 2010   The bootstrap approach is<br /> based on a rewritten MATLAB script of Alastair Cunningham.   Alastair<br /> Cunningham is thanked for his help in implementing and cross-checking the<br /> code.<br />  R Luminescence Package Team"
@@ -162,7 +162,7 @@
 ","<br /> Christoph Burow, University of Cologne (Germany)<br />  R Luminescence Package Team"
 "read_SPE2R","Import Princeton Intruments (TM) SPE-file into R","<br /> Function imports Princeton Instruments (TM) SPE-files into R environment and<br /> provides  RLum  objects as output.<br />","0.1.0","2016-05-02","09:42:32
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
-"read_XSYG2R","Import XSYG files to R","<br /> Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.<br />","0.5.8","2016-11-09","19:50:50
+"read_XSYG2R","Import XSYG files to R","<br /> Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.<br />","0.5.8","2016-11-10","16:56:33
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
 "replicate_RLum","General replication function for RLum S4 class objects","<br /> Function replicates RLum S4 class objects and returns a list for this objects<br />","0.1.0","2015-11-29","17:27:48
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
@@ -193,7 +193,7 @@
 ","<br /> Michael Dietze, GFZ Potsdam (Germany)<br />  R Luminescence Package Team"
 "use_DRAC","Use DRAC to calculate dose rate data","<br /> The function provides an interface from R to DRAC. An R-object or a<br /> pre-formatted XLS/XLSX file is passed to the DRAC website and the<br /> results are re-imported into R.<br />","0.1.1","2016-11-09","19:16:09
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,<br /> GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany) <br />  R Luminescence Package Team"
-"verify_SingleGrainData","Verify single grain data sets and check for invalid grains, i.e. zero light level grains","<br /> This function tries to identify automatically zero light level curves (grains) from single grain data<br /> measurements.  <br />","0.2.0","2016-06-20","19:34:56
+"verify_SingleGrainData","Verify single grain data sets and check for invalid grains, i.e. zero-light level grains","<br /> This function tries to identify automatically zero-light level curves (grains) from single grain data<br /> measurements.  <br />","0.2.0","2016-11-10","17:19:50
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team"
 "write_R2BIN","Export Risoe.BINfileData into Risoe BIN-file","<br /> Exports a Risoe.BINfileData object in a *.bin or *.binx file that can be<br /> opened by the Analyst software or other Risoe software.<br />","0.4.0","2016-06-13","21:17:19
 ","<br /> Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team"
