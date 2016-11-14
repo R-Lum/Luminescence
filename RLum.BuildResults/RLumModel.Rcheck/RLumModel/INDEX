@@ -1,9 +1,0 @@
-ExampleData.ModelOutput
-                        Example data (TL curve) simulated from Bailey
-                        (2001 ,fig. 1)
-RLumModel-package       Solving Ordinary Differential Equations to
-                        Understand Luminescence
-model_LuminescenceSignals
-                        Model Luminescence Signals
-read_SEQ2R              Parse a Risoe SEQ-file to a sequence neccessary
-                        for simulating quartz luminescence
