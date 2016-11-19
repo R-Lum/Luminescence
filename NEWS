@@ -101,7 +101,11 @@ Changes in version 0.7.0 ( ,2016):
              • add new argument ‘mode’ to select the calculation mode
                of the function.  This allows in particular to only fit
                data without calculating a De or calculating a De
-               assuming an additive dose reponse curve.
+               assuming an additive dose reponse curve,
+
+             • account for the very specifc case that all dose points
+               are similar. The function stops with an error and
+               returns NULL.
 
          • ‘plot_RadialPlot()’
 

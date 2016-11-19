@@ -128,7 +128,9 @@
            \item Reduce number of confusing warning,
            \item add new argument \code{mode} to select the calculation mode of the function.
            This allows in particular to only fit data without calculating a De or calculating
-           a De assuming an additive dose reponse curve.
+           a De assuming an additive dose reponse curve,
+           \item account for the very specifc case that all dose points are similar. The function
+           stops with an error and returns NULL.
 
         }
 

@@ -141,7 +141,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.0
+#' @section Function version: 1.9.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -222,6 +222,13 @@ plot_GrowthCurve <- function(
   if(any(is.infinite(unlist(sample)))){
     warning("[plot_GrowthCurve()] the input data contain at least one Inf value. NULL returned!")
     return(NULL)
+  }
+
+  ##2.2 check whether the dose value is equal all the time
+  if(sum(diff(sample$Dose)) == 0){
+    try(stop("[plot_GrowthCurve()] all points have the same dose. NULL returned!", call. = FALSE))
+    return(NULL)
+
   }
 
   ## optionally, count and exclude NA values and print result
