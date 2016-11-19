@@ -111,8 +111,8 @@ Changes in version 0.7.0 ( ,2016):
              • argument ‘negatives’ caused an error if not set to
                ‘'remove'’ and fix some errors around this option,
 
-             • argument ‘negatives’ renamed to ‘negatives.rm’ and
-               changed to type ‘logical’.
+             • De-adjustment for negative values optimised for large
+               scatter.
 
          • ‘plot_RLum.Data.Spectrum()’
 

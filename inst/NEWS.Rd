@@ -140,8 +140,7 @@
            was provided; fixed,
            \item argument \code{negatives} caused an error if not set to \code{'remove'} and fix
            some errors around this option,
-           \item argument \code{negatives} renamed to \code{negatives.rm} and changed to type
-           \code{logical}.
+           \item De-adjustment for negative values optimised for large scatter.
 
         }
 

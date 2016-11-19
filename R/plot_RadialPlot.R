@@ -327,12 +327,21 @@ plot_RadialPlot <- function(
       De.add <- abs(extraArgs$zlim[1])
     } else {
     
+      ## estimate delta De to add to all data
       De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
+      
+      ## optionally readjust delta De for extreme values
+      if(De.add <= abs(min(De.global))) {
+        
+        De.add <- De.add * 10
+      }
     }
   } else {
     De.add <- 0
   }
 
+  print(De.add)
+  print(De.global)
   ## optionally add correction dose to data set and adjust error
   if(log.z == TRUE) {
     
