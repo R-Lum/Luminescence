@@ -220,13 +220,13 @@ plot_GrowthCurve <- function(
 
   ##2.1 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
-    warning("[plot_GrowthCurve()] the input data contain at least one Inf value. NULL returned!")
+    warning("[plot_GrowthCurve()] The input data contain at least one Inf value. NULL returned!")
     return(NULL)
   }
 
   ##2.2 check whether the dose value is equal all the time
-  if(sum(diff(sample$Dose)) == 0){
-    try(stop("[plot_GrowthCurve()] all points have the same dose. NULL returned!", call. = FALSE))
+  if(sum(abs(diff(sample[[1]]))) == 0){
+    try(stop("[plot_GrowthCurve()] All points have the same dose. NULL returned!", call. = FALSE))
     return(NULL)
 
   }
