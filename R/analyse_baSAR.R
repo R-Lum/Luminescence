@@ -286,7 +286,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.25
+#' @section Function version: 0.1.26
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1250,7 +1250,7 @@ analyse_baSAR <- function(
     if (is(XLS_file, "character")) {
       ##test for valid file
       if(!file.exists(XLS_file)){
-        stop("[analyse_baSAR()] Defined XLS_file does not exists!")
+        stop("[analyse_baSAR()] XLS_file does not exist!")
 
       }
 
@@ -1263,6 +1263,14 @@ analyse_baSAR <- function(
         skip = additional_arguments$skip
       ), stringsAsFactors = FALSE)
 
+      ###check whether data format is somehow odd, check only the first three columns
+      if(!all(grepl(colnames(datalu), pattern = " ")[1:3])){
+        stop("[analyse_baSAR()] One of the first three columns in your XLS_file has no column header. Your XLS_file requires
+             at least three columns for 'BIN_file', 'DISC' and 'GRAIN'",
+             call. = FALSE)
+
+      }
+
       ##get rid of empty rows if the BIN_FILE name column is empty
       datalu <- datalu[!is.na(datalu[[1]]), ]
 
@@ -1271,7 +1279,7 @@ analyse_baSAR <- function(
 
       datalu <- XLS_file
 
-      ##problem: the first column should be of type charcter, the others are
+      ##problem: the first column should be of type character, the others are
       ##of type numeric, unfortunately it is too risky to rely on the user, we do the
       ##proper conversion by ourself ...
       datalu[[1]] <- as.character(datalu[[1]])
