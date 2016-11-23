@@ -115,8 +115,6 @@
     }
   }
 
-=======
->>>>>>> origin/dev_0.7.0_JF
 
     \item \code{plot_DetPlot()}{
       \itemize{
@@ -164,7 +162,10 @@
         \itemize{
 
         \item If BIN-files are automatically imported the function skipped non BIN-files
-        without crashing if it is used in combination with the argument \code{pattern}.
+        without crashing if it is used in combination with the argument \code{pattern},
+        \item add new argument \code{irgnore.RECTYPE} to provide a solution for broken BIN-files
+        are BIN-files with non documented entries. Furthermore the general behaviour for such
+        cases had been optimised.
       }
      }
 

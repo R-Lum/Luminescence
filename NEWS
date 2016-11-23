@@ -89,8 +89,6 @@ Changes in version 0.7.0 ( ,2016):
                customisable as intended.  Thanks to Daniele Questiaux
                for reporting the bug.
 
-           ======= >>>>>>> origin/dev_0.7.0_JF
-
          • ‘plot_DetPlot()’
 
              • Correct negative y-axis, the minimum is now the real
@@ -129,7 +127,12 @@ Changes in version 0.7.0 ( ,2016):
 
              • If BIN-files are automatically imported the function
                skipped non BIN-files without crashing if it is used in
-               combination with the argument ‘pattern’.
+               combination with the argument ‘pattern’,
+
+             • add new argument ‘irgnore.RECTYPE’ to provide a solution
+               for broken BIN-files are BIN-files with non documented
+               entries. Furthermore the general behaviour for such
+               cases had been optimised.
 
          • ‘template_DRAC()’
 
