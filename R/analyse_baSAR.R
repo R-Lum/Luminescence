@@ -1726,6 +1726,7 @@ analyse_baSAR <- function(
   }   ##  END of loop on BIN files
   rm(count)
 
+>>>>>>> origin/dev_0.7.0_JF
   ##evaluate warnings from calc_OSLLxTxRatio()
   if(length(calc_OSLLxTxRatio_warning)>0){
     w_table <- table(unlist(calc_OSLLxTxRatio_warning))

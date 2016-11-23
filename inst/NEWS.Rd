@@ -115,6 +115,8 @@
     }
   }
 
+=======
+>>>>>>> origin/dev_0.7.0_JF
 
     \item \code{plot_DetPlot()}{
       \itemize{

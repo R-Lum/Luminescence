@@ -9,6 +9,7 @@ README\.md
 ^codecov\.yml$
 ^cran-comments\.md$
 RLum.CHECK_AND_BUILD.sh
+RLum.CHECK_AND_BUILD_Linux.sh
 RLum.CHECK_AND_BUILD.BAT
 RLum.BuildScripts
 RLum.BuildResults
@@ -18,3 +19,4 @@ RLum.Images
 revdep
 ^packrat/
 packrat
+RLum.Images
