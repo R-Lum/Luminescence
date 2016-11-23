@@ -1666,8 +1666,8 @@ analyse_baSAR <- function(
 
       TnTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]])
 
-      ##create needed data.frame
-      selected_sample <- data.frame (sample_dose, sample_LxTx, sample_sLxTx, TnTx)
+      ##create needed data.frame (this way to make sure that rows are doubled if something is missing)
+      selected_sample <- as.data.frame(cbind(sample_dose, sample_LxTx, sample_sLxTx, TnTx))
 
       ##call plot_GrowthCurve() to get De and De value
       fitcurve <-
@@ -1686,6 +1686,7 @@ analyse_baSAR <- function(
           verbose = verbose,
           main = paste0("ALQ: ", count," | POS: ", Disc[[k]][i], " | GRAIN: ", Grain[[k]][i])
         ))
+
 
         ##get data.frame with De values
         if(!is.null(fitcurve)){
