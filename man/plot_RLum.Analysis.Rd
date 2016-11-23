@@ -75,7 +75,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.\cr
 }
 \section{Function version}{
- 0.3.6 (2016-10-18 10:23:26)
+ 0.3.6 (2016-11-23 09:41:27)
 }
 \examples{
 
@@ -98,12 +98,7 @@ abline = list(v = c(110))
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
-}
-
+\cr R Luminescence Package Team}
 \references{
 #
 }

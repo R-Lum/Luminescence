@@ -89,7 +89,7 @@ within a SAR cycle are removed as well. Therefore it is strongly recommended to 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.2.0 (2016-11-10 17:19:50)
+ 0.2.0 (2016-11-23 09:49:28)
 }
 \examples{
 
@@ -123,12 +123,7 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
-}
-
+\cr R Luminescence Package Team}
 \references{
 -
 }

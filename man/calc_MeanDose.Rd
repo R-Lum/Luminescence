@@ -46,7 +46,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.1 (2016-11-10 17:19:50)
+ 0.1.1 (2016-11-23 09:40:54)
 }
 \examples{
 
@@ -70,12 +70,7 @@ Claire Christophe, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 Anne Philippe, Universite de Nantes, (France),
 Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2016). calc_MeanDose(): Calculate the Mean Dose and their extrinisc dispersion. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
-}
-
+\cr R Luminescence Package Team}
 \references{
 TODO: Add Guerin et al., 2016 once it has been published
 

@@ -20,7 +20,7 @@ model_LuminescenceSignals <-
            simulate_sample_history = FALSE,
            plot = TRUE,
            verbose = TRUE,
-           show_structure = FALSE,
+           show.structure = FALSE,
            ...) {
     
     if (!requireNamespace("RLumModel", quietly = TRUE))
@@ -35,7 +35,7 @@ model_LuminescenceSignals <-
       simulate_sample_history = simulate_sample_history ,
       plot = plot,
       verbose = verbose,
-      show_structure = show_structure,
+      show.structure = show.structure,
       ...
     )
   }

@@ -86,7 +86,7 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.1 (2016-10-18 10:21:27)
+ 0.1.1 (2016-10-04 13:27:10)
 }
 \examples{
 
@@ -96,12 +96,7 @@ procedure as for the g-value is applied (see above).
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S., Burow, C. (2016). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
-}
-
+\cr R Luminescence Package Team}
 \references{
 Auclair, M., Lamothe, M., Huot, S., 2003. Measurement of anomalous fading for feldpsar IRSL using
 SAR. Radiation Measurements 37, 487-492. doi:10.1016/S1350-4487(03)00018-0

@@ -89,6 +89,8 @@ Changes in version 0.7.0 ( ,2016):
                customisable as intended.  Thanks to Daniele Questiaux
                for reporting the bug.
 
+           ======= >>>>>>> origin/dev_0.7.0_JF
+
          • ‘plot_DetPlot()’
 
              • Correct negative y-axis, the minimum is now the real

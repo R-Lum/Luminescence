@@ -38,7 +38,7 @@ automatically removed from the input \code{list}.
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1.2 (2016-05-02 09:36:06)
+ 0.1.2 (2016-10-02 12:46:50)
 }
 \examples{
 
@@ -62,12 +62,7 @@ temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2016). merge_RLum(): General merge function for RLum S4 class objects. Function version 0.1.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
-}
-
+\cr R Luminescence Package Team}
 \references{
 #
 }
