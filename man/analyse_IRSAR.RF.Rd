@@ -139,7 +139,8 @@ allows to work with the original data without the need of any physical
 model. This approach was introduced for RF curves by Buylaert et al., 2012
 and Lapp et al., 2012.
 
-Here the sliding is done by searching for the minimum of the squared residuals.\cr
+Here the sliding is done by searching for the minimum of the squared residuals.
+For the mathematical details of the implementation see Frouin et al., 2016 \cr
 
 \bold{\code{method.control}}\cr
 
@@ -244,7 +245,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.11 (2016-10-02 12:47:23)
+ 0.6.11 (2016-11-24 15:40:22)
 }
 \examples{
 
@@ -274,7 +275,12 @@ results <- analyse_IRSAR.RF(
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2016). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.6.11. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
@@ -295,6 +301,10 @@ Erfurt, G., Krbetschek, M.R., Bortolot, V.J., Preusser, F., 2003. A fully
 automated multi-spectral radioluminescence reading system for geochronometry
 and dosimetry. Nuclear Instruments and Methods in Physics Research Section
 B: Beam Interactions with Materials and Atoms 207, 487-499.
+
+Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2016.
+An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
+Quaternary Geochronology 1-32. doi:10.1016/j.quageo.2016.11.004
 
 Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 luminescence measurement facilities in retrospective dosimetry. Radiation

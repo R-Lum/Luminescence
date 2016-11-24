@@ -167,5 +167,9 @@ Changes in version 0.7.0 ( ,2016):
            to every major function manual page,
 
          • add 'magrittr' to the package dependencies (imports) to
-           further support the usage of this amazing pipe operator.
+           further support the usage of this amazing pipe operator,
+
+         • thanks to Johannes Friedrich this release introduces regular
+           unit tests using the package 'testthat' to improve the code
+           quality and stability.
 

@@ -209,7 +209,10 @@
       \item a hint on how to cite a function is now added automatically to every major function manual page,
 
       \item add 'magrittr' to the package dependencies (imports) to further support the usage of this amazing
-      pipe operator.
+      pipe operator,
+
+      \item thanks to Johannes Friedrich this release introduces regular unit tests using
+      the package 'testthat' to improve the code quality and stability.
 
     }
 
