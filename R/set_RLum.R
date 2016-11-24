@@ -65,8 +65,15 @@ setGeneric("set_RLum", function (class, originator, .uid = .create_UID(), .pid =
   class(class) <- as.character(class)
 
   if(missing(originator)) {
-    if (is(sys.call(which = -1)[[1]], "name")) {
+    if (is(sys.call(which = -1)[[1]], "language")) {
       originator <- as.character(sys.call(which = -1)[[1]])
+
+      ##account for calls using the double colons, in this case the vector is
+      ##of length 3, not only 1
+      if(length(originator) == 3){
+        originator <- originator[3]
+      }
+
     } else{
       originator <- NA_character_
     }

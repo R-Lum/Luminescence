@@ -51,6 +51,11 @@ Changes in version 0.7.0 ( ,2016):
          • ‘plot_RLum’ was not passing the argument ‘sub’, as it was
            fetched by the partial argument matching; fixed.
 
+         • ‘set_RLum’ produced ‘NA’ as orignator, if the function
+           calling the function ‘set_RLum()’ was called from outside of
+           the package using the double colons (e.g.,
+           ‘Luminescence::function()’); fixed.
+
   Bugfixes and changes:
 
          • ‘analyse_SAR.CWOSL()’

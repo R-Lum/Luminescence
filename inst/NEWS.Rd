@@ -59,6 +59,10 @@
       \item \code{plot_RLum} was not passing the argument \code{sub}, as it was fetched by the partial
       argument matching; fixed.
 
+      \item \code{set_RLum} produced \code{NA} as orignator, if the function calling the function
+      \code{set_RLum()} was called from outside of the package using the double colons
+      (e.g., \code{Luminescence::function()}); fixed.
+
 
       }
 
