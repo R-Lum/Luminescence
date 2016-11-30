@@ -159,7 +159,8 @@
 #' providing a file connection. Mixing of both types is not allowed. If an \code{\linkS4class{RLum.Results}}
 #' is provided the function directly starts with the Bayesian Analysis (see details)
 #'
-#' @param XLS_file \code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements)
+#' @param XLS_file \code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements).
+#' Alternatively a \code{data.frame} of similar structure can be provided.
 #'
 #' @param aliquot_range \code{\link{numeric}} (optional): allows to limit the range of the aliquots
 #' used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used or
@@ -286,7 +287,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.26
+#' @section Function version: 0.1.27
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -1278,6 +1279,12 @@ analyse_baSAR <- function(
 
       datalu <- XLS_file
 
+      ##check number of number of columns in data.frame
+      if(ncol(datalu) < 3){
+        stop("[analyse_baSAR()] The data.frame provided via XLS_file should consist of at least three columns (see manual)!", call. = FALSE)
+
+      }
+
       ##problem: the first column should be of type character, the others are
       ##of type numeric, unfortunately it is too risky to rely on the user, we do the
       ##proper conversion by ourself ...
@@ -1315,9 +1322,9 @@ analyse_baSAR <- function(
             split = ".",
             fixed = TRUE
           )[[1]][1],
-          x = object.file_name)
+          x = unlist(object.file_name))
 
-          nj <-  length(Disc[[k]]) + 1
+          nj <- length(Disc[[k]]) + 1
 
           Disc[[k]][nj] <-  as.numeric(datalu[nn, 2])
           Grain[[k]][nj] <-  as.numeric(datalu[nn, 3])

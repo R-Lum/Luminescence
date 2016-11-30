@@ -74,6 +74,12 @@
 
   \itemize{
 
+   \item \code{analyse_baSARL()}{
+    \itemize{
+       \item Minor improvements and error corrections.
+    }
+  }
+
   \item \code{analyse_SAR.CWOSL()}{
     \itemize{
        \item Fix wrongly set threshold value for recuperation rate (#26).

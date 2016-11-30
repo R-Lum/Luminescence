@@ -58,6 +58,10 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
+         • ‘analyse_baSARL()’
+
+             • Minor improvements and error corrections.
+
          • ‘analyse_SAR.CWOSL()’
 
              • Fix wrongly set threshold value for recuperation rate
