@@ -1062,7 +1062,6 @@ analyse_baSAR <- function(
       ##get BIN-file name
       object.file_name[[i]] <- unique(fileBIN.list[[i]]@METADATA[["FNAME"]])
 
-
     }
 
     ##check for duplicated entries; remove them as they would cause a function crash
@@ -1180,7 +1179,7 @@ analyse_baSAR <- function(
 
     ##select aliquots giving light only, this function accepts also a list as input
     if(verbose){
-      cat("\n[analyse_baSAR()] No XLS file provided, running automatic grain selection ...")
+      cat("\n[analyse_baSAR()] No XLS-file provided, running automatic grain selection ...")
 
     }
 
@@ -1236,7 +1235,7 @@ analyse_baSAR <- function(
       Nb_aliquots <- nrow(datalu)
 
       ##write information in variables
-      Disc[[k]] <-  datalu[["POSITION"]]
+      Disc[[k]] <- datalu[["POSITION"]]
       Grain[[k]] <- datalu[["GRAIN"]]
 
       ##free memory
@@ -1587,7 +1586,7 @@ analyse_baSAR <- function(
       }
 
       if(is.null(background.integral.Tx[[k]])){
-        abline(v = range(background.integral[[k]]), lty = 2, col = "green")
+        abline(v = range(background.integral[[k]]), lty = 2, col = "red")
 
       }else{
         abline(v = range(background.integral.Tx[[k]]), lty = 2, col = "red")
