@@ -10,10 +10,10 @@
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @export
-app_RLum <- function(app, ...) {
+app_RLum <- function(app = NULL, ...) {
   
   if (!requireNamespace("RLumShiny", quietly = TRUE))
     stop("Shiny applications require the 'RLumShiny' package. To install",

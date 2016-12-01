@@ -4,7 +4,7 @@
 \alias{app_RLum}
 \title{Run Luminescence shiny apps (wrapper)}
 \usage{
-app_RLum(app, ...)
+app_RLum(app = NULL, ...)
 }
 \arguments{
 \item{app}{\code{\link{character}} (required): name of the application to start. See details for a list
@@ -18,7 +18,7 @@ Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-10-02 12:46:49)
+ 0.1.1
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
