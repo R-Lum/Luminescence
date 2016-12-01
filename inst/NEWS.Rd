@@ -125,6 +125,13 @@
     }
   }
 
+    \item \code{calc_OSLLxTxRatio()}{
+    \itemize{
+       \item Add argument \code{use_previousBG} to use the background of the Lx-curve to
+       get the net signal of the Tx-curve (request #15).
+    }
+  }
+
 
     \item \code{plot_DetPlot()}{
       \itemize{

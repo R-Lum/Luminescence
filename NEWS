@@ -98,6 +98,12 @@ Changes in version 0.7.0 ( ,2016):
                customisable as intended.  Thanks to Daniele Questiaux
                for reporting the bug.
 
+         • ‘calc_OSLLxTxRatio()’
+
+             • Add argument ‘use_previousBG’ to use the background of
+               the Lx-curve to get the net signal of the Tx-curve
+               (request #15).
+
          • ‘plot_DetPlot()’
 
              • Correct negative y-axis, the minimum is now the real

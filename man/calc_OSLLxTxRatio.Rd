@@ -7,8 +7,8 @@
 calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
   signal.integral.Tx = NULL, background.integral,
   background.integral.Tx = NULL,
-  background.count.distribution = "non-poisson", sigmab = NULL, sig0 = 0,
-  digits = NULL)
+  background.count.distribution = "non-poisson", use_previousBG = FALSE,
+  sigmab = NULL, sig0 = 0, digits = NULL)
 }
 \arguments{
 \item{Lx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
@@ -36,6 +36,10 @@ value from \code{background.integral} is used.}
 \item{background.count.distribution}{\code{\link{character}} (with default): sets
 the count distribution assumed for the error calculation. Possible arguments
 \code{poisson} or \code{non-poisson}. See details for further information}
+
+\item{use_previousBG}{\code{\link{logical}} (with default): If set to \code{TRUE} the background
+of the Lx-signal is substracted also from the Tx-signal. Please note that in this case separat
+signal integral limits for the Tx signal are not allowed and will be reset.}
 
 \item{sigmab}{\code{\link{numeric}} (optional): option to set a manual value for
 the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
@@ -128,7 +132,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.6.4 (2016-10-04 13:27:10)
+ 0.7.0 (2016-12-01 10:27:50)
 }
 \examples{
 
@@ -146,7 +150,12 @@ get_RLum(results)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2016). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Duller, G., 2007. Analyst.
 \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
