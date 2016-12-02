@@ -1,7 +1,7 @@
-#'Calculate the Mean Dose and their extrinisc dispersion
+#'Calculate the Average Dose and the dose rate dispersion
 #'
-#'This functions calculates the Mean Dose and their extrinsic dispersion and estimates
-#'the standard errors by bootstrapping based on the Mean Dose Model by Guerin et al., 2016
+#'This functions calculates the Average Dose and their extrinsic dispersion and estimates
+#'the standard errors by bootstrapping based on the Average Dose Model by Guerin et al., 2016
 #'
 #'\bold{\code{sigma_m}}\cr
 #'
@@ -25,16 +25,16 @@
 #'
 #' @param verbose \code{\link{logical}} (with default): enables/disables terminal output
 #'
-#' @param ... further arguments that can be passed to \code{\link[graphics]{hist}}. All arguments
-#' needed to be provided as \code{\link{list}},
+#' @param ... further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
+#' are returned all arguments need to be provided as \code{\link{list}},
 #' e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
 #' supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 #'
 #' Further supported arguments: \code{mtext} (\code{character}), \code{rug} (\code{TRUE/FALSE}).
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
-#' @author Claire Christophe, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
+#' @author Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
 #' Anne Philippe, Universite de Nantes, (France),
 #' Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
@@ -59,18 +59,18 @@
 #'##load example data
 #'data(ExampleData.DeValues, envir = environment())
 #'
-#'##calculate mean dose
+#'##calculate Average dose
 #'##(use only the first 56 values here)
-#'MD <- calc_MeanDose(ExampleData.DeValues$CA1[1:56,],
+#'AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,],
 #'sigma_m = 0.1)
 #'
-#'##plot De and set mean dose as central value
+#'##plot De and set Average dose as central value
 #'plot_AbanicoPlot(
 #'  data = ExampleData.DeValues$CA1[1:56,],
-#'  z.0 = MD$summary$MEAN_DOSE)
+#'  z.0 = AD$summary$Average_DOSE)
 #'
 #'@export
-calc_MeanDose <- function(
+calc_AverageDose <- function(
   data,
   sigma_m = NULL,
   Nb_BE = 500,
@@ -130,11 +130,11 @@ calc_MeanDose <- function(
     ##if no convergence was reached stop entire function; no stop as this may happen during the
     ##bootstraping procedure
     if(j == iteration_limit){
-      warning("[calc_MeanDoseModel()] .mle() no convergence reached for the given limits. NA returned!")
+      warning("[calc_AverageDoseModel()] .mle() no convergence reached for the given limits. NA returned!")
       return(c(NA,NA))
 
-    }else if(is.infinite(delta.temp) | is.infinite(delta.temp)){
-      warning("[calc_MeanDoseModel()] .mle() gaves Inf values. NA returned!")
+    }else if(is.infinite(delta.temp) | is.infinite(sigma_d.temp)){
+      warning("[calc_AverageDoseModel()] .mle() gaves Inf values. NA returned!")
       return(c(NA,NA))
 
     }else{
@@ -144,8 +144,6 @@ calc_MeanDose <- function(
 
   }
 
-
-  ##TODO: Place functions called in the code at the beginning
   .CredibleInterval <- function(a_chain, level = 0.95) {
     ## Aim : estimation of the shortest credible interval of the sample of parameter a
     # A level % credible interval is an interval that keeps N*(1-level) elements of the sample
@@ -179,7 +177,7 @@ calc_MeanDose <- function(
   # Integrity checks ----------------------------------------------------------------------------
 
   if(!is(data, "RLum.Results") & !is(data, "data.frame")){
-    stop("[calc_MeanDose()] input is neither of type 'RLum.Results' nor of type 'data.frame'!")
+    stop("[calc_AverageDose()] input is neither of type 'RLum.Results' nor of type 'data.frame'!")
 
   }else {
 
@@ -191,7 +189,7 @@ calc_MeanDose <- function(
   }
 
   if(is.null(sigma_m)){
-    stop("[calc_MeanDose()] 'sigma_m' is missing but required")
+    stop("[calc_AverageDose()] 'sigma_m' is missing but required")
 
   }
 
@@ -224,7 +222,7 @@ calc_MeanDose <- function(
 
   ##terminal output
   if (verbose) {
-    cat("\n[calc_MeanDose()]")
+    cat("\n[calc_AverageDose()]")
     cat("\n\n>> Initialisation <<")
     cat(paste("\nn:\t\t", n))
     cat(paste("\ndelta:\t\t", delta))
@@ -293,9 +291,9 @@ calc_MeanDose <- function(
     cat(paste("\n>> Results <<\n"))
     cat("----------------------------------------------------------\n")
     cat(paste(
-      "Mean dose:\t ",
+      "Average dose:\t ",
       round(delta, 4),
-      "\tse(Mean dose):\t",
+      "\tse(Average dose):\t",
       round(sedelta, 4)
     ))
     if(sigma_d == 0){
@@ -320,13 +318,13 @@ calc_MeanDose <- function(
 
   ##compile final results data frame
   results_df <- data.frame(
-    MEAN_DOSE = delta,
-    MEAN_DOSE.SE = sedelta,
+    Average_DOSE = delta,
+    Average_DOSE.SE = sedelta,
     SIGMA_D = sigma_d,
     SIGMA_D.SE = sesigma_d,
-    IC_MEAN_DOSE.LEVEL = IC_delta[1],
-    IC_MEAN_DOSE.LOWER = IC_delta[2],
-    IC_MEAN_DOSE.UPPER = IC_delta[3],
+    IC_Average_DOSE.LEVEL = IC_delta[1],
+    IC_Average_DOSE.LOWER = IC_delta[2],
+    IC_Average_DOSE.UPPER = IC_delta[3],
     IC_SIGMA_D.LEVEL = IC_sigma_d[1],
     IC_SIGMA_D.LOWER = IC_sigma_d[2],
     IC_SIGMA_D.UPPER = IC_sigma_d[3],
@@ -349,11 +347,11 @@ calc_MeanDose <- function(
       probability = list(FALSE, TRUE, TRUE),
       main = list(
         "Observed: Equivalent dose",
-        "Bootstrapping: Mean Dose",
+        "Bootstrapping: Average Dose",
         "Bootstrapping: Sigma_d"),
       xlab = list(
        "Equivalent dose [a.u.]",
-       "Mean dose [a.u.]",
+       "Average dose [a.u.]",
        "Sigma_d"),
       axes = list(TRUE, TRUE, TRUE),
       col = NULL,

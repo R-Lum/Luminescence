@@ -18,7 +18,7 @@
         A function to calculate the expected sample specific fraction of saturation
         following Kars et al. (2008) and Huntley (2006).
 
-        \item \code{calc_MeanDose()}: Function to calculate the Mean Dose and their extrinisc
+        \item \code{calc_AverageDose()}: Function to calculate the average dose and their extrinisc
         dispersion.
 
         \item \code{calc_WodaFuchs2008()}:
