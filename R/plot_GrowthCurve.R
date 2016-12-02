@@ -141,7 +141,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.1
+#' @section Function version: 1.9.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -877,7 +877,7 @@ plot_GrowthCurve <- function(
         fit.lm<-lm(data$y ~ data$x, weights = fit.weights)
 
         #calculate De
-        if(mode == "regenation"){
+        if(mode == "regenerative"){
           De <- round((sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2], digits=2)
         }else if(mode == "additive"){
           De <- round(abs((0-fit.lm$coefficients[1])/fit.lm$coefficients[2]), digits= 2)

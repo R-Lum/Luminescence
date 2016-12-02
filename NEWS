@@ -17,8 +17,8 @@ Changes in version 0.7.0 ( ,2016):
            sample specific fraction of saturation following Kars et al.
            (2008) and Huntley (2006).
 
-         • ‘calc_MeanDose()’: Function to calculate the Mean Dose and
-           their extrinisc dispersion.
+         • ‘calc_AverageDose()’: Function to calculate the average dose
+           and their extrinisc dispersion.
 
          • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
@@ -58,6 +58,10 @@ Changes in version 0.7.0 ( ,2016):
 
   Bugfixes and changes:
 
+         • ‘analyse_baSARL()’
+
+             • Minor improvements and error corrections.
+
          • ‘analyse_SAR.CWOSL()’
 
              • Fix wrongly set threshold value for recuperation rate
@@ -93,6 +97,12 @@ Changes in version 0.7.0 ( ,2016):
                `plot_RLum.Results` so that the plot was not as
                customisable as intended.  Thanks to Daniele Questiaux
                for reporting the bug.
+
+         • ‘calc_OSLLxTxRatio()’
+
+             • Add argument ‘use_previousBG’ to use the background of
+               the Lx-curve to get the net signal of the Tx-curve
+               (request #15).
 
          • ‘plot_DetPlot()’
 

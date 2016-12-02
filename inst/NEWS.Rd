@@ -18,7 +18,7 @@
         A function to calculate the expected sample specific fraction of saturation
         following Kars et al. (2008) and Huntley (2006).
 
-        \item \code{calc_MeanDose()}: Function to calculate the Mean Dose and their extrinisc
+        \item \code{calc_AverageDose()}: Function to calculate the average dose and their extrinisc
         dispersion.
 
         \item \code{calc_WodaFuchs2008()}:
@@ -74,6 +74,12 @@
 
   \itemize{
 
+   \item \code{analyse_baSARL()}{
+    \itemize{
+       \item Minor improvements and error corrections.
+    }
+  }
+
   \item \code{analyse_SAR.CWOSL()}{
     \itemize{
        \item Fix wrongly set threshold value for recuperation rate (#26).
@@ -116,6 +122,13 @@
        \item Fixed a bug where certain arguments where not passed to `plot_RLum.Results`
        so that the plot was not as customisable as intended.
        Thanks to Daniele Questiaux for reporting the bug.
+    }
+  }
+
+    \item \code{calc_OSLLxTxRatio()}{
+    \itemize{
+       \item Add argument \code{use_previousBG} to use the background of the Lx-curve to
+       get the net signal of the Tx-curve (request #15).
     }
   }
 

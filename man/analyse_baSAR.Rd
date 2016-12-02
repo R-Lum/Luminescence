@@ -22,7 +22,8 @@ provided the list can only contain either \code{Risoe.BINfileData} objects or \c
 providing a file connection. Mixing of both types is not allowed. If an \code{\linkS4class{RLum.Results}}
 is provided the function directly starts with the Bayesian Analysis (see details)}
 
-\item{XLS_file}{\code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements)}
+\item{XLS_file}{\code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements).
+Alternatively a \code{data.frame} of similar structure can be provided.}
 
 \item{aliquot_range}{\code{\link{numeric}} (optional): allows to limit the range of the aliquots
 used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used or
@@ -310,7 +311,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.26 (2016-11-23 09:53:56)
+ 0.1.27 (2016-11-30 22:15:02)
 }
 \examples{
 
@@ -363,7 +364,12 @@ Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 
 The underlying Bayesian model based on a contribution by Combes et al., 2015.
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Mercier, N., Kreutzer, S. (2016). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.27. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
