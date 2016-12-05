@@ -340,8 +340,6 @@ plot_RadialPlot <- function(
     De.add <- 0
   }
 
-  print(De.add)
-  print(De.global)
   ## optionally add correction dose to data set and adjust error
   if(log.z == TRUE) {
     
