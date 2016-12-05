@@ -76,7 +76,11 @@
 
    \item \code{analyse_baSARL()}{
     \itemize{
+       \item Due to a typo in the manual the \code{method_contral} parameter \code{variable.names} was
+       not working if correclty typed as written in the manual (in the manual: 'variables.names', but
+       correct is 'variable.names'); typo corrected fixed,
        \item Minor improvements and error corrections.
+
     }
   }
 

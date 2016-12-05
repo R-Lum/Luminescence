@@ -92,7 +92,7 @@
 #' (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
 #' \code{thin} \tab \code{\link{numeric}} \tab thinning interval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
-#' \code{variables.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
+#' \code{variable.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
 #' \code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}.
 #' Note: only variables present in the model can be monitored.
 #' }
@@ -287,7 +287,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.27
+#' @section Function version: 0.1.28
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
