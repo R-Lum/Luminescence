@@ -27,7 +27,7 @@ The error can be reduced and sample size increased for specific purpose.
 You should not use this function to improve your poor data set!
 }
 \section{Function version}{
- 0.5.0 (2016-10-02 12:46:50)
+ 0.5.0 (2015-11-29 17:27:48)
 }
 \examples{
 ## load example data set
@@ -50,7 +50,12 @@ plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Dietze, M. (2016). tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 #
 }

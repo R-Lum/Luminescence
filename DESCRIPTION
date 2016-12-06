@@ -39,7 +39,7 @@ Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
     plotting of equivalent dose distributions.
-Contact: Package Developers <developers@r-luminescence.de>
+Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
 BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
