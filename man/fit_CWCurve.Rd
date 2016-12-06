@@ -107,9 +107,9 @@ uses the \code{\link{nls}} function with the \code{port} algorithm.
 \bold{Fitting function}\cr\cr The function for the CW-OSL fitting has the
 general form: \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, +
 I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } where \eqn{0 < i < 8}\cr\cr and
-\eqn{\lambda} is the decay constant and \eqn{N0} the intial number of
+\eqn{\lambda} is the decay constant and \eqn{I0} the intial number of
 trapped electrons.\cr (for the used equation cf. Boetter-Jensen et al.,
-2003)\cr\cr \bold{Start values}\cr
+2003, Eq. 2.31)\cr\cr \bold{Start values}\cr
 
 Start values are estimated automatically by fitting a linear function to the
 logarithmized input data set. Currently, there is no option to manually
@@ -137,7 +137,7 @@ the fitting procedure has reached a global minimum rather than a local
 minimum!
 }
 \section{Function version}{
- 0.5.1 (2015-11-29 17:27:48)
+ 0.5.1 (2016-12-06 17:53:18)
 }
 \examples{
 
