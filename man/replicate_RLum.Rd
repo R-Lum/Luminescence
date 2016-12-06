@@ -19,12 +19,17 @@ Returns a \code{\link{list}} of the object to be repeated
 Function replicates RLum S4 class objects and returns a list for this objects
 }
 \section{Function version}{
- 0.1.0 (2016-10-02 12:46:50)
+ 0.1.0 (2015-11-29 17:27:48)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2016). replicate_RLum(): General replication function for RLum S4 class objects. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \seealso{
 \code{\linkS4class{RLum}},
 }

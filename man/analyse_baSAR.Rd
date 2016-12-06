@@ -242,7 +242,7 @@ are:
 (cf. \code{\link[rjags]{jags.model}})\cr
 \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
 \code{thin} \tab \code{\link{numeric}} \tab thinning interval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
-\code{variables.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
+\code{variable.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
 \code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}.
 Note: only variables present in the model can be monitored.
 }
@@ -311,7 +311,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.27 (2016-11-30 22:15:02)
+ 0.1.28 (2016-12-05 16:59:20)
 }
 \examples{
 
@@ -367,7 +367,7 @@ The underlying Bayesian model based on a contribution by Combes et al., 2015.
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S. (2016). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.27. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S. (2016). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.28. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
