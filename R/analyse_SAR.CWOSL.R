@@ -133,7 +133,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.6
+#' @section Function version: 0.7.7
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -597,12 +597,13 @@ if(is.list(object)){
 
     ##separate TL curves
     TL.Curves.ID.Lx <-
-      sapply(1:length(OSL.Curves.ID.Lx), function(x) {
+      lapply(1:length(OSL.Curves.ID.Lx), function(x) {
         TL.Curves.ID[which(TL.Curves.ID == (OSL.Curves.ID.Lx[x] - 1))]
       })
 
+
     TL.Curves.ID.Tx <-
-      sapply(1:length(OSL.Curves.ID.Tx), function(x) {
+      lapply(1:length(OSL.Curves.ID.Tx), function(x) {
         TL.Curves.ID[which(TL.Curves.ID == (OSL.Curves.ID.Tx[x] - 1))]
       })
 
@@ -992,12 +993,12 @@ if(is.list(object)){
         if (length(TL.Curves.ID.Lx[[1]] > 0)) {
           ##It is just an approximation taken from the data
           resolution.TLCurves <-  round(mean(diff(
-            round(object@records[[TL.Curves.ID.Lx[1]]]@data[,1], digits = 1)
+            round(object@records[[TL.Curves.ID.Lx[[1]]]]@data[,1], digits = 1)
           )), digits = 1)
 
           ylim.range <-
             sapply(seq(1,length(TL.Curves.ID.Lx),by = 1) ,function(x) {
-              range(object@records[[TL.Curves.ID.Lx[x]]]@data[,2])
+              range(object@records[[TL.Curves.ID.Lx[[x]]]]@data[,2])
 
             })
 
@@ -1006,8 +1007,8 @@ if(is.list(object)){
             xlab = "T [\u00B0C]",
             ylab = paste("TL [cts/",resolution.TLCurves," \u00B0C]",sep =
                            ""),
-            xlim = c(object@records[[TL.Curves.ID.Lx[1]]]@data[1,1],
-                     max(object@records[[TL.Curves.ID.Lx[1]]]@data[,1])),
+            xlim = c(object@records[[TL.Curves.ID.Lx[[1]]]]@data[1,1],
+                     max(object@records[[TL.Curves.ID.Lx[[1]]]]@data[,1])),
             ylim = c(1,max(ylim.range)),
             main = main,
             log = if (log == "y" | log == "xy") {
@@ -1026,7 +1027,7 @@ if(is.list(object)){
 
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Lx) ,function(x) {
-            lines(object@records[[TL.Curves.ID.Lx[x]]]@data,col = col[x])
+            lines(object@records[[TL.Curves.ID.Lx[[x]]]]@data,col = col[x])
 
           })
 
@@ -1134,12 +1135,12 @@ if(is.list(object)){
         if (length(TL.Curves.ID.Tx[[1]] > 0)) {
           ##It is just an approximation taken from the data
           resolution.TLCurves <-  round(mean(diff(
-            round(object@records[[TL.Curves.ID.Tx[1]]]@data[,1], digits = 1)
+            round(object@records[[TL.Curves.ID.Tx[[1]]]]@data[,1], digits = 1)
           )), digits = 1)
 
 
           ylim.range <- sapply(1:length(TL.Curves.ID.Tx) ,function(x) {
-            range(object@records[[TL.Curves.ID.Tx[x]]]@data[,2])
+            range(object@records[[TL.Curves.ID.Tx[[x]]]]@data[,2])
 
           })
 
@@ -1149,8 +1150,8 @@ if(is.list(object)){
             NA,NA,
             xlab = "T [\u00B0C]",
             ylab = paste("TL [cts/",resolution.TLCurves," \u00B0C]",sep = ""),
-            xlim = c(object@records[[TL.Curves.ID.Tx[1]]]@data[1,1],
-                     max(object@records[[TL.Curves.ID.Tx[1]]]@data[,1])),
+            xlim = c(object@records[[TL.Curves.ID.Tx[[1]]]]@data[1,1],
+                     max(object@records[[TL.Curves.ID.Tx[[1]]]]@data[,1])),
             ylim = c(1,max(ylim.range)),
             main = main,
             log = if (log == "y" | log == "xy") {
@@ -1169,7 +1170,7 @@ if(is.list(object)){
 
           ##plot TL curves
           sapply(1:length(TL.Curves.ID.Tx) ,function(x) {
-            lines(object@records[[TL.Curves.ID.Tx[x]]]@data,col = col[x])
+            lines(object@records[[TL.Curves.ID.Tx[[x]]]]@data,col = col[x])
 
           })
 
@@ -1679,7 +1680,6 @@ if(is.list(object)){
     }
 
 
-
     # Return --------------------------------------------------------------------------------------
     invisible(temp.results.final)
 
@@ -1693,3 +1693,5 @@ if(is.list(object)){
   }
 
 }
+
+
