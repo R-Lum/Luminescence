@@ -145,7 +145,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.7 (2016-12-08 17:27:57)
+ 0.7.9 (2016-12-09 20:41:56)
 }
 \examples{
 
@@ -187,7 +187,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2016). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.7.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2016). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.7.9. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -133,7 +133,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.7
+#' @section Function version: 0.7.9
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -416,6 +416,20 @@ if(is.list(object)){
 
     ##modify list on the request
     if(!is.null(rejection.criteria)){
+
+      ##check if the provided values are valid at all
+      if(!all(names(rejection.criteria)%in%names(rejection.criteria.default))){
+        try(stop(
+          paste0("[analyse_SAR.CWOSL()] Rejection criteria '",
+                paste(
+                  names(
+                    rejection.criteria)[
+                      !names(rejection.criteria)%in%names(rejection.criteria.default)], collapse = ", ")
+                       ,"' unknown! Input ignored!"), call. = FALSE))
+
+      }
+
+      ##modify list
       rejection.criteria <- modifyList(rejection.criteria.default, rejection.criteria)
 
     }else{
@@ -845,7 +859,7 @@ if(is.list(object)){
         })
 
     }else{
-      temp.status.RecyclingRatio <- "OK"
+      temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
 
     }
 

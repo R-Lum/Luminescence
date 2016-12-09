@@ -86,7 +86,11 @@
 
   \item \code{analyse_SAR.CWOSL()}{
     \itemize{
-       \item Fix wrongly set threshold value for recuperation rate (#26).
+       \item Fix wrongly set threshold value for recuperation rate (#26),
+       \item fix a rare bug for the combination 'recyling.ratio = NA' and more than
+       one provided recyling point,
+       \item a check has been implemented to refrain from using wrong rejection criteria
+       keywords.
     }
   }
 

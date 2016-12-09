@@ -71,7 +71,13 @@ Changes in version 0.7.0 ( ,2016):
          • ‘analyse_SAR.CWOSL()’
 
              • Fix wrongly set threshold value for recuperation rate
-               (#26).
+               (#26),
+
+             • fix a rare bug for the combination 'recyling.ratio = NA'
+               and more than one provided recyling point,
+
+             • a check has been implemented to refrain from using wrong
+               rejection criteria keywords.
 
          • ‘calc_AliquotSize()’
 
