@@ -47,7 +47,7 @@
 #' and Lapp et al., 2012.
 #'
 #' Here the sliding is done by searching for the minimum of the squared residuals.
-#' For the mathematical details of the implementation see Frouin et al., 2016 \cr
+#' For the mathematical details of the implementation see Frouin et al., 2017 \cr
 #'
 #' \bold{\code{method.control}}\cr
 #'
@@ -263,9 +263,9 @@
 #' and dosimetry. Nuclear Instruments and Methods in Physics Research Section
 #' B: Beam Interactions with Materials and Atoms 207, 487-499.
 #'
-#' Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2016.
+#' Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2017.
 #' An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
-#' Quaternary Geochronology 1-32. doi:10.1016/j.quageo.2016.11.004
+#' Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004
 #'
 #' Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 #' luminescence measurement facilities in retrospective dosimetry. Radiation
