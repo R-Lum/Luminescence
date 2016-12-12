@@ -15,9 +15,9 @@
 #' \code{(data[,1])} and De error \code{(values[,2])}
 #'
 #' @param sigma_m \code{\link{numeric}} (\bold{required}): the overdispersion resulting from a dose recovery
-#' experiment, i.e. when all grains have  eceived the same dose. Indeed in such a case, any
+#' experiment, i.e. when all grains have  received the same dose. Indeed in such a case, any
 #' overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
-#' unreconised measurement uncertainty.
+#' unrecognised measurement uncertainty.
 #'
 #' @param Nb_BE \code{\link{integer}} (with default): sample size used for the bootstrapping
 #'
