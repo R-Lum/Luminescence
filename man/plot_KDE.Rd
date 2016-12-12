@@ -16,7 +16,7 @@ data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
 dataset2)}).}
 
 \item{na.rm}{\code{\link{logical}} (with default): exclude NA values
-from the data set prior to any further operations.}
+from the data set prior to any further operation.}
 
 \item{values.cumulative}{\code{\link{logical}} (with default): show
 cumulative individual data.}
@@ -102,7 +102,7 @@ The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.5.3 (2016-10-18 10:21:27)
+ 3.5.3 (2016-12-12 16:32:58)
 }
 \examples{
 

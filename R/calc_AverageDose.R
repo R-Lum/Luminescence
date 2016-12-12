@@ -21,6 +21,9 @@
 #'
 #' @param Nb_BE \code{\link{integer}} (with default): sample size used for the bootstrapping
 #'
+#' @param na.rm \code{\link{logical}} (with default): exclude NA values
+#' from the data set prior to any further operation.
+#'
 #' @param plot \code{\link{logical}} (with default): enables/disables plot output
 #'
 #' @param verbose \code{\link{logical}} (with default): enables/disables terminal output
@@ -32,7 +35,7 @@
 #'
 #' Further supported arguments: \code{mtext} (\code{character}), \code{rug} (\code{TRUE/FALSE}).
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
 #' Anne Philippe, Universite de Nantes, (France),
@@ -74,6 +77,7 @@ calc_AverageDose <- function(
   data,
   sigma_m = NULL,
   Nb_BE = 500,
+  na.rm = TRUE,
   plot = TRUE,
   verbose = TRUE,
   ...
@@ -199,10 +203,37 @@ calc_AverageDose <- function(
   ##  >> to avoid changing the entire code, the data will shape to a format that
   ##  >> fits to the code
 
-    ##data becomes to dat
+    ##check for number of columns
+    if(ncol(data)<2){
+      try(stop("[calc_AverageDose()] data set contains < 2 columns! NULL returned!", call. = FALSE))
+      return(NULL)
+
+    }
+
+    ##used only the first two colums
+    if(ncol(data)>2){
+      data <- data[,1:2]
+      warning("[calc_AverageDose()] number of columns in data set > 2. Only the first two columns were used.", call. = FALSE)
+    }
+
+    ##exclude NA values
+    if(any(is.na(data))){
+      data <- na.exclude(data)
+      warning("[calc_AverageDose()] NA values in data set detected. Rows with NA values removed!", call. = FALSE)
+
+    }
+
+    ##check data set
+    if(nrow(data) == 0){
+      try(stop("[calc_AverageDose()] data set contains 0 rows! NULL returned!", call. = FALSE))
+      return(NULL)
+
+    }
+
+    ##data becomes to dat (thus, make the code compatible with the code by Claire and Anne)
     dat <- data
 
-    ##preset column names
+    ##preset column names, as the code refers to it
     colnames(dat) <- c("cd", "se")
 
 
@@ -293,7 +324,7 @@ calc_AverageDose <- function(
     cat(paste(
       "Average dose:\t ",
       round(delta, 4),
-      "\tse(Average dose):\t",
+      "\tse(Aver. dose):\t",
       round(sedelta, 4)
     ))
     if(sigma_d == 0){

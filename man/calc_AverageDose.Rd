@@ -4,8 +4,8 @@
 \alias{calc_AverageDose}
 \title{Calculate the Average Dose and the dose rate dispersion}
 \usage{
-calc_AverageDose(data, sigma_m = NULL, Nb_BE = 500, plot = TRUE,
-  verbose = TRUE, ...)
+calc_AverageDose(data, sigma_m = NULL, Nb_BE = 500, na.rm = TRUE,
+  plot = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
@@ -13,11 +13,14 @@ calc_AverageDose(data, sigma_m = NULL, Nb_BE = 500, plot = TRUE,
 \code{(data[,1])} and De error \code{(values[,2])}}
 
 \item{sigma_m}{\code{\link{numeric}} (\bold{required}): the overdispersion resulting from a dose recovery
-experiment, i.e. when all grains have  eceived the same dose. Indeed in such a case, any
+experiment, i.e. when all grains have  received the same dose. Indeed in such a case, any
 overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
-unreconised measurement uncertainty.}
+unrecognised measurement uncertainty.}
 
 \item{Nb_BE}{\code{\link{integer}} (with default): sample size used for the bootstrapping}
+
+\item{na.rm}{\code{\link{logical}} (with default): exclude NA values
+from the data set prior to any further operation.}
 
 \item{plot}{\code{\link{logical}} (with default): enables/disables plot output}
 
@@ -46,7 +49,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.2 (2016-12-02 17:48:25)
+ 0.1.3 (2016-12-12 16:44:17)
 }
 \examples{
 
@@ -73,7 +76,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2016). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2016). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -45,7 +45,7 @@
 #' dataset2)}).
 #'
 #' @param na.rm \code{\link{logical}} (with default): exclude NA values
-#' from the data set prior to any further operations.
+#' from the data set prior to any further operation.
 #'
 #' @param values.cumulative \code{\link{logical}} (with default): show
 #' cumulative individual data.
