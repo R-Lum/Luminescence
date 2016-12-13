@@ -133,6 +133,7 @@ Collate:
     'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
     'convert_BIN2CSV.R'
+    'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
     'fit_LMCurve.R'
