@@ -25,14 +25,19 @@
         Function to obtain the equivalent dose using
         the approach proposed by Woda and Fuchs, 2008.
 
+        \item \code{convert_BIN2R()}: wrapper function around the functions \code{read_BIN2R()} and
+        \code{write_RLum2CSV()} to convert BIN-file data to CSV-files; so far possible.
+
         \item \code{PSL2Risoe.BINfileData()}:
         Converts an \code{RLum.Analysis} object produced by the function
         \code{read_PSL2R()} to an \code{Risoe.BINfileData} object.
 
-
         \item \code{read_PSL2R()}:
         Imports PSL files produced by a SUERC portable OSL reader into R.
 
+        \item \code{write_RLum2CSV()}:
+        Exports \code{RLum}-objects to CSV-files to improve the compatibility to other software.
+        Supported are only numerical values, i.e., \code{data.frame}, \code{matrix} and \code{numeric}.
 
     }
   }

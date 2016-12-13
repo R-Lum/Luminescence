@@ -132,6 +132,7 @@ Collate:
     'calc_ThermalLifetime.R'
     'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
+    'convert_BIN2CSV.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
     'fit_LMCurve.R'
@@ -176,5 +177,6 @@ Collate:
     'use_DRAC.R'
     'verify_SingleGrainData.R'
     'write_R2BIN.R'
+    'write_RLum2CSV.R'
     'zzz.R'
 RoxygenNote: 5.0.1
