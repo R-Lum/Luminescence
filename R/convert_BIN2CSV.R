@@ -47,13 +47,13 @@ convert_BIN2CSV <- function(
 
   ##file is missing?
   if(missing(file)){
-    stop("[write_RLum2CSV()] file is missing!", call. = FALSE)
+    stop("[convert_BIN2CSV()] file is missing!", call. = FALSE)
 
   }
 
 
   ##set input arguments
-  convert_BIN2R_settings.default <- list(
+  convert_BIN2CSV_settings.default <- list(
     path = if(!is(file, "Risoe.BINfileData")){dirname(file)}else{NULL},
     show.raw.values = FALSE,
     position = NULL,
@@ -65,29 +65,30 @@ convert_BIN2CSV <- function(
     forced.VersionNumber = NULL,
     ignore.RECTYPE = FALSE,
     pattern = NULL,
-    verbose = TRUE
+    verbose = TRUE,
+    export = TRUE
 
   )
 
   ##modify list on demand
-  convert_BIN2R_settings <- modifyList(x = convert_BIN2R_settings.default, val = list(...))
+  convert_BIN2CSV_settings <- modifyList(x = convert_BIN2CSV_settings.default, val = list(...))
 
   # Import file ---------------------------------------------------------------------------------
   if(!is(file, "Risoe.BINfileData")){
     object <- read_BIN2R(
       file = file,
-      show.raw.values = convert_BIN2R_settings$show.raw.values,
-      position = convert_BIN2R_settings$position,
-      n.records =  convert_BIN2R_settings$n.records,
-      zero_data.rm = convert_BIN2R_settings$zero_data.rm,
-      duplicated.rm = convert_BIN2R_settings$duplicated.rm,
+      show.raw.values = convert_BIN2CSV_settings$show.raw.values,
+      position = convert_BIN2CSV_settings$position,
+      n.records =  convert_BIN2CSV_settings$n.records,
+      zero_data.rm = convert_BIN2CSV_settings$zero_data.rm,
+      duplicated.rm = convert_BIN2CSV_settings$duplicated.rm,
       fastForward = TRUE,
-      show.record.number = convert_BIN2R_settings$show.record.number,
-      txtProgressBar = convert_BIN2R_settings$txtProgressBar,
-      forced.VersionNumber = convert_BIN2R_settings$forced.VersionNumber,
-      ignore.RECTYPE = convert_BIN2R_settings$ignore.RECTYPE,
-      pattern = convert_BIN2R_settings$pattern,
-      verbose = convert_BIN2R_settings$verbose
+      show.record.number = convert_BIN2CSV_settings$show.record.number,
+      txtProgressBar = convert_BIN2CSV_settings$txtProgressBar,
+      forced.VersionNumber = convert_BIN2CSV_settings$forced.VersionNumber,
+      ignore.RECTYPE = convert_BIN2CSV_settings$ignore.RECTYPE,
+      pattern = convert_BIN2CSV_settings$pattern,
+      verbose = convert_BIN2CSV_settings$verbose
    )
 
   }else{
@@ -97,18 +98,17 @@ convert_BIN2CSV <- function(
   }
 
   # Export to CSV -------------------------------------------------------------------------------
+
+  ##get all arguments we want to pass and remove the doubled one
+  arguments <- c(list(object = object, export = convert_BIN2CSV_settings$export), list(...))
+  arguments[duplicated(names(arguments))] <- NULL
+
   ##this if-condition prevents NULL in the terminal
-  if(list(...)$export == TRUE){
-    invisible(write_RLum2CSV(
-      object = object,
-      ...
-    ))
+  if(convert_BIN2CSV_settings$export == TRUE){
+    invisible(do.call("write_RLum2CSV", arguments))
 
   }else{
-    write_RLum2CSV(
-      object = object,
-      ...
-    )
+    do.call("write_RLum2CSV", arguments)
 
   }
 

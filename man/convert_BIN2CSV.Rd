@@ -22,7 +22,7 @@ If nothing is set for the argument \code{path} (\code{\link{write_RLum2CSV}}) th
 become the output folder.
 }
 \section{Function version}{
- 0.1.0 (2016-12-13 21:43:47)
+ 0.1.0 (2016-12-13 22:53:29)
 }
 \examples{
 
