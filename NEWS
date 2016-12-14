@@ -27,6 +27,10 @@ Changes in version 0.7.0 ( ,2016):
            ‘read_BIN2R()’ and ‘write_RLum2CSV()’ to convert BIN-file
            data to CSV-files; so far possible.
 
+         • ‘convert_XSYG2R()’: wrapper function around the functions
+           ‘read_XSYG2R()’ and ‘write_RLum2CSV()’ to convert XSYG-file
+           data to CSV-files; so far possible.
+
          • ‘PSL2Risoe.BINfileData()’: Converts an ‘RLum.Analysis’
            object produced by the function ‘read_PSL2R()’ to an
            ‘Risoe.BINfileData’ object.
