@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R
+#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R
 NULL
 
 #' Class \code{"RLum.Analysis"}
@@ -771,3 +771,37 @@ setMethod("names_RLum",
               object@records[[x]]@recordType})
 
           })
+
+
+####################################################################################################
+###smooth_RLum()
+####################################################################################################
+#' @describeIn RLum.Analysis
+#'
+#' Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
+#' \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+#' In particular the internal function \code{.smoothing} is used.
+#'
+#' @param ... further arguments passed to underlying methods
+#'
+#' @return
+#'
+#' \bold{\code{smooth_RLum}}\cr
+#'
+#' Same object as input, after smoothing
+#'
+#' @export
+setMethod(
+  f = "smooth_RLum",
+  signature = "RLum.Analysis",
+  function(object, ...) {
+
+        object@records <- lapply(object@records, function(x){
+          smooth_RLum(x, ...)
+
+        })
+
+    return(object)
+
+  }
+)

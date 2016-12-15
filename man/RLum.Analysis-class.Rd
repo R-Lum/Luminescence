@@ -8,6 +8,7 @@
 \alias{names_RLum,RLum.Analysis-method}
 \alias{set_RLum,RLum.Analysis-method}
 \alias{show,RLum.Analysis-method}
+\alias{smooth_RLum,RLum.Analysis-method}
 \alias{structure_RLum,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
 \usage{
@@ -26,6 +27,8 @@
 \S4method{length_RLum}{RLum.Analysis}(object)
 
 \S4method{names_RLum}{RLum.Analysis}(object)
+
+\S4method{smooth_RLum}{RLum.Analysis}(object, ...)
 }
 \arguments{
 \item{object}{\code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]}\code{[length_RLum]}
@@ -88,6 +91,8 @@ other arguments, meaning they are not considered when subsetting the object.}
 \item{fullExtent}{[structure_RLum] \code{\link{logical}} (with default): extents the returned \code{data.frame}
 to its full extent, i.e. all info elements are part of the return as well. The default valule
 is \code{FALSE} as the data frame might become rather big.}
+
+\item{...}{further arguments passed to underlying methods}
 }
 \value{
 \bold{\code{get_RLum}}:\cr
@@ -109,6 +114,10 @@ Returns the number records in this object.
 \bold{\code{names_RLum}}\cr
 
 Returns the names of the record types (recordType) in this object.
+
+\bold{\code{smooth_RLum}}\cr
+
+Same object as input, after smoothing
 }
 \description{
 Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc.
@@ -137,6 +146,10 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item \code{length_RLum}: Returns the length of the object, i.e., number of stored records.
 
 \item \code{names_RLum}: Returns the names of the \code{\linkS4class{RLum.Data}} objects objects (same as shown with the show method)
+
+\item \code{smooth_RLum}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
+\code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+In particular the internal function \code{.smoothing} is used.
 }}
 \section{Slots}{
 
