@@ -258,7 +258,9 @@
       pipe operator,
 
       \item thanks to Johannes Friedrich this release introduces regular unit tests using
-      the package 'testthat' to improve the code quality and stability.
+      the package 'testthat' to improve the code quality and stability,
+
+      \item add internal helper function \code{.smoothing}; no Rd entry.
 
     }
 
