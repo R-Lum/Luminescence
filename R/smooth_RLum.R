@@ -47,4 +47,5 @@
 #' @export
 setGeneric("smooth_RLum", function(object, ...) {
   standardGeneric("smooth_RLum")
+
 })

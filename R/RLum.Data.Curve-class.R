@@ -249,42 +249,49 @@ setMethod(
 
       ##check for missing .uid
       if(missing(.uid)){
-        info <- data@.uid
+        .uid <- data@.uid
 
       }
 
       ##check for missing .pid
       if(missing(.pid)){
-        info <- data@.pid
+        .pid <- data@.pid
 
       }
 
-      ##set empty clas form object
+      ##check for missing originator
+      if(missing(originator)){
+        originator <- data@originator
+
+      }
+
+      ##set empty class from object
       newRLumDataCurve <- new("RLum.Data.Curve")
 
       ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataCurve@recordType = recordType
-      newRLumDataCurve@curveType = curveType
-      newRLumDataCurve@data = data@data
-      newRLumDataCurve@info = info
-      newRLumDataCurve@.uid = data@.uid
-      newRLumDataCurve@.pid = data@.pid
+      newRLumDataCurve@recordType <- recordType
+      newRLumDataCurve@curveType <- curveType
+      newRLumDataCurve@data <- data@data
+      newRLumDataCurve@info <- info
+      newRLumDataCurve@originator <- originator
+      newRLumDataCurve@.uid <- .uid
+      newRLumDataCurve@.pid <- .pid
 
       return(newRLumDataCurve)
 
     }else{
 
-      ##set empty clas form object
+      ##set empty class form object
       newRLumDataCurve <- new("RLum.Data.Curve")
 
       ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataCurve@originator = originator
-      newRLumDataCurve@recordType = recordType
-      newRLumDataCurve@curveType = curveType
-      newRLumDataCurve@data = data
-      newRLumDataCurve@info = info
-      newRLumDataCurve@.uid = .uid
-      newRLumDataCurve@.pid = .pid
+      newRLumDataCurve@originator <- originator
+      newRLumDataCurve@recordType <- recordType
+      newRLumDataCurve@curveType <- curveType
+      newRLumDataCurve@data <- data
+      newRLumDataCurve@info <- info
+      newRLumDataCurve@.uid <- .uid
+      newRLumDataCurve@.pid <- .pid
 
       return(newRLumDataCurve)
 
@@ -452,9 +459,8 @@ setMethod(f = "bin_RLum.Data",
             } else{
               warning("Argument 'bin_size' invald, nothing was done!")
 
-              ##set matrix
-              return(set_RLum(class = "RLum.Data.Curve",
-                              data = object))
+              ##just return the object
+              return(object)
 
             }
 
@@ -498,7 +504,9 @@ setMethod(
           align = align,
           method = method)
 
-        return(object)
+        ##return via set function to get a new id
+        set_RLum(class = "RLum.Data.Curve",
+                 data = object)
 
     }
  )
