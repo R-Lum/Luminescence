@@ -26,7 +26,7 @@
 #'
 #' @note Not all arguments of \code{\link{plot}} will be passed!
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -71,7 +71,7 @@ plot_RLum.Data.Curve<- function(
   }
 
   ##stop for NA values
-  if (!anyNA(object@data)) {
+  if (!all(is.na(object@data))) {
     ##set labeling unit
     lab.unit <- if (object@recordType == "OSL" |
                     object@recordType == "IRSL" |
@@ -307,8 +307,7 @@ plot_RLum.Data.Curve<- function(
     }
 
   }else{
-
-    warning("[plot_RLum.Data.Curve()] Curve contains NA-values, nothing plotted.")
+    warning("[plot_RLum.Data.Curve()] Curve contains only NA-values, nothing plotted.", call. = FALSE)
 
   }
 

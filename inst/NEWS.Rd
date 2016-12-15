@@ -189,6 +189,15 @@
 
     }
 
+   \item \code{plot_RLum.Data.Curve()}{
+        \itemize{
+           \item Function will not stop anymore if the curve contains \code{NA} values, but if
+           the curve consists of only \code{NA} values.
+
+        }
+
+    }
+
      \item \code{plot_RLum.Data.Spectrum()}{
         \itemize{
            \item The interactive plot option was broken with the last update of the

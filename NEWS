@@ -163,6 +163,12 @@ Changes in version 0.7.0 ( ,2016):
              • The usage of the argument ‘smooth’ led to a crash;
                fixed.
 
+         • ‘plot_RLum.Data.Curve()’
+
+             • Function will not stop anymore if the curve contains
+               ‘NA’ values, but if the curve consists of only ‘NA’
+               values.
+
          • ‘plot_RLum.Data.Spectrum()’
 
              • The interactive plot option was broken with the last
