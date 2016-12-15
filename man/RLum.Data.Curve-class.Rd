@@ -9,6 +9,7 @@
 \alias{names_RLum,RLum.Data.Curve-method}
 \alias{set_RLum,RLum.Data.Curve-method}
 \alias{show,RLum.Data.Curve-method}
+\alias{smooth_RLum,RLum.Data.Curve-method}
 \title{Class \code{"RLum.Data.Curve"}}
 \usage{
 \S4method{show}{RLum.Data.Curve}(object)
@@ -24,6 +25,9 @@
 \S4method{names_RLum}{RLum.Data.Curve}(object)
 
 \S4method{bin_RLum.Data}{RLum.Data.Curve}(object, bin_size = 2)
+
+\S4method{smooth_RLum}{RLum.Data.Curve}(object, k = NULL, fill = NA,
+  align = "right", method = "mean")
 }
 \arguments{
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
@@ -55,6 +59,18 @@ element}
 
 \item{bin_size}{[\code{bin_RLum}] \code{\link{integer}} (with default): set number of channels
 used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.}
+
+\item{k}{[\code{smooth_RLum}] \code{\link{integer}} (with default): window for the rolling mean; must be odd for rollmedian.
+If nothing is set k is set automatically}
+
+\item{fill}{[\code{smooth_RLum}] \code{\link{numeric}} (with default): a vector defining the left and the right hand data}
+
+\item{align}{[\code{smooth_RLum}] \code{\link{character}} (with default): specifying whether the index of the result should be
+left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
+\code{"right"}, \code{"center"} and \code{left}}
+
+\item{method}{[\code{smooth_RLum}] \code{\link{character}} (with default): defines which method should be applied for the
+smoothing: \code{"mean"} or \code{"median"}}
 }
 \value{
 \bold{\code{set_RLum}}\cr
@@ -77,6 +93,10 @@ Names of the info elements (slot \code{info})
 \bold{\code{bin_RLum.Data}}\cr
 
 Same object as input, after applying the binning.
+
+\bold{\code{smooth_RLum}}\cr
+
+Same object as input, after smoothing
 }
 \description{
 Class for representing luminescence curve data.
@@ -98,6 +118,9 @@ value time/temperature of the curve (corresponding to the stimulation length)
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
 
 \item \code{bin_RLum.Data}: Allows binning of specific objects
+
+\item \code{smooth_RLum}: Smoothing of RLum.Data.Curve objects using the function \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+In particular the internal function \code{.smoothing} is used.
 }}
 \section{Slots}{
 
@@ -126,7 +149,7 @@ namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
 }
 
 \section{Class version}{
- 0.4.1
+ 0.5.0
 }
 \examples{
 

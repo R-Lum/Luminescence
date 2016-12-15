@@ -90,6 +90,7 @@ Collate:
     'get_RLum.R'
     'RLum.Analysis-class.R'
     'RLum.Data-class.R'
+    'smooth_RLum.R'
     'bin_RLum.Data.R'
     'RLum.Data.Curve-class.R'
     'RLum.Data.Image-class.R'

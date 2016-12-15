@@ -26,7 +26,7 @@
 #'
 #' @note Not all arguments of \code{\link{plot}} will be passed!
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -228,7 +228,7 @@ plot_RLum.Data.Curve<- function(
       extraArgs$ylim
     } else
     {
-      c(min(object@data[,2]),max(object@data[,2]))
+      c(min(object@data[,2], na.rm = TRUE),max(object@data[,2], na.rm = TRUE))
     }
 
     xlim <- if ("xlim" %in% names(extraArgs)) {

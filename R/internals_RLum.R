@@ -159,7 +159,16 @@
     if(method == "median" && k %%2 !=0) k <- k + 1
 
   ##smooth data
-  zoo::rollmean(x, k = k, fill = fill, align = align)
+  if(method == "mean"){
+    zoo::rollmean(x, k = k, fill = fill, align = align)
+
+  }else if(method == "median"){
+    zoo::rollmedian(x, k = k, fill = fill, align = align)
+
+  }else{
+    stop("[Luminescence:::.smoothing()] Unvalid input for 'method'!")
+
+  }
 
 }
 

@@ -38,6 +38,9 @@ Changes in version 0.7.0 ( ,2016):
          • ‘read_PSL2R()’: Imports PSL files produced by a SUERC
            portable OSL reader into R.
 
+         • ‘smooth_RLum()’: wrapper function to call the corresponding
+           methods to smooth data based on the function ‘zoo:rollmean’.
+
          • ‘write_RLum2CSV()’: Exports ‘RLum’-objects to CSV-files to
            improve the compatibility to other software.  Supported are
            only numerical values, i.e., ‘data.frame’, ‘matrix’ and
@@ -68,6 +71,9 @@ Changes in version 0.7.0 ( ,2016):
            calling the function ‘set_RLum()’ was called from outside of
            the package using the double colons (e.g.,
            ‘Luminescence::function()’); fixed.
+
+         • ‘smooth_RLum’ add method support for ‘RLum.Data.Curve’
+           objects.
 
   Bugfixes and changes:
 
@@ -217,5 +223,7 @@ Changes in version 0.7.0 ( ,2016):
 
          • thanks to Johannes Friedrich this release introduces regular
            unit tests using the package 'testthat' to improve the code
-           quality and stability.
+           quality and stability,
+
+         • add internal helper function ‘.smoothing’; no Rd entry.
 

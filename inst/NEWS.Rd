@@ -38,6 +38,9 @@
         \item \code{read_PSL2R()}:
         Imports PSL files produced by a SUERC portable OSL reader into R.
 
+        \item \code{smooth_RLum()}: wrapper function to call the corresponding methods to smooth
+        data based on the function \code{zoo:rollmean}.
+
         \item \code{write_RLum2CSV()}:
         Exports \code{RLum}-objects to CSV-files to improve the compatibility to other software.
         Supported are only numerical values, i.e., \code{data.frame}, \code{matrix} and \code{numeric}.
@@ -70,6 +73,8 @@
       \item \code{set_RLum} produced \code{NA} as orignator, if the function calling the function
       \code{set_RLum()} was called from outside of the package using the double colons
       (e.g., \code{Luminescence::function()}); fixed.
+
+      \item \code{smooth_RLum} add method support for \code{RLum.Data.Curve} objects.
 
 
       }

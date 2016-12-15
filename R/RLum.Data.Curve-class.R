@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R
+#' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R smooth_RLum.R
 NULL
 
 #' Class \code{"RLum.Data.Curve"}
@@ -30,7 +30,7 @@ NULL
 #' @section Create objects from this Class: Objects can be created by calls of the form
 #' \code{set_RLum(class = "RLum.Data.Curve", ...)}.
 #'
-#' @section Class version: 0.4.1
+#' @section Class version: 0.5.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -164,13 +164,16 @@ setMethod("show",
 
 
             ##print information
-
             cat("\n [RLum.Data.Curve]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
             cat("\n\t measured values:", length(object@data[,1]))
             cat("\n\t .. range of x-values:", suppressWarnings(range(object@data[,1])))
-            cat("\n\t .. range of y-values:",  suppressWarnings(range(object@data[,2])))
+            cat("\n\t .. range of y-values:",
+                suppressWarnings(min(object@data[,2], na.rm = TRUE)),
+                suppressWarnings(max(object@data[,2], na.rm = TRUE)),
+                if(anyNA(object@data[,2])){"(contains NA values)"}else{""}
+               )
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
           }
@@ -456,3 +459,47 @@ setMethod(f = "bin_RLum.Data",
             }
 
           })
+
+####################################################################################################
+###smooth_RLum()
+####################################################################################################
+#' @describeIn RLum.Data.Curve
+#' Smoothing of RLum.Data.Curve objects using the function \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+#' In particular the internal function \code{.smoothing} is used.
+#'
+#' @param k [\code{smooth_RLum}] \code{\link{integer}} (with default): window for the rolling mean; must be odd for rollmedian.
+#' If nothing is set k is set automatically
+#'
+#' @param fill [\code{smooth_RLum}] \code{\link{numeric}} (with default): a vector defining the left and the right hand data
+#'
+#' @param align [\code{smooth_RLum}] \code{\link{character}} (with default): specifying whether the index of the result should be
+#' left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
+#' \code{"right"}, \code{"center"} and \code{left}
+#'
+#' @param method [\code{smooth_RLum}] \code{\link{character}} (with default): defines which method should be applied for the
+#' smoothing: \code{"mean"} or \code{"median"}
+#'
+#' @return
+#'
+#' \bold{\code{smooth_RLum}}\cr
+#'
+#' Same object as input, after smoothing
+#'
+#' @export
+setMethod(
+  f = "smooth_RLum",
+  signature = "RLum.Data.Curve",
+    function(object, k = NULL, fill = NA, align = "right", method = "mean") {
+
+        object@data[,2] <- .smoothing(
+          x = object@data[,2],
+          k = k,
+          fill = fill,
+          align = align,
+          method = method)
+
+        return(object)
+
+    }
+ )
+
