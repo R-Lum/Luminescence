@@ -158,6 +158,11 @@ Changes in version 0.7.0 ( ,2016):
              • De-adjustment for negative values optimised for large
                scatter.
 
+         • ‘plot_RLum.Analysis()’
+
+             • The usage of the argument ‘smooth’ led to a crash;
+               fixed.
+
          • ‘plot_RLum.Data.Spectrum()’
 
              • The interactive plot option was broken with the last

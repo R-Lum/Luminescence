@@ -181,6 +181,14 @@
 
       }
 
+    \item \code{plot_RLum.Analysis()}{
+        \itemize{
+           \item The usage of the argument \code{smooth} led to a crash; fixed.
+
+        }
+
+    }
+
      \item \code{plot_RLum.Data.Spectrum()}{
         \itemize{
            \item The interactive plot option was broken with the last update of the

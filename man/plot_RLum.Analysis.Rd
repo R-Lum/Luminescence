@@ -75,7 +75,7 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.\cr
 }
 \section{Function version}{
- 0.3.6 (2016-11-23 15:09:44)
+ 0.3.7 (2016-12-15 12:39:37)
 }
 \examples{
 
@@ -85,12 +85,23 @@ data(ExampleData.BINfileData, envir = environment())
 ##convert values for position 1
 temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
-##plot (combine) TL curves in one plot
+##(1) plot (combine) TL curves in one plot
 plot_RLum.Analysis(
 temp,
 subset = list(recordType = "TL"),
 combine = TRUE,
 norm = TRUE,
+abline = list(v = c(110))
+)
+
+##(2) same as example (1) but using
+## the argument smooth = TRUE
+plot_RLum.Analysis(
+temp,
+subset = list(recordType = "TL"),
+combine = TRUE,
+norm = TRUE,
+smooth = TRUE,
 abline = list(v = c(110))
 )
 
@@ -101,7 +112,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2016). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2016). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
