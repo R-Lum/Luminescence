@@ -506,6 +506,7 @@ setMethod(
 
         ##return via set function to get a new id
         set_RLum(class = "RLum.Data.Curve",
+                 originator = "smooth_RLum",
                  data = object)
 
     }
