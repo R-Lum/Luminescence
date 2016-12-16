@@ -1010,6 +1010,7 @@ analyse_IRSAR.RF<- function(
             RF_nat.slided = RF_nat.slided,
             t_n.id = t_n.id,
             I_n = I_n,
+            vslide_range = vslide_range,
             squared_residuals = temp.sum.residuals$sliding_vector
           )
         )
@@ -1895,6 +1896,8 @@ analyse_IRSAR.RF<- function(
     }
 
   }#endif::plot
+
+  # Return --------------------------------------------------------------------------------------
   ##=============================================================================#
   ## RETURN
   ##=============================================================================#
