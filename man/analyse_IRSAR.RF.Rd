@@ -46,8 +46,8 @@ values, \code{NA} and \code{NULL} (s. Details)
 
 \item{n.MC}{\code{\link{numeric}} (with default): set number of Monte
 Carlo runs for start parameter estimation (\code{method = "FIT"}) or
-error estimation (\code{method = "SLIDE"}). Note: Large values will
-significantly increase the computation time}
+error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL} to skip the
+MC runs. Note: Large values will significantly increase the computation time}
 
 \item{txtProgressBar}{\code{\link{logical}} (with default): enables \code{TRUE} or
 disables \code{FALSE} the progression bar during MC runs}
@@ -245,7 +245,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.11 (2016-12-12 14:38:18)
+ 0.6.11 (2016-12-16 11:03:04)
 }
 \examples{
 
