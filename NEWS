@@ -72,8 +72,8 @@ Changes in version 0.7.0 ( ,2016):
            the package using the double colons (e.g.,
            ‘Luminescence::function()’); fixed.
 
-         • ‘smooth_RLum’ add method support for ‘RLum.Data.Curve’
-           objects.
+         • ‘smooth_RLum’ add method support for ‘RLum.Data.Curve’,
+           ‘RLum.Analysis’ and ‘list’ of this objects implemented.
 
   Bugfixes and changes:
 

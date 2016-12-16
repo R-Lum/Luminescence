@@ -49,3 +49,25 @@ setGeneric("smooth_RLum", function(object, ...) {
   standardGeneric("smooth_RLum")
 
 })
+
+# Method for smooth_RLum method for RLum objects in a list for a list of objects  -------------------
+#' @describeIn smooth_RLum
+#' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{smooth_RLum}}
+#'
+#'
+#' @export
+setMethod("smooth_RLum",
+signature = "list",
+function(object, ...){
+
+  ##apply method in the objects and return the sampe
+  lapply(object, function(x){
+    if(inherits(x, "RLum")){
+      return(smooth_RLum(x,...))
+    }else{
+      return(x)
+    }
+
+  })
+
+})

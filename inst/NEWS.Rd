@@ -74,7 +74,8 @@
       \code{set_RLum()} was called from outside of the package using the double colons
       (e.g., \code{Luminescence::function()}); fixed.
 
-      \item \code{smooth_RLum} add method support for \code{RLum.Data.Curve} objects.
+      \item \code{smooth_RLum} add method support for \code{RLum.Data.Curve}, \code{RLum.Analysis} and
+      \code{list} of this objects implemented.
 
 
       }
