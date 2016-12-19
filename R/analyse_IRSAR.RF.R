@@ -911,6 +911,7 @@ analyse_IRSAR.RF<- function(
                         RF_nat.limited,
                         RF_reg.limited,
                         n.MC = method.control.settings$n.MC,
+                        vslide_range = method.control.settings$vslide_range,
                         numerical.only = FALSE){
 
 
@@ -926,26 +927,26 @@ analyse_IRSAR.RF<- function(
       #pre-allocate object
       temp.sum.residuals <- vector("numeric", length = t_max.id - t_max_nat.id)
 
-      ##calculate sum of squared residuals ... for the entire set depending on the vslide_range
-      vslide_range <-  method.control.settings$vslide_range
-
+      ##run this in two steps
       temp.sum.residuals <-
         .analyse_IRSARRF_SRS(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
           vslide_range = if(is.null(vslide_range)){0}else{vslide_range},
-          n_MC = if(is.null(n.MC)){0}else{n.MC}
+          n_MC = if(is.null(n.MC)){0}else{n.MC},
+          trace = FALSE
         )
+
 
       #(2) get minimum value (index and time value)
       #t_n.id <- which.min(temp.sum.residuals$sliding_vector)
-      index_min <- which(temp.sum.residuals$sliding_vector == min(temp.sum.residuals$sliding_vector), arr.ind = TRUE)
+      index_min <- which.min(temp.sum.residuals$sliding_vector)
+      t_n.id <- index_min
 
-      t_n.id <- index_min[1,1]
       if (is.null(vslide_range)) {
         I_n <- 0
       } else{
-        I_n <- vslide_range[index_min[1, 2]]
+        I_n <- vslide_range[temp.sum.residuals$vslide_index]
       }
 
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
@@ -998,7 +999,6 @@ analyse_IRSAR.RF<- function(
 
       }
 
-
       ##return values and limited if they are not needed
       if (numerical.only == FALSE) {
         return(
@@ -1010,7 +1010,7 @@ analyse_IRSAR.RF<- function(
             RF_nat.slided = RF_nat.slided,
             t_n.id = t_n.id,
             I_n = I_n,
-            vslide_range = vslide_range,
+            vslide_range = if(is.null(vslide_range)){NA}else{range(vslide_range)},
             squared_residuals = temp.sum.residuals$sliding_vector
           )
         )
@@ -1027,7 +1027,6 @@ analyse_IRSAR.RF<- function(
       RF_nat.limited = RF_nat.limited,
       RF_reg.limited = RF_reg.limited
     )
-
 
     ##write results in variables
     De <- slide$De
@@ -1080,6 +1079,7 @@ analyse_IRSAR.RF<- function(
       De.MC <- c(vapply(X = 1:n.MC,
                       FUN.VALUE = vector("numeric", length = method.control.settings$n.MC),
                       FUN = function(i){
+
 
         temp.slide.MC <- sliding(
           RF_nat = RF_nat,
