@@ -2,7 +2,8 @@
 //author: Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 //version: 0.3.1 [2016-12-18]
 //Function calculates the squared residuals for the R function analyse_IRSAR.RF()
-//including MC runs for the obtained minimum
+//including MC runs for the obtained minimum. The function allows a horizontal and
+//a vertical sliding of the curve
 //
 #include <RcppArmadillo.h>
 #include <RcppArmadilloExtensions/sample.h>
@@ -93,8 +94,6 @@ RcppExport SEXP analyse_IRSARRF_SRS(IntegerVector values_regenerated_limited,
 
 
     }
-      //the residual output is not really correct, as only one is return, but we have two runs
-      //and one is the better one ...results should be a matrix!
       //compare results and re-initialise variables
 
       if(c_leftright[0] < c_leftright[1]){
@@ -172,7 +171,7 @@ RcppExport SEXP analyse_IRSARRF_SRS(IntegerVector values_regenerated_limited,
     results_list["sliding_vector"] = results;
     results_list["sliding_vector_min_MC"] = results_vector_min_MC;
     results_list["vslide_index"] = v_index + 1;
-    results_list["vslide_minimum"] = c_leftright[0];
+    results_list["vslide_minimum"] = c_leftright[0]; //left and right should be same ... finally
 
   return results_list;
 }
