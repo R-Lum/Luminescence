@@ -59,12 +59,12 @@
 #' \tabular{lll}{
 #' ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
 #' \code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \code{\link{nls}}; shows sum of squared residuals\cr
+#' \code{trace_vslide} \tab \code{SLIDE} \tab \code{\link{logical}} argument to enable or disable the tracing of the vertical sliding\cr
 #' \code{maxiter} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
 #' \code{warnOnly} \tab \code{FIT}           \tab as in \code{\link{nls}}\cr
 #' \code{minFactor} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
-#' \code{correct_onset} \tab \code{SLIDE}      \tab The logical argument literally spoken,
-#' shifts the curves along the x-axis by the first channel, as light is expected in the first channel.
-#'  The default value is \code{TRUE}.\cr
+#' \code{correct_onset} \tab \code{SLIDE}      \tab The logical argument shifts the curves along the x-axis by the first channel,
+#' as light is expected in the first channel. The default value is \code{TRUE}.\cr
 #' \code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
 #' enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
 #' \code{show_fit} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
@@ -72,7 +72,13 @@
 #'\code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
 #' This controls the number of MC runs within the sliding (assesing the possible minimum values).
 #' The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
-#' function argument \code{n.MC} \cr
+#' function argument \code{n.MC}. \cr
+#' \code{vslide_range} \tab \code{SLDE} \tab \code{\link{logical}} or \code{\link{numeric}} or \code{\link{character}} (with default):
+#' This argument sets the boundaries for a vertical curve
+#' sliding. The argument expects a vector with an absolute minium and a maximum (e.g., \code{c(-1000,1000)}).
+#' Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
+#' reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies not vertical sliding.
+#' The default is \code{NULL}.\cr
 #' }
 #'
 #'
@@ -234,7 +240,7 @@
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#' @section Function version: 0.6.11
+#' @section Function version: 0.7.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -335,6 +341,8 @@ analyse_IRSAR.RF<- function(
   ##TODO
   ## - if a file path is given, the function should try to find out whether an XSYG-file or
   ##   a BIN-file is provided
+  ##  - add NEWS for vslide_range
+  ##  - update documentary ... if it works as expected.
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
@@ -598,6 +606,7 @@ analyse_IRSAR.RF<- function(
   }
 
 
+  # Method Control Settings ---------------------------------------------------------------------
   ##===============================================================================================#
   ## SET METHOD CONTROL PARAMETER - FOR BOTH METHODS
   ##===============================================================================================#
@@ -605,6 +614,7 @@ analyse_IRSAR.RF<- function(
   ##set supported values with default
   method.control.settings <- list(
     trace = FALSE,
+    trace_vslide = FALSE,
     maxiter = 500,
     warnOnly = FALSE,
     minFactor = 1 / 4096,
@@ -612,7 +622,7 @@ analyse_IRSAR.RF<- function(
     show_density = TRUE,
     show_fit = FALSE,
     n.MC = if(is.null(n.MC)){NULL}else{1000},
-    vslide_range = NULL ##TODO documentary entry needed ... update version number
+    vslide_range = NULL
   )
 
   ##modify list if necessary
@@ -746,7 +756,7 @@ analyse_IRSAR.RF<- function(
 
     ##produce set of start paramters
     phi.0.MC <- rep(fit.parameters.start["phi.0"], n.MC)
-    lambda.MC <- seq(0.0001, 0.001, by=(0.001-0.0001)/n.MC) ##TODO
+    lambda.MC <- seq(0.0001, 0.001, by=(0.001-0.0001)/n.MC)
     beta.MC <- rep(fit.parameters.start["beta"], n.MC)
     delta.phi.MC <- rep(fit.parameters.start["delta.phi"], n.MC)
 
@@ -899,7 +909,7 @@ analyse_IRSAR.RF<- function(
   else if(method == "SLIDE"){
 
     ##convert to matrix (in fact above the matrix data were first transfered to data.frames ... here
-    ##we correct this ... again)  ##TODO
+    ##we correct this ... again)
     RF_nat.limited <- as.matrix(RF_nat.limited)
     RF_reg.limited <- matrix(c(RF_reg.x, RF_reg.y), ncol = 2)
     RF_nat <- as.matrix(RF_nat)
@@ -912,8 +922,16 @@ analyse_IRSAR.RF<- function(
                         RF_reg.limited,
                         n.MC = method.control.settings$n.MC,
                         vslide_range = method.control.settings$vslide_range,
+                        trace = method.control.settings$trace_vslide,
                         numerical.only = FALSE){
 
+
+      ##check for odd user input
+      if(length(vslide_range) > 2){
+        vslide_range <- vslide_range[1:2]
+        warning("[anlayse_IRSAR.RF()] method.control = list(vslide_range) has more than 2 elements. Only the first two were used!", call. = FALSE)
+
+      }
 
       ##(0) set objects ... nomenclature as used in Frouin et al., please note that here the index
       ##is used instead the real time values
@@ -927,16 +945,65 @@ analyse_IRSAR.RF<- function(
       #pre-allocate object
       temp.sum.residuals <- vector("numeric", length = t_max.id - t_max_nat.id)
 
-      ##run this in two steps
+      ##initialise slide range for specific conditions, namely NULL and "auto"
+      if (is.null(vslide_range)) {
+        vslide_range <- 0
+
+      } else if (vslide_range[1] == "auto") {
+        vslide_range <- -(max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])):(max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2]))
+
+      } else{
+        vslide_range <- vslide_range[1]:vslide_range[2]
+
+      }
+
+      ##problem: the optimisation routine slightly depends on the chosen input sliding vector
+      ##and it might get trapped in a local minimum
+      ##therefore we run the algorithm by expanding the sliding vector
+      if(!is.null(vslide_range) && vslide_range != 0){
+
+        ##even numbers makes it complicated, so let's make it odd if not already the case
+        if(length(vslide_range) %% 2 == 0){
+          vslide_range <- c(vslide_range[1], vslide_range, vslide_range)
+
+        }
+
+        ##construct list of vector ranges we want to check for
+        median_vslide_range.index <- median(1:length(vslide_range))
+        vslide_range.list <- lapply(seq(1, median_vslide_range.index, length.out = 10), function(x){
+           c(median_vslide_range.index - as.integer(x), median_vslide_range.index + as.integer(x))
+        })
+
+        ##correct for out of bounds problem; it might occur
+        vslide_range.list[[10]] <- c(0, length(vslide_range))
+
+        ##TODO ... this is not really optimal, but ok for the moment, better would be
+        ##the algorithm finds sufficiently the global minium.
+        ##now run it in a loop and expand the range from the inner to the outer part
+        temp_minium <- lapply(1:10, function(x){
+          .analyse_IRSARRF_SRS(
+            values_regenerated_limited =  RF_reg.limited[,2],
+            values_natural_limited = RF_nat.limited[,2],
+            vslide_range = vslide_range[vslide_range.list[[x]][1]:vslide_range.list[[x]][2]],
+            n_MC = if(is.null(n.MC)){0}else{n.MC},
+            trace = trace)$vslide_minimum
+
+        })
+
+        ##get minimum and set it to the final range
+        vslide_range <- vslide_range[vslide_range.list[[which.min(temp_minium)]][1]:vslide_range.list[[which.min(temp_minium)]][2]]
+
+      }
+
+      ##now run the final sliding
       temp.sum.residuals <-
         .analyse_IRSARRF_SRS(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
-          vslide_range = if(is.null(vslide_range)){0}else{vslide_range},
+          vslide_range = vslide_range,
           n_MC = if(is.null(n.MC)){0}else{n.MC},
-          trace = FALSE
-        )
-
+          trace = trace
+      )
 
       #(2) get minimum value (index and time value)
       #t_n.id <- which.min(temp.sum.residuals$sliding_vector)
@@ -1087,6 +1154,7 @@ analyse_IRSAR.RF<- function(
           RF_nat.limited = slide.MC.list[[i]],
           numerical.only = TRUE
         )
+
 
         ##update progress bar
         if (txtProgressBar) {
@@ -1965,6 +2033,3 @@ analyse_IRSAR.RF<- function(
   invisible(newRLumResults.analyse_IRSAR.RF)
 
 }
-
-##TODO REMOVE
-#source('~/Desktop/Test_Option_VerticalSlide.R')

@@ -152,12 +152,12 @@ handled using the argument \code{method.control} only, e.g.,
 \tabular{lll}{
 ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
 \code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \code{\link{nls}}; shows sum of squared residuals\cr
+\code{trace_vslide} \tab \code{SLIDE} \tab \code{\link{logical}} argument to enable or disable the tracing of the vertical sliding\cr
 \code{maxiter} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
 \code{warnOnly} \tab \code{FIT}           \tab as in \code{\link{nls}}\cr
 \code{minFactor} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
-\code{correct_onset} \tab \code{SLIDE}      \tab The logical argument literally spoken,
-shifts the curves along the x-axis by the first channel, as light is expected in the first channel.
- The default value is \code{TRUE}.\cr
+\code{correct_onset} \tab \code{SLIDE}      \tab The logical argument shifts the curves along the x-axis by the first channel,
+as light is expected in the first channel. The default value is \code{TRUE}.\cr
 \code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
 \code{show_fit} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
@@ -165,7 +165,13 @@ enables or disables the plot of the fitted curve rountinly obtained during the e
 \code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
 This controls the number of MC runs within the sliding (assesing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
-function argument \code{n.MC} \cr
+function argument \code{n.MC}. \cr
+\code{vslide_range} \tab \code{SLDE} \tab \code{\link{logical}} or \code{\link{numeric}} or \code{\link{character}} (with default):
+This argument sets the boundaries for a vertical curve
+sliding. The argument expects a vector with an absolute minium and a maximum (e.g., \code{c(-1000,1000)}).
+Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
+reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies not vertical sliding.
+The default is \code{NULL}.\cr
 }
 
 \bold{Error estimation}\cr
@@ -245,7 +251,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.6.11 (2016-12-16 11:03:04)
+ 0.7.0 (2016-12-19 14:20:37)
 }
 \examples{
 
@@ -278,7 +284,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2016). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.6.11. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2016). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
