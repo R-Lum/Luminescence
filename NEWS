@@ -18,7 +18,7 @@ Changes in version 0.7.0 ( ,2016):
            (2008) and Huntley (2006).
 
          • ‘calc_AverageDose()’: Function to calculate the average dose
-           and their extrinisc dispersion.
+           and their extrinsic dispersion.
 
          • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
@@ -67,7 +67,7 @@ Changes in version 0.7.0 ( ,2016):
          • ‘plot_RLum’ was not passing the argument ‘sub’, as it was
            fetched by the partial argument matching; fixed.
 
-         • ‘set_RLum’ produced ‘NA’ as orignator, if the function
+         • ‘set_RLum’ produced ‘NA’ as originator, if the function
            calling the function ‘set_RLum()’ was called from outside of
            the package using the double colons (e.g.,
            ‘Luminescence::function()’); fixed.
@@ -80,7 +80,7 @@ Changes in version 0.7.0 ( ,2016):
          • ‘analyse_baSARL()’
 
              • Due to a typo in the manual the ‘method_contral’
-               parameter ‘variable.names’ was not working if correclty
+               parameter ‘variable.names’ was not working if correctly
                typed as written in the manual (in the manual:
                'variables.names', but correct is 'variable.names');
                typo corrected fixed,
@@ -135,6 +135,16 @@ Changes in version 0.7.0 ( ,2016):
                the Lx-curve to get the net signal of the Tx-curve
                (request #15).
 
+         • ‘calc_TLLxTxRatio()’
+
+             • A similar background signal for Lx and Tx led to zero
+               uncertainties. This was fixed by using a re-sampling
+               approach (#31). However, this approach is just a rough
+               guess and had not been properly tested. The function has
+               therefore still beta-status,
+
+             • minor internal function updates.
+
          • ‘plot_DetPlot()’
 
              • Correct negative y-axis, the minimum is now the real
@@ -147,7 +157,7 @@ Changes in version 0.7.0 ( ,2016):
              • add new argument ‘mode’ to select the calculation mode
                of the function.  This allows in particular to only fit
                data without calculating a De or calculating a De
-               assuming an additive dose reponse curve,
+               assuming an additive dose response curve,
 
              • account for the very specifc case that all dose points
                are similar. The function stops with an error and

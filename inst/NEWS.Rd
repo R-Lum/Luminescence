@@ -18,7 +18,7 @@
         A function to calculate the expected sample specific fraction of saturation
         following Kars et al. (2008) and Huntley (2006).
 
-        \item \code{calc_AverageDose()}: Function to calculate the average dose and their extrinisc
+        \item \code{calc_AverageDose()}: Function to calculate the average dose and their extrinsic
         dispersion.
 
         \item \code{calc_WodaFuchs2008()}:
@@ -70,7 +70,7 @@
       \item \code{plot_RLum} was not passing the argument \code{sub}, as it was fetched by the partial
       argument matching; fixed.
 
-      \item \code{set_RLum} produced \code{NA} as orignator, if the function calling the function
+      \item \code{set_RLum} produced \code{NA} as originator, if the function calling the function
       \code{set_RLum()} was called from outside of the package using the double colons
       (e.g., \code{Luminescence::function()}); fixed.
 
@@ -91,7 +91,7 @@
    \item \code{analyse_baSARL()}{
     \itemize{
        \item Due to a typo in the manual the \code{method_contral} parameter \code{variable.names} was
-       not working if correclty typed as written in the manual (in the manual: 'variables.names', but
+       not working if correctly typed as written in the manual (in the manual: 'variables.names', but
        correct is 'variable.names'); typo corrected fixed,
        \item Minor improvements and error corrections.
 
@@ -154,6 +154,15 @@
     }
   }
 
+    \item \code{calc_TLLxTxRatio()}{
+    \itemize{
+       \item A similar background signal for Lx and Tx led to zero uncertainties. This was
+       fixed by using a re-sampling approach (#31). However, this approach is just a rough guess
+       and had not been properly tested. The function has therefore still beta-status,
+       \item minor internal function updates.
+      }
+    }
+
 
     \item \code{plot_DetPlot()}{
       \itemize{
@@ -167,7 +176,7 @@
            \item Reduce number of confusing warning,
            \item add new argument \code{mode} to select the calculation mode of the function.
            This allows in particular to only fit data without calculating a De or calculating
-           a De assuming an additive dose reponse curve,
+           a De assuming an additive dose response curve,
            \item account for the very specifc case that all dose points are similar. The function
            stops with an error and returns NULL.
 
