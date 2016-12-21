@@ -178,7 +178,8 @@
            This allows in particular to only fit data without calculating a De or calculating
            a De assuming an additive dose response curve,
            \item account for the very specifc case that all dose points are similar. The function
-           stops with an error and returns NULL.
+           stops with an error and returns NULL,
+           \item under weird circumstances points on the growth curve were not plotted correctly; fixed.
 
         }
 

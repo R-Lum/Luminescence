@@ -161,7 +161,10 @@ Changes in version 0.7.0 ( ,2016):
 
              • account for the very specifc case that all dose points
                are similar. The function stops with an error and
-               returns NULL.
+               returns NULL,
+
+             • under weird circumstances points on the growth curve
+               were not plotted correctly; fixed.
 
          • ‘plot_RadialPlot()’
 
