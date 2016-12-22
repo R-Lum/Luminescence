@@ -172,7 +172,7 @@ PSL2Risoe.BINfileData <- function(object, ...) {
                          MARKPOS_Y4 = rep(0, length(curves)),
                          EXTR_START = rep(0, length(curves)),
                          EXTR_END = rep(0, length(curves)))
-  browser()
+
   ## CREATE Risoe.BINfileData OBJECT ----
   bin <- set_Risoe.BINfileData(METADATA = METADATA,
                                DATA = DATA, 
