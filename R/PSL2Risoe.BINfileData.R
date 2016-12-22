@@ -71,7 +71,7 @@ PSL2Risoe.BINfileData <- function(object, ...) {
       TIME <- paste0("0", TIME)
     SAMPLE <- x@info$settings$Sample
     FNAME <- x@info$settings$Filename
-    SEQUENCE <- paste(x@info$settings$Run_Name, x@info$settings$Sample_no)
+    SEQUENCE <- strtrim(paste(x@info$settings$Run_Name, x@info$settings$Sample_no), 8)
     
     
     return(data.frame(NPOINTS = NPOINTS,
