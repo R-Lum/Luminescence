@@ -157,12 +157,22 @@ PSL2Risoe.BINfileData <- function(object, ...) {
                          XRF_HV = rep(0, length(curves)),
                          XRF_CURR = rep(0, length(curves)),
                          XRF_DEADTIMEF = rep(0, length(curves)),
+                         SEQUENCE = META$SEQUENCE,
                          DETECTOR_ID = rep(NA, length(curves)),
                          LOWERFILTER_ID = rep(NA, length(curves)),
                          UPPERFILTER_ID = rep(NA, length(curves)),
                          ENOISEFACTOR = rep(NA, length(curves)),
-                         SEQUENCE = META$SEQUENCE)
-  
+                         MARKPOS_X1 = rep(0, length(curves)),
+                         MARKPOS_Y1 = rep(0, length(curves)),
+                         MARKPOS_X2 = rep(0, length(curves)),
+                         MARKPOS_Y2 = rep(0, length(curves)),
+                         MARKPOS_X3 = rep(0, length(curves)),
+                         MARKPOS_Y3 = rep(0, length(curves)),
+                         MARKPOS_X4 = rep(0, length(curves)),
+                         MARKPOS_Y4 = rep(0, length(curves)),
+                         EXTR_START = rep(0, length(curves)),
+                         EXTR_END = rep(0, length(curves)))
+  browser()
   ## CREATE Risoe.BINfileData OBJECT ----
   bin <- set_Risoe.BINfileData(METADATA = METADATA,
                                DATA = DATA, 
