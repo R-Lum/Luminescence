@@ -28,7 +28,7 @@ Margret C. Fuchs \tab Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute 
 Freiberg, Germany \cr
 Johannes Friedrich \tab University of Bayreuth, Germany \cr
 Guillaume Guerin \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
-Georgina King \tab University of Cologne, Germany \cr
+Georgina King \tab Institute of Geological Sciences,  University of Bern, Switzerland \cr
 Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
 Norbert Mercier \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
 Anne Philippe \tab  Universite de Nantes and ANJA INRIA, Rennes, France \cr
