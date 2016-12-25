@@ -141,7 +141,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.2
+#' @section Function version: 1.9.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -278,10 +278,7 @@ plot_GrowthCurve <- function(
     fit.NumberRegPoints<-length(sample[-1,1])
   }
   if(is.null(fit.NumberRegPointsReal)){
-
-    fit.RegPointsReal <- as.integer(
-      rownames(sample[-which(duplicated(sample[,1]) | sample[,1]==0),]))
-
+    fit.RegPointsReal <- which(!duplicated(sample[,1]) | sample[,1] != 0)
     fit.NumberRegPointsReal <- length(fit.RegPointsReal)
 
   }

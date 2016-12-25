@@ -12,9 +12,10 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc],
     Johannes Friedrich [aut],
     Norbert Mercier [ctb],
     Rachel K. Smedley [ctb],
+    Claire Christophe [ctb],
+    Antoine Zink [ctb],
     Julie Durcan [ctb],
     Georgina King [ctb, dtc],
-    Claire Christophe [ctb],
     Anne Philippe [ctb],
     Guillaume Guerin [ctb],
     Markus Fuchs [ths]
@@ -28,9 +29,10 @@ Authors@R: c(
     person("Johannes", "Friedrich", role = c("aut")),
     person("Norbert", "Mercier", role = c("ctb")),
     person("Rachel K.", "Smedley", role = c("ctb")),
+    person("Claire", "Christophe", role = c("ctb")),
+    person("Antoine", "Zink", rol = c("ctb")),
     person("Julie", "Durcan", role = c("ctb")),
     person("Georgina", "King", role = c("ctb", "dtc")),
-    person("Claire", "Christophe", role = c("ctb")),
     person("Anne", "Philippe", role = c("ctb")),
     person("Guillaume", "Guerin", role = c("ctb")),
     person("Markus", "Fuchs", role = c("ths")))
@@ -83,6 +85,7 @@ Collate:
     'RcppExports.R'
     'replicate_RLum.R'
     'RLum-class.R'
+    'smooth_RLum.R'
     'names_RLum.R'
     'structure_RLum.R'
     'length_RLum.R'

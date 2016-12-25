@@ -334,7 +334,7 @@ read_BIN2R <- function(
 
       }else{
         ##show error message
-        error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+        error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file seems to be not supported or the BIN-file is broken.! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
         ##close connection
         close(con)
