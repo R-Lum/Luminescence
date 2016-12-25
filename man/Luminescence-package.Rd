@@ -33,7 +33,8 @@ Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
 Norbert Mercier \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
 Anne Philippe \tab  Universite de Nantes and ANJA INRIA, Rennes, France \cr
 Christoph Schmidt \tab University of Bayreuth, Germany \cr
-Rachel K. Smedley \tab Aberystwyth University, United Kingdom
+Rachel K. Smedley \tab Aberystwyth University, United Kingdom \cr
+Antoine Zing \tab C2RMF, Palais du Louvre, Paris, France
 }
 
 \bold{Supervisor of the initial version in 2012}
