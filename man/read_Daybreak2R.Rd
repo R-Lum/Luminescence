@@ -2,15 +2,19 @@
 % Please edit documentation in R/read_Daybreak2R.R
 \name{read_Daybreak2R}
 \alias{read_Daybreak2R}
-\title{Import Daybreak ASCII dato into R}
+\title{Import measurement data produced by a Daybreak TL/OSL reader into R}
 \usage{
-read_Daybreak2R(file, verbose = TRUE, txtProgressBar = TRUE)
+read_Daybreak2R(file, raw = FALSE, verbose = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
 file to be imported. Alternatively a list of file names can be provided or just the path a folder
 containing measurement data. Please note that the specific, common, file extension (txt) is likely
 leading to function failures during import when just a path is provided.}
+
+\item{raw}{\code{\link{logical}} (with default): if the input is a DAT-file (binary) a
+\code{\link[data.table]{data.table}} instead of the \code{\linkS4class{RLum.Analysis}} object
+can be returned for debugging purposes.}
 
 \item{verbose}{\code{\link{logical}} (with default): enables or disables terminal feedback}
 
@@ -21,33 +25,42 @@ leading to function failures during import when just a path is provided.}
 A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.
 }
 \description{
-Import a *.txt (ASCII) file produced by a Daybreak reader into R.
+Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a Daybreak reader into R.
+The import of the DAT-files is limited to the file format described for the software TLAPLLIC v.3.2
+used for a Daybreak, model 1100.
 }
 \note{
-\bold{[BETA VERSION]} This function version still needs to be properly tested.
+\bold{[BETA VERSION]} This function still needs to be tested properly. In particular
+the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{
- 0.2.1 (2016-05-02 09:36:06)
+ 0.3.0 (2016-12-25 16:11:59)
 }
 \examples{
 
-## This function has no example yet.
+\dontrun{
+file <- file.choose()
+temp <- read_Daybreak2R(file)
+
+}
 
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)\cr Based on a suggestion by Willian Amidon and Andrew Louis Gorin.
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
+Anotine Zink, C2RMF, Palais du Louvre, Paris (France)\cr
+\cr The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2016). read_Daybreak2R(): Import Daybreak ASCII dato into R. Function version 0.2.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Zink, A. (2016). read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 -
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
+\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
+\code{\link[data.table]{data.table}}
 }
 \keyword{IO}
 

@@ -235,6 +235,16 @@
       }
      }
 
+     \item \code{read_Daybreak2R()}{
+        \itemize{
+
+        \item Add support for DAT-files produced by at 1100 reader using the software (TLAPLLIC v.3.2).
+        Thanks to Antoine Zink,
+        \item minor error corrections and adding example code.
+
+      }
+     }
+
 
     \item \code{template_DRAC()}{
         \itemize{
