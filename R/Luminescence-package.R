@@ -29,7 +29,7 @@
 #' Anne Philippe \tab  Universite de Nantes and ANJA INRIA, Rennes, France \cr
 #' Christoph Schmidt \tab University of Bayreuth, Germany \cr
 #' Rachel K. Smedley \tab Aberystwyth University, United Kingdom \cr
-#' Antoine Zing \tab C2RMF, Palais du Louvre, Paris, France
+#' Antoine Zink \tab C2RMF, Palais du Louvre, Paris, France
 #' }
 #'
 #' \bold{Supervisor of the initial version in 2012}

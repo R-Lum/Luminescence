@@ -305,6 +305,10 @@
 #' A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 #' Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
 #'
+#' Mercier, N., Kreutzer, S., Christophe, C., Guerin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
+#' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its implementation
+#' in the R package 'Luminescence'. Ancient TL 34, 14-21.
+#'
 #' \bold{Further reading}
 #'
 #' Gelman, A., Carlin, J.B., Stern, H.S., Dunson, D.B., Vehtari, A., Rubin, D.B., 2013.

@@ -311,7 +311,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.28 (2016-12-09 20:27:26)
+ 0.1.28 (2016-12-28 18:16:10)
 }
 \examples{
 
@@ -374,6 +374,10 @@ Mercier, N., Kreutzer, S. (2016). analyse_baSAR(): Bayesian models (baSAR) appli
 Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
+
+Mercier, N., Kreutzer, S., Christophe, C., Guerin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
+Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its implementation
+in the R package 'Luminescence'. Ancient TL 34, 14-21.
 
 \bold{Further reading}
 
