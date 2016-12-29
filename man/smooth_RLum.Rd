@@ -37,7 +37,7 @@ is based on an internal function called \code{.smoothing}.
 Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis} (with curve data) are supported!
 }
 \section{Function version}{
- 0.1.0 (2016-12-16 09:07:56)
+ 0.1.0 (2016-12-25 17:41:21)
 }
 \examples{
 

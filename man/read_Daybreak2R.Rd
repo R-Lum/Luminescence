@@ -34,7 +34,7 @@ used for a Daybreak, model 1100.
 the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{
- 0.3.0 (2016-12-25 16:11:59)
+ 0.3.0 (2016-12-25 17:41:21)
 }
 \examples{
 

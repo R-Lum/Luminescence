@@ -158,7 +158,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.9.3 (2016-12-21 13:47:01)
+ 1.9.3 (2016-12-25 17:41:21)
 }
 \examples{
 
