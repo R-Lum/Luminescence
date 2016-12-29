@@ -12,7 +12,7 @@ convert_XSYG2CSV(file, ...)
 \item{\dots}{further arguments that will be passed to the function \code{\link{read_XSYG2R}} and \code{\link{write_RLum2CSV}}}
 }
 \value{
-The function returns either a CSV-file (or many of them) or for the option \code{export == FALSE}
+The function returns either a CSV-file (or many of them) or for the option \code{export = FALSE}
 a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
 }
 \description{
@@ -22,7 +22,7 @@ If nothing is set for the argument \code{path} (\code{\link{write_RLum2CSV}}) th
 become the output folder.
 }
 \section{Function version}{
- 0.1.0 (2016-12-13 23:07:55)
+ 0.1.0 (2016-12-29 16:42:47)
 }
 \examples{
 

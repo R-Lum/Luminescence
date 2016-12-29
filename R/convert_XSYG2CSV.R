@@ -9,7 +9,7 @@
 #'
 #' @param \dots further arguments that will be passed to the function \code{\link{read_XSYG2R}} and \code{\link{write_RLum2CSV}}
 #'
-#' @return The function returns either a CSV-file (or many of them) or for the option \code{export == FALSE}
+#' @return The function returns either a CSV-file (or many of them) or for the option \code{export = FALSE}
 #' a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
 #'
 #' @section Function version: 0.1.0

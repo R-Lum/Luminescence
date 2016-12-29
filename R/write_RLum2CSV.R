@@ -36,7 +36,7 @@
 #' a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
 #'
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -148,7 +148,8 @@ write_RLum2CSV <- function(
 
       ##extract all elements ... depending on the input
       if(is(object, "RLum.Analysis")){
-        object_list <- lapply(get_RLum(object), function(x){get_RLum(x)})
+        ##tricky, we cannot use get_RLum() as the function lapply calls as.list() for an object!
+        object_list <- lapply(object, function(x){get_RLum(x)})
 
         ##change names of the list and produce the right format straight away
         names(object_list) <- paste0(1:length(object_list),"_",names(object))
