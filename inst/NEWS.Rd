@@ -26,10 +26,16 @@
         the approach proposed by Woda and Fuchs, 2008.
 
         \item \code{convert_BIN2R()}: wrapper function around the functions \code{read_BIN2R()} and
-        \code{write_RLum2CSV()} to convert BIN-file data to CSV-files; so far possible.
+        \code{write_RLum2CSV()} to convert a BIN-file to CSV-files; so far possible.
+
+         \item \code{convert_Daybreak2R()}: wrapper function around the functions \code{read_Daybreak2R()} and
+        \code{write_RLum2CSV()} to convert Daybreak measurement data (TXT-file, DATE-file) to CSV-files; so far possible.
+
+        \item \code{convert_PSL2R()}: wrapper function around the functions \code{read_PSL2R()} and
+        \code{write_RLum2CSV()} to convert a PSL-file (SUERC portable OSL reader file format) to CSV-files; so far possible.
 
         \item \code{convert_XSYG2R()}: wrapper function around the functions \code{read_XSYG2R()} and
-        \code{write_RLum2CSV()} to convert XSYG-file data to CSV-files; so far possible.
+        \code{write_RLum2CSV()} to convert XSYG-file to CSV-files; so far possible.
 
         \item \code{PSL2Risoe.BINfileData()}:
         Converts an \code{RLum.Analysis} object produced by the function
