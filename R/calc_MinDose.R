@@ -821,6 +821,7 @@ calc_MinDose <- function(
 
   newRLumResults.calc_MinDose <- set_RLum(
     class = "RLum.Results",
+    originator = "calc_MinDose",
     data = list(summary = summary,
                 data = data,
                 args = args,
