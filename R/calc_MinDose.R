@@ -477,7 +477,8 @@ calc_MinDose <- function(
     lse <- sqrt((data[ ,2]/data[ ,1])^2 + sigmab^2)
   } else {
     lcd <- data[ ,1]
-    lse <- sqrt(data[ ,2]^2 + sigmab^2)
+    lse <- sqrt(data[,2]^2 + (sigmab * data[,1])^2)
+    # lse <- sqrt(data[ ,2]^2 + sigmab^2)
   }
 
   # create new data frame with DE and combined relative error
