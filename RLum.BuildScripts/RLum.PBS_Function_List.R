@@ -208,6 +208,8 @@ write(markdown.table,
 for (i in 1:ncol(output)) {
   output[, i] <- gsub("\\n", "", paste0("<sub>", output[, i], "</sub>"))
 }
-  
+pander::panderOptions("table.split.table", Inf)
+pander::panderOptions("table.style", "rmarkdown")
+pander::set.alignment("left")  
 markdown.table <- capture.output(pander::pander(output))
 write(markdown.table, file = paste0("R/README.md"))
