@@ -16,13 +16,19 @@
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
-#' @param sigmab \code{\link{numeric}} (with default): spread in De values
-#' given as a fraction (e.g. 0.2). This value represents the expected
-#' overdispersion in the data should the sample be well-bleached (Cunningham &
-#' Walling 2012, p. 100).
+#' 
+#' @param sigmab \code{\link{numeric}} (with default): additional spread in De values.
+#' This value represents the expected overdispersion in the data should the sample be 
+#' well-bleached (Cunningham & Walling 2012, p. 100).
+#' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
+#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
+#' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
+#' 
 #' @param log \code{\link{logical}} (with default): fit the (un-)logged common
 #' age model to De data
+#' 
 #' @param \dots currently not used.
+#' 
 #' @return Returns a terminal output. In addition an
 #' \code{\linkS4class{RLum.Results}} object is returned containing the
 #' following element:
@@ -33,10 +39,13 @@
 #'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum}}
-#' @section Function version: 0.1
+#' @section Function version: 0.1.1
+#' 
 #' @author Christoph Burow, University of Cologne (Germany)
+#' 
 #' @seealso \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
 #' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+#' 
 #' @references Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 #' mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
 #' \cr\cr Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
@@ -58,6 +67,7 @@
 #' of optical dating of fluvial deposits. Quaternary Geochronology 1,
 #' 109-120.\cr\cr Rodnight, H., 2008. How many equivalent dose values are
 #' needed to obtain a reproducible distribution?. Ancient TL 26, 3-10.
+#' 
 #' @examples
 #'
 #' ## load example data
