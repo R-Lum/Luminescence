@@ -108,7 +108,7 @@ for (i in 1:length(file.list.man)) {
       relevant.authors <- do.call(rbind, sapply(author.list$surname, function(x) {
         str <- paste(temp.file.man[author.start:author.end], collapse = " ")
         str <- stri_replace_all_regex(str, ",|\\.", " ")
-        included <- grepl(paste0(x, " "), str, ignore.case = TRUE)
+        included <- grepl(paste0(" ", x, " "), str, ignore.case = TRUE)
         if (included)
           pos <- regexpr(x, str)[[1]]
         else 
