@@ -10,9 +10,13 @@ if(!require("R2HTML"))
 if(!require("xtable"))
   install.packages("xtable")
 
+if(!require("pander"))
+  install.packages("pander")
+
 library(tools)
 library(R2HTML)
 library(xtable)
+library(pander)
 
 # Clean Workspace ---------------------------------------------------------
 rm(list = ls())
@@ -186,6 +190,18 @@ write.table(output,
 
 # LaTeX Output ------------------------------------------------------------
 
+options(xtable.comment = FALSE)
 latex.table <- xtable(output)
 write(print(latex.table),
-      file =  paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions.tex"))
+      file = paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions.tex"))
+
+
+# Markdown Output ---------------------------------------------------------
+
+pander::panderOptions("table.split.table", Inf)
+pander::panderOptions("table.style", "rmarkdown")
+pander::set.alignment("left")
+markdown.table <- gsub("<br />", " - ", capture.output(pander::pander(output)))
+write(markdown.table,
+      file = paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions_Markdown.md"))
+write(markdown.table, file = paste0("R/README.md"))
