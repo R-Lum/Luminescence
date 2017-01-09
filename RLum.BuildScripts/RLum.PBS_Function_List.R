@@ -204,4 +204,10 @@ pander::set.alignment("left")
 markdown.table <- gsub("<br />", " - ", capture.output(pander::pander(output)))
 write(markdown.table,
       file = paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions_Markdown.md"))
+
+for (i in 1:ncol(output)) {
+  output[, i] <- gsub("\\n", "", paste0("<sub>", output[, i], "</sub>"))
+}
+  
+markdown.table <- capture.output(pander::pander(output))
 write(markdown.table, file = paste0("R/README.md"))
