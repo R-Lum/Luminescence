@@ -226,7 +226,7 @@ calc_Kars2008 <- function(data,
   
   ## Settings ------------------------------------------------------------------
   settings <- list(verbose = TRUE,
-                   n.MC = 100)
+                   n.MC = 1000)
   settings <- modifyList(settings, list(...))
   
   ## Define Constants ----------------------------------------------------------
@@ -297,12 +297,15 @@ calc_Kars2008 <- function(data,
   # create MC samples
   rhop_MC <- rnorm(n = settings$n.MC, mean = rhop[1], sd = rhop[2])
   
-  #
+  # 
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
-    fit_sim <- nls(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
-                   start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
-    coef <- coef(fit_sim)
-    return(coef)
+    fit_sim <- try(nls(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
+                     start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
+    if (!inherits(fit_sim, "try-error"))
+      coefs <- coef(fit_sim)
+    else
+      coefs <- c(NA, NA)
+    return(coefs)
   }, simplify = FALSE))
   
   # final fit for export
