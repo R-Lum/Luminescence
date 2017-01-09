@@ -41,7 +41,7 @@ the cumulative signal of the last n channels (same number of channels as specifi
 is divided by cumulative signal of the first n channels (\code{signal.integral}).
 }
 \section{Function version}{
- 0.0.2 (2016-10-18 10:21:27)
+ 0.0.2 (2016-09-17 15:37:14)
 }
 \examples{
 
@@ -65,7 +65,7 @@ Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Burow, C. (2016). analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \seealso{

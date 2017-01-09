@@ -70,7 +70,7 @@ follows\cr\cr
 Please see \code{\link{calc_MinDose}}.
 }
 \section{Function version}{
- 0.3.1
+ 0.3.1 (2017-01-09 12:36:33)
 }
 \examples{
 
@@ -84,7 +84,12 @@ calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2010 \cr
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Burow, C. (2017). calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young

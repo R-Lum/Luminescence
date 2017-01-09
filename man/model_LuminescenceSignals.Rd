@@ -18,15 +18,12 @@ Riso sequence editor. To simulate SAR measurements there is an extra option to s
 \item{lab.dose_rate}{\code{\link{numeric}} (with default): laboratory dose rate in XXX
 Gy/s for calculating seconds into Gray in the *.seq file.}
 
-\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, TRUE: simulations begins at crystallization (all levels 0)
-process}
+\item{simulate_sample_history}{\code{\link{logical}} (with default): FALSE (with default): simulation begins at laboratory conditions, 
+TRUE: simulations begins at crystallization (all levels 0) process}
 
 \item{plot}{\code{\link{logical}} (with default): Enables or disables plot output}
 
 \item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off}
-
-\item{show.structure}{\code{\link{logical}} (with default): Shows the structure of the result.
-Recommended to show record.id to analyse concentrations.}
 
 \item{...}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information.}
@@ -37,7 +34,7 @@ Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-11-23 15:09:44)
+ 0.1.0 (2016-11-23 11:48:33)
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr
@@ -45,7 +42,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S. (2016). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Friedrich, J., Kreutzer, S. (2017). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 

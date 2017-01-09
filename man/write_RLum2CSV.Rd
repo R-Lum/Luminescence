@@ -45,7 +45,7 @@ If the input is a \code{\link{list}} of objects all explicit function arguments 
 as \code{\link{list}}.
 }
 \section{Function version}{
- 0.1.1 (2016-12-29 17:30:28)
+ 0.1.1 (2017-01-09 12:36:02)
 }
 \examples{
 
@@ -70,7 +70,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2016). write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \seealso{

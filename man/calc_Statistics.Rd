@@ -45,7 +45,7 @@ values. See Dietze et al. (2016, Quaternary Geochronology) and the function
 \code{\link{plot_AbanicoPlot}} for details.
 }
 \section{Function version}{
- 0.1.6 (2016-05-16 22:14:31)
+ 0.1.6 (2016-06-01 11:18:58)
 }
 \examples{
 
@@ -73,7 +73,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Dietze, M. (2016). calc_Statistics(): Function to calculate statistic measures. Function version 0.1.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M. (2017). calc_Statistics(): Function to calculate statistic measures. Function version 0.1.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
