@@ -170,7 +170,7 @@ function argument \code{n.MC}. \cr
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minium and a maximum (e.g., \code{c(-1000,1000)}).
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
-reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies not vertical sliding.
+reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies no vertical sliding.
 The default is \code{NULL}.\cr
 }
 
@@ -251,7 +251,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.7.0 (2017-01-09 12:36:01)
+ 0.7.0 (2017-01-10 14:53:15)
 }
 \examples{
 

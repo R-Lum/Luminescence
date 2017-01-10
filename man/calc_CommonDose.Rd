@@ -51,7 +51,7 @@ calculated using the un-logged estimates of De and their absolute standard
 error (Galbraith & Roberts 2012, p. 14).
 }
 \section{Function version}{
- 0.1.1 (2017-01-09 12:36:33)
+ 0.1.1 (2017-01-10 14:53:04)
 }
 \examples{
 

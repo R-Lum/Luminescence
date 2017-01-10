@@ -22,7 +22,7 @@ and directly exports its content to CSV-files.  If nothing is set for the argume
 the input folder will become the output folder.
 }
 \section{Function version}{
- 0.1.0 (2017-01-09 12:36:02)
+ 0.1.0 (2016-12-29 17:41:58)
 }
 \examples{
 

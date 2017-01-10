@@ -49,7 +49,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.3 (2017-01-09 12:36:02)
+ 0.1.3 (2016-12-29 17:41:58)
 }
 \examples{
 

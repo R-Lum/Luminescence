@@ -118,7 +118,7 @@ in the derivation of (n/N) and (n/N)_SS.
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2017-01-09 12:36:33)
+ 0.1.0 (2017-01-10 14:53:04)
 }
 \examples{
 
