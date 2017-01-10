@@ -8,38 +8,38 @@ calc_Kars2008(data, rhop, ddot, readerDdot, normalise = TRUE,
   summary = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} (\bold{required}): 
+\item{data}{\code{\link{data.frame}} (\bold{required}):
 A three column data frame with numeric values on a) dose (s), b) LxTx and and
 c) LxTx error. If a two column data frame is provided it is automatically
 assumed that errors on LxTx are missing. A third column will be attached
 with an arbitrary 5 \% error on the provided LxTx values.}
 
-\item{rhop}{\code{\link{numeric}} (\bold{required}): 
-The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006), 
-given as numeric vector of length two. Note that \eqn{\rho}' must \bold{not} be 
+\item{rhop}{\code{\link{numeric}} (\bold{required}):
+The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
+given as numeric vector of length two. Note that \eqn{\rho}' must \bold{not} be
 provided as the common logarithm. Example: \code{rhop = c(2.92e-06, 4.93e-07)}.}
 
-\item{ddot}{\code{\link{numeric}} (\bold{required}): 
+\item{ddot}{\code{\link{numeric}} (\bold{required}):
 Environmental dose rate and its error, given as a numeric vector of length two.
 Expected unit: Gy/ka. Example: \code{ddot = c(3.7, 0.4)}.}
 
 \item{readerDdot}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):
-Dose rate of the irradiation source of the OSL reader and its error, 
+Dose rate of the irradiation source of the OSL reader and its error,
 given as a numeric vector of length two.
 Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.}
 
-\item{normalise}{\code{\link{logical}} (with default): 
+\item{normalise}{\code{\link{logical}} (with default):
 If \code{TRUE} (the default) all measured and computed LxTx values are
 normalised by the pre-exponential factor A (see details).}
 
-\item{summary}{\code{\link{logical}} (with default): 
+\item{summary}{\code{\link{logical}} (with default):
 If \code{TRUE} (the default) various parameters provided by the user
 and calculated by the model are added as text on the right-hand side of the
 plot.}
 
 \item{plot}{\code{\link{logical}} (with default): enables/disables plot output.}
 
-\item{...}{further arguments passed to \code{\link{plot}} and 
+\item{...}{further arguments passed to \code{\link{plot}} and
 \code{\link[Luminescence]{plot_GrowthCurve}}.}
 }
 \value{
@@ -52,10 +52,10 @@ Slot: \bold{@data}\cr
 \code{results} \tab \code{data.frame} \tab results of the of Kars et al. 2008 model \cr
 \code{data} \tab \code{data.frame} \tab original input data \cr
 \code{Ln} \tab \code{numeric} \tab Ln and its error \cr
-\code{LxTx_tables} \tab \code{list} \tab A \code{list} of \code{data.frames} 
+\code{LxTx_tables} \tab \code{list} \tab A \code{list} of \code{data.frames}
 containing data on dose, LxTx and LxTx error for each of the dose response curves.
 Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
-\code{fits} \tab \code{list} \tab A \code{list} of \code{nls} 
+\code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
  objects produced by \code{\link{nls}} when fitting the dose response curves \cr
 }
 
@@ -69,21 +69,21 @@ Slot: \bold{@info}\cr
 }
 }
 \description{
-A function to calculate the expected sample specific fraction of saturation 
+A function to calculate the expected sample specific fraction of saturation
 following Kars et al. (2008) and Huntley (2006).
 }
 \details{
-This function applies the approach described in Kars et al. (2008), 
-developed from the model of Huntley (2006) to calculate the expected sample 
-specific fraction of saturation of a feldspar and also to calculate fading 
-corrected age using this model. \eqn{\rho}' (\code{rhop}), the density of recombination 
-centres, is a crucial parameter of this model and must be determined 
-separately from a fading measurement. The function 
+This function applies the approach described in Kars et al. (2008),
+developed from the model of Huntley (2006) to calculate the expected sample
+specific fraction of saturation of a feldspar and also to calculate fading
+corrected age using this model. \eqn{\rho}' (\code{rhop}), the density of recombination
+centres, is a crucial parameter of this model and must be determined
+separately from a fading measurement. The function
 \code{\link[Luminescence]{analyse_FadingMeasurement}}
 can be used to calculate the sample specific \eqn{\rho}' value.
 
 Firstly the unfaded D0 value is determined through applying equation 5 of
-Kars et al. (2008) to the measured LxTx data as a function of irradiation 
+Kars et al. (2008) to the measured LxTx data as a function of irradiation
 time, and fitting the data with a single saturating exponential of the form:
 
 \deqn{LxTx(t*) = A x \phi(t*) x (1 - exp(-(t* / D0)))}
@@ -93,23 +93,23 @@ where
 \deqn{\phi(t*) = exp(-\rho' x ln(1.8 x s_tilde x t*)^3)}
 
 after King et al. (2016) where \code{A} is a pre-exponential factor,
-\code{t*} (s) is the irradiation time, starting at the mid-point of 
+\code{t*} (s) is the irradiation time, starting at the mid-point of
 irradiation (Auclair et al. 2003) and \code{s_tilde} (3x10^15 s^-1) is the athermal
 frequency factor after Huntley (2006). \cr
 
-Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose 
+Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose
 response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equations
 [1] and [2]. Computed LxTx values are then fitted using the
-\code{\link[Luminescence]{plot_GrowthCurve}} function and the laboratory measured LnTn can then 
-be interpolated onto this curve to determine the fading corrected 
+\code{\link[Luminescence]{plot_GrowthCurve}} function and the laboratory measured LnTn can then
+be interpolated onto this curve to determine the fading corrected
 De value, from which the fading corrected age is calculated. \cr
-  
+
 The \code{calc_Kars2008} function also calculates the level of saturation (n/N)
-and the field saturation (i.e. athermal steady state, (n/N)_SS) value for 
-the sample under investigation using the sample specific \eqn{\rho}', 
+and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
+the sample under investigation using the sample specific \eqn{\rho}',
 unfaded \code{D0} and \code{D_dot} values, following the approach of Kars et al. (2008). \cr
- 
-Uncertainties are reported at 1 sigma and are assumed to be normally 
+
+Uncertainties are reported at 1 sigma and are assumed to be normally
 distributed and are estimated using monte-carlo resamples (\code{n.MC = 1000})
 of \eqn{\rho}' and LxTx during dose response curve fitting, and of \eqn{\rho}'
 in the derivation of (n/N) and (n/N)_SS.
@@ -118,7 +118,7 @@ in the derivation of (n/N) and (n/N)_SS.
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2017-01-10 14:53:04)
+ 0.1.0 (2017-01-10 15:02:36)
 }
 \examples{
 
@@ -138,13 +138,16 @@ readerDdot <- c(0.134, 0.0067)
 
 # Analyse fading measurement and get an estimate of rho'.
 # Note that the RLum.Results object can be directly used for further processing.
-rhop <- analyse_FadingMeasurement(fading_data, plot = TRUE, verbose = FALSE)
+# The number of MC runs is reduced for this example
+rhop <- analyse_FadingMeasurement(fading_data, plot = TRUE, verbose = FALSE, n.MC = 10)
 
 ## (3) Apply the Kars et al. (2008) model to the data
-kars <- calc_Kars2008(data = data, 
-                      rhop = rhop, 
-                      ddot = ddot, 
-                      readerDdot = readerDdot)
+kars <- calc_Kars2008(data = data,
+                      rhop = rhop,
+                      ddot = ddot,
+                      readerDdot = readerDdot,
+                      n.MC = 50
+                      )
 }
 \author{
 Georgina King, University of Cologne (Germany), \cr
