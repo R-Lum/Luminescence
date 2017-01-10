@@ -2,42 +2,48 @@ install_DevelopmentVersion <- function(force_install = FALSE) {
   
   message("\n[install_DevelopmentVersion]\n")
   
-  # branches <- github_branches()
+  # check which branches are currently available
+  branches <- github_branches()
   
-  branches <- c("master", "dev_0.7.0", "dev_0.7.0_CB")
+  index <-  NULL
   
-  branch <-  NULL
-  
-  while(is.null(branch)) {
+  # let user pick which branch he wants to install
+  while(is.null(index)) {
     message(paste0("Which version do you want to install?  \n",
-                   paste0(" [", 1:length(branches), "]: ", branches, collapse = "\n")))
-    branch <- readline()
-    if (!branch %in% seq_len(length(branches)))
-      branch <- NULL
+                   paste0(" [", 1:length(branches$BRANCH), "]: ", branches$BRANCH, collapse = "\n")))
+    index <- readline()
+    if (!index %in% seq_len(length(branches$BRANCH)))
+      index <- NULL
     cat("\n")
   }
 
-  branch <- branches[as.numeric(branch)]
+  # select the correct branch
+  branch <- branches$BRANCH[as.numeric(index)]
   
   if (!force_install) {
     
     message("Please copy and run the following code in your R command-line:\n")
     if (!requireNamespace("devtools", quietly = TRUE))
       message("install.packages('devtools')")
-    message(paste0("devtools::install_github('r-lum/luminescence@", branch,"')"))
+    message(branches$INSTALL[as.numeric(index)])
     
   } else {
     
+    # check if 'devtools' is available and install if not
     if (!requireNamespace("devtools", quietly = TRUE))
       install.packages("devtools")
     
+    # detach the 'Luminescence' package
     try(detach(name = "package:Luminescence", unload = TRUE, force = TRUE), 
         silent = TRUE)
     
+    # try to unload the dynamic library
     dynLibs <- sapply(.dynLibs(), function(x) x[[2]] )
     try(dyn.unload(dynLibs[grep("Luminescence", dynLibs)]), silent = TRUE)
 
+    # install the development version
     devtools::install_github(paste0("r-lum/luminescence@", branch))
+    
   }
   
 }
