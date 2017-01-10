@@ -16,7 +16,7 @@ matrix:
     r: devel
     env: CACHE_NAME=JOB1
   - os: osx
-    r: devel
+    r: release
     before_install:
       - rm '/usr/local/bin/gfortran'
       - sudo chown -R travis /usr/local
