@@ -77,7 +77,7 @@
 #' This argument sets the boundaries for a vertical curve
 #' sliding. The argument expects a vector with an absolute minium and a maximum (e.g., \code{c(-1000,1000)}).
 #' Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
-#' reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies not vertical sliding.
+#' reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies no vertical sliding.
 #' The default is \code{NULL}.\cr
 #' }
 #'

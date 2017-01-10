@@ -170,7 +170,7 @@ function argument \code{n.MC}. \cr
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minium and a maximum (e.g., \code{c(-1000,1000)}).
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
-reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies not vertical sliding.
+reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies no vertical sliding.
 The default is \code{NULL}.\cr
 }
 
@@ -251,7 +251,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.7.0 (2016-12-25 17:41:21)
+ 0.7.0 (2017-01-10 11:44:14)
 }
 \examples{
 
@@ -284,7 +284,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2016). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2016). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
