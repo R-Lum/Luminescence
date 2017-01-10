@@ -3,13 +3,14 @@ install_DevelopmentVersion <- function(force_install = FALSE) {
   message("\n[install_DevelopmentVersion]\n")
   
   # check which branches are currently available
+  # see ?github_branches for GitHub API implementation
   branches <- github_branches()
   
   index <-  NULL
   
   # let user pick which branch he wants to install
   while(is.null(index)) {
-    message(paste0("Which version do you want to install? \n",
+    message(paste0("Which development branch do you want to install? \n",
                    paste0(" [", 1:length(branches$BRANCH), "]: ", branches$BRANCH, collapse = "\n")))
     message("\n [0]: <Exit>")
     
@@ -28,12 +29,32 @@ install_DevelopmentVersion <- function(force_install = FALSE) {
   
   if (!force_install) {
     
+    message("----\n",
+            "Are all prerequisites installed? Make sure to have read\n", 
+            "https://github.com/R-Lum/Luminescence/blob/master/README.md\n",
+            "----\n")
+    
     message("Please copy and run the following code in your R command-line:\n")
     if (!requireNamespace("devtools", quietly = TRUE))
       message("install.packages('devtools')")
-    message(branches$INSTALL[as.numeric(index)])
+    
+    message(branches$INSTALL[as.numeric(index)], "\n")
     
   } else {
+    
+    reply <- NULL
+    while(is.null(reply)) {
+      message("Are all prerequisites installed?",
+              " (https://github.com/R-Lum/Luminescence/blob/master/README.md)\n",
+              " [n/N]: No\n",
+              " [y/Y]: Yes\n")
+      reply <- readline()
+      
+      if (reply == "n" || reply == "N")
+        return(NULL)
+      if (reply != "y" && reply != "Y")
+        reply <- NULL
+    }
     
     # check if 'devtools' is available and install if not
     if (!requireNamespace("devtools", quietly = TRUE))
