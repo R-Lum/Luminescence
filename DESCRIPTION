@@ -145,6 +145,8 @@ Collate:
     'get_Layout.R'
     'get_Quote.R'
     'get_rightAnswer.R'
+    'github.R'
+    'install_DevelopmentVersion.R'
     'internal_as.latex.table.R'
     'internals_RLum.R'
     'merge_RLum.Analysis.R'
