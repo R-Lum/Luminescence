@@ -57,15 +57,18 @@ install_DevelopmentVersion <- function(force_install = FALSE) {
     }
     
     # check if 'devtools' is available and install if not
-    if (!requireNamespace("devtools", quietly = TRUE))
-      install.packages("devtools")
-    
+    if (!requireNamespace("devtools", quietly = TRUE)) {
+      message("Please install the 'devtools' package first by running the following command:\n",
+              "install.packages('devtools')")
+      return(NULL)
+    }
+
     # detach the 'Luminescence' package
     try(detach(name = "package:Luminescence", unload = TRUE, force = TRUE), 
         silent = TRUE)
     
     # try to unload the dynamic library
-    dynLibs <- sapply(.dynLibs(), function(x) x[[2]] )
+    dynLibs <- sapply(.dynLibs(), function(x) x[["path"]] )
     try(dyn.unload(dynLibs[grep("Luminescence", dynLibs)]), silent = TRUE)
 
     # install the development version
