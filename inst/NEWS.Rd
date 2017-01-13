@@ -152,6 +152,14 @@
        Thanks to Daniele Questiaux for reporting the bug.
     }
   }
+  
+  \item \code{calc_MaxDose()}{
+    \itemize{
+       \item Fixed a bug in the console output, which provided wrong values for the
+       asymmetric error on gamma (Note that the values in the output object
+       were correct!). Thankfully reported by Xue Rui.
+    }
+  }
 
     \item \code{calc_OSLLxTxRatio()}{
     \itemize{

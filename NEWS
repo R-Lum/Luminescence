@@ -139,6 +139,13 @@ Changes in version 0.7.0 ( ,2016):
                customisable as intended.  Thanks to Daniele Questiaux
                for reporting the bug.
 
+         • ‘calc_MaxDose()’
+
+             • Fixed a bug in the console output, which provided wrong
+               values for the asymmetric error on gamma (Note that the
+               values in the output object were correct!). Thankfully
+               reported by Xue Rui.
+
          • ‘calc_OSLLxTxRatio()’
 
              • Add argument ‘use_previousBG’ to use the background of
