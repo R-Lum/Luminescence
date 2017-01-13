@@ -843,8 +843,8 @@ calc_MinDose <- function(
 
       cat("\n------ De (asymmetric error) -----\n")
       print(round(data.frame(De=pal,
-                             "lower"=ifelse(log, ifelse(!invert, exp(conf["gamma",1]), exp((conf["gamma",2]-x.offset)*-1)), conf["gamma",1]),
-                             "upper"=ifelse(log, ifelse(!invert, exp(conf["gamma",2]), exp((conf["gamma",1]-x.offset)*-1)), conf["gamma",2]),
+                             "lower"=ifelse(log, exp(conf["gamma",1]), conf["gamma",1]),
+                             "upper"=ifelse(log, exp(conf["gamma",2]), conf["gamma",2]),
                              row.names=""), 2))
 
       cat("\n------ De (symmetric error) -----\n")
@@ -861,6 +861,9 @@ calc_MinDose <- function(
   ## RETURN VALUES
   ##============================================================================##
 
+  if (invert)
+    prof@profile$gamma$par.vals[ ,"gamma"] <- rev((prof@profile$gamma$par.vals[ ,"gamma"] - x.offset)*-1)
+  
   if (!bootstrap)
     pairs <- poly.three <- poly.four <- poly.five <- poly.six <- loess <- NULL
 
