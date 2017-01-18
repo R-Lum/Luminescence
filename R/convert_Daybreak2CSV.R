@@ -52,7 +52,8 @@ convert_Daybreak2CSV <- function(
   convert_Daybreak2R_settings.default <- list(
     raw = FALSE,
     verbose = TRUE,
-    txtProgressBar = TRUE
+    txtProgressBar = TRUE,
+    export = TRUE
   )
 
   ##modify list on demand

@@ -54,7 +54,8 @@ convert_PSL2CSV <- function(
     drop_bg = FALSE,
     as_decay_curve = TRUE,
     smooth = FALSE,
-    merge = FALSE
+    merge = FALSE,
+    export = TRUE
   )
 
   ##modify list on demand
