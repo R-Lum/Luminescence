@@ -41,6 +41,14 @@ Changes in version 0.7.0 ( ,2016):
            ‘read_XSYG2R()’ and ‘write_RLum2CSV()’ to convert XSYG-file
            to CSV-files; so far possible.
 
+         • ‘github_branches(), github_commits(), github_issues()’: R
+           Interface to the GitHub API v3. These functions can be used
+           to query a specific repository hosted on GitHub.
+
+         • ‘install_DevelopmentVersion()’: This function is a
+           convenient method for installing the development version of
+           the R package 'Luminescence' directly from GitHub.
+
          • ‘PSL2Risoe.BINfileData()’: Converts an ‘RLum.Analysis’
            object produced by the function ‘read_PSL2R()’ to an
            ‘Risoe.BINfileData’ object.

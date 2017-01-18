@@ -36,6 +36,13 @@
 
         \item \code{convert_XSYG2R()}: wrapper function around the functions \code{read_XSYG2R()} and
         \code{write_RLum2CSV()} to convert XSYG-file to CSV-files; so far possible.
+        
+        \item \code{github_branches(), github_commits(), github_issues()}:
+        R Interface to the GitHub API v3. These functions can be used to query a specific repository hosted on GitHub.
+        
+        \item \code{install_DevelopmentVersion()}:
+        This function is a convenient method for installing the development version of the R package
+        'Luminescence' directly from GitHub.
 
         \item \code{PSL2Risoe.BINfileData()}:
         Converts an \code{RLum.Analysis} object produced by the function
