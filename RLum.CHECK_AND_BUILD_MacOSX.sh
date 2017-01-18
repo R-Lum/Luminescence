@@ -80,15 +80,6 @@ echo ""
 
 
 #
-# COMPILE FUNCTION PARAMTER LIST
-# =================================================================================================
-
-  echo -ne "-> Compile function argument list ...\t\t"
-  eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Function_Arguments.R /dev/null
-  check_status
-
-
-#
 # NEWS
 # =================================================================================================
 
@@ -161,6 +152,14 @@ echo ""
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Function_List.R /dev/null
   check_status
 
+#
+# COMPILE FUNCTION PARAMETER LIST
+# =================================================================================================
+
+  echo -ne "-> Compile function argument list ...\t\t"
+  eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Function_Arguments.R /dev/null
+  check_status
+  
   echo -ne "-> Moving packge source files (*.tar.gz) ... \t"
   mv Luminescence_*.tar.gz RLum.BuildResults/ &>/dev/null
   check_status

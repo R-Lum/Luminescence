@@ -10,9 +10,13 @@ if(!require("R2HTML"))
 if(!require("xtable"))
   install.packages("xtable")
 
+if(!require("pander"))
+  install.packages("pander")
+
 library(tools)
 library(R2HTML)
 library(xtable)
+library(pander)
 
 # Clean Workspace ---------------------------------------------------------
 rm(list = ls())
@@ -42,7 +46,8 @@ for(i in 1:length(file.list.man)) {
   if("\\author" %in% tags){
 
     tag.author <- gsub("\n","<br />",paste(unlist(Rd[[which(tags == "\\author")]]), collapse= " "))
-
+    tag.author <- trimws(sub("<br />", "", tag.author))
+    
   }else{
 
     tag.author <- NA
@@ -79,9 +84,20 @@ for(i in 1:length(file.list.man)) {
   ##DESCRIPTION
   if("\\description" %in% tags){
 
-    tag.description <- gsub("\n","<br />",paste(unlist(Rd[[which(tags == "\\description")]]),
-                                                collapse= " "))
+    tag.description <- trimws(gsub("\n","",paste(unlist(Rd[[which(tags == "\\description")]]),
+                                                collapse= " ")))
 
+  }
+  
+  ##VERSION
+  if(length(grep("How to cite", unlist(Rd)))>0){
+    
+    tag.citation <- unlist(Rd)[grep("How to cite", unlist(Rd))+2]
+    
+  } else {
+    
+    tag.citation <- NA
+    
   }
 
 
@@ -93,7 +109,8 @@ for(i in 1:length(file.list.man)) {
                          Version=tag.version,
                          m.Date = tag.mdate,
                          m.Time = tag.mtime,
-                         Author = tag.author)
+                         Author = tag.author,
+                         Citation = tag.citation)
 
   }else{
 
@@ -103,7 +120,8 @@ for(i in 1:length(file.list.man)) {
                               Version=tag.version,
                               m.Date = tag.mdate,
                               m.Time = tag.mtime,
-                              Author = tag.author)
+                              Author = tag.author,
+                              Citation = tag.citation)
 
     output <- rbind(output,temp.output)
 
@@ -172,6 +190,26 @@ write.table(output,
 
 # LaTeX Output ------------------------------------------------------------
 
+options(xtable.comment = FALSE)
 latex.table <- xtable(output)
 write(print(latex.table),
-      file =  paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions.tex"))
+      file = paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions.tex"))
+
+
+# Markdown Output ---------------------------------------------------------
+
+pander::panderOptions("table.split.table", Inf)
+pander::panderOptions("table.style", "rmarkdown")
+pander::set.alignment("left")
+markdown.table <- gsub("<br />", " - ", capture.output(pander::pander(output)))
+write(markdown.table,
+      file = paste0("RLum.BuildResults/Luminescence_",temp.version,"-Functions_Markdown.md"))
+
+for (i in 1:ncol(output)) {
+  output[, i] <- gsub("\\n", "", paste0("<sub>", output[, i], "</sub>"))
+}
+pander::panderOptions("table.split.table", Inf)
+pander::panderOptions("table.style", "rmarkdown")
+pander::set.alignment("left")  
+markdown.table <- capture.output(pander::pander(output))
+write(markdown.table, file = paste0("R/README.md"))
