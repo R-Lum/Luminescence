@@ -1,6 +1,6 @@
 //analyse_IRSARRF_SRS.cpp
 //author: Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-//version: 0.3.1 [2016-12-18]
+//version: 0.3.2 [2017-01-18]
 //Function calculates the squared residuals for the R function analyse_IRSAR.RF()
 //including MC runs for the obtained minimum. The function allows a horizontal and
 //a vertical sliding of the curve
@@ -163,12 +163,14 @@ RcppExport SEXP analyse_IRSARRF_SRS(IntegerVector values_regenerated_limited,
 
   //build list with four elements
   //sliding_vector: the original results_vector (this can be used to reproduced the results in R)
+  //sliding_vector_min_index: the index of the minimum, it is later also calculated in R, however, sometimes we may need it directly
   //sliding_vector_min_MC: minimum values based on bootstrapping
   //vslide_index: this is the index where the minium was identified for the vertical sliding
-  //vslide_minium: return the identified minium value, this helps so re-run the function, as the
-  //algorithm might be trapped in the local minima
+  //vslide_minium: return the identified minium value, this helps to re-run the function, as the
+  //algorithm might got trapped in the local minimum
   List results_list;
     results_list["sliding_vector"] = results;
+    results_list["sliding_vector_min_index"] = which_min(results) + 1;
     results_list["sliding_vector_min_MC"] = results_vector_min_MC;
     results_list["vslide_index"] = v_index + 1;
     results_list["vslide_minimum"] = c_leftright[0]; //left and right should be same ... finally
