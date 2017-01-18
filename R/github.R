@@ -73,7 +73,7 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
     stop("Branch ", branch, " does not exist.", call. = FALSE)
   
   # build URL and retrieve content
-  sha <- branches$SHA[grep(branch, branches$BRANCH)]
+  sha <- branches$SHA[grep(paste0("^", branch, "$"), branches$BRANCH)]
   url <- paste0("https://api.github.com/repos/", user, "/", repo, "/commits?",
                 "per_page=", n, "&sha=", sha)
   content <- github_getContent(url)
