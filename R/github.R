@@ -134,7 +134,7 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #' @rdname GitHub-API
 #' 
 #' @details 
-#' \code{github_issues} lists all open issues for a repository.
+#' \code{github_issues} lists all open issues for a repository in valid YAML.
 #' 
 #' @return 
 #' \code{github_commits}: Nested \code{\link{list}} with \code{n} elements.
@@ -167,23 +167,34 @@ github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE)
       UPDATED = x$updated_at,
       CREATOR = x$user$login,
       URL = x$url,
-      STATUS = x$state)
+      STATUS = x$state,
+      MILESTONE = x$milestone$title)
   })
   
   # custom printing of the the issues-list as print.list produces unreadable
   # console output
   if (verbose) {
     tmp <- lapply(issues, function(x) {
-      cat(paste("Issue #", x$NUMBER, "-", x$TITLE, "\n"))
-      cat(paste(paste(rep("-", 103), collapse = ""), "\n"))
+      
+      # limit width of description text
+      DESCRIPTION <- ""
       for (i in seq_len(ceiling(nchar(x$BODY) / 100))) 
-        cat(paste("|", substr(x$BODY, i*100-99, i*100), "\n"))
-      cat("-\n")
-      cat(paste("| URL:", paste0("https://github.com/", user, "/", repo,"/issues/31"), "\n"))
-      cat(paste("| Created by:", x$CREATOR, paste0("(", x$CREATED, ")"), "\n"))
-      cat(paste("| Last update:", x$UPDATED, "\n"))
-      cat(paste("| Status:", toupper(x$STATUS)))
-      cat("\n\n\n")
+        DESCRIPTION <- paste(DESCRIPTION, "  ", 
+                             substr(x$BODY, i*100-99, i*100), "\n")
+      
+      # print to console in valid YAML
+      cat(paste0("---\n",
+                 'title: "', x$TITLE, '"', "\n",
+                 "number: ", x$NUMBER, "\n",
+                 'url: "', x$URL, '"', "\n",
+                 "created: ", x$CREATED, "\n",
+                 "updated: ", x$UPDATED, "\n",
+                 "creator: ", x$CREATOR, "\n",
+                 "status: ", x$STATUS, "\n",
+                 'milestone: "', x$MILESTONE, '"', "\n",
+                 "description: >\n", DESCRIPTION, 
+                 "\n\n\n"))
+      
     })
   }
   # return invisible as we explicitly print the output
