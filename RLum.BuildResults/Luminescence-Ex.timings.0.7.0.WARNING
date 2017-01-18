@@ -1,2 +1,4 @@
-calc_Kars2008 >> 3.024
-calc_MinDose >> 3.778
+ExampleData.Fading >> 3.41
+analyse_IRSAR.RF >> 3.31
+calc_MinDose >> 5.06
+plot_AbanicoPlot >> 3.1

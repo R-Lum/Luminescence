@@ -10,7 +10,7 @@
 #' 
 #' R Interface to the GitHub API v3.
 #' 
-#' These functions can used to query a specific repository hosted on GitHub. \cr
+#' These functions can be used to query a specific repository hosted on GitHub. \cr
 #' 
 #' 
 #' @param user \code{\link{character}}: 

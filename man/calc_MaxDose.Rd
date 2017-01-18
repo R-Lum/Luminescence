@@ -70,7 +70,7 @@ follows\cr\cr
 Please see \code{\link{calc_MinDose}}.
 }
 \section{Function version}{
- 0.3.1 (2017-01-10 14:53:04)
+ 0.3.1 (2017-01-10 15:37:21)
 }
 \examples{
 

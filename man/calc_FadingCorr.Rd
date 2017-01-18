@@ -126,7 +126,7 @@ tc value (the one used for estimating the g-value) using the argument \code{tc.g
 Special thanks to Sebastien Huot for his support and clarification via e-mail.
 }
 \section{Function version}{
- 0.4.2 (2016-12-29 17:41:52)
+ 0.4.2 (2016-11-23 11:48:33)
 }
 \examples{
 

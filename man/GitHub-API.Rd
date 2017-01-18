@@ -63,7 +63,7 @@ Each commit element is a list with elements:
 R Interface to the GitHub API v3.
 }
 \details{
-These functions can used to query a specific repository hosted on GitHub. \cr
+These functions can be used to query a specific repository hosted on GitHub. \cr
 
 \code{github_commits} lists the most recent \code{n} commits of a specific
 branch of a repository.
@@ -72,7 +72,7 @@ branch of a repository.
 repository and returns the corresponding SHA hash as well as an installation
 command to install the branch in R via the 'devtools' package.
 
-\code{github_issues} lists all open issues for a repository.
+\code{github_issues} lists all open issues for a repository in valid YAML.
 }
 \section{Function version}{
  0.1.0
@@ -88,7 +88,12 @@ github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Burow, C. (2017). GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 GitHub Developer API v3. \url{https://developer.github.com/v3/}, last accessed: 10/01/2017.
 }
