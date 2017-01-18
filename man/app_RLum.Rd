@@ -18,7 +18,7 @@ Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.1 (2017-01-10 15:37:21)
+ 0.1.1 (2017-01-10 14:53:04)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

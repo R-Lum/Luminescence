@@ -36,10 +36,10 @@
 
         \item \code{convert_XSYG2R()}: wrapper function around the functions \code{read_XSYG2R()} and
         \code{write_RLum2CSV()} to convert XSYG-file to CSV-files; so far possible.
-        
+
         \item \code{github_branches(), github_commits(), github_issues()}:
         R Interface to the GitHub API v3. These functions can be used to query a specific repository hosted on GitHub.
-        
+
         \item \code{install_DevelopmentVersion()}:
         This function is a convenient method for installing the development version of the R package
         'Luminescence' directly from GitHub.
@@ -93,8 +93,6 @@
 
       }
 
-
-
     }
 
   \subsection{Bugfixes and changes}{
@@ -103,12 +101,24 @@
 
    \item \code{analyse_baSARL()}{
     \itemize{
-       \item Due to a typo in the manual the \code{method_contral} parameter \code{variable.names} was
+       \item Due to a typo in the manual the \code{method_control} parameter \code{variable.names} was
        not working if correctly typed as written in the manual (in the manual: 'variables.names', but
        correct is 'variable.names'); typo corrected fixed,
-       \item Minor improvements and error corrections.
+       \item minor improvements and error corrections.
 
     }
+  }
+
+
+  \itemize{
+
+   \item \code{analyse_IRSAR.RF()}{
+
+  \itemize{
+    \item Add option for a vertical sliding of the RF_nat curve (\code{method_control = list(vslide_range = 'auto')}). This
+    feature has beta status and usage for publication work is not recommanded yet. By default no vertical
+    sliding is applied.
+   }
   }
 
   \item \code{analyse_SAR.CWOSL()}{
@@ -159,7 +169,7 @@
        Thanks to Daniele Questiaux for reporting the bug.
     }
   }
-  
+
   \item \code{calc_MaxDose()}{
     \itemize{
        \item Fixed a bug in the console output, which provided wrong values for the
@@ -290,6 +300,8 @@
     }
   }
 
+}
+
   \subsection{Internals}{
 
    \itemize{
@@ -311,7 +323,6 @@
 
     }
 
-    }
-
-
   }
+
+}

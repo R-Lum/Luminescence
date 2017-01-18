@@ -61,7 +61,7 @@ Please note that in this case the background error varies from run to run!
 In particular the estimation of the uncertainties has not yet been sufficiently tested.
 }
 \section{Function version}{
- 0.4.0 (2017-01-09 13:28:35)
+ 0.4.0 (2016-12-29 17:41:58)
 }
 \examples{
 
