@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.7.0 ( ,2016):
+Changes in version 0.7.0 (6th February, 2017):
 
   New functions:
 
@@ -19,9 +19,6 @@ Changes in version 0.7.0 ( ,2016):
 
          • ‘calc_AverageDose()’: Function to calculate the average dose
            and their extrinsic dispersion.
-
-         • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
-           dose using the approach proposed by Woda and Fuchs, 2008.
 
          • ‘convert_BIN2R()’: wrapper function around the functions
            ‘read_BIN2R()’ and ‘write_RLum2CSV()’ to convert a BIN-file

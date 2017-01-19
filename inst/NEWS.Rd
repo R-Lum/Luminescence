@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.7.0 ( ,2016)}{
+\section{Changes in version 0.7.0 (6th February, 2017)}{
 
   \subsection{New functions}{
     \itemize{
@@ -20,10 +20,6 @@
 
         \item \code{calc_AverageDose()}: Function to calculate the average dose and their extrinsic
         dispersion.
-
-        \item \code{calc_WodaFuchs2008()}:
-        Function to obtain the equivalent dose using
-        the approach proposed by Woda and Fuchs, 2008.
 
         \item \code{convert_BIN2R()}: wrapper function around the functions \code{read_BIN2R()} and
         \code{write_RLum2CSV()} to convert a BIN-file to CSV-files; so far possible.
