@@ -64,7 +64,7 @@ Imports:
     XML (>= 3.98-1.5),
     zoo (>= 1.7-14)
 Suggests:
-    RLumShiny (>= 0.1.2),
+    RLumShiny (>= 0.1.1),
     RLumModel (>= 0.1.2),
     plotly (>= 4.5.6),
     rmarkdown (>= 1.3),
