@@ -572,7 +572,7 @@ calc_Kars2008 <- function(data,
       labels.text <- list(
         bquote(dot(D) == .(round(ddot, 2)) %+-% .(round(ddot.error, 2)) ~ frac(Gy, ka)),
         bquote(dot(D)["Reader"] == .(round(readerDdot, 3)) %+-% .(round(readerDdot.error, 3)) ~ frac(Gy, s)),
-        bquote(log[10]~(rho~"'") == .(round(log10(rhop[1]), 2)) %+-% .(round(log10(rhop[1]) * rhop[2] / rhop[1], 2)) ),
+        bquote(log[10]~(rho~"'") == .(round(log10(rhop[1]), 2)) %+-% .(round(rhop[2] / (rhop[1] * log(10, base = exp(1))), 2)) ),
         bquote(bgroup("(", frac(n, N), ")") == .(round(nN, 2)) %+-% .(round(nN.error, 2)) ),
         bquote(bgroup("(", frac(n, N), ")")[SS] == .(round(nN_SS, 2)) %+-% .(round(nN_SS.error, 2)) ),
         bquote(D["E,sim"] == .(round(De.sim, 2)) %+-% .(round(De.error.sim, 2)) ~ Gy),
