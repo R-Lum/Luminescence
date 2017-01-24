@@ -307,7 +307,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.\cr
 }
 \section{Function version}{
- 0.7.1 (2017-01-18 18:14:10)
+ 0.7.1 (2017-01-24 21:05:25)
 }
 \examples{
 

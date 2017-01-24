@@ -176,6 +176,11 @@ Changes in version 0.7.0 (6th February, 2017):
 
                  • minor internal function updates.
 
+             • ‘model_LuminescenceSignals()’
+
+                 • Update function arguments to account for changes in
+                   RLumModel version 0.2.0.
+
              • ‘plot_DetPlot()’
 
                  • Correct negative y-axis, the minimum is now the real
