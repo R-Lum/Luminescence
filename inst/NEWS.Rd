@@ -189,6 +189,12 @@
        \item minor internal function updates.
       }
     }
+         
+  \item \code{model_LuminescenceSignals()}{
+    \itemize{
+       \item Update function arguments to account for changes in RLumModel version 0.2.0.
+      }
+    }
 
 
     \item \code{plot_DetPlot()}{
