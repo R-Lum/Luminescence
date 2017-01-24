@@ -132,7 +132,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.7.0 (2017-01-24 21:05:25)
+ 0.7.0 (2017-01-24 21:10:47)
 }
 \examples{
 

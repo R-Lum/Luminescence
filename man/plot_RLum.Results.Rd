@@ -33,7 +33,7 @@ Not all arguments available for \code{\link{plot}} will be passed!
 Only plotting of \code{RLum.Results} objects are supported.
 }
 \section{Function version}{
- 0.2.1 (2017-01-24 21:05:25)
+ 0.2.1 (2017-01-24 21:10:47)
 }
 \examples{
 

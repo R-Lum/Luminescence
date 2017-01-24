@@ -161,7 +161,7 @@ for near-surface samples as there is no equation known to the author of this
 function at the time of writing.
 }
 \section{Function version}{
- 0.5.2 (2017-01-24 21:05:25)
+ 0.5.2 (2017-01-24 21:10:47)
 }
 \examples{
 

@@ -98,7 +98,7 @@ every sequence should be checked carefully before running long calculations usin
 hundreds of channels.
 }
 \section{Function version}{
- 0.1.1 (2017-01-24 21:05:25)
+ 0.1.1 (2017-01-24 21:10:47)
 }
 \examples{
 
