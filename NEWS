@@ -107,7 +107,7 @@ Changes in version 0.7.0 (6th February, 2017):
                  • Add option for a vertical sliding of the RF_nat
                    curve (‘method_control = list(vslide_range =
                    'auto')’). This feature has beta status and usage
-                   for publication work is not recommanded yet. By
+                   for publication work is not recommended yet. By
                    default no vertical sliding is applied.
 
              • ‘analyse_SAR.CWOSL()’

@@ -112,7 +112,7 @@
 
   \itemize{
     \item Add option for a vertical sliding of the RF_nat curve (\code{method_control = list(vslide_range = 'auto')}). This
-    feature has beta status and usage for publication work is not recommanded yet. By default no vertical
+    feature has beta status and usage for publication work is not recommended yet. By default no vertical
     sliding is applied.
    }
   }
@@ -189,7 +189,7 @@
        \item minor internal function updates.
       }
     }
-         
+
   \item \code{model_LuminescenceSignals()}{
     \itemize{
        \item Update function arguments to account for changes in RLumModel version 0.2.0.
