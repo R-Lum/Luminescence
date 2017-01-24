@@ -42,6 +42,12 @@
 #'
 #' The max values from the count values is chosen using the function
 #' \code{\link[matrixStats]{rowMins}}.
+#' 
+#' \code{"append"}\cr
+#' 
+#' Appends count values of all curves to one combined data curve. The channel width
+#' is automatically re-calculated, but requires a constant channel width of the 
+#' original data.
 #'
 #' \code{"-"}\cr
 #'
@@ -216,6 +222,10 @@ merge_RLum.Data.Curve<- function(
 
     temp.matrix <- matrixStats::rowMins(temp.matrix)
 
+  }else if(merge.method == "append") {
+
+    temp.matrix <- sapply(temp.matrix, c)
+    
   }else if(merge.method == "-"){
 
     if(ncol(temp.matrix) > 2){
@@ -256,7 +266,18 @@ merge_RLum.Data.Curve<- function(
   }
 
   ##add first column
-  temp.matrix <- cbind(object[[1]]@data[1:min(check.length),1], temp.matrix)
+  #If we append the data of the second to the first curve we have to recalculate
+  #the x-values (probably time/channel). The difference should always be the
+  #same, so we just expand the sequence if this is true. If this is not true,
+  #we revert to the default behaviour (i.e., append the x values)
+  if (merge.method == "append" & length(unique(diff(object[[1]]@data[,1])))) {
+      step <- unique(diff(object[[1]]@data[,1]))
+      newx <- seq(from = min(object[[1]]@data[,1]), by = step, length.out = sum(check.length))
+      temp.matrix <- cbind(newx, temp.matrix)
+  } else {
+    temp.matrix <- cbind(object[[1]]@data[1:min(check.length),1], temp.matrix)
+  }
+  
 
 
   ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

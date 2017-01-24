@@ -64,6 +64,12 @@
 #' @param na.rm \code{\link{logical}} (with default): excludes \code{NA} values
 #' from the data set prior to any further operations.
 #'
+#' @param mode \code{\link{character}} (with default): selects calculation mode of the function.
+#' (A) \code{"regenerative"} (default) calculates the De by assuming a regenative curve,
+#' (B) \code{"additive"} calculates de De by assuming an additive curve and
+#' (C) \code{"alternate"} calculates no De and just fits the data points. Please note that
+#' for option \code{"regenrative"} the first point is considered as natural dose
+#'
 #' @param fit.method \code{\link{character}} (with default): function used for
 #' fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP}, \code{EXP OR LIN},
 #' \code{EXP+LIN} or \code{EXP+EXP}. See details.
@@ -135,10 +141,11 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.8.16
+#' @section Function version: 1.9.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
+#'
 #'
 #' @seealso \code{\link{nls}}, \code{\linkS4class{RLum.Results}},
 #' \code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link{lm}}, \code{uniroot}
@@ -171,10 +178,19 @@
 #'  type = "l"
 #' )
 #'
+#' ##(5) plot using the 'additive' mode
+#' LxTxData[1,2:3] <- c(0.5, 0.001)
+#' print(plot_GrowthCurve(LxTxData,mode = "additive"))
+#'
+#' ##(6) plot using the 'alternate' mode
+#' LxTxData[1,2:3] <- c(0.5, 0.001)
+#' print(plot_GrowthCurve(LxTxData,mode = "alternate"))
+#'
 #' @export
 plot_GrowthCurve <- function(
   sample,
   na.rm = TRUE,
+  mode = "regenerative",
   fit.method = "EXP",
   fit.force_through_origin = FALSE,
   fit.weights = TRUE,
@@ -204,8 +220,15 @@ plot_GrowthCurve <- function(
 
   ##2.1 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
-    warning("[plot_GrowthCurve()] the input data contain at least one Inf value. NULL returned!")
+    warning("[plot_GrowthCurve()] The input data contain at least one Inf value. NULL returned!")
     return(NULL)
+  }
+
+  ##2.2 check whether the dose value is equal all the time
+  if(sum(abs(diff(sample[[1]]))) == 0){
+    try(stop("[plot_GrowthCurve()] All points have the same dose. NULL returned!", call. = FALSE))
+    return(NULL)
+
   }
 
   ## optionally, count and exclude NA values and print result
@@ -255,17 +278,26 @@ plot_GrowthCurve <- function(
     fit.NumberRegPoints<-length(sample[-1,1])
   }
   if(is.null(fit.NumberRegPointsReal)){
-
-    fit.RegPointsReal <- as.integer(
-      rownames(sample[-which(duplicated(sample[,1]) | sample[,1]==0),]))
-
+    fit.RegPointsReal <- which(!duplicated(sample[,1]) | sample[,1] != 0)
     fit.NumberRegPointsReal <- length(fit.RegPointsReal)
 
   }
 
-  #1.1 Produce dataframe from input values
-  xy<-data.frame(x=sample[2:(fit.NumberRegPoints+1),1],y=sample[2:(fit.NumberRegPoints+1),2])
-  y.Error<-sample[2:(fit.NumberRegPoints+1),3]
+  #1.1 Produce dataframe from input values, two options for different modes
+  if(mode == "regenerative"){
+    xy<-data.frame(x=sample[2:(fit.NumberRegPoints+1),1],y=sample[2:(fit.NumberRegPoints+1),2])
+    y.Error<-sample[2:(fit.NumberRegPoints+1),3]
+
+  }else if (mode == "additive" || mode == "alternate") {
+    xy <- data.frame(
+      x = sample[1:(fit.NumberRegPoints+1),1],
+      y = sample[1:(fit.NumberRegPoints+1),2])
+    y.Error <- sample[1:(fit.NumberRegPoints+1),3]
+
+  }else{
+    stop("[plot_GrowthCurve()] Unknown input for argument 'mode'")
+
+  }
 
   ##1.1.1 produce weights for weighted fitting
   if(fit.weights){
@@ -285,54 +317,45 @@ plot_GrowthCurve <- function(
   }
 
 
-  # Deal with extra arguments -----------------------------------------------
-  ##deal with addition arguments
-  extraArgs <- list(...)
-
-  main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
-  {"Growth curve"}
-
-  xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
-  {"Dose [s]"}
-
-  ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
-  {expression(L[x]/T[x])}
-
-  if("cex" %in% names(extraArgs)) {cex.global <- extraArgs$cex}
-
-  ylim <- if("ylim" %in% names(extraArgs)) {
-    extraArgs$ylim
-  } else {
-    if(fit.force_through_origin){
-      c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
-
-    }else{
-      c(min(xy$y)-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
-    }
-
- }
-
-
-  xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
-  {c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))}
-
-  fun   <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
-
   #1.2 Prepare data sets regeneration points for MC Simulation
-  data.MC<-t(vapply(
-    X = seq(2,fit.NumberRegPoints+1,by=1),
-    FUN = function(x){
-      sample(
-        rnorm(n = 10000,
-              mean = sample[x,2], sd = abs(sample[x,3])),
-              size = NumberIterations.MC, replace=TRUE)
+  if (mode == "regenerative") {
+    data.MC <- t(vapply(
+      X = seq(2, fit.NumberRegPoints + 1, by = 1),
+      FUN = function(x) {
+        sample(rnorm(
+          n = 10000,
+          mean = sample[x, 2],
+          sd = abs(sample[x, 3])
+        ),
+        size = NumberIterations.MC,
+        replace = TRUE)
       },
-    FUN.VALUE = vector("numeric", length = NumberIterations.MC)))
+      FUN.VALUE = vector("numeric", length = NumberIterations.MC)
+    ))
 
-  #1.3 Do the same for the natural signal
-  data.MC.De <- numeric(NumberIterations.MC)
-  data.MC.De <- sample(rnorm(10000,mean=sample[1,2], sd=abs(sample[1,3])),
-                       NumberIterations.MC, replace=TRUE)
+    #1.3 Do the same for the natural signal
+    data.MC.De <- numeric(NumberIterations.MC)
+    data.MC.De <-
+      sample(rnorm(10000, mean = sample[1, 2], sd = abs(sample[1, 3])),
+             NumberIterations.MC,
+             replace = TRUE)
+
+  }else{
+    data.MC <- t(vapply(
+      X = seq(1, fit.NumberRegPoints + 1, by = 1),
+      FUN = function(x) {
+        sample(rnorm(
+          n = 10000,
+          mean = sample[x, 2],
+          sd = abs(sample[x, 3])
+        ),
+        size = NumberIterations.MC,
+        replace = TRUE)
+      },
+      FUN.VALUE = vector("numeric", length = NumberIterations.MC)
+    ))
+
+  }
 
   #1.3 set x.natural
   x.natural <- vector("numeric", length = NumberIterations.MC)
@@ -478,19 +501,52 @@ plot_GrowthCurve <- function(
     }
 
     ##solve and get De
-    De.uniroot <- try(
-      uniroot(De.fs, y = sample[1,2], lower = 0, upper = max(sample[,1]) * 1.5), silent = TRUE)
+    if (mode == "regenerative") {
+      De.uniroot <- try(uniroot(De.fs,
+                                y = sample[1, 2],
+                                lower = 0,
+                                upper = max(sample[, 1]) * 1.5), silent = TRUE)
 
-    if(!inherits(De.uniroot, "try-error")){
-      De <- round(De.uniroot$root, digits = 2)
-      if(verbose){
-        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De))
+      if (!inherits(De.uniroot, "try-error")) {
+        De <- round(De.uniroot$root, digits = 2)
+        if (verbose) {
+          if (mode != "alternate") {
+            writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
+              " (", mode,") ", "| De = ", De))
+
+          }
+        }
+
+      } else{
+        if (verbose)
+          writeLines("[plot_GrowthCurve()] no solution found for QDR fit")
+        De <- NA
+
       }
+    }else if (mode == "additive"){
+      De.uniroot <- try(uniroot(De.fs,
+                                y = 0,
+                                lower = -1e06,
+                                upper = max(sample[, 1]) * 1.5), silent = TRUE)
 
+      if (!inherits(De.uniroot, "try-error")) {
+        De <- round(abs(De.uniroot$root), digits = 2)
+        if (verbose) {
+          if (mode != "alternate") {
+            writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
+                              " (", mode,") ", "| De = ", De))
+
+          }
+        }
+
+      } else{
+        if (verbose)
+          writeLines("[plot_GrowthCurve()] no solution found for QDR fit")
+        De <- NA
+
+      }
     }else{
-      if(verbose) writeLines("[plot_GrowthCurve()] no solution found for QDR fit")
       De <- NA
-
     }
 
 
@@ -535,16 +591,42 @@ plot_GrowthCurve <- function(
 
       }
 
-      ##solve and get De
-      De.uniroot.MC <- try(uniroot(
-        De.fs.MC,
-        y = data.MC.De[i],
-        lower = 0,
-        upper = max(sample[, 1]) * 1.5
-      ), silent = TRUE)
+      if (mode == "regenerative") {
+        ##solve and get De
+        De.uniroot.MC <- try(uniroot(
+          De.fs.MC,
+          y = data.MC.De[i],
+          lower = 0,
+          upper = max(sample[, 1]) * 1.5
+        ),
+        silent = TRUE)
 
-      if(!inherits(De.uniroot.MC, "try-error")){
-        De.MC <- round(De.uniroot.MC$root, digits = 2)
+        if (!inherits(De.uniroot.MC, "try-error")) {
+          De.MC <- round(De.uniroot.MC$root, digits = 2)
+
+        } else{
+          De.MC <- NA
+
+        }
+
+      }else if (mode == "additive"){
+        ##solve and get De
+        De.uniroot.MC <- try(uniroot(
+          De.fs.MC,
+          y = 0,
+          lower = -1e6,
+          upper = max(sample[, 1]) * 1.5
+        ),
+        silent = TRUE)
+
+        if (!inherits(De.uniroot.MC, "try-error")) {
+          De.MC <- round(abs(De.uniroot.MC$root), digits = 2)
+
+        } else{
+          De.MC <- NA
+
+        }
+
 
       }else{
         De.MC <- NA
@@ -568,7 +650,6 @@ plot_GrowthCurve <- function(
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
     if((is.na(a) | is.na(b) | is.na(c)) && fit.method != "LIN"){
-
       warning("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!")
       return(NULL)
 
@@ -582,10 +663,11 @@ plot_GrowthCurve <- function(
       ##try to create some start parameters from the input values to make
       ## the fitting more stable
       for(i in 1:50){
+        a <- a.MC[i]
+        b <- b.MC[i]
+        c <- c.MC[i]
 
-        a<-a.MC[i];b<-b.MC[i];c<-c.MC[i]
-
-        fit.initial <- try(nls(
+        fit.initial <- suppressWarnings(try(nls(
           y ~ fit.functionEXP(a, b, c, x),
           data = data,
           start = c(a = a, b = b, c = c),
@@ -599,7 +681,7 @@ plot_GrowthCurve <- function(
           )
         ),
         silent = TRUE
-        )
+        ))
 
         if(class(fit.initial)!="try-error"){
           #get parameters out of it
@@ -638,7 +720,6 @@ plot_GrowthCurve <- function(
       )
 
       if (inherits(fit, "try-error") & inherits(fit.initial, "try-error")){
-
         if(verbose) writeLines("[plot_GrowthCurve()] try-error for EXP fit")
 
       }else{
@@ -659,12 +740,34 @@ plot_GrowthCurve <- function(
 
 
         #calculate De
-        De<-suppressWarnings(round(-c-b*log(1-sample[1,2]/a), digits=2))
+        if(mode == "regenerative"){
+          De <- suppressWarnings(round(-c-b*log(1-sample[1,2]/a), digits=2))
+
+        }else if (mode == "additive"){
+          De <- suppressWarnings(round(abs(-c-b*log(1-0/a)), digits=2))
+
+        }else{
+          De <- NA
+
+        }
+
 
         #print D01 value
         D01<-round(b,digits=2)
-        if(verbose){
-          writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method," | De = ", De, " | D01 = ",D01))
+        if (verbose) {
+          if (mode != "alternate") {
+            writeLines(paste0(
+              "[plot_GrowthCurve()] Fit: ",
+              fit.method,
+              " (",
+              mode,
+              ")",
+              " | De = ",
+              De,
+              " | D01 = ",
+              D01
+            ))
+          }
         }
 
 
@@ -706,8 +809,7 @@ plot_GrowthCurve <- function(
 
           #get parameters out of it including error handling
           if (class(fit.MC)=="try-error") {
-
-            x.natural[i]<-NA
+            x.natural[i] <- NA
 
           }else {
 
@@ -718,8 +820,18 @@ plot_GrowthCurve <- function(
             var.c[i]<-as.vector((parameters["c"]))
 
             #calculate x.natural for error calculation
-            x.natural[i]<-suppressWarnings(
-              round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2))
+            if(mode == "regenerative"){
+              x.natural[i]<-suppressWarnings(
+                round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2))
+
+            }else if(mode == "additive"){
+              x.natural[i]<-suppressWarnings(
+                abs(-var.c[i]-var.b[i]*log(1-0/var.a[i])))
+
+            }else{
+              x.natural[i] <- NA
+
+            }
 
           }
 
@@ -747,19 +859,27 @@ plot_GrowthCurve <- function(
 
       ##Do fitting again as just allows fitting through the origin
       if(fit.force_through_origin){
-
         fit.lm<-lm(data$y ~ 0 + data$x, weights = fit.weights)
 
         #calculate De
-        De <- round((sample[1,2]/fit.lm$coefficients[1]), digits=2)
+        if(mode == "regenerative"){
+          De <- round((sample[1,2]/fit.lm$coefficients[1]), digits=2)
+
+        }else{
+          De <- NA
+        }
 
 
       }else{
-
         fit.lm<-lm(data$y ~ data$x, weights = fit.weights)
 
         #calculate De
-        De <- round((sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2], digits=2)
+        if(mode == "regenerative"){
+          De <- round((sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2], digits=2)
+        }else if(mode == "additive"){
+          De <- round(abs((0-fit.lm$coefficients[1])/fit.lm$coefficients[2]), digits= 2)
+
+        }
 
       }
 
@@ -767,10 +887,21 @@ plot_GrowthCurve <- function(
       ##remove vector labels
       De <- as.numeric(as.character(De))
 
-      if(verbose){
-        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De))
-      }
+      if (verbose) {
+        if (mode != "alternate") {
+          writeLines(paste0(
+            "[plot_GrowthCurve()] Fit: ",
+            fit.method,
+            " (",
+            mode,
+            ") ",
+            "| De = ",
+            De
+          ))
 
+        }
+
+      }
 
       #start loop for Monte Carlo Error estimation
       for (i in 1:NumberIterations.MC) {
@@ -793,8 +924,15 @@ plot_GrowthCurve <- function(
 
 
           #calculate x.natural
-          x.natural[i]<-round((data.MC.De[i]-fit.lmMC$coefficients[1])/
-                                fit.lmMC$coefficients[2], digits=2)
+          if(mode == "regenerative"){
+            x.natural[i]<-round((data.MC.De[i]-fit.lmMC$coefficients[1])/
+                                  fit.lmMC$coefficients[2], digits=2)
+
+          }else if (mode == "additive"){
+            x.natural[i]<-round(abs((0-fit.lmMC$coefficients[1])/
+                                  fit.lmMC$coefficients[2]), digits=2)
+
+          }
 
         }
 
@@ -910,30 +1048,79 @@ plot_GrowthCurve <- function(
 
       #problem: analytically it is not easy to calculate x,
       #use uniroot to solve that problem ... readjust function first
-      f.unirootEXPLIN <- function(a,b,c,g,x,LnTn){fit.functionEXPLIN(a,b,c,g,x)-LnTn}
+      if (mode == "regenerative") {
+        f.unirootEXPLIN <-
+          function(a, b, c, g, x, LnTn) {
+            fit.functionEXPLIN(a, b, c, g, x) - LnTn
+          }
 
-      temp.De <-  try(uniroot(f = f.unirootEXPLIN,
-                              interval = c(0,max(xy$x)*1.5),
-                              tol = 0.001,
-                              a = a,
-                              b = b,
-                              c = c,
-                              g = g,
-                              LnTn = sample[1,2],
-                              extendInt = "yes",
-                              maxiter = 3000), silent = TRUE)
+        temp.De <-  try(uniroot(
+          f = f.unirootEXPLIN,
+          interval = c(0, max(xy$x) * 1.5),
+          tol = 0.001,
+          a = a,
+          b = b,
+          c = c,
+          g = g,
+          LnTn = sample[1, 2],
+          extendInt = "yes",
+          maxiter = 3000
+        ),
+        silent = TRUE)
 
 
 
-      if (class(temp.De) != "try-error") {
-        De <- round(temp.De$root, digits = 2)
+        if (class(temp.De) != "try-error") {
+          De <- round(temp.De$root, digits = 2)
+        } else{
+          De <- NA
+        }
+      }else if(mode == "additive"){
+          f.unirootEXPLIN <-
+            function(a, b, c, g, x, LnTn) {
+              fit.functionEXPLIN(a, b, c, g, x) - LnTn
+            }
+
+          temp.De <-  try(uniroot(
+            f = f.unirootEXPLIN,
+            interval = c(-1e06, max(xy$x) * 1.5),
+            tol = 0.001,
+            a = a,
+            b = b,
+            c = c,
+            g = g,
+            LnTn = 0,
+            extendInt = "yes",
+            maxiter = 3000
+          ),
+          silent = TRUE)
+
+
+          if (class(temp.De) != "try-error") {
+            De <- round(abs(temp.De$root), digits = 2)
+          } else{
+            De <- NA
+          }
+
       }else{
         De <- NA
+
       }
 
 
-      if(verbose){
-        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De))
+      if (verbose) {
+        if (mode != "alternate") {
+          writeLines(paste0(
+            "[plot_GrowthCurve()] Fit: ",
+            fit.method,
+            " (",
+            mode,
+            ")"
+            ,
+            " | De = ",
+            De
+          ))
+        }
       }
 
 
@@ -952,7 +1139,6 @@ plot_GrowthCurve <- function(
         cat("\n\t Run Monte Carlo loops for error estimation of the EXP+LIN fit\n")
         pb<-txtProgressBar(min=0,max=NumberIterations.MC, char="=", style=3)
       }
-
 
       #start Monto Carlo loops
       for(i in  1:NumberIterations.MC){
@@ -991,23 +1177,47 @@ plot_GrowthCurve <- function(
           #problem: analytical it is not easy to calculate x,
           #use uniroot to solve this problem
 
-          temp.De.MC <-  try(uniroot(
-            f = f.unirootEXPLIN,
-            interval = c(0,max(xy$x) * 1.5),
-            tol = 0.001,
-            a = var.a[i],
-            b = var.b[i],
-            c = var.c[i],
-            g = var.g[i],
-            LnTn = data.MC.De[i]
-          ), silent = TRUE)
+          if (mode == "regenerative") {
+            temp.De.MC <-  try(uniroot(
+              f = f.unirootEXPLIN,
+              interval = c(0, max(xy$x) * 1.5),
+              tol = 0.001,
+              a = var.a[i],
+              b = var.b[i],
+              c = var.c[i],
+              g = var.g[i],
+              LnTn = data.MC.De[i]
+            ),
+            silent = TRUE)
 
-          if (class(temp.De.MC) != "try-error") {
-            x.natural[i] <- temp.De.MC$root
+            if (class(temp.De.MC) != "try-error") {
+              x.natural[i] <- temp.De.MC$root
+            } else{
+              x.natural[i] <- NA
+            }
+          } else if (mode == "additive"){
+            temp.De.MC <-  try(uniroot(
+              f = f.unirootEXPLIN,
+              interval = c(-1e6, max(xy$x) * 1.5),
+              tol = 0.001,
+              a = var.a[i],
+              b = var.b[i],
+              c = var.c[i],
+              g = var.g[i],
+              LnTn = 0
+            ),
+            silent = TRUE)
+
+            if (class(temp.De.MC) != "try-error") {
+              x.natural[i] <- abs(temp.De.MC$root)
+            } else{
+              x.natural[i] <- NA
+            }
+
           }else{
             x.natural[i] <- NA
-          }
 
+          }
 
         }
         ##update progress bar
@@ -1024,9 +1234,15 @@ plot_GrowthCurve <- function(
     }else{
 
       #print message
-      if(verbose){
-        writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = NA (fitting FAILED)"))
+      if (verbose) {
+        if (mode != "alternate") {
+          writeLines(paste0(
+            "[plot_GrowthCurve()] Fit: ",
+            fit.method,
+            " | De = NA (fitting FAILED)"
+          ))
 
+        }
       }
 
 
@@ -1113,32 +1329,48 @@ plot_GrowthCurve <- function(
 
 
       #problem: analytically it is not easy to calculate x, use uniroot
-      f.unirootEXPEXP <- function(a1,a2,b1,b2,x,LnTn){fit.functionEXPEXP(a1,a2,b1,b2,x)-LnTn}
+      if (mode == "regenerative") {
+        f.unirootEXPEXP <-
+          function(a1, a2, b1, b2, x, LnTn) {
+            fit.functionEXPEXP(a1, a2, b1, b2, x) - LnTn
+          }
 
-      temp.De <-  try(uniroot(f = f.unirootEXPEXP,
-                              interval = c(0,max(xy$x)*1.5),
-                              tol = 0.001,
-                              a1 = a1,
-                              a2 = a2,
-                              b1 = b1,
-                              b2 = b2,
-                              LnTn = sample[1,2],
-                              extendInt = "yes",
-                              maxiter = 3000), silent = TRUE)
+        temp.De <-  try(uniroot(
+          f = f.unirootEXPEXP,
+          interval = c(0, max(xy$x) * 1.5),
+          tol = 0.001,
+          a1 = a1,
+          a2 = a2,
+          b1 = b1,
+          b2 = b2,
+          LnTn = sample[1, 2],
+          extendInt = "yes",
+          maxiter = 3000
+        ),
+        silent = TRUE)
 
 
-      if (class(temp.De) != "try-error") {
-        De <- round(temp.De$root, digits = 2)
-      }else{
+        if (class(temp.De) != "try-error") {
+          De <- round(temp.De$root, digits = 2)
+        } else{
+          De <- NA
+        }
+
+        ##remove object
+        rm(temp.De)
+      }else if (mode == "additive"){
+        stop("[plot_GrowthCurve()] mode 'additive' for this fitting method currently not supported!")
+
+      } else{
         De <- NA
-      }
 
-      ##remove object
-      rm(temp.De)
+      }
 
       #print D0 and De value values
       if(verbose){
+        if(mode != "alternate"){
         writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method, " | De = ", De, "| D01 = ",D01, " | D02 = ",D02))
+        }
       }
 
 
@@ -1324,6 +1556,63 @@ plot_GrowthCurve <- function(
   ##5. Plotting if plotOutput==TRUE
   if(output.plot) {
 
+
+    # Deal with extra arguments -----------------------------------------------
+    ##deal with addition arguments
+    extraArgs <- list(...)
+
+    main <- if("main" %in% names(extraArgs)) {extraArgs$main} else
+    {"Growth curve"}
+
+    xlab <- if("xlab" %in% names(extraArgs)) {extraArgs$xlab} else
+    {"Dose [s]"}
+
+    ylab <- if("ylab" %in% names(extraArgs)) {extraArgs$ylab} else
+    {
+      if(mode == "regenration"){
+        expression(L[x]/T[x])
+
+      }else{
+        "Luminescence [a.u.]"
+      }
+
+    }
+
+    if("cex" %in% names(extraArgs)) {cex.global <- extraArgs$cex}
+
+    ylim <- if("ylim" %in% names(extraArgs)) {
+      extraArgs$ylim
+    } else {
+      if(fit.force_through_origin){
+        c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+
+      }else{
+        c(min(xy$y)-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
+      }
+
+    }
+
+
+    xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
+    {
+      if(mode != "additive"){
+        c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+
+      }else{
+        if(!is.na(De)){
+          c(-De * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+        }else{
+          c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+
+        }
+
+      }
+
+    }
+
+    fun   <- if("fun" %in% names(extraArgs)) {extraArgs$fun} else {FALSE}
+
+
     ##set plot check
     plot_check <- NULL
 
@@ -1376,6 +1665,11 @@ plot_GrowthCurve <- function(
     silent = TRUE)
 
     if (!is(plot_check, "try-error")) {
+      if(mode == "additive"){
+        abline(v = 0, lty = 1, col = "grey")
+
+      }
+
       #ADD HEADER
       title(main = main, line = 3)
 
@@ -1419,9 +1713,15 @@ plot_GrowthCurve <- function(
       ##POINTS	#Plot Reg0 and Repeated Points
 
       #Natural value
-      points(sample[1, 1:2], col = "red")
-      segments(sample[1, 1], sample[1, 2] - sample[1, 3],
-               sample[1, 1], sample[1, 2] + sample[1, 3], col = "red")
+      if(mode == "regenerative"){
+        points(sample[1, 1:2], col = "red")
+        segments(sample[1, 1], sample[1, 2] - sample[1, 3],
+                 sample[1, 1], sample[1, 2] + sample[1, 3], col = "red")
+
+      }else if (mode == "additive"){
+        points(x = -De, y = 0, col = "red")
+
+      }
 
       #Repeated Point
       points(xy[which(duplicated(xy[, 1])), 1], xy[which(duplicated(xy[, 1])), 2],
@@ -1432,45 +1732,60 @@ plot_GrowthCurve <- function(
                cex.global)
 
       ##ARROWS	#y-error Bars
-
       segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
       ##LINES	#Insert Ln/Tn
-      if (is.na(De)) {
-        lines(
-          c(0, max(sample[, 1]) * 2),
-          c(sample[1, 2], sample[1, 2]),
-          col = "red",
-          lty = 2,
-          lwd = 1.25
-        )
+      if (mode == "regenerative") {
+        if (is.na(De)) {
+          lines(
+            c(0, max(sample[, 1]) * 2),
+            c(sample[1, 2], sample[1, 2]),
+            col = "red",
+            lty = 2,
+            lwd = 1.25
+          )
 
-      } else{
-        try(lines(
-          c(0, De),
-          c(sample[1, 2], sample[1, 2]),
-          col = "red",
-          lty = 2,
-          lwd = 1.25
-        ), silent = TRUE)
+        } else{
+          try(lines(
+            c(0, De),
+            c(sample[1, 2], sample[1, 2]),
+            col = "red",
+            lty = 2,
+            lwd = 1.25
+          ), silent = TRUE)
+
+        }
+        try(lines(c(De, De),
+                  c(0, sample[1, 2]),
+                  col = "red",
+                  lty = 2,
+                  lwd = 1.25), silent = TRUE)
+        try(points(De, sample[1, 2], col = "red", pch = 19), silent = TRUE)
+
+      } else if (mode == "additive"){
+
+        if(!is.na(De)){
+          lines(x = c(-De, -De), y = c(0, par()$usr[1]), col = "red", lty = 2)
+          lines(y = c(0,0), x = c(par()$usr[1], -De), col = "red", lty = 2)
+
+
+        }
 
       }
 
-      try(lines(c(De, De),
-                c(0, sample[1, 2]),
-                col = "red",
-                lty = 2,
-                lwd = 1.25), silent = TRUE)
-      try(points(De, sample[1, 2], col = "red", pch = 19), silent = TRUE)
 
       ## check/set mtext
       mtext <- if ("mtext" %in% names(list(...))) {
         list(...)$mtext
       } else {
+        if(mode != "alternate"){
         substitute(D[e] == De,
                    list(De = paste(
                      De, "\u00B1", De.Error, " | fit: ", fit.method
                    )))
+        }else{
+          ""
+        }
       }
 
 
@@ -1494,14 +1809,24 @@ plot_GrowthCurve <- function(
       }, silent = TRUE)
 
       ##LEGEND	#plot legend
+      if (mode == "regenerative") {
+        legend(
+          "topleft",
+          c("REG point", "REG point repeated", "REG point 0"),
+          pch = c(19, 2, 1),
+          cex = 0.8 * cex.global,
+          bty = "n"
+        )
+      }else{
+        legend(
+          "bottomright",
+          c("Dose point", "Dose point rep.", "Dose point 0"),
+          pch = c(19, 2, 1),
+          cex = 0.8 * cex.global,
+          bty = "n"
+        )
 
-      legend(
-        "topleft",
-        c("REG points", "REG point repeated", "REG point 0"),
-        pch = c(19, 2, 1),
-        cex = 0.8 * cex.global,
-        bty = "n"
-      )
+      }
 
       ##plot only if wanted
       if (output.plot == TRUE & output.plotExtended == TRUE) {
@@ -1683,4 +2008,3 @@ plot_GrowthCurve <- function(
   invisible(output.final)
 
 }
-

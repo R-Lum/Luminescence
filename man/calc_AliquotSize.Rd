@@ -101,7 +101,7 @@ default, \code{10^5} iterations are used, but can be reduced/increased with
 boxplot together with a statistical summary.
 }
 \section{Function version}{
- 0.31 (2016-05-16 22:20:28)
+ 0.31 (2017-01-24 21:05:25)
 }
 \examples{
 
@@ -115,17 +115,31 @@ calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Burow, C. (2017). calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
 sediments: why aliquot size matters in luminescence dating. Boreas 37,
-589-612.  \cr\cr Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains
-are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr \bold{Further
-reading} \cr\cr Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
+589-612.
+
+Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains
+are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr
+
+\bold{Further reading} \cr\cr
+
+Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
 Theorem on Circle Packing. \url{http://arxiv.org/pdf/1009.4322v1.pdf},
-2013-09-13. \cr\cr Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
+2013-09-13.
+
+Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
 Oestergard, P.R.J., 1998.  Dense packings of congruent circles in a circle.
-Discrete Mathematics 181, 139-154. \cr\cr Huang, W., Ye, T., 2011. Global
+Discrete Mathematics 181, 139-154.
+
+Huang, W., Ye, T., 2011. Global
 optimization method for finding dense packings of equal circles in a circle.
 European Journal of Operational Research 210, 474-481.
 }

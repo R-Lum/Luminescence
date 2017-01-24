@@ -1,68 +1,79 @@
 Package: Luminescence
 Type: Package
-Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
-Version: 0.6.5
-Date: 2016-XX-XX
-Author: Sebastian Kreutzer [aut, trl, cre],
+Title: Comprehensive Luminescence Dating Data Analysis
+Version: 0.7.0
+Date: 2017-02-06
+Author: Sebastian Kreutzer [aut, trl, cre, dtc],
     Michael Dietze [aut],
     Christoph Burow [aut, trl, dtc],
     Margret C. Fuchs [aut],
     Christoph Schmidt [aut],
     Manfred Fischer [aut, trl],
     Johannes Friedrich [aut],
-    Norbert Mercier [aut],
-    Rachel K. Smedley [aut],
-    Julie Durcan [aut],
-    Georgina King [aut],
+    Norbert Mercier [ctb],
+    Rachel K. Smedley [ctb],
+    Claire Christophe [ctb],
+    Antoine Zink [ctb],
+    Julie Durcan [ctb],
+    Georgina King [ctb, dtc],
+    Anne Philippe [ctb],
+    Guillaume Guerin [ctb],
     Markus Fuchs [ths]
 Authors@R: c(
-    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr"),
+    person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr"),
     person("Michael", "Dietze", role = c("aut")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc")),
     person("Margret C.", "Fuchs", role = c("aut")),
     person("Christoph", "Schmidt", role = c("aut")),
     person("Manfred", "Fischer", role = c("aut", "trl")),
     person("Johannes", "Friedrich", role = c("aut")),
-    person("Norbert", "Mercier", role = c("aut")),
-    person("Rachel K.", "Smedley", role = c("aut")),
-    person("Julie", "Durcan", role = c("aut")),
-    person("Georgina", "King", role = c("aut")),
+    person("Norbert", "Mercier", role = c("ctb")),
+    person("Rachel K.", "Smedley", role = c("ctb")),
+    person("Claire", "Christophe", role = c("ctb")),
+    person("Antoine", "Zink", rol = c("ctb")),
+    person("Julie", "Durcan", role = c("ctb")),
+    person("Georgina", "King", role = c("ctb", "dtc")),
+    person("Anne", "Philippe", role = c("ctb")),
+    person("Guillaume", "Guerin", role = c("ctb")),
     person("Markus", "Fuchs", role = c("ths")))
 Maintainer: Sebastian Kreutzer <sebastian.kreutzer@u-bordeaux-montaigne.fr>
 Description: A collection of various R functions for the purpose of Luminescence
     dating data analysis. This includes, amongst others, data import, export,
     application of age models, curve deconvolution, sequence analysis and
     plotting of equivalent dose distributions.
-Contact: Package Developer Team <team@r-luminescence.de>
+Contact: Package Developers <developers@r-luminescence.org>
 License: GPL-3
+BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
-    R (>= 3.3.0),
-    utils
-LinkingTo: Rcpp (>= 0.12.5),
-    RcppArmadillo (>= 0.6.700.6.0)
+    R (>= 3.3.2),
+    utils,
+    magrittr (>= 1.5)
+LinkingTo: Rcpp (>= 0.12.9),
+    RcppArmadillo (>= 0.7.600.1.0)
 Imports:
     bbmle (>= 1.0.18),
-    data.table (>= 1.9.6),
-    httr (>= 1.1.0),
-    matrixStats (>= 0.50.2),
+    data.table (>= 1.10.0),
+    httr (>= 1.2.1),
+    matrixStats (>= 0.51.0),
     methods,
-    Rcpp (>= 0.12.5),
-    minpack.lm (>= 1.2-0),
-    raster (>= 2.5-2),
+    minpack.lm (>= 1.2-1),
+    raster (>= 2.5-8),
     readxl (>= 0.1.1),
     shape (>= 1.4.2),
     parallel,
-    XML (>= 3.98-1.4),
-    zoo (>= 1.7-13)
+    XML (>= 3.98-1.5),
+    zoo (>= 1.7-14)
 Suggests:
-    RLumShiny (>= 0.1.0),
-    RLumModel (>= 0.1.1),
-    plotly (>= 3.4.13),
-    rmarkdown (>= 0.9.6),
+    RLumShiny (>= 0.1.1),
+    RLumModel (>= 0.1.2),
+    plotly (>= 4.5.6),
+    rmarkdown (>= 1.3),
     rjags (>= 4-6),
-    coda (>= 0.18-1),
+    coda (>= 0.19-1),
     pander (>= 0.6.0),
-    rstudioapi (>= 0.5)
+    rstudioapi (>= 0.6),
+    testthat (>= 1.0.2),
+    devtools (>= 1.12.0)
 URL: https://CRAN.R-project.org/package=Luminescence
 Collate:
     'Analyse_SAR.OSLdata.R'
@@ -71,9 +82,11 @@ Collate:
     'CW2pLMi.R'
     'CW2pPMi.R'
     'Luminescence-package.R'
+    'PSL2Risoe.BINfileData.R'
     'RcppExports.R'
     'replicate_RLum.R'
     'RLum-class.R'
+    'smooth_RLum.R'
     'names_RLum.R'
     'structure_RLum.R'
     'length_RLum.R'
@@ -92,15 +105,18 @@ Collate:
     'get_Risoe.BINfileData.R'
     'RisoeBINfileData-class.R'
     'Second2Gray.R'
+    'analyse_FadingMeasurement.R'
     'analyse_IRSAR.RF.R'
     'analyse_SAR.CWOSL.R'
     'analyse_SAR.TL.R'
     'analyse_baSAR.R'
     'analyse_pIRIRSequence.R'
+    'analyse_portableOSL.R'
     'app_RLum.R'
     'apply_CosmicRayRemoval.R'
     'apply_EfficiencyCorrection.R'
     'calc_AliquotSize.R'
+    'calc_AverageDose.R'
     'calc_CentralDose.R'
     'calc_CommonDose.R'
     'calc_CosmicDoseRate.R'
@@ -110,6 +126,7 @@ Collate:
     'calc_FuchsLang2001.R'
     'calc_HomogeneityTest.R'
     'calc_IEU.R'
+    'calc_Kars2008.R'
     'calc_MaxDose.R'
     'calc_MinDose.R'
     'calc_OSLLxTxRatio.R'
@@ -118,12 +135,18 @@ Collate:
     'calc_TLLxTxRatio.R'
     'calc_ThermalLifetime.R'
     'calc_gSGC.R'
+    'convert_BIN2CSV.R'
+    'convert_Daybreak2CSV.R'
+    'convert_PSL2CSV.R'
+    'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'
     'fit_LMCurve.R'
     'get_Layout.R'
     'get_Quote.R'
     'get_rightAnswer.R'
+    'github.R'
+    'install_DevelopmentVersion.R'
     'internal_as.latex.table.R'
     'internals_RLum.R'
     'merge_RLum.Analysis.R'
@@ -153,6 +176,7 @@ Collate:
     'plot_ViolinPlot.R'
     'read_BIN2R.R'
     'read_Daybreak2R.R'
+    'read_PSL2R.R'
     'read_SPE2R.R'
     'read_XSYG2R.R'
     'report_RLum.R'
@@ -161,5 +185,6 @@ Collate:
     'use_DRAC.R'
     'verify_SingleGrainData.R'
     'write_R2BIN.R'
+    'write_RLum2CSV.R'
     'zzz.R'
 RoxygenNote: 5.0.1

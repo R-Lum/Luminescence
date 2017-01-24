@@ -71,7 +71,12 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). plot_ViolinPlot(): Create a violin plot. Function version 0.1.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Daniel Adler (2005). vioplot: A violin plot is a combination of a box plot and a kernel density plot.
 R package version 0.2 http://CRAN.R-project.org/package=violplot

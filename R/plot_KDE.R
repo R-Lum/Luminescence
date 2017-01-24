@@ -45,7 +45,7 @@
 #' dataset2)}).
 #'
 #' @param na.rm \code{\link{logical}} (with default): exclude NA values
-#' from the data set prior to any further operations.
+#' from the data set prior to any further operation.
 #'
 #' @param values.cumulative \code{\link{logical}} (with default): show
 #' cumulative individual data.
@@ -80,7 +80,7 @@
 #'
 #' @param output \code{\link{logical}}: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
-#' \code{FALSE}.
+#' \code{TRUE}.
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot}}.
@@ -161,7 +161,7 @@ plot_KDE <- function(
   summary.pos,
   summary.method = "MCM",
   bw = "nrd0",
-  output = FALSE,
+  output = TRUE,
   ...
 ) {
 
@@ -1205,9 +1205,9 @@ plot_KDE <- function(
   if(fun==TRUE){sTeve()}
 
   if(output == TRUE) {
-    return(list(De.stats = De.stats,
-                summary.pos = summary.pos,
-                De.density = De.density))
+    return(invisible(list(De.stats = De.stats,
+                          summary.pos = summary.pos,
+                          De.density = De.density)))
   }
 
 }

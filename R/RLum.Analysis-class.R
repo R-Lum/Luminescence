@@ -1,4 +1,4 @@
-#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R
+#' @include get_RLum.R set_RLum.R length_RLum.R structure_RLum.R names_RLum.R smooth_RLum.R
 NULL
 
 #' Class \code{"RLum.Analysis"}
@@ -22,7 +22,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
 #'
-#' @section Class version: 0.4.6
+#' @section Class version: 0.4.8
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -128,31 +128,63 @@ setMethod("show",
             if(length(object@records) > 0){
 
               ##get object class types
-              temp <- sapply(1:length(object@records), function(x){
+              temp <- vapply(object@records, function(x){
+                is(x)[1]
 
-                is(object@records[[x]])[1]
+              }, FUN.VALUE = vector(mode = "character", length = 1))
 
-              })
 
               ##print object class types
-              sapply(1:length(table(temp)), function(x){
+              lapply(1:length(table(temp)), function(x){
 
                 ##show RLum class type
                 cat("\n\t .. :",names(table(temp)[x]),":",table(temp)[x])
 
-
                 ##show structure
                 ##set width option ... just an implementation for the tutorial output
-                ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 10)
+                ifelse(getOption("width")<=50, temp.width <- 4, temp.width  <- 7)
 
-                cat("\n\t .. .. : ",
-                    unlist(sapply(1:length(object@records),  function(i) {
+                ##set linebreak variable
+                linebreak <- FALSE
+                env <- environment()
 
-                      if(names(table(temp)[x]) == is(object@records[[i]])[1]){
-                        paste(object@records[[i]]@recordType,
-                              if(i%%temp.width==0 & i!=length(object@records)){"\n\t .. .. : "})
+                ##create terminal output
+                terminal_output <-
+                  vapply(1:length(object@records),  function(i) {
+                    if (names(table(temp)[x]) == is(object@records[[i]])[1]) {
+                      if (i %% temp.width == 0 & i != length(object@records)) {
+                        assign(x = "linebreak", value = TRUE, envir = env)
                       }
-                    })))
+
+                      ##FIRST
+                      first <-  paste0("#", i, " ", object@records[[i]]@recordType)
+                      ##LAST
+                      if (i < length(object@records) &&
+                          !is.null(object@records[[i]]@info[["parentID"]]) &&
+                          (object@records[[i]]@info[["parentID"]] ==
+                           object@records[[i+1]]@info[["parentID"]])) {
+                        last <- " <> "
+
+                      }else {
+                        if(i == length(object@records)){
+                          last <- ""
+
+                        }else if (linebreak){
+                          last <- "\n\t .. .. : "
+                          assign(x = "linebreak", value = FALSE, envir = env)
+
+                        }else{
+                          last <- " | "
+                        }
+
+                      }
+                      return(paste0(first,last))
+                    }
+
+              }, FUN.VALUE = vector(mode = "character", length = 1))
+
+                 ##print combined output
+                 cat("\n\t .. .. : ", terminal_output, sep = "")
 
               })
 
@@ -281,6 +313,10 @@ setMethod(
 #' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 #' element
 #'
+#' @param subset \code{\link{expression}} (optional): logical expression indicating elements or rows
+#' to keep: missing values are taken as false. This argument takes precedence over all
+#' other arguments, meaning they are not considered when subsetting the object.
+#'
 #' @return
 #'
 #' \bold{\code{get_RLum}}:\cr
@@ -296,10 +332,56 @@ setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
-                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE, info.object = NULL){
+                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE, info.object = NULL, subset = NULL) {
+
+            if (!is.null(substitute(subset))) {
+
+              # To account for different lengths and elements in the @info slot we first
+              # check all unique elements
+              info_el <- unique(unlist(sapply(object@records, function(el) names(el@info))))
+
+              envir <- as.data.frame(do.call(rbind,
+                                             lapply(object@records, function(el) {
+                                               val <- c(curveType = el@curveType, recordType = el@recordType, unlist(el@info))
+
+                                               # add missing info elements and set NA
+                                               if (any(!info_el %in% names(val))) {
+                                                 val_new <- setNames(rep(NA, length(info_el[!info_el %in% names(val)])), info_el[!info_el %in% names(val)])
+                                                 val <- c(val, val_new)
+                                               }
+
+                                               # order the named char vector by its names so we dont mix up the columns
+                                               val <- val[order(names(val))]
+                                               return(val)
+                                               })
+                                             ))
+
+              ##select relevant rows
+              sel <- tryCatch(eval(
+                expr = substitute(subset),
+                envir = envir,
+                enclos = parent.frame()
+              ),
+              error = function(e) {
+                stop("\n\n [ERROR] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "))
+              })
+
+              if (all(is.na(sel)))
+                sel <- FALSE
+
+              if (any(sel)) {
+                object@records <- object@records[sel]
+                return(object)
+              } else {
+                tmp <- mapply(function(name, op) { message("  ",name, ": ", paste(unique(op),  collapse = ", ")) }, names(envir), envir)
+                message("\n [ERROR] Invalid value, please refer to unique options given above.")
+                return(NULL)
+              }
+
+            }
 
             ##if info.object is set, only the info objects are returned
-            if(!is.null(info.object)) {
+            else if(!is.null(info.object)) {
 
               if(info.object %in% names(object@info)){
 
@@ -328,7 +410,16 @@ setMethod("get_RLum",
               }
 
 
-            } else{
+            } else {
+
+              ##check for records
+              if (length(object@records) == 0) {
+
+                warning("[get_RLum] This RLum.Analysis object has no records! NULL returned!)")
+                return(NULL)
+
+              }
+
               ##record.id
               if (is.null(record.id)) {
                 record.id <- c(1:length(object@records))
@@ -474,7 +565,8 @@ setMethod("get_RLum",
                       class = "RLum.Analysis",
                       originator = originator,
                       records = temp,
-                      protocol = object@protocol
+                      protocol = object@protocol,
+                      .pid = object@.pid
                     )
                     return(temp)
 
@@ -499,7 +591,8 @@ setMethod("get_RLum",
                       class = "RLum.Analysis",
                       originator = originator,
                       records = list(object@records[[record.id]]),
-                      protocol = object@protocol
+                      protocol = object@protocol,
+                      .pid = object@.pid
                     )
                     return(temp)
 
@@ -679,3 +772,36 @@ setMethod("names_RLum",
 
           })
 
+
+####################################################################################################
+###smooth_RLum()
+####################################################################################################
+#' @describeIn RLum.Analysis
+#'
+#' Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
+#' \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+#' In particular the internal function \code{.smoothing} is used.
+#'
+#' @param ... further arguments passed to underlying methods
+#'
+#' @return
+#'
+#' \bold{\code{smooth_RLum}}\cr
+#'
+#' Same object as input, after smoothing
+#'
+#' @export
+setMethod(
+  f = "smooth_RLum",
+  signature = "RLum.Analysis",
+  function(object, ...) {
+
+        object@records <- lapply(object@records, function(x){
+          smooth_RLum(x, ...)
+
+        })
+
+    return(object)
+
+  }
+)

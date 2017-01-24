@@ -10,12 +10,14 @@ calc_CentralDose(data, sigmab, log = TRUE, plot = TRUE, ...)
 \arguments{
 \item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
 (\bold{required}): for \code{data.frame}: two columns with De
-\code{(data[,1])} and De error \code{(values[,2])}}
+\code{(data[,1])} and De error \code{(data[,2])}}
 
-\item{sigmab}{\code{\link{numeric}} (with default): spread in De values
-given as a fraction (e.g. 0.2). This value represents the expected
-overdispersion in the data should the sample be well-bleached (Cunningham &
-Walling 2012, p. 100).}
+\item{sigmab}{\code{\link{numeric}} (with default): additional spread in De values.
+This value represents the expected overdispersion in the data should the sample be 
+well-bleached (Cunningham & Walling 2012, p. 100).
+\bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
+a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
+sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
 \item{log}{\code{\link{logical}} (with default): fit the (un-)logged central
 age model to De data}
@@ -54,7 +56,7 @@ appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
 (2012, 15)
 }
 \section{Function version}{
- 1.3.1 (2016-05-02 09:36:06)
+ 1.3.2 (2017-01-24 21:05:25)
 }
 \examples{
 
@@ -68,7 +70,12 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a
 rewritten S script of Rex Galbraith, 2010 \cr
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Burow, C. (2017). calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.

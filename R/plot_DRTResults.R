@@ -615,13 +615,13 @@ plot_DRTResults <- function(
                adj = summary.adj,
                labels = label.text[[i]],
                cex = 0.8 * cex,
-               col = col[i])
+               col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
         } else {
           if(mtext == "") {
             mtext(side = 3,
                   line = - i + 2.5,
                   text = label.text[[i]],
-                  col = col[i],
+                  col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
                   cex = cex * 0.8)
           }
         }
@@ -782,13 +782,13 @@ plot_DRTResults <- function(
              adj = summary.adj,
              labels = label.text[[i]],
              cex = 0.8 * cex,
-             col = col[i])
+             col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
       } else {
         if(mtext == "") {
           mtext(side = 3,
                 line = - i + 2.5,
                 text = label.text[[i]],
-                col = col[i],
+                col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
                 cex = cex * 0.8)
         }
       }
@@ -802,8 +802,8 @@ plot_DRTResults <- function(
            xjust = legend.adj[1],
            yjust = legend.adj[2],
            legend = legend,
-           col = col,
-           pch = pch,
+           col = unique(col),
+           pch = unique(pch),
            lty = 1,
            cex = cex * 0.8)
   }

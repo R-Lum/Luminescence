@@ -4,7 +4,7 @@
 \alias{app_RLum}
 \title{Run Luminescence shiny apps (wrapper)}
 \usage{
-app_RLum(app, ...)
+app_RLum(app = NULL, ...)
 }
 \arguments{
 \item{app}{\code{\link{character}} (required): name of the application to start. See details for a list
@@ -18,9 +18,14 @@ Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.1 (2017-01-24 21:05:25)
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Burow, C. (2017). app_RLum(): Run Luminescence shiny apps (wrapper). Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 

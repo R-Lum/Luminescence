@@ -48,12 +48,6 @@ echo -^> Build documentation ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_roxygen2.R" NULL
 call :check
 
-:: COMPILE FUNCTION PARAMTER LIST
-:: -----------------------
-echo -^> Compile function argument list ...
-R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Function_Arguments.R" NULL
-call :check
-
 :: NEWS
 :: -----------------------
 echo -^> Build ASCII NEWS ...
@@ -64,6 +58,12 @@ call :check
 :: -----------------------
 echo -^> Add RLum.Team ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_AddRLumTeam.R" NULL
+call :check
+
+:: Citation
+:: -----------------------
+echo -^> Add function citation ...
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Citation.R" NULL
 call :check
 
 
@@ -106,6 +106,12 @@ call :check
 
 echo -^> Build function list ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Function_List.R" NULL
+call :check
+
+:: COMPILE FUNCTION PARAMTER LIST
+:: -----------------------
+echo -^> Compile function argument list ...
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_Function_Arguments.R" NULL
 call :check
 
 echo -^> Moving packge source files (^*.tar.gz)

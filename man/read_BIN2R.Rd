@@ -7,7 +7,8 @@
 read_BIN2R(file, show.raw.values = FALSE, position = NULL,
   n.records = NULL, zero_data.rm = TRUE, duplicated.rm = FALSE,
   fastForward = FALSE, show.record.number = FALSE, txtProgressBar = TRUE,
-  forced.VersionNumber = NULL, pattern = NULL, verbose = TRUE, ...)
+  forced.VersionNumber = NULL, ignore.RECTYPE = FALSE, pattern = NULL,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
@@ -51,6 +52,10 @@ version number check in the function by own values for cases where the
 BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
 Note: The usage is at own risk, only supported BIN-file versions have been tested.}
 
+\item{ignore.RECTYPE}{\code{\link{logical}} (with default): this argument allows to ignore values
+in the byte 'REGTYPE' (BIN-file version 08), in case there are not documented or faulty set.
+If set all records are treated like records of 'REGYPE' 0 or 1.}
+
 \item{pattern}{\code{\link{character}} (optional): argument that is used if only a path is provided.
 The argument will than be passed to the function \code{\link{list.files}} used internally to
 construct a \code{list} of wanted files}
@@ -89,7 +94,7 @@ version number depends on the used Sequence Editor.\cr\cr
 import.}
 }
 \section{Function version}{
- 0.15.0 (2016-06-13 21:17:19)
+ 0.15.2 (2017-01-24 21:05:25)
 }
 \examples{
 
@@ -104,7 +109,12 @@ import.}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S., Fuchs, M.C., Fuchs, M. (2017). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/Products-and-Services/Dosimetry/Radiation-Measurement-Instruments/TL_OSL_reader/Manuals}

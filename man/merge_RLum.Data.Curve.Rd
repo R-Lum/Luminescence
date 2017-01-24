@@ -69,6 +69,12 @@ The min values from the count values is chosen using the function
 The max values from the count values is chosen using the function
 \code{\link[matrixStats]{rowMins}}.
 
+\code{"append"}\cr
+
+Appends count values of all curves to one combined data curve. The channel width
+is automatically re-calculated, but requires a constant channel width of the 
+original data.
+
 \code{"-"}\cr
 
 The row sums of the last objects are subtracted from the first object.
@@ -94,7 +100,7 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.0 (2016-09-09 14:30:23)
+ 0.2.0 (2017-01-24 21:05:25)
 }
 \examples{
 
@@ -119,7 +125,12 @@ plot_RLum(TL.curve.merged)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 -
 }

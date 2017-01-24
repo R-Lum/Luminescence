@@ -17,12 +17,14 @@
 #'
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
-#' \code{(data[,1])} and De error \code{(values[,2])}
+#' \code{(data[,1])} and De error \code{(data[,2])}
 #' 
-#' @param sigmab \code{\link{numeric}} (with default): spread in De values
-#' given as a fraction (e.g. 0.2). This value represents the expected
-#' overdispersion in the data should the sample be well-bleached (Cunningham &
-#' Walling 2012, p. 100).
+#' @param sigmab \code{\link{numeric}} (with default): additional spread in De values.
+#' This value represents the expected overdispersion in the data should the sample be 
+#' well-bleached (Cunningham & Walling 2012, p. 100).
+#' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
+#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
+#' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' 
 #' @param log \code{\link{logical}} (with default): fit the (un-)logged central
 #' age model to De data
@@ -42,7 +44,7 @@
 #'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum}}
-#' @section Function version: 1.3.1
+#' @section Function version: 1.3.2
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2010 \cr
 #' @seealso \code{\link{plot}}, \code{\link{calc_CommonDose}},
@@ -240,7 +242,7 @@ calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
                         OD = out.sigma, OD_err = out.sesigma * 100, Lmax = Lmax)
   
   call <- sys.call()
-  args <- list(log = "TRUE", sigmab = sigmab)
+  args <- list(log = log, sigmab = sigmab)
   
   newRLumResults.calc_CentralDose <- set_RLum(class = "RLum.Results", 
                                               data = list(summary = summary, 

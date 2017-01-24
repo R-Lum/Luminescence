@@ -49,6 +49,10 @@
 #' BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
 #' Note: The usage is at own risk, only supported BIN-file versions have been tested.
 #'
+#' @param ignore.RECTYPE \code{\link{logical}} (with default): this argument allows to ignore values
+#' in the byte 'REGTYPE' (BIN-file version 08), in case there are not documented or faulty set.
+#' If set all records are treated like records of 'REGYPE' 0 or 1.
+#'
 #' @param pattern \code{\link{character}} (optional): argument that is used if only a path is provided.
 #' The argument will than be passed to the function \code{\link{list.files}} used internally to
 #' construct a \code{list} of wanted files
@@ -76,7 +80,7 @@
 #' import.}
 #'
 #'
-#' @section Function version: 0.15.0
+#' @section Function version: 0.15.2
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -117,6 +121,7 @@ read_BIN2R <- function(
   show.record.number = FALSE,
   txtProgressBar = TRUE,
   forced.VersionNumber = NULL,
+  ignore.RECTYPE = FALSE,
   pattern = NULL,
   verbose = TRUE,
   ...
@@ -274,7 +279,11 @@ read_BIN2R <- function(
   if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%tail(
     unlist(strsplit(file, split = "\\.")), n = 1)))){
 
-    stop("[read_BIN2R()] Input is not a file or not of type 'BIN' or 'BINX'!")
+    try(
+      stop(
+        paste0("[read_BIN2R()] '", file,"' is not a file or not of type 'BIN' or 'BINX'! Skipped!"),
+        call. = FALSE))
+    return(NULL)
 
   }
 
@@ -325,7 +334,7 @@ read_BIN2R <- function(
 
       }else{
         ##show error message
-        error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
+        error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file seems to be not supported or the BIN-file is broken.! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
         ##close connection
         close(con)
@@ -648,19 +657,32 @@ read_BIN2R <- function(
       temp.PREVIOUS <- temp[2]
       temp.NPOINTS <- temp[3]
 
-      ##for temp.VERSION == 08
-      ##RECTYPE
+      #for temp.VERSION == 08
+      #RECTYPE
       if(temp.VERSION == 08){
         temp.RECTYPE <- readBin(con, what="int", 1, size=1, endian="little", signed = FALSE)
-        if(temp.RECTYPE == 128){
-          STEPPING<-readBin(con, what="raw", temp.LENGTH)
+        if(temp.RECTYPE != 0 & temp.RECTYPE != 1){
+          ##jump to the next record by stepping the record length minus the alread read bytes
+          STEPPING <- readBin(con, what = "raw", size = 1, n = temp.LENGTH - 15)
 
-          warning("[read_BIN2R()] ROI definition in data set detected, but currently not supported, skipped!", call. = FALSE)
+          if(temp.RECTYPE == 128){
+            warning(paste0("[read_BIN2R()] ROI definition in data set #",temp.ID+1, "detected, but currently not supported, record skipped!", call. = FALSE))
 
-          next()
+          }else{
+            if(!ignore.RECTYPE){
+              stop(paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"! Check your BIN-file!"), call. = FALSE)
+
+            }else{
+              warning(paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"! Check your BIN-file!"), call. = FALSE)
+
+            }
+
+          }
+
+
+          next
         }
       }
-
 
       ##(2) Sample characteristics
       ##RUN, SET, POSITION, GRAINNUMBER, CURVENO, XCOORD, YCOORD

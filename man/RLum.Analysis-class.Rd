@@ -8,6 +8,7 @@
 \alias{names_RLum,RLum.Analysis-method}
 \alias{set_RLum,RLum.Analysis-method}
 \alias{show,RLum.Analysis-method}
+\alias{smooth_RLum,RLum.Analysis-method}
 \alias{structure_RLum,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
 \usage{
@@ -19,13 +20,15 @@
 \S4method{get_RLum}{RLum.Analysis}(object, record.id = NULL,
   recordType = NULL, curveType = NULL, RLum.type = NULL,
   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
-  info.object = NULL)
+  info.object = NULL, subset = NULL)
 
 \S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 
 \S4method{length_RLum}{RLum.Analysis}(object)
 
 \S4method{names_RLum}{RLum.Analysis}(object)
+
+\S4method{smooth_RLum}{RLum.Analysis}(object, ...)
 }
 \arguments{
 \item{object}{\code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]}\code{[length_RLum]}
@@ -81,9 +84,15 @@ easier, however, if this method is used within a loop this might undesired.}
 \item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
 element}
 
+\item{subset}{\code{\link{expression}} (optional): logical expression indicating elements or rows
+to keep: missing values are taken as false. This argument takes precedence over all
+other arguments, meaning they are not considered when subsetting the object.}
+
 \item{fullExtent}{[structure_RLum] \code{\link{logical}} (with default): extents the returned \code{data.frame}
 to its full extent, i.e. all info elements are part of the return as well. The default valule
 is \code{FALSE} as the data frame might become rather big.}
+
+\item{...}{further arguments passed to underlying methods}
 }
 \value{
 \bold{\code{get_RLum}}:\cr
@@ -105,6 +114,10 @@ Returns the number records in this object.
 \bold{\code{names_RLum}}\cr
 
 Returns the names of the record types (recordType) in this object.
+
+\bold{\code{smooth_RLum}}\cr
+
+Same object as input, after smoothing
 }
 \description{
 Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc.
@@ -133,6 +146,10 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item \code{length_RLum}: Returns the length of the object, i.e., number of stored records.
 
 \item \code{names_RLum}: Returns the names of the \code{\linkS4class{RLum.Data}} objects objects (same as shown with the show method)
+
+\item \code{smooth_RLum}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
+\code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+In particular the internal function \code{.smoothing} is used.
 }}
 \section{Slots}{
 
@@ -151,7 +168,7 @@ containing \code{\linkS4class{RLum.Data.Curve}}.
 }
 
 \section{Class version}{
- 0.4.6
+ 0.4.8
 }
 \examples{
 
@@ -174,7 +191,12 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \seealso{
 \code{\link{Risoe.BINfileData2RLum.Analysis}},
 \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}

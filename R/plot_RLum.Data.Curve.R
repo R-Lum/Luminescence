@@ -26,7 +26,7 @@
 #'
 #' @note Not all arguments of \code{\link{plot}} will be passed!
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -65,43 +65,52 @@ plot_RLum.Data.Curve<- function(
 
   ##check if object is of class RLum.Data.Curve
   if(class(object) != "RLum.Data.Curve"){
-
     stop("[plot_RLum.Data.Curve()] Input object is not of type RLum.Data.Curve")
 
   }
 
   ##stop for NA values
-  if (!anyNA(object@data)) {
+  if (!all(is.na(object@data))) {
+
     ##set labeling unit
-    lab.unit <- if (object@recordType == "OSL" |
-                    object@recordType == "IRSL" |
-                    object@recordType == "RL" |
-                    object@recordType == "RF" |
-                    object@recordType == "LM-OSL" |
-                    object@recordType == "RBR") {
-      "s"
-    }
-    else if (object@recordType == "TL") {
-      "\u00B0C"
-    }
-    else {
-      "Unknown"
+    if(!is.na(object@recordType)){
+      lab.unit <- if (object@recordType == "OSL" |
+                      object@recordType == "IRSL" |
+                      object@recordType == "RL" |
+                      object@recordType == "RF" |
+                      object@recordType == "LM-OSL" |
+                      object@recordType == "RBR") {
+        "s"
+      } else if (object@recordType == "TL") {
+        "\u00B0C"
+      }
+      else {
+        "Unknown"
+      }
+    }else{
+      lab.unit <- "Unknown"
+
     }
 
-    lab.xlab <- if (object@recordType == "OSL" |
-                    object@recordType == "IRSL" |
-                    object@recordType == "RL" |
-                    object@recordType == "RF" |
-                    object@recordType == "RBR" |
-                    object@recordType == "LM-OSL"){
+    if(!is.na(object@recordType)){
+      lab.xlab <- if (object@recordType == "OSL" |
+                      object@recordType == "IRSL" |
+                      object@recordType == "RL" |
+                      object@recordType == "RF" |
+                      object@recordType == "RBR" |
+                      object@recordType == "LM-OSL"){
 
-      "Stimulation time"
-    }
-    else if (object@recordType == "TL") {
-      "Temperature"
-    }
-    else {
-      "Independent"
+        "Stimulation time"
+      }
+      else if (object@recordType == "TL") {
+        "Temperature"
+      }
+      else {
+        "Independent"
+      }
+    }else{
+      lab.xlab <- "Independent"
+
     }
 
     ##XSYG
@@ -228,7 +237,7 @@ plot_RLum.Data.Curve<- function(
       extraArgs$ylim
     } else
     {
-      c(min(object@data[,2]),max(object@data[,2]))
+      c(min(object@data[,2], na.rm = TRUE),max(object@data[,2], na.rm = TRUE))
     }
 
     xlim <- if ("xlim" %in% names(extraArgs)) {
@@ -307,8 +316,7 @@ plot_RLum.Data.Curve<- function(
     }
 
   }else{
-
-    warning("[plot_RLum.Data.Curve()] Curve contains NA-values, nothing plotted.")
+    warning("[plot_RLum.Data.Curve()] Curve contains only NA-values, nothing plotted.", call. = FALSE)
 
   }
 

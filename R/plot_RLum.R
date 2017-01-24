@@ -33,7 +33,7 @@
 #'
 #' @note The provided plot output depends on the input object.
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -84,7 +84,17 @@ plot_RLum<- function(
         RLum.Data.Curve = plot_RLum.Data.Curve(object = object, ...),
         RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object = object, ...),
         RLum.Data.Image = plot_RLum.Data.Image(object = object, ...),
-        RLum.Analysis = plot_RLum.Analysis(object = object, ...),
+
+        ##this we have to do prevent the partial matching with 'sub' by 'subset'
+        RLum.Analysis =
+          if(!grepl(pattern = "subset", x = paste(deparse(match.call()), collapse = " "), fixed = TRUE)){
+          plot_RLum.Analysis(object = object, subset = NULL, ...)
+
+        }else{
+          plot_RLum.Analysis(object = object, ...)
+
+        },
+
         RLum.Results = plot_RLum.Results(object = object, ...)
 
       )

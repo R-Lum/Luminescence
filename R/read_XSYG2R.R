@@ -98,7 +98,7 @@
 #' the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.7
+#' @section Function version: 0.5.8
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -216,14 +216,15 @@ read_XSYG2R <- function(
     return(NULL)
   }
 
-  ##check if file is XML file
-  if(tail(unlist(strsplit(file, split = "\\.")), 1) != "xsyg" &
-     tail(unlist(strsplit(file, split = "\\.")), 1) != "XSYG" ){
-
-    warning("[read_XSYG2R()] File is not of type 'XSYG', nothing imported!")
-    return(NULL)
-
-  }
+  #TODO to be included again in a future version, if the format is given in the file itself
+  # ##check if file is XML file
+  # if(tail(unlist(strsplit(file, split = "\\.")), 1) != "xsyg" &
+  #    tail(unlist(strsplit(file, split = "\\.")), 1) != "XSYG" ){
+  #
+  #   warning("[read_XSYG2R()] File is not of type 'XSYG', nothing imported!")
+  #   return(NULL)
+  #
+  # }
 
   # (0) config --------------------------------------------------------------
   #version.supported <- c("1.0")

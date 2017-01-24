@@ -51,25 +51,32 @@
 #' @param grain.size \code{\link{numeric}} (\bold{required}): mean grain size
 #' (microns) or a range of grain sizes from which the mean grain size is
 #' computed (e.g. \code{c(100,200)}).
+#'
 #' @param sample.diameter \code{\link{numeric}} (\bold{required}): diameter
 #' (mm) of the targeted area on the sample carrier.
+#'
 #' @param packing.density \code{\link{numeric}} (with default) empirical value
 #' for mean packing density. \cr If \code{packing.density = "inf"} a hexagonal
 #' structure on an infinite plane with a packing density of \eqn{0.906\ldots}
 #' is assumed.
+#'
 #' @param MC \code{\link{logical}} (optional): if \code{TRUE} the function
 #' performs a monte carlo simulation for estimating the amount of grains on the
 #' sample carrier and assumes random errors in grain size distribution and
 #' packing density. Requires a vector with min and max grain size for
 #' \code{grain.size}. For more information see details.
+#'
 #' @param grains.counted \code{\link{numeric}} (optional) grains counted on a
 #' sample carrier. If a non-zero positive integer is provided this function
 #' will calculate the packing density of the aliquot. If more than one value is
 #' provided the mean packing density and its standard deviation is calculated.
 #' Note that this overrides \code{packing.density}.
+#'
 #' @param plot \code{\link{logical}} (with default): plot output
 #' (\code{TRUE}/\code{FALSE})
+#'
 #' @param \dots further arguments to pass (\code{main, xlab, MC.iter}).
+#'
 #' @return Returns a terminal output. In addition an
 #' \code{\linkS4class{RLum.Results}} object is returned containing the
 #' following element:
@@ -81,19 +88,33 @@
 #'
 #' The output should be accessed using the function
 #' \code{\link{get_RLum}}
+#'
 #' @section Function version: 0.31
+#'
 #' @author Christoph Burow, University of Cologne (Germany)
-#' @references Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
+#'
+#' @references
+#' Duller, G.A.T., 2008. Single-grain optical dating of Quaternary
 #' sediments: why aliquot size matters in luminescence dating. Boreas 37,
-#' 589-612.  \cr\cr Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains
-#' are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr \bold{Further
-#' reading} \cr\cr Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
+#' 589-612.
+#'
+#' Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains
+#' are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr
+#'
+#' \bold{Further reading} \cr\cr
+#'
+#' Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
 #' Theorem on Circle Packing. \url{http://arxiv.org/pdf/1009.4322v1.pdf},
-#' 2013-09-13. \cr\cr Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
+#' 2013-09-13.
+#'
+#' Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,
 #' Oestergard, P.R.J., 1998.  Dense packings of congruent circles in a circle.
-#' Discrete Mathematics 181, 139-154. \cr\cr Huang, W., Ye, T., 2011. Global
+#' Discrete Mathematics 181, 139-154.
+#'
+#' Huang, W., Ye, T., 2011. Global
 #' optimization method for finding dense packings of equal circles in a circle.
 #' European Journal of Operational Research 210, 474-481.
+#'
 #' @examples
 #'
 #' ## Estimate the amount of grains on a small aliquot
@@ -159,14 +180,13 @@ calc_AliquotSize <- function(
   ## ... ARGUMENTS
   ##==========================================================================##
 
-  extraArgs <- list(...)
+  # set default parameters
+  settings <- list(MC.iter = 10^4,
+                   verbose = TRUE)
 
-  ## set number of Monte Carlo iterations
-  if("MC.iter" %in% names(extraArgs)) {
-    MC.iter<- extraArgs$MC.iter
-  } else {
-    MC.iter<- 10^4
-  }
+  # override settings with user arguments
+  settings <- modifyList(settings, list(...))
+
 
   ##==========================================================================##
   ## CALCULATIONS
@@ -204,7 +224,7 @@ calc_AliquotSize <- function(
       # create a random set of packing densities assuming a normal
       # distribution with the empirically determined standard deviation of
       # 0.18.
-      d.mc<- rnorm(MC.iter, packing.density, 0.18)
+      d.mc<- rnorm(settings$MC.iter, packing.density, 0.18)
 
       # in a PECC the packing density can not be larger than ~0.87
       d.mc[which(d.mc > 0.87)]<- 0.87
@@ -213,7 +233,7 @@ calc_AliquotSize <- function(
       # create a random set of sample diameters assuming a normal
       # distribution with an assumed standard deviation of
       # 0.2. For a more conservative estimate this is divided by 2.
-      sd.mc<- rnorm(MC.iter, sample.diameter, 0.2)
+      sd.mc<- rnorm(settings$MC.iter, sample.diameter, 0.2)
 
       # it is assumed that sample diameters < 0.5 mm either do not
       # occur, or are discarded. Either way, any smaller sample
@@ -229,7 +249,7 @@ calc_AliquotSize <- function(
       # as standard deviation. For a more conservative estimate this
       # is further devided by 2, so half the range is regarded as
       # two sigma.
-      gs.mc<- rnorm(MC.iter, grain.size, diff(gs.range)/4)
+      gs.mc<- rnorm(settings$MC.iter, grain.size, diff(gs.range)/4)
 
       # draw random samples from the grain size spectrum (gs.mc) and calculate
       # the mean for each sample. This gives an approximation of the variation
@@ -297,50 +317,52 @@ calc_AliquotSize <- function(
   ##==========================================================================##
   ##TERMINAL OUTPUT
   ##==========================================================================##
+  if (settings$verbose) {
 
-  cat("\n [calc_AliquotSize]")
-  cat(paste("\n\n ---------------------------------------------------------"))
-  cat(paste("\n mean grain size (microns)  :", grain.size))
-  cat(paste("\n sample diameter (mm)       :", sample.diameter))
-  if(missing(grains.counted) == FALSE) {
-    if(length(grains.counted) == 1) {
-      cat(paste("\n counted grains             :", grains.counted))
-    } else {
-      cat(paste("\n mean counted grains        :", round(mean(grains.counted))))
+    cat("\n [calc_AliquotSize]")
+    cat(paste("\n\n ---------------------------------------------------------"))
+    cat(paste("\n mean grain size (microns)  :", grain.size))
+    cat(paste("\n sample diameter (mm)       :", sample.diameter))
+    if(missing(grains.counted) == FALSE) {
+      if(length(grains.counted) == 1) {
+        cat(paste("\n counted grains             :", grains.counted))
+      } else {
+        cat(paste("\n mean counted grains        :", round(mean(grains.counted))))
+      }
     }
-  }
-  if(missing(grains.counted) == TRUE) {
-    cat(paste("\n packing density            :", round(packing.density,3)))
-  }
-  if(missing(grains.counted) == FALSE) {
-    if(length(grains.counted) == 1) {
+    if(missing(grains.counted) == TRUE) {
       cat(paste("\n packing density            :", round(packing.density,3)))
-    } else {
-      cat(paste("\n mean packing density       :", round(mean(packing.densities),3)))
-      cat(paste("\n standard deviation         :", round(std.d,3)))
     }
+    if(missing(grains.counted) == FALSE) {
+      if(length(grains.counted) == 1) {
+        cat(paste("\n packing density            :", round(packing.density,3)))
+      } else {
+        cat(paste("\n mean packing density       :", round(mean(packing.densities),3)))
+        cat(paste("\n standard deviation         :", round(std.d,3)))
+      }
+    }
+    if(missing(grains.counted) == TRUE) {
+      cat(paste("\n number of grains           :", round(n.grains,0)))
+    }
+
+
+
+    if(MC == TRUE && range.flag == TRUE) {
+      cat(paste(cat(paste("\n\n --------------- Monte Carlo Estimates -------------------"))))
+      cat(paste("\n number of iterations (n)     :", settings$MC.iter))
+      cat(paste("\n median                       :", round(MC.stats$median)))
+      cat(paste("\n mean                         :", round(MC.stats$mean)))
+      cat(paste("\n standard deviation (mean)    :", round(MC.stats$sd.abs)))
+      cat(paste("\n standard error (mean)        :", round(MC.stats$se.abs, 1)))
+      cat(paste("\n 95% CI from t-test (mean)    :", round(MC.t.lower), "-", round(MC.t.upper)))
+      cat(paste("\n standard error from CI (mean):", round(MC.t.se, 1)))
+      cat(paste("\n ---------------------------------------------------------\n"))
+
+    } else {
+      cat(paste("\n ---------------------------------------------------------\n"))
+    }
+
   }
-  if(missing(grains.counted) == TRUE) {
-    cat(paste("\n number of grains           :", round(n.grains,0)))
-  }
-
-
-
-  if(MC == TRUE && range.flag == TRUE) {
-    cat(paste(cat(paste("\n\n --------------- Monte Carlo Estimates -------------------"))))
-    cat(paste("\n number of iterations (n)     :", MC.iter))
-    cat(paste("\n median                       :", round(MC.stats$median)))
-    cat(paste("\n mean                         :", round(MC.stats$mean)))
-    cat(paste("\n standard deviation (mean)    :", round(MC.stats$sd.abs)))
-    cat(paste("\n standard error (mean)        :", round(MC.stats$se.abs, 1)))
-    cat(paste("\n 95% CI from t-test (mean)    :", round(MC.t.lower), "-", round(MC.t.upper)))
-    cat(paste("\n standard error from CI (mean):", round(MC.t.se, 1)))
-    cat(paste("\n ---------------------------------------------------------\n"))
-
-  } else {
-    cat(paste("\n ---------------------------------------------------------\n"))
-  }
-
   ##==========================================================================##
   ##RETURN VALUES
   ##==========================================================================##
@@ -377,7 +399,7 @@ calc_AliquotSize <- function(
     }
   }
 
-  if(MC == FALSE) {
+  if(!MC) {
     MC.n<- NULL
     MC.stats<- NULL
     MC.n.kde<- NULL
@@ -388,21 +410,20 @@ calc_AliquotSize <- function(
   if(missing(grains.counted)) grains.counted<- NA
 
   call<- sys.call()
-  args<- list(grain.size = grain.size, sample.diameter = sample.diameter, packing.density = packing.density, MC = MC, grains.counted = grains.counted, MC.iter=MC.iter)
+  args<- as.list(sys.call())[-1]
 
   # create S4 object
   newRLumResults.calc_AliquotSize <- set_RLum(
     class = "RLum.Results",
     data = list(
       summary=summary,
-      args=args,
-      call=call,
       MC=list(estimates=MC.n,
               statistics=MC.stats,
               kde=MC.n.kde,
               t.test=MC.t.test,
-              quantile=MC.q)
-    ))
+              quantile=MC.q)),
+    info = list(call=call,
+                args=args))
 
   ##=========##
   ## PLOTTING

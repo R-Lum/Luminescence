@@ -1,10 +1,37 @@
 language: r
+cache: packages
 warnings_are_errors: true
 sudo: required
 
+r_packages:
+  - covr
+  
 r_binary_packages:
   - rjags
+   
+## test different platforms 
+matrix:
+  include:  
+  - os: linux
+    r: devel
+    env: CACHE_NAME=JOB1
+  - os: osx
+    r: release
+    before_install:
+      - rm '/usr/local/bin/gfortran'
+      - sudo chown -R travis /usr/local
+      - brew update
+      - brew install jags
+      - brew install libssh2
+      - curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+      - sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
+    install: 
+      - Rscript -e 'install.packages("devtools", type = "source", dependencies = TRUE)'
+      - Rscript -e 'install.packages(c("RLumModel", "RLumShiny", "plotly", "rjags", "coda", "pander"))'
+      - Rscript -e 'deps <- devtools::dev_package_deps(dependencies = TRUE)$package; if (!all(deps %in% installed.packages()[,"Package"])) {install.packages(deps, method = 'source', dependencies = TRUE)}'
+    env: CACHE_NAME=JOB2
 
+##create notifications
 notifications:
   email:
     recipients:
@@ -12,3 +39,7 @@ notifications:
       - sk@r-luminescence.de
     on_success: change
     on_failure: change
+
+##grep data from testthat
+after_success:
+- Rscript -e 'covr::codecov()'

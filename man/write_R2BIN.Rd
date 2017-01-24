@@ -60,7 +60,7 @@ ROI definitions (introduced in BIN-file version 8) are not supported! There are 
 ignored by the function \code{\link{read_BIN2R}}.
 }
 \section{Function version}{
- 0.4.0 (2016-06-13 21:17:19)
+ 0.4.0 (2017-01-24 21:05:25)
 }
 \examples{
 
@@ -73,7 +73,12 @@ ignored by the function \code{\link{read_BIN2R}}.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). write_R2BIN(): Export Risoe.BINfileData into Risoe BIN-file. Function version 0.4.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/Products-and-Services/Dosimetry/Radiation-Measurement-Instruments/TL_OSL_reader/Manuals}

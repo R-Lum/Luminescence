@@ -74,26 +74,37 @@
 #' @param depth \code{\link{numeric}} (\bold{required}): depth of overburden
 #' (m).  For more than one absorber use \cr \code{c(depth_1, depth_2, ...,
 #' depth_n)}
+#' 
 #' @param density \code{\link{numeric}} (\bold{required}): average overburden
 #' density (g/cm^3). For more than one absorber use \cr \code{c(density_1,
 #' density_2, ..., density_n)}
+#' 
 #' @param latitude \code{\link{numeric}} (\bold{required}): latitude (decimal
 #' degree), N positive
+#' 
 #' @param longitude \code{\link{numeric}} (\bold{required}): longitude (decimal
 #' degree), E positive
+#' 
 #' @param altitude \code{\link{numeric}} (\bold{required}): altitude (m above
 #' sea-level)
+#' 
 #' @param corr.fieldChanges \code{\link{logical}} (with default): correct for
 #' geomagnetic field changes after Prescott & Hutton (1994). Apply only when
 #' justified by the data.
+#' 
 #' @param est.age \code{\link{numeric}} (with default): estimated age range
 #' (ka) for geomagnetic field change correction (0-80 ka allowed)
+#' 
 #' @param half.depth \code{\link{logical}} (with default): How to overcome with
 #' varying overburden thickness. If \code{TRUE} only half the depth is used for
 #' calculation. Apply only when justified, i.e. when a constant sedimentation
 #' rate can safely be assumed.
+#' 
 #' @param error \code{\link{numeric}} (with default): general error
 #' (percentage) to be implemented on corrected cosmic dose rate estimate
+#' 
+#' @param ... further arguments (\code{verbose} to disable/enable console output).
+#' 
 #' @return Returns a terminal output. In addition an
 #' \code{\linkS4class{RLum.Results}} object is returned containing the
 #' following element:
@@ -207,9 +218,16 @@ calc_CosmicDoseRate<- function(
   corr.fieldChanges = FALSE,
   est.age = NA,
   half.depth = FALSE,
-  error = 10
+  error = 10,
+  ...
 ) {
 
+  ##============================================================================##
+  ## ... ARGUMENTS
+  ##============================================================================##
+  settings <- list(verbose = TRUE)
+  settings <- modifyList(settings, list(...))
+  
   ##============================================================================##
   ## CONSISTENCY CHECK OF INPUT DATA
   ##============================================================================##
@@ -446,13 +464,12 @@ calc_CosmicDoseRate<- function(
 
         dc<- dc * corr.fac
 
-        print(paste("corr.fac",corr.fac,"diff.one",diff.one,"alt.fac",alt.fac))
+        if (settings$verbose)
+          print(paste("corr.fac",corr.fac,"diff.one",diff.one,"alt.fac",alt.fac))
 
-      }
-
-      else {
-        cat(paste("\n No geomagnetic field change correction necessary for
-                geomagnetic latitude >35 degrees!"))
+      } else {
+        if (settings$verbose) 
+          cat(paste("\n No geomagnetic field change correction necessary for geomagnetic latitude >35 degrees!"))
       }
     }
 
@@ -479,27 +496,27 @@ calc_CosmicDoseRate<- function(
     ##============================================================================##
     ##TERMINAL OUTPUT
     ##============================================================================##
-
-    cat("\n\n [calc_CosmicDoseRate]")
-    cat(paste("\n\n ---------------------------------------------------------"))
-    cat(paste("\n depth (m)              :", depth))
-    cat(paste("\n density (g cm^-3)      :", density))
-    cat(paste("\n latitude (N deg.)      :", latitude))
-    cat(paste("\n longitude (E deg.)     :", longitude))
-    cat(paste("\n altitude (m)           :", altitude))
-    cat(paste("\n ---------------------------------------------------------"))
-    cat(paste("\n total absorber (g cm^-2)       :", round(hgcm[i]*100,3)))
-    cat(paste("\n"))
-    cat(paste("\n cosmic dose rate (Gy ka^-1)    :", round(d0,4)))
-    cat(paste("\n  [@sea-level & 55 deg. N G.lat]"))
-    cat(paste("\n"))
-    cat(paste("\n geomagnetic latitude (deg.)    :", round(true.gml,1)))
-    cat(paste("\n"))
-    cat(paste("\n cosmic dose rate (Gy ka^-1)    :", round(dc,4),"+-",
-              round(dc.err,4)))
-    cat(paste("\n  [corrected]                 "))
-    cat(paste("\n ---------------------------------------------------------\n\n"))
-
+    if (settings$verbose) {
+      cat("\n\n [calc_CosmicDoseRate]")
+      cat(paste("\n\n ---------------------------------------------------------"))
+      cat(paste("\n depth (m)              :", depth))
+      cat(paste("\n density (g cm^-3)      :", density))
+      cat(paste("\n latitude (N deg.)      :", latitude))
+      cat(paste("\n longitude (E deg.)     :", longitude))
+      cat(paste("\n altitude (m)           :", altitude))
+      cat(paste("\n ---------------------------------------------------------"))
+      cat(paste("\n total absorber (g cm^-2)       :", round(hgcm[i]*100,3)))
+      cat(paste("\n"))
+      cat(paste("\n cosmic dose rate (Gy ka^-1)    :", round(d0,4)))
+      cat(paste("\n  [@sea-level & 55 deg. N G.lat]"))
+      cat(paste("\n"))
+      cat(paste("\n geomagnetic latitude (deg.)    :", round(true.gml,1)))
+      cat(paste("\n"))
+      cat(paste("\n cosmic dose rate (Gy ka^-1)    :", round(dc,4),"+-",
+                round(dc.err,4)))
+      cat(paste("\n  [corrected]                 "))
+      cat(paste("\n ---------------------------------------------------------\n\n"))
+    }
     ##============================================================================##
     ##RETURN VALUES
     ##============================================================================##
@@ -547,10 +564,12 @@ calc_CosmicDoseRate<- function(
   } else {
 
     #terminal output
-    cat("\n\n [calc_CosmicDoseRate]")
-    cat(paste("\n\n Calculating cosmic dose rate for",length(depth),
-              "samples. \n\n"))
-    print(profile.results)
+    if (settings$verbose) {
+      cat("\n\n [calc_CosmicDoseRate]")
+      cat(paste("\n\n Calculating cosmic dose rate for",length(depth),
+                "samples. \n\n"))
+      print(profile.results)
+    }
 
     #return value
     add.info<- data.frame(latitude=latitude,longitude=longitude,

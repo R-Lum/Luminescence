@@ -4,10 +4,10 @@
 \alias{plot_RadialPlot}
 \title{Function to create a Radial Plot}
 \usage{
-plot_RadialPlot(data, na.rm = TRUE, negatives = "remove", log.z = TRUE,
-  central.value, centrality = "mean.weighted", mtext, summary, summary.pos,
-  legend, legend.pos, stats, rug = FALSE, plot.ratio, bar.col,
-  y.ticks = TRUE, grid.col, line, line.col, line.label, output = FALSE, ...)
+plot_RadialPlot(data, na.rm = TRUE, log.z = TRUE, central.value,
+  centrality = "mean.weighted", mtext, summary, summary.pos, legend,
+  legend.pos, stats, rug = FALSE, plot.ratio, bar.col, y.ticks = TRUE,
+  grid.col, line, line.col, line.label, output = FALSE, ...)
 }
 \arguments{
 \item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
@@ -17,10 +17,6 @@ data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
 \item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA}
 values from the data set prior to any further operations.}
-
-\item{negatives}{\code{\link{character}} (with default): rule for negative
-values. Default is \code{"remove"} (i.e. negative values are removed from
-the data set).}
 
 \item{log.z}{\code{\link{logical}} (with default): Option to display the
 z-axis in logarithmic scale. Default is \code{TRUE}.}
@@ -131,7 +127,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.3 (2016-05-19 23:47:38)
+ 0.5.3 (2017-01-24 21:05:25)
 }
 \examples{
 
@@ -229,7 +225,12 @@ plot_RadialPlot(data = data.3,
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
 S script of Rex Galbraith, 2010
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Dietze, M., Kreutzer, S. (2017). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 Galbraith, R.F., 1988. Graphical Display of Estimates Having
 Differing Standard Errors. Technometrics, 30 (3), 271-281.

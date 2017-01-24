@@ -72,6 +72,10 @@
 #' the count distribution assumed for the error calculation. Possible arguments
 #' \code{poisson} or \code{non-poisson}. See details for further information
 #'
+#' @param use_previousBG \code{\link{logical}} (with default): If set to \code{TRUE} the background
+#' of the Lx-signal is substracted also from the Tx-signal. Please note that in this case separat
+#' signal integral limits for the Tx signal are not allowed and will be reset.
+#'
 #' @param sigmab \code{\link{numeric}} (optional): option to set a manual value for
 #' the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 #' calculation. The value should be provided as absolute squared count values,
@@ -87,6 +91,8 @@
 #' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 #'
 #' Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
+#'
+#' \bold{@data}\cr
 #' $LxTx.table (data.frame) \cr
 #' .. $ LnLx \cr
 #' .. $ LnLx.BG \cr
@@ -101,6 +107,8 @@
 #' .. $ sigmab.LnTx\cr
 #' .. $ sigmab.TnTx\cr
 #' .. $ k \cr
+#'
+#' \bold{@info}\cr
 #' $ call (original function call)\cr
 #'
 #' @note The results of this function have been cross-checked with the Analyst
@@ -110,7 +118,7 @@
 #' own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 #'
 #'
-#' @section Function version: 0.6.3
+#' @section Function version: 0.7.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -145,12 +153,13 @@
 #' @export
 calc_OSLLxTxRatio <- function(
   Lx.data,
-  Tx.data,
+  Tx.data = NULL,
   signal.integral,
   signal.integral.Tx = NULL,
   background.integral,
   background.integral.Tx = NULL,
   background.count.distribution = "non-poisson",
+  use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
   digits = NULL
@@ -160,7 +169,7 @@ calc_OSLLxTxRatio <- function(
   ##(1) - integrity checks
 
 
-  if(missing(Tx.data) == FALSE){
+  if(!is.null(Tx.data)){
 
     ##(a) - check data type
     if(is(Lx.data)[1]!=is(Tx.data)[1]){
@@ -233,6 +242,13 @@ calc_OSLLxTxRatio <- function(
   ##(h) - similar procedure for the Tx limits
   if(all(c(!is.null(signal.integral.Tx),!is.null(background.integral.Tx)))){
 
+    if(use_previousBG){
+      warning("[calc_OSLLxTxRatio()] For option use_previousBG = TRUE independent Lx and Tx integral limits are not allowed. Integral limits of Lx used for Tx.", call. = FALSE)
+      signal.integral.Tx <- signal.integral
+      background.integral.Tx <- background.integral
+
+    }
+
     if(min(signal.integral.Tx) < 1 | max(signal.integral.Tx>length(Tx.data[,2]))){
       stop("[calc_OSLLxTxRatio()] signal.integral.Tx is not valid!")}
 
@@ -247,6 +263,7 @@ calc_OSLLxTxRatio <- function(
     stop("[calc_OSLLxTxRatio()] You have to provide both: signal.integral.Tx and background.integral.Tx!")
 
   }else{
+
     signal.integral.Tx <- signal.integral
     background.integral.Tx <- background.integral
 
@@ -277,9 +294,17 @@ calc_OSLLxTxRatio <- function(
   k <- m/n
 
   n.Tx <- length(signal.integral.Tx)
-  m.Tx <- length(background.integral.Tx)
-  k.Tx <- m.Tx/n.Tx
 
+  ##use previous BG and account for the option to set different integral limits
+  if(use_previousBG){
+    m.Tx <- m
+
+  }else{
+    m.Tx <- length(background.integral.Tx)
+
+  }
+
+  k.Tx <- m.Tx/n.Tx
 
   ##LnLx (comments are corresponding variables to Galbraith, 2002)
   Lx.curve <- Lx.data[,2]
@@ -291,8 +316,18 @@ calc_OSLLxTxRatio <- function(
   ##TnTx
   Tx.curve <- ifelse(is.na(Tx.data[,1])==FALSE, Tx.data[,2], NA)
   Tx.signal <- sum(Tx.curve[signal.integral.Tx])
-  Tx.background <- sum(Tx.curve[background.integral.Tx])*1/k.Tx
+
+  ##use previous BG
+  if(use_previousBG){
+    Tx.background <- Lx.background
+
+  }else{
+    Tx.background <- sum(Tx.curve[background.integral.Tx])*1/k.Tx
+
+  }
+
   TnTx <- (Tx.signal-Tx.background)
+
 
   ##--------------------------------------------------------------------------##
   ##(3)
@@ -317,11 +352,11 @@ calc_OSLLxTxRatio <- function(
 
     ##(b)(1)(1)
     ## note that m = n*k = multiple of background.integral from signal.integral
-    Y.i <- sapply(0:round(k,digits=0), function(i){
+    Y.i <- vapply(0:round(k,digits=0), function(i){
       sum(Lx.curve[
         (min(background.integral)+length(signal.integral)*i):
           (min(background.integral)+length(signal.integral)+length(signal.integral)*i)])
-    })
+    }, FUN.VALUE = vector(mode = "numeric", length = 1L))
 
     Y.i <- na.exclude(Y.i)
     sigmab.LnLx <- abs(var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean
@@ -349,13 +384,13 @@ calc_OSLLxTxRatio <- function(
     ##(b)(1)(1)
     ## note that m.Tx = n.Tx*k.Tx = multiple of background.integral.Tx from signal.integral.Tx
     ## also for the TnTx signal
-    Y.i_TnTx <- sapply(0:round(k.Tx, digits = 0), function(i) {
+    Y.i_TnTx <- vapply(0:round(k.Tx, digits = 0), function(i) {
       sum(Tx.curve[(min(background.integral.Tx) + length(signal.integral.Tx) *
                       i):(
                         min(background.integral.Tx) + length(signal.integral.Tx) + length(signal.integral.Tx) *
                           i
                       )])
-    })
+    }, FUN.VALUE = vector(mode = "numeric", length = 1L))
 
     Y.i_TnTx <- na.exclude(Y.i_TnTx)
     sigmab.TnTx <- abs(var(Y.i_TnTx) - mean(Y.i_TnTx))
@@ -363,7 +398,7 @@ calc_OSLLxTxRatio <- function(
   } else{
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
-    if (m.Tx < 25) {
+    if (m.Tx < 25 && use_previousBG == FALSE) {
       warning("[calc_OSLLxTxRatio()] Number of background channels for Tx < 25; error estimation might be not reliable!", call. = FALSE)
 
     }
@@ -482,10 +517,11 @@ calc_OSLLxTxRatio <- function(
       class = "RLum.Results",
       data = list(
         LxTx.table = temp,
-        calc.parameters = calc.parameters,
-        call = sys.call())
+        calc.parameters = calc.parameters),
+      info = list(call = sys.call())
     )
 
   invisible(temp.return)
 
 }
+

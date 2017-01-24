@@ -46,7 +46,8 @@
 #' model. This approach was introduced for RF curves by Buylaert et al., 2012
 #' and Lapp et al., 2012.
 #'
-#' Here the sliding is done by searching for the minimum of the squared residuals.\cr
+#' Here the sliding is done by searching for the minimum of the squared residuals.
+#' For the mathematical details of the implementation see Frouin et al., 2017 \cr
 #'
 #' \bold{\code{method.control}}\cr
 #'
@@ -58,12 +59,12 @@
 #' \tabular{lll}{
 #' ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
 #' \code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \code{\link{nls}}; shows sum of squared residuals\cr
+#' \code{trace_vslide} \tab \code{SLIDE} \tab \code{\link{logical}} argument to enable or disable the tracing of the vertical sliding\cr
 #' \code{maxiter} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
 #' \code{warnOnly} \tab \code{FIT}           \tab as in \code{\link{nls}}\cr
 #' \code{minFactor} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
-#' \code{correct_onset} \tab \code{SLIDE}      \tab The logical argument literally spoken,
-#' shifts the curves along the x-axis by the first channel, as light is expected in the first channel.
-#'  The default value is \code{TRUE}.\cr
+#' \code{correct_onset} \tab \code{SLIDE}      \tab The logical argument shifts the curves along the x-axis by the first channel,
+#' as light is expected in the first channel. The default value is \code{TRUE}.\cr
 #' \code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
 #' enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
 #' \code{show_fit} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
@@ -71,7 +72,13 @@
 #'\code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
 #' This controls the number of MC runs within the sliding (assesing the possible minimum values).
 #' The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
-#' function argument \code{n.MC} \cr
+#' function argument \code{n.MC}. \cr
+#' \code{vslide_range} \tab \code{SLDE} \tab \code{\link{logical}} or \code{\link{numeric}} or \code{\link{character}} (with default):
+#' This argument sets the boundaries for a vertical curve
+#' sliding. The argument expects a vector with an absolute minium and a maximum (e.g., \code{c(-1000,1000)}).
+#' Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
+#' reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies no vertical sliding.
+#' The default is \code{NULL}.\cr
 #' }
 #'
 #'
@@ -177,8 +184,8 @@
 #'
 #' @param n.MC \code{\link{numeric}} (with default): set number of Monte
 #' Carlo runs for start parameter estimation (\code{method = "FIT"}) or
-#' error estimation (\code{method = "SLIDE"}). Note: Large values will
-#' significantly increase the computation time
+#' error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL} to skip the
+#' MC runs. Note: Large values will significantly increase the computation time
 #'
 #' @param txtProgressBar \code{\link{logical}} (with default): enables \code{TRUE} or
 #' disables \code{FALSE} the progression bar during MC runs
@@ -197,43 +204,99 @@
 #' \code{\link[graphics]{legend}}), \code{xaxt}
 #'
 #'
-#' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
-#' returned:\cr
+#' @return The function returns numerical output and an (optional) plot.
 #'
-#' \bold{@data}\cr
-#' $ data: \code{\link{data.frame}} table with De and corresponding values\cr
-#' ..$ DE : \code{numeric}: the obtained equivalent dose\cr
-#' ..$ DE.ERROR : \code{numeric}: (only method = "SLIDE") standard deviation obtained from MC runs \cr
-#' ..$ DE.LOWER : \code{numeric}: 2.5\% quantile for De values obtained by MC runs \cr
-#' ..$ DE.UPPER : \code{numeric}: 97.5\% quantile for De values obtained by MC runs  \cr
-#' ..$ DE.STATUS  : \code{character}: test parameter status\cr
-#' ..$ RF_NAT.LIM  : \code{charcter}: used RF_nat curve limits \cr
-#' ..$ RF_REG.LIM : \code{character}: used RF_reg curve limits\cr
-#' ..$ POSITION : \code{integer}: (optional) position of the curves\cr
-#' ..$ DATE : \code{character}: (optional) measurement date\cr
-#' ..$ SEQUENCE_NAME : \code{character}: (optional) sequence name\cr
-#' ..$ UID : \code{character}: unique data set ID \cr
-#' $ test_parameters : \code{\link{data.frame}} table test parameters \cr
-#' $ fit : {\code{\link{nls}} \code{nlsModel} object} \cr
-#' $ slide : \code{\link{list}} data from the sliding process, including the sliding matrix\cr
+#' -----------------------------------\cr
+#' [ NUMERICAL OUTPUT ]\cr
+#' -----------------------------------\cr
+#' \bold{\code{RLum.Reuslts}}-object\cr
 #'
-#' \bold{@info}\cr
-#' $ call : \code{\link[methods]{language-class}}: the orignal function call \cr
+#' \bold{slot:} \bold{\code{@data}} \cr
+#'
+#' [.. $data : \code{data.frame}]\cr
+#'
+#' \tabular{lll}{
+#' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
+#'  DE \tab \code{numeric} \tab the obtained equivalent dose\cr
+#'  DE.ERROR \tab \code{numeric} \tab (only \code{method = "SLIDE"}) standard deviation obtained from MC runs \cr
+#'  DE.LOWER \tab \code{numeric}\tab 2.5\% quantile for De values obtained by MC runs \cr
+#'  DE.UPPER \tab \code{numeric}\tab 97.5\% quantile for De values obtained by MC runs  \cr
+#'  DE.STATUS  \tab \code{character}\tab test parameter status\cr
+#'  RF_NAT.LIM  \tab \code{charcter}\tab used RF_nat curve limits \cr
+#'  RF_REG.LIM \tab \code{character}\tab used RF_reg curve limits\cr
+#'  POSITION \tab \code{integer}\tab (optional) position of the curves\cr
+#'  DATE \tab \code{character}\tab (optional) measurement date\cr
+#'  SEQUENCE_NAME \tab \code{character}\tab (optional) sequence name\cr
+#'  UID \tab \code{character}\tab unique data set ID
+#' }
+#'
+#' [.. $De.MC : \code{numeric}]\cr
+#'
+#' A \code{numeric} vector with all the De values obtained by the MC runs.\cr
+#'
+#' [.. $test_parameters : \code{data.frame}]\cr
+#'
+#' \tabular{lll}{
+#' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
+#'  POSITION \tab \code{numeric} \tab aliquot position \cr
+#'  PARAMETER \tab \code{character} \tab test parameter name \cr
+#'  THRESHOLD \tab \code{numeric} \tab set test parameter threshold value \cr
+#'  VALUE \tab \code{numeric} \tab the calculated test parameter value (to be compared with the threshold)\cr
+#'  STATUS \tab \code{character} \tab test parameter status either \code{"OK"} or \code{"FAILED"} \cr
+#'  SEQUENCE_NAME \tab \code{character} \tab name of the sequence, so far available \cr
+#'  UID \tab \code{character}\tab unique data set ID
+#' }
+#'
+#' [.. $fit : \code{data.frame}]\cr
+#'
+#' An \code{\link{nls}} object produced by the fitting.\cr
+#'
+#' [.. $slide : \code{list}]\cr
+#'
+#' A \code{\link{list}} with data produced during the sliding. Some elements are previously
+#' reported with the summary object data. List elements are:
+#'
+#' \tabular{lll}{
+#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+#'  De \tab \code{numeric} \tab the final De obtained with the sliding approach \cr
+#'  De.MC \tab \code{numeric} \tab all De values obtained by the MC runs \cr
+#'  residuals \tab \code{numeric} \tab the obtained residuals for each channel of the curve \cr
+#'  trend.fit \tab \code{lm} \tab fitting results produced by the fitting of the residuals \cr
+#'  RF_nat.slided \tab \code{matrix} \tab the slided RF_nat curve \cr
+#'  t_n.id \tab \code{numeric} \tab the index of the t_n offset \cr
+#'  I_n \tab \code{numeric} \tab the vertical intensitiy offest if a vertical slide was applied \cr
+#'  algorithm_error \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
+#'  algorithm. The returned value is the standard deviation of all obtained De values while expanding the
+#'  vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr
+#'  vslide_range \tab \code{numeric} \tab the range used for the vertical sliding \cr
+#'  squared_residuals \tab \code{numeric} \tab the squared residuals (horizontal sliding)
+#' }
+#'
+#'
+#' \bold{slot:} \bold{\code{@info}} \cr
+#'
+#' The orignal function call (\code{\link[methods]{language-class}}-object)
 #'
 #' The output (\code{data}) should be accessed using the
 #' function \code{\link{get_RLum}}
+#'
+#' ------------------------\cr
+#' [ PLOT OUTPUT ]\cr
+#' ------------------------\cr
+#'
+#' The slided IR-RF curves with the finally obtained De
 #'
 #' @note \bold{[THIS FUNCTION HAS BETA-STATUS]}\cr
 #'
 #' This function assumes that there is no sensitivity change during the
 #' measurements (natural vs. regenerated signal), which is in contrast to the
-#' findings from Buylaert et al. (2012). Furthermore: In course of ongoing research this function has
+#' findings by Buylaert et al. (2012). Furthermore: In course of ongoing research this function has
 #' been almost fully re-written, but further thoughtful tests are still pending!
 #' However, as a lot new package functionality was introduced with the changes made
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#' @section Function version: 0.6.11
+#' @section Function version: 0.7.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -261,6 +324,10 @@
 #' automated multi-spectral radioluminescence reading system for geochronometry
 #' and dosimetry. Nuclear Instruments and Methods in Physics Research Section
 #' B: Beam Interactions with Materials and Atoms 207, 487-499.
+#'
+#' Frouin, M., Huot, S., Kreutzer, S., Lahaye, C., Lamothe, M., Philippe, A., Mercier, N., 2017.
+#' An improved radiofluorescence single-aliquot regenerative dose protocol for K-feldspars.
+#' Quaternary Geochronology 38, 13-24. doi:10.1016/j.quageo.2016.11.004
 #'
 #' Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 #' luminescence measurement facilities in retrospective dosimetry. Radiation
@@ -330,6 +397,8 @@ analyse_IRSAR.RF<- function(
   ##TODO
   ## - if a file path is given, the function should try to find out whether an XSYG-file or
   ##   a BIN-file is provided
+  ##  - add NEWS for vslide_range
+  ##  - update documentary ... if it works as expected.
 
   # SELF CALL -----------------------------------------------------------------------------------
   if(is.list(object)){
@@ -438,8 +507,8 @@ analyse_IRSAR.RF<- function(
   }
 
     ##n.MC
-    if(!is(n.MC, "numeric") || n.MC <= 0){
-      stop("[analyse_IRSAR.RF()] argument 'n.MC' has to be of type integer and >= 0")
+    if((!is(n.MC, "numeric") || n.MC <= 0) && !is.null(n.MC)){
+      stop("[analyse_IRSAR.RF()] argument 'n.MC' has to be of type integer and >= 0", call. = FALSE)
     }
 
 
@@ -593,6 +662,7 @@ analyse_IRSAR.RF<- function(
   }
 
 
+  # Method Control Settings ---------------------------------------------------------------------
   ##===============================================================================================#
   ## SET METHOD CONTROL PARAMETER - FOR BOTH METHODS
   ##===============================================================================================#
@@ -600,13 +670,15 @@ analyse_IRSAR.RF<- function(
   ##set supported values with default
   method.control.settings <- list(
     trace = FALSE,
+    trace_vslide = FALSE,
     maxiter = 500,
     warnOnly = FALSE,
     minFactor = 1 / 4096,
     correct_onset = TRUE,
     show_density = TRUE,
     show_fit = FALSE,
-    n.MC = 1000
+    n.MC = if(is.null(n.MC)){NULL}else{1000},
+    vslide_range = NULL
   )
 
   ##modify list if necessary
@@ -701,8 +773,8 @@ analyse_IRSAR.RF<- function(
   RF_nat.mean <- mean(RF_nat.limited[,2])
   RF_nat.sd <- sd(RF_nat.limited[,2])
 
-  RF_nat.error.lower <- quantile(RF_nat.limited[,2], 0.975)
-  RF_nat.error.upper <- quantile(RF_nat.limited[,2], 0.025)
+  RF_nat.error.lower <- quantile(RF_nat.limited[,2], 0.975, na.rm = TRUE)
+  RF_nat.error.upper <- quantile(RF_nat.limited[,2], 0.025, na.rm = TRUE)
 
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
@@ -740,7 +812,7 @@ analyse_IRSAR.RF<- function(
 
     ##produce set of start paramters
     phi.0.MC <- rep(fit.parameters.start["phi.0"], n.MC)
-    lambda.MC <- seq(0.0001, 0.001, by=(0.001-0.0001)/n.MC) ##TODO
+    lambda.MC <- seq(0.0001, 0.001, by=(0.001-0.0001)/n.MC)
     beta.MC <- rep(fit.parameters.start["beta"], n.MC)
     delta.phi.MC <- rep(fit.parameters.start["delta.phi"], n.MC)
 
@@ -893,19 +965,29 @@ analyse_IRSAR.RF<- function(
   else if(method == "SLIDE"){
 
     ##convert to matrix (in fact above the matrix data were first transfered to data.frames ... here
-    ##we correct this ... again)  ##TODO
+    ##we correct this ... again)
     RF_nat.limited <- as.matrix(RF_nat.limited)
     RF_reg.limited <- matrix(c(RF_reg.x, RF_reg.y), ncol = 2)
     RF_nat <- as.matrix(RF_nat)
 
     ##DEFINE FUNCTION FOR SLIDING
     ##FIND MINIMUM - this is done in a function so that it can be further used for MC simulations
+    # sliding() -----------------------------------------------------------------------------------
     sliding <- function(RF_nat,
                         RF_nat.limited,
                         RF_reg.limited,
                         n.MC = method.control.settings$n.MC,
+                        vslide_range = method.control.settings$vslide_range,
+                        trace = method.control.settings$trace_vslide,
                         numerical.only = FALSE){
 
+
+      ##check for odd user input
+      if(length(vslide_range) > 2){
+        vslide_range <- vslide_range[1:2]
+        warning("[anlayse_IRSAR.RF()] method.control = list(vslide_range) has more than 2 elements. Only the first two were used!", call. = FALSE)
+
+      }
 
       ##(0) set objects ... nomenclature as used in Frouin et al., please note that here the index
       ##is used instead the real time values
@@ -919,50 +1001,150 @@ analyse_IRSAR.RF<- function(
       #pre-allocate object
       temp.sum.residuals <- vector("numeric", length = t_max.id - t_max_nat.id)
 
-      ##calculate sum of squared residuals ... for the entire set
+      ##initialise slide range for specific conditions, namely NULL and "auto"
+      if (is.null(vslide_range)) {
+        vslide_range <- 0
+
+      } else if (vslide_range[1] == "auto") {
+        vslide_range <- -(max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2])):(max(RF_reg.limited[, 2]) - min(RF_reg.limited[, 2]))
+        algorithm_error <- NA
+
+      } else{
+        vslide_range <- vslide_range[1]:vslide_range[2]
+        algorithm_error <- NULL
+
+      }
+
+      ##problem: the optimisation routine slightly depends on the chosen input sliding vector
+      ##and it might get trapped in a local minimum
+      ##therefore we run the algorithm by expanding the sliding vector
+      if(!is.null(vslide_range) && vslide_range != 0){
+
+        ##even numbers makes it complicated, so let's make it odd if not already the case
+        if(length(vslide_range) %% 2 == 0){
+          vslide_range <- c(vslide_range[1], vslide_range, vslide_range)
+
+        }
+
+        ##construct list of vector ranges we want to check for, this should avoid that we
+        ##got trapped in a local minium
+        median_vslide_range.index <- median(1:length(vslide_range))
+        vslide_range.list <- lapply(seq(1, median_vslide_range.index, length.out = 10), function(x){
+           c(median_vslide_range.index - as.integer(x), median_vslide_range.index + as.integer(x))
+        })
+
+        ##correct for out of bounds problem; it might occur
+        vslide_range.list[[10]] <- c(0, length(vslide_range))
+
+        ##TODO ... this is not really optimal, but ok for the moment, better would be
+        ##the algorithm finds sufficiently the global minium.
+        ##now run it in a loop and expand the range from the inner to the outer part
+        ##at least this is considered for the final error range ...
+        temp_minium_list <- lapply(1:10, function(x){
+          .analyse_IRSARRF_SRS(
+            values_regenerated_limited =  RF_reg.limited[,2],
+            values_natural_limited = RF_nat.limited[,2],
+            vslide_range = vslide_range[vslide_range.list[[x]][1]:vslide_range.list[[x]][2]],
+            n_MC = 0, #we don't need MC runs here, so make it quick
+            trace = trace)[c("sliding_vector_min_index","vslide_minimum", "vslide_index")]
+
+        })
+
+        ##get all horizontal index value for the local minimum (corresponding to the vslide)
+        temp_hslide_indices <- vapply(temp_minium_list, function(x){
+          x$sliding_vector_min_index}, FUN.VALUE = numeric(length = 1))
+
+        ##get also the vertical slide indicies
+        temp_vslide_indicies <- vapply(temp_minium_list, function(x){
+          x$vslide_index}, FUN.VALUE = numeric(length = 1))
+
+        ##get all the minimum values
+        temp_minium <- vapply(temp_minium_list, function(x){x$vslide_minimum}, FUN.VALUE = numeric(length = 1))
+
+        ##get minimum and set it to the final range
+        vslide_range <- vslide_range[
+          vslide_range.list[[which.min(temp_minium)]][1]:vslide_range.list[[which.min(temp_minium)]][2]]
+
+
+        ##get all possible t_n values for the range expansion ... this can be considered
+        ##as somehow systematic uncertainty, but it will be only calculated of the full range
+        ##is considered, otherwise it is too biased by the user's choice
+        ##ToDo: So far the algorithm error is not sufficiently documented
+        if(!is.null(algorithm_error)){
+          algorithm_error <- sd(vapply(1:length(temp_vslide_indicies), function(k){
+            temp.sliding.step <- RF_reg.limited[temp_hslide_indices[k]] - t_min
+            matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2] + temp_vslide_indicies[k]), ncol = 2)[1,1]
+
+          }, FUN.VALUE = numeric(length = 1)))
+
+        }else{
+         algorithm_error <- NA
+
+        }
+
+      }else{
+        algorithm_error <- NA
+
+      }
+
+      ##now run the final sliding with the identified range that corresponds to the minium value
       temp.sum.residuals <-
         .analyse_IRSARRF_SRS(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
-          n_MC =  n.MC
-        )
-
+          vslide_range = vslide_range,
+          n_MC = if(is.null(n.MC)){0}else{n.MC},
+          trace = trace
+      )
 
       #(2) get minimum value (index and time value)
-      t_n.id <- which.min(temp.sum.residuals$sliding_vector)
+      index_min <- which.min(temp.sum.residuals$sliding_vector)
+      t_n.id <- index_min
+
+      if (is.null(vslide_range)) {
+        I_n <- 0
+      } else{
+        I_n <- vslide_range[temp.sum.residuals$vslide_index]
+      }
 
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
 
       ##(3) slide curve graphically ... full data set we need this for the plotting later
-      RF_nat.slided <- matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2]), ncol = 2)
+      RF_nat.slided <- matrix(data = c(RF_nat[,1] + temp.sliding.step, RF_nat[,2] + I_n), ncol = 2)
       t_n <- RF_nat.slided[1,1]
 
       ##the same for the MC runs of the minimum values
-      t_n.MC <-
-        vapply(X = 1:length(temp.sum.residuals$sliding_vector_min_MC), FUN = function(x) {
-          t_n.id.MC <-
-            which(temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x])
-          temp.sliding.step.MC <- RF_reg.limited[t_n.id.MC] - t_min
-          t_n.MC <- (RF_nat[,1] + temp.sliding.step.MC)[1]
-          return(t_n.MC)
+      if(!is.null(n.MC)){
+        t_n.MC <-
+          vapply(X = 1:length(temp.sum.residuals$sliding_vector_min_MC), FUN = function(x) {
+            t_n.id.MC <-
+              which(temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x])
+            temp.sliding.step.MC <- RF_reg.limited[t_n.id.MC] - t_min
+            t_n.MC <- (RF_nat[,1] + temp.sliding.step.MC)[1]
+            return(t_n.MC)
 
-        }, FUN.VALUE = vector(mode = "numeric", length = 1))
+          }, FUN.VALUE = vector(mode = "numeric", length = 1))
 
+      }else{
+        t_n.MC <- NA_integer_
+
+      }
 
       ##(4) get residuals (needed to be plotted later)
       ## they cannot be longer than the RF_reg.limited curve
       if((t_n.id+length(RF_nat.limited[,2])-1) >= nrow(RF_reg.limited)){
-        residuals <- RF_nat.limited[1:length(t_n.id:nrow(RF_reg.limited)),2]
+        residuals <- (RF_nat.limited[1:length(t_n.id:nrow(RF_reg.limited)),2] + I_n)
         - RF_reg.limited[t_n.id:nrow(RF_reg.limited), 2]
 
       }else{
-        residuals <- RF_nat.limited[,2] - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
+        residuals <- (RF_nat.limited[,2] + I_n) - RF_reg.limited[t_n.id:(t_n.id+length(RF_nat.limited[,2])-1), 2]
 
       }
 
       ##(4.1) calculate De from the first channel ... which is t_n here
       De <- round(t_n, digits = 2)
       De.MC <- round(t_n.MC, digits = 2)
+
       temp.trend.fit <- NA
 
       ##(5) calculate trend fit
@@ -975,8 +1157,6 @@ analyse_IRSAR.RF<- function(
 
       }
 
-
-
       ##return values and limited if they are not needed
       if (numerical.only == FALSE) {
         return(
@@ -987,6 +1167,9 @@ analyse_IRSAR.RF<- function(
             trend.fit = temp.trend.fit,
             RF_nat.slided = RF_nat.slided,
             t_n.id = t_n.id,
+            I_n = I_n,
+            algorithm_error = algorithm_error,
+            vslide_range = if(is.null(vslide_range)){NA}else{range(vslide_range)},
             squared_residuals = temp.sum.residuals$sliding_vector
           )
         )
@@ -1004,12 +1187,11 @@ analyse_IRSAR.RF<- function(
       RF_reg.limited = RF_reg.limited
     )
 
-
     ##write results in variables
     De <- slide$De
     residuals <- slide$residuals
     RF_nat.slided <-  slide$RF_nat.slided
-
+    I_n <- slide$I_n
 
     # ERROR ESTIMATION
     # MC runs for error calculation ---------------------------------------------------------------
@@ -1017,71 +1199,84 @@ analyse_IRSAR.RF<- function(
     ##set residual matrix for MC runs, i.e. set up list of pseudo RF_nat curves as function
     ##(i.e., bootstrap from the natural curve distribution)
 
-    slide.MC.list <- lapply(1:n.MC,function(x) {
+    if(!is.null(n.MC)){
+      slide.MC.list <- lapply(1:n.MC,function(x) {
 
-      ##also here we have to account for the case that user do not understand
-      ##what they are doing ...
-      if(slide$t_n.id + nrow(RF_nat.limited)-1 > nrow(RF_reg.limited)){
-        cbind(
-          RF_nat.limited[1:length(slide$t_n.id:nrow(RF_reg.limited)),1],
-          (RF_reg.limited[slide$t_n.id:nrow(RF_reg.limited) ,2]
-           + sample(residuals,
-                    size = length(slide$t_n.id:nrow(RF_reg.limited)),
-                    replace = TRUE)
+        ##also here we have to account for the case that user do not understand
+        ##what they are doing ...
+        if(slide$t_n.id + nrow(RF_nat.limited)-1 > nrow(RF_reg.limited)){
+          cbind(
+            RF_nat.limited[1:length(slide$t_n.id:nrow(RF_reg.limited)),1],
+            (RF_reg.limited[slide$t_n.id:nrow(RF_reg.limited) ,2]
+             + sample(residuals,
+                      size = length(slide$t_n.id:nrow(RF_reg.limited)),
+                      replace = TRUE)
+            )
           )
-        )
 
-      }else{
-        cbind(
-          RF_nat.limited[,1],
-          (RF_reg.limited[slide$t_n.id:(slide$t_n.id + nrow(RF_nat.limited)-1) ,2]
-           + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
+        }else{
+          cbind(
+            RF_nat.limited[,1],
+            (RF_reg.limited[slide$t_n.id:(slide$t_n.id + nrow(RF_nat.limited)-1) ,2]
+             + sample(residuals, size = nrow(RF_nat.limited), replace = TRUE)
+            )
           )
-        )
+        }
+
+      })
+
+
+      if(txtProgressBar){
+        ##terminal output fo MC
+        cat("\n\t Run Monte Carlo loops for error estimation\n")
+
+        ##progress bar
+        pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
       }
 
-    })
+
+      De.MC <- c(vapply(X = 1:n.MC,
+                      FUN.VALUE = vector("numeric", length = method.control.settings$n.MC),
+                      FUN = function(i){
 
 
-    if(txtProgressBar){
-      ##terminal output fo MC
-      cat("\n\t Run Monte Carlo loops for error estimation\n")
+        temp.slide.MC <- sliding(
+          RF_nat = RF_nat,
+          RF_reg.limited = RF_reg.limited,
+          RF_nat.limited = slide.MC.list[[i]],
+          numerical.only = TRUE
+        )
 
-      ##progress bar
-      pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
+
+        ##update progress bar
+        if (txtProgressBar) {
+          setTxtProgressBar(pb, i)
+        }
+
+         ##do nothing else, just report all possible values
+         return(temp.slide.MC[[2]])
+
+      }))
+
+      ##close
+      if(txtProgressBar){close(pb)}
+
+      ##calculate absolute deviation between De and the here newly calculated De.MC
+      ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
+      De.diff <- diff(x = c(De, De.MC))
+      De.error <- round(sd(De.MC), digits = 2)
+      De.lower <- De - quantile(De.diff, 0.975, na.rm = TRUE)
+      De.upper <- De - quantile(De.diff, 0.025, na.rm = TRUE)
+
+    }else{
+
+      De.diff <- NA_integer_
+      De.error <- NA_integer_
+      De.lower <- NA_integer_
+      De.upper <- NA_integer_
+      De.MC <- NA_integer_
+
     }
-
-
-    De.MC <- c(vapply(X = 1:n.MC,
-                    FUN.VALUE = vector("numeric", length = method.control.settings$n.MC),
-                    FUN = function(i){
-
-      temp.slide.MC <- sliding(
-        RF_nat = RF_nat,
-        RF_reg.limited = RF_reg.limited,
-        RF_nat.limited = slide.MC.list[[i]],
-        numerical.only = TRUE
-      )
-
-      ##update progress bar
-      if (txtProgressBar) {
-        setTxtProgressBar(pb, i)
-      }
-
-       ##do nothing else, just report all possible values
-       return(temp.slide.MC[[2]])
-
-    }))
-
-    ##close
-    if(txtProgressBar){close(pb)}
-
-    ##calculate absolute deviation between De and the here newly calculated De.MC
-    ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
-    De.diff <- diff(x = c(De, De.MC))
-    De.error <- round(sd(De.MC), digits = 2)
-    De.lower <- De - quantile(De.diff, 0.975)
-    De.upper <- De - quantile(De.diff, 0.025)
 
   }else{
 
@@ -1357,7 +1552,6 @@ analyse_IRSAR.RF<- function(
     ylim  <- if("ylim" %in% names(list(...))) {list(...)$ylim} else
     {c(min(temp.sequence_structure$y.min), max(temp.sequence_structure$y.max))}
 
-
     ##open plot area
     plot(
       NA,NA,
@@ -1599,7 +1793,8 @@ analyse_IRSAR.RF<- function(
       ##(0) density plot
       if (method.control.settings$show_density) {
         ##showing the density makes only sense when we see at least 10 data points
-        if (length(unique(De.MC)) >= 15) {
+        if (!is.na(De.MC) && length(unique(De.MC)) >= 15) {
+
           ##calculate density De.MC
           density.De.MC <- density(De.MC)
 
@@ -1631,7 +1826,7 @@ analyse_IRSAR.RF<- function(
                   col = rgb(0,0.4,0.8,0.5))
 
         }else{
-          warning("Narrow density distribution, no density distribution plotted!")
+          warning("[analyse_IRSAR.RF()] Narrow density distribution, no density distribution plotted!", call. = FALSE)
 
         }
 
@@ -1669,6 +1864,23 @@ analyse_IRSAR.RF<- function(
           arr.lwd = 1
         )
       }
+
+      ##(5) add vertical shift as arrow; show nothing if nothing was shifted
+      if (plot.settings$log != "y" & plot.settings$log != "xy" & I_n != 0) {
+        shape::Arrows(
+          x0 = (0 + par()$usr[1])/2,
+          y0 = RF_nat[1,2],
+          y1 = RF_nat[1,2] + I_n,
+          x1 = (0 + par()$usr[1])/2,
+          arr.type = "triangle",
+          arr.length = 0.3 * par()[["cex"]],
+          code = 2,
+          col = col[2],
+          arr.adj = 1,
+          arr.lwd = 1
+        )
+      }
+
 
       ##TODO
       ##uncomment here to see all the RF_nat curves produced by the MC runs
@@ -1844,6 +2056,8 @@ analyse_IRSAR.RF<- function(
     }
 
   }#endif::plot
+
+  # Return --------------------------------------------------------------------------------------
   ##=============================================================================#
   ## RETURN
   ##=============================================================================#
@@ -1911,4 +2125,3 @@ analyse_IRSAR.RF<- function(
   invisible(newRLumResults.analyse_IRSAR.RF)
 
 }
-

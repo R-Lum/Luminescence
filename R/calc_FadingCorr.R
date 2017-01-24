@@ -85,6 +85,10 @@
 #' @param seed \code{\link{integer}} (optional): sets the seed for the random number generator
 #' in R using \code{\link{set.seed}}
 #'
+#' @param interval \code{\link{numeric}} (with default): a vector containing the end-points (age interval) of the
+#' interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
+#' used for solving the equation.
+#'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}
 #'
@@ -110,11 +114,10 @@
 #' }
 #'
 #'
-#' @note The upper age limit is set to 500 ka! \cr
-#' Special thanks to Sebastien Huot for his support and clarification via e-mail.
+#' @note Special thanks to Sebastien Huot for his support and clarification via e-mail.
 #'
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -171,6 +174,7 @@ calc_FadingCorr <- function(
   tc.g_value = tc,
   n.MC = 10000,
   seed = NULL,
+  interval = c(0.01,500),
   txtProgressBar = TRUE,
   verbose = TRUE
 ){
@@ -185,9 +189,8 @@ calc_FadingCorr <- function(
   if(class(g_value)[1] == "RLum.Results"){
     if(g_value@originator == "analyse_FadingMeasurement"){
 
-      g_value <- get_RLum(g_value)[,c("FIT", "SD")]
       tc <- get_RLum(g_value)[["TC"]]
-
+      g_value <- as.numeric(get_RLum(g_value)[,c("FIT", "SD")])
 
     }else{
       try(stop("[calc_FadingCorr()] Unknown originator for the provided RLum.Results object via 'g_value'!", call. = FALSE))
@@ -238,7 +241,7 @@ calc_FadingCorr <- function(
   temp <-
     uniroot(
       f,
-      c(0.1, 500),
+      interval = interval,
       tol = 0.001,
       tc = tc,
       af = age.faded[1],
@@ -303,7 +306,7 @@ calc_FadingCorr <- function(
     tempMC[i:j] <- suppressWarnings(vapply(X = 1:length(age.fadedMC), FUN = function(x) {
       temp <- try(uniroot(
         f,
-        c(0.1,500),
+        interval = interval,
         tol = 0.001,
         tc = tc,
         af = age.fadedMC[[x]],

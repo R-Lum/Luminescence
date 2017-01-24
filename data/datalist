@@ -1,5 +1,6 @@
 BaseDataSet.CosmicDoseRate
 ExampleData.DeValues
+ExampleData.Fading
 ExampleData.FittingLM
 ExampleData.LxTxData
 ExampleData.LxTxOSLData
@@ -8,3 +9,4 @@ ExampleData.CW_OSL_Curve
 ExampleData.RLum.Analysis
 ExampleData.RLum.Data.Image
 ExampleData.XSYG
+ExampleData.portableOSL

@@ -41,6 +41,10 @@
 #' @param protocol \code{\link{character}} (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
 #'
+#' @param keep.empty \code{\link{logical}} (with default): If \code{TRUE} (default)
+#' an \code{RLum.Analysis} object is returned even if it does not contain any
+#' records. Set to \code{FALSE} to discard all empty objects.
+#'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
 #'
@@ -77,6 +81,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
   ltype = NULL,
   dtype = NULL,
   protocol = "unknown",
+  keep.empty = TRUE,
   txtProgressBar = FALSE
 ){
 
@@ -281,7 +286,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
 
         }
-
+        
         ##create curve object
         object <- set_RLum(
           class = "RLum.Analysis",
@@ -292,8 +297,13 @@ Risoe.BINfileData2RLum.Analysis<- function(
           originator = "Risoe.BINfileData2RLum.Analysis"
         )
 
+        if (!keep.empty && length(object@records) == 0)
+          return(NULL)
+
         ##add unique id of RLum.Analysis object to each curve object as .pid using internal function
         .set_pid(object)
+        
+        return(object)
 
       })
 
@@ -304,7 +314,13 @@ Risoe.BINfileData2RLum.Analysis<- function(
     ##this is necessary to not break with previous code, i.e. if only one element is included
     ##the output is RLum.Analysis and not a list of it
     if(length(object) == 1){
-      invisible(object[[1]][[1]])
+      
+      # special case: single grain data with only 1 position produces a nested list
+      # the outer one is of length 1, the nested list has length 100 (100 grains)
+      if (is.list(object[[1]]) && length(object[[1]]) > 1)
+        invisible(unlist(object))
+      else
+        invisible(object[[1]][[1]])
 
     }else{
 

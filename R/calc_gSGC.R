@@ -147,7 +147,7 @@ calc_gSGC<- function(
     }
 
     ##Define size of output objects
-    output.data <- data.table(
+    output.data <- data.table::data.table(
       DE = numeric(length = nrow(data)),
       DE.ERROR =  numeric(length = nrow(data)),
       ETA =  numeric(length = nrow(data))

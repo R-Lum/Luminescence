@@ -2,7 +2,7 @@
 % Please edit documentation in R/verify_SingleGrainData.R
 \name{verify_SingleGrainData}
 \alias{verify_SingleGrainData}
-\title{Verify single grain data sets and check for invalid grains, i.e. zero light level grains}
+\title{Verify single grain data sets and check for invalid grains, i.e. zero-light level grains}
 \usage{
 verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
   cleanup_level = "aliquot", verbose = TRUE, plot = FALSE)
@@ -24,9 +24,9 @@ is selected every single curve marked as \code{invalid} is removed. If \code{"al
 curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
 will be only removed if all curves of this aliquot are marked as invalid.}
 
-\item{verbose}{\code{\link{logical}} (with default): enables or disables terminal feedback}
+\item{verbose}{\code{\link{logical}} (with default): enables or disables the terminal feedback}
 
-\item{plot}{\code{\link{logical}} (with default): enables or disables graphical feedback}
+\item{plot}{\code{\link{logical}} (with default): enables or disables the graphical feedback}
 }
 \value{
 The function returns
@@ -50,17 +50,17 @@ The original function call\cr
 
 \bold{Output variation}\cr
 
-For \code{cleanup = TRUE} the same object as the input, but with cleaned up (invalid curves removed).
+For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up (invalid curves were removed).
 This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}}
 object is returned in such cases. An \code{\linkS4class{Risoe.BINfileData}} object can be exported
 to a BIN-file by using the function \code{\link{write_R2BIN}}.
 }
 \description{
-This function tries to identify automatically zero light level curves (grains) from single grain data
+This function tries to identify automatically zero-light level curves (grains) from single grain data
 measurements. \cr
 }
 \details{
-\bold{How the method works?}\cr
+\bold{How does the method work?}\cr
 
 The function compares the expected values (\eqn{E(X)}) and the variance (\eqn{Var(X)})
 of the count values for each curve. Assuming that the background roughly follows a poisson
@@ -72,11 +72,11 @@ Thus the function checks for:
 
 \deqn{abs(E(x) - Var(x)) >= \Theta}
 
-With \eqn{\Theta} an arbitray, user defined, threshold. Values above indicating curves
+With \eqn{\Theta} an arbitray, user defined, threshold. Values above the threshold indicating curves
 comprising a signal.\cr
 
 Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the ratio was chosen as
-both can become 0 which would result in \code{Inf} values.
+both terms can become 0 which would result in 0 or \code{Inf}, if the ratio is calculated.
 }
 \note{
 This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
@@ -89,7 +89,7 @@ within a SAR cycle are removed as well. Therefore it is strongly recommended to 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.2.0 (2016-06-20 19:34:56)
+ 0.2.0 (2017-01-24 21:05:25)
 }
 \examples{
 
@@ -123,7 +123,12 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+}
+
 \references{
 -
 }

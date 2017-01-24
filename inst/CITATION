@@ -45,5 +45,10 @@ citHeader("To cite the package 'Luminescence' in publications use:")
 				pages = "12-18",
 				doi = "10.1016/j.quageo.2015.09.003")
 
-
-
+		bibentry(bibtype = "Article",
+			  	title = "Bayesian statistics in luminescence dating: The baSAR-model and its implementation in the R package 'Luminescence'",
+				author = "Mercier, Norbert and Kreutzer, Sebastian and Christophe, Claire and Gu{\'e}rin, Guillaume and Guibert, P and Lahaye, Christelle and Lanos, Philippe and Philippe, Anne and Tribolo, Chantal",
+				year = "2016",
+				journal = "Ancient TL",
+				volume = "34",
+				pages = "14-21")

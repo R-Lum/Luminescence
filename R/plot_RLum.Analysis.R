@@ -63,7 +63,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.\cr
 #'
-#' @section Function version: 0.3.6
+#' @section Function version: 0.3.7
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -83,7 +83,7 @@
 #'##convert values for position 1
 #'temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 #'
-#'##plot (combine) TL curves in one plot
+#'##(1) plot (combine) TL curves in one plot
 #'plot_RLum.Analysis(
 #' temp,
 #' subset = list(recordType = "TL"),
@@ -92,10 +92,21 @@
 #' abline = list(v = c(110))
 #' )
 #'
+#'##(2) same as example (1) but using
+#'## the argument smooth = TRUE
+#'plot_RLum.Analysis(
+#' temp,
+#' subset = list(recordType = "TL"),
+#' combine = TRUE,
+#' norm = TRUE,
+#' smooth = TRUE,
+#' abline = list(v = c(110))
+#' )
+#'
 #' @export
 plot_RLum.Analysis <- function(
   object,
-  subset,
+  subset = NULL,
   nrows,
   ncols,
   abline = NULL,
@@ -115,7 +126,7 @@ plot_RLum.Analysis <- function(
 
   # Make selection if wanted  -------------------------------------------------------------------
 
-  if(!missing(subset)){
+  if(!is.null(subset)){
 
     ##check whether the user set the drop option and remove it, as we cannot work with it
     subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
@@ -373,27 +384,40 @@ plot_RLum.Analysis <- function(
         ##PLOT
         ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         ##plot RLum.Data.Curve curve
-        plot_RLum.Data.Curve(
-          temp[[i]],
-          col = col,
-          mtext = if(!is.null(plot.settings$mtext[[i]])){
-            plot.settings$mtext[[i]]
-          }else{
-            paste("#", i, sep = "")
-          },
-          par.local = FALSE,
-          main = main,
-          log = plot.settings$log[[i]],
-          lwd = plot.settings$lwd[[i]],
-          type = plot.settings$type[[i]],
-          lty = plot.settings$lty[[i]],
-          xlim = xlim.set,
-          ylim = ylim.set,
-          pch = plot.settings$pch[[i]],
-          cex = plot.settings$cex[[i]],
-          smooth = plot.settings$smooth[[i]],
-          ...
-        )
+
+          ##we have to do this via this way, otherwise we run into a duplicated arguments
+          ##problem
+          ##check and remove duplicated arguments
+          arguments <- c(
+            list(
+              object = temp[[i]],
+              col = col,
+              mtext = if (!is.null(plot.settings$mtext[[i]])) {
+                plot.settings$mtext[[i]]
+              } else{
+                paste("#", i, sep = "")
+              },
+              par.local = FALSE,
+              main = main,
+              log = plot.settings$log[[i]],
+              lwd = plot.settings$lwd[[i]],
+              type = plot.settings$type[[i]],
+              lty = plot.settings$lty[[i]],
+              xlim = xlim.set,
+              ylim = ylim.set,
+              pch = plot.settings$pch[[i]],
+              cex = plot.settings$cex[[i]],
+              smooth = plot.settings$smooth[[i]]
+            ),
+            list(...)
+          )
+
+          arguments[duplicated(names(arguments))] <- NULL
+
+        ##call the fucntion plot_RLum.Data.Curve
+        do.call(what = "plot_RLum.Data.Curve", args = arguments)
+        rm(arguments)
+
 
         ##add abline
         if(!is.null(abline[[i]])){
@@ -436,7 +460,6 @@ plot_RLum.Analysis <- function(
       }
 
     })
-
 
     ##account for different curve types, combine similar
     temp.object.structure  <- structure_RLum(object)
@@ -582,6 +605,8 @@ plot_RLum.Analysis <- function(
       } else {
         c(min(object.structure$x.min), max(object.structure$x.max))
       }
+      if (grepl("x", plot.settings$log[[k]], ignore.case = TRUE))
+        xlim[which(xlim == 0)] <- 1
 
       ##ylim
       ylim <- if (!is.null(plot.settings$ylim[[k]]) & length(plot.settings$ylim[[k]]) > 1) {
@@ -592,6 +617,8 @@ plot_RLum.Analysis <- function(
         })))
 
       }
+      if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
+        ylim[which(ylim == 0)] <- 1
 
       ##col (again)
       col <- if(length(plot.settings$col[[k]]) > 1 || plot.settings$col[[k]][1] != "black"){
@@ -645,9 +672,8 @@ plot_RLum.Analysis <- function(
 
       if (legend.pos == "outside") {
         par.default.outside <- par()[c("mar", "xpd")]
-        par(mar = c(5.1, 4.1, 4.1, 8.1), xpd = TRUE)
+        par(mar = c(5.1, 4.1, 4.1, 8.1))
       }
-
 
       ##open plot area
       plot(
@@ -676,6 +702,14 @@ plot_RLum.Analysis <- function(
                                             k = k_factor, fill = NA)
         }
 
+        ##remove 0 values if plotted on a log-scale
+        # y-Axis
+        if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
+          temp.data.list[[n]] <- temp.data.list[[n]][which(temp.data.list[[n]]$y > 0), ]
+        # x-Axis
+        if (grepl("x", plot.settings$log[[k]], ignore.case = TRUE))
+          temp.data.list[[n]] <- temp.data.list[[n]][which(temp.data.list[[n]]$x > 0), ]
+
         ##print lines
         lines(temp.data.list[[n]],
               col = col[n],
@@ -693,11 +727,29 @@ plot_RLum.Analysis <- function(
       ##mtext
       mtext(plot.settings$mtext[[k]], side = 3, cex = .8 * plot.settings$cex[[k]])
 
+      ##if legend is outside of the plotting area we need to allow overplotting
+      ##AFTER all lines have been drawn
+      if (legend.pos == "outside") {
+        par(xpd = TRUE)
+
+        # determine legend position on log(y) scale
+        if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))
+          ypos <- 10^par()$usr[4]
+        else
+          ypos <- par()$usr[4]
+
+        # determine position on log(x) scale
+        if (grepl("x", plot.settings$log[[k]], ignore.case = TRUE))
+          xpos <- 10^par()$usr[2]
+        else
+          xpos <- par()$usr[2]
+      }
+
       ##legend
       if (plot.settings$legend[[k]]) {
         legend(
-          x = ifelse(legend.pos == "outside", par()$usr[2], legend.pos),
-          y = ifelse(legend.pos == "outside", par()$usr[4], NULL),
+          x = ifelse(legend.pos == "outside", xpos, legend.pos),
+          y = ifelse(legend.pos == "outside", ypos, NULL),
           legend = legend.text,
           lwd = plot.settings$lwd[[k]],
           lty = plot.settings$lty[[k]],
@@ -710,6 +762,9 @@ plot_RLum.Analysis <- function(
           cex = 0.8 * plot.settings$cex[[k]]
         )
 
+        # revert the overplotting
+        if (legend.pos == "outside")
+          par(xpd = FALSE)
       }
 
     }

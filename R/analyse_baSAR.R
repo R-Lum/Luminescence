@@ -1,4 +1,4 @@
-#' Bayesian models (baSAR) applied on luminescence data
+ #' Bayesian models (baSAR) applied on luminescence data
 #'
 #' This function allows the application of Bayesian models on luminescence data, measured
 #' with the single-aliquot regenerative-dose (SAR, Murray and Wintle, 2000) protocol. In particular,
@@ -92,7 +92,7 @@
 #' (cf. \code{\link[rjags]{jags.model}})\cr
 #' \code{inits} \tab \code{\link{list}} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
 #' \code{thin} \tab \code{\link{numeric}} \tab thinning interval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
-#' \code{variables.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
+#' \code{variable.names} \tab \code{\link{character}} \tab set the variables to be monitored during the MCMC run, default:
 #' \code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}.
 #' Note: only variables present in the model can be monitored.
 #' }
@@ -159,7 +159,8 @@
 #' providing a file connection. Mixing of both types is not allowed. If an \code{\linkS4class{RLum.Results}}
 #' is provided the function directly starts with the Bayesian Analysis (see details)
 #'
-#' @param XLS_file \code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements)
+#' @param XLS_file \code{\link{character}} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements).
+#' Alternatively a \code{data.frame} of similar structure can be provided.
 #'
 #' @param aliquot_range \code{\link{numeric}} (optional): allows to limit the range of the aliquots
 #' used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used or
@@ -286,7 +287,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.25
+#' @section Function version: 0.1.28
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -303,6 +304,10 @@
 #' Combes, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guerin, G., Guibert, P., Lahaye, C., 2015.
 #' A Bayesian central equivalent dose model for optically stimulated luminescence dating.
 #' Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
+#'
+#' Mercier, N., Kreutzer, S., Christophe, C., Guerin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
+#' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its implementation
+#' in the R package 'Luminescence'. Ancient TL 34, 14-21.
 #'
 #' \bold{Further reading}
 #'
@@ -1062,7 +1067,6 @@ analyse_baSAR <- function(
       ##get BIN-file name
       object.file_name[[i]] <- unique(fileBIN.list[[i]]@METADATA[["FNAME"]])
 
-
     }
 
     ##check for duplicated entries; remove them as they would cause a function crash
@@ -1180,7 +1184,7 @@ analyse_baSAR <- function(
 
     ##select aliquots giving light only, this function accepts also a list as input
     if(verbose){
-      cat("\n[analyse_baSAR()] No XLS file provided, running automatic grain selection ...")
+      cat("\n[analyse_baSAR()] No XLS-file provided, running automatic grain selection ...")
 
     }
 
@@ -1236,7 +1240,7 @@ analyse_baSAR <- function(
       Nb_aliquots <- nrow(datalu)
 
       ##write information in variables
-      Disc[[k]] <-  datalu[["POSITION"]]
+      Disc[[k]] <- datalu[["POSITION"]]
       Grain[[k]] <- datalu[["GRAIN"]]
 
       ##free memory
@@ -1250,7 +1254,7 @@ analyse_baSAR <- function(
     if (is(XLS_file, "character")) {
       ##test for valid file
       if(!file.exists(XLS_file)){
-        stop("[analyse_baSAR()] Defined XLS_file does not exists!")
+        stop("[analyse_baSAR()] XLS_file does not exist!")
 
       }
 
@@ -1263,6 +1267,14 @@ analyse_baSAR <- function(
         skip = additional_arguments$skip
       ), stringsAsFactors = FALSE)
 
+      ###check whether data format is somehow odd, check only the first three columns
+      if(!all(grepl(colnames(datalu), pattern = " ")[1:3])){
+        stop("[analyse_baSAR()] One of the first three columns in your XLS_file has no column header. Your XLS_file requires
+             at least three columns for 'BIN_file', 'DISC' and 'GRAIN'",
+             call. = FALSE)
+
+      }
+
       ##get rid of empty rows if the BIN_FILE name column is empty
       datalu <- datalu[!is.na(datalu[[1]]), ]
 
@@ -1271,7 +1283,13 @@ analyse_baSAR <- function(
 
       datalu <- XLS_file
 
-      ##problem: the first column should be of type charcter, the others are
+      ##check number of number of columns in data.frame
+      if(ncol(datalu) < 3){
+        stop("[analyse_baSAR()] The data.frame provided via XLS_file should consist of at least three columns (see manual)!", call. = FALSE)
+
+      }
+
+      ##problem: the first column should be of type character, the others are
       ##of type numeric, unfortunately it is too risky to rely on the user, we do the
       ##proper conversion by ourself ...
       datalu[[1]] <- as.character(datalu[[1]])
@@ -1308,9 +1326,9 @@ analyse_baSAR <- function(
             split = ".",
             fixed = TRUE
           )[[1]][1],
-          x = object.file_name)
+          x = unlist(object.file_name))
 
-          nj <-  length(Disc[[k]]) + 1
+          nj <- length(Disc[[k]]) + 1
 
           Disc[[k]][nj] <-  as.numeric(datalu[nn, 2])
           Grain[[k]][nj] <-  as.numeric(datalu[nn, 3])
@@ -1579,7 +1597,7 @@ analyse_baSAR <- function(
       }
 
       if(is.null(background.integral.Tx[[k]])){
-        abline(v = range(background.integral[[k]]), lty = 2, col = "green")
+        abline(v = range(background.integral[[k]]), lty = 2, col = "red")
 
       }else{
         abline(v = range(background.integral.Tx[[k]]), lty = 2, col = "red")
@@ -1658,8 +1676,8 @@ analyse_baSAR <- function(
 
       TnTx <- unlist(Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[5]])
 
-      ##create needed data.frame
-      selected_sample <- data.frame (sample_dose, sample_LxTx, sample_sLxTx, TnTx)
+      ##create needed data.frame (this way to make sure that rows are doubled if something is missing)
+      selected_sample <- as.data.frame(cbind(sample_dose, sample_LxTx, sample_sLxTx, TnTx))
 
       ##call plot_GrowthCurve() to get De and De value
       fitcurve <-
@@ -1678,6 +1696,7 @@ analyse_baSAR <- function(
           verbose = verbose,
           main = paste0("ALQ: ", count," | POS: ", Disc[[k]][i], " | GRAIN: ", Grain[[k]][i])
         ))
+
 
         ##get data.frame with De values
         if(!is.null(fitcurve)){

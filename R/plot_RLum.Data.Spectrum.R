@@ -78,8 +78,9 @@
 #' \bold{Further arguments that will be passed (depending on the plot type)}
 #'
 #' \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
-#' \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type}, \code{col},
-#' \code{border}, \code{box} \code{lwd}, \code{bty} \cr
+#' \code{zlim}, \code{main}, \code{mtext}, \code{pch}, \code{type} ("single", "multiple.lines",
+#' "interactive"), \code{col},
+#' \code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} ("interactive") \cr
 #'
 #' @param object \code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
 #' object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
@@ -135,7 +136,7 @@
 #'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
 #'
-#' @section Function version: 0.5.0
+#' @section Function version: 0.5.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -180,12 +181,19 @@
 #'                         bin.cols = 1)
 #'
 #' \dontrun{
-#'  ##(4) interactive plot using the package plotly
+#'  ##(4) interactive plot using the package plotly ("surface")
 #'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
 #'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
 #'  bin.cols = 1)
 #'
-#'  ##(5) alternative using the package fields
+#'  ##(5) interactive plot using the package plotly ("contour")
+#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
+#'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
+#'  bin.cols = 1,
+#'  type = NULL,
+#'  showscale = TRUE)
+#'
+#'  ##(6) alternative using the package fields
 #'  fields::image.plot(get_RLum(TL.Spectrum))
 #'  contour(get_RLum(TL.Spectrum), add = TRUE)
 #'
@@ -337,7 +345,15 @@ plot_RLum.Data.Spectrum <- function(
   {""}
 
   type<- if("type" %in% names(extraArgs)) {extraArgs$type} else
-  {"l"}
+  {
+    if (plot.type == "interactive") {
+      "surface"
+
+    } else{
+      "l"
+
+    }
+  }
 
   pch<- if("pch" %in% names(extraArgs)) {extraArgs$pch} else
   {1}
@@ -350,6 +366,11 @@ plot_RLum.Data.Spectrum <- function(
 
   sub<- if("sub" %in% names(extraArgs)) {extraArgs$sub} else
   {""}
+
+  #for plotly::plot_ly
+  showscale<- if("showscale" %in% names(extraArgs)) {extraArgs$showscale} else
+  {FALSE}
+
 
 
   # prepare values for plot ---------------------------------------------------
@@ -703,11 +724,9 @@ plot_RLum.Data.Spectrum <- function(
 
        ##set up plot
        p <- plotly::plot_ly(
-         x = y,
-         y = x,
          z = temp.xyz,
-         type = "surface",
-         showscale = FALSE
+         type = type,
+         showscale = showscale,
          #colors = col[1:(length(col)-1)],
          )
 
@@ -724,6 +743,7 @@ plot_RLum.Data.Spectrum <- function(
        )
 
        print(p)
+       on.exit(return(p))
 
 
   }else if(plot.type == "contour" && ncol(temp.xyz) > 1) {
