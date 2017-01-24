@@ -6,7 +6,8 @@
 \usage{
 model_LuminescenceSignals(model, sequence, lab.dose_rate = 1,
   simulate_sample_history = FALSE, plot = TRUE, verbose = TRUE,
-  show.structure = FALSE, ...)
+  show_structure = FALSE, own_parameters = NULL,
+  own_state_parameters = NULL, own_start_temperature = NULL, ...)
 }
 \arguments{
 \item{model}{\code{\link{character}} (\bold{required}): set model to be used. Available models are:
@@ -25,6 +26,39 @@ TRUE: simulations begins at crystallization (all levels 0) process}
 
 \item{verbose}{\code{\link{logical}} (with default): Verbose mode on/off}
 
+\item{show_structure}{\code{\link{logical}} (with default): Shows the structure of the result.
+Recommended to show record.id to analyse concentrations.}
+
+\item{own_parameters}{\code{\link{list}} (with default): This argument allows the user to submit own parameter sets. The \code{\link{list}}
+has to contain the following items:
+\itemize{
+ \item{N: Concentration of electron- and hole traps [cm^(-3)]}
+ \item{E: Electron/Hole trap depth [eV}
+ \item{s: Frequency factor [s^(-1)]}
+ \item{A: Conduction band to electron trap and valence band to hole trap transition probability [s^(-1) * cm^(3)]. 
+ \bold{CAUTION: Not every publication uses 
+ the same definition of parameter A and B! See vignette "RLumModel - Usage with own parameter sets" for further details}}
+ \item{B: Conduction band to hole centre transition probability [s^(-1) * cm^(3)].}
+ \item{Th: Photo-eviction constant or photoionisation cross section, respectively}
+ \item{E_th: Thermal assistence energy [eV]}
+ \item{k_B: Boltzman constant 8.617e-05 [eV/K]}
+ \item{W: activation energy 0.64 [eV] (for UV)}
+ \item{K: 2.8e7 (dimensionless constant)}
+ \item{model: "customized"}
+ \item{R (optional): Ionisation rate (pair production rate) equivalent to 1 Gy/s [s^(-1) * cm^(-3)]}
+ }
+
+For further details see Bailey 2001, Wintle 1975, vignette "RLumModel - Using own parameter sets" 
+and example 3.}
+
+\item{own_state_parameters}{\code{\link{numeric}} (with default): Some publications (e.g. Pagonis 2009)
+offer state parameters. With this argument the user can submit this state parameters. \bold{Note:} 
+You have to submit the state parameters for the conduction band and the valence band, too. For further details
+see vignette ""RLumModel - Using own parameter sets" and example 3.}
+
+\item{own_start_temperature}{\code{\link{numeric}} (with default): Parameter to control the start temperature (in deg. C) of
+a simulation. This parameter takes effect only when 'model = "customized"' is choosen.}
+
 \item{...}{further arguments and graphical parameters passed to
 \code{\link{plot.default}}. See details for further information.}
 }
@@ -34,7 +68,7 @@ Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.0 (2016-11-23 15:09:44)
+ 0.1.3 (2017-01-24 13:03:31)
 }
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr
@@ -42,7 +76,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Friedrich, J., Kreutzer, S. (2017). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Friedrich, J., Kreutzer, S. (2017). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 
