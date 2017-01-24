@@ -86,7 +86,7 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.1 (2016-12-29 17:41:52)
+ 0.1.1 (2017-01-24 12:36:04)
 }
 \examples{
 
