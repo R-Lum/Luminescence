@@ -181,15 +181,6 @@
     }
   }
 
-    \item \code{calc_TLLxTxRatio()}{
-    \itemize{
-       \item A similar background signal for Lx and Tx led to zero uncertainties. This was
-       fixed by using a re-sampling approach (#31). However, this approach is just a rough guess
-       and had not been properly tested. The function has therefore still beta-status,
-       \item minor internal function updates.
-      }
-    }
-
   \item \code{model_LuminescenceSignals()}{
     \itemize{
        \item Update function arguments to account for changes in RLumModel version 0.2.0.

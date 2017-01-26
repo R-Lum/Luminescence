@@ -165,17 +165,6 @@ Changes in version 0.7.0 (6th February, 2017):
                    of the Lx-curve to get the net signal of the
                    Tx-curve (request #15).
 
-             • ‘calc_TLLxTxRatio()’
-
-                 • A similar background signal for Lx and Tx led to
-                   zero uncertainties. This was fixed by using a
-                   re-sampling approach (#31). However, this approach
-                   is just a rough guess and had not been properly
-                   tested. The function has therefore still
-                   beta-status,
-
-                 • minor internal function updates.
-
              • ‘model_LuminescenceSignals()’
 
                  • Update function arguments to account for changes in
