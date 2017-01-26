@@ -1,0 +1,43 @@
+---
+title: "R Luminescence version 0.7.0 </br> - Advanced	Fish -"
+author: "R Luminescence Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Dear **R** Luminescence users,
+
+we are happy to announce that another new version of our **R** package (0.7.0) just made it to [CRAN](https://CRAN.R-project.org/package=Luminescence).  
+As usual: many thanks for your helpful suggestions and comments!
+This is a major update and comes with a lot of bugfixes and several new functions. We are excited 
+to present some the new possibilties below, however, for a full list of all changes please check the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+
+## What's new?
+
+### New analysis functions
+
+#### Analyse fading measurements 
+
+#### Analyse data determined by the portable OSL reader
+
+### New models
+
+#### Kars et al., 2008
+
+#### Average Dose Model (Guérin et al., 2017)
+
+### Conversions
+
+* Conversion stuff
+
+### Internals
+
+* GitHub API stuff
+
+* the pipe 
+
+## References
