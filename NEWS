@@ -165,6 +165,12 @@ Changes in version 0.7.0 (6th February, 2017):
                    of the Lx-curve to get the net signal of the
                    Tx-curve (request #15).
 
+             • ‘fit_CWCurve()’
+
+                 • Change order of ‘RLum.Results’ output list elements,
+
+                 • rename first element to ‘data’.
+
              • ‘model_LuminescenceSignals()’
 
                  • Update function arguments to account for changes in

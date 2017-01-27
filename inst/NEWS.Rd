@@ -181,6 +181,13 @@
     }
   }
 
+      \item \code{fit_CWCurve()}{
+    \itemize{
+       \item Change order of \code{RLum.Results} output list elements,
+       \item rename first element to \code{data}.
+    }
+  }
+
   \item \code{model_LuminescenceSignals()}{
     \itemize{
        \item Update function arguments to account for changes in RLumModel version 0.2.0.

@@ -104,9 +104,12 @@
 #' is currently not considered.\cr\cr The function \bold{does not} ensure that
 #' the fitting procedure has reached a global minimum rather than a local
 #' minimum!
-#' @section Function version: 0.5.1
+#'
+#' @section Function version: 0.5.2
+#'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
+#'
 #' @seealso \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
 #' \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
 #' \code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}
@@ -156,7 +159,7 @@ fit_CWCurve<- function(
 
   ##INPUT OBJECTS
   if(is(values, "RLum.Data.Curve") == FALSE & is(values, "data.frame") == FALSE){
-    stop("[fit_CWCurve()] Input object is not of type 'RLum.Data.Curve' or 'data.frame'!")
+    stop("[fit_CWCurve()] Input object is not of type 'RLum.Data.Curve' or 'data.frame'!", call. = FALSE)
   }
 
 
@@ -317,7 +320,7 @@ fit_CWCurve<- function(
 
     }else{
 
-      stop("[fit_CWCurve()] fit.method unknown.")
+      stop("[fit_CWCurve()] fit.method unknown.", call. = FALSE)
 
     }
 
@@ -803,9 +806,12 @@ fit_CWCurve<- function(
   newRLumResults.fit_CWCurve <- set_RLum(
     class = "RLum.Results",
     data = list(
+      data = output.table,
       fit = fit,
-      output.table = output.table,
-      component.contribution.matrix = list(component.contribution.matrix)))
+      component.contribution.matrix = list(component.contribution.matrix)
+    ),
+    info = list(call = sys.call())
+  )
 
   rm(fit)
   rm(output.table)
