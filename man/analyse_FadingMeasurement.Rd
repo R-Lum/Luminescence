@@ -5,8 +5,8 @@
 \title{Analyse fading measurements and returns the fading rate per decade (g-value)}
 \usage{
 analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
-  background.integral, n.MC = 100, verbose = TRUE, plot = TRUE,
-  plot.single = FALSE, ...)
+  background.integral, t_star = "half", n.MC = 100, verbose = TRUE,
+  plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
@@ -22,6 +22,10 @@ limits for the signal integral}
 
 \item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
 bounds for the background integral}
+
+\item{t_star}{\code{\link{character}} (with default): method for calculating the time elasped
+since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+and \code{'end'}, which takes the time between irradiation and the measurement step. Default is \code{'half'}}
 
 \item{n.MC}{\code{\link{integer}} (with default): number for Monte Carlo runs for the error
 estimation}
@@ -86,7 +90,7 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.1 (2017-01-24 21:10:47)
+ 0.1.2 (2017-01-27 19:52:18)
 }
 \examples{
 
@@ -99,7 +103,7 @@ Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
