@@ -197,14 +197,20 @@ calc_Kars2008 <- function(data,
                         })
       )
       # extract the LnTn values (assumed to be the first row) and calculate the column mean
-      LnTn_tmp <- colMeans(do.call(rbind, 
+      LnTn_tmp <- do.call(rbind, 
                           lapply(seq(1, ncol(data), 3), function(col) {
                             setNames(data[1, col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
                           })
-      ))
+      )
       
+      # check whether the standard deviation of LnTn estimates or the largest
+      # individual error is highest, and take the larger one
+      LnTn_error_tmp <- max(c(sd(LnTn_tmp[ ,2]), mean(LnTn_tmp[ ,3])), na.rm = TRUE)
+      LnTn_tmp <- colMeans(LnTn_tmp)
+
       # re-bind the data frame
       data <- rbind(LnTn_tmp, data_tmp)
+      data[1, 3] <- LnTn_error_tmp
       data <- data[complete.cases(data), ]
     }
     
