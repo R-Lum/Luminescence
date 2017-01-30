@@ -27,6 +27,8 @@
 #' measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
 #' objects or a \code{\link{data.frame}} with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
+#' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+#' and where each triplet has the aforementioned column structure.
 #'
 #' @param structure \code{\link{character}} (with default): sets the structure of the measurement
 #' data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored
@@ -130,11 +132,15 @@ analyse_FadingMeasurement <- function(
     object <- list(object)
 
   } else if(class(object) == "data.frame"){
-    if (ncol(object) != 3) {
-      stop(
-        "[analyse_FadingMeasurement()] 'object' if you provide a data.frame is input, it needs to have 3 columns."
-      )
-
+    if (ncol(object) %% 3 != 0) {
+      stop("[analyse_FadingMeasurement()] 'object': if you provide a data.frame as input, the number of columns must be a multiple of 3.")
+    } else {
+      object <- do.call(rbind, 
+                        lapply(seq(1, ncol(object), 3), function(col) {
+                          setNames(object[ , col:c(col+2)], c("LxTx", "LxTxError", "timeSinceIrr")) 
+                          })
+                        )
+      object <- object[complete.cases(object), ]
     }
 
     ##set table and object

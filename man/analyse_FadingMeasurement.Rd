@@ -12,7 +12,9 @@ analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
 measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
 objects or a \code{\link{data.frame}} with three columns
-(x = LxTx, y = LxTx error, z = time since irradiation) can be provided.}
+(x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
+Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+and where each triplet has the aforementioned column structure.}
 
 \item{structure}{\code{\link{character}} (with default): sets the structure of the measurement
 data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored}
