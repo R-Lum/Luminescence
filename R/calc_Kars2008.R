@@ -50,7 +50,9 @@
 #' A three column data frame with numeric values on a) dose (s), b) LxTx and and
 #' c) LxTx error. If a two column data frame is provided it is automatically
 #' assumed that errors on LxTx are missing. A third column will be attached
-#' with an arbitrary 5 \% error on the provided LxTx values.
+#' with an arbitrary 5 \% error on the provided LxTx values.\cr
+#' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+#' and where each triplet has the aforementioned column structure.
 #'
 #' @param rhop \code{\link{numeric}} (\bold{required}):
 #' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
@@ -184,11 +186,29 @@ calc_Kars2008 <- function(data,
     }
 
     # check number of columns
-    if (ncol(data) > 3)
-      stop("\n[calc_Kars2008] 'data' must be a data frame with three columns",
-           " (dose, LxTx, LxTx error).",
+    if (ncol(data) %% 3 != 0) {
+      stop("[calc_Kars2008] the number of columns in 'data' must be a multiple of 3.", 
            call. = FALSE)
-
+    } else {
+      # extract all LxTx values
+      data_tmp <- do.call(rbind, 
+                        lapply(seq(1, ncol(data), 3), function(col) {
+                          setNames(data[2:nrow(data), col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
+                        })
+      )
+      # extract the LnTn values (assumed to be the first row) and calculate the column mean
+      LnTn_tmp <- colMeans(do.call(rbind, 
+                          lapply(seq(1, ncol(data), 3), function(col) {
+                            setNames(data[1, col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
+                          })
+      ))
+      
+      # re-bind the data frame
+      data <- rbind(LnTn_tmp, data_tmp)
+      data <- data[complete.cases(data), ]
+    }
+    
+    
   } else {
     stop("\n[calc_Kars2008] 'data' must be a data frame.",
          call. = FALSE)
