@@ -58,7 +58,7 @@ Slot: \bold{@data}\cr
 containing data on dose, LxTx and LxTx error for each of the dose response curves.
 Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
 \code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
- objects produced by \code{\link{nls}} when fitting the dose response curves \cr
+ objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
 }
 
 Slot: \bold{@info}\cr

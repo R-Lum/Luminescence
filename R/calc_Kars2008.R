@@ -95,7 +95,7 @@
 #' containing data on dose, LxTx and LxTx error for each of the dose response curves.
 #' Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
 #' \code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
-#'  objects produced by \code{\link{nls}} when fitting the dose response curves \cr
+#'  objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
 #' }
 #'
 #' Slot: \bold{@info}\cr
@@ -328,7 +328,7 @@ calc_Kars2008 <- function(data,
 
   #
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
-    fit_sim <- try(nls(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
+    fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
@@ -338,7 +338,7 @@ calc_Kars2008 <- function(data,
   }, simplify = FALSE))
 
   # final fit for export
-  fit_simulated <- nls(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
+  fit_simulated <- minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
                        start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
 
   # scaling factor
@@ -436,7 +436,7 @@ calc_Kars2008 <- function(data,
   LxTx.unfaded <- LxTx.measured / theta(dosetime, rhop[1])
   LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
-  fit_unfaded <- nls(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
+  fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
                      start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot))
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
   D0.error.unfaded <- summary(fit_unfaded)$coefficients["D0", "Std. Error"]
@@ -494,6 +494,11 @@ calc_Kars2008 <- function(data,
       par(oma = c(0, 3, 0, 9))
     else
       par(oma = c(0, 9, 0, 9))
+    
+    # Find a good estimate of the x-axis limits
+    xlim <- range(pretty(dosetimeGray))
+    if (De.sim > xlim[2])
+      xlim <- range(pretty(c(min(dosetimeGray), De.sim)))
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
     plot(dosetimeGray, LxTx_measured$LxTx,
