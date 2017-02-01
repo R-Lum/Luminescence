@@ -506,7 +506,8 @@ calc_Kars2008 <- function(data,
          xlab = plot.settings$xlab,
          ylab = plot.settings$ylab,
          pch = 16,
-         ylim = c(0, max(do.call(rbind, list(LxTx_measured, LxTx_unfaded))[["LxTx"]]))
+         ylim = c(0, max(do.call(rbind, list(LxTx_measured, LxTx_unfaded))[["LxTx"]])),
+         xlim = xlim
     )
 
     # LxTx error bars
