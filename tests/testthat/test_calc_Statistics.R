@@ -6,10 +6,10 @@ data(ExampleData.DeValues, envir = environment())
 ## calculate statistics and show output
 set.seed(1)
 temp <- calc_Statistics(ExampleData.DeValues$BT998, n.MC = 1000)
-
+temp_alt1 <- calc_Statistics(ExampleData.DeValues$BT998, n.MC = 1000, digits = 2)
+temp_alt2 <- calc_Statistics(ExampleData.DeValues$BT998, n.MC = 1000, digits = NULL)
 
 test_that("check class and length of output", {
-
   expect_equal(is(temp), c("list", "vector"))
   expect_equal(length(temp), 3)
 
@@ -18,6 +18,8 @@ test_that("check class and length of output", {
 test_that("check weighted values from output", {
 
   expect_equal(temp$weighted$n, 25)
+  expect_equal(sum(unlist(temp_alt1)),24535.72)
+  expect_equal(sum(unlist(temp_alt2)),24534.1)
   expect_equal(round(temp$weighted$mean, digits = 3), 2896.036)
   expect_equal(round(temp$weighted$median, digits = 2), 2884.46)
   expect_equal(round(temp$weighted$sd.abs, digits = 4), 240.2228)
