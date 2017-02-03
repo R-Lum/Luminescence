@@ -159,6 +159,15 @@ Changes in version 0.7.0 (6th February, 2017):
                    that the values in the output object were correct!).
                    Thankfully reported by Xue Rui.
 
+             • ‘calc_Statistics()’
+
+                 • The argument ‘n.MC’ got a new value ‘NULL’ which is
+                   now used as default. With this the basic statistical
+                   measures are in accordance with the expectations
+                   (e.g., the standard deviation is returned by default
+                   in the conventional way and not calculated using an
+                   MC simulation).
+
              • ‘calc_OSLLxTxRatio()’
 
                  • Add argument ‘use_previousBG’ to use the background

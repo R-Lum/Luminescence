@@ -174,6 +174,16 @@
     }
   }
 
+    \item \code{calc_Statistics()}{
+    \itemize{
+       \item The argument \code{n.MC} got a new value \code{NULL} which is now
+       used as default. With this the basic statistical measures are in accordance
+       with the expectations (e.g., the standard deviation is returned by default in
+       the conventional way and not calculated using an MC simulation).
+    }
+  }
+
+
     \item \code{calc_OSLLxTxRatio()}{
     \itemize{
        \item Add argument \code{use_previousBG} to use the background of the Lx-curve to

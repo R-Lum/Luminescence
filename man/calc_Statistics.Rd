@@ -4,7 +4,7 @@
 \alias{calc_Statistics}
 \title{Function to calculate statistic measures}
 \usage{
-calc_Statistics(data, weight.calc = "square", digits = NULL, n.MCM = 1000,
+calc_Statistics(data, weight.calc = "square", digits = NULL, n.MCM = NULL,
   na.rm = TRUE)
 }
 \arguments{
@@ -21,7 +21,7 @@ out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
 specified digits. If digits is set to \code{NULL} nothing is rounded.}
 
 \item{n.MCM}{\code{\link{numeric}} (with default): number of samples drawn
-for Monte Carlo-based statistics. Set to zero to disable this option.}
+for Monte Carlo-based statistics. \code{NULL} (the default) disables MC runs.}
 
 \item{na.rm}{\code{\link{logical}} (with default): indicating whether NA
 values should be stripped before the computation proceeds.}
@@ -30,11 +30,11 @@ values should be stripped before the computation proceeds.}
 Returns a list with weighted and unweighted statistic measures.
 }
 \description{
-This function calculates a number of descriptive statistics for De-data,
-most fundamentally using error-weighted approaches.
+This function calculates a number of descriptive statistics for estimates
+with a given standard error (SE), most fundamentally using error-weighted approaches.
 }
 \details{
-The option to use Monte Carlo Methods (\code{n.MCM > 0}) allows calculating
+The option to use Monte Carlo Methods (\code{n.MCM}) allows calculating
 all descriptive statistics based on random values. The distribution of these
 random values is based on the Normal distribution with \code{De} values as
 means and \code{De_error} values as one standard deviation. Increasing the
@@ -45,8 +45,9 @@ values. See Dietze et al. (2016, Quaternary Geochronology) and the function
 \code{\link{plot_AbanicoPlot}} for details.
 }
 \section{Function version}{
- 0.1.6 (2016-05-16 22:14:31)
+ 0.1.7 (2017-02-03 11:35:19)
 }
+
 \examples{
 
 ## load example data
@@ -73,8 +74,7 @@ Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Dietze, M. (2017). calc_Statistics(): Function to calculate statistic measures. Function version 0.1.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M. (2017). calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{datagen}
-
