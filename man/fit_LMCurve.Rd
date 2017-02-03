@@ -82,10 +82,12 @@ Various types of plots are returned. For details see above.\cr
 Furthermore an \code{RLum.Results} object is returned with the following structure:\cr
 
 data:\cr
+.. $data : \code{data.frame} with fitting results\cr
 .. $fit : \code{nls} (nls object)\cr
-.. $output.table : \code{data.frame} with fitting results\cr
 .. $component.contribution.matrix : \code{list} component distribution matrix\cr
-.. $call : \code{call} the original function call
+
+info:\cr
+.. $call : \code{call} the original function call\cr
 
 Matrix structure for the distribution matrix:\cr
 
@@ -159,7 +161,7 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.2 (2017-02-03 11:55:09)
+ 0.3.2 (2017-02-03 14:03:10)
 }
 
 \examples{

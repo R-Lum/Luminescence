@@ -122,10 +122,12 @@
 #' Furthermore an \code{RLum.Results} object is returned with the following structure:\cr
 #'
 #' data:\cr
+#' .. $data : \code{data.frame} with fitting results\cr
 #' .. $fit : \code{nls} (nls object)\cr
-#' .. $output.table : \code{data.frame} with fitting results\cr
 #' .. $component.contribution.matrix : \code{list} component distribution matrix\cr
-#' .. $call : \code{call} the original function call
+#'
+#' info:\cr
+#' .. $call : \code{call} the original function call\cr
 #'
 #' Matrix structure for the distribution matrix:\cr
 #'
