@@ -72,7 +72,7 @@ test_that("check values from output example", {
    expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 2),17474.29)
 
  expect_equivalent(round(temp_EXPEXP$De[[1]], digits = 2), 1787.15)
-  expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 2), 7315.99)
+  expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7316)
 
  expect_equivalent(round(temp_QDR$De[[1]], digits = 2), 1666.2)
   expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 2), 14936.76)
