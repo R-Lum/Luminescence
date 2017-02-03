@@ -178,7 +178,17 @@ Changes in version 0.7.0 (6th February, 2017):
 
                  • Change order of ‘RLum.Results’ output list elements,
 
-                 • rename first element to ‘data’.
+                 • rename first element to ‘data’,
+
+                 • add element slot 'info'.
+
+             • ‘fit_LWCurve()’
+
+                 • Change order of ‘RLum.Results’ output list elements,
+
+                 • rename first element to ‘data’,
+
+                 • add element slot 'info'.
 
              • ‘model_LuminescenceSignals()’
 

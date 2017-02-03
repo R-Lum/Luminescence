@@ -143,7 +143,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -998,15 +998,14 @@ fit_LMCurve<- function(
   ##============================================================================#
   ## Return Values
   ##============================================================================#
-
   newRLumResults.fit_LMCurve <- set_RLum(
     class = "RLum.Results",
     data = list(
+      data = output.table,
       fit = fit,
-      output.table = output.table,
-      component.contribution.matrix = list(component.contribution.matrix),
-      call = sys.call()
-    )
+      component.contribution.matrix = list(component.contribution.matrix)
+    ),
+    info = list(call = sys.call())
   )
 
   invisible(newRLumResults.fit_LMCurve)

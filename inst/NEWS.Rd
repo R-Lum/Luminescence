@@ -194,7 +194,16 @@
       \item \code{fit_CWCurve()}{
     \itemize{
        \item Change order of \code{RLum.Results} output list elements,
-       \item rename first element to \code{data}.
+       \item rename first element to \code{data},
+       \item add element slot 'info'.
+    }
+  }
+
+   \item \code{fit_LWCurve()}{
+    \itemize{
+       \item Change order of \code{RLum.Results} output list elements,
+       \item rename first element to \code{data},
+       \item add element slot 'info'.
     }
   }
 
