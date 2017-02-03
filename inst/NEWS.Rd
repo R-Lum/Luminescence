@@ -113,7 +113,8 @@
   \itemize{
     \item Add option for a vertical sliding of the RF_nat curve (\code{method_control = list(vslide_range = 'auto')}). This
     feature has beta status and usage for publication work is not recommended yet. By default no vertical
-    sliding is applied.
+    sliding is applied,
+   \item allow a parallel processing of MC runs by using the argument \code{method_control = list(cores = 'auto')}.
    }
   }
 

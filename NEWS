@@ -108,7 +108,10 @@ Changes in version 0.7.0 (6th February, 2017):
                    curve (‘method_control = list(vslide_range =
                    'auto')’). This feature has beta status and usage
                    for publication work is not recommended yet. By
-                   default no vertical sliding is applied.
+                   default no vertical sliding is applied,
+
+                 • allow a parallel processing of MC runs by using the
+                   argument ‘method_control = list(cores = 'auto')’.
 
              • ‘analyse_SAR.CWOSL()’
 
