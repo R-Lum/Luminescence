@@ -72,7 +72,7 @@ calc_Statistics <- function(
   if(is(data, "RLum.Results") == FALSE &
        is(data, "data.frame") == FALSE) {
     stop(paste("[calc_Statistics()] Input data format is neither",
-               "'data.frame' nor 'RLum.Results'"))
+               "'data.frame' nor 'RLum.Results'"), call. = FALSE)
   } else {
     if(is(data, "RLum.Results") == TRUE) {
       data <- get_RLum(data, "data")[,1:2]
@@ -93,7 +93,7 @@ calc_Statistics <- function(
   data[is.na(data[,2]),2] <- 0
 
   if(sum(data[,2]) == 0) {
-    warning("All errors are NA or zero! Automatically set to 10^-9!")
+    warning("[calc_Statistics()] All errors are NA or zero! Automatically set to 10^-9!", call. = FALSE)
     data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
 
@@ -102,7 +102,7 @@ calc_Statistics <- function(
   } else if(weight.calc == "square") {
     S.weights <- 1 / data[,2]^2
   } else {
-    stop ("[calc_Statistics()] Weight calculation type not supported!")
+    stop ("[calc_Statistics()] Weight calculation type not supported!", call. = FALSE)
   }
 
   S.weights <- S.weights / sum(S.weights)
@@ -220,13 +220,13 @@ calc_Statistics <- function(
                        kurtosis = S.kurtosis)
 
   if(!is.null(digits)){
-
     S.unweighted  <- sapply(names(S.unweighted),
                             simplify = FALSE,
                             USE.NAMES = TRUE,
                             function(x) {
                               round(S.unweighted [[x]],
                                     digits = digits)})
+
   }
 
   S.MCM <- list(n = S.n,
