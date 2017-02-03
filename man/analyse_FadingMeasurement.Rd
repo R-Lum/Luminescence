@@ -92,7 +92,7 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.2 (2017-01-27 19:52:18)
+ 0.1.2 (2017-02-03 11:51:17)
 }
 
 \examples{

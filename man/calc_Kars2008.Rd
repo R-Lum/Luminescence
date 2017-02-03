@@ -120,8 +120,9 @@ in the derivation of (n/N) and (n/N)_SS.
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2017-02-03 11:51:17)
 }
+
 \examples{
 
 ## Load example data (sample UNIL/NB123, see ?ExampleData.Fading)
@@ -150,11 +151,12 @@ kars <- calc_Kars2008(data = data,
                       readerDdot = readerDdot,
                       n.MC = 50
                       )
+} 
+
+\section{How to cite}{
+King, G., Burow, C. (2017). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-\author{
-Georgina King, University of Cologne (Germany), \cr
-Christoph Burow, University of Cologne (Germany)
-}
+
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
@@ -171,5 +173,8 @@ Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi
 Morthekai, P., Jain, M., Cunha, P.P., Azevedo, J.M., Singhvi, A.K., 2011. An attempt to correct
 for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
 }
+\author{
+Georgina King, University of Cologne (Germany), \cr
+Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-
