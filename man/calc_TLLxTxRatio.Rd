@@ -59,6 +59,7 @@ background for both curves results in a zero error.
 \section{Function version}{
  0.3.0 (2017-01-26 14:08:57)
 }
+
 \examples{
 
 
@@ -82,11 +83,7 @@ output <- calc_TLLxTxRatio(Lx.data.signal,
                            signal.integral.min, signal.integral.max)
 get_RLum(output)
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), Christoph Schmidt, University of Bayreuth (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S., Schmidt, C. (2017). calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -98,5 +95,8 @@ Kreutzer, S., Schmidt, C. (2017). calc_TLLxTxRatio(): Calculate the Lx/Tx ratio 
 \seealso{
 \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France), Christoph Schmidt, University of Bayreuth (Germany)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-

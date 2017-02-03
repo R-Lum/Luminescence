@@ -98,6 +98,7 @@ towards a correct time order.
 \section{Function version}{
  0.3.0 (2016-05-03 11:10:26)
 }
+
 \examples{
 
 
@@ -117,11 +118,7 @@ towards a correct time order.
 #                   sep = ";",
 #                   row.names = FALSE)
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). extract_IrradiationTimes(): Extract irradiation times from an XSYG file. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -135,6 +132,9 @@ Duller, G., 2007. Analyst.
 \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
 \code{\link{read_XSYG2R}}, \code{\link{read_BIN2R}}, \code{\link{write_R2BIN}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{IO}
 \keyword{manip}
-

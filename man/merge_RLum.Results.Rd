@@ -20,6 +20,7 @@ The originator is taken from the first element and not reset to \code{merge_RLum
 \section{Function version}{
  0.2.0 (2016-05-02 09:36:06)
 }
+
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
@@ -28,5 +29,4 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \section{How to cite}{
 Kreutzer, S. (2017). merge_RLum.Results(): Merge function for RLum.Results S4-class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 

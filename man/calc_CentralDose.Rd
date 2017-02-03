@@ -58,6 +58,7 @@ appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
 \section{Function version}{
  1.3.2 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##load example data
@@ -66,11 +67,7 @@ data(ExampleData.DeValues, envir = environment())
 ##apply the central dose model
 calc_CentralDose(ExampleData.DeValues$CA1)
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany) \cr Based on a
-rewritten S script of Rex Galbraith, 2010 \cr
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Burow, C. (2017). calc_CentralDose(): Apply the central age model (CAM) after Galbraith et al. (1999) to a given De distribution. Function version 1.3.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -104,4 +101,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.
 \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
 \code{\link{calc_MinDose}}
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany) \cr Based on a
+rewritten S script of Rex Galbraith, 2010 \cr
+\cr R Luminescence Package Team}

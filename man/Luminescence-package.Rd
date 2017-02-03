@@ -2,8 +2,8 @@
 % Please edit documentation in R/Luminescence-package.R
 \docType{package}
 \name{Luminescence-package}
-\alias{Luminescence}
 \alias{Luminescence-package}
+\alias{Luminescence}
 \title{Comprehensive Luminescence Dating Data Analysis}
 \description{
 A collection of various R functions for the purpose of Luminescence dating
@@ -14,6 +14,27 @@ plotting of equivalent dose distributions.
 \details{
 \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
 \tab 0.7.0 \cr Date: \tab 2016-12-XX \cr License: \tab GPL-3\cr }
+}
+\references{
+Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
+Schmidt, C., 2013. A practical guide to the R package Luminescence.
+Ancient TL, 31, 11-18.
+
+Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016. The abanico plot:
+visualising chronometric data with individual standard errors. Quaternary Geochronology 31, 1-7.
+http://dx.doi.org/10.1016/j.quageo.2015.09.003
+
+Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C.,
+Fuchs, M., 2015. Data processing in luminescence dating analysis: An
+exemplary workflow using the R package 'Luminescence'. Quaternary
+International, 362,8-13. http://dx.doi.org/10.1016/j.quaint.2014.06.034
+
+Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
+2012. Introducing an R package for luminescence dating analysis. Ancient TL,
+30, 1-8.
+
+Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
+Ancient TL 33, 16-21.
 }
 \author{
 \bold{Full list of authors and contributors} (alphabetic order)
@@ -78,26 +99,4 @@ funded by the DFG (SCHM 3051/3-1) in the framework of the program
 "Scientific Networks". Project title: "RLum.Network: Ein
 Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2017)
 }
-\references{
-Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
-Schmidt, C., 2013. A practical guide to the R package Luminescence.
-Ancient TL, 31, 11-18.
-
-Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016. The abanico plot:
-visualising chronometric data with individual standard errors. Quaternary Geochronology 31, 1-7.
-http://dx.doi.org/10.1016/j.quageo.2015.09.003
-
-Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C.,
-Fuchs, M., 2015. Data processing in luminescence dating analysis: An
-exemplary workflow using the R package 'Luminescence'. Quaternary
-International, 362,8-13. http://dx.doi.org/10.1016/j.quaint.2014.06.034
-
-Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
-2012. Introducing an R package for luminescence dating analysis. Ancient TL,
-30, 1-8.
-
-Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
-Ancient TL 33, 16-21.
-}
 \keyword{package}
-

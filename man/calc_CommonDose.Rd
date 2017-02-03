@@ -53,6 +53,7 @@ error (Galbraith & Roberts 2012, p. 14).
 \section{Function version}{
  0.1.1 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ## load example data
@@ -61,10 +62,7 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the common dose model
 calc_CommonDose(ExampleData.DeValues$CA1)
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Burow, C. (2017). calc_CommonDose(): Apply the (un-)logged common age model after Galbraith et al. (1999) to a given De distribution. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -97,4 +95,6 @@ needed to obtain a reproducible distribution?. Ancient TL 26, 3-10.
 \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
 \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team}

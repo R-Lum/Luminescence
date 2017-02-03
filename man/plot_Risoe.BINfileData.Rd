@@ -81,6 +81,7 @@ output version 3 and 4.
 \section{Function version}{
  0.4.1 (2015-11-29 17:27:48)
 }
+
 \examples{
 
 
@@ -99,11 +100,7 @@ data(ExampleData.BINfileData, envir = environment())
 #mtext(side = 4, BINfile, outer = TRUE, col = "blue", cex = .7)
 #dev.off()
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France),\cr Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S., Dietze, M. (2017). plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -117,5 +114,8 @@ Duller, G., 2007. Analyst. pp. 1-45.
 \code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}},
 \code{\link{CW2pHMi}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France),\cr Michael Dietze, GFZ Potsdam (Germany)
+\cr R Luminescence Package Team}
 \keyword{dplot}
-

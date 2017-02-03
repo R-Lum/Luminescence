@@ -62,6 +62,7 @@ ignored by the function \code{\link{read_BIN2R}}.
 \section{Function version}{
  0.4.0 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##uncomment for usage
@@ -69,11 +70,7 @@ ignored by the function \code{\link{read_BIN2R}}.
 ##data(ExampleData.BINfileData, envir = environment())
 ##write_R2BIN(CWOSL.SAR.Data, file="[your path]/output.bin")
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). write_R2BIN(): Export Risoe.BINfileData into Risoe BIN-file. Function version 0.4.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -87,5 +84,8 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \code{\link{read_BIN2R}}, \code{\linkS4class{Risoe.BINfileData}},
 \code{\link{writeBin}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{IO}
-

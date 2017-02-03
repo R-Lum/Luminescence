@@ -47,6 +47,7 @@ The provided plot output depends on the input object.
 \section{Function version}{
  0.4.3 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 
@@ -60,11 +61,7 @@ temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
 plot_RLum(temp)
 
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -81,5 +78,8 @@ Kreutzer, S. (2017). plot_RLum(): General plot function for RLum S4 class object
 \code{\linkS4class{RLum.Analysis}}, \code{\link{plot_RLum.Results}},
 \code{\linkS4class{RLum.Results}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{dplot}
-

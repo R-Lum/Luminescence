@@ -65,6 +65,7 @@ The validity of the output objects is not further checked.
 \section{Function version}{
  0.2.6 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 
@@ -77,11 +78,7 @@ object2 <- CWOSL.SAR.Data
 object.new <- merge_Risoe.BINfileData(c(object1, object2))
 
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -94,6 +91,9 @@ Duller, G., 2007. Analyst.
 \code{\linkS4class{Risoe.BINfileData}}, \code{\link{read_BIN2R}},
 \code{\link{write_R2BIN}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{IO}
 \keyword{manip}
-

@@ -3,9 +3,9 @@
 \docType{class}
 \name{Risoe.BINfileData-class}
 \alias{Risoe.BINfileData-class}
-\alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
-\alias{set_Risoe.BINfileData,data.frame,list-method}
 \alias{show,Risoe.BINfileData-method}
+\alias{set_Risoe.BINfileData,data.frame,list-method}
+\alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
 \S4method{show}{Risoe.BINfileData}(object)
@@ -41,6 +41,7 @@ This construction method is intended for internal usage only.
 \item \code{get_Risoe.BINfileData}: Formal get-method for Risoe.BINfileData object. It does not allow accessing
 the object directly, it is just showing a terminal message.
 }}
+
 \section{Slots}{
 
 \describe{
@@ -50,6 +51,7 @@ the object directly, it is just showing a terminal message.
 
 \item{\code{.RESERVED}}{Object of class "list" containing list of undocumented raw values for internal use only.}
 }}
+
 \note{
 \bold{Internal METADATA - object structure}
 
@@ -180,15 +182,12 @@ Nutech)
 \section{Function version}{
  0.3.0
 }
+
 \examples{
 
 showClass("Risoe.BINfileData")
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -205,5 +204,8 @@ Sequence Editor User Manual - Feburar 2016
 \code{\link{write_R2BIN}},\code{\link{merge_Risoe.BINfileData}},
 \code{\link{Risoe.BINfileData2RLum.Analysis}},
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{classes}
-

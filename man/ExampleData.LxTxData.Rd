@@ -23,4 +23,3 @@ plot(LxTxData$Dose,LxTxData$LxTx)
 \references{
 unpublished data
 }
-

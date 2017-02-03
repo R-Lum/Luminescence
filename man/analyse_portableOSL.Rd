@@ -43,6 +43,7 @@ is divided by cumulative signal of the first n channels (\code{signal.integral})
 \section{Function version}{
  0.0.2 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 # (1) load example data set
@@ -60,6 +61,9 @@ get_RLum(results)
 
 
 }
+\seealso{
+\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
+}
 \author{
 Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
@@ -68,9 +72,5 @@ Christoph Burow, University of Cologne (Germany)
 Burow, C. (2017). analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
-}
 \keyword{datagen}
 \keyword{plot}
-

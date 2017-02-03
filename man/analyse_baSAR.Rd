@@ -313,6 +313,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \section{Function version}{
  0.1.28 (2017-01-24 21:14:10)
 }
+
 \examples{
 
 ##(1) load package test data set
@@ -358,13 +359,7 @@ list(
 
 }
 
-}
-\author{
-Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
-IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
-
-The underlying Bayesian model based on a contribution by Combes et al., 2015.
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Mercier, N., Kreutzer, S. (2017). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.28. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -392,5 +387,10 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
 \code{\link[readxl]{read_excel}}, \code{\link{verify_SingleGrainData}},
 \code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}, \code{\link{boxplot.default}}
 }
-\keyword{datagen}
+\author{
+Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
+IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 
+The underlying Bayesian model based on a contribution by Combes et al., 2015.
+\cr R Luminescence Package Team}
+\keyword{datagen}

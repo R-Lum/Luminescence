@@ -128,6 +128,7 @@ Special thanks to Sebastien Huot for his support and clarification via e-mail.
 \section{Function version}{
  0.4.2 (2017-01-24 21:14:00)
 }
+
 \examples{
 
 ##run the examples given in the appendix of Huntley and Lamothe, 2001
@@ -159,10 +160,7 @@ results <- calc_FadingCorr(
 ##access the last output
 get_RLum(results)
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). calc_FadingCorr(): Apply a fading correction according to Huntley & Lamothe (2001) for a given g-value and a given tc. Function version 0.4.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -177,5 +175,7 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.
 \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 \code{\link{uniroot}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-

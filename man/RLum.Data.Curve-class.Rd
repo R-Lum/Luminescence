@@ -3,12 +3,12 @@
 \docType{class}
 \name{RLum.Data.Curve-class}
 \alias{RLum.Data.Curve-class}
-\alias{bin_RLum.Data,RLum.Data.Curve-method}
+\alias{show,RLum.Data.Curve-method}
+\alias{set_RLum,RLum.Data.Curve-method}
 \alias{get_RLum,RLum.Data.Curve-method}
 \alias{length_RLum,RLum.Data.Curve-method}
 \alias{names_RLum,RLum.Data.Curve-method}
-\alias{set_RLum,RLum.Data.Curve-method}
-\alias{show,RLum.Data.Curve-method}
+\alias{bin_RLum.Data,RLum.Data.Curve-method}
 \alias{smooth_RLum,RLum.Data.Curve-method}
 \title{Class \code{"RLum.Data.Curve"}}
 \usage{
@@ -122,6 +122,7 @@ value time/temperature of the curve (corresponding to the stimulation length)
 \item \code{smooth_RLum}: Smoothing of RLum.Data.Curve objects using the function \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
 In particular the internal function \code{.smoothing} is used.
 }}
+
 \section{Slots}{
 
 \describe{
@@ -136,6 +137,7 @@ data = Your.RLum.Data.Curve, recordType = 'never seen before')}
 would just change the recordType. Missing arguements  the value is taken from the input object
 in 'data' (which is already an RLum.Data.Curve object in this example)}
 }}
+
 \note{
 The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
@@ -151,6 +153,7 @@ namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
 \section{Class version}{
  0.5.0
 }
+
 \examples{
 
 showClass("RLum.Data.Curve")
@@ -158,6 +161,10 @@ showClass("RLum.Data.Curve")
 ##set empty curve object
 set_RLum(class = "RLum.Data.Curve")
 
+}
+\seealso{
+\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+\code{\link{plot_RLum}}, \code{\link{merge_RLum}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -167,9 +174,4 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 Kreutzer, S. (2017). RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}, \code{\link{merge_RLum}}
-}
 \keyword{classes}
-

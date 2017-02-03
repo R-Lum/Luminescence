@@ -121,9 +121,6 @@ for (i in 1:length(aliquot)) {
 par(mfrow = c(1, 1))
 
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany)
 } 
 
 \section{How to cite}{
@@ -137,4 +134,6 @@ unstable signal components. Quaternary Geochronology, 4, 353-362.
 \seealso{
 \code{\link{plot}}
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany)
+}

@@ -21,6 +21,7 @@ Abstract class for data in the package Luminescence
 \itemize{
 \item \code{replicate_RLum}: Replication method RLum-objects
 }}
+
 \section{Slots}{
 
 \describe{
@@ -36,6 +37,7 @@ is called.}
 \item{\code{.pid}}{Object of class \code{\link{character}} for a parent id. This allows nesting RLum-objects
 at will. The parent id can be the uid of another object.}
 }}
+
 \note{
 \code{RLum} is a virtual class.
 }
@@ -47,10 +49,14 @@ from it.
 \section{Class version}{
  0.4.0
 }
+
 \examples{
 
 showClass("RLum")
 
+}
+\seealso{
+\code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -60,8 +66,4 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 Kreutzer, S. (2017). RLum-class(): Class 'RLum'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
-}
 \keyword{classes}
-

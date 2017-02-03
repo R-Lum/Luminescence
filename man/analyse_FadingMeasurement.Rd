@@ -94,15 +94,12 @@ procedure as for the g-value is applied (see above).
 \section{Function version}{
  0.1.2 (2017-01-27 19:52:18)
 }
+
 \examples{
 
 ##nothing so far
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
-Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -123,5 +120,8 @@ IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786
 \code{\link{calc_OSLLxTxRatio}}, \code{\link{read_BIN2R}}, \code{\link{read_XSYG2R}},
 \code{\link{extract_IrradiationTimes}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-

@@ -100,6 +100,7 @@ hundreds of channels.
 \section{Function version}{
  0.1.1 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 \dontrun{
@@ -120,10 +121,7 @@ plot_DetPlot(object,
 )
 }
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). plot_DetPlot(): Create De(t) plot. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -137,4 +135,6 @@ doi:10.1016/S1350-4487(03)00063-5
 \seealso{
 \code{\link{plot}}, \code{\link{analyse_SAR.CWOSL}}, \code{\link{analyse_pIRIRSequence}}
 }
-
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team}

@@ -3,10 +3,10 @@
 \docType{class}
 \name{RLum.Data.Spectrum-class}
 \alias{RLum.Data.Spectrum-class}
+\alias{show,RLum.Data.Spectrum-method}
+\alias{set_RLum,RLum.Data.Spectrum-method}
 \alias{get_RLum,RLum.Data.Spectrum-method}
 \alias{names_RLum,RLum.Data.Spectrum-method}
-\alias{set_RLum,RLum.Data.Spectrum-method}
-\alias{show,RLum.Data.Spectrum-method}
 \title{Class \code{"RLum.Data.Spectrum"}}
 \usage{
 \S4method{show}{RLum.Data.Spectrum}(object)
@@ -76,6 +76,7 @@ is provided, the raw curve data (matrix) will be returned
 
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
 }}
+
 \section{Slots}{
 
 \describe{
@@ -89,6 +90,7 @@ Row labels indicate wavelength/pixel values, column labels are temperature or ti
 
 \item{\code{info}}{Object of class \code{\link{list}} containing further meta information objects}
 }}
+
 \note{
 The class should only contain data for a single spectra data set. For
 additional elements the slot \code{info} can be used. Objects from this class are automatically
@@ -102,6 +104,7 @@ created by, e.g., \code{\link{read_XSYG2R}}
 \section{Class version}{
  0.4.0
 }
+
 \examples{
 
 showClass("RLum.Data.Spectrum")
@@ -118,6 +121,10 @@ get_RLum(TL.Spectrum)
 plot_RLum(TL.Spectrum)
 }
 }
+\seealso{
+\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+\code{\link{plot_RLum}}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 } 
@@ -126,9 +133,4 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 Kreutzer, S. (2017). RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}
-}
 \keyword{classes}
-

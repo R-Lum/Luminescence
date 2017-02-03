@@ -28,6 +28,7 @@ in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 \section{Function version}{
  0.2.0 (2016-05-02 09:36:06)
 }
+
 \examples{
 
 ##load example data
@@ -36,6 +37,13 @@ data(ExampleData.XSYG, envir = environment())
 ##show structure
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
+}
+\seealso{
+\code{\linkS4class{RLum.Data.Curve}},
+\code{\linkS4class{RLum.Data.Image}},
+\code{\linkS4class{RLum.Data.Spectrum}},
+\code{\linkS4class{RLum.Analysis}},
+\code{\linkS4class{RLum.Results}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -46,12 +54,4 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 Kreutzer, S. (2017). structure_RLum(): General structure function for RLum S4 class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}
-}
 \keyword{utilities}
-

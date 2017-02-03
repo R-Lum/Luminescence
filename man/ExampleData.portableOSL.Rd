@@ -23,4 +23,3 @@ plot_RLum(ExampleData.portableOSL)
 
 }
 \keyword{datasets}
-

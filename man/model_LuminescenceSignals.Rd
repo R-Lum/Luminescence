@@ -70,6 +70,7 @@ see the manual of this package.
 \section{Function version}{
  0.1.3 (2017-01-24 21:10:47)
 }
+
 \author{
 Johannes Friedrich, University of Bayreuth (Germany),\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
@@ -78,5 +79,4 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France), \cr
 \section{How to cite}{
 Friedrich, J., Kreutzer, S. (2017). model_LuminescenceSignals(): Model Luminescence Signals (wrapper). Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 

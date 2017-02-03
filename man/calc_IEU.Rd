@@ -51,6 +51,7 @@ and b are estimated from dose-recovery experiments.
 \section{Function version}{
  0.1.0 (2016-05-02 09:36:06)
 }
+
 \examples{
 
 ## load data
@@ -59,12 +60,7 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the IEU model
 ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 
-}
-\author{
-Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
-(United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
-written by Kristina Thomsen.
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Smedley, R.K. (2017). calc_IEU(): Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -83,4 +79,8 @@ using single grains of quartz. Radiation Measurements 42, 370-379.
 \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
 \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
 }
-
+\author{
+Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
+(United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
+written by Kristina Thomsen.
+\cr R Luminescence Package Team}

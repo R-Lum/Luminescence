@@ -3,13 +3,13 @@
 \docType{class}
 \name{RLum.Analysis-class}
 \alias{RLum.Analysis-class}
+\alias{show,RLum.Analysis-method}
+\alias{set_RLum,RLum.Analysis-method}
 \alias{get_RLum,RLum.Analysis-method}
+\alias{structure_RLum,RLum.Analysis-method}
 \alias{length_RLum,RLum.Analysis-method}
 \alias{names_RLum,RLum.Analysis-method}
-\alias{set_RLum,RLum.Analysis-method}
-\alias{show,RLum.Analysis-method}
 \alias{smooth_RLum,RLum.Analysis-method}
-\alias{structure_RLum,RLum.Analysis-method}
 \title{Class \code{"RLum.Analysis"}}
 \usage{
 \S4method{show}{RLum.Analysis}(object)
@@ -151,6 +151,7 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
 In particular the internal function \code{.smoothing} is used.
 }}
+
 \section{Slots}{
 
 \describe{
@@ -158,6 +159,7 @@ In particular the internal function \code{.smoothing} is used.
 
 \item{\code{records}}{Object of class \code{\link{list}} containing objects of class \code{\linkS4class{RLum.Data}}}
 }}
+
 \note{
 The method \code{\link{structure_RLum}} is currently just avaiblable for objects
 containing \code{\linkS4class{RLum.Data.Curve}}.
@@ -170,6 +172,7 @@ containing \code{\linkS4class{RLum.Data.Curve}}.
 \section{Class version}{
  0.4.8
 }
+
 \examples{
 
 showClass("RLum.Analysis")
@@ -188,6 +191,10 @@ get_RLum(IRSAR.RF.Data)
 get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 
 }
+\seealso{
+\code{\link{Risoe.BINfileData2RLum.Analysis}},
+\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
@@ -197,10 +204,5 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 Kreutzer, S. (2017). RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\link{Risoe.BINfileData2RLum.Analysis}},
-\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}
-}
 \keyword{classes}
 \keyword{methods}
-

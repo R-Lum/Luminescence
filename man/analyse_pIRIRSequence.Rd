@@ -92,6 +92,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 \section{Function version}{
  0.2.2 (2016-12-29 17:41:52)
 }
+
 \examples{
 
 
@@ -148,11 +149,7 @@ pdf(file = "...", height = 15, width = 15)
   dev.off()
 }
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). analyse_pIRIRSequence(): Analyse post-IR IRSL sequences. Function version 0.2.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -173,6 +170,9 @@ doi:10.1016/j.radmeas.2008.06.002
 \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
 \code{\linkS4class{RLum.Results}} \code{\link{get_RLum}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{plot}
-

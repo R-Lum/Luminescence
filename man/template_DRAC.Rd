@@ -65,9 +65,6 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany)
 } 
 
 \section{How to cite}{
@@ -81,4 +78,6 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 \seealso{
 \code{\link{as.data.frame}} \code{\link{list}}
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany)
+}

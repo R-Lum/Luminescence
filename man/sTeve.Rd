@@ -33,9 +33,6 @@ This function should not be taken too seriously.
 
 ##no example available
 
-}
-\author{
-R Luminescence Team, 2012-2013
 } 
 
 \section{How to cite}{
@@ -48,5 +45,7 @@ NA, NA, ,  (2017). sTeve(): sTeve - sophisticated tool for efficient data valida
 \seealso{
 \link{plot_KDE}
 }
+\author{
+R Luminescence Team, 2012-2013
+}
 \keyword{manip}
-

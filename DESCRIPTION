@@ -187,4 +187,4 @@ Collate:
     'write_R2BIN.R'
     'write_RLum2CSV.R'
     'zzz.R'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.0

@@ -91,4 +91,3 @@ Environmental Dose Rate: \tab 7.00 +/- 0.92 Gy/ka (includes internal dose rate)
 }
 }
 \keyword{datasets}
-

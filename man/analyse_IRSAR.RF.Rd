@@ -309,6 +309,7 @@ of the current package.\cr
 \section{Function version}{
  0.7.1 (2017-01-25 15:47:49)
 }
+
 \examples{
 
 ##load data
@@ -334,10 +335,7 @@ results <- analyse_IRSAR.RF(
 
 }
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -393,5 +391,7 @@ Measurements 32, 685-690.
 \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
 \code{\link{nls}}, \code{\link[minpack.lm]{nlsLM}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-

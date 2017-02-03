@@ -103,6 +103,7 @@ boxplot together with a statistical summary.
 \section{Function version}{
  0.31 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ## Estimate the amount of grains on a small aliquot
@@ -112,10 +113,7 @@ calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, MC.iter = 100)
 calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
                  grains.counted = c(2525,2312,2880), MC.iter = 100)
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Burow, C. (2017). calc_AliquotSize(): Estimate the amount of grains on an aliquot. Function version 0.31. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -143,4 +141,6 @@ Huang, W., Ye, T., 2011. Global
 optimization method for finding dense packings of equal circles in a circle.
 European Journal of Operational Research 210, 474-481.
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team}

@@ -65,6 +65,7 @@ message is returned.
 \section{Function version}{
  0.3.1 (2015-11-29 17:27:48)
 }
+
 \examples{
 
 
@@ -109,12 +110,7 @@ lines(values[1:length(values.t[,1]),1], CW2pPMi(values, P = 1/10)[,2],
 text(0.5,6500,"PM", col = "blue", cex = .8)
 
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux
-Montaigne\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
-Delft University of Technology, The Netherlands\cr
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). CW2pLMi(): Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear modulation conditions. Function version 0.3.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -135,5 +131,9 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 \code{\link{CW2pLM}}, \code{\link{CW2pHMi}}, \code{\link{CW2pPMi}},
 \code{\link{fit_LMCurve}}, \code{\linkS4class{RLum.Data.Curve}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux
+Montaigne\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
+Delft University of Technology, The Netherlands\cr
+\cr R Luminescence Package Team}
 \keyword{manip}
-

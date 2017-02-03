@@ -161,6 +161,7 @@ manual start values is highly recommended.
 \section{Function version}{
  0.3.1 (2016-11-30 22:21:49)
 }
+
 \examples{
 
 
@@ -185,11 +186,7 @@ fit_LMCurve(values = values.curve,
             log = "x",
             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)))
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Kreutzer, S. (2017). fit_LMCurve(): Nonlinear Least Squares Fit for LM-OSL curves. Function version 0.3.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -218,6 +215,9 @@ K. Hornik, & G. Parmigiani, eds., Springer, p. 150.
 \code{\link{fit_CWCurve}}, \code{\link{plot}}, \code{\link{nls}},
 \code{\link[minpack.lm]{nlsLM}}, \code{\link{get_RLum}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{dplot}
 \keyword{models}
-

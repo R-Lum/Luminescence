@@ -129,6 +129,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \section{Function version}{
  0.5.3 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ## load example data
@@ -220,12 +221,7 @@ plot_RadialPlot(data = data.3,
                 summary.pos = "sub",
                 legend = c("Sample 1", "Sample 2"))
 
-}
-\author{
-Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
-IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
-S script of Rex Galbraith, 2010
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
 Dietze, M., Kreutzer, S. (2017). plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
@@ -261,4 +257,8 @@ recommendations. Quaternary Geochronology, 11, 1-27.
 \code{\link{plot}}, \code{\link{plot_KDE}},
 \code{\link{plot_Histogram}}
 }
-
+\author{
+Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
+IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
+S script of Rex Galbraith, 2010
+\cr R Luminescence Package Team}

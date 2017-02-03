@@ -29,6 +29,7 @@ The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
 \section{Function version}{
  0.0.1 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 # (1) load and plot example data set
@@ -49,6 +50,10 @@ write_R2BIN(bin, "~/portableOSL.binx")
 }
 
 }
+\seealso{
+\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
+\code{\linkS4class{Risoe.BINfileData}}
+}
 \author{
 Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
@@ -57,9 +62,4 @@ Christoph Burow, University of Cologne (Germany)
 Burow, C. (2017). PSL2Risoe.BINfileData(): Convert portable OSL data to an Risoe.BINfileData object. Function version 0.0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{Risoe.BINfileData}}
-}
 \keyword{IO}
-
