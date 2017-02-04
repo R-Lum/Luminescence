@@ -71,10 +71,10 @@ calc_Statistics <- function(
   ## Check input data
   if(is(data, "RLum.Results") == FALSE &
        is(data, "data.frame") == FALSE) {
-    stop(paste("[calc_Statistics()] Input data format is neither",
-               "'data.frame' nor 'RLum.Results'"), call. = FALSE)
+    stop("[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'", call. = FALSE)
+
   } else {
-    if(is(data, "RLum.Results") == TRUE) {
+    if(is(data, "RLum.Results")) {
       data <- get_RLum(data, "data")[,1:2]
     }
   }

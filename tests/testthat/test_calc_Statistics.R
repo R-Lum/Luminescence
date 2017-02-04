@@ -5,15 +5,36 @@ data(ExampleData.DeValues, envir = environment())
 
 ## calculate statistics and show output
 set.seed(1)
-temp <- calc_Statistics(ExampleData.DeValues$BT998, n.MC = 1000)
-temp_alt1 <- calc_Statistics(ExampleData.DeValues$BT998, n.MC = 1000, digits = 2)
-temp_alt2 <- calc_Statistics(ExampleData.DeValues$BT998, n.MC = 1000, digits = NULL)
+temp <- calc_Statistics(ExampleData.DeValues$BT998, n.MCM = 1000)
+temp_alt1 <- calc_Statistics(ExampleData.DeValues$BT998, n.MCM = 1000, digits = 2)
+temp_alt2 <- calc_Statistics(ExampleData.DeValues$BT998, n.MCM = 1000, digits = NULL)
+temp_RLum <- set_RLum(class = "RLum.Results", data = list(data = ExampleData.DeValues$BT998))
 
 test_that("check class and length of output", {
   expect_equal(is(temp), c("list", "vector"))
   expect_equal(length(temp), 3)
 
 })
+
+test_that("Test certain input scenarios", {
+  expect_is(calc_Statistics(temp_RLum), "list")
+
+  df <- ExampleData.DeValues$BT998
+  df[,2] <- 0
+  expect_warning(calc_Statistics(df))
+
+
+})
+
+
+test_that("check error messages", {
+  expect_error(calc_Statistics(data = matrix(0,2)),
+               regexp = "[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'",
+               fixed = TRUE)
+  expect_error(calc_Statistics(data = df, weight.calc = "test"))
+
+})
+
 
 test_that("check weighted values from output", {
 
