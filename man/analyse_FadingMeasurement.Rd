@@ -39,7 +39,8 @@ estimation}
 \item{plot}{\code{\link{logical}} (with default): enables/disables plot output}
 
 \item{plot.single}{\code{\link{logical}} (with default): enables/disables single plot
-mode, i.e. one plot window per plot}
+mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
+\code{plot.single = c(3,4)} draws only the last two plots}
 
 \item{\dots}{(optional) further arguments that can be passed to internally used functions (see details)}
 }
@@ -94,7 +95,7 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.3 (2017-02-04 10:32:49)
+ 0.1.4 (2017-02-04 11:47:18)
 }
 
 \examples{
@@ -123,7 +124,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
