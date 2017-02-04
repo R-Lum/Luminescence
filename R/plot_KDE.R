@@ -88,7 +88,7 @@
 #' @note The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
-#' @section Function version: 3.5.3
+#' @section Function version: 3.5.4
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -329,7 +329,7 @@ plot_KDE <- function(
     De.error.global <- c(De.error.global, data[[i]][,2])
 
     ## density range
-    if(!is.na(De.density[[i]])){
+    if(!all(is.na(De.density[[i]]))){
       De.density.range[i,1] <- min(De.density[[i]]$x)
       De.density.range[i,2] <- max(De.density[[i]]$x)
       De.density.range[i,3] <- min(De.density[[i]]$y)
@@ -931,7 +931,7 @@ plot_KDE <- function(
         cex = cex * layout$kde$font.size$ylab1/12)
 
   for(i in 1:length(data)) {
-    if(!is.na(De.density[[i]])){
+    if(!all(is.na(De.density[[i]]))){
       polygon(x = c(par()$usr[1], De.density[[i]]$x, par()$usr[2]),
               y = c(min(De.density[[i]]$y),De.density[[i]]$y, min(De.density[[i]]$y)),
               border = col.kde.line[i],
