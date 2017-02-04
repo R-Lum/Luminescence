@@ -46,6 +46,8 @@ test_that("Test RLum.Types", {
 
   ##test error handling
   expect_error(CW2pLMi(values, P = 0))
+  expect_error(object = CW2pLM(values = matrix(0, 2)))
+  expect_error(object = CW2pLMi(values = matrix(0, 2)))
   expect_error(object = CW2pHMi(values = matrix(0, 2)))
   expect_error(object = CW2pPMi(values = matrix(0, 2)))
 
