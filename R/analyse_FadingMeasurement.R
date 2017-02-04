@@ -451,7 +451,7 @@ analyse_FadingMeasurement <- function(
 
   # Plotting ------------------------------------------------------------------------------------
   if(plot) {
-    if (!plot.single) {
+    if (!plot.single[1]) {
       par.default <- par()$mfrow
       on.exit(par(mfrow = par.default))
       par(mfrow = c(2, 2))
