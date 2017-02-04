@@ -43,6 +43,16 @@ test_that("test pure success of the plotting without warning or error", {
     "RLum.Results"
   )
 
+  ##plot DRT
+  data(ExampleData.DeValues, envir = environment())
+  expect_silent(plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
+                  given.dose = 2800, mtext = "Example data"))
+
+
+  ##plot RisoeBINFileData
+  data(ExampleData.BINfileData, envir = environment())
+  expect_silent(plot_Risoe.BINfileData(CWOSL.SAR.Data,position = 1))
+
   ##various RLum plots
 
     ##RLum.Data.Curve
