@@ -28,16 +28,18 @@
 #' objects or a \code{\link{data.frame}} with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
-#' and where each triplet has the aforementioned column structure.
+#' and where each triplet has the before mentioned column structure.
 #'
 #' @param structure \code{\link{character}} (with default): sets the structure of the measurement
 #' data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored
 #'
 #' @param signal.integral \code{\link{vector}} (\bold{required}): vector with the
-#' limits for the signal integral
+#' limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
+#' provided.
 #'
 #' @param background.integral \code{\link{vector}} (\bold{required}): vector with the
-#' bounds for the background integral
+#' bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
+#' provided.
 #'
 #' @param t_star \code{\link{character}} (with default): method for calculating the time elasped
 #' since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
@@ -77,7 +79,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -106,7 +108,7 @@
 #' ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
 #' data("ExampleData.Fading", envir = environment())
 #'
-#' ##(1) get fading measurement data
+#' ##(1) get fading measurement data (here a three column data.frame)
 #' fading_data <- ExampleData.Fading$fading.data$IR50
 #'
 #' ##(2) run analysis

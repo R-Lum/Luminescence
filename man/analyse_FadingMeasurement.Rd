@@ -14,16 +14,18 @@ measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4cl
 objects or a \code{\link{data.frame}} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
-and where each triplet has the aforementioned column structure.}
+and where each triplet has the before mentioned column structure.}
 
 \item{structure}{\code{\link{character}} (with default): sets the structure of the measurement
 data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored}
 
 \item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
-limits for the signal integral}
+limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
+provided.}
 
 \item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
-bounds for the background integral}
+bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
+provided.}
 
 \item{t_star}{\code{\link{character}} (with default): method for calculating the time elasped
 since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
@@ -92,7 +94,7 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.2 (2017-02-04 10:20:07)
+ 0.1.3 (2017-02-04 10:32:49)
 }
 
 \examples{
@@ -100,7 +102,7 @@ procedure as for the g-value is applied (see above).
 ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
 data("ExampleData.Fading", envir = environment())
 
-##(1) get fading measurement data
+##(1) get fading measurement data (here a three column data.frame)
 fading_data <- ExampleData.Fading$fading.data$IR50
 
 ##(2) run analysis
@@ -121,7 +123,7 @@ n.MC = 10)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
