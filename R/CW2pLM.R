@@ -73,8 +73,7 @@ CW2pLM <- function(
 
   ##(1) data.frame or RLum.Data.Curve object?
   if(is(values, "data.frame") == FALSE & is(values, "RLum.Data.Curve") == FALSE){
-
-    stop("[CW2pLM] Error: 'values' object has to be of type 'data.frame' or 'RLum.Data.Curve'!")
+    stop("[CW2pLM()] 'values' object has to be of type 'data.frame' or 'RLum.Data.Curve'!", call. = FALSE)
 
   }
 
@@ -83,8 +82,8 @@ CW2pLM <- function(
 
     if(!grepl("OSL", values@recordType) & !grepl("IRSL", values@recordType)){
 
-      stop(paste("[CW2pLM] Error: curve type ",values@recordType, "  is not allowed for the transformation!",
-                 sep=""))
+      stop(paste("[CW2pLM()] recordType ",values@recordType, " is not allowed for the transformation!",
+                 sep=""), call. = FALSE)
 
     }else{
 
