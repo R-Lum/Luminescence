@@ -295,17 +295,22 @@ calc_Kars2008 <- function(data,
 
   data.tmp <- data
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
+  
+  GC.settings <- list(sample = data.tmp,
+                      mode = "regenerative",
+                      fit.method = "EXP",
+                      output.plot = plot,
+                      main = "Measured dose response curve",
+                      xlab = "Dose (Gy)",
+                      verbose = FALSE)
+  
+  GC.settings <- modifyList(GC.settings, list(...))
+  GC.settings$verbose <- FALSE
 
-  GC.measured <- try(plot_GrowthCurve(data.tmp,
-                                      mode = "regenerative",
-                                      fit.method = "EXP",
-                                      output.plot = plot,
-                                      main = "Measured dose response curve",
-                                      xlab = "Dose (Gy)",
-                                      verbose = FALSE,
-                                      ...))
+  GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
+  
   if (inherits(GC.measured, "try-error"))
-    stop("\n[calc_Kars2008()] Unable for fit growth curve to data", call. = FALSE)
+    stop("\n[calc_Kars2008()] Unable to fit growth curve to data", call. = FALSE)
 
   # extract results and calculate age
   GC.results <- get_RLum(GC.measured)
@@ -378,15 +383,20 @@ calc_Kars2008 <- function(data,
 
     data.unfaded$LxTx.error[2] <- 0.0001
 
+    GC.settings <- list(sample = data.unfaded,
+                        mode = "regenerative",
+                        fit.method = "EXP",
+                        output.plot = TRUE,
+                        verbose = FALSE,
+                        main = "Simulated dose response curve",
+                        xlab = "Dose (Gy)")
+    
+    GC.settings <- modifyList(GC.settings, list(...))
+    GC.settings$verbose <- FALSE
+    
     suppressWarnings(
-      GC.unfaded <- try(plot_GrowthCurve(data.unfaded,
-                                         mode = "regenerative",
-                                         fit.method = "EXP",
-                                         output.plot = TRUE,
-                                         verbose = FALSE,
-                                         main = "Simulated dose response curve",
-                                         xlab = "Dose (Gy)",
-                                         ...)))
+      GC.unfaded <- try(do.call(plot_GrowthCurve, GC.settings))
+    )
 
     if (!inherits(GC.unfaded, "try-error")) {
       GC.unfaded.results <- get_RLum(GC.unfaded)
