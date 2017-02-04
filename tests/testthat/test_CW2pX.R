@@ -1,0 +1,41 @@
+context("CW2X Conversion Tests")
+
+test_that("Check the example and the numerical values", {
+
+  ##load data
+  data(ExampleData.CW_OSL_Curve, envir = environment())
+  values <- CW_Curve.BosWallinga2012
+  values_pLM <- CW2pLM(values)
+  values_pLMi <- CW2pLMi(values, P = 1/20)
+  values_pHMi <- CW2pHMi(values, delta = 40)
+  values_pPMi <- CW2pPMi(values, P = 1/10)
+
+    ##check conversion sum values
+    expect_equal(round(sum(values_pLM), digits = 0),90089)
+    expect_equal(round(sum(values_pLMi[,1:2]), digits = 0),197522)
+    expect_equal(round(sum(values_pHMi[,1:2]), digits = 0),217431)
+    expect_equal(round(sum(values_pPMi[,1:2]), digits = 0),196150)
+
+
+})
+
+test_that("Test RLum.Types", {
+
+  ##load CW-OSL curve data
+  data(ExampleData.CW_OSL_Curve, envir = environment())
+  object <-
+    set_RLum(
+      class = "RLum.Data.Curve",
+      data = as.matrix(ExampleData.CW_OSL_Curve),
+      curveType = "measured",
+      recordType = "OSL"
+    )
+
+  ##transform values
+  expect_is(CW2pLM(object), class = "RLum.Data.Curve")
+  expect_is(CW2pLMi(object), class = "RLum.Data.Curve")
+  expect_is(CW2pHMi(object), class = "RLum.Data.Curve")
+  expect_is(CW2pPMi(object), class = "RLum.Data.Curve")
+
+
+})
