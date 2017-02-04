@@ -103,7 +103,26 @@
 #'
 #' @examples
 #'
-#' ##nothing so far
+#' ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
+#' data("ExampleData.Fading", envir = environment())
+#'
+#' ##(1) get fading measurement data
+#' fading_data <- ExampleData.Fading$fading.data$IR50
+#'
+#' ##(2) run analysis
+#' g_value <- analyse_FadingMeasurement(
+#' fading_data,
+#' plot = TRUE,
+#' verbose = TRUE,
+#' n.MC = 10)
+#'
+#' ##(3) this can be further used in the function
+#' ## to correct the age according to Huntley & Lamothe, 2001
+#' results <- calc_FadingCorr(
+#' age.faded = c(100,2),
+#' g_value = g_value,
+#' n.MC = 10)
+#'
 #'
 #' @export
 analyse_FadingMeasurement <- function(
@@ -135,9 +154,9 @@ analyse_FadingMeasurement <- function(
     if (ncol(object) %% 3 != 0) {
       stop("[analyse_FadingMeasurement()] 'object': if you provide a data.frame as input, the number of columns must be a multiple of 3.")
     } else {
-      object <- do.call(rbind, 
+      object <- do.call(rbind,
                         lapply(seq(1, ncol(object), 3), function(col) {
-                          setNames(object[ , col:c(col+2)], c("LxTx", "LxTxError", "timeSinceIrr")) 
+                          setNames(object[ , col:c(col+2)], c("LxTx", "LxTxError", "timeSinceIrr"))
                           })
                         )
       object <- object[complete.cases(object), ]

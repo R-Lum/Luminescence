@@ -92,12 +92,31 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.2 (2017-02-03 11:51:17)
+ 0.1.2 (2017-02-04 10:20:07)
 }
 
 \examples{
 
-##nothing so far
+## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
+data("ExampleData.Fading", envir = environment())
+
+##(1) get fading measurement data
+fading_data <- ExampleData.Fading$fading.data$IR50
+
+##(2) run analysis
+g_value <- analyse_FadingMeasurement(
+fading_data,
+plot = TRUE,
+verbose = TRUE,
+n.MC = 10)
+
+##(3) this can be further used in the function
+## to correct the age according to Huntley & Lamothe, 2001
+results <- calc_FadingCorr(
+age.faded = c(100,2),
+g_value = g_value,
+n.MC = 10)
+
 
 } 
 
