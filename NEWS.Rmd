@@ -90,10 +90,19 @@ conversion from proprietary input formats to CSV-files
 * GitHub API stuff
 
 #### Pipe your data
-* The pipe
+In the R-community a new operator, called 'magrittr forward-pipe operator' or short `%>%` from 
+the package `magrittr` turned out as being very efficient for scripting **R** code. With this
+operator values can be direclty piped from one function to another. Example:
+
+```{r}
+rnorm(1000) %T>% hist(freq = FALSE, breaks = "FD") %>% density %>% lines
+```
+
+In order to further support this opperator, the package `magrittr` is now load by default when 
+attaching the package `'Luminescence'`
 
 #### Other enhancements 
-* Thanks to Antoine Zink the function `read_Daybreak2R()` can now handle also binary files produced
+* Thanks to Antoine Zink the function `read_Daybreak2R()` now handles also binary files produced
 by the software TLAPLLIC v.3.2, which is used for a Daybreak, model 1100.
 
 
