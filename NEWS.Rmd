@@ -13,31 +13,90 @@ Dear **R** Luminescence users,
 
 we are happy to announce that another new version of our **R** package (0.7.0) just made it to [CRAN](https://CRAN.R-project.org/package=Luminescence).  
 As usual: many thanks for your helpful suggestions and comments!
-This is a major update and comes with a lot of bugfixes and several new functions. We are excited 
-to present some the new possibilties below, however, for a full list of all changes please check the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+This is a major update and comes with a lot of bugfixes and several new functions serving  
+various requests out of the community. We are excited to present some the new possibilties below, however, for a full list of all changes please check the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
 
 ## What's new?
 
 ### New analysis functions
 
+This release comes with two (one of them long requested) new analysis functions:
+
 #### Analyse fading measurements 
 
+Calculating fading corrected ages (`calc_FadingCorr()`) following the approach by Huntley and Lamothe (2001)
+was already possible in the package `'Luminescence'` since the 2012. However, a package internal 
+analysis of the fading measurements was still missing, until today. The new function `analyse_FadingMeasurement()
+allows to analyse typical SAR measurement data. The function can be fed with an `RLum.Analysis` 
+object (raw measurement data) or with an $L_x/T_x$ table and returns various numerical 
+and graphical output. On the top: the returned output object can be directly forwared 
+to other functions, e.g., `calc_FadingCorr()` or `calc_Kars2008()`.
+
+```{r, echo = FALSE, warning = FALSE, message=FALSE}
+library("Luminescence")
+data("ExampleData.Fading", envir = environment())
+fading_data <- ExampleData.Fading$fading.data$IR50
+```
+
+```{r, eval=FALSE}
+g_value <- analyse_FadingMeasurement(
+ object = fading_data,
+ structure = c("Lx", "Tx"),
+ plot = TRUE,
+ verbose = TRUE,
+ n.MC = 100)
+```
+
+```{r, echo=FALSE, cache = FALSE, fig.width=6, fig.height=4}
+par(mfrow = c(1,2))
+g_value <- analyse_FadingMeasurement(
+ object = fading_data,
+ structure = c("Lx", "Tx"),
+ plot = TRUE,
+ plot.single = c(3,4),
+ verbose = TRUE,
+ n.MC = 100)
+```
+
 #### Analyse data determined by the portable OSL reader
+
+@tzerk
 
 ### New models
 
 #### Kars et al., 2008
 
+@tzerk
+
 #### Average Dose Model (Guérin et al., 2017)
+
+
 
 ### Conversions
 
-* Conversion stuff
+Even data export to CSV-files is already part of **R**'s base functionality, we decided to make
+it even easier and more straight forward. Four new functions allow a direct and straight forward
+conversion from proprietary input formats to CSV-files
 
-### Internals
+* `convert_BIN2CSV()`
+* `convert_Daybreak2CSV()`
+* `convert_PSL2CSV()`
+* `convert_XSYG2CSV()`
 
+
+### Miscellaneous
+
+#### Getting closer 
 * GitHub API stuff
 
-* the pipe 
+#### Pipe your data
+* The pipe
+
+#### Other enhancements 
+* Thanks to Antoine Zink the function `read_Daybreak2R()` can now handle also binary files produced
+by the software TLAPLLIC v.3.2, which is used for a Daybreak, model 1100.
+
 
 ## References
+
+Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093–1106. doi:10.1139/cjes-38-7-1093
