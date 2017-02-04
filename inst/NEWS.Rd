@@ -274,6 +274,14 @@
 
     }
 
+      \item \code{plot_ViolinPlot()}{
+        \itemize{
+           \item The function erroneously produced a NA value warning; fixed.
+
+        }
+
+    }
+
 
     \item \code{read_BIN2R()}{
         \itemize{

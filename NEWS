@@ -247,6 +247,11 @@ Changes in version 0.7.0 (6th February, 2017):
                  • The interactive plot option was broken with the last
                    update of the package 'plotly'; fixed.
 
+             • ‘plot_ViolinPlot()’
+
+                 • The function erroneously produced a NA value
+                   warning; fixed.
+
              • ‘read_BIN2R()’
 
                  • If BIN-files are automatically imported the function
