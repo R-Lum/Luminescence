@@ -25,12 +25,12 @@ This release comes with two (one of them long requested) new analysis functions:
 #### Analyse fading measurements 
 
 Calculating fading corrected ages (`calc_FadingCorr()`) following the approach by Huntley and Lamothe (2001)
-was already possible in the package `'Luminescence'` since the 2012. However, a package internal 
-analysis of the fading measurements was still missing, until today. The new function `analyse_FadingMeasurement()
-allows to analyse typical SAR measurement data. The function can be fed with an `RLum.Analysis` 
-object (raw measurement data) or with an $L_x/T_x$ table and returns various numerical 
-and graphical output. On the top: the returned output object can be directly forwared 
-to other functions, e.g., `calc_FadingCorr()` or `calc_Kars2008()`.
+was already possible in the package `'Luminescence'` since 2012. However, a package internal 
+analysis of the fading measurements was still missing, until today. The new function `analyse_FadingMeasurement()`
+closes this gap by enabling the analysis of typical 'SAR fading' measurement data. 
+The function can be directly fed with an `RLum.Analysis` object (raw measurement data) or with an $L_x/T_x$ table 
+and returns various numerical and graphical output. On the top: to output can be directly forwared 
+to other functions, e.g., `calc_FadingCorr()` or `calc_Kars2008()` for further calculations. 
 
 ```{r, echo = FALSE, warning = FALSE, message=FALSE}
 library("Luminescence")
@@ -70,7 +70,16 @@ g_value <- analyse_FadingMeasurement(
 
 #### Average Dose Model (Guérin et al., 2017)
 
+To overcome the drawbacks of commonly used age (dose) models, Guérin et al., 2017 introduced
+a new dose model that calculates the average dose and their extrinsic dispersion and standard error
+by bootstrapping. The function fits neatly into the collection of functions dealing with 
+age (dose) models. Example for the package example data set:
 
+```{r, fig.width=7, fig.height=3}
+data(ExampleData.DeValues, envir = environment())
+AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,],
+sigma_m = 0.1)
+```
 
 ### Conversions
 
@@ -82,6 +91,7 @@ conversion from proprietary input formats to CSV-files
 * `convert_Daybreak2CSV()`
 * `convert_PSL2CSV()`
 * `convert_XSYG2CSV()`
+* `write_RLum2CSV()`
 
 
 ### Miscellaneous
@@ -102,6 +112,7 @@ In order to further support this opperator, the package `magrittr` is now load b
 attaching the package `'Luminescence'`
 
 #### Other enhancements 
+
 * Thanks to Antoine Zink the function `read_Daybreak2R()` now handles also binary files produced
 by the software TLAPLLIC v.3.2, which is used for a Daybreak, model 1100.
 
