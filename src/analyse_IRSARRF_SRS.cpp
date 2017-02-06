@@ -25,7 +25,7 @@ RcppExport SEXP analyse_IRSARRF_SRS(IntegerVector values_regenerated_limited,
   }
 
   //pre-define variables
-  NumericVector residuals = values_natural_limited.length();
+  IntegerVector residuals = values_natural_limited.length();
   NumericVector results = values_regenerated_limited.size() - values_natural_limited.size();
   NumericVector results_vector_min_MC = n_MC;
 

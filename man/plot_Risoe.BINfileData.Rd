@@ -103,7 +103,7 @@ data(ExampleData.BINfileData, envir = environment())
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2017). plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.1. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

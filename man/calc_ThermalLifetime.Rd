@@ -128,7 +128,7 @@ calc_ThermalLifetime(
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.1. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
