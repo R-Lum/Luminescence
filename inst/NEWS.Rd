@@ -1,12 +1,14 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.7.1 (X February, 2017)}{
+\section{Changes in version 0.7.1 (6th February (evening), 2017)}{
 
-Dummy
+This release accounts for the CRAN check errors on the Solaris machines by
+preventing the unfortunate overload of the C++ function pow() with integer
+values.
 
 }
 
-\section{Changes in version 0.7.1 (6th February, 2017)}{
+\section{Changes in version 0.7.1 (6th February (morning), 2017)}{
 
   \subsection{New functions}{
     \itemize{

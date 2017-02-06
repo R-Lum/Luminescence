@@ -1,10 +1,12 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.7.1 (X February, 2017):
+Changes in version 0.7.1 (6th February (evening), 2017):
 
-     Dummy
+     This release accounts for the CRAN check errors on the Solaris
+     machines by preventing the unfortunate overload of the C++
+     function pow() with integer values.
 
-Changes in version 0.7.1 (6th February, 2017):
+Changes in version 0.7.1 (6th February (morning), 2017):
 
   New functions:
 
