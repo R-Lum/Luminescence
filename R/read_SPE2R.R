@@ -62,8 +62,7 @@
 #' \code{\link[raster]{raster}}
 #'
 #' @references Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
-#' Format Specification, Version 1.A,
-#' \url{ftp://ftp.princetoninstruments.com/Public/Manuals/Princeton\%20Instruments/SPE\%203.0\%20File\%20Format\%20Specification.pdf}
+#' Format Specification, Version 1.A (for document URL please use an internet search machine)
 #'
 #' Hall, C., 2012: readSPE.m.
 #' \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
