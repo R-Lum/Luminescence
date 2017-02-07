@@ -1,5 +1,12 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
+\section{Changes in version 0.7.2 (XXX, 2017)}{
+
+Dummy
+
+}
+
+
 \section{Changes in version 0.7.1 (6th February (evening), 2017)}{
 
 This release accounts for the CRAN check errors on the Solaris machines by
