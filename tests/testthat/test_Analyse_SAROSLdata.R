@@ -1,7 +1,7 @@
 context("Test old Analyse_SAROSLdata()")
 
 test_that("full example test", {
-
+  testthat::skip_on_cran()
   data(ExampleData.BINfileData, envir = environment())
   output <- Analyse_SAR.OSLdata(input.data = CWOSL.SAR.Data,
                                 signal.integral = c(1:5),

@@ -2,7 +2,7 @@ context("Test Various Plot Functions")
 
 
 test_that("test pure success of the plotting without warning or error", {
-
+  testthat::skip_on_cran()
   ##distribution plots
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- ExampleData.DeValues$CA1
@@ -92,6 +92,7 @@ test_that("test pure success of the plotting without warning or error", {
 
 
 test_that("test for return values, if any", {
+  testthat::skip_on_cran()
   data(ExampleData.DeValues, envir = environment())
   output <- plot_AbanicoPlot(ExampleData.DeValues, output = TRUE)
     expect_is(output, "list")

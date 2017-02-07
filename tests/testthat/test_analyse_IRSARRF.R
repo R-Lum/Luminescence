@@ -1,6 +1,7 @@
 context("analyse_IRSAR.RF")
 
 test_that("check class and length of output", {
+  testthat::skip_on_cran()
 
   set.seed(1)
   data(ExampleData.RLum.Analysis, envir = environment())

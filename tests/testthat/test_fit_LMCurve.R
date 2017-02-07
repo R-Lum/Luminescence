@@ -17,6 +17,7 @@ test_that("check class and length of output", {
 })
 
 test_that("check values from output example", {
+  testthat::skip_on_cran()
 
   expect_equal(fit$data$n.components, 3)
   expect_equal(round(fit$data$Im1, digits = 3), 169.44)
@@ -43,6 +44,7 @@ test_that("check class and length of output", {
 })
 
 test_that("check values from output example", {
+  testthat::skip_on_cran()
 
   expect_equal(fit$data$n.components, 3)
   expect_equal(round(fit$data$Im1, digits = 3), 169.437)

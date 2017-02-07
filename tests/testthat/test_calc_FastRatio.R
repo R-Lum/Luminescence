@@ -5,17 +5,17 @@ temp <- calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE, verbose = FALSE)
 
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 5)
-  
+
 })
 
 test_that("check values from output", {
-  
-  
+  testthat::skip_on_cran()
+
   results <- get_RLum(temp)
-  
+
   expect_equal(round(results$fast.ratio, digits = 3), 405.122)
   expect_equal(round(results$fast.ratio.se, digits = 4), 119.7442)
   expect_equal(round(results$fast.ratio.rse, digits = 5), 29.55756)
@@ -38,5 +38,5 @@ test_that("check values from output", {
   expect_equal(results$Cts_L1, 11111)
   expect_equal(results$Cts_L2, 65)
   expect_equal(round(results$Cts_L3, digits = 5), 37.66667)
-  
+
 })

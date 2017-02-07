@@ -8,16 +8,16 @@ temp <- calc_CentralDose(
   verbose = FALSE)
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 5)
-  
+
 })
 
 test_that("check summary output", {
-  
+  testthat::skip_on_cran()
   results <- get_RLum(temp)
-  
+
   expect_equal(round(results$de, digits = 5), 65.70929)
   expect_equal(round(results$de_err, digits = 6), 3.053443)
   expect_equal(round(results$OD, digits = 5), 34.69061)

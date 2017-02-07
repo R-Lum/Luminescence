@@ -7,17 +7,17 @@ temp <- calc_MinDose(data = ExampleData.DeValues$CA1,
                      plot = FALSE)
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 9)
-  
+
 })
 
 test_that("check values from output example", {
-  
-  
+  testthat::skip_on_cran()
+
   results <- get_RLum(temp)
-  
+
   expect_equal(round(results$de, digits = 5), 34.31834)
   expect_equal(round(results$de_err, digits = 6), 2.550964)
   expect_equal(results$ci_level, 0.95)
@@ -29,5 +29,5 @@ test_that("check values from output example", {
   expect_equal(results$mu, NA)
   expect_equal(round(results$Lmax, digits = 5), -43.57969)
   expect_equal(round(results$BIC, digits = 4), 106.4405)
-  
+
 })

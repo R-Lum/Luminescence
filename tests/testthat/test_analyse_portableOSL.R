@@ -12,6 +12,7 @@ results <-
   )
 
 test_that("check class and length of output", {
+    testthat::skip_on_cran()
     expect_is(results, "RLum.Results")
     expect_equal(length(results), 3)
     expect_is(results$summary, "data.frame")
@@ -20,6 +21,7 @@ test_that("check class and length of output", {
 })
 
 test_that("check output", {
+  testthat::skip_on_cran()
   expect_equal(round(sum(results$summary), digits = 2), 70.44)
 
 })

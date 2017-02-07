@@ -35,6 +35,7 @@ results <- analyse_pIRIRSequence(
 )
 
 test_that("check class and length of output", {
+    testthat::skip_on_cran()
     expect_is(results, "RLum.Results")
     expect_equal(length(results), 4)
     expect_is(results$LnLxTnTx.table, "data.frame")
@@ -44,6 +45,7 @@ test_that("check class and length of output", {
 })
 
 test_that("check output", {
+   testthat::skip_on_cran()
    expect_equal(round(sum(results$data[1:2, 1:4]), 2),7582.62)
    expect_equal(round(sum(results$rejection.criteria$Value), 2),3338.69)
 

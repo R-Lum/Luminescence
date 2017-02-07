@@ -1,7 +1,7 @@
 context("CW2X Conversion Tests")
 
 test_that("Check the example and the numerical values", {
-
+  testthat::skip_on_cran()
   ##load data
   data(ExampleData.CW_OSL_Curve, envir = environment())
   values <- CW_Curve.BosWallinga2012
@@ -26,7 +26,7 @@ test_that("Check the example and the numerical values", {
 })
 
 test_that("Test RLum.Types", {
-
+  testthat::skip_on_cran()
   ##load CW-OSL curve data
   data(ExampleData.CW_OSL_Curve, envir = environment())
   object <-

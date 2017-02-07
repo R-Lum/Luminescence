@@ -24,6 +24,8 @@ verbose = FALSE
 )
 
 test_that("check class and length of output", {
+  testthat::skip_on_cran()
+
     expect_is(results, "RLum.Results")
     expect_equal(length(results), 4)
     expect_is(results$data, "data.frame")
@@ -34,17 +36,23 @@ test_that("check class and length of output", {
 })
 
 test_that("check De values", {
+  testthat::skip_on_cran()
+
    expect_equal(object = round(sum(results$data[1:2]), digits = 2), 1717.47)
 
 })
 
 test_that("check LxTx table", {
+  testthat::skip_on_cran()
+
    expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx), digits = 5),  20.92051)
    expect_equal(object = round(sum(results$LnLxTnTx.table$LxTx.Error), digits = 2), 0.34)
 
 })
 
 test_that("check rejection criteria", {
+  testthat::skip_on_cran()
+
   expect_equal(object = round(sum(results$rejection.criteria$Value), digits = 3),  1669.348)
 
 })

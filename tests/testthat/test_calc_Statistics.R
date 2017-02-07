@@ -11,6 +11,7 @@ temp_alt2 <- calc_Statistics(ExampleData.DeValues$BT998, n.MCM = 1000, digits = 
 temp_RLum <- set_RLum(class = "RLum.Results", data = list(data = ExampleData.DeValues$BT998))
 
 test_that("check class and length of output", {
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("list", "vector"))
   expect_equal(length(temp), 3)
 
@@ -28,6 +29,7 @@ test_that("Test certain input scenarios", {
 
 
 test_that("check error messages", {
+  testthat::skip_on_cran()
   expect_error(calc_Statistics(data = matrix(0,2)),
                regexp = "[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'",
                fixed = TRUE)
@@ -37,7 +39,7 @@ test_that("check error messages", {
 
 
 test_that("check weighted values from output", {
-
+  testthat::skip_on_cran()
   expect_equal(temp$weighted$n, 25)
   expect_equal(sum(unlist(temp_alt1)),24535.72)
   expect_equal(sum(unlist(temp_alt2)),24534.1)
@@ -54,6 +56,7 @@ test_that("check weighted values from output", {
 })
 
 test_that("check unweighted values from output", {
+  testthat::skip_on_cran()
 
   expect_equal(temp$weighted$n, 25)
   expect_equal(round(temp$unweighted$mean, digits = 3), 2950.818)

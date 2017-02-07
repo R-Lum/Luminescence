@@ -12,7 +12,7 @@ temp_RLumResults <- set_RLum(class = "RLum.Results")
 
 
 test_that("check class and length of output", {
-
+  testthat::skip_on_cran()
   expect_is(get_RLum(temp), class = "data.frame")
   expect_is(get_RLum(temp, data.object = "args"), class = "list")
 

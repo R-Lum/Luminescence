@@ -1,8 +1,11 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
-\section{Changes in version 0.7.2 (XXX, 2017)}{
+\section{Changes in version 0.7.2 (7th Feburary (evening), 2017)}{
 
-Dummy
+The CRAN check on the Solaris machines gave an error while performing
+the (on all other platform sucessful) unit tests. Consequently, and to
+reduce the load for the CRAN resources all tests are skipped on CRAN.
+
 
 }
 

@@ -8,14 +8,14 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
                    plot = FALSE)
 
 test_that("check class and length of output", {
-
+  testthat::skip_on_cran()
   expect_equal(is(fit), c("RLum.Results", "RLum"))
   expect_equal(length(fit), 3)
 
 })
 
 test_that("check values from output example", {
-
+  testthat::skip_on_cran()
   expect_equal(fit$data$n.components, 3)
   expect_equal(round(fit$data$I01, digits = 3), 2387.617)
   expect_equal(round(fit$data$lambda1, digits = 5), 4.59054)

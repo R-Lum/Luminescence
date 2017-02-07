@@ -22,7 +22,7 @@ kars <- calc_Kars2008(
 )
 
 test_that("check class and length of output", {
-
+  testthat::skip_on_cran()
   ##rhop
   expect_is(rhop, class = "RLum.Results", info = NULL, label = NULL)
     expect_is(rhop$fading_results, "data.frame")
@@ -46,6 +46,7 @@ test_that("check values from analyse_FadingMeasurement()", {
 })
 
 test_that("check values from calc_Kars2008()", {
+  testthat::skip_on_cran()
   expect_equal(round(sum(kars$results),0), 2417)
   expect_equal(round(sum(kars$data),0), 191530)
   expect_equal(round(sum(kars$Ln),4), 0.1585)

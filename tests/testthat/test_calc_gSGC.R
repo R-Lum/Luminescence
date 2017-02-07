@@ -12,6 +12,7 @@ temp <- calc_gSGC(data = data.frame(
 
 
 test_that("check class and length of output", {
+  testthat::skip_on_cran()
   expect_is(temp, class = "RLum.Results", info = NULL, label = NULL)
   expect_is(temp$De, class = "data.frame", info = NULL, label = NULL)
   expect_is(temp$De.MC, class = "list", info = NULL, label = NULL)
@@ -20,6 +21,7 @@ test_that("check class and length of output", {
 })
 
 test_that("check values from output example", {
+  testthat::skip_on_cran()
   expect_equal(round(sum(temp$De), digits = 2), 30.39)
   expect_equal(round(sum(temp$De.MC[[1]]), 0), 10848)
 

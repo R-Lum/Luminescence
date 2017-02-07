@@ -44,6 +44,7 @@ temp_QDR <-
   )
 
 test_that("check class and length of output", {
+  testthat::skip_on_cran()
   expect_is(temp_EXP, class = "RLum.Results", info = NULL, label = NULL)
     expect_is(temp_EXP$Fit, class = "nls")
 
@@ -62,6 +63,8 @@ test_that("check class and length of output", {
 })
 
 test_that("check values from output example", {
+ testthat::skip_on_cran()
+
  expect_equivalent(round(temp_EXP$De[[1]], digits = 2), 1737.88)
   expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 2), 17440.55)
 

@@ -7,14 +7,14 @@ temp <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,],
                        verbose = FALSE)
 
 test_that("check class and length of output", {
-
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 3)
 
 })
 
 test_that("check summary output", {
-
+  testthat::skip_on_cran()
   results <- get_RLum(temp)
 
   expect_equal(round(results$Average_DOSE, digits = 4), 65.3597)

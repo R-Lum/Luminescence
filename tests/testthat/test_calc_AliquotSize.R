@@ -9,7 +9,7 @@ temp <- calc_AliquotSize(
   verbose = FALSE)
 
 test_that("check class and length of output", {
-
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
   expect_is(temp$summary, "data.frame")
@@ -18,7 +18,7 @@ test_that("check class and length of output", {
 })
 
 test_that("check summary output", {
-
+  testthat::skip_on_cran()
   result <- get_RLum(temp)
 
   expect_equal(result$grain.size, 125)
@@ -29,7 +29,7 @@ test_that("check summary output", {
 })
 
 test_that("check MC run", {
-
+  testthat::skip_on_cran()
   expect_equal(round(temp$MC$statistics$n), 100)
   expect_equal(round(temp$MC$statistics$mean), 43)
   expect_equal(round(temp$MC$statistics$median), 39)

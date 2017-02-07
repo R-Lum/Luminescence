@@ -1,5 +1,6 @@
 context("analyse_baSAR")
 
+##Full check
 test_that("Full check of analyse_baSAR function", {
   skip_on_cran()
 
