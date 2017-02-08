@@ -1,5 +1,21 @@
 NEWS for the R Package Luminescence
 
+Changes in version 0.7.3 (8th Feburary, 2017):
+
+     Account for another error introduced during the last submission
+     (wrong data format)
+
+  Bugfixes and changes:
+
+         • ‘Risoe.BINfileData()’
+
+             • Correct for mistakes in the manual.
+
+         • ‘write_R2BIN()’
+
+             • Correct for broken function (introduced with v0.7.0).
+
+
 Changes in version 0.7.2 (7th Feburary (evening), 2017):
 
      The CRAN check on the Solaris machines gave an error while
@@ -13,7 +29,7 @@ Changes in version 0.7.1 (6th February (evening), 2017):
      machines by preventing the unfortunate overload of the C++
      function pow() with integer values.
 
-Changes in version 0.7.1 (6th February (morning), 2017):
+Changes in version 0.7.0 (6th February (morning), 2017):
 
   New functions:
 

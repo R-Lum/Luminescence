@@ -21,6 +21,10 @@ NULL
 #'
 #' \bold{Internal METADATA - object structure}
 #'
+#' This structure is compatible with BIN-files version 03-08, however, it does not follow (in its
+#' sequential arrangment) the manual provided by the manufacturer,
+#' but an own structure accounting for the different versions.
+#'
 #' \tabular{rllll}{
 #' \bold{#} \tab \bold{Name} \tab \bold{Data Type} \tab \bold{V} \tab \bold{Description} \cr
 #' [,1]  \tab ID  \tab \code{numeric} \tab RLum \tab Unique record ID (same ID as in slot \code{DATA})\cr
@@ -76,20 +80,20 @@ NULL
 #' [,51] \tab TIMESINCEIRR \tab \code{integer} \tab 06-08 \tab Time since irradiation (s)\cr
 #' [,52] \tab TIMETICK \tab \code{numeric} \tab 06-08 \tab Time tick for pulsing (s)\cr
 #' [,53] \tab ONTIME \tab \code{integer} \tab 06-08 \tab On-time for pulsing (in time ticks)\cr
-#' [,54] \tab STIMPERIOD \tab \code{integer} \tab 06-08 \tab Stimulation period (on+off in time ticks)\cr
-#' [,55] \tab GATE_ENABLED \tab \code{raw} \tab 06-08 \tab PMT signal gating enabled\cr
-#' [,56] \tab ENABLE_FLAGS \tab \code{raw} \tab 06-08 \tab PMT signal gating  enabled\cr
-#' [,57] \tab GATE_START \tab \code{integer} \tab 06-08 \tab Start gating (in time ticks)\cr
-#' [,58] \tab GATE_STOP \tab \code{ingeter} \tab 06-08 \tab Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used\cr
-#' [,59] \tab PTENABLED \tab \code{raw} \tab 06-08 \tab Photon time enabled\cr
-#' [,60] \tab DTENABLED \tab \code{raw} \tab 06-08 \tab PMT dead time correction enabled\cr
-#' [,61] \tab DEADTIME \tab \code{numeric} \tab 06-08 \tab PMT dead time (s)\cr
-#' [,62] \tab MAXLPOWER \tab \code{numeric} \tab 06-08 \tab Stimulation power to 100 percent (mW/cm^2)\cr
-#' [,63] \tab XRF_ACQTIME \tab \code{numeric} \tab 06-08 \tab XRF acquisition time (s)\cr
-#' [,64] \tab XRF_HV \tab \code{numeric} \tab 06-08 \tab XRF X-ray high voltage (V)\cr
-#' [,65] \tab XRF_CURR \tab \code{integer} \tab 06-08 \tab XRF X-ray current (uA)\cr
-#' [,66] \tab XRF_DEADTIMEF \tab \code{numeric} \tab 06-08 \tab XRF dead time fraction\cr
-#' [,67] \tab SEQUENCE \tab \code{character} \tab 03-04 \tab Sequence name\cr
+#' [,54] \tab OFFTIME \tab \code{integer} \tab 03 \tab Off-time for pulsed stimulation (in s) \cr
+#' [,55] \tab STIMPERIOD \tab \code{integer} \tab 06-08 \tab Stimulation period (on+off in time ticks)\cr
+#' [,56] \tab GATE_ENABLED \tab \code{raw} \tab 06-08 \tab PMT signal gating enabled\cr
+#' [,57] \tab ENABLE_FLAGS \tab \code{raw} \tab 06-08 \tab PMT signal gating  enabled\cr
+#' [,58] \tab GATE_START \tab \code{integer} \tab 06-08 \tab Start gating (in time ticks)\cr
+#' [,59] \tab GATE_STOP \tab \code{ingeter} \tab 06-08 \tab Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used\cr
+#' [,60] \tab PTENABLED \tab \code{raw} \tab 06-08 \tab Photon time enabled\cr
+#' [,61] \tab DTENABLED \tab \code{raw} \tab 06-08 \tab PMT dead time correction enabled\cr
+#' [,62] \tab DEADTIME \tab \code{numeric} \tab 06-08 \tab PMT dead time (s)\cr
+#' [,63] \tab MAXLPOWER \tab \code{numeric} \tab 06-08 \tab Stimulation power to 100 percent (mW/cm^2)\cr
+#' [,64] \tab XRF_ACQTIME \tab \code{numeric} \tab 06-08 \tab XRF acquisition time (s)\cr
+#' [,65] \tab XRF_HV \tab \code{numeric} \tab 06-08 \tab XRF X-ray high voltage (V)\cr
+#' [,66] \tab XRF_CURR \tab \code{integer} \tab 06-08 \tab XRF X-ray current (uA)\cr
+#' [,67] \tab XRF_DEADTIMEF \tab \code{numeric} \tab 06-08 \tab XRF dead time fraction\cr
 #' [,68] \tab DETECTOR_ID \tab \code{raw} \tab 07-08 \tab Detector ID\cr
 #' [,69] \tab LOWERFILTER_ID \tab \code{integer} \tab 07-08 \tab Lower filter ID in reader\cr
 #' [,70] \tab UPPERFILTER_ID \tab \code{integer} \tab 07-08 \tab Uper filter ID in reader\cr
@@ -100,10 +104,9 @@ NULL
 #' [,75] \tab MARKPOS_Y2 \tab \code{numeric} \tab 08 \tab Coordinates marker position 2 \cr
 #' [,76] \tab MARKPOS_X3 \tab \code{numeric} \tab 08 \tab Coordinates marker position 3 \cr
 #' [,77] \tab MARKPOS_Y3 \tab \code{numeric} \tab 08 \tab Coordinates marker position 3 \cr
-#' [,78] \tab MARKPOS_X4 \tab \code{numeric} \tab 08 \tab Coordinates marker position 4 \cr
-#' [,79] \tab MARKPOS_Y4 \tab \code{numeric} \tab 08 \tab Coordinates marker position 4 \cr
-#' [,80] \tab EXTR_START \tab \code{numeric} \tab 08 \tab usage unknown \cr
-#' [,81] \tab EXTR_END \tab \code{numeric} \tab 08 \tab usage unknown
+#' [,78] \tab EXTR_START \tab \code{numeric} \tab 08 \tab usage unknown \cr
+#' [,79] \tab EXTR_END \tab \code{numeric} \tab 08 \tab usage unknown\cr
+#' [,80] \tab SEQUENCE \tab \code{character} \tab 03-04 \tab Sequence name
 #' } V = BIN-file version (RLum means that it does not depend on a specific BIN
 #' version)\cr
 #'

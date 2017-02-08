@@ -1,5 +1,32 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
+\section{Changes in version 0.7.3 (8th Feburary, 2017)}{
+
+Account for another error introduced during the last submission (wrong data format)
+
+  \subsection{Bugfixes and changes}{
+
+  \itemize{
+
+     \item \code{Risoe.BINfileData()}{
+    \itemize{
+       \item Correct for mistakes in the manual.
+    }
+    }
+
+   \item \code{write_R2BIN()}{
+    \itemize{
+       \item Correct for broken function (introduced with v0.7.0).
+    }
+  }
+  }
+  }
+
+
+}
+
+
+
 \section{Changes in version 0.7.2 (7th Feburary (evening), 2017)}{
 
 The CRAN check on the Solaris machines gave an error while performing
@@ -18,7 +45,7 @@ values.
 
 }
 
-\section{Changes in version 0.7.1 (6th February (morning), 2017)}{
+\section{Changes in version 0.7.0 (6th February (morning), 2017)}{
 
   \subsection{New functions}{
     \itemize{
