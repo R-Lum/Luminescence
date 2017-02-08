@@ -24,4 +24,5 @@ revdep
 packrat
 RLum.Images
 R/README\.md
-NEWS_*
+NEWS_cache/
+NEWS_files/

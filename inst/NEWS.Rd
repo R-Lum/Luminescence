@@ -2,36 +2,45 @@
 \title{NEWS for the R Package Luminescence}
 \section{Changes in version 0.7.3 (8th Feburary, 2017)}{
 
-Account for another error introduced during the last submission (wrong data format)
-
   \subsection{Bugfixes and changes}{
-
   \itemize{
 
-     \item \code{Risoe.BINfileData()}{
+
+   \item \code{Risoe.BINfileData()}{
     \itemize{
        \item Correct for mistakes in the manual.
-    }
+     }
     }
 
    \item \code{write_R2BIN()}{
     \itemize{
        \item Correct for broken function (introduced with v0.7.0).
+     }
     }
-  }
-  }
+   }
   }
 
+  \subsection{Miscellaneous}{
+  \itemize{
+
+  \item Correct wrong package date format.
+  \item Add NEWS again to the package.
+ }
+
+}
 
 }
 
 
+\section{Changes in version 0.7.2 (7th Feburary (evening), 2017 - never published on CRAN)}{
 
-\section{Changes in version 0.7.2 (7th Feburary (evening), 2017)}{
-
-The CRAN check on the Solaris machines gave an error while performing
+  \itemize{
+  \item The CRAN check on the Solaris machines gave an error while performing
 the (on all other platform sucessful) unit tests. Consequently, and to
 reduce the load for the CRAN resources all tests are skipped on CRAN.
+
+  }
+
 
 
 }
@@ -39,9 +48,13 @@ reduce the load for the CRAN resources all tests are skipped on CRAN.
 
 \section{Changes in version 0.7.1 (6th February (evening), 2017)}{
 
-This release accounts for the CRAN check errors on the Solaris machines by
+ \itemize{
+
+\item This release accounts for the CRAN check errors on the Solaris machines by
 preventing the unfortunate overload of the C++ function pow() with integer
 values.
+
+}
 
 }
 

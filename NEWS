@@ -2,9 +2,6 @@ NEWS for the R Package Luminescence
 
 Changes in version 0.7.3 (8th Feburary, 2017):
 
-     Account for another error introduced during the last submission
-     (wrong data format)
-
   Bugfixes and changes:
 
          • ‘Risoe.BINfileData()’
@@ -15,19 +12,25 @@ Changes in version 0.7.3 (8th Feburary, 2017):
 
              • Correct for broken function (introduced with v0.7.0).
 
+  Miscellaneous:
 
-Changes in version 0.7.2 (7th Feburary (evening), 2017):
+         • Correct wrong package date format.
 
-     The CRAN check on the Solaris machines gave an error while
-     performing the (on all other platform sucessful) unit tests.
-     Consequently, and to reduce the load for the CRAN resources all
-     tests are skipped on CRAN.
+         • Add NEWS again to the package.
+
+Changes in version 0.7.2 (7th Feburary (evening), 2017 - never
+     published on CRAN):
+
+        • The CRAN check on the Solaris machines gave an error while
+          performing the (on all other platform sucessful) unit tests.
+          Consequently, and to reduce the load for the CRAN resources
+          all tests are skipped on CRAN.
 
 Changes in version 0.7.1 (6th February (evening), 2017):
 
-     This release accounts for the CRAN check errors on the Solaris
-     machines by preventing the unfortunate overload of the C++
-     function pow() with integer values.
+        • This release accounts for the CRAN check errors on the
+          Solaris machines by preventing the unfortunate overload of
+          the C++ function pow() with integer values.
 
 Changes in version 0.7.0 (6th February (morning), 2017):
 
