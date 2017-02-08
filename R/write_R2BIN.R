@@ -153,8 +153,7 @@ write_R2BIN <- function(
   }
 
   ##check whether this file can be exported without problems due to the latest specifications
-  if(ncol(object@METADATA) != 81){
-
+  if(ncol(object@METADATA) != 80){
     stop("[write_R2BIN()] Your Risoe.BINfileData object seems not to be compatible with the latest specification of this S4-class object. You are probably trying to export a Risoe.BINfileData from your workspace you produced manually or with an old version.")
 
   }

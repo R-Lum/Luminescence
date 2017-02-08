@@ -32,12 +32,13 @@
 }
 
 
-\section{Changes in version 0.7.2 (7th Feburary (evening), 2017 - never published on CRAN)}{
+\section{Changes in version 0.7.2 (7th Feburary (evening), 2017)}{
 
   \itemize{
   \item The CRAN check on the Solaris machines gave an error while performing
 the (on all other platform sucessful) unit tests. Consequently, and to
 reduce the load for the CRAN resources all tests are skipped on CRAN.
+  \item This version never made it on CRAN!
 
   }
 
