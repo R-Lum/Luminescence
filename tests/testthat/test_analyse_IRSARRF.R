@@ -13,7 +13,7 @@ test_that("check class and length of output", {
       plot = FALSE,
       method = "SLIDE",
       n.MC = 10,
-      method.control = list(vslide_range = 'auto'),
+      method.control = list(vslide_range = 'auto', trace_vslide = TRUE),
       txtProgressBar = FALSE
     )
 
@@ -30,6 +30,25 @@ test_that("check class and length of output", {
   expect_equal(results_fit$data$DE.LOWER, 600.63)
   expect_equal(results_slide$data$DE, 610.17)
   expect_equal(round(results_slide_alt$data$DE, digits = 0), 384)
+
+
+})
+
+test_that("test controlled chrash conditions", {
+  testthat::skip_on_cran()
+
+  ##the sliding range should not exceed a certrain value ... test it
+  data(ExampleData.RLum.Analysis, envir = environment())
+  expect_error(
+    analyse_IRSAR.RF(
+      object = IRSAR.RF.Data,
+      plot = FALSE,
+      method = "SLIDE",
+      n.MC = 10,
+      method.control = list(vslide_range = c(0,1e+08)),
+      txtProgressBar = FALSE
+    ), regexp = "[:::.analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+08)!", fixed = TRUE)
+
 
 
 })
