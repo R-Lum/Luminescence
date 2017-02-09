@@ -1,10 +1,11 @@
 context("CW2X Conversion Tests")
 
+##load data
+data(ExampleData.CW_OSL_Curve, envir = environment())
+values <- CW_Curve.BosWallinga2012
+
 test_that("Check the example and the numerical values", {
   testthat::skip_on_cran()
-  ##load data
-  data(ExampleData.CW_OSL_Curve, envir = environment())
-  values <- CW_Curve.BosWallinga2012
   values_pLM <- CW2pLM(values)
   values_pLMi <- CW2pLMi(values, P = 1/20)
   values_pLMi_alt <- CW2pLMi(values)
@@ -45,7 +46,8 @@ test_that("Test RLum.Types", {
   expect_is(CW2pPMi(object), class = "RLum.Data.Curve")
 
   ##test error handling
-  expect_error(CW2pLMi(values, P = 0))
+  expect_error(CW2pLMi(values, P = 0), regexp = "[CW2pLMi] P has to be > 0!", fixed = TRUE)
+  expect_warning(CW2pLMi(values, P = 10))
   expect_error(object = CW2pLM(values = matrix(0, 2)))
   expect_error(object = CW2pLMi(values = matrix(0, 2)))
   expect_error(object = CW2pHMi(values = matrix(0, 2)))
