@@ -4,7 +4,8 @@
 \alias{set_Risoe.BINfileData}
 \title{General accessor function for RLum S4 class objects}
 \usage{
-set_Risoe.BINfileData(METADATA, DATA, .RESERVED)
+set_Risoe.BINfileData(METADATA = data.frame(), DATA = list(),
+  .RESERVED = list())
 }
 \arguments{
 \item{METADATA}{x}
@@ -26,7 +27,7 @@ corresponding get function will be selected. Allowed arguments can be found
 in the documentations of the corresponding \code{\linkS4class{Risoe.BINfileData}} class.
 }
 \section{Function version}{
- 0.1 (2017-02-04 13:43:28)
+ 0.1 (2017-02-09 10:52:09)
 }
 
 \seealso{
@@ -38,7 +39,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). set_Risoe.BINfileData(): General accessor function for RLum S4 class objects. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.3. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). set_Risoe.BINfileData(): General accessor function for RLum S4 class objects. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

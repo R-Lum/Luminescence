@@ -4,13 +4,14 @@
 \name{Risoe.BINfileData-class}
 \alias{Risoe.BINfileData-class}
 \alias{show,Risoe.BINfileData-method}
-\alias{set_Risoe.BINfileData,data.frame,list-method}
+\alias{set_Risoe.BINfileData,ANY-method}
 \alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
 \title{Class \code{"Risoe.BINfileData"}}
 \usage{
 \S4method{show}{Risoe.BINfileData}(object)
 
-\S4method{set_Risoe.BINfileData}{data.frame,list}(METADATA, DATA, .RESERVED)
+\S4method{set_Risoe.BINfileData}{ANY}(METADATA = data.frame(),
+  DATA = list(), .RESERVED = list())
 
 \S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
 }
@@ -183,7 +184,7 @@ Nutech)
 }
 
 \section{Function version}{
- 0.3.1
+ 0.3.2
 }
 
 \examples{
@@ -193,7 +194,7 @@ showClass("Risoe.BINfileData")
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.3.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.3. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.3.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

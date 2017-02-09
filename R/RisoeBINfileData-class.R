@@ -146,7 +146,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("Risoe.BINfileData", ...)}.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -173,17 +173,106 @@ setClass("Risoe.BINfileData",
            METADATA = "data.frame",
            DATA = "list",
            .RESERVED = "list"
-           )
+           ),
+         prototype = prototype(
+           METADATA = data.frame(
+             ID = numeric(),
+             SEL = logical(),
+             VERSION = numeric(),
+             LENGTH = numeric(),
+             PREVIOUS = numeric(),
+             NPOINTS = numeric(),
+             RECTYPE = numeric(),
+             RUN = numeric(),
+             SET = numeric(),
+             POSITION = numeric(),
+             GRAIN = numeric(),
+             GRAINNUMBER = numeric(),
+             CURVENO = numeric(),
+             XCOORD = numeric(),
+             YCOORD = numeric(),
+             SAMPLE = character(),
+             COMMENT = character(),
+             SYSTEMID = numeric(),
+             FNAME = character(),
+             USER = character(),
+             TIME = character(),
+             DATE = character(),
+             DTYPE = character(),
+             BL_TIME = numeric(),
+             BL_UNIT = character(),
+             NORM1 = numeric(),
+             NORM2 = numeric(),
+             NORM3 = numeric(),
+             BG = numeric(),
+             SHIFT = numeric(),
+             TAG = numeric(),
+             LTYPE = character(),
+             LIGHTSOURCE = character(),
+             LPOWER = numeric(),
+             LIGHTPOWER = numeric(),
+             LOW = numeric(),
+             HIGH = numeric(),
+             RATE = numeric(),
+             TEMPERATURE = numeric(),
+             MEASTEMP = numeric(),
+             AN_TEMP = numeric(),
+             AN_TIME = numeric(),
+             TOLDELAY = numeric(),
+             TOLON = numeric(),
+             TOLOFF = numeric(),
+             IRR_TIME = numeric(),
+             IRR_TYPE = character(),
+             IRR_UNIT = character(),
+             IRR_DOSERATE = numeric(),
+             IRR_DOSERATEERR = numeric(),
+             TIMESINCEIRR = numeric(),
+             TIMETICK = numeric(),
+             ONTIME = numeric(),
+             OFFTIME = numeric(),
+             STIMPERIOD = numeric(),
+             GATE_ENABLED = numeric(),
+             ENABLE_FLAGS = numeric(),
+             GATE_START = numeric(),
+             GATE_STOP = numeric(),
+             PTENABLED = numeric(),
+             DTENABLED = numeric(),
+             DEADTIME = numeric(),
+             MAXLPOWER = numeric(),
+             XRF_ACQTIME = numeric(),
+             XRF_HV = numeric(),
+             XRF_CURR = numeric(),
+             XRF_DEADTIMEF = numeric(),
+             DETECTOR_ID = numeric(),
+             LOWERFILTER_ID = numeric(),
+             UPPERFILTER_ID = numeric(),
+             ENOISEFACTOR = numeric(),
+             MARKPOS_X1 = numeric(),
+             MARKPOS_Y1 = numeric(),
+             MARKPOS_X2 = numeric(),
+             MARKPOS_Y2 = numeric(),
+             MARKPOS_X3 = numeric(),
+             MARKPOS_Y3 = numeric(),
+             EXTR_START = numeric(),
+             EXTR_END = numeric(),
+             SEQUENCE = character(),
+             stringsAsFactors=FALSE
+           ),
+           DATA = list(),
+           .RESERVED = list()
+          )
          )
+
 
 ##set generic S4 function for object
 #' @describeIn Risoe.BINfileData
 #' Show structure of RLum and Risoe.BINfile class objects
 #' @export
-setMethod("show", signature(object = "Risoe.BINfileData"),
-          function(object){
+setMethod(f = "show",
+          signature = signature(object = "Risoe.BINfileData"),
+          definition = function(object){
 
-            if(length(object@METADATA) != 0){
+            if(nrow(object@METADATA) != 0){
               version<-paste(unique(object@METADATA[,"VERSION"]), collapse = ", ")
               systemID<-paste(unique(object@METADATA[,"SYSTEMID"]), collapse = ", ")
               filename <- as.character(object@METADATA[1,"FNAME"])
@@ -243,22 +332,22 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
 #' @param .RESERVED Object of class "list" containing list of undocumented raw
 #' values for internal use only.
 #' @export
-setMethod("set_Risoe.BINfileData",
-          signature = c(
-            METADATA = "data.frame", DATA = "list", .RESERVED = "ANY"
-          ),
+setMethod(f = "set_Risoe.BINfileData",
+          signature = signature("ANY"),
+          definition = function(METADATA, DATA, .RESERVED) {
 
-          function(METADATA, DATA, .RESERVED) {
-            if (missing(.RESERVED)) {
-              .RESERVED <- list()
+            if(length(METADATA) == 0){
+              new("Risoe.BINfileData")
+
+            }else{
+              new(
+                "Risoe.BINfileData",
+                METADATA = METADATA,
+                DATA = DATA,
+                .RESERVED = .RESERVED
+              )
+
             }
-
-            new(
-              "Risoe.BINfileData",
-              METADATA = METADATA,
-              DATA = DATA,
-              .RESERVED = .RESERVED
-            )
 
           })
 
