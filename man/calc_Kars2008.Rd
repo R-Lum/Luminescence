@@ -12,7 +12,9 @@ calc_Kars2008(data, rhop, ddot, readerDdot, normalise = TRUE,
 A three column data frame with numeric values on a) dose (s), b) LxTx and and
 c) LxTx error. If a two column data frame is provided it is automatically
 assumed that errors on LxTx are missing. A third column will be attached
-with an arbitrary 5 \% error on the provided LxTx values.}
+with an arbitrary 5 \% error on the provided LxTx values.\cr
+Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+and where each triplet has the aforementioned column structure.}
 
 \item{rhop}{\code{\link{numeric}} (\bold{required}):
 The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
@@ -56,7 +58,7 @@ Slot: \bold{@data}\cr
 containing data on dose, LxTx and LxTx error for each of the dose response curves.
 Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
 \code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
- objects produced by \code{\link{nls}} when fitting the dose response curves \cr
+ objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
 }
 
 Slot: \bold{@info}\cr
@@ -118,8 +120,9 @@ in the derivation of (n/N) and (n/N)_SS.
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2017-01-10 15:16:11)
+ 0.1.0 (2017-02-10 18:30:04)
 }
+
 \examples{
 
 ## Load example data (sample UNIL/NB123, see ?ExampleData.Fading)
@@ -148,14 +151,10 @@ kars <- calc_Kars2008(data = data,
                       readerDdot = readerDdot,
                       n.MC = 50
                       )
-}
-\author{
-Georgina King, University of Cologne (Germany), \cr
-Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-King, G., Burow, C. (2017). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+King, G., Burow, C. (2017). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -174,5 +173,8 @@ Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi
 Morthekai, P., Jain, M., Cunha, P.P., Azevedo, J.M., Singhvi, A.K., 2011. An attempt to correct
 for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
 }
+\author{
+Georgina King, University of Cologne (Germany), \cr
+Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-

@@ -100,8 +100,9 @@ This function is fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.0 (2016-10-18 10:21:27)
+ 0.2.0 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 
@@ -121,14 +122,10 @@ plot_RLum(TL.curve.3)
 TL.curve.merged <- merge_RLum.Data.Curve(list(TL.curve.3, TL.curve.1), merge.method = "/")
 plot_RLum(TL.curve.merged)
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -137,5 +134,8 @@ Kreutzer, S. (2017). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve
 \seealso{
 \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Data.Curve}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{utilities}
-

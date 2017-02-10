@@ -26,4 +26,3 @@ Fuchs, M., Kreutzer, S., Fischer, M., Sauer, D., Soerensen, R., 2012. OSL and IR
 dating of raised beach sand deposits along the southeastern coast of Norway.
 Quaternary Geochronology, 10, 195-200.
 }
-

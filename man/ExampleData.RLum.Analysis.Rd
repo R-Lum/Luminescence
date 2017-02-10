@@ -27,6 +27,7 @@ protocol analysis.
 \section{Version}{
  0.1
 }
+
 \examples{
 
 ##load data
@@ -45,4 +46,3 @@ Germany - a preliminary luminescence dating study. Zeitschrift fuer
 Geomorphologie 58, 5-26. doi: 10.1127/0372-8854/2012/S-00112
 }
 \keyword{datasets}
-

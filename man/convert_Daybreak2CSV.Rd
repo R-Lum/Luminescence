@@ -22,8 +22,9 @@ and directly exports its content to CSV-files.  If nothing is set for the argume
 the input folder will become the output folder.
 }
 \section{Function version}{
- 0.1.0 (2017-01-18 19:02:04)
+ 0.1.0 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 \dontrun{
@@ -36,17 +37,16 @@ convert_Daybreak2CSV(file)
 }
 
 }
+\seealso{
+\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
+\code{\link[utils]{write.table}}, \code{\link{write_RLum2CSV}}, \code{\link{read_Daybreak2R}}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). convert_Daybreak2CSV(): Export measurement data produced by a Daybreak luminescence reader to CSV-files. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). convert_Daybreak2CSV(): Export measurement data produced by a Daybreak luminescence reader to CSV-files. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
-\code{\link[utils]{write.table}}, \code{\link{write_RLum2CSV}}, \code{\link{read_Daybreak2R}}
-}
 \keyword{IO}
-

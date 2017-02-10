@@ -75,8 +75,9 @@ Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.\cr
 }
 \section{Function version}{
- 0.3.7 (2016-12-29 17:41:58)
+ 0.3.7 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##load data
@@ -105,14 +106,10 @@ smooth = TRUE,
 abline = list(v = c(110))
 )
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4 class object. Function version 0.3.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -122,5 +119,8 @@ Kreutzer, S. (2017). plot_RLum.Analysis(): Plot function for an RLum.Analysis S4
 \code{\link{plot}}, \code{\link{plot_RLum}},
 \code{\link{plot_RLum.Data.Curve}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{aplot}
-

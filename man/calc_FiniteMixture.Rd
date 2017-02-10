@@ -105,8 +105,9 @@ per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 and maximum log-likelihood estimates for each iteration of k.
 }
 \section{Function version}{
- 0.4 (2016-12-29 17:41:52)
+ 0.4 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ## load example data
@@ -134,14 +135,10 @@ FMM
 ## fitted components
 get_RLum(object = FMM, data.object = "components")
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany) \cr Based on a
-rewritten S script of Rex Galbraith, 2006. \cr
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Burow, C. (2017). calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). calc_FiniteMixture(): Apply the finite mixture model (FMM) after Galbraith (2005) to a given De distribution. Function version 0.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -172,4 +169,7 @@ reproducible distribution?. Ancient TL 26, 3-10.
 \code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
 \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany) \cr Based on a
+rewritten S script of Rex Galbraith, 2006. \cr
+\cr R Luminescence Package Team}

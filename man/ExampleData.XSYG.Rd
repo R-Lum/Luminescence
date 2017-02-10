@@ -44,6 +44,7 @@ function \code{\link{read_XSYG2R}}.
 \section{Version}{
  0.1
 }
+
 \examples{
 
 ##show data
@@ -94,4 +95,3 @@ Climatic Cycle. Boreas, 42, 664--677.
 \code{\link{plot_RLum.Analysis}}, \code{\link{plot_RLum.Data.Spectrum}}
 }
 \keyword{datasets}
-

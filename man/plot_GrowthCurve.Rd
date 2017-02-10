@@ -158,8 +158,9 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.9.3 (2016-12-29 17:41:58)
+ 1.9.3 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##(1) plot growth curve for a dummy data.set and show De value
@@ -197,17 +198,16 @@ LxTxData[1,2:3] <- c(0.5, 0.001)
 print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 
 }
+\seealso{
+\code{\link{nls}}, \code{\linkS4class{RLum.Results}},
+\code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link{lm}}, \code{uniroot}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France), \cr Michael Dietze, GFZ Potsdam (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.9.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\seealso{
-\code{\link{nls}}, \code{\linkS4class{RLum.Results}},
-\code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link{lm}}, \code{uniroot}
+Kreutzer, S., Dietze, M. (2017). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.9.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 

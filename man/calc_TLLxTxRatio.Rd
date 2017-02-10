@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_TLLxTxRatio.R
 \name{calc_TLLxTxRatio}
 \alias{calc_TLLxTxRatio}
-\title{Calculates the Lx/Tx ratio for a given set of TL curves [beta version]}
+\title{Calculate the Lx/Tx ratio for a given set of TL curves [beta version]}
 \usage{
 calc_TLLxTxRatio(Lx.data.signal, Lx.data.background, Tx.data.signal,
   Tx.data.background, signal.integral.min, signal.integral.max)
@@ -39,7 +39,7 @@ $ LxTx.table \cr .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $ TnTx.BG
 \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr
 }
 \description{
-The function calculates Lx/Tx ratio for a given set of TL curves.
+Calculate Lx/Tx ratio for a given set of TL curves.
 }
 \details{
 \bold{Uncertainty estimation}\cr
@@ -49,20 +49,17 @@ The standard errors are calculated using the following generalised equation:
 \deqn{SE_{signal} <- abs(Signal_{net} * BG_f /BG_{signal}}
 
 where \eqn{BG_f} is a term estimated by calculating the standard deviation of the sum of
-the \eqn{L_x} background counts and the sum of the \eqn{T_x} background counts. However, if the sum of both
-background signals (\eqn{L_x} and \eqn{T_x}) are similar the background of the \eqn{L_x} curve
-is randomly re-sampled, the values are summed up and the standard diviation of ten (10) of such
-runs is used to estimate \eqn{BG_f}.\cr
-
-Please note that in this case the background error varies from run to run!
+the \eqn{L_x} background counts and the sum of the \eqn{T_x} background counts. However,
+if both signals are similar the error becomes zero.
 }
 \note{
-\bold{This function has still BETA status!}\cr
-In particular the estimation of the uncertainties has not yet been sufficiently tested.
+\bold{This function has still BETA status!} Please further note that a similar
+background for both curves results in a zero error.
 }
 \section{Function version}{
- 0.4.0 (2017-01-19 18:12:34)
+ 0.3.0 (2017-02-10 18:30:04)
 }
+
 \examples{
 
 
@@ -86,14 +83,10 @@ output <- calc_TLLxTxRatio(Lx.data.signal,
                            signal.integral.min, signal.integral.max)
 get_RLum(output)
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), Christoph Schmidt, University of Bayreuth (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S., Schmidt, C. (2017). calc_TLLxTxRatio(): Calculates the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.4.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Schmidt, C. (2017). calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -102,5 +95,8 @@ Kreutzer, S., Schmidt, C. (2017). calc_TLLxTxRatio(): Calculates the Lx/Tx ratio
 \seealso{
 \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France), Christoph Schmidt, University of Bayreuth (Germany)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-

@@ -28,6 +28,7 @@ Measurement of Princton Instruments camera imported with the function
 \section{Version}{
  0.1
 }
+
 \examples{
 
 ##load data
@@ -38,4 +39,3 @@ plot_RLum(ExampleData.RLum.Data.Image)
 
 }
 \keyword{datasets}
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/github.R
 \name{GitHub-API}
 \alias{GitHub-API}
-\alias{github_branches}
 \alias{github_commits}
+\alias{github_branches}
 \alias{github_issues}
 \title{GitHub API}
 \usage{
@@ -77,6 +77,7 @@ command to install the branch in R via the 'devtools' package.
 \section{Function version}{
  0.1.0
 }
+
 \examples{
 
 \dontrun{
@@ -85,16 +86,15 @@ github_issues(user = "r-lum", repo = "luminescence")
 github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 }
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Burow, C. (2017). GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 GitHub Developer API v3. \url{https://developer.github.com/v3/}, last accessed: 10/01/2017.
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team}

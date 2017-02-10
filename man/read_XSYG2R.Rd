@@ -110,8 +110,9 @@ be done using the functions provided with the package \code{\link{xml}}.\cr
 the XSXG file are skipped.
 }
 \section{Function version}{
- 0.5.8 (2016-12-29 17:41:52)
+ 0.5.8 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 
@@ -140,14 +141,10 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). read_XSYG2R(): Import XSYG files to R. Function version 0.5.8. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). read_XSYG2R(): Import XSYG files to R. Function version 0.5.8. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -160,5 +157,8 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
 \code{\link{xml}}, \code{\linkS4class{RLum.Analysis}},
 \code{\linkS4class{RLum.Data.Curve}}, \code{\link{approx}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{IO}
-

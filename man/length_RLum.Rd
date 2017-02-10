@@ -25,14 +25,6 @@ in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 \section{Function version}{
  0.1.0 (2016-05-02 09:36:06)
 }
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). length_RLum(): General accessor function for RLum S4 class objects. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
 
 \seealso{
 \code{\linkS4class{RLum.Data.Curve}},
@@ -41,5 +33,13 @@ Kreutzer, S. (2017). length_RLum(): General accessor function for RLum S4 class 
 \code{\linkS4class{RLum.Analysis}},
 \code{\linkS4class{RLum.Results}}
 }
-\keyword{utilities}
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team} 
 
+\section{How to cite}{
+Kreutzer, S. (2017). length_RLum(): General accessor function for RLum S4 class objects. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
+}
+
+\keyword{utilities}

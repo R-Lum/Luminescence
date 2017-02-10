@@ -33,13 +33,10 @@ This function should not be taken too seriously.
 
 ##no example available
 
-}
-\author{
-R Luminescence Team, 2012-2013
 } 
 
 \section{How to cite}{
-NA, NA, ,  (2017). sTeve(): sTeve - sophisticated tool for efficient data validation and evaluation. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+NA, NA, ,  (2017). sTeve(): sTeve - sophisticated tool for efficient data validation and evaluation. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -48,5 +45,7 @@ NA, NA, ,  (2017). sTeve(): sTeve - sophisticated tool for efficient data valida
 \seealso{
 \link{plot_KDE}
 }
+\author{
+R Luminescence Team, 2012-2013
+}
 \keyword{manip}
-

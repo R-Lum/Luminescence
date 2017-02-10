@@ -221,8 +221,9 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.10 (2016-12-29 17:41:52)
+ 0.1.10 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ## load example data and recalculate to Gray
@@ -402,15 +403,10 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
        y = AP$data[[1]]$std.estimate.plot[!in_2sigma],
        pch = 1)
 
-}
-\author{
-Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
-IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
-introduced by Galbraith & Green (1990)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Dietze, M., Kreutzer, S. (2017). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M., Kreutzer, S. (2017). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -427,4 +423,8 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 \code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}},
 \code{\link{plot_Histogram}}
 }
-
+\author{
+Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
+IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
+introduced by Galbraith & Green (1990)
+\cr R Luminescence Package Team}

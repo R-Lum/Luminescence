@@ -67,8 +67,9 @@ The function has been successfully tested for SPE format versions 2.x.
 supported.}
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:42:32)
+ 0.1.0 (2017-02-10 18:30:04)
 }
+
 \examples{
 
 
@@ -95,20 +96,15 @@ supported.}
 #             sep = ";", row.names = FALSE)
 
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
 Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
-Format Specification, Version 1.A,
-\url{ftp://ftp.princetoninstruments.com/Public/Manuals/Princeton\%20Instruments/SPE\%203.0\%20File\%20Format\%20Specification.pdf}
+Format Specification, Version 1.A (for document URL please use an internet search machine)
 
 Hall, C., 2012: readSPE.m.
 \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
@@ -117,5 +113,8 @@ Hall, C., 2012: readSPE.m.
 \code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
 \code{\link[raster]{raster}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{IO}
-

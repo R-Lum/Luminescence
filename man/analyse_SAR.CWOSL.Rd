@@ -145,8 +145,9 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.9 (2016-12-29 17:41:58)
+ 0.7.9 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##load data
@@ -180,14 +181,10 @@ get_RLum(results)
 ##show LnTnLxTx table
 get_RLum(results, data.object = "LnLxTnTx.table")
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.7.9. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_SAR.CWOSL(): Analyse SAR CW-OSL measurements. Function version 0.7.9. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -211,6 +208,9 @@ doi:10.1016/j.radmeas.2008.06.002
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 \code{\link{get_RLum}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{plot}
-

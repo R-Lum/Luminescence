@@ -161,8 +161,9 @@ for near-surface samples as there is no equation known to the author of this
 function at the time of writing.
 }
 \section{Function version}{
- 0.5.2 (2016-12-29 17:41:52)
+ 0.5.2 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##(1) calculate cosmic dose rate (one absorber)
@@ -206,13 +207,10 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 #export results to .csv file - uncomment for usage
 #write.csv(results, file = "c:/users/public/results_profile.csv")
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Burow, C. (2017). calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -237,4 +235,6 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6,
 \seealso{
 \code{\link{BaseDataSet.CosmicDoseRate}}
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team}

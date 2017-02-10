@@ -89,8 +89,9 @@ within a SAR cycle are removed as well. Therefore it is strongly recommended to 
 \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
- 0.2.0 (2016-12-29 17:41:52)
+ 0.2.0 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##01 - basic example I
@@ -120,13 +121,10 @@ object <- verify_SingleGrainData(object, cleanup = TRUE)
 write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 }
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -136,6 +134,8 @@ Kreutzer, S. (2017). verify_SingleGrainData(): Verify single grain data sets and
 \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
 \code{\link{write_R2BIN}}, \code{\link{read_BIN2R}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{manip}
-

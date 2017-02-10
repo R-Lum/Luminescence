@@ -54,4 +54,3 @@ Risoe TL/OSL DA-20 reader\cr Units: \tab Values are given in Gray \cr
 Measurement Date: \tab 2012 }
 }
 \keyword{datasets}
-

@@ -23,4 +23,3 @@ plot(Tx.data)
 \references{
 unpublished data
 }
-

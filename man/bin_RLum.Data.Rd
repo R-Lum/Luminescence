@@ -30,6 +30,7 @@ Currenlty only \code{RLum.Data} objects of class \code{RLum.Data.Curve} are supp
 \section{Function version}{
  0.1.0 (2016-05-02 09:36:06)
 }
+
 \examples{
 
 ##load example data
@@ -49,17 +50,16 @@ plot_RLum(bin_RLum.Data(curve, bin_size = 2))
 plot_RLum(bin_RLum.Data(curve, bin_size = 4))
 
 }
+\seealso{
+\code{\linkS4class{RLum.Data.Curve}}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). bin_RLum.Data(): Channel binning - method dispatchter. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). bin_RLum.Data(): Channel binning - method dispatchter. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Data.Curve}}
-}
 \keyword{utilities}
-

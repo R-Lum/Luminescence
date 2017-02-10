@@ -5,23 +5,31 @@
 \title{Analyse fading measurements and returns the fading rate per decade (g-value)}
 \usage{
 analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
-  background.integral, n.MC = 100, verbose = TRUE, plot = TRUE,
-  plot.single = FALSE, ...)
+  background.integral, t_star = "half", n.MC = 100, verbose = TRUE,
+  plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
 measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
 objects or a \code{\link{data.frame}} with three columns
-(x = LxTx, y = LxTx error, z = time since irradiation) can be provided.}
+(x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
+Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+and where each triplet has the before mentioned column structure.}
 
 \item{structure}{\code{\link{character}} (with default): sets the structure of the measurement
 data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored}
 
 \item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
-limits for the signal integral}
+limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
+provided.}
 
 \item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
-bounds for the background integral}
+bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
+provided.}
+
+\item{t_star}{\code{\link{character}} (with default): method for calculating the time elasped
+since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+and \code{'end'}, which takes the time between irradiation and the measurement step. Default is \code{'half'}}
 
 \item{n.MC}{\code{\link{integer}} (with default): number for Monte Carlo runs for the error
 estimation}
@@ -31,7 +39,8 @@ estimation}
 \item{plot}{\code{\link{logical}} (with default): enables/disables plot output}
 
 \item{plot.single}{\code{\link{logical}} (with default): enables/disables single plot
-mode, i.e. one plot window per plot}
+mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
+\code{plot.single = c(3,4)} draws only the last two plots}
 
 \item{\dots}{(optional) further arguments that can be passed to internally used functions (see details)}
 }
@@ -86,20 +95,36 @@ procedure as for the g-value is applied (see above).
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.1 (2016-12-29 17:41:52)
+ 0.1.4 (2017-02-10 18:30:04)
 }
+
 \examples{
 
-##nothing so far
+## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
+data("ExampleData.Fading", envir = environment())
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
-Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
+##(1) get fading measurement data (here a three column data.frame)
+fading_data <- ExampleData.Fading$fading.data$IR50
+
+##(2) run analysis
+g_value <- analyse_FadingMeasurement(
+fading_data,
+plot = TRUE,
+verbose = TRUE,
+n.MC = 10)
+
+##(3) this can be further used in the function
+## to correct the age according to Huntley & Lamothe, 2001
+results <- calc_FadingCorr(
+age.faded = c(100,2),
+g_value = g_value,
+n.MC = 10)
+
+
+} 
 
 \section{How to cite}{
-Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Burow, C. (2017). analyse_FadingMeasurement(): Analyse fading measurements and returns the fading rate per decade (g-value). Function version 0.1.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -117,5 +142,8 @@ IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786
 \code{\link{calc_OSLLxTxRatio}}, \code{\link{read_BIN2R}}, \code{\link{read_XSYG2R}},
 \code{\link{extract_IrradiationTimes}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+Christoph Burow, University of Cologne (Germany)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-

@@ -94,8 +94,9 @@ version number depends on the used Sequence Editor.\cr\cr
 import.}
 }
 \section{Function version}{
- 0.15.2 (2016-12-29 17:41:58)
+ 0.15.2 (2017-02-10 18:30:04)
 }
+
 \examples{
 
 
@@ -105,14 +106,10 @@ import.}
 #temp <- read_BIN2R(FILE)
 #temp
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France), Margret C. Fuchs, HZDR Freiberg, (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., Fuchs, M. (2017). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., Fuchs, M. (2017). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -124,5 +121,8 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
 \code{\link[utils]{txtProgressBar}}, \code{\link{list.files}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France), Margret C. Fuchs, HZDR Freiberg, (Germany)
+\cr R Luminescence Package Team}
 \keyword{IO}
-

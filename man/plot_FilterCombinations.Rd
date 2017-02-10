@@ -97,6 +97,7 @@ instead.
 \section{Function version}{
  0.1.0 (2016-10-18 10:21:27)
 }
+
 \examples{
 
 ## (For legal reasons no real filter data are provided)
@@ -116,17 +117,16 @@ results
 
 
 }
+\seealso{
+\code{\linkS4class{RLum.Results}}, \code{\link{approx}}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Results}}, \code{\link{approx}}
-}
 \keyword{aplot}
 \keyword{datagen}
-

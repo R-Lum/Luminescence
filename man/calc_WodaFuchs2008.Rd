@@ -31,8 +31,9 @@ The details section
 The notes section
 }
 \section{Function version}{
- 0.2.0 (2016-10-18 10:21:27)
+ 0.2.0 (2017-02-10 18:32:08)
 }
+
 \examples{
 
 ## read example data set
@@ -43,14 +44,10 @@ results <- calc_WodaFuchs2008(
    xlab = expression(paste(D[e], " [Gy]"))
  )
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
-Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2017). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -60,4 +57,7 @@ obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 
 \seealso{
 \code{\link{calc_FuchsLang2001}}, \code{\link{calc_CentralDose}}
 }
-
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
+Michael Dietze, GFZ Potsdam (Germany)
+\cr R Luminescence Package Team}

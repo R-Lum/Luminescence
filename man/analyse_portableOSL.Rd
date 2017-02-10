@@ -5,7 +5,7 @@
 \title{Analyse portable CW-OSL measurements}
 \usage{
 analyse_portableOSL(object, signal.integral, invert = FALSE,
-  normalise = FALSE, ...)
+  normalise = FALSE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):
@@ -22,6 +22,8 @@ and plot the data in reverse order.}
 \code{TRUE} to normalise the OSL/IRSL signals by the mean of all corresponding
 data curves.}
 
+\item{plot}{\code{\link{logical}} (with default): enable/disable plot output}
+
 \item{...}{currently not used.}
 }
 \value{
@@ -37,12 +39,13 @@ and the IRSL/OSL ratio.
 This function only works with \code{RLum.Analysis} objects produced by \code{\link{read_PSL2R}}.
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-the cumulative signal of the last n channels (same number of channels as specified by \code{signal.integral}) 
+the cumulative signal of the last n channels (same number of channels as specified by \code{signal.integral})
 is divided by cumulative signal of the first n channels (\code{signal.integral}).
 }
 \section{Function version}{
- 0.0.2 (2016-10-18 10:21:27)
+ 0.0.3 (2017-02-10 18:30:04)
 }
+
 \examples{
 
 # (1) load example data set
@@ -60,17 +63,16 @@ get_RLum(results)
 
 
 }
+\seealso{
+\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
+}
 \author{
 Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Burow, C. (2017). analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). analyse_portableOSL(): Analyse portable CW-OSL measurements. Function version 0.0.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
-}
 \keyword{datagen}
 \keyword{plot}
-

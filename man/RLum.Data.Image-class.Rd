@@ -3,10 +3,10 @@
 \docType{class}
 \name{RLum.Data.Image-class}
 \alias{RLum.Data.Image-class}
+\alias{show,RLum.Data.Image-method}
+\alias{set_RLum,RLum.Data.Image-method}
 \alias{get_RLum,RLum.Data.Image-method}
 \alias{names_RLum,RLum.Data.Image-method}
-\alias{set_RLum,RLum.Data.Image-method}
-\alias{show,RLum.Data.Image-method}
 \title{Class \code{"RLum.Data.Image"}}
 \usage{
 \S4method{show}{RLum.Data.Image}(object)
@@ -76,6 +76,7 @@ provided, the raw image data (RasterBrick) will be returned.
 
 \item \code{names_RLum}: Returns the names info elements coming along with this curve object
 }}
+
 \section{Slots}{
 
 \describe{
@@ -89,6 +90,7 @@ are measured or predefined}
 
 \item{\code{info}}{Object of class \code{\link{list}} containing further meta information objects}
 }}
+
 \note{
 The class should only contain data for a set of images. For additional
 elements the slot \code{info} can be used.
@@ -101,6 +103,7 @@ elements the slot \code{info} can be used.
 \section{Class version}{
  0.4.0
 }
+
 \examples{
 
 showClass("RLum.Data.Image")
@@ -109,17 +112,16 @@ showClass("RLum.Data.Image")
 set_RLum(class = "RLum.Data.Image")
 
 }
+\seealso{
+\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+\code{\link{plot_RLum}}, \code{\link{read_SPE2R}}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). RLum.Data.Image-class(): Class 'RLum.Data.Image'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}, \code{\link{read_SPE2R}}
-}
 \keyword{classes}
-

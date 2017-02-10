@@ -3,11 +3,11 @@
 \docType{class}
 \name{RLum.Results-class}
 \alias{RLum.Results-class}
+\alias{show,RLum.Results-method}
+\alias{set_RLum,RLum.Results-method}
 \alias{get_RLum,RLum.Results-method}
 \alias{length_RLum,RLum.Results-method}
 \alias{names_RLum,RLum.Results-method}
-\alias{set_RLum,RLum.Results-method}
-\alias{show,RLum.Results-method}
 \title{Class \code{"RLum.Results"}}
 \usage{
 \S4method{show}{RLum.Results}(object)
@@ -94,11 +94,13 @@ receiving function if results are pipped.
 
 \item \code{names_RLum}: Returns the names data.objects
 }}
+
 \section{Slots}{
 
 \describe{
 \item{\code{data}}{Object of class "list" containing output data}
 }}
+
 \note{
 The class is intended to store results from functions to be used by
 other functions. The data in the object should always be accessed by the
@@ -112,6 +114,7 @@ method \code{get_RLum}.
 \section{Class version}{
  0.5.1
 }
+
 \examples{
 
 showClass("RLum.Results")
@@ -141,18 +144,17 @@ get_RLum(dose.rate, data.object = "parameters")
 dose.rate$parameters
 
 }
+\seealso{
+\code{\linkS4class{RLum}}, \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum}}, \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
-}
 \keyword{classes}
 \keyword{methods}
-

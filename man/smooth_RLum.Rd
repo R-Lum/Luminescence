@@ -33,12 +33,14 @@ is based on an internal function called \code{.smoothing}.
 \itemize{
 \item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{smooth_RLum}}
 }}
+
 \note{
 Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis} (with curve data) are supported!
 }
 \section{Function version}{
- 0.1.0 (2016-12-29 17:41:58)
+ 0.1.0 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##load example data
@@ -57,17 +59,16 @@ plot_RLum(curve)
 plot_RLum(smooth_RLum(curve))
 
 }
+\seealso{
+\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Analysis}}
+}
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
-\seealso{
-\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Analysis}}
-}
 \keyword{utilities}
-

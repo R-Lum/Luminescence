@@ -78,6 +78,7 @@ plotting of such data is extremely slow.
 \section{Function version}{
  0.1 (2015-11-29 17:27:48)
 }
+
 \examples{
 
 
@@ -87,14 +88,10 @@ data(ExampleData.RLum.Data.Image, envir = environment())
 ##plot data
 plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). plot_RLum.Data.Image(): Plot function for an RLum.Data.Image S4 class object. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -104,5 +101,8 @@ Kreutzer, S. (2017). plot_RLum.Data.Image(): Plot function for an RLum.Data.Imag
 \code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
 \code{\link{plot_RLum}}, \code{\link[raster]{raster}},
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{aplot}
-

@@ -152,8 +152,9 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.5.2 (2016-12-29 17:41:52)
+ 0.5.2 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 
@@ -203,14 +204,10 @@ plot_RLum.Data.Spectrum(TL.Spectrum,
 
 }
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). plot_RLum.Data.Spectrum(): Plot function for an RLum.Data.Spectrum S4 class object. Function version 0.5.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -222,5 +219,8 @@ Springer.
 \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[plotly]{plot_ly}},
 \code{\link{contour}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{aplot}
-

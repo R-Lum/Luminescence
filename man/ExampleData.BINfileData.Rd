@@ -45,6 +45,7 @@ the BIN-file format changed.
 \section{Version}{
  0.1
 }
+
 \examples{
 
 ##show first 5 elements of the METADATA and DATA elements in the terminal
@@ -59,4 +60,3 @@ CWOSL.SAR.Data@DATA[1:5]
 \bold{TL.SAR.Data}: unpublished data
 }
 \keyword{datasets}
-

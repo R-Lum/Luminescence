@@ -39,8 +39,9 @@ according to \code{\link{plot}}.
 Not all arguments of \code{\link{plot}} will be passed!
 }
 \section{Function version}{
- 0.2.3 (2016-12-29 17:41:58)
+ 0.2.3 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 
@@ -56,14 +57,10 @@ temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
 plot_RLum.Data.Curve(temp)
 
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). plot_RLum.Data.Curve(): Plot function for an RLum.Data.Curve S4 class object. Function version 0.2.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). plot_RLum.Data.Curve(): Plot function for an RLum.Data.Curve S4 class object. Function version 0.2.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -72,5 +69,8 @@ Kreutzer, S. (2017). plot_RLum.Data.Curve(): Plot function for an RLum.Data.Curv
 \seealso{
 \code{\link{plot}}, \code{\link{plot_RLum}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{aplot}
-

@@ -14,7 +14,7 @@ calc_MinDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE,
 ,1])} and De error \code{(data[ ,2])}.}
 
 \item{sigmab}{\code{\link{numeric}} (\bold{required}): additional spread in De values.
-This value represents the expected overdispersion in the data should the sample be 
+This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
@@ -75,7 +75,7 @@ Function to fit the (un-)logged three or four parameter minimum dose model
 (MAM-3/4) to De data.
 }
 \details{
-\bold{Parameters} \cr\cr 
+\bold{Parameters} \cr\cr
 This model has four parameters: \cr\cr
 \tabular{rl}{ \code{gamma}: \tab minimum dose on the log scale \cr
 \code{mu}: \tab mean of the non-truncated normal distribution \cr
@@ -84,7 +84,7 @@ proportion of grains at gamma \cr } If \code{par=3} (default) the
 3-parametric minimum age model is applied, where \code{gamma=mu}. For
 \code{par=4} the 4-parametric model is applied instead.\cr\cr
 
-\bold{(Un-)logged model} \cr\cr 
+\bold{(Un-)logged model} \cr\cr
 In the original version of the minimum dose model, the basic data are the natural
 logarithms of the De estimates and relative standard errors of the De
 estimates. The value for \code{sigmab} must be provided as a ratio
@@ -102,7 +102,7 @@ modified (un-logged) version is specially designed for modern-age and young
 samples containing negative, zero or near-zero De estimates (Arnold et al.
 2009, p. 323). \cr\cr
 
-\bold{Initial values & boundaries} \cr\cr 
+\bold{Initial values & boundaries} \cr\cr
 The log likelihood calculations use the \link{nlminb} function for box-constrained
 optimisation using PORT routines.  Accordingly, initial values for the four
 parameters can be specified via \code{init.values}. If no values are
@@ -116,7 +116,7 @@ boundary values use the arguments \code{gamma.lower}, \code{gamma.upper},
 \code{sigma.lower}, \code{sigma.upper}, \code{p0.lower}, \code{p0.upper},
 \code{mu.lower} and \code{mu.upper}.  \cr\cr
 
-\bold{Bootstrap} \cr\cr 
+\bold{Bootstrap} \cr\cr
 When \code{bootstrap=TRUE} the function applies the bootstrapping method as
 described in Wallinga & Cunningham (2012). By default, the minimum age model
 produces 1000 first level and 3000 second level bootstrap replicates
@@ -129,7 +129,7 @@ using the arguments \code{bs.M} (first level replicates), \code{bs.N}
 By default, \code{h} is calculated as \cr \deqn{h =
 (2*\sigma_{DE})/\sqrt{n}} \cr
 
-\bold{Multicore support} \cr\cr 
+\bold{Multicore support} \cr\cr
 This function supports parallel computing and can be activated by \code{multicore=TRUE}.
 By default, the number of available logical CPU cores is determined
 automatically, but can be changed with \code{cores}. The multicore support
@@ -152,8 +152,9 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.4 (2017-01-18 19:02:04)
+ 0.4.4 (2017-02-10 18:30:04)
 }
+
 \examples{
 
 ## Load example data
@@ -163,6 +164,7 @@ data(ExampleData.DeValues, envir = environment())
 # By default, this will apply the un-logged 3-parametric MAM.
 calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.1)
 
+\dontrun{
 # (2) Re-run the model, but save results to a variable and turn
 # plotting of the log-likelihood profiles off.
 mam <- calc_MinDose(data = ExampleData.DeValues$CA1,
@@ -203,7 +205,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
                                   rho == .(round(res$p0, 2))))
 
 
-\dontrun{
+
 # (3) Run the minimum age model with bootstrap
 # NOTE: Bootstrapping is computationally intensive
 # (3.1) run the minimum age model with default values for bootstrapping
@@ -244,17 +246,10 @@ plot(bs$poly.fits$poly.three, ask = FALSE)
 summary(bs$poly.fits$poly.three$fitted.values)
 }
 
-}
-\author{
-Christoph Burow, University of Cologne (Germany) \cr Based on a
-rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
-based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
-Cunningham is thanked for his help in implementing and cross-checking the
-code.
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Burow, C. (2017). calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -268,31 +263,31 @@ track ages. Nuclear Tracks Radiation Measurements 4, 459-470. \cr\cr
 Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley, J.M.,
 1999. Optical dating of single grains of quartz from Jinmium rock shelter,
 northern Australia. Part I: experimental design and statistical models.
-Archaeometry 41, 339-364. \cr\cr 
+Archaeometry 41, 339-364. \cr\cr
 
 Galbraith, R.F., 2005. Statistics for
 Fission Track Analysis, Chapman & Hall/CRC, Boca Raton. \cr\cr
 
 Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose and error
 calculation and display in OSL dating: An overview and some recommendations.
-Quaternary Geochronology 11, 1-27. \cr\cr 
+Quaternary Geochronology 11, 1-27. \cr\cr
 
 Olley, J.M., Roberts, R.G., Yoshida, H., Bowler, J.M., 2006. Single-grain optical dating of grave-infill
 associated with human burials at Lake Mungo, Australia. Quaternary Science
-Reviews 25, 2469-2474.\cr\cr 
+Reviews 25, 2469-2474.\cr\cr
 
-\bold{Further reading} \cr\cr 
+\bold{Further reading} \cr\cr
 
 Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 (De) distributions: Implications for OSL dating of sediment mixtures.
-Quaternary Geochronology 4, 204-230. \cr\cr 
+Quaternary Geochronology 4, 204-230. \cr\cr
 
 Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 assessment of procedures for estimating burial dose. Quaternary Science
-Reviews 25, 2475-2502. \cr\cr 
+Reviews 25, 2475-2502. \cr\cr
 
 Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial archives using robust OSL chronologies.
-Quaternary Geochronology 12, 98-106. \cr\cr 
+Quaternary Geochronology 12, 98-106. \cr\cr
 
 Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
 of optical dating of fluvial deposits.  Quaternary Geochronology 1, 109-120.
@@ -304,4 +299,10 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10. \cr\cr
 \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
 \code{\link{calc_MaxDose}}
 }
-
+\author{
+Christoph Burow, University of Cologne (Germany) \cr Based on a
+rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
+based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
+Cunningham is thanked for his help in implementing and cross-checking the
+code.
+\cr R Luminescence Package Team}

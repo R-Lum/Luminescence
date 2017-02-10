@@ -29,6 +29,7 @@ You should not use this function to improve your poor data set!
 \section{Function version}{
  0.5.0 (2015-11-29 17:27:48)
 }
+
 \examples{
 ## load example data set
 data(ExampleData.DeValues, envir = environment())
@@ -47,13 +48,10 @@ plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
 #                summary = c("n", "mean"))
 
 
-}
-\author{
-Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Dietze, M. (2017). tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Dietze, M. (2017). tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -62,5 +60,7 @@ Dietze, M. (2017). tune_Data(): Tune data for experimental purpose. Function ver
 \seealso{
 #
 }
+\author{
+Michael Dietze, GFZ Potsdam (Germany)
+\cr R Luminescence Package Team}
 \keyword{manip}
-

@@ -137,8 +137,9 @@ the fitting procedure has reached a global minimum rather than a local
 minimum!
 }
 \section{Function version}{
- 0.5.1 (2016-12-29 17:41:58)
+ 0.5.2 (2017-02-10 18:30:04)
 }
+
 \examples{
 
 
@@ -151,14 +152,10 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
                    n.components.max = 4,
                    log = "x")
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves [beta version]. Function version 0.5.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). fit_CWCurve(): Nonlinear Least Squares Fit for CW-OSL curves [beta version]. Function version 0.5.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -176,6 +173,9 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
 \code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
+(France)
+\cr R Luminescence Package Team}
 \keyword{dplot}
 \keyword{models}
-

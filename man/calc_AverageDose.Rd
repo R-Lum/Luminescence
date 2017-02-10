@@ -49,8 +49,9 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.3 (2016-12-29 17:41:58)
+ 0.1.3 (2017-01-24 21:10:47)
 }
+
 \examples{
 
 ##Example 01 using package example data
@@ -67,16 +68,10 @@ plot_AbanicoPlot(
  data = ExampleData.DeValues$CA1[1:56,],
  z.0 = AD$summary$Average_DOSE)
 
-}
-\author{
-Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
-Anne Philippe, Universite de Nantes, (France),
-Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2017). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2017). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -90,5 +85,10 @@ and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
 \seealso{
 \code{\link{read.table}}, \code{\link[graphics]{hist}}
 }
+\author{
+Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
+Anne Philippe, Universite de Nantes, (France),
+Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
+\cr R Luminescence Package Team}
 \keyword{datagen}
-

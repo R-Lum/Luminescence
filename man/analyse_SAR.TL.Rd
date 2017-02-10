@@ -75,6 +75,7 @@ from the input object without further warning.
 \section{Function version}{
  0.1.5 (2016-12-05 17:06:05)
 }
+
 \examples{
 
 
@@ -92,13 +93,10 @@ analyse_SAR.TL(object,
                fit.method = "EXP OR LIN",
                sequence.structure = c("SIGNAL", "BACKGROUND"))
 
-}
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
+} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.1.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.1.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
@@ -114,6 +112,8 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 \code{\link{get_RLum}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{plot}
-

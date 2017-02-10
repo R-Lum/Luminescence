@@ -18,17 +18,17 @@ from it.
 \section{Class version}{
  0.2.1
 }
+
 \examples{
 
 showClass("RLum.Data")
 
 }
-\author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Spectrum}}
 }
+\author{
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}
 \keyword{classes}
-

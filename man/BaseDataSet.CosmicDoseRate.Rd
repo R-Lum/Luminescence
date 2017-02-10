@@ -91,6 +91,7 @@ calculation
 \section{Version}{
  0.1
 }
+
 \examples{
 
 ##load data
@@ -108,4 +109,3 @@ for luminescence and ESR dating: large depths and long-term time variations.
 Radiation Measurements, 23, pp. 497-500.
 }
 \keyword{datasets}
-
