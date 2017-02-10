@@ -1,6 +1,6 @@
-#' Calculates the Lx/Tx ratio for a given set of TL curves [beta version]
+#' Calculate the Lx/Tx ratio for a given set of TL curves [beta version]
 #'
-#' The function calculates Lx/Tx ratio for a given set of TL curves.
+#' Calculate Lx/Tx ratio for a given set of TL curves.
 #'
 #' \bold{Uncertainty estimation}\cr
 #'
@@ -9,13 +9,8 @@
 #' \deqn{SE_{signal} <- abs(Signal_{net} * BG_f /BG_{signal}}
 #'
 #' where \eqn{BG_f} is a term estimated by calculating the standard deviation of the sum of
-#' the \eqn{L_x} background counts and the sum of the \eqn{T_x} background counts. However, if the sum of both
-#' background signals (\eqn{L_x} and \eqn{T_x}) are similar the background of the \eqn{L_x} curve
-#' is randomly re-sampled, the values are summed up and the standard diviation of ten (10) of such
-#' runs is used to estimate \eqn{BG_f}.\cr
-#'
-#' Please note that in this case the background error varies from run to run!
-#'
+#' the \eqn{L_x} background counts and the sum of the \eqn{T_x} background counts. However,
+#' if both signals are similar the error becomes zero.
 #'
 #' @param Lx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
 #' \code{\link{data.frame}} (\bold{required}): TL data (x =
@@ -46,10 +41,10 @@
 #' $ LxTx.table \cr .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $ TnTx.BG
 #' \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr
 #'
-#' @note \bold{This function has still BETA status!}\cr
-#' In particular the estimation of the uncertainties has not yet been sufficiently tested.
+#' @note \bold{This function has still BETA status!} Please further note that a similar
+#' background for both curves results in a zero error.
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Christoph Schmidt, University of Bayreuth (Germany)
@@ -108,7 +103,7 @@ calc_TLLxTxRatio <- function(
                          if(missing(signal.integral.max)){"signal.integral.max"}),
                        collapse = ", ")
 
-          stop(paste("[calc_TLLxTxRatio()] Arguments are missing: ",temp.missing, ".", sep=""), call. = FALSE)
+          stop(paste("[calc_TLLxTxRatio()] Arguments are missing: ",temp.missing, ".", sep=""))
 
      }
 
@@ -134,11 +129,13 @@ calc_TLLxTxRatio <- function(
     Tx.data.signal <- as(Tx.data.signal, "matrix")
 
     if(missing(Lx.data.background) == FALSE && is.null(Lx.data.background) == FALSE){
+
       Lx.data.background <- as(Lx.data.background, "matrix")
 
     }
 
-    if(!missing(Tx.data.background) && !is.null(Tx.data.background)){
+    if(missing(Tx.data.background) == FALSE && is.null(Tx.data.background) == FALSE){
+
       Tx.data.background <- as(Tx.data.background, "matrix")
 
     }
@@ -147,6 +144,7 @@ calc_TLLxTxRatio <- function(
 
   ##(d) - check if Lx and Tx curves have the same channel length
      if(length(Lx.data.signal[,2])!=length(Tx.data.signal[,2])){
+
        stop("[calc_TLLxTxRatio()] Channel number of Lx and Tx data differs!")}
 
 
@@ -162,18 +160,22 @@ calc_TLLxTxRatio <- function(
 
    ##Lx.data
    if(missing(Lx.data.background)==FALSE){
+
      LnLx.BG <- sum(Lx.data.background[signal.integral.min:signal.integral.max,2])
 
     }else{
+
      LnLx.BG <- NA
 
     }
 
    ##Tx.data
       if(missing(Tx.data.background)==FALSE){
+
         TnTx.BG <- sum(Tx.data.background[signal.integral.min:signal.integral.max,2])
 
       }else{
+
         TnTx.BG <- NA
 
       }
@@ -184,37 +186,27 @@ calc_TLLxTxRatio <- function(
     TnTx <- sum(Tx.data.signal[signal.integral.min:signal.integral.max,2])
 
 
-     ##calculate standard deviation of the background
-     if(!is.na(LnLx.BG) & !is.na(TnTx.BG)){
-      if(LnLx.BG == TnTx.BG){
-        BG.Error <- sd(vapply(1:10, function(x){
-          sum(
-            sample(
-          x = Lx.data.background[signal.integral.min:signal.integral.max,2],
-          size = 10, replace = TRUE))
-        }, FUN.VALUE = vector(mode = "numeric", length = 1)))
+     ##calculate variance of background
+     if(is.na(LnLx.BG) == FALSE & is.na(TnTx.BG) == FALSE){
 
-        warning("[calc_TLLxTxRatio()] BG Lx-signal similar to BG Tx-signal. BG error was estimated using re-sampling, i.e. the BG varies from run to run!", call. = FALSE)
-
-
-      }else{
-        BG.Error <- sd(c(LnLx.BG, TnTx.BG))
-
-      }
-
+       BG.Error <- sd(c(LnLx.BG, TnTx.BG))
      }
 
+
     if(is.na(LnLx.BG) == FALSE){
+
       net_LnLx <-  LnLx - LnLx.BG
       net_LnLx.Error <- abs(net_LnLx * BG.Error/LnLx.BG)
 
     }else{
+
       net_LnLx <- NA
       net_LnLx.Error <- NA
 
     }
 
     if(is.na(TnTx.BG) == FALSE){
+
          net_TnTx <-  TnTx - TnTx.BG
          net_TnTx.Error <- abs(net_TnTx * BG.Error/TnTx.BG)
 
@@ -257,9 +249,7 @@ calc_TLLxTxRatio <- function(
 
    newRLumResults.calc_TLLxTxRatio <- set_RLum(
      class = "RLum.Results",
-     data = list(LxTx.table = temp.results),
-     info = list(call = sys.call())
-     )
+     data=list(LxTx.table = temp.results))
 
    return(newRLumResults.calc_TLLxTxRatio)
 

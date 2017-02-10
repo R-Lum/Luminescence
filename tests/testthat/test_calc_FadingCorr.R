@@ -11,17 +11,17 @@ temp <- calc_FadingCorr(
 
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
-  
+
 })
 
 test_that("check values from output example 1", {
-  
-  
+  testthat::skip_on_cran()
+
   results <- get_RLum(temp)
-  
+
   expect_equal(results$AGE, 0.1168)
   expect_equal(results$AGE.ERROR, 0.0035)
   expect_equal(results$AGE_FADED, 0.1)
@@ -35,5 +35,5 @@ test_that("check values from output example 1", {
   expect_equal(results$n.MC, 100)
   expect_equal(results$OBSERVATIONS, 100)
   expect_equal(results$SEED, NA)
-  
+
 })

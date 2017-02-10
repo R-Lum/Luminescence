@@ -6,7 +6,7 @@
 #' plotting of equivalent dose distributions.
 #'
 #' \tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-#' \tab 0.8.0 \cr Date: \tab 2017-XX-XX \cr License: \tab GPL-3\cr }
+#' \tab 0.7.4 \cr Date: \tab 2017-XX-XX \cr License: \tab GPL-3\cr }
 #'
 #' @name Luminescence-package
 #' @aliases Luminescence-package Luminescence
@@ -23,7 +23,7 @@
 #' Freiberg, Germany \cr
 #' Johannes Friedrich \tab University of Bayreuth, Germany \cr
 #' Guillaume Guerin \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
-#' Georgina King \tab Institute of Geological Sciences,  University of Bern, Switzerland \cr
+#' Georgina King \tab Institute of Geological Sciences, University of Bern, Switzerland \cr
 #' Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
 #' Norbert Mercier \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
 #' Anne Philippe \tab  Universite de Nantes and ANJA INRIA, Rennes, France \cr

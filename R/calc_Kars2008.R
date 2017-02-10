@@ -50,7 +50,9 @@
 #' A three column data frame with numeric values on a) dose (s), b) LxTx and and
 #' c) LxTx error. If a two column data frame is provided it is automatically
 #' assumed that errors on LxTx are missing. A third column will be attached
-#' with an arbitrary 5 \% error on the provided LxTx values.
+#' with an arbitrary 5 \% error on the provided LxTx values.\cr
+#' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+#' and where each triplet has the aforementioned column structure.
 #'
 #' @param rhop \code{\link{numeric}} (\bold{required}):
 #' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
@@ -93,7 +95,7 @@
 #' containing data on dose, LxTx and LxTx error for each of the dose response curves.
 #' Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
 #' \code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
-#'  objects produced by \code{\link{nls}} when fitting the dose response curves \cr
+#'  objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
 #' }
 #'
 #' Slot: \bold{@info}\cr
@@ -184,11 +186,35 @@ calc_Kars2008 <- function(data,
     }
 
     # check number of columns
-    if (ncol(data) > 3)
-      stop("\n[calc_Kars2008] 'data' must be a data frame with three columns",
-           " (dose, LxTx, LxTx error).",
+    if (ncol(data) %% 3 != 0) {
+      stop("[calc_Kars2008] the number of columns in 'data' must be a multiple of 3.", 
            call. = FALSE)
+    } else {
+      # extract all LxTx values
+      data_tmp <- do.call(rbind, 
+                        lapply(seq(1, ncol(data), 3), function(col) {
+                          setNames(data[2:nrow(data), col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
+                        })
+      )
+      # extract the LnTn values (assumed to be the first row) and calculate the column mean
+      LnTn_tmp <- do.call(rbind, 
+                          lapply(seq(1, ncol(data), 3), function(col) {
+                            setNames(data[1, col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
+                          })
+      )
+      
+      # check whether the standard deviation of LnTn estimates or the largest
+      # individual error is highest, and take the larger one
+      LnTn_error_tmp <- max(c(sd(LnTn_tmp[ ,2]), mean(LnTn_tmp[ ,3])), na.rm = TRUE)
+      LnTn_tmp <- colMeans(LnTn_tmp)
 
+      # re-bind the data frame
+      data <- rbind(LnTn_tmp, data_tmp)
+      data[1, 3] <- LnTn_error_tmp
+      data <- data[complete.cases(data), ]
+    }
+    
+    
   } else {
     stop("\n[calc_Kars2008] 'data' must be a data frame.",
          call. = FALSE)
@@ -269,17 +295,22 @@ calc_Kars2008 <- function(data,
 
   data.tmp <- data
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
+  
+  GC.settings <- list(sample = data.tmp,
+                      mode = "regenerative",
+                      fit.method = "EXP",
+                      output.plot = plot,
+                      main = "Measured dose response curve",
+                      xlab = "Dose (Gy)",
+                      verbose = FALSE)
+  
+  GC.settings <- modifyList(GC.settings, list(...))
+  GC.settings$verbose <- FALSE
 
-  GC.measured <- try(plot_GrowthCurve(data.tmp,
-                                      mode = "regenerative",
-                                      fit.method = "EXP",
-                                      output.plot = plot,
-                                      main = "Measured dose response curve",
-                                      xlab = "Dose (Gy)",
-                                      verbose = FALSE,
-                                      ...))
+  GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
+  
   if (inherits(GC.measured, "try-error"))
-    stop("\n[calc_Kars2008()] Unable for fit growth curve to data", call. = FALSE)
+    stop("\n[calc_Kars2008()] Unable to fit growth curve to data", call. = FALSE)
 
   # extract results and calculate age
   GC.results <- get_RLum(GC.measured)
@@ -302,7 +333,7 @@ calc_Kars2008 <- function(data,
 
   #
   fitcoef <- do.call(rbind, sapply(rhop_MC, function(rhop_i) {
-    fit_sim <- try(nls(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
+    fit_sim <- try(minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop_i) * (1 - exp(-dosetime / D0)),
                      start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot)))
     if (!inherits(fit_sim, "try-error"))
       coefs <- coef(fit_sim)
@@ -312,7 +343,7 @@ calc_Kars2008 <- function(data,
   }, simplify = FALSE))
 
   # final fit for export
-  fit_simulated <- nls(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
+  fit_simulated <- minpack.lm::nlsLM(LxTx.measured ~ a * theta(dosetime, rhop[1]) * (1 - exp(-dosetime / D0)),
                        start = list(a = max(LxTx.measured), D0 = D0.measured / readerDdot))
 
   # scaling factor
@@ -352,15 +383,20 @@ calc_Kars2008 <- function(data,
 
     data.unfaded$LxTx.error[2] <- 0.0001
 
+    GC.settings <- list(sample = data.unfaded,
+                        mode = "regenerative",
+                        fit.method = "EXP",
+                        output.plot = TRUE,
+                        verbose = FALSE,
+                        main = "Simulated dose response curve",
+                        xlab = "Dose (Gy)")
+    
+    GC.settings <- modifyList(GC.settings, list(...))
+    GC.settings$verbose <- FALSE
+    
     suppressWarnings(
-      GC.unfaded <- try(plot_GrowthCurve(data.unfaded,
-                                         mode = "regenerative",
-                                         fit.method = "EXP",
-                                         output.plot = TRUE,
-                                         verbose = FALSE,
-                                         main = "Simulated dose response curve",
-                                         xlab = "Dose (Gy)",
-                                         ...)))
+      GC.unfaded <- try(do.call(plot_GrowthCurve, GC.settings))
+    )
 
     if (!inherits(GC.unfaded, "try-error")) {
       GC.unfaded.results <- get_RLum(GC.unfaded)
@@ -408,9 +444,10 @@ calc_Kars2008 <- function(data,
 
   ## (3) UNFADED ---------------------------------------------------------------
   LxTx.unfaded <- LxTx.measured / theta(dosetime, rhop[1])
+  LxTx.unfaded[is.nan((LxTx.unfaded))] <- 0
   LxTx.unfaded[is.infinite(LxTx.unfaded)] <- 0
   dosetimeGray <- dosetime * readerDdot
-  fit_unfaded <- nls(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
+  fit_unfaded <- minpack.lm::nlsLM(LxTx.unfaded ~ a * (1 - exp(-dosetimeGray / D0)),
                      start = list(a = max(LxTx.unfaded), D0 = D0.measured / readerDdot))
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
   D0.error.unfaded <- summary(fit_unfaded)$coefficients["D0", "Std. Error"]
@@ -468,6 +505,11 @@ calc_Kars2008 <- function(data,
       par(oma = c(0, 3, 0, 9))
     else
       par(oma = c(0, 9, 0, 9))
+    
+    # Find a good estimate of the x-axis limits
+    xlim <- range(pretty(dosetimeGray))
+    if (De.sim > xlim[2])
+      xlim <- range(pretty(c(min(dosetimeGray), De.sim)))
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
     plot(dosetimeGray, LxTx_measured$LxTx,
@@ -475,7 +517,8 @@ calc_Kars2008 <- function(data,
          xlab = plot.settings$xlab,
          ylab = plot.settings$ylab,
          pch = 16,
-         ylim = c(0, max(do.call(rbind, list(LxTx_measured, LxTx_unfaded))[["LxTx"]]))
+         ylim = c(0, max(do.call(rbind, list(LxTx_measured, LxTx_unfaded))[["LxTx"]])),
+         xlim = xlim
     )
 
     # LxTx error bars
@@ -572,7 +615,7 @@ calc_Kars2008 <- function(data,
       labels.text <- list(
         bquote(dot(D) == .(round(ddot, 2)) %+-% .(round(ddot.error, 2)) ~ frac(Gy, ka)),
         bquote(dot(D)["Reader"] == .(round(readerDdot, 3)) %+-% .(round(readerDdot.error, 3)) ~ frac(Gy, s)),
-        bquote(log[10]~(rho~"'") == .(round(log10(rhop[1]), 2)) %+-% .(round(log10(rhop[1]) * rhop[2] / rhop[1], 2)) ),
+        bquote(log[10]~(rho~"'") == .(round(log10(rhop[1]), 2)) %+-% .(round(rhop[2] / (rhop[1] * log(10, base = exp(1))), 2)) ),
         bquote(bgroup("(", frac(n, N), ")") == .(round(nN, 2)) %+-% .(round(nN.error, 2)) ),
         bquote(bgroup("(", frac(n, N), ")")[SS] == .(round(nN_SS, 2)) %+-% .(round(nN_SS.error, 2)) ),
         bquote(D["E,sim"] == .(round(De.sim, 2)) %+-% .(round(De.error.sim, 2)) ~ Gy),

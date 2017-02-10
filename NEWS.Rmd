@@ -1,0 +1,122 @@
+---
+title: "R Luminescence version 0.7.0 </br> - Advanced	Fish -"
+author: "R Luminescence Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Dear **R** Luminescence users,
+
+we are happy to announce that another new version of our **R** package (0.7.0) just made it to [CRAN](https://CRAN.R-project.org/package=Luminescence).  
+As usual: many thanks for your helpful suggestions and comments!
+This is a major update and comes with a lot of bugfixes and several new functions serving  
+various requests out of the community. We are excited to present some the new possibilties below, however, for a full list of all changes please check the CRAN webpage [here](https://cran.r-project.org/web/packages/Luminescence/news.html). 
+
+## What's new?
+
+### New analysis functions
+
+This release comes with two (one of them long requested) new analysis functions:
+
+#### Analyse fading measurements 
+
+Calculating fading corrected ages (`calc_FadingCorr()`) following the approach by Huntley and Lamothe (2001)
+was already possible in the package `'Luminescence'` since 2012. However, a package internal 
+analysis of the fading measurements was still missing, until today. The new function `analyse_FadingMeasurement()`
+closes this gap by enabling the analysis of typical 'SAR fading' measurement data. 
+The function can be directly fed with an `RLum.Analysis` object (raw measurement data) or with an $L_x/T_x$ table 
+and returns various numerical and graphical output. On the top: to output can be directly forwared 
+to other functions, e.g., `calc_FadingCorr()` or `calc_Kars2008()` for further calculations. 
+
+```{r, echo = FALSE, warning = FALSE, message=FALSE}
+library("Luminescence")
+data("ExampleData.Fading", envir = environment())
+fading_data <- ExampleData.Fading$fading.data$IR50
+```
+
+```{r, eval=FALSE}
+g_value <- analyse_FadingMeasurement(
+ object = fading_data,
+ structure = c("Lx", "Tx"),
+ plot = TRUE,
+ verbose = TRUE,
+ n.MC = 100)
+```
+
+```{r, echo=FALSE, cache = FALSE, fig.width=6, fig.height=4}
+par(mfrow = c(1,2))
+g_value <- analyse_FadingMeasurement(
+ object = fading_data,
+ structure = c("Lx", "Tx"),
+ plot = TRUE,
+ plot.single = c(3,4),
+ verbose = TRUE,
+ n.MC = 100)
+```
+
+#### Analyse data determined by the portable OSL reader
+
+@tzerk
+
+### New models
+
+#### Kars et al., 2008
+
+@tzerk
+
+#### Average Dose Model (Guérin et al., 2017)
+
+To overcome the drawbacks of commonly used age (dose) models, Guérin et al., 2017 introduced
+a new dose model that calculates the average dose and their extrinsic dispersion and standard error
+by bootstrapping. The function fits neatly into the collection of functions dealing with 
+age (dose) models. Example for the package example data set:
+
+```{r, fig.width=7, fig.height=3}
+data(ExampleData.DeValues, envir = environment())
+AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,],
+sigma_m = 0.1)
+```
+
+### Conversions
+
+Even data export to CSV-files is already part of **R**'s base functionality, we decided to make
+it even easier and more straight forward. Four new functions allow a direct and straight forward
+conversion from proprietary input formats to CSV-files
+
+* `convert_BIN2CSV()`
+* `convert_Daybreak2CSV()`
+* `convert_PSL2CSV()`
+* `convert_XSYG2CSV()`
+* `write_RLum2CSV()`
+
+
+### Miscellaneous
+
+#### Getting closer 
+* GitHub API stuff
+
+#### Pipe your data
+In the R-community a new operator, called 'magrittr forward-pipe operator' or short `%>%` from 
+the package `magrittr` turned out as being very efficient for scripting **R** code. With this
+operator values can be direclty piped from one function to another. Example:
+
+```{r}
+rnorm(1000) %T>% hist(freq = FALSE, breaks = "FD") %>% density %>% lines
+```
+
+In order to further support this opperator, the package `magrittr` is now load by default when 
+attaching the package `'Luminescence'`
+
+#### Other enhancements 
+
+* Thanks to Antoine Zink the function `read_Daybreak2R()` now handles also binary files produced
+by the software TLAPLLIC v.3.2, which is used for a Daybreak, model 1100.
+
+
+## References
+
+Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093–1106. doi:10.1139/cjes-38-7-1093

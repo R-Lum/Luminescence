@@ -602,7 +602,7 @@ report_RLum <- function(object,
   if (isS4(x)) {
     
     # print -----
-    cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",")
+    cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = "|")
     
     for (slot in slotNames(x)) {
       s4.root <- paste0(root, "@", slot)
@@ -611,12 +611,12 @@ report_RLum <- function(object,
     invisible()
     
     ## List objects -----
-  }  else if (inherits(x, "list") | inherits(x, "nls") | inherits(x, "nlsModel")) {
+  }  else if (inherits(x, "list") | typeof(x) == "list" & !inherits(x, "data.frame")) {
     
     if (!is.null(names(x)) && length(x) != 0) {
       
       # print -----
-      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
+      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = "|") 
       
       element <- names(x)
       
@@ -635,7 +635,7 @@ report_RLum <- function(object,
     } else if (length(x) != 0) {
       
       # print -----
-      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
+      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = "|") 
       
       element <- paste0("[[", seq(1, length(x),1), "]]")
       
@@ -648,7 +648,7 @@ report_RLum <- function(object,
       }
     } else if (length(x) == 0) {
       
-      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = ",") 
+      cat(c(root, .class(x), base::length(x), .depth(root), FALSE, .dimension(x), "\n"), sep = "|") 
       
     }
     
@@ -657,17 +657,20 @@ report_RLum <- function(object,
     ## Data frames -----
   } else if (inherits(x, "data.frame")) { 
     
-    if (any(sapply(x, class) == "matrix")) {
+    if (any(sapply(x, function(col) { inherits(col, "matrix") } ))) {
       
       element <- names(x)
       
       for (i in 1:length(x)) {
+        if (grepl(" ", element[i]))
+          element[i] <- paste0("`", element[i], "`")
+        
         list.root <- paste0(root, "$", element[[i]])
         .tree_RLum(x[[i]], root = list.root)
       }
     } else {
       # print ----
-      cat(c(root, .class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = ",")
+      cat(c(root, .class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = "|")
     }
     invisible()
     
@@ -675,7 +678,7 @@ report_RLum <- function(object,
   }  else {
     
     # print ----
-    cat(c(root, .class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = ",") 
+    cat(c(root, .class(x), base::length(x), .depth(root), TRUE, .dimension(x), "\n"), sep = "|") 
     
     invisible()
   }
@@ -692,7 +695,7 @@ report_RLum <- function(object,
 }
 .dimension <- function(x) {
   if (!is.null(dim(x)))
-    dim <- paste(dim(x), collapse = ",")
+    dim <- paste(dim(x), collapse = "|")
   else
     dim <- c(0, 0)
 }
@@ -708,7 +711,7 @@ report_RLum <- function(object,
   if (missing(root))
     root <- deparse(substitute(x))
   s <- capture.output(.tree_RLum(x, root = root))
-  df <- as.data.frame(do.call(rbind, strsplit(s, ",")), stringsAsFactors = FALSE)
+  df <- as.data.frame(do.call(rbind, strsplit(s, "|", fixed = TRUE)), stringsAsFactors = FALSE)
   names(df) <- c("branch", "class", "length", "depth", "endpoint", "row", "col")
   df$depth <- as.integer(df$depth)
   df$length <- as.numeric(df$length)

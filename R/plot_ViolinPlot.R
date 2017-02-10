@@ -46,7 +46,7 @@
 #' two other R packages exist providing a possibility to produces this kind of plot, namely:
 #' 'vioplot' and 'violinmplot' (see References for details).
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -112,8 +112,9 @@ plot_ViolinPlot <- function(
     if(na.rm){
       data <- na.exclude(data)
 
-      warning(paste("[plot_ViolinPlot()]",
-        length(attr(x = na.exclude(c(NA,1,2, NA)), which = "na.action", exact = TRUE))), " NA values removed!", call. = FALSE)
+      if(length(attr(data, "na.action")) > 0){
+        warning(paste("[plot_ViolinPlot()]", length(attr(data, "na.action")), "NA values removed!"), call. = FALSE)
+      }
 
     }
 

@@ -6,17 +6,17 @@ temp <- calc_CosmicDoseRate(depth = 2.78, density = 1.7,
 
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 3)
-  
+
 })
 
 test_that("check values from output example 1", {
-  
-  
+  testthat::skip_on_cran()
+
   results <- get_RLum(temp)
-  
+
   expect_equal(results$depth, 2.78)
   expect_equal(results$density, 1.7)
   expect_equal(results$latitude, 38.06451)
@@ -26,22 +26,22 @@ test_that("check values from output example 1", {
   expect_equal(round(results$d0, digits = 3), 0.152)
   expect_equal(round(results$geom_lat, digits =  1), 41.1)
   expect_equal(round(results$dc, digits = 3), 0.161)
-  
 
-  
+
+
 })
 
 
 test_that("check values from output example 2b", {
-  
+  testthat::skip_on_cran()
   temp <- calc_CosmicDoseRate(depth = c(5.0, 2.78), density = c(2.65, 1.7),
                               latitude = 12.04332, longitude = 4.43243,
                               altitude = 364, corr.fieldChanges = TRUE,
                               est.age = 67, error = 15)
-  
-  
+
+
   results <- get_RLum(temp)
-  
+
   expect_equal(results$depth.1, 5)
   expect_equal(results$depth.2, 2.78)
   expect_equal(results$density.1, 2.65)
@@ -53,5 +53,5 @@ test_that("check values from output example 2b", {
   expect_equal(round(results$d0, digits = 4), 0.0705)
   expect_equal(round(results$geom_lat, digits =  1), 15.1)
   expect_equal(round(results$dc, digits = 3), 0.072)
-  
+
 })

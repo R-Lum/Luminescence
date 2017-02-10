@@ -20,19 +20,19 @@ temp <- calc_TLLxTxRatio(Lx.data.signal,
                            signal.integral.min, signal.integral.max)
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 1)
-  
+
 })
 
 test_that("check values from output", {
-  
-  
+  testthat::skip_on_cran()
+
   results <- get_RLum(temp)
-  
+
   expect_equal(length(results), 10)
-  
+
   expect_equal(results$LnLx, 257042)
   expect_equal(results$LnLx.BG, 4068)
   expect_equal(results$TnTx, 82298)
@@ -43,5 +43,5 @@ test_that("check values from output", {
   expect_equal(round(results$net_TnTx.Error,2), 21449.72)
   expect_equal(round(results$LxTx, digits =  6), 3.187877)
   expect_equal(round(results$LxTx.Error, digits = 6), 1.485073)
-  
+
 })

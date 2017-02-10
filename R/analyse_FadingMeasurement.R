@@ -27,15 +27,23 @@
 #' measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
 #' objects or a \code{\link{data.frame}} with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
+#' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+#' and where each triplet has the before mentioned column structure.
 #'
 #' @param structure \code{\link{character}} (with default): sets the structure of the measurement
 #' data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored
 #'
 #' @param signal.integral \code{\link{vector}} (\bold{required}): vector with the
-#' limits for the signal integral
+#' limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
+#' provided.
 #'
 #' @param background.integral \code{\link{vector}} (\bold{required}): vector with the
-#' bounds for the background integral
+#' bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
+#' provided.
+#'
+#' @param t_star \code{\link{character}} (with default): method for calculating the time elasped
+#' since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+#' and \code{'end'}, which takes the time between irradiation and the measurement step. Default is \code{'half'}
 #'
 #' @param n.MC \code{\link{integer}} (with default): number for Monte Carlo runs for the error
 #' estimation
@@ -45,7 +53,8 @@
 #' @param plot \code{\link{logical}} (with default): enables/disables plot output
 #'
 #' @param plot.single \code{\link{logical}} (with default): enables/disables single plot
-#' mode, i.e. one plot window per plot
+#' mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
+#' \code{plot.single = c(3,4)} draws only the last two plots
 #'
 #' @param \dots (optional) further arguments that can be passed to internally used functions (see details)
 #'
@@ -71,7 +80,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -97,7 +106,26 @@
 #'
 #' @examples
 #'
-#' ##nothing so far
+#' ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
+#' data("ExampleData.Fading", envir = environment())
+#'
+#' ##(1) get fading measurement data (here a three column data.frame)
+#' fading_data <- ExampleData.Fading$fading.data$IR50
+#'
+#' ##(2) run analysis
+#' g_value <- analyse_FadingMeasurement(
+#' fading_data,
+#' plot = TRUE,
+#' verbose = TRUE,
+#' n.MC = 10)
+#'
+#' ##(3) this can be further used in the function
+#' ## to correct the age according to Huntley & Lamothe, 2001
+#' results <- calc_FadingCorr(
+#' age.faded = c(100,2),
+#' g_value = g_value,
+#' n.MC = 10)
+#'
 #'
 #' @export
 analyse_FadingMeasurement <- function(
@@ -105,6 +133,7 @@ analyse_FadingMeasurement <- function(
   structure = c("Lx", "Tx"),
   signal.integral,
   background.integral,
+  t_star = 'half',
   n.MC = 100,
   verbose = TRUE,
   plot = TRUE,
@@ -125,11 +154,15 @@ analyse_FadingMeasurement <- function(
     object <- list(object)
 
   } else if(class(object) == "data.frame"){
-    if (ncol(object) != 3) {
-      stop(
-        "[analyse_FadingMeasurement()] 'object' if you provide a data.frame is input, it needs to have 3 columns."
-      )
-
+    if (ncol(object) %% 3 != 0) {
+      stop("[analyse_FadingMeasurement()] 'object': if you provide a data.frame as input, the number of columns must be a multiple of 3.")
+    } else {
+      object <- do.call(rbind,
+                        lapply(seq(1, ncol(object), 3), function(col) {
+                          setNames(object[ , col:c(col+2)], c("LxTx", "LxTxError", "timeSinceIrr"))
+                          })
+                        )
+      object <- object[complete.cases(object), ]
     }
 
     ##set table and object
@@ -150,95 +183,109 @@ analyse_FadingMeasurement <- function(
   # Prepare data --------------------------------------------------------------------------------
   if(!is.null(object)){
 
-  ##support read_XSYG2R()
-  if(length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
-     unique(unlist(lapply(object, slot, name = "originator"))) == "read_XSYG2R"){
+    ##support read_XSYG2R()
+    if(length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
+       unique(unlist(lapply(object, slot, name = "originator"))) == "read_XSYG2R"){
 
-  irradiation_times <- extract_IrradiationTimes(object = object)
+      irradiation_times <- extract_IrradiationTimes(object = object)
 
-  ##reduce irradiation times ... extract curve data
-  TIMESINCEIRR <- unlist(lapply(irradiation_times, function(x) {
+      ##reduce irradiation times ... extract curve data
+      TIMESINCEIRR <- unlist(lapply(irradiation_times, function(x) {
 
-    ##get time since irradiation
-    temp_TIMESINCEIRR <-
-      x$irr.times[["TIMESINCEIRR"]][!grepl(pattern = "irradiation",
+        ##get time since irradiation
+        temp_TIMESINCEIRR <-
+          x$irr.times[["TIMESINCEIRR"]][!grepl(pattern = "irradiation",
+                                               x = x$irr.times[["STEP"]],
+                                               fixed = TRUE)]
+
+        ##substract half irradiation time
+        temp_IRR_TIME <-
+          x$irr.times[["IRR_TIME"]][!grepl(pattern = "irradiation",
                                            x = x$irr.times[["STEP"]],
                                            fixed = TRUE)]
 
-    ##substract half irradiation time
-    temp_IRR_TIME <-
-      x$irr.times[["IRR_TIME"]][!grepl(pattern = "irradiation",
-                                           x = x$irr.times[["STEP"]],
-                                           fixed = TRUE)]
+        ##in accordance with Auclair et al., 2003, p. 488
+        ##but here we have no t1 ... this needs to be calculated
+        ##set variables
+        t1 <- temp_TIMESINCEIRR
+        t2 <- temp_TIMESINCEIRR + temp_IRR_TIME
 
-    ##in accordance with Auclair et al., 2003, p. 488
-    ##but here we have no t1 ... this needs to be calculated
-    t1 <- temp_TIMESINCEIRR
-    t2 <- temp_TIMESINCEIRR + temp_IRR_TIME
-    t_star <- t1 + (t2 - t1)/2
-    return(t_star)
+        if(t_star == "half"){
+          ##calculate t_star
+          t_star <- t1 + (t2 - t1)/2
 
-  }))
+        }else if (t_star == "end"){
+          ##set t_start as t_1 (so after the end of irradiation)
+          t_star <- t1
 
-  ##clean object by removing the irradiation step ... and yes, we drop!
-  object_clean <- unlist(get_RLum(object, curveType = "measured"))
+        }else{
+          stop("[analyse_FadingMeasurement()] Invalid value for t_star.")
 
-  ##support read_BIN2R()
-  }else if (length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
-            unique(unlist(lapply(object, slot, name = "originator"))) == "read_BIN2R"){
-    try(stop("[analyse_FadingMeasurement()] Analysing data imported from a BIN-file is currently not supported!", call. = FALSE))
-    return(NULL)
+        }
 
-  ##not support
-  }else{
-    try(stop("[analyse_FadingMeasurement()] Unknown or unsupported originator!", call. = FALSE))
-    return(NULL)
+        return(t_star)
 
-  }
+      }))
 
-  # Calculation ---------------------------------------------------------------------------------
+      ##clean object by removing the irradiation step ... and yes, we drop!
+      object_clean <- unlist(get_RLum(object, curveType = "measured"))
 
-  ##calculate Lx/Tx or ... just Lx, it depends on the patttern
-  if(length(structure) == 2){
-    Lx_data <- object_clean[seq(1,length(object_clean), by = 2)]
-    Tx_data <- object_clean[seq(2,length(object_clean), by = 2)]
+      ##support read_BIN2R()
+    }else if (length(unique(unlist(lapply(object, slot, name = "originator")))) == 1 &&
+              unique(unlist(lapply(object, slot, name = "originator"))) == "read_BIN2R"){
+      try(stop("[analyse_FadingMeasurement()] Analysing data imported from a BIN-file is currently not supported!", call. = FALSE))
+      return(NULL)
+
+      ##not support
+    }else{
+      try(stop("[analyse_FadingMeasurement()] Unknown or unsupported originator!", call. = FALSE))
+      return(NULL)
+
+    }
+
+    # Calculation ---------------------------------------------------------------------------------
+
+    ##calculate Lx/Tx or ... just Lx, it depends on the patttern
+    if(length(structure) == 2){
+      Lx_data <- object_clean[seq(1,length(object_clean), by = 2)]
+      Tx_data <- object_clean[seq(2,length(object_clean), by = 2)]
 
 
-  }else if(length(structure) == 1){
-    Lx_data <- object_clean
-    Tx_data <- NULL
+    }else if(length(structure) == 1){
+      Lx_data <- object_clean
+      Tx_data <- NULL
 
-  }else{
-    try(stop("[analyse_FadingMeasurement()] I have no idea what your structure means!", call. = FALSE))
-    return(NULL)
+    }else{
+      try(stop("[analyse_FadingMeasurement()] I have no idea what your structure means!", call. = FALSE))
+      return(NULL)
 
-  }
+    }
 
-  ##calculate Lx/Tx table
-  LxTx_table <- merge_RLum(lapply(1:length(Lx_data), function(x) {
-    calc_OSLLxTxRatio(
-      Lx.data = Lx_data[[x]],
-      Tx.data = Tx_data[[x]],
-      signal.integral = signal.integral,
-      background.integral = background.integral,
-      signal.integral.Tx = list(...)$signal.integral.Tx,
-      background.integral.Tx = list(...)$background.integral.Tx,
-      sigmab = list(...)$sigmab,
-      sig0 = if(
-        is.null(list(...)$sig0)){
-        formals(calc_OSLLxTxRatio)$sig0
-      }else{
-        list(...)$sig0
-      },
-      background.count.distribution = if(
-        is.null(list(...)$background.count.distribution)){
-        formals(calc_OSLLxTxRatio)$background.count.distribution
-      }else{
-        list(...)$background.count.distribution
-      }
-    )
+    ##calculate Lx/Tx table
+    LxTx_table <- merge_RLum(lapply(1:length(Lx_data), function(x) {
+      calc_OSLLxTxRatio(
+        Lx.data = Lx_data[[x]],
+        Tx.data = Tx_data[[x]],
+        signal.integral = signal.integral,
+        background.integral = background.integral,
+        signal.integral.Tx = list(...)$signal.integral.Tx,
+        background.integral.Tx = list(...)$background.integral.Tx,
+        sigmab = list(...)$sigmab,
+        sig0 = if(
+          is.null(list(...)$sig0)){
+          formals(calc_OSLLxTxRatio)$sig0
+        }else{
+          list(...)$sig0
+        },
+        background.count.distribution = if(
+          is.null(list(...)$background.count.distribution)){
+          formals(calc_OSLLxTxRatio)$background.count.distribution
+        }else{
+          list(...)$background.count.distribution
+        }
+      )
 
-  }))$LxTx.table
+    }))$LxTx.table
 
   }
 
@@ -318,16 +365,24 @@ analyse_FadingMeasurement <- function(
 
   ##sample for monte carlo runs
   MC_matrix_rhop <-  matrix(rnorm(
-                       n = n.MC * nrow(LxTx_table),
-                       mean = LxTx_table[["LxTx_NORM"]],
-                       sd = LxTx_table[["LxTx_NORM.ERROR"]]
-                     ), ncol = n.MC)
+    n = n.MC * nrow(LxTx_table),
+    mean = LxTx_table[["LxTx_NORM"]],
+    sd = LxTx_table[["LxTx_NORM.ERROR"]]
+  ), ncol = n.MC)
 
   ## calculate rho prime for all MC samples
   fit_vector_rhop <- apply(MC_matrix_rhop, MARGIN = 2, FUN = function(x) {
-    coef(stats::nls(x ~ c * exp(-rhop * (log(1.8 * Hs * LxTx_table$TIMESINCEIRR))^3),
-             start=list(c = x[1], rhop = 10^-5.5)))[["rhop"]]
+    tryCatch({
+      coef(minpack.lm::nlsLM(x ~ c * exp(-rhop * (log(1.8 * Hs * LxTx_table$TIMESINCEIRR))^3),
+                             start = list(c = x[1], rhop = 10^-5.5)))[["rhop"]]
+    },
+    error = function(e) {
+      return(NA)
+    })
   })
+
+  ## discard all NA values produced in MC runs
+  fit_vector_rhop <- fit_vector_rhop[!is.na(fit_vector_rhop)]
 
   ## calculate mean and standard deviation of rho prime (in log10 space)
   rhoPrime <- data.frame(
@@ -342,20 +397,20 @@ analyse_FadingMeasurement <- function(
 
   ##for plotting
   fit <-
-     stats::lm(y ~ x,
-               data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                 y = LxTx_table[["LxTx_NORM"]]))
+    stats::lm(y ~ x,
+              data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+                                y = LxTx_table[["LxTx_NORM"]]))
 
 
   fit_power <- stats::lm(y ~ I(x^3) + I(x^2) + I(x) ,
-                  data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                    y = LxTx_table[["LxTx_NORM"]]))
+                         data = data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+                                           y = LxTx_table[["LxTx_NORM"]]))
 
 
   ##for predicting
   fit_predict <-
     stats::lm(y ~ x, data = data.frame(y = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                                x = LxTx_table[["LxTx_NORM"]]))
+                                       x = LxTx_table[["LxTx_NORM"]]))
 
   ##calculate final g_value
   ##the 2nd term corrects for the (potential) offset from one
@@ -381,8 +436,8 @@ analyse_FadingMeasurement <- function(
 
   # Approximation -------------------------------------------------------------------------------
   T_0.5.interpolated <- approx(x = LxTx_table[["LxTx_NORM"]],
-         y = LxTx_table[["TIMESINCEIRR_NORM"]],
-         xout = 0.5)
+                               y = LxTx_table[["TIMESINCEIRR_NORM"]],
+                               xout = 0.5)
 
   T_0.5.predict <- stats::predict.lm(fit_predict,newdata = data.frame(x = 0.5), interval = "predict")
 
@@ -396,7 +451,7 @@ analyse_FadingMeasurement <- function(
 
   # Plotting ------------------------------------------------------------------------------------
   if(plot) {
-    if (!plot.single) {
+    if (!plot.single[1]) {
       par.default <- par()$mfrow
       on.exit(par(mfrow = par.default))
       par(mfrow = c(2, 2))
@@ -431,52 +486,106 @@ analyse_FadingMeasurement <- function(
 
     if (!is.null(object)) {
       if (length(structure) == 2) {
-        plot_RLum(
-          set_RLum(class = "RLum.Analysis", records = object_clean[seq(1, length(object_clean), by = 2)]),
-          combine = TRUE,
-          col = c(col[1:5], rep(
-            rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
-          )),
-          plot.single = TRUE,
-          legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-          legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
-          xlab = plot_settings$xlab,
-          log = plot_settings$log,
-          legend.pos = "outside",
-          main = expression(paste(L[x], " - curves")),
-          mtext = plot_settings$mtext
-        )
 
-        ##add integration limits
-        abline(
-          v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
-          lty = 2,
-          col = "green"
-        )
-        abline(
-          v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
-          lty = 2,
-          col = "red"
-        )
+        if (is(plot.single, "logical") ||
+            (is(plot.single, "numeric") & 1 %in% plot.single)) {
+          plot_RLum(
+            set_RLum(class = "RLum.Analysis", records = object_clean[seq(1, length(object_clean), by = 2)]),
+            combine = TRUE,
+            col = c(col[1:5], rep(
+              rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
+            )),
+            plot.single = TRUE,
+            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
+            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            xlab = plot_settings$xlab,
+            log = plot_settings$log,
+            legend.pos = "outside",
+            main = expression(paste(L[x], " - curves")),
+            mtext = plot_settings$mtext
+          )
+
+          ##add integration limits
+          abline(
+            v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            lty = 2,
+            col = "green"
+          )
+          abline(
+            v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+            lty = 2,
+            col = "red"
+          )
+        }
+
+        if (is(plot.single, "logical") ||
+            (is(plot.single, "numeric") & 2 %in% plot.single)) {
+          plot_RLum(
+            set_RLum(class = "RLum.Analysis", records = object_clean[seq(2, length(object_clean), by = 2)]),
+            combine = TRUE,
+            col = c(col[1:5], rep(
+              rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
+            )),
+            plot.single = TRUE,
+            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
+            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            xlab = plot_settings$xlab,
+            log = plot_settings$log,
+            legend.pos = "outside",
+            main = expression(paste(T[x], " - curves")),
+            mtext = plot_settings$mtext
+          )
+
+          if (is.null(list(...)$signal.integral.Tx)) {
+            ##add integration limits
+            abline(
+              v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              lty = 2,
+              col = "green"
+            )
+            abline(
+              v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              lty = 2,
+              col = "red"
+            )
+
+          } else{
+            ##add integration limits
+            abline(
+              v = range(list(...)$signal.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              lty = 2,
+              col = "green"
+            )
+            abline(
+              v = range(list(...)$background.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
+              lty = 2,
+              col = "red"
+            )
+
+          }
 
 
-        plot_RLum(
-          set_RLum(class = "RLum.Analysis", records = object_clean[seq(2, length(object_clean), by = 2)]),
-          combine = TRUE,
-          col = c(col[1:5], rep(
-            rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
-          )),
-          plot.single = TRUE,
-          legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-          legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
-          xlab = plot_settings$xlab,
-          log = plot_settings$log,
-          legend.pos = "outside",
-          main = expression(paste(T[x], " - curves")),
-          mtext = plot_settings$mtext
-        )
+        }
 
-        if (is.null(list(...)$signal.integral.Tx)) {
+      } else{
+        if (is(plot.single, "logical") ||
+            (is(plot.single, "numeric") & 1 %in% plot.single)) {
+          plot_RLum(
+            set_RLum(class = "RLum.Analysis", records = object_clean),
+            combine = TRUE,
+            col = c(col[1:5], rep(
+              rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
+            )),
+            plot.single = TRUE,
+            legend.text = c(paste(irradiation_times.unique, "s"), "others"),
+            legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
+            legend.pos = "outside",
+            xlab = plot_settings$xlab,
+            log = plot_settings$log,
+            main = expression(paste(L[x], " - curves")),
+            mtext = plot_settings$mtext
+          )
+
           ##add integration limits
           abline(
             v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
@@ -489,53 +598,49 @@ analyse_FadingMeasurement <- function(
             col = "red"
           )
 
-        } else{
-          ##add integration limits
-          abline(
-            v = range(list(...)$signal.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
-            lty = 2,
-            col = "green"
+        }
+
+        ##empty Tx plot
+        if (is(plot.single, "logical") ||
+            (is(plot.single, "numeric") & 2 %in% plot.single)) {
+          plot(
+            NA,
+            NA,
+            xlim = c(0, 1),
+            ylim = c(0, 1),
+            xlab = "",
+            ylab = "",
+            axes = FALSE
           )
-          abline(
-            v = range(list(...)$background.integral.Tx) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
-            lty = 2,
-            col = "red"
-          )
+          text(x = 0.5,
+               y = 0.5,
+               labels = expression(paste("No ", T[x], " curves detected")))
 
         }
 
+      }
 
-
-
-      } else{
-        plot_RLum(
-          set_RLum(class = "RLum.Analysis", records = object_clean),
-          combine = TRUE,
-          col = c(col[1:5], rep(
-            rgb(0, 0, 0, 0.3), length(TIMESINCEIRR) - 5
-          )),
-          plot.single = TRUE,
-          legend.text = c(paste(irradiation_times.unique, "s"), "others"),
-          legend.col = c(col[1:length(irradiation_times.unique)], rgb(0, 0, 0, 0.3)),
-          legend.pos = "outside",
-          xlab = plot_settings$xlab,
-          log = plot_settings$log,
-          main = expression(paste(L[x], " - curves")),
-          mtext = plot_settings$mtext
+    }else{
+      if (is(plot.single, "logical") ||
+          (is(plot.single, "numeric") & 1 %in% plot.single)) {
+        ##empty Lx plot
+        plot(
+          NA,
+          NA,
+          xlim = c(0, 1),
+          ylim = c(0, 1),
+          xlab = "",
+          ylab = "",
+          axes = FALSE
         )
+        text(x = 0.5,
+             y = 0.5,
+             labels = expression(paste("No ", L[x], " curves detected")))
 
-        ##add integration limits
-        abline(
-          v = range(signal.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
-          lty = 2,
-          col = "green"
-        )
-        abline(
-          v = range(background.integral) * max(as.matrix(object_clean[[1]][, 1])) / nrow(as.matrix(object_clean[[1]])),
-          lty = 2,
-          col = "red"
-        )
+      }
 
+      if (is(plot.single, "logical") ||
+          (is(plot.single, "numeric") & 2 %in% plot.single)) {
         ##empty Tx plot
         plot(
           NA,
@@ -551,133 +656,123 @@ analyse_FadingMeasurement <- function(
              labels = expression(paste("No ", T[x], " curves detected")))
 
 
-
       }
-
-    }else{
-      ##empty Lx plot
-      plot(
-        NA,
-        NA,
-        xlim = c(0, 1),
-        ylim = c(0, 1),
-        xlab = "",
-        ylab = "",
-        axes = FALSE
-      )
-      text(x = 0.5,
-           y = 0.5,
-           labels = expression(paste("No ", L[x], " curves detected")))
-
-      ##empty Tx plot
-      plot(
-        NA,
-        NA,
-        xlim = c(0, 1),
-        ylim = c(0, 1),
-        xlab = "",
-        ylab = "",
-        axes = FALSE
-      )
-      text(x = 0.5,
-           y = 0.5,
-           labels = expression(paste("No ", T[x], " curves detected")))
-
-
     }
 
     ##(2) Fading plot
-    plot(
-      NA,
-      NA,
-      ylab = "Normalised intensity [a.u.]",
-      xaxt = "n",
-      xlab = "Time since irradition [s]",
-      sub = expression(paste("[", log[10](t / t[c]), "]")),
-      ylim = if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
-        c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
-      } else{
-        c(0.1, 1.1)
-      },
-      xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]]),
-      main = "Signal Fading"
-    )
+    if (is(plot.single, "logical") ||
+        (is(plot.single, "numeric") & 3 %in% plot.single)) {
+      plot(
+        NA,
+        NA,
+        ylab = "Normalised intensity [a.u.]",
+        xaxt = "n",
+        xlab = "Time since irradition [s]",
+        sub = expression(paste("[", log[10](t / t[c]), "]")),
+        ylim = if (max(LxTx_table[["LxTx_NORM"]]) > 1.1) {
+          c(0.1, max(LxTx_table[["LxTx_NORM"]]) + max(LxTx_table[["LxTx_NORM.ERROR"]]))
+        } else{
+          c(0.1, 1.1)
+        },
+        xlim = range(LxTx_table[["TIMESINCEIRR_NORM.LOG"]]),
+        main = "Signal Fading"
+      )
 
-    ##add axis
-    axis(
-      side = 1,
-      at = axTicks(side = 1),
-      labels = suppressWarnings(format((10 ^ (axTicks(
-        side = 1
-      )) * tc), digits = 0, decimal.mark = "",  scientific = TRUE))
-    )
+      ##add axis
+      axis(side = 1,
+           at = axTicks(side = 1),
+           labels = suppressWarnings(format((10 ^ (axTicks(side = 1)) * tc),
+                                            digits = 0,
+                                            decimal.mark = "",
+                                            scientific = TRUE
+           )))
 
-    mtext(side = 3, paste0(
-      "g-value: ",
-      round(g_value$FIT, digits = 2),
-      " \u00b1 ",
-      round(g_value$SD, digits = 2),
-      " (%/decade) | tc = ", format(tc, digits = 4, scientific = TRUE)
-    ), cex = par()$cex * 0.9)
+      mtext(
+        side = 3,
+        paste0(
+          "g-value: ",
+          round(g_value$FIT, digits = 2),
+          " \u00b1 ",
+          round(g_value$SD, digits = 2),
+          " (%/decade) | tc = ",
+          format(tc, digits = 4, scientific = TRUE)
+        ),
+        cex = par()$cex * 0.9
+      )
 
-    ##add curves
-    x <- NA
-    for (i in 1:n.MC) {
-      curve(fit_matrix[2,i] * x + fit_matrix[1,i], col = rgb(0,0.2,0.4,0.2), add = TRUE)
+      ##add curves
+      x <- NA
+      for (i in 1:n.MC) {
+        curve(fit_matrix[2, i] * x + fit_matrix[1, i],
+              col = rgb(0, 0.2, 0.4, 0.2),
+              add = TRUE)
 
+      }
+
+      ##add master curve in red
+      curve(
+        fit$coefficient[2] * x + fit$coefficient[1],
+        col = "red",
+        add = TRUE,
+        lwd = 1.5
+      )
+
+      ##add power law curve
+      curve(
+        x ^ 3 * fit_power$coefficient[2] + x ^ 2 * fit_power$coefficient[3] + x * fit_power$coefficient[4] + fit_power$coefficient[1],
+        add = TRUE,
+        col = "blue",
+        lty = 2
+      )
+
+      ##addpoints
+      points(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+             y = LxTx_table[["LxTx_NORM"]],
+             pch = 21,
+             bg = "grey")
+
+      ##error bars
+      segments(
+        x0 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+        x1 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+        y0 = LxTx_table[["LxTx_NORM"]] + LxTx_table[["LxTx_NORM.ERROR"]],
+        y1 = LxTx_table[["LxTx_NORM"]] - LxTx_table[["LxTx_NORM.ERROR"]],
+        col = "grey"
+
+      )
+
+      ##add legend
+      legend(
+        "bottom",
+        legend = c("fit", "fit MC", "trend"),
+        col = c("red", "grey", "blue"),
+        lty = c(1, 1, 2),
+        bty = "n",
+        horiz = TRUE
+      )
     }
 
-    ##add master curve in red
-    curve(fit$coefficient[2] * x + fit$coefficient[1], col = "red", add = TRUE, lwd = 1.5)
-
-    ##add power law curve
-    curve(
-      x ^ 3 * fit_power$coefficient[2] + x ^ 2 * fit_power$coefficient[3] + x * fit_power$coefficient[4] + fit_power$coefficient[1],
-      add = TRUE,
-      col = "blue",
-      lty = 2
-    )
-
-    ##addpoints
-    points(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-           y = LxTx_table[["LxTx_NORM"]],
-           pch = 21,
-           bg = "grey")
-
-    ##error bars
-    segments(
-      x0 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-      x1 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-      y0 = LxTx_table[["LxTx_NORM"]] + LxTx_table[["LxTx_NORM.ERROR"]],
-      y1 = LxTx_table[["LxTx_NORM"]] - LxTx_table[["LxTx_NORM.ERROR"]],
-      col = "grey"
-
-    )
-
-    ##add legend
-    legend(
-      "bottom",
-      legend = c("fit", "fit MC", "trend"),
-      col = c("red", "grey", "blue"),
-      lty = c(1, 1, 2),
-      bty = "n",
-      horiz = TRUE
-    )
-
-    plot(density(g_value.MC),
-         main = "Density: g-values (%/decade)")
-    rug(x = g_value.MC)
-    abline(v = c(g_value[["Q_0.16"]],g_value[["Q_0.84"]]),  lty = 2, col = "darkgreen")
-    abline(v = c(g_value[["Q_0.025"]],g_value[["Q_0.975"]]),  lty = 2, col = "red")
-    legend(
-      "topleft",
-      legend = c("HPD - 68 %", "HPD - 95 %"),
-      lty = 2,
-      col = c("darkgreen", "red"),
-      bty = "n"
-    )
+    if (is(plot.single, "logical") ||
+        (is(plot.single, "numeric") & 4 %in% plot.single)) {
+      plot(density(g_value.MC),
+           main = "Density: g-values (%/decade)")
+      rug(x = g_value.MC)
+      abline(v = c(g_value[["Q_0.16"]], g_value[["Q_0.84"]]),
+             lty = 2,
+             col = "darkgreen")
+      abline(v = c(g_value[["Q_0.025"]], g_value[["Q_0.975"]]),
+             lty = 2,
+             col = "red")
+      legend(
+        "topleft",
+        legend = c("HPD - 68 %", "HPD - 95 %"),
+        lty = 2,
+        col = c("darkgreen", "red"),
+        bty = "n"
+      )
 
 
+    }
 
   }
 
@@ -691,12 +786,12 @@ analyse_FadingMeasurement <- function(
     cat(paste0("\nT_0.5 interpolated:\t",T_0.5$T_0.5_INTERPOLATED))
     cat(paste0("\nT_0.5 predicted:\t",format(T_0.5$T_0.5_PREDICTED, digits = 2, scientific = TRUE)))
     cat(paste0("\ng-value:\t\t", round(g_value$FIT, digits = 2), " \u00b1 ", round(g_value$SD, digits = 2),
-      " (%/decade)"))
+               " (%/decade)"))
     cat(paste0("\ng-value (norm. 2 days):\t", round(g_value_2days[1], digits = 2), " \u00b1 ", round(g_value_2days[2], digits = 2),
                " (%/decade)"))
     cat("\n---------------------------------------------------")
     cat(paste0("\nrho':\t\t\t", format(rhoPrime$MEAN, digits = 3), " \u00b1 ", format(rhoPrime$SD, digits = 3)))
-    cat(paste0("\nlog10(rho'):\t\t", round(log10(rhoPrime$MEAN), 2), " \u00b1 ", round(sd(log10(fit_vector_rhop)), 2)))
+    cat(paste0("\nlog10(rho'):\t\t", round(log10(rhoPrime$MEAN), 2), " \u00b1 ", round(rhoPrime$SD /  (rhoPrime$MEAN * log(10, base = exp(1))), 2)))
     cat("\n---------------------------------------------------")
 
   }

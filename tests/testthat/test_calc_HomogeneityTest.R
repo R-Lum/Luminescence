@@ -6,20 +6,20 @@ temp <- calc_HomogeneityTest(ExampleData.DeValues$BT998,
 
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 4)
-  
+
 })
 
 test_that("check values from output example", {
-  
-  
+  testthat::skip_on_cran()
+
   results <- get_RLum(temp)
-  
+
   expect_equal(results$n, 25)
   expect_equal(results$g.value, 0.008687915)
   expect_equal(results$df, 24)
   expect_equal(results$P.value, 1)
-  
+
 })

@@ -481,6 +481,7 @@ read_BIN2R <- function(
   ##initialise data.frame
   results.METADATA <- data.table::data.table(
 
+    ##1 to 7
     ID = integer(length = n.length),
     SEL = logical(length = n.length),
     VERSION = numeric(length = n.length),
@@ -489,6 +490,7 @@ read_BIN2R <- function(
     NPOINTS = integer(length = n.length),
     RECTYPE = integer(length = n.length),
 
+    #8 to 17
     RUN = integer(length = n.length),
     SET = integer(length = n.length),
     POSITION = integer(length = n.length),
@@ -500,12 +502,14 @@ read_BIN2R <- function(
     SAMPLE = character(length = n.length),
     COMMENT = character(length = n.length),
 
+    #18 to 22
     SYSTEMID = integer(length = n.length),
     FNAME = character(length = n.length),
     USER = character(length = n.length),
     TIME = character(length = n.length),
     DATE = character(length = n.length),
 
+    ##23 to 31
     DTYPE = character(length = n.length),
     BL_TIME = numeric(length = n.length),
     BL_UNIT = integer(length = n.length),
@@ -516,6 +520,7 @@ read_BIN2R <- function(
     SHIFT = integer(length = n.length),
     TAG = integer(length = n.length),
 
+    ##32 to 67
     LTYPE = character(length = n.length),
     LIGHTSOURCE = character(length = n.length),
     LPOWER = numeric(length = n.length),
@@ -553,6 +558,7 @@ read_BIN2R <- function(
     XRF_CURR = numeric(length = n.length),
     XRF_DEADTIMEF = numeric(length = n.length),
 
+    #68 to 79
     DETECTOR_ID = integer(length = n.length),
     LOWERFILTER_ID = integer(length = n.length),
     UPPERFILTER_ID = integer(length = n.length),
@@ -566,6 +572,7 @@ read_BIN2R <- function(
     EXTR_START = numeric(length = n.length),
     EXTR_END = numeric(length = n.length),
 
+    ##80
     SEQUENCE = character(length = n.length)
 
   ) #end set data table

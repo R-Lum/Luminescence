@@ -10,7 +10,7 @@
 
 require(miniCRAN)
 
-Rversion <- "3.3.0"
+Rversion <- "3.3.2"
 
 graph <- miniCRAN::makeDepGraph(
   pkg = "Luminescence",
@@ -24,7 +24,7 @@ graph <- miniCRAN::makeDepGraph(
   includeBasePkgs = FALSE
 )
 
-png(filename = "Package_DependencyGraph.png", width = 1200, height = 1000, res = 150)
+png(filename = "RLum.Images/Package_DependencyGraph.png", width = 1200, height = 1000, res = 150)
 plot(graph, legendPosition = c(-1, 1), cex = 0.7,  vertex.size=10)
 dev.off()
 

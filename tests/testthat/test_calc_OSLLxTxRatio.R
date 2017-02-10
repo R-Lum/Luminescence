@@ -3,23 +3,23 @@ context("calc_OSLLxTxRatio")
 data(ExampleData.LxTxOSLData, envir = environment())
 
 temp <- calc_OSLLxTxRatio(
-  Lx.data = Lx.data, 
-  Tx.data = Tx.data, 
+  Lx.data = Lx.data,
+  Tx.data = Tx.data,
   signal.integral = c(1:2),
   background.integral = c(85:100))
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
-  
+
 })
 
 test_that("check values from output example", {
-  
-  
+  testthat::skip_on_cran()
+
   results <- get_RLum(temp)
-  
+
   expect_equal(results$LnLx, 81709)
   expect_equal(results$LnLx.BG, 530)
   expect_equal(results$TnTx, 7403)

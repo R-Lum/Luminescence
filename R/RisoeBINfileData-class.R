@@ -21,6 +21,10 @@ NULL
 #'
 #' \bold{Internal METADATA - object structure}
 #'
+#' This structure is compatible with BIN-files version 03-08, however, it does not follow (in its
+#' sequential arrangment) the manual provided by the manufacturer,
+#' but an own structure accounting for the different versions.
+#'
 #' \tabular{rllll}{
 #' \bold{#} \tab \bold{Name} \tab \bold{Data Type} \tab \bold{V} \tab \bold{Description} \cr
 #' [,1]  \tab ID  \tab \code{numeric} \tab RLum \tab Unique record ID (same ID as in slot \code{DATA})\cr
@@ -76,20 +80,20 @@ NULL
 #' [,51] \tab TIMESINCEIRR \tab \code{integer} \tab 06-08 \tab Time since irradiation (s)\cr
 #' [,52] \tab TIMETICK \tab \code{numeric} \tab 06-08 \tab Time tick for pulsing (s)\cr
 #' [,53] \tab ONTIME \tab \code{integer} \tab 06-08 \tab On-time for pulsing (in time ticks)\cr
-#' [,54] \tab STIMPERIOD \tab \code{integer} \tab 06-08 \tab Stimulation period (on+off in time ticks)\cr
-#' [,55] \tab GATE_ENABLED \tab \code{raw} \tab 06-08 \tab PMT signal gating enabled\cr
-#' [,56] \tab ENABLE_FLAGS \tab \code{raw} \tab 06-08 \tab PMT signal gating  enabled\cr
-#' [,57] \tab GATE_START \tab \code{integer} \tab 06-08 \tab Start gating (in time ticks)\cr
-#' [,58] \tab GATE_STOP \tab \code{ingeter} \tab 06-08 \tab Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used\cr
-#' [,59] \tab PTENABLED \tab \code{raw} \tab 06-08 \tab Photon time enabled\cr
-#' [,60] \tab DTENABLED \tab \code{raw} \tab 06-08 \tab PMT dead time correction enabled\cr
-#' [,61] \tab DEADTIME \tab \code{numeric} \tab 06-08 \tab PMT dead time (s)\cr
-#' [,62] \tab MAXLPOWER \tab \code{numeric} \tab 06-08 \tab Stimulation power to 100 percent (mW/cm^2)\cr
-#' [,63] \tab XRF_ACQTIME \tab \code{numeric} \tab 06-08 \tab XRF acquisition time (s)\cr
-#' [,64] \tab XRF_HV \tab \code{numeric} \tab 06-08 \tab XRF X-ray high voltage (V)\cr
-#' [,65] \tab XRF_CURR \tab \code{integer} \tab 06-08 \tab XRF X-ray current (uA)\cr
-#' [,66] \tab XRF_DEADTIMEF \tab \code{numeric} \tab 06-08 \tab XRF dead time fraction\cr
-#' [,67] \tab SEQUENCE \tab \code{character} \tab 03-04 \tab Sequence name\cr
+#' [,54] \tab OFFTIME \tab \code{integer} \tab 03 \tab Off-time for pulsed stimulation (in s) \cr
+#' [,55] \tab STIMPERIOD \tab \code{integer} \tab 06-08 \tab Stimulation period (on+off in time ticks)\cr
+#' [,56] \tab GATE_ENABLED \tab \code{raw} \tab 06-08 \tab PMT signal gating enabled\cr
+#' [,57] \tab ENABLE_FLAGS \tab \code{raw} \tab 06-08 \tab PMT signal gating  enabled\cr
+#' [,58] \tab GATE_START \tab \code{integer} \tab 06-08 \tab Start gating (in time ticks)\cr
+#' [,59] \tab GATE_STOP \tab \code{ingeter} \tab 06-08 \tab Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used\cr
+#' [,60] \tab PTENABLED \tab \code{raw} \tab 06-08 \tab Photon time enabled\cr
+#' [,61] \tab DTENABLED \tab \code{raw} \tab 06-08 \tab PMT dead time correction enabled\cr
+#' [,62] \tab DEADTIME \tab \code{numeric} \tab 06-08 \tab PMT dead time (s)\cr
+#' [,63] \tab MAXLPOWER \tab \code{numeric} \tab 06-08 \tab Stimulation power to 100 percent (mW/cm^2)\cr
+#' [,64] \tab XRF_ACQTIME \tab \code{numeric} \tab 06-08 \tab XRF acquisition time (s)\cr
+#' [,65] \tab XRF_HV \tab \code{numeric} \tab 06-08 \tab XRF X-ray high voltage (V)\cr
+#' [,66] \tab XRF_CURR \tab \code{integer} \tab 06-08 \tab XRF X-ray current (uA)\cr
+#' [,67] \tab XRF_DEADTIMEF \tab \code{numeric} \tab 06-08 \tab XRF dead time fraction\cr
 #' [,68] \tab DETECTOR_ID \tab \code{raw} \tab 07-08 \tab Detector ID\cr
 #' [,69] \tab LOWERFILTER_ID \tab \code{integer} \tab 07-08 \tab Lower filter ID in reader\cr
 #' [,70] \tab UPPERFILTER_ID \tab \code{integer} \tab 07-08 \tab Uper filter ID in reader\cr
@@ -100,10 +104,9 @@ NULL
 #' [,75] \tab MARKPOS_Y2 \tab \code{numeric} \tab 08 \tab Coordinates marker position 2 \cr
 #' [,76] \tab MARKPOS_X3 \tab \code{numeric} \tab 08 \tab Coordinates marker position 3 \cr
 #' [,77] \tab MARKPOS_Y3 \tab \code{numeric} \tab 08 \tab Coordinates marker position 3 \cr
-#' [,78] \tab MARKPOS_X4 \tab \code{numeric} \tab 08 \tab Coordinates marker position 4 \cr
-#' [,79] \tab MARKPOS_Y4 \tab \code{numeric} \tab 08 \tab Coordinates marker position 4 \cr
-#' [,80] \tab EXTR_START \tab \code{numeric} \tab 08 \tab usage unknown \cr
-#' [,81] \tab EXTR_END \tab \code{numeric} \tab 08 \tab usage unknown
+#' [,78] \tab EXTR_START \tab \code{numeric} \tab 08 \tab usage unknown \cr
+#' [,79] \tab EXTR_END \tab \code{numeric} \tab 08 \tab usage unknown\cr
+#' [,80] \tab SEQUENCE \tab \code{character} \tab 03-04 \tab Sequence name
 #' } V = BIN-file version (RLum means that it does not depend on a specific BIN
 #' version)\cr
 #'
@@ -143,7 +146,7 @@ NULL
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("Risoe.BINfileData", ...)}.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -170,51 +173,147 @@ setClass("Risoe.BINfileData",
            METADATA = "data.frame",
            DATA = "list",
            .RESERVED = "list"
-           )
+           ),
+         prototype = prototype(
+           METADATA = data.frame(
+             ID = numeric(),
+             SEL = logical(),
+             VERSION = numeric(),
+             LENGTH = numeric(),
+             PREVIOUS = numeric(),
+             NPOINTS = numeric(),
+             RECTYPE = numeric(),
+             RUN = numeric(),
+             SET = numeric(),
+             POSITION = numeric(),
+             GRAIN = numeric(),
+             GRAINNUMBER = numeric(),
+             CURVENO = numeric(),
+             XCOORD = numeric(),
+             YCOORD = numeric(),
+             SAMPLE = character(),
+             COMMENT = character(),
+             SYSTEMID = numeric(),
+             FNAME = character(),
+             USER = character(),
+             TIME = character(),
+             DATE = character(),
+             DTYPE = character(),
+             BL_TIME = numeric(),
+             BL_UNIT = character(),
+             NORM1 = numeric(),
+             NORM2 = numeric(),
+             NORM3 = numeric(),
+             BG = numeric(),
+             SHIFT = numeric(),
+             TAG = numeric(),
+             LTYPE = character(),
+             LIGHTSOURCE = character(),
+             LPOWER = numeric(),
+             LIGHTPOWER = numeric(),
+             LOW = numeric(),
+             HIGH = numeric(),
+             RATE = numeric(),
+             TEMPERATURE = numeric(),
+             MEASTEMP = numeric(),
+             AN_TEMP = numeric(),
+             AN_TIME = numeric(),
+             TOLDELAY = numeric(),
+             TOLON = numeric(),
+             TOLOFF = numeric(),
+             IRR_TIME = numeric(),
+             IRR_TYPE = character(),
+             IRR_UNIT = character(),
+             IRR_DOSERATE = numeric(),
+             IRR_DOSERATEERR = numeric(),
+             TIMESINCEIRR = numeric(),
+             TIMETICK = numeric(),
+             ONTIME = numeric(),
+             OFFTIME = numeric(),
+             STIMPERIOD = numeric(),
+             GATE_ENABLED = numeric(),
+             ENABLE_FLAGS = numeric(),
+             GATE_START = numeric(),
+             GATE_STOP = numeric(),
+             PTENABLED = numeric(),
+             DTENABLED = numeric(),
+             DEADTIME = numeric(),
+             MAXLPOWER = numeric(),
+             XRF_ACQTIME = numeric(),
+             XRF_HV = numeric(),
+             XRF_CURR = numeric(),
+             XRF_DEADTIMEF = numeric(),
+             DETECTOR_ID = numeric(),
+             LOWERFILTER_ID = numeric(),
+             UPPERFILTER_ID = numeric(),
+             ENOISEFACTOR = numeric(),
+             MARKPOS_X1 = numeric(),
+             MARKPOS_Y1 = numeric(),
+             MARKPOS_X2 = numeric(),
+             MARKPOS_Y2 = numeric(),
+             MARKPOS_X3 = numeric(),
+             MARKPOS_Y3 = numeric(),
+             EXTR_START = numeric(),
+             EXTR_END = numeric(),
+             SEQUENCE = character(),
+             stringsAsFactors=FALSE
+           ),
+           DATA = list(),
+           .RESERVED = list()
+          )
          )
+
 
 ##set generic S4 function for object
 #' @describeIn Risoe.BINfileData
 #' Show structure of RLum and Risoe.BINfile class objects
 #' @export
-setMethod("show", signature(object = "Risoe.BINfileData"),
-          function(object){
+setMethod(f = "show",
+          signature = signature(object = "Risoe.BINfileData"),
+          definition = function(object){
 
-            version<-paste(unique(object@METADATA[,"VERSION"]), collapse = ", ")
-            systemID<-paste(unique(object@METADATA[,"SYSTEMID"]), collapse = ", ")
-            filename <- as.character(object@METADATA[1,"FNAME"])
-            records.overall<-length(object@DATA)
-            records.type<-table(object@METADATA[,"LTYPE"])
-            user<-paste(unique(as.character(object@METADATA[,"USER"])), collapse = ", ")
-            date<-paste(unique(as.character(object@METADATA[,"DATE"])), collapse = ", ")
-            run.range<-range(object@METADATA[,"RUN"])
-            set.range<-range(object@METADATA[,"SET"])
-            grain.range <- range(object@METADATA[,"GRAIN"])
-            pos.range<-range(object@METADATA[,"POSITION"])
+            if(nrow(object@METADATA) != 0){
+              version<-paste(unique(object@METADATA[,"VERSION"]), collapse = ", ")
+              systemID<-paste(unique(object@METADATA[,"SYSTEMID"]), collapse = ", ")
+              filename <- as.character(object@METADATA[1,"FNAME"])
+              records.overall<-length(object@DATA)
+              records.type<-table(object@METADATA[,"LTYPE"])
+              user<-paste(unique(as.character(object@METADATA[,"USER"])), collapse = ", ")
+              date<-paste(unique(as.character(object@METADATA[,"DATE"])), collapse = ", ")
+              run.range<-range(object@METADATA[,"RUN"])
+              set.range<-range(object@METADATA[,"SET"])
+              grain.range <- range(object@METADATA[,"GRAIN"])
+              pos.range<-range(object@METADATA[,"POSITION"])
 
-            records.type.count <- sapply(1:length(records.type),
-              function(x){paste(
-              names(records.type)[x],"\t(n = ",records.type[x],")",sep="")
-              })
+              records.type.count <- sapply(1:length(records.type),
+                function(x){paste(
+                names(records.type)[x],"\t(n = ",records.type[x],")",sep="")
+                })
 
-            records.type.count <- paste(records.type.count,
-                                        collapse="\n\t                      ")
+              records.type.count <- paste(records.type.count,
+                                          collapse="\n\t                      ")
 
-            ##print
-            cat("\n[Risoe.BINfileData object]")
-            cat("\n\n\tBIN/BINX version     ", version)
-            if(version>=6){
-              cat("\n\tFile name:           ", filename)
-            }
-            cat("\n\tObject date:         ", date)
-            cat("\n\tUser:                ", user)
-            cat("\n\tSystem ID:           ", ifelse(systemID == 0,"0 (unknown)", systemID))
-            cat("\n\tOverall records:     ", records.overall)
-            cat("\n\tRecords type:        ", records.type.count)
-            cat("\n\tPosition range:      ",pos.range[1],":",pos.range[2])
-            cat("\n\tGrain range:         ",grain.range[1],":",grain.range[2])
-            cat("\n\tRun range:           ",run.range[1],":",run.range[2])
-            cat("\n\tSet range:           ",set.range[1],":",set.range[2])
+              ##print
+              cat("\n[Risoe.BINfileData object]")
+              cat("\n\n\tBIN/BINX version     ", version)
+              if(version>=6){
+                cat("\n\tFile name:           ", filename)
+              }
+              cat("\n\tObject date:         ", date)
+              cat("\n\tUser:                ", user)
+              cat("\n\tSystem ID:           ", ifelse(systemID == 0,"0 (unknown)", systemID))
+              cat("\n\tOverall records:     ", records.overall)
+              cat("\n\tRecords type:        ", records.type.count)
+              cat("\n\tPosition range:      ",pos.range[1],":",pos.range[2])
+              cat("\n\tGrain range:         ",grain.range[1],":",grain.range[2])
+              cat("\n\tRun range:           ",run.range[1],":",run.range[2])
+              cat("\n\tSet range:           ",set.range[1],":",set.range[2])
+
+            }else{
+              cat("\n[Risoe.BINfileData object]")
+              cat("\n\n >> This object is empty!<<")
+
+             }
           }#end function
           )#end setMethod
 
@@ -233,22 +332,22 @@ setMethod("show", signature(object = "Risoe.BINfileData"),
 #' @param .RESERVED Object of class "list" containing list of undocumented raw
 #' values for internal use only.
 #' @export
-setMethod("set_Risoe.BINfileData",
-          signature = c(
-            METADATA = "data.frame", DATA = "list", .RESERVED = "ANY"
-          ),
+setMethod(f = "set_Risoe.BINfileData",
+          signature = signature("ANY"),
+          definition = function(METADATA, DATA, .RESERVED) {
 
-          function(METADATA, DATA, .RESERVED) {
-            if (missing(.RESERVED)) {
-              .RESERVED <- list()
+            if(length(METADATA) == 0){
+              new("Risoe.BINfileData")
+
+            }else{
+              new(
+                "Risoe.BINfileData",
+                METADATA = METADATA,
+                DATA = DATA,
+                .RESERVED = .RESERVED
+              )
+
             }
-
-            new(
-              "Risoe.BINfileData",
-              METADATA = METADATA,
-              DATA = DATA,
-              .RESERVED = .RESERVED
-            )
 
           })
 

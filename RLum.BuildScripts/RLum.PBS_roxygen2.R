@@ -9,5 +9,4 @@ if(!require("devtools"))
   install.packages("devtools")
 
 library(devtools)
-
 document(pkg = ".", roclets = NULL)

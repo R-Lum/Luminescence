@@ -1,24 +1,24 @@
 context("calc_MaxDose")
 
 data(ExampleData.DeValues, envir = environment())
-temp <- calc_MaxDose(ExampleData.DeValues$CA1, 
-                     sigmab = 0.2, 
-                     par = 3, 
-                     plot = FALSE, 
+temp <- calc_MaxDose(ExampleData.DeValues$CA1,
+                     sigmab = 0.2,
+                     par = 3,
+                     plot = FALSE,
                      verbose = FALSE)
 
 test_that("check class and length of output", {
-  
+  testthat::skip_on_cran()
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 9)
-  
+
 })
 
 test_that("check values from output example", {
-  
-  
+  testthat::skip_on_cran()
+
   results <- get_RLum(temp)
-  
+
   expect_equal(round(results$de, digits = 5), 76.57571)
   expect_equal(round(results$de_err, digits = 6), 7.569908)
   expect_equal(results$ci_level, 0.95)
@@ -30,5 +30,5 @@ test_that("check values from output example", {
   expect_equal(results$mu, NA)
   expect_equal(round(results$Lmax, digits = 5), -19.79245)
   expect_equal(round(results$BIC, digits = 5), 58.86603)
-  
+
 })

@@ -1,9 +1,9 @@
 #' Function to calculate statistic measures
 #'
-#' This function calculates a number of descriptive statistics for De-data,
-#' most fundamentally using error-weighted approaches.
+#' This function calculates a number of descriptive statistics for estimates
+#' with a given standard error (SE), most fundamentally using error-weighted approaches.
 #'
-#' The option to use Monte Carlo Methods (\code{n.MCM > 0}) allows calculating
+#' The option to use Monte Carlo Methods (\code{n.MCM}) allows calculating
 #' all descriptive statistics based on random values. The distribution of these
 #' random values is based on the Normal distribution with \code{De} values as
 #' means and \code{De_error} values as one standard deviation. Increasing the
@@ -26,14 +26,14 @@
 #' specified digits. If digits is set to \code{NULL} nothing is rounded.
 #'
 #' @param n.MCM \code{\link{numeric}} (with default): number of samples drawn
-#' for Monte Carlo-based statistics. Set to zero to disable this option.
+#' for Monte Carlo-based statistics. \code{NULL} (the default) disables MC runs.
 #'
 #' @param na.rm \code{\link{logical}} (with default): indicating whether NA
 #' values should be stripped before the computation proceeds.
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @keywords datagen
 #'
@@ -64,17 +64,17 @@ calc_Statistics <- function(
   data,
   weight.calc = "square",
   digits = NULL,
-  n.MCM = 1000,
+  n.MCM = NULL,
   na.rm = TRUE
 ) {
 
   ## Check input data
   if(is(data, "RLum.Results") == FALSE &
        is(data, "data.frame") == FALSE) {
-    stop(paste("[calc_Statistics()] Input data format is neither",
-               "'data.frame' nor 'RLum.Results'"))
+    stop("[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'", call. = FALSE)
+
   } else {
-    if(is(data, "RLum.Results") == TRUE) {
+    if(is(data, "RLum.Results")) {
       data <- get_RLum(data, "data")[,1:2]
     }
   }
@@ -93,7 +93,7 @@ calc_Statistics <- function(
   data[is.na(data[,2]),2] <- 0
 
   if(sum(data[,2]) == 0) {
-    warning("All errors are NA or zero! Automatically set to 10^-9!")
+    warning("[calc_Statistics()] All errors are NA or zero! Automatically set to 10^-9!", call. = FALSE)
     data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
 
@@ -102,13 +102,13 @@ calc_Statistics <- function(
   } else if(weight.calc == "square") {
     S.weights <- 1 / data[,2]^2
   } else {
-    stop ("[calc_Statistics()] Weight calculation type not supported!")
+    stop ("[calc_Statistics()] Weight calculation type not supported!", call. = FALSE)
   }
 
   S.weights <- S.weights / sum(S.weights)
 
   ## create MCM data
-  if (n.MCM == 0) {
+  if (is.null(n.MCM)) {
     data.MCM <- cbind(data[, 1])
   } else {
     data.MCM <-
@@ -220,13 +220,13 @@ calc_Statistics <- function(
                        kurtosis = S.kurtosis)
 
   if(!is.null(digits)){
-
     S.unweighted  <- sapply(names(S.unweighted),
                             simplify = FALSE,
                             USE.NAMES = TRUE,
                             function(x) {
                               round(S.unweighted [[x]],
                                     digits = digits)})
+
   }
 
   S.MCM <- list(n = S.n,

@@ -29,7 +29,7 @@
 #' Function used for the fitting (according to Erfurt et al. (2003)): \cr
 #'
 #' \deqn{\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta}
-#' with \eqn{\phi(D)} the dose dependent IR-RF flux, \eqn{\phi_{0}} the inital
+#' with \eqn{\phi(D)} the dose dependent IR-RF flux, \eqn{\phi_{0}} the initial
 #' IR-RF flux, \eqn{\Delta\phi} the dose dependent change of the IR-RF flux,
 #' \eqn{\lambda} the exponential parameter, \eqn{D} the dose and \eqn{\beta}
 #' the dispersive factor.\cr\cr To obtain the palaeodose \eqn{D_{e}} the
@@ -68,17 +68,20 @@
 #' \code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
 #' enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
 #' \code{show_fit} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
-#' enables or disables the plot of the fitted curve rountinly obtained during the evaluation.\cr
-#'\code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (wiht default):
-#' This controls the number of MC runs within the sliding (assesing the possible minimum values).
+#' enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
+#'\code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (with default):
+#' This controls the number of MC runs within the sliding (assessing the possible minimum values).
 #' The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
 #' function argument \code{n.MC}. \cr
 #' \code{vslide_range} \tab \code{SLDE} \tab \code{\link{logical}} or \code{\link{numeric}} or \code{\link{character}} (with default):
 #' This argument sets the boundaries for a vertical curve
-#' sliding. The argument expects a vector with an absolute minium and a maximum (e.g., \code{c(-1000,1000)}).
+#' sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
 #' Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
 #' reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies no vertical sliding.
 #' The default is \code{NULL}.\cr
+#' \code{cores} \tab \code{SLIDE} \tab \code{number} or \code{character} (with default): set number of cores to be allocated
+#' for a parallel processing of the Monte-Carlo runs. The default value is \code{NULL} (single thread),
+#' the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} = 8) assigns a value manually.
 #' }
 #'
 #'
@@ -170,7 +173,7 @@
 #' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
 #'
 #' @param method.control \code{\link{list}} (optional): parameters to control the method, that can
-#' be passed to the choosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
+#' be passed to the chosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
 #' 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 #' See details.
 #'
@@ -264,7 +267,7 @@
 #'  trend.fit \tab \code{lm} \tab fitting results produced by the fitting of the residuals \cr
 #'  RF_nat.slided \tab \code{matrix} \tab the slided RF_nat curve \cr
 #'  t_n.id \tab \code{numeric} \tab the index of the t_n offset \cr
-#'  I_n \tab \code{numeric} \tab the vertical intensitiy offest if a vertical slide was applied \cr
+#'  I_n \tab \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
 #'  algorithm_error \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
 #'  algorithm. The returned value is the standard deviation of all obtained De values while expanding the
 #'  vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr
@@ -275,7 +278,7 @@
 #'
 #' \bold{slot:} \bold{\code{@info}} \cr
 #'
-#' The orignal function call (\code{\link[methods]{language-class}}-object)
+#' The original function call (\code{\link[methods]{language-class}}-object)
 #'
 #' The output (\code{data}) should be accessed using the
 #' function \code{\link{get_RLum}}
@@ -286,7 +289,7 @@
 #'
 #' The slided IR-RF curves with the finally obtained De
 #'
-#' @note \bold{[THIS FUNCTION HAS BETA-STATUS]}\cr
+#' @note
 #'
 #' This function assumes that there is no sensitivity change during the
 #' measurements (natural vs. regenerated signal), which is in contrast to the
@@ -296,13 +299,13 @@
 #' for this function and to allow a part of such tests the re-newed code was made part
 #' of the current package.\cr
 #'
-#' @section Function version: 0.7.1
+#' @section Function version: 0.7.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
-#' \code{\link{nls}}, \code{\link[minpack.lm]{nlsLM}}
+#' \code{\link{nls}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link[parallel]{mclapply}}
 #'
 #'
 #' @references Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
@@ -678,7 +681,8 @@ analyse_IRSAR.RF<- function(
     show_density = TRUE,
     show_fit = FALSE,
     n.MC = if(is.null(n.MC)){NULL}else{1000},
-    vslide_range = NULL
+    vslide_range = NULL,
+    cores = NULL
   )
 
   ##modify list if necessary
@@ -1114,18 +1118,37 @@ analyse_IRSAR.RF<- function(
       t_n <- RF_nat.slided[1,1]
 
       ##the same for the MC runs of the minimum values
-      if(!is.null(n.MC)){
+      if(!is.null(n.MC)) {
         t_n.MC <-
-          vapply(X = 1:length(temp.sum.residuals$sliding_vector_min_MC), FUN = function(x) {
-            t_n.id.MC <-
-              which(temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x])
-            temp.sliding.step.MC <- RF_reg.limited[t_n.id.MC] - t_min
-            t_n.MC <- (RF_nat[,1] + temp.sliding.step.MC)[1]
-            return(t_n.MC)
+          vapply(
+            X = 1:length(temp.sum.residuals$sliding_vector_min_MC),
+            FUN = function(x) {
+              ##get minimum for MC
+              t_n.id.MC <-
+                which(
+                  temp.sum.residuals$sliding_vector == temp.sum.residuals$sliding_vector_min_MC[x]
+                )
 
-          }, FUN.VALUE = vector(mode = "numeric", length = 1))
+              ##there is low change to get two indicies, in
+              ##such cases we should take the mean
+              temp.sliding.step.MC <-
+                RF_reg.limited[t_n.id.MC] - t_min
 
-      }else{
+              if(length(temp.sliding.step.MC)>1){
+                t_n.MC <- (RF_nat[, 1] + mean(temp.sliding.step.MC))[1]
+
+              }else{
+                t_n.MC <- (RF_nat[, 1] + temp.sliding.step.MC)[1]
+
+              }
+
+              return(t_n.MC)
+
+            },
+            FUN.VALUE = vector(mode = "numeric", length = 1)
+          )
+
+      } else{
         t_n.MC <- NA_integer_
 
       }
@@ -1235,10 +1258,47 @@ analyse_IRSAR.RF<- function(
       }
 
 
-      De.MC <- c(vapply(X = 1:n.MC,
-                      FUN.VALUE = vector("numeric", length = method.control.settings$n.MC),
-                      FUN = function(i){
+      ##set parallel calculation if wanted
+      if(is.null(method.control.settings$cores)){
+        cores <- 1
 
+      }else{
+        ##case 'auto'
+        if(method.control.settings$cores == 'auto'){
+          if(parallel::detectCores() <= 2){
+            warning("[analyse_IRSAR.RF()] For the multicore auto mode at least 4 cores are needed!", call. = FALSE)
+            cores <- 1
+
+          }else{
+            cores <- parallel::detectCores() - 2
+
+          }
+
+        }else if(is.numeric(method.control.settings$cores)){
+
+          if(method.control.settings$cores > parallel::detectCores()){
+            warning(paste0("[analyse_IRSAR.RF()] What do you want? Your machine has only ", parallel::detectCores(), " cores!"), call. = FALSE)
+          }
+
+          ##assign them anyway, it is not our problem
+          cores <- parallel::detectCores()
+
+        }else{
+          try(stop("[analyse_IRSAR.RF()] Invalid value for control argument 'cores'. Value set to 1", call. = FALSE))
+          cores <- 1
+
+        }
+
+
+        ##return message
+        message(paste("[analyse_IRSAR.RF()] Multicore mode using", cores, "cores..."))
+      }
+
+
+
+      ##run MC runs
+      De.MC <- unlist(parallel::mclapply(X = 1:n.MC,
+                      FUN = function(i){
 
         temp.slide.MC <- sliding(
           RF_nat = RF_nat,
@@ -1256,7 +1316,10 @@ analyse_IRSAR.RF<- function(
          ##do nothing else, just report all possible values
          return(temp.slide.MC[[2]])
 
-      }))
+      },
+      mc.preschedule = TRUE,
+      mc.cores = cores
+      ))
 
       ##close
       if(txtProgressBar){close(pb)}

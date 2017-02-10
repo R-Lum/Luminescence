@@ -15,11 +15,11 @@ The R package 'Luminescence' by the R-Luminescence Group provides a collection o
 [![Github Stars](https://img.shields.io/github/stars/R-Lum/Luminescence.svg?style=social&label=Github)](https://github.com/R-Lum/Luminescence)
 
 ### Platform tests status 
-[![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/dev_0.7.0)
-[![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=dev_0.7.0)](https://travis-ci.org/R-Lum/Luminescence)
+[![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/master)
+[![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
 
 ### Unit test status
-[![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=dev_0.7.0)
+[![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=master)
 
 ## Social media and other resources 
 Follow us on [![alt text][1.1]][1] <a href="http://www.twitter.com/RLuminescence" target="_blank">@RLuminescence</a>
@@ -69,7 +69,7 @@ of the wanted developer build.
 
 ## Contribute
 
-The R luminescence project is based on and evolves from ideas, contributions and constructive criticism of its users. Help us to maintain and develop the package, to find bugs and create new functions as well as a user-friendly design. Visit our [message board](https://forum.r-luminescence.de) or write us an [e-mail](mailto:team@r-luminescence.de) if anything crosses your mind or if you want your new self-written function to be to implemented. You are kindly invited to bring forward the package with us!
+The R luminescence project is based on and evolves from ideas, contributions and constructive criticism of its users. Help us to maintain and develop the package, to find bugs and create new functions as well as a user-friendly design. Visit our [message board](https://forum.r-luminescence.org) or write us an [e-mail](mailto:team@r-luminescence.org) if anything crosses your mind or if you want your new self-written function to be to implemented. You are kindly invited to bring forward the package with us!
 
 ## Note
 

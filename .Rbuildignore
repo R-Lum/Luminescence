@@ -3,6 +3,8 @@
 LICENSE$
 ^\.travis\.yml$
 README\.md
+NEWS\.rmd
+NEWS\.html
 ^\test\*
 ^\.Rprofile$
 ^appveyor\.yml$
@@ -22,3 +24,5 @@ revdep
 packrat
 RLum.Images
 R/README\.md
+NEWS_cache
+NEWS_files
