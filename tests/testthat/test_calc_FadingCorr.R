@@ -15,6 +15,14 @@ test_that("check class and length of output", {
   expect_equal(is(temp), c("RLum.Results", "RLum"))
   expect_equal(length(temp), 2)
 
+  ##check the verbose mode
+  expect_is(calc_FadingCorr(
+    age.faded = c(0.1,0),
+    g_value = c(5.0, 1.0),
+    tc = 2592000,
+    tc.g_value = 172800,
+    n.MC = 1, verbose = TRUE), class = "RLum.Results")
+
 })
 
 test_that("check values from output example 1", {
