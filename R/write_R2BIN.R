@@ -42,7 +42,7 @@
 #' BIN/BINX-file may not fully compatible, at least not similar to the once
 #' directly produced by the Risoe readers!\cr
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -595,11 +595,11 @@ write_R2BIN <- function(
 
       ##avoid problems with empty comments
       if(COMMENT_SIZE == 0){
-
         COMMENT_SIZE <- as.integer(2)
         object@METADATA[ID,"COMMENT"] <- "  "
 
       }
+
 
       writeBin(COMMENT_SIZE,
                con,
@@ -649,7 +649,7 @@ write_R2BIN <- function(
                size = 2,
                endian="little")
 
-      ##Further distinction need to fully support format version 03 and 04 separately
+      ##Further distinction needed to fully support format version 03 and 04 separately
       if(version == 03){
 
 
@@ -696,8 +696,8 @@ write_R2BIN <- function(
                    con,
                    size = 1,
                    endian="little")
-        }else{
 
+        }else{
           writeBin(object@.RESERVED[[ID]][[2]],
                    con,
                    size = 1,
@@ -829,7 +829,7 @@ write_R2BIN <- function(
                endian="little")
 
       if(version == 08){
-        writeBin(object@METADATA[ID,"RECTYPE"],
+        writeBin(as.integer(object@METADATA[ID,"RECTYPE"]),
                  con,
                  size = 1,
                  endian="little")
