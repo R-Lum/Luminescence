@@ -1,7 +1,7 @@
 Package: Luminescence
 Type: Package
-Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
-Version: 0.8.0
+Title: Comprehensive Luminescence Dating Data Analysis
+Version: 0.7.4
 Date: 2017-XX-XX
 Author: Sebastian Kreutzer [aut, trl, cre, dtc],
     Michael Dietze [aut],
@@ -75,7 +75,7 @@ Suggests:
     testthat (>= 1.0.2),
     devtools (>= 1.12.0)
 URL: https://CRAN.R-project.org/package=Luminescence
-Collate: 
+Collate:
     'Analyse_SAR.OSLdata.R'
     'CW2pHMi.R'
     'CW2pLM.R'
@@ -134,7 +134,6 @@ Collate:
     'calc_Statistics.R'
     'calc_TLLxTxRatio.R'
     'calc_ThermalLifetime.R'
-    'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
     'convert_BIN2CSV.R'
     'convert_Daybreak2CSV.R'

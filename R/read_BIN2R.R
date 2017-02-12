@@ -80,7 +80,7 @@
 #' import.}
 #'
 #'
-#' @section Function version: 0.15.3
+#' @section Function version: 0.15.2
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -321,15 +321,15 @@ read_BIN2R <- function(
       if(temp.ID > 0){
 
         if(is.null(n.records)){
-          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. Import limited to the first ", temp.ID," record(s)."))
+          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. Import limited to the first ", temp.ID-1," records."))
 
         }else{
-          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. 'n.records' reset to ", temp.ID,"."))
+          warning(paste0("[read_BIN2R()] BIN-file appears to be corrupt. 'n.records' reset to ", temp.ID-1,"."))
 
         }
 
         ##set or reset n.records
-        n.records <- temp.ID
+        n.records <- temp.ID-1
         break()
 
       }else{
@@ -353,6 +353,7 @@ read_BIN2R <- function(
 
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=4, endian="little")
+
       STEPPING <- readBin(con, what="raw", temp.LENGTH-6, size=1, endian="litte")
 
     }else{

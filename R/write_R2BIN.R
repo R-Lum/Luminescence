@@ -42,7 +42,7 @@
 #' BIN/BINX-file may not fully compatible, at least not similar to the once
 #' directly produced by the Risoe readers!\cr
 #'
-#' @section Function version: 0.4.2
+#' @section Function version: 0.4.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -299,6 +299,7 @@ write_R2BIN <- function(
        is(object@METADATA[1,"LTYPE"], "factor") == TRUE){
 
     object@METADATA[,"LTYPE"]<- sapply(1:length(object@METADATA[,"LTYPE"]),function(x){
+
       as.integer(LTYPE.TranslationMatrix[object@METADATA[x,"LTYPE"]==LTYPE.TranslationMatrix[,2],1])
 
     })
@@ -336,6 +337,9 @@ write_R2BIN <- function(
   ##in TAG information on the SEL are storred, here the values are copied to TAG
   ##before export
   object@METADATA[,"TAG"] <- ifelse(object@METADATA[,"SEL"] == TRUE, 1, 0)
+
+  ##
+
 
   # SET FILE AND VALUES -----------------------------------------------------
 
@@ -534,7 +538,7 @@ write_R2BIN <- function(
                endian="little")
 
       ##BL_UNIT
-      writeBin(as.integer(object@METADATA[ID,"BL_UNIT"]),
+      writeBin(as.integer(object@METADATA[ID,"DTYPE"]),
                con,
                size = 1,
                endian="little")
@@ -595,11 +599,11 @@ write_R2BIN <- function(
 
       ##avoid problems with empty comments
       if(COMMENT_SIZE == 0){
+
         COMMENT_SIZE <- as.integer(2)
         object@METADATA[ID,"COMMENT"] <- "  "
 
       }
-
 
       writeBin(COMMENT_SIZE,
                con,
@@ -649,7 +653,7 @@ write_R2BIN <- function(
                size = 2,
                endian="little")
 
-      ##Further distinction needed to fully support format version 03 and 04 separately
+      ##Further distinction need to fully support format version 03 and 04 separately
       if(version == 03){
 
 
@@ -696,8 +700,8 @@ write_R2BIN <- function(
                    con,
                    size = 1,
                    endian="little")
-
         }else{
+
           writeBin(object@.RESERVED[[ID]][[2]],
                    con,
                    size = 1,
@@ -829,7 +833,7 @@ write_R2BIN <- function(
                endian="little")
 
       if(version == 08){
-        writeBin(as.integer(object@METADATA[ID,"RECTYPE"]),
+        writeBin(object@METADATA[ID,"RECTYPE"],
                  con,
                  size = 1,
                  endian="little")
@@ -1019,7 +1023,7 @@ write_R2BIN <- function(
                endian="little")
 
       ##BL_UNIT
-      writeBin(as.integer(object@METADATA[ID,"BL_UNIT"]),
+      writeBin(as.integer(object@METADATA[ID,"DTYPE"]),
                con,
                size = 1,
                endian="little")
