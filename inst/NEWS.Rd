@@ -1,10 +1,26 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
 \section{Changes in version 0.7.4 (XX, 2017)}{
-  \itemize{
 
-  \item Dummy
+
+  \subsection{Bugfixes and changes}{
+    \itemize{
+
+     \item \code{read_BIN2R()}{
+        \itemize{
+           \item Correct minor bug while importing corrupt BIN-files.
+     }
+
+     \item \code{write_R2BIN()}{
+        \itemize{
+           \item Argument 'BL_UNIT' was not correctly exported; fixed,
+           \item export behaviour for BIN-file version 08 improved.
+     }
+
+    }
+   }
   }
+ }
 }
 
 

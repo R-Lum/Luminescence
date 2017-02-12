@@ -2,7 +2,17 @@ NEWS for the R Package Luminescence
 
 Changes in version 0.7.4 (XX, 2017):
 
-        • Dummy
+  Bugfixes and changes:
+
+         • ‘read_BIN2R()’
+
+             • Correct minor bug while importing corrupt BIN-files.
+
+           ‘write_R2BIN()’
+
+             • Argument 'BL_UNIT' was not correctly exported; fixed,
+
+             • export behaviour for BIN-file version 08 improved.
 
 Changes in version 0.7.3 (8th Feburary, 2017):
 
