@@ -265,25 +265,63 @@ read_BIN2R <- function(
   }
 
 
+  # Config --------------------------------------------------------------------------------------
+  ##set file_link for internet downloads
+  file_link <- NULL
+  on_exit <- function(){
+    if(!is.null(file_link)){
+      unlink(file_link)
+    }
+
+  }
+  on.exit(expr = on_exit())
+
 
   # Integrity checks ------------------------------------------------------
 
   ##check if file exists
   if(!file.exists(file)){
 
-    stop("[read_BIN2R()] File does not exists!")
+    ##check whether the file as an URL
+    if(grepl(pattern = "http", x = file, fixed = TRUE)){
+      cat("[read_BIN2R()] URL detected, checking connection ... ")
+
+      ##check URL
+      if(!httr::http_error(file)){
+        cat("OK")
+
+        ##dowload file
+        file_link <- tempfile("read_BIN2R_FILE")
+        download.file(file, destfile = file_link)
+
+      }else{
+        cat("FAILED")
+        stop("[read_BIN2R()] File does not exist!", call. = FALSE)
+
+      }
+
+    }else{
+      stop("[read_BIN2R()] File does not exist!", call. = FALSE)
+
+    }
 
   }
 
   ##check if file is a BIN or BINX file
-  if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%tail(
-    unlist(strsplit(file, split = "\\.")), n = 1)))){
+  if(!(TRUE%in%(c("BIN", "BINX", "bin", "binx")%in%sub(pattern = "%20", replacement = "", x = tail(
+    unlist(strsplit(file, split = "\\.")), n = 1), fixed = TRUE)))){
 
     try(
       stop(
         paste0("[read_BIN2R()] '", file,"' is not a file or not of type 'BIN' or 'BINX'! Skipped!"),
         call. = FALSE))
     return(NULL)
+
+  }
+
+  ##set correct file name of file_link was set
+  if(!is.null(file_link)){
+    file <- file_link
 
   }
 
