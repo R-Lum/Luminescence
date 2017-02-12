@@ -315,7 +315,6 @@ read_BIN2R <- function(
       temp.VERSION <- as.raw(forced.VersionNumber)
     }
 
-
     ##stop input if wrong VERSION
     if((temp.VERSION%in%VERSION.supported) == FALSE){
 
@@ -354,7 +353,6 @@ read_BIN2R <- function(
 
       ##GET record LENGTH
       temp.LENGTH  <- readBin(con, what="int", 1, size=4, endian="little")
-
       STEPPING <- readBin(con, what="raw", temp.LENGTH-6, size=1, endian="litte")
 
     }else{
