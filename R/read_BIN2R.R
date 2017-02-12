@@ -80,7 +80,7 @@
 #' import.}
 #'
 #'
-#' @section Function version: 0.15.3
+#' @section Function version: 0.15.4
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -284,15 +284,17 @@ read_BIN2R <- function(
 
     ##check whether the file as an URL
     if(grepl(pattern = "http", x = file, fixed = TRUE)){
-      cat("[read_BIN2R()] URL detected, checking connection ... ")
+      if(verbose){
+        cat("[read_BIN2R()] URL detected, checking connection ... ")
+      }
 
       ##check URL
       if(!httr::http_error(file)){
-        cat("OK")
+        if(verbose) cat("OK")
 
         ##dowload file
         file_link <- tempfile("read_BIN2R_FILE")
-        download.file(file, destfile = file_link)
+        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
 
       }else{
         cat("FAILED")
