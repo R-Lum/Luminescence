@@ -6,7 +6,9 @@ Changes in version 0.7.4 (XX, 2017):
 
          • ‘read_BIN2R()’
 
-             • Correct minor bug while importing corrupt BIN-files.
+             • Correct minor bug while importing corrupt BIN-files,
+
+             • add support for internet connections.
 
            ‘write_R2BIN()’
 

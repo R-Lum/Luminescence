@@ -8,7 +8,8 @@
 
      \item \code{read_BIN2R()}{
         \itemize{
-           \item Correct minor bug while importing corrupt BIN-files.
+           \item Correct minor bug while importing corrupt BIN-files,
+           \item add support for internet connections.
      }
 
      \item \code{write_R2BIN()}{
