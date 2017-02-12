@@ -1,11 +1,11 @@
 context("write_R2BIN")
 
-## Unit test for write_BIN2R() function
-##
-## Problem: the tests are not allowed to write on the file system, therefore, we have to run this
-## manually, but we can test for some errors
-##
-## Uncomment only to create new test data sets on the file system (for read_BIN2R())
+# Unit test for write_BIN2R() function
+#
+# Problem: the tests are not allowed to write on the file system, therefore, we have to run this
+# manually, but we can test for some errors
+#
+# Uncomment only to create new test data sets on the file system (for read_BIN2R())
 # data(ExampleData.BINfileData, envir = environment())
 #
 #   ##empty RisoeBINfileData object
@@ -34,6 +34,9 @@ context("write_R2BIN")
 #
 #   ##replace RECTYPE
 #   new@METADATA$RECTYPE <- 1
+#
+#   ##reduce files size considerably down to two records
+#   new <- subset(new, ID == 1:2)
 #
 #   ##create files
 #   write_R2BIN(object = new, file = "~/GitHub/R_Luminescence/tests/testdata/BINfile_V3.bin ", version = "03")
