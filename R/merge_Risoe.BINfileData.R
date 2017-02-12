@@ -26,11 +26,11 @@
 #' \code{position.number.append.gap = 1} it will become:
 #' \code{1,3,5,7,9,11,13,15,17}.
 #'
-#' @param input.objects \code{\link{character}} or
-#' \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): Character vector
+#' @param input.objects \code{\link{character}} with
+#' \code{\linkS4class{Risoe.BINfileData}} objects (\bold{required}): Character vector
 #' with path and files names (e.g. \code{input.objects = c("path/file1.bin",
 #' "path/file2.bin")} or \code{\linkS4class{Risoe.BINfileData}} objects (e.g.
-#' \code{input.objects = c(object1, object2)})
+#' \code{input.objects = c(object1, object2)}). Alternatively a \code{list} is supported.
 #'
 #'
 #' @param output.file \code{\link{character}} (optional): File output path and
@@ -56,7 +56,7 @@
 #' @note The validity of the output objects is not further checked.
 #'
 #'
-#' @section Function version: 0.2.6
+#' @section Function version: 0.2.7
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -108,7 +108,7 @@ merge_Risoe.BINfileData <- function(
 
       if(file.exists(input.objects[i])==FALSE){
 
-        stop("[merge_Risoe.BINfileData()] File",input.objects[i],"does not exists!")
+        stop("[merge_Risoe.BINfileData()] File ",input.objects[i]," does not exist!", call. = FALSE)
 
       }
 
