@@ -80,7 +80,7 @@
 #' }
 #'
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -245,10 +245,13 @@ analyse_FadingMeasurement <- function(
 
     # Calculation ---------------------------------------------------------------------------------
 
-    ##calculate Lx/Tx or ... just Lx, it depends on the patttern
+    ##calculate Lx/Tx or ... just Lx, it depends on the patttern ... set IRR_TIME
     if(length(structure) == 2){
       Lx_data <- object_clean[seq(1,length(object_clean), by = 2)]
       Tx_data <- object_clean[seq(2,length(object_clean), by = 2)]
+
+      ##we need only every 2nd irradiation time, the one from the Tx should be the same ... all the time
+      TIMESINCEIRR <- TIMESINCEIRR[seq(1,length(TIMESINCEIRR), by =2)]
 
 
     }else if(length(structure) == 1){
@@ -289,12 +292,12 @@ analyse_FadingMeasurement <- function(
 
   }
 
+
   ##create unique identifier
   uid <- .create_UID()
 
   ##normalise data to prompt measurement
   tc <- min(TIMESINCEIRR)[1]
-
 
   ##normalise
   if(length(structure) == 2 | is.null(object)){
@@ -308,7 +311,7 @@ analyse_FadingMeasurement <- function(
     LxTx_NORM <-
       LxTx_table[["Net_LnLx"]] / LxTx_table[["Net_LnLx"]][which(TIMESINCEIRR== tc)[1]]
     LxTx_NORM.ERROR <-
-      LxTx_table[["Net_LnLx.Error"]] / LxTx_table[["Net_LnLx"]][which(TIMESINCEIRR == tc)[1]]
+       LxTx_table[["Net_LnLx.Error"]] / LxTx_table[["Net_LnLx"]][which(TIMESINCEIRR == tc)[1]]
 
   }
 
@@ -340,7 +343,6 @@ analyse_FadingMeasurement <- function(
                        sd = LxTx_table[["LxTx_NORM.ERROR"]]
                      ),
                      ncol = n.MC))
-
 
 
   ##apply the fit
