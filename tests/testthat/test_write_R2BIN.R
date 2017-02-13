@@ -1,11 +1,11 @@
 context("write_R2BIN")
 
-# Unit test for write_BIN2R() function
+# #Unit test for write_BIN2R() function
 #
-# Problem: the tests are not allowed to write on the file system, therefore, we have to run this
-# manually, but we can test for some errors
+# #Problem: the tests are not allowed to write on the file system, therefore, we have to run this
+# #manually, but we can test for some errors
 #
-# Uncomment only to create new test data sets on the file system (for read_BIN2R())
+# #Uncomment only to create new test data sets on the file system (for read_BIN2R())
 # data(ExampleData.BINfileData, envir = environment())
 #
 #   ##empty RisoeBINfileData object
@@ -39,7 +39,7 @@ context("write_R2BIN")
 #   new <- subset(new, ID == 1:2)
 #
 #   ##create files
-#   path <- "tests/testdata/"
+#   path <- "~/GitHub/R_Luminescence/tests/testdata/"
 #   write_R2BIN(object = new, file = paste0(path, "BINfile_V3.bin"), version = "03")
 #   write_R2BIN(object = new, file = paste0(path, "BINfile_V4.bin"), version = "04")
 #   write_R2BIN(object = new, file = paste0(path, "BINfile_V6.binx"), version = "06")
