@@ -4,13 +4,19 @@ Changes in version 0.7.4 (XX, 2017):
 
   Bugfixes and changes:
 
+         • ‘analyse_FadingMeasurement()’
+
+             • The function returned unreliable results as the time
+               since irradiation had been doubled. This bug only
+               affected Lx/Tx data imported from an XSYG-file.
+
          • ‘read_BIN2R()’
 
              • Correct minor bug while importing corrupt BIN-files,
 
              • add support for internet connections.
 
-           ‘write_R2BIN()’
+         • ‘write_R2BIN()’
 
              • Argument 'BL_UNIT' was not correctly exported; fixed,
 

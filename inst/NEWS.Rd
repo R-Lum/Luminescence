@@ -6,10 +6,20 @@
   \subsection{Bugfixes and changes}{
     \itemize{
 
+     \item \code{analyse_FadingMeasurement()}{
+        \itemize{
+           \item The function returned unreliable results as the time since irradiation had
+           been doubled. This bug only affected Lx/Tx data imported from an XSYG-file.
+
+      }
+
+    }
+
      \item \code{read_BIN2R()}{
         \itemize{
            \item Correct minor bug while importing corrupt BIN-files,
            \item add support for internet connections.
+     }
      }
 
      \item \code{write_R2BIN()}{
@@ -22,7 +32,6 @@
    }
   }
  }
-}
 
 
 
