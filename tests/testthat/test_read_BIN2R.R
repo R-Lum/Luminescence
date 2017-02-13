@@ -22,17 +22,17 @@ test_that("test the import of various BIN-file versions", {
 
     ##V6
     expect_is(
-      read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V6.bin",
+      read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V6.binx",
                  txtProgressBar = FALSE), class = "Risoe.BINfileData")
 
     ##V7
     expect_is(
-      read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V7.bin",
+      read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V7.binx",
                  txtProgressBar = FALSE), class = "Risoe.BINfileData")
 
     ##V8
     expect_is(
-      read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V8.bin",
+      read_BIN2R(file = "https://github.com/R-Lum/Luminescence/raw/master/tests/testdata/BINfile_V8.binx",
                  txtProgressBar = FALSE), class = "Risoe.BINfileData")
 
     ##test further options
