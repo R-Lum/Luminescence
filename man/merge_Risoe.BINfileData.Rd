@@ -8,11 +8,11 @@ merge_Risoe.BINfileData(input.objects, output.file,
   keep.position.number = FALSE, position.number.append.gap = 0)
 }
 \arguments{
-\item{input.objects}{\code{\link{character}} or
-\code{\linkS4class{Risoe.BINfileData}} (\bold{required}): Character vector
+\item{input.objects}{\code{\link{character}} with
+\code{\linkS4class{Risoe.BINfileData}} objects (\bold{required}): Character vector
 with path and files names (e.g. \code{input.objects = c("path/file1.bin",
 "path/file2.bin")} or \code{\linkS4class{Risoe.BINfileData}} objects (e.g.
-\code{input.objects = c(object1, object2)})}
+\code{input.objects = c(object1, object2)}). Alternatively a \code{list} is supported.}
 
 \item{output.file}{\code{\link{character}} (optional): File output path and
 name. \cr If no value is given, a \code{\linkS4class{Risoe.BINfileData}} is
@@ -63,7 +63,7 @@ With no additional summand the new position numbers would be:
 The validity of the output objects is not further checked.
 }
 \section{Function version}{
- 0.2.6 (2017-01-24 21:10:47)
+ 0.2.7 (2017-02-12 21:45:19)
 }
 
 \examples{
@@ -81,7 +81,7 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.4. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
