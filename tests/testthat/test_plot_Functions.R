@@ -7,7 +7,6 @@ test_that("test pure success of the plotting without warning or error", {
   data(ExampleData.DeValues, envir = environment())
   ExampleData.DeValues <- ExampleData.DeValues$CA1
 
-  expect_silent(plot_AbanicoPlot(ExampleData.DeValues))
   expect_silent(plot_RadialPlot(ExampleData.DeValues))
   expect_silent(plot_KDE(ExampleData.DeValues))
   expect_silent(plot_Histogram(ExampleData.DeValues))
