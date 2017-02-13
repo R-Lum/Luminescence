@@ -7,10 +7,10 @@ context("write_R2BIN")
 #
 # Uncomment only to create new test data sets on the file system (for read_BIN2R())
 # data(ExampleData.BINfileData, envir = environment())
-#
+# 
 #   ##empty RisoeBINfileData object
 #   empty <- set_Risoe.BINfileData()
-#
+# 
 #   ##replace the raw by numeric
 #   CWOSL.SAR.Data@METADATA$VERSION <- as.numeric(CWOSL.SAR.Data@METADATA$VERSION)
 #   CWOSL.SAR.Data@METADATA[] <- lapply(CWOSL.SAR.Data@METADATA, function(x){
@@ -20,30 +20,31 @@ context("write_R2BIN")
 #       x
 #     }
 #   })
-#
+# 
 #   ##combing with existing BIN-file object
 #   new <- as.data.frame(
 #     data.table::rbindlist(l = list(empty@METADATA,CWOSL.SAR.Data@METADATA),fill = TRUE),
 #     stringsAsFactors = FALSE)
-#
+# 
 #   ##new object
 #   new <- set_Risoe.BINfileData(METADATA = new, DATA = CWOSL.SAR.Data@DATA)
-#
+# 
 #   ##replace NA values
 #   new@METADATA[is.na(new@METADATA)] <- 0
-#
+# 
 #   ##replace RECTYPE
 #   new@METADATA$RECTYPE <- 1
-#
+# 
 #   ##reduce files size considerably down to two records
 #   new <- subset(new, ID == 1:2)
-#
+# 
 #   ##create files
-#   write_R2BIN(object = new, file = "~/GitHub/R_Luminescence/tests/testdata/BINfile_V3.bin ", version = "03")
-#   write_R2BIN(object = new, file = "~/GitHub/R_Luminescence/tests/testdata/BINfile_V4.bin ", version = "04")
-#   write_R2BIN(object = new, file = "~/GitHub/R_Luminescence/tests/testdata/BINfile_V6.bin ", version = "06")
-#   write_R2BIN(object = new, file = "~/GitHub/R_Luminescence/tests/testdata/BINfile_V7.bin ", version = "07")
-#   write_R2BIN(object = new, file = "~/GitHub/R_Luminescence/tests/testdata/BINfile_V8.bin ", version = "08")
+#   path <- "tests/testdata/"
+#   write_R2BIN(object = new, file = paste0(path, "BINfile_V3.bin"), version = "03")
+#   write_R2BIN(object = new, file = paste0(path, "BINfile_V4.bin"), version = "04")
+#   write_R2BIN(object = new, file = paste0(path, "BINfile_V6.bin"), version = "06")
+#   write_R2BIN(object = new, file = paste0(path, "BINfile_V7.bin"), version = "07")
+#   write_R2BIN(object = new, file = paste0(path, "BINfile_V8.bin"), version = "08")
 
 test_that("write to empty connection", {
   testthat::skip_on_cran()
