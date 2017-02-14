@@ -202,7 +202,7 @@ calc_OSLLxTxRatio <- function(
 
     ##(d) - check if Lx and Tx curves have the same channel length
     if(length(Lx.data[,2]) != length(Tx.data[,2])){
-      stop("[calc_OSLLxTxRatio()] Channel number of Lx and Tx data differs!")}
+      stop("[calc_OSLLxTxRatio()] Channel numbers of Lx and Tx data differ!")}
 
   }else{
 
