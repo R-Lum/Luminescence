@@ -140,7 +140,19 @@ work for your machine. Also the performance gain increases for larger number
 of bootstrap replicates. Also note that with each additional core and hence
 R instance and depending on the number of bootstrap replicates the memory
 usage can significantly increase. Make sure that memory is always availabe,
-otherwise there will be a massive perfomance hit.
+otherwise there will be a massive perfomance hit. \cr\cr
+
+\bold{Likelihood profiles}
+
+The likelihood profiles are generated and plotted by the \code{bbmle} package.
+The profile likelihood plots look different to ordinary profile likelihood as \cr\cr
+"[...] the plot method for likelihood profiles displays the square root of
+the the deviance difference (twice the difference in negative log-likelihood from
+the best fit), so it will be V-shaped for cases where the quadratic approximation 
+works well [...]." (Bolker 2016). \cr\cr
+For more details on the profile likelihood
+calculations and plots please see the vignettes of the \code{bbmle} package
+(also available here: \url{https://cran.r-project.org/web/packages/bbmle/vignettes/mle2.pdf}).
 }
 \note{
 The default starting values for \emph{gamma}, \emph{mu}, \emph{sigma}
@@ -152,7 +164,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.4 (2017-02-10 18:30:04)
+ 0.4.4
 }
 
 \examples{
@@ -246,12 +258,7 @@ plot(bs$poly.fits$poly.three, ask = FALSE)
 summary(bs$poly.fits$poly.three$fitted.values)
 }
 
-} 
-
-\section{How to cite}{
-Burow, C. (2017). calc_MinDose(): Apply the (un-)logged minimum age model (MAM) after Galbraith et al. (1999) to a given De distribution. Function version 0.4.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young
@@ -305,4 +312,4 @@ rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
 based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
 Cunningham is thanked for his help in implementing and cross-checking the
 code.
-\cr R Luminescence Package Team}
+}
