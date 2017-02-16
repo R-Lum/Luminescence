@@ -294,6 +294,10 @@ Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivale
 (De) distributions: Implications for OSL dating of sediment mixtures.
 Quaternary Geochronology 4, 204-230. \cr\cr
 
+Bolker, B., 2016. Maximum likelihood estimation analysis with the bbmle package.
+In: Bolker, B., R Development Core Team, 2016. bbmle: Tools for General Maximum Likelihood Estimation.
+R package version 1.0.18. https://CRAN.R-project.org/package=bbmle \cr\cr
+
 Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 assessment of procedures for estimating burial dose. Quaternary Science
 Reviews 25, 2475-2502. \cr\cr
