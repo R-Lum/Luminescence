@@ -70,18 +70,18 @@
 #' R instance and depending on the number of bootstrap replicates the memory
 #' usage can significantly increase. Make sure that memory is always availabe,
 #' otherwise there will be a massive perfomance hit. \cr\cr
-#' 
+#'
 #' \bold{Likelihood profiles}
 #'
 #' The likelihood profiles are generated and plotted by the \code{bbmle} package.
 #' The profile likelihood plots look different to ordinary profile likelihood as \cr\cr
 #' "[...] the plot method for likelihood profiles displays the square root of
 #' the the deviance difference (twice the difference in negative log-likelihood from
-#' the best fit), so it will be V-shaped for cases where the quadratic approximation 
+#' the best fit), so it will be V-shaped for cases where the quadratic approximation
 #' works well [...]." (Bolker 2016). \cr\cr
 #' For more details on the profile likelihood
 #' calculations and plots please see the vignettes of the \code{bbmle} package
-#' (also available here: \url{https://cran.r-project.org/web/packages/bbmle/vignettes/mle2.pdf}).
+#' (also available here: \url{https://CRAN.R-project.org/package=bbmle}).
 #'
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De \code{(data[
