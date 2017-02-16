@@ -25,7 +25,7 @@ provided as the common logarithm. Example: \code{rhop = c(2.92e-06, 4.93e-07)}.}
 Environmental dose rate and its error, given as a numeric vector of length two.
 Expected unit: Gy/ka. Example: \code{ddot = c(3.7, 0.4)}.}
 
-\item{readerDdot}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):
+\item{readerDdot}{\code{numeric} (\bold{required}):
 Dose rate of the irradiation source of the OSL reader and its error,
 given as a numeric vector of length two.
 Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.}
@@ -120,7 +120,7 @@ in the derivation of (n/N) and (n/N)_SS.
 \bold{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2017-02-10 18:30:04)
+ 0.1.0 (2017-02-16 14:48:05)
 }
 
 \examples{

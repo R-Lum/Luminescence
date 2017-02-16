@@ -63,7 +63,7 @@
 #' Environmental dose rate and its error, given as a numeric vector of length two.
 #' Expected unit: Gy/ka. Example: \code{ddot = c(3.7, 0.4)}.
 #'
-#' @param readerDdot \code{\linkS4class{RLum.Analysis}} (\bold{required}):
+#' @param readerDdot \code{numeric} (\bold{required}):
 #' Dose rate of the irradiation source of the OSL reader and its error,
 #' given as a numeric vector of length two.
 #' Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.
@@ -187,22 +187,22 @@ calc_Kars2008 <- function(data,
 
     # check number of columns
     if (ncol(data) %% 3 != 0) {
-      stop("[calc_Kars2008] the number of columns in 'data' must be a multiple of 3.", 
+      stop("[calc_Kars2008] the number of columns in 'data' must be a multiple of 3.",
            call. = FALSE)
     } else {
       # extract all LxTx values
-      data_tmp <- do.call(rbind, 
+      data_tmp <- do.call(rbind,
                         lapply(seq(1, ncol(data), 3), function(col) {
-                          setNames(data[2:nrow(data), col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
+                          setNames(data[2:nrow(data), col:c(col+2)], c("dose", "LxTx", "LxTxError"))
                         })
       )
       # extract the LnTn values (assumed to be the first row) and calculate the column mean
-      LnTn_tmp <- do.call(rbind, 
+      LnTn_tmp <- do.call(rbind,
                           lapply(seq(1, ncol(data), 3), function(col) {
-                            setNames(data[1, col:c(col+2)], c("dose", "LxTx", "LxTxError")) 
+                            setNames(data[1, col:c(col+2)], c("dose", "LxTx", "LxTxError"))
                           })
       )
-      
+
       # check whether the standard deviation of LnTn estimates or the largest
       # individual error is highest, and take the larger one
       LnTn_error_tmp <- max(c(sd(LnTn_tmp[ ,2]), mean(LnTn_tmp[ ,3])), na.rm = TRUE)
@@ -213,8 +213,8 @@ calc_Kars2008 <- function(data,
       data[1, 3] <- LnTn_error_tmp
       data <- data[complete.cases(data), ]
     }
-    
-    
+
+
   } else {
     stop("\n[calc_Kars2008] 'data' must be a data frame.",
          call. = FALSE)
@@ -295,7 +295,7 @@ calc_Kars2008 <- function(data,
 
   data.tmp <- data
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
-  
+
   GC.settings <- list(sample = data.tmp,
                       mode = "regenerative",
                       fit.method = "EXP",
@@ -303,12 +303,12 @@ calc_Kars2008 <- function(data,
                       main = "Measured dose response curve",
                       xlab = "Dose (Gy)",
                       verbose = FALSE)
-  
+
   GC.settings <- modifyList(GC.settings, list(...))
   GC.settings$verbose <- FALSE
 
   GC.measured <- try(do.call(plot_GrowthCurve, GC.settings))
-  
+
   if (inherits(GC.measured, "try-error"))
     stop("\n[calc_Kars2008()] Unable to fit growth curve to data", call. = FALSE)
 
@@ -390,10 +390,10 @@ calc_Kars2008 <- function(data,
                         verbose = FALSE,
                         main = "Simulated dose response curve",
                         xlab = "Dose (Gy)")
-    
+
     GC.settings <- modifyList(GC.settings, list(...))
     GC.settings$verbose <- FALSE
-    
+
     suppressWarnings(
       GC.unfaded <- try(do.call(plot_GrowthCurve, GC.settings))
     )
@@ -505,7 +505,7 @@ calc_Kars2008 <- function(data,
       par(oma = c(0, 3, 0, 9))
     else
       par(oma = c(0, 9, 0, 9))
-    
+
     # Find a good estimate of the x-axis limits
     xlim <- range(pretty(dosetimeGray))
     if (De.sim > xlim[2])

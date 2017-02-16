@@ -17,8 +17,8 @@ sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
 \item{given.dose}{\code{\link{numeric}} (optional): given dose used for the
 dose recovery test to normalise data. If only one given dose is provided
 this given dose is valid for all input data sets (i.e., \code{values} is a
-list).  Otherwise a given dose for each input data set has to be provided
-(e.g., \code{given.dose = c(100,200)}). If no \code{given.dose} values are
+list).  Oherwise a given dose for each input data set has to be provided
+(e.g., \code{given.dose = c(100,200)}). If \code{given.dose} in \code{NULL} the values are
 plotted without normalisation (might be useful for preheat plateau tests).
 Note: Unit has to be the same as from the input values (e.g., Seconds or
 Gray).}
@@ -90,7 +90,7 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.10 (2017-01-24 21:10:47)
+ 0.1.10 (2017-02-16 10:21:30)
 }
 
 \examples{
