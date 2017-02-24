@@ -88,7 +88,7 @@
 #' @note The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
-#' @section Function version: 3.5.4
+#' @section Function version: 3.5.5
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -628,6 +628,8 @@ plot_KDE <- function(
     col.value.bar <- list(...)$col
     col.value.rug <- list(...)$col
     col.boxplot <- list(...)$col
+    col.boxplot.line <- list(...)$col
+    col.boxplot.fill <- NA
     col.mean.line <- adjustcolor(col = list(...)$col,
                                  alpha.f = 0.4)
     col.sd.bar <- adjustcolor(col = list(...)$col,
@@ -636,99 +638,105 @@ plot_KDE <- function(
   } else {
 
     if(length(layout$kde$colour$main) == 1) {
-      col.main <- 1:length(data)
+      col.main <- c(layout$kde$colour$main, 2:length(data))
     } else {
       col.main <- layout$kde$colour$main
     }
 
     if(length(layout$kde$colour$xlab) == 1) {
-      col.xlab <- 1:length(data)
+      col.xlab <- c(layout$kde$colour$xlab, 2:length(data))
     } else {
       col.xlab <- layout$kde$colour$xlab
     }
 
     if(length(layout$kde$colour$ylab1) == 1) {
-      col.ylab1 <- 1:length(data)
+      col.ylab1 <- c(layout$kde$colour$ylab1, 2:length(data))
     } else {
       col.ylab1 <- layout$kde$colour$ylab1
     }
 
     if(length(layout$kde$colour$ylab2) == 1) {
-      col.ylab2 <- 1:length(data)
+      col.ylab2 <- c(layout$kde$colour$ylab2, 2:length(data))
     } else {
       col.ylab2 <- layout$kde$colour$ylab2
     }
 
     if(length(layout$kde$colour$xtck) == 1) {
-      col.xtck <- 1:length(data)
+      col.xtck <- c(layout$kde$colour$xtck, 2:length(data))
     } else {
       col.xtck <- layout$kde$colour$xtck
     }
 
     if(length(layout$kde$colour$ytck1) == 1) {
-      col.ytck1 <- 1:length(data)
+      col.ytck1 <- c(layout$kde$colour$ytck1, 2:length(data))
     } else {
       col.ytck1 <- layout$kde$colour$ytck1
     }
 
     if(length(layout$kde$colour$ytck2) == 1) {
-      col.ytck2 <- 1:length(data)
+      col.ytck2 <- c(layout$kde$colour$ytck2, 2:length(data))
     } else {
       col.ytck2 <- layout$kde$colour$ytck2
     }
 
     if(length(layout$kde$colour$box) == 1) {
-      col.box <- 1:length(data)
+      col.box <- c(layout$kde$colour$box, 2:length(data))
     } else {
       col.box <- layout$kde$colour$box
     }
 
     if(length(layout$kde$colour$mtext) == 1) {
-      col.mtext <- 1:length(data)
+      col.mtext <- c(layout$kde$colour$mtext, 2:length(data))
     } else {
       col.mtext <- layout$kde$colour$mtext
     }
 
     if(length(layout$kde$colour$stats) == 1) {
-      col.stats <- 1:length(data)
+      col.stats <- c(layout$kde$colour$stats, 2:length(data))
     } else {
       col.stats <- layout$kde$colour$stats
     }
 
     if(length(layout$kde$colour$kde.line) == 1) {
-      col.kde.line <- 1:length(data)
+      col.kde.line <- c(layout$kde$colour$kde.line, 2:length(data))
     } else {
       col.kde.line <- layout$kde$colour$kde.line
     }
 
     if(length(layout$kde$colour$kde.fill) == 1) {
-      col.kde.fill <- 1:length(data)
+      col.kde.fill <- c(layout$kde$colour$kde.fill, 2:length(data))
     } else {
       col.kde.fill <- layout$kde$colour$kde.fill
     }
 
     if(length(layout$kde$colour$value.dot) == 1) {
-      col.value.dot <- 1:length(data)
+      col.value.dot <- c(layout$kde$colour$value.dot, 2:length(data))
     } else {
       col.value.dot <- layout$kde$colour$value.dot
     }
 
     if(length(layout$kde$colour$value.bar) == 1) {
-      col.value.bar <- 1:length(data)
+      col.value.bar <- c(layout$kde$colour$value.bar, 2:length(data))
     } else {
       col.value.bar <- layout$kde$colour$value.bar
     }
 
     if(length(layout$kde$colour$value.rug) == 1) {
-      col.value.rug <- 1:length(data)
+      col.value.rug <- c(layout$kde$colour$value.rug, 2:length(data))
     } else {
       col.value.rug <- layout$kde$colour$value.rug
     }
 
-    if(length(layout$kde$colour$boxplot) == 1) {
-      col.boxplot <- 1:length(data)
+    if(length(layout$kde$colour$boxplot.line) == 1) {
+      col.boxplot.line <- c(layout$kde$colour$boxplot.line, 2:length(data))
     } else {
-      col.boxplot <- layout$kde$colour$boxplot
+      col.boxplot.line <- layout$kde$colour$boxplot.line
+    }
+
+    if(length(layout$kde$colour$boxplot.fill) == 1) {
+      col.boxplot.fill <- c(layout$kde$colour$boxplot.fill, 2:length(data))
+    } else {
+      col.boxplot.fill <- layout$kde$colour$boxplot.fill
     }
 
     if(length(layout$kde$colour$mean.line) == 1) {
@@ -739,13 +747,13 @@ plot_KDE <- function(
     }
 
     if(length(layout$kde$colour$sd.bar) == 1) {
-      col.sd.bar <- 1:length(data)
+      col.sd.bar <- c(layout$kde$colour$sd.bar, 2:length(data))
     } else {
       col.sd.bar <- layout$kde$colour$sd.line
     }
 
     if(length(layout$kde$colour$background) == 1) {
-      col.background <- 1:length(data)
+      col.background <- c(layout$kde$colour$background, 2:length(data))
     } else {
       col.background <- layout$kde$colour$background
     }
@@ -935,7 +943,7 @@ plot_KDE <- function(
       polygon(x = c(par()$usr[1], De.density[[i]]$x, par()$usr[2]),
               y = c(min(De.density[[i]]$y),De.density[[i]]$y, min(De.density[[i]]$y)),
               border = col.kde.line[i],
-              col = col.kde.fill,
+              col = col.kde.fill[i],
               lty = lty[i],
               lwd = lwd[i])
 
@@ -1071,7 +1079,7 @@ plot_KDE <- function(
               y = c(-11/8 * l_height,
                     -7/8 * l_height),
               lwd = 2,
-              col = col.boxplot[i])
+              col = col.boxplot.line[i])
 
         ## draw q25-q75-polygon
         polygon(x = c(boxplot.data[[i]]$stats[2,1],
@@ -1082,38 +1090,39 @@ plot_KDE <- function(
                       -7/8 * l_height,
                       -7/8 * l_height,
                       -11/8 * l_height),
-                border = col.boxplot[i])
+                col = col.boxplot.fill[i],
+                border = col.boxplot.line[i])
 
         ## draw whiskers
         lines(x = c(boxplot.data[[i]]$stats[2,1],
                     boxplot.data[[i]]$stats[1,1]),
               y = c(-9/8 * l_height,
                     -9/8 * l_height),
-              col = col.boxplot[i])
+              col = col.boxplot.line[i])
 
         lines(x = c(boxplot.data[[i]]$stats[1,1],
                     boxplot.data[[i]]$stats[1,1]),
               y = c(-10/8 * l_height,
                     -8/8 * l_height),
-              col = col.boxplot[i])
+              col = col.boxplot.line[i])
 
         lines(x = c(boxplot.data[[i]]$stats[4,1],
                     boxplot.data[[i]]$stats[5,1]),
               y = c(-9/8 * l_height,
                     -9/8 * l_height),
-              col = col.boxplot[i])
+              col = col.boxplot.line[i])
 
         lines(x = c(boxplot.data[[i]]$stats[5,1],
                     boxplot.data[[i]]$stats[5,1]),
               y = c(-10/8 * l_height,
                     -8/8 * l_height),
-              col = col.boxplot[i])
+              col = col.boxplot.line[i])
 
         ## draw outliers
         points(x = boxplot.data[[i]]$out,
                y = rep(-9/8 * l_height,
                        length(boxplot.data[[i]]$out)),
-               col = col.boxplot[i],
+               col = col.boxplot.line[i],
                cex = cex * 0.8)
       }
 
@@ -1211,3 +1220,4 @@ plot_KDE <- function(
   }
 
 }
+
