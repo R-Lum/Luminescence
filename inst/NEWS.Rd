@@ -15,6 +15,12 @@
 
     }
 
+   \item \code{plot_KDE()}{
+        \itemize{
+           \item Further support for layout options as requested by Christopher Luethgens.
+     }
+     }
+
      \item \code{read_BIN2R()}{
         \itemize{
            \item Correct minor bug while importing corrupt BIN-files,
