@@ -217,7 +217,8 @@ get_Layout <- function(
             value.dot       = numeric(1),  # De value dot colour
             value.bar       = numeric(1),  # De value error bar colour
             value.rug       = numeric(1),  # De value rug colour
-            boxplot         = numeric(1),  # boxplot colour
+            boxplot.line    = numeric(1), # boxplot line colour
+            boxplot.fill    = numeric(1), # boxplot fill colour
             mean.line       = numeric(1),  # mean line colour
             sd.bar          = numeric(1),  # sd-line colour
             background      = numeric(1)), # background colour
@@ -403,13 +404,14 @@ get_Layout <- function(
             ytck2  = 1, # secondary y-axis tick colour
             box    = 1, # plot frame box line colour
             mtext  = 2, # subheader text colour
-            stats  = "#2062B3", # statistic summary colour
-            kde.line        = "#2062B3", # KDE line colour
+            stats  = 1, # statistic summary colour
+            kde.line        = 1, # KDE line colour
             kde.fill        = NULL, # KDE fill colour
             value.dot       = 1, # De value dot colour
             value.bar       = 1, # De value error bar colour
             value.rug       = 1, # De value rug colour
-            boxplot         = 1, # boxplot colour
+            boxplot.line    = 1, # boxplot line colour
+            boxplot.fill    = NULL, # boxplot fill colour
             mean.point       = 1, # mean line colour
             sd.line          = 1, # sd bar colour
             background      = NULL), # background colour
@@ -602,7 +604,8 @@ get_Layout <- function(
             value.dot       = 1, # De value dot colour
             value.bar       = 1, # De value error bar colour
             value.rug       = 1, # De value rug colour
-            boxplot         = 1, # boxplot colour
+            boxplot.line    = 1, # boxplot line colour
+            boxplot.fill    = NULL, # boxplot fill colour
             mean.line       = adjustcolor(col = 1, 
                                           alpha.f = 0.4), # mean line colour
             sd.bar          = adjustcolor(col = 1, 
@@ -641,3 +644,4 @@ get_Layout <- function(
   ## return layout parameters
   return(layout)
 }
+
