@@ -117,7 +117,8 @@
 #'
 #' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 #' returned containing the following elements:
-#' \item{De.values}{\link{data.frame} containing De-values, De-error and
+#'
+#' \item{data}{\link{data.frame} containing De-values, De-error and
 #' further parameters} \item{LnLxTnTx.values}{\link{data.frame} of all
 #' calculated Lx/Tx values including signal, background counts and the dose
 #' points} \item{rejection.criteria}{\link{data.frame} with values that might
