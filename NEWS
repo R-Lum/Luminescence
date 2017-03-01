@@ -2,13 +2,28 @@ NEWS for the R Package Luminescence
 
 Changes in version 0.7.4 (XX, 2017):
 
+  Changes in S4-classes and methods:
+
+         • ‘get_RLum’ for ‘RLum.Analysis’-objects now returns an error
+           and ‘NULL’ if the ‘record.id’ is not valid.
+
   Bugfixes and changes:
+
+         • ‘analyse_SAR.TL()’
+
+             • Minor changes to improve the overall stability.
 
          • ‘analyse_FadingMeasurement()’
 
              • The function returned unreliable results as the time
                since irradiation had been doubled. This bug only
                affected Lx/Tx data imported from an XSYG-file.
+
+         • ‘calc_TLLxTxRatio()’
+
+             • Arguments ‘Lx.data.background’ and ‘Tx.data.background’
+               are now preset to ‘NULL’, i.e. the function does not
+               longer check for missing entries.
 
          • ‘plot_KDE()’
 

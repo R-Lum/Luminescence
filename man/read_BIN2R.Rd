@@ -94,7 +94,7 @@ version number depends on the used Sequence Editor.\cr\cr
 import.}
 }
 \section{Function version}{
- 0.15.5 (2017-02-24 10:30:32)
+ 0.15.5 (2017-03-01 13:46:45)
 }
 
 \examples{

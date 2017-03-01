@@ -3,8 +3,24 @@
 \section{Changes in version 0.7.4 (XX, 2017)}{
 
 
+    \subsection{Changes in S4-classes and methods}{
+      \itemize{
+        \item \code{get_RLum} for \code{RLum.Analysis}-objects now returns an error and \code{NULL} if the
+        \code{record.id} is not valid.
+
+      }
+  }
+
   \subsection{Bugfixes and changes}{
     \itemize{
+
+    \item \code{analyse_SAR.TL()}{
+        \itemize{
+           \item Minor changes to improve the overall stability.
+
+      }
+
+    }
 
      \item \code{analyse_FadingMeasurement()}{
         \itemize{
@@ -14,6 +30,17 @@
       }
 
     }
+
+     \item \code{calc_TLLxTxRatio()}{
+        \itemize{
+           \item Arguments \code{Lx.data.background} and  \code{Tx.data.background} are now
+           preset to \code{NULL}, i.e. the function does not longer check for missing entries.
+
+      }
+
+    }
+
+
 
    \item \code{plot_KDE()}{
         \itemize{
