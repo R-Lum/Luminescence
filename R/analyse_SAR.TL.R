@@ -57,7 +57,7 @@
 #' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
 #' from the input object without further warning.
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -151,10 +151,11 @@ analyse_SAR.TL <- function(
   temp.sequence.structure <- temp.sequence.structure[which(
     temp.sequence.structure[,"protocol.step"]!="EXCLUDE"),]
 
+
   ##check integrity; signal and bg range should be equal
   if(length(
     unique(
-      temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","x.max"]))>1){
+      temp.sequence.structure[temp.sequence.structure[,"protocol.step"]=="SIGNAL","n.channels"]))>1){
 
     stop(paste(
       "[analyse_SAR.TL()] Signal range differs. Check sequence structure.\n",
@@ -164,7 +165,6 @@ analyse_SAR.TL <- function(
 
   ##check if the wanted curves are a multiple of the structure
   if(length(temp.sequence.structure[,"id"])%%length(sequence.structure)!=0){
-
     stop("[analyse_SAR.TL()] Input TL curves are not a multiple of the sequence structure.")
 
   }
@@ -185,30 +185,45 @@ analyse_SAR.TL <- function(
 
 
   ##calculate LxTx values using external function
-
   for(i in seq(1,length(TL.signal.ID),by=2)){
 
     temp.LnLxTnTx <- get_RLum(
       calc_TLLxTxRatio(
-        Lx.data.signal = get_RLum(object, record.id=TL.signal.ID[i]),
-        Lx.data.background = get_RLum(object, record.id=TL.background.ID[i]),
-        Tx.data.signal = get_RLum(object, record.id=TL.signal.ID[i+1]),
-        Tx.data.background = get_RLum(object, record.id = TL.background.ID[i+1]),
+        Lx.data.signal = get_RLum(object, record.id = TL.signal.ID[i]),
+        Lx.data.background = if (length(TL.background.ID) == 0) {
+          NULL
+        } else{
+          get_RLum(object, record.id = TL.background.ID[i])
+        },
+        Tx.data.signal = get_RLum(object, record.id = TL.signal.ID[i + 1]),
+        Tx.data.background =  if (length(TL.background.ID) == 0){
+          NULL
+
+        }else{
+          get_RLum(object, record.id = TL.background.ID[i + 1])
+
+        },
         signal.integral.min,
-        signal.integral.max))
+        signal.integral.max
+      )
+    )
 
     ##grep dose
     temp.Dose <- object@records[[TL.signal.ID[i]]]@info$IRR_TIME
 
+      ##take about NULL values
+      if(is.null(temp.Dose)){
+        temp.Dose <- NA
 
+      }
+
+    ##bind data.frame
     temp.LnLxTnTx <- cbind(Dose=temp.Dose, temp.LnLxTnTx)
 
     if(exists("LnLxTnTx")==FALSE){
-
       LnLxTnTx <- data.frame(temp.LnLxTnTx)
 
     }else{
-
       LnLxTnTx <- rbind(LnLxTnTx,temp.LnLxTnTx)
 
     }
@@ -379,8 +394,6 @@ analyse_SAR.TL <- function(
 
   ##plot curves
   sapply(seq(1,length(TL.signal.ID),by=2), function(x){
-
-
     lines(object@records[[TL.signal.ID[x]]]@data,col=col.doubled[x])
 
   })
@@ -421,122 +434,148 @@ analyse_SAR.TL <- function(
 
   # Plotting Plateau Test LnLx -------------------------------------------------
 
-  NTL.net.LnLx <- data.frame(object@records[[TL.signal.ID[1]]]@data[,1],
-                             object@records[[TL.signal.ID[1]]]@data[,2]-
-                               object@records[[TL.background.ID[1]]]@data[,2])
+  if(length(TL.background.ID) != 0){
+    NTL.net.LnLx <-
+      data.frame(object@records[[TL.signal.ID[1]]]@data[, 1],
+                 object@records[[TL.signal.ID[1]]]@data[, 2] -
+                   object@records[[TL.background.ID[1]]]@data[, 2])
 
-  Reg1.net.LnLx <- data.frame(object@records[[TL.signal.ID[3]]]@data[,1],
-                              object@records[[TL.signal.ID[3]]]@data[,2]-
-                                object@records[[TL.background.ID[3]]]@data[,2])
-
-
-  TL.Plateau.LnLx <- data.frame(NTL.net.LnLx[,1], Reg1.net.LnLx[,2]/NTL.net.LnLx[,2])
-
-  ##Plot Plateau Test
-  plot(NA, NA,
-       xlab = "Temp. [\u00B0C]",
-       ylab = "TL [a.u.]",
-       xlim = c(min(signal.integral.temperature)*0.9, max(signal.integral.temperature)*1.1),
-       ylim = c(0, max(NTL.net.LnLx[,2])),
-       main = expression(paste("Plateau test ",L[n],",",L[x]," curves",sep=""))
-  )
+    Reg1.net.LnLx <-
+      data.frame(object@records[[TL.signal.ID[3]]]@data[, 1],
+                 object@records[[TL.signal.ID[3]]]@data[, 2] -
+                   object@records[[TL.background.ID[3]]]@data[, 2])
 
 
-  ##plot single curves
-  lines(NTL.net.LnLx, col=col[1])
-  lines(Reg1.net.LnLx, col=col[2])
+    TL.Plateau.LnLx <-
+      data.frame(NTL.net.LnLx[, 1], Reg1.net.LnLx[, 2] / NTL.net.LnLx[, 2])
+
+    ##Plot Plateau Test
+    plot(
+      NA,
+      NA,
+      xlab = "Temp. [\u00B0C]",
+      ylab = "TL [a.u.]",
+      xlim = c(
+        min(signal.integral.temperature) * 0.9,
+        max(signal.integral.temperature) * 1.1
+      ),
+      ylim = c(0, max(NTL.net.LnLx[, 2])),
+      main = expression(paste("Plateau test ", L[n], ",", L[x], " curves", sep =
+                                ""))
+    )
 
 
-  ##plot
-  par(new=TRUE)
-  plot(TL.Plateau.LnLx,
-       axes=FALSE,
-       xlab="",
-       ylab="",
-       ylim=c(0,
-              quantile(TL.Plateau.LnLx[c(signal.integral.min:signal.integral.max),2],
-                       probs = c(0.90), na.rm = TRUE)+3),
-       col="darkgreen")
-  axis(4)
+    ##plot single curves
+    lines(NTL.net.LnLx, col = col[1])
+    lines(Reg1.net.LnLx, col = col[2])
 
 
-  # Plotting Plateau Test TnTx -------------------------------------------------
-
-  ##get NTL signal
-  NTL.net.TnTx <- data.frame(object@records[[TL.signal.ID[2]]]@data[,1],
-                             object@records[[TL.signal.ID[2]]]@data[,2]-
-                               object@records[[TL.background.ID[2]]]@data[,2])
-
-  ##get signal from the first regeneration point
-  Reg1.net.TnTx <- data.frame(object@records[[TL.signal.ID[4]]]@data[,1],
-                              object@records[[TL.signal.ID[4]]]@data[,2]-
-                                object@records[[TL.background.ID[4]]]@data[,2])
-
-
-  ##combine values
-  TL.Plateau.TnTx <- data.frame(NTL.net.TnTx[,1], Reg1.net.TnTx[,2]/NTL.net.TnTx[,2])
-
-  ##Plot Plateau Test
-  plot(NA, NA,
-       xlab = "Temp. [\u00B0C]",
-       ylab = "TL [a.u.]",
-       xlim = c(min(signal.integral.temperature)*0.9, max(signal.integral.temperature)*1.1),
-       ylim = c(0, max(NTL.net.TnTx[,2])),
-       main = expression(paste("plateau Test ",T[n],",",T[x]," curves",sep=""))
-  )
+    ##plot
+    par(new = TRUE)
+    plot(
+      TL.Plateau.LnLx,
+      axes = FALSE,
+      xlab = "",
+      ylab = "",
+      ylim = c(0,
+               quantile(
+                 TL.Plateau.LnLx[c(signal.integral.min:signal.integral.max), 2],
+                 probs = c(0.90), na.rm = TRUE
+               ) + 3),
+      col = "darkgreen"
+    )
+    axis(4)
 
 
-  ##plot single curves
-  lines(NTL.net.TnTx, col=col[1])
-  lines(Reg1.net.TnTx, col=col[2])
+    # Plotting Plateau Test TnTx -------------------------------------------------
+
+    ##get NTL signal
+    NTL.net.TnTx <-
+      data.frame(object@records[[TL.signal.ID[2]]]@data[, 1],
+                 object@records[[TL.signal.ID[2]]]@data[, 2] -
+                   object@records[[TL.background.ID[2]]]@data[, 2])
+
+    ##get signal from the first regeneration point
+    Reg1.net.TnTx <-
+      data.frame(object@records[[TL.signal.ID[4]]]@data[, 1],
+                 object@records[[TL.signal.ID[4]]]@data[, 2] -
+                   object@records[[TL.background.ID[4]]]@data[, 2])
 
 
-  ##plot
-  par(new=TRUE)
-  plot(TL.Plateau.TnTx,
-       axes=FALSE,
-       xlab="",
-       ylab="",
-       ylim=c(0,
-              quantile(TL.Plateau.TnTx[c(signal.integral.min:signal.integral.max),2],
-                       probs = c(0.90), na.rm = TRUE)+3),
-       col="darkgreen")
-  axis(4)
+    ##combine values
+    TL.Plateau.TnTx <-
+      data.frame(NTL.net.TnTx[, 1], Reg1.net.TnTx[, 2] / NTL.net.TnTx[, 2])
+
+    ##Plot Plateau Test
+    plot(
+      NA,
+      NA,
+      xlab = "Temp. [\u00B0C]",
+      ylab = "TL [a.u.]",
+      xlim = c(
+        min(signal.integral.temperature) * 0.9,
+        max(signal.integral.temperature) * 1.1
+      ),
+      ylim = c(0, max(NTL.net.TnTx[, 2])),
+      main = expression(paste("plateau Test ", T[n], ",", T[x], " curves", sep =
+                                ""))
+    )
+
+
+    ##plot single curves
+    lines(NTL.net.TnTx, col = col[1])
+    lines(Reg1.net.TnTx, col = col[2])
+
+
+    ##plot
+    par(new = TRUE)
+    plot(
+      TL.Plateau.TnTx,
+      axes = FALSE,
+      xlab = "",
+      ylab = "",
+      ylim = c(0,
+               quantile(
+                 TL.Plateau.TnTx[c(signal.integral.min:signal.integral.max), 2],
+                 probs = c(0.90), na.rm = TRUE
+               ) + 3),
+      col = "darkgreen"
+    )
+    axis(4)
 
 
 
 
-  # Plotting Legend ----------------------------------------
+    # Plotting Legend ----------------------------------------
 
 
-  plot(c(1:(length(TL.signal.ID)/2)),
-       rep(8,length(TL.signal.ID)/2),
-       type = "p",
-       axes=FALSE,
-       xlab="",
-       ylab="",
-       pch=15,
-       col=col[1:length(TL.signal.ID)],
-       cex=2,
-       ylim=c(0,10)
-  )
+    plot(
+      c(1:(length(TL.signal.ID) / 2)),
+      rep(8, length(TL.signal.ID) / 2),
+      type = "p",
+      axes = FALSE,
+      xlab = "",
+      ylab = "",
+      pch = 15,
+      col = col[1:length(TL.signal.ID)],
+      cex = 2,
+      ylim = c(0, 10)
+    )
 
-  ##add text
-  text(c(1:(length(TL.signal.ID)/2)),
-       rep(4,length(TL.signal.ID)/2),
-       paste(LnLxTnTx$Name,"\n(",LnLxTnTx$Dose,")", sep="")
+    ##add text
+    text(c(1:(length(TL.signal.ID) / 2)),
+         rep(4, length(TL.signal.ID) / 2),
+         paste(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")", sep = ""))
 
-  )
+    ##add line
+    abline(h = 10, lwd = 0.5)
 
-  ##add line
-  abline(h=10,lwd=0.5)
-
-  ##set failed text and mark De as failed
-  if(length(grep("FAILED",RejectionCriteria$status))>0){
-
-    mtext("[FAILED]", col="red")
+    ##set failed text and mark De as failed
+    if (length(grep("FAILED", RejectionCriteria$status)) > 0) {
+      mtext("[FAILED]", col = "red")
 
 
+    }
   }
 
   ##reset par
@@ -551,15 +590,13 @@ analyse_SAR.TL <- function(
   )
 
   temp.GC <- get_RLum(plot_GrowthCurve(temp.sample,
-                                               ...))[,c("De","De.Error")]
+                                       ...))[, c("De", "De.Error")]
 
   ##add recjection status
   if(length(grep("FAILED",RejectionCriteria$status))>0){
-
     temp.GC <- data.frame(temp.GC, RC.Status="FAILED")
 
   }else{
-
     temp.GC <- data.frame(temp.GC, RC.Status="OK")
 
   }
