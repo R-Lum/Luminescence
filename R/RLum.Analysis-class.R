@@ -439,7 +439,8 @@ setMethod("get_RLum",
 
               ##check if record.id exists
               if (FALSE %in% (abs(record.id) %in% (1:length(object@records)))) {
-                stop("[get_RLum()] At least one 'record.id' is invalid!")
+                try(stop("[get_RLum()] At least one 'record.id' is invalid!", call. = FALSE))
+                return(NULL)
 
               }
 
