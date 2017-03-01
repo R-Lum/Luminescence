@@ -589,8 +589,20 @@ analyse_SAR.TL <- function(
                             TnTx=LnLxTnTx$TnTx
   )
 
-  temp.GC <- get_RLum(plot_GrowthCurve(temp.sample,
-                                       ...))[, c("De", "De.Error")]
+  ##run curve fitting
+  temp.GC <- try(plot_GrowthCurve(sample = temp.sample,
+                              ...))
+
+  ##check for error
+  if(inherits(temp.GC, "try-error")){
+    return(NULL)
+
+  }else{
+    temp.GC <- get_RLum(temp.GC)[, c("De", "De.Error")]
+
+  }
+
+
 
   ##add recjection status
   if(length(grep("FAILED",RejectionCriteria$status))>0){
