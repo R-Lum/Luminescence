@@ -105,6 +105,7 @@ Collate:
     'get_Risoe.BINfileData.R'
     'RisoeBINfileData-class.R'
     'Second2Gray.R'
+    'analyse_Al2O3C_ITC.R'
     'analyse_FadingMeasurement.R'
     'analyse_IRSAR.RF.R'
     'analyse_SAR.CWOSL.R'
