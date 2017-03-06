@@ -63,7 +63,7 @@
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.\cr
 #'
-#' @section Function version: 0.3.7
+#' @section Function version: 0.3.8
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -643,6 +643,15 @@ plot_RLum.Analysis <- function(
 
       }
 
+      ##pch
+      if (length(plot.settings$pch[[k]]) < length(object.list)) {
+        pch <- rep(plot.settings$pch[[k]], times = length(object.list))
+
+      }else{
+        pch <- plot.settings$pch[[k]]
+
+      }
+
       ##legend.text
       legend.text <- if(!is.null(plot.settings$legend.text[[k]])){
         plot.settings$legend.text[[k]]
@@ -711,10 +720,26 @@ plot_RLum.Analysis <- function(
           temp.data.list[[n]] <- temp.data.list[[n]][which(temp.data.list[[n]]$x > 0), ]
 
         ##print lines
-        lines(temp.data.list[[n]],
-              col = col[n],
-              lty = lty[n],
-              lwd = plot.settings$lwd[[k]])
+        if (plot.settings$type[[k]] == "l" | plot.settings$type[[k]] == "b" ) {
+          lines(
+            temp.data.list[[n]],
+            col = col[n],
+            lty = lty[n],
+            lwd = plot.settings$lwd[[k]]
+          )
+
+        }
+
+        ##add points if requested
+        if (plot.settings$type[[k]] == "p" | plot.settings$type[[k]] == "b" ) {
+          points(
+            temp.data.list[[n]],
+            col = col[n],
+            pch = pch[n],
+
+          )
+
+        }
 
       }
 
