@@ -141,7 +141,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.3
+#' @section Function version: 1.9.4
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -866,7 +866,7 @@ plot_GrowthCurve <- function(
           De <- round((sample[1,2]/fit.lm$coefficients[1]), digits=2)
 
         }else{
-          De <- NA
+          De <- 0
         }
 
 
@@ -914,8 +914,13 @@ plot_GrowthCurve <- function(
           fit.lmMC <- lm(data$y ~ 0 + data$x, weights=fit.weights)
 
           #calculate x.natural
-          x.natural[i]<-round((data.MC.De[i]/fit.lmMC$coefficients[1]), digits=2)
+          if(mode == "regenerative"){
+            x.natural[i]<-round((data.MC.De[i]/fit.lmMC$coefficients[1]), digits=2)
 
+          }else if (mode == "additive"){
+            x.natural[i] <- 0
+
+          }
 
         }else{
 
@@ -1766,7 +1771,7 @@ plot_GrowthCurve <- function(
 
         if(!is.na(De)){
           lines(x = c(-De, -De), y = c(0, par()$usr[1]), col = "red", lty = 2)
-          lines(y = c(0,0), x = c(par()$usr[1], -De), col = "red", lty = 2)
+          lines(y = c(0,0), x = c(0, -De), col = "red", lty = 2)
 
 
         }
