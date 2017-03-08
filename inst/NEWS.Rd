@@ -48,6 +48,19 @@
      }
      }
 
+ \item \code{plot_GrowthCurve)}{
+        \itemize{
+           \item Fix a rather bug using the combination \code{fit.force_through_origin = FALSE} and
+           \code{mode = "additive"}
+     }
+     }
+
+  \item \code{plot_RLum.Analysis)}{
+        \itemize{
+           \item Add support for the argument 'type' of the argument 'combine = TRUE' is used.
+     }
+     }
+
      \item \code{read_BIN2R()}{
         \itemize{
            \item Correct minor bug while importing corrupt BIN-files,

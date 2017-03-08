@@ -30,6 +30,17 @@ Changes in version 0.7.4 (XX, 2017):
              • Further support for layout options as requested by
                Christopher Luethgens.
 
+         • ‘plot_GrowthCurve)’
+
+             • Fix a rather bug using the combination
+               ‘fit.force_through_origin = FALSE’ and ‘mode =
+               "additive"’
+
+         • ‘plot_RLum.Analysis)’
+
+             • Add support for the argument 'type' of the argument
+               'combine = TRUE' is used.
+
          • ‘read_BIN2R()’
 
              • Correct minor bug while importing corrupt BIN-files,
