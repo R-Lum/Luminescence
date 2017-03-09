@@ -73,7 +73,8 @@ value!}
 \value{
 A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
 returned containing the following elements:
-\item{De.values}{\link{data.frame} containing De-values, De-error and
+
+\item{data}{\link{data.frame} containing De-values, De-error and
 further parameters} \item{LnLxTnTx.values}{\link{data.frame} of all
 calculated Lx/Tx values including signal, background counts and the dose
 points} \item{rejection.criteria}{\link{data.frame} with values that might
@@ -145,7 +146,7 @@ This function must not be mixed up with the function
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 }
 \section{Function version}{
- 0.7.9 (2017-01-24 21:10:47)
+ 0.7.9 (2017-02-28 14:48:30)
 }
 
 \examples{

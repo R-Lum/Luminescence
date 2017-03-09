@@ -73,7 +73,7 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
- 0.1.5 (2016-12-05 17:06:05)
+ 0.1.6 (2017-03-08 18:32:35)
 }
 
 \examples{
@@ -96,7 +96,7 @@ analyse_SAR.TL(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.1.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.1.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
