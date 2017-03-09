@@ -50,8 +50,11 @@
 
  \item \code{plot_GrowthCurve)}{
         \itemize{
-           \item Fix a rather bug using the combination \code{fit.force_through_origin = FALSE} and
-           \code{mode = "additive"}
+           \item Rename argument options for argument \code{mode} to \code{'interpolation'} and
+           \code{'extrapolation'} instead of \code{'regenerative'} and \code{'additive'}.
+           \item fix a rather rare bug using the combination \code{fit.force_through_origin = FALSE} and
+           \code{mode = "extrapolation"}.
+
      }
      }
 

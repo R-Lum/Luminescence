@@ -32,9 +32,13 @@ Changes in version 0.7.4 (XX, 2017):
 
          • ‘plot_GrowthCurve)’
 
-             • Fix a rather bug using the combination
+             • Rename argument options for argument ‘mode’ to
+               ‘'interpolation'’ and ‘'extrapolation'’ instead of
+               ‘'regenerative'’ and ‘'additive'’.
+
+             • fix a rather rare bug using the combination
                ‘fit.force_through_origin = FALSE’ and ‘mode =
-               "additive"’
+               "extrapolation"’.
 
          • ‘plot_RLum.Analysis)’
 
