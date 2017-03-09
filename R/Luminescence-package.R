@@ -712,7 +712,7 @@ NULL
 #'
 #' ## Calculate the De of the IR50 signal
 #' IR50_De <- plot_GrowthCurve(IR50_De.LxTx,
-#'                                 mode = "regenerative",
+#'                                 mode = "interpolation",
 #'                                 fit.method = "EXP")
 #'
 #' ## Extract the calculated De and its error

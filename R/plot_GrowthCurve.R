@@ -1,7 +1,8 @@
 #' Fit and plot a growth curve for luminescence data (Lx/Tx against dose)
 #'
 #' A dose response curve is produced for luminescence measurements using a
-#' regenerative protocol.
+#' regenerative or additive protocol. The function supports interpolation and
+#' extraxpolation to calculate the equivalent dose.
 #'
 #' \bold{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
 #' the \code{EXP OR LIN}), the \code{\link[minpack.lm]{nlsLM}} function with the
@@ -65,8 +66,8 @@
 #' from the data set prior to any further operations.
 #'
 #' @param mode \code{\link{character}} (with default): selects calculation mode of the function.
-#' (A) \code{"regenerative"} (default) calculates the De by assuming a regenative curve,
-#' (B) \code{"additive"} calculates de De by assuming an additive curve and
+#' (A) \code{"interpolation"} (default) calculates the De by interpolation,
+#' (B) \code{"extrapolation"} calculates the De by extrapolation and
 #' (C) \code{"alternate"} calculates no De and just fits the data points. Please note that
 #' for option \code{"regenrative"} the first point is considered as natural dose
 #'
@@ -141,7 +142,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.4
+#' @section Function version: 1.9.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -178,9 +179,9 @@
 #'  type = "l"
 #' )
 #'
-#' ##(5) plot using the 'additive' mode
+#' ##(5) plot using the 'extrapolation' mode
 #' LxTxData[1,2:3] <- c(0.5, 0.001)
-#' print(plot_GrowthCurve(LxTxData,mode = "additive"))
+#' print(plot_GrowthCurve(LxTxData,mode = "extrapolation"))
 #'
 #' ##(6) plot using the 'alternate' mode
 #' LxTxData[1,2:3] <- c(0.5, 0.001)
@@ -190,7 +191,7 @@
 plot_GrowthCurve <- function(
   sample,
   na.rm = TRUE,
-  mode = "regenerative",
+  mode = "interpolation",
   fit.method = "EXP",
   fit.force_through_origin = FALSE,
   fit.weights = TRUE,
@@ -284,11 +285,11 @@ plot_GrowthCurve <- function(
   }
 
   #1.1 Produce dataframe from input values, two options for different modes
-  if(mode == "regenerative"){
+  if(mode == "interpolation"){
     xy<-data.frame(x=sample[2:(fit.NumberRegPoints+1),1],y=sample[2:(fit.NumberRegPoints+1),2])
     y.Error<-sample[2:(fit.NumberRegPoints+1),3]
 
-  }else if (mode == "additive" || mode == "alternate") {
+  }else if (mode == "extrapolation" || mode == "alternate") {
     xy <- data.frame(
       x = sample[1:(fit.NumberRegPoints+1),1],
       y = sample[1:(fit.NumberRegPoints+1),2])
@@ -318,7 +319,7 @@ plot_GrowthCurve <- function(
 
 
   #1.2 Prepare data sets regeneration points for MC Simulation
-  if (mode == "regenerative") {
+  if (mode == "interpolation") {
     data.MC <- t(vapply(
       X = seq(2, fit.NumberRegPoints + 1, by = 1),
       FUN = function(x) {
@@ -501,7 +502,7 @@ plot_GrowthCurve <- function(
     }
 
     ##solve and get De
-    if (mode == "regenerative") {
+    if (mode == "interpolation") {
       De.uniroot <- try(uniroot(De.fs,
                                 y = sample[1, 2],
                                 lower = 0,
@@ -523,7 +524,7 @@ plot_GrowthCurve <- function(
         De <- NA
 
       }
-    }else if (mode == "additive"){
+    }else if (mode == "extrapolation"){
       De.uniroot <- try(uniroot(De.fs,
                                 y = 0,
                                 lower = -1e06,
@@ -591,7 +592,7 @@ plot_GrowthCurve <- function(
 
       }
 
-      if (mode == "regenerative") {
+      if (mode == "interpolation") {
         ##solve and get De
         De.uniroot.MC <- try(uniroot(
           De.fs.MC,
@@ -609,7 +610,7 @@ plot_GrowthCurve <- function(
 
         }
 
-      }else if (mode == "additive"){
+      }else if (mode == "extrapolation"){
         ##solve and get De
         De.uniroot.MC <- try(uniroot(
           De.fs.MC,
@@ -740,10 +741,10 @@ plot_GrowthCurve <- function(
 
 
         #calculate De
-        if(mode == "regenerative"){
+        if(mode == "interpolation"){
           De <- suppressWarnings(round(-c-b*log(1-sample[1,2]/a), digits=2))
 
-        }else if (mode == "additive"){
+        }else if (mode == "extrapolation"){
           De <- suppressWarnings(round(abs(-c-b*log(1-0/a)), digits=2))
 
         }else{
@@ -820,11 +821,11 @@ plot_GrowthCurve <- function(
             var.c[i]<-as.vector((parameters["c"]))
 
             #calculate x.natural for error calculation
-            if(mode == "regenerative"){
+            if(mode == "interpolation"){
               x.natural[i]<-suppressWarnings(
                 round(-var.c[i]-var.b[i]*log(1-data.MC.De[i]/var.a[i]), digits=2))
 
-            }else if(mode == "additive"){
+            }else if(mode == "extrapolation"){
               x.natural[i]<-suppressWarnings(
                 abs(-var.c[i]-var.b[i]*log(1-0/var.a[i])))
 
@@ -862,7 +863,7 @@ plot_GrowthCurve <- function(
         fit.lm<-lm(data$y ~ 0 + data$x, weights = fit.weights)
 
         #calculate De
-        if(mode == "regenerative"){
+        if(mode == "interpolation"){
           De <- round((sample[1,2]/fit.lm$coefficients[1]), digits=2)
 
         }else{
@@ -874,9 +875,9 @@ plot_GrowthCurve <- function(
         fit.lm<-lm(data$y ~ data$x, weights = fit.weights)
 
         #calculate De
-        if(mode == "regenerative"){
+        if(mode == "interpolation"){
           De <- round((sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2], digits=2)
-        }else if(mode == "additive"){
+        }else if(mode == "extrapolation"){
           De <- round(abs((0-fit.lm$coefficients[1])/fit.lm$coefficients[2]), digits= 2)
 
         }
@@ -914,10 +915,10 @@ plot_GrowthCurve <- function(
           fit.lmMC <- lm(data$y ~ 0 + data$x, weights=fit.weights)
 
           #calculate x.natural
-          if(mode == "regenerative"){
+          if(mode == "interpolation"){
             x.natural[i]<-round((data.MC.De[i]/fit.lmMC$coefficients[1]), digits=2)
 
-          }else if (mode == "additive"){
+          }else if (mode == "extrapolation"){
             x.natural[i] <- 0
 
           }
@@ -929,11 +930,11 @@ plot_GrowthCurve <- function(
 
 
           #calculate x.natural
-          if(mode == "regenerative"){
+          if(mode == "interpolation"){
             x.natural[i]<-round((data.MC.De[i]-fit.lmMC$coefficients[1])/
                                   fit.lmMC$coefficients[2], digits=2)
 
-          }else if (mode == "additive"){
+          }else if (mode == "extrapolation"){
             x.natural[i]<-round(abs((0-fit.lmMC$coefficients[1])/
                                   fit.lmMC$coefficients[2]), digits=2)
 
@@ -1053,7 +1054,7 @@ plot_GrowthCurve <- function(
 
       #problem: analytically it is not easy to calculate x,
       #use uniroot to solve that problem ... readjust function first
-      if (mode == "regenerative") {
+      if (mode == "interpolation") {
         f.unirootEXPLIN <-
           function(a, b, c, g, x, LnTn) {
             fit.functionEXPLIN(a, b, c, g, x) - LnTn
@@ -1080,7 +1081,7 @@ plot_GrowthCurve <- function(
         } else{
           De <- NA
         }
-      }else if(mode == "additive"){
+      }else if(mode == "extrapolation"){
           f.unirootEXPLIN <-
             function(a, b, c, g, x, LnTn) {
               fit.functionEXPLIN(a, b, c, g, x) - LnTn
@@ -1182,7 +1183,7 @@ plot_GrowthCurve <- function(
           #problem: analytical it is not easy to calculate x,
           #use uniroot to solve this problem
 
-          if (mode == "regenerative") {
+          if (mode == "interpolation") {
             temp.De.MC <-  try(uniroot(
               f = f.unirootEXPLIN,
               interval = c(0, max(xy$x) * 1.5),
@@ -1200,7 +1201,7 @@ plot_GrowthCurve <- function(
             } else{
               x.natural[i] <- NA
             }
-          } else if (mode == "additive"){
+          } else if (mode == "extrapolation"){
             temp.De.MC <-  try(uniroot(
               f = f.unirootEXPLIN,
               interval = c(-1e6, max(xy$x) * 1.5),
@@ -1334,7 +1335,7 @@ plot_GrowthCurve <- function(
 
 
       #problem: analytically it is not easy to calculate x, use uniroot
-      if (mode == "regenerative") {
+      if (mode == "interpolation") {
         f.unirootEXPEXP <-
           function(a1, a2, b1, b2, x, LnTn) {
             fit.functionEXPEXP(a1, a2, b1, b2, x) - LnTn
@@ -1363,8 +1364,8 @@ plot_GrowthCurve <- function(
 
         ##remove object
         rm(temp.De)
-      }else if (mode == "additive"){
-        stop("[plot_GrowthCurve()] mode 'additive' for this fitting method currently not supported!")
+      }else if (mode == "extrapolation"){
+        stop("[plot_GrowthCurve()] mode 'extrapolation' for this fitting method currently not supported!")
 
       } else{
         De <- NA
@@ -1588,7 +1589,7 @@ plot_GrowthCurve <- function(
     ylim <- if("ylim" %in% names(extraArgs)) {
       extraArgs$ylim
     } else {
-      if(fit.force_through_origin){
+      if(fit.force_through_origin | mode == "extrapolation"){
         c(0-max(y.Error),(max(xy$y)+if(max(xy$y)*0.1>1.5){1.5}else{max(xy$y)*0.2}))
 
       }else{
@@ -1600,7 +1601,7 @@ plot_GrowthCurve <- function(
 
     xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
     {
-      if(mode != "additive"){
+      if(mode != "extrapolation"){
         c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
 
       }else{
@@ -1670,7 +1671,7 @@ plot_GrowthCurve <- function(
     silent = TRUE)
 
     if (!is(plot_check, "try-error")) {
-      if(mode == "additive"){
+      if(mode == "extrapolation"){
         abline(v = 0, lty = 1, col = "grey")
 
       }
@@ -1718,12 +1719,12 @@ plot_GrowthCurve <- function(
       ##POINTS	#Plot Reg0 and Repeated Points
 
       #Natural value
-      if(mode == "regenerative"){
+      if(mode == "interpolation"){
         points(sample[1, 1:2], col = "red")
         segments(sample[1, 1], sample[1, 2] - sample[1, 3],
                  sample[1, 1], sample[1, 2] + sample[1, 3], col = "red")
 
-      }else if (mode == "additive"){
+      }else if (mode == "extrapolation"){
         points(x = -De, y = 0, col = "red")
 
       }
@@ -1740,7 +1741,7 @@ plot_GrowthCurve <- function(
       segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
       ##LINES	#Insert Ln/Tn
-      if (mode == "regenerative") {
+      if (mode == "interpolation") {
         if (is.na(De)) {
           lines(
             c(0, max(sample[, 1]) * 2),
@@ -1767,7 +1768,7 @@ plot_GrowthCurve <- function(
                   lwd = 1.25), silent = TRUE)
         try(points(De, sample[1, 2], col = "red", pch = 19), silent = TRUE)
 
-      } else if (mode == "additive"){
+      } else if (mode == "extrapolation"){
 
         if(!is.na(De)){
           lines(x = c(-De, -De), y = c(0, par()$usr[1]), col = "red", lty = 2)
@@ -1814,7 +1815,7 @@ plot_GrowthCurve <- function(
       }, silent = TRUE)
 
       ##LEGEND	#plot legend
-      if (mode == "regenerative") {
+      if (mode == "interpolation") {
         legend(
           "topleft",
           c("REG point", "REG point repeated", "REG point 0"),

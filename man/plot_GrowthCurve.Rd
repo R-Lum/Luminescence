@@ -4,7 +4,7 @@
 \alias{plot_GrowthCurve}
 \title{Fit and plot a growth curve for luminescence data (Lx/Tx against dose)}
 \usage{
-plot_GrowthCurve(sample, na.rm = TRUE, mode = "regenerative",
+plot_GrowthCurve(sample, na.rm = TRUE, mode = "interpolation",
   fit.method = "EXP", fit.force_through_origin = FALSE,
   fit.weights = TRUE, fit.includingRepeatedRegPoints = TRUE,
   fit.NumberRegPoints = NULL, fit.NumberRegPointsReal = NULL,
@@ -22,8 +22,8 @@ fits at least three dose points (including the natural) should be provided.}
 from the data set prior to any further operations.}
 
 \item{mode}{\code{\link{character}} (with default): selects calculation mode of the function.
-(A) \code{"regenerative"} (default) calculates the De by assuming a regenative curve,
-(B) \code{"additive"} calculates de De by assuming an additive curve and
+(A) \code{"interpolation"} (default) calculates the De by interpolation,
+(B) \code{"extrapolation"} calculates the De by extrapolation and
 (C) \code{"alternate"} calculates no De and just fits the data points. Please note that
 for option \code{"regenrative"} the first point is considered as natural dose}
 
@@ -101,7 +101,8 @@ the slot \code{data} contains the following elements:\cr
 }
 \description{
 A dose response curve is produced for luminescence measurements using a
-regenerative protocol.
+regenerative or additive protocol. The function supports interpolation and
+extraxpolation to calculate the equivalent dose.
 }
 \details{
 \bold{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
@@ -158,7 +159,7 @@ To avoid plotting the subtitle information, provide an empty user mtext \code{mt
 To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.9.3 (2017-01-24 21:10:47)
+ 1.9.5 (2017-03-09 09:12:20)
 }
 
 \examples{
@@ -189,9 +190,9 @@ plot(
  type = "l"
 )
 
-##(5) plot using the 'additive' mode
+##(5) plot using the 'extrapolation' mode
 LxTxData[1,2:3] <- c(0.5, 0.001)
-print(plot_GrowthCurve(LxTxData,mode = "additive"))
+print(plot_GrowthCurve(LxTxData,mode = "extrapolation"))
 
 ##(6) plot using the 'alternate' mode
 LxTxData[1,2:3] <- c(0.5, 0.001)
@@ -208,6 +209,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.9.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2017). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.9.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
