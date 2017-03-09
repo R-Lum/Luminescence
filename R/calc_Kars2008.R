@@ -297,7 +297,7 @@ calc_Kars2008 <- function(data,
   data.tmp[ ,1] <- data.tmp[ ,1] * readerDdot
   
   GC.settings <- list(sample = data.tmp,
-                      mode = "regenerative",
+                      mode = "interpolation",
                       fit.method = "EXP",
                       output.plot = plot,
                       main = "Measured dose response curve",
@@ -384,7 +384,7 @@ calc_Kars2008 <- function(data,
     data.unfaded$LxTx.error[2] <- 0.0001
 
     GC.settings <- list(sample = data.unfaded,
-                        mode = "regenerative",
+                        mode = "interpolation",
                         fit.method = "EXP",
                         output.plot = TRUE,
                         verbose = FALSE,
