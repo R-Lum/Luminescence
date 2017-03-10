@@ -255,10 +255,3 @@ calc_TLLxTxRatio <- function(
    return(newRLumResults.calc_TLLxTxRatio)
 
 }
-
-print(calc_TLLxTxRatio(
-  Lx.data.signal = object[[1]],
-  Lx.data.background = object[[2]],
-  Tx.data.signal = object[[3]],
-  Tx.data.background = object[[2]],
-  signal.integral.min = 100, signal.integral.max = 200))
