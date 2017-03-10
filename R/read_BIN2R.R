@@ -80,7 +80,7 @@
 #' import.}
 #'
 #'
-#' @section Function version: 0.15.4
+#' @section Function version: 0.15.5
 #'
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
@@ -144,18 +144,18 @@ read_BIN2R <- function(
         }
         file <-
           as.list(c(
-            paste0(file, dir(
-              file, recursive = FALSE, pattern = ".bin"
-            )),
-            paste0(file, dir(
-              file, recursive = FALSE, pattern = ".binx"
-            )),
-            paste0(file, dir(
-              file, recursive = FALSE, pattern = ".BIN"
-            )),
-            paste0(file, dir(
-              file, recursive = FALSE, pattern = ".BINX"
-            ))
+            dir(
+              file, recursive = FALSE, pattern = ".bin", full.names = TRUE,
+            ),
+            dir(
+              file, recursive = FALSE, pattern = ".binx", full.names = TRUE
+            ),
+            dir(
+              file, recursive = FALSE, pattern = ".BIN", full.names = TRUE
+            ),
+            dir(
+              file, recursive = FALSE, pattern = ".BINX", full.names = TRUE
+            )
           ))
 
       }
@@ -168,6 +168,7 @@ read_BIN2R <- function(
     }
 
   }
+
 
   if (is(file, "list")) {
 
