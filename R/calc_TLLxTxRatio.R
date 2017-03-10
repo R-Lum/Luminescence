@@ -42,9 +42,9 @@
 #' \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr
 #'
 #' @note \bold{This function has still BETA status!} Please further note that a similar
-#' background for both curves results in a zero error.
+#' background for both curves results in a zero error and is therefore set to \code{NA}.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Christoph Schmidt, University of Bayreuth (Germany)
@@ -179,21 +179,27 @@ calc_TLLxTxRatio <- function(
     LnLx <- sum(Lx.data.signal[signal.integral.min:signal.integral.max,2])
     TnTx <- sum(Tx.data.signal[signal.integral.min:signal.integral.max,2])
 
-
      ##calculate variance of background
      if(is.na(LnLx.BG) == FALSE & is.na(TnTx.BG) == FALSE){
-
        BG.Error <- sd(c(LnLx.BG, TnTx.BG))
+
+       if(BG.Error == 0) {
+         warning(
+           "[calc_TLLxTxRatio()] The background signals for Lx and Tx appear to be similar, no background error was calculated.",
+           call. = FALSE
+         )
+         BG.Error <- NA
+
+       }
+
      }
 
 
     if(is.na(LnLx.BG) == FALSE){
-
       net_LnLx <-  LnLx - LnLx.BG
       net_LnLx.Error <- abs(net_LnLx * BG.Error/LnLx.BG)
 
     }else{
-
       net_LnLx <- NA
       net_LnLx.Error <- NA
 
@@ -212,8 +218,7 @@ calc_TLLxTxRatio <- function(
     }
 
 
-    if(is.na(net_TnTx) == TRUE){
-
+    if(is.na(net_TnTx)){
       LxTx <- LnLx/TnTx
       LxTx.Error <- NA
 
@@ -250,3 +255,10 @@ calc_TLLxTxRatio <- function(
    return(newRLumResults.calc_TLLxTxRatio)
 
 }
+
+print(calc_TLLxTxRatio(
+  Lx.data.signal = object[[1]],
+  Lx.data.background = object[[2]],
+  Tx.data.signal = object[[3]],
+  Tx.data.background = object[[2]],
+  signal.integral.min = 100, signal.integral.max = 200))
