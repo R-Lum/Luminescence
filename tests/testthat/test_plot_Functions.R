@@ -63,12 +63,49 @@ test_that("test pure success of the plotting without warning or error", {
     data(ExampleData.RLum.Data.Image, envir = environment())
     expect_silent(plot(ExampleData.RLum.Data.Image))
 
-    ##RLum.Data.Spectrum
+    ##RLum.Data.Spectrum -------
     data(ExampleData.XSYG, envir = environment())
     expect_silent(plot(TL.Spectrum,
                             plot.type="contour",
                             xlim = c(310,750),
                             ylim = c(0,300)))
+
+    expect_silent(suppressWarnings(plot_RLum.Data.Spectrum(TL.Spectrum,
+                            plot.type="persp",
+                            xlim = c(310,750),
+                            ylim = c(0,100),
+                            bin.rows=10,
+                            bin.cols = 1)))
+
+   expect_silent(suppressWarnings(plot_RLum.Data.Spectrum(TL.Spectrum,
+                            plot.type="multiple.lines",
+                            xlim = c(310,750),
+                            ylim = c(0,100),
+                            bin.rows=10,
+                            bin.cols = 1)))
+
+   expect_silent(suppressWarnings(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
+                           xlim = c(310,750), ylim = c(0,300), bin.rows=10,
+                           bin.cols = 1)))
+
+
+   expect_silent(suppressWarnings(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
+                           xlim = c(310,750), ylim = c(0,300), bin.rows=10,
+                           bin.cols = 1,
+                           type = "heatmap",
+                           showscale = TRUE)))
+
+   expect_silent(suppressWarnings(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
+                                                          xlim = c(310,750), ylim = c(0,300), bin.rows=10,
+                                                          bin.cols = 1,
+                                                          type = "contour",
+                                                          showscale = TRUE)))
+
+   expect_error(plot(TL.Spectrum,
+                      plot.type="contour",
+                      xlim = c(310,750),
+                      ylim = c(0,300), bin.cols = 0))
+
 
     ##RLum.Analysis
     data(ExampleData.BINfileData, envir = environment())
