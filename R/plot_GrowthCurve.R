@@ -142,7 +142,7 @@
 #' \code{..$call} : \tab \code{call} \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.5
+#' @section Function version: 1.9.6
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
@@ -221,7 +221,7 @@ plot_GrowthCurve <- function(
 
   ##2.1 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
-    warning("[plot_GrowthCurve()] The input data contain at least one Inf value. NULL returned!")
+    try(stop("[plot_GrowthCurve()] The input data contain at least one Inf value. NULL returned!", call. = FALSE))
     return(NULL)
   }
 
@@ -296,7 +296,7 @@ plot_GrowthCurve <- function(
     y.Error <- sample[1:(fit.NumberRegPoints+1),3]
 
   }else{
-    stop("[plot_GrowthCurve()] Unknown input for argument 'mode'")
+    stop("[plot_GrowthCurve()] Unknown input for argument 'mode'", call. = FALSE)
 
   }
 
@@ -513,7 +513,7 @@ plot_GrowthCurve <- function(
         if (verbose) {
           if (mode != "alternate") {
             writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
-              " (", mode,") ", "| De = ", De))
+              " (", mode,") ", "| De = ", round(De,2)))
 
           }
         }
@@ -531,11 +531,11 @@ plot_GrowthCurve <- function(
                                 upper = max(sample[, 1]) * 1.5), silent = TRUE)
 
       if (!inherits(De.uniroot, "try-error")) {
-        De <- round(abs(De.uniroot$root), digits = 2)
+        De <- De.uniroot$root
         if (verbose) {
           if (mode != "alternate") {
             writeLines(paste0("[plot_GrowthCurve()] Fit: ", fit.method,
-                              " (", mode,") ", "| De = ", De))
+                              " (", mode,") ", "| De = ", round(abs(De), 2)))
 
           }
         }
@@ -621,7 +621,7 @@ plot_GrowthCurve <- function(
         silent = TRUE)
 
         if (!inherits(De.uniroot.MC, "try-error")) {
-          De.MC <- round(abs(De.uniroot.MC$root), digits = 2)
+          De.MC <- De.uniroot.MC$root
 
         } else{
           De.MC <- NA
@@ -646,12 +646,12 @@ plot_GrowthCurve <- function(
     x.natural<- fit.MC
   }
   #===========================================================================##
-  #EXP#
+  #EXP ---------------
 
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
     if((is.na(a) | is.na(b) | is.na(c)) && fit.method != "LIN"){
-      warning("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!")
+      try(stop("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!", call. = FALSE))
       return(NULL)
 
     }
@@ -702,7 +702,7 @@ plot_GrowthCurve <- function(
       fit <- try(minpack.lm::nlsLM(
         formula = fit.formulaEXP,
         data = data,
-        start = list(a = a, b = b,c = c),
+        start = list(a = a, b = b,c = 0),
         weights = fit.weights,
         trace = FALSE,
         algorithm = "LM",
@@ -745,7 +745,7 @@ plot_GrowthCurve <- function(
           De <- suppressWarnings(round(-c-b*log(1-sample[1,2]/a), digits=2))
 
         }else if (mode == "extrapolation"){
-          De <- suppressWarnings(round(abs(-c-b*log(1-0/a)), digits=2))
+          De <- suppressWarnings(-c-b*log(1-0/a))
 
         }else{
           De <- NA
@@ -764,7 +764,7 @@ plot_GrowthCurve <- function(
               mode,
               ")",
               " | De = ",
-              De,
+              round(abs(De), digits = 2),
               " | D01 = ",
               D01
             ))
@@ -772,6 +772,7 @@ plot_GrowthCurve <- function(
         }
 
 
+        #EXP MC -----
         ##Monte Carlo Simulation
         #	--Fit many curves and calculate a new De +/- De_Error
         #	--take De_Error
@@ -848,8 +849,8 @@ plot_GrowthCurve <- function(
       }#endif::try-error fit
 
     }#endif:fit.method!="LIN"
-    #========================================================================
-    #LIN#
+    # ======================================================================== #
+    ##LIN -----
     ##two options: just linear fit or LIN fit after the EXP fit failed
 
     #set fit object, if fit objekt was not set before
@@ -877,8 +878,9 @@ plot_GrowthCurve <- function(
         #calculate De
         if(mode == "interpolation"){
           De <- round((sample[1,2]-fit.lm$coefficients[1])/fit.lm$coefficients[2], digits=2)
+
         }else if(mode == "extrapolation"){
-          De <- round(abs((0-fit.lm$coefficients[1])/fit.lm$coefficients[2]), digits= 2)
+          De <- (0-fit.lm$coefficients[1])/fit.lm$coefficients[2]
 
         }
 
@@ -897,7 +899,7 @@ plot_GrowthCurve <- function(
             mode,
             ") ",
             "| De = ",
-            De
+            round(abs(De), 2)
           ))
 
         }
@@ -905,6 +907,7 @@ plot_GrowthCurve <- function(
       }
 
       #start loop for Monte Carlo Error estimation
+      #LIN MC ---------
       for (i in 1:NumberIterations.MC) {
 
         data <- data.frame(x=xy$x, y=data.MC[,i])
@@ -935,8 +938,8 @@ plot_GrowthCurve <- function(
                                   fit.lmMC$coefficients[2], digits=2)
 
           }else if (mode == "extrapolation"){
-            x.natural[i]<-round(abs((0-fit.lmMC$coefficients[1])/
-                                  fit.lmMC$coefficients[2]), digits=2)
+            x.natural[i]<-abs((0-fit.lmMC$coefficients[1])/
+                                  fit.lmMC$coefficients[2])
 
           }
 
@@ -948,22 +951,21 @@ plot_GrowthCurve <- function(
       }#endfor::loop for MC
 
       #correct for fit.method
-      fit.method<-"LIN"
+      fit.method <- "LIN"
 
       ##set fit object
       if(fit.method=="LIN"){fit<-fit.lm}
 
     }else{fit.method<-"EXP"}#endif::LIN
   }#end if EXP (this includes the LIN fit option)
-  #===========================================================================
-  #===========================================================================
-  #EXP+LIN#
+  #=========================================================================== #
+  #=========================================================================== #
+  # EXP+LIN ----
   else if (fit.method=="EXP+LIN") {
 
 
     ##try some start parameters from the input values to makes the fitting more stable
     for(i in 1:length(a.MC)){
-
       a<-a.MC[i];b<-b.MC[i];c<-c.MC[i];g<-g.MC[i]
 
       ##---------------------------------------------------------##
@@ -974,9 +976,8 @@ plot_GrowthCurve <- function(
                        trace=FALSE,
                        algorithm="port",
                        lower=c(a=0,b>10,c=0),
-                       nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/1048)
+                       nls.control(maxiter=100,warnOnly=FALSE,minFactor=1/1024)
       ),silent=TRUE)
-
 
       if(class(fit.EXP)!="try-error"){
         #get parameters out of it
@@ -987,15 +988,16 @@ plot_GrowthCurve <- function(
 
         ##end: with EXP function
         ##---------------------------------------------------------##
-      }
 
+
+      }
 
       fit<-try(nls(y~fit.functionEXPLIN(a,b,c,g,x),
                    data=data,
                    start=c(a=a,b=b,c=c,g=g),
                    trace=FALSE,
                    algorithm="port",
-                   lower = if(fit.bounds==TRUE){lower=c(a=0,b>10,c=0,g=0)}else{c()},
+                   lower = if(fit.bounds){c(a=0,b>10,c=0,g=0)}else{c(a = -Inf,b = -Inf,c = -Inf,g = -Inf)},
                    nls.control(maxiter=500,warnOnly=FALSE,minFactor=1/2048) #increase max. iterations
       ),silent=TRUE)
 
@@ -1007,6 +1009,7 @@ plot_GrowthCurve <- function(
         c.start[i]<-as.vector((parameters["c"]))
         g.start[i]<-as.vector((parameters["g"]))
       }
+
 
 
 
@@ -1498,7 +1501,6 @@ plot_GrowthCurve <- function(
 
 
 
-
   # Formula creation --------------------------------------------------------
   if(!is(fit,"try-error") & !is.na(fit[1])){
 
@@ -1598,7 +1600,6 @@ plot_GrowthCurve <- function(
 
     }
 
-
     xlim <- if("xlim" %in% names(extraArgs)) {extraArgs$xlim} else
     {
       if(mode != "extrapolation"){
@@ -1606,7 +1607,14 @@ plot_GrowthCurve <- function(
 
       }else{
         if(!is.na(De)){
-          c(-De * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+          if(De > 0){
+            c(0,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+
+          }else{
+            c(De * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
+
+          }
+
         }else{
           c(-min(xy$x) * 2,(max(xy$x)+if(max(xy$x)*0.4>50){50}else{max(xy$x)*0.4}))
 
@@ -1673,6 +1681,7 @@ plot_GrowthCurve <- function(
     if (!is(plot_check, "try-error")) {
       if(mode == "extrapolation"){
         abline(v = 0, lty = 1, col = "grey")
+        abline(h = 0, lty = 1, col = "grey")
 
       }
 
@@ -1725,7 +1734,7 @@ plot_GrowthCurve <- function(
                  sample[1, 1], sample[1, 2] + sample[1, 3], col = "red")
 
       }else if (mode == "extrapolation"){
-        points(x = -De, y = 0, col = "red")
+        points(x = De, y = 0, col = "red")
 
       }
 
@@ -1771,14 +1780,13 @@ plot_GrowthCurve <- function(
       } else if (mode == "extrapolation"){
 
         if(!is.na(De)){
-          lines(x = c(-De, -De), y = c(0, par()$usr[1]), col = "red", lty = 2)
-          lines(y = c(0,0), x = c(0, -De), col = "red", lty = 2)
+          abline(v = De, lty = 2, col = "red")
+          lines(x = c(0,De), y = c(0,0), lty = 2, col = "red")
 
 
         }
 
       }
-
 
       ## check/set mtext
       mtext <- if ("mtext" %in% names(list(...))) {
@@ -1787,13 +1795,12 @@ plot_GrowthCurve <- function(
         if(mode != "alternate"){
         substitute(D[e] == De,
                    list(De = paste(
-                     De, "\u00B1", De.Error, " | fit: ", fit.method
+                     round(abs(De), digits = 2), "\u00B1", round(as.numeric(De.Error), digits = 2), " | fit: ", fit.method
                    )))
         }else{
           ""
         }
       }
-
 
 
       ##TEXT		#Insert fit and result
