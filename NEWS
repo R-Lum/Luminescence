@@ -38,7 +38,16 @@ Changes in version 0.7.4 (XX, 2017):
 
              • fix a rather rare bug using the combination
                ‘fit.force_through_origin = FALSE’ and ‘mode =
-               "extrapolation"’.
+               "extrapolation"’,
+
+             • another minor improvements.
+
+         • ‘plot_RLum.Data.Spectrum)’
+
+             • Fixwrong axtick labels for interactive plot option
+               (#39),
+
+             • correct manual.
 
          • ‘plot_RLum.Analysis)’
 
@@ -49,7 +58,10 @@ Changes in version 0.7.4 (XX, 2017):
 
              • Correct minor bug while importing corrupt BIN-files,
 
-             • add support for internet connections.
+             • add support for internet connections,
+
+             • if a directory was provided the functions was trapped in
+               an endless loop (#36)
 
          • ‘write_R2BIN()’
 

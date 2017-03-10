@@ -53,8 +53,16 @@
            \item Rename argument options for argument \code{mode} to \code{'interpolation'} and
            \code{'extrapolation'} instead of \code{'regenerative'} and \code{'additive'}.
            \item fix a rather rare bug using the combination \code{fit.force_through_origin = FALSE} and
-           \code{mode = "extrapolation"}.
+           \code{mode = "extrapolation"},
+           \item the graphical representation for \code{mode = "extrapolation"} was not correct (#38).
 
+     }
+     }
+
+  \item \code{plot_RLum.Data.Spectrum)}{
+        \itemize{
+           \item Fixwrong axtick labels for interactive plot option (#39),
+           \item correct manual.
      }
      }
 
@@ -67,7 +75,8 @@
      \item \code{read_BIN2R()}{
         \itemize{
            \item Correct minor bug while importing corrupt BIN-files,
-           \item add support for internet connections.
+           \item add support for internet connections,
+           \item if a directory was provided the functions was trapped in an endless loop (#36)
      }
      }
 
