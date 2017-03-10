@@ -136,7 +136,7 @@
 #'
 #' @note Not all additional arguments (\code{...}) will be passed similarly!
 #'
-#' @section Function version: 0.5.2
+#' @section Function version: 0.5.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -190,10 +190,17 @@
 #'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
 #'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
 #'  bin.cols = 1,
-#'  type = NULL,
+#'  type = "contour",
 #'  showscale = TRUE)
 #'
-#'  ##(6) alternative using the package fields
+#'  ##(6) interactive plot using the package plotly ("heatmap")
+#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
+#'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
+#'  bin.cols = 1,
+#'  type = "heatmap",
+#'  showscale = TRUE)
+#'
+#'  ##(7) alternative using the package fields
 #'  fields::image.plot(get_RLum(TL.Spectrum))
 #'  contour(get_RLum(TL.Spectrum), add = TRUE)
 #'
@@ -431,7 +438,13 @@ plot_RLum.Data.Spectrum <- function(
 
   # Channel binning ---------------------------------------------------------
 
-  if(missing(bin.rows) == FALSE){
+  ##fatal checks
+  if(bin.cols < 1 | bin.rows < 1){
+    stop("[plot_RLum.Data.Spectrum()] 'bin.cols' and 'bin.rows' have to be > 1!", call. = FALSE)
+
+  }
+
+  if(bin.rows > 1){
 
     ##calculate n.rows
     n.rows <- nrow(temp.xyz)
@@ -448,13 +461,12 @@ plot_RLum.Data.Spectrum <- function(
     ##sum up rows
     temp.xyz <- rowsum(temp.xyz, bin.group)
 
-    ##correct labeling
+    ##correct labelling
     x <- x[seq(1, n.rows, bin.rows)]
 
     ## to avoid odd plots remove last group if bin.rows is not a multiple
     ## of the row number
     if(bin.group.rest != 0){
-
       temp.xyz <- temp.xyz[-nrow(temp.xyz),]
       x <- x[-length(x)]
 
@@ -462,13 +474,15 @@ plot_RLum.Data.Spectrum <- function(
 
     }
 
+    ##replace rownames
+    rownames(temp.xyz) <- as.character(x)
 
     rm(bin.group.rest)
 
   }
 
 
-  if(missing(bin.cols) == FALSE){
+  if(bin.cols > 1){
 
     ##calculate n.cols
     n.cols <- ncol(temp.xyz)
@@ -477,7 +491,6 @@ plot_RLum.Data.Spectrum <- function(
     if(bin.cols > n.cols){
 
       bin.cols <- n.cols
-
       warning("bin.cols > the number of columns. Value reduced to number of cols.")
 
     }
@@ -508,6 +521,9 @@ plot_RLum.Data.Spectrum <- function(
       warning("Last count channel has been removed due to column binning.")
 
     }
+
+    ##replace colnames
+    colnames(temp.xyz) <- as.character(y)
 
   }
 
@@ -716,6 +732,7 @@ plot_RLum.Data.Spectrum <- function(
     ##interactive plot and former persp3d
     ## ==========================================================================#
 
+    ## Plot: interactive ----
     ##http://r-pkgs.had.co.nz/description.html
     if (!requireNamespace("plotly", quietly = TRUE)) {
       stop("[plot_RLum.Data.Spectrum()] Package 'plotly' needed for this plot type. Please install it.",
@@ -723,19 +740,27 @@ plot_RLum.Data.Spectrum <- function(
     }
 
        ##set up plot
-       p <- plotly::plot_ly(
-         z = temp.xyz,
-         type = type,
-         showscale = showscale,
-         #colors = col[1:(length(col)-1)],
-         )
+        p <- plotly::plot_ly(
+          z = temp.xyz,
+          x = as.numeric(colnames(temp.xyz)),
+          y = as.numeric(rownames(temp.xyz)),
+          type = type,
+          showscale = showscale
+          #colors = col[1:(length(col)-1)],
+        )
+
 
        ##change graphical parameters
        p <-  plotly::layout(
          p = p,
          scene = list(
-           xaxis = list(title = ylab),
-           yaxis = list(title = xlab),
+           xaxis = list(
+             title = ylab
+
+           ),
+           yaxis = list(
+             title = xlab
+           ),
            zaxis = list(title = zlab)
 
          ),
