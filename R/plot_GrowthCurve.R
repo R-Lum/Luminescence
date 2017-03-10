@@ -1106,7 +1106,7 @@ plot_GrowthCurve <- function(
 
 
           if (class(temp.De) != "try-error") {
-            De <- round(abs(temp.De$root), digits = 2)
+            De <- temp.De$root
           } else{
             De <- NA
           }
@@ -1127,7 +1127,7 @@ plot_GrowthCurve <- function(
             ")"
             ,
             " | De = ",
-            De
+            round(abs(De),2)
           ))
         }
       }
@@ -1993,7 +1993,7 @@ plot_GrowthCurve <- function(
 
   ##RETURN - return De values and parameter
   output <- try(data.frame(
-    De = De,
+    De = abs(De),
     De.Error = De.Error,
     D01 = D01,
     D01.ERROR = D01.ERROR,
