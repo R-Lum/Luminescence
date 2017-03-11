@@ -79,7 +79,7 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
- 0.2.0 (2017-03-11 12:24:16)
+ 0.2.0 (2017-03-11 13:31:45)
 }
 
 \examples{

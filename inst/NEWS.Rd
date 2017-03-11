@@ -31,6 +31,20 @@
 
     }
 
+    \item \code{analyse_SAR.TL()}{
+        \itemize{
+           \item A test code snippet made it into the final package. With this the Lx/Tx error was
+           taken as fixed value (10/100) from the Lx/Tx value itself. The calculated error was not
+           considered; corrected,
+           \item function returns \code{NA} for the error if the background signals are similar
+           and the error would become 0,
+           \item new argument \code{integral_input} added to allow for an integral definition based
+           on temperatures and not channels.
+
+      }
+
+    }
+
      \item \code{calc_TLLxTxRatio()}{
         \itemize{
            \item Arguments \code{Lx.data.background} and  \code{Tx.data.background} are now

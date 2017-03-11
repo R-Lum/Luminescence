@@ -19,6 +19,20 @@ Changes in version 0.7.4 (XX, 2017):
                since irradiation had been doubled. This bug only
                affected Lx/Tx data imported from an XSYG-file.
 
+         • ‘analyse_SAR.TL()’
+
+             • A test code snippet made it into the final package. With
+               this the Lx/Tx error was taken as fixed value (10/100)
+               from the Lx/Tx value itself. The calculated error was
+               not considered; corrected,
+
+             • function returns ‘NA’ for the error if the background
+               signals are similar and the error would become 0,
+
+             • new argument ‘integral_input’ added to allow for an
+               integral definition based on temperatures and not
+               channels.
+
          • ‘calc_TLLxTxRatio()’
 
              • Arguments ‘Lx.data.background’ and ‘Tx.data.background’
@@ -40,7 +54,8 @@ Changes in version 0.7.4 (XX, 2017):
                ‘fit.force_through_origin = FALSE’ and ‘mode =
                "extrapolation"’,
 
-             • another minor improvements.
+             • the graphical representation for ‘mode =
+               "extrapolation"’ was not correct (#38).
 
          • ‘plot_RLum.Data.Spectrum)’
 
