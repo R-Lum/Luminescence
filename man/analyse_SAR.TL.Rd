@@ -5,9 +5,10 @@
 \title{Analyse SAR TL measurements}
 \usage{
 analyse_SAR.TL(object, object.background, signal.integral.min,
-  signal.integral.max, sequence.structure = c("PREHEAT", "SIGNAL",
-  "BACKGROUND"), rejection.criteria = list(recycling.ratio = 10,
-  recuperation.rate = 10), dose.points, log = "", ...)
+  signal.integral.max, integral_input = "channel",
+  sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
+  rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
+  dose.points, log = "", ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): input
@@ -22,6 +23,11 @@ channel number for the lower signal integral bound (e.g.
 \item{signal.integral.max}{\link{integer} (\bold{required}): requires the
 channel number for the upper signal integral bound (e.g.
 \code{signal.integral.max = 200})}
+
+\item{integral_input}{\code{\link{character}} (with default): defines the input for the
+the arguments \code{signal.integral.min} and \code{signal.integral.max}. These limits can be
+either provided \code{'channel'} number (the default) or \code{'temperature'}. If \code{'temperature'}
+is chosen the best matching channel is selected.}
 
 \item{sequence.structure}{\link{vector} \link{character} (with default):
 specifies the general sequence structure. Three steps are allowed (
@@ -73,7 +79,7 @@ background see Aitken and Smith (1988)\cr
 from the input object without further warning.
 }
 \section{Function version}{
- 0.1.6 (2017-03-08 18:32:35)
+ 0.2.0 (2017-03-11 12:24:16)
 }
 
 \examples{
@@ -96,7 +102,7 @@ analyse_SAR.TL(object,
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.1.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

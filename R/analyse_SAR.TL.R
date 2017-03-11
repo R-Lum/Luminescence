@@ -26,6 +26,11 @@
 #' channel number for the upper signal integral bound (e.g.
 #' \code{signal.integral.max = 200})
 #'
+#' @param integral_input \code{\link{character}} (with default): defines the input for the
+#' the arguments \code{signal.integral.min} and \code{signal.integral.max}. These limits can be
+#' either provided \code{'channel'} number (the default) or \code{'temperature'}. If \code{'temperature'}
+#' is chosen the best matching channel is selected.
+#'
 #' @param sequence.structure \link{vector} \link{character} (with default):
 #' specifies the general sequence structure. Three steps are allowed (
 #' \code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
@@ -54,10 +59,11 @@
 #' as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
 #' \bold{note:} the output should be accessed using the function
 #' \code{\link{get_RLum}}
+#'
 #' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
 #' from the input object without further warning.
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -71,7 +77,9 @@
 #' Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using an
 #' improved single-aliquot regenerative-dose protocol. Radiation Measurements
 #' 32, 57-73.
+#'
 #' @keywords datagen plot
+#'
 #' @examples
 #'
 #'
@@ -95,6 +103,7 @@ analyse_SAR.TL <- function(
   object.background,
   signal.integral.min,
   signal.integral.max,
+  integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
   dose.points,
@@ -170,7 +179,6 @@ analyse_SAR.TL <- function(
   }
 
 
-
   # # Calculate LnLxTnTx values  --------------------------------------------------
 
   ##grep IDs for signal and background curves
@@ -183,6 +191,17 @@ analyse_SAR.TL <- function(
   TL.background.ID <- temp.sequence.structure[
     temp.sequence.structure[,"protocol.step"] == "BACKGROUND","id"]
 
+  ##comfort ... translate integral limits from temperature to channel
+  if(integral_input == "temperature"){
+    signal.integral.min <-
+      which.min(abs(
+        signal.integral.min - get_RLum(object, record.id = TL.signal.ID[1])[, 1]
+      ))
+    signal.integral.max <-
+      which.min(abs(
+        signal.integral.max - get_RLum(object, record.id = TL.signal.ID[1])[, 1]
+      ))
+  }
 
   ##calculate LxTx values using external function
   for(i in seq(1,length(TL.signal.ID),by=2)){
@@ -341,9 +360,9 @@ analyse_SAR.TL <- function(
   ##============================================================================##
 
   # Plotting - Config -------------------------------------------------------
-
   ##grep plot parameter
   par.default <- par(no.readonly = TRUE)
+  on.exit(par(par.default))
 
   ##colours and double for plotting
   col <- get("col", pos = .LuminescenceEnv)
@@ -421,8 +440,6 @@ analyse_SAR.TL <- function(
 
   ##plot curves
   sapply(seq(2,length(TL.signal.ID),by=2), function(x){
-
-
     lines(object@records[[TL.signal.ID[x]]]@data,col=col.doubled[x])
 
   })
@@ -578,20 +595,18 @@ analyse_SAR.TL <- function(
     }
   }
 
-  ##reset par
-  par(par.default)
-  rm(par.default)
-
   # Plotting  GC  ----------------------------------------
   temp.sample <- data.frame(Dose=LnLxTnTx$Dose,
                             LxTx=LnLxTnTx$LxTx,
-                            LxTx.Error=LnLxTnTx$LxTx*0.1,
+                            LxTx.Error=LnLxTnTx$LxTx.Error,
                             TnTx=LnLxTnTx$TnTx
   )
 
   ##run curve fitting
-  temp.GC <- try(plot_GrowthCurve(sample = temp.sample,
-                              ...))
+  temp.GC <- try(plot_GrowthCurve(
+    sample = temp.sample,
+    ...
+  ))
 
   ##check for error
   if(inherits(temp.GC, "try-error")){
