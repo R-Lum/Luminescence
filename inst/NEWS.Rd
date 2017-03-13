@@ -14,9 +14,12 @@
   \subsection{Bugfixes and changes}{
     \itemize{
 
-    \item \code{analyse_SAR.TL()}{
+
+
+     \item \code{analyse_baSAR()}{
         \itemize{
-           \item Minor changes to improve the overall stability.
+           \item The option to force the dose response curve trough the origin was not correctly
+           implemented; fixed.
 
       }
 

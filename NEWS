@@ -9,9 +9,10 @@ Changes in version 0.7.4 (XX, 2017):
 
   Bugfixes and changes:
 
-         • ‘analyse_SAR.TL()’
+         • ‘analyse_baSAR()’
 
-             • Minor changes to improve the overall stability.
+             • The option to force the dose response curve trough the
+               origin was not correctly implemented; fixed.
 
          • ‘analyse_FadingMeasurement()’
 
