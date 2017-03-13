@@ -287,7 +287,7 @@
 #' as geometric mean!}
 #'
 #'
-#' @section Function version: 0.1.28
+#' @section Function version: 0.1.29
 #'
 #' @author Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
@@ -2255,7 +2255,7 @@ analyse_baSAR <- function(
       if (fit.method == "EXP") {ExpoGC <- 1 ; LinGC <-  0 }
       if (fit.method == "LIN") {ExpoGC <- 0 ; LinGC <-  1 }
       if (fit.method == "EXP+LIN") {ExpoGC <- 1 ; LinGC <-  1 }
-      if (fit.force_through_origin == TRUE) {GC_Origin <- 1} else {GC_Origin <- 0}
+      if (fit.force_through_origin) {GC_Origin <- 0} else {GC_Origin <- 1}
 
       ##add choise for own provided model
       if(!is.null(baSAR_model)){
