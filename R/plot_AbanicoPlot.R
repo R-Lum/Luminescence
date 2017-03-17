@@ -1074,7 +1074,6 @@ plot_AbanicoPlot <- function(
     plot.ratio <- plot.ratio * 1.05
   }
 
-
   ## create empty plot to update plot parameters
   if(rotate == FALSE) {
     plot(NA,

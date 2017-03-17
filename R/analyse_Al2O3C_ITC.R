@@ -25,7 +25,7 @@
 #'
 #' @param plot \code{\link{logical}} (with default): enable/disable plot output
 #'
-#' @param ... further aruments that can be passed to the plot output
+#' @param ... further arguments that can be passed to the plot output
 #'
 #' @return Function returns results numerically and graphically:\cr
 #'
@@ -70,7 +70,7 @@
 #' ##nothing so far TODO ... add tests with example
 #'
 #' @export
-analyse_Al2O3_ITC <- function(
+analyse_Al2O3C_ITC <- function(
   object,
   signal_integral = NULL,
   dose_points = c(2,4,8,12,16),

@@ -152,7 +152,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.5.3 (2017-03-10 18:54:35)
+ 0.5.3 (2017-03-10 19:25:13)
 }
 
 \examples{

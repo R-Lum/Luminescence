@@ -57,6 +57,7 @@ Imports:
     matrixStats (>= 0.51.0),
     methods,
     minpack.lm (>= 1.2-1),
+    plotrix (>= 3.6-4),
     raster (>= 2.5-8),
     readxl (>= 0.1.1),
     shape (>= 1.4.2),
@@ -105,6 +106,7 @@ Collate:
     'get_Risoe.BINfileData.R'
     'RisoeBINfileData-class.R'
     'Second2Gray.R'
+    'analyse_Al2O3C_CrossTalk.R'
     'analyse_Al2O3C_ITC.R'
     'analyse_FadingMeasurement.R'
     'analyse_IRSAR.RF.R'
