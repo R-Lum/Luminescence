@@ -316,7 +316,8 @@ analyse_Al2O3C_ITC <- function(
       y1 = eval(GC$Formula),
       arr.type = "triangle",
       arr.adj = -0.5,
-      col = 'red'
+      col = 'red',
+      cex = par()$cex
     )
 
     ##add text
