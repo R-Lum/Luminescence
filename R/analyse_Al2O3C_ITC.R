@@ -231,7 +231,7 @@ analyse_Al2O3C_ITC <- function(
   ##calculate GC
   GC <- plot_GrowthCurve(
     sample = df_mean,
-    mode = "additive",
+    mode = "extrapolation",
     output.plotExtended = FALSE,
     output.plot = FALSE,
     fit.method = method_control_settings$fit.method,
@@ -256,7 +256,7 @@ analyse_Al2O3C_ITC <- function(
     ##set plot settings
     plot_settings <- list(
       xlab = "Dose [s]",
-      ylab = "Integraed net GSL [a.u.]",
+      ylab = "Integrated net GSL [a.u.]",
       main = "Irradiation Time Correction",
       xlim = c(-5, max(df$DOSE)),
       ylim = c(0,max(df$net_SIGNAL)),
