@@ -9,6 +9,19 @@
 #'Based on measurements following a protocol suggested by Kreutzer et al., 2017, a dose response curve is constructed
 #'and the intersection with the time axis is taken as real irradiation time.
 #'
+#' \bold{\code{method_control}}\cr
+#'
+#' To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
+#' are all preset with meaningful default parameters and can be
+#' handled using the argument \code{method_control} only, e.g.,
+#' \code{method_control = list(fit.method = "LIN")}. Supported arguments are:\cr
+#'
+#' \tabular{lll}{
+#' ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
+#' \code{mode}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the mode used for fitting\cr
+#' \code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the function applied for fitting\cr
+#' }
+#'
 #' @param object \code{\linkS4class{RLum.Analysis}} or \code{\link{list}} \bold{(required)}: results obtained from the measurement.
 #' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
 #'
@@ -165,6 +178,7 @@ analyse_Al2O3C_ITC <- function(
 
   #set method control
   method_control_settings <- list(
+    mode = "extrapolation",
     fit.method = "EXP"
 
   )
@@ -231,7 +245,7 @@ analyse_Al2O3C_ITC <- function(
   ##calculate GC
   GC <- plot_GrowthCurve(
     sample = df_mean,
-    mode = "extrapolation",
+    mode = method_control_settings$mode,
     output.plotExtended = FALSE,
     output.plot = FALSE,
     fit.method = method_control_settings$fit.method,
@@ -243,7 +257,7 @@ analyse_Al2O3C_ITC <- function(
   if(verbose){
     cat("\n[analyse_Al2O3C_ITC()]\n")
     cat(paste0("\n Used fit:\t\t",method_control_settings$fit.method))
-    cat(paste0("\n Time correction value:\t", GC$De$De, " \u00B1 ", GC$De$De.Error))
+    cat(paste0("\n Time correction value:\t", round(GC$De$De,3), " \u00B1 ", GC$De$De.Error))
     cat("\n\n")
 
   }
@@ -310,7 +324,7 @@ analyse_Al2O3C_ITC <- function(
       x = -GC$De[1] / 2,
       y = eval(GC$Formula),
       pos = 3,
-      labels = paste(GC$De[1], "\u00B1", GC$De[2]),
+      labels = paste(round(GC$De[1],3), "\u00B1", GC$De[2]),
       col = 'red',
       cex = 0.8
     )
@@ -319,7 +333,7 @@ analyse_Al2O3C_ITC <- function(
     axis(
       side = 1,
       at = axTicks(side = 1),
-      labels = paste0("(",(axTicks(side = 1) + as.numeric(GC$De[1])), ")"),
+      labels = paste0("(",(axTicks(side = 1) + round(as.numeric(GC$De[1]),2)), ")"),
       line = 1,
       col.axis = "red",
       lwd.ticks = 0,

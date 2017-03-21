@@ -66,9 +66,22 @@ under the closed beta-source within a luminescence reader. However, due to its h
 itself below the source induces an apparent luminescence signal, which can be translated to an irradiation time.
 Based on measurements following a protocol suggested by Kreutzer et al., 2017, a dose response curve is constructed
 and the intersection with the time axis is taken as real irradiation time.
+
+\bold{\code{method_control}}\cr
+
+To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
+are all preset with meaningful default parameters and can be
+handled using the argument \code{method_control} only, e.g.,
+\code{method_control = list(fit.method = "LIN")}. Supported arguments are:\cr
+
+\tabular{lll}{
+ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
+\code{mode}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the mode used for fitting\cr
+\code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the function applied for fitting\cr
+}
 }
 \section{Function version}{
- 0.1.0 (2017-03-21 10:22:52)
+ 0.1.0 (2017-03-21 10:53:43)
 }
 
 \examples{
