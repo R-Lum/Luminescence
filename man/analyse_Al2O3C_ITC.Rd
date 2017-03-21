@@ -8,14 +8,15 @@ analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
   12, 16), method_control = NULL, verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} \bold{(required)}: measurement input}
+\item{object}{\code{\linkS4class{RLum.Analysis}} or \code{\link{list}} \bold{(required)}: results obtained from the measurement.
+Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.}
 
 \item{signal_integral}{\code{\link{numeric}} (optional): signal integral, used for the signal
-and the background. If nothing is provided the full range is used}
+and the background. If nothing is provided the full range is used. Argument can be provided as \code{\link{list}}.}
 
 \item{dose_points}{\code{\link{numeric}} (with default): vector with dose points, if dose points
 are repeated, only the general pattern needs to be provided. Default values follow the suggestions
-made by Kreutzer et al., 2017}
+made by Kreutzer et al., 2017. Argument can be provided as \code{\link{list}}.}
 
 \item{method_control}{\code{\link{list}} (optional): optional parameters to control the calculation.
 See details for further explanations}
@@ -67,7 +68,7 @@ Based on measurements following a protocol suggested by Kreutzer et al., 2017, a
 and the intersection with the time axis is taken as real irradiation time.
 }
 \section{Function version}{
- 0.1.0 (2017-03-17 12:26:54)
+ 0.1.0 (2017-03-21 10:22:52)
 }
 
 \examples{

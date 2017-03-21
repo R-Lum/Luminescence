@@ -9,14 +9,15 @@
 #'Based on measurements following a protocol suggested by Kreutzer et al., 2017, a dose response curve is constructed
 #'and the intersection with the time axis is taken as real irradiation time.
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} \bold{(required)}: measurement input
+#' @param object \code{\linkS4class{RLum.Analysis}} or \code{\link{list}} \bold{(required)}: results obtained from the measurement.
+#' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
 #'
 #' @param signal_integral \code{\link{numeric}} (optional): signal integral, used for the signal
-#' and the background. If nothing is provided the full range is used
+#' and the background. If nothing is provided the full range is used. Argument can be provided as \code{\link{list}}.
 #'
 #' @param dose_points \code{\link{numeric}} (with default): vector with dose points, if dose points
 #' are repeated, only the general pattern needs to be provided. Default values follow the suggestions
-#' made by Kreutzer et al., 2017
+#' made by Kreutzer et al., 2017. Argument can be provided as \code{\link{list}}.
 #'
 #' @param method_control \code{\link{list}} (optional): optional parameters to control the calculation.
 #' See details for further explanations
@@ -80,11 +81,74 @@ analyse_Al2O3C_ITC <- function(
   ...
 ){
 
+
+  # SELF CALL -----------------------------------------------------------------------------------
+  if(is.list(object)){
+
+    ##check whether the list contains only RLum.Analysis objects
+    if(!all(unique(sapply(object, class)) == "RLum.Analysis")){
+      stop("[analyse_Al2O3C()] All objects in the list provided by 'objects' need to be of type 'RLum.Analysis'",
+           call. = FALSE)
+
+    }
+
+    ##expand input arguments
+    if(!is.null(signal_integral)){
+      signal_integral <- rep(list(signal_integral, length = length(object)))
+
+    }
+
+    ##dose points
+    if(is(dose_points, "list")){
+      dose.points <- rep(dose_points, length = length(object))
+
+    }else{
+      dose_points <- rep(list(dose_points), length = length(object))
+
+    }
+
+    ##method_control
+    ##verbose
+    ##plot
+
+
+    ##run analysis
+    results_full <- lapply(1:length(object), function(x){
+
+      ##run analysis
+      results <- try(analyse_Al2O3C_ITC(
+        object = object[[x]],
+        signal_integral = signal_integral[[x]],
+        dose_points = dose_points[[x]],
+        method_control = method_control,
+        verbose = verbose,
+        plot = plot,
+        main = ifelse("main"%in% names(list(...)), list(...)$main, paste0("ALQ #",x)),
+        ...
+      ))
+
+      ##catch error
+      if(inherits(results, "try-error")){
+        return(NULL)
+
+      }else{
+        return(results)
+
+      }
+
+    })
+
+    ##return
+    return(merge_RLum(results_full))
+
+
+  }
+
   # Integretiy check  ---------------------------------------------------------------------------
 
   ##check input object
   if(class(object) != "RLum.Analysis"){
-    stop("[analyse_Al2O3C_ITC()] 'object' needs to be of type 'RLum.Analsyis'", call. = FALSE)
+    stop("[analyse_Al2O3C_ITC()] 'object' needs to be of type 'RLum.Analysis'", call. = FALSE)
 
   }
 
@@ -95,7 +159,7 @@ analyse_Al2O3C_ITC <- function(
   }
 
   ##TODO
-  ##implement more, currently we have stick with this here
+  ##implement more checks ... if you find some time, somehow, somewhere
 
   # Preparation ---------------------------------------------------------------------------------
 
