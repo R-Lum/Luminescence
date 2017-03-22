@@ -129,6 +129,15 @@ analyse_Al2O3C_CrossTalk <- function(
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
 
+        ##insert case for more than one observation ...
+        if(nrow(irradiation_time_correction)>1){
+          irradiation_time_correction <- c(mean(irradiation_time_correction[[1]]), sd(irradiation_time_correction[[1]]))
+
+        }else{
+          irradiation_time_correction <- c(irradiation_time_correction[[1]], irradiation_time_correction[[2]])
+
+        }
+
       } else{
         stop(
           "[analyse_Al2O3C_CrossTalk()] The object provided for the argument 'irradiation_time_correction' was created by an unsupported function!",
@@ -150,7 +159,8 @@ analyse_Al2O3C_CrossTalk <- function(
     NATURAL <- sum(object[[i]][[1]][, 2])
     REGENERATED <- sum(object[[i]][[2]][, 2])
 
-    return(data.frame(
+
+    temp_df <- data.frame(
       POSITION = get_RLum(object[[i]][[1]], info.object = "position"),
       DOSE = dose_points + irradiation_time_correction[1],
       DOSE_ERROR = dose_points * irradiation_time_correction[2]/irradiation_time_correction[1],
@@ -159,9 +169,16 @@ analyse_Al2O3C_CrossTalk <- function(
       BACKGROUND = c(BACKGROUND, BACKGROUND),
       NET_INTEGRAL = c(NATURAL - BACKGROUND, REGENERATED - BACKGROUND),
       row.names = NULL
-    ))
-  })
+    )
 
+    ##0 dose points should not be biased by the correction ..
+    id_zero <- which(dose_points == 0)
+    temp_df$DOSE[id_zero] <- 0
+    temp_df$DOSE_ERROR[id_zero] <- 0
+
+    return(temp_df)
+
+  })
 
   APPARENT_DOSE <- as.data.frame(data.table::rbindlist(lapply(1:length(object), function(x){
 
