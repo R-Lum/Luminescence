@@ -40,7 +40,9 @@ Function returns results numerically and graphically:\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
  \code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
- \code{#data_full} \tab \code{data.frame} \tab full apparent dose table \cr
+ \code{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
+ \code{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
+ \code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
 }
 
 \bold{slot:} \bold{\code{@info}}\cr
@@ -61,7 +63,7 @@ The function provides the analysis of cross-talk measurements on a FI lexsyg SMA
 Al2O3:C pellets
 }
 \section{Function version}{
- 0.1.0 (2017-03-17 12:27:56)
+ 0.1.0 (2017-03-22 12:16:32)
 }
 
 \examples{

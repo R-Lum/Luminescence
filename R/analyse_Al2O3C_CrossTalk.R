@@ -8,19 +8,19 @@
 #'@param signal_integral \code{\link{numeric}} (optional): signal integral, used for the signal
 #' and the background. If nothing is provided the full range is used
 #'
-#' @param dose_points \code{\link{numeric}} (with default): vector with dose points, if dose points
+#'@param dose_points \code{\link{numeric}} (with default): vector with dose points, if dose points
 #' are repeated, only the general pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017
 #'
-#' @param irradiation_time_correction \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (optional):
+#'@param irradiation_time_correction \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (optional):
 #' information on the used irradiation time correction obained by another experiements.
 #'
-#' @param method_control \code{\link{list}} (optional): optional parameters to control the calculation.
+#'@param method_control \code{\link{list}} (optional): optional parameters to control the calculation.
 #' See details for further explanations
 #'
-#' @param plot \code{\link{logical}} (with default): enable/disable plot output
+#'@param plot \code{\link{logical}} (with default): enable/disable plot output
 #'
-#' @param ... further arguments that can be passed to the plot output
+#'@param ... further arguments that can be passed to the plot output
 #'
 #'@return Function returns results numerically and graphically:\cr
 #'
@@ -33,7 +33,9 @@
 #' \tabular{lll}{
 #' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
 #'  \code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
-#'  \code{#data_full} \tab \code{data.frame} \tab full apparent dose table \cr
+#'  \code{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
+#'  \code{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
+#'  \code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
 #' }
 #'
 #'\bold{slot:} \bold{\code{@info}}\cr
@@ -160,6 +162,7 @@ analyse_Al2O3C_CrossTalk <- function(
     ))
   })
 
+
   APPARENT_DOSE <- as.data.frame(data.table::rbindlist(lapply(1:length(object), function(x){
 
     ##run in MC run
@@ -175,8 +178,16 @@ analyse_Al2O3C_CrossTalk <- function(
 
   })))
 
+  ##add apparent dose to the information
+  signal_table_list <- lapply(1:length(signal_table_list), function(x){
+      cbind(signal_table_list[[x]], rep(APPARENT_DOSE[x,2:3], 2))
+
+  })
+
+  ##combine
+  data_full <- as.data.frame(data.table::rbindlist(signal_table_list), stringsAsFactors = FALSE)
+
   # Plotting ------------------------------------------------------------------------------------
-  if (plot) {
 
     ##get plot settings
     par.default <- par(no.readonly = TRUE)
@@ -198,7 +209,7 @@ analyse_Al2O3C_CrossTalk <- function(
     step <- 0
 
     ##condense data.frame, by calculating the mean for similar positions
-    AD_matrix <- t(vapply(unique(APPARENT_DOSE$POSITION), function(x){
+    AD_matrix <- t(vapply(sort(unique(APPARENT_DOSE$POSITION)), function(x){
         c(x,mean(APPARENT_DOSE[["AD"]][APPARENT_DOSE[["POSITION"]] == x]),
           sd(APPARENT_DOSE[["AD"]][APPARENT_DOSE[["POSITION"]] == x]))
 
@@ -211,49 +222,109 @@ analyse_Al2O3C_CrossTalk <- function(
 
     col.seq <- col.seq[["COLOUR"]][order(col.seq[["POSITION"]])]
 
+    ##calculate model
+    fit <- lm(
+      formula = y ~ poly(x, 2, raw=TRUE),
+      data = data.frame(y = APPARENT_DOSE$AD[order(APPARENT_DOSE$POSITION)], x = sort(APPARENT_DOSE$POSITION)))
 
-    ##set layout matrix
-    layout(mat = matrix(c(1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,3,1,1,1,1,3), 5,5, byrow = TRUE))
+    ##enable or disable plot ... we cannot put the condition higher, because we here
+    ##calculate something we are going to need later
+    if (plot) {
 
-    ##create empty plot
-    par(mar = c(1,1,1,1), omi = c(1,1,1,1), oma = c(0.2,0.2,0.2,0.2), cex= 1.1)
-    shape::emptyplot(c(-1.15, 1.15), main = plot_settings$main, frame.plot = FALSE)
+      ##set layout matrix
+      layout(mat = matrix(
+        c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 3),
+        5,
+        5,
+        byrow = TRUE
+      ))
 
-    ##add outher circle
-    shape::plotcircle(r = 1.1, col = rgb(0.9,0.9,0.9,1))
+      ##create empty plot
+      par(
+        mar = c(1, 1, 1, 1),
+        omi = c(1, 1, 1, 1),
+        oma = c(0.2, 0.2, 0.2, 0.2),
+        cex = 1.1
+      )
+      shape::emptyplot(c(-1.15, 1.15), main = plot_settings$main, frame.plot = FALSE)
 
-    ##add inner octagon
-    shape::filledcircle(r1 = 0.6, mid = c(0, 0), lwd = 1, lcol = "black", col = "white")
+      ##add outher circle
+      shape::plotcircle(r = 1.1, col = rgb(0.9, 0.9, 0.9, 1))
 
-    ##add circles
-    for(i in 1:n.positions){
-      shape::plotcircle(r = 0.05, mid = c(cos(step), sin(step)), cex = 6, pch = 20, col = col.seq[i])
-      text(x = cos(step)*0.85,y = sin(step)*.85, labels = i)
-      step <- step + arc.step
+      ##add inner octagon
+      shape::filledcircle(
+        r1 = 0.6,
+        mid = c(0, 0),
+        lwd = 1,
+        lcol = "black",
+        col = "white"
+      )
+
+      ##add circles
+      for (i in 1:n.positions) {
+        shape::plotcircle(
+          r = 0.05,
+          mid = c(cos(step), sin(step)),
+          cex = 6,
+          pch = 20,
+          col = col.seq[i]
+        )
+        text(x = cos(step) * 0.85,
+             y = sin(step) * .85,
+             labels = i)
+        step <- step + arc.step
+
+      }
+
+      ##add center plot with position
+      plot(NA, NA,
+           xlim = range(AD_matrix[,1]),
+           ylim = range(APPARENT_DOSE[,2]),
+           frame.plot = FALSE,
+           type = "l")
+
+        ##add points
+        points(x = APPARENT_DOSE, pch = 20, col = rgb(0,0,0,0.3))
+
+        ##add linear model
+        lines(sort(APPARENT_DOSE$POSITION), predict(fit), col = "red")
+
+      ##add colour legend
+      shape::emptyplot(c(-1.2, 1.2), frame.plot = FALSE)
+      plotrix::gradient.rect(
+        xleft = -0.6,
+        ybottom = -1.2,
+        xright = 0,
+        ytop = 1.2,
+        col = plotrix::smoothColors("green", 40, "red"),
+        gradient = "y",
+        border = NA
+      )
+
+      ##add scale text
+      text(
+        x = -0.3,
+        y = 1.2,
+        label = "[s]",
+        pos = 3,
+        cex = 1.1
+      )
+      text(
+        x = 0.2,
+        y = 1,
+        label = ceiling(max(AD_matrix[, 2])),
+        pos = 3,
+        cex = 1.1
+      )
+      text(
+        x = 0.2,
+        y = -1.5,
+        label = 0,
+        pos = 3,
+        cex = 1.1
+      )
 
     }
-
-    ##add plot with position
-    plot(AD_matrix, frame.plot = FALSE, type= "l")
-
-    ##add colour legend
-    shape::emptyplot(c(-1.2, 1.2), frame.plot = FALSE)
-    plotrix::gradient.rect(
-      xleft = -0.6,
-      ybottom = -1.2,
-      xright = 0,
-      ytop = 1.2,
-      col = plotrix::smoothColors("green", 40, "red"),
-      gradient = "y",
-      border = NA
-    )
-
-    ##add scale text
-    text(x = -0.3, y = 1.2, label = "[s]", pos = 3, cex = 1.1)
-    text(x = 0.2, y = 1, label = ceiling(max(AD_matrix[,2])), pos = 3, cex = 1.1)
-    text(x = 0.2, y = -1.5, label = 0, pos = 3, cex = 1.1)
-
-  }
 
   # Output --------------------------------------------------------------------------------------
   output <- set_RLum(
@@ -264,7 +335,10 @@ analyse_Al2O3C_CrossTalk <- function(
         AD = AD_matrix[,2],
         AD_ERROR = AD_matrix[,3]
         ),
-      data_full = as.data.frame(data.table::rbindlist(signal_table_list), stringsAsFactors = FALSE)),
+      data_full = data_full,
+      fit = fit,
+      col.seq = col.seq
+      ),
     info = list(
       call = sys.call()
     )
