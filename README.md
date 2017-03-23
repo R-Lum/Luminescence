@@ -25,7 +25,7 @@ The R package 'Luminescence' by the R-Luminescence Group provides a collection o
 [![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=master)
 
 ## Social media and other resources 
-Follow us on [![]( http://i.imgur.com/wWzX9uB.png)]("http://www.twitter.com/RLuminescence")
+Follow us on [![]( http://i.imgur.com/wWzX9uB.png)](http://www.twitter.com/RLuminescence)
 
 For an introduction and further details, visit the [R-Luminescence homepage](http://www.r-luminescence.de).
 
