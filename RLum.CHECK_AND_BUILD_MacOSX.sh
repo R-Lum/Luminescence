@@ -3,7 +3,7 @@
 # =================================================================================================
 # RLum.CHECK_AND_BUILD shell script
 # author: R Luminescence Team
-# date: 2016-09-27
+# date: 2017-03-29
 #
 # Customized R check and build routine for the R package 'Luminescence'
 # =================================================================================================
@@ -67,7 +67,6 @@ echo ""
   check_status
 
 
-
 # roxygen2
 # =================================================================================================
   echo -ne "-> Create empty NAMESPACE file... \t\t"
@@ -78,6 +77,11 @@ echo ""
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_roxygen2.R /dev/null
   check_status
 
+# Set entry points
+# =================================================================================================
+  echo -ne "-> Set entry points ... \t\t\t"
+  eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_EntryPointRegistration.R /dev/null
+  check_status
 
 #
 # NEWS
@@ -113,6 +117,7 @@ echo "[BUILD PACKAGE]"
 echo ""
 
   eval R CMD build ${PATHPACKAGE}
+
 
 #
 # CHECK PACKAGE
@@ -159,7 +164,7 @@ echo ""
   echo -ne "-> Compile function argument list ...\t\t"
   eval R CMD BATCH ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Function_Arguments.R /dev/null
   check_status
-  
+
   echo -ne "-> Moving packge source files (*.tar.gz) ... \t"
   mv Luminescence_*.tar.gz RLum.BuildResults/ &>/dev/null
   check_status
