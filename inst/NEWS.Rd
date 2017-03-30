@@ -106,7 +106,17 @@
     }
    }
   }
- }
+
+  \subsection{Miscellaneous}{
+     \itemize{
+
+     \item BIN-file example data sets can now be exported without error to BIN-files using
+      \code{write_R2BIN()}.
+    }
+  }
+
+
+}
 
 
 

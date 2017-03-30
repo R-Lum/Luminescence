@@ -1,6 +1,6 @@
 NEWS for the R Package Luminescence
 
-Changes in version 0.7.4 (31th March, 2017):
+Changes in version 0.7.4 (31st March, 2017):
 
   Changes in S4-classes and methods:
 
@@ -84,6 +84,11 @@ Changes in version 0.7.4 (31th March, 2017):
              • Argument 'BL_UNIT' was not correctly exported; fixed,
 
              • export behaviour for BIN-file version 08 improved.
+
+  Miscellaneous:
+
+         • BIN-file example data sets can now be exported without error
+           to BIN-files using ‘write_R2BIN()’.
 
 Changes in version 0.7.3 (8th Feburary, 2017):
 
