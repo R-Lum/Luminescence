@@ -1,5 +1,11 @@
 NEWS for the R Package Luminescence
 
+Changes in version 0.7.5 (XX, 2017):
+
+  Bugfixes and changes:
+
+         • Dummy
+
 Changes in version 0.7.4 (31st March, 2017):
 
   Changes in S4-classes and methods:
@@ -16,7 +22,7 @@ Changes in version 0.7.4 (31st March, 2017):
 
          • ‘analyse_FadingMeasurement()’
 
-             • The function returned unreliable results as the time
+             • The function returned unreliable results since the time
                since irradiation had been doubled. This bug only
                affected Lx/Tx data imported from an XSYG-file.
 
@@ -37,7 +43,7 @@ Changes in version 0.7.4 (31st March, 2017):
          • ‘calc_TLLxTxRatio()’
 
              • Arguments ‘Lx.data.background’ and ‘Tx.data.background’
-               are now preset to ‘NULL’, i.e. the function does not
+               are now pre-set to ‘NULL’, i.e. the function does not
                longer check for missing entries.
 
          • ‘plot_KDE()’
@@ -108,7 +114,7 @@ Changes in version 0.7.3 (8th Feburary, 2017):
 
          • Add NEWS again to the package.
 
-Changes in version 0.7.2 (7th Feburary (evening), 2017):
+Changes in version 0.7.2 (7th February (evening), 2017):
 
         • The CRAN check on the Solaris machines gave an error while
           performing the (on all other platform sucessful) unit tests.

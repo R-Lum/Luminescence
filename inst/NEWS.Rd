@@ -1,5 +1,18 @@
 \name{NEWS}
 \title{NEWS for the R Package Luminescence}
+\section{Changes in version 0.7.5 (XX, 2017)}{
+
+  \subsection{Bugfixes and changes}{
+    \itemize{
+      \item Dummy
+
+    }
+  }
+
+
+
+}
+
 \section{Changes in version 0.7.4 (31st March, 2017)}{
 
 
@@ -27,7 +40,7 @@
 
      \item \code{analyse_FadingMeasurement()}{
         \itemize{
-           \item The function returned unreliable results as the time since irradiation had
+           \item The function returned unreliable results since the time since irradiation had
            been doubled. This bug only affected Lx/Tx data imported from an XSYG-file.
 
       }
@@ -51,7 +64,7 @@
      \item \code{calc_TLLxTxRatio()}{
         \itemize{
            \item Arguments \code{Lx.data.background} and  \code{Tx.data.background} are now
-           preset to \code{NULL}, i.e. the function does not longer check for missing entries.
+           pre-set to \code{NULL}, i.e. the function does not longer check for missing entries.
 
       }
 
@@ -152,7 +165,7 @@
 }
 
 
-\section{Changes in version 0.7.2 (7th Feburary (evening), 2017)}{
+\section{Changes in version 0.7.2 (7th February (evening), 2017)}{
 
   \itemize{
   \item The CRAN check on the Solaris machines gave an error while performing
