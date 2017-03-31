@@ -48,6 +48,13 @@ echo -^> Build documentation ...
 R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_roxygen2.R" NULL
 call :check
 
+:: SET ENTRY POINTS
+:: -----------------------
+echo -^> Set entry points ...
+R CMD BATCH --no-timing "%PATHPACKAGE:'=%\RLum.BuildScripts\RLum.PBS_EntryPointRegistration.R" NULL
+call :check
+
+
 :: NEWS
 :: -----------------------
 echo -^> Build ASCII NEWS ...
