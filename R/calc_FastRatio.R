@@ -178,8 +178,8 @@ calc_FastRatio <- function(object,
       
       if (fitCW.sigma) {
         if (!inherits(fitCW.res, "try-error")) {
-          sigmaF <- get_RLum(fitCW.res, "output.table")$cs1
-          sigmaM <- get_RLum(fitCW.res, "output.table")$cs2
+          sigmaF <- get_RLum(fitCW.res)$cs1
+          sigmaM <- get_RLum(fitCW.res)$cs2
           if (settings$verbose) {
             message("\n [calc_FitCWCurve()]\n")
             message("New value for sigmaF: ", format(sigmaF, digits = 3, nsmall = 2))
