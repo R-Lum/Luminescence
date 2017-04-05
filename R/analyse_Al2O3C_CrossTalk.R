@@ -327,14 +327,14 @@ analyse_Al2O3C_CrossTalk <- function(
         cex = 1.1
       )
       text(
-        x = 0.3,
+        x = 0.4,
         y = 1,
-        label = round(max(AD_matrix[, 2]),1),
+        label = round(max(AD_matrix[, 2]),2),
         pos = 3,
         cex = 1.1
       )
       text(
-        x = 0.3,
+        x = 0.4,
         y = -1.5,
         label = 0,
         pos = 3,
