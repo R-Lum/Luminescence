@@ -35,7 +35,7 @@
 #'
 #' Further supported arguments: \code{mtext} (\code{character}), \code{rug} (\code{TRUE/FALSE}).
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
 #' Anne Philippe, Universite de Nantes, (France),
@@ -43,6 +43,51 @@
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
 #'
 #' @seealso \code{\link{read.table}}, \code{\link[graphics]{hist}}
+#'
+#' @return The function returns numerical output and an (optional) plot.
+#'
+#' -----------------------------------\cr
+#' [ NUMERICAL OUTPUT ]\cr
+#' -----------------------------------\cr
+#' \bold{\code{RLum.Reuslts}}-object\cr
+#'
+#' \bold{slot:} \bold{\code{@data}} \cr
+#'
+#' [.. $summary : \code{data.frame}]\cr
+#'
+#' \tabular{lll}{
+#' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
+#'  AVERAGE_DOSE \tab \code{numeric} \tab the obtained averge dose\cr
+#'  AVERAGE_DOSE.SE \tab \code{numeric} \tab the average dose error \cr
+#'  SIGMA_D \tab \code{numeric}\tab sigma \cr
+#'  SIGMA_D.SE \tab \code{numeric}\tab standard error of the sigma  \cr
+#'  IC_AVERAGE_DOSE.LEVEL  \tab \code{character}\tab confidence level average dose\cr
+#'  IC_AVERAGE_DOSE.LOWER  \tab \code{charcter}\tab lower quantile of average dose \cr
+#'  IC_AVERAGE_DOSE.UPPER \tab \code{character}\tab upper quantile of average dose\cr
+#'  IC_SIGMA_D.LEVEL \tab \code{integer}\tab confidence level sigma\cr
+#'  IC_SIGMA_D.LOWER \tab \code{character}\tab lower sigma quantile\cr
+#'  IC_SIGMA_D.UPPER \tab \code{character}\tab upper sigma quantile\cr
+#'  L_MAX \tab \code{character}\tab maximum likelihood value
+#' }
+#'
+#' [.. $dstar : \code{matrix}]\cr
+#'
+#' Matrix with bootstrap values\cr
+#'
+#' [.. $hist : \code{list}]\cr
+#'
+#' Object as produced by the function histogram
+#'
+#' ------------------------\cr
+#' [ PLOT OUTPUT ]\cr
+#' ------------------------\cr
+#'
+#' The function returns two different plot panels.
+#'
+#' (1) An abanico plot with the dose values
+#'
+#' (2) A histogram panel comprising 3 histograms with the equivalent dose and the bootstrapped average
+#' dose and the sigma values.
 #'
 #' @references
 #' TODO: Add Guerin et al., 2016 once it has been published
@@ -70,7 +115,7 @@
 #'##plot De and set Average dose as central value
 #'plot_AbanicoPlot(
 #'  data = ExampleData.DeValues$CA1[1:56,],
-#'  z.0 = AD$summary$Average_DOSE)
+#'  z.0 = AD$summary$AVERAGE_DOSE)
 #'
 #'@export
 calc_AverageDose <- function(
@@ -349,13 +394,13 @@ calc_AverageDose <- function(
 
   ##compile final results data frame
   results_df <- data.frame(
-    Average_DOSE = delta,
-    Average_DOSE.SE = sedelta,
+    AVERAGE_DOSE = delta,
+    AVERAGE_DOSE.SE = sedelta,
     SIGMA_D = sigma_d,
     SIGMA_D.SE = sesigma_d,
-    IC_Average_DOSE.LEVEL = IC_delta[1],
-    IC_Average_DOSE.LOWER = IC_delta[2],
-    IC_Average_DOSE.UPPER = IC_delta[3],
+    IC_AVERAGE_DOSE.LEVEL = IC_delta[1],
+    IC_AVERAGE_DOSE.LOWER = IC_delta[2],
+    IC_AVERAGE_DOSE.UPPER = IC_delta[3],
     IC_SIGMA_D.LEVEL = IC_sigma_d[1],
     IC_SIGMA_D.LOWER = IC_sigma_d[2],
     IC_SIGMA_D.UPPER = IC_sigma_d[3],
@@ -459,7 +504,7 @@ calc_AverageDose <- function(
     class = "RLum.Results",
     data = list(
       summary = results_df,
-      dstar = dstar,
+      dstar = as.data.frame(dstar),
       hist = hist
       ),
     info = list(call = sys.call())
