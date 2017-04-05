@@ -29,7 +29,7 @@ assign("col",
   try(packageStartupMessage(paste("Welcome to the R package Luminescence version ",
                               packageDescription(pkg="Luminescence")$Version,
                               " [Built: ",
-                              strsplit(packageDescription(pkg="Luminescence")$Packaged, ";")[[1]][1],
+                              trimws(strsplit(packageDescription(pkg="Luminescence")$Built, ";")[[1]][3]),
                              "]", sep=""),
                             "\n",
                             get_Quote()), silent=TRUE)
