@@ -108,6 +108,7 @@ Collate:
     'Second2Gray.R'
     'analyse_Al2O3C_CrossTalk.R'
     'analyse_Al2O3C_ITC.R'
+    'analyse_Al2O3C_Measurement.R'
     'analyse_FadingMeasurement.R'
     'analyse_IRSAR.RF.R'
     'analyse_SAR.CWOSL.R'

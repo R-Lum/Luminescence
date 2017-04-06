@@ -86,6 +86,7 @@ analyse_Al2O3C_CrossTalk <- function(
   }
 
   ##TODO ... do more, push harder
+  ##Accept the entire sequence ... including TL and extract
   ##Add sufficient unit tests
 
   # Preparation ---------------------------------------------------------------------------------
