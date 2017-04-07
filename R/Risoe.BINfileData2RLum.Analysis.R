@@ -53,7 +53,7 @@
 #' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
 #' object is set to 'unknown' if not stated otherwise.
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.4.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -98,6 +98,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
   if (is.null(pos)) {
     pos <- unique(object@METADATA[["POSITION"]])
+
   } else{
     ##get and check valid positions and remove invalid numbers from the input
     positions.valid <- unique(object@METADATA[, "POSITION"])
@@ -124,10 +125,11 @@ Risoe.BINfileData2RLum.Analysis<- function(
       grain <- unique(object@METADATA[,"GRAIN"])
 
     }else{
-      if(length(setdiff(grain, grain.valid)) > 0){
-        grain.valid <- unique(object@METADATA[,"GRAIN"])
 
-        warning(paste0("[Risoe.BINfileData2RLum.Analysis()] invalid grain number skipped: ",
+      grain.valid <- unique(object@METADATA[,"GRAIN"])
+      if(length(setdiff(grain, grain.valid)) > 0){
+
+        warning(paste0("[Risoe.BINfileData2RLum.Analysis()] Invalid grain number skipped: ",
                        paste(setdiff(grain, grain.valid), collapse = ", ")), call. = FALSE)
 
         grain <- intersect(grain, grain.valid)
@@ -286,7 +288,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
 
         }
-        
+
         ##create curve object
         object <- set_RLum(
           class = "RLum.Analysis",
@@ -302,7 +304,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
 
         ##add unique id of RLum.Analysis object to each curve object as .pid using internal function
         .set_pid(object)
-        
+
         return(object)
 
       })
@@ -314,7 +316,7 @@ Risoe.BINfileData2RLum.Analysis<- function(
     ##this is necessary to not break with previous code, i.e. if only one element is included
     ##the output is RLum.Analysis and not a list of it
     if(length(object) == 1){
-      
+
       # special case: single grain data with only 1 position produces a nested list
       # the outer one is of length 1, the nested list has length 100 (100 grains)
       if (is.list(object[[1]]) && length(object[[1]]) > 1)
