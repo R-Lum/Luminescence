@@ -4,10 +4,54 @@
 
   \subsection{Bugfixes and changes}{
     \itemize{
-      \item Dummy
+
+
+
+      \item \code{calc_AverageDose()}
+
+        \itemize{
+
+          \item Update documentation and add produced output,
+          \item unify data.frame return output arguments (all capital letters).
+
+        }
+
+
+
+      \item \code{calc_FastRatio()}
+
+        \itemize{
+
+          \item Update slot names, which led to an output error.
+
+        }
+
+
+         \item \code{use_DRAC()}
+
+        \itemize{
+
+          \item The DRAC URL had changed; fixed.
+
+        }
+
+
+
+
 
     }
   }
+
+
+   \subsection{Miscellaneous}{
+    \itemize{
+
+        \item Fix package welcome message.
+
+
+    }
+
+   }
 
 
 

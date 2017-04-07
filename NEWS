@@ -4,7 +4,24 @@ Changes in version 0.7.5 (XX, 2017):
 
   Bugfixes and changes:
 
-         • Dummy
+         • ‘calc_AverageDose()’
+
+             • Update documentation and add produced output,
+
+             • unify data.frame return output arguments (all capital
+               letters).
+
+         • ‘calc_FastRatio()’
+
+             • Update slot names, which led to an output error.
+
+         • ‘use_DRAC()’
+
+             • The DRAC URL had changed; fixed.
+
+  Miscellaneous:
+
+         • Fix package welcome message.
 
 Changes in version 0.7.4 (31st March, 2017):
 
