@@ -27,6 +27,14 @@
         }
 
 
+      \item \code{RisoeBINfileData2RLum.Analysis()}
+
+        \itemize{
+
+          \item The grain selection was not accepted and caused a constant error (#45).
+
+        }
+
          \item \code{use_DRAC()}
 
         \itemize{

@@ -15,6 +15,11 @@ Changes in version 0.7.5 (XX, 2017):
 
              • Update slot names, which led to an output error.
 
+         • ‘RisoeBINfileData2RLum.Analysis()’
+
+             • The grain selection was not accepted and caused a
+               constant error (#45).
+
          • ‘use_DRAC()’
 
              • The DRAC URL had changed; fixed.
