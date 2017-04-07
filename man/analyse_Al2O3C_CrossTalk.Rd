@@ -63,7 +63,7 @@ The function provides the analysis of cross-talk measurements on a FI lexsyg SMA
 Al2O3:C pellets
 }
 \section{Function version}{
- 0.1.0 (2017-03-29 18:40:00)
+ 0.1.0 (2017-04-06 17:55:19)
 }
 
 \examples{

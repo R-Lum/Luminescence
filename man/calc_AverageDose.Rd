@@ -33,6 +33,52 @@ supported, but the output of \code{hist} is returned and can be used of own plot
 
 Further supported arguments: \code{mtext} (\code{character}), \code{rug} (\code{TRUE/FALSE}).}
 }
+\value{
+The function returns numerical output and an (optional) plot.
+
+-----------------------------------\cr
+[ NUMERICAL OUTPUT ]\cr
+-----------------------------------\cr
+\bold{\code{RLum.Reuslts}}-object\cr
+
+\bold{slot:} \bold{\code{@data}} \cr
+
+[.. $summary : \code{data.frame}]\cr
+
+\tabular{lll}{
+\bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
+ AVERAGE_DOSE \tab \code{numeric} \tab the obtained averge dose\cr
+ AVERAGE_DOSE.SE \tab \code{numeric} \tab the average dose error \cr
+ SIGMA_D \tab \code{numeric}\tab sigma \cr
+ SIGMA_D.SE \tab \code{numeric}\tab standard error of the sigma  \cr
+ IC_AVERAGE_DOSE.LEVEL  \tab \code{character}\tab confidence level average dose\cr
+ IC_AVERAGE_DOSE.LOWER  \tab \code{charcter}\tab lower quantile of average dose \cr
+ IC_AVERAGE_DOSE.UPPER \tab \code{character}\tab upper quantile of average dose\cr
+ IC_SIGMA_D.LEVEL \tab \code{integer}\tab confidence level sigma\cr
+ IC_SIGMA_D.LOWER \tab \code{character}\tab lower sigma quantile\cr
+ IC_SIGMA_D.UPPER \tab \code{character}\tab upper sigma quantile\cr
+ L_MAX \tab \code{character}\tab maximum likelihood value
+}
+
+[.. $dstar : \code{matrix}]\cr
+
+Matrix with bootstrap values\cr
+
+[.. $hist : \code{list}]\cr
+
+Object as produced by the function histogram
+
+------------------------\cr
+[ PLOT OUTPUT ]\cr
+------------------------\cr
+
+The function returns two different plot panels.
+
+(1) An abanico plot with the dose values
+
+(2) A histogram panel comprising 3 histograms with the equivalent dose and the bootstrapped average
+dose and the sigma values.
+}
 \description{
 This functions calculates the Average Dose and their extrinsic dispersion and estimates
 the standard errors by bootstrapping based on the Average Dose Model by Guerin et al., 2016
@@ -49,7 +95,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.3 (2017-01-24 21:10:47)
+ 0.1.4 (2017-04-05 09:23:44)
 }
 
 \examples{
@@ -66,12 +112,12 @@ sigma_m = 0.1)
 ##plot De and set Average dose as central value
 plot_AbanicoPlot(
  data = ExampleData.DeValues$CA1[1:56,],
- z.0 = AD$summary$Average_DOSE)
+ z.0 = AD$summary$AVERAGE_DOSE)
 
 } 
 
 \section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2017). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2017). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
