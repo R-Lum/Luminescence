@@ -41,7 +41,7 @@ Function returns results numerically and graphically:\cr
  \code{$data} \tab \code{data.frame} \tab correction value and error \cr
  \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
  \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
- \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot+GrowthCurve}}
+ \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot_GrowthCurve}}
 }
 
 \bold{slot:} \bold{\code{@info}}\cr
@@ -82,7 +82,7 @@ ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
 }
 }
 \section{Function version}{
- 0.1.0 (2017-04-08 11:57:34)
+ 0.1.0 (2017-04-10 15:15:26)
 }
 
 \examples{

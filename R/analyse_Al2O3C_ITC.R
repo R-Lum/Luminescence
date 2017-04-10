@@ -54,7 +54,7 @@
 #'  \code{$data} \tab \code{data.frame} \tab correction value and error \cr
 #'  \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
 #'  \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
-#'  \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot+GrowthCurve}}
+#'  \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot_GrowthCurve}}
 #' }
 #'
 #'\bold{slot:} \bold{\code{@info}}\cr
