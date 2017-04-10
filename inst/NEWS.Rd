@@ -6,6 +6,14 @@
     \itemize{
 
 
+      \item \code{analyse_SAR.CWOSL()}
+
+        \itemize{
+
+          \item If the signal integral was wrong, the default value was not set correctly (#46).
+
+        }
+
 
       \item \code{calc_AverageDose()}
 

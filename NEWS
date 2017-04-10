@@ -4,6 +4,11 @@ Changes in version 0.7.5 (XX, 2017):
 
   Bugfixes and changes:
 
+         • ‘analyse_SAR.CWOSL()’
+
+             • If the signal integral was wrong, the default value was
+               not set correctly (#46).
+
          • ‘calc_AverageDose()’
 
              • Update documentation and add produced output,
