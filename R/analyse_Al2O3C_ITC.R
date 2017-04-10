@@ -53,7 +53,8 @@
 #' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
 #'  \code{$data} \tab \code{data.frame} \tab correction value and error \cr
 #'  \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
-#'  \code{$table_mean} \tab \code{data.frame} \tab table used for fitting
+#'  \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
+#'  \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot+GrowthCurve}}
 #' }
 #'
 #'\bold{slot:} \bold{\code{@info}}\cr
@@ -228,7 +229,9 @@ analyse_Al2O3C_ITC <- function(
     df <- data.frame(
       DOSE = dose_points,
       net_SIGNAL = net_SIGNAL,
-      net_SIGNAL.ERROR = 0
+      net_SIGNAL.ERROR = 0,
+      net_SIGNAL_NORM = net_SIGNAL/max(net_SIGNAL),
+      net_SIGNAL_NORM.ERROR = 0
     )
 
     ##take mean
@@ -237,7 +240,9 @@ analyse_Al2O3C_ITC <- function(
       data.frame(
         DOSE = x,
         net_SIGNAL = mean(df[df$DOSE == x, "net_SIGNAL"]),
-        net_SIGNAL.Error = sd(df[df$DOSE == x, "net_SIGNAL"])
+        net_SIGNAL.ERROR = sd(df[df$DOSE == x, "net_SIGNAL"]),
+        net_SIGNAL_NORM = mean(df[df$DOSE == x, "net_SIGNAL_NORM"]),
+        net_SIGNAL_NORM.ERROR = sd(df[df$DOSE == x, "net_SIGNAL_NORM"])
       )
     })))
 
@@ -364,7 +369,8 @@ analyse_Al2O3C_ITC <- function(
         VALUE_ERROR = as.numeric(GC$De$De.Error)
       ),
       table = df,
-      table_mean = df_mean
+      table_mean = df_mean,
+      fit = GC$Fit
     ),
     info = list(call = sys.call())
   ))
