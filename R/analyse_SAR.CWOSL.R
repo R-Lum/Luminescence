@@ -134,7 +134,7 @@
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
 #'
-#' @section Function version: 0.7.9
+#' @section Function version: 0.7.10
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -325,7 +325,7 @@ if(is.list(object)){
     }
 
     if(missing("signal.integral.max") & !is.list(object)){
-      signal.integral.min <- 2
+      signal.integral.max <- 2
       warning("[analyse_SAR.CWOSL()] 'signal.integral.max' missing, set to 2", call. = FALSE)
     }
 
