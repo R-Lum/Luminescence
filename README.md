@@ -29,6 +29,8 @@ Follow us on [![]( http://i.imgur.com/wWzX9uB.png)](http://www.twitter.com/RLumi
 
 For an introduction and further details, visit the [R-Luminescence homepage](http://www.r-luminescence.de).
 
+Ways to reproducible research: [RLumDocker](https://github.com/R-Lum/RLumDocker)
+
 ## Installation
 
 #### i. Requirements
@@ -95,6 +97,7 @@ any later version.
 
 * [RLumModel](https://github.com/R-Lum/RLumModel)
 * [RLumShiny](https://github.com/R-Lum/RLumShiny)
+* [RLumDocker](https://github.com/R-Lum/RLumDocker)
 
 ## R package dependencies
 ![](RLum.Images/Package_DependencyGraph.png)
