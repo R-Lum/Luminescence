@@ -16,7 +16,7 @@ The R package 'Luminescence' by the R-Luminescence Group provides a collection o
 
 ### Platform tests status 
 [![Build status](https://ci.appveyor.com/api/projects/status/jtgqr9a6jajn02y0/branch/master?svg=true)](https://ci.appveyor.com/project/tzerk/luminescence/branch/dev_0.8.0)
-[![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=master)](https://travis-ci.org/R-Lum/Luminescence)
+[![Build Status](https://travis-ci.org/R-Lum/Luminescence.svg?branch=dev_0.8.0)](https://travis-ci.org/R-Lum/Luminescence)
 
 ### Unit test status
 [![Coverage Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://codecov.io/github/R-Lum/Luminescence?branch=dev_0.8.0)
