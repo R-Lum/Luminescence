@@ -17,7 +17,11 @@ Changes in version 0.8.0 ( ,2017):
 
   Bugfixes and changes:
 
-         • ‘dummy()’
+         • ‘analyse_IRSAR.RF()’
 
-             • dummy
+             • Multicore processing now also supports Windows (#47)
+
+             • Fixed a bug where manually specifying the number of CPU
+               cores via 'method.control = list(cores = x)' was not
+               respected
 

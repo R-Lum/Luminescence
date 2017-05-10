@@ -1248,16 +1248,6 @@ analyse_IRSAR.RF<- function(
 
       })
 
-
-      if(txtProgressBar){
-        ##terminal output fo MC
-        cat("\n\t Run Monte Carlo loops for error estimation\n")
-
-        ##progress bar
-        pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
-      }
-
-
       ##set parallel calculation if wanted
       if(is.null(method.control.settings$cores)){
         cores <- 1
@@ -1271,59 +1261,76 @@ analyse_IRSAR.RF<- function(
 
           }else{
             cores <- parallel::detectCores() - 2
-
           }
-
+          
         }else if(is.numeric(method.control.settings$cores)){
 
           if(method.control.settings$cores > parallel::detectCores()){
             warning(paste0("[analyse_IRSAR.RF()] What do you want? Your machine has only ", parallel::detectCores(), " cores!"), call. = FALSE)
+            
+            ##assign them anyway, it is not our problem
+            cores <- parallel::detectCores()
+            
+          } else if (method.control.settings$cores >= 1 && method.control.settings$cores <= parallel::detectCores()) {
+            cores <- method.control.settings$cores
+          } else { # Negative values
+            cores <- 1
           }
-
-          ##assign them anyway, it is not our problem
-          cores <- parallel::detectCores()
 
         }else{
           try(stop("[analyse_IRSAR.RF()] Invalid value for control argument 'cores'. Value set to 1", call. = FALSE))
           cores <- 1
-
         }
-
 
         ##return message
-        message(paste("[analyse_IRSAR.RF()] Multicore mode using", cores, "cores..."))
+        if (cores == 1)
+          message(paste("[analyse_IRSAR.RF()] Singlecore mode"))
+        else 
+          message(paste("[analyse_IRSAR.RF()] Multicore mode using", cores, "cores..."))
       }
-
-
-
-      ##run MC runs
-      De.MC <- unlist(parallel::mclapply(X = 1:n.MC,
-                      FUN = function(i){
-
-        temp.slide.MC <- sliding(
-          RF_nat = RF_nat,
-          RF_reg.limited = RF_reg.limited,
-          RF_nat.limited = slide.MC.list[[i]],
-          numerical.only = TRUE
-        )
-
-
-        ##update progress bar
-        if (txtProgressBar) {
-          setTxtProgressBar(pb, i)
+      
+      ## SINGLE CORE -----
+      if (cores == 1) {
+        
+        if(txtProgressBar){
+          ##progress bar
+          cat("\n\t Run Monte Carlo loops for error estimation\n")
+          pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
         }
-
-         ##do nothing else, just report all possible values
-         return(temp.slide.MC[[2]])
-
-      },
-      mc.preschedule = TRUE,
-      mc.cores = cores
-      ))
-
-      ##close
-      if(txtProgressBar){close(pb)}
-
+        
+        De.MC <- sapply(1:n.MC, function(i) {
+          
+          # update progress bar
+          if (txtProgressBar)
+            setTxtProgressBar(pb, i)
+        
+          sliding(
+            RF_nat = RF_nat,
+            RF_reg.limited = RF_reg.limited,
+            RF_nat.limited = slide.MC.list[[i]],
+            numerical.only = TRUE
+          )[[2]]
+        })
+        
+      ## MULTICORE -----
+      } else {
+        ## Create the determined number of R copies
+        cl <- parallel::makeCluster(cores)
+        
+        ##run MC runs
+        De.MC <- parallel::parSapply(cl, X = slide.MC.list,
+                                     FUN = function(x){
+                                       sliding(
+                                         RF_nat = RF_nat,
+                                         RF_reg.limited = RF_reg.limited,
+                                         RF_nat.limited = x,
+                                         numerical.only = TRUE
+                                       )[[2]]
+                                     })
+        ##destroy multicore cluster
+        parallel::stopCluster(cl)
+      }
+      
       ##calculate absolute deviation between De and the here newly calculated De.MC
       ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
       De.diff <- diff(x = c(De, De.MC))

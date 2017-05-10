@@ -24,12 +24,16 @@
   \subsection{Bugfixes and changes}{
 
   \itemize{
-     \item \code{dummy()}{
+  
+     \item \code{analyse_IRSAR.RF()}{
         \itemize{
-           \item dummy
-
+           \item Multicore processing now also supports Windows (#47)
+           \item Fixed a bug where manually specifying the number of CPU cores
+           via 'method.control = list(cores = x)' was not respected
     }
    }
+   
+   
   }
  }
 }
