@@ -157,7 +157,7 @@ use_DRAC <- function(
                                               runif(1, 2, 4)), collapse = ""),
                                  name),
                    verbose = TRUE,
-                   url = "https://www.aber.ac.uk/en/dges/research-groups/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
+                   url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator")
   
   # override defaults with args in ...
   settings <- modifyList(settings, list(...))
