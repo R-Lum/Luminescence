@@ -94,7 +94,7 @@ version number depends on the used Sequence Editor.\cr\cr
 import.}
 }
 \section{Function version}{
- 0.15.5 (2017-04-10 13:27:26)
+ 0.15.5 (2017-05-11 09:47:54)
 }
 
 \examples{
@@ -114,7 +114,7 @@ Kreutzer, S., Fuchs, M.C., Fuchs, M. (2017). read_BIN2R(): Import Risoe BIN-file
 
 \references{
 DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
-\url{http://www.nutech.dtu.dk/english/Products-and-Services/Dosimetry/Radiation-Measurement-Instruments/TL_OSL_reader/Manuals}
+\url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
 \code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
