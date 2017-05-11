@@ -43,7 +43,7 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.1 (2017-04-07 12:07:03)
+ 0.1.1 (2017-05-11 09:35:47)
 }
 
 \examples{
