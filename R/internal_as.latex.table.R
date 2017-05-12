@@ -85,6 +85,15 @@
 
     ##replace some latex stuff
     text <- gsub(pattern = "Gy.ka-1", replacement = "Gy~ka$^{-1}$", x = text, fixed = TRUE)
+    text <- gsub(pattern = "Mineral", replacement = "M.", x = text, fixed = TRUE)
+    text <- gsub(pattern = "alphadoserate", replacement = "$\\dot{D}_{\\alpha}$", x = text, fixed = TRUE)
+    text <- gsub(pattern = "betadoserate", replacement = "$\\dot{D}_{\\beta}$", x = text, fixed = TRUE)
+    text <- gsub(pattern = "gammadoserate", replacement = "$\\dot{D}_{\\gamma}$", x = text, fixed = TRUE)
+    text <- gsub(pattern = "Cosmicdoserate", replacement = "$\\dot{D}_{cosm.}$", x = text, fixed = TRUE)
+    text <- gsub(pattern = "External \\\\ doserate", replacement = "$\\dot{D}_{ext.}$", x = text, fixed = TRUE)
+    text <- gsub(pattern = "Internal \\\\ doserate", replacement = "$\\dot{D}_{int.}$", x = text, fixed = TRUE)
+    text <- gsub(pattern = "Environmental \\\\ Dose \\\\ Rate", replacement = "$\\dot{D}_{env.}$", x = text, fixed = TRUE)
+
 
     ##retrun result
     return(text)
