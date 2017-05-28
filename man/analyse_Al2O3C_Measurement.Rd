@@ -65,7 +65,7 @@ The function provides the analysis routines for measurements on a FI lexsyg SMAR
 Al2O3:C pellets according to Kreutzer et al., 2017
 }
 \section{Function version}{
- 0.1.0 (2017-05-09 13:34:27)
+ 0.1.0 (2017-05-11 10:12:35)
 }
 
 \examples{

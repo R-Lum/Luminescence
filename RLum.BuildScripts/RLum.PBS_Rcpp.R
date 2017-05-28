@@ -10,7 +10,6 @@ if(!require("Rcpp"))
 
 library(Rcpp)
 
-
 ##compile new attributes
 Rcpp::compileAttributes()
 
