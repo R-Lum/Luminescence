@@ -81,7 +81,7 @@ dose and the sigma values.
 }
 \description{
 This functions calculates the Average Dose and their extrinsic dispersion and estimates
-the standard errors by bootstrapping based on the Average Dose Model by Guerin et al., 2016
+the standard errors by bootstrapping based on the Average Dose Model by Guerin et al., 2017
 }
 \details{
 \bold{\code{sigma_m}}\cr
@@ -95,7 +95,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.4 (2017-04-07 12:07:03)
+ 0.1.4 (2017-05-28 17:33:05)
 }
 
 \examples{
@@ -121,7 +121,10 @@ Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2017). calc_AverageDose(
 }
 
 \references{
-TODO: Add Guerin et al., 2016 once it has been published
+Guerin, G., Christophe, C., Philippe, A., Murray, A.S., Thomsen, K.J., Tribolo, C., Urbanova, P.,
+Jain, M., Guibert, P., Mercier, N., Kreutzer, S., Lahaye, C., 2017. Absorbed dose, equivalent dose,
+measured dose rates, and implications for OSL age estimates: Introducing the Average Dose Model.
+Quaternary Geochronology 1-32. doi:10.1016/j.quageo.2017.04.002
 
 \bold{Further reading}\cr
 
