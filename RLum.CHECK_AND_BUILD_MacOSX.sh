@@ -3,7 +3,7 @@
 # =================================================================================================
 # RLum.CHECK_AND_BUILD shell script
 # author: R Luminescence Team
-# date: 2017-03-29
+# date: 2017-05-28
 #
 # Customized R check and build routine for the R package 'Luminescence'
 # =================================================================================================
@@ -14,6 +14,7 @@
 #
 export TERM=xterm
 PATHPACKAGE=$(dirname $0)
+
 #
 check_status(){
   if [ $? == 0 ]; then
@@ -27,6 +28,7 @@ check_status(){
 # REMOVING UNWANTED FILES
 # =================================================================================================
 echo ""
+echo -ne "Set package path to " ${PATHPACKAGE} "\n\n"
 echo "[PREPARE FOR PACKAGE CHECK]"
 echo ""
 #
@@ -55,15 +57,17 @@ echo ""
   find ${PATHPACKAGE}/R -name "RcppExports.R" -depth -exec rm {} \;
   check_status
 
-  echo -ne "-> Remove NAMESPACE ... \t\t\t"
-  find ${PATHPACKAGE} -name "NAMESPACE" -depth -exec rm {} \;
-  check_status
-
-
 # Rcpp
 # =================================================================================================
   echo -ne "-> Build Rcpp ... \t\t\t\t"
   eval R CMD BATCH --no-timing ${PATHPACKAGE}/RLum.BuildScripts/RLum.PBS_Rcpp.R /dev/null
+  check_status
+
+
+# REMOVE NAMESPACE
+# =================================================================================================
+  echo -ne "-> Remove NAMESPACE ... \t\t\t"
+  find ${PATHPACKAGE} -name "NAMESPACE" -depth -exec rm {} \;
   check_status
 
 
