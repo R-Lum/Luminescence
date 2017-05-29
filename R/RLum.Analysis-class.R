@@ -354,7 +354,7 @@ setMethod("get_RLum",
                                                val <- val[order(names(val))]
                                                return(val)
                                                })
-                                             ))
+                                             ), stringsAsFactors = FALSE)
 
               ##select relevant rows
               sel <- tryCatch(eval(
