@@ -95,7 +95,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.4 (2017-05-28 16:35:32)
+ 0.1.4 (2017-05-28 17:33:05)
 }
 
 \examples{
