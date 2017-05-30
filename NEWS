@@ -12,6 +12,10 @@ Changes in version 0.8.0 ( ,2017):
            analyse cross talk measurments as shown in Kreutzer et al.,
            2017
 
+         • ‘convert_Activity2Concentration()’: converts nuclide
+           activity data (Bq/kg) to concentrations (ppm or %) and vice
+           versa
+
          • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
 

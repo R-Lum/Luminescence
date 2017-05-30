@@ -140,6 +140,7 @@ Collate:
     'calc_ThermalLifetime.R'
     'calc_WodaFuchs2008.R'
     'calc_gSGC.R'
+    'convert_Activity2Concentration.R'
     'convert_BIN2CSV.R'
     'convert_Daybreak2CSV.R'
     'convert_PSL2CSV.R'

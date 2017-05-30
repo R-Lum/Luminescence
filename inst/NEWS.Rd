@@ -13,6 +13,9 @@
          Function to analyse data to analyse cross talk measurments as shown in
          Kreutzer et al., 2017
 
+        \item \code{convert_Activity2Concentration()}: converts nuclide activity data (Bq/kg) to
+        concentrations (ppm or \%) and vice versa
+
         \item \code{calc_WodaFuchs2008()}:
         Function to obtain the equivalent dose using
         the approach proposed by Woda and Fuchs, 2008.
@@ -24,7 +27,7 @@
   \subsection{Bugfixes and changes}{
 
   \itemize{
-  
+
      \item \code{analyse_IRSAR.RF()}{
         \itemize{
            \item Multicore processing now also supports Windows (#47)
@@ -32,8 +35,8 @@
            via 'method.control = list(cores = x)' was not respected
     }
    }
-   
-   
+
+
   }
  }
 }
