@@ -2,7 +2,8 @@
 ### R package Luminescence BUILDSCRIPTS
 ### Citation
 ### christoph.burow@uni-koeln.de and sebastian.kreutzer@u-bordeaux-montaigne.fr
-### 2016-09-26
+### Initial: 2016-09-26
+### Update: 2017-05-30
 ### ===============================================================================================
 
 require(stringi)
@@ -17,6 +18,9 @@ DESC <- readLines("DESCRIPTION")
 
 authors <- DESC[grep("author", DESC, ignore.case = TRUE)[1]:
                 c(grep("author", DESC, ignore.case = TRUE)[2] - 1)]
+
+##remove [ths]
+authors <- authors[-grep(authors, pattern = "[ths]", fixed = TRUE)]
 
 author.list <- do.call(rbind, lapply(authors, function(str) {
 
@@ -104,18 +108,18 @@ for (i in 1:length(file.list.man)) {
         reference.start <- author.end + 1
       }
 
-      
-      relevant.authors <- do.call(rbind, sapply(author.list$surname, function(x) {
+
+      relevant.authors <- do.call(rbind, sapply(as.character(author.list$surname), function(x) {
         str <- paste(temp.file.man[author.start:author.end], collapse = " ")
         str <- stri_replace_all_regex(str, ",|\\.", " ")
         included <- grepl(paste0(" ", x, " "), str, ignore.case = TRUE)
         if (included)
           pos <- regexpr(x, str)[[1]]
-        else 
+        else
           pos <- NA
         return(data.frame(included = included, position = pos))
       }, simplify = FALSE))
-      
+
       # retain order of occurence, assuming that the name first mentioned is
       # also the main author of the function
       included.authors <- author.list[relevant.authors$included, ]
@@ -131,7 +135,7 @@ for (i in 1:length(file.list.man)) {
           ifelse(j == nrow(included.authors), "", ", ")
         )
       }
-      
+
       ##search for function version
       fun.version <-
         which(grepl("\\\\section\\{Function version\\}", temp.file.man))
