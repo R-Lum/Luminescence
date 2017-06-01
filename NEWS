@@ -20,6 +20,12 @@ Changes in version 0.7.5 (XX, 2017):
 
              • Update slot names, which led to an output error.
 
+         • ‘extract_IrradiationTimes()’
+
+             • The exported BINX-file now works with the Analyst and
+               the g-value can be calculated therein (thanks to Geoff
+               Duller).
+
          • ‘RisoeBINfileData2RLum.Analysis()’
 
              • The grain selection was not accepted and caused a

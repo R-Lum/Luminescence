@@ -35,6 +35,16 @@
         }
 
 
+      \item \code{extract_IrradiationTimes()}
+
+        \itemize{
+
+          \item The exported BINX-file now works with the Analyst and the g-value can be
+          calculated therein (thanks to Geoff Duller).
+
+        }
+
+
       \item \code{RisoeBINfileData2RLum.Analysis()}
 
         \itemize{
