@@ -74,18 +74,53 @@
   if (x@originator == "use_DRAC") {
     x <- get_RLum(x)$highlights
     x <- .digits(x, digits)
-    fields.w.error <- seq(4, 25, 2)
 
-    ##add +/- symbol
+    ##remove the first project ID, we don't want them in the LaTeX; the table does not fit
+    ##on a page
+    x[1] <- NULL
+
+    ##remove columns containing zero values ... they add no information
+    x <- x[sapply(x, function(y){
+      y <- suppressWarnings(as.numeric(y))
+      if(anyNA(y) || sum(y, na.rm = TRUE) != 0){
+        TRUE
+
+      }else{
+        FALSE
+
+      }
+    })]
+
+    ##add +/- symbol and remove the columns we don't need
+    fields.w.error <- (grep(names(x), pattern = "err", fixed = TRUE) - 1)
+
     for(i in fields.w.error)
-      x[ ,i] <- paste0(x[ ,i], "~$\\pm$~", x[ ,i+1])
+      x[ ,i] <- paste0(x[ ,i], "\\,$\\pm$\\,", x[ ,i + 1])
     x <- x[-c(fields.w.error + 1)]
 
+
+    ##create latex table
     text <- .as.latex.table(x, comments = comments, pos = pos, split = split, ...)
 
+    ##split table
+    text <- strsplit(text[[1]], split = "\n", fixed = TRUE)
+
+    ##exchange columns ... or delete them at all (2nd step)
+
+        ##Sample ID
+        text[[1]][7] <-  "\t\\multicolumn{1}{p{2cm}}{\\centering \\textbf{ID}} & "
+
+        ##Mineral
+        text[[1]][8] <-  "\t\\multicolumn{1}{p{0.5cm}}{\\centering \\textbf{M.} } & "
+
+
+    ##put things again together (single character)
+    text <- paste(text[[1]], collapse = "\n")
+
     ##replace some latex stuff
+    text <- gsub(pattern = "p{2cm}", replacement = "p{1.5cm}", x = text, fixed = TRUE)
     text <- gsub(pattern = "Gy.ka-1", replacement = "Gy~ka$^{-1}$", x = text, fixed = TRUE)
-    text <- gsub(pattern = "Mineral", replacement = "M.", x = text, fixed = TRUE)
+    text <- gsub(pattern = "De", replacement = "$D_{E}$", x = text, fixed = TRUE)
     text <- gsub(pattern = "alphadoserate", replacement = "$\\dot{D}_{\\alpha}$", x = text, fixed = TRUE)
     text <- gsub(pattern = "betadoserate", replacement = "$\\dot{D}_{\\beta}$", x = text, fixed = TRUE)
     text <- gsub(pattern = "gammadoserate", replacement = "$\\dot{D}_{\\gamma}$", x = text, fixed = TRUE)
