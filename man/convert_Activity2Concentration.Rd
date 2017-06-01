@@ -21,7 +21,7 @@ dose rate data frame, choose between \code{'Bq/kg'} and \code{'ppm/\%'} the defa
 Convert Nuclide Activities to Concentrations and Vice Versa
 }
 \section{Function version}{
- 0.1.0 (2017-05-30 18:19:19)
+ 0.1.0 (2017-05-30 18:43:34)
 }
 
 \examples{
@@ -36,7 +36,7 @@ data <- data.frame(
 ##perform analysis
 convert_Activity2Concentration(data)
 
-}
+} 
 
 \section{How to cite}{
 Fuchs, M.C. (2017). convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
