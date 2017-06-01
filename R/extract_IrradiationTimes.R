@@ -1,14 +1,14 @@
-#' Extract irradiation times from an XSYG file
+#' Extract Irradiation Times from an XSYG-file
 #'
 #' Extracts irradiation times, dose and times since last irradiation, from a
 #' Freiberg Instruments XSYG-file. These information can be further used to
-#' update an existing BINX-file
+#' update an existing BINX-file.
 #'
 #' The function was written to compensate missing information in the BINX-file
 #' output of Freiberg Instruments lexsyg readers. As all information are
 #' available within the XSYG-file anyway, these information can be extracted
 #' and used for further analysis or/and to stored in a new BINX-file, which can
-#' be further used by other software, e.g. Analyst (Geoff Duller). \cr
+#' be further used by other software, e.g., Analyst (Geoff Duller). \cr
 #'
 #' Typical application example: g-value estimation from fading measurements
 #' using the Analyst or any other self written script.\cr
@@ -55,8 +55,8 @@
 #' If a BINX-file path and name is set, the output will be additionally
 #' transferred into a new BINX-file with the function name as suffix. For the
 #' output the path of the input BINX-file itself is used. Note that this will
-#' not work if the input object is a file path to an XSYG-file. In this case
-#' the argument input is ignored.\cr
+#' not work if the input object is a file path to an XSYG-file, instead of a
+#' link to only one file. In this case the argument input for \code{file.BINX} is ignored.\cr
 #'
 #' In the self call mode (input is a \code{list} of \code{\linkS4class{RLum.Analysis}} objects
 #' a list of \code{\linkS4class{RLum.Results}} is returned.
@@ -66,21 +66,24 @@
 #' are removed as the BINX-file format description does not allow irradiations
 #' as separat sequences steps.\cr
 #'
-#' Know issue: The 'fading correction' menu in the Analyst will not work appear
-#' with the produced BIN/BINX-file due to hidden bits, which are not reproduced
-#' by the function \code{write_R2BIN()} or if it appears it stops with a
-#' floating point error. \cr
+#' BINX-file 'Time Since Irradiation' value differs from the table output?\cr
 #'
-#' Negative values for \code{TIMESINCELAS.STEP}? Yes, this is possible and no
-#' bug, as in the XSYG file multiple curves are stored for one step. Example: A
-#' TL step may comprise three curves: (a) counts vs. time, (b) measured
+#' The way the value 'Time Since Irradiation' is defined differs. In the BINX-file the
+#' 'Time Since Irradiation' is calculated as the 'Time Since Irradiation' plus the 'Irradiation
+#' Time'. The table output returns only the real 'Time Since Irradiation', i.e. time between the
+#' end of the irradiation and the next step.
+#'
+#' Negative values for \code{TIMESINCELAS.STEP}? \cr
+#'
+#' Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
+#' Example: TL step may comprise three curves: (a) counts vs. time, (b) measured
 #' temperature vs. time and (c) predefined temperature vs. time. Three curves,
 #' but they are all belonging to one TL measurement step, but with regard to
 #' the time stamps this could produce negative values as the important function
 #' (\code{\link{read_XSYG2R}}) do not change the order of entries for one step
 #' towards a correct time order.
 #'
-#' @section Function version: 0.3.0
+#' @section Function version: 0.3.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
@@ -89,7 +92,8 @@
 #' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
 #' \code{\link{read_XSYG2R}}, \code{\link{read_BIN2R}}, \code{\link{write_R2BIN}}
 #'
-#' @references Duller, G., 2007. Analyst.
+#' @references Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and
+#' recent improvements. Ancient TL 33, 35-42.
 #'
 #' @keywords IO manip
 #'
@@ -200,8 +204,7 @@ extract_IrradiationTimes <- function(
 
       ##check if file exists
       if(file.exists(file.BINX) == FALSE){
-
-        stop("[extract_IrradiationTimes()] Wrong BINX file name or file does not exsits!")
+        stop("[extract_IrradiationTimes()] Wrong BINX file name or file does not exist!", call. = FALSE)
 
       }
 
@@ -209,7 +212,7 @@ extract_IrradiationTimes <- function(
       if(tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "binx" &
            tail(unlist(strsplit(file.BINX, split = "\\.")), 1) != "BINX" ){
 
-        stop("[extract_IrradiationTimes()] File is not of type 'BINX'!")
+        stop("[extract_IrradiationTimes()] File is not of type 'BINX'!", call. = FALSE)
 
       }
 
@@ -414,8 +417,12 @@ extract_IrradiationTimes <- function(
     ##(1) remove all irradiation steps as there is no record in the BINX file and update information
     results.BINX <- results[-which(results[,"STEP"] == "irradiation (NA)"),]
 
-    ##(1a)  update information
-    temp.BINX@METADATA[,c("IRR_TIME", "TIMESINCEIRR")] <- results.BINX[,c("IRR_TIME","TIMESINCEIRR")]
+    ##(1a)  update information on the irradiation time
+    temp.BINX@METADATA[["IRR_TIME"]] <- results.BINX[["IRR_TIME"]]
+
+    ##(1b) update information on the time since irradiation by using the Risoe definition of thi
+    ##paramter, to make the file compatible to the Analyst
+    temp.BINX@METADATA[["TIMESINCEIRR"]] <- results.BINX[["IRR_TIME"]] + results.BINX[["TIMESINCEIRR"]]
 
     ##(2) compare entries in the BINX-file with the entries in the table to make sure
     ## that both have the same length
@@ -423,16 +430,21 @@ extract_IrradiationTimes <- function(
       if(nrow(results.BINX) == nrow(temp.BINX@METADATA)){
 
         ##update BINX-file
-        write_R2BIN(temp.BINX, version = "06",
+        try <- write_R2BIN(temp.BINX, version = "06",
                    file = paste0(file.BINX,"_extract_IrradiationTimes.BINX"),
                    compatibility.mode =  compatibility.mode,
                    txtProgressBar = txtProgressBar)
 
+        ##set message on the format definition
+        if(!inherits(x = try, 'try-error')){
+          message("[extract_IrradiationTimes()] 'Time Since Irradiation' was redefined in the exported BINX-file to: 'Time Since Irradiation' plus the 'Irradiation Time' to be compatible with the Analyst.")
+        }
+
 
       }
     }else{
-
-      warning("XSYG and BINX-file do not contain similar entries. BINX-file update skipped!")
+      try(
+        stop("[extract_IrradiationTimes()] XSYG-file and BINX-file did not contain similar entries. BINX-file update skipped!",call. = FALSE))
 
     }
   }
@@ -441,3 +453,4 @@ extract_IrradiationTimes <- function(
   # Output --------------------------------------------------------------------------------------
   return(set_RLum(class = "RLum.Results", data = list(irr.times = results)))
 }
+
