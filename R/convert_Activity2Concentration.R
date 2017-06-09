@@ -1,5 +1,36 @@
 #' Convert Nuclide Activities to Concentrations and Vice Versa
 #'
+#' The function performs the conversion of the specific activities into concentrations and vice versa for the nuclides U-238,
+#' Th-232 and K-40 to harmonise the measurement unit with the required data input unit of potential analytical tools for,
+#' e.g. dose rate calculation or related functions such as \code{\link{use_DRAC}}.
+#'
+#' The conversion from nuclide activity of a sample to nuclide concentration is performed using conversion factors t
+#' hat are based on the mass-related specific activity of the respective nuclides. The factors can be calculated using the equation:
+#'
+#' \deqn{
+#' A = avogadronumber * N.freq / N.mol.mass   *  ln(2) / N.half.life
+#' }
+#'
+#' \deqn{
+#' f = A / 10^6
+#' }
+#'
+#' where:\cr
+#'
+#' A - specific activity of the nuclide\cr
+#' N.freq - natural frequency of the isotop \cr
+#' N.mol.mass - molare mass\cr
+#' n.half.life - half-life of the nuclide\cr
+#'
+#' example for U238:
+#'
+#' \eqn{avogadronumber = 6.02214199*10^23}\cr
+#' \eqn{uran.half.life = 1.41*10^17} (in s)\cr
+#' \eqn{uran.mol.mass = 0.23802891} (in kg/mol)\cr
+#' \eqn{uran.freq = 0.992745} (in mol)\cr
+#'
+#' \eqn{A.U = avogadronumber * uran.freq / uran.mol.mass * ln(2) / uran.half.life} (specific activity in Bq/kg)\cr
+#' \eqn{f.U = A.kg / 10^6}
 #'
 #' @param data \code{\link{data.frame}} \bold{(required)}: provide dose rate data (activity or concentration)
 #' in three columns. The first column indicates the nuclides, the 2nd column measured value and
@@ -15,7 +46,11 @@
 #'
 #' @author Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
 #'
-#' @references -
+#' @references
+#' Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with Semiconductor Detectors, Elsevier Science Publishers, p.283
+#'
+#' Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
+#' \url{http://www.bmub.bund.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf}
 #'
 #' @keywords IO
 #'
@@ -39,10 +74,6 @@ convert_Activity2Concentration <- function(
 
 ){
 
-  ##TODO
-  ## - add references
-  ## - add details to the conversion
-  ## - add unit test after references have been provided (@RLumSK)
 
   # Integrity checks ----------------------------------------------------------------------------
   if(missing(data)){
