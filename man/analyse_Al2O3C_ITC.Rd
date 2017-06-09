@@ -82,7 +82,7 @@ ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
 }
 }
 \section{Function version}{
- 0.1.0 (2017-05-28 17:46:14)
+ 0.1.0 (2017-06-01 15:21:20)
 }
 
 \examples{
