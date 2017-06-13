@@ -1259,14 +1259,21 @@ plot_AbanicoPlot <- function(
       De.stats[i,2:4] <- exp(De.stats[i,2:4])
     }
 
-    ##kdemax - here a little doubled as it appears below again
-    De.density <-density(x = data[[i]][,1],
-                         kernel = "gaussian",
-                         bw = bw,
-                         from = limits.z[1],
-                         to = limits.z[2])
+    ## kdemax - here a little doubled as it appears below again
+    De.density <- try(density(x = data[[i]][,1],
+                              kernel = "gaussian",
+                              bw = bw,
+                              from = limits.z[1],
+                              to = limits.z[2]),
+                      silent = TRUE)
 
+    if(class(De.density) == "try-error") {
+      
+      De.stats[i,4] <- NA
+    } else {
+    
     De.stats[i,4] <- De.density$x[which.max(De.density$y)]
+    }
   }
 
   label.text = list(NA)

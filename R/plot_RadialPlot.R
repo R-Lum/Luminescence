@@ -901,13 +901,20 @@ if(centrality[1] == "mean") {
     De.stats[i,17] <- statistics$weighted$se.abs
     De.stats[i,18] <- statistics$weighted$se.rel
 
-    ##kdemax - here a little doubled as it appears below again
-    De.density <-density(x = data[[i]][,1],
-                         kernel = "gaussian",
-                         from = limits.z[1],
-                         to = limits.z[2])
-
-    De.stats[i,6] <- De.density$x[which.max(De.density$y)]
+    ## kdemax - here a little doubled as it appears below again
+    De.density <- try(density(x = data[[i]][,1],
+                              kernel = "gaussian",
+                              from = limits.z[1],
+                              to = limits.z[2]), 
+                      silent = TRUE)
+    
+    if(class(De.density) == "try-error") {
+      
+      De.stats[i,6] <- NA
+    } else {
+      
+      De.stats[i,6] <- De.density$x[which.max(De.density$y)] 
+    }
   }
 
   label.text = list(NA)
