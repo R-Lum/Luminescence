@@ -52,7 +52,7 @@ example for U238:
 \eqn{f.U = A.kg / 10^6}
 }
 \section{Function version}{
- 0.1.0 (2017-06-09 15:05:32)
+ 0.1.0 (2017-06-09 15:06:06)
 }
 
 \examples{

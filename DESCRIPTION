@@ -74,7 +74,9 @@ Suggests:
     pander (>= 0.6.0),
     rstudioapi (>= 0.6),
     testthat (>= 1.0.2),
-    devtools (>= 1.12.0)
+    devtools (>= 1.12.0),
+    R.rsp (>= 0.41.0)
+VignetteBuilder: R.rsp
 URL: https://CRAN.R-project.org/package=Luminescence
 Collate: 
     'Analyse_SAR.OSLdata.R'
