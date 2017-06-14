@@ -5,7 +5,6 @@ date: "`r Sys.Date()`"
 output: 
   pdf_document:
     fig_caption: yes
-    highlight: tango
     number_sections: yes
     toc: yes
 vignette: >
@@ -31,11 +30,92 @@ not explain the theoretical and physical background. Please see XXXX for details
 
 # Determine irradiation time correction factors
 
-To determine the irradiation time correction factors the function `analyse_Al2O3C_ITC()` is used. 
+## Data import
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(Luminescence)
+temp <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/2017-03-22_20170302_Al2O3_MDL.xsyg", fastForward = TRUE, txtProgressBar = FALSE) %>%
+  get_RLum(recordType = "OSL (UVVIS)", drop = FALSE)
+data_ITC <- temp[[1]]
+
+temp_CT <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/", fastForward = TRUE, pattern = "CrossTalk_NEW",
+  txtProgressBar = FALSE) %>%
+  get_RLum(recordType = "OSL (UVVIS)", drop = FALSE)
+data_CT <- temp_CT
+
+temp_CAL_info <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/", import = FALSE, pattern = "Calibration")
+```
+
+To determine the irradiation time correction factor the function `analyse_Al2O3C_ITC()` is used. The measurement 
+sequence is based on the suggestions made by XXXXX. To import the measurement data run the function 
+'read_XSYG2R()` and select the measured curves, in our example 'UVVIS'.
+
+```{r,eval = FALSE}
+library(Luminescence)
+data_ITC <- read_XSYG2R("MyIrradiationTimeCorrectionMeasurement.XSYG", fastForward = TRUE) %>%
+  get_RLum(recordType = "OSL (UVVIS)", drop = FALSE)
+data_ITC
+```
+
+```{r, echo=FALSE, R.options=list(width = 10)}
+data_ITC
+```
+
+## Run analysis
+
+The imported data are either a single `RLum.Analysis` object or a `list` of such objects, which can 
+be directly passed to the function `analyse_Al2O3C_ITC()`. 
+
+*Please note that if you follow the suggestions by XXXX no further arguments are necessary.*
+\newline{}
+
+```{r Fig1, fig.cap="Dose response curve used to correct the irradiation time for the movement duration of the sample carrier.", out.width=".8\\linewidth", fig.align="center"}
+results_ITC <- analyse_Al2O3C_ITC(object = data_ITC)
+```
+
+The analysis returns a plot (Fig.\ref{fig:Fig1}) and the output is stored in the object `results_ITC` and can be used later.  
+\clearpage{}
 
 # Estimate irradiation crosstalk
 
+## Data import
+
+The data import is similar to the data import stated above. 
+
+```{r,eval = FALSE}
+library(Luminescence)
+data_CT <- read_XSYG2R("MyCrossTalkIrradiationMeasurement.XSYG", fastForward = TRUE) %>%
+  get_RLum(recordType = "OSL (UVVIS)", drop = FALSE)
+data_CT
+```
+
+```{r, echo=FALSE, R.options=list(width = 10)}
+data_CT[[1]]
+```
+
+## Data analysis
+
+For the data analysis the function `analyse_Al2O3C_CrossTalk()` is called. Amongst others the function 
+holds one parameter `irradiation_time_correction`. This parameter can be left empty or the 
+results from the previous irradiation time correction measurements can be direclty passed to the 
+function. Graphical results are shown in Fig.$~$\ref{fig:Fig2}. The numerical output is again 
+an `RLum.Results` object which can be kept for a later usage. 
+
+```{r, Fig2, fig.cap="Graphical function output of the crosstalk data analysis.", out.width=".5\\linewidth", fig.align="center", fig.height=6.5, fig.width=8, fig.pos="h"}
+results_CT <- analyse_Al2O3C_CrossTalk(
+  object = data_CT,
+  irradiation_time_correction = results_ITC)
+```
+
+\clearpage{}
+
 # Al$_{2}$O$_{3}$:C dose determination
+
+This section describes the workflow for the final apparent dose estimation of the Al$_{2}$O$_{3}$ pellet. 
+The analyses done above are not necessary, but recommended to correct for the equipement characteristics. 
+
+# Data import
+
+
 
 # Ease your workflow
 
