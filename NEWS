@@ -26,6 +26,12 @@ Changes in version 0.7.5 (XX, 2017):
                the g-value can be calculated therein (thanks to Geoff
                Duller).
 
+         • ‘plot_RadialPlot()’
+
+             • Fix error which occasionally occurred if a list of
+               ‘data.frame’s are provided (thanks to Christina Neudorf
+               for spotting the bug).
+
          • ‘RisoeBINfileData2RLum.Analysis()’
 
              • The grain selection was not accepted and caused a

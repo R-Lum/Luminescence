@@ -94,7 +94,7 @@ version number depends on the used Sequence Editor.\cr\cr
 import.}
 }
 \section{Function version}{
- 0.15.5 (2017-06-01 15:12:25)
+ 0.15.5 (2017-06-15 22:26:42)
 }
 
 \examples{
@@ -109,7 +109,7 @@ import.}
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C., Fuchs, M. (2017). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C., Fuchs, M. (2017). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

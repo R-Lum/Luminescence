@@ -44,6 +44,14 @@
 
         }
 
+          \item \code{plot_RadialPlot()}
+
+        \itemize{
+
+          \item Fix error which occasionally occurred if a list of \code{data.frame}s are provided (thanks to Christina Neudorf for spotting the bug).
+
+        }
+
 
       \item \code{RisoeBINfileData2RLum.Analysis()}
 

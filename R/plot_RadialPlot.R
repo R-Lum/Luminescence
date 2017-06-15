@@ -91,7 +91,7 @@
 #' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
 #' @return Returns a plot object.
-#' @section Function version: 0.5.3
+#' @section Function version: 0.5.4
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
 #' S script of Rex Galbraith, 2010
@@ -264,19 +264,19 @@ plot_RadialPlot <- function(
   if(missing(bar.col) == TRUE) {
     bar.col <- rep("grey80", length(data))
   }
-  
+
   if(missing(grid.col) == TRUE) {
     grid.col <- rep("grey70", length(data))
   }
-  
+
   if(missing(summary) == TRUE) {
     summary <- NULL
   }
-  
+
   if(missing(summary.pos) == TRUE) {
     summary.pos <- "topleft"
   }
-  
+
   if(missing(mtext) == TRUE) {
     mtext <- ""
   }
@@ -310,7 +310,7 @@ plot_RadialPlot <- function(
   } else {
     z.span <- (mean(De.global) * 0.5) / (sd(De.global) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
-    limits.z <- c((ifelse(test = min(De.global) <= 0, 
+    limits.z <- c((ifelse(test = min(De.global) <= 0,
                           yes = 1.1,
                           no =  0.9) - z.span) * min(De.global),
                   (1.1 + z.span) * max(De.global))
@@ -321,18 +321,18 @@ plot_RadialPlot <- function(
 
   ## calculate correction dose to shift negative values
   if(min(De.global) <= 0) {
-    
+
     if("zlim" %in% names(extraArgs)) {
-      
+
       De.add <- abs(extraArgs$zlim[1])
     } else {
-    
+
       ## estimate delta De to add to all data
       De.add <-  min(10^ceiling(log10(abs(De.global))) * 10)
-      
+
       ## optionally readjust delta De for extreme values
       if(De.add <= abs(min(De.global))) {
-        
+
         De.add <- De.add * 10
       }
     }
@@ -342,15 +342,15 @@ plot_RadialPlot <- function(
 
   ## optionally add correction dose to data set and adjust error
   if(log.z == TRUE) {
-    
+
     for(i in 1:length(data)) {
       data[[i]][,1] <- data[[i]][,1] + De.add
     }
-    
+
     De.global <- De.global + De.add
-    
+
   }
-  
+
   ## calculate major preliminary tick values and tick difference
   extraArgs <- list(...)
   if("zlim" %in% names(extraArgs)) {
@@ -367,17 +367,18 @@ plot_RadialPlot <- function(
   ## calculate and append statistical measures --------------------------------
 
   ## z-values based on log-option
-  z <- sapply(1:length(data), function(x){
+  z <- lapply(1:length(data), function(x){
     if(log.z == TRUE) {log(data[[x]][,1])} else {data[[x]][,1]}})
+
   if(is(z, "list") == FALSE) {z <- list(z)}
   data <- lapply(1:length(data), function(x) {
      cbind(data[[x]], z[[x]])})
   rm(z)
 
   ## calculate se-values based on log-option
-  se <- sapply(1:length(data), function(x, De.add){
+  se <- lapply(1:length(data), function(x, De.add){
     if(log.z == TRUE) {
-      
+
       if(De.add != 0) {
         data[[x]][,2] <- data[[x]][,2] / (data[[x]][,1] + De.add)
       } else {
@@ -446,7 +447,7 @@ plot_RadialPlot <- function(
   rm(z.central)
 
   ## calculate precision
-  precision <- sapply(1:length(data), function(x){
+  precision <- lapply(1:length(data), function(x){
     1 / data[[x]][,4]})
   if(is(precision, "list") == FALSE) {precision <- list(precision)}
   data <- lapply(1:length(data), function(x) {
@@ -454,7 +455,7 @@ plot_RadialPlot <- function(
   rm(precision)
 
   ## calculate standard estimate
-  std.estimate <- sapply(1:length(data), function(x){
+  std.estimate <- lapply(1:length(data), function(x){
     (data[[x]][,3] - data[[x]][,5]) / data[[x]][,4]})
   if(is(std.estimate, "list") == FALSE) {std.estimate <- list(std.estimate)}
   data <- lapply(1:length(data), function(x) {
@@ -533,7 +534,7 @@ if(centrality[1] == "mean") {
     central.value <- central.value + De.add
 
     z.central.global <- ifelse(log.z == TRUE,
-                               log(central.value), 
+                               log(central.value),
                                central.value)
   }
 
@@ -784,7 +785,7 @@ if(centrality[1] == "mean") {
                          (data[[i]][1,5] - z.central.global) *
                            polygons[i,4] - 2)
   }
-  
+
   ## calculate node coordinates for semi-circle
   user.limits <- if(log.z == TRUE) {
     log(limits.z)
@@ -803,15 +804,15 @@ if(centrality[1] == "mean") {
   ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
   ellipse <- cbind(ellipse.x, ellipse.y)
   ellipse.lims <- rbind(range(ellipse[,1]), range(ellipse[,2]))
-  
+
   ## check if z-axis overlaps with 2s-polygon
   polygon_y_max <- max(polygons[,7])
   polygon_y_min <- min(polygons[,7])
-  
-  z_2s_upper <- ellipse.x[abs(ellipse.y - polygon_y_max) == 
+
+  z_2s_upper <- ellipse.x[abs(ellipse.y - polygon_y_max) ==
                             min(abs(ellipse.y - polygon_y_max))]
-  
-  z_2s_lower <- ellipse.x[abs(ellipse.y - polygon_y_min) == 
+
+  z_2s_lower <- ellipse.x[abs(ellipse.y - polygon_y_min) ==
                             min(abs(ellipse.y - polygon_y_min))]
 
   if(max(polygons[,3]) >= z_2s_upper | max(polygons[,3]) >= z_2s_lower) {
@@ -901,13 +902,20 @@ if(centrality[1] == "mean") {
     De.stats[i,17] <- statistics$weighted$se.abs
     De.stats[i,18] <- statistics$weighted$se.rel
 
-    ##kdemax - here a little doubled as it appears below again
-    De.density <-density(x = data[[i]][,1],
-                         kernel = "gaussian",
-                         from = limits.z[1],
-                         to = limits.z[2])
+    ## kdemax - here a little doubled as it appears below again
+    De.density <- try(density(x = data[[i]][,1],
+                              kernel = "gaussian",
+                              from = limits.z[1],
+                              to = limits.z[2]),
+                      silent = TRUE)
 
-    De.stats[i,6] <- De.density$x[which.max(De.density$y)]
+    if(class(De.density) == "try-error") {
+
+      De.stats[i,6] <- NA
+    } else {
+
+      De.stats[i,6] <- De.density$x[which.max(De.density$y)]
+    }
   }
 
   label.text = list(NA)
@@ -1244,9 +1252,9 @@ label.text[[1]] <- NULL
 
   ## calculate line coordinates and further parameters
   if(missing(line) == FALSE) {
-    
+
     line = line + De.add
-    
+
     if(log.z == TRUE) {line <- log(line)}
 
     line.coords <- list(NA)
