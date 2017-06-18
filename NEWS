@@ -29,3 +29,7 @@ Changes in version 0.8.0 ( ,2017):
                cores via 'method.control = list(cores = x)' was not
                respected
 
+         • ‘plot_FilterCombinations()’
+
+             • Add interative mode (‘interative = TRUE’)
+

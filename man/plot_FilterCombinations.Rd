@@ -5,7 +5,7 @@
 \title{Plot filter combinations along with the (optional) net transmission window}
 \usage{
 plot_FilterCombinations(filters, wavelength_range = 200:1000,
-  show_net_transmission = TRUE, plot = TRUE, ...)
+  show_net_transmission = TRUE, interactive = FALSE, plot = TRUE, ...)
 }
 \arguments{
 \item{filters}{\code{\link{list}} (\bold{required}): a named list of filter data for each filter to be shown.
@@ -16,6 +16,8 @@ The filter data itself should be either provided as \code{\link{data.frame}} or 
 
 \item{show_net_transmission}{\code{\link{logical}} (with default): show net transmission window
 as polygon.}
+
+\item{interactive}{\code{\link{logical}} (with default): enable/disable interactive plot}
 
 \item{plot}{\code{\link{logical}} (with default): enables or disables the plot output}
 
@@ -95,7 +97,7 @@ can be fully customised by disabling the standard legend and use the function \c
 instead.
 }
 \section{Function version}{
- 0.1.0 (2016-10-18 10:21:27)
+ 0.2.0 (2017-06-18 23:53:37)
 }
 
 \examples{
@@ -115,6 +117,12 @@ results <- plot_FilterCombinations(
 filters = list(filter_1 = filter1, Rectangle = list(filter2, d = 2, P = 0.6)))
 results
 
+\dontrun{
+##show the filters using the interative mode
+plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
+
+}
+
 
 }
 \seealso{
@@ -125,7 +133,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

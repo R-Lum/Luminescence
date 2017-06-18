@@ -127,7 +127,7 @@ error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 }
 \section{Function version}{
- 0.5.4 (2017-06-15 22:20:41)
+ 0.5.4 (2017-06-15 22:35:00)
 }
 
 \examples{

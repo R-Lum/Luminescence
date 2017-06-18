@@ -61,6 +61,8 @@
 #' @param show_net_transmission \code{\link{logical}} (with default): show net transmission window
 #' as polygon.
 #'
+#' @param interactive \code{\link{logical}} (with default): enable/disable interactive plot
+#'
 #' @param plot \code{\link{logical}} (with default): enables or disables the plot output
 #'
 #' @param \dots further arguments that can be passed to control the plot output. Suppored are \code{main},
@@ -84,7 +86,7 @@
 #'
 #' }
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
@@ -109,12 +111,19 @@
 #' filters = list(filter_1 = filter1, Rectangle = list(filter2, d = 2, P = 0.6)))
 #' results
 #'
+#' \dontrun{
+#' ##show the filters using the interative mode
+#' plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
+#'
+#' }
+#'
 #'
 #' @export
 plot_FilterCombinations <- function(
   filters,
   wavelength_range = 200:1000,
   show_net_transmission = TRUE,
+  interactive = FALSE,
   plot = TRUE,
   ...) {
   # Integrity tests -----------------------------------------------------------------------------
@@ -212,6 +221,7 @@ plot_FilterCombinations <- function(
   # Plotting ------------------------------------------------------------------------------------
 
   if (plot) {
+
     ##set plot settings
     plot_settings <- list(
       main = "Filter Combination",
@@ -233,50 +243,105 @@ plot_FilterCombinations <- function(
     ##modify settings on request
     plot_settings <- modifyList(plot_settings, list(...))
 
-    ##plot induvidal filters
-    graphics::matplot(
-      x = wavelength_range,
-      y = filter_matrix,
-      type = "l",
-      main = plot_settings$main,
-      xlab = plot_settings$xlab,
-      ylab = plot_settings$ylab,
-      xlim = plot_settings$xlim,
-      ylim = plot_settings$ylim,
-      lty = plot_settings$lty,
-      lwd = plot_settings$lwd,
-      col = plot_settings$col
+    if(interactive){
 
-    )
+      ##check for plotly
+      if (!requireNamespace("plotly", quietly = TRUE)) {
+        stop("[plot_FilterCombinations()] Package 'plotly' needed interactive plot functionality. Please install it.",
+             call. = FALSE)
+      }
 
-    if (!is.null(plot_settings$grid)) {
-      graphics::grid(eval(plot_settings$grid))
+      ##create basic plot
+      p <-
+        plotly::plot_ly(x = wavelength_range,
+                        y = filter_matrix[,1],
+                        type = "scatter",
+                        name = colnames(filter_matrix)[1],
+                        mode = "lines")
 
-    }
+        ##add further filters
+        if (ncol(filter_matrix) > 1) {
+          for (i in 2:ncol(filter_matrix)) {
+            p <- plotly::add_trace(p,
+                        y = filter_matrix[, i],
+                        name = colnames(filter_matrix)[i],
+                        mode = 'lines')
+          }
 
-    ##show effective transmission, which is the minimum for each row
-    if (show_net_transmission) {
-      polygon(
-        x = c(wavelength_range, rev(wavelength_range)),
-        y = c(net_transmission_window[, 2],
-              rep(0, length(wavelength_range))),
-        col = plot_settings$net_transmission.col,
-        border = NA
+        }
+
+
+      ##add polygon
+      p <-  plotly::add_polygons(p,
+                        x = c(wavelength_range, rev(wavelength_range)),
+                        y = c(net_transmission_window[, 2], rep(0, length(wavelength_range))),
+                        name = "net transmission"
+                        )
+
+
+
+      ##change graphical parameters
+      p <-  plotly::layout(
+        p = p,
+        xaxis = list(
+          title = plot_settings$xlab
+        ),
+        yaxis = list(
+          title = plot_settings$ylab
+        ),
+        title = plot_settings$main
       )
 
-    }
+      print(p)
+      on.exit(return(p))
 
-    #legend
-    if (plot_settings$legend) {
-      legend(
-        plot_settings$legend.pos,
-        legend = plot_settings$legend.text,
-        col = plot_settings$col,
+
+    }else{
+      ##plot induvidal filters
+      graphics::matplot(
+        x = wavelength_range,
+        y = filter_matrix,
+        type = "l",
+        main = plot_settings$main,
+        xlab = plot_settings$xlab,
+        ylab = plot_settings$ylab,
+        xlim = plot_settings$xlim,
+        ylim = plot_settings$ylim,
         lty = plot_settings$lty,
-        bty = "n"
-      )
-    }
+        lwd = plot_settings$lwd,
+        col = plot_settings$col
 
+      )
+
+      if (!is.null(plot_settings$grid)) {
+        graphics::grid(eval(plot_settings$grid))
+
+      }
+
+      ##show effective transmission, which is the minimum for each row
+      if (show_net_transmission) {
+        polygon(
+          x = c(wavelength_range, rev(wavelength_range)),
+          y = c(net_transmission_window[, 2],
+                rep(0, length(wavelength_range))),
+          col = plot_settings$net_transmission.col,
+          border = NA
+        )
+
+      }
+
+      #legend
+      if (plot_settings$legend) {
+        legend(
+          plot_settings$legend.pos,
+          legend = plot_settings$legend.text,
+          col = plot_settings$col,
+          lty = plot_settings$lty,
+          bty = "n"
+        )
+      }
+
+    }
 
   }
 
