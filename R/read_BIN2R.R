@@ -50,8 +50,8 @@
 #' Note: The usage is at own risk, only supported BIN-file versions have been tested.
 #'
 #' @param ignore.RECTYPE \code{\link{logical}} (with default): this argument allows to ignore values
-#' in the byte 'REGTYPE' (BIN-file version 08), in case there are not documented or faulty set.
-#' If set all records are treated like records of 'REGYPE' 0 or 1.
+#' in the byte 'RECTYPE' (BIN-file version 08), in case there are not documented or faulty set.
+#' In this case the corrupted records are skipped.
 #'
 #' @param pattern \code{\link{character}} (optional): argument that is used if only a path is provided.
 #' The argument will than be passed to the function \code{\link{list.files}} used internally to
