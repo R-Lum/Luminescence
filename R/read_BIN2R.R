@@ -276,7 +276,10 @@ read_BIN2R <- function(
     }
 
     ##close connection
-    close(con)
+    if(!is.null(con)){
+      close(con)
+
+    }
 
   }
   on.exit(expr = on_exit())
@@ -303,11 +306,13 @@ read_BIN2R <- function(
 
       }else{
         cat("FAILED")
+        con <- NULL
         stop("[read_BIN2R()] File does not exist!", call. = FALSE)
 
       }
 
     }else{
+      con <- NULL
       stop("[read_BIN2R()] File does not exist!", call. = FALSE)
 
     }
