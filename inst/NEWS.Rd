@@ -53,6 +53,15 @@
         }
 
 
+     \item \code{read_BIN2R()}
+
+        \itemize{
+
+          \item Improve error messages for corrupted BIN/BINX-files,
+          \item ensure that the file connection is closed sufficiently.
+
+        }
+
       \item \code{RisoeBINfileData2RLum.Analysis()}
 
         \itemize{

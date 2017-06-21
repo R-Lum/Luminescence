@@ -32,6 +32,12 @@ Changes in version 0.7.5 (30th June, 2017):
                ‘data.frame’s are provided (thanks to Christina Neudorf
                for spotting the bug).
 
+         • ‘read_BIN2R()’
+
+             • Improve error messages for corrupted BIN/BINX-files,
+
+             • ensure that the file connection is closed sufficiently.
+
          • ‘RisoeBINfileData2RLum.Analysis()’
 
              • The grain selection was not accepted and caused a
