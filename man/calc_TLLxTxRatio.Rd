@@ -84,11 +84,6 @@ output <- calc_TLLxTxRatio(Lx.data.signal,
 get_RLum(output)
 
 }
-\references{
-\itemize{
-\item 
-}
-}
 \seealso{
 \linkS4class{RLum.Results}, \code{\link{analyse_SAR.TL}}
 }
