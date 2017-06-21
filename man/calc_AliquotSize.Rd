@@ -137,7 +137,7 @@ are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr
 \strong{Further reading} \cr\cr
 
 Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
-Theorem on Circle Packing. \link{http://arxiv.org/pdf/1009.4322v1.pdf},
+Theorem on Circle Packing. \url{http://arxiv.org/pdf/1009.4322v1.pdf},
 2013-09-13.
 
 Graham, R.L., Lubachevsky, B.D., Nurmela, K.J.,

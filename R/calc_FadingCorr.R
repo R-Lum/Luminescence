@@ -71,7 +71,7 @@
 #'
 #' @param tc [numeric] (**required**): 
 #' time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). 
-#' Argument will be ignored if `g_value` was an [RLum.Results] object
+#' Argument will be ignored if `g_value` was an [RLum.Results-class] object
 #'
 #' @param tc.g_value [numeric] *(with default)*: 
 #' the time in seconds between irradiation and the prompt measurement used for estimating the g-value. 

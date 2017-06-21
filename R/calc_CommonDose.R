@@ -31,9 +31,6 @@
 #' @param log [logical] *(with default)*: 
 #' fit the (un-)logged central age model to De data
 #' 
-#' @param plot [logical] *(with default)*: 
-#' plot output
-#' 
 #' @param ... currently not used.
 #' 
 #' @return Returns a terminal output. In addition an

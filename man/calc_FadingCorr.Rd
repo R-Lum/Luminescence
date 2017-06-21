@@ -20,7 +20,7 @@ Alternatively an \linkS4class{RLum.Results} object can be provided produced by t
 
 \item{tc}{\link{numeric} (\strong{required}):
 time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
-Argument will be ignored if \code{g_value} was an \link{RLum.Results} object}
+Argument will be ignored if \code{g_value} was an \linkS4class{RLum.Results} object}
 
 \item{tc.g_value}{\link{numeric} \emph{(with default)}:
 the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
