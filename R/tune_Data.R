@@ -44,7 +44,6 @@
 #' #                summary = c("n", "mean"))
 #'
 #'
-#' @md
 #' @export
 tune_Data <- function(
   data,

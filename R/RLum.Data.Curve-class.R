@@ -46,7 +46,6 @@ NULL
 #' ##set empty curve object
 #' set_RLum(class = "RLum.Data.Curve")
 #'
-#' @md
 #' @export
 setClass("RLum.Data.Curve",
          slots = list(
@@ -158,7 +157,6 @@ setAs("RLum.Data.Curve", "matrix",
 ####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Show structure of \code{RLum.Data.Curve} object
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Curve"),
@@ -211,7 +209,6 @@ setMethod("show",
 #'
 #' Returns an \code{\linkS4class{RLum.Data.Curve}} object.
 #'
-#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -323,7 +320,6 @@ setMethod(
 #' (1) A \code{\link{matrix}} with the curve values or \cr
 #' (2) only the info object if \code{info.object} was set.\cr
 #'
-#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),
@@ -385,7 +381,6 @@ setMethod("get_RLum",
 #'
 #' Number of channels in the curve (row number of the matrix)
 #'
-#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Data.Curve",
@@ -406,7 +401,6 @@ setMethod("length_RLum",
 #'
 #' Names of the info elements (slot \code{info})
 #'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Curve",
@@ -430,7 +424,6 @@ setMethod("names_RLum",
 #'
 #' Same object as input, after applying the binning.
 #'
-#' @md
 #' @export
 setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Curve",
@@ -498,7 +491,6 @@ setMethod(f = "bin_RLum.Data",
 #'
 #' Same object as input, after smoothing
 #'
-#' @md
 #' @export
 setMethod(
   f = "smooth_RLum",

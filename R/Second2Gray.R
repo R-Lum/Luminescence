@@ -91,7 +91,6 @@
 #' # apply dose.rate to convert De(s) to De(Gy)
 #' Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 #'
-#' @md
 #' @export
 Second2Gray <- function(
   data,

@@ -63,7 +63,6 @@ NULL
 #'  [ ,4] \tab MESSAGE \cr
 #' }
 #' 
-#' @md
 #' @export
 github_commits <- function(user = "r-lum", repo = "luminescence", 
                            branch = "master", n = 5) {
@@ -108,7 +107,6 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #'  [ ,3] \tab INSTALL \cr
 #' }
 #' 
-#' @md
 #' @export
 github_branches <- function(user = "r-lum", repo = "luminescence") {
   
@@ -152,7 +150,6 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #'  [[8]] \tab STATUS \cr
 #' }
 #' 
-#' @md
 #' @export
 github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE) {
   

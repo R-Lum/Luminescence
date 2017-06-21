@@ -195,7 +195,6 @@
 #' ##show LnTnLxTx table
 #' get_RLum(results, data.object = "LnLxTnTx.table")
 #'
-#' @md
 #' @export
 analyse_SAR.CWOSL<- function(
   object,

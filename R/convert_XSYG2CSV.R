@@ -36,7 +36,6 @@
 #'
 #' }
 #'
-#' @md
 #' @export
 convert_XSYG2CSV <- function(
   file,

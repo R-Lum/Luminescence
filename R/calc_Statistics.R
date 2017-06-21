@@ -59,7 +59,6 @@
 #' str(calc_Statistics(x))
 #' }
 #'
-#' @md
 #' @export
 calc_Statistics <- function(
   data,

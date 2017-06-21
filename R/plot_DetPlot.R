@@ -115,7 +115,6 @@
 #' )
 #' }
 #'
-#' @md
 #' @export
 plot_DetPlot <- function(
   object,

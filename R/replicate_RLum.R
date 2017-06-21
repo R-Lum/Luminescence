@@ -19,7 +19,6 @@
 #'
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("replicate_RLum", function (object, times = NULL) {
    standardGeneric("replicate_RLum")

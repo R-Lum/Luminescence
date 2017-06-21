@@ -64,7 +64,6 @@
 #' plot(values.transformed)
 #'
 #'
-#' @md
 #' @export
 CW2pLM <- function(
   values

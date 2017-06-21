@@ -25,7 +25,6 @@
 #' @keywords utilities
 #'
 #'
-#' @md
 #' @export
 setGeneric("length_RLum", function(object) {
   standardGeneric("length_RLum")

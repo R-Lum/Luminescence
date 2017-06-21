@@ -101,7 +101,6 @@
 #'                ylim = c(0, 0.1, 5, 20))
 #'
 #'
-#' @md
 #' @export
 plot_Histogram <- function(
   data,

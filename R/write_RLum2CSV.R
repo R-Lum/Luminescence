@@ -62,7 +62,6 @@
 #'
 #' }
 #'
-#' @md
 #' @export
 write_RLum2CSV <- function(
   object,

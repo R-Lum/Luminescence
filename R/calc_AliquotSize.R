@@ -124,7 +124,6 @@
 #' calc_AliquotSize(grain.size = c(100,200), sample.diameter = 8,
 #'                  grains.counted = c(2525,2312,2880), MC.iter = 100)
 #'
-#' @md
 #' @export
 calc_AliquotSize <- function(
   grain.size,

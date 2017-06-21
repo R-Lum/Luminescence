@@ -62,7 +62,6 @@ assign("col",
 #'
 #' ##no example available
 #'
-#' @md
 #' @export
 sTeve<- function(n_frames = 10, t_animation = 2, n.tree = 7, type) {
 

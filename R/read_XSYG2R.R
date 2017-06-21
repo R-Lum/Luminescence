@@ -145,7 +145,6 @@
 #' structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #'
 #'
-#' @md
 #' @export
 read_XSYG2R <- function(
   file,

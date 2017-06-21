@@ -149,7 +149,6 @@
 #' KDE_out <- plot_KDE(data = ExampleData.DeValues,
 #' output = TRUE)
 #'
-#' @md
 #' @export
 plot_KDE <- function(
   data,

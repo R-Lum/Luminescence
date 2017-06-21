@@ -32,7 +32,6 @@
 #' install_DevelopmentVersion()
 #' }
 #' 
-#' @md
 #' @export
 install_DevelopmentVersion <- function(force_install = FALSE) {
   

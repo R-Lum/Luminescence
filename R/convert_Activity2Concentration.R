@@ -66,7 +66,6 @@
 #' ##perform analysis
 #' convert_Activity2Concentration(data)
 #'
-#' @md
 #' @export
 convert_Activity2Concentration <- function(
   data,

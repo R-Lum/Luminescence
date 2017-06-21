@@ -51,7 +51,6 @@
 #'
 #' temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 #'
-#' @md
 #' @export
 merge_RLum.Analysis<- function(
   objects

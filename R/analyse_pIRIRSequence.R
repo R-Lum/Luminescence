@@ -153,7 +153,6 @@
 #'   dev.off()
 #' }
 #'
-#' @md
 #' @export
 analyse_pIRIRSequence <- function(
   object,

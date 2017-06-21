@@ -373,7 +373,6 @@
 #'
 #' }
 #'
-#' @md
 #' @export
 analyse_baSAR <- function(
   object,

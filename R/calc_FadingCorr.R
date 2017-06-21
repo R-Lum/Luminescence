@@ -166,7 +166,6 @@
 #' ##access the last output
 #' get_RLum(results)
 #'
-#' @md
 #' @export
 calc_FadingCorr <- function(
   age.faded,

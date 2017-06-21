@@ -148,7 +148,6 @@
 #'                 preheat = c(200, 200, 200, 240, 240),
 #'                 boxplot = TRUE)
 #'
-#' @md
 #' @export
 plot_DRTResults <- function(
   values,

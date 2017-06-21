@@ -12,7 +12,6 @@
 #'
 #' @section Function version: 0.1.3
 #'
-#' @md
 #' @export
 model_LuminescenceSignals <-
   function(model,

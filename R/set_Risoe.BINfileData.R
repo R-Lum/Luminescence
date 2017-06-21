@@ -19,7 +19,6 @@
 #' \code{\linkS4class{Risoe.BINfileData}}
 #' @keywords utilities
 #'
-#' @md
 #' @export
 setGeneric("set_Risoe.BINfileData",
   function(METADATA = data.frame(), DATA = list(), .RESERVED = list()) {

@@ -67,7 +67,6 @@
 #' ##data(ExampleData.BINfileData, envir = environment())
 #' ##write_R2BIN(CWOSL.SAR.Data, file="[your path]/output.bin")
 #'
-#' @md
 #' @export
 write_R2BIN <- function(
   object,

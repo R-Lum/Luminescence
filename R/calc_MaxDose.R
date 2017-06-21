@@ -116,7 +116,6 @@
 #' # apply the maximum dose model
 #' calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 #'
-#' @md
 #' @export
 calc_MaxDose<- function(
   data,

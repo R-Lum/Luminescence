@@ -402,7 +402,6 @@
 #'        y = AP$data[[1]]$std.estimate.plot[!in_2sigma],
 #'        pch = 1)
 #'
-#' @md
 #' @export
 plot_AbanicoPlot <- function(
   data,

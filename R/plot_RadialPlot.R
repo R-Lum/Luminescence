@@ -212,7 +212,6 @@
 #'                 summary.pos = "sub",
 #'                 legend = c("Sample 1", "Sample 2"))
 #'
-#' @md
 #' @export
 plot_RadialPlot <- function(
   data,

@@ -161,7 +161,6 @@
 #'                       readerDdot = readerDdot,
 #'                       n.MC = 50
 #'                       )
-#' @md
 #' @export
 calc_Kars2008 <- function(data,
                           rhop,

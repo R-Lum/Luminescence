@@ -37,7 +37,6 @@
 #' ##show structure
 #' structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #'
-#' @md
 #' @export
 setGeneric("structure_RLum", function(object, ...) {
   standardGeneric("structure_RLum")

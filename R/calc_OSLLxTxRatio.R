@@ -150,7 +150,6 @@
 #' ##get results object
 #' get_RLum(results)
 #'
-#' @md
 #' @export
 calc_OSLLxTxRatio <- function(
   Lx.data,

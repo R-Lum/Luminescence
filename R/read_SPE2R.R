@@ -95,7 +95,6 @@
 #' #             sep = ";", row.names = FALSE)
 #'
 #'
-#' @md
 #' @export
 read_SPE2R <- function(
   file,

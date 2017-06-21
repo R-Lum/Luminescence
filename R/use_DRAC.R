@@ -94,7 +94,6 @@
 #' output <- use_DRAC(input)
 #' }
 #'
-#' @md
 #' @export
 use_DRAC <- function(
   file,

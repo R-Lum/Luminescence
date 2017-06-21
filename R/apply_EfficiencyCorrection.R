@@ -45,7 +45,6 @@
 #' ##
 #' ## your.spectrum <- apply_EfficiencyCorrection(your.spectrum, )
 #'
-#' @md
 #' @export
 apply_EfficiencyCorrection <- function(
   object,

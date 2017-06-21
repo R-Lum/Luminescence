@@ -130,7 +130,6 @@
 #'                          LxTx.Error = output$LnLxTnTx[[1]]$LxTx.Error)
 #' output.SAR
 #'
-#' @md
 #' @export
 Analyse_SAR.OSLdata <- function(
   input.data,

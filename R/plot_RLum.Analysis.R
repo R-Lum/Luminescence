@@ -103,7 +103,6 @@
 #' abline = list(v = c(110))
 #' )
 #'
-#' @md
 #' @export
 plot_RLum.Analysis <- function(
   object,

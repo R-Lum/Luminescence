@@ -120,7 +120,6 @@
 #'   output_unit = "Ma"
 #')
 #'
-#' @md
 #' @export
 calc_ThermalLifetime <- function(
   E,

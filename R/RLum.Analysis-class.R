@@ -49,7 +49,6 @@ NULL
 #' ##show only the first object, but by keeping the object
 #' get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 #'
-#' @md
 #' @export
 setClass("RLum.Analysis",
          slots = list(
@@ -109,7 +108,6 @@ setAs("RLum.Analysis", "list",
 ####################################################################################################
 #' @describeIn RLum.Analysis
 #' Show structure of \code{RLum.Analysis} object
-#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Analysis"),
@@ -224,7 +222,6 @@ setMethod("show",
 #'
 #' Returns an \code{\linkS4class{RLum.Analysis}} object.
 #'
-#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -330,7 +327,6 @@ setMethod(
 #' \code{recursive = FALSE} or\cr
 #' (3) \code{\linkS4class{RLum.Analysis}} ojects for \code{drop = FALSE} \cr
 #'
-#' @md
 #' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
@@ -634,7 +630,6 @@ setMethod("get_RLum",
 #'
 #' Returns \code{\linkS4class{data.frame}} showing the structure.
 #'
-#' @md
 #' @export
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
@@ -749,7 +744,6 @@ setMethod("structure_RLum",
 #'
 #' Returns the number records in this object.
 #'
-#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Analysis",
@@ -770,7 +764,6 @@ setMethod("length_RLum",
 #'
 #' Returns the names of the record types (recordType) in this object.
 #'
-#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Analysis",
@@ -798,7 +791,6 @@ setMethod("names_RLum",
 #'
 #' Same object as input, after smoothing
 #'
-#' @md
 #' @export
 setMethod(
   f = "smooth_RLum",

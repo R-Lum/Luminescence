@@ -119,7 +119,6 @@
 #' par(mfrow = c(1, 1))
 #'
 #'
-#' @md
 #' @export
 plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
                      legend = TRUE, legend.pos = "topright", ...) {

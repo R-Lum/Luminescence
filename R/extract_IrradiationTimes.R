@@ -116,7 +116,6 @@
 #' #                   sep = ";",
 #' #                   row.names = FALSE)
 #'
-#' @md
 #' @export
 extract_IrradiationTimes <- function(
   object,

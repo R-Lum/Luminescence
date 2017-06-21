@@ -94,7 +94,6 @@
 #' # show the summary table
 #' get_RLum(res)
 #'
-#' @md
 #' @export
 calc_FastRatio <- function(object, 
                            stimulation.power = 30.6, 

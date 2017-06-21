@@ -39,7 +39,6 @@ NULL
 #'
 #' showClass("RLum")
 #'
-#' @md
 #' @export
 setClass("RLum",
            slots = list(
@@ -68,7 +67,6 @@ setClass("RLum",
 #' @param times \code{\link{integer}} (optional): number for times each element is repeated
 #' element
 #'
-#' @md
 #' @export
 setMethod(
   "replicate_RLum",

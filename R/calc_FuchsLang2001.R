@@ -62,7 +62,6 @@
 #' ##calculate De according to Fuchs & Lang (2001)
 #' temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 #'
-#' @md
 #' @export
 calc_FuchsLang2001 <- function(
   data,
