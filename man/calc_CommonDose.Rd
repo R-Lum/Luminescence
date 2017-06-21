@@ -8,43 +8,50 @@ given De distribution}
 calc_CommonDose(data, sigmab, log = TRUE, ...)
 }
 \arguments{
-\item{data}{\linkS4class{RLum.Results} or \link{data.frame}
-(\strong{required}): for \link{data.frame}: two columns with De
-\code{(data[,1])} and De error \code{(values[,2])}}
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(data[,2])}}
 
-\item{sigmab}{\link{numeric} \emph{(with default)}: additional spread in De values.
+\item{sigmab}{\link{numeric} \emph{(with default)}:
+additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
-\bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
+\strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
-\item{log}{\link{logical} \emph{(with default)}: fit the (un-)logged common
-age model to De data}
+\item{log}{\link{logical} \emph{(with default)}:
+fit the (un-)logged central age model to De data}
 
 \item{...}{currently not used.}
+
+\item{plot}{\link{logical} \emph{(with default)}:
+plot output}
 }
 \value{
 Returns a terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
 following element:
 
-\item{summary}{\link{data.frame} summary of all relevant model results.}
-\item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-used arguments} \item{call}{\link{call} the function call}
+\item{.$summary}{\link{data.frame} summary of all relevant model results.}
+\item{.$data}{\link{data.frame} original input data}
+\item{.$args}{\link{list} used arguments}
+\item{.$call}{\link{call} the function call}
 
-The output should be accessed using the function
-\link{get_RLum}
+The output should be accessed using the function \link{get_RLum}
 }
 \description{
 Function to calculate the common dose of a De distribution.
 }
 \details{
-\bold{(Un-)logged model} \cr\cr When \code{log = TRUE} this function
+\strong{(Un-)logged model} \cr\cr
+
+When \code{log = TRUE} this function
 calculates the weighted mean of logarithmic De values. Each of the estimates
 is weighted by the inverse square of its relative standard error. The
 weighted mean is then transformed back to the dose scale (Galbraith &
-Roberts 2012, p. 14).\cr\cr The log transformation is not applicable if the
+Roberts 2012, p. 14).\cr\cr
+
+The log transformation is not applicable if the
 De estimates are close to zero or negative. In this case the un-logged model
 can be applied instead (\code{log = FALSE}). The weighted mean is then
 calculated using the un-logged estimates of De and their absolute standard
@@ -65,26 +72,35 @@ calc_CommonDose(ExampleData.DeValues$CA1)
 }
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
-mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
-\cr\cr Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
+mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470. \cr\cr
+
+Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
 J.M., 1999. Optical dating of single grains of quartz from Jinmium rock
 shelter, northern Australia. Part I: experimental design and statistical
-models.  Archaeometry 41, 339-364. \cr\cr Galbraith, R.F. & Roberts, R.G.,
-2012. Statistical aspects of equivalent dose and error calculation and
+models.  Archaeometry 41, 339-364. \cr\cr
+
+Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose and error calculation and
 display in OSL dating: An overview and some recommendations. Quaternary
-Geochronology 11, 1-27. \cr\cr \bold{Further reading} \cr\cr Arnold, L.J. &
-Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
+Geochronology 11, 1-27. \cr \cr
+
+\strong{Further reading} \cr\cr
+
+Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 (De) distributions: Implications for OSL dating of sediment mixtures.
-Quaternary Geochronology 4, 204-230. \cr\cr Bailey, R.M. & Arnold, L.J.,
-2006. Statistical modelling of single grain quartz De distributions and an
+Quaternary Geochronology 4, 204-230. \cr\cr
+
+Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 assessment of procedures for estimating burial dose. Quaternary Science
-Reviews 25, 2475-2502. \cr\cr Cunningham, A.C. & Wallinga, J., 2012.
-Realizing the potential of fluvial archives using robust OSL chronologies.
-Quaternary Geochronology 12, 98-106. \cr\cr Rodnight, H., Duller, G.A.T.,
-Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
-of optical dating of fluvial deposits. Quaternary Geochronology 1,
-109-120.\cr\cr Rodnight, H., 2008. How many equivalent dose values are
-needed to obtain a reproducible distribution?. Ancient TL 26, 3-10.
+Reviews 25, 2475-2502. \cr\cr
+
+Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial archives using robust OSL chronologies.
+Quaternary Geochronology 12, 98-106. \cr\cr
+
+Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
+of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120. \cr\cr
+
+Rodnight, H., 2008. How many equivalent dose values are needed to
+obtain a reproducible distribution?. Ancient TL 26, 3-10.
 }
 \seealso{
 \link{calc_CentralDose}, \link{calc_FiniteMixture},

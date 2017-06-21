@@ -8,7 +8,7 @@
 #' This function calculates the total cosmic dose rate considering both the
 #' soft- and hard-component of the cosmic ray flux.\cr
 #'
-#' \bold{Internal calculation steps}
+#' **Internal calculation steps**
 #'
 #' (1) Calculate total depth of all absorber in hg/cm^2 (1 hg/cm^2 = 100
 #' g/cm^2)
@@ -16,7 +16,7 @@
 #' \deqn{absorber = depth_1*density_1 + depth_2*density_2 + ... + depth_n*
 #' density_n}
 #'
-#' (2) If \code{half.depth = TRUE}
+#' (2) If `half.depth = TRUE`
 #'
 #' \deqn{absorber = absorber/2}
 #'
@@ -52,69 +52,69 @@
 #'
 #' \deqn{Dc' = Dc*correctionFactor}
 #'
-#' \bold{Usage of \code{depth} and \code{density}}
+#' **Usage of `depth` and `density`**
 #'
 #' (1) If only one value for depth and density is provided, the cosmic dose
 #' rate is calculated for exactly one sample and one absorber as overburden
-#' (i.e. \code{depth*density}).
+#' (i.e. `depth*density`).
 #'
 #' (2) In some cases it might be useful to calculate the cosmic dose rate for a
 #' sample that is overlain by more than one absorber, e.g. in a profile with
 #' soil layers of different thickness and a distinct difference in density.
 #' This can be calculated by providing a matching number of values for
-#' \code{depth} and \code{density} (e.g. \code{depth = c(1, 2), density =
-#' c(1.7, 2.4)})
+#' `depth` and `density` (e.g. `depth = c(1, 2), density = c(1.7, 2.4)`)
 #'
 #' (3) Another possibility is to calculate the cosmic dose rate for more than
 #' one sample of the same profile. This is done by providing more than one
-#' values for \code{depth} and only one for \code{density}. For example,
-#' \code{depth = c(1, 2, 3), density = 1.7} will calculate the cosmic dose rate
+#' values for `depth` and only one for `density`. For example,
+#' `depth = c(1, 2, 3)` and `density = 1.7` will calculate the cosmic dose rate
 #' for three samples in 1, 2 and 3 m depth in a sediment of density 1.7 g/cm^3.
 #'
-#' @param depth [numeric] (**required**): depth of overburden
-#' (m).  For more than one absorber use \cr \code{c(depth_1, depth_2, ...,
-#' depth_n)}
+#' @param depth [numeric] (**required**): 
+#' depth of overburden (m). For more than one absorber use \cr 
+#' `c(depth_1, depth_2, ..., depth_n)`
 #' 
-#' @param density [numeric] (**required**): average overburden
-#' density (g/cm^3). For more than one absorber use \cr \code{c(density_1,
-#' density_2, ..., density_n)}
+#' @param density [numeric] (**required**): 
+#' average overburden density (g/cm^3). For more than one absorber use \cr
+#' `c(density_1, density_2, ..., density_n)`
 #' 
-#' @param latitude [numeric] (**required**): latitude (decimal
-#' degree), N positive
+#' @param latitude [numeric] (**required**): 
+#' latitude (decimal degree), N positive
 #' 
-#' @param longitude [numeric] (**required**): longitude (decimal
-#' degree), E positive
+#' @param longitude [numeric] (**required**): 
+#' longitude (decimal degree), E positive
 #' 
-#' @param altitude [numeric] (**required**): altitude (m above
-#' sea-level)
+#' @param altitude [numeric] (**required**): 
+#' altitude (m above sea-level)
 #' 
-#' @param corr.fieldChanges [logical] *(with default)*: correct for
-#' geomagnetic field changes after Prescott & Hutton (1994). Apply only when
-#' justified by the data.
+#' @param corr.fieldChanges [logical] *(with default)*: 
+#' correct for geomagnetic field changes after Prescott & Hutton (1994). 
+#' Apply only when justified by the data.
 #' 
-#' @param est.age [numeric] *(with default)*: estimated age range
-#' (ka) for geomagnetic field change correction (0-80 ka allowed)
+#' @param est.age [numeric] *(with default)*: 
+#' estimated age range (ka) for geomagnetic field change correction (0-80 ka allowed)
 #' 
-#' @param half.depth [logical] *(with default)*: How to overcome with
-#' varying overburden thickness. If `TRUE` only half the depth is used for
+#' @param half.depth [logical] *(with default)*: 
+#' How to overcome with varying overburden thickness. If `TRUE` only half the depth is used for
 #' calculation. Apply only when justified, i.e. when a constant sedimentation
 #' rate can safely be assumed.
 #' 
-#' @param error [numeric] *(with default)*: general error
-#' (percentage) to be implemented on corrected cosmic dose rate estimate
+#' @param error [numeric] *(with default)*: 
+#' general error (percentage) to be implemented on corrected cosmic dose rate estimate
 #' 
-#' @param ... further arguments (\code{verbose} to disable/enable console output).
+#' @param ... further arguments (`verbose` to disable/enable console output).
 #' 
 #' @return Returns a terminal output. In addition an
-#' [RLum.Results-class] object is returned containing the
+#' [RLum.Results-class]-object is returned containing the
 #' following element:
 #'
-#' \item{summary}{[data.frame] summary of all relevant calculation
-#' results.} \item{args}{[list] used arguments} \item{call}{[call]
-#' the function call}
+#' \item{summary}{[data.frame] summary of all relevant calculation results.} 
+#' \item{args}{[list] used arguments} 
+#' \item{call}{[call] the function call}
 #'
-#' The output should be accessed using the function
-#' [get_RLum]
+#' The output should be accessed using the function [get_RLum]
+#' 
+#' 
 #' @note Despite its universal use the equation to calculate the cosmic dose
 #' rate provided by Prescott & Hutton (1994) is falsely stated to be valid from
 #' the surface to 10^4 hg/cm^2 of standard rock. The original expression by
@@ -145,26 +145,41 @@
 #' It is currently not possible to obtain more precise cosmic dose rate values
 #' for near-surface samples as there is no equation known to the author of this
 #' function at the time of writing.
+#' 
+#' 
 #' @section Function version: 0.5.2
+#' 
 #' @author Christoph Burow, University of Cologne (Germany)
+#' 
 #' @seealso [BaseDataSet.CosmicDoseRate]
-#' @references Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.
+#' 
+#' @references 
+#' Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.
 #' Letter to the editor. The absolute cosmic ray flux at sea level. Journal of
-#' Physics G: Nuclear and Particle Physics 1, L51-L52. \cr\cr Barbouti, A.I.,
-#' Rastin, B.C., 1983. A study of the absolute intensity of muons at sea level
+#' Physics G: Nuclear and Particle Physics 1, L51-L52. \cr\cr 
+#' 
+#' Barbouti, A.I., Rastin, B.C., 1983. A study of the absolute intensity of muons at sea level
 #' and under various thicknesses of absorber. Journal of Physics G: Nuclear and
-#' Particle Physics 9, 1577-1595. \cr\cr Crookes, J.N., Rastin, B.C., 1972. An
+#' Particle Physics 9, 1577-1595. \cr\cr 
+#' 
+#' Crookes, J.N., Rastin, B.C., 1972. An
 #' investigation of the absolute intensity of muons at sea-level. Nuclear
-#' Physics B 39, 493-508.  \cr\cr Gruen, R., 2009. The "AGE" program for the
+#' Physics B 39, 493-508. \cr\cr 
+#' 
+#' Gruen, R., 2009. The "AGE" program for the
 #' calculation of luminescence age estimates. Ancient TL 27, 45-46. \cr\cr
+#' 
 #' Prescott, J.R., Hutton, J.T., 1988. Cosmic ray and gamma ray dosimetry for
-#' TL and ESR. Nuclear Tracks and Radiation Measurements 14, \cr\cr 223-227.
+#' TL and ESR. Nuclear Tracks and Radiation Measurements 14, 223-227. \cr\cr
+#' 
 #' Prescott, J.R., Hutton, J.T., 1994. Cosmic ray contributions to dose rates
 #' for luminescence and ESR dating: large depths and long-term time variations.
-#' Radiation Measurements 23, 497-500. \cr\cr Prescott, J.R., Stephan, L.G.,
-#' 1982. The contribution of cosmic radiation to the environmental dose for
-#' thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6,
-#' 17-25.
+#' Radiation Measurements 23, 497-500. \cr\cr 
+#' 
+#' Prescott, J.R., Stephan, L.G., 1982. The contribution of cosmic radiation to the environmental dose for
+#' thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-25.
+#' 
+#' 
 #' @examples
 #'
 #' ##(1) calculate cosmic dose rate (one absorber)

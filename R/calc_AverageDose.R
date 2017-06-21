@@ -3,37 +3,41 @@
 #'This functions calculates the Average Dose and their extrinsic dispersion and estimates
 #'the standard errors by bootstrapping based on the Average Dose Model by Guerin et al., 2017
 #'
-#'\bold{\code{sigma_m}}\cr
+#' **`sigma_m`**\cr
 #'
 #'The program requires the input of a known value of sigma_m,
 #'which corresponds to the intrinsic overdispersion, as determined
 #'by a dose recovery experiment. Then the dispersion in doses (sigma_d)
 #'will be that over and above sigma_m (and individual uncertainties sigma_wi).
 #'
-#' @param data [RLum.Results-class] or [data.frame]
-#' (**required**): for [data.frame]: two columns with De
-#' \code{(data[,1])} and De error \code{(values[,2])}
+#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #'
-#' @param sigma_m [numeric] (**required**): the overdispersion resulting from a dose recovery
+#' @param sigma_m [numeric] (**required**): 
+#' the overdispersion resulting from a dose recovery
 #' experiment, i.e. when all grains have  received the same dose. Indeed in such a case, any
 #' overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 #' unrecognised measurement uncertainty.
 #'
-#' @param Nb_BE [integer] *(with default)*: sample size used for the bootstrapping
+#' @param Nb_BE [integer] *(with default)*: 
+#' sample size used for the bootstrapping
 #'
-#' @param na.rm [logical] *(with default)*: exclude NA values
-#' from the data set prior to any further operation.
+#' @param na.rm [logical] *(with default)*: 
+#' exclude NA values from the data set prior to any further operation.
 #'
-#' @param plot [logical] *(with default)*: enables/disables plot output
+#' @param plot [logical] *(with default)*: 
+#' enables/disables plot output
 #'
-#' @param verbose [logical] *(with default)*: enables/disables terminal output
+#' @param verbose [logical] *(with default)*: 
+#' enables/disables terminal output
 #'
 #' @param ... further arguments that can be passed to [graphics::hist]. As three plots
 #' are returned all arguments need to be provided as [list],
-#' e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
-#' supported, but the output of \code{hist} is returned and can be used of own plots. \cr
+#' e.g., `main = list("Plot 1", "Plot 2", "Plot 3")`. 
+#' Note: not all arguments of `hist` are
+#' supported, but the output of `hist` is returned and can be used of own plots. \cr
 #'
-#' Further supported arguments: \code{mtext} ([character]), \code{rug} (`TRUE/FALSE`).
+#' Further supported arguments: `mtext` ([character]), `rug` (`TRUE/FALSE`).
 #'
 #' @section Function version: 0.1.4
 #'
@@ -49,14 +53,14 @@
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]` \cr
 #' -----------------------------------\cr
-#' \bold{\code{RLum.Reuslts}}-object\cr
+#' **`RLum.Results`**-object\cr
 #'
-#' \bold{slot:} \bold{\code{@data}} \cr
+#' **slot:** **`@data`** \cr
 #'
 #' `[.. $summary : data.frame]`\cr
 #'
 #' \tabular{lll}{
-#' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
+#'  **Column** \tab **Type** \tab **Description**\cr
 #'  AVERAGE_DOSE \tab [numeric] \tab the obtained averge dose\cr
 #'  AVERAGE_DOSE.SE \tab [numeric] \tab the average dose error \cr
 #'  SIGMA_D \tab [numeric]\tab sigma \cr
@@ -95,7 +99,7 @@
 #' measured dose rates, and implications for OSL age estimates: Introducing the Average Dose Model.
 #' Quaternary Geochronology 1-32. doi:10.1016/j.quageo.2017.04.002
 #'
-#' \bold{Further reading}\cr
+#' **Further reading**\cr
 #'
 #' Efron, B., Tibshirani, R., 1986. Bootstrap Methods for Standard Errors, Confidence Intervals,
 #' and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
@@ -112,8 +116,7 @@
 #'
 #'##calculate Average dose
 #'##(use only the first 56 values here)
-#'AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,],
-#'sigma_m = 0.1)
+#'AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,], sigma_m = 0.1)
 #'
 #'##plot De and set Average dose as central value
 #'plot_AbanicoPlot(
