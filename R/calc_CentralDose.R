@@ -31,7 +31,7 @@
 #' 
 #' @param plot [logical] (with default): plot output
 #' 
-#' @param \dots further arguments (\code{trace, verbose}).
+#' @param ... further arguments (\code{trace, verbose}).
 #' 
 #' @return Returns a plot (optional) and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
@@ -47,9 +47,9 @@
 #' @section Function version: 1.3.2
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2010 \cr
-#' @seealso \code{\link{plot}}, \code{\link{calc_CommonDose}},
-#' \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
-#' \code{\link{calc_MinDose}}
+#' @seealso [plot], [calc_CommonDose],
+#' [calc_FiniteMixture], [calc_FuchsLang2001],
+#' [calc_MinDose]
 #' @references Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 #' mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
 #' \cr \cr Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,

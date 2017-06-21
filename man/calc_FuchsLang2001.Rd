@@ -22,8 +22,8 @@ aliquot that is used for the calculations}
 \item{plot}{\link{logical} (with default): plot output
 \code{TRUE}/\code{FALSE}}
 
-\item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}}}
+\item{...}{further arguments and graphical parameters passed to
+\link{plot}}
 }
 \value{
 Returns a plot (optional) and terminal output. In addition an
@@ -82,9 +82,9 @@ small aliquots of quartz for reconstructing soil erosion in Greece.
 Quaternary Science Reviews 22, 1161-1167.
 }
 \seealso{
-\code{\link{plot}}, \code{\link{calc_MinDose}},
-\code{\link{calc_FiniteMixture}}, \code{\link{calc_CentralDose}},
-\code{\link{calc_CommonDose}}, \linkS4class{RLum.Results}
+\link{plot}, \link{calc_MinDose},
+\link{calc_FiniteMixture}, \link{calc_CentralDose},
+\link{calc_CommonDose}, \linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

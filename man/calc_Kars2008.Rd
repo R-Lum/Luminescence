@@ -41,8 +41,8 @@ plot.}
 
 \item{plot}{\link{logical} (with default): enables/disables plot output.}
 
-\item{...}{further arguments passed to \code{\link{plot}} and
-\code{\link[Luminescence]{plot_GrowthCurve}}.}
+\item{...}{further arguments passed to \link{plot} and
+\link{plot_GrowthCurve}.}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:
@@ -58,7 +58,7 @@ Slot: \bold{@data}\cr
 containing data on dose, LxTx and LxTx error for each of the dose response curves.
 Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
 \code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
-objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
+objects produced by \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} when fitting the dose response curves \cr
 }
 
 Slot: \bold{@info}\cr
@@ -102,7 +102,7 @@ frequency factor after Huntley (2006). \cr
 Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose
 response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equations
 \code{[1]} and \code{[2]}. Computed LxTx values are then fitted using the
-\code{\link[Luminescence]{plot_GrowthCurve}} function and the laboratory measured LnTn can then
+\link{plot_GrowthCurve} function and the laboratory measured LnTn can then
 be interpolated onto this curve to determine the fading corrected
 De value, from which the fading corrected age is calculated. \cr
 

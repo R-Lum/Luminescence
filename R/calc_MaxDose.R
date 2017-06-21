@@ -23,7 +23,7 @@
 #' 3. take the exponent to obtain the maximum dose estimate in Gy \cr\cr
 #' 
 #' \bold{Further documentation} \cr\cr 
-#' Please see \code{\link{calc_MinDose}}.
+#' Please see [calc_MinDose].
 #'
 #' @param data [RLum.Results-class] or [data.frame]
 #' (**required**): for [data.frame]: two columns with De \code{(data[
@@ -35,7 +35,7 @@
 #' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 #' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
-#' See details (\code{\link{calc_MinDose}}.
+#' See details ([calc_MinDose].
 #' 
 #' @param log [logical] (with default): fit the (un-)logged three
 #' parameter minimum dose model to De data
@@ -51,21 +51,21 @@
 #' length three in the form of \code{c(gamma, sigma, p0)}.
 #' 
 #' @param plot [logical] (with default): plot output
-#' (\code{TRUE}/\code{FALSE})
+#' (`TRUE`/`FALSE`)
 #' 
-#' @param \dots further arguments for bootstrapping (\code{bs.M, bs.N, bs.h,
+#' @param ... further arguments for bootstrapping (\code{bs.M, bs.N, bs.h,
 #' sigmab.sd}).  See details for their usage.
 #' 
-#' @return Please see \code{\link{calc_MinDose}}.
+#' @return Please see [calc_MinDose].
 #' 
 #' @section Function version: 0.3.1
 #' 
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2010 \cr
 #' 
-#' @seealso \code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
-#' \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
-#' \code{\link{calc_MinDose}}
+#' @seealso [calc_CentralDose], [calc_CommonDose],
+#' [calc_FiniteMixture], [calc_FuchsLang2001],
+#' [calc_MinDose]
 #' 
 #' @references Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 #' 2009. A revised burial dose estimation procedure for optical dating of young

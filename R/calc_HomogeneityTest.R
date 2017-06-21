@@ -9,7 +9,7 @@
 #' \code{(data[,1])} and De error \code{(values[,2])}
 #' @param log [logical] (with default): peform the homogeniety test
 #' with (un-)logged data
-#' @param \dots further arguments (for internal compatibility only).
+#' @param ... further arguments (for internal compatibility only).
 #' @return Returns a terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following element:

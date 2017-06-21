@@ -78,18 +78,18 @@
 #' the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
 #' that had been not normalised to 2 days.
 #'
-#' @param n.MC \code{\link{integer}} (with default): number of Monte Carlo
+#' @param n.MC [integer] (with default): number of Monte Carlo
 #' simulation runs for error estimation. If \code{n.MC = 'auto'} is used the function
 #' tries to find a 'stable' error for the age. Note: This may take a while!
 #'
-#' @param seed \code{\link{integer}} (optional): sets the seed for the random number generator
+#' @param seed [integer] (optional): sets the seed for the random number generator
 #' in R using \code{\link{set.seed}}
 #'
 #' @param interval [numeric] (with default): a vector containing the end-points (age interval) of the
 #' interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
 #' used for solving the equation.
 #'
-#' @param txtProgressBar \link{logical} (with default): enables or disables
+#' @param txtProgressBar [logical] (with default): enables or disables
 #' \code{\link{txtProgressBar}}
 #'
 #' @param verbose [logical] (with default): enables or disables terminal output

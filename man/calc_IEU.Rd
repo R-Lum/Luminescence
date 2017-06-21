@@ -25,7 +25,7 @@ points for rounding calculations (e.g. 2)}
 
 \item{plot}{\link{logical} (with default): plot output}
 
-\item{\dots}{further arguments (\code{trace, verbose}).}
+\item{...}{further arguments (\code{trace, verbose}).}
 }
 \value{
 Returns a plot (optional) and terminal output. In addition an
@@ -70,9 +70,9 @@ Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
 using single grains of quartz. Radiation Measurements 42, 370-379.
 }
 \seealso{
-\code{\link{plot}}, \code{\link{calc_CommonDose}},
-\code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
-\code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+\link{plot}, \link{calc_CommonDose},
+\link{calc_CentralDose}, \link{calc_FiniteMixture},
+\link{calc_FuchsLang2001}, \link{calc_MinDose}
 }
 \author{
 Rachel Smedley, Geography & Earth Sciences, Aberystwyth University

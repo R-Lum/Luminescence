@@ -96,7 +96,7 @@
 #' (ka) for geomagnetic field change correction (0-80 ka allowed)
 #' 
 #' @param half.depth [logical] (with default): How to overcome with
-#' varying overburden thickness. If \code{TRUE} only half the depth is used for
+#' varying overburden thickness. If `TRUE` only half the depth is used for
 #' calculation. Apply only when justified, i.e. when a constant sedimentation
 #' rate can safely be assumed.
 #' 

@@ -8,28 +8,28 @@ calc_TLLxTxRatio(Lx.data.signal, Lx.data.background = NULL, Tx.data.signal,
   Tx.data.background = NULL, signal.integral.min, signal.integral.max)
 }
 \arguments{
-\item{Lx.data.signal}{\code{\linkS4class{RLum.Data.Curve}} or
+\item{Lx.data.signal}{\linkS4class{RLum.Data.Curve} or
 \link{data.frame} (\strong{required}): TL data (x =
 temperature, y = counts) (TL signal)}
 
-\item{Lx.data.background}{\code{\linkS4class{RLum.Data.Curve}} or
+\item{Lx.data.background}{\linkS4class{RLum.Data.Curve} or
 \link{data.frame} (optional): TL data (x =
 temperature, y = counts). If no data are provided no background subtraction
 is performed.}
 
-\item{Tx.data.signal}{\code{\linkS4class{RLum.Data.Curve}} or
+\item{Tx.data.signal}{\linkS4class{RLum.Data.Curve} or
 \link{data.frame} (\strong{required}): TL data (x =
 temperature, y = counts) (TL test signal)}
 
-\item{Tx.data.background}{\code{\linkS4class{RLum.Data.Curve}} or
+\item{Tx.data.background}{\linkS4class{RLum.Data.Curve} or
 \link{data.frame} (optional): TL data (x =
 temperature, y = counts). If no data are provided no background subtraction
 is performed.}
 
-\item{signal.integral.min}{\code{\link{integer}} (\strong{required}): channel number
+\item{signal.integral.min}{\link{integer} (\strong{required}): channel number
 for the lower signal integral bound (e.g. \code{signal.integral.min = 100})}
 
-\item{signal.integral.max}{\code{\link{integer}} (\strong{required}): channel number
+\item{signal.integral.max}{\link{integer} (\strong{required}): channel number
 for the upper signal integral bound (e.g. \code{signal.integral.max = 200})}
 }
 \value{

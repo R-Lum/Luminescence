@@ -19,15 +19,15 @@
 #' @param data [RLum.Results-class] or [data.frame]
 #' (**required**): for [data.frame]: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
-#' @param cvThreshold \link{numeric} (with default): coefficient of variation
+#' @param cvThreshold [numeric] (with default): coefficient of variation
 #' in percent, as threshold for the method, e.g. \code{cvThreshold = 3}. See
 #' details.
-#' @param startDeValue \link{numeric} (with default): number of the first
+#' @param startDeValue [numeric] (with default): number of the first
 #' aliquot that is used for the calculations
-#' @param plot \link{logical} (with default): plot output
-#' \code{TRUE}/\code{FALSE}
-#' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot}}
+#' @param plot [logical] (with default): plot output
+#' `TRUE`/`FALSE`
+#' @param ... further arguments and graphical parameters passed to
+#' [plot]
 #' @return Returns a plot (optional) and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
@@ -42,9 +42,9 @@
 #' @section Function version: 0.4.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France) Christoph Burow, University of Cologne (Germany)
-#' @seealso \code{\link{plot}}, \code{\link{calc_MinDose}},
-#' \code{\link{calc_FiniteMixture}}, \code{\link{calc_CentralDose}},
-#' \code{\link{calc_CommonDose}}, [RLum.Results-class]
+#' @seealso [plot], [calc_MinDose],
+#' [calc_FiniteMixture], [calc_CentralDose],
+#' [calc_CommonDose], [RLum.Results-class]
 #' @references Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
 #' quartz using single-aliqout protocols on sediments from NE Peloponnese,
 #' Greece. In: Quaternary Science Reviews 20, 783-787.

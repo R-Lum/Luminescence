@@ -11,10 +11,10 @@ calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
   sigmab = NULL, sig0 = 0, digits = NULL)
 }
 \arguments{
-\item{Lx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+\item{Lx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
 (\strong{required}): requires a CW-OSL shine down curve (x = time, y = counts)}
 
-\item{Tx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+\item{Tx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
 (optional): requires a CW-OSL shine down curve (x = time, y = counts). If no
 input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 is calculated.}
@@ -33,7 +33,7 @@ bounds for the background integral.}
 limits for the background integral for the Tx curve. If nothing is provided the
 value from \code{background.integral} is used.}
 
-\item{background.count.distribution}{\code{\link{character}} (with default): sets
+\item{background.count.distribution}{\link{character} (with default): sets
 the count distribution assumed for the error calculation. Possible arguments
 \code{poisson} or \code{non-poisson}. See details for further information}
 
@@ -50,13 +50,13 @@ value is taken for both (LnTx and TnTx) signals.}
 \item{sig0}{\link{numeric} (with default): allow adding an extra component of error
 to the final Lx/Tx error value (e.g., instrumental errror, see details).}
 
-\item{digits}{\code{\link{integer}} (with default): round numbers to the specified digits. If
+\item{digits}{\link{integer} (with default): round numbers to the specified digits. If
 digits is set to \code{NULL} nothing is rounded.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
 
-Slot \code{data} contains a \code{[list]} with the following structure:\cr
+Slot \code{data} contains a \link{list} with the following structure:\cr
 
 \bold{@data}\cr
 $LxTx.table (data.frame) \cr
@@ -159,7 +159,7 @@ Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Curve}},
+\linkS4class{RLum.Data.Curve},
 \code{\link{Analyse_SAR.OSLdata}}, \code{\link{plot_GrowthCurve}},
 \code{\link{analyse_SAR.CWOSL}}
 }

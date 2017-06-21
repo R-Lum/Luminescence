@@ -22,7 +22,7 @@ sigmab must be provided in the same absolute units of the De values (seconds or 
 \item{log}{\link{logical} (with default): fit the (un-)logged common
 age model to De data}
 
-\item{\dots}{currently not used.}
+\item{...}{currently not used.}
 }
 \value{
 Returns a terminal output. In addition an
@@ -87,8 +87,8 @@ of optical dating of fluvial deposits. Quaternary Geochronology 1,
 needed to obtain a reproducible distribution?. Ancient TL 26, 3-10.
 }
 \seealso{
-\code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
-\code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+\link{calc_CentralDose}, \link{calc_FiniteMixture},
+\link{calc_FuchsLang2001}, \link{calc_MinDose}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

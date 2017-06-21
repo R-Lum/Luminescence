@@ -36,13 +36,13 @@ y-axis of the first plot with a vector in the form of \code{c(min,max)}}
 probability density functions by the components proportion (applies only
 when a vector is provided for \code{n.components})}
 
-\item{pdf.sigma}{\code{\link{character}} (with default): if \code{"sigmab"}
+\item{pdf.sigma}{\link{character} (with default): if \code{"sigmab"}
 the components normal distributions are plotted with a common standard
 deviation (i.e. \code{sigmab}) as assumed by the FFM. Alternatively,
 \code{"se"} takes the standard error of each component for the sigma
 parameter of the normal distribution}
 
-\item{pdf.colors}{\code{\link{character}} (with default): color coding of
+\item{pdf.colors}{\link{character} (with default): color coding of
 the components in the the plot. Possible options are "gray", "colors" and
 "none"}
 
@@ -54,7 +54,7 @@ showing the proportions of components}
 
 \item{plot}{\link{logical} (with default): plot output}
 
-\item{\dots}{further arguments to pass.  See details for their usage.}
+\item{...}{further arguments to pass.  See details for their usage.}
 }
 \value{
 Returns a plot (optional) and terminal output. In addition an
@@ -161,8 +161,8 @@ Rodnight, H. 2008. How many equivalent dose values are needed to obtain a
 reproducible distribution?. Ancient TL 26, 3-10.
 }
 \seealso{
-\code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
-\code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+\link{calc_CentralDose}, \link{calc_CommonDose},
+\link{calc_FuchsLang2001}, \link{calc_MinDose}
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a

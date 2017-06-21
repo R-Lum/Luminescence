@@ -17,7 +17,7 @@ experiment, i.e. when all grains have  received the same dose. Indeed in such a 
 overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 unrecognised measurement uncertainty.}
 
-\item{Nb_BE}{\code{\link{integer}} (with default): sample size used for the bootstrapping}
+\item{Nb_BE}{[integer] (with default): sample size used for the bootstrapping}
 
 \item{na.rm}{[logical] (with default): exclude NA values
 from the data set prior to any further operation.}
@@ -27,7 +27,7 @@ from the data set prior to any further operation.}
 \item{verbose}{[logical] (with default): enables/disables terminal output}
 
 \item{...}{further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
-are returned all arguments need to be provided as \code{[list]},
+are returned all arguments need to be provided as [list],
 e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
 supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 

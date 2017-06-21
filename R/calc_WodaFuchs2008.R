@@ -16,7 +16,7 @@
 #'
 #' @param plot [logical] (with default): enable plot output.
 #'
-#' @param \dots Further plot arguments passed to the function.
+#' @param ... Further plot arguments passed to the function.
 #'
 #' @note The notes section
 #'
@@ -25,7 +25,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
-#' @seealso \code{\link{calc_FuchsLang2001}}, \code{\link{calc_CentralDose}}
+#' @seealso [calc_FuchsLang2001], [calc_CentralDose]
 #'
 #' @references Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
 #' obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.

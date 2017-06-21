@@ -12,28 +12,28 @@
 #' the \eqn{L_x} background counts and the sum of the \eqn{T_x} background counts. However,
 #' if both signals are similar the error becomes zero.
 #'
-#' @param Lx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
+#' @param Lx.data.signal [RLum.Data.Curve-class] or
 #' [data.frame] (**required**): TL data (x =
 #' temperature, y = counts) (TL signal)
 #'
-#' @param Lx.data.background \code{\linkS4class{RLum.Data.Curve}} or
+#' @param Lx.data.background [RLum.Data.Curve-class] or
 #' [data.frame] (optional): TL data (x =
 #' temperature, y = counts). If no data are provided no background subtraction
 #' is performed.
 #'
-#' @param Tx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
+#' @param Tx.data.signal [RLum.Data.Curve-class] or
 #' [data.frame] (**required**): TL data (x =
 #' temperature, y = counts) (TL test signal)
 #'
-#' @param Tx.data.background \code{\linkS4class{RLum.Data.Curve}} or
+#' @param Tx.data.background [RLum.Data.Curve-class] or
 #' [data.frame] (optional): TL data (x =
 #' temperature, y = counts). If no data are provided no background subtraction
 #' is performed.
 #'
-#' @param signal.integral.min \code{\link{integer}} (**required**): channel number
+#' @param signal.integral.min [integer] (**required**): channel number
 #' for the lower signal integral bound (e.g. \code{signal.integral.min = 100})
 #'
-#' @param signal.integral.max \code{\link{integer}} (**required**): channel number
+#' @param signal.integral.max [integer] (**required**): channel number
 #' for the upper signal integral bound (e.g. \code{signal.integral.max = 200})
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].

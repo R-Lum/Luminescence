@@ -11,7 +11,7 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+\linkS4class{RLum.Data.Curve} or \link{data.frame}
 (\strong{required}): x, y data of measured values (time and counts).}
 
 \item{stimulation.power}{\link{numeric} (with default): Stimulation power in mW/cm^2}
@@ -54,12 +54,12 @@ arguments passed to \code{\link{fit_CWCurve}}.}
 }
 \value{
 Returns a plot (optional) and an S4 object of type \linkS4class{RLum.Results}.
-The slot \code{data} contains a \code{[list]} with the following elements:\cr
+The slot \code{data} contains a \link{list} with the following elements:\cr
 
 \item{summary}{\link{data.frame} summary of all relevant results}
 \item{data}{the original input data}
 \item{fit}{\linkS4class{RLum.Results} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
-\item{args}{\code{[list]} of used arguments}
+\item{args}{\link{list} of used arguments}
 \item{call}{\code{[call]} the function call}
 }
 \description{
@@ -103,7 +103,7 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.
 }
 \seealso{
 \code{\link{fit_CWCurve}}, \link{get_RLum}, \code{\linkS4class{RLum.Analysis}},
-\linkS4class{RLum.Results}, \code{\linkS4class{RLum.Data.Curve}}
+\linkS4class{RLum.Results}, \linkS4class{RLum.Data.Curve}
 }
 \author{
 Georgina King, University of Cologne (Germany) \cr

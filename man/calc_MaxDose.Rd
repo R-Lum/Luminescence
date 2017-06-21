@@ -18,7 +18,7 @@ well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
-See details (\code{\link{calc_MinDose}}.}
+See details (\link{calc_MinDose}.}
 
 \item{log}{\link{logical} (with default): fit the (un-)logged three
 parameter minimum dose model to De data}
@@ -36,11 +36,11 @@ length three in the form of \code{c(gamma, sigma, p0)}.}
 \item{plot}{\link{logical} (with default): plot output
 (\code{TRUE}/\code{FALSE})}
 
-\item{\dots}{further arguments for bootstrapping (\code{bs.M, bs.N, bs.h,
+\item{...}{further arguments for bootstrapping (\code{bs.M, bs.N, bs.h,
 sigmab.sd}).  See details for their usage.}
 }
 \value{
-Please see \code{\link{calc_MinDose}}.
+Please see \link{calc_MinDose}.
 }
 \description{
 Function to fit the maximum age model to De data. This is a wrapper function
@@ -71,7 +71,7 @@ follows\cr\cr
 }
 
 \bold{Further documentation} \cr\cr
-Please see \code{\link{calc_MinDose}}.
+Please see \link{calc_MinDose}.
 }
 \section{Function version}{
  0.3.1
@@ -129,9 +129,9 @@ of optical dating of fluvial deposits.  Quaternary Geochronology 1, 109-120.
 obtain a reproducible distribution?. Ancient TL 26, 3-10. \cr\cr
 }
 \seealso{
-\code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
-\code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
-\code{\link{calc_MinDose}}
+\link{calc_CentralDose}, \link{calc_CommonDose},
+\link{calc_FiniteMixture}, \link{calc_FuchsLang2001},
+\link{calc_MinDose}
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a

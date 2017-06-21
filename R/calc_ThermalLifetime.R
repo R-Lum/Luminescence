@@ -34,7 +34,7 @@
 #' @param T [numeric] (with default): temperature in deg. C for which the lifetime(s)
 #' will be calculted. A vector can be provided.
 #'
-#' @param output_unit \code{\link{character}} (with default):
+#' @param output_unit [character] (with default):
 #' output unit of the calculated lifetimes, accepted
 #' entries are: \code{"Ma"}, \code{"ka"}, \code{"a"}, \code{"d"}, \code{"h"}, \code{"min"}, \code{"s"}
 #'
@@ -42,7 +42,7 @@
 #' this option allows to estimate uncertainties based on
 #' given E and s parameters and their corresponding standard error (cf. details and examples section)
 #'
-#' @param profiling_config \code{[list]} (optional): allows to set configurate parameters
+#' @param profiling_config [list] (optional): allows to set configurate parameters
 #' used for the profiling (and only have an effect here). Supported parameters are:
 #' \code{n} (number of MC runs), \code{E.distribution} (distribution used for the resampling for E) and
 #' \code{s.distribution} (distribution used for the resampling for s). Currently only the normal
@@ -53,7 +53,7 @@
 #' @param plot [logical]: enables/disables output plot, currenlty only in combination
 #' with \code{profiling = TRUE}.
 #'
-#' @param \dots further arguments that can be passed in combination with the plot output. Standard
+#' @param ... further arguments that can be passed in combination with the plot output. Standard
 #' plot parameters are supported (\code{\link{plot.default}})
 #'
 #' @return A [RLum.Results-class] object is returned a along with a plot (for

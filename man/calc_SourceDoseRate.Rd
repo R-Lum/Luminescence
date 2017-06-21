@@ -8,11 +8,11 @@ calc_SourceDoseRate(measurement.date, calib.date, calib.dose.rate, calib.error,
   source.type = "Sr-90", dose.rate.unit = "Gy/s", predict = NULL)
 }
 \arguments{
-\item{measurement.date}{\code{\link{character}} or \code{\link{Date}} (\strong{required}): date of
+\item{measurement.date}{\link{character} or \link{Date} (\strong{required}): date of
 measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
 The argument can be provided as vector.}
 
-\item{calib.date}{\code{\link{character}} or \code{\link{Date}} (\strong{required}): date of source
+\item{calib.date}{\link{character} or \link{Date} (\strong{required}): date of source
 calibration in "YYYY-MM-DD"}
 
 \item{calib.dose.rate}{\link{numeric} (\strong{required}): dose rate at
@@ -21,22 +21,22 @@ date of calibration in Gy/s or Gy/min}
 \item{calib.error}{\link{numeric} (\strong{required}): error of dose
 rate at date of calibration Gy/s or Gy/min}
 
-\item{source.type}{\code{\link{character}} (with default): specify
+\item{source.type}{\link{character} (with default): specify
 irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}), see
 details for further information}
 
-\item{dose.rate.unit}{\code{\link{character}} (with default): specify dose
+\item{dose.rate.unit}{\link{character} (with default): specify dose
 rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
-Gy/s as valid for the function \code{\link{Second2Gray}}}
+Gy/s as valid for the function \link{Second2Gray}}
 
-\item{predict}{\code{\link{integer}} (with default): option allowing to predicit the dose
+\item{predict}{\link{integer} (with default): option allowing to predicit the dose
 rate of the source over time in days set by the provided value. Starting date is the value set
-with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(...,predict = 100)} calculates
+with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(..., predict = 100)} calculates
 the source dose rate for the next 100 days.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
-Slot \code{data} contains a \code{[list]} with the following
+Slot \code{data} contains a \link{list} with the following
 structure:\cr
 $ dose.rate (data.frame)\cr
 .. $ dose.rate \cr
@@ -49,13 +49,13 @@ $ parameters (list) \cr
 $ call (the original function call)\cr
 
 The output should be accessed using the function \link{get_RLum}.\cr
-A plot method of the output is provided via \code{\link{plot_RLum}}
+A plot method of the output is provided via \link{plot_RLum}
 }
 \description{
 Calculating the dose rate of the irradiation source via the date of
 measurement based on: source calibration date, source dose rate, dose rate
 error. The function returns a data.frame that provides the input argument
-dose_rate for the function \code{\link{Second2Gray}}.
+dose_rate for the function \link{Second2Gray}.
 }
 \details{
 Calculation of the source dose rate based on the time elapsed since the last
@@ -134,7 +134,7 @@ NNDC, Brookhaven National Laboratory
 (\code{http://www.nndc.bnl.gov/})
 }
 \seealso{
-\code{\link{Second2Gray}}, \link{get_RLum}, \code{\link{plot_RLum}}
+\link{Second2Gray}, \link{get_RLum}, \link{plot_RLum}
 }
 \author{
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),

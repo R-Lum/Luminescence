@@ -30,7 +30,7 @@
 #' Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose
 #' response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equations
 #' `[1]` and `[2]`. Computed LxTx values are then fitted using the
-#' \code{\link[Luminescence]{plot_GrowthCurve}} function and the laboratory measured LnTn can then
+#' [plot_GrowthCurve] function and the laboratory measured LnTn can then
 #' be interpolated onto this curve to determine the fading corrected
 #' De value, from which the fading corrected age is calculated. \cr
 #'
@@ -69,18 +69,18 @@
 #' Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.
 #'
 #' @param normalise [logical] (with default):
-#' If \code{TRUE} (the default) all measured and computed LxTx values are
+#' If `TRUE` (the default) all measured and computed LxTx values are
 #' normalised by the pre-exponential factor A (see details).
 #'
 #' @param summary [logical] (with default):
-#' If \code{TRUE} (the default) various parameters provided by the user
+#' If `TRUE` (the default) various parameters provided by the user
 #' and calculated by the model are added as text on the right-hand side of the
 #' plot.
 #'
 #' @param plot [logical] (with default): enables/disables plot output.
 #'
-#' @param ... further arguments passed to \code{\link{plot}} and
-#' \code{\link[Luminescence]{plot_GrowthCurve}}.
+#' @param ... further arguments passed to [plot] and
+#' [plot_GrowthCurve].
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
@@ -95,7 +95,7 @@
 #' containing data on dose, LxTx and LxTx error for each of the dose response curves.
 #' Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
 #' \code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
-#'  objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
+#'  objects produced by [minpack.lm::nlsLM] when fitting the dose response curves \cr
 #' }
 #'
 #' Slot: \bold{@info}\cr

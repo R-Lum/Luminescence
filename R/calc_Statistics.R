@@ -18,11 +18,11 @@
 #' and De error (\code{data[,2]}). To plot several data sets in one plot the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
 #'
-#' @param weight.calc \code{\link{character}}: type of weight calculation. One
+#' @param weight.calc [character]: type of weight calculation. One
 #' out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
 #' 1/error^2). Default is \code{"square"}.
 #'
-#' @param digits \code{\link{integer}} (with default): round numbers to the
+#' @param digits [integer] (with default): round numbers to the
 #' specified digits. If digits is set to \code{NULL} nothing is rounded.
 #'
 #' @param n.MCM [numeric] (with default): number of samples drawn

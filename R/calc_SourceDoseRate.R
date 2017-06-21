@@ -3,7 +3,7 @@
 #' Calculating the dose rate of the irradiation source via the date of
 #' measurement based on: source calibration date, source dose rate, dose rate
 #' error. The function returns a data.frame that provides the input argument
-#' dose_rate for the function \code{\link{Second2Gray}}.
+#' dose_rate for the function [Second2Gray].
 #'
 #' Calculation of the source dose rate based on the time elapsed since the last
 #' calibration of the irradiation source. Decay parameters assume a Sr-90 beta
@@ -24,11 +24,11 @@
 #' National Laboratory \cr `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven
 #' National Laboratory }
 #'
-#' @param measurement.date \code{\link{character}} or \code{\link{Date}} (**required**): date of
+#' @param measurement.date [character] or [Date] (**required**): date of
 #' measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
 #' The argument can be provided as vector.
 #'
-#' @param calib.date \code{\link{character}} or \code{\link{Date}} (**required**): date of source
+#' @param calib.date [character] or [Date] (**required**): date of source
 #' calibration in "YYYY-MM-DD"
 #'
 #' @param calib.dose.rate [numeric] (**required**): dose rate at
@@ -37,21 +37,21 @@
 #' @param calib.error [numeric] (**required**): error of dose
 #' rate at date of calibration Gy/s or Gy/min
 #'
-#' @param source.type \code{\link{character}} (with default): specify
+#' @param source.type [character] (with default): specify
 #' irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}), see
 #' details for further information
 #'
-#' @param dose.rate.unit \code{\link{character}} (with default): specify dose
+#' @param dose.rate.unit [character] (with default): specify dose
 #' rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
-#' Gy/s as valid for the function \code{\link{Second2Gray}}
+#' Gy/s as valid for the function [Second2Gray]
 #'
-#' @param predict \code{\link{integer}} (with default): option allowing to predicit the dose
+#' @param predict [integer] (with default): option allowing to predicit the dose
 #' rate of the source over time in days set by the provided value. Starting date is the value set
-#' with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(...,predict = 100)} calculates
+#' with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(..., predict = 100)} calculates
 #' the source dose rate for the next 100 days.
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].
-#' Slot \code{data} contains a \code{[list]} with the following
+#' Slot \code{data} contains a [list] with the following
 #' structure:\cr
 #' $ dose.rate (data.frame)\cr
 #' .. $ dose.rate \cr
@@ -64,7 +64,7 @@
 #' $ call (the original function call)\cr
 #'
 #' The output should be accessed using the function [get_RLum].\cr
-#' A plot method of the output is provided via \code{\link{plot_RLum}}
+#' A plot method of the output is provided via [plot_RLum]
 #'
 #' @note Please be careful when using the option \code{predict}, especially when a multiple set
 #' for \code{measurement.date} and \code{calib.date} is provided. For the source dose rate prediction
@@ -81,7 +81,7 @@
 #' \cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso \code{\link{Second2Gray}}, [get_RLum], \code{\link{plot_RLum}}
+#' @seealso [Second2Gray], [get_RLum], [plot_RLum]
 #'
 #' @references NNDC, Brookhaven National Laboratory
 #' (\code{http://www.nndc.bnl.gov/})

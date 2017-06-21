@@ -28,11 +28,11 @@ to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If n
 the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
 that had been not normalised to 2 days.}
 
-\item{n.MC}{\code{\link{integer}} (with default): number of Monte Carlo
+\item{n.MC}{\link{integer} (with default): number of Monte Carlo
 simulation runs for error estimation. If \code{n.MC = 'auto'} is used the function
 tries to find a 'stable' error for the age. Note: This may take a while!}
 
-\item{seed}{\code{\link{integer}} (optional): sets the seed for the random number generator
+\item{seed}{\link{integer} (optional): sets the seed for the random number generator
 in R using \code{\link{set.seed}}}
 
 \item{interval}{\link{numeric} (with default): a vector containing the end-points (age interval) of the

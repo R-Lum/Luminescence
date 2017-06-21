@@ -9,7 +9,7 @@
 #' and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}. 
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}}, 
-#' \code{\linkS4class{RLum.Data.Curve}} or [data.frame] 
+#' [RLum.Data.Curve-class] or [data.frame] 
 #' (**required**): x, y data of measured values (time and counts).
 #' 
 #' @param stimulation.power [numeric] (with default): Stimulation power in mW/cm^2
@@ -45,18 +45,18 @@
 #' @param fitCW.curve [logical] (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
 #' and derive the counts of L2 and L3 from the fitted OSL curve (experimental).
 #' 
-#' @param plot [logical] (with default): plot output (\code{TRUE}/\code{FALSE})
+#' @param plot [logical] (with default): plot output (`TRUE`/`FALSE`)
 #' 
 #' @param ... available options: \code{verbose} ([logical]). Further
 #' arguments passed to \code{\link{fit_CWCurve}}.
 #'
 #' @return Returns a plot (optional) and an S4 object of type [RLum.Results-class]. 
-#' The slot \code{data} contains a \code{[list]} with the following elements:\cr
+#' The slot \code{data} contains a [list] with the following elements:\cr
 #'
 #' \item{summary}{[data.frame] summary of all relevant results}
 #' \item{data}{the original input data}
-#' \item{fit}{[RLum.Results-class] object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
-#' \item{args}{\code{[list]} of used arguments}
+#' \item{fit}{[RLum.Results-class] object if either \code{fitCW.sigma} or \code{fitCW.curve} is `TRUE`}
+#' \item{args}{[list] of used arguments}
 #' \item{call}{\code{[call]} the function call}
 #' 
 #' @section Function version: 0.1.1
@@ -82,7 +82,7 @@
 #' 
 #'
 #' @seealso \code{\link{fit_CWCurve}}, [get_RLum], \code{\linkS4class{RLum.Analysis}},
-#' [RLum.Results-class], \code{\linkS4class{RLum.Data.Curve}}
+#' [RLum.Results-class], [RLum.Data.Curve-class]
 #' 
 #' @examples
 #' # load example CW-OSL curve

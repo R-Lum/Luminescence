@@ -23,7 +23,7 @@
 #'
 #' @param plot [logical] (with default): plot output
 #'
-#' @param \dots further arguments (\code{trace, verbose}).
+#' @param ... further arguments (\code{trace, verbose}).
 #'
 #' @return Returns a plot (optional) and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
@@ -44,9 +44,9 @@
 #' (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
 #' written by Kristina Thomsen.
 #'
-#' @seealso \code{\link{plot}}, \code{\link{calc_CommonDose}},
-#' \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
-#' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+#' @seealso [plot], [calc_CommonDose],
+#' [calc_CentralDose], [calc_FiniteMixture],
+#' [calc_FuchsLang2001], [calc_MinDose]
 #'
 #' @references Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 #' Ancient TL 33, 16-21.

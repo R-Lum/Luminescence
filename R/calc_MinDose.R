@@ -114,15 +114,15 @@
 #' required (defaults to 0.95).
 #'
 #' @param plot [logical] (with default): plot output
-#' (\code{TRUE}/\code{FALSE})
+#' (`TRUE`/`FALSE`)
 #'
 #' @param multicore [logical] (with default): enable parallel
 #' computation of the bootstrap by creating a multicore SNOW cluster. Depending
 #' on the number of available logical CPU cores this may drastically reduce
 #' the computation time. Note that this option is highly experimental and may not
-#' work on all machines. (\code{TRUE}/\code{FALSE})
+#' work on all machines. (`TRUE`/`FALSE`)
 #'
-#' @param \dots (optional) further arguments for bootstrapping (\code{bs.M,
+#' @param ... (optional) further arguments for bootstrapping (\code{bs.M,
 #' bs.N, bs.h, sigmab.sd}). See details for their usage. Further arguments are
 #' \code{verbose} to de-/activate console output (logical), \code{debug} for
 #' extended console output (logical) and \code{cores} (integer) to manually
@@ -136,7 +136,7 @@
 #' \item{data}{[data.frame] original input data} \item{args}{[list]
 #' used arguments} \item{call}{[call] the function call}
 #' \item{mle}{\link{mle2} object containing the maximum log likelhood functions
-#' for all parameters} \item{BIC}{\link{numeric} BIC score}
+#' for all parameters} \item{BIC}{[numeric] BIC score}
 #' \item{confint}{[data.frame] confidence intervals for all parameters}
 #' \item{profile}{\link{profile.mle2} the log likelihood profiles}
 #' \item{bootstrap}{[list] bootstrap results}
@@ -159,8 +159,8 @@
 #' Cunningham is thanked for his help in implementing and cross-checking the
 #' code.
 #'
-#' @seealso \code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
-#' \code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
+#' @seealso [calc_CentralDose], [calc_CommonDose],
+#' [calc_FiniteMixture], [calc_FuchsLang2001],
 #' \code{\link{calc_MaxDose}}
 #'
 #' @references Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,

@@ -14,7 +14,7 @@ calc_HomogeneityTest(data, log = TRUE, ...)
 \item{log}{\link{logical} (with default): peform the homogeniety test
 with (un-)logged data}
 
-\item{\dots}{further arguments (for internal compatibility only).}
+\item{...}{further arguments (for internal compatibility only).}
 }
 \value{
 Returns a terminal output. In addition an

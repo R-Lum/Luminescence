@@ -12,11 +12,11 @@
 #' columns: 'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'
 #' Note: column names are not required. The function expect the input data in the given order
 #'
-#' @param gSGC.type \code{\link{character}} (with default): define the function parameters that
+#' @param gSGC.type [character] (with default): define the function parameters that
 #' should be used for the iteration procedure: Li et al., 2015 (Table 2)
 #' presented function parameters for two dose ranges: \code{"0-450"} and \code{"0-250"}
 #'
-#' @param gSGC.parameters \code{[list]} (optional): option to provide own function
+#' @param gSGC.parameters [list] (optional): option to provide own function
 #' parameters used for #' fitting as named list.
 #' Nomenclature follows Li et al., 2015, i.e.
 #' \code{list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)}, range requires a vector for
@@ -24,7 +24,7 @@
 #' Using this option overwrites the default parameter list of the gSGC, meaning the argument
 #' \code{gSGC.type} will be without effect
 #'
-#' @param n.MC \code{\link{integer}} (with default): number of Monte Carlo simulation runs for
+#' @param n.MC [integer] (with default): number of Monte Carlo simulation runs for
 #' error estimation, s. details.
 #'
 #' @param verbose [logical]: enable or disable terminal output

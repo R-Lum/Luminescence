@@ -19,7 +19,7 @@
 #' overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 #' unrecognised measurement uncertainty.
 #'
-#' @param Nb_BE \code{\link{integer}} (with default): sample size used for the bootstrapping
+#' @param Nb_BE [integer] (with default): sample size used for the bootstrapping
 #'
 #' @param na.rm [logical] (with default): exclude NA values
 #' from the data set prior to any further operation.
@@ -29,7 +29,7 @@
 #' @param verbose [logical] (with default): enables/disables terminal output
 #'
 #' @param ... further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
-#' are returned all arguments need to be provided as \code{[list]},
+#' are returned all arguments need to be provided as [list],
 #' e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
 #' supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 #'

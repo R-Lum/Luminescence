@@ -60,7 +60,7 @@
 #' structure on an infinite plane with a packing density of \eqn{0.906\ldots}
 #' is assumed.
 #'
-#' @param MC [logical] (optional): if \code{TRUE} the function
+#' @param MC [logical] (optional): if `TRUE` the function
 #' performs a monte carlo simulation for estimating the amount of grains on the
 #' sample carrier and assumes random errors in grain size distribution and
 #' packing density. Requires a vector with min and max grain size for
@@ -73,9 +73,9 @@
 #' Note that this overrides \code{packing.density}.
 #'
 #' @param plot [logical] (with default): plot output
-#' (\code{TRUE}/\code{FALSE})
+#' (`TRUE`/`FALSE`)
 #'
-#' @param \dots further arguments to pass (\code{main, xlab, MC.iter}).
+#' @param ... further arguments to pass (\code{main, xlab, MC.iter}).
 #'
 #' @return Returns a terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the

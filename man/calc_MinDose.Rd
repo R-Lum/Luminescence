@@ -48,7 +48,7 @@ on the number of available logical CPU cores this may drastically reduce
 the computation time. Note that this option is highly experimental and may not
 work on all machines. (\code{TRUE}/\code{FALSE})}
 
-\item{\dots}{(optional) further arguments for bootstrapping (\code{bs.M,
+\item{...}{(optional) further arguments for bootstrapping (\code{bs.M,
 bs.N, bs.h, sigmab.sd}). See details for their usage. Further arguments are
 \code{verbose} to de-/activate console output (logical), \code{debug} for
 extended console output (logical) and \code{cores} (integer) to manually
@@ -306,8 +306,8 @@ of optical dating of fluvial deposits.  Quaternary Geochronology 1, 109-120.
 obtain a reproducible distribution?. Ancient TL 26, 3-10. \cr\cr
 }
 \seealso{
-\code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
-\code{\link{calc_FiniteMixture}}, \code{\link{calc_FuchsLang2001}},
+\link{calc_CentralDose}, \link{calc_CommonDose},
+\link{calc_FiniteMixture}, \link{calc_FuchsLang2001},
 \code{\link{calc_MaxDose}}
 }
 \author{

@@ -35,7 +35,7 @@ Note that this overrides \code{packing.density}.}
 \item{plot}{\link{logical} (with default): plot output
 (\code{TRUE}/\code{FALSE})}
 
-\item{\dots}{further arguments to pass (\code{main, xlab, MC.iter}).}
+\item{...}{further arguments to pass (\code{main, xlab, MC.iter}).}
 }
 \value{
 Returns a terminal output. In addition an

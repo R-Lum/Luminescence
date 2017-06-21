@@ -27,7 +27,7 @@
 #' @param log [logical] (with default): fit the (un-)logged common
 #' age model to De data
 #' 
-#' @param \dots currently not used.
+#' @param ... currently not used.
 #' 
 #' @return Returns a terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
@@ -43,8 +43,8 @@
 #' 
 #' @author Christoph Burow, University of Cologne (Germany)
 #' 
-#' @seealso \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
-#' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+#' @seealso [calc_CentralDose], [calc_FiniteMixture],
+#' [calc_FuchsLang2001], [calc_MinDose]
 #' 
 #' @references Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 #' mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.

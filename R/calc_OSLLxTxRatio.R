@@ -46,10 +46,10 @@
 #' Please check whether this is valid for your data set and  if necessary
 #' consider to provide an own sigmab value using the corresponding argument \code{sigmab}.
 #'
-#' @param Lx.data \code{\linkS4class{RLum.Data.Curve}} or [data.frame]
+#' @param Lx.data [RLum.Data.Curve-class] or [data.frame]
 #' (**required**): requires a CW-OSL shine down curve (x = time, y = counts)
 #'
-#' @param Tx.data \code{\linkS4class{RLum.Data.Curve}} or [data.frame]
+#' @param Tx.data [RLum.Data.Curve-class] or [data.frame]
 #' (optional): requires a CW-OSL shine down curve (x = time, y = counts). If no
 #' input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 #' is calculated.
@@ -68,11 +68,11 @@
 #' limits for the background integral for the Tx curve. If nothing is provided the
 #' value from \code{background.integral} is used.
 #'
-#' @param background.count.distribution \code{\link{character}} (with default): sets
+#' @param background.count.distribution [character] (with default): sets
 #' the count distribution assumed for the error calculation. Possible arguments
 #' \code{poisson} or \code{non-poisson}. See details for further information
 #'
-#' @param use_previousBG [logical] (with default): If set to \code{TRUE} the background
+#' @param use_previousBG [logical] (with default): If set to `TRUE` the background
 #' of the Lx-signal is substracted also from the Tx-signal. Please note that in this case separat
 #' signal integral limits for the Tx signal are not allowed and will be reset.
 #'
@@ -85,12 +85,12 @@
 #' @param sig0 [numeric] (with default): allow adding an extra component of error
 #' to the final Lx/Tx error value (e.g., instrumental errror, see details).
 #'
-#' @param digits \code{\link{integer}} (with default): round numbers to the specified digits. If
+#' @param digits [integer] (with default): round numbers to the specified digits. If
 #' digits is set to \code{NULL} nothing is rounded.
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].
 #'
-#' Slot \code{data} contains a \code{[list]} with the following structure:\cr
+#' Slot \code{data} contains a [list] with the following structure:\cr
 #'
 #' \bold{@data}\cr
 #' $LxTx.table (data.frame) \cr
@@ -123,7 +123,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Curve}},
+#' @seealso [RLum.Data.Curve-class],
 #' \code{\link{Analyse_SAR.OSLdata}}, \code{\link{plot_GrowthCurve}},
 #' \code{\link{analyse_SAR.CWOSL}}
 #'

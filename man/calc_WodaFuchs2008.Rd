@@ -19,7 +19,7 @@ be estimated based on the bin width (as function of median error).}
 
 \item{plot}{\link{logical} (with default): enable plot output.}
 
-\item{\dots}{Further plot arguments passed to the function.}
+\item{...}{Further plot arguments passed to the function.}
 }
 \description{
 The description section
@@ -50,7 +50,7 @@ Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
 obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.
 }
 \seealso{
-\code{\link{calc_FuchsLang2001}}, \code{\link{calc_CentralDose}}
+\link{calc_FuchsLang2001}, \link{calc_CentralDose}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr

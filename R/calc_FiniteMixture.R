@@ -13,8 +13,8 @@
 #' \cr\cr \bold{Plot} \cr\cr If a vector (\code{c(k.min:k.max)}) is provided
 #' for \code{n.components} a plot is generated showing the the k components
 #' equivalent doses as normal distributions. By default \code{pdf.weight} is
-#' set to \code{FALSE}, so that the area under each normal distribution is
-#' always 1. If \code{TRUE}, the probability density functions are weighted by
+#' set to `FALSE`, so that the area under each normal distribution is
+#' always 1. If `TRUE`, the probability density functions are weighted by
 #' the components proportion for each iteration of k components, so the sum of
 #' areas of each component equals 1. While the density values are on the same
 #' scale when no weights are used, the y-axis are individually scaled if the
@@ -45,12 +45,12 @@
 #' @param pdf.weight [logical] (with default): weight the
 #' probability density functions by the components proportion (applies only
 #' when a vector is provided for \code{n.components})
-#' @param pdf.sigma \code{\link{character}} (with default): if \code{"sigmab"}
+#' @param pdf.sigma [character] (with default): if \code{"sigmab"}
 #' the components normal distributions are plotted with a common standard
 #' deviation (i.e. \code{sigmab}) as assumed by the FFM. Alternatively,
 #' \code{"se"} takes the standard error of each component for the sigma
 #' parameter of the normal distribution
-#' @param pdf.colors \code{\link{character}} (with default): color coding of
+#' @param pdf.colors [character] (with default): color coding of
 #' the components in the the plot. Possible options are "gray", "colors" and
 #' "none"
 #' @param pdf.scale [numeric]: manually set the max density value
@@ -58,7 +58,7 @@
 #' @param plot.proportions [logical] (with default): plot barplot
 #' showing the proportions of components
 #' @param plot [logical] (with default): plot output
-#' @param \dots further arguments to pass.  See details for their usage.
+#' @param ... further arguments to pass.  See details for their usage.
 #' @return Returns a plot (optional) and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
@@ -81,8 +81,8 @@
 #' @section Function version: 0.4
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2006. \cr
-#' @seealso \code{\link{calc_CentralDose}}, \code{\link{calc_CommonDose}},
-#' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+#' @seealso [calc_CentralDose], [calc_CommonDose],
+#' [calc_FuchsLang2001], [calc_MinDose]
 #' @references Galbraith, R.F. & Green, P.F., 1990. Estimating the component
 #' ages in a finite mixture. Nuclear Tracks and Radiation Measurements 17,
 #' 197-206. \cr\cr Galbraith, R.F. & Laslett, G.M., 1993. Statistical models
