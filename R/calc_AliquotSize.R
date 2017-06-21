@@ -48,46 +48,46 @@
 #' \code{MC.iter} (see \code{...}). The results are visualised in a bar- and
 #' boxplot together with a statistical summary.
 #'
-#' @param grain.size \code{\link{numeric}} (\bold{required}): mean grain size
+#' @param grain.size [numeric] (**required**): mean grain size
 #' (microns) or a range of grain sizes from which the mean grain size is
 #' computed (e.g. \code{c(100,200)}).
 #'
-#' @param sample.diameter \code{\link{numeric}} (\bold{required}): diameter
+#' @param sample.diameter [numeric] (**required**): diameter
 #' (mm) of the targeted area on the sample carrier.
 #'
-#' @param packing.density \code{\link{numeric}} (with default) empirical value
+#' @param packing.density [numeric] (with default) empirical value
 #' for mean packing density. \cr If \code{packing.density = "inf"} a hexagonal
 #' structure on an infinite plane with a packing density of \eqn{0.906\ldots}
 #' is assumed.
 #'
-#' @param MC \code{\link{logical}} (optional): if \code{TRUE} the function
+#' @param MC [logical] (optional): if \code{TRUE} the function
 #' performs a monte carlo simulation for estimating the amount of grains on the
 #' sample carrier and assumes random errors in grain size distribution and
 #' packing density. Requires a vector with min and max grain size for
 #' \code{grain.size}. For more information see details.
 #'
-#' @param grains.counted \code{\link{numeric}} (optional) grains counted on a
+#' @param grains.counted [numeric] (optional) grains counted on a
 #' sample carrier. If a non-zero positive integer is provided this function
 #' will calculate the packing density of the aliquot. If more than one value is
 #' provided the mean packing density and its standard deviation is calculated.
 #' Note that this overrides \code{packing.density}.
 #'
-#' @param plot \code{\link{logical}} (with default): plot output
+#' @param plot [logical] (with default): plot output
 #' (\code{TRUE}/\code{FALSE})
 #'
 #' @param \dots further arguments to pass (\code{main, xlab, MC.iter}).
 #'
 #' @return Returns a terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' [RLum.Results-class] object is returned containing the
 #' following element:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant calculation
-#' results.} \item{args}{\link{list} used arguments} \item{call}{\link{call}
-#' the function call} \item{MC}{\link{list} results of the Monte Carlo
+#' \item{summary}{[data.frame] summary of all relevant calculation
+#' results.} \item{args}{[list] used arguments} \item{call}{\link{call}
+#' the function call} \item{MC}{[list] results of the Monte Carlo
 #' simulation}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum}}
+#' [get_RLum]
 #'
 #' @section Function version: 0.31
 #'

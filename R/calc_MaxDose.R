@@ -25,11 +25,11 @@
 #' \bold{Further documentation} \cr\cr 
 #' Please see \code{\link{calc_MinDose}}.
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De \code{(data[
+#' @param data [RLum.Results-class] or [data.frame]
+#' (**required**): for [data.frame]: two columns with De \code{(data[
 #' ,1])} and De error \code{(data[ ,2])}.
 #' 
-#' @param sigmab \code{\link{numeric}} (\bold{required}): additional spread in De values.
+#' @param sigmab [numeric] (**required**): additional spread in De values.
 #' This value represents the expected overdispersion in the data should the sample be 
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
@@ -37,20 +37,20 @@
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details (\code{\link{calc_MinDose}}.
 #' 
-#' @param log \code{\link{logical}} (with default): fit the (un-)logged three
+#' @param log [logical] (with default): fit the (un-)logged three
 #' parameter minimum dose model to De data
 #' 
-#' @param par \code{\link{numeric}} (with default): apply the 3- or
+#' @param par [numeric] (with default): apply the 3- or
 #' 4-parametric minimum age model (\code{par=3} or \code{par=4}).
 #' 
-#' @param bootstrap \code{\link{logical}} (with default): apply the recycled
+#' @param bootstrap [logical] (with default): apply the recycled
 #' bootstrap approach of Cunningham & Wallinga (2012).
 #' 
-#' @param init.values \code{\link{numeric}} (with default): starting values for
+#' @param init.values [numeric] (with default): starting values for
 #' gamma, sigma, p0 and mu. Custom values need to be provided in a vector of
 #' length three in the form of \code{c(gamma, sigma, p0)}.
 #' 
-#' @param plot \code{\link{logical}} (with default): plot output
+#' @param plot [logical] (with default): plot output
 #' (\code{TRUE}/\code{FALSE})
 #' 
 #' @param \dots further arguments for bootstrapping (\code{bs.M, bs.N, bs.h,

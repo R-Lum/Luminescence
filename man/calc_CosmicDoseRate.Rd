@@ -9,43 +9,43 @@ calc_CosmicDoseRate(depth, density, latitude, longitude, altitude,
   error = 10, ...)
 }
 \arguments{
-\item{depth}{\code{\link{numeric}} (\bold{required}): depth of overburden
+\item{depth}{\link{numeric} (\strong{required}): depth of overburden
 (m).  For more than one absorber use \cr \code{c(depth_1, depth_2, ...,
 depth_n)}}
 
-\item{density}{\code{\link{numeric}} (\bold{required}): average overburden
+\item{density}{\link{numeric} (\strong{required}): average overburden
 density (g/cm^3). For more than one absorber use \cr \code{c(density_1,
 density_2, ..., density_n)}}
 
-\item{latitude}{\code{\link{numeric}} (\bold{required}): latitude (decimal
+\item{latitude}{\link{numeric} (\strong{required}): latitude (decimal
 degree), N positive}
 
-\item{longitude}{\code{\link{numeric}} (\bold{required}): longitude (decimal
+\item{longitude}{\link{numeric} (\strong{required}): longitude (decimal
 degree), E positive}
 
-\item{altitude}{\code{\link{numeric}} (\bold{required}): altitude (m above
+\item{altitude}{\link{numeric} (\strong{required}): altitude (m above
 sea-level)}
 
-\item{corr.fieldChanges}{\code{\link{logical}} (with default): correct for
+\item{corr.fieldChanges}{\link{logical} (with default): correct for
 geomagnetic field changes after Prescott & Hutton (1994). Apply only when
 justified by the data.}
 
-\item{est.age}{\code{\link{numeric}} (with default): estimated age range
+\item{est.age}{\link{numeric} (with default): estimated age range
 (ka) for geomagnetic field change correction (0-80 ka allowed)}
 
-\item{half.depth}{\code{\link{logical}} (with default): How to overcome with
+\item{half.depth}{\link{logical} (with default): How to overcome with
 varying overburden thickness. If \code{TRUE} only half the depth is used for
 calculation. Apply only when justified, i.e. when a constant sedimentation
 rate can safely be assumed.}
 
-\item{error}{\code{\link{numeric}} (with default): general error
+\item{error}{\link{numeric} (with default): general error
 (percentage) to be implemented on corrected cosmic dose rate estimate}
 
 \item{...}{further arguments (\code{verbose} to disable/enable console output).}
 }
 \value{
 Returns a terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
+\linkS4class{RLum.Results} object is returned containing the
 following element:
 
 \item{summary}{\link{data.frame} summary of all relevant calculation
@@ -53,7 +53,7 @@ results.} \item{args}{\link{list} used arguments} \item{call}{\link{call}
 the function call}
 
 The output should be accessed using the function
-\code{\link{get_RLum}}
+\link{get_RLum}
 }
 \description{
 This function calculates the cosmic dose rate taking into account the soft-

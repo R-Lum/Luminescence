@@ -10,26 +10,26 @@
 #'by a dose recovery experiment. Then the dispersion in doses (sigma_d)
 #'will be that over and above sigma_m (and individual uncertainties sigma_wi).
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
+#' @param data [RLum.Results-class] or [data.frame]
+#' (**required**): for [data.frame]: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
 #'
-#' @param sigma_m \code{\link{numeric}} (\bold{required}): the overdispersion resulting from a dose recovery
+#' @param sigma_m [numeric] (**required**): the overdispersion resulting from a dose recovery
 #' experiment, i.e. when all grains have  received the same dose. Indeed in such a case, any
 #' overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 #' unrecognised measurement uncertainty.
 #'
 #' @param Nb_BE \code{\link{integer}} (with default): sample size used for the bootstrapping
 #'
-#' @param na.rm \code{\link{logical}} (with default): exclude NA values
+#' @param na.rm [logical] (with default): exclude NA values
 #' from the data set prior to any further operation.
 #'
-#' @param plot \code{\link{logical}} (with default): enables/disables plot output
+#' @param plot [logical] (with default): enables/disables plot output
 #'
-#' @param verbose \code{\link{logical}} (with default): enables/disables terminal output
+#' @param verbose [logical] (with default): enables/disables terminal output
 #'
 #' @param ... further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
-#' are returned all arguments need to be provided as \code{\link{list}},
+#' are returned all arguments need to be provided as \code{[list]},
 #' e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
 #' supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 #'
@@ -53,14 +53,14 @@
 #'
 #' \bold{slot:} \bold{\code{@data}} \cr
 #'
-#' [.. $summary : \code{data.frame}]\cr
+#' [.. $summary : [data.frame]]\cr
 #'
 #' \tabular{lll}{
 #' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
-#'  AVERAGE_DOSE \tab \code{numeric} \tab the obtained averge dose\cr
-#'  AVERAGE_DOSE.SE \tab \code{numeric} \tab the average dose error \cr
-#'  SIGMA_D \tab \code{numeric}\tab sigma \cr
-#'  SIGMA_D.SE \tab \code{numeric}\tab standard error of the sigma  \cr
+#'  AVERAGE_DOSE \tab [numeric] \tab the obtained averge dose\cr
+#'  AVERAGE_DOSE.SE \tab [numeric] \tab the average dose error \cr
+#'  SIGMA_D \tab [numeric]\tab sigma \cr
+#'  SIGMA_D.SE \tab [numeric]\tab standard error of the sigma  \cr
 #'  IC_AVERAGE_DOSE.LEVEL  \tab \code{character}\tab confidence level average dose\cr
 #'  IC_AVERAGE_DOSE.LOWER  \tab \code{charcter}\tab lower quantile of average dose \cr
 #'  IC_AVERAGE_DOSE.UPPER \tab \code{character}\tab upper quantile of average dose\cr

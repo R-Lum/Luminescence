@@ -8,27 +8,27 @@ De distribution}
 calc_CentralDose(data, sigmab, log = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame}
+(\strong{required}): for \link{data.frame}: two columns with De
 \code{(data[,1])} and De error \code{(data[,2])}}
 
-\item{sigmab}{\code{\link{numeric}} (with default): additional spread in De values.
+\item{sigmab}{\link{numeric} (with default): additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
-\item{log}{\code{\link{logical}} (with default): fit the (un-)logged central
+\item{log}{\link{logical} (with default): fit the (un-)logged central
 age model to De data}
 
-\item{plot}{\code{\link{logical}} (with default): plot output}
+\item{plot}{\link{logical} (with default): plot output}
 
 \item{\dots}{further arguments (\code{trace, verbose}).}
 }
 \value{
 Returns a plot (optional) and terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
+\linkS4class{RLum.Results} object is returned containing the
 following element:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
@@ -37,7 +37,7 @@ used arguments} \item{call}{\link{call} the function call}
 \item{profile}{\link{data.frame} the log likelihood profile for sigma}
 
 The output should be accessed using the function
-\code{\link{get_RLum}}
+\link{get_RLum}
 }
 \description{
 This function calculates the central dose and dispersion of the De

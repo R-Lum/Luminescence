@@ -10,19 +10,19 @@ calc_FadingCorr(age.faded, g_value, tc = NULL, tc.g_value = tc,
   txtProgressBar = TRUE, verbose = TRUE)
 }
 \arguments{
-\item{age.faded}{\code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
+\item{age.faded}{\link{numeric} \code{\link{vector}} (\strong{required}): uncorrected
 age with error in ka (see example)}
 
-\item{g_value}{\code{\link{vector}} (\bold{required}): g-value and error obtained
-from separate fading measurements (see example). Alternatively an \code{\linkS4class{RLum.Results}} object
+\item{g_value}{\code{\link{vector}} (\strong{required}): g-value and error obtained
+from separate fading measurements (see example). Alternatively an \linkS4class{RLum.Results} object
 can be provided produced by the function \code{analyse_FadingMeasurement}, in this case tc is set
 automatically}
 
-\item{tc}{\code{\link{numeric}} (\bold{required}): time in seconds between
+\item{tc}{\link{numeric} (\strong{required}): time in seconds between
 irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). Argument will be ignored
 if \code{g_value} was an \code{RLum.Results} object}
 
-\item{tc.g_value}{\code{\link{numeric}} (with default): the time in seconds between irradiation
+\item{tc.g_value}{\link{numeric} (with default): the time in seconds between irradiation
 and the prompt measurement used for estimating the g-value. If the g-value was normalised
 to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If nothing is provided
 the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
@@ -35,23 +35,23 @@ tries to find a 'stable' error for the age. Note: This may take a while!}
 \item{seed}{\code{\link{integer}} (optional): sets the seed for the random number generator
 in R using \code{\link{set.seed}}}
 
-\item{interval}{\code{\link{numeric}} (with default): a vector containing the end-points (age interval) of the
+\item{interval}{\link{numeric} (with default): a vector containing the end-points (age interval) of the
 interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
 used for solving the equation.}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
 \code{\link{txtProgressBar}}}
 
-\item{verbose}{\code{\link{logical}} (with default): enables or disables terminal output}
+\item{verbose}{\link{logical} (with default): enables or disables terminal output}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
+Returns an S4 object of type \linkS4class{RLum.Results}.\cr
 
 Slot: \bold{@data}\cr
 \tabular{lll}{
 \bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
-\code{age.corr} \tab \code{data.frame} \tab Corrected age \cr
-\code{age.corr.MC} \tab \code{numeric} \tab MC simulation results with all possible ages from
+\code{age.corr} \tab \link{data.frame} \tab Corrected age \cr
+\code{age.corr.MC} \tab \link{numeric} \tab MC simulation results with all possible ages from
 that simulation\cr
 }
 
@@ -167,7 +167,7 @@ in K-feldspars and the measurement and correction for it in optical dating.
 Canadian Journal of Earth Sciences, 38, 1093-1106.
 }
 \seealso{
-\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
+\linkS4class{RLum.Results}, \link{get_RLum},
 \code{\link{uniroot}}
 }
 \author{

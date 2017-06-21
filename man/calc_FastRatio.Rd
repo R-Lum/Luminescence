@@ -11,55 +11,55 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}}
-(\bold{required}): x, y data of measured values (time and counts).}
+\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+(\strong{required}): x, y data of measured values (time and counts).}
 
-\item{stimulation.power}{\code{\link{numeric}} (with default): Stimulation power in mW/cm^2}
+\item{stimulation.power}{\link{numeric} (with default): Stimulation power in mW/cm^2}
 
-\item{wavelength}{\code{\link{numeric}} (with default): Stimulation wavelength in nm}
+\item{wavelength}{\link{numeric} (with default): Stimulation wavelength in nm}
 
-\item{sigmaF}{\code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
+\item{sigmaF}{\link{numeric} (with default): Photoionisation cross-section (cm^2) of the
 fast component. Default value after Durcan & Duller (2011).}
 
-\item{sigmaM}{\code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
+\item{sigmaM}{\link{numeric} (with default): Photoionisation cross-section (cm^2) of the
 medium component. Default value after Durcan & Duller (2011).}
 
-\item{Ch_L1}{\code{\link{numeric}} (with default): An integer specifying the channel for L1.}
+\item{Ch_L1}{\link{numeric} (with default): An integer specifying the channel for L1.}
 
-\item{Ch_L2}{\code{\link{numeric}} (optional): An integer specifying the channel for L2.}
+\item{Ch_L2}{\link{numeric} (optional): An integer specifying the channel for L2.}
 
-\item{Ch_L3}{\code{\link{numeric}} (optional): A vector of length 2 with integer
+\item{Ch_L3}{\link{numeric} (optional): A vector of length 2 with integer
 values specifying the start and end channels for L3 (e.g., \code{c(40, 50)}).}
 
-\item{x}{\code{\link{numeric}} (with default): \% of signal remaining from the fast component.
+\item{x}{\link{numeric} (with default): \% of signal remaining from the fast component.
 Used to define the location of L2 and L3 (start).}
 
-\item{x2}{\code{\link{numeric}} (with default): \% of signal remaining from the medium component.
+\item{x2}{\link{numeric} (with default): \% of signal remaining from the medium component.
 Used to define the location of L3 (end).}
 
-\item{dead.channels}{\code{\link{numeric}} (with default): Vector of length 2 in the form of
+\item{dead.channels}{\link{numeric} (with default): Vector of length 2 in the form of
 \code{c(x, y)}. Channels that do not contain OSL data, i.e. at the start or end of
 measurement.}
 
-\item{fitCW.sigma}{\code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
+\item{fitCW.sigma}{\link{logical} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
 to calculate \code{sigmaF} and \code{sigmaM} (experimental).}
 
-\item{fitCW.curve}{\code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
+\item{fitCW.curve}{\link{logical} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
 and derive the counts of L2 and L3 from the fitted OSL curve (experimental).}
 
-\item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}/\code{FALSE})}
+\item{plot}{\link{logical} (with default): plot output (\code{TRUE}/\code{FALSE})}
 
-\item{...}{available options: \code{verbose} (\code{\link{logical}}). Further
+\item{...}{available options: \code{verbose} (\link{logical}). Further
 arguments passed to \code{\link{fit_CWCurve}}.}
 }
 \value{
-Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}.
-The slot \code{data} contains a \code{\link{list}} with the following elements:\cr
+Returns a plot (optional) and an S4 object of type \linkS4class{RLum.Results}.
+The slot \code{data} contains a \code{[list]} with the following elements:\cr
 
-\item{summary}{\code{\link{data.frame}} summary of all relevant results}
+\item{summary}{\link{data.frame} summary of all relevant results}
 \item{data}{the original input data}
-\item{fit}{\code{\linkS4class{RLum.Results}} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
-\item{args}{\code{\link{list}} of used arguments}
+\item{fit}{\linkS4class{RLum.Results} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
+\item{args}{\code{[list]} of used arguments}
 \item{call}{\code{\link{call}} the function call}
 }
 \description{
@@ -102,8 +102,8 @@ Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation
 due to unstable signal components. Quaternary Geochronology 4, 353-362.
 }
 \seealso{
-\code{\link{fit_CWCurve}}, \code{\link{get_RLum}}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}, \code{\linkS4class{RLum.Data.Curve}}
+\code{\link{fit_CWCurve}}, \link{get_RLum}, \code{\linkS4class{RLum.Analysis}},
+\linkS4class{RLum.Results}, \code{\linkS4class{RLum.Data.Curve}}
 }
 \author{
 Georgina King, University of Cologne (Germany) \cr

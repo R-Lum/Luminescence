@@ -8,17 +8,17 @@ calc_SourceDoseRate(measurement.date, calib.date, calib.dose.rate, calib.error,
   source.type = "Sr-90", dose.rate.unit = "Gy/s", predict = NULL)
 }
 \arguments{
-\item{measurement.date}{\code{\link{character}} or \code{\link{Date}} (\bold{required}): date of
+\item{measurement.date}{\code{\link{character}} or \code{\link{Date}} (\strong{required}): date of
 measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
 The argument can be provided as vector.}
 
-\item{calib.date}{\code{\link{character}} or \code{\link{Date}} (\bold{required}): date of source
+\item{calib.date}{\code{\link{character}} or \code{\link{Date}} (\strong{required}): date of source
 calibration in "YYYY-MM-DD"}
 
-\item{calib.dose.rate}{\code{\link{numeric}} (\bold{required}): dose rate at
+\item{calib.dose.rate}{\link{numeric} (\strong{required}): dose rate at
 date of calibration in Gy/s or Gy/min}
 
-\item{calib.error}{\code{\link{numeric}} (\bold{required}): error of dose
+\item{calib.error}{\link{numeric} (\strong{required}): error of dose
 rate at date of calibration Gy/s or Gy/min}
 
 \item{source.type}{\code{\link{character}} (with default): specify
@@ -35,8 +35,8 @@ with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(...,predict = 100)
 the source dose rate for the next 100 days.}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
-Slot \code{data} contains a \code{\link{list}} with the following
+Returns an S4 object of type \linkS4class{RLum.Results}.
+Slot \code{data} contains a \code{[list]} with the following
 structure:\cr
 $ dose.rate (data.frame)\cr
 .. $ dose.rate \cr
@@ -48,7 +48,7 @@ $ parameters (list) \cr
 .. $ dose.rate.unit\cr
 $ call (the original function call)\cr
 
-The output should be accessed using the function \code{\link{get_RLum}}.\cr
+The output should be accessed using the function \link{get_RLum}.\cr
 A plot method of the output is provided via \code{\link{plot_RLum}}
 }
 \description{
@@ -134,7 +134,7 @@ NNDC, Brookhaven National Laboratory
 (\code{http://www.nndc.bnl.gov/})
 }
 \seealso{
-\code{\link{Second2Gray}}, \code{\link{get_RLum}}, \code{\link{plot_RLum}}
+\code{\link{Second2Gray}}, \link{get_RLum}, \code{\link{plot_RLum}}
 }
 \author{
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),

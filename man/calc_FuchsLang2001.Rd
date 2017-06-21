@@ -8,8 +8,8 @@ calc_FuchsLang2001(data, cvThreshold = 5, startDeValue = 1, plot = TRUE,
   ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame}
+(\strong{required}): for \link{data.frame}: two columns with De
 \code{(data[,1])} and De error \code{(values[,2])}}
 
 \item{cvThreshold}{\link{numeric} (with default): coefficient of variation
@@ -27,7 +27,7 @@ aliquot that is used for the calculations}
 }
 \value{
 Returns a plot (optional) and terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
+\linkS4class{RLum.Results} object is returned containing the
 following elements:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
@@ -84,7 +84,7 @@ Quaternary Science Reviews 22, 1161-1167.
 \seealso{
 \code{\link{plot}}, \code{\link{calc_MinDose}},
 \code{\link{calc_FiniteMixture}}, \code{\link{calc_CentralDose}},
-\code{\link{calc_CommonDose}}, \code{\linkS4class{RLum.Results}}
+\code{\link{calc_CommonDose}}, \linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

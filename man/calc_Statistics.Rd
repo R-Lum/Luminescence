@@ -8,8 +8,8 @@ calc_Statistics(data, weight.calc = "square", digits = NULL, n.MCM = NULL,
   na.rm = TRUE)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-object (required): for \code{data.frame} two columns: De (\code{data[,1]})
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results}
+object (required): for \link{data.frame} two columns: De (\code{data[,1]})
 and De error (\code{data[,2]}). To plot several data sets in one plot the
 data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
@@ -20,10 +20,10 @@ out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
 \item{digits}{\code{\link{integer}} (with default): round numbers to the
 specified digits. If digits is set to \code{NULL} nothing is rounded.}
 
-\item{n.MCM}{\code{\link{numeric}} (with default): number of samples drawn
+\item{n.MCM}{\link{numeric} (with default): number of samples drawn
 for Monte Carlo-based statistics. \code{NULL} (the default) disables MC runs.}
 
-\item{na.rm}{\code{\link{logical}} (with default): indicating whether NA
+\item{na.rm}{\link{logical} (with default): indicating whether NA
 values should be stripped before the computation proceeds.}
 }
 \value{

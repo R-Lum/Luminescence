@@ -8,52 +8,52 @@ calc_Kars2008(data, rhop, ddot, readerDdot, normalise = TRUE,
   summary = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} (\bold{required}):
+\item{data}{\link{data.frame} (\strong{required}):
 A three column data frame with numeric values on a) dose (s), b) LxTx and and
 c) LxTx error. If a two column data frame is provided it is automatically
 assumed that errors on LxTx are missing. A third column will be attached
 with an arbitrary 5 \% error on the provided LxTx values.\cr
-Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+Can also be a wide table, i.e. a \link{data.frame} with a number of colums divisible by 3
 and where each triplet has the aforementioned column structure.}
 
-\item{rhop}{\code{\link{numeric}} (\bold{required}):
+\item{rhop}{\link{numeric} (\strong{required}):
 The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
 given as numeric vector of length two. Note that \eqn{\rho}' must \bold{not} be
 provided as the common logarithm. Example: \code{rhop = c(2.92e-06, 4.93e-07)}.}
 
-\item{ddot}{\code{\link{numeric}} (\bold{required}):
+\item{ddot}{\link{numeric} (\strong{required}):
 Environmental dose rate and its error, given as a numeric vector of length two.
 Expected unit: Gy/ka. Example: \code{ddot = c(3.7, 0.4)}.}
 
-\item{readerDdot}{\code{numeric} (\bold{required}):
+\item{readerDdot}{\link{numeric} (\strong{required}):
 Dose rate of the irradiation source of the OSL reader and its error,
 given as a numeric vector of length two.
 Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.}
 
-\item{normalise}{\code{\link{logical}} (with default):
+\item{normalise}{\link{logical} (with default):
 If \code{TRUE} (the default) all measured and computed LxTx values are
 normalised by the pre-exponential factor A (see details).}
 
-\item{summary}{\code{\link{logical}} (with default):
+\item{summary}{\link{logical} (with default):
 If \code{TRUE} (the default) various parameters provided by the user
 and calculated by the model are added as text on the right-hand side of the
 plot.}
 
-\item{plot}{\code{\link{logical}} (with default): enables/disables plot output.}
+\item{plot}{\link{logical} (with default): enables/disables plot output.}
 
 \item{...}{further arguments passed to \code{\link{plot}} and
 \code{\link[Luminescence]{plot_GrowthCurve}}.}
 }
 \value{
-An \code{\linkS4class{RLum.Results}} object is returned:
+An \linkS4class{RLum.Results} object is returned:
 
 Slot: \bold{@data}\cr
 
 \tabular{lll}{
 \bold{OBJECT} \tab \bold{TYPE} \tab \bold{COMMENT}\cr
-\code{results} \tab \code{data.frame} \tab results of the of Kars et al. 2008 model \cr
-\code{data} \tab \code{data.frame} \tab original input data \cr
-\code{Ln} \tab \code{numeric} \tab Ln and its error \cr
+\code{results} \tab \link{data.frame} \tab results of the of Kars et al. 2008 model \cr
+\code{data} \tab \link{data.frame} \tab original input data \cr
+\code{Ln} \tab \link{numeric} \tab Ln and its error \cr
 \code{LxTx_tables} \tab \code{list} \tab A \code{list} of \code{data.frames}
 containing data on dose, LxTx and LxTx error for each of the dose response curves.
 Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr

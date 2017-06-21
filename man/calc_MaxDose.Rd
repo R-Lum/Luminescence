@@ -8,11 +8,11 @@ calc_MaxDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE,
   init.values, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De \code{(data[
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame}
+(\strong{required}): for \link{data.frame}: two columns with De \code{(data[
 ,1])} and De error \code{(data[ ,2])}.}
 
-\item{sigmab}{\code{\link{numeric}} (\bold{required}): additional spread in De values.
+\item{sigmab}{\link{numeric} (\strong{required}): additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
@@ -20,20 +20,20 @@ a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALS
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 See details (\code{\link{calc_MinDose}}.}
 
-\item{log}{\code{\link{logical}} (with default): fit the (un-)logged three
+\item{log}{\link{logical} (with default): fit the (un-)logged three
 parameter minimum dose model to De data}
 
-\item{par}{\code{\link{numeric}} (with default): apply the 3- or
+\item{par}{\link{numeric} (with default): apply the 3- or
 4-parametric minimum age model (\code{par=3} or \code{par=4}).}
 
-\item{bootstrap}{\code{\link{logical}} (with default): apply the recycled
+\item{bootstrap}{\link{logical} (with default): apply the recycled
 bootstrap approach of Cunningham & Wallinga (2012).}
 
-\item{init.values}{\code{\link{numeric}} (with default): starting values for
+\item{init.values}{\link{numeric} (with default): starting values for
 gamma, sigma, p0 and mu. Custom values need to be provided in a vector of
 length three in the form of \code{c(gamma, sigma, p0)}.}
 
-\item{plot}{\code{\link{logical}} (with default): plot output
+\item{plot}{\link{logical} (with default): plot output
 (\code{TRUE}/\code{FALSE})}
 
 \item{\dots}{further arguments for bootstrapping (\code{bs.M, bs.N, bs.h,

@@ -11,28 +11,28 @@ calc_FiniteMixture(data, sigmab, n.components, grain.probability = FALSE,
   ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame}
+(\strong{required}): for \link{data.frame}: two columns with De
 \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{sigmab}{\code{\link{numeric}} (\bold{required}): spread in De values
+\item{sigmab}{\link{numeric} (\strong{required}): spread in De values
 given as a fraction (e.g. 0.2). This value represents the expected
 overdispersion in the data should the sample be well-bleached (Cunningham &
 Wallinga 2012, p. 100).}
 
-\item{n.components}{\code{\link{numeric}} (\bold{required}): number of
+\item{n.components}{\link{numeric} (\strong{required}): number of
 components to be fitted. If a vector is provided (e.g. \code{c(2:8)}) the
 finite mixtures for 2, 3 ... 8 components are calculated and a plot and a
 statistical evaluation of the model performance (BIC score and maximum
 log-likelihood) is provided.}
 
-\item{grain.probability}{\code{\link{logical}} (with default): prints the
+\item{grain.probability}{\link{logical} (with default): prints the
 estimated probabilities of which component each grain is in}
 
-\item{dose.scale}{\code{\link{numeric}}: manually set the scaling of the
+\item{dose.scale}{\link{numeric}: manually set the scaling of the
 y-axis of the first plot with a vector in the form of \code{c(min,max)}}
 
-\item{pdf.weight}{\code{\link{logical}} (with default): weight the
+\item{pdf.weight}{\link{logical} (with default): weight the
 probability density functions by the components proportion (applies only
 when a vector is provided for \code{n.components})}
 
@@ -46,19 +46,19 @@ parameter of the normal distribution}
 the components in the the plot. Possible options are "gray", "colors" and
 "none"}
 
-\item{pdf.scale}{\code{\link{numeric}}: manually set the max density value
+\item{pdf.scale}{\link{numeric}: manually set the max density value
 for proper scaling of the x-axis of the first plot}
 
-\item{plot.proportions}{\code{\link{logical}} (with default): plot barplot
+\item{plot.proportions}{\link{logical} (with default): plot barplot
 showing the proportions of components}
 
-\item{plot}{\code{\link{logical}} (with default): plot output}
+\item{plot}{\link{logical} (with default): plot output}
 
 \item{\dots}{further arguments to pass.  See details for their usage.}
 }
 \value{
 Returns a plot (optional) and terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
+\linkS4class{RLum.Results} object is returned containing the
 following elements:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
@@ -75,7 +75,7 @@ If a vector for \code{n.components} is provided (e.g.  \code{c(2:8)}),
 results for each iteration of the model.
 
 The output should be accessed using the function
-\code{\link{get_RLum}}
+\link{get_RLum}
 }
 \description{
 This function fits a k-component mixture to a De distribution with differing

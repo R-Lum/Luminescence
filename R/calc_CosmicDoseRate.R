@@ -71,50 +71,50 @@
 #' \code{depth = c(1, 2, 3), density = 1.7} will calculate the cosmic dose rate
 #' for three samples in 1, 2 and 3 m depth in a sediment of density 1.7 g/cm^3.
 #'
-#' @param depth \code{\link{numeric}} (\bold{required}): depth of overburden
+#' @param depth [numeric] (**required**): depth of overburden
 #' (m).  For more than one absorber use \cr \code{c(depth_1, depth_2, ...,
 #' depth_n)}
 #' 
-#' @param density \code{\link{numeric}} (\bold{required}): average overburden
+#' @param density [numeric] (**required**): average overburden
 #' density (g/cm^3). For more than one absorber use \cr \code{c(density_1,
 #' density_2, ..., density_n)}
 #' 
-#' @param latitude \code{\link{numeric}} (\bold{required}): latitude (decimal
+#' @param latitude [numeric] (**required**): latitude (decimal
 #' degree), N positive
 #' 
-#' @param longitude \code{\link{numeric}} (\bold{required}): longitude (decimal
+#' @param longitude [numeric] (**required**): longitude (decimal
 #' degree), E positive
 #' 
-#' @param altitude \code{\link{numeric}} (\bold{required}): altitude (m above
+#' @param altitude [numeric] (**required**): altitude (m above
 #' sea-level)
 #' 
-#' @param corr.fieldChanges \code{\link{logical}} (with default): correct for
+#' @param corr.fieldChanges [logical] (with default): correct for
 #' geomagnetic field changes after Prescott & Hutton (1994). Apply only when
 #' justified by the data.
 #' 
-#' @param est.age \code{\link{numeric}} (with default): estimated age range
+#' @param est.age [numeric] (with default): estimated age range
 #' (ka) for geomagnetic field change correction (0-80 ka allowed)
 #' 
-#' @param half.depth \code{\link{logical}} (with default): How to overcome with
+#' @param half.depth [logical] (with default): How to overcome with
 #' varying overburden thickness. If \code{TRUE} only half the depth is used for
 #' calculation. Apply only when justified, i.e. when a constant sedimentation
 #' rate can safely be assumed.
 #' 
-#' @param error \code{\link{numeric}} (with default): general error
+#' @param error [numeric] (with default): general error
 #' (percentage) to be implemented on corrected cosmic dose rate estimate
 #' 
 #' @param ... further arguments (\code{verbose} to disable/enable console output).
 #' 
 #' @return Returns a terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' [RLum.Results-class] object is returned containing the
 #' following element:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant calculation
-#' results.} \item{args}{\link{list} used arguments} \item{call}{\link{call}
+#' \item{summary}{[data.frame] summary of all relevant calculation
+#' results.} \item{args}{[list] used arguments} \item{call}{\link{call}
 #' the function call}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum}}
+#' [get_RLum]
 #' @note Despite its universal use the equation to calculate the cosmic dose
 #' rate provided by Prescott & Hutton (1994) is falsely stated to be valid from
 #' the surface to 10^4 hg/cm^2 of standard rock. The original expression by

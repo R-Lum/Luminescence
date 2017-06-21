@@ -9,54 +9,54 @@
 #' and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}. 
 #'
 #' @param object \code{\linkS4class{RLum.Analysis}}, 
-#' \code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}} 
-#' (\bold{required}): x, y data of measured values (time and counts).
+#' \code{\linkS4class{RLum.Data.Curve}} or [data.frame] 
+#' (**required**): x, y data of measured values (time and counts).
 #' 
-#' @param stimulation.power \code{\link{numeric}} (with default): Stimulation power in mW/cm^2
+#' @param stimulation.power [numeric] (with default): Stimulation power in mW/cm^2
 #' 
-#' @param wavelength \code{\link{numeric}} (with default): Stimulation wavelength in nm
+#' @param wavelength [numeric] (with default): Stimulation wavelength in nm
 #' 
-#' @param sigmaF \code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
+#' @param sigmaF [numeric] (with default): Photoionisation cross-section (cm^2) of the
 #' fast component. Default value after Durcan & Duller (2011).
 #' 
-#' @param sigmaM \code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
+#' @param sigmaM [numeric] (with default): Photoionisation cross-section (cm^2) of the
 #' medium component. Default value after Durcan & Duller (2011).
 #' 
-#' @param Ch_L1 \code{\link{numeric}} (with default): An integer specifying the channel for L1.
+#' @param Ch_L1 [numeric] (with default): An integer specifying the channel for L1.
 #' 
-#' @param Ch_L2 \code{\link{numeric}} (optional): An integer specifying the channel for L2.
+#' @param Ch_L2 [numeric] (optional): An integer specifying the channel for L2.
 #' 
-#' @param Ch_L3 \code{\link{numeric}} (optional): A vector of length 2 with integer
+#' @param Ch_L3 [numeric] (optional): A vector of length 2 with integer
 #' values specifying the start and end channels for L3 (e.g., \code{c(40, 50)}).
 #' 
-#' @param x \code{\link{numeric}} (with default): \% of signal remaining from the fast component.
+#' @param x [numeric] (with default): \% of signal remaining from the fast component.
 #' Used to define the location of L2 and L3 (start).
 #' 
-#' @param x2 \code{\link{numeric}} (with default): \% of signal remaining from the medium component.
+#' @param x2 [numeric] (with default): \% of signal remaining from the medium component.
 #' Used to define the location of L3 (end). 
 #' 
-#' @param dead.channels \code{\link{numeric}} (with default): Vector of length 2 in the form of
+#' @param dead.channels [numeric] (with default): Vector of length 2 in the form of
 #' \code{c(x, y)}. Channels that do not contain OSL data, i.e. at the start or end of
 #' measurement.
 #' 
-#' @param fitCW.sigma \code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' @param fitCW.sigma [logical] (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
 #' to calculate \code{sigmaF} and \code{sigmaM} (experimental).
 #' 
-#' @param fitCW.curve \code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' @param fitCW.curve [logical] (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
 #' and derive the counts of L2 and L3 from the fitted OSL curve (experimental).
 #' 
-#' @param plot \code{\link{logical}} (with default): plot output (\code{TRUE}/\code{FALSE})
+#' @param plot [logical] (with default): plot output (\code{TRUE}/\code{FALSE})
 #' 
-#' @param ... available options: \code{verbose} (\code{\link{logical}}). Further
+#' @param ... available options: \code{verbose} ([logical]). Further
 #' arguments passed to \code{\link{fit_CWCurve}}.
 #'
-#' @return Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
-#' The slot \code{data} contains a \code{\link{list}} with the following elements:\cr
+#' @return Returns a plot (optional) and an S4 object of type [RLum.Results-class]. 
+#' The slot \code{data} contains a \code{[list]} with the following elements:\cr
 #'
-#' \item{summary}{\code{\link{data.frame}} summary of all relevant results}
+#' \item{summary}{[data.frame] summary of all relevant results}
 #' \item{data}{the original input data}
-#' \item{fit}{\code{\linkS4class{RLum.Results}} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
-#' \item{args}{\code{\link{list}} of used arguments}
+#' \item{fit}{[RLum.Results-class] object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
+#' \item{args}{\code{[list]} of used arguments}
 #' \item{call}{\code{\link{call}} the function call}
 #' 
 #' @section Function version: 0.1.1
@@ -81,8 +81,8 @@
 #' due to unstable signal components. Quaternary Geochronology 4, 353-362.
 #' 
 #'
-#' @seealso \code{\link{fit_CWCurve}}, \code{\link{get_RLum}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{RLum.Data.Curve}}
+#' @seealso \code{\link{fit_CWCurve}}, [get_RLum], \code{\linkS4class{RLum.Analysis}},
+#' [RLum.Results-class], \code{\linkS4class{RLum.Data.Curve}}
 #' 
 #' @examples
 #' # load example CW-OSL curve

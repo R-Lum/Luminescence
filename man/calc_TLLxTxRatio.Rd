@@ -9,31 +9,31 @@ calc_TLLxTxRatio(Lx.data.signal, Lx.data.background = NULL, Tx.data.signal,
 }
 \arguments{
 \item{Lx.data.signal}{\code{\linkS4class{RLum.Data.Curve}} or
-\code{\link{data.frame}} (\bold{required}): TL data (x =
+\link{data.frame} (\strong{required}): TL data (x =
 temperature, y = counts) (TL signal)}
 
 \item{Lx.data.background}{\code{\linkS4class{RLum.Data.Curve}} or
-\code{\link{data.frame}} (optional): TL data (x =
+\link{data.frame} (optional): TL data (x =
 temperature, y = counts). If no data are provided no background subtraction
 is performed.}
 
 \item{Tx.data.signal}{\code{\linkS4class{RLum.Data.Curve}} or
-\code{\link{data.frame}} (\bold{required}): TL data (x =
+\link{data.frame} (\strong{required}): TL data (x =
 temperature, y = counts) (TL test signal)}
 
 \item{Tx.data.background}{\code{\linkS4class{RLum.Data.Curve}} or
-\code{\link{data.frame}} (optional): TL data (x =
+\link{data.frame} (optional): TL data (x =
 temperature, y = counts). If no data are provided no background subtraction
 is performed.}
 
-\item{signal.integral.min}{\code{\link{integer}} (\bold{required}): channel number
+\item{signal.integral.min}{\code{\link{integer}} (\strong{required}): channel number
 for the lower signal integral bound (e.g. \code{signal.integral.min = 100})}
 
-\item{signal.integral.max}{\code{\link{integer}} (\bold{required}): channel number
+\item{signal.integral.max}{\code{\link{integer}} (\strong{required}): channel number
 for the upper signal integral bound (e.g. \code{signal.integral.max = 200})}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+Returns an S4 object of type \linkS4class{RLum.Results}.
 Slot \code{data} contains a \link{list} with the following structure:\cr\cr
 $ LxTx.table \cr .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $ TnTx.BG
 \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr
@@ -90,7 +90,7 @@ get_RLum(output)
 }
 }
 \seealso{
-\code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
+\linkS4class{RLum.Results}, \code{\link{analyse_SAR.TL}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

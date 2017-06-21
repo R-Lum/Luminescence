@@ -13,31 +13,31 @@
 #' if both signals are similar the error becomes zero.
 #'
 #' @param Lx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
-#' \code{\link{data.frame}} (\bold{required}): TL data (x =
+#' [data.frame] (**required**): TL data (x =
 #' temperature, y = counts) (TL signal)
 #'
 #' @param Lx.data.background \code{\linkS4class{RLum.Data.Curve}} or
-#' \code{\link{data.frame}} (optional): TL data (x =
+#' [data.frame] (optional): TL data (x =
 #' temperature, y = counts). If no data are provided no background subtraction
 #' is performed.
 #'
 #' @param Tx.data.signal \code{\linkS4class{RLum.Data.Curve}} or
-#' \code{\link{data.frame}} (\bold{required}): TL data (x =
+#' [data.frame] (**required**): TL data (x =
 #' temperature, y = counts) (TL test signal)
 #'
 #' @param Tx.data.background \code{\linkS4class{RLum.Data.Curve}} or
-#' \code{\link{data.frame}} (optional): TL data (x =
+#' [data.frame] (optional): TL data (x =
 #' temperature, y = counts). If no data are provided no background subtraction
 #' is performed.
 #'
-#' @param signal.integral.min \code{\link{integer}} (\bold{required}): channel number
+#' @param signal.integral.min \code{\link{integer}} (**required**): channel number
 #' for the lower signal integral bound (e.g. \code{signal.integral.min = 100})
 #'
-#' @param signal.integral.max \code{\link{integer}} (\bold{required}): channel number
+#' @param signal.integral.max \code{\link{integer}} (**required**): channel number
 #' for the upper signal integral bound (e.g. \code{signal.integral.max = 200})
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
-#' Slot \code{data} contains a \link{list} with the following structure:\cr\cr
+#' @return Returns an S4 object of type [RLum.Results-class].
+#' Slot \code{data} contains a [list] with the following structure:\cr\cr
 #' $ LxTx.table \cr .. $ LnLx \cr .. $ LnLx.BG \cr .. $ TnTx \cr .. $ TnTx.BG
 #' \cr .. $ Net_LnLx \cr .. $ Net_LnLx.Error\cr
 #'
@@ -49,7 +49,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Christoph Schmidt, University of Bayreuth (Germany)
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}
+#' @seealso [RLum.Results-class], \code{\link{analyse_SAR.TL}}
 #'
 #' @references -
 #'

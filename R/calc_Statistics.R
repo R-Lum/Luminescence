@@ -13,8 +13,8 @@
 #' values. See Dietze et al. (2016, Quaternary Geochronology) and the function
 #' \code{\link{plot_AbanicoPlot}} for details.
 #'
-#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-#' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
+#' @param data [data.frame] or [RLum.Results-class]
+#' object (required): for [data.frame] two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}). To plot several data sets in one plot the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
 #'
@@ -25,10 +25,10 @@
 #' @param digits \code{\link{integer}} (with default): round numbers to the
 #' specified digits. If digits is set to \code{NULL} nothing is rounded.
 #'
-#' @param n.MCM \code{\link{numeric}} (with default): number of samples drawn
+#' @param n.MCM [numeric] (with default): number of samples drawn
 #' for Monte Carlo-based statistics. \code{NULL} (the default) disables MC runs.
 #'
-#' @param na.rm \code{\link{logical}} (with default): indicating whether NA
+#' @param na.rm [logical] (with default): indicating whether NA
 #' values should be stripped before the computation proceeds.
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.

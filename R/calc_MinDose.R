@@ -83,11 +83,11 @@
 #' calculations and plots please see the vignettes of the \code{bbmle} package
 #' (also available here: \url{https://CRAN.R-project.org/package=bbmle}).
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De \code{(data[
+#' @param data [RLum.Results-class] or [data.frame]
+#' (**required**): for [data.frame]: two columns with De \code{(data[
 #' ,1])} and De error \code{(data[ ,2])}.
 #'
-#' @param sigmab \code{\link{numeric}} (\bold{required}): additional spread in De values.
+#' @param sigmab [numeric] (**required**): additional spread in De values.
 #' This value represents the expected overdispersion in the data should the sample be
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
@@ -95,28 +95,28 @@
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details.
 #'
-#' @param log \code{\link{logical}} (with default): fit the (un-)logged minimum
+#' @param log [logical] (with default): fit the (un-)logged minimum
 #' dose model to De data.
 #'
-#' @param par \code{\link{numeric}} (with default): apply the 3- or
+#' @param par [numeric] (with default): apply the 3- or
 #' 4-parametric minimum age model (\code{par=3} or \code{par=4}). The MAM-3 is
 #' used by default.
 #'
-#' @param bootstrap \code{\link{logical}} (with default): apply the recycled
+#' @param bootstrap [logical] (with default): apply the recycled
 #' bootstrap approach of Cunningham & Wallinga (2012).
 #'
-#' @param init.values \code{\link{numeric}} (optional): a named list with
+#' @param init.values [numeric] (optional): a named list with
 #' starting values for gamma, sigma, p0 and mu (e.g. \code{list(gamma=100
 #' sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
 #' are tried to be estimated from the data.
 #'
-#' @param level \code{\link{logical}} (with default): the confidence level
+#' @param level [logical] (with default): the confidence level
 #' required (defaults to 0.95).
 #'
-#' @param plot \code{\link{logical}} (with default): plot output
+#' @param plot [logical] (with default): plot output
 #' (\code{TRUE}/\code{FALSE})
 #'
-#' @param multicore \code{\link{logical}} (with default): enable parallel
+#' @param multicore [logical] (with default): enable parallel
 #' computation of the bootstrap by creating a multicore SNOW cluster. Depending
 #' on the number of available logical CPU cores this may drastically reduce
 #' the computation time. Note that this option is highly experimental and may not
@@ -129,19 +129,19 @@
 #' specify the number of cores to be used when \code{multicore=TRUE}.
 #'
 #' @return Returns a plot (optional) and terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data} \item{args}{[list]
 #' used arguments} \item{call}{\link{call} the function call}
 #' \item{mle}{\link{mle2} object containing the maximum log likelhood functions
 #' for all parameters} \item{BIC}{\link{numeric} BIC score}
-#' \item{confint}{\link{data.frame} confidence intervals for all parameters}
+#' \item{confint}{[data.frame] confidence intervals for all parameters}
 #' \item{profile}{\link{profile.mle2} the log likelihood profiles}
-#' \item{bootstrap}{\link{list} bootstrap results}
+#' \item{bootstrap}{[list] bootstrap results}
 #'
-#' The output should be accessed using the function \code{\link{get_RLum}}
+#' The output should be accessed using the function [get_RLum]
 #'
 #' @note The default starting values for \emph{gamma}, \emph{mu}, \emph{sigma}
 #' and \emph{p0} may only be appropriate for some De data sets and may need to

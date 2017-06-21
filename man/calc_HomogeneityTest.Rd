@@ -7,18 +7,18 @@
 calc_HomogeneityTest(data, log = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame}
+(\strong{required}): for \link{data.frame}: two columns with De
 \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{log}{\code{\link{logical}} (with default): peform the homogeniety test
+\item{log}{\link{logical} (with default): peform the homogeniety test
 with (un-)logged data}
 
 \item{\dots}{further arguments (for internal compatibility only).}
 }
 \value{
 Returns a terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
+\linkS4class{RLum.Results} object is returned containing the
 following element:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
@@ -26,7 +26,7 @@ following element:
 used arguments} \item{call}{\link{call} the function call}
 
 The output should be accessed using the function
-\code{\link{get_RLum}}
+\link{get_RLum}
 }
 \description{
 A simple homogeneity test for De estimates

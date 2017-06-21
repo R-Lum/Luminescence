@@ -16,8 +16,8 @@
 #' mean, starting with the lowermost two values and add values iteratively.\cr
 #' (4) Stop if the calculated `c[v]` exceeds the specified \code{cvThreshold}\cr
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
+#' @param data [RLum.Results-class] or [data.frame]
+#' (**required**): for [data.frame]: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
 #' @param cvThreshold \link{numeric} (with default): coefficient of variation
 #' in percent, as threshold for the method, e.g. \code{cvThreshold = 3}. See
@@ -29,13 +29,13 @@
 #' @param \dots further arguments and graphical parameters passed to
 #' \code{\link{plot}}
 #' @return Returns a plot (optional) and terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data} \item{args}{[list]
 #' used arguments} \item{call}{\link{call} the function call}
-#' \item{usedDeValues}{\link{data.frame} containing the used values for the
+#' \item{usedDeValues}{[data.frame] containing the used values for the
 #' calculation}
 #' @note Please consider the requirements and the constraints of this method
 #' (see Fuchs & Lang, 2001)
@@ -44,7 +44,7 @@
 #' (France) Christoph Burow, University of Cologne (Germany)
 #' @seealso \code{\link{plot}}, \code{\link{calc_MinDose}},
 #' \code{\link{calc_FiniteMixture}}, \code{\link{calc_CentralDose}},
-#' \code{\link{calc_CommonDose}}, \code{\linkS4class{RLum.Results}}
+#' \code{\link{calc_CommonDose}}, [RLum.Results-class]
 #' @references Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
 #' quartz using single-aliqout protocols on sediments from NE Peloponnese,
 #' Greece. In: Quaternary Science Reviews 20, 783-787.

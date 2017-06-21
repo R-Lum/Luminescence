@@ -46,51 +46,51 @@
 #'
 #'
 #'
-#' @param data \code{\link{data.frame}} (\bold{required}):
+#' @param data [data.frame] (**required**):
 #' A three column data frame with numeric values on a) dose (s), b) LxTx and and
 #' c) LxTx error. If a two column data frame is provided it is automatically
 #' assumed that errors on LxTx are missing. A third column will be attached
 #' with an arbitrary 5 \% error on the provided LxTx values.\cr
-#' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+#' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the aforementioned column structure.
 #'
-#' @param rhop \code{\link{numeric}} (\bold{required}):
+#' @param rhop [numeric] (**required**):
 #' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
 #' given as numeric vector of length two. Note that \eqn{\rho}' must \bold{not} be
 #' provided as the common logarithm. Example: \code{rhop = c(2.92e-06, 4.93e-07)}.
 #'
-#' @param ddot \code{\link{numeric}} (\bold{required}):
+#' @param ddot [numeric] (**required**):
 #' Environmental dose rate and its error, given as a numeric vector of length two.
 #' Expected unit: Gy/ka. Example: \code{ddot = c(3.7, 0.4)}.
 #'
-#' @param readerDdot \code{numeric} (\bold{required}):
+#' @param readerDdot [numeric] (**required**):
 #' Dose rate of the irradiation source of the OSL reader and its error,
 #' given as a numeric vector of length two.
 #' Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.
 #'
-#' @param normalise \code{\link{logical}} (with default):
+#' @param normalise [logical] (with default):
 #' If \code{TRUE} (the default) all measured and computed LxTx values are
 #' normalised by the pre-exponential factor A (see details).
 #'
-#' @param summary \code{\link{logical}} (with default):
+#' @param summary [logical] (with default):
 #' If \code{TRUE} (the default) various parameters provided by the user
 #' and calculated by the model are added as text on the right-hand side of the
 #' plot.
 #'
-#' @param plot \code{\link{logical}} (with default): enables/disables plot output.
+#' @param plot [logical] (with default): enables/disables plot output.
 #'
 #' @param ... further arguments passed to \code{\link{plot}} and
 #' \code{\link[Luminescence]{plot_GrowthCurve}}.
 #'
-#' @return An \code{\linkS4class{RLum.Results}} object is returned:
+#' @return An [RLum.Results-class] object is returned:
 #'
 #' Slot: \bold{@data}\cr
 #'
 #' \tabular{lll}{
 #' \bold{OBJECT} \tab \bold{TYPE} \tab \bold{COMMENT}\cr
-#' \code{results} \tab \code{data.frame} \tab results of the of Kars et al. 2008 model \cr
-#' \code{data} \tab \code{data.frame} \tab original input data \cr
-#' \code{Ln} \tab \code{numeric} \tab Ln and its error \cr
+#' \code{results} \tab [data.frame] \tab results of the of Kars et al. 2008 model \cr
+#' \code{data} \tab [data.frame] \tab original input data \cr
+#' \code{Ln} \tab [numeric] \tab Ln and its error \cr
 #' \code{LxTx_tables} \tab \code{list} \tab A \code{list} of \code{data.frames}
 #' containing data on dose, LxTx and LxTx error for each of the dose response curves.
 #' Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr

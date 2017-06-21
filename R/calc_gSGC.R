@@ -8,7 +8,7 @@
 #' Large values for \code{n.MC} will significantly increase the computation time.
 #'
 #'
-#' @param data \code{\link{data.frame}} (\bold{required}): input data of providing the following
+#' @param data [data.frame] (**required**): input data of providing the following
 #' columns: 'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'
 #' Note: column names are not required. The function expect the input data in the given order
 #'
@@ -16,7 +16,7 @@
 #' should be used for the iteration procedure: Li et al., 2015 (Table 2)
 #' presented function parameters for two dose ranges: \code{"0-450"} and \code{"0-250"}
 #'
-#' @param gSGC.parameters \code{\link{list}} (optional): option to provide own function
+#' @param gSGC.parameters \code{[list]} (optional): option to provide own function
 #' parameters used for #' fitting as named list.
 #' Nomenclature follows Li et al., 2015, i.e.
 #' \code{list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)}, range requires a vector for
@@ -27,13 +27,13 @@
 #' @param n.MC \code{\link{integer}} (with default): number of Monte Carlo simulation runs for
 #' error estimation, s. details.
 #'
-#' @param verbose \code{\link{logical}}: enable or disable terminal output
+#' @param verbose [logical]: enable or disable terminal output
 #'
-#' @param plot \code{\link{logical}}: enable or disable graphical feedback as plot
+#' @param plot [logical]: enable or disable graphical feedback as plot
 #'
 #' @param ... parameters will be passed to the plot output
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
+#' @return Returns an S4 object of type [RLum.Results-class].\cr
 #'
 #' \bold{@data}\cr
 #' $ De.value (data.frame) \cr
@@ -51,7 +51,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}}, \code{\link{uniroot}}
+#' @seealso [RLum.Results-class], [get_RLum], \code{\link{uniroot}}
 #'
 #' @references  Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 #' a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.

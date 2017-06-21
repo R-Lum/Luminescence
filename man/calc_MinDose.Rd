@@ -9,11 +9,11 @@ calc_MinDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE,
   init.values, level = 0.95, plot = TRUE, multicore = FALSE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De \code{(data[
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame}
+(\strong{required}): for \link{data.frame}: two columns with De \code{(data[
 ,1])} and De error \code{(data[ ,2])}.}
 
-\item{sigmab}{\code{\link{numeric}} (\bold{required}): additional spread in De values.
+\item{sigmab}{\link{numeric} (\strong{required}): additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
@@ -21,28 +21,28 @@ a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALS
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 See details.}
 
-\item{log}{\code{\link{logical}} (with default): fit the (un-)logged minimum
+\item{log}{\link{logical} (with default): fit the (un-)logged minimum
 dose model to De data.}
 
-\item{par}{\code{\link{numeric}} (with default): apply the 3- or
+\item{par}{\link{numeric} (with default): apply the 3- or
 4-parametric minimum age model (\code{par=3} or \code{par=4}). The MAM-3 is
 used by default.}
 
-\item{bootstrap}{\code{\link{logical}} (with default): apply the recycled
+\item{bootstrap}{\link{logical} (with default): apply the recycled
 bootstrap approach of Cunningham & Wallinga (2012).}
 
-\item{init.values}{\code{\link{numeric}} (optional): a named list with
+\item{init.values}{\link{numeric} (optional): a named list with
 starting values for gamma, sigma, p0 and mu (e.g. \code{list(gamma=100
 sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
 are tried to be estimated from the data.}
 
-\item{level}{\code{\link{logical}} (with default): the confidence level
+\item{level}{\link{logical} (with default): the confidence level
 required (defaults to 0.95).}
 
-\item{plot}{\code{\link{logical}} (with default): plot output
+\item{plot}{\link{logical} (with default): plot output
 (\code{TRUE}/\code{FALSE})}
 
-\item{multicore}{\code{\link{logical}} (with default): enable parallel
+\item{multicore}{\link{logical} (with default): enable parallel
 computation of the bootstrap by creating a multicore SNOW cluster. Depending
 on the number of available logical CPU cores this may drastically reduce
 the computation time. Note that this option is highly experimental and may not
@@ -56,7 +56,7 @@ specify the number of cores to be used when \code{multicore=TRUE}.}
 }
 \value{
 Returns a plot (optional) and terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
+\linkS4class{RLum.Results} object is returned containing the
 following elements:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
@@ -68,7 +68,7 @@ for all parameters} \item{BIC}{\link{numeric} BIC score}
 \item{profile}{\link{profile.mle2} the log likelihood profiles}
 \item{bootstrap}{\link{list} bootstrap results}
 
-The output should be accessed using the function \code{\link{get_RLum}}
+The output should be accessed using the function \link{get_RLum}
 }
 \description{
 Function to fit the (un-)logged three or four parameter minimum dose model

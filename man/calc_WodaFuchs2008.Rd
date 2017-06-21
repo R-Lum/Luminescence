@@ -7,17 +7,17 @@
 calc_WodaFuchs2008(data, breaks = NULL, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-object (required): for \code{data.frame}: two columns: De
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results}
+object (required): for \link{data.frame}: two columns: De
 (\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
 data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
 dataset2)}).}
 
-\item{breaks}{\code{\link{numeric}}: Either number or locations of breaks.
+\item{breaks}{\link{numeric}: Either number or locations of breaks.
 See \code{\link{hist}} for details. If missing, the number of breaks will
 be estimated based on the bin width (as function of median error).}
 
-\item{plot}{\code{\link{logical}} (with default): enable plot output.}
+\item{plot}{\link{logical} (with default): enable plot output.}
 
 \item{\dots}{Further plot arguments passed to the function.}
 }

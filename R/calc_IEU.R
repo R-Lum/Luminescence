@@ -6,37 +6,37 @@
 #' This function uses the equations of Thomsen et al. (2007).  The parameters a
 #' and b are estimated from dose-recovery experiments.
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
-#' \code{(data[,1])} and De error \code{(values[,2])}
+#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' for [data.frame]: two columns with De `(data[,1])` and 
+#' De error `(values[,2])`
 #'
-#' @param a \code{\link{numeric}}: slope
+#' @param a [numeric] : slope
 #'
-#' @param b \code{\link{numeric}}: intercept
+#' @param b [numeric] : intercept
 #'
-#' @param interval \code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for
+#' @param interval [numeric]: fixed interval (e.g. 5 Gy) used for
 #' iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
 #' `[Dbar.Fixed vs Z]`
 #'
-#' @param decimal.point \code{\link{numeric}} (with default): number of decimal
+#' @param decimal.point [numeric] (with default): number of decimal
 #' points for rounding calculations (e.g. 2)
 #'
-#' @param plot \code{\link{logical}} (with default): plot output
+#' @param plot [logical] (with default): plot output
 #'
 #' @param \dots further arguments (\code{trace, verbose}).
 #'
 #' @return Returns a plot (optional) and terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' [RLum.Results-class] object is returned containing the
 #' following element:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data} \item{args}{[list]
 #' used arguments} \item{call}{\link{call} the function call}
-#' \item{tables}{\link{list} a list of data frames containing all calculation
+#' \item{tables}{[list] a list of data frames containing all calculation
 #' tables}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum}}.
+#' [get_RLum].
 #'
 #' @section Function version: 0.1.0
 #'

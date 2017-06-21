@@ -8,28 +8,28 @@
 calc_IEU(data, a, b, interval, decimal.point = 2, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
-\code{(data[,1])} and De error \code{(values[,2])}}
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+for \link{data.frame}: two columns with De \code{(data[,1])} and
+De error \code{(values[,2])}}
 
-\item{a}{\code{\link{numeric}}: slope}
+\item{a}{\link{numeric} : slope}
 
-\item{b}{\code{\link{numeric}}: intercept}
+\item{b}{\link{numeric} : intercept}
 
-\item{interval}{\code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for
+\item{interval}{\link{numeric}: fixed interval (e.g. 5 Gy) used for
 iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
 \code{[Dbar.Fixed vs Z]}}
 
-\item{decimal.point}{\code{\link{numeric}} (with default): number of decimal
+\item{decimal.point}{\link{numeric} (with default): number of decimal
 points for rounding calculations (e.g. 2)}
 
-\item{plot}{\code{\link{logical}} (with default): plot output}
+\item{plot}{\link{logical} (with default): plot output}
 
 \item{\dots}{further arguments (\code{trace, verbose}).}
 }
 \value{
 Returns a plot (optional) and terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
+\linkS4class{RLum.Results} object is returned containing the
 following element:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
@@ -39,7 +39,7 @@ used arguments} \item{call}{\link{call} the function call}
 tables}
 
 The output should be accessed using the function
-\code{\link{get_RLum}}.
+\link{get_RLum}.
 }
 \description{
 Function to calculate the IEU De for a De data set.

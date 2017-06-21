@@ -60,19 +60,19 @@
 #' case of an SAR measurement tc should be similar, however, if it differs, you have to provide this
 #' tc value (the one used for estimating the g-value) using the argument \code{tc.g_value}.\cr
 #'
-#' @param age.faded \code{\link{numeric}} \code{\link{vector}} (\bold{required}): uncorrected
+#' @param age.faded [numeric] \code{\link{vector}} (**required**): uncorrected
 #' age with error in ka (see example)
 #'
-#' @param g_value \code{\link{vector}} (\bold{required}): g-value and error obtained
-#' from separate fading measurements (see example). Alternatively an \code{\linkS4class{RLum.Results}} object
+#' @param g_value \code{\link{vector}} (**required**): g-value and error obtained
+#' from separate fading measurements (see example). Alternatively an [RLum.Results-class] object
 #' can be provided produced by the function \code{analyse_FadingMeasurement}, in this case tc is set
 #' automatically
 #'
-#' @param tc \code{\link{numeric}} (\bold{required}): time in seconds between
+#' @param tc [numeric] (**required**): time in seconds between
 #' irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). Argument will be ignored
 #' if \code{g_value} was an \code{RLum.Results} object
 #'
-#' @param tc.g_value \code{\link{numeric}} (with default): the time in seconds between irradiation
+#' @param tc.g_value [numeric] (with default): the time in seconds between irradiation
 #' and the prompt measurement used for estimating the g-value. If the g-value was normalised
 #' to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If nothing is provided
 #' the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
@@ -85,23 +85,23 @@
 #' @param seed \code{\link{integer}} (optional): sets the seed for the random number generator
 #' in R using \code{\link{set.seed}}
 #'
-#' @param interval \code{\link{numeric}} (with default): a vector containing the end-points (age interval) of the
+#' @param interval [numeric] (with default): a vector containing the end-points (age interval) of the
 #' interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
 #' used for solving the equation.
 #'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disables terminal output
+#' @param verbose [logical] (with default): enables or disables terminal output
 #'
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
+#' @return Returns an S4 object of type [RLum.Results-class].\cr
 #'
 #' Slot: \bold{@data}\cr
 #' \tabular{lll}{
 #' \bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
-#'  \code{age.corr} \tab \code{data.frame} \tab Corrected age \cr
-#'  \code{age.corr.MC} \tab \code{numeric} \tab MC simulation results with all possible ages from
+#'  \code{age.corr} \tab [data.frame] \tab Corrected age \cr
+#'  \code{age.corr.MC} \tab [numeric] \tab MC simulation results with all possible ages from
 #'  that simulation\cr
 #' }
 #'
@@ -123,7 +123,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
+#' @seealso [RLum.Results-class], [get_RLum],
 #' \code{\link{uniroot}}
 #'
 #'

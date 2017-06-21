@@ -24,45 +24,45 @@
 #' where: \eqn{\tau} in s as the mean time an electron spends in the trap for a given \eqn{T},
 #' \eqn{E} trap depth in eV, \eqn{s} the frequency factor in 1/s, \eqn{T} the temperature in K and \eqn{k} the Boltzmann constant in eV/K (cf. Furetta, 2010).
 #'
-#' @param E \code{\link{numeric}} (\bold{required}): vector of trap depths in eV,
+#' @param E [numeric] (**required**): vector of trap depths in eV,
 #' if \code{profiling = TRUE}
 #' only the first two elements are considered
 #'
-#' @param s \code{\link{numeric}} (\bold{required}): vector of frequency factor in 1/s,
+#' @param s [numeric] (**required**): vector of frequency factor in 1/s,
 #' if \code{profiling = TRUE} only the first two elements are considered
 #'
-#' @param T \code{\link{numeric}} (with default): temperature in deg. C for which the lifetime(s)
+#' @param T [numeric] (with default): temperature in deg. C for which the lifetime(s)
 #' will be calculted. A vector can be provided.
 #'
 #' @param output_unit \code{\link{character}} (with default):
 #' output unit of the calculated lifetimes, accepted
 #' entries are: \code{"Ma"}, \code{"ka"}, \code{"a"}, \code{"d"}, \code{"h"}, \code{"min"}, \code{"s"}
 #'
-#' @param profiling \code{\link{logical}} (with default):
+#' @param profiling [logical] (with default):
 #' this option allows to estimate uncertainties based on
 #' given E and s parameters and their corresponding standard error (cf. details and examples section)
 #'
-#' @param profiling_config \code{\link{list}} (optional): allows to set configurate parameters
+#' @param profiling_config \code{[list]} (optional): allows to set configurate parameters
 #' used for the profiling (and only have an effect here). Supported parameters are:
 #' \code{n} (number of MC runs), \code{E.distribution} (distribution used for the resampling for E) and
 #' \code{s.distribution} (distribution used for the resampling for s). Currently only the normal
 #' distribution is supported (e.g., \code{profiling_config = list(E.distribution = "norm")}
 #'
-#' @param verbose \code{\link{logical}}: enables/disables verbose mode
+#' @param verbose [logical]: enables/disables verbose mode
 #'
-#' @param plot \code{\link{logical}}: enables/disables output plot, currenlty only in combination
+#' @param plot [logical]: enables/disables output plot, currenlty only in combination
 #' with \code{profiling = TRUE}.
 #'
 #' @param \dots further arguments that can be passed in combination with the plot output. Standard
 #' plot parameters are supported (\code{\link{plot.default}})
 #'
-#' @return A \code{\linkS4class{RLum.Results}} object is returned a along with a plot (for
+#' @return A [RLum.Results-class] object is returned a along with a plot (for
 #' \code{profiling = TRUE}). The output object contain the following slots:
 #'
 #' \bold{\code{@data}}\cr
 #' \tabular{lll}{
 #'  \bold{Object} \tab \bold{Type} \tab \bold{Description} \cr
-#'  \code{lifetimes} \tab \code{\link{array}} or \code{\link{numeric}} \tab calculated lifetimes \cr
+#'  \code{lifetimes} \tab \code{\link{array}} or [numeric] \tab calculated lifetimes \cr
 #'  \code{profiling_matrix} \tab \code{\link{matrix}} \tab profiling matrix used for the MC runs
 #'
 #' }
@@ -80,7 +80,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link[graphics]{matplot}}, \code{\link[stats]{rnorm}}, \code{\link{get_RLum}},
+#' @seealso \code{\link[graphics]{matplot}}, \code{\link[stats]{rnorm}}, [get_RLum],
 #'
 #' @references Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed.
 #' World Scientific.

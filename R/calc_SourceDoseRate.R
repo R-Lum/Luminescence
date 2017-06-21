@@ -24,17 +24,17 @@
 #' National Laboratory \cr `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven
 #' National Laboratory }
 #'
-#' @param measurement.date \code{\link{character}} or \code{\link{Date}} (\bold{required}): date of
+#' @param measurement.date \code{\link{character}} or \code{\link{Date}} (**required**): date of
 #' measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
 #' The argument can be provided as vector.
 #'
-#' @param calib.date \code{\link{character}} or \code{\link{Date}} (\bold{required}): date of source
+#' @param calib.date \code{\link{character}} or \code{\link{Date}} (**required**): date of source
 #' calibration in "YYYY-MM-DD"
 #'
-#' @param calib.dose.rate \code{\link{numeric}} (\bold{required}): dose rate at
+#' @param calib.dose.rate [numeric] (**required**): dose rate at
 #' date of calibration in Gy/s or Gy/min
 #'
-#' @param calib.error \code{\link{numeric}} (\bold{required}): error of dose
+#' @param calib.error [numeric] (**required**): error of dose
 #' rate at date of calibration Gy/s or Gy/min
 #'
 #' @param source.type \code{\link{character}} (with default): specify
@@ -50,8 +50,8 @@
 #' with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(...,predict = 100)} calculates
 #' the source dose rate for the next 100 days.
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
-#' Slot \code{data} contains a \code{\link{list}} with the following
+#' @return Returns an S4 object of type [RLum.Results-class].
+#' Slot \code{data} contains a \code{[list]} with the following
 #' structure:\cr
 #' $ dose.rate (data.frame)\cr
 #' .. $ dose.rate \cr
@@ -63,7 +63,7 @@
 #' .. $ dose.rate.unit\cr
 #' $ call (the original function call)\cr
 #'
-#' The output should be accessed using the function \code{\link{get_RLum}}.\cr
+#' The output should be accessed using the function [get_RLum].\cr
 #' A plot method of the output is provided via \code{\link{plot_RLum}}
 #'
 #' @note Please be careful when using the option \code{predict}, especially when a multiple set
@@ -81,7 +81,7 @@
 #' \cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso \code{\link{Second2Gray}}, \code{\link{get_RLum}}, \code{\link{plot_RLum}}
+#' @seealso \code{\link{Second2Gray}}, [get_RLum], \code{\link{plot_RLum}}
 #'
 #' @references NNDC, Brookhaven National Laboratory
 #' (\code{http://www.nndc.bnl.gov/})

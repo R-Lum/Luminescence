@@ -15,35 +15,35 @@
 #' appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
 #' (2012, 15)
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
+#' @param data [RLum.Results-class] or [data.frame]
+#' (**required**): for [data.frame]: two columns with De
 #' \code{(data[,1])} and De error \code{(data[,2])}
 #' 
-#' @param sigmab \code{\link{numeric}} (with default): additional spread in De values.
+#' @param sigmab [numeric] (with default): additional spread in De values.
 #' This value represents the expected overdispersion in the data should the sample be 
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 #' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' 
-#' @param log \code{\link{logical}} (with default): fit the (un-)logged central
+#' @param log [logical] (with default): fit the (un-)logged central
 #' age model to De data
 #' 
-#' @param plot \code{\link{logical}} (with default): plot output
+#' @param plot [logical] (with default): plot output
 #' 
 #' @param \dots further arguments (\code{trace, verbose}).
 #' 
 #' @return Returns a plot (optional) and terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' [RLum.Results-class] object is returned containing the
 #' following element:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data} \item{args}{[list]
 #' used arguments} \item{call}{\link{call} the function call}
-#' \item{profile}{\link{data.frame} the log likelihood profile for sigma}
+#' \item{profile}{[data.frame] the log likelihood profile for sigma}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum}}
+#' [get_RLum]
 #' @section Function version: 1.3.2
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2010 \cr

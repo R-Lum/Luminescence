@@ -13,32 +13,32 @@
 #' calculated using the un-logged estimates of De and their absolute standard
 #' error (Galbraith & Roberts 2012, p. 14).
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
+#' @param data [RLum.Results-class] or [data.frame]
+#' (**required**): for [data.frame]: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
 #' 
-#' @param sigmab \code{\link{numeric}} (with default): additional spread in De values.
+#' @param sigmab [numeric] (with default): additional spread in De values.
 #' This value represents the expected overdispersion in the data should the sample be 
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 #' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' 
-#' @param log \code{\link{logical}} (with default): fit the (un-)logged common
+#' @param log [logical] (with default): fit the (un-)logged common
 #' age model to De data
 #' 
 #' @param \dots currently not used.
 #' 
 #' @return Returns a terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' [RLum.Results-class] object is returned containing the
 #' following element:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data} \item{args}{[list]
 #' used arguments} \item{call}{\link{call} the function call}
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum}}
+#' [get_RLum]
 #' @section Function version: 0.1.1
 #' 
 #' @author Christoph Burow, University of Cologne (Germany)

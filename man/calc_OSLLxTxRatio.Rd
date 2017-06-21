@@ -12,21 +12,21 @@ calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
 }
 \arguments{
 \item{Lx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
-(\bold{required}): requires a CW-OSL shine down curve (x = time, y = counts)}
+(\strong{required}): requires a CW-OSL shine down curve (x = time, y = counts)}
 
 \item{Tx.data}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
 (optional): requires a CW-OSL shine down curve (x = time, y = counts). If no
 input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 is calculated.}
 
-\item{signal.integral}{\code{\link{vector}} (\bold{required}): vector with the
+\item{signal.integral}{\code{\link{vector}} (\strong{required}): vector with the
 limits for the signal integral.}
 
 \item{signal.integral.Tx}{\code{\link{vector}} (optional): vector with the
 limits for the signal integral for the Tx curve. If nothing is provided the
 value from \code{signal.integral} is used.}
 
-\item{background.integral}{\code{\link{vector}} (\bold{required}): vector with the
+\item{background.integral}{\code{\link{vector}} (\strong{required}): vector with the
 bounds for the background integral.}
 
 \item{background.integral.Tx}{\code{\link{vector}} (optional): vector with the
@@ -37,26 +37,26 @@ value from \code{background.integral} is used.}
 the count distribution assumed for the error calculation. Possible arguments
 \code{poisson} or \code{non-poisson}. See details for further information}
 
-\item{use_previousBG}{\code{\link{logical}} (with default): If set to \code{TRUE} the background
+\item{use_previousBG}{\link{logical} (with default): If set to \code{TRUE} the background
 of the Lx-signal is substracted also from the Tx-signal. Please note that in this case separat
 signal integral limits for the Tx signal are not allowed and will be reset.}
 
-\item{sigmab}{\code{\link{numeric}} (optional): option to set a manual value for
+\item{sigmab}{\link{numeric} (optional): option to set a manual value for
 the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 calculation. The value should be provided as absolute squared count values,
 e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 value is taken for both (LnTx and TnTx) signals.}
 
-\item{sig0}{\code{\link{numeric}} (with default): allow adding an extra component of error
+\item{sig0}{\link{numeric} (with default): allow adding an extra component of error
 to the final Lx/Tx error value (e.g., instrumental errror, see details).}
 
 \item{digits}{\code{\link{integer}} (with default): round numbers to the specified digits. If
 digits is set to \code{NULL} nothing is rounded.}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+Returns an S4 object of type \linkS4class{RLum.Results}.
 
-Slot \code{data} contains a \code{\link{list}} with the following structure:\cr
+Slot \code{data} contains a \code{[list]} with the following structure:\cr
 
 \bold{@data}\cr
 $LxTx.table (data.frame) \cr
@@ -84,7 +84,7 @@ Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light bac
 The integrity of the chosen values for the signal and background integral is
 checked by the function; the signal integral limits have to be lower than
 the background integral limits. If a \link{vector} is given as input instead
-of a \link{data.frame}, an artificial \code{data.frame} is produced. The
+of a \link{data.frame}, an artificial \link{data.frame} is produced. The
 error calculation is done according to Galbraith (2002).\cr
 
 \bold{Please note:} In cases where the calculation results in \code{NaN} values (for
@@ -126,7 +126,7 @@ consider to provide an own sigmab value using the corresponding argument \code{s
 }
 \note{
 The results of this function have been cross-checked with the Analyst
-(vers. 3.24b). Access to the results object via  \code{\link{get_RLum}}.\cr
+(vers. 3.24b). Access to the results object via  \link{get_RLum}.\cr
 
 \bold{Caution:} If you are using early light subtraction (EBG), please either provide your
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.

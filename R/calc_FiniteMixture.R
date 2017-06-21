@@ -26,23 +26,23 @@
 #' per cent) calculated by the FFM. The last plot shows the achieved BIC scores
 #' and maximum log-likelihood estimates for each iteration of k.
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
+#' @param data [RLum.Results-class] or [data.frame]
+#' (**required**): for [data.frame]: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
-#' @param sigmab \code{\link{numeric}} (\bold{required}): spread in De values
+#' @param sigmab [numeric] (**required**): spread in De values
 #' given as a fraction (e.g. 0.2). This value represents the expected
 #' overdispersion in the data should the sample be well-bleached (Cunningham &
 #' Wallinga 2012, p. 100).
-#' @param n.components \code{\link{numeric}} (\bold{required}): number of
+#' @param n.components [numeric] (**required**): number of
 #' components to be fitted. If a vector is provided (e.g. \code{c(2:8)}) the
 #' finite mixtures for 2, 3 ... 8 components are calculated and a plot and a
 #' statistical evaluation of the model performance (BIC score and maximum
 #' log-likelihood) is provided.
-#' @param grain.probability \code{\link{logical}} (with default): prints the
+#' @param grain.probability [logical] (with default): prints the
 #' estimated probabilities of which component each grain is in
-#' @param dose.scale \code{\link{numeric}}: manually set the scaling of the
+#' @param dose.scale [numeric]: manually set the scaling of the
 #' y-axis of the first plot with a vector in the form of \code{c(min,max)}
-#' @param pdf.weight \code{\link{logical}} (with default): weight the
+#' @param pdf.weight [logical] (with default): weight the
 #' probability density functions by the components proportion (applies only
 #' when a vector is provided for \code{n.components})
 #' @param pdf.sigma \code{\link{character}} (with default): if \code{"sigmab"}
@@ -53,31 +53,31 @@
 #' @param pdf.colors \code{\link{character}} (with default): color coding of
 #' the components in the the plot. Possible options are "gray", "colors" and
 #' "none"
-#' @param pdf.scale \code{\link{numeric}}: manually set the max density value
+#' @param pdf.scale [numeric]: manually set the max density value
 #' for proper scaling of the x-axis of the first plot
-#' @param plot.proportions \code{\link{logical}} (with default): plot barplot
+#' @param plot.proportions [logical] (with default): plot barplot
 #' showing the proportions of components
-#' @param plot \code{\link{logical}} (with default): plot output
+#' @param plot [logical] (with default): plot output
 #' @param \dots further arguments to pass.  See details for their usage.
 #' @return Returns a plot (optional) and terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
+#' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data} \item{args}{[list]
 #' used arguments} \item{call}{\link{call} the function call} \item{mle}{
 #' covariance matrices of the log likelhoods} \item{BIC}{ BIC score}
 #' \item{llik}{ maximum log likelihood} \item{grain.probability}{ probabilities
 #' of a grain belonging to a component} \item{components}{\link{matrix}
 #' estimates of the de, de error and proportion for each component}
-#' \item{single.comp}{\link{data.frame} single componente FFM estimate}
+#' \item{single.comp}{[data.frame] single componente FFM estimate}
 #'
 #' If a vector for \code{n.components} is provided (e.g.  \code{c(2:8)}),
 #' \code{mle} and \code{grain.probability} are lists containing matrices of the
 #' results for each iteration of the model.
 #'
 #' The output should be accessed using the function
-#' \code{\link{get_RLum}}
+#' [get_RLum]
 #' @section Function version: 0.4
 #' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
 #' rewritten S script of Rex Galbraith, 2006. \cr
