@@ -12,9 +12,8 @@ read_BIN2R(file, show.raw.values = FALSE, position = NULL,
 }
 \arguments{
 \item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
-BIN/BINX file. If input is a \code{list} it should comprise only \code{character}s representing
-each valid path and BIN/BINX-file names.
-Alternatively the input character can be just a directory (path), in this case the
+BIN/BINX file (URLs are supported). If input is a \code{list} it should comprise only \code{character}s representing
+each valid path and BIN/BINX-file names. Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all BIN/BINX files found in the directory.}
 
 \item{show.raw.values}{\link{logical} (with default): shows raw values from
@@ -53,8 +52,8 @@ BIN-file version is not supported. Can be provided as \code{list} if \code{file}
 Note: The usage is at own risk, only supported BIN-file versions have been tested.}
 
 \item{ignore.RECTYPE}{\code{\link{logical}} (with default): this argument allows to ignore values
-in the byte 'REGTYPE' (BIN-file version 08), in case there are not documented or faulty set.
-If set all records are treated like records of 'REGYPE' 0 or 1.}
+in the byte 'RECTYPE' (BIN-file version 08), in case there are not documented or faulty set.
+In this case the corrupted records are skipped.}
 
 \item{pattern}{\code{\link{character}} (optional): argument that is used if only a path is provided.
 The argument will than be passed to the function \code{\link{list.files}} used internally to
@@ -94,7 +93,7 @@ version number depends on the used Sequence Editor.\cr\cr
 import.}
 }
 \section{Function version}{
- 0.15.5 (2017-06-18 11:11:08)
+ 0.15.6 (2017-06-21 16:56:44)
 }
 
 \examples{
@@ -109,7 +108,7 @@ import.}
 } 
 
 \section{How to cite}{
-Kreutzer, S., Fuchs, M.C. (2017). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Fuchs, M.C. (2017). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
