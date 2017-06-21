@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_TLLxTxRatio.R
 \name{calc_TLLxTxRatio}
 \alias{calc_TLLxTxRatio}
-\title{Calculate the Lx/Tx ratio for a given set of TL curves [beta version]}
+\title{Calculate the Lx/Tx ratio for a given set of TL curves \code{[beta version]}}
 \usage{
 calc_TLLxTxRatio(Lx.data.signal, Lx.data.background = NULL, Tx.data.signal,
   Tx.data.background = NULL, signal.integral.min, signal.integral.max)
@@ -85,7 +85,9 @@ get_RLum(output)
 
 }
 \references{
--
+\itemize{
+\item 
+}
 }
 \seealso{
 \code{\linkS4class{RLum.Results}}, \code{\link{analyse_SAR.TL}}

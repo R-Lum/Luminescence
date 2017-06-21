@@ -38,9 +38,9 @@ Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
 
 \bold{@data}\cr
 $ De.value (data.frame) \cr
- .. $ De  \cr
- .. $ De.error \cr
- .. $ Eta \cr
+.. $ De  \cr
+.. $ De.error \cr
+.. $ Eta \cr
 $ De.MC (list) contains the matricies from the error estimation.\cr
 $ uniroot (list) contains the uniroot outputs of the De estimations\cr
 

@@ -13,7 +13,7 @@ calc_CentralDose(data, sigmab, log = TRUE, plot = TRUE, ...)
 \code{(data[,1])} and De error \code{(data[,2])}}
 
 \item{sigmab}{\code{\link{numeric}} (with default): additional spread in De values.
-This value represents the expected overdispersion in the data should the sample be 
+This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
@@ -49,7 +49,7 @@ This function uses the equations of Galbraith & Roberts (2012). The
 parameters \code{delta} and \code{sigma} are estimated by numerically solving
 eq. 15 and 16. Their standard errors are approximated using eq. 17.
 In addition, the profile log-likelihood function for \code{sigma} is
-calculated using eq. 18 and presented as a plot. Numerical values of the 
+calculated using eq. 18 and presented as a plot. Numerical values of the
 maximum likelihood approach are \bold{only} presented in the plot and \bold{not}
 in the console. A detailed explanation on maximum likelihood estimation can be found in the
 appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts

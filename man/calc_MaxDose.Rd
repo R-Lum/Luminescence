@@ -13,7 +13,7 @@ calc_MaxDose(data, sigmab, log = TRUE, par = 3, bootstrap = FALSE,
 ,1])} and De error \code{(data[ ,2])}.}
 
 \item{sigmab}{\code{\link{numeric}} (\bold{required}): additional spread in De values.
-This value represents the expected overdispersion in the data should the sample be 
+This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
@@ -48,25 +48,29 @@ that calls calc_MinDose() and applies a similiar approach as described in
 Olley et al. (2006).
 }
 \details{
-\bold{Data transformation} \cr\cr 
+\bold{Data transformation} \cr\cr
 To estimate the maximum dose population
 and its standard error, the three parameter minimum age model of Galbraith
 et al. (1999) is adapted. The measured De values are transformed as follows:
-\cr\cr 
-1. convert De values to natural logs \cr 
-2. multiply the logged data to creat a mirror image of the De distribution \cr 
-3. shift De values along x-axis by the smallest x-value found to obtain only positive values \cr
-4. combine in quadrature the measurement error associated with each De value
-with a relative error specified by sigmab \cr 
-5. apply the MAM to these data \cr\cr
+\cr\cr
+\enumerate{
+\item convert De values to natural logs \cr
+\item multiply the logged data to creat a mirror image of the De distribution \cr
+\item shift De values along x-axis by the smallest x-value found to obtain only positive values \cr
+\item combine in quadrature the measurement error associated with each De value
+with a relative error specified by sigmab \cr
+\item apply the MAM to these data \cr\cr
+}
 
 When all calculations are done the results are then converted as
-follows\cr\cr 
-1. subtract the x-offset \cr 
-2. multiply the natural logs by -1 \cr 
-3. take the exponent to obtain the maximum dose estimate in Gy \cr\cr
+follows\cr\cr
+\enumerate{
+\item subtract the x-offset \cr
+\item multiply the natural logs by -1 \cr
+\item take the exponent to obtain the maximum dose estimate in Gy \cr\cr
+}
 
-\bold{Further documentation} \cr\cr 
+\bold{Further documentation} \cr\cr
 Please see \code{\link{calc_MinDose}}.
 }
 \section{Function version}{
@@ -93,31 +97,31 @@ track ages. Nuclear Tracks Radiation Measurements 4, 459-470. \cr\cr
 Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley, J.M.,
 1999. Optical dating of single grains of quartz from Jinmium rock shelter,
 northern Australia. Part I: experimental design and statistical models.
-Archaeometry 41, 339-364. \cr\cr 
+Archaeometry 41, 339-364. \cr\cr
 
 Galbraith, R.F., 2005. Statistics for
 Fission Track Analysis, Chapman & Hall/CRC, Boca Raton. \cr\cr
 
 Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose and error
 calculation and display in OSL dating: An overview and some recommendations.
-Quaternary Geochronology 11, 1-27. \cr\cr 
+Quaternary Geochronology 11, 1-27. \cr\cr
 
 Olley, J.M., Roberts, R.G., Yoshida, H., Bowler, J.M., 2006. Single-grain optical dating of grave-infill
 associated with human burials at Lake Mungo, Australia. Quaternary Science
-Reviews 25, 2469-2474.\cr\cr 
+Reviews 25, 2469-2474.\cr\cr
 
-\bold{Further reading} \cr\cr 
+\bold{Further reading} \cr\cr
 
 Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 (De) distributions: Implications for OSL dating of sediment mixtures.
-Quaternary Geochronology 4, 204-230. \cr\cr 
+Quaternary Geochronology 4, 204-230. \cr\cr
 
 Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 assessment of procedures for estimating burial dose. Quaternary Science
-Reviews 25, 2475-2502. \cr\cr 
+Reviews 25, 2475-2502. \cr\cr
 
 Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial archives using robust OSL chronologies.
-Quaternary Geochronology 12, 98-106. \cr\cr 
+Quaternary Geochronology 12, 98-106. \cr\cr
 
 Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
 of optical dating of fluvial deposits.  Quaternary Geochronology 1, 109-120.

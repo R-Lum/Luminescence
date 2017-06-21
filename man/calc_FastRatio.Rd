@@ -10,8 +10,8 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
   fitCW.sigma = FALSE, fitCW.curve = FALSE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}}, 
-\code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}} 
+\item{object}{\code{\linkS4class{RLum.Analysis}},
+\code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}}
 (\bold{required}): x, y data of measured values (time and counts).}
 
 \item{stimulation.power}{\code{\link{numeric}} (with default): Stimulation power in mW/cm^2}
@@ -53,7 +53,7 @@ and derive the counts of L2 and L3 from the fitted OSL curve (experimental).}
 arguments passed to \code{\link{fit_CWCurve}}.}
 }
 \value{
-Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
+Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}.
 The slot \code{data} contains a \code{\link{list}} with the following elements:\cr
 
 \item{summary}{\code{\link{data.frame}} summary of all relevant results}
@@ -63,13 +63,13 @@ The slot \code{data} contains a \code{\link{list}} with the following elements:\
 \item{call}{\code{\link{call}} the function call}
 }
 \description{
-Function to calculate the fast ratio of quartz CW-OSL single grain or single 
+Function to calculate the fast ratio of quartz CW-OSL single grain or single
 aliquot curves after Durcan & Duller (2011).
 }
 \details{
 This function follows the equations of Durcan & Duller (2011). The energy
 required to reduce the fast and medium quartz OSL components to \code{x} and
-\code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start 
+\code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
@@ -98,7 +98,7 @@ using optical dating. Geomorphology 109, 36-45. \cr\cr
 
 \bold{Further reading} \cr\cr
 
-Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation 
+Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation
 due to unstable signal components. Quaternary Geochronology 4, 353-362.
 }
 \seealso{

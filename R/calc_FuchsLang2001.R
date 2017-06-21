@@ -4,8 +4,8 @@
 #' heterogeneously bleached samples with a given coefficient of variation
 #' threshold.
 #'
-#' \bold{Used values} \cr If the coefficient of variation (c[v]) of the first
-#' two values is larger than the threshold c[v_threshold], the first value is
+#' \bold{Used values} \cr If the coefficient of variation (`c[v]`) of the first
+#' two values is larger than the threshold `c[v_threshold]`, the first value is
 #' skipped.  Use the \code{startDeValue} argument to define a start value for
 #' calculation (e.g. 2nd or 3rd value).\cr
 #'
@@ -14,7 +14,7 @@
 #' (1) Estimate natural relative variation of the sample using a dose recovery
 #' test\cr (2) Sort the input values ascendingly\cr (3) Calculate a running
 #' mean, starting with the lowermost two values and add values iteratively.\cr
-#' (4) Stop if the calculated c[v] exceeds the specified \code{cvThreshold}\cr
+#' (4) Stop if the calculated `c[v]` exceeds the specified \code{cvThreshold}\cr
 #'
 #' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
 #' (\bold{required}): for \code{data.frame}: two columns with De
@@ -62,6 +62,7 @@
 #' ##calculate De according to Fuchs & Lang (2001)
 #' temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 #'
+#' @md
 #' @export
 calc_FuchsLang2001 <- function(
   data,

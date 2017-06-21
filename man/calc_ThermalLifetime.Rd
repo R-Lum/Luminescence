@@ -46,9 +46,9 @@ A \code{\linkS4class{RLum.Results}} object is returned a along with a plot (for
 
 \bold{\code{@data}}\cr
 \tabular{lll}{
- \bold{Object} \tab \bold{Type} \tab \bold{Description} \cr
- \code{lifetimes} \tab \code{\link{array}} or \code{\link{numeric}} \tab calculated lifetimes \cr
- \code{profiling_matrix} \tab \code{\link{matrix}} \tab profiling matrix used for the MC runs
+\bold{Object} \tab \bold{Type} \tab \bold{Description} \cr
+\code{lifetimes} \tab \code{\link{array}} or \code{\link{numeric}} \tab calculated lifetimes \cr
+\code{profiling_matrix} \tab \code{\link{matrix}} \tab profiling matrix used for the MC runs
 
 }
 

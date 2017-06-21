@@ -18,7 +18,7 @@ calc_IEU(data, a, b, interval, decimal.point = 2, plot = TRUE, ...)
 
 \item{interval}{\code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for
 iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
-[Dbar.Fixed vs Z]}
+\code{[Dbar.Fixed vs Z]}}
 
 \item{decimal.point}{\code{\link{numeric}} (with default): number of decimal
 points for rounding calculations (e.g. 2)}

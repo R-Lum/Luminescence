@@ -16,7 +16,7 @@
 #'
 #' @param interval \code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for
 #' iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
-#' [Dbar.Fixed vs Z]
+#' `[Dbar.Fixed vs Z]`
 #'
 #' @param decimal.point \code{\link{numeric}} (with default): number of decimal
 #' points for rounding calculations (e.g. 2)
@@ -63,6 +63,7 @@
 #' ## apply the IEU model
 #' ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 #'
+#' @md
 #' @export
 calc_IEU <- function(
   data,

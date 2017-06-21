@@ -29,7 +29,7 @@
 #'
 #' Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose
 #' response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equations
-#' [1] and [2]. Computed LxTx values are then fitted using the
+#' `[1]` and `[2]`. Computed LxTx values are then fitted using the
 #' \code{\link[Luminescence]{plot_GrowthCurve}} function and the laboratory measured LnTn can then
 #' be interpolated onto this curve to determine the fading corrected
 #' De value, from which the fading corrected age is calculated. \cr
@@ -161,6 +161,7 @@
 #'                       readerDdot = readerDdot,
 #'                       n.MC = 50
 #'                       )
+#' @md
 #' @export
 calc_Kars2008 <- function(data,
                           rhop,

@@ -50,16 +50,16 @@ Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
 Slot: \bold{@data}\cr
 \tabular{lll}{
 \bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
- \code{age.corr} \tab \code{data.frame} \tab Corrected age \cr
- \code{age.corr.MC} \tab \code{numeric} \tab MC simulation results with all possible ages from
- that simulation\cr
+\code{age.corr} \tab \code{data.frame} \tab Corrected age \cr
+\code{age.corr.MC} \tab \code{numeric} \tab MC simulation results with all possible ages from
+that simulation\cr
 }
 
 Slot: \bold{@info}\cr
 
 \tabular{lll}{
 \bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
- \code{info} \tab \code{character} \tab the original function call
+\code{info} \tab \code{character} \tab the original function call
 
 }
 }

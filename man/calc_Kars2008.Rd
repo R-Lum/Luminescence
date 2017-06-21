@@ -58,7 +58,7 @@ Slot: \bold{@data}\cr
 containing data on dose, LxTx and LxTx error for each of the dose response curves.
 Note that these \bold{do not} contain the natural Ln signal, which is provided separately. \cr
 \code{fits} \tab \code{list} \tab A \code{list} of \code{nls}
- objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
+objects produced by \code{\link[minpack.lm]{nlsLM}} when fitting the dose response curves \cr
 }
 
 Slot: \bold{@info}\cr
@@ -101,7 +101,7 @@ frequency factor after Huntley (2006). \cr
 
 Using fit parameters \code{A} and \code{D0}, the function then computes a natural dose
 response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equations
-[1] and [2]. Computed LxTx values are then fitted using the
+\code{[1]} and \code{[2]}. Computed LxTx values are then fitted using the
 \code{\link[Luminescence]{plot_GrowthCurve}} function and the laboratory measured LnTn can then
 be interpolated onto this curve to determine the fading corrected
 De value, from which the fading corrected age is calculated. \cr
@@ -161,7 +161,6 @@ Journal of Physics: Condensed Matter 18, 1359-1365. doi:10.1088/0953-8984/18/4/0
 
 King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
-
 
 \bold{Further reading}
 

@@ -13,7 +13,7 @@ calc_CommonDose(data, sigmab, log = TRUE, ...)
 \code{(data[,1])} and De error \code{(values[,2])}}
 
 \item{sigmab}{\code{\link{numeric}} (with default): additional spread in De values.
-This value represents the expected overdispersion in the data should the sample be 
+This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),

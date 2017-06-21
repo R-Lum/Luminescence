@@ -1,4 +1,4 @@
-#' Calculate the Lx/Tx ratio for a given set of TL curves [beta version]
+#' Calculate the Lx/Tx ratio for a given set of TL curves `[beta version]`
 #'
 #' Calculate Lx/Tx ratio for a given set of TL curves.
 #'
@@ -78,6 +78,7 @@
 #'                            signal.integral.min, signal.integral.max)
 #' get_RLum(output)
 #'
+#' @md
 #' @export
 calc_TLLxTxRatio <- function(
   Lx.data.signal,

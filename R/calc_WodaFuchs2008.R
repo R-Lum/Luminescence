@@ -40,6 +40,7 @@
 #'    xlab = expression(paste(D[e], " [Gy]"))
 #'  )
 #'
+#' @md
 #' @export
 calc_WodaFuchs2008 <- function(
   data,

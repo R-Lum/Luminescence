@@ -132,6 +132,7 @@
 #' ## fitted components
 #' get_RLum(object = FMM, data.object = "components")
 #'
+#' @md
 #' @export
 calc_FiniteMixture <- function(
   data,

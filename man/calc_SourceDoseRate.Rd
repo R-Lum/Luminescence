@@ -72,9 +72,9 @@ BINfile@METADATA$DATE)
 \bold{Allowed source types and related values}
 
 \tabular{rllll}{ \bold{#} \tab \bold{Source type} \tab \bold{T.1/2} \tab
-\bold{Reference} \cr [1] \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven
-National Laboratory \cr [2] \tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven
-National Laboratory \cr [3] \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven
+\bold{Reference} \cr \code{[1]} \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven
+National Laboratory \cr \code{[2]}\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven
+National Laboratory \cr \code{[3]} \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven
 National Laboratory }
 }
 \note{
