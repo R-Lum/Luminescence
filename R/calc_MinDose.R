@@ -32,7 +32,7 @@
 #' 2009, p. 323). \cr\cr
 #'
 #' \bold{Initial values & boundaries} \cr\cr
-#' The log likelihood calculations use the \link{nlminb} function for box-constrained
+#' The log likelihood calculations use the [nlminb] function for box-constrained
 #' optimisation using PORT routines.  Accordingly, initial values for the four
 #' parameters can be specified via \code{init.values}. If no values are
 #' provided for \code{init.values} reasonable starting values are estimated
@@ -135,10 +135,10 @@
 #' \item{summary}{[data.frame] summary of all relevant model results.}
 #' \item{data}{[data.frame] original input data} \item{args}{[list]
 #' used arguments} \item{call}{[call] the function call}
-#' \item{mle}{\link{mle2} object containing the maximum log likelhood functions
+#' \item{mle}{[mle2] object containing the maximum log likelhood functions
 #' for all parameters} \item{BIC}{[numeric] BIC score}
 #' \item{confint}{[data.frame] confidence intervals for all parameters}
-#' \item{profile}{\link{profile.mle2} the log likelihood profiles}
+#' \item{profile}{[profile.mle2] the log likelihood profiles}
 #' \item{bootstrap}{[list] bootstrap results}
 #'
 #' The output should be accessed using the function [get_RLum]
@@ -161,7 +161,7 @@
 #'
 #' @seealso [calc_CentralDose], [calc_CommonDose],
 #' [calc_FiniteMixture], [calc_FuchsLang2001],
-#' \code{\link{calc_MaxDose}}
+#' [calc_MaxDose]
 #'
 #' @references Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 #' 2009. A revised burial dose estimation procedure for optical dating of young

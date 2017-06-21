@@ -19,17 +19,17 @@ calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
 input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 is calculated.}
 
-\item{signal.integral}{\code{\link{vector}} (\strong{required}): vector with the
+\item{signal.integral}{\link{vector} (\strong{required}): vector with the
 limits for the signal integral.}
 
-\item{signal.integral.Tx}{\code{\link{vector}} \emph{(optional)}: vector with the
+\item{signal.integral.Tx}{\link{vector} \emph{(optional)}: vector with the
 limits for the signal integral for the Tx curve. If nothing is provided the
 value from \code{signal.integral} is used.}
 
-\item{background.integral}{\code{\link{vector}} (\strong{required}): vector with the
+\item{background.integral}{\link{vector} (\strong{required}): vector with the
 bounds for the background integral.}
 
-\item{background.integral.Tx}{\code{\link{vector}} \emph{(optional)}: vector with the
+\item{background.integral.Tx}{\link{vector} \emph{(optional)}: vector with the
 limits for the background integral for the Tx curve. If nothing is provided the
 value from \code{background.integral} is used.}
 
@@ -160,8 +160,8 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 }
 \seealso{
 \linkS4class{RLum.Data.Curve},
-\code{\link{Analyse_SAR.OSLdata}}, \code{\link{plot_GrowthCurve}},
-\code{\link{analyse_SAR.CWOSL}}
+\link{Analyse_SAR.OSLdata}, \link{plot_GrowthCurve},
+\link{analyse_SAR.CWOSL}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

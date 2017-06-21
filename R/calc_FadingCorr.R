@@ -21,7 +21,7 @@
 #'
 #' The error of the fading-corrected age is determined using a Monte Carlo
 #' simulation approach. Solving of the equation is realised using
-#' \code{\link{uniroot}}. Large values for \code{n.MC} will significantly
+#' [uniroot]. Large values for \code{n.MC} will significantly
 #' increase the computation time.\cr
 #'
 #' \bold{\code{n.MC = 'auto'}}
@@ -49,7 +49,7 @@
 #' \bold{\code{seed}}
 #'
 #' This option allows to recreate previously calculated results by setting the seed
-#' for the R random number generator (see \code{\link{set.seed}} for details). This option
+#' for the R random number generator (see [set.seed] for details). This option
 #' should not be mixed up with the option \bold{\code{n.MC = 'auto'}}. The results may
 #' appear similar, but they are not comparable!\cr
 #'
@@ -60,10 +60,10 @@
 #' case of an SAR measurement tc should be similar, however, if it differs, you have to provide this
 #' tc value (the one used for estimating the g-value) using the argument \code{tc.g_value}.\cr
 #'
-#' @param age.faded [numeric] \code{\link{vector}} (**required**): uncorrected
+#' @param age.faded [numeric] [vector] (**required**): uncorrected
 #' age with error in ka (see example)
 #'
-#' @param g_value \code{\link{vector}} (**required**): g-value and error obtained
+#' @param g_value [vector] (**required**): g-value and error obtained
 #' from separate fading measurements (see example). Alternatively an [RLum.Results-class] object
 #' can be provided produced by the function \code{analyse_FadingMeasurement}, in this case tc is set
 #' automatically
@@ -83,14 +83,14 @@
 #' tries to find a 'stable' error for the age. Note: This may take a while!
 #'
 #' @param seed [integer] *(optional)*: sets the seed for the random number generator
-#' in R using \code{\link{set.seed}}
+#' in R using [set.seed]
 #'
 #' @param interval [numeric] *(with default)*: a vector containing the end-points (age interval) of the
-#' interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
+#' interval to be searched for the root in 'ka'. This argument is passed to the function [stats::uniroot]
 #' used for solving the equation.
 #'
 #' @param txtProgressBar [logical] *(with default)*: enables or disables
-#' \code{\link{txtProgressBar}}
+#' [txtProgressBar]
 #'
 #' @param verbose [logical] *(with default)*: enables or disables terminal output
 #'
@@ -124,7 +124,7 @@
 #'
 #'
 #' @seealso [RLum.Results-class], [get_RLum],
-#' \code{\link{uniroot}}
+#' [uniroot]
 #'
 #'
 #' @references Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading

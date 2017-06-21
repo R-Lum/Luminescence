@@ -4,7 +4,7 @@
 #' curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentary quartz
 #'
 #' The error of the De value is determined using a Monte Carlo simulation approach.
-#' Solving of the equation is realised using \code{\link{uniroot}}.
+#' Solving of the equation is realised using [uniroot].
 #' Large values for \code{n.MC} will significantly increase the computation time.
 #'
 #'
@@ -51,7 +51,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
-#' @seealso [RLum.Results-class], [get_RLum], \code{\link{uniroot}}
+#' @seealso [RLum.Results-class], [get_RLum], [uniroot]
 #'
 #' @references  Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 #' a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.

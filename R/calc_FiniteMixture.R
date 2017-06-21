@@ -68,7 +68,7 @@
 #' used arguments} \item{call}{[call] the function call} \item{mle}{
 #' covariance matrices of the log likelhoods} \item{BIC}{ BIC score}
 #' \item{llik}{ maximum log likelihood} \item{grain.probability}{ probabilities
-#' of a grain belonging to a component} \item{components}{\link{matrix}
+#' of a grain belonging to a component} \item{components}{[matrix]
 #' estimates of the de, de error and proportion for each component}
 #' \item{single.comp}{[data.frame] single componente FFM estimate}
 #'

@@ -42,7 +42,7 @@ number of MCM-samples linearly increases computation time. On a Lenovo X230
 machine evaluation of 25 Aliquots with n.MCM = 1000 takes 0.01 s, with
 n = 100000, ca. 1.65 s. It might be useful to work with logarithms of these
 values. See Dietze et al. (2016, Quaternary Geochronology) and the function
-\code{\link{plot_AbanicoPlot}} for details.
+\link{plot_AbanicoPlot} for details.
 }
 \section{Function version}{
  0.1.7

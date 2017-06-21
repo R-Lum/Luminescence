@@ -38,7 +38,7 @@ distribution is supported (e.g., \code{profiling_config = list(E.distribution = 
 with \code{profiling = TRUE}.}
 
 \item{...}{further arguments that can be passed in combination with the plot output. Standard
-plot parameters are supported (\code{\link{plot.default}})}
+plot parameters are supported (\link{plot.default})}
 }
 \value{
 A \linkS4class{RLum.Results} object is returned a along with a plot (for
@@ -47,8 +47,8 @@ A \linkS4class{RLum.Results} object is returned a along with a plot (for
 \bold{\code{@data}}\cr
 \tabular{lll}{
 \bold{Object} \tab \bold{Type} \tab \bold{Description} \cr
-\code{lifetimes} \tab \code{\link{array}} or \link{numeric} \tab calculated lifetimes \cr
-\code{profiling_matrix} \tab \code{\link{matrix}} \tab profiling matrix used for the MC runs
+\code{lifetimes} \tab \link{array} or \link{numeric} \tab calculated lifetimes \cr
+\code{profiling_matrix} \tab \link{matrix} \tab profiling matrix used for the MC runs
 
 }
 
@@ -131,7 +131,7 @@ Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed.
 World Scientific.
 }
 \seealso{
-\code{\link[graphics]{matplot}}, \code{\link[stats]{rnorm}}, \link{get_RLum},
+\link[graphics:matplot]{graphics::matplot}, \link[stats:rnorm]{stats::rnorm}, \link{get_RLum},
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

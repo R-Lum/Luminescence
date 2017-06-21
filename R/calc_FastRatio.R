@@ -8,7 +8,7 @@
 #' \code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start 
 #' and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}. 
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}}, 
+#' @param object [RLum.Analysis-class], 
 #' [RLum.Data.Curve-class] or [data.frame] 
 #' (**required**): x, y data of measured values (time and counts).
 #' 
@@ -39,16 +39,16 @@
 #' \code{c(x, y)}. Channels that do not contain OSL data, i.e. at the start or end of
 #' measurement.
 #' 
-#' @param fitCW.sigma [logical] *(optional)*: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' @param fitCW.sigma [logical] *(optional)*: fit CW-OSL curve using [fit_CWCurve]
 #' to calculate \code{sigmaF} and \code{sigmaM} (experimental).
 #' 
-#' @param fitCW.curve [logical] *(optional)*: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+#' @param fitCW.curve [logical] *(optional)*: fit CW-OSL curve using [fit_CWCurve]
 #' and derive the counts of L2 and L3 from the fitted OSL curve (experimental).
 #' 
 #' @param plot [logical] *(with default)*: plot output (`TRUE`/`FALSE`)
 #' 
 #' @param ... available options: \code{verbose} ([logical]). Further
-#' arguments passed to \code{\link{fit_CWCurve}}.
+#' arguments passed to [fit_CWCurve].
 #'
 #' @return Returns a plot *(optional)* and an S4 object of type [RLum.Results-class]. 
 #' The slot \code{data} contains a [list] with the following elements:\cr
@@ -81,7 +81,7 @@
 #' due to unstable signal components. Quaternary Geochronology 4, 353-362.
 #' 
 #'
-#' @seealso \code{\link{fit_CWCurve}}, [get_RLum], \code{\linkS4class{RLum.Analysis}},
+#' @seealso [fit_CWCurve], [get_RLum], [RLum.Analysis-class],
 #' [RLum.Results-class], [RLum.Data.Curve-class]
 #' 
 #' @examples

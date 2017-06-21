@@ -22,7 +22,7 @@
 #' [get_RLum]
 #' @section Function version: 0.2
 #' @author Christoph Burow, University of Cologne (Germany)
-#' @seealso \code{\link{pchisq}}
+#' @seealso [pchisq]
 #' @references Galbraith, R.F., 2003. A simple homogeneity test for estimates
 #' of dose obtained using OSL. Ancient TL 21, 75-77.
 #' @examples

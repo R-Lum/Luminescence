@@ -4,7 +4,7 @@
 #'
 #' The integrity of the chosen values for the signal and background integral is
 #' checked by the function; the signal integral limits have to be lower than
-#' the background integral limits. If a \link{vector} is given as input instead
+#' the background integral limits. If a [vector] is given as input instead
 #' of a [data.frame], an artificial [data.frame] is produced. The
 #' error calculation is done according to Galbraith (2002).\cr
 #'
@@ -54,17 +54,17 @@
 #' input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 #' is calculated.
 #'
-#' @param signal.integral \code{\link{vector}} (**required**): vector with the
+#' @param signal.integral [vector] (**required**): vector with the
 #' limits for the signal integral.
 #'
-#' @param signal.integral.Tx \code{\link{vector}} *(optional)*: vector with the
+#' @param signal.integral.Tx [vector] *(optional)*: vector with the
 #' limits for the signal integral for the Tx curve. If nothing is provided the
 #' value from \code{signal.integral} is used.
 #'
-#' @param background.integral \code{\link{vector}} (**required**): vector with the
+#' @param background.integral [vector] (**required**): vector with the
 #' bounds for the background integral.
 #'
-#' @param background.integral.Tx \code{\link{vector}} *(optional)*: vector with the
+#' @param background.integral.Tx [vector] *(optional)*: vector with the
 #' limits for the background integral for the Tx curve. If nothing is provided the
 #' value from \code{background.integral} is used.
 #'
@@ -124,8 +124,8 @@
 #' (France)
 #'
 #' @seealso [RLum.Data.Curve-class],
-#' \code{\link{Analyse_SAR.OSLdata}}, \code{\link{plot_GrowthCurve}},
-#' \code{\link{analyse_SAR.CWOSL}}
+#' [Analyse_SAR.OSLdata], [plot_GrowthCurve],
+#' [analyse_SAR.CWOSL]
 #'
 #' @references Duller, G., 2007. Analyst.
 #' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr

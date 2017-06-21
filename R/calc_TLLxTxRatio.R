@@ -49,7 +49,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Christoph Schmidt, University of Bayreuth (Germany)
 #'
-#' @seealso [RLum.Results-class], \code{\link{analyse_SAR.TL}}
+#' @seealso [RLum.Results-class], [analyse_SAR.TL]
 #'
 #' @keywords datagen
 #'

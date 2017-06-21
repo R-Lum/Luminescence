@@ -147,7 +147,7 @@
 #' function at the time of writing.
 #' @section Function version: 0.5.2
 #' @author Christoph Burow, University of Cologne (Germany)
-#' @seealso \code{\link{BaseDataSet.CosmicDoseRate}}
+#' @seealso [BaseDataSet.CosmicDoseRate]
 #' @references Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.
 #' Letter to the editor. The absolute cosmic ray flux at sea level. Journal of
 #' Physics G: Nuclear and Particle Physics 1, L51-L52. \cr\cr Barbouti, A.I.,

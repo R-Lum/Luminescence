@@ -54,7 +54,7 @@
 #' with \code{profiling = TRUE}.
 #'
 #' @param ... further arguments that can be passed in combination with the plot output. Standard
-#' plot parameters are supported (\code{\link{plot.default}})
+#' plot parameters are supported ([plot.default])
 #'
 #' @return A [RLum.Results-class] object is returned a along with a plot (for
 #' \code{profiling = TRUE}). The output object contain the following slots:
@@ -62,8 +62,8 @@
 #' \bold{\code{@data}}\cr
 #' \tabular{lll}{
 #'  \bold{Object} \tab \bold{Type} \tab \bold{Description} \cr
-#'  \code{lifetimes} \tab \code{\link{array}} or [numeric] \tab calculated lifetimes \cr
-#'  \code{profiling_matrix} \tab \code{\link{matrix}} \tab profiling matrix used for the MC runs
+#'  \code{lifetimes} \tab [array] or [numeric] \tab calculated lifetimes \cr
+#'  \code{profiling_matrix} \tab [matrix] \tab profiling matrix used for the MC runs
 #'
 #' }
 #'
@@ -80,7 +80,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link[graphics]{matplot}}, \code{\link[stats]{rnorm}}, [get_RLum],
+#' @seealso [graphics::matplot], [stats::rnorm], [get_RLum],
 #'
 #' @references Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed.
 #' World Scientific.

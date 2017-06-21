@@ -14,7 +14,7 @@ data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
 dataset2)}).}
 
 \item{breaks}{\link{numeric}: Either number or locations of breaks.
-See \code{\link{hist}} for details. If missing, the number of breaks will
+See \code{[hist]} for details. If missing, the number of breaks will
 be estimated based on the bin width (as function of median error).}
 
 \item{plot}{\link{logical} \emph{(with default)}: enable plot output.}

@@ -85,7 +85,7 @@ get_RLum(output)
 
 }
 \seealso{
-\linkS4class{RLum.Results}, \code{\link{analyse_SAR.TL}}
+\linkS4class{RLum.Results}, \link{analyse_SAR.TL}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

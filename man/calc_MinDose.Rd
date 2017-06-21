@@ -308,7 +308,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10. \cr\cr
 \seealso{
 \link{calc_CentralDose}, \link{calc_CommonDose},
 \link{calc_FiniteMixture}, \link{calc_FuchsLang2001},
-\code{\link{calc_MaxDose}}
+\link{calc_MaxDose}
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr Based on a

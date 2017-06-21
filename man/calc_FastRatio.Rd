@@ -10,7 +10,7 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
   fitCW.sigma = FALSE, fitCW.curve = FALSE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}},
+\item{object}{\linkS4class{RLum.Analysis},
 \linkS4class{RLum.Data.Curve} or \link{data.frame}
 (\strong{required}): x, y data of measured values (time and counts).}
 
@@ -41,16 +41,16 @@ Used to define the location of L3 (end).}
 \code{c(x, y)}. Channels that do not contain OSL data, i.e. at the start or end of
 measurement.}
 
-\item{fitCW.sigma}{\link{logical} \emph{(optional)}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+\item{fitCW.sigma}{\link{logical} \emph{(optional)}: fit CW-OSL curve using \link{fit_CWCurve}
 to calculate \code{sigmaF} and \code{sigmaM} (experimental).}
 
-\item{fitCW.curve}{\link{logical} \emph{(optional)}: fit CW-OSL curve using \code{\link{fit_CWCurve}}
+\item{fitCW.curve}{\link{logical} \emph{(optional)}: fit CW-OSL curve using \link{fit_CWCurve}
 and derive the counts of L2 and L3 from the fitted OSL curve (experimental).}
 
 \item{plot}{\link{logical} \emph{(with default)}: plot output (\code{TRUE}/\code{FALSE})}
 
 \item{...}{available options: \code{verbose} (\link{logical}). Further
-arguments passed to \code{\link{fit_CWCurve}}.}
+arguments passed to \link{fit_CWCurve}.}
 }
 \value{
 Returns a plot \emph{(optional)} and an S4 object of type \linkS4class{RLum.Results}.
@@ -102,7 +102,7 @@ Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation
 due to unstable signal components. Quaternary Geochronology 4, 353-362.
 }
 \seealso{
-\code{\link{fit_CWCurve}}, \link{get_RLum}, \code{\linkS4class{RLum.Analysis}},
+\link{fit_CWCurve}, \link{get_RLum}, \linkS4class{RLum.Analysis},
 \linkS4class{RLum.Results}, \linkS4class{RLum.Data.Curve}
 }
 \author{

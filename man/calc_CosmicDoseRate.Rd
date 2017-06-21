@@ -228,7 +228,7 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6,
 17-25.
 }
 \seealso{
-\code{\link{BaseDataSet.CosmicDoseRate}}
+\link{BaseDataSet.CosmicDoseRate}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

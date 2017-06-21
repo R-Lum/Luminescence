@@ -81,7 +81,7 @@ specific fraction of saturation of a feldspar and also to calculate fading
 corrected age using this model. \eqn{\rho}' (\code{rhop}), the density of recombination
 centres, is a crucial parameter of this model and must be determined
 separately from a fading measurement. The function
-\code{\link[Luminescence]{analyse_FadingMeasurement}}
+\link{analyse_FadingMeasurement}
 can be used to calculate the sample specific \eqn{\rho}' value.
 
 Firstly the unfaded D0 value is determined through applying equation 5 of
