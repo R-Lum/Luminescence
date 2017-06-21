@@ -14,7 +14,7 @@
 #' See \code{\link{hist}} for details. If missing, the number of breaks will
 #' be estimated based on the bin width (as function of median error).
 #'
-#' @param plot [logical] (with default): enable plot output.
+#' @param plot [logical] *(with default)*: enable plot output.
 #'
 #' @param ... Further plot arguments passed to the function.
 #'

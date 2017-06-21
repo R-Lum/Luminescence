@@ -20,15 +20,15 @@ De error \code{(values[,2])}}
 iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
 \code{[Dbar.Fixed vs Z]}}
 
-\item{decimal.point}{\link{numeric} (with default): number of decimal
+\item{decimal.point}{\link{numeric} \emph{(with default)}: number of decimal
 points for rounding calculations (e.g. 2)}
 
-\item{plot}{\link{logical} (with default): plot output}
+\item{plot}{\link{logical} \emph{(with default)}: plot output}
 
 \item{...}{further arguments (\code{trace, verbose}).}
 }
 \value{
-Returns a plot (optional) and terminal output. In addition an
+Returns a plot \emph{(optional)} and terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
 following element:
 

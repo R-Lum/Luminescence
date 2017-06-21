@@ -15,24 +15,24 @@ computed (e.g. \code{c(100,200)}).}
 \item{sample.diameter}{\link{numeric} (\strong{required}): diameter
 (mm) of the targeted area on the sample carrier.}
 
-\item{packing.density}{\link{numeric} (with default) empirical value
+\item{packing.density}{\link{numeric} \emph{(with default)} empirical value
 for mean packing density. \cr If \code{packing.density = "inf"} a hexagonal
 structure on an infinite plane with a packing density of \eqn{0.906\ldots}
 is assumed.}
 
-\item{MC}{\link{logical} (optional): if \code{TRUE} the function
+\item{MC}{\link{logical} \emph{(optional)}: if \code{TRUE} the function
 performs a monte carlo simulation for estimating the amount of grains on the
 sample carrier and assumes random errors in grain size distribution and
 packing density. Requires a vector with min and max grain size for
 \code{grain.size}. For more information see details.}
 
-\item{grains.counted}{\link{numeric} (optional) grains counted on a
+\item{grains.counted}{\link{numeric} \emph{(optional)} grains counted on a
 sample carrier. If a non-zero positive integer is provided this function
 will calculate the packing density of the aliquot. If more than one value is
 provided the mean packing density and its standard deviation is calculated.
 Note that this overrides \code{packing.density}.}
 
-\item{plot}{\link{logical} (with default): plot output
+\item{plot}{\link{logical} \emph{(with default)}: plot output
 (\code{TRUE}/\code{FALSE})}
 
 \item{...}{further arguments to pass (\code{main, xlab, MC.iter}).}

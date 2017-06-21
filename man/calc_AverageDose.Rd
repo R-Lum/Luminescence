@@ -8,68 +8,68 @@ calc_AverageDose(data, sigma_m = NULL, Nb_BE = 500, na.rm = TRUE,
   plot = TRUE, verbose = TRUE, ...)
 }
 \arguments{
-\item{data}{[RLum.Results-class] or [data.frame]
-(**required**): for [data.frame]: two columns with De
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame}
+(\strong{required}): for \link{data.frame}: two columns with De
 \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{sigma_m}{[numeric] (**required**): the overdispersion resulting from a dose recovery
+\item{sigma_m}{\link{numeric} (\strong{required}): the overdispersion resulting from a dose recovery
 experiment, i.e. when all grains have  received the same dose. Indeed in such a case, any
 overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 unrecognised measurement uncertainty.}
 
-\item{Nb_BE}{[integer] (with default): sample size used for the bootstrapping}
+\item{Nb_BE}{\link{integer} \emph{(with default)}: sample size used for the bootstrapping}
 
-\item{na.rm}{[logical] (with default): exclude NA values
+\item{na.rm}{\link{logical} \emph{(with default)}: exclude NA values
 from the data set prior to any further operation.}
 
-\item{plot}{[logical] (with default): enables/disables plot output}
+\item{plot}{\link{logical} \emph{(with default)}: enables/disables plot output}
 
-\item{verbose}{[logical] (with default): enables/disables terminal output}
+\item{verbose}{\link{logical} \emph{(with default)}: enables/disables terminal output}
 
-\item{...}{further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
-are returned all arguments need to be provided as [list],
+\item{...}{further arguments that can be passed to \link[graphics:hist]{graphics::hist}. As three plots
+are returned all arguments need to be provided as \link{list},
 e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
 supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 
-Further supported arguments: \code{mtext} (\code{character}), \code{rug} (\code{TRUE/FALSE}).}
+Further supported arguments: \code{mtext} (\link{character}), \code{rug} (\code{TRUE/FALSE}).}
 }
 \value{
-The function returns numerical output and an (optional) plot.
+The function returns numerical output and an \emph{(optional)} plot.
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]} \cr
 -----------------------------------\cr
 \bold{\code{RLum.Reuslts}}-object\cr
 
 \bold{slot:} \bold{\code{@data}} \cr
 
-[.. $summary : [data.frame]]\cr
+\code{[.. $summary : data.frame]}\cr
 
 \tabular{lll}{
 \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
- AVERAGE_DOSE \tab [numeric] \tab the obtained averge dose\cr
- AVERAGE_DOSE.SE \tab [numeric] \tab the average dose error \cr
- SIGMA_D \tab [numeric]\tab sigma \cr
- SIGMA_D.SE \tab [numeric]\tab standard error of the sigma  \cr
- IC_AVERAGE_DOSE.LEVEL  \tab \code{character}\tab confidence level average dose\cr
- IC_AVERAGE_DOSE.LOWER  \tab \code{charcter}\tab lower quantile of average dose \cr
- IC_AVERAGE_DOSE.UPPER \tab \code{character}\tab upper quantile of average dose\cr
- IC_SIGMA_D.LEVEL \tab \code{integer}\tab confidence level sigma\cr
- IC_SIGMA_D.LOWER \tab \code{character}\tab lower sigma quantile\cr
- IC_SIGMA_D.UPPER \tab \code{character}\tab upper sigma quantile\cr
- L_MAX \tab \code{character}\tab maximum likelihood value
+AVERAGE_DOSE \tab \link{numeric} \tab the obtained averge dose\cr
+AVERAGE_DOSE.SE \tab \link{numeric} \tab the average dose error \cr
+SIGMA_D \tab \link{numeric}\tab sigma \cr
+SIGMA_D.SE \tab \link{numeric}\tab standard error of the sigma  \cr
+IC_AVERAGE_DOSE.LEVEL  \tab \link{character}\tab confidence level average dose\cr
+IC_AVERAGE_DOSE.LOWER  \tab \link{character}\tab lower quantile of average dose \cr
+IC_AVERAGE_DOSE.UPPER \tab \link{character}\tab upper quantile of average dose\cr
+IC_SIGMA_D.LEVEL \tab \link{integer}\tab confidence level sigma\cr
+IC_SIGMA_D.LOWER \tab \link{character}\tab lower sigma quantile\cr
+IC_SIGMA_D.UPPER \tab \link{character}\tab upper sigma quantile\cr
+L_MAX \tab \link{character}\tab maximum likelihood value
 }
 
-[.. $dstar : \code{matrix}]\cr
+\code{[.. $dstar : matrix]} \cr
 
 Matrix with bootstrap values\cr
 
-[.. $hist : \code{list}]\cr
+\code{[.. $hist : list]}\cr
 
 Object as produced by the function histogram
 
 ------------------------\cr
-[ PLOT OUTPUT ]\cr
+\code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 The function returns two different plot panels.
@@ -127,7 +127,7 @@ Efron, B., Tibshirani, R., 1986. Bootstrap Methods for Standard Errors, Confiden
 and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
 }
 \seealso{
-\code{\link{read.table}}, \code{\link[graphics]{hist}}
+\link{read.table}, \link[graphics:hist]{graphics::hist}
 }
 \author{
 Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),

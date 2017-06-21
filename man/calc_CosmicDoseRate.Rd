@@ -26,19 +26,19 @@ degree), E positive}
 \item{altitude}{\link{numeric} (\strong{required}): altitude (m above
 sea-level)}
 
-\item{corr.fieldChanges}{\link{logical} (with default): correct for
+\item{corr.fieldChanges}{\link{logical} \emph{(with default)}: correct for
 geomagnetic field changes after Prescott & Hutton (1994). Apply only when
 justified by the data.}
 
-\item{est.age}{\link{numeric} (with default): estimated age range
+\item{est.age}{\link{numeric} \emph{(with default)}: estimated age range
 (ka) for geomagnetic field change correction (0-80 ka allowed)}
 
-\item{half.depth}{\link{logical} (with default): How to overcome with
+\item{half.depth}{\link{logical} \emph{(with default)}: How to overcome with
 varying overburden thickness. If \code{TRUE} only half the depth is used for
 calculation. Apply only when justified, i.e. when a constant sedimentation
 rate can safely be assumed.}
 
-\item{error}{\link{numeric} (with default): general error
+\item{error}{\link{numeric} \emph{(with default)}: general error
 (percentage) to be implemented on corrected cosmic dose rate estimate}
 
 \item{...}{further arguments (\code{verbose} to disable/enable console output).}

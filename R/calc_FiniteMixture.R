@@ -38,28 +38,28 @@
 #' finite mixtures for 2, 3 ... 8 components are calculated and a plot and a
 #' statistical evaluation of the model performance (BIC score and maximum
 #' log-likelihood) is provided.
-#' @param grain.probability [logical] (with default): prints the
+#' @param grain.probability [logical] *(with default)*: prints the
 #' estimated probabilities of which component each grain is in
 #' @param dose.scale [numeric]: manually set the scaling of the
 #' y-axis of the first plot with a vector in the form of \code{c(min,max)}
-#' @param pdf.weight [logical] (with default): weight the
+#' @param pdf.weight [logical] *(with default)*: weight the
 #' probability density functions by the components proportion (applies only
 #' when a vector is provided for \code{n.components})
-#' @param pdf.sigma [character] (with default): if \code{"sigmab"}
+#' @param pdf.sigma [character] *(with default)*: if \code{"sigmab"}
 #' the components normal distributions are plotted with a common standard
 #' deviation (i.e. \code{sigmab}) as assumed by the FFM. Alternatively,
 #' \code{"se"} takes the standard error of each component for the sigma
 #' parameter of the normal distribution
-#' @param pdf.colors [character] (with default): color coding of
+#' @param pdf.colors [character] *(with default)*: color coding of
 #' the components in the the plot. Possible options are "gray", "colors" and
 #' "none"
 #' @param pdf.scale [numeric]: manually set the max density value
 #' for proper scaling of the x-axis of the first plot
-#' @param plot.proportions [logical] (with default): plot barplot
+#' @param plot.proportions [logical] *(with default)*: plot barplot
 #' showing the proportions of components
-#' @param plot [logical] (with default): plot output
+#' @param plot [logical] *(with default)*: plot output
 #' @param ... further arguments to pass.  See details for their usage.
-#' @return Returns a plot (optional) and terminal output. In addition an
+#' @return Returns a plot *(optional)* and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'

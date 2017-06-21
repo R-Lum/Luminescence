@@ -50,42 +50,42 @@
 #' (**required**): requires a CW-OSL shine down curve (x = time, y = counts)
 #'
 #' @param Tx.data [RLum.Data.Curve-class] or [data.frame]
-#' (optional): requires a CW-OSL shine down curve (x = time, y = counts). If no
+#' *(optional)*: requires a CW-OSL shine down curve (x = time, y = counts). If no
 #' input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 #' is calculated.
 #'
 #' @param signal.integral \code{\link{vector}} (**required**): vector with the
 #' limits for the signal integral.
 #'
-#' @param signal.integral.Tx \code{\link{vector}} (optional): vector with the
+#' @param signal.integral.Tx \code{\link{vector}} *(optional)*: vector with the
 #' limits for the signal integral for the Tx curve. If nothing is provided the
 #' value from \code{signal.integral} is used.
 #'
 #' @param background.integral \code{\link{vector}} (**required**): vector with the
 #' bounds for the background integral.
 #'
-#' @param background.integral.Tx \code{\link{vector}} (optional): vector with the
+#' @param background.integral.Tx \code{\link{vector}} *(optional)*: vector with the
 #' limits for the background integral for the Tx curve. If nothing is provided the
 #' value from \code{background.integral} is used.
 #'
-#' @param background.count.distribution [character] (with default): sets
+#' @param background.count.distribution [character] *(with default)*: sets
 #' the count distribution assumed for the error calculation. Possible arguments
 #' \code{poisson} or \code{non-poisson}. See details for further information
 #'
-#' @param use_previousBG [logical] (with default): If set to `TRUE` the background
+#' @param use_previousBG [logical] *(with default)*: If set to `TRUE` the background
 #' of the Lx-signal is substracted also from the Tx-signal. Please note that in this case separat
 #' signal integral limits for the Tx signal are not allowed and will be reset.
 #'
-#' @param sigmab [numeric] (optional): option to set a manual value for
+#' @param sigmab [numeric] *(optional)*: option to set a manual value for
 #' the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 #' calculation. The value should be provided as absolute squared count values,
 #' e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 #' value is taken for both (LnTx and TnTx) signals.
 #'
-#' @param sig0 [numeric] (with default): allow adding an extra component of error
+#' @param sig0 [numeric] *(with default)*: allow adding an extra component of error
 #' to the final Lx/Tx error value (e.g., instrumental errror, see details).
 #'
-#' @param digits [integer] (with default): round numbers to the specified digits. If
+#' @param digits [integer] *(with default)*: round numbers to the specified digits. If
 #' digits is set to \code{NULL} nothing is rounded.
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].

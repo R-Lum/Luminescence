@@ -26,38 +26,38 @@ finite mixtures for 2, 3 ... 8 components are calculated and a plot and a
 statistical evaluation of the model performance (BIC score and maximum
 log-likelihood) is provided.}
 
-\item{grain.probability}{\link{logical} (with default): prints the
+\item{grain.probability}{\link{logical} \emph{(with default)}: prints the
 estimated probabilities of which component each grain is in}
 
 \item{dose.scale}{\link{numeric}: manually set the scaling of the
 y-axis of the first plot with a vector in the form of \code{c(min,max)}}
 
-\item{pdf.weight}{\link{logical} (with default): weight the
+\item{pdf.weight}{\link{logical} \emph{(with default)}: weight the
 probability density functions by the components proportion (applies only
 when a vector is provided for \code{n.components})}
 
-\item{pdf.sigma}{\link{character} (with default): if \code{"sigmab"}
+\item{pdf.sigma}{\link{character} \emph{(with default)}: if \code{"sigmab"}
 the components normal distributions are plotted with a common standard
 deviation (i.e. \code{sigmab}) as assumed by the FFM. Alternatively,
 \code{"se"} takes the standard error of each component for the sigma
 parameter of the normal distribution}
 
-\item{pdf.colors}{\link{character} (with default): color coding of
+\item{pdf.colors}{\link{character} \emph{(with default)}: color coding of
 the components in the the plot. Possible options are "gray", "colors" and
 "none"}
 
 \item{pdf.scale}{\link{numeric}: manually set the max density value
 for proper scaling of the x-axis of the first plot}
 
-\item{plot.proportions}{\link{logical} (with default): plot barplot
+\item{plot.proportions}{\link{logical} \emph{(with default)}: plot barplot
 showing the proportions of components}
 
-\item{plot}{\link{logical} (with default): plot output}
+\item{plot}{\link{logical} \emph{(with default)}: plot output}
 
 \item{...}{further arguments to pass.  See details for their usage.}
 }
 \value{
-Returns a plot (optional) and terminal output. In addition an
+Returns a plot \emph{(optional)} and terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
 following elements:
 

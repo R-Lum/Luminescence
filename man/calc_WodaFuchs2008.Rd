@@ -17,7 +17,7 @@ dataset2)}).}
 See \code{\link{hist}} for details. If missing, the number of breaks will
 be estimated based on the bin width (as function of median error).}
 
-\item{plot}{\link{logical} (with default): enable plot output.}
+\item{plot}{\link{logical} \emph{(with default)}: enable plot output.}
 
 \item{...}{Further plot arguments passed to the function.}
 }

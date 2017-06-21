@@ -22,13 +22,13 @@
 #' out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
 #' 1/error^2). Default is \code{"square"}.
 #'
-#' @param digits [integer] (with default): round numbers to the
+#' @param digits [integer] *(with default)*: round numbers to the
 #' specified digits. If digits is set to \code{NULL} nothing is rounded.
 #'
-#' @param n.MCM [numeric] (with default): number of samples drawn
+#' @param n.MCM [numeric] *(with default)*: number of samples drawn
 #' for Monte Carlo-based statistics. \code{NULL} (the default) disables MC runs.
 #'
-#' @param na.rm [logical] (with default): indicating whether NA
+#' @param na.rm [logical] *(with default)*: indicating whether NA
 #' values should be stripped before the computation proceeds.
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.

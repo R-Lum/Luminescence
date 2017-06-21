@@ -22,27 +22,27 @@ automatically}
 irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). Argument will be ignored
 if \code{g_value} was an \code{RLum.Results} object}
 
-\item{tc.g_value}{\link{numeric} (with default): the time in seconds between irradiation
+\item{tc.g_value}{\link{numeric} \emph{(with default)}: the time in seconds between irradiation
 and the prompt measurement used for estimating the g-value. If the g-value was normalised
 to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If nothing is provided
 the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
 that had been not normalised to 2 days.}
 
-\item{n.MC}{\link{integer} (with default): number of Monte Carlo
+\item{n.MC}{\link{integer} \emph{(with default)}: number of Monte Carlo
 simulation runs for error estimation. If \code{n.MC = 'auto'} is used the function
 tries to find a 'stable' error for the age. Note: This may take a while!}
 
-\item{seed}{\link{integer} (optional): sets the seed for the random number generator
+\item{seed}{\link{integer} \emph{(optional)}: sets the seed for the random number generator
 in R using \code{\link{set.seed}}}
 
-\item{interval}{\link{numeric} (with default): a vector containing the end-points (age interval) of the
+\item{interval}{\link{numeric} \emph{(with default)}: a vector containing the end-points (age interval) of the
 interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
 used for solving the equation.}
 
-\item{txtProgressBar}{\link{logical} (with default): enables or disables
+\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables or disables
 \code{\link{txtProgressBar}}}
 
-\item{verbose}{\link{logical} (with default): enables or disables terminal output}
+\item{verbose}{\link{logical} \emph{(with default)}: enables or disables terminal output}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.\cr
@@ -59,7 +59,7 @@ Slot: \bold{@info}\cr
 
 \tabular{lll}{
 \bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
-\code{info} \tab \code{character} \tab the original function call
+\code{info} \tab \link{character} \tab the original function call
 
 }
 }

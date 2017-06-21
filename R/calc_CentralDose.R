@@ -19,21 +19,21 @@
 #' (**required**): for [data.frame]: two columns with De
 #' \code{(data[,1])} and De error \code{(data[,2])}
 #' 
-#' @param sigmab [numeric] (with default): additional spread in De values.
+#' @param sigmab [numeric] *(with default)*: additional spread in De values.
 #' This value represents the expected overdispersion in the data should the sample be 
 #' well-bleached (Cunningham & Walling 2012, p. 100).
 #' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 #' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' 
-#' @param log [logical] (with default): fit the (un-)logged central
+#' @param log [logical] *(with default)*: fit the (un-)logged central
 #' age model to De data
 #' 
-#' @param plot [logical] (with default): plot output
+#' @param plot [logical] *(with default)*: plot output
 #' 
 #' @param ... further arguments (\code{trace, verbose}).
 #' 
-#' @return Returns a plot (optional) and terminal output. In addition an
+#' @return Returns a plot *(optional)* and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following element:
 #'

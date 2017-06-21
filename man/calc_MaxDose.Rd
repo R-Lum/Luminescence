@@ -20,20 +20,20 @@ a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALS
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 See details (\link{calc_MinDose}.}
 
-\item{log}{\link{logical} (with default): fit the (un-)logged three
+\item{log}{\link{logical} \emph{(with default)}: fit the (un-)logged three
 parameter minimum dose model to De data}
 
-\item{par}{\link{numeric} (with default): apply the 3- or
+\item{par}{\link{numeric} \emph{(with default)}: apply the 3- or
 4-parametric minimum age model (\code{par=3} or \code{par=4}).}
 
-\item{bootstrap}{\link{logical} (with default): apply the recycled
+\item{bootstrap}{\link{logical} \emph{(with default)}: apply the recycled
 bootstrap approach of Cunningham & Wallinga (2012).}
 
-\item{init.values}{\link{numeric} (with default): starting values for
+\item{init.values}{\link{numeric} \emph{(with default)}: starting values for
 gamma, sigma, p0 and mu. Custom values need to be provided in a vector of
 length three in the form of \code{c(gamma, sigma, p0)}.}
 
-\item{plot}{\link{logical} (with default): plot output
+\item{plot}{\link{logical} \emph{(with default)}: plot output
 (\code{TRUE}/\code{FALSE})}
 
 \item{...}{further arguments for bootstrapping (\code{bs.M, bs.N, bs.h,

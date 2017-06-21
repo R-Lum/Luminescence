@@ -68,16 +68,16 @@
 #' given as a numeric vector of length two.
 #' Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.
 #'
-#' @param normalise [logical] (with default):
+#' @param normalise [logical] *(with default)*:
 #' If `TRUE` (the default) all measured and computed LxTx values are
 #' normalised by the pre-exponential factor A (see details).
 #'
-#' @param summary [logical] (with default):
+#' @param summary [logical] *(with default)*:
 #' If `TRUE` (the default) various parameters provided by the user
 #' and calculated by the model are added as text on the right-hand side of the
 #' plot.
 #'
-#' @param plot [logical] (with default): enables/disables plot output.
+#' @param plot [logical] *(with default)*: enables/disables plot output.
 #'
 #' @param ... further arguments passed to [plot] and
 #' [plot_GrowthCurve].

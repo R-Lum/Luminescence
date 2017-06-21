@@ -72,27 +72,27 @@
 #' irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). Argument will be ignored
 #' if \code{g_value} was an \code{RLum.Results} object
 #'
-#' @param tc.g_value [numeric] (with default): the time in seconds between irradiation
+#' @param tc.g_value [numeric] *(with default)*: the time in seconds between irradiation
 #' and the prompt measurement used for estimating the g-value. If the g-value was normalised
 #' to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. If nothing is provided
 #' the time is set to tc, which is usual case for g-values obtained using the SAR method and g-values
 #' that had been not normalised to 2 days.
 #'
-#' @param n.MC [integer] (with default): number of Monte Carlo
+#' @param n.MC [integer] *(with default)*: number of Monte Carlo
 #' simulation runs for error estimation. If \code{n.MC = 'auto'} is used the function
 #' tries to find a 'stable' error for the age. Note: This may take a while!
 #'
-#' @param seed [integer] (optional): sets the seed for the random number generator
+#' @param seed [integer] *(optional)*: sets the seed for the random number generator
 #' in R using \code{\link{set.seed}}
 #'
-#' @param interval [numeric] (with default): a vector containing the end-points (age interval) of the
+#' @param interval [numeric] *(with default)*: a vector containing the end-points (age interval) of the
 #' interval to be searched for the root in 'ka'. This argument is passed to the function \code{\link[stats]{uniroot}}
 #' used for solving the equation.
 #'
-#' @param txtProgressBar [logical] (with default): enables or disables
+#' @param txtProgressBar [logical] *(with default)*: enables or disables
 #' \code{\link{txtProgressBar}}
 #'
-#' @param verbose [logical] (with default): enables or disables terminal output
+#' @param verbose [logical] *(with default)*: enables or disables terminal output
 #'
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].\cr
@@ -109,7 +109,7 @@
 #'
 #' \tabular{lll}{
 #' \bold{Object} \tab \bold{Type} \tab \bold{Comment}\cr
-#'  \code{info} \tab \code{character} \tab the original function call
+#'  \code{info} \tab [character] \tab the original function call
 #'
 #' }
 #'

@@ -12,14 +12,14 @@ calc_CommonDose(data, sigmab, log = TRUE, ...)
 (\strong{required}): for \link{data.frame}: two columns with De
 \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{sigmab}{\link{numeric} (with default): additional spread in De values.
+\item{sigmab}{\link{numeric} \emph{(with default)}: additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
 \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
-\item{log}{\link{logical} (with default): fit the (un-)logged common
+\item{log}{\link{logical} \emph{(with default)}: fit the (un-)logged common
 age model to De data}
 
 \item{...}{currently not used.}

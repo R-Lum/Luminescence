@@ -18,14 +18,14 @@
 #' iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
 #' `[Dbar.Fixed vs Z]`
 #'
-#' @param decimal.point [numeric] (with default): number of decimal
+#' @param decimal.point [numeric] *(with default)*: number of decimal
 #' points for rounding calculations (e.g. 2)
 #'
-#' @param plot [logical] (with default): plot output
+#' @param plot [logical] *(with default)*: plot output
 #'
 #' @param ... further arguments (\code{trace, verbose}).
 #'
-#' @return Returns a plot (optional) and terminal output. In addition an
+#' @return Returns a plot *(optional)* and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following element:
 #'

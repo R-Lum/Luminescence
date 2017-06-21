@@ -15,18 +15,18 @@ only the first two elements are considered}
 \item{s}{\link{numeric} (\strong{required}): vector of frequency factor in 1/s,
 if \code{profiling = TRUE} only the first two elements are considered}
 
-\item{T}{\link{numeric} (with default): temperature in deg. C for which the lifetime(s)
+\item{T}{\link{numeric} \emph{(with default)}: temperature in deg. C for which the lifetime(s)
 will be calculted. A vector can be provided.}
 
-\item{output_unit}{\link{character} (with default):
+\item{output_unit}{\link{character} \emph{(with default)}:
 output unit of the calculated lifetimes, accepted
 entries are: \code{"Ma"}, \code{"ka"}, \code{"a"}, \code{"d"}, \code{"h"}, \code{"min"}, \code{"s"}}
 
-\item{profiling}{\link{logical} (with default):
+\item{profiling}{\link{logical} \emph{(with default)}:
 this option allows to estimate uncertainties based on
 given E and s parameters and their corresponding standard error (cf. details and examples section)}
 
-\item{profiling_config}{\link{list} (optional): allows to set configurate parameters
+\item{profiling_config}{\link{list} \emph{(optional)}: allows to set configurate parameters
 used for the profiling (and only have an effect here). Supported parameters are:
 \code{n} (number of MC runs), \code{E.distribution} (distribution used for the resampling for E) and
 \code{s.distribution} (distribution used for the resampling for s). Currently only the normal

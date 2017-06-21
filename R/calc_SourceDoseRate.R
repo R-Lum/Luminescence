@@ -37,15 +37,15 @@
 #' @param calib.error [numeric] (**required**): error of dose
 #' rate at date of calibration Gy/s or Gy/min
 #'
-#' @param source.type [character] (with default): specify
+#' @param source.type [character] *(with default)*: specify
 #' irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}), see
 #' details for further information
 #'
-#' @param dose.rate.unit [character] (with default): specify dose
+#' @param dose.rate.unit [character] *(with default)*: specify dose
 #' rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
 #' Gy/s as valid for the function [Second2Gray]
 #'
-#' @param predict [integer] (with default): option allowing to predicit the dose
+#' @param predict [integer] *(with default)*: option allowing to predicit the dose
 #' rate of the source over time in days set by the provided value. Starting date is the value set
 #' with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(..., predict = 100)} calculates
 #' the source dose rate for the next 100 days.

@@ -7,7 +7,7 @@
 #' @param data [RLum.Results-class] or [data.frame]
 #' (**required**): for [data.frame]: two columns with De
 #' \code{(data[,1])} and De error \code{(values[,2])}
-#' @param log [logical] (with default): peform the homogeniety test
+#' @param log [logical] *(with default)*: peform the homogeniety test
 #' with (un-)logged data
 #' @param ... further arguments (for internal compatibility only).
 #' @return Returns a terminal output. In addition an

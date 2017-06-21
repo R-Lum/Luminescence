@@ -17,7 +17,7 @@
 #' temperature, y = counts) (TL signal)
 #'
 #' @param Lx.data.background [RLum.Data.Curve-class] or
-#' [data.frame] (optional): TL data (x =
+#' [data.frame] *(optional)*: TL data (x =
 #' temperature, y = counts). If no data are provided no background subtraction
 #' is performed.
 #'
@@ -26,7 +26,7 @@
 #' temperature, y = counts) (TL test signal)
 #'
 #' @param Tx.data.background [RLum.Data.Curve-class] or
-#' [data.frame] (optional): TL data (x =
+#' [data.frame] *(optional)*: TL data (x =
 #' temperature, y = counts). If no data are provided no background subtraction
 #' is performed.
 #'

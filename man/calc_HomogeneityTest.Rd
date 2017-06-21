@@ -11,7 +11,7 @@ calc_HomogeneityTest(data, log = TRUE, ...)
 (\strong{required}): for \link{data.frame}: two columns with De
 \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{log}{\link{logical} (with default): peform the homogeniety test
+\item{log}{\link{logical} \emph{(with default)}: peform the homogeniety test
 with (un-)logged data}
 
 \item{...}{further arguments (for internal compatibility only).}

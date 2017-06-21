@@ -19,21 +19,21 @@
 #' overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 #' unrecognised measurement uncertainty.
 #'
-#' @param Nb_BE [integer] (with default): sample size used for the bootstrapping
+#' @param Nb_BE [integer] *(with default)*: sample size used for the bootstrapping
 #'
-#' @param na.rm [logical] (with default): exclude NA values
+#' @param na.rm [logical] *(with default)*: exclude NA values
 #' from the data set prior to any further operation.
 #'
-#' @param plot [logical] (with default): enables/disables plot output
+#' @param plot [logical] *(with default)*: enables/disables plot output
 #'
-#' @param verbose [logical] (with default): enables/disables terminal output
+#' @param verbose [logical] *(with default)*: enables/disables terminal output
 #'
-#' @param ... further arguments that can be passed to \code{\link[graphics]{hist}}. As three plots
+#' @param ... further arguments that can be passed to [graphics::hist]. As three plots
 #' are returned all arguments need to be provided as [list],
 #' e.g., \code{main = list("Plot 1", "Plot 2", "Plot 3")}. Note: not all arguments of \code{hist} are
 #' supported, but the output of \code{hist} is returned and can be used of own plots. \cr
 #'
-#' Further supported arguments: \code{mtext} (\code{character}), \code{rug} (\code{TRUE/FALSE}).
+#' Further supported arguments: \code{mtext} ([character]), \code{rug} (`TRUE/FALSE`).
 #'
 #' @section Function version: 0.1.4
 #'
@@ -42,18 +42,18 @@
 #' Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
 #'
-#' @seealso \code{\link{read.table}}, \code{\link[graphics]{hist}}
+#' @seealso [read.table], [graphics::hist]
 #'
-#' @return The function returns numerical output and an (optional) plot.
+#' @return The function returns numerical output and an *(optional)* plot.
 #'
 #' -----------------------------------\cr
-#' [ NUMERICAL OUTPUT ]\cr
+#' `[ NUMERICAL OUTPUT ]` \cr
 #' -----------------------------------\cr
 #' \bold{\code{RLum.Reuslts}}-object\cr
 #'
 #' \bold{slot:} \bold{\code{@data}} \cr
 #'
-#' [.. $summary : [data.frame]]\cr
+#' `[.. $summary : data.frame]`\cr
 #'
 #' \tabular{lll}{
 #' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
@@ -61,25 +61,25 @@
 #'  AVERAGE_DOSE.SE \tab [numeric] \tab the average dose error \cr
 #'  SIGMA_D \tab [numeric]\tab sigma \cr
 #'  SIGMA_D.SE \tab [numeric]\tab standard error of the sigma  \cr
-#'  IC_AVERAGE_DOSE.LEVEL  \tab \code{character}\tab confidence level average dose\cr
-#'  IC_AVERAGE_DOSE.LOWER  \tab \code{charcter}\tab lower quantile of average dose \cr
-#'  IC_AVERAGE_DOSE.UPPER \tab \code{character}\tab upper quantile of average dose\cr
-#'  IC_SIGMA_D.LEVEL \tab \code{integer}\tab confidence level sigma\cr
-#'  IC_SIGMA_D.LOWER \tab \code{character}\tab lower sigma quantile\cr
-#'  IC_SIGMA_D.UPPER \tab \code{character}\tab upper sigma quantile\cr
-#'  L_MAX \tab \code{character}\tab maximum likelihood value
+#'  IC_AVERAGE_DOSE.LEVEL  \tab [character]\tab confidence level average dose\cr
+#'  IC_AVERAGE_DOSE.LOWER  \tab [character]\tab lower quantile of average dose \cr
+#'  IC_AVERAGE_DOSE.UPPER \tab [character]\tab upper quantile of average dose\cr
+#'  IC_SIGMA_D.LEVEL \tab [integer]\tab confidence level sigma\cr
+#'  IC_SIGMA_D.LOWER \tab [character]\tab lower sigma quantile\cr
+#'  IC_SIGMA_D.UPPER \tab [character]\tab upper sigma quantile\cr
+#'  L_MAX \tab [character]\tab maximum likelihood value
 #' }
 #'
-#' [.. $dstar : \code{matrix}]\cr
+#' `[.. $dstar : matrix]` \cr
 #'
 #' Matrix with bootstrap values\cr
 #'
-#' [.. $hist : \code{list}]\cr
+#' `[.. $hist : list]`\cr
 #'
 #' Object as produced by the function histogram
 #'
 #' ------------------------\cr
-#' [ PLOT OUTPUT ]\cr
+#' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
 #'
 #' The function returns two different plot panels.
@@ -120,7 +120,8 @@
 #'  data = ExampleData.DeValues$CA1[1:56,],
 #'  z.0 = AD$summary$AVERAGE_DOSE)
 #'
-#'@export
+#' @md
+#' @export
 calc_AverageDose <- function(
   data,
   sigma_m = NULL,
