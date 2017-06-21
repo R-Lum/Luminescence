@@ -57,7 +57,7 @@
 #' \item{data}{the original input data}
 #' \item{fit}{[RLum.Results-class] object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
 #' \item{args}{\code{[list]} of used arguments}
-#' \item{call}{\code{\link{call}} the function call}
+#' \item{call}{\code{[call]} the function call}
 #' 
 #' @section Function version: 0.1.1
 #'

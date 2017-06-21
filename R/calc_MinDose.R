@@ -134,7 +134,7 @@
 #'
 #' \item{summary}{[data.frame] summary of all relevant model results.}
 #' \item{data}{[data.frame] original input data} \item{args}{[list]
-#' used arguments} \item{call}{\link{call} the function call}
+#' used arguments} \item{call}{[call] the function call}
 #' \item{mle}{\link{mle2} object containing the maximum log likelhood functions
 #' for all parameters} \item{BIC}{\link{numeric} BIC score}
 #' \item{confint}{[data.frame] confidence intervals for all parameters}

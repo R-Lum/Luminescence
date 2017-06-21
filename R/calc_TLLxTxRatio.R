@@ -51,8 +51,6 @@
 #'
 #' @seealso [RLum.Results-class], \code{\link{analyse_SAR.TL}}
 #'
-#' @references -
-#'
 #' @keywords datagen
 #'
 #' @examples

@@ -34,7 +34,7 @@
 #'
 #' \item{summary}{[data.frame] summary of all relevant model results.}
 #' \item{data}{[data.frame] original input data} \item{args}{[list]
-#' used arguments} \item{call}{\link{call} the function call}
+#' used arguments} \item{call}{[call] the function call}
 #' \item{usedDeValues}{[data.frame] containing the used values for the
 #' calculation}
 #' @note Please consider the requirements and the constraints of this method

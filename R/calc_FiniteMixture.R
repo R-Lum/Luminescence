@@ -65,7 +65,7 @@
 #'
 #' \item{summary}{[data.frame] summary of all relevant model results.}
 #' \item{data}{[data.frame] original input data} \item{args}{[list]
-#' used arguments} \item{call}{\link{call} the function call} \item{mle}{
+#' used arguments} \item{call}{[call] the function call} \item{mle}{
 #' covariance matrices of the log likelhoods} \item{BIC}{ BIC score}
 #' \item{llik}{ maximum log likelihood} \item{grain.probability}{ probabilities
 #' of a grain belonging to a component} \item{components}{\link{matrix}

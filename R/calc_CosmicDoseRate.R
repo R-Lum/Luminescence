@@ -110,7 +110,7 @@
 #' following element:
 #'
 #' \item{summary}{[data.frame] summary of all relevant calculation
-#' results.} \item{args}{[list] used arguments} \item{call}{\link{call}
+#' results.} \item{args}{[list] used arguments} \item{call}{[call]
 #' the function call}
 #'
 #' The output should be accessed using the function

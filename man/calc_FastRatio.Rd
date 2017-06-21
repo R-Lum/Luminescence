@@ -60,7 +60,7 @@ The slot \code{data} contains a \code{[list]} with the following elements:\cr
 \item{data}{the original input data}
 \item{fit}{\linkS4class{RLum.Results} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
 \item{args}{\code{[list]} of used arguments}
-\item{call}{\code{\link{call}} the function call}
+\item{call}{\code{[call]} the function call}
 }
 \description{
 Function to calculate the fast ratio of quartz CW-OSL single grain or single
