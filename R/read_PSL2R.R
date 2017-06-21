@@ -57,6 +57,7 @@
 #' temp
 #' }
 #' 
+#' @md
 #' @export
 read_PSL2R <- function(file, drop_bg = FALSE, as_decay_curve = TRUE, smooth = FALSE, merge = FALSE, ...) {
   

@@ -25,6 +25,7 @@
 #'
 #' showClass("RLum.Data")
 #'
+#' @md
 #' @export
 setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")

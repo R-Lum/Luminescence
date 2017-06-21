@@ -44,6 +44,7 @@
 #'
 #' }
 #'
+#' @md
 #' @export
 read_Daybreak2R <- function(
   file,

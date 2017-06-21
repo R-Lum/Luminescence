@@ -55,6 +55,7 @@ NULL
 #' ##alternatively objects can be accessed using S3 generics, such as
 #' dose.rate$parameters
 #'
+#' @md
 #' @export
 setClass(
   Class = "RLum.Results",
@@ -106,6 +107,7 @@ setAs("RLum.Results", "list",
 ####################################################################################################
 #' @describeIn RLum.Results
 #' Show structure of \code{RLum.Results} object
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Results"),
@@ -166,6 +168,7 @@ setMethod("show",
 #'
 #' Returns an object from the class \code{\linkS4class{RLum.Results}}\cr
 #'
+#' @md
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
@@ -226,6 +229,7 @@ setMethod("set_RLum",
 #' (3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
 #'
 #'
+#' @md
 #' @export
 setMethod(
   "get_RLum",
@@ -361,6 +365,7 @@ setMethod(
 #'
 #' Returns the number of data elements in the \code{RLum.Results} object.
 #'
+#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Results",
@@ -382,6 +387,7 @@ setMethod("length_RLum",
 #'
 #' Returns the names of the data elements in the object.
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Results",

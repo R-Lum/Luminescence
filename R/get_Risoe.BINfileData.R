@@ -19,6 +19,7 @@
 #' \code{\linkS4class{Risoe.BINfileData}}
 #' @keywords utilities
 #'
+#' @md
 #' @export
 setGeneric(
   name = "get_Risoe.BINfileData",

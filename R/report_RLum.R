@@ -112,6 +112,7 @@
 #' @return
 #' Writes a HTML and .Rds file.
 #' 
+#' @md
 #' @export
 #'
 #' @examples

@@ -62,6 +62,7 @@
 #' plot_RLum(temp)
 #'
 #'
+#' @md
 #' @export
 plot_RLum<- function(
   object,

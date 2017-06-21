@@ -73,6 +73,7 @@
 #' ## create plot straightforward
 #' plot_ViolinPlot(data = ExampleData.DeValues)
 #'
+#' @md
 #' @export
 plot_ViolinPlot <- function(
   data,

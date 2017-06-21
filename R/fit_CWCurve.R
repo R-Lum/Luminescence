@@ -134,6 +134,7 @@
 #'                    n.components.max = 4,
 #'                    log = "x")
 #'
+#' @md
 #' @export
 fit_CWCurve<- function(
   values,

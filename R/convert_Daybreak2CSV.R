@@ -32,6 +32,7 @@
 #'
 #' }
 #'
+#' @md
 #' @export
 convert_Daybreak2CSV <- function(
   file,

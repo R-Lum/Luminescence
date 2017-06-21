@@ -12,6 +12,7 @@
 ## Finally, we attach a further class name to identify it as a valid DRAC object 
 ## when passed to use_DRAC
 
+#' @md
 #' @export
 as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) {
   DF <- as.data.frame.list(x)
@@ -28,6 +29,7 @@ as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) 
 ## ---------------------------------------------------------------------------##
 ## PRINT METHOD
 
+#' @md
 #' @export
 print.DRAC.highlights <- function(x, ...) {
   x <- as.list(x)
@@ -37,6 +39,7 @@ print.DRAC.highlights <- function(x, ...) {
     }, x, names)
 }
 
+#' @md
 #' @export
 print.DRAC.list <- function(x, blueprint = FALSE, ...) {
   
@@ -106,6 +109,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 ## ---------------------------------------------------------------------------##
 ## DOUBLE SQUARE BRACKETS METHOD
 
+#' @md
 #' @export
 `[[<-.DRAC.list` <- function(x, i, value) {
   
@@ -230,6 +234,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 ## ---------------------------------------------------------------------------##
 ## SINGLE SQUARE BRACKET METHOD
 
+#' @md
 #' @export
 `[<-.DRAC.list` <- function(x, i, value) {
   return(`[[<-`(x, i, value))
@@ -238,6 +243,7 @@ print.DRAC.list <- function(x, blueprint = FALSE, ...) {
 ## ---------------------------------------------------------------------------##
 ## DOLLAR SIGN METHOD
 
+#' @md
 #' @export
 `$<-.DRAC.list`<- function(x, name, value) {
   # this is straightforward; retrieve the index and pass the object

@@ -12,6 +12,7 @@
 #'
 #' @section Function version: 0.1.1
 #'
+#' @md
 #' @export
 app_RLum <- function(app = NULL, ...) {
   

@@ -71,6 +71,7 @@
 #' ##convert values for position 1
 #' Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 #'
+#' @md
 #' @export
 Risoe.BINfileData2RLum.Analysis<- function(
   object,

@@ -167,6 +167,7 @@ NULL
 #'
 #' showClass("Risoe.BINfileData")
 #'
+#' @md
 #' @export
 setClass("Risoe.BINfileData",
          slots = list(
@@ -267,6 +268,7 @@ setClass("Risoe.BINfileData",
 ##set generic S4 function for object
 #' @describeIn Risoe.BINfileData
 #' Show structure of RLum and Risoe.BINfile class objects
+#' @md
 #' @export
 setMethod(f = "show",
           signature = signature(object = "Risoe.BINfileData"),
@@ -331,6 +333,7 @@ setMethod(f = "show",
 #'
 #' @param .RESERVED Object of class "list" containing list of undocumented raw
 #' values for internal use only.
+#' @md
 #' @export
 setMethod(f = "set_Risoe.BINfileData",
           signature = signature("ANY"),
@@ -362,6 +365,7 @@ setMethod(f = "set_Risoe.BINfileData",
 #'
 #' @param ... other arguments that might be passed
 #'
+#' @md
 #' @export
 setMethod("get_Risoe.BINfileData",
           signature= "Risoe.BINfileData",

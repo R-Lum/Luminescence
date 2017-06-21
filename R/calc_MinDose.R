@@ -300,6 +300,7 @@
 #' summary(bs$poly.fits$poly.three$fitted.values)
 #' }
 #'
+#' @md
 #' @export
 calc_MinDose <- function(
   data,

@@ -79,6 +79,7 @@
 #' ##apply the central dose model
 #' calc_CentralDose(ExampleData.DeValues$CA1)
 #'
+#' @md
 #' @export
 calc_CentralDose <- function(data, sigmab, log = TRUE, plot = TRUE, ...) {
   

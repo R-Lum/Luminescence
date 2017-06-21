@@ -381,6 +381,7 @@
 #'
 #' }
 #'
+#' @md
 #' @export
 analyse_IRSAR.RF<- function(
   object,

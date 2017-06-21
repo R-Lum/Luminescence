@@ -63,6 +63,7 @@
 #' ## apply the IEU model
 #' ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 #'
+#' @md
 #' @export
 calc_IEU <- function(
   data,

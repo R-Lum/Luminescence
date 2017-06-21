@@ -52,6 +52,7 @@
 #' plot_RLum.Data.Curve(temp)
 #'
 #'
+#' @md
 #' @export
 plot_RLum.Data.Curve<- function(
   object,

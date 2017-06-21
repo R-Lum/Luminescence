@@ -44,6 +44,7 @@
 #'
 #' @keywords utilities
 #'
+#' @md
 #' @export
 setGeneric("smooth_RLum", function(object, ...) {
   standardGeneric("smooth_RLum")
@@ -55,6 +56,7 @@ setGeneric("smooth_RLum", function(object, ...) {
 #' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{smooth_RLum}}
 #'
 #'
+#' @md
 #' @export
 setMethod("smooth_RLum",
 signature = "list",
