@@ -97,7 +97,7 @@ can be fully customised by disabling the standard legend and use the function \c
 instead.
 }
 \section{Function version}{
- 0.2.0 (2017-06-18 23:53:37)
+ 0.2.0
 }
 
 \examples{
@@ -130,11 +130,6 @@ plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{aplot}
 \keyword{datagen}

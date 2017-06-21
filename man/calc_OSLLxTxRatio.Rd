@@ -132,7 +132,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.7.0 (2017-02-16 15:03:51)
+ 0.7.0
 }
 
 \examples{
@@ -147,12 +147,7 @@ results <- calc_OSLLxTxRatio(Lx.data, Tx.data, signal.integral = c(1:2),
 ##get results object
 get_RLum(results)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.7.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Duller, G., 2007. Analyst.
 \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
@@ -171,5 +166,5 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

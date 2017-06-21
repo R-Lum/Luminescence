@@ -65,19 +65,14 @@ The function provides the analysis routines for measurements on a FI lexsyg SMAR
 Al2O3:C pellets according to Kreutzer et al., 2017
 }
 \section{Function version}{
- 0.1.0 (2017-06-18 11:11:08)
+ 0.1.0
 }
 
 \examples{
 
 ##nothing so far TODO ... add tests with example
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 TODO
 }
@@ -86,5 +81,5 @@ TODO
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

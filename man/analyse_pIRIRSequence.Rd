@@ -90,7 +90,7 @@ with the following options:\cr \code{pdf(file = "...", height = 15, width =
 15)}
 }
 \section{Function version}{
- 0.2.2 (2016-12-29 17:41:52)
+ 0.2.2
 }
 
 \examples{
@@ -149,12 +149,7 @@ pdf(file = "...", height = 15, width = 15)
   dev.off()
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). analyse_pIRIRSequence(): Analyse post-IR IRSL sequences. Function version 0.2.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 using an improved single-aliquot regenerative-dose protocol. Radiation
@@ -173,6 +168,6 @@ doi:10.1016/j.radmeas.2008.06.002
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}
 \keyword{plot}

@@ -35,7 +35,7 @@ A simple homogeneity test for De estimates
 For details see Galbraith (2003).
 }
 \section{Function version}{
- 0.2 (2016-05-02 09:36:06)
+ 0.2
 }
 
 \examples{
@@ -46,12 +46,7 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the homogeneity test
 calc_HomogeneityTest(ExampleData.DeValues$BT998)
 
-} 
-
-\section{How to cite}{
-Burow, C. (2017). calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Galbraith, R.F., 2003. A simple homogeneity test for estimates
 of dose obtained using OSL. Ancient TL 21, 75-77.
@@ -61,4 +56,4 @@ of dose obtained using OSL. Ancient TL 21, 75-77.
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}

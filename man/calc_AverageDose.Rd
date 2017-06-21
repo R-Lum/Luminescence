@@ -95,7 +95,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi).
 This function has beta status!
 }
 \section{Function version}{
- 0.1.4 (2017-05-28 17:33:05)
+ 0.1.4
 }
 
 \examples{
@@ -114,12 +114,7 @@ plot_AbanicoPlot(
  data = ExampleData.DeValues$CA1[1:56,],
  z.0 = AD$summary$AVERAGE_DOSE)
 
-} 
-
-\section{How to cite}{
-Christophe, C., Philippe, A., Guerin, G., Kreutzer, S. (2017). calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Guerin, G., Christophe, C., Philippe, A., Murray, A.S., Thomsen, K.J., Tribolo, C., Urbanova, P.,
 Jain, M., Guibert, P., Mercier, N., Kreutzer, S., Lahaye, C., 2017. Absorbed dose, equivalent dose,
@@ -139,5 +134,5 @@ Claire Christophe, IRAMAT-CRP2A, Universite de Nantes (France),
 Anne Philippe, Universite de Nantes, (France),
 Guillaume Guerin, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France),
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

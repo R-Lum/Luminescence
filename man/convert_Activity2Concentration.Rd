@@ -52,7 +52,7 @@ example for U238:
 \eqn{f.U = A.kg / 10^6}
 }
 \section{Function version}{
- 0.1.0 (2017-06-18 11:11:08)
+ 0.1.0
 }
 
 \examples{
@@ -67,12 +67,7 @@ data <- data.frame(
 ##perform analysis
 convert_Activity2Concentration(data)
 
-} 
-
-\section{How to cite}{
-Fuchs, M.C. (2017). convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with Semiconductor Detectors, Elsevier Science Publishers, p.283
 
@@ -81,5 +76,5 @@ Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen Aktivitae
 }
 \author{
 Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{IO}

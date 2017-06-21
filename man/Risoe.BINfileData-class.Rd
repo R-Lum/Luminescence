@@ -191,12 +191,7 @@ Nutech)
 
 showClass("Risoe.BINfileData")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.3.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016. The
 Sequence Editor User Manual - Feburar 2016
@@ -211,5 +206,5 @@ Sequence Editor User Manual - Feburar 2016
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \keyword{classes}

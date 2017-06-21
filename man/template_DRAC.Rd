@@ -65,12 +65,7 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
-} 
-
-\section{How to cite}{
-Burow, C. (2017). template_DRAC(): Create a DRAC input data template (v1.1). In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012

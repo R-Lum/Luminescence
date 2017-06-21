@@ -221,7 +221,7 @@ z-scale to specify where ticks are to be drawn by using the parameter
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.10 (2017-06-18 11:11:08)
+ 0.1.10
 }
 
 \examples{
@@ -403,12 +403,7 @@ points(x = AP$data[[1]]$precision[!in_2sigma],
        y = AP$data[[1]]$std.estimate.plot[!in_2sigma],
        pch = 1)
 
-} 
-
-\section{How to cite}{
-Dietze, M., Kreutzer, S. (2017). plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.10. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Galbraith, R. & Green, P., 1990. Estimating the component ages
 in a finite mixture. International Journal of Radiation Applications and
@@ -427,4 +422,4 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
 introduced by Galbraith & Green (1990)
-\cr R Luminescence Package Team}
+}

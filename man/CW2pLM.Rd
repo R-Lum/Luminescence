@@ -38,7 +38,7 @@ The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
- 0.4.1 (2017-02-10 18:30:04)
+ 0.4.1
 }
 
 \examples{
@@ -64,12 +64,7 @@ values.transformed <- CW2pLM(values)
 plot(values.transformed)
 
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Bulur, E., 2000. A simple transformation for converting CW-OSL
 curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
@@ -91,5 +86,5 @@ The output of the function can be further used for LM-OSL fitting:
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \keyword{manip}
