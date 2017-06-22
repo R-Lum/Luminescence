@@ -19,8 +19,8 @@
 #' the transformed curve values.
 #'
 #' \item{list(list("data.frame"))}{generic R data structure}
-#' \item{list(list("RLum.Data.Curve"))}{package \code{\linkS4class{RLum}
-#' object}}
+#' \item{list(list("RLum.Data.Curve"))}{package [RLum] object}
+#' 
 #' @note The transformation is recommended for curves recorded with a channel
 #' resolution of at least 0.05 s/channel.
 #' @section Function version: 0.4.1
