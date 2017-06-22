@@ -29,6 +29,7 @@
 #' .as.latex.table(df, pos = "lr")
 #' .as.latex.table(df, select = "y", pos = "r")
 #'
+#' @md
 #' @noRd
 .as.latex.table <- function(x,
                             row.names = NULL,

@@ -102,6 +102,7 @@
 #' @importFrom parallel parLapply makeCluster stopCluster
 #' @importFrom httr GET accept_json status_code content
 #' @useDynLib Luminescence, .registration = TRUE
+#' @md
 NULL
 
 
@@ -209,6 +210,7 @@ NULL
 #' ##load data
 #' data(BaseDataSet.CosmicDoseRate)
 #' @name BaseDataSet.CosmicDoseRate
+#' @md
 NULL
 
 
@@ -267,6 +269,7 @@ NULL
 #' CWOSL.SAR.Data@@DATA[1:5]
 #'
 #' @name ExampleData.BINfileData
+#' @md
 NULL
 
 
@@ -307,6 +310,7 @@ NULL
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
 #' plot(ExampleData.CW_OSL_Curve)
 #'
+#' @md
 NULL
 
 
@@ -332,6 +336,7 @@ NULL
 #' data(ExampleData.portableOSL, envir = environment())
 #' plot_RLum(ExampleData.portableOSL)
 #'
+#' @md
 NULL
 
 
@@ -359,6 +364,7 @@ NULL
 #' plot(values.curve,log="x")
 #'
 #' @name ExampleData.FittingLM
+#' @md
 NULL
 
 
@@ -381,6 +387,7 @@ NULL
 #' plot(LxTxData$Dose,LxTxData$LxTx)
 #'
 #' @name ExampleData.LxTxData
+#' @md
 NULL
 
 
@@ -403,6 +410,7 @@ NULL
 #' plot(Tx.data)
 #'
 #' @name ExampleData.LxTxOSLData
+#' @md
 NULL
 
 
@@ -447,6 +455,7 @@ NULL
 #' plot_RLum(IRSAR.RF.Data)
 #'
 #' @name ExampleData.RLum.Analysis
+#' @md
 NULL
 
 
@@ -483,6 +492,7 @@ NULL
 #' plot_RLum(ExampleData.RLum.Data.Image)
 #'
 #' @name ExampleData.RLum.Data.Image
+#' @md
 NULL
 
 
@@ -573,6 +583,7 @@ NULL
 #' # bin.cols = 1)
 #'
 #' @name ExampleData.XSYG
+#' @md
 NULL
 
 
@@ -627,6 +638,7 @@ NULL
 #' plot_Histogram(De.values, xlab = "De [Gy]")
 #'
 #' @name ExampleData.DeValues
+#' @md
 NULL
 
 
@@ -725,4 +737,5 @@ NULL
 #'
 #'
 #' @name ExampleData.Fading
+#' @md
 NULL

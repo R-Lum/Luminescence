@@ -8,13 +8,13 @@ hyperbolic modulation conditions}
 CW2pHMi(values, delta)
 }
 \arguments{
-\item{values}{[RLum.Data.Curve-class] or
-[data.frame] (\bold{required}):
-[RLum.Data.Curve-class] or [data.frame] with
+\item{values}{\linkS4class{RLum.Data.Curve} or
+\link{data.frame} (\bold{required}):
+\linkS4class{RLum.Data.Curve} or \link{data.frame} with
 measured curve data of type stimulation time (t) (\code{values[,1]}) and
 measured counts (cts) (\code{values[,2]}).}
 
-\item{delta}{[vector] (optional): stimulation rate parameter, if
+\item{delta}{\link{vector} (optional): stimulation rate parameter, if
 no value is given, the optimal value is estimated automatically (see
 details). Smaller values of delta produce more points in the rising tail of
 the curve.}
@@ -22,7 +22,7 @@ the curve.}
 \value{
 The function returns the same data type as the input data type with
 the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-[RLum] object with two additional info elements:
+\link{RLum} object with two additional info elements:
 \tabular{rl}{ $CW2pHMi.x.t \tab: transformed time values \cr $CW2pHMi.method
 \tab: used method for the production of the new data points }}
 \item{list(list("data.frame"))}{with four columns: \tabular{rl}{ $x \tab:
@@ -49,7 +49,7 @@ beyond \code{min(t)} and \code{max(t)} produce \code{NA} values.\cr\cr (4)
 Select all values for t' < \code{min(t)}, i.e. values beyond the time
 resolution of t. Select the first two values of the transformed data set
 which contain no \code{NA} values and use these values for a linear fit
-using [lm].\cr\cr (5) Extrapolate values for t' < \code{min(t)}
+using \link{lm}.\cr\cr (5) Extrapolate values for t' < \code{min(t)}
 based on the previously obtained fit parameters.\cr\cr (6) Transform values
 using\cr \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')} \deqn{c =
 (1+\delta*P)/\delta*P} \deqn{P = length(stimulation~period)} (7) Combine all
@@ -64,7 +64,7 @@ the automatic estimation routine for \code{delta}, i.e. provide no value for
 According to Bos & Wallinga (2012), the number of extrapolated points
 should be limited to avoid artificial intensity data. If \code{delta} is
 provided manually and more than two points are extrapolated, a warning
-message is returned. \cr\cr The function [approx] may produce
+message is returned. \cr\cr The function \link{approx} may produce
 some \code{Inf} and \code{NaN} data. The function tries to manually
 interpolate these values by calculating the \code{mean} using the adjacent
 channels. If two invalid values are succeeding, the values are removed and
@@ -151,7 +151,6 @@ lines(values[1:length(values.t[,1]),1],CW2pPMi(values, P=1/10)[,2],
       col="blue", lwd=1.3)
 text(0.5,6500,"PM", col="blue" ,cex=.8)
 
-
 }
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
@@ -165,9 +164,9 @@ Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
-[CW2pLM], [CW2pLMi], [CW2pPMi],
-[fit_LMCurve], [lm],
-[RLum.Data.Curve-class]
+\link{CW2pLM}, \link{CW2pLMi}, \link{CW2pPMi},
+\link{fit_LMCurve}, \link{lm},
+\linkS4class{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

@@ -8,12 +8,12 @@ reader}
 
 The data contain two elements: (a) \code{$Sequence.Header} is a
 \link{data.frame} with metadata from the measurement,(b)
-\code{Sequence.Object} contains an [RLum.Analysis-class] object
+\code{Sequence.Object} contains an \linkS4class{RLum.Analysis} object
 for further analysis.\cr
 
 \code{TL.Spectrum}: TL spectrum data
 
-[RLum.Data.Spectrum-class] object for further analysis. The
+\linkS4class{RLum.Data.Spectrum} object for further analysis. The
 spectrum was cleaned from cosmic-rays using the function
 \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
 was performed.}
@@ -39,7 +39,7 @@ time 20 s\cr Heating: \tab 1 K/s, up to 500 deg. C }
 \description{
 Example data from a SAR OSL measurement and a TL spectrum for package
 Luminescence imported from a Freiberg Instruments XSYG file using the
-function [read_XSYG2R].
+function \link{read_XSYG2R}.
 }
 \section{Version}{
  0.1
@@ -90,8 +90,8 @@ of Dolni Vestonice, Czech Republic: A new OSL-based chronology of the Last
 Climatic Cycle. Boreas, 42, 664--677.
 }
 \seealso{
-[read_XSYG2R], [RLum.Analysis-class],\cr
-[RLum.Data.Spectrum-class], [plot_RLum],\cr
-[plot_RLum.Analysis], [plot_RLum.Data.Spectrum]
+\link{read_XSYG2R}, \linkS4class{RLum.Analysis},\cr
+\linkS4class{RLum.Data.Spectrum}, \link{plot_RLum},\cr
+\link{plot_RLum.Analysis}, \link{plot_RLum.Data.Spectrum}
 }
 \keyword{datasets}

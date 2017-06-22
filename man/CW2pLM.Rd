@@ -7,8 +7,8 @@
 CW2pLM(values)
 }
 \arguments{
-\item{values}{[RLum.Data.Curve-class] or
-[data.frame] (\bold{required}): \code{RLum.Data.Curve} data
+\item{values}{\linkS4class{RLum.Data.Curve} or
+\link{data.frame} (\bold{required}): \code{RLum.Data.Curve} data
 object. Alternatively, a \code{data.frame} of the measured curve data of
 type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
 (\code{values[,2]}) can be provided.}
@@ -18,7 +18,7 @@ The function returns the same data type as the input data type with
 the transformed curve values.
 
 \item{list(list("data.frame"))}{generic R data structure}
-\item{list(list("RLum.Data.Curve"))}{package [RLum] object}
+\item{list(list("RLum.Data.Curve"))}{package \link{RLum} object}
 }
 \description{
 Transforms a conventionally measured continuous-wave (CW) curve into a
@@ -62,7 +62,6 @@ values.transformed <- CW2pLM(values)
 ##plot
 plot(values.transformed)
 
-
 }
 \references{
 Bulur, E., 2000. A simple transformation for converting CW-OSL
@@ -73,14 +72,14 @@ Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.
 }
 \seealso{
-[CW2pHMi], [CW2pLMi],
-[CW2pPMi], [fit_LMCurve], [lm],
-[RLum.Data.Curve-class]
+\link{CW2pHMi}, \link{CW2pLMi},
+\link{CW2pPMi}, \link{fit_LMCurve}, \link{lm},
+\linkS4class{RLum.Data.Curve}
 
 The output of the function can be further used for LM-OSL fitting:
-[CW2pLMi], [CW2pHMi], [CW2pPMi],
-[fit_LMCurve], [RLum.Data.Curve-class],
-[plot_RLum]
+\link{CW2pLMi}, \link{CW2pHMi}, \link{CW2pPMi},
+\link{fit_LMCurve}, \linkS4class{RLum.Data.Curve},
+\link{plot_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

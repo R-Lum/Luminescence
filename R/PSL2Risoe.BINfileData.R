@@ -44,6 +44,7 @@
 #' write_R2BIN(bin, "~/portableOSL.binx")
 #' }
 #'
+#' @md
 #' @export
 PSL2Risoe.BINfileData <- function(object, ...) {
 

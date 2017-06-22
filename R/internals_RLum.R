@@ -32,6 +32,7 @@
 #'
 #' object <- .set_pid(object)
 #'
+#' @md
 #' @noRd
 .set_pid <- function(object){
 
@@ -72,6 +73,7 @@
 #' }
 #' print(.warningCatcher(f()))
 #'
+#' @md
 #' @noRd
 .warningCatcher <- function(expr) {
   ##set variables
@@ -146,6 +148,7 @@
 #' v <- 1:100
 #' .smoothing(v)
 #'
+#' @md
 #' @noRd
 .smoothing <- function(
   x,
@@ -203,6 +206,7 @@
 #' axis(1, at = axTicks(1),
 #'      labels = fancy_scientific(axTicks(1)))
 #'
+#' @md
 #' @noRd
 fancy_scientific <- function(l) {
   # turn in to character string in scientific notation

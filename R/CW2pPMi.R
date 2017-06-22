@@ -113,7 +113,7 @@
 #'       col = "blue", lwd = 1.3)
 #' text(0.5,6500,"PM", col = "blue", cex = .8)
 #'
-#'
+#' @md
 #' @export
 CW2pPMi<- function(
   values,

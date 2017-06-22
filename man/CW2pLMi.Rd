@@ -8,20 +8,20 @@ modulation conditions}
 CW2pLMi(values, P)
 }
 \arguments{
-\item{values}{[RLum.Data.Curve-class] or
-[data.frame] (\bold{required}):
-[RLum.Data.Curve-class] or \code{data.frame} with measured
+\item{values}{\linkS4class{RLum.Data.Curve} or
+\link{data.frame} (\bold{required}):
+\linkS4class{RLum.Data.Curve} or \code{data.frame} with measured
 curve data of type stimulation time (t) (\code{values[,1]}) and measured
 counts (cts) (\code{values[,2]})}
 
-\item{P}{[vector] (optional): stimulation time in seconds. If no
+\item{P}{\link{vector} (optional): stimulation time in seconds. If no
 value is given the optimal value is estimated automatically (see details).
 Greater values of P produce more points in the rising tail of the curve.}
 }
 \value{
 The function returns the same data type as the input data type with
 the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-[RLum-class] object with two additional info elements:}
+\linkS4class{RLum} object with two additional info elements:}
 \tabular{rl}{ $CW2pLMi.x.t \tab: transformed time values \cr $CW2pLMi.method
 \tab: used method for the production of the new data points}
 }
@@ -46,7 +46,7 @@ for the transformed time (t'). Values beyond \code{min(t)} and \code{max(t)}
 produce \code{NA} values.\cr\cr (4) Select all values for t' <
 \code{min(t)}, i.e. values beyond the time resolution of t. Select the first
 two values of the transformed data set which contain no \code{NA} values and
-use these values for a linear fit using [lm].\cr\cr (5)
+use these values for a linear fit using \link{lm}.\cr\cr (5)
 Extrapolate values for t' < \code{min(t)} based on the previously obtained
 fit parameters.\cr\cr (6) Transform values using \deqn{pLM(t) = t/P*CW(t')}
 (7) Combine values and truncate all values for t' > \code{max(t)}\cr\cr
@@ -109,7 +109,6 @@ lines(values[1:length(values.t[,1]),1], CW2pPMi(values, P = 1/10)[,2],
       col = "blue", lwd = 1.3)
 text(0.5,6500,"PM", col = "blue", cex = .8)
 
-
 }
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
@@ -123,8 +122,8 @@ Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
-[CW2pLM], [CW2pHMi], [CW2pPMi],
-[fit_LMCurve], [RLum.Data.Curve-class]
+\link{CW2pLM}, \link{CW2pHMi}, \link{CW2pPMi},
+\link{fit_LMCurve}, \linkS4class{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux

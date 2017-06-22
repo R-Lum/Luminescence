@@ -9,31 +9,31 @@ apply_CosmicRayRemoval(object, method = "smooth", method.Pych.smoothing = 2,
   plot = FALSE, ...)
 }
 \arguments{
-\item{object}{[RLum.Data.Spectrum-class] (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Spectrum} (\bold{required}): S4
 object of class \code{RLum.Data.Spectrum}}
 
-\item{method}{[character] (with default): Defines method that is
+\item{method}{\link{character} (with default): Defines method that is
 applied for cosmic ray removal. Allowed methods are \code{smooth}, the default,
-([smooth]), \code{smooth.spline} ([smooth.spline])
+(\link{smooth}), \code{smooth.spline} (\link{smooth.spline})
 and \code{Pych}. See details for further information.}
 
-\item{method.Pych.smoothing}{[integer] (with default): Smoothing
+\item{method.Pych.smoothing}{\link{integer} (with default): Smoothing
 parameter for cosmic ray removal according to Pych (2003). The value defines
 how many neighboring values in each frame are used for smoothing (e.g.,
 \code{2} means that the two previous and two following values are used).}
 
-\item{method.Pych.threshold_factor}{[numeric] (with default): Threshold
+\item{method.Pych.threshold_factor}{\link{numeric} (with default): Threshold
 for zero-bins in the histogram. Small values mean that more peaks are removed, but signal
 might be also affected by this removal.}
 
-\item{MARGIN}{[integer] (with default): on which part the function cosmic ray removal
+\item{MARGIN}{\link{integer} (with default): on which part the function cosmic ray removal
 should be applied on: 1 = along the time axis (line by line), 2 = along the wavelength axis (column by
 column). Note: This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
 
-\item{verbose}{[logical] (with default): Option to suppress
+\item{verbose}{\link{logical} (with default): Option to suppress
 terminal output.,}
 
-\item{plot}{[logical] (with default): If \code{TRUE} the
+\item{plot}{\link{logical} (with default): If \code{TRUE} the
 histograms used for the cosmic-ray removal are returned as plot including
 the used threshold. Note: A separat plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}
@@ -43,14 +43,14 @@ to the \code{smooth} function.}
 }
 \value{
 Returns same object as input
-([RLum.Data.Spectrum-class])
+(\linkS4class{RLum.Data.Spectrum})
 }
 \description{
 The function provides several methods for cosmic ray removal and spectrum
 smoothing for an RLum.Data.Spectrum S4 class object
 }
 \details{
-**`method = "Pych"`** \cr
+\strong{\code{method = "Pych"}} \cr
 
 This method applies the cosmic-ray removal algorithm described by Pych
 (2003). Some aspects that are different to the publication: \itemize{
@@ -59,14 +59,14 @@ mean is used. \item The number of breaks to construct the histogram is set
 to: \code{length(number.of.input.values)/2} } For further details see
 references below.
 
-**`method = "smooth"`** \cr
+\strong{\code{method = "smooth"}} \cr
 
-Method uses the function [smooth] to remove cosmic rays.\cr
+Method uses the function \link{smooth} to remove cosmic rays.\cr
 
 Arguments that can be passed are: \code{kind}, \code{twiceit}\cr
 
-**`method = "smooth.spline"`** \cr Method uses the function
-[smooth.spline] to remove cosmic rays.\cr Arguments that can be
+\strong{\code{method = "smooth.spline"}} \cr Method uses the function
+\link{smooth.spline} to remove cosmic rays.\cr Arguments that can be
 passed are: \code{spar}\cr
 
 \bold{How to combine methods?}\cr
@@ -75,7 +75,9 @@ Different methods can be combined by applying the method repeatedly to the
 dataset (see example).
 }
 \note{
--
+\itemize{
+\item 
+}
 }
 \section{Function version}{
  0.2.1
@@ -97,8 +99,8 @@ Single Images. Astrophysics 116, 148-153.
 \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 }
 \seealso{
-[RLum.Data.Spectrum-class], [smooth],
-[smooth.spline], [apply_CosmicRayRemoval]
+\linkS4class{RLum.Data.Spectrum}, \link{smooth},
+\link{smooth.spline}, \link{apply_CosmicRayRemoval}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
