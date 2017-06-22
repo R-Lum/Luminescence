@@ -44,7 +44,7 @@
 #' @return Function returns results numerically and graphically:\cr
 #'
 #' -----------------------------------\cr
-#' [ NUMERICAL OUTPUT ]\cr
+#' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
 #' \bold{\code{RLum.Reuslts}}-object\cr
 #'
@@ -62,7 +62,7 @@
 #' The original function call\cr
 #'
 #' ------------------------\cr
-#' [ PLOT OUTPUT ]\cr
+#' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
 #'
 #' \itemize{
@@ -84,6 +84,7 @@
 #'
 #' ##nothing so far TODO ... add tests with example
 #'
+#' @md
 #' @export
 analyse_Al2O3C_ITC <- function(
   object,

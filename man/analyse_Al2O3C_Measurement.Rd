@@ -36,15 +36,15 @@ vector is provided it has to be of length three: mean, 2.5 \% quantile, 97.5 \% 
 Function returns results numerically and graphically:\cr
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 \bold{\code{RLum.Reuslts}}-object\cr
 
 \bold{slot:} \bold{\code{@data}}\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
- \code{$data} \tab \code{data.frame} \tab the estimated equivalent dose \cr
- \code{$data_talbe} \tab \code{data.frame} \tab full dose and signal table \cr
+\code{$data} \tab \code{data.frame} \tab the estimated equivalent dose \cr
+\code{$data_talbe} \tab \code{data.frame} \tab full dose and signal table \cr
 }
 
 \bold{slot:} \bold{\code{@info}}\cr
@@ -52,11 +52,11 @@ Function returns results numerically and graphically:\cr
 The original function call\cr
 
 ------------------------\cr
-[ PLOT OUTPUT ]\cr
+\code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 \itemize{
- \item OSL and TL curves, combined on two plots.
+\item OSL and TL curves, combined on two plots.
 
 }
 }

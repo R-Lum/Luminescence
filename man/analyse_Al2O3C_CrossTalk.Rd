@@ -32,17 +32,17 @@ See details for further explanations}
 Function returns results numerically and graphically:\cr
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 \bold{\code{RLum.Reuslts}}-object\cr
 
 \bold{slot:} \bold{\code{@data}}\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
- \code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
- \code{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
- \code{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
- \code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
+\code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
+\code{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
+\code{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
+\code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
 }
 
 \bold{slot:} \bold{\code{@info}}\cr
@@ -50,11 +50,11 @@ Function returns results numerically and graphically:\cr
 The original function call\cr
 
 ------------------------\cr
-[ PLOT OUTPUT ]\cr
+\code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 \itemize{
- \item An overview of the obtained apparent dose values
+\item An overview of the obtained apparent dose values
 
 }
 }

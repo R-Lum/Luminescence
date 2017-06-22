@@ -210,13 +210,13 @@
 #' @return The function returns numerical output and an (optional) plot.
 #'
 #' -----------------------------------\cr
-#' [ NUMERICAL OUTPUT ]\cr
+#' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
 #' \bold{\code{RLum.Reuslts}}-object\cr
 #'
 #' \bold{slot:} \bold{\code{@data}} \cr
 #'
-#' [.. $data : \code{data.frame}]\cr
+#' `[.. $data : \code{data.frame}]`\cr
 #'
 #' \tabular{lll}{
 #' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
@@ -233,11 +233,11 @@
 #'  UID \tab \code{character}\tab unique data set ID
 #' }
 #'
-#' [.. $De.MC : \code{numeric}]\cr
+#' `[.. $De.MC : \code{numeric}]`\cr
 #'
 #' A \code{numeric} vector with all the De values obtained by the MC runs.\cr
 #'
-#' [.. $test_parameters : \code{data.frame}]\cr
+#' `[.. $test_parameters : \code{data.frame}]`\cr
 #'
 #' \tabular{lll}{
 #' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
@@ -250,11 +250,11 @@
 #'  UID \tab \code{character}\tab unique data set ID
 #' }
 #'
-#' [.. $fit : \code{data.frame}]\cr
+#' `[.. $fit : \code{data.frame}]`\cr
 #'
 #' An \code{\link{nls}} object produced by the fitting.\cr
 #'
-#' [.. $slide : \code{list}]\cr
+#' `[.. $slide : \code{list}]`\cr
 #'
 #' A \code{\link{list}} with data produced during the sliding. Some elements are previously
 #' reported with the summary object data. List elements are:
@@ -284,7 +284,7 @@
 #' function \code{\link{get_RLum}}
 #'
 #' ------------------------\cr
-#' [ PLOT OUTPUT ]\cr
+#' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
 #'
 #' The slided IR-RF curves with the finally obtained De
@@ -381,6 +381,7 @@
 #'
 #' }
 #'
+#' @md
 #' @export
 analyse_IRSAR.RF<- function(
   object,

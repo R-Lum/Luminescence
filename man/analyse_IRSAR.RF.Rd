@@ -69,71 +69,70 @@ Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 The function returns numerical output and an (optional) plot.
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 \bold{\code{RLum.Reuslts}}-object\cr
 
 \bold{slot:} \bold{\code{@data}} \cr
 
-[.. $data : \code{data.frame}]\cr
+\code{[.. $data : \code{data.frame}]}\cr
 
 \tabular{lll}{
 \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
- DE \tab \code{numeric} \tab the obtained equivalent dose\cr
- DE.ERROR \tab \code{numeric} \tab (only \code{method = "SLIDE"}) standard deviation obtained from MC runs \cr
- DE.LOWER \tab \code{numeric}\tab 2.5\% quantile for De values obtained by MC runs \cr
- DE.UPPER \tab \code{numeric}\tab 97.5\% quantile for De values obtained by MC runs  \cr
- DE.STATUS  \tab \code{character}\tab test parameter status\cr
- RF_NAT.LIM  \tab \code{charcter}\tab used RF_nat curve limits \cr
- RF_REG.LIM \tab \code{character}\tab used RF_reg curve limits\cr
- POSITION \tab \code{integer}\tab (optional) position of the curves\cr
- DATE \tab \code{character}\tab (optional) measurement date\cr
- SEQUENCE_NAME \tab \code{character}\tab (optional) sequence name\cr
- UID \tab \code{character}\tab unique data set ID
+DE \tab \code{numeric} \tab the obtained equivalent dose\cr
+DE.ERROR \tab \code{numeric} \tab (only \code{method = "SLIDE"}) standard deviation obtained from MC runs \cr
+DE.LOWER \tab \code{numeric}\tab 2.5\% quantile for De values obtained by MC runs \cr
+DE.UPPER \tab \code{numeric}\tab 97.5\% quantile for De values obtained by MC runs  \cr
+DE.STATUS  \tab \code{character}\tab test parameter status\cr
+RF_NAT.LIM  \tab \code{charcter}\tab used RF_nat curve limits \cr
+RF_REG.LIM \tab \code{character}\tab used RF_reg curve limits\cr
+POSITION \tab \code{integer}\tab (optional) position of the curves\cr
+DATE \tab \code{character}\tab (optional) measurement date\cr
+SEQUENCE_NAME \tab \code{character}\tab (optional) sequence name\cr
+UID \tab \code{character}\tab unique data set ID
 }
 
-[.. $De.MC : \code{numeric}]\cr
+\code{[.. $De.MC : \code{numeric}]}\cr
 
 A \code{numeric} vector with all the De values obtained by the MC runs.\cr
 
-[.. $test_parameters : \code{data.frame}]\cr
+\code{[.. $test_parameters : \code{data.frame}]}\cr
 
 \tabular{lll}{
 \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
- POSITION \tab \code{numeric} \tab aliquot position \cr
- PARAMETER \tab \code{character} \tab test parameter name \cr
- THRESHOLD \tab \code{numeric} \tab set test parameter threshold value \cr
- VALUE \tab \code{numeric} \tab the calculated test parameter value (to be compared with the threshold)\cr
- STATUS \tab \code{character} \tab test parameter status either \code{"OK"} or \code{"FAILED"} \cr
- SEQUENCE_NAME \tab \code{character} \tab name of the sequence, so far available \cr
- UID \tab \code{character}\tab unique data set ID
+POSITION \tab \code{numeric} \tab aliquot position \cr
+PARAMETER \tab \code{character} \tab test parameter name \cr
+THRESHOLD \tab \code{numeric} \tab set test parameter threshold value \cr
+VALUE \tab \code{numeric} \tab the calculated test parameter value (to be compared with the threshold)\cr
+STATUS \tab \code{character} \tab test parameter status either \code{"OK"} or \code{"FAILED"} \cr
+SEQUENCE_NAME \tab \code{character} \tab name of the sequence, so far available \cr
+UID \tab \code{character}\tab unique data set ID
 }
 
-[.. $fit : \code{data.frame}]\cr
+\code{[.. $fit : \code{data.frame}]}\cr
 
 An \code{\link{nls}} object produced by the fitting.\cr
 
-[.. $slide : \code{list}]\cr
+\code{[.. $slide : \code{list}]}\cr
 
 A \code{\link{list}} with data produced during the sliding. Some elements are previously
 reported with the summary object data. List elements are:
 
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
- De \tab \code{numeric} \tab the final De obtained with the sliding approach \cr
- De.MC \tab \code{numeric} \tab all De values obtained by the MC runs \cr
- residuals \tab \code{numeric} \tab the obtained residuals for each channel of the curve \cr
- trend.fit \tab \code{lm} \tab fitting results produced by the fitting of the residuals \cr
- RF_nat.slided \tab \code{matrix} \tab the slided RF_nat curve \cr
- t_n.id \tab \code{numeric} \tab the index of the t_n offset \cr
- I_n \tab \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
- algorithm_error \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
- algorithm. The returned value is the standard deviation of all obtained De values while expanding the
- vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr
- vslide_range \tab \code{numeric} \tab the range used for the vertical sliding \cr
- squared_residuals \tab \code{numeric} \tab the squared residuals (horizontal sliding)
+De \tab \code{numeric} \tab the final De obtained with the sliding approach \cr
+De.MC \tab \code{numeric} \tab all De values obtained by the MC runs \cr
+residuals \tab \code{numeric} \tab the obtained residuals for each channel of the curve \cr
+trend.fit \tab \code{lm} \tab fitting results produced by the fitting of the residuals \cr
+RF_nat.slided \tab \code{matrix} \tab the slided RF_nat curve \cr
+t_n.id \tab \code{numeric} \tab the index of the t_n offset \cr
+I_n \tab \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
+algorithm_error \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
+algorithm. The returned value is the standard deviation of all obtained De values while expanding the
+vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr
+vslide_range \tab \code{numeric} \tab the range used for the vertical sliding \cr
+squared_residuals \tab \code{numeric} \tab the squared residuals (horizontal sliding)
 }
-
 
 \bold{slot:} \bold{\code{@info}} \cr
 
@@ -143,7 +142,7 @@ The output (\code{data}) should be accessed using the
 function \code{\link{get_RLum}}
 
 ------------------------\cr
-[ PLOT OUTPUT ]\cr
+\code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 The slided IR-RF curves with the finally obtained De

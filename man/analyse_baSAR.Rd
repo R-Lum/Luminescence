@@ -109,18 +109,18 @@ arranged by analyse_baSAR}
 Function returns results numerically and graphically:\cr
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 \bold{\code{RLum.Reuslts}}-object\cr
 
 \bold{slot:} \bold{\code{@data}}\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
- \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
- \code{$mcmc} \tab \code{mcmc} \tab object including raw output of \code{\link[rjags]{rjags}} \cr
- \code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
- \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
- \code{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
+\code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
+\code{$mcmc} \tab \code{mcmc} \tab object including raw output of \code{\link[rjags]{rjags}} \cr
+\code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
+\code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
+\code{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
 }
 
 \bold{slot:} \bold{\code{@info}}\cr
@@ -128,21 +128,21 @@ Function returns results numerically and graphically:\cr
 The original function call\cr
 
 ------------------------\cr
-[ PLOT OUTPUT ]\cr
+\code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 \itemize{
- \item (A) Ln/Tn curves with set integration limits,
- \item (B) trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
- and the resulting kernel density plots. If \code{plot_reduced = FALSE} for every(!) dose a trace and
- a density plot is returned (this may take a long time),
- \item (C) dose plots showing the dose for every aliquot as boxplots and the marked
- HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked,
- \item (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
- provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
- is limited to 1000 (random choice) for performance reasons,
- \item (E) the final plot is the De distribution as calculated using the conventional approach
- and the central dose with the HPDs marked within.
+\item (A) Ln/Tn curves with set integration limits,
+\item (B) trace plots are returned by the baSAR-model, showing the convergence of the parameters (trace)
+and the resulting kernel density plots. If \code{plot_reduced = FALSE} for every(!) dose a trace and
+a density plot is returned (this may take a long time),
+\item (C) dose plots showing the dose for every aliquot as boxplots and the marked
+HPD in within. If boxes are coloured 'orange' or 'red' the aliquot itself should be checked,
+\item (D) the dose response curve resulting from the monitoring of the Bayesian modelling are
+provided along with the Lx/Tx values and the HPD. Note: The amount for curves displayed
+is limited to 1000 (random choice) for performance reasons,
+\item (E) the final plot is the De distribution as calculated using the conventional approach
+and the central dose with the HPDs marked within.
 
 }
 
@@ -199,9 +199,9 @@ If no XLS file (or data frame with the same format) is provided the functions ru
 consists of the following steps:
 
 \itemize{
- \item Select all valid aliquots using the function \code{\link{verify_SingleGrainData}}
- \item Calculate Lx/Tx values using the function \code{\link{calc_OSLLxTxRatio}}
- \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
+\item Select all valid aliquots using the function \code{\link{verify_SingleGrainData}}
+\item Calculate Lx/Tx values using the function \code{\link{calc_OSLLxTxRatio}}
+\item Calculate De values using the function \code{\link{plot_GrowthCurve}}
 }
 
 These proceeded data are subsequently used in for the Bayesian analysis
@@ -212,8 +212,8 @@ If an XLS-file is provided or a \code{data.frame} providing similar information 
 steps consists of the following steps:
 
 \itemize{
- \item Calculate Lx/Tx values using the function \code{\link{calc_OSLLxTxRatio}}
- \item Calculate De values using the function \code{\link{plot_GrowthCurve}}
+\item Calculate Lx/Tx values using the function \code{\link{calc_OSLLxTxRatio}}
+\item Calculate De values using the function \code{\link{plot_GrowthCurve}}
 }
 
 Means, the XLS file should contain a selection of the BIN-file names and the aliquots selected

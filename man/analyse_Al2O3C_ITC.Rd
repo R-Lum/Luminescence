@@ -31,17 +31,17 @@ See details for further explanations}
 Function returns results numerically and graphically:\cr
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 \bold{\code{RLum.Reuslts}}-object\cr
 
 \bold{slot:} \bold{\code{@data}}\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
- \code{$data} \tab \code{data.frame} \tab correction value and error \cr
- \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
- \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
- \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot_GrowthCurve}}
+\code{$data} \tab \code{data.frame} \tab correction value and error \cr
+\code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
+\code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
+\code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot_GrowthCurve}}
 }
 
 \bold{slot:} \bold{\code{@info}}\cr
@@ -49,11 +49,11 @@ Function returns results numerically and graphically:\cr
 The original function call\cr
 
 ------------------------\cr
-[ PLOT OUTPUT ]\cr
+\code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
 
 \itemize{
- \item A dose response curve with the marked correction values
+\item A dose response curve with the marked correction values
 
 }
 }

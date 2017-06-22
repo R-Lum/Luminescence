@@ -56,6 +56,7 @@
 #'
 #'
 #'
+#' @md
 #' @export
 analyse_portableOSL <-
   function(object,
