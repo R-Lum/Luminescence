@@ -55,7 +55,7 @@ complex data structures as well as a mean of properly documenting and saving
 objects.
 }
 \details{
-The HTML report is created with \code{\link[rmarkdown]{render}} and has the
+The HTML report is created with \link[rmarkdown:render]{rmarkdown::render} and has the
 following structure:
 
 \tabular{ll}{
@@ -180,8 +180,8 @@ report_RLum(object = x, file = "~/arbitray_list")
 
 }
 \seealso{
-\code{\link[rmarkdown]{render}}, \code{\link[pander]{pander_return}},
-\code{\link[pander]{openFileInOS}}, \code{\link[rstudioapi]{viewer}},
+\link[rmarkdown:render]{rmarkdown::render}, \link[pander:pander_return]{pander::pander_return},
+\link[pander:openFileInOS]{pander::openFileInOS}, \link[rstudioapi:viewer]{rstudioapi::viewer},
 \link{browseURL}
 }
 \author{

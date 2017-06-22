@@ -106,7 +106,7 @@ extraxpolation to calculate the equivalent dose.
 }
 \details{
 \bold{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
-the \code{EXP OR LIN}), the \code{\link[minpack.lm]{nlsLM}} function with the
+the \code{EXP OR LIN}), the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the
 \code{LM} (Levenberg-Marquardt algorithm) algorithm is used. Note: For historical reasons
 for the Monte Carlo simulations partly  the function \link{nls} using the \code{port} algorithm.
 
@@ -201,7 +201,7 @@ print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 }
 \seealso{
 \link{nls}, \code{\linkS4class{RLum.Results}},
-\link{get_RLum}, \code{\link[minpack.lm]{nlsLM}}, \link{lm}, \code{uniroot}
+\link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{lm}, \code{uniroot}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

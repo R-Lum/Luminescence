@@ -151,7 +151,7 @@
 #' (France)
 #'
 #' @seealso [fit_CWCurve], [plot], [nls],
-#' \code{\link[minpack.lm]{nlsLM}}, [get_RLum]
+#' [minpack.lm::nlsLM], [get_RLum]
 #'
 #' @references Bulur, E., 1996. An Alternative Technique For Optically
 #' Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,

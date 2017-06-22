@@ -1,7 +1,7 @@
 #' Export RLum-objects to CSV
 #'
 #' This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
-#' \code{\link[utils]{write.table}}. All \code{\linkS4class{RLum}}-objects are supported, but the
+#' [utils::write.table]. All \code{\linkS4class{RLum}}-objects are supported, but the
 #' export is lossy, i.e. the pure numerical values are exported only. Information that cannot
 #' be coerced to a [data.frame] or a [matrix] are discarded as well as
 #' metadata.
@@ -28,7 +28,7 @@
 #' nothing is written to the file connection, but a list comprising objects of type [data.frame] and [matrix]
 #' is returned instead
 #'
-#' @param \dots further arguments that will be passed to the function \code{\link[utils]{write.table}}. All arguments
+#' @param \dots further arguments that will be passed to the function [utils::write.table]. All arguments
 #' except the argument \code{file} are supported
 #'
 #'
@@ -41,7 +41,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
-#' \code{\link[utils]{write.table}}
+#' [utils::write.table]
 #'
 #' @keywords IO
 #'

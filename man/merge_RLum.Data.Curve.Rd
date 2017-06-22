@@ -47,27 +47,27 @@ The mean over the count values is calculated using the function
 \code{"median"}\cr
 
 The median over the count values is calculated using the function
-\code{\link[matrixStats]{rowMedians}}.
+\link[matrixStats:rowMedians]{matrixStats::rowMedians}.
 
 \code{"sd"}\cr
 
 The standard deviation over the count values is calculated using the function
-\code{\link[matrixStats]{rowSds}}.
+\link[matrixStats:rowSds]{matrixStats::rowSds}.
 
 \code{"var"}\cr
 
 The variance over the count values is calculated using the function
-\code{\link[matrixStats]{rowVars}}.
+\link[matrixStats:rowVars]{matrixStats::rowVars}.
 
 \code{"min"}\cr
 
 The min values from the count values is chosen using the function
-\code{\link[matrixStats]{rowMins}}.
+\link[matrixStats:rowMins]{matrixStats::rowMins}.
 
 \code{"max"}\cr
 
 The max values from the count values is chosen using the function
-\code{\link[matrixStats]{rowMins}}.
+\link[matrixStats:rowMins]{matrixStats::rowMins}.
 
 \code{"append"}\cr
 

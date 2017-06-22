@@ -106,7 +106,7 @@ Hall, C., 2012: readSPE.m.
 }
 \seealso{
 \link{readBin}, \code{\linkS4class{RLum.Data.Spectrum}},
-\code{\link[raster]{raster}}
+\link[raster:raster]{raster::raster}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

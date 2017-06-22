@@ -31,7 +31,7 @@ option in only possible if \code{mtext} is not used.}
 from the data set prior to any further operations.}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\link{plot.default}, \code{\link[stats]{density}} and \link{boxplot}. See details for
+\link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for
 further information}
 }
 \description{
@@ -43,7 +43,7 @@ The general idea for the Violin Plot seems to be introduced by Hintze and Nelson
 }
 \details{
 The function is passing several arguments to the function \link{plot},
-\code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}:
+\link[stats:density]{stats::density}, \link[graphics:boxplot]{graphics::boxplot}:
 Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
 \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 
@@ -82,7 +82,7 @@ R package version 0.2.1. http://CRAN.R-project.org/package=violinmplot
 Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 }
 \seealso{
-\code{\link[stats]{density}}, \link{plot}, \link{boxplot}, \link{rug},
+\link[stats:density]{stats::density}, \link{plot}, \link{boxplot}, \link{rug},
 \link{calc_Statistics}
 }
 \author{

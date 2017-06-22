@@ -6,7 +6,7 @@
 #' complex data structures as well as a mean of properly documenting and saving
 #' objects.
 #'
-#' The HTML report is created with \code{\link[rmarkdown]{render}} and has the
+#' The HTML report is created with [rmarkdown::render] and has the
 #' following structure:
 #' 
 #' \tabular{ll}{
@@ -105,8 +105,8 @@
 #' @note
 #' This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 #' 
-#' @seealso \code{\link[rmarkdown]{render}}, \code{\link[pander]{pander_return}},
-#' \code{\link[pander]{openFileInOS}}, \code{\link[rstudioapi]{viewer}},
+#' @seealso [rmarkdown::render], [pander::pander_return],
+#' [pander::openFileInOS], [rstudioapi::viewer],
 #' [browseURL]
 #' 
 #' @return

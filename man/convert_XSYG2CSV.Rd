@@ -43,7 +43,7 @@ convert_XSYG2CSV(file)
 }
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
-\code{\link[utils]{write.table}}, \link{write_RLum2CSV}, \link{read_XSYG2R}
+\link[utils:write.table]{utils::write.table}, \link{write_RLum2CSV}, \link{read_XSYG2R}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

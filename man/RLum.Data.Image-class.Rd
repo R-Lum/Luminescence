@@ -52,7 +52,7 @@ Returns an object from class \code{RLum.Data.Image}
 
 \bold{\code{get_RLum}}\cr
 
-(1) Returns the data object (\code{\link[raster]{brick}})\cr
+(1) Returns the data object ([raster::brick])\cr
 (2) only the info object if \code{info.object} was set.\cr
 
 \bold{\code{names_RLum}}\cr
@@ -86,7 +86,7 @@ containing the type of the curve (e.g. "OSL image", "TL image")}
 \item{\code{curveType}}{Object of class [character] containing curve type, allowed values
 are measured or predefined}
 
-\item{\code{data}}{Object of class \code{\link[raster]{brick}} containing images (raster data).}
+\item{\code{data}}{Object of class [raster::brick] containing images (raster data).}
 
 \item{\code{info}}{Object of class [list] containing further meta information objects}
 }}

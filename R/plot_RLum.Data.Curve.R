@@ -17,7 +17,7 @@
 #' to the highest count value
 #'
 #' @param smooth [logical] (with default): provides an automatic curve smoothing
-#' based on \code{\link[zoo]{rollmean}}
+#' based on [zoo::rollmean]
 #'
 #' @param \dots further arguments and graphical parameters that will be passed
 #' to the \code{plot} function

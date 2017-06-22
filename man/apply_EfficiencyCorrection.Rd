@@ -27,7 +27,7 @@ S4 class objects
 The efficiency correction is based on a spectral response dataset provided
 by the user. Usually the data set for the quantum efficiency is of lower
 resolution and values are interpolated for the required spectral resolution using
-the function \code{\link[stats]{approx}}
+the function \link[stats:approx]{stats::approx}
 
 If the energy calibration differes for both data set \code{NA} values are produces that
 will be removed from the matrix.

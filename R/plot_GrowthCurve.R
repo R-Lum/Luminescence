@@ -5,7 +5,7 @@
 #' extraxpolation to calculate the equivalent dose.
 #'
 #' \bold{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
-#' the \code{EXP OR LIN}), the \code{\link[minpack.lm]{nlsLM}} function with the
+#' the \code{EXP OR LIN}), the [minpack.lm::nlsLM] function with the
 #' \code{LM} (Levenberg-Marquardt algorithm) algorithm is used. Note: For historical reasons
 #' for the Monte Carlo simulations partly  the function [nls] using the \code{port} algorithm.
 #'
@@ -149,7 +149,7 @@
 #'
 #'
 #' @seealso [nls], \code{\linkS4class{RLum.Results}},
-#' [get_RLum], \code{\link[minpack.lm]{nlsLM}}, [lm], \code{uniroot}
+#' [get_RLum], [minpack.lm::nlsLM], [lm], \code{uniroot}
 #'
 #' @examples
 #'

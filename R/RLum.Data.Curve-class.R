@@ -85,7 +85,7 @@ setClass("RLum.Data.Curve",
 #'
 #' @param to [character] (\bold{required}): class name to be coerced to
 #'
-#' @seealso \code{\link[methods]{as}}
+#' @seealso [methods::as]
 #'
 #' @note Due to the complex structure of the \code{RLum} objects itself a coercing to standard
 #' R data structures will be always loosely!
@@ -470,7 +470,7 @@ setMethod(f = "bin_RLum.Data",
 ###smooth_RLum()
 ####################################################################################################
 #' @describeIn RLum.Data.Curve
-#' Smoothing of RLum.Data.Curve objects using the function \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+#' Smoothing of RLum.Data.Curve objects using the function [zoo::rollmean] or [zoo::rollmedian].
 #' In particular the internal function \code{.smoothing} is used.
 #'
 #' @param k [\code{smooth_RLum}] [integer] (with default): window for the rolling mean; must be odd for rollmedian.

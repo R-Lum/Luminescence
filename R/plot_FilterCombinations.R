@@ -41,14 +41,14 @@
 #' \tabular{lll}{
 #' \bold{Argument} \tab \bold{Datatype} \tab \bold{Description}\cr
 #' \code{legend} \tab \code{logical} \tab enable/disable legend \cr
-#' \code{legend.pos} \tab \code{character} \tab change legend position (\code{\link[graphics]{legend}}) \cr
-#' \code{legend.text} \tab \code{character} \tab same as the argument \code{legend} in (\code{\link[graphics]{legend}}) \cr
+#' \code{legend.pos} \tab \code{character} \tab change legend position ([graphics::legend]) \cr
+#' \code{legend.text} \tab \code{character} \tab same as the argument \code{legend} in ([graphics::legend]) \cr
 #' \code{net_transmission.col} \tab \code{col} \tab colour of net transmission window polygon \cr
-#' \code{grid} \tab \code{list} \tab full list of arguments that can be passd to the function \code{\link[graphics]{grid}}
+#' \code{grid} \tab \code{list} \tab full list of arguments that can be passd to the function [graphics::grid]
 #' }
 #'
 #' For further modifications standard additional R plot functions are recommend, e.g., the legend
-#' can be fully customised by disabling the standard legend and use the function \code{\link[graphics]{legend}}
+#' can be fully customised by disabling the standard legend and use the function [graphics::legend]
 #' instead.
 #'
 #'

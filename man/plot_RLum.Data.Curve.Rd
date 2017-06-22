@@ -19,7 +19,7 @@ If \code{par.local = FALSE}, global parameters are inherited.}
 to the highest count value}
 
 \item{smooth}{\link{logical} (with default): provides an automatic curve smoothing
-based on \code{\link[zoo]{rollmean}}}
+based on \link[zoo:rollmean]{zoo::rollmean}}
 
 \item{\dots}{further arguments and graphical parameters that will be passed
 to the \code{plot} function}

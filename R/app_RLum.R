@@ -6,7 +6,7 @@
 #'
 #' @param app [character] (required): name of the application to start. See details for a list
 #' of available apps.
-#' @param ... further arguments to pass to \code{\link[shiny]{runApp}}
+#' @param ... further arguments to pass to [shiny::runApp]
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'

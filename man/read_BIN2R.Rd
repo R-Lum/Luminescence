@@ -113,8 +113,8 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 }
 \seealso{
 \link{write_R2BIN}, \code{\linkS4class{Risoe.BINfileData}},
-\code{\link[base]{readBin}}, \link{merge_Risoe.BINfileData}, \code{\linkS4class{RLum.Analysis}}
-\code{\link[utils]{txtProgressBar}}, \link{list.files}
+\link[base:readBin]{base::readBin}, \link{merge_Risoe.BINfileData}, \code{\linkS4class{RLum.Analysis}}
+\link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

@@ -166,7 +166,7 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 \seealso{
 \link{fit_LMCurve}, \link{plot},\link{nls},
 \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-\link{get_RLum}, \code{\link[minpack.lm]{nlsLM}}
+\link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

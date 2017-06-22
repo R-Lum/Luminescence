@@ -7,7 +7,7 @@
 #' The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
 #'
 #' The function is passing several arguments to the function [plot],
-#' \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}:
+#' [stats::density], [graphics::boxplot]:
 #' Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
 #' \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 #'
@@ -38,7 +38,7 @@
 #' from the data set prior to any further operations.
 #'
 #' @param \dots further arguments and graphical parameters passed to
-#' [plot.default], \code{\link[stats]{density}} and [boxplot]. See details for
+#' [plot.default], [stats::density] and [boxplot]. See details for
 #' further information
 #'
 #' @note Although the code for this function was developed independently and just the idea for the plot
@@ -62,7 +62,7 @@
 #'
 #' Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 #'
-#' @seealso \code{\link[stats]{density}}, [plot], [boxplot], [rug],
+#' @seealso [stats::density], [plot], [boxplot], [rug],
 #' [calc_Statistics]
 #'
 #' @examples

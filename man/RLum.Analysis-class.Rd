@@ -148,7 +148,7 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item \code{names_RLum}: Returns the names of the \code{\linkS4class{RLum.Data}} objects objects (same as shown with the show method)
 
 \item \code{smooth_RLum}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
-\code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+[zoo::rollmean] or [zoo::rollmedian].
 In particular the internal function \code{.smoothing} is used.
 }}
 

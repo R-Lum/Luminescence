@@ -78,5 +78,5 @@ Due to the complex structure of the \code{RLum} objects itself a coercing to sta
 R data structures will be always loosely!
 }
 \seealso{
-\code{\link[methods]{as}}
+[methods::as]
 }

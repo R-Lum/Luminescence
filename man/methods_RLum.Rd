@@ -214,7 +214,7 @@ be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
 \item{row.names}{\link{logical} (with default): enables or disables row names (\code{as.data.frame})}
 
 \item{optional}{\link{logical} (with default): logical. If TRUE, setting row names and
-converting column names (to syntactic names: see make.names) is optional (see \code{\link[base]{as.data.frame}})}
+converting column names (to syntactic names: see make.names) is optional (see \link[base:as.data.frame]{base::as.data.frame})}
 
 \item{recursive}{\link{logical} (with default): enables or disables further subsetting (\code{unlist})}
 

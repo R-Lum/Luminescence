@@ -780,7 +780,7 @@ setMethod("names_RLum",
 #' @describeIn RLum.Analysis
 #'
 #' Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
-#' \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+#' [zoo::rollmean] or [zoo::rollmedian].
 #' In particular the internal function \code{.smoothing} is used.
 #'
 #' @param ... further arguments passed to underlying methods

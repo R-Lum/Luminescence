@@ -10,7 +10,7 @@
 #' leading to function failures during import when just a path is provided.
 #'
 #' @param raw [logical] (with default): if the input is a DAT-file (binary) a
-#' \code{\link[data.table]{data.table}} instead of the \code{\linkS4class{RLum.Analysis}} object
+#' [data.table::data.table] instead of the \code{\linkS4class{RLum.Analysis}} object
 #' can be returned for debugging purposes.
 #'
 #' @param verbose [logical] (with default): enables or disables terminal feedback
@@ -30,7 +30,7 @@
 #' \cr The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\link[data.table]{data.table}}
+#' [data.table::data.table]
 #'
 #'
 #'

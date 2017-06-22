@@ -3,7 +3,7 @@
 #' This function is a convenient method for installing the development
 #' version of the R package 'Luminescence' directly from GitHub.
 #' 
-#' This function uses \code{\link[Luminescence]{github_branches}} to check
+#' This function uses [Luminescence::github_branches] to check
 #' which development branches of the R package 'Luminescence' are currently
 #' available on GitHub. The user is then prompted to choose one of the branches
 #' to be installed. It further checks whether the R package 'devtools' is 
@@ -13,7 +13,7 @@
 #' 
 #' If \code{force_install=TRUE} the functions checks if 'devtools' is available
 #' and then attempts to install the chosen development branch via
-#' \code{\link[devtools]{install_github}}.
+#' [devtools::install_github].
 #'
 #' @param force_install [logical] (optional):
 #' If \code{FALSE} (the default) the function produces and prints the required

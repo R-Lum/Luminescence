@@ -61,7 +61,7 @@
 #' @param recursive [logical] (with default): enables or disables further subsetting (\code{unlist})
 #'
 #' @param optional [logical] (with default): logical. If TRUE, setting row names and
-#' converting column names (to syntactic names: see make.names) is optional (see \code{\link[base]{as.data.frame}})
+#' converting column names (to syntactic names: see make.names) is optional (see [base::as.data.frame])
 #'
 #' @param ... further arguments that can be passed to the method
 #'

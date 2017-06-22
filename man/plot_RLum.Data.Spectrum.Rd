@@ -218,7 +218,7 @@ Springer.
 }
 \seealso{
 \code{\linkS4class{RLum.Data.Spectrum}}, \link{plot},
-\link{plot_RLum}, \link{persp}, \code{\link[plotly]{plot_ly}},
+\link{plot_RLum}, \link{persp}, \link[plotly:plot_ly]{plotly::plot_ly},
 \link{contour}
 }
 \author{

@@ -13,7 +13,7 @@ containing measurement data. Please note that the specific, common, file extensi
 leading to function failures during import when just a path is provided.}
 
 \item{raw}{\link{logical} (with default): if the input is a DAT-file (binary) a
-\code{\link[data.table]{data.table}} instead of the \code{\linkS4class{RLum.Analysis}} object
+\link[data.table:data.table]{data.table::data.table} instead of the \code{\linkS4class{RLum.Analysis}} object
 can be returned for debugging purposes.}
 
 \item{verbose}{\link{logical} (with default): enables or disables terminal feedback}
@@ -48,7 +48,7 @@ temp <- read_Daybreak2R(file)
 }
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-\code{\link[data.table]{data.table}}
+\link[data.table:data.table]{data.table::data.table}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr

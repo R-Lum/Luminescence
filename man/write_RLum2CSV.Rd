@@ -20,7 +20,7 @@ is valid for all written files}
 nothing is written to the file connection, but a list comprising objects of type \link{data.frame} and \link{matrix}
 is returned instead}
 
-\item{\dots}{further arguments that will be passed to the function \code{\link[utils]{write.table}}. All arguments
+\item{\dots}{further arguments that will be passed to the function \link[utils:write.table]{utils::write.table}. All arguments
 except the argument \code{file} are supported}
 }
 \value{
@@ -29,7 +29,7 @@ a list comprising objects of type \link{data.frame} and \link{matrix}
 }
 \description{
 This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
-\code{\link[utils]{write.table}}. All \code{\linkS4class{RLum}}-objects are supported, but the
+\link[utils:write.table]{utils::write.table}. All \code{\linkS4class{RLum}}-objects are supported, but the
 export is lossy, i.e. the pure numerical values are exported only. Information that cannot
 be coerced to a \link{data.frame} or a \link{matrix} are discarded as well as
 metadata.
@@ -68,7 +68,7 @@ write_RLum2CSV(object, export = FALSE)
 }
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
-\code{\link[utils]{write.table}}
+\link[utils:write.table]{utils::write.table}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

@@ -142,7 +142,7 @@
 #' (France)
 #'
 #' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, [plot],
-#' [plot_RLum], [persp], \code{\link[plotly]{plot_ly}},
+#' [plot_RLum], [persp], [plotly::plot_ly],
 #' [contour]
 #'
 #' @references Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.

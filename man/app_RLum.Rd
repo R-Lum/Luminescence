@@ -10,7 +10,7 @@ app_RLum(app = NULL, ...)
 \item{app}{\link{character} (required): name of the application to start. See details for a list
 of available apps.}
 
-\item{...}{further arguments to pass to \code{\link[shiny]{runApp}}}
+\item{...}{further arguments to pass to \link[shiny:runApp]{shiny::runApp}}
 }
 \description{
 Wrapper for the function \link[RLumShiny:app_RLum]{RLumShiny::app_RLum} from the package

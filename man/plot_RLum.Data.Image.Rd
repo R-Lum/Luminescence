@@ -40,7 +40,7 @@ Supported plot types: \cr
 \bold{\code{plot.type = "plot.raster"}}\cr
 
 Uses the standard plot function for raster data from the package
-\code{\link[raster]{raster}}: \code{\link[raster]{plot}}. For each raster layer in a
+\link[raster:raster]{raster::raster}: \link[raster:plot]{raster::plot}. For each raster layer in a
 raster brick one plot is produced.
 
 Arguments that are passed through the function call:\cr
@@ -50,8 +50,8 @@ Arguments that are passed through the function call:\cr
 
 \bold{\code{plot.type = "plotRGB"}}\cr
 
-Uses the function \code{\link[raster]{plotRGB}} from the
-\code{\link[raster]{raster}} package. Only one image plot is produced as all layers
+Uses the function \link[raster:plotRGB]{raster::plotRGB} from the
+\link[raster:raster]{raster::raster} package. Only one image plot is produced as all layers
 in a brick a combined.  This plot type is useful to see whether any signal
 is recorded by the camera.\cr Arguments that are passed through the function
 call:\cr
@@ -63,7 +63,7 @@ call:\cr
 \bold{\code{plot.type = "contour"}}\cr
 
 Uses the function contour plot function from the \link{raster}
-function (\code{\link[raster]{contour}}). For each raster layer one contour
+function (\link[raster:contour]{raster::contour}). For each raster layer one contour
 plot is produced. Arguments that are passed through the function call:\cr
 
 \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
@@ -91,7 +91,7 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 }
 \seealso{
 \code{\linkS4class{RLum.Data.Image}}, \link{plot},
-\link{plot_RLum}, \code{\link[raster]{raster}}
+\link{plot_RLum}, \link[raster:raster]{raster::raster}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

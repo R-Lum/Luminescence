@@ -112,7 +112,7 @@
 #'
 #' @seealso [fit_LMCurve], [plot],[nls],
 #' \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-#' [get_RLum], \code{\link[minpack.lm]{nlsLM}}
+#' [get_RLum], [minpack.lm::nlsLM]
 #' @references Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 #' Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.
 #'

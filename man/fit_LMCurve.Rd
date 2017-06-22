@@ -210,7 +210,7 @@ K. Hornik, & G. Parmigiani, eds., Springer, p. 150.
 }
 \seealso{
 \link{fit_CWCurve}, \link{plot}, \link{nls},
-\code{\link[minpack.lm]{nlsLM}}, \link{get_RLum}
+\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

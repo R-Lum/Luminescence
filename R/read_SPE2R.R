@@ -59,7 +59,7 @@
 #' (France)
 #'
 #' @seealso [readBin], \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\link[raster]{raster}}
+#' [raster::raster]
 #'
 #' @references Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 #' Format Specification, Version 1.A (for document URL please use an internet search machine)

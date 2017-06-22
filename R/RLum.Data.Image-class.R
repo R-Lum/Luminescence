@@ -16,7 +16,7 @@ NULL
 #' @slot curveType Object of class [character] containing curve type, allowed values
 #' are measured or predefined
 #'
-#' @slot data Object of class \code{\link[raster]{brick}} containing images (raster data).
+#' @slot data Object of class [raster::brick] containing images (raster data).
 #'
 #' @slot info Object of class [list] containing further meta information objects
 #'
@@ -278,7 +278,7 @@ setMethod(
 #'
 #' \bold{\code{get_RLum}}\cr
 #'
-#' (1) Returns the data object (\code{\link[raster]{brick}})\cr
+#' (1) Returns the data object ([raster::brick])\cr
 #' (2) only the info object if \code{info.object} was set.\cr
 #'
 #' @export

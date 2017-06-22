@@ -88,8 +88,8 @@
 #'
 #'
 #' @seealso [write_R2BIN], \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link[base]{readBin}}, [merge_Risoe.BINfileData], \code{\linkS4class{RLum.Analysis}}
-#' \code{\link[utils]{txtProgressBar}}, [list.files]
+#' [base::readBin], [merge_Risoe.BINfileData], \code{\linkS4class{RLum.Analysis}}
+#' [utils::txtProgressBar], [list.files]
 #'
 #'
 #' @references
