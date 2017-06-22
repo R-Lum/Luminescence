@@ -44,6 +44,8 @@
 #' \code{legend.pos} \tab \code{character} \tab change legend position (\code{\link[graphics]{legend}}) \cr
 #' \code{legend.text} \tab \code{character} \tab same as the argument \code{legend} in (\code{\link[graphics]{legend}}) \cr
 #' \code{net_transmission.col} \tab \code{col} \tab colour of net transmission window polygon \cr
+#' \code{net_transmission.col_lines} \tab \code{col} \tab colour of net transmission window polygon lines \cr
+#' \code{ net_transmission.density} \tab  \code{numeric} \tab specify line density in the transmission polygon \cr
 #' \code{grid} \tab \code{list} \tab full list of arguments that can be passd to the function \code{\link[graphics]{grid}}
 #' }
 #'
@@ -86,7 +88,7 @@
 #'
 #' }
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
@@ -209,7 +211,7 @@ plot_FilterCombinations <- function(
   ##calculate transmission window
   filter_matrix <- cbind(filter_matrix)
   net_transmission_window <- matrix(
-    c(wavelength_range, matrixStats::rowMins(filter_matrix)),
+    c(wavelength_range, matrixStats::rowProds(filter_matrix)),
     ncol = 2)
 
   ##set rownames of filter matrix
@@ -236,7 +238,9 @@ plot_FilterCombinations <- function(
       grid = expression(nx = 10, ny = 10),
       legend = TRUE,
       legend.text = colnames(filter_matrix),
-      net_transmission.col = "grey"
+      net_transmission.col = rgb(0,0.7,0,.2),
+      net_transmission.col_lines = "grey",
+      net_transmission.density = 20
 
     )
 
@@ -325,7 +329,15 @@ plot_FilterCombinations <- function(
           y = c(net_transmission_window[, 2],
                 rep(0, length(wavelength_range))),
           col = plot_settings$net_transmission.col,
-          border = NA
+          border = NA,
+        )
+        polygon(
+          x = c(wavelength_range, rev(wavelength_range)),
+          y = c(net_transmission_window[, 2],
+                rep(0, length(wavelength_range))),
+          col = plot_settings$net_transmission.col_lines,
+          border = NA,
+          density = plot_settings$net_transmission.density
         )
 
       }
