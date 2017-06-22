@@ -8,7 +8,7 @@ merge_RLum.Analysis(objects)
 }
 \arguments{
 \item{objects}{\link{list} of \linkS4class{RLum.Analysis}
-(\bold{required}): list of S4 objects of class \code{RLum.Analysis}.
+(\strong{required}): list of S4 objects of class \code{RLum.Analysis}.
 Furthermore other objects of class \linkS4class{RLum} can be added,
 see details.}
 }

@@ -63,7 +63,7 @@
 #' `output.terminal = FALSE` no advanced output is possible.
 #' @param plot [logical] *(with default)*: returns a plot of the fitted
 #' curves.
-#' @param \dots further arguments and graphical parameters passed to
+#' @param ... further arguments and graphical parameters passed to
 #' [plot].
 #' @return \item{plot}{*(optional)* the fitted CW-OSL curves are returned as
 #' plot.} \item{table}{*(optional)* an output table (*.csv) with parameters of

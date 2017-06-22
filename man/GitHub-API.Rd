@@ -28,7 +28,7 @@ branch of a GitHub repository (defaults to 'master').}
 number of commits returned (defaults to 5).}
 
 \item{verbose}{[logical]: 
-print the output to the console (defaults to \code{TRUE}).}
+print the output to the console (defaults to `TRUE`).}
 }
 \value{
 \code{github_commits}: \link{data.frame} with columns:

@@ -19,7 +19,7 @@
 #' @param smooth [logical] *(with default)*: provides an automatic curve smoothing
 #' based on [zoo::rollmean]
 #'
-#' @param \dots further arguments and graphical parameters that will be passed
+#' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function
 #'
 #' @return Returns a plot.

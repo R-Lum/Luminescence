@@ -124,7 +124,7 @@
 #'
 #' @param verbose [logical] *(with default)*: enables or disables terminal feedback.
 #'
-#' @param \dots Further arguments and graphical parameters to be passed. Note:
+#' @param ... Further arguments and graphical parameters to be passed. Note:
 #' Standard arguments will only be passed to the growth curve plot. Supported:
 #' `xlim`, `ylim`, `main`, `xlab`, `ylab`
 #'

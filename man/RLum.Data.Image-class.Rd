@@ -20,7 +20,7 @@
 \S4method{names_RLum}{RLum.Data.Image}(object)
 }
 \arguments{
-\item{object}{\code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]} an object
+\item{object}{\code{[show_RLum]``[get_RLum]``[names_RLum]} an object
 of class \linkS4class{RLum.Data.Image}}
 
 \item{class}{\code{[set_RLum]}\link{character}: name of the \code{RLum} class to create}
@@ -28,10 +28,10 @@ of class \linkS4class{RLum.Data.Image}}
 \item{originator}{\code{[set_RLum]} \link{character} (automatic):
 contains the name of the calling function (the function that produces this object); can be set manually.}
 
-\item{.uid}{\link{\code{set_RLum}} \link{character} (automatic): sets an unique ID for this object
+\item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\link{\code{set_RLum}} \link{character} (with default): option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
 at will.}
 
 \item{recordType}{\code{[set_RLum]} \link{character}: record type (e.g. "OSL")}

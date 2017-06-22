@@ -8,10 +8,10 @@ class objects}
 apply_EfficiencyCorrection(object, spectral.efficiency)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Spectrum} (\strong{required}): S4
 object of class \code{RLum.Data.Spectrum}}
 
-\item{spectral.efficiency}{\link{data.frame} (\bold{required}): Data
+\item{spectral.efficiency}{\link{data.frame} (\strong{required}): Data
 set containing wavelengths (x-column) and relative spectral response values
 (y-column) in percentage}
 }

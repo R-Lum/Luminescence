@@ -15,91 +15,91 @@ analyse_baSAR(object, XLS_file = NULL, aliquot_range = NULL,
 }
 \arguments{
 \item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Results} or
-\link{character} or \link{list} (\bold{required}):
+\link{character} or \link{list} (\strong{required}):
 input object used for the Bayesian analysis. If a \code{character} is provided the function
 assumes a file connection and tries to import a BIN-file using the provided path. If a \code{list} is
 provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
 providing a file connection. Mixing of both types is not allowed. If an \linkS4class{RLum.Results}
 is provided the function directly starts with the Bayesian Analysis (see details)}
 
-\item{XLS_file}{\link{character} (optional): XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements).
+\item{XLS_file}{\link{character} \emph{(optional)}: XLS_file with data for the analysis. This file must contain 3 columns: the name of the file, the disc position and the grain position (the last being 0 for multi-grain measurements).
 Alternatively a \code{data.frame} of similar structure can be provided.}
 
-\item{aliquot_range}{\link{numeric} (optional): allows to limit the range of the aliquots
+\item{aliquot_range}{\link{numeric} \emph{(optional)}: allows to limit the range of the aliquots
 used for the analysis. This argument has only an effect if the argument \code{XLS_file} is used or
 the input is the previous output (i.e. is \linkS4class{RLum.Results}). In this case the
 new selection will add the aliquots to the removed aliquots table.}
 
-\item{source_doserate}{\link{numeric} \bold{(required)}: source dose rate of beta-source used
+\item{source_doserate}{\link{numeric} \strong{(required)}: source dose rate of beta-source used
 for the measuremnt and its uncertainty in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}.
 Paramater can be provided as \code{list}, for the case that more than one BIN-file is provided, e.g.,
 \code{source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))}.}
 
-\item{signal.integral}{\link{vector} (\bold{required}): vector with the
+\item{signal.integral}{\link{vector} (\strong{required}): vector with the
 limits for the signal integral used for the calculation, e.g., \code{signal.integral = c(1:5)}
 Ignored if \code{object} is an \linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, \code{source_doserate}.}
 
-\item{signal.integral.Tx}{\link{vector} (optional): vector with the
+\item{signal.integral.Tx}{\link{vector} \emph{(optional)}: vector with the
 limits for the signal integral for the Tx curve. If nothing is provided the
 value from \code{signal.integral} is used and it is ignored
 if \code{object} is an \linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{background.integral}{\link{vector} (\bold{required}): vector with the
+\item{background.integral}{\link{vector} (\strong{required}): vector with the
 bounds for the background integral.
 Ignored if \code{object} is an \linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{background.integral.Tx}{\link{vector} (optional): vector with the
+\item{background.integral.Tx}{\link{vector} \emph{(optional)}: vector with the
 limits for the background integral for the Tx curve. If nothing is provided the
 value from \code{background.integral} is used.
 Ignored if \code{object} is an \linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{sigmab}{\link{numeric} (with default): option to set a manual value for
+\item{sigmab}{\link{numeric} \emph{(with default)}: option to set a manual value for
 the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 calculation. The value should be provided as absolute squared count values, cf. \link{calc_OSLLxTxRatio}.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{sig0}{\link{numeric} (with default): allow adding an extra component of error
+\item{sig0}{\link{numeric} \emph{(with default)}: allow adding an extra component of error
 to the final Lx/Tx error value (e.g., instrumental errror, see details is \link{calc_OSLLxTxRatio}).
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{distribution}{\link{character} (with default): type of distribution that is used during
+\item{distribution}{\link{character} \emph{(with default)}: type of distribution that is used during
 Bayesian calculations for determining the Central dose and overdispersion values.
 Allowed inputs are \code{"cauchy"}, \code{"normal"} and \code{"log_normal"}.}
 
-\item{baSAR_model}{\link{character} (optional): option to provide an own modified or new model for the
+\item{baSAR_model}{\link{character} \emph{(optional)}: option to provide an own modified or new model for the
 Bayesian calculation (see details). If an own model is provided the argument \code{distribution} is ignored
 and set to \code{'user_defined'}}
 
-\item{n.MCMC}{\link{integer} (with default): number of iterations for the Markov chain Monte Carlo (MCMC)
+\item{n.MCMC}{\link{integer} \emph{(with default)}: number of iterations for the Markov chain Monte Carlo (MCMC)
 simulations}
 
-\item{fit.method}{\link{character} (with default): fit method used for fitting the growth
+\item{fit.method}{\link{character} \emph{(with default)}: fit method used for fitting the growth
 curve using the function \link{plot_GrowthCurve}. Here supported methods: \code{EXP},
 \code{EXP+LIN} and \code{LIN}}
 
-\item{fit.force_through_origin}{\link{logical} (with default): force fitting through origin}
+\item{fit.force_through_origin}{\link{logical} \emph{(with default)}: force fitting through origin}
 
-\item{fit.includingRepeatedRegPoints}{\link{logical} (with default):
+\item{fit.includingRepeatedRegPoints}{\link{logical} \emph{(with default)}:
 includes the recycling point (assumed to be measured during the last cycle)}
 
-\item{method_control}{\link{list} (optional): named list of control parameters that can be directly
+\item{method_control}{\link{list} \emph{(optional)}: named list of control parameters that can be directly
 passed to the Bayesian analysis, e.g., \code{method_control = list(n.chains = 4)}.
 See details for further information}
 
-\item{digits}{\link{integer} (with default): round output to the number of given digits}
+\item{digits}{\link{integer} \emph{(with default)}: round output to the number of given digits}
 
-\item{plot}{\link{logical} (with default): enables or disables plot output}
+\item{plot}{\link{logical} \emph{(with default)}: enables or disables plot output}
 
-\item{plot_reduced}{\link{logical} (with default): enables or disables the advanced plot output}
+\item{plot_reduced}{\link{logical} \emph{(with default)}: enables or disables the advanced plot output}
 
-\item{plot.single}{\link{logical} (with default): enables or disables single plots or plots
+\item{plot.single}{\link{logical} \emph{(with default)}: enables or disables single plots or plots
 arranged by analyse_baSAR}
 
-\item{verbose}{\link{logical} (with default): enables or disables verbose mode}
+\item{verbose}{\link{logical} \emph{(with default)}: enables or disables verbose mode}
 
 \item{...}{parameters that can be passed to the function \link{calc_OSLLxTxRatio} (almost full support)
 \link[readxl:read_excel]{readxl::read_excel} (full support), \link{read_BIN2R} (\code{n.records},
@@ -111,11 +111,11 @@ Function returns results numerically and graphically:\cr
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\strong{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Results}}-object\cr
 
-\bold{slot:} \strong{\code{@data}}\cr
+\strong{slot:} \strong{\code{@data}}\cr
 \tabular{lll}{
-\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
 \code{$mcmc} \tab \code{mcmc} \tab object including raw output of \link[rjags:rjags]{rjags::rjags} \cr
 \code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
@@ -123,7 +123,7 @@ Function returns results numerically and graphically:\cr
 \code{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
 }
 
-\bold{slot:} \strong{\code{@info}}\cr
+\strong{slot:} \strong{\code{@info}}\cr
 
 The original function call\cr
 
@@ -166,7 +166,7 @@ by the function, i.e. in theory it is enough to provide a BIN/BINX-file with the
 data. For the Bayesian analysis for each aliquot the following information are needed from the SAR analysis.
 LxTx, the LxTx error and the dose values for all regeneration points.
 
-\bold{How the systematic error contribution is calculated?}\cr
+\strong{How the systematic error contribution is calculated?}\cr
 
 Standard errors (so far) provided with the source dose rate are considered as systematic uncertainties
 and added to final central dose by:
@@ -179,12 +179,12 @@ Please note that this approach is rather rough and can only be valid if the sour
 errors, in case different readers had been used, are similar. In cases where more than
 one source dose rate is provided a warning is given.\cr
 
-\bold{Input / output scenarios}\cr
+\strong{Input / output scenarios}\cr
 
 Various inputs are allowed for this function. Unfortunately this makes the function handling rather
 complex, but at the same time very powerful. Available scenarios:\cr
 
-\bold{(1) - \code{object} is BIN-file or link to a BIN-file}
+\strong{(1) - \code{object} is BIN-file or link to a BIN-file}
 
 Finally it does not matter how the information of the BIN/BINX file are provided. The function
 supports (a) either a path to a file or directory or a \code{list} of file names or paths or (b)
@@ -220,7 +220,7 @@ Means, the XLS file should contain a selection of the BIN-file names and the ali
 for the further analysis. This allows a manual selection of input data, as the automatic selection
 by \link{verify_SingleGrainData} might be not totally sufficient.\cr
 
-\bold{(2) - \code{object} \code{RLum.Results object}}
+\strong{(2) - \code{object} \code{RLum.Results object}}
 
 If an \linkS4class{RLum.Results} object is provided as input and(!) this object was
 previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
@@ -235,7 +235,7 @@ These are arguments that can be passed directly to the Bayesian calculation core
 are:
 
 \tabular{lll}{
-\bold{Parameter} \tab \bold{Type} \tab \bold{Descritpion}\cr
+\strong{Parameter} \tab \strong{Type} \tab \strong{Descritpion}\cr
 \code{lower_centralD} \tab \link{numeric} \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{upper_centralD} \tab \link{numeric} \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{n.chains} \tab \link{integer} \tab sets number of parallel chains for the model (default = 3)
@@ -247,7 +247,7 @@ are:
 Note: only variables present in the model can be monitored.
 }
 
-\bold{User defined models}\cr
+\strong{User defined models}\cr
 
 The function provides the option to modify and to define own models that can be used for
 the Bayesian calculation. In the case the user wants to modify a model, a new model
@@ -256,7 +256,7 @@ The model has to be provided in the JAGS dialect of the BUGS language (cf. \link
 and parameter names given with the pre-defined names have to be respected, otherwise the function
 will break.\cr
 
-\bold{FAQ}\cr
+\strong{FAQ}\cr
 
 Q: How can I set the seed for the random number generator (RNG)?\cr
 A: Use the argument \code{method_control}, e.g., for three MCMC chains
@@ -276,13 +276,13 @@ Q: Can I change the boundaries for the central_D?\cr
 A: Yes, we made it possible, but we DO NOT recommend it, except you know what you are doing!
 Example: \code{method_control = list(lower_centralD = 10))}\cr
 
-\bold{Additional arguments support via the \code{...} argument }\cr
+**Additional arguments support via the \code{...} argument **\cr
 
 This list summarizes the additional arguments that can be passed to the internally used
 functions.
 
 \tabular{llll}{
-\bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description }\cr
+\strong{Supported argument} \tab \strong{Corresponding function} \tab \strong{Default} \tab **Short description **\cr
 \code{threshold} \tab \link{verify_SingleGrainData} \tab \code{30} \tab change rejection threshold for curve selection \cr
 \code{sheet} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{1} \tab select XLS-sheet for import\cr
 \code{col_names} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{TRUE} \tab first row in XLS-file is header\cr
@@ -301,14 +301,14 @@ functions.
 }
 }
 \note{
-\bold{If you provide more than one BIN-file}, it is \bold{strongly} recommanded to provide
+\strong{If you provide more than one BIN-file}, it is \strong{strongly} recommanded to provide
 a \code{list} with the same number of elements for the following parameters:\cr
 \code{source_doserate}, \code{signal.integral}, \code{signal.integral.Tx}, \code{background.integral},
 \code{background.integral.Tx}, \code{sigmab}, \code{sig0}.\cr
 
 Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))}\cr
 
-\bold{The function is currently limited to work with standard Risoe BIN-files only!}
+\strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
  0.1.29
@@ -369,7 +369,7 @@ Mercier, N., Kreutzer, S., Christophe, C., Guerin, G., Guibert, P., Lahaye, C., 
 Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its implementation
 in the R package 'Luminescence'. Ancient TL 34, 14-21.
 
-\bold{Further reading}
+\strong{Further reading}
 
 Gelman, A., Carlin, J.B., Stern, H.S., Dunson, D.B., Vehtari, A., Rubin, D.B., 2013.
 Bayesian Data Analysis, Third Edition. CRC Press.

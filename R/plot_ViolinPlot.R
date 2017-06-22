@@ -37,7 +37,7 @@
 #' @param na.rm [logical] *(with default)*: exclude NA values
 #' from the data set prior to any further operations.
 #'
-#' @param \dots further arguments and graphical parameters passed to
+#' @param ... further arguments and graphical parameters passed to
 #' [plot.default], [stats::density] and [boxplot]. See details for
 #' further information
 #'

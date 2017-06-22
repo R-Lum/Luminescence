@@ -200,7 +200,7 @@
 #' to allow common R plot combinations, e.g., `par(mfrow(...))`. If `TRUE` no residual plot
 #' is returned; it has no effect if `plot = FALSE`
 #'
-#' @param \dots further arguments that will be passed to the plot output.
+#' @param ... further arguments that will be passed to the plot output.
 #' Currently supported arguments are `main`, `xlab`, `ylab`,
 #' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
 #' `legend.pos`, `legend.text` (passes argument to x,y in

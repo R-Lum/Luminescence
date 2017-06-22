@@ -7,18 +7,18 @@
 read_Daybreak2R(file, raw = FALSE, verbose = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\link{character} or \link{list} (\bold{required}): path and file name of the
+\item{file}{\link{character} or \link{list} (\strong{required}): path and file name of the
 file to be imported. Alternatively a list of file names can be provided or just the path a folder
 containing measurement data. Please note that the specific, common, file extension (txt) is likely
 leading to function failures during import when just a path is provided.}
 
-\item{raw}{\link{logical} (with default): if the input is a DAT-file (binary) a
+\item{raw}{\link{logical} \emph{(with default)}: if the input is a DAT-file (binary) a
 \link[data.table:data.table]{data.table::data.table} instead of the \linkS4class{RLum.Analysis} object
 can be returned for debugging purposes.}
 
-\item{verbose}{\link{logical} (with default): enables or disables terminal feedback}
+\item{verbose}{\link{logical} \emph{(with default)}: enables or disables terminal feedback}
 
-\item{txtProgressBar}{\link{logical} (with default): enables or disables
+\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables or disables
 \link{txtProgressBar}.}
 }
 \value{
@@ -30,7 +30,7 @@ The import of the DAT-files is limited to the file format described for the soft
 used for a Daybreak, model 1100.
 }
 \note{
-\bold{\code{[BETA VERSION]}} This function still needs to be tested properly. In particular
+\strong{\code{[BETA VERSION]}} This function still needs to be tested properly. In particular
 the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{

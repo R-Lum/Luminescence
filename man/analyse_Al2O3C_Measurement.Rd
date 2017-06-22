@@ -9,26 +9,26 @@ analyse_Al2O3C_Measurement(object, signal_integral = NULL,
   cross_talk_correction = NULL, verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} \bold{(required)}: measurement input}
+\item{object}{\linkS4class{RLum.Analysis} \strong{(required)}: measurement input}
 
-\item{signal_integral}{\link{numeric} (optional): signal integral, used for the signal
+\item{signal_integral}{\link{numeric} \emph{(optional)}: signal integral, used for the signal
 and the background. If nothing is provided the full range is used}
 
-\item{dose_points}{\link{numeric} (with default): vector with dose points, if dose points
+\item{dose_points}{\link{numeric} \emph{(with default)}: vector with dose points, if dose points
 are repeated, only the general pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017}
 
-\item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (optional):
+\item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} \emph{(optional)}:
 information on the used irradiation time correction obained by another experiements. I a \code{numeric}
 is provided it has to be of length two: mean, standard error}
 
-\item{cross_talk_correction}{\link{numeric} or \linkS4class{RLum.Results} (optional):
+\item{cross_talk_correction}{\link{numeric} or \linkS4class{RLum.Results} \emph{(optional)}:
 information on the used irradiation time correction obained by another experiements. If a \code{numeric}
 vector is provided it has to be of length three: mean, 2.5 \% quantile, 97.5 \% quantile.}
 
-\item{verbose}{\link{logical} (with default): enable/disable verbose mode}
+\item{verbose}{\link{logical} \emph{(with default)}: enable/disable verbose mode}
 
-\item{plot}{\link{logical} (with default): enable/disable plot output}
+\item{plot}{\link{logical} \emph{(with default)}: enable/disable plot output}
 
 \item{...}{further arguments that can be passed to the plot output}
 }
@@ -38,16 +38,16 @@ Function returns results numerically and graphically:\cr
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\strong{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Results}}-object\cr
 
-\bold{slot:} \strong{\code{@data}}\cr
+\strong{slot:} \strong{\code{@data}}\cr
 \tabular{lll}{
-\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$data} \tab \code{data.frame} \tab the estimated equivalent dose \cr
 \code{$data_talbe} \tab \code{data.frame} \tab full dose and signal table \cr
 }
 
-\bold{slot:} \strong{\code{@info}}\cr
+\strong{slot:} \strong{\code{@info}}\cr
 
 The original function call\cr
 

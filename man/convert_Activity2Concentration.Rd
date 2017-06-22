@@ -7,15 +7,15 @@
 convert_Activity2Concentration(data, input_unit = "Bq/kg", verbose = TRUE)
 }
 \arguments{
-\item{data}{\link{data.frame} \bold{(required)}: provide dose rate data (activity or concentration)
+\item{data}{\link{data.frame} \strong{(required)}: provide dose rate data (activity or concentration)
 in three columns. The first column indicates the nuclides, the 2nd column measured value and
 in the 3rd column its error value. Allowed nuclide data are \code{'U-238'}, \code{'Th-232'} and \code{'K-40'}.
 See examples for an example.}
 
-\item{input_unit}{\link{character} (with default): specify unit of input data given in the
-dose rate data frame, choose between \code{'Bq/kg'} and \code{'ppm/\%'} the default is \code{'Bq/kg'}}
+\item{input_unit}{\link{character} \emph{(with default)}: specify unit of input data given in the
+dose rate data frame, choose between \code{'Bq/kg'} and \code{'ppm/\\%'} the default is \code{'Bq/kg'}}
 
-\item{verbose}{\link{logical} (with default): enable or disable verbose mode}
+\item{verbose}{\link{logical} \emph{(with default)}: enable or disable verbose mode}
 }
 \description{
 The function performs the conversion of the specific activities into concentrations and vice versa for the nuclides U-238,

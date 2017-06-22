@@ -198,7 +198,7 @@
 #' @param interactive [logical] *(with default)*: create an interactive
 #' abanico plot (requires the 'plotly' package)
 #'
-#' @param \dots Further plot arguments to pass. `xlab` must be a vector of
+#' @param ... Further plot arguments to pass. `xlab` must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
 #'
 #' @return returns a plot object and, optionally, a list with plot calculus

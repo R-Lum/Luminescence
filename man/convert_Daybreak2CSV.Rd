@@ -7,9 +7,9 @@
 convert_Daybreak2CSV(file, ...)
 }
 \arguments{
-\item{file}{\link{character} (\bold{required}): name of the Daybreak-file (TXT-file, DAT-file) to be converted to CSV-files}
+\item{file}{\link{character} (\strong{required}): name of the Daybreak-file (TXT-file, DAT-file) to be converted to CSV-files}
 
-\item{\dots}{further arguments that will be passed to the function \link{read_Daybreak2R} and \link{write_RLum2CSV}}
+\item{...}{further arguments that will be passed to the function \link{read_Daybreak2R} and \link{write_RLum2CSV}}
 }
 \value{
 The function returns either a CSV-file (or many of them) or for the option \code{export = FALSE}

@@ -15,22 +15,22 @@ object (required): for \code{data.frame}: two columns: De
 data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
 dataset2)}).}
 
-\item{na.rm}{\link{logical} (with default): exclude NA values
+\item{na.rm}{\link{logical} \emph{(with default)}: exclude NA values
 from the data set prior to any further operation.}
 
-\item{values.cumulative}{\link{logical} (with default): show
+\item{values.cumulative}{\link{logical} \emph{(with default)}: show
 cumulative individual data.}
 
 \item{order}{\link{logical}: Order data in ascending order.}
 
-\item{boxplot}{\link{logical} (with default): optionally show a
+\item{boxplot}{\link{logical} \emph{(with default)}: optionally show a
 boxplot (depicting median as thick central line, first and third quartile
 as box limits, whiskers denoting +/- 1.5 interquartile ranges and dots
 further outliers).}
 
-\item{rug}{\link{logical} (with default): optionally add rug.}
+\item{rug}{\link{logical} \emph{(with default)}: optionally add rug.}
 
-\item{summary}{\link{character} (optional): add statistic measures of
+\item{summary}{\link{character} \emph{(optional)}: add statistic measures of
 centrality and dispersion to the plot. Can be one or more of several
 keywords. See details for available keywords.}
 
@@ -41,19 +41,19 @@ specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used. In case of coordinate
 specification, y-coordinate refers to the right y-axis.}
 
-\item{summary.method}{\link{character} (with default): keyword
+\item{summary.method}{\link{character} \emph{(with default)}: keyword
 indicating the method used to calculate the statistic summary. One out of
 \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
 \link{calc_Statistics} for details.}
 
-\item{bw}{\link{character} (with default): bin-width, chose a numeric
+\item{bw}{\link{character} \emph{(with default)}: bin-width, chose a numeric
 value for manual setting.}
 
 \item{output}{\link{logical}: Optional output of numerical plot
 parameters. These can be useful to reproduce similar plots. Default is
 \code{TRUE}.}
 
-\item{\dots}{further arguments and graphical parameters passed to
+\item{...}{further arguments and graphical parameters passed to
 \link{plot}.}
 }
 \description{

@@ -13,7 +13,7 @@ Each class object contains two slots: (a) \code{METADATA} is a
 measurements and (b) \code{DATA} contains a list of vectors of the measured
 data (usually count values).}
 \source{
-\bold{CWOSL.SAR.Data}
+\strong{CWOSL.SAR.Data}
 
 \tabular{ll}{
 
@@ -22,7 +22,7 @@ Location: \tab Saxony/Germany\cr Material: \tab Middle grain quartz measured
 \cr \tab on aluminum cups on a Risoe TL/OSL DA-15 reader\cr Reference: \tab
 unpublished }
 
-\bold{TL.SAR.Data}
+\strong{TL.SAR.Data}
 
 \tabular{ll}{
 
@@ -35,7 +35,7 @@ dataset limited to one position\cr }
 \description{
 Example data from a SAR OSL and TL measurement for package Luminescence
 directly extracted from a Risoe BIN-file and provided in an object of type
-\link{Risoe.BINfileData-class}
+\linkS4class{Risoe.BINfileData}
 }
 \note{
 Please note that this example data cannot be exported to a BIN-file using the function
@@ -55,8 +55,8 @@ CWOSL.SAR.Data@DATA[1:5]
 
 }
 \references{
-\bold{CWOSL.SAR.Data}: unpublished data \cr
+\strong{CWOSL.SAR.Data}: unpublished data \cr
 
-\bold{TL.SAR.Data}: unpublished data
+\strong{TL.SAR.Data}: unpublished data
 }
 \keyword{datasets}

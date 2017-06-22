@@ -9,48 +9,48 @@ analyse_FadingMeasurement(object, structure = c("Lx", "Tx"), signal.integral,
   plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\bold{required}): input object with the
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): input object with the
 measurement data. Alternatively, a \link{list} containing \linkS4class{RLum.Analysis}
 objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a \link{data.frame} with a number of colums divisible by 3
 and where each triplet has the before mentioned column structure.}
 
-\item{structure}{\link{character} (with default): sets the structure of the measurement
+\item{structure}{\link{character} \emph{(with default)}: sets the structure of the measurement
 data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored}
 
-\item{signal.integral}{\link{vector} (\bold{required}): vector with the
+\item{signal.integral}{\link{vector} (\strong{required}): vector with the
 limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
 provided.}
 
-\item{background.integral}{\link{vector} (\bold{required}): vector with the
+\item{background.integral}{\link{vector} (\strong{required}): vector with the
 bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
 provided.}
 
-\item{t_star}{\link{character} (with default): method for calculating the time elasped
+\item{t_star}{\link{character} \emph{(with default)}: method for calculating the time elasped
 since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
 and \code{'end'}, which takes the time between irradiation and the measurement step. Default is \code{'half'}}
 
-\item{n.MC}{\link{integer} (with default): number for Monte Carlo runs for the error
+\item{n.MC}{\link{integer} \emph{(with default)}: number for Monte Carlo runs for the error
 estimation}
 
-\item{verbose}{\link{logical} (with default): enables/disables verbose mode}
+\item{verbose}{\link{logical} \emph{(with default)}: enables/disables verbose mode}
 
-\item{plot}{\link{logical} (with default): enables/disables plot output}
+\item{plot}{\link{logical} \emph{(with default)}: enables/disables plot output}
 
-\item{plot.single}{\link{logical} (with default): enables/disables single plot
+\item{plot.single}{\link{logical} \emph{(with default)}: enables/disables single plot
 mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
 \code{plot.single = c(3,4)} draws only the last two plots}
 
-\item{\dots}{(optional) further arguments that can be passed to internally used functions (see details)}
+\item{...}{\emph{(optional)} further arguments that can be passed to internally used functions (see details)}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:
 
-Slot: \bold{@data}\cr
+Slot: \strong{@data}\cr
 
 \tabular{lll}{
-\bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+\strong{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
 \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
 \code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \link[stats:lm]{stats::lm}\cr
 \code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. 2008 \cr
@@ -58,10 +58,10 @@ Slot: \bold{@data}\cr
 \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds \cr
 }
 
-Slot: \bold{@info}\cr
+Slot: \strong{@info}\cr
 
 \tabular{lll}{
-\bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
+\strong{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
 \code{call} \tab \code{call} \tab the original function call\cr
 
 }
@@ -77,14 +77,14 @@ All provided output corresponds to the \eqn{tc} value obtained by this analysis.
 in the output object the g-value normalised to 2-days is provided. The output of this function
 can be passed to the function \link{calc_FadingCorr}.\cr
 
-\bold{Fitting and error estimation}\cr
+\strong{Fitting and error estimation}\cr
 
 For the fitting the function \link[stats:lm]{stats::lm} is used without applying weights. For the
 error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
 for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
 
-\bold{Density of recombination centres}
+\strong{Density of recombination centres}
 
 The density of recombination centres, expressed by the dimensionless variable rho', is estimated
 by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
@@ -92,7 +92,7 @@ by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the funct
 procedure as for the g-value is applied (see above).
 }
 \note{
-\bold{This function has BETA status and should not be used for publication work!}
+\strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
  0.1.5

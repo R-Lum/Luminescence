@@ -9,20 +9,20 @@ merge_Risoe.BINfileData(input.objects, output.file,
 }
 \arguments{
 \item{input.objects}{\link{character} with
-\linkS4class{Risoe.BINfileData} objects (\bold{required}): Character vector
+\linkS4class{Risoe.BINfileData} objects (\strong{required}): Character vector
 with path and files names (e.g. \code{input.objects = c("path/file1.bin",
 "path/file2.bin")} or \linkS4class{Risoe.BINfileData} objects (e.g.
 \code{input.objects = c(object1, object2)}). Alternatively a \code{list} is supported.}
 
-\item{output.file}{\link{character} (optional): File output path and
+\item{output.file}{\link{character} \emph{(optional)}: File output path and
 name. \cr If no value is given, a \linkS4class{Risoe.BINfileData} is
 returned instead of a file.}
 
-\item{keep.position.number}{\link{logical} (with default): Allows
+\item{keep.position.number}{\link{logical} \emph{(with default)}: Allows
 keeping the original position numbers of the input objects. Otherwise the
 position numbers are recalculated.}
 
-\item{position.number.append.gap}{\link{integer} (with default): Set
+\item{position.number.append.gap}{\link{integer} \emph{(with default)}: Set
 the position number gap between merged BIN-file sets, if the option
 \code{keep.position.number = FALSE} is used. See details for further
 information.}

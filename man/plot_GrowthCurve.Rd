@@ -13,74 +13,74 @@ plot_GrowthCurve(sample, na.rm = TRUE, mode = "interpolation",
   cex.global = 1, txtProgressBar = TRUE, verbose = TRUE, ...)
 }
 \arguments{
-\item{sample}{\link{data.frame} (\bold{required}): data frame with
+\item{sample}{\link{data.frame} (\strong{required}): data frame with
 three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the
 test dose response is optional, but requires 'TnTx' as column name if used. For exponential
 fits at least three dose points (including the natural) should be provided.}
 
-\item{na.rm}{\link{logical} (with default): excludes \code{NA} values
+\item{na.rm}{\link{logical} \emph{(with default)}: excludes \code{NA} values
 from the data set prior to any further operations.}
 
-\item{mode}{\link{character} (with default): selects calculation mode of the function.
+\item{mode}{\link{character} \emph{(with default)}: selects calculation mode of the function.
 (A) \code{"interpolation"} (default) calculates the De by interpolation,
 (B) \code{"extrapolation"} calculates the De by extrapolation and
 (C) \code{"alternate"} calculates no De and just fits the data points. Please note that
 for option \code{"regenrative"} the first point is considered as natural dose}
 
-\item{fit.method}{\link{character} (with default): function used for
+\item{fit.method}{\link{character} \emph{(with default)}: function used for
 fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP}, \code{EXP OR LIN},
 \code{EXP+LIN} or \code{EXP+EXP}. See details.}
 
-\item{fit.force_through_origin}{\link{logical} (with default) allow to force
+\item{fit.force_through_origin}{\link{logical} \emph{(with default)} allow to force
 the fitted function through the origin. For \code{method = "EXP+EXP"} the function will
 go to the origin in either case, so this option will have no effect.}
 
-\item{fit.weights}{\link{logical} (with default): option whether the
+\item{fit.weights}{\link{logical} \emph{(with default)}: option whether the
 fitting is done with or without weights. See details.}
 
-\item{fit.includingRepeatedRegPoints}{\link{logical} (with default):
+\item{fit.includingRepeatedRegPoints}{\link{logical} \emph{(with default)}:
 includes repeated points for fitting (\code{TRUE}/\code{FALSE}).}
 
-\item{fit.NumberRegPoints}{\link{integer} (optional): set number of
+\item{fit.NumberRegPoints}{\link{integer} \emph{(optional)}: set number of
 regeneration points manually. By default the number of all (!) regeneration
 points is used automatically.}
 
-\item{fit.NumberRegPointsReal}{\link{integer} (optional): if the
+\item{fit.NumberRegPointsReal}{\link{integer} \emph{(optional)}: if the
 number of regeneration points is provided manually, the value of the real,
 regeneration points = all points (repeated points) including reg 0, has to
 be inserted.}
 
-\item{fit.bounds}{\link{logical} (with default): set lower fit bounds
+\item{fit.bounds}{\link{logical} \emph{(with default)}: set lower fit bounds
 for all fitting parameters to 0. Limited for the use with the fit methods
 \code{EXP}, \code{EXP+LIN} and \code{EXP OR LIN}. Argument to be inserted
 for experimental application only!}
 
-\item{NumberIterations.MC}{\link{integer} (with default): number of
+\item{NumberIterations.MC}{\link{integer} \emph{(with default)}: number of
 Monte Carlo simulations for error estimation. See details.}
 
-\item{output.plot}{\link{logical} (with default): plot output
+\item{output.plot}{\link{logical} \emph{(with default)}: plot output
 (\code{TRUE/FALSE}).}
 
-\item{output.plotExtended}{\link{logical} (with default): If
+\item{output.plotExtended}{\link{logical} \emph{(with default)}: If
 \code{TRUE}, 3 plots on one plot area are provided: (1) growth curve, (2)
 histogram from Monte Carlo error simulation and (3) a test dose response
 plot. If \code{FALSE}, just the growth curve will be plotted.
-\bold{Requires:} \code{output.plot = TRUE}.}
+\strong{Requires:} \code{output.plot = TRUE}.}
 
-\item{output.plotExtended.single}{\link{logical} (with default):
+\item{output.plotExtended.single}{\link{logical} \emph{(with default)}:
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
 single plot windows. Requires \code{output.plot = TRUE} and
 \code{output.plotExtended = TRUE}.}
 
-\item{cex.global}{\link{numeric} (with default): global scaling
+\item{cex.global}{\link{numeric} \emph{(with default)}: global scaling
 factor.}
 
-\item{txtProgressBar}{\link{logical} (with default): enables or disables txtProgressBar.
+\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables or disables txtProgressBar.
 If \code{verbose = FALSE} also no txtProgressBar is shown.}
 
-\item{verbose}{\link{logical} (with default): enables or disables terminal feedback.}
+\item{verbose}{\link{logical} \emph{(with default)}: enables or disables terminal feedback.}
 
-\item{\dots}{Further arguments and graphical parameters to be passed. Note:
+\item{...}{Further arguments and graphical parameters to be passed. Note:
 Standard arguments will only be passed to the growth curve plot. Supported:
 \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}}
 }
@@ -89,7 +89,7 @@ Along with a plot (so far wanted) an \code{RLum.Results} object is returned cont
 the slot \code{data} contains the following elements:\cr
 
 \tabular{lll}{
-\bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
+\strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
 \code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
 \code{..$De.MC} : \tab \code{numeric} \tab Table with De values from MC runs \cr
 \code{..$Fit} : \tab \link{nls} or \link{lm} \tab object from the fitting for \code{EXP},
@@ -105,7 +105,7 @@ regenerative or additive protocol. The function supports interpolation and
 extraxpolation to calculate the equivalent dose.
 }
 \details{
-\bold{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
+\strong{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
 the \code{EXP OR LIN}), the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the
 \code{LM} (Levenberg-Marquardt algorithm) algorithm is used. Note: For historical reasons
 for the Monte Carlo simulations partly  the function \link{nls} using the \code{port} algorithm.
@@ -127,7 +127,7 @@ the \code{EXP} fit fails, a \code{LIN} fit is done instead. \cr
 
 \code{EXP+LIN}: tries to fit an exponential plus linear function of the
 form: \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))} The De is calculated by
-iteration.\cr \bold{Note:} In the context of luminescence dating, this
+iteration.\cr \strong{Note:} In the context of luminescence dating, this
 function has no physical meaning. Therefore, no D0 value is returned.\cr
 
 \code{EXP+EXP}: tries to fit a double exponential function of the form
@@ -135,12 +135,12 @@ function has no physical meaning. Therefore, no D0 value is returned.\cr
 procedure is not robust against wrong start parameters and should be further
 improved.\cr\cr
 
-\bold{Fit weighting}\cr
+\strong{Fit weighting}\cr
 
-If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
+If the option \code{fit.weights = TRUE} is chosen, weights are calculated using
 provided signal errors (Lx/Tx error): \deqn{fit.weights = 1/error/(sum(1/error))}\cr
 
-\bold{Error estimation using Monte Carlo simulation}\cr
+\strong{Error estimation using Monte Carlo simulation}\cr
 
 Error estimation is done using a Monte Carlo (MC) simulation approach. A set of Lx/Tx values is
 constructed by randomly drawing curve data from samled from normal
@@ -148,12 +148,12 @@ distributions. The normal distribution is defined by the input values (mean
 = value, sd = value.error). Then, a growth curve fit is attempted for each
 dataset resulting in a new distribution of single De values. The \link{sd}
 of this distribution is becomes then the error of the De. With increasing
-iterations, the error value becomes more stable. \bold{Note:} It may take
+iterations, the error value becomes more stable. \strong{Note:} It may take
 some calculation time with increasing MC runs, especially for the composed
 functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr Each error estimation is
 done with the function of the chosen fitting method. \cr
 
-\bold{Subtitle information}\cr
+\strong{Subtitle information}\cr
 
 To avoid plotting the subtitle information, provide an empty user mtext \code{mtext = ""}.
 To plot any other subtitle text, use \code{mtext}.

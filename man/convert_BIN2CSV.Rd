@@ -7,9 +7,9 @@
 convert_BIN2CSV(file, ...)
 }
 \arguments{
-\item{file}{\link{character} (\bold{required}): name of the BIN-file to be converted to CSV-files}
+\item{file}{\link{character} (\strong{required}): name of the BIN-file to be converted to CSV-files}
 
-\item{\dots}{further arguments that will be passed to the function \link{read_BIN2R} and \link{write_RLum2CSV}}
+\item{...}{further arguments that will be passed to the function \link{read_BIN2R} and \link{write_RLum2CSV}}
 }
 \value{
 The function returns either a CSV-file (or many of them) or for the option \code{export == FALSE}

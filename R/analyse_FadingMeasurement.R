@@ -56,7 +56,7 @@
 #' mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
 #' `plot.single = c(3,4)` draws only the last two plots
 #'
-#' @param \dots *(optional)* further arguments that can be passed to internally used functions (see details)
+#' @param ... *(optional)* further arguments that can be passed to internally used functions (see details)
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'

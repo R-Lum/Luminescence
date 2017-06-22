@@ -21,15 +21,15 @@ dose rate at date of calibration in Gy/s or Gy/min}
 \item{calib.error}{\link{numeric} (\strong{required}):
 error of dose rate at date of calibration Gy/s or Gy/min}
 
-\item{source.type}{\link{character} \emph{(with default)}:
+\item{source.type}{\link{character} \strong{(with default)}:
 specify irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}),
 see details for further information}
 
-\item{dose.rate.unit}{\link{character} \emph{(with default)}:
+\item{dose.rate.unit}{\link{character} \strong{(with default)}:
 specify dose rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
 Gy/s as valid for the function \link{Second2Gray}}
 
-\item{predict}{\link{integer} \emph{(with default)}:
+\item{predict}{\link{integer} \strong{(with default)}:
 option allowing to predicit the dose rate of the source over time in days
 set by the provided value. Starting date is the value set with
 \code{measurement.date}, e.g., \code{calc_SourceDoseRate(..., predict = 100)} calculates

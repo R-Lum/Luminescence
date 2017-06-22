@@ -7,7 +7,7 @@
 
 Each object contains data needed for the given protocol analysis.}
 \source{
-\bold{IRSAR.RF.Data}
+\strong{IRSAR.RF.Data}
 
 These data were kindly provided by Tobias Lauer and Matthias Krbetschek.
 
@@ -38,7 +38,7 @@ plot_RLum(IRSAR.RF.Data)
 
 }
 \references{
-\bold{IRSAR.RF.Data}
+\strong{IRSAR.RF.Data}
 
 Kreutzer, S., Lauer, T., Meszner, S., Krbetschek, M.R., Faust, D., Fuchs,
 M., 2014. Chronology of the Quaternary profile Zeuchfeld in Saxony-Anhalt /

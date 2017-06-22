@@ -109,7 +109,7 @@
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
-#' @param \dots further arguments that will be passed to the function
+#' @param ... further arguments that will be passed to the function
 #' [plot_GrowthCurve] or [calc_OSLLxTxRatio]
 #' (supported: `background.count.distribution`, `sigmab`, `sig0`). **Please note** that
 #' if you consider to use the early light subtraction method you should provide your own `sigmab`

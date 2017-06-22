@@ -5,7 +5,7 @@
 \title{Example data as \linkS4class{RLum.Data.Image} objects}
 \format{Object of class \linkS4class{RLum.Data.Image}}
 \source{
-\bold{ExampleData.RLum.Data.Image}
+\strong{ExampleData.RLum.Data.Image}
 
 These data were kindly provided by Regina DeWitt.
 

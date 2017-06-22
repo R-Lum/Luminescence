@@ -55,7 +55,7 @@
 #'
 #' @param verbose [logical] *(with default)*: enables or disables terminal feedback
 #'
-#' @param \dots further arguments and graphical parameters passed to
+#' @param ... further arguments and graphical parameters passed to
 #' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence].
 #' See details for further information.
 #'

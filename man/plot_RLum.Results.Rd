@@ -7,14 +7,14 @@
 plot_RLum.Results(object, single = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} (\bold{required}): S4 object
+\item{object}{\linkS4class{RLum.Results} (\strong{required}): S4 object
 of class \code{RLum.Results}}
 
-\item{single}{\link{logical} (with default): single plot output
+\item{single}{\link{logical} \emph{(with default)}: single plot output
 (\code{TRUE/FALSE}) to allow for plotting the results in as few plot windows
 as possible.}
 
-\item{\dots}{further arguments and graphical parameters will be passed to
+\item{...}{further arguments and graphical parameters will be passed to
 the \code{plot} function.}
 }
 \value{

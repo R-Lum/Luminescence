@@ -37,7 +37,7 @@ Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU
 Ancient TL 33, 16-21.
 }
 \author{
-\bold{Full list of authors and contributors} (alphabetic order)
+\strong{Full list of authors and contributors} (alphabetic order)
 
 \tabular{ll}{
 Christoph Burow \tab University of Cologne, Germany \cr
@@ -58,41 +58,41 @@ Rachel K. Smedley \tab Aberystwyth University, United Kingdom \cr
 Antoine Zink \tab C2RMF, Palais du Louvre, Paris, France
 }
 
-\bold{Supervisor of the initial version in 2012}
+\strong{Supervisor of the initial version in 2012}
 
 Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
 
-\bold{Support contact}
+\strong{Support contact}
 
 \email{developers@r-luminescence.org}\cr
 
 We may further encourage the usage of our support forum. For this please
 visit our project website (link below).
 
-\bold{Bug reporting}
+\strong{Bug reporting}
 
 \email{developers@r-luminescence.org} or \cr
 \url{https://github.com/R-Lum/Luminescence/issues} \cr
 
-\bold{Project website}
+\strong{Project website}
 
 \url{http://www.r-luminescence.org}\cr
 
-\bold{Project source code repository}\cr
+\strong{Project source code repository}\cr
 \url{https://github.com/R-Lum/Luminescence}\cr
 
-\bold{Related package projects}\cr
+\strong{Related package projects}\cr
 \url{https://cran.r-project.org/package=RLumShiny}\cr
 \url{http://shiny.r-luminescence.org}\cr
 \url{https://cran.r-project.org/package=RLumModel}\cr
 \url{http://model.r-luminescence.org}\cr
 
-\bold{Package maintainer}
+\strong{Package maintainer}
 
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac,
 France, \cr \email{sebastian.kreutzer@u-bordeaux-montaigne.fr}
 
-\bold{Acknowledgement}
+\strong{Acknowledgement}
 
 Cooperation and personal exchange between the developers is gratefully
 funded by the DFG (SCHM 3051/3-1) in the framework of the program

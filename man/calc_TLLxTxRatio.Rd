@@ -11,14 +11,14 @@ calc_TLLxTxRatio(Lx.data.signal, Lx.data.background = NULL, Tx.data.signal,
 \item{Lx.data.signal}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 TL data (x = temperature, y = counts) (TL signal)}
 
-\item{Lx.data.background}{\linkS4class{RLum.Data.Curve} or \link{data.frame} \emph{(optional)}:
+\item{Lx.data.background}{\linkS4class{RLum.Data.Curve} or \link{data.frame} \strong{(optional)}:
 TL data (x = temperature, y = counts).
 If no data are provided no background subtraction is performed.}
 
 \item{Tx.data.signal}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 TL data (x = temperature, y = counts) (TL test signal)}
 
-\item{Tx.data.background}{\linkS4class{RLum.Data.Curve} or \link{data.frame} \emph{(optional)}:
+\item{Tx.data.background}{\linkS4class{RLum.Data.Curve} or \link{data.frame} \strong{(optional)}:
 TL data (x = temperature, y = counts).
 If no data are provided no background subtraction is performed.}
 

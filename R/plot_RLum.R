@@ -23,7 +23,7 @@
 #' can be provided. In this case the function tries to plot every object in this list according
 #' to its `RLum` class.
 #'
-#' @param \dots further arguments and graphical parameters that will be passed
+#' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions. The only argument that is supported directly is `main`
 #' (setting the plot title). In contrast to the normal behaviour `main` can be here provided as
 #' [list] and the arguments in the list will dispatched to the plots if the `object`

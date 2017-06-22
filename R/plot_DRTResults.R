@@ -65,7 +65,7 @@
 #' provided via `par()` work
 #' @param na.rm [logical]: indicating wether `NA` values are
 #' removed before plotting from the input data set
-#' @param \dots further arguments and graphical parameters passed to
+#' @param ... further arguments and graphical parameters passed to
 #' [plot].
 #' @return A plot is returned.
 #'

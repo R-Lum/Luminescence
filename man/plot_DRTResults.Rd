@@ -10,11 +10,11 @@ plot_DRTResults(values, given.dose = NULL, error.range = 10, preheat,
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Results} or \link{data.frame},
-(\bold{required}): input values containing at least De and De error. To plot
+(\strong{required}): input values containing at least De and De error. To plot
 more than one data set in one figure, a \code{list} of the individual data
 sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
 
-\item{given.dose}{\link{numeric} (optional): given dose used for the
+\item{given.dose}{\link{numeric} \emph{(optional)}: given dose used for the
 dose recovery test to normalise data. If only one given dose is provided
 this given dose is valid for all input data sets (i.e., \code{values} is a
 list).  Oherwise a given dose for each input data set has to be provided
@@ -37,7 +37,7 @@ grouped by preheat temperature as boxplots. Only possible when
 
 \item{mtext}{\link{character}: additional text below the plot title.}
 
-\item{summary}{\link{character} (optional): adds numerical output to
+\item{summary}{\link{character} \emph{(optional)}: adds numerical output to
 the plot.  Can be one or more out of: \code{"n"} (number of samples),
 \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
 \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
@@ -51,14 +51,14 @@ for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used.}
 
-\item{legend}{\link{character} vector (optional): legend content to
+\item{legend}{\link{character} vector \emph{(optional)}: legend content to
 be added to the plot.}
 
 \item{legend.pos}{\link{numeric} or \link{character} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
 for the legend to be plotted.}
 
-\item{par.local}{\link{logical} (with default): use local graphical
+\item{par.local}{\link{logical} \emph{(with default)}: use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE}, global parameters are inherited, i.e. parameters
 provided via \code{par()} work}
@@ -66,7 +66,7 @@ provided via \code{par()} work}
 \item{na.rm}{\link{logical}: indicating wether \code{NA} values are
 removed before plotting from the input data set}
 
-\item{\dots}{further arguments and graphical parameters passed to
+\item{...}{further arguments and graphical parameters passed to
 \link{plot}.}
 }
 \value{

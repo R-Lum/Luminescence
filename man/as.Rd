@@ -11,9 +11,9 @@
 \title{as() - RLum-object coercion}
 \arguments{
 \item{from}{\linkS4class{RLum} or \link{list}, \link{data.frame}, \link{matrix}
-(\bold{required}): object to be coerced from}
+(\strong{required}): object to be coerced from}
 
-\item{to}{\link{character} (\bold{required}): class name to be coerced to}
+\item{to}{\link{character} (\strong{required}): class name to be coerced to}
 }
 \description{
 for \code{[RLum.Analysis]}
@@ -27,47 +27,47 @@ for \code{[RLum.Data.Spectrum]}
 for \code{[RLum.Results]}
 }
 \details{
-\bold{\link{RLum.Analysis}}\cr
+\strong{\link{RLum.Analysis}}\cr
 
 \tabular{ll}{
-\bold{from} \tab \bold{to}\cr
+\strong{from} \tab \strong{to}\cr
 \code{list} \tab \code{list}\cr
 }
 
 Given that the \link{list} consits of \linkS4class{RLum.Analysis} objects.
 
-\bold{\link{RLum.Data.Curve}}\cr
+\strong{\link{RLum.Data.Curve}}\cr
 
 \tabular{ll}{
-\bold{from} \tab \bold{to}\cr
+\strong{from} \tab \strong{to}\cr
 \code{list} \tab \code{list} \cr
 \code{data.frame} \tab \code{data.frame}\cr
 \code{matrix} \tab \code{matrix}
 
 }
 
-\bold{\link{RLum.Data.Image}}\cr
+\strong{\link{RLum.Data.Image}}\cr
 
 \tabular{ll}{
-\bold{from} \tab \bold{to}\cr
+\strong{from} \tab \strong{to}\cr
 \code{data.frame} \tab \code{data.frame}\cr
 \code{matrix} \tab \code{matrix}
 
 }
 
-\bold{\link{RLum.Data.Spectrum}}\cr
+\strong{\link{RLum.Data.Spectrum}}\cr
 
 \tabular{ll}{
-\bold{from} \tab \bold{to}\cr
+\strong{from} \tab \strong{to}\cr
 \code{data.frame} \tab \code{data.frame}\cr
 \code{matrix} \tab \code{matrix}
 
 }
 
-\bold{\link{RLum.Results}}\cr
+\strong{\link{RLum.Results}}\cr
 
 \tabular{ll}{
-\bold{from} \tab \bold{to}\cr
+\strong{from} \tab \strong{to}\cr
 \code{list} \tab \code{list}\cr
 }
 

@@ -8,7 +8,7 @@ CW2pLM(values)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or
-\link{data.frame} (\bold{required}): \code{RLum.Data.Curve} data
+\link{data.frame} (\strong{required}): \code{RLum.Data.Curve} data
 object. Alternatively, a \code{data.frame} of the measured curve data of
 type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
 (\code{values[,2]}) can be provided.}
@@ -67,7 +67,7 @@ plot(values.transformed)
 Bulur, E., 2000. A simple transformation for converting CW-OSL
 curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
 
-\bold{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
+\strong{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
 Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.
 }

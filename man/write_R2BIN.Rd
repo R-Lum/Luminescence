@@ -8,24 +8,24 @@ write_R2BIN(object, file, version, compatibility.mode = FALSE,
   txtProgressBar = TRUE)
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} (\bold{required}):
+\item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
 input object to be stored in a bin file.}
 
-\item{file}{\link{character} (\bold{required}): file name and path of
+\item{file}{\link{character} (\strong{required}): file name and path of
 the output file\cr \code{[WIN]}: \code{write_R2BIN(object, "C:/Desktop/test.bin")},
 \cr \code{[MAC/LINUX]}: \code{write_R2BIN("/User/test/Desktop/test.bin")}}
 
-\item{version}{\link{character} (optional): version number for the
+\item{version}{\link{character} \emph{(optional)}: version number for the
 output file. If no value is provided the highest version number from the
 \linkS4class{Risoe.BINfileData} is taken automatically.\cr\cr Note:
 This argument can be used to convert BIN-file versions.}
 
-\item{compatibility.mode}{\link{logical} (with default): this option
+\item{compatibility.mode}{\link{logical} \emph{(with default)}: this option
 recalculates the position values if necessary and set the max. value to 48.
 The old position number is appended as comment (e.g., 'OP: 70). This option
 accounts for potential compatibility problems with the Analyst software.}
 
-\item{txtProgressBar}{\link{logical} (with default): enables or disables
+\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables or disables
 \link{txtProgressBar}.}
 }
 \value{
@@ -48,7 +48,7 @@ not further checked. \cr BIN-file conversions using the argument
 \code{version} may be a lossy conversion, depending on the chosen input and
 output data (e.g., conversion from version 08 to 07 to 06 to 04 or 03).\cr
 
-\bold{Warning}\cr
+\strong{Warning}\cr
 
 Although the coding was done carefully it seems that the BIN/BINX-files
 produced by Risoe DA 15/20 TL/OSL readers slightly differ on the byte level.

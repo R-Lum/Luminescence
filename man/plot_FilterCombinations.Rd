@@ -2,43 +2,43 @@
 % Please edit documentation in R/plot_FilterCombinations.R
 \name{plot_FilterCombinations}
 \alias{plot_FilterCombinations}
-\title{Plot filter combinations along with the (optional) net transmission window}
+\title{Plot filter combinations along with the \emph{(optional)} net transmission window}
 \usage{
 plot_FilterCombinations(filters, wavelength_range = 200:1000,
   show_net_transmission = TRUE, interactive = FALSE, plot = TRUE, ...)
 }
 \arguments{
-\item{filters}{\link{list} (\bold{required}): a named list of filter data for each filter to be shown.
+\item{filters}{\link{list} (\strong{required}): a named list of filter data for each filter to be shown.
 The filter data itself should be either provided as \link{data.frame} or \link{matrix}.
 (for more options s. Details)}
 
-\item{wavelength_range}{\link{numeric} (with default): wavelength range used for the interpolation}
+\item{wavelength_range}{\link{numeric} \emph{(with default)}: wavelength range used for the interpolation}
 
-\item{show_net_transmission}{\link{logical} (with default): show net transmission window
+\item{show_net_transmission}{\link{logical} \emph{(with default)}: show net transmission window
 as polygon.}
 
-\item{interactive}{\link{logical} (with default): enable/disable interactive plot}
+\item{interactive}{\link{logical} \emph{(with default)}: enable/disable interactive plot}
 
-\item{plot}{\link{logical} (with default): enables or disables the plot output}
+\item{plot}{\link{logical} \emph{(with default)}: enables or disables the plot output}
 
-\item{\dots}{further arguments that can be passed to control the plot output. Suppored are \code{main},
+\item{...}{further arguments that can be passed to control the plot output. Suppored are \code{main},
 \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
 For non common plotting parameters see the details section.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
 
-\bold{@data}
+\strong{@data}
 \tabular{lll}{
-\bold{Object} \tab \bold{Type} \bold{Description} \cr
+\strong{Object} \tab \strong{Type} \strong{Description} \cr
 net_transmission_window \tab \code{matrix} \tab the resulting net transmission window \cr
 filter_matrix \tab \code{matrix} \tab the filter matrix used for plotting
 
 }
 
-\bold{@info}
+\strong{@info}
 \tabular{lll}{
-\bold{Object} \tab \bold{Type} \bold{Description} \cr
+\strong{Object} \tab \strong{Type} \strong{Description} \cr
 call \tab \code{call} \tab the original function call
 
 }
@@ -49,7 +49,7 @@ wavelenghts are automatically interpolated for the given filter data using the f
 With that a standardised output is reached and a net transmission window can be shown.\cr
 }
 \details{
-\bold{How to provide input data?}\cr
+\strong{How to provide input data?}\cr
 
 CASE 1\cr
 
@@ -79,12 +79,12 @@ becomes:
 
 \deqn{Transmission = Transmission^(d) * P}\cr
 
-\bold{Advanced plotting parameters}\cr
+\strong{Advanced plotting parameters}\cr
 
 The following further non-common plotting parameters can be passed to the function:\cr
 
 \tabular{lll}{
-\bold{Argument} \tab \bold{Datatype} \tab \bold{Description}\cr
+\strong{Argument} \tab \strong{Datatype} \tab \strong{Description}\cr
 \code{legend} \tab \code{logical} \tab enable/disable legend \cr
 \code{legend.pos} \tab \code{character} \tab change legend position (\link[graphics:legend]{graphics::legend}) \cr
 \code{legend.text} \tab \code{character} \tab same as the argument \code{legend} in (\link[graphics:legend]{graphics::legend}) \cr

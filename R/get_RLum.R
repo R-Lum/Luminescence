@@ -11,7 +11,7 @@
 #' class `RLum` or an object of type [list] containing only objects of type
 #' [RLum-class]
 #'
-#' @param \dots further arguments that will be passed to the object specific methods. For
+#' @param ... further arguments that will be passed to the object specific methods. For
 #' furter details on the supported arguments please see the class
 #' documentation: [RLum.Data.Curve-class],
 #' [RLum.Data.Spectrum-class], [RLum.Data.Image-class],

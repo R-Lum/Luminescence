@@ -8,9 +8,9 @@ merge_RLum(objects, ...)
 }
 \arguments{
 \item{objects}{\link{list} of \linkS4class{RLum}
-(\bold{required}): list of S4 object of class \code{RLum}}
+(\strong{required}): list of S4 object of class \code{RLum}}
 
-\item{\dots}{further arguments that one might want to pass to the specific
+\item{...}{further arguments that one might want to pass to the specific
 merge function}
 }
 \value{
@@ -27,7 +27,7 @@ found in the documentations of each merge function. Empty list elements (\code{N
 automatically removed from the input \code{list}.
 
 \tabular{lll}{
-\bold{object} \tab \tab \bold{corresponding merge function} \cr
+\strong{object} \tab \tab \strong{corresponding merge function} \cr
 
 \linkS4class{RLum.Data.Curve} \tab : \tab \code{merge_RLum.Data.Curve} \cr
 \linkS4class{RLum.Analysis} \tab : \tab \code{merge_RLum.Analysis} \cr

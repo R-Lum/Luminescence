@@ -56,7 +56,7 @@
 #' the used threshold. Note: A separat plot is returned for each frame!
 #' Currently only for `method = "Pych"` a graphical output is provided.
 #'
-#' @param \dots further arguments and graphical parameters that will be passed
+#' @param ... further arguments and graphical parameters that will be passed
 #' to the `smooth` function.
 #'
 #' @return Returns same object as input

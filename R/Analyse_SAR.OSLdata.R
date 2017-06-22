@@ -17,7 +17,7 @@
 #' `[IRSL/BOSL]`: the integrated counts (`signal.integral`) of an
 #' IRSL curve are compared to the integrated counts of the first regenerated
 #' dose point. It is assumed that IRSL curves got the same dose as the first
-#' regenerated dose point. \strong{Note:} This is not the IR depletation ratio
+#' regenerated dose point. **Note:** This is not the IR depletation ratio
 #' described by Duller (2003).
 #'
 #' @param input.data [Risoe.BINfileData-class] (**required**): input
@@ -64,7 +64,7 @@
 #'
 #' @param cex.global [numeric] *(with default)*: global scaling factor.
 #'
-#' @param \dots further arguments that will be passed to the function
+#' @param ... further arguments that will be passed to the function
 #' [calc_OSLLxTxRatio] (supported: `background.count.distribution`, `sigmab`,
 #' `sig0`; e.g., for instrumental error)
 #' and can be used to adjust the plot. Supported" `mtext`, `log`

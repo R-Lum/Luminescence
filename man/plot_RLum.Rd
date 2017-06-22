@@ -7,12 +7,12 @@
 plot_RLum(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\bold{required}): S4 object of
+\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
 class \code{RLum}. Optional a \link{list} containing objects of class \linkS4class{RLum}
 can be provided. In this case the function tries to plot every object in this list according
 to its \code{RLum} class.}
 
-\item{\dots}{further arguments and graphical parameters that will be passed
+\item{...}{further arguments and graphical parameters that will be passed
 to the specific plot functions. The only argument that is supported directly is \code{main}
 (setting the plot title). In contrast to the normal behaviour \code{main} can be here provided as
 \link{list} and the arguments in the list will dispatched to the plots if the \code{object}
@@ -29,7 +29,7 @@ The function provides a generalised access point for plotting specific
 \linkS4class{RLum} objects.\cr Depending on the input object, the
 corresponding plot function will be selected.  Allowed arguments can be
 found in the documentations of each plot function.  \tabular{lll}{
-\bold{object} \tab \tab \bold{corresponding plot function} \cr
+\strong{object} \tab \tab \strong{corresponding plot function} \cr
 
 \linkS4class{RLum.Data.Curve} \tab : \tab
 \link{plot_RLum.Data.Curve} \cr

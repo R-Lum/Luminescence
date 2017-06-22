@@ -59,7 +59,7 @@
 #'
 #' @param verbose [logical] *(with default)*: enables or disables verbose mode
 #'
-#' @param \dots further arguments that will be passed to the function
+#' @param ... further arguments that will be passed to the function
 #' [Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument
 #' automatically sets `fastForward = TRUE`
 #'

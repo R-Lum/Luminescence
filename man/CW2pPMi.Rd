@@ -9,12 +9,12 @@ CW2pPMi(values, P)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or
-\link{data.frame} (\bold{required}):
+\link{data.frame} (\strong{required}):
 \linkS4class{RLum.Data.Curve} or \code{data.frame} with measured
 curve data of type stimulation time (t) (\code{values[,1]}) and measured
 counts (cts) (\code{values[,2]})}
 
-\item{P}{\link{vector} (optional): stimulation period in seconds. If
+\item{P}{\link{vector} \emph{(optional)}: stimulation period in seconds. If
 no value is given, the optimal value is estimated automatically (see
 details). Greater values of P produce more points in the rising tail of the
 curve.}
@@ -41,10 +41,10 @@ The complete procedure of the transformation is given in Bos & Wallinga
 (2012). The input \code{data.frame} consists of two columns: time (t) and
 count values (CW(t))\cr\cr
 
-\bold{Nomenclature}\cr\cr P = stimulation time (s)\cr 1/P = stimulation rate
+\strong{Nomenclature}\cr\cr P = stimulation time (s)\cr 1/P = stimulation rate
 (1/s)\cr\cr
 
-\bold{Internal transformation steps}\cr\cr (1) log(CW-OSL) values\cr\cr (2)
+\strong{Internal transformation steps}\cr\cr (1) log(CW-OSL) values\cr\cr (2)
 Calculate t' which is the transformed time: \deqn{t' = (1/3)*(1/P^2)t^3} (3)
 Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values for
 the transformed time (t'). Values beyond \code{min(t)} and \code{max(t)}
@@ -121,7 +121,7 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr
 
-\bold{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
+\strong{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
 Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.
 

@@ -9,36 +9,36 @@ apply_CosmicRayRemoval(object, method = "smooth", method.Pych.smoothing = 2,
   plot = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Spectrum} (\strong{required}): S4
 object of class \code{RLum.Data.Spectrum}}
 
-\item{method}{\link{character} (with default): Defines method that is
+\item{method}{\link{character} \emph{(with default)}: Defines method that is
 applied for cosmic ray removal. Allowed methods are \code{smooth}, the default,
 (\link{smooth}), \code{smooth.spline} (\link{smooth.spline})
 and \code{Pych}. See details for further information.}
 
-\item{method.Pych.smoothing}{\link{integer} (with default): Smoothing
+\item{method.Pych.smoothing}{\link{integer} \emph{(with default)}: Smoothing
 parameter for cosmic ray removal according to Pych (2003). The value defines
 how many neighboring values in each frame are used for smoothing (e.g.,
 \code{2} means that the two previous and two following values are used).}
 
-\item{method.Pych.threshold_factor}{\link{numeric} (with default): Threshold
+\item{method.Pych.threshold_factor}{\link{numeric} \emph{(with default)}: Threshold
 for zero-bins in the histogram. Small values mean that more peaks are removed, but signal
 might be also affected by this removal.}
 
-\item{MARGIN}{\link{integer} (with default): on which part the function cosmic ray removal
+\item{MARGIN}{\link{integer} \emph{(with default)}: on which part the function cosmic ray removal
 should be applied on: 1 = along the time axis (line by line), 2 = along the wavelength axis (column by
 column). Note: This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
 
-\item{verbose}{\link{logical} (with default): Option to suppress
+\item{verbose}{\link{logical} \emph{(with default)}: Option to suppress
 terminal output.,}
 
-\item{plot}{\link{logical} (with default): If \code{TRUE} the
+\item{plot}{\link{logical} \emph{(with default)}: If \code{TRUE} the
 histograms used for the cosmic-ray removal are returned as plot including
 the used threshold. Note: A separat plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}
 
-\item{\dots}{further arguments and graphical parameters that will be passed
+\item{...}{further arguments and graphical parameters that will be passed
 to the \code{smooth} function.}
 }
 \value{
@@ -69,7 +69,7 @@ Arguments that can be passed are: \code{kind}, \code{twiceit}\cr
 \link{smooth.spline} to remove cosmic rays.\cr Arguments that can be
 passed are: \code{spar}\cr
 
-\bold{How to combine methods?}\cr
+\strong{How to combine methods?}\cr
 
 Different methods can be combined by applying the method repeatedly to the
 dataset (see example).

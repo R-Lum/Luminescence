@@ -196,37 +196,37 @@ is.RLum.Results(x, ...)
 \method{$}{RLum.Results}(x, i)
 }
 \arguments{
-\item{x}{\linkS4class{RLum} or \linkS4class{Risoe.BINfileData} (\bold{required}): input opject}
+\item{x}{\linkS4class{RLum} or \linkS4class{Risoe.BINfileData} (\strong{required}): input opject}
 
-\item{y}{\link{integer} (optional): the row index of the matrix, data.frame}
+\item{y}{\link{integer} \emph{(optional)}: the row index of the matrix, data.frame}
 
 \item{...}{further arguments that can be passed to the method}
 
-\item{object}{\linkS4class{RLum} (\bold{required}): input opject}
+\item{object}{\linkS4class{RLum} (\strong{required}): input opject}
 
-\item{subset}{\code{[subset]} \link{expression} (\bold{required}): logical expression indicating elements or rows to keep,
+\item{subset}{\code{[subset]} \link{expression} (\strong{required}): logical expression indicating elements or rows to keep,
 this function works in \linkS4class{Risoe.BINfileData} objects like \link{subset.data.frame}, but takes care
 of the object structure}
 
-\item{records.rm}{\link{subset} \link{logical} (with default): remove records from data set, can
+\item{records.rm}{\link{subset} \link{logical} \emph{(with default)}: remove records from data set, can
 be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
 
-\item{row.names}{\link{logical} (with default): enables or disables row names (\code{as.data.frame})}
+\item{row.names}{\link{logical} \emph{(with default)}: enables or disables row names (\code{as.data.frame})}
 
-\item{optional}{\link{logical} (with default): logical. If TRUE, setting row names and
+\item{optional}{\link{logical} \emph{(with default)}: logical. If TRUE, setting row names and
 converting column names (to syntactic names: see make.names) is optional (see \link[base:as.data.frame]{base::as.data.frame})}
 
-\item{recursive}{\link{logical} (with default): enables or disables further subsetting (\code{unlist})}
+\item{recursive}{\link{logical} \emph{(with default)}: enables or disables further subsetting (\code{unlist})}
 
-\item{z}{\link{integer} (optional): the column index of the matrix, data.frame}
+\item{z}{\link{integer} \emph{(optional)}: the column index of the matrix, data.frame}
 
-\item{drop}{\link{logical} (with default): keep object structure or drop it}
+\item{drop}{\link{logical} \emph{(with default)}: keep object structure or drop it}
 
-\item{i}{\link{character} (optional): name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object}
+\item{i}{\link{character} \emph{(optional)}: name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object}
 
-\item{j}{\link{integer} (optional): column of the data matrix in the \code{RLum.Data.Curve} object}
+\item{j}{\link{integer} \emph{(optional)}: column of the data matrix in the \code{RLum.Data.Curve} object}
 
-\item{value}{\link{numeric} \bold{(required)}: numeric value which replace the value in the
+\item{value}{\link{numeric} \strong{(required)}: numeric value which replace the value in the
 \code{RLum.Data.Curve} object}
 }
 \description{

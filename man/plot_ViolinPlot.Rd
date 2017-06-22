@@ -13,11 +13,11 @@ object (required): input data for plotting. Alternatively a \link{data.frame} or
 a \link{matrix} can be provided, but only the first column will be considered by the
 function}
 
-\item{boxplot}{\link{logical} (with default): enable or disable boxplot}
+\item{boxplot}{\link{logical} \emph{(with default)}: enable or disable boxplot}
 
-\item{rug}{\link{logical} (with default): enable or disable rug}
+\item{rug}{\link{logical} \emph{(with default)}: enable or disable rug}
 
-\item{summary}{\link{character} (optional): add statistic measures of
+\item{summary}{\link{character} \emph{(optional)}: add statistic measures of
 centrality and dispersion to the plot. Can be one or more of several
 keywords. See details for available keywords.}
 
@@ -27,10 +27,10 @@ for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used.}
 
-\item{na.rm}{\link{logical} (with default): exclude NA values
+\item{na.rm}{\link{logical} \emph{(with default)}: exclude NA values
 from the data set prior to any further operations.}
 
-\item{\dots}{further arguments and graphical parameters passed to
+\item{...}{further arguments and graphical parameters passed to
 \link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for
 further information}
 }

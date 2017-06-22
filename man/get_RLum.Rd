@@ -11,17 +11,17 @@ get_RLum(object, ...)
 \S4method{get_RLum}{list}(object, null.rm = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\bold{required}): S4 object of
+\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
 class \code{RLum} or an object of type \link{list} containing only objects of type
 \linkS4class{RLum}}
 
-\item{\dots}{further arguments that will be passed to the object specific methods. For
+\item{...}{further arguments that will be passed to the object specific methods. For
 furter details on the supported arguments please see the class
 documentation: \linkS4class{RLum.Data.Curve},
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image},
 \linkS4class{RLum.Analysis} and \linkS4class{RLum.Results}}
 
-\item{null.rm}{\link{logical} (with default): option to get rid of empty and NULL objects}
+\item{null.rm}{\link{logical} \emph{(with default)}: option to get rid of empty and NULL objects}
 }
 \value{
 Return is the same as input objects as provided in the list.

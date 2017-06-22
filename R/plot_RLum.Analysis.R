@@ -49,7 +49,7 @@
 #' @param plot.single [logical] *(with default)*: global par settings are
 #' considered, normally this should end in one plot per page
 #'
-#' @param \dots further arguments and graphical parameters will be passed to
+#' @param ... further arguments and graphical parameters will be passed to
 #' the `plot` function. Supported arguments: `main`, `mtext`,
 #' `log`, `lwd`, `lty` `type`, `pch`, `col`,
 #' `norm`, `xlim`,`ylim`, `xlab`, `ylab`... and for `combine = TRUE`

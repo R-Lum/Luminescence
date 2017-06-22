@@ -12,19 +12,19 @@ calc_gSGC(data, gSGC.type = "0-250", gSGC.parameters, n.MC = 100,
 input data of providing the following columns: \emph{'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'}
 \strong{Note:} column names are not required. The function expect the input data in the given order}
 
-\item{gSGC.type}{\link{character} \emph{(with default)}:
+\item{gSGC.type}{\link{character} \strong{(with default)}:
 define the function parameters that
 should be used for the iteration procedure: Li et al., 2015 (Table 2)
 presented function parameters for two dose ranges: \code{"0-450"} and \code{"0-250"}}
 
-\item{gSGC.parameters}{\link{list} \emph{(optional)}:
+\item{gSGC.parameters}{\link{list} \strong{(optional)}:
 option to provide own function parameters used for fitting as named list.
 Nomenclature follows Li et al., 2015, i.e. \code{list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)},
 range requires a vector for the range the function is considered as valid, e.g. \code{range = c(0,250)}\cr
 Using this option overwrites the default parameter list of the gSGC, meaning the argument
 \code{gSGC.type} will be without effect}
 
-\item{n.MC}{\link{integer} \emph{(with default)}:
+\item{n.MC}{\link{integer} \strong{(with default)}:
 number of Monte Carlo simulation runs for error estimation, see details.}
 
 \item{verbose}{\link{logical}:

@@ -9,24 +9,24 @@ verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
 }
 \arguments{
 \item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}
-(\bold{required}): input object. The function also accepts a list with objects of allowed type.}
+(\strong{required}): input object. The function also accepts a list with objects of allowed type.}
 
-\item{threshold}{\link{numeric} (with default): numeric threshold value for the allowed difference between
+\item{threshold}{\link{numeric} \emph{(with default)}: numeric threshold value for the allowed difference between
 the \code{mean} and the \code{var} of the count values (see details)}
 
-\item{cleanup}{\link{logical} (with default): if set to \code{TRUE} curves indentified as
+\item{cleanup}{\link{logical} \emph{(with default)}: if set to \code{TRUE} curves indentified as
 zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
 either \linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}}
 
-\item{cleanup_level}{\link{character} (with default): selects the level for the cleanup
+\item{cleanup_level}{\link{character} \emph{(with default)}: selects the level for the cleanup
 of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
 is selected every single curve marked as \code{invalid} is removed. If \code{"aliquot"} is selected,
 curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
 will be only removed if all curves of this aliquot are marked as invalid.}
 
-\item{verbose}{\link{logical} (with default): enables or disables the terminal feedback}
+\item{verbose}{\link{logical} \emph{(with default)}: enables or disables the terminal feedback}
 
-\item{plot}{\link{logical} (with default): enables or disables the graphical feedback}
+\item{plot}{\link{logical} \emph{(with default)}: enables or disables the graphical feedback}
 }
 \value{
 The function returns
@@ -34,21 +34,21 @@ The function returns
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\strong{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Results}}-object\cr
 
-\bold{slot:}\strong{\code{@data}}\cr
+\strong{slot:****\code{@data}}\cr
 \tabular{lll}{
-\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
 \code{$selection_id} \tab \code{numeric} \tab the selection as record ID \cr
 \code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
 }
 
-\bold{slot:}\strong{\code{@info}}\cr
+\strong{slot:****\code{@info}}\cr
 
 The original function call\cr
 
-\bold{Output variation}\cr
+\strong{Output variation}\cr
 
 For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up (invalid curves were removed).
 This means: Either an \linkS4class{Risoe.BINfileData} or an \linkS4class{RLum.Analysis}
@@ -60,7 +60,7 @@ This function tries to identify automatically zero-light level curves (grains) f
 measurements. \cr
 }
 \details{
-\bold{How does the method work?}\cr
+\strong{How does the method work?}\cr
 
 The function compares the expected values (\eqn{E(X)}) and the variance (\eqn{Var(X)})
 of the count values for each curve. Assuming that the background roughly follows a poisson

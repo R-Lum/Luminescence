@@ -11,7 +11,7 @@ smooth_RLum(object, ...)
 \S4method{smooth_RLum}{list}(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\bold{required}): S4 object of
+\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
 class \code{RLum}}
 
 \item{...}{further arguments passed to the specifc class method}

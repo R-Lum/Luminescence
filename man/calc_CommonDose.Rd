@@ -11,7 +11,7 @@ calc_CommonDose(data, sigmab, log = TRUE, ...)
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(data[,2])}}
 
-\item{sigmab}{\link{numeric} \emph{(with default)}:
+\item{sigmab}{\link{numeric} \strong{(with default)}:
 additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
@@ -19,7 +19,7 @@ well-bleached (Cunningham & Walling 2012, p. 100).
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
-\item{log}{\link{logical} \emph{(with default)}:
+\item{log}{\link{logical} \strong{(with default)}:
 fit the (un-)logged central age model to De data}
 
 \item{...}{currently not used.}

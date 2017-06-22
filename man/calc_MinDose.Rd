@@ -21,34 +21,34 @@ a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALS
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 See details.}
 
-\item{log}{\link{logical} \emph{(with default)}:
+\item{log}{\link{logical} \strong{(with default)}:
 fit the (un-)logged minimum dose model to De data.}
 
-\item{par}{\link{numeric} \emph{(with default)}:
+\item{par}{\link{numeric} \strong{(with default)}:
 apply the 3- or 4-parametric minimum age model (\code{par=3} or \code{par=4}). The MAM-3 is
 used by default.}
 
-\item{bootstrap}{\link{logical} \emph{(with default)}:
+\item{bootstrap}{\link{logical} \strong{(with default)}:
 apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
 
-\item{init.values}{\link{numeric} \emph{(optional)}:
+\item{init.values}{\link{numeric} \strong{(optional)}:
 a named list with starting values for gamma, sigma, p0 and mu
 (e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
 are tried to be estimated from the data.}
 
-\item{level}{\link{logical} \emph{(with default)}:
+\item{level}{\link{logical} \strong{(with default)}:
 the confidence level required (defaults to 0.95).}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} \strong{(with default)}:
 plot output (\code{TRUE}/\code{FALSE})}
 
-\item{multicore}{\link{logical} \emph{(with default)}:
+\item{multicore}{\link{logical} \strong{(with default)}:
 enable parallel computation of the bootstrap by creating a multicore SNOW cluster. Depending
 on the number of available logical CPU cores this may drastically reduce
 the computation time. Note that this option is highly experimental and may not
 work on all machines. (\code{TRUE}/\code{FALSE})}
 
-\item{...}{\emph{(optional)} further arguments for bootstrapping
+\item{...}{\strong{(optional)} further arguments for bootstrapping
 (\code{bs.M, bs.N, bs.h, sigmab.sd}). See details for their usage.
 Further arguments are
 \itemize{
@@ -58,7 +58,7 @@ Further arguments are
 }}
 }
 \value{
-Returns a plot \emph{(optional)} and terminal output. In addition an
+Returns a plot \strong{(optional)} and terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
 following elements:
 

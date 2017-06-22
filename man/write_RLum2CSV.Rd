@@ -7,20 +7,20 @@
 write_RLum2CSV(object, path = NULL, prefix = "", export = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} or a \link{list} of \code{RLum} objects (\bold{required}): objects to be written}
+\item{object}{\linkS4class{RLum} or a \link{list} of \code{RLum} objects (\strong{required}): objects to be written}
 
-\item{path}{\link{character} (optional): character string naming folder for the output to be written. If nothing
+\item{path}{\link{character} \emph{(optional)}: character string naming folder for the output to be written. If nothing
 is provided \code{path} will be set to the working directory. Note: this argument is ignored if the
 the argument \code{export} is set to \code{FALSE}.}
 
-\item{prefix}{\link{character} (with default): optional prefix to name the files. This prefix
+\item{prefix}{\link{character} \emph{(with default)}: optional prefix to name the files. This prefix
 is valid for all written files}
 
-\item{export}{\link{logical} (with default): enable or disable the file export. If set to \code{FALSE}
+\item{export}{\link{logical} \emph{(with default)}: enable or disable the file export. If set to \code{FALSE}
 nothing is written to the file connection, but a list comprising objects of type \link{data.frame} and \link{matrix}
 is returned instead}
 
-\item{\dots}{further arguments that will be passed to the function \link[utils:write.table]{utils::write.table}. All arguments
+\item{...}{further arguments that will be passed to the function \link[utils:write.table]{utils::write.table}. All arguments
 except the argument \code{file} are supported}
 }
 \value{
@@ -39,7 +39,7 @@ However, in combination with the implemented import functions, nearly every supp
 import data format can be exported to CSV-files, this gives a great deal of freedom in terms of
 compatibility with other tools.\cr
 
-\bold{Input is a list of objects}\cr
+\strong{Input is a list of objects}\cr
 
 If the input is a \link{list} of objects all explicit function arguments can be provided
 as \link{list}.

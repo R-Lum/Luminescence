@@ -61,7 +61,7 @@
 #' @param interactive [logical] *(with default)*: create an interactive
 #' histogram plot (requires the 'plotly' package)
 #'
-#' @param \dots further arguments and graphical parameters passed to
+#' @param ... further arguments and graphical parameters passed to
 #' [plot] or [hist]. If y-axis labels are provided,
 #' these must be specified as a vector of length 2 since the plot features two
 #' axes (e.g. `ylab = c("axis label 1", "axis label 2")`). Y-axes limits

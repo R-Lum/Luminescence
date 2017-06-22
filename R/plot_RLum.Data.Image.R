@@ -50,7 +50,7 @@
 #' If `par.local = FALSE` global parameters are inherited.
 #' @param plot.type [character] *(with default)*: plot types.
 #' Supported types are `plot.raster`, `plotRGB` or `contour`
-#' @param \dots further arguments and graphical parameters that will be passed
+#' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions.
 #' @return Returns a plot.
 #' @note This function has been created to faciliate the plotting of image data

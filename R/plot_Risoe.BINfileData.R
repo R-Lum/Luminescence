@@ -48,7 +48,7 @@
 #' @param temp.lab [character] *(optional)*: option to allow for different
 #' temperature units. If no value is set deg. C is chosen.
 #' @param cex.global [numeric] *(with default)*: global scaling factor.
-#' @param \dots further undocumented plot arguments.
+#' @param ... further undocumented plot arguments.
 #' @return Returns a plot.
 #' @note The function has been successfully tested for the Sequence Editor file
 #' output version 3 and 4.

@@ -55,7 +55,7 @@
 #' (`TRUE/FALSE`) to allow for plotting the results in single plot
 #' windows. Requires `plot = TRUE`.
 #'
-#' @param \dots further arguments that will be passed to the function
+#' @param ... further arguments that will be passed to the function
 #' [analyse_SAR.CWOSL] and [plot_GrowthCurve]
 #'
 #' @return Plots *(optional)* and an [RLum.Results-class] object is

@@ -13,57 +13,57 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
 \item{object}{\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 x, y data of measured values (time and counts).}
 
-\item{stimulation.power}{\link{numeric} \emph{(with default)}:
+\item{stimulation.power}{\link{numeric} \strong{(with default)}:
 Stimulation power in mW/cm^2}
 
-\item{wavelength}{\link{numeric} \emph{(with default)}:
+\item{wavelength}{\link{numeric} \strong{(with default)}:
 Stimulation wavelength in nm}
 
-\item{sigmaF}{\link{numeric} \emph{(with default)}:
+\item{sigmaF}{\link{numeric} \strong{(with default)}:
 Photoionisation cross-section (cm^2) of the fast component.
 Default value after Durcan & Duller (2011).}
 
-\item{sigmaM}{\link{numeric} \emph{(with default)}:
+\item{sigmaM}{\link{numeric} \strong{(with default)}:
 Photoionisation cross-section (cm^2) of the medium component.
 Default value after Durcan & Duller (2011).}
 
-\item{Ch_L1}{\link{numeric} \emph{(with default)}:
+\item{Ch_L1}{\link{numeric} \strong{(with default)}:
 An integer specifying the channel for L1.}
 
-\item{Ch_L2}{\link{numeric} \emph{(optional)}:
+\item{Ch_L2}{\link{numeric} \strong{(optional)}:
 An integer specifying the channel for L2.}
 
-\item{Ch_L3}{\link{numeric} \emph{(optional)}:
+\item{Ch_L3}{\link{numeric} \strong{(optional)}:
 A vector of length 2 with integer values specifying the start and end channels for L3
 (e.g., \code{c(40, 50)}).}
 
-\item{x}{\link{numeric} \emph{(with default)}:
+\item{x}{\link{numeric} \strong{(with default)}:
 \% of signal remaining from the fast component.
 Used to define the location of L2 and L3 (start).}
 
-\item{x2}{\link{numeric} \emph{(with default)}:
+\item{x2}{\link{numeric} \strong{(with default)}:
 \% of signal remaining from the medium component.
 Used to define the location of L3 (end).}
 
-\item{dead.channels}{\link{numeric} \emph{(with default)}:
+\item{dead.channels}{\link{numeric} \strong{(with default)}:
 Vector of length 2 in the form of \code{c(x, y)}.
 Channels that do not contain OSL data, i.e. at the start or end of measurement.}
 
-\item{fitCW.sigma}{\link{logical} \emph{(optional)}:
+\item{fitCW.sigma}{\link{logical} \strong{(optional)}:
 fit CW-OSL curve using \link{fit_CWCurve} to calculate \code{sigmaF} and \code{sigmaM} (\strong{experimental}).}
 
-\item{fitCW.curve}{\link{logical} \emph{(optional)}:
+\item{fitCW.curve}{\link{logical} \strong{(optional)}:
 fit CW-OSL curve using \link{fit_CWCurve} and derive the counts of L2 and L3
 from the fitted OSL curve (\strong{experimental}).}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} \strong{(with default)}:
 plot output (\code{TRUE}/\code{FALSE})}
 
 \item{...}{available options: \code{verbose} (\link{logical}).
 Further arguments passed to \link{fit_CWCurve}.}
 }
 \value{
-Returns a plot \emph{(optional)} and an S4 object of type \linkS4class{RLum.Results}.
+Returns a plot \strong{(optional)} and an S4 object of type \linkS4class{RLum.Results}.
 The slot \code{data} contains a \link{list} with the following elements: \cr
 
 \item{summary}{\link{data.frame} summary of all relevant results}

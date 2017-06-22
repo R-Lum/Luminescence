@@ -8,21 +8,21 @@ analyse_portableOSL(object, signal.integral, invert = FALSE,
   normalise = FALSE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\bold{required}):
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
 \code{RLum.Analysis} object produced by \link{read_PSL2R}.}
 
-\item{signal.integral}{\link{vector} (\bold{required}): A vector of two values
+\item{signal.integral}{\link{vector} (\strong{required}): A vector of two values
 specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can
 be provided in form of \code{c(1, 5)} or \code{1:5}.}
 
-\item{invert}{\link{logical} (with default): \code{TRUE} to calculate
+\item{invert}{\link{logical} \emph{(with default)}: \code{TRUE} to calculate
 and plot the data in reverse order.}
 
-\item{normalise}{\link{logical} (with default):
+\item{normalise}{\link{logical} \emph{(with default)}:
 \code{TRUE} to normalise the OSL/IRSL signals by the mean of all corresponding
 data curves.}
 
-\item{plot}{\link{logical} (with default): enable/disable plot output}
+\item{plot}{\link{logical} \emph{(with default)}: enable/disable plot output}
 
 \item{...}{currently not used.}
 }

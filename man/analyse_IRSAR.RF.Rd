@@ -10,7 +10,7 @@ analyse_IRSAR.RF(object, sequence_structure = c("NATURAL", "REGENERATED"),
   txtProgressBar = TRUE, plot = TRUE, plot_reduced = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \code{RLum.Analysis} objects (\bold{required}): input
+\item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \code{RLum.Analysis} objects (\strong{required}): input
 object containing data for protocol analysis. The function expects to find at least two curves in the
 \linkS4class{RLum.Analysis} object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
 input all other parameters can be provided as \code{list} as well to gain full control.}
@@ -20,23 +20,23 @@ default): specifies the general sequence structure. Allowed steps are
 \code{NATURAL}, \code{REGENERATED}. In addition any other character is
 allowed in the sequence structure; such curves will be ignored during the analysis.}
 
-\item{RF_nat.lim}{\link{vector} (with default): set minimum and maximum
+\item{RF_nat.lim}{\link{vector} \emph{(with default)}: set minimum and maximum
 channel range for natural signal fitting and sliding. If only one value is provided this
 will be treated as minimum value and the maximum limit will be added automatically.}
 
-\item{RF_reg.lim}{\link{vector} (with default): set minimum and maximum
+\item{RF_reg.lim}{\link{vector} \emph{(with default)}: set minimum and maximum
 channel range for regenerated signal fitting and sliding. If only one value is provided this
 will be treated as minimum value and the maximum limit will be added automatically.}
 
-\item{method}{\link{character} (with default): setting method applied
+\item{method}{\link{character} \emph{(with default)}: setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
-\item{method.control}{\link{list} (optional): parameters to control the method, that can
+\item{method.control}{\link{list} \emph{(optional)}: parameters to control the method, that can
 be passed to the chosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 See details.}
 
-\item{test_parameters}{\link{list} (with default): set test parameters.
+\item{test_parameters}{\link{list} \emph{(with default)}: set test parameters.
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
 \code{lambda}, \code{beta} and \code{delta.phi}. All input: \link{numeric}
@@ -44,41 +44,41 @@ values, \code{NA} and \code{NULL} (s. Details)
 
 (see Details for further information)}
 
-\item{n.MC}{\link{numeric} (with default): set number of Monte
+\item{n.MC}{\link{numeric} \emph{(with default)}: set number of Monte
 Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL} to skip the
 MC runs. Note: Large values will significantly increase the computation time}
 
-\item{txtProgressBar}{\link{logical} (with default): enables \code{TRUE} or
+\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables \code{TRUE} or
 disables \code{FALSE} the progression bar during MC runs}
 
-\item{plot}{\link{logical} (with default): plot output (\code{TRUE}
+\item{plot}{\link{logical} \emph{(with default)}: plot output (\code{TRUE}
 or \code{FALSE})}
 
-\item{plot_reduced}{\link{logical} (optional): provides a reduced plot output if enabled
+\item{plot_reduced}{\link{logical} \emph{(optional)}: provides a reduced plot output if enabled
 to allow common R plot combinations, e.g., \code{par(mfrow(...))}. If \code{TRUE} no residual plot
 is returned; it has no effect if \code{plot = FALSE}}
 
-\item{\dots}{further arguments that will be passed to the plot output.
+\item{...}{further arguments that will be passed to the plot output.
 Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 \code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
 \code{legend.pos}, \code{legend.text} (passes argument to x,y in
 \link[graphics:legend]{graphics::legend}), \code{xaxt}}
 }
 \value{
-The function returns numerical output and an (optional) plot.
+The function returns numerical output and an \emph{(optional)} plot.
 
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\strong{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Results}}-object\cr
 
-\bold{slot:} \strong{\code{@data}} \cr
+\strong{slot:} \strong{\code{@data}} \cr
 
 \code{[.. $data : data.frame]}\cr
 
 \tabular{lll}{
-\bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
 DE \tab \code{numeric} \tab the obtained equivalent dose\cr
 DE.ERROR \tab \code{numeric} \tab (only \code{method = "SLIDE"}) standard deviation obtained from MC runs \cr
 DE.LOWER \tab \code{numeric}\tab 2.5\% quantile for De values obtained by MC runs \cr
@@ -86,9 +86,9 @@ DE.UPPER \tab \code{numeric}\tab 97.5\% quantile for De values obtained by MC ru
 DE.STATUS  \tab \code{character}\tab test parameter status\cr
 RF_NAT.LIM  \tab \code{charcter}\tab used RF_nat curve limits \cr
 RF_REG.LIM \tab \code{character}\tab used RF_reg curve limits\cr
-POSITION \tab \code{integer}\tab (optional) position of the curves\cr
-DATE \tab \code{character}\tab (optional) measurement date\cr
-SEQUENCE_NAME \tab \code{character}\tab (optional) sequence name\cr
+POSITION \tab \code{integer}\tab \emph{(optional)} position of the curves\cr
+DATE \tab \code{character}\tab \emph{(optional)} measurement date\cr
+SEQUENCE_NAME \tab \code{character}\tab \emph{(optional)} sequence name\cr
 UID \tab \code{character}\tab unique data set ID
 }
 
@@ -99,7 +99,7 @@ A \code{numeric} vector with all the De values obtained by the MC runs.\cr
 \code{[.. $test_parameters : data.frame]}\cr
 
 \tabular{lll}{
-\bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
 POSITION \tab \code{numeric} \tab aliquot position \cr
 PARAMETER \tab \code{character} \tab test parameter name \cr
 THRESHOLD \tab \code{numeric} \tab set test parameter threshold value \cr
@@ -119,7 +119,7 @@ A \link{list} with data produced during the sliding. Some elements are previousl
 reported with the summary object data. List elements are:
 
 \tabular{lll}{
-\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 De \tab \code{numeric} \tab the final De obtained with the sliding approach \cr
 De.MC \tab \code{numeric} \tab all De values obtained by the MC runs \cr
 residuals \tab \code{numeric} \tab the obtained residuals for each channel of the curve \cr
@@ -134,7 +134,7 @@ vslide_range \tab \code{numeric} \tab the range used for the vertical sliding \c
 squared_residuals \tab \code{numeric} \tab the squared residuals (horizontal sliding)
 }
 
-\bold{slot:} \strong{\code{@info}} \cr
+\strong{slot:} \strong{\code{@info}} \cr
 
 The original function call (\link[methods:language-class]{methods::language}-object)
 
@@ -156,7 +156,7 @@ The function performs an IRSAR analysis described for K-feldspar samples by
 Erfurt et al. (2003) assuming a negligible sensitivity change of the RF
 signal.\cr
 
-\bold{General Sequence Structure} (according to Erfurt et al.
+\strong{General Sequence Structure} (according to Erfurt et al.
 (2003)) \enumerate{
 
 \item Measuring IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
@@ -213,26 +213,26 @@ ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
 \code{minFactor} \tab \code{FIT}            \tab as in \link{nls}\cr
 \code{correct_onset} \tab \code{SLIDE}      \tab The logical argument shifts the curves along the x-axis by the first channel,
 as light is expected in the first channel. The default value is \code{TRUE}.\cr
-\code{show_density} \tab \code{SLIDE}       \tab \link{logical} (with default)
+\code{show_density} \tab \code{SLIDE}       \tab \link{logical} \emph{(with default)}
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-\code{show_fit} \tab \code{SLIDE}       \tab \link{logical} (with default)
+\code{show_fit} \tab \code{SLIDE}       \tab \link{logical} \emph{(with default)}
 enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-\code{n.MC}                  \tab \code{SLIDE}       \tab    \link{integer} (with default):
+\code{n.MC}                  \tab \code{SLIDE}       \tab    \link{integer} \emph{(with default)}:
 This controls the number of MC runs within the sliding (assessing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
 function argument \code{n.MC}. \cr
-\code{vslide_range} \tab \code{SLDE} \tab \link{logical} or \link{numeric} or \link{character} (with default):
+\code{vslide_range} \tab \code{SLDE} \tab \link{logical} or \link{numeric} or \link{character} \emph{(with default)}:
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
-reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies no vertical sliding.
+reasonable vertical sliding range (\strong{recommended}). \code{NULL} applies no vertical sliding.
 The default is \code{NULL}.\cr
-\code{cores} \tab \code{SLIDE} \tab \code{number} or \code{character} (with default): set number of cores to be allocated
+\code{cores} \tab \code{SLIDE} \tab \code{number} or \code{character} \emph{(with default)}: set number of cores to be allocated
 for a parallel processing of the Monte-Carlo runs. The default value is \code{NULL} (single thread),
 the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} = 8) assigns a value manually.
 }
 
-\bold{Error estimation}\cr
+\strong{Error estimation}\cr
 
 For \strong{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
 the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.\cr
@@ -243,7 +243,7 @@ ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the M
 interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
 are returned with the function output. \cr
 
-\bold{Test parameters}\cr
+\strong{Test parameters}\cr
 
 The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
 which will be evaluated during the function run. If a threshold is set and it will be exceeded the

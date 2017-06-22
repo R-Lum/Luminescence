@@ -28,7 +28,7 @@
 #' nothing is written to the file connection, but a list comprising objects of type [data.frame] and [matrix]
 #' is returned instead
 #'
-#' @param \dots further arguments that will be passed to the function [utils::write.table]. All arguments
+#' @param ... further arguments that will be passed to the function [utils::write.table]. All arguments
 #' except the argument `file` are supported
 #'
 #'

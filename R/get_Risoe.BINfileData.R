@@ -9,7 +9,7 @@
 #'
 #' @param object [Risoe.BINfileData-class] (**required**): S4 object of
 #' class `RLum`
-#' @param \dots further arguments that one might want to pass to the specific
+#' @param ... further arguments that one might want to pass to the specific
 #' get function
 #' @return Return is the same as input objects as provided in the list.
 #' @section Function version: 0.1.0

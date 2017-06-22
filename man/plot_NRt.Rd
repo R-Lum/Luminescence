@@ -9,24 +9,24 @@ plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
 }
 \arguments{
 \item{data}{a \link{list}, \link{data.frame}, \link{matrix} or
-\linkS4class{RLum.Analysis} object (\bold{required}). X,Y data of measured values
+\linkS4class{RLum.Analysis} object (\strong{required}). X,Y data of measured values
 (time and counts). See details on individual data structure.}
 
-\item{log}{\link{character} (optional): logarithmic axes
+\item{log}{\link{character} \emph{(optional)}: logarithmic axes
 (\code{c("x", "y", "xy")}).}
 
-\item{smooth}{\link{character} (optional): apply data smoothing. Use
+\item{smooth}{\link{character} \emph{(optional)}: apply data smoothing. Use
 \code{"rmean"} to calculate the rolling where \code{k} determines the width
 of the rolling window (see \link{rollmean}).
 \code{"spline"} applies a smoothing spline to each curve
 (see \link{smooth.spline})}
 
-\item{k}{\link{integer} (with default): integer width of the rolling
+\item{k}{\link{integer} \emph{(with default)}: integer width of the rolling
 window.}
 
-\item{legend}{\link{logical} (with default): show or hide the plot legend.}
+\item{legend}{\link{logical} \emph{(with default)}: show or hide the plot legend.}
 
-\item{legend.pos}{\link{character} (with default): keyword specifying
+\item{legend.pos}{\link{character} \emph{(with default)}: keyword specifying
 the position of the legend (see \link{legend}).}
 
 \item{...}{further parameters passed to \link{plot} (also see \link{par}).}

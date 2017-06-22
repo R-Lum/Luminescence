@@ -13,68 +13,68 @@ fit_LMCurve(values, values.bg, n.components = 3, start_values,
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
-(\bold{required}): x,y data of measured values (time and counts). See
+(\strong{required}): x,y data of measured values (time and counts). See
 examples.}
 
 \item{values.bg}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
-(optional): x,y data of measured values (time and counts) for background
+\emph{(optional)}: x,y data of measured values (time and counts) for background
 subtraction.}
 
-\item{n.components}{\link{integer} (with default): fixed number of
+\item{n.components}{\link{integer} \emph{(with default)}: fixed number of
 components that are to be recognised during fitting (min = 1, max = 7).}
 
-\item{start_values}{\link{data.frame} (optional): start parameters for lm
+\item{start_values}{\link{data.frame} \emph{(optional)}: start parameters for lm
 and xm data for the fit. If no start values are given, an automatic start
 value estimation is attempted (see details).}
 
-\item{input.dataType}{\link{character} (with default): alter the plot output
+\item{input.dataType}{\link{character} \emph{(with default)}: alter the plot output
 depending on the input data: "LM" or "pLM" (pseudo-LM). See: \link{CW2pLM}}
 
-\item{fit.method}{\link{character} (with default): select fit method,
+\item{fit.method}{\link{character} \emph{(with default)}: select fit method,
 allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
 routine usint the funtion \link{nls} \code{'LM'} utilises the
 function \code{nlsLM} from the package \code{minpack.lm} and with that the
 Levenberg-Marquardt algorithm.}
 
-\item{sample_code}{\link{character} (optional): sample code used for the
+\item{sample_code}{\link{character} \emph{(optional)}: sample code used for the
 plot and the optional output table (mtext).}
 
-\item{sample_ID}{\link{character} (optional): additional identifier used as
+\item{sample_ID}{\link{character} \emph{(optional)}: additional identifier used as
 column header for the table output.}
 
-\item{LED.power}{\link{numeric} (with default): LED power (max.) used for
-intensity ramping in mW/cm^2. \bold{Note:} This value is used for the
+\item{LED.power}{\link{numeric} \emph{(with default)}: LED power (max.) used for
+intensity ramping in mW/cm^2. \strong{Note:} This value is used for the
 calculation of the absolute photoionisation cross section.}
 
-\item{LED.wavelength}{\link{numeric} (with default): LED wavelength in nm
-used for stimulation. \bold{Note:} This value is used for the calculation of
+\item{LED.wavelength}{\link{numeric} \emph{(with default)}: LED wavelength in nm
+used for stimulation. \strong{Note:} This value is used for the calculation of
 the absolute photoionisation cross section.}
 
-\item{fit.trace}{\link{logical} (with default): traces the fitting process
+\item{fit.trace}{\link{logical} \emph{(with default)}: traces the fitting process
 on the terminal.}
 
-\item{fit.advanced}{\link{logical} (with default): enables advanced fitting
+\item{fit.advanced}{\link{logical} \emph{(with default)}: enables advanced fitting
 attempt for automatic start parameter recognition. Works only if no start
-parameters are provided. \bold{Note:} It may take a while and it is not
+parameters are provided. \strong{Note:} It may take a while and it is not
 compatible with \code{fit.method = "LM"}.}
 
-\item{fit.calcError}{\link{logical} (with default): calculate 1-sigma error
+\item{fit.calcError}{\link{logical} \emph{(with default)}: calculate 1-sigma error
 range of components using \link{confint}.}
 
-\item{bg.subtraction}{\link{character} (with default): specifies method for
+\item{bg.subtraction}{\link{character} \emph{(with default)}: specifies method for
 background subtraction (\code{polynomial}, \code{linear}, \code{channel},
-see Details). \bold{Note:} requires input for \code{values.bg}.}
+see Details). \strong{Note:} requires input for \code{values.bg}.}
 
-\item{verbose}{\link{logical} (with default): terminal output with
+\item{verbose}{\link{logical} \emph{(with default)}: terminal output with
 fitting results.}
 
-\item{plot}{\link{logical} (with default): returns a plot of the
+\item{plot}{\link{logical} \emph{(with default)}: returns a plot of the
 fitted curves.}
 
-\item{plot.BG}{\link{logical} (with default): returns a plot of the
+\item{plot.BG}{\link{logical} \emph{(with default)}: returns a plot of the
 background values with the fit used for the background subtraction.}
 
-\item{\dots}{Further arguments that may be passed to the plot output, e.g.
+\item{...}{Further arguments that may be passed to the plot output, e.g.
 \code{xlab}, \code{xlab}, \code{main}, \code{log}.}
 }
 \value{
@@ -104,13 +104,13 @@ components and returns various component parameters. The fitting procedure
 uses the function \link{nls} with the \code{port} algorithm.
 }
 \details{
-\bold{Fitting function}\cr\cr The function for the fitting has the general
+\strong{Fitting function}\cr\cr The function for the fitting has the general
 form: \deqn{y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, +
 exp(0.5)*Im_i*x/xm_i)*exp(-x^2/(2*xm_i^2))} where \eqn{1 < i < 8}\cr This
 function and the equations for the conversion to b (detrapping probability)
 and n0 (proportional to initially trapped charge) have been taken from Kitis
 et al. (2008): \deqn{xm_i=\sqrt{max(t)/b_i}} \deqn{Im_i=exp(-0.5)n0/xm_i}\cr
-\bold{Background subtraction}\cr\cr Three methods for background subtraction
+\strong{Background subtraction}\cr\cr Three methods for background subtraction
 are provided for a given background signal (\code{values.bg}).\cr
 \code{polynomial}: default method. A polynomial function is fitted using
 \link{glm} and the resulting function is used for background subtraction:
@@ -118,11 +118,11 @@ are provided for a given background signal (\code{values.bg}).\cr
 function is fitted using \link{glm} and the resulting function is used for
 background subtraction: \deqn{y = a*x + b}\cr \code{channel}: the measured
 background signal is subtracted channelwise from the measured signal.\cr\cr
-\bold{Start values}\cr
+\strong{Start values}\cr
 
 The choice of the initial parameters for the \code{nls}-fitting is a crucial
 point and the fitting procedure may mainly fail due to ill chosen start
-parameters. Here, three options are provided:\cr\cr \bold{(a)} If no start
+parameters. Here, three options are provided:\cr\cr \strong{(a)} If no start
 values (\code{start_values}) are provided by the user, a cheap guess is made
 by using the detrapping values found by Jain et al. (2003) for quartz for a
 maximum of 7 components. Based on these values, the pseudo start parameters
@@ -131,15 +131,15 @@ starts with the ultra-fast component and (depending on \code{n.components})
 steps through the following values. If no fit could be achieved, an error
 plot (for \code{plot = TRUE}) with the pseudo curve (based on the
 pseudo start parameters) is provided. This may give the opportunity to
-identify appropriate start parameters visually.\cr\cr \bold{(b)} If start
+identify appropriate start parameters visually.\cr\cr \strong{(b)} If start
 values are provided, the function works like a simple \link{nls}
-fitting approach.\cr\cr \bold{(c)} If no start parameters are provided and
+fitting approach.\cr\cr \strong{(c)} If no start parameters are provided and
 the option \code{fit.advanced = TRUE} is chosen, an advanced start paramter
 estimation is applied using a stochastical attempt. Therefore, the
-recalculated start parameters \bold{(a)} are used to construct a normal
+recalculated start parameters \strong{(a)} are used to construct a normal
 distribution. The start parameters are then sampled randomly from this
-distribution. A maximum of 100 attempts will be made. \bold{Note:} This
-process may be time consuming. \cr\cr \bold{Goodness of fit}\cr\cr The
+distribution. A maximum of 100 attempts will be made. \strong{Note:} This
+process may be time consuming. \cr\cr \strong{Goodness of fit}\cr\cr The
 goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 \deqn{pseudoR^2 = 1 - RSS/TSS} where \eqn{RSS = Residual~Sum~of~Squares} \cr
@@ -156,7 +156,7 @@ The pseudo-R^2 may not be the best parameter to describe the goodness
 of the fit. The trade off between the \code{n.components} and the pseudo-R^2
 value currently remains unconsidered. \cr
 
-The function \bold{does not} ensure that the fitting procedure has reached a
+The function \strong{does not} ensure that the fitting procedure has reached a
 global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }

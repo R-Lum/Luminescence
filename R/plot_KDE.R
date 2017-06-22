@@ -82,7 +82,7 @@
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' `TRUE`.
 #'
-#' @param \dots further arguments and graphical parameters passed to
+#' @param ... further arguments and graphical parameters passed to
 #' [plot].
 #'
 #' @note The plot output is no 'probability density' plot (cf. the discussion

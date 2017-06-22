@@ -7,16 +7,16 @@
 Second2Gray(data, dose.rate, error.propagation = "omit")
 }
 \arguments{
-\item{data}{\link{data.frame} (\bold{required}): input values,
+\item{data}{\link{data.frame} (\strong{required}): input values,
 structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
 required}
 
 \item{dose.rate}{\linkS4class{RLum.Results} or \link{data.frame} or \link{numeric}
-(\bold{required}): \code{RLum.Results} needs to be orginated from the
+(\strong{required}): \code{RLum.Results} needs to be orginated from the
 function \link{calc_SourceDoseRate}, for \code{vector} dose rate in
 Gy/s and dose rate error in Gy/s}
 
-\item{error.propagation}{\link{character} (with default): error propagation method used for error
+\item{error.propagation}{\link{character} \emph{(with default)}: error propagation method used for error
 calculation (\code{omit}, \code{gaussian} or \code{absolute}), see details for further
 information}
 }
@@ -34,7 +34,7 @@ Calculation of De values from seconds (s) to gray (Gy) \deqn{De [Gy] = De
 Provided calculation error propagation methods for error calculation (with 'se' as the standard error
 and 'DR' of the dose rate of the beta-source):\cr
 
-\bold{(1) \code{omit}} (default)\cr
+\strong{(1) \code{omit}} (default)\cr
 
 \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
 
@@ -44,13 +44,13 @@ calculation of the final age. (cf. Aitken, 1985, pp. 242). This approach can be 
 method (2) (gaussian) for the case the (random) standard error of the beta-source calibration is
 0. Which particular method is requested depends on the situation and cannot be prescriptive.
 
-\bold{(2) \code{gaussian}} error propagation \cr
+\strong{(2) \code{gaussian}} error propagation \cr
 
 \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
 
 Applicable under the assumption that errors of De and se are uncorrelated.
 
-\bold{(3) \code{absolute}} error propagation \cr
+\strong{(3) \code{absolute}} error propagation \cr
 
 \deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
 

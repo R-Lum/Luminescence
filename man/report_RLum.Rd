@@ -9,36 +9,36 @@ report_RLum(object, file = tempfile(), title = "RLum.Report",
   css.file = NULL, quiet = TRUE, clean = TRUE, ...)
 }
 \arguments{
-\item{object}{(\bold{required}):
+\item{object}{(\strong{required}):
 The object to be reported on, preferably of any \code{RLum}-class.}
 
-\item{file}{\link{character} (with default):
+\item{file}{\link{character} \emph{(with default)}:
 A character string naming the output file. If no filename is provided a
 temporary file is created.}
 
-\item{title}{\link{character} (with default):
+\item{title}{\link{character} \emph{(with default)}:
 A character string specifying the title of the document.}
 
-\item{compact}{\link{logical} (with default):
+\item{compact}{\link{logical} \emph{(with default)}:
 When \code{TRUE} the following report components are hidden:
 \code{@.pid}, \code{@.uid}, \code{'Object structure'}, \code{'Session Info'}
 and only the first and last 5 rows of long matrices and data frames are shown.
 See details.}
 
-\item{timestamp}{\link{logical} (with default):
+\item{timestamp}{\link{logical} \emph{(with default)}:
 \code{TRUE} to add a timestamp to the filename (suffix).}
 
-\item{launch.browser}{\link{logical} (with default):
+\item{launch.browser}{\link{logical} \emph{(with default)}:
 \code{TRUE} to open the HTML file in the system's default web browser after
 it has been rendered.}
 
-\item{css.file}{\link{character} (optional):
+\item{css.file}{\link{character} \emph{(optional)}:
 Path to a CSS file to change the default styling of the HTML document.}
 
-\item{quiet}{\link{logical} (with default):
+\item{quiet}{\link{logical} \emph{(with default)}:
 \code{TRUE} to supress printing of the pandoc command line.}
 
-\item{clean}{\link{logical} (with default):
+\item{clean}{\link{logical} \emph{(with default)}:
 \code{TRUE} to clean intermediate files created during rendering.}
 
 \item{...}{further arguments passed to or from other methods and to control
@@ -59,21 +59,21 @@ The HTML report is created with \link[rmarkdown:render]{rmarkdown::render} and h
 following structure:
 
 \tabular{ll}{
-\bold{Section} \tab \bold{Description} \cr
+\strong{Section} \tab \strong{Description} \cr
 \code{Header} \tab A summary of general characteristics of the object \cr
 \code{Object content} \tab A comprehensive list of the complete structure
 and content of the provided object. \cr
 \code{Object structure} \tab Summary of the objects structure given as a table \cr
 \code{File} \tab Information on the saved RDS file \cr
 \code{Session Info} \tab Captured output from sessionInfo() \cr
-\code{Plots} \tab (optional) For \code{RLum-class} objects a variable number of plots \cr
+\code{Plots} \tab \emph{(optional)} For \code{RLum-class} objects a variable number of plots \cr
 }
 
 The structure of the report can be controlled individually by providing one or more of the
 following arguments (all \code{logical}):
 
 \tabular{ll}{
-\bold{Argument} \tab \bold{Description} \cr
+\strong{Argument} \tab \strong{Description} \cr
 \code{header} \tab Hide or show general information on the object \cr
 \code{main} \tab Hide or show the object's content \cr
 \code{structure} \tab Hide or show object's structure \cr
@@ -87,7 +87,7 @@ Note that these arguments have higher precedence than \code{compact}.
 Further options that can be provided via the \code{...} argument:
 
 \tabular{ll}{
-\bold{Argument} \tab \bold{Description} \cr
+\strong{Argument} \tab \strong{Description} \cr
 \code{short_table} \tab If \code{TRUE} only show the first and last 5 rows of lang tables. \cr
 \code{theme} \tab Specifies the Bootstrap
 theme to use for the report. Valid themes include "default", "cerulean", "journal", "flatly",
@@ -101,7 +101,7 @@ style. Supported styles include "default", "tango", "pygments", "kate", "monochr
 The following arguments can be used to customise the report via CSS (Cascading Style Sheets):
 
 \tabular{ll}{
-\bold{Argument} \tab \bold{Description} \cr
+\strong{Argument} \tab \strong{Description} \cr
 \code{font_family} \tab Define the font family of the HTML document (default: arial) \cr
 \code{headings_size} \tab Size of the <h1> to <h6> tags used to define HTML headings (default: 166\%). \cr
 \code{content_color} \tab Color of the object's content (default: #a72925). \cr

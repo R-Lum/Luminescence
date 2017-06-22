@@ -12,47 +12,47 @@ plot_DetPlot(object, signal.integral.min, signal.integral.max,
   ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\bold{required}): input
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): input
 object containing data for analysis}
 
-\item{signal.integral.min}{\link{integer} (\bold{required}): lower
+\item{signal.integral.min}{\link{integer} (\strong{required}): lower
 bound of the signal integral.}
 
-\item{signal.integral.max}{\link{integer} (\bold{required}): upper
+\item{signal.integral.max}{\link{integer} (\strong{required}): upper
 bound of the signal integral.}
 
-\item{background.integral.min}{\link{integer} (\bold{required}):
+\item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral.}
 
-\item{background.integral.max}{\link{integer} (\bold{required}):
+\item{background.integral.max}{\link{integer} (\strong{required}):
 upper bound of the background integral.}
 
-\item{method}{\link{character} (with default): method applied for constructing the De(t) plot.
+\item{method}{\link{character} \emph{(with default)}: method applied for constructing the De(t) plot.
 \code{shift} (the default): the chosen signal integral is shifted the shine down curve,
 \code{expansion}: the chosen signal integral is expanded each time by its length}
 
-\item{signal_integral.seq}{\link{numeric} (optional): argument to provide an own
+\item{signal_integral.seq}{\link{numeric} \emph{(optional)}: argument to provide an own
 signal integral sequence for constructing the De(t) plot}
 
-\item{analyse_function}{\link{character} (with default): name of the analyse function
+\item{analyse_function}{\link{character} \emph{(with default)}: name of the analyse function
 to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
 
-\item{analyse_function.control}{\link{list} (optional): arguments to be passed to the
+\item{analyse_function.control}{\link{list} \emph{(optional)}: arguments to be passed to the
 supported analyse functions (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
 
-\item{n.channels}{\link{integer} (optional): number of channels used for the De(t) plot.
+\item{n.channels}{\link{integer} \emph{(optional)}: number of channels used for the De(t) plot.
 If nothing is provided all De-values are calculated and plotted until the start of the background
 integral.}
 
-\item{show_ShineDownCurve}{\link{logical} (with default): enables or disables shine down
+\item{show_ShineDownCurve}{\link{logical} \emph{(with default)}: enables or disables shine down
 curve in the plot output}
 
-\item{respect_RC.Status}{\link{logical} (with default): remove De-values with 'FAILED' RC.Status
+\item{respect_RC.Status}{\link{logical} \emph{(with default)}: remove De-values with 'FAILED' RC.Status
 from the plot (cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
 
-\item{verbose}{\link{logical} (with default): enables or disables terminal feedback}
+\item{verbose}{\link{logical} \emph{(with default)}: enables or disables terminal feedback}
 
-\item{\dots}{further arguments and graphical parameters passed to
+\item{...}{further arguments and graphical parameters passed to
 \link{plot.default}, \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}.
 See details for further information.}
 }
@@ -61,7 +61,7 @@ A plot and an \linkS4class{RLum.Results} object with the produced De values
 
 \code{@data}:
 \tabular{lll}{
-\bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
 De.values \tab \code{data.frame} \tab table with De values \cr
 signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
 }
@@ -69,7 +69,7 @@ signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calc
 \code{@info}:
 
 \tabular{lll}{
-\bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
 call \tab \code{call} \tab the original function call
 }
 }
@@ -80,7 +80,7 @@ analysis functions and runs it in a loop. Example: \code{legend.pos} for legend 
 \code{legend} for legend text.\cr
 }
 \details{
-\bold{method}\cr
+\strong{method}\cr
 
 The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
 extended them accounting for changes in the counting statistics. Example: \code{c(1:3, 3:5, 5:7)}.

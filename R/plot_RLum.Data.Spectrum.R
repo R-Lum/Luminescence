@@ -129,7 +129,7 @@
 #' provide own legend text. This argument is only considered for plot types
 #' providing a legend, e.g. `plot.type="transect"`
 #'
-#' @param \dots further arguments and graphical parameters that will be passed
+#' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function.
 #'
 #' @return Returns a plot.

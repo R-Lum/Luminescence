@@ -16,20 +16,20 @@ if \code{profiling = TRUE} only the first two elements are considered}
 vector of frequency factor in 1/s,
 if \code{profiling = TRUE} only the first two elements are considered}
 
-\item{T}{\link{numeric} \emph{(with default)}:
+\item{T}{\link{numeric} \strong{(with default)}:
 temperature in deg. C for which the lifetime(s) will be calculted.
 A vector can be provided.}
 
-\item{output_unit}{\link{character} \emph{(with default)}:
+\item{output_unit}{\link{character} \strong{(with default)}:
 output unit of the calculated lifetimes, accepted
 entries are: \code{"Ma"}, \code{"ka"}, \code{"a"}, \code{"d"}, \code{"h"}, \code{"min"}, \code{"s"}}
 
-\item{profiling}{\link{logical} \emph{(with default)}:
+\item{profiling}{\link{logical} \strong{(with default)}:
 this option allows to estimate uncertainties based on
 given E and s parameters and their corresponding standard error
 (cf. details and examples section)}
 
-\item{profiling_config}{\link{list} \emph{(optional)}:
+\item{profiling_config}{\link{list} \strong{(optional)}:
 allows to set configurate parameters used for the profiling
 (and only have an effect here). Supported parameters are:
 \itemize{

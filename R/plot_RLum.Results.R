@@ -13,7 +13,7 @@
 #' (`TRUE/FALSE`) to allow for plotting the results in as few plot windows
 #' as possible.
 #'
-#' @param \dots further arguments and graphical parameters will be passed to
+#' @param ... further arguments and graphical parameters will be passed to
 #' the `plot` function.
 #'
 #' @return Returns multiple plots.

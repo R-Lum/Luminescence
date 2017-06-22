@@ -8,17 +8,17 @@ plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster",
   ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Image} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Image} (\strong{required}): S4
 object of class \code{RLum.Data.Image}}
 
-\item{par.local}{\link{logical} (with default): use local graphical
+\item{par.local}{\link{logical} \emph{(with default)}: use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE} global parameters are inherited.}
 
-\item{plot.type}{\link{character} (with default): plot types.
+\item{plot.type}{\link{character} \emph{(with default)}: plot types.
 Supported types are \code{plot.raster}, \code{plotRGB} or \code{contour}}
 
-\item{\dots}{further arguments and graphical parameters that will be passed
+\item{...}{further arguments and graphical parameters that will be passed
 to the specific plot functions.}
 }
 \value{
@@ -30,7 +30,7 @@ The function provides a standardised plot output for image data of an
 provided by the \link{raster} package.
 }
 \details{
-\bold{Details on the plot functions} \cr
+\strong{Details on the plot functions} \cr
 
 Image is visualised as 2D plot usinng generic plot types provided by other
 packages.

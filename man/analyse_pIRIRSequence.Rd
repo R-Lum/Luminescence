@@ -10,53 +10,53 @@ analyse_pIRIRSequence(object, signal.integral.min, signal.integral.max,
   plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\bold{required}) or \link{list} of
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}) or \link{list} of
 \linkS4class{RLum.Analysis} objects: input object containing data for analysis. If a \link{list}
 is provided the functions tries to iteratre over the list.}
 
-\item{signal.integral.min}{\link{integer} (\bold{required}): lower
+\item{signal.integral.min}{\link{integer} (\strong{required}): lower
 bound of the signal integral. Provide this value as vector for different
 integration limits for the different IRSL curves.}
 
-\item{signal.integral.max}{\link{integer} (\bold{required}): upper
+\item{signal.integral.max}{\link{integer} (\strong{required}): upper
 bound of the signal integral. Provide this value as vector for different
 integration limits for the different IRSL curves.}
 
-\item{background.integral.min}{\link{integer} (\bold{required}):
+\item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.}
 
-\item{background.integral.max}{\link{integer} (\bold{required}):
+\item{background.integral.max}{\link{integer} (\strong{required}):
 upper bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.}
 
-\item{dose.points}{\link{numeric} (optional): a numeric vector
+\item{dose.points}{\link{numeric} \emph{(optional)}: a numeric vector
 containing the dose points values. Using this argument overwrites dose point
 values in the signal curves.}
 
-\item{sequence.structure}{\link{vector} \link{character} (with default):
+\item{sequence.structure}{\link{vector} \link{character} \emph{(with default)}:
 specifies the general sequence structure. Allowed values are \code{"TL"} and
 any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
 Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves from
 the analysis (Note: If a preheat without PMT measurement is used, i.e.
 preheat as non TL, remove the TL step.)}
 
-\item{plot}{\link{logical} (with default): enables or disables plot
+\item{plot}{\link{logical} \emph{(with default)}: enables or disables plot
 output.}
 
-\item{plot.single}{\link{logical} (with default): single plot output
+\item{plot.single}{\link{logical} \emph{(with default)}: single plot output
 (\code{TRUE/FALSE}) to allow for plotting the results in single plot
 windows. Requires \code{plot = TRUE}.}
 
-\item{\dots}{further arguments that will be passed to the function
+\item{...}{further arguments that will be passed to the function
 \link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}}
 }
 \value{
-Plots (optional) and an \linkS4class{RLum.Results} object is
+Plots \emph{(optional)} and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 
 \tabular{lll}{
-\bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
+\strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
 \code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
 \code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
 \code{..$rejection.criteria} : \tab \link{data.frame} \tab rejection criteria \cr
@@ -78,7 +78,7 @@ this function has been written as extended wrapper function for the function
 one run. With this, its functionality is strictly limited by the
 functionality of the function \link{analyse_SAR.CWOSL}.\cr
 
-\bold{If the input is a \code{list}}\cr
+\strong{If the input is a \code{list}}\cr
 
 If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
 for different sets of parameters for every single input element.

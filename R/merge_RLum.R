@@ -20,7 +20,7 @@
 #' @param objects [list] of [RLum-class]
 #' (**required**): list of S4 object of class `RLum`
 #'
-#' @param \dots further arguments that one might want to pass to the specific
+#' @param ... further arguments that one might want to pass to the specific
 #' merge function
 #'
 #' @return Return is the same as input objects as provided in the list.

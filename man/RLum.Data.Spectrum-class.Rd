@@ -23,27 +23,27 @@
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{names_RLum}] an object of
 class \linkS4class{RLum.Data.Spectrum}}
 
-\item{class}{\link{\code{set_RLum}} \link{character} (automatic): name of the \code{RLum} class to create.}
+\item{class}{\code{\link{set_RLum}} \link{character} (automatic): name of the \code{RLum} class to create.}
 
 \item{originator}{\link{character} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{\link{\code{set_RLum}} \link{character} (automatic): sets an unique ID for this object
+\item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\link{\code{set_RLum}} \link{character} (with default): option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
 at will.}
 
-\item{recordType}{\link{\code{set_RLum}} \link{character}: record type (e.g. "OSL")}
+\item{recordType}{\code{\link{set_RLum}} \link{character}: record type (e.g. "OSL")}
 
-\item{curveType}{\link{\code{set_RLum}} \link{character}: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{\code{\link{set_RLum}} \link{character}: curve type (e.g. "predefined" or "measured")}
 
-\item{data}{\link{\code{set_RLum}} \link{matrix}: raw curve data. If data is of
+\item{data}{\code{\link{set_RLum}} \link{matrix}: raw curve data. If data is of
 type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.}
 
-\item{info}{\link{\code{set_RLum}} \link{list}: info elements}
+\item{info}{\code{\link{set_RLum}} \link{list}: info elements}
 
-\item{info.object}{\link{\code{get_RLum}} \link{character} (optional): the name of the info
+\item{info.object}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: the name of the info
 object to be called}
 }
 \value{

@@ -5,7 +5,7 @@
 \alias{ExampleData.portableOSL}
 \title{Example portable OSL curve data for the package Luminescence}
 \source{
-\bold{ExampleData.portableOSL}
+\strong{ExampleData.portableOSL}
 
 \tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory\cr Lab-Code: \tab
 \itemize{

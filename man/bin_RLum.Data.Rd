@@ -7,7 +7,7 @@
 bin_RLum.Data(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data} (\bold{required}): S4 object of
+\item{object}{\linkS4class{RLum.Data} (\strong{required}): S4 object of
 class \code{RLum.Data}}
 
 \item{...}{further arguments passed to the specifc class method}

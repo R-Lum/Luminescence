@@ -47,7 +47,7 @@
 #' logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 #' [plot.default]).
 #'
-#' @param \dots further arguments that will be passed to the function
+#' @param ... further arguments that will be passed to the function
 #' [plot_GrowthCurve]
 #'
 #' @return A plot *(optional)* and an [RLum.Results-class] object is

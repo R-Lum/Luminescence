@@ -31,45 +31,45 @@
 }
 \arguments{
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
-class \linkS4class{RLum.Data.Curve} (\bold{required})}
+class \linkS4class{RLum.Data.Curve} (\strong{required})}
 
-\item{class}{\link{\code{set_RLum}} \link{character} (\bold{required}): name of the \code{RLum} class to create}
+\item{class}{\code{\link{set_RLum}} \link{character} (\strong{required}): name of the \code{RLum} class to create}
 
-\item{originator}{\link{\code{set_RLum}} \link{character} (automatic): contains the name of the calling function
+\item{originator}{\code{\link{set_RLum}} \link{character} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{\link{\code{set_RLum}} \link{character} (automatic): sets an unique ID for this object
+\item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\link{\code{set_RLum}} \link{character} (with default): option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
 at will.}
 
-\item{recordType}{\link{\code{set_RLum}} \link{character} (optional): record type (e.g., "OSL")}
+\item{recordType}{\code{\link{set_RLum}} \link{character} \emph{(optional)}: record type (e.g., "OSL")}
 
-\item{curveType}{\link{\code{set_RLum}} \link{character} (optional): curve type (e.g., "predefined" or "measured")}
+\item{curveType}{\code{\link{set_RLum}} \link{character} \emph{(optional)}: curve type (e.g., "predefined" or "measured")}
 
-\item{data}{\link{\code{set_RLum}} \link{matrix} (\bold{required}): raw curve data.
+\item{data}{\code{\link{set_RLum}} \link{matrix} (\strong{required}): raw curve data.
 If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
 (s. Details)}
 
-\item{info}{\link{\code{set_RLum}} \link{list} (optional): info elements}
+\item{info}{\code{\link{set_RLum}} \link{list} \emph{(optional)}: info elements}
 
-\item{info.object}{\link{\code{get_RLum}} \link{character} (optional): name of the wanted info
+\item{info.object}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: name of the wanted info
 element}
 
-\item{bin_size}{\link{\code{bin_RLum}} \link{integer} (with default): set number of channels
+\item{bin_size}{\code{\link{bin_RLum}} \link{integer} \emph{(with default)}: set number of channels
 used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.}
 
-\item{k}{\link{\code{smooth_RLum}} \link{integer} (with default): window for the rolling mean; must be odd for rollmedian.
+\item{k}{\code{\link{smooth_RLum}} \link{integer} \emph{(with default)}: window for the rolling mean; must be odd for rollmedian.
 If nothing is set k is set automatically}
 
-\item{fill}{\link{\code{smooth_RLum}} \link{numeric} (with default): a vector defining the left and the right hand data}
+\item{fill}{\code{\link{smooth_RLum}} \link{numeric} \emph{(with default)}: a vector defining the left and the right hand data}
 
-\item{align}{\link{\code{smooth_RLum}} \link{character} (with default): specifying whether the index of the result should be
+\item{align}{\code{\link{smooth_RLum}} \link{character} \emph{(with default)}: specifying whether the index of the result should be
 left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
 \code{"right"}, \code{"center"} and \code{left}}
 
-\item{method}{\link{\code{smooth_RLum}} \link{character} (with default): defines which method should be applied for the
+\item{method}{\code{\link{smooth_RLum}} \link{character} \emph{(with default)}: defines which method should be applied for the
 smoothing: \code{"mean"} or \code{"median"}}
 }
 \value{
@@ -88,7 +88,7 @@ Number of channels in the curve (row number of the matrix)
 
 **`names_RLum`**\cr
 
-Names of the info elements (slot \code{info})
+Names of the info elements (slot `info`)
 
 \strong{\code{bin_RLum.Data}}\cr
 

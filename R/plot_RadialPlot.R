@@ -88,7 +88,7 @@
 #' @param output [logical]: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' `FALSE`.
-#' @param \dots Further plot arguments to pass. `xlab` must be a vector of
+#' @param ... Further plot arguments to pass. `xlab` must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
 #' @return Returns a plot object.
 #' @section Function version: 0.5.4

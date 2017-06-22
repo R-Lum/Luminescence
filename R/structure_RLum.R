@@ -10,7 +10,7 @@
 #' @param object [RLum-class] (**required**): S4 object of
 #' class `RLum`
 #'
-#' @param \dots further arguments that one might want to pass to the specific
+#' @param ... further arguments that one might want to pass to the specific
 #' structure method
 #'
 #' @return Returns a `data.frame` with structure of the object.

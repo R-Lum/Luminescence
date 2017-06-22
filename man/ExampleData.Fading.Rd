@@ -78,7 +78,7 @@ IR50_Age.corr <- calc_FadingCorr(IR50_Age, g_value = IR50_fading.res)
 King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
 
-\bold{Details} \cr
+\strong{Details} \cr
 \tabular{ll}{
 Lab: \tab University of Lausanne \cr
 Lab-Code: \tab UNIL/NB123 \cr

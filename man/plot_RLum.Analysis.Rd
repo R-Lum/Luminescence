@@ -8,36 +8,36 @@ plot_RLum.Analysis(object, subset = NULL, nrows, ncols, abline = NULL,
   combine = FALSE, curve.transformation, plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): S4
 object of class \code{RLum.Analysis}}
 
-\item{subset}{named \link{list} (optional): subsets elements for plotting. The
+\item{subset}{named \link{list} \emph{(optional)}: subsets elements for plotting. The
 arguments in the named \link{list} will be directly passed to the function \link{get_RLum}
 (e.g., \code{subset = list(curveType = "measured")})}
 
-\item{nrows}{\link{integer} (optional): sets number of rows for
+\item{nrows}{\link{integer} \emph{(optional)}: sets number of rows for
 plot output, if nothing is set the function tries to find a value.}
 
-\item{ncols}{\link{integer} (optional): sets number of columns
+\item{ncols}{\link{integer} \emph{(optional)}: sets number of columns
 for plot output, if nothing is set the function tries to find a value.}
 
-\item{abline}{\link{list} (optional): allows to add ablines to the plot. Argument are provided
+\item{abline}{\link{list} \emph{(optional)}: allows to add ablines to the plot. Argument are provided
 in a list and will be forwared to the function \link{abline}, e.g., \code{list(v = c(10, 100))}
 adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = c(10), v = c(100)}
 adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.}
 
-\item{combine}{\link{logical} (with default): allows to combine all
+\item{combine}{\link{logical} \emph{(with default)}: allows to combine all
 \linkS4class{RLum.Data.Curve} objects in one single plot.}
 
-\item{curve.transformation}{\link{character} (optional): allows
+\item{curve.transformation}{\link{character} \emph{(optional)}: allows
 transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 \code{CW2pHMi} and \code{CW2pPMi}. See details.}
 
-\item{plot.single}{\link{logical} (with default): global par settings are
+\item{plot.single}{\link{logical} \emph{(with default)}: global par settings are
 considered, normally this should end in one plot per page}
 
-\item{\dots}{further arguments and graphical parameters will be passed to
+\item{...}{further arguments and graphical parameters will be passed to
 the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
 \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
 \code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}... and for \code{combine = TRUE}
@@ -56,7 +56,7 @@ RLum.Analysis S4 class object
 The function produces a multiple plot output. A file output is recommended
 (e.g., \link{pdf}).
 
-\bold{curve.transformation}\cr
+\strong{curve.transformation}\cr
 
 This argument allows transforming continuous wave (CW) curves to pseudo
 (linear) modulated curves. For the transformation, the functions of the

@@ -7,7 +7,7 @@
 PSL2Risoe.BINfileData(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\bold{required}):
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
 \code{RLum.Analysis} object produced by \link{read_PSL2R}}
 
 \item{...}{currently not used.}
@@ -18,7 +18,7 @@ be used to write a BIN file using \link{write_R2BIN}.
 }
 \description{
 Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to
-an \code{Risoe.BINfileData} object \bold{(BETA)}.
+an \code{Risoe.BINfileData} object \strong{(BETA)}.
 }
 \details{
 This function converts an \linkS4class{RLum.Analysis} object that was produced

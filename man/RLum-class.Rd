@@ -9,9 +9,9 @@
 \S4method{replicate_RLum}{RLum}(object, times = NULL)
 }
 \arguments{
-\item{object}{an object of class \linkS4class{RLum} (\bold{required})}
+\item{object}{an object of class \linkS4class{RLum} (\strong{required})}
 
-\item{times}{\link{integer} (optional): number for times each element is repeated
+\item{times}{\link{integer} \emph{(optional)}: number for times each element is repeated
 element}
 }
 \description{

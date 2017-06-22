@@ -18,7 +18,7 @@ spectrum was cleaned from cosmic-rays using the function
 \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
 was performed.}
 \source{
-\bold{OSL.SARMeasurement}
+\strong{OSL.SARMeasurement}
 
 \tabular{ll}{
 
@@ -26,7 +26,7 @@ Lab: \tab Luminescence Laboratory Giessen\cr Lab-Code: \tab no code\cr
 Location: \tab not specified\cr Material: \tab Coarse grain quartz \cr \tab
 on steel cups on lexsyg research reader\cr Reference: \tab unpublished }
 
-\bold{TL.Spectrum}
+\strong{TL.Spectrum}
 
 \tabular{ll}{
 

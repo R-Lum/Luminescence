@@ -8,22 +8,22 @@ analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
   12, 16), method_control = NULL, verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or \link{list} \bold{(required)}: results obtained from the measurement.
+\item{object}{\linkS4class{RLum.Analysis} or \link{list} \strong{(required)}: results obtained from the measurement.
 Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.}
 
-\item{signal_integral}{\link{numeric} (optional): signal integral, used for the signal
+\item{signal_integral}{\link{numeric} \emph{(optional)}: signal integral, used for the signal
 and the background. If nothing is provided the full range is used. Argument can be provided as \link{list}.}
 
-\item{dose_points}{\link{numeric} (with default): vector with dose points, if dose points
+\item{dose_points}{\link{numeric} \emph{(with default)}: vector with dose points, if dose points
 are repeated, only the general pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017. Argument can be provided as \link{list}.}
 
-\item{method_control}{\link{list} (optional): optional parameters to control the calculation.
+\item{method_control}{\link{list} \emph{(optional)}: optional parameters to control the calculation.
 See details for further explanations}
 
-\item{verbose}{\link{logical} (with default): enable/disable verbose mode}
+\item{verbose}{\link{logical} \emph{(with default)}: enable/disable verbose mode}
 
-\item{plot}{\link{logical} (with default): enable/disable plot output}
+\item{plot}{\link{logical} \emph{(with default)}: enable/disable plot output}
 
 \item{...}{further arguments that can be passed to the plot output}
 }
@@ -33,18 +33,18 @@ Function returns results numerically and graphically:\cr
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\strong{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Results}}-object\cr
 
-\bold{slot:} \strong{\code{@data}}\cr
+\strong{slot:} \strong{\code{@data}}\cr
 \tabular{lll}{
-\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$data} \tab \code{data.frame} \tab correction value and error \cr
 \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
 \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
 \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \link{plot_GrowthCurve}
 }
 
-\bold{slot:} \strong{\code{@info}}\cr
+\strong{slot:} \strong{\code{@info}}\cr
 
 The original function call\cr
 

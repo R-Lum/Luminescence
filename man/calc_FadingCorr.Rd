@@ -22,28 +22,28 @@ Alternatively an \linkS4class{RLum.Results} object can be provided produced by t
 time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
 Argument will be ignored if \code{g_value} was an \linkS4class{RLum.Results} object}
 
-\item{tc.g_value}{\link{numeric} \emph{(with default)}:
+\item{tc.g_value}{\link{numeric} \strong{(with default)}:
 the time in seconds between irradiation and the prompt measurement used for estimating the g-value.
 If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here.
 If nothing is provided the time is set to tc, which is usual case for g-values obtained using the
 SAR method and g-values that had been not normalised to 2 days.}
 
-\item{n.MC}{\link{integer} \emph{(with default)}:
+\item{n.MC}{\link{integer} \strong{(with default)}:
 number of Monte Carlo simulation runs for error estimation.
 If \code{n.MC = 'auto'} is used the function tries to find a 'stable' error for the age.
 \strong{Note:} This may take a while!}
 
-\item{seed}{\link{integer} \emph{(optional)}:
+\item{seed}{\link{integer} \strong{(optional)}:
 sets the seed for the random number generator in R using \link{set.seed}}
 
-\item{interval}{\link{numeric} \emph{(with default)}:
+\item{interval}{\link{numeric} \strong{(with default)}:
 a vector containing the end-points (age interval) of the interval to be searched for the root in 'ka'.
 This argument is passed to the function \link[stats:uniroot]{stats::uniroot} used for solving the equation.}
 
-\item{txtProgressBar}{\link{logical} \emph{(with default)}:
+\item{txtProgressBar}{\link{logical} \strong{(with default)}:
 enables or disables \link{txtProgressBar}}
 
-\item{verbose}{\link{logical} \emph{(with default)}:
+\item{verbose}{\link{logical} \strong{(with default)}:
 enables or disables terminal output}
 }
 \value{

@@ -9,12 +9,12 @@ CW2pHMi(values, delta)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or
-\link{data.frame} (\bold{required}):
+\link{data.frame} (\strong{required}):
 \linkS4class{RLum.Data.Curve} or \link{data.frame} with
 measured curve data of type stimulation time (t) (\code{values[,1]}) and
 measured counts (cts) (\code{values[,2]}).}
 
-\item{delta}{\link{vector} (optional): stimulation rate parameter, if
+\item{delta}{\link{vector} \emph{(optional)}: stimulation rate parameter, if
 no value is given, the optimal value is estimated automatically (see
 details). Smaller values of delta produce more points in the rising tail of
 the curve.}
@@ -41,7 +41,7 @@ The complete procedure of the transformation is described in Bos & Wallinga
 (2012). The input \code{data.frame} consists of two columns: time (t) and
 count values (CW(t))\cr\cr
 
-\bold{Internal transformation steps}\cr\cr (1) log(CW-OSL) values\cr\cr (2)
+\strong{Internal transformation steps}\cr\cr (1) log(CW-OSL) values\cr\cr (2)
 Calculate t' which is the transformed time:\cr \deqn{t' =
 t-(1/\delta)*log(1+\delta*t)} (3) Interpolate CW(t'), i.e. use the
 log(CW(t)) to obtain the count values for the transformed time (t'). Values
@@ -156,7 +156,7 @@ text(0.5,6500,"PM", col="blue" ,cex=.8)
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr
 
-\bold{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
+\strong{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
 Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.
 

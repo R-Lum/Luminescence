@@ -7,7 +7,7 @@
 tune_Data(data, decrease.error = 0, increase.data = 0)
 }
 \arguments{
-\item{data}{\link{data.frame} (\bold{required}): input values,
+\item{data}{\link{data.frame} (\strong{required}): input values,
 structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
 required}
 

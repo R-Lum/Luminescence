@@ -8,20 +8,20 @@ plot_RLum.Data.Curve(object, par.local = TRUE, norm = FALSE,
   smooth = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Curve} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Curve} (\strong{required}): S4
 object of class \code{RLum.Data.Curve}}
 
-\item{par.local}{\link{logical} (with default): use local graphical
+\item{par.local}{\link{logical} \emph{(with default)}: use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE}, global parameters are inherited.}
 
-\item{norm}{\link{logical} (with default): allows curve normalisation
+\item{norm}{\link{logical} \emph{(with default)}: allows curve normalisation
 to the highest count value}
 
-\item{smooth}{\link{logical} (with default): provides an automatic curve smoothing
+\item{smooth}{\link{logical} \emph{(with default)}: provides an automatic curve smoothing
 based on \link[zoo:rollmean]{zoo::rollmean}}
 
-\item{\dots}{further arguments and graphical parameters that will be passed
+\item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function}
 }
 \value{

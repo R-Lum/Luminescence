@@ -65,7 +65,7 @@
 #'
 #' @param plot [logical] *(with default)*: enables or disables the plot output
 #'
-#' @param \dots further arguments that can be passed to control the plot output. Suppored are `main`,
+#' @param ... further arguments that can be passed to control the plot output. Suppored are `main`,
 #' `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
 #' For non common plotting parameters see the details section.
 #'

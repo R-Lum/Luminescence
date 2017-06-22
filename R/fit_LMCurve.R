@@ -114,7 +114,7 @@
 #' @param plot.BG [logical] *(with default)*: returns a plot of the
 #' background values with the fit used for the background subtraction.
 #'
-#' @param \dots Further arguments that may be passed to the plot output, e.g.
+#' @param ... Further arguments that may be passed to the plot output, e.g.
 #' `xlab`, `xlab`, `main`, `log`.
 #'
 #' @return

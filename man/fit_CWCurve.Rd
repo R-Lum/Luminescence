@@ -12,60 +12,60 @@ fit_CWCurve(values, n.components.max, fit.failure_threshold = 5,
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
-(\bold{required}): x, y data of measured values (time and counts). See
+(\strong{required}): x, y data of measured values (time and counts). See
 examples.}
 
-\item{n.components.max}{\link{vector} (optional): maximum number of
+\item{n.components.max}{\link{vector} \emph{(optional)}: maximum number of
 components that are to be used for fitting. The upper limit is 7.}
 
-\item{fit.failure_threshold}{\link{vector} (with default): limits the failed
+\item{fit.failure_threshold}{\link{vector} \emph{(with default)}: limits the failed
 fitting attempts.}
 
-\item{fit.method}{\link{character} (with default): select fit method,
+\item{fit.method}{\link{character} \emph{(with default)}: select fit method,
 allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
 routine usint the funtion \link{nls} \code{'LM'} utilises the
 function \code{nlsLM} from the package \code{minpack.lm} and with that the
 Levenberg-Marquardt algorithm.}
 
-\item{fit.trace}{\link{logical} (with default): traces the fitting process
+\item{fit.trace}{\link{logical} \emph{(with default)}: traces the fitting process
 on the terminal.}
 
-\item{fit.calcError}{\link{logical} (with default): calculate 1-sigma error
+\item{fit.calcError}{\link{logical} \emph{(with default)}: calculate 1-sigma error
 range of components using \link{confint}}
 
-\item{LED.power}{\link{numeric} (with default): LED power (max.) used for
-intensity ramping in mW/cm^2. \bold{Note:} The value is used for the
+\item{LED.power}{\link{numeric} \emph{(with default)}: LED power (max.) used for
+intensity ramping in mW/cm^2. \strong{Note:} The value is used for the
 calculation of the absolute photoionisation cross section.}
 
-\item{LED.wavelength}{\link{numeric} (with default): LED wavelength used for
-stimulation in nm. \bold{Note:} The value is used for the calculation of the
+\item{LED.wavelength}{\link{numeric} \emph{(with default)}: LED wavelength used for
+stimulation in nm. \strong{Note:} The value is used for the calculation of the
 absolute photoionisation cross section.}
 
-\item{cex.global}{\link{numeric} (with default): global scaling factor.}
+\item{cex.global}{\link{numeric} \emph{(with default)}: global scaling factor.}
 
-\item{sample_code}{\link{character} (optional): sample code used for the
+\item{sample_code}{\link{character} \emph{(optional)}: sample code used for the
 plot and the optional output table (mtext).}
 
-\item{output.path}{\link{character} (optional): output path for table output
+\item{output.path}{\link{character} \emph{(optional)}: output path for table output
 containing the results of the fit. The file name is set automatically. If
 the file already exists in the directory, the values are appended.}
 
-\item{output.terminal}{\link{logical} (with default): terminal ouput with
+\item{output.terminal}{\link{logical} \emph{(with default)}: terminal ouput with
 fitting results.}
 
-\item{output.terminalAdvanced}{\link{logical} (with default): enhanced
+\item{output.terminalAdvanced}{\link{logical} \emph{(with default)}: enhanced
 terminal output. Requires \code{output.terminal = TRUE}. If
 \code{output.terminal = FALSE} no advanced output is possible.}
 
-\item{plot}{\link{logical} (with default): returns a plot of the fitted
+\item{plot}{\link{logical} \emph{(with default)}: returns a plot of the fitted
 curves.}
 
-\item{\dots}{further arguments and graphical parameters passed to
+\item{...}{further arguments and graphical parameters passed to
 \link{plot}.}
 }
 \value{
-\item{plot}{(optional) the fitted CW-OSL curves are returned as
-plot.} \item{table}{(optional) an output table (*.csv) with parameters of
+\item{plot}{\emph{(optional)} the fitted CW-OSL curves are returned as
+plot.} \item{table}{\emph{(optional)} an output table (*.csv) with parameters of
 the fitted components is provided if the \code{output.path} is set.}
 \item{list(list("RLum.Results"))}{beside the plot and table output options,
 an \linkS4class{RLum.Results} object is returned.\cr\cr \code{fit}:
@@ -104,22 +104,22 @@ components and returns various component parameters. The fitting procedure
 uses the \link{nls} function with the \code{port} algorithm.
 }
 \details{
-\bold{Fitting function}\cr\cr The function for the CW-OSL fitting has the
+\strong{Fitting function}\cr\cr The function for the CW-OSL fitting has the
 general form: \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, +
 I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } where \eqn{0 < i < 8}\cr\cr and
 \eqn{\lambda} is the decay constant and \eqn{I0} the intial number of
 trapped electrons.\cr (for the used equation cf. Boetter-Jensen et al.,
-2003, Eq. 2.31)\cr\cr \bold{Start values}\cr
+2003, Eq. 2.31)\cr\cr \strong{Start values}\cr
 
 Start values are estimated automatically by fitting a linear function to the
 logarithmized input data set. Currently, there is no option to manually
-provide start parameters. \cr\cr \bold{Goodness of fit}\cr\cr The goodness
+provide start parameters. \cr\cr \strong{Goodness of fit}\cr\cr The goodness
 of the fit is given as pseudoR^2 value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 \deqn{pseudoR^2 = 1 - RSS/TSS} where \eqn{RSS = Residual~Sum~of~Squares} \cr
 and \eqn{TSS = Total~Sum~of~Squares}\cr\cr
 
-\bold{Error of fitted component parameters}\cr\cr The 1-sigma error for the
+\strong{Error of fitted component parameters}\cr\cr The 1-sigma error for the
 components is calculated using the function \link{confint}. Due to
 considerable calculation time, this option is deactived by default. In
 addition, the error for the components can be estimated by using internal R
@@ -132,7 +132,7 @@ R, see Ritz & Streibig (2008).}
 and should therefore not be used for publication purposes!}\cr\cr The
 pseudo-R^2 may not be the best parameter to describe the goodness of the
 fit. The trade off between the \code{n.components} and the pseudo-R^2 value
-is currently not considered.\cr\cr The function \bold{does not} ensure that
+is currently not considered.\cr\cr The function \strong{does not} ensure that
 the fitting procedure has reached a global minimum rather than a local
 minimum!
 }

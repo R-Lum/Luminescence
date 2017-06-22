@@ -23,34 +23,34 @@
 \S4method{names_RLum}{RLum.Results}(object)
 }
 \arguments{
-\item{object}{\link{\code{get_RLum}} \linkS4class{RLum.Results} (required): an object of class
+\item{object}{\code{\link{get_RLum}} \linkS4class{RLum.Results} (required): an object of class
 \linkS4class{RLum.Results} to be evaluated}
 
-\item{class}{\link{\code{set_RLum}} \link{character} \bold{(required)}: name of the \code{RLum} class to create}
+\item{class}{\code{\link{set_RLum}} \link{character} \strong{(required)}: name of the \code{RLum} class to create}
 
-\item{originator}{\link{\code{set_RLum}} \link{character} (automatic): contains the
+\item{originator}{\code{\link{set_RLum}} \link{character} (automatic): contains the
 name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{\link{\code{set_RLum}} \link{character} (automatic): sets an unique ID for this object
+\item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\link{\code{set_RLum}} \link{character} (with default): option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
 at will.}
 
-\item{data}{\link{\code{set_RLum}} \link{list} (optional): a list containing the data to
+\item{data}{\code{\link{set_RLum}} \link{list} \emph{(optional)}: a list containing the data to
 be stored in the object}
 
-\item{info}{\link{\code{set_RLum}} \link{list} (optional): a list containing additional
+\item{info}{\code{\link{set_RLum}} \link{list} \emph{(optional)}: a list containing additional
 info data for the object}
 
-\item{data.object}{\link{\code{get_RLum}} \link{character} or
+\item{data.object}{\code{\link{get_RLum}} \link{character} or
 \link{numeric}: name or index of the data slot to be returned}
 
-\item{info.object}{\link{\code{get_RLum}} \link{character} (optional): name of the wanted info
+\item{info.object}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: name of the wanted info
 element}
 
-\item{drop}{\link{\code{get_RLum}} \link{logical} (with default): coerce to the next possible layer
+\item{drop}{\code{\link{get_RLum}} \link{logical} \emph{(with default)}: coerce to the next possible layer
 (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}}
 }
 \value{

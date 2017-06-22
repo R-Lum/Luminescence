@@ -22,7 +22,7 @@
 #' @param .pid [character] *(with default)*: option to provide a parent id for nesting
 #' at will.
 #'
-#' @param \dots further arguments that one might want to pass to the specific
+#' @param ... further arguments that one might want to pass to the specific
 #' set method
 #'
 #' @return Returns an object of the specified class.

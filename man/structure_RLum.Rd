@@ -7,10 +7,10 @@
 structure_RLum(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\bold{required}): S4 object of
+\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
 class \code{RLum}}
 
-\item{\dots}{further arguments that one might want to pass to the specific
+\item{...}{further arguments that one might want to pass to the specific
 structure method}
 }
 \value{

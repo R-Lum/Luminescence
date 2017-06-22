@@ -8,7 +8,7 @@
 #'
 #' @param file [character] (**required**): name of the PSL-file to be converted to CSV-files
 #'
-#' @param \dots further arguments that will be passed to the function [read_PSL2R] and [write_RLum2CSV]
+#' @param ... further arguments that will be passed to the function [read_PSL2R] and [write_RLum2CSV]
 #'
 #' @return The function returns either a CSV-file (or many of them) or for the option `export = FALSE`
 #' a list comprising objects of type [data.frame] and [matrix]
