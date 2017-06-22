@@ -22,7 +22,7 @@
 #'
 #' @seealso #
 #'
-#' @references #
+#'
 #'
 #' @keywords manip
 #'

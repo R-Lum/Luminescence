@@ -46,9 +46,6 @@ temp <- read_Daybreak2R(file)
 }
 
 }
-\references{
--
-}
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
 \code{\link[data.table]{data.table}}

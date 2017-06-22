@@ -49,9 +49,6 @@ plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
 
 
 }
-\references{
-#
-}
 \seealso{
 #
 }

@@ -34,9 +34,6 @@ This function should not be taken too seriously.
 ##no example available
 
 }
-\references{
-#
-}
 \seealso{
 \link{plot_KDE}
 }

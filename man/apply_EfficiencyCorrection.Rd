@@ -50,9 +50,6 @@ sufficiently correct for spectral efficiency of the entire optical system
 ## your.spectrum <- apply_EfficiencyCorrection(your.spectrum, )
 
 }
-\references{
--
-}
 \seealso{
 \code{\linkS4class{RLum.Data.Spectrum}}
 }

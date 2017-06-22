@@ -122,9 +122,6 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 }
 
 }
-\references{
--
-}
 \seealso{
 \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
 \code{\link{write_R2BIN}}, \code{\link{read_BIN2R}}

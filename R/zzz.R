@@ -56,7 +56,7 @@ assign("col",
 #' @note This function should not be taken too seriously.
 #' @author R Luminescence Team, 2012-2013
 #' @seealso \link{plot_KDE}
-#' @references #
+#'
 #' @keywords manip
 #' @examples
 #'

@@ -123,9 +123,6 @@ TL.curve.merged <- merge_RLum.Data.Curve(list(TL.curve.3, TL.curve.1), merge.met
 plot_RLum(TL.curve.merged)
 
 }
-\references{
--
-}
 \seealso{
 \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Data.Curve}}
 }

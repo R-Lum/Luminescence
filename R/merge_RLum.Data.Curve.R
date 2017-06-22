@@ -93,7 +93,7 @@
 #'
 #' @seealso \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Data.Curve}}
 #'
-#' @references -
+#'
 #'
 #' @keywords utilities
 #'

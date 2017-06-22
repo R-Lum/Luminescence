@@ -33,7 +33,7 @@
 #'
 #' @seealso \code{\linkS4class{RLum.Data.Spectrum}}
 #'
-#' @references -
+#'
 #'
 #' @keywords manip
 #'

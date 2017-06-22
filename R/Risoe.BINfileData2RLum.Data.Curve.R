@@ -46,7 +46,7 @@
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{Risoe.BINfileData}},
 #' \code{\link{plot_RLum}}
 #'
-#' @references #
+#'
 #'
 #' @keywords manip
 #'

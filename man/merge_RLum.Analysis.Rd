@@ -53,9 +53,6 @@ curve <- get_RLum(object)[[2]]
 temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 
 }
-\references{
--
-}
 \seealso{
 \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Analysis}},
 \code{\linkS4class{RLum.Data.Curve}},

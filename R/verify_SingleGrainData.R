@@ -85,7 +85,7 @@
 #' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
 #' \code{\link{write_R2BIN}}, \code{\link{read_BIN2R}}
 #'
-#' @references -
+#'
 #'
 #' @keywords manip datagen
 #'

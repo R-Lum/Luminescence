@@ -60,9 +60,6 @@ temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 
 
 }
-\references{
-#
-}
 \seealso{
 \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}},
 \code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}

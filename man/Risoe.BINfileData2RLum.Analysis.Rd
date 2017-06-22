@@ -79,9 +79,6 @@ data(ExampleData.BINfileData, envir = environment())
 Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 
 }
-\references{
-#
-}
 \seealso{
 \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
 }

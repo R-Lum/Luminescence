@@ -35,7 +35,7 @@
 #' \code{\linkS4class{RLum.Data.Spectrum}},
 #' \code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum}}
 #'
-#' @references -
+#'
 #'
 #' @keywords utilities
 #'

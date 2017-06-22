@@ -35,7 +35,7 @@
 #' @seealso \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}},
 #' \code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
 #'
-#' @references #
+#'
 #'
 #' @keywords utilities
 #'
