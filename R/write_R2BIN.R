@@ -55,7 +55,7 @@
 #'
 #' @references
 #' DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
-#' \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
+#' [http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals]()
 #'
 #' @keywords IO
 #'

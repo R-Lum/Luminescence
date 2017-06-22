@@ -50,7 +50,7 @@
 #' Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with Semiconductor Detectors, Elsevier Science Publishers, p.283
 #'
 #' Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
-#' \url{http://www.bmub.bund.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf}
+#' [http://www.bmub.bund.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf]()
 #'
 #' @keywords IO
 #'

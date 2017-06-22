@@ -15,20 +15,20 @@ github_branches(user = "r-lum", repo = "luminescence")
 github_issues(user = "r-lum", repo = "luminescence", verbose = TRUE)
 }
 \arguments{
-\item{user}{[character]: 
+\item{user}{\link{character}:
 GitHub user name (defaults to 'r-lum').}
 
-\item{repo}{[character]: 
+\item{repo}{\link{character}:
 name of a GitHub repository (defaults to 'luminescence').}
 
-\item{branch}{[character]: 
+\item{branch}{\link{character}:
 branch of a GitHub repository (defaults to 'master').}
 
-\item{n}{[integer]:
+\item{n}{\link{integer}:
 number of commits returned (defaults to 5).}
 
-\item{verbose}{[logical]: 
-print the output to the console (defaults to `TRUE`).}
+\item{verbose}{\link{logical}:
+print the output to the console (defaults to \code{TRUE}).}
 }
 \value{
 \code{github_commits}: \link{data.frame} with columns:

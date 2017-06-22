@@ -72,7 +72,7 @@
 #'
 #' @references Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 #' Single Images. Astrophysics 116, 148-153.
-#' \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
+#' [http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail]()
 #'
 #' @keywords manip
 #'

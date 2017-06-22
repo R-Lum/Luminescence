@@ -112,7 +112,7 @@
 #' @references Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 #' XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
 #'
-#' **Further reading** \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
+#' **Further reading** \cr\cr XML: [http://en.wikipedia.org/wiki/XML]()
 #'
 #'
 #' @keywords IO

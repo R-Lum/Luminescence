@@ -65,7 +65,7 @@
 #' Format Specification, Version 1.A (for document URL please use an internet search machine)
 #'
 #' Hall, C., 2012: readSPE.m.
-#' \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
+#' [http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m]()
 #'
 #' @keywords IO
 #'

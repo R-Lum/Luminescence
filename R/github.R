@@ -34,7 +34,7 @@
 #' 
 #' @references 
 #' 
-#' GitHub Developer API v3. \url{https://developer.github.com/v3/}, last accessed: 10/01/2017.
+#' GitHub Developer API v3. [https://developer.github.com/v3/](), last accessed: 10/01/2017.
 #' 
 #' @examples
 #' 
@@ -44,6 +44,7 @@
 #' github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 #' }
 #' 
+#' @md
 #' @name GitHub-API
 NULL
 

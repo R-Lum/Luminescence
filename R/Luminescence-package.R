@@ -46,20 +46,20 @@
 #' **Bug reporting**
 #'
 #' \email{developers@@r-luminescence.org} or \cr
-#' \url{https://github.com/R-Lum/Luminescence/issues} \cr
+#' [https://github.com/R-Lum/Luminescence/issues]() \cr
 #'
 #' **Project website**
 #'
-#' \url{http://www.r-luminescence.org}\cr
+#' [http://www.r-luminescence.org]()\cr
 #'
 #' **Project source code repository**\cr
-#' \url{https://github.com/R-Lum/Luminescence}\cr
+#' [https://github.com/R-Lum/Luminescence]()\cr
 #'
 #' **Related package projects**\cr
-#' \url{https://cran.r-project.org/package=RLumShiny}\cr
-#' \url{http://shiny.r-luminescence.org}\cr
-#' \url{https://cran.r-project.org/package=RLumModel}\cr
-#' \url{http://model.r-luminescence.org}\cr
+#' [https://cran.r-project.org/package=RLumShiny]()\cr
+#' [http://shiny.r-luminescence.org]()\cr
+#' [https://cran.r-project.org/package=RLumModel]()\cr
+#' [http://model.r-luminescence.org]()\cr
 #'
 #' **Package maintainer**
 #'
