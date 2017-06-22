@@ -18,7 +18,7 @@ The function returns the same data type as the input data type with
 the transformed curve values.
 
 \item{list(list("data.frame"))}{generic R data structure}
-\item{list(list("RLum.Data.Curve"))}{package \link{RLum} object}
+\item{list(list("RLum.Data.Curve"))}{package \linkS4class{RLum} object}
 }
 \description{
 Transforms a conventionally measured continuous-wave (CW) curve into a

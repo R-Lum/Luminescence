@@ -6,7 +6,7 @@
 #'
 #' @note The originator is taken from the first element and not reset to `merge_RLum`
 #'
-#' @param objects [list] (required): a list of [RLum.Results-class] objects
+#' @param objects [list] (**required**): a list of [RLum.Results-class] objects
 #'
 #' @section Function version: 0.2.0
 #'

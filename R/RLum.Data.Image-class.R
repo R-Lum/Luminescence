@@ -72,9 +72,9 @@ setClass(
 ##COERCE RLum.Data.Image >> data.frame AND data.frame >> RLum.Data.Image
 #' as()
 #'
-#' for `[RLum.Data.Image]`
+#' for `[RLum.Data.Image-class]`
 #'
-#' **[RLum.Data.Image]**\cr
+#' **[RLum.Data.Image-class]**\cr
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
@@ -143,7 +143,7 @@ setMethod("show",
 
             ##print information
 
-            cat("\n [RLum.Data.Image]")
+            cat("\n [RLum.Data.Image-class]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
             cat("\n\t .. recorded frames:", length(object@data@data@names))

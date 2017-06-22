@@ -7,10 +7,12 @@
 \source{
 \strong{ExampleData.portableOSL}
 
-\tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory\cr Lab-Code: \tab
-\itemize{
-\item \cr Location: \tab Nievenheim/Germany\cr Material: \tab Fine grain quartz
-\cr Reference: \tab unpublished data }
+\tabular{ll}{
+Lab: \tab Cologne Luminescence Laboratory\cr
+Lab-Code: \tab <none> \cr
+Location: \tab Nievenheim/Germany\cr
+Material: \tab Fine grain quartz \cr
+Reference: \tab unpublished data
 }
 }
 \description{

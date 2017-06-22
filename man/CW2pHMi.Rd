@@ -22,7 +22,7 @@ the curve.}
 \value{
 The function returns the same data type as the input data type with
 the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-\link{RLum} object with two additional info elements:
+\linkS4class{RLum} object with two additional info elements:
 \tabular{rl}{ $CW2pHMi.x.t \tab: transformed time values \cr $CW2pHMi.method
 \tab: used method for the production of the new data points }}
 \item{list(list("data.frame"))}{with four columns: \tabular{rl}{ $x \tab:

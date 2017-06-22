@@ -16,18 +16,18 @@
 \item{to}{\link{character} (\strong{required}): class name to be coerced to}
 }
 \description{
-for \code{[RLum.Analysis]}
+for \code{[RLum.Analysis-class]}
 
-for \code{[RLum.Data.Curve]}
+for \code{[RLum.Data.Curve-class]}
 
-for \code{[RLum.Data.Image]}
+for \code{[RLum.Data.Image-class]}
 
-for \code{[RLum.Data.Spectrum]}
+for \code{[RLum.Data.Spectrum-class]}
 
-for \code{[RLum.Results]}
+for \code{[RLum.Results-class]}
 }
 \details{
-\strong{\link{RLum.Analysis}}\cr
+\strong{\linkS4class{RLum.Analysis}}\cr
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
@@ -36,7 +36,7 @@ for \code{[RLum.Results]}
 
 Given that the \link{list} consits of \linkS4class{RLum.Analysis} objects.
 
-\strong{\link{RLum.Data.Curve}}\cr
+\strong{\linkS4class{RLum.Data.Curve}}\cr
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
@@ -46,7 +46,7 @@ Given that the \link{list} consits of \linkS4class{RLum.Analysis} objects.
 
 }
 
-\strong{\link{RLum.Data.Image}}\cr
+\strong{\linkS4class{RLum.Data.Image}}\cr
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
@@ -55,7 +55,7 @@ Given that the \link{list} consits of \linkS4class{RLum.Analysis} objects.
 
 }
 
-\strong{\link{RLum.Data.Spectrum}}\cr
+\strong{\linkS4class{RLum.Data.Spectrum}}\cr
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
@@ -64,7 +64,7 @@ Given that the \link{list} consits of \linkS4class{RLum.Analysis} objects.
 
 }
 
-\strong{\link{RLum.Results}}\cr
+\strong{\linkS4class{RLum.Results}}\cr
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr

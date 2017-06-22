@@ -39,7 +39,7 @@
 #' MCM-based version is used. If you wish to use another method, indicate this
 #' with the appropriate keyword using the argument `summary.method`.\cr\cr
 #' @param data [data.frame] or [RLum.Results-class]
-#' object (required): for `data.frame`: two columns: De
+#' object (**required**): for `data.frame`: two columns: De
 #' (`values[,1]`) and De error (`values[,2]`). For plotting multiple
 #' data sets, these must be provided as `list` (e.g. \code{list(dataset1,
 #' dataset2)}).

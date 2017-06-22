@@ -280,7 +280,7 @@
 #'  `trend.fit` \tab `lm` \tab fitting results produced by the fitting of the residuals \cr
 #'  `RF_nat.slided` \tab `matrix` \tab the slided RF_nat curve \cr
 #'  `t_n.id` \tab `numeric` \tab the index of the t_n offset \cr
-#'  `I_n \tab` `numeric` \tab the vertical intensity offset if a vertical slide was applied \cr
+#'  `I_n` \tab `numeric` \tab the vertical intensity offset if a vertical slide was applied \cr
 #'  `algorithm_error` \tab `numeric` \tab the vertical sliding suffers from a systematic effect induced by the used
 #'  algorithm. The returned value is the standard deviation of all obtained De values while expanding the
 #'  vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr

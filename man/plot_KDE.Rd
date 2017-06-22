@@ -10,7 +10,7 @@ plot_KDE(data, na.rm = TRUE, values.cumulative = TRUE, order = TRUE,
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results}
-object (required): for \code{data.frame}: two columns: De
+object (\strong{required}): for \code{data.frame}: two columns: De
 (\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
 data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
 dataset2)}).}

@@ -133,7 +133,7 @@ reported with the summary object data. List elements are:
 \code{trend.fit} \tab \code{lm} \tab fitting results produced by the fitting of the residuals \cr
 \code{RF_nat.slided} \tab \code{matrix} \tab the slided RF_nat curve \cr
 \code{t_n.id} \tab \code{numeric} \tab the index of the t_n offset \cr
-\code{I_n \tab} \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
+\code{I_n} \tab \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
 \code{algorithm_error} \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
 algorithm. The returned value is the standard deviation of all obtained De values while expanding the
 vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr

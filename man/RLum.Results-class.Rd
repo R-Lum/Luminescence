@@ -23,7 +23,7 @@
 \S4method{names_RLum}{RLum.Results}(object)
 }
 \arguments{
-\item{object}{\code{\link{get_RLum}} \linkS4class{RLum.Results} (required): an object of class
+\item{object}{\code{\link{get_RLum}} \linkS4class{RLum.Results} (\strong{required}): an object of class
 \linkS4class{RLum.Results} to be evaluated}
 
 \item{class}{\code{\link{set_RLum}} \link{character} \strong{(required)}: name of the \code{RLum} class to create}

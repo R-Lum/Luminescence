@@ -62,8 +62,6 @@
 #' @return Returns same object as input
 #' ([RLum.Data.Spectrum-class])
 #'
-#' @note -
-#'
 #' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

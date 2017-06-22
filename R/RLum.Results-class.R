@@ -72,9 +72,9 @@ setClass(
 ##COERCE RLum.Results >> list AND list >> RLum.Results
 #' as() - RLum-object coercion
 #'
-#' for `[RLum.Results]`
+#' for `[RLum.Results-class]`
 #'
-#' **[RLum.Results]**\cr
+#' **[RLum.Results-class]**\cr
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
@@ -134,7 +134,7 @@ setMethod("show",
 
 
             ##print information
-            cat("\n [RLum.Results]")
+            cat("\n [RLum.Results-class]")
             cat("\n\t originator: ", object@originator, "()", sep = "")
             cat("\n\t data:", length(object@data))
             cat("\n", temp.type)
@@ -207,7 +207,7 @@ setMethod("set_RLum",
 #' Note: Detailed specification should be made in combination with the originator slot in the
 #' receiving function if results are pipped.
 #'
-#' @param object [`get_RLum`] [RLum.Results-class] (required): an object of class
+#' @param object [`get_RLum`] [RLum.Results-class] (**required**): an object of class
 #' [RLum.Results-class] to be evaluated
 #'
 #' @param data.object [`get_RLum`] [character] or

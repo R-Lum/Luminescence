@@ -57,7 +57,7 @@ If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-
 \item{info.object}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: name of the wanted info
 element}
 
-\item{bin_size}{\code{\link{bin_RLum}} \link{integer} \emph{(with default)}: set number of channels
+\item{bin_size}{\link{integer} \emph{(with default)}: set number of channels
 used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.}
 
 \item{k}{\code{\link{smooth_RLum}} \link{integer} \emph{(with default)}: window for the rolling mean; must be odd for rollmedian.

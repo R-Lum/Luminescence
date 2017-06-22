@@ -78,10 +78,10 @@ setClass(
 ##COERCE RLum.Data.Spectrum >> data.frame AND data.frame >> RLum.Data.Spectrum
 #' as()
 #'
-#' for `[RLum.Data.Spectrum]`
+#' for `[RLum.Data.Spectrum-class]`
 #'
 #'
-#' **[RLum.Data.Spectrum]**\cr
+#' **[RLum.Data.Spectrum-class]**\cr
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
@@ -146,7 +146,7 @@ setMethod("show",
 
             ##print information
 
-            cat("\n [RLum.Data.Spectrum]")
+            cat("\n [RLum.Data.Spectrum-class]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
             cat("\n\t .. recorded frames:", length(object@data[1,]))

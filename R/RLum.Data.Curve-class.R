@@ -69,9 +69,9 @@ setClass("RLum.Data.Curve",
 ##COERCE RLum.Data.Curve >> list AND list >> RLum.Data.Curve
 #' as() - RLum-object coercion
 #'
-#' for `[RLum.Data.Curve]`
+#' for `[RLum.Data.Curve-class]`
 #'
-#' **[RLum.Data.Curve]**\cr
+#' **[RLum.Data.Curve-class]**\cr
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
@@ -167,7 +167,7 @@ setMethod("show",
 
 
             ##print information
-            cat("\n [RLum.Data.Curve]")
+            cat("\n [RLum.Data.Curve-class]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
             cat("\n\t measured values:", length(object@data[,1]))
@@ -421,7 +421,7 @@ setMethod("names_RLum",
 #' @describeIn RLum.Data.Curve
 #' Allows binning of specific objects
 #'
-#' @param bin_size [`bin_RLum`] [integer] *(with default)*: set number of channels
+#' @param bin_size [integer] *(with default)*: set number of channels
 #' used for each bin, e.g. `bin_size = 2` means that two channels are binned.
 #'
 #' @return

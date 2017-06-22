@@ -9,7 +9,7 @@ plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug, normal_curve,
 }
 \arguments{
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results}
-object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
+object (\strong{required}): for \code{data.frame}: two columns: De (\code{data[,1]})
 and De error (\code{data[,2]})}
 
 \item{na.rm}{\link{logical} \emph{(with default)}: excludes \code{NA}

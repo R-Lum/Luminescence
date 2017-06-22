@@ -73,7 +73,7 @@
 #' `zlim`-definition.
 #'
 #' @param data [data.frame] or [RLum.Results-class]
-#' object (required): for `data.frame` two columns: De (`data[,1]`)
+#' object (**required**): for `data.frame` two columns: De (`data[,1]`)
 #' and De error (`data[,2]`). To plot several data sets in one plot the
 #' data sets must be provided as `list`, e.g. `list(data.1, data.2)`.
 #'

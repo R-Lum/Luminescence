@@ -8,7 +8,7 @@
 #' definitions (`user.layout <- get_Layout(data = "empty")`).
 #'
 #' @param layout [character] or [list] object
-#' (required): name of the layout definition to be returned. If name is
+#' (**required**): name of the layout definition to be returned. If name is
 #' provided the respective definition is returned. One of the following
 #' supported layout definitions is possible: `"default"`,
 #' `"journal.1"`, `"small"`, `"empty"`. User-specific layout

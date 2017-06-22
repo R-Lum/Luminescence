@@ -71,9 +71,9 @@ setClass("RLum.Analysis",
 ##COERCE RLum.Analyse >> list AND list >> RLum.Analysis
 #' as() - RLum-object coercion
 #'
-#' for `[RLum.Analysis]`
+#' for `[RLum.Analysis-class]`
 #'
-#' **[RLum.Analysis]**\cr
+#' **[RLum.Analysis-class]**\cr
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
@@ -116,7 +116,7 @@ setMethod("show",
           function(object){
 
             ##print
-            cat("\n [RLum.Analysis]")
+            cat("\n [RLum.Analysis-class]")
 
             ##show slot originator, for compatibily reasons with old example data, here
             ##a check

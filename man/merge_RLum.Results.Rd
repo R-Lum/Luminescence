@@ -7,7 +7,7 @@
 merge_RLum.Results(objects)
 }
 \arguments{
-\item{objects}{\link{list} (required): a list of \linkS4class{RLum.Results} objects}
+\item{objects}{\link{list} (\strong{required}): a list of \linkS4class{RLum.Results} objects}
 }
 \description{
 Function merges objects of class \linkS4class{RLum.Results}. The slots in the objects

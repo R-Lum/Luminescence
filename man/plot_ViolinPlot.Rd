@@ -9,7 +9,7 @@ plot_ViolinPlot(data, boxplot = TRUE, rug = TRUE, summary = NULL,
 }
 \arguments{
 \item{data}{\link{numeric} or \linkS4class{RLum.Results}
-object (required): input data for plotting. Alternatively a \link{data.frame} or
+object (\strong{required}): input data for plotting. Alternatively a \link{data.frame} or
 a \link{matrix} can be provided, but only the first column will be considered by the
 function}
 

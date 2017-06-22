@@ -19,7 +19,7 @@
 #' `"kurtosis"` (kurtosis) and `"skewness"` (skewness).
 #'
 #' @param data [data.frame] or [RLum.Results-class]
-#' object (required): for `data.frame`: two columns: De (`data[,1]`)
+#' object (**required**): for `data.frame`: two columns: De (`data[,1]`)
 #' and De error (`data[,2]`)
 #'
 #' @param na.rm [logical] *(with default)*: excludes `NA`

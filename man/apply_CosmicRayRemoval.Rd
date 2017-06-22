@@ -74,11 +74,6 @@ passed are: \code{spar}\cr
 Different methods can be combined by applying the method repeatedly to the
 dataset (see example).
 }
-\note{
-\itemize{
-\item 
-}
-}
 \section{Function version}{
  0.2.1
 }
