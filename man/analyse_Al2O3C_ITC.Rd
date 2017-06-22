@@ -8,34 +8,42 @@ analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
   12, 16), method_control = NULL, verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or \link{list} \strong{(required)}: results obtained from the measurement.
+\item{object}{\linkS4class{RLum.Analysis} or \link{list} \strong{(required)}:
+results obtained from the measurement.
 Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.}
 
-\item{signal_integral}{\link{numeric} \emph{(optional)}: signal integral, used for the signal
-and the background. If nothing is provided the full range is used. Argument can be provided as \link{list}.}
+\item{signal_integral}{\link{numeric} \emph{(optional)}:
+signal integral, used for the signal and the background.
+If nothing is provided the full range is used. Argument can be provided as \link{list}.}
 
-\item{dose_points}{\link{numeric} \emph{(with default)}: vector with dose points, if dose points
-are repeated, only the general pattern needs to be provided. Default values follow the suggestions
+\item{dose_points}{\link{numeric} \emph{(with default)}:
+vector with dose points, if dose points are repeated, only the general
+pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017. Argument can be provided as \link{list}.}
 
-\item{method_control}{\link{list} \emph{(optional)}: optional parameters to control the calculation.
+\item{method_control}{\link{list} \emph{(optional)}:
+optional parameters to control the calculation.
 See details for further explanations}
 
-\item{verbose}{\link{logical} \emph{(with default)}: enable/disable verbose mode}
+\item{verbose}{\link{logical} \emph{(with default)}:
+enable/disable verbose mode}
 
-\item{plot}{\link{logical} \emph{(with default)}: enable/disable plot output}
+\item{plot}{\link{logical} \emph{(with default)}:
+enable/disable plot output}
 
 \item{...}{further arguments that can be passed to the plot output}
 }
 \value{
-Function returns results numerically and graphically:\cr
+Function returns results numerically and graphically:
 
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\strong{\code{RLum.Results}}-object\cr
 
-\strong{slot:} \strong{\code{@data}}\cr
+\strong{\code{RLum.Results}}-object
+
+\strong{slot:} \strong{\code{@data}}
+
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$data} \tab \code{data.frame} \tab correction value and error \cr
@@ -44,41 +52,42 @@ Function returns results numerically and graphically:\cr
 \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \link{plot_GrowthCurve}
 }
 
-\strong{slot:} \strong{\code{@info}}\cr
+\strong{slot:} \strong{\code{@info}}
 
-The original function call\cr
+The original function call
 
 ------------------------\cr
 \code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
-
 \itemize{
 \item A dose response curve with the marked correction values
-
 }
 }
 \description{
-The function provides a very particular analysis to correct the irradiation time while irradiating Al2O3:C
-pellets in a luminescence reader.
+The function provides a very particular analysis to correct the irradiation
+time while irradiating Al2O3:C pellets in a luminescence reader.
 }
 \details{
-Background: Due to their high dose sensitivity Al2O3:C pellets are usually irradiated for only a very short duration or
-under the closed beta-source within a luminescence reader. However, due to its high dose sensitivity, the movement
-itself below the source induces an apparent luminescence signal, which can be translated to an irradiation time.
-Based on measurements following a protocol suggested by Kreutzer et al., 2017, a dose response curve is constructed
-and the intersection with the time axis is taken as real irradiation time.
+Background: Due to their high dose sensitivity Al2O3:C pellets are usually
+irradiated for only a very short duration or under the closed beta-source
+within a luminescence reader. However, due to its high dose sensitivity, the
+movement itself below the source induces an apparent luminescence signal,
+which can be translated to an irradiation time.
+Based on measurements following a protocol suggested by Kreutzer et al., 2017,
+a dose response curve is constructed and the intersection with the
+time axis is taken as real irradiation time.
 
-\strong{\code{method_control}}\cr
+\strong{\code{method_control}}
 
 To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
 are all preset with meaningful default parameters and can be
 handled using the argument \code{method_control} only, e.g.,
-\code{method_control = list(fit.method = "LIN")}. Supported arguments are:\cr
+\code{method_control = list(fit.method = "LIN")}. Supported arguments are:
 
 \tabular{lll}{
-ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
-\code{mode}   \tab \code{plot_GrowthCurve} \tab as in \link{plot_GrowthCurve}; sets the mode used for fitting\cr
-\code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in \link{plot_GrowthCurve}; sets the function applied for fitting\cr
+\strong{ARGUMENT} \tab \strong{FUNCTION} \tab \strong{DESCRIPTION}\cr
+\code{mode} \tab \code{plot_GrowthCurve} \tab as in \link{plot_GrowthCurve}; sets the mode used for fitting\cr
+\code{fit.method} \tab \code{plot_GrowthCurve} \tab as in \link{plot_GrowthCurve}; sets the function applied for fitting\cr
 }
 }
 \section{Function version}{
@@ -87,7 +96,7 @@ ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
 
 \examples{
 
-##nothing so far TODO ... add tests with example
+## nothing so far TODO ... add tests with example
 
 }
 \references{

@@ -11,53 +11,53 @@ analyse_SAR.TL(object, object.background, signal.integral.min,
   dose.points, log = "", ...)
 }
 \arguments{
-\item{object}{\href{**required**}{RLum.Analysis-class}: input
-object containing data for analysis}
+\item{object}{\href{**required**}{RLum.Analysis-class}:
+input object containing data for analysis}
 
 \item{object.background}{currently not used}
 
-\item{signal.integral.min}{\link{integer} (\strong{required}): requires the
-channel number for the lower signal integral bound (e.g.
-\code{signal.integral.min = 100})}
+\item{signal.integral.min}{\link{integer} (\strong{required}):
+requires the channel number for the lower signal integral bound
+(e.g. \code{signal.integral.min = 100})}
 
-\item{signal.integral.max}{\link{integer} (\strong{required}): requires the
-channel number for the upper signal integral bound (e.g.
-\code{signal.integral.max = 200})}
+\item{signal.integral.max}{\link{integer} (\strong{required}):
+requires the channel number for the upper signal integral bound
+(e.g. \code{signal.integral.max = 200})}
 
-\item{integral_input}{\link{character} \emph{(with default)}: defines the input for the
-the arguments \code{signal.integral.min} and \code{signal.integral.max}. These limits can be
-either provided \code{'channel'} number (the default) or \code{'temperature'}. If \code{'temperature'}
-is chosen the best matching channel is selected.}
+\item{integral_input}{\link{character} \emph{(with default)}:
+defines the input for the the arguments \code{signal.integral.min} and
+\code{signal.integral.max}. These limits can be either provided \code{'channel'}
+number (the default) or \code{'temperature'}. If \code{'temperature'} is chosen the
+best matching channel is selected.}
 
 \item{sequence.structure}{\link{vector} \link{character} \emph{(with default)}:
-specifies the general sequence structure. Three steps are allowed (
-\code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
+specifies the general sequence structure. Three steps are allowed
+(\code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
 parameter \code{"EXCLUDE"}. This allows excluding TL curves which are not
-relevant for the protocol analysis.  (Note: None TL are removed by default)}
+relevant for the protocol analysis.  (\strong{Note:} None TL are removed by default)}
 
-\item{rejection.criteria}{\link{list} \emph{(with default)}: list containing
-rejection criteria in percentage for the calculation.}
+\item{rejection.criteria}{\link{list} \emph{(with default)}:
+list containing rejection criteria in percentage for the calculation.}
 
-\item{dose.points}{\link{numeric} \emph{(optional)}: option set dose points manually}
+\item{dose.points}{\link{numeric} \emph{(optional)}:
+option set dose points manually}
 
-\item{log}{\link{character} \emph{(with default)}: a character string which
-contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
-logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
+\item{log}{\link{character} \emph{(with default)}:
+a character string which contains "x" if the x axis is to be logarithmic,
+"y" if the y axis is to be logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 \link{plot.default}).}
 
-\item{...}{further arguments that will be passed to the function
-\link{plot_GrowthCurve}}
+\item{...}{further arguments that will be passed to the function \link{plot_GrowthCurve}}
 }
 \value{
 A plot \emph{(optional)} and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
-\item{De.values}{\link{data.frame} containing De-values and further
-parameters} \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx
-values including signal, background counts and the dose points.}
-\item{rejection.criteria}{\link{data.frame} with values that might by used
-as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
-\strong{note:} the output should be accessed using the function
-\link{get_RLum}
+
+\item{De.values}{\link{data.frame} containing De-values and further parameters}
+\item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values including signal, background counts and the dose points.}
+\item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+
+\strong{note:} the output should be accessed using the function \link{get_RLum}
 }
 \description{
 The function performs a SAR TL analysis on a
@@ -67,15 +67,21 @@ The function performs a SAR TL analysis on a
 This function performs a SAR TL analysis on a set of curves. The SAR
 procedure in general is given by Murray and Wintle (2000). For the
 calculation of the Lx/Tx value the function \link{calc_TLLxTxRatio} is
-used.\cr\cr \strong{Provided rejection criteria}\cr\cr
-\code{[recyling.ratio]}: calculated for every repeated regeneration dose
-point.\cr \code{[recuperation.rate]}: recuperation rate calculated by
+used.
+
+\strong{Provided rejection criteria}
+
+\code{[recyling.ratio]}: calculated for every repeated regeneration dose point.
+
+\code{[recuperation.rate]}: recuperation rate calculated by
 comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
 value (the Lx/Tx ratio of the natural signal).  For methodological
-background see Aitken and Smith (1988)\cr
+background see Aitken and Smith (1988)
 }
 \note{
-\strong{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
+\strong{THIS IS A BETA VERSION}
+
+None TL curves will be removed
 from the input object without further warning.
 }
 \section{Function version}{
@@ -83,7 +89,6 @@ from the input object without further warning.
 }
 
 \examples{
-
 
 ##load data
 data(ExampleData.BINfileData, envir = environment())
@@ -109,9 +114,8 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.
 }
 \seealso{
-\link{calc_TLLxTxRatio}, \link{plot_GrowthCurve},
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
-\link{get_RLum}
+\link{calc_TLLxTxRatio}, \link{plot_GrowthCurve}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

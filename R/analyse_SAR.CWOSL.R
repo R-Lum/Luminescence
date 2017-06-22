@@ -8,9 +8,9 @@
 #' calculation of the Lx/Tx value the function [calc_OSLLxTxRatio] is
 #' used. For **changing the way the Lx/Tx error is calculated** use the argument
 #' `background.count.distribution` and `sigmab`, which will be passed to the function
-#' [calc_OSLLxTxRatio].\cr\cr
+#' [calc_OSLLxTxRatio].
 #'
-#' **Argument `object` is of type `list`**\cr\cr
+#' **Argument `object` is of type `list`**
 #'
 #' If the argument `object` is of type [list] containing **only**
 #' [RLum.Analysis-class] objects, the function re-calls itself as often as elements
@@ -18,13 +18,14 @@
 #' writing separate for-loops. To gain in full control of the parameters (e.g., `dose.points`) for
 #' every aliquot (corresponding to one [RLum.Analysis-class] object in the list), in
 #' this case the arguments can be provided as [list]. This `list` should
-#' be of similar length as the `list` provided with the argument `object`, otherwise the function
-#' will create an own list of the requested lenght. Function output will be just one single [RLum.Results-class] object.
+#' be of similar length as the `list` provided with the argument `object`, 
+#' otherwise the function will create an own list of the requested lenght. 
+#' Function output will be just one single [RLum.Results-class] object.
 #'
 #' Please be careful when using this option. It may allow a fast an efficient data analysis, but
-#' the function may also break with an unclear error message, due to wrong input data.\cr\cr
+#' the function may also break with an unclear error message, due to wrong input data.
 #'
-#' **Working with IRSL data**\cr\cr
+#' **Working with IRSL data**
 #'
 #' The function was originally designed to work just for 'OSL' curves,
 #' following the principles of the SAR protocol. An IRSL measurement protocol
@@ -33,20 +34,20 @@
 #' however, the function is only capable of analysing curves that follow the
 #' SAR protocol structure, i.e., to analyse a post-IR IRSL protocol, curve data
 #' have to be pre-selected by the user to fit the standards of the SAR
-#' protocol, i.e., Lx,Tx,Lx,Tx and so on. \cr
+#' protocol, i.e., Lx,Tx,Lx,Tx and so on.
 #'
 #' Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves.
 #' Only one curve type can be analysed at the same time: The pIRIR50 curves or
-#' the pIRIR225 curves.\cr\cr
+#' the pIRIR225 curves.
 #'
-#' **Supported rejection criteria**\cr\cr 
+#' **Supported rejection criteria**
 #' 
-#' `[recycling.ratio]`: calculated for every repeated regeneration dose point.\cr
+#' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
 #' Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
 #' ratio of the natural signal). For methodological background see Aitken and
-#' Smith (1988).\cr
+#' Smith (1988).
 #'
 #' `[testdose.error]`: set the allowed error for the testdose, which per
 #' default should not exceed 10\%. The testdose error is calculated as Tx_net.error/Tx_net.
@@ -54,17 +55,17 @@
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
 #'
-#' @param object [RLum.Analysis-class] (**required**): input
-#' object containing data for analysis, alternatively a [list] of
+#' @param object [RLum.Analysis-class] (**required**): 
+#' input object containing data for analysis, alternatively a [list] of
 #' [RLum.Analysis-class] objects can be provided.
 #'
-#' @param signal.integral.min [integer] (**required**): lower
-#' bound of the signal integral. Can be a [list] of [integer]s, if `object` is
+#' @param signal.integral.min [integer] (**required**): 
+#' lower bound of the signal integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the minimum signal integral for the Tx curve.
 #'
-#' @param signal.integral.max [integer] (**required**): upper
-#' bound of the signal integral. Can be a [list] of [integer]s, if `object` is
+#' @param signal.integral.max [integer] (**required**): 
+#' upper bound of the signal integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the maximum signal integral for the Tx curve.
 #'
@@ -78,8 +79,8 @@
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the maximum background integral for the Tx curve.
 #'
-#' @param rejection.criteria [list] *(with default)*: provide a named list
-#' and set rejection criteria in **percentage** for further calculation. Can be a [list] in
+#' @param rejection.criteria [list] *(with default)*: 
+#' provide a named list and set rejection criteria in **percentage** for further calculation. Can be a [list] in
 #' a [list], if `object` is of type [list]
 #'
 #' Allowed arguments are `recycling.ratio`, `recuperation.rate`,
@@ -89,64 +90,63 @@
 #' Every criterium can be set to `NA`. In this value are calculated, but not considered, i.e.
 #' the RC.Status becomes always `'OK'`
 #'
-#' @param dose.points [numeric] *(optional)*: a numeric vector
-#' containg the dose points values Using this argument overwrites dose point
-#' values in the signal curves. Can be a [list] of [numeric] vectors,
+#' @param dose.points [numeric] *(optional)*: 
+#' a numeric vector containg the dose points values Using this argument 
+#' overwrites dose point values in the signal curves. Can be a [list] of 
+#' [numeric] vectors, if `object` is of type [list]
+#'
+#' @param mtext.outer [character] *(optional)*: 
+#' option to provide an outer margin mtext. Can be a [list] of [character]s,
 #' if `object` is of type [list]
 #'
-#' @param mtext.outer [character] *(optional)*: option to provide an
-#' outer margin mtext. Can be a [list] of [character]s,
-#' if `object` is of type [list]
+#' @param plot [logical] *(with default)*: 
+#' enables or disables plot output.
 #'
-#' @param plot [logical] *(with default)*: enables or disables plot
-#' output.
-#'
-#' @param plot.single [logical] *(with default)* or
-#' [numeric] *(optional)*: single plot output (`TRUE/FALSE`) to
-#' allow for plotting the results in single plot windows. If a numerice vector
-#' is provided the plots can be selected individually, i.e. \code{plot.single =
-#' c(1,2,3,4)} will plot the TL and Lx, Tx curves but not the legend (5) or the
+#' @param plot.single [logical] *(with default)* or [numeric] *(optional)*: 
+#' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows. 
+#' If a numerice vector is provided the plots can be selected individually, i.e. 
+#' `plot.single = c(1,2,3,4)` will plot the TL and Lx, Tx curves but not the legend (5) or the
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
 #' @param ... further arguments that will be passed to the function
 #' [plot_GrowthCurve] or [calc_OSLLxTxRatio]
-#' (supported: `background.count.distribution`, `sigmab`, `sig0`). **Please note** that
-#' if you consider to use the early light subtraction method you should provide your own `sigmab`
-#' value!
+#' (supported: `background.count.distribution`, `sigmab`, `sig0`). 
+#' **Please note** that if you consider to use the early light subtraction
+#'  method you should provide your own `sigmab` value!
 #'
 #'
-#' @return A plot *(optional)* and an [RLum.Results-class] object is
+#' @return 
+#' A plot *(optional)* and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #'
-#' \item{data}{[data.frame] containing De-values, De-error and
-#' further parameters} \item{LnLxTnTx.values}{[data.frame] of all
-#' calculated Lx/Tx values including signal, background counts and the dose
-#' points} \item{rejection.criteria}{[data.frame] with values that might
-#' by used as rejection criteria. NA is produced if no R0 dose point exists.}
-#' \item{Formula}{[formula] formula that have been used for the growth
-#' curve fitting }\cr The output should be accessed using the function
-#' [get_RLum].
+#' \item{data}{[data.frame] containing De-values, De-error and further parameters} 
+#' \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx values including signal, background counts and the dose points} 
+#' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+#' \item{Formula}{[formula] formula that have been used for the growth curve fitting } 
+#' 
+#' The output should be accessed using the function [get_RLum].
 #'
 #'
-#' @note This function must not be mixed up with the function
+#' @note 
+#' This function must not be mixed up with the function
 #' [Analyse_SAR.OSLdata], which works with
-#' [Risoe.BINfileData-class] objects.\cr
+#' [Risoe.BINfileData-class] objects.
 #'
 #' **The function currently does only support 'OSL' or 'IRSL' data!**
 #'
 #' @section Function version: 0.7.10
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve],
-#' [RLum.Analysis-class], [RLum.Results-class]
-#' [get_RLum]
+#' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class], 
+#' [RLum.Results-class], [get_RLum]
 #'
 #'
-#' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
+#' @references 
+#' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching. Quaternary Science Reviews 7, 387-393.
 #'
 #' Duller, G., 2003. Distinguishing quartz and feldspar in single grain

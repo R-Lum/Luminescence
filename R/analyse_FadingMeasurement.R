@@ -7,14 +7,14 @@
 #'
 #' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
-#' can be passed to the function [calc_FadingCorr].\cr
+#' can be passed to the function [calc_FadingCorr].
 #'
-#' **Fitting and error estimation**\cr
+#' **Fitting and error estimation**
 #'
 #' For the fitting the function [stats::lm] is used without applying weights. For the
 #' error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 #' high enough with regard to the underlying problem, are sampled assuming a normal distribution
-#' for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
+#' for each value with the value as the mean and the provided uncertainty as standard deviation.
 #'
 #' **Density of recombination centres**
 #'
@@ -23,47 +23,54 @@
 #' [stats::nls] is used without applying weights. For the error estimation the same
 #' procedure as for the g-value is applied (see above).
 #'
-#' @param object [RLum.Analysis-class] (**required**): input object with the
-#' measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
+#' @param object [RLum.Analysis-class] (**required**): 
+#' input object with the measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
 #' objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the before mentioned column structure.
 #'
-#' @param structure [character] *(with default)*: sets the structure of the measurement
-#' data. Allowed are `'Lx'` or `c('Lx','Tx')`. Other input is ignored
+#' @param structure [character] *(with default)*: 
+#' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`. 
+#' Other input is ignored
 #'
-#' @param signal.integral [vector] (**required**): vector with the
-#' limits for the signal integral. Not required if a `data.frame` with LxTx values are
-#' provided.
+#' @param signal.integral [vector] (**required**): 
+#' vector with the limits for the signal integral. 
+#' Not required if a `data.frame` with LxTx values are provided.
 #'
-#' @param background.integral [vector] (**required**): vector with the
-#' bounds for the background integral. Not required if a `data.frame` with LxTx values are
-#' provided.
+#' @param background.integral [vector] (**required**): 
+#' vector with the bounds for the background integral. 
+#' Not required if a `data.frame` with LxTx values are provided.
 #'
-#' @param t_star [character] *(with default)*: method for calculating the time elasped
-#' since irradiaton. Options are: `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
-#' and `'end'`, which takes the time between irradiation and the measurement step. Default is `'half'`
+#' @param t_star [character] *(with default)*: 
+#' method for calculating the time elasped since irradiaton. Options are: 
+#' `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+#' and `'end'`, which takes the time between irradiation and the measurement step. 
+#' Default is `'half'`
 #'
-#' @param n.MC [integer] *(with default)*: number for Monte Carlo runs for the error
-#' estimation
+#' @param n.MC [integer] *(with default)*: 
+#' number for Monte Carlo runs for the error estimation
 #'
-#' @param verbose [logical] *(with default)*: enables/disables verbose mode
+#' @param verbose [logical] *(with default)*: 
+#' enables/disables verbose mode
 #'
-#' @param plot [logical] *(with default)*: enables/disables plot output
+#' @param plot [logical] *(with default)*: 
+#' enables/disables plot output
 #'
-#' @param plot.single [logical] *(with default)*: enables/disables single plot
-#' mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
+#' @param plot.single [logical] *(with default)*: 
+#' enables/disables single plot mode, i.e. one plot window per plot. 
+#' Alternatively a vector specifying the plot to be drawn, e.g.,
 #' `plot.single = c(3,4)` draws only the last two plots
 #'
 #' @param ... *(optional)* further arguments that can be passed to internally used functions (see details)
 #'
-#' @return An [RLum.Results-class] object is returned:
+#' @return 
+#' An [RLum.Results-class] object is returned:
 #'
-#' Slot: **@data**\cr
+#' Slot: **@data**
 #'
 #' \tabular{lll}{
-#' **OBJECT** \tab `TYPE` \tab `COMMENT`\cr
+#'  **OBJECT** \tab **TYPE** \tab **COMMENT**\cr
 #' `fading_results` \tab `data.frame` \tab results of the fading measurement in a table \cr
 #' `fit` \tab `lm` \tab object returned by the used linear fitting function [stats::lm]\cr
 #' `rho_prime` \tab `data.frame` \tab results of rho' estimation after Kars et al. 2008 \cr
@@ -71,18 +78,18 @@
 #' `irr.times` \tab `integer` \tab vector with the irradiation times in seconds \cr
 #' }
 #'
-#' Slot: **@info**\cr
+#' Slot: **@info**
 #'
 #' \tabular{lll}{
 #' **OBJECT** \tab `TYPE` \tab `COMMENT`\cr
 #' `call` \tab `call` \tab the original function call\cr
-#'
 #' }
 #'
 #'
 #' @section Function version: 0.1.5
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @note **This function has BETA status and should not be used for publication work!**

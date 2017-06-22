@@ -7,30 +7,31 @@
 #' This function only works with `RLum.Analysis` objects produced by [read_PSL2R].
 #' It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 #' are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-#' the cumulative signal of the last n channels (same number of channels as specified by `signal.integral`)
-#' is divided by cumulative signal of the first n channels (`signal.integral`).
+#' the cumulative signal of the last n channels (same number of channels as specified
+#' by `signal.integral`) is divided by cumulative signal of the first n channels (`signal.integral`).
 #'
 #' @param object [RLum.Analysis-class] (**required**):
 #' `RLum.Analysis` object produced by [read_PSL2R].
 #'
-#' @param signal.integral [vector] (**required**): A vector of two values
-#' specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can
-#' be provided in form of `c(1, 5)` or `1:5`.
+#' @param signal.integral [vector] (**required**): 
+#' A vector of two values specifying the lower and upper channel used to 
+#' calculate the OSL/IRSL signal. Can be provided in form of `c(1, 5)` or `1:5`.
 #'
 #'
-#' @param invert [logical] *(with default)*: `TRUE` to calculate
-#' and plot the data in reverse order.
+#' @param invert [logical] *(with default)*: 
+#' `TRUE` to calculate and plot the data in reverse order.
 #'
 #' @param normalise [logical] *(with default)*:
 #' `TRUE` to normalise the OSL/IRSL signals by the mean of all corresponding
 #' data curves.
 #'
-#' @param plot [logical] *(with default)*: enable/disable plot output
+#' @param plot [logical] *(with default)*: 
+#' enable/disable plot output
 #'
 #' @param ... currently not used.
 #'
-#' @return Returns an S4 [RLum.Results-class] object containing
-#' the following elements:
+#' @return 
+#' Returns an S4 [RLum.Results-class] object.
 #'
 #' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class]
 #'

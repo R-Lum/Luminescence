@@ -1,57 +1,62 @@
-#'Al2O3:C Passive Dosimeter Measurement Analysis
-#'
-#'The function provides the analysis routines for measurements on a FI lexsyg SMART reader using
-#'Al2O3:C pellets according to Kreutzer et al., 2017
-#'
-#'@param object [RLum.Analysis-class] **(required)**: measurement input
-#'
-#'@param signal_integral [numeric] *(optional)*: signal integral, used for the signal
-#' and the background. If nothing is provided the full range is used
-#'
-#'@param dose_points [numeric] *(with default)*: vector with dose points, if dose points
-#' are repeated, only the general pattern needs to be provided. Default values follow the suggestions
+#' Al2O3:C Passive Dosimeter Measurement Analysis
+#' 
+#' The function provides the analysis routines for measurements on a 
+#' FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
+#' 
+#' @param object [RLum.Analysis-class] **(required)**: 
+#' measurement input
+#' 
+#' @param signal_integral [numeric] *(optional)*: 
+#' signal integral, used for the signal and the background. 
+#' If nothing is provided the full range is used
+#' 
+#' @param dose_points [numeric] *(with default)*: 
+#' vector with dose points, if dose points are repeated, only the general 
+#' pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017
-#'
-#'@param irradiation_time_correction [numeric] or [RLum.Results-class] *(optional)*:
-#' information on the used irradiation time correction obained by another experiements. I a `numeric`
-#' is provided it has to be of length two: mean, standard error
-#'
-#'@param cross_talk_correction [numeric] or [RLum.Results-class] *(optional)*:
-#' information on the used irradiation time correction obained by another experiements. If a `numeric`
-#' vector is provided it has to be of length three: mean, 2.5 \% quantile, 97.5 \% quantile.
-#'
-#'@param verbose [logical] *(with default)*: enable/disable verbose mode
-#'
-#'@param plot [logical] *(with default)*: enable/disable plot output
-#'
-#'@param ... further arguments that can be passed to the plot output
-#'
-#'@return Function returns results numerically and graphically:\cr
+#' 
+#' @param irradiation_time_correction [numeric] or [RLum.Results-class] *(optional)*:
+#' information on the used irradiation time correction obained by another experiements. 
+#' I a `numeric` is provided it has to be of length two: mean, standard error
+#' 
+#' @param cross_talk_correction [numeric] or [RLum.Results-class] *(optional)*:
+#' information on the used irradiation time correction obained by another experiements. 
+#' If a `numeric` vector is provided it has to be of length three: 
+#' mean, 2.5 \% quantile, 97.5 \% quantile.
+#' 
+#' @param verbose [logical] *(with default)*: 
+#' enable/disable verbose mode
+#' 
+#' @param plot [logical] *(with default)*: 
+#' enable/disable plot output
+#' 
+#' @param ... further arguments that can be passed to the plot output
+#' 
+#' @return Function returns results numerically and graphically:
 #'
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' **`RLum.Results`**-object\cr
+#' 
+#' **`RLum.Results`**-object
 #'
-#' **slot:** **`@data`**\cr
+#' **slot:** **`@data`**
+#' 
 #' \tabular{lll}{
-#' **Element** \tab **Type** \tab **Description**\cr
+#'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `data.frame` \tab the estimated equivalent dose \cr
 #'  `$data_talbe` \tab `data.frame` \tab full dose and signal table \cr
 #' }
 #'
-#'**slot:** **`@info`**\cr
+#'**slot:** **`@info`**
 #'
-#' The original function call\cr
+#' The original function call
 #'
 #' ------------------------\cr
 #' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
 #'
-#' \itemize{
-#'  \item OSL and TL curves, combined on two plots.
-#'
-#' }
+#' - OSL and TL curves, combined on two plots.
 #'
 #'
 #' @section Function version: 0.1.0
@@ -66,7 +71,7 @@
 #'
 #' @examples
 #'
-#' ##nothing so far TODO ... add tests with example
+#' ## nothing so far TODO ... add tests with example
 #'
 #' @md
 #' @export

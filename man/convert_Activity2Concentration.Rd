@@ -13,7 +13,7 @@ in the 3rd column its error value. Allowed nuclide data are \code{'U-238'}, \cod
 See examples for an example.}
 
 \item{input_unit}{\link{character} \emph{(with default)}: specify unit of input data given in the
-dose rate data frame, choose between \code{'Bq/kg'} and \code{'ppm/\\%'} the default is \code{'Bq/kg'}}
+dose rate data frame, choose between 'Bq/kg' and 'ppm/\%' the default is 'Bq/kg'}
 
 \item{verbose}{\link{logical} \emph{(with default)}: enable or disable verbose mode}
 }

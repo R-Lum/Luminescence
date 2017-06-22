@@ -38,7 +38,7 @@
 #' See examples for an example.
 #'
 #' @param input_unit [character] *(with default)*: specify unit of input data given in the
-#' dose rate data frame, choose between `'Bq/kg'` and `'ppm/\%'` the default is `'Bq/kg'`
+#' dose rate data frame, choose between 'Bq/kg' and 'ppm/\%' the default is 'Bq/kg'
 #'
 #' @param verbose [logical] *(with default)*: enable or disable verbose mode
 #'

@@ -11,24 +11,24 @@ analyse_portableOSL(object, signal.integral, invert = FALSE,
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
 \code{RLum.Analysis} object produced by \link{read_PSL2R}.}
 
-\item{signal.integral}{\link{vector} (\strong{required}): A vector of two values
-specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can
-be provided in form of \code{c(1, 5)} or \code{1:5}.}
+\item{signal.integral}{\link{vector} (\strong{required}):
+A vector of two values specifying the lower and upper channel used to
+calculate the OSL/IRSL signal. Can be provided in form of \code{c(1, 5)} or \code{1:5}.}
 
-\item{invert}{\link{logical} \emph{(with default)}: \code{TRUE} to calculate
-and plot the data in reverse order.}
+\item{invert}{\link{logical} \emph{(with default)}:
+\code{TRUE} to calculate and plot the data in reverse order.}
 
 \item{normalise}{\link{logical} \emph{(with default)}:
 \code{TRUE} to normalise the OSL/IRSL signals by the mean of all corresponding
 data curves.}
 
-\item{plot}{\link{logical} \emph{(with default)}: enable/disable plot output}
+\item{plot}{\link{logical} \emph{(with default)}:
+enable/disable plot output}
 
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 \linkS4class{RLum.Results} object containing
-the following elements:
+Returns an S4 \linkS4class{RLum.Results} object.
 }
 \description{
 The function analyses CW-OSL curve data produced by a SUERC portable OSL reader and
@@ -39,8 +39,8 @@ and the IRSL/OSL ratio.
 This function only works with \code{RLum.Analysis} objects produced by \link{read_PSL2R}.
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-the cumulative signal of the last n channels (same number of channels as specified by \code{signal.integral})
-is divided by cumulative signal of the first n channels (\code{signal.integral}).
+the cumulative signal of the last n channels (same number of channels as specified
+by \code{signal.integral}) is divided by cumulative signal of the first n channels (\code{signal.integral}).
 }
 \section{Function version}{
  0.0.3
