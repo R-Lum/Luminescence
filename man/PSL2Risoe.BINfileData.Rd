@@ -13,8 +13,8 @@ PSL2Risoe.BINfileData(object, ...)
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 \linkS4class{Risoe.BINfileData} object that can
-be used to write a BIN file using \link{write_R2BIN}.
+Returns an S4 \linkS4class{Risoe.BINfileData} object that can be used to write a
+BIN file using \link{write_R2BIN}.
 }
 \description{
 Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to

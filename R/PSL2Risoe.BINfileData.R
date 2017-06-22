@@ -13,13 +13,15 @@
 #'
 #' @param ... currently not used.
 #'
-#' @return Returns an S4 [Risoe.BINfileData-class] object that can
-#' be used to write a BIN file using [write_R2BIN].
+#' @return 
+#' Returns an S4 [Risoe.BINfileData-class] object that can be used to write a 
+#' BIN file using [write_R2BIN].
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class],
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], 
 #' [Risoe.BINfileData-class]
 #'
-#' @author Christoph Burow, University of Cologne (Germany)
+#' @author 
+#' Christoph Burow, University of Cologne (Germany)
 #'
 #' @section Function version: 0.0.1
 #'

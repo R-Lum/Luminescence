@@ -7,30 +7,33 @@
 read_Daybreak2R(file, raw = FALSE, verbose = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\link{character} or \link{list} (\strong{required}): path and file name of the
-file to be imported. Alternatively a list of file names can be provided or just the path a folder
-containing measurement data. Please note that the specific, common, file extension (txt) is likely
+\item{file}{\link{character} or \link{list} (\strong{required}):
+path and file name of the file to be imported. Alternatively a list of file
+names can be provided or just the path a folder containing measurement data.
+Please note that the specific, common, file extension (txt) is likely
 leading to function failures during import when just a path is provided.}
 
-\item{raw}{\link{logical} (\emph{with default}): if the input is a DAT-file (binary) a
-\link[data.table:data.table]{data.table::data.table} instead of the \linkS4class{RLum.Analysis} object
-can be returned for debugging purposes.}
+\item{raw}{\link{logical} (\emph{with default}):
+if the input is a DAT-file (binary) a \link[data.table:data.table]{data.table::data.table} instead of
+the \linkS4class{RLum.Analysis} object can be returned for debugging purposes.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enables or disables terminal feedback}
+\item{verbose}{\link{logical} (\emph{with default}):
+enables or disables terminal feedback}
 
-\item{txtProgressBar}{\link{logical} (\emph{with default}): enables or disables
-\link{txtProgressBar}.}
+\item{txtProgressBar}{\link{logical} (\emph{with default}):
+enables or disables \link{txtProgressBar}.}
 }
 \value{
 A list of \linkS4class{RLum.Analysis} objects (each per position) is provided.
 }
 \description{
-Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a Daybreak reader into R.
-The import of the DAT-files is limited to the file format described for the software TLAPLLIC v.3.2
-used for a Daybreak, model 1100.
+Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a
+Daybreak reader into R. The import of the DAT-files is limited to the file
+format described for the software TLAPLLIC v.3.2 used for a Daybreak, model 1100.
 }
 \note{
-\strong{\code{[BETA VERSION]}} This function still needs to be tested properly. In particular
+\strong{\code{[BETA VERSION]}}
+This function still needs to be tested properly. In particular
 the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{
@@ -42,17 +45,16 @@ the function has underwent only very rough rests using a few files.
 \dontrun{
 file <- file.choose()
 temp <- read_Daybreak2R(file)
-
 }
 
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
-\link[data.table:data.table]{data.table::data.table}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link[data.table:data.table]{data.table::data.table}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), \cr
-Anotine Zink, C2RMF, Palais du Louvre, Paris (France)\cr
-\cr The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Anotine Zink, C2RMF, Palais du Louvre, Paris (France)
+
+The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
 }
 \keyword{IO}

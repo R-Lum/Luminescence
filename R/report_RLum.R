@@ -12,11 +12,10 @@
 #' \tabular{ll}{
 #'  **Section** \tab **Description** \cr
 #'  `Header` \tab A summary of general characteristics of the object \cr
-#'  `Object content` \tab A comprehensive list of the complete structure
-#'  and content of the provided object. \cr
+#'  `Object content` \tab A comprehensive list of the complete structure and content of the provided object. \cr
 #'  `Object structure` \tab Summary of the objects structure given as a table \cr
 #'  `File` \tab Information on the saved RDS file \cr
-#'  `Session Info` \tab Captured output from sessionInfo() \cr
+#'  `Session Info` \tab Captured output from `sessionInfo()` \cr
 #'  `Plots` \tab (*optional*) For `RLum-class` objects a variable number of plots \cr
 #' }
 #'

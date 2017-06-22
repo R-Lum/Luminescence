@@ -6,7 +6,7 @@
 \alias{show,Risoe.BINfileData-method}
 \alias{set_Risoe.BINfileData,ANY-method}
 \alias{get_Risoe.BINfileData,Risoe.BINfileData-method}
-\title{Class `"Risoe.BINfileData"`}
+\title{Class \code{"Risoe.BINfileData"}}
 \usage{
 \S4method{show}{Risoe.BINfileData}(object)
 
@@ -16,7 +16,7 @@
 \S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
-\item{object}{an object of class [Risoe.BINfileData-class]}
+\item{object}{an object of class \linkS4class{Risoe.BINfileData}}
 
 \item{METADATA}{Object of class "data.frame" containing the meta information
 for each curve.}
@@ -30,7 +30,7 @@ values for internal use only.}
 }
 \description{
 S4 class object for luminescence data in R. The object is produced as output
-of the function [read_BIN2R].
+of the function \link{read_BIN2R}.
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -54,133 +54,153 @@ the object directly, it is just showing a terminal message.
 }}
 
 \note{
-**Internal METADATA - object structure**
+\strong{Internal METADATA - object structure}
 
 This structure is compatible with BIN-files version 03-08, however, it does not follow (in its
 sequential arrangment) the manual provided by the manufacturer,
 but an own structure accounting for the different versions.
 
 \tabular{rllll}{
-**#** \tab **Name** \tab **Data Type** \tab **V** \tab **Description** \cr
-[,1]  \tab ID  \tab `numeric` \tab RLum \tab Unique record ID (same ID as in slot `DATA`)\cr
-[,2]  \tab SEL \tab `logic` \tab RLum \tab Record selection, not part official BIN-format, triggered by TAG\cr
-[,3]  \tab VERSION \tab `raw` \tab 03-08 \tab BIN-file version number \cr
-[,4]  \tab LENGTH \tab `integer` \tab 03-08 \tab Length of this record\cr
-[,5]  \tab PREVIOUS \tab `integer` \tab 03-08 \tab Length of previous record\cr
-[,6]  \tab NPOINTS \tab `integer` \tab 03-08 \tab Number of data points in the record\cr
-[,7]  \tab RECTYPE \tab `integer` \tab 08 \tab Record type \cr
-[,8]  \tab RUN \tab `integer` \tab 03-08 \tab Run number\cr
-[,9]  \tab SET \tab `integer` \tab 03-08 \tab Set number\cr
-[,10]  \tab POSITION \tab  `integer` \tab 03-08 \tab Position number\cr
-[,11] \tab GRAIN \tab `integer` \tab 03-04 \tab Grain number\cr
-[,12] \tab GRAINNUMBER \tab `integer` \tab 06-08 \tab Grain number\cr
-[,13] \tab CURVENO \tab `integer` \tab 06-08 \tab Curve number\cr
-[,14] \tab XCOORD \tab `integer` \tab 03-08 \tab X position of a single grain\cr
-[,15] \tab YCOORD \tab `integer` \tab 03-08 \tab Y position of a single grain\cr
-[,16] \tab SAMPLE \tab `factor` \tab 03-08 \tab Sample name\cr
-[,17] \tab COMMENT \tab `factor` \tab 03-08 \tab Comment name\cr
-[,18] \tab SYSTEMID \tab `integer` \tab 03-08 \tab Risoe system id\cr
-[,19] \tab FNAME \tab `factor` \tab 06-08 \tab File name (*.bin/*.binx)\cr
-[,20] \tab USER \tab `facotr` \tab 03-08 \tab User name\cr
-[,21] \tab TIME \tab `character` \tab 03-08 \tab Data collection time (hh-mm-ss)\cr
-[,22] \tab DATE \tab `factor` \tab 03-08 \tab Data collection date (ddmmyy)\cr
-[,23] \tab DTYPE \tab `character` \tab 03-08 \tab Data type\cr
-[,24] \tab BL_TIME \tab `numeric` \tab 03-08 \tab Bleaching time\cr
-[,25] \tab BL_UNIT \tab `integer` \tab 03-08 \tab Bleaching unit (mJ, J, secs, mins, hrs)\cr
-[,26] \tab NORM1 \tab `numeric` \tab 03-08 \tab Normalisation factor (1)\cr
-[,27] \tab NORM2 \tab `numeric` \tab 03-08 \tab Normalisation factor (2)\cr
-[,28] \tab NORM3 \tab `numeric` \tab 03-08 \tab Normalisation factor (3)\cr
-[,29] \tab BG \tab `numeric` \tab 03-08 \tab Background level\cr
-[,30] \tab SHIFT \tab `integer` \tab 03-08 \tab Number of channels to shift data\cr
-[,31] \tab TAG \tab `integer` \tab 03-08 \tab Tag, triggers SEL\cr
-[,32] \tab LTYPE \tab `character` \tab 03-08 \tab Luminescence type\cr
-[,33] \tab LIGHTSOURCE \tab `character` \tab 03-08 \tab Light source\cr
-[,34] \tab LPOWER \tab `numeric` \tab 03-08 \tab Optical stimulation power\cr
-[,35] \tab LIGHTPOWER \tab `numeric` \tab 06-08 \tab Optical stimulation power\cr
-[,36] \tab LOW \tab `numeric` \tab 03-08 \tab Low (temperature, time, wavelength)\cr
-[,37] \tab HIGH \tab `numeric` \tab 03-08 \tab High (temperature, time, wavelength)\cr
-[,38] \tab RATE \tab `numeric` \tab 03-08 \tab Rate (heating rate, scan rate)\cr
-[,39] \tab TEMPERATURE \tab `integer` \tab 03-08 \tab Sample temperature\cr
-[,40] \tab MEASTEMP \tab `integer` \tab 06-08 \tab Measured temperature\cr
-[,41] \tab AN_TEMP \tab `numeric` \tab 03-08 \tab Annealing temperature\cr
-[,42] \tab AN_TIME \tab `numeric` \tab 03-08 \tab Annealing time\cr
-[,43] \tab TOLDELAY \tab `integer` \tab 03-08 \tab TOL 'delay' channels\cr
-[,44] \tab TOLON \tab `integer` \tab 03-08 \tab TOL 'on' channels\cr
-[,45] \tab TOLOFF \tab `integer` \tab 03-08 \tab TOL 'off' channels\cr
-[,46] \tab IRR_TIME \tab `numeric` \tab 03-08 \tab Irradiation time\cr
-[,47] \tab IRR_TYPE \tab `integer` \tab 03-08 \tab Irradiation type (alpha, beta or gamma)\cr
-[,48] \tab IRR_UNIT \tab `integer` \tab 03-04 \tab Irradiation unit (Gy, Rads, secs, mins, hrs)\cr
-[,49] \tab IRR_DOSERATE \tab `numeric` \tab 06-08 \tab Irradiation dose rate (Gy/s)\cr
-[,50] \tab IRR_DOSERATEERR \tab `numeric` \tab 06-08 \tab Irradiation dose rate error (Gy/s)\cr
-[,51] \tab TIMESINCEIRR \tab `integer` \tab 06-08 \tab Time since irradiation (s)\cr
-[,52] \tab TIMETICK \tab `numeric` \tab 06-08 \tab Time tick for pulsing (s)\cr
-[,53] \tab ONTIME \tab `integer` \tab 06-08 \tab On-time for pulsing (in time ticks)\cr
-[,54] \tab OFFTIME \tab `integer` \tab 03 \tab Off-time for pulsed stimulation (in s) \cr
-[,55] \tab STIMPERIOD \tab `integer` \tab 06-08 \tab Stimulation period (on+off in time ticks)\cr
-[,56] \tab GATE_ENABLED \tab `raw` \tab 06-08 \tab PMT signal gating enabled\cr
-[,57] \tab ENABLE_FLAGS \tab `raw` \tab 06-08 \tab PMT signal gating  enabled\cr
-[,58] \tab GATE_START \tab `integer` \tab 06-08 \tab Start gating (in time ticks)\cr
-[,59] \tab GATE_STOP \tab `ingeter` \tab 06-08 \tab Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used\cr
-[,60] \tab PTENABLED \tab `raw` \tab 06-08 \tab Photon time enabled\cr
-[,61] \tab DTENABLED \tab `raw` \tab 06-08 \tab PMT dead time correction enabled\cr
-[,62] \tab DEADTIME \tab `numeric` \tab 06-08 \tab PMT dead time (s)\cr
-[,63] \tab MAXLPOWER \tab `numeric` \tab 06-08 \tab Stimulation power to 100 percent (mW/cm^2)\cr
-[,64] \tab XRF_ACQTIME \tab `numeric` \tab 06-08 \tab XRF acquisition time (s)\cr
-[,65] \tab XRF_HV \tab `numeric` \tab 06-08 \tab XRF X-ray high voltage (V)\cr
-[,66] \tab XRF_CURR \tab `integer` \tab 06-08 \tab XRF X-ray current (uA)\cr
-[,67] \tab XRF_DEADTIMEF \tab `numeric` \tab 06-08 \tab XRF dead time fraction\cr
-[,68] \tab DETECTOR_ID \tab `raw` \tab 07-08 \tab Detector ID\cr
-[,69] \tab LOWERFILTER_ID \tab `integer` \tab 07-08 \tab Lower filter ID in reader\cr
-[,70] \tab UPPERFILTER_ID \tab `integer` \tab 07-08 \tab Uper filter ID in reader\cr
-[,71] \tab ENOISEFACTOR \tab `numeric` \tab 07-08 \tab Excess noise filter, usage unknown \cr
-[,72] \tab MARKPOS_X1 \tab `numeric` \tab 08 \tab Coordinates marker position 1 \cr
-[,73] \tab MARKPOS_Y1 \tab `numeric` \tab 08 \tab Coordinates marker position 1 \cr
-[,74] \tab MARKPOS_X2 \tab `numeric` \tab 08 \tab Coordinates marker position 2 \cr
-[,75] \tab MARKPOS_Y2 \tab `numeric` \tab 08 \tab Coordinates marker position 2 \cr
-[,76] \tab MARKPOS_X3 \tab `numeric` \tab 08 \tab Coordinates marker position 3 \cr
-[,77] \tab MARKPOS_Y3 \tab `numeric` \tab 08 \tab Coordinates marker position 3 \cr
-[,78] \tab EXTR_START \tab `numeric` \tab 08 \tab usage unknown \cr
-[,79] \tab EXTR_END \tab `numeric` \tab 08 \tab usage unknown\cr
-[,80] \tab SEQUENCE \tab `character` \tab 03-04 \tab Sequence name
-} V = BIN-file version (RLum means that it does not depend on a specific BIN
-version)\cr
+\strong{#} \tab \strong{Name} \tab \strong{Data Type} \tab \strong{V} \tab \strong{Description} \cr
+\link{,1}  \tab ID  \tab \code{numeric} \tab RLum \tab Unique record ID (same ID as in slot \code{DATA})\cr
+\link{,2}  \tab SEL \tab \code{logic} \tab RLum \tab Record selection, not part official BIN-format, triggered by TAG\cr
+\link{,3}  \tab VERSION \tab \code{raw} \tab 03-08 \tab BIN-file version number \cr
+\link{,4}  \tab LENGTH \tab \code{integer} \tab 03-08 \tab Length of this record\cr
+\link{,5}  \tab PREVIOUS \tab \code{integer} \tab 03-08 \tab Length of previous record\cr
+\link{,6}  \tab NPOINTS \tab \code{integer} \tab 03-08 \tab Number of data points in the record\cr
+\link{,7}  \tab RECTYPE \tab \code{integer} \tab 08 \tab Record type \cr
+\link{,8}  \tab RUN \tab \code{integer} \tab 03-08 \tab Run number\cr
+\link{,9}  \tab SET \tab \code{integer} \tab 03-08 \tab Set number\cr
+\link{,10}  \tab POSITION \tab  \code{integer} \tab 03-08 \tab Position number\cr
+\link{,11} \tab GRAIN \tab \code{integer} \tab 03-04 \tab Grain number\cr
+\link{,12} \tab GRAINNUMBER \tab \code{integer} \tab 06-08 \tab Grain number\cr
+\link{,13} \tab CURVENO \tab \code{integer} \tab 06-08 \tab Curve number\cr
+\link{,14} \tab XCOORD \tab \code{integer} \tab 03-08 \tab X position of a single grain\cr
+\link{,15} \tab YCOORD \tab \code{integer} \tab 03-08 \tab Y position of a single grain\cr
+\link{,16} \tab SAMPLE \tab \code{factor} \tab 03-08 \tab Sample name\cr
+\link{,17} \tab COMMENT \tab \code{factor} \tab 03-08 \tab Comment name\cr
+\link{,18} \tab SYSTEMID \tab \code{integer} \tab 03-08 \tab Risoe system id\cr
+\link{,19} \tab FNAME \tab \code{factor} \tab 06-08 \tab File name (\emph{.bin/}.binx)\cr
+\link{,20} \tab USER \tab \code{facotr} \tab 03-08 \tab User name\cr
+\link{,21} \tab TIME \tab \code{character} \tab 03-08 \tab Data collection time (hh-mm-ss)\cr
+\link{,22} \tab DATE \tab \code{factor} \tab 03-08 \tab Data collection date (ddmmyy)\cr
+\link{,23} \tab DTYPE \tab \code{character} \tab 03-08 \tab Data type\cr
+\link{,24} \tab BL_TIME \tab \code{numeric} \tab 03-08 \tab Bleaching time\cr
+\link{,25} \tab BL_UNIT \tab \code{integer} \tab 03-08 \tab Bleaching unit (mJ, J, secs, mins, hrs)\cr
+\link{,26} \tab NORM1 \tab \code{numeric} \tab 03-08 \tab Normalisation factor (1)\cr
+\link{,27} \tab NORM2 \tab \code{numeric} \tab 03-08 \tab Normalisation factor (2)\cr
+\link{,28} \tab NORM3 \tab \code{numeric} \tab 03-08 \tab Normalisation factor (3)\cr
+\link{,29} \tab BG \tab \code{numeric} \tab 03-08 \tab Background level\cr
+\link{,30} \tab SHIFT \tab \code{integer} \tab 03-08 \tab Number of channels to shift data\cr
+\link{,31} \tab TAG \tab \code{integer} \tab 03-08 \tab Tag, triggers SEL\cr
+\link{,32} \tab LTYPE \tab \code{character} \tab 03-08 \tab Luminescence type\cr
+\link{,33} \tab LIGHTSOURCE \tab \code{character} \tab 03-08 \tab Light source\cr
+\link{,34} \tab LPOWER \tab \code{numeric} \tab 03-08 \tab Optical stimulation power\cr
+\link{,35} \tab LIGHTPOWER \tab \code{numeric} \tab 06-08 \tab Optical stimulation power\cr
+\link{,36} \tab LOW \tab \code{numeric} \tab 03-08 \tab Low (temperature, time, wavelength)\cr
+\link{,37} \tab HIGH \tab \code{numeric} \tab 03-08 \tab High (temperature, time, wavelength)\cr
+\link{,38} \tab RATE \tab \code{numeric} \tab 03-08 \tab Rate (heating rate, scan rate)\cr
+\link{,39} \tab TEMPERATURE \tab \code{integer} \tab 03-08 \tab Sample temperature\cr
+\link{,40} \tab MEASTEMP \tab \code{integer} \tab 06-08 \tab Measured temperature\cr
+\link{,41} \tab AN_TEMP \tab \code{numeric} \tab 03-08 \tab Annealing temperature\cr
+\link{,42} \tab AN_TIME \tab \code{numeric} \tab 03-08 \tab Annealing time\cr
+\link{,43} \tab TOLDELAY \tab \code{integer} \tab 03-08 \tab TOL 'delay' channels\cr
+\link{,44} \tab TOLON \tab \code{integer} \tab 03-08 \tab TOL 'on' channels\cr
+\link{,45} \tab TOLOFF \tab \code{integer} \tab 03-08 \tab TOL 'off' channels\cr
+\link{,46} \tab IRR_TIME \tab \code{numeric} \tab 03-08 \tab Irradiation time\cr
+\link{,47} \tab IRR_TYPE \tab \code{integer} \tab 03-08 \tab Irradiation type (alpha, beta or gamma)\cr
+\link{,48} \tab IRR_UNIT \tab \code{integer} \tab 03-04 \tab Irradiation unit (Gy, Rads, secs, mins, hrs)\cr
+\link{,49} \tab IRR_DOSERATE \tab \code{numeric} \tab 06-08 \tab Irradiation dose rate (Gy/s)\cr
+\link{,50} \tab IRR_DOSERATEERR \tab \code{numeric} \tab 06-08 \tab Irradiation dose rate error (Gy/s)\cr
+\link{,51} \tab TIMESINCEIRR \tab \code{integer} \tab 06-08 \tab Time since irradiation (s)\cr
+\link{,52} \tab TIMETICK \tab \code{numeric} \tab 06-08 \tab Time tick for pulsing (s)\cr
+\link{,53} \tab ONTIME \tab \code{integer} \tab 06-08 \tab On-time for pulsing (in time ticks)\cr
+\link{,54} \tab OFFTIME \tab \code{integer} \tab 03 \tab Off-time for pulsed stimulation (in s) \cr
+\link{,55} \tab STIMPERIOD \tab \code{integer} \tab 06-08 \tab Stimulation period (on+off in time ticks)\cr
+\link{,56} \tab GATE_ENABLED \tab \code{raw} \tab 06-08 \tab PMT signal gating enabled\cr
+\link{,57} \tab ENABLE_FLAGS \tab \code{raw} \tab 06-08 \tab PMT signal gating  enabled\cr
+\link{,58} \tab GATE_START \tab \code{integer} \tab 06-08 \tab Start gating (in time ticks)\cr
+\link{,59} \tab GATE_STOP \tab \code{ingeter} \tab 06-08 \tab Stop gating (in time ticks), 'Gateend' for version 04, here only GATE_STOP is used\cr
+\link{,60} \tab PTENABLED \tab \code{raw} \tab 06-08 \tab Photon time enabled\cr
+\link{,61} \tab DTENABLED \tab \code{raw} \tab 06-08 \tab PMT dead time correction enabled\cr
+\link{,62} \tab DEADTIME \tab \code{numeric} \tab 06-08 \tab PMT dead time (s)\cr
+\link{,63} \tab MAXLPOWER \tab \code{numeric} \tab 06-08 \tab Stimulation power to 100 percent (mW/cm^2)\cr
+\link{,64} \tab XRF_ACQTIME \tab \code{numeric} \tab 06-08 \tab XRF acquisition time (s)\cr
+\link{,65} \tab XRF_HV \tab \code{numeric} \tab 06-08 \tab XRF X-ray high voltage (V)\cr
+\link{,66} \tab XRF_CURR \tab \code{integer} \tab 06-08 \tab XRF X-ray current (uA)\cr
+\link{,67} \tab XRF_DEADTIMEF \tab \code{numeric} \tab 06-08 \tab XRF dead time fraction\cr
+\link{,68} \tab DETECTOR_ID \tab \code{raw} \tab 07-08 \tab Detector ID\cr
+\link{,69} \tab LOWERFILTER_ID \tab \code{integer} \tab 07-08 \tab Lower filter ID in reader\cr
+\link{,70} \tab UPPERFILTER_ID \tab \code{integer} \tab 07-08 \tab Uper filter ID in reader\cr
+\link{,71} \tab ENOISEFACTOR \tab \code{numeric} \tab 07-08 \tab Excess noise filter, usage unknown \cr
+\link{,72} \tab MARKPOS_X1 \tab \code{numeric} \tab 08 \tab Coordinates marker position 1 \cr
+\link{,73} \tab MARKPOS_Y1 \tab \code{numeric} \tab 08 \tab Coordinates marker position 1 \cr
+\link{,74} \tab MARKPOS_X2 \tab \code{numeric} \tab 08 \tab Coordinates marker position 2 \cr
+\link{,75} \tab MARKPOS_Y2 \tab \code{numeric} \tab 08 \tab Coordinates marker position 2 \cr
+\link{,76} \tab MARKPOS_X3 \tab \code{numeric} \tab 08 \tab Coordinates marker position 3 \cr
+\link{,77} \tab MARKPOS_Y3 \tab \code{numeric} \tab 08 \tab Coordinates marker position 3 \cr
+\link{,78} \tab EXTR_START \tab \code{numeric} \tab 08 \tab usage unknown \cr
+\link{,79} \tab EXTR_END \tab \code{numeric} \tab 08 \tab usage unknown\cr
+\link{,80} \tab SEQUENCE \tab \code{character} \tab 03-04 \tab Sequence name
+}
+V = BIN-file version (RLum means that it does not depend on a specific BIN version)
 
-Note that the `Risoe.BINfileData` object combines all values from
+Note that the \code{Risoe.BINfileData} object combines all values from
 different versions from the BIN-file, reserved bits are skipped, however,
-the function [write_R2BIN] reset arbitrary reserved bits. Invalid
-values for a specific version are set to `NA`. Furthermore, the
+the function \link{write_R2BIN} reset arbitrary reserved bits. Invalid
+values for a specific version are set to \code{NA}. Furthermore, the
 internal R data types do not necessarily match the required data types for
 the BIN-file data import! Data types are converted during data import.\cr
 
-**LTYPE** values
+\strong{LTYPE} values
 
-\tabular{rll}{ [,0] \tab TL \tab: Thermoluminescence \cr [,1] \tab OSL \tab:
-Optically stimulated luminescence \cr [,2] \tab IRSL \tab: Infrared
-stimulated luminescence \cr [,3] \tab M-IR \tab: Infrared monochromator
-scan\cr [,4] \tab M-VIS \tab: Visible monochromator scan\cr [,5] \tab TOL
-\tab: Thermo-optical luminescence \cr [,6] \tab TRPOSL \tab: Time Resolved
-Pulsed OSL\cr [,7] \tab RIR \tab: Ramped IRSL\cr [,8] \tab RBR \tab: Ramped
-(Blue) LEDs\cr [,9] \tab USER \tab: User defined\cr [,10] \tab POSL \tab:
-Pulsed OSL \cr [,11] \tab SGOSL \tab: Single Grain OSL\cr [,12] \tab RL
-\tab: Radio Luminescence \cr [,13] \tab XRF \tab: X-ray Fluorescence }
+\tabular{rll}{
+\link{,0} \tab TL \tab: Thermoluminescence \cr
+\link{,1} \tab OSL \tab: Optically stimulated luminescence \cr
+\link{,2} \tab IRSL \tab: Infrared stimulated luminescence \cr
+\link{,3} \tab M-IR \tab: Infrared monochromator scan\cr
+\link{,4} \tab M-VIS \tab: Visible monochromator scan\cr
+\link{,5} \tab TOL \tab: Thermo-optical luminescence \cr
+\link{,6} \tab TRPOSL \tab: Time Resolved Pulsed OSL\cr
+\link{,7} \tab RIR \tab: Ramped IRSL\cr
+\link{,8} \tab RBR \tab: Ramped (Blue) LEDs\cr
+\link{,9} \tab USER \tab: User defined\cr
+\link{,10} \tab POSL \tab: Pulsed OSL \cr
+\link{,11} \tab SGOSL \tab: Single Grain OSL\cr
+\link{,12} \tab RL \tab: Radio Luminescence \cr
+\link{,13} \tab XRF \tab: X-ray Fluorescence
+}
 
-**DTYPE** values \tabular{rll}{ [,0] \tab 0 \tab Natural \cr [,1] \tab 1
-\tab N+dose \cr [,2] \tab 2 \tab Bleach \cr [,3] \tab 3 \tab Bleach+dose \cr
-[,4] \tab 4 \tab Natural (Bleach) \cr [,5] \tab 5 \tab N+dose (Bleach) \cr
-[,6] \tab 6 \tab Dose \cr [,7] \tab 7 \tab Background }
+\strong{DTYPE} values
 
-**LIGHTSOURCE** values \tabular{rll}{ [,0] \tab 0 \tab Non \cr [,1] \tab
-1 \tab Lamp \cr [,2] \tab 2 \tab IR diodes/IR Laser \cr [,3] \tab 3 \tab
-Calibration LED \cr [,4] \tab 4 \tab Blue Diodes \cr [,5] \tab 5 \tab White
-lite \cr [,6] \tab 6 \tab Green laser (single grain) \cr [,7] \tab 7 \tab IR
-laser (single grain) }
+\tabular{rll}{
+\link{,0} \tab 0 \tab Natural \cr
+\link{,1} \tab 1 \tab N+dose \cr
+\link{,2} \tab 2 \tab Bleach \cr
+\link{,3} \tab 3 \tab Bleach+dose \cr
+\link{,4} \tab 4 \tab Natural (Bleach) \cr
+\link{,5} \tab 5 \tab N+dose (Bleach) \cr
+\link{,6} \tab 6 \tab Dose \cr
+\link{,7} \tab 7 \tab Background
+}
 
-(information on the BIN/BINX file format are kindly provided by Risoe, DTU
-Nutech)
+\strong{LIGHTSOURCE} values
+
+\tabular{rll}{
+\link{,0} \tab 0 \tab Non \cr
+\link{,1} \tab 1 \tab Lamp \cr
+\link{,2} \tab 2 \tab IR diodes/IR Laser \cr
+\link{,3} \tab 3 \tab Calibration LED \cr
+\link{,4} \tab 4 \tab Blue Diodes \cr
+\link{,5} \tab 5 \tab White lite \cr
+\link{,6} \tab 6 \tab Green laser (single grain) \cr
+\link{,7} \tab 7 \tab IR laser (single grain) }
+
+(information on the BIN/BINX file format are kindly provided by Risoe, DTU Nutech)
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
-`new("Risoe.BINfileData", ...)`.
+\code{new("Risoe.BINfileData", ...)}.
 }
 
 \section{Function version}{
@@ -193,18 +213,17 @@ showClass("Risoe.BINfileData")
 
 }
 \references{
-Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016. The
-Sequence Editor User Manual - Feburar 2016
+Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016.
 
-`http://www.nutech.dtu.dk/`
+The Sequence Editor User Manual - Feburar 2016
+
+\url{http://www.nutech.dtu.dk/}
 }
 \seealso{
-[plot_Risoe.BINfileData], [read_BIN2R],
-[write_R2BIN],[merge_Risoe.BINfileData],
-[Risoe.BINfileData2RLum.Analysis],
+\link{plot_Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN},
+\link{merge_Risoe.BINfileData}, \link{Risoe.BINfileData2RLum.Analysis},
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{classes}

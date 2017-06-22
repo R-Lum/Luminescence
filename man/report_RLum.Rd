@@ -61,11 +61,10 @@ following structure:
 \tabular{ll}{
 \strong{Section} \tab \strong{Description} \cr
 \code{Header} \tab A summary of general characteristics of the object \cr
-\code{Object content} \tab A comprehensive list of the complete structure
-and content of the provided object. \cr
+\code{Object content} \tab A comprehensive list of the complete structure and content of the provided object. \cr
 \code{Object structure} \tab Summary of the objects structure given as a table \cr
 \code{File} \tab Information on the saved RDS file \cr
-\code{Session Info} \tab Captured output from sessionInfo() \cr
+\code{Session Info} \tab Captured output from \code{sessionInfo()} \cr
 \code{Plots} \tab (\emph{optional}) For \code{RLum-class} objects a variable number of plots \cr
 }
 

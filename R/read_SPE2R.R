@@ -8,60 +8,62 @@
 #' Princton Instruments and a MatLab script written by Carl Hall (s.
 #' references).
 #'
-#' @param file [character] (**required**): spe-file name (including
-#' path), e.g. \cr `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`, \cr
-#' `[MAC/LINUX]`: `readSPER("/User/test/Desktop/test.spe")`
+#' @param file [character] (**required**): 
+#' spe-file name (including path), e.g.
+#' - `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`
+#' - `[MAC/LINUX]`: `readSPER("/User/test/Desktop/test.spe")`
 #'
-#' @param output.object [character] (*with default*): set `RLum`
-#' output object.  Allowed types are `"RLum.Data.Spectrum"`,
+#' @param output.object [character] (*with default*): 
+#' set `RLum` output object.  Allowed types are `"RLum.Data.Spectrum"`,
 #' `"RLum.Data.Image"` or `"matrix"`
 #'
-#' @param frame.range [vector] (*optional*): limit frame range, e.g.
-#' select first 100 frames by `frame.range = c(1,100)`
+#' @param frame.range [vector] (*optional*): 
+#' limit frame range, e.g. select first 100 frames by `frame.range = c(1,100)`
 #'
-#' @param txtProgressBar [logical] (*with default*): enables or disables
-#' [txtProgressBar].
+#' @param txtProgressBar [logical] (*with default*): 
+#' enables or disables [txtProgressBar].
 #'
-#' @return Depending on the chosen option the functions returns three different
-#' type of objects:\cr
+#' @return 
+#' Depending on the chosen option the functions returns three different
+#' type of objects:
+#' 
+#' `output.object`
 #'
-#' `output.object`. \cr
-#'
-#' `RLum.Data.Spectrum`\cr
+#' `RLum.Data.Spectrum`
 #'
 #' An object of type [RLum.Data.Spectrum-class] is returned.  Row
 #' sums are used to integrate all counts over one channel.
 #'
-#' `RLum.Data.Image`\cr
+#' `RLum.Data.Image`
 #'
 #' An object of type [RLum.Data.Image-class] is returned.  Due to
 #' performace reasons the import is aborted for files containing more than 100
 #' frames. This limitation can be overwritten manually by using the argument
 #' `frame.frange`.
 #'
-#' `matrix`\cr
+#' `matrix`
 #'
 #' Returns a matrix of the form: Rows = Channels, columns = Frames. For the
 #' transformation the function [get_RLum] is used,
 #' meaning that the same results can be obtained by using the function
 #' [get_RLum] on an `RLum.Data.Spectrum` or `RLum.Data.Image` object.
-#' @note \bold{The function does not test whether the input data are spectra or
-#' pictures for spatial resolved analysis!}\cr
+#' 
+#' @note
+#' **The function does not test whether the input data are spectra or pictures for spatial resolved analysis!**
 #'
 #' The function has been successfully tested for SPE format versions 2.x.
 #'
-#' \emph{Currently not all information provided by the SPE format are
-#' supported.}
+#' *Currently not all information provided by the SPE format are supported.*
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso [readBin], [RLum.Data.Spectrum-class],
-#' [raster::raster]
+#' @seealso [readBin], [RLum.Data.Spectrum-class], [raster::raster]
 #'
-#' @references Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
+#' @references 
+#' Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 #' Format Specification, Version 1.A (for document URL please use an internet search machine)
 #'
 #' Hall, C., 2012: readSPE.m.
@@ -70,7 +72,6 @@
 #' @keywords IO
 #'
 #' @examples
-#'
 #'
 #' ## to run examples uncomment lines and run the code
 #'

@@ -8,39 +8,42 @@ read_SPE2R(file, output.object = "RLum.Data.Image", frame.range,
   txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\link{character} (\strong{required}): spe-file name (including
-path), e.g. \cr \code{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
-\code{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}}
+\item{file}{\link{character} (\strong{required}):
+spe-file name (including path), e.g.
+\itemize{
+\item \code{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
+\item \code{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}
+}}
 
-\item{output.object}{\link{character} (\emph{with default}): set \code{RLum}
-output object.  Allowed types are \code{"RLum.Data.Spectrum"},
+\item{output.object}{\link{character} (\emph{with default}):
+set \code{RLum} output object.  Allowed types are \code{"RLum.Data.Spectrum"},
 \code{"RLum.Data.Image"} or \code{"matrix"}}
 
-\item{frame.range}{\link{vector} (\emph{optional}): limit frame range, e.g.
-select first 100 frames by \code{frame.range = c(1,100)}}
+\item{frame.range}{\link{vector} (\emph{optional}):
+limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}}
 
-\item{txtProgressBar}{\link{logical} (\emph{with default}): enables or disables
-\link{txtProgressBar}.}
+\item{txtProgressBar}{\link{logical} (\emph{with default}):
+enables or disables \link{txtProgressBar}.}
 }
 \value{
 Depending on the chosen option the functions returns three different
-type of objects:\cr
+type of objects:
 
-\code{output.object}. \cr
+\code{output.object}
 
-\code{RLum.Data.Spectrum}\cr
+\code{RLum.Data.Spectrum}
 
 An object of type \linkS4class{RLum.Data.Spectrum} is returned.  Row
 sums are used to integrate all counts over one channel.
 
-\code{RLum.Data.Image}\cr
+\code{RLum.Data.Image}
 
 An object of type \linkS4class{RLum.Data.Image} is returned.  Due to
 performace reasons the import is aborted for files containing more than 100
 frames. This limitation can be overwritten manually by using the argument
 \code{frame.frange}.
 
-\code{matrix}\cr
+\code{matrix}
 
 Returns a matrix of the form: Rows = Channels, columns = Frames. For the
 transformation the function \link{get_RLum} is used,
@@ -58,20 +61,17 @@ Princton Instruments and a MatLab script written by Carl Hall (s.
 references).
 }
 \note{
-\bold{The function does not test whether the input data are spectra or
-pictures for spatial resolved analysis!}\cr
+\strong{The function does not test whether the input data are spectra or pictures for spatial resolved analysis!}
 
 The function has been successfully tested for SPE format versions 2.x.
 
-\emph{Currently not all information provided by the SPE format are
-supported.}
+\emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
  0.1.0
 }
 
 \examples{
-
 
 ## to run examples uncomment lines and run the code
 
@@ -105,11 +105,9 @@ Hall, C., 2012: readSPE.m.
 \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
 }
 \seealso{
-\link{readBin}, \linkS4class{RLum.Data.Spectrum},
-\link[raster:raster]{raster::raster}
+\link{readBin}, \linkS4class{RLum.Data.Spectrum}, \link[raster:raster]{raster::raster}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{IO}
