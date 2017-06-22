@@ -105,7 +105,9 @@ regenerative or additive protocol. The function supports interpolation and
 extraxpolation to calculate the equivalent dose.
 }
 \details{
-\strong{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
+\strong{Fitting methods}
+
+For all options (except for the \code{LIN}, \code{QDR} and
 the \code{EXP OR LIN}), the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the
 \code{LM} (Levenberg-Marquardt algorithm) algorithm is used. Note: For historical reasons
 for the Monte Carlo simulations partly  the function \link{nls} using the \code{port} algorithm.
@@ -133,7 +135,7 @@ function has no physical meaning. Therefore, no D0 value is returned.\cr
 \code{EXP+EXP}: tries to fit a double exponential function of the form
 \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))} This fitting
 procedure is not robust against wrong start parameters and should be further
-improved.\cr\cr
+improved.
 
 \strong{Fit weighting}\cr
 

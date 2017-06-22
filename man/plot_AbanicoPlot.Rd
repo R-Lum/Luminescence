@@ -180,7 +180,8 @@ user-defined numeric values (e.g. from the central age model) can be used if
 this appears appropriate. \cr The proportion of the polar part and the
 cartesian part of the Abanico Plot can be modfied for display reasons
 (\code{plot.ratio = 0.75}). By default, the polar part spreads over 75 \%
-and leaves 25 \% for the part that shows the KDE graph.\cr\cr
+and leaves 25 \% for the part that shows the KDE graph.
+
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
 one or more of the following keywords:
@@ -206,7 +207,7 @@ Note as well, that \code{"calc_Statistics()"} calculates these statistic
 measures in three different ways: \code{unweighted}, \code{weighted} and
 \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
-with the appropriate keyword using the argument \code{summary.method}.\cr\cr
+with the appropriate keyword using the argument \code{summary.method}.
 
 The optional parameter \code{layout} allows to modify the entire plot more
 sophisticated. Each element of the plot can be addressed and its properties
@@ -214,7 +215,9 @@ can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
 cf. \code{get_Layout()} or type eg. for the layout type \code{"journal"}
 \code{get_Layout("journal")}. A layout type can be modified by the user by
-assigning new values to the list object.\cr\cr It is possible for the
+assigning new values to the list object.
+
+It is possible for the
 z-scale to specify where ticks are to be drawn by using the parameter
 \code{at}, e.g. \code{at = seq(80, 200, 20)}, cf. function documentation of
 \code{axis}. Specifying tick positions manually overrides a

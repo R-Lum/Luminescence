@@ -13,7 +13,9 @@
 #' ymax_axis1, ymin_axis2, ymax_axis2) when using the cumulative values plot
 #' option. See examples for some further explanations. For details on the
 #' calculation of the bin-width (parameter `bw`) see
-#' [density].\cr\cr
+#' [density].
+#'
+#'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords:
@@ -37,7 +39,9 @@
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. If you wish to use another method, indicate this
-#' with the appropriate keyword using the argument `summary.method`.\cr\cr
+#' with the appropriate keyword using the argument `summary.method`.
+#'
+#'
 #' @param data [data.frame] or [RLum.Results-class]
 #' object (**required**): for `data.frame`: two columns: De
 #' (`values[,1]`) and De error (`values[,2]`). For plotting multiple

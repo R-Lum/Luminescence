@@ -4,7 +4,9 @@
 #' opened by the Analyst software or other Risoe software.
 #'
 #' The structure of the exported binary data follows the data structure
-#' published in the Appendices of the Analyst manual p. 42.\cr\cr If
+#' published in the Appendices of the Analyst manual p. 42.
+#'
+#' If
 #' `LTYPE`, `DTYPE` and `LIGHTSOURCE` are not of type
 #' [character], no transformation into numeric values is done.
 #'
@@ -17,7 +19,9 @@
 #'
 #' @param version [character] *(optional)*: version number for the
 #' output file. If no value is provided the highest version number from the
-#' [Risoe.BINfileData-class] is taken automatically.\cr\cr Note:
+#' [Risoe.BINfileData-class] is taken automatically.
+#'
+#' Note:
 #' This argument can be used to convert BIN-file versions.
 #'
 #' @param compatibility.mode [logical] *(with default)*: this option
@@ -29,7 +33,9 @@
 #' [txtProgressBar].
 #' @return Write a binary file.
 #' @note The function just roughly checks the data structures. The validity of
-#' the output data depends on the user.\cr\cr The validity of the file path is
+#' the output data depends on the user.
+#'
+#' The validity of the file path is
 #' not further checked. \cr BIN-file conversions using the argument
 #' `version` may be a lossy conversion, depending on the chosen input and
 #' output data (e.g., conversion from version 08 to 07 to 06 to 04 or 03).\cr

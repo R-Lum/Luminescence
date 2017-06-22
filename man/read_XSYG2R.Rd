@@ -32,11 +32,17 @@ a link to a folder, to select just specific XSYG-files}
 disables \code{FALSE} the progression bar during import}
 }
 \value{
-\strong{Using the option \code{import = FALSE}}\cr\cr A list
+\strong{Using the option \code{import = FALSE}}
+
+A list
 consisting of two elements is shown: \item{Sample}{\link{data.frame} with
 information on file.} \item{Sequences}{\link{data.frame} with information on
-the sequences stored in the XSYG file}.\cr\cr \bold{Using the option
-\code{import = TRUE} (default)} \cr\cr A list is provided, the list elements
+the sequences stored in the XSYG file}.
+
+\bold{Using the option
+\code{import = TRUE} (default)}
+
+A list is provided, the list elements
 contain: \item{Sequence.Header}{\link{data.frame} with information on the
 sequence.} \item{Sequence.Object}{\linkS4class{RLum.Analysis}
 containing the curves.}
@@ -45,18 +51,26 @@ containing the curves.}
 Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
 }
 \details{
-\strong{How does the import function work?}\cr\cr The function uses the
+\strong{How does the import function work?}
+
+The function uses the
 \link{xml} package to parse the file structure. Each sequence is
 subsequently translated into an \linkS4class{RLum.Analysis}
-object.\cr\cr
+object.
 
-\strong{General structure XSYG format}\cr\cr \code{<?xml?}\cr \code{
+\strong{General structure XSYG format}
+
+\code{<?xml?}\cr \code{
 <Sample>}\cr \code{<Sequence>}\cr \code{<Record>}\cr \code{ <Curve
 name="first curve" />}\cr \code{<Curve name="curve with data">}\cr \code{
 x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3}\cr \code{</Curve>}\cr \code{
-</Record>}\cr \code{</Sequence>}\cr \code{</Sample>}\cr\cr So far, each
+</Record>}\cr \code{</Sequence>}\cr \code{</Sample>}
+
+So far, each
 XSYG file can only contain one \code{<Sample></Sample>}, but multiple
-sequences. \cr\cr Each record may comprise several curves.\cr\cr
+sequences.
+
+Each record may comprise several curves.
 
 \strong{TL curve recalculation}\cr
 
@@ -143,9 +157,11 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 }
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
-XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
+XSYG file format. Unpublished Technical Note. Freiberg, Germany
 
-\strong{Further reading} \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
+\strong{Further reading}
+
+XML: \url{http://en.wikipedia.org/wiki/XML}
 }
 \seealso{
 \link{xml}, \linkS4class{RLum.Analysis},

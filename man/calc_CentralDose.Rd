@@ -70,32 +70,32 @@ calc_CentralDose(ExampleData.DeValues$CA1)
 }
 \references{
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
-mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470. \cr\cr
+mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470.
 
 Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
 J.M., 1999. Optical dating of single grains of quartz from Jinmium rock
 shelter, northern Australia. Part I: experimental design and statistical
-models.  Archaeometry 41, 339-364. \cr\cr
+models.  Archaeometry 41, 339-364.
 
 Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose and error calculation and
 display in OSL dating: An overview and some recommendations. Quaternary
-Geochronology 11, 1-27. \cr \cr
+Geochronology 11, 1-27.
 
-\strong{Further reading} \cr\cr
+\strong{Further reading}
 
 Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 (De) distributions: Implications for OSL dating of sediment mixtures.
-Quaternary Geochronology 4, 204-230. \cr\cr
+Quaternary Geochronology 4, 204-230.
 
 Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 assessment of procedures for estimating burial dose. Quaternary Science
-Reviews 25, 2475-2502. \cr\cr
+Reviews 25, 2475-2502.
 
 Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial archives using robust OSL chronologies.
-Quaternary Geochronology 12, 98-106. \cr\cr
+Quaternary Geochronology 12, 98-106.
 
 Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
-of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120. \cr\cr
+of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120.
 
 Rodnight, H., 2008. How many equivalent dose values are needed to
 obtain a reproducible distribution?. Ancient TL 26, 3-10.

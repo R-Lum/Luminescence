@@ -29,7 +29,7 @@ available on GitHub. The user is then prompted to choose one of the branches
 to be installed. It further checks whether the R package 'devtools' is
 currently installed and available on the system. Finally, it prints R code
 to the console that the user can copy and paste to the R console in order
-to install the desired development version of the package.\cr\cr
+to install the desired development version of the package.
 
 If \code{force_install=TRUE} the functions checks if 'devtools' is available
 and then attempts to install the chosen development branch via

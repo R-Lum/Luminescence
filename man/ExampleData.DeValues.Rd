@@ -7,7 +7,9 @@
 \link{data.frame}:
 
 \describe{ \code{$BT998}: De and De error values for a fine grain quartz
-sample from a loess section in Rottewitz.\cr\cr \code{$CA1}: Single grain De
+sample from a loess section in Rottewitz.
+
+\code{$CA1}: Single grain De
 and De error values for a coarse grain quartz sample from a fluvial deposit
 in the rock shelter of Cueva Anton }}
 \description{
@@ -33,8 +35,12 @@ plot_Histogram(De.values, xlab = "De [Gy]")
 
 }
 \references{
-\strong{BT998} \cr\cr Unpublished data \cr\cr
-\strong{CA1} \cr\cr
+\strong{BT998}
+
+Unpublished data
+
+\strong{CA1}
+
 Burow, C., Kehl, M., Hilgers, A., Weniger, G.-C., Angelucci, D., Villaverde,
 V., Zapata, J. and Zilhao, J.  (2015). Luminescence dating of fluvial
 deposits in the rock shelter of Cueva Anton, Spain. Geochronometria 52, 107-125.

@@ -603,11 +603,19 @@ NULL
 #' [data.frame]:
 #'
 #' \describe{ `$BT998`: De and De error values for a fine grain quartz
-#' sample from a loess section in Rottewitz.\cr\cr `$CA1`: Single grain De
+#' sample from a loess section in Rottewitz.
+#'
+#' `$CA1`: Single grain De
 #' and De error values for a coarse grain quartz sample from a fluvial deposit
 #' in the rock shelter of Cueva Anton }
-#' @references **BT998** \cr\cr Unpublished data \cr\cr
-#' **CA1** \cr\cr
+#' @references **BT998** 
+#'
+#' Unpublished data 
+#'
+#'
+#' **CA1** 
+#'
+#'
 #' Burow, C., Kehl, M., Hilgers, A., Weniger, G.-C., Angelucci, D., Villaverde,
 #' V., Zapata, J. and Zilhao, J.  (2015). Luminescence dating of fluvial
 #' deposits in the rock shelter of Cueva Anton, Spain. Geochronometria 52, 107-125.
@@ -666,7 +674,9 @@ NULL
 #' `..$IR100`: Fading data of the IR100 signal.\cr
 #' `..$IR150`: Fading data of the IR150 signal.\cr
 #' `..$IR225`: Fading data of the IR225 signal.\cr
-#' \cr\cr
+#' 
+#'
+#'
 #'
 #' `$equivalentDose.data`: A named of [data.frame]s,
 #' each having three named columns (`dose, LxTx, LxTx.error`).\cr
@@ -674,7 +684,9 @@ NULL
 #' `..$IR100`: Equivalent dose measurement data of the IR100 signal.\cr
 #' `..$IR150`: Equivalent dose measurement data of the IR150 signal.\cr
 #' `..$IR225`: Equivalent dose measurement data of the IR225 signal.\cr
-#' \cr\cr
+#' 
+#'
+#'
 #'
 #' }
 #'

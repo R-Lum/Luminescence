@@ -37,7 +37,9 @@
 #' @references Bulur, E., 2000. A simple transformation for converting CW-OSL
 #' curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
 #'
-#' **Further Reading**\cr\cr Bulur, E., 1996. An Alternative Technique For
+#' **Further Reading**
+#'
+#' Bulur, E., 1996. An Alternative Technique For
 #' Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 #' 26, 701-709.
 #' @keywords manip

@@ -82,13 +82,15 @@ reader into R.
 }
 \details{
 The binary data file is parsed byte by byte following the data structure
-published in the Appendices of the Analyst manual p. 42.\cr\cr For the
+published in the Appendices of the Analyst manual p. 42.
+
+For the
 general BIN-file structure, the reader is referred to the Risoe website:
 \code{http://www.nutech.dtu.dk/}
 }
 \note{
 The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
-version number depends on the used Sequence Editor.\cr\cr
+version number depends on the used Sequence Editor.
 
 \bold{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint
 import.}

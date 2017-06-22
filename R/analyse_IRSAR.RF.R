@@ -35,7 +35,9 @@
 #' \eqn{\phi_{0}} the initial IR-RF flux, 
 #' \eqn{\Delta\phi} the dose dependent change of the IR-RF flux,
 #' \eqn{\lambda} the exponential parameter, \eqn{D} the dose and 
-#' \eqn{\beta} the dispersive factor.\cr\cr To obtain the palaeodose 
+#' \eqn{\beta} the dispersive factor.
+#'
+#' To obtain the palaeodose 
 #' \eqn{D_{e}} the function is changed to:
 #' 
 #' \deqn{D_{e} = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}

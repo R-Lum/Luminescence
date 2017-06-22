@@ -32,7 +32,9 @@
 #' this appears appropriate. \cr The proportion of the polar part and the
 #' cartesian part of the Abanico Plot can be modfied for display reasons
 #' (`plot.ratio = 0.75`). By default, the polar part spreads over 75 \%
-#' and leaves 25 \% for the part that shows the KDE graph.\cr\cr
+#' and leaves 25 \% for the part that shows the KDE graph.
+#'
+#'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords:
@@ -58,7 +60,9 @@
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. If you wish to use another method, indicate this
-#' with the appropriate keyword using the argument `summary.method`.\cr\cr
+#' with the appropriate keyword using the argument `summary.method`.
+#'
+#'
 #'
 #' The optional parameter `layout` allows to modify the entire plot more
 #' sophisticated. Each element of the plot can be addressed and its properties
@@ -66,7 +70,9 @@
 #' sizes of all plot items. To infer the definition of a specific layout style
 #' cf. `get_Layout()` or type eg. for the layout type `"journal"`
 #' `get_Layout("journal")`. A layout type can be modified by the user by
-#' assigning new values to the list object.\cr\cr It is possible for the
+#' assigning new values to the list object.
+#'
+#' It is possible for the
 #' z-scale to specify where ticks are to be drawn by using the parameter
 #' `at`, e.g. `at = seq(80, 200, 20)`, cf. function documentation of
 #' `axis`. Specifying tick positions manually overrides a

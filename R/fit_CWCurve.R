@@ -5,27 +5,43 @@
 #' components and returns various component parameters. The fitting procedure
 #' uses the [nls] function with the `port` algorithm.
 #'
-#' **Fitting function**\cr\cr The function for the CW-OSL fitting has the
+#' **Fitting function**
+#'
+#' The function for the CW-OSL fitting has the
 #' general form: \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, +
-#' I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } where \eqn{0 < i < 8}\cr\cr and
+#' I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } where \eqn{0 < i < 8}
+#'
+#' and
 #' \eqn{\lambda} is the decay constant and \eqn{I0} the intial number of
 #' trapped electrons.\cr (for the used equation cf. Boetter-Jensen et al.,
-#' 2003, Eq. 2.31)\cr\cr **Start values**\cr
+#' 2003, Eq. 2.31)
+#'
+#' **Start values**\cr
 #'
 #' Start values are estimated automatically by fitting a linear function to the
 #' logarithmized input data set. Currently, there is no option to manually
-#' provide start parameters. \cr\cr **Goodness of fit**\cr\cr The goodness
+#' provide start parameters. 
+#'
+#' **Goodness of fit**
+#'
+#' The goodness
 #' of the fit is given as pseudoR^2 value (pseudo coefficient of
 #' determination). According to Lave (1970), the value is calculated as:
 #' \deqn{pseudoR^2 = 1 - RSS/TSS} where \eqn{RSS = Residual~Sum~of~Squares} \cr
-#' and \eqn{TSS = Total~Sum~of~Squares}\cr\cr
+#' and \eqn{TSS = Total~Sum~of~Squares}
 #'
-#' **Error of fitted component parameters**\cr\cr The 1-sigma error for the
+#'
+#'
+#' **Error of fitted component parameters**
+#'
+#' The 1-sigma error for the
 #' components is calculated using the function [confint]. Due to
 #' considerable calculation time, this option is deactived by default. In
 #' addition, the error for the components can be estimated by using internal R
 #' functions like [summary]. See the [nls] help page
-#' for more information.\cr\cr \emph{For details on the nonlinear regression in
+#' for more information.
+#'
+#' \emph{For details on the nonlinear regression in
 #' R, see Ritz & Streibig (2008).}
 #'
 #' @param values [RLum.Data.Curve-class] or [data.frame]
@@ -69,10 +85,14 @@
 #' plot.} \item{table}{*(optional)* an output table (*.csv) with parameters of
 #' the fitted components is provided if the `output.path` is set.}
 #' \item{list(list("RLum.Results"))}{beside the plot and table output options,
-#' an [RLum.Results-class] object is returned.\cr\cr `fit`:
+#' an [RLum.Results-class] object is returned.
+#'
+#' `fit`:
 #' an `nls` object (`$fit`) for which generic R functions are
 #' provided, e.g. [summary], [confint], [profile]. For more
-#' details, see [nls].\cr\cr `output.table`: a [data.frame]
+#' details, see [nls].
+#'
+#' `output.table`: a [data.frame]
 #' containing the summarised parameters including the error\cr
 #' `component.contribution.matrix`: [matrix] containing the values
 #' for the component to sum contribution plot
@@ -83,10 +103,14 @@
 #' containing I0 and n0. The last columns `cont.` provide information on
 #' the relative component contribution for each time interval including the row
 #' sum for this values. }\item{ object}{beside the plot and table output
-#' options, an [RLum.Results-class] object is returned.\cr\cr
+#' options, an [RLum.Results-class] object is returned.
+#'
+#'
 #' `fit`: an `nls` object (`$fit`) for which generic R functions
 #' are provided, e.g. [summary], [confint], [profile]. For more
-#' details, see [nls].\cr\cr `output.table`: a [data.frame]
+#' details, see [nls].
+#'
+#' `output.table`: a [data.frame]
 #' containing the summarised parameters including the error\cr
 #' `component.contribution.matrix`: [matrix] containing the values
 #' for the component to sum contribution plot
@@ -98,10 +122,14 @@
 #' the relative component contribution for each time interval including the row
 #' sum for this values. }
 #' @note \bold{Beta version - This function has not been properly tested yet
-#' and should therefore not be used for publication purposes!}\cr\cr The
+#' and should therefore not be used for publication purposes!}
+#'
+#' The
 #' pseudo-R^2 may not be the best parameter to describe the goodness of the
 #' fit. The trade off between the `n.components` and the pseudo-R^2 value
-#' is currently not considered.\cr\cr The function **does not** ensure that
+#' is currently not considered.
+#'
+#' The function **does not** ensure that
 #' the fitting procedure has reached a global minimum rather than a local
 #' minimum!
 #'

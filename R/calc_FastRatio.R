@@ -80,13 +80,19 @@
 #' @references 
 #' Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 #' the dominance of the fast component in the initial OSL signal from quartz.
-#' Radiation Measurements 46, 1065-1072. \cr\cr
+#' Radiation Measurements 46, 1065-1072. 
+#'
+#'
 #' 
 #' Madsen, A.T., Duller, G.A.T., Donnelly, J.P., Roberts, H.M. & Wintle, A.G., 2009.
 #' A chronology of hurricane landfalls at Little Sippewissett Marsh, Massachusetts, USA,
-#' using optical dating. Geomorphology 109, 36-45. \cr\cr
+#' using optical dating. Geomorphology 109, 36-45. 
 #'
-#' **Further reading** \cr\cr
+#'
+#'
+#' **Further reading** 
+#'
+#'
 #' 
 #' Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation 
 #' due to unstable signal components. Quaternary Geochronology 4, 353-362.

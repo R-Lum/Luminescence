@@ -35,7 +35,9 @@
 #' which is assumed for the photomultiplier counts). In that case (might be the
 #' normal case) it has to be accounted for the overdispersion by estimating
 #' \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
-#' standard error is calculated as:\cr\cr 
+#' standard error is calculated as:
+#'
+#' 
 #' 
 #' - `poisson`
 #' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k} 

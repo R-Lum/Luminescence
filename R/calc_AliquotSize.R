@@ -12,7 +12,9 @@
 #' mineral grains (mm) and `d` is the packing density (value between 0 and
 #' 1). \cr
 #'
-#' **Packing density** \cr\cr 
+#' **Packing density** 
+#'
+#' 
 #' 
 #' The default value for `packing.density`
 #' is 0.65, which is the mean of empirical values determined by Heer et al.
@@ -23,13 +25,17 @@
 #' PECC (*"Packing Equal Circles in a Circle"*) problem where the maximum packing density is
 #' asymptotic to about 0.87. \cr
 #'
-#' **Monte Carlo simulation** \cr\cr 
+#' **Monte Carlo simulation** 
+#'
+#' 
 #' 
 #' The number of grains on an aliquot can
 #' be estimated by Monte Carlo simulation when setting `MC = TRUE`. Each
 #' of the parameters necessary to calculate `n` (`x`, `y`,
 #' `d`) are assumed to be normally distributed with means 
-#' \eqn{\mu_x, \mu_y, \mu_d} and standard deviations \eqn{\sigma_x, \sigma_y, \sigma_d}. \cr\cr 
+#' \eqn{\mu_x, \mu_y, \mu_d} and standard deviations \eqn{\sigma_x, \sigma_y, \sigma_d}. 
+#'
+#' 
 #' 
 #' For the mean grain size random samples are taken first from
 #' \eqn{N(\mu_y, \sigma_y)}, where \eqn{\mu_y = mean.grain.size} and
@@ -38,13 +44,17 @@
 #' into account that after sieving the sample there is still a small chance of
 #' having grains smaller or larger than the used mesh sizes. For each random
 #' sample the mean grain size is calculated, from which random subsamples are
-#' drawn for the Monte Carlo simulation. \cr\cr 
+#' drawn for the Monte Carlo simulation. 
+#'
+#' 
 #' 
 #' The packing density is assumed
 #' to be normally distributed with an empirically determined \eqn{\mu = 0.65}
 #' (or provided value) and \eqn{\sigma = 0.18}. The normal distribution is
 #' truncated at `d = 0.87` as this is approximately the maximum packing
-#' density that can be achieved in PECC problem. \cr\cr 
+#' density that can be achieved in PECC problem. 
+#'
+#' 
 #' 
 #' The sample diameter has
 #' \eqn{\mu = sample.diameter} and \eqn{\sigma = 0.2} to take into account
@@ -52,7 +62,9 @@
 #' disc). A lower truncation point at `x = 0.5` is used, which assumes
 #' that aliqouts with smaller sample diameters of 0.5 mm are discarded.
 #' Likewise, the normal distribution is truncated at 9.8 mm, which is the
-#' diameter of the sample disc. \cr\cr 
+#' diameter of the sample disc. 
+#'
+#' 
 #' 
 #' For each random sample drawn from the
 #' normal distributions the amount of grains on the aliquot is calculated. By
@@ -112,9 +124,13 @@
 #' 589-612.
 #'
 #' Heer, A.J., Adamiec, G., Moska, P., 2012. How many grains
-#' are there on a single aliquot?. Ancient TL 30, 9-16. \cr\cr
+#' are there on a single aliquot?. Ancient TL 30, 9-16. 
 #'
-#' **Further reading** \cr\cr
+#'
+#'
+#' **Further reading** 
+#'
+#'
 #'
 #' Chang, H.-C., Wang, L.-C., 2010. A simple proof of Thue's
 #' Theorem on Circle Packing. [http://arxiv.org/pdf/1009.4322v1.pdf](),

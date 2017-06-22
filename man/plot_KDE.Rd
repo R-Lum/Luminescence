@@ -71,7 +71,8 @@ separate plots, \code{ylim} must be specified in the order: c(ymin_axis1,
 ymax_axis1, ymin_axis2, ymax_axis2) when using the cumulative values plot
 option. See examples for some further explanations. For details on the
 calculation of the bin-width (parameter \code{bw}) see
-\link{density}.\cr\cr
+\link{density}.
+
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
 one or more of the following keywords:
@@ -95,7 +96,7 @@ Note as well, that \code{"calc_Statistics()"} calculates these statistic
 measures in three different ways: \code{unweighted}, \code{weighted} and
 \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
-with the appropriate keyword using the argument \code{summary.method}.\cr\cr
+with the appropriate keyword using the argument \code{summary.method}.
 }
 \note{
 The plot output is no 'probability density' plot (cf. the discussion

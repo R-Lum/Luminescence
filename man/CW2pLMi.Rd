@@ -33,23 +33,34 @@ using the interpolation procedure described by Bos & Wallinga (2012).
 \details{
 The complete procedure of the transformation is given in Bos & Wallinga
 (2012). The input \code{data.frame} consists of two columns: time (t) and
-count values (CW(t))\cr\cr
+count values (CW(t))
 
-\strong{Nomenclature}\cr\cr P = stimulation time (s)\cr 1/P = stimulation rate
-(1/s)\cr\cr
+\strong{Nomenclature}
 
-\strong{Internal transformation steps}\cr\cr (1) log(CW-OSL) values\cr (2)
+P = stimulation time (s)\cr 1/P = stimulation rate
+(1/s)
+
+\strong{Internal transformation steps}
+
+(1) log(CW-OSL) values\cr (2)
 Calculate t' which is the transformed time: \deqn{t' = 1/2*1/P*t^2}
 
 (3) Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
 for the transformed time (t'). Values beyond \code{min(t)} and \code{max(t)}
-produce \code{NA} values.\cr\cr (4) Select all values for t' <
+produce \code{NA} values.
+
+(4) Select all values for t' <
 \code{min(t)}, i.e. values beyond the time resolution of t. Select the first
 two values of the transformed data set which contain no \code{NA} values and
-use these values for a linear fit using \link{lm}.\cr\cr (5)
+use these values for a linear fit using \link{lm}.
+
+(5)
 Extrapolate values for t' < \code{min(t)} based on the previously obtained
-fit parameters.\cr\cr (6) Transform values using \deqn{pLM(t) = t/P*CW(t')}
-(7) Combine values and truncate all values for t' > \code{max(t)}\cr\cr
+fit parameters.
+
+(6) Transform values using \deqn{pLM(t) = t/P*CW(t')}
+(7) Combine values and truncate all values for t' > \code{max(t)}
+
 \emph{The number of values for t' < \code{min(t)} depends on the stimulation
 period (P) and therefore on the stimulation rate 1/P. To avoid the
 production of too many artificial data at the raising tail of the determined
@@ -114,7 +125,9 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr
 
-\strong{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
+\strong{Further Reading}
+
+Bulur, E., 1996. An Alternative Technique For
 Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.
 
@@ -127,7 +140,9 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux
-Montaigne\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
+Montaigne
+
+Based on comments and suggestions from:\cr Adrie J.J. Bos,
 Delft University of Technology, The Netherlands\cr
 }
 \keyword{manip}

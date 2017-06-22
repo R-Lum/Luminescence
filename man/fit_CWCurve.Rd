@@ -68,10 +68,14 @@ curves.}
 plot.} \item{table}{\emph{(optional)} an output table (*.csv) with parameters of
 the fitted components is provided if the \code{output.path} is set.}
 \item{list(list("RLum.Results"))}{beside the plot and table output options,
-an \linkS4class{RLum.Results} object is returned.\cr\cr \code{fit}:
+an \linkS4class{RLum.Results} object is returned.
+
+\code{fit}:
 an \code{nls} object (\code{$fit}) for which generic R functions are
 provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
-details, see \link{nls}.\cr\cr \code{output.table}: a \link{data.frame}
+details, see \link{nls}.
+
+\code{output.table}: a \link{data.frame}
 containing the summarised parameters including the error\cr
 \code{component.contribution.matrix}: \link{matrix} containing the values
 for the component to sum contribution plot
@@ -82,10 +86,13 @@ Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns \code{cont.} provide information on
 the relative component contribution for each time interval including the row
 sum for this values. }\item{ object}{beside the plot and table output
-options, an \linkS4class{RLum.Results} object is returned.\cr\cr
+options, an \linkS4class{RLum.Results} object is returned.
+
 \code{fit}: an \code{nls} object (\code{$fit}) for which generic R functions
 are provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
-details, see \link{nls}.\cr\cr \code{output.table}: a \link{data.frame}
+details, see \link{nls}.
+
+\code{output.table}: a \link{data.frame}
 containing the summarised parameters including the error\cr
 \code{component.contribution.matrix}: \link{matrix} containing the values
 for the component to sum contribution plot
@@ -104,35 +111,53 @@ components and returns various component parameters. The fitting procedure
 uses the \link{nls} function with the \code{port} algorithm.
 }
 \details{
-\strong{Fitting function}\cr\cr The function for the CW-OSL fitting has the
+\strong{Fitting function}
+
+The function for the CW-OSL fitting has the
 general form: \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, +
-I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } where \eqn{0 < i < 8}\cr\cr and
+I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } where \eqn{0 < i < 8}
+
+and
 \eqn{\lambda} is the decay constant and \eqn{I0} the intial number of
 trapped electrons.\cr (for the used equation cf. Boetter-Jensen et al.,
-2003, Eq. 2.31)\cr\cr \strong{Start values}\cr
+2003, Eq. 2.31)
+
+\strong{Start values}\cr
 
 Start values are estimated automatically by fitting a linear function to the
 logarithmized input data set. Currently, there is no option to manually
-provide start parameters. \cr\cr \strong{Goodness of fit}\cr\cr The goodness
+provide start parameters.
+
+\strong{Goodness of fit}
+
+The goodness
 of the fit is given as pseudoR^2 value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 \deqn{pseudoR^2 = 1 - RSS/TSS} where \eqn{RSS = Residual~Sum~of~Squares} \cr
-and \eqn{TSS = Total~Sum~of~Squares}\cr\cr
+and \eqn{TSS = Total~Sum~of~Squares}
 
-\strong{Error of fitted component parameters}\cr\cr The 1-sigma error for the
+\strong{Error of fitted component parameters}
+
+The 1-sigma error for the
 components is calculated using the function \link{confint}. Due to
 considerable calculation time, this option is deactived by default. In
 addition, the error for the components can be estimated by using internal R
 functions like \link{summary}. See the \link{nls} help page
-for more information.\cr\cr \emph{For details on the nonlinear regression in
+for more information.
+
+\emph{For details on the nonlinear regression in
 R, see Ritz & Streibig (2008).}
 }
 \note{
 \bold{Beta version - This function has not been properly tested yet
-and should therefore not be used for publication purposes!}\cr\cr The
+and should therefore not be used for publication purposes!}
+
+The
 pseudo-R^2 may not be the best parameter to describe the goodness of the
 fit. The trade off between the \code{n.components} and the pseudo-R^2 value
-is currently not considered.\cr\cr The function \strong{does not} ensure that
+is currently not considered.
+
+The function \strong{does not} ensure that
 the fitting procedure has reached a global minimum rather than a local
 minimum!
 }

@@ -2,18 +2,30 @@
 #'
 #' Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
 #'
-#' **How does the import function work?**\cr\cr The function uses the
+#' **How does the import function work?**
+#'
+#' The function uses the
 #' [xml] package to parse the file structure. Each sequence is
 #' subsequently translated into an [RLum.Analysis-class]
-#' object.\cr\cr
+#' object.
 #'
-#' **General structure XSYG format**\cr\cr `<?xml?`\cr \code{
+#'
+#'
+#' **General structure XSYG format**
+#'
+#' `<?xml?`\cr \code{
 #' <Sample>}\cr ` <Sequence>`\cr ` <Record>`\cr \code{ <Curve
 #' name="first curve" />}\cr ` <Curve name="curve with data">`\cr \code{
 #' x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3}\cr ` </Curve>`\cr \code{
-#' </Record>}\cr ` </Sequence>`\cr ` </Sample>`\cr\cr So far, each
+#' </Record>}\cr ` </Sequence>`\cr ` </Sample>`
+#'
+#' So far, each
 #' XSYG file can only contain one `<Sample></Sample>`, but multiple
-#' sequences. \cr\cr Each record may comprise several curves.\cr\cr
+#' sequences. 
+#'
+#' Each record may comprise several curves.
+#'
+#'
 #'
 #' **TL curve recalculation**\cr
 #'
@@ -81,11 +93,17 @@
 #' @param txtProgressBar [logical] *(with default)*: enables `TRUE` or
 #' disables `FALSE` the progression bar during import
 #'
-#' @return **Using the option `import = FALSE`**\cr\cr A list
+#' @return **Using the option `import = FALSE`**
+#'
+#' A list
 #' consisting of two elements is shown: \item{Sample}{[data.frame] with
 #' information on file.} \item{Sequences}{[data.frame] with information on
-#' the sequences stored in the XSYG file}.\cr\cr \bold{Using the option
-#' `import = TRUE` (default)} \cr\cr A list is provided, the list elements
+#' the sequences stored in the XSYG file}.
+#'
+#' \bold{Using the option
+#' `import = TRUE` (default)} 
+#'
+#' A list is provided, the list elements
 #' contain: \item{Sequence.Header}{[data.frame] with information on the
 #' sequence.} \item{Sequence.Object}{[RLum.Analysis-class]
 #' containing the curves.}
@@ -110,9 +128,13 @@
 #'
 #'
 #' @references Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
-#' XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
+#' XSYG file format. Unpublished Technical Note. Freiberg, Germany 
 #'
-#' **Further reading** \cr\cr XML: [http://en.wikipedia.org/wiki/XML]()
+#'
+#'
+#' **Further reading** 
+#'
+#' XML: [http://en.wikipedia.org/wiki/XML]()
 #'
 #'
 #' @keywords IO

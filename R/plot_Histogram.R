@@ -4,7 +4,9 @@
 #' suggested by Rex Galbraith at the UK LED in Oxford 2010.
 #'
 #' If the normal curve is added, the y-axis in the histogram will show the
-#' probability density.\cr\cr
+#' probability density.
+#'
+#'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords: `"n"` (number of samples),

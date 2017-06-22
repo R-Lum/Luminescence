@@ -15,7 +15,6 @@ each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).
 \code{..$IR100}: Fading data of the IR100 signal.\cr
 \code{..$IR150}: Fading data of the IR150 signal.\cr
 \code{..$IR225}: Fading data of the IR225 signal.\cr
-\cr\cr
 
 \code{$equivalentDose.data}: A named of \link{data.frame}s,
 each having three named columns (\code{dose, LxTx, LxTx.error}).\cr
@@ -23,7 +22,6 @@ each having three named columns (\code{dose, LxTx, LxTx.error}).\cr
 \code{..$IR100}: Equivalent dose measurement data of the IR100 signal.\cr
 \code{..$IR150}: Equivalent dose measurement data of the IR150 signal.\cr
 \code{..$IR225}: Equivalent dose measurement data of the IR225 signal.\cr
-\cr\cr
 
 }}
 \source{

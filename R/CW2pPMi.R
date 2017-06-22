@@ -7,24 +7,42 @@
 #'
 #' The complete procedure of the transformation is given in Bos & Wallinga
 #' (2012). The input `data.frame` consists of two columns: time (t) and
-#' count values (CW(t))\cr\cr
+#' count values (CW(t))
 #'
-#' **Nomenclature**\cr\cr P = stimulation time (s)\cr 1/P = stimulation rate
-#' (1/s)\cr\cr
 #'
-#' **Internal transformation steps**\cr\cr (1) log(CW-OSL) values\cr\cr (2)
+#'
+#' **Nomenclature**
+#'
+#' P = stimulation time (s)\cr 1/P = stimulation rate
+#' (1/s)
+#'
+#'
+#'
+#' **Internal transformation steps**
+#'
+#' (1) log(CW-OSL) values
+#'
+#' (2)
 #' Calculate t' which is the transformed time: \deqn{t' = (1/3)*(1/P^2)t^3} (3)
 #' Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values for
 #' the transformed time (t'). Values beyond `min(t)` and `max(t)`
-#' produce `NA` values.\cr\cr (4) Select all values for t' <
+#' produce `NA` values.
+#'
+#' (4) Select all values for t' <
 #' `min(t)`, i.e. values beyond the time resolution of t. Select the first
 #' two values of the transformed data set which contain no `NA` values and
-#' use these values for a linear fit using [lm].\cr\cr (5)
+#' use these values for a linear fit using [lm].
+#'
+#' (5)
 #' Extrapolate values for t' < `min(t)` based on the previously obtained
 #' fit parameters. The extrapolation is limited to two values. Other values at
-#' the beginning of the transformed curve are set to 0.\cr\cr (6) Transform
+#' the beginning of the transformed curve are set to 0.
+#'
+#' (6) Transform
 #' values using \deqn{pLM(t) = t^2/P^2*CW(t')} (7) Combine all values and
-#' truncate all values for t' > `max(t)`\cr\cr
+#' truncate all values for t' > `max(t)`
+#'
+#'
 #'
 #' \emph{The number of values for t' < `min(t)` depends on the stimulation
 #' period `P`. To avoid the production of too many artificial data at the
@@ -56,14 +74,18 @@
 #' provided manually, not more than two points are extrapolated.
 #' @section Function version: 0.2.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
+#' (France)
+#'
+#' Based on comments and suggestions from:\cr Adrie J.J. Bos,
 #' Delft University of Technology, The Netherlands\cr
 #' @seealso [CW2pLM], [CW2pLMi], [CW2pHMi],
 #' [fit_LMCurve], [RLum.Data.Curve-class]
 #' @references Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.\cr
 #'
-#' **Further Reading**\cr\cr Bulur, E., 1996. An Alternative Technique For
+#' **Further Reading**
+#'
+#' Bulur, E., 1996. An Alternative Technique For
 #' Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 #' 26, 701-709.
 #'

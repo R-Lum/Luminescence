@@ -104,25 +104,32 @@ components and returns various component parameters. The fitting procedure
 uses the function \link{nls} with the \code{port} algorithm.
 }
 \details{
-\strong{Fitting function}\cr\cr The function for the fitting has the general
+\strong{Fitting function}
+
+The function for the fitting has the general
 form: \deqn{y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, +
 exp(0.5)*Im_i*x/xm_i)*exp(-x^2/(2*xm_i^2))} where \eqn{1 < i < 8}\cr This
 function and the equations for the conversion to b (detrapping probability)
 and n0 (proportional to initially trapped charge) have been taken from Kitis
 et al. (2008): \deqn{xm_i=\sqrt{max(t)/b_i}} \deqn{Im_i=exp(-0.5)n0/xm_i}\cr
-\strong{Background subtraction}\cr\cr Three methods for background subtraction
+\strong{Background subtraction}
+
+Three methods for background subtraction
 are provided for a given background signal (\code{values.bg}).\cr
 \code{polynomial}: default method. A polynomial function is fitted using
 \link{glm} and the resulting function is used for background subtraction:
 \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}\cr \code{linear}: a linear
 function is fitted using \link{glm} and the resulting function is used for
 background subtraction: \deqn{y = a*x + b}\cr \code{channel}: the measured
-background signal is subtracted channelwise from the measured signal.\cr\cr
+background signal is subtracted channelwise from the measured signal.
+
 \strong{Start values}\cr
 
 The choice of the initial parameters for the \code{nls}-fitting is a crucial
 point and the fitting procedure may mainly fail due to ill chosen start
-parameters. Here, three options are provided:\cr\cr \strong{(a)} If no start
+parameters. Here, three options are provided:
+
+\strong{(a)} If no start
 values (\code{start_values}) are provided by the user, a cheap guess is made
 by using the detrapping values found by Jain et al. (2003) for quartz for a
 maximum of 7 components. Based on these values, the pseudo start parameters
@@ -131,20 +138,32 @@ starts with the ultra-fast component and (depending on \code{n.components})
 steps through the following values. If no fit could be achieved, an error
 plot (for \code{plot = TRUE}) with the pseudo curve (based on the
 pseudo start parameters) is provided. This may give the opportunity to
-identify appropriate start parameters visually.\cr\cr \strong{(b)} If start
+identify appropriate start parameters visually.
+
+\strong{(b)} If start
 values are provided, the function works like a simple \link{nls}
-fitting approach.\cr\cr \strong{(c)} If no start parameters are provided and
+fitting approach.
+
+\strong{(c)} If no start parameters are provided and
 the option \code{fit.advanced = TRUE} is chosen, an advanced start paramter
 estimation is applied using a stochastical attempt. Therefore, the
 recalculated start parameters \strong{(a)} are used to construct a normal
 distribution. The start parameters are then sampled randomly from this
 distribution. A maximum of 100 attempts will be made. \strong{Note:} This
-process may be time consuming. \cr\cr \strong{Goodness of fit}\cr\cr The
+process may be time consuming.
+
+\strong{Goodness of fit}
+
+The
 goodness of the fit is given by a pseudoR^2 value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 \deqn{pseudoR^2 = 1 - RSS/TSS} where \eqn{RSS = Residual~Sum~of~Squares} \cr
-and \eqn{TSS = Total~Sum~of~Squares}\cr\cr \bold{Error of fitted component
-parameters}\cr\cr The 1-sigma error for the components is calculated using
+and \eqn{TSS = Total~Sum~of~Squares}
+
+\bold{Error of fitted component
+parameters}
+
+The 1-sigma error for the components is calculated using
 the function \link{confint}. Due to considerable calculation time, this
 option is deactived by default. In addition, the error for the components
 can be estimated by using internal R functions like \link{summary}. See the

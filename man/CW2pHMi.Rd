@@ -39,21 +39,33 @@ Wallinga (2012).
 \details{
 The complete procedure of the transformation is described in Bos & Wallinga
 (2012). The input \code{data.frame} consists of two columns: time (t) and
-count values (CW(t))\cr\cr
+count values (CW(t))
 
-\strong{Internal transformation steps}\cr\cr (1) log(CW-OSL) values\cr\cr (2)
+\strong{Internal transformation steps}
+
+(1) log(CW-OSL) values
+
+(2)
 Calculate t' which is the transformed time:\cr \deqn{t' =
 t-(1/\delta)*log(1+\delta*t)} (3) Interpolate CW(t'), i.e. use the
 log(CW(t)) to obtain the count values for the transformed time (t'). Values
-beyond \code{min(t)} and \code{max(t)} produce \code{NA} values.\cr\cr (4)
+beyond \code{min(t)} and \code{max(t)} produce \code{NA} values.
+
+(4)
 Select all values for t' < \code{min(t)}, i.e. values beyond the time
 resolution of t. Select the first two values of the transformed data set
 which contain no \code{NA} values and use these values for a linear fit
-using \link{lm}.\cr\cr (5) Extrapolate values for t' < \code{min(t)}
-based on the previously obtained fit parameters.\cr\cr (6) Transform values
+using \link{lm}.
+
+(5) Extrapolate values for t' < \code{min(t)}
+based on the previously obtained fit parameters.
+
+(6) Transform values
 using\cr \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')} \deqn{c =
 (1+\delta*P)/\delta*P} \deqn{P = length(stimulation~period)} (7) Combine all
-values and truncate all values for t' > \code{max(t)} \cr\cr \emph{The
+values and truncate all values for t' > \code{max(t)}
+
+\emph{The
 number of values for t' < \code{min(t)} depends on the stimulation rate
 parameter \code{delta}. To avoid the production of too many artificial data
 at the raising tail of the determined pHM curve, it is recommended to use
@@ -64,7 +76,9 @@ the automatic estimation routine for \code{delta}, i.e. provide no value for
 According to Bos & Wallinga (2012), the number of extrapolated points
 should be limited to avoid artificial intensity data. If \code{delta} is
 provided manually and more than two points are extrapolated, a warning
-message is returned. \cr\cr The function \link{approx} may produce
+message is returned.
+
+The function \link{approx} may produce
 some \code{Inf} and \code{NaN} data. The function tries to manually
 interpolate these values by calculating the \code{mean} using the adjacent
 channels. If two invalid values are succeeding, the values are removed and
@@ -156,7 +170,9 @@ text(0.5,6500,"PM", col="blue" ,cex=.8)
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr
 
-\strong{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
+\strong{Further Reading}
+
+Bulur, E., 1996. An Alternative Technique For
 Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.
 
@@ -170,7 +186,9 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France) \cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
+(France)
+
+Based on comments and suggestions from:\cr Adrie J.J. Bos,
 Delft University of Technology, The Netherlands\cr
 }
 \keyword{manip}
