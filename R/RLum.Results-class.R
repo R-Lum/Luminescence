@@ -55,6 +55,7 @@ NULL
 #' ##alternatively objects can be accessed using S3 generics, such as
 #' dose.rate$parameters
 #'
+#' @md
 #' @export
 setClass(
   Class = "RLum.Results",
@@ -82,9 +83,8 @@ setClass(
 #'
 #' Given that the [list] consits of [RLum.Results-class] objects.
 #'
+#' @md
 #' @name as
-#'
-#'
 setAs("list", "RLum.Results",
       function(from,to){
 
@@ -106,6 +106,8 @@ setAs("RLum.Results", "list",
 ####################################################################################################
 #' @describeIn RLum.Results
 #' Show structure of \code{RLum.Results} object
+#' 
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Results"),
@@ -162,10 +164,11 @@ setMethod("show",
 #' info data for the object
 #' @return
 #'
-#' \bold{\code{set_RLum}}:\cr
+#'**`set_RLum`**:\cr
 #'
 #' Returns an object from the class [RLum.Results-class]\cr
 #'
+#' @md
 #' @export
 setMethod("set_RLum",
           signature = signature("RLum.Results"),
@@ -218,7 +221,7 @@ setMethod("set_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{get_RLum}}:\cr
+#'**`get_RLum`**:\cr
 #'
 #' Returns: \cr
 #' (1) Data object from the specified slot \cr
@@ -226,6 +229,7 @@ setMethod("set_RLum",
 #' (3) an [RLum.Results-class] for \code{drop = FALSE}.\cr
 #'
 #'
+#' @md
 #' @export
 setMethod(
   "get_RLum",
@@ -357,10 +361,11 @@ setMethod(
 #'
 #' @return
 #'
-#' \bold{\code{length_RLum}}\cr
+#'**`length_RLum`**\cr
 #'
 #' Returns the number of data elements in the \code{RLum.Results} object.
 #'
+#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Results",
@@ -378,10 +383,11 @@ setMethod("length_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{names_RLum}}\cr
+#'**`names_RLum`**\cr
 #'
 #' Returns the names of the data elements in the object.
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Results",

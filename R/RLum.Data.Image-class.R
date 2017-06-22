@@ -43,6 +43,8 @@ NULL
 #' set_RLum(class = "RLum.Data.Image")
 #'
 #' @importClassesFrom raster RasterBrick
+#' 
+#' @md
 #' @export
 setClass(
   "RLum.Data.Image",
@@ -81,9 +83,8 @@ setClass(
 #'
 #' }
 #'
+#' @md
 #' @name as
-#'
-#'
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
 
@@ -129,6 +130,8 @@ setAs("RLum.Data.Image", "matrix",
 ####################################################################################################
 #' @describeIn RLum.Data.Image
 #' Show structure of \code{RLum.Data.Image} object
+#' 
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Image"),
@@ -176,10 +179,11 @@ setMethod("show",
 #'
 #' @return
 #'
-#' \bold{\code{set_RLum}}\cr
+#'**`set_RLum`**\cr
 #'
 #' Returns an object from class \code{RLum.Data.Image}
 #'
+#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -276,11 +280,12 @@ setMethod(
 #'
 #' @return
 #'
-#' \bold{\code{get_RLum}}\cr
+#'**`get_RLum`**\cr
 #'
 #' (1) Returns the data object ([raster::brick])\cr
 #' (2) only the info object if \code{info.object} was set.\cr
 #'
+#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Image"),
@@ -332,10 +337,11 @@ setMethod("get_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{names_RLum}}\cr
+#'**`names_RLum`**\cr
 #'
 #' Returns the names of the info elements
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Image",

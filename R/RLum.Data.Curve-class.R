@@ -46,6 +46,7 @@ NULL
 #' ##set empty curve object
 #' set_RLum(class = "RLum.Data.Curve")
 #'
+#' @md
 #' @export
 setClass("RLum.Data.Curve",
          slots = list(
@@ -90,8 +91,8 @@ setClass("RLum.Data.Curve",
 #' @note Due to the complex structure of the \code{RLum} objects itself a coercing to standard
 #' R data structures will be always loosely!
 #'
+#' @md
 #' @name as
-#'
 setAs("list", "RLum.Data.Curve",
       function(from,to){
 
@@ -157,6 +158,8 @@ setAs("RLum.Data.Curve", "matrix",
 ####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Show structure of \code{RLum.Data.Curve} object
+#' 
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Curve"),
@@ -205,10 +208,11 @@ setMethod("show",
 #'
 #' @return
 #'
-#' \bold{\code{set_RLum}}\cr
+#'**`set_RLum`**\cr
 #'
 #' Returns an [RLum.Data.Curve-class] object.
 #'
+#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -315,11 +319,12 @@ setMethod(
 #'
 #' @return
 #'
-#' \bold{\code{get_RLum}}\cr
+#'**`get_RLum`**\cr
 #'
 #' (1) A [matrix] with the curve values or \cr
 #' (2) only the info object if \code{info.object} was set.\cr
 #'
+#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Curve"),
@@ -377,10 +382,11 @@ setMethod("get_RLum",
 #' value time/temperature of the curve (corresponding to the stimulation length)
 #'
 #' @return
-#' \bold{\code{length_RLum}}\cr
+#'**`length_RLum`**\cr
 #'
 #' Number of channels in the curve (row number of the matrix)
 #'
+#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Data.Curve",
@@ -397,7 +403,7 @@ setMethod("length_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{names_RLum}}\cr
+#'**`names_RLum`**\cr
 #'
 #' Names of the info elements (slot \code{info})
 #'
@@ -420,10 +426,11 @@ setMethod("names_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{bin_RLum.Data}}\cr
+#'**`bin_RLum.Data`**\cr
 #'
 #' Same object as input, after applying the binning.
 #'
+#' @md
 #' @export
 setMethod(f = "bin_RLum.Data",
           signature = "RLum.Data.Curve",
@@ -487,10 +494,11 @@ setMethod(f = "bin_RLum.Data",
 #'
 #' @return
 #'
-#' \bold{\code{smooth_RLum}}\cr
+#'**`smooth_RLum`**\cr
 #'
 #' Same object as input, after smoothing
 #'
+#' @md
 #' @export
 setMethod(
   f = "smooth_RLum",

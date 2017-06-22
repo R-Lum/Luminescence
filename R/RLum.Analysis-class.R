@@ -49,6 +49,7 @@ NULL
 #' ##show only the first object, but by keeping the object
 #' get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 #'
+#' @md
 #' @export
 setClass("RLum.Analysis",
          slots = list(
@@ -81,9 +82,8 @@ setClass("RLum.Analysis",
 #'
 #' Given that the [list] consits of [RLum.Analysis-class] objects.
 #'
+#' @md
 #' @name as
-#'
-#'
 setAs("list", "RLum.Analysis",
       function(from,to){
 
@@ -108,6 +108,8 @@ setAs("RLum.Analysis", "list",
 ####################################################################################################
 #' @describeIn RLum.Analysis
 #' Show structure of \code{RLum.Analysis} object
+#' 
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Analysis"),
@@ -218,10 +220,11 @@ setMethod("show",
 #' @param info [\code{set_RLum}] [list] (optional): a list containing additional
 #' info data for the object
 #'
-#' \bold{\code{set_RLum}}:\cr
+#'**`set_RLum`**:\cr
 #'
 #' Returns an [RLum.Analysis-class] object.
 #'
+#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -319,7 +322,7 @@ setMethod(
 #'
 #' @return
 #'
-#' \bold{\code{get_RLum}}:\cr
+#'**`get_RLum`**:\cr
 #'
 #' Returns: \cr
 #' (1) [list] of [RLum.Data-class] objects or \cr
@@ -327,6 +330,7 @@ setMethod(
 #' \code{recursive = FALSE} or\cr
 #' (3) [RLum.Analysis-class] ojects for \code{drop = FALSE} \cr
 #'
+#' @md
 #' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
@@ -626,10 +630,11 @@ setMethod("get_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{structure_RLum}}:\cr
+#'**`structure_RLum`**:\cr
 #'
 #' Returns [data.frame-class] showing the structure.
 #'
+#' @md
 #' @export
 setMethod("structure_RLum",
           signature= "RLum.Analysis",
@@ -740,10 +745,11 @@ setMethod("structure_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{length_RLum}}\cr
+#'**`length_RLum`**\cr
 #'
 #' Returns the number records in this object.
 #'
+#' @md
 #' @export
 setMethod("length_RLum",
           "RLum.Analysis",
@@ -760,10 +766,11 @@ setMethod("length_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{names_RLum}}\cr
+#'**`names_RLum`**\cr
 #'
 #' Returns the names of the record types (recordType) in this object.
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Analysis",
@@ -787,10 +794,11 @@ setMethod("names_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{smooth_RLum}}\cr
+#'**`smooth_RLum`**\cr
 #'
 #' Same object as input, after smoothing
 #'
+#' @md
 #' @export
 setMethod(
   f = "smooth_RLum",

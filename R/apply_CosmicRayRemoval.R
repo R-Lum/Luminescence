@@ -3,7 +3,7 @@
 #' The function provides several methods for cosmic ray removal and spectrum
 #' smoothing for an RLum.Data.Spectrum S4 class object
 #'
-#' \bold{\code{method = "Pych"}} \cr
+#'**`method = "Pych"`** \cr
 #'
 #' This method applies the cosmic-ray removal algorithm described by Pych
 #' (2003). Some aspects that are different to the publication: \itemize{
@@ -12,13 +12,13 @@
 #' to: \code{length(number.of.input.values)/2} } For further details see
 #' references below.
 #'
-#' \bold{\code{method = "smooth"}} \cr
+#'**`method = "smooth"`** \cr
 #'
 #' Method uses the function [smooth] to remove cosmic rays.\cr
 #'
 #' Arguments that can be passed are: \code{kind}, \code{twiceit}\cr
 #'
-#' \bold{\code{method = "smooth.spline"}} \cr Method uses the function
+#'**`method = "smooth.spline"`** \cr Method uses the function
 #' [smooth.spline] to remove cosmic rays.\cr Arguments that can be
 #' passed are: \code{spar}\cr
 #'

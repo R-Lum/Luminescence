@@ -50,6 +50,8 @@ NULL
 #' \dontrun{
 #' plot_RLum(TL.Spectrum)
 #' }
+#' 
+#' @md
 #' @export
 setClass(
   "RLum.Data.Spectrum",
@@ -89,9 +91,8 @@ setClass(
 #' }
 #'
 #'
+#' @md
 #' @name as
-#'
-#'
 setAs("data.frame", "RLum.Data.Spectrum",
       function(from,to){
 
@@ -132,6 +133,8 @@ setAs("RLum.Data.Spectrum", "matrix",
 ####################################################################################################
 #' @describeIn RLum.Data.Spectrum
 #' Show structure of \code{RLum.Data.Spectrum} object
+#' 
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Spectrum"),
@@ -179,10 +182,11 @@ setMethod("show",
 #'
 #' @return
 #'
-#' \bold{\code{[set_RLum]}}\cr
+#'**`[set_RLum]`**\cr
 #'
 #' An object from the class \code{RLum.Data.Spectrum}
 #'
+#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -280,11 +284,12 @@ setMethod(
 #'
 #' @return
 #'
-#' \bold{\code{get_RLum}}\cr
+#'**`get_RLum`**\cr
 #'
 #' (1) A [matrix] with the spectrum values or \cr
 #' (2) only the info object if \code{info.object} was set.\cr
 #'
+#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),
@@ -337,10 +342,11 @@ setMethod("get_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{names_RLum}}\cr
+#'**`names_RLum`**\cr
 #'
 #' The names of the info objects
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Spectrum",

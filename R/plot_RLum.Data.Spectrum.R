@@ -46,7 +46,7 @@
 #' Spectrum is visualised as 3D or 2D plot. Both plot types are based on
 #' internal R plot functions. \cr
 #'
-#' \bold{\code{plot.type = "persp"}}
+#'**`plot.type = "persp"`**
 #'
 #' Arguments that will be passed to [persp]: \itemize{ \item
 #' \code{shade}: default is \code{0.4} \item \code{phi}: default is \code{15}
@@ -57,16 +57,16 @@
 #' to set the background transparent and reduce the thickness of the lines use:
 #' \code{par(bg = NA, lwd = 0.7)} previous the function call.}
 #'
-#' \bold{\code{plot.type = "single"}}\cr
+#'**`plot.type = "single"`**\cr
 #'
 #' Per frame a single curve is returned. Frames are time or temperature
 #' steps.\cr
 #'
-#' \bold{\code{plot.type = "multiple.lines"}}\cr
+#'**`plot.type = "multiple.lines"`**\cr
 #'
 #' All frames plotted in one frame.\cr
 #'
-#' \bold{\code{plot.type = "transect"}}\cr
+#'**`plot.type = "transect"`**\cr
 #'
 #' Depending on the selected wavelength/channel range a transect over the
 #' time/temperature (y-axis) will be plotted along the wavelength/channels

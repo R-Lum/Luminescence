@@ -46,9 +46,9 @@
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' \bold{\code{RLum.Reuslts}}-object\cr
+#'**`RLum.Reuslts`**-object\cr
 #'
-#' \bold{slot:} \bold{\code{@data}}\cr
+#' \bold{slot:}**`@data`**\cr
 #' \tabular{lll}{
 #' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
 #'  \code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
@@ -56,7 +56,7 @@
 #'  \code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
 #' }
 #'
-#'\bold{slot:} \bold{\code{@info}}\cr
+#'\bold{slot:}**`@info`**\cr
 #'
 #' The original function call\cr
 #'

@@ -11,7 +11,7 @@
 #'
 #' Supported plot types: \cr
 #'
-#' \bold{\code{plot.type = "plot.raster"}}\cr
+#'**`plot.type = "plot.raster"`**\cr
 #'
 #' Uses the standard plot function for raster data from the package
 #' [raster::raster]: [raster::plot]. For each raster layer in a
@@ -22,7 +22,7 @@
 #' \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
 #' \code{col}
 #'
-#' \bold{\code{plot.type = "plotRGB"}}\cr
+#'**`plot.type = "plotRGB"`**\cr
 #'
 #' Uses the function [raster::plotRGB] from the
 #' [raster::raster] package. Only one image plot is produced as all layers
@@ -34,7 +34,7 @@
 #' \code{interpolate}, \code{maxpixels}, \code{alpha}, \code{colNA},
 #' \code{stretch}\cr
 #'
-#' \bold{\code{plot.type = "contour"}}\cr
+#'**`plot.type = "contour"`**\cr
 #'
 #' Uses the function contour plot function from the [raster]
 #' function ([raster::contour]). For each raster layer one contour
