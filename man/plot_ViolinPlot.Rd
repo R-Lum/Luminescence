@@ -47,7 +47,7 @@ The function is passing several arguments to the function \link{plot},
 Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
 \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 
-\bold{\code{Valid summary keywords}}\cr
+\strong{\code{Valid summary keywords}}\cr
 
 'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis'
 }

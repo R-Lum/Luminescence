@@ -25,8 +25,8 @@ showClass("RLum.Data")
 
 }
 \seealso{
-[RLum-class], [RLum.Data.Curve-class],
-[RLum.Data.Spectrum-class]
+\linkS4class{RLum}, \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

@@ -21,42 +21,42 @@
 }
 \arguments{
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{names_RLum}] an object of
-class [RLum.Data.Spectrum-class]}
+class \linkS4class{RLum.Data.Spectrum}}
 
-\item{class}{[\code{set_RLum}] [character] (automatic): name of the \code{RLum} class to create.}
+\item{class}{\link{\code{set_RLum}} \link{character} (automatic): name of the \code{RLum} class to create.}
 
-\item{originator}{[character] (automatic): contains the name of the calling function
+\item{originator}{\link{character} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{[\code{set_RLum}] [character] (automatic): sets an unique ID for this object
+\item{.uid}{\link{\code{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{[\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
+\item{.pid}{\link{\code{set_RLum}} \link{character} (with default): option to provide a parent id for nesting
 at will.}
 
-\item{recordType}{[\code{set_RLum}] [character]: record type (e.g. "OSL")}
+\item{recordType}{\link{\code{set_RLum}} \link{character}: record type (e.g. "OSL")}
 
-\item{curveType}{[\code{set_RLum}] [character]: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{\link{\code{set_RLum}} \link{character}: curve type (e.g. "predefined" or "measured")}
 
-\item{data}{[\code{set_RLum}] [matrix]: raw curve data. If data is of
+\item{data}{\link{\code{set_RLum}} \link{matrix}: raw curve data. If data is of
 type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.}
 
-\item{info}{[\code{set_RLum}] [list]: info elements}
+\item{info}{\link{\code{set_RLum}} \link{list}: info elements}
 
-\item{info.object}{[\code{get_RLum}] [character] (optional): the name of the info
+\item{info.object}{\link{\code{get_RLum}} \link{character} (optional): the name of the info
 object to be called}
 }
 \value{
-\bold{\code{[set_RLum]}}\cr
+\strong{\code{[set_RLum]}}\cr
 
 An object from the class \code{RLum.Data.Spectrum}
 
-\bold{\code{get_RLum}}\cr
+\strong{\code{get_RLum}}\cr
 
-(1) A [matrix] with the spectrum values or \cr
+(1) A \link{matrix} with the spectrum values or \cr
 (2) only the info object if \code{info.object} was set.\cr
 
-\bold{\code{names_RLum}}\cr
+\strong{\code{names_RLum}}\cr
 
 The names of the info objects
 }
@@ -80,21 +80,21 @@ is provided, the raw curve data (matrix) will be returned
 \section{Slots}{
 
 \describe{
-\item{\code{recordType}}{Object of class [character] containing the type of the curve (e.g. "TL" or "OSL")}
+\item{\code{recordType}}{Object of class \link{character} containing the type of the curve (e.g. "TL" or "OSL")}
 
-\item{\code{curveType}}{Object of class [character] containing curve type, allowed values
+\item{\code{curveType}}{Object of class \link{character} containing curve type, allowed values
 are measured or predefined}
 
-\item{\code{data}}{Object of class [matrix] containing spectrum (count) values.
+\item{\code{data}}{Object of class \link{matrix} containing spectrum (count) values.
 Row labels indicate wavelength/pixel values, column labels are temperature or time values.}
 
-\item{\code{info}}{Object of class [list] containing further meta information objects}
+\item{\code{info}}{Object of class \link{list} containing further meta information objects}
 }}
 
 \note{
 The class should only contain data for a single spectra data set. For
 additional elements the slot \code{info} can be used. Objects from this class are automatically
-created by, e.g., [read_XSYG2R]
+created by, e.g., \link{read_XSYG2R}
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
@@ -120,10 +120,11 @@ get_RLum(TL.Spectrum)
 \dontrun{
 plot_RLum(TL.Spectrum)
 }
+
 }
 \seealso{
-[RLum-class], [RLum.Data-class],
-[plot_RLum]
+\linkS4class{RLum}, \linkS4class{RLum.Data},
+\link{plot_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

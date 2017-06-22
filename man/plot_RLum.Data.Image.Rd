@@ -37,7 +37,7 @@ packages.
 
 Supported plot types: \cr
 
-\bold{\code{plot.type = "plot.raster"}}\cr
+\strong{\code{plot.type = "plot.raster"}}\cr
 
 Uses the standard plot function for raster data from the package
 \link[raster:raster]{raster::raster}: \link[raster:plot]{raster::plot}. For each raster layer in a
@@ -48,7 +48,7 @@ Arguments that are passed through the function call:\cr
 \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
 \code{col}
 
-\bold{\code{plot.type = "plotRGB"}}\cr
+\strong{\code{plot.type = "plotRGB"}}\cr
 
 Uses the function \link[raster:plotRGB]{raster::plotRGB} from the
 \link[raster:raster]{raster::raster} package. Only one image plot is produced as all layers
@@ -60,7 +60,7 @@ call:\cr
 \code{interpolate}, \code{maxpixels}, \code{alpha}, \code{colNA},
 \code{stretch}\cr
 
-\bold{\code{plot.type = "contour"}}\cr
+\strong{\code{plot.type = "contour"}}\cr
 
 Uses the function contour plot function from the \link{raster}
 function (\link[raster:contour]{raster::contour}). For each raster layer one contour

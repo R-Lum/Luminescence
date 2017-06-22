@@ -9,9 +9,9 @@
 \S4method{replicate_RLum}{RLum}(object, times = NULL)
 }
 \arguments{
-\item{object}{an object of class [RLum-class] (\bold{required})}
+\item{object}{an object of class \linkS4class{RLum} (\bold{required})}
 
-\item{times}{[integer] (optional): number for times each element is repeated
+\item{times}{\link{integer} (optional): number for times each element is repeated
 element}
 }
 \description{
@@ -25,16 +25,16 @@ Abstract class for data in the package Luminescence
 \section{Slots}{
 
 \describe{
-\item{\code{originator}}{Object of class [character] containing the name of the producing
-function for the object. Set automatically by using the function [set_RLum].}
+\item{\code{originator}}{Object of class \link{character} containing the name of the producing
+function for the object. Set automatically by using the function \link{set_RLum}.}
 
-\item{\code{info}}{Object of class [list] for additional information on the object itself}
+\item{\code{info}}{Object of class \link{list} for additional information on the object itself}
 
-\item{\code{.uid}}{Object of class [character] for a unique object identifier. This id is
-usually calculated using the internal function \code{.create_UID()} if the funtion [set_RLum]
+\item{\code{.uid}}{Object of class \link{character} for a unique object identifier. This id is
+usually calculated using the internal function \code{.create_UID()} if the funtion \link{set_RLum}
 is called.}
 
-\item{\code{.pid}}{Object of class [character] for a parent id. This allows nesting RLum-objects
+\item{\code{.pid}}{Object of class \link{character} for a parent id. This allows nesting RLum-objects
 at will. The parent id can be the uid of another object.}
 }}
 
@@ -56,7 +56,7 @@ showClass("RLum")
 
 }
 \seealso{
-[RLum.Data-class], [RLum.Analysis-class]
+\linkS4class{RLum.Data}, \linkS4class{RLum.Analysis}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

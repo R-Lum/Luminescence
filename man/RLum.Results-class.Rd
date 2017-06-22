@@ -23,58 +23,58 @@
 \S4method{names_RLum}{RLum.Results}(object)
 }
 \arguments{
-\item{object}{[\code{get_RLum}] [RLum.Results-class] (required): an object of class
-[RLum.Results-class] to be evaluated}
+\item{object}{\link{\code{get_RLum}} \linkS4class{RLum.Results} (required): an object of class
+\linkS4class{RLum.Results} to be evaluated}
 
-\item{class}{[\code{set_RLum}] [character] \bold{(required)}: name of the \code{RLum} class to create}
+\item{class}{\link{\code{set_RLum}} \link{character} \bold{(required)}: name of the \code{RLum} class to create}
 
-\item{originator}{[\code{set_RLum}] [character] (automatic): contains the
+\item{originator}{\link{\code{set_RLum}} \link{character} (automatic): contains the
 name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{[\code{set_RLum}] [character] (automatic): sets an unique ID for this object
+\item{.uid}{\link{\code{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{[\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
+\item{.pid}{\link{\code{set_RLum}} \link{character} (with default): option to provide a parent id for nesting
 at will.}
 
-\item{data}{[\code{set_RLum}] [list] (optional): a list containing the data to
+\item{data}{\link{\code{set_RLum}} \link{list} (optional): a list containing the data to
 be stored in the object}
 
-\item{info}{[\code{set_RLum}] [list] (optional): a list containing additional
+\item{info}{\link{\code{set_RLum}} \link{list} (optional): a list containing additional
 info data for the object}
 
-\item{data.object}{[\code{get_RLum}] [character] or
-[numeric]: name or index of the data slot to be returned}
+\item{data.object}{\link{\code{get_RLum}} \link{character} or
+\link{numeric}: name or index of the data slot to be returned}
 
-\item{info.object}{[\code{get_RLum}] [character] (optional): name of the wanted info
+\item{info.object}{\link{\code{get_RLum}} \link{character} (optional): name of the wanted info
 element}
 
-\item{drop}{[\code{get_RLum}] [logical] (with default): coerce to the next possible layer
+\item{drop}{\link{\code{get_RLum}} \link{logical} (with default): coerce to the next possible layer
 (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}}
 }
 \value{
-\bold{\code{set_RLum}}:\cr
+\strong{\code{set_RLum}}:\cr
 
-Returns an object from the class [RLum.Results-class]\cr
+Returns an object from the class \linkS4class{RLum.Results}\cr
 
-\bold{\code{get_RLum}}:\cr
+\strong{\code{get_RLum}}:\cr
 
 Returns: \cr
 (1) Data object from the specified slot \cr
-(2) [list] of data objects from the slots if 'data.object' is vector or \cr
-(3) an [RLum.Results-class] for \code{drop = FALSE}.\cr
+(2) \link{list} of data objects from the slots if 'data.object' is vector or \cr
+(3) an \linkS4class{RLum.Results} for \code{drop = FALSE}.\cr
 
-\bold{\code{length_RLum}}\cr
+\strong{\code{length_RLum}}\cr
 
 Returns the number of data elements in the \code{RLum.Results} object.
 
-\bold{\code{names_RLum}}\cr
+\strong{\code{names_RLum}}\cr
 
 Returns the names of the data elements in the object.
 }
 \description{
-Object class contains results data from functions (e.g., [analyse_SAR.CWOSL]).
+Object class contains results data from functions (e.g., \link{analyse_SAR.CWOSL}).
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -145,7 +145,7 @@ dose.rate$parameters
 
 }
 \seealso{
-[RLum-class], [plot_RLum], [merge_RLum]
+\linkS4class{RLum}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

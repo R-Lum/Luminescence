@@ -21,47 +21,47 @@
 }
 \arguments{
 \item{object}{\code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]} an object
-of class [RLum.Data.Image-class]}
+of class \linkS4class{RLum.Data.Image}}
 
-\item{class}{\code{[set_RLum]}[character]: name of the \code{RLum} class to create}
+\item{class}{\code{[set_RLum]}\link{character}: name of the \code{RLum} class to create}
 
-\item{originator}{\code{[set_RLum]} [character] (automatic):
+\item{originator}{\code{[set_RLum]} \link{character} (automatic):
 contains the name of the calling function (the function that produces this object); can be set manually.}
 
-\item{.uid}{[\code{set_RLum}] [character] (automatic): sets an unique ID for this object
+\item{.uid}{\link{\code{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{[\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
+\item{.pid}{\link{\code{set_RLum}} \link{character} (with default): option to provide a parent id for nesting
 at will.}
 
-\item{recordType}{\code{[set_RLum]} [character]: record type (e.g. "OSL")}
+\item{recordType}{\code{[set_RLum]} \link{character}: record type (e.g. "OSL")}
 
-\item{curveType}{\code{[set_RLum]} [character]: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{\code{[set_RLum]} \link{character}: curve type (e.g. "predefined" or "measured")}
 
-\item{data}{\code{[set_RLum]} [matrix]: raw curve data. If data is of type \code{RLum.Data.Image}
+\item{data}{\code{[set_RLum]} \link{matrix}: raw curve data. If data is of type \code{RLum.Data.Image}
 this can be used to re-construct the object.}
 
-\item{info}{\code{[set_RLum]} [list]: info elements}
+\item{info}{\code{[set_RLum]} \link{list}: info elements}
 
-\item{info.object}{\code{[get_RLum]} [character] name of the info object to returned}
+\item{info.object}{\code{[get_RLum]} \link{character} name of the info object to returned}
 }
 \value{
-\bold{\code{set_RLum}}\cr
+\strong{\code{set_RLum}}\cr
 
 Returns an object from class \code{RLum.Data.Image}
 
-\bold{\code{get_RLum}}\cr
+\strong{\code{get_RLum}}\cr
 
-(1) Returns the data object ([raster::brick])\cr
+(1) Returns the data object (\link[raster:brick]{raster::brick})\cr
 (2) only the info object if \code{info.object} was set.\cr
 
-\bold{\code{names_RLum}}\cr
+\strong{\code{names_RLum}}\cr
 
 Returns the names of the info elements
 }
 \description{
 Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced
-by the function [read_SPE2R]
+by the function \link{read_SPE2R}
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -80,15 +80,15 @@ provided, the raw image data (RasterBrick) will be returned.
 \section{Slots}{
 
 \describe{
-\item{\code{recordType}}{Object of class [character]
+\item{\code{recordType}}{Object of class \link{character}
 containing the type of the curve (e.g. "OSL image", "TL image")}
 
-\item{\code{curveType}}{Object of class [character] containing curve type, allowed values
+\item{\code{curveType}}{Object of class \link{character} containing curve type, allowed values
 are measured or predefined}
 
-\item{\code{data}}{Object of class [raster::brick] containing images (raster data).}
+\item{\code{data}}{Object of class \link[raster:brick]{raster::brick} containing images (raster data).}
 
-\item{\code{info}}{Object of class [list] containing further meta information objects}
+\item{\code{info}}{Object of class \link{list} containing further meta information objects}
 }}
 
 \note{
@@ -113,8 +113,8 @@ set_RLum(class = "RLum.Data.Image")
 
 }
 \seealso{
-[RLum-class], [RLum.Data-class],
-[plot_RLum], [read_SPE2R]
+\linkS4class{RLum}, \linkS4class{RLum.Data},
+\link{plot_RLum}, \link{read_SPE2R}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
