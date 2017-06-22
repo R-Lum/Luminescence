@@ -32,15 +32,15 @@
 #' \eqn{A.U = avogadronumber * uran.freq / uran.mol.mass * ln(2) / uran.half.life} (specific activity in Bq/kg)\cr
 #' \eqn{f.U = A.kg / 10^6}
 #'
-#' @param data [data.frame] \bold{(required)}: provide dose rate data (activity or concentration)
+#' @param data [data.frame] **(required)**: provide dose rate data (activity or concentration)
 #' in three columns. The first column indicates the nuclides, the 2nd column measured value and
-#' in the 3rd column its error value. Allowed nuclide data are \code{'U-238'}, \code{'Th-232'} and \code{'K-40'}.
+#' in the 3rd column its error value. Allowed nuclide data are `'U-238'`, `'Th-232'` and `'K-40'`.
 #' See examples for an example.
 #'
-#' @param input_unit [character] (with default): specify unit of input data given in the
-#' dose rate data frame, choose between \code{'Bq/kg'} and \code{'ppm/\%'} the default is \code{'Bq/kg'}
+#' @param input_unit [character] *(with default)*: specify unit of input data given in the
+#' dose rate data frame, choose between `'Bq/kg'` and `'ppm/\%'` the default is `'Bq/kg'`
 #'
-#' @param verbose [logical] (with default): enable or disable verbose mode
+#' @param verbose [logical] *(with default)*: enable or disable verbose mode
 #'
 #' @section Function version: 0.1.0
 #'

@@ -2,58 +2,58 @@
 #'
 #' Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
 #' The function is simply passing several arguments to the function [plot] and the used
-#' analysis functions and runs it in a loop. Example: \code{legend.pos} for legend position,
-#' \code{legend} for legend text.\cr
+#' analysis functions and runs it in a loop. Example: `legend.pos` for legend position,
+#' `legend` for legend text.\cr
 #'
-#' \bold{method}\cr
+#' **method**\cr
 #'
 #' The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
-#' extended them accounting for changes in the counting statistics. Example: \code{c(1:3, 3:5, 5:7)}.
+#' extended them accounting for changes in the counting statistics. Example: `c(1:3, 3:5, 5:7)`.
 #' However, here also another method is provided allowing to expand the signal integral by
-#' consectutively expaning the integral by its chosen length. Example: \code{c(1:3, 1:5, 1:7)}
+#' consectutively expaning the integral by its chosen length. Example: `c(1:3, 1:5, 1:7)`
 #'
 #' Note that in both cases the integral limits are overlap. The finally applied limits are part
 #' of the function output.\cr
 #'
-#' @param object [RLum.Analysis-class] (\bold{required}): input
+#' @param object [RLum.Analysis-class] (**required**): input
 #' object containing data for analysis
 #'
-#' @param signal.integral.min [integer] (\bold{required}): lower
+#' @param signal.integral.min [integer] (**required**): lower
 #' bound of the signal integral.
 #'
-#' @param signal.integral.max [integer] (\bold{required}): upper
+#' @param signal.integral.max [integer] (**required**): upper
 #' bound of the signal integral.
 #'
-#' @param background.integral.min [integer] (\bold{required}):
+#' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral.
 #'
-#' @param background.integral.max [integer] (\bold{required}):
+#' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral.
 #'
-#' @param method [character] (with default): method applied for constructing the De(t) plot.
-#' \code{shift} (the default): the chosen signal integral is shifted the shine down curve,
-#' \code{expansion}: the chosen signal integral is expanded each time by its length
+#' @param method [character] *(with default)*: method applied for constructing the De(t) plot.
+#' `shift` (the default): the chosen signal integral is shifted the shine down curve,
+#' `expansion`: the chosen signal integral is expanded each time by its length
 #'
-#' @param signal_integral.seq [numeric] (optional): argument to provide an own
+#' @param signal_integral.seq [numeric] *(optional)*: argument to provide an own
 #' signal integral sequence for constructing the De(t) plot
 #'
-#' @param analyse_function [character] (with default): name of the analyse function
-#' to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}
+#' @param analyse_function [character] *(with default)*: name of the analyse function
+#' to be called. Supported functions are: `'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`
 #'
-#' @param analyse_function.control [list] (optional): arguments to be passed to the
-#' supported analyse functions (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})
+#' @param analyse_function.control [list] *(optional)*: arguments to be passed to the
+#' supported analyse functions (`'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`)
 #'
-#' @param n.channels [integer] (optional): number of channels used for the De(t) plot.
+#' @param n.channels [integer] *(optional)*: number of channels used for the De(t) plot.
 #' If nothing is provided all De-values are calculated and plotted until the start of the background
 #' integral.
 #'
-#' @param show_ShineDownCurve [logical] (with default): enables or disables shine down
+#' @param show_ShineDownCurve [logical] *(with default)*: enables or disables shine down
 #' curve in the plot output
 #'
-#' @param respect_RC.Status [logical] (with default): remove De-values with 'FAILED' RC.Status
+#' @param respect_RC.Status [logical] *(with default)*: remove De-values with 'FAILED' RC.Status
 #' from the plot (cf. [analyse_SAR.CWOSL] and [analyse_pIRIRSequence])
 #'
-#' @param verbose [logical] (with default): enables or disables terminal feedback
+#' @param verbose [logical] *(with default)*: enables or disables terminal feedback
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence].
@@ -61,18 +61,18 @@
 #'
 #' @return A plot and an [RLum.Results-class] object with the produced De values
 #'
-#' \code{@data}:
+#' `@data`:
 #' \tabular{lll}{
-#' \bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
-#' De.values \tab \code{data.frame} \tab table with De values \cr
-#' signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
+#' **Object** \tab **Type** \tab **Description**\cr
+#' De.values \tab `data.frame` \tab table with De values \cr
+#' signal_integral.seq \tab `numeric` \tab integral sequence used for the calculation
 #' }
 #'
-#' \code{@info}:
+#' `@info`:
 #'
 #' \tabular{lll}{
-#' \bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
-#' call \tab \code{call} \tab the original function call
+#' **Object** \tab **Type** \tab **Description**\cr
+#' call \tab `call` \tab the original function call
 #' }
 #'
 #'

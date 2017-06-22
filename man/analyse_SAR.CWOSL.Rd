@@ -14,22 +14,22 @@ object containing data for analysis, alternatively a \link{list} of
 \linkS4class{RLum.Analysis} objects can be provided.}
 
 \item{signal.integral.min}{\link{integer} (\bold{required}): lower
-bound of the signal integral. Can be a \link{list} of \code{\link{integer}s}, if \code{object} is
+bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the minimum signal integral for the Tx curve.}
 
 \item{signal.integral.max}{\link{integer} (\bold{required}): upper
-bound of the signal integral. Can be a \link{list} of \code{\link{integer}s}, if \code{object} is
+bound of the signal integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the maximum signal integral for the Tx curve.}
 
 \item{background.integral.min}{\link{integer} (\bold{required}):
-lower bound of the background integral. Can be a \link{list} of \code{\link{integer}s}, if \code{object} is
+lower bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the minimum background integral for the Tx curve.}
 
 \item{background.integral.max}{\link{integer} (\bold{required}):
-upper bound of the background integral. Can be a \link{list} of \code{\link{integer}s}, if \code{object} is
+upper bound of the background integral. Can be a \link{list} of \link{integer}s, if \code{object} is
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the maximum background integral for the Tx curve.}
 
@@ -50,7 +50,7 @@ values in the signal curves. Can be a \link{list} of \link{numeric} vectors,
 if \code{object} is of type \link{list}}
 
 \item{mtext.outer}{\link{character} (optional): option to provide an
-outer margin mtext. Can be a \link{list} of \code{\link{character}s},
+outer margin mtext. Can be a \link{list} of \link{character}s,
 if \code{object} is of type \link{list}}
 
 \item{plot}{\link{logical} (with default): enables or disables plot
@@ -124,18 +124,19 @@ Example: Imagine the measurement contains pIRIR50 and pIRIR225 IRSL curves.
 Only one curve type can be analysed at the same time: The pIRIR50 curves or
 the pIRIR225 curves.\cr\cr
 
-\bold{Supported rejection criteria}\cr\cr \sQuote{recycling.ratio}:
-calculated for every repeated regeneration dose point.\cr
+\bold{Supported rejection criteria}\cr\cr
 
-\sQuote{recuperation.rate}: recuperation rate calculated by comparing the
+\code{[recycling.ratio]}: calculated for every repeated regeneration dose point.\cr
+
+\code{[recuperation.rate]}: recuperation rate calculated by comparing the
 Lx/Tx values of the zero regeneration point with the Ln/Tn value (the Lx/Tx
 ratio of the natural signal). For methodological background see Aitken and
 Smith (1988).\cr
 
-\sQuote{testdose.error}: set the allowed error for the testdose, which per
+\code{[testdose.error]}: set the allowed error for the testdose, which per
 default should not exceed 10\%. The testdose error is calculated as Tx_net.error/Tx_net.
 
-\sQuote{palaeodose.error}: set the allowed error for the De value, which per
+\code{[palaeodose.error]}: set the allowed error for the De value, which per
 default should not exceed 10\%.
 }
 \note{

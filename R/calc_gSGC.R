@@ -12,19 +12,19 @@
 #' input data of providing the following columns: *'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'*
 #' **Note:** column names are not required. The function expect the input data in the given order
 #'
-#' @param gSGC.type [character] *(with default)*: 
+#' @param gSGC.type [character] **(with default)**: 
 #' define the function parameters that
 #' should be used for the iteration procedure: Li et al., 2015 (Table 2)
 #' presented function parameters for two dose ranges: `"0-450"` and `"0-250"`
 #'
-#' @param gSGC.parameters [list] *(optional)*: 
+#' @param gSGC.parameters [list] **(optional)**: 
 #' option to provide own function parameters used for fitting as named list.
 #' Nomenclature follows Li et al., 2015, i.e. `list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)`,
 #' range requires a vector for the range the function is considered as valid, e.g. `range = c(0,250)`\cr
 #' Using this option overwrites the default parameter list of the gSGC, meaning the argument
 #' `gSGC.type` will be without effect
 #'
-#' @param n.MC [integer] *(with default)*: 
+#' @param n.MC [integer] **(with default)**: 
 #' number of Monte Carlo simulation runs for error estimation, see details.
 #'
 #' @param verbose [logical]: 

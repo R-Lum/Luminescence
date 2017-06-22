@@ -4,28 +4,28 @@
 #' produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion ratios
 #' and the IRSL/OSL ratio.
 #'
-#' This function only works with \code{RLum.Analysis} objects produced by [read_PSL2R].
+#' This function only works with `RLum.Analysis` objects produced by [read_PSL2R].
 #' It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 #' are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
-#' the cumulative signal of the last n channels (same number of channels as specified by \code{signal.integral})
-#' is divided by cumulative signal of the first n channels (\code{signal.integral}).
+#' the cumulative signal of the last n channels (same number of channels as specified by `signal.integral`)
+#' is divided by cumulative signal of the first n channels (`signal.integral`).
 #'
-#' @param object [RLum.Analysis-class] (\bold{required}):
-#' \code{RLum.Analysis} object produced by [read_PSL2R].
+#' @param object [RLum.Analysis-class] (**required**):
+#' `RLum.Analysis` object produced by [read_PSL2R].
 #'
-#' @param signal.integral [vector] (\bold{required}): A vector of two values
+#' @param signal.integral [vector] (**required**): A vector of two values
 #' specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can
-#' be provided in form of \code{c(1, 5)} or \code{1:5}.
+#' be provided in form of `c(1, 5)` or `1:5`.
 #'
 #'
-#' @param invert [logical] (with default): \code{TRUE} to calculate
+#' @param invert [logical] *(with default)*: `TRUE` to calculate
 #' and plot the data in reverse order.
 #'
-#' @param normalise [logical] (with default):
-#' \code{TRUE} to normalise the OSL/IRSL signals by the mean of all corresponding
+#' @param normalise [logical] *(with default)*:
+#' `TRUE` to normalise the OSL/IRSL signals by the mean of all corresponding
 #' data curves.
 #'
-#' @param plot [logical] (with default): enable/disable plot output
+#' @param plot [logical] *(with default)*: enable/disable plot output
 #'
 #' @param ... currently not used.
 #'

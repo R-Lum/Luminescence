@@ -102,7 +102,7 @@ arranged by analyse_baSAR}
 \item{verbose}{\link{logical} (with default): enables or disables verbose mode}
 
 \item{...}{parameters that can be passed to the function \link{calc_OSLLxTxRatio} (almost full support)
-\code{\link[readxl]{read_excel}} (full support), \link{read_BIN2R} (\code{n.records},
+\link[readxl:read_excel]{readxl::read_excel} (full support), \link{read_BIN2R} (\code{n.records},
 \code{position}, \code{duplicated.rm}), see details.}
 }
 \value{
@@ -117,7 +117,7 @@ Function returns results numerically and graphically:\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
 \code{$summary} \tab \code{data.frame} \tab statistical summary, including the central dose \cr
-\code{$mcmc} \tab \code{mcmc} \tab object including raw output of \code{\link[rjags]{rjags}} \cr
+\code{$mcmc} \tab \code{mcmc} \tab object including raw output of \link[rjags:rjags]{rjags::rjags} \cr
 \code{$models} \tab \code{character} \tab implemented models used in the baSAR-model core \cr
 \code{$input_object} \tab \code{data.frame} \tab summarising table (same format as the XLS-file) including, e.g., Lx/Tx values\cr
 \code{$removed_aliquots} \tab \code{data.frame} \tab table with removed aliquots (e.g., NaN, or Inf Lx/Tx values). If nothing was removed \code{NULL} is returned
@@ -239,9 +239,9 @@ are:
 \code{lower_centralD} \tab \link{numeric} \tab sets the lower bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{upper_centralD} \tab \link{numeric} \tab sets the upper bound for the expected De range. Change it only if you know what you are doing!\cr
 \code{n.chains} \tab \link{integer} \tab sets number of parallel chains for the model (default = 3)
-(cf. \code{\link[rjags]{jags.model}})\cr
-\code{inits} \tab \link{list} \tab option to set initialisation values (cf. \code{\link[rjags]{jags.model}}) \cr
-\code{thin} \tab \link{numeric} \tab thinning interval for monitoring the Bayesian process (cf. \code{\link[rjags]{jags.model}})\cr
+(cf. \link[rjags:jags.model]{rjags::jags.model})\cr
+\code{inits} \tab \link{list} \tab option to set initialisation values (cf. \link[rjags:jags.model]{rjags::jags.model}) \cr
+\code{thin} \tab \link{numeric} \tab thinning interval for monitoring the Bayesian process (cf. \link[rjags:jags.model]{rjags::jags.model})\cr
 \code{variable.names} \tab \link{character} \tab set the variables to be monitored during the MCMC run, default:
 \code{'central_D'}, \code{'sigma_D'}, \code{'D'}, \code{'Q'}, \code{'a'}, \code{'b'}, \code{'c'}, \code{'g'}.
 Note: only variables present in the model can be monitored.
@@ -252,7 +252,7 @@ Note: only variables present in the model can be monitored.
 The function provides the option to modify and to define own models that can be used for
 the Bayesian calculation. In the case the user wants to modify a model, a new model
 can be piped into the funtion via the argument \code{baSAR_model} as \code{character}.
-The model has to be provided in the JAGS dialect of the BUGS language (cf. \code{\link[rjags]{jags.model}})
+The model has to be provided in the JAGS dialect of the BUGS language (cf. \link[rjags:jags.model]{rjags::jags.model})
 and parameter names given with the pre-defined names have to be respected, otherwise the function
 will break.\cr
 
@@ -284,10 +284,10 @@ functions.
 \tabular{llll}{
 \bold{Supported argument} \tab \bold{Corresponding function} \tab \bold{Default} \tab \bold{Short description }\cr
 \code{threshold} \tab \link{verify_SingleGrainData} \tab \code{30} \tab change rejection threshold for curve selection \cr
-\code{sheet} \tab \code{\link[readxl]{read_excel}} \tab \code{1} \tab select XLS-sheet for import\cr
-\code{col_names} \tab \code{\link[readxl]{read_excel}} \tab \code{TRUE} \tab first row in XLS-file is header\cr
-\code{col_types} \tab \code{\link[readxl]{read_excel}} \tab \code{NULL} \tab limit import to specific columns\cr
-\code{skip} \tab \code{\link[readxl]{read_excel}} \tab \code{0} \tab number of rows to be skipped during import\cr
+\code{sheet} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{1} \tab select XLS-sheet for import\cr
+\code{col_names} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{TRUE} \tab first row in XLS-file is header\cr
+\code{col_types} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{NULL} \tab limit import to specific columns\cr
+\code{skip} \tab \link[readxl:read_excel]{readxl::read_excel} \tab \code{0} \tab number of rows to be skipped during import\cr
 \code{n.records} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit records during BIN-file import\cr
 \code{duplicated.rm} \tab \link{read_BIN2R} \tab \code{TRUE} \tab remove duplicated records in the BIN-file\cr
 \code{pattern} \tab \link{read_BIN2R} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
@@ -379,8 +379,8 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
 }
 \seealso{
 \link{read_BIN2R}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
-\code{\link[readxl]{read_excel}}, \link{verify_SingleGrainData},
-\code{\link[rjags]{jags.model}}, \code{\link[rjags]{coda.samples}}, \link{boxplot.default}
+\link[readxl:read_excel]{readxl::read_excel}, \link{verify_SingleGrainData},
+\link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }
 \author{
 Norbert Mercier, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Sebastian Kreutzer,

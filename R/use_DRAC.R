@@ -7,7 +7,7 @@
 #'
 #' @param file [character]: spreadsheet to be passed
 #' to the DRAC website for calculation. Can also be a DRAC template object
-#' obtained from \code{template_DRAC()}.
+#' obtained from `template_DRAC()`.
 #'
 #' @param name [character]: Optional user name submitted to DRAC. If
 #' omitted, a random name will be generated
@@ -16,21 +16,21 @@
 #'
 #' @return Returns an [RLum.Results-class] object containing the following elements:
 #'
-#' \item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@@data}:
+#' \item{DRAC}{[list]: a named list containing the following elements in slot `@@data`:
 #'
 #' \tabular{lll}{
-#'    \code{$highlights} \tab [data.frame] \tab summary of 25 most important input/output fields \cr
-#'    \code{$header} \tab [character] \tab HTTP header from the DRAC server response \cr
-#'    \code{$labels} \tab [data.frame] \tab descriptive headers of all input/output fields \cr
-#'    \code{$content} \tab [data.frame] \tab complete DRAC input/output table \cr
-#'    \code{$input} \tab [data.frame] \tab DRAC input table \cr
-#'    \code{$output} \tab [data.frame] \tab DRAC output table \cr
+#'    `$highlights` \tab [data.frame] \tab summary of 25 most important input/output fields \cr
+#'    `$header` \tab [character] \tab HTTP header from the DRAC server response \cr
+#'    `$labels` \tab [data.frame] \tab descriptive headers of all input/output fields \cr
+#'    `$content` \tab [data.frame] \tab complete DRAC input/output table \cr
+#'    `$input` \tab [data.frame] \tab DRAC input table \cr
+#'    `$output` \tab [data.frame] \tab DRAC output table \cr
 #' }
 #'
 #' }
-#' \item{data}{\link{character} or \link{list} path to the input spreadsheet or a DRAC template}
-#' \item{call}{\link{call} the function call}
-#' \item{args}{\link{list} used arguments}
+#' \item{data}{[character] or [list] path to the input spreadsheet or a DRAC template}
+#' \item{call}{[call] the function call}
+#' \item{args}{[list] used arguments}
 #'
 #' The output should be accessed using the function [get_RLum].
 #'

@@ -9,73 +9,73 @@
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
 #' can be passed to the function [calc_FadingCorr].\cr
 #'
-#' \bold{Fitting and error estimation}\cr
+#' **Fitting and error estimation**\cr
 #'
-#' For the fitting the function \code{\link[stats]{lm}} is used without applying weights. For the
+#' For the fitting the function [stats::lm] is used without applying weights. For the
 #' error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 #' high enough with regard to the underlying problem, are sampled assuming a normal distribution
 #' for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
 #'
-#' \bold{Density of recombination centres}
+#' **Density of recombination centres**
 #'
 #' The density of recombination centres, expressed by the dimensionless variable rho', is estimated
 #' by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
-#' \code{\link[stats]{nls}} is used without applying weights. For the error estimation the same
+#' [stats::nls] is used without applying weights. For the error estimation the same
 #' procedure as for the g-value is applied (see above).
 #'
-#' @param object [RLum.Analysis-class] (\bold{required}): input object with the
+#' @param object [RLum.Analysis-class] (**required**): input object with the
 #' measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
 #' objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the before mentioned column structure.
 #'
-#' @param structure [character] (with default): sets the structure of the measurement
-#' data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored
+#' @param structure [character] *(with default)*: sets the structure of the measurement
+#' data. Allowed are `'Lx'` or `c('Lx','Tx')`. Other input is ignored
 #'
-#' @param signal.integral [vector] (\bold{required}): vector with the
-#' limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
+#' @param signal.integral [vector] (**required**): vector with the
+#' limits for the signal integral. Not required if a `data.frame` with LxTx values are
 #' provided.
 #'
-#' @param background.integral [vector] (\bold{required}): vector with the
-#' bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
+#' @param background.integral [vector] (**required**): vector with the
+#' bounds for the background integral. Not required if a `data.frame` with LxTx values are
 #' provided.
 #'
-#' @param t_star [character] (with default): method for calculating the time elasped
-#' since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
-#' and \code{'end'}, which takes the time between irradiation and the measurement step. Default is \code{'half'}
+#' @param t_star [character] *(with default)*: method for calculating the time elasped
+#' since irradiaton. Options are: `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+#' and `'end'`, which takes the time between irradiation and the measurement step. Default is `'half'`
 #'
-#' @param n.MC [integer] (with default): number for Monte Carlo runs for the error
+#' @param n.MC [integer] *(with default)*: number for Monte Carlo runs for the error
 #' estimation
 #'
-#' @param verbose [logical] (with default): enables/disables verbose mode
+#' @param verbose [logical] *(with default)*: enables/disables verbose mode
 #'
-#' @param plot [logical] (with default): enables/disables plot output
+#' @param plot [logical] *(with default)*: enables/disables plot output
 #'
-#' @param plot.single [logical] (with default): enables/disables single plot
+#' @param plot.single [logical] *(with default)*: enables/disables single plot
 #' mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
-#' \code{plot.single = c(3,4)} draws only the last two plots
+#' `plot.single = c(3,4)` draws only the last two plots
 #'
-#' @param \dots (optional) further arguments that can be passed to internally used functions (see details)
+#' @param \dots *(optional)* further arguments that can be passed to internally used functions (see details)
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
-#' Slot: \bold{@data}\cr
+#' Slot: **@data**\cr
 #'
 #' \tabular{lll}{
-#' \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
-#' \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
-#' \code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \code{\link[stats]{lm}}\cr
-#' \code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. 2008 \cr
-#' \code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
-#' \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds \cr
+#' **OBJECT** \tab `TYPE` \tab `COMMENT`\cr
+#' `fading_results` \tab `data.frame` \tab results of the fading measurement in a table \cr
+#' `fit` \tab `lm` \tab object returned by the used linear fitting function [stats::lm]\cr
+#' `rho_prime` \tab `data.frame` \tab results of rho' estimation after Kars et al. 2008 \cr
+#' `LxTx_table` \tab `data.frame` \tab Lx/Tx table, if curve data had been provided \cr
+#' `irr.times` \tab `integer` \tab vector with the irradiation times in seconds \cr
 #' }
 #'
-#' Slot: \bold{@info}\cr
+#' Slot: **@info**\cr
 #'
 #' \tabular{lll}{
-#' \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
-#' \code{call} \tab \code{call} \tab the original function call\cr
+#' **OBJECT** \tab `TYPE` \tab `COMMENT`\cr
+#' `call` \tab `call` \tab the original function call\cr
 #'
 #' }
 #'
@@ -85,7 +85,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#' @note \bold{This function has BETA status and should not be used for publication work!}
+#' @note **This function has BETA status and should not be used for publication work!**
 #'
 #' @keywords datagen
 #'

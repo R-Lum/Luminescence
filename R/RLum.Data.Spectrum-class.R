@@ -1,7 +1,7 @@
 #' @include get_RLum.R set_RLum.R names_RLum.R
 NULL
 
-#' Class \code{"RLum.Data.Spectrum"}
+#' Class `"RLum.Data.Spectrum"`
 #'
 #' Class for representing luminescence spectra data (TL/OSL/RF).
 #'
@@ -20,11 +20,11 @@ NULL
 #' @slot info Object of class [list] containing further meta information objects
 #'
 #' @note The class should only contain data for a single spectra data set. For
-#' additional elements the slot \code{info} can be used. Objects from this class are automatically
+#' additional elements the slot `info` can be used. Objects from this class are automatically
 #' created by, e.g., [read_XSYG2R]
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{set_RLum("RLum.Data.Spectrum", ...)}.
+#' `set_RLum("RLum.Data.Spectrum", ...)`.
 #'
 #' @section Class version: 0.4.0
 #'
@@ -78,15 +78,15 @@ setClass(
 ##COERCE RLum.Data.Spectrum >> data.frame AND data.frame >> RLum.Data.Spectrum
 #' as()
 #'
-#' for \code{[RLum.Data.Spectrum]}
+#' for `[RLum.Data.Spectrum]`
 #'
 #'
-#' \bold{[RLum.Data.Spectrum]}\cr
+#' **[RLum.Data.Spectrum]**\cr
 #'
 #' \tabular{ll}{
-#'  \bold{from} \tab \bold{to}\cr
-#'   \code{data.frame} \tab \code{data.frame}\cr
-#'   \code{matrix} \tab \code{matrix}
+#'  **from** \tab **to**\cr
+#'   `data.frame` \tab `data.frame`\cr
+#'   `matrix` \tab `matrix`
 #'
 #' }
 #'
@@ -132,7 +132,7 @@ setAs("RLum.Data.Spectrum", "matrix",
 ###show()
 ####################################################################################################
 #' @describeIn RLum.Data.Spectrum
-#' Show structure of \code{RLum.Data.Spectrum} object
+#' Show structure of `RLum.Data.Spectrum` object
 #' 
 #' @md
 #' @export
@@ -167,24 +167,24 @@ setMethod("show",
 #' Construction method for RLum.Data.Spectrum object. The slot info is optional
 #'  and predefined as empty list by default
 #'
-#' @param class [\code{set_RLum}] [character] (automatic): name of the \code{RLum} class to create.
+#' @param class [`set_RLum`] [character] (automatic): name of the `RLum` class to create.
 #' @param originator [character] (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
-#' @param .uid [\code{set_RLum}] [character] (automatic): sets an unique ID for this object
-#' using the internal C++ function \code{.create_UID}.
-#' @param .pid [\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
+#' @param .uid [`set_RLum`] [character] (automatic): sets an unique ID for this object
+#' using the internal C++ function `.create_UID`.
+#' @param .pid [`set_RLum`] [character] *(with default)*: option to provide a parent id for nesting
 #' at will.
-#' @param recordType [\code{set_RLum}] [character]: record type (e.g. "OSL")
-#' @param curveType [\code{set_RLum}] [character]: curve type (e.g. "predefined" or "measured")
-#' @param data [\code{set_RLum}] [matrix]: raw curve data. If data is of
-#' type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.
-#' @param info [\code{set_RLum}] [list]: info elements
+#' @param recordType [`set_RLum`] [character]: record type (e.g. "OSL")
+#' @param curveType [`set_RLum`] [character]: curve type (e.g. "predefined" or "measured")
+#' @param data [`set_RLum`] [matrix]: raw curve data. If data is of
+#' type `RLum.Data.Spectrum`, this can be used to re-construct the object.
+#' @param info [`set_RLum`] [list]: info elements
 #'
 #' @return
 #'
 #'**`[set_RLum]`**\cr
 #'
-#' An object from the class \code{RLum.Data.Spectrum}
+#' An object from the class `RLum.Data.Spectrum`
 #'
 #' @md
 #' @export
@@ -277,9 +277,9 @@ setMethod(
 #' is optional to directly access the info elements. If no info element name
 #' is provided, the raw curve data (matrix) will be returned
 #'
-#' @param object [\code{show_RLum}][\code{get_RLum}][\code{names_RLum}] an object of
+#' @param object [`show_RLum`][`get_RLum`][`names_RLum`] an object of
 #'  class [RLum.Data.Spectrum-class]
-#' @param info.object [\code{get_RLum}] [character] (optional): the name of the info
+#' @param info.object [`get_RLum`] [character] *(optional)*: the name of the info
 #' object to be called
 #'
 #' @return
@@ -287,7 +287,7 @@ setMethod(
 #'**`get_RLum`**\cr
 #'
 #' (1) A [matrix] with the spectrum values or \cr
-#' (2) only the info object if \code{info.object} was set.\cr
+#' (2) only the info object if `info.object` was set.\cr
 #'
 #' @md
 #' @export

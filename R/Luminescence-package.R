@@ -11,7 +11,7 @@
 #' @name Luminescence-package
 #' @aliases Luminescence-package Luminescence
 #' @docType package
-#' @author \bold{Full list of authors and contributors} (alphabetic order)
+#' @author **Full list of authors and contributors** (alphabetic order)
 #'
 #' \tabular{ll}{
 #' Christoph Burow \tab University of Cologne, Germany \cr
@@ -32,41 +32,41 @@
 #' Antoine Zink \tab C2RMF, Palais du Louvre, Paris, France
 #' }
 #'
-#' \bold{Supervisor of the initial version in 2012}
+#' **Supervisor of the initial version in 2012**
 #'
 #' Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
 #'
-#' \bold{Support contact}
+#' **Support contact**
 #'
 #' \email{developers@@r-luminescence.org}\cr
 #'
 #' We may further encourage the usage of our support forum. For this please
 #' visit our project website (link below).
 #'
-#' \bold{Bug reporting}
+#' **Bug reporting**
 #'
 #' \email{developers@@r-luminescence.org} or \cr
 #' \url{https://github.com/R-Lum/Luminescence/issues} \cr
 #'
-#' \bold{Project website}
+#' **Project website**
 #'
 #' \url{http://www.r-luminescence.org}\cr
 #'
-#' \bold{Project source code repository}\cr
+#' **Project source code repository**\cr
 #' \url{https://github.com/R-Lum/Luminescence}\cr
 #'
-#' \bold{Related package projects}\cr
+#' **Related package projects**\cr
 #' \url{https://cran.r-project.org/package=RLumShiny}\cr
 #' \url{http://shiny.r-luminescence.org}\cr
 #' \url{https://cran.r-project.org/package=RLumModel}\cr
 #' \url{http://model.r-luminescence.org}\cr
 #'
-#' \bold{Package maintainer}
+#' **Package maintainer**
 #'
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac,
 #' France, \cr \email{sebastian.kreutzer@@u-bordeaux-montaigne.fr}
 #'
-#' \bold{Acknowledgement}
+#' **Acknowledgement**
 #'
 #' Cooperation and personal exchange between the developers is gratefully
 #' funded by the DFG (SCHM 3051/3-1) in the framework of the program
@@ -116,16 +116,16 @@ NULL
 #'
 #' \tabular{ll}{
 #'
-#' \code{values.cosmic.Softcomp}: \tab data frame containing cosmic dose rates
+#' `values.cosmic.Softcomp`: \tab data frame containing cosmic dose rates
 #' for shallow depths (< 167 g cm^-2) obtained using the "AGE" program by
 #' Rainer Gruen (cf. Gruen 2009). These data essentially reproduce the graph
 #' shown in Fig. 1 of Prescott & Hutton (1988). \cr
 #'
-#' \code{values.factor.Altitude}: \tab data frame containing altitude factors
+#' `values.factor.Altitude`: \tab data frame containing altitude factors
 #' for adjusting geomagnetic field-change factors. Values were read from Fig. 1
 #' in Prescott & Hutton (1994). \cr
 #'
-#' \code{values.par.FJH}: \tab data frame containing values for parameters F, J
+#' `values.par.FJH`: \tab data frame containing values for parameters F, J
 #' and H (read from Fig. 2 in Prescott & Hutton 1994) used in the expression }
 #'
 #' \deqn{Dc = D0*(F+J*exp((altitude/1000)/H))}
@@ -142,9 +142,9 @@ NULL
 #' Radiation Measurements, 23, pp. 497-500.
 #' @source The following data were carefully read from figures in mentioned
 #' sources and used for fitting procedures. The derived expressions are used in
-#' the function \code{calc_CosmicDoseRate}.
+#' the function `calc_CosmicDoseRate`.
 #'
-#' \bold{values.cosmic.Softcomp}
+#' **values.cosmic.Softcomp**
 #'
 #' \tabular{ll}{
 #'
@@ -161,7 +161,7 @@ NULL
 #'
 #' \deqn{y = -6*10^-8*x^3+2*10^-5*x^2-0.0025*x+0.2969}
 #'
-#' \bold{values.factor.Altitude}
+#' **values.factor.Altitude**
 #'
 #' \tabular{ll}{
 #'
@@ -172,7 +172,7 @@ NULL
 #'
 #' \deqn{y = -0.026*x^2 + 0.6628*x + 1.0435}
 #'
-#' \bold{values.par.FJH}
+#' **values.par.FJH**
 #'
 #' \tabular{ll}{
 #'
@@ -219,25 +219,25 @@ NULL
 #'
 #' Example data from a SAR OSL and TL measurement for package Luminescence
 #' directly extracted from a Risoe BIN-file and provided in an object of type
-#' \link{Risoe.BINfileData-class}
+#' [Risoe.BINfileData-class]
 #'
 #'
 #' @format
 #'
-#' \code{CWOSL.SAR.Data}: SAR OSL measurement data
+#' `CWOSL.SAR.Data`: SAR OSL measurement data
 #'
-#' \code{TL.SAR.Data}: SAR TL measurement data
+#' `TL.SAR.Data`: SAR TL measurement data
 #'
-#' Each class object contains two slots: (a) \code{METADATA} is a
-#' \link{data.frame} with all metadata stored in the BIN file of the
-#' measurements and (b) \code{DATA} contains a list of vectors of the measured
+#' Each class object contains two slots: (a) `METADATA` is a
+#' [data.frame] with all metadata stored in the BIN file of the
+#' measurements and (b) `DATA` contains a list of vectors of the measured
 #' data (usually count values).
 #' @section Version: 0.1
 #' @references
-#' \bold{CWOSL.SAR.Data}: unpublished data \cr
+#' **CWOSL.SAR.Data**: unpublished data \cr
 #'
-#' \bold{TL.SAR.Data}: unpublished data
-#' @source \bold{CWOSL.SAR.Data}
+#' **TL.SAR.Data**: unpublished data
+#' @source **CWOSL.SAR.Data**
 #'
 #' \tabular{ll}{
 #'
@@ -246,7 +246,7 @@ NULL
 #' \cr \tab on aluminum cups on a Risoe TL/OSL DA-15 reader\cr Reference: \tab
 #' unpublished }
 #'
-#' \bold{TL.SAR.Data}
+#' **TL.SAR.Data**
 #'
 #' \tabular{ll}{
 #'
@@ -257,7 +257,7 @@ NULL
 #' dataset limited to one position\cr }
 #'
 #' @note Please note that this example data cannot be exported to a BIN-file using the function
-#' \code{writeR2BIN} as it was generated and implemented in the package long time ago. In the meantime
+#' `writeR2BIN` as it was generated and implemented in the package long time ago. In the meantime
 #' the BIN-file format changed.
 #'
 #' @keywords datasets
@@ -275,7 +275,7 @@ NULL
 
 #' Example CW-OSL curve data for the package Luminescence
 #'
-#' \code{data.frame} containing CW-OSL curve data (time, counts)
+#' `data.frame` containing CW-OSL curve data (time, counts)
 #'
 #' @name ExampleData.CW_OSL_Curve
 #' @docType data
@@ -290,14 +290,14 @@ NULL
 #' Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL signal
 #' components. Radiation Measurements, 47, 752-758.
 #'
-#' @source \bold{ExampleData.CW_OSL_Curve}
+#' @source **ExampleData.CW_OSL_Curve**
 #'
 #' \tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr Lab-Code: \tab
 #' BT607\cr Location: \tab Saxony/Germany\cr Material: \tab Middle grain quartz
 #' measured on aluminum cups on a Risoe TL/OSL DA-15 reader.\cr Reference: \tab
 #' unpublished data }
 #'
-#' \bold{CW_Curve.BosWallinga2012}
+#' **CW_Curve.BosWallinga2012**
 #'
 #' \tabular{ll}{ Lab: \tab Netherlands Centre for Luminescence Dating (NCL)\cr
 #' Lab-Code: \tab NCL-2108077\cr Location: \tab Guadalentin Basin, Spain\cr
@@ -317,14 +317,14 @@ NULL
 
 #' Example portable OSL curve data for the package Luminescence
 #'
-#' A \code{list} of [RLum.Analysis-class] objects, each containing
+#' A `list` of [RLum.Analysis-class] objects, each containing
 #' the same number of [RLum.Data.Curve-class] objects representing
 #' individual OSL, IRSL and dark count measurements of a sample.
 #'
 #' @name ExampleData.portableOSL
 #' @docType data
 #'
-#' @source \bold{ExampleData.portableOSL}
+#' @source **ExampleData.portableOSL**
 #'
 #' \tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory\cr Lab-Code: \tab
 #' - \cr Location: \tab Nievenheim/Germany\cr Material: \tab Fine grain quartz
@@ -373,7 +373,7 @@ NULL
 #' LxTx data from a SAR measurement for the package Luminescence.
 #'
 #'
-#' @format A \code{data.frame} with 4 columns (Dose, LxTx, LxTx.Error, TnTx).
+#' @format A `data.frame` with 4 columns (Dose, LxTx, LxTx.Error, TnTx).
 #' @references unpublished data
 #' @source
 #' \tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr Lab-Code: \tab
@@ -396,7 +396,7 @@ NULL
 #' Lx and Tx data of continous wave (CW-) OSL signal curves.
 #'
 #'
-#' @format Two \code{data.frames} containing time and count values.
+#' @format Two `data.frames` containing time and count values.
 #' @references unpublished data
 #' @source
 #' Arbitrary OSL measurement.
@@ -422,18 +422,18 @@ NULL
 #'
 #' @format
 #'
-#' \code{IRSAR.RF.Data}: IRSAR.RF.Data on coarse grain feldspar
+#' `IRSAR.RF.Data`: IRSAR.RF.Data on coarse grain feldspar
 #'
 #' Each object contains data needed for the given protocol analysis.
 #' @section Version: 0.1
 #' @references
-#' \bold{IRSAR.RF.Data}
+#' **IRSAR.RF.Data**
 #'
 #' Kreutzer, S., Lauer, T., Meszner, S., Krbetschek, M.R., Faust, D., Fuchs,
 #' M., 2014. Chronology of the Quaternary profile Zeuchfeld in Saxony-Anhalt /
 #' Germany - a preliminary luminescence dating study. Zeitschrift fuer
 #' Geomorphologie 58, 5-26. doi: 10.1127/0372-8854/2012/S-00112
-#' @source \bold{IRSAR.RF.Data}
+#' @source **IRSAR.RF.Data**
 #'
 #' These data were kindly provided by Tobias Lauer and Matthias Krbetschek.
 #'
@@ -468,7 +468,7 @@ NULL
 #'
 #' @format Object of class [RLum.Data.Image-class]
 #' @section Version: 0.1
-#' @source \bold{ExampleData.RLum.Data.Image}
+#' @source **ExampleData.RLum.Data.Image**
 #'
 #' These data were kindly provided by Regina DeWitt.
 #'
@@ -506,18 +506,18 @@ NULL
 #'
 #' @format
 #'
-#' \code{OSL.SARMeasurement}: SAR OSL measurement data
+#' `OSL.SARMeasurement`: SAR OSL measurement data
 #'
-#' The data contain two elements: (a) \code{$Sequence.Header} is a
-#' \link{data.frame} with metadata from the measurement,(b)
-#' \code{Sequence.Object} contains an [RLum.Analysis-class] object
+#' The data contain two elements: (a) `$Sequence.Header` is a
+#' [data.frame] with metadata from the measurement,(b)
+#' `Sequence.Object` contains an [RLum.Analysis-class] object
 #' for further analysis.\cr
 #'
-#' \code{TL.Spectrum}: TL spectrum data
+#' `TL.Spectrum`: TL spectrum data
 #'
 #' [RLum.Data.Spectrum-class] object for further analysis. The
 #' spectrum was cleaned from cosmic-rays using the function
-#' \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
+#' `apply_CosmicRayRemoval`. Note that no quantum efficiency calibration
 #' was performed.
 #' @section Version: 0.1
 #' @seealso [read_XSYG2R], [RLum.Analysis-class],\cr
@@ -530,7 +530,7 @@ NULL
 #' F., Moine, O., Gauthier, C., Svoboda, J., Lisa, L., 2013. The loess sequence
 #' of Dolni Vestonice, Czech Republic: A new OSL-based chronology of the Last
 #' Climatic Cycle. Boreas, 42, 664--677.
-#' @source \bold{OSL.SARMeasurement}
+#' @source **OSL.SARMeasurement**
 #'
 #' \tabular{ll}{
 #'
@@ -538,7 +538,7 @@ NULL
 #' Location: \tab not specified\cr Material: \tab Coarse grain quartz \cr \tab
 #' on steel cups on lexsyg research reader\cr Reference: \tab unpublished }
 #'
-#' \bold{TL.Spectrum}
+#' **TL.Spectrum**
 #'
 #' \tabular{ll}{
 #'
@@ -598,24 +598,24 @@ NULL
 #' @format A [list] with two elements, each containing a two column
 #' [data.frame]:
 #'
-#' \describe{ \code{$BT998}: De and De error values for a fine grain quartz
-#' sample from a loess section in Rottewitz.\cr\cr \code{$CA1}: Single grain De
+#' \describe{ `$BT998`: De and De error values for a fine grain quartz
+#' sample from a loess section in Rottewitz.\cr\cr `$CA1`: Single grain De
 #' and De error values for a coarse grain quartz sample from a fluvial deposit
 #' in the rock shelter of Cueva Anton }
-#' @references \bold{BT998} \cr\cr Unpublished data \cr\cr
-#' \bold{CA1} \cr\cr
+#' @references **BT998** \cr\cr Unpublished data \cr\cr
+#' **CA1** \cr\cr
 #' Burow, C., Kehl, M., Hilgers, A., Weniger, G.-C., Angelucci, D., Villaverde,
 #' V., Zapata, J. and Zilhao, J.  (2015). Luminescence dating of fluvial
 #' deposits in the rock shelter of Cueva Anton, Spain. Geochronometria 52, 107-125.
 #'
-#' \bold{BT998} \cr
+#' **BT998** \cr
 #' \tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr
 #' Lab-Code: \tab BT998\cr Location: \tab Rottewitz (Saxony/Germany)\cr
 #' Material: \tab Fine grain quartz measured on aluminum discs on a Risoe
 #' TL/OSL DA-15 reader\cr Units: \tab Values are given in seconds \cr Dose
 #' Rate: \tab Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/-
 #' 0.0019 Gy/s\cr Measurement Date: \tab 2012-01-27 }
-#' \bold{CA1} \cr
+#' **CA1** \cr
 #' \tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory (CLL)\cr Lab-Code:
 #' \tab C-L2941\cr Location: \tab Cueva Anton (Murcia/Spain)\cr Material: \tab
 #' Coarse grain quartz (200-250 microns) measured on single grain discs on a
@@ -656,20 +656,20 @@ NULL
 #'
 #' \describe{
 #'
-#' \code{$fading.data}: A named [list] of [data.frame]s,
-#' each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).\cr
-#' \code{..$IR50}: Fading data of the IR50 signal.\cr
-#' \code{..$IR100}: Fading data of the IR100 signal.\cr
-#' \code{..$IR150}: Fading data of the IR150 signal.\cr
-#' \code{..$IR225}: Fading data of the IR225 signal.\cr
+#' `$fading.data`: A named [list] of [data.frame]s,
+#' each having three named columns (`LxTx, LxTx.error, timeSinceIrradiation`).\cr
+#' `..$IR50`: Fading data of the IR50 signal.\cr
+#' `..$IR100`: Fading data of the IR100 signal.\cr
+#' `..$IR150`: Fading data of the IR150 signal.\cr
+#' `..$IR225`: Fading data of the IR225 signal.\cr
 #' \cr\cr
 #'
-#' \code{$equivalentDose.data}: A named of [data.frame]s,
-#' each having three named columns (\code{dose, LxTx, LxTx.error}).\cr
-#' \code{..$IR50}: Equivalent dose measurement data of the IR50 signal.\cr
-#' \code{..$IR100}: Equivalent dose measurement data of the IR100 signal.\cr
-#' \code{..$IR150}: Equivalent dose measurement data of the IR150 signal.\cr
-#' \code{..$IR225}: Equivalent dose measurement data of the IR225 signal.\cr
+#' `$equivalentDose.data`: A named of [data.frame]s,
+#' each having three named columns (`dose, LxTx, LxTx.error`).\cr
+#' `..$IR50`: Equivalent dose measurement data of the IR50 signal.\cr
+#' `..$IR100`: Equivalent dose measurement data of the IR100 signal.\cr
+#' `..$IR150`: Equivalent dose measurement data of the IR150 signal.\cr
+#' `..$IR225`: Equivalent dose measurement data of the IR225 signal.\cr
 #' \cr\cr
 #'
 #' }
@@ -685,7 +685,7 @@ NULL
 #' King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 #' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
 #'
-#' \bold{Details} \cr
+#' **Details** \cr
 #' \tabular{ll}{
 #' Lab: \tab University of Lausanne \cr
 #' Lab-Code: \tab UNIL/NB123 \cr

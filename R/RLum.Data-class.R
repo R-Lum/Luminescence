@@ -1,4 +1,4 @@
-#' Class \code{"RLum.Data"}
+#' Class `"RLum.Data"`
 #'
 #' Generalized virtual data class for luminescence data.
 #'

@@ -22,15 +22,15 @@
 #' type of weight calculation. One out of `"reciprocal"` (weight is 1/error), 
 #' `"square"` (weight is 1/error^2). Default is `"square"`.
 #'
-#' @param digits [integer] *(with default)*: 
+#' @param digits [integer] **(with default)**: 
 #' round numbers to the specified digits. 
 #' If digits is set to `NULL` nothing is rounded.
 #'
-#' @param n.MCM [numeric] *(with default)*: 
+#' @param n.MCM [numeric] **(with default)**: 
 #' number of samples drawn for Monte Carlo-based statistics. 
 #' `NULL` (the default) disables MC runs.
 #'
-#' @param na.rm [logical] *(with default)*: 
+#' @param na.rm [logical] **(with default)**: 
 #' indicating whether `NA` values should be stripped before the computation proceeds.
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.

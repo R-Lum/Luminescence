@@ -3,7 +3,7 @@
 #' This function takes a data.frame and returns a table in LaTex code that
 #' can be copied in any tex document.
 #'
-#' @param x a [data.frame] or \code{RLum} object
+#' @param x a [data.frame] or `RLum` object
 #' @param row.names currently unused
 #' @param col.names currently unused
 #' @param comments [logical] insert LaTex comments
@@ -14,7 +14,7 @@
 #' @param select a [character] vector passed to [subset]
 #' @param split an [integer] specifying the number of individual tables
 #' the data frame is split into. Useful for wide tables. Currently unnused.
-#' @param ... options: \code{verbose}
+#' @param ... options: `verbose`
 #'
 #' @section TODO:
 #' - Improve by using RegEx to dynamically find error fields, eg. ( "([ ]err)|(^err)" )

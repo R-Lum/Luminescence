@@ -6,7 +6,7 @@
 #' [RLum-class] objects.\cr Depending on the input object, the
 #' corresponding plot function will be selected.  Allowed arguments can be
 #' found in the documentations of each plot function.  \tabular{lll}{
-#' \bold{object} \tab \tab \bold{corresponding plot function} \cr
+#' **object** \tab \tab **corresponding plot function** \cr
 #'
 #' [RLum.Data.Curve-class] \tab : \tab
 #' [plot_RLum.Data.Curve] \cr
@@ -18,16 +18,16 @@
 #' [RLum.Results-class] \tab : \tab
 #' [plot_RLum.Results] }
 #'
-#' @param object [RLum-class] (\bold{required}): S4 object of
-#' class \code{RLum}. Optional a [list] containing objects of class [RLum-class]
+#' @param object [RLum-class] (**required**): S4 object of
+#' class `RLum`. Optional a [list] containing objects of class [RLum-class]
 #' can be provided. In this case the function tries to plot every object in this list according
-#' to its \code{RLum} class.
+#' to its `RLum` class.
 #'
 #' @param \dots further arguments and graphical parameters that will be passed
-#' to the specific plot functions. The only argument that is supported directly is \code{main}
-#' (setting the plot title). In contrast to the normal behaviour \code{main} can be here provided as
-#' [list] and the arguments in the list will dispatched to the plots if the \code{object}
-#' is of type \code{list} as well.
+#' to the specific plot functions. The only argument that is supported directly is `main`
+#' (setting the plot title). In contrast to the normal behaviour `main` can be here provided as
+#' [list] and the arguments in the list will dispatched to the plots if the `object`
+#' is of type `list` as well.
 #'
 #' @return Returns a plot.
 #'

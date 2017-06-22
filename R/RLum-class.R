@@ -1,7 +1,7 @@
 #' @include replicate_RLum.R RcppExports.R
 NULL
 
-#' Class \code{"RLum"}
+#' Class `"RLum"`
 #'
 #' Abstract class for data in the package Luminescence
 #'
@@ -16,13 +16,13 @@ NULL
 #' @slot info Object of class [list] for additional information on the object itself
 #'
 #' @slot .uid Object of class [character] for a unique object identifier. This id is
-#' usually calculated using the internal function \code{.create_UID()} if the funtion [set_RLum]
+#' usually calculated using the internal function `.create_UID()` if the funtion [set_RLum]
 #' is called.
 #'
 #' @slot .pid Object of class [character] for a parent id. This allows nesting RLum-objects
 #' at will. The parent id can be the uid of another object.
 #'
-#' @note \code{RLum} is a virtual class.
+#' @note `RLum` is a virtual class.
 #'
 #' @section Objects from the Class: A virtual Class: No objects can be created
 #' from it.
@@ -63,9 +63,9 @@ setClass("RLum",
 #' @describeIn RLum
 #' Replication method RLum-objects
 #'
-#' @param object an object of class [RLum-class] (\bold{required})
+#' @param object an object of class [RLum-class] (**required**)
 #'
-#' @param times [integer] (optional): number for times each element is repeated
+#' @param times [integer] *(optional)*: number for times each element is repeated
 #' element
 #'
 #' @md

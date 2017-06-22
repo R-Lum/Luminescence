@@ -7,13 +7,13 @@
 #' corresponding structure function will be selected. Allowed arguments can be found
 #' in the documentations of the corresponding [RLum-class] class.
 #'
-#' @param object [RLum-class] (\bold{required}): S4 object of
-#' class \code{RLum}
+#' @param object [RLum-class] (**required**): S4 object of
+#' class `RLum`
 #'
 #' @param \dots further arguments that one might want to pass to the specific
 #' structure method
 #'
-#' @return Returns a \code{data.frame} with structure of the object.
+#' @return Returns a `data.frame` with structure of the object.
 #'
 #' @section Function version: 0.2.0
 #'

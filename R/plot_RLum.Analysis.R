@@ -6,13 +6,13 @@
 #' The function produces a multiple plot output. A file output is recommended
 #' (e.g., [pdf]).
 #'
-#' \bold{curve.transformation}\cr
+#' **curve.transformation**\cr
 #'
 #' This argument allows transforming continuous wave (CW) curves to pseudo
 #' (linear) modulated curves. For the transformation, the functions of the
 #' package are used. Currently, it is not possible to pass further arguments to
-#' the transformation functions. The argument works only for \code{ltype}
-#' \code{OSL} and \code{IRSL}.\cr
+#' the transformation functions. The argument works only for `ltype`
+#' `OSL` and `IRSL`.\cr
 #'
 #' Please note: The curve transformation within this functions works roughly,
 #' i.e. every IRSL or OSL curve is transformed, without considerung whether it
@@ -20,47 +20,47 @@
 #' helpful.\cr
 #'
 #'
-#' @param object [RLum.Analysis-class] (\bold{required}): S4
-#' object of class \code{RLum.Analysis}
+#' @param object [RLum.Analysis-class] (**required**): S4
+#' object of class `RLum.Analysis`
 #'
-#' @param subset named [list] (optional): subsets elements for plotting. The
+#' @param subset named [list] *(optional)*: subsets elements for plotting. The
 #' arguments in the named [list] will be directly passed to the function [get_RLum]
-#' (e.g., \code{subset = list(curveType = "measured")})
+#' (e.g., `subset = list(curveType = "measured")`)
 #'
-#' @param nrows [integer] (optional): sets number of rows for
+#' @param nrows [integer] *(optional)*: sets number of rows for
 #' plot output, if nothing is set the function tries to find a value.
 #'
-#' @param ncols [integer] (optional): sets number of columns
+#' @param ncols [integer] *(optional)*: sets number of columns
 #' for plot output, if nothing is set the function tries to find a value.
 #'
-#' @param abline [list] (optional): allows to add ablines to the plot. Argument are provided
-#' in a list and will be forwared to the function [abline], e.g., \code{list(v = c(10, 100))}
-#' adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = c(10), v = c(100)}
+#' @param abline [list] *(optional)*: allows to add ablines to the plot. Argument are provided
+#' in a list and will be forwared to the function [abline], e.g., `list(v = c(10, 100))`
+#' adds two vertical lines add 10 and 100 to all plots. In contrast `list(v = c(10), v = c(100)`
 #' adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.
 #'
-#' @param combine [logical] (with default): allows to combine all
+#' @param combine [logical] *(with default)*: allows to combine all
 #' [RLum.Data.Curve-class] objects in one single plot.
 #'
-#' @param curve.transformation [character] (optional): allows
+#' @param curve.transformation [character] *(optional)*: allows
 #' transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
-#' transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
-#' \code{CW2pHMi} and \code{CW2pPMi}. See details.
+#' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`,
+#' `CW2pHMi` and `CW2pPMi`. See details.
 #'
-#' @param plot.single [logical] (with default): global par settings are
+#' @param plot.single [logical] *(with default)*: global par settings are
 #' considered, normally this should end in one plot per page
 #'
 #' @param \dots further arguments and graphical parameters will be passed to
-#' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
-#' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
-#' \code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}... and for \code{combine = TRUE}
-#' also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}, \code{smooth}.
-#' All arguments can be provided as \code{vector} or \code{list} to gain in full control
+#' the `plot` function. Supported arguments: `main`, `mtext`,
+#' `log`, `lwd`, `lty` `type`, `pch`, `col`,
+#' `norm`, `xlim`,`ylim`, `xlab`, `ylab`... and for `combine = TRUE`
+#' also: `sub`, `legend`, `legend.text`, `legend.pos` (typical plus 'outside'), `legend.col`, `smooth`.
+#' All arguments can be provided as `vector` or `list` to gain in full control
 #' of all plot settings.
 #'
 #' @return Returns multiple plots.
 #'
 #' @note Not all arguments available for [plot] will be passed!
-#' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
+#' Only plotting of `RLum.Data.Curve` and `RLum.Data.Spectrum`
 #' objects are currently supported.\cr
 #'
 #' @section Function version: 0.3.8

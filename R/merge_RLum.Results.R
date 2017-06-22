@@ -4,7 +4,7 @@
 #' are combined depending on the object type, e.g., for [data.frame] and [matrix]
 #' rows are appended.
 #'
-#' @note The originator is taken from the first element and not reset to \code{merge_RLum}
+#' @note The originator is taken from the first element and not reset to `merge_RLum`
 #'
 #' @param objects [list] (required): a list of [RLum.Results-class] objects
 #'

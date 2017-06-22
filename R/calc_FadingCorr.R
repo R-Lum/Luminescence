@@ -73,28 +73,28 @@
 #' time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001). 
 #' Argument will be ignored if `g_value` was an [RLum.Results-class] object
 #'
-#' @param tc.g_value [numeric] *(with default)*: 
+#' @param tc.g_value [numeric] **(with default)**: 
 #' the time in seconds between irradiation and the prompt measurement used for estimating the g-value. 
 #' If the g-value was normalised to, e.g., 2 days, this time in seconds (i.e., 172800) should be given here. 
 #' If nothing is provided the time is set to tc, which is usual case for g-values obtained using the 
 #' SAR method and g-values that had been not normalised to 2 days.
 #'
-#' @param n.MC [integer] *(with default)*: 
+#' @param n.MC [integer] **(with default)**: 
 #' number of Monte Carlo simulation runs for error estimation. 
 #' If `n.MC = 'auto'` is used the function tries to find a 'stable' error for the age. 
 #' **Note:** This may take a while!
 #'
-#' @param seed [integer] *(optional)*: 
+#' @param seed [integer] **(optional)**: 
 #' sets the seed for the random number generator in R using [set.seed]
 #'
-#' @param interval [numeric] *(with default)*: 
+#' @param interval [numeric] **(with default)**: 
 #' a vector containing the end-points (age interval) of the interval to be searched for the root in 'ka'. 
 #' This argument is passed to the function [stats::uniroot] used for solving the equation.
 #'
-#' @param txtProgressBar [logical] *(with default)*: 
+#' @param txtProgressBar [logical] **(with default)**: 
 #' enables or disables [txtProgressBar]
 #'
-#' @param verbose [logical] *(with default)*: 
+#' @param verbose [logical] **(with default)**: 
 #' enables or disables terminal output
 #'
 #'

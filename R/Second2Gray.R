@@ -9,7 +9,7 @@
 #' Provided calculation error propagation methods for error calculation (with 'se' as the standard error
 #' and 'DR' of the dose rate of the beta-source):\cr
 #'
-#' \bold{(1) \code{omit}} (default)\cr
+#' **(1) `omit`** (default)\cr
 #'
 #' \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
 #'
@@ -19,36 +19,36 @@
 #' method (2) (gaussian) for the case the (random) standard error of the beta-source calibration is
 #' 0. Which particular method is requested depends on the situation and cannot be prescriptive.
 #'
-#' \bold{(2) \code{gaussian}} error propagation \cr
+#' **(2) `gaussian`** error propagation \cr
 #'
 #' \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
 #'
 #' Applicable under the assumption that errors of De and se are uncorrelated.
 #'
-#' \bold{(3) \code{absolute}} error propagation \cr
+#' **(3) `absolute`** error propagation \cr
 #'
 #' \deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
 #'
 #' Applicable under the assumption that errors of De and se are not uncorrelated.
 #'
-#' @param data [data.frame] (\bold{required}): input values,
-#' structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
+#' @param data [data.frame] (**required**): input values,
+#' structure: data (`values[,1]`) and data error (`values [,2]`) are
 #' required
 #'
 #' @param dose.rate [RLum.Results-class] or [data.frame] or [numeric]
-#' (\bold{required}): \code{RLum.Results} needs to be orginated from the
-#' function [calc_SourceDoseRate], for \code{vector} dose rate in
+#' (**required**): `RLum.Results` needs to be orginated from the
+#' function [calc_SourceDoseRate], for `vector` dose rate in
 #' Gy/s and dose rate error in Gy/s
 #'
-#' @param error.propagation [character] (with default): error propagation method used for error
-#' calculation (\code{omit}, \code{gaussian} or \code{absolute}), see details for further
+#' @param error.propagation [character] *(with default)*: error propagation method used for error
+#' calculation (`omit`, `gaussian` or `absolute`), see details for further
 #' information
 #'
-#' @return Returns a \link{data.frame} with converted values.
+#' @return Returns a [data.frame] with converted values.
 #'
 #' @note If no or a wrong error propagation method is given, the execution of the function is
-#' stopped. Furthermore, if a \code{data.frame} is provided for the dose rate values is has to
-#' be of the same length as the data frame provided with the argument \code{data}
+#' stopped. Furthermore, if a `data.frame` is provided for the dose rate values is has to
+#' be of the same length as the data frame provided with the argument `data`
 #'
 #' @section Function version: 0.6.0
 #'

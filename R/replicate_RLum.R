@@ -2,9 +2,9 @@
 #'
 #' Function replicates RLum S4 class objects and returns a list for this objects
 #'
-#' @param object an object of class [RLum-class] (\bold{required})
+#' @param object an object of class [RLum-class] (**required**)
 #'
-#' @param times [integer] (optional): number for times each element is repeated
+#' @param times [integer] *(optional)*: number for times each element is repeated
 #' element
 #'
 #' @return Returns a [list] of the object to be repeated

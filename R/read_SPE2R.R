@@ -1,50 +1,50 @@
 #' Import Princeton Intruments (TM) SPE-file into R
 #'
 #' Function imports Princeton Instruments (TM) SPE-files into R environment and
-#' provides \code{RLum} objects as output.
+#' provides `RLum` objects as output.
 #'
 #' Function provides an import routine for the Princton Instruments SPE format.
 #' Import functionality is based on the file format description provided by
 #' Princton Instruments and a MatLab script written by Carl Hall (s.
 #' references).
 #'
-#' @param file \link{character} (\bold{required}): spe-file name (including
-#' path), e.g. \cr `[WIN]`: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
-#' `[MAC/LINUX]`: \code{readSPER("/User/test/Desktop/test.spe")}
+#' @param file [character] (**required**): spe-file name (including
+#' path), e.g. \cr `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`, \cr
+#' `[MAC/LINUX]`: `readSPER("/User/test/Desktop/test.spe")`
 #'
-#' @param output.object [character] (with default): set \code{RLum}
-#' output object.  Allowed types are \code{"RLum.Data.Spectrum"},
-#' \code{"RLum.Data.Image"} or \code{"matrix"}
+#' @param output.object [character] *(with default)*: set `RLum`
+#' output object.  Allowed types are `"RLum.Data.Spectrum"`,
+#' `"RLum.Data.Image"` or `"matrix"`
 #'
-#' @param frame.range [vector] (optional): limit frame range, e.g.
-#' select first 100 frames by \code{frame.range = c(1,100)}
+#' @param frame.range [vector] *(optional)*: limit frame range, e.g.
+#' select first 100 frames by `frame.range = c(1,100)`
 #'
-#' @param txtProgressBar \link{logical} (with default): enables or disables
+#' @param txtProgressBar [logical] *(with default)*: enables or disables
 #' [txtProgressBar].
 #'
 #' @return Depending on the chosen option the functions returns three different
 #' type of objects:\cr
 #'
-#' \code{output.object}. \cr
+#' `output.object`. \cr
 #'
-#' \code{RLum.Data.Spectrum}\cr
+#' `RLum.Data.Spectrum`\cr
 #'
 #' An object of type [RLum.Data.Spectrum-class] is returned.  Row
 #' sums are used to integrate all counts over one channel.
 #'
-#' \code{RLum.Data.Image}\cr
+#' `RLum.Data.Image`\cr
 #'
 #' An object of type [RLum.Data.Image-class] is returned.  Due to
 #' performace reasons the import is aborted for files containing more than 100
 #' frames. This limitation can be overwritten manually by using the argument
-#' \code{frame.frange}.
+#' `frame.frange`.
 #'
-#' \code{matrix}\cr
+#' `matrix`\cr
 #'
 #' Returns a matrix of the form: Rows = Channels, columns = Frames. For the
 #' transformation the function [get_RLum] is used,
 #' meaning that the same results can be obtained by using the function
-#' [get_RLum] on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
+#' [get_RLum] on an `RLum.Data.Spectrum` or `RLum.Data.Image` object.
 #' @note \bold{The function does not test whether the input data are spectra or
 #' pictures for spatial resolved analysis!}\cr
 #'

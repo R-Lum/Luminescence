@@ -7,80 +7,80 @@
 #' by the extremes and outliers shown as points) and also the mean and
 #' standard deviation as pale bold line and pale polygon, respectively.
 #'
-#' The function allows passing several plot arguments, such as \code{main},
-#' \code{xlab}, \code{cex}. However, as the figure is an overlay of two
-#' separate plots, \code{ylim} must be specified in the order: c(ymin_axis1,
+#' The function allows passing several plot arguments, such as `main`,
+#' `xlab`, `cex`. However, as the figure is an overlay of two
+#' separate plots, `ylim` must be specified in the order: c(ymin_axis1,
 #' ymax_axis1, ymin_axis2, ymax_axis2) when using the cumulative values plot
 #' option. See examples for some further explanations. For details on the
-#' calculation of the bin-width (parameter \code{bw}) see
+#' calculation of the bin-width (parameter `bw`) see
 #' [density].\cr\cr
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords:
 #' \itemize{
-#' \item \code{"n"} (number of samples)
-#' \item \code{"mean"} (mean De value)
-#' \item \code{"median"} (median of the De values)
-#' \item \code{"sd.rel"} (relative standard deviation in percent)
-#' \item \code{"sd.abs"} (absolute standard deviation)
-#' \item \code{"se.rel"} (relative standard error)
-#' \item \code{"se.abs"} (absolute standard error)
-#' \item \code{"in.2s"} (percent of samples in 2-sigma range)
-#' \item \code{"kurtosis"} (kurtosis)
-#' \item \code{"skewness"} (skewness)
+#' \item `"n"` (number of samples)
+#' \item `"mean"` (mean De value)
+#' \item `"median"` (median of the De values)
+#' \item `"sd.rel"` (relative standard deviation in percent)
+#' \item `"sd.abs"` (absolute standard deviation)
+#' \item `"se.rel"` (relative standard error)
+#' \item `"se.abs"` (absolute standard error)
+#' \item `"in.2s"` (percent of samples in 2-sigma range)
+#' \item `"kurtosis"` (kurtosis)
+#' \item `"skewness"` (skewness)
 #' }
 #' Note that the input data for the statistic summary is sent to the function
-#' \code{calc_Statistics()} depending on the log-option for the z-scale. If
-#' \code{"log.z = TRUE"}, the summary is based on the logarithms of the input
-#' data. If \code{"log.z = FALSE"} the linearly scaled data is used. \cr
-#' Note as well, that \code{"calc_Statistics()"} calculates these statistic
-#' measures in three different ways: \code{unweighted}, \code{weighted} and
-#' \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
+#' `calc_Statistics()` depending on the log-option for the z-scale. If
+#' `"log.z = TRUE"`, the summary is based on the logarithms of the input
+#' data. If `"log.z = FALSE"` the linearly scaled data is used. \cr
+#' Note as well, that `"calc_Statistics()"` calculates these statistic
+#' measures in three different ways: `unweighted`, `weighted` and
+#' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. If you wish to use another method, indicate this
-#' with the appropriate keyword using the argument \code{summary.method}.\cr\cr
+#' with the appropriate keyword using the argument `summary.method`.\cr\cr
 #' @param data [data.frame] or [RLum.Results-class]
-#' object (required): for \code{data.frame}: two columns: De
-#' (\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
-#' data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
+#' object (required): for `data.frame`: two columns: De
+#' (`values[,1]`) and De error (`values[,2]`). For plotting multiple
+#' data sets, these must be provided as `list` (e.g. \code{list(dataset1,
 #' dataset2)}).
 #'
-#' @param na.rm [logical] (with default): exclude NA values
+#' @param na.rm [logical] *(with default)*: exclude NA values
 #' from the data set prior to any further operation.
 #'
-#' @param values.cumulative [logical] (with default): show
+#' @param values.cumulative [logical] *(with default)*: show
 #' cumulative individual data.
 #'
 #' @param order [logical]: Order data in ascending order.
 #'
-#' @param boxplot [logical] (with default): optionally show a
+#' @param boxplot [logical] *(with default)*: optionally show a
 #' boxplot (depicting median as thick central line, first and third quartile
 #' as box limits, whiskers denoting +/- 1.5 interquartile ranges and dots
 #' further outliers).
 #'
-#' @param rug [logical] (with default): optionally add rug.
+#' @param rug [logical] *(with default)*: optionally add rug.
 #'
-#' @param summary [character] (optional): add statistic measures of
+#' @param summary [character] *(optional)*: add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #'
 #' @param summary.pos [numeric] or [character] (with
-#' default): optional position coordinates or keyword (e.g. \code{"topright"})
-#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
+#' default): optional position coordinates or keyword (e.g. `"topright"`)
+#' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
-#' option in only possible if \code{mtext} is not used. In case of coordinate
+#' option in only possible if `mtext` is not used. In case of coordinate
 #' specification, y-coordinate refers to the right y-axis.
 #'
-#' @param summary.method [character] (with default): keyword
+#' @param summary.method [character] *(with default)*: keyword
 #' indicating the method used to calculate the statistic summary. One out of
-#' \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
+#' `"unweighted"`, `"weighted"` and `"MCM"`. See
 #' [calc_Statistics] for details.
 #'
-#' @param bw [character] (with default): bin-width, chose a numeric
+#' @param bw [character] *(with default)*: bin-width, chose a numeric
 #' value for manual setting.
 #'
 #' @param output [logical]: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
-#' \code{TRUE}.
+#' `TRUE`.
 #'
 #' @param \dots further arguments and graphical parameters passed to
 #' [plot].

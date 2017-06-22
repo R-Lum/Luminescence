@@ -7,8 +7,8 @@
 #' corresponding function will be selected. Allowed arguments can be found
 #' in the documentations of the corresponding [RLum.Data-class] class.
 #'
-#' @param object [RLum.Data-class] (\bold{required}): S4 object of
-#' class \code{RLum.Data}
+#' @param object [RLum.Data-class] (**required**): S4 object of
+#' class `RLum.Data`
 #'
 #' @param ... further arguments passed to the specifc class method
 #'
@@ -19,7 +19,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @note Currenlty only \code{RLum.Data} objects of class \code{RLum.Data.Curve} are supported!
+#' @note Currenlty only `RLum.Data` objects of class `RLum.Data.Curve` are supported!
 #'
 #' @seealso
 #' [RLum.Data.Curve-class]

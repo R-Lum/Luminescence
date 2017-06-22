@@ -6,9 +6,9 @@
 #' object.\cr The record IDs are recalculated for the new object. Other values
 #' are kept for each object. The number of input objects is not limited. \cr
 #'
-#' \code{position.number.append.gap} option \cr
+#' `position.number.append.gap` option \cr
 #'
-#' If the option \code{keep.position.number = FALSE} is used, the position
+#' If the option `keep.position.number = FALSE` is used, the position
 #' numbers of the new data set are recalculated by adding the highest position
 #' number of the previous data set to the each position number of the next data
 #' set. For example: The highest position number is 48, then this number will
@@ -18,38 +18,38 @@
 #' However, there might be cases where an additional addend (summand) is needed
 #' before the next position starts. Example: \cr
 #'
-#' Position number set (A): \code{1,3,5,7}\cr Position number set (B):
-#' \code{1,3,5,7} \cr
+#' Position number set (A): `1,3,5,7`\cr Position number set (B):
+#' `1,3,5,7` \cr
 #'
 #' With no additional summand the new position numbers would be:
-#' \code{1,3,5,7,8,9,10,11}. That might be unwanted. Using the argument
-#' \code{position.number.append.gap = 1} it will become:
-#' \code{1,3,5,7,9,11,13,15,17}.
+#' `1,3,5,7,8,9,10,11`. That might be unwanted. Using the argument
+#' `position.number.append.gap = 1` it will become:
+#' `1,3,5,7,9,11,13,15,17`.
 #'
 #' @param input.objects [character] with
-#' [Risoe.BINfileData-class] objects (\bold{required}): Character vector
+#' [Risoe.BINfileData-class] objects (**required**): Character vector
 #' with path and files names (e.g. \code{input.objects = c("path/file1.bin",
 #' "path/file2.bin")} or [Risoe.BINfileData-class] objects (e.g.
-#' \code{input.objects = c(object1, object2)}). Alternatively a \code{list} is supported.
+#' `input.objects = c(object1, object2)`). Alternatively a `list` is supported.
 #'
 #'
-#' @param output.file [character] (optional): File output path and
+#' @param output.file [character] *(optional)*: File output path and
 #' name. \cr If no value is given, a [Risoe.BINfileData-class] is
 #' returned instead of a file.
 #'
 #'
-#' @param keep.position.number [logical] (with default): Allows
+#' @param keep.position.number [logical] *(with default)*: Allows
 #' keeping the original position numbers of the input objects. Otherwise the
 #' position numbers are recalculated.
 #'
 #'
-#' @param position.number.append.gap [integer] (with default): Set
+#' @param position.number.append.gap [integer] *(with default)*: Set
 #' the position number gap between merged BIN-file sets, if the option
-#' \code{keep.position.number = FALSE} is used. See details for further
+#' `keep.position.number = FALSE` is used. See details for further
 #' information.
 #'
 #'
-#' @return Returns a \code{file} or a [Risoe.BINfileData-class]
+#' @return Returns a `file` or a [Risoe.BINfileData-class]
 #' object.
 #'
 #'

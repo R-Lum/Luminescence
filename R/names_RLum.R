@@ -7,8 +7,8 @@
 #' corresponding 'names' function will be selected. Allowed arguments can be found
 #' in the documentations of the corresponding [RLum-class] class.
 #'
-#' @param object [RLum-class] (\bold{required}): S4 object of
-#' class \code{RLum}
+#' @param object [RLum-class] (**required**): S4 object of
+#' class `RLum`
 #' @return Returns a [character]
 #' @section Function version: 0.1.0
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

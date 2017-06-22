@@ -26,7 +26,7 @@
 #' number of commits returned (defaults to 5).
 #' 
 #' @param verbose [logical]: 
-#' print the output to the console (defaults to \code{TRUE}).
+#' print the output to the console (defaults to `TRUE`).
 #' 
 #' @author Christoph Burow, University of Cologne (Germany)
 #' 
@@ -51,11 +51,11 @@ NULL
 #' @rdname GitHub-API
 #' 
 #' @details 
-#' \code{github_commits} lists the most recent \code{n} commits of a specific
+#' `github_commits` lists the most recent `n` commits of a specific
 #' branch of a repository.
 #' 
 #' @return 
-#' \code{github_commits}: [data.frame] with columns:
+#' `github_commits`: [data.frame] with columns:
 #' \tabular{ll}{
 #'  `[ ,1]` \tab SHA \cr
 #'  `[ ,2]` \tab AUTHOR \cr
@@ -96,12 +96,12 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #' @rdname GitHub-API
 #' 
 #' @details 
-#' \code{github_branches} can be used to list all current branches of a
+#' `github_branches` can be used to list all current branches of a
 #' repository and returns the corresponding SHA hash as well as an installation
 #' command to install the branch in R via the 'devtools' package.
 #' 
 #' @return 
-#' \code{github_branches}: [data.frame] with columns:
+#' `github_branches`: [data.frame] with columns:
 #' \tabular{ll}{
 #'  `[ ,1]` \tab BRANCH \cr
 #'  `[ ,2]` \tab SHA \cr
@@ -136,10 +136,10 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #' @rdname GitHub-API
 #' 
 #' @details 
-#' \code{github_issues} lists all open issues for a repository in valid YAML.
+#' `github_issues` lists all open issues for a repository in valid YAML.
 #' 
 #' @return 
-#' \code{github_commits}: Nested [list] with \code{n} elements.
+#' `github_commits`: Nested [list] with `n` elements.
 #' Each commit element is a list with elements:
 #' \tabular{ll}{
 #'  `[[1]]` \tab NUMBER \cr

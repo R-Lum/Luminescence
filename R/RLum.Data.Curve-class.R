@@ -1,7 +1,7 @@
 #' @include get_RLum.R set_RLum.R names_RLum.R length_RLum.R bin_RLum.Data.R smooth_RLum.R
 NULL
 
-#' Class \code{"RLum.Data.Curve"}
+#' Class `"RLum.Data.Curve"`
 #'
 #' Class for representing luminescence curve data.
 #'
@@ -14,7 +14,7 @@ NULL
 #' @slot curveType Object of class "character" containing curve type, allowed values are measured or predefined
 #'
 #' @slot data Object of class [matrix] containing curve x and y data.
-#' 'data' can also be of type \code{RLum.Data.Curve} to change object values without deconstructing the object.
+#' 'data' can also be of type `RLum.Data.Curve` to change object values without deconstructing the object.
 #' For example: \code{set_RLum(class = 'RLum.Data.Curve',
 #' data = Your.RLum.Data.Curve, recordType = 'never seen before')}
 #' would just change the recordType. Missing arguements  the value is taken from the input object
@@ -22,13 +22,13 @@ NULL
 #'
 #'
 #' @note The class should only contain data for a single curve. For additional
-#' elements the slot \code{info} can be used (e.g. providing additional heating
-#' ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
+#' elements the slot `info` can be used (e.g. providing additional heating
+#' ramp curve). Objects from the class `RLum.Data.Curve` are produced by other
 #' functions (partyl within [RLum.Analysis-class] objects),
 #' namely: [Risoe.BINfileData2RLum.Analysis], [read_XSYG2R]
 #'
 #' @section Create objects from this Class: Objects can be created by calls of the form
-#' \code{set_RLum(class = "RLum.Data.Curve", ...)}.
+#' `set_RLum(class = "RLum.Data.Curve", ...)`.
 #'
 #' @section Class version: 0.5.0
 #'
@@ -69,26 +69,26 @@ setClass("RLum.Data.Curve",
 ##COERCE RLum.Data.Curve >> list AND list >> RLum.Data.Curve
 #' as() - RLum-object coercion
 #'
-#' for \code{[RLum.Data.Curve]}
+#' for `[RLum.Data.Curve]`
 #'
-#' \bold{[RLum.Data.Curve]}\cr
+#' **[RLum.Data.Curve]**\cr
 #'
 #' \tabular{ll}{
-#'  \bold{from} \tab \bold{to}\cr
-#'   \code{list} \tab \code{list} \cr
-#'   \code{data.frame} \tab \code{data.frame}\cr
-#'   \code{matrix} \tab \code{matrix}
+#'  **from** \tab **to**\cr
+#'   `list` \tab `list` \cr
+#'   `data.frame` \tab `data.frame`\cr
+#'   `matrix` \tab `matrix`
 #'
 #' }
 #'
 #' @param from [RLum-class] or [list], [data.frame], [matrix]
-#' (\bold{required}): object to be coerced from
+#' (**required**): object to be coerced from
 #'
-#' @param to [character] (\bold{required}): class name to be coerced to
+#' @param to [character] (**required**): class name to be coerced to
 #'
 #' @seealso [methods::as]
 #'
-#' @note Due to the complex structure of the \code{RLum} objects itself a coercing to standard
+#' @note Due to the complex structure of the `RLum` objects itself a coercing to standard
 #' R data structures will be always loosely!
 #'
 #' @md
@@ -157,7 +157,7 @@ setAs("RLum.Data.Curve", "matrix",
 ###show()
 ####################################################################################################
 #' @describeIn RLum.Data.Curve
-#' Show structure of \code{RLum.Data.Curve} object
+#' Show structure of `RLum.Data.Curve` object
 #' 
 #' @md
 #' @export
@@ -192,19 +192,19 @@ setMethod("show",
 #' Construction method for RLum.Data.Curve object. The slot info is optional
 #' and predefined as empty list by default.
 #'
-#' @param class [\code{set_RLum}] [character] (\bold{required}): name of the \code{RLum} class to create
-#' @param originator [\code{set_RLum}] [character] (automatic): contains the name of the calling function
+#' @param class [`set_RLum`] [character] (**required**): name of the `RLum` class to create
+#' @param originator [`set_RLum`] [character] (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
-#' @param .uid [\code{set_RLum}] [character] (automatic): sets an unique ID for this object
-#' using the internal C++ function \code{.create_UID}.
-#' @param .pid [\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
+#' @param .uid [`set_RLum`] [character] (automatic): sets an unique ID for this object
+#' using the internal C++ function `.create_UID`.
+#' @param .pid [`set_RLum`] [character] *(with default)*: option to provide a parent id for nesting
 #' at will.
-#' @param recordType [\code{set_RLum}] [character] (optional): record type (e.g., "OSL")
-#' @param curveType [\code{set_RLum}] [character] (optional): curve type (e.g., "predefined" or "measured")
-#' @param data [\code{set_RLum}] [matrix] (\bold{required}): raw curve data.
-#' If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
+#' @param recordType [`set_RLum`] [character] *(optional)*: record type (e.g., "OSL")
+#' @param curveType [`set_RLum`] [character] *(optional)*: curve type (e.g., "predefined" or "measured")
+#' @param data [`set_RLum`] [matrix] (**required**): raw curve data.
+#' If `data` itself is a `RLum.Data.Curve`-object this can be used to re-construct the object
 #' (s. Details)
-#' @param info [\code{set_RLum}] [list] (optional): info elements
+#' @param info [`set_RLum`] [list] *(optional)*: info elements
 #'
 #' @return
 #'
@@ -312,9 +312,9 @@ setMethod(
 #' optional to directly access the info elements. If no info element name is
 #' provided, the raw curve data (matrix) will be returned.
 #'
-#' @param object [\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
-#' class [RLum.Data.Curve-class] (\bold{required})
-#' @param info.object [\code{get_RLum}] [character] (optional): name of the wanted info
+#' @param object [`show_RLum`][`get_RLum`][`length_RLum`][`names_RLum`] an object of
+#' class [RLum.Data.Curve-class] (**required**)
+#' @param info.object [`get_RLum`] [character] *(optional)*: name of the wanted info
 #' element
 #'
 #' @return
@@ -322,7 +322,7 @@ setMethod(
 #'**`get_RLum`**\cr
 #'
 #' (1) A [matrix] with the curve values or \cr
-#' (2) only the info object if \code{info.object} was set.\cr
+#' (2) only the info object if `info.object` was set.\cr
 #'
 #' @md
 #' @export
@@ -405,7 +405,7 @@ setMethod("length_RLum",
 #'
 #'**`names_RLum`**\cr
 #'
-#' Names of the info elements (slot \code{info})
+#' Names of the info elements (slot `info`)
 #'
 #' @export
 setMethod("names_RLum",
@@ -421,8 +421,8 @@ setMethod("names_RLum",
 #' @describeIn RLum.Data.Curve
 #' Allows binning of specific objects
 #'
-#' @param bin_size [\code{bin_RLum}] [integer] (with default): set number of channels
-#' used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.
+#' @param bin_size [`bin_RLum`] [integer] *(with default)*: set number of channels
+#' used for each bin, e.g. `bin_size = 2` means that two channels are binned.
 #'
 #' @return
 #'
@@ -478,19 +478,19 @@ setMethod(f = "bin_RLum.Data",
 ####################################################################################################
 #' @describeIn RLum.Data.Curve
 #' Smoothing of RLum.Data.Curve objects using the function [zoo::rollmean] or [zoo::rollmedian].
-#' In particular the internal function \code{.smoothing} is used.
+#' In particular the internal function `.smoothing` is used.
 #'
-#' @param k [\code{smooth_RLum}] [integer] (with default): window for the rolling mean; must be odd for rollmedian.
+#' @param k [`smooth_RLum`] [integer] *(with default)*: window for the rolling mean; must be odd for rollmedian.
 #' If nothing is set k is set automatically
 #'
-#' @param fill [\code{smooth_RLum}] [numeric] (with default): a vector defining the left and the right hand data
+#' @param fill [`smooth_RLum`] [numeric] *(with default)*: a vector defining the left and the right hand data
 #'
-#' @param align [\code{smooth_RLum}] [character] (with default): specifying whether the index of the result should be
+#' @param align [`smooth_RLum`] [character] *(with default)*: specifying whether the index of the result should be
 #' left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
-#' \code{"right"}, \code{"center"} and \code{left}
+#' `"right"`, `"center"` and `left`
 #'
-#' @param method [\code{smooth_RLum}] [character] (with default): defines which method should be applied for the
-#' smoothing: \code{"mean"} or \code{"median"}
+#' @param method [`smooth_RLum`] [character] *(with default)*: defines which method should be applied for the
+#' smoothing: `"mean"` or `"median"`
 #'
 #' @return
 #'

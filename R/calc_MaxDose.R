@@ -38,20 +38,20 @@
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details ([calc_MinDose].
 #' 
-#' @param log [logical] *(with default)*: 
+#' @param log [logical] **(with default)**: 
 #' fit the (un-)logged three parameter minimum dose model to De data
 #' 
-#' @param par [numeric] *(with default)*: 
+#' @param par [numeric] **(with default)**: 
 #' apply the 3- or 4-parametric minimum age model (`par=3` or `par=4`).
 #' 
-#' @param bootstrap [logical] *(with default)*: 
+#' @param bootstrap [logical] **(with default)**: 
 #' apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
 #' 
-#' @param init.values [numeric] *(with default)*: 
+#' @param init.values [numeric] **(with default)**: 
 #' starting values for gamma, sigma, p0 and mu. Custom values need to be provided in a vector of
 #' length three in the form of `c(gamma, sigma, p0)`.
 #' 
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] **(with default)**: 
 #' plot output (`TRUE`/`FALSE`)
 #' 
 #' @param ... further arguments for bootstrapping (`bs.M, bs.N, bs.h, sigmab.sd`).

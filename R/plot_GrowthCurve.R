@@ -4,142 +4,142 @@
 #' regenerative or additive protocol. The function supports interpolation and
 #' extraxpolation to calculate the equivalent dose.
 #'
-#' \bold{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
-#' the \code{EXP OR LIN}), the [minpack.lm::nlsLM] function with the
-#' \code{LM} (Levenberg-Marquardt algorithm) algorithm is used. Note: For historical reasons
-#' for the Monte Carlo simulations partly  the function [nls] using the \code{port} algorithm.
+#' **Fitting methods** \cr\cr For all options (except for the `LIN`, `QDR` and
+#' the `EXP OR LIN`), the [minpack.lm::nlsLM] function with the
+#' `LM` (Levenberg-Marquardt algorithm) algorithm is used. Note: For historical reasons
+#' for the Monte Carlo simulations partly  the function [nls] using the `port` algorithm.
 #'
 #' The solution is found by transforming the function or using [uniroot]. \cr
 #'
-#' \code{LIN}: fits a linear function to the data using
-#' \link{lm}: \deqn{y = m*x+n}
+#' `LIN`: fits a linear function to the data using
+#' [lm]: \deqn{y = m*x+n}
 #'
-#' \code{QDR}: fits a linear function to the data using
-#' \link{lm}: \deqn{y = a + b * x + c * x^2}
+#' `QDR`: fits a linear function to the data using
+#' [lm]: \deqn{y = a + b * x + c * x^2}
 #'
-#' \code{EXP}: try to fit a function of the form
+#' `EXP`: try to fit a function of the form
 #' \deqn{y = a*(1-exp(-(x+c)/b))} Parameters b and c are approximated by a
-#' linear fit using \link{lm}. Note: b = D0\cr
+#' linear fit using [lm]. Note: b = D0\cr
 #'
-#' \code{EXP OR LIN}: works for some cases where an \code{EXP} fit fails. If
-#' the \code{EXP} fit fails, a \code{LIN} fit is done instead. \cr
+#' `EXP OR LIN`: works for some cases where an `EXP` fit fails. If
+#' the `EXP` fit fails, a `LIN` fit is done instead. \cr
 #'
-#' \code{EXP+LIN}: tries to fit an exponential plus linear function of the
+#' `EXP+LIN`: tries to fit an exponential plus linear function of the
 #' form: \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))} The De is calculated by
-#' iteration.\cr \bold{Note:} In the context of luminescence dating, this
+#' iteration.\cr **Note:** In the context of luminescence dating, this
 #' function has no physical meaning. Therefore, no D0 value is returned.\cr
 #'
-#' \code{EXP+EXP}: tries to fit a double exponential function of the form
+#' `EXP+EXP`: tries to fit a double exponential function of the form
 #' \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))} This fitting
 #' procedure is not robust against wrong start parameters and should be further
 #' improved.\cr\cr
 #'
-#' \bold{Fit weighting}\cr
+#' **Fit weighting**\cr
 #'
-#' If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
+#' If the option `fit.weights =  TRUE` is chosen, weights are calculated using
 #' provided signal errors (Lx/Tx error): \deqn{fit.weights = 1/error/(sum(1/error))}\cr
 #'
-#' \bold{Error estimation using Monte Carlo simulation}\cr
+#' **Error estimation using Monte Carlo simulation**\cr
 #'
 #' Error estimation is done using a Monte Carlo (MC) simulation approach. A set of Lx/Tx values is
 #' constructed by randomly drawing curve data from samled from normal
 #' distributions. The normal distribution is defined by the input values (mean
 #' = value, sd = value.error). Then, a growth curve fit is attempted for each
-#' dataset resulting in a new distribution of single De values. The \link{sd}
+#' dataset resulting in a new distribution of single De values. The [sd]
 #' of this distribution is becomes then the error of the De. With increasing
-#' iterations, the error value becomes more stable. \bold{Note:} It may take
+#' iterations, the error value becomes more stable. **Note:** It may take
 #' some calculation time with increasing MC runs, especially for the composed
-#' functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr Each error estimation is
+#' functions (`EXP+LIN` and `EXP+EXP`).\cr Each error estimation is
 #' done with the function of the chosen fitting method. \cr
 #'
-#' \bold{Subtitle information}\cr
+#' **Subtitle information**\cr
 #'
-#' To avoid plotting the subtitle information, provide an empty user mtext \code{mtext = ""}.
-#' To plot any other subtitle text, use \code{mtext}.
+#' To avoid plotting the subtitle information, provide an empty user mtext `mtext = ""`.
+#' To plot any other subtitle text, use `mtext`.
 #'
-#' @param sample [data.frame] (\bold{required}): data frame with
+#' @param sample [data.frame] (**required**): data frame with
 #' three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the
 #' test dose response is optional, but requires 'TnTx' as column name if used. For exponential
 #' fits at least three dose points (including the natural) should be provided.
 #'
-#' @param na.rm [logical] (with default): excludes \code{NA} values
+#' @param na.rm [logical] *(with default)*: excludes `NA` values
 #' from the data set prior to any further operations.
 #'
-#' @param mode [character] (with default): selects calculation mode of the function.
-#' (A) \code{"interpolation"} (default) calculates the De by interpolation,
-#' (B) \code{"extrapolation"} calculates the De by extrapolation and
-#' (C) \code{"alternate"} calculates no De and just fits the data points. Please note that
-#' for option \code{"regenrative"} the first point is considered as natural dose
+#' @param mode [character] *(with default)*: selects calculation mode of the function.
+#' (A) `"interpolation"` (default) calculates the De by interpolation,
+#' (B) `"extrapolation"` calculates the De by extrapolation and
+#' (C) `"alternate"` calculates no De and just fits the data points. Please note that
+#' for option `"regenrative"` the first point is considered as natural dose
 #'
-#' @param fit.method [character] (with default): function used for
-#' fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP}, \code{EXP OR LIN},
-#' \code{EXP+LIN} or \code{EXP+EXP}. See details.
+#' @param fit.method [character] *(with default)*: function used for
+#' fitting. Possible options are: `LIN`, `QDR`, `EXP`, `EXP OR LIN`,
+#' `EXP+LIN` or `EXP+EXP`. See details.
 #'
-#' @param fit.force_through_origin [logical] (with default) allow to force
-#' the fitted function through the origin. For \code{method = "EXP+EXP"} the function will
+#' @param fit.force_through_origin [logical] *(with default)* allow to force
+#' the fitted function through the origin. For `method = "EXP+EXP"` the function will
 #' go to the origin in either case, so this option will have no effect.
 #'
-#' @param fit.weights [logical] (with default): option whether the
+#' @param fit.weights [logical] *(with default)*: option whether the
 #' fitting is done with or without weights. See details.
 #'
-#' @param fit.includingRepeatedRegPoints [logical] (with default):
-#' includes repeated points for fitting (\code{TRUE}/\code{FALSE}).
+#' @param fit.includingRepeatedRegPoints [logical] *(with default)*:
+#' includes repeated points for fitting (`TRUE`/`FALSE`).
 #'
-#' @param fit.NumberRegPoints [integer] (optional): set number of
+#' @param fit.NumberRegPoints [integer] *(optional)*: set number of
 #' regeneration points manually. By default the number of all (!) regeneration
 #' points is used automatically.
 #'
-#' @param fit.NumberRegPointsReal [integer] (optional): if the
+#' @param fit.NumberRegPointsReal [integer] *(optional)*: if the
 #' number of regeneration points is provided manually, the value of the real,
 #' regeneration points = all points (repeated points) including reg 0, has to
 #' be inserted.
 #'
-#' @param fit.bounds [logical] (with default): set lower fit bounds
+#' @param fit.bounds [logical] *(with default)*: set lower fit bounds
 #' for all fitting parameters to 0. Limited for the use with the fit methods
-#' \code{EXP}, \code{EXP+LIN} and \code{EXP OR LIN}. Argument to be inserted
+#' `EXP`, `EXP+LIN` and `EXP OR LIN`. Argument to be inserted
 #' for experimental application only!
 #'
-#' @param NumberIterations.MC [integer] (with default): number of
+#' @param NumberIterations.MC [integer] *(with default)*: number of
 #' Monte Carlo simulations for error estimation. See details.
 #'
-#' @param output.plot [logical] (with default): plot output
-#' (\code{TRUE/FALSE}).
+#' @param output.plot [logical] *(with default)*: plot output
+#' (`TRUE/FALSE`).
 #'
-#' @param output.plotExtended [logical] (with default): If
-#' \code{TRUE}, 3 plots on one plot area are provided: (1) growth curve, (2)
+#' @param output.plotExtended [logical] *(with default)*: If
+#' `TRUE`, 3 plots on one plot area are provided: (1) growth curve, (2)
 #' histogram from Monte Carlo error simulation and (3) a test dose response
-#' plot. If \code{FALSE}, just the growth curve will be plotted.
-#' \bold{Requires:} \code{output.plot = TRUE}.
+#' plot. If `FALSE`, just the growth curve will be plotted.
+#' **Requires:** `output.plot = TRUE`.
 #'
-#' @param output.plotExtended.single [logical] (with default):
-#' single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
-#' single plot windows. Requires \code{output.plot = TRUE} and
-#' \code{output.plotExtended = TRUE}.
+#' @param output.plotExtended.single [logical] *(with default)*:
+#' single plot output (`TRUE/FALSE`) to allow for plotting the results in
+#' single plot windows. Requires `output.plot = TRUE` and
+#' `output.plotExtended = TRUE`.
 #'
-#' @param cex.global [numeric] (with default): global scaling
+#' @param cex.global [numeric] *(with default)*: global scaling
 #' factor.
 #'
-#' @param txtProgressBar [logical] (with default): enables or disables txtProgressBar.
-#' If \code{verbose = FALSE} also no txtProgressBar is shown.
+#' @param txtProgressBar [logical] *(with default)*: enables or disables txtProgressBar.
+#' If `verbose = FALSE` also no txtProgressBar is shown.
 #'
-#' @param verbose [logical] (with default): enables or disables terminal feedback.
+#' @param verbose [logical] *(with default)*: enables or disables terminal feedback.
 #'
 #' @param \dots Further arguments and graphical parameters to be passed. Note:
 #' Standard arguments will only be passed to the growth curve plot. Supported:
-#' \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}
+#' `xlim`, `ylim`, `main`, `xlab`, `ylab`
 #'
-#' @return Along with a plot (so far wanted) an \code{RLum.Results} object is returned containing,
-#' the slot \code{data} contains the following elements:\cr
+#' @return Along with a plot (so far wanted) an `RLum.Results` object is returned containing,
+#' the slot `data` contains the following elements:\cr
 #'
 #' \tabular{lll}{
-#' \bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
-#' \code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
-#' \code{..$De.MC} : \tab \code{numeric} \tab Table with De values from MC runs \cr
-#' \code{..$Fit} : \tab [nls] or [lm] \tab object from the fitting for \code{EXP},
-#' \code{EXP+LIN} and \code{EXP+EXP}. In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or
-#' \code{EXP OR LIN} \cr
-#' \code{..$Formula} : \tab [expression] \tab Fitting formula as R expression \cr
-#' \code{..$call} : \tab \code{call} \tab The original function call\cr
+#' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
+#' `..$De` : \tab  `data.frame` \tab Table with De values \cr
+#' `..$De.MC` : \tab `numeric` \tab Table with De values from MC runs \cr
+#' `..$Fit` : \tab [nls] or [lm] \tab object from the fitting for `EXP`,
+#' `EXP+LIN` and `EXP+EXP`. In case of a resulting  linear fit when using `LIN`, `QDR` or
+#' `EXP OR LIN` \cr
+#' `..$Formula` : \tab [expression] \tab Fitting formula as R expression \cr
+#' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
 #' @section Function version: 1.9.6
@@ -149,7 +149,7 @@
 #'
 #'
 #' @seealso [nls], [RLum.Results-class],
-#' [get_RLum], [minpack.lm::nlsLM], [lm], \code{uniroot}
+#' [get_RLum], [minpack.lm::nlsLM], [lm], `uniroot`
 #'
 #' @examples
 #'

@@ -79,13 +79,13 @@ The function works only for standard SAR protocol measurements introduced by
 Murray and Wintle (2000) with CW-OSL curves. For the calculation of the
 Lx/Tx value the function \link{calc_OSLLxTxRatio} is used. \cr\cr
 
-\bold{Provided rejection criteria}\cr\cr \sQuote{recyling ratio}: calculated
-for every repeated regeneration dose point.\cr \sQuote{recuperation}:
+\bold{Provided rejection criteria}\cr\cr \code{[recyling ratio]}: calculated
+for every repeated regeneration dose point.\cr \code{[recuperation]}:
 recuperation rate calculated by comparing the Lx/Tx values of the zero
 regeneration point with the Ln/Tn value (the Lx/Tx ratio of the natural
 signal). For methodological background see Aitken and Smith (1988)\cr
 
-\sQuote{IRSL/BOSL}: the integrated counts (\code{signal.integral}) of an
+\code{[IRSL/BOSL]}: the integrated counts (\code{signal.integral}) of an
 IRSL curve are compared to the integrated counts of the first regenerated
 dose point. It is assumed that IRSL curves got the same dose as the first
 regenerated dose point. \strong{Note:} This is not the IR depletation ratio

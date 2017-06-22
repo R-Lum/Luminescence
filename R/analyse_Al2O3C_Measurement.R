@@ -3,26 +3,26 @@
 #'The function provides the analysis routines for measurements on a FI lexsyg SMART reader using
 #'Al2O3:C pellets according to Kreutzer et al., 2017
 #'
-#'@param object [RLum.Analysis-class] \bold{(required)}: measurement input
+#'@param object [RLum.Analysis-class] **(required)**: measurement input
 #'
-#'@param signal_integral [numeric] (optional): signal integral, used for the signal
+#'@param signal_integral [numeric] *(optional)*: signal integral, used for the signal
 #' and the background. If nothing is provided the full range is used
 #'
-#'@param dose_points [numeric] (with default): vector with dose points, if dose points
+#'@param dose_points [numeric] *(with default)*: vector with dose points, if dose points
 #' are repeated, only the general pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017
 #'
-#'@param irradiation_time_correction [numeric] or [RLum.Results-class] (optional):
-#' information on the used irradiation time correction obained by another experiements. I a \code{numeric}
+#'@param irradiation_time_correction [numeric] or [RLum.Results-class] *(optional)*:
+#' information on the used irradiation time correction obained by another experiements. I a `numeric`
 #' is provided it has to be of length two: mean, standard error
 #'
-#'@param cross_talk_correction [numeric] or [RLum.Results-class] (optional):
-#' information on the used irradiation time correction obained by another experiements. If a \code{numeric}
+#'@param cross_talk_correction [numeric] or [RLum.Results-class] *(optional)*:
+#' information on the used irradiation time correction obained by another experiements. If a `numeric`
 #' vector is provided it has to be of length three: mean, 2.5 \% quantile, 97.5 \% quantile.
 #'
-#'@param verbose [logical] (with default): enable/disable verbose mode
+#'@param verbose [logical] *(with default)*: enable/disable verbose mode
 #'
-#'@param plot [logical] (with default): enable/disable plot output
+#'@param plot [logical] *(with default)*: enable/disable plot output
 #'
 #'@param ... further arguments that can be passed to the plot output
 #'
@@ -31,16 +31,16 @@
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' **`RLum.Reuslts`**-object\cr
+#' **`RLum.Results`**-object\cr
 #'
-#' \bold{slot:} **`@data`**\cr
+#' **slot:** **`@data`**\cr
 #' \tabular{lll}{
-#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
-#'  \code{$data} \tab \code{data.frame} \tab the estimated equivalent dose \cr
-#'  \code{$data_talbe} \tab \code{data.frame} \tab full dose and signal table \cr
+#' **Element** \tab **Type** \tab **Description**\cr
+#'  `$data` \tab `data.frame` \tab the estimated equivalent dose \cr
+#'  `$data_talbe` \tab `data.frame` \tab full dose and signal table \cr
 #' }
 #'
-#'\bold{slot:} **`@info`**\cr
+#'**slot:** **`@info`**\cr
 #'
 #' The original function call\cr
 #'

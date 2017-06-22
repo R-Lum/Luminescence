@@ -7,7 +7,7 @@
 #' Erfurt et al. (2003) assuming a negligible sensitivity change of the RF
 #' signal.\cr
 #'
-#' \bold{General Sequence Structure} (according to Erfurt et al.
+#' **General Sequence Structure** (according to Erfurt et al.
 #' (2003)) \enumerate{
 #'
 #' \item Measuring IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
@@ -18,8 +18,8 @@
 #' \item Calculate the the palaeodose \eqn{D_{e}} using the parameters from the
 #' fitting}
 #'
-#' Actually two methods are supported to obtain the \eqn{D_{e}}: \code{method = "FIT"} and
-#' \code{method = "SLIDE"}:
+#' Actually two methods are supported to obtain the \eqn{D_{e}}: `method = "FIT"` and
+#' `method = "SLIDE"`:
 #'
 #' **`method = "FIT"`**\cr
 #'
@@ -35,7 +35,7 @@
 #' the dispersive factor.\cr\cr To obtain the palaeodose \eqn{D_{e}} the
 #' function is changed to:\cr \deqn{D_{e} = ln(-(\phi(D) -
 #' \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}\cr The fitting is done
-#' using the \code{port} algorithm of the [nls] function.\cr
+#' using the `port` algorithm of the [nls] function.\cr
 #'
 #'
 #' **`method = "SLIDE"`**\cr
@@ -53,39 +53,39 @@
 #'
 #' To keep the generic argument list as clear as possible, arguments to control the methods
 #' for De estimation are all preset with meaningful default parameters and can be
-#' handled using the argument \code{method.control} only, e.g.,
-#' \code{method.control = list(trace = TRUE)}. Supported arguments are:\cr
+#' handled using the argument `method.control` only, e.g.,
+#' `method.control = list(trace = TRUE)`. Supported arguments are:\cr
 #'
 #' \tabular{lll}{
 #' ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
-#' \code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in [nls]; shows sum of squared residuals\cr
-#' \code{trace_vslide} \tab \code{SLIDE} \tab [logical] argument to enable or disable the tracing of the vertical sliding\cr
-#' \code{maxiter} \tab \code{FIT}            \tab as in [nls]\cr
-#' \code{warnOnly} \tab \code{FIT}           \tab as in [nls]\cr
-#' \code{minFactor} \tab \code{FIT}            \tab as in [nls]\cr
-#' \code{correct_onset} \tab \code{SLIDE}      \tab The logical argument shifts the curves along the x-axis by the first channel,
-#' as light is expected in the first channel. The default value is \code{TRUE}.\cr
-#' \code{show_density} \tab \code{SLIDE}       \tab [logical] (with default)
+#' `trace`   \tab `FIT`, `SLIDE` \tab as in [nls]; shows sum of squared residuals\cr
+#' `trace_vslide` \tab `SLIDE` \tab [logical] argument to enable or disable the tracing of the vertical sliding\cr
+#' `maxiter` \tab `FIT`            \tab as in [nls]\cr
+#' `warnOnly` \tab `FIT`           \tab as in [nls]\cr
+#' `minFactor` \tab `FIT`            \tab as in [nls]\cr
+#' `correct_onset` \tab `SLIDE`      \tab The logical argument shifts the curves along the x-axis by the first channel,
+#' as light is expected in the first channel. The default value is `TRUE`.\cr
+#' `show_density` \tab `SLIDE`       \tab [logical] *(with default)*
 #' enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-#' \code{show_fit} \tab \code{SLIDE}       \tab [logical] (with default)
+#' `show_fit` \tab `SLIDE`       \tab [logical] *(with default)*
 #' enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-#'\code{n.MC}                  \tab \code{SLIDE}       \tab    [integer] (with default):
+#'`n.MC`                  \tab `SLIDE`       \tab    [integer] *(with default)*:
 #' This controls the number of MC runs within the sliding (assessing the possible minimum values).
-#' The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
-#' function argument \code{n.MC}. \cr
-#' \code{vslide_range} \tab \code{SLDE} \tab [logical] or [numeric] or [character] (with default):
+#' The default `n.MC = 1000`. Note: This parameter is not the same as controlled by the
+#' function argument `n.MC`. \cr
+#' `vslide_range` \tab `SLDE` \tab [logical] or [numeric] or [character] *(with default)*:
 #' This argument sets the boundaries for a vertical curve
-#' sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
-#' Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
-#' reasonable vertical sliding range (\bold{recommended}). \code{NULL} applies no vertical sliding.
-#' The default is \code{NULL}.\cr
-#' \code{cores} \tab \code{SLIDE} \tab \code{number} or \code{character} (with default): set number of cores to be allocated
-#' for a parallel processing of the Monte-Carlo runs. The default value is \code{NULL} (single thread),
-#' the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} = 8) assigns a value manually.
+#' sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., `c(-1000,1000)`).
+#' Alternatively the values `NULL` and `'auto'` are allowed. The automatic mode detects the
+#' reasonable vertical sliding range (**recommended**). `NULL` applies no vertical sliding.
+#' The default is `NULL`.\cr
+#' `cores` \tab `SLIDE` \tab `number` or `character` *(with default)*: set number of cores to be allocated
+#' for a parallel processing of the Monte-Carlo runs. The default value is `NULL` (single thread),
+#' the recommended values is `'auto'`. An optional number (e.g., `cores` = 8) assigns a value manually.
 #' }
 #'
 #'
-#' \bold{Error estimation}\cr
+#' **Error estimation**\cr
 #'
 #' For **`method = "FIT"`** the asymmetric error range is obtained by using the 2.5 \% (lower) and
 #' the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.\cr
@@ -96,158 +96,158 @@
 #' interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
 #' are returned with the function output. \cr
 #'
-#' \bold{Test parameters}\cr
+#' **Test parameters**\cr
 #'
-#' The argument \code{test_parameters} allows to pass some thresholds for several test parameters,
+#' The argument `test_parameters` allows to pass some thresholds for several test parameters,
 #' which will be evaluated during the function run. If a threshold is set and it will be exceeded the
 #' test parameter status will be set to "FAILED". Intentionally this parameter is not termed
 #' 'rejection criteria' as not all test parameters are evaluated for both methods and some parameters
 #' are calculated by not evaluated by default. Common for all parameters are the allowed argument options
-#' \code{NA} and \code{NULL}. If the parameter is set to \code{NA} the value is calculated but the
+#' `NA` and `NULL`. If the parameter is set to `NA` the value is calculated but the
 #' result will not be evaluated, means it has no effect on the status ("OK" or "FAILED") of the parameter.
-#' Setting the parameter to \code{NULL} disables the parameter entirely and the parameter will be
+#' Setting the parameter to `NULL` disables the parameter entirely and the parameter will be
 #' also removed from the function output. This might be useful in cases where a particular parameter
 #' asks for long computation times. Currently supported parameters are:
 #'
-#' \code{curves_ratio} [numeric] (default: \code{1.001}):\cr
+#' `curves_ratio` [numeric] (default: `1.001`):\cr
 #'
 #' The ratio of \eqn{RF_{nat}} over \eqn{RF_{reg}} in the range of\eqn{RF_{nat}} of is calculated
 #' and should not exceed the threshold value. \cr
 #'
-#' \code{intersection_ratio} [numeric] (default: \code{NA}):\cr
+#' `intersection_ratio` [numeric] (default: `NA`):\cr
 #'
 #' Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 #' This value indicates intersection of the RF-curves and should be close to 0 if the curves
 #' have a similar shape. For this calculation first the corresponding time-count pair value on the RF_reg
 #' curve is obtained using the maximum count value of the RF_nat curve and only this segment (fitting to
 #' the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
-#' found at all, \code{Inf} is returned. \cr
+#' found at all, `Inf` is returned. \cr
 #'
-#' \code{residuals_slope} [numeric] (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
+#' `residuals_slope` [numeric] (default: `NA`; only for `method = "SLIDE"`): \cr
 #'
 #' A linear function is fitted on the residuals after sliding.
 #' The corresponding slope can be used to discard values as a high (positive, negative) slope
 #' may indicate that both curves are fundamentally different and the method cannot be applied at all.
 #' Per default the value of this parameter is calculated but not evaluated. \cr
 #'
-#'\code{curves_bounds} [numeric] (default: \eqn{max(RF_{reg_counts})}:\cr
+#'`curves_bounds` [numeric] (default: \eqn{max(RF_{reg_counts})}:\cr
 #'
 #'This measure uses the maximum time (x) value of the regenerated curve.
 #'The maximum time (x) value of the natural curve cannot be larger than this value. However, although
 #'this is not recommended the value can be changed or disabled.\cr
 #'
-#'\code{dynamic_ratio} [numeric] (default: \code{NA}):\cr
+#'`dynamic_ratio` [numeric] (default: `NA`):\cr
 #'
 #'The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.
 #'
-#'\code{lambda}, \code{beta} and \code{delta.phi}
-#'[numeric] (default: \code{NA}; \code{method = "SLIDE"}): \cr
+#'`lambda`, `beta` and `delta.phi`
+#'[numeric] (default: `NA`; `method = "SLIDE"`): \cr
 #'
 #'The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 #'the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
-#'For \code{method = "FIT"} this parameter is obtained during the fitting, for \code{method = "SLIDE"} a
-#'rather rough estimation is made using the function \code{\link[minpack.lm]{nlsLM}} and the equation
+#'For `method = "FIT"` this parameter is obtained during the fitting, for `method = "SLIDE"` a
+#'rather rough estimation is made using the function [minpack.lm::nlsLM] and the equation
 #'given above. Note: As this procedure requests more computation time, setting of one of these three parameters
-#'to \code{NULL} also prevents a calculation of the remaining two.
+#'to `NULL` also prevents a calculation of the remaining two.
 #'
 #'
-#' @param object [RLum.Analysis-class] or a [list] of \code{RLum.Analysis} objects (\bold{required}): input
+#' @param object [RLum.Analysis-class] or a [list] of `RLum.Analysis` objects (**required**): input
 #' object containing data for protocol analysis. The function expects to find at least two curves in the
-#' [RLum.Analysis-class] object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
-#' input all other parameters can be provided as \code{list} as well to gain full control.
+#' [RLum.Analysis-class] object: (1) RF_nat, (2) RF_reg. If a `list` is provided as
+#' input all other parameters can be provided as `list` as well to gain full control.
 #'
-#' @param sequence_structure [vector] \link{character} (with
+#' @param sequence_structure [vector] [character] (with
 #' default): specifies the general sequence structure. Allowed steps are
-#' \code{NATURAL}, \code{REGENERATED}. In addition any other character is
+#' `NATURAL`, `REGENERATED`. In addition any other character is
 #' allowed in the sequence structure; such curves will be ignored during the analysis.
 #'
-#' @param RF_nat.lim [vector] (with default): set minimum and maximum
+#' @param RF_nat.lim [vector] *(with default)*: set minimum and maximum
 #' channel range for natural signal fitting and sliding. If only one value is provided this
 #' will be treated as minimum value and the maximum limit will be added automatically.
 #'
-#' @param RF_reg.lim [vector] (with default): set minimum and maximum
+#' @param RF_reg.lim [vector] *(with default)*: set minimum and maximum
 #' channel range for regenerated signal fitting and sliding. If only one value is provided this
 #' will be treated as minimum value and the maximum limit will be added automatically.
 #'
-#' @param method [character] (with default): setting method applied
-#' for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.
+#' @param method [character] *(with default)*: setting method applied
+#' for the data analysis. Possible options are `"FIT"` or `"SLIDE"`.
 #'
-#' @param method.control [list] (optional): parameters to control the method, that can
-#' be passed to the chosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
-#' 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
+#' @param method.control [list] *(optional)*: parameters to control the method, that can
+#' be passed to the chosen method. These are for (1) `method = "FIT"`: 'trace', 'maxiter', 'warnOnly',
+#' 'minFactor' and for (2) `method = "SLIDE"`: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 #' See details.
 #'
-#' @param test_parameters \code{\link{list} (with default)}: set test parameters.
-#' Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
-#' \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
-#' \code{lambda}, \code{beta} and \code{delta.phi}. All input: [numeric]
-#' values, \code{NA} and \code{NULL} (s. Details)
+#' @param test_parameters [list] *(with default)*: set test parameters.
+#' Supported parameters are: `curves_ratio`, `residuals_slope` (only for
+#' `method = "SLIDE"`), `curves_bounds`, `dynamic_ratio`,
+#' `lambda`, `beta` and `delta.phi`. All input: [numeric]
+#' values, `NA` and `NULL` (s. Details)
 #'
 #' (see Details for further information)
 #'
-#' @param n.MC [numeric] (with default): set number of Monte
-#' Carlo runs for start parameter estimation (\code{method = "FIT"}) or
-#' error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL} to skip the
+#' @param n.MC [numeric] *(with default)*: set number of Monte
+#' Carlo runs for start parameter estimation (`method = "FIT"`) or
+#' error estimation (`method = "SLIDE"`). This value can be set to `NULL` to skip the
 #' MC runs. Note: Large values will significantly increase the computation time
 #'
-#' @param txtProgressBar [logical] (with default): enables \code{TRUE} or
-#' disables \code{FALSE} the progression bar during MC runs
+#' @param txtProgressBar [logical] *(with default)*: enables `TRUE` or
+#' disables `FALSE` the progression bar during MC runs
 #'
-#' @param plot [logical] (with default): plot output (\code{TRUE}
-#' or \code{FALSE})
+#' @param plot [logical] *(with default)*: plot output (`TRUE`
+#' or `FALSE`)
 #'
-#' @param plot_reduced [logical] (optional): provides a reduced plot output if enabled
-#' to allow common R plot combinations, e.g., \code{par(mfrow(...))}. If \code{TRUE} no residual plot
-#' is returned; it has no effect if \code{plot = FALSE}
+#' @param plot_reduced [logical] *(optional)*: provides a reduced plot output if enabled
+#' to allow common R plot combinations, e.g., `par(mfrow(...))`. If `TRUE` no residual plot
+#' is returned; it has no effect if `plot = FALSE`
 #'
 #' @param \dots further arguments that will be passed to the plot output.
-#' Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
-#' \code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
-#' \code{legend.pos}, \code{legend.text} (passes argument to x,y in
-#' \code{\link[graphics]{legend}}), \code{xaxt}
+#' Currently supported arguments are `main`, `xlab`, `ylab`,
+#' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
+#' `legend.pos`, `legend.text` (passes argument to x,y in
+#' [graphics::legend]), `xaxt`
 #'
 #'
-#' @return The function returns numerical output and an (optional) plot.
+#' @return The function returns numerical output and an *(optional)* plot.
 #'
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' **`RLum.Reuslts`**-object\cr
+#' **`RLum.Results`**-object\cr
 #'
-#' \bold{slot:} **`@data`** \cr
+#' **slot:** **`@data`** \cr
 #'
 #' `[.. $data : data.frame]`\cr
 #'
 #' \tabular{lll}{
-#' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
-#'  DE \tab \code{numeric} \tab the obtained equivalent dose\cr
-#'  DE.ERROR \tab \code{numeric} \tab (only \code{method = "SLIDE"}) standard deviation obtained from MC runs \cr
-#'  DE.LOWER \tab \code{numeric}\tab 2.5\% quantile for De values obtained by MC runs \cr
-#'  DE.UPPER \tab \code{numeric}\tab 97.5\% quantile for De values obtained by MC runs  \cr
-#'  DE.STATUS  \tab \code{character}\tab test parameter status\cr
-#'  RF_NAT.LIM  \tab \code{charcter}\tab used RF_nat curve limits \cr
-#'  RF_REG.LIM \tab \code{character}\tab used RF_reg curve limits\cr
-#'  POSITION \tab \code{integer}\tab (optional) position of the curves\cr
-#'  DATE \tab \code{character}\tab (optional) measurement date\cr
-#'  SEQUENCE_NAME \tab \code{character}\tab (optional) sequence name\cr
-#'  UID \tab \code{character}\tab unique data set ID
+#' **Column** \tab **Type** \tab **Description**\cr
+#'  DE \tab `numeric` \tab the obtained equivalent dose\cr
+#'  DE.ERROR \tab `numeric` \tab (only `method = "SLIDE"`) standard deviation obtained from MC runs \cr
+#'  DE.LOWER \tab `numeric`\tab 2.5\% quantile for De values obtained by MC runs \cr
+#'  DE.UPPER \tab `numeric`\tab 97.5\% quantile for De values obtained by MC runs  \cr
+#'  DE.STATUS  \tab `character`\tab test parameter status\cr
+#'  RF_NAT.LIM  \tab `charcter`\tab used RF_nat curve limits \cr
+#'  RF_REG.LIM \tab `character`\tab used RF_reg curve limits\cr
+#'  POSITION \tab `integer`\tab *(optional)* position of the curves\cr
+#'  DATE \tab `character`\tab *(optional)* measurement date\cr
+#'  SEQUENCE_NAME \tab `character`\tab *(optional)* sequence name\cr
+#'  UID \tab `character`\tab unique data set ID
 #' }
 #'
 #' `[.. $De.MC : numeric]`\cr
 #'
-#' A \code{numeric} vector with all the De values obtained by the MC runs.\cr
+#' A `numeric` vector with all the De values obtained by the MC runs.\cr
 #'
 #' `[.. $test_parameters : data.frame]`\cr
 #'
 #' \tabular{lll}{
-#' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
-#'  POSITION \tab \code{numeric} \tab aliquot position \cr
-#'  PARAMETER \tab \code{character} \tab test parameter name \cr
-#'  THRESHOLD \tab \code{numeric} \tab set test parameter threshold value \cr
-#'  VALUE \tab \code{numeric} \tab the calculated test parameter value (to be compared with the threshold)\cr
-#'  STATUS \tab \code{character} \tab test parameter status either \code{"OK"} or \code{"FAILED"} \cr
-#'  SEQUENCE_NAME \tab \code{character} \tab name of the sequence, so far available \cr
-#'  UID \tab \code{character}\tab unique data set ID
+#' **Column** \tab **Type** \tab **Description**\cr
+#'  POSITION \tab `numeric` \tab aliquot position \cr
+#'  PARAMETER \tab `character` \tab test parameter name \cr
+#'  THRESHOLD \tab `numeric` \tab set test parameter threshold value \cr
+#'  VALUE \tab `numeric` \tab the calculated test parameter value (to be compared with the threshold)\cr
+#'  STATUS \tab `character` \tab test parameter status either `"OK"` or `"FAILED"` \cr
+#'  SEQUENCE_NAME \tab `character` \tab name of the sequence, so far available \cr
+#'  UID \tab `character`\tab unique data set ID
 #' }
 #'
 #' `[.. $fit : data.frame]`\cr
@@ -260,27 +260,27 @@
 #' reported with the summary object data. List elements are:
 #'
 #' \tabular{lll}{
-#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
-#'  De \tab \code{numeric} \tab the final De obtained with the sliding approach \cr
-#'  De.MC \tab \code{numeric} \tab all De values obtained by the MC runs \cr
-#'  residuals \tab \code{numeric} \tab the obtained residuals for each channel of the curve \cr
-#'  trend.fit \tab \code{lm} \tab fitting results produced by the fitting of the residuals \cr
-#'  RF_nat.slided \tab \code{matrix} \tab the slided RF_nat curve \cr
-#'  t_n.id \tab \code{numeric} \tab the index of the t_n offset \cr
-#'  I_n \tab \code{numeric} \tab the vertical intensity offset if a vertical slide was applied \cr
-#'  algorithm_error \tab \code{numeric} \tab the vertical sliding suffers from a systematic effect induced by the used
+#' **Element** \tab **Type** \tab **Description**\cr
+#'  De \tab `numeric` \tab the final De obtained with the sliding approach \cr
+#'  De.MC \tab `numeric` \tab all De values obtained by the MC runs \cr
+#'  residuals \tab `numeric` \tab the obtained residuals for each channel of the curve \cr
+#'  trend.fit \tab `lm` \tab fitting results produced by the fitting of the residuals \cr
+#'  RF_nat.slided \tab `matrix` \tab the slided RF_nat curve \cr
+#'  t_n.id \tab `numeric` \tab the index of the t_n offset \cr
+#'  I_n \tab `numeric` \tab the vertical intensity offset if a vertical slide was applied \cr
+#'  algorithm_error \tab `numeric` \tab the vertical sliding suffers from a systematic effect induced by the used
 #'  algorithm. The returned value is the standard deviation of all obtained De values while expanding the
 #'  vertical sliding range. I can be added as systematic error to the final De error; so far wanted.\cr
-#'  vslide_range \tab \code{numeric} \tab the range used for the vertical sliding \cr
-#'  squared_residuals \tab \code{numeric} \tab the squared residuals (horizontal sliding)
+#'  vslide_range \tab `numeric` \tab the range used for the vertical sliding \cr
+#'  squared_residuals \tab `numeric` \tab the squared residuals (horizontal sliding)
 #' }
 #'
 #'
-#' \bold{slot:} **`@info`** \cr
+#' **slot:** **`@info`** \cr
 #'
-#' The original function call (\code{\link[methods]{language-class}}-object)
+#' The original function call ([methods::language-class]-object)
 #'
-#' The output (\code{data}) should be accessed using the
+#' The output (`data`) should be accessed using the
 #' function [get_RLum]
 #'
 #' ------------------------\cr
@@ -305,7 +305,7 @@
 #'
 #' @seealso [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum],
-#' [nls], \code{\link[minpack.lm]{nlsLM}}, \code{\link[parallel]{mclapply}}
+#' [nls], [minpack.lm::nlsLM], [parallel::mclapply]
 #'
 #'
 #' @references Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,

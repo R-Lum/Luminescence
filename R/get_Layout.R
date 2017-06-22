@@ -5,13 +5,13 @@
 #'
 #' The easiest way to create a user-specific layout definition is perhaps to
 #' create either an empty or a default layout object and fill/modify the
-#' definitions (\code{user.layout <- get_Layout(data = "empty")}).
+#' definitions (`user.layout <- get_Layout(data = "empty")`).
 #'
 #' @param layout [character] or [list] object
 #' (required): name of the layout definition to be returned. If name is
 #' provided the respective definition is returned. One of the following
-#' supported layout definitions is possible: \code{"default"},
-#' \code{"journal.1"}, \code{"small"}, \code{"empty"}. User-specific layout
+#' supported layout definitions is possible: `"default"`,
+#' `"journal.1"`, `"small"`, `"empty"`. User-specific layout
 #' definitions must be provided as a list object of predefined structure, see
 #' details.
 #' @return A list object with layout definitions for plot functions.

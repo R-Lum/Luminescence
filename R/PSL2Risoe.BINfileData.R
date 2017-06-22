@@ -1,15 +1,15 @@
 #' Convert portable OSL data to an Risoe.BINfileData object
 #'
-#' Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to
-#' an \code{Risoe.BINfileData} object \bold{(BETA)}.
+#' Converts an `RLum.Analysis` object produced by the function `read_PSL2R()` to
+#' an `Risoe.BINfileData` object **(BETA)**.
 #'
 #' This function converts an [RLum.Analysis-class] object that was produced
 #' by the [read_PSL2R] function to an [Risoe.BINfileData-class].
-#' The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
+#' The `Risoe.BINfileData` can be used to write a Risoe BIN file via
 #' [write_R2BIN].
 #'
-#' @param object [RLum.Analysis-class] (\bold{required}):
-#' \code{RLum.Analysis} object produced by [read_PSL2R]
+#' @param object [RLum.Analysis-class] (**required**):
+#' `RLum.Analysis` object produced by [read_PSL2R]
 #'
 #' @param ... currently not used.
 #'

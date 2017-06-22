@@ -9,13 +9,13 @@
 #' resolution and values are interpolated for the required spectral resolution using
 #' the function [stats::approx]
 #'
-#' If the energy calibration differes for both data set \code{NA} values are produces that
+#' If the energy calibration differes for both data set `NA` values are produces that
 #' will be removed from the matrix.
 #'
-#' @param object [RLum.Data.Spectrum-class] (\bold{required}): S4
-#' object of class \code{RLum.Data.Spectrum}
+#' @param object [RLum.Data.Spectrum-class] (**required**): S4
+#' object of class `RLum.Data.Spectrum`
 #'
-#' @param spectral.efficiency [data.frame] (\bold{required}): Data
+#' @param spectral.efficiency [data.frame] (**required**): Data
 #' set containing wavelengths (x-column) and relative spectral response values
 #' (y-column) in percentage
 #'

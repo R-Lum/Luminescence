@@ -7,14 +7,14 @@
 #' According to Bulur (2000) the curve data are transformed by introducing two
 #' new parameters P (stimulation period) and u (transformed time):
 #' \deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}} The new count values are then
-#' calculated by \deqn{ctsNEW = cts(u/P)} and the returned \code{data.frame} is
-#' produced by: \code{data.frame(u,ctsNEW)}
+#' calculated by \deqn{ctsNEW = cts(u/P)} and the returned `data.frame` is
+#' produced by: `data.frame(u,ctsNEW)`
 #'
 #' @param values [RLum.Data.Curve-class] or
-#' [data.frame] (\bold{required}): \code{RLum.Data.Curve} data
-#' object. Alternatively, a \code{data.frame} of the measured curve data of
-#' type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
-#' (\code{values[,2]}) can be provided.
+#' [data.frame] (**required**): `RLum.Data.Curve` data
+#' object. Alternatively, a `data.frame` of the measured curve data of
+#' type stimulation time (t) (`values[,1]`) and measured counts (cts)
+#' (`values[,2]`) can be provided.
 #' @return The function returns the same data type as the input data type with
 #' the transformed curve values.
 #'
@@ -37,7 +37,7 @@
 #' @references Bulur, E., 2000. A simple transformation for converting CW-OSL
 #' curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
 #'
-#' \bold{Further Reading}\cr\cr Bulur, E., 1996. An Alternative Technique For
+#' **Further Reading**\cr\cr Bulur, E., 1996. An Alternative Technique For
 #' Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 #' 26, 701-709.
 #' @keywords manip

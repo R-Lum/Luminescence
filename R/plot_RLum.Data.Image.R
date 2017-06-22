@@ -1,10 +1,10 @@
-#' Plot function for an \code{RLum.Data.Image} S4 class object
+#' Plot function for an `RLum.Data.Image` S4 class object
 #'
 #' The function provides a standardised plot output for image data of an
-#' \code{RLum.Data.Image}S4 class object, mainly using the plot functions
+#' `RLum.Data.Image`S4 class object, mainly using the plot functions
 #' provided by the [raster] package.
 #'
-#' \bold{Details on the plot functions} \cr
+#' **Details on the plot functions** \cr
 #'
 #' Image is visualised as 2D plot usinng generic plot types provided by other
 #' packages.
@@ -19,8 +19,8 @@
 #'
 #' Arguments that are passed through the function call:\cr
 #'
-#' \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
-#' \code{col}
+#' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,
+#' `col`
 #'
 #'**`plot.type = "plotRGB"`**\cr
 #'
@@ -30,9 +30,9 @@
 #' is recorded by the camera.\cr Arguments that are passed through the function
 #' call:\cr
 #'
-#' \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext},
-#' \code{interpolate}, \code{maxpixels}, \code{alpha}, \code{colNA},
-#' \code{stretch}\cr
+#' `main`,`axes`, `xlab`, `ylab`, `ext`,
+#' `interpolate`, `maxpixels`, `alpha`, `colNA`,
+#' `stretch`\cr
 #'
 #'**`plot.type = "contour"`**\cr
 #'
@@ -40,16 +40,16 @@
 #' function ([raster::contour]). For each raster layer one contour
 #' plot is produced. Arguments that are passed through the function call:\cr
 #'
-#' \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
-#' \code{col}
+#' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,
+#' `col`
 #'
-#' @param object [RLum.Data.Image-class] (\bold{required}): S4
-#' object of class \code{RLum.Data.Image}
-#' @param par.local [logical] (with default): use local graphical
+#' @param object [RLum.Data.Image-class] (**required**): S4
+#' object of class `RLum.Data.Image`
+#' @param par.local [logical] *(with default)*: use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
-#' If \code{par.local = FALSE} global parameters are inherited.
-#' @param plot.type [character] (with default): plot types.
-#' Supported types are \code{plot.raster}, \code{plotRGB} or \code{contour}
+#' If `par.local = FALSE` global parameters are inherited.
+#' @param plot.type [character] *(with default)*: plot types.
+#' Supported types are `plot.raster`, `plotRGB` or `contour`
 #' @param \dots further arguments and graphical parameters that will be passed
 #' to the specific plot functions.
 #' @return Returns a plot.

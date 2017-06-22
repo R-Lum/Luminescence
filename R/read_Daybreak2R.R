@@ -4,23 +4,23 @@
 #' The import of the DAT-files is limited to the file format described for the software TLAPLLIC v.3.2
 #' used for a Daybreak, model 1100.
 #'
-#' @param file [character] or [list] (\bold{required}): path and file name of the
+#' @param file [character] or [list] (**required**): path and file name of the
 #' file to be imported. Alternatively a list of file names can be provided or just the path a folder
 #' containing measurement data. Please note that the specific, common, file extension (txt) is likely
 #' leading to function failures during import when just a path is provided.
 #'
-#' @param raw [logical] (with default): if the input is a DAT-file (binary) a
+#' @param raw [logical] *(with default)*: if the input is a DAT-file (binary) a
 #' [data.table::data.table] instead of the [RLum.Analysis-class] object
 #' can be returned for debugging purposes.
 #'
-#' @param verbose [logical] (with default): enables or disables terminal feedback
+#' @param verbose [logical] *(with default)*: enables or disables terminal feedback
 #'
-#' @param txtProgressBar [logical] (with default): enables or disables
+#' @param txtProgressBar [logical] *(with default)*: enables or disables
 #' [txtProgressBar].
 #'
 #' @return  A list of [RLum.Analysis-class] objects (each per position) is provided.
 #'
-#' @note \bold{`[BETA VERSION]`} This function still needs to be tested properly. In particular
+#' @note **`[BETA VERSION]`** This function still needs to be tested properly. In particular
 #' the function has underwent only very rough rests using a few files.
 #'
 #' @section Function version: 0.3.0

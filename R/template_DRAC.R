@@ -3,10 +3,10 @@
 #' This function returns a DRAC input template (v1.1) to be used in conjunction
 #' with the use_DRAC() function
 #' 
-#' @param nrow [integer] (with default): specifies the number of rows
+#' @param nrow [integer] *(with default)*: specifies the number of rows
 #' of the template (i.e., the number of data sets you want to submit)
 #' 
-#' @param notification [logical] (with default): show or hide the
+#' @param notification [logical] *(with default)*: show or hide the
 #' notification
 #'
 #' @return A list.

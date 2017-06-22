@@ -36,7 +36,7 @@ be passed to the chosen method. These are for (1) \code{method = "FIT"}: 'trace'
 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 See details.}
 
-\item{test_parameters}{\code{\link{list} (with default)}: set test parameters.
+\item{test_parameters}{\link{list} (with default): set test parameters.
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
 \code{lambda}, \code{beta} and \code{delta.phi}. All input: \link{numeric}
@@ -63,7 +63,7 @@ is returned; it has no effect if \code{plot = FALSE}}
 Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 \code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
 \code{legend.pos}, \code{legend.text} (passes argument to x,y in
-\code{\link[graphics]{legend}}), \code{xaxt}}
+\link[graphics:legend]{graphics::legend}), \code{xaxt}}
 }
 \value{
 The function returns numerical output and an (optional) plot.
@@ -136,7 +136,7 @@ squared_residuals \tab \code{numeric} \tab the squared residuals (horizontal sli
 
 \bold{slot:} \strong{\code{@info}} \cr
 
-The original function call (\code{\link[methods]{language-class}}-object)
+The original function call (\link[methods:language-class]{methods::language}-object)
 
 The output (\code{data}) should be accessed using the
 function \link{get_RLum}
@@ -293,7 +293,7 @@ The dynamic ratio of the regenerated curve is calculated as ratio of the minimum
 The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
 For \code{method = "FIT"} this parameter is obtained during the fitting, for \code{method = "SLIDE"} a
-rather rough estimation is made using the function \code{\link[minpack.lm]{nlsLM}} and the equation
+rather rough estimation is made using the function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} and the equation
 given above. Note: As this procedure requests more computation time, setting of one of these three parameters
 to \code{NULL} also prevents a calculation of the remaining two.
 }
@@ -384,7 +384,7 @@ Measurements 32, 685-690.
 \seealso{
 \linkS4class{RLum.Analysis},
 \linkS4class{RLum.Results}, \link{get_RLum},
-\link{nls}, \code{\link[minpack.lm]{nlsLM}}, \code{\link[parallel]{mclapply}}
+\link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link[parallel:mclapply]{parallel::mclapply}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

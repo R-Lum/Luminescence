@@ -6,20 +6,20 @@
 #' The function produces a multiple plot output.  A file output is recommended
 #' (e.g., [pdf]).
 #'
-#' @param object [RLum.Results-class] (\bold{required}): S4 object
-#' of class \code{RLum.Results}
+#' @param object [RLum.Results-class] (**required**): S4 object
+#' of class `RLum.Results`
 #'
-#' @param single [logical] (with default): single plot output
-#' (\code{TRUE/FALSE}) to allow for plotting the results in as few plot windows
+#' @param single [logical] *(with default)*: single plot output
+#' (`TRUE/FALSE`) to allow for plotting the results in as few plot windows
 #' as possible.
 #'
 #' @param \dots further arguments and graphical parameters will be passed to
-#' the \code{plot} function.
+#' the `plot` function.
 #'
 #' @return Returns multiple plots.
 #'
 #' @note Not all arguments available for [plot] will be passed!
-#' Only plotting of \code{RLum.Results} objects are supported.
+#' Only plotting of `RLum.Results` objects are supported.
 #'
 #' @section Function version: 0.2.1
 #'

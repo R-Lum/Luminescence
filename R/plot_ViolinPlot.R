@@ -8,8 +8,8 @@
 #'
 #' The function is passing several arguments to the function [plot],
 #' [stats::density], [graphics::boxplot]:
-#' Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
-#' \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
+#' Supported arguments are: `xlim`, `main`, `xlab`,
+#' `ylab`, `col.violin`, `col.boxplot`, `mtext`, `cex`, `mtext`
 #'
 #'**`Valid summary keywords`**\cr
 #'
@@ -20,21 +20,21 @@
 #' a [matrix] can be provided, but only the first column will be considered by the
 #' function
 #'
-#' @param boxplot [logical] (with default): enable or disable boxplot
+#' @param boxplot [logical] *(with default)*: enable or disable boxplot
 #'
-#' @param rug [logical] (with default): enable or disable rug
+#' @param rug [logical] *(with default)*: enable or disable rug
 #'
-#' @param summary [character] (optional): add statistic measures of
+#' @param summary [character] *(optional)*: add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #'
 #' @param summary.pos [numeric] or [character] (with
 #' default): optional position keywords (cf., [legend])
-#' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
+#' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
-#' option in only possible if \code{mtext} is not used.
+#' option in only possible if `mtext` is not used.
 #'
-#' @param na.rm [logical] (with default): exclude NA values
+#' @param na.rm [logical] *(with default)*: exclude NA values
 #' from the data set prior to any further operations.
 #'
 #' @param \dots further arguments and graphical parameters passed to

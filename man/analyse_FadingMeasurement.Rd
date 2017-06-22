@@ -52,7 +52,7 @@ Slot: \bold{@data}\cr
 \tabular{lll}{
 \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
 \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
-\code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \code{\link[stats]{lm}}\cr
+\code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \link[stats:lm]{stats::lm}\cr
 \code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. 2008 \cr
 \code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
 \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds \cr
@@ -79,7 +79,7 @@ can be passed to the function \link{calc_FadingCorr}.\cr
 
 \bold{Fitting and error estimation}\cr
 
-For the fitting the function \code{\link[stats]{lm}} is used without applying weights. For the
+For the fitting the function \link[stats:lm]{stats::lm} is used without applying weights. For the
 error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 high enough with regard to the underlying problem, are sampled assuming a normal distribution
 for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
@@ -88,7 +88,7 @@ for each value with the value as the mean and the provided uncertainty as standa
 
 The density of recombination centres, expressed by the dimensionless variable rho', is estimated
 by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
-\code{\link[stats]{nls}} is used without applying weights. For the error estimation the same
+\link[stats:nls]{stats::nls} is used without applying weights. For the error estimation the same
 procedure as for the g-value is applied (see above).
 }
 \note{

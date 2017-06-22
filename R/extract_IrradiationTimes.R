@@ -17,36 +17,36 @@
 #' functions [read_XSYG2R], [read_BIN2R],
 #' [write_R2BIN] for data import and export.
 #'
-#' @param object [character] (\bold{required}) or
+#' @param object [character] (**required**) or
 #' [RLum.Analysis-class] object or [list]: path and file name of the XSYG
 #' file or an [RLum.Analysis-class] produced by the function
-#' [read_XSYG2R]; alternatively a \code{list} of [RLum.Analysis-class] can
+#' [read_XSYG2R]; alternatively a `list` of [RLum.Analysis-class] can
 #' be provided. \cr
 #'
-#' \bold{Note}: If an [RLum.Analysis-class] is used, any input for
-#' the arguments \code{file.BINX} and \code{recordType} will be ignored!
+#' **Note**: If an [RLum.Analysis-class] is used, any input for
+#' the arguments `file.BINX` and `recordType` will be ignored!
 #'
-#' @param file.BINX [character] (optional): path and file name of
+#' @param file.BINX [character] *(optional)*: path and file name of
 #' an existing BINX-file. If a file name is provided the file will be updated
 #' with the information from the XSYG file in the same folder as the original
 #' BINX-file.\cr Note: The XSYG and the BINX-file have to be originate from the
 #' same measurement!
 #'
-#' @param recordType [character] (with default): select relevant
+#' @param recordType [character] *(with default)*: select relevant
 #' curves types from the XSYG file or [RLum.Analysis-class]
 #' object. As the XSYG-file format comprises much more information than usually
 #' needed for routine data analysis and allowed in the BINX-file format, only
 #' the relevant curves are selected by using the function
-#' [get_RLum]. The argument \code{recordType} works as
+#' [get_RLum]. The argument `recordType` works as
 #' described for this function. \cr
 #'
 #' Note: A wrong selection will causes a function error. Please change this
 #' argument only if you have reasons to do so.
-#' @param compatibility.mode [logical] (with default): this option
+#' @param compatibility.mode [logical] *(with default)*: this option
 #' is parsed only if a BIN/BINX file is produced and it will reset all position
 #' values to a max. value of 48, cf.[write_R2BIN]
-#' @param txtProgressBar [logical] (with default): enables
-#' \code{TRUE} or disables \code{FALSE} the progression bars during import and
+#' @param txtProgressBar [logical] *(with default)*: enables
+#' `TRUE` or disables `FALSE` the progression bars during import and
 #' export
 #'
 #' @return An [RLum.Results-class] object is returned with the
@@ -56,9 +56,9 @@
 #' transferred into a new BINX-file with the function name as suffix. For the
 #' output the path of the input BINX-file itself is used. Note that this will
 #' not work if the input object is a file path to an XSYG-file, instead of a
-#' link to only one file. In this case the argument input for \code{file.BINX} is ignored.\cr
+#' link to only one file. In this case the argument input for `file.BINX` is ignored.\cr
 #'
-#' In the self call mode (input is a \code{list} of [RLum.Analysis-class] objects
+#' In the self call mode (input is a `list` of [RLum.Analysis-class] objects
 #' a list of [RLum.Results-class] is returned.
 #'
 #' @note The produced output object contains still the irradiation steps to
@@ -73,7 +73,7 @@
 #' Time'. The table output returns only the real 'Time Since Irradiation', i.e. time between the
 #' end of the irradiation and the next step.
 #'
-#' Negative values for \code{TIMESINCELAS.STEP}? \cr
+#' Negative values for `TIMESINCELAS.STEP`? \cr
 #'
 #' Yes, this is possible and no bug, as in the XSYG-file multiple curves are stored for one step.
 #' Example: TL step may comprise three curves: (a) counts vs. time, (b) measured

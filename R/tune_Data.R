@@ -2,8 +2,8 @@
 #'
 #' The error can be reduced and sample size increased for specific purpose.
 #'
-#' @param data [data.frame] (\bold{required}): input values,
-#' structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
+#' @param data [data.frame] (**required**): input values,
+#' structure: data (`values[,1]`) and data error (`values [,2]`) are
 #' required
 #'
 #' @param decrease.error [numeric]: factor by which the error

@@ -7,8 +7,8 @@
 #' corresponding get function will be selected. Allowed arguments can be found
 #' in the documentations of the corresponding [Risoe.BINfileData-class] class.
 #'
-#' @param object [Risoe.BINfileData-class] (\bold{required}): S4 object of
-#' class \code{RLum}
+#' @param object [Risoe.BINfileData-class] (**required**): S4 object of
+#' class `RLum`
 #' @param \dots further arguments that one might want to pass to the specific
 #' get function
 #' @return Return is the same as input objects as provided in the list.

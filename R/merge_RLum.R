@@ -5,27 +5,27 @@
 #' The function provides a generalised access point for merge specific
 #' [RLum-class] objects.\cr Depending on the input object, the
 #' corresponding merge function will be selected.  Allowed arguments can be
-#' found in the documentations of each merge function. Empty list elements (\code{NULL}) are
-#' automatically removed from the input \code{list}.
+#' found in the documentations of each merge function. Empty list elements (`NULL`) are
+#' automatically removed from the input `list`.
 #'
 #' \tabular{lll}{
-#' \bold{object} \tab \tab \bold{corresponding merge function} \cr
+#' **object** \tab \tab **corresponding merge function** \cr
 #'
-#' [RLum.Data.Curve-class] \tab : \tab \code{merge_RLum.Data.Curve} \cr
-#' [RLum.Analysis-class] \tab : \tab \code{merge_RLum.Analysis} \cr
-#' [RLum.Results-class] \tab : \tab \code{merge_RLum.Results}
+#' [RLum.Data.Curve-class] \tab : \tab `merge_RLum.Data.Curve` \cr
+#' [RLum.Analysis-class] \tab : \tab `merge_RLum.Analysis` \cr
+#' [RLum.Results-class] \tab : \tab `merge_RLum.Results`
 #
 #' }
 #'
 #' @param objects [list] of [RLum-class]
-#' (\bold{required}): list of S4 object of class \code{RLum}
+#' (**required**): list of S4 object of class `RLum`
 #'
 #' @param \dots further arguments that one might want to pass to the specific
 #' merge function
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
-#' @note So far not for every \code{RLum} object a merging function exists.
+#' @note So far not for every `RLum` object a merging function exists.
 #'
 #' @section Function version: 0.1.2
 #'

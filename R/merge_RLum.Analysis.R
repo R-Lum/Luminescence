@@ -14,7 +14,7 @@
 #' order provided with the input list.
 #'
 #' @param objects [list] of [RLum.Analysis-class]
-#' (\bold{required}): list of S4 objects of class \code{RLum.Analysis}.
+#' (**required**): list of S4 objects of class `RLum.Analysis`.
 #' Furthermore other objects of class [RLum-class] can be added,
 #' see details.
 #'

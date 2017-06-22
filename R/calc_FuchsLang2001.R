@@ -21,20 +21,20 @@
 #' @param data [RLum.Results-class] or [data.frame] (**required**): 
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #' 
-#' @param cvThreshold [numeric] *(with default)*: 
+#' @param cvThreshold [numeric] **(with default)**: 
 #' coefficient of variation in percent, as threshold for the method,
 #' e.g. `cvThreshold = 3`. See details
 #' .
-#' @param startDeValue [numeric] *(with default)*: 
+#' @param startDeValue [numeric] **(with default)**: 
 #' number of the first aliquot that is used for the calculations
 #' 
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] **(with default)**: 
 #' plot output `TRUE`/`FALSE`
 #' 
 #' @param ... further arguments and graphical parameters passed to [plot]
 #' 
 #' @return 
-#' Returns a plot *(optional)* and terminal output. In addition an
+#' Returns a plot **(optional)** and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'

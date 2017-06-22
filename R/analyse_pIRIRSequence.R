@@ -10,70 +10,70 @@
 #' one run. With this, its functionality is strictly limited by the
 #' functionality of the function [analyse_SAR.CWOSL].\cr
 #'
-#' \bold{If the input is a \code{list}}\cr
+#' **If the input is a `list`**\cr
 #'
 #' If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
 #' for different sets of parameters for every single input element.
 #' For further information see [analyse_SAR.CWOSL].
 #'
 #'
-#' @param object [RLum.Analysis-class] (\bold{required}) or [list] of
+#' @param object [RLum.Analysis-class] (**required**) or [list] of
 #' [RLum.Analysis-class] objects: input object containing data for analysis. If a [list]
 #' is provided the functions tries to iteratre over the list.
 #'
-#' @param signal.integral.min [integer] (\bold{required}): lower
+#' @param signal.integral.min [integer] (**required**): lower
 #' bound of the signal integral. Provide this value as vector for different
 #' integration limits for the different IRSL curves.
 #'
-#' @param signal.integral.max [integer] (\bold{required}): upper
+#' @param signal.integral.max [integer] (**required**): upper
 #' bound of the signal integral. Provide this value as vector for different
 #' integration limits for the different IRSL curves.
 #'
-#' @param background.integral.min [integer] (\bold{required}):
+#' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral. Provide this value as vector for
 #' different integration limits for the different IRSL curves.
 #'
-#' @param background.integral.max [integer] (\bold{required}):
+#' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral. Provide this value as vector for
 #' different integration limits for the different IRSL curves.
 #'
-#' @param dose.points [numeric] (optional): a numeric vector
+#' @param dose.points [numeric] *(optional)*: a numeric vector
 #' containing the dose points values. Using this argument overwrites dose point
 #' values in the signal curves.
 #'
-#' @param sequence.structure \link{vector} \link{character} (with default):
-#' specifies the general sequence structure. Allowed values are \code{"TL"} and
-#' any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
-#' Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves from
+#' @param sequence.structure [vector] [character] *(with default)*:
+#' specifies the general sequence structure. Allowed values are `"TL"` and
+#' any `"IR"` combination (e.g., `"IR50"`,`"pIRIR225"`).
+#' Additionally a parameter `"EXCLUDE"` is allowed to exclude curves from
 #' the analysis (Note: If a preheat without PMT measurement is used, i.e.
 #' preheat as non TL, remove the TL step.)
 #'
-#' @param plot [logical] (with default): enables or disables plot
+#' @param plot [logical] *(with default)*: enables or disables plot
 #' output.
 #'
-#' @param plot.single [logical] (with default): single plot output
-#' (\code{TRUE/FALSE}) to allow for plotting the results in single plot
-#' windows. Requires \code{plot = TRUE}.
+#' @param plot.single [logical] *(with default)*: single plot output
+#' (`TRUE/FALSE`) to allow for plotting the results in single plot
+#' windows. Requires `plot = TRUE`.
 #'
 #' @param \dots further arguments that will be passed to the function
 #' [analyse_SAR.CWOSL] and [plot_GrowthCurve]
 #'
-#' @return Plots (optional) and an [RLum.Results-class] object is
+#' @return Plots *(optional)* and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #'
 #' \tabular{lll}{
-#' \bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
-#' \code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
-#' \code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
-#' \code{..$rejection.criteria} : \tab [data.frame] \tab rejection criteria \cr
-#' \code{..$Formula} : \tab [list] \tab Function used for fitting of the dose response curve \cr
-#' \code{..$call} : \tab [call] \tab the original function call
+#' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
+#' `..$data` : \tab  `data.frame` \tab Table with De values \cr
+#' `..$LnLxTnTx.table` : \tab `data.frame` \tab with the LnLxTnTx values \cr
+#' `..$rejection.criteria` : \tab [data.frame] \tab rejection criteria \cr
+#' `..$Formula` : \tab [list] \tab Function used for fitting of the dose response curve \cr
+#' `..$call` : \tab [call] \tab the original function call
 #' }
 #'
 #' The output should be accessed using the function
 #' [get_RLum].
 #'
-#' @note Best graphical output can be achieved by using the function \code{pdf}
+#' @note Best graphical output can be achieved by using the function `pdf`
 #' with the following options:\cr \code{pdf(file = "...", height = 15, width =
 #' 15)}
 #'

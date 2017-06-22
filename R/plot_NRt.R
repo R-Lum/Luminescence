@@ -4,33 +4,33 @@
 #' as shown in Steffen et al. 2009
 #'
 #' This function accepts the individual curve data in many different formats. If
-#' \code{data} is a \code{list}, each element of the list must contain a two
-#' column \code{data.frame} or \code{matrix} containing the XY data of the curves
+#' `data` is a `list`, each element of the list must contain a two
+#' column `data.frame` or `matrix` containing the XY data of the curves
 #' (time and counts). Alternatively, the elements can be objects of class
 #' [RLum.Data.Curve-class].
-#' Input values can also be provided as a \code{data.frame} or \code{matrix} where
+#' Input values can also be provided as a `data.frame` or `matrix` where
 #' the first column contains the time values and each following column contains
 #' the counts of each curve.
 #'
 #' @param data a [list], [data.frame], [matrix] or
-#' [RLum.Analysis-class] object (\bold{required}). X,Y data of measured values
+#' [RLum.Analysis-class] object (**required**). X,Y data of measured values
 #' (time and counts). See details on individual data structure.
 #'
-#' @param log [character] (optional): logarithmic axes
-#' (\code{c("x", "y", "xy")}).
+#' @param log [character] *(optional)*: logarithmic axes
+#' (`c("x", "y", "xy")`).
 #'
-#' @param smooth [character] (optional): apply data smoothing. Use
-#' \code{"rmean"} to calculate the rolling where \code{k} determines the width
+#' @param smooth [character] *(optional)*: apply data smoothing. Use
+#' `"rmean"` to calculate the rolling where `k` determines the width
 #' of the rolling window (see [rollmean]).
-#' \code{"spline"} applies a smoothing spline to each curve
+#' `"spline"` applies a smoothing spline to each curve
 #' (see [smooth.spline])
 #'
-#' @param k [integer] (with default): integer width of the rolling
+#' @param k [integer] *(with default)*: integer width of the rolling
 #' window.
 #'
-#' @param legend [logical] (with default): show or hide the plot legend.
+#' @param legend [logical] *(with default)*: show or hide the plot legend.
 #'
-#' @param legend.pos [character] (with default): keyword specifying
+#' @param legend.pos [character] *(with default)*: keyword specifying
 #' the position of the legend (see [legend]).
 #'
 #' @param ... further parameters passed to [plot] (also see [par]).

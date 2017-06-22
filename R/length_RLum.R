@@ -7,8 +7,8 @@
 #' corresponding get function will be selected. Allowed arguments can be found
 #' in the documentations of the corresponding [RLum-class] class.
 #'
-#' @param object [RLum-class] (\bold{required}): S4 object of
-#' class \code{RLum}
+#' @param object [RLum-class] (**required**): S4 object of
+#' class `RLum`
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'

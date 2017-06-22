@@ -87,19 +87,19 @@
 #' @param altitude [numeric] (**required**): 
 #' altitude (m above sea-level)
 #' 
-#' @param corr.fieldChanges [logical] *(with default)*: 
+#' @param corr.fieldChanges [logical] **(with default)**: 
 #' correct for geomagnetic field changes after Prescott & Hutton (1994). 
 #' Apply only when justified by the data.
 #' 
-#' @param est.age [numeric] *(with default)*: 
+#' @param est.age [numeric] **(with default)**: 
 #' estimated age range (ka) for geomagnetic field change correction (0-80 ka allowed)
 #' 
-#' @param half.depth [logical] *(with default)*: 
+#' @param half.depth [logical] **(with default)**: 
 #' How to overcome with varying overburden thickness. If `TRUE` only half the depth is used for
 #' calculation. Apply only when justified, i.e. when a constant sedimentation
 #' rate can safely be assumed.
 #' 
-#' @param error [numeric] *(with default)*: 
+#' @param error [numeric] **(with default)**: 
 #' general error (percentage) to be implemented on corrected cosmic dose rate estimate
 #' 
 #' @param ... further arguments (`verbose` to disable/enable console output).

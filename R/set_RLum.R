@@ -10,16 +10,16 @@
 #' [RLum.Data.Image-class], [RLum.Data.Spectrum-class],
 #' [RLum.Analysis-class] and [RLum.Results-class]
 #'
-#' @param class [RLum-class] (\bold{required}): name of the S4 class to
+#' @param class [RLum-class] (**required**): name of the S4 class to
 #' create
 #'
 #' @param originator [character] (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
 #'
 #' @param .uid [character] (automatic): sets an unique ID for this object
-#' using the internal C++ function \code{.create_UID}.
+#' using the internal C++ function `.create_UID`.
 #'
-#' @param .pid [character] (with default): option to provide a parent id for nesting
+#' @param .pid [character] *(with default)*: option to provide a parent id for nesting
 #' at will.
 #'
 #' @param \dots further arguments that one might want to pass to the specific

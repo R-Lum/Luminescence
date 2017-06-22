@@ -11,13 +11,13 @@
 #' to the console that the user can copy and paste to the R console in order
 #' to install the desired development version of the package.\cr\cr
 #' 
-#' If \code{force_install=TRUE} the functions checks if 'devtools' is available
+#' If `force_install=TRUE` the functions checks if 'devtools' is available
 #' and then attempts to install the chosen development branch via
 #' [devtools::install_github].
 #'
-#' @param force_install [logical] (optional):
-#' If \code{FALSE} (the default) the function produces and prints the required
-#' code to the console for the user to run manually afterwards. When \code{TRUE}
+#' @param force_install [logical] *(optional)*:
+#' If `FALSE` (the default) the function produces and prints the required
+#' code to the console for the user to run manually afterwards. When `TRUE`
 #' and all requirements are fulfilled (see details) this function attempts to install
 #' the package itself.
 #'

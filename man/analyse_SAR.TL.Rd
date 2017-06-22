@@ -68,8 +68,8 @@ This function performs a SAR TL analysis on a set of curves. The SAR
 procedure in general is given by Murray and Wintle (2000). For the
 calculation of the Lx/Tx value the function \link{calc_TLLxTxRatio} is
 used.\cr\cr \bold{Provided rejection criteria}\cr\cr
-\sQuote{recyling.ratio}: calculated for every repeated regeneration dose
-point.\cr \sQuote{recuperation.rate}: recuperation rate calculated by
+\code{[recyling.ratio]}: calculated for every repeated regeneration dose
+point.\cr \code{[recuperation.rate]}: recuperation rate calculated by
 comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
 value (the Lx/Tx ratio of the natural signal).  For methodological
 background see Aitken and Smith (1988)\cr

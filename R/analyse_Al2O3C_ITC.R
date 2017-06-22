@@ -13,31 +13,31 @@
 #'
 #' To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
 #' are all preset with meaningful default parameters and can be
-#' handled using the argument \code{method_control} only, e.g.,
-#' \code{method_control = list(fit.method = "LIN")}. Supported arguments are:\cr
+#' handled using the argument `method_control` only, e.g.,
+#' `method_control = list(fit.method = "LIN")`. Supported arguments are:\cr
 #'
 #' \tabular{lll}{
 #' ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
-#' \code{mode}   \tab \code{plot_GrowthCurve} \tab as in [plot_GrowthCurve]; sets the mode used for fitting\cr
-#' \code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in [plot_GrowthCurve]; sets the function applied for fitting\cr
+#' `mode`   \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the mode used for fitting\cr
+#' `fit.method`   \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the function applied for fitting\cr
 #' }
 #'
-#' @param object [RLum.Analysis-class] or [list] \bold{(required)}: results obtained from the measurement.
+#' @param object [RLum.Analysis-class] or [list] **(required)**: results obtained from the measurement.
 #' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
 #'
-#' @param signal_integral [numeric] (optional): signal integral, used for the signal
+#' @param signal_integral [numeric] *(optional)*: signal integral, used for the signal
 #' and the background. If nothing is provided the full range is used. Argument can be provided as [list].
 #'
-#' @param dose_points [numeric] (with default): vector with dose points, if dose points
+#' @param dose_points [numeric] *(with default)*: vector with dose points, if dose points
 #' are repeated, only the general pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017. Argument can be provided as [list].
 #'
-#' @param method_control [list] (optional): optional parameters to control the calculation.
+#' @param method_control [list] *(optional)*: optional parameters to control the calculation.
 #' See details for further explanations
 #'
-#' @param verbose [logical] (with default): enable/disable verbose mode
+#' @param verbose [logical] *(with default)*: enable/disable verbose mode
 #'
-#' @param plot [logical] (with default): enable/disable plot output
+#' @param plot [logical] *(with default)*: enable/disable plot output
 #'
 #' @param ... further arguments that can be passed to the plot output
 #'
@@ -46,18 +46,18 @@
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' **`RLum.Reuslts`**-object\cr
+#' **`RLum.Results`**-object\cr
 #'
-#' \bold{slot:} **`@data`**\cr
+#' **slot:** **`@data`**\cr
 #' \tabular{lll}{
-#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
-#'  \code{$data} \tab \code{data.frame} \tab correction value and error \cr
-#'  \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
-#'  \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
-#'  \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function [plot_GrowthCurve]
+#' **Element** \tab **Type** \tab **Description**\cr
+#'  `$data` \tab `data.frame` \tab correction value and error \cr
+#'  `$table` \tab `data.frame` \tab table used for plotting  \cr
+#'  `$table_mean` \tab `data.frame` \tab table used for fitting \cr
+#'  `$fit` \tab `lm` or `nls` \tab the fitting as returned by the function [plot_GrowthCurve]
 #' }
 #'
-#'\bold{slot:} **`@info`**\cr
+#'**slot:** **`@info`**\cr
 #'
 #' The original function call\cr
 #'

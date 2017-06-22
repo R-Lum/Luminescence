@@ -5,62 +5,62 @@
 #'
 #' This function performs a SAR TL analysis on a set of curves. The SAR
 #' procedure in general is given by Murray and Wintle (2000). For the
-#' calculation of the Lx/Tx value the function \link{calc_TLLxTxRatio} is
-#' used.\cr\cr \bold{Provided rejection criteria}\cr\cr
-#' \sQuote{recyling.ratio}: calculated for every repeated regeneration dose
-#' point.\cr \sQuote{recuperation.rate}: recuperation rate calculated by
+#' calculation of the Lx/Tx value the function [calc_TLLxTxRatio] is
+#' used.\cr\cr **Provided rejection criteria**\cr\cr
+#' `[recyling.ratio]`: calculated for every repeated regeneration dose
+#' point.\cr `[recuperation.rate]`: recuperation rate calculated by
 #' comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
 #' value (the Lx/Tx ratio of the natural signal).  For methodological
 #' background see Aitken and Smith (1988)\cr
 #'
-#' @param object [RLum.Analysis-class](\bold{required}): input
+#' @param object [RLum.Analysis-class](**required**): input
 #' object containing data for analysis
 #'
 #' @param object.background currently not used
 #'
-#' @param signal.integral.min \link{integer} (\bold{required}): requires the
+#' @param signal.integral.min [integer] (**required**): requires the
 #' channel number for the lower signal integral bound (e.g.
-#' \code{signal.integral.min = 100})
+#' `signal.integral.min = 100`)
 #'
-#' @param signal.integral.max \link{integer} (\bold{required}): requires the
+#' @param signal.integral.max [integer] (**required**): requires the
 #' channel number for the upper signal integral bound (e.g.
-#' \code{signal.integral.max = 200})
+#' `signal.integral.max = 200`)
 #'
-#' @param integral_input [character] (with default): defines the input for the
-#' the arguments \code{signal.integral.min} and \code{signal.integral.max}. These limits can be
-#' either provided \code{'channel'} number (the default) or \code{'temperature'}. If \code{'temperature'}
+#' @param integral_input [character] *(with default)*: defines the input for the
+#' the arguments `signal.integral.min` and `signal.integral.max`. These limits can be
+#' either provided `'channel'` number (the default) or `'temperature'`. If `'temperature'`
 #' is chosen the best matching channel is selected.
 #'
-#' @param sequence.structure \link{vector} \link{character} (with default):
+#' @param sequence.structure [vector] [character] *(with default)*:
 #' specifies the general sequence structure. Three steps are allowed (
-#' \code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
-#' parameter \code{"EXCLUDE"}. This allows excluding TL curves which are not
+#' `"PREHEAT"`, `"SIGNAL"`, `"BACKGROUND"`), in addition a
+#' parameter `"EXCLUDE"`. This allows excluding TL curves which are not
 #' relevant for the protocol analysis.  (Note: None TL are removed by default)
 #'
-#' @param rejection.criteria \link{list} (with default): list containing
+#' @param rejection.criteria [list] *(with default)*: list containing
 #' rejection criteria in percentage for the calculation.
 #'
-#' @param dose.points [numeric] (optional): option set dose points manually
+#' @param dose.points [numeric] *(optional)*: option set dose points manually
 #'
-#' @param log \link{character} (with default): a character string which
+#' @param log [character] *(with default)*: a character string which
 #' contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
 #' logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
-#' \link{plot.default}).
+#' [plot.default]).
 #'
 #' @param \dots further arguments that will be passed to the function
 #' [plot_GrowthCurve]
 #'
-#' @return A plot (optional) and an [RLum.Results-class] object is
+#' @return A plot *(optional)* and an [RLum.Results-class] object is
 #' returned containing the following elements:
-#' \item{De.values}{\link{data.frame} containing De-values and further
-#' parameters} \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx
+#' \item{De.values}{[data.frame] containing De-values and further
+#' parameters} \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx
 #' values including signal, background counts and the dose points.}
-#' \item{rejection.criteria}{\link{data.frame} with values that might by used
+#' \item{rejection.criteria}{[data.frame] with values that might by used
 #' as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
-#' \bold{note:} the output should be accessed using the function
+#' **note:** the output should be accessed using the function
 #' [get_RLum]
 #'
-#' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
+#' @note **THIS IS A BETA VERSION**\cr\cr None TL curves will be removed
 #' from the input object without further warning.
 #'
 #' @section Function version: 0.2.0

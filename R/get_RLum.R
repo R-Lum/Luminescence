@@ -7,8 +7,8 @@
 #' corresponding get function will be selected. Allowed arguments can be found
 #' in the documentations of the corresponding [RLum-class] class.
 #'
-#' @param object [RLum-class] (\bold{required}): S4 object of
-#' class \code{RLum} or an object of type [list] containing only objects of type
+#' @param object [RLum-class] (**required**): S4 object of
+#' class `RLum` or an object of type [list] containing only objects of type
 #' [RLum-class]
 #'
 #' @param \dots further arguments that will be passed to the object specific methods. For
@@ -55,7 +55,7 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 #' @describeIn get_RLum
 #' Returns a list of [RLum-class] objects that had been passed to [get_RLum]
 #'
-#' @param null.rm [logical] (with default): option to get rid of empty and NULL objects
+#' @param null.rm [logical] *(with default)*: option to get rid of empty and NULL objects
 #' 
 #' @md
 #' @export
