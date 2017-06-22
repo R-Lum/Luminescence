@@ -9,18 +9,18 @@ report_RLum(object, file = tempfile(), title = "RLum.Report",
   css.file = NULL, quiet = TRUE, clean = TRUE, ...)
 }
 \arguments{
-\item{object}{(\bold{required}): 
+\item{object}{(\bold{required}):
 The object to be reported on, preferably of any \code{RLum}-class.}
 
-\item{file}{\code{\link{character}} (with default): 
-A character string naming the output file. If no filename is provided a 
+\item{file}{\code{\link{character}} (with default):
+A character string naming the output file. If no filename is provided a
 temporary file is created.}
 
 \item{title}{\code{\link{character}} (with default):
 A character string specifying the title of the document.}
 
 \item{compact}{\code{\link{logical}} (with default):
-When \code{TRUE} the following report components are hidden: 
+When \code{TRUE} the following report components are hidden:
 \code{@.pid}, \code{@.uid}, \code{'Object structure'}, \code{'Session Info'}
 and only the first and last 5 rows of long matrices and data frames are shown.
 See details.}
@@ -38,7 +38,7 @@ Path to a CSS file to change the default styling of the HTML document.}
 \item{quiet}{\code{\link{logical}} (with default):
 \code{TRUE} to supress printing of the pandoc command line.}
 
-\item{clean}{\code{\link{logical}} (with default): 
+\item{clean}{\code{\link{logical}} (with default):
 \code{TRUE} to clean intermediate files created during rendering.}
 
 \item{...}{further arguments passed to or from other methods and to control
@@ -50,7 +50,7 @@ Writes a HTML and .Rds file.
 \description{
 This function creates a HTML report for a given object, listing its complete
 structure and content. The object itself is saved as a serialised .Rds file.
-The report file serves both as a convenient way of browsing through objects with 
+The report file serves both as a convenient way of browsing through objects with
 complex data structures as well as a mean of properly documenting and saving
 objects.
 }
@@ -59,14 +59,14 @@ The HTML report is created with \code{\link[rmarkdown]{render}} and has the
 following structure:
 
 \tabular{ll}{
- \bold{Section} \tab \bold{Description} \cr
- \code{Header} \tab A summary of general characteristics of the object \cr
- \code{Object content} \tab A comprehensive list of the complete structure
- and content of the provided object. \cr
- \code{Object structure} \tab Summary of the objects structure given as a table \cr
- \code{File} \tab Information on the saved RDS file \cr
- \code{Session Info} \tab Captured output from sessionInfo() \cr
- \code{Plots} \tab (optional) For \code{RLum-class} objects a variable number of plots \cr
+\bold{Section} \tab \bold{Description} \cr
+\code{Header} \tab A summary of general characteristics of the object \cr
+\code{Object content} \tab A comprehensive list of the complete structure
+and content of the provided object. \cr
+\code{Object structure} \tab Summary of the objects structure given as a table \cr
+\code{File} \tab Information on the saved RDS file \cr
+\code{Session Info} \tab Captured output from sessionInfo() \cr
+\code{Plots} \tab (optional) For \code{RLum-class} objects a variable number of plots \cr
 }
 
 The structure of the report can be controlled individually by providing one or more of the
@@ -90,11 +90,11 @@ Further options that can be provided via the \code{...} argument:
 \bold{Argument} \tab \bold{Description} \cr
 \code{short_table} \tab If \code{TRUE} only show the first and last 5 rows of lang tables. \cr
 \code{theme} \tab Specifies the Bootstrap
-theme to use for the report. Valid themes include "default", "cerulean", "journal", "flatly", 
+theme to use for the report. Valid themes include "default", "cerulean", "journal", "flatly",
 "readable", "spacelab", "united", "cosmo", "lumen", "paper", "sandstone", "simplex", and "yeti". \cr
 \code{highlight} \tab Specifies the syntax highlighting
- style. Supported styles include "default", "tango", "pygments", "kate", "monochrome", 
- "espresso", "zenburn", "haddock", and "textmate". \cr
+style. Supported styles include "default", "tango", "pygments", "kate", "monochrome",
+"espresso", "zenburn", "haddock", and "textmate". \cr
 \code{css} \tab \code{TRUE} or \code{FALSE} to enable/disable custom CSS styling \cr
 }
 
@@ -108,7 +108,7 @@ The following arguments can be used to customise the report via CSS (Cascading S
 }
 
 Note that these arguments must all be of class \code{\link{character}} and follow standard CSS syntax.
-For exhaustive CSS styling you can provide a custom CSS file for argument \code{css.file}. 
+For exhaustive CSS styling you can provide a custom CSS file for argument \code{css.file}.
 CSS styling can be turned of using \code{css = FALSE}.
 }
 \note{
@@ -177,6 +177,7 @@ x <- list(x = 1:10,
 
 report_RLum(object = x, file = "~/arbitray_list")
 }
+
 }
 \seealso{
 \code{\link[rmarkdown]{render}}, \code{\link[pander]{pander_return}},

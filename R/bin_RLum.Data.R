@@ -44,6 +44,7 @@
 #'
 #' @keywords utilities
 #'
+#' @md
 #' @export
 setGeneric("bin_RLum.Data", function(object, ...) {
   standardGeneric("bin_RLum.Data")

@@ -57,6 +57,7 @@
 #' temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 #'
 #'
+#' @md
 #' @export
 merge_RLum<- function(
   objects,

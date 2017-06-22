@@ -32,16 +32,16 @@ will be only removed if all curves of this aliquot are marked as invalid.}
 The function returns
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
 \bold{\code{RLum.Reuslts}}-object\cr
 
 \bold{slot:} \bold{\code{@data}}\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
- \code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
- \code{$selection_id} \tab \code{numeric} \tab the selection as record ID \cr
- \code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
+\code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
+\code{$selection_id} \tab \code{numeric} \tab the selection as record ID \cr
+\code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
 }
 
 \bold{slot:} \bold{\code{@info}}\cr

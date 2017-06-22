@@ -1,4 +1,4 @@
-#' Nonlinear Least Squares Fit for CW-OSL curves [beta version]
+#' Nonlinear Least Squares Fit for CW-OSL curves `[beta version]`
 #'
 #' The function determines the weighted least-squares estimates of the
 #' component parameters of a CW-OSL signal for a given maximum number of
@@ -133,7 +133,8 @@
 #'                    main = "CW Curve Fit",
 #'                    n.components.max = 4,
 #'                    log = "x")
-#'
+#'                    
+#' @md
 #' @export
 fit_CWCurve<- function(
   values,

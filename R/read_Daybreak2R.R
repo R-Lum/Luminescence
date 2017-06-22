@@ -20,7 +20,7 @@
 #'
 #' @return  A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.
 #'
-#' @note \bold{[BETA VERSION]} This function still needs to be tested properly. In particular
+#' @note \bold{`[BETA VERSION]`} This function still needs to be tested properly. In particular
 #' the function has underwent only very rough rests using a few files.
 #'
 #' @section Function version: 0.3.0
@@ -44,6 +44,7 @@
 #'
 #' }
 #'
+#' @md
 #' @export
 read_Daybreak2R <- function(
   file,

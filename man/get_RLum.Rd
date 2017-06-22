@@ -58,7 +58,6 @@ temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
 ##get results and store them in a new object
 temp.get <- get_RLum(object = temp1)
 
-
 }
 \seealso{
 \code{\linkS4class{RLum.Data.Curve}},

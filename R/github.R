@@ -57,12 +57,13 @@ NULL
 #' @return 
 #' \code{github_commits}: \code{\link{data.frame}} with columns:
 #' \tabular{ll}{
-#'  [ ,1] \tab SHA \cr
-#'  [ ,2] \tab AUTHOR \cr
-#'  [ ,3] \tab DATE \cr
-#'  [ ,4] \tab MESSAGE \cr
+#'  `[ ,1]` \tab SHA \cr
+#'  `[ ,2]` \tab AUTHOR \cr
+#'  `[ ,3]` \tab DATE \cr
+#'  `[ ,4]` \tab MESSAGE \cr
 #' }
 #' 
+#' @md
 #' @export
 github_commits <- function(user = "r-lum", repo = "luminescence", 
                            branch = "master", n = 5) {
@@ -102,11 +103,12 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #' @return 
 #' \code{github_branches}: \code{\link{data.frame}} with columns:
 #' \tabular{ll}{
-#'  [ ,1] \tab BRANCH \cr
-#'  [ ,2] \tab SHA \cr
-#'  [ ,3] \tab INSTALL \cr
+#'  `[ ,1]` \tab BRANCH \cr
+#'  `[ ,2]` \tab SHA \cr
+#'  `[ ,3]` \tab INSTALL \cr
 #' }
 #' 
+#' @md
 #' @export
 github_branches <- function(user = "r-lum", repo = "luminescence") {
   
@@ -140,16 +142,17 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #' \code{github_commits}: Nested \code{\link{list}} with \code{n} elements.
 #' Each commit element is a list with elements:
 #' \tabular{ll}{
-#'  [[1]] \tab NUMBER \cr
-#'  [[2]] \tab TITLE \cr
-#'  [[3]] \tab BODY \cr
-#'  [[4]] \tab CREATED \cr
-#'  [[5]] \tab UPDATED \cr
-#'  [[6]] \tab CREATOR \cr
-#'  [[7]] \tab URL \cr
-#'  [[8]] \tab STATUS \cr
+#'  `[[1]]` \tab NUMBER \cr
+#'  `[[2]]` \tab TITLE \cr
+#'  `[[3]]` \tab BODY \cr
+#'  `[[4]]` \tab CREATED \cr
+#'  `[[5]]` \tab UPDATED \cr
+#'  `[[6]]` \tab CREATOR \cr
+#'  `[[7]]` \tab URL \cr
+#'  `[[8]]` \tab STATUS \cr
 #' }
 #' 
+#' @md
 #' @export
 github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE) {
   

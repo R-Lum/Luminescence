@@ -12,8 +12,8 @@ write_R2BIN(object, file, version, compatibility.mode = FALSE,
 input object to be stored in a bin file.}
 
 \item{file}{\code{\link{character}} (\bold{required}): file name and path of
-the output file\cr [WIN]: \code{write_R2BIN(object, "C:/Desktop/test.bin")},
-\cr [MAC/LINUX]: \code{write_R2BIN("/User/test/Desktop/test.bin")}}
+the output file\cr \code{[WIN]}: \code{write_R2BIN(object, "C:/Desktop/test.bin")},
+\cr \code{[MAC/LINUX]}: \code{write_R2BIN("/User/test/Desktop/test.bin")}}
 
 \item{version}{\code{\link{character}} (optional): version number for the
 output file. If no value is provided the highest version number from the

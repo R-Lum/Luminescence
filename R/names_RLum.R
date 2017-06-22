@@ -22,6 +22,7 @@
 #' @keywords utilities
 #' @aliases names_RLum
 #'
+#' @md
 #' @export
 setGeneric("names_RLum", function(object) {
   standardGeneric("names_RLum")

@@ -77,7 +77,6 @@ object2 <- CWOSL.SAR.Data
 
 object.new <- merge_Risoe.BINfileData(c(object1, object2))
 
-
 }
 \references{
 Duller, G., 2007. Analyst.

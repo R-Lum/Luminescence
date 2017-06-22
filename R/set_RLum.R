@@ -59,7 +59,8 @@
 #'
 #' ##plot this curve object
 #' plot_RLum(object)
-#'
+#' 
+#' @md
 #' @export
 setGeneric("set_RLum", function (class, originator, .uid = .create_UID(), .pid = NA_character_, ... ) {
   class(class) <- as.character(class)

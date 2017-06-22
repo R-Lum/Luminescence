@@ -9,8 +9,8 @@ read_SPE2R(file, output.object = "RLum.Data.Image", frame.range,
 }
 \arguments{
 \item{file}{\link{character} (\bold{required}): spe-file name (including
-path), e.g. \cr [WIN]: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
-[MAC/LINUX]: \code{readSPER("/User/test/Desktop/test.spe")}}
+path), e.g. \cr \code{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
+\code{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}}
 
 \item{output.object}{\code{\link{character}} (with default): set \code{RLum}
 output object.  Allowed types are \code{"RLum.Data.Spectrum"},

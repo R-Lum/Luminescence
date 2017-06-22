@@ -30,7 +30,7 @@ The import of the DAT-files is limited to the file format described for the soft
 used for a Daybreak, model 1100.
 }
 \note{
-\bold{[BETA VERSION]} This function still needs to be tested properly. In particular
+\bold{\code{[BETA VERSION]}} This function still needs to be tested properly. In particular
 the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{

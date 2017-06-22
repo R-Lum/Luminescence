@@ -15,6 +15,7 @@
 #' ## ask for an arbitrary qoute
 #' get_Quote()
 #'
+#' @md
 #' @export
 get_Quote <- function(
   ID,

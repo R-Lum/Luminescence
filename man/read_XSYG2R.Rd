@@ -140,7 +140,6 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 ##(3) How to see the structure of an object?
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
-
 }
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the

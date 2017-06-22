@@ -63,8 +63,8 @@ a simulation. This parameter takes effect only when 'model = "customized"' is ch
 \code{\link{plot.default}}. See details for further information.}
 }
 \description{
-Wrapper for the function \code{\link[RLumModel]{model_LuminescenceSignals}} from the package
-\link[RLumModel]{RLumModel-package}. For the further details and examples please
+Wrapper for the function \link[RLumModel:model_LuminescenceSignals]{RLumModel::model_LuminescenceSignals} from the package
+\link[RLumModel:RLumModel-package]{RLumModel::RLumModel-package}. For the further details and examples please
 see the manual of this package.
 }
 \section{Function version}{

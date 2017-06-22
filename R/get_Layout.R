@@ -40,6 +40,7 @@
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  layout = "journal")
 #'
+#' @md
 #' @export
 get_Layout <- function(
   layout

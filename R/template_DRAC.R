@@ -65,6 +65,7 @@
 #' output <- use_DRAC(input)
 #' }
 #' 
+#' @md
 #' @export
 template_DRAC <- function(nrow = 1, notification = TRUE) {
   

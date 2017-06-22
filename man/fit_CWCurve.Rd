@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_CWCurve.R
 \name{fit_CWCurve}
 \alias{fit_CWCurve}
-\title{Nonlinear Least Squares Fit for CW-OSL curves [beta version]}
+\title{Nonlinear Least Squares Fit for CW-OSL curves \code{[beta version]}}
 \usage{
 fit_CWCurve(values, n.components.max, fit.failure_threshold = 5,
   fit.method = "port", fit.trace = FALSE, fit.calcError = FALSE,
@@ -151,7 +151,7 @@ fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
                    main = "CW Curve Fit",
                    n.components.max = 4,
                    log = "x")
-
+                   
 }
 \references{
 Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.

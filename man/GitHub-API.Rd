@@ -33,31 +33,40 @@ print the output to the console (defaults to \code{TRUE}).}
 \value{
 \code{github_commits}: \code{\link{data.frame}} with columns:
 \tabular{ll}{
- [ ,1] \tab SHA \cr
- [ ,2] \tab AUTHOR \cr
- [ ,3] \tab DATE \cr
- [ ,4] \tab MESSAGE \cr
+\code{[ ,1]} \tab SHA \cr
+\code{[ ,2]} \tab AUTHOR \cr
+\code{[ ,3]} \tab DATE \cr
+\code{[ ,4]} \tab MESSAGE \cr
 }
 
 \code{github_branches}: \code{\link{data.frame}} with columns:
 \tabular{ll}{
- [ ,1] \tab BRANCH \cr
- [ ,2] \tab SHA \cr
- [ ,3] \tab INSTALL \cr
+\code{[ ,1]} \tab BRANCH \cr
+\code{[ ,2]} \tab SHA \cr
+\code{[ ,3]} \tab INSTALL \cr
 }
 
 \code{github_commits}: Nested \code{\link{list}} with \code{n} elements.
 Each commit element is a list with elements:
 \tabular{ll}{
- [[1]] \tab NUMBER \cr
- [[2]] \tab TITLE \cr
- [[3]] \tab BODY \cr
- [[4]] \tab CREATED \cr
- [[5]] \tab UPDATED \cr
- [[6]] \tab CREATOR \cr
- [[7]] \tab URL \cr
- [[8]] \tab STATUS \cr
+\code{[[1]]} \tab NUMBER \cr
+\code{[[2]]} \tab TITLE \cr
+\code{[[3]]} \tab BODY \cr
+\code{[[4]]} \tab CREATED \cr
+\code{[[5]]} \tab UPDATED \cr
+\code{[[6]]} \tab CREATOR \cr
+\code{[[7]]} \tab URL \cr
+\code{[[8]]} \tab STATUS \cr
 }
+
+[[1]: R:[1
+[[2]: R:[2
+[[3]: R:[3
+[[4]: R:[4
+[[5]: R:[5
+[[6]: R:[6
+[[7]: R:[7
+[[8]: R:[8
 }
 \description{
 R Interface to the GitHub API v3.

@@ -9,8 +9,8 @@
 #' references).
 #'
 #' @param file \link{character} (\bold{required}): spe-file name (including
-#' path), e.g. \cr [WIN]: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
-#' [MAC/LINUX]: \code{readSPER("/User/test/Desktop/test.spe")}
+#' path), e.g. \cr `[WIN]`: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
+#' `[MAC/LINUX]`: \code{readSPER("/User/test/Desktop/test.spe")}
 #'
 #' @param output.object \code{\link{character}} (with default): set \code{RLum}
 #' output object.  Allowed types are \code{"RLum.Data.Spectrum"},
@@ -95,6 +95,7 @@
 #' #             sep = ";", row.names = FALSE)
 #'
 #'
+#' @md
 #' @export
 read_SPE2R <- function(
   file,

@@ -11,6 +11,7 @@
 #' ## you really want to know?
 #' get_rightAnswer()
 #'
+#' @md
 #' @export
 get_rightAnswer <- function(...) {
   return(46)

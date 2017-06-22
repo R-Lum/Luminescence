@@ -47,7 +47,7 @@
 #' ##get results and store them in a new object
 #' temp.get <- get_RLum(object = temp1)
 #'
-#'
+#' @md
 #' @export
 setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 
@@ -56,7 +56,8 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 #' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 #'
 #' @param null.rm \code{\link{logical}} (with default): option to get rid of empty and NULL objects
-#'
+#' 
+#' @md
 #' @export
 setMethod("get_RLum",
           signature = "list",

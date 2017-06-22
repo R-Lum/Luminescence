@@ -14,19 +14,19 @@ valid paths and PSL file names.
 Alternatively the input character can be just a directory (path). In this case the
 the function tries to detect and import all PSL files found in the directory.}
 
-\item{drop_bg}{\code{\link{logical}} (with default): \code{TRUE} to automatically 
+\item{drop_bg}{\code{\link{logical}} (with default): \code{TRUE} to automatically
 remove all non-OSL/IRSL curves.}
 
 \item{as_decay_curve}{\code{\link{logical}} (with default): Portable OSL Reader curves
 are often given as cumulative light sum curves. Use \code{TRUE} (default) to convert
 the curves to the more usual decay form.}
 
-\item{smooth}{\code{\link{logical}} (with default): \code{TRUE} to apply 
+\item{smooth}{\code{\link{logical}} (with default): \code{TRUE} to apply
 Tukey's Running Median Smoothing for OSL and IRSL decay curves. Smoothing is
-encouraged if you see random signal drops within the decay curves related 
+encouraged if you see random signal drops within the decay curves related
 to hardware errors.}
 
-\item{merge}{\code{\link{logical}} (with default): \code{TRUE} to merge all 
+\item{merge}{\code{\link{logical}} (with default): \code{TRUE} to merge all
 \code{RLum.Analysis} objects. Only applicable if multiple files are imported.}
 
 \item{...}{currently not used.}
@@ -40,14 +40,14 @@ Imports PSL files produced by a SUERC portable OSL reader into R \bold{(BETA)}.
 }
 \details{
 This function provides an import routine for the SUERC portable OSL Reader PSL format.
-PSL files are just plain text and can be viewed with any text editor. Due to the 
-formatting of PSL files this import function relies heavily on regular expression to find and 
+PSL files are just plain text and can be viewed with any text editor. Due to the
+formatting of PSL files this import function relies heavily on regular expression to find and
 extract all relevant information. See \bold{note}.
 }
 \note{
-Because this function relies heavily on regular expressions to parse 
+Because this function relies heavily on regular expressions to parse
 PSL files it is currently only in beta status. If the routine fails to import
-a specific PSL file please report to <christoph.burow@uni-koeln.de> so the
+a specific PSL file please report to \href{mailto:christoph.burow@uni-koeln.de}{christoph.burow@uni-koeln.de} so the
 function can be updated.
 }
 \section{Function version}{

@@ -14,7 +14,7 @@ and all requirements are fulfilled (see details) this function attempts to insta
 the package itself.}
 }
 \value{
-This function requires user input at the command prompt to choose the 
+This function requires user input at the command prompt to choose the
 desired development branch to be installed. The required R code to install
 the package is then printed to the console.
 }
@@ -26,7 +26,7 @@ version of the R package 'Luminescence' directly from GitHub.
 This function uses \code{\link[Luminescence]{github_branches}} to check
 which development branches of the R package 'Luminescence' are currently
 available on GitHub. The user is then prompted to choose one of the branches
-to be installed. It further checks whether the R package 'devtools' is 
+to be installed. It further checks whether the R package 'devtools' is
 currently installed and available on the system. Finally, it prints R code
 to the console that the user can copy and paste to the R console in order
 to install the desired development version of the package.\cr\cr

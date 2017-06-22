@@ -73,6 +73,7 @@
 #' ##load example data
 #' data(ExampleData.RLum.Analysis, envir = environment())
 #'
+#' @md
 #' @name methods_RLum
 NULL
 
@@ -178,6 +179,8 @@ summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 #' @method subset Risoe.BINfileData
 #' @param records.rm [subset] \code{\link{logical}} (with default): remove records from data set, can
 #' be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}
+#' 
+#' @md
 #' @export
 subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 

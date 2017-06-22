@@ -109,6 +109,7 @@
 #' #temp <- read_BIN2R(FILE)
 #' #temp
 #'
+#' @md
 #' @export
 read_BIN2R <- function(
   file,

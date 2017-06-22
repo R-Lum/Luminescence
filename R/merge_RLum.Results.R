@@ -13,6 +13,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
+#' @md
 #' @export
 merge_RLum.Results <- function(
     objects){

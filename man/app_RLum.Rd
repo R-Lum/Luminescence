@@ -13,8 +13,8 @@ of available apps.}
 \item{...}{further arguments to pass to \code{\link[shiny]{runApp}}}
 }
 \description{
-Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
-\link[RLumShiny]{RLumShiny-package}. For further details and examples please
+Wrapper for the function \link[RLumShiny:app_RLum]{RLumShiny::app_RLum} from the package
+\link[RLumShiny:RLumShiny-package]{RLumShiny::RLumShiny-package}. For further details and examples please
 see the manual of this package.
 }
 \section{Function version}{

@@ -47,10 +47,6 @@ plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
 #plot_AbanicoPlot(data = tune_Data(x, increase.data = 2) ,
 #                summary = c("n", "mean"))
 
-
-}
-\seealso{
-#
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)

@@ -112,8 +112,6 @@
 #' @return
 #' Writes a HTML and .Rds file.
 #' 
-#' @export
-#'
 #' @examples
 #' 
 #' \dontrun{
@@ -173,6 +171,9 @@
 #' 
 #' report_RLum(object = x, file = "~/arbitray_list")
 #' }
+#'
+#' @md
+#' @export
 report_RLum <- function(object, 
                         file  = tempfile(),
                         title = "RLum.Report",
