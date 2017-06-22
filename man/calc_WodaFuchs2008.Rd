@@ -26,9 +26,7 @@ enable plot output.}
 The description section
 }
 \details{
-\itemize{
-\item 
-}
+No details yet.
 }
 \section{Function version}{
  0.2.0

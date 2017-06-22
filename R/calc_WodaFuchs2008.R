@@ -2,7 +2,7 @@
 #'
 #' The description section
 #'
-#' -
+#' No details yet.
 #'
 #' @param data [data.frame] or [RLum.Results-class] object (**required**): 
 #' for [data.frame]: two columns: De (`values[,1]`) and De error (`values[,2]`). 
