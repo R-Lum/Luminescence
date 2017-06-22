@@ -2,23 +2,22 @@
 #'
 #' The description section
 #'
-#' The details section
+#' -
 #'
-#' @param data [data.frame] or [RLum.Results-class]
-#' object (required): for [data.frame]: two columns: De
-#' (\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
-#' data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
-#' dataset2)}).
+#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
+#' for [data.frame]: two columns: De (`values[,1]`) and De error (`values[,2]`). 
+#' For plotting multiple data sets, these must be provided as `list` 
+#' (e.g. `list(dataset1, dataset2)`).
 #'
-#' @param breaks [numeric]: Either number or locations of breaks.
-#' See \code{[hist]} for details. If missing, the number of breaks will
-#' be estimated based on the bin width (as function of median error).
+#' @param breaks [numeric]: 
+#' Either number or locations of breaks. See `[hist]` for details. 
+#' If missing, the number of breaks will be estimated based on the bin width 
+#' (as function of median error).
 #'
-#' @param plot [logical] *(with default)*: enable plot output.
+#' @param plot [logical] *(with default)*: 
+#' enable plot output.
 #'
 #' @param ... Further plot arguments passed to the function.
-#'
-#' @note The notes section
 #'
 #' @section Function version: 0.2.0
 #'
@@ -27,7 +26,8 @@
 #'
 #' @seealso [calc_FuchsLang2001], [calc_CentralDose]
 #'
-#' @references Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
+#' @references 
+#' Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
 #' obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.
 #'
 #' @examples

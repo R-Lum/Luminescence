@@ -9,8 +9,7 @@ calc_gSGC(data, gSGC.type = "0-250", gSGC.parameters, n.MC = 100,
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
-input data of providing the following columns:
-\code{'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'}
+input data of providing the following columns: \emph{'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'}
 \strong{Note:} column names are not required. The function expect the input data in the given order}
 
 \item{gSGC.type}{\link{character} \emph{(with default)}:

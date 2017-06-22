@@ -9,8 +9,7 @@
 #'
 #'
 #' @param data [data.frame] (**required**): 
-#' input data of providing the following columns: 
-#' `'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'`
+#' input data of providing the following columns: *'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'*
 #' **Note:** column names are not required. The function expect the input data in the given order
 #'
 #' @param gSGC.type [character] *(with default)*: 
@@ -36,8 +35,7 @@
 #'
 #' @param ... parameters will be passed to the plot output
 #'
-#' @return 
-#' Returns an S4 object of type [RLum.Results-class].
+#' @return Returns an S4 object of type [RLum.Results-class].
 #'
 #' **`@data`**\cr
 #' `$ De.value` ([data.frame]) \cr
@@ -64,7 +62,6 @@
 #' Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
 #'
 #' @keywords datagen
-#'
 #'
 #' @examples
 #' 

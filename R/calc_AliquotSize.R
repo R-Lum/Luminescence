@@ -6,7 +6,7 @@
 #' This function can be used to either estimate the number of grains on an
 #' aliquot or to compute the packing density depending on the the arguments
 #' provided. \cr 
-#' The following function is used to estimate the number of grains \code{n}: \cr 
+#' The following function is used to estimate the number of grains `n`: \cr 
 #' \deqn{n = (\pi*x^2)/(\pi*y^2)*d} 
 #' where `x` is the radius of the aliquot size (microns), `y` is the mean radius of the
 #' mineral grains (mm) and `d` is the packing density (value between 0 and

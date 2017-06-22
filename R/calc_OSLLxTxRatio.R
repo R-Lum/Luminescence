@@ -6,19 +6,19 @@
 #' checked by the function; the signal integral limits have to be lower than
 #' the background integral limits. If a [vector] is given as input instead
 #' of a [data.frame], an artificial [data.frame] is produced. The
-#' error calculation is done according to Galbraith (2002).\cr
+#' error calculation is done according to Galbraith (2002).
 #'
-#' \bold{Please note:} In cases where the calculation results in \code{NaN} values (for
-#' example due to zero-signal, and therefore a division of 0 by 0), these \code{NaN} values are replaced
+#' **Please note:** In cases where the calculation results in `NaN` values (for
+#' example due to zero-signal, and therefore a division of 0 by 0), these `NaN` values are replaced
 #' by 0.
 #'
-#' \bold{sigmab}\cr
+#' **sigmab**
 #'
-#' The default value of \code{sigmab} is calculated assuming the background is
-#' constant and \bold{would not} applicable when the background varies as,
-#' e.g., as observed for the early light substraction method.\cr
+#' The default value of `sigmab` is calculated assuming the background is
+#' constant and **would not** applicable when the background varies as,
+#' e.g., as observed for the early light substraction method.
 #'
-#' \bold{sig0}\cr
+#' **sig0**
 #'
 #' This argument allows to add an extra component of error to the final Lx/Tx error value.
 #' The input will be treated as factor that is multiplied with the already calculated
@@ -27,108 +27,117 @@
 #' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
 #'
-#' \bold{background.count.distribution}\cr
-#'
+#' **background.count.distribution**
+#' 
 #' This argument allows selecting the distribution assumption that is used for
 #' the error calculation. According to Galbraith (2002, 2014) the background
 #' counts may be overdispersed (i.e. do not follow a poisson distribution,
 #' which is assumed for the photomultiplier counts). In that case (might be the
 #' normal case) it has to be accounted for the overdispersion by estimating
 #' \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
-#' standard error is calculated as:\cr\cr (a) \code{poisson}\cr
-#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k} (b)
-#' \code{non-poisson}\cr \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 +
-#' \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
+#' standard error is calculated as:\cr\cr 
+#' 
+#' - `poisson`
+#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k} 
+#' - `non-poisson`
+#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
 #'
-#' \bold{Please note} that when using the early background subtraction method in
+#' **Please note** that when using the early background subtraction method in
 #' combination with the 'non-poisson' distribution argument, the corresponding Lx/Tx error
 #' may considerably increase due to a high sigmab value.
 #' Please check whether this is valid for your data set and  if necessary
-#' consider to provide an own sigmab value using the corresponding argument \code{sigmab}.
+#' consider to provide an own sigmab value using the corresponding argument `sigmab`.
 #'
-#' @param Lx.data [RLum.Data.Curve-class] or [data.frame]
-#' (**required**): requires a CW-OSL shine down curve (x = time, y = counts)
+#' @param Lx.data [RLum.Data.Curve-class] or [data.frame] (**required**): 
+#' requires a CW-OSL shine down curve (x = time, y = counts)
 #'
-#' @param Tx.data [RLum.Data.Curve-class] or [data.frame]
-#' *(optional)*: requires a CW-OSL shine down curve (x = time, y = counts). If no
-#' input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
+#' @param Tx.data [RLum.Data.Curve-class] or [data.frame] *(optional)*: 
+#' requires a CW-OSL shine down curve (x = time, y = counts). If no
+#' input is given the Tx.data will be treated as `NA` and no Lx/Tx ratio
 #' is calculated.
 #'
-#' @param signal.integral [vector] (**required**): vector with the
-#' limits for the signal integral.
+#' @param signal.integral [vector] (**required**): 
+#' vector with the limits for the signal integral.
 #'
-#' @param signal.integral.Tx [vector] *(optional)*: vector with the
-#' limits for the signal integral for the Tx curve. If nothing is provided the
-#' value from \code{signal.integral} is used.
+#' @param signal.integral.Tx [vector] *(optional)*: 
+#' vector with the limits for the signal integral for the Tx curve. If nothing is provided the
+#' value from `signal.integral` is used.
 #'
-#' @param background.integral [vector] (**required**): vector with the
-#' bounds for the background integral.
+#' @param background.integral [vector] (**required**): 
+#' vector with the bounds for the background integral.
 #'
-#' @param background.integral.Tx [vector] *(optional)*: vector with the
-#' limits for the background integral for the Tx curve. If nothing is provided the
-#' value from \code{background.integral} is used.
+#' @param background.integral.Tx [vector] *(optional)*: 
+#' vector with the limits for the background integral for the Tx curve. 
+#' If nothing is provided the value from `background.integral` is used.
 #'
-#' @param background.count.distribution [character] *(with default)*: sets
-#' the count distribution assumed for the error calculation. Possible arguments
-#' \code{poisson} or \code{non-poisson}. See details for further information
+#' @param background.count.distribution [character] *(with default)*: 
+#' sets the count distribution assumed for the error calculation. 
+#' Possible arguments `poisson` or `non-poisson`. See details for further information
 #'
-#' @param use_previousBG [logical] *(with default)*: If set to `TRUE` the background
-#' of the Lx-signal is substracted also from the Tx-signal. Please note that in this case separat
+#' @param use_previousBG [logical] *(with default)*: 
+#' If set to `TRUE` the background of the Lx-signal is substracted also 
+#' from the Tx-signal. Please note that in this case separat
 #' signal integral limits for the Tx signal are not allowed and will be reset.
 #'
-#' @param sigmab [numeric] *(optional)*: option to set a manual value for
-#' the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
+#' @param sigmab [numeric] *(optional)*: 
+#' option to set a manual value for the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 #' calculation. The value should be provided as absolute squared count values,
-#' e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
+#' e.g. `sigmab = c(300,300)`. Note: If only one value is provided this
 #' value is taken for both (LnTx and TnTx) signals.
 #'
-#' @param sig0 [numeric] *(with default)*: allow adding an extra component of error
-#' to the final Lx/Tx error value (e.g., instrumental errror, see details).
+#' @param sig0 [numeric] *(with default)*: 
+#' allow adding an extra component of error to the final Lx/Tx error value 
+#' (e.g., instrumental errror, see details).
 #'
-#' @param digits [integer] *(with default)*: round numbers to the specified digits. If
-#' digits is set to \code{NULL} nothing is rounded.
+#' @param digits [integer] *(with default)*: 
+#' round numbers to the specified digits. 
+#' If digits is set to `NULL` nothing is rounded.
 #'
-#' @return Returns an S4 object of type [RLum.Results-class].
+#' @return 
+#' Returns an S4 object of type [RLum.Results-class].
 #'
-#' Slot \code{data} contains a [list] with the following structure:\cr
+#' Slot `data` contains a [list] with the following structure:
 #'
-#' \bold{@data}\cr
-#' $LxTx.table (data.frame) \cr
-#' .. $ LnLx \cr
-#' .. $ LnLx.BG \cr
-#' .. $ TnTx \cr
-#' .. $ TnTx.BG \cr
-#' .. $ Net_LnLx \cr
-#' .. $ Net_LnLx.Error\cr
-#' .. $ Net_TnTx.Error\cr
-#' .. $ LxTx\cr
-#' .. $ LxTx.Error \cr
-#' $ calc.parameters (list) \cr
-#' .. $ sigmab.LnTx\cr
-#' .. $ sigmab.TnTx\cr
-#' .. $ k \cr
+#' **@data**
+#' ```
+#' $LxTx.table (data.frame) 
+#' .. $ LnLx 
+#' .. $ LnLx.BG 
+#' .. $ TnTx 
+#' .. $ TnTx.BG 
+#' .. $ Net_LnLx 
+#' .. $ Net_LnLx.Error
+#' .. $ Net_TnTx.Error
+#' .. $ LxTx
+#' .. $ LxTx.Error 
+#' $ calc.parameters (list) 
+#' .. $ sigmab.LnTx
+#' .. $ sigmab.TnTx
+#' .. $ k 
+#' ```
 #'
-#' \bold{@info}\cr
-#' $ call (original function call)\cr
+#' **@info**
+#' ```
+#' $ call (original function call)
+#' ```
 #'
 #' @note The results of this function have been cross-checked with the Analyst
-#' (vers. 3.24b). Access to the results object via  [get_RLum].\cr
+#' (vers. 3.24b). Access to the results object via [get_RLum].
 #'
-#' \bold{Caution:} If you are using early light subtraction (EBG), please either provide your
-#' own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
+#' **Caution:** If you are using early light subtraction (EBG), please either provide your
+#' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
 #'
 #' @section Function version: 0.7.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso [RLum.Data.Curve-class],
-#' [Analyse_SAR.OSLdata], [plot_GrowthCurve],
+#' @seealso [RLum.Data.Curve-class], [Analyse_SAR.OSLdata], [plot_GrowthCurve],
 #' [analyse_SAR.CWOSL]
 #'
 #' @references Duller, G., 2007. Analyst.
-#' \url{http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx}\cr
+#' [http://www.nutech.dtu.dk/english/~/media/Andre_Universitetsenheder/Nutech/Produkter\%20og\%20services/Dosimetri/radiation_measurement_instruments/tl_osl_reader/Manuals/analyst_manual_v3_22b.ashx]()\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
 #' count. Ancient TL, 20 (2), 49-51.

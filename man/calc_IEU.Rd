@@ -12,40 +12,42 @@ calc_IEU(data, a, b, interval, decimal.point = 2, plot = TRUE, ...)
 for \link{data.frame}: two columns with De \code{(data[,1])} and
 De error \code{(values[,2])}}
 
-\item{a}{\link{numeric} : slope}
+\item{a}{\link{numeric} (\strong{required}):
+slope}
 
-\item{b}{\link{numeric} : intercept}
+\item{b}{\link{numeric} (\strong{required}):
+intercept}
 
-\item{interval}{\link{numeric}: fixed interval (e.g. 5 Gy) used for
-iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
-\code{[Dbar.Fixed vs Z]}}
+\item{interval}{\link{numeric} (\strong{required}):
+fixed interval (e.g. 5 Gy) used for iteration of Dbar, from the mean to
+Lowest.De used to create Graph.IEU \code{[Dbar.Fixed vs Z]}}
 
-\item{decimal.point}{\link{numeric} \emph{(with default)}: number of decimal
-points for rounding calculations (e.g. 2)}
+\item{decimal.point}{\link{numeric} \emph{(with default)}:
+number of decimal points for rounding calculations (e.g. 2)}
 
-\item{plot}{\link{logical} \emph{(with default)}: plot output}
+\item{plot}{\link{logical} \emph{(with default)}:
+plot output}
 
 \item{...}{further arguments (\code{trace, verbose}).}
 }
 \value{
 Returns a plot \emph{(optional)} and terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
-following element:
+following elements:
 
-\item{summary}{\link{data.frame} summary of all relevant model results.}
-\item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-used arguments} \item{call}{\link{call} the function call}
-\item{tables}{\link{list} a list of data frames containing all calculation
-tables}
+\item{.$summary}{\link{data.frame} summary of all relevant model results.}
+\item{.$data}{\link{data.frame} original input data}
+\item{.$args}{\link{list} used arguments}
+\item{.$call}{\link{call} the function call}
+\item{.$tables}{\link{list} a list of data frames containing all calculation tables}
 
-The output should be accessed using the function
-\link{get_RLum}.
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 Function to calculate the IEU De for a De data set.
 }
 \details{
-This function uses the equations of Thomsen et al. (2007).  The parameters a
+This function uses the equations of Thomsen et al. (2007). The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
@@ -70,12 +72,10 @@ Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
 using single grains of quartz. Radiation Measurements 42, 370-379.
 }
 \seealso{
-\link{plot}, \link{calc_CommonDose},
-\link{calc_CentralDose}, \link{calc_FiniteMixture},
+\link{plot}, \link{calc_CommonDose}, \link{calc_CentralDose}, \link{calc_FiniteMixture},
 \link{calc_FuchsLang2001}, \link{calc_MinDose}
 }
 \author{
-Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
-(United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
-written by Kristina Thomsen.
+Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen.
 }

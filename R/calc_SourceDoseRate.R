@@ -13,78 +13,84 @@
 #' decay constant lambda
 #'
 #' Information on the date of measurements may be taken from the data's
-#' original .BIN file (using e.g., BINfile <- readBIN2R() and the slot
-#' BINfile@@METADATA$DATE)
+#' original .BIN file (using e.g., `BINfile <- readBIN2R()` and the slot
+#' `BINfile@@METADATA$DATE`)
 #'
-#' \bold{Allowed source types and related values}
+#' **Allowed source types and related values**
 #'
-#' \tabular{rllll}{ \bold{#} \tab \bold{Source type} \tab \bold{T.1/2} \tab
-#' \bold{Reference} \cr `[1]` \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven
-#' National Laboratory \cr `[2]`\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven
-#' National Laboratory \cr `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven
-#' National Laboratory }
+#' \tabular{rllll}{
+#'  **#** \tab **Source type** \tab **T.1/2** \tab **Reference** \cr 
+#'  `[1]` \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr 
+#'  `[2]`\tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr 
+#'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory }
 #'
-#' @param measurement.date [character] or [Date] (**required**): date of
-#' measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
+#' @param measurement.date [character] or [Date] (**required**): 
+#' date of measurement in "YYYY-MM-DD". Exceptionally, if no value is provided, the date will be set to today.
 #' The argument can be provided as vector.
 #'
-#' @param calib.date [character] or [Date] (**required**): date of source
-#' calibration in "YYYY-MM-DD"
+#' @param calib.date [character] or [Date] (**required**): 
+#' date of source calibration in "YYYY-MM-DD"
 #'
-#' @param calib.dose.rate [numeric] (**required**): dose rate at
-#' date of calibration in Gy/s or Gy/min
+#' @param calib.dose.rate [numeric] (**required**): 
+#' dose rate at date of calibration in Gy/s or Gy/min
 #'
-#' @param calib.error [numeric] (**required**): error of dose
-#' rate at date of calibration Gy/s or Gy/min
+#' @param calib.error [numeric] (**required**): 
+#' error of dose rate at date of calibration Gy/s or Gy/min
 #'
-#' @param source.type [character] *(with default)*: specify
-#' irrdiation source (\code{Sr-90} or \code{Co-60} or \code{Am-214}), see
-#' details for further information
+#' @param source.type [character] *(with default)*: 
+#' specify irrdiation source (`Sr-90` or `Co-60` or `Am-214`), 
+#' see details for further information
 #'
-#' @param dose.rate.unit [character] *(with default)*: specify dose
-#' rate unit for input (\code{Gy/min} or \code{Gy/s}), the output is given in
+#' @param dose.rate.unit [character] *(with default)*: 
+#' specify dose rate unit for input (`Gy/min` or `Gy/s`), the output is given in
 #' Gy/s as valid for the function [Second2Gray]
 #'
-#' @param predict [integer] *(with default)*: option allowing to predicit the dose
-#' rate of the source over time in days set by the provided value. Starting date is the value set
-#' with \code{measurement.date}, e.g., \code{calc_SourceDoseRate(..., predict = 100)} calculates
+#' @param predict [integer] *(with default)*: 
+#' option allowing to predicit the dose rate of the source over time in days 
+#' set by the provided value. Starting date is the value set with 
+#' `measurement.date`, e.g., `calc_SourceDoseRate(..., predict = 100)` calculates
 #' the source dose rate for the next 100 days.
 #'
-#' @return Returns an S4 object of type [RLum.Results-class].
-#' Slot \code{data} contains a [list] with the following
-#' structure:\cr
-#' $ dose.rate (data.frame)\cr
-#' .. $ dose.rate \cr
-#' .. $ dose.rate.error \cr
-#' .. $ date (corresponding measurement date)\cr
-#' $ parameters (list) \cr
-#' .. $ source.type\cr
-#' .. $ halflife\cr
-#' .. $ dose.rate.unit\cr
-#' $ call (the original function call)\cr
+#' @return 
+#' Returns an S4 object of type [RLum.Results-class].
+#' Slot `data` contains a [list] with the following structure:
+#' 
+#' ```
+#' $ dose.rate (data.frame)
+#' .. $ dose.rate 
+#' .. $ dose.rate.error 
+#' .. $ date (corresponding measurement date)
+#' $ parameters (list) 
+#' .. $ source.type
+#' .. $ halflife
+#' .. $ dose.rate.unit
+#' $ call (the original function call)
+#' ```
 #'
 #' The output should be accessed using the function [get_RLum].\cr
 #' A plot method of the output is provided via [plot_RLum]
 #'
-#' @note Please be careful when using the option \code{predict}, especially when a multiple set
-#' for \code{measurement.date} and \code{calib.date} is provided. For the source dose rate prediction
-#' the function takes the last value \code{measurement.date} and predicts from that the the source
+#' @note 
+#' Please be careful when using the option `predict`, especially when a multiple set
+#' for `measurement.date` and `calib.date` is provided. For the source dose rate prediction
+#' the function takes the last value `measurement.date` and predicts from that the the source
 #' source dose rate for the number of days requested,
 #' means: the (multiple) orignal input will be replaced. However, the function
 #' do not change entries for the calibration dates, but mix them up. Therefore,
-#' it is not recommended to use this option when multiple calibration dates (\code{calib.date})
+#' it is not recommended to use this option when multiple calibration dates (`calib.date`)
 #' are provided.
 #'
 #' @section Function version: 0.3.0
 #'
-#' @author Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany),
-#' \cr Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso [Second2Gray], [get_RLum], [plot_RLum]
 #'
-#' @references NNDC, Brookhaven National Laboratory
-#' (\code{http://www.nndc.bnl.gov/})
+#' @references 
+#' NNDC, Brookhaven National Laboratory [http://www.nndc.bnl.gov/]()
 #'
 #' @keywords manip
 #'
@@ -123,7 +129,6 @@
 #' xtable::xtable(get_RLum(dose.rate))
 #'
 #'}
-#'
 #'
 #' @md
 #' @export

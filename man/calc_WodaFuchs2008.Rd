@@ -7,17 +7,18 @@
 calc_WodaFuchs2008(data, breaks = NULL, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\link{data.frame} or \linkS4class{RLum.Results}
-object (required): for \link{data.frame}: two columns: De
-(\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
-data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
-dataset2)}).}
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
+for \link{data.frame}: two columns: De (\code{values[,1]}) and De error (\code{values[,2]}).
+For plotting multiple data sets, these must be provided as \code{list}
+(e.g. \code{list(dataset1, dataset2)}).}
 
-\item{breaks}{\link{numeric}: Either number or locations of breaks.
-See \code{[hist]} for details. If missing, the number of breaks will
-be estimated based on the bin width (as function of median error).}
+\item{breaks}{\link{numeric}:
+Either number or locations of breaks. See \code{[hist]} for details.
+If missing, the number of breaks will be estimated based on the bin width
+(as function of median error).}
 
-\item{plot}{\link{logical} \emph{(with default)}: enable plot output.}
+\item{plot}{\link{logical} \emph{(with default)}:
+enable plot output.}
 
 \item{...}{Further plot arguments passed to the function.}
 }
@@ -25,10 +26,9 @@ be estimated based on the bin width (as function of median error).}
 The description section
 }
 \details{
-The details section
+\itemize{
+\item 
 }
-\note{
-The notes section
 }
 \section{Function version}{
  0.2.0

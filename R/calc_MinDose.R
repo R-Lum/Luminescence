@@ -4,209 +4,225 @@
 #' Function to fit the (un-)logged three or four parameter minimum dose model
 #' (MAM-3/4) to De data.
 #'
-#' \bold{Parameters} \cr\cr
-#' This model has four parameters: \cr\cr
-#' \tabular{rl}{ \code{gamma}: \tab minimum dose on the log scale \cr
-#' \code{mu}: \tab mean of the non-truncated normal distribution \cr
-#' \code{sigma}: \tab spread in ages above the minimum \cr \code{p0}: \tab
-#' proportion of grains at gamma \cr } If \code{par=3} (default) the
-#' 3-parametric minimum age model is applied, where \code{gamma=mu}. For
-#' \code{par=4} the 4-parametric model is applied instead.\cr\cr
+#' **Parameters**
+#' 
+#' This model has four parameters:
+#' \tabular{rl}{ 
+#' `gamma`: \tab minimum dose on the log scale \cr
+#' `mu`: \tab mean of the non-truncated normal distribution \cr
+#' `sigma`: \tab spread in ages above the minimum \cr 
+#' `p0`: \tab proportion of grains at gamma \cr } 
+#' 
+#' If `par=3` (default) the 3-parametric minimum age model is applied, 
+#' where `gamma=mu`. For `par=4` the 4-parametric model is applied instead.
 #'
-#' \bold{(Un-)logged model} \cr\cr
+#' **(Un-)logged model** 
+#' 
 #' In the original version of the minimum dose model, the basic data are the natural
 #' logarithms of the De estimates and relative standard errors of the De
-#' estimates. The value for \code{sigmab} must be provided as a ratio
-#' (e.g, 0.2 for 20 \%). This model will be applied if \code{log=TRUE}. \cr\cr
+#' estimates. The value for `sigmab` must be provided as a ratio
+#' (e.g, 0.2 for 20 \%). This model will be applied if `log = TRUE`.
 #'
-#' If \code{log=FALSE}, the modified un-logged model will be applied instead. This
-#' has essentially the same form as the original version.  \code{gamma} and
-#' \code{sigma} are in Gy and \code{gamma} becomes the minimum true dose in the
-#' population. \bold{Note} that the un-logged model requires \code{sigmab} to be in the same
-#' absolute unit as the provided De values (seconds or Gray). \cr\cr
+#' If `log=FALSE`, the modified un-logged model will be applied instead. This
+#' has essentially the same form as the original version.  `gamma` and
+#' `sigma` are in Gy and `gamma` becomes the minimum true dose in the
+#' population. 
+#' **Note** that the un-logged model requires `sigmab` to be in the same
+#' absolute unit as the provided De values (seconds or Gray).
 #'
 #' While the original (logged) version of the mimimum dose
 #' model may be appropriate for most samples (i.e. De distributions), the
 #' modified (un-logged) version is specially designed for modern-age and young
 #' samples containing negative, zero or near-zero De estimates (Arnold et al.
-#' 2009, p. 323). \cr\cr
+#' 2009, p. 323).
 #'
-#' \bold{Initial values & boundaries} \cr\cr
+#' **Initial values & boundaries** 
+#' 
 #' The log likelihood calculations use the [nlminb] function for box-constrained
 #' optimisation using PORT routines.  Accordingly, initial values for the four
-#' parameters can be specified via \code{init.values}. If no values are
-#' provided for \code{init.values} reasonable starting values are estimated
-#' from the input data.  If the final estimates of \emph{gamma}, \emph{mu},
-#' \emph{sigma} and \emph{p0} are totally off target, consider providing custom
-#' starting values via \code{init.values}. \cr In contrast to previous versions
-#' of this function the boundaries for the individual model parameters are no
-#' longer required to be explicitly specified. If you want to override the default
-#' boundary values use the arguments \code{gamma.lower}, \code{gamma.upper},
-#' \code{sigma.lower}, \code{sigma.upper}, \code{p0.lower}, \code{p0.upper},
-#' \code{mu.lower} and \code{mu.upper}.  \cr\cr
+#' parameters can be specified via `init.values`. If no values are
+#' provided for `init.values` reasonable starting values are estimated
+#' from the input data.  If the final estimates of *gamma*, *mu*,
+#' *sigma* and *p0* are totally off target, consider providing custom
+#' starting values via `init.values`. 
+#' In contrast to previous versions of this function the boundaries for the 
+#' individual model parameters are no longer required to be explicitly specified.
+#' If you want to override the default boundary values use the arguments 
+#' `gamma.lower`, `gamma.upper`, `sigma.lower`, `sigma.upper`, `p0.lower`, `p0.upper`,
+#' `mu.lower` and `mu.upper`.
 #'
-#' \bold{Bootstrap} \cr\cr
-#' When \code{bootstrap=TRUE} the function applies the bootstrapping method as
+#' **Bootstrap**
+#' 
+#' When `bootstrap=TRUE` the function applies the bootstrapping method as
 #' described in Wallinga & Cunningham (2012). By default, the minimum age model
 #' produces 1000 first level and 3000 second level bootstrap replicates
 #' (actually, the number of second level bootstrap replicates is three times
 #' the number of first level replicates unless specified otherwise).  The
 #' uncertainty on sigmab is 0.04 by default. These values can be changed by
-#' using the arguments \code{bs.M} (first level replicates), \code{bs.N}
-#' (second level replicates) and \code{sigmab.sd} (error on sigmab). With
-#' \code{bs.h} the bandwidth of the kernel density estimate can be specified.
-#' By default, \code{h} is calculated as \cr \deqn{h =
-#' (2*\sigma_{DE})/\sqrt{n}} \cr
+#' using the arguments `bs.M` (first level replicates), `bs.N`
+#' (second level replicates) and `sigmab.sd` (error on sigmab). With
+#' `bs.h` the bandwidth of the kernel density estimate can be specified.
+#' By default, `h` is calculated as
+#'  
+#' \deqn{h = (2*\sigma_{DE})/\sqrt{n}}
 #'
-#' \bold{Multicore support} \cr\cr
-#' This function supports parallel computing and can be activated by \code{multicore=TRUE}.
+#' **Multicore support**
+#' 
+#' This function supports parallel computing and can be activated by `multicore=TRUE`.
 #' By default, the number of available logical CPU cores is determined
-#' automatically, but can be changed with \code{cores}. The multicore support
-#' is only available when \code{bootstrap=TRUE} and spawns \code{n} R instances
+#' automatically, but can be changed with `cores`. The multicore support
+#' is only available when `bootstrap=TRUE` and spawns `n` R instances
 #' for each core to get MAM estimates for each of the N and M boostrap
 #' replicates. Note that this option is highly experimental and may or may not
 #' work for your machine. Also the performance gain increases for larger number
 #' of bootstrap replicates. Also note that with each additional core and hence
 #' R instance and depending on the number of bootstrap replicates the memory
 #' usage can significantly increase. Make sure that memory is always availabe,
-#' otherwise there will be a massive perfomance hit. \cr\cr
+#' otherwise there will be a massive perfomance hit.
 #'
-#' \bold{Likelihood profiles}
+#' **Likelihood profiles**
 #'
-#' The likelihood profiles are generated and plotted by the \code{bbmle} package.
-#' The profile likelihood plots look different to ordinary profile likelihood as \cr\cr
+#' The likelihood profiles are generated and plotted by the `bbmle` package.
+#' The profile likelihood plots look different to ordinary profile likelihood as 
+#' 
 #' "`[...]` the plot method for likelihood profiles displays the square root of
 #' the the deviance difference (twice the difference in negative log-likelihood from
 #' the best fit), so it will be V-shaped for cases where the quadratic approximation
-#' works well `[...]`." (Bolker 2016). \cr\cr
+#' works well `[...]`." (Bolker 2016). 
+#' 
 #' For more details on the profile likelihood
-#' calculations and plots please see the vignettes of the \code{bbmle} package
-#' (also available here: \url{https://CRAN.R-project.org/package=bbmle}).
+#' calculations and plots please see the vignettes of the `bbmle` package
+#' (also available here: [https://CRAN.R-project.org/package=bbmle]()).
 #'
-#' @param data [RLum.Results-class] or [data.frame]
-#' (**required**): for [data.frame]: two columns with De \code{(data[
-#' ,1])} and De error \code{(data[ ,2])}.
+#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' for [data.frame]: two columns with De `(data[ ,1])` and De error `(data[ ,2])`.
 #'
-#' @param sigmab [numeric] (**required**): additional spread in De values.
+#' @param sigmab [numeric] (**required**): 
+#' additional spread in De values.
 #' This value represents the expected overdispersion in the data should the sample be
 #' well-bleached (Cunningham & Walling 2012, p. 100).
-#' \bold{NOTE}: For the logged model (\code{log = TRUE}) this value must be
-#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
+#' **NOTE**: For the logged model (`log = TRUE`) this value must be
+#' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (`log = FALSE`),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details.
 #'
-#' @param log [logical] *(with default)*: fit the (un-)logged minimum
-#' dose model to De data.
+#' @param log [logical] *(with default)*: 
+#' fit the (un-)logged minimum dose model to De data.
 #'
-#' @param par [numeric] *(with default)*: apply the 3- or
-#' 4-parametric minimum age model (\code{par=3} or \code{par=4}). The MAM-3 is
+#' @param par [numeric] *(with default)*: 
+#' apply the 3- or 4-parametric minimum age model (`par=3` or `par=4`). The MAM-3 is
 #' used by default.
 #'
-#' @param bootstrap [logical] *(with default)*: apply the recycled
-#' bootstrap approach of Cunningham & Wallinga (2012).
+#' @param bootstrap [logical] *(with default)*: 
+#' apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
 #'
-#' @param init.values [numeric] *(optional)*: a named list with
-#' starting values for gamma, sigma, p0 and mu (e.g. \code{list(gamma=100
-#' sigma=1.5, p0=0.1, mu=100)}). If no values are provided reasonable values
+#' @param init.values [numeric] *(optional)*: 
+#' a named list with starting values for gamma, sigma, p0 and mu 
+#' (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are provided reasonable values
 #' are tried to be estimated from the data.
 #'
-#' @param level [logical] *(with default)*: the confidence level
-#' required (defaults to 0.95).
+#' @param level [logical] *(with default)*: 
+#' the confidence level required (defaults to 0.95).
 #'
-#' @param plot [logical] *(with default)*: plot output
-#' (`TRUE`/`FALSE`)
+#' @param plot [logical] *(with default)*: 
+#' plot output (`TRUE`/`FALSE`)
 #'
-#' @param multicore [logical] *(with default)*: enable parallel
-#' computation of the bootstrap by creating a multicore SNOW cluster. Depending
+#' @param multicore [logical] *(with default)*: 
+#' enable parallel computation of the bootstrap by creating a multicore SNOW cluster. Depending
 #' on the number of available logical CPU cores this may drastically reduce
 #' the computation time. Note that this option is highly experimental and may not
 #' work on all machines. (`TRUE`/`FALSE`)
 #'
-#' @param ... *(optional)* further arguments for bootstrapping (\code{bs.M,
-#' bs.N, bs.h, sigmab.sd}). See details for their usage. Further arguments are
-#' \code{verbose} to de-/activate console output (logical), \code{debug} for
-#' extended console output (logical) and \code{cores} (integer) to manually
-#' specify the number of cores to be used when \code{multicore=TRUE}.
+#' @param ... *(optional)* further arguments for bootstrapping 
+#' (`bs.M, bs.N, bs.h, sigmab.sd`). See details for their usage. 
+#' Further arguments are 
+#' - `verbose` to de-/activate console output (logical), 
+#' - `debug` for extended console output (logical) and 
+#' - `cores` (integer) to manually specify the number of cores to be used when `multicore=TRUE`.
 #'
 #' @return Returns a plot *(optional)* and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'
-#' \item{summary}{[data.frame] summary of all relevant model results.}
-#' \item{data}{[data.frame] original input data} \item{args}{[list]
-#' used arguments} \item{call}{[call] the function call}
-#' \item{mle}{[mle2] object containing the maximum log likelhood functions
-#' for all parameters} \item{BIC}{[numeric] BIC score}
-#' \item{confint}{[data.frame] confidence intervals for all parameters}
-#' \item{profile}{[profile.mle2] the log likelihood profiles}
-#' \item{bootstrap}{[list] bootstrap results}
+#' \item{.$summary}{[data.frame] summary of all relevant model results.}
+#' \item{.$data}{[data.frame] original input data} 
+#' \item{args}{[list] used arguments} 
+#' \item{call}{[call] the function call}
+#' \item{.$mle}{[mle2] object containing the maximum log likelhood functions for all parameters} 
+#' \item{BIC}{[numeric] BIC score}
+#' \item{.$confint}{[data.frame] confidence intervals for all parameters}
+#' \item{.$profile}{[profile.mle2] the log likelihood profiles}
+#' \item{.$bootstrap}{[list] bootstrap results}
 #'
 #' The output should be accessed using the function [get_RLum]
 #'
-#' @note The default starting values for \emph{gamma}, \emph{mu}, \emph{sigma}
-#' and \emph{p0} may only be appropriate for some De data sets and may need to
+#' @note 
+#' The default starting values for *gamma*, *mu*, *sigma*
+#' and *p0* may only be appropriate for some De data sets and may need to
 #' be changed for other data. This is especially true when the un-logged
-#' version is applied. \cr Also note that all R warning messages are suppressed
+#' version is applied. \cr
+#' Also note that all R warning messages are suppressed
 #' when running this function. If the results seem odd consider re-running the
-#' model with \code{debug=TRUE} which provides extended console output and
+#' model with `debug=TRUE` which provides extended console output and
 #' forwards all internal warning messages.
 #'
 #' @section Function version: 0.4.4
 #'
-#' @author Christoph Burow, University of Cologne (Germany) \cr Based on a
-#' rewritten S script of Rex Galbraith, 2010 \cr The bootstrap approach is
-#' based on a rewritten MATLAB script of Alastair Cunningham. \cr Alastair
-#' Cunningham is thanked for his help in implementing and cross-checking the
-#' code.
+#' @author 
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Based on a rewritten S script of Rex Galbraith, 2010 \cr
+#' The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
+#' Alastair Cunningham is thanked for his help in implementing and cross-checking the code.
 #'
-#' @seealso [calc_CentralDose], [calc_CommonDose],
-#' [calc_FiniteMixture], [calc_FuchsLang2001],
-#' [calc_MaxDose]
+#' @seealso [calc_CentralDose], [calc_CommonDose], [calc_FiniteMixture], 
+#' [calc_FuchsLang2001], [calc_MaxDose]
 #'
-#' @references Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
+#' @references 
+#' Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 #' 2009. A revised burial dose estimation procedure for optical dating of young
-#' and modern-age sediments. Quaternary Geochronology 4, 306-325. \cr\cr
+#' and modern-age sediments. Quaternary Geochronology 4, 306-325. 
 #'
 #' Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission
-#' track ages. Nuclear Tracks Radiation Measurements 4, 459-470. \cr\cr
+#' track ages. Nuclear Tracks Radiation Measurements 4, 459-470. 
 #'
 #' Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley, J.M.,
 #' 1999. Optical dating of single grains of quartz from Jinmium rock shelter,
 #' northern Australia. Part I: experimental design and statistical models.
-#' Archaeometry 41, 339-364. \cr\cr
+#' Archaeometry 41, 339-364. 
 #'
 #' Galbraith, R.F., 2005. Statistics for
-#' Fission Track Analysis, Chapman & Hall/CRC, Boca Raton. \cr\cr
+#' Fission Track Analysis, Chapman & Hall/CRC, Boca Raton. 
 #'
 #' Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose and error
 #' calculation and display in OSL dating: An overview and some recommendations.
-#' Quaternary Geochronology 11, 1-27. \cr\cr
+#' Quaternary Geochronology 11, 1-27. 
 #'
 #' Olley, J.M., Roberts, R.G., Yoshida, H., Bowler, J.M., 2006. Single-grain optical dating of grave-infill
 #' associated with human burials at Lake Mungo, Australia. Quaternary Science
-#' Reviews 25, 2469-2474.\cr\cr
+#' Reviews 25, 2469-2474.
 #'
-#' \bold{Further reading} \cr\cr
+#' **Further reading** 
 #'
 #' Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 #' (De) distributions: Implications for OSL dating of sediment mixtures.
-#' Quaternary Geochronology 4, 204-230. \cr\cr
+#' Quaternary Geochronology 4, 204-230. 
 #' 
 #' Bolker, B., 2016. Maximum likelihood estimation analysis with the bbmle package.
 #' In: Bolker, B., R Development Core Team, 2016. bbmle: Tools for General Maximum Likelihood Estimation.
-#' R package version 1.0.18. https://CRAN.R-project.org/package=bbmle \cr\cr
+#' R package version 1.0.18. [https://CRAN.R-project.org/package=bbmle]() 
 #' 
 #' Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 #' assessment of procedures for estimating burial dose. Quaternary Science
-#' Reviews 25, 2475-2502. \cr\cr
+#' Reviews 25, 2475-2502. 
 #'
 #' Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial archives using robust OSL chronologies.
-#' Quaternary Geochronology 12, 98-106. \cr\cr
+#' Quaternary Geochronology 12, 98-106. 
 #'
 #' Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
 #' of optical dating of fluvial deposits.  Quaternary Geochronology 1, 109-120.
-#' \cr\cr Rodnight, H., 2008. How many equivalent dose values are needed to
-#' obtain a reproducible distribution?. Ancient TL 26, 3-10. \cr\cr
+#'
+#' Rodnight, H., 2008. How many equivalent dose values are needed to
+#' obtain a reproducible distribution?. Ancient TL 26, 3-10. 
 #'
 #'
 #' @examples
