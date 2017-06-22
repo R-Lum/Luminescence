@@ -57,7 +57,7 @@ Plots single luminescence curves from an object returned by the
 \details{
 \bold{Nomenclature}\cr
 
-See \code{\link{Risoe.BINfileData-class}}
+See \linkS4class{Risoe.BINfileData}
 
 \bold{curve.transformation}\cr
 
@@ -105,9 +105,9 @@ data(ExampleData.BINfileData, envir = environment())
 Duller, G., 2007. Analyst. pp. 1-45.
 }
 \seealso{
-\code{\link{Risoe.BINfileData-class}},\code{\link{read_BIN2R}},
-\code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}},
-\code{\link{CW2pHMi}}
+\linkS4class{Risoe.BINfileData},\link{read_BIN2R},
+\link{CW2pLM}, \link{CW2pLMi}, \link{CW2pPMi},
+\link{CW2pHMi}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

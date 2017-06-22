@@ -10,7 +10,7 @@
 \alias{as}
 \title{as() - RLum-object coercion}
 \arguments{
-\item{from}{\code{\linkS4class{RLum}} or \code{\link{list}}, [data.frame], \code{\link{matrix}}
+\item{from}{\code{\linkS4class{RLum}} or [list], [data.frame], [matrix]
 (\bold{required}): object to be coerced from}
 
 \item{to}{[character] (\bold{required}): class name to be coerced to}
@@ -34,7 +34,7 @@ for \code{[RLum.Results]}
   \code{list} \tab \code{list}\cr
 }
 
-Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Analysis}} objects.
+Given that the [list] consits of \code{\linkS4class{RLum.Analysis}} objects.
 
 \bold{[RLum.Data.Curve]}\cr
 
@@ -71,7 +71,7 @@ Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Analysis}} 
   \code{list} \tab \code{list}\cr
 }
 
-Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Results}} objects.
+Given that the [list] consits of \code{\linkS4class{RLum.Results}} objects.
 }
 \note{
 Due to the complex structure of the \code{RLum} objects itself a coercing to standard

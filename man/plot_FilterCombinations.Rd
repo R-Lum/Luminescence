@@ -8,8 +8,8 @@ plot_FilterCombinations(filters, wavelength_range = 200:1000,
   show_net_transmission = TRUE, interactive = FALSE, plot = TRUE, ...)
 }
 \arguments{
-\item{filters}{\code{\link{list}} (\bold{required}): a named list of filter data for each filter to be shown.
-The filter data itself should be either provided as \link{data.frame} or \code{\link{matrix}}.
+\item{filters}{\link{list} (\bold{required}): a named list of filter data for each filter to be shown.
+The filter data itself should be either provided as \link{data.frame} or \link{matrix}.
 (for more options s. Details)}
 
 \item{wavelength_range}{\link{numeric} (with default): wavelength range used for the interpolation}
@@ -45,7 +45,7 @@ call \tab \code{call} \tab the original function call
 }
 \description{
 The function allows to plot transmission windows for different filters. Missing data for specific
-wavelenghts are automatically interpolated for the given filter data using the function \code{\link{approx}}.
+wavelenghts are automatically interpolated for the given filter data using the function \link{approx}.
 With that a standardised output is reached and a net transmission window can be shown.\cr
 }
 \details{
@@ -126,7 +126,7 @@ plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Results}}, \code{\link{approx}}
+\code{\linkS4class{RLum.Results}}, \link{approx}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr

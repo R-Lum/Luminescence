@@ -20,7 +20,7 @@
 #' select first 100 frames by \code{frame.range = c(1,100)}
 #'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
-#' \code{\link{txtProgressBar}}.
+#' [txtProgressBar].
 #'
 #' @return Depending on the chosen option the functions returns three different
 #' type of objects:\cr
@@ -42,9 +42,9 @@
 #' \code{matrix}\cr
 #'
 #' Returns a matrix of the form: Rows = Channels, columns = Frames. For the
-#' transformation the function \code{\link{get_RLum}} is used,
+#' transformation the function [get_RLum] is used,
 #' meaning that the same results can be obtained by using the function
-#' \code{\link{get_RLum}} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
+#' [get_RLum] on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 #' @note \bold{The function does not test whether the input data are spectra or
 #' pictures for spatial resolved analysis!}\cr
 #'
@@ -58,7 +58,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
+#' @seealso [readBin], \code{\linkS4class{RLum.Data.Spectrum}},
 #' \code{\link[raster]{raster}}
 #'
 #' @references Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File

@@ -3,13 +3,13 @@
 \name{ExampleData.Fading}
 \alias{ExampleData.Fading}
 \title{Example data for feldspar fading measurements}
-\format{A \code{\link{list}} with two elements, each containing a further
-\code{\link{list}} of [data.frame]s containing the data
+\format{A [list] with two elements, each containing a further
+[list] of [data.frame]s containing the data
 on the fading and equivalent dose measurements:
 
 \describe{
 
-\code{$fading.data}: A named \code{\link{list}} of [data.frame]s,
+\code{$fading.data}: A named [list] of [data.frame]s,
 each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).\cr
 \code{..$IR50}: Fading data of the IR50 signal.\cr
 \code{..$IR100}: Fading data of the IR100 signal.\cr

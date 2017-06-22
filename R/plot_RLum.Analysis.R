@@ -4,7 +4,7 @@
 #' RLum.Analysis S4 class object
 #'
 #' The function produces a multiple plot output. A file output is recommended
-#' (e.g., \code{\link{pdf}}).
+#' (e.g., [pdf]).
 #'
 #' \bold{curve.transformation}\cr
 #'
@@ -23,8 +23,8 @@
 #' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 #' object of class \code{RLum.Analysis}
 #'
-#' @param subset named \code{\link{list}} (optional): subsets elements for plotting. The
-#' arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
+#' @param subset named [list] (optional): subsets elements for plotting. The
+#' arguments in the named [list] will be directly passed to the function [get_RLum]
 #' (e.g., \code{subset = list(curveType = "measured")})
 #'
 #' @param nrows [integer] (optional): sets number of rows for
@@ -33,8 +33,8 @@
 #' @param ncols [integer] (optional): sets number of columns
 #' for plot output, if nothing is set the function tries to find a value.
 #'
-#' @param abline \code{\link{list}} (optional): allows to add ablines to the plot. Argument are provided
-#' in a list and will be forwared to the function \code{\link{abline}}, e.g., \code{list(v = c(10, 100))}
+#' @param abline [list] (optional): allows to add ablines to the plot. Argument are provided
+#' in a list and will be forwared to the function [abline], e.g., \code{list(v = c(10, 100))}
 #' adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = c(10), v = c(100)}
 #' adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.
 #'
@@ -59,7 +59,7 @@
 #'
 #' @return Returns multiple plots.
 #'
-#' @note Not all arguments available for \code{\link{plot}} will be passed!
+#' @note Not all arguments available for [plot] will be passed!
 #' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 #' objects are currently supported.\cr
 #'
@@ -68,8 +68,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{plot}}, \code{\link{plot_RLum}},
-#' \code{\link{plot_RLum.Data.Curve}}
+#' @seealso [plot], [plot_RLum],
+#' [plot_RLum.Data.Curve]
 #'
 #'
 #'

@@ -53,7 +53,7 @@ setGeneric("smooth_RLum", function(object, ...) {
 
 # Method for smooth_RLum method for RLum objects in a list for a list of objects  -------------------
 #' @describeIn smooth_RLum
-#' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{smooth_RLum}}
+#' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to [smooth_RLum]
 #'
 #'
 #' @md

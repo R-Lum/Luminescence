@@ -48,11 +48,11 @@ at will.}
 
 \item{curveType}{[\code{set_RLum}] [character] (optional): curve type (e.g., "predefined" or "measured")}
 
-\item{data}{[\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
+\item{data}{[\code{set_RLum}] [matrix] (\bold{required}): raw curve data.
 If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
 (s. Details)}
 
-\item{info}{[\code{set_RLum}] \code{\link{list}} (optional): info elements}
+\item{info}{[\code{set_RLum}] [list] (optional): info elements}
 
 \item{info.object}{[\code{get_RLum}] [character] (optional): name of the wanted info
 element}
@@ -79,7 +79,7 @@ Returns an \code{\linkS4class{RLum.Data.Curve}} object.
 
 \bold{\code{get_RLum}}\cr
 
-(1) A \code{\link{matrix}} with the curve values or \cr
+(1) A [matrix] with the curve values or \cr
 (2) only the info object if \code{info.object} was set.\cr
 
 \bold{\code{length_RLum}}\cr
@@ -130,7 +130,7 @@ In particular the internal function \code{.smoothing} is used.
 
 \item{\code{curveType}}{Object of class "character" containing curve type, allowed values are measured or predefined}
 
-\item{\code{data}}{Object of class \code{\link{matrix}} containing curve x and y data.
+\item{\code{data}}{Object of class [matrix] containing curve x and y data.
 'data' can also be of type \code{RLum.Data.Curve} to change object values without deconstructing the object.
 For example: \code{set_RLum(class = 'RLum.Data.Curve',
 data = Your.RLum.Data.Curve, recordType = 'never seen before')}
@@ -143,7 +143,7 @@ The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
 ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
 functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
-namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
+namely: [Risoe.BINfileData2RLum.Analysis], [read_XSYG2R]
 }
 \section{Create objects from this Class}{
  Objects can be created by calls of the form
@@ -164,7 +164,7 @@ set_RLum(class = "RLum.Data.Curve")
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}, \code{\link{merge_RLum}}
+[plot_RLum], [merge_RLum]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

@@ -14,14 +14,14 @@ NULL
 #' @slot curveType Object of class [character] containing curve type, allowed values
 #' are measured or predefined
 #'
-#' @slot data Object of class \code{\link{matrix}} containing spectrum (count) values.
+#' @slot data Object of class [matrix] containing spectrum (count) values.
 #' Row labels indicate wavelength/pixel values, column labels are temperature or time values.
 #'
-#' @slot info Object of class \code{\link{list}} containing further meta information objects
+#' @slot info Object of class [list] containing further meta information objects
 #'
 #' @note The class should only contain data for a single spectra data set. For
 #' additional elements the slot \code{info} can be used. Objects from this class are automatically
-#' created by, e.g., \code{\link{read_XSYG2R}}
+#' created by, e.g., [read_XSYG2R]
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Data.Spectrum", ...)}.
@@ -31,7 +31,7 @@ NULL
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}
+#' [plot_RLum]
 #'
 #' @keywords classes
 #'
@@ -173,9 +173,9 @@ setMethod("show",
 #' at will.
 #' @param recordType [\code{set_RLum}] [character]: record type (e.g. "OSL")
 #' @param curveType [\code{set_RLum}] [character]: curve type (e.g. "predefined" or "measured")
-#' @param data [\code{set_RLum}] \code{\link{matrix}}: raw curve data. If data is of
+#' @param data [\code{set_RLum}] [matrix]: raw curve data. If data is of
 #' type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.
-#' @param info [\code{set_RLum}] \code{\link{list}}: info elements
+#' @param info [\code{set_RLum}] [list]: info elements
 #'
 #' @return
 #'
@@ -282,7 +282,7 @@ setMethod(
 #'
 #' \bold{\code{get_RLum}}\cr
 #'
-#' (1) A \code{\link{matrix}} with the spectrum values or \cr
+#' (1) A [matrix] with the spectrum values or \cr
 #' (2) only the info object if \code{info.object} was set.\cr
 #'
 #' @export

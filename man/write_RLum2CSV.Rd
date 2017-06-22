@@ -7,7 +7,7 @@
 write_RLum2CSV(object, path = NULL, prefix = "", export = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum}} or a \code{\link{list}} of \code{RLum} objects (\bold{required}): objects to be written}
+\item{object}{\code{\linkS4class{RLum}} or a \link{list} of \code{RLum} objects (\bold{required}): objects to be written}
 
 \item{path}{\link{character} (optional): character string naming folder for the output to be written. If nothing
 is provided \code{path} will be set to the working directory. Note: this argument is ignored if the
@@ -17,7 +17,7 @@ the argument \code{export} is set to \code{FALSE}.}
 is valid for all written files}
 
 \item{export}{\link{logical} (with default): enable or disable the file export. If set to \code{FALSE}
-nothing is written to the file connection, but a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+nothing is written to the file connection, but a list comprising objects of type \link{data.frame} and \link{matrix}
 is returned instead}
 
 \item{\dots}{further arguments that will be passed to the function \code{\link[utils]{write.table}}. All arguments
@@ -25,13 +25,13 @@ except the argument \code{file} are supported}
 }
 \value{
 The function returns either a CSV-file (or many of them) or for the option \code{export == FALSE}
-a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+a list comprising objects of type \link{data.frame} and \link{matrix}
 }
 \description{
 This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
 \code{\link[utils]{write.table}}. All \code{\linkS4class{RLum}}-objects are supported, but the
 export is lossy, i.e. the pure numerical values are exported only. Information that cannot
-be coerced to a \link{data.frame} or a \code{\link{matrix}} are discarded as well as
+be coerced to a \link{data.frame} or a \link{matrix} are discarded as well as
 metadata.
 }
 \details{
@@ -41,8 +41,8 @@ compatibility with other tools.\cr
 
 \bold{Input is a list of objects}\cr
 
-If the input is a \code{\link{list}} of objects all explicit function arguments can be provided
-as \code{\link{list}}.
+If the input is a \link{list} of objects all explicit function arguments can be provided
+as \link{list}.
 }
 \section{Function version}{
  0.1.1

@@ -26,7 +26,7 @@
 #' accounts for potential compatibility problems with the Analyst software.
 #'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
-#' \code{\link{txtProgressBar}}.
+#' [txtProgressBar].
 #' @return Write a binary file.
 #' @note The function just roughly checks the data structures. The validity of
 #' the output data depends on the user.\cr\cr The validity of the file path is
@@ -48,10 +48,10 @@
 #' (France)
 #'
 #' @note ROI definitions (introduced in BIN-file version 8) are not supported! There are furthermore
-#' ignored by the function \code{\link{read_BIN2R}}.
+#' ignored by the function [read_BIN2R].
 #'
-#' @seealso \code{\link{read_BIN2R}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link{writeBin}}
+#' @seealso [read_BIN2R], \code{\linkS4class{Risoe.BINfileData}},
+#' [writeBin]
 #'
 #' @references
 #' DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.

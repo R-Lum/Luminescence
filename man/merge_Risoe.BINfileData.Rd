@@ -82,8 +82,8 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 Duller, G., 2007. Analyst.
 }
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}, \code{\link{read_BIN2R}},
-\code{\link{write_R2BIN}}
+\code{\linkS4class{Risoe.BINfileData}}, \link{read_BIN2R},
+\link{write_R2BIN}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

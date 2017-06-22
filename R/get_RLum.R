@@ -8,7 +8,7 @@
 #' in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 #'
 #' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
-#' class \code{RLum} or an object of type \code{\link{list}} containing only objects of type
+#' class \code{RLum} or an object of type [list] containing only objects of type
 #' \code{\linkS4class{RLum}}
 #'
 #' @param \dots further arguments that will be passed to the object specific methods. For
@@ -53,7 +53,7 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 
 # Method for get_RLum method for RLum objects in a list for a list of objects  -------------------
 #' @describeIn get_RLum
-#' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
+#' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to [get_RLum]
 #'
 #' @param null.rm [logical] (with default): option to get rid of empty and NULL objects
 #' 

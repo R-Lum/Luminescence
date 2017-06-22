@@ -13,7 +13,7 @@ replicate_RLum(object, times = NULL)
 element}
 }
 \value{
-Returns a \code{\link{list}} of the object to be repeated
+Returns a \link{list} of the object to be repeated
 }
 \description{
 Function replicates RLum S4 class objects and returns a list for this objects

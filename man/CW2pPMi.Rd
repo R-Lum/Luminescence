@@ -51,7 +51,7 @@ the transformed time (t'). Values beyond \code{min(t)} and \code{max(t)}
 produce \code{NA} values.\cr\cr (4) Select all values for t' <
 \code{min(t)}, i.e. values beyond the time resolution of t. Select the first
 two values of the transformed data set which contain no \code{NA} values and
-use these values for a linear fit using \code{\link{lm}}.\cr\cr (5)
+use these values for a linear fit using [lm].\cr\cr (5)
 Extrapolate values for t' < \code{min(t)} based on the previously obtained
 fit parameters. The extrapolation is limited to two values. Other values at
 the beginning of the transformed curve are set to 0.\cr\cr (6) Transform
@@ -130,8 +130,8 @@ Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
-\code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pHMi}},
-\code{\link{fit_LMCurve}}, \code{\linkS4class{RLum.Data.Curve}}
+[CW2pLM], [CW2pLMi], [CW2pHMi],
+[fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

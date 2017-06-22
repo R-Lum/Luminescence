@@ -6,7 +6,7 @@
 #' based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Winston Chang.
 #' The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
 #'
-#' The function is passing several arguments to the function \code{\link{plot}},
+#' The function is passing several arguments to the function [plot],
 #' \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}:
 #' Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
 #' \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
@@ -17,7 +17,7 @@
 #'
 #' @param data [numeric] or \code{\linkS4class{RLum.Results}}
 #' object (required): input data for plotting. Alternatively a [data.frame] or
-#' a \code{\link{matrix}} can be provided, but only the first column will be considered by the
+#' a [matrix] can be provided, but only the first column will be considered by the
 #' function
 #'
 #' @param boxplot [logical] (with default): enable or disable boxplot
@@ -29,7 +29,7 @@
 #' keywords. See details for available keywords.
 #'
 #' @param summary.pos [numeric] or [character] (with
-#' default): optional position keywords (cf., \code{\link{legend}})
+#' default): optional position keywords (cf., [legend])
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if \code{mtext} is not used.
@@ -38,7 +38,7 @@
 #' from the data set prior to any further operations.
 #'
 #' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}, \code{\link[stats]{density}} and \code{\link{boxplot}}. See details for
+#' [plot.default], \code{\link[stats]{density}} and [boxplot]. See details for
 #' further information
 #'
 #' @note Although the code for this function was developed independently and just the idea for the plot
@@ -62,8 +62,8 @@
 #'
 #' Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 #'
-#' @seealso \code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}},
-#' \code{\link{calc_Statistics}}
+#' @seealso \code{\link[stats]{density}}, [plot], [boxplot], [rug],
+#' [calc_Statistics]
 #'
 #' @examples
 #' ## read example data set

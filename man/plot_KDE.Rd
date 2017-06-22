@@ -44,7 +44,7 @@ specification, y-coordinate refers to the right y-axis.}
 \item{summary.method}{\link{character} (with default): keyword
 indicating the method used to calculate the statistic summary. One out of
 \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
-\code{\link{calc_Statistics}} for details.}
+\link{calc_Statistics} for details.}
 
 \item{bw}{\link{character} (with default): bin-width, chose a numeric
 value for manual setting.}
@@ -54,7 +54,7 @@ parameters. These can be useful to reproduce similar plots. Default is
 \code{TRUE}.}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}}.}
+\link{plot}.}
 }
 \description{
 Plot a kernel density estimate of measurement values in combination with the
@@ -71,7 +71,7 @@ separate plots, \code{ylim} must be specified in the order: c(ymin_axis1,
 ymax_axis1, ymin_axis2, ymax_axis2) when using the cumulative values plot
 option. See examples for some further explanations. For details on the
 calculation of the bin-width (parameter \code{bw}) see
-\code{\link{density}}.\cr\cr
+\link{density}.\cr\cr
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
 one or more of the following keywords:
@@ -161,7 +161,7 @@ output = TRUE)
 
 }
 \seealso{
-\code{\link{density}}, \code{\link{plot}}
+\link{density}, \link{plot}
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,

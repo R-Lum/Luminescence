@@ -48,7 +48,7 @@
 #'
 #' \bold{\code{plot.type = "persp"}}
 #'
-#' Arguments that will be passed to \code{\link{persp}}: \itemize{ \item
+#' Arguments that will be passed to [persp]: \itemize{ \item
 #' \code{shade}: default is \code{0.4} \item \code{phi}: default is \code{15}
 #' \item \code{theta}: default is \code{-30} \item \code{expand}: default is
 #' \code{1} \item \code{ticktype}: default is \code{detailed}, \code{r}: default is \code{10}}
@@ -82,7 +82,7 @@
 #' "interactive"), \code{col},
 #' \code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} ("interactive") \cr
 #'
-#' @param object \code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
+#' @param object \code{\linkS4class{RLum.Data.Spectrum}} or [matrix] (\bold{required}): S4
 #' object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
 #' Please note that in case of a matrix rownames and colnames are set automatically if not provided.
 #'
@@ -141,9 +141,9 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[plotly]{plot_ly}},
-#' \code{\link{contour}}
+#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, [plot],
+#' [plot_RLum], [persp], \code{\link[plotly]{plot_ly}},
+#' [contour]
 #'
 #' @references Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
 #' Springer.

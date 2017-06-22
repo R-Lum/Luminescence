@@ -7,7 +7,7 @@
 read_Daybreak2R(file, raw = FALSE, verbose = TRUE, txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\link{character} or \code{\link{list}} (\bold{required}): path and file name of the
+\item{file}{\link{character} or \link{list} (\bold{required}): path and file name of the
 file to be imported. Alternatively a list of file names can be provided or just the path a folder
 containing measurement data. Please note that the specific, common, file extension (txt) is likely
 leading to function failures during import when just a path is provided.}
@@ -19,7 +19,7 @@ can be returned for debugging purposes.}
 \item{verbose}{\link{logical} (with default): enables or disables terminal feedback}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
-\code{\link{txtProgressBar}}.}
+\link{txtProgressBar}.}
 }
 \value{
 A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.

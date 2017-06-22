@@ -8,14 +8,14 @@ plot_RLum(object, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
-class \code{RLum}. Optional a \code{\link{list}} containing objects of class \code{\linkS4class{RLum}}
+class \code{RLum}. Optional a \link{list} containing objects of class \code{\linkS4class{RLum}}
 can be provided. In this case the function tries to plot every object in this list according
 to its \code{RLum} class.}
 
 \item{\dots}{further arguments and graphical parameters that will be passed
 to the specific plot functions. The only argument that is supported directly is \code{main}
 (setting the plot title). In contrast to the normal behaviour \code{main} can be here provided as
-\code{\link{list}} and the arguments in the list will dispatched to the plots if the \code{object}
+\link{list} and the arguments in the list will dispatched to the plots if the \code{object}
 is of type \code{list} as well.}
 }
 \value{
@@ -32,14 +32,14 @@ found in the documentations of each plot function.  \tabular{lll}{
 \bold{object} \tab \tab \bold{corresponding plot function} \cr
 
 \code{\linkS4class{RLum.Data.Curve}} \tab : \tab
-\code{\link{plot_RLum.Data.Curve}} \cr
+\link{plot_RLum.Data.Curve} \cr
 \code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab
-\code{\link{plot_RLum.Data.Spectrum}}\cr
+\link{plot_RLum.Data.Spectrum}\cr
 \code{\linkS4class{RLum.Data.Image}} \tab : \tab
-\code{\link{plot_RLum.Data.Image}}\cr \code{\linkS4class{RLum.Analysis}}
-\tab : \tab \code{\link{plot_RLum.Analysis}}\cr
+\link{plot_RLum.Data.Image}\cr \code{\linkS4class{RLum.Analysis}}
+\tab : \tab \link{plot_RLum.Analysis}\cr
 \code{\linkS4class{RLum.Results}} \tab : \tab
-\code{\link{plot_RLum.Results}} }
+\link{plot_RLum.Results} }
 }
 \note{
 The provided plot output depends on the input object.
@@ -63,11 +63,11 @@ plot_RLum(temp)
 
 }
 \seealso{
-\code{\link{plot_RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Curve}}, \code{\link{plot_RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot_RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Image}}, \code{\link{plot_RLum.Analysis}},
-\code{\linkS4class{RLum.Analysis}}, \code{\link{plot_RLum.Results}},
+\link{plot_RLum.Data.Curve},
+\code{\linkS4class{RLum.Data.Curve}}, \link{plot_RLum.Data.Spectrum},
+\code{\linkS4class{RLum.Data.Spectrum}}, \link{plot_RLum.Data.Image},
+\code{\linkS4class{RLum.Data.Image}}, \link{plot_RLum.Analysis},
+\code{\linkS4class{RLum.Analysis}}, \link{plot_RLum.Results},
 \code{\linkS4class{RLum.Results}}
 }
 \author{

@@ -59,7 +59,7 @@ option in only possible if \code{mtext} is not used.}
 \item{summary.method}{\link{character} (with default): keyword
 indicating the method used to calculate the statistic summary. One out of
 \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
-\code{\link{calc_Statistics}} for details.}
+\link{calc_Statistics} for details.}
 
 \item{legend}{\link{character} vector (optional): legend content to
 be added to the plot.}
@@ -415,8 +415,8 @@ The abanico plot: visualising chronometric data with individual standard errors.
 Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 }
 \seealso{
-\code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}},
-\code{\link{plot_Histogram}}
+\link{plot_RadialPlot}, \link{plot_KDE},
+\link{plot_Histogram}
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,

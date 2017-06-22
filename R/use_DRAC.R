@@ -32,7 +32,7 @@
 #' \item{call}{\link{call} the function call}
 #' \item{args}{\link{list} used arguments}
 #'
-#' The output should be accessed using the function \code{\link{get_RLum}}.
+#' The output should be accessed using the function [get_RLum].
 #'
 #' @section Function version: 0.1.1
 #'

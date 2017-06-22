@@ -92,10 +92,10 @@ the slot \code{data} contains the following elements:\cr
 \bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
 \code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
 \code{..$De.MC} : \tab \code{numeric} \tab Table with De values from MC runs \cr
-\code{..$Fit} : \tab \code{\link{nls}} or \code{\link{lm}} \tab object from the fitting for \code{EXP},
+\code{..$Fit} : \tab \link{nls} or \link{lm} \tab object from the fitting for \code{EXP},
 \code{EXP+LIN} and \code{EXP+EXP}. In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or
 \code{EXP OR LIN} \cr
-\code{..$Formula} : \tab \code{\link{expression}} \tab Fitting formula as R expression \cr
+\code{..$Formula} : \tab \link{expression} \tab Fitting formula as R expression \cr
 \code{..$call} : \tab \code{call} \tab The original function call\cr
 }
 }
@@ -108,9 +108,9 @@ extraxpolation to calculate the equivalent dose.
 \bold{Fitting methods} \cr\cr For all options (except for the \code{LIN}, \code{QDR} and
 the \code{EXP OR LIN}), the \code{\link[minpack.lm]{nlsLM}} function with the
 \code{LM} (Levenberg-Marquardt algorithm) algorithm is used. Note: For historical reasons
-for the Monte Carlo simulations partly  the function \code{\link{nls}} using the \code{port} algorithm.
+for the Monte Carlo simulations partly  the function \link{nls} using the \code{port} algorithm.
 
-The solution is found by transforming the function or using \code{\link{uniroot}}. \cr
+The solution is found by transforming the function or using \link{uniroot}. \cr
 
 \code{LIN}: fits a linear function to the data using
 \link{lm}: \deqn{y = m*x+n}
@@ -200,8 +200,8 @@ print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 
 }
 \seealso{
-\code{\link{nls}}, \code{\linkS4class{RLum.Results}},
-\code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link{lm}}, \code{uniroot}
+\link{nls}, \code{\linkS4class{RLum.Results}},
+\link{get_RLum}, \code{\link[minpack.lm]{nlsLM}}, \link{lm}, \code{uniroot}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

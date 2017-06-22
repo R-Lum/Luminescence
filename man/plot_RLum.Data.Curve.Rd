@@ -33,10 +33,10 @@ RLum.Data.Curve S4 class object
 }
 \details{
 Only single curve data can be plotted with this function.  Arguments
-according to \code{\link{plot}}.
+according to \link{plot}.
 }
 \note{
-Not all arguments of \code{\link{plot}} will be passed!
+Not all arguments of \link{plot} will be passed!
 }
 \section{Function version}{
  0.2.3
@@ -59,7 +59,7 @@ plot_RLum.Data.Curve(temp)
 
 }
 \seealso{
-\code{\link{plot}}, \code{\link{plot_RLum}}
+\link{plot}, \link{plot_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

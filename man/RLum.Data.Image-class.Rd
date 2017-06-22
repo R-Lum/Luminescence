@@ -38,10 +38,10 @@ at will.}
 
 \item{curveType}{\code{[set_RLum]} [character]: curve type (e.g. "predefined" or "measured")}
 
-\item{data}{\code{[set_RLum]} \code{\link{matrix}}: raw curve data. If data is of type \code{RLum.Data.Image}
+\item{data}{\code{[set_RLum]} [matrix]: raw curve data. If data is of type \code{RLum.Data.Image}
 this can be used to re-construct the object.}
 
-\item{info}{\code{[set_RLum]} \code{\link{list}}: info elements}
+\item{info}{\code{[set_RLum]} [list]: info elements}
 
 \item{info.object}{\code{[get_RLum]} [character] name of the info object to returned}
 }
@@ -61,7 +61,7 @@ Returns the names of the info elements
 }
 \description{
 Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced
-by the function \code{\link{read_SPE2R}}
+by the function [read_SPE2R]
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -88,7 +88,7 @@ are measured or predefined}
 
 \item{\code{data}}{Object of class \code{\link[raster]{brick}} containing images (raster data).}
 
-\item{\code{info}}{Object of class \code{\link{list}} containing further meta information objects}
+\item{\code{info}}{Object of class [list] containing further meta information objects}
 }}
 
 \note{
@@ -114,7 +114,7 @@ set_RLum(class = "RLum.Data.Image")
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}, \code{\link{read_SPE2R}}
+[plot_RLum], [read_SPE2R]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

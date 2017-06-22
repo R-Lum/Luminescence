@@ -53,7 +53,7 @@ The original function call\cr
 For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up (invalid curves were removed).
 This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}}
 object is returned in such cases. An \code{\linkS4class{Risoe.BINfileData}} object can be exported
-to a BIN-file by using the function \code{\link{write_R2BIN}}.
+to a BIN-file by using the function \link{write_R2BIN}.
 }
 \description{
 This function tries to identify automatically zero-light level curves (grains) from single grain data
@@ -124,7 +124,7 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 }
 \seealso{
 \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
-\code{\link{write_R2BIN}}, \code{\link{read_BIN2R}}
+\link{write_R2BIN}, \link{read_BIN2R}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

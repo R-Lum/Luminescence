@@ -14,7 +14,7 @@ object of class \code{RLum.Data.Spectrum}}
 
 \item{method}{[character] (with default): Defines method that is
 applied for cosmic ray removal. Allowed methods are \code{smooth}, the default,
-(\code{\link{smooth}}), \code{smooth.spline} (\code{\link{smooth.spline}})
+([smooth]), \code{smooth.spline} ([smooth.spline])
 and \code{Pych}. See details for further information.}
 
 \item{method.Pych.smoothing}{[integer] (with default): Smoothing
@@ -61,12 +61,12 @@ references below.
 
 \bold{\code{method = "smooth"}} \cr
 
-Method uses the function \code{\link{smooth}} to remove cosmic rays.\cr
+Method uses the function [smooth] to remove cosmic rays.\cr
 
 Arguments that can be passed are: \code{kind}, \code{twiceit}\cr
 
 \bold{\code{method = "smooth.spline"}} \cr Method uses the function
-\code{\link{smooth.spline}} to remove cosmic rays.\cr Arguments that can be
+[smooth.spline] to remove cosmic rays.\cr Arguments that can be
 passed are: \code{spar}\cr
 
 \bold{How to combine methods?}\cr
@@ -97,8 +97,8 @@ Single Images. Astrophysics 116, 148-153.
 \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{smooth}},
-\code{\link{smooth.spline}}, \code{\link{apply_CosmicRayRemoval}}
+\code{\linkS4class{RLum.Data.Spectrum}}, [smooth],
+[smooth.spline], [apply_CosmicRayRemoval]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

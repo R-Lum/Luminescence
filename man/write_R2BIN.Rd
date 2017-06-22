@@ -26,7 +26,7 @@ The old position number is appended as comment (e.g., 'OP: 70). This option
 accounts for potential compatibility problems with the Analyst software.}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
-\code{\link{txtProgressBar}}.}
+\link{txtProgressBar}.}
 }
 \value{
 Write a binary file.
@@ -57,7 +57,7 @@ BIN/BINX-file may not fully compatible, at least not similar to the once
 directly produced by the Risoe readers!\cr
 
 ROI definitions (introduced in BIN-file version 8) are not supported! There are furthermore
-ignored by the function \code{\link{read_BIN2R}}.
+ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
  0.4.2
@@ -76,8 +76,8 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
-\code{\link{read_BIN2R}}, \code{\linkS4class{Risoe.BINfileData}},
-\code{\link{writeBin}}
+\link{read_BIN2R}, \code{\linkS4class{Risoe.BINfileData}},
+\link{writeBin}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

@@ -249,8 +249,8 @@ dose and error calculation and display in OSL dating: An overview and some
 recommendations. Quaternary Geochronology, 11, 1-27.
 }
 \seealso{
-\code{\link{plot}}, \code{\link{plot_KDE}},
-\code{\link{plot_Histogram}}
+\link{plot}, \link{plot_KDE},
+\link{plot_Histogram}
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,

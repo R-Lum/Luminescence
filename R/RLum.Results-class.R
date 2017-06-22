@@ -3,7 +3,7 @@ NULL
 
 #' Class \code{"RLum.Results"}
 #'
-#' Object class contains results data from functions (e.g., \code{\link{analyse_SAR.CWOSL}}).
+#' Object class contains results data from functions (e.g., [analyse_SAR.CWOSL]).
 #'
 #' @name RLum.Results-class
 #'
@@ -23,7 +23,7 @@ NULL
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
+#' @seealso \code{\linkS4class{RLum}}, [plot_RLum], [merge_RLum]
 #'
 #' @keywords classes methods
 #'
@@ -80,7 +80,7 @@ setClass(
 #'   \code{list} \tab \code{list}\cr
 #' }
 #'
-#' Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Results}} objects.
+#' Given that the [list] consits of \code{\linkS4class{RLum.Results}} objects.
 #'
 #' @name as
 #'
@@ -156,9 +156,9 @@ setMethod("show",
 #' using the internal C++ function \code{.create_UID}.
 #' @param .pid [\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
 #' at will.
-#' @param data [\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to
+#' @param data [\code{set_RLum}] [list] (optional): a list containing the data to
 #' be stored in the object
-#' @param info [\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
+#' @param info [\code{set_RLum}] [list] (optional): a list containing additional
 #' info data for the object
 #' @return
 #'
@@ -222,7 +222,7 @@ setMethod("set_RLum",
 #'
 #' Returns: \cr
 #' (1) Data object from the specified slot \cr
-#' (2) \code{\link{list}} of data objects from the slots if 'data.object' is vector or \cr
+#' (2) [list] of data objects from the slots if 'data.object' is vector or \cr
 #' (3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
 #'
 #'

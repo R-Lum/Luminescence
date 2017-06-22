@@ -3,7 +3,7 @@
 #' The function determines weighted nonlinear least-squares estimates of the
 #' component parameters of an LM-OSL curve (Bulur 1996) for a given number of
 #' components and returns various component parameters. The fitting procedure
-#' uses the function \code{\link{nls}} with the \code{port} algorithm.
+#' uses the function [nls] with the \code{port} algorithm.
 #'
 #' \bold{Fitting function}\cr\cr The function for the fitting has the general
 #' form: \deqn{y = (exp(0.5)*Im_1*x/xm_1)*exp(-x^2/(2*xm_1^2)) + ,\ldots, +
@@ -33,7 +33,7 @@
 #' plot (for \code{plot = TRUE}) with the pseudo curve (based on the
 #' pseudo start parameters) is provided. This may give the opportunity to
 #' identify appropriate start parameters visually.\cr\cr \bold{(b)} If start
-#' values are provided, the function works like a simple \code{\link{nls}}
+#' values are provided, the function works like a simple [nls]
 #' fitting approach.\cr\cr \bold{(c)} If no start parameters are provided and
 #' the option \code{fit.advanced = TRUE} is chosen, an advanced start paramter
 #' estimation is applied using a stochastical attempt. Therefore, the
@@ -72,7 +72,7 @@
 #'
 #' @param fit.method [character] (with default): select fit method,
 #' allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-#' routine usint the funtion \code{\link{nls}} \code{'LM'} utilises the
+#' routine usint the funtion [nls] \code{'LM'} utilises the
 #' function \code{nlsLM} from the package \code{minpack.lm} and with that the
 #' Levenberg-Marquardt algorithm.
 #'
@@ -150,8 +150,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{fit_CWCurve}}, \code{\link{plot}}, \code{\link{nls}},
-#' \code{\link[minpack.lm]{nlsLM}}, \code{\link{get_RLum}}
+#' @seealso [fit_CWCurve], [plot], [nls],
+#' \code{\link[minpack.lm]{nlsLM}}, [get_RLum]
 #'
 #' @references Bulur, E., 1996. An Alternative Technique For Optically
 #' Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,

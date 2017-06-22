@@ -11,7 +11,7 @@
 #' of each column, e.g., pos'clr' for a three column data frame and center, left
 #' and right alignment
 #' @param digits [numeric] number of digits (numeric fields)
-#' @param select a [character] vector passed to \code{\link{subset}}
+#' @param select a [character] vector passed to [subset]
 #' @param split an [integer] specifying the number of individual tables
 #' the data frame is split into. Useful for wide tables. Currently unnused.
 #' @param ... options: \code{verbose}

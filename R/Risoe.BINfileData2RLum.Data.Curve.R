@@ -6,7 +6,7 @@
 #'
 #' The function extracts all \code{METADATA} from the \code{Risoe.BINfileData}
 #' object and stores them in the \code{RLum.Data.Curve} object. This function
-#' can be used stand-alone, but is the base function for \code{\link{Risoe.BINfileData2RLum.Analysis}}.
+#' can be used stand-alone, but is the base function for [Risoe.BINfileData2RLum.Analysis].
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 #' \code{Risoe.BINfileData} object
@@ -41,10 +41,10 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),
 #' Christoph Burow, Universtiy of Cologne (Germany)
 #'
-#' @seealso \code{\link{Risoe.BINfileData2RLum.Analysis}},
-#' \code{\link{set_RLum}}, \code{\linkS4class{RLum.Data.Curve}},
+#' @seealso [Risoe.BINfileData2RLum.Analysis],
+#' [set_RLum], \code{\linkS4class{RLum.Data.Curve}},
 #' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link{plot_RLum}}
+#' [plot_RLum]
 #'
 #'
 #'

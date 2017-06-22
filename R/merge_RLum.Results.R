@@ -1,12 +1,12 @@
 #' Merge function for RLum.Results S4-class objects
 #'
 #' Function merges objects of class \code{\linkS4class{RLum.Results}}. The slots in the objects
-#' are combined depending on the object type, e.g., for [data.frame] and \code{\link{matrix}}
+#' are combined depending on the object type, e.g., for [data.frame] and [matrix]
 #' rows are appended.
 #'
 #' @note The originator is taken from the first element and not reset to \code{merge_RLum}
 #'
-#' @param objects \code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects
+#' @param objects [list] (required): a list of \code{\linkS4class{RLum.Results}} objects
 #'
 #' @section Function version: 0.2.0
 #'

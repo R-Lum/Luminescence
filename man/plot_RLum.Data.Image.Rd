@@ -27,7 +27,7 @@ Returns a plot.
 \description{
 The function provides a standardised plot output for image data of an
 \code{RLum.Data.Image}S4 class object, mainly using the plot functions
-provided by the \code{\link{raster}} package.
+provided by the \link{raster} package.
 }
 \details{
 \bold{Details on the plot functions} \cr
@@ -62,7 +62,7 @@ call:\cr
 
 \bold{\code{plot.type = "contour"}}\cr
 
-Uses the function contour plot function from the \code{\link{raster}}
+Uses the function contour plot function from the \link{raster}
 function (\code{\link[raster]{contour}}). For each raster layer one contour
 plot is produced. Arguments that are passed through the function call:\cr
 
@@ -71,7 +71,7 @@ plot is produced. Arguments that are passed through the function call:\cr
 }
 \note{
 This function has been created to faciliate the plotting of image data
-imported by the function \code{\link{read_SPE2R}}. However, so far the
+imported by the function \link{read_SPE2R}. However, so far the
 function is not optimized to handle image data > ca. 200 MByte and thus
 plotting of such data is extremely slow.
 }
@@ -90,8 +90,8 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
-\code{\link{plot_RLum}}, \code{\link[raster]{raster}}
+\code{\linkS4class{RLum.Data.Image}}, \link{plot},
+\link{plot_RLum}, \code{\link[raster]{raster}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

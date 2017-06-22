@@ -4,7 +4,7 @@
 #' S4 class object
 #'
 #' The function produces a multiple plot output.  A file output is recommended
-#' (e.g., \code{\link{pdf}}).
+#' (e.g., [pdf]).
 #'
 #' @param object \code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
 #' of class \code{RLum.Results}
@@ -18,7 +18,7 @@
 #'
 #' @return Returns multiple plots.
 #'
-#' @note Not all arguments available for \code{\link{plot}} will be passed!
+#' @note Not all arguments available for [plot] will be passed!
 #' Only plotting of \code{RLum.Results} objects are supported.
 #'
 #' @section Function version: 0.2.1
@@ -26,7 +26,7 @@
 #' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,
 #' Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{plot}}, \code{\link{plot_RLum}},
+#' @seealso [plot], [plot_RLum],
 #'
 #'
 #'

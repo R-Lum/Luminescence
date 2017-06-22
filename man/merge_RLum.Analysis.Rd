@@ -7,7 +7,7 @@
 merge_RLum.Analysis(objects)
 }
 \arguments{
-\item{objects}{\code{\link{list}} of \code{\linkS4class{RLum.Analysis}}
+\item{objects}{\link{list} of \code{\linkS4class{RLum.Analysis}}
 (\bold{required}): list of S4 objects of class \code{RLum.Analysis}.
 Furthermore other objects of class \code{\linkS4class{RLum}} can be added,
 see details.}
@@ -54,7 +54,7 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 
 }
 \seealso{
-\code{\link{merge_RLum}}, \code{\linkS4class{RLum.Analysis}},
+\link{merge_RLum}, \code{\linkS4class{RLum.Analysis}},
 \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Spectrum}},
 \code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum}}

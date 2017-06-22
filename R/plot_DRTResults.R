@@ -66,7 +66,7 @@
 #' @param na.rm [logical]: indicating wether \code{NA} values are
 #' removed before plotting from the input data set
 #' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot}}.
+#' [plot].
 #' @return A plot is returned.
 #'
 #' @note Further data and plot arguments can be added by using the appropiate R
@@ -76,7 +76,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France), Michael Dietze, GFZ Potsdam (Germany)
 #'
-#' @seealso \code{\link{plot}}
+#' @seealso [plot]
 #'
 #' @references Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 #' stimulated luminescence characteristics and their relevance in

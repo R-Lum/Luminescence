@@ -3,7 +3,7 @@
 #' This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
 #' \code{\link[utils]{write.table}}. All \code{\linkS4class{RLum}}-objects are supported, but the
 #' export is lossy, i.e. the pure numerical values are exported only. Information that cannot
-#' be coerced to a [data.frame] or a \code{\link{matrix}} are discarded as well as
+#' be coerced to a [data.frame] or a [matrix] are discarded as well as
 #' metadata.
 #'
 #' However, in combination with the implemented import functions, nearly every supported
@@ -12,10 +12,10 @@
 #'
 #' \bold{Input is a list of objects}\cr
 #'
-#' If the input is a \code{\link{list}} of objects all explicit function arguments can be provided
-#' as \code{\link{list}}.
+#' If the input is a [list] of objects all explicit function arguments can be provided
+#' as [list].
 #'
-#' @param object \code{\linkS4class{RLum}} or a \code{\link{list}} of \code{RLum} objects (\bold{required}): objects to be written
+#' @param object \code{\linkS4class{RLum}} or a [list] of \code{RLum} objects (\bold{required}): objects to be written
 #'
 #' @param path [character] (optional): character string naming folder for the output to be written. If nothing
 #' is provided \code{path} will be set to the working directory. Note: this argument is ignored if the
@@ -25,7 +25,7 @@
 #' is valid for all written files
 #'
 #' @param export [logical] (with default): enable or disable the file export. If set to \code{FALSE}
-#' nothing is written to the file connection, but a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+#' nothing is written to the file connection, but a list comprising objects of type [data.frame] and [matrix]
 #' is returned instead
 #'
 #' @param \dots further arguments that will be passed to the function \code{\link[utils]{write.table}}. All arguments
@@ -33,7 +33,7 @@
 #'
 #'
 #' @return The function returns either a CSV-file (or many of them) or for the option \code{export == FALSE}
-#' a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+#' a list comprising objects of type [data.frame] and [matrix]
 #'
 #'
 #' @section Function version: 0.1.1

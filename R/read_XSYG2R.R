@@ -3,7 +3,7 @@
 #' Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
 #'
 #' \bold{How does the import function work?}\cr\cr The function uses the
-#' \code{\link{xml}} package to parse the file structure. Each sequence is
+#' [xml] package to parse the file structure. Each sequence is
 #' subsequently translated into an \code{\linkS4class{RLum.Analysis}}
 #' object.\cr\cr
 #'
@@ -28,7 +28,7 @@
 #' are considered:
 #'
 #' HE: Heating element\cr PMT: Photomultiplier tube\cr Interpolation is done
-#' using the function \code{\link{approx}}\cr
+#' using the function [approx]\cr
 #'
 #' CASE (1): \code{nrow(matrix(PMT))} > \code{nrow(matrix(HE))} \cr
 #'
@@ -58,7 +58,7 @@
 #' constructs as list of the XSYG-files found in the directory. Please note no recursive detection
 #' is supported as this may lead to endless loops.
 #'
-#' @param file [character] or \code{\link{list}} (\bold{required}): path and file name of the
+#' @param file [character] or [list] (\bold{required}): path and file name of the
 #' XSYG file. If input is a \code{list} it should comprise only \code{character}s representing each valid
 #' path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all xsyg files found in the directory.
@@ -75,7 +75,7 @@
 #' @param import [logical] (with default): if set to \code{FALSE}, only
 #' the XSYG file structure is shown.
 #'
-#' @param pattern \code{\link{regex}} (with default): optional regular expression if \code{file} is
+#' @param pattern [regex] (with default): optional regular expression if \code{file} is
 #' a link to a folder, to select just specific XSYG-files
 #'
 #' @param txtProgressBar \link{logical} (with default): enables \code{TRUE} or
@@ -92,7 +92,7 @@
 #'
 #' @note This function is a beta version as the XSYG file format is not yet
 #' fully specified. Thus, further file operations (merge, export, write) should
-#' be done using the functions provided with the package \code{\link{xml}}.\cr
+#' be done using the functions provided with the package [xml].\cr
 #'
 #' \bold{So far, no image data import is provided!}\cr Corresponding values in
 #' the XSXG file are skipped.
@@ -105,8 +105,8 @@
 #' (France)
 #'
 #'
-#' @seealso \code{\link{xml}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Data.Curve}}, \code{\link{approx}}
+#' @seealso [xml], \code{\linkS4class{RLum.Analysis}},
+#' \code{\linkS4class{RLum.Data.Curve}}, [approx]
 #'
 #'
 #' @references Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the

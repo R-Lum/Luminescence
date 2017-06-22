@@ -4,7 +4,7 @@
 #' The import of the DAT-files is limited to the file format described for the software TLAPLLIC v.3.2
 #' used for a Daybreak, model 1100.
 #'
-#' @param file [character] or \code{\link{list}} (\bold{required}): path and file name of the
+#' @param file [character] or [list] (\bold{required}): path and file name of the
 #' file to be imported. Alternatively a list of file names can be provided or just the path a folder
 #' containing measurement data. Please note that the specific, common, file extension (txt) is likely
 #' leading to function failures during import when just a path is provided.
@@ -16,7 +16,7 @@
 #' @param verbose [logical] (with default): enables or disables terminal feedback
 #'
 #' @param txtProgressBar [logical] (with default): enables or disables
-#' \code{\link{txtProgressBar}}.
+#' [txtProgressBar].
 #'
 #' @return  A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.
 #'

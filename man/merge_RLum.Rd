@@ -7,7 +7,7 @@
 merge_RLum(objects, ...)
 }
 \arguments{
-\item{objects}{\code{\link{list}} of \code{\linkS4class{RLum}}
+\item{objects}{\link{list} of \code{\linkS4class{RLum}}
 (\bold{required}): list of S4 object of class \code{RLum}}
 
 \item{\dots}{further arguments that one might want to pass to the specific

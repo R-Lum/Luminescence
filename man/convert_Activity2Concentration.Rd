@@ -20,7 +20,7 @@ dose rate data frame, choose between \code{'Bq/kg'} and \code{'ppm/\%'} the defa
 \description{
 The function performs the conversion of the specific activities into concentrations and vice versa for the nuclides U-238,
 Th-232 and K-40 to harmonise the measurement unit with the required data input unit of potential analytical tools for,
-e.g. dose rate calculation or related functions such as \code{\link{use_DRAC}}.
+e.g. dose rate calculation or related functions such as \link{use_DRAC}.
 }
 \details{
 The conversion from nuclide activity of a sample to nuclide concentration is performed using conversion factors t

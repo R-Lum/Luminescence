@@ -37,7 +37,7 @@ signal integral sequence for constructing the De(t) plot}
 \item{analyse_function}{\link{character} (with default): name of the analyse function
 to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
 
-\item{analyse_function.control}{\code{\link{list}} (optional): arguments to be passed to the
+\item{analyse_function.control}{\link{list} (optional): arguments to be passed to the
 supported analyse functions (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
 
 \item{n.channels}{\link{integer} (optional): number of channels used for the De(t) plot.
@@ -47,13 +47,13 @@ integral.}
 \item{show_ShineDownCurve}{\link{logical} (with default): enables or disables shine down
 curve in the plot output}
 
-\item{respect_RC.Status}{\code{\link{logical} (with default)}: remove De-values with 'FAILED' RC.Status
-from the plot (cf. \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}})}
+\item{respect_RC.Status}{\link{logical} (with default): remove De-values with 'FAILED' RC.Status
+from the plot (cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
 
-\item{verbose}{\code{\link{logical} (with default)}: enables or disables terminal feedback}
+\item{verbose}{\link{logical} (with default): enables or disables terminal feedback}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot.default}}, \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}.
+\link{plot.default}, \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}.
 See details for further information.}
 }
 \value{
@@ -75,7 +75,7 @@ call \tab \code{call} \tab the original function call
 }
 \description{
 Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
-The function is simply passing several arguments to the function \code{\link{plot}} and the used
+The function is simply passing several arguments to the function \link{plot} and the used
 analysis functions and runs it in a loop. Example: \code{legend.pos} for legend position,
 \code{legend} for legend text.\cr
 }
@@ -92,7 +92,7 @@ of the function output.\cr
 }
 \note{
 The entire analysis is based on the used analysis functions, namely
-\code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}. However, the integrity
+\link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}. However, the integrity
 checks of this function are not that thoughtful as in these functions itself. It means, that
 every sequence should be checked carefully before running long calculations using serveral
 hundreds of channels.
@@ -128,7 +128,7 @@ using De as a function of illumination time. Radiation Measurements 37, 511-518.
 doi:10.1016/S1350-4487(03)00063-5
 }
 \seealso{
-\code{\link{plot}}, \code{\link{analyse_SAR.CWOSL}}, \code{\link{analyse_pIRIRSequence}}
+\link{plot}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

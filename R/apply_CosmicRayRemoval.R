@@ -14,12 +14,12 @@
 #'
 #' \bold{\code{method = "smooth"}} \cr
 #'
-#' Method uses the function \code{\link{smooth}} to remove cosmic rays.\cr
+#' Method uses the function [smooth] to remove cosmic rays.\cr
 #'
 #' Arguments that can be passed are: \code{kind}, \code{twiceit}\cr
 #'
 #' \bold{\code{method = "smooth.spline"}} \cr Method uses the function
-#' \code{\link{smooth.spline}} to remove cosmic rays.\cr Arguments that can be
+#' [smooth.spline] to remove cosmic rays.\cr Arguments that can be
 #' passed are: \code{spar}\cr
 #'
 #' \bold{How to combine methods?}\cr
@@ -32,7 +32,7 @@
 #'
 #' @param method [character] (with default): Defines method that is
 #' applied for cosmic ray removal. Allowed methods are \code{smooth}, the default,
-#' (\code{\link{smooth}}), \code{smooth.spline} (\code{\link{smooth.spline}})
+#' ([smooth]), \code{smooth.spline} ([smooth.spline])
 #' and \code{Pych}. See details for further information.
 #'
 #' @param method.Pych.smoothing [integer] (with default): Smoothing
@@ -69,8 +69,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{smooth}},
-#' \code{\link{smooth.spline}}, \code{\link{apply_CosmicRayRemoval}}
+#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, [smooth],
+#' [smooth.spline], [apply_CosmicRayRemoval]
 #'
 #' @references Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 #' Single Images. Astrophysics 116, 148-153.

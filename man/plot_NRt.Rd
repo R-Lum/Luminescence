@@ -8,7 +8,7 @@ plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
   legend = TRUE, legend.pos = "topright", ...)
 }
 \arguments{
-\item{data}{a \code{\link{list}}, \link{data.frame}, \code{\link{matrix}} or
+\item{data}{a \link{list}, \link{data.frame}, \link{matrix} or
 \code{\linkS4class{RLum.Analysis}} object (\bold{required}). X,Y data of measured values
 (time and counts). See details on individual data structure.}
 
@@ -17,9 +17,9 @@ plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
 
 \item{smooth}{\link{character} (optional): apply data smoothing. Use
 \code{"rmean"} to calculate the rolling where \code{k} determines the width
-of the rolling window (see \code{\link{rollmean}}).
+of the rolling window (see \link{rollmean}).
 \code{"spline"} applies a smoothing spline to each curve
-(see \code{\link{smooth.spline}})}
+(see \link{smooth.spline})}
 
 \item{k}{\link{integer} (with default): integer width of the rolling
 window.}
@@ -27,9 +27,9 @@ window.}
 \item{legend}{\link{logical} (with default): show or hide the plot legend.}
 
 \item{legend.pos}{\link{character} (with default): keyword specifying
-the position of the legend (see \code{\link{legend}}).}
+the position of the legend (see \link{legend}).}
 
-\item{...}{further parameters passed to \code{\link{plot}} (also see \code{\link{par}}).}
+\item{...}{further parameters passed to \link{plot} (also see \link{par}).}
 }
 \value{
 Returns a plot and \code{\linkS4class{RLum.Analysis}} object.
@@ -127,7 +127,7 @@ Steffen, D., Preusser, F., Schlunegger, F., 2009. OSL quartz underestimation due
 unstable signal components. Quaternary Geochronology, 4, 353-362.
 }
 \seealso{
-\code{\link{plot}}
+\link{plot}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

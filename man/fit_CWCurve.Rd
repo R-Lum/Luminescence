@@ -23,7 +23,7 @@ fitting attempts.}
 
 \item{fit.method}{\link{character} (with default): select fit method,
 allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-routine usint the funtion \code{\link{nls}} \code{'LM'} utilises the
+routine usint the funtion \link{nls} \code{'LM'} utilises the
 function \code{nlsLM} from the package \code{minpack.lm} and with that the
 Levenberg-Marquardt algorithm.}
 
@@ -31,7 +31,7 @@ Levenberg-Marquardt algorithm.}
 on the terminal.}
 
 \item{fit.calcError}{\link{logical} (with default): calculate 1-sigma error
-range of components using \code{\link{confint}}}
+range of components using \link{confint}}
 
 \item{LED.power}{\link{numeric} (with default): LED power (max.) used for
 intensity ramping in mW/cm^2. \bold{Note:} The value is used for the
@@ -61,7 +61,7 @@ terminal output. Requires \code{output.terminal = TRUE}. If
 curves.}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}}.}
+\link{plot}.}
 }
 \value{
 \item{plot}{(optional) the fitted CW-OSL curves are returned as
@@ -101,7 +101,7 @@ sum for this values. }
 The function determines the weighted least-squares estimates of the
 component parameters of a CW-OSL signal for a given maximum number of
 components and returns various component parameters. The fitting procedure
-uses the \code{\link{nls}} function with the \code{port} algorithm.
+uses the \link{nls} function with the \code{port} algorithm.
 }
 \details{
 \bold{Fitting function}\cr\cr The function for the CW-OSL fitting has the
@@ -120,10 +120,10 @@ determination). According to Lave (1970), the value is calculated as:
 and \eqn{TSS = Total~Sum~of~Squares}\cr\cr
 
 \bold{Error of fitted component parameters}\cr\cr The 1-sigma error for the
-components is calculated using the function \code{\link{confint}}. Due to
+components is calculated using the function \link{confint}. Due to
 considerable calculation time, this option is deactived by default. In
 addition, the error for the components can be estimated by using internal R
-functions like \code{\link{summary}}. See the \code{\link{nls}} help page
+functions like \link{summary}. See the \link{nls} help page
 for more information.\cr\cr \emph{For details on the nonlinear regression in
 R, see Ritz & Streibig (2008).}
 }
@@ -164,9 +164,9 @@ Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. In: R.
 Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 }
 \seealso{
-\code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
+\link{fit_LMCurve}, \link{plot},\link{nls},
 \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-\code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}
+\link{get_RLum}, \code{\link[minpack.lm]{nlsLM}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

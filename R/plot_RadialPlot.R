@@ -95,8 +95,8 @@
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Based on a rewritten
 #' S script of Rex Galbraith, 2010
-#' @seealso \code{\link{plot}}, \code{\link{plot_KDE}},
-#' \code{\link{plot_Histogram}}
+#' @seealso [plot], [plot_KDE],
+#' [plot_Histogram]
 #' @references Galbraith, R.F., 1988. Graphical Display of Estimates Having
 #' Differing Standard Errors. Technometrics, 30 (3), 271-281.
 #'

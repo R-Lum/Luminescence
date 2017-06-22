@@ -52,7 +52,7 @@
 #' The original return of the function is returned. This function is in particular
 #' helpful if a function returns a lot of warnings with the same content.
 #'
-#' @param expr \code{\link{expression}} (\bold{required}): the R expression, usually a
+#' @param expr [expression] (\bold{required}): the R expression, usually a
 #' function
 #'
 #' @return
@@ -131,7 +131,7 @@
 #' left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
 #' \code{"right"}, \code{"center"} and \code{left}
 #'
-#' @param method \code{\link{method}} (with default): defines which method should be applied for the
+#' @param method [method] (with default): defines which method should be applied for the
 #' smoothing: \code{"mean"} or \code{"median"}
 #'
 #' @return

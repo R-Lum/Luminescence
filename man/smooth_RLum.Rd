@@ -31,7 +31,7 @@ is based on an internal function called \code{.smoothing}.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{smooth_RLum}}
+\item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \link{smooth_RLum}
 }}
 
 \note{

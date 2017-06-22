@@ -182,7 +182,7 @@ report_RLum(object = x, file = "~/arbitray_list")
 \seealso{
 \code{\link[rmarkdown]{render}}, \code{\link[pander]{pander_return}},
 \code{\link[pander]{openFileInOS}}, \code{\link[rstudioapi]{viewer}},
-\code{\link{browseURL}}
+\link{browseURL}
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr

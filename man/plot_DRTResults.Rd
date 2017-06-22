@@ -67,7 +67,7 @@ provided via \code{par()} work}
 removed before plotting from the input data set}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}}.}
+\link{plot}.}
 }
 \value{
 A plot is returned.
@@ -164,7 +164,7 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 369-391.
 }
 \seealso{
-\code{\link{plot}}
+\link{plot}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

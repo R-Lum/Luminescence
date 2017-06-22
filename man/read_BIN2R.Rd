@@ -11,7 +11,7 @@ read_BIN2R(file, show.raw.values = FALSE, position = NULL,
   verbose = TRUE, ...)
 }
 \arguments{
-\item{file}{\link{character} or \code{\link{list}} (\bold{required}): path and file name of the
+\item{file}{\link{character} or \link{list} (\bold{required}): path and file name of the
 BIN/BINX file. If input is a \code{list} it should comprise only \code{character}s representing
 each valid path and BIN/BINX-file names.
 Alternatively the input character can be just a directory (path), in this case the
@@ -45,7 +45,7 @@ of a \link{Risoe.BINfileData-class} object. Can be provided as \code{list} if \c
 of the imported record, for debugging usage only. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
-\code{\link{txtProgressBar}}.}
+\link{txtProgressBar}.}
 
 \item{forced.VersionNumber}{\link{integer} (optional): allows to cheat the
 version number check in the function by own values for cases where the
@@ -57,13 +57,13 @@ in the byte 'RECTYPE' (BIN-file version 08), in case there are not documented or
 In this case the corrupted records are skipped.}
 
 \item{pattern}{\link{character} (optional): argument that is used if only a path is provided.
-The argument will than be passed to the function \code{\link{list.files}} used internally to
+The argument will than be passed to the function \link{list.files} used internally to
 construct a \code{list} of wanted files}
 
 \item{verbose}{\link{logical} (with default): enables or disables verbose mode}
 
 \item{\dots}{further arguments that will be passed to the function
-\code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument
+\link{Risoe.BINfileData2RLum.Analysis}. Please note that any matching argument
 automatically sets \code{fastForward = TRUE}}
 }
 \value{
@@ -74,7 +74,7 @@ stored in the bin-file.} \item{DATA}{A \link{list} containing a numeric
 METADATA.}\cr
 
 If \code{fastForward = TRUE} a list of \code{\linkS4class{RLum.Analysis}} object is returned. The
-internal coercing is done using the function \code{\link{Risoe.BINfileData2RLum.Analysis}}
+internal coercing is done using the function \link{Risoe.BINfileData2RLum.Analysis}
 }
 \description{
 Import a *.bin or a *.binx file produced by a Risoe DA15 and DA20 TL/OSL
@@ -112,9 +112,9 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
-\code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
-\code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
-\code{\link[utils]{txtProgressBar}}, \code{\link{list.files}}
+\link{write_R2BIN}, \code{\linkS4class{Risoe.BINfileData}},
+\code{\link[base]{readBin}}, \link{merge_Risoe.BINfileData}, \code{\linkS4class{RLum.Analysis}}
+\code{\link[utils]{txtProgressBar}}, \link{list.files}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

@@ -139,7 +139,7 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #' \code{github_issues} lists all open issues for a repository in valid YAML.
 #' 
 #' @return 
-#' \code{github_commits}: Nested \code{\link{list}} with \code{n} elements.
+#' \code{github_commits}: Nested [list] with \code{n} elements.
 #' Each commit element is a list with elements:
 #' \tabular{ll}{
 #'  `[[1]]` \tab NUMBER \cr

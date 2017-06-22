@@ -4,7 +4,7 @@ NULL
 #' Class \code{"Risoe.BINfileData"}
 #'
 #' S4 class object for luminescence data in R. The object is produced as output
-#' of the function \code{\link{read_BIN2R}}.
+#' of the function [read_BIN2R].
 #'
 #'
 #' @name Risoe.BINfileData-class
@@ -112,7 +112,7 @@ NULL
 #'
 #' Note that the \code{Risoe.BINfileData} object combines all values from
 #' different versions from the BIN-file, reserved bits are skipped, however,
-#' the function \code{\link{write_R2BIN}} reset arbitrary reserved bits. Invalid
+#' the function [write_R2BIN] reset arbitrary reserved bits. Invalid
 #' values for a specific version are set to \code{NA}. Furthermore, the
 #' internal R data types do not necessarily match the required data types for
 #' the BIN-file data import! Data types are converted during data import.\cr
@@ -152,9 +152,9 @@ NULL
 #' (France)
 #'
 #' @seealso
-#' \code{\link{plot_Risoe.BINfileData}}, \code{\link{read_BIN2R}},
-#' \code{\link{write_R2BIN}},\code{\link{merge_Risoe.BINfileData}},
-#' \code{\link{Risoe.BINfileData2RLum.Analysis}},
+#' [plot_Risoe.BINfileData], [read_BIN2R],
+#' [write_R2BIN],[merge_Risoe.BINfileData],
+#' [Risoe.BINfileData2RLum.Analysis],
 #'
 #' @references Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016. The
 #' Sequence Editor User Manual - Feburar 2016

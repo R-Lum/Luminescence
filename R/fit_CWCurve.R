@@ -3,7 +3,7 @@
 #' The function determines the weighted least-squares estimates of the
 #' component parameters of a CW-OSL signal for a given maximum number of
 #' components and returns various component parameters. The fitting procedure
-#' uses the \code{\link{nls}} function with the \code{port} algorithm.
+#' uses the [nls] function with the \code{port} algorithm.
 #'
 #' \bold{Fitting function}\cr\cr The function for the CW-OSL fitting has the
 #' general form: \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, +
@@ -21,10 +21,10 @@
 #' and \eqn{TSS = Total~Sum~of~Squares}\cr\cr
 #'
 #' \bold{Error of fitted component parameters}\cr\cr The 1-sigma error for the
-#' components is calculated using the function \code{\link{confint}}. Due to
+#' components is calculated using the function [confint]. Due to
 #' considerable calculation time, this option is deactived by default. In
 #' addition, the error for the components can be estimated by using internal R
-#' functions like \code{\link{summary}}. See the \code{\link{nls}} help page
+#' functions like [summary]. See the [nls] help page
 #' for more information.\cr\cr \emph{For details on the nonlinear regression in
 #' R, see Ritz & Streibig (2008).}
 #'
@@ -37,13 +37,13 @@
 #' fitting attempts.
 #' @param fit.method \link{character} (with default): select fit method,
 #' allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-#' routine usint the funtion \code{\link{nls}} \code{'LM'} utilises the
+#' routine usint the funtion [nls] \code{'LM'} utilises the
 #' function \code{nlsLM} from the package \code{minpack.lm} and with that the
 #' Levenberg-Marquardt algorithm.
 #' @param fit.trace \link{logical} (with default): traces the fitting process
 #' on the terminal.
 #' @param fit.calcError \link{logical} (with default): calculate 1-sigma error
-#' range of components using \code{\link{confint}}
+#' range of components using [confint]
 #' @param LED.power \link{numeric} (with default): LED power (max.) used for
 #' intensity ramping in mW/cm^2. \bold{Note:} The value is used for the
 #' calculation of the absolute photoionisation cross section.
@@ -64,7 +64,7 @@
 #' @param plot \link{logical} (with default): returns a plot of the fitted
 #' curves.
 #' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot}}.
+#' [plot].
 #' @return \item{plot}{(optional) the fitted CW-OSL curves are returned as
 #' plot.} \item{table}{(optional) an output table (*.csv) with parameters of
 #' the fitted components is provided if the \code{output.path} is set.}
@@ -110,9 +110,9 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{fit_LMCurve}}, \code{\link{plot}},\code{\link{nls}},
+#' @seealso [fit_LMCurve], [plot],[nls],
 #' \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
-#' \code{\link{get_RLum}}, \code{\link[minpack.lm]{nlsLM}}
+#' [get_RLum], \code{\link[minpack.lm]{nlsLM}}
 #' @references Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 #' Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.
 #'

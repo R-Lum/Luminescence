@@ -52,8 +52,8 @@
 #'
 #' @param drop [logical] (with default): keep object structure or drop it
 #'
-#' @param subset \code{[subset]} \code{\link{expression}} (\bold{required}): logical expression indicating elements or rows to keep,
-#' this function works in \code{\linkS4class{Risoe.BINfileData}} objects like \code{\link{subset.data.frame}}, but takes care
+#' @param subset \code{[subset]} [expression] (\bold{required}): logical expression indicating elements or rows to keep,
+#' this function works in \code{\linkS4class{Risoe.BINfileData}} objects like [subset.data.frame], but takes care
 #' of the object structure
 #'
 #' @param row.names [logical] (with default): enables or disables row names (\code{as.data.frame})

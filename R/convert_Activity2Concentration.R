@@ -2,7 +2,7 @@
 #'
 #' The function performs the conversion of the specific activities into concentrations and vice versa for the nuclides U-238,
 #' Th-232 and K-40 to harmonise the measurement unit with the required data input unit of potential analytical tools for,
-#' e.g. dose rate calculation or related functions such as \code{\link{use_DRAC}}.
+#' e.g. dose rate calculation or related functions such as [use_DRAC].
 #'
 #' The conversion from nuclide activity of a sample to nuclide concentration is performed using conversion factors t
 #' hat are based on the mass-related specific activity of the respective nuclides. The factors can be calculated using the equation:

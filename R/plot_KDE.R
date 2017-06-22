@@ -13,7 +13,7 @@
 #' ymax_axis1, ymin_axis2, ymax_axis2) when using the cumulative values plot
 #' option. See examples for some further explanations. For details on the
 #' calculation of the bin-width (parameter \code{bw}) see
-#' \code{\link{density}}.\cr\cr
+#' [density].\cr\cr
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords:
@@ -73,7 +73,7 @@
 #' @param summary.method [character] (with default): keyword
 #' indicating the method used to calculate the statistic summary. One out of
 #' \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
-#' \code{\link{calc_Statistics}} for details.
+#' [calc_Statistics] for details.
 #'
 #' @param bw [character] (with default): bin-width, chose a numeric
 #' value for manual setting.
@@ -83,7 +83,7 @@
 #' \code{TRUE}.
 #'
 #' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot}}.
+#' [plot].
 #'
 #' @note The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
@@ -93,7 +93,7 @@
 #' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #'
-#' @seealso \code{\link{density}}, \code{\link{plot}}
+#' @seealso [density], [plot]
 #'
 #' @examples
 #'

@@ -12,7 +12,7 @@
 #' the first column contains the time values and each following column contains
 #' the counts of each curve.
 #'
-#' @param data a \code{\link{list}}, [data.frame], \code{\link{matrix}} or
+#' @param data a [list], [data.frame], [matrix] or
 #' \code{\linkS4class{RLum.Analysis}} object (\bold{required}). X,Y data of measured values
 #' (time and counts). See details on individual data structure.
 #'
@@ -21,9 +21,9 @@
 #'
 #' @param smooth [character] (optional): apply data smoothing. Use
 #' \code{"rmean"} to calculate the rolling where \code{k} determines the width
-#' of the rolling window (see \code{\link{rollmean}}).
+#' of the rolling window (see [rollmean]).
 #' \code{"spline"} applies a smoothing spline to each curve
-#' (see \code{\link{smooth.spline}})
+#' (see [smooth.spline])
 #'
 #' @param k [integer] (with default): integer width of the rolling
 #' window.
@@ -31,14 +31,14 @@
 #' @param legend [logical] (with default): show or hide the plot legend.
 #'
 #' @param legend.pos [character] (with default): keyword specifying
-#' the position of the legend (see \code{\link{legend}}).
+#' the position of the legend (see [legend]).
 #'
-#' @param ... further parameters passed to \code{\link{plot}} (also see \code{\link{par}}).
+#' @param ... further parameters passed to [plot] (also see [par]).
 #'
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
-#' @seealso \code{\link{plot}}
+#' @seealso [plot]
 #'
 #' @return Returns a plot and \code{\linkS4class{RLum.Analysis}} object.
 #'

@@ -38,10 +38,10 @@ at will.}
 
 \item{curveType}{[\code{set_RLum}] [character]: curve type (e.g. "predefined" or "measured")}
 
-\item{data}{[\code{set_RLum}] \code{\link{matrix}}: raw curve data. If data is of
+\item{data}{[\code{set_RLum}] [matrix]: raw curve data. If data is of
 type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.}
 
-\item{info}{[\code{set_RLum}] \code{\link{list}}: info elements}
+\item{info}{[\code{set_RLum}] [list]: info elements}
 
 \item{info.object}{[\code{get_RLum}] [character] (optional): the name of the info
 object to be called}
@@ -53,7 +53,7 @@ An object from the class \code{RLum.Data.Spectrum}
 
 \bold{\code{get_RLum}}\cr
 
-(1) A \code{\link{matrix}} with the spectrum values or \cr
+(1) A [matrix] with the spectrum values or \cr
 (2) only the info object if \code{info.object} was set.\cr
 
 \bold{\code{names_RLum}}\cr
@@ -85,16 +85,16 @@ is provided, the raw curve data (matrix) will be returned
 \item{\code{curveType}}{Object of class [character] containing curve type, allowed values
 are measured or predefined}
 
-\item{\code{data}}{Object of class \code{\link{matrix}} containing spectrum (count) values.
+\item{\code{data}}{Object of class [matrix] containing spectrum (count) values.
 Row labels indicate wavelength/pixel values, column labels are temperature or time values.}
 
-\item{\code{info}}{Object of class \code{\link{list}} containing further meta information objects}
+\item{\code{info}}{Object of class [list] containing further meta information objects}
 }}
 
 \note{
 The class should only contain data for a single spectra data set. For
 additional elements the slot \code{info} can be used. Objects from this class are automatically
-created by, e.g., \code{\link{read_XSYG2R}}
+created by, e.g., [read_XSYG2R]
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
@@ -123,7 +123,7 @@ plot_RLum(TL.Spectrum)
 }
 \seealso{
 \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}
+[plot_RLum]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

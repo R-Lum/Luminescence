@@ -10,7 +10,7 @@ plot_ViolinPlot(data, boxplot = TRUE, rug = TRUE, summary = NULL,
 \arguments{
 \item{data}{\link{numeric} or \code{\linkS4class{RLum.Results}}
 object (required): input data for plotting. Alternatively a \link{data.frame} or
-a \code{\link{matrix}} can be provided, but only the first column will be considered by the
+a \link{matrix} can be provided, but only the first column will be considered by the
 function}
 
 \item{boxplot}{\link{logical} (with default): enable or disable boxplot}
@@ -22,7 +22,7 @@ centrality and dispersion to the plot. Can be one or more of several
 keywords. See details for available keywords.}
 
 \item{summary.pos}{\link{numeric} or \link{character} (with
-default): optional position keywords (cf., \code{\link{legend}})
+default): optional position keywords (cf., \link{legend})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used.}
@@ -31,7 +31,7 @@ option in only possible if \code{mtext} is not used.}
 from the data set prior to any further operations.}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot.default}}, \code{\link[stats]{density}} and \code{\link{boxplot}}. See details for
+\link{plot.default}, \code{\link[stats]{density}} and \link{boxplot}. See details for
 further information}
 }
 \description{
@@ -42,7 +42,7 @@ based on the the 'volcano plot' in the ggplot2 package by Hadely Wickham and Win
 The general idea for the Violin Plot seems to be introduced by Hintze and Nelson (1998).
 }
 \details{
-The function is passing several arguments to the function \code{\link{plot}},
+The function is passing several arguments to the function \link{plot},
 \code{\link[stats]{density}}, \code{\link[graphics]{boxplot}}:
 Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
 \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
@@ -82,8 +82,8 @@ R package version 0.2.1. http://CRAN.R-project.org/package=violinmplot
 Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 }
 \seealso{
-\code{\link[stats]{density}}, \code{\link{plot}}, \code{\link{boxplot}}, \code{\link{rug}},
-\code{\link{calc_Statistics}}
+\code{\link[stats]{density}}, \link{plot}, \link{boxplot}, \link{rug},
+\link{calc_Statistics}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

@@ -65,7 +65,7 @@
 #' For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up (invalid curves were removed).
 #' This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}}
 #' object is returned in such cases. An \code{\linkS4class{Risoe.BINfileData}} object can be exported
-#' to a BIN-file by using the function \code{\link{write_R2BIN}}.
+#' to a BIN-file by using the function [write_R2BIN].
 #'
 #' @note This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
 #' \code{\linkS4class{RLum.Analysis}} objects (or a list of it). However, the function is highly optimised
@@ -83,7 +83,7 @@
 #'
 #'
 #' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\link{write_R2BIN}}, \code{\link{read_BIN2R}}
+#' [write_R2BIN], [read_BIN2R]
 #'
 #'
 #'

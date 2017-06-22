@@ -17,7 +17,7 @@
 #
 #' }
 #'
-#' @param objects \code{\link{list}} of \code{\linkS4class{RLum}}
+#' @param objects [list] of \code{\linkS4class{RLum}}
 #' (\bold{required}): list of S4 object of class \code{RLum}
 #'
 #' @param \dots further arguments that one might want to pass to the specific

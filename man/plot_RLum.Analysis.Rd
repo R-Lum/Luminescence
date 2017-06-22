@@ -11,8 +11,8 @@ plot_RLum.Analysis(object, subset = NULL, nrows, ncols, abline = NULL,
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
 object of class \code{RLum.Analysis}}
 
-\item{subset}{named \code{\link{list}} (optional): subsets elements for plotting. The
-arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
+\item{subset}{named \link{list} (optional): subsets elements for plotting. The
+arguments in the named \link{list} will be directly passed to the function \link{get_RLum}
 (e.g., \code{subset = list(curveType = "measured")})}
 
 \item{nrows}{\link{integer} (optional): sets number of rows for
@@ -21,8 +21,8 @@ plot output, if nothing is set the function tries to find a value.}
 \item{ncols}{\link{integer} (optional): sets number of columns
 for plot output, if nothing is set the function tries to find a value.}
 
-\item{abline}{\code{\link{list}} (optional): allows to add ablines to the plot. Argument are provided
-in a list and will be forwared to the function \code{\link{abline}}, e.g., \code{list(v = c(10, 100))}
+\item{abline}{\link{list} (optional): allows to add ablines to the plot. Argument are provided
+in a list and will be forwared to the function \link{abline}, e.g., \code{list(v = c(10, 100))}
 adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = c(10), v = c(100)}
 adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.}
 
@@ -54,7 +54,7 @@ RLum.Analysis S4 class object
 }
 \details{
 The function produces a multiple plot output. A file output is recommended
-(e.g., \code{\link{pdf}}).
+(e.g., \link{pdf}).
 
 \bold{curve.transformation}\cr
 
@@ -70,7 +70,7 @@ is measured with the PMT or not! However, for a fast look it might be
 helpful.\cr
 }
 \note{
-Not all arguments available for \code{\link{plot}} will be passed!
+Not all arguments available for \link{plot} will be passed!
 Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
 objects are currently supported.\cr
 }
@@ -108,8 +108,8 @@ abline = list(v = c(110))
 
 }
 \seealso{
-\code{\link{plot}}, \code{\link{plot_RLum}},
-\code{\link{plot_RLum.Data.Curve}}
+\link{plot}, \link{plot_RLum},
+\link{plot_RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

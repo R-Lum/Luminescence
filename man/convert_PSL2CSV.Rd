@@ -9,17 +9,17 @@ convert_PSL2CSV(file, ...)
 \arguments{
 \item{file}{\link{character} (\bold{required}): name of the PSL-file to be converted to CSV-files}
 
-\item{\dots}{further arguments that will be passed to the function \code{\link{read_PSL2R}} and \code{\link{write_RLum2CSV}}}
+\item{\dots}{further arguments that will be passed to the function \link{read_PSL2R} and \link{write_RLum2CSV}}
 }
 \value{
 The function returns either a CSV-file (or many of them) or for the option \code{export = FALSE}
-a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+a list comprising objects of type \link{data.frame} and \link{matrix}
 }
 \description{
-This function is a wrapper function around the functions \code{\link{read_PSL2R}} and
-\code{\link{write_RLum2CSV}} and it imports an PSL-file (SUERC portable OSL reader file format)
+This function is a wrapper function around the functions \link{read_PSL2R} and
+\link{write_RLum2CSV} and it imports an PSL-file (SUERC portable OSL reader file format)
 and directly exports its content to CSV-files.
-If nothing is set for the argument \code{path} (\code{\link{write_RLum2CSV}}) the input folder will
+If nothing is set for the argument \code{path} (\link{write_RLum2CSV}) the input folder will
 become the output folder.
 }
 \section{Function version}{
@@ -40,7 +40,7 @@ convert_PSL2CSV(file)
 }
 \seealso{
 \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
-\code{\link[utils]{write.table}}, \code{\link{write_RLum2CSV}}, \code{\link{read_PSL2R}}
+\code{\link[utils]{write.table}}, \link{write_RLum2CSV}, \link{read_PSL2R}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

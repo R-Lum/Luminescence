@@ -74,14 +74,14 @@ Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
 26, 701-709.
 }
 \seealso{
-\code{\link{CW2pHMi}}, \code{\link{CW2pLMi}},
-\code{\link{CW2pPMi}}, \code{\link{fit_LMCurve}}, \code{\link{lm}},
+[CW2pHMi], [CW2pLMi],
+[CW2pPMi], [fit_LMCurve], [lm],
 \code{\linkS4class{RLum.Data.Curve}}
 
 The output of the function can be further used for LM-OSL fitting:
-\code{\link{CW2pLMi}}, \code{\link{CW2pHMi}}, \code{\link{CW2pPMi}},
-\code{\link{fit_LMCurve}}, \code{\linkS4class{RLum.Data.Curve}},
-\code{\link{plot_RLum}}
+[CW2pLMi], [CW2pHMi], [CW2pPMi],
+[fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}},
+[plot_RLum]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

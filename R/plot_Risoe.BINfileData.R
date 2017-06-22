@@ -5,7 +5,7 @@
 #'
 #' \bold{Nomenclature}\cr
 #'
-#' See \code{\link{Risoe.BINfileData-class}}
+#' See [Risoe.BINfileData-class]
 #'
 #' \bold{curve.transformation}\cr
 #'
@@ -55,9 +55,9 @@
 #' @section Function version: 0.4.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France),\cr Michael Dietze, GFZ Potsdam (Germany)
-#' @seealso \code{\link{Risoe.BINfileData-class}},\code{\link{read_BIN2R}},
-#' \code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}},
-#' \code{\link{CW2pHMi}}
+#' @seealso [Risoe.BINfileData-class],[read_BIN2R],
+#' [CW2pLM], [CW2pLMi], [CW2pPMi],
+#' [CW2pHMi]
 #' @references Duller, G., 2007. Analyst. pp. 1-45.
 #' @keywords dplot
 #' @examples

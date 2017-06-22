@@ -35,7 +35,7 @@ Returns an \code{\linkS4class{RLum.Results}} object containing the following ele
 \item{call}{\link{call} the function call}
 \item{args}{\link{list} used arguments}
 
-The output should be accessed using the function \code{\link{get_RLum}}.
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 The function provides an interface from R to DRAC. An R-object or a

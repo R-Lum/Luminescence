@@ -18,7 +18,7 @@
 #' Select all values for t' < \code{min(t)}, i.e. values beyond the time
 #' resolution of t. Select the first two values of the transformed data set
 #' which contain no \code{NA} values and use these values for a linear fit
-#' using \code{\link{lm}}.\cr\cr (5) Extrapolate values for t' < \code{min(t)}
+#' using [lm].\cr\cr (5) Extrapolate values for t' < \code{min(t)}
 #' based on the previously obtained fit parameters.\cr\cr (6) Transform values
 #' using\cr \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')} \deqn{c =
 #' (1+\delta*P)/\delta*P} \deqn{P = length(stimulation~period)} (7) Combine all
@@ -50,7 +50,7 @@
 #' @note According to Bos & Wallinga (2012), the number of extrapolated points
 #' should be limited to avoid artificial intensity data. If \code{delta} is
 #' provided manually and more than two points are extrapolated, a warning
-#' message is returned. \cr\cr The function \code{\link{approx}} may produce
+#' message is returned. \cr\cr The function [approx] may produce
 #' some \code{Inf} and \code{NaN} data. The function tries to manually
 #' interpolate these values by calculating the \code{mean} using the adjacent
 #' channels. If two invalid values are succeeding, the values are removed and
@@ -60,8 +60,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France) \cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
 #' Delft University of Technology, The Netherlands\cr
-#' @seealso \code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}},
-#' \code{\link{fit_LMCurve}}, \code{\link{lm}},
+#' @seealso [CW2pLM], [CW2pLMi], [CW2pPMi],
+#' [fit_LMCurve], [lm],
 #' \code{\linkS4class{RLum.Data.Curve}}
 #' @references Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.\cr

@@ -1,7 +1,7 @@
 #' Create De(t) plot
 #'
 #' Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
-#' The function is simply passing several arguments to the function \code{\link{plot}} and the used
+#' The function is simply passing several arguments to the function [plot] and the used
 #' analysis functions and runs it in a loop. Example: \code{legend.pos} for legend position,
 #' \code{legend} for legend text.\cr
 #'
@@ -40,23 +40,23 @@
 #' @param analyse_function [character] (with default): name of the analyse function
 #' to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}
 #'
-#' @param analyse_function.control \code{\link{list}} (optional): arguments to be passed to the
+#' @param analyse_function.control [list] (optional): arguments to be passed to the
 #' supported analyse functions (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})
 #'
 #' @param n.channels [integer] (optional): number of channels used for the De(t) plot.
 #' If nothing is provided all De-values are calculated and plotted until the start of the background
 #' integral.
 #'
-#' @param show_ShineDownCurve  [logical] (with default): enables or disables shine down
+#' @param show_ShineDownCurve [logical] (with default): enables or disables shine down
 #' curve in the plot output
 #'
-#' @param respect_RC.Status \code{\link{logical} (with default)}: remove De-values with 'FAILED' RC.Status
-#' from the plot (cf. \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}})
+#' @param respect_RC.Status [logical] (with default): remove De-values with 'FAILED' RC.Status
+#' from the plot (cf. [analyse_SAR.CWOSL] and [analyse_pIRIRSequence])
 #'
-#' @param verbose \code{\link{logical} (with default)}: enables or disables terminal feedback
+#' @param verbose [logical] (with default): enables or disables terminal feedback
 #'
 #' @param \dots further arguments and graphical parameters passed to
-#' \code{\link{plot.default}}, \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}.
+#' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence].
 #' See details for further information.
 #'
 #' @return A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
@@ -78,7 +78,7 @@
 #'
 #'
 #' @note The entire analysis is based on the used analysis functions, namely
-#' \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}. However, the integrity
+#' [analyse_SAR.CWOSL] and [analyse_pIRIRSequence]. However, the integrity
 #' checks of this function are not that thoughtful as in these functions itself. It means, that
 #' every sequence should be checked carefully before running long calculations using serveral
 #' hundreds of channels.
@@ -93,7 +93,7 @@
 #' using De as a function of illumination time. Radiation Measurements 37, 511-518.
 #' doi:10.1016/S1350-4487(03)00063-5
 #'
-#' @seealso \code{\link{plot}}, \code{\link{analyse_SAR.CWOSL}}, \code{\link{analyse_pIRIRSequence}}
+#' @seealso [plot], [analyse_SAR.CWOSL], [analyse_pIRIRSequence]
 #'
 #' @examples
 #'

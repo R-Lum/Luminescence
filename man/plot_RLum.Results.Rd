@@ -26,10 +26,10 @@ S4 class object
 }
 \details{
 The function produces a multiple plot output.  A file output is recommended
-(e.g., \code{\link{pdf}}).
+(e.g., \link{pdf}).
 }
 \note{
-Not all arguments available for \code{\link{plot}} will be passed!
+Not all arguments available for \link{plot} will be passed!
 Only plotting of \code{RLum.Results} objects are supported.
 }
 \section{Function version}{
@@ -57,7 +57,7 @@ plot_RLum.Results(grains)
 
 }
 \seealso{
-\code{\link{plot}}, \code{\link{plot_RLum}},
+\link{plot}, \link{plot_RLum},
 }
 \author{
 Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,

@@ -204,8 +204,8 @@ is.RLum.Results(x, ...)
 
 \item{object}{\code{\linkS4class{RLum}} (\bold{required}): input opject}
 
-\item{subset}{\code{[subset]} \code{\link{expression}} (\bold{required}): logical expression indicating elements or rows to keep,
-this function works in \code{\linkS4class{Risoe.BINfileData}} objects like \code{\link{subset.data.frame}}, but takes care
+\item{subset}{\code{[subset]} \link{expression} (\bold{required}): logical expression indicating elements or rows to keep,
+this function works in \code{\linkS4class{Risoe.BINfileData}} objects like \link{subset.data.frame}, but takes care
 of the object structure}
 
 \item{records.rm}{\link{subset} \link{logical} (with default): remove records from data set, can

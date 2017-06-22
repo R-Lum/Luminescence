@@ -18,7 +18,7 @@
 #' Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 #' Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 #'
-#' @seealso \code{\link{as.data.frame}} \code{\link{list}} 
+#' @seealso [as.data.frame] [list] 
 #'
 #' @examples
 #' 

@@ -46,7 +46,7 @@ print the output to the console (defaults to \code{TRUE}).}
 \code{[ ,3]} \tab INSTALL \cr
 }
 
-\code{github_commits}: Nested \code{\link{list}} with \code{n} elements.
+\code{github_commits}: Nested \link{list} with \code{n} elements.
 Each commit element is a list with elements:
 \tabular{ll}{
 \code{[[1]]} \tab NUMBER \cr

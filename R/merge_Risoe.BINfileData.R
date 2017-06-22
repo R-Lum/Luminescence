@@ -63,8 +63,8 @@
 #' (France)
 #'
 #'
-#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\link{read_BIN2R}},
-#' \code{\link{write_R2BIN}}
+#' @seealso \code{\linkS4class{Risoe.BINfileData}}, [read_BIN2R],
+#' [write_R2BIN]
 #'
 #'
 #' @references Duller, G., 2007. Analyst.

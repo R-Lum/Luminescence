@@ -20,7 +20,7 @@
 #' produce \code{NA} values.\cr\cr (4) Select all values for t' <
 #' \code{min(t)}, i.e. values beyond the time resolution of t. Select the first
 #' two values of the transformed data set which contain no \code{NA} values and
-#' use these values for a linear fit using \code{\link{lm}}.\cr\cr (5)
+#' use these values for a linear fit using [lm].\cr\cr (5)
 #' Extrapolate values for t' < \code{min(t)} based on the previously obtained
 #' fit parameters.\cr\cr (6) Transform values using \deqn{pLM(t) = t/P*CW(t')}
 #' (7) Combine values and truncate all values for t' > \code{max(t)}\cr\cr
@@ -51,8 +51,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux
 #' Montaigne\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
 #' Delft University of Technology, The Netherlands\cr
-#' @seealso \code{\link{CW2pLM}}, \code{\link{CW2pHMi}}, \code{\link{CW2pPMi}},
-#' \code{\link{fit_LMCurve}}, \code{\linkS4class{RLum.Data.Curve}}
+#' @seealso [CW2pLM], [CW2pHMi], [CW2pPMi],
+#' [fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}}
 #' @references Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.\cr
 #'

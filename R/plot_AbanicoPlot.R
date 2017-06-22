@@ -118,7 +118,7 @@
 #' @param summary.method [character] (with default): keyword
 #' indicating the method used to calculate the statistic summary. One out of
 #' \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
-#' \code{\link{calc_Statistics}} for details.
+#' [calc_Statistics] for details.
 #'
 #' @param legend [character] vector (optional): legend content to
 #' be added to the plot.
@@ -210,8 +210,8 @@
 #' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
 #' introduced by Galbraith & Green (1990)
 #'
-#' @seealso \code{\link{plot_RadialPlot}}, \code{\link{plot_KDE}},
-#' \code{\link{plot_Histogram}}
+#' @seealso [plot_RadialPlot], [plot_KDE],
+#' [plot_Histogram]
 #'
 #' @references Galbraith, R. & Green, P., 1990. Estimating the component ages
 #' in a finite mixture. International Journal of Radiation Applications and

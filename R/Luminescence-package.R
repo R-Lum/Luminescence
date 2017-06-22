@@ -453,7 +453,7 @@ NULL
 #' Example data as \code{\linkS4class{RLum.Data.Image}} objects
 #'
 #' Measurement of Princton Instruments camera imported with the function
-#' \code{\link{read_SPE2R}} to R to produce an
+#' [read_SPE2R] to R to produce an
 #' \code{\linkS4class{RLum.Data.Image}} object.
 #'
 #'
@@ -491,7 +491,7 @@ NULL
 #'
 #' Example data from a SAR OSL measurement and a TL spectrum for package
 #' Luminescence imported from a Freiberg Instruments XSYG file using the
-#' function \code{\link{read_XSYG2R}}.
+#' function [read_XSYG2R].
 #'
 #'
 #' @format
@@ -510,9 +510,9 @@ NULL
 #' \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
 #' was performed.
 #' @section Version: 0.1
-#' @seealso \code{\link{read_XSYG2R}}, \code{\linkS4class{RLum.Analysis}},\cr
-#' \code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot_RLum}},\cr
-#' \code{\link{plot_RLum.Analysis}}, \code{\link{plot_RLum.Data.Spectrum}}
+#' @seealso [read_XSYG2R], \code{\linkS4class{RLum.Analysis}},\cr
+#' \code{\linkS4class{RLum.Data.Spectrum}}, [plot_RLum],\cr
+#' [plot_RLum.Analysis], [plot_RLum.Data.Spectrum]
 #' @references Unpublished data measured to serve as example data for that
 #' package. Location origin of sample BT753 is given here:
 #'
@@ -584,7 +584,7 @@ NULL
 #' (Murcia/Spain).
 #'
 #'
-#' @format A \code{\link{list}} with two elements, each containing a two column
+#' @format A [list] with two elements, each containing a two column
 #' [data.frame]:
 #'
 #' \describe{ \code{$BT998}: De and De error values for a fine grain quartz
@@ -638,13 +638,13 @@ NULL
 #' fading correction to.
 #'
 #'
-#' @format A \code{\link{list}} with two elements, each containing a further
-#' \code{\link{list}} of [data.frame]s containing the data
+#' @format A [list] with two elements, each containing a further
+#' [list] of [data.frame]s containing the data
 #' on the fading and equivalent dose measurements:
 #'
 #' \describe{
 #'
-#' \code{$fading.data}: A named \code{\link{list}} of [data.frame]s,
+#' \code{$fading.data}: A named [list] of [data.frame]s,
 #' each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).\cr
 #' \code{..$IR50}: Fading data of the IR50 signal.\cr
 #' \code{..$IR100}: Fading data of the IR100 signal.\cr

@@ -8,13 +8,13 @@ PSL2Risoe.BINfileData(object, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):
-\code{RLum.Analysis} object produced by \code{\link{read_PSL2R}}}
+\code{RLum.Analysis} object produced by [read_PSL2R]}
 
 \item{...}{currently not used.}
 }
 \value{
 Returns an S4 \code{\linkS4class{Risoe.BINfileData}} object that can
-be used to write a BIN file using \code{\link{write_R2BIN}}.
+be used to write a BIN file using [write_R2BIN].
 }
 \description{
 Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to
@@ -22,9 +22,9 @@ an \code{Risoe.BINfileData} object \bold{(BETA)}.
 }
 \details{
 This function converts an \code{\linkS4class{RLum.Analysis}} object that was produced
-by the \code{\link{read_PSL2R}} function to an \code{\linkS4class{Risoe.BINfileData}}.
+by the [read_PSL2R] function to an \code{\linkS4class{Risoe.BINfileData}}.
 The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
-\code{\link{write_R2BIN}}.
+[write_R2BIN].
 }
 \section{Function version}{
  0.0.1

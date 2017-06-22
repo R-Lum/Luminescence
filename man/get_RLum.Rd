@@ -12,7 +12,7 @@ get_RLum(object, ...)
 }
 \arguments{
 \item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
-class \code{RLum} or an object of type \code{\link{list}} containing only objects of type
+class \code{RLum} or an object of type \link{list} containing only objects of type
 \code{\linkS4class{RLum}}}
 
 \item{\dots}{further arguments that will be passed to the object specific methods. For
@@ -37,7 +37,7 @@ in the documentations of the corresponding \code{\linkS4class{RLum}} class.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
+\item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \link{get_RLum}
 }}
 
 \section{Function version}{

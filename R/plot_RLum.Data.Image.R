@@ -2,7 +2,7 @@
 #'
 #' The function provides a standardised plot output for image data of an
 #' \code{RLum.Data.Image}S4 class object, mainly using the plot functions
-#' provided by the \code{\link{raster}} package.
+#' provided by the [raster] package.
 #'
 #' \bold{Details on the plot functions} \cr
 #'
@@ -36,7 +36,7 @@
 #'
 #' \bold{\code{plot.type = "contour"}}\cr
 #'
-#' Uses the function contour plot function from the \code{\link{raster}}
+#' Uses the function contour plot function from the [raster]
 #' function (\code{\link[raster]{contour}}). For each raster layer one contour
 #' plot is produced. Arguments that are passed through the function call:\cr
 #'
@@ -54,14 +54,14 @@
 #' to the specific plot functions.
 #' @return Returns a plot.
 #' @note This function has been created to faciliate the plotting of image data
-#' imported by the function \code{\link{read_SPE2R}}. However, so far the
+#' imported by the function [read_SPE2R]. However, so far the
 #' function is not optimized to handle image data > ca. 200 MByte and thus
 #' plotting of such data is extremely slow.
 #' @section Function version: 0.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
-#' @seealso \code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link[raster]{raster}}
+#' @seealso \code{\linkS4class{RLum.Data.Image}}, [plot],
+#' [plot_RLum], \code{\link[raster]{raster}}
 #' 
 #' @keywords aplot
 #' @examples

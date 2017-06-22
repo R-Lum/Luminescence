@@ -13,7 +13,7 @@ NULL
 #'
 #' @slot curveType Object of class "character" containing curve type, allowed values are measured or predefined
 #'
-#' @slot data Object of class \code{\link{matrix}} containing curve x and y data.
+#' @slot data Object of class [matrix] containing curve x and y data.
 #' 'data' can also be of type \code{RLum.Data.Curve} to change object values without deconstructing the object.
 #' For example: \code{set_RLum(class = 'RLum.Data.Curve',
 #' data = Your.RLum.Data.Curve, recordType = 'never seen before')}
@@ -25,7 +25,7 @@ NULL
 #' elements the slot \code{info} can be used (e.g. providing additional heating
 #' ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
 #' functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
-#' namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
+#' namely: [Risoe.BINfileData2RLum.Analysis], [read_XSYG2R]
 #'
 #' @section Create objects from this Class: Objects can be created by calls of the form
 #' \code{set_RLum(class = "RLum.Data.Curve", ...)}.
@@ -35,7 +35,7 @@ NULL
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
+#' [plot_RLum], [merge_RLum]
 #'
 #' @keywords classes
 #'
@@ -80,7 +80,7 @@ setClass("RLum.Data.Curve",
 #'
 #' }
 #'
-#' @param from \code{\linkS4class{RLum}} or \code{\link{list}}, [data.frame], \code{\link{matrix}}
+#' @param from \code{\linkS4class{RLum}} or [list], [data.frame], [matrix]
 #' (\bold{required}): object to be coerced from
 #'
 #' @param to [character] (\bold{required}): class name to be coerced to
@@ -198,10 +198,10 @@ setMethod("show",
 #' at will.
 #' @param recordType [\code{set_RLum}] [character] (optional): record type (e.g., "OSL")
 #' @param curveType [\code{set_RLum}] [character] (optional): curve type (e.g., "predefined" or "measured")
-#' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
+#' @param data [\code{set_RLum}] [matrix] (\bold{required}): raw curve data.
 #' If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
 #' (s. Details)
-#' @param info [\code{set_RLum}] \code{\link{list}} (optional): info elements
+#' @param info [\code{set_RLum}] [list] (optional): info elements
 #'
 #' @return
 #'
@@ -317,7 +317,7 @@ setMethod(
 #'
 #' \bold{\code{get_RLum}}\cr
 #'
-#' (1) A \code{\link{matrix}} with the curve values or \cr
+#' (1) A [matrix] with the curve values or \cr
 #' (2) only the info object if \code{info.object} was set.\cr
 #'
 #' @export

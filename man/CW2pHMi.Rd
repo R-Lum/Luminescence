@@ -49,7 +49,7 @@ beyond \code{min(t)} and \code{max(t)} produce \code{NA} values.\cr\cr (4)
 Select all values for t' < \code{min(t)}, i.e. values beyond the time
 resolution of t. Select the first two values of the transformed data set
 which contain no \code{NA} values and use these values for a linear fit
-using \code{\link{lm}}.\cr\cr (5) Extrapolate values for t' < \code{min(t)}
+using [lm].\cr\cr (5) Extrapolate values for t' < \code{min(t)}
 based on the previously obtained fit parameters.\cr\cr (6) Transform values
 using\cr \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')} \deqn{c =
 (1+\delta*P)/\delta*P} \deqn{P = length(stimulation~period)} (7) Combine all
@@ -64,7 +64,7 @@ the automatic estimation routine for \code{delta}, i.e. provide no value for
 According to Bos & Wallinga (2012), the number of extrapolated points
 should be limited to avoid artificial intensity data. If \code{delta} is
 provided manually and more than two points are extrapolated, a warning
-message is returned. \cr\cr The function \code{\link{approx}} may produce
+message is returned. \cr\cr The function [approx] may produce
 some \code{Inf} and \code{NaN} data. The function tries to manually
 interpolate these values by calculating the \code{mean} using the adjacent
 channels. If two invalid values are succeeding, the values are removed and
@@ -165,8 +165,8 @@ Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
-\code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}},
-\code{\link{fit_LMCurve}}, \code{\link{lm}},
+[CW2pLM], [CW2pLMi], [CW2pPMi],
+[fit_LMCurve], [lm],
 \code{\linkS4class{RLum.Data.Curve}}
 }
 \author{

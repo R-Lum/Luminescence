@@ -4,7 +4,7 @@ NULL
 #' Class \code{"RLum.Data.Image"}
 #'
 #' Class for representing luminescence image data (TL/OSL/RF). Such data are for example produced
-#' by the function \code{\link{read_SPE2R}}
+#' by the function [read_SPE2R]
 #'
 #' @name RLum.Data.Image-class
 #'
@@ -18,7 +18,7 @@ NULL
 #'
 #' @slot data Object of class \code{\link[raster]{brick}} containing images (raster data).
 #'
-#' @slot info Object of class \code{\link{list}} containing further meta information objects
+#' @slot info Object of class [list] containing further meta information objects
 #'
 #' @note The class should only contain data for a set of images. For additional
 #' elements the slot \code{info} can be used.
@@ -31,7 +31,7 @@ NULL
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}, \code{\link{read_SPE2R}}
+#' [plot_RLum], [read_SPE2R]
 #'
 #' @keywords classes
 #'
@@ -170,9 +170,9 @@ setMethod("show",
 #' at will.
 #' @param recordType \code{[set_RLum]} [character]: record type (e.g. "OSL")
 #' @param curveType \code{[set_RLum]} [character]: curve type (e.g. "predefined" or "measured")
-#' @param data \code{[set_RLum]} \code{\link{matrix}}: raw curve data. If data is of type \code{RLum.Data.Image}
+#' @param data \code{[set_RLum]} [matrix]: raw curve data. If data is of type \code{RLum.Data.Image}
 #' this can be used to re-construct the object.
-#' @param info \code{[set_RLum]} \code{\link{list}}: info elements
+#' @param info \code{[set_RLum]} [list]: info elements
 #'
 #' @return
 #'

@@ -38,10 +38,10 @@ using the internal C++ function \code{.create_UID}.}
 \item{.pid}{[\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
 at will.}
 
-\item{data}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to
+\item{data}{[\code{set_RLum}] [list] (optional): a list containing the data to
 be stored in the object}
 
-\item{info}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
+\item{info}{[\code{set_RLum}] [list] (optional): a list containing additional
 info data for the object}
 
 \item{data.object}{[\code{get_RLum}] [character] or
@@ -62,7 +62,7 @@ Returns an object from the class \code{\linkS4class{RLum.Results}}\cr
 
 Returns: \cr
 (1) Data object from the specified slot \cr
-(2) \code{\link{list}} of data objects from the slots if 'data.object' is vector or \cr
+(2) [list] of data objects from the slots if 'data.object' is vector or \cr
 (3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
 
 \bold{\code{length_RLum}}\cr
@@ -74,7 +74,7 @@ Returns the number of data elements in the \code{RLum.Results} object.
 Returns the names of the data elements in the object.
 }
 \description{
-Object class contains results data from functions (e.g., \code{\link{analyse_SAR.CWOSL}}).
+Object class contains results data from functions (e.g., [analyse_SAR.CWOSL]).
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -145,7 +145,7 @@ dose.rate$parameters
 
 }
 \seealso{
-\code{\linkS4class{RLum}}, \code{\link{plot_RLum}}, \code{\link{merge_RLum}}
+\code{\linkS4class{RLum}}, [plot_RLum], [merge_RLum]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

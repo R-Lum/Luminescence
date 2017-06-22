@@ -4,8 +4,8 @@ NULL
 #' Class \code{"RLum.Analysis"}
 #'
 #' Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc.
-#' from one measurements. Objects from this class are produced, by e.g. \code{\link{read_XSYG2R}},
-#' \code{\link{read_Daybreak2R}}
+#' from one measurements. Objects from this class are produced, by e.g. [read_XSYG2R],
+#' [read_Daybreak2R]
 #'
 #'
 #' @name RLum.Analysis-class
@@ -14,9 +14,9 @@ NULL
 #'
 #' @slot protocol Object of class [character] describing the applied measurement protocol
 #'
-#' @slot records Object of class \code{\link{list}} containing objects of class \code{\linkS4class{RLum.Data}}
+#' @slot records Object of class [list] containing objects of class \code{\linkS4class{RLum.Data}}
 #'
-#' @note The method \code{\link{structure_RLum}} is currently just avaiblable for objects
+#' @note The method [structure_RLum] is currently just avaiblable for objects
 #' containing \code{\linkS4class{RLum.Data.Curve}}.
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
@@ -27,7 +27,7 @@ NULL
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{Risoe.BINfileData2RLum.Analysis}},
+#' @seealso [Risoe.BINfileData2RLum.Analysis],
 #' \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}
 #'
 #' @keywords classes methods
@@ -79,7 +79,7 @@ setClass("RLum.Analysis",
 #'   \code{list} \tab \code{list}\cr
 #' }
 #'
-#' Given that the \code{\link{list}} consits of \code{\linkS4class{RLum.Analysis}} objects.
+#' Given that the [list] consits of \code{\linkS4class{RLum.Analysis}} objects.
 #'
 #' @name as
 #'
@@ -214,8 +214,8 @@ setMethod("show",
 #' at will.
 #' @param protocol [\code{set_RLum}] [character] (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
-#' @param records [\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
-#' @param info [\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
+#' @param records [\code{set_RLum}] [list] (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
+#' @param info [\code{set_RLum}] [list] (optional): a list containing additional
 #' info data for the object
 #'
 #' \bold{\code{set_RLum}}:\cr
@@ -313,7 +313,7 @@ setMethod(
 #' @param info.object [\code{get_RLum}] [character] (optional): name of the wanted info
 #' element
 #'
-#' @param subset \code{\link{expression}} (optional): logical expression indicating elements or rows
+#' @param subset [expression] (optional): logical expression indicating elements or rows
 #' to keep: missing values are taken as false. This argument takes precedence over all
 #' other arguments, meaning they are not considered when subsetting the object.
 #'
@@ -322,7 +322,7 @@ setMethod(
 #' \bold{\code{get_RLum}}:\cr
 #'
 #' Returns: \cr
-#' (1) \code{\link{list}} of \code{\linkS4class{RLum.Data}} objects or \cr
+#' (1) [list] of \code{\linkS4class{RLum.Data}} objects or \cr
 #' (2) Single \code{\linkS4class{RLum.Data}} object, if only one object is contained and
 #' \code{recursive = FALSE} or\cr
 #' (3) \code{\linkS4class{RLum.Analysis}} ojects for \code{drop = FALSE} \cr

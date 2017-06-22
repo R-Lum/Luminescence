@@ -14,13 +14,13 @@
 #' using the Analyst or any other self written script.\cr
 #'
 #' Beside the some simple data transformation steps the function applies the
-#' functions \code{\link{read_XSYG2R}}, \code{\link{read_BIN2R}},
-#' \code{\link{write_R2BIN}} for data import and export.
+#' functions [read_XSYG2R], [read_BIN2R],
+#' [write_R2BIN] for data import and export.
 #'
 #' @param object [character] (\bold{required}) or
-#' \code{\linkS4class{RLum.Analysis}} object or \code{\link{list}}: path and file name of the XSYG
+#' \code{\linkS4class{RLum.Analysis}} object or [list]: path and file name of the XSYG
 #' file or an \code{\linkS4class{RLum.Analysis}} produced by the function
-#' \code{\link{read_XSYG2R}}; alternatively a \code{list} of \code{\linkS4class{RLum.Analysis}} can
+#' [read_XSYG2R]; alternatively a \code{list} of \code{\linkS4class{RLum.Analysis}} can
 #' be provided. \cr
 #'
 #' \bold{Note}: If an \code{\linkS4class{RLum.Analysis}} is used, any input for
@@ -37,14 +37,14 @@
 #' object. As the XSYG-file format comprises much more information than usually
 #' needed for routine data analysis and allowed in the BINX-file format, only
 #' the relevant curves are selected by using the function
-#' \code{\link{get_RLum}}. The argument \code{recordType} works as
+#' [get_RLum]. The argument \code{recordType} works as
 #' described for this function. \cr
 #'
 #' Note: A wrong selection will causes a function error. Please change this
 #' argument only if you have reasons to do so.
 #' @param compatibility.mode [logical] (with default): this option
 #' is parsed only if a BIN/BINX file is produced and it will reset all position
-#' values to a max. value of 48, cf.\code{\link{write_R2BIN}}
+#' values to a max. value of 48, cf.[write_R2BIN]
 #' @param txtProgressBar [logical] (with default): enables
 #' \code{TRUE} or disables \code{FALSE} the progression bars during import and
 #' export
@@ -80,7 +80,7 @@
 #' temperature vs. time and (c) predefined temperature vs. time. Three curves,
 #' but they are all belonging to one TL measurement step, but with regard to
 #' the time stamps this could produce negative values as the important function
-#' (\code{\link{read_XSYG2R}}) do not change the order of entries for one step
+#' ([read_XSYG2R]) do not change the order of entries for one step
 #' towards a correct time order.
 #'
 #' @section Function version: 0.3.1
@@ -90,7 +90,7 @@
 #'
 #' @seealso \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link{read_XSYG2R}}, \code{\link{read_BIN2R}}, \code{\link{write_R2BIN}}
+#' [read_XSYG2R], [read_BIN2R], [write_R2BIN]
 #'
 #' @references Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and
 #' recent improvements. Ancient TL 33, 35-42.

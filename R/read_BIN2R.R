@@ -8,7 +8,7 @@
 #' general BIN-file structure, the reader is referred to the Risoe website:
 #' \code{http://www.nutech.dtu.dk/}
 #'
-#' @param file [character] or \code{\link{list}} (\bold{required}): path and file name of the
+#' @param file [character] or [list] (\bold{required}): path and file name of the
 #' BIN/BINX file. If input is a \code{list} it should comprise only \code{character}s representing
 #' each valid path and BIN/BINX-file names.
 #' Alternatively the input character can be just a directory (path), in this case the
@@ -42,7 +42,7 @@
 #' of the imported record, for debugging usage only. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
-#' \code{\link{txtProgressBar}}.
+#' [txtProgressBar].
 #'
 #' @param forced.VersionNumber [integer] (optional): allows to cheat the
 #' version number check in the function by own values for cases where the
@@ -54,13 +54,13 @@
 #' In this case the corrupted records are skipped.
 #'
 #' @param pattern [character] (optional): argument that is used if only a path is provided.
-#' The argument will than be passed to the function \code{\link{list.files}} used internally to
+#' The argument will than be passed to the function [list.files] used internally to
 #' construct a \code{list} of wanted files
 #'
 #' @param verbose [logical] (with default): enables or disables verbose mode
 #'
 #' @param \dots further arguments that will be passed to the function
-#' \code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument
+#' [Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument
 #' automatically sets \code{fastForward = TRUE}
 #'
 #' @return Returns an S4 \link{Risoe.BINfileData-class} object containing two
@@ -70,7 +70,7 @@
 #' METADATA.}\cr
 #'
 #' If \code{fastForward = TRUE} a list of \code{\linkS4class{RLum.Analysis}} object is returned. The
-#' internal coercing is done using the function \code{\link{Risoe.BINfileData2RLum.Analysis}}
+#' internal coercing is done using the function [Risoe.BINfileData2RLum.Analysis]
 #'
 #'
 #' @note The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
@@ -87,9 +87,9 @@
 #' (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
 #'
 #'
-#' @seealso \code{\link{write_R2BIN}}, \code{\linkS4class{Risoe.BINfileData}},
-#' \code{\link[base]{readBin}}, \code{\link{merge_Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}
-#' \code{\link[utils]{txtProgressBar}}, \code{\link{list.files}}
+#' @seealso [write_R2BIN], \code{\linkS4class{Risoe.BINfileData}},
+#' \code{\link[base]{readBin}}, [merge_Risoe.BINfileData], \code{\linkS4class{RLum.Analysis}}
+#' \code{\link[utils]{txtProgressBar}}, [list.files]
 #'
 #'
 #' @references

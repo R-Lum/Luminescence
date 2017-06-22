@@ -3,7 +3,7 @@
 \name{ExampleData.DeValues}
 \alias{ExampleData.DeValues}
 \title{Example De data sets for the package Luminescence}
-\format{A \code{\link{list}} with two elements, each containing a two column
+\format{A [list] with two elements, each containing a two column
 [data.frame]:
 
 \describe{ \code{$BT998}: De and De error values for a fine grain quartz

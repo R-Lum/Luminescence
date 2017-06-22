@@ -4,7 +4,7 @@
 #' RLum.Data.Curve S4 class object
 #'
 #' Only single curve data can be plotted with this function.  Arguments
-#' according to \code{\link{plot}}.
+#' according to [plot].
 #'
 #' @param object \code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
 #' object of class \code{RLum.Data.Curve}
@@ -24,14 +24,14 @@
 #'
 #' @return Returns a plot.
 #'
-#' @note Not all arguments of \code{\link{plot}} will be passed!
+#' @note Not all arguments of [plot] will be passed!
 #'
 #' @section Function version: 0.2.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{plot}}, \code{\link{plot_RLum}}
+#' @seealso [plot], [plot_RLum]
 #'
 #'
 #'

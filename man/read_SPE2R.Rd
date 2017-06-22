@@ -20,7 +20,7 @@ output object.  Allowed types are \code{"RLum.Data.Spectrum"},
 select first 100 frames by \code{frame.range = c(1,100)}}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
-\code{\link{txtProgressBar}}.}
+\link{txtProgressBar}.}
 }
 \value{
 Depending on the chosen option the functions returns three different
@@ -43,9 +43,9 @@ frames. This limitation can be overwritten manually by using the argument
 \code{matrix}\cr
 
 Returns a matrix of the form: Rows = Channels, columns = Frames. For the
-transformation the function \code{\link{get_RLum}} is used,
+transformation the function \link{get_RLum} is used,
 meaning that the same results can be obtained by using the function
-\code{\link{get_RLum}} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
+\link{get_RLum} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 }
 \description{
 Function imports Princeton Instruments (TM) SPE-files into R environment and
@@ -105,7 +105,7 @@ Hall, C., 2012: readSPE.m.
 \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
 }
 \seealso{
-\code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
+\link{readBin}, \code{\linkS4class{RLum.Data.Spectrum}},
 \code{\link[raster]{raster}}
 }
 \author{

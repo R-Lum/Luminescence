@@ -26,14 +26,14 @@
 #' @section Function version: 0.4.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
-#' @seealso \code{\link{CW2pHMi}}, \code{\link{CW2pLMi}},
-#' \code{\link{CW2pPMi}}, \code{\link{fit_LMCurve}}, \code{\link{lm}},
+#' @seealso [CW2pHMi], [CW2pLMi],
+#' [CW2pPMi], [fit_LMCurve], [lm],
 #' \code{\linkS4class{RLum.Data.Curve}}
 #'
 #' The output of the function can be further used for LM-OSL fitting:
-#' \code{\link{CW2pLMi}}, \code{\link{CW2pHMi}}, \code{\link{CW2pPMi}},
-#' \code{\link{fit_LMCurve}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\link{plot_RLum}}
+#' [CW2pLMi], [CW2pHMi], [CW2pPMi],
+#' [fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}},
+#' [plot_RLum]
 #' @references Bulur, E., 2000. A simple transformation for converting CW-OSL
 #' curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
 #'

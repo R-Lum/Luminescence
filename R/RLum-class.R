@@ -11,12 +11,12 @@ NULL
 #' @docType class
 #'
 #' @slot originator Object of class [character] containing the name of the producing
-#' function for the object. Set automatically by using the function \code{\link{set_RLum}}.
+#' function for the object. Set automatically by using the function [set_RLum].
 #'
-#' @slot info Object of class \code{\link{list}} for additional information on the object itself
+#' @slot info Object of class [list] for additional information on the object itself
 #'
 #' @slot .uid Object of class [character] for a unique object identifier. This id is
-#' usually calculated using the internal function \code{.create_UID()} if the funtion \code{\link{set_RLum}}
+#' usually calculated using the internal function \code{.create_UID()} if the funtion [set_RLum]
 #' is called.
 #'
 #' @slot .pid Object of class [character] for a parent id. This allows nesting RLum-objects

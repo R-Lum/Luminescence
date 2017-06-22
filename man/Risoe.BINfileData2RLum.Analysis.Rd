@@ -18,24 +18,24 @@ Risoe.BINfileData2RLum.Analysis(object, pos = NULL, grain = NULL,
 is returned. If nothing is provided every position will be converted. If the position is not valid \code{NA} is
 returned.}
 
-\item{grain}{\code{\link{vector}, \link{numeric}} (optional): grain number from
+\item{grain}{[vector}, \link{numeric] (optional): grain number from
 the measurement to limit the converted data set (e.g., \code{grain =
 c(1:48)}). Please be aware that this option may lead to unwanted effects, as the output
 is strictly limited to the choosen grain number for all position numbers}
 
-\item{run}{\code{\link{vector}, \link{numeric}} (optional): run number from
+\item{run}{[vector}, \link{numeric] (optional): run number from
 the measurement to limit the converted data set (e.g., \code{run =
 c(1:48)}).}
 
-\item{set}{\code{\link{vector}, \link{numeric}} (optional): set number from
+\item{set}{[vector}, \link{numeric] (optional): set number from
 the measurement to limit the converted data set (e.g., \code{set =
 c(1:48)}).}
 
-\item{ltype}{\code{\link{vector}, \link{character}} (optional): curve type
+\item{ltype}{[vector}, \link{character] (optional): curve type
 to limit the converted data. Commonly allowed values are: \code{IRSL}, \code{OSL},
 \code{TL}, \code{RIR}, \code{RBR} and \code{USER} (see also \code{\linkS4class{Risoe.BINfileData}})}
 
-\item{dtype}{\code{\link{vector}, \link{character}} (optional): data type to
+\item{dtype}{[vector}, \link{character] (optional): data type to
 limit the converted data. Commonly allowed values are listed in \code{\linkS4class{Risoe.BINfileData}}}
 
 \item{protocol}{[character] (optional): sets protocol type for
@@ -46,7 +46,7 @@ an \code{RLum.Analysis} object is returned even if it does not contain any
 records. Set to \code{FALSE} to discard all empty objects.}
 
 \item{txtProgressBar}{\link{logical} (with default): enables or disables
-\code{\link{txtProgressBar}}.}
+[txtProgressBar].}
 }
 \value{
 Returns an \code{\linkS4class{RLum.Analysis}} object.
@@ -80,7 +80,7 @@ Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 
 }
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
+\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, [read_BIN2R]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

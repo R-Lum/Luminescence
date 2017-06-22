@@ -8,7 +8,7 @@ read_XSYG2R(file, recalculate.TL.curves = TRUE, fastForward = FALSE,
   import = TRUE, pattern = ".xsyg", txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\link{character} or \code{\link{list}} (\bold{required}): path and file name of the
+\item{file}{\link{character} or \link{list} (\bold{required}): path and file name of the
 XSYG file. If input is a \code{list} it should comprise only \code{character}s representing each valid
 path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all xsyg files found in the directory.}
@@ -25,7 +25,7 @@ more efficient data processing only a list of \code{RLum.Analysis} objects is re
 \item{import}{\link{logical} (with default): if set to \code{FALSE}, only
 the XSYG file structure is shown.}
 
-\item{pattern}{\code{\link{regex}} (with default): optional regular expression if \code{file} is
+\item{pattern}{\link{regex} (with default): optional regular expression if \code{file} is
 a link to a folder, to select just specific XSYG-files}
 
 \item{txtProgressBar}{\link{logical} (with default): enables \code{TRUE} or
@@ -46,7 +46,7 @@ Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
 }
 \details{
 \bold{How does the import function work?}\cr\cr The function uses the
-\code{\link{xml}} package to parse the file structure. Each sequence is
+\link{xml} package to parse the file structure. Each sequence is
 subsequently translated into an \code{\linkS4class{RLum.Analysis}}
 object.\cr\cr
 
@@ -71,7 +71,7 @@ Temperature) with different row numbers by their time values. Three cases
 are considered:
 
 HE: Heating element\cr PMT: Photomultiplier tube\cr Interpolation is done
-using the function \code{\link{approx}}\cr
+using the function \link{approx}\cr
 
 CASE (1): \code{nrow(matrix(PMT))} > \code{nrow(matrix(HE))} \cr
 
@@ -104,7 +104,7 @@ is supported as this may lead to endless loops.
 \note{
 This function is a beta version as the XSYG file format is not yet
 fully specified. Thus, further file operations (merge, export, write) should
-be done using the functions provided with the package \code{\link{xml}}.\cr
+be done using the functions provided with the package \link{xml}.\cr
 
 \bold{So far, no image data import is provided!}\cr Corresponding values in
 the XSXG file are skipped.
@@ -148,8 +148,8 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
 \bold{Further reading} \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
 }
 \seealso{
-\code{\link{xml}}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Data.Curve}}, \code{\link{approx}}
+\link{xml}, \code{\linkS4class{RLum.Analysis}},
+\code{\linkS4class{RLum.Data.Curve}}, \link{approx}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

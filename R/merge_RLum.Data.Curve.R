@@ -11,12 +11,12 @@
 #'
 #' \code{"sum"}\cr
 #'
-#' All count values will be summed up using the function \code{\link{rowSums}}.
+#' All count values will be summed up using the function [rowSums].
 #'
 #' \code{"mean"}\cr
 #'
 #' The mean over the count values is calculated using the function
-#' \code{\link{rowMeans}}.
+#' [rowMeans].
 #'
 #' \code{"median"}\cr
 #'
@@ -61,7 +61,7 @@
 #'
 #' Values of the first object are divided by row sums of the last objects.
 #'
-#' @param object \code{\link{list}} of \code{\linkS4class{RLum.Data.Curve}}
+#' @param object [list] of \code{\linkS4class{RLum.Data.Curve}}
 #' (\bold{required}): list of S4 objects of class \code{RLum.Curve}.
 #'
 #' @param merge.method [character] (\bold{required}): method for
@@ -91,7 +91,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Data.Curve}}
+#' @seealso [merge_RLum], \code{\linkS4class{RLum.Data.Curve}}
 #'
 #'
 #'

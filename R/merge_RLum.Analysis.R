@@ -13,7 +13,7 @@
 #' The order in the new \code{\linkS4class{RLum.Analysis}} object is the object
 #' order provided with the input list.
 #'
-#' @param objects \code{\link{list}} of \code{\linkS4class{RLum.Analysis}}
+#' @param objects [list] of \code{\linkS4class{RLum.Analysis}}
 #' (\bold{required}): list of S4 objects of class \code{RLum.Analysis}.
 #' Furthermore other objects of class \code{\linkS4class{RLum}} can be added,
 #' see details.
@@ -30,7 +30,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{merge_RLum}}, \code{\linkS4class{RLum.Analysis}},
+#' @seealso [merge_RLum], \code{\linkS4class{RLum.Analysis}},
 #' \code{\linkS4class{RLum.Data.Curve}},
 #' \code{\linkS4class{RLum.Data.Spectrum}},
 #' \code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum}}

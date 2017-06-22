@@ -7,11 +7,11 @@
 merge_RLum.Results(objects)
 }
 \arguments{
-\item{objects}{\code{\link{list}} (required): a list of \code{\linkS4class{RLum.Results}} objects}
+\item{objects}{\link{list} (required): a list of \code{\linkS4class{RLum.Results}} objects}
 }
 \description{
 Function merges objects of class \code{\linkS4class{RLum.Results}}. The slots in the objects
-are combined depending on the object type, e.g., for \link{data.frame} and \code{\link{matrix}}
+are combined depending on the object type, e.g., for \link{data.frame} and \link{matrix}
 rows are appended.
 }
 \note{

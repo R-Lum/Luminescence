@@ -13,7 +13,7 @@ required}
 
 \item{dose.rate}{\code{\linkS4class{RLum.Results}} or [data.frame] or [numeric]
 (\bold{required}): \code{RLum.Results} needs to be orginated from the
-function \code{\link{calc_SourceDoseRate}}, for \code{vector} dose rate in
+function [calc_SourceDoseRate], for \code{vector} dose rate in
 Gy/s and dose rate error in Gy/s}
 
 \item{error.propagation}{[character] (with default): error propagation method used for error
@@ -95,7 +95,7 @@ Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 }
 \seealso{
-\code{\link{calc_SourceDoseRate}}
+[calc_SourceDoseRate]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

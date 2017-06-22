@@ -18,24 +18,24 @@
 #' is returned. If nothing is provided every position will be converted. If the position is not valid \code{NA} is
 #' returned.
 #'
-#' @param grain \code{\link{vector}, \link{numeric}} (optional): grain number from
+#' @param grain [vector}, \link{numeric] (optional): grain number from
 #' the measurement to limit the converted data set (e.g., \code{grain =
 #' c(1:48)}). Please be aware that this option may lead to unwanted effects, as the output
 #' is strictly limited to the choosen grain number for all position numbers
 #'
-#' @param run \code{\link{vector}, \link{numeric}} (optional): run number from
+#' @param run [vector}, \link{numeric] (optional): run number from
 #' the measurement to limit the converted data set (e.g., \code{run =
 #' c(1:48)}).
 #'
-#' @param set \code{\link{vector}, \link{numeric}} (optional): set number from
+#' @param set [vector}, \link{numeric] (optional): set number from
 #' the measurement to limit the converted data set (e.g., \code{set =
 #' c(1:48)}).
 #'
-#' @param ltype \code{\link{vector}, \link{character}} (optional): curve type
+#' @param ltype [vector}, \link{character] (optional): curve type
 #' to limit the converted data. Commonly allowed values are: \code{IRSL}, \code{OSL},
 #' \code{TL}, \code{RIR}, \code{RBR} and \code{USER} (see also \code{\linkS4class{Risoe.BINfileData}})
 #'
-#' @param dtype \code{\link{vector}, \link{character}} (optional): data type to
+#' @param dtype [vector}, \link{character] (optional): data type to
 #' limit the converted data. Commonly allowed values are listed in \code{\linkS4class{Risoe.BINfileData}}
 #'
 #' @param protocol [character] (optional): sets protocol type for
@@ -46,7 +46,7 @@
 #' records. Set to \code{FALSE} to discard all empty objects.
 #'
 #' @param txtProgressBar \link{logical} (with default): enables or disables
-#' \code{\link{txtProgressBar}}.
+#' [txtProgressBar].
 #'
 #' @return Returns an \code{\linkS4class{RLum.Analysis}} object.
 #'
@@ -57,7 +57,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, \code{\link{read_BIN2R}}
+#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, [read_BIN2R]
 #'
 #'
 #'

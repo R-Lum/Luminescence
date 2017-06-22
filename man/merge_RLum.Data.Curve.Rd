@@ -7,7 +7,7 @@
 merge_RLum.Data.Curve(object, merge.method = "mean", method.info)
 }
 \arguments{
-\item{object}{\code{\link{list}} of \code{\linkS4class{RLum.Data.Curve}}
+\item{object}{\link{list} of \code{\linkS4class{RLum.Data.Curve}}
 (\bold{required}): list of S4 objects of class \code{RLum.Curve}.}
 
 \item{merge.method}{\link{character} (\bold{required}): method for
@@ -37,12 +37,12 @@ the 2nd colum of the data matrix of the object.\cr
 
 \code{"sum"}\cr
 
-All count values will be summed up using the function \code{\link{rowSums}}.
+All count values will be summed up using the function \link{rowSums}.
 
 \code{"mean"}\cr
 
 The mean over the count values is calculated using the function
-\code{\link{rowMeans}}.
+\link{rowMeans}.
 
 \code{"median"}\cr
 
@@ -124,7 +124,7 @@ plot_RLum(TL.curve.merged)
 
 }
 \seealso{
-\code{\link{merge_RLum}}, \code{\linkS4class{RLum.Data.Curve}}
+\link{merge_RLum}, \code{\linkS4class{RLum.Data.Curve}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

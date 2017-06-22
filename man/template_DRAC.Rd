@@ -71,7 +71,7 @@ Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculat
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 }
 \seealso{
-\code{\link{as.data.frame}} \code{\link{list}}
+\link{as.data.frame} \link{list}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

@@ -7,7 +7,7 @@
 #' @param times [integer] (optional): number for times each element is repeated
 #' element
 #'
-#' @return Returns a \code{\link{list}} of the object to be repeated
+#' @return Returns a [list] of the object to be repeated
 #'
 #' @section Function version: 0.1.0
 #'

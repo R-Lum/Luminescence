@@ -7,7 +7,7 @@
 get_Layout(layout)
 }
 \arguments{
-\item{layout}{\link{character} or \code{\link{list}} object
+\item{layout}{\link{character} or \link{list} object
 (required): name of the layout definition to be returned. If name is
 provided the respective definition is returned. One of the following
 supported layout definitions is possible: \code{"default"},

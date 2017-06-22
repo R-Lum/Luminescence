@@ -52,7 +52,7 @@ distribution curve and standard error points\cr (e.g., \code{c("grey",
 histogram plot (requires the 'plotly' package)}
 
 \item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}} or \code{\link{hist}}. If y-axis labels are provided,
+\link{plot} or \link{hist}. If y-axis labels are provided,
 these must be specified as a vector of length 2 since the plot features two
 axes (e.g. \code{ylab = c("axis label 1", "axis label 2")}). Y-axes limits
 (\code{ylim}) must be provided as vector of length four, with the first two
@@ -115,7 +115,7 @@ plot_Histogram(ExampleData.DeValues,
 
 }
 \seealso{
-\code{\link{hist}}, \code{\link{plot}}
+\link{hist}, \link{plot}
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,

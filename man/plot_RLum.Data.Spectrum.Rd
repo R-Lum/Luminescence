@@ -10,7 +10,7 @@ plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour",
   legend.text, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} or \code{\link{matrix}} (\bold{required}): S4
+\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} or \link{matrix} (\bold{required}): S4
 object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
 Please note that in case of a matrix rownames and colnames are set automatically if not provided.}
 
@@ -114,7 +114,7 @@ internal R plot functions. \cr
 
 \bold{\code{plot.type = "persp"}}
 
-Arguments that will be passed to \code{\link{persp}}: \itemize{ \item
+Arguments that will be passed to \link{persp}: \itemize{ \item
 \code{shade}: default is \code{0.4} \item \code{phi}: default is \code{15}
 \item \code{theta}: default is \code{-30} \item \code{expand}: default is
 \code{1} \item \code{ticktype}: default is \code{detailed}, \code{r}: default is \code{10}}
@@ -217,9 +217,9 @@ Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
 Springer.
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot}},
-\code{\link{plot_RLum}}, \code{\link{persp}}, \code{\link[plotly]{plot_ly}},
-\code{\link{contour}}
+\code{\linkS4class{RLum.Data.Spectrum}}, \link{plot},
+\link{plot_RLum}, \link{persp}, \code{\link[plotly]{plot_ly}},
+\link{contour}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

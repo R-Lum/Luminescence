@@ -107,7 +107,7 @@
 #' 
 #' @seealso \code{\link[rmarkdown]{render}}, \code{\link[pander]{pander_return}},
 #' \code{\link[pander]{openFileInOS}}, \code{\link[rstudioapi]{viewer}},
-#' \code{\link{browseURL}}
+#' [browseURL]
 #' 
 #' @return
 #' Writes a HTML and .Rds file.
