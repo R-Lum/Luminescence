@@ -8,44 +8,47 @@ calc_gSGC(data, gSGC.type = "0-250", gSGC.parameters, n.MC = 100,
   verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\link{data.frame} (\strong{required}): input data of providing the following
-columns: 'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'
-Note: column names are not required. The function expect the input data in the given order}
+\item{data}{\link{data.frame} (\strong{required}):
+input data of providing the following columns:
+\code{'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'}
+\strong{Note:} column names are not required. The function expect the input data in the given order}
 
-\item{gSGC.type}{\link{character} \emph{(with default)}: define the function parameters that
+\item{gSGC.type}{\link{character} \emph{(with default)}:
+define the function parameters that
 should be used for the iteration procedure: Li et al., 2015 (Table 2)
 presented function parameters for two dose ranges: \code{"0-450"} and \code{"0-250"}}
 
-\item{gSGC.parameters}{\link{list} \emph{(optional)}: option to provide own function
-parameters used for #' fitting as named list.
-Nomenclature follows Li et al., 2015, i.e.
-\code{list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)}, range requires a vector for
-the range the function is considered as valid, e.g. \code{range = c(0,250)}\cr
+\item{gSGC.parameters}{\link{list} \emph{(optional)}:
+option to provide own function parameters used for fitting as named list.
+Nomenclature follows Li et al., 2015, i.e. \code{list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)},
+range requires a vector for the range the function is considered as valid, e.g. \code{range = c(0,250)}\cr
 Using this option overwrites the default parameter list of the gSGC, meaning the argument
 \code{gSGC.type} will be without effect}
 
-\item{n.MC}{\link{integer} \emph{(with default)}: number of Monte Carlo simulation runs for
-error estimation, s. details.}
+\item{n.MC}{\link{integer} \emph{(with default)}:
+number of Monte Carlo simulation runs for error estimation, see details.}
 
-\item{verbose}{\link{logical}: enable or disable terminal output}
+\item{verbose}{\link{logical}:
+enable or disable terminal output}
 
-\item{plot}{\link{logical}: enable or disable graphical feedback as plot}
+\item{plot}{\link{logical}:
+enable or disable graphical feedback as plot}
 
 \item{...}{parameters will be passed to the plot output}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.\cr
+Returns an S4 object of type \linkS4class{RLum.Results}.
 
-\bold{@data}\cr
-$ De.value (data.frame) \cr
-.. $ De  \cr
-.. $ De.error \cr
-.. $ Eta \cr
-$ De.MC (list) contains the matricies from the error estimation.\cr
-$ uniroot (list) contains the uniroot outputs of the De estimations\cr
+\strong{\code{@data}}\cr
+\code{$ De.value} (\link{data.frame}) \cr
+\code{.. $ De}  \cr
+\code{.. $ De.error} \cr
+\code{.. $ Eta} \cr
+\code{$ De.MC} (\link{list}) contains the matricies from the error estimation.\cr
+\code{$ uniroot} (\link{list}) contains the uniroot outputs of the De estimations\cr
 
-\bold{@info}\cr
-$ call (call) the original function call
+\strong{\code{@info}}\cr
+`$ call`` (\link{call}) the original function call
 }
 \description{
 Function returns De value and De value error using the global standardised growth
@@ -61,6 +64,7 @@ Large values for \code{n.MC} will significantly increase the computation time.
 }
 
 \examples{
+
 results <- calc_gSGC(data = data.frame(
 LnTn =  2.361, LnTn.error = 0.087,
 Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
@@ -78,6 +82,6 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
 \linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
 }
 \keyword{datagen}
