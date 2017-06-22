@@ -8,7 +8,7 @@ plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug, normal_curve,
   summary, summary.pos, colour, interactive = FALSE, ...)
 }
 \arguments{
-\item{data}{\link{data.frame} or \code{\linkS4class{RLum.Results}}
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results}
 object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
 and De error (\code{data[,2]})}
 

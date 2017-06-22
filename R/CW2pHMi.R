@@ -29,9 +29,9 @@
 #' the automatic estimation routine for \code{delta}, i.e. provide no value for
 #' \code{delta}.}
 #'
-#' @param values \code{\linkS4class{RLum.Data.Curve}} or
+#' @param values [RLum.Data.Curve-class] or
 #' [data.frame] (\bold{required}):
-#' \code{\linkS4class{RLum.Data.Curve}} or [data.frame] with
+#' [RLum.Data.Curve-class] or [data.frame] with
 #' measured curve data of type stimulation time (t) (\code{values[,1]}) and
 #' measured counts (cts) (\code{values[,2]}).
 #' @param delta [vector] (optional): stimulation rate parameter, if
@@ -62,7 +62,7 @@
 #' Delft University of Technology, The Netherlands\cr
 #' @seealso [CW2pLM], [CW2pLMi], [CW2pPMi],
 #' [fit_LMCurve], [lm],
-#' \code{\linkS4class{RLum.Data.Curve}}
+#' [RLum.Data.Curve-class]
 #' @references Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.\cr
 #'

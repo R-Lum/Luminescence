@@ -27,7 +27,7 @@
 #' Different methods can be combined by applying the method repeatedly to the
 #' dataset (see example).
 #'
-#' @param object \code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
+#' @param object [RLum.Data.Spectrum-class] (\bold{required}): S4
 #' object of class \code{RLum.Data.Spectrum}
 #'
 #' @param method [character] (with default): Defines method that is
@@ -60,7 +60,7 @@
 #' to the \code{smooth} function.
 #'
 #' @return Returns same object as input
-#' (\code{\linkS4class{RLum.Data.Spectrum}})
+#' ([RLum.Data.Spectrum-class])
 #'
 #' @note -
 #'
@@ -69,7 +69,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, [smooth],
+#' @seealso [RLum.Data.Spectrum-class], [smooth],
 #' [smooth.spline], [apply_CosmicRayRemoval]
 #'
 #' @references Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from

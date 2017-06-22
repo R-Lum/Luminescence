@@ -3,14 +3,14 @@
 #' Function calls object-specific set functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' \code{\linkS4class{RLum}} objects.\cr Depending on the given class, the
+#' [RLum-class] objects.\cr Depending on the given class, the
 #' corresponding method to create an object from this class will be selected.
 #' Allowed additional arguments can be found in the documentations of the
-#' corresponding \code{\linkS4class{RLum}} class: \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}
+#' corresponding [RLum-class] class: [RLum.Data.Curve-class],
+#' [RLum.Data.Image-class], [RLum.Data.Spectrum-class],
+#' [RLum.Analysis-class] and [RLum.Results-class]
 #'
-#' @param class \code{\linkS4class{RLum}} (\bold{required}): name of the S4 class to
+#' @param class [RLum-class] (\bold{required}): name of the S4 class to
 #' create
 #'
 #' @param originator [character] (automatic): contains the name of the calling function
@@ -33,11 +33,11 @@
 #' (France)
 #'
 #' @seealso
-#' \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Image}},
-#' \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}}
+#' [RLum.Data.Curve-class],
+#' [RLum.Data.Image-class],
+#' [RLum.Data.Spectrum-class],
+#' [RLum.Analysis-class],
+#' [RLum.Results-class]
 #'
 #' @keywords utilities
 #'

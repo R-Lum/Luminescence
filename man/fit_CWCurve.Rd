@@ -11,7 +11,7 @@ fit_CWCurve(values, n.components.max, fit.failure_threshold = 5,
   output.terminalAdvanced = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
 (\bold{required}): x, y data of measured values (time and counts). See
 examples.}
 
@@ -68,7 +68,7 @@ curves.}
 plot.} \item{table}{(optional) an output table (*.csv) with parameters of
 the fitted components is provided if the \code{output.path} is set.}
 \item{list(list("RLum.Results"))}{beside the plot and table output options,
-an \code{\linkS4class{RLum.Results}} object is returned.\cr\cr \code{fit}:
+an \linkS4class{RLum.Results} object is returned.\cr\cr \code{fit}:
 an \code{nls} object (\code{$fit}) for which generic R functions are
 provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
 details, see \link{nls}.\cr\cr \code{output.table}: a \link{data.frame}
@@ -82,7 +82,7 @@ Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns \code{cont.} provide information on
 the relative component contribution for each time interval including the row
 sum for this values. }\item{ object}{beside the plot and table output
-options, an \code{\linkS4class{RLum.Results}} object is returned.\cr\cr
+options, an \linkS4class{RLum.Results} object is returned.\cr\cr
 \code{fit}: an \code{nls} object (\code{$fit}) for which generic R functions
 are provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
 details, see \link{nls}.\cr\cr \code{output.table}: a \link{data.frame}
@@ -165,7 +165,7 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 }
 \seealso{
 \link{fit_LMCurve}, \link{plot},\link{nls},
-\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
+\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Results},
 \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{

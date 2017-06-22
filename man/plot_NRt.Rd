@@ -9,7 +9,7 @@ plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
 }
 \arguments{
 \item{data}{a \link{list}, \link{data.frame}, \link{matrix} or
-\code{\linkS4class{RLum.Analysis}} object (\bold{required}). X,Y data of measured values
+\linkS4class{RLum.Analysis} object (\bold{required}). X,Y data of measured values
 (time and counts). See details on individual data structure.}
 
 \item{log}{\link{character} (optional): logarithmic axes
@@ -32,7 +32,7 @@ the position of the legend (see \link{legend}).}
 \item{...}{further parameters passed to \link{plot} (also see \link{par}).}
 }
 \value{
-Returns a plot and \code{\linkS4class{RLum.Analysis}} object.
+Returns a plot and \linkS4class{RLum.Analysis} object.
 }
 \description{
 This function creates a Natural/Regenerated signal vs. time (NR(t)) plot
@@ -43,7 +43,7 @@ This function accepts the individual curve data in many different formats. If
 \code{data} is a \code{list}, each element of the list must contain a two
 column \code{data.frame} or \code{matrix} containing the XY data of the curves
 (time and counts). Alternatively, the elements can be objects of class
-\code{\linkS4class{RLum.Data.Curve}}.
+\linkS4class{RLum.Data.Curve}.
 Input values can also be provided as a \code{data.frame} or \code{matrix} where
 the first column contains the time values and each following column contains
 the counts of each curve.

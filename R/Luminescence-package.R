@@ -313,8 +313,8 @@ NULL
 
 #' Example portable OSL curve data for the package Luminescence
 #'
-#' A \code{list} of \code{\linkS4class{RLum.Analysis}} objects, each containing
-#' the same number of \code{\linkS4class{RLum.Data.Curve}} objects representing
+#' A \code{list} of [RLum.Analysis-class] objects, each containing
+#' the same number of [RLum.Data.Curve-class] objects representing
 #' individual OSL, IRSL and dark count measurements of a sample.
 #'
 #' @name ExampleData.portableOSL
@@ -406,9 +406,9 @@ NULL
 NULL
 
 
-#' Example data as \code{\linkS4class{RLum.Analysis}} objects
+#' Example data as [RLum.Analysis-class] objects
 #'
-#' Collection of different \code{\linkS4class{RLum.Analysis}} objects for
+#' Collection of different [RLum.Analysis-class] objects for
 #' protocol analysis.
 #'
 #'
@@ -450,14 +450,14 @@ NULL
 NULL
 
 
-#' Example data as \code{\linkS4class{RLum.Data.Image}} objects
+#' Example data as [RLum.Data.Image-class] objects
 #'
 #' Measurement of Princton Instruments camera imported with the function
 #' [read_SPE2R] to R to produce an
-#' \code{\linkS4class{RLum.Data.Image}} object.
+#' [RLum.Data.Image-class] object.
 #'
 #'
-#' @format Object of class \code{\linkS4class{RLum.Data.Image}}
+#' @format Object of class [RLum.Data.Image-class]
 #' @section Version: 0.1
 #' @source \bold{ExampleData.RLum.Data.Image}
 #'
@@ -500,18 +500,18 @@ NULL
 #'
 #' The data contain two elements: (a) \code{$Sequence.Header} is a
 #' \link{data.frame} with metadata from the measurement,(b)
-#' \code{Sequence.Object} contains an \code{\linkS4class{RLum.Analysis}} object
+#' \code{Sequence.Object} contains an [RLum.Analysis-class] object
 #' for further analysis.\cr
 #'
 #' \code{TL.Spectrum}: TL spectrum data
 #'
-#' \code{\linkS4class{RLum.Data.Spectrum}} object for further analysis. The
+#' [RLum.Data.Spectrum-class] object for further analysis. The
 #' spectrum was cleaned from cosmic-rays using the function
 #' \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
 #' was performed.
 #' @section Version: 0.1
-#' @seealso [read_XSYG2R], \code{\linkS4class{RLum.Analysis}},\cr
-#' \code{\linkS4class{RLum.Data.Spectrum}}, [plot_RLum],\cr
+#' @seealso [read_XSYG2R], [RLum.Analysis-class],\cr
+#' [RLum.Data.Spectrum-class], [plot_RLum],\cr
 #' [plot_RLum.Analysis], [plot_RLum.Data.Spectrum]
 #' @references Unpublished data measured to serve as example data for that
 #' package. Location origin of sample BT753 is given here:

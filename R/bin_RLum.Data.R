@@ -3,11 +3,11 @@
 #' Function calls the object-specific bin functions for RLum.Data S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' \code{\linkS4class{RLum.Data}} objects.\cr Depending on the input object, the
+#' [RLum.Data-class] objects.\cr Depending on the input object, the
 #' corresponding function will be selected. Allowed arguments can be found
-#' in the documentations of the corresponding \code{\linkS4class{RLum.Data}} class.
+#' in the documentations of the corresponding [RLum.Data-class] class.
 #'
-#' @param object \code{\linkS4class{RLum.Data}} (\bold{required}): S4 object of
+#' @param object [RLum.Data-class] (\bold{required}): S4 object of
 #' class \code{RLum.Data}
 #'
 #' @param ... further arguments passed to the specifc class method
@@ -22,7 +22,7 @@
 #' @note Currenlty only \code{RLum.Data} objects of class \code{RLum.Data.Curve} are supported!
 #'
 #' @seealso
-#' \code{\linkS4class{RLum.Data.Curve}}
+#' [RLum.Data.Curve-class]
 #'
 #' @examples
 #'

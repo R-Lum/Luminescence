@@ -23,8 +23,8 @@
 \S4method{names_RLum}{RLum.Results}(object)
 }
 \arguments{
-\item{object}{[\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
-\code{\linkS4class{RLum.Results}} to be evaluated}
+\item{object}{[\code{get_RLum}] [RLum.Results-class] (required): an object of class
+[RLum.Results-class] to be evaluated}
 
 \item{class}{[\code{set_RLum}] [character] \bold{(required)}: name of the \code{RLum} class to create}
 
@@ -56,14 +56,14 @@ element}
 \value{
 \bold{\code{set_RLum}}:\cr
 
-Returns an object from the class \code{\linkS4class{RLum.Results}}\cr
+Returns an object from the class [RLum.Results-class]\cr
 
 \bold{\code{get_RLum}}:\cr
 
 Returns: \cr
 (1) Data object from the specified slot \cr
 (2) [list] of data objects from the slots if 'data.object' is vector or \cr
-(3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
+(3) an [RLum.Results-class] for \code{drop = FALSE}.\cr
 
 \bold{\code{length_RLum}}\cr
 
@@ -145,7 +145,7 @@ dose.rate$parameters
 
 }
 \seealso{
-\code{\linkS4class{RLum}}, [plot_RLum], [merge_RLum]
+[RLum-class], [plot_RLum], [merge_RLum]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

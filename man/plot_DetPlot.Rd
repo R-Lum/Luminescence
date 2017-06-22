@@ -12,7 +12,7 @@ plot_DetPlot(object, signal.integral.min, signal.integral.max,
   ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
+\item{object}{\linkS4class{RLum.Analysis} (\bold{required}): input
 object containing data for analysis}
 
 \item{signal.integral.min}{\link{integer} (\bold{required}): lower
@@ -57,7 +57,7 @@ from the plot (cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
 See details for further information.}
 }
 \value{
-A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
+A plot and an \linkS4class{RLum.Results} object with the produced De values
 
 \code{@data}:
 \tabular{lll}{

@@ -17,7 +17,7 @@ omitted, a random name will be generated}
 \item{...}{Further arguments.}
 }
 \value{
-Returns an \code{\linkS4class{RLum.Results}} object containing the following elements:
+Returns an \linkS4class{RLum.Results} object containing the following elements:
 
 \item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@data}:
 

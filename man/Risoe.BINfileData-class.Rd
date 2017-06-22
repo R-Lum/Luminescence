@@ -16,7 +16,7 @@
 \S4method{get_Risoe.BINfileData}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
-\item{object}{an object of class \code{\linkS4class{Risoe.BINfileData}}}
+\item{object}{an object of class [Risoe.BINfileData-class]}
 
 \item{METADATA}{Object of class "data.frame" containing the meta information
 for each curve.}

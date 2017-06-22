@@ -11,7 +11,7 @@ Second2Gray(data, dose.rate, error.propagation = "omit")
 structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
 required}
 
-\item{dose.rate}{\code{\linkS4class{RLum.Results}} or [data.frame] or [numeric]
+\item{dose.rate}{[RLum.Results-class] or [data.frame] or [numeric]
 (\bold{required}): \code{RLum.Results} needs to be orginated from the
 function [calc_SourceDoseRate], for \code{vector} dose rate in
 Gy/s and dose rate error in Gy/s}

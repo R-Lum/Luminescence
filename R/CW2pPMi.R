@@ -32,9 +32,9 @@
 #' automatic estimation routine for \code{P}, i.e. provide no value for
 #' \code{P}.}
 #'
-#' @param values \code{\linkS4class{RLum.Data.Curve}} or
+#' @param values [RLum.Data.Curve-class] or
 #' [data.frame] (\bold{required}):
-#' \code{\linkS4class{RLum.Data.Curve}} or \code{data.frame} with measured
+#' [RLum.Data.Curve-class] or \code{data.frame} with measured
 #' curve data of type stimulation time (t) (\code{values[,1]}) and measured
 #' counts (cts) (\code{values[,2]})
 #' @param P [vector] (optional): stimulation period in seconds. If
@@ -59,7 +59,7 @@
 #' (France)\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
 #' Delft University of Technology, The Netherlands\cr
 #' @seealso [CW2pLM], [CW2pLMi], [CW2pHMi],
-#' [fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}}
+#' [fit_LMCurve], [RLum.Data.Curve-class]
 #' @references Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.\cr
 #'

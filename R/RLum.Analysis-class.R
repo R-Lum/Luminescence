@@ -14,10 +14,10 @@ NULL
 #'
 #' @slot protocol Object of class [character] describing the applied measurement protocol
 #'
-#' @slot records Object of class [list] containing objects of class \code{\linkS4class{RLum.Data}}
+#' @slot records Object of class [list] containing objects of class [RLum.Data-class]
 #'
 #' @note The method [structure_RLum] is currently just avaiblable for objects
-#' containing \code{\linkS4class{RLum.Data.Curve}}.
+#' containing [RLum.Data.Curve-class].
 #'
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{set_RLum("RLum.Analysis", ...)}.
@@ -28,7 +28,7 @@ NULL
 #' (France)
 #'
 #' @seealso [Risoe.BINfileData2RLum.Analysis],
-#' \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}
+#' [Risoe.BINfileData-class], [RLum-class]
 #'
 #' @keywords classes methods
 #'
@@ -79,7 +79,7 @@ setClass("RLum.Analysis",
 #'   \code{list} \tab \code{list}\cr
 #' }
 #'
-#' Given that the [list] consits of \code{\linkS4class{RLum.Analysis}} objects.
+#' Given that the [list] consits of [RLum.Analysis-class] objects.
 #'
 #' @name as
 #'
@@ -203,7 +203,7 @@ setMethod("show",
 ###set_RLum()
 ####################################################################################################
 #' @describeIn RLum.Analysis
-#' Construction method for \code{\linkS4class{RLum.Analysis}} objects.
+#' Construction method for [RLum.Analysis-class] objects.
 #'
 #' @param class [\code{set_RLum}] [character] (\bold{required}): name of the \code{RLum} class to be created
 #' @param originator [\code{set_RLum}] [character] (automatic): contains the name
@@ -214,13 +214,13 @@ setMethod("show",
 #' at will.
 #' @param protocol [\code{set_RLum}] [character] (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
-#' @param records [\code{set_RLum}] [list] (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
+#' @param records [\code{set_RLum}] [list] (\bold{required}): list of [RLum.Analysis-class] objects
 #' @param info [\code{set_RLum}] [list] (optional): a list containing additional
 #' info data for the object
 #'
 #' \bold{\code{set_RLum}}:\cr
 #'
-#' Returns an \code{\linkS4class{RLum.Analysis}} object.
+#' Returns an [RLum.Analysis-class] object.
 #'
 #' @export
 setMethod(
@@ -284,7 +284,7 @@ setMethod(
 #' Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 #'
 #' @param object \code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]}\code{[length_RLum]}
-#' \code{[structure_RLum]}] an object of class \code{\linkS4class{RLum.Analysis}}
+#' \code{[structure_RLum]}] an object of class [RLum.Analysis-class]
 #' (\bold{required})
 #'
 #' @param record.id [\code{get_RLum}] [numeric] or [logical] (optional): IDs of specific records.
@@ -322,10 +322,10 @@ setMethod(
 #' \bold{\code{get_RLum}}:\cr
 #'
 #' Returns: \cr
-#' (1) [list] of \code{\linkS4class{RLum.Data}} objects or \cr
-#' (2) Single \code{\linkS4class{RLum.Data}} object, if only one object is contained and
+#' (1) [list] of [RLum.Data-class] objects or \cr
+#' (2) Single [RLum.Data-class] object, if only one object is contained and
 #' \code{recursive = FALSE} or\cr
-#' (3) \code{\linkS4class{RLum.Analysis}} ojects for \code{drop = FALSE} \cr
+#' (3) [RLum.Analysis-class] ojects for \code{drop = FALSE} \cr
 #'
 #' @export
 setMethod("get_RLum",
@@ -618,7 +618,7 @@ setMethod("get_RLum",
 ###structure_RLum()
 ####################################################################################################
 #' @describeIn RLum.Analysis
-#' Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
+#' Method to show the structure of an [RLum.Analysis-class] object.
 #'
 #' @param fullExtent [structure_RLum] [logical] (with default): extents the returned \code{data.frame}
 #' to its full extent, i.e. all info elements are part of the return as well. The default valule
@@ -628,7 +628,7 @@ setMethod("get_RLum",
 #'
 #' \bold{\code{structure_RLum}}:\cr
 #'
-#' Returns \code{\linkS4class{data.frame}} showing the structure.
+#' Returns [data.frame-class] showing the structure.
 #'
 #' @export
 setMethod("structure_RLum",
@@ -756,7 +756,7 @@ setMethod("length_RLum",
 ###names_RLum()
 ####################################################################################################
 #' @describeIn RLum.Analysis
-#' Returns the names of the \code{\linkS4class{RLum.Data}} objects objects (same as shown with the show method)
+#' Returns the names of the [RLum.Data-class] objects objects (same as shown with the show method)
 #'
 #' @return
 #'

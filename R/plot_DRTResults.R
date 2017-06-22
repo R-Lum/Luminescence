@@ -11,7 +11,7 @@
 #' this sample.\cr In the plot the normalised De is shown on the y-axis, i.e.
 #' obtained De/Given Dose.
 #'
-#' @param values \code{\linkS4class{RLum.Results}} or [data.frame],
+#' @param values [RLum.Results-class] or [data.frame],
 #' (\bold{required}): input values containing at least De and De error. To plot
 #' more than one data set in one figure, a \code{list} of the individual data
 #' sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).

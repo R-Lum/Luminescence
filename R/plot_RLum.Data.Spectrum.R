@@ -3,7 +3,7 @@
 #' The function provides a standardised plot output for spectrum data of an
 #' RLum.Data.Spectrum S4 class object
 #'
-#' \bold{Matrix structure} \cr (cf. \code{\linkS4class{RLum.Data.Spectrum}})
+#' \bold{Matrix structure} \cr (cf. [RLum.Data.Spectrum-class])
 #'
 #' \itemize{ \item \code{rows} (x-values): wavelengths/channels (xlim, xlab)
 #' \item \code{columns} (y-values): time/temperature (ylim, ylab) \item
@@ -82,7 +82,7 @@
 #' "interactive"), \code{col},
 #' \code{border}, \code{box} \code{lwd}, \code{bty}, \code{showscale} ("interactive") \cr
 #'
-#' @param object \code{\linkS4class{RLum.Data.Spectrum}} or [matrix] (\bold{required}): S4
+#' @param object [RLum.Data.Spectrum-class] or [matrix] (\bold{required}): S4
 #' object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
 #' Please note that in case of a matrix rownames and colnames are set automatically if not provided.
 #'
@@ -141,7 +141,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}, [plot],
+#' @seealso [RLum.Data.Spectrum-class], [plot],
 #' [plot_RLum], [persp], [plotly::plot_ly],
 #' [contour]
 #'

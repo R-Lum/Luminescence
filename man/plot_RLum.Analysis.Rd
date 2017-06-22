@@ -8,7 +8,7 @@ plot_RLum.Analysis(object, subset = NULL, nrows, ncols, abline = NULL,
   combine = FALSE, curve.transformation, plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Analysis} (\bold{required}): S4
 object of class \code{RLum.Analysis}}
 
 \item{subset}{named \link{list} (optional): subsets elements for plotting. The
@@ -27,7 +27,7 @@ adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = 
 adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.}
 
 \item{combine}{\link{logical} (with default): allows to combine all
-\code{\linkS4class{RLum.Data.Curve}} objects in one single plot.}
+\linkS4class{RLum.Data.Curve} objects in one single plot.}
 
 \item{curve.transformation}{\link{character} (optional): allows
 transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via

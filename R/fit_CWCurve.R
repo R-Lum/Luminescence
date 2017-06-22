@@ -28,7 +28,7 @@
 #' for more information.\cr\cr \emph{For details on the nonlinear regression in
 #' R, see Ritz & Streibig (2008).}
 #'
-#' @param values \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+#' @param values [RLum.Data.Curve-class] or \link{data.frame}
 #' (\bold{required}): x, y data of measured values (time and counts). See
 #' examples.
 #' @param n.components.max \link{vector} (optional): maximum number of
@@ -69,7 +69,7 @@
 #' plot.} \item{table}{(optional) an output table (*.csv) with parameters of
 #' the fitted components is provided if the \code{output.path} is set.}
 #' \item{list(list("RLum.Results"))}{beside the plot and table output options,
-#' an \code{\linkS4class{RLum.Results}} object is returned.\cr\cr \code{fit}:
+#' an [RLum.Results-class] object is returned.\cr\cr \code{fit}:
 #' an \code{nls} object (\code{$fit}) for which generic R functions are
 #' provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
 #' details, see \link{nls}.\cr\cr \code{output.table}: a \link{data.frame}
@@ -83,7 +83,7 @@
 #' containing I0 and n0. The last columns \code{cont.} provide information on
 #' the relative component contribution for each time interval including the row
 #' sum for this values. }\item{ object}{beside the plot and table output
-#' options, an \code{\linkS4class{RLum.Results}} object is returned.\cr\cr
+#' options, an [RLum.Results-class] object is returned.\cr\cr
 #' \code{fit}: an \code{nls} object (\code{$fit}) for which generic R functions
 #' are provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
 #' details, see \link{nls}.\cr\cr \code{output.table}: a \link{data.frame}
@@ -111,7 +111,7 @@
 #' (France)
 #'
 #' @seealso [fit_LMCurve], [plot],[nls],
-#' \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Results}},
+#' [RLum.Data.Curve-class], [RLum.Results-class],
 #' [get_RLum], [minpack.lm::nlsLM]
 #' @references Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.
 #' Optically Stimulated Luminescence Dosimetry. Elsevier Science B.V.

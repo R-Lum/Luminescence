@@ -8,7 +8,7 @@
 #' \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} are not of type
 #' [character], no transformation into numeric values is done.
 #'
-#' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
+#' @param object [Risoe.BINfileData-class] (\bold{required}):
 #' input object to be stored in a bin file.
 #'
 #' @param file [character] (\bold{required}): file name and path of
@@ -17,7 +17,7 @@
 #'
 #' @param version [character] (optional): version number for the
 #' output file. If no value is provided the highest version number from the
-#' \code{\linkS4class{Risoe.BINfileData}} is taken automatically.\cr\cr Note:
+#' [Risoe.BINfileData-class] is taken automatically.\cr\cr Note:
 #' This argument can be used to convert BIN-file versions.
 #'
 #' @param compatibility.mode [logical] (with default): this option
@@ -50,7 +50,7 @@
 #' @note ROI definitions (introduced in BIN-file version 8) are not supported! There are furthermore
 #' ignored by the function [read_BIN2R].
 #'
-#' @seealso [read_BIN2R], \code{\linkS4class{Risoe.BINfileData}},
+#' @seealso [read_BIN2R], [Risoe.BINfileData-class],
 #' [writeBin]
 #'
 #' @references

@@ -32,7 +32,7 @@
 }
 \arguments{
 \item{object}{\code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]}\code{[length_RLum]}
-\code{[structure_RLum]}] an object of class \code{\linkS4class{RLum.Analysis}}
+\code{[structure_RLum]}] an object of class [RLum.Analysis-class]
 (\bold{required})}
 
 \item{class}{[\code{set_RLum}] [character] (\bold{required}): name of the \code{RLum} class to be created}
@@ -49,14 +49,14 @@ at will.}
 \item{protocol}{[\code{set_RLum}] [character] (optional): sets protocol type for
 analysis object. Value may be used by subsequent analysis functions.}
 
-\item{records}{[\code{set_RLum}] [list] (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects}
+\item{records}{[\code{set_RLum}] [list] (\bold{required}): list of [RLum.Analysis-class] objects}
 
 \item{info}{[\code{set_RLum}] [list] (optional): a list containing additional
 info data for the object
 
 \bold{\code{set_RLum}}:\cr
 
-Returns an \code{\linkS4class{RLum.Analysis}} object.}
+Returns an [RLum.Analysis-class] object.}
 
 \item{record.id}{[\code{get_RLum}] [numeric] or [logical] (optional): IDs of specific records.
 If of type \code{logical} the entire id range is assuemd and \code{TRUE} and \code{FALSE} indicates the selection.}
@@ -98,14 +98,14 @@ is \code{FALSE} as the data frame might become rather big.}
 \bold{\code{get_RLum}}:\cr
 
 Returns: \cr
-(1) [list] of \code{\linkS4class{RLum.Data}} objects or \cr
-(2) Single \code{\linkS4class{RLum.Data}} object, if only one object is contained and
+(1) [list] of [RLum.Data-class] objects or \cr
+(2) Single [RLum.Data-class] object, if only one object is contained and
 \code{recursive = FALSE} or\cr
-(3) \code{\linkS4class{RLum.Analysis}} ojects for \code{drop = FALSE} \cr
+(3) [RLum.Analysis-class] ojects for \code{drop = FALSE} \cr
 
 \bold{\code{structure_RLum}}:\cr
 
-Returns \code{\linkS4class{data.frame}} showing the structure.
+Returns [data.frame-class] showing the structure.
 
 \bold{\code{length_RLum}}\cr
 
@@ -128,7 +128,7 @@ from one measurements. Objects from this class are produced, by e.g. [read_XSYG2
 \itemize{
 \item \code{show}: Show structure of \code{RLum.Analysis} object
 
-\item \code{set_RLum}: Construction method for \code{\linkS4class{RLum.Analysis}} objects.
+\item \code{set_RLum}: Construction method for [RLum.Analysis-class] objects.
 
 \item \code{get_RLum}: Accessor method for RLum.Analysis object.
 
@@ -141,11 +141,11 @@ Example: curve type (e.g. curveType = "predefined" or curveType ="measured")
 The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 
-\item \code{structure_RLum}: Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
+\item \code{structure_RLum}: Method to show the structure of an [RLum.Analysis-class] object.
 
 \item \code{length_RLum}: Returns the length of the object, i.e., number of stored records.
 
-\item \code{names_RLum}: Returns the names of the \code{\linkS4class{RLum.Data}} objects objects (same as shown with the show method)
+\item \code{names_RLum}: Returns the names of the [RLum.Data-class] objects objects (same as shown with the show method)
 
 \item \code{smooth_RLum}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
 [zoo::rollmean] or [zoo::rollmedian].
@@ -157,12 +157,12 @@ In particular the internal function \code{.smoothing} is used.
 \describe{
 \item{\code{protocol}}{Object of class [character] describing the applied measurement protocol}
 
-\item{\code{records}}{Object of class [list] containing objects of class \code{\linkS4class{RLum.Data}}}
+\item{\code{records}}{Object of class [list] containing objects of class [RLum.Data-class]}
 }}
 
 \note{
 The method [structure_RLum] is currently just avaiblable for objects
-containing \code{\linkS4class{RLum.Data.Curve}}.
+containing [RLum.Data.Curve-class].
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
@@ -193,7 +193,7 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 }
 \seealso{
 [Risoe.BINfileData2RLum.Analysis],
-\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum}}
+[Risoe.BINfileData-class], [RLum-class]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

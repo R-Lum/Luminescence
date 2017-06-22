@@ -23,7 +23,7 @@ NULL
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, [plot_RLum], [merge_RLum]
+#' @seealso [RLum-class], [plot_RLum], [merge_RLum]
 #'
 #' @keywords classes methods
 #'
@@ -80,7 +80,7 @@ setClass(
 #'   \code{list} \tab \code{list}\cr
 #' }
 #'
-#' Given that the [list] consits of \code{\linkS4class{RLum.Results}} objects.
+#' Given that the [list] consits of [RLum.Results-class] objects.
 #'
 #' @name as
 #'
@@ -164,7 +164,7 @@ setMethod("show",
 #'
 #' \bold{\code{set_RLum}}:\cr
 #'
-#' Returns an object from the class \code{\linkS4class{RLum.Results}}\cr
+#' Returns an object from the class [RLum.Results-class]\cr
 #'
 #' @export
 setMethod("set_RLum",
@@ -204,8 +204,8 @@ setMethod("set_RLum",
 #' Note: Detailed specification should be made in combination with the originator slot in the
 #' receiving function if results are pipped.
 #'
-#' @param object [\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
-#' \code{\linkS4class{RLum.Results}} to be evaluated
+#' @param object [\code{get_RLum}] [RLum.Results-class] (required): an object of class
+#' [RLum.Results-class] to be evaluated
 #'
 #' @param data.object [\code{get_RLum}] [character] or
 #' [numeric]: name or index of the data slot to be returned
@@ -223,7 +223,7 @@ setMethod("set_RLum",
 #' Returns: \cr
 #' (1) Data object from the specified slot \cr
 #' (2) [list] of data objects from the slots if 'data.object' is vector or \cr
-#' (3) an \code{\linkS4class{RLum.Results}} for \code{drop = FALSE}.\cr
+#' (3) an [RLum.Results-class] for \code{drop = FALSE}.\cr
 #'
 #'
 #' @export

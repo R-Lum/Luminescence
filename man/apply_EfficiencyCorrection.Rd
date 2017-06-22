@@ -8,7 +8,7 @@ class objects}
 apply_EfficiencyCorrection(object, spectral.efficiency)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Spectrum} (\bold{required}): S4
 object of class \code{RLum.Data.Spectrum}}
 
 \item{spectral.efficiency}{\link{data.frame} (\bold{required}): Data
@@ -17,7 +17,7 @@ set containing wavelengths (x-column) and relative spectral response values
 }
 \value{
 Returns same object as input
-(\code{\linkS4class{RLum.Data.Spectrum}})
+(\linkS4class{RLum.Data.Spectrum})
 }
 \description{
 The function allows spectral efficiency corrections for RLum.Data.Spectrum
@@ -51,7 +51,7 @@ sufficiently correct for spectral efficiency of the entire optical system
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Spectrum}}
+\linkS4class{RLum.Data.Spectrum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

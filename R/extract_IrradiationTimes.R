@@ -18,12 +18,12 @@
 #' [write_R2BIN] for data import and export.
 #'
 #' @param object [character] (\bold{required}) or
-#' \code{\linkS4class{RLum.Analysis}} object or [list]: path and file name of the XSYG
-#' file or an \code{\linkS4class{RLum.Analysis}} produced by the function
-#' [read_XSYG2R]; alternatively a \code{list} of \code{\linkS4class{RLum.Analysis}} can
+#' [RLum.Analysis-class] object or [list]: path and file name of the XSYG
+#' file or an [RLum.Analysis-class] produced by the function
+#' [read_XSYG2R]; alternatively a \code{list} of [RLum.Analysis-class] can
 #' be provided. \cr
 #'
-#' \bold{Note}: If an \code{\linkS4class{RLum.Analysis}} is used, any input for
+#' \bold{Note}: If an [RLum.Analysis-class] is used, any input for
 #' the arguments \code{file.BINX} and \code{recordType} will be ignored!
 #'
 #' @param file.BINX [character] (optional): path and file name of
@@ -33,7 +33,7 @@
 #' same measurement!
 #'
 #' @param recordType [character] (with default): select relevant
-#' curves types from the XSYG file or \code{\linkS4class{RLum.Analysis}}
+#' curves types from the XSYG file or [RLum.Analysis-class]
 #' object. As the XSYG-file format comprises much more information than usually
 #' needed for routine data analysis and allowed in the BINX-file format, only
 #' the relevant curves are selected by using the function
@@ -49,7 +49,7 @@
 #' \code{TRUE} or disables \code{FALSE} the progression bars during import and
 #' export
 #'
-#' @return An \code{\linkS4class{RLum.Results}} object is returned with the
+#' @return An [RLum.Results-class] object is returned with the
 #' following structure:\cr .. $irr.times (data.frame)\cr
 #'
 #' If a BINX-file path and name is set, the output will be additionally
@@ -58,8 +58,8 @@
 #' not work if the input object is a file path to an XSYG-file, instead of a
 #' link to only one file. In this case the argument input for \code{file.BINX} is ignored.\cr
 #'
-#' In the self call mode (input is a \code{list} of \code{\linkS4class{RLum.Analysis}} objects
-#' a list of \code{\linkS4class{RLum.Results}} is returned.
+#' In the self call mode (input is a \code{list} of [RLum.Analysis-class] objects
+#' a list of [RLum.Results-class] is returned.
 #'
 #' @note The produced output object contains still the irradiation steps to
 #' keep the output transparent. However, for the BINX-file export this steps
@@ -88,8 +88,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
+#' @seealso [RLum.Analysis-class],
+#' [RLum.Results-class], [Risoe.BINfileData-class],
 #' [read_XSYG2R], [read_BIN2R], [write_R2BIN]
 #'
 #' @references Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and

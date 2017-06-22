@@ -2,7 +2,7 @@
 #'
 #' Function replicates RLum S4 class objects and returns a list for this objects
 #'
-#' @param object an object of class \code{\linkS4class{RLum}} (\bold{required})
+#' @param object an object of class [RLum-class] (\bold{required})
 #'
 #' @param times [integer] (optional): number for times each element is repeated
 #' element
@@ -15,7 +15,7 @@
 #' (France)
 #'
 #' @seealso
-#' \code{\linkS4class{RLum}},
+#' [RLum-class],
 #'
 #' @keywords utilities
 #'

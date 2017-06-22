@@ -13,7 +13,7 @@ plot_AbanicoPlot(data, na.rm = TRUE, log.z = TRUE, z.0 = "mean.weighted",
   bw = "SJ", output = TRUE, interactive = FALSE, ...)
 }
 \arguments{
-\item{data}{\link{data.frame} or \code{\linkS4class{RLum.Results}}
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results}
 object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 and De error (\code{data[,2]}). To plot several data sets in one plot the
 data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}

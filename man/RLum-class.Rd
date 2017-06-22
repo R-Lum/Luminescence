@@ -9,7 +9,7 @@
 \S4method{replicate_RLum}{RLum}(object, times = NULL)
 }
 \arguments{
-\item{object}{an object of class \code{\linkS4class{RLum}} (\bold{required})}
+\item{object}{an object of class [RLum-class] (\bold{required})}
 
 \item{times}{[integer] (optional): number for times each element is repeated
 element}
@@ -56,7 +56,7 @@ showClass("RLum")
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
+[RLum.Data-class], [RLum.Analysis-class]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

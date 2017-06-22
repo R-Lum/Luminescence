@@ -20,7 +20,7 @@
 #' helpful.\cr
 #'
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
+#' @param object [RLum.Analysis-class] (\bold{required}): S4
 #' object of class \code{RLum.Analysis}
 #'
 #' @param subset named [list] (optional): subsets elements for plotting. The
@@ -39,7 +39,7 @@
 #' adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.
 #'
 #' @param combine [logical] (with default): allows to combine all
-#' \code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
+#' [RLum.Data.Curve-class] objects in one single plot.
 #'
 #' @param curve.transformation [character] (optional): allows
 #' transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via

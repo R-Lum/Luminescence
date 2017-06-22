@@ -7,7 +7,7 @@
 write_RLum2CSV(object, path = NULL, prefix = "", export = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum}} or a \link{list} of \code{RLum} objects (\bold{required}): objects to be written}
+\item{object}{\linkS4class{RLum} or a \link{list} of \code{RLum} objects (\bold{required}): objects to be written}
 
 \item{path}{\link{character} (optional): character string naming folder for the output to be written. If nothing
 is provided \code{path} will be set to the working directory. Note: this argument is ignored if the
@@ -28,8 +28,8 @@ The function returns either a CSV-file (or many of them) or for the option \code
 a list comprising objects of type \link{data.frame} and \link{matrix}
 }
 \description{
-This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
-\link[utils:write.table]{utils::write.table}. All \code{\linkS4class{RLum}}-objects are supported, but the
+This function exports \linkS4class{RLum}-objects to CSV-files using the R function
+\link[utils:write.table]{utils::write.table}. All \linkS4class{RLum}-objects are supported, but the
 export is lossy, i.e. the pure numerical values are exported only. Information that cannot
 be coerced to a \link{data.frame} or a \link{matrix} are discarded as well as
 metadata.
@@ -67,7 +67,7 @@ write_RLum2CSV(object, export = FALSE)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data}, \linkS4class{RLum.Results},
 \link[utils:write.table]{utils::write.table}
 }
 \author{

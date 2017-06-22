@@ -11,7 +11,7 @@
 #' This function only applies on RLum.Analysis objects and was written for performance not
 #' usability, means the functions runs without any checks and is for internal usage only.
 #'
-#' @param \code{\linkS4class{RLum.Analysis}} (\bold{required}): input object where the function
+#' @param [RLum.Analysis-class] (\bold{required}): input object where the function
 #' should be applied on
 #'
 #' @return

@@ -9,7 +9,7 @@ apply_CosmicRayRemoval(object, method = "smooth", method.Pych.smoothing = 2,
   plot = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
+\item{object}{[RLum.Data.Spectrum-class] (\bold{required}): S4
 object of class \code{RLum.Data.Spectrum}}
 
 \item{method}{[character] (with default): Defines method that is
@@ -43,7 +43,7 @@ to the \code{smooth} function.}
 }
 \value{
 Returns same object as input
-(\code{\linkS4class{RLum.Data.Spectrum}})
+([RLum.Data.Spectrum-class])
 }
 \description{
 The function provides several methods for cosmic ray removal and spectrum
@@ -97,7 +97,7 @@ Single Images. Astrophysics 116, 148-153.
 \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Spectrum}}, [smooth],
+[RLum.Data.Spectrum-class], [smooth],
 [smooth.spline], [apply_CosmicRayRemoval]
 }
 \author{

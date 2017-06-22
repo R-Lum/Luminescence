@@ -69,7 +69,7 @@
 #' \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
 #' For non common plotting parameters see the details section.
 #'
-#' @return Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+#' @return Returns an S4 object of type [RLum.Results-class].
 #'
 #' \bold{@data}
 #' \tabular{lll}{
@@ -90,7 +90,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
-#' @seealso \code{\linkS4class{RLum.Results}}, [approx]
+#' @seealso [RLum.Results-class], [approx]
 #'
 #' @keywords datagen aplot
 #'

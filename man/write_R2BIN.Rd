@@ -8,7 +8,7 @@ write_R2BIN(object, file, version, compatibility.mode = FALSE,
   txtProgressBar = TRUE)
 }
 \arguments{
-\item{object}{\code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
+\item{object}{\linkS4class{Risoe.BINfileData} (\bold{required}):
 input object to be stored in a bin file.}
 
 \item{file}{\link{character} (\bold{required}): file name and path of
@@ -17,7 +17,7 @@ the output file\cr \code{[WIN]}: \code{write_R2BIN(object, "C:/Desktop/test.bin"
 
 \item{version}{\link{character} (optional): version number for the
 output file. If no value is provided the highest version number from the
-\code{\linkS4class{Risoe.BINfileData}} is taken automatically.\cr\cr Note:
+\linkS4class{Risoe.BINfileData} is taken automatically.\cr\cr Note:
 This argument can be used to convert BIN-file versions.}
 
 \item{compatibility.mode}{\link{logical} (with default): this option
@@ -76,7 +76,7 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
-\link{read_BIN2R}, \code{\linkS4class{Risoe.BINfileData}},
+\link{read_BIN2R}, \linkS4class{Risoe.BINfileData},
 \link{writeBin}
 }
 \author{

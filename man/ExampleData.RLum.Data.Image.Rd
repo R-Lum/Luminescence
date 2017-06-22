@@ -2,8 +2,8 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.RLum.Data.Image}
 \alias{ExampleData.RLum.Data.Image}
-\title{Example data as \code{\linkS4class{RLum.Data.Image}} objects}
-\format{Object of class \code{\linkS4class{RLum.Data.Image}}}
+\title{Example data as [RLum.Data.Image-class] objects}
+\format{Object of class [RLum.Data.Image-class]}
 \source{
 \bold{ExampleData.RLum.Data.Image}
 
@@ -23,7 +23,7 @@ Princeton Instruments (TM) camera fitted on Risoe DA-20 TL/OSL reader.
 \description{
 Measurement of Princton Instruments camera imported with the function
 [read_SPE2R] to R to produce an
-\code{\linkS4class{RLum.Data.Image}} object.
+[RLum.Data.Image-class] object.
 }
 \section{Version}{
  0.1

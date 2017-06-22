@@ -43,7 +43,7 @@
 #' \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
 #' \code{col}
 #'
-#' @param object \code{\linkS4class{RLum.Data.Image}} (\bold{required}): S4
+#' @param object [RLum.Data.Image-class] (\bold{required}): S4
 #' object of class \code{RLum.Data.Image}
 #' @param par.local [logical] (with default): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
@@ -60,7 +60,7 @@
 #' @section Function version: 0.1
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
-#' @seealso \code{\linkS4class{RLum.Data.Image}}, [plot],
+#' @seealso [RLum.Data.Image-class], [plot],
 #' [plot_RLum], [raster::raster]
 #' 
 #' @keywords aplot

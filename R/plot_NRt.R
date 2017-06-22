@@ -7,13 +7,13 @@
 #' \code{data} is a \code{list}, each element of the list must contain a two
 #' column \code{data.frame} or \code{matrix} containing the XY data of the curves
 #' (time and counts). Alternatively, the elements can be objects of class
-#' \code{\linkS4class{RLum.Data.Curve}}.
+#' [RLum.Data.Curve-class].
 #' Input values can also be provided as a \code{data.frame} or \code{matrix} where
 #' the first column contains the time values and each following column contains
 #' the counts of each curve.
 #'
 #' @param data a [list], [data.frame], [matrix] or
-#' \code{\linkS4class{RLum.Analysis}} object (\bold{required}). X,Y data of measured values
+#' [RLum.Analysis-class] object (\bold{required}). X,Y data of measured values
 #' (time and counts). See details on individual data structure.
 #'
 #' @param log [character] (optional): logarithmic axes
@@ -40,7 +40,7 @@
 #'
 #' @seealso [plot]
 #'
-#' @return Returns a plot and \code{\linkS4class{RLum.Analysis}} object.
+#' @return Returns a plot and [RLum.Analysis-class] object.
 #'
 #' @references
 #' Steffen, D., Preusser, F., Schlunegger, F., 2009. OSL quartz underestimation due to

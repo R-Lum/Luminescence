@@ -15,7 +15,7 @@
 #' Note that in both cases the integral limits are overlap. The finally applied limits are part
 #' of the function output.\cr
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
+#' @param object [RLum.Analysis-class] (\bold{required}): input
 #' object containing data for analysis
 #'
 #' @param signal.integral.min [integer] (\bold{required}): lower
@@ -59,7 +59,7 @@
 #' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence].
 #' See details for further information.
 #'
-#' @return A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
+#' @return A plot and an [RLum.Results-class] object with the produced De values
 #'
 #' \code{@data}:
 #' \tabular{lll}{

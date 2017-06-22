@@ -27,14 +27,14 @@
 #' \code{1,3,5,7,9,11,13,15,17}.
 #'
 #' @param input.objects [character] with
-#' \code{\linkS4class{Risoe.BINfileData}} objects (\bold{required}): Character vector
+#' [Risoe.BINfileData-class] objects (\bold{required}): Character vector
 #' with path and files names (e.g. \code{input.objects = c("path/file1.bin",
-#' "path/file2.bin")} or \code{\linkS4class{Risoe.BINfileData}} objects (e.g.
+#' "path/file2.bin")} or [Risoe.BINfileData-class] objects (e.g.
 #' \code{input.objects = c(object1, object2)}). Alternatively a \code{list} is supported.
 #'
 #'
 #' @param output.file [character] (optional): File output path and
-#' name. \cr If no value is given, a \code{\linkS4class{Risoe.BINfileData}} is
+#' name. \cr If no value is given, a [Risoe.BINfileData-class] is
 #' returned instead of a file.
 #'
 #'
@@ -49,7 +49,7 @@
 #' information.
 #'
 #'
-#' @return Returns a \code{file} or a \code{\linkS4class{Risoe.BINfileData}}
+#' @return Returns a \code{file} or a [Risoe.BINfileData-class]
 #' object.
 #'
 #'
@@ -63,7 +63,7 @@
 #' (France)
 #'
 #'
-#' @seealso \code{\linkS4class{Risoe.BINfileData}}, [read_BIN2R],
+#' @seealso [Risoe.BINfileData-class], [read_BIN2R],
 #' [write_R2BIN]
 #'
 #'

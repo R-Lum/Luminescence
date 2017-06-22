@@ -30,9 +30,9 @@
 #' pLM curves it is recommended to use the automatic estimation routine for
 #' \code{P}, i.e. provide no own value for \code{P}.}
 #'
-#' @param values \code{\linkS4class{RLum.Data.Curve}} or
+#' @param values [RLum.Data.Curve-class] or
 #' [data.frame] (\bold{required}):
-#' \code{\linkS4class{RLum.Data.Curve}} or \code{data.frame} with measured
+#' [RLum.Data.Curve-class] or \code{data.frame} with measured
 #' curve data of type stimulation time (t) (\code{values[,1]}) and measured
 #' counts (cts) (\code{values[,2]})
 #' @param P [vector] (optional): stimulation time in seconds. If no
@@ -40,7 +40,7 @@
 #' Greater values of P produce more points in the rising tail of the curve.
 #' @return The function returns the same data type as the input data type with
 #' the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-#' \code{\linkS4class{RLum}} object with two additional info elements:}
+#' [RLum-class] object with two additional info elements:}
 #' \tabular{rl}{ $CW2pLMi.x.t \tab: transformed time values \cr $CW2pLMi.method
 #' \tab: used method for the production of the new data points}
 #' @note According to Bos & Wallinga (2012) the number of extrapolated points
@@ -52,7 +52,7 @@
 #' Montaigne\cr\cr Based on comments and suggestions from:\cr Adrie J.J. Bos,
 #' Delft University of Technology, The Netherlands\cr
 #' @seealso [CW2pLM], [CW2pHMi], [CW2pPMi],
-#' [fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}}
+#' [fit_LMCurve], [RLum.Data.Curve-class]
 #' @references Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.\cr
 #'

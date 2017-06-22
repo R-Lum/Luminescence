@@ -6,7 +6,7 @@
 #' The function produces a multiple plot output.  A file output is recommended
 #' (e.g., [pdf]).
 #'
-#' @param object \code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
+#' @param object [RLum.Results-class] (\bold{required}): S4 object
 #' of class \code{RLum.Results}
 #'
 #' @param single [logical] (with default): single plot output

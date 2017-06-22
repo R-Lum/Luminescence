@@ -7,7 +7,7 @@
 get_Risoe.BINfileData(object, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{Risoe.BINfileData}} (\bold{required}): S4 object of
+\item{object}{\linkS4class{Risoe.BINfileData} (\bold{required}): S4 object of
 class \code{RLum}}
 
 \item{\dots}{further arguments that one might want to pass to the specific
@@ -21,16 +21,16 @@ Function calls object-specific get functions for RisoeBINfileData S4 class objec
 }
 \details{
 The function provides a generalised access point for specific
-\code{\linkS4class{Risoe.BINfileData}} objects.\cr Depending on the input object, the
+\linkS4class{Risoe.BINfileData} objects.\cr Depending on the input object, the
 corresponding get function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \code{\linkS4class{Risoe.BINfileData}} class.
+in the documentations of the corresponding \linkS4class{Risoe.BINfileData} class.
 }
 \section{Function version}{
  0.1.0
 }
 
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}
+\linkS4class{Risoe.BINfileData}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

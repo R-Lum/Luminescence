@@ -29,12 +29,12 @@
 #'
 #' \code{RLum.Data.Spectrum}\cr
 #'
-#' An object of type \code{\linkS4class{RLum.Data.Spectrum}} is returned.  Row
+#' An object of type [RLum.Data.Spectrum-class] is returned.  Row
 #' sums are used to integrate all counts over one channel.
 #'
 #' \code{RLum.Data.Image}\cr
 #'
-#' An object of type \code{\linkS4class{RLum.Data.Image}} is returned.  Due to
+#' An object of type [RLum.Data.Image-class] is returned.  Due to
 #' performace reasons the import is aborted for files containing more than 100
 #' frames. This limitation can be overwritten manually by using the argument
 #' \code{frame.frange}.
@@ -58,7 +58,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso [readBin], \code{\linkS4class{RLum.Data.Spectrum}},
+#' @seealso [readBin], [RLum.Data.Spectrum-class],
 #' [raster::raster]
 #'
 #' @references Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File

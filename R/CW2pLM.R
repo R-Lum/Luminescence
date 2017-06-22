@@ -10,7 +10,7 @@
 #' calculated by \deqn{ctsNEW = cts(u/P)} and the returned \code{data.frame} is
 #' produced by: \code{data.frame(u,ctsNEW)}
 #'
-#' @param values \code{\linkS4class{RLum.Data.Curve}} or
+#' @param values [RLum.Data.Curve-class] or
 #' [data.frame] (\bold{required}): \code{RLum.Data.Curve} data
 #' object. Alternatively, a \code{data.frame} of the measured curve data of
 #' type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
@@ -28,11 +28,11 @@
 #' (France)
 #' @seealso [CW2pHMi], [CW2pLMi],
 #' [CW2pPMi], [fit_LMCurve], [lm],
-#' \code{\linkS4class{RLum.Data.Curve}}
+#' [RLum.Data.Curve-class]
 #'
 #' The output of the function can be further used for LM-OSL fitting:
 #' [CW2pLMi], [CW2pHMi], [CW2pPMi],
-#' [fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}},
+#' [fit_LMCurve], [RLum.Data.Curve-class],
 #' [plot_RLum]
 #' @references Bulur, E., 2000. A simple transformation for converting CW-OSL
 #' curves to LM-OSL curves. Radiation Measurements, 32, 141-145.

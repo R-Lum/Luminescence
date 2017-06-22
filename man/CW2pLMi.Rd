@@ -8,9 +8,9 @@ modulation conditions}
 CW2pLMi(values, P)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Data.Curve}} or
+\item{values}{[RLum.Data.Curve-class] or
 [data.frame] (\bold{required}):
-\code{\linkS4class{RLum.Data.Curve}} or \code{data.frame} with measured
+[RLum.Data.Curve-class] or \code{data.frame} with measured
 curve data of type stimulation time (t) (\code{values[,1]}) and measured
 counts (cts) (\code{values[,2]})}
 
@@ -21,7 +21,7 @@ Greater values of P produce more points in the rising tail of the curve.}
 \value{
 The function returns the same data type as the input data type with
 the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-\code{\linkS4class{RLum}} object with two additional info elements:}
+[RLum-class] object with two additional info elements:}
 \tabular{rl}{ $CW2pLMi.x.t \tab: transformed time values \cr $CW2pLMi.method
 \tab: used method for the production of the new data points}
 }
@@ -124,7 +124,7 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
 [CW2pLM], [CW2pHMi], [CW2pPMi],
-[fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}}
+[fit_LMCurve], [RLum.Data.Curve-class]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux

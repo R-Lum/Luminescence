@@ -358,7 +358,7 @@ setMethod(f = "set_Risoe.BINfileData",
 #' Formal get-method for Risoe.BINfileData object. It does not allow accessing
 #' the object directly, it is just showing a terminal message.
 #'
-#' @param object an object of class \code{\linkS4class{Risoe.BINfileData}}
+#' @param object an object of class [Risoe.BINfileData-class]
 #'
 #' @param ... other arguments that might be passed
 #'

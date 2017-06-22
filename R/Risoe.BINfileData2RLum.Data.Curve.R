@@ -8,7 +8,7 @@
 #' object and stores them in the \code{RLum.Data.Curve} object. This function
 #' can be used stand-alone, but is the base function for [Risoe.BINfileData2RLum.Analysis].
 #'
-#' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
+#' @param object [Risoe.BINfileData-class] (\bold{required}):
 #' \code{Risoe.BINfileData} object
 #'
 #' @param id [integer] (\bold{required}): record id in the
@@ -31,7 +31,7 @@
 #' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
 #' argument is ignored.
 #'
-#' @return Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+#' @return Returns an [RLum.Data.Curve-class] object.
 #'
 #' @note Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
 #' overall correct for cases where the TL measurement is combined with a preheat.
@@ -42,8 +42,8 @@
 #' Christoph Burow, Universtiy of Cologne (Germany)
 #'
 #' @seealso [Risoe.BINfileData2RLum.Analysis],
-#' [set_RLum], \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{Risoe.BINfileData}},
+#' [set_RLum], [RLum.Data.Curve-class],
+#' [RLum.Analysis-class], [Risoe.BINfileData-class],
 #' [plot_RLum]
 #'
 #'

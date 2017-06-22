@@ -30,7 +30,7 @@ NULL
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+#' @seealso [RLum-class], [RLum.Data-class],
 #' [plot_RLum], [read_SPE2R]
 #'
 #' @keywords classes
@@ -271,7 +271,7 @@ setMethod(
 #'  provided, the raw image data (RasterBrick) will be returned.
 #'
 #' @param object \code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]} an object
-#' of class \code{\linkS4class{RLum.Data.Image}}
+#' of class [RLum.Data.Image-class]
 #' @param info.object \code{[get_RLum]} [character] name of the info object to returned
 #'
 #' @return

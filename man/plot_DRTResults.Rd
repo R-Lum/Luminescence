@@ -9,7 +9,7 @@ plot_DRTResults(values, given.dose = NULL, error.range = 10, preheat,
   par.local = TRUE, na.rm = FALSE, ...)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Results}} or \link{data.frame},
+\item{values}{\linkS4class{RLum.Results} or \link{data.frame},
 (\bold{required}): input values containing at least De and De error. To plot
 more than one data set in one figure, a \code{list} of the individual data
 sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}

@@ -3,19 +3,19 @@
 #' Function calls object-specific get functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+#' [RLum-class] objects.\cr Depending on the input object, the
 #' corresponding get function will be selected. Allowed arguments can be found
-#' in the documentations of the corresponding \code{\linkS4class{RLum}} class.
+#' in the documentations of the corresponding [RLum-class] class.
 #'
-#' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
+#' @param object [RLum-class] (\bold{required}): S4 object of
 #' class \code{RLum} or an object of type [list] containing only objects of type
-#' \code{\linkS4class{RLum}}
+#' [RLum-class]
 #'
 #' @param \dots further arguments that will be passed to the object specific methods. For
 #' furter details on the supported arguments please see the class
-#' documentation: \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Data.Image}},
-#' \code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}
+#' documentation: [RLum.Data.Curve-class],
+#' [RLum.Data.Spectrum-class], [RLum.Data.Image-class],
+#' [RLum.Analysis-class] and [RLum.Results-class]
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
@@ -25,11 +25,11 @@
 #' (France)
 #'
 #' @seealso
-#' \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Image}},
-#' \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}}
+#' [RLum.Data.Curve-class],
+#' [RLum.Data.Image-class],
+#' [RLum.Data.Spectrum-class],
+#' [RLum.Analysis-class],
+#' [RLum.Results-class]
 #'
 #' @keywords utilities
 #'
@@ -53,7 +53,7 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 
 # Method for get_RLum method for RLum objects in a list for a list of objects  -------------------
 #' @describeIn get_RLum
-#' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to [get_RLum]
+#' Returns a list of [RLum-class] objects that had been passed to [get_RLum]
 #'
 #' @param null.rm [logical] (with default): option to get rid of empty and NULL objects
 #' 

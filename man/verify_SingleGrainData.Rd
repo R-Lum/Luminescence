@@ -8,7 +8,7 @@ verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
   cleanup_level = "aliquot", verbose = TRUE, plot = FALSE)
 }
 \arguments{
-\item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
+\item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}
 (\bold{required}): input object. The function also accepts a list with objects of allowed type.}
 
 \item{threshold}{\link{numeric} (with default): numeric threshold value for the allowed difference between
@@ -16,7 +16,7 @@ the \code{mean} and the \code{var} of the count values (see details)}
 
 \item{cleanup}{\link{logical} (with default): if set to \code{TRUE} curves indentified as
 zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
-either \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}}
+either \linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}}
 
 \item{cleanup_level}{\link{character} (with default): selects the level for the cleanup
 of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
@@ -51,8 +51,8 @@ The original function call\cr
 \bold{Output variation}\cr
 
 For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up (invalid curves were removed).
-This means: Either an \code{\linkS4class{Risoe.BINfileData}} or an \code{\linkS4class{RLum.Analysis}}
-object is returned in such cases. An \code{\linkS4class{Risoe.BINfileData}} object can be exported
+This means: Either an \linkS4class{Risoe.BINfileData} or an \linkS4class{RLum.Analysis}
+object is returned in such cases. An \linkS4class{Risoe.BINfileData} object can be exported
 to a BIN-file by using the function \link{write_R2BIN}.
 }
 \description{
@@ -79,10 +79,10 @@ Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the rati
 both terms can become 0 which would result in 0 or \code{Inf}, if the ratio is calculated.
 }
 \note{
-This function can work with \code{\linkS4class{Risoe.BINfileData}} objects or
-\code{\linkS4class{RLum.Analysis}} objects (or a list of it). However, the function is highly optimised
-for \code{\linkS4class{Risoe.BINfileData}} objects as it make sense to remove identify invalid
-grains before the conversion to an \code{\linkS4class{RLum.Analysis}} object.\cr
+This function can work with \linkS4class{Risoe.BINfileData} objects or
+\linkS4class{RLum.Analysis} objects (or a list of it). However, the function is highly optimised
+for \linkS4class{Risoe.BINfileData} objects as it make sense to remove identify invalid
+grains before the conversion to an \linkS4class{RLum.Analysis} object.\cr
 
 The function checking for invalid curves works rather robust and it is likely that Reg0 curves
 within a SAR cycle are removed as well. Therefore it is strongly recommended to use the argument
@@ -123,7 +123,7 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 
 }
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}},
+\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis},
 \link{write_R2BIN}, \link{read_BIN2R}
 }
 \author{

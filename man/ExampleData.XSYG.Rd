@@ -8,12 +8,12 @@ reader}
 
 The data contain two elements: (a) \code{$Sequence.Header} is a
 \link{data.frame} with metadata from the measurement,(b)
-\code{Sequence.Object} contains an \code{\linkS4class{RLum.Analysis}} object
+\code{Sequence.Object} contains an [RLum.Analysis-class] object
 for further analysis.\cr
 
 \code{TL.Spectrum}: TL spectrum data
 
-\code{\linkS4class{RLum.Data.Spectrum}} object for further analysis. The
+[RLum.Data.Spectrum-class] object for further analysis. The
 spectrum was cleaned from cosmic-rays using the function
 \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
 was performed.}
@@ -90,8 +90,8 @@ of Dolni Vestonice, Czech Republic: A new OSL-based chronology of the Last
 Climatic Cycle. Boreas, 42, 664--677.
 }
 \seealso{
-[read_XSYG2R], \code{\linkS4class{RLum.Analysis}},\cr
-\code{\linkS4class{RLum.Data.Spectrum}}, [plot_RLum],\cr
+[read_XSYG2R], [RLum.Analysis-class],\cr
+[RLum.Data.Spectrum-class], [plot_RLum],\cr
 [plot_RLum.Analysis], [plot_RLum.Data.Spectrum]
 }
 \keyword{datasets}

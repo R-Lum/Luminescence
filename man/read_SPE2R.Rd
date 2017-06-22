@@ -30,12 +30,12 @@ type of objects:\cr
 
 \code{RLum.Data.Spectrum}\cr
 
-An object of type \code{\linkS4class{RLum.Data.Spectrum}} is returned.  Row
+An object of type \linkS4class{RLum.Data.Spectrum} is returned.  Row
 sums are used to integrate all counts over one channel.
 
 \code{RLum.Data.Image}\cr
 
-An object of type \code{\linkS4class{RLum.Data.Image}} is returned.  Due to
+An object of type \linkS4class{RLum.Data.Image} is returned.  Due to
 performace reasons the import is aborted for files containing more than 100
 frames. This limitation can be overwritten manually by using the argument
 \code{frame.frange}.
@@ -105,7 +105,7 @@ Hall, C., 2012: readSPE.m.
 \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
 }
 \seealso{
-\link{readBin}, \code{\linkS4class{RLum.Data.Spectrum}},
+\link{readBin}, \linkS4class{RLum.Data.Spectrum},
 \link[raster:raster]{raster::raster}
 }
 \author{

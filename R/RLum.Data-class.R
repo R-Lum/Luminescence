@@ -16,8 +16,8 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Spectrum}}
+#' @seealso [RLum-class], [RLum.Data.Curve-class],
+#' [RLum.Data.Spectrum-class]
 #'
 #' @keywords classes
 #'

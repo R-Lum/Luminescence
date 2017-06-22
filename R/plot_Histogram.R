@@ -18,7 +18,7 @@
 #' error), \code{"seabs.weighted"} (error-weighted absolute standard error),
 #' \code{"kurtosis"} (kurtosis) and \code{"skewness"} (skewness).
 #'
-#' @param data [data.frame] or \code{\linkS4class{RLum.Results}}
+#' @param data [data.frame] or [RLum.Results-class]
 #' object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]})
 #'

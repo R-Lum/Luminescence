@@ -72,7 +72,7 @@
 #' \code{axis}. Specifying tick positions manually overrides a
 #' \code{zlim}-definition.
 #'
-#' @param data [data.frame] or \code{\linkS4class{RLum.Results}}
+#' @param data [data.frame] or [RLum.Results-class]
 #' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}). To plot several data sets in one plot the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.

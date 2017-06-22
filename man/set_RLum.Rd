@@ -7,7 +7,7 @@
 set_RLum(class, originator, .uid = .create_UID(), .pid = NA_character_, ...)
 }
 \arguments{
-\item{class}{\code{\linkS4class{RLum}} (\bold{required}): name of the S4 class to
+\item{class}{\linkS4class{RLum} (\bold{required}): name of the S4 class to
 create}
 
 \item{originator}{\link{character} (automatic): contains the name of the calling function
@@ -30,12 +30,12 @@ Function calls object-specific set functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for specific
-\code{\linkS4class{RLum}} objects.\cr Depending on the given class, the
+\linkS4class{RLum} objects.\cr Depending on the given class, the
 corresponding method to create an object from this class will be selected.
 Allowed additional arguments can be found in the documentations of the
-corresponding \code{\linkS4class{RLum}} class: \code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}
+corresponding \linkS4class{RLum} class: \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Image}, \linkS4class{RLum.Data.Spectrum},
+\linkS4class{RLum.Analysis} and \linkS4class{RLum.Results}
 }
 \section{Function version}{
  0.3.0
@@ -62,11 +62,11 @@ plot_RLum(object)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}
+\linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Spectrum},
+\linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

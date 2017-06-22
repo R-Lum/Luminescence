@@ -3,23 +3,23 @@
 #' Function calls object specific plot functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for plotting specific
-#' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+#' [RLum-class] objects.\cr Depending on the input object, the
 #' corresponding plot function will be selected.  Allowed arguments can be
 #' found in the documentations of each plot function.  \tabular{lll}{
 #' \bold{object} \tab \tab \bold{corresponding plot function} \cr
 #'
-#' \code{\linkS4class{RLum.Data.Curve}} \tab : \tab
+#' [RLum.Data.Curve-class] \tab : \tab
 #' [plot_RLum.Data.Curve] \cr
-#' \code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab
+#' [RLum.Data.Spectrum-class] \tab : \tab
 #' [plot_RLum.Data.Spectrum]\cr
-#' \code{\linkS4class{RLum.Data.Image}} \tab : \tab
-#' [plot_RLum.Data.Image]\cr \code{\linkS4class{RLum.Analysis}}
+#' [RLum.Data.Image-class] \tab : \tab
+#' [plot_RLum.Data.Image]\cr [RLum.Analysis-class]
 #' \tab : \tab [plot_RLum.Analysis]\cr
-#' \code{\linkS4class{RLum.Results}} \tab : \tab
+#' [RLum.Results-class] \tab : \tab
 #' [plot_RLum.Results] }
 #'
-#' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
-#' class \code{RLum}. Optional a [list] containing objects of class \code{\linkS4class{RLum}}
+#' @param object [RLum-class] (\bold{required}): S4 object of
+#' class \code{RLum}. Optional a [list] containing objects of class [RLum-class]
 #' can be provided. In this case the function tries to plot every object in this list according
 #' to its \code{RLum} class.
 #'
@@ -39,11 +39,11 @@
 #' (France)
 #'
 #' @seealso [plot_RLum.Data.Curve],
-#' \code{\linkS4class{RLum.Data.Curve}}, [plot_RLum.Data.Spectrum],
-#' \code{\linkS4class{RLum.Data.Spectrum}}, [plot_RLum.Data.Image],
-#' \code{\linkS4class{RLum.Data.Image}}, [plot_RLum.Analysis],
-#' \code{\linkS4class{RLum.Analysis}}, [plot_RLum.Results],
-#' \code{\linkS4class{RLum.Results}}
+#' [RLum.Data.Curve-class], [plot_RLum.Data.Spectrum],
+#' [RLum.Data.Spectrum-class], [plot_RLum.Data.Image],
+#' [RLum.Data.Image-class], [plot_RLum.Analysis],
+#' [RLum.Analysis-class], [plot_RLum.Results],
+#' [RLum.Results-class]
 #'
 #'
 #' @keywords dplot

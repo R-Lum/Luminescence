@@ -148,7 +148,7 @@
 #' (France), \cr Michael Dietze, GFZ Potsdam (Germany)
 #'
 #'
-#' @seealso [nls], \code{\linkS4class{RLum.Results}},
+#' @seealso [nls], [RLum.Results-class],
 #' [get_RLum], [minpack.lm::nlsLM], [lm], \code{uniroot}
 #'
 #' @examples

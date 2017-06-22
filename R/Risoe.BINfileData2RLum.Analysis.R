@@ -3,13 +3,13 @@
 #' Converts values from one specific position of a Risoe.BINfileData S4-class
 #' object to an RLum.Analysis object.
 #'
-#' The \code{\linkS4class{RLum.Analysis}} object requires a set of curves for
+#' The [RLum.Analysis-class] object requires a set of curves for
 #' specific further protocol analyses. However, the
-#' \code{\linkS4class{Risoe.BINfileData}} usually contains a set of curves for
+#' [Risoe.BINfileData-class] usually contains a set of curves for
 #' different aliquots and different protocol types that may be mixed up.
 #' Therefore, a conversion is needed.
 #'
-#' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
+#' @param object [Risoe.BINfileData-class] (\bold{required}):
 #' \code{Risoe.BINfileData} object
 #'
 #' @param pos [numeric] (optional): position number of the
@@ -33,10 +33,10 @@
 #'
 #' @param ltype [vector}, \link{character] (optional): curve type
 #' to limit the converted data. Commonly allowed values are: \code{IRSL}, \code{OSL},
-#' \code{TL}, \code{RIR}, \code{RBR} and \code{USER} (see also \code{\linkS4class{Risoe.BINfileData}})
+#' \code{TL}, \code{RIR}, \code{RBR} and \code{USER} (see also [Risoe.BINfileData-class])
 #'
 #' @param dtype [vector}, \link{character] (optional): data type to
-#' limit the converted data. Commonly allowed values are listed in \code{\linkS4class{Risoe.BINfileData}}
+#' limit the converted data. Commonly allowed values are listed in [Risoe.BINfileData-class]
 #'
 #' @param protocol [character] (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
@@ -48,16 +48,16 @@
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' [txtProgressBar].
 #'
-#' @return Returns an \code{\linkS4class{RLum.Analysis}} object.
+#' @return Returns an [RLum.Analysis-class] object.
 #'
-#' @note The \code{protocol} argument of the \code{\linkS4class{RLum.Analysis}}
+#' @note The \code{protocol} argument of the [RLum.Analysis-class]
 #' object is set to 'unknown' if not stated otherwise.
 #'
 #' @section Function version: 0.4.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{Risoe.BINfileData}}, \code{\linkS4class{RLum.Analysis}}, [read_BIN2R]
+#' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [read_BIN2R]
 #'
 #'
 #'

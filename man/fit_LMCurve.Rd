@@ -12,11 +12,11 @@ fit_LMCurve(values, values.bg, n.components = 3, start_values,
   plot.BG = FALSE, ...)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
 (\bold{required}): x,y data of measured values (time and counts). See
 examples.}
 
-\item{values.bg}{\code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+\item{values.bg}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
 (optional): x,y data of measured values (time and counts) for background
 subtraction.}
 

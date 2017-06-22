@@ -3,26 +3,26 @@
 #' Function allows merging of RLum.Analysis objects and adding of allowed
 #' objects to an RLum.Analysis.
 #'
-#' This function simply allowing to merge \code{\linkS4class{RLum.Analysis}}
-#' objects.  Additionally other \code{\linkS4class{RLum}} objects can be added
-#' to an existing \code{\linkS4class{RLum.Analysis}} object. Supported objects
-#' to be added are: \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Spectrum}} and
-#' \code{\linkS4class{RLum.Data.Image}}.\cr
+#' This function simply allowing to merge [RLum.Analysis-class]
+#' objects.  Additionally other [RLum-class] objects can be added
+#' to an existing [RLum.Analysis-class] object. Supported objects
+#' to be added are: [RLum.Data.Curve-class],
+#' [RLum.Data.Spectrum-class] and
+#' [RLum.Data.Image-class].\cr
 #'
-#' The order in the new \code{\linkS4class{RLum.Analysis}} object is the object
+#' The order in the new [RLum.Analysis-class] object is the object
 #' order provided with the input list.
 #'
-#' @param objects [list] of \code{\linkS4class{RLum.Analysis}}
+#' @param objects [list] of [RLum.Analysis-class]
 #' (\bold{required}): list of S4 objects of class \code{RLum.Analysis}.
-#' Furthermore other objects of class \code{\linkS4class{RLum}} can be added,
+#' Furthermore other objects of class [RLum-class] can be added,
 #' see details.
 #'
-#' @return Return an \code{\linkS4class{RLum.Analysis}} object.
+#' @return Return an [RLum.Analysis-class] object.
 #'
 #' @note The information for the slot 'protocol' is taken from the first
-#' \code{\linkS4class{RLum.Analysis}} object in the input list. Therefore at
-#' least one object of type \code{\linkS4class{RLum.Analysis}} has to be
+#' [RLum.Analysis-class] object in the input list. Therefore at
+#' least one object of type [RLum.Analysis-class] has to be
 #' provided.
 #'
 #' @section Function version: 0.2.0
@@ -30,10 +30,10 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso [merge_RLum], \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum}}
+#' @seealso [merge_RLum], [RLum.Analysis-class],
+#' [RLum.Data.Curve-class],
+#' [RLum.Data.Spectrum-class],
+#' [RLum.Data.Image-class], [RLum-class]
 #'
 #'
 #'

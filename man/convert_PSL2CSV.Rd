@@ -39,7 +39,7 @@ convert_PSL2CSV(file)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data}, \linkS4class{RLum.Results},
 \link[utils:write.table]{utils::write.table}, \link{write_RLum2CSV}, \link{read_PSL2R}
 }
 \author{

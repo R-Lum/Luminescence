@@ -11,15 +11,15 @@ get_RLum(object, ...)
 \S4method{get_RLum}{list}(object, null.rm = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
+\item{object}{\linkS4class{RLum} (\bold{required}): S4 object of
 class \code{RLum} or an object of type \link{list} containing only objects of type
-\code{\linkS4class{RLum}}}
+\linkS4class{RLum}}
 
 \item{\dots}{further arguments that will be passed to the object specific methods. For
 furter details on the supported arguments please see the class
-documentation: \code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Data.Image}},
-\code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}}
+documentation: \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Analysis} and \linkS4class{RLum.Results}}
 
 \item{null.rm}{\link{logical} (with default): option to get rid of empty and NULL objects}
 }
@@ -31,13 +31,13 @@ Function calls object-specific get functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for specific
-\code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+\linkS4class{RLum} objects.\cr Depending on the input object, the
 corresponding get function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \code{\linkS4class{RLum}} class.
+in the documentations of the corresponding \linkS4class{RLum} class.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{list}: Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \link{get_RLum}
+\item \code{list}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{get_RLum}
 }}
 
 \section{Function version}{
@@ -60,11 +60,11 @@ temp.get <- get_RLum(object = temp1)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}
+\linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Spectrum},
+\linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

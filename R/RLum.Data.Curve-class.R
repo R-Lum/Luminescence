@@ -24,7 +24,7 @@ NULL
 #' @note The class should only contain data for a single curve. For additional
 #' elements the slot \code{info} can be used (e.g. providing additional heating
 #' ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
-#' functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
+#' functions (partyl within [RLum.Analysis-class] objects),
 #' namely: [Risoe.BINfileData2RLum.Analysis], [read_XSYG2R]
 #'
 #' @section Create objects from this Class: Objects can be created by calls of the form
@@ -34,7 +34,7 @@ NULL
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+#' @seealso [RLum-class], [RLum.Data-class],
 #' [plot_RLum], [merge_RLum]
 #'
 #' @keywords classes
@@ -80,7 +80,7 @@ setClass("RLum.Data.Curve",
 #'
 #' }
 #'
-#' @param from \code{\linkS4class{RLum}} or [list], [data.frame], [matrix]
+#' @param from [RLum-class] or [list], [data.frame], [matrix]
 #' (\bold{required}): object to be coerced from
 #'
 #' @param to [character] (\bold{required}): class name to be coerced to
@@ -207,7 +207,7 @@ setMethod("show",
 #'
 #' \bold{\code{set_RLum}}\cr
 #'
-#' Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+#' Returns an [RLum.Data.Curve-class] object.
 #'
 #' @export
 setMethod(
@@ -309,7 +309,7 @@ setMethod(
 #' provided, the raw curve data (matrix) will be returned.
 #'
 #' @param object [\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
-#' class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})
+#' class [RLum.Data.Curve-class] (\bold{required})
 #' @param info.object [\code{get_RLum}] [character] (optional): name of the wanted info
 #' element
 #'

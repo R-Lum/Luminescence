@@ -15,7 +15,7 @@
 #'
 #' 'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis'
 #'
-#' @param data [numeric] or \code{\linkS4class{RLum.Results}}
+#' @param data [numeric] or [RLum.Results-class]
 #' object (required): input data for plotting. Alternatively a [data.frame] or
 #' a [matrix] can be provided, but only the first column will be considered by the
 #' function

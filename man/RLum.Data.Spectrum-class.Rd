@@ -21,7 +21,7 @@
 }
 \arguments{
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{names_RLum}] an object of
-class \code{\linkS4class{RLum.Data.Spectrum}}}
+class [RLum.Data.Spectrum-class]}
 
 \item{class}{[\code{set_RLum}] [character] (automatic): name of the \code{RLum} class to create.}
 
@@ -122,7 +122,7 @@ plot_RLum(TL.Spectrum)
 }
 }
 \seealso{
-\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+[RLum-class], [RLum.Data-class],
 [plot_RLum]
 }
 \author{

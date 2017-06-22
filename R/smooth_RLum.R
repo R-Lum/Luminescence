@@ -3,12 +3,12 @@
 #' Function calls the object-specific smooth functions for provided RLum S4-class objects.
 #'
 #' The function provides a generalised access point for specific
-#' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+#' [RLum-class] objects.\cr Depending on the input object, the
 #' corresponding function will be selected. Allowed arguments can be found
-#' in the documentations of the corresponding \code{\linkS4class{RLum}} class. The smoothing
+#' in the documentations of the corresponding [RLum-class] class. The smoothing
 #' is based on an internal function called \code{.smoothing}.
 #'
-#' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
+#' @param object [RLum-class] (\bold{required}): S4 object of
 #' class \code{RLum}
 #'
 #' @param ... further arguments passed to the specifc class method
@@ -23,7 +23,7 @@
 #' @note Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis} (with curve data) are supported!
 #'
 #' @seealso
-#' \code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Analysis}}
+#' [RLum.Data.Curve-class], [RLum.Analysis-class]
 #'
 #' @examples
 #'
@@ -53,7 +53,7 @@ setGeneric("smooth_RLum", function(object, ...) {
 
 # Method for smooth_RLum method for RLum objects in a list for a list of objects  -------------------
 #' @describeIn smooth_RLum
-#' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to [smooth_RLum]
+#' Returns a list of [RLum-class] objects that had been passed to [smooth_RLum]
 #'
 #'
 #' @md

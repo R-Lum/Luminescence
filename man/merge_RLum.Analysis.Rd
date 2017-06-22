@@ -7,33 +7,33 @@
 merge_RLum.Analysis(objects)
 }
 \arguments{
-\item{objects}{\link{list} of \code{\linkS4class{RLum.Analysis}}
+\item{objects}{\link{list} of \linkS4class{RLum.Analysis}
 (\bold{required}): list of S4 objects of class \code{RLum.Analysis}.
-Furthermore other objects of class \code{\linkS4class{RLum}} can be added,
+Furthermore other objects of class \linkS4class{RLum} can be added,
 see details.}
 }
 \value{
-Return an \code{\linkS4class{RLum.Analysis}} object.
+Return an \linkS4class{RLum.Analysis} object.
 }
 \description{
 Function allows merging of RLum.Analysis objects and adding of allowed
 objects to an RLum.Analysis.
 }
 \details{
-This function simply allowing to merge \code{\linkS4class{RLum.Analysis}}
-objects.  Additionally other \code{\linkS4class{RLum}} objects can be added
-to an existing \code{\linkS4class{RLum.Analysis}} object. Supported objects
-to be added are: \code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Spectrum}} and
-\code{\linkS4class{RLum.Data.Image}}.\cr
+This function simply allowing to merge \linkS4class{RLum.Analysis}
+objects.  Additionally other \linkS4class{RLum} objects can be added
+to an existing \linkS4class{RLum.Analysis} object. Supported objects
+to be added are: \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum} and
+\linkS4class{RLum.Data.Image}.\cr
 
-The order in the new \code{\linkS4class{RLum.Analysis}} object is the object
+The order in the new \linkS4class{RLum.Analysis} object is the object
 order provided with the input list.
 }
 \note{
 The information for the slot 'protocol' is taken from the first
-\code{\linkS4class{RLum.Analysis}} object in the input list. Therefore at
-least one object of type \code{\linkS4class{RLum.Analysis}} has to be
+\linkS4class{RLum.Analysis} object in the input list. Therefore at
+least one object of type \linkS4class{RLum.Analysis} has to be
 provided.
 }
 \section{Function version}{
@@ -54,10 +54,10 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 
 }
 \seealso{
-\link{merge_RLum}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum}}
+\link{merge_RLum}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum},
+\linkS4class{RLum.Data.Image}, \linkS4class{RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

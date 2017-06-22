@@ -17,7 +17,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
+#' @seealso [RLum.Analysis-class], [RLum.Data-class], [RLum.Results-class],
 #' [utils::write.table], [write_RLum2CSV], [read_PSL2R]
 #'
 #' @keywords IO

@@ -32,8 +32,8 @@ to hardware errors.}
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 \code{\linkS4class{RLum.Analysis}} object containing
-\code{\linkS4class{RLum.Data.Curve}} objects for each curve.
+Returns an S4 \linkS4class{RLum.Analysis} object containing
+\linkS4class{RLum.Data.Curve} objects for each curve.
 }
 \description{
 Imports PSL files produced by a SUERC portable OSL reader into R \bold{(BETA)}.
@@ -66,8 +66,8 @@ temp
 
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Curve}}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Curve}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

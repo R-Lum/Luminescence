@@ -6,7 +6,7 @@
 #' Only single curve data can be plotted with this function.  Arguments
 #' according to [plot].
 #'
-#' @param object \code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
+#' @param object [RLum.Data.Curve-class] (\bold{required}): S4
 #' object of class \code{RLum.Data.Curve}
 #'
 #' @param par.local [logical] (with default): use local graphical

@@ -8,9 +8,9 @@ parabolic modulation conditions}
 CW2pPMi(values, P)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Data.Curve}} or
+\item{values}{[RLum.Data.Curve-class] or
 [data.frame] (\bold{required}):
-\code{\linkS4class{RLum.Data.Curve}} or \code{data.frame} with measured
+[RLum.Data.Curve-class] or \code{data.frame} with measured
 curve data of type stimulation time (t) (\code{values[,1]}) and measured
 counts (cts) (\code{values[,2]})}
 
@@ -131,7 +131,7 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
 [CW2pLM], [CW2pLMi], [CW2pHMi],
-[fit_LMCurve], \code{\linkS4class{RLum.Data.Curve}}
+[fit_LMCurve], [RLum.Data.Curve-class]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

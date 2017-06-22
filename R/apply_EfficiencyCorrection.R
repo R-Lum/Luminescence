@@ -12,7 +12,7 @@
 #' If the energy calibration differes for both data set \code{NA} values are produces that
 #' will be removed from the matrix.
 #'
-#' @param object \code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
+#' @param object [RLum.Data.Spectrum-class] (\bold{required}): S4
 #' object of class \code{RLum.Data.Spectrum}
 #'
 #' @param spectral.efficiency [data.frame] (\bold{required}): Data
@@ -20,7 +20,7 @@
 #' (y-column) in percentage
 #'
 #' @return Returns same object as input
-#' (\code{\linkS4class{RLum.Data.Spectrum}})
+#' ([RLum.Data.Spectrum-class])
 #'
 #' @note Please note that the spectral efficiency data from the camera alone may not
 #' sufficiently correct for spectral efficiency of the entire optical system
@@ -31,7 +31,7 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France),\cr Johannes Friedrich, University of Bayreuth (Germany)
 #'
-#' @seealso \code{\linkS4class{RLum.Data.Spectrum}}
+#' @seealso [RLum.Data.Spectrum-class]
 #'
 #'
 #'

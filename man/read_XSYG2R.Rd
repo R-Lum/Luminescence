@@ -38,7 +38,7 @@ information on file.} \item{Sequences}{\link{data.frame} with information on
 the sequences stored in the XSYG file}.\cr\cr \bold{Using the option
 \code{import = TRUE} (default)} \cr\cr A list is provided, the list elements
 contain: \item{Sequence.Header}{\link{data.frame} with information on the
-sequence.} \item{Sequence.Object}{\code{\linkS4class{RLum.Analysis}}
+sequence.} \item{Sequence.Object}{\linkS4class{RLum.Analysis}
 containing the curves.}
 }
 \description{
@@ -47,7 +47,7 @@ Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
 \details{
 \bold{How does the import function work?}\cr\cr The function uses the
 \link{xml} package to parse the file structure. Each sequence is
-subsequently translated into an \code{\linkS4class{RLum.Analysis}}
+subsequently translated into an \linkS4class{RLum.Analysis}
 object.\cr\cr
 
 \bold{General structure XSYG format}\cr\cr \code{<?xml?}\cr \code{
@@ -148,8 +148,8 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
 \bold{Further reading} \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
 }
 \seealso{
-\link{xml}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Data.Curve}}, \link{approx}
+\link{xml}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Data.Curve}, \link{approx}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

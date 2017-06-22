@@ -9,13 +9,13 @@ merge_Risoe.BINfileData(input.objects, output.file,
 }
 \arguments{
 \item{input.objects}{\link{character} with
-\code{\linkS4class{Risoe.BINfileData}} objects (\bold{required}): Character vector
+\linkS4class{Risoe.BINfileData} objects (\bold{required}): Character vector
 with path and files names (e.g. \code{input.objects = c("path/file1.bin",
-"path/file2.bin")} or \code{\linkS4class{Risoe.BINfileData}} objects (e.g.
+"path/file2.bin")} or \linkS4class{Risoe.BINfileData} objects (e.g.
 \code{input.objects = c(object1, object2)}). Alternatively a \code{list} is supported.}
 
 \item{output.file}{\link{character} (optional): File output path and
-name. \cr If no value is given, a \code{\linkS4class{Risoe.BINfileData}} is
+name. \cr If no value is given, a \linkS4class{Risoe.BINfileData} is
 returned instead of a file.}
 
 \item{keep.position.number}{\link{logical} (with default): Allows
@@ -28,7 +28,7 @@ the position number gap between merged BIN-file sets, if the option
 information.}
 }
 \value{
-Returns a \code{file} or a \code{\linkS4class{Risoe.BINfileData}}
+Returns a \code{file} or a \linkS4class{Risoe.BINfileData}
 object.
 }
 \description{
@@ -82,7 +82,7 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 Duller, G., 2007. Analyst.
 }
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}, \link{read_BIN2R},
+\linkS4class{Risoe.BINfileData}, \link{read_BIN2R},
 \link{write_R2BIN}
 }
 \author{

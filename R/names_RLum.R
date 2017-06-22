@@ -3,22 +3,22 @@
 #' Function calls object-specific names functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' \code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+#' [RLum-class] objects.\cr Depending on the input object, the
 #' corresponding 'names' function will be selected. Allowed arguments can be found
-#' in the documentations of the corresponding \code{\linkS4class{RLum}} class.
+#' in the documentations of the corresponding [RLum-class] class.
 #'
-#' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
+#' @param object [RLum-class] (\bold{required}): S4 object of
 #' class \code{RLum}
 #' @return Returns a [character]
 #' @section Function version: 0.1.0
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso
-#' \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Image}},
-#' \code{\linkS4class{RLum.Data.Spectrum}},
-#' \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}}
+#' [RLum.Data.Curve-class],
+#' [RLum.Data.Image-class],
+#' [RLum.Data.Spectrum-class],
+#' [RLum.Analysis-class],
+#' [RLum.Results-class]
 #' @keywords utilities
 #' @aliases names_RLum
 #'

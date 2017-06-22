@@ -7,7 +7,7 @@
 plot_RLum.Results(object, single = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
+\item{object}{\linkS4class{RLum.Results} (\bold{required}): S4 object
 of class \code{RLum.Results}}
 
 \item{single}{\link{logical} (with default): single plot output

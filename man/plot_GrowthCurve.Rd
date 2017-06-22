@@ -200,7 +200,7 @@ print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 
 }
 \seealso{
-\link{nls}, \code{\linkS4class{RLum.Results}},
+\link{nls}, \linkS4class{RLum.Results},
 \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{lm}, \code{uniroot}
 }
 \author{

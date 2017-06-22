@@ -30,11 +30,11 @@
 #' 
 #' @param ... currently not used.
 #'
-#' @return Returns an S4 \code{\linkS4class{RLum.Analysis}} object containing
-#' \code{\linkS4class{RLum.Data.Curve}} objects for each curve.  
+#' @return Returns an S4 [RLum.Analysis-class] object containing
+#' [RLum.Data.Curve-class] objects for each curve.  
 #' 
-#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Curve}}
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class],
+#' [RLum.Data.Curve-class]
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'

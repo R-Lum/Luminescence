@@ -2,7 +2,7 @@
 % Please edit documentation in R/Luminescence-package.R
 \name{ExampleData.RLum.Analysis}
 \alias{ExampleData.RLum.Analysis}
-\title{Example data as \code{\linkS4class{RLum.Analysis}} objects}
+\title{Example data as [RLum.Analysis-class] objects}
 \format{\code{IRSAR.RF.Data}: IRSAR.RF.Data on coarse grain feldspar
 
 Each object contains data needed for the given protocol analysis.}
@@ -21,7 +21,7 @@ Reference: \tab Kreutzer et al. (2014)\cr
 }
 }
 \description{
-Collection of different \code{\linkS4class{RLum.Analysis}} objects for
+Collection of different [RLum.Analysis-class] objects for
 protocol analysis.
 }
 \section{Version}{

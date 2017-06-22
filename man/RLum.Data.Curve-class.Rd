@@ -31,7 +31,7 @@
 }
 \arguments{
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
-class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
+class [RLum.Data.Curve-class] (\bold{required})}
 
 \item{class}{[\code{set_RLum}] [character] (\bold{required}): name of the \code{RLum} class to create}
 
@@ -75,7 +75,7 @@ smoothing: \code{"mean"} or \code{"median"}}
 \value{
 \bold{\code{set_RLum}}\cr
 
-Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+Returns an [RLum.Data.Curve-class] object.
 
 \bold{\code{get_RLum}}\cr
 
@@ -142,7 +142,7 @@ in 'data' (which is already an RLum.Data.Curve object in this example)}
 The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
 ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
-functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
+functions (partyl within [RLum.Analysis-class] objects),
 namely: [Risoe.BINfileData2RLum.Analysis], [read_XSYG2R]
 }
 \section{Create objects from this Class}{
@@ -163,7 +163,7 @@ set_RLum(class = "RLum.Data.Curve")
 
 }
 \seealso{
-\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+[RLum-class], [RLum.Data-class],
 [plot_RLum], [merge_RLum]
 }
 \author{

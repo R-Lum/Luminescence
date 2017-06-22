@@ -10,12 +10,12 @@ extract_IrradiationTimes(object, file.BINX, recordType = c("irradiation (NA)",
 }
 \arguments{
 \item{object}{\link{character} (\bold{required}) or
-\code{\linkS4class{RLum.Analysis}} object or \link{list}: path and file name of the XSYG
-file or an \code{\linkS4class{RLum.Analysis}} produced by the function
-\link{read_XSYG2R}; alternatively a \code{list} of \code{\linkS4class{RLum.Analysis}} can
+\linkS4class{RLum.Analysis} object or \link{list}: path and file name of the XSYG
+file or an \linkS4class{RLum.Analysis} produced by the function
+\link{read_XSYG2R}; alternatively a \code{list} of \linkS4class{RLum.Analysis} can
 be provided. \cr
 
-\bold{Note}: If an \code{\linkS4class{RLum.Analysis}} is used, any input for
+\bold{Note}: If an \linkS4class{RLum.Analysis} is used, any input for
 the arguments \code{file.BINX} and \code{recordType} will be ignored!}
 
 \item{file.BINX}{\link{character} (optional): path and file name of
@@ -25,7 +25,7 @@ BINX-file.\cr Note: The XSYG and the BINX-file have to be originate from the
 same measurement!}
 
 \item{recordType}{\link{character} (with default): select relevant
-curves types from the XSYG file or \code{\linkS4class{RLum.Analysis}}
+curves types from the XSYG file or \linkS4class{RLum.Analysis}
 object. As the XSYG-file format comprises much more information than usually
 needed for routine data analysis and allowed in the BINX-file format, only
 the relevant curves are selected by using the function
@@ -44,7 +44,7 @@ values to a max. value of 48, cf.\link{write_R2BIN}}
 export}
 }
 \value{
-An \code{\linkS4class{RLum.Results}} object is returned with the
+An \linkS4class{RLum.Results} object is returned with the
 following structure:\cr .. $irr.times (data.frame)\cr
 
 If a BINX-file path and name is set, the output will be additionally
@@ -53,8 +53,8 @@ output the path of the input BINX-file itself is used. Note that this will
 not work if the input object is a file path to an XSYG-file, instead of a
 link to only one file. In this case the argument input for \code{file.BINX} is ignored.\cr
 
-In the self call mode (input is a \code{list} of \code{\linkS4class{RLum.Analysis}} objects
-a list of \code{\linkS4class{RLum.Results}} is returned.
+In the self call mode (input is a \code{list} of \linkS4class{RLum.Analysis} objects
+a list of \linkS4class{RLum.Results} is returned.
 }
 \description{
 Extracts irradiation times, dose and times since last irradiation, from a
@@ -127,8 +127,8 @@ Duller, G.A.T., 2015. The Analyst software package for luminescence data: overvi
 recent improvements. Ancient TL 33, 35-42.
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}, \code{\linkS4class{Risoe.BINfileData}},
+\linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}, \linkS4class{Risoe.BINfileData},
 \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN}
 }
 \author{

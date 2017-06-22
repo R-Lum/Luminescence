@@ -31,7 +31,7 @@ NULL
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Analysis}}
+#' @seealso [RLum.Data-class], [RLum.Analysis-class]
 #'
 #' @keywords classes
 #'
@@ -62,7 +62,7 @@ setClass("RLum",
 #' @describeIn RLum
 #' Replication method RLum-objects
 #'
-#' @param object an object of class \code{\linkS4class{RLum}} (\bold{required})
+#' @param object an object of class [RLum-class] (\bold{required})
 #'
 #' @param times [integer] (optional): number for times each element is repeated
 #' element

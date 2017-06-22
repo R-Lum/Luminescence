@@ -10,7 +10,7 @@ plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour",
   legend.text, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} or \link{matrix} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\bold{required}): S4
 object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
 Please note that in case of a matrix rownames and colnames are set automatically if not provided.}
 
@@ -69,7 +69,7 @@ The function provides a standardised plot output for spectrum data of an
 RLum.Data.Spectrum S4 class object
 }
 \details{
-\bold{Matrix structure} \cr (cf. \code{\linkS4class{RLum.Data.Spectrum}})
+\bold{Matrix structure} \cr (cf. \linkS4class{RLum.Data.Spectrum})
 
 \itemize{ \item \code{rows} (x-values): wavelengths/channels (xlim, xlab)
 \item \code{columns} (y-values): time/temperature (ylim, ylab) \item
@@ -217,7 +217,7 @@ Blasse, G., Grabmaier, B.C., 1994. Luminescent Materials.
 Springer.
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Spectrum}}, \link{plot},
+\linkS4class{RLum.Data.Spectrum}, \link{plot},
 \link{plot_RLum}, \link{persp}, \link[plotly:plot_ly]{plotly::plot_ly},
 \link{contour}
 }

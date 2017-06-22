@@ -4,7 +4,7 @@
 #'
 #' \bold{How does the import function work?}\cr\cr The function uses the
 #' [xml] package to parse the file structure. Each sequence is
-#' subsequently translated into an \code{\linkS4class{RLum.Analysis}}
+#' subsequently translated into an [RLum.Analysis-class]
 #' object.\cr\cr
 #'
 #' \bold{General structure XSYG format}\cr\cr \code{<?xml?}\cr \code{
@@ -87,7 +87,7 @@
 #' the sequences stored in the XSYG file}.\cr\cr \bold{Using the option
 #' \code{import = TRUE} (default)} \cr\cr A list is provided, the list elements
 #' contain: \item{Sequence.Header}{\link{data.frame} with information on the
-#' sequence.} \item{Sequence.Object}{\code{\linkS4class{RLum.Analysis}}
+#' sequence.} \item{Sequence.Object}{[RLum.Analysis-class]
 #' containing the curves.}
 #'
 #' @note This function is a beta version as the XSYG file format is not yet
@@ -105,8 +105,8 @@
 #' (France)
 #'
 #'
-#' @seealso [xml], \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Data.Curve}}, [approx]
+#' @seealso [xml], [RLum.Analysis-class],
+#' [RLum.Data.Curve-class], [approx]
 #'
 #'
 #' @references Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the

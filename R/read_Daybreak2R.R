@@ -10,7 +10,7 @@
 #' leading to function failures during import when just a path is provided.
 #'
 #' @param raw [logical] (with default): if the input is a DAT-file (binary) a
-#' [data.table::data.table] instead of the \code{\linkS4class{RLum.Analysis}} object
+#' [data.table::data.table] instead of the [RLum.Analysis-class] object
 #' can be returned for debugging purposes.
 #'
 #' @param verbose [logical] (with default): enables or disables terminal feedback
@@ -18,7 +18,7 @@
 #' @param txtProgressBar [logical] (with default): enables or disables
 #' [txtProgressBar].
 #'
-#' @return  A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.
+#' @return  A list of [RLum.Analysis-class] objects (each per position) is provided.
 #'
 #' @note \bold{`[BETA VERSION]`} This function still needs to be tested properly. In particular
 #' the function has underwent only very rough rests using a few files.
@@ -29,7 +29,7 @@
 #' Anotine Zink, C2RMF, Palais du Louvre, Paris (France)\cr
 #' \cr The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
 #'
-#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class],
 #' [data.table::data.table]
 #'
 #'

@@ -8,7 +8,7 @@ plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster",
   ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Image}} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Image} (\bold{required}): S4
 object of class \code{RLum.Data.Image}}
 
 \item{par.local}{\link{logical} (with default): use local graphical
@@ -90,7 +90,7 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Image}}, \link{plot},
+\linkS4class{RLum.Data.Image}, \link{plot},
 \link{plot_RLum}, \link[raster:raster]{raster::raster}
 }
 \author{

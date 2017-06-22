@@ -38,7 +38,7 @@
 #' \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. If you wish to use another method, indicate this
 #' with the appropriate keyword using the argument \code{summary.method}.\cr\cr
-#' @param data [data.frame] or \code{\linkS4class{RLum.Results}}
+#' @param data [data.frame] or [RLum.Results-class]
 #' object (required): for \code{data.frame}: two columns: De
 #' (\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
 #' data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,

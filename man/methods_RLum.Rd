@@ -196,16 +196,16 @@ is.RLum.Results(x, ...)
 \method{$}{RLum.Results}(x, i)
 }
 \arguments{
-\item{x}{\code{\linkS4class{RLum}} or \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): input opject}
+\item{x}{\linkS4class{RLum} or \linkS4class{Risoe.BINfileData} (\bold{required}): input opject}
 
 \item{y}{\link{integer} (optional): the row index of the matrix, data.frame}
 
 \item{...}{further arguments that can be passed to the method}
 
-\item{object}{\code{\linkS4class{RLum}} (\bold{required}): input opject}
+\item{object}{\linkS4class{RLum} (\bold{required}): input opject}
 
 \item{subset}{\code{[subset]} \link{expression} (\bold{required}): logical expression indicating elements or rows to keep,
-this function works in \code{\linkS4class{Risoe.BINfileData}} objects like \link{subset.data.frame}, but takes care
+this function works in \linkS4class{Risoe.BINfileData} objects like \link{subset.data.frame}, but takes care
 of the object structure}
 
 \item{records.rm}{\link{subset} \link{logical} (with default): remove records from data set, can

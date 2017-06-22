@@ -21,7 +21,7 @@
 }
 \arguments{
 \item{object}{\code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]} an object
-of class \code{\linkS4class{RLum.Data.Image}}}
+of class [RLum.Data.Image-class]}
 
 \item{class}{\code{[set_RLum]}[character]: name of the \code{RLum} class to create}
 
@@ -113,7 +113,7 @@ set_RLum(class = "RLum.Data.Image")
 
 }
 \seealso{
-\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
+[RLum-class], [RLum.Data-class],
 [plot_RLum], [read_SPE2R]
 }
 \author{

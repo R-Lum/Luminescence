@@ -8,9 +8,9 @@ hyperbolic modulation conditions}
 CW2pHMi(values, delta)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Data.Curve}} or
+\item{values}{[RLum.Data.Curve-class] or
 [data.frame] (\bold{required}):
-\code{\linkS4class{RLum.Data.Curve}} or [data.frame] with
+[RLum.Data.Curve-class] or [data.frame] with
 measured curve data of type stimulation time (t) (\code{values[,1]}) and
 measured counts (cts) (\code{values[,2]}).}
 
@@ -167,7 +167,7 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 \seealso{
 [CW2pLM], [CW2pLMi], [CW2pPMi],
 [fit_LMCurve], [lm],
-\code{\linkS4class{RLum.Data.Curve}}
+[RLum.Data.Curve-class]
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

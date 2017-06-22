@@ -13,7 +13,7 @@ containing measurement data. Please note that the specific, common, file extensi
 leading to function failures during import when just a path is provided.}
 
 \item{raw}{\link{logical} (with default): if the input is a DAT-file (binary) a
-\link[data.table:data.table]{data.table::data.table} instead of the \code{\linkS4class{RLum.Analysis}} object
+\link[data.table:data.table]{data.table::data.table} instead of the \linkS4class{RLum.Analysis} object
 can be returned for debugging purposes.}
 
 \item{verbose}{\link{logical} (with default): enables or disables terminal feedback}
@@ -22,7 +22,7 @@ can be returned for debugging purposes.}
 \link{txtProgressBar}.}
 }
 \value{
-A list of \code{\linkS4class{RLum.Analysis}} objects (each per position) is provided.
+A list of \linkS4class{RLum.Analysis} objects (each per position) is provided.
 }
 \description{
 Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a Daybreak reader into R.
@@ -47,7 +47,7 @@ temp <- read_Daybreak2R(file)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
 \link[data.table:data.table]{data.table::data.table}
 }
 \author{

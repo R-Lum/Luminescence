@@ -7,8 +7,8 @@
 plot_RLum(object, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
-class \code{RLum}. Optional a \link{list} containing objects of class \code{\linkS4class{RLum}}
+\item{object}{\linkS4class{RLum} (\bold{required}): S4 object of
+class \code{RLum}. Optional a \link{list} containing objects of class \linkS4class{RLum}
 can be provided. In this case the function tries to plot every object in this list according
 to its \code{RLum} class.}
 
@@ -26,19 +26,19 @@ Function calls object specific plot functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for plotting specific
-\code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+\linkS4class{RLum} objects.\cr Depending on the input object, the
 corresponding plot function will be selected.  Allowed arguments can be
 found in the documentations of each plot function.  \tabular{lll}{
 \bold{object} \tab \tab \bold{corresponding plot function} \cr
 
-\code{\linkS4class{RLum.Data.Curve}} \tab : \tab
+\linkS4class{RLum.Data.Curve} \tab : \tab
 \link{plot_RLum.Data.Curve} \cr
-\code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab
+\linkS4class{RLum.Data.Spectrum} \tab : \tab
 \link{plot_RLum.Data.Spectrum}\cr
-\code{\linkS4class{RLum.Data.Image}} \tab : \tab
-\link{plot_RLum.Data.Image}\cr \code{\linkS4class{RLum.Analysis}}
+\linkS4class{RLum.Data.Image} \tab : \tab
+\link{plot_RLum.Data.Image}\cr \linkS4class{RLum.Analysis}
 \tab : \tab \link{plot_RLum.Analysis}\cr
-\code{\linkS4class{RLum.Results}} \tab : \tab
+\linkS4class{RLum.Results} \tab : \tab
 \link{plot_RLum.Results} }
 }
 \note{
@@ -64,11 +64,11 @@ plot_RLum(temp)
 }
 \seealso{
 \link{plot_RLum.Data.Curve},
-\code{\linkS4class{RLum.Data.Curve}}, \link{plot_RLum.Data.Spectrum},
-\code{\linkS4class{RLum.Data.Spectrum}}, \link{plot_RLum.Data.Image},
-\code{\linkS4class{RLum.Data.Image}}, \link{plot_RLum.Analysis},
-\code{\linkS4class{RLum.Analysis}}, \link{plot_RLum.Results},
-\code{\linkS4class{RLum.Results}}
+\linkS4class{RLum.Data.Curve}, \link{plot_RLum.Data.Spectrum},
+\linkS4class{RLum.Data.Spectrum}, \link{plot_RLum.Data.Image},
+\linkS4class{RLum.Data.Image}, \link{plot_RLum.Analysis},
+\linkS4class{RLum.Analysis}, \link{plot_RLum.Results},
+\linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

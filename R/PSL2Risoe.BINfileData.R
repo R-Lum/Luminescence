@@ -3,21 +3,21 @@
 #' Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to
 #' an \code{Risoe.BINfileData} object \bold{(BETA)}.
 #'
-#' This function converts an \code{\linkS4class{RLum.Analysis}} object that was produced
-#' by the [read_PSL2R] function to an \code{\linkS4class{Risoe.BINfileData}}.
+#' This function converts an [RLum.Analysis-class] object that was produced
+#' by the [read_PSL2R] function to an [Risoe.BINfileData-class].
 #' The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
 #' [write_R2BIN].
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}):
+#' @param object [RLum.Analysis-class] (\bold{required}):
 #' \code{RLum.Analysis} object produced by [read_PSL2R]
 #'
 #' @param ... currently not used.
 #'
-#' @return Returns an S4 \code{\linkS4class{Risoe.BINfileData}} object that can
+#' @return Returns an S4 [Risoe.BINfileData-class] object that can
 #' be used to write a BIN file using [write_R2BIN].
 #'
-#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{Risoe.BINfileData}}
+#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class],
+#' [Risoe.BINfileData-class]
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'

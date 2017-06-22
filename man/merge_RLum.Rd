@@ -7,7 +7,7 @@
 merge_RLum(objects, ...)
 }
 \arguments{
-\item{objects}{\link{list} of \code{\linkS4class{RLum}}
+\item{objects}{\link{list} of \linkS4class{RLum}
 (\bold{required}): list of S4 object of class \code{RLum}}
 
 \item{\dots}{further arguments that one might want to pass to the specific
@@ -21,7 +21,7 @@ Function calls object-specific merge functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for merge specific
-\code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+\linkS4class{RLum} objects.\cr Depending on the input object, the
 corresponding merge function will be selected.  Allowed arguments can be
 found in the documentations of each merge function. Empty list elements (\code{NULL}) are
 automatically removed from the input \code{list}.
@@ -29,9 +29,9 @@ automatically removed from the input \code{list}.
 \tabular{lll}{
 \bold{object} \tab \tab \bold{corresponding merge function} \cr
 
-\code{\linkS4class{RLum.Data.Curve}} \tab : \tab \code{merge_RLum.Data.Curve} \cr
-\code{\linkS4class{RLum.Analysis}} \tab : \tab \code{merge_RLum.Analysis} \cr
-\code{\linkS4class{RLum.Results}} \tab : \tab \code{merge_RLum.Results}
+\linkS4class{RLum.Data.Curve} \tab : \tab \code{merge_RLum.Data.Curve} \cr
+\linkS4class{RLum.Analysis} \tab : \tab \code{merge_RLum.Analysis} \cr
+\linkS4class{RLum.Results} \tab : \tab \code{merge_RLum.Results}
 }
 }
 \note{
@@ -61,8 +61,8 @@ temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
+\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

@@ -35,9 +35,9 @@
 #' operations and functions presented in standard books on R can be used without knowing the specifica
 #' of the R package 'Luminescence'. For examples see the example section.
 #'
-#' @param x \code{\linkS4class{RLum}} or \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): input opject
+#' @param x [RLum-class] or [Risoe.BINfileData-class] (\bold{required}): input opject
 #'
-#' @param object \code{\linkS4class{RLum}} (\bold{required}): input opject
+#' @param object [RLum-class] (\bold{required}): input opject
 #'
 #' @param y [integer] (optional): the row index of the matrix, data.frame
 #'
@@ -53,7 +53,7 @@
 #' @param drop [logical] (with default): keep object structure or drop it
 #'
 #' @param subset \code{[subset]} [expression] (\bold{required}): logical expression indicating elements or rows to keep,
-#' this function works in \code{\linkS4class{Risoe.BINfileData}} objects like [subset.data.frame], but takes care
+#' this function works in [Risoe.BINfileData-class] objects like [subset.data.frame], but takes care
 #' of the object structure
 #'
 #' @param row.names [logical] (with default): enables or disables row names (\code{as.data.frame})

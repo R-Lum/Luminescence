@@ -73,7 +73,7 @@ stored in the bin-file.} \item{DATA}{A \link{list} containing a numeric
 \link{vector} of the measured data. The ID corresponds to the record ID in
 METADATA.}\cr
 
-If \code{fastForward = TRUE} a list of \code{\linkS4class{RLum.Analysis}} object is returned. The
+If \code{fastForward = TRUE} a list of \linkS4class{RLum.Analysis} object is returned. The
 internal coercing is done using the function \link{Risoe.BINfileData2RLum.Analysis}
 }
 \description{
@@ -112,8 +112,8 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
-\link{write_R2BIN}, \code{\linkS4class{Risoe.BINfileData}},
-\link[base:readBin]{base::readBin}, \link{merge_Risoe.BINfileData}, \code{\linkS4class{RLum.Analysis}}
+\link{write_R2BIN}, \linkS4class{Risoe.BINfileData},
+\link[base:readBin]{base::readBin}, \link{merge_Risoe.BINfileData}, \linkS4class{RLum.Analysis}
 \link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{

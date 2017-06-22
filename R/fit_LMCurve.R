@@ -52,11 +52,11 @@
 #' \link{nls} help page for more information.\cr \emph{For more details on the
 #' nonlinear regression in R, see Ritz & Streibig (2008).}
 #'
-#' @param values \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+#' @param values [RLum.Data.Curve-class] or \link{data.frame}
 #' (\bold{required}): x,y data of measured values (time and counts). See
 #' examples.
 #'
-#' @param values.bg \code{\linkS4class{RLum.Data.Curve}} or \link{data.frame}
+#' @param values.bg [RLum.Data.Curve-class] or \link{data.frame}
 #' (optional): x,y data of measured values (time and counts) for background
 #' subtraction.
 #'

@@ -69,7 +69,7 @@
 #' \link{vector} of the measured data. The ID corresponds to the record ID in
 #' METADATA.}\cr
 #'
-#' If \code{fastForward = TRUE} a list of \code{\linkS4class{RLum.Analysis}} object is returned. The
+#' If \code{fastForward = TRUE} a list of [RLum.Analysis-class] object is returned. The
 #' internal coercing is done using the function [Risoe.BINfileData2RLum.Analysis]
 #'
 #'
@@ -87,8 +87,8 @@
 #' (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
 #'
 #'
-#' @seealso [write_R2BIN], \code{\linkS4class{Risoe.BINfileData}},
-#' [base::readBin], [merge_Risoe.BINfileData], \code{\linkS4class{RLum.Analysis}}
+#' @seealso [write_R2BIN], [Risoe.BINfileData-class],
+#' [base::readBin], [merge_Risoe.BINfileData], [RLum.Analysis-class]
 #' [utils::txtProgressBar], [list.files]
 #'
 #'

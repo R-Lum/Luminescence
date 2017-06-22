@@ -14,7 +14,7 @@
 #'
 #' @param ... Further arguments.
 #'
-#' @return Returns an \code{\linkS4class{RLum.Results}} object containing the following elements:
+#' @return Returns an [RLum.Results-class] object containing the following elements:
 #'
 #' \item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@@data}:
 #'

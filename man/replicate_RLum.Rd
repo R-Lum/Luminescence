@@ -7,7 +7,7 @@
 replicate_RLum(object, times = NULL)
 }
 \arguments{
-\item{object}{an object of class \code{\linkS4class{RLum}} (\bold{required})}
+\item{object}{an object of class \linkS4class{RLum} (\bold{required})}
 
 \item{times}{\link{integer} (optional): number for times each element is repeated
 element}
@@ -23,7 +23,7 @@ Function replicates RLum S4 class objects and returns a list for this objects
 }
 
 \seealso{
-\code{\linkS4class{RLum}},
+\linkS4class{RLum},
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

@@ -8,7 +8,7 @@ plot_RLum.Data.Curve(object, par.local = TRUE, norm = FALSE,
   smooth = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
+\item{object}{\linkS4class{RLum.Data.Curve} (\bold{required}): S4
 object of class \code{RLum.Data.Curve}}
 
 \item{par.local}{\link{logical} (with default): use local graphical

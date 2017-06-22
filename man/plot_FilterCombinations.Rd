@@ -26,7 +26,7 @@ as polygon.}
 For non common plotting parameters see the details section.}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
+Returns an S4 object of type \linkS4class{RLum.Results}.
 
 \bold{@data}
 \tabular{lll}{
@@ -126,7 +126,7 @@ plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Results}}, \link{approx}
+\linkS4class{RLum.Results}, \link{approx}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
