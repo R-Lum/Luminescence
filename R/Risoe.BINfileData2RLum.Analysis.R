@@ -18,24 +18,24 @@
 #' is returned. If nothing is provided every position will be converted. If the position is not valid \code{NA} is
 #' returned.
 #'
-#' @param grain [vector}, \link{numeric] (optional): grain number from
+#' @param grain [vector], [numeric] (optional): grain number from
 #' the measurement to limit the converted data set (e.g., \code{grain =
 #' c(1:48)}). Please be aware that this option may lead to unwanted effects, as the output
 #' is strictly limited to the choosen grain number for all position numbers
 #'
-#' @param run [vector}, \link{numeric] (optional): run number from
+#' @param run [vector}, [numeric] (optional): run number from
 #' the measurement to limit the converted data set (e.g., \code{run =
 #' c(1:48)}).
 #'
-#' @param set [vector}, \link{numeric] (optional): set number from
+#' @param set [vector}, [numeric] (optional): set number from
 #' the measurement to limit the converted data set (e.g., \code{set =
 #' c(1:48)}).
 #'
-#' @param ltype [vector}, \link{character] (optional): curve type
+#' @param ltype [vector}, [character] (optional): curve type
 #' to limit the converted data. Commonly allowed values are: \code{IRSL}, \code{OSL},
 #' \code{TL}, \code{RIR}, \code{RBR} and \code{USER} (see also [Risoe.BINfileData-class])
 #'
-#' @param dtype [vector}, \link{character] (optional): data type to
+#' @param dtype [vector}, [character] (optional): data type to
 #' limit the converted data. Commonly allowed values are listed in [Risoe.BINfileData-class]
 #'
 #' @param protocol [character] (optional): sets protocol type for
