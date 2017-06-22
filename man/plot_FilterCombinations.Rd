@@ -9,17 +9,17 @@ plot_FilterCombinations(filters, wavelength_range = 200:1000,
 }
 \arguments{
 \item{filters}{\code{\link{list}} (\bold{required}): a named list of filter data for each filter to be shown.
-The filter data itself should be either provided as \code{\link{data.frame}} or \code{\link{matrix}}.
+The filter data itself should be either provided as \link{data.frame} or \code{\link{matrix}}.
 (for more options s. Details)}
 
-\item{wavelength_range}{\code{\link{numeric}} (with default): wavelength range used for the interpolation}
+\item{wavelength_range}{\link{numeric} (with default): wavelength range used for the interpolation}
 
-\item{show_net_transmission}{\code{\link{logical}} (with default): show net transmission window
+\item{show_net_transmission}{\link{logical} (with default): show net transmission window
 as polygon.}
 
-\item{interactive}{\code{\link{logical}} (with default): enable/disable interactive plot}
+\item{interactive}{\link{logical} (with default): enable/disable interactive plot}
 
-\item{plot}{\code{\link{logical}} (with default): enables or disables the plot output}
+\item{plot}{\link{logical} (with default): enables or disables the plot output}
 
 \item{\dots}{further arguments that can be passed to control the plot output. Suppored are \code{main},
 \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.

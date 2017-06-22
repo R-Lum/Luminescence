@@ -15,10 +15,10 @@ object of class \code{RLum.Analysis}}
 arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
 (e.g., \code{subset = list(curveType = "measured")})}
 
-\item{nrows}{\code{\link{integer}} (optional): sets number of rows for
+\item{nrows}{\link{integer} (optional): sets number of rows for
 plot output, if nothing is set the function tries to find a value.}
 
-\item{ncols}{\code{\link{integer}} (optional): sets number of columns
+\item{ncols}{\link{integer} (optional): sets number of columns
 for plot output, if nothing is set the function tries to find a value.}
 
 \item{abline}{\code{\link{list}} (optional): allows to add ablines to the plot. Argument are provided
@@ -26,15 +26,15 @@ in a list and will be forwared to the function \code{\link{abline}}, e.g., \code
 adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = c(10), v = c(100)}
 adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.}
 
-\item{combine}{\code{\link{logical}} (with default): allows to combine all
+\item{combine}{\link{logical} (with default): allows to combine all
 \code{\linkS4class{RLum.Data.Curve}} objects in one single plot.}
 
-\item{curve.transformation}{\code{\link{character}} (optional): allows
+\item{curve.transformation}{\link{character} (optional): allows
 transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
 transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 \code{CW2pHMi} and \code{CW2pPMi}. See details.}
 
-\item{plot.single}{\code{\link{logical}} (with default): global par settings are
+\item{plot.single}{\link{logical} (with default): global par settings are
 considered, normally this should end in one plot per page}
 
 \item{\dots}{further arguments and graphical parameters will be passed to

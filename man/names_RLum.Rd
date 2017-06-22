@@ -11,7 +11,7 @@ names_RLum(object)
 class \code{RLum}}
 }
 \value{
-Returns a \code{\link{character}}
+Returns a \link{character}
 }
 \description{
 Function calls object-specific names functions for RLum S4 class objects.

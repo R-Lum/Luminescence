@@ -7,18 +7,18 @@
 tune_Data(data, decrease.error = 0, increase.data = 0)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} (\bold{required}): input values,
+\item{data}{\link{data.frame} (\bold{required}): input values,
 structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
 required}
 
-\item{decrease.error}{\code{\link{numeric}}: factor by which the error
+\item{decrease.error}{\link{numeric}: factor by which the error
 is decreased, ranges between 0 and 1.}
 
-\item{increase.data}{\code{\link{numeric}}: factor by which the error
+\item{increase.data}{\link{numeric}: factor by which the error
 is decreased, ranges between 0 and inf.}
 }
 \value{
-Returns a \code{\link{data.frame}} with tuned values.
+Returns a \link{data.frame} with tuned values.
 }
 \description{
 The error can be reduced and sample size increased for specific purpose.

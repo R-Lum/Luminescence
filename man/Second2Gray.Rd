@@ -7,16 +7,16 @@
 Second2Gray(data, dose.rate, error.propagation = "omit")
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} (\bold{required}): input values,
+\item{data}{[data.frame] (\bold{required}): input values,
 structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
 required}
 
-\item{dose.rate}{\code{\linkS4class{RLum.Results}} or \code{\link{data.frame}} or \code{\link{numeric}}
+\item{dose.rate}{\code{\linkS4class{RLum.Results}} or [data.frame] or [numeric]
 (\bold{required}): \code{RLum.Results} needs to be orginated from the
 function \code{\link{calc_SourceDoseRate}}, for \code{vector} dose rate in
 Gy/s and dose rate error in Gy/s}
 
-\item{error.propagation}{\code{\link{character}} (with default): error propagation method used for error
+\item{error.propagation}{[character] (with default): error propagation method used for error
 calculation (\code{omit}, \code{gaussian} or \code{absolute}), see details for further
 information}
 }

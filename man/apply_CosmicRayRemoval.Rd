@@ -12,28 +12,28 @@ apply_CosmicRayRemoval(object, method = "smooth", method.Pych.smoothing = 2,
 \item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
 object of class \code{RLum.Data.Spectrum}}
 
-\item{method}{\code{\link{character}} (with default): Defines method that is
+\item{method}{[character] (with default): Defines method that is
 applied for cosmic ray removal. Allowed methods are \code{smooth}, the default,
 (\code{\link{smooth}}), \code{smooth.spline} (\code{\link{smooth.spline}})
 and \code{Pych}. See details for further information.}
 
-\item{method.Pych.smoothing}{\code{\link{integer}} (with default): Smoothing
+\item{method.Pych.smoothing}{[integer] (with default): Smoothing
 parameter for cosmic ray removal according to Pych (2003). The value defines
 how many neighboring values in each frame are used for smoothing (e.g.,
 \code{2} means that the two previous and two following values are used).}
 
-\item{method.Pych.threshold_factor}{\code{\link{numeric}} (with default): Threshold
+\item{method.Pych.threshold_factor}{[numeric] (with default): Threshold
 for zero-bins in the histogram. Small values mean that more peaks are removed, but signal
 might be also affected by this removal.}
 
-\item{MARGIN}{\code{\link{integer}} (with default): on which part the function cosmic ray removal
+\item{MARGIN}{[integer] (with default): on which part the function cosmic ray removal
 should be applied on: 1 = along the time axis (line by line), 2 = along the wavelength axis (column by
 column). Note: This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
 
-\item{verbose}{\code{\link{logical}} (with default): Option to suppress
+\item{verbose}{[logical] (with default): Option to suppress
 terminal output.,}
 
-\item{plot}{\code{\link{logical}} (with default): If \code{TRUE} the
+\item{plot}{[logical] (with default): If \code{TRUE} the
 histograms used for the cosmic-ray removal are returned as plot including
 the used threshold. Note: A separat plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}

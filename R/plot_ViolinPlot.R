@@ -15,26 +15,26 @@
 #'
 #' 'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis'
 #'
-#' @param data \code{\link{numeric}} or \code{\linkS4class{RLum.Results}}
-#' object (required): input data for plotting. Alternatively a \code{\link{data.frame}} or
+#' @param data [numeric] or \code{\linkS4class{RLum.Results}}
+#' object (required): input data for plotting. Alternatively a [data.frame] or
 #' a \code{\link{matrix}} can be provided, but only the first column will be considered by the
 #' function
 #'
-#' @param boxplot \code{\link{logical}} (with default): enable or disable boxplot
+#' @param boxplot [logical] (with default): enable or disable boxplot
 #'
-#' @param rug \code{\link{logical}} (with default): enable or disable rug
+#' @param rug [logical] (with default): enable or disable rug
 #'
-#' @param summary \code{\link{character}} (optional): add statistic measures of
+#' @param summary [character] (optional): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #'
-#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' @param summary.pos [numeric] or [character] (with
 #' default): optional position keywords (cf., \code{\link{legend}})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if \code{mtext} is not used.
 #'
-#' @param na.rm \code{\link{logical}} (with default): exclude NA values
+#' @param na.rm [logical] (with default): exclude NA values
 #' from the data set prior to any further operations.
 #'
 #' @param \dots further arguments and graphical parameters passed to

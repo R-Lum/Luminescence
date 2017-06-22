@@ -53,17 +53,17 @@
 #'
 #'
 #' @param filters \code{\link{list}} (\bold{required}): a named list of filter data for each filter to be shown.
-#' The filter data itself should be either provided as \code{\link{data.frame}} or \code{\link{matrix}}.
+#' The filter data itself should be either provided as [data.frame] or \code{\link{matrix}}.
 #' (for more options s. Details)
 #'
-#' @param wavelength_range \code{\link{numeric}} (with default): wavelength range used for the interpolation
+#' @param wavelength_range [numeric] (with default): wavelength range used for the interpolation
 #'
-#' @param show_net_transmission \code{\link{logical}} (with default): show net transmission window
+#' @param show_net_transmission [logical] (with default): show net transmission window
 #' as polygon.
 #'
-#' @param interactive \code{\link{logical}} (with default): enable/disable interactive plot
+#' @param interactive [logical] (with default): enable/disable interactive plot
 #'
-#' @param plot \code{\link{logical}} (with default): enables or disables the plot output
+#' @param plot [logical] (with default): enables or disables the plot output
 #'
 #' @param \dots further arguments that can be passed to control the plot output. Suppored are \code{main},
 #' \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.

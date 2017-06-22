@@ -9,7 +9,7 @@ extract_IrradiationTimes(object, file.BINX, recordType = c("irradiation (NA)",
   txtProgressBar = TRUE)
 }
 \arguments{
-\item{object}{\code{\link{character}} (\bold{required}) or
+\item{object}{\link{character} (\bold{required}) or
 \code{\linkS4class{RLum.Analysis}} object or \code{\link{list}}: path and file name of the XSYG
 file or an \code{\linkS4class{RLum.Analysis}} produced by the function
 \code{\link{read_XSYG2R}}; alternatively a \code{list} of \code{\linkS4class{RLum.Analysis}} can
@@ -18,13 +18,13 @@ be provided. \cr
 \bold{Note}: If an \code{\linkS4class{RLum.Analysis}} is used, any input for
 the arguments \code{file.BINX} and \code{recordType} will be ignored!}
 
-\item{file.BINX}{\code{\link{character}} (optional): path and file name of
+\item{file.BINX}{\link{character} (optional): path and file name of
 an existing BINX-file. If a file name is provided the file will be updated
 with the information from the XSYG file in the same folder as the original
 BINX-file.\cr Note: The XSYG and the BINX-file have to be originate from the
 same measurement!}
 
-\item{recordType}{\code{\link{character}} (with default): select relevant
+\item{recordType}{\link{character} (with default): select relevant
 curves types from the XSYG file or \code{\linkS4class{RLum.Analysis}}
 object. As the XSYG-file format comprises much more information than usually
 needed for routine data analysis and allowed in the BINX-file format, only
@@ -35,11 +35,11 @@ described for this function. \cr
 Note: A wrong selection will causes a function error. Please change this
 argument only if you have reasons to do so.}
 
-\item{compatibility.mode}{\code{\link{logical}} (with default): this option
+\item{compatibility.mode}{\link{logical} (with default): this option
 is parsed only if a BIN/BINX file is produced and it will reset all position
 values to a max. value of 48, cf.\code{\link{write_R2BIN}}}
 
-\item{txtProgressBar}{\code{\link{logical}} (with default): enables
+\item{txtProgressBar}{\link{logical} (with default): enables
 \code{TRUE} or disables \code{FALSE} the progression bars during import and
 export}
 }

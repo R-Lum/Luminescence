@@ -13,19 +13,19 @@
 #' These functions can be used to query a specific repository hosted on GitHub. \cr
 #' 
 #' 
-#' @param user \code{\link{character}}: 
+#' @param user [character]: 
 #' GitHub user name (defaults to 'r-lum').
 #' 
-#' @param repo \code{\link{character}}: 
+#' @param repo [character]: 
 #' name of a GitHub repository (defaults to 'luminescence').
 #' 
-#' @param branch \code{\link{character}}: 
+#' @param branch [character]: 
 #' branch of a GitHub repository (defaults to 'master').
 #' 
-#' @param n \code{\link{integer}}:
+#' @param n [integer]:
 #' number of commits returned (defaults to 5).
 #' 
-#' @param verbose \code{\link{logical}}: 
+#' @param verbose [logical]: 
 #' print the output to the console (defaults to \code{TRUE}).
 #' 
 #' @author Christoph Burow, University of Cologne (Germany)
@@ -55,7 +55,7 @@ NULL
 #' branch of a repository.
 #' 
 #' @return 
-#' \code{github_commits}: \code{\link{data.frame}} with columns:
+#' \code{github_commits}: [data.frame] with columns:
 #' \tabular{ll}{
 #'  `[ ,1]` \tab SHA \cr
 #'  `[ ,2]` \tab AUTHOR \cr
@@ -101,7 +101,7 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #' command to install the branch in R via the 'devtools' package.
 #' 
 #' @return 
-#' \code{github_branches}: \code{\link{data.frame}} with columns:
+#' \code{github_branches}: [data.frame] with columns:
 #' \tabular{ll}{
 #'  `[ ,1]` \tab BRANCH \cr
 #'  `[ ,2]` \tab SHA \cr

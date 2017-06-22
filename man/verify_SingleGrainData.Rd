@@ -11,22 +11,22 @@ verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
 (\bold{required}): input object. The function also accepts a list with objects of allowed type.}
 
-\item{threshold}{\code{\link{numeric}} (with default): numeric threshold value for the allowed difference between
+\item{threshold}{\link{numeric} (with default): numeric threshold value for the allowed difference between
 the \code{mean} and the \code{var} of the count values (see details)}
 
-\item{cleanup}{\code{\link{logical}} (with default): if set to \code{TRUE} curves indentified as
+\item{cleanup}{\link{logical} (with default): if set to \code{TRUE} curves indentified as
 zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
 either \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}}
 
-\item{cleanup_level}{\code{\link{character}} (with default): selects the level for the cleanup
+\item{cleanup_level}{\link{character} (with default): selects the level for the cleanup
 of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
 is selected every single curve marked as \code{invalid} is removed. If \code{"aliquot"} is selected,
 curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
 will be only removed if all curves of this aliquot are marked as invalid.}
 
-\item{verbose}{\code{\link{logical}} (with default): enables or disables the terminal feedback}
+\item{verbose}{\link{logical} (with default): enables or disables the terminal feedback}
 
-\item{plot}{\code{\link{logical}} (with default): enables or disables the graphical feedback}
+\item{plot}{\link{logical} (with default): enables or disables the graphical feedback}
 }
 \value{
 The function returns

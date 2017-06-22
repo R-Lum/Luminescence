@@ -7,10 +7,10 @@
 template_DRAC(nrow = 1, notification = TRUE)
 }
 \arguments{
-\item{nrow}{\code{\link{integer}} (with default): specifies the number of rows
+\item{nrow}{\link{integer} (with default): specifies the number of rows
 of the template (i.e., the number of data sets you want to submit)}
 
-\item{notification}{\code{\link{logical}} (with default): show or hide the
+\item{notification}{\link{logical} (with default): show or hide the
 notification}
 }
 \value{

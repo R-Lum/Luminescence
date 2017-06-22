@@ -5,7 +5,7 @@
 #' If nothing is set for the argument \code{path} (\code{\link{write_RLum2CSV}}) the input folder will
 #' become the output folder.
 #'
-#' @param file \code{\link{character}} (\bold{required}): name of the XSYG-file to be converted to CSV-files
+#' @param file [character] (\bold{required}): name of the XSYG-file to be converted to CSV-files
 #'
 #' @param \dots further arguments that will be passed to the function \code{\link{read_XSYG2R}} and \code{\link{write_RLum2CSV}}
 #'

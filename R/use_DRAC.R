@@ -5,11 +5,11 @@
 #' results are re-imported into R.
 #'
 #'
-#' @param file \code{\link{character}}: spreadsheet to be passed
+#' @param file [character]: spreadsheet to be passed
 #' to the DRAC website for calculation. Can also be a DRAC template object
 #' obtained from \code{template_DRAC()}.
 #'
-#' @param name \code{\link{character}}: Optional user name submitted to DRAC. If
+#' @param name [character]: Optional user name submitted to DRAC. If
 #' omitted, a random name will be generated
 #'
 #' @param ... Further arguments.
@@ -19,12 +19,12 @@
 #' \item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@@data}:
 #'
 #' \tabular{lll}{
-#'    \code{$highlights} \tab \code{\link{data.frame}} \tab summary of 25 most important input/output fields \cr
-#'    \code{$header} \tab \code{\link{character}} \tab HTTP header from the DRAC server response \cr
-#'    \code{$labels} \tab \code{\link{data.frame}} \tab descriptive headers of all input/output fields \cr
-#'    \code{$content} \tab \code{\link{data.frame}} \tab complete DRAC input/output table \cr
-#'    \code{$input} \tab \code{\link{data.frame}} \tab DRAC input table \cr
-#'    \code{$output} \tab \code{\link{data.frame}} \tab DRAC output table \cr
+#'    \code{$highlights} \tab [data.frame] \tab summary of 25 most important input/output fields \cr
+#'    \code{$header} \tab [character] \tab HTTP header from the DRAC server response \cr
+#'    \code{$labels} \tab [data.frame] \tab descriptive headers of all input/output fields \cr
+#'    \code{$content} \tab [data.frame] \tab complete DRAC input/output table \cr
+#'    \code{$input} \tab [data.frame] \tab DRAC input table \cr
+#'    \code{$output} \tab [data.frame] \tab DRAC output table \cr
 #' }
 #'
 #' }

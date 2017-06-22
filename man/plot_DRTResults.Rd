@@ -9,12 +9,12 @@ plot_DRTResults(values, given.dose = NULL, error.range = 10, preheat,
   par.local = TRUE, na.rm = FALSE, ...)
 }
 \arguments{
-\item{values}{\code{\linkS4class{RLum.Results}} or \code{\link{data.frame}},
+\item{values}{\code{\linkS4class{RLum.Results}} or \link{data.frame},
 (\bold{required}): input values containing at least De and De error. To plot
 more than one data set in one figure, a \code{list} of the individual data
 sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
 
-\item{given.dose}{\code{\link{numeric}} (optional): given dose used for the
+\item{given.dose}{\link{numeric} (optional): given dose used for the
 dose recovery test to normalise data. If only one given dose is provided
 this given dose is valid for all input data sets (i.e., \code{values} is a
 list).  Oherwise a given dose for each input data set has to be provided
@@ -23,21 +23,21 @@ plotted without normalisation (might be useful for preheat plateau tests).
 Note: Unit has to be the same as from the input values (e.g., Seconds or
 Gray).}
 
-\item{error.range}{\code{\link{numeric}}: symmetric error range in percent
+\item{error.range}{\link{numeric}: symmetric error range in percent
 will be shown as dashed lines in the plot. Set \code{error.range} to 0 to
 void plotting of error ranges.}
 
-\item{preheat}{\code{\link{numeric}}: optional vector of preheat
+\item{preheat}{\link{numeric}: optional vector of preheat
 temperatures to be used for grouping the De values. If specified, the
 temperatures are assigned to the x-axis.}
 
-\item{boxplot}{\code{\link{logical}}: optionally plot values, that are
+\item{boxplot}{\link{logical}: optionally plot values, that are
 grouped by preheat temperature as boxplots. Only possible when
 \code{preheat} vector is specified.}
 
-\item{mtext}{\code{\link{character}}: additional text below the plot title.}
+\item{mtext}{\link{character}: additional text below the plot title.}
 
-\item{summary}{\code{\link{character}} (optional): adds numerical output to
+\item{summary}{\link{character} (optional): adds numerical output to
 the plot.  Can be one or more out of: \code{"n"} (number of samples),
 \code{"mean"} (mean De value), \code{"mean.weighted"} (error-weighted mean),
 \code{"median"} (median of the De values), \code{"sdrel"} (relative standard
@@ -45,25 +45,25 @@ deviation in percent), \code{"sdabs"} (absolute standard deviation),
 \code{"serel"} (relative standard error) and \code{"seabs"} (absolute
 standard error).}
 
-\item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
+\item{summary.pos}{\link{numeric} or \link{character} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used.}
 
-\item{legend}{\code{\link{character}} vector (optional): legend content to
+\item{legend}{\link{character} vector (optional): legend content to
 be added to the plot.}
 
-\item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with
+\item{legend.pos}{\link{numeric} or \link{character} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
 for the legend to be plotted.}
 
-\item{par.local}{\code{\link{logical}} (with default): use local graphical
+\item{par.local}{\link{logical} (with default): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE}, global parameters are inherited, i.e. parameters
 provided via \code{par()} work}
 
-\item{na.rm}{\code{\link{logical}}: indicating wether \code{NA} values are
+\item{na.rm}{\link{logical}: indicating wether \code{NA} values are
 removed before plotting from the input data set}
 
 \item{\dots}{further arguments and graphical parameters passed to

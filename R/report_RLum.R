@@ -58,40 +58,40 @@
 #' \code{content_color} \tab Color of the object's content (default: #a72925). \cr
 #' }
 #' 
-#' Note that these arguments must all be of class \code{\link{character}} and follow standard CSS syntax.
+#' Note that these arguments must all be of class [character] and follow standard CSS syntax.
 #' For exhaustive CSS styling you can provide a custom CSS file for argument \code{css.file}. 
 #' CSS styling can be turned of using \code{css = FALSE}.
 #'
 #' @param object (\bold{required}): 
 #' The object to be reported on, preferably of any \code{RLum}-class.
 #' 
-#' @param file \code{\link{character}} (with default): 
+#' @param file [character] (with default): 
 #' A character string naming the output file. If no filename is provided a 
 #' temporary file is created.
 #' 
-#' @param title \code{\link{character}} (with default):
+#' @param title [character] (with default):
 #' A character string specifying the title of the document.
 #' 
-#' @param compact \code{\link{logical}} (with default):
+#' @param compact [logical] (with default):
 #' When \code{TRUE} the following report components are hidden: 
 #' \code{@@.pid}, \code{@@.uid}, \code{'Object structure'}, \code{'Session Info'}
 #' and only the first and last 5 rows of long matrices and data frames are shown.
 #' See details.
 #' 
-#' @param timestamp \code{\link{logical}} (with default):
+#' @param timestamp [logical] (with default):
 #' \code{TRUE} to add a timestamp to the filename (suffix).
 #' 
-#' @param launch.browser \code{\link{logical}} (with default):
+#' @param launch.browser [logical] (with default):
 #' \code{TRUE} to open the HTML file in the system's default web browser after
 #' it has been rendered.
 #' 
-#' @param css.file \code{\link{character}} (optional):
+#' @param css.file [character] (optional):
 #' Path to a CSS file to change the default styling of the HTML document.
 #' 
-#' @param quiet \code{\link{logical}} (with default):
+#' @param quiet [logical] (with default):
 #' \code{TRUE} to supress printing of the pandoc command line.
 #' 
-#' @param clean \code{\link{logical}} (with default): 
+#' @param clean [logical] (with default): 
 #' \code{TRUE} to clean intermediate files created during rendering.
 #' 
 #' @param ... further arguments passed to or from other methods and to control

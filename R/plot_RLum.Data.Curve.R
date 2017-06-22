@@ -9,14 +9,14 @@
 #' @param object \code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
 #' object of class \code{RLum.Data.Curve}
 #'
-#' @param par.local \code{\link{logical}} (with default): use local graphical
+#' @param par.local [logical] (with default): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If \code{par.local = FALSE}, global parameters are inherited.
 #'
-#' @param norm \code{\link{logical}} (with default): allows curve normalisation
+#' @param norm [logical] (with default): allows curve normalisation
 #' to the highest count value
 #'
-#' @param smooth \code{\link{logical}} (with default): provides an automatic curve smoothing
+#' @param smooth [logical] (with default): provides an automatic curve smoothing
 #' based on \code{\link[zoo]{rollmean}}
 #'
 #' @param \dots further arguments and graphical parameters that will be passed

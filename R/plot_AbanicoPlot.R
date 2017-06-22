@@ -72,23 +72,23 @@
 #' \code{axis}. Specifying tick positions manually overrides a
 #' \code{zlim}-definition.
 #'
-#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
+#' @param data [data.frame] or \code{\linkS4class{RLum.Results}}
 #' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 #' and De error (\code{data[,2]}). To plot several data sets in one plot the
 #' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
 #'
-#' @param na.rm \code{\link{logical}} (with default): exclude NA values
+#' @param na.rm [logical] (with default): exclude NA values
 #' from the data set prior to any further operations.
 #'
-#' @param log.z \code{\link{logical}} (with default): Option to display the
+#' @param log.z [logical] (with default): Option to display the
 #' z-axis in logarithmic scale. Default is \code{TRUE}.
 #'
-#' @param z.0 \code{\link{character}} or \code{\link{numeric}}: User-defined
+#' @param z.0 [character] or [numeric]: User-defined
 #' central value, used for centering of data. One out of \code{"mean"},
 #' \code{"mean.weighted"} and \code{"median"} or a numeric value (not its
 #' logarithm). Default is \code{"mean.weighted"}.
 #'
-#' @param dispersion \code{\link{character}} (with default): measure of
+#' @param dispersion [character] (with default): measure of
 #' dispersion, used for drawing the scatter polygon. One out of \code{"qr"}
 #' (quartile range), \code{"pnn"} (symmetric percentile range with nn the lower
 #' percentile, e.g. \code{"p05"} depicting the range between 5 and 95 %),
@@ -97,105 +97,105 @@
 #' meaningful in combination with \code{"z.0 = 'mean'"} because the unweighted
 #' mean is used to center the polygon.
 #'
-#' @param plot.ratio \code{\link{numeric}}: Relative space, given to the radial
+#' @param plot.ratio [numeric]: Relative space, given to the radial
 #' versus the cartesian plot part, deault is \code{0.75}.
 #'
-#' @param rotate \code{\link{logical}}: Option to turn the plot by 90 degrees.
+#' @param rotate [logical]: Option to turn the plot by 90 degrees.
 #'
-#' @param mtext \code{\link{character}}: additional text below the plot title.
+#' @param mtext [character]: additional text below the plot title.
 #'
-#' @param summary \code{\link{character}} (optional): add statistic measures of
+#' @param summary [character] (optional): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords. Results differ depending on
 #' the log-option for the z-scale (see details).
 #'
-#' @param summary.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' @param summary.pos [numeric] or [character] (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if \code{mtext} is not used.
 #'
-#' @param summary.method \code{\link{character}} (with default): keyword
+#' @param summary.method [character] (with default): keyword
 #' indicating the method used to calculate the statistic summary. One out of
 #' \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
 #' \code{\link{calc_Statistics}} for details.
 #'
-#' @param legend \code{\link{character}} vector (optional): legend content to
+#' @param legend [character] vector (optional): legend content to
 #' be added to the plot.
 #'
-#' @param legend.pos \code{\link{numeric}} or \code{\link{character}} (with
+#' @param legend.pos [numeric] or [character] (with
 #' default): optional position coordinates or keyword (e.g. \code{"topright"})
 #' for the legend to be plotted.
 #'
-#' @param stats \code{\link{character}}: additional labels of statistically
+#' @param stats [character]: additional labels of statistically
 #' important values in the plot. One or more out of the following:
 #' \code{"min"}, \code{"max"}, \code{"median"}.
 #'
-#' @param rug \code{\link{logical}}: Option to add a rug to the KDE part, to
+#' @param rug [logical]: Option to add a rug to the KDE part, to
 #' indicate the location of individual values.
 #'
-#' @param kde \code{\link{logical}}: Option to add a KDE plot to the dispersion
+#' @param kde [logical]: Option to add a KDE plot to the dispersion
 #' part, default is \code{TRUE}.
 #'
-#' @param hist \code{\link{logical}}: Option to add a histogram to the
+#' @param hist [logical]: Option to add a histogram to the
 #' dispersion part. Only meaningful when not more than one data set is plotted.
 #'
-#' @param dots \code{\link{logical}}: Option to add a dot plot to the
+#' @param dots [logical]: Option to add a dot plot to the
 #' dispersion part. If number of dots exceeds space in the dispersion part, a
 #' square indicates this.
 #'
-#' @param boxplot \code{\link{logical}}: Option to add a boxplot to the
+#' @param boxplot [logical]: Option to add a boxplot to the
 #' dispersion part, default is \code{FALSE}.
 #'
-#' @param y.axis \code{\link{logical}}: Option to hide y-axis labels. Useful
+#' @param y.axis [logical]: Option to hide y-axis labels. Useful
 #' for data with small scatter.
 #'
-#' @param error.bars \code{\link{logical}}: Option to show De-errors as error
+#' @param error.bars [logical]: Option to show De-errors as error
 #' bars on De-points. Useful in combination with \code{y.axis = FALSE, bar.col
 #' = "none"}.
 #'
-#' @param bar \code{\link{numeric}} (with default): option to add one or more
+#' @param bar [numeric] (with default): option to add one or more
 #' dispersion bars (i.e., bar showing the 2-sigma range) centered at the
 #' defined values. By default a bar is drawn according to \code{"z.0"}. To omit
 #' the bar set \code{"bar = FALSE"}.
 #'
-#' @param bar.col \code{\link{character}} or \code{\link{numeric}} (with
+#' @param bar.col [character] or [numeric] (with
 #' default): colour of the dispersion bar. Default is \code{"grey60"}.
 #'
-#' @param polygon.col \code{\link{character}} or \code{\link{numeric}} (with
+#' @param polygon.col [character] or [numeric] (with
 #' default): colour of the polygon showing the data scatter. Sometimes this
 #' polygon may be omitted for clarity. To disable it use \code{FALSE} or
 #' \code{polygon = FALSE}. Default is \code{"grey80"}.
 #'
-#' @param line \code{\link{numeric}}: numeric values of the additional lines to
+#' @param line [numeric]: numeric values of the additional lines to
 #' be added.
 #'
-#' @param line.col \code{\link{character}} or \code{\link{numeric}}: colour of
+#' @param line.col [character] or [numeric]: colour of
 #' the additional lines.
 #'
-#' @param line.lty \code{\link{integer}}: line type of additional lines
+#' @param line.lty [integer]: line type of additional lines
 #'
-#' @param line.label \code{\link{character}}: labels for the additional lines.
+#' @param line.label [character]: labels for the additional lines.
 #'
-#' @param grid.col \code{\link{character}} or \code{\link{numeric}} (with
+#' @param grid.col [character] or [numeric] (with
 #' default): colour of the grid lines (originating at `[0,0]` and strechting to
 #' the z-scale). To disable grid lines use \code{FALSE}. Default is
 #' \code{"grey"}.
 #'
-#' @param frame \code{\link{numeric}} (with default): option to modify the
+#' @param frame [numeric] (with default): option to modify the
 #' plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
 #' originates at 0,0 and runs along min/max isochrons), \code{2} (frame
 #' embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a
 #' rectangle).Default is \code{1}.
 #'
-#' @param bw \code{\link{character}} (with default): bin-width for KDE, choose
+#' @param bw [character] (with default): bin-width for KDE, choose
 #' a numeric value for manual setting.
 #'
-#' @param output \code{\link{logical}}: Optional output of numerical plot
+#' @param output [logical]: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' \code{TRUE}.
 #'
-#' @param interactive \code{\link{logical}} (with default): create an interactive
+#' @param interactive [logical] (with default): create an interactive
 #' abanico plot (requires the 'plotly' package)
 #'
 #' @param \dots Further plot arguments to pass. \code{xlab} must be a vector of

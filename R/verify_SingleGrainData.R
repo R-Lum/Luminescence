@@ -24,22 +24,22 @@
 #' @param object \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
 #' (\bold{required}): input object. The function also accepts a list with objects of allowed type.
 #'
-#' @param threshold \code{\link{numeric}} (with default): numeric threshold value for the allowed difference between
+#' @param threshold [numeric] (with default): numeric threshold value for the allowed difference between
 #' the \code{mean} and the \code{var} of the count values (see details)
 #'
-#' @param cleanup \code{\link{logical}} (with default): if set to \code{TRUE} curves indentified as
+#' @param cleanup [logical] (with default): if set to \code{TRUE} curves indentified as
 #' zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
 #' either \code{\linkS4class{Risoe.BINfileData}} or \code{\linkS4class{RLum.Analysis}}
 #'
-#' @param cleanup_level \code{\link{character}} (with default): selects the level for the cleanup
+#' @param cleanup_level [character] (with default): selects the level for the cleanup
 #' of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
 #' is selected every single curve marked as \code{invalid} is removed. If \code{"aliquot"} is selected,
 #' curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
 #' will be only removed if all curves of this aliquot are marked as invalid.
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disables the terminal feedback
+#' @param verbose [logical] (with default): enables or disables the terminal feedback
 #'
-#' @param plot \code{\link{logical}} (with default): enables or disables the graphical feedback
+#' @param plot [logical] (with default): enables or disables the graphical feedback
 #'
 #' @return The function returns
 #'

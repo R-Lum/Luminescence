@@ -7,11 +7,11 @@
 use_DRAC(file, name, ...)
 }
 \arguments{
-\item{file}{\code{\link{character}}: spreadsheet to be passed
+\item{file}{\link{character}: spreadsheet to be passed
 to the DRAC website for calculation. Can also be a DRAC template object
 obtained from \code{template_DRAC()}.}
 
-\item{name}{\code{\link{character}}: Optional user name submitted to DRAC. If
+\item{name}{\link{character}: Optional user name submitted to DRAC. If
 omitted, a random name will be generated}
 
 \item{...}{Further arguments.}
@@ -22,12 +22,12 @@ Returns an \code{\linkS4class{RLum.Results}} object containing the following ele
 \item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@data}:
 
 \tabular{lll}{
-\code{$highlights} \tab \code{\link{data.frame}} \tab summary of 25 most important input/output fields \cr
-\code{$header} \tab \code{\link{character}} \tab HTTP header from the DRAC server response \cr
-\code{$labels} \tab \code{\link{data.frame}} \tab descriptive headers of all input/output fields \cr
-\code{$content} \tab \code{\link{data.frame}} \tab complete DRAC input/output table \cr
-\code{$input} \tab \code{\link{data.frame}} \tab DRAC input table \cr
-\code{$output} \tab \code{\link{data.frame}} \tab DRAC output table \cr
+\code{$highlights} \tab \link{data.frame} \tab summary of 25 most important input/output fields \cr
+\code{$header} \tab \link{character} \tab HTTP header from the DRAC server response \cr
+\code{$labels} \tab \link{data.frame} \tab descriptive headers of all input/output fields \cr
+\code{$content} \tab \link{data.frame} \tab complete DRAC input/output table \cr
+\code{$input} \tab \link{data.frame} \tab DRAC input table \cr
+\code{$output} \tab \link{data.frame} \tab DRAC output table \cr
 }
 
 }

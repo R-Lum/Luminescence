@@ -58,7 +58,7 @@
 #' constructs as list of the XSYG-files found in the directory. Please note no recursive detection
 #' is supported as this may lead to endless loops.
 #'
-#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
+#' @param file [character] or \code{\link{list}} (\bold{required}): path and file name of the
 #' XSYG file. If input is a \code{list} it should comprise only \code{character}s representing each valid
 #' path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all xsyg files found in the directory.
@@ -69,10 +69,10 @@
 #' TL curve. Select \code{FALSE} to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
 #'
-#' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
+#' @param fastForward [logical] (with default): if \code{TRUE} for a
 #' more efficient data processing only a list of \code{RLum.Analysis} objects is returned.
 #'
-#' @param import \code{\link{logical}} (with default): if set to \code{FALSE}, only
+#' @param import [logical] (with default): if set to \code{FALSE}, only
 #' the XSYG file structure is shown.
 #'
 #' @param pattern \code{\link{regex}} (with default): optional regular expression if \code{file} is

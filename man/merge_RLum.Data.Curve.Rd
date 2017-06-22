@@ -10,12 +10,12 @@ merge_RLum.Data.Curve(object, merge.method = "mean", method.info)
 \item{object}{\code{\link{list}} of \code{\linkS4class{RLum.Data.Curve}}
 (\bold{required}): list of S4 objects of class \code{RLum.Curve}.}
 
-\item{merge.method}{\code{\link{character}} (\bold{required}): method for
+\item{merge.method}{\link{character} (\bold{required}): method for
 combining of the objects, e.g.  \code{'mean'}, \code{'sum'}, see details for
 further information and allowed methods.  Note: Elements in slot info will
 be taken from the first curve in the list.}
 
-\item{method.info}{\code{\link{numeric}} (optional): allows to specify how
+\item{method.info}{\link{numeric} (optional): allows to specify how
 info elements of the input objects are combined, e.g. \code{1} means that
 just the elements from the first object are kept, \code{2} keeps only the
 info elements from the 2 object etc.  If nothing is provided all elements

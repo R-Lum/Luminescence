@@ -10,16 +10,16 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot originator Object of class \code{\link{character}} containing the name of the producing
+#' @slot originator Object of class [character] containing the name of the producing
 #' function for the object. Set automatically by using the function \code{\link{set_RLum}}.
 #'
 #' @slot info Object of class \code{\link{list}} for additional information on the object itself
 #'
-#' @slot .uid Object of class \code{\link{character}} for a unique object identifier. This id is
+#' @slot .uid Object of class [character] for a unique object identifier. This id is
 #' usually calculated using the internal function \code{.create_UID()} if the funtion \code{\link{set_RLum}}
 #' is called.
 #'
-#' @slot .pid Object of class \code{\link{character}} for a parent id. This allows nesting RLum-objects
+#' @slot .pid Object of class [character] for a parent id. This allows nesting RLum-objects
 #' at will. The parent id can be the uid of another object.
 #'
 #' @note \code{RLum} is a virtual class.
@@ -64,7 +64,7 @@ setClass("RLum",
 #'
 #' @param object an object of class \code{\linkS4class{RLum}} (\bold{required})
 #'
-#' @param times \code{\link{integer}} (optional): number for times each element is repeated
+#' @param times [integer] (optional): number for times each element is repeated
 #' element
 #'
 #' @export

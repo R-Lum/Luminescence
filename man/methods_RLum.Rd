@@ -198,7 +198,7 @@ is.RLum.Results(x, ...)
 \arguments{
 \item{x}{\code{\linkS4class{RLum}} or \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): input opject}
 
-\item{y}{\code{\link{integer}} (optional): the row index of the matrix, data.frame}
+\item{y}{\link{integer} (optional): the row index of the matrix, data.frame}
 
 \item{...}{further arguments that can be passed to the method}
 
@@ -208,25 +208,25 @@ is.RLum.Results(x, ...)
 this function works in \code{\linkS4class{Risoe.BINfileData}} objects like \code{\link{subset.data.frame}}, but takes care
 of the object structure}
 
-\item{records.rm}{\link{subset} \code{\link{logical}} (with default): remove records from data set, can
+\item{records.rm}{\link{subset} \link{logical} (with default): remove records from data set, can
 be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
 
-\item{row.names}{\code{\link{logical}} (with default): enables or disables row names (\code{as.data.frame})}
+\item{row.names}{\link{logical} (with default): enables or disables row names (\code{as.data.frame})}
 
-\item{optional}{\code{\link{logical}} (with default): logical. If TRUE, setting row names and
+\item{optional}{\link{logical} (with default): logical. If TRUE, setting row names and
 converting column names (to syntactic names: see make.names) is optional (see \code{\link[base]{as.data.frame}})}
 
-\item{recursive}{\code{\link{logical}} (with default): enables or disables further subsetting (\code{unlist})}
+\item{recursive}{\link{logical} (with default): enables or disables further subsetting (\code{unlist})}
 
-\item{z}{\code{\link{integer}} (optional): the column index of the matrix, data.frame}
+\item{z}{\link{integer} (optional): the column index of the matrix, data.frame}
 
-\item{drop}{\code{\link{logical}} (with default): keep object structure or drop it}
+\item{drop}{\link{logical} (with default): keep object structure or drop it}
 
-\item{i}{\code{\link{character}} (optional): name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object}
+\item{i}{\link{character} (optional): name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object}
 
-\item{j}{\code{\link{integer}} (optional): column of the data matrix in the \code{RLum.Data.Curve} object}
+\item{j}{\link{integer} (optional): column of the data matrix in the \code{RLum.Data.Curve} object}
 
-\item{value}{\code{\link{numeric}} \bold{(required)}: numeric value which replace the value in the
+\item{value}{\link{numeric} \bold{(required)}: numeric value which replace the value in the
 \code{RLum.Data.Curve} object}
 }
 \description{

@@ -12,7 +12,7 @@ Risoe.BINfileData2RLum.Analysis(object, pos = NULL, grain = NULL,
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 \code{Risoe.BINfileData} object}
 
-\item{pos}{\code{\link{numeric}} (optional): position number of the
+\item{pos}{[numeric] (optional): position number of the
 \code{Risoe.BINfileData} object for which the curves are stored in the
 \code{RLum.Analysis} object. If \code{length(position)>1} a list of \code{RLum.Analysis} objects
 is returned. If nothing is provided every position will be converted. If the position is not valid \code{NA} is
@@ -38,10 +38,10 @@ to limit the converted data. Commonly allowed values are: \code{IRSL}, \code{OSL
 \item{dtype}{\code{\link{vector}, \link{character}} (optional): data type to
 limit the converted data. Commonly allowed values are listed in \code{\linkS4class{Risoe.BINfileData}}}
 
-\item{protocol}{\code{\link{character}} (optional): sets protocol type for
+\item{protocol}{[character] (optional): sets protocol type for
 analysis object. Value may be used by subsequent analysis functions.}
 
-\item{keep.empty}{\code{\link{logical}} (with default): If \code{TRUE} (default)
+\item{keep.empty}{[logical] (with default): If \code{TRUE} (default)
 an \code{RLum.Analysis} object is returned even if it does not contain any
 records. Set to \code{FALSE} to discard all empty objects.}
 

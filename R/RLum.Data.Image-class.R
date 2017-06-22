@@ -10,10 +10,10 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot recordType Object of class \code{\link{character}}
+#' @slot recordType Object of class [character]
 #' containing the type of the curve (e.g. "OSL image", "TL image")
 #'
-#' @slot curveType Object of class \code{\link{character}} containing curve type, allowed values
+#' @slot curveType Object of class [character] containing curve type, allowed values
 #' are measured or predefined
 #'
 #' @slot data Object of class \code{\link[raster]{brick}} containing images (raster data).
@@ -161,15 +161,15 @@ setMethod("show",
 #' Construction method for RLum.Data.Image object. The slot info is optional
 #' and predefined as empty list by default..
 #'
-#' @param class \code{[set_RLum]}\code{\link{character}}: name of the \code{RLum} class to create
-#' @param originator \code{[set_RLum]} \code{\link{character}} (automatic):
+#' @param class \code{[set_RLum]}[character]: name of the \code{RLum} class to create
+#' @param originator \code{[set_RLum]} [character] (automatic):
 #' contains the name of the calling function (the function that produces this object); can be set manually.
-#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' @param .uid [\code{set_RLum}] [character] (automatic): sets an unique ID for this object
 #' using the internal C++ function \code{.create_UID}.
-#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' @param .pid [\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
 #' at will.
-#' @param recordType \code{[set_RLum]} \code{\link{character}}: record type (e.g. "OSL")
-#' @param curveType \code{[set_RLum]} \code{\link{character}}: curve type (e.g. "predefined" or "measured")
+#' @param recordType \code{[set_RLum]} [character]: record type (e.g. "OSL")
+#' @param curveType \code{[set_RLum]} [character]: curve type (e.g. "predefined" or "measured")
 #' @param data \code{[set_RLum]} \code{\link{matrix}}: raw curve data. If data is of type \code{RLum.Data.Image}
 #' this can be used to re-construct the object.
 #' @param info \code{[set_RLum]} \code{\link{list}}: info elements
@@ -272,7 +272,7 @@ setMethod(
 #'
 #' @param object \code{[show_RLum]}\code{[get_RLum]}\code{[names_RLum]} an object
 #' of class \code{\linkS4class{RLum.Data.Image}}
-#' @param info.object \code{[get_RLum]} \code{\link{character}} name of the info object to returned
+#' @param info.object \code{[get_RLum]} [character] name of the info object to returned
 #'
 #' @return
 #'

@@ -11,7 +11,7 @@ merge_RLum.Results(objects)
 }
 \description{
 Function merges objects of class \code{\linkS4class{RLum.Results}}. The slots in the objects
-are combined depending on the object type, e.g., for \code{\link{data.frame}} and \code{\link{matrix}}
+are combined depending on the object type, e.g., for \link{data.frame} and \code{\link{matrix}}
 rows are appended.
 }
 \note{

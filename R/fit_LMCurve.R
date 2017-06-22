@@ -70,7 +70,7 @@
 #' @param input.dataType \link{character} (with default): alter the plot output
 #' depending on the input data: "LM" or "pLM" (pseudo-LM). See: \link{CW2pLM}
 #'
-#' @param fit.method \code{\link{character}} (with default): select fit method,
+#' @param fit.method [character] (with default): select fit method,
 #' allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
 #' routine usint the funtion \code{\link{nls}} \code{'LM'} utilises the
 #' function \code{nlsLM} from the package \code{minpack.lm} and with that the

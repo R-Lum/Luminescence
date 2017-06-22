@@ -6,21 +6,21 @@
 #' The structure of the exported binary data follows the data structure
 #' published in the Appendices of the Analyst manual p. 42.\cr\cr If
 #' \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} are not of type
-#' \code{\link{character}}, no transformation into numeric values is done.
+#' [character], no transformation into numeric values is done.
 #'
 #' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 #' input object to be stored in a bin file.
 #'
-#' @param file \code{\link{character}} (\bold{required}): file name and path of
+#' @param file [character] (\bold{required}): file name and path of
 #' the output file\cr `[WIN]`: \code{write_R2BIN(object, "C:/Desktop/test.bin")},
 #' \cr `[MAC/LINUX]`: \code{write_R2BIN("/User/test/Desktop/test.bin")}
 #'
-#' @param version \code{\link{character}} (optional): version number for the
+#' @param version [character] (optional): version number for the
 #' output file. If no value is provided the highest version number from the
 #' \code{\linkS4class{Risoe.BINfileData}} is taken automatically.\cr\cr Note:
 #' This argument can be used to convert BIN-file versions.
 #'
-#' @param compatibility.mode \code{\link{logical}} (with default): this option
+#' @param compatibility.mode [logical] (with default): this option
 #' recalculates the position values if necessary and set the max. value to 48.
 #' The old position number is appended as comment (e.g., 'OP: 70). This option
 #' accounts for potential compatibility problems with the Analyst software.

@@ -9,7 +9,7 @@
 #'
 #' @param object \code{\linkS4class{RLum}} (\bold{required}): S4 object of
 #' class \code{RLum}
-#' @return Returns a \code{\link{character}}
+#' @return Returns a [character]
 #' @section Function version: 0.1.0
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)

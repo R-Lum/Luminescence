@@ -4,7 +4,7 @@
 #' [RLumShiny::RLumShiny-package]. For further details and examples please
 #' see the manual of this package.
 #'
-#' @param app \code{\link{character}} (required): name of the application to start. See details for a list
+#' @param app [character] (required): name of the application to start. See details for a list
 #' of available apps.
 #' @param ... further arguments to pass to \code{\link[shiny]{runApp}}
 #'

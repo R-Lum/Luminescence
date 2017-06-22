@@ -9,14 +9,14 @@ write_RLum2CSV(object, path = NULL, prefix = "", export = TRUE, ...)
 \arguments{
 \item{object}{\code{\linkS4class{RLum}} or a \code{\link{list}} of \code{RLum} objects (\bold{required}): objects to be written}
 
-\item{path}{\code{\link{character}} (optional): character string naming folder for the output to be written. If nothing
+\item{path}{\link{character} (optional): character string naming folder for the output to be written. If nothing
 is provided \code{path} will be set to the working directory. Note: this argument is ignored if the
 the argument \code{export} is set to \code{FALSE}.}
 
-\item{prefix}{\code{\link{character}} (with default): optional prefix to name the files. This prefix
+\item{prefix}{\link{character} (with default): optional prefix to name the files. This prefix
 is valid for all written files}
 
-\item{export}{\code{\link{logical}} (with default): enable or disable the file export. If set to \code{FALSE}
+\item{export}{\link{logical} (with default): enable or disable the file export. If set to \code{FALSE}
 nothing is written to the file connection, but a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
 is returned instead}
 
@@ -31,7 +31,7 @@ a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix
 This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
 \code{\link[utils]{write.table}}. All \code{\linkS4class{RLum}}-objects are supported, but the
 export is lossy, i.e. the pure numerical values are exported only. Information that cannot
-be coerced to a \code{\link{data.frame}} or a \code{\link{matrix}} are discarded as well as
+be coerced to a \link{data.frame} or a \code{\link{matrix}} are discarded as well as
 metadata.
 }
 \details{

@@ -14,47 +14,47 @@ plot_RLum.Data.Spectrum(object, par.local = TRUE, plot.type = "contour",
 object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count values of the spectrum.\cr
 Please note that in case of a matrix rownames and colnames are set automatically if not provided.}
 
-\item{par.local}{\code{\link{logical}} (with default): use local graphical
+\item{par.local}{\link{logical} (with default): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE} global parameters are inherited.}
 
-\item{plot.type}{\code{\link{character}} (with default): plot type, for
+\item{plot.type}{\link{character} (with default): plot type, for
 3D-plot use \code{persp}, or \code{interactive}, for a 2D-plot \code{contour},
 \code{single} or \code{multiple.lines} (along the time or temperature axis)
 or \code{transect} (along the wavelength axis) \cr}
 
-\item{optical.wavelength.colours}{\code{\link{logical}} (with default): use
+\item{optical.wavelength.colours}{\link{logical} (with default): use
 optical wavelength colour palette. Note: For this, the spectrum range is
 limited: \code{c(350,750)}. Own colours can be set with the argument
 \code{col}.}
 
-\item{bg.channels}{\code{\link{vector}} (optional): defines channel for
+\item{bg.channels}{\link{vector} (optional): defines channel for
 background subtraction If a vector is provided the mean of the channels is
 used for subtraction. Note: Background subtraction is applied prior to
 channel binning}
 
-\item{bin.rows}{\code{\link{integer}} (with defaul): allow summing-up
+\item{bin.rows}{\link{integer} (with defaul): allow summing-up
 wavelength channels (horizontal binning), e.g. \code{bin.rows = 2} two
 channels are summed up}
 
-\item{bin.cols}{\code{\link{integer}} (with default): allow summing-up
+\item{bin.cols}{\link{integer} (with default): allow summing-up
 channel counts (vertical binning) for plotting, e.g. \code{bin.cols = 2} two
 channels are summed up}
 
-\item{rug}{\code{\link{logical}} (with default): enables or disables colour
+\item{rug}{\link{logical} (with default): enables or disables colour
 rug. Currently only implemented for plot type \code{multiple.lines} and
 \code{single}}
 
-\item{limit_counts}{\code{\link{numeric}} (optional): value to limit all count values to
+\item{limit_counts}{\link{numeric} (optional): value to limit all count values to
 this value, i.e. all count values above this threshold will be replaced by this threshold. This
 is helpfull especially in case of TL-spectra.}
 
-\item{xaxis.energy}{\code{\link{logical}} (with default): enables or
+\item{xaxis.energy}{\link{logical} (with default): enables or
 disables energy instead of wavelength axis. Note: This option means not only
 simnply redrawing the axis, insteadly the spectrum in terms of intensity is
 recalculated, s. details.}
 
-\item{legend.text}{\code{\link{character}} (with default): possiblity to
+\item{legend.text}{\link{character} (with default): possiblity to
 provide own legend text. This argument is only considered for plot types
 providing a legend, e.g. \code{plot.type="transect"}}
 

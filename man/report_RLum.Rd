@@ -12,33 +12,33 @@ report_RLum(object, file = tempfile(), title = "RLum.Report",
 \item{object}{(\bold{required}):
 The object to be reported on, preferably of any \code{RLum}-class.}
 
-\item{file}{\code{\link{character}} (with default):
+\item{file}{\link{character} (with default):
 A character string naming the output file. If no filename is provided a
 temporary file is created.}
 
-\item{title}{\code{\link{character}} (with default):
+\item{title}{\link{character} (with default):
 A character string specifying the title of the document.}
 
-\item{compact}{\code{\link{logical}} (with default):
+\item{compact}{\link{logical} (with default):
 When \code{TRUE} the following report components are hidden:
 \code{@.pid}, \code{@.uid}, \code{'Object structure'}, \code{'Session Info'}
 and only the first and last 5 rows of long matrices and data frames are shown.
 See details.}
 
-\item{timestamp}{\code{\link{logical}} (with default):
+\item{timestamp}{\link{logical} (with default):
 \code{TRUE} to add a timestamp to the filename (suffix).}
 
-\item{launch.browser}{\code{\link{logical}} (with default):
+\item{launch.browser}{\link{logical} (with default):
 \code{TRUE} to open the HTML file in the system's default web browser after
 it has been rendered.}
 
-\item{css.file}{\code{\link{character}} (optional):
+\item{css.file}{\link{character} (optional):
 Path to a CSS file to change the default styling of the HTML document.}
 
-\item{quiet}{\code{\link{logical}} (with default):
+\item{quiet}{\link{logical} (with default):
 \code{TRUE} to supress printing of the pandoc command line.}
 
-\item{clean}{\code{\link{logical}} (with default):
+\item{clean}{\link{logical} (with default):
 \code{TRUE} to clean intermediate files created during rendering.}
 
 \item{...}{further arguments passed to or from other methods and to control
@@ -107,7 +107,7 @@ The following arguments can be used to customise the report via CSS (Cascading S
 \code{content_color} \tab Color of the object's content (default: #a72925). \cr
 }
 
-Note that these arguments must all be of class \code{\link{character}} and follow standard CSS syntax.
+Note that these arguments must all be of class \link{character} and follow standard CSS syntax.
 For exhaustive CSS styling you can provide a custom CSS file for argument \code{css.file}.
 CSS styling can be turned of using \code{css = FALSE}.
 }

@@ -11,11 +11,11 @@ plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster",
 \item{object}{\code{\linkS4class{RLum.Data.Image}} (\bold{required}): S4
 object of class \code{RLum.Data.Image}}
 
-\item{par.local}{\code{\link{logical}} (with default): use local graphical
+\item{par.local}{\link{logical} (with default): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE} global parameters are inherited.}
 
-\item{plot.type}{\code{\link{character}} (with default): plot types.
+\item{plot.type}{\link{character} (with default): plot types.
 Supported types are \code{plot.raster}, \code{plotRGB} or \code{contour}}
 
 \item{\dots}{further arguments and graphical parameters that will be passed

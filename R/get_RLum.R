@@ -55,7 +55,7 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 #' @describeIn get_RLum
 #' Returns a list of \code{\linkS4class{RLum}} objects that had been passed to \code{\link{get_RLum}}
 #'
-#' @param null.rm \code{\link{logical}} (with default): option to get rid of empty and NULL objects
+#' @param null.rm [logical] (with default): option to get rid of empty and NULL objects
 #' 
 #' @md
 #' @export

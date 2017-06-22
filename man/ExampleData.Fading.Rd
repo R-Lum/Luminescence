@@ -4,12 +4,12 @@
 \alias{ExampleData.Fading}
 \title{Example data for feldspar fading measurements}
 \format{A \code{\link{list}} with two elements, each containing a further
-\code{\link{list}} of \code{\link{data.frame}}s containing the data
+\code{\link{list}} of [data.frame]s containing the data
 on the fading and equivalent dose measurements:
 
 \describe{
 
-\code{$fading.data}: A named \code{\link{list}} of \code{\link{data.frame}}s,
+\code{$fading.data}: A named \code{\link{list}} of [data.frame]s,
 each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).\cr
 \code{..$IR50}: Fading data of the IR50 signal.\cr
 \code{..$IR100}: Fading data of the IR100 signal.\cr
@@ -17,7 +17,7 @@ each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).
 \code{..$IR225}: Fading data of the IR225 signal.\cr
 \cr\cr
 
-\code{$equivalentDose.data}: A named of \code{\link{data.frame}}s,
+\code{$equivalentDose.data}: A named of [data.frame]s,
 each having three named columns (\code{dose, LxTx, LxTx.error}).\cr
 \code{..$IR50}: Equivalent dose measurement data of the IR50 signal.\cr
 \code{..$IR100}: Equivalent dose measurement data of the IR100 signal.\cr

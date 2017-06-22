@@ -3,7 +3,7 @@
 #' This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
 #' \code{\link[utils]{write.table}}. All \code{\linkS4class{RLum}}-objects are supported, but the
 #' export is lossy, i.e. the pure numerical values are exported only. Information that cannot
-#' be coerced to a \code{\link{data.frame}} or a \code{\link{matrix}} are discarded as well as
+#' be coerced to a [data.frame] or a \code{\link{matrix}} are discarded as well as
 #' metadata.
 #'
 #' However, in combination with the implemented import functions, nearly every supported
@@ -17,14 +17,14 @@
 #'
 #' @param object \code{\linkS4class{RLum}} or a \code{\link{list}} of \code{RLum} objects (\bold{required}): objects to be written
 #'
-#' @param path \code{\link{character}} (optional): character string naming folder for the output to be written. If nothing
+#' @param path [character] (optional): character string naming folder for the output to be written. If nothing
 #' is provided \code{path} will be set to the working directory. Note: this argument is ignored if the
 #' the argument \code{export} is set to \code{FALSE}.
 #'
-#' @param prefix \code{\link{character}} (with default): optional prefix to name the files. This prefix
+#' @param prefix [character] (with default): optional prefix to name the files. This prefix
 #' is valid for all written files
 #'
-#' @param export \code{\link{logical}} (with default): enable or disable the file export. If set to \code{FALSE}
+#' @param export [logical] (with default): enable or disable the file export. If set to \code{FALSE}
 #' nothing is written to the file connection, but a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
 #' is returned instead
 #'

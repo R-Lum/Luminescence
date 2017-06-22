@@ -12,7 +12,7 @@
 #' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 #' \code{Risoe.BINfileData} object
 #'
-#' @param pos \code{\link{numeric}} (optional): position number of the
+#' @param pos [numeric] (optional): position number of the
 #' \code{Risoe.BINfileData} object for which the curves are stored in the
 #' \code{RLum.Analysis} object. If \code{length(position)>1} a list of \code{RLum.Analysis} objects
 #' is returned. If nothing is provided every position will be converted. If the position is not valid \code{NA} is
@@ -38,10 +38,10 @@
 #' @param dtype \code{\link{vector}, \link{character}} (optional): data type to
 #' limit the converted data. Commonly allowed values are listed in \code{\linkS4class{Risoe.BINfileData}}
 #'
-#' @param protocol \code{\link{character}} (optional): sets protocol type for
+#' @param protocol [character] (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
 #'
-#' @param keep.empty \code{\link{logical}} (with default): If \code{TRUE} (default)
+#' @param keep.empty [logical] (with default): If \code{TRUE} (default)
 #' an \code{RLum.Analysis} object is returned even if it does not contain any
 #' records. Set to \code{FALSE} to discard all empty objects.
 #'

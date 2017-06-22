@@ -45,10 +45,10 @@
 #'
 #' @param object \code{\linkS4class{RLum.Data.Image}} (\bold{required}): S4
 #' object of class \code{RLum.Data.Image}
-#' @param par.local \code{\link{logical}} (with default): use local graphical
+#' @param par.local [logical] (with default): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If \code{par.local = FALSE} global parameters are inherited.
-#' @param plot.type \code{\link{character}} (with default): plot types.
+#' @param plot.type [character] (with default): plot types.
 #' Supported types are \code{plot.raster}, \code{plotRGB} or \code{contour}
 #' @param \dots further arguments and graphical parameters that will be passed
 #' to the specific plot functions.

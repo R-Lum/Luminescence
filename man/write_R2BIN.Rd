@@ -11,16 +11,16 @@ write_R2BIN(object, file, version, compatibility.mode = FALSE,
 \item{object}{\code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 input object to be stored in a bin file.}
 
-\item{file}{\code{\link{character}} (\bold{required}): file name and path of
+\item{file}{\link{character} (\bold{required}): file name and path of
 the output file\cr \code{[WIN]}: \code{write_R2BIN(object, "C:/Desktop/test.bin")},
 \cr \code{[MAC/LINUX]}: \code{write_R2BIN("/User/test/Desktop/test.bin")}}
 
-\item{version}{\code{\link{character}} (optional): version number for the
+\item{version}{\link{character} (optional): version number for the
 output file. If no value is provided the highest version number from the
 \code{\linkS4class{Risoe.BINfileData}} is taken automatically.\cr\cr Note:
 This argument can be used to convert BIN-file versions.}
 
-\item{compatibility.mode}{\code{\link{logical}} (with default): this option
+\item{compatibility.mode}{\link{logical} (with default): this option
 recalculates the position values if necessary and set the max. value to 48.
 The old position number is appended as comment (e.g., 'OP: 70). This option
 accounts for potential compatibility problems with the Analyst software.}
@@ -39,7 +39,7 @@ opened by the Analyst software or other Risoe software.
 The structure of the exported binary data follows the data structure
 published in the Appendices of the Analyst manual p. 42.\cr\cr If
 \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} are not of type
-\code{\link{character}}, no transformation into numeric values is done.
+\link{character}, no transformation into numeric values is done.
 }
 \note{
 The function just roughly checks the data structures. The validity of

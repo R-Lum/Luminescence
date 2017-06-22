@@ -7,14 +7,14 @@
 sTeve(n_frames = 10, t_animation = 2, n.tree = 7, type)
 }
 \arguments{
-\item{n_frames}{\code{\link{integer}} (with default): n frames}
+\item{n_frames}{\link{integer} (with default): n frames}
 
-\item{t_animation}{\code{\link{integer}} (with default): t animation}
+\item{t_animation}{\link{integer} (with default): t animation}
 
-\item{n.tree}{\code{\link{integer}} (with default): How many trees do you
+\item{n.tree}{\link{integer} (with default): How many trees do you
 want to cut?}
 
-\item{type}{\code{\link{integer}} (optional): Make a decision: 1, 2 or 3}
+\item{type}{\link{integer} (optional): Make a decision: 1, 2 or 3}
 }
 \value{
 Validates your data.

@@ -26,16 +26,16 @@
 \item{object}{[\code{get_RLum}] \code{\linkS4class{RLum.Results}} (required): an object of class
 \code{\linkS4class{RLum.Results}} to be evaluated}
 
-\item{class}{[\code{set_RLum}] \code{\link{character}} \bold{(required)}: name of the \code{RLum} class to create}
+\item{class}{[\code{set_RLum}] [character] \bold{(required)}: name of the \code{RLum} class to create}
 
-\item{originator}{[\code{set_RLum}] \code{\link{character}} (automatic): contains the
+\item{originator}{[\code{set_RLum}] [character] (automatic): contains the
 name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+\item{.uid}{[\code{set_RLum}] [character] (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+\item{.pid}{[\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
 at will.}
 
 \item{data}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing the data to
@@ -44,13 +44,13 @@ be stored in the object}
 \item{info}{[\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
 info data for the object}
 
-\item{data.object}{[\code{get_RLum}] \code{\link{character}} or
-\code{\link{numeric}}: name or index of the data slot to be returned}
+\item{data.object}{[\code{get_RLum}] [character] or
+[numeric]: name or index of the data slot to be returned}
 
-\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+\item{info.object}{[\code{get_RLum}] [character] (optional): name of the wanted info
 element}
 
-\item{drop}{[\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
+\item{drop}{[\code{get_RLum}] [logical] (with default): coerce to the next possible layer
 (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}}
 }
 \value{

@@ -33,20 +33,20 @@
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
 class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
 
-\item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create}
+\item{class}{[\code{set_RLum}] [character] (\bold{required}): name of the \code{RLum} class to create}
 
-\item{originator}{[\code{set_RLum}] \code{\link{character}} (automatic): contains the name of the calling function
+\item{originator}{[\code{set_RLum}] [character] (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+\item{.uid}{[\code{set_RLum}] [character] (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+\item{.pid}{[\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
 at will.}
 
-\item{recordType}{[\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")}
+\item{recordType}{[\code{set_RLum}] [character] (optional): record type (e.g., "OSL")}
 
-\item{curveType}{[\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")}
+\item{curveType}{[\code{set_RLum}] [character] (optional): curve type (e.g., "predefined" or "measured")}
 
 \item{data}{[\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
 If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
@@ -54,22 +54,22 @@ If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-
 
 \item{info}{[\code{set_RLum}] \code{\link{list}} (optional): info elements}
 
-\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+\item{info.object}{[\code{get_RLum}] [character] (optional): name of the wanted info
 element}
 
-\item{bin_size}{[\code{bin_RLum}] \code{\link{integer}} (with default): set number of channels
+\item{bin_size}{[\code{bin_RLum}] [integer] (with default): set number of channels
 used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.}
 
-\item{k}{[\code{smooth_RLum}] \code{\link{integer}} (with default): window for the rolling mean; must be odd for rollmedian.
+\item{k}{[\code{smooth_RLum}] [integer] (with default): window for the rolling mean; must be odd for rollmedian.
 If nothing is set k is set automatically}
 
-\item{fill}{[\code{smooth_RLum}] \code{\link{numeric}} (with default): a vector defining the left and the right hand data}
+\item{fill}{[\code{smooth_RLum}] [numeric] (with default): a vector defining the left and the right hand data}
 
-\item{align}{[\code{smooth_RLum}] \code{\link{character}} (with default): specifying whether the index of the result should be
+\item{align}{[\code{smooth_RLum}] [character] (with default): specifying whether the index of the result should be
 left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
 \code{"right"}, \code{"center"} and \code{left}}
 
-\item{method}{[\code{smooth_RLum}] \code{\link{character}} (with default): defines which method should be applied for the
+\item{method}{[\code{smooth_RLum}] [character] (with default): defines which method should be applied for the
 smoothing: \code{"mean"} or \code{"median"}}
 }
 \value{

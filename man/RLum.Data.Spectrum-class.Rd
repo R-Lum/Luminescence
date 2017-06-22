@@ -23,27 +23,27 @@
 \item{object}{[\code{show_RLum}][\code{get_RLum}][\code{names_RLum}] an object of
 class \code{\linkS4class{RLum.Data.Spectrum}}}
 
-\item{class}{[\code{set_RLum}] \code{\link{character}} (automatic): name of the \code{RLum} class to create.}
+\item{class}{[\code{set_RLum}] [character] (automatic): name of the \code{RLum} class to create.}
 
-\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
+\item{originator}{[character] (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+\item{.uid}{[\code{set_RLum}] [character] (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+\item{.pid}{[\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
 at will.}
 
-\item{recordType}{[\code{set_RLum}] \code{\link{character}}: record type (e.g. "OSL")}
+\item{recordType}{[\code{set_RLum}] [character]: record type (e.g. "OSL")}
 
-\item{curveType}{[\code{set_RLum}] \code{\link{character}}: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{[\code{set_RLum}] [character]: curve type (e.g. "predefined" or "measured")}
 
 \item{data}{[\code{set_RLum}] \code{\link{matrix}}: raw curve data. If data is of
 type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.}
 
 \item{info}{[\code{set_RLum}] \code{\link{list}}: info elements}
 
-\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): the name of the info
+\item{info.object}{[\code{get_RLum}] [character] (optional): the name of the info
 object to be called}
 }
 \value{
@@ -80,9 +80,9 @@ is provided, the raw curve data (matrix) will be returned
 \section{Slots}{
 
 \describe{
-\item{\code{recordType}}{Object of class \code{\link{character}} containing the type of the curve (e.g. "TL" or "OSL")}
+\item{\code{recordType}}{Object of class [character] containing the type of the curve (e.g. "TL" or "OSL")}
 
-\item{\code{curveType}}{Object of class \code{\link{character}} containing curve type, allowed values
+\item{\code{curveType}}{Object of class [character] containing curve type, allowed values
 are measured or predefined}
 
 \item{\code{data}}{Object of class \code{\link{matrix}} containing spectrum (count) values.

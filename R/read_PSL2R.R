@@ -7,25 +7,25 @@
 #' formatting of PSL files this import function relies heavily on regular expression to find and 
 #' extract all relevant information. See \bold{note}.
 #'
-#' @param file \code{\link{character}} (\bold{required}): path and file name of the
+#' @param file [character] (\bold{required}): path and file name of the
 #' PSL file. If input is a \code{vector} it should comprise only \code{character}s representing
 #' valid paths and PSL file names.
 #' Alternatively the input character can be just a directory (path). In this case the
 #' the function tries to detect and import all PSL files found in the directory.
 #'
-#' @param drop_bg \code{\link{logical}} (with default): \code{TRUE} to automatically 
+#' @param drop_bg [logical] (with default): \code{TRUE} to automatically 
 #' remove all non-OSL/IRSL curves.
 #'
-#' @param as_decay_curve  \code{\link{logical}} (with default): Portable OSL Reader curves
+#' @param as_decay_curve  [logical] (with default): Portable OSL Reader curves
 #' are often given as cumulative light sum curves. Use \code{TRUE} (default) to convert
 #' the curves to the more usual decay form.
 #' 
-#' @param smooth \code{\link{logical}} (with default): \code{TRUE} to apply 
+#' @param smooth [logical] (with default): \code{TRUE} to apply 
 #' Tukey's Running Median Smoothing for OSL and IRSL decay curves. Smoothing is
 #' encouraged if you see random signal drops within the decay curves related 
 #' to hardware errors.
 #' 
-#' @param merge \code{\link{logical}} (with default): \code{TRUE} to merge all 
+#' @param merge [logical] (with default): \code{TRUE} to merge all 
 #' \code{RLum.Analysis} objects. Only applicable if multiple files are imported.
 #' 
 #' @param ... currently not used.

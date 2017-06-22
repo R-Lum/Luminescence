@@ -10,10 +10,10 @@
 \alias{as}
 \title{as() - RLum-object coercion}
 \arguments{
-\item{from}{\code{\linkS4class{RLum}} or \code{\link{list}}, \code{\link{data.frame}}, \code{\link{matrix}}
+\item{from}{\code{\linkS4class{RLum}} or \code{\link{list}}, [data.frame], \code{\link{matrix}}
 (\bold{required}): object to be coerced from}
 
-\item{to}{\code{\link{character}} (\bold{required}): class name to be coerced to}
+\item{to}{[character] (\bold{required}): class name to be coerced to}
 }
 \description{
 for \code{[RLum.Analysis]}

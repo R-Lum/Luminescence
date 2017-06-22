@@ -4,7 +4,7 @@
 \alias{ExampleData.DeValues}
 \title{Example De data sets for the package Luminescence}
 \format{A \code{\link{list}} with two elements, each containing a two column
-\code{\link{data.frame}}:
+[data.frame]:
 
 \describe{ \code{$BT998}: De and De error values for a fine grain quartz
 sample from a loess section in Rottewitz.\cr\cr \code{$CA1}: Single grain De

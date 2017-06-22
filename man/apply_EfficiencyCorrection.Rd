@@ -11,7 +11,7 @@ apply_EfficiencyCorrection(object, spectral.efficiency)
 \item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
 object of class \code{RLum.Data.Spectrum}}
 
-\item{spectral.efficiency}{\code{\link{data.frame}} (\bold{required}): Data
+\item{spectral.efficiency}{\link{data.frame} (\bold{required}): Data
 set containing wavelengths (x-column) and relative spectral response values
 (y-column) in percentage}
 }

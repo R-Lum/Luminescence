@@ -7,7 +7,7 @@
 app_RLum(app = NULL, ...)
 }
 \arguments{
-\item{app}{\code{\link{character}} (required): name of the application to start. See details for a list
+\item{app}{\link{character} (required): name of the application to start. See details for a list
 of available apps.}
 
 \item{...}{further arguments to pass to \code{\link[shiny]{runApp}}}

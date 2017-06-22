@@ -10,79 +10,79 @@ plot_RadialPlot(data, na.rm = TRUE, log.z = TRUE, central.value,
   grid.col, line, line.col, line.label, output = FALSE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
+\item{data}{\link{data.frame} or \code{\linkS4class{RLum.Results}}
 object (required): for \code{data.frame} two columns: De (\code{data[,1]})
 and De error (\code{data[,2]}). To plot several data sets in one plot, the
 data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
-\item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA}
+\item{na.rm}{\link{logical} (with default): excludes \code{NA}
 values from the data set prior to any further operations.}
 
-\item{log.z}{\code{\link{logical}} (with default): Option to display the
+\item{log.z}{\link{logical} (with default): Option to display the
 z-axis in logarithmic scale. Default is \code{TRUE}.}
 
-\item{central.value}{\code{\link{numeric}}: User-defined central value,
+\item{central.value}{\link{numeric}: User-defined central value,
 primarily used for horizontal centering of the z-axis.}
 
-\item{centrality}{\code{\link{character}} or \code{\link{numeric}} (with
+\item{centrality}{\link{character} or \link{numeric} (with
 default): measure of centrality, used for automatically centering the plot
 and drawing the central line. Can either be one out of \code{"mean"},
 \code{"median"}, \code{"mean.weighted"} and \code{"median.weighted"} or a
 numeric value used for the standardisation.}
 
-\item{mtext}{\code{\link{character}}: additional text below the plot title.}
+\item{mtext}{\link{character}: additional text below the plot title.}
 
-\item{summary}{\code{\link{character}} (optional): add statistic measures of
+\item{summary}{\link{character} (optional): add statistic measures of
 centrality and dispersion to the plot. Can be one or more of several
 keywords. See details for available keywords.}
 
-\item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
+\item{summary.pos}{\link{numeric} or \link{character} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option is only possible if \code{mtext} is not used.}
 
-\item{legend}{\code{\link{character}} vector (optional): legend content to
+\item{legend}{\link{character} vector (optional): legend content to
 be added to the plot.}
 
-\item{legend.pos}{\code{\link{numeric}} or \code{\link{character}} (with
+\item{legend.pos}{\link{numeric} or \link{character} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
 for the legend to be plotted.}
 
-\item{stats}{\code{\link{character}}: additional labels of statistically
+\item{stats}{\link{character}: additional labels of statistically
 important values in the plot. One or more out of the following:
 \code{"min"}, \code{"max"}, \code{"median"}.}
 
-\item{rug}{\code{\link{logical}}: Option to add a rug to the z-scale, to
+\item{rug}{\link{logical}: Option to add a rug to the z-scale, to
 indicate the location of individual values}
 
-\item{plot.ratio}{\code{\link{numeric}}: User-defined plot area ratio (i.e.
+\item{plot.ratio}{\link{numeric}: User-defined plot area ratio (i.e.
 curvature of the z-axis). If omitted, the default value (\code{4.5/5.5}) is
 used and modified automatically to optimise the z-axis curvature. The
 parameter should be decreased when data points are plotted outside the
 z-axis or when the z-axis gets too elliptic.}
 
-\item{bar.col}{\code{\link{character}} or \code{\link{numeric}} (with
+\item{bar.col}{\link{character} or \link{numeric} (with
 default): colour of the bar showing the 2-sigma range around the central
 value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.}
 
-\item{y.ticks}{\code{\link{logical}}: Option to hide y-axis labels. Useful
+\item{y.ticks}{\link{logical}: Option to hide y-axis labels. Useful
 for data with small scatter.}
 
-\item{grid.col}{\code{\link{character}} or \code{\link{numeric}} (with
+\item{grid.col}{\link{character} or \link{numeric} (with
 default): colour of the grid lines (originating at \code{[0,0]} and stretching to
 the z-scale). To disable grid lines, use \code{"none"}. Default is
 \code{"grey"}.}
 
-\item{line}{\code{\link{numeric}}: numeric values of the additional lines to
+\item{line}{\link{numeric}: numeric values of the additional lines to
 be added.}
 
-\item{line.col}{\code{\link{character}} or \code{\link{numeric}}: colour of
+\item{line.col}{\link{character} or \link{numeric}: colour of
 the additional lines.}
 
-\item{line.label}{\code{\link{character}}: labels for the additional lines.}
+\item{line.label}{\link{character}: labels for the additional lines.}
 
-\item{output}{\code{\link{logical}}: Optional output of numerical plot
+\item{output}{\link{logical}: Optional output of numerical plot
 parameters. These can be useful to reproduce similar plots. Default is
 \code{FALSE}.}
 

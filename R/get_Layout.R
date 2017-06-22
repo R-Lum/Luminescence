@@ -7,7 +7,7 @@
 #' create either an empty or a default layout object and fill/modify the
 #' definitions (\code{user.layout <- get_Layout(data = "empty")}).
 #'
-#' @param layout \code{\link{character}} or \code{\link{list}} object
+#' @param layout [character] or \code{\link{list}} object
 #' (required): name of the layout definition to be returned. If name is
 #' provided the respective definition is returned. One of the following
 #' supported layout definitions is possible: \code{"default"},

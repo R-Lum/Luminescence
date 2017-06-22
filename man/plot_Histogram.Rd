@@ -8,47 +8,47 @@ plot_Histogram(data, na.rm = TRUE, mtext, cex.global, se, rug, normal_curve,
   summary, summary.pos, colour, interactive = FALSE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
+\item{data}{\link{data.frame} or \code{\linkS4class{RLum.Results}}
 object (required): for \code{data.frame}: two columns: De (\code{data[,1]})
 and De error (\code{data[,2]})}
 
-\item{na.rm}{\code{\link{logical}} (with default): excludes \code{NA}
+\item{na.rm}{\link{logical} (with default): excludes \code{NA}
 values from the data set prior to any further operations.}
 
-\item{mtext}{\code{\link{character}} (optional): further sample information
+\item{mtext}{\link{character} (optional): further sample information
 (\link{mtext}).}
 
-\item{cex.global}{\code{\link{numeric}} (with default): global scaling
+\item{cex.global}{\link{numeric} (with default): global scaling
 factor.}
 
-\item{se}{\code{\link{logical}} (optional): plots standard error points over
+\item{se}{\link{logical} (optional): plots standard error points over
 the histogram, default is \code{FALSE}.}
 
-\item{rug}{\code{\link{logical}} (optional): adds rugs to the histogram,
+\item{rug}{\link{logical} (optional): adds rugs to the histogram,
 default is \code{TRUE}.}
 
-\item{normal_curve}{\code{\link{logical}} (with default): adds a normal
+\item{normal_curve}{\link{logical} (with default): adds a normal
 curve to the histogram. Mean and sd are calculated from the input data. More
 see details section.}
 
-\item{summary}{\code{\link{character}} (optional): add statistic measures of
+\item{summary}{\link{character} (optional): add statistic measures of
 centrality and dispersion to the plot. Can be one or more of several
 keywords. See details for available keywords.}
 
-\item{summary.pos}{\code{\link{numeric}} or \code{\link{character}} (with
+\item{summary.pos}{\link{numeric} or \link{character} (with
 default): optional position coordinates or keyword (e.g. \code{"topright"})
 for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used. In case of coordinate
 specification, y-coordinate refers to the right y-axis.}
 
-\item{colour}{\code{\link{numeric}} or \link{character} (with default):
+\item{colour}{\link{numeric} or \link{character} (with default):
 optional vector of length 4 which specifies the colours of the following
 plot items in exactly this order: histogram bars, rug lines, normal
 distribution curve and standard error points\cr (e.g., \code{c("grey",
 "black", "red", "grey")}).}
 
-\item{interactive}{\code{\link{logical}} (with default): create an interactive
+\item{interactive}{\link{logical} (with default): create an interactive
 histogram plot (requires the 'plotly' package)}
 
 \item{\dots}{further arguments and graphical parameters passed to

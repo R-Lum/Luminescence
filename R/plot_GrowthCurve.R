@@ -57,72 +57,72 @@
 #' To avoid plotting the subtitle information, provide an empty user mtext \code{mtext = ""}.
 #' To plot any other subtitle text, use \code{mtext}.
 #'
-#' @param sample \code{\link{data.frame}} (\bold{required}): data frame with
+#' @param sample [data.frame] (\bold{required}): data frame with
 #' three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. The column for the
 #' test dose response is optional, but requires 'TnTx' as column name if used. For exponential
 #' fits at least three dose points (including the natural) should be provided.
 #'
-#' @param na.rm \code{\link{logical}} (with default): excludes \code{NA} values
+#' @param na.rm [logical] (with default): excludes \code{NA} values
 #' from the data set prior to any further operations.
 #'
-#' @param mode \code{\link{character}} (with default): selects calculation mode of the function.
+#' @param mode [character] (with default): selects calculation mode of the function.
 #' (A) \code{"interpolation"} (default) calculates the De by interpolation,
 #' (B) \code{"extrapolation"} calculates the De by extrapolation and
 #' (C) \code{"alternate"} calculates no De and just fits the data points. Please note that
 #' for option \code{"regenrative"} the first point is considered as natural dose
 #'
-#' @param fit.method \code{\link{character}} (with default): function used for
+#' @param fit.method [character] (with default): function used for
 #' fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP}, \code{EXP OR LIN},
 #' \code{EXP+LIN} or \code{EXP+EXP}. See details.
 #'
-#' @param fit.force_through_origin \code{\link{logical}} (with default) allow to force
+#' @param fit.force_through_origin [logical] (with default) allow to force
 #' the fitted function through the origin. For \code{method = "EXP+EXP"} the function will
 #' go to the origin in either case, so this option will have no effect.
 #'
-#' @param fit.weights \code{\link{logical}} (with default): option whether the
+#' @param fit.weights [logical] (with default): option whether the
 #' fitting is done with or without weights. See details.
 #'
-#' @param fit.includingRepeatedRegPoints \code{\link{logical}} (with default):
+#' @param fit.includingRepeatedRegPoints [logical] (with default):
 #' includes repeated points for fitting (\code{TRUE}/\code{FALSE}).
 #'
-#' @param fit.NumberRegPoints \code{\link{integer}} (optional): set number of
+#' @param fit.NumberRegPoints [integer] (optional): set number of
 #' regeneration points manually. By default the number of all (!) regeneration
 #' points is used automatically.
 #'
-#' @param fit.NumberRegPointsReal \code{\link{integer}} (optional): if the
+#' @param fit.NumberRegPointsReal [integer] (optional): if the
 #' number of regeneration points is provided manually, the value of the real,
 #' regeneration points = all points (repeated points) including reg 0, has to
 #' be inserted.
 #'
-#' @param fit.bounds \code{\link{logical}} (with default): set lower fit bounds
+#' @param fit.bounds [logical] (with default): set lower fit bounds
 #' for all fitting parameters to 0. Limited for the use with the fit methods
 #' \code{EXP}, \code{EXP+LIN} and \code{EXP OR LIN}. Argument to be inserted
 #' for experimental application only!
 #'
-#' @param NumberIterations.MC \code{\link{integer}} (with default): number of
+#' @param NumberIterations.MC [integer] (with default): number of
 #' Monte Carlo simulations for error estimation. See details.
 #'
-#' @param output.plot \code{\link{logical}} (with default): plot output
+#' @param output.plot [logical] (with default): plot output
 #' (\code{TRUE/FALSE}).
 #'
-#' @param output.plotExtended \code{\link{logical}} (with default): If
+#' @param output.plotExtended [logical] (with default): If
 #' \code{TRUE}, 3 plots on one plot area are provided: (1) growth curve, (2)
 #' histogram from Monte Carlo error simulation and (3) a test dose response
 #' plot. If \code{FALSE}, just the growth curve will be plotted.
 #' \bold{Requires:} \code{output.plot = TRUE}.
 #'
-#' @param output.plotExtended.single \code{\link{logical}} (with default):
+#' @param output.plotExtended.single [logical] (with default):
 #' single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
 #' single plot windows. Requires \code{output.plot = TRUE} and
 #' \code{output.plotExtended = TRUE}.
 #'
-#' @param cex.global \code{\link{numeric}} (with default): global scaling
+#' @param cex.global [numeric] (with default): global scaling
 #' factor.
 #'
-#' @param txtProgressBar \code{\link{logical}} (with default): enables or disables txtProgressBar.
+#' @param txtProgressBar [logical] (with default): enables or disables txtProgressBar.
 #' If \code{verbose = FALSE} also no txtProgressBar is shown.
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disables terminal feedback.
+#' @param verbose [logical] (with default): enables or disables terminal feedback.
 #'
 #' @param \dots Further arguments and graphical parameters to be passed. Note:
 #' Standard arguments will only be passed to the growth curve plot. Supported:

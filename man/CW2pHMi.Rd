@@ -9,12 +9,12 @@ CW2pHMi(values, delta)
 }
 \arguments{
 \item{values}{\code{\linkS4class{RLum.Data.Curve}} or
-\code{\link{data.frame}} (\bold{required}):
-\code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}} with
+[data.frame] (\bold{required}):
+\code{\linkS4class{RLum.Data.Curve}} or [data.frame] with
 measured curve data of type stimulation time (t) (\code{values[,1]}) and
 measured counts (cts) (\code{values[,2]}).}
 
-\item{delta}{\code{\link{vector}} (optional): stimulation rate parameter, if
+\item{delta}{[vector] (optional): stimulation rate parameter, if
 no value is given, the optimal value is estimated automatically (see
 details). Smaller values of delta produce more points in the rising tail of
 the curve.}

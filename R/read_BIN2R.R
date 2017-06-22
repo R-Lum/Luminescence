@@ -8,7 +8,7 @@
 #' general BIN-file structure, the reader is referred to the Risoe website:
 #' \code{http://www.nutech.dtu.dk/}
 #'
-#' @param file \code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
+#' @param file [character] or \code{\link{list}} (\bold{required}): path and file name of the
 #' BIN/BINX file. If input is a \code{list} it should comprise only \code{character}s representing
 #' each valid path and BIN/BINX-file names.
 #' Alternatively the input character can be just a directory (path), in this case the
@@ -22,19 +22,19 @@
 #' records. Can be used in combination with \code{show.record.number} for
 #' debugging purposes, e.g. corrupt BIN-files. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
-#' @param zero_data.rm \code{\link{logical}} (with default): remove erroneous data with no count
+#' @param zero_data.rm [logical] (with default): remove erroneous data with no count
 #' values. As such data are usally not needed for the subsequent data analysis they will be removed
 #' by default. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
-#' @param duplicated.rm \code{\link{logical}} (with default): remove duplicated entries if \code{TRUE}.
+#' @param duplicated.rm [logical] (with default): remove duplicated entries if \code{TRUE}.
 #' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
 #' predeccessor and successor. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
-#' @param position \code{\link{numeric}} (optional): imports only the selected position. Note:
+#' @param position [numeric] (optional): imports only the selected position. Note:
 #' the import performance will not benefit by any selection made here.
 #' Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
-#' @param fastForward \code{\link{logical}} (with default): if \code{TRUE} for a
+#' @param fastForward [logical] (with default): if \code{TRUE} for a
 #' more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
 #' of a \link{Risoe.BINfileData-class} object. Can be provided as \code{list} if \code{file} is a \code{list}.
 #'
@@ -44,20 +44,20 @@
 #' @param txtProgressBar \link{logical} (with default): enables or disables
 #' \code{\link{txtProgressBar}}.
 #'
-#' @param forced.VersionNumber \code{\link{integer}} (optional): allows to cheat the
+#' @param forced.VersionNumber [integer] (optional): allows to cheat the
 #' version number check in the function by own values for cases where the
 #' BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
 #' Note: The usage is at own risk, only supported BIN-file versions have been tested.
 #'
-#' @param ignore.RECTYPE \code{\link{logical}} (with default): this argument allows to ignore values
+#' @param ignore.RECTYPE [logical] (with default): this argument allows to ignore values
 #' in the byte 'RECTYPE' (BIN-file version 08), in case there are not documented or faulty set.
 #' In this case the corrupted records are skipped.
 #'
-#' @param pattern \code{\link{character}} (optional): argument that is used if only a path is provided.
+#' @param pattern [character] (optional): argument that is used if only a path is provided.
 #' The argument will than be passed to the function \code{\link{list.files}} used internally to
 #' construct a \code{list} of wanted files
 #'
-#' @param verbose \code{\link{logical}} (with default): enables or disables verbose mode
+#' @param verbose [logical] (with default): enables or disables verbose mode
 #'
 #' @param \dots further arguments that will be passed to the function
 #' \code{\link{Risoe.BINfileData2RLum.Analysis}}. Please note that any matching argument

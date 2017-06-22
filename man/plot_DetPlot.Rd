@@ -15,36 +15,36 @@ plot_DetPlot(object, signal.integral.min, signal.integral.max,
 \item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
 object containing data for analysis}
 
-\item{signal.integral.min}{\code{\link{integer}} (\bold{required}): lower
+\item{signal.integral.min}{\link{integer} (\bold{required}): lower
 bound of the signal integral.}
 
-\item{signal.integral.max}{\code{\link{integer}} (\bold{required}): upper
+\item{signal.integral.max}{\link{integer} (\bold{required}): upper
 bound of the signal integral.}
 
-\item{background.integral.min}{\code{\link{integer}} (\bold{required}):
+\item{background.integral.min}{\link{integer} (\bold{required}):
 lower bound of the background integral.}
 
-\item{background.integral.max}{\code{\link{integer}} (\bold{required}):
+\item{background.integral.max}{\link{integer} (\bold{required}):
 upper bound of the background integral.}
 
-\item{method}{\code{\link{character}} (with default): method applied for constructing the De(t) plot.
+\item{method}{\link{character} (with default): method applied for constructing the De(t) plot.
 \code{shift} (the default): the chosen signal integral is shifted the shine down curve,
 \code{expansion}: the chosen signal integral is expanded each time by its length}
 
-\item{signal_integral.seq}{\code{\link{numeric}} (optional): argument to provide an own
+\item{signal_integral.seq}{\link{numeric} (optional): argument to provide an own
 signal integral sequence for constructing the De(t) plot}
 
-\item{analyse_function}{\code{\link{character}} (with default): name of the analyse function
+\item{analyse_function}{\link{character} (with default): name of the analyse function
 to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
 
 \item{analyse_function.control}{\code{\link{list}} (optional): arguments to be passed to the
 supported analyse functions (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
 
-\item{n.channels}{\code{\link{integer}} (optional): number of channels used for the De(t) plot.
+\item{n.channels}{\link{integer} (optional): number of channels used for the De(t) plot.
 If nothing is provided all De-values are calculated and plotted until the start of the background
 integral.}
 
-\item{show_ShineDownCurve}{\code{\link{logical}} (with default): enables or disables shine down
+\item{show_ShineDownCurve}{\link{logical} (with default): enables or disables shine down
 curve in the plot output}
 
 \item{respect_RC.Status}{\code{\link{logical} (with default)}: remove De-values with 'FAILED' RC.Status

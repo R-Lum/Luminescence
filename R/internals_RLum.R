@@ -119,15 +119,15 @@
 #' The function just allows a direct and meaningfull access to the functionality of the zoo::rollmean()
 #' function. Arguments of the function are only partly valid.
 #'
-#' @param x \code{\link{numeric}} (\bold{required}): the object for which the smoothing should be
+#' @param x [numeric] (\bold{required}): the object for which the smoothing should be
 #' applied.
 #'
-#' @param k \code{\link{integer}} (with default): window for the rolling mean; must be odd for rollmedian.
+#' @param k [integer] (with default): window for the rolling mean; must be odd for rollmedian.
 #' If nothing is set k is set automatically
 #'
-#' @param fill \code{\link{numeric}} (with default): a vector defining the left and the right hand data
+#' @param fill [numeric] (with default): a vector defining the left and the right hand data
 #'
-#' @param align \code{\link{character}} (with default): specifying whether the index of the result should be
+#' @param align [character] (with default): specifying whether the index of the result should be
 #' left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
 #' \code{"right"}, \code{"center"} and \code{left}
 #'
@@ -184,7 +184,7 @@
 #' Source:
 #' http://stackoverflow.com/questions/11610377/how-do-i-change-the-formatting-of-numbers-on-an-axis-with-ggplot
 #'
-#' @param l \code{\link{numeric}} (\bold{required}): a numeric vector, i.e. the
+#' @param l [numeric] (\bold{required}): a numeric vector, i.e. the
 #' labels that you want to add to your plot
 #'
 #' @return

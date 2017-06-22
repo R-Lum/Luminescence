@@ -21,7 +21,7 @@ documentation: \code{\linkS4class{RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Data.Image}},
 \code{\linkS4class{RLum.Analysis}} and \code{\linkS4class{RLum.Results}}}
 
-\item{null.rm}{\code{\link{logical}} (with default): option to get rid of empty and NULL objects}
+\item{null.rm}{\link{logical} (with default): option to get rid of empty and NULL objects}
 }
 \value{
 Return is the same as input objects as provided in the list.

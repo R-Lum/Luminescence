@@ -15,7 +15,7 @@
 #' and then attempts to install the chosen development branch via
 #' \code{\link[devtools]{install_github}}.
 #'
-#' @param force_install \code{\link{logical}} (optional):
+#' @param force_install [logical] (optional):
 #' If \code{FALSE} (the default) the function produces and prints the required
 #' code to the console for the user to run manually afterwards. When \code{TRUE}
 #' and all requirements are fulfilled (see details) this function attempts to install

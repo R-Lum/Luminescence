@@ -8,7 +8,7 @@ read_XSYG2R(file, recalculate.TL.curves = TRUE, fastForward = FALSE,
   import = TRUE, pattern = ".xsyg", txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
+\item{file}{\link{character} or \code{\link{list}} (\bold{required}): path and file name of the
 XSYG file. If input is a \code{list} it should comprise only \code{character}s representing each valid
 path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all xsyg files found in the directory.}
@@ -19,10 +19,10 @@ details for more information) Note: The option overwrites the time vs. count
 TL curve. Select \code{FALSE} to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.}
 
-\item{fastForward}{\code{\link{logical}} (with default): if \code{TRUE} for a
+\item{fastForward}{\link{logical} (with default): if \code{TRUE} for a
 more efficient data processing only a list of \code{RLum.Analysis} objects is returned.}
 
-\item{import}{\code{\link{logical}} (with default): if set to \code{FALSE}, only
+\item{import}{\link{logical} (with default): if set to \code{FALSE}, only
 the XSYG file structure is shown.}
 
 \item{pattern}{\code{\link{regex}} (with default): optional regular expression if \code{file} is

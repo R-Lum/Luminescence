@@ -11,22 +11,22 @@
 #' @param object \code{\linkS4class{Risoe.BINfileData}} (\bold{required}):
 #' \code{Risoe.BINfileData} object
 #'
-#' @param id \code{\link{integer}} (\bold{required}): record id in the
+#' @param id [integer] (\bold{required}): record id in the
 #' \code{Risoe.BINfileData} object of the curve that is to be stored in the
 #' \code{RLum.Data.Curve} object. If no value for id is provided, the record
 #' has to be specified by \code{pos}, \code{set} and \code{run}.
 #'
-#' @param pos \code{\link{integer}} (optional): record position number in the
+#' @param pos [integer] (optional): record position number in the
 #' \code{Risoe.BINfileData} object of the curve that is to be stored in the
 #' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
 #' argument is ignored.
 #'
-#' @param run \code{\link{integer}} (optional): record run number in the
+#' @param run [integer] (optional): record run number in the
 #' \code{Risoe.BINfileData} object of the curve that is to be stored in the
 #' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
 #' argument is ignored.
 #'
-#' @param set \code{\link{integer}} (optional): record set number in the
+#' @param set [integer] (optional): record set number in the
 #' \code{Risoe.BINfileData} object of the curve that is to be stored in the
 #' \code{RLum.Data.Curve} object. If a value for \code{id} is provided, this
 #' argument is ignored.

@@ -10,13 +10,13 @@ set_RLum(class, originator, .uid = .create_UID(), .pid = NA_character_, ...)
 \item{class}{\code{\linkS4class{RLum}} (\bold{required}): name of the S4 class to
 create}
 
-\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
+\item{originator}{\link{character} (automatic): contains the name of the calling function
 (the function that produces this object); can be set manually.}
 
-\item{.uid}{\code{\link{character}} (automatic): sets an unique ID for this object
+\item{.uid}{\link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{character}} (with default): option to provide a parent id for nesting
+\item{.pid}{\link{character} (with default): option to provide a parent id for nesting
 at will.}
 
 \item{\dots}{further arguments that one might want to pass to the specific

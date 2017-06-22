@@ -9,7 +9,7 @@ replicate_RLum(object, times = NULL)
 \arguments{
 \item{object}{an object of class \code{\linkS4class{RLum}} (\bold{required})}
 
-\item{times}{\code{\link{integer}} (optional): number for times each element is repeated
+\item{times}{\link{integer} (optional): number for times each element is repeated
 element}
 }
 \value{

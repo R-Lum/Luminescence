@@ -80,10 +80,10 @@ setClass("RLum.Data.Curve",
 #'
 #' }
 #'
-#' @param from \code{\linkS4class{RLum}} or \code{\link{list}}, \code{\link{data.frame}}, \code{\link{matrix}}
+#' @param from \code{\linkS4class{RLum}} or \code{\link{list}}, [data.frame], \code{\link{matrix}}
 #' (\bold{required}): object to be coerced from
 #'
-#' @param to \code{\link{character}} (\bold{required}): class name to be coerced to
+#' @param to [character] (\bold{required}): class name to be coerced to
 #'
 #' @seealso \code{\link[methods]{as}}
 #'
@@ -189,15 +189,15 @@ setMethod("show",
 #' Construction method for RLum.Data.Curve object. The slot info is optional
 #' and predefined as empty list by default.
 #'
-#' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create
-#' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the name of the calling function
+#' @param class [\code{set_RLum}] [character] (\bold{required}): name of the \code{RLum} class to create
+#' @param originator [\code{set_RLum}] [character] (automatic): contains the name of the calling function
 #' (the function that produces this object); can be set manually.
-#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' @param .uid [\code{set_RLum}] [character] (automatic): sets an unique ID for this object
 #' using the internal C++ function \code{.create_UID}.
-#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' @param .pid [\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
 #' at will.
-#' @param recordType [\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")
-#' @param curveType [\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")
+#' @param recordType [\code{set_RLum}] [character] (optional): record type (e.g., "OSL")
+#' @param curveType [\code{set_RLum}] [character] (optional): curve type (e.g., "predefined" or "measured")
 #' @param data [\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
 #' If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
 #' (s. Details)
@@ -310,7 +310,7 @@ setMethod(
 #'
 #' @param object [\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
 #' class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})
-#' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+#' @param info.object [\code{get_RLum}] [character] (optional): name of the wanted info
 #' element
 #'
 #' @return
@@ -415,7 +415,7 @@ setMethod("names_RLum",
 #' @describeIn RLum.Data.Curve
 #' Allows binning of specific objects
 #'
-#' @param bin_size [\code{bin_RLum}] \code{\link{integer}} (with default): set number of channels
+#' @param bin_size [\code{bin_RLum}] [integer] (with default): set number of channels
 #' used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.
 #'
 #' @return
@@ -473,16 +473,16 @@ setMethod(f = "bin_RLum.Data",
 #' Smoothing of RLum.Data.Curve objects using the function \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
 #' In particular the internal function \code{.smoothing} is used.
 #'
-#' @param k [\code{smooth_RLum}] \code{\link{integer}} (with default): window for the rolling mean; must be odd for rollmedian.
+#' @param k [\code{smooth_RLum}] [integer] (with default): window for the rolling mean; must be odd for rollmedian.
 #' If nothing is set k is set automatically
 #'
-#' @param fill [\code{smooth_RLum}] \code{\link{numeric}} (with default): a vector defining the left and the right hand data
+#' @param fill [\code{smooth_RLum}] [numeric] (with default): a vector defining the left and the right hand data
 #'
-#' @param align [\code{smooth_RLum}] \code{\link{character}} (with default): specifying whether the index of the result should be
+#' @param align [\code{smooth_RLum}] [character] (with default): specifying whether the index of the result should be
 #' left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
 #' \code{"right"}, \code{"center"} and \code{left}
 #'
-#' @param method [\code{smooth_RLum}] \code{\link{character}} (with default): defines which method should be applied for the
+#' @param method [\code{smooth_RLum}] [character] (with default): defines which method should be applied for the
 #' smoothing: \code{"mean"} or \code{"median"}
 #'
 #' @return

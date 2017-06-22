@@ -11,14 +11,14 @@ plot_RLum.Data.Curve(object, par.local = TRUE, norm = FALSE,
 \item{object}{\code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
 object of class \code{RLum.Data.Curve}}
 
-\item{par.local}{\code{\link{logical}} (with default): use local graphical
+\item{par.local}{\link{logical} (with default): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE}, global parameters are inherited.}
 
-\item{norm}{\code{\link{logical}} (with default): allows curve normalisation
+\item{norm}{\link{logical} (with default): allows curve normalisation
 to the highest count value}
 
-\item{smooth}{\code{\link{logical}} (with default): provides an automatic curve smoothing
+\item{smooth}{\link{logical} (with default): provides an automatic curve smoothing
 based on \code{\link[zoo]{rollmean}}}
 
 \item{\dots}{further arguments and graphical parameters that will be passed

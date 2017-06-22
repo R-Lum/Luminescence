@@ -4,7 +4,7 @@
 #'
 #' @param object an object of class \code{\linkS4class{RLum}} (\bold{required})
 #'
-#' @param times \code{\link{integer}} (optional): number for times each element is repeated
+#' @param times [integer] (optional): number for times each element is repeated
 #' element
 #'
 #' @return Returns a \code{\link{list}} of the object to be repeated

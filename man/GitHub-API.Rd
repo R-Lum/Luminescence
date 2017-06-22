@@ -15,23 +15,23 @@ github_branches(user = "r-lum", repo = "luminescence")
 github_issues(user = "r-lum", repo = "luminescence", verbose = TRUE)
 }
 \arguments{
-\item{user}{\code{\link{character}}: 
+\item{user}{[character]: 
 GitHub user name (defaults to 'r-lum').}
 
-\item{repo}{\code{\link{character}}: 
+\item{repo}{[character]: 
 name of a GitHub repository (defaults to 'luminescence').}
 
-\item{branch}{\code{\link{character}}: 
+\item{branch}{[character]: 
 branch of a GitHub repository (defaults to 'master').}
 
-\item{n}{\code{\link{integer}}:
+\item{n}{[integer]:
 number of commits returned (defaults to 5).}
 
-\item{verbose}{\code{\link{logical}}: 
+\item{verbose}{[logical]: 
 print the output to the console (defaults to \code{TRUE}).}
 }
 \value{
-\code{github_commits}: \code{\link{data.frame}} with columns:
+\code{github_commits}: \link{data.frame} with columns:
 \tabular{ll}{
 \code{[ ,1]} \tab SHA \cr
 \code{[ ,2]} \tab AUTHOR \cr
@@ -39,7 +39,7 @@ print the output to the console (defaults to \code{TRUE}).}
 \code{[ ,4]} \tab MESSAGE \cr
 }
 
-\code{github_branches}: \code{\link{data.frame}} with columns:
+\code{github_branches}: \link{data.frame} with columns:
 \tabular{ll}{
 \code{[ ,1]} \tab BRANCH \cr
 \code{[ ,2]} \tab SHA \cr

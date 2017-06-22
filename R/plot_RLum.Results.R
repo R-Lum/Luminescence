@@ -9,7 +9,7 @@
 #' @param object \code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
 #' of class \code{RLum.Results}
 #'
-#' @param single \code{\link{logical}} (with default): single plot output
+#' @param single [logical] (with default): single plot output
 #' (\code{TRUE/FALSE}) to allow for plotting the results in as few plot windows
 #' as possible.
 #'

@@ -15,7 +15,7 @@
 #' @param object \code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
 #' object of class \code{RLum.Data.Spectrum}
 #'
-#' @param spectral.efficiency \code{\link{data.frame}} (\bold{required}): Data
+#' @param spectral.efficiency [data.frame] (\bold{required}): Data
 #' set containing wavelengths (x-column) and relative spectral response values
 #' (y-column) in percentage
 #'

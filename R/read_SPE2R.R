@@ -12,11 +12,11 @@
 #' path), e.g. \cr `[WIN]`: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
 #' `[MAC/LINUX]`: \code{readSPER("/User/test/Desktop/test.spe")}
 #'
-#' @param output.object \code{\link{character}} (with default): set \code{RLum}
+#' @param output.object [character] (with default): set \code{RLum}
 #' output object.  Allowed types are \code{"RLum.Data.Spectrum"},
 #' \code{"RLum.Data.Image"} or \code{"matrix"}
 #'
-#' @param frame.range \code{\link{vector}} (optional): limit frame range, e.g.
+#' @param frame.range [vector] (optional): limit frame range, e.g.
 #' select first 100 frames by \code{frame.range = c(1,100)}
 #'
 #' @param txtProgressBar \link{logical} (with default): enables or disables

@@ -12,7 +12,7 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot protocol Object of class \code{\link{character}} describing the applied measurement protocol
+#' @slot protocol Object of class [character] describing the applied measurement protocol
 #'
 #' @slot records Object of class \code{\link{list}} containing objects of class \code{\linkS4class{RLum.Data}}
 #'
@@ -205,14 +205,14 @@ setMethod("show",
 #' @describeIn RLum.Analysis
 #' Construction method for \code{\linkS4class{RLum.Analysis}} objects.
 #'
-#' @param class [\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to be created
-#' @param originator [\code{set_RLum}] \code{\link{character}} (automatic): contains the name
+#' @param class [\code{set_RLum}] [character] (\bold{required}): name of the \code{RLum} class to be created
+#' @param originator [\code{set_RLum}] [character] (automatic): contains the name
 #' of the calling function (the function that produces this object); can be set manually.
-#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
+#' @param .uid [\code{set_RLum}] [character] (automatic): sets an unique ID for this object
 #' using the internal C++ function \code{.create_UID}.
-#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
+#' @param .pid [\code{set_RLum}] [character] (with default): option to provide a parent id for nesting
 #' at will.
-#' @param protocol [\code{set_RLum}] \code{\link{character}} (optional): sets protocol type for
+#' @param protocol [\code{set_RLum}] [character] (optional): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
 #' @param records [\code{set_RLum}] \code{\link{list}} (\bold{required}): list of \code{\linkS4class{RLum.Analysis}} objects
 #' @param info [\code{set_RLum}] \code{\link{list}} (optional): a list containing additional
@@ -287,30 +287,30 @@ setMethod(
 #' \code{[structure_RLum]}] an object of class \code{\linkS4class{RLum.Analysis}}
 #' (\bold{required})
 #'
-#' @param record.id [\code{get_RLum}] \code{\link{numeric}} or \code{\link{logical}} (optional): IDs of specific records.
+#' @param record.id [\code{get_RLum}] [numeric] or [logical] (optional): IDs of specific records.
 #' If of type \code{logical} the entire id range is assuemd and \code{TRUE} and \code{FALSE} indicates the selection.
 #'
-#' @param recordType [\code{get_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL").
+#' @param recordType [\code{get_RLum}] [character] (optional): record type (e.g., "OSL").
 #' Can be also a vector, for multiple matching, e.g., \code{recordType = c("OSL", "IRSL")}
 #'
-#' @param curveType [\code{get_RLum}] \code{\link{character}} (optional): curve
+#' @param curveType [\code{get_RLum}] [character] (optional): curve
 #' type (e.g. "predefined" or "measured")
 #'
-#' @param RLum.type [\code{get_RLum}] \code{\link{character}} (optional): RLum object type.
+#' @param RLum.type [\code{get_RLum}] [character] (optional): RLum object type.
 #' Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
 #'
-#' @param get.index [\code{get_RLum}] \code{\link{logical}} (optional): return a numeric
+#' @param get.index [\code{get_RLum}] [logical] (optional): return a numeric
 #' vector with the index of each element in the RLum.Analysis object.
 #'
-#' @param recursive [\code{get_RLum}] \code{\link{logical}} (with default): if \code{TRUE} (the default)
+#' @param recursive [\code{get_RLum}] [logical] (with default): if \code{TRUE} (the default)
 #' and the result of the 'get_RLum' request is a single object this object will be unlisted, means
 #' only the object itself and no list containing exactly one object is returned. Mostly this makes things
 #' easier, however, if this method is used within a loop this might undesired.
 #'
-#' @param drop [\code{get_RLum}] \code{\link{logical}} (with default): coerce to the next possible layer
+#' @param drop [\code{get_RLum}] [logical] (with default): coerce to the next possible layer
 #' (which are \code{RLum.Data}-objects), \code{drop = FALSE} keeps the original \code{RLum.Analysis}
 #'
-#' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
+#' @param info.object [\code{get_RLum}] [character] (optional): name of the wanted info
 #' element
 #'
 #' @param subset \code{\link{expression}} (optional): logical expression indicating elements or rows
@@ -620,7 +620,7 @@ setMethod("get_RLum",
 #' @describeIn RLum.Analysis
 #' Method to show the structure of an \code{\linkS4class{RLum.Analysis}} object.
 #'
-#' @param fullExtent [structure_RLum] \code{\link{logical}} (with default): extents the returned \code{data.frame}
+#' @param fullExtent [structure_RLum] [logical] (with default): extents the returned \code{data.frame}
 #' to its full extent, i.e. all info elements are part of the return as well. The default valule
 #' is \code{FALSE} as the data frame might become rather big.
 #'

@@ -3,16 +3,16 @@
 #' This function takes a data.frame and returns a table in LaTex code that
 #' can be copied in any tex document.
 #'
-#' @param x a \code{\link{data.frame}} or \code{RLum} object
+#' @param x a [data.frame] or \code{RLum} object
 #' @param row.names currently unused
 #' @param col.names currently unused
-#' @param comments \code{\link{logical}} insert LaTex comments
-#' @param pos \code{\link{character}} of length one specifying the alignment
+#' @param comments [logical] insert LaTex comments
+#' @param pos [character] of length one specifying the alignment
 #' of each column, e.g., pos'clr' for a three column data frame and center, left
 #' and right alignment
-#' @param digits \code{\link{numeric}} number of digits (numeric fields)
-#' @param select a \code{\link{character}} vector passed to \code{\link{subset}}
-#' @param split an \code{\link{integer}} specifying the number of individual tables
+#' @param digits [numeric] number of digits (numeric fields)
+#' @param select a [character] vector passed to \code{\link{subset}}
+#' @param split an [integer] specifying the number of individual tables
 #' the data frame is split into. Useful for wide tables. Currently unnused.
 #' @param ... options: \code{verbose}
 #'

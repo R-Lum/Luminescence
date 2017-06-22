@@ -26,24 +26,24 @@
 #' \code{position.number.append.gap = 1} it will become:
 #' \code{1,3,5,7,9,11,13,15,17}.
 #'
-#' @param input.objects \code{\link{character}} with
+#' @param input.objects [character] with
 #' \code{\linkS4class{Risoe.BINfileData}} objects (\bold{required}): Character vector
 #' with path and files names (e.g. \code{input.objects = c("path/file1.bin",
 #' "path/file2.bin")} or \code{\linkS4class{Risoe.BINfileData}} objects (e.g.
 #' \code{input.objects = c(object1, object2)}). Alternatively a \code{list} is supported.
 #'
 #'
-#' @param output.file \code{\link{character}} (optional): File output path and
+#' @param output.file [character] (optional): File output path and
 #' name. \cr If no value is given, a \code{\linkS4class{Risoe.BINfileData}} is
 #' returned instead of a file.
 #'
 #'
-#' @param keep.position.number \code{\link{logical}} (with default): Allows
+#' @param keep.position.number [logical] (with default): Allows
 #' keeping the original position numbers of the input objects. Otherwise the
 #' position numbers are recalculated.
 #'
 #'
-#' @param position.number.append.gap \code{\link{integer}} (with default): Set
+#' @param position.number.append.gap [integer] (with default): Set
 #' the position number gap between merged BIN-file sets, if the option
 #' \code{keep.position.number = FALSE} is used. See details for further
 #' information.

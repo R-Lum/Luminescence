@@ -11,7 +11,7 @@
 \arguments{
 \item{object}{an object of class \code{\linkS4class{RLum}} (\bold{required})}
 
-\item{times}{\code{\link{integer}} (optional): number for times each element is repeated
+\item{times}{[integer] (optional): number for times each element is repeated
 element}
 }
 \description{
@@ -25,16 +25,16 @@ Abstract class for data in the package Luminescence
 \section{Slots}{
 
 \describe{
-\item{\code{originator}}{Object of class \code{\link{character}} containing the name of the producing
+\item{\code{originator}}{Object of class [character] containing the name of the producing
 function for the object. Set automatically by using the function \code{\link{set_RLum}}.}
 
 \item{\code{info}}{Object of class \code{\link{list}} for additional information on the object itself}
 
-\item{\code{.uid}}{Object of class \code{\link{character}} for a unique object identifier. This id is
+\item{\code{.uid}}{Object of class [character] for a unique object identifier. This id is
 usually calculated using the internal function \code{.create_UID()} if the funtion \code{\link{set_RLum}}
 is called.}
 
-\item{\code{.pid}}{Object of class \code{\link{character}} for a parent id. This allows nesting RLum-objects
+\item{\code{.pid}}{Object of class [character] for a parent id. This allows nesting RLum-objects
 at will. The parent id can be the uid of another object.}
 }}
 

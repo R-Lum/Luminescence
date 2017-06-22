@@ -12,25 +12,25 @@
 #' the first column contains the time values and each following column contains
 #' the counts of each curve.
 #'
-#' @param data a \code{\link{list}}, \code{\link{data.frame}}, \code{\link{matrix}} or
+#' @param data a \code{\link{list}}, [data.frame], \code{\link{matrix}} or
 #' \code{\linkS4class{RLum.Analysis}} object (\bold{required}). X,Y data of measured values
 #' (time and counts). See details on individual data structure.
 #'
-#' @param log \code{\link{character}} (optional): logarithmic axes
+#' @param log [character] (optional): logarithmic axes
 #' (\code{c("x", "y", "xy")}).
 #'
-#' @param smooth \code{\link{character}} (optional): apply data smoothing. Use
+#' @param smooth [character] (optional): apply data smoothing. Use
 #' \code{"rmean"} to calculate the rolling where \code{k} determines the width
 #' of the rolling window (see \code{\link{rollmean}}).
 #' \code{"spline"} applies a smoothing spline to each curve
 #' (see \code{\link{smooth.spline}})
 #'
-#' @param k \code{\link{integer}} (with default): integer width of the rolling
+#' @param k [integer] (with default): integer width of the rolling
 #' window.
 #'
-#' @param legend \code{\link{logical}} (with default): show or hide the plot legend.
+#' @param legend [logical] (with default): show or hide the plot legend.
 #'
-#' @param legend.pos \code{\link{character}} (with default): keyword specifying
+#' @param legend.pos [character] (with default): keyword specifying
 #' the position of the legend (see \code{\link{legend}}).
 #'
 #' @param ... further parameters passed to \code{\link{plot}} (also see \code{\link{par}}).
