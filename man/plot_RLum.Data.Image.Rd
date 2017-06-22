@@ -89,12 +89,9 @@ data(ExampleData.RLum.Data.Image, envir = environment())
 plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 }
-\references{
--
-}
 \seealso{
 \code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
-\code{\link{plot_RLum}}, \code{\link[raster]{raster}},
+\code{\link{plot_RLum}}, \code{\link[raster]{raster}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

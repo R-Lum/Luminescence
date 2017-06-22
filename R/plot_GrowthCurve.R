@@ -187,6 +187,7 @@
 #' LxTxData[1,2:3] <- c(0.5, 0.001)
 #' print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 #'
+#' @md
 #' @export
 plot_GrowthCurve <- function(
   sample,

@@ -62,9 +62,6 @@ plot_RLum(temp)
 
 
 }
-\references{
-#
-}
 \seealso{
 \code{\link{plot_RLum.Data.Curve}},
 \code{\linkS4class{RLum.Data.Curve}}, \code{\link{plot_RLum.Data.Spectrum}},

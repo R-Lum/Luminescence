@@ -56,9 +56,6 @@ plot_RLum.Results(grains)
 
 
 }
-\references{
-#
-}
 \seealso{
 \code{\link{plot}}, \code{\link{plot_RLum}},
 }

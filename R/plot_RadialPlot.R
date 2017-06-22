@@ -77,7 +77,7 @@
 #' @param y.ticks \code{\link{logical}}: Option to hide y-axis labels. Useful
 #' for data with small scatter.
 #' @param grid.col \code{\link{character}} or \code{\link{numeric}} (with
-#' default): colour of the grid lines (originating at [0,0] and stretching to
+#' default): colour of the grid lines (originating at `[0,0]` and stretching to
 #' the z-scale). To disable grid lines, use \code{"none"}. Default is
 #' \code{"grey"}.
 #' @param line \code{\link{numeric}}: numeric values of the additional lines to
@@ -212,6 +212,7 @@
 #'                 summary.pos = "sub",
 #'                 legend = c("Sample 1", "Sample 2"))
 #'
+#' @md
 #' @export
 plot_RadialPlot <- function(
   data,

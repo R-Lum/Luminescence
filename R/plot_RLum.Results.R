@@ -28,7 +28,7 @@
 #'
 #' @seealso \code{\link{plot}}, \code{\link{plot_RLum}},
 #'
-#' @references #
+#'
 #'
 #' @keywords aplot
 #'
@@ -51,6 +51,7 @@
 #' plot_RLum.Results(grains)
 #'
 #'
+#' @md
 #' @export
 plot_RLum.Results<- function(
   object,

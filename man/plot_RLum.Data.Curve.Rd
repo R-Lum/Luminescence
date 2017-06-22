@@ -58,9 +58,6 @@ plot_RLum.Data.Curve(temp)
 
 
 }
-\references{
-#
-}
 \seealso{
 \code{\link{plot}}, \code{\link{plot_RLum}}
 }

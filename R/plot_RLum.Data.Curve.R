@@ -33,7 +33,7 @@
 #'
 #' @seealso \code{\link{plot}}, \code{\link{plot_RLum}}
 #'
-#' @references #
+#'
 #'
 #' @keywords aplot
 #'
@@ -52,6 +52,7 @@
 #' plot_RLum.Data.Curve(temp)
 #'
 #'
+#' @md
 #' @export
 plot_RLum.Data.Curve<- function(
   object,

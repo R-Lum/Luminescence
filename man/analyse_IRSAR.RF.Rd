@@ -75,7 +75,7 @@ The function returns numerical output and an (optional) plot.
 
 \bold{slot:} \bold{\code{@data}} \cr
 
-\code{[.. $data : \code{data.frame}]}\cr
+\code{[.. $data : data.frame]}\cr
 
 \tabular{lll}{
 \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
@@ -92,11 +92,11 @@ SEQUENCE_NAME \tab \code{character}\tab (optional) sequence name\cr
 UID \tab \code{character}\tab unique data set ID
 }
 
-\code{[.. $De.MC : \code{numeric}]}\cr
+\code{[.. $De.MC : numeric]}\cr
 
 A \code{numeric} vector with all the De values obtained by the MC runs.\cr
 
-\code{[.. $test_parameters : \code{data.frame}]}\cr
+\code{[.. $test_parameters : data.frame]}\cr
 
 \tabular{lll}{
 \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
@@ -109,11 +109,11 @@ SEQUENCE_NAME \tab \code{character} \tab name of the sequence, so far available 
 UID \tab \code{character}\tab unique data set ID
 }
 
-\code{[.. $fit : \code{data.frame}]}\cr
+\code{[.. $fit : data.frame]}\cr
 
 An \code{\link{nls}} object produced by the fitting.\cr
 
-\code{[.. $slide : \code{list}]}\cr
+\code{[.. $slide : list]}\cr
 
 A \code{\link{list}} with data produced during the sliding. Some elements are previously
 reported with the summary object data. List elements are:

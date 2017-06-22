@@ -70,7 +70,7 @@ value. To disable the bar, use \code{"none"}. Default is \code{"grey"}.}
 for data with small scatter.}
 
 \item{grid.col}{\code{\link{character}} or \code{\link{numeric}} (with
-default): colour of the grid lines (originating at [0,0] and stretching to
+default): colour of the grid lines (originating at \code{[0,0]} and stretching to
 the z-scale). To disable grid lines, use \code{"none"}. Default is
 \code{"grey"}.}
 

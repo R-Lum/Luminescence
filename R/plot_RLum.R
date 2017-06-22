@@ -45,7 +45,6 @@
 #' \code{\linkS4class{RLum.Analysis}}, \code{\link{plot_RLum.Results}},
 #' \code{\linkS4class{RLum.Results}}
 #'
-#' @references #
 #'
 #' @keywords dplot
 #'
@@ -62,6 +61,7 @@
 #' plot_RLum(temp)
 #'
 #'
+#' @md
 #' @export
 plot_RLum<- function(
   object,

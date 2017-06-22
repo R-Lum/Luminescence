@@ -61,8 +61,8 @@
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #' @seealso \code{\linkS4class{RLum.Data.Image}}, \code{\link{plot}},
-#' \code{\link{plot_RLum}}, \code{\link[raster]{raster}},
-#' @references -
+#' \code{\link{plot_RLum}}, \code{\link[raster]{raster}}
+#' 
 #' @keywords aplot
 #' @examples
 #'
@@ -73,6 +73,7 @@
 #' ##plot data
 #' plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 #'
+#' @md
 #' @export
 plot_RLum.Data.Image <- function(
   object,

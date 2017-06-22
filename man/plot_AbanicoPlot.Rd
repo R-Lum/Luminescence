@@ -119,7 +119,7 @@ the additional lines.}
 \item{line.label}{\code{\link{character}}: labels for the additional lines.}
 
 \item{grid.col}{\code{\link{character}} or \code{\link{numeric}} (with
-default): colour of the grid lines (originating at [0,0] and strechting to
+default): colour of the grid lines (originating at \code{[0,0]} and strechting to
 the z-scale). To disable grid lines use \code{FALSE}. Default is
 \code{"grey"}.}
 

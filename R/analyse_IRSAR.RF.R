@@ -216,7 +216,7 @@
 #'
 #' \bold{slot:} \bold{\code{@data}} \cr
 #'
-#' `[.. $data : \code{data.frame}]`\cr
+#' `[.. $data : data.frame]`\cr
 #'
 #' \tabular{lll}{
 #' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
@@ -233,11 +233,11 @@
 #'  UID \tab \code{character}\tab unique data set ID
 #' }
 #'
-#' `[.. $De.MC : \code{numeric}]`\cr
+#' `[.. $De.MC : numeric]`\cr
 #'
 #' A \code{numeric} vector with all the De values obtained by the MC runs.\cr
 #'
-#' `[.. $test_parameters : \code{data.frame}]`\cr
+#' `[.. $test_parameters : data.frame]`\cr
 #'
 #' \tabular{lll}{
 #' \bold{Column} \tab \bold{Type} \tab \bold{Description}\cr
@@ -250,11 +250,11 @@
 #'  UID \tab \code{character}\tab unique data set ID
 #' }
 #'
-#' `[.. $fit : \code{data.frame}]`\cr
+#' `[.. $fit : data.frame]`\cr
 #'
 #' An \code{\link{nls}} object produced by the fitting.\cr
 #'
-#' `[.. $slide : \code{list}]`\cr
+#' `[.. $slide : list]`\cr
 #'
 #' A \code{\link{list}} with data produced during the sliding. Some elements are previously
 #' reported with the summary object data. List elements are:

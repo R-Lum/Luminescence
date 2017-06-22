@@ -107,9 +107,6 @@ abline = list(v = c(110))
 )
 
 }
-\references{
-#
-}
 \seealso{
 \code{\link{plot}}, \code{\link{plot_RLum}},
 \code{\link{plot_RLum.Data.Curve}}

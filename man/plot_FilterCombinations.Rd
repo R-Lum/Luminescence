@@ -31,8 +31,8 @@ Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 \bold{@data}
 \tabular{lll}{
 \bold{Object} \tab \bold{Type} \bold{Description} \cr
- net_transmission_window \tab \code{matrix} \tab the resulting net transmission window \cr
- filter_matrix \tab \code{matrix} \tab the filter matrix used for plotting
+net_transmission_window \tab \code{matrix} \tab the resulting net transmission window \cr
+filter_matrix \tab \code{matrix} \tab the filter matrix used for plotting
 
 }
 

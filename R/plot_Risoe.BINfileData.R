@@ -78,6 +78,7 @@
 #' #mtext(side = 4, BINfile, outer = TRUE, col = "blue", cex = .7)
 #' #dev.off()
 #'
+#' @md
 #' @export
 plot_Risoe.BINfileData<- function(
   BINfileData,
