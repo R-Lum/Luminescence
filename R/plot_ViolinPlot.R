@@ -8,50 +8,54 @@
 #'
 #' The function is passing several arguments to the function [plot],
 #' [stats::density], [graphics::boxplot]:
-#' Supported arguments are: `xlim`, `main`, `xlab`,
-#' `ylab`, `col.violin`, `col.boxplot`, `mtext`, `cex`, `mtext`
+#' 
+#' Supported arguments are: 
+#' `xlim`, `main`, `xlab`, `ylab`, `col.violin`, `col.boxplot`, `mtext`, `cex`, `mtext`
 #'
-#'**`Valid summary keywords`**\cr
+#' **`Valid summary keywords`**
 #'
-#' 'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis'
+#' `'n'`, `'mean'`, `'median'`, `'sd.abs'`, `'sd.rel'`, `'se.abs'`, `'se.rel'`. 
+#' `'skewness'`, `'kurtosis'`
 #'
-#' @param data [numeric] or [RLum.Results-class]
-#' object (**required**): input data for plotting. Alternatively a [data.frame] or
-#' a [matrix] can be provided, but only the first column will be considered by the
+#' @param data [numeric] or [RLum.Results-class] (**required**): 
+#' input data for plotting. Alternatively a [data.frame] or a [matrix] can 
+#' be provided, but only the first column will be considered by the
 #' function
 #'
-#' @param boxplot [logical] *(with default)*: enable or disable boxplot
+#' @param boxplot [logical] (*with default*): 
+#' enable or disable boxplot
 #'
-#' @param rug [logical] *(with default)*: enable or disable rug
+#' @param rug [logical] (*with default*): 
+#' enable or disable rug
 #'
-#' @param summary [character] *(optional)*: add statistic measures of
-#' centrality and dispersion to the plot. Can be one or more of several
-#' keywords. See details for available keywords.
+#' @param summary [character] (*optional*): 
+#' add statistic measures of centrality and dispersion to the plot. 
+#' Can be one or more of several keywords. See details for available keywords.
 #'
-#' @param summary.pos [numeric] or [character] (with
-#' default): optional position keywords (cf., [legend])
-#' for the statistical summary. Alternatively, the keyword `"sub"` may be
-#' specified to place the summary below the plot header. However, this latter
-#' option in only possible if `mtext` is not used.
+#' @param summary.pos [numeric] or [character] (*with default*): 
+#' optional position keywords (cf., [legend]) for the statistical summary. 
+#' Alternatively, the keyword `"sub"` may be specified to place the summary 
+#' below the plot header. However, this latter option in only possible if 
+#' `mtext` is not used.
 #'
-#' @param na.rm [logical] *(with default)*: exclude NA values
-#' from the data set prior to any further operations.
+#' @param na.rm [logical] (*with default*): 
+#' exclude NA values from the data set prior to any further operations.
 #'
 #' @param ... further arguments and graphical parameters passed to
-#' [plot.default], [stats::density] and [boxplot]. See details for
-#' further information
+#' [plot.default], [stats::density] and [boxplot]. See details for further information
 #'
-#' @note Although the code for this function was developed independently and just the idea for the plot
+#' @note 
+#' Although the code for this function was developed independently and just the idea for the plot
 #' was based on the 'ggplot2' package plot type 'volcano', it should be mentioned that, beyond this,
 #' two other R packages exist providing a possibility to produces this kind of plot, namely:
 #' 'vioplot' and 'violinmplot' (see References for details).
 #'
 #' @section Function version: 0.1.3
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @references
-#'
 #' Daniel Adler (2005). vioplot: A violin plot is a combination of a box plot and a kernel density plot.
 #' R package version 0.2 http://CRAN.R-project.org/package=violplot
 #'
@@ -62,10 +66,10 @@
 #'
 #' Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 #'
-#' @seealso [stats::density], [plot], [boxplot], [rug],
-#' [calc_Statistics]
+#' @seealso [stats::density], [plot], [boxplot], [rug], [calc_Statistics]
 #'
 #' @examples
+#' 
 #' ## read example data set
 #' data(ExampleData.DeValues, envir = environment())
 #' ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))

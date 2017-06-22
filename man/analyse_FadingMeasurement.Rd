@@ -16,7 +16,7 @@ objects or a \link{data.frame} with three columns
 Can also be a wide table, i.e. a \link{data.frame} with a number of colums divisible by 3
 and where each triplet has the before mentioned column structure.}
 
-\item{structure}{\link{character} \emph{(with default)}:
+\item{structure}{\link{character} (\emph{with default}):
 sets the structure of the measurement data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}.
 Other input is ignored}
 
@@ -28,27 +28,27 @@ Not required if a \code{data.frame} with LxTx values are provided.}
 vector with the bounds for the background integral.
 Not required if a \code{data.frame} with LxTx values are provided.}
 
-\item{t_star}{\link{character} \emph{(with default)}:
+\item{t_star}{\link{character} (\emph{with default}):
 method for calculating the time elasped since irradiaton. Options are:
 \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
 and \code{'end'}, which takes the time between irradiation and the measurement step.
 Default is \code{'half'}}
 
-\item{n.MC}{\link{integer} \emph{(with default)}:
+\item{n.MC}{\link{integer} (\emph{with default}):
 number for Monte Carlo runs for the error estimation}
 
-\item{verbose}{\link{logical} \emph{(with default)}:
+\item{verbose}{\link{logical} (\emph{with default}):
 enables/disables verbose mode}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} (\emph{with default}):
 enables/disables plot output}
 
-\item{plot.single}{\link{logical} \emph{(with default)}:
+\item{plot.single}{\link{logical} (\emph{with default}):
 enables/disables single plot mode, i.e. one plot window per plot.
 Alternatively a vector specifying the plot to be drawn, e.g.,
 \code{plot.single = c(3,4)} draws only the last two plots}
 
-\item{...}{\emph{(optional)} further arguments that can be passed to internally used functions (see details)}
+\item{...}{(\emph{optional}) further arguments that can be passed to internally used functions (see details)}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:

@@ -7,13 +7,14 @@
 get_Layout(layout)
 }
 \arguments{
-\item{layout}{\link{character} or \link{list} object
-(\strong{required}): name of the layout definition to be returned. If name is
-provided the respective definition is returned. One of the following
+\item{layout}{\link{character} or \link{list} object (\strong{required}):
+name of the layout definition to be returned. If name is provided the
+respective definition is returned. One of the following
 supported layout definitions is possible: \code{"default"},
-\code{"journal.1"}, \code{"small"}, \code{"empty"}. User-specific layout
-definitions must be provided as a list object of predefined structure, see
-details.}
+\code{"journal.1"}, \code{"small"}, \code{"empty"}.
+
+User-specific layout definitions must be provided as a list object of
+predefined structure, see details.}
 }
 \value{
 A list object with layout definitions for plot functions.

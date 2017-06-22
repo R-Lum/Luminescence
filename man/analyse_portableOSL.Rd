@@ -15,14 +15,14 @@ analyse_portableOSL(object, signal.integral, invert = FALSE,
 A vector of two values specifying the lower and upper channel used to
 calculate the OSL/IRSL signal. Can be provided in form of \code{c(1, 5)} or \code{1:5}.}
 
-\item{invert}{\link{logical} \emph{(with default)}:
+\item{invert}{\link{logical} (\emph{with default}):
 \code{TRUE} to calculate and plot the data in reverse order.}
 
-\item{normalise}{\link{logical} \emph{(with default)}:
+\item{normalise}{\link{logical} (\emph{with default}):
 \code{TRUE} to normalise the OSL/IRSL signals by the mean of all corresponding
 data curves.}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} (\emph{with default}):
 enable/disable plot output}
 
 \item{...}{currently not used.}

@@ -16,17 +16,17 @@
 #' `RLum.Data.Curve` object. If no value for id is provided, the record
 #' has to be specified by `pos`, `set` and `run`.
 #'
-#' @param pos [integer] *(optional)*: record position number in the
+#' @param pos [integer] (*optional*): record position number in the
 #' `Risoe.BINfileData` object of the curve that is to be stored in the
 #' `RLum.Data.Curve` object. If a value for `id` is provided, this
 #' argument is ignored.
 #'
-#' @param run [integer] *(optional)*: record run number in the
+#' @param run [integer] (*optional*): record run number in the
 #' `Risoe.BINfileData` object of the curve that is to be stored in the
 #' `RLum.Data.Curve` object. If a value for `id` is provided, this
 #' argument is ignored.
 #'
-#' @param set [integer] *(optional)*: record set number in the
+#' @param set [integer] (*optional*): record set number in the
 #' `Risoe.BINfileData` object of the curve that is to be stored in the
 #' `RLum.Data.Curve` object. If a value for `id` is provided, this
 #' argument is ignored.

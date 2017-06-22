@@ -79,7 +79,7 @@
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the maximum background integral for the Tx curve.
 #'
-#' @param rejection.criteria [list] *(with default)*: 
+#' @param rejection.criteria [list] (*with default*): 
 #' provide a named list and set rejection criteria in **percentage** for further calculation. Can be a [list] in
 #' a [list], if `object` is of type [list]
 #'
@@ -90,19 +90,19 @@
 #' Every criterium can be set to `NA`. In this value are calculated, but not considered, i.e.
 #' the RC.Status becomes always `'OK'`
 #'
-#' @param dose.points [numeric] *(optional)*: 
+#' @param dose.points [numeric] (*optional*): 
 #' a numeric vector containg the dose points values Using this argument 
 #' overwrites dose point values in the signal curves. Can be a [list] of 
 #' [numeric] vectors, if `object` is of type [list]
 #'
-#' @param mtext.outer [character] *(optional)*: 
+#' @param mtext.outer [character] (*optional*): 
 #' option to provide an outer margin mtext. Can be a [list] of [character]s,
 #' if `object` is of type [list]
 #'
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] (*with default*): 
 #' enables or disables plot output.
 #'
-#' @param plot.single [logical] *(with default)* or [numeric] *(optional)*: 
+#' @param plot.single [logical] (*with default*) or [numeric] (*optional*): 
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows. 
 #' If a numerice vector is provided the plots can be selected individually, i.e. 
 #' `plot.single = c(1,2,3,4)` will plot the TL and Lx, Tx curves but not the legend (5) or the
@@ -117,7 +117,7 @@
 #'
 #'
 #' @return 
-#' A plot *(optional)* and an [RLum.Results-class] object is
+#' A plot (*optional*) and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #'
 #' \item{data}{[data.frame] containing De-values, De-error and further parameters} 

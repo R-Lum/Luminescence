@@ -31,20 +31,20 @@
 #' @param background.integral [vector] (**required**): 
 #' channels used for the background integral, e.g. `background.integral=c(85:100)`
 #'
-#' @param position [vector] *(optional)*: 
+#' @param position [vector] (*optional*): 
 #' reader positions that want to be analysed (e.g. `position=c(1:48)`. 
 #' Empty positions are automatically omitted. If no value is given all 
 #' positions are analysed by default.
 #'
-#' @param run [vector] *(optional)*: 
+#' @param run [vector] (*optional*): 
 #' range of runs used for the analysis. If no value is given the range of the 
 #' runs in the sequence is deduced from the `Risoe.BINfileData` object.
 #'
-#' @param set [vector] *(optional)*: 
+#' @param set [vector] (*optional*): 
 #' range of sets used for the analysis. If no value is given the range of the 
 #' sets in the sequence is deduced from the `Risoe.BINfileData` object.
 #'
-#' @param dtype [character] *(optional)*: 
+#' @param dtype [character] (*optional*): 
 #' allows to further limit the curves by their data type (`DTYPE`), 
 #' e.g., `dtype = c("Natural", "Dose")` limits the curves to this two data types. 
 #' By default all values are allowed. 
@@ -55,18 +55,18 @@
 #' **NOTE:** In this case any limitation provided by `run`, `set` and `dtype`
 #' are ignored!
 #'
-#' @param info.measurement [character] *(with default)*: 
+#' @param info.measurement [character] (*with default*): 
 #' option to provide information about the measurement on the plot 
 #' output (e.g. name of the BIN or BINX file).
 #'
-#' @param output.plot [logical] *(with default)*: 
+#' @param output.plot [logical] (*with default*): 
 #' plot output (`TRUE/FALSE`)
 #'
-#' @param output.plot.single [logical] *(with default)*: 
+#' @param output.plot.single [logical] (*with default*): 
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in 
 #' single plot windows. Requires `output.plot = TRUE`.
 #'
-#' @param cex.global [numeric] *(with default)*: 
+#' @param cex.global [numeric] (*with default*): 
 #' global scaling factor.
 #'
 #' @param ... further arguments that will be passed to the function
@@ -75,7 +75,7 @@
 #' Supported" `mtext`, `log`
 #'
 #' @return 
-#' A plot *(optional)* and [list] is returned containing the
+#' A plot (*optional*) and [list] is returned containing the
 #' following elements: 
 #' 
 #' \item{LnLxTnTx}{[data.frame] of all calculated Lx/Tx values including signal, background counts and the dose points.}

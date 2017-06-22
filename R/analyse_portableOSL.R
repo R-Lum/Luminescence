@@ -18,14 +18,14 @@
 #' calculate the OSL/IRSL signal. Can be provided in form of `c(1, 5)` or `1:5`.
 #'
 #'
-#' @param invert [logical] *(with default)*: 
+#' @param invert [logical] (*with default*): 
 #' `TRUE` to calculate and plot the data in reverse order.
 #'
-#' @param normalise [logical] *(with default)*:
+#' @param normalise [logical] (*with default*):
 #' `TRUE` to normalise the OSL/IRSL signals by the mean of all corresponding
 #' data curves.
 #'
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] (*with default*): 
 #' enable/disable plot output
 #'
 #' @param ... currently not used.

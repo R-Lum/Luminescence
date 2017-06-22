@@ -83,10 +83,10 @@
 #' and De error (`data[,2]`). To plot several data sets in one plot the
 #' data sets must be provided as `list`, e.g. `list(data.1, data.2)`.
 #'
-#' @param na.rm [logical] *(with default)*: exclude NA values
+#' @param na.rm [logical] (*with default*): exclude NA values
 #' from the data set prior to any further operations.
 #'
-#' @param log.z [logical] *(with default)*: Option to display the
+#' @param log.z [logical] (*with default*): Option to display the
 #' z-axis in logarithmic scale. Default is `TRUE`.
 #'
 #' @param z.0 [character] or [numeric]: User-defined
@@ -94,7 +94,7 @@
 #' `"mean.weighted"` and `"median"` or a numeric value (not its
 #' logarithm). Default is `"mean.weighted"`.
 #'
-#' @param dispersion [character] *(with default)*: measure of
+#' @param dispersion [character] (*with default*): measure of
 #' dispersion, used for drawing the scatter polygon. One out of `"qr"`
 #' (quartile range), `"pnn"` (symmetric percentile range with nn the lower
 #' percentile, e.g. `"p05"` depicting the range between 5 and 95 %),
@@ -110,7 +110,7 @@
 #'
 #' @param mtext [character]: additional text below the plot title.
 #'
-#' @param summary [character] *(optional)*: add statistic measures of
+#' @param summary [character] (*optional*): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords. Results differ depending on
 #' the log-option for the z-scale (see details).
@@ -121,12 +121,12 @@
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if `mtext` is not used.
 #'
-#' @param summary.method [character] *(with default)*: keyword
+#' @param summary.method [character] (*with default*): keyword
 #' indicating the method used to calculate the statistic summary. One out of
 #' `"unweighted"`, `"weighted"` and `"MCM"`. See
 #' [calc_Statistics] for details.
 #'
-#' @param legend [character] vector *(optional)*: legend content to
+#' @param legend [character] vector (*optional*): legend content to
 #' be added to the plot.
 #'
 #' @param legend.pos [numeric] or [character] (with
@@ -160,7 +160,7 @@
 #' bars on De-points. Useful in combination with \code{y.axis = FALSE, bar.col
 #' = "none"}.
 #'
-#' @param bar [numeric] *(with default)*: option to add one or more
+#' @param bar [numeric] (*with default*): option to add one or more
 #' dispersion bars (i.e., bar showing the 2-sigma range) centered at the
 #' defined values. By default a bar is drawn according to `"z.0"`. To omit
 #' the bar set `"bar = FALSE"`.
@@ -188,20 +188,20 @@
 #' the z-scale). To disable grid lines use `FALSE`. Default is
 #' `"grey"`.
 #'
-#' @param frame [numeric] *(with default)*: option to modify the
+#' @param frame [numeric] (*with default*): option to modify the
 #' plot frame type. Can be one out of `0` (no frame), `1` (frame
 #' originates at 0,0 and runs along min/max isochrons), `2` (frame
 #' embraces the 2-sigma bar), `3` (frame embraces the entire plot as a
 #' rectangle).Default is `1`.
 #'
-#' @param bw [character] *(with default)*: bin-width for KDE, choose
+#' @param bw [character] (*with default*): bin-width for KDE, choose
 #' a numeric value for manual setting.
 #'
 #' @param output [logical]: Optional output of numerical plot
 #' parameters. These can be useful to reproduce similar plots. Default is
 #' `TRUE`.
 #'
-#' @param interactive [logical] *(with default)*: create an interactive
+#' @param interactive [logical] (*with default*): create an interactive
 #' abanico plot (requires the 'plotly' package)
 #'
 #' @param ... Further plot arguments to pass. `xlab` must be a vector of

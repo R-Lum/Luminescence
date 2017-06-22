@@ -7,19 +7,21 @@
 convert_BIN2CSV(file, ...)
 }
 \arguments{
-\item{file}{\link{character} (\strong{required}): name of the BIN-file to be converted to CSV-files}
+\item{file}{\link{character} (\strong{required}):
+name of the BIN-file to be converted to CSV-files}
 
-\item{...}{further arguments that will be passed to the function \link{read_BIN2R} and \link{write_RLum2CSV}}
+\item{...}{further arguments that will be passed to the function
+\link{read_BIN2R} and \link{write_RLum2CSV}}
 }
 \value{
-The function returns either a CSV-file (or many of them) or for the option \code{export == FALSE}
-a list comprising objects of type \link{data.frame} and \link{matrix}
+The function returns either a CSV-file (or many of them) or for the
+option \code{export == FALSE} a list comprising objects of type \link{data.frame} and \link{matrix}
 }
 \description{
 This function is a wrapper function around the functions \link{read_BIN2R} and
-\link{write_RLum2CSV} and it imports a Risoe BIN-file and directly exports its content to CSV-files.
-If nothing is set for the argument \code{path} (\link{write_RLum2CSV}) the input folder will
-become the output folder.
+\link{write_RLum2CSV} and it imports a Risoe BIN-file and directly exports its
+content to CSV-files. If nothing is set for the argument \code{path}
+(\link{write_RLum2CSV}) the input folder will become the output folder.
 }
 \section{Function version}{
  0.1.0

@@ -7,11 +7,11 @@
 get_Quote(ID, author, separated = FALSE)
 }
 \arguments{
-\item{ID}{\link{character}, qoute ID to be returned.}
+\item{ID}{\link{character} (\emph{optional}): qoute ID to be returned.}
 
-\item{author}{\link{character}, all quotes by specified author.}
+\item{author}{\link{character} (\emph{optional}): all quotes by specified author.}
 
-\item{separated}{\link{logical}, return result in separated form.}
+\item{separated}{\link{logical} (\emph{with default}): return result in separated form.}
 }
 \value{
 Returns a character with quote and respective (false) author.

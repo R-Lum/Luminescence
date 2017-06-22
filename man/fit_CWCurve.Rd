@@ -15,57 +15,57 @@ fit_CWCurve(values, n.components.max, fit.failure_threshold = 5,
 (\strong{required}): x, y data of measured values (time and counts). See
 examples.}
 
-\item{n.components.max}{\link{vector} \emph{(optional)}: maximum number of
+\item{n.components.max}{\link{vector} (\emph{optional}): maximum number of
 components that are to be used for fitting. The upper limit is 7.}
 
-\item{fit.failure_threshold}{\link{vector} \emph{(with default)}: limits the failed
+\item{fit.failure_threshold}{\link{vector} (\emph{with default}): limits the failed
 fitting attempts.}
 
-\item{fit.method}{\link{character} \emph{(with default)}: select fit method,
+\item{fit.method}{\link{character} (\emph{with default}): select fit method,
 allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
 routine usint the funtion \link{nls} \code{'LM'} utilises the
 function \code{nlsLM} from the package \code{minpack.lm} and with that the
 Levenberg-Marquardt algorithm.}
 
-\item{fit.trace}{\link{logical} \emph{(with default)}: traces the fitting process
+\item{fit.trace}{\link{logical} (\emph{with default}): traces the fitting process
 on the terminal.}
 
-\item{fit.calcError}{\link{logical} \emph{(with default)}: calculate 1-sigma error
+\item{fit.calcError}{\link{logical} (\emph{with default}): calculate 1-sigma error
 range of components using \link{confint}}
 
-\item{LED.power}{\link{numeric} \emph{(with default)}: LED power (max.) used for
+\item{LED.power}{\link{numeric} (\emph{with default}): LED power (max.) used for
 intensity ramping in mW/cm^2. \strong{Note:} The value is used for the
 calculation of the absolute photoionisation cross section.}
 
-\item{LED.wavelength}{\link{numeric} \emph{(with default)}: LED wavelength used for
+\item{LED.wavelength}{\link{numeric} (\emph{with default}): LED wavelength used for
 stimulation in nm. \strong{Note:} The value is used for the calculation of the
 absolute photoionisation cross section.}
 
-\item{cex.global}{\link{numeric} \emph{(with default)}: global scaling factor.}
+\item{cex.global}{\link{numeric} (\emph{with default}): global scaling factor.}
 
-\item{sample_code}{\link{character} \emph{(optional)}: sample code used for the
+\item{sample_code}{\link{character} (\emph{optional}): sample code used for the
 plot and the optional output table (mtext).}
 
-\item{output.path}{\link{character} \emph{(optional)}: output path for table output
+\item{output.path}{\link{character} (\emph{optional}): output path for table output
 containing the results of the fit. The file name is set automatically. If
 the file already exists in the directory, the values are appended.}
 
-\item{output.terminal}{\link{logical} \emph{(with default)}: terminal ouput with
+\item{output.terminal}{\link{logical} (\emph{with default}): terminal ouput with
 fitting results.}
 
-\item{output.terminalAdvanced}{\link{logical} \emph{(with default)}: enhanced
+\item{output.terminalAdvanced}{\link{logical} (\emph{with default}): enhanced
 terminal output. Requires \code{output.terminal = TRUE}. If
 \code{output.terminal = FALSE} no advanced output is possible.}
 
-\item{plot}{\link{logical} \emph{(with default)}: returns a plot of the fitted
+\item{plot}{\link{logical} (\emph{with default}): returns a plot of the fitted
 curves.}
 
 \item{...}{further arguments and graphical parameters passed to
 \link{plot}.}
 }
 \value{
-\item{plot}{\emph{(optional)} the fitted CW-OSL curves are returned as
-plot.} \item{table}{\emph{(optional)} an output table (*.csv) with parameters of
+\item{plot}{(\emph{optional}) the fitted CW-OSL curves are returned as
+plot.} \item{table}{(\emph{optional}) an output table (*.csv) with parameters of
 the fitted components is provided if the \code{output.path} is set.}
 \item{list(list("RLum.Results"))}{beside the plot and table output options,
 an \linkS4class{RLum.Results} object is returned.

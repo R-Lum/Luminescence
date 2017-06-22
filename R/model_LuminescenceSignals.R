@@ -6,8 +6,9 @@
 #'
 #' @inheritParams RLumModel::model_LuminescenceSignals
 #'
-#' @author Johannes Friedrich, University of Bayreuth (Germany),\cr
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)\cr
+#' @author 
+#' Johannes Friedrich, University of Bayreuth (Germany) \cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)
 #'
 #'
 #' @section Function version: 0.1.3

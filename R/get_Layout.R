@@ -7,16 +7,21 @@
 #' create either an empty or a default layout object and fill/modify the
 #' definitions (`user.layout <- get_Layout(data = "empty")`).
 #'
-#' @param layout [character] or [list] object
-#' (**required**): name of the layout definition to be returned. If name is
-#' provided the respective definition is returned. One of the following
+#' @param layout [character] or [list] object (**required**): 
+#' name of the layout definition to be returned. If name is provided the 
+#' respective definition is returned. One of the following
 #' supported layout definitions is possible: `"default"`,
-#' `"journal.1"`, `"small"`, `"empty"`. User-specific layout
-#' definitions must be provided as a list object of predefined structure, see
-#' details.
+#' `"journal.1"`, `"small"`, `"empty"`. 
+#' 
+#' User-specific layout definitions must be provided as a list object of
+#' predefined structure, see details.
+#' 
 #' @return A list object with layout definitions for plot functions.
+#' 
 #' @section Function version: 0.1
+#' 
 #' @author Michael Dietze, GFZ Potsdam (Germany)
+#' 
 #' @examples
 #'
 #' ## read example data set

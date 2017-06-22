@@ -156,11 +156,11 @@ setMethod("show",
 #' (the function that produces this object); can be set manually.
 #' @param .uid [`set_RLum`] [character] (automatic): sets an unique ID for this object
 #' using the internal C++ function `.create_UID`.
-#' @param .pid [`set_RLum`] [character] *(with default)*: option to provide a parent id for nesting
+#' @param .pid [`set_RLum`] [character] (*with default*): option to provide a parent id for nesting
 #' at will.
-#' @param data [`set_RLum`] [list] *(optional)*: a list containing the data to
+#' @param data [`set_RLum`] [list] (*optional*): a list containing the data to
 #' be stored in the object
-#' @param info [`set_RLum`] [list] *(optional)*: a list containing additional
+#' @param info [`set_RLum`] [list] (*optional*): a list containing additional
 #' info data for the object
 #' @return
 #'
@@ -213,10 +213,10 @@ setMethod("set_RLum",
 #' @param data.object [`get_RLum`] [character] or
 #' [numeric]: name or index of the data slot to be returned
 #'
-#' @param info.object [`get_RLum`] [character] *(optional)*: name of the wanted info
+#' @param info.object [`get_RLum`] [character] (*optional*): name of the wanted info
 #' element
 #'
-#' @param drop [`get_RLum`] [logical] *(with default)*: coerce to the next possible layer
+#' @param drop [`get_RLum`] [logical] (*with default*): coerce to the next possible layer
 #' (which are data objects, `drop = FALSE` keeps the original `RLum.Results`
 #'
 #' @return

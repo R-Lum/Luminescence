@@ -7,10 +7,10 @@
 plot_RLum(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
-class \code{RLum}. Optional a \link{list} containing objects of class \linkS4class{RLum}
-can be provided. In this case the function tries to plot every object in this list according
-to its \code{RLum} class.}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+S4 object of class \code{RLum}. Optional a \link{list} containing objects of
+class \linkS4class{RLum} can be provided. In this case the function tries to plot
+every object in this list according to its \code{RLum} class.}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the specific plot functions. The only argument that is supported directly is \code{main}
@@ -26,20 +26,19 @@ Function calls object specific plot functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for plotting specific
-\linkS4class{RLum} objects.\cr Depending on the input object, the
+\linkS4class{RLum} objects.\cr
+Depending on the input object, the
 corresponding plot function will be selected.  Allowed arguments can be
-found in the documentations of each plot function.  \tabular{lll}{
-\strong{object} \tab \tab \strong{corresponding plot function} \cr
+found in the documentations of each plot function.
 
-\linkS4class{RLum.Data.Curve} \tab : \tab
-\link{plot_RLum.Data.Curve} \cr
-\linkS4class{RLum.Data.Spectrum} \tab : \tab
-\link{plot_RLum.Data.Spectrum}\cr
-\linkS4class{RLum.Data.Image} \tab : \tab
-\link{plot_RLum.Data.Image}\cr \linkS4class{RLum.Analysis}
-\tab : \tab \link{plot_RLum.Analysis}\cr
-\linkS4class{RLum.Results} \tab : \tab
-\link{plot_RLum.Results} }
+\tabular{lll}{
+\strong{object} \tab \tab \strong{corresponding plot function} \cr
+\linkS4class{RLum.Data.Curve} \tab : \tab \link{plot_RLum.Data.Curve} \cr
+\linkS4class{RLum.Data.Spectrum} \tab : \tab \link{plot_RLum.Data.Spectrum}\cr
+\linkS4class{RLum.Data.Image} \tab : \tab \link{plot_RLum.Data.Image}\cr
+\linkS4class{RLum.Analysis} \tab : \tab \link{plot_RLum.Analysis}\cr
+\linkS4class{RLum.Results} \tab : \tab \link{plot_RLum.Results}
+}
 }
 \note{
 The provided plot output depends on the input object.
@@ -49,7 +48,6 @@ The provided plot output depends on the input object.
 }
 
 \examples{
-
 
 #load Example data
 data(ExampleData.CW_OSL_Curve, envir = environment())
@@ -63,15 +61,12 @@ plot_RLum(temp)
 
 }
 \seealso{
-\link{plot_RLum.Data.Curve},
-\linkS4class{RLum.Data.Curve}, \link{plot_RLum.Data.Spectrum},
-\linkS4class{RLum.Data.Spectrum}, \link{plot_RLum.Data.Image},
-\linkS4class{RLum.Data.Image}, \link{plot_RLum.Analysis},
-\linkS4class{RLum.Analysis}, \link{plot_RLum.Results},
+\link{plot_RLum.Data.Curve}, \linkS4class{RLum.Data.Curve}, \link{plot_RLum.Data.Spectrum},
+\linkS4class{RLum.Data.Spectrum}, \link{plot_RLum.Data.Image}, \linkS4class{RLum.Data.Image},
+\link{plot_RLum.Analysis}, \linkS4class{RLum.Analysis}, \link{plot_RLum.Results},
 \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{dplot}

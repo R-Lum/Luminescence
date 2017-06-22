@@ -6,23 +6,23 @@
 #' @param object [RLum.Analysis-class] **(required)**: 
 #' measurement input
 #' 
-#' @param signal_integral [numeric] *(optional)*: 
+#' @param signal_integral [numeric] (*optional*): 
 #' signal integral, used for the signal and the background. 
 #' If nothing is provided the full range is used
 #' 
-#' @param dose_points [numeric] *(with default)*: 
+#' @param dose_points [numeric] (*with default*): 
 #' vector with dose points, if dose points are repeated, only the general 
 #' pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017
 #' 
-#' @param irradiation_time_correction [numeric] or [RLum.Results-class] *(optional)*:
+#' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obained by another experiements.
 #' 
-#' @param method_control [list] *(optional)*: 
+#' @param method_control [list] (*optional*): 
 #' optional parameters to control the calculation. 
 #' See details for further explanations
 #' 
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] (*with default*): 
 #' enable/disable plot output
 #' 
 #' @param ... further arguments that can be passed to the plot output

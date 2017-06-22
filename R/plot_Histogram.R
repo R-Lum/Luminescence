@@ -24,26 +24,26 @@
 #' object (**required**): for `data.frame`: two columns: De (`data[,1]`)
 #' and De error (`data[,2]`)
 #'
-#' @param na.rm [logical] *(with default)*: excludes `NA`
+#' @param na.rm [logical] (*with default*): excludes `NA`
 #' values from the data set prior to any further operations.
 #'
-#' @param mtext [character] *(optional)*: further sample information
+#' @param mtext [character] (*optional*): further sample information
 #' ([mtext]).
 #'
-#' @param cex.global [numeric] *(with default)*: global scaling
+#' @param cex.global [numeric] (*with default*): global scaling
 #' factor.
 #'
-#' @param se [logical] *(optional)*: plots standard error points over
+#' @param se [logical] (*optional*): plots standard error points over
 #' the histogram, default is `FALSE`.
 #'
-#' @param rug [logical] *(optional)*: adds rugs to the histogram,
+#' @param rug [logical] (*optional*): adds rugs to the histogram,
 #' default is `TRUE`.
 #'
-#' @param normal_curve [logical] *(with default)*: adds a normal
+#' @param normal_curve [logical] (*with default*): adds a normal
 #' curve to the histogram. Mean and sd are calculated from the input data. More
 #' see details section.
 #'
-#' @param summary [character] *(optional)*: add statistic measures of
+#' @param summary [character] (*optional*): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #'
@@ -54,13 +54,13 @@
 #' option in only possible if `mtext` is not used. In case of coordinate
 #' specification, y-coordinate refers to the right y-axis.
 #'
-#' @param colour [numeric] or [character] *(with default)*:
+#' @param colour [numeric] or [character] (*with default*):
 #' optional vector of length 4 which specifies the colours of the following
 #' plot items in exactly this order: histogram bars, rug lines, normal
 #' distribution curve and standard error points\cr (e.g., \code{c("grey",
 #' "black", "red", "grey")}).
 #'
-#' @param interactive [logical] *(with default)*: create an interactive
+#' @param interactive [logical] (*with default*): create an interactive
 #' histogram plot (requires the 'plotly' package)
 #'
 #' @param ... further arguments and graphical parameters passed to

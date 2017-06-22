@@ -3,38 +3,33 @@
 #' Function calls object-specific get functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' [RLum-class] objects.\cr Depending on the input object, the
-#' corresponding get function will be selected. Allowed arguments can be found
-#' in the documentations of the corresponding [RLum-class] class.
+#' [RLum-class] objects.\cr 
+#' Depending on the input object, the corresponding get function will be selected. 
+#' Allowed arguments can be found in the documentations of the corresponding 
+#' [RLum-class] class.
 #'
-#' @param object [RLum-class] (**required**): S4 object of
-#' class `RLum` or an object of type [list] containing only objects of type
-#' [RLum-class]
+#' @param object [RLum-class] (**required**): 
+#' S4 object of class `RLum` or an object of type [list] containing only objects 
+#' of type [RLum-class]
 #'
 #' @param ... further arguments that will be passed to the object specific methods. For
 #' furter details on the supported arguments please see the class
-#' documentation: [RLum.Data.Curve-class],
-#' [RLum.Data.Spectrum-class], [RLum.Data.Image-class],
-#' [RLum.Analysis-class] and [RLum.Results-class]
+#' documentation: [RLum.Data.Curve-class], [RLum.Data.Spectrum-class], 
+#' [RLum.Data.Image-class], [RLum.Analysis-class] and [RLum.Results-class]
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
 #' @section Function version: 0.3.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso
-#' [RLum.Data.Curve-class],
-#' [RLum.Data.Image-class],
-#' [RLum.Data.Spectrum-class],
-#' [RLum.Analysis-class],
-#' [RLum.Results-class]
+#' @seealso [RLum.Data.Curve-class], [RLum.Data.Image-class],
+#'  [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]
 #'
 #' @keywords utilities
 #'
 #' @examples
-#'
 #'
 #' ##Example based using data and from the calc_CentralDose() function
 #'
@@ -55,7 +50,7 @@ setGeneric("get_RLum", function (object, ...) {standardGeneric("get_RLum") })
 #' @describeIn get_RLum
 #' Returns a list of [RLum-class] objects that had been passed to [get_RLum]
 #'
-#' @param null.rm [logical] *(with default)*: option to get rid of empty and NULL objects
+#' @param null.rm [logical] (*with default*): option to get rid of empty and NULL objects
 #' 
 #' @md
 #' @export

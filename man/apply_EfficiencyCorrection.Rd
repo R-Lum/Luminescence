@@ -8,16 +8,15 @@ class objects}
 apply_EfficiencyCorrection(object, spectral.efficiency)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} (\strong{required}): S4
-object of class \code{RLum.Data.Spectrum}}
+\item{object}{\linkS4class{RLum.Data.Spectrum} (\strong{required}):
+S4 object of class \code{RLum.Data.Spectrum}}
 
-\item{spectral.efficiency}{\link{data.frame} (\strong{required}): Data
-set containing wavelengths (x-column) and relative spectral response values
+\item{spectral.efficiency}{\link{data.frame} (\strong{required}):
+Data set containing wavelengths (x-column) and relative spectral response values
 (y-column) in percentage}
 }
 \value{
-Returns same object as input
-(\linkS4class{RLum.Data.Spectrum})
+Returns same object as input (\linkS4class{RLum.Data.Spectrum})
 }
 \description{
 The function allows spectral efficiency corrections for RLum.Data.Spectrum
@@ -43,7 +42,6 @@ sufficiently correct for spectral efficiency of the entire optical system
 
 \examples{
 
-
 ##(1) - use with your own data (uncomment for usage)
 ## spectral.efficiency <- read.csv("your data")
 ##
@@ -54,7 +52,7 @@ sufficiently correct for spectral efficiency of the entire optical system
 \linkS4class{RLum.Data.Spectrum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France),\cr Johannes Friedrich, University of Bayreuth (Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Johannes Friedrich, University of Bayreuth (Germany)
 }
 \keyword{manip}

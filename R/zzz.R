@@ -47,11 +47,11 @@ assign("col",
 #'
 #' This amazing sophisticated function validates your data seriously.
 #'
-#' @param n_frames [integer] *(with default)*: n frames
-#' @param t_animation [integer] *(with default)*: t animation
-#' @param n.tree [integer] *(with default)*: How many trees do you
+#' @param n_frames [integer] (*with default*): n frames
+#' @param t_animation [integer] (*with default*): t animation
+#' @param n.tree [integer] (*with default*): How many trees do you
 #' want to cut?
-#' @param type [integer] *(optional)*: Make a decision: 1, 2 or 3
+#' @param type [integer] (*optional*): Make a decision: 1, 2 or 3
 #' @return Validates your data.
 #' @note This function should not be taken too seriously.
 #' @author R Luminescence Team, 2012-2013

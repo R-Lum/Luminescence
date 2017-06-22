@@ -47,42 +47,42 @@
 #' @param values [RLum.Data.Curve-class] or [data.frame]
 #' (**required**): x, y data of measured values (time and counts). See
 #' examples.
-#' @param n.components.max [vector] *(optional)*: maximum number of
+#' @param n.components.max [vector] (*optional*): maximum number of
 #' components that are to be used for fitting. The upper limit is 7.
-#' @param fit.failure_threshold [vector] *(with default)*: limits the failed
+#' @param fit.failure_threshold [vector] (*with default*): limits the failed
 #' fitting attempts.
-#' @param fit.method [character] *(with default)*: select fit method,
+#' @param fit.method [character] (*with default*): select fit method,
 #' allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
 #' routine usint the funtion [nls] `'LM'` utilises the
 #' function `nlsLM` from the package `minpack.lm` and with that the
 #' Levenberg-Marquardt algorithm.
-#' @param fit.trace [logical] *(with default)*: traces the fitting process
+#' @param fit.trace [logical] (*with default*): traces the fitting process
 #' on the terminal.
-#' @param fit.calcError [logical] *(with default)*: calculate 1-sigma error
+#' @param fit.calcError [logical] (*with default*): calculate 1-sigma error
 #' range of components using [confint]
-#' @param LED.power [numeric] *(with default)*: LED power (max.) used for
+#' @param LED.power [numeric] (*with default*): LED power (max.) used for
 #' intensity ramping in mW/cm^2. **Note:** The value is used for the
 #' calculation of the absolute photoionisation cross section.
-#' @param LED.wavelength [numeric] *(with default)*: LED wavelength used for
+#' @param LED.wavelength [numeric] (*with default*): LED wavelength used for
 #' stimulation in nm. **Note:** The value is used for the calculation of the
 #' absolute photoionisation cross section.
-#' @param cex.global [numeric] *(with default)*: global scaling factor.
-#' @param sample_code [character] *(optional)*: sample code used for the
+#' @param cex.global [numeric] (*with default*): global scaling factor.
+#' @param sample_code [character] (*optional*): sample code used for the
 #' plot and the optional output table (mtext).
-#' @param output.path [character] *(optional)*: output path for table output
+#' @param output.path [character] (*optional*): output path for table output
 #' containing the results of the fit. The file name is set automatically. If
 #' the file already exists in the directory, the values are appended.
-#' @param output.terminal [logical] *(with default)*: terminal ouput with
+#' @param output.terminal [logical] (*with default*): terminal ouput with
 #' fitting results.
-#' @param output.terminalAdvanced [logical] *(with default)*: enhanced
+#' @param output.terminalAdvanced [logical] (*with default*): enhanced
 #' terminal output. Requires `output.terminal = TRUE`. If
 #' `output.terminal = FALSE` no advanced output is possible.
-#' @param plot [logical] *(with default)*: returns a plot of the fitted
+#' @param plot [logical] (*with default*): returns a plot of the fitted
 #' curves.
 #' @param ... further arguments and graphical parameters passed to
 #' [plot].
-#' @return \item{plot}{*(optional)* the fitted CW-OSL curves are returned as
-#' plot.} \item{table}{*(optional)* an output table (*.csv) with parameters of
+#' @return \item{plot}{(*optional*) the fitted CW-OSL curves are returned as
+#' plot.} \item{table}{(*optional*) an output table (*.csv) with parameters of
 #' the fitted components is provided if the `output.path` is set.}
 #' \item{list(list("RLum.Results"))}{beside the plot and table output options,
 #' an [RLum.Results-class] object is returned.

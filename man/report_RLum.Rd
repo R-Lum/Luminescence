@@ -12,33 +12,33 @@ report_RLum(object, file = tempfile(), title = "RLum.Report",
 \item{object}{(\strong{required}):
 The object to be reported on, preferably of any \code{RLum}-class.}
 
-\item{file}{\link{character} \emph{(with default)}:
+\item{file}{\link{character} (\emph{with default}):
 A character string naming the output file. If no filename is provided a
 temporary file is created.}
 
-\item{title}{\link{character} \emph{(with default)}:
+\item{title}{\link{character} (\emph{with default}):
 A character string specifying the title of the document.}
 
-\item{compact}{\link{logical} \emph{(with default)}:
+\item{compact}{\link{logical} (\emph{with default}):
 When \code{TRUE} the following report components are hidden:
 \code{@.pid}, \code{@.uid}, \code{'Object structure'}, \code{'Session Info'}
 and only the first and last 5 rows of long matrices and data frames are shown.
 See details.}
 
-\item{timestamp}{\link{logical} \emph{(with default)}:
+\item{timestamp}{\link{logical} (\emph{with default}):
 \code{TRUE} to add a timestamp to the filename (suffix).}
 
-\item{launch.browser}{\link{logical} \emph{(with default)}:
+\item{launch.browser}{\link{logical} (\emph{with default}):
 \code{TRUE} to open the HTML file in the system's default web browser after
 it has been rendered.}
 
-\item{css.file}{\link{character} \emph{(optional)}:
+\item{css.file}{\link{character} (\emph{optional}):
 Path to a CSS file to change the default styling of the HTML document.}
 
-\item{quiet}{\link{logical} \emph{(with default)}:
+\item{quiet}{\link{logical} (\emph{with default}):
 \code{TRUE} to supress printing of the pandoc command line.}
 
-\item{clean}{\link{logical} \emph{(with default)}:
+\item{clean}{\link{logical} (\emph{with default}):
 \code{TRUE} to clean intermediate files created during rendering.}
 
 \item{...}{further arguments passed to or from other methods and to control
@@ -66,7 +66,7 @@ and content of the provided object. \cr
 \code{Object structure} \tab Summary of the objects structure given as a table \cr
 \code{File} \tab Information on the saved RDS file \cr
 \code{Session Info} \tab Captured output from sessionInfo() \cr
-\code{Plots} \tab \emph{(optional)} For \code{RLum-class} objects a variable number of plots \cr
+\code{Plots} \tab (\emph{optional}) For \code{RLum-class} objects a variable number of plots \cr
 }
 
 The structure of the report can be controlled individually by providing one or more of the

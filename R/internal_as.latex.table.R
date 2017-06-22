@@ -3,17 +3,30 @@
 #' This function takes a data.frame and returns a table in LaTex code that
 #' can be copied in any tex document.
 #'
-#' @param x a [data.frame] or `RLum` object
+#' @param x [data.frame] or `RLum` object (**required**)
+#' 
 #' @param row.names currently unused
+#' 
 #' @param col.names currently unused
-#' @param comments [logical] insert LaTex comments
-#' @param pos [character] of length one specifying the alignment
-#' of each column, e.g., pos'clr' for a three column data frame and center, left
-#' and right alignment
-#' @param digits [numeric] number of digits (numeric fields)
-#' @param select a [character] vector passed to [subset]
-#' @param split an [integer] specifying the number of individual tables
+#' 
+#' @param comments [logical] (*with default*): 
+#' insert LaTex comments
+#' 
+#' @param pos [character] (*with default*): 
+#' `character` of length one specifying the alignment of each column, e.g., 
+#' pos'clr' for a three column data frame and center, left
+#'  and right alignment
+#' 
+#' @param digits [numeric] (*with default*): 
+#' number of digits (numeric fields)
+#' 
+#' @param select [character] (*optional*): 
+#' a [character] vector passed to [subset]
+#' 
+#' @param split [integer] (*optional*): 
+#' an [integer] specifying the number of individual tables
 #' the data frame is split into. Useful for wide tables. Currently unnused.
+#' 
 #' @param ... options: `verbose`
 #'
 #' @section TODO:

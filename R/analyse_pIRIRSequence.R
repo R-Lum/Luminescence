@@ -37,21 +37,21 @@
 #' upper bound of the background integral. Provide this value as vector for
 #' different integration limits for the different IRSL curves.
 #'
-#' @param dose.points [numeric] *(optional)*: 
+#' @param dose.points [numeric] (*optional*): 
 #' a numeric vector containing the dose points values. Using this argument overwrites dose point
 #' values in the signal curves.
 #'
-#' @param sequence.structure [vector] [character] *(with default)*:
+#' @param sequence.structure [vector] [character] (*with default*):
 #' specifies the general sequence structure. Allowed values are `"TL"` and
 #' any `"IR"` combination (e.g., `"IR50"`,`"pIRIR225"`).
 #' Additionally a parameter `"EXCLUDE"` is allowed to exclude curves from
 #' the analysis (Note: If a preheat without PMT measurement is used, i.e.
 #' preheat as non TL, remove the TL step.)
 #'
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] (*with default*): 
 #' enables or disables plot output.
 #'
-#' @param plot.single [logical] *(with default)*: 
+#' @param plot.single [logical] (*with default*): 
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot
 #' windows. Requires `plot = TRUE`.
 #'
@@ -59,7 +59,7 @@
 #' [analyse_SAR.CWOSL] and [plot_GrowthCurve]
 #'
 #' @return 
-#' Plots *(optional)* and an [RLum.Results-class] object is
+#' Plots (*optional*) and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #'
 #' \tabular{lll}{

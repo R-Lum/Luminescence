@@ -12,23 +12,23 @@ analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
 results obtained from the measurement.
 Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.}
 
-\item{signal_integral}{\link{numeric} \emph{(optional)}:
+\item{signal_integral}{\link{numeric} (\emph{optional}):
 signal integral, used for the signal and the background.
 If nothing is provided the full range is used. Argument can be provided as \link{list}.}
 
-\item{dose_points}{\link{numeric} \emph{(with default)}:
+\item{dose_points}{\link{numeric} (\emph{with default}):
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017. Argument can be provided as \link{list}.}
 
-\item{method_control}{\link{list} \emph{(optional)}:
+\item{method_control}{\link{list} (\emph{optional}):
 optional parameters to control the calculation.
 See details for further explanations}
 
-\item{verbose}{\link{logical} \emph{(with default)}:
+\item{verbose}{\link{logical} (\emph{with default}):
 enable/disable verbose mode}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} (\emph{with default}):
 enable/disable plot output}
 
 \item{...}{further arguments that can be passed to the plot output}

@@ -19,16 +19,16 @@
 #' overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 #' unrecognised measurement uncertainty.
 #'
-#' @param Nb_BE [integer] **(with default)**: 
+#' @param Nb_BE [integer] *(*with default*)*: 
 #' sample size used for the bootstrapping
 #'
-#' @param na.rm [logical] **(with default)**: 
+#' @param na.rm [logical] *(*with default*)*: 
 #' exclude NA values from the data set prior to any further operation.
 #'
-#' @param plot [logical] **(with default)**: 
+#' @param plot [logical] *(*with default*)*: 
 #' enables/disables plot output
 #'
-#' @param verbose [logical] **(with default)**: 
+#' @param verbose [logical] *(*with default*)*: 
 #' enables/disables terminal output
 #'
 #' @param ... further arguments that can be passed to [graphics::hist]. As three plots
@@ -48,7 +48,7 @@
 #'
 #' @seealso [read.table], [graphics::hist]
 #'
-#' @return The function returns numerical output and an **(optional)** plot.
+#' @return The function returns numerical output and an *(*optional*)* plot.
 #'
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]` \cr

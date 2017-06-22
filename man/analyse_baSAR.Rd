@@ -21,13 +21,13 @@ provided the list can only contain either \code{Risoe.BINfileData} objects or \c
 providing a file connection. Mixing of both types is not allowed. If an \linkS4class{RLum.Results}
 is provided the function directly starts with the Bayesian Analysis (see details)}
 
-\item{XLS_file}{\link{character} \emph{(optional)}:
+\item{XLS_file}{\link{character} (\emph{optional}):
 XLS_file with data for the analysis. This file must contain 3 columns:
 the name of the file, the disc position and the grain position
 (the last being 0 for multi-grain measurements).\cr
 Alternatively a \code{data.frame} of similar structure can be provided.}
 
-\item{aliquot_range}{\link{numeric} \emph{(optional)}:
+\item{aliquot_range}{\link{numeric} (\emph{optional}):
 allows to limit the range of the aliquots used for the analysis.
 This argument has only an effect if the argument \code{XLS_file} is used or
 the input is the previous output (i.e. is \linkS4class{RLum.Results}). In this case the
@@ -44,7 +44,7 @@ vector with the limits for the signal integral used for the calculation,
 e.g., \code{signal.integral = c(1:5)}. Ignored if \code{object} is an \linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{signal.integral.Tx}{\link{vector} \emph{(optional)}:
+\item{signal.integral.Tx}{\link{vector} (\emph{optional}):
 vector with the limits for the signal integral for the Tx curve. I
 f nothing is provided the value from \code{signal.integral} is used and it is ignored
 if \code{object} is an \linkS4class{RLum.Results} object.
@@ -55,64 +55,64 @@ vector with the bounds for the background integral.
 Ignored if \code{object} is an \linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{background.integral.Tx}{\link{vector} \emph{(optional)}:
+\item{background.integral.Tx}{\link{vector} (\emph{optional}):
 vector with the limits for the background integral for the Tx curve.
 If nothing is provided the value from \code{background.integral} is used.
 Ignored if \code{object} is an \linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{sigmab}{\link{numeric} \emph{(with default)}:
+\item{sigmab}{\link{numeric} (\emph{with default}):
 option to set a manual value for the overdispersion (for LnTx and TnTx),
 used for the Lx/Tx error calculation. The value should be provided as
 absolute squared count values, cf. \link{calc_OSLLxTxRatio}.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{sig0}{\link{numeric} \emph{(with default)}:
+\item{sig0}{\link{numeric} (\emph{with default}):
 allow adding an extra component of error to the final Lx/Tx error value
 (e.g., instrumental errror, see details is \link{calc_OSLLxTxRatio}).
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
-\item{distribution}{\link{character} \emph{(with default)}:
+\item{distribution}{\link{character} (\emph{with default}):
 type of distribution that is used during Bayesian calculations for
 determining the Central dose and overdispersion values.
 Allowed inputs are \code{"cauchy"}, \code{"normal"} and \code{"log_normal"}.}
 
-\item{baSAR_model}{\link{character} \emph{(optional)}:
+\item{baSAR_model}{\link{character} (\emph{optional}):
 option to provide an own modified or new model for the Bayesian calculation
 (see details). If an own model is provided the argument \code{distribution} is
 ignored and set to \code{'user_defined'}}
 
-\item{n.MCMC}{\link{integer} \emph{(with default)}:
+\item{n.MCMC}{\link{integer} (\emph{with default}):
 number of iterations for the Markov chain Monte Carlo (MCMC) simulations}
 
-\item{fit.method}{\link{character} \emph{(with default)}:
+\item{fit.method}{\link{character} (\emph{with default}):
 fit method used for fitting the growth curve using the function
 \link{plot_GrowthCurve}. Here supported methods: \code{EXP}, \code{EXP+LIN} and \code{LIN}}
 
-\item{fit.force_through_origin}{\link{logical} \emph{(with default)}:
+\item{fit.force_through_origin}{\link{logical} (\emph{with default}):
 force fitting through origin}
 
-\item{fit.includingRepeatedRegPoints}{\link{logical} \emph{(with default)}:
+\item{fit.includingRepeatedRegPoints}{\link{logical} (\emph{with default}):
 includes the recycling point (assumed to be measured during the last cycle)}
 
-\item{method_control}{\link{list} \emph{(optional)}:
+\item{method_control}{\link{list} (\emph{optional}):
 named list of control parameters that can be directly
 passed to the Bayesian analysis, e.g., \code{method_control = list(n.chains = 4)}.
 See details for further information}
 
-\item{digits}{\link{integer} \emph{(with default)}:
+\item{digits}{\link{integer} (\emph{with default}):
 round output to the number of given digits}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} (\emph{with default}):
 enables or disables plot output}
 
-\item{plot_reduced}{\link{logical} \emph{(with default)}:
+\item{plot_reduced}{\link{logical} (\emph{with default}):
 enables or disables the advanced plot output}
 
-\item{plot.single}{\link{logical} \emph{(with default)}:
+\item{plot.single}{\link{logical} (\emph{with default}):
 enables or disables single plots or plots arranged by \code{analyse_baSAR}}
 
-\item{verbose}{\link{logical} \emph{(with default)}:
+\item{verbose}{\link{logical} (\emph{with default}):
 enables or disables verbose mode}
 
 \item{...}{parameters that can be passed to the function \link{calc_OSLLxTxRatio}

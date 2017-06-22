@@ -17,50 +17,50 @@ each valid path and BIN/BINX-file names.
 Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all BIN/BINX files found in the directory.}
 
-\item{show.raw.values}{\link{logical} \emph{(with default)}: shows raw values from
+\item{show.raw.values}{\link{logical} (\emph{with default}): shows raw values from
 BIN file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
 translation in characters. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{position}{\link{numeric} \emph{(optional)}: imports only the selected position. Note:
+\item{position}{\link{numeric} (\emph{optional}): imports only the selected position. Note:
 the import performance will not benefit by any selection made here.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{n.records}{\link{raw} \emph{(optional)}: limits the number of imported
+\item{n.records}{\link{raw} (\emph{optional}): limits the number of imported
 records. Can be used in combination with \code{show.record.number} for
 debugging purposes, e.g. corrupt BIN-files. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{zero_data.rm}{\link{logical} \emph{(with default)}: remove erroneous data with no count
+\item{zero_data.rm}{\link{logical} (\emph{with default}): remove erroneous data with no count
 values. As such data are usally not needed for the subsequent data analysis they will be removed
 by default. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{duplicated.rm}{\link{logical} \emph{(with default)}: remove duplicated entries if \code{TRUE}.
+\item{duplicated.rm}{\link{logical} (\emph{with default}): remove duplicated entries if \code{TRUE}.
 This may happen due to an erroneous produced BIN/BINX-file. This option compares only
 predeccessor and successor. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{fastForward}{\link{logical} \emph{(with default)}: if \code{TRUE} for a
+\item{fastForward}{\link{logical} (\emph{with default}): if \code{TRUE} for a
 more efficient data processing only a list of \code{RLum.Analysis} objects is returned instead
 of a \linkS4class{Risoe.BINfileData} object. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{show.record.number}{\link{logical} \emph{(with default)}: shows record number
+\item{show.record.number}{\link{logical} (\emph{with default}): shows record number
 of the imported record, for debugging usage only. Can be provided as \code{list} if \code{file} is a \code{list}.}
 
-\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables or disables
+\item{txtProgressBar}{\link{logical} (\emph{with default}): enables or disables
 \link{txtProgressBar}.}
 
-\item{forced.VersionNumber}{\link{integer} \emph{(optional)}: allows to cheat the
+\item{forced.VersionNumber}{\link{integer} (\emph{optional}): allows to cheat the
 version number check in the function by own values for cases where the
 BIN-file version is not supported. Can be provided as \code{list} if \code{file} is a \code{list}.\cr
 Note: The usage is at own risk, only supported BIN-file versions have been tested.}
 
-\item{ignore.RECTYPE}{\link{logical} \emph{(with default)}: this argument allows to ignore values
+\item{ignore.RECTYPE}{\link{logical} (\emph{with default}): this argument allows to ignore values
 in the byte 'RECTYPE' (BIN-file version 08), in case there are not documented or faulty set.
 In this case the corrupted records are skipped.}
 
-\item{pattern}{\link{character} \emph{(optional)}: argument that is used if only a path is provided.
+\item{pattern}{\link{character} (\emph{optional}): argument that is used if only a path is provided.
 The argument will than be passed to the function \link{list.files} used internally to
 construct a \code{list} of wanted files}
 
-\item{verbose}{\link{logical} \emph{(with default)}: enables or disables verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}): enables or disables verbose mode}
 
 \item{...}{further arguments that will be passed to the function
 \link{Risoe.BINfileData2RLum.Analysis}. Please note that any matching argument

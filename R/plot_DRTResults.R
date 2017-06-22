@@ -8,77 +8,89 @@
 #' and a known laboratory dose administered which is treated as unknown. Then
 #' the De measurement is carried out and the degree of congruence between
 #' administered and recovered dose is a measure of the protocol's accuracy for
-#' this sample.\cr In the plot the normalised De is shown on the y-axis, i.e.
-#' obtained De/Given Dose.
+#' this sample.\cr 
+#' In the plot the normalised De is shown on the y-axis, i.e. obtained De/Given Dose.
 #'
-#' @param values [RLum.Results-class] or [data.frame],
-#' (**required**): input values containing at least De and De error. To plot
+#' @param values [RLum.Results-class] or [data.frame] (**required**): 
+#' input values containing at least De and De error. To plot
 #' more than one data set in one figure, a `list` of the individual data
 #' sets must be provided (e.g. `list(dataset.1, dataset.2)`).
 #'
-#' @param given.dose [numeric] *(optional)*: given dose used for the
-#' dose recovery test to normalise data. If only one given dose is provided
-#' this given dose is valid for all input data sets (i.e., `values` is a
-#' list).  Oherwise a given dose for each input data set has to be provided
-#' (e.g., `given.dose = c(100,200)`). If `given.dose` in `NULL` the values are
-#' plotted without normalisation (might be useful for preheat plateau tests).
-#' Note: Unit has to be the same as from the input values (e.g., Seconds or
+#' @param given.dose [numeric] (*optional*): 
+#' given dose used for the dose recovery test to normalise data. 
+#' If only one given dose is provided this given dose is valid for all input 
+#' data sets (i.e., `values` is a list).  Oherwise a given dose for each input 
+#' data set has to be provided (e.g., `given.dose = c(100,200)`). 
+#' If `given.dose` in `NULL` the values are plotted without normalisation 
+#' (might be useful for preheat plateau tests).
+#' **Note:** Unit has to be the same as from the input values (e.g., Seconds or
 #' Gray).
 #'
-#' @param error.range [numeric]: symmetric error range in percent
-#' will be shown as dashed lines in the plot. Set `error.range` to 0 to
-#' void plotting of error ranges.
+#' @param error.range [numeric]: 
+#' symmetric error range in percent will be shown as dashed lines in the plot. 
+#' Set `error.range` to 0 to void plotting of error ranges.
 #'
-#' @param preheat [numeric]: optional vector of preheat
-#' temperatures to be used for grouping the De values. If specified, the
-#' temperatures are assigned to the x-axis.
+#' @param preheat [numeric]: 
+#' optional vector of preheat temperatures to be used for grouping the De values. 
+#' If specified, the temperatures are assigned to the x-axis.
 #'
-#' @param boxplot [logical]: optionally plot values, that are
-#' grouped by preheat temperature as boxplots. Only possible when
-#' `preheat` vector is specified.
+#' @param boxplot [logical]: 
+#' optionally plot values, that are grouped by preheat temperature as boxplots.
+#'  Only possible when `preheat` vector is specified.
 #'
-#' @param mtext [character]: additional text below the plot title.
+#' @param mtext [character]: 
+#' additional text below the plot title.
 #'
-#' @param summary [character] *(optional)*: adds numerical output to
-#' the plot.  Can be one or more out of: `"n"` (number of samples),
-#' `"mean"` (mean De value), `"mean.weighted"` (error-weighted mean),
-#' `"median"` (median of the De values), `"sdrel"` (relative standard
-#' deviation in percent), `"sdabs"` (absolute standard deviation),
-#' `"serel"` (relative standard error) and `"seabs"` (absolute
-#' standard error).
+#' @param summary [character] (*optional*): 
+#' adds numerical output to the plot.  Can be one or more out of: 
+#' - `"n"` (number of samples),
+#' - `"mean"` (mean De value), 
+#' - `"mean.weighted"` (error-weighted mean),
+#' - `"median"` (median of the De values), 
+#' - `"sdrel"` (relative standard deviation in percent), 
+#' - `"sdabs"` (absolute standard deviation),
+#' - `"serel"` (relative standard error) and 
+#' - `"seabs"` (absolute standard error).
 #'
-#' @param summary.pos [numeric] or [character] (with
-#' default): optional position coordinates or keyword (e.g. `"topright"`)
+#' @param summary.pos [numeric] or [character] (*with default*): 
+#' optional position coordinates or keyword (e.g. `"topright"`)
 #' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if `mtext` is not used.
 #'
-#' @param legend [character] vector *(optional)*: legend content to
-#' be added to the plot.
+#' @param legend [character] vector (*optional*): 
+#' legend content to be added to the plot.
 #'
-#' @param legend.pos [numeric] or [character] (with
-#' default): optional position coordinates or keyword (e.g. `"topright"`)
-#' for the legend to be plotted.
-#' @param par.local [logical] *(with default)*: use local graphical
-#' parameters for plotting, e.g. the plot is shown in one column and one row.
-#' If `par.local = FALSE`, global parameters are inherited, i.e. parameters
-#' provided via `par()` work
+#' @param legend.pos [numeric] or [character] (*with default*): 
+#' optional position coordinates or keyword (e.g. `"topright"`) for the 
+#' legend to be plotted.
+#' 
+#' @param par.local [logical] (*with default*): 
+#' use local graphical parameters for plotting, e.g. the plot is shown in one 
+#' column and one row. If `par.local = FALSE`, global parameters are inherited, 
+#' i.e. parameters provided via `par()` work
+#' 
 #' @param na.rm [logical]: indicating wether `NA` values are
 #' removed before plotting from the input data set
-#' @param ... further arguments and graphical parameters passed to
-#' [plot].
+#' 
+#' @param ... further arguments and graphical parameters passed to [plot].
+#' 
 #' @return A plot is returned.
 #'
-#' @note Further data and plot arguments can be added by using the appropiate R
+#' @note 
+#' Further data and plot arguments can be added by using the appropiate R
 #' commands.
+#' 
 #' @section Function version: 0.1.10
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), Michael Dietze, GFZ Potsdam (Germany)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [plot]
 #'
-#' @references Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
+#' @references 
+#' Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 #' stimulated luminescence characteristics and their relevance in
 #' single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 #' 369-391.
@@ -86,7 +98,6 @@
 #' @keywords dplot
 #'
 #' @examples
-#'
 #'
 #' ## read example data set and misapply them for this plot type
 #' data(ExampleData.DeValues, envir = environment())

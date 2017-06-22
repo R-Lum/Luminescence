@@ -19,20 +19,20 @@ channels used for the signal integral, e.g. \code{signal.integral=c(1:2)}}
 \item{background.integral}{\link{vector} (\strong{required}):
 channels used for the background integral, e.g. \code{background.integral=c(85:100)}}
 
-\item{position}{\link{vector} \emph{(optional)}:
+\item{position}{\link{vector} (\emph{optional}):
 reader positions that want to be analysed (e.g. \code{position=c(1:48)}.
 Empty positions are automatically omitted. If no value is given all
 positions are analysed by default.}
 
-\item{run}{\link{vector} \emph{(optional)}:
+\item{run}{\link{vector} (\emph{optional}):
 range of runs used for the analysis. If no value is given the range of the
 runs in the sequence is deduced from the \code{Risoe.BINfileData} object.}
 
-\item{set}{\link{vector} \emph{(optional)}:
+\item{set}{\link{vector} (\emph{optional}):
 range of sets used for the analysis. If no value is given the range of the
 sets in the sequence is deduced from the \code{Risoe.BINfileData} object.}
 
-\item{dtype}{\link{character} \emph{(optional)}:
+\item{dtype}{\link{character} (\emph{optional}):
 allows to further limit the curves by their data type (\code{DTYPE}),
 e.g., \code{dtype = c("Natural", "Dose")} limits the curves to this two data types.
 By default all values are allowed.
@@ -43,18 +43,18 @@ option allowing to use the \code{SEL} element of the \linkS4class{Risoe.BINfileD
 \strong{NOTE:} In this case any limitation provided by \code{run}, \code{set} and \code{dtype}
 are ignored!}
 
-\item{info.measurement}{\link{character} \emph{(with default)}:
+\item{info.measurement}{\link{character} (\emph{with default}):
 option to provide information about the measurement on the plot
 output (e.g. name of the BIN or BINX file).}
 
-\item{output.plot}{\link{logical} \emph{(with default)}:
+\item{output.plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE/FALSE})}
 
-\item{output.plot.single}{\link{logical} \emph{(with default)}:
+\item{output.plot.single}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
 single plot windows. Requires \code{output.plot = TRUE}.}
 
-\item{cex.global}{\link{numeric} \emph{(with default)}:
+\item{cex.global}{\link{numeric} (\emph{with default}):
 global scaling factor.}
 
 \item{...}{further arguments that will be passed to the function
@@ -63,7 +63,7 @@ global scaling factor.}
 Supported" \code{mtext}, \code{log}}
 }
 \value{
-A plot \emph{(optional)} and \link{list} is returned containing the
+A plot (\emph{optional}) and \link{list} is returned containing the
 following elements:
 
 \item{LnLxTnTx}{\link{data.frame} of all calculated Lx/Tx values including signal, background counts and the dose points.}

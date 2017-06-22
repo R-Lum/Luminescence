@@ -17,7 +17,7 @@
 #' and then attempts to install the chosen development branch via
 #' [devtools::install_github].
 #'
-#' @param force_install [logical] *(optional)*:
+#' @param force_install [logical] (*optional*):
 #' If `FALSE` (the default) the function produces and prints the required
 #' code to the console for the user to run manually afterwards. When `TRUE`
 #' and all requirements are fulfilled (see details) this function attempts to install

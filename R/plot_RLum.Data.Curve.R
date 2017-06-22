@@ -6,18 +6,18 @@
 #' Only single curve data can be plotted with this function.  Arguments
 #' according to [plot].
 #'
-#' @param object [RLum.Data.Curve-class] (**required**): S4
-#' object of class `RLum.Data.Curve`
+#' @param object [RLum.Data.Curve-class] (**required**): 
+#' S4 object of class `RLum.Data.Curve`
 #'
-#' @param par.local [logical] *(with default)*: use local graphical
-#' parameters for plotting, e.g. the plot is shown in one column and one row.
-#' If `par.local = FALSE`, global parameters are inherited.
+#' @param par.local [logical] (*with default*): 
+#' use local graphical parameters for plotting, e.g. the plot is shown in one 
+#' column and one row. If `par.local = FALSE`, global parameters are inherited.
 #'
-#' @param norm [logical] *(with default)*: allows curve normalisation
-#' to the highest count value
+#' @param norm [logical] (*with default*): 
+#' allows curve normalisation to the highest count value
 #'
-#' @param smooth [logical] *(with default)*: provides an automatic curve smoothing
-#' based on [zoo::rollmean]
+#' @param smooth [logical] (*with default*): 
+#' provides an automatic curve smoothing based on [zoo::rollmean]
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function
@@ -28,17 +28,14 @@
 #'
 #' @section Function version: 0.2.3
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [plot], [plot_RLum]
-#'
-#'
 #'
 #' @keywords aplot
 #'
 #' @examples
-#'
 #'
 #' ##plot curve data
 #'

@@ -66,67 +66,67 @@
 #' test dose response is optional, but requires 'TnTx' as column name if used. For exponential
 #' fits at least three dose points (including the natural) should be provided.
 #'
-#' @param na.rm [logical] *(with default)*: excludes `NA` values
+#' @param na.rm [logical] (*with default*): excludes `NA` values
 #' from the data set prior to any further operations.
 #'
-#' @param mode [character] *(with default)*: selects calculation mode of the function.
+#' @param mode [character] (*with default*): selects calculation mode of the function.
 #' (A) `"interpolation"` (default) calculates the De by interpolation,
 #' (B) `"extrapolation"` calculates the De by extrapolation and
 #' (C) `"alternate"` calculates no De and just fits the data points. Please note that
 #' for option `"regenrative"` the first point is considered as natural dose
 #'
-#' @param fit.method [character] *(with default)*: function used for
+#' @param fit.method [character] (*with default*): function used for
 #' fitting. Possible options are: `LIN`, `QDR`, `EXP`, `EXP OR LIN`,
 #' `EXP+LIN` or `EXP+EXP`. See details.
 #'
-#' @param fit.force_through_origin [logical] *(with default)* allow to force
+#' @param fit.force_through_origin [logical] (*with default*) allow to force
 #' the fitted function through the origin. For `method = "EXP+EXP"` the function will
 #' go to the origin in either case, so this option will have no effect.
 #'
-#' @param fit.weights [logical] *(with default)*: option whether the
+#' @param fit.weights [logical] (*with default*): option whether the
 #' fitting is done with or without weights. See details.
 #'
-#' @param fit.includingRepeatedRegPoints [logical] *(with default)*:
+#' @param fit.includingRepeatedRegPoints [logical] (*with default*):
 #' includes repeated points for fitting (`TRUE`/`FALSE`).
 #'
-#' @param fit.NumberRegPoints [integer] *(optional)*: set number of
+#' @param fit.NumberRegPoints [integer] (*optional*): set number of
 #' regeneration points manually. By default the number of all (!) regeneration
 #' points is used automatically.
 #'
-#' @param fit.NumberRegPointsReal [integer] *(optional)*: if the
+#' @param fit.NumberRegPointsReal [integer] (*optional*): if the
 #' number of regeneration points is provided manually, the value of the real,
 #' regeneration points = all points (repeated points) including reg 0, has to
 #' be inserted.
 #'
-#' @param fit.bounds [logical] *(with default)*: set lower fit bounds
+#' @param fit.bounds [logical] (*with default*): set lower fit bounds
 #' for all fitting parameters to 0. Limited for the use with the fit methods
 #' `EXP`, `EXP+LIN` and `EXP OR LIN`. Argument to be inserted
 #' for experimental application only!
 #'
-#' @param NumberIterations.MC [integer] *(with default)*: number of
+#' @param NumberIterations.MC [integer] (*with default*): number of
 #' Monte Carlo simulations for error estimation. See details.
 #'
-#' @param output.plot [logical] *(with default)*: plot output
+#' @param output.plot [logical] (*with default*): plot output
 #' (`TRUE/FALSE`).
 #'
-#' @param output.plotExtended [logical] *(with default)*: If
+#' @param output.plotExtended [logical] (*with default*): If
 #' `TRUE`, 3 plots on one plot area are provided: (1) growth curve, (2)
 #' histogram from Monte Carlo error simulation and (3) a test dose response
 #' plot. If `FALSE`, just the growth curve will be plotted.
 #' **Requires:** `output.plot = TRUE`.
 #'
-#' @param output.plotExtended.single [logical] *(with default)*:
+#' @param output.plotExtended.single [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Requires `output.plot = TRUE` and
 #' `output.plotExtended = TRUE`.
 #'
-#' @param cex.global [numeric] *(with default)*: global scaling
+#' @param cex.global [numeric] (*with default*): global scaling
 #' factor.
 #'
-#' @param txtProgressBar [logical] *(with default)*: enables or disables txtProgressBar.
+#' @param txtProgressBar [logical] (*with default*): enables or disables txtProgressBar.
 #' If `verbose = FALSE` also no txtProgressBar is shown.
 #'
-#' @param verbose [logical] *(with default)*: enables or disables terminal feedback.
+#' @param verbose [logical] (*with default*): enables or disables terminal feedback.
 #'
 #' @param ... Further arguments and graphical parameters to be passed. Note:
 #' Standard arguments will only be passed to the growth curve plot. Supported:

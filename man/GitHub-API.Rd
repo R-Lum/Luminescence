@@ -15,23 +15,24 @@ github_branches(user = "r-lum", repo = "luminescence")
 github_issues(user = "r-lum", repo = "luminescence", verbose = TRUE)
 }
 \arguments{
-\item{user}{\link{character}:
+\item{user}{\link{character} (\emph{with default}):
 GitHub user name (defaults to 'r-lum').}
 
-\item{repo}{\link{character}:
+\item{repo}{\link{character} (\emph{with default}):
 name of a GitHub repository (defaults to 'luminescence').}
 
-\item{branch}{\link{character}:
+\item{branch}{\link{character} (\emph{with default}):
 branch of a GitHub repository (defaults to 'master').}
 
-\item{n}{\link{integer}:
+\item{n}{\link{integer} (\emph{with default}):
 number of commits returned (defaults to 5).}
 
-\item{verbose}{\link{logical}:
+\item{verbose}{\link{logical} (\emph{with default}):
 print the output to the console (defaults to \code{TRUE}).}
 }
 \value{
 \code{github_commits}: \link{data.frame} with columns:
+
 \tabular{ll}{
 \code{[ ,1]} \tab SHA \cr
 \code{[ ,2]} \tab AUTHOR \cr
@@ -40,6 +41,7 @@ print the output to the console (defaults to \code{TRUE}).}
 }
 
 \code{github_branches}: \link{data.frame} with columns:
+
 \tabular{ll}{
 \code{[ ,1]} \tab BRANCH \cr
 \code{[ ,2]} \tab SHA \cr
@@ -48,6 +50,7 @@ print the output to the console (defaults to \code{TRUE}).}
 
 \code{github_commits}: Nested \link{list} with \code{n} elements.
 Each commit element is a list with elements:
+
 \tabular{ll}{
 \code{[[1]]} \tab NUMBER \cr
 \code{[[2]]} \tab TITLE \cr
@@ -74,8 +77,7 @@ R Interface to the GitHub API v3.
 \details{
 These functions can be used to query a specific repository hosted on GitHub. \cr
 
-\code{github_commits} lists the most recent \code{n} commits of a specific
-branch of a repository.
+\code{github_commits} lists the most recent \code{n} commits of a specific branch of a repository.
 
 \code{github_branches} can be used to list all current branches of a
 repository and returns the corresponding SHA hash as well as an installation

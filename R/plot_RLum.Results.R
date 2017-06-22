@@ -6,29 +6,29 @@
 #' The function produces a multiple plot output.  A file output is recommended
 #' (e.g., [pdf]).
 #'
-#' @param object [RLum.Results-class] (**required**): S4 object
-#' of class `RLum.Results`
+#' @param object [RLum.Results-class] (**required**): 
+#' S4 object of class `RLum.Results`
 #'
-#' @param single [logical] *(with default)*: single plot output
-#' (`TRUE/FALSE`) to allow for plotting the results in as few plot windows
-#' as possible.
+#' @param single [logical] (*with default*): 
+#' single plot output (`TRUE/FALSE`) to allow for plotting the results in as 
+#' few plot windows as possible.
 #'
 #' @param ... further arguments and graphical parameters will be passed to
 #' the `plot` function.
 #'
 #' @return Returns multiple plots.
 #'
-#' @note Not all arguments available for [plot] will be passed!
+#' @note 
+#' Not all arguments available for [plot] will be passed!
 #' Only plotting of `RLum.Results` objects are supported.
 #'
 #' @section Function version: 0.2.1
 #'
-#' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,
-#' Universite Bordeaux Montaigne (France)
+#' @author 
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso [plot], [plot_RLum],
-#'
-#'
+#' @seealso [plot], [plot_RLum]
 #'
 #' @keywords aplot
 #'

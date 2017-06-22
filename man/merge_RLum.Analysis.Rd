@@ -7,10 +7,9 @@
 merge_RLum.Analysis(objects)
 }
 \arguments{
-\item{objects}{\link{list} of \linkS4class{RLum.Analysis}
-(\strong{required}): list of S4 objects of class \code{RLum.Analysis}.
-Furthermore other objects of class \linkS4class{RLum} can be added,
-see details.}
+\item{objects}{\link{list} of \linkS4class{RLum.Analysis} (\strong{required}):
+list of S4 objects of class \code{RLum.Analysis}. Furthermore other objects of
+class \linkS4class{RLum} can be added, see details.}
 }
 \value{
 Return an \linkS4class{RLum.Analysis} object.
@@ -25,7 +24,7 @@ objects.  Additionally other \linkS4class{RLum} objects can be added
 to an existing \linkS4class{RLum.Analysis} object. Supported objects
 to be added are: \linkS4class{RLum.Data.Curve},
 \linkS4class{RLum.Data.Spectrum} and
-\linkS4class{RLum.Data.Image}.\cr
+\linkS4class{RLum.Data.Image}.
 
 The order in the new \linkS4class{RLum.Analysis} object is the object
 order provided with the input list.
@@ -33,8 +32,7 @@ order provided with the input list.
 \note{
 The information for the slot 'protocol' is taken from the first
 \linkS4class{RLum.Analysis} object in the input list. Therefore at
-least one object of type \linkS4class{RLum.Analysis} has to be
-provided.
+least one object of type \linkS4class{RLum.Analysis} has to be provided.
 }
 \section{Function version}{
  0.2.0
@@ -54,13 +52,10 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 
 }
 \seealso{
-\link{merge_RLum}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum},
-\linkS4class{RLum.Data.Image}, \linkS4class{RLum}
+\link{merge_RLum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image}, \linkS4class{RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{utilities}

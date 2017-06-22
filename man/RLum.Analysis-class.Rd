@@ -43,52 +43,52 @@ of the calling function (the function that produces this object); can be set man
 \item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}): option to provide a parent id for nesting
 at will.}
 
-\item{protocol}{\code{\link{set_RLum}} \link{character} \emph{(optional)}: sets protocol type for
+\item{protocol}{\code{\link{set_RLum}} \link{character} (\emph{optional}): sets protocol type for
 analysis object. Value may be used by subsequent analysis functions.}
 
 \item{records}{\code{\link{set_RLum}} \link{list} (\strong{required}): list of \linkS4class{RLum.Analysis} objects}
 
-\item{info}{\code{\link{set_RLum}} \link{list} \emph{(optional)}: a list containing additional
+\item{info}{\code{\link{set_RLum}} \link{list} (\emph{optional}): a list containing additional
 info data for the object
 
 \strong{\code{set_RLum}}:\cr
 
 Returns an \linkS4class{RLum.Analysis} object.}
 
-\item{record.id}{\code{\link{get_RLum}} \link{numeric} or \link{logical} \emph{(optional)}: IDs of specific records.
+\item{record.id}{\code{\link{get_RLum}} \link{numeric} or \link{logical} (\emph{optional}): IDs of specific records.
 If of type \code{logical} the entire id range is assuemd and \code{TRUE} and \code{FALSE} indicates the selection.}
 
-\item{recordType}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: record type (e.g., "OSL").
+\item{recordType}{\code{\link{get_RLum}} \link{character} (\emph{optional}): record type (e.g., "OSL").
 Can be also a vector, for multiple matching, e.g., \code{recordType = c("OSL", "IRSL")}}
 
-\item{curveType}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: curve
+\item{curveType}{\code{\link{get_RLum}} \link{character} (\emph{optional}): curve
 type (e.g. "predefined" or "measured")}
 
-\item{RLum.type}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: RLum object type.
+\item{RLum.type}{\code{\link{get_RLum}} \link{character} (\emph{optional}): RLum object type.
 Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".}
 
-\item{get.index}{\code{\link{get_RLum}} \link{logical} \emph{(optional)}: return a numeric
+\item{get.index}{\code{\link{get_RLum}} \link{logical} (\emph{optional}): return a numeric
 vector with the index of each element in the RLum.Analysis object.}
 
-\item{drop}{\code{\link{get_RLum}} \link{logical} \emph{(with default)}: coerce to the next possible layer
+\item{drop}{\code{\link{get_RLum}} \link{logical} (\emph{with default}): coerce to the next possible layer
 (which are \code{RLum.Data}-objects), \code{drop = FALSE} keeps the original \code{RLum.Analysis}}
 
-\item{recursive}{\code{\link{get_RLum}} \link{logical} \emph{(with default)}: if \code{TRUE} (the default)
+\item{recursive}{\code{\link{get_RLum}} \link{logical} (\emph{with default}): if \code{TRUE} (the default)
 and the result of the 'get_RLum' request is a single object this object will be unlisted, means
 only the object itself and no list containing exactly one object is returned. Mostly this makes things
 easier, however, if this method is used within a loop this might undesired.}
 
-\item{info.object}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: name of the wanted info
+\item{info.object}{\code{\link{get_RLum}} \link{character} (\emph{optional}): name of the wanted info
 element}
 
-\item{subset}{\link{expression} \emph{(optional)}: logical expression indicating elements or rows
+\item{subset}{\link{expression} (\emph{optional}): logical expression indicating elements or rows
 to keep: missing values are taken as false. This argument takes precedence over all
 other arguments, meaning they are not considered when subsetting the object.}
 
-\item{fullExtent}{\link{structure_RLum} \link{logical} \emph{(with default)}: extents the returned \code{data.frame}
+\item{fullExtent}{\link{structure_RLum} \link{logical} (\emph{with default}): extents the returned \code{data.frame}
 to its full extent, i.e. all info elements are part of the return as well. The default valule
 is \code{FALSE} as the data frame might become rather big.}
 

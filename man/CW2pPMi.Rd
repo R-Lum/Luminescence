@@ -14,7 +14,7 @@ CW2pPMi(values, P)
 curve data of type stimulation time (t) (\code{values[,1]}) and measured
 counts (cts) (\code{values[,2]})}
 
-\item{P}{\link{vector} \emph{(optional)}: stimulation period in seconds. If
+\item{P}{\link{vector} (\emph{optional}): stimulation period in seconds. If
 no value is given, the optimal value is estimated automatically (see
 details). Greater values of P produce more points in the rising tail of the
 curve.}

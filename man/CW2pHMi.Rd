@@ -14,7 +14,7 @@ CW2pHMi(values, delta)
 measured curve data of type stimulation time (t) (\code{values[,1]}) and
 measured counts (cts) (\code{values[,2]}).}
 
-\item{delta}{\link{vector} \emph{(optional)}: stimulation rate parameter, if
+\item{delta}{\link{vector} (\emph{optional}): stimulation rate parameter, if
 no value is given, the optimal value is estimated automatically (see
 details). Smaller values of delta produce more points in the rising tail of
 the curve.}

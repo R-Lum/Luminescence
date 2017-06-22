@@ -8,31 +8,32 @@ plot_ViolinPlot(data, boxplot = TRUE, rug = TRUE, summary = NULL,
   summary.pos = "sub", na.rm = TRUE, ...)
 }
 \arguments{
-\item{data}{\link{numeric} or \linkS4class{RLum.Results}
-object (\strong{required}): input data for plotting. Alternatively a \link{data.frame} or
-a \link{matrix} can be provided, but only the first column will be considered by the
+\item{data}{\link{numeric} or \linkS4class{RLum.Results} (\strong{required}):
+input data for plotting. Alternatively a \link{data.frame} or a \link{matrix} can
+be provided, but only the first column will be considered by the
 function}
 
-\item{boxplot}{\link{logical} \emph{(with default)}: enable or disable boxplot}
+\item{boxplot}{\link{logical} (\emph{with default}):
+enable or disable boxplot}
 
-\item{rug}{\link{logical} \emph{(with default)}: enable or disable rug}
+\item{rug}{\link{logical} (\emph{with default}):
+enable or disable rug}
 
-\item{summary}{\link{character} \emph{(optional)}: add statistic measures of
-centrality and dispersion to the plot. Can be one or more of several
-keywords. See details for available keywords.}
+\item{summary}{\link{character} (\emph{optional}):
+add statistic measures of centrality and dispersion to the plot.
+Can be one or more of several keywords. See details for available keywords.}
 
-\item{summary.pos}{\link{numeric} or \link{character} (with
-default): optional position keywords (cf., \link{legend})
-for the statistical summary. Alternatively, the keyword \code{"sub"} may be
-specified to place the summary below the plot header. However, this latter
-option in only possible if \code{mtext} is not used.}
+\item{summary.pos}{\link{numeric} or \link{character} (\emph{with default}):
+optional position keywords (cf., \link{legend}) for the statistical summary.
+Alternatively, the keyword \code{"sub"} may be specified to place the summary
+below the plot header. However, this latter option in only possible if
+\code{mtext} is not used.}
 
-\item{na.rm}{\link{logical} \emph{(with default)}: exclude NA values
-from the data set prior to any further operations.}
+\item{na.rm}{\link{logical} (\emph{with default}):
+exclude NA values from the data set prior to any further operations.}
 
 \item{...}{further arguments and graphical parameters passed to
-\link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for
-further information}
+\link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for further information}
 }
 \description{
 Draws a kernal densiy plot in combination with a boxplot in its middle. The shape of the violin
@@ -44,12 +45,14 @@ The general idea for the Violin Plot seems to be introduced by Hintze and Nelson
 \details{
 The function is passing several arguments to the function \link{plot},
 \link[stats:density]{stats::density}, \link[graphics:boxplot]{graphics::boxplot}:
-Supported arguments are: \code{xlim}, \code{main}, \code{xlab},
-\code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 
-\strong{\code{Valid summary keywords}}\cr
+Supported arguments are:
+\code{xlim}, \code{main}, \code{xlab}, \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 
-'n', 'mean', 'median', 'sd.abs', 'sd.rel', 'se.abs', 'se.rel', 'skewness', 'kurtosis'
+\strong{\code{Valid summary keywords}}
+
+\code{'n'}, \code{'mean'}, \code{'median'}, \code{'sd.abs'}, \code{'sd.rel'}, \code{'se.abs'}, \code{'se.rel'}.
+\code{'skewness'}, \code{'kurtosis'}
 }
 \note{
 Although the code for this function was developed independently and just the idea for the plot
@@ -62,6 +65,7 @@ two other R packages exist providing a possibility to produces this kind of plot
 }
 
 \examples{
+
 ## read example data set
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
@@ -82,8 +86,7 @@ R package version 0.2.1. http://CRAN.R-project.org/package=violinmplot
 Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 }
 \seealso{
-\link[stats:density]{stats::density}, \link{plot}, \link{boxplot}, \link{rug},
-\link{calc_Statistics}
+\link[stats:density]{stats::density}, \link{plot}, \link{boxplot}, \link{rug}, \link{calc_Statistics}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

@@ -4,7 +4,7 @@
 #'
 #' @param object an object of class [RLum-class] (**required**)
 #'
-#' @param times [integer] *(optional)*: number for times each element is repeated
+#' @param times [integer] (*optional*): number for times each element is repeated
 #' element
 #'
 #' @return Returns a [list] of the object to be repeated

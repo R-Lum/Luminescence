@@ -14,7 +14,7 @@ calc_OSLLxTxRatio(Lx.data, Tx.data = NULL, signal.integral,
 \item{Lx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 requires a CW-OSL shine down curve (x = time, y = counts)}
 
-\item{Tx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} \strong{(optional)}:
+\item{Tx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} \emph{(\emph{optional})}:
 requires a CW-OSL shine down curve (x = time, y = counts). If no
 input is given the Tx.data will be treated as \code{NA} and no Lx/Tx ratio
 is calculated.}
@@ -22,37 +22,37 @@ is calculated.}
 \item{signal.integral}{\link{vector} (\strong{required}):
 vector with the limits for the signal integral.}
 
-\item{signal.integral.Tx}{\link{vector} \strong{(optional)}:
+\item{signal.integral.Tx}{\link{vector} \emph{(\emph{optional})}:
 vector with the limits for the signal integral for the Tx curve. If nothing is provided the
 value from \code{signal.integral} is used.}
 
 \item{background.integral}{\link{vector} (\strong{required}):
 vector with the bounds for the background integral.}
 
-\item{background.integral.Tx}{\link{vector} \strong{(optional)}:
+\item{background.integral.Tx}{\link{vector} \emph{(\emph{optional})}:
 vector with the limits for the background integral for the Tx curve.
 If nothing is provided the value from \code{background.integral} is used.}
 
-\item{background.count.distribution}{\link{character} \strong{(with default)}:
+\item{background.count.distribution}{\link{character} \emph{(\emph{with default})}:
 sets the count distribution assumed for the error calculation.
 Possible arguments \code{poisson} or \code{non-poisson}. See details for further information}
 
-\item{use_previousBG}{\link{logical} \strong{(with default)}:
+\item{use_previousBG}{\link{logical} \emph{(\emph{with default})}:
 If set to \code{TRUE} the background of the Lx-signal is substracted also
 from the Tx-signal. Please note that in this case separat
 signal integral limits for the Tx signal are not allowed and will be reset.}
 
-\item{sigmab}{\link{numeric} \strong{(optional)}:
+\item{sigmab}{\link{numeric} \emph{(\emph{optional})}:
 option to set a manual value for the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
 calculation. The value should be provided as absolute squared count values,
 e.g. \code{sigmab = c(300,300)}. Note: If only one value is provided this
 value is taken for both (LnTx and TnTx) signals.}
 
-\item{sig0}{\link{numeric} \strong{(with default)}:
+\item{sig0}{\link{numeric} \emph{(\emph{with default})}:
 allow adding an extra component of error to the final Lx/Tx error value
 (e.g., instrumental errror, see details).}
 
-\item{digits}{\link{integer} \strong{(with default)}:
+\item{digits}{\link{integer} \emph{(\emph{with default})}:
 round numbers to the specified digits.
 If digits is set to \code{NULL} nothing is rounded.}
 }

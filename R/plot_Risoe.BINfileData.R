@@ -3,19 +3,19 @@
 #' Plots single luminescence curves from an object returned by the
 #' [read_BIN2R] function.
 #'
-#' **Nomenclature**\cr
+#' **Nomenclature**
 #'
 #' See [Risoe.BINfileData-class]
 #'
-#' **curve.transformation**\cr
+#' **curve.transformation**
 #'
 #' This argument allows transforming continuous wave (CW) curves to pseudo
 #' (linear) modulated curves. For the transformation, the functions of the
 #' package are used.  Currently, it is not possible to pass further arguments
 #' to the transformation functions. The argument works only for `ltype`
-#' `OSL` and `IRSL`.\cr
+#' `OSL` and `IRSL`.
 #'
-#' **Irradiation time**\cr
+#' **Irradiation time**
 #'
 #' Plotting the irradiation time (s) or the given dose (Gy) requires that the
 #' variable `IRR_TIME` has been set within the BIN-file.  This is normally
@@ -24,44 +24,67 @@
 #'
 #' @param BINfileData [Risoe.BINfileData-class] (**required**):
 #' requires an S4 object returned by the [read_BIN2R] function.
-#' @param position [vector] *(optional)*: option to limit the plotted curves
-#' by position (e.g. `position = 1`, `position = c(1,3,5)`).
-#' @param run [vector] *(optional)*: option to limit the plotted curves by
-#' run (e.g., `run = 1`, `run = c(1,3,5)`).
-#' @param set [vector] *(optional)*: option to limit the plotted curves by
-#' set (e.g., `set = 1`, `set = c(1,3,5)`).
-#' @param sorter [character] *(with default)*: the plot output can be
-#' ordered by "POSITION","SET" or "RUN". POSITION, SET and RUN are options
-#' defined in the Risoe Sequence Editor.
-#' @param ltype [character] *(with default)*: option to limit the plotted
-#' curves by the type of luminescence stimulation.  Allowed values:
-#' `"IRSL"`, `"OSL"`,`"TL"`, `"RIR"`, `"RBR"`
+#' 
+#' @param position [vector] (*optional*): 
+#' option to limit the plotted curves by position 
+#' (e.g. `position = 1`, `position = c(1,3,5)`).
+#' 
+#' @param run [vector] (*optional*): 
+#' option to limit the plotted curves by run 
+#' (e.g., `run = 1`, `run = c(1,3,5)`).
+#' 
+#' @param set [vector] (*optional*): 
+#' option to limit the plotted curves by set 
+#' (e.g., `set = 1`, `set = c(1,3,5)`).
+#' 
+#' @param sorter [character] (*with default*): 
+#' the plot output can be ordered by "POSITION","SET" or "RUN". 
+#' POSITION, SET and RUN are options defined in the Risoe Sequence Editor.
+#' 
+#' @param ltype [character] (*with default*): 
+#' option to limit the plotted curves by the type of luminescence stimulation.  
+#' Allowed values: `"IRSL"`, `"OSL"`,`"TL"`, `"RIR"`, `"RBR"`
 #' (corresponds to LM-OSL), `"RL"`.  All type of curves are plotted by
 #' default.
-#' @param curve.transformation [character] *(optional)*: allows transforming
-#' CW-OSL and CW-IRSL curves to pseudo-LM curves via transformation functions.
-#' Allowed values are: `CW2pLM`, `CW2pLMi`, `CW2pHMi` and
+#' 
+#' @param curve.transformation [character] (*optional*): 
+#' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via 
+#' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`, `CW2pHMi` and
 #' `CW2pPMi`. See details.
-#' @param dose_rate [numeric] *(optional)*: dose rate of the irradition
-#' source at the measurement date. If set, the given irradiation dose will be
-#' shown in Gy.  See details.
-#' @param temp.lab [character] *(optional)*: option to allow for different
-#' temperature units. If no value is set deg. C is chosen.
-#' @param cex.global [numeric] *(with default)*: global scaling factor.
+#' 
+#' @param dose_rate [numeric] (*optional*): 
+#' dose rate of the irradition source at the measurement date. 
+#' If set, the given irradiation dose will be shown in Gy.  See details.
+#' 
+#' @param temp.lab [character] (*optional*): 
+#' option to allow for different temperature units. If no value is set deg. C is chosen.
+#' 
+#' @param cex.global [numeric] (*with default*): 
+#' global scaling factor.
+#' 
 #' @param ... further undocumented plot arguments.
+#' 
 #' @return Returns a plot.
-#' @note The function has been successfully tested for the Sequence Editor file
+#' 
+#' @note 
+#' The function has been successfully tested for the Sequence Editor file
 #' output version 3 and 4.
+#' 
 #' @section Function version: 0.4.1
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France),\cr Michael Dietze, GFZ Potsdam (Germany)
-#' @seealso [Risoe.BINfileData-class],[read_BIN2R],
-#' [CW2pLM], [CW2pLMi], [CW2pPMi],
-#' [CW2pHMi]
-#' @references Duller, G., 2007. Analyst. pp. 1-45.
+#' 
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Michael Dietze, GFZ Potsdam (Germany)
+#' 
+#' @seealso [Risoe.BINfileData-class],[read_BIN2R], [CW2pLM], [CW2pLMi], 
+#' [CW2pPMi], [CW2pHMi]
+#' 
+#' @references 
+#' Duller, G., 2007. Analyst. pp. 1-45.
+#' 
 #' @keywords dplot
+#' 
 #' @examples
-#'
 #'
 #' ##load data
 #' data(ExampleData.BINfileData, envir = environment())

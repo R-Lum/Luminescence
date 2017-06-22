@@ -172,7 +172,7 @@ setMethod("show",
 #' (the function that produces this object); can be set manually.
 #' @param .uid [`set_RLum`] [character] (automatic): sets an unique ID for this object
 #' using the internal C++ function `.create_UID`.
-#' @param .pid [`set_RLum`] [character] *(with default)*: option to provide a parent id for nesting
+#' @param .pid [`set_RLum`] [character] (*with default*): option to provide a parent id for nesting
 #' at will.
 #' @param recordType [`set_RLum`] [character]: record type (e.g. "OSL")
 #' @param curveType [`set_RLum`] [character]: curve type (e.g. "predefined" or "measured")
@@ -279,7 +279,7 @@ setMethod(
 #'
 #' @param object [`show_RLum`][`get_RLum`][`names_RLum`] an object of
 #'  class [RLum.Data.Spectrum-class]
-#' @param info.object [`get_RLum`] [character] *(optional)*: the name of the info
+#' @param info.object [`get_RLum`] [character] (*optional*): the name of the info
 #' object to be called
 #'
 #' @return

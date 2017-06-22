@@ -3,78 +3,77 @@
 #' Function allows merging Risoe BIN/BINX files or Risoe.BINfileData objects.
 #'
 #' The function allows merging different measurements to one file or one
-#' object.\cr The record IDs are recalculated for the new object. Other values
-#' are kept for each object. The number of input objects is not limited. \cr
+#' object. The record IDs are recalculated for the new object. Other values
+#' are kept for each object. The number of input objects is not limited.
 #'
-#' `position.number.append.gap` option \cr
+#' `position.number.append.gap` option
 #'
 #' If the option `keep.position.number = FALSE` is used, the position
 #' numbers of the new data set are recalculated by adding the highest position
 #' number of the previous data set to the each position number of the next data
 #' set. For example: The highest position number is 48, then this number will
 #' be added to all other position numbers of the next data set (e.g. 1 + 48 =
-#' 49)\cr
+#' 49)
 #'
 #' However, there might be cases where an additional addend (summand) is needed
-#' before the next position starts. Example: \cr
+#' before the next position starts. Example: 
 #'
-#' Position number set (A): `1,3,5,7`\cr Position number set (B):
-#' `1,3,5,7` \cr
+#' - Position number set (A): `1,3,5,7`
+#' - Position number set (B): `1,3,5,7`
 #'
 #' With no additional summand the new position numbers would be:
 #' `1,3,5,7,8,9,10,11`. That might be unwanted. Using the argument
 #' `position.number.append.gap = 1` it will become:
 #' `1,3,5,7,9,11,13,15,17`.
 #'
-#' @param input.objects [character] with
-#' [Risoe.BINfileData-class] objects (**required**): Character vector
-#' with path and files names (e.g. \code{input.objects = c("path/file1.bin",
-#' "path/file2.bin")} or [Risoe.BINfileData-class] objects (e.g.
-#' `input.objects = c(object1, object2)`). Alternatively a `list` is supported.
+#' @param input.objects [character] with [Risoe.BINfileData-class] objects (**required**): 
+#' Character vector with path and files names 
+#' (e.g. `input.objects = c("path/file1.bin", "path/file2.bin")` or 
+#' [Risoe.BINfileData-class] objects (e.g. `input.objects = c(object1, object2)`). 
+#' Alternatively a `list` is supported.
 #'
 #'
-#' @param output.file [character] *(optional)*: File output path and
-#' name. \cr If no value is given, a [Risoe.BINfileData-class] is
+#' @param output.file [character] (*optional*): 
+#' File output path and name. If no value is given, a [Risoe.BINfileData-class] is
 #' returned instead of a file.
 #'
 #'
-#' @param keep.position.number [logical] *(with default)*: Allows
-#' keeping the original position numbers of the input objects. Otherwise the
-#' position numbers are recalculated.
+#' @param keep.position.number [logical] (*with default*): 
+#' Allows keeping the original position numbers of the input objects. 
+#' Otherwise the position numbers are recalculated.
 #'
 #'
-#' @param position.number.append.gap [integer] *(with default)*: Set
-#' the position number gap between merged BIN-file sets, if the option
+#' @param position.number.append.gap [integer] (*with default*): 
+#' Set the position number gap between merged BIN-file sets, if the option
 #' `keep.position.number = FALSE` is used. See details for further
 #' information.
 #'
 #'
-#' @return Returns a `file` or a [Risoe.BINfileData-class]
-#' object.
+#' @return Returns a `file` or a [Risoe.BINfileData-class] object.
 #'
 #'
-#' @note The validity of the output objects is not further checked.
+#' @note 
+#' The validity of the output objects is not further checked.
 #'
 #'
 #' @section Function version: 0.2.7
 #'
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso [Risoe.BINfileData-class], [read_BIN2R],
-#' [write_R2BIN]
+#' @seealso [Risoe.BINfileData-class], [read_BIN2R], [write_R2BIN]
 #'
 #'
-#' @references Duller, G., 2007. Analyst.
+#' @references 
+#' Duller, G., 2007. Analyst.
 #'
 #'
 #' @keywords IO manip
 #'
 #'
 #' @examples
-#'
 #'
 #' ##merge two objects
 #' data(ExampleData.BINfileData, envir = environment())

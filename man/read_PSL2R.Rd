@@ -14,19 +14,19 @@ valid paths and PSL file names.
 Alternatively the input character can be just a directory (path). In this case the
 the function tries to detect and import all PSL files found in the directory.}
 
-\item{drop_bg}{\link{logical} \emph{(with default)}: \code{TRUE} to automatically
+\item{drop_bg}{\link{logical} (\emph{with default}): \code{TRUE} to automatically
 remove all non-OSL/IRSL curves.}
 
-\item{as_decay_curve}{\link{logical} \emph{(with default)}: Portable OSL Reader curves
+\item{as_decay_curve}{\link{logical} (\emph{with default}): Portable OSL Reader curves
 are often given as cumulative light sum curves. Use \code{TRUE} (default) to convert
 the curves to the more usual decay form.}
 
-\item{smooth}{\link{logical} \emph{(with default)}: \code{TRUE} to apply
+\item{smooth}{\link{logical} (\emph{with default}): \code{TRUE} to apply
 Tukey's Running Median Smoothing for OSL and IRSL decay curves. Smoothing is
 encouraged if you see random signal drops within the decay curves related
 to hardware errors.}
 
-\item{merge}{\link{logical} \emph{(with default)}: \code{TRUE} to merge all
+\item{merge}{\link{logical} (\emph{with default}): \code{TRUE} to merge all
 \code{RLum.Analysis} objects. Only applicable if multiple files are imported.}
 
 \item{...}{currently not used.}

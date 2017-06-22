@@ -197,14 +197,14 @@ setMethod("show",
 #' (the function that produces this object); can be set manually.
 #' @param .uid [`set_RLum`] [character] (automatic): sets an unique ID for this object
 #' using the internal C++ function `.create_UID`.
-#' @param .pid [`set_RLum`] [character] *(with default)*: option to provide a parent id for nesting
+#' @param .pid [`set_RLum`] [character] (*with default*): option to provide a parent id for nesting
 #' at will.
-#' @param recordType [`set_RLum`] [character] *(optional)*: record type (e.g., "OSL")
-#' @param curveType [`set_RLum`] [character] *(optional)*: curve type (e.g., "predefined" or "measured")
+#' @param recordType [`set_RLum`] [character] (*optional*): record type (e.g., "OSL")
+#' @param curveType [`set_RLum`] [character] (*optional*): curve type (e.g., "predefined" or "measured")
 #' @param data [`set_RLum`] [matrix] (**required**): raw curve data.
 #' If `data` itself is a `RLum.Data.Curve`-object this can be used to re-construct the object
 #' (s. Details)
-#' @param info [`set_RLum`] [list] *(optional)*: info elements
+#' @param info [`set_RLum`] [list] (*optional*): info elements
 #'
 #' @return
 #'
@@ -314,7 +314,7 @@ setMethod(
 #'
 #' @param object [`show_RLum`][`get_RLum`][`length_RLum`][`names_RLum`] an object of
 #' class [RLum.Data.Curve-class] (**required**)
-#' @param info.object [`get_RLum`] [character] *(optional)*: name of the wanted info
+#' @param info.object [`get_RLum`] [character] (*optional*): name of the wanted info
 #' element
 #'
 #' @return
@@ -421,7 +421,7 @@ setMethod("names_RLum",
 #' @describeIn RLum.Data.Curve
 #' Allows binning of specific objects
 #'
-#' @param bin_size [integer] *(with default)*: set number of channels
+#' @param bin_size [integer] (*with default*): set number of channels
 #' used for each bin, e.g. `bin_size = 2` means that two channels are binned.
 #'
 #' @return
@@ -480,16 +480,16 @@ setMethod(f = "bin_RLum.Data",
 #' Smoothing of RLum.Data.Curve objects using the function [zoo::rollmean] or [zoo::rollmedian].
 #' In particular the internal function `.smoothing` is used.
 #'
-#' @param k [`smooth_RLum`] [integer] *(with default)*: window for the rolling mean; must be odd for rollmedian.
+#' @param k [`smooth_RLum`] [integer] (*with default*): window for the rolling mean; must be odd for rollmedian.
 #' If nothing is set k is set automatically
 #'
-#' @param fill [`smooth_RLum`] [numeric] *(with default)*: a vector defining the left and the right hand data
+#' @param fill [`smooth_RLum`] [numeric] (*with default*): a vector defining the left and the right hand data
 #'
-#' @param align [`smooth_RLum`] [character] *(with default)*: specifying whether the index of the result should be
+#' @param align [`smooth_RLum`] [character] (*with default*): specifying whether the index of the result should be
 #' left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
 #' `"right"`, `"center"` and `left`
 #'
-#' @param method [`smooth_RLum`] [character] *(with default)*: defines which method should be applied for the
+#' @param method [`smooth_RLum`] [character] (*with default*): defines which method should be applied for the
 #' smoothing: `"mean"` or `"median"`
 #'
 #' @return

@@ -30,7 +30,7 @@
 #' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the before mentioned column structure.
 #'
-#' @param structure [character] *(with default)*: 
+#' @param structure [character] (*with default*): 
 #' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`. 
 #' Other input is ignored
 #'
@@ -42,27 +42,27 @@
 #' vector with the bounds for the background integral. 
 #' Not required if a `data.frame` with LxTx values are provided.
 #'
-#' @param t_star [character] *(with default)*: 
+#' @param t_star [character] (*with default*): 
 #' method for calculating the time elasped since irradiaton. Options are: 
 #' `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
 #' and `'end'`, which takes the time between irradiation and the measurement step. 
 #' Default is `'half'`
 #'
-#' @param n.MC [integer] *(with default)*: 
+#' @param n.MC [integer] (*with default*): 
 #' number for Monte Carlo runs for the error estimation
 #'
-#' @param verbose [logical] *(with default)*: 
+#' @param verbose [logical] (*with default*): 
 #' enables/disables verbose mode
 #'
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] (*with default*): 
 #' enables/disables plot output
 #'
-#' @param plot.single [logical] *(with default)*: 
+#' @param plot.single [logical] (*with default*): 
 #' enables/disables single plot mode, i.e. one plot window per plot. 
 #' Alternatively a vector specifying the plot to be drawn, e.g.,
 #' `plot.single = c(3,4)` draws only the last two plots
 #'
-#' @param ... *(optional)* further arguments that can be passed to internally used functions (see details)
+#' @param ... (*optional*) further arguments that can be passed to internally used functions (see details)
 #'
 #' @return 
 #' An [RLum.Results-class] object is returned:

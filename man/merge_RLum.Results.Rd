@@ -7,7 +7,8 @@
 merge_RLum.Results(objects)
 }
 \arguments{
-\item{objects}{\link{list} (\strong{required}): a list of \linkS4class{RLum.Results} objects}
+\item{objects}{\link{list} (\strong{required}):
+a list of \linkS4class{RLum.Results} objects}
 }
 \description{
 Function merges objects of class \linkS4class{RLum.Results}. The slots in the objects
@@ -22,6 +23,5 @@ The originator is taken from the first element and not reset to \code{merge_RLum
 }
 
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }

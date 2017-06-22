@@ -12,14 +12,14 @@ plot_DetPlot(object, signal.integral.min, signal.integral.max,
   ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): input
-object containing data for analysis}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
+input object containing data for analysis}
 
-\item{signal.integral.min}{\link{integer} (\strong{required}): lower
-bound of the signal integral.}
+\item{signal.integral.min}{\link{integer} (\strong{required}):
+lower bound of the signal integral.}
 
-\item{signal.integral.max}{\link{integer} (\strong{required}): upper
-bound of the signal integral.}
+\item{signal.integral.max}{\link{integer} (\strong{required}):
+upper bound of the signal integral.}
 
 \item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral.}
@@ -27,30 +27,38 @@ lower bound of the background integral.}
 \item{background.integral.max}{\link{integer} (\strong{required}):
 upper bound of the background integral.}
 
-\item{method}{\link{character} \emph{(with default)}: method applied for constructing the De(t) plot.
-\code{shift} (the default): the chosen signal integral is shifted the shine down curve,
-\code{expansion}: the chosen signal integral is expanded each time by its length}
+\item{method}{\link{character} (\emph{with default}):
+method applied for constructing the De(t) plot.
+\itemize{
+\item \code{shift} (\emph{the default}): the chosen signal integral is shifted the shine down curve,
+\item \code{expansion}: the chosen signal integral is expanded each time by its length
+}}
 
-\item{signal_integral.seq}{\link{numeric} \emph{(optional)}: argument to provide an own
-signal integral sequence for constructing the De(t) plot}
+\item{signal_integral.seq}{\link{numeric} (\emph{optional}):
+argument to provide an own signal integral sequence for constructing the De(t) plot}
 
-\item{analyse_function}{\link{character} \emph{(with default)}: name of the analyse function
-to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
+\item{analyse_function}{\link{character} (\emph{with default}):
+name of the analyse function to be called. Supported functions are:
+\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
 
-\item{analyse_function.control}{\link{list} \emph{(optional)}: arguments to be passed to the
-supported analyse functions (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
+\item{analyse_function.control}{\link{list} (\emph{optional}):
+arguments to be passed to the supported analyse functions
+(\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
 
-\item{n.channels}{\link{integer} \emph{(optional)}: number of channels used for the De(t) plot.
-If nothing is provided all De-values are calculated and plotted until the start of the background
+\item{n.channels}{\link{integer} (\emph{optional}):
+number of channels used for the De(t) plot. If nothing is provided all
+De-values are calculated and plotted until the start of the background
 integral.}
 
-\item{show_ShineDownCurve}{\link{logical} \emph{(with default)}: enables or disables shine down
-curve in the plot output}
+\item{show_ShineDownCurve}{\link{logical} (\emph{with default}):
+enables or disables shine down curve in the plot output}
 
-\item{respect_RC.Status}{\link{logical} \emph{(with default)}: remove De-values with 'FAILED' RC.Status
-from the plot (cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
+\item{respect_RC.Status}{\link{logical} (\emph{with default}):
+remove De-values with 'FAILED' RC.Status from the plot
+(cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
 
-\item{verbose}{\link{logical} \emph{(with default)}: enables or disables terminal feedback}
+\item{verbose}{\link{logical} (\emph{with default}):
+enables or disables terminal feedback}
 
 \item{...}{further arguments and graphical parameters passed to
 \link{plot.default}, \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}.
@@ -60,6 +68,7 @@ See details for further information.}
 A plot and an \linkS4class{RLum.Results} object with the produced De values
 
 \code{@data}:
+
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
 De.values \tab \code{data.frame} \tab table with De values \cr
@@ -74,13 +83,13 @@ call \tab \code{call} \tab the original function call
 }
 }
 \description{
-Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
-The function is simply passing several arguments to the function \link{plot} and the used
-analysis functions and runs it in a loop. Example: \code{legend.pos} for legend position,
-\code{legend} for legend text.\cr
+Plots the equivalent dose (De) in dependency of the chosen signal integral
+(cf. Bailey et al., 2003). The function is simply passing several arguments
+to the function \link{plot} and the used analysis functions and runs it in a loop.
+Example: \code{legend.pos} for legend position, \code{legend} for legend text.
 }
 \details{
-\strong{method}\cr
+\strong{method}
 
 The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
 extended them accounting for changes in the counting statistics. Example: \code{c(1:3, 3:5, 5:7)}.
@@ -88,14 +97,14 @@ However, here also another method is provided allowing to expand the signal inte
 consectutively expaning the integral by its chosen length. Example: \code{c(1:3, 1:5, 1:7)}
 
 Note that in both cases the integral limits are overlap. The finally applied limits are part
-of the function output.\cr
+of the function output.
 }
 \note{
 The entire analysis is based on the used analysis functions, namely
 \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}. However, the integrity
-checks of this function are not that thoughtful as in these functions itself. It means, that
-every sequence should be checked carefully before running long calculations using serveral
-hundreds of channels.
+checks of this function are not that thoughtful as in these functions itself.
+It means, that every sequence should be checked carefully before running long
+calculations using serveral hundreds of channels.
 }
 \section{Function version}{
  0.1.1

@@ -3,81 +3,87 @@
 #' The function provides several methods for cosmic ray removal and spectrum
 #' smoothing for an RLum.Data.Spectrum S4 class object
 #'
-#'**`method = "Pych"`** \cr
+#' **`method = "Pych"`**
 #'
 #' This method applies the cosmic-ray removal algorithm described by Pych
-#' (2003). Some aspects that are different to the publication: \itemize{
-#' \item For interpolation between neighbouring values the median and not the
-#' mean is used. \item The number of breaks to construct the histogram is set
-#' to: `length(number.of.input.values)/2` } For further details see
-#' references below.
+#' (2003). Some aspects that are different to the publication: 
+#' 
+#' - For interpolation between neighbouring values the median and not the mean is used. 
+#' - The number of breaks to construct the histogram is set to: `length(number.of.input.values)/2`
+#' 
+#' For further details see references below.
 #'
-#'**`method = "smooth"`** \cr
+#'**`method = "smooth"`**
 #'
-#' Method uses the function [smooth] to remove cosmic rays.\cr
+#' Method uses the function [smooth] to remove cosmic rays.
 #'
-#' Arguments that can be passed are: `kind`, `twiceit`\cr
+#' Arguments that can be passed are: `kind`, `twiceit`
 #'
-#'**`method = "smooth.spline"`** \cr Method uses the function
-#' [smooth.spline] to remove cosmic rays.\cr Arguments that can be
-#' passed are: `spar`\cr
+#' **`method = "smooth.spline"`**
 #'
-#' **How to combine methods?**\cr
+#' Method uses the function [smooth.spline] to remove cosmic rays.
+#' 
+#' Arguments that can be passed are: `spar`
+#'
+#' **How to combine methods?**
 #'
 #' Different methods can be combined by applying the method repeatedly to the
 #' dataset (see example).
 #'
-#' @param object [RLum.Data.Spectrum-class] (**required**): S4
-#' object of class `RLum.Data.Spectrum`
+#' @param object [RLum.Data.Spectrum-class] (**required**): 
+#' S4 object of class `RLum.Data.Spectrum`
 #'
-#' @param method [character] *(with default)*: Defines method that is
-#' applied for cosmic ray removal. Allowed methods are `smooth`, the default,
-#' ([smooth]), `smooth.spline` ([smooth.spline])
+#' @param method [character] (*with default*): 
+#' Defines method that is applied for cosmic ray removal. Allowed methods are 
+#' `smooth`, the default, ([smooth]), `smooth.spline` ([smooth.spline])
 #' and `Pych`. See details for further information.
 #'
-#' @param method.Pych.smoothing [integer] *(with default)*: Smoothing
-#' parameter for cosmic ray removal according to Pych (2003). The value defines
-#' how many neighboring values in each frame are used for smoothing (e.g.,
-#' `2` means that the two previous and two following values are used).
+#' @param method.Pych.smoothing [integer] (*with default*): 
+#' Smoothing parameter for cosmic ray removal according to Pych (2003). 
+#' The value defines how many neighboring values in each frame are used for smoothing 
+#' (e.g., `2` means that the two previous and two following values are used).
 #'
-#' @param method.Pych.threshold_factor [numeric] *(with default)*: Threshold
-#' for zero-bins in the histogram. Small values mean that more peaks are removed, but signal
-#' might be also affected by this removal.
+#' @param method.Pych.threshold_factor [numeric] (*with default*): 
+#' Threshold for zero-bins in the histogram. Small values mean that more peaks 
+#' are removed, but signal might be also affected by this removal.
 #'
-#' @param MARGIN [integer] *(with default)*: on which part the function cosmic ray removal
-#' should be applied on: 1 = along the time axis (line by line), 2 = along the wavelength axis (column by
-#' column). Note: This argument currently only affects the methods `smooth` and `smooth.spline`
+#' @param MARGIN [integer] (*with default*): 
+#' on which part the function cosmic ray removal should be applied on: 
+#' 
+#' - 1 = along the time axis (line by line), 
+#' - 2 = along the wavelength axis (column by column). 
+#' 
+#' **Note:** This argument currently only affects the methods `smooth` and `smooth.spline`
 #'
-#' @param verbose [logical] *(with default)*: Option to suppress
-#' terminal output.,
+#' @param verbose [logical] (*with default*): 
+#' Option to suppress terminal output.,
 #'
-#' @param plot [logical] *(with default)*: If `TRUE` the
-#' histograms used for the cosmic-ray removal are returned as plot including
-#' the used threshold. Note: A separat plot is returned for each frame!
+#' @param plot [logical] (*with default*): 
+#' If `TRUE` the histograms used for the cosmic-ray removal are returned as plot 
+#' including the used threshold. Note: A separat plot is returned for each frame!
 #' Currently only for `method = "Pych"` a graphical output is provided.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
-#' to the `smooth` function.
+#' to the [smooth] function.
 #'
-#' @return Returns same object as input
-#' ([RLum.Data.Spectrum-class])
+#' @return Returns same object as input ([RLum.Data.Spectrum-class])
 #'
 #' @section Function version: 0.2.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [smooth],
-#' [smooth.spline], [apply_CosmicRayRemoval]
+#' @seealso [RLum.Data.Spectrum-class], [smooth], [smooth.spline], 
+#' [apply_CosmicRayRemoval]
 #'
-#' @references Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
+#' @references 
+#' Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 #' Single Images. Astrophysics 116, 148-153.
 #' [http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail]()
 #'
 #' @keywords manip
 #'
 #' @examples
-#'
 #'
 #' ##(1) - use with your own data and combine (uncomment for usage)
 #' ## run two times the default method and smooth with another method

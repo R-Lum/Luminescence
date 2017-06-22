@@ -12,33 +12,31 @@
 #' If the energy calibration differes for both data set `NA` values are produces that
 #' will be removed from the matrix.
 #'
-#' @param object [RLum.Data.Spectrum-class] (**required**): S4
-#' object of class `RLum.Data.Spectrum`
+#' @param object [RLum.Data.Spectrum-class] (**required**): 
+#' S4 object of class `RLum.Data.Spectrum`
 #'
-#' @param spectral.efficiency [data.frame] (**required**): Data
-#' set containing wavelengths (x-column) and relative spectral response values
+#' @param spectral.efficiency [data.frame] (**required**): 
+#' Data set containing wavelengths (x-column) and relative spectral response values
 #' (y-column) in percentage
 #'
-#' @return Returns same object as input
-#' ([RLum.Data.Spectrum-class])
+#' @return Returns same object as input ([RLum.Data.Spectrum-class])
 #'
-#' @note Please note that the spectral efficiency data from the camera alone may not
+#' @note 
+#' Please note that the spectral efficiency data from the camera alone may not
 #' sufficiently correct for spectral efficiency of the entire optical system
 #' (e.g., spectrometer, camera ...).
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France),\cr Johannes Friedrich, University of Bayreuth (Germany)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Johannes Friedrich, University of Bayreuth (Germany)
 #'
 #' @seealso [RLum.Data.Spectrum-class]
-#'
-#'
 #'
 #' @keywords manip
 #'
 #' @examples
-#'
 #'
 #' ##(1) - use with your own data (uncomment for usage)
 #' ## spectral.efficiency <- read.csv("your data")

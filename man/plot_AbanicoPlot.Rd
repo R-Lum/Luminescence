@@ -18,10 +18,10 @@ object (\strong{required}): for \code{data.frame} two columns: De (\code{data[,1
 and De error (\code{data[,2]}). To plot several data sets in one plot the
 data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
-\item{na.rm}{\link{logical} \emph{(with default)}: exclude NA values
+\item{na.rm}{\link{logical} (\emph{with default}): exclude NA values
 from the data set prior to any further operations.}
 
-\item{log.z}{\link{logical} \emph{(with default)}: Option to display the
+\item{log.z}{\link{logical} (\emph{with default}): Option to display the
 z-axis in logarithmic scale. Default is \code{TRUE}.}
 
 \item{z.0}{\link{character} or \link{numeric}: User-defined
@@ -29,7 +29,7 @@ central value, used for centering of data. One out of \code{"mean"},
 \code{"mean.weighted"} and \code{"median"} or a numeric value (not its
 logarithm). Default is \code{"mean.weighted"}.}
 
-\item{dispersion}{\link{character} \emph{(with default)}: measure of
+\item{dispersion}{\link{character} (\emph{with default}): measure of
 dispersion, used for drawing the scatter polygon. One out of \code{"qr"}
 (quartile range), \code{"pnn"} (symmetric percentile range with nn the lower
 percentile, e.g. \code{"p05"} depicting the range between 5 and 95 %),
@@ -45,7 +45,7 @@ versus the cartesian plot part, deault is \code{0.75}.}
 
 \item{mtext}{\link{character}: additional text below the plot title.}
 
-\item{summary}{\link{character} \emph{(optional)}: add statistic measures of
+\item{summary}{\link{character} (\emph{optional}): add statistic measures of
 centrality and dispersion to the plot. Can be one or more of several
 keywords. See details for available keywords. Results differ depending on
 the log-option for the z-scale (see details).}
@@ -56,12 +56,12 @@ for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option in only possible if \code{mtext} is not used.}
 
-\item{summary.method}{\link{character} \emph{(with default)}: keyword
+\item{summary.method}{\link{character} (\emph{with default}): keyword
 indicating the method used to calculate the statistic summary. One out of
 \code{"unweighted"}, \code{"weighted"} and \code{"MCM"}. See
 \link{calc_Statistics} for details.}
 
-\item{legend}{\link{character} vector \emph{(optional)}: legend content to
+\item{legend}{\link{character} vector (\emph{optional}): legend content to
 be added to the plot.}
 
 \item{legend.pos}{\link{numeric} or \link{character} (with
@@ -95,7 +95,7 @@ for data with small scatter.}
 bars on De-points. Useful in combination with \code{y.axis = FALSE, bar.col
 = "none"}.}
 
-\item{bar}{\link{numeric} \emph{(with default)}: option to add one or more
+\item{bar}{\link{numeric} (\emph{with default}): option to add one or more
 dispersion bars (i.e., bar showing the 2-sigma range) centered at the
 defined values. By default a bar is drawn according to \code{"z.0"}. To omit
 the bar set \code{"bar = FALSE"}.}
@@ -123,20 +123,20 @@ default): colour of the grid lines (originating at \code{[0,0]} and strechting t
 the z-scale). To disable grid lines use \code{FALSE}. Default is
 \code{"grey"}.}
 
-\item{frame}{\link{numeric} \emph{(with default)}: option to modify the
+\item{frame}{\link{numeric} (\emph{with default}): option to modify the
 plot frame type. Can be one out of \code{0} (no frame), \code{1} (frame
 originates at 0,0 and runs along min/max isochrons), \code{2} (frame
 embraces the 2-sigma bar), \code{3} (frame embraces the entire plot as a
 rectangle).Default is \code{1}.}
 
-\item{bw}{\link{character} \emph{(with default)}: bin-width for KDE, choose
+\item{bw}{\link{character} (\emph{with default}): bin-width for KDE, choose
 a numeric value for manual setting.}
 
 \item{output}{\link{logical}: Optional output of numerical plot
 parameters. These can be useful to reproduce similar plots. Default is
 \code{TRUE}.}
 
-\item{interactive}{\link{logical} \emph{(with default)}: create an interactive
+\item{interactive}{\link{logical} (\emph{with default}): create an interactive
 abanico plot (requires the 'plotly' package)}
 
 \item{...}{Further plot arguments to pass. \code{xlab} must be a vector of

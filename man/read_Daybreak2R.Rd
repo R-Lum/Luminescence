@@ -12,13 +12,13 @@ file to be imported. Alternatively a list of file names can be provided or just 
 containing measurement data. Please note that the specific, common, file extension (txt) is likely
 leading to function failures during import when just a path is provided.}
 
-\item{raw}{\link{logical} \emph{(with default)}: if the input is a DAT-file (binary) a
+\item{raw}{\link{logical} (\emph{with default}): if the input is a DAT-file (binary) a
 \link[data.table:data.table]{data.table::data.table} instead of the \linkS4class{RLum.Analysis} object
 can be returned for debugging purposes.}
 
-\item{verbose}{\link{logical} \emph{(with default)}: enables or disables terminal feedback}
+\item{verbose}{\link{logical} (\emph{with default}): enables or disables terminal feedback}
 
-\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables or disables
+\item{txtProgressBar}{\link{logical} (\emph{with default}): enables or disables
 \link{txtProgressBar}.}
 }
 \value{

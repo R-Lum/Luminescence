@@ -51,7 +51,7 @@
 #' [RLum.Data.Curve-class] or `data.frame` with measured
 #' curve data of type stimulation time (t) (`values[,1]`) and measured
 #' counts (cts) (`values[,2]`)
-#' @param P [vector] *(optional)*: stimulation time in seconds. If no
+#' @param P [vector] (*optional*): stimulation time in seconds. If no
 #' value is given the optimal value is estimated automatically (see details).
 #' Greater values of P produce more points in the rising tail of the curve.
 #' @return The function returns the same data type as the input data type with

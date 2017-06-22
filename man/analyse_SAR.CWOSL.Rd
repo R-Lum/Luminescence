@@ -33,7 +33,7 @@ upper bound of the background integral. Can be a \link{list} of \link{integer}s,
 of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the maximum background integral for the Tx curve.}
 
-\item{rejection.criteria}{\link{list} \emph{(with default)}:
+\item{rejection.criteria}{\link{list} (\emph{with default}):
 provide a named list and set rejection criteria in \strong{percentage} for further calculation. Can be a \link{list} in
 a \link{list}, if \code{object} is of type \link{list}
 
@@ -44,19 +44,19 @@ Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE
 Every criterium can be set to \code{NA}. In this value are calculated, but not considered, i.e.
 the RC.Status becomes always \code{'OK'}}
 
-\item{dose.points}{\link{numeric} \emph{(optional)}:
+\item{dose.points}{\link{numeric} (\emph{optional}):
 a numeric vector containg the dose points values Using this argument
 overwrites dose point values in the signal curves. Can be a \link{list} of
 \link{numeric} vectors, if \code{object} is of type \link{list}}
 
-\item{mtext.outer}{\link{character} \emph{(optional)}:
+\item{mtext.outer}{\link{character} (\emph{optional}):
 option to provide an outer margin mtext. Can be a \link{list} of \link{character}s,
 if \code{object} is of type \link{list}}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} (\emph{with default}):
 enables or disables plot output.}
 
-\item{plot.single}{\link{logical} \emph{(with default)} or \link{numeric} \emph{(optional)}:
+\item{plot.single}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot windows.
 If a numerice vector is provided the plots can be selected individually, i.e.
 \code{plot.single = c(1,2,3,4)} will plot the TL and Lx, Tx curves but not the legend (5) or the
@@ -70,7 +70,7 @@ growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 method you should provide your own \code{sigmab} value!}
 }
 \value{
-A plot \emph{(optional)} and an \linkS4class{RLum.Results} object is
+A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 
 \item{data}{\link{data.frame} containing De-values, De-error and further parameters}

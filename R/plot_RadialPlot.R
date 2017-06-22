@@ -36,9 +36,9 @@
 #' object (**required**): for `data.frame` two columns: De (`data[,1]`)
 #' and De error (`data[,2]`). To plot several data sets in one plot, the
 #' data sets must be provided as `list`, e.g. `list(data.1, data.2)`.
-#' @param na.rm [logical] *(with default)*: excludes `NA`
+#' @param na.rm [logical] (*with default*): excludes `NA`
 #' values from the data set prior to any further operations.
-#' @param log.z [logical] *(with default)*: Option to display the
+#' @param log.z [logical] (*with default*): Option to display the
 #' z-axis in logarithmic scale. Default is `TRUE`.
 #' @param central.value [numeric]: User-defined central value,
 #' primarily used for horizontal centering of the z-axis.
@@ -48,7 +48,7 @@
 #' `"median"`, `"mean.weighted"` and `"median.weighted"` or a
 #' numeric value used for the standardisation.
 #' @param mtext [character]: additional text below the plot title.
-#' @param summary [character] *(optional)*: add statistic measures of
+#' @param summary [character] (*optional*): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #' @param summary.pos [numeric] or [character] (with
@@ -56,7 +56,7 @@
 #' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
 #' option is only possible if `mtext` is not used.
-#' @param legend [character] vector *(optional)*: legend content to
+#' @param legend [character] vector (*optional*): legend content to
 #' be added to the plot.
 #' @param legend.pos [numeric] or [character] (with
 #' default): optional position coordinates or keyword (e.g. `"topright"`)

@@ -17,14 +17,14 @@
 #'
 #' @param object [RLum-class] or a [list] of `RLum` objects (**required**): objects to be written
 #'
-#' @param path [character] *(optional)*: character string naming folder for the output to be written. If nothing
+#' @param path [character] (*optional*): character string naming folder for the output to be written. If nothing
 #' is provided `path` will be set to the working directory. Note: this argument is ignored if the
 #' the argument `export` is set to `FALSE`.
 #'
-#' @param prefix [character] *(with default)*: optional prefix to name the files. This prefix
+#' @param prefix [character] (*with default*): optional prefix to name the files. This prefix
 #' is valid for all written files
 #'
-#' @param export [logical] *(with default)*: enable or disable the file export. If set to `FALSE`
+#' @param export [logical] (*with default*): enable or disable the file export. If set to `FALSE`
 #' nothing is written to the file connection, but a list comprising objects of type [data.frame] and [matrix]
 #' is returned instead
 #'

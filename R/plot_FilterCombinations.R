@@ -1,42 +1,43 @@
-#' Plot filter combinations along with the *(optional)* net transmission window
+#' Plot filter combinations along with the (*optional*) net transmission window
 #'
 #' The function allows to plot transmission windows for different filters. Missing data for specific
 #' wavelenghts are automatically interpolated for the given filter data using the function [approx].
-#' With that a standardised output is reached and a net transmission window can be shown.\cr
+#' With that a standardised output is reached and a net transmission window can be shown.
 #'
-#' **How to provide input data?**\cr
+#' **How to provide input data?**
 #'
-#' CASE 1\cr
+#' *CASE 1*
 #'
 #' The function expects that all filter values are either of type `matrix` or `data.frame`
 #' with two columns. The first columens contains the wavelength, the second the relative transmission
 #' (but not in percentage, i.e. the maximum transmission can be only become 1).
 #'
 #' In this case only the transmission window is show as provided. Changes in filter thickness and
-#' relection factor are not considered. \cr
+#' relection factor are not considered.
 #'
-#' CASE 2\cr
+#' *CASE 2*
 #'
-#' The filter data itself are provided as list element containing a `matrix` or `data.frame`
-#' and additional information on the thickness of the filter, e.g., `list(filter1 = list(filter_matrix, d = 2))`.
+#' The filter data itself are provided as list element containing a `matrix` or 
+#' `data.frame` and additional information on the thickness of the filter, e.g., 
+#' `list(filter1 = list(filter_matrix, d = 2))`.
 #' The given filter data are always considered as standard input and the filter thickness value
 #' is taken into account by
 #'
 #' \deqn{Transmission = Transmission^(d)}
 #'
-#' with d given in the same dimension as the original filter data.\cr
+#' with d given in the same dimension as the original filter data.
 #'
-#' CASE 3\cr
+#' *CASE 3*
 #'
 #' Same as CASE 2 but additionally a reflection factor P is provided, e.g.,
-#' `list(filter1 = list(filter_matrix, d = 2, P = 0.9))`. The final transmission
-#' becomes:
+#' `list(filter1 = list(filter_matrix, d = 2, P = 0.9))`. 
+#' The final transmission becomes:
 #'
-#' \deqn{Transmission = Transmission^(d) * P}\cr
+#' \deqn{Transmission = Transmission^(d) * P}
 #'
-#' **Advanced plotting parameters**\cr
+#' **Advanced plotting parameters**
 #'
-#' The following further non-common plotting parameters can be passed to the function:\cr
+#' The following further non-common plotting parameters can be passed to the function:
 #'
 #' \tabular{lll}{
 #' **Argument** \tab **Datatype** \tab **Description**\cr
@@ -52,43 +53,47 @@
 #' instead.
 #'
 #'
-#' @param filters [list] (**required**): a named list of filter data for each filter to be shown.
+#' @param filters [list] (**required**): 
+#' a named list of filter data for each filter to be shown. 
 #' The filter data itself should be either provided as [data.frame] or [matrix].
 #' (for more options s. Details)
 #'
-#' @param wavelength_range [numeric] *(with default)*: wavelength range used for the interpolation
+#' @param wavelength_range [numeric] (*with default*): 
+#' wavelength range used for the interpolation
 #'
-#' @param show_net_transmission [logical] *(with default)*: show net transmission window
-#' as polygon.
+#' @param show_net_transmission [logical] (*with default*): 
+#' show net transmission window as polygon.
 #'
-#' @param interactive [logical] *(with default)*: enable/disable interactive plot
+#' @param interactive [logical] (*with default*): 
+#' enable/disable interactive plot
 #'
-#' @param plot [logical] *(with default)*: enables or disables the plot output
+#' @param plot [logical] (*with default*): 
+#' enables or disables the plot output
 #'
-#' @param ... further arguments that can be passed to control the plot output. Suppored are `main`,
-#' `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
+#' @param ... further arguments that can be passed to control the plot output. 
+#' Suppored are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
 #' For non common plotting parameters see the details section.
 #'
 #' @return Returns an S4 object of type [RLum.Results-class].
 #'
 #' **@data**
+#' 
 #' \tabular{lll}{
 #' **Object** \tab **Type** **Description** \cr
-#'  net_transmission_window \tab `matrix` \tab the resulting net transmission window \cr
-#'  filter_matrix \tab `matrix` \tab the filter matrix used for plotting
-#'
+#'  `net_transmission_window` \tab [matrix] \tab the resulting net transmission window \cr
+#'  `filter_matrix` \tab [matrix] \tab the filter matrix used for plotting
 #' }
 #'
 #' **@info**
+#' 
 #' \tabular{lll}{
 #' **Object** \tab **Type** **Description** \cr
-#' call \tab `call` \tab the original function call
-#'
+#' `call` \tab [call] \tab the original function call
 #' }
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
+#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
 #'
 #' @seealso [RLum.Results-class], [approx]
 #'

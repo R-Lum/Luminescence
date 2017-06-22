@@ -30,21 +30,21 @@ different integration limits for the different IRSL curves.}
 upper bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.}
 
-\item{dose.points}{\link{numeric} \emph{(optional)}:
+\item{dose.points}{\link{numeric} (\emph{optional}):
 a numeric vector containing the dose points values. Using this argument overwrites dose point
 values in the signal curves.}
 
-\item{sequence.structure}{\link{vector} \link{character} \emph{(with default)}:
+\item{sequence.structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Allowed values are \code{"TL"} and
 any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
 Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves from
 the analysis (Note: If a preheat without PMT measurement is used, i.e.
 preheat as non TL, remove the TL step.)}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} (\emph{with default}):
 enables or disables plot output.}
 
-\item{plot.single}{\link{logical} \emph{(with default)}:
+\item{plot.single}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot
 windows. Requires \code{plot = TRUE}.}
 
@@ -52,7 +52,7 @@ windows. Requires \code{plot = TRUE}.}
 \link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}}
 }
 \value{
-Plots \emph{(optional)} and an \linkS4class{RLum.Results} object is
+Plots (\emph{optional}) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 
 \tabular{lll}{

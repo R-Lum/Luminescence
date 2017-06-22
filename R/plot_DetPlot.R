@@ -1,11 +1,11 @@
 #' Create De(t) plot
 #'
-#' Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
-#' The function is simply passing several arguments to the function [plot] and the used
-#' analysis functions and runs it in a loop. Example: `legend.pos` for legend position,
-#' `legend` for legend text.\cr
+#' Plots the equivalent dose (De) in dependency of the chosen signal integral 
+#' (cf. Bailey et al., 2003). The function is simply passing several arguments 
+#' to the function [plot] and the used analysis functions and runs it in a loop. 
+#' Example: `legend.pos` for legend position, `legend` for legend text.
 #'
-#' **method**\cr
+#' **method**
 #'
 #' The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
 #' extended them accounting for changes in the counting statistics. Example: `c(1:3, 3:5, 5:7)`.
@@ -13,16 +13,16 @@
 #' consectutively expaning the integral by its chosen length. Example: `c(1:3, 1:5, 1:7)`
 #'
 #' Note that in both cases the integral limits are overlap. The finally applied limits are part
-#' of the function output.\cr
+#' of the function output.
 #'
-#' @param object [RLum.Analysis-class] (**required**): input
-#' object containing data for analysis
+#' @param object [RLum.Analysis-class] (**required**): 
+#' input object containing data for analysis
 #'
-#' @param signal.integral.min [integer] (**required**): lower
-#' bound of the signal integral.
+#' @param signal.integral.min [integer] (**required**): 
+#' lower bound of the signal integral.
 #'
-#' @param signal.integral.max [integer] (**required**): upper
-#' bound of the signal integral.
+#' @param signal.integral.max [integer] (**required**): 
+#' upper bound of the signal integral.
 #'
 #' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral.
@@ -30,38 +30,46 @@
 #' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral.
 #'
-#' @param method [character] *(with default)*: method applied for constructing the De(t) plot.
-#' `shift` (the default): the chosen signal integral is shifted the shine down curve,
-#' `expansion`: the chosen signal integral is expanded each time by its length
+#' @param method [character] (*with default*): 
+#' method applied for constructing the De(t) plot.
+#' - `shift` (*the default*): the chosen signal integral is shifted the shine down curve,
+#' - `expansion`: the chosen signal integral is expanded each time by its length
 #'
-#' @param signal_integral.seq [numeric] *(optional)*: argument to provide an own
-#' signal integral sequence for constructing the De(t) plot
+#' @param signal_integral.seq [numeric] (*optional*): 
+#' argument to provide an own signal integral sequence for constructing the De(t) plot
 #'
-#' @param analyse_function [character] *(with default)*: name of the analyse function
-#' to be called. Supported functions are: `'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`
+#' @param analyse_function [character] (*with default*): 
+#' name of the analyse function to be called. Supported functions are: 
+#' `'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`
 #'
-#' @param analyse_function.control [list] *(optional)*: arguments to be passed to the
-#' supported analyse functions (`'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`)
+#' @param analyse_function.control [list] (*optional*): 
+#' arguments to be passed to the supported analyse functions 
+#' (`'analyse_SAR.CWOSL'`, `'analyse_pIRIRSequence'`)
 #'
-#' @param n.channels [integer] *(optional)*: number of channels used for the De(t) plot.
-#' If nothing is provided all De-values are calculated and plotted until the start of the background
+#' @param n.channels [integer] (*optional*): 
+#' number of channels used for the De(t) plot. If nothing is provided all 
+#' De-values are calculated and plotted until the start of the background
 #' integral.
 #'
-#' @param show_ShineDownCurve [logical] *(with default)*: enables or disables shine down
-#' curve in the plot output
+#' @param show_ShineDownCurve [logical] (*with default*): 
+#' enables or disables shine down curve in the plot output
 #'
-#' @param respect_RC.Status [logical] *(with default)*: remove De-values with 'FAILED' RC.Status
-#' from the plot (cf. [analyse_SAR.CWOSL] and [analyse_pIRIRSequence])
+#' @param respect_RC.Status [logical] (*with default*):
+#'  remove De-values with 'FAILED' RC.Status from the plot 
+#'  (cf. [analyse_SAR.CWOSL] and [analyse_pIRIRSequence])
 #'
-#' @param verbose [logical] *(with default)*: enables or disables terminal feedback
+#' @param verbose [logical] (*with default*): 
+#' enables or disables terminal feedback
 #'
-#' @param ... further arguments and graphical parameters passed to
+#' @param ... further arguments and graphical parameters passed to 
 #' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence].
 #' See details for further information.
 #'
-#' @return A plot and an [RLum.Results-class] object with the produced De values
+#' @return 
+#' A plot and an [RLum.Results-class] object with the produced De values
 #'
 #' `@data`:
+#' 
 #' \tabular{lll}{
 #' **Object** \tab **Type** \tab **Description**\cr
 #' De.values \tab `data.frame` \tab table with De values \cr
@@ -76,19 +84,19 @@
 #' }
 #'
 #'
-#'
-#' @note The entire analysis is based on the used analysis functions, namely
+#' @note 
+#' The entire analysis is based on the used analysis functions, namely
 #' [analyse_SAR.CWOSL] and [analyse_pIRIRSequence]. However, the integrity
-#' checks of this function are not that thoughtful as in these functions itself. It means, that
-#' every sequence should be checked carefully before running long calculations using serveral
-#' hundreds of channels.
+#' checks of this function are not that thoughtful as in these functions itself. 
+#' It means, that every sequence should be checked carefully before running long 
+#' calculations using serveral hundreds of channels.
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @references
-#'
 #' Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
 #' using De as a function of illumination time. Radiation Measurements 37, 511-518.
 #' doi:10.1016/S1350-4487(03)00063-5

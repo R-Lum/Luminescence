@@ -7,8 +7,8 @@
 bin_RLum.Data(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data} (\strong{required}): S4 object of
-class \code{RLum.Data}}
+\item{object}{\linkS4class{RLum.Data} (\strong{required}):
+S4 object of class \code{RLum.Data}}
 
 \item{...}{further arguments passed to the specifc class method}
 }
@@ -20,12 +20,13 @@ Function calls the object-specific bin functions for RLum.Data S4 class objects.
 }
 \details{
 The function provides a generalised access point for specific
-\linkS4class{RLum.Data} objects.\cr Depending on the input object, the
-corresponding function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \linkS4class{RLum.Data} class.
+\linkS4class{RLum.Data} objects. \cr
+Depending on the input object, the corresponding function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{RLum.Data} class.
 }
 \note{
-Currenlty only \code{RLum.Data} objects of class \code{RLum.Data.Curve} are supported!
+Currenlty only \code{RLum.Data} objects of class \linkS4class{RLum.Data.Curve} are supported!
 }
 \section{Function version}{
  0.1.0

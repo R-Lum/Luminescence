@@ -3,25 +3,24 @@
 #' Function calls object specific plot functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for plotting specific
-#' [RLum-class] objects.\cr Depending on the input object, the
+#' [RLum-class] objects.\cr 
+#' Depending on the input object, the
 #' corresponding plot function will be selected.  Allowed arguments can be
-#' found in the documentations of each plot function.  \tabular{lll}{
+#' found in the documentations of each plot function.  
+#' 
+#' \tabular{lll}{
 #' **object** \tab \tab **corresponding plot function** \cr
+#' [RLum.Data.Curve-class] \tab : \tab [plot_RLum.Data.Curve] \cr
+#' [RLum.Data.Spectrum-class] \tab : \tab [plot_RLum.Data.Spectrum]\cr
+#' [RLum.Data.Image-class] \tab : \tab [plot_RLum.Data.Image]\cr 
+#' [RLum.Analysis-class] \tab : \tab [plot_RLum.Analysis]\cr
+#' [RLum.Results-class] \tab : \tab [plot_RLum.Results] 
+#' }
 #'
-#' [RLum.Data.Curve-class] \tab : \tab
-#' [plot_RLum.Data.Curve] \cr
-#' [RLum.Data.Spectrum-class] \tab : \tab
-#' [plot_RLum.Data.Spectrum]\cr
-#' [RLum.Data.Image-class] \tab : \tab
-#' [plot_RLum.Data.Image]\cr [RLum.Analysis-class]
-#' \tab : \tab [plot_RLum.Analysis]\cr
-#' [RLum.Results-class] \tab : \tab
-#' [plot_RLum.Results] }
-#'
-#' @param object [RLum-class] (**required**): S4 object of
-#' class `RLum`. Optional a [list] containing objects of class [RLum-class]
-#' can be provided. In this case the function tries to plot every object in this list according
-#' to its `RLum` class.
+#' @param object [RLum-class] (**required**): 
+#' S4 object of class `RLum`. Optional a [list] containing objects of 
+#' class [RLum-class] can be provided. In this case the function tries to plot 
+#' every object in this list according to its `RLum` class.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions. The only argument that is supported directly is `main`
@@ -35,21 +34,18 @@
 #'
 #' @section Function version: 0.4.3
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso [plot_RLum.Data.Curve],
-#' [RLum.Data.Curve-class], [plot_RLum.Data.Spectrum],
-#' [RLum.Data.Spectrum-class], [plot_RLum.Data.Image],
-#' [RLum.Data.Image-class], [plot_RLum.Analysis],
-#' [RLum.Analysis-class], [plot_RLum.Results],
+#' @seealso [plot_RLum.Data.Curve], [RLum.Data.Curve-class], [plot_RLum.Data.Spectrum],
+#' [RLum.Data.Spectrum-class], [plot_RLum.Data.Image], [RLum.Data.Image-class], 
+#' [plot_RLum.Analysis], [RLum.Analysis-class], [plot_RLum.Results],
 #' [RLum.Results-class]
 #'
 #'
 #' @keywords dplot
 #'
 #' @examples
-#'
 #'
 #' #load Example data
 #' data(ExampleData.CW_OSL_Curve, envir = environment())

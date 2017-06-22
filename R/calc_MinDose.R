@@ -106,41 +106,41 @@
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details.
 #'
-#' @param log [logical] **(with default)**: 
+#' @param log [logical] *(*with default*)*: 
 #' fit the (un-)logged minimum dose model to De data.
 #'
-#' @param par [numeric] **(with default)**: 
+#' @param par [numeric] *(*with default*)*: 
 #' apply the 3- or 4-parametric minimum age model (`par=3` or `par=4`). The MAM-3 is
 #' used by default.
 #'
-#' @param bootstrap [logical] **(with default)**: 
+#' @param bootstrap [logical] *(*with default*)*: 
 #' apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
 #'
-#' @param init.values [numeric] **(optional)**: 
+#' @param init.values [numeric] *(*optional*)*: 
 #' a named list with starting values for gamma, sigma, p0 and mu 
 #' (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are provided reasonable values
 #' are tried to be estimated from the data.
 #'
-#' @param level [logical] **(with default)**: 
+#' @param level [logical] *(*with default*)*: 
 #' the confidence level required (defaults to 0.95).
 #'
-#' @param plot [logical] **(with default)**: 
+#' @param plot [logical] *(*with default*)*: 
 #' plot output (`TRUE`/`FALSE`)
 #'
-#' @param multicore [logical] **(with default)**: 
+#' @param multicore [logical] *(*with default*)*: 
 #' enable parallel computation of the bootstrap by creating a multicore SNOW cluster. Depending
 #' on the number of available logical CPU cores this may drastically reduce
 #' the computation time. Note that this option is highly experimental and may not
 #' work on all machines. (`TRUE`/`FALSE`)
 #'
-#' @param ... **(optional)** further arguments for bootstrapping 
+#' @param ... *(*optional*)* further arguments for bootstrapping 
 #' (`bs.M, bs.N, bs.h, sigmab.sd`). See details for their usage. 
 #' Further arguments are 
 #' - `verbose` to de-/activate console output (logical), 
 #' - `debug` for extended console output (logical) and 
 #' - `cores` (integer) to manually specify the number of cores to be used when `multicore=TRUE`.
 #'
-#' @return Returns a plot **(optional)** and terminal output. In addition an
+#' @return Returns a plot *(*optional*)* and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'

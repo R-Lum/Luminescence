@@ -30,25 +30,25 @@
 #' requires the channel number for the upper signal integral bound 
 #' (e.g. `signal.integral.max = 200`)
 #'
-#' @param integral_input [character] *(with default)*: 
+#' @param integral_input [character] (*with default*): 
 #' defines the input for the the arguments `signal.integral.min` and 
 #' `signal.integral.max`. These limits can be either provided `'channel'` 
 #' number (the default) or `'temperature'`. If `'temperature'` is chosen the 
 #' best matching channel is selected.
 #'
-#' @param sequence.structure [vector] [character] *(with default)*:
+#' @param sequence.structure [vector] [character] (*with default*):
 #' specifies the general sequence structure. Three steps are allowed 
 #' (`"PREHEAT"`, `"SIGNAL"`, `"BACKGROUND"`), in addition a
 #' parameter `"EXCLUDE"`. This allows excluding TL curves which are not
 #' relevant for the protocol analysis.  (**Note:** None TL are removed by default)
 #'
-#' @param rejection.criteria [list] *(with default)*: 
+#' @param rejection.criteria [list] (*with default*): 
 #' list containing rejection criteria in percentage for the calculation.
 #'
-#' @param dose.points [numeric] *(optional)*: 
+#' @param dose.points [numeric] (*optional*): 
 #' option set dose points manually
 #'
-#' @param log [character] *(with default)*: 
+#' @param log [character] (*with default*): 
 #' a character string which contains "x" if the x axis is to be logarithmic, 
 #' "y" if the y axis is to be logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 #' [plot.default]).
@@ -56,7 +56,7 @@
 #' @param ... further arguments that will be passed to the function [plot_GrowthCurve]
 #'
 #' @return 
-#' A plot *(optional)* and an [RLum.Results-class] object is
+#' A plot (*optional*) and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #' 
 #' \item{De.values}{[data.frame] containing De-values and further parameters} 

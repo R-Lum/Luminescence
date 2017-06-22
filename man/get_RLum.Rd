@@ -11,17 +11,16 @@ get_RLum(object, ...)
 \S4method{get_RLum}{list}(object, null.rm = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
-class \code{RLum} or an object of type \link{list} containing only objects of type
-\linkS4class{RLum}}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+S4 object of class \code{RLum} or an object of type \link{list} containing only objects
+of type \linkS4class{RLum}}
 
 \item{...}{further arguments that will be passed to the object specific methods. For
 furter details on the supported arguments please see the class
-documentation: \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Analysis} and \linkS4class{RLum.Results}}
+documentation: \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Spectrum},
+\linkS4class{RLum.Data.Image}, \linkS4class{RLum.Analysis} and \linkS4class{RLum.Results}}
 
-\item{null.rm}{\link{logical} \emph{(with default)}: option to get rid of empty and NULL objects}
+\item{null.rm}{\link{logical} (\emph{with default}): option to get rid of empty and NULL objects}
 }
 \value{
 Return is the same as input objects as provided in the list.
@@ -31,9 +30,10 @@ Function calls object-specific get functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects.\cr Depending on the input object, the
-corresponding get function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \linkS4class{RLum} class.
+\linkS4class{RLum} objects.\cr
+Depending on the input object, the corresponding get function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{RLum} class.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -45,7 +45,6 @@ in the documentations of the corresponding \linkS4class{RLum} class.
 }
 
 \examples{
-
 
 ##Example based using data and from the calc_CentralDose() function
 
@@ -60,14 +59,10 @@ temp.get <- get_RLum(object = temp1)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum},
-\linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}
+\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{utilities}

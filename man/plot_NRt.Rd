@@ -8,26 +8,25 @@ plot_NRt(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
   legend = TRUE, legend.pos = "topright", ...)
 }
 \arguments{
-\item{data}{a \link{list}, \link{data.frame}, \link{matrix} or
-\linkS4class{RLum.Analysis} object (\strong{required}). X,Y data of measured values
-(time and counts). See details on individual data structure.}
+\item{data}{\link{list}, \link{data.frame}, \link{matrix} or \linkS4class{RLum.Analysis} (\strong{required}):
+X,Y data of measured values (time and counts). See details on individual data structure.}
 
-\item{log}{\link{character} \emph{(optional)}: logarithmic axes
-(\code{c("x", "y", "xy")}).}
+\item{log}{\link{character} (\emph{optional}):
+logarithmic axes (\code{c("x", "y", "xy")}).}
 
-\item{smooth}{\link{character} \emph{(optional)}: apply data smoothing. Use
-\code{"rmean"} to calculate the rolling where \code{k} determines the width
-of the rolling window (see \link{rollmean}).
-\code{"spline"} applies a smoothing spline to each curve
-(see \link{smooth.spline})}
+\item{smooth}{\link{character} (\emph{optional}):
+apply data smoothing. Use \code{"rmean"} to calculate the rolling where \code{k}
+determines the width of the rolling window (see \link{rollmean}). \code{"spline"}
+applies a smoothing spline to each curve (see \link{smooth.spline})}
 
-\item{k}{\link{integer} \emph{(with default)}: integer width of the rolling
-window.}
+\item{k}{\link{integer} (\emph{with default}):
+integer width of the rolling window.}
 
-\item{legend}{\link{logical} \emph{(with default)}: show or hide the plot legend.}
+\item{legend}{\link{logical} (\emph{with default}):
+show or hide the plot legend.}
 
-\item{legend.pos}{\link{character} \emph{(with default)}: keyword specifying
-the position of the legend (see \link{legend}).}
+\item{legend.pos}{\link{character} (\emph{with default}):
+keyword specifying the position of the legend (see \link{legend}).}
 
 \item{...}{further parameters passed to \link{plot} (also see \link{par}).}
 }
@@ -44,6 +43,7 @@ This function accepts the individual curve data in many different formats. If
 column \code{data.frame} or \code{matrix} containing the XY data of the curves
 (time and counts). Alternatively, the elements can be objects of class
 \linkS4class{RLum.Data.Curve}.
+
 Input values can also be provided as a \code{data.frame} or \code{matrix} where
 the first column contains the time values and each following column contains
 the counts of each curve.

@@ -7,12 +7,12 @@
 plot_RLum.Results(object, single = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} (\strong{required}): S4 object
-of class \code{RLum.Results}}
+\item{object}{\linkS4class{RLum.Results} (\strong{required}):
+S4 object of class \code{RLum.Results}}
 
-\item{single}{\link{logical} \emph{(with default)}: single plot output
-(\code{TRUE/FALSE}) to allow for plotting the results in as few plot windows
-as possible.}
+\item{single}{\link{logical} (\emph{with default}):
+single plot output (\code{TRUE/FALSE}) to allow for plotting the results in as
+few plot windows as possible.}
 
 \item{...}{further arguments and graphical parameters will be passed to
 the \code{plot} function.}
@@ -57,10 +57,10 @@ plot_RLum.Results(grains)
 
 }
 \seealso{
-\link{plot}, \link{plot_RLum},
+\link{plot}, \link{plot_RLum}
 }
 \author{
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,
-Universite Bordeaux Montaigne (France)
+Christoph Burow, University of Cologne (Germany) \cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{aplot}

@@ -17,19 +17,19 @@
 #' the output file\cr `[WIN]`: `write_R2BIN(object, "C:/Desktop/test.bin")`,
 #' \cr `[MAC/LINUX]`: `write_R2BIN("/User/test/Desktop/test.bin")`
 #'
-#' @param version [character] *(optional)*: version number for the
+#' @param version [character] (*optional*): version number for the
 #' output file. If no value is provided the highest version number from the
 #' [Risoe.BINfileData-class] is taken automatically.
 #'
 #' Note:
 #' This argument can be used to convert BIN-file versions.
 #'
-#' @param compatibility.mode [logical] *(with default)*: this option
+#' @param compatibility.mode [logical] (*with default*): this option
 #' recalculates the position values if necessary and set the max. value to 48.
 #' The old position number is appended as comment (e.g., 'OP: 70). This option
 #' accounts for potential compatibility problems with the Analyst software.
 #'
-#' @param txtProgressBar [logical] *(with default)*: enables or disables
+#' @param txtProgressBar [logical] (*with default*): enables or disables
 #' [txtProgressBar].
 #' @return Write a binary file.
 #' @note The function just roughly checks the data structures. The validity of

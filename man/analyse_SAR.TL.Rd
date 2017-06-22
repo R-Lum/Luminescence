@@ -24,25 +24,25 @@ requires the channel number for the lower signal integral bound
 requires the channel number for the upper signal integral bound
 (e.g. \code{signal.integral.max = 200})}
 
-\item{integral_input}{\link{character} \emph{(with default)}:
+\item{integral_input}{\link{character} (\emph{with default}):
 defines the input for the the arguments \code{signal.integral.min} and
 \code{signal.integral.max}. These limits can be either provided \code{'channel'}
 number (the default) or \code{'temperature'}. If \code{'temperature'} is chosen the
 best matching channel is selected.}
 
-\item{sequence.structure}{\link{vector} \link{character} \emph{(with default)}:
+\item{sequence.structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Three steps are allowed
 (\code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
 parameter \code{"EXCLUDE"}. This allows excluding TL curves which are not
 relevant for the protocol analysis.  (\strong{Note:} None TL are removed by default)}
 
-\item{rejection.criteria}{\link{list} \emph{(with default)}:
+\item{rejection.criteria}{\link{list} (\emph{with default}):
 list containing rejection criteria in percentage for the calculation.}
 
-\item{dose.points}{\link{numeric} \emph{(optional)}:
+\item{dose.points}{\link{numeric} (\emph{optional}):
 option set dose points manually}
 
-\item{log}{\link{character} \emph{(with default)}:
+\item{log}{\link{character} (\emph{with default}):
 a character string which contains "x" if the x axis is to be logarithmic,
 "y" if the y axis is to be logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 \link{plot.default}).}
@@ -50,7 +50,7 @@ a character string which contains "x" if the x axis is to be logarithmic,
 \item{...}{further arguments that will be passed to the function \link{plot_GrowthCurve}}
 }
 \value{
-A plot \emph{(optional)} and an \linkS4class{RLum.Results} object is
+A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 
 \item{De.values}{\link{data.frame} containing De-values and further parameters}

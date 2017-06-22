@@ -11,11 +11,11 @@ plot_RLum.Data.Image(object, par.local = TRUE, plot.type = "plot.raster",
 \item{object}{\linkS4class{RLum.Data.Image} (\strong{required}): S4
 object of class \code{RLum.Data.Image}}
 
-\item{par.local}{\link{logical} \emph{(with default)}: use local graphical
+\item{par.local}{\link{logical} (\emph{with default}): use local graphical
 parameters for plotting, e.g. the plot is shown in one column and one row.
 If \code{par.local = FALSE} global parameters are inherited.}
 
-\item{plot.type}{\link{character} \emph{(with default)}: plot types.
+\item{plot.type}{\link{character} (\emph{with default}): plot types.
 Supported types are \code{plot.raster}, \code{plotRGB} or \code{contour}}
 
 \item{...}{further arguments and graphical parameters that will be passed
@@ -30,37 +30,36 @@ The function provides a standardised plot output for image data of an
 provided by the \link{raster} package.
 }
 \details{
-\strong{Details on the plot functions} \cr
+\strong{Details on the plot functions}
 
 Image is visualised as 2D plot usinng generic plot types provided by other
 packages.
 
-Supported plot types: \cr
+Supported plot types:
 
-\strong{\code{plot.type = "plot.raster"}}\cr
+\strong{\code{plot.type = "plot.raster"}}
 
 Uses the standard plot function for raster data from the package
 \link[raster:raster]{raster::raster}: \link[raster:plot]{raster::plot}. For each raster layer in a
 raster brick one plot is produced.
 
-Arguments that are passed through the function call:\cr
+Arguments that are passed through the function call:
 
 \code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim},
 \code{col}
 
-\strong{\code{plot.type = "plotRGB"}}\cr
+\strong{\code{plot.type = "plotRGB"}}
 
 Uses the function \link[raster:plotRGB]{raster::plotRGB} from the
 \link[raster:raster]{raster::raster} package. Only one image plot is produced as all layers
 in a brick a combined.  This plot type is useful to see whether any signal
-is recorded by the camera.\cr Arguments that are passed through the function
-call:\cr
+is recorded by the camera.\cr
+Arguments that are passed through the function call:
 
-\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext},
-\code{interpolate}, \code{maxpixels}, \code{alpha}, \code{colNA},
-\code{stretch}\cr
+\code{main},\code{axes}, \code{xlab}, \code{ylab}, \code{ext}, \code{interpolate}, \code{maxpixels},
+\code{alpha}, \code{colNA}, \code{stretch}
 
-\strong{\code{plot.type = "contour"}}\cr
+\strong{\code{plot.type = "contour"}}
 
 Uses the function contour plot function from the \link{raster}
 function (\link[raster:contour]{raster::contour}). For each raster layer one contour
@@ -81,7 +80,6 @@ plotting of such data is extremely slow.
 
 \examples{
 
-
 ##load data
 data(ExampleData.RLum.Data.Image, envir = environment())
 
@@ -90,11 +88,9 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Image}, \link{plot},
-\link{plot_RLum}, \link[raster:raster]{raster::raster}
+\linkS4class{RLum.Data.Image}, \link{plot}, \link{plot_RLum}, \link[raster:raster]{raster::raster}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{aplot}

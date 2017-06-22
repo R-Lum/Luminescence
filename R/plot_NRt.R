@@ -8,30 +8,30 @@
 #' column `data.frame` or `matrix` containing the XY data of the curves
 #' (time and counts). Alternatively, the elements can be objects of class
 #' [RLum.Data.Curve-class].
+#' 
 #' Input values can also be provided as a `data.frame` or `matrix` where
 #' the first column contains the time values and each following column contains
 #' the counts of each curve.
 #'
-#' @param data a [list], [data.frame], [matrix] or
-#' [RLum.Analysis-class] object (**required**). X,Y data of measured values
-#' (time and counts). See details on individual data structure.
+#' @param data [list], [data.frame], [matrix] or [RLum.Analysis-class] (**required**): 
+#' X,Y data of measured values (time and counts). See details on individual data structure.
 #'
-#' @param log [character] *(optional)*: logarithmic axes
-#' (`c("x", "y", "xy")`).
+#' @param log [character] (*optional*): 
+#' logarithmic axes (`c("x", "y", "xy")`).
 #'
-#' @param smooth [character] *(optional)*: apply data smoothing. Use
-#' `"rmean"` to calculate the rolling where `k` determines the width
-#' of the rolling window (see [rollmean]).
-#' `"spline"` applies a smoothing spline to each curve
-#' (see [smooth.spline])
+#' @param smooth [character] (*optional*): 
+#' apply data smoothing. Use `"rmean"` to calculate the rolling where `k` 
+#' determines the width of the rolling window (see [rollmean]). `"spline"` 
+#' applies a smoothing spline to each curve (see [smooth.spline])
 #'
-#' @param k [integer] *(with default)*: integer width of the rolling
-#' window.
+#' @param k [integer] (*with default*): 
+#' integer width of the rolling window.
 #'
-#' @param legend [logical] *(with default)*: show or hide the plot legend.
+#' @param legend [logical] (*with default*): 
+#' show or hide the plot legend.
 #'
-#' @param legend.pos [character] *(with default)*: keyword specifying
-#' the position of the legend (see [legend]).
+#' @param legend.pos [character] (*with default*): 
+#' keyword specifying the position of the legend (see [legend]).
 #'
 #' @param ... further parameters passed to [plot] (also see [par]).
 #'

@@ -8,18 +8,18 @@ plot_RLum.Data.Curve(object, par.local = TRUE, norm = FALSE,
   smooth = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Curve} (\strong{required}): S4
-object of class \code{RLum.Data.Curve}}
+\item{object}{\linkS4class{RLum.Data.Curve} (\strong{required}):
+S4 object of class \code{RLum.Data.Curve}}
 
-\item{par.local}{\link{logical} \emph{(with default)}: use local graphical
-parameters for plotting, e.g. the plot is shown in one column and one row.
-If \code{par.local = FALSE}, global parameters are inherited.}
+\item{par.local}{\link{logical} (\emph{with default}):
+use local graphical parameters for plotting, e.g. the plot is shown in one
+column and one row. If \code{par.local = FALSE}, global parameters are inherited.}
 
-\item{norm}{\link{logical} \emph{(with default)}: allows curve normalisation
-to the highest count value}
+\item{norm}{\link{logical} (\emph{with default}):
+allows curve normalisation to the highest count value}
 
-\item{smooth}{\link{logical} \emph{(with default)}: provides an automatic curve smoothing
-based on \link[zoo:rollmean]{zoo::rollmean}}
+\item{smooth}{\link{logical} (\emph{with default}):
+provides an automatic curve smoothing based on \link[zoo:rollmean]{zoo::rollmean}}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function}
@@ -44,7 +44,6 @@ Not all arguments of \link{plot} will be passed!
 
 \examples{
 
-
 ##plot curve data
 
 #load Example data
@@ -62,7 +61,6 @@ plot_RLum.Data.Curve(temp)
 \link{plot}, \link{plot_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{aplot}

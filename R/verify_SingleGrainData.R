@@ -24,22 +24,22 @@
 #' @param object [Risoe.BINfileData-class] or [RLum.Analysis-class]
 #' (**required**): input object. The function also accepts a list with objects of allowed type.
 #'
-#' @param threshold [numeric] *(with default)*: numeric threshold value for the allowed difference between
+#' @param threshold [numeric] (*with default*): numeric threshold value for the allowed difference between
 #' the `mean` and the `var` of the count values (see details)
 #'
-#' @param cleanup [logical] *(with default)*: if set to `TRUE` curves indentified as
+#' @param cleanup [logical] (*with default*): if set to `TRUE` curves indentified as
 #' zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
 #' either [Risoe.BINfileData-class] or [RLum.Analysis-class]
 #'
-#' @param cleanup_level [character] *(with default)*: selects the level for the cleanup
+#' @param cleanup_level [character] (*with default*): selects the level for the cleanup
 #' of the input data sets. Two options are allowed: `"curve"` or `"aliquot"`. If  `"curve"`
 #' is selected every single curve marked as `invalid` is removed. If `"aliquot"` is selected,
 #' curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
 #' will be only removed if all curves of this aliquot are marked as invalid.
 #'
-#' @param verbose [logical] *(with default)*: enables or disables the terminal feedback
+#' @param verbose [logical] (*with default*): enables or disables the terminal feedback
 #'
-#' @param plot [logical] *(with default)*: enables or disables the graphical feedback
+#' @param plot [logical] (*with default*): enables or disables the graphical feedback
 #'
 #' @return The function returns
 #'

@@ -65,7 +65,7 @@ setClass("RLum",
 #'
 #' @param object an object of class [RLum-class] (**required**)
 #'
-#' @param times [integer] *(optional)*: number for times each element is repeated
+#' @param times [integer] (*optional*): number for times each element is repeated
 #' element
 #'
 #' @md

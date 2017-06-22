@@ -12,39 +12,39 @@ Risoe.BINfileData2RLum.Analysis(object, pos = NULL, grain = NULL,
 \item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
 \code{Risoe.BINfileData} object}
 
-\item{pos}{\link{numeric} \emph{(optional)}: position number of the
+\item{pos}{\link{numeric} (\emph{optional}): position number of the
 \code{Risoe.BINfileData} object for which the curves are stored in the
 \code{RLum.Analysis} object. If \code{length(position)>1} a list of \code{RLum.Analysis} objects
 is returned. If nothing is provided every position will be converted. If the position is not valid \code{NA} is
 returned.}
 
-\item{grain}{\link{vector}, \link{numeric} \emph{(optional)}: grain number from
+\item{grain}{\link{vector}, \link{numeric} (\emph{optional}): grain number from
 the measurement to limit the converted data set (e.g., \code{grain =
 c(1:48)}). Please be aware that this option may lead to unwanted effects, as the output
 is strictly limited to the choosen grain number for all position numbers}
 
-\item{run}{\link{vector}, \link{numeric} \emph{(optional)}: run number from
+\item{run}{\link{vector}, \link{numeric} (\emph{optional}): run number from
 the measurement to limit the converted data set (e.g., \code{run = c(1:48)}).}
 
-\item{set}{\link{vector}, \link{numeric} \emph{(optional)}: set number from
+\item{set}{\link{vector}, \link{numeric} (\emph{optional}): set number from
 the measurement to limit the converted data set (e.g., \code{set =
 c(1:48)}).}
 
-\item{ltype}{\link{vector}, \link{character} \emph{(optional)}: curve type
+\item{ltype}{\link{vector}, \link{character} (\emph{optional}): curve type
 to limit the converted data. Commonly allowed values are: \code{IRSL}, \code{OSL},
 \code{TL}, \code{RIR}, \code{RBR} and \code{USER} (see also \linkS4class{Risoe.BINfileData})}
 
-\item{dtype}{\link{vector}, \link{character} \emph{(optional)}: data type to
+\item{dtype}{\link{vector}, \link{character} (\emph{optional}): data type to
 limit the converted data. Commonly allowed values are listed in \linkS4class{Risoe.BINfileData}}
 
-\item{protocol}{\link{character} \emph{(optional)}: sets protocol type for
+\item{protocol}{\link{character} (\emph{optional}): sets protocol type for
 analysis object. Value may be used by subsequent analysis functions.}
 
-\item{keep.empty}{\link{logical} \emph{(with default)}: If \code{TRUE} (default)
+\item{keep.empty}{\link{logical} (\emph{with default}): If \code{TRUE} (default)
 an \code{RLum.Analysis} object is returned even if it does not contain any
 records. Set to \code{FALSE} to discard all empty objects.}
 
-\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables or disables
+\item{txtProgressBar}{\link{logical} (\emph{with default}): enables or disables
 \link{txtProgressBar}.}
 }
 \value{

@@ -29,23 +29,23 @@
 #' results obtained from the measurement.
 #' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
 #'
-#' @param signal_integral [numeric] *(optional)*: 
+#' @param signal_integral [numeric] (*optional*): 
 #' signal integral, used for the signal and the background. 
 #' If nothing is provided the full range is used. Argument can be provided as [list].
 #'
-#' @param dose_points [numeric] *(with default)*: 
+#' @param dose_points [numeric] (*with default*): 
 #' vector with dose points, if dose points are repeated, only the general 
 #' pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017. Argument can be provided as [list].
 #'
-#' @param method_control [list] *(optional)*: 
+#' @param method_control [list] (*optional*): 
 #' optional parameters to control the calculation.
 #' See details for further explanations
 #'
-#' @param verbose [logical] *(with default)*: 
+#' @param verbose [logical] (*with default*): 
 #' enable/disable verbose mode
 #'
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] (*with default*): 
 #' enable/disable plot output
 #'
 #' @param ... further arguments that can be passed to the plot output

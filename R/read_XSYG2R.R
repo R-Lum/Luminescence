@@ -75,22 +75,22 @@
 #' path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all xsyg files found in the directory.
 #'
-#' @param recalculate.TL.curves [logical] *(with default)*: if set to
+#' @param recalculate.TL.curves [logical] (*with default*): if set to
 #' `TRUE`, TL curves are returned as temperature against count values (see
 #' details for more information) Note: The option overwrites the time vs. count
 #' TL curve. Select `FALSE` to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
 #'
-#' @param fastForward [logical] *(with default)*: if `TRUE` for a
+#' @param fastForward [logical] (*with default*): if `TRUE` for a
 #' more efficient data processing only a list of `RLum.Analysis` objects is returned.
 #'
-#' @param import [logical] *(with default)*: if set to `FALSE`, only
+#' @param import [logical] (*with default*): if set to `FALSE`, only
 #' the XSYG file structure is shown.
 #'
-#' @param pattern [regex] *(with default)*: optional regular expression if `file` is
+#' @param pattern [regex] (*with default*): optional regular expression if `file` is
 #' a link to a folder, to select just specific XSYG-files
 #'
-#' @param txtProgressBar [logical] *(with default)*: enables `TRUE` or
+#' @param txtProgressBar [logical] (*with default*): enables `TRUE` or
 #' disables `FALSE` the progression bar during import
 #'
 #' @return **Using the option `import = FALSE`**

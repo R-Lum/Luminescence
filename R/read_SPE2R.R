@@ -12,14 +12,14 @@
 #' path), e.g. \cr `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`, \cr
 #' `[MAC/LINUX]`: `readSPER("/User/test/Desktop/test.spe")`
 #'
-#' @param output.object [character] *(with default)*: set `RLum`
+#' @param output.object [character] (*with default*): set `RLum`
 #' output object.  Allowed types are `"RLum.Data.Spectrum"`,
 #' `"RLum.Data.Image"` or `"matrix"`
 #'
-#' @param frame.range [vector] *(optional)*: limit frame range, e.g.
+#' @param frame.range [vector] (*optional*): limit frame range, e.g.
 #' select first 100 frames by `frame.range = c(1,100)`
 #'
-#' @param txtProgressBar [logical] *(with default)*: enables or disables
+#' @param txtProgressBar [logical] (*with default*): enables or disables
 #' [txtProgressBar].
 #'
 #' @return Depending on the chosen option the functions returns three different

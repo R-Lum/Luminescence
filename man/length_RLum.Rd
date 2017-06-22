@@ -7,8 +7,8 @@
 length_RLum(object)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
-class \code{RLum}}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+S4 object of class \code{RLum}}
 }
 \value{
 Return is the same as input objects as provided in the list.
@@ -18,9 +18,10 @@ Function calls object-specific get functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects.\cr Depending on the input object, the
-corresponding get function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \linkS4class{RLum} class.
+\linkS4class{RLum} objects.\cr
+Depending on the input object, the corresponding get function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{RLum} class.
 }
 \section{Function version}{
  0.1.0

@@ -35,22 +35,22 @@ name of the calling function
 \item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}): option to provide a parent id for nesting
 at will.}
 
-\item{data}{\code{\link{set_RLum}} \link{list} \emph{(optional)}: a list containing the data to
+\item{data}{\code{\link{set_RLum}} \link{list} (\emph{optional}): a list containing the data to
 be stored in the object}
 
-\item{info}{\code{\link{set_RLum}} \link{list} \emph{(optional)}: a list containing additional
+\item{info}{\code{\link{set_RLum}} \link{list} (\emph{optional}): a list containing additional
 info data for the object}
 
 \item{data.object}{\code{\link{get_RLum}} \link{character} or
 \link{numeric}: name or index of the data slot to be returned}
 
-\item{info.object}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: name of the wanted info
+\item{info.object}{\code{\link{get_RLum}} \link{character} (\emph{optional}): name of the wanted info
 element}
 
-\item{drop}{\code{\link{get_RLum}} \link{logical} \emph{(with default)}: coerce to the next possible layer
+\item{drop}{\code{\link{get_RLum}} \link{logical} (\emph{with default}): coerce to the next possible layer
 (which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}}
 }
 \value{

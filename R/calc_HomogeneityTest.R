@@ -7,7 +7,7 @@
 #' @param data [RLum.Results-class] or [data.frame] (**required**): 
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #' 
-#' @param log [logical] **(with default)**: 
+#' @param log [logical] *(*with default*)*: 
 #' peform the homogeneity test with (un-)logged data
 #' 
 #' @param ... further arguments (for internal compatibility only).

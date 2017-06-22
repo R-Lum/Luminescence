@@ -16,7 +16,7 @@ create}
 \item{.uid}{\link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\link{character} \emph{(with default)}: option to provide a parent id for nesting
+\item{.pid}{\link{character} (\emph{with default}): option to provide a parent id for nesting
 at will.}
 
 \item{...}{further arguments that one might want to pass to the specific

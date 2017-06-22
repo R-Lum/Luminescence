@@ -20,16 +20,16 @@
 #' fixed interval (e.g. 5 Gy) used for iteration of Dbar, from the mean to 
 #' Lowest.De used to create Graph.IEU `[Dbar.Fixed vs Z]`
 #'
-#' @param decimal.point [numeric] **(with default)**: 
+#' @param decimal.point [numeric] *(*with default*)*: 
 #' number of decimal points for rounding calculations (e.g. 2)
 #'
-#' @param plot [logical] **(with default)**: 
+#' @param plot [logical] *(*with default*)*: 
 #' plot output
 #'
 #' @param ... further arguments (`trace, verbose`).
 #'
 #' @return 
-#' Returns a plot **(optional)** and terminal output. In addition an
+#' Returns a plot *(*optional*)* and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the
 #' following elements:
 #'

@@ -40,7 +40,7 @@
 #' function [calc_SourceDoseRate], for `vector` dose rate in
 #' Gy/s and dose rate error in Gy/s
 #'
-#' @param error.propagation [character] *(with default)*: error propagation method used for error
+#' @param error.propagation [character] (*with default*): error propagation method used for error
 #' calculation (`omit`, `gaussian` or `absolute`), see details for further
 #' information
 #'

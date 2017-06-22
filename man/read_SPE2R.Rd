@@ -12,14 +12,14 @@ read_SPE2R(file, output.object = "RLum.Data.Image", frame.range,
 path), e.g. \cr \code{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
 \code{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}}
 
-\item{output.object}{\link{character} \emph{(with default)}: set \code{RLum}
+\item{output.object}{\link{character} (\emph{with default}): set \code{RLum}
 output object.  Allowed types are \code{"RLum.Data.Spectrum"},
 \code{"RLum.Data.Image"} or \code{"matrix"}}
 
-\item{frame.range}{\link{vector} \emph{(optional)}: limit frame range, e.g.
+\item{frame.range}{\link{vector} (\emph{optional}): limit frame range, e.g.
 select first 100 frames by \code{frame.range = c(1,100)}}
 
-\item{txtProgressBar}{\link{logical} \emph{(with default)}: enables or disables
+\item{txtProgressBar}{\link{logical} (\emph{with default}): enables or disables
 \link{txtProgressBar}.}
 }
 \value{

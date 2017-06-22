@@ -212,12 +212,12 @@ setMethod("show",
 #' of the calling function (the function that produces this object); can be set manually.
 #' @param .uid [`set_RLum`] [character] (automatic): sets an unique ID for this object
 #' using the internal C++ function `.create_UID`.
-#' @param .pid [`set_RLum`] [character] *(with default)*: option to provide a parent id for nesting
+#' @param .pid [`set_RLum`] [character] (*with default*): option to provide a parent id for nesting
 #' at will.
-#' @param protocol [`set_RLum`] [character] *(optional)*: sets protocol type for
+#' @param protocol [`set_RLum`] [character] (*optional*): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
 #' @param records [`set_RLum`] [list] (**required**): list of [RLum.Analysis-class] objects
-#' @param info [`set_RLum`] [list] *(optional)*: a list containing additional
+#' @param info [`set_RLum`] [list] (*optional*): a list containing additional
 #' info data for the object
 #'
 #'**`set_RLum`**:\cr
@@ -290,33 +290,33 @@ setMethod(
 #' `[structure_RLum]`] an object of class [RLum.Analysis-class]
 #' (**required**)
 #'
-#' @param record.id [`get_RLum`] [numeric] or [logical] *(optional)*: IDs of specific records.
+#' @param record.id [`get_RLum`] [numeric] or [logical] (*optional*): IDs of specific records.
 #' If of type `logical` the entire id range is assuemd and `TRUE` and `FALSE` indicates the selection.
 #'
-#' @param recordType [`get_RLum`] [character] *(optional)*: record type (e.g., "OSL").
+#' @param recordType [`get_RLum`] [character] (*optional*): record type (e.g., "OSL").
 #' Can be also a vector, for multiple matching, e.g., `recordType = c("OSL", "IRSL")`
 #'
-#' @param curveType [`get_RLum`] [character] *(optional)*: curve
+#' @param curveType [`get_RLum`] [character] (*optional*): curve
 #' type (e.g. "predefined" or "measured")
 #'
-#' @param RLum.type [`get_RLum`] [character] *(optional)*: RLum object type.
+#' @param RLum.type [`get_RLum`] [character] (*optional*): RLum object type.
 #' Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
 #'
-#' @param get.index [`get_RLum`] [logical] *(optional)*: return a numeric
+#' @param get.index [`get_RLum`] [logical] (*optional*): return a numeric
 #' vector with the index of each element in the RLum.Analysis object.
 #'
-#' @param recursive [`get_RLum`] [logical] *(with default)*: if `TRUE` (the default)
+#' @param recursive [`get_RLum`] [logical] (*with default*): if `TRUE` (the default)
 #' and the result of the 'get_RLum' request is a single object this object will be unlisted, means
 #' only the object itself and no list containing exactly one object is returned. Mostly this makes things
 #' easier, however, if this method is used within a loop this might undesired.
 #'
-#' @param drop [`get_RLum`] [logical] *(with default)*: coerce to the next possible layer
+#' @param drop [`get_RLum`] [logical] (*with default*): coerce to the next possible layer
 #' (which are `RLum.Data`-objects), `drop = FALSE` keeps the original `RLum.Analysis`
 #'
-#' @param info.object [`get_RLum`] [character] *(optional)*: name of the wanted info
+#' @param info.object [`get_RLum`] [character] (*optional*): name of the wanted info
 #' element
 #'
-#' @param subset [expression] *(optional)*: logical expression indicating elements or rows
+#' @param subset [expression] (*optional*): logical expression indicating elements or rows
 #' to keep: missing values are taken as false. This argument takes precedence over all
 #' other arguments, meaning they are not considered when subsetting the object.
 #'
@@ -624,7 +624,7 @@ setMethod("get_RLum",
 #' @describeIn RLum.Analysis
 #' Method to show the structure of an [RLum.Analysis-class] object.
 #'
-#' @param fullExtent [structure_RLum] [logical] *(with default)*: extents the returned `data.frame`
+#' @param fullExtent [structure_RLum] [logical] (*with default*): extents the returned `data.frame`
 #' to its full extent, i.e. all info elements are part of the return as well. The default valule
 #' is `FALSE` as the data frame might become rather big.
 #'

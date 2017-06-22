@@ -10,7 +10,7 @@ calc_HomogeneityTest(data, log = TRUE, ...)
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{log}{\link{logical} \strong{(with default)}:
+\item{log}{\link{logical} \emph{(\emph{with default})}:
 peform the homogeneity test with (un-)logged data}
 
 \item{...}{further arguments (for internal compatibility only).}

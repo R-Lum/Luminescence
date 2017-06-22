@@ -30,16 +30,16 @@ Dose rate of the irradiation source of the OSL reader and its error,
 given as a numeric vector of length two.
 Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.}
 
-\item{normalise}{\link{logical} \strong{(with default)}:
+\item{normalise}{\link{logical} \emph{(\emph{with default})}:
 If \code{TRUE} (the default) all measured and computed LxTx values are
 normalised by the pre-exponential factor A (see details).}
 
-\item{summary}{\link{logical} \strong{(with default)}:
+\item{summary}{\link{logical} \emph{(\emph{with default})}:
 If \code{TRUE} (the default) various parameters provided by the user
 and calculated by the model are added as text on the right-hand side of the
 plot.}
 
-\item{plot}{\link{logical} \strong{(with default)}:
+\item{plot}{\link{logical} \emph{(\emph{with default})}:
 enables/disables plot output.}
 
 \item{...}{further arguments passed to \link{plot} and \link{plot_GrowthCurve}.}

@@ -37,15 +37,15 @@
 #' @param calib.error [numeric] (**required**): 
 #' error of dose rate at date of calibration Gy/s or Gy/min
 #'
-#' @param source.type [character] **(with default)**: 
+#' @param source.type [character] *(*with default*)*: 
 #' specify irrdiation source (`Sr-90` or `Co-60` or `Am-214`), 
 #' see details for further information
 #'
-#' @param dose.rate.unit [character] **(with default)**: 
+#' @param dose.rate.unit [character] *(*with default*)*: 
 #' specify dose rate unit for input (`Gy/min` or `Gy/s`), the output is given in
 #' Gy/s as valid for the function [Second2Gray]
 #'
-#' @param predict [integer] **(with default)**: 
+#' @param predict [integer] *(*with default*)*: 
 #' option allowing to predicit the dose rate of the source over time in days 
 #' set by the provided value. Starting date is the value set with 
 #' `measurement.date`, e.g., `calc_SourceDoseRate(..., predict = 100)` calculates

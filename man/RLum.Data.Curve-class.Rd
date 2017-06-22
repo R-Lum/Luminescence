@@ -41,35 +41,35 @@ class \linkS4class{RLum.Data.Curve} (\strong{required})}
 \item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}): option to provide a parent id for nesting
 at will.}
 
-\item{recordType}{\code{\link{set_RLum}} \link{character} \emph{(optional)}: record type (e.g., "OSL")}
+\item{recordType}{\code{\link{set_RLum}} \link{character} (\emph{optional}): record type (e.g., "OSL")}
 
-\item{curveType}{\code{\link{set_RLum}} \link{character} \emph{(optional)}: curve type (e.g., "predefined" or "measured")}
+\item{curveType}{\code{\link{set_RLum}} \link{character} (\emph{optional}): curve type (e.g., "predefined" or "measured")}
 
 \item{data}{\code{\link{set_RLum}} \link{matrix} (\strong{required}): raw curve data.
 If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
 (s. Details)}
 
-\item{info}{\code{\link{set_RLum}} \link{list} \emph{(optional)}: info elements}
+\item{info}{\code{\link{set_RLum}} \link{list} (\emph{optional}): info elements}
 
-\item{info.object}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: name of the wanted info
+\item{info.object}{\code{\link{get_RLum}} \link{character} (\emph{optional}): name of the wanted info
 element}
 
-\item{bin_size}{\link{integer} \emph{(with default)}: set number of channels
+\item{bin_size}{\link{integer} (\emph{with default}): set number of channels
 used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.}
 
-\item{k}{\code{\link{smooth_RLum}} \link{integer} \emph{(with default)}: window for the rolling mean; must be odd for rollmedian.
+\item{k}{\code{\link{smooth_RLum}} \link{integer} (\emph{with default}): window for the rolling mean; must be odd for rollmedian.
 If nothing is set k is set automatically}
 
-\item{fill}{\code{\link{smooth_RLum}} \link{numeric} \emph{(with default)}: a vector defining the left and the right hand data}
+\item{fill}{\code{\link{smooth_RLum}} \link{numeric} (\emph{with default}): a vector defining the left and the right hand data}
 
-\item{align}{\code{\link{smooth_RLum}} \link{character} \emph{(with default)}: specifying whether the index of the result should be
+\item{align}{\code{\link{smooth_RLum}} \link{character} (\emph{with default}): specifying whether the index of the result should be
 left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
 \code{"right"}, \code{"center"} and \code{left}}
 
-\item{method}{\code{\link{smooth_RLum}} \link{character} \emph{(with default)}: defines which method should be applied for the
+\item{method}{\code{\link{smooth_RLum}} \link{character} (\emph{with default}): defines which method should be applied for the
 smoothing: \code{"mean"} or \code{"median"}}
 }
 \value{

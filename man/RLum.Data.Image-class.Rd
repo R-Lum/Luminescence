@@ -31,7 +31,7 @@ contains the name of the calling function (the function that produces this objec
 \item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}): option to provide a parent id for nesting
 at will.}
 
 \item{recordType}{\code{[set_RLum]} \link{character}: record type (e.g. "OSL")}

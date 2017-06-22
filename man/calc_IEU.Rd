@@ -22,16 +22,16 @@ intercept}
 fixed interval (e.g. 5 Gy) used for iteration of Dbar, from the mean to
 Lowest.De used to create Graph.IEU \code{[Dbar.Fixed vs Z]}}
 
-\item{decimal.point}{\link{numeric} \strong{(with default)}:
+\item{decimal.point}{\link{numeric} \emph{(\emph{with default})}:
 number of decimal points for rounding calculations (e.g. 2)}
 
-\item{plot}{\link{logical} \strong{(with default)}:
+\item{plot}{\link{logical} \emph{(\emph{with default})}:
 plot output}
 
 \item{...}{further arguments (\code{trace, verbose}).}
 }
 \value{
-Returns a plot \strong{(optional)} and terminal output. In addition an
+Returns a plot \emph{(\emph{optional})} and terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
 following elements:
 

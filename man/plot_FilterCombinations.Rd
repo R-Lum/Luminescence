@@ -2,86 +2,91 @@
 % Please edit documentation in R/plot_FilterCombinations.R
 \name{plot_FilterCombinations}
 \alias{plot_FilterCombinations}
-\title{Plot filter combinations along with the \emph{(optional)} net transmission window}
+\title{Plot filter combinations along with the (\emph{optional}) net transmission window}
 \usage{
 plot_FilterCombinations(filters, wavelength_range = 200:1000,
   show_net_transmission = TRUE, interactive = FALSE, plot = TRUE, ...)
 }
 \arguments{
-\item{filters}{\link{list} (\strong{required}): a named list of filter data for each filter to be shown.
+\item{filters}{\link{list} (\strong{required}):
+a named list of filter data for each filter to be shown.
 The filter data itself should be either provided as \link{data.frame} or \link{matrix}.
 (for more options s. Details)}
 
-\item{wavelength_range}{\link{numeric} \emph{(with default)}: wavelength range used for the interpolation}
+\item{wavelength_range}{\link{numeric} (\emph{with default}):
+wavelength range used for the interpolation}
 
-\item{show_net_transmission}{\link{logical} \emph{(with default)}: show net transmission window
-as polygon.}
+\item{show_net_transmission}{\link{logical} (\emph{with default}):
+show net transmission window as polygon.}
 
-\item{interactive}{\link{logical} \emph{(with default)}: enable/disable interactive plot}
+\item{interactive}{\link{logical} (\emph{with default}):
+enable/disable interactive plot}
 
-\item{plot}{\link{logical} \emph{(with default)}: enables or disables the plot output}
+\item{plot}{\link{logical} (\emph{with default}):
+enables or disables the plot output}
 
-\item{...}{further arguments that can be passed to control the plot output. Suppored are \code{main},
-\code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
+\item{...}{further arguments that can be passed to control the plot output.
+Suppored are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
 For non common plotting parameters see the details section.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
 
 \strong{@data}
+
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \strong{Description} \cr
-net_transmission_window \tab \code{matrix} \tab the resulting net transmission window \cr
-filter_matrix \tab \code{matrix} \tab the filter matrix used for plotting
-
+\code{net_transmission_window} \tab \link{matrix} \tab the resulting net transmission window \cr
+\code{filter_matrix} \tab \link{matrix} \tab the filter matrix used for plotting
 }
 
 \strong{@info}
+
 \tabular{lll}{
 \strong{Object} \tab \strong{Type} \strong{Description} \cr
-call \tab \code{call} \tab the original function call
-
+\code{call} \tab \link{call} \tab the original function call
 }
 }
 \description{
 The function allows to plot transmission windows for different filters. Missing data for specific
 wavelenghts are automatically interpolated for the given filter data using the function \link{approx}.
-With that a standardised output is reached and a net transmission window can be shown.\cr
+With that a standardised output is reached and a net transmission window can be shown.
 }
 \details{
-\strong{How to provide input data?}\cr
+\strong{How to provide input data?}
 
-CASE 1\cr
+\emph{CASE 1}
 
 The function expects that all filter values are either of type \code{matrix} or \code{data.frame}
 with two columns. The first columens contains the wavelength, the second the relative transmission
 (but not in percentage, i.e. the maximum transmission can be only become 1).
 
 In this case only the transmission window is show as provided. Changes in filter thickness and
-relection factor are not considered. \cr
+relection factor are not considered.
 
-CASE 2\cr
+\emph{CASE 2}
 
-The filter data itself are provided as list element containing a \code{matrix} or \code{data.frame}
-and additional information on the thickness of the filter, e.g., \code{list(filter1 = list(filter_matrix, d = 2))}.
+The filter data itself are provided as list element containing a \code{matrix} or
+\code{data.frame} and additional information on the thickness of the filter, e.g.,
+\code{list(filter1 = list(filter_matrix, d = 2))}.
 The given filter data are always considered as standard input and the filter thickness value
 is taken into account by
 
 \deqn{Transmission = Transmission^(d)}
 
-with d given in the same dimension as the original filter data.\cr
+with d given in the same dimension as the original filter data.
 
-CASE 3\cr
+\emph{CASE 3}
 
 Same as CASE 2 but additionally a reflection factor P is provided, e.g.,
-\code{list(filter1 = list(filter_matrix, d = 2, P = 0.9))}. The final transmission
-becomes:
+\code{list(filter1 = list(filter_matrix, d = 2, P = 0.9))}.
+The final transmission becomes:
 
-\deqn{Transmission = Transmission^(d) * P}\cr
+\deqn{Transmission = Transmission^(d) * P}
 
-\strong{Advanced plotting parameters}\cr
+\strong{Advanced plotting parameters}
 
-The following further non-common plotting parameters can be passed to the function:\cr
+The following further non-common plotting parameters can be passed to the function:
 
 \tabular{lll}{
 \strong{Argument} \tab \strong{Datatype} \tab \strong{Description}\cr
@@ -129,7 +134,7 @@ plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
 \linkS4class{RLum.Results}, \link{approx}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
 }
 \keyword{aplot}
 \keyword{datagen}

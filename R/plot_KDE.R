@@ -48,22 +48,22 @@
 #' data sets, these must be provided as `list` (e.g. \code{list(dataset1,
 #' dataset2)}).
 #'
-#' @param na.rm [logical] *(with default)*: exclude NA values
+#' @param na.rm [logical] (*with default*): exclude NA values
 #' from the data set prior to any further operation.
 #'
-#' @param values.cumulative [logical] *(with default)*: show
+#' @param values.cumulative [logical] (*with default*): show
 #' cumulative individual data.
 #'
 #' @param order [logical]: Order data in ascending order.
 #'
-#' @param boxplot [logical] *(with default)*: optionally show a
+#' @param boxplot [logical] (*with default*): optionally show a
 #' boxplot (depicting median as thick central line, first and third quartile
 #' as box limits, whiskers denoting +/- 1.5 interquartile ranges and dots
 #' further outliers).
 #'
-#' @param rug [logical] *(with default)*: optionally add rug.
+#' @param rug [logical] (*with default*): optionally add rug.
 #'
-#' @param summary [character] *(optional)*: add statistic measures of
+#' @param summary [character] (*optional*): add statistic measures of
 #' centrality and dispersion to the plot. Can be one or more of several
 #' keywords. See details for available keywords.
 #'
@@ -74,12 +74,12 @@
 #' option in only possible if `mtext` is not used. In case of coordinate
 #' specification, y-coordinate refers to the right y-axis.
 #'
-#' @param summary.method [character] *(with default)*: keyword
+#' @param summary.method [character] (*with default*): keyword
 #' indicating the method used to calculate the statistic summary. One out of
 #' `"unweighted"`, `"weighted"` and `"MCM"`. See
 #' [calc_Statistics] for details.
 #'
-#' @param bw [character] *(with default)*: bin-width, chose a numeric
+#' @param bw [character] (*with default*): bin-width, chose a numeric
 #' value for manual setting.
 #'
 #' @param output [logical]: Optional output of numerical plot

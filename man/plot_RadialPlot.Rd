@@ -15,10 +15,10 @@ object (\strong{required}): for \code{data.frame} two columns: De (\code{data[,1
 and De error (\code{data[,2]}). To plot several data sets in one plot, the
 data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
-\item{na.rm}{\link{logical} \emph{(with default)}: excludes \code{NA}
+\item{na.rm}{\link{logical} (\emph{with default}): excludes \code{NA}
 values from the data set prior to any further operations.}
 
-\item{log.z}{\link{logical} \emph{(with default)}: Option to display the
+\item{log.z}{\link{logical} (\emph{with default}): Option to display the
 z-axis in logarithmic scale. Default is \code{TRUE}.}
 
 \item{central.value}{\link{numeric}: User-defined central value,
@@ -32,7 +32,7 @@ numeric value used for the standardisation.}
 
 \item{mtext}{\link{character}: additional text below the plot title.}
 
-\item{summary}{\link{character} \emph{(optional)}: add statistic measures of
+\item{summary}{\link{character} (\emph{optional}): add statistic measures of
 centrality and dispersion to the plot. Can be one or more of several
 keywords. See details for available keywords.}
 
@@ -42,7 +42,7 @@ for the statistical summary. Alternatively, the keyword \code{"sub"} may be
 specified to place the summary below the plot header. However, this latter
 option is only possible if \code{mtext} is not used.}
 
-\item{legend}{\link{character} vector \emph{(optional)}: legend content to
+\item{legend}{\link{character} vector (\emph{optional}): legend content to
 be added to the plot.}
 
 \item{legend.pos}{\link{numeric} or \link{character} (with

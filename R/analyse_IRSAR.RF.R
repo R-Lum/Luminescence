@@ -18,8 +18,8 @@
 #' 6. Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
 #' 
 #'
-#' Actually two methods are supported to obtain the \eqn{D_{e}}: `method = "FIT"` and
-#' `method = "SLIDE"`:
+#' Actually two methods are supported to obtain the \eqn{D_{e}}: 
+#' `method = "FIT"` and `method = "SLIDE"`:
 #'
 #' **`method = "FIT"`**
 #'
@@ -72,21 +72,21 @@
 #' `minFactor` \tab `FIT` \tab as in [nls]\cr
 #' `correct_onset` \tab `SLIDE` \tab The logical argument shifts the curves along the x-axis by the first channel,
 #' as light is expected in the first channel. The default value is `TRUE`.\cr
-#' `show_density` \tab `SLIDE` \tab [logical] *(with default)*
+#' `show_density` \tab `SLIDE` \tab [logical] (*with default*)
 #' enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-#' `show_fit` \tab `SLIDE` \tab [logical] *(with default)*
+#' `show_fit` \tab `SLIDE` \tab [logical] (*with default*)
 #' enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-#' `n.MC` \tab `SLIDE` \tab [integer] *(with default)*:
+#' `n.MC` \tab `SLIDE` \tab [integer] (*with default*):
 #' This controls the number of MC runs within the sliding (assessing the possible minimum values).
 #' The default `n.MC = 1000`. Note: This parameter is not the same as controlled by the
 #' function argument `n.MC`. \cr
-#' `vslide_range` \tab `SLDE` \tab [logical] or [numeric] or [character] *(with default)*:
+#' `vslide_range` \tab `SLDE` \tab [logical] or [numeric] or [character] (*with default*):
 #' This argument sets the boundaries for a vertical curve
 #' sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., `c(-1000,1000)`).
 #' Alternatively the values `NULL` and `'auto'` are allowed. The automatic mode detects the
 #' reasonable vertical sliding range (**recommended**). `NULL` applies no vertical sliding.
 #' The default is `NULL`.\cr
-#' `cores` \tab `SLIDE` \tab `number` or `character` *(with default)*: set number of cores to be allocated
+#' `cores` \tab `SLIDE` \tab `number` or `character` (*with default*): set number of cores to be allocated
 #' for a parallel processing of the Monte-Carlo runs. The default value is `NULL` (single thread),
 #' the recommended values is `'auto'`. An optional number (e.g., `cores` = 8) assigns a value manually.
 #' }
@@ -169,27 +169,27 @@
 #' In addition any other character is allowed in the sequence structure; 
 #' such curves will be ignored during the analysis.
 #'
-#' @param RF_nat.lim [vector] *(with default)*: 
+#' @param RF_nat.lim [vector] (*with default*): 
 #' set minimum and maximum channel range for natural signal fitting and sliding. 
 #' If only one value is provided this will be treated as minimum value and the 
 #' maximum limit will be added automatically.
 #'
-#' @param RF_reg.lim [vector] *(with default)*: 
+#' @param RF_reg.lim [vector] (*with default*): 
 #' set minimum and maximum channel range for regenerated signal fitting and sliding. 
 #' If only one value is provided this will be treated as minimum value and the 
 #' maximum limit will be added automatically.
 #'
-#' @param method [character] *(with default)*: 
+#' @param method [character] (*with default*): 
 #' setting method applied for the data analysis. 
 #' Possible options are `"FIT"` or `"SLIDE"`.
 #'
-#' @param method.control [list] *(optional)*:
+#' @param method.control [list] (*optional*):
 #' parameters to control the method, that can be passed to the chosen method. 
 #' These are for (1) `method = "FIT"`: 'trace', 'maxiter', 'warnOnly', 'minFactor' and for 
 #' (2) `method = "SLIDE"`: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 #' See details.
 #'
-#' @param test_parameters [list] *(with default)*: 
+#' @param test_parameters [list] (*with default*): 
 #' set test parameters. Supported parameters are: `curves_ratio`, `residuals_slope` (only for
 #' `method = "SLIDE"`), `curves_bounds`, `dynamic_ratio`,
 #' `lambda`, `beta` and `delta.phi`. All input: [numeric]
@@ -197,18 +197,18 @@
 #'
 #' (see Details for further information)
 #'
-#' @param n.MC [numeric] *(with default)*: 
+#' @param n.MC [numeric] (*with default*): 
 #' set number of Monte Carlo runs for start parameter estimation (`method = "FIT"`) or
 #' error estimation (`method = "SLIDE"`). This value can be set to `NULL` to skip the
 #' MC runs. Note: Large values will significantly increase the computation time
 #'
-#' @param txtProgressBar [logical] *(with default)*: 
+#' @param txtProgressBar [logical] (*with default*): 
 #' enables `TRUE` or disables `FALSE` the progression bar during MC runs
 #'
-#' @param plot [logical] *(with default)*: 
+#' @param plot [logical] (*with default*): 
 #' plot output (`TRUE` or `FALSE`)
 #'
-#' @param plot_reduced [logical] *(optional)*: 
+#' @param plot_reduced [logical] (*optional*): 
 #' provides a reduced plot output if enabled to allow common R plot combinations, 
 #' e.g., `par(mfrow(...))`. If `TRUE` no residual plot
 #' is returned; it has no effect if `plot = FALSE`
@@ -221,7 +221,7 @@
 #'
 #'
 #' @return 
-#' The function returns numerical output and an *(optional)* plot.
+#' The function returns numerical output and an (*optional*) plot.
 #'
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
@@ -242,9 +242,9 @@
 #'  `DE.STATUS`  \tab `character`\tab test parameter status\cr
 #'  `RF_NAT.LIM`  \tab `charcter`\tab used RF_nat curve limits \cr
 #'  `RF_REG.LIM` \tab `character`\tab used RF_reg curve limits\cr
-#'  `POSITION` \tab `integer`\tab *(optional)* position of the curves\cr
-#'  `DATE` \tab `character`\tab *(optional)* measurement date\cr
-#'  `SEQUENCE_NAME` \tab `character`\tab *(optional)* sequence name\cr
+#'  `POSITION` \tab `integer`\tab (*optional*) position of the curves\cr
+#'  `DATE` \tab `character`\tab (*optional*) measurement date\cr
+#'  `SEQUENCE_NAME` \tab `character`\tab (*optional*) sequence name\cr
 #'  `UID` \tab `character`\tab unique data set ID
 #' }
 #'

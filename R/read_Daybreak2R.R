@@ -9,13 +9,13 @@
 #' containing measurement data. Please note that the specific, common, file extension (txt) is likely
 #' leading to function failures during import when just a path is provided.
 #'
-#' @param raw [logical] *(with default)*: if the input is a DAT-file (binary) a
+#' @param raw [logical] (*with default*): if the input is a DAT-file (binary) a
 #' [data.table::data.table] instead of the [RLum.Analysis-class] object
 #' can be returned for debugging purposes.
 #'
-#' @param verbose [logical] *(with default)*: enables or disables terminal feedback
+#' @param verbose [logical] (*with default*): enables or disables terminal feedback
 #'
-#' @param txtProgressBar [logical] *(with default)*: enables or disables
+#' @param txtProgressBar [logical] (*with default*): enables or disables
 #' [txtProgressBar].
 #'
 #' @return  A list of [RLum.Analysis-class] objects (each per position) is provided.

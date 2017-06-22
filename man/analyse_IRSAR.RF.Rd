@@ -21,27 +21,27 @@ specifies the general sequence structure. Allowed steps are \code{NATURAL}, \cod
 In addition any other character is allowed in the sequence structure;
 such curves will be ignored during the analysis.}
 
-\item{RF_nat.lim}{\link{vector} \emph{(with default)}:
+\item{RF_nat.lim}{\link{vector} (\emph{with default}):
 set minimum and maximum channel range for natural signal fitting and sliding.
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.}
 
-\item{RF_reg.lim}{\link{vector} \emph{(with default)}:
+\item{RF_reg.lim}{\link{vector} (\emph{with default}):
 set minimum and maximum channel range for regenerated signal fitting and sliding.
 If only one value is provided this will be treated as minimum value and the
 maximum limit will be added automatically.}
 
-\item{method}{\link{character} \emph{(with default)}:
+\item{method}{\link{character} (\emph{with default}):
 setting method applied for the data analysis.
 Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
-\item{method.control}{\link{list} \emph{(optional)}:
+\item{method.control}{\link{list} (\emph{optional}):
 parameters to control the method, that can be passed to the chosen method.
 These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly', 'minFactor' and for
 (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 See details.}
 
-\item{test_parameters}{\link{list} \emph{(with default)}:
+\item{test_parameters}{\link{list} (\emph{with default}):
 set test parameters. Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
 \code{lambda}, \code{beta} and \code{delta.phi}. All input: \link{numeric}
@@ -49,18 +49,18 @@ values, \code{NA} and \code{NULL} (s. Details)
 
 (see Details for further information)}
 
-\item{n.MC}{\link{numeric} \emph{(with default)}:
+\item{n.MC}{\link{numeric} (\emph{with default}):
 set number of Monte Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL} to skip the
 MC runs. Note: Large values will significantly increase the computation time}
 
-\item{txtProgressBar}{\link{logical} \emph{(with default)}:
+\item{txtProgressBar}{\link{logical} (\emph{with default}):
 enables \code{TRUE} or disables \code{FALSE} the progression bar during MC runs}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE} or \code{FALSE})}
 
-\item{plot_reduced}{\link{logical} \emph{(optional)}:
+\item{plot_reduced}{\link{logical} (\emph{optional}):
 provides a reduced plot output if enabled to allow common R plot combinations,
 e.g., \code{par(mfrow(...))}. If \code{TRUE} no residual plot
 is returned; it has no effect if \code{plot = FALSE}}
@@ -72,7 +72,7 @@ Currently supported arguments are \code{main}, \code{xlab}, \code{ylab},
 \link[graphics:legend]{graphics::legend}), \code{xaxt}}
 }
 \value{
-The function returns numerical output and an \emph{(optional)} plot.
+The function returns numerical output and an (\emph{optional}) plot.
 
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
@@ -93,9 +93,9 @@ The function returns numerical output and an \emph{(optional)} plot.
 \code{DE.STATUS}  \tab \code{character}\tab test parameter status\cr
 \code{RF_NAT.LIM}  \tab \code{charcter}\tab used RF_nat curve limits \cr
 \code{RF_REG.LIM} \tab \code{character}\tab used RF_reg curve limits\cr
-\code{POSITION} \tab \code{integer}\tab \emph{(optional)} position of the curves\cr
-\code{DATE} \tab \code{character}\tab \emph{(optional)} measurement date\cr
-\code{SEQUENCE_NAME} \tab \code{character}\tab \emph{(optional)} sequence name\cr
+\code{POSITION} \tab \code{integer}\tab (\emph{optional}) position of the curves\cr
+\code{DATE} \tab \code{character}\tab (\emph{optional}) measurement date\cr
+\code{SEQUENCE_NAME} \tab \code{character}\tab (\emph{optional}) sequence name\cr
 \code{UID} \tab \code{character}\tab unique data set ID
 }
 
@@ -172,8 +172,8 @@ signal.
 \item Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
 }
 
-Actually two methods are supported to obtain the \eqn{D_{e}}: \code{method = "FIT"} and
-\code{method = "SLIDE"}:
+Actually two methods are supported to obtain the \eqn{D_{e}}:
+\code{method = "FIT"} and \code{method = "SLIDE"}:
 
 \strong{\code{method = "FIT"}}
 
@@ -225,21 +225,21 @@ handled using the argument \code{method.control} only, e.g.,
 \code{minFactor} \tab \code{FIT} \tab as in \link{nls}\cr
 \code{correct_onset} \tab \code{SLIDE} \tab The logical argument shifts the curves along the x-axis by the first channel,
 as light is expected in the first channel. The default value is \code{TRUE}.\cr
-\code{show_density} \tab \code{SLIDE} \tab \link{logical} \emph{(with default)}
+\code{show_density} \tab \code{SLIDE} \tab \link{logical} (\emph{with default})
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-\code{show_fit} \tab \code{SLIDE} \tab \link{logical} \emph{(with default)}
+\code{show_fit} \tab \code{SLIDE} \tab \link{logical} (\emph{with default})
 enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-\code{n.MC} \tab \code{SLIDE} \tab \link{integer} \emph{(with default)}:
+\code{n.MC} \tab \code{SLIDE} \tab \link{integer} (\emph{with default}):
 This controls the number of MC runs within the sliding (assessing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
 function argument \code{n.MC}. \cr
-\code{vslide_range} \tab \code{SLDE} \tab \link{logical} or \link{numeric} or \link{character} \emph{(with default)}:
+\code{vslide_range} \tab \code{SLDE} \tab \link{logical} or \link{numeric} or \link{character} (\emph{with default}):
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
 reasonable vertical sliding range (\strong{recommended}). \code{NULL} applies no vertical sliding.
 The default is \code{NULL}.\cr
-\code{cores} \tab \code{SLIDE} \tab \code{number} or \code{character} \emph{(with default)}: set number of cores to be allocated
+\code{cores} \tab \code{SLIDE} \tab \code{number} or \code{character} (\emph{with default}): set number of cores to be allocated
 for a parallel processing of the Monte-Carlo runs. The default value is \code{NULL} (single thread),
 the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} = 8) assigns a value manually.
 }

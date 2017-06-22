@@ -48,7 +48,7 @@
 #' [RLum.Data.Curve-class] or [data.frame] with
 #' measured curve data of type stimulation time (t) (`values[,1]`) and
 #' measured counts (cts) (`values[,2]`).
-#' @param delta [vector] *(optional)*: stimulation rate parameter, if
+#' @param delta [vector] (*optional*): stimulation rate parameter, if
 #' no value is given, the optimal value is estimated automatically (see
 #' details). Smaller values of delta produce more points in the rising tail of
 #' the curve.

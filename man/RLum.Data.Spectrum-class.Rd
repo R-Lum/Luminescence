@@ -31,7 +31,7 @@ class \linkS4class{RLum.Data.Spectrum}}
 \item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
 using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{set_RLum}} \link{character} \emph{(with default)}: option to provide a parent id for nesting
+\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}): option to provide a parent id for nesting
 at will.}
 
 \item{recordType}{\code{\link{set_RLum}} \link{character}: record type (e.g. "OSL")}
@@ -43,7 +43,7 @@ type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.}
 
 \item{info}{\code{\link{set_RLum}} \link{list}: info elements}
 
-\item{info.object}{\code{\link{get_RLum}} \link{character} \emph{(optional)}: the name of the info
+\item{info.object}{\code{\link{get_RLum}} \link{character} (\emph{optional}): the name of the info
 object to be called}
 }
 \value{

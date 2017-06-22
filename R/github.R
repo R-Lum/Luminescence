@@ -13,19 +13,19 @@
 #' These functions can be used to query a specific repository hosted on GitHub. \cr
 #' 
 #' 
-#' @param user [character]: 
+#' @param user [character] (*with default*): 
 #' GitHub user name (defaults to 'r-lum').
 #' 
-#' @param repo [character]: 
+#' @param repo [character] (*with default*): 
 #' name of a GitHub repository (defaults to 'luminescence').
 #' 
-#' @param branch [character]: 
+#' @param branch [character] (*with default*): 
 #' branch of a GitHub repository (defaults to 'master').
 #' 
-#' @param n [integer]:
+#' @param n [integer] (*with default*):
 #' number of commits returned (defaults to 5).
 #' 
-#' @param verbose [logical]: 
+#' @param verbose [logical] (*with default*): 
 #' print the output to the console (defaults to `TRUE`).
 #' 
 #' @author Christoph Burow, University of Cologne (Germany)
@@ -52,11 +52,11 @@ NULL
 #' @rdname GitHub-API
 #' 
 #' @details 
-#' `github_commits` lists the most recent `n` commits of a specific
-#' branch of a repository.
+#' `github_commits` lists the most recent `n` commits of a specific branch of a repository.
 #' 
 #' @return 
 #' `github_commits`: [data.frame] with columns:
+#' 
 #' \tabular{ll}{
 #'  `[ ,1]` \tab SHA \cr
 #'  `[ ,2]` \tab AUTHOR \cr
@@ -103,6 +103,7 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #' 
 #' @return 
 #' `github_branches`: [data.frame] with columns:
+#' 
 #' \tabular{ll}{
 #'  `[ ,1]` \tab BRANCH \cr
 #'  `[ ,2]` \tab SHA \cr
@@ -142,6 +143,7 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #' @return 
 #' `github_commits`: Nested [list] with `n` elements.
 #' Each commit element is a list with elements:
+#' 
 #' \tabular{ll}{
 #'  `[[1]]` \tab NUMBER \cr
 #'  `[[2]]` \tab TITLE \cr

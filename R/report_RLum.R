@@ -17,7 +17,7 @@
 #'  `Object structure` \tab Summary of the objects structure given as a table \cr
 #'  `File` \tab Information on the saved RDS file \cr
 #'  `Session Info` \tab Captured output from sessionInfo() \cr
-#'  `Plots` \tab *(optional)* For `RLum-class` objects a variable number of plots \cr
+#'  `Plots` \tab (*optional*) For `RLum-class` objects a variable number of plots \cr
 #' }
 #'
 #' The structure of the report can be controlled individually by providing one or more of the
@@ -65,33 +65,33 @@
 #' @param object (**required**): 
 #' The object to be reported on, preferably of any `RLum`-class.
 #' 
-#' @param file [character] *(with default)*: 
+#' @param file [character] (*with default*): 
 #' A character string naming the output file. If no filename is provided a 
 #' temporary file is created.
 #' 
-#' @param title [character] *(with default)*:
+#' @param title [character] (*with default*):
 #' A character string specifying the title of the document.
 #' 
-#' @param compact [logical] *(with default)*:
+#' @param compact [logical] (*with default*):
 #' When `TRUE` the following report components are hidden: 
 #' `@@.pid`, `@@.uid`, `'Object structure'`, `'Session Info'`
 #' and only the first and last 5 rows of long matrices and data frames are shown.
 #' See details.
 #' 
-#' @param timestamp [logical] *(with default)*:
+#' @param timestamp [logical] (*with default*):
 #' `TRUE` to add a timestamp to the filename (suffix).
 #' 
-#' @param launch.browser [logical] *(with default)*:
+#' @param launch.browser [logical] (*with default*):
 #' `TRUE` to open the HTML file in the system's default web browser after
 #' it has been rendered.
 #' 
-#' @param css.file [character] *(optional)*:
+#' @param css.file [character] (*optional*):
 #' Path to a CSS file to change the default styling of the HTML document.
 #' 
-#' @param quiet [logical] *(with default)*:
+#' @param quiet [logical] (*with default*):
 #' `TRUE` to supress printing of the pandoc command line.
 #' 
-#' @param clean [logical] *(with default)*: 
+#' @param clean [logical] (*with default*): 
 #' `TRUE` to clean intermediate files created during rendering.
 #' 
 #' @param ... further arguments passed to or from other methods and to control

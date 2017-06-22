@@ -16,7 +16,7 @@ required}
 function \link{calc_SourceDoseRate}, for \code{vector} dose rate in
 Gy/s and dose rate error in Gy/s}
 
-\item{error.propagation}{\link{character} \emph{(with default)}: error propagation method used for error
+\item{error.propagation}{\link{character} (\emph{with default}): error propagation method used for error
 calculation (\code{omit}, \code{gaussian} or \code{absolute}), see details for further
 information}
 }

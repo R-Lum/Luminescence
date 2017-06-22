@@ -12,39 +12,39 @@
 #' @param object [Risoe.BINfileData-class] (**required**):
 #' `Risoe.BINfileData` object
 #'
-#' @param pos [numeric] *(optional)*: position number of the
+#' @param pos [numeric] (*optional*): position number of the
 #' `Risoe.BINfileData` object for which the curves are stored in the
 #' `RLum.Analysis` object. If `length(position)>1` a list of `RLum.Analysis` objects
 #' is returned. If nothing is provided every position will be converted. If the position is not valid `NA` is
 #' returned.
 #'
-#' @param grain [vector], [numeric] *(optional)*: grain number from
+#' @param grain [vector], [numeric] (*optional*): grain number from
 #' the measurement to limit the converted data set (e.g., \code{grain =
 #' c(1:48)}). Please be aware that this option may lead to unwanted effects, as the output
 #' is strictly limited to the choosen grain number for all position numbers
 #'
-#' @param run [vector], [numeric] *(optional)*: run number from
+#' @param run [vector], [numeric] (*optional*): run number from
 #' the measurement to limit the converted data set (e.g., `run = c(1:48)`).
 #'
-#' @param set [vector], [numeric] *(optional)*: set number from
+#' @param set [vector], [numeric] (*optional*): set number from
 #' the measurement to limit the converted data set (e.g., \code{set =
 #' c(1:48)}).
 #'
-#' @param ltype [vector], [character] *(optional)*: curve type
+#' @param ltype [vector], [character] (*optional*): curve type
 #' to limit the converted data. Commonly allowed values are: `IRSL`, `OSL`,
 #' `TL`, `RIR`, `RBR` and `USER` (see also [Risoe.BINfileData-class])
 #'
-#' @param dtype [vector], [character] *(optional)*: data type to
+#' @param dtype [vector], [character] (*optional*): data type to
 #' limit the converted data. Commonly allowed values are listed in [Risoe.BINfileData-class]
 #'
-#' @param protocol [character] *(optional)*: sets protocol type for
+#' @param protocol [character] (*optional*): sets protocol type for
 #' analysis object. Value may be used by subsequent analysis functions.
 #'
-#' @param keep.empty [logical] *(with default)*: If `TRUE` (default)
+#' @param keep.empty [logical] (*with default*): If `TRUE` (default)
 #' an `RLum.Analysis` object is returned even if it does not contain any
 #' records. Set to `FALSE` to discard all empty objects.
 #'
-#' @param txtProgressBar [logical] *(with default)*: enables or disables
+#' @param txtProgressBar [logical] (*with default*): enables or disables
 #' [txtProgressBar].
 #'
 #' @return Returns an [RLum.Analysis-class] object.

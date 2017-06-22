@@ -16,50 +16,50 @@
 #' Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all BIN/BINX files found in the directory.
 #'
-#' @param show.raw.values [logical] *(with default)*: shows raw values from
+#' @param show.raw.values [logical] (*with default*): shows raw values from
 #' BIN file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without
 #' translation in characters. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param n.records [raw] *(optional)*: limits the number of imported
+#' @param n.records [raw] (*optional*): limits the number of imported
 #' records. Can be used in combination with `show.record.number` for
 #' debugging purposes, e.g. corrupt BIN-files. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param zero_data.rm [logical] *(with default)*: remove erroneous data with no count
+#' @param zero_data.rm [logical] (*with default*): remove erroneous data with no count
 #' values. As such data are usally not needed for the subsequent data analysis they will be removed
 #' by default. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param duplicated.rm [logical] *(with default)*: remove duplicated entries if `TRUE`.
+#' @param duplicated.rm [logical] (*with default*): remove duplicated entries if `TRUE`.
 #' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
 #' predeccessor and successor. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param position [numeric] *(optional)*: imports only the selected position. Note:
+#' @param position [numeric] (*optional*): imports only the selected position. Note:
 #' the import performance will not benefit by any selection made here.
 #' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param fastForward [logical] *(with default)*: if `TRUE` for a
+#' @param fastForward [logical] (*with default*): if `TRUE` for a
 #' more efficient data processing only a list of `RLum.Analysis` objects is returned instead
 #' of a [Risoe.BINfileData-class] object. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param show.record.number [logical] *(with default)*: shows record number
+#' @param show.record.number [logical] (*with default*): shows record number
 #' of the imported record, for debugging usage only. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param txtProgressBar [logical] *(with default)*: enables or disables
+#' @param txtProgressBar [logical] (*with default*): enables or disables
 #' [txtProgressBar].
 #'
-#' @param forced.VersionNumber [integer] *(optional)*: allows to cheat the
+#' @param forced.VersionNumber [integer] (*optional*): allows to cheat the
 #' version number check in the function by own values for cases where the
 #' BIN-file version is not supported. Can be provided as `list` if `file` is a `list`.\cr
 #' Note: The usage is at own risk, only supported BIN-file versions have been tested.
 #'
-#' @param ignore.RECTYPE [logical] *(with default)*: this argument allows to ignore values
+#' @param ignore.RECTYPE [logical] (*with default*): this argument allows to ignore values
 #' in the byte 'RECTYPE' (BIN-file version 08), in case there are not documented or faulty set.
 #' In this case the corrupted records are skipped.
 #'
-#' @param pattern [character] *(optional)*: argument that is used if only a path is provided.
+#' @param pattern [character] (*optional*): argument that is used if only a path is provided.
 #' The argument will than be passed to the function [list.files] used internally to
 #' construct a `list` of wanted files
 #'
-#' @param verbose [logical] *(with default)*: enables or disables verbose mode
+#' @param verbose [logical] (*with default*): enables or disables verbose mode
 #'
 #' @param ... further arguments that will be passed to the function
 #' [Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument

@@ -77,61 +77,61 @@
 #' examples.
 #'
 #' @param values.bg [RLum.Data.Curve-class] or [data.frame]
-#' *(optional)*: x,y data of measured values (time and counts) for background
+#' (*optional*): x,y data of measured values (time and counts) for background
 #' subtraction.
 #'
-#' @param n.components [integer] *(with default)*: fixed number of
+#' @param n.components [integer] (*with default*): fixed number of
 #' components that are to be recognised during fitting (min = 1, max = 7).
 #'
-#' @param start_values [data.frame] *(optional)*: start parameters for lm
+#' @param start_values [data.frame] (*optional*): start parameters for lm
 #' and xm data for the fit. If no start values are given, an automatic start
 #' value estimation is attempted (see details).
 #'
-#' @param input.dataType [character] *(with default)*: alter the plot output
+#' @param input.dataType [character] (*with default*): alter the plot output
 #' depending on the input data: "LM" or "pLM" (pseudo-LM). See: [CW2pLM]
 #'
-#' @param fit.method [character] *(with default)*: select fit method,
+#' @param fit.method [character] (*with default*): select fit method,
 #' allowed values: `'port'` and `'LM'`. `'port'` uses the 'port'
 #' routine usint the funtion [nls] `'LM'` utilises the
 #' function `nlsLM` from the package `minpack.lm` and with that the
 #' Levenberg-Marquardt algorithm.
 #'
-#' @param sample_code [character] *(optional)*: sample code used for the
+#' @param sample_code [character] (*optional*): sample code used for the
 #' plot and the optional output table (mtext).
 #'
-#' @param sample_ID [character] *(optional)*: additional identifier used as
+#' @param sample_ID [character] (*optional*): additional identifier used as
 #' column header for the table output.
 #'
-#' @param LED.power [numeric] *(with default)*: LED power (max.) used for
+#' @param LED.power [numeric] (*with default*): LED power (max.) used for
 #' intensity ramping in mW/cm^2. **Note:** This value is used for the
 #' calculation of the absolute photoionisation cross section.
 #'
-#' @param LED.wavelength [numeric] *(with default)*: LED wavelength in nm
+#' @param LED.wavelength [numeric] (*with default*): LED wavelength in nm
 #' used for stimulation. **Note:** This value is used for the calculation of
 #' the absolute photoionisation cross section.
 #'
-#' @param fit.trace [logical] *(with default)*: traces the fitting process
+#' @param fit.trace [logical] (*with default*): traces the fitting process
 #' on the terminal.
 #'
-#' @param fit.advanced [logical] *(with default)*: enables advanced fitting
+#' @param fit.advanced [logical] (*with default*): enables advanced fitting
 #' attempt for automatic start parameter recognition. Works only if no start
 #' parameters are provided. **Note:** It may take a while and it is not
 #' compatible with `fit.method = "LM"`.
 #'
-#' @param fit.calcError [logical] *(with default)*: calculate 1-sigma error
+#' @param fit.calcError [logical] (*with default*): calculate 1-sigma error
 #' range of components using [confint].
 #'
-#' @param bg.subtraction [character] *(with default)*: specifies method for
+#' @param bg.subtraction [character] (*with default*): specifies method for
 #' background subtraction (`polynomial`, `linear`, `channel`,
 #' see Details). **Note:** requires input for `values.bg`.
 #'
-#' @param verbose [logical] *(with default)*: terminal output with
+#' @param verbose [logical] (*with default*): terminal output with
 #' fitting results.
 #'
-#' @param plot [logical] *(with default)*: returns a plot of the
+#' @param plot [logical] (*with default*): returns a plot of the
 #' fitted curves.
 #'
-#' @param plot.BG [logical] *(with default)*: returns a plot of the
+#' @param plot.BG [logical] (*with default*): returns a plot of the
 #' background values with the fit used for the background subtraction.
 #'
 #' @param ... Further arguments that may be passed to the plot output, e.g.

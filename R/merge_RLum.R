@@ -3,25 +3,22 @@
 #' Function calls object-specific merge functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for merge specific
-#' [RLum-class] objects.\cr Depending on the input object, the
+#' [RLum-class] objects. Depending on the input object, the
 #' corresponding merge function will be selected.  Allowed arguments can be
-#' found in the documentations of each merge function. Empty list elements (`NULL`) are
-#' automatically removed from the input `list`.
+#' found in the documentations of each merge function. 
+#' Empty list elements (`NULL`) are automatically removed from the input `list`.
 #'
 #' \tabular{lll}{
 #' **object** \tab \tab **corresponding merge function** \cr
-#'
 #' [RLum.Data.Curve-class] \tab : \tab `merge_RLum.Data.Curve` \cr
 #' [RLum.Analysis-class] \tab : \tab `merge_RLum.Analysis` \cr
 #' [RLum.Results-class] \tab : \tab `merge_RLum.Results`
-#
 #' }
 #'
-#' @param objects [list] of [RLum-class]
-#' (**required**): list of S4 object of class `RLum`
+#' @param objects [list] of [RLum-class] (**required**): 
+#' list of S4 object of class `RLum`
 #'
-#' @param ... further arguments that one might want to pass to the specific
-#' merge function
+#' @param ... further arguments that one might want to pass to the specific merge function
 #'
 #' @return Return is the same as input objects as provided in the list.
 #'
@@ -29,12 +26,11 @@
 #'
 #' @section Function version: 0.1.2
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum.Data.Curve-class], [RLum.Data.Image-class],
 #' [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]
-#'
 #'
 #'
 #' @keywords utilities

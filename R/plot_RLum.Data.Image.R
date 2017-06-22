@@ -4,37 +4,36 @@
 #' `RLum.Data.Image`S4 class object, mainly using the plot functions
 #' provided by the [raster] package.
 #'
-#' **Details on the plot functions** \cr
+#' **Details on the plot functions**
 #'
 #' Image is visualised as 2D plot usinng generic plot types provided by other
 #' packages.
 #'
-#' Supported plot types: \cr
+#' Supported plot types:
 #'
-#'**`plot.type = "plot.raster"`**\cr
+#' **`plot.type = "plot.raster"`**
 #'
 #' Uses the standard plot function for raster data from the package
 #' [raster::raster]: [raster::plot]. For each raster layer in a
 #' raster brick one plot is produced.
 #'
-#' Arguments that are passed through the function call:\cr
+#' Arguments that are passed through the function call:
 #'
 #' `main`,`axes`, `xlab`, `ylab`, `xlim`, `ylim`,
 #' `col`
 #'
-#'**`plot.type = "plotRGB"`**\cr
+#' **`plot.type = "plotRGB"`**
 #'
 #' Uses the function [raster::plotRGB] from the
 #' [raster::raster] package. Only one image plot is produced as all layers
 #' in a brick a combined.  This plot type is useful to see whether any signal
-#' is recorded by the camera.\cr Arguments that are passed through the function
-#' call:\cr
+#' is recorded by the camera.\cr 
+#' Arguments that are passed through the function call:
 #'
-#' `main`,`axes`, `xlab`, `ylab`, `ext`,
-#' `interpolate`, `maxpixels`, `alpha`, `colNA`,
-#' `stretch`\cr
+#' `main`,`axes`, `xlab`, `ylab`, `ext`, `interpolate`, `maxpixels`, 
+#' `alpha`, `colNA`, `stretch`
 #'
-#'**`plot.type = "contour"`**\cr
+#' **`plot.type = "contour"`**
 #'
 #' Uses the function contour plot function from the [raster]
 #' function ([raster::contour]). For each raster layer one contour
@@ -45,27 +44,35 @@
 #'
 #' @param object [RLum.Data.Image-class] (**required**): S4
 #' object of class `RLum.Data.Image`
-#' @param par.local [logical] *(with default)*: use local graphical
+#' 
+#' @param par.local [logical] (*with default*): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
 #' If `par.local = FALSE` global parameters are inherited.
-#' @param plot.type [character] *(with default)*: plot types.
+#' 
+#' @param plot.type [character] (*with default*): plot types.
 #' Supported types are `plot.raster`, `plotRGB` or `contour`
+#' 
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the specific plot functions.
+#' 
 #' @return Returns a plot.
-#' @note This function has been created to faciliate the plotting of image data
+#' 
+#' @note 
+#' This function has been created to faciliate the plotting of image data
 #' imported by the function [read_SPE2R]. However, so far the
 #' function is not optimized to handle image data > ca. 200 MByte and thus
 #' plotting of such data is extremely slow.
+#' 
 #' @section Function version: 0.1
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
-#' @seealso [RLum.Data.Image-class], [plot],
-#' [plot_RLum], [raster::raster]
+#' 
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' 
+#' @seealso [RLum.Data.Image-class], [plot], [plot_RLum], [raster::raster]
 #' 
 #' @keywords aplot
+#' 
 #' @examples
-#'
 #'
 #' ##load data
 #' data(ExampleData.RLum.Data.Image, envir = environment())

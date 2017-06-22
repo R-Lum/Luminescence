@@ -72,6 +72,6 @@ see the manual of this package.
 }
 
 \author{
-Johannes Friedrich, University of Bayreuth (Germany),\cr
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)\cr
+Johannes Friedrich, University of Bayreuth (Germany) \cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaige (France)
 }

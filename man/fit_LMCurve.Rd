@@ -17,61 +17,61 @@ fit_LMCurve(values, values.bg, n.components = 3, start_values,
 examples.}
 
 \item{values.bg}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
-\emph{(optional)}: x,y data of measured values (time and counts) for background
+(\emph{optional}): x,y data of measured values (time and counts) for background
 subtraction.}
 
-\item{n.components}{\link{integer} \emph{(with default)}: fixed number of
+\item{n.components}{\link{integer} (\emph{with default}): fixed number of
 components that are to be recognised during fitting (min = 1, max = 7).}
 
-\item{start_values}{\link{data.frame} \emph{(optional)}: start parameters for lm
+\item{start_values}{\link{data.frame} (\emph{optional}): start parameters for lm
 and xm data for the fit. If no start values are given, an automatic start
 value estimation is attempted (see details).}
 
-\item{input.dataType}{\link{character} \emph{(with default)}: alter the plot output
+\item{input.dataType}{\link{character} (\emph{with default}): alter the plot output
 depending on the input data: "LM" or "pLM" (pseudo-LM). See: \link{CW2pLM}}
 
-\item{fit.method}{\link{character} \emph{(with default)}: select fit method,
+\item{fit.method}{\link{character} (\emph{with default}): select fit method,
 allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
 routine usint the funtion \link{nls} \code{'LM'} utilises the
 function \code{nlsLM} from the package \code{minpack.lm} and with that the
 Levenberg-Marquardt algorithm.}
 
-\item{sample_code}{\link{character} \emph{(optional)}: sample code used for the
+\item{sample_code}{\link{character} (\emph{optional}): sample code used for the
 plot and the optional output table (mtext).}
 
-\item{sample_ID}{\link{character} \emph{(optional)}: additional identifier used as
+\item{sample_ID}{\link{character} (\emph{optional}): additional identifier used as
 column header for the table output.}
 
-\item{LED.power}{\link{numeric} \emph{(with default)}: LED power (max.) used for
+\item{LED.power}{\link{numeric} (\emph{with default}): LED power (max.) used for
 intensity ramping in mW/cm^2. \strong{Note:} This value is used for the
 calculation of the absolute photoionisation cross section.}
 
-\item{LED.wavelength}{\link{numeric} \emph{(with default)}: LED wavelength in nm
+\item{LED.wavelength}{\link{numeric} (\emph{with default}): LED wavelength in nm
 used for stimulation. \strong{Note:} This value is used for the calculation of
 the absolute photoionisation cross section.}
 
-\item{fit.trace}{\link{logical} \emph{(with default)}: traces the fitting process
+\item{fit.trace}{\link{logical} (\emph{with default}): traces the fitting process
 on the terminal.}
 
-\item{fit.advanced}{\link{logical} \emph{(with default)}: enables advanced fitting
+\item{fit.advanced}{\link{logical} (\emph{with default}): enables advanced fitting
 attempt for automatic start parameter recognition. Works only if no start
 parameters are provided. \strong{Note:} It may take a while and it is not
 compatible with \code{fit.method = "LM"}.}
 
-\item{fit.calcError}{\link{logical} \emph{(with default)}: calculate 1-sigma error
+\item{fit.calcError}{\link{logical} (\emph{with default}): calculate 1-sigma error
 range of components using \link{confint}.}
 
-\item{bg.subtraction}{\link{character} \emph{(with default)}: specifies method for
+\item{bg.subtraction}{\link{character} (\emph{with default}): specifies method for
 background subtraction (\code{polynomial}, \code{linear}, \code{channel},
 see Details). \strong{Note:} requires input for \code{values.bg}.}
 
-\item{verbose}{\link{logical} \emph{(with default)}: terminal output with
+\item{verbose}{\link{logical} (\emph{with default}): terminal output with
 fitting results.}
 
-\item{plot}{\link{logical} \emph{(with default)}: returns a plot of the
+\item{plot}{\link{logical} (\emph{with default}): returns a plot of the
 fitted curves.}
 
-\item{plot.BG}{\link{logical} \emph{(with default)}: returns a plot of the
+\item{plot.BG}{\link{logical} (\emph{with default}): returns a plot of the
 background values with the fit used for the background subtraction.}
 
 \item{...}{Further arguments that may be passed to the plot output, e.g.

@@ -12,28 +12,28 @@ analyse_Al2O3C_Measurement(object, signal_integral = NULL,
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
 measurement input}
 
-\item{signal_integral}{\link{numeric} \emph{(optional)}:
+\item{signal_integral}{\link{numeric} (\emph{optional}):
 signal integral, used for the signal and the background.
 If nothing is provided the full range is used}
 
-\item{dose_points}{\link{numeric} \emph{(with default)}:
+\item{dose_points}{\link{numeric} (\emph{with default}):
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017}
 
-\item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} \emph{(optional)}:
+\item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obained by another experiements.
 I a \code{numeric} is provided it has to be of length two: mean, standard error}
 
-\item{cross_talk_correction}{\link{numeric} or \linkS4class{RLum.Results} \emph{(optional)}:
+\item{cross_talk_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obained by another experiements.
 If a \code{numeric} vector is provided it has to be of length three:
 mean, 2.5 \% quantile, 97.5 \% quantile.}
 
-\item{verbose}{\link{logical} \emph{(with default)}:
+\item{verbose}{\link{logical} (\emph{with default}):
 enable/disable verbose mode}
 
-\item{plot}{\link{logical} \emph{(with default)}:
+\item{plot}{\link{logical} (\emph{with default}):
 enable/disable plot output}
 
 \item{...}{further arguments that can be passed to the plot output}

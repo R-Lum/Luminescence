@@ -13,19 +13,19 @@
 #' Alternatively the input character can be just a directory (path). In this case the
 #' the function tries to detect and import all PSL files found in the directory.
 #'
-#' @param drop_bg [logical] *(with default)*: `TRUE` to automatically 
+#' @param drop_bg [logical] (*with default*): `TRUE` to automatically 
 #' remove all non-OSL/IRSL curves.
 #'
-#' @param as_decay_curve  [logical] *(with default)*: Portable OSL Reader curves
+#' @param as_decay_curve  [logical] (*with default*): Portable OSL Reader curves
 #' are often given as cumulative light sum curves. Use `TRUE` (default) to convert
 #' the curves to the more usual decay form.
 #' 
-#' @param smooth [logical] *(with default)*: `TRUE` to apply 
+#' @param smooth [logical] (*with default*): `TRUE` to apply 
 #' Tukey's Running Median Smoothing for OSL and IRSL decay curves. Smoothing is
 #' encouraged if you see random signal drops within the decay curves related 
 #' to hardware errors.
 #' 
-#' @param merge [logical] *(with default)*: `TRUE` to merge all 
+#' @param merge [logical] (*with default*): `TRUE` to merge all 
 #' `RLum.Analysis` objects. Only applicable if multiple files are imported.
 #' 
 #' @param ... currently not used.
