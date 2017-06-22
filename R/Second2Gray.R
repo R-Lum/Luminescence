@@ -9,7 +9,6 @@
 #' Provided calculation error propagation methods for error calculation (with 'se' as the standard error
 #' and 'DR' of the dose rate of the beta-source):\cr
 #'
-#'
 #' \bold{(1) \code{omit}} (default)\cr
 #'
 #' \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}

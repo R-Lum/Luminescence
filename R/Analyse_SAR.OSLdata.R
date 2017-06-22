@@ -41,12 +41,12 @@
 #' no value is given the range of the sets in the sequence is deduced from the
 #' \code{Risoe.BINfileData} object.
 #'
-#' @param dtype \code{\link{character}} (optional): allows to further limit the
+#' @param dtype [character] (optional): allows to further limit the
 #' curves by their data type (\code{DTYPE}), e.g., \code{dtype = c("Natural",
 #' "Dose")} limits the curves to this two data types. By default all values are
 #' allowed. See \link{Risoe.BINfileData-class} for allowed data types.
 #'
-#' @param keep.SEL \code{\link{logical}} (default): option allowing to use the
+#' @param keep.SEL [logical] (default): option allowing to use the
 #' \code{SEL} element of the \link{Risoe.BINfileData-class} manually. NOTE: In
 #' this case any limitation provided by \code{run}, \code{set} and \code{dtype}
 #' are ignored!
@@ -65,7 +65,7 @@
 #' @param cex.global \link{numeric} (with default): global scaling factor.
 #'
 #' @param \dots further arguments that will be passed to the function
-#' \code{\link{calc_OSLLxTxRatio}} (supported: \code{background.count.distribution}, \code{sigmab},
+#' [calc_OSLLxTxRatio] (supported: \code{background.count.distribution}, \code{sigmab},
 #' \code{sig0}; e.g., for instrumental error)
 #' and can be used to adjust the plot. Supported" \code{mtext}, \code{log}
 #'
@@ -83,8 +83,8 @@
 #' analysis to discard values.\cr\cr
 #'
 #' \bold{The analysis of IRSL data is not directly supported}. You may want to
-#' consider using the functions \code{\link{analyse_SAR.CWOSL}} or
-#' \code{\link{analyse_pIRIRSequence}} instead.\cr
+#' consider using the functions [analyse_SAR.CWOSL] or
+#' [analyse_pIRIRSequence] instead.\cr
 #'
 #' \bold{The development of this function will not be continued. We recommend
 #' to use the function \link{analyse_SAR.CWOSL} or instead.}

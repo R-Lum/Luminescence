@@ -9,22 +9,22 @@ analyse_Al2O3C_CrossTalk(object, signal_integral = NULL, dose_points = c(0,
   plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} \bold{(required)}: measurement input}
+\item{object}{\linkS4class{RLum.Analysis} \bold{(required)}: measurement input}
 
-\item{signal_integral}{\code{\link{numeric}} (optional): signal integral, used for the signal
+\item{signal_integral}{\link{numeric} (optional): signal integral, used for the signal
 and the background. If nothing is provided the full range is used}
 
-\item{dose_points}{\code{\link{numeric}} (with default): vector with dose points, if dose points
+\item{dose_points}{\link{numeric} (with default): vector with dose points, if dose points
 are repeated, only the general pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017}
 
-\item{irradiation_time_correction}{\code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (optional):
+\item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (optional):
 information on the used irradiation time correction obained by another experiements.}
 
-\item{method_control}{\code{\link{list}} (optional): optional parameters to control the calculation.
+\item{method_control}{\link{list} (optional): optional parameters to control the calculation.
 See details for further explanations}
 
-\item{plot}{\code{\link{logical}} (with default): enable/disable plot output}
+\item{plot}{\link{logical} (with default): enable/disable plot output}
 
 \item{...}{further arguments that can be passed to the plot output}
 }
@@ -34,9 +34,9 @@ Function returns results numerically and graphically:\cr
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\bold{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Reuslts}}-object\cr
 
-\bold{slot:} \bold{\code{@data}}\cr
+\bold{slot:} \strong{\code{@data}}\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
 \code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
@@ -45,7 +45,7 @@ Function returns results numerically and graphically:\cr
 \code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
 }
 
-\bold{slot:} \bold{\code{@info}}\cr
+\bold{slot:} \strong{\code{@info}}\cr
 
 The original function call\cr
 
@@ -75,7 +75,7 @@ Al2O3:C pellets
 TODO
 }
 \seealso{
-\code{\link{analyse_Al2O3C_ITC}}
+\link{analyse_Al2O3C_ITC}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

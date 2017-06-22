@@ -11,7 +11,7 @@ analyse_SAR.TL(object, object.background, signal.integral.min,
   dose.points, log = "", ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): input
+\item{object}{\href{\bold{required}}{RLum.Analysis-class}: input
 object containing data for analysis}
 
 \item{object.background}{currently not used}
@@ -24,7 +24,7 @@ channel number for the lower signal integral bound (e.g.
 channel number for the upper signal integral bound (e.g.
 \code{signal.integral.max = 200})}
 
-\item{integral_input}{\code{\link{character}} (with default): defines the input for the
+\item{integral_input}{\link{character} (with default): defines the input for the
 the arguments \code{signal.integral.min} and \code{signal.integral.max}. These limits can be
 either provided \code{'channel'} number (the default) or \code{'temperature'}. If \code{'temperature'}
 is chosen the best matching channel is selected.}
@@ -38,7 +38,7 @@ relevant for the protocol analysis.  (Note: None TL are removed by default)}
 \item{rejection.criteria}{\link{list} (with default): list containing
 rejection criteria in percentage for the calculation.}
 
-\item{dose.points}{\code{\link{numeric}} (optional): option set dose points manually}
+\item{dose.points}{\link{numeric} (optional): option set dose points manually}
 
 \item{log}{\link{character} (with default): a character string which
 contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
@@ -46,10 +46,10 @@ logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 \link{plot.default}).}
 
 \item{\dots}{further arguments that will be passed to the function
-\code{\link{plot_GrowthCurve}}}
+\link{plot_GrowthCurve}}
 }
 \value{
-A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
+A plot (optional) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 \item{De.values}{\link{data.frame} containing De-values and further
 parameters} \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx
@@ -57,11 +57,11 @@ values including signal, background counts and the dose points.}
 \item{rejection.criteria}{\link{data.frame} with values that might by used
 as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
 \bold{note:} the output should be accessed using the function
-\code{\link{get_RLum}}
+\link{get_RLum}
 }
 \description{
 The function performs a SAR TL analysis on a
-\code{\linkS4class{RLum.Analysis}} object including growth curve fitting.
+\linkS4class{RLum.Analysis} object including growth curve fitting.
 }
 \details{
 This function performs a SAR TL analysis on a set of curves. The SAR
@@ -109,9 +109,9 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.
 }
 \seealso{
-\code{\link{calc_TLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-\code{\link{get_RLum}}
+\link{calc_TLLxTxRatio}, \link{plot_GrowthCurve},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
+\link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

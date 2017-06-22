@@ -9,33 +9,33 @@ analyse_SAR.CWOSL(object, signal.integral.min, signal.integral.max,
   dose.points = NULL, mtext.outer, plot = TRUE, plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
-object containing data for analysis, alternatively a \code{\link{list}} of
-\code{\linkS4class{RLum.Analysis}} objects can be provided.}
+\item{object}{\linkS4class{RLum.Analysis} (\bold{required}): input
+object containing data for analysis, alternatively a \link{list} of
+\linkS4class{RLum.Analysis} objects can be provided.}
 
-\item{signal.integral.min}{\code{\link{integer}} (\bold{required}): lower
-bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+\item{signal.integral.min}{\link{integer} (\bold{required}): lower
+bound of the signal integral. Can be a \link{list} of \code{\link{integer}s}, if \code{object} is
+of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the minimum signal integral for the Tx curve.}
 
-\item{signal.integral.max}{\code{\link{integer}} (\bold{required}): upper
-bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+\item{signal.integral.max}{\link{integer} (\bold{required}): upper
+bound of the signal integral. Can be a \link{list} of \code{\link{integer}s}, if \code{object} is
+of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the maximum signal integral for the Tx curve.}
 
-\item{background.integral.min}{\code{\link{integer}} (\bold{required}):
-lower bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+\item{background.integral.min}{\link{integer} (\bold{required}):
+lower bound of the background integral. Can be a \link{list} of \code{\link{integer}s}, if \code{object} is
+of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the minimum background integral for the Tx curve.}
 
-\item{background.integral.max}{\code{\link{integer}} (\bold{required}):
-upper bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+\item{background.integral.max}{\link{integer} (\bold{required}):
+upper bound of the background integral. Can be a \link{list} of \code{\link{integer}s}, if \code{object} is
+of type \link{list}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 as the maximum background integral for the Tx curve.}
 
-\item{rejection.criteria}{\code{\link{list}} (with default): provide a named list
-and set rejection criteria in \bold{percentage} for further calculation. Can be a \code{\link{list}} in
-a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
+\item{rejection.criteria}{\link{list} (with default): provide a named list
+and set rejection criteria in \bold{percentage} for further calculation. Can be a \link{list} in
+a \link{list}, if \code{object} is of type \link{list}
 
 Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
 \code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
@@ -44,20 +44,20 @@ Per default all numerical values are set to 10, \code{exceed.max.regpoint = TRUE
 Every criterium can be set to \code{NA}. In this value are calculated, but not considered, i.e.
 the RC.Status becomes always \code{'OK'}}
 
-\item{dose.points}{\code{\link{numeric}} (optional): a numeric vector
+\item{dose.points}{\link{numeric} (optional): a numeric vector
 containg the dose points values Using this argument overwrites dose point
-values in the signal curves. Can be a \code{\link{list}} of \code{\link{numeric}} vectors,
-if \code{object} is of type \code{\link{list}}}
+values in the signal curves. Can be a \link{list} of \link{numeric} vectors,
+if \code{object} is of type \link{list}}
 
-\item{mtext.outer}{\code{\link{character}} (optional): option to provide an
-outer margin mtext. Can be a \code{\link{list}} of \code{\link{character}s},
-if \code{object} is of type \code{\link{list}}}
+\item{mtext.outer}{\link{character} (optional): option to provide an
+outer margin mtext. Can be a \link{list} of \code{\link{character}s},
+if \code{object} is of type \link{list}}
 
-\item{plot}{\code{\link{logical}} (with default): enables or disables plot
+\item{plot}{\link{logical} (with default): enables or disables plot
 output.}
 
-\item{plot.single}{\code{\link{logical}} (with default) or
-\code{\link{numeric}} (optional): single plot output (\code{TRUE/FALSE}) to
+\item{plot.single}{\link{logical} (with default) or
+\link{numeric} (optional): single plot output (\code{TRUE/FALSE}) to
 allow for plotting the results in single plot windows. If a numerice vector
 is provided the plots can be selected individually, i.e. \code{plot.single =
 c(1,2,3,4)} will plot the TL and Lx, Tx curves but not the legend (5) or the
@@ -65,13 +65,13 @@ growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 \code{plot = TRUE}.}
 
 \item{\dots}{further arguments that will be passed to the function
-\code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
+\link{plot_GrowthCurve} or \link{calc_OSLLxTxRatio}
 (supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}). \bold{Please note} that
 if you consider to use the early light subtraction method you should provide your own \code{sigmab}
 value!}
 }
 \value{
-A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
+A plot (optional) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 
 \item{data}{\link{data.frame} containing De-values, De-error and
@@ -81,11 +81,11 @@ points} \item{rejection.criteria}{\link{data.frame} with values that might
 by used as rejection criteria. NA is produced if no R0 dose point exists.}
 \item{Formula}{\link{formula} formula that have been used for the growth
 curve fitting }\cr The output should be accessed using the function
-\code{\link{get_RLum}}.
+\link{get_RLum}.
 }
 \description{
 The function performs a SAR CW-OSL analysis on an
-\code{\linkS4class{RLum.Analysis}} object including growth curve fitting.
+\linkS4class{RLum.Analysis} object including growth curve fitting.
 }
 \details{
 The function performs an analysis for a standard SAR protocol measurements
@@ -97,14 +97,14 @@ used. For \bold{changing the way the Lx/Tx error is calculated} use the argument
 
 \bold{Argument \code{object} is of type \code{list}}\cr\cr
 
-If the argument \code{object} is of type \code{\link{list}} containing \bold{only}
-\code{\linkS4class{RLum.Analysis}} objects, the function re-calls itself as often as elements
+If the argument \code{object} is of type \link{list} containing \bold{only}
+\linkS4class{RLum.Analysis} objects, the function re-calls itself as often as elements
 are in the list. This is usefull if an entire measurement wanted to be analysed without
 writing separate for-loops. To gain in full control of the parameters (e.g., \code{dose.points}) for
-every aliquot (corresponding to one \code{\linkS4class{RLum.Analysis}} object in the list), in
-this case the arguments can be provided as \code{\link{list}}. This \code{list} should
+every aliquot (corresponding to one \linkS4class{RLum.Analysis} object in the list), in
+this case the arguments can be provided as \link{list}. This \code{list} should
 be of similar length as the \code{list} provided with the argument \code{object}, otherwise the function
-will create an own list of the requested lenght. Function output will be just one single \code{\linkS4class{RLum.Results}} object.
+will create an own list of the requested lenght. Function output will be just one single \linkS4class{RLum.Results} object.
 
 Please be careful when using this option. It may allow a fast an efficient data analysis, but
 the function may also break with an unclear error message, due to wrong input data.\cr\cr
@@ -140,7 +140,7 @@ default should not exceed 10\%.
 }
 \note{
 This function must not be mixed up with the function
-\code{\link{Analyse_SAR.OSLdata}}, which works with
+\link{Analyse_SAR.OSLdata}, which works with
 \link{Risoe.BINfileData-class} objects.\cr
 
 \bold{The function currently does only support 'OSL' or 'IRSL' data!}
@@ -200,9 +200,9 @@ extracts. Radiation Measurements 43, 1474-1486.
 doi:10.1016/j.radmeas.2008.06.002
 }
 \seealso{
-\code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-\code{\link{get_RLum}}
+\link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
+\link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne

@@ -10,28 +10,28 @@ analyse_IRSAR.RF(object, sequence_structure = c("NATURAL", "REGENERATED"),
   txtProgressBar = TRUE, plot = TRUE, plot_reduced = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} or a \code{\link{list}} of \code{RLum.Analysis} objects (\bold{required}): input
+\item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \code{RLum.Analysis} objects (\bold{required}): input
 object containing data for protocol analysis. The function expects to find at least two curves in the
-\code{\linkS4class{RLum.Analysis}} object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
+\linkS4class{RLum.Analysis} object: (1) RF_nat, (2) RF_reg. If a \code{list} is provided as
 input all other parameters can be provided as \code{list} as well to gain full control.}
 
-\item{sequence_structure}{\code{\link{vector}} \link{character} (with
+\item{sequence_structure}{\link{vector} \link{character} (with
 default): specifies the general sequence structure. Allowed steps are
 \code{NATURAL}, \code{REGENERATED}. In addition any other character is
 allowed in the sequence structure; such curves will be ignored during the analysis.}
 
-\item{RF_nat.lim}{\code{\link{vector}} (with default): set minimum and maximum
+\item{RF_nat.lim}{\link{vector} (with default): set minimum and maximum
 channel range for natural signal fitting and sliding. If only one value is provided this
 will be treated as minimum value and the maximum limit will be added automatically.}
 
-\item{RF_reg.lim}{\code{\link{vector}} (with default): set minimum and maximum
+\item{RF_reg.lim}{\link{vector} (with default): set minimum and maximum
 channel range for regenerated signal fitting and sliding. If only one value is provided this
 will be treated as minimum value and the maximum limit will be added automatically.}
 
-\item{method}{\code{\link{character}} (with default): setting method applied
+\item{method}{\link{character} (with default): setting method applied
 for the data analysis. Possible options are \code{"FIT"} or \code{"SLIDE"}.}
 
-\item{method.control}{\code{\link{list}} (optional): parameters to control the method, that can
+\item{method.control}{\link{list} (optional): parameters to control the method, that can
 be passed to the chosen method. These are for (1) \code{method = "FIT"}: 'trace', 'maxiter', 'warnOnly',
 'minFactor' and for (2) \code{method = "SLIDE"}: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 See details.}
@@ -39,23 +39,23 @@ See details.}
 \item{test_parameters}{\code{\link{list} (with default)}: set test parameters.
 Supported parameters are: \code{curves_ratio}, \code{residuals_slope} (only for
 \code{method = "SLIDE"}), \code{curves_bounds}, \code{dynamic_ratio},
-\code{lambda}, \code{beta} and \code{delta.phi}. All input: \code{\link{numeric}}
+\code{lambda}, \code{beta} and \code{delta.phi}. All input: \link{numeric}
 values, \code{NA} and \code{NULL} (s. Details)
 
 (see Details for further information)}
 
-\item{n.MC}{\code{\link{numeric}} (with default): set number of Monte
+\item{n.MC}{\link{numeric} (with default): set number of Monte
 Carlo runs for start parameter estimation (\code{method = "FIT"}) or
 error estimation (\code{method = "SLIDE"}). This value can be set to \code{NULL} to skip the
 MC runs. Note: Large values will significantly increase the computation time}
 
-\item{txtProgressBar}{\code{\link{logical}} (with default): enables \code{TRUE} or
+\item{txtProgressBar}{\link{logical} (with default): enables \code{TRUE} or
 disables \code{FALSE} the progression bar during MC runs}
 
-\item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}
+\item{plot}{\link{logical} (with default): plot output (\code{TRUE}
 or \code{FALSE})}
 
-\item{plot_reduced}{\code{\link{logical}} (optional): provides a reduced plot output if enabled
+\item{plot_reduced}{\link{logical} (optional): provides a reduced plot output if enabled
 to allow common R plot combinations, e.g., \code{par(mfrow(...))}. If \code{TRUE} no residual plot
 is returned; it has no effect if \code{plot = FALSE}}
 
@@ -71,9 +71,9 @@ The function returns numerical output and an (optional) plot.
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\bold{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Reuslts}}-object\cr
 
-\bold{slot:} \bold{\code{@data}} \cr
+\bold{slot:} \strong{\code{@data}} \cr
 
 \code{[.. $data : data.frame]}\cr
 
@@ -111,11 +111,11 @@ UID \tab \code{character}\tab unique data set ID
 
 \code{[.. $fit : data.frame]}\cr
 
-An \code{\link{nls}} object produced by the fitting.\cr
+An \link{nls} object produced by the fitting.\cr
 
 \code{[.. $slide : list]}\cr
 
-A \code{\link{list}} with data produced during the sliding. Some elements are previously
+A \link{list} with data produced during the sliding. Some elements are previously
 reported with the summary object data. List elements are:
 
 \tabular{lll}{
@@ -134,12 +134,12 @@ vslide_range \tab \code{numeric} \tab the range used for the vertical sliding \c
 squared_residuals \tab \code{numeric} \tab the squared residuals (horizontal sliding)
 }
 
-\bold{slot:} \bold{\code{@info}} \cr
+\bold{slot:} \strong{\code{@info}} \cr
 
 The original function call (\code{\link[methods]{language-class}}-object)
 
 The output (\code{data}) should be accessed using the
-function \code{\link{get_RLum}}
+function \link{get_RLum}
 
 ------------------------\cr
 \code{[ PLOT OUTPUT ]}\cr
@@ -170,7 +170,7 @@ fitting}
 Actually two methods are supported to obtain the \eqn{D_{e}}: \code{method = "FIT"} and
 \code{method = "SLIDE"}:
 
-\bold{\code{method = "FIT"}}\cr
+\strong{\code{method = "FIT"}}\cr
 
 The principle is described above and follows the original suggestions by
 Erfurt et al., 2003. For the fitting the mean count value of the RF_nat curve is used.
@@ -184,9 +184,9 @@ IR-RF flux, \eqn{\Delta\phi} the dose dependent change of the IR-RF flux,
 the dispersive factor.\cr\cr To obtain the palaeodose \eqn{D_{e}} the
 function is changed to:\cr \deqn{D_{e} = ln(-(\phi(D) -
 \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}\cr The fitting is done
-using the \code{port} algorithm of the \code{\link{nls}} function.\cr
+using the \code{port} algorithm of the \link{nls} function.\cr
 
-\bold{\code{method = "SLIDE"}}\cr
+\strong{\code{method = "SLIDE"}}\cr
 
 For this method the natural curve is slided along the x-axis until
 congruence with the regenerated curve is reached. Instead of fitting this
@@ -197,7 +197,7 @@ and Lapp et al., 2012.
 Here the sliding is done by searching for the minimum of the squared residuals.
 For the mathematical details of the implementation see Frouin et al., 2017 \cr
 
-\bold{\code{method.control}}\cr
+\strong{\code{method.control}}\cr
 
 To keep the generic argument list as clear as possible, arguments to control the methods
 for De estimation are all preset with meaningful default parameters and can be
@@ -206,22 +206,22 @@ handled using the argument \code{method.control} only, e.g.,
 
 \tabular{lll}{
 ARGUMENT       \tab METHOD               \tab DESCRIPTION\cr
-\code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \code{\link{nls}}; shows sum of squared residuals\cr
-\code{trace_vslide} \tab \code{SLIDE} \tab \code{\link{logical}} argument to enable or disable the tracing of the vertical sliding\cr
-\code{maxiter} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
-\code{warnOnly} \tab \code{FIT}           \tab as in \code{\link{nls}}\cr
-\code{minFactor} \tab \code{FIT}            \tab as in \code{\link{nls}}\cr
+\code{trace}   \tab \code{FIT}, \code{SLIDE} \tab as in \link{nls}; shows sum of squared residuals\cr
+\code{trace_vslide} \tab \code{SLIDE} \tab \link{logical} argument to enable or disable the tracing of the vertical sliding\cr
+\code{maxiter} \tab \code{FIT}            \tab as in \link{nls}\cr
+\code{warnOnly} \tab \code{FIT}           \tab as in \link{nls}\cr
+\code{minFactor} \tab \code{FIT}            \tab as in \link{nls}\cr
 \code{correct_onset} \tab \code{SLIDE}      \tab The logical argument shifts the curves along the x-axis by the first channel,
 as light is expected in the first channel. The default value is \code{TRUE}.\cr
-\code{show_density} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
+\code{show_density} \tab \code{SLIDE}       \tab \link{logical} (with default)
 enables or disables KDE plots for MC run results. If the distribution is too narrow nothing is shown.\cr
-\code{show_fit} \tab \code{SLIDE}       \tab \code{\link{logical}} (with default)
+\code{show_fit} \tab \code{SLIDE}       \tab \link{logical} (with default)
 enables or disables the plot of the fitted curve routinely obtained during the evaluation.\cr
-\code{n.MC}                  \tab \code{SLIDE}       \tab    \code{\link{integer}} (with default):
+\code{n.MC}                  \tab \code{SLIDE}       \tab    \link{integer} (with default):
 This controls the number of MC runs within the sliding (assessing the possible minimum values).
 The default \code{n.MC = 1000}. Note: This parameter is not the same as controlled by the
 function argument \code{n.MC}. \cr
-\code{vslide_range} \tab \code{SLDE} \tab \code{\link{logical}} or \code{\link{numeric}} or \code{\link{character}} (with default):
+\code{vslide_range} \tab \code{SLDE} \tab \link{logical} or \link{numeric} or \link{character} (with default):
 This argument sets the boundaries for a vertical curve
 sliding. The argument expects a vector with an absolute minimum and a maximum (e.g., \code{c(-1000,1000)}).
 Alternatively the values \code{NULL} and \code{'auto'} are allowed. The automatic mode detects the
@@ -234,10 +234,10 @@ the recommended values is \code{'auto'}. An optional number (e.g., \code{cores} 
 
 \bold{Error estimation}\cr
 
-For \bold{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
+For \strong{\code{method = "FIT"}} the asymmetric error range is obtained by using the 2.5 \% (lower) and
 the 97.5 \% (upper) quantiles of the \eqn{RF_{nat}} curve for calculating the \eqn{D_{e}} error range.\cr
 
-For \bold{\code{method = "SLIDE"}} the error is obtained by bootstrapping the residuals of the slided
+For \strong{\code{method = "SLIDE"}} the error is obtained by bootstrapping the residuals of the slided
 curve to construct new natural curves for a Monte Carlo simulation. The error is returned in two
 ways: (a) the standard deviation of the herewith obtained \eqn{D_{e}} from the MC runs and (b) the confidence
 interval using the  2.5 \% (lower) and the 97.5 \% (upper) quantiles. The results of the MC runs
@@ -256,12 +256,12 @@ Setting the parameter to \code{NULL} disables the parameter entirely and the par
 also removed from the function output. This might be useful in cases where a particular parameter
 asks for long computation times. Currently supported parameters are:
 
-\code{curves_ratio} \code{\link{numeric}} (default: \code{1.001}):\cr
+\code{curves_ratio} \link{numeric} (default: \code{1.001}):\cr
 
 The ratio of \eqn{RF_{nat}} over \eqn{RF_{reg}} in the range of\eqn{RF_{nat}} of is calculated
 and should not exceed the threshold value. \cr
 
-\code{intersection_ratio} \code{\link{numeric}} (default: \code{NA}):\cr
+\code{intersection_ratio} \link{numeric} (default: \code{NA}):\cr
 
 Calculated as absolute difference from 1 of the ratio of the integral of the normalised RF-curves,
 This value indicates intersection of the RF-curves and should be close to 0 if the curves
@@ -270,25 +270,25 @@ curve is obtained using the maximum count value of the RF_nat curve and only thi
 the RF_nat curve) on the RF_reg curve is taken for further calculating this ratio. If nothing is
 found at all, \code{Inf} is returned. \cr
 
-\code{residuals_slope} \code{\link{numeric}} (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
+\code{residuals_slope} \link{numeric} (default: \code{NA}; only for \code{method = "SLIDE"}): \cr
 
 A linear function is fitted on the residuals after sliding.
 The corresponding slope can be used to discard values as a high (positive, negative) slope
 may indicate that both curves are fundamentally different and the method cannot be applied at all.
 Per default the value of this parameter is calculated but not evaluated. \cr
 
-\code{curves_bounds} \code{\link{numeric}} (default: \eqn{max(RF_{reg_counts})}:\cr
+\code{curves_bounds} \link{numeric} (default: \eqn{max(RF_{reg_counts})}:\cr
 
 This measure uses the maximum time (x) value of the regenerated curve.
 The maximum time (x) value of the natural curve cannot be larger than this value. However, although
 this is not recommended the value can be changed or disabled.\cr
 
-\code{dynamic_ratio} \code{\link{numeric}} (default: \code{NA}):\cr
+\code{dynamic_ratio} \link{numeric} (default: \code{NA}):\cr
 
 The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.
 
 \code{lambda}, \code{beta} and \code{delta.phi}
-\code{\link{numeric}} (default: \code{NA}; \code{method = "SLIDE"}): \cr
+\link{numeric} (default: \code{NA}; \code{method = "SLIDE"}): \cr
 
 The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
@@ -382,9 +382,9 @@ radioluminescence properties of single feldspar grains. Radiation
 Measurements 32, 685-690.
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}},
-\code{\link{nls}}, \code{\link[minpack.lm]{nlsLM}}, \code{\link[parallel]{mclapply}}
+\linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}, \link{get_RLum},
+\link{nls}, \code{\link[minpack.lm]{nlsLM}}, \code{\link[parallel]{mclapply}}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

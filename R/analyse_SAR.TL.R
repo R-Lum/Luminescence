@@ -1,7 +1,7 @@
 #' Analyse SAR TL measurements
 #'
 #' The function performs a SAR TL analysis on a
-#' \code{\linkS4class{RLum.Analysis}} object including growth curve fitting.
+#' [RLum.Analysis-class] object including growth curve fitting.
 #'
 #' This function performs a SAR TL analysis on a set of curves. The SAR
 #' procedure in general is given by Murray and Wintle (2000). For the
@@ -13,7 +13,7 @@
 #' value (the Lx/Tx ratio of the natural signal).  For methodological
 #' background see Aitken and Smith (1988)\cr
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}}(\bold{required}): input
+#' @param object [RLum.Analysis-class](\bold{required}): input
 #' object containing data for analysis
 #'
 #' @param object.background currently not used
@@ -26,7 +26,7 @@
 #' channel number for the upper signal integral bound (e.g.
 #' \code{signal.integral.max = 200})
 #'
-#' @param integral_input \code{\link{character}} (with default): defines the input for the
+#' @param integral_input [character] (with default): defines the input for the
 #' the arguments \code{signal.integral.min} and \code{signal.integral.max}. These limits can be
 #' either provided \code{'channel'} number (the default) or \code{'temperature'}. If \code{'temperature'}
 #' is chosen the best matching channel is selected.
@@ -40,7 +40,7 @@
 #' @param rejection.criteria \link{list} (with default): list containing
 #' rejection criteria in percentage for the calculation.
 #'
-#' @param dose.points \code{\link{numeric}} (optional): option set dose points manually
+#' @param dose.points [numeric] (optional): option set dose points manually
 #'
 #' @param log \link{character} (with default): a character string which
 #' contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
@@ -48,9 +48,9 @@
 #' \link{plot.default}).
 #'
 #' @param \dots further arguments that will be passed to the function
-#' \code{\link{plot_GrowthCurve}}
+#' [plot_GrowthCurve]
 #'
-#' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
+#' @return A plot (optional) and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #' \item{De.values}{\link{data.frame} containing De-values and further
 #' parameters} \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx
@@ -58,7 +58,7 @@
 #' \item{rejection.criteria}{\link{data.frame} with values that might by used
 #' as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
 #' \bold{note:} the output should be accessed using the function
-#' \code{\link{get_RLum}}
+#' [get_RLum]
 #'
 #' @note \bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
 #' from the input object without further warning.
@@ -67,9 +67,9 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{calc_TLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
-#' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-#' \code{\link{get_RLum}}
+#' @seealso [calc_TLLxTxRatio], [plot_GrowthCurve],
+#' [RLum.Analysis-class], [RLum.Results-class]
+#' [get_RLum]
 #'
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching.  Quaternary Science Reviews 7, 387-393.

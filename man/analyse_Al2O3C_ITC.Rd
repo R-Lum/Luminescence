@@ -8,22 +8,22 @@ analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
   12, 16), method_control = NULL, verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} or \code{\link{list}} \bold{(required)}: results obtained from the measurement.
+\item{object}{\linkS4class{RLum.Analysis} or \link{list} \bold{(required)}: results obtained from the measurement.
 Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.}
 
-\item{signal_integral}{\code{\link{numeric}} (optional): signal integral, used for the signal
-and the background. If nothing is provided the full range is used. Argument can be provided as \code{\link{list}}.}
+\item{signal_integral}{\link{numeric} (optional): signal integral, used for the signal
+and the background. If nothing is provided the full range is used. Argument can be provided as \link{list}.}
 
-\item{dose_points}{\code{\link{numeric}} (with default): vector with dose points, if dose points
+\item{dose_points}{\link{numeric} (with default): vector with dose points, if dose points
 are repeated, only the general pattern needs to be provided. Default values follow the suggestions
-made by Kreutzer et al., 2017. Argument can be provided as \code{\link{list}}.}
+made by Kreutzer et al., 2017. Argument can be provided as \link{list}.}
 
-\item{method_control}{\code{\link{list}} (optional): optional parameters to control the calculation.
+\item{method_control}{\link{list} (optional): optional parameters to control the calculation.
 See details for further explanations}
 
-\item{verbose}{\code{\link{logical}} (with default): enable/disable verbose mode}
+\item{verbose}{\link{logical} (with default): enable/disable verbose mode}
 
-\item{plot}{\code{\link{logical}} (with default): enable/disable plot output}
+\item{plot}{\link{logical} (with default): enable/disable plot output}
 
 \item{...}{further arguments that can be passed to the plot output}
 }
@@ -33,18 +33,18 @@ Function returns results numerically and graphically:\cr
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\bold{\code{RLum.Reuslts}}-object\cr
+\strong{\code{RLum.Reuslts}}-object\cr
 
-\bold{slot:} \bold{\code{@data}}\cr
+\bold{slot:} \strong{\code{@data}}\cr
 \tabular{lll}{
 \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
 \code{$data} \tab \code{data.frame} \tab correction value and error \cr
 \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
 \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
-\code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot_GrowthCurve}}
+\code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \link{plot_GrowthCurve}
 }
 
-\bold{slot:} \bold{\code{@info}}\cr
+\bold{slot:} \strong{\code{@info}}\cr
 
 The original function call\cr
 
@@ -68,7 +68,7 @@ itself below the source induces an apparent luminescence signal, which can be tr
 Based on measurements following a protocol suggested by Kreutzer et al., 2017, a dose response curve is constructed
 and the intersection with the time axis is taken as real irradiation time.
 
-\bold{\code{method_control}}\cr
+\strong{\code{method_control}}\cr
 
 To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
 are all preset with meaningful default parameters and can be
@@ -77,8 +77,8 @@ handled using the argument \code{method_control} only, e.g.,
 
 \tabular{lll}{
 ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
-\code{mode}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the mode used for fitting\cr
-\code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the function applied for fitting\cr
+\code{mode}   \tab \code{plot_GrowthCurve} \tab as in \link{plot_GrowthCurve}; sets the mode used for fitting\cr
+\code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in \link{plot_GrowthCurve}; sets the function applied for fitting\cr
 }
 }
 \section{Function version}{
@@ -94,7 +94,7 @@ ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
 TODO
 }
 \seealso{
-\code{\link{plot_GrowthCurve}}
+\link{plot_GrowthCurve}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

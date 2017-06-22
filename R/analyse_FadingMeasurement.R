@@ -7,7 +7,7 @@
 #'
 #' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
-#' can be passed to the function \code{\link{calc_FadingCorr}}.\cr
+#' can be passed to the function [calc_FadingCorr].\cr
 #'
 #' \bold{Fitting and error estimation}\cr
 #'
@@ -23,42 +23,42 @@
 #' \code{\link[stats]{nls}} is used without applying weights. For the error estimation the same
 #' procedure as for the g-value is applied (see above).
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
-#' measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
-#' objects or a \code{\link{data.frame}} with three columns
+#' @param object [RLum.Analysis-class] (\bold{required}): input object with the
+#' measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
+#' objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-#' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+#' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the before mentioned column structure.
 #'
-#' @param structure \code{\link{character}} (with default): sets the structure of the measurement
+#' @param structure [character] (with default): sets the structure of the measurement
 #' data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored
 #'
-#' @param signal.integral \code{\link{vector}} (\bold{required}): vector with the
+#' @param signal.integral [vector] (\bold{required}): vector with the
 #' limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
 #' provided.
 #'
-#' @param background.integral \code{\link{vector}} (\bold{required}): vector with the
+#' @param background.integral [vector] (\bold{required}): vector with the
 #' bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
 #' provided.
 #'
-#' @param t_star \code{\link{character}} (with default): method for calculating the time elasped
+#' @param t_star [character] (with default): method for calculating the time elasped
 #' since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
 #' and \code{'end'}, which takes the time between irradiation and the measurement step. Default is \code{'half'}
 #'
-#' @param n.MC \code{\link{integer}} (with default): number for Monte Carlo runs for the error
+#' @param n.MC [integer] (with default): number for Monte Carlo runs for the error
 #' estimation
 #'
-#' @param verbose \code{\link{logical}} (with default): enables/disables verbose mode
+#' @param verbose [logical] (with default): enables/disables verbose mode
 #'
-#' @param plot \code{\link{logical}} (with default): enables/disables plot output
+#' @param plot [logical] (with default): enables/disables plot output
 #'
-#' @param plot.single \code{\link{logical}} (with default): enables/disables single plot
+#' @param plot.single [logical] (with default): enables/disables single plot
 #' mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
 #' \code{plot.single = c(3,4)} draws only the last two plots
 #'
 #' @param \dots (optional) further arguments that can be passed to internally used functions (see details)
 #'
-#' @return An \code{\linkS4class{RLum.Results}} object is returned:
+#' @return An [RLum.Results-class] object is returned:
 #'
 #' Slot: \bold{@data}\cr
 #'
@@ -101,8 +101,8 @@
 #' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 #' IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
 #'
-#' @seealso \code{\link{calc_OSLLxTxRatio}}, \code{\link{read_BIN2R}}, \code{\link{read_XSYG2R}},
-#' \code{\link{extract_IrradiationTimes}}
+#' @seealso [calc_OSLLxTxRatio], [read_BIN2R], [read_XSYG2R],
+#' [extract_IrradiationTimes]
 #'
 #' @examples
 #'

@@ -8,26 +8,26 @@ analyse_portableOSL(object, signal.integral, invert = FALSE,
   normalise = FALSE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):
-\code{RLum.Analysis} object produced by \code{\link{read_PSL2R}}.}
+\item{object}{\linkS4class{RLum.Analysis} (\bold{required}):
+\code{RLum.Analysis} object produced by \link{read_PSL2R}.}
 
-\item{signal.integral}{\code{\link{vector}} (\bold{required}): A vector of two values
+\item{signal.integral}{\link{vector} (\bold{required}): A vector of two values
 specifying the lower and upper channel used to calculate the OSL/IRSL signal. Can
 be provided in form of \code{c(1, 5)} or \code{1:5}.}
 
-\item{invert}{\code{\link{logical}} (with default): \code{TRUE} to calculate
+\item{invert}{\link{logical} (with default): \code{TRUE} to calculate
 and plot the data in reverse order.}
 
-\item{normalise}{\code{\link{logical}} (with default):
+\item{normalise}{\link{logical} (with default):
 \code{TRUE} to normalise the OSL/IRSL signals by the mean of all corresponding
 data curves.}
 
-\item{plot}{\code{\link{logical}} (with default): enable/disable plot output}
+\item{plot}{\link{logical} (with default): enable/disable plot output}
 
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 \code{\linkS4class{RLum.Results}} object containing
+Returns an S4 \linkS4class{RLum.Results} object containing
 the following elements:
 }
 \description{
@@ -36,7 +36,7 @@ produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion rati
 and the IRSL/OSL ratio.
 }
 \details{
-This function only works with \code{RLum.Analysis} objects produced by \code{\link{read_PSL2R}}.
+This function only works with \code{RLum.Analysis} objects produced by \link{read_PSL2R}.
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 are pairwise combined for calculating the IRSL/OSL ratio. For calculating the depletion ratios
 the cumulative signal of the last n channels (same number of channels as specified by \code{signal.integral})
@@ -64,7 +64,7 @@ get_RLum(results)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

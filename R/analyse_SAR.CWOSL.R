@@ -1,7 +1,7 @@
 #' Analyse SAR CW-OSL measurements
 #'
 #' The function performs a SAR CW-OSL analysis on an
-#' \code{\linkS4class{RLum.Analysis}} object including growth curve fitting.
+#' [RLum.Analysis-class] object including growth curve fitting.
 #'
 #' The function performs an analysis for a standard SAR protocol measurements
 #' introduced by Murray and Wintle (2000) with CW-OSL curves. For the
@@ -12,14 +12,14 @@
 #'
 #' \bold{Argument \code{object} is of type \code{list}}\cr\cr
 #'
-#' If the argument \code{object} is of type \code{\link{list}} containing \bold{only}
-#' \code{\linkS4class{RLum.Analysis}} objects, the function re-calls itself as often as elements
+#' If the argument \code{object} is of type [list] containing \bold{only}
+#' [RLum.Analysis-class] objects, the function re-calls itself as often as elements
 #' are in the list. This is usefull if an entire measurement wanted to be analysed without
 #' writing separate for-loops. To gain in full control of the parameters (e.g., \code{dose.points}) for
-#' every aliquot (corresponding to one \code{\linkS4class{RLum.Analysis}} object in the list), in
-#' this case the arguments can be provided as \code{\link{list}}. This \code{list} should
+#' every aliquot (corresponding to one [RLum.Analysis-class] object in the list), in
+#' this case the arguments can be provided as [list]. This \code{list} should
 #' be of similar length as the \code{list} provided with the argument \code{object}, otherwise the function
-#' will create an own list of the requested lenght. Function output will be just one single \code{\linkS4class{RLum.Results}} object.
+#' will create an own list of the requested lenght. Function output will be just one single [RLum.Results-class] object.
 #'
 #' Please be careful when using this option. It may allow a fast an efficient data analysis, but
 #' the function may also break with an unclear error message, due to wrong input data.\cr\cr
@@ -53,33 +53,33 @@
 #' \sQuote{palaeodose.error}: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input
-#' object containing data for analysis, alternatively a \code{\link{list}} of
-#' \code{\linkS4class{RLum.Analysis}} objects can be provided.
+#' @param object [RLum.Analysis-class] (\bold{required}): input
+#' object containing data for analysis, alternatively a [list] of
+#' [RLum.Analysis-class] objects can be provided.
 #'
-#' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
-#' bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-#' of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+#' @param signal.integral.min [integer] (\bold{required}): lower
+#' bound of the signal integral. Can be a [list] of \code{\link{integer}s}, if \code{object} is
+#' of type [list]. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 #' as the minimum signal integral for the Tx curve.
 #'
-#' @param signal.integral.max \code{\link{integer}} (\bold{required}): upper
-#' bound of the signal integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-#' of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+#' @param signal.integral.max [integer] (\bold{required}): upper
+#' bound of the signal integral. Can be a [list] of \code{\link{integer}s}, if \code{object} is
+#' of type [list]. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 #' as the maximum signal integral for the Tx curve.
 #'
-#' @param background.integral.min \code{\link{integer}} (\bold{required}):
-#' lower bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-#' of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+#' @param background.integral.min [integer] (\bold{required}):
+#' lower bound of the background integral. Can be a [list] of \code{\link{integer}s}, if \code{object} is
+#' of type [list]. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 #' as the minimum background integral for the Tx curve.
 #'
-#' @param background.integral.max \code{\link{integer}} (\bold{required}):
-#' upper bound of the background integral. Can be a \code{\link{list}} of \code{\link{integer}s}, if \code{object} is
-#' of type \code{\link{list}}. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
+#' @param background.integral.max [integer] (\bold{required}):
+#' upper bound of the background integral. Can be a [list] of \code{\link{integer}s}, if \code{object} is
+#' of type [list]. If the input is vector (e.g., \code{c(1,2)}) the 2nd value will be interpreted
 #' as the maximum background integral for the Tx curve.
 #'
-#' @param rejection.criteria \code{\link{list}} (with default): provide a named list
-#' and set rejection criteria in \bold{percentage} for further calculation. Can be a \code{\link{list}} in
-#' a \code{\link{list}}, if \code{object} is of type \code{\link{list}}
+#' @param rejection.criteria [list] (with default): provide a named list
+#' and set rejection criteria in \bold{percentage} for further calculation. Can be a [list] in
+#' a [list], if \code{object} is of type [list]
 #'
 #' Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
 #' \code{palaeodose.error}, \code{testdose.error} and \code{exceed.max.regpoint = TRUE/FALSE}.
@@ -88,20 +88,20 @@
 #' Every criterium can be set to \code{NA}. In this value are calculated, but not considered, i.e.
 #' the RC.Status becomes always \code{'OK'}
 #'
-#' @param dose.points \code{\link{numeric}} (optional): a numeric vector
+#' @param dose.points [numeric] (optional): a numeric vector
 #' containg the dose points values Using this argument overwrites dose point
-#' values in the signal curves. Can be a \code{\link{list}} of \code{\link{numeric}} vectors,
-#' if \code{object} is of type \code{\link{list}}
+#' values in the signal curves. Can be a [list] of [numeric] vectors,
+#' if \code{object} is of type [list]
 #'
-#' @param mtext.outer \code{\link{character}} (optional): option to provide an
-#' outer margin mtext. Can be a \code{\link{list}} of \code{\link{character}s},
-#' if \code{object} is of type \code{\link{list}}
+#' @param mtext.outer [character] (optional): option to provide an
+#' outer margin mtext. Can be a [list] of \code{\link{character}s},
+#' if \code{object} is of type [list]
 #'
-#' @param plot \code{\link{logical}} (with default): enables or disables plot
+#' @param plot [logical] (with default): enables or disables plot
 #' output.
 #'
-#' @param plot.single \code{\link{logical}} (with default) or
-#' \code{\link{numeric}} (optional): single plot output (\code{TRUE/FALSE}) to
+#' @param plot.single [logical] (with default) or
+#' [numeric] (optional): single plot output (\code{TRUE/FALSE}) to
 #' allow for plotting the results in single plot windows. If a numerice vector
 #' is provided the plots can be selected individually, i.e. \code{plot.single =
 #' c(1,2,3,4)} will plot the TL and Lx, Tx curves but not the legend (5) or the
@@ -109,13 +109,13 @@
 #' \code{plot = TRUE}.
 #'
 #' @param \dots further arguments that will be passed to the function
-#' \code{\link{plot_GrowthCurve}} or \code{\link{calc_OSLLxTxRatio}}
+#' [plot_GrowthCurve] or [calc_OSLLxTxRatio]
 #' (supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}). \bold{Please note} that
 #' if you consider to use the early light subtraction method you should provide your own \code{sigmab}
 #' value!
 #'
 #'
-#' @return A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
+#' @return A plot (optional) and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #'
 #' \item{data}{\link{data.frame} containing De-values, De-error and
@@ -125,11 +125,11 @@
 #' by used as rejection criteria. NA is produced if no R0 dose point exists.}
 #' \item{Formula}{\link{formula} formula that have been used for the growth
 #' curve fitting }\cr The output should be accessed using the function
-#' \code{\link{get_RLum}}.
+#' [get_RLum].
 #'
 #'
 #' @note This function must not be mixed up with the function
-#' \code{\link{Analyse_SAR.OSLdata}}, which works with
+#' [Analyse_SAR.OSLdata], which works with
 #' \link{Risoe.BINfileData-class} objects.\cr
 #'
 #' \bold{The function currently does only support 'OSL' or 'IRSL' data!}
@@ -140,9 +140,9 @@
 #' (France)
 #'
 #'
-#' @seealso \code{\link{calc_OSLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
-#' \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-#' \code{\link{get_RLum}}
+#' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve],
+#' [RLum.Analysis-class], [RLum.Results-class]
+#' [get_RLum]
 #'
 #'
 #' @references Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

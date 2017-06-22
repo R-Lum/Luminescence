@@ -9,7 +9,7 @@
 #'Based on measurements following a protocol suggested by Kreutzer et al., 2017, a dose response curve is constructed
 #'and the intersection with the time axis is taken as real irradiation time.
 #'
-#' \bold{\code{method_control}}\cr
+#' **`method_control`**\cr
 #'
 #' To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
 #' are all preset with meaningful default parameters and can be
@@ -18,26 +18,26 @@
 #'
 #' \tabular{lll}{
 #' ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
-#' \code{mode}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the mode used for fitting\cr
-#' \code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the function applied for fitting\cr
+#' \code{mode}   \tab \code{plot_GrowthCurve} \tab as in [plot_GrowthCurve]; sets the mode used for fitting\cr
+#' \code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in [plot_GrowthCurve]; sets the function applied for fitting\cr
 #' }
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} or \code{\link{list}} \bold{(required)}: results obtained from the measurement.
+#' @param object [RLum.Analysis-class] or [list] \bold{(required)}: results obtained from the measurement.
 #' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
 #'
-#' @param signal_integral \code{\link{numeric}} (optional): signal integral, used for the signal
-#' and the background. If nothing is provided the full range is used. Argument can be provided as \code{\link{list}}.
+#' @param signal_integral [numeric] (optional): signal integral, used for the signal
+#' and the background. If nothing is provided the full range is used. Argument can be provided as [list].
 #'
-#' @param dose_points \code{\link{numeric}} (with default): vector with dose points, if dose points
+#' @param dose_points [numeric] (with default): vector with dose points, if dose points
 #' are repeated, only the general pattern needs to be provided. Default values follow the suggestions
-#' made by Kreutzer et al., 2017. Argument can be provided as \code{\link{list}}.
+#' made by Kreutzer et al., 2017. Argument can be provided as [list].
 #'
-#' @param method_control \code{\link{list}} (optional): optional parameters to control the calculation.
+#' @param method_control [list] (optional): optional parameters to control the calculation.
 #' See details for further explanations
 #'
-#' @param verbose \code{\link{logical}} (with default): enable/disable verbose mode
+#' @param verbose [logical] (with default): enable/disable verbose mode
 #'
-#' @param plot \code{\link{logical}} (with default): enable/disable plot output
+#' @param plot [logical] (with default): enable/disable plot output
 #'
 #' @param ... further arguments that can be passed to the plot output
 #'
@@ -46,18 +46,18 @@
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' \bold{\code{RLum.Reuslts}}-object\cr
+#' **`RLum.Reuslts`**-object\cr
 #'
-#' \bold{slot:} \bold{\code{@data}}\cr
+#' \bold{slot:} **`@data`**\cr
 #' \tabular{lll}{
 #' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
 #'  \code{$data} \tab \code{data.frame} \tab correction value and error \cr
 #'  \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
 #'  \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
-#'  \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot_GrowthCurve}}
+#'  \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function [plot_GrowthCurve]
 #' }
 #'
-#'\bold{slot:} \bold{\code{@info}}\cr
+#'\bold{slot:} **`@info`**\cr
 #'
 #' The original function call\cr
 #'
@@ -74,7 +74,7 @@
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{plot_GrowthCurve}}
+#' @seealso [plot_GrowthCurve]
 #'
 #' @references TODO
 #'
