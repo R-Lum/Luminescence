@@ -32,6 +32,7 @@ Returns an S4 object of type \code{\linkS4class{RLum.Results}}.
 \tabular{lll}{
 \bold{Object} \tab \bold{Type} \bold{Description} \cr
  net_transmission_window \tab \code{matrix} \tab the resulting net transmission window \cr
+ OD_total \tab \code{matrix} \tab the total optical density\cr
  filter_matrix \tab \code{matrix} \tab the filter matrix used for plotting
 
 }
@@ -49,6 +50,23 @@ wavelenghts are automatically interpolated for the given filter data using the f
 With that a standardised output is reached and a net transmission window can be shown.\cr
 }
 \details{
+\bold{Calculations}\cr
+
+\bold{Net transmission window}\cr
+The net transmission window of two filters is approximated by
+
+\deqn{T_{final} = T_{1} * T_{2}}
+
+\bold{Optical density}\cr
+
+\deqn{OD = -log(T)}
+
+\bold{Total optical density}\cr
+
+\deqn{OD_{total} = OD_{1} +  OD_{2}}
+
+Please consider using own calculations for more precise values.
+
 \bold{How to provide input data?}\cr
 
 CASE 1\cr
@@ -99,7 +117,7 @@ can be fully customised by disabling the standard legend and use the function \c
 instead.
 }
 \section{Function version}{
- 0.2.2 (2017-06-22 11:59:18)
+ 0.3.0 (2017-06-23 13:06:20)
 }
 
 \examples{
@@ -119,7 +137,11 @@ results <- plot_FilterCombinations(
 filters = list(filter_1 = filter1, Rectangle = list(filter2, d = 2, P = 0.6)))
 results
 
+## Example 3 show optical density
+plot(results$OD_total)
+
 \dontrun{
+##Example 4
 ##show the filters using the interative mode
 plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
 
@@ -135,7 +157,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.2.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{aplot}

@@ -4,6 +4,24 @@
 #' wavelenghts are automatically interpolated for the given filter data using the function \code{\link{approx}}.
 #' With that a standardised output is reached and a net transmission window can be shown.\cr
 #'
+#' \bold{Calculations}\cr
+#'
+#' \bold{Net transmission window}\cr
+#' The net transmission window of two filters is approximated by
+#'
+#' \deqn{T_{final} = T_{1} * T_{2}}
+#'
+#'
+#' \bold{Optical density}\cr
+#'
+#' \deqn{OD = -log(T)}
+#'
+#' \bold{Total optical density}\cr
+#'
+#' \deqn{OD_{total} = OD_{1} +  OD_{2}}
+#'
+#' Please consider using own calculations for more precise values.
+#'
 #' \bold{How to provide input data?}\cr
 #'
 #' CASE 1\cr
@@ -77,6 +95,7 @@
 #' \tabular{lll}{
 #' \bold{Object} \tab \bold{Type} \bold{Description} \cr
 #'  net_transmission_window \tab \code{matrix} \tab the resulting net transmission window \cr
+#'  OD_total \tab \code{matrix} \tab the total optical density\cr
 #'  filter_matrix \tab \code{matrix} \tab the filter matrix used for plotting
 #'
 #' }
@@ -88,7 +107,7 @@
 #'
 #' }
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
 #'
@@ -113,7 +132,11 @@
 #' filters = list(filter_1 = filter1, Rectangle = list(filter2, d = 2, P = 0.6)))
 #' results
 #'
+#' ## Example 3 show optical density
+#' plot(results$OD_total)
+#'
 #' \dontrun{
+#' ##Example 4
 #' ##show the filters using the interative mode
 #' plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
 #'
@@ -214,15 +237,29 @@ plot_FilterCombinations <- function(
     c(wavelength_range, matrixStats::rowProds(filter_matrix)),
     ncol = 2)
 
+  ##add optical density to filter matrix
+
+  ##calculate OD
+  OD <- -log(filter_matrix)
+
+  ##calculate  total OD
+  OD_total <- cbind(wavelength_range, matrixStats::rowSums2(OD))
+
+  ##add to matrix
+  filter_matrix <- cbind(filter_matrix, OD)
+
   ##set rownames of filter matrix
   rownames(filter_matrix) <- wavelength_range
 
   ##set column names for filter matrix
-  colnames(filter_matrix) <- names(filters)
+  colnames(filter_matrix) <- c(names(filters), paste0(names(filters), "_OD"))
 
   # Plotting ------------------------------------------------------------------------------------
 
   if (plot) {
+
+    ##(1) ... select transmission values
+    filter_matrix_transmisison <- filter_matrix[,!grepl(pattern = "OD", x = colnames(filter_matrix))]
 
     ##set plot settings
     plot_settings <- list(
@@ -237,7 +274,7 @@ plot_FilterCombinations <- function(
       col = 1:length(filters),
       grid = expression(nx = 10, ny = 10),
       legend = TRUE,
-      legend.text = colnames(filter_matrix),
+      legend.text = colnames(filter_matrix_transmisison),
       net_transmission.col = rgb(0,0.7,0,.2),
       net_transmission.col_lines = "grey",
       net_transmission.density = 20
@@ -260,15 +297,15 @@ plot_FilterCombinations <- function(
         plotly::plot_ly(x = wavelength_range,
                         y = filter_matrix[,1],
                         type = "scatter",
-                        name = colnames(filter_matrix)[1],
+                        name = colnames(filter_matrix_transmisison)[1],
                         mode = "lines")
 
         ##add further filters
-        if (ncol(filter_matrix) > 1) {
-          for (i in 2:ncol(filter_matrix)) {
+        if (ncol(filter_matrix_transmisison) > 1) {
+          for (i in 2:ncol(filter_matrix_transmisison)) {
             p <- plotly::add_trace(p,
                         y = filter_matrix[, i],
-                        name = colnames(filter_matrix)[i],
+                        name = colnames(filter_matrix_transmisison)[i],
                         mode = 'lines')
           }
 
@@ -304,7 +341,7 @@ plot_FilterCombinations <- function(
       ##plot induvidal filters
       graphics::matplot(
         x = wavelength_range,
-        y = filter_matrix,
+        y = filter_matrix_transmisison,
         type = "l",
         main = plot_settings$main,
         xlab = plot_settings$xlab,
@@ -363,6 +400,7 @@ plot_FilterCombinations <- function(
     class = "RLum.Results",
     data = list(
       net_transmission_window = net_transmission_window,
+      OD_total = OD_total,
       filter_matrix = filter_matrix
 
     ),
