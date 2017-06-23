@@ -9,46 +9,50 @@
 #'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
-#' one or more of the following keywords: `"n"` (number of samples),
-#' `"mean"` (mean De value), `"mean.weighted"` (error-weighted mean),
-#' `"median"` (median of the De values), `"sdrel"` (relative standard
-#' deviation in percent), `"sdrel.weighted"` (error-weighted relative
-#' standard deviation in percent), `"sdabs"` (absolute standard deviation),
-#' `"sdabs.weighted"` (error-weighted absolute standard deviation),
-#' `"serel"` (relative standard error), `"serel.weighted"` (
-#' error-weighted relative standard error), `"seabs"` (absolute standard
-#' error), `"seabs.weighted"` (error-weighted absolute standard error),
-#' `"kurtosis"` (kurtosis) and `"skewness"` (skewness).
+#' one or more of the following keywords: 
+#' - `"n"` (number of samples),
+#' - `"mean"` (mean De value), 
+#' - `"mean.weighted"` (error-weighted mean),
+#' - `"median"` (median of the De values), 
+#' - `"sdrel"` (relative standard deviation in percent), 
+#' - `"sdrel.weighted"` (error-weighted relative standard deviation in percent), 
+#' - `"sdabs"` (absolute standard deviation),
+#' - `"sdabs.weighted"` (error-weighted absolute standard deviation),
+#' - `"serel"` (relative standard error), 
+#' - `"serel.weighted"` (error-weighted relative standard error), 
+#' - `"seabs"` (absolute standard error), 
+#' - `"seabs.weighted"` (error-weighted absolute standard error),
+#' - `"kurtosis"` (kurtosis) and 
+#' - `"skewness"` (skewness).
 #'
-#' @param data [data.frame] or [RLum.Results-class]
-#' object (**required**): for `data.frame`: two columns: De (`data[,1]`)
-#' and De error (`data[,2]`)
+#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
+#' for `data.frame`: two columns: De (`data[,1]`) and De error (`data[,2]`)
 #'
-#' @param na.rm [logical] (*with default*): excludes `NA`
-#' values from the data set prior to any further operations.
+#' @param na.rm [logical] (*with default*): 
+#' excludes `NA` values from the data set prior to any further operations.
 #'
-#' @param mtext [character] (*optional*): further sample information
-#' ([mtext]).
+#' @param mtext [character] (*optional*): 
+#' further sample information ([mtext]).
 #'
-#' @param cex.global [numeric] (*with default*): global scaling
-#' factor.
+#' @param cex.global [numeric] (*with default*): 
+#' global scaling factor.
 #'
-#' @param se [logical] (*optional*): plots standard error points over
-#' the histogram, default is `FALSE`.
+#' @param se [logical] (*optional*): 
+#' plots standard error points over the histogram, default is `FALSE`.
 #'
-#' @param rug [logical] (*optional*): adds rugs to the histogram,
-#' default is `TRUE`.
+#' @param rug [logical] (*optional*): 
+#' adds rugs to the histogram, default is `TRUE`.
 #'
-#' @param normal_curve [logical] (*with default*): adds a normal
-#' curve to the histogram. Mean and sd are calculated from the input data. More
-#' see details section.
+#' @param normal_curve [logical] (*with default*): 
+#' adds a normal curve to the histogram. Mean and sd are calculated from the 
+#' input data. More see details section.
 #'
-#' @param summary [character] (*optional*): add statistic measures of
-#' centrality and dispersion to the plot. Can be one or more of several
-#' keywords. See details for available keywords.
+#' @param summary [character] (*optional*): 
+#' add statistic measures of centrality and dispersion to the plot. 
+#' Can be one or more of several keywords. See details for available keywords.
 #'
-#' @param summary.pos [numeric] or [character] (with
-#' default): optional position coordinates or keyword (e.g. `"topright"`)
+#' @param summary.pos [numeric] or [character] (*with default*): 
+#' optional position coordinates or keyword (e.g. `"topright"`)
 #' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if `mtext` is not used. In case of coordinate
@@ -57,25 +61,30 @@
 #' @param colour [numeric] or [character] (*with default*):
 #' optional vector of length 4 which specifies the colours of the following
 #' plot items in exactly this order: histogram bars, rug lines, normal
-#' distribution curve and standard error points\cr (e.g., \code{c("grey",
-#' "black", "red", "grey")}).
+#' distribution curve and standard error points 
+#' (e.g., `c("grey", "black", "red", "grey")`).
 #'
-#' @param interactive [logical] (*with default*): create an interactive
-#' histogram plot (requires the 'plotly' package)
+#' @param interactive [logical] (*with default*): 
+#' create an interactive histogram plot (requires the 'plotly' package)
 #'
-#' @param ... further arguments and graphical parameters passed to
-#' [plot] or [hist]. If y-axis labels are provided,
-#' these must be specified as a vector of length 2 since the plot features two
-#' axes (e.g. `ylab = c("axis label 1", "axis label 2")`). Y-axes limits
+#' @param ... further arguments and graphical parameters passed to [plot] or 
+#' [hist]. If y-axis labels are provided, these must be specified as a vector 
+#' of length 2 since the plot features two axes 
+#' (e.g. `ylab = c("axis label 1", "axis label 2")`). Y-axes limits
 #' (`ylim`) must be provided as vector of length four, with the first two
 #' elements specifying the left axes limits and the latter two elements giving
 #' the right axis limits.
 #'
 #' @note The input data is not restricted to a special type.
+#' 
 #' @section Function version: 0.4.4
-#' @author Michael Dietze, GFZ Potsdam (Germany), \cr Sebastian Kreutzer,
-#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' 
+#' @author 
+#' Michael Dietze, GFZ Potsdam (Germany)\cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' 
 #' @seealso [hist], [plot]
+#' 
 #' @examples
 #'
 #' ## load data

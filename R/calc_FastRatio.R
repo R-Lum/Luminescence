@@ -11,58 +11,58 @@
 #' @param object [RLum.Analysis-class], [RLum.Data.Curve-class] or [data.frame] (**required**): 
 #' x, y data of measured values (time and counts).
 #' 
-#' @param stimulation.power [numeric] *(*with default*)*: 
+#' @param stimulation.power [numeric] (*with default*): 
 #' Stimulation power in mW/cm^2
 #' 
-#' @param wavelength [numeric] *(*with default*)*: 
+#' @param wavelength [numeric] (*with default*): 
 #' Stimulation wavelength in nm
 #' 
-#' @param sigmaF [numeric] *(*with default*)*: 
+#' @param sigmaF [numeric] (*with default*): 
 #' Photoionisation cross-section (cm^2) of the fast component. 
 #' Default value after Durcan & Duller (2011).
 #' 
-#' @param sigmaM [numeric] *(*with default*)*: 
+#' @param sigmaM [numeric] (*with default*): 
 #' Photoionisation cross-section (cm^2) of the medium component. 
 #' Default value after Durcan & Duller (2011).
 #' 
-#' @param Ch_L1 [numeric] *(*with default*)*: 
+#' @param Ch_L1 [numeric] (*with default*): 
 #' An integer specifying the channel for L1.
 #' 
-#' @param Ch_L2 [numeric] *(*optional*)*: 
+#' @param Ch_L2 [numeric] (*optional*): 
 #' An integer specifying the channel for L2.
 #' 
-#' @param Ch_L3 [numeric] *(*optional*)*: 
+#' @param Ch_L3 [numeric] (*optional*): 
 #' A vector of length 2 with integer values specifying the start and end channels for L3 
 #' (e.g., `c(40, 50)`).
 #' 
-#' @param x [numeric] *(*with default*)*: 
+#' @param x [numeric] (*with default*): 
 #' \% of signal remaining from the fast component.
 #' Used to define the location of L2 and L3 (start).
 #' 
-#' @param x2 [numeric] *(*with default*)*: 
+#' @param x2 [numeric] (*with default*): 
 #' \% of signal remaining from the medium component.
 #' Used to define the location of L3 (end). 
 #' 
-#' @param dead.channels [numeric] *(*with default*)*: 
+#' @param dead.channels [numeric] (*with default*): 
 #' Vector of length 2 in the form of `c(x, y)`. 
 #' Channels that do not contain OSL data, i.e. at the start or end of measurement.
 #' 
-#' @param fitCW.sigma [logical] *(*optional*)*: 
+#' @param fitCW.sigma [logical] (*optional*): 
 #' fit CW-OSL curve using [fit_CWCurve] to calculate `sigmaF` and `sigmaM` (**experimental**).
 #' 
-#' @param fitCW.curve [logical] *(*optional*)*: 
+#' @param fitCW.curve [logical] (*optional*): 
 #' fit CW-OSL curve using [fit_CWCurve] and derive the counts of L2 and L3 
 #' from the fitted OSL curve (**experimental**).
 #' 
-#' @param plot [logical] *(*with default*)*: 
+#' @param plot [logical] (*with default*): 
 #' plot output (`TRUE`/`FALSE`)
 #' 
 #' @param ... available options: `verbose` ([logical]). 
 #' Further arguments passed to [fit_CWCurve].
 #'
 #' @return 
-#' Returns a plot *(*optional*)* and an S4 object of type [RLum.Results-class]. 
-#' The slot `data` contains a [list] with the following elements: \cr
+#' Returns a plot (*optional*) and an S4 object of type [RLum.Results-class]. 
+#' The slot `data` contains a [list] with the following elements:
 #'
 #' \item{summary}{[data.frame] summary of all relevant results}
 #' \item{data}{the original input data}
@@ -75,24 +75,18 @@
 #' @author 
 #' Georgina King, University of Cologne (Germany) \cr
 #' Julie A. Durcan, University of Oxford (United Kingdom) \cr
-#' Christoph Burow, University of Cologne (Germany) \cr
+#' Christoph Burow, University of Cologne (Germany)
 #'
 #' @references 
 #' Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 #' the dominance of the fast component in the initial OSL signal from quartz.
 #' Radiation Measurements 46, 1065-1072. 
-#'
-#'
 #' 
 #' Madsen, A.T., Duller, G.A.T., Donnelly, J.P., Roberts, H.M. & Wintle, A.G., 2009.
 #' A chronology of hurricane landfalls at Little Sippewissett Marsh, Massachusetts, USA,
 #' using optical dating. Geomorphology 109, 36-45. 
 #'
-#'
-#'
 #' **Further reading** 
-#'
-#'
 #' 
 #' Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation 
 #' due to unstable signal components. Quaternary Geochronology 4, 353-362.

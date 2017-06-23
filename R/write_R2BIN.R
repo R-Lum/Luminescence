@@ -13,51 +13,55 @@
 #' @param object [Risoe.BINfileData-class] (**required**):
 #' input object to be stored in a bin file.
 #'
-#' @param file [character] (**required**): file name and path of
-#' the output file\cr `[WIN]`: `write_R2BIN(object, "C:/Desktop/test.bin")`,
-#' \cr `[MAC/LINUX]`: `write_R2BIN("/User/test/Desktop/test.bin")`
+#' @param file [character] (**required**):
+#' file name and path of the output file
+#' 
+#' - `[WIN]`: `write_R2BIN(object, "C:/Desktop/test.bin")`
+#' - `[MAC/LINUX]`: `write_R2BIN("/User/test/Desktop/test.bin")`
 #'
-#' @param version [character] (*optional*): version number for the
-#' output file. If no value is provided the highest version number from the
-#' [Risoe.BINfileData-class] is taken automatically.
+#' @param version [character] (*optional*): 
+#' version number for the output file. If no value is provided the highest
+#' version number from the [Risoe.BINfileData-class] is taken automatically.
 #'
-#' Note:
+#' **Note:**
 #' This argument can be used to convert BIN-file versions.
 #'
-#' @param compatibility.mode [logical] (*with default*): this option
-#' recalculates the position values if necessary and set the max. value to 48.
-#' The old position number is appended as comment (e.g., 'OP: 70). This option
-#' accounts for potential compatibility problems with the Analyst software.
+#' @param compatibility.mode [logical] (*with default*): 
+#' this option recalculates the position values if necessary and set the max. 
+#' value to 48. The old position number is appended as comment (e.g., 'OP: 70). 
+#' This option accounts for potential compatibility problems with the Analyst software.
 #'
-#' @param txtProgressBar [logical] (*with default*): enables or disables
-#' [txtProgressBar].
+#' @param txtProgressBar [logical] (*with default*): 
+#' enables or disables [txtProgressBar].
+#' 
 #' @return Write a binary file.
-#' @note The function just roughly checks the data structures. The validity of
+#' 
+#' @note 
+#' The function just roughly checks the data structures. The validity of
 #' the output data depends on the user.
 #'
-#' The validity of the file path is
-#' not further checked. \cr BIN-file conversions using the argument
-#' `version` may be a lossy conversion, depending on the chosen input and
-#' output data (e.g., conversion from version 08 to 07 to 06 to 04 or 03).\cr
+#' The validity of the file path is not further checked. BIN-file conversions 
+#' using the argument `version` may be a lossy conversion, depending on the 
+#' chosen input andoutput data (e.g., conversion from version 08 to 07 to 06 to 04 or 03).
 #'
-#' **Warning**\cr
+#' **Warning**
 #'
 #' Although the coding was done carefully it seems that the BIN/BINX-files
 #' produced by Risoe DA 15/20 TL/OSL readers slightly differ on the byte level.
 #' No obvious differences are observed in the METADATA, however, the
 #' BIN/BINX-file may not fully compatible, at least not similar to the once
-#' directly produced by the Risoe readers!\cr
+#' directly produced by the Risoe readers!
 #'
 #' @section Function version: 0.4.2
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @note ROI definitions (introduced in BIN-file version 8) are not supported! There are furthermore
-#' ignored by the function [read_BIN2R].
+#' @note 
+#' ROI definitions (introduced in BIN-file version 8) are not supported! 
+#' There are furthermore ignored by the function [read_BIN2R].
 #'
-#' @seealso [read_BIN2R], [Risoe.BINfileData-class],
-#' [writeBin]
+#' @seealso [read_BIN2R], [Risoe.BINfileData-class], [writeBin]
 #'
 #' @references
 #' DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.

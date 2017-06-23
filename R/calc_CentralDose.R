@@ -11,14 +11,14 @@
 #' In addition, the profile log-likelihood function for `sigma` is
 #' calculated using eq. 18 and presented as a plot. Numerical values of the 
 #' maximum likelihood approach are **only** presented in the plot and **not**
-#' in the console. A detailed explanation on maximum likelihood estimation can be found in the
-#' appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
-#' (2012, 15)
+#' in the console. A detailed explanation on maximum likelihood estimation can 
+#' be found in the appendix of Galbraith & Laslett (1993, 468-470) and 
+#' Galbraith & Roberts (2012, 15)
 #'
 #' @param data [RLum.Results-class] or [data.frame] (**required**): 
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(data[,2])`
 #' 
-#' @param sigmab [numeric] *(*with default*)*: 
+#' @param sigmab [numeric] (*with default*): 
 #' additional spread in De values.
 #' This value represents the expected overdispersion in the data should the sample be 
 #' well-bleached (Cunningham & Walling 2012, p. 100).
@@ -26,15 +26,15 @@
 #' a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (`log = FALSE`),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
 #' 
-#' @param log [logical] *(*with default*)*: 
+#' @param log [logical] (*with default*): 
 #' fit the (un-)logged central age model to De data
 #' 
-#' @param plot [logical] *(*with default*)*: 
+#' @param plot [logical] (*with default*): 
 #' plot output
 #' 
 #' @param ... further arguments (`trace`, `verbose`).
 #' 
-#' @return Returns a plot *(*optional*)* and terminal output. In addition an
+#' @return Returns a plot (*optional*) and terminal output. In addition an
 #' [RLum.Results-class] object is returned containing the following elements:
 #'
 #' \item{.$summary}{[data.frame] summary of all relevant model results.}
@@ -47,8 +47,9 @@
 #' 
 #' @section Function version: 1.3.2
 #' 
-#' @author Christoph Burow, University of Cologne (Germany) \cr 
-#' Based on a rewritten S script of Rex Galbraith, 2010 \cr
+#' @author 
+#' Christoph Burow, University of Cologne (Germany) \cr 
+#' Based on a rewritten S script of Rex Galbraith, 2010
 #' 
 #' @seealso [plot], [calc_CommonDose], [calc_FiniteMixture], 
 #' [calc_FuchsLang2001], [calc_MinDose]
@@ -56,51 +57,34 @@
 #' @references 
 #' Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for
 #' mixed fission track ages. Nuclear Tracks Radiation Measurements 4, 459-470. 
-#'
-#' 
 #' 
 #' Galbraith, R.F., Roberts, R.G., Laslett, G.M., Yoshida, H. & Olley,
 #' J.M., 1999. Optical dating of single grains of quartz from Jinmium rock
 #' shelter, northern Australia. Part I: experimental design and statistical
 #' models.  Archaeometry 41, 339-364. 
-#'
-#' 
 #' 
 #' Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent dose and error calculation and
 #' display in OSL dating: An overview and some recommendations. Quaternary
 #' Geochronology 11, 1-27. 
-#'
-#' 
 #' 
 #' **Further reading** 
 #'
-#' 
-#' 
 #' Arnold, L.J. & Roberts, R.G., 2009. Stochastic modelling of multi-grain equivalent dose
 #' (De) distributions: Implications for OSL dating of sediment mixtures.
 #' Quaternary Geochronology 4, 204-230. 
 #'
-#'
-#' 
 #' Bailey, R.M. & Arnold, L.J., 2006. Statistical modelling of single grain quartz De distributions and an
 #' assessment of procedures for estimating burial dose. Quaternary Science
 #' Reviews 25, 2475-2502. 
 #'
-#' 
-#' 
 #' Cunningham, A.C. & Wallinga, J., 2012. Realizing the potential of fluvial archives using robust OSL chronologies.
 #' Quaternary Geochronology 12, 98-106. 
 #'
-#' 
-#' 
 #' Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
 #' of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120. 
 #'
-#' 
-#' 
 #' Rodnight, H., 2008. How many equivalent dose values are needed to
 #' obtain a reproducible distribution?. Ancient TL 26, 3-10.
-#' 
 #' 
 #' @examples
 #'

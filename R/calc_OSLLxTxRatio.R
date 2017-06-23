@@ -1,6 +1,7 @@
 #' Calculate Lx/Tx ratio for CW-OSL curves
 #'
-#' Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light background subtraction.
+#' Calculate Lx/Tx ratios from a given set of CW-OSL curves assuming late light
+#' background subtraction.
 #'
 #' The integrity of the chosen values for the signal and background integral is
 #' checked by the function; the signal integral limits have to be lower than
@@ -9,8 +10,8 @@
 #' error calculation is done according to Galbraith (2002).
 #'
 #' **Please note:** In cases where the calculation results in `NaN` values (for
-#' example due to zero-signal, and therefore a division of 0 by 0), these `NaN` values are replaced
-#' by 0.
+#' example due to zero-signal, and therefore a division of 0 by 0), these `NaN`
+#' values are replaced by 0.
 #'
 #' **sigmab**
 #'
@@ -20,9 +21,9 @@
 #'
 #' **sig0**
 #'
-#' This argument allows to add an extra component of error to the final Lx/Tx error value.
-#' The input will be treated as factor that is multiplied with the already calculated
-#' LxTx and the result is add up by:
+#' This argument allows to add an extra component of error to the final Lx/Tx 
+#' error value. The input will be treated as factor that is multiplied with 
+#' the already calculated LxTx and the result is add up by:
 #'
 #' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
@@ -36,8 +37,6 @@
 #' normal case) it has to be accounted for the overdispersion by estimating
 #' \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
 #' standard error is calculated as:
-#'
-#' 
 #' 
 #' - `poisson`
 #' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k} 
@@ -53,7 +52,7 @@
 #' @param Lx.data [RLum.Data.Curve-class] or [data.frame] (**required**): 
 #' requires a CW-OSL shine down curve (x = time, y = counts)
 #'
-#' @param Tx.data [RLum.Data.Curve-class] or [data.frame] *(*optional*)*: 
+#' @param Tx.data [RLum.Data.Curve-class] or [data.frame] (*optional*): 
 #' requires a CW-OSL shine down curve (x = time, y = counts). If no
 #' input is given the Tx.data will be treated as `NA` and no Lx/Tx ratio
 #' is calculated.
@@ -61,37 +60,37 @@
 #' @param signal.integral [vector] (**required**): 
 #' vector with the limits for the signal integral.
 #'
-#' @param signal.integral.Tx [vector] *(*optional*)*: 
+#' @param signal.integral.Tx [vector] (*optional*): 
 #' vector with the limits for the signal integral for the Tx curve. If nothing is provided the
 #' value from `signal.integral` is used.
 #'
 #' @param background.integral [vector] (**required**): 
 #' vector with the bounds for the background integral.
 #'
-#' @param background.integral.Tx [vector] *(*optional*)*: 
+#' @param background.integral.Tx [vector] (*optional*): 
 #' vector with the limits for the background integral for the Tx curve. 
 #' If nothing is provided the value from `background.integral` is used.
 #'
-#' @param background.count.distribution [character] *(*with default*)*: 
+#' @param background.count.distribution [character] (*with default*): 
 #' sets the count distribution assumed for the error calculation. 
 #' Possible arguments `poisson` or `non-poisson`. See details for further information
 #'
-#' @param use_previousBG [logical] *(*with default*)*: 
+#' @param use_previousBG [logical] (*with default*): 
 #' If set to `TRUE` the background of the Lx-signal is substracted also 
 #' from the Tx-signal. Please note that in this case separat
 #' signal integral limits for the Tx signal are not allowed and will be reset.
 #'
-#' @param sigmab [numeric] *(*optional*)*: 
-#' option to set a manual value for the overdispersion (for LnTx and TnTx), used for the Lx/Tx error
-#' calculation. The value should be provided as absolute squared count values,
-#' e.g. `sigmab = c(300,300)`. Note: If only one value is provided this
-#' value is taken for both (LnTx and TnTx) signals.
+#' @param sigmab [numeric] (*optional*): 
+#' option to set a manual value for the overdispersion (for LnTx and TnTx), 
+#' used for the Lx/Tx error calculation. The value should be provided as 
+#' absolute squared count values, e.g. `sigmab = c(300,300)`. 
+#' **Note:** If only one value is provided this value is taken for both (LnTx and TnTx) signals.
 #'
-#' @param sig0 [numeric] *(*with default*)*: 
+#' @param sig0 [numeric] (*with default*): 
 #' allow adding an extra component of error to the final Lx/Tx error value 
 #' (e.g., instrumental errror, see details).
 #'
-#' @param digits [integer] *(*with default*)*: 
+#' @param digits [integer] (*with default*): 
 #' round numbers to the specified digits. 
 #' If digits is set to `NULL` nothing is rounded.
 #'
@@ -123,7 +122,8 @@
 #' $ call (original function call)
 #' ```
 #'
-#' @note The results of this function have been cross-checked with the Analyst
+#' @note 
+#' The results of this function have been cross-checked with the Analyst
 #' (vers. 3.24b). Access to the results object via [get_RLum].
 #'
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your

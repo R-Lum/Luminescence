@@ -11,58 +11,62 @@
 #' distribution of the values, on the actual scale of the measured data (e.g.
 #' seconds, equivalent dose, years). The principle of the plot is shown in
 #' Galbraith & Green (1990). The function authors are thankful for the
-#' thoughtprovocing figure in this article. \cr The semi circle (z-axis) of the
-#' classic Radial Plot is bent to a straight line here, which actually is the
-#' basis for combining this polar (radial) part of the plot with any other
-#' cartesian visualisation method (KDE, histogram, PDF and so on). Note that
-#' the plot allows dispaying two measures of distribution. One is the 2-sigma
+#' thoughtprovocing figure in this article.
+#' 
+#' The semi circle (z-axis) of the classic Radial Plot is bent to a straight 
+#' line here, which actually is the basis for combining this polar (radial) 
+#' part of the plot with any other cartesian visualisation method
+#' (KDE, histogram, PDF and so on). Note that the plot allows dispaying 
+#' two measures of distribution. One is the 2-sigma
 #' bar, which illustrates the spread in value errors, and the other is the
 #' polygon, which stretches over both parts of the Abanico Plot (polar and
-#' cartesian) and illustrates the actual spread in the values themselfes. \cr
+#' cartesian) and illustrates the actual spread in the values themselves.
+#' 
 #' Since the 2-sigma-bar is a polygon, it can be (and is) filled with shaded
 #' lines. To change density (lines per inch, default is 15) and angle (default
 #' is 45 degrees) of the shading lines, specify these parameters. See
-#' `?polygon()` for further help. \cr The Abanico Plot supports other than
-#' the weighted mean as measure of centrality. When it is obvious that the data
+#' `?polygon()` for further help.
+#' 
+#' The Abanico Plot supports other than the weighted mean as measure of 
+#' centrality. When it is obvious that the data
 #' is not (log-)normally distributed, the mean (weighted or not) cannot be a
 #' valid measure of centrality and hence central dose. Accordingly, the median
 #' and the weighted median can be chosen as well to represent a proper measure
 #' of centrality (e.g. `centrality = "median.weighted"`). Also
 #' user-defined numeric values (e.g. from the central age model) can be used if
-#' this appears appropriate. \cr The proportion of the polar part and the
-#' cartesian part of the Abanico Plot can be modfied for display reasons
-#' (`plot.ratio = 0.75`). By default, the polar part spreads over 75 \%
-#' and leaves 25 \% for the part that shows the KDE graph.
+#' this appears appropriate.
+#' 
+#' The proportion of the polar part and the cartesian part of the Abanico Plot 
+#' can be modfied for display reasons (`plot.ratio = 0.75`). By default,
+#'  the polar part spreads over 75 \% and leaves 25 \% for the part that 
+#'  shows the KDE graph.
 #'
 #'
 #' A statistic summary, i.e. a collection of statistic measures of
 #' centrality and dispersion (and further measures) can be added by specifying
 #' one or more of the following keywords:
 #'
-#' \itemize{
-#' \item `"n"` (number of samples)
-#' \item `"mean"` (mean De value)
-#' \item `"median"` (median of the De values)
-#' \item `"sd.rel"` (relative standard deviation in percent)
-#' \item `"sd.abs"` (absolute standard deviation)
-#' \item `"se.rel"` (relative standard error)
-#' \item `"se.abs"` (absolute standard error)
-#' \item `"in.2s"` (percent of samples in 2-sigma range)
-#' \item `"kurtosis"` (kurtosis)
-#' \item `"skewness"` (skewness)
-#' }
+#' - `"n"` (number of samples)
+#' - `"mean"` (mean De value)
+#' - `"median"` (median of the De values)
+#' - `"sd.rel"` (relative standard deviation in percent)
+#' - `"sd.abs"` (absolute standard deviation)
+#' - `"se.rel"` (relative standard error)
+#' - `"se.abs"` (absolute standard error)
+#' - `"in.2s"` (percent of samples in 2-sigma range)
+#' - `"kurtosis"` (kurtosis)
+#' - `"skewness"` (skewness)
 #'
-#' Note that the input data for the statistic summary is sent to the function
+#' **Note** that the input data for the statistic summary is sent to the function
 #' `calc_Statistics()` depending on the log-option for the z-scale. If
 #' `"log.z = TRUE"`, the summary is based on the logarithms of the input
-#' data. If `"log.z = FALSE"` the linearly scaled data is used. \cr
-#' Note as well, that `"calc_Statistics()"` calculates these statistic
+#' data. If `"log.z = FALSE"` the linearly scaled data is used.
+#' 
+#' **Note** as well, that `"calc_Statistics()"` calculates these statistic
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. If you wish to use another method, indicate this
 #' with the appropriate keyword using the argument `summary.method`.
-#'
-#'
 #'
 #' The optional parameter `layout` allows to modify the entire plot more
 #' sophisticated. Each element of the plot can be addressed and its properties
@@ -72,154 +76,172 @@
 #' `get_Layout("journal")`. A layout type can be modified by the user by
 #' assigning new values to the list object.
 #'
-#' It is possible for the
-#' z-scale to specify where ticks are to be drawn by using the parameter
-#' `at`, e.g. `at = seq(80, 200, 20)`, cf. function documentation of
-#' `axis`. Specifying tick positions manually overrides a
+#' It is possible for the z-scale to specify where ticks are to be drawn
+#'  by using the parameter `at`, e.g. `at = seq(80, 200, 20)`, cf. function 
+#'  documentation of `axis`. Specifying tick positions manually overrides a
 #' `zlim`-definition.
 #'
-#' @param data [data.frame] or [RLum.Results-class]
-#' object (**required**): for `data.frame` two columns: De (`data[,1]`)
-#' and De error (`data[,2]`). To plot several data sets in one plot the
-#' data sets must be provided as `list`, e.g. `list(data.1, data.2)`.
+#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
+#' for `data.frame` two columns: De (`data[,1]`) and De error (`data[,2]`).
+#'  To plot several data sets in one plot the data sets must be provided as 
+#'  `list`, e.g. `list(data.1, data.2)`.
 #'
-#' @param na.rm [logical] (*with default*): exclude NA values
-#' from the data set prior to any further operations.
+#' @param na.rm [logical] (*with default*): 
+#' exclude NA values from the data set prior to any further operations.
 #'
-#' @param log.z [logical] (*with default*): Option to display the
-#' z-axis in logarithmic scale. Default is `TRUE`.
+#' @param log.z [logical] (*with default*): 
+#' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
 #'
-#' @param z.0 [character] or [numeric]: User-defined
-#' central value, used for centering of data. One out of `"mean"`,
-#' `"mean.weighted"` and `"median"` or a numeric value (not its
-#' logarithm). Default is `"mean.weighted"`.
+#' @param z.0 [character] or [numeric]: 
+#' User-defined central value, used for centering of data. One out of `"mean"`,
+#' `"mean.weighted"` and `"median"` or a numeric value (not its logarithm). 
+#' Default is `"mean.weighted"`.
 #'
-#' @param dispersion [character] (*with default*): measure of
-#' dispersion, used for drawing the scatter polygon. One out of `"qr"`
-#' (quartile range), `"pnn"` (symmetric percentile range with nn the lower
-#' percentile, e.g. `"p05"` depicting the range between 5 and 95 %),
-#' `"sd"` (standard deviation) and `"2sd"` (2 standard deviations),
-#' default is `"qr"`. Note that `"sd"` and `"2sd"` are only
-#' meaningful in combination with `"z.0 = 'mean'"` because the unweighted
-#' mean is used to center the polygon.
+#' @param dispersion [character] (*with default*): 
+#' measure of dispersion, used for drawing the scatter polygon. One out of 
+#' - `"qr"` (quartile range), 
+#' - `"pnn"` (symmetric percentile range with nn the lower percentile, e.g. 
+#' - `"p05"` depicting the range between 5 and 95 %),
+#' - `"sd"` (standard deviation) and 
+#' - `"2sd"` (2 standard deviations),
+#' 
+#' The default is `"qr"`. Note that `"sd"` and `"2sd"` are only meaningful in 
+#' combination with `"z.0 = 'mean'"` because the unweighted mean is used to 
+#' center the polygon.
 #'
-#' @param plot.ratio [numeric]: Relative space, given to the radial
-#' versus the cartesian plot part, deault is `0.75`.
+#' @param plot.ratio [numeric]: 
+#' Relative space, given to the radial versus the cartesian plot part, 
+#' default is `0.75`.
 #'
-#' @param rotate [logical]: Option to turn the plot by 90 degrees.
+#' @param rotate [logical]: 
+#' Option to turn the plot by 90 degrees.
 #'
-#' @param mtext [character]: additional text below the plot title.
+#' @param mtext [character]: 
+#' additional text below the plot title.
 #'
-#' @param summary [character] (*optional*): add statistic measures of
-#' centrality and dispersion to the plot. Can be one or more of several
-#' keywords. See details for available keywords. Results differ depending on
-#' the log-option for the z-scale (see details).
+#' @param summary [character] (*optional*): 
+#' add statistic measures of centrality and dispersion to the plot. 
+#' Can be one or more of several keywords. See details for available keywords. 
+#' Results differ depending on the log-option for the z-scale (see details).
 #'
-#' @param summary.pos [numeric] or [character] (with
-#' default): optional position coordinates or keyword (e.g. `"topright"`)
-#' for the statistical summary. Alternatively, the keyword `"sub"` may be
+#' @param summary.pos [numeric] or [character] (*with default*): 
+#' optional position coordinates or keyword (e.g. `"topright"`) for the 
+#' statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if `mtext` is not used.
 #'
-#' @param summary.method [character] (*with default*): keyword
-#' indicating the method used to calculate the statistic summary. One out of
-#' `"unweighted"`, `"weighted"` and `"MCM"`. See
-#' [calc_Statistics] for details.
+#' @param summary.method [character] (*with default*): 
+#' keyword indicating the method used to calculate the statistic summary. 
+#' One out of
+#' - `"unweighted"`, 
+#' - `"weighted"` and 
+#' - `"MCM"`. 
+#' 
+#' See [calc_Statistics] for details.
 #'
-#' @param legend [character] vector (*optional*): legend content to
-#' be added to the plot.
+#' @param legend [character] vector (*optional*): 
+#' legend content to be added to the plot.
 #'
-#' @param legend.pos [numeric] or [character] (with
-#' default): optional position coordinates or keyword (e.g. `"topright"`)
+#' @param legend.pos [numeric] or [character] (*with default*): 
+#' optional position coordinates or keyword (e.g. `"topright"`)
 #' for the legend to be plotted.
 #'
-#' @param stats [character]: additional labels of statistically
-#' important values in the plot. One or more out of the following:
-#' `"min"`, `"max"`, `"median"`.
+#' @param stats [character]: 
+#' additional labels of statistically important values in the plot. 
+#' One or more out of the following:
+#' - `"min"`, 
+#' - `"max"`, 
+#' - `"median"`.
 #'
-#' @param rug [logical]: Option to add a rug to the KDE part, to
-#' indicate the location of individual values.
+#' @param rug [logical]: 
+#' Option to add a rug to the KDE part, to indicate the location of individual values.
 #'
-#' @param kde [logical]: Option to add a KDE plot to the dispersion
-#' part, default is `TRUE`.
+#' @param kde [logical]: 
+#' Option to add a KDE plot to the dispersion part, default is `TRUE`.
 #'
-#' @param hist [logical]: Option to add a histogram to the
-#' dispersion part. Only meaningful when not more than one data set is plotted.
+#' @param hist [logical]: 
+#' Option to add a histogram to the dispersion part. Only meaningful when not 
+#' more than one data set is plotted.
 #'
-#' @param dots [logical]: Option to add a dot plot to the
-#' dispersion part. If number of dots exceeds space in the dispersion part, a
-#' square indicates this.
+#' @param dots [logical]: 
+#' Option to add a dot plot to the dispersion part. If number of dots exceeds 
+#' space in the dispersion part, a square indicates this.
 #'
-#' @param boxplot [logical]: Option to add a boxplot to the
-#' dispersion part, default is `FALSE`.
+#' @param boxplot [logical]: 
+#' Option to add a boxplot to the dispersion part, default is `FALSE`.
 #'
-#' @param y.axis [logical]: Option to hide y-axis labels. Useful
-#' for data with small scatter.
+#' @param y.axis [logical]: 
+#' Option to hide y-axis labels. Useful for data with small scatter.
 #'
-#' @param error.bars [logical]: Option to show De-errors as error
-#' bars on De-points. Useful in combination with \code{y.axis = FALSE, bar.col
-#' = "none"}.
+#' @param error.bars [logical]: 
+#' Option to show De-errors as error bars on De-points. Useful in combination 
+#' with `y.axis = FALSE, bar.col = "none"`.
 #'
-#' @param bar [numeric] (*with default*): option to add one or more
-#' dispersion bars (i.e., bar showing the 2-sigma range) centered at the
-#' defined values. By default a bar is drawn according to `"z.0"`. To omit
-#' the bar set `"bar = FALSE"`.
+#' @param bar [numeric] (*with default*): 
+#' option to add one or more dispersion bars (i.e., bar showing the 2-sigma range) 
+#' centered at the defined values. By default a bar is drawn according to `"z.0"`.
+#' To omit the bar set `"bar = FALSE"`.
 #'
-#' @param bar.col [character] or [numeric] (with
-#' default): colour of the dispersion bar. Default is `"grey60"`.
+#' @param bar.col [character] or [numeric] (*with default*): 
+#' colour of the dispersion bar. Default is `"grey60"`.
 #'
-#' @param polygon.col [character] or [numeric] (with
-#' default): colour of the polygon showing the data scatter. Sometimes this
+#' @param polygon.col [character] or [numeric] (*with default*): 
+#' colour of the polygon showing the data scatter. Sometimes this
 #' polygon may be omitted for clarity. To disable it use `FALSE` or
 #' `polygon = FALSE`. Default is `"grey80"`.
 #'
-#' @param line [numeric]: numeric values of the additional lines to
-#' be added.
+#' @param line [numeric]: 
+#' numeric values of the additional lines to be added.
 #'
-#' @param line.col [character] or [numeric]: colour of
-#' the additional lines.
+#' @param line.col [character] or [numeric]: 
+#' colour of the additional lines.
 #'
-#' @param line.lty [integer]: line type of additional lines
+#' @param line.lty [integer]: 
+#' line type of additional lines
 #'
-#' @param line.label [character]: labels for the additional lines.
+#' @param line.label [character]: 
+#' labels for the additional lines.
 #'
-#' @param grid.col [character] or [numeric] (with
-#' default): colour of the grid lines (originating at `[0,0]` and strechting to
-#' the z-scale). To disable grid lines use `FALSE`. Default is
-#' `"grey"`.
+#' @param grid.col [character] or [numeric] (*with default*): 
+#' colour of the grid lines (originating at `[0,0]` and strechting to
+#' the z-scale). To disable grid lines use `FALSE`. Default is `"grey"`.
 #'
-#' @param frame [numeric] (*with default*): option to modify the
-#' plot frame type. Can be one out of `0` (no frame), `1` (frame
-#' originates at 0,0 and runs along min/max isochrons), `2` (frame
-#' embraces the 2-sigma bar), `3` (frame embraces the entire plot as a
-#' rectangle).Default is `1`.
+#' @param frame [numeric] (*with default*): 
+#' option to modify the plot frame type. Can be one out of 
+#' - `0` (no frame), 
+#' - `1` (frame originates at 0,0 and runs along min/max isochrons), 
+#' - `2` (frame embraces the 2-sigma bar), 
+#' - `3` (frame embraces the entire plot as a rectangle).
+#' 
+#' Default is `1`.
 #'
-#' @param bw [character] (*with default*): bin-width for KDE, choose
-#' a numeric value for manual setting.
+#' @param bw [character] (*with default*): 
+#' bin-width for KDE, choose a numeric value for manual setting.
 #'
-#' @param output [logical]: Optional output of numerical plot
-#' parameters. These can be useful to reproduce similar plots. Default is
-#' `TRUE`.
+#' @param output [logical]: 
+#' Optional output of numerical plot parameters. These can be useful to 
+#' reproduce similar plots. Default is `TRUE`.
 #'
-#' @param interactive [logical] (*with default*): create an interactive
-#' abanico plot (requires the 'plotly' package)
+#' @param interactive [logical] (*with default*): 
+#' create an interactive abanico plot (requires the 'plotly' package)
 #'
 #' @param ... Further plot arguments to pass. `xlab` must be a vector of
 #' length 2, specifying the upper and lower x-axes labels.
 #'
-#' @return returns a plot object and, optionally, a list with plot calculus
-#' data.
+#' @return 
+#' returns a plot object and, optionally, a list with plot calculus data.
 #'
 #' @section Function version: 0.1.10
 #'
-#' @author Michael Dietze, GFZ Potsdam (Germany),\cr Sebastian Kreutzer,
-#' IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr Inspired by a plot
-#' introduced by Galbraith & Green (1990)
+#' @author 
+#' Michael Dietze, GFZ Potsdam (Germany)\cr 
+#' Sebastian Kreutzer, RAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Inspired by a plot introduced by Galbraith & Green (1990)
 #'
-#' @seealso [plot_RadialPlot], [plot_KDE],
-#' [plot_Histogram]
+#' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram]
 #'
-#' @references Galbraith, R. & Green, P., 1990. Estimating the component ages
+#' @references 
+#' Galbraith, R. & Green, P., 1990. Estimating the component ages
 #' in a finite mixture. International Journal of Radiation Applications and
 #' Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3),
 #' 197-206.

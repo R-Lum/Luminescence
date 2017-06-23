@@ -6,89 +6,96 @@
 #' The binary data file is parsed byte by byte following the data structure
 #' published in the Appendices of the Analyst manual p. 42.
 #'
-#' For the
-#' general BIN-file structure, the reader is referred to the Risoe website:
-#' `http://www.nutech.dtu.dk/`
+#' For the general BIN-file structure, the reader is referred to the 
+#' Risoe website: `http://www.nutech.dtu.dk/`
 #'
-#' @param file [character] or [list] (**required**): path and file name of the
-#' BIN/BINX file. If input is a `list` it should comprise only `character`s representing
-#' each valid path and BIN/BINX-file names.
+#' @param file [character] or [list] (**required**): 
+#' path and file name of the BIN/BINX file. If input is a `list` it should 
+#' comprise only `character`s representing each valid path and BIN/BINX-file names.
 #' Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all BIN/BINX files found in the directory.
 #'
-#' @param show.raw.values [logical] (*with default*): shows raw values from
-#' BIN file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without
+#' @param show.raw.values [logical] (*with default*): 
+#' shows raw values from BIN file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without
 #' translation in characters. Can be provided as `list` if `file` is a `list`.
 #'
-#' @param n.records [raw] (*optional*): limits the number of imported
-#' records. Can be used in combination with `show.record.number` for
-#' debugging purposes, e.g. corrupt BIN-files. Can be provided as `list` if `file` is a `list`.
-#'
-#' @param zero_data.rm [logical] (*with default*): remove erroneous data with no count
-#' values. As such data are usally not needed for the subsequent data analysis they will be removed
-#' by default. Can be provided as `list` if `file` is a `list`.
-#'
-#' @param duplicated.rm [logical] (*with default*): remove duplicated entries if `TRUE`.
-#' This may happen due to an erroneous produced BIN/BINX-file. This option compares only
-#' predeccessor and successor. Can be provided as `list` if `file` is a `list`.
-#'
-#' @param position [numeric] (*optional*): imports only the selected position. Note:
-#' the import performance will not benefit by any selection made here.
+#' @param n.records [raw] (*optional*): 
+#' limits the number of imported records. Can be used in combination with 
+#' `show.record.number` for debugging purposes, e.g. corrupt BIN-files. 
 #' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param fastForward [logical] (*with default*): if `TRUE` for a
-#' more efficient data processing only a list of `RLum.Analysis` objects is returned instead
-#' of a [Risoe.BINfileData-class] object. Can be provided as `list` if `file` is a `list`.
+#' @param zero_data.rm [logical] (*with default*): 
+#' remove erroneous data with no count values. As such data are usally not 
+#' needed for the subsequent data analysis they will be removed by default. 
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param show.record.number [logical] (*with default*): shows record number
-#' of the imported record, for debugging usage only. Can be provided as `list` if `file` is a `list`.
+#' @param duplicated.rm [logical] (*with default*): 
+#' remove duplicated entries if `TRUE`. This may happen due to an erroneous 
+#' produced BIN/BINX-file. This option compares only predeccessor and successor. 
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param txtProgressBar [logical] (*with default*): enables or disables
-#' [txtProgressBar].
+#' @param position [numeric] (*optional*): 
+#' imports only the selected position. Note: the import performance will not 
+#' benefit by any selection made here. 
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param forced.VersionNumber [integer] (*optional*): allows to cheat the
-#' version number check in the function by own values for cases where the
-#' BIN-file version is not supported. Can be provided as `list` if `file` is a `list`.\cr
-#' Note: The usage is at own risk, only supported BIN-file versions have been tested.
+#' @param fastForward [logical] (*with default*): 
+#' if `TRUE` for a more efficient data processing only a list of `RLum.Analysis` 
+#' objects is returned instead of a [Risoe.BINfileData-class] object. 
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param ignore.RECTYPE [logical] (*with default*): this argument allows to ignore values
-#' in the byte 'RECTYPE' (BIN-file version 08), in case there are not documented or faulty set.
-#' In this case the corrupted records are skipped.
+#' @param show.record.number [logical] (*with default*): 
+#' shows record number of the imported record, for debugging usage only. 
+#' Can be provided as `list` if `file` is a `list`.
 #'
-#' @param pattern [character] (*optional*): argument that is used if only a path is provided.
-#' The argument will than be passed to the function [list.files] used internally to
-#' construct a `list` of wanted files
+#' @param txtProgressBar [logical] (*with default*): 
+#' enables or disables [txtProgressBar].
 #'
-#' @param verbose [logical] (*with default*): enables or disables verbose mode
+#' @param forced.VersionNumber [integer] (*optional*): 
+#' allows to cheat the version number check in the function by own values for 
+#' cases where the BIN-file version is not supported. 
+#' Can be provided as `list` if `file` is a `list`.
+#' 
+#' **Note:** The usage is at own risk, only supported BIN-file versions have been tested.
 #'
+#' @param ignore.RECTYPE [logical] (*with default*): 
+#' this argument allows to ignore values in the byte 'RECTYPE' (BIN-file version 08),
+#' in case there are not documented or faulty set. In this case the corrupted records are skipped.
+#'
+#' @param pattern [character] (*optional*):
+#' argument that is used if only a path is provided. The argument will than be 
+#' passed to the function [list.files] used internally to construct a `list` 
+#' of wanted files
+#'
+#' @param verbose [logical] (*with default*): 
+#' enables or disables verbose mode
+#' 
 #' @param ... further arguments that will be passed to the function
 #' [Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument
 #' automatically sets `fastForward = TRUE`
 #'
-#' @return Returns an S4 [Risoe.BINfileData-class] object containing two
-#' slots:\cr \item{METADATA}{A [data.frame] containing all variables
-#' stored in the bin-file.} \item{DATA}{A [list] containing a numeric
-#' [vector] of the measured data. The ID corresponds to the record ID in
-#' METADATA.}\cr
+#' @return 
+#' Returns an S4 [Risoe.BINfileData-class] object containing two
+#' slots:
+#' 
+#' \item{METADATA}{A [data.frame] containing all variables stored in the bin-file.} 
+#' \item{DATA}{A [list] containing a numeric [vector] of the measured data. The ID corresponds to the record ID in METADATA.}
 #'
 #' If `fastForward = TRUE` a list of [RLum.Analysis-class] object is returned. The
 #' internal coercing is done using the function [Risoe.BINfileData2RLum.Analysis]
 #'
-#'
-#' @note The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
+#' @note 
+#' The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#'
-#'
-#' \bold{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint
-#' import.}
-#'
+#' **ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.**
 #'
 #' @section Function version: 0.15.5
 #'
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France), Margret C. Fuchs, HZDR Freiberg, (Germany)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Margret C. Fuchs, HZDR Freiberg, (Germany)
 #'
 #'
 #' @seealso [write_R2BIN], [Risoe.BINfileData-class],
@@ -103,9 +110,7 @@
 #'
 #' @keywords IO
 #'
-#'
 #' @examples
-#'
 #'
 #' ##(1) import Risoe BIN-file to R (uncomment for usage)
 #'

@@ -11,24 +11,27 @@ write_R2BIN(object, file, version, compatibility.mode = FALSE,
 \item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
 input object to be stored in a bin file.}
 
-\item{file}{\link{character} (\strong{required}): file name and path of
-the output file\cr \code{[WIN]}: \code{write_R2BIN(object, "C:/Desktop/test.bin")},
-\cr \code{[MAC/LINUX]}: \code{write_R2BIN("/User/test/Desktop/test.bin")}}
+\item{file}{\link{character} (\strong{required}):
+file name and path of the output file
+\itemize{
+\item \code{[WIN]}: \code{write_R2BIN(object, "C:/Desktop/test.bin")}
+\item \code{[MAC/LINUX]}: \code{write_R2BIN("/User/test/Desktop/test.bin")}
+}}
 
-\item{version}{\link{character} (\emph{optional}): version number for the
-output file. If no value is provided the highest version number from the
-\linkS4class{Risoe.BINfileData} is taken automatically.
+\item{version}{\link{character} (\emph{optional}):
+version number for the output file. If no value is provided the highest
+version number from the \linkS4class{Risoe.BINfileData} is taken automatically.
 
-Note:
+\strong{Note:}
 This argument can be used to convert BIN-file versions.}
 
-\item{compatibility.mode}{\link{logical} (\emph{with default}): this option
-recalculates the position values if necessary and set the max. value to 48.
-The old position number is appended as comment (e.g., 'OP: 70). This option
-accounts for potential compatibility problems with the Analyst software.}
+\item{compatibility.mode}{\link{logical} (\emph{with default}):
+this option recalculates the position values if necessary and set the max.
+value to 48. The old position number is appended as comment (e.g., 'OP: 70).
+This option accounts for potential compatibility problems with the Analyst software.}
 
-\item{txtProgressBar}{\link{logical} (\emph{with default}): enables or disables
-\link{txtProgressBar}.}
+\item{txtProgressBar}{\link{logical} (\emph{with default}):
+enables or disables \link{txtProgressBar}.}
 }
 \value{
 Write a binary file.
@@ -49,21 +52,20 @@ If
 The function just roughly checks the data structures. The validity of
 the output data depends on the user.
 
-The validity of the file path is
-not further checked. \cr BIN-file conversions using the argument
-\code{version} may be a lossy conversion, depending on the chosen input and
-output data (e.g., conversion from version 08 to 07 to 06 to 04 or 03).\cr
+The validity of the file path is not further checked. BIN-file conversions
+using the argument \code{version} may be a lossy conversion, depending on the
+chosen input andoutput data (e.g., conversion from version 08 to 07 to 06 to 04 or 03).
 
-\strong{Warning}\cr
+\strong{Warning}
 
 Although the coding was done carefully it seems that the BIN/BINX-files
 produced by Risoe DA 15/20 TL/OSL readers slightly differ on the byte level.
 No obvious differences are observed in the METADATA, however, the
 BIN/BINX-file may not fully compatible, at least not similar to the once
-directly produced by the Risoe readers!\cr
+directly produced by the Risoe readers!
 
-ROI definitions (introduced in BIN-file version 8) are not supported! There are furthermore
-ignored by the function \link{read_BIN2R}.
+ROI definitions (introduced in BIN-file version 8) are not supported!
+There are furthermore ignored by the function \link{read_BIN2R}.
 }
 \section{Function version}{
  0.4.2
@@ -82,11 +84,9 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
 }
 \seealso{
-\link{read_BIN2R}, \linkS4class{Risoe.BINfileData},
-\link{writeBin}
+\link{read_BIN2R}, \linkS4class{Risoe.BINfileData}, \link{writeBin}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{IO}

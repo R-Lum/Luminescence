@@ -31,12 +31,12 @@
 #' `[1]` and `[2]`. Computed LxTx values are then fitted using the
 #' [plot_GrowthCurve] function and the laboratory measured LnTn can then
 #' be interpolated onto this curve to determine the fading corrected
-#' De value, from which the fading corrected age is calculated. \cr
+#' De value, from which the fading corrected age is calculated.
 #'
 #' The `calc_Kars2008` function also calculates the level of saturation (n/N)
 #' and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
 #' the sample under investigation using the sample specific \eqn{\rho}',
-#' unfaded `D0` and `D_dot` values, following the approach of Kars et al. (2008). \cr
+#' unfaded `D0` and `D_dot` values, following the approach of Kars et al. (2008).
 #'
 #' Uncertainties are reported at 1 sigma and are assumed to be normally
 #' distributed and are estimated using monte-carlo resamples (`n.MC = 1000`)
@@ -67,16 +67,16 @@
 #' given as a numeric vector of length two.
 #' Expected unit: Gy/s. Example: `readerDdot = c(0.08, 0.01)`.
 #'
-#' @param normalise [logical] *(*with default*)*:
+#' @param normalise [logical] (*with default*):
 #' If `TRUE` (the default) all measured and computed LxTx values are
 #' normalised by the pre-exponential factor A (see details).
 #'
-#' @param summary [logical] *(*with default*)*:
+#' @param summary [logical] (*with default*):
 #' If `TRUE` (the default) various parameters provided by the user
 #' and calculated by the model are added as text on the right-hand side of the
 #' plot.
 #'
-#' @param plot [logical] *(*with default*)*: 
+#' @param plot [logical] (*with default*): 
 #' enables/disables plot output.
 #'
 #' @param ... further arguments passed to [plot] and [plot_GrowthCurve].
@@ -107,7 +107,7 @@
 #' @section Function version: 0.1.0
 #'
 #' @author 
-#' Georgina King, University of Cologne (Germany), \cr
+#' Georgina King, University of Cologne (Germany)\cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @note **This function has BETA status and should not be used for publication work!**

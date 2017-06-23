@@ -15,25 +15,24 @@ mean grain size is computed (e.g. \code{c(100,200)}).}
 \item{sample.diameter}{\link{numeric} (\strong{required}):
 diameter (mm) of the targeted area on the sample carrier.}
 
-\item{packing.density}{\link{numeric} \emph{(\emph{with default})}:
+\item{packing.density}{\link{numeric} (\emph{with default}):
 empirical value for mean packing density. \cr
-If \code{packing.density = "Inf"} a hexagonal structure on an
-infinite plane with a packing density of \eqn{0.906\ldots}
-is assumed.}
+If \code{packing.density = "Inf"} a hexagonal structure on an infinite plane with
+a packing density of \eqn{0.906\ldots} is assumed.}
 
-\item{MC}{\link{logical} \emph{(\emph{optional})}:
-if \code{TRUE} the function performs a monte carlo simulation for estimating the amount of grains on the
-sample carrier and assumes random errors in grain size distribution and
-packing density. Requires a vector with min and max grain size for
-\code{grain.size}. For more information see details.}
+\item{MC}{\link{logical} (\emph{optional}):
+if \code{TRUE} the function performs a monte carlo simulation for estimating the
+amount of grains on the sample carrier and assumes random errors in grain
+size distribution and packing density. Requires a vector with min and max
+grain size for \code{grain.size}. For more information see details.}
 
-\item{grains.counted}{\link{numeric} \emph{(\emph{optional})}:
+\item{grains.counted}{\link{numeric} (\emph{optional}):
 grains counted on a sample carrier. If a non-zero positive integer is provided this function
 will calculate the packing density of the aliquot. If more than one value is
 provided the mean packing density and its standard deviation is calculated.
 Note that this overrides \code{packing.density}.}
 
-\item{plot}{\link{logical} \emph{(\emph{with default})}:
+\item{plot}{\link{logical} (\emph{with default}):
 plot output (\code{TRUE}/\code{FALSE})}
 
 \item{...}{further arguments to pass (\code{main, xlab, MC.iter}).}
@@ -57,30 +56,31 @@ density of an aliquot is computed.
 \details{
 This function can be used to either estimate the number of grains on an
 aliquot or to compute the packing density depending on the the arguments
-provided. \cr
-The following function is used to estimate the number of grains \code{n}: \cr
+provided.
+
+The following function is used to estimate the number of grains \code{n}:
+
 \deqn{n = (\pi*x^2)/(\pi*y^2)*d}
-where \code{x} is the radius of the aliquot size (microns), \code{y} is the mean radius of the
-mineral grains (mm) and \code{d} is the packing density (value between 0 and
-1). \cr
+
+where \code{x} is the radius of the aliquot size (microns), \code{y} is the mean
+radius of the mineral grains (mm) and \code{d} is the packing density
+(value between 0 and 1).
 
 \strong{Packing density}
 
-The default value for \code{packing.density}
-is 0.65, which is the mean of empirical values determined by Heer et al.
-(2012) and unpublished data from the Cologne luminescence laboratory. If
-\code{packing.density = "Inf"} a maximum density of
-\eqn{\pi/\sqrt12 = 0.9068\ldots} is used. However, note that this value is not appropriate as
-the standard preparation procedure of aliquots resembles a
-PECC (\emph{"Packing Equal Circles in a Circle"}) problem where the maximum packing density is
-asymptotic to about 0.87. \cr
+The default value for \code{packing.density} is 0.65, which is the mean of
+empirical values determined by Heer et al. (2012) and unpublished data from
+the Cologne luminescence laboratory. If \code{packing.density = "Inf"} a maximum
+density of  \eqn{\pi/\sqrt12 = 0.9068\ldots} is used. However, note that
+this value is not appropriate as the standard preparation procedure of
+aliquots resembles a  PECC (\emph{"Packing Equal Circles in a Circle"}) problem
+where the maximum packing density is asymptotic to about 0.87.
 
 \strong{Monte Carlo simulation}
 
-The number of grains on an aliquot can
-be estimated by Monte Carlo simulation when setting \code{MC = TRUE}. Each
-of the parameters necessary to calculate \code{n} (\code{x}, \code{y},
-\code{d}) are assumed to be normally distributed with means
+The number of grains on an aliquot can be estimated by Monte Carlo simulation
+when setting \code{MC = TRUE}. Each of the parameters necessary to calculate
+\code{n} (\code{x}, \code{y}, \code{d}) are assumed to be normally distributed with means
 \eqn{\mu_x, \mu_y, \mu_d} and standard deviations \eqn{\sigma_x, \sigma_y, \sigma_d}.
 
 For the mean grain size random samples are taken first from

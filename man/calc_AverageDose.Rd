@@ -17,16 +17,16 @@ experiment, i.e. when all grains have  received the same dose. Indeed in such a 
 overdispersion (i.e. dispersion on top of analytical uncertainties) is, by definition, an
 unrecognised measurement uncertainty.}
 
-\item{Nb_BE}{\link{integer} \emph{(\emph{with default})}:
+\item{Nb_BE}{\link{integer} (\emph{with default}):
 sample size used for the bootstrapping}
 
-\item{na.rm}{\link{logical} \emph{(\emph{with default})}:
+\item{na.rm}{\link{logical} (\emph{with default}):
 exclude NA values from the data set prior to any further operation.}
 
-\item{plot}{\link{logical} \emph{(\emph{with default})}:
+\item{plot}{\link{logical} (\emph{with default}):
 enables/disables plot output}
 
-\item{verbose}{\link{logical} \emph{(\emph{with default})}:
+\item{verbose}{\link{logical} (\emph{with default}):
 enables/disables terminal output}
 
 \item{...}{further arguments that can be passed to \link[graphics:hist]{graphics::hist}. As three plots
@@ -38,7 +38,7 @@ supported, but the output of \code{hist} is returned and can be used of own plot
 Further supported arguments: \code{mtext} (\link{character}), \code{rug} (\code{TRUE/FALSE}).}
 }
 \value{
-The function returns numerical output and an \emph{(\emph{optional})} plot.
+The function returns numerical output and an (\emph{optional}) plot.
 
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]} \cr

@@ -11,7 +11,7 @@ calc_CentralDose(data, sigmab, log = TRUE, plot = TRUE, ...)
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(data[,2])}}
 
-\item{sigmab}{\link{numeric} \emph{(\emph{with default})}:
+\item{sigmab}{\link{numeric} (\emph{with default}):
 additional spread in De values.
 This value represents the expected overdispersion in the data should the sample be
 well-bleached (Cunningham & Walling 2012, p. 100).
@@ -19,16 +19,16 @@ well-bleached (Cunningham & Walling 2012, p. 100).
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 sigmab must be provided in the same absolute units of the De values (seconds or Gray).}
 
-\item{log}{\link{logical} \emph{(\emph{with default})}:
+\item{log}{\link{logical} (\emph{with default}):
 fit the (un-)logged central age model to De data}
 
-\item{plot}{\link{logical} \emph{(\emph{with default})}:
+\item{plot}{\link{logical} (\emph{with default}):
 plot output}
 
 \item{...}{further arguments (\code{trace}, \code{verbose}).}
 }
 \value{
-Returns a plot \emph{(\emph{optional})} and terminal output. In addition an
+Returns a plot (\emph{optional}) and terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the following elements:
 
 \item{.$summary}{\link{data.frame} summary of all relevant model results.}
@@ -51,9 +51,9 @@ eq. 15 and 16. Their standard errors are approximated using eq. 17.
 In addition, the profile log-likelihood function for \code{sigma} is
 calculated using eq. 18 and presented as a plot. Numerical values of the
 maximum likelihood approach are \strong{only} presented in the plot and \strong{not}
-in the console. A detailed explanation on maximum likelihood estimation can be found in the
-appendix of Galbraith & Laslett (1993, 468-470) and Galbraith & Roberts
-(2012, 15)
+in the console. A detailed explanation on maximum likelihood estimation can
+be found in the appendix of Galbraith & Laslett (1993, 468-470) and
+Galbraith & Roberts (2012, 15)
 }
 \section{Function version}{
  1.3.2
@@ -106,5 +106,5 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-Based on a rewritten S script of Rex Galbraith, 2010 \cr
+Based on a rewritten S script of Rex Galbraith, 2010
 }

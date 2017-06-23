@@ -26,19 +26,19 @@ longitude (decimal degree), E positive}
 \item{altitude}{\link{numeric} (\strong{required}):
 altitude (m above sea-level)}
 
-\item{corr.fieldChanges}{\link{logical} \emph{(\emph{with default})}:
+\item{corr.fieldChanges}{\link{logical} (\emph{with default}):
 correct for geomagnetic field changes after Prescott & Hutton (1994).
 Apply only when justified by the data.}
 
-\item{est.age}{\link{numeric} \emph{(\emph{with default})}:
+\item{est.age}{\link{numeric} (\emph{with default}):
 estimated age range (ka) for geomagnetic field change correction (0-80 ka allowed)}
 
-\item{half.depth}{\link{logical} \emph{(\emph{with default})}:
-How to overcome with varying overburden thickness. If \code{TRUE} only half the depth is used for
-calculation. Apply only when justified, i.e. when a constant sedimentation
-rate can safely be assumed.}
+\item{half.depth}{\link{logical} (\emph{with default}):
+How to overcome with varying overburden thickness. If \code{TRUE} only half the
+depth is used for calculation. Apply only when justified, i.e. when a constant
+sedimentation rate can safely be assumed.}
 
-\item{error}{\link{numeric} \emph{(\emph{with default})}:
+\item{error}{\link{numeric} (\emph{with default}):
 general error (percentage) to be implemented on corrected cosmic dose rate estimate}
 
 \item{...}{further arguments (\code{verbose} to disable/enable console output).}
@@ -62,21 +62,22 @@ changes.
 }
 \details{
 This function calculates the total cosmic dose rate considering both the
-soft- and hard-component of the cosmic ray flux.\cr
+soft- and hard-component of the cosmic ray flux.
 
 \strong{Internal calculation steps}
 
-(1) Calculate total depth of all absorber in hg/cm^2 (1 hg/cm^2 = 100
-g/cm^2)
+(1)
+Calculate total depth of all absorber in hg/cm^2 (1 hg/cm^2 = 100 g/cm^2)
 
-\deqn{absorber = depth_1*density_1 + depth_2*density_2 + ... + depth_n*
-density_n}
+\deqn{absorber = depth_1*density_1 + depth_2*density_2 + ... + depth_n*density_n}
 
-(2) If \code{half.depth = TRUE}
+(2)
+If \code{half.depth = TRUE}
 
 \deqn{absorber = absorber/2}
 
-(3) Calculate cosmic dose rate at sea-level and 55 deg. latitude
+(3)
+Calculate cosmic dose rate at sea-level and 55 deg. latitude
 
 a) If absorber is > 167 g/cm^2 (only hard-component; Allkofer et al.  1975):
 apply equation given by Prescott & Hutton (1994) (c.f. Barbouti & Rastin
@@ -87,20 +88,23 @@ apply equation given by Prescott & Hutton (1994) (c.f. Barbouti & Rastin
 b) If absorber is < 167 g/cm^2 (soft- and hard-component): derive D0 from
 Fig. 1 in Prescott & Hutton (1988).
 
-(4) Calculate geomagnetic latitude (Prescott & Stephan 1982, Prescott &
+(4)
+Calculate geomagnetic latitude (Prescott & Stephan 1982, Prescott &
 Hutton 1994)
 
 \deqn{\lambda = arcsin(0.203*cos(latitude)*cos(longitude-291)+0.979*
 sin(latitude))}
 
-(5) Apply correction for geomagnetic latitude and altitude above sea-level.
+(5)
+Apply correction for geomagnetic latitude and altitude above sea-level.
 Values for F, J and H were read from Fig. 3 shown in Prescott & Stephan
 (1982) and fitted with 3-degree polynomials for lambda < 35 degree and a
 linear fit for lambda > 35 degree.
 
 \deqn{Dc = D0*(F+J*exp((altitude/1000)/H))}
 
-(6) Optional: Apply correction for geomagnetic field changes in the last
+(6)
+Optional: Apply correction for geomagnetic field changes in the last
 0-80 ka (Prescott & Hutton 1994). Correction and altitude factors are given
 in Table 1 and Fig. 1 in Prescott & Hutton (1994). Values for altitude
 factor were fitted with a 2-degree polynomial. The altitude factor is

@@ -11,21 +11,21 @@ calc_FuchsLang2001(data, cvThreshold = 5, startDeValue = 1, plot = TRUE,
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{cvThreshold}{\link{numeric} \emph{(\emph{with default})}:
+\item{cvThreshold}{\link{numeric} (\emph{with default}):
 coefficient of variation in percent, as threshold for the method,
 e.g. \code{cvThreshold = 3}. See details
 .}
 
-\item{startDeValue}{\link{numeric} \emph{(\emph{with default})}:
+\item{startDeValue}{\link{numeric} (\emph{with default}):
 number of the first aliquot that is used for the calculations}
 
-\item{plot}{\link{logical} \emph{(\emph{with default})}:
+\item{plot}{\link{logical} (\emph{with default}):
 plot output \code{TRUE}/\code{FALSE}}
 
 \item{...}{further arguments and graphical parameters passed to \link{plot}}
 }
 \value{
-Returns a plot \emph{(\emph{optional})} and terminal output. In addition an
+Returns a plot (\emph{optional}) and terminal output. In addition an
 \linkS4class{RLum.Results} object is returned containing the
 following elements:
 

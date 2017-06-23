@@ -11,98 +11,115 @@ fit_CWCurve(values, n.components.max, fit.failure_threshold = 5,
   output.terminalAdvanced = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame}
-(\strong{required}): x, y data of measured values (time and counts). See
-examples.}
+\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+x, y data of measured values (time and counts). See examples.}
 
-\item{n.components.max}{\link{vector} (\emph{optional}): maximum number of
-components that are to be used for fitting. The upper limit is 7.}
+\item{n.components.max}{\link{vector} (\emph{optional}):
+maximum number of components that are to be used for fitting.
+The upper limit is 7.}
 
-\item{fit.failure_threshold}{\link{vector} (\emph{with default}): limits the failed
-fitting attempts.}
+\item{fit.failure_threshold}{\link{vector} (\emph{with default}):
+limits the failed fitting attempts.}
 
-\item{fit.method}{\link{character} (\emph{with default}): select fit method,
-allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
-routine usint the funtion \link{nls} \code{'LM'} utilises the
-function \code{nlsLM} from the package \code{minpack.lm} and with that the
-Levenberg-Marquardt algorithm.}
+\item{fit.method}{\link{character} (\emph{with default}):
+select fit method, allowed values: \code{'port'} and \code{'LM'}. \code{'port'} uses the 'port'
+routine usint the funtion \link{nls} \code{'LM'} utilises the function \code{nlsLM} from
+the package \code{minpack.lm} and with that the Levenberg-Marquardt algorithm.}
 
-\item{fit.trace}{\link{logical} (\emph{with default}): traces the fitting process
-on the terminal.}
+\item{fit.trace}{\link{logical} (\emph{with default}):
+traces the fitting process on the terminal.}
 
-\item{fit.calcError}{\link{logical} (\emph{with default}): calculate 1-sigma error
-range of components using \link{confint}}
+\item{fit.calcError}{\link{logical} (\emph{with default}):
+calculate 1-sigma error range of components using \link{confint}}
 
-\item{LED.power}{\link{numeric} (\emph{with default}): LED power (max.) used for
-intensity ramping in mW/cm^2. \strong{Note:} The value is used for the
-calculation of the absolute photoionisation cross section.}
+\item{LED.power}{\link{numeric} (\emph{with default}):
+LED power (max.) used for intensity ramping in mW/cm^2.
+\strong{Note:} The value is used for the calculation of the absolute
+photoionisation cross section.}
 
-\item{LED.wavelength}{\link{numeric} (\emph{with default}): LED wavelength used for
-stimulation in nm. \strong{Note:} The value is used for the calculation of the
-absolute photoionisation cross section.}
+\item{LED.wavelength}{\link{numeric} (\emph{with default}):
+LED wavelength used for stimulation in nm.
+\strong{Note:} The value is used for the calculation of the absolute
+photoionisation cross section.}
 
-\item{cex.global}{\link{numeric} (\emph{with default}): global scaling factor.}
+\item{cex.global}{\link{numeric} (\emph{with default}):
+global scaling factor.}
 
-\item{sample_code}{\link{character} (\emph{optional}): sample code used for the
-plot and the optional output table (mtext).}
+\item{sample_code}{\link{character} (\emph{optional}):
+sample code used for the plot and the optional output table (mtext).}
 
-\item{output.path}{\link{character} (\emph{optional}): output path for table output
-containing the results of the fit. The file name is set automatically. If
-the file already exists in the directory, the values are appended.}
+\item{output.path}{\link{character} (\emph{optional}):
+output path for table output containing the results of the fit. The file
+name is set automatically. If the file already exists in the directory,
+the values are appended.}
 
-\item{output.terminal}{\link{logical} (\emph{with default}): terminal ouput with
-fitting results.}
+\item{output.terminal}{\link{logical} (\emph{with default}):
+terminal ouput with fitting results.}
 
-\item{output.terminalAdvanced}{\link{logical} (\emph{with default}): enhanced
-terminal output. Requires \code{output.terminal = TRUE}. If
-\code{output.terminal = FALSE} no advanced output is possible.}
+\item{output.terminalAdvanced}{\link{logical} (\emph{with default}):
+enhanced terminal output. Requires \code{output.terminal = TRUE}.
+If \code{output.terminal = FALSE} no advanced output is possible.}
 
-\item{plot}{\link{logical} (\emph{with default}): returns a plot of the fitted
-curves.}
+\item{plot}{\link{logical} (\emph{with default}):
+returns a plot of the fitted curves.}
 
-\item{...}{further arguments and graphical parameters passed to
-\link{plot}.}
+\item{...}{further arguments and graphical parameters passed to \link{plot}.}
 }
 \value{
-\item{plot}{(\emph{optional}) the fitted CW-OSL curves are returned as
-plot.} \item{table}{(\emph{optional}) an output table (*.csv) with parameters of
-the fitted components is provided if the \code{output.path} is set.}
-\item{list(list("RLum.Results"))}{beside the plot and table output options,
-an \linkS4class{RLum.Results} object is returned.
+\strong{plot (\emph{optional})}
+
+the fitted CW-OSL curves are returned as plot.
+
+\strong{table (\emph{optional})}
+
+an output table (*.csv) with parameters of the fitted components is
+provided if the \code{output.path} is set.
+
+\strong{RLum.Results}
+
+Beside the plot and table output options, an \linkS4class{RLum.Results} object is
+returned.
 
 \code{fit}:
 an \code{nls} object (\code{$fit}) for which generic R functions are
 provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
 details, see \link{nls}.
 
-\code{output.table}: a \link{data.frame}
-containing the summarised parameters including the error\cr
-\code{component.contribution.matrix}: \link{matrix} containing the values
-for the component to sum contribution plot
-(\code{$component.contribution.matrix}).\cr
+\code{output.table}:
+a \link{data.frame} containing the summarised parameters including the error
 
-Matrix structure:\cr Column 1 and 2: time and \code{rev(time)} values\cr
+\code{component.contribution.matrix}:
+\link{matrix} containing the values for the component to sum contribution plot
+(\code{$component.contribution.matrix}).
+
+Matrix structure:\cr
+Column 1 and 2: time and \code{rev(time)} values \cr
 Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns \code{cont.} provide information on
 the relative component contribution for each time interval including the row
-sum for this values. }\item{ object}{beside the plot and table output
-options, an \linkS4class{RLum.Results} object is returned.
+sum for this values.
 
-\code{fit}: an \code{nls} object (\code{$fit}) for which generic R functions
+\strong{object}
+
+beside the plot and table output options, an \linkS4class{RLum.Results} object
+is returned.
+
+\code{fit}:
+an \code{nls} object (\code{$fit}) for which generic R functions
 are provided, e.g. \link{summary}, \link{confint}, \link{profile}. For more
 details, see \link{nls}.
 
-\code{output.table}: a \link{data.frame}
-containing the summarised parameters including the error\cr
+\code{output.table}:
+a \link{data.frame} containing the summarised parameters including the error\cr
 \code{component.contribution.matrix}: \link{matrix} containing the values
-for the component to sum contribution plot
-(\code{$component.contribution.matrix}).\cr
+for the component to sum contribution plot (\code{$component.contribution.matrix}).\cr
 
-Matrix structure:\cr Column 1 and 2: time and \code{rev(time)} values\cr
+Matrix structure:\cr
+Column 1 and 2: time and \code{rev(time)} values\cr
 Additional columns are used for the components, two for each component,
 containing I0 and n0. The last columns \code{cont.} provide information on
 the relative component contribution for each time interval including the row
-sum for this values. }
+sum for this values.
 }
 \description{
 The function determines the weighted least-squares estimates of the
@@ -113,16 +130,18 @@ uses the \link{nls} function with the \code{port} algorithm.
 \details{
 \strong{Fitting function}
 
-The function for the CW-OSL fitting has the
-general form: \deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, +
-I0_{i}*\lambda_{i}*exp(-\lambda_i*x) } where \eqn{0 < i < 8}
+The function for the CW-OSL fitting has the general form:
 
-and
-\eqn{\lambda} is the decay constant and \eqn{I0} the intial number of
-trapped electrons.\cr (for the used equation cf. Boetter-Jensen et al.,
-2003, Eq. 2.31)
+\deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) }
 
-\strong{Start values}\cr
+where \eqn{0 < i < 8}
+
+and \eqn{\lambda} is the decay constant \cr
+and \eqn{I0} the intial number of trapped electrons.
+
+\emph{(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)}
+
+\strong{Start values}
 
 Start values are estimated automatically by fitting a linear function to the
 logarithmized input data set. Currently, there is no option to manually
@@ -130,10 +149,12 @@ provide start parameters.
 
 \strong{Goodness of fit}
 
-The goodness
-of the fit is given as pseudoR^2 value (pseudo coefficient of
+The goodness of the fit is given as pseudoR^2 value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
-\deqn{pseudoR^2 = 1 - RSS/TSS} where \eqn{RSS = Residual~Sum~of~Squares} \cr
+
+\deqn{pseudoR^2 = 1 - RSS/TSS}
+
+where \eqn{RSS = Residual~Sum~of~Squares} \cr
 and \eqn{TSS = Total~Sum~of~Squares}
 
 \strong{Error of fitted component parameters}
@@ -145,28 +166,24 @@ addition, the error for the components can be estimated by using internal R
 functions like \link{summary}. See the \link{nls} help page
 for more information.
 
-\emph{For details on the nonlinear regression in
-R, see Ritz & Streibig (2008).}
+\emph{For details on the nonlinear regression in R, see Ritz & Streibig (2008).}
 }
 \note{
-\bold{Beta version - This function has not been properly tested yet
-and should therefore not be used for publication purposes!}
+\strong{Beta version - This function has not been properly tested yet and}
+\strong{should therefore not be used for publication purposes!}
 
-The
-pseudo-R^2 may not be the best parameter to describe the goodness of the
+The pseudo-R^2 may not be the best parameter to describe the goodness of the
 fit. The trade off between the \code{n.components} and the pseudo-R^2 value
 is currently not considered.
 
-The function \strong{does not} ensure that
-the fitting procedure has reached a global minimum rather than a local
-minimum!
+The function \strong{does not} ensure that the fitting procedure has reached a
+global minimum rather than a local minimum!
 }
 \section{Function version}{
  0.5.2
 }
 
 \examples{
-
 
 ##load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
@@ -189,13 +206,11 @@ Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. In: R.
 Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 }
 \seealso{
-\link{fit_LMCurve}, \link{plot},\link{nls},
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Results},
-\link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
+\link{fit_LMCurve}, \link{plot},\link{nls}, \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{dplot}
 \keyword{models}

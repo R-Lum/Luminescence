@@ -11,7 +11,6 @@
 #' to the console that the user can copy and paste to the R console in order
 #' to install the desired development version of the package.
 #'
-#'
 #' 
 #' If `force_install=TRUE` the functions checks if 'devtools' is available
 #' and then attempts to install the chosen development branch via

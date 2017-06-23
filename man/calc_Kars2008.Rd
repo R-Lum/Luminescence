@@ -30,16 +30,16 @@ Dose rate of the irradiation source of the OSL reader and its error,
 given as a numeric vector of length two.
 Expected unit: Gy/s. Example: \code{readerDdot = c(0.08, 0.01)}.}
 
-\item{normalise}{\link{logical} \emph{(\emph{with default})}:
+\item{normalise}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) all measured and computed LxTx values are
 normalised by the pre-exponential factor A (see details).}
 
-\item{summary}{\link{logical} \emph{(\emph{with default})}:
+\item{summary}{\link{logical} (\emph{with default}):
 If \code{TRUE} (the default) various parameters provided by the user
 and calculated by the model are added as text on the right-hand side of the
 plot.}
 
-\item{plot}{\link{logical} \emph{(\emph{with default})}:
+\item{plot}{\link{logical} (\emph{with default}):
 enables/disables plot output.}
 
 \item{...}{further arguments passed to \link{plot} and \link{plot_GrowthCurve}.}
@@ -101,12 +101,12 @@ response curve using the environmental dose rate, \code{D_dot} (Gy/s) and equati
 \code{[1]} and \code{[2]}. Computed LxTx values are then fitted using the
 \link{plot_GrowthCurve} function and the laboratory measured LnTn can then
 be interpolated onto this curve to determine the fading corrected
-De value, from which the fading corrected age is calculated. \cr
+De value, from which the fading corrected age is calculated.
 
 The \code{calc_Kars2008} function also calculates the level of saturation (n/N)
 and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
 the sample under investigation using the sample specific \eqn{\rho}',
-unfaded \code{D0} and \code{D_dot} values, following the approach of Kars et al. (2008). \cr
+unfaded \code{D0} and \code{D_dot} values, following the approach of Kars et al. (2008).
 
 Uncertainties are reported at 1 sigma and are assumed to be normally
 distributed and are estimated using monte-carlo resamples (\code{n.MC = 1000})
