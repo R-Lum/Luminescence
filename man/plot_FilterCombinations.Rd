@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_FilterCombinations.R
 \name{plot_FilterCombinations}
 \alias{plot_FilterCombinations}
-\title{Plot filter combinations along with the (\emph{optional}) net transmission window}
+\title{Plot filter combinations along with the (optional) net transmission window}
 \usage{
 plot_FilterCombinations(filters, wavelength_range = 200:1000,
   show_net_transmission = TRUE, interactive = FALSE, plot = TRUE, ...)

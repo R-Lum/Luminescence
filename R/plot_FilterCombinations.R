@@ -1,4 +1,4 @@
-#' Plot filter combinations along with the (*optional*) net transmission window
+#' Plot filter combinations along with the (optional) net transmission window
 #'
 #' The function allows to plot transmission windows for different filters. Missing data for specific
 #' wavelenghts are automatically interpolated for the given filter data using the function [approx].
