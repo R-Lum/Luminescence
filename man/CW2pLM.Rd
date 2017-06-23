@@ -7,18 +7,14 @@
 CW2pLM(values)
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or
-\link{data.frame} (\strong{required}): \code{RLum.Data.Curve} data
-object. Alternatively, a \code{data.frame} of the measured curve data of
-type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
+\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\code{RLum.Data.Curve} data object. Alternatively, a \code{data.frame} of the measured
+curve data of type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
 (\code{values[,2]}) can be provided.}
 }
 \value{
 The function returns the same data type as the input data type with
-the transformed curve values.
-
-\item{list(list("data.frame"))}{generic R data structure}
-\item{list(list("RLum.Data.Curve"))}{package \linkS4class{RLum} object}
+the transformed curve values (\link{data.frame} or \linkS4class{RLum.Data.Curve}).
 }
 \description{
 Transforms a conventionally measured continuous-wave (CW) curve into a
@@ -28,9 +24,15 @@ pseudo linearly modulated (pLM) curve using the equations given in Bulur
 \details{
 According to Bulur (2000) the curve data are transformed by introducing two
 new parameters P (stimulation period) and u (transformed time):
-\deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}} The new count values are then
-calculated by \deqn{ctsNEW = cts(u/P)} and the returned \code{data.frame} is
-produced by: \code{data.frame(u,ctsNEW)}
+
+\deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}}
+
+The new count values are then calculated by
+\deqn{ctsNEW = cts(u/P)}
+
+and the returned \code{data.frame} is produced by: \code{data.frame(u,ctsNEW)}
+
+The output of the function can be further used for LM-OSL fitting.
 }
 \note{
 The transformation is recommended for curves recorded with a channel
@@ -41,7 +43,6 @@ resolution of at least 0.05 s/channel.
 }
 
 \examples{
-
 
 ##read curve from CWOSL.SAR.Data transform curve and plot values
 data(ExampleData.BINfileData, envir = environment())
@@ -69,22 +70,14 @@ curves to LM-OSL curves. Radiation Measurements, 32, 141-145.
 
 \strong{Further Reading}
 
-Bulur, E., 1996. An Alternative Technique For
-Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
-26, 701-709.
+Bulur, E., 1996. An Alternative Technique For Optically Stimulated
+Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
 }
 \seealso{
-\link{CW2pHMi}, \link{CW2pLMi},
-\link{CW2pPMi}, \link{fit_LMCurve}, \link{lm},
+\link{CW2pHMi}, \link{CW2pLMi}, \link{CW2pPMi}, \link{fit_LMCurve}, \link{lm},
 \linkS4class{RLum.Data.Curve}
-
-The output of the function can be further used for LM-OSL fitting:
-\link{CW2pLMi}, \link{CW2pHMi}, \link{CW2pPMi},
-\link{fit_LMCurve}, \linkS4class{RLum.Data.Curve},
-\link{plot_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{manip}

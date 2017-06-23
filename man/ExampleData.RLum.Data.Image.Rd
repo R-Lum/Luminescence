@@ -10,11 +10,11 @@
 These data were kindly provided by Regina DeWitt.
 
 \tabular{ll}{
-
 Lab.: \tab Department of Physics, East-Carolina University, NC, USA\cr
-Lab-Code: \tab -\cr Location: \tab - \cr Material: \tab - \cr Reference:
-\tab - \cr
-
+Lab-Code: \tab - \cr
+Location: \tab - \cr
+Material: \tab - \cr
+Reference: \tab - \cr
 }
 
 Image data is a measurement of fluorescent ceiling lights with a cooled

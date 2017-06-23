@@ -8,22 +8,25 @@ modulation conditions}
 CW2pLMi(values, P)
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or
-\link{data.frame} (\strong{required}):
-\linkS4class{RLum.Data.Curve} or \code{data.frame} with measured
-curve data of type stimulation time (t) (\code{values[,1]}) and measured
-counts (cts) (\code{values[,2]})}
+\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\linkS4class{RLum.Data.Curve} or \code{data.frame} with measured curve data of type
+stimulation time (t) (\code{values[,1]}) and measured counts (cts) (\code{values[,2]})}
 
-\item{P}{\link{vector} (\emph{optional}): stimulation time in seconds. If no
-value is given the optimal value is estimated automatically (see details).
-Greater values of P produce more points in the rising tail of the curve.}
+\item{P}{\link{vector} (\emph{optional}):
+stimulation time in seconds. If no value is given the optimal value is
+estimated automatically (see details). Greater values of P produce more
+points in the rising tail of the curve.}
 }
 \value{
 The function returns the same data type as the input data type with
-the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-\linkS4class{RLum} object with two additional info elements:}
-\tabular{rl}{ $CW2pLMi.x.t \tab: transformed time values \cr $CW2pLMi.method
-\tab: used method for the production of the new data points}
+the transformed curve values.
+
+\strong{\code{RLum.Data.Curve}}
+
+\tabular{rl}{
+\code{$CW2pLMi.x.t} \tab: transformed time values \cr
+\code{$CW2pLMi.method} \tab: used method for the production of the new data points
+}
 }
 \description{
 Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
@@ -36,36 +39,47 @@ The complete procedure of the transformation is given in Bos & Wallinga
 count values (CW(t))
 
 \strong{Nomenclature}
-
-P = stimulation time (s)\cr 1/P = stimulation rate
-(1/s)
+\itemize{
+\item P = stimulation time (s)
+\item 1/P = stimulation rate (1/s)
+}
 
 \strong{Internal transformation steps}
 
-(1) log(CW-OSL) values\cr (2)
-Calculate t' which is the transformed time: \deqn{t' = 1/2*1/P*t^2}
+(1)
+log(CW-OSL) values
 
-(3) Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
+(2)
+Calculate t' which is the transformed time:
+\deqn{t' = 1/2*1/P*t^2}
+
+(3)
+Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
 for the transformed time (t'). Values beyond \code{min(t)} and \code{max(t)}
 produce \code{NA} values.
 
-(4) Select all values for t' <
-\code{min(t)}, i.e. values beyond the time resolution of t. Select the first
-two values of the transformed data set which contain no \code{NA} values and
-use these values for a linear fit using \link{lm}.
+(4)
+Select all values for t' < \code{min(t)}, i.e. values beyond the time resolution
+of t. Select the first two values of the transformed data set which contain
+no \code{NA} values and use these values for a linear fit using \link{lm}.
 
 (5)
 Extrapolate values for t' < \code{min(t)} based on the previously obtained
 fit parameters.
 
-(6) Transform values using \deqn{pLM(t) = t/P*CW(t')}
-(7) Combine values and truncate all values for t' > \code{max(t)}
+(6)
+Transform values using
+\deqn{pLM(t) = t/P*CW(t')}
 
-\emph{The number of values for t' < \code{min(t)} depends on the stimulation
+(7)
+Combine values and truncate all values for t' > \code{max(t)}
+
+\strong{NOTE:}
+The number of values for t' < \code{min(t)} depends on the stimulation
 period (P) and therefore on the stimulation rate 1/P. To avoid the
 production of too many artificial data at the raising tail of the determined
 pLM curves it is recommended to use the automatic estimation routine for
-\code{P}, i.e. provide no own value for \code{P}.}
+\code{P}, i.e. provide no own value for \code{P}.
 }
 \note{
 According to Bos & Wallinga (2012) the number of extrapolated points
@@ -78,7 +92,6 @@ message is returned.
 }
 
 \examples{
-
 
 ##(1)
 ##load CW-OSL curve data
@@ -123,7 +136,7 @@ text(0.5,6500,"PM", col = "blue", cex = .8)
 }
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
-signal components. Radiation Measurements, 47, 752-758.\cr
+signal components. Radiation Measurements, 47, 752-758.
 
 \strong{Further Reading}
 
@@ -135,14 +148,13 @@ Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
-\link{CW2pLM}, \link{CW2pHMi}, \link{CW2pPMi},
-\link{fit_LMCurve}, \linkS4class{RLum.Data.Curve}
+\link{CW2pLM}, \link{CW2pHMi}, \link{CW2pPMi}, \link{fit_LMCurve},
+\linkS4class{RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux
-Montaigne
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 
-Based on comments and suggestions from:\cr Adrie J.J. Bos,
-Delft University of Technology, The Netherlands\cr
+Based on comments and suggestions from:\cr
+Adrie J.J. Bos, Delft University of Technology, The Netherlands
 }
 \keyword{manip}

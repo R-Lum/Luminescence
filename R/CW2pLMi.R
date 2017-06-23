@@ -9,70 +9,89 @@
 #' (2012). The input `data.frame` consists of two columns: time (t) and
 #' count values (CW(t))
 #'
-#'
-#'
 #' **Nomenclature**
 #'
-#' P = stimulation time (s)\cr 1/P = stimulation rate
-#' (1/s)
-#'
-#'
+#' - P = stimulation time (s) 
+#' - 1/P = stimulation rate (1/s)
 #'
 #' **Internal transformation steps**
 #'
-#' (1) log(CW-OSL) values\cr (2)
-#' Calculate t' which is the transformed time: \deqn{t' = 1/2*1/P*t^2}
+#' (1) 
+#' log(CW-OSL) values
+#' 
+#' (2)
+#' Calculate t' which is the transformed time: 
+#' \deqn{t' = 1/2*1/P*t^2}
 #'
-#' (3) Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
+#' (3) 
+#' Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
 #' for the transformed time (t'). Values beyond `min(t)` and `max(t)`
 #' produce `NA` values.
 #'
-#' (4) Select all values for t' <
-#' `min(t)`, i.e. values beyond the time resolution of t. Select the first
-#' two values of the transformed data set which contain no `NA` values and
-#' use these values for a linear fit using [lm].
+#' (4) 
+#' Select all values for t' < `min(t)`, i.e. values beyond the time resolution 
+#' of t. Select the first two values of the transformed data set which contain 
+#' no `NA` values and use these values for a linear fit using [lm].
 #'
 #' (5)
 #' Extrapolate values for t' < `min(t)` based on the previously obtained
 #' fit parameters.
 #'
-#' (6) Transform values using \deqn{pLM(t) = t/P*CW(t')}
-#' (7) Combine values and truncate all values for t' > `max(t)`
+#' (6) 
+#' Transform values using 
+#' \deqn{pLM(t) = t/P*CW(t')}
+#' 
+#' (7) 
+#' Combine values and truncate all values for t' > `max(t)`
 #'
 #'
-#' \emph{The number of values for t' < `min(t)` depends on the stimulation
+#' **NOTE:**
+#' The number of values for t' < `min(t)` depends on the stimulation
 #' period (P) and therefore on the stimulation rate 1/P. To avoid the
 #' production of too many artificial data at the raising tail of the determined
 #' pLM curves it is recommended to use the automatic estimation routine for
-#' `P`, i.e. provide no own value for `P`.}
+#' `P`, i.e. provide no own value for `P`.
 #'
-#' @param values [RLum.Data.Curve-class] or
-#' [data.frame] (**required**):
-#' [RLum.Data.Curve-class] or `data.frame` with measured
-#' curve data of type stimulation time (t) (`values[,1]`) and measured
-#' counts (cts) (`values[,2]`)
-#' @param P [vector] (*optional*): stimulation time in seconds. If no
-#' value is given the optimal value is estimated automatically (see details).
-#' Greater values of P produce more points in the rising tail of the curve.
-#' @return The function returns the same data type as the input data type with
-#' the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-#' [RLum-class] object with two additional info elements:}
-#' \tabular{rl}{ $CW2pLMi.x.t \tab: transformed time values \cr $CW2pLMi.method
-#' \tab: used method for the production of the new data points}
-#' @note According to Bos & Wallinga (2012) the number of extrapolated points
+#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
+#' [RLum.Data.Curve-class] or `data.frame` with measured curve data of type 
+#' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`)
+#' 
+#' @param P [vector] (*optional*): 
+#' stimulation time in seconds. If no value is given the optimal value is 
+#' estimated automatically (see details). Greater values of P produce more 
+#' points in the rising tail of the curve.
+#' 
+#' @return 
+#' The function returns the same data type as the input data type with
+#' the transformed curve values. 
+#' 
+#' **`RLum.Data.Curve`**
+#' 
+#' \tabular{rl}{
+#' `$CW2pLMi.x.t` \tab: transformed time values \cr 
+#' `$CW2pLMi.method` \tab: used method for the production of the new data points
+#' }
+#' 
+#' @note 
+#' According to Bos & Wallinga (2012) the number of extrapolated points
 #' should be limited to avoid artificial intensity data. If `P` is
 #' provided manually and more than two points are extrapolated, a warning
 #' message is returned.
+#' 
 #' @section Function version: 0.3.1
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux
-#' Montaigne
+#' 
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #'
-#' Based on comments and suggestions from:\cr Adrie J.J. Bos,
-#' Delft University of Technology, The Netherlands\cr
-#' @seealso [CW2pLM], [CW2pHMi], [CW2pPMi],
-#' [fit_LMCurve], [RLum.Data.Curve-class]
-#' @references Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
-#' signal components. Radiation Measurements, 47, 752-758.\cr
+#' Based on comments and suggestions from:\cr 
+#' Adrie J.J. Bos, Delft University of Technology, The Netherlands
+#' 
+#' @seealso [CW2pLM], [CW2pHMi], [CW2pPMi], [fit_LMCurve], 
+#' [RLum.Data.Curve-class]
+#' 
+#' @references 
+#' Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
+#' signal components. Radiation Measurements, 47, 752-758.
 #'
 #' **Further Reading**
 #'
@@ -82,9 +101,10 @@
 #'
 #' Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 #' LM-OSL curves. Radiation Measurements, 32, 141-145.
+#' 
 #' @keywords manip
+#' 
 #' @examples
-#'
 #'
 #' ##(1)
 #' ##load CW-OSL curve data

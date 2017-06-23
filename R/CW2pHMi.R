@@ -10,17 +10,18 @@
 #' (2012). The input `data.frame` consists of two columns: time (t) and
 #' count values (CW(t))
 #'
-#'
-#'
 #' **Internal transformation steps**
 #'
 #' (1) log(CW-OSL) values
 #'
-#' (2)
-#' Calculate t' which is the transformed time:\cr \deqn{t' =
-#' t-(1/\delta)*log(1+\delta*t)} (3) Interpolate CW(t'), i.e. use the
-#' log(CW(t)) to obtain the count values for the transformed time (t'). Values
-#' beyond `min(t)` and `max(t)` produce `NA` values.
+#' (2) 
+#' Calculate t' which is the transformed time: 
+#' \deqn{t' = t-(1/\delta)*log(1+\delta*t)} 
+#' 
+#' (3) 
+#' Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values 
+#' for the transformed time (t'). Values beyond `min(t)` and `max(t)` 
+#' produce `NA` values.
 #'
 #' (4)
 #' Select all values for t' < `min(t)`, i.e. values beyond the time
@@ -28,60 +29,81 @@
 #' which contain no `NA` values and use these values for a linear fit
 #' using [lm].
 #'
-#' (5) Extrapolate values for t' < `min(t)`
-#' based on the previously obtained fit parameters.
+#' (5) 
+#' Extrapolate values for t' < `min(t)` based on the previously 
+#' obtained fit parameters.
 #'
-#' (6) Transform values
-#' using\cr \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')} \deqn{c =
-#' (1+\delta*P)/\delta*P} \deqn{P = length(stimulation~period)} (7) Combine all
-#' values and truncate all values for t' > `max(t)` 
+#' (6) 
+#' Transform values using
+#' \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')} 
+#' \deqn{c = (1+\delta*P)/\delta*P} 
+#' \deqn{P = length(stimulation~period)} 
+#' 
+#' (7) Combine all values and truncate all values for t' > `max(t)` 
 #'
-#' \emph{The
-#' number of values for t' < `min(t)` depends on the stimulation rate
+#' 
+#' **NOTE:**
+#' The number of values for t' < `min(t)` depends on the stimulation rate
 #' parameter `delta`. To avoid the production of too many artificial data
 #' at the raising tail of the determined pHM curve, it is recommended to use
 #' the automatic estimation routine for `delta`, i.e. provide no value for
-#' `delta`.}
+#' `delta`.
 #'
-#' @param values [RLum.Data.Curve-class] or
-#' [data.frame] (**required**):
-#' [RLum.Data.Curve-class] or [data.frame] with
-#' measured curve data of type stimulation time (t) (`values[,1]`) and
-#' measured counts (cts) (`values[,2]`).
-#' @param delta [vector] (*optional*): stimulation rate parameter, if
-#' no value is given, the optimal value is estimated automatically (see
-#' details). Smaller values of delta produce more points in the rising tail of
+#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
+#' [RLum.Data.Curve-class] or [data.frame] with measured curve data of type 
+#' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`).
+#' 
+#' @param delta [vector] (*optional*): 
+#' stimulation rate parameter, if no value is given, the optimal value is 
+#' estimated automatically (see details). Smaller values of delta produce more 
+#' points in the rising tail of
 #' the curve.
-#' @return The function returns the same data type as the input data type with
-#' the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-#' [RLum-class] object with two additional info elements:
-#' \tabular{rl}{ $CW2pHMi.x.t \tab: transformed time values \cr $CW2pHMi.method
-#' \tab: used method for the production of the new data points }}
-#' \item{list(list("data.frame"))}{with four columns: \tabular{rl}{ $x \tab:
-#' time\cr $y.t \tab: transformed count values\cr $x.t \tab: transformed time
-#' values \cr $method \tab: used method for the production of the new data
-#' points }}
-#' @note According to Bos & Wallinga (2012), the number of extrapolated points
+#' 
+#' @return 
+#' The function returns the same data type as the input data type with
+#' the transformed curve values. 
+#' 
+#' 
+#' **`RLum.Data.Curve`**
+#' 
+#' \tabular{ll}{ 
+#' `$CW2pHMi.x.t` \tab: transformed time values \cr 
+#' `$CW2pHMi.method` \tab: used method for the production of the new data points 
+#' }
+#' 
+#' **`data.frame`**
+#' 
+#' \tabular{ll}{ 
+#' `$x` \tab: time\cr 
+#' `$y.t` \tab: transformed count values\cr 
+#' `$x.t` \tab: transformed time values \cr 
+#' `$method` \tab: used method for the production of the new data points
+#' }
+#' 
+#' @note 
+#' According to Bos & Wallinga (2012), the number of extrapolated points
 #' should be limited to avoid artificial intensity data. If `delta` is
 #' provided manually and more than two points are extrapolated, a warning
 #' message is returned. 
 #'
-#' The function [approx] may produce
-#' some `Inf` and `NaN` data. The function tries to manually
-#' interpolate these values by calculating the `mean` using the adjacent
-#' channels. If two invalid values are succeeding, the values are removed and
-#' no further interpolation is attempted.\cr In every case a warning message is
-#' shown.
+#' The function [approx] may produce some `Inf` and `NaN` data. 
+#' The function tries to manually interpolate these values by calculating 
+#' the `mean` using the adjacent channels. If two invalid values are succeeding, 
+#' the values are removed and no further interpolation is attempted. 
+#' In every case a warning message is shown.
+#' 
 #' @section Function version: 0.2.2
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France) 
-#'
-#' Based on comments and suggestions from:\cr Adrie J.J. Bos,
-#' Delft University of Technology, The Netherlands\cr
-#' @seealso [CW2pLM], [CW2pLMi], [CW2pPMi],
-#' [fit_LMCurve], [lm],
+#' 
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Based on comments and suggestions from:\cr 
+#' Adrie J.J. Bos, Delft University of Technology, The Netherlands
+#' 
+#' @seealso [CW2pLM], [CW2pLMi], [CW2pPMi], [fit_LMCurve], [lm], 
 #' [RLum.Data.Curve-class]
-#' @references Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
+#' 
+#' @references 
+#' Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 #' signal components. Radiation Measurements, 47, 752-758.\cr
 #'
 #' **Further Reading**
@@ -92,9 +114,10 @@
 #'
 #' Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 #' LM-OSL curves. Radiation Measurements, 32, 141-145.
+#' 
 #' @keywords manip
+#' 
 #' @examples
-#'
 #'
 #' ##(1) - simple transformation
 #'

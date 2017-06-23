@@ -11,8 +11,8 @@ smooth_RLum(object, ...)
 \S4method{smooth_RLum}{list}(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
-class \code{RLum}}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+S4 object of class \code{RLum}}
 
 \item{...}{further arguments passed to the specifc class method}
 }
@@ -24,10 +24,11 @@ Function calls the object-specific smooth functions for provided RLum S4-class o
 }
 \details{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects.\cr Depending on the input object, the
-corresponding function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \linkS4class{RLum} class. The smoothing
-is based on an internal function called \code{.smoothing}.
+\linkS4class{RLum} objects.\cr
+Depending on the input object, the corresponding function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{RLum} class. The smoothing is based on an internal function
+called \code{.smoothing}.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -35,7 +36,8 @@ is based on an internal function called \code{.smoothing}.
 }}
 
 \note{
-Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis} (with curve data) are supported!
+Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis}
+(with curve data) are supported!
 }
 \section{Function version}{
  0.1.0
@@ -63,7 +65,6 @@ plot_RLum(smooth_RLum(curve))
 \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{utilities}

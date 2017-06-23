@@ -5,14 +5,17 @@
 #' results are re-imported into R.
 #'
 #'
-#' @param file [character]: spreadsheet to be passed
-#' to the DRAC website for calculation. Can also be a DRAC template object
-#' obtained from `template_DRAC()`.
+#' @param file [character] (**required**): 
+#' spreadsheet to be passed to the DRAC website for calculation. Can also be a 
+#' DRAC template object obtained from `template_DRAC()`.
 #'
-#' @param name [character]: Optional user name submitted to DRAC. If
-#' omitted, a random name will be generated
+#' @param name [character] (*with defautl*): 
+#' Optional user name submitted to DRAC. If omitted, a random name will be generated
 #'
 #' @param ... Further arguments.
+#' 
+#' - `url` [character]: provide an alternative URL to DRAC
+#' - `verbose` [logical]: show or hide console output
 #'
 #' @return Returns an [RLum.Results-class] object containing the following elements:
 #'
@@ -36,11 +39,12 @@
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,
-#' GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+#' Michael Dietze, GFZ Potsdam (Germany)\cr 
+#' Christoph Burow, University of Cologne (Germany)
 #'
 #' @references
-#'
 #' Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 #' Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 #'

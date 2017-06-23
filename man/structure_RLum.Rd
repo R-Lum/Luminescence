@@ -7,8 +7,8 @@
 structure_RLum(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}): S4 object of
-class \code{RLum}}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+S4 object of class \code{RLum}}
 
 \item{...}{further arguments that one might want to pass to the specific
 structure method}
@@ -21,9 +21,10 @@ Function calls object-specific get functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects.\cr Depending on the input object, the
-corresponding structure function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \linkS4class{RLum} class.
+\linkS4class{RLum} objects.\cr
+Depending on the input object, the corresponding structure function will
+be selected. Allowed arguments can be found in the documentations of the
+corresponding \linkS4class{RLum} class.
 }
 \section{Function version}{
  0.2.0
@@ -39,14 +40,10 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum},
-\linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}
+\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{utilities}

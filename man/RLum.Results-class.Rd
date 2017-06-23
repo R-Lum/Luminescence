@@ -23,53 +23,58 @@
 \S4method{names_RLum}{RLum.Results}(object)
 }
 \arguments{
-\item{object}{\code{\link{get_RLum}} \linkS4class{RLum.Results} (\strong{required}): an object of class
-\linkS4class{RLum.Results} to be evaluated}
+\item{object}{\code{\link{get_RLum}}; \linkS4class{RLum.Results} (\strong{required}):
+an object of class \linkS4class{RLum.Results} to be evaluated}
 
-\item{class}{\code{\link{set_RLum}} \link{character} \strong{(required)}: name of the \code{RLum} class to create}
+\item{class}{\code{\link{set_RLum}}; \link{character} \strong{(required)}:
+name of the \code{RLum} class to create}
 
-\item{originator}{\code{\link{set_RLum}} \link{character} (automatic): contains the
-name of the calling function
-(the function that produces this object); can be set manually.}
+\item{originator}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
+contains the name of the calling function (the function that produces this object);
+can be set manually.}
 
-\item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
-using the internal C++ function \code{.create_UID}.}
+\item{.uid}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
+sets an unique ID for this object using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}): option to provide a parent id for nesting
-at will.}
+\item{.pid}{\code{\link{set_RLum}}; \link{character} (\emph{with default}):
+option to provide a parent id for nesting at will.}
 
-\item{data}{\code{\link{set_RLum}} \link{list} (\emph{optional}): a list containing the data to
+\item{data}{\code{\link{set_RLum}}; \link{list} (\emph{optional}):
+a list containing the data to
 be stored in the object}
 
-\item{info}{\code{\link{set_RLum}} \link{list} (\emph{optional}): a list containing additional
-info data for the object}
+\item{info}{\code{\link{set_RLum}}; \link{list} (\emph{optional}):
+a list containing additional info data for the object}
 
-\item{data.object}{\code{\link{get_RLum}} \link{character} or
-\link{numeric}: name or index of the data slot to be returned}
+\item{data.object}{\code{\link{get_RLum}}; \link{character} or \link{numeric}:
+name or index of the data slot to be returned}
 
-\item{info.object}{\code{\link{get_RLum}} \link{character} (\emph{optional}): name of the wanted info
-element}
+\item{info.object}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+name of the wanted info element}
 
-\item{drop}{\code{\link{get_RLum}} \link{logical} (\emph{with default}): coerce to the next possible layer
-(which are data objects, \code{drop = FALSE} keeps the original \code{RLum.Results}}
+\item{drop}{\code{\link{get_RLum}}; \link{logical} (\emph{with default}):
+coerce to the next possible layer (which are data objects, \code{drop = FALSE}
+keeps the original \code{RLum.Results}}
 }
 \value{
-\strong{\code{set_RLum}}:\cr
+\strong{\code{set_RLum}}:
 
-Returns an object from the class \linkS4class{RLum.Results}\cr
+Returns an object from the class \linkS4class{RLum.Results}
 
-\strong{\code{get_RLum}}:\cr
+\strong{\code{get_RLum}}:
 
-Returns: \cr
-(1) Data object from the specified slot \cr
-(2) \link{list} of data objects from the slots if 'data.object' is vector or \cr
-(3) an \linkS4class{RLum.Results} for \code{drop = FALSE}.\cr
+Returns:
+\enumerate{
+\item Data object from the specified slot
+\item \link{list} of data objects from the slots if 'data.object' is vector or
+\item an \linkS4class{RLum.Results} for \code{drop = FALSE}.
+}
 
-\strong{\code{length_RLum}}\cr
+\strong{\code{length_RLum}}
 
 Returns the number of data elements in the \code{RLum.Results} object.
 
-\strong{\code{names_RLum}}\cr
+\strong{\code{names_RLum}}
 
 Returns the names of the data elements in the object.
 }
@@ -107,8 +112,8 @@ other functions. The data in the object should always be accessed by the
 method \code{get_RLum}.
 }
 \section{Objects from the Class}{
- Objects can be created by calls of the form
-\code{new("RLum.Results", ...)}.
+
+Objects can be created by calls of the form \code{new("RLum.Results", ...)}.
 }
 
 \section{Class version}{
@@ -148,8 +153,7 @@ dose.rate$parameters
 \linkS4class{RLum}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{classes}
 \keyword{methods}

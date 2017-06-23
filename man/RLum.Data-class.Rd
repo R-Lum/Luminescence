@@ -11,8 +11,8 @@ Generalized virtual data class for luminescence data.
 Just a virtual class.
 }
 \section{Objects from the Class}{
- A virtual Class: No objects can be created
-from it.
+
+A virtual Class: No objects can be created from it.
 }
 
 \section{Class version}{

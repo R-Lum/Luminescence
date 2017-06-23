@@ -3,41 +3,41 @@
 #' Function calls object-specific set functions for RLum S4 class objects.
 #'
 #' The function provides a generalised access point for specific
-#' [RLum-class] objects.\cr Depending on the given class, the
-#' corresponding method to create an object from this class will be selected.
-#' Allowed additional arguments can be found in the documentations of the
-#' corresponding [RLum-class] class: [RLum.Data.Curve-class],
-#' [RLum.Data.Image-class], [RLum.Data.Spectrum-class],
-#' [RLum.Analysis-class] and [RLum.Results-class]
+#' [RLum-class] objects.\cr 
+#' Depending on the given class, the corresponding method to create an object 
+#' from this class will be selected. Allowed additional arguments can be found 
+#' in the documentations of the corresponding [RLum-class] class: 
+#' - [RLum.Data.Curve-class],
+#' - [RLum.Data.Image-class], 
+#' - [RLum.Data.Spectrum-class],
+#' - [RLum.Analysis-class], 
+#' - [RLum.Results-class]
 #'
-#' @param class [RLum-class] (**required**): name of the S4 class to
-#' create
+#' @param class [RLum-class] (**required**): 
+#' name of the S4 class to create
 #'
-#' @param originator [character] (automatic): contains the name of the calling function
-#' (the function that produces this object); can be set manually.
+#' @param originator [character] (*automatic*): 
+#' contains the name of the calling function (the function that produces this object); 
+#' can be set manually.
 #'
-#' @param .uid [character] (automatic): sets an unique ID for this object
-#' using the internal C++ function `.create_UID`.
+#' @param .uid [character] (*automatic*): 
+#' sets an unique ID for this object using the internal C++ function `.create_UID`.
 #'
-#' @param .pid [character] (*with default*): option to provide a parent id for nesting
-#' at will.
+#' @param .pid [character] (*with default*): 
+#' option to provide a parent id for nesting at will.
 #'
-#' @param ... further arguments that one might want to pass to the specific
-#' set method
+#' @param ... further arguments that one might want to pass to the specific set method
 #'
-#' @return Returns an object of the specified class.
+#' @return 
+#' Returns an object of the specified class.
 #'
 #' @section Function version: 0.3.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso
-#' [RLum.Data.Curve-class],
-#' [RLum.Data.Image-class],
-#' [RLum.Data.Spectrum-class],
-#' [RLum.Analysis-class],
-#' [RLum.Results-class]
+#' @seealso [RLum.Data.Curve-class], [RLum.Data.Image-class], 
+#' [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]
 #'
 #' @keywords utilities
 #'

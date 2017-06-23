@@ -8,27 +8,35 @@ hyperbolic modulation conditions}
 CW2pHMi(values, delta)
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or
-\link{data.frame} (\strong{required}):
-\linkS4class{RLum.Data.Curve} or \link{data.frame} with
-measured curve data of type stimulation time (t) (\code{values[,1]}) and
-measured counts (cts) (\code{values[,2]}).}
+\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\linkS4class{RLum.Data.Curve} or \link{data.frame} with measured curve data of type
+stimulation time (t) (\code{values[,1]}) and measured counts (cts) (\code{values[,2]}).}
 
-\item{delta}{\link{vector} (\emph{optional}): stimulation rate parameter, if
-no value is given, the optimal value is estimated automatically (see
-details). Smaller values of delta produce more points in the rising tail of
+\item{delta}{\link{vector} (\emph{optional}):
+stimulation rate parameter, if no value is given, the optimal value is
+estimated automatically (see details). Smaller values of delta produce more
+points in the rising tail of
 the curve.}
 }
 \value{
 The function returns the same data type as the input data type with
-the transformed curve values. \item{list(list("RLum.Data.Curve"))}{package
-\linkS4class{RLum} object with two additional info elements:
-\tabular{rl}{ $CW2pHMi.x.t \tab: transformed time values \cr $CW2pHMi.method
-\tab: used method for the production of the new data points }}
-\item{list(list("data.frame"))}{with four columns: \tabular{rl}{ $x \tab:
-time\cr $y.t \tab: transformed count values\cr $x.t \tab: transformed time
-values \cr $method \tab: used method for the production of the new data
-points }}
+the transformed curve values.
+
+\strong{\code{RLum.Data.Curve}}
+
+\tabular{ll}{
+\code{$CW2pHMi.x.t} \tab: transformed time values \cr
+\code{$CW2pHMi.method} \tab: used method for the production of the new data points
+}
+
+\strong{\code{data.frame}}
+
+\tabular{ll}{
+\code{$x} \tab: time\cr
+\code{$y.t} \tab: transformed count values\cr
+\code{$x.t} \tab: transformed time values \cr
+\code{$method} \tab: used method for the production of the new data points
+}
 }
 \description{
 This function transforms a conventionally measured continuous-wave (CW)
@@ -46,10 +54,13 @@ count values (CW(t))
 (1) log(CW-OSL) values
 
 (2)
-Calculate t' which is the transformed time:\cr \deqn{t' =
-t-(1/\delta)*log(1+\delta*t)} (3) Interpolate CW(t'), i.e. use the
-log(CW(t)) to obtain the count values for the transformed time (t'). Values
-beyond \code{min(t)} and \code{max(t)} produce \code{NA} values.
+Calculate t' which is the transformed time:
+\deqn{t' = t-(1/\delta)*log(1+\delta*t)}
+
+(3)
+Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
+for the transformed time (t'). Values beyond \code{min(t)} and \code{max(t)}
+produce \code{NA} values.
 
 (4)
 Select all values for t' < \code{min(t)}, i.e. values beyond the time
@@ -57,20 +68,24 @@ resolution of t. Select the first two values of the transformed data set
 which contain no \code{NA} values and use these values for a linear fit
 using \link{lm}.
 
-(5) Extrapolate values for t' < \code{min(t)}
-based on the previously obtained fit parameters.
+(5)
+Extrapolate values for t' < \code{min(t)} based on the previously
+obtained fit parameters.
 
-(6) Transform values
-using\cr \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')} \deqn{c =
-(1+\delta*P)/\delta*P} \deqn{P = length(stimulation~period)} (7) Combine all
-values and truncate all values for t' > \code{max(t)}
+(6)
+Transform values using
+\deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')}
+\deqn{c = (1+\delta*P)/\delta*P}
+\deqn{P = length(stimulation~period)}
 
-\emph{The
-number of values for t' < \code{min(t)} depends on the stimulation rate
+(7) Combine all values and truncate all values for t' > \code{max(t)}
+
+\strong{NOTE:}
+The number of values for t' < \code{min(t)} depends on the stimulation rate
 parameter \code{delta}. To avoid the production of too many artificial data
 at the raising tail of the determined pHM curve, it is recommended to use
 the automatic estimation routine for \code{delta}, i.e. provide no value for
-\code{delta}.}
+\code{delta}.
 }
 \note{
 According to Bos & Wallinga (2012), the number of extrapolated points
@@ -78,19 +93,17 @@ should be limited to avoid artificial intensity data. If \code{delta} is
 provided manually and more than two points are extrapolated, a warning
 message is returned.
 
-The function \link{approx} may produce
-some \code{Inf} and \code{NaN} data. The function tries to manually
-interpolate these values by calculating the \code{mean} using the adjacent
-channels. If two invalid values are succeeding, the values are removed and
-no further interpolation is attempted.\cr In every case a warning message is
-shown.
+The function \link{approx} may produce some \code{Inf} and \code{NaN} data.
+The function tries to manually interpolate these values by calculating
+the \code{mean} using the adjacent channels. If two invalid values are succeeding,
+the values are removed and no further interpolation is attempted.
+In every case a warning message is shown.
 }
 \section{Function version}{
  0.2.2
 }
 
 \examples{
-
 
 ##(1) - simple transformation
 
@@ -180,15 +193,12 @@ Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
 LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \seealso{
-\link{CW2pLM}, \link{CW2pLMi}, \link{CW2pPMi},
-\link{fit_LMCurve}, \link{lm},
+\link{CW2pLM}, \link{CW2pLMi}, \link{CW2pPMi}, \link{fit_LMCurve}, \link{lm},
 \linkS4class{RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-
-Based on comments and suggestions from:\cr Adrie J.J. Bos,
-Delft University of Technology, The Netherlands\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Based on comments and suggestions from:\cr
+Adrie J.J. Bos, Delft University of Technology, The Netherlands
 }
 \keyword{manip}

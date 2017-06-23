@@ -9,19 +9,21 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot data Object of class "list" containing output data
+#' @slot data 
+#' Object of class "list" containing output data
 #'
-#' @note The class is intended to store results from functions to be used by
+#' @note 
+#' The class is intended to store results from functions to be used by
 #' other functions. The data in the object should always be accessed by the
 #' method `get_RLum`.
 #'
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' `new("RLum.Results", ...)`.
+#' @section Objects from the Class: 
+#' Objects can be created by calls of the form `new("RLum.Results", ...)`.
 #'
 #' @section Class version: 0.5.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [RLum-class], [plot_RLum], [merge_RLum]
 #'
@@ -74,7 +76,7 @@ setClass(
 #'
 #' for `[RLum.Results-class]`
 #'
-#' **[RLum.Results-class]**\cr
+#' **[RLum.Results-class]**
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
@@ -150,23 +152,31 @@ setMethod("show",
 #' @describeIn RLum.Results
 #' Construction method for an RLum.Results object.
 #'
-#' @param class [`set_RLum`] [character] **(required)**: name of the `RLum` class to create
-#' @param originator [`set_RLum`] [character] (automatic): contains the
-#' name of the calling function
-#' (the function that produces this object); can be set manually.
-#' @param .uid [`set_RLum`] [character] (automatic): sets an unique ID for this object
-#' using the internal C++ function `.create_UID`.
-#' @param .pid [`set_RLum`] [character] (*with default*): option to provide a parent id for nesting
-#' at will.
-#' @param data [`set_RLum`] [list] (*optional*): a list containing the data to
+#' @param class [`set_RLum`]; [character] **(required)**: 
+#' name of the `RLum` class to create
+#' 
+#' @param originator [`set_RLum`]; [character] (*automatic*): 
+#' contains the name of the calling function (the function that produces this object);
+#' can be set manually.
+#' 
+#' @param .uid [`set_RLum`]; [character] (*automatic*): 
+#' sets an unique ID for this object using the internal C++ function `.create_UID`.
+#' 
+#' @param .pid [`set_RLum`]; [character] (*with default*): 
+#' option to provide a parent id for nesting at will.
+#' 
+#' @param data [`set_RLum`]; [list] (*optional*): 
+#' a list containing the data to
 #' be stored in the object
-#' @param info [`set_RLum`] [list] (*optional*): a list containing additional
-#' info data for the object
+#' 
+#' @param info [`set_RLum`]; [list] (*optional*): 
+#' a list containing additional info data for the object
+#' 
 #' @return
 #'
-#'**`set_RLum`**:\cr
+#' **`set_RLum`**:
 #'
-#' Returns an object from the class [RLum.Results-class]\cr
+#' Returns an object from the class [RLum.Results-class]
 #'
 #' @md
 #' @export
@@ -207,26 +217,28 @@ setMethod("set_RLum",
 #' Note: Detailed specification should be made in combination with the originator slot in the
 #' receiving function if results are pipped.
 #'
-#' @param object [`get_RLum`] [RLum.Results-class] (**required**): an object of class
-#' [RLum.Results-class] to be evaluated
+#' @param object [`get_RLum`]; [RLum.Results-class] (**required**): 
+#' an object of class [RLum.Results-class] to be evaluated
 #'
-#' @param data.object [`get_RLum`] [character] or
-#' [numeric]: name or index of the data slot to be returned
+#' @param data.object [`get_RLum`]; [character] or [numeric]: 
+#' name or index of the data slot to be returned
 #'
-#' @param info.object [`get_RLum`] [character] (*optional*): name of the wanted info
-#' element
+#' @param info.object [`get_RLum`]; [character] (*optional*): 
+#' name of the wanted info element
 #'
-#' @param drop [`get_RLum`] [logical] (*with default*): coerce to the next possible layer
-#' (which are data objects, `drop = FALSE` keeps the original `RLum.Results`
+#' @param drop [`get_RLum`]; [logical] (*with default*): 
+#' coerce to the next possible layer (which are data objects, `drop = FALSE` 
+#' keeps the original `RLum.Results`
 #'
 #' @return
 #'
-#'**`get_RLum`**:\cr
+#' **`get_RLum`**:
 #'
-#' Returns: \cr
-#' (1) Data object from the specified slot \cr
-#' (2) [list] of data objects from the slots if 'data.object' is vector or \cr
-#' (3) an [RLum.Results-class] for `drop = FALSE`.\cr
+#' Returns: 
+#' 
+#' 1. Data object from the specified slot 
+#' 2. [list] of data objects from the slots if 'data.object' is vector or 
+#' 3. an [RLum.Results-class] for `drop = FALSE`.
 #'
 #'
 #' @md
@@ -361,7 +373,7 @@ setMethod(
 #'
 #' @return
 #'
-#'**`length_RLum`**\cr
+#' **`length_RLum`**
 #'
 #' Returns the number of data elements in the `RLum.Results` object.
 #'
@@ -383,7 +395,7 @@ setMethod("length_RLum",
 #'
 #' @return
 #'
-#'**`names_RLum`**\cr
+#' **`names_RLum`**
 #'
 #' Returns the names of the data elements in the object.
 #'

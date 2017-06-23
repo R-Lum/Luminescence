@@ -9,10 +9,11 @@
 \S4method{replicate_RLum}{RLum}(object, times = NULL)
 }
 \arguments{
-\item{object}{an object of class \linkS4class{RLum} (\strong{required})}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+an object of class \linkS4class{RLum}}
 
-\item{times}{\link{integer} (\emph{optional}): number for times each element is repeated
-element}
+\item{times}{\link{integer} (\emph{optional}):
+number for times each element is repeated element}
 }
 \description{
 Abstract class for data in the package Luminescence
@@ -42,8 +43,8 @@ at will. The parent id can be the uid of another object.}
 \code{RLum} is a virtual class.
 }
 \section{Objects from the Class}{
- A virtual Class: No objects can be created
-from it.
+
+A virtual Class: No objects can be created from it.
 }
 
 \section{Class version}{

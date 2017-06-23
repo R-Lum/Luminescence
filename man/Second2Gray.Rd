@@ -7,18 +7,17 @@
 Second2Gray(data, dose.rate, error.propagation = "omit")
 }
 \arguments{
-\item{data}{\link{data.frame} (\strong{required}): input values,
-structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
-required}
+\item{data}{\link{data.frame} (\strong{required}):
+input values, structure: data (\code{values[,1]}) and data error (\code{values [,2]})
+are required}
 
-\item{dose.rate}{\linkS4class{RLum.Results} or \link{data.frame} or \link{numeric}
-(\strong{required}): \code{RLum.Results} needs to be orginated from the
-function \link{calc_SourceDoseRate}, for \code{vector} dose rate in
-Gy/s and dose rate error in Gy/s}
+\item{dose.rate}{\linkS4class{RLum.Results}, \link{data.frame} or \link{numeric} (\strong{required}):
+\code{RLum.Results} needs to be orginated from the function \link{calc_SourceDoseRate},
+for \code{vector} dose rate in Gy/s and dose rate error in Gy/s}
 
-\item{error.propagation}{\link{character} (\emph{with default}): error propagation method used for error
-calculation (\code{omit}, \code{gaussian} or \code{absolute}), see details for further
-information}
+\item{error.propagation}{\link{character} (\emph{with default}):
+error propagation method used for error calculation (\code{omit}, \code{gaussian} or
+\code{absolute}), see details for further information}
 }
 \value{
 Returns a \link{data.frame} with converted values.
@@ -28,29 +27,32 @@ Conversion of absorbed radiation dose in seconds (s) to the SI unit gray
 (Gy) including error propagation. Normally used for equivalent dose data.
 }
 \details{
-Calculation of De values from seconds (s) to gray (Gy) \deqn{De [Gy] = De
-[s] * Dose Rate [Gy/s])} \cr
+Calculation of De values from seconds (s) to gray (Gy)
 
-Provided calculation error propagation methods for error calculation (with 'se' as the standard error
-and 'DR' of the dose rate of the beta-source):\cr
+\deqn{De [Gy] = De [s] * Dose Rate [Gy/s])}
 
-\strong{(1) \code{omit}} (default)\cr
+Provided calculation error propagation methods for error calculation
+(with 'se' as the standard error and 'DR' of the dose rate of the beta-source):
+
+\strong{(1) \code{omit}} (default)
 
 \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
 
-In this case the standard error of the dose rate of the beta-source is treated as systematic
-(i.e. non-random), it error propagation is omitted. However, the error must be considered during
-calculation of the final age. (cf. Aitken, 1985, pp. 242). This approach can be seen as
-method (2) (gaussian) for the case the (random) standard error of the beta-source calibration is
-0. Which particular method is requested depends on the situation and cannot be prescriptive.
+In this case the standard error of the dose rate of the beta-source is
+treated as systematic (i.e. non-random), it error propagation is omitted.
+However, the error must be considered during calculation of the final age.
+(cf. Aitken, 1985, pp. 242). This approach can be seen as method (2) (gaussian)
+for the case the (random) standard error of the beta-source calibration is
+0. Which particular method is requested depends on the situation and cannot
+be prescriptive.
 
-\strong{(2) \code{gaussian}} error propagation \cr
+\strong{(2) \code{gaussian}} error propagation
 
 \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
 
 Applicable under the assumption that errors of De and se are uncorrelated.
 
-\strong{(3) \code{absolute}} error propagation \cr
+\strong{(3) \code{absolute}} error propagation
 
 \deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
 
@@ -66,7 +68,6 @@ be of the same length as the data frame provided with the argument \code{data}
 }
 
 \examples{
-
 
 ##(A) for known source dose rate at date of measurement
 ## - load De data from the example data help file
@@ -98,9 +99,8 @@ Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 \link{calc_SourceDoseRate}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, HZDR,
-Helmholtz-Institute Freiberg for Resource Technology
-(Germany)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Michael Dietze, GFZ Potsdam (Germany)\cr
+Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 }
 \keyword{manip}

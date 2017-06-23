@@ -12,12 +12,11 @@ Each object contains data needed for the given protocol analysis.}
 These data were kindly provided by Tobias Lauer and Matthias Krbetschek.
 
 \tabular{ll}{
-
-Lab: \tab Luminescence Laboratory TU Bergakademie Freiberg\cr Lab-Code: \tab
-ZEU/SA1\cr Location: \tab Zeuchfeld (Zeuchfeld Sandur;
-Saxony-Anhalt/Germany)\cr Material: \tab K-feldspar (130-200 \eqn{\mu}m)\cr
-Reference: \tab Kreutzer et al. (2014)\cr
-
+Lab: \tab Luminescence Laboratory TU Bergakademie Freiberg\cr
+Lab-Code: \tab ZEU/SA1\cr
+Location: \tab Zeuchfeld (Zeuchfeld Sandur; Saxony-Anhalt/Germany)\cr
+Material: \tab K-feldspar (130-200 \eqn{\mu}m)\cr
+Reference: \tab Kreutzer et al. (2014)
 }
 }
 \description{

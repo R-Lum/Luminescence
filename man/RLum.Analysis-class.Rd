@@ -31,98 +31,107 @@
 \S4method{smooth_RLum}{RLum.Analysis}(object, ...)
 }
 \arguments{
-\item{object}{\code{[show_RLum]``[get_RLum]``[names_RLum]``[length_RLum]}
-\code{[structure_RLum]}] an object of class \linkS4class{RLum.Analysis}
-(\strong{required})}
+\item{object}{\code{\link{get_RLum}}, \code{\link{names_RLum}}, \code{\link{length_RLum}}, \code{\link{structure_RLum}} (\strong{required}):
+an object of class \linkS4class{RLum.Analysis}}
 
-\item{class}{\code{\link{set_RLum}} \link{character} (\strong{required}): name of the \code{RLum} class to be created}
+\item{class}{\code{\link{set_RLum}} \link{character} (\strong{required}):
+name of the \code{RLum} class to be created}
 
-\item{originator}{\code{\link{set_RLum}} \link{character} (automatic): contains the name
-of the calling function (the function that produces this object); can be set manually.}
+\item{originator}{\code{\link{set_RLum}} \link{character} (\emph{automatic}):
+contains the name of the calling function (the function that produces this object);
+can be set manually.}
 
-\item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
-using the internal C++ function \code{.create_UID}.}
+\item{.uid}{\code{\link{set_RLum}} \link{character} (\emph{automatic}):
+sets an unique ID for this object using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}): option to provide a parent id for nesting
-at will.}
+\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}):
+option to provide a parent id for nesting at will.}
 
-\item{protocol}{\code{\link{set_RLum}} \link{character} (\emph{optional}): sets protocol type for
-analysis object. Value may be used by subsequent analysis functions.}
+\item{protocol}{\code{\link{set_RLum}} \link{character} (\emph{optional}):
+sets protocol type for analysis object. Value may be used by subsequent analysis functions.}
 
-\item{records}{\code{\link{set_RLum}} \link{list} (\strong{required}): list of \linkS4class{RLum.Analysis} objects}
+\item{records}{\code{\link{set_RLum}} \link{list} (\strong{required}):
+list of \linkS4class{RLum.Analysis} objects}
 
-\item{info}{\code{\link{set_RLum}} \link{list} (\emph{optional}): a list containing additional
-info data for the object
+\item{info}{\code{\link{set_RLum}} \link{list} (\emph{optional}):
+a list containing additional info data for the object
 
-\strong{\code{set_RLum}}:\cr
+\strong{\code{set_RLum}}:
 
 Returns an \linkS4class{RLum.Analysis} object.}
 
-\item{record.id}{\code{\link{get_RLum}} \link{numeric} or \link{logical} (\emph{optional}): IDs of specific records.
-If of type \code{logical} the entire id range is assuemd and \code{TRUE} and \code{FALSE} indicates the selection.}
+\item{record.id}{\code{\link{get_RLum}}; \link{numeric} or \link{logical} (\emph{optional}):
+IDs of specific records. If of type \code{logical} the entire id range is assumed
+and \code{TRUE} and \code{FALSE} indicates the selection.}
 
-\item{recordType}{\code{\link{get_RLum}} \link{character} (\emph{optional}): record type (e.g., "OSL").
-Can be also a vector, for multiple matching, e.g., \code{recordType = c("OSL", "IRSL")}}
+\item{recordType}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+record type (e.g., "OSL"). Can be also a vector, for multiple matching,
+e.g., \code{recordType = c("OSL", "IRSL")}}
 
-\item{curveType}{\code{\link{get_RLum}} \link{character} (\emph{optional}): curve
-type (e.g. "predefined" or "measured")}
+\item{curveType}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+curve type (e.g. "predefined" or "measured")}
 
-\item{RLum.type}{\code{\link{get_RLum}} \link{character} (\emph{optional}): RLum object type.
-Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".}
+\item{RLum.type}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".}
 
-\item{get.index}{\code{\link{get_RLum}} \link{logical} (\emph{optional}): return a numeric
-vector with the index of each element in the RLum.Analysis object.}
+\item{get.index}{\code{\link{get_RLum}}; \link{logical} (\emph{optional}):
+return a numeric vector with the index of each element in the RLum.Analysis object.}
 
-\item{drop}{\code{\link{get_RLum}} \link{logical} (\emph{with default}): coerce to the next possible layer
-(which are \code{RLum.Data}-objects), \code{drop = FALSE} keeps the original \code{RLum.Analysis}}
+\item{drop}{\code{\link{get_RLum}}; \link{logical} (\emph{with default}):
+coerce to the next possible layer (which are \code{RLum.Data}-objects),
+\code{drop = FALSE} keeps the original \code{RLum.Analysis}}
 
-\item{recursive}{\code{\link{get_RLum}} \link{logical} (\emph{with default}): if \code{TRUE} (the default)
-and the result of the 'get_RLum' request is a single object this object will be unlisted, means
-only the object itself and no list containing exactly one object is returned. Mostly this makes things
+\item{recursive}{\code{\link{get_RLum}}; \link{logical} (\emph{with default}):
+if \code{TRUE} (the default) and the result of the 'get_RLum' request is a single
+object this object will be unlisted, means only the object itself and no
+list containing exactly one object is returned. Mostly this makes things
 easier, however, if this method is used within a loop this might undesired.}
 
-\item{info.object}{\code{\link{get_RLum}} \link{character} (\emph{optional}): name of the wanted info
-element}
+\item{info.object}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+name of the wanted info element}
 
-\item{subset}{\link{expression} (\emph{optional}): logical expression indicating elements or rows
-to keep: missing values are taken as false. This argument takes precedence over all
-other arguments, meaning they are not considered when subsetting the object.}
+\item{subset}{\link{expression} (\emph{optional}):
+logical expression indicating elements or rows to keep: missing values are
+taken as false. This argument takes precedence over all other arguments,
+meaning they are not considered when subsetting the object.}
 
-\item{fullExtent}{\link{structure_RLum} \link{logical} (\emph{with default}): extents the returned \code{data.frame}
-to its full extent, i.e. all info elements are part of the return as well. The default valule
-is \code{FALSE} as the data frame might become rather big.}
+\item{fullExtent}{\link{structure_RLum}; \link{logical} (\emph{with default}):
+extents the returned \code{data.frame} to its full extent, i.e. all info elements
+are part of the return as well. The default value is \code{FALSE} as the data
+frame might become rather big.}
 
 \item{...}{further arguments passed to underlying methods}
 }
 \value{
-\strong{\code{get_RLum}}:\cr
+\strong{\code{get_RLum}}:
 
-Returns: \cr
-(1) \link{list} of \linkS4class{RLum.Data} objects or \cr
-(2) Single \linkS4class{RLum.Data} object, if only one object is contained and
-\code{recursive = FALSE} or\cr
-(3) \linkS4class{RLum.Analysis} ojects for \code{drop = FALSE} \cr
+Returns:
+\enumerate{
+\item \link{list} of \linkS4class{RLum.Data} objects or
+\item Single \linkS4class{RLum.Data} object, if only one object is contained and \code{recursive = FALSE} or
+\item \linkS4class{RLum.Analysis} ojects for \code{drop = FALSE}
+}
 
-\strong{\code{structure_RLum}}:\cr
+\strong{\code{structure_RLum}}:
 
 Returns \linkS4class{data.frame} showing the structure.
 
-\strong{\code{length_RLum}}\cr
+\strong{\code{length_RLum}}
 
 Returns the number records in this object.
 
-\strong{\code{names_RLum}}\cr
+\strong{\code{names_RLum}}
 
-Returns the names of the record types (recordType) in this object.
+Returns the names of the record types (\code{recordType}) in this object.
 
-\strong{\code{smooth_RLum}}\cr
+\strong{\code{smooth_RLum}}
 
 Same object as input, after smoothing
 }
 \description{
-Object class to represent analysis data for protocol analysis, i.e. all curves, spectra etc.
-from one measurements. Objects from this class are produced, by e.g. \link{read_XSYG2R},
-\link{read_Daybreak2R}
+Object class to represent analysis data for protocol analysis, i.e. all curves,
+spectra etc. from one measurements. Objects from this class are produced,
+by e.g. \link{read_XSYG2R}, \link{read_Daybreak2R}
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -148,8 +157,8 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 \item \code{names_RLum}: Returns the names of the \linkS4class{RLum.Data} objects objects (same as shown with the show method)
 
 \item \code{smooth_RLum}: Smoothing of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object
-\link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmedian]{zoo::rollmedian}.
-In particular the internal function \code{.smoothing} is used.
+\link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmedian]{zoo::rollmedian}. In particular the internal
+function \code{.smoothing} is used.
 }}
 
 \section{Slots}{
@@ -165,8 +174,8 @@ The method \link{structure_RLum} is currently just avaiblable for objects
 containing \linkS4class{RLum.Data.Curve}.
 }
 \section{Objects from the Class}{
- Objects can be created by calls of the form
-\code{set_RLum("RLum.Analysis", ...)}.
+
+Objects can be created by calls of the form \code{set_RLum("RLum.Analysis", ...)}.
 }
 
 \section{Class version}{
@@ -196,8 +205,7 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 \linkS4class{Risoe.BINfileData}, \linkS4class{RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{classes}
 \keyword{methods}

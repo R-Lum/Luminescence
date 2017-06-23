@@ -7,14 +7,18 @@
 use_DRAC(file, name, ...)
 }
 \arguments{
-\item{file}{\link{character}: spreadsheet to be passed
-to the DRAC website for calculation. Can also be a DRAC template object
-obtained from \code{template_DRAC()}.}
+\item{file}{\link{character} (\strong{required}):
+spreadsheet to be passed to the DRAC website for calculation. Can also be a
+DRAC template object obtained from \code{template_DRAC()}.}
 
-\item{name}{\link{character}: Optional user name submitted to DRAC. If
-omitted, a random name will be generated}
+\item{name}{\link{character} (\emph{with defautl}):
+Optional user name submitted to DRAC. If omitted, a random name will be generated}
 
-\item{...}{Further arguments.}
+\item{...}{Further arguments.
+\itemize{
+\item \code{url} \link{character}: provide an alternative URL to DRAC
+\item \code{verbose} \link{logical}: show or hide console output
+}}
 }
 \value{
 Returns an \linkS4class{RLum.Results} object containing the following elements:
@@ -102,6 +106,7 @@ Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculat
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,
-GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Michael Dietze, GFZ Potsdam (Germany)\cr
+Christoph Burow, University of Cologne (Germany)
 }

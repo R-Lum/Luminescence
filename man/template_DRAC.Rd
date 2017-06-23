@@ -7,11 +7,12 @@
 template_DRAC(nrow = 1, notification = TRUE)
 }
 \arguments{
-\item{nrow}{\link{integer} (\emph{with default}): specifies the number of rows
-of the template (i.e., the number of data sets you want to submit)}
+\item{nrow}{\link{integer} (\emph{with default}):
+specifies the number of rows of the template (i.e., the number of data
+sets you want to submit)}
 
-\item{notification}{\link{logical} (\emph{with default}): show or hide the
-notification}
+\item{notification}{\link{logical} (\emph{with default}):
+show or hide the notification}
 }
 \value{
 A list.
@@ -71,7 +72,7 @@ Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculat
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 }
 \seealso{
-\link{as.data.frame} \link{list}
+\link{as.data.frame}, \link{list}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

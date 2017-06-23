@@ -3,12 +3,10 @@
 \name{ExampleData.Fading}
 \alias{ExampleData.Fading}
 \title{Example data for feldspar fading measurements}
-\format{A \link{list} with two elements, each containing a further
-\link{list} of \link{data.frame}s containing the data
-on the fading and equivalent dose measurements:
+\format{A \link{list} with two elements, each containing a further \link{list} of
+\link{data.frame}s containing the data on the fading and equivalent dose measurements:
 
 \describe{
-
 \code{$fading.data}: A named \link{list} of \link{data.frame}s,
 each having three named columns (\code{LxTx, LxTx.error, timeSinceIrradiation}).\cr
 \code{..$IR50}: Fading data of the IR50 signal.\cr
@@ -22,7 +20,6 @@ each having three named columns (\code{dose, LxTx, LxTx.error}).\cr
 \code{..$IR100}: Equivalent dose measurement data of the IR100 signal.\cr
 \code{..$IR150}: Equivalent dose measurement data of the IR150 signal.\cr
 \code{..$IR225}: Equivalent dose measurement data of the IR225 signal.\cr
-
 }}
 \source{
 These data were kindly provided by Georgina King. Detailed information
@@ -74,17 +71,18 @@ IR50_Age.corr <- calc_FadingCorr(IR50_Age, g_value = IR50_fading.res)
 }
 \references{
 King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
-Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
+Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87.
+doi:10.1016/j.quageo.2016.01.004
 
-\strong{Details} \cr
+\strong{Details}
+
 \tabular{ll}{
 Lab: \tab University of Lausanne \cr
 Lab-Code: \tab UNIL/NB123 \cr
 Location: \tab Namche Barwa (eastern Himalaya)\cr
 Material: \tab Coarse grained (180-212 microns) potassium feldspar \cr
 Units: \tab Values are given in seconds \cr
-Lab Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.1335 +/-
-0.004 Gy/s \cr
+Lab Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.1335 +/- 0.004 Gy/s \cr
 Environmental Dose Rate: \tab 7.00 +/- 0.92 Gy/ka (includes internal dose rate)
 }
 }

@@ -10,22 +10,26 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot originator Object of class [character] containing the name of the producing
+#' @slot originator 
+#' Object of class [character] containing the name of the producing
 #' function for the object. Set automatically by using the function [set_RLum].
 #'
-#' @slot info Object of class [list] for additional information on the object itself
+#' @slot info 
+#' Object of class [list] for additional information on the object itself
 #'
-#' @slot .uid Object of class [character] for a unique object identifier. This id is
+#' @slot .uid 
+#' Object of class [character] for a unique object identifier. This id is
 #' usually calculated using the internal function `.create_UID()` if the funtion [set_RLum]
 #' is called.
 #'
-#' @slot .pid Object of class [character] for a parent id. This allows nesting RLum-objects
+#' @slot .pid 
+#' Object of class [character] for a parent id. This allows nesting RLum-objects
 #' at will. The parent id can be the uid of another object.
 #'
 #' @note `RLum` is a virtual class.
 #'
-#' @section Objects from the Class: A virtual Class: No objects can be created
-#' from it.
+#' @section Objects from the Class: 
+#' A virtual Class: No objects can be created from it.
 #'
 #' @section Class version: 0.4.0
 #'
@@ -63,10 +67,11 @@ setClass("RLum",
 #' @describeIn RLum
 #' Replication method RLum-objects
 #'
-#' @param object an object of class [RLum-class] (**required**)
+#' @param object [RLum-class] (**required**):
+#' an object of class [RLum-class] 
 #'
-#' @param times [integer] (*optional*): number for times each element is repeated
-#' element
+#' @param times [integer] (*optional*): 
+#' number for times each element is repeated element
 #'
 #' @md
 #' @export

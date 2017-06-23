@@ -22,9 +22,10 @@ Function calls object-specific get functions for RisoeBINfileData S4 class objec
 }
 \details{
 The function provides a generalised access point for specific
-\linkS4class{Risoe.BINfileData} objects.\cr Depending on the input object, the
-corresponding get function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \linkS4class{Risoe.BINfileData} class.
+\linkS4class{Risoe.BINfileData} objects.\cr
+Depending on the input object, the corresponding get function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{Risoe.BINfileData} class.
 }
 \section{Function version}{
  0.1
@@ -34,7 +35,6 @@ in the documentations of the corresponding \linkS4class{Risoe.BINfileData} class
 \linkS4class{Risoe.BINfileData}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
 \keyword{utilities}

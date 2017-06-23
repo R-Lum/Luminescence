@@ -7,15 +7,15 @@
 tune_Data(data, decrease.error = 0, increase.data = 0)
 }
 \arguments{
-\item{data}{\link{data.frame} (\strong{required}): input values,
-structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
-required}
+\item{data}{\link{data.frame} (\strong{required}):
+input values, structure: data (\code{values[,1]}) and data error (\code{values [,2]})
+are required}
 
-\item{decrease.error}{\link{numeric}: factor by which the error
-is decreased, ranges between 0 and 1.}
+\item{decrease.error}{\link{numeric}:
+factor by which the error is decreased, ranges between 0 and 1.}
 
-\item{increase.data}{\link{numeric}: factor by which the error
-is decreased, ranges between 0 and inf.}
+\item{increase.data}{\link{numeric}:
+factor by which the error is decreased, ranges between 0 and inf.}
 }
 \value{
 Returns a \link{data.frame} with tuned values.
@@ -31,6 +31,7 @@ You should not use this function to improve your poor data set!
 }
 
 \examples{
+
 ## load example data set
 data(ExampleData.DeValues, envir = environment())
 x <- ExampleData.DeValues$CA1

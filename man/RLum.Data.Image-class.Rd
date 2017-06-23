@@ -20,42 +20,50 @@
 \S4method{names_RLum}{RLum.Data.Image}(object)
 }
 \arguments{
-\item{object}{\code{[show_RLum]``[get_RLum]``[names_RLum]} an object
-of class \linkS4class{RLum.Data.Image}}
+\item{object}{\code{\link{get_RLum}}, \code{\link{names_RLum}} (\strong{required}):
+an object of class \linkS4class{RLum.Data.Image}}
 
-\item{class}{\code{[set_RLum]}\link{character}: name of the \code{RLum} class to create}
+\item{class}{\code{\link{set_RLum}}; \link{character}:
+name of the \code{RLum} class to create}
 
-\item{originator}{\code{[set_RLum]} \link{character} (automatic):
-contains the name of the calling function (the function that produces this object); can be set manually.}
+\item{originator}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
+contains the name of the calling function (the function that produces this object);
+can be set manually.}
 
-\item{.uid}{\code{\link{set_RLum}} \link{character} (automatic): sets an unique ID for this object
-using the internal C++ function \code{.create_UID}.}
+\item{.uid}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
+sets an unique ID for this object using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{\code{\link{set_RLum}} \link{character} (\emph{with default}): option to provide a parent id for nesting
-at will.}
+\item{.pid}{\code{\link{set_RLum}}; \link{character} (\emph{with default}):
+option to provide a parent id for nesting at will.}
 
-\item{recordType}{\code{[set_RLum]} \link{character}: record type (e.g. "OSL")}
+\item{recordType}{\code{\link{set_RLum}}; \link{character}:
+record type (e.g. "OSL")}
 
-\item{curveType}{\code{[set_RLum]} \link{character}: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{\code{\link{set_RLum}}; \link{character}:
+curve type (e.g. "predefined" or "measured")}
 
-\item{data}{\code{[set_RLum]} \link{matrix}: raw curve data. If data is of type \code{RLum.Data.Image}
-this can be used to re-construct the object.}
+\item{data}{\code{\link{set_RLum}}; \link{matrix}:
+raw curve data. If data is of type \code{RLum.Data.Image} this can be used to
+re-construct the object.}
 
-\item{info}{\code{[set_RLum]} \link{list}: info elements}
+\item{info}{\code{\link{set_RLum}}; \link{list}:
+info elements}
 
-\item{info.object}{\code{[get_RLum]} \link{character} name of the info object to returned}
+\item{info.object}{\code{\link{get_RLum}}; \link{character}:
+name of the info object to returned}
 }
 \value{
-\strong{\code{set_RLum}}\cr
+\strong{\code{set_RLum}}
 
 Returns an object from class \code{RLum.Data.Image}
 
-\strong{\code{get_RLum}}\cr
+\strong{\code{get_RLum}}
+\enumerate{
+\item Returns the data object (\link[raster:brick]{raster::brick})
+\item only the info object if \code{info.object} was set.
+}
 
-(1) Returns the data object (\link[raster:brick]{raster::brick})\cr
-(2) only the info object if \code{info.object} was set.\cr
-
-\strong{\code{names_RLum}}\cr
+\strong{\code{names_RLum}}
 
 Returns the names of the info elements
 }
@@ -80,8 +88,7 @@ provided, the raw image data (RasterBrick) will be returned.
 \section{Slots}{
 
 \describe{
-\item{\code{recordType}}{Object of class \link{character}
-containing the type of the curve (e.g. "OSL image", "TL image")}
+\item{\code{recordType}}{Object of class \link{character} containing the type of the curve (e.g. "OSL image", "TL image")}
 
 \item{\code{curveType}}{Object of class \link{character} containing curve type, allowed values
 are measured or predefined}
@@ -96,8 +103,8 @@ The class should only contain data for a set of images. For additional
 elements the slot \code{info} can be used.
 }
 \section{Objects from the Class}{
- Objects can be created by calls of the form
-\code{set_RLum("RLum.Data.Image", ...)}.
+
+Objects can be created by calls of the form \code{set_RLum("RLum.Data.Image", ...)}.
 }
 
 \section{Class version}{
@@ -113,8 +120,7 @@ set_RLum(class = "RLum.Data.Image")
 
 }
 \seealso{
-\linkS4class{RLum}, \linkS4class{RLum.Data},
-\link{plot_RLum}, \link{read_SPE2R}
+\linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{read_SPE2R}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)

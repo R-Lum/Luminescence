@@ -2,31 +2,40 @@
 % Please edit documentation in R/verify_SingleGrainData.R
 \name{verify_SingleGrainData}
 \alias{verify_SingleGrainData}
-\title{Verify single grain data sets and check for invalid grains, i.e. zero-light level grains}
+\title{Verify single grain data sets and check for invalid grains, i.e.
+zero-light level grains}
 \usage{
 verify_SingleGrainData(object, threshold = 10, cleanup = FALSE,
   cleanup_level = "aliquot", verbose = TRUE, plot = FALSE)
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}
-(\strong{required}): input object. The function also accepts a list with objects of allowed type.}
+\item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis} (\strong{required}):
+input object. The function also accepts a list with objects of allowed type.}
 
-\item{threshold}{\link{numeric} (\emph{with default}): numeric threshold value for the allowed difference between
-the \code{mean} and the \code{var} of the count values (see details)}
+\item{threshold}{\link{numeric} (\emph{with default}):
+numeric threshold value for the allowed difference between the \code{mean} and
+the \code{var} of the count values (see details)}
 
-\item{cleanup}{\link{logical} (\emph{with default}): if set to \code{TRUE} curves indentified as
-zero light level curves are automatically removed. Ouput is an object as same type as the input, i.e.
+\item{cleanup}{\link{logical} (\emph{with default}):
+if set to \code{TRUE} curves indentified as zero light level curves are
+automatically removed. Ouput is an object as same type as the input, i.e.
 either \linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}}
 
-\item{cleanup_level}{\link{character} (\emph{with default}): selects the level for the cleanup
-of the input data sets. Two options are allowed: \code{"curve"} or \code{"aliquot"}. If  \code{"curve"}
-is selected every single curve marked as \code{invalid} is removed. If \code{"aliquot"} is selected,
-curves of one aliquot (grain or disc) can be marked as invalid, but will not be removed. An aliquot
-will be only removed if all curves of this aliquot are marked as invalid.}
+\item{cleanup_level}{\link{character} (\emph{with default}):
+selects the level for the cleanup of the input data sets.
+Two options are allowed: \code{"curve"} or \code{"aliquot"}:
+\itemize{
+\item If  \code{"curve"} is selected every single curve marked as \code{invalid} is removed.
+\item If \code{"aliquot"} is selected, curves of one aliquot (grain or disc) can be
+marked as invalid, but will not be removed. An aliquot will be only removed
+if all curves of this aliquot are marked as invalid.
+}}
 
-\item{verbose}{\link{logical} (\emph{with default}): enables or disables the terminal feedback}
+\item{verbose}{\link{logical} (\emph{with default}):
+enables or disables the terminal feedback}
 
-\item{plot}{\link{logical} (\emph{with default}): enables or disables the graphical feedback}
+\item{plot}{\link{logical} (\emph{with default}):
+enables or disables the graphical feedback}
 }
 \value{
 The function returns
@@ -34,9 +43,11 @@ The function returns
 -----------------------------------\cr
 \code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\strong{\code{RLum.Results}}-object\cr
 
-\strong{slot:****\code{@data}}\cr
+\strong{\code{RLum.Results}}-object
+
+\strong{slot:****\code{@data}}
+
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$unique_pairs} \tab \code{data.frame} \tab the unique position and grain pairs \cr
@@ -44,27 +55,29 @@ The function returns
 \code{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
 }
 
-\strong{slot:****\code{@info}}\cr
+\strong{slot:****\code{@info}}
 
-The original function call\cr
+The original function call
 
-\strong{Output variation}\cr
+\strong{Output variation}
 
-For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up (invalid curves were removed).
-This means: Either an \linkS4class{Risoe.BINfileData} or an \linkS4class{RLum.Analysis}
-object is returned in such cases. An \linkS4class{Risoe.BINfileData} object can be exported
-to a BIN-file by using the function \link{write_R2BIN}.
+For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up
+(invalid curves were removed). This means: Either an \linkS4class{Risoe.BINfileData}
+or an \linkS4class{RLum.Analysis} object is returned in such cases.
+An \linkS4class{Risoe.BINfileData} object can be exported to a BIN-file by
+using the function \link{write_R2BIN}.
 }
 \description{
-This function tries to identify automatically zero-light level curves (grains) from single grain data
-measurements. \cr
+This function tries to identify automatically zero-light level curves (grains)
+from single grain data measurements.
 }
 \details{
-\strong{How does the method work?}\cr
+\strong{How does the method work?}
 
-The function compares the expected values (\eqn{E(X)}) and the variance (\eqn{Var(X)})
-of the count values for each curve. Assuming that the background roughly follows a poisson
-distribution the absolute difference of both values should be zero or at least around zero as
+The function compares the expected values (\eqn{E(X)}) and the variance
+(\eqn{Var(X)}) of the count values for each curve. Assuming that the
+background roughly follows a poisson distribution the absolute difference
+of both values should be zero or at least around zero as
 
 \deqn{E(x) = Var(x) = \lambda}
 
@@ -72,21 +85,23 @@ Thus the function checks for:
 
 \deqn{abs(E(x) - Var(x)) >= \Theta}
 
-With \eqn{\Theta} an arbitray, user defined, threshold. Values above the threshold indicating curves
-comprising a signal.\cr
+With \eqn{\Theta} an arbitray, user defined, threshold. Values above the
+threshold indicating curves comprising a signal.
 
-Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the ratio was chosen as
-both terms can become 0 which would result in 0 or \code{Inf}, if the ratio is calculated.
+Note: the absolute difference of \eqn{E(X)} and \eqn{Var(x)} instead of the
+ratio was chosen as both terms can become 0 which would result in 0 or \code{Inf},
+if the ratio is calculated.
 }
 \note{
 This function can work with \linkS4class{Risoe.BINfileData} objects or
-\linkS4class{RLum.Analysis} objects (or a list of it). However, the function is highly optimised
-for \linkS4class{Risoe.BINfileData} objects as it make sense to remove identify invalid
-grains before the conversion to an \linkS4class{RLum.Analysis} object.\cr
+\linkS4class{RLum.Analysis} objects (or a list of it). However, the function is
+highly optimised for \linkS4class{Risoe.BINfileData} objects as it make sense to
+remove identify invalid grains before the conversion to an
+\linkS4class{RLum.Analysis} object.
 
-The function checking for invalid curves works rather robust and it is likely that Reg0 curves
-within a SAR cycle are removed as well. Therefore it is strongly recommended to use the argument
-\code{cleanup = TRUE} carefully.
+The function checking for invalid curves works rather robust and it is likely
+that Reg0 curves within a SAR cycle are removed as well. Therefore it is
+strongly recommended to use the argument \code{cleanup = TRUE} carefully.
 }
 \section{Function version}{
  0.2.0
@@ -123,8 +138,8 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis},
-\link{write_R2BIN}, \link{read_BIN2R}
+\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis}, \link{write_R2BIN},
+\link{read_BIN2R}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
