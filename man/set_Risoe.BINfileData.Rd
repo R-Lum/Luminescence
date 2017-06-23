@@ -22,24 +22,19 @@ Function calls object-specific get functions for RisoeBINfileData S4 class objec
 }
 \details{
 The function provides a generalised access point for specific
-\code{\linkS4class{Risoe.BINfileData}} objects.\cr Depending on the input object, the
-corresponding get function will be selected. Allowed arguments can be found
-in the documentations of the corresponding \code{\linkS4class{Risoe.BINfileData}} class.
+\linkS4class{Risoe.BINfileData} objects.\cr
+Depending on the input object, the corresponding get function will be selected.
+Allowed arguments can be found in the documentations of the corresponding
+\linkS4class{Risoe.BINfileData} class.
 }
 \section{Function version}{
- 0.1 (2017-02-10 18:30:04)
+ 0.1
 }
 
 \seealso{
-\code{\linkS4class{Risoe.BINfileData}}
+\linkS4class{Risoe.BINfileData}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). set_Risoe.BINfileData(): General accessor function for RLum S4 class objects. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 }
-
 \keyword{utilities}

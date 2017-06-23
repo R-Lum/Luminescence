@@ -7,100 +7,99 @@
 merge_RLum.Data.Curve(object, merge.method = "mean", method.info)
 }
 \arguments{
-\item{object}{\code{\link{list}} of \code{\linkS4class{RLum.Data.Curve}}
-(\bold{required}): list of S4 objects of class \code{RLum.Curve}.}
+\item{object}{\link{list} of \linkS4class{RLum.Data.Curve} (\strong{required}):
+list of S4 objects of class \code{RLum.Curve}.}
 
-\item{merge.method}{\code{\link{character}} (\bold{required}): method for
-combining of the objects, e.g.  \code{'mean'}, \code{'sum'}, see details for
+\item{merge.method}{\link{character} (\strong{required}):
+method for combining of the objects, e.g.  \code{'mean'}, \code{'sum'}, see details for
 further information and allowed methods.  Note: Elements in slot info will
 be taken from the first curve in the list.}
 
-\item{method.info}{\code{\link{numeric}} (optional): allows to specify how
-info elements of the input objects are combined, e.g. \code{1} means that
-just the elements from the first object are kept, \code{2} keeps only the
-info elements from the 2 object etc.  If nothing is provided all elements
-are combined.}
+\item{method.info}{\link{numeric} (\emph{optional}):
+allows to specify how info elements of the input objects are combined,
+e.g. \code{1} means that just the elements from the first object are kept,
+\code{2} keeps only the info elements from the 2 object etc.
+If nothing is provided all elements are combined.}
 }
 \value{
-Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+Returns an \linkS4class{RLum.Data.Curve} object.
 }
 \description{
 Function allows merging of RLum.Data.Curve objects in different ways
 }
 \details{
-This function simply allowing to merge \code{\linkS4class{RLum.Data.Curve}}
+This function simply allowing to merge \linkS4class{RLum.Data.Curve}
 objects without touching the objects itself. Merging is always applied on
-the 2nd colum of the data matrix of the object.\cr
+the 2nd colum of the data matrix of the object.
 
-\bold{Supported merge operations are
-\code{\linkS4class{RLum.Data.Curve}}}\cr
+\strong{Supported merge operations are \linkS4class{RLum.Data.Curve}}
 
-\code{"sum"}\cr
+\code{"sum"}
 
-All count values will be summed up using the function \code{\link{rowSums}}.
+All count values will be summed up using the function \link{rowSums}.
 
-\code{"mean"}\cr
+\code{"mean"}
 
 The mean over the count values is calculated using the function
-\code{\link{rowMeans}}.
+\link{rowMeans}.
 
-\code{"median"}\cr
+\code{"median"}
 
 The median over the count values is calculated using the function
-\code{\link[matrixStats]{rowMedians}}.
+\link[matrixStats:rowMedians]{matrixStats::rowMedians}.
 
-\code{"sd"}\cr
+\code{"sd"}
 
 The standard deviation over the count values is calculated using the function
-\code{\link[matrixStats]{rowSds}}.
+\link[matrixStats:rowSds]{matrixStats::rowSds}.
 
-\code{"var"}\cr
+\code{"var"}
 
 The variance over the count values is calculated using the function
-\code{\link[matrixStats]{rowVars}}.
+\link[matrixStats:rowVars]{matrixStats::rowVars}.
 
-\code{"min"}\cr
+\code{"min"}
 
 The min values from the count values is chosen using the function
-\code{\link[matrixStats]{rowMins}}.
+\link[matrixStats:rowMins]{matrixStats::rowMins}.
 
-\code{"max"}\cr
+\code{"max"}
 
 The max values from the count values is chosen using the function
-\code{\link[matrixStats]{rowMins}}.
+\link[matrixStats:rowMins]{matrixStats::rowMins}.
 
-\code{"append"}\cr
+\code{"append"}
 
 Appends count values of all curves to one combined data curve. The channel width
-is automatically re-calculated, but requires a constant channel width of the 
+is automatically re-calculated, but requires a constant channel width of the
 original data.
 
-\code{"-"}\cr
+\code{"-"}
 
 The row sums of the last objects are subtracted from the first object.
 
-\code{"*"}\cr
+\code{"*"}
 
 The row sums of the last objects are mutliplied with the first object.
 
-\code{"/"}\cr
+\code{"/"}
 
 Values of the first object are divided by row sums of the last objects.
 }
 \note{
-The information from the slot 'recordType' is taken from the first
-\code{\linkS4class{RLum.Data.Curve}} object in the input list. The slot
+The information from the slot \code{recordType} is taken from the first
+\linkS4class{RLum.Data.Curve} object in the input list. The slot
 'curveType' is filled with the name \code{merged}.
 }
 \section{S3-generic support}{
 
 
 This function is fully operational via S3-generics:
-\code{`+`}, \code{`-`}, \code{`/`}, \code{`*`}, \code{merge}
+\code{+}, \code{-}, \code{/}, \code{*}, \code{merge}
 }
 
 \section{Function version}{
- 0.2.0 (2017-01-24 21:10:47)
+ 0.2.0
 }
 
 \examples{
@@ -122,20 +121,11 @@ plot_RLum(TL.curve.3)
 TL.curve.merged <- merge_RLum.Data.Curve(list(TL.curve.3, TL.curve.1), merge.method = "/")
 plot_RLum(TL.curve.merged)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). merge_RLum.Data.Curve(): Merge function for RLum.Data.Curve S4 class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
--
 }
 \seealso{
-\code{\link{merge_RLum}}, \code{\linkS4class{RLum.Data.Curve}}
+\link{merge_RLum}, \linkS4class{RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}
 \keyword{utilities}

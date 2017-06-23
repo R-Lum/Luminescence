@@ -1,11 +1,15 @@
 #' Convert Nuclide Activities to Concentrations and Vice Versa
 #'
-#' The function performs the conversion of the specific activities into concentrations and vice versa for the nuclides U-238,
-#' Th-232 and K-40 to harmonise the measurement unit with the required data input unit of potential analytical tools for,
-#' e.g. dose rate calculation or related functions such as \code{\link{use_DRAC}}.
+#' The function performs the conversion of the specific activities into 
+#' concentrations and vice versa for the nuclides U-238, Th-232 and K-40 to 
+#' harmonise the measurement unit with the required data input unit of 
+#' potential analytical tools for, e.g. dose rate calculation or related 
+#' functions such as [use_DRAC].
 #'
-#' The conversion from nuclide activity of a sample to nuclide concentration is performed using conversion factors t
-#' hat are based on the mass-related specific activity of the respective nuclides. The factors can be calculated using the equation:
+#' The conversion from nuclide activity of a sample to nuclide concentration 
+#' is performed using conversion factors that are based on the mass-related 
+#' specific activity of the respective nuclides. 
+#' The factors can be calculated using the equation:
 #'
 #' \deqn{
 #' A = avogadronumber * N.freq / N.mol.mass   *  ln(2) / N.half.life
@@ -15,42 +19,47 @@
 #' f = A / 10^6
 #' }
 #'
-#' where:\cr
+#' where:
 #'
-#' A - specific activity of the nuclide\cr
-#' N.freq - natural frequency of the isotop \cr
-#' N.mol.mass - molare mass\cr
-#' n.half.life - half-life of the nuclide\cr
+#' - `A` - specific activity of the nuclide
+#' - `N.freq` - natural frequency of the isotop
+#' - `N.mol.mass` molare mass
+#' - `n.half.life` half-life of the nuclide
 #'
 #' example for U238:
 #'
-#' \eqn{avogadronumber = 6.02214199*10^23}\cr
-#' \eqn{uran.half.life = 1.41*10^17} (in s)\cr
-#' \eqn{uran.mol.mass = 0.23802891} (in kg/mol)\cr
-#' \eqn{uran.freq = 0.992745} (in mol)\cr
+#' - \eqn{avogadronumber = 6.02214199*10^23}
+#' - \eqn{uran.half.life = 1.41*10^17} (in s)
+#' - \eqn{uran.mol.mass = 0.23802891} (in kg/mol)
+#' - \eqn{uran.freq = 0.992745} (in mol)
 #'
-#' \eqn{A.U = avogadronumber * uran.freq / uran.mol.mass * ln(2) / uran.half.life} (specific activity in Bq/kg)\cr
-#' \eqn{f.U = A.kg / 10^6}
+#' - \eqn{A.U = avogadronumber * uran.freq / uran.mol.mass * ln(2) / uran.half.life} (specific activity in Bq/kg)
+#' - \eqn{f.U = A.kg / 10^6}
 #'
-#' @param data \code{\link{data.frame}} \bold{(required)}: provide dose rate data (activity or concentration)
-#' in three columns. The first column indicates the nuclides, the 2nd column measured value and
-#' in the 3rd column its error value. Allowed nuclide data are \code{'U-238'}, \code{'Th-232'} and \code{'K-40'}.
-#' See examples for an example.
+#' @param data [data.frame] **(required)**: 
+#' provide dose rate data (activity or concentration) in three columns. 
+#' The first column indicates the nuclides, the 2nd column measured value and
+#' in the 3rd column its error value. Allowed nuclide data are 
+#' `'U-238'`, `'Th-232'` and `'K-40'`. See examples for an example.
 #'
-#' @param input_unit \code{\link{character}} (with default): specify unit of input data given in the
-#' dose rate data frame, choose between \code{'Bq/kg'} and \code{'ppm/\%'} the default is \code{'Bq/kg'}
+#' @param input_unit [character] (*with default*): 
+#' specify unit of input data given in the dose rate data frame, choose between 
+#' 'Bq/kg' and 'ppm/\%' the default is 'Bq/kg'
 #'
-#' @param verbose \code{\link{logical}} (with default): enable or disable verbose mode
+#' @param verbose [logical] (*with default*): 
+#' enable or disable verbose mode
 #'
 #' @section Function version: 0.1.0
 #'
 #' @author Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
 #'
 #' @references
-#' Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with Semiconductor Detectors, Elsevier Science Publishers, p.283
+#' Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with 
+#' Semiconductor Detectors, Elsevier Science Publishers, p.283
 #'
-#' Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
-#' \url{http://www.bmub.bund.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf}
+#' Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen 
+#' Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
+#' [http://www.bmub.bund.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf]()
 #'
 #' @keywords IO
 #'
@@ -65,7 +74,8 @@
 #'
 #' ##perform analysis
 #' convert_Activity2Concentration(data)
-#'
+#' 
+#' @md
 #' @export
 convert_Activity2Concentration <- function(
   data,

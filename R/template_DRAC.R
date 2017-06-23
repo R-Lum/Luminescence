@@ -3,22 +3,23 @@
 #' This function returns a DRAC input template (v1.1) to be used in conjunction
 #' with the use_DRAC() function
 #' 
-#' @param nrow \code{\link{integer}} (with default): specifies the number of rows
-#' of the template (i.e., the number of data sets you want to submit)
+#' @param nrow [integer] (*with default*): 
+#' specifies the number of rows of the template (i.e., the number of data 
+#' sets you want to submit)
 #' 
-#' @param notification \code{\link{logical}} (with default): show or hide the
-#' notification
+#' @param notification [logical] (*with default*): 
+#' show or hide the notification
 #'
 #' @return A list.
 #' 
-#' @author Christoph Burow, University of Cologne (Germany)
+#' @author 
+#' Christoph Burow, University of Cologne (Germany)
 #'
 #' @references
-#'
 #' Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 #' Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 #'
-#' @seealso \code{\link{as.data.frame}} \code{\link{list}} 
+#' @seealso [as.data.frame], [list] 
 #'
 #' @examples
 #' 
@@ -65,6 +66,7 @@
 #' output <- use_DRAC(input)
 #' }
 #' 
+#' @md
 #' @export
 template_DRAC <- function(nrow = 1, notification = TRUE) {
   

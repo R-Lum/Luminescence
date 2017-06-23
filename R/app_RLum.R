@@ -1,17 +1,19 @@
 #' Run Luminescence shiny apps (wrapper)
 #'
-#' Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
-#' \link[RLumShiny]{RLumShiny-package}. For further details and examples please
+#' Wrapper for the function [RLumShiny::app_RLum] from the package
+#' [RLumShiny::RLumShiny-package]. For further details and examples please
 #' see the manual of this package.
 #'
-#' @param app \code{\link{character}} (required): name of the application to start. See details for a list
-#' of available apps.
-#' @param ... further arguments to pass to \code{\link[shiny]{runApp}}
+#' @param app [character] (**required**): 
+#' name of the application to start. See details for a list of available apps.
+#' 
+#' @param ... further arguments passed [shiny::runApp]
 #'
 #' @author Christoph Burow, University of Cologne (Germany)
 #'
 #' @section Function version: 0.1.1
 #'
+#' @md
 #' @export
 app_RLum <- function(app = NULL, ...) {
   

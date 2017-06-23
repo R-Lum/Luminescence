@@ -4,41 +4,38 @@
 #' RLum.Data.Curve S4 class object
 #'
 #' Only single curve data can be plotted with this function.  Arguments
-#' according to \code{\link{plot}}.
+#' according to [plot].
 #'
-#' @param object \code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
-#' object of class \code{RLum.Data.Curve}
+#' @param object [RLum.Data.Curve-class] (**required**): 
+#' S4 object of class `RLum.Data.Curve`
 #'
-#' @param par.local \code{\link{logical}} (with default): use local graphical
-#' parameters for plotting, e.g. the plot is shown in one column and one row.
-#' If \code{par.local = FALSE}, global parameters are inherited.
+#' @param par.local [logical] (*with default*): 
+#' use local graphical parameters for plotting, e.g. the plot is shown in one 
+#' column and one row. If `par.local = FALSE`, global parameters are inherited.
 #'
-#' @param norm \code{\link{logical}} (with default): allows curve normalisation
-#' to the highest count value
+#' @param norm [logical] (*with default*): 
+#' allows curve normalisation to the highest count value
 #'
-#' @param smooth \code{\link{logical}} (with default): provides an automatic curve smoothing
-#' based on \code{\link[zoo]{rollmean}}
+#' @param smooth [logical] (*with default*): 
+#' provides an automatic curve smoothing based on [zoo::rollmean]
 #'
-#' @param \dots further arguments and graphical parameters that will be passed
-#' to the \code{plot} function
+#' @param ... further arguments and graphical parameters that will be passed
+#' to the `plot` function
 #'
 #' @return Returns a plot.
 #'
-#' @note Not all arguments of \code{\link{plot}} will be passed!
+#' @note Not all arguments of [plot] will be passed!
 #'
 #' @section Function version: 0.2.3
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{plot}}, \code{\link{plot_RLum}}
-#'
-#' @references #
+#' @seealso [plot], [plot_RLum]
 #'
 #' @keywords aplot
 #'
 #' @examples
-#'
 #'
 #' ##plot curve data
 #'
@@ -52,6 +49,7 @@
 #' plot_RLum.Data.Curve(temp)
 #'
 #'
+#' @md
 #' @export
 plot_RLum.Data.Curve<- function(
   object,

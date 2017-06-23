@@ -1,80 +1,89 @@
-#'Al2O3 Irradiation Time Correction Analysis
+#' Al2O3 Irradiation Time Correction Analysis
+#' 
+#' The function provides a very particular analysis to correct the irradiation 
+#' time while irradiating Al2O3:C pellets in a luminescence reader.
+#' 
+#' Background: Due to their high dose sensitivity Al2O3:C pellets are usually 
+#' irradiated for only a very short duration or under the closed beta-source 
+#' within a luminescence reader. However, due to its high dose sensitivity, the 
+#' movement itself below the source induces an apparent luminescence signal, 
+#' which can be translated to an irradiation time.
+#' Based on measurements following a protocol suggested by Kreutzer et al., 2017, 
+#' a dose response curve is constructed and the intersection with the
+#' time axis is taken as real irradiation time.
 #'
-#'The function provides a very particular analysis to correct the irradiation time while irradiating Al2O3:C
-#'pellets in a luminescence reader.
-#'
-#'Background: Due to their high dose sensitivity Al2O3:C pellets are usually irradiated for only a very short duration or
-#'under the closed beta-source within a luminescence reader. However, due to its high dose sensitivity, the movement
-#'itself below the source induces an apparent luminescence signal, which can be translated to an irradiation time.
-#'Based on measurements following a protocol suggested by Kreutzer et al., 2017, a dose response curve is constructed
-#'and the intersection with the time axis is taken as real irradiation time.
-#'
-#' \bold{\code{method_control}}\cr
+#' **`method_control`**
 #'
 #' To keep the generic argument list as clear as possible, arguments to allow a deeper control of the method
 #' are all preset with meaningful default parameters and can be
-#' handled using the argument \code{method_control} only, e.g.,
-#' \code{method_control = list(fit.method = "LIN")}. Supported arguments are:\cr
+#' handled using the argument `method_control` only, e.g.,
+#' `method_control = list(fit.method = "LIN")`. Supported arguments are:
 #'
 #' \tabular{lll}{
-#' ARGUMENT       \tab FUNCTION               \tab DESCRIPTION\cr
-#' \code{mode}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the mode used for fitting\cr
-#' \code{fit.method}   \tab \code{plot_GrowthCurve} \tab as in \code{\link{plot_GrowthCurve}}; sets the function applied for fitting\cr
+#' **ARGUMENT** \tab **FUNCTION** \tab **DESCRIPTION**\cr
+#' `mode` \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the mode used for fitting\cr
+#' `fit.method` \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the function applied for fitting\cr
 #' }
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} or \code{\link{list}} \bold{(required)}: results obtained from the measurement.
+#' @param object [RLum.Analysis-class] or [list] **(required)**: 
+#' results obtained from the measurement.
 #' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
 #'
-#' @param signal_integral \code{\link{numeric}} (optional): signal integral, used for the signal
-#' and the background. If nothing is provided the full range is used. Argument can be provided as \code{\link{list}}.
+#' @param signal_integral [numeric] (*optional*): 
+#' signal integral, used for the signal and the background. 
+#' If nothing is provided the full range is used. Argument can be provided as [list].
 #'
-#' @param dose_points \code{\link{numeric}} (with default): vector with dose points, if dose points
-#' are repeated, only the general pattern needs to be provided. Default values follow the suggestions
-#' made by Kreutzer et al., 2017. Argument can be provided as \code{\link{list}}.
+#' @param dose_points [numeric] (*with default*): 
+#' vector with dose points, if dose points are repeated, only the general 
+#' pattern needs to be provided. Default values follow the suggestions
+#' made by Kreutzer et al., 2017. Argument can be provided as [list].
 #'
-#' @param method_control \code{\link{list}} (optional): optional parameters to control the calculation.
+#' @param method_control [list] (*optional*): 
+#' optional parameters to control the calculation.
 #' See details for further explanations
 #'
-#' @param verbose \code{\link{logical}} (with default): enable/disable verbose mode
+#' @param verbose [logical] (*with default*): 
+#' enable/disable verbose mode
 #'
-#' @param plot \code{\link{logical}} (with default): enable/disable plot output
+#' @param plot [logical] (*with default*): 
+#' enable/disable plot output
 #'
 #' @param ... further arguments that can be passed to the plot output
 #'
-#' @return Function returns results numerically and graphically:\cr
+#' @return 
+#' Function returns results numerically and graphically:
 #'
 #' -----------------------------------\cr
-#' [ NUMERICAL OUTPUT ]\cr
+#' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' \bold{\code{RLum.Reuslts}}-object\cr
+#' 
+#' **`RLum.Results`**-object
 #'
-#' \bold{slot:} \bold{\code{@data}}\cr
+#' **slot:** **`@data`**
+#' 
 #' \tabular{lll}{
-#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
-#'  \code{$data} \tab \code{data.frame} \tab correction value and error \cr
-#'  \code{$table} \tab \code{data.frame} \tab table used for plotting  \cr
-#'  \code{$table_mean} \tab \code{data.frame} \tab table used for fitting \cr
-#'  \code{$fit} \tab \code{lm} or \code{nls} \tab the fitting as returned by the function \code{\link{plot_GrowthCurve}}
+#'   **Element** \tab **Type** \tab **Description**\cr
+#'  `$data` \tab `data.frame` \tab correction value and error \cr
+#'  `$table` \tab `data.frame` \tab table used for plotting  \cr
+#'  `$table_mean` \tab `data.frame` \tab table used for fitting \cr
+#'  `$fit` \tab `lm` or `nls` \tab the fitting as returned by the function [plot_GrowthCurve]
 #' }
 #'
-#'\bold{slot:} \bold{\code{@info}}\cr
+#'**slot:** **`@info`**
 #'
-#' The original function call\cr
+#' The original function call
 #'
 #' ------------------------\cr
-#' [ PLOT OUTPUT ]\cr
+#' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
 #'
-#' \itemize{
-#'  \item A dose response curve with the marked correction values
-#'
-#' }
+#' - A dose response curve with the marked correction values
 #'
 #' @section Function version: 0.1.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{plot_GrowthCurve}}
+#' @seealso [plot_GrowthCurve]
 #'
 #' @references TODO
 #'
@@ -82,8 +91,9 @@
 #'
 #' @examples
 #'
-#' ##nothing so far TODO ... add tests with example
+#' ## nothing so far TODO ... add tests with example
 #'
+#' @md
 #' @export
 analyse_Al2O3C_ITC <- function(
   object,

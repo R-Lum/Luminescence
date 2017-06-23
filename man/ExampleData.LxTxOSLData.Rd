@@ -3,7 +3,7 @@
 \name{ExampleData.LxTxOSLData}
 \alias{ExampleData.LxTxOSLData}
 \title{Example Lx and Tx curve data from an artificial OSL measurement}
-\format{Two \code{data.frames} containing time and count values.}
+\format{Two \code{\link{data.frame}}s containing time and count values.}
 \source{
 Arbitrary OSL measurement.
 }

@@ -12,8 +12,13 @@ application of age models, curve deconvolution, sequence analysis and
 plotting of equivalent dose distributions.
 }
 \details{
-\tabular{ll}{ Package: \tab Luminescence\cr Type: \tab Package\cr Version:
-\tab 0.8.0 \cr Date: \tab 2017-XX-XX \cr License: \tab GPL-3\cr }
+\tabular{ll}{
+\strong{Package:} \tab Luminescence \cr
+\strong{Type:} \tab Package \cr
+\strong{Version:} \tab 0.8.0 \cr
+\strong{Date:} \tab 2017-XX-XX \cr
+\strong{License:} \tab GPL-3 \cr
+}
 }
 \references{
 Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
@@ -37,62 +42,67 @@ Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU
 Ancient TL 33, 16-21.
 }
 \author{
-\bold{Full list of authors and contributors} (alphabetic order)
+\strong{Full list of authors and contributors} (alphabetic order)
 
 \tabular{ll}{
-Christoph Burow \tab University of Cologne, Germany \cr
-Claire Christophe \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
-Michael Dietze \tab GFZ Helmholtz Centre Potsdam, Germany \cr
-Julie Durcan \tab University of Oxford, United Kingdom \cr
-Manfred Fischer\tab University of Bayreuth, Germany \cr
-Margret C. Fuchs \tab Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology,
-Freiberg, Germany \cr
-Johannes Friedrich \tab University of Bayreuth, Germany \cr
-Guillaume Guerin \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
-Georgina King \tab Institute of Geological Sciences, University of Bern, Switzerland \cr
-Sebastian Kreutzer \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
-Norbert Mercier \tab IRAMAT-CRP2A, Universite Bordeaux Montaigne, France \cr
-Anne Philippe \tab  Universite de Nantes and ANJA INRIA, Rennes, France \cr
-Christoph Schmidt \tab University of Bayreuth, Germany \cr
-Rachel K. Smedley \tab Aberystwyth University, United Kingdom \cr
-Antoine Zink \tab C2RMF, Palais du Louvre, Paris, France
+Christoph Burow \tab \emph{University of Cologne, Germany}* \cr
+Claire Christophe \tab \emph{IRAMAT-CRP2A, Universite Bordeaux Montaigne, France} \cr
+Michael Dietze \tab \emph{GFZ Helmholtz Centre Potsdam, Germany} \cr
+Julie Durcan \tab \emph{University of Oxford, United Kingdom} \cr
+Manfred Fischer\tab \emph{University of Bayreuth, Germany} \cr
+Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany} \cr
+Johannes Friedrich \tab \emph{University of Bayreuth, Germany} \cr
+Guillaume Guerin \tab \emph{IRAMAT-CRP2A, Universite Bordeaux Montaigne, France} \cr
+Georgina King \tab \emph{Institute of Geological Sciences, University of Bern, Switzerland} \cr
+Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, Universite Bordeaux Montaigne, France} \cr
+Norbert Mercier \tab \emph{IRAMAT-CRP2A, Universite Bordeaux Montaigne, France} \cr
+Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
+Christoph Schmidt \tab \emph{University of Bayreuth, Germany} \cr
+Rachel K. Smedley \tab \emph{Aberystwyth University, United Kingdom} \cr
+Antoine Zink \tab \emph{C2RMF, Palais du Louvre, Paris, France}
 }
 
-\bold{Supervisor of the initial version in 2012}
+\strong{Supervisor of the initial version in 2012}
 
-Markus Fuchs, Justus-Liebig-University Giessen, Germany\cr
+Markus Fuchs, Justus-Liebig-University Giessen, Germany
 
-\bold{Support contact}
+\strong{Support contact}
 
-\email{developers@r-luminescence.org}\cr
+\email{developers@r-luminescence.org}
 
 We may further encourage the usage of our support forum. For this please
 visit our project website (link below).
 
-\bold{Bug reporting}
+\strong{Bug reporting}
+\itemize{
+\item \email{developers@r-luminescence.org} or
+\item \url{https://github.com/R-Lum/Luminescence/issues}
+}
 
-\email{developers@r-luminescence.org} or \cr
-\url{https://github.com/R-Lum/Luminescence/issues} \cr
+\strong{Project website}
+\itemize{
+\item \url{http://www.r-luminescence.org}
+}
 
-\bold{Project website}
+\strong{Project source code repository}
+\itemize{
+\item \url{https://github.com/R-Lum/Luminescence}
+}
 
-\url{http://www.r-luminescence.org}\cr
+\strong{Related package projects}
+\itemize{
+\item \url{https://cran.r-project.org/package=RLumShiny}
+\item \url{http://shiny.r-luminescence.org}
+\item \url{https://cran.r-project.org/package=RLumModel}
+\item \url{http://model.r-luminescence.org}
+}
 
-\bold{Project source code repository}\cr
-\url{https://github.com/R-Lum/Luminescence}\cr
+\strong{Package maintainer}
 
-\bold{Related package projects}\cr
-\url{https://cran.r-project.org/package=RLumShiny}\cr
-\url{http://shiny.r-luminescence.org}\cr
-\url{https://cran.r-project.org/package=RLumModel}\cr
-\url{http://model.r-luminescence.org}\cr
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France,\cr
+\email{sebastian.kreutzer@u-bordeaux-montaigne.fr}
 
-\bold{Package maintainer}
-
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac,
-France, \cr \email{sebastian.kreutzer@u-bordeaux-montaigne.fr}
-
-\bold{Acknowledgement}
+\strong{Acknowledgement}
 
 Cooperation and personal exchange between the developers is gratefully
 funded by the DFG (SCHM 3051/3-1) in the framework of the program

@@ -8,20 +8,20 @@ plot_RLum.Data.Curve(object, par.local = TRUE, norm = FALSE,
   smooth = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Curve}} (\bold{required}): S4
-object of class \code{RLum.Data.Curve}}
+\item{object}{\linkS4class{RLum.Data.Curve} (\strong{required}):
+S4 object of class \code{RLum.Data.Curve}}
 
-\item{par.local}{\code{\link{logical}} (with default): use local graphical
-parameters for plotting, e.g. the plot is shown in one column and one row.
-If \code{par.local = FALSE}, global parameters are inherited.}
+\item{par.local}{\link{logical} (\emph{with default}):
+use local graphical parameters for plotting, e.g. the plot is shown in one
+column and one row. If \code{par.local = FALSE}, global parameters are inherited.}
 
-\item{norm}{\code{\link{logical}} (with default): allows curve normalisation
-to the highest count value}
+\item{norm}{\link{logical} (\emph{with default}):
+allows curve normalisation to the highest count value}
 
-\item{smooth}{\code{\link{logical}} (with default): provides an automatic curve smoothing
-based on \code{\link[zoo]{rollmean}}}
+\item{smooth}{\link{logical} (\emph{with default}):
+provides an automatic curve smoothing based on \link[zoo:rollmean]{zoo::rollmean}}
 
-\item{\dots}{further arguments and graphical parameters that will be passed
+\item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function}
 }
 \value{
@@ -33,17 +33,16 @@ RLum.Data.Curve S4 class object
 }
 \details{
 Only single curve data can be plotted with this function.  Arguments
-according to \code{\link{plot}}.
+according to \link{plot}.
 }
 \note{
-Not all arguments of \code{\link{plot}} will be passed!
+Not all arguments of \link{plot} will be passed!
 }
 \section{Function version}{
- 0.2.3 (2017-01-24 21:10:47)
+ 0.2.3
 }
 
 \examples{
-
 
 ##plot curve data
 
@@ -57,20 +56,11 @@ temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
 plot_RLum.Data.Curve(temp)
 
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). plot_RLum.Data.Curve(): Plot function for an RLum.Data.Curve S4 class object. Function version 0.2.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
-#
 }
 \seealso{
-\code{\link{plot}}, \code{\link{plot_RLum}}
+\link{plot}, \link{plot_RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}
 \keyword{aplot}

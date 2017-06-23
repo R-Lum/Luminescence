@@ -10,87 +10,87 @@ analyse_pIRIRSequence(object, signal.integral.min, signal.integral.max,
   plot.single = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}) or \code{\link{list}} of
-\code{\linkS4class{RLum.Analysis}} objects: input object containing data for analysis. If a \code{\link{list}}
-is provided the functions tries to iteratre over the list.}
+\item{object}{\linkS4class{RLum.Analysis} or \link{list} of \linkS4class{RLum.Analysis} objects (\strong{required}):
+input object containing data for analysis.
+If a \link{list} is provided the functions tries to iteratre over the list.}
 
-\item{signal.integral.min}{\code{\link{integer}} (\bold{required}): lower
-bound of the signal integral. Provide this value as vector for different
+\item{signal.integral.min}{\link{integer} (\strong{required}):
+lower bound of the signal integral. Provide this value as vector for different
 integration limits for the different IRSL curves.}
 
-\item{signal.integral.max}{\code{\link{integer}} (\bold{required}): upper
-bound of the signal integral. Provide this value as vector for different
+\item{signal.integral.max}{\link{integer} (\strong{required}):
+upper bound of the signal integral. Provide this value as vector for different
 integration limits for the different IRSL curves.}
 
-\item{background.integral.min}{\code{\link{integer}} (\bold{required}):
+\item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.}
 
-\item{background.integral.max}{\code{\link{integer}} (\bold{required}):
+\item{background.integral.max}{\link{integer} (\strong{required}):
 upper bound of the background integral. Provide this value as vector for
 different integration limits for the different IRSL curves.}
 
-\item{dose.points}{\code{\link{numeric}} (optional): a numeric vector
-containing the dose points values. Using this argument overwrites dose point
+\item{dose.points}{\link{numeric} (\emph{optional}):
+a numeric vector containing the dose points values. Using this argument overwrites dose point
 values in the signal curves.}
 
-\item{sequence.structure}{\link{vector} \link{character} (with default):
+\item{sequence.structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Allowed values are \code{"TL"} and
 any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
 Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves from
 the analysis (Note: If a preheat without PMT measurement is used, i.e.
 preheat as non TL, remove the TL step.)}
 
-\item{plot}{\code{\link{logical}} (with default): enables or disables plot
-output.}
+\item{plot}{\link{logical} (\emph{with default}):
+enables or disables plot output.}
 
-\item{plot.single}{\code{\link{logical}} (with default): single plot output
-(\code{TRUE/FALSE}) to allow for plotting the results in single plot
+\item{plot.single}{\link{logical} (\emph{with default}):
+single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot
 windows. Requires \code{plot = TRUE}.}
 
-\item{\dots}{further arguments that will be passed to the function
-\code{\link{analyse_SAR.CWOSL}} and \code{\link{plot_GrowthCurve}}}
+\item{...}{further arguments that will be passed to the function
+\link{analyse_SAR.CWOSL} and \link{plot_GrowthCurve}}
 }
 \value{
-Plots (optional) and an \code{\linkS4class{RLum.Results}} object is
+Plots (\emph{optional}) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
 
 \tabular{lll}{
-\bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
+\strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
 \code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
 \code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
-\code{..$rejection.criteria} : \tab \code{\link{data.frame}} \tab rejection criteria \cr
-\code{..$Formula} : \tab \code{\link{list}} \tab Function used for fitting of the dose response curve \cr
-\code{..$call} : \tab \code{\link{call}} \tab the original function call
+\code{..$rejection.criteria} : \tab \link{data.frame} \tab rejection criteria \cr
+\code{..$Formula} : \tab \link{list} \tab Function used for fitting of the dose response curve \cr
+\code{..$call} : \tab \link{call} \tab the original function call
 }
 
-The output should be accessed using the function
-\code{\link{get_RLum}}.
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 The function performs an analysis of post-IR IRSL sequences including curve
-fitting on \code{\linkS4class{RLum.Analysis}} objects.
+fitting on \linkS4class{RLum.Analysis} objects.
 }
 \details{
 To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
 this function has been written as extended wrapper function for the function
-\code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis in
+\link{analyse_SAR.CWOSL}, facilitating an entire sequence analysis in
 one run. With this, its functionality is strictly limited by the
-functionality of the function \code{\link{analyse_SAR.CWOSL}}.\cr
+functionality of the function \link{analyse_SAR.CWOSL}.
 
-\bold{If the input is a \code{list}}\cr
+\strong{If the input is a \code{list}}
 
 If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
 for different sets of parameters for every single input element.
-For further information see \code{\link{analyse_SAR.CWOSL}}.
+For further information see \link{analyse_SAR.CWOSL}.
 }
 \note{
 Best graphical output can be achieved by using the function \code{pdf}
-with the following options:\cr \code{pdf(file = "...", height = 15, width =
-15)}
+with the following options:
+
+\code{pdf(file = "...", height = 15, width = 15)}
 }
 \section{Function version}{
- 0.2.2 (2016-12-29 17:41:52)
+ 0.2.2
 }
 
 \examples{
@@ -149,12 +149,7 @@ pdf(file = "...", height = 15, width = 15)
   dev.off()
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). analyse_pIRIRSequence(): Analyse post-IR IRSL sequences. Function version 0.2.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 using an improved single-aliquot regenerative-dose protocol. Radiation
@@ -166,13 +161,12 @@ extracts. Radiation Measurements 43, 1474-1486.
 doi:10.1016/j.radmeas.2008.06.002
 }
 \seealso{
-\code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
-\code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}} \code{\link{get_RLum}}
+\link{analyse_SAR.CWOSL}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} \link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}
 \keyword{plot}

@@ -1,89 +1,107 @@
 #' Calculates the Thermal Lifetime using the Arrhenius equation
 #'
 #' The function calculates the thermal lifetime of charges for given E (in eV), s (in 1/s) and
-#' T (in deg. C.) parameters. The function can be used in two operational modes:\cr
+#' T (in deg. C.) parameters. The function can be used in two operational modes:
 #'
-#' \bold{Mode 1 \code{(profiling = FALSE)}}
+#' **Mode 1 `(profiling = FALSE)`**
 #'
 #' An arbitrary set of input parameters (E, s, T) can be provided and the
 #' function calculates the thermal lifetimes using the Arrhenius equation for
 #' all possible combinations of these input parameters. An array with 3-dimensions
 #' is returned that can be used for further analyses or graphical output (see example 1)
 #'
-#' \bold{Mode 2 \code{(profiling = TRUE)}}
-#'
+#' **Mode 2 `(profiling = TRUE)`**
+#' 
 #' This mode tries to profile the variation of the thermal lifetime for a chosen
 #' temperature by accounting for the provided E and s parameters and their corresponding
-#' standard errors, e.g., \code{E = c(1.600, 0.001)}
+#' standard errors, e.g., `E = c(1.600, 0.001)`
 #' The calculation based on a Monte Carlo simulation, where values are sampled from a normal
-#' distribution (for E and s).\cr
+#' distribution (for E and s).
 #'
-#' \bold{Used equation (Arrhenius equation)}\cr
+#' **Used equation (Arrhenius equation)**
 #'
 #' \deqn{\tau = 1/s exp(E/kT)}
-#' where: \eqn{\tau} in s as the mean time an electron spends in the trap for a given \eqn{T},
-#' \eqn{E} trap depth in eV, \eqn{s} the frequency factor in 1/s, \eqn{T} the temperature in K and \eqn{k} the Boltzmann constant in eV/K (cf. Furetta, 2010).
+#' where: 
+#' \eqn{\tau} in s as the mean time an electron spends in the trap for a given \eqn{T},
+#' \eqn{E} trap depth in eV, 
+#' \eqn{s} the frequency factor in 1/s, 
+#' \eqn{T} the temperature in K and \eqn{k} the Boltzmann constant in eV/K (cf. Furetta, 2010).
 #'
-#' @param E \code{\link{numeric}} (\bold{required}): vector of trap depths in eV,
-#' if \code{profiling = TRUE}
-#' only the first two elements are considered
 #'
-#' @param s \code{\link{numeric}} (\bold{required}): vector of frequency factor in 1/s,
-#' if \code{profiling = TRUE} only the first two elements are considered
+#' @param E [numeric] (**required**): 
+#' vector of trap depths in eV, 
+#' if `profiling = TRUE` only the first two elements are considered
 #'
-#' @param T \code{\link{numeric}} (with default): temperature in deg. C for which the lifetime(s)
-#' will be calculted. A vector can be provided.
+#' @param s [numeric] (**required**): 
+#' vector of frequency factor in 1/s, 
+#' if `profiling = TRUE` only the first two elements are considered
 #'
-#' @param output_unit \code{\link{character}} (with default):
+#' @param T [numeric] (*with default*): 
+#' temperature in deg. C for which the lifetime(s) will be calculted. 
+#' A vector can be provided.
+#'
+#' @param output_unit [character] (*with default*):
 #' output unit of the calculated lifetimes, accepted
-#' entries are: \code{"Ma"}, \code{"ka"}, \code{"a"}, \code{"d"}, \code{"h"}, \code{"min"}, \code{"s"}
+#' entries are: `"Ma"`, `"ka"`, `"a"`, `"d"`, `"h"`, `"min"`, `"s"`
 #'
-#' @param profiling \code{\link{logical}} (with default):
+#' @param profiling [logical] (*with default*):
 #' this option allows to estimate uncertainties based on
-#' given E and s parameters and their corresponding standard error (cf. details and examples section)
+#' given E and s parameters and their corresponding standard error 
+#' (cf. details and examples section)
 #'
-#' @param profiling_config \code{\link{list}} (optional): allows to set configurate parameters
-#' used for the profiling (and only have an effect here). Supported parameters are:
-#' \code{n} (number of MC runs), \code{E.distribution} (distribution used for the resampling for E) and
-#' \code{s.distribution} (distribution used for the resampling for s). Currently only the normal
-#' distribution is supported (e.g., \code{profiling_config = list(E.distribution = "norm")}
+#' @param profiling_config [list] (*optional*): 
+#' allows to set configurate parameters used for the profiling 
+#' (and only have an effect here). Supported parameters are:
+#' 
+#' - `n` (number of MC runs), 
+#' - `E.distribution` (distribution used for the resampling for E) and
+#' - `s.distribution` (distribution used for the resampling for s).
+#' 
+#' Currently only the normal distribution is supported 
+#' (e.g., `profiling_config = list(E.distribution = "norm")`
 #'
-#' @param verbose \code{\link{logical}}: enables/disables verbose mode
+#' @param verbose [logical]: 
+#' enables/disables verbose mode
 #'
-#' @param plot \code{\link{logical}}: enables/disables output plot, currenlty only in combination
-#' with \code{profiling = TRUE}.
+#' @param plot [logical]: 
+#' enables/disables output plot, currenlty only in combination with `profiling = TRUE`.
 #'
-#' @param \dots further arguments that can be passed in combination with the plot output. Standard
-#' plot parameters are supported (\code{\link{plot.default}})
+#' @param ... further arguments that can be passed in combination with the plot output. 
+#' Standard plot parameters are supported ([plot.default])
 #'
-#' @return A \code{\linkS4class{RLum.Results}} object is returned a along with a plot (for
-#' \code{profiling = TRUE}). The output object contain the following slots:
+#' @return 
+#' A [RLum.Results-class] object is returned a along with a plot (for
+#' `profiling = TRUE`). The output object contain the following slots:
 #'
-#' \bold{\code{@data}}\cr
+#' **`@data`**
+#' 
 #' \tabular{lll}{
-#'  \bold{Object} \tab \bold{Type} \tab \bold{Description} \cr
-#'  \code{lifetimes} \tab \code{\link{array}} or \code{\link{numeric}} \tab calculated lifetimes \cr
-#'  \code{profiling_matrix} \tab \code{\link{matrix}} \tab profiling matrix used for the MC runs
-#'
+#'  **Object** \tab **Type** \tab **Description** \cr
+#'  `lifetimes` \tab [array] or [numeric] \tab calculated lifetimes \cr
+#'  `profiling_matrix` \tab [matrix] \tab profiling matrix used for the MC runs
 #' }
 #'
-#' \bold{\code{@info}}\cr
+#' **`@info`**
+#' 
 #' \tabular{lll}{
-#' \bold{Object} \tab \bold{Type} \tab \bold{Description} \cr
-#' \code{call} \tab \code{call} \tab the original function call
+#' **Object** \tab **Type** \tab **Description** \cr
+#' `call` \tab `call` \tab the original function call
 #' }
 #'
-#' @note The profiling is currently based on resampling from a normal distribution, this
+#' @note 
+#' The profiling is currently based on resampling from a normal distribution, this
 #' distribution assumption might be, however, not valid for given E and s paramters.
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link[graphics]{matplot}}, \code{\link[stats]{rnorm}}, \code{\link{get_RLum}},
+#' @seealso [graphics::matplot], [stats::rnorm], [get_RLum]
 #'
-#' @references Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed.
-#' World Scientific.
+#' @references 
+#' 
+#' Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed. World Scientific.
 #'
 #' @keywords datagen
 #'
@@ -120,6 +138,7 @@
 #'   output_unit = "Ma"
 #')
 #'
+#' @md
 #' @export
 calc_ThermalLifetime <- function(
   E,
@@ -384,7 +403,7 @@ calc_ThermalLifetime <- function(
       ylab = plot.settings$ylab,
       xlim = plot.settings$xlim,
       ylim = plot.settings$ylim,
-      log = plot.settings$log,
+      log = plot.settings$log
     )
 
   }

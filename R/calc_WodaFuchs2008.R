@@ -2,32 +2,32 @@
 #'
 #' The description section
 #'
-#' The details section
+#' No details yet.
 #'
-#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-#' object (required): for \code{data.frame}: two columns: De
-#' (\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
-#' data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
-#' dataset2)}).
+#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
+#' for [data.frame]: two columns: De (`values[,1]`) and De error (`values[,2]`). 
+#' For plotting multiple data sets, these must be provided as `list` 
+#' (e.g. `list(dataset1, dataset2)`).
 #'
-#' @param breaks \code{\link{numeric}}: Either number or locations of breaks.
-#' See \code{\link{hist}} for details. If missing, the number of breaks will
-#' be estimated based on the bin width (as function of median error).
+#' @param breaks [numeric]: 
+#' Either number or locations of breaks. See `[hist]` for details. 
+#' If missing, the number of breaks will be estimated based on the bin width 
+#' (as function of median error).
 #'
-#' @param plot \code{\link{logical}} (with default): enable plot output.
+#' @param plot [logical] (*with default*): 
+#' enable plot output.
 #'
-#' @param \dots Further plot arguments passed to the function.
-#'
-#' @note The notes section
+#' @param ... Further plot arguments passed to the function.
 #'
 #' @section Function version: 0.2.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
-#' @seealso \code{\link{calc_FuchsLang2001}}, \code{\link{calc_CentralDose}}
+#' @seealso [calc_FuchsLang2001], [calc_CentralDose]
 #'
-#' @references Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
+#' @references 
+#' Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
 #' obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.
 #'
 #' @examples
@@ -40,6 +40,7 @@
 #'    xlab = expression(paste(D[e], " [Gy]"))
 #'  )
 #'
+#' @md
 #' @export
 calc_WodaFuchs2008 <- function(
   data,

@@ -9,80 +9,80 @@ analyse_Al2O3C_CrossTalk(object, signal_integral = NULL, dose_points = c(0,
   plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} \bold{(required)}: measurement input}
+\item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
+measurement input}
 
-\item{signal_integral}{\code{\link{numeric}} (optional): signal integral, used for the signal
-and the background. If nothing is provided the full range is used}
+\item{signal_integral}{\link{numeric} (\emph{optional}):
+signal integral, used for the signal and the background.
+If nothing is provided the full range is used}
 
-\item{dose_points}{\code{\link{numeric}} (with default): vector with dose points, if dose points
-are repeated, only the general pattern needs to be provided. Default values follow the suggestions
+\item{dose_points}{\link{numeric} (\emph{with default}):
+vector with dose points, if dose points are repeated, only the general
+pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017}
 
-\item{irradiation_time_correction}{\code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (optional):
+\item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obained by another experiements.}
 
-\item{method_control}{\code{\link{list}} (optional): optional parameters to control the calculation.
+\item{method_control}{\link{list} (\emph{optional}):
+optional parameters to control the calculation.
 See details for further explanations}
 
-\item{plot}{\code{\link{logical}} (with default): enable/disable plot output}
+\item{plot}{\link{logical} (\emph{with default}):
+enable/disable plot output}
 
 \item{...}{further arguments that can be passed to the plot output}
 }
 \value{
-Function returns results numerically and graphically:\cr
+Function returns results numerically and graphically:
 
 -----------------------------------\cr
-[ NUMERICAL OUTPUT ]\cr
+\code{[ NUMERICAL OUTPUT ]}\cr
 -----------------------------------\cr
-\bold{\code{RLum.Reuslts}}-object\cr
 
-\bold{slot:} \bold{\code{@data}}\cr
+\strong{\code{RLum.Results}}-object
+
+\strong{slot:} \strong{\code{@data}}
+
 \tabular{lll}{
-\bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
- \code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
- \code{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
- \code{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
- \code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
+\strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
+\code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
+\code{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
+\code{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
+\code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
 }
 
-\bold{slot:} \bold{\code{@info}}\cr
+\strong{slot:} \strong{\code{@info}}
 
-The original function call\cr
+The original function call
 
 ------------------------\cr
-[ PLOT OUTPUT ]\cr
+\code{[ PLOT OUTPUT ]}\cr
 ------------------------\cr
-
 \itemize{
- \item An overview of the obtained apparent dose values
-
+\item An overview of the obtained apparent dose values
 }
 }
 \description{
-The function provides the analysis of cross-talk measurements on a FI lexsyg SMART reader using
-Al2O3:C pellets
+The function provides the analysis of cross-talk measurements on a
+FI lexsyg SMART reader using Al2O3:C pellets
 }
 \section{Function version}{
- 0.1.0 (2017-06-18 11:11:08)
+ 0.1.0
 }
 
 \examples{
 
-##nothing so far TODO ... add tests with example
+## nothing so far TODO ... add tests with example
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 TODO
 }
 \seealso{
-\code{\link{analyse_Al2O3C_ITC}}
+\link{analyse_Al2O3C_ITC}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

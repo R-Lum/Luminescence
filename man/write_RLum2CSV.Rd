@@ -7,45 +7,48 @@
 write_RLum2CSV(object, path = NULL, prefix = "", export = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum}} or a \code{\link{list}} of \code{RLum} objects (\bold{required}): objects to be written}
+\item{object}{\linkS4class{RLum} or a \link{list} of \code{RLum} objects (\strong{required}):
+objects to be written}
 
-\item{path}{\code{\link{character}} (optional): character string naming folder for the output to be written. If nothing
-is provided \code{path} will be set to the working directory. Note: this argument is ignored if the
-the argument \code{export} is set to \code{FALSE}.}
+\item{path}{\link{character} (\emph{optional}):
+character string naming folder for the output to be written. If nothing
+is provided \code{path} will be set to the working directory.
+\strong{Note:} this argument is ignored if the the argument \code{export} is set to \code{FALSE}.}
 
-\item{prefix}{\code{\link{character}} (with default): optional prefix to name the files. This prefix
-is valid for all written files}
+\item{prefix}{\link{character} (\emph{with default}):
+optional prefix to name the files. This prefix is valid for all written files}
 
-\item{export}{\code{\link{logical}} (with default): enable or disable the file export. If set to \code{FALSE}
-nothing is written to the file connection, but a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+\item{export}{\link{logical} (\emph{with default}):
+enable or disable the file export. If set to \code{FALSE} nothing is written to
+the file connection, but a list comprising objects of type \link{data.frame} and \link{matrix}
 is returned instead}
 
-\item{\dots}{further arguments that will be passed to the function \code{\link[utils]{write.table}}. All arguments
-except the argument \code{file} are supported}
+\item{...}{further arguments that will be passed to the function
+\link[utils:write.table]{utils::write.table}. All arguments except the argument \code{file} are supported}
 }
 \value{
-The function returns either a CSV-file (or many of them) or for the option \code{export == FALSE}
-a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+The function returns either a CSV-file (or many of them) or for the
+option \code{export == FALSE} a list comprising objects of type \link{data.frame} and \link{matrix}
 }
 \description{
-This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
-\code{\link[utils]{write.table}}. All \code{\linkS4class{RLum}}-objects are supported, but the
-export is lossy, i.e. the pure numerical values are exported only. Information that cannot
-be coerced to a \code{\link{data.frame}} or a \code{\link{matrix}} are discarded as well as
+This function exports \linkS4class{RLum}-objects to CSV-files using the R function
+\link[utils:write.table]{utils::write.table}. All \linkS4class{RLum}-objects are supported, but the
+export is lossy, i.e. the pure numerical values are exported only. Information
+that cannot be coerced to a \link{data.frame} or a \link{matrix} are discarded as well as
 metadata.
 }
 \details{
-However, in combination with the implemented import functions, nearly every supported
-import data format can be exported to CSV-files, this gives a great deal of freedom in terms of
-compatibility with other tools.\cr
+However, in combination with the implemented import functions, nearly every
+supported import data format can be exported to CSV-files, this gives a great
+deal of freedom in terms of compatibility with other tools.
 
-\bold{Input is a list of objects}\cr
+\strong{Input is a list of objects}
 
-If the input is a \code{\link{list}} of objects all explicit function arguments can be provided
-as \code{\link{list}}.
+If the input is a \link{list} of objects all explicit function arguments can be provided
+as \link{list}.
 }
 \section{Function version}{
- 0.1.1 (2017-01-24 21:10:47)
+ 0.1.1
 }
 
 \examples{
@@ -67,15 +70,10 @@ write_RLum2CSV(object, export = FALSE)
 
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
-\code{\link[utils]{write.table}}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data}, \linkS4class{RLum.Results},
+\link[utils:write.table]{utils::write.table}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). write_RLum2CSV(): Export RLum-objects to CSV. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{IO}

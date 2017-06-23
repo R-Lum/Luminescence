@@ -4,74 +4,81 @@
 #' RLum.Analysis S4 class object
 #'
 #' The function produces a multiple plot output. A file output is recommended
-#' (e.g., \code{\link{pdf}}).
+#' (e.g., [pdf]).
 #'
-#' \bold{curve.transformation}\cr
+#' **curve.transformation**
 #'
 #' This argument allows transforming continuous wave (CW) curves to pseudo
 #' (linear) modulated curves. For the transformation, the functions of the
 #' package are used. Currently, it is not possible to pass further arguments to
-#' the transformation functions. The argument works only for \code{ltype}
-#' \code{OSL} and \code{IRSL}.\cr
+#' the transformation functions. The argument works only for `ltype`
+#' `OSL` and `IRSL`.
 #'
 #' Please note: The curve transformation within this functions works roughly,
 #' i.e. every IRSL or OSL curve is transformed, without considerung whether it
 #' is measured with the PMT or not! However, for a fast look it might be
-#' helpful.\cr
+#' helpful.
 #'
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): S4
-#' object of class \code{RLum.Analysis}
+#' @param object [RLum.Analysis-class] (**required**): 
+#' S4 object of class `RLum.Analysis`
 #'
-#' @param subset named \code{\link{list}} (optional): subsets elements for plotting. The
-#' arguments in the named \code{\link{list}} will be directly passed to the function \code{\link{get_RLum}}
-#' (e.g., \code{subset = list(curveType = "measured")})
+#' @param subset named [list] (*optional*): 
+#' subsets elements for plotting. The arguments in the named [list] will be 
+#' directly passed to the function [get_RLum] 
+#' (e.g., `subset = list(curveType = "measured")`)
 #'
-#' @param nrows \code{\link{integer}} (optional): sets number of rows for
-#' plot output, if nothing is set the function tries to find a value.
+#' @param nrows [integer] (*optional*): 
+#' sets number of rows for plot output, if nothing is set the function 
+#' tries to find a value.
 #'
-#' @param ncols \code{\link{integer}} (optional): sets number of columns
-#' for plot output, if nothing is set the function tries to find a value.
+#' @param ncols [integer] (*optional*): 
+#' sets number of columns for plot output, if nothing is set the function 
+#' tries to find a value.
 #'
-#' @param abline \code{\link{list}} (optional): allows to add ablines to the plot. Argument are provided
-#' in a list and will be forwared to the function \code{\link{abline}}, e.g., \code{list(v = c(10, 100))}
-#' adds two vertical lines add 10 and 100 to all plots. In contrast \code{list(v = c(10), v = c(100)}
-#' adds a vertical at 10 to the first and a vertical line at 100 to the 2nd plot.
+#' @param abline [list] (*optional*): 
+#' allows to add ablines to the plot. Argument are provided
+#' in a list and will be forwared to the function [abline], 
+#' e.g., `list(v = c(10, 100))` adds two vertical lines add 10 and 100 to all 
+#' plots. In contrast `list(v = c(10), v = c(100)` adds a vertical at 10 to 
+#' the first and a vertical line at 100 to the 2nd plot.
 #'
-#' @param combine \code{\link{logical}} (with default): allows to combine all
-#' \code{\linkS4class{RLum.Data.Curve}} objects in one single plot.
+#' @param combine [logical] (*with default*): 
+#' allows to combine all [RLum.Data.Curve-class] objects in one single plot.
 #'
-#' @param curve.transformation \code{\link{character}} (optional): allows
-#' transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
-#' transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
-#' \code{CW2pHMi} and \code{CW2pPMi}. See details.
+#' @param curve.transformation [character] (*optional*): 
+#' allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
+#' transformation functions. Allowed values are: `CW2pLM`, `CW2pLMi`,
+#' `CW2pHMi` and `CW2pPMi`. See details.
 #'
-#' @param plot.single \code{\link{logical}} (with default): global par settings are
-#' considered, normally this should end in one plot per page
+#' @param plot.single [logical] (*with default*): 
+#' global par settings are considered, normally this should end in one plot per page
 #'
-#' @param \dots further arguments and graphical parameters will be passed to
-#' the \code{plot} function. Supported arguments: \code{main}, \code{mtext},
-#' \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
-#' \code{norm}, \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}... and for \code{combine = TRUE}
-#' also: \code{sub}, \code{legend}, \code{legend.text}, \code{legend.pos} (typical plus 'outside'), \code{legend.col}, \code{smooth}.
-#' All arguments can be provided as \code{vector} or \code{list} to gain in full control
+#' @param ... further arguments and graphical parameters will be passed to
+#' the `plot` function. 
+#' 
+#' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`, `col`,
+#' `norm`, `xlim`,`ylim`, `xlab`, `ylab`... 
+#' 
+#' and for `combine = TRUE` also: `sub`, `legend`, `legend.text`, `legend.pos` 
+#' (typical plus 'outside'), `legend.col`, `smooth`.
+#' 
+#' All arguments can be provided as `vector` or `list` to gain in full control
 #' of all plot settings.
 #'
 #' @return Returns multiple plots.
 #'
-#' @note Not all arguments available for \code{\link{plot}} will be passed!
-#' Only plotting of \code{RLum.Data.Curve} and \code{RLum.Data.Spectrum}
-#' objects are currently supported.\cr
+#' @note 
+#' Not all arguments available for [plot] will be passed!
+#' Only plotting of `RLum.Data.Curve` and `RLum.Data.Spectrum`
+#' objects are currently supported.
 #'
 #' @section Function version: 0.3.8
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{plot}}, \code{\link{plot_RLum}},
-#' \code{\link{plot_RLum.Data.Curve}}
-#'
-#' @references #
+#' @seealso [plot], [plot_RLum], [plot_RLum.Data.Curve]
 #'
 #' @keywords aplot
 #'
@@ -103,6 +110,7 @@
 #' abline = list(v = c(110))
 #' )
 #'
+#' @md
 #' @export
 plot_RLum.Analysis <- function(
   object,

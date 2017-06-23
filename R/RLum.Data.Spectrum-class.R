@@ -1,7 +1,7 @@
 #' @include get_RLum.R set_RLum.R names_RLum.R
 NULL
 
-#' Class \code{"RLum.Data.Spectrum"}
+#' Class `"RLum.Data.Spectrum"`
 #'
 #' Class for representing luminescence spectra data (TL/OSL/RF).
 #'
@@ -9,29 +9,33 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot recordType Object of class \code{\link{character}} containing the type of the curve (e.g. "TL" or "OSL")
+#' @slot recordType 
+#' Object of class [character] containing the type of the curve (e.g. "TL" or "OSL")
 #'
-#' @slot curveType Object of class \code{\link{character}} containing curve type, allowed values
-#' are measured or predefined
+#' @slot curveType 
+#' Object of class [character] containing curve type, allowed values are measured or predefined
 #'
-#' @slot data Object of class \code{\link{matrix}} containing spectrum (count) values.
+#' @slot data 
+#' Object of class [matrix] containing spectrum (count) values.
 #' Row labels indicate wavelength/pixel values, column labels are temperature or time values.
 #'
-#' @slot info Object of class \code{\link{list}} containing further meta information objects
+#' @slot info 
+#' Object of class [list] containing further meta information objects
 #'
-#' @note The class should only contain data for a single spectra data set. For
-#' additional elements the slot \code{info} can be used. Objects from this class are automatically
-#' created by, e.g., \code{\link{read_XSYG2R}}
+#' @note 
+#' The class should only contain data for a single spectra data set. For
+#' additional elements the slot `info` can be used. Objects from this class are automatically
+#' created by, e.g., [read_XSYG2R]
 #'
-#' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{set_RLum("RLum.Data.Spectrum", ...)}.
+#' @section Objects from the Class: 
+#' Objects can be created by calls of the form `set_RLum("RLum.Data.Spectrum", ...)`.
 #'
 #' @section Class version: 0.4.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-#' \code{\link{plot_RLum}}
+#' @seealso [RLum-class], [RLum.Data-class], [plot_RLum]
 #'
 #' @keywords classes
 #'
@@ -50,6 +54,8 @@ NULL
 #' \dontrun{
 #' plot_RLum(TL.Spectrum)
 #' }
+#' 
+#' @md
 #' @export
 setClass(
   "RLum.Data.Spectrum",
@@ -76,22 +82,20 @@ setClass(
 ##COERCE RLum.Data.Spectrum >> data.frame AND data.frame >> RLum.Data.Spectrum
 #' as()
 #'
-#' for \code{[RLum.Data.Spectrum]}
+#' for `[RLum.Data.Spectrum-class]`
 #'
 #'
-#' \bold{[RLum.Data.Spectrum]}\cr
+#' **[RLum.Data.Spectrum-class]**
 #'
 #' \tabular{ll}{
-#'  \bold{from} \tab \bold{to}\cr
-#'   \code{data.frame} \tab \code{data.frame}\cr
-#'   \code{matrix} \tab \code{matrix}
-#'
+#'   **from** \tab **to**\cr
+#'   `data.frame` \tab `data.frame`\cr
+#'   `matrix` \tab `matrix`
 #' }
 #'
 #'
+#' @md
 #' @name as
-#'
-#'
 setAs("data.frame", "RLum.Data.Spectrum",
       function(from,to){
 
@@ -131,7 +135,9 @@ setAs("RLum.Data.Spectrum", "matrix",
 ###show()
 ####################################################################################################
 #' @describeIn RLum.Data.Spectrum
-#' Show structure of \code{RLum.Data.Spectrum} object
+#' Show structure of `RLum.Data.Spectrum` object
+#' 
+#' @md
 #' @export
 setMethod("show",
           signature(object = "RLum.Data.Spectrum"),
@@ -143,7 +149,7 @@ setMethod("show",
 
             ##print information
 
-            cat("\n [RLum.Data.Spectrum]")
+            cat("\n [RLum.Data.Spectrum-class]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
             cat("\n\t .. recorded frames:", length(object@data[1,]))
@@ -162,27 +168,41 @@ setMethod("show",
 ####################################################################################################
 #' @describeIn RLum.Data.Spectrum
 #' Construction method for RLum.Data.Spectrum object. The slot info is optional
-#'  and predefined as empty list by default
+#' and predefined as empty list by default
 #'
-#' @param class [\code{set_RLum}] \code{\link{character}} (automatic): name of the \code{RLum} class to create.
-#' @param originator \code{\link{character}} (automatic): contains the name of the calling function
-#' (the function that produces this object); can be set manually.
-#' @param .uid [\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
-#' using the internal C++ function \code{.create_UID}.
-#' @param .pid [\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
-#' at will.
-#' @param recordType [\code{set_RLum}] \code{\link{character}}: record type (e.g. "OSL")
-#' @param curveType [\code{set_RLum}] \code{\link{character}}: curve type (e.g. "predefined" or "measured")
-#' @param data [\code{set_RLum}] \code{\link{matrix}}: raw curve data. If data is of
-#' type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.
-#' @param info [\code{set_RLum}] \code{\link{list}}: info elements
+#' @param class [`set_RLum`]; [character] (*automatic*): 
+#' name of the `RLum` class to create.
+#' 
+#' @param originator [character] (*automatic*): 
+#' contains the name of the calling function (the function that produces this object); 
+#' can be set manually.
+#' 
+#' @param .uid [`set_RLum`]; [character] (*automatic*): 
+#' sets an unique ID for this object using the internal C++ function `.create_UID`.
+#' 
+#' @param .pid [`set_RLum`]; [character] (*with default*): 
+#' option to provide a parent id for nesting at will.
+#' 
+#' @param recordType [`set_RLum`]; [character]: 
+#' record type (e.g. "OSL")
+#' 
+#' @param curveType [`set_RLum`]; [character]: 
+#' curve type (e.g. "predefined" or "measured")
+#' 
+#' @param data [`set_RLum`]; [matrix]: 
+#' raw curve data. If data is of type `RLum.Data.Spectrum`, this can be used 
+#' to re-construct the object.
+#' 
+#' @param info [`set_RLum`] [list]: 
+#' info elements
 #'
 #' @return
 #'
-#' \bold{\code{[set_RLum]}}\cr
+#' **`[set_RLum]`**
 #'
-#' An object from the class \code{RLum.Data.Spectrum}
+#' An object from the class `RLum.Data.Spectrum`
 #'
+#' @md
 #' @export
 setMethod(
   "set_RLum",
@@ -273,18 +293,20 @@ setMethod(
 #' is optional to directly access the info elements. If no info element name
 #' is provided, the raw curve data (matrix) will be returned
 #'
-#' @param object [\code{show_RLum}][\code{get_RLum}][\code{names_RLum}] an object of
-#'  class \code{\linkS4class{RLum.Data.Spectrum}}
-#' @param info.object [\code{get_RLum}] \code{\link{character}} (optional): the name of the info
-#' object to be called
+#' @param object [`get_RLum`], [`names_RLum`] (**required**): 
+#' an object of class [RLum.Data.Spectrum-class]
+#'  
+#' @param info.object [`get_RLum`]; [character] (*optional*): 
+#' the name of the info object to be called
 #'
 #' @return
 #'
-#' \bold{\code{get_RLum}}\cr
+#' **`get_RLum`**
 #'
-#' (1) A \code{\link{matrix}} with the spectrum values or \cr
-#' (2) only the info object if \code{info.object} was set.\cr
+#' 1. A [matrix] with the spectrum values or
+#' 2. only the info object if `info.object` was set.
 #'
+#' @md
 #' @export
 setMethod("get_RLum",
           signature("RLum.Data.Spectrum"),
@@ -337,10 +359,11 @@ setMethod("get_RLum",
 #'
 #' @return
 #'
-#' \bold{\code{names_RLum}}\cr
+#' **`names_RLum`**
 #'
 #' The names of the info objects
 #'
+#' @md
 #' @export
 setMethod("names_RLum",
           "RLum.Data.Spectrum",

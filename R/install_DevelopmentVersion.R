@@ -3,21 +3,22 @@
 #' This function is a convenient method for installing the development
 #' version of the R package 'Luminescence' directly from GitHub.
 #' 
-#' This function uses \code{\link[Luminescence]{github_branches}} to check
+#' This function uses [Luminescence::github_branches] to check
 #' which development branches of the R package 'Luminescence' are currently
 #' available on GitHub. The user is then prompted to choose one of the branches
 #' to be installed. It further checks whether the R package 'devtools' is 
 #' currently installed and available on the system. Finally, it prints R code
 #' to the console that the user can copy and paste to the R console in order
-#' to install the desired development version of the package.\cr\cr
-#' 
-#' If \code{force_install=TRUE} the functions checks if 'devtools' is available
-#' and then attempts to install the chosen development branch via
-#' \code{\link[devtools]{install_github}}.
+#' to install the desired development version of the package.
 #'
-#' @param force_install \code{\link{logical}} (optional):
-#' If \code{FALSE} (the default) the function produces and prints the required
-#' code to the console for the user to run manually afterwards. When \code{TRUE}
+#' 
+#' If `force_install=TRUE` the functions checks if 'devtools' is available
+#' and then attempts to install the chosen development branch via
+#' [devtools::install_github].
+#'
+#' @param force_install [logical] (*optional*):
+#' If `FALSE` (the default) the function produces and prints the required
+#' code to the console for the user to run manually afterwards. When `TRUE`
 #' and all requirements are fulfilled (see details) this function attempts to install
 #' the package itself.
 #'
@@ -32,6 +33,7 @@
 #' install_DevelopmentVersion()
 #' }
 #' 
+#' @md
 #' @export
 install_DevelopmentVersion <- function(force_install = FALSE) {
   

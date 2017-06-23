@@ -15,49 +15,61 @@ github_branches(user = "r-lum", repo = "luminescence")
 github_issues(user = "r-lum", repo = "luminescence", verbose = TRUE)
 }
 \arguments{
-\item{user}{\code{\link{character}}: 
+\item{user}{\link{character} (\emph{with default}):
 GitHub user name (defaults to 'r-lum').}
 
-\item{repo}{\code{\link{character}}: 
+\item{repo}{\link{character} (\emph{with default}):
 name of a GitHub repository (defaults to 'luminescence').}
 
-\item{branch}{\code{\link{character}}: 
+\item{branch}{\link{character} (\emph{with default}):
 branch of a GitHub repository (defaults to 'master').}
 
-\item{n}{\code{\link{integer}}:
+\item{n}{\link{integer} (\emph{with default}):
 number of commits returned (defaults to 5).}
 
-\item{verbose}{\code{\link{logical}}: 
+\item{verbose}{\link{logical} (\emph{with default}):
 print the output to the console (defaults to \code{TRUE}).}
 }
 \value{
-\code{github_commits}: \code{\link{data.frame}} with columns:
+\code{github_commits}: \link{data.frame} with columns:
+
 \tabular{ll}{
- [ ,1] \tab SHA \cr
- [ ,2] \tab AUTHOR \cr
- [ ,3] \tab DATE \cr
- [ ,4] \tab MESSAGE \cr
+\code{[ ,1]} \tab SHA \cr
+\code{[ ,2]} \tab AUTHOR \cr
+\code{[ ,3]} \tab DATE \cr
+\code{[ ,4]} \tab MESSAGE \cr
 }
 
-\code{github_branches}: \code{\link{data.frame}} with columns:
+\code{github_branches}: \link{data.frame} with columns:
+
 \tabular{ll}{
- [ ,1] \tab BRANCH \cr
- [ ,2] \tab SHA \cr
- [ ,3] \tab INSTALL \cr
+\code{[ ,1]} \tab BRANCH \cr
+\code{[ ,2]} \tab SHA \cr
+\code{[ ,3]} \tab INSTALL \cr
 }
 
-\code{github_commits}: Nested \code{\link{list}} with \code{n} elements.
+\code{github_commits}: Nested \link{list} with \code{n} elements.
 Each commit element is a list with elements:
+
 \tabular{ll}{
- [[1]] \tab NUMBER \cr
- [[2]] \tab TITLE \cr
- [[3]] \tab BODY \cr
- [[4]] \tab CREATED \cr
- [[5]] \tab UPDATED \cr
- [[6]] \tab CREATOR \cr
- [[7]] \tab URL \cr
- [[8]] \tab STATUS \cr
+\code{[[1]]} \tab NUMBER \cr
+\code{[[2]]} \tab TITLE \cr
+\code{[[3]]} \tab BODY \cr
+\code{[[4]]} \tab CREATED \cr
+\code{[[5]]} \tab UPDATED \cr
+\code{[[6]]} \tab CREATOR \cr
+\code{[[7]]} \tab URL \cr
+\code{[[8]]} \tab STATUS \cr
 }
+
+[[1]: R:[1
+[[2]: R:[2
+[[3]: R:[3
+[[4]: R:[4
+[[5]: R:[5
+[[6]: R:[6
+[[7]: R:[7
+[[8]: R:[8
 }
 \description{
 R Interface to the GitHub API v3.
@@ -65,8 +77,7 @@ R Interface to the GitHub API v3.
 \details{
 These functions can be used to query a specific repository hosted on GitHub. \cr
 
-\code{github_commits} lists the most recent \code{n} commits of a specific
-branch of a repository.
+\code{github_commits} lists the most recent \code{n} commits of a specific branch of a repository.
 
 \code{github_branches} can be used to list all current branches of a
 repository and returns the corresponding SHA hash as well as an installation
@@ -86,15 +97,10 @@ github_issues(user = "r-lum", repo = "luminescence")
 github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 }
 
-} 
-
-\section{How to cite}{
-Burow, C. (2017). GitHub-API(): GitHub API. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 GitHub Developer API v3. \url{https://developer.github.com/v3/}, last accessed: 10/01/2017.
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}

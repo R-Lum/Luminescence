@@ -1,4 +1,4 @@
-#' Class \code{"RLum.Data"}
+#' Class `"RLum.Data"`
 #'
 #' Generalized virtual data class for luminescence data.
 #'
@@ -9,15 +9,16 @@
 #'
 #' @note Just a virtual class.
 #'
-#' @section Objects from the Class: A virtual Class: No objects can be created
-#' from it.
+#' @section Objects from the Class: 
+#' A virtual Class: No objects can be created from it.
 #'
 #' @section Class version: 0.2.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data.Curve}},
-#' \code{\linkS4class{RLum.Data.Spectrum}}
+#' @seealso [RLum-class], [RLum.Data.Curve-class],
+#' [RLum.Data.Spectrum-class]
 #'
 #' @keywords classes
 #'
@@ -25,6 +26,7 @@
 #'
 #' showClass("RLum.Data")
 #'
+#' @md
 #' @export
 setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")

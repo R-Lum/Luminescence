@@ -9,80 +9,84 @@ apply_CosmicRayRemoval(object, method = "smooth", method.Pych.smoothing = 2,
   plot = FALSE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Data.Spectrum}} (\bold{required}): S4
-object of class \code{RLum.Data.Spectrum}}
+\item{object}{\linkS4class{RLum.Data.Spectrum} (\strong{required}):
+S4 object of class \code{RLum.Data.Spectrum}}
 
-\item{method}{\code{\link{character}} (with default): Defines method that is
-applied for cosmic ray removal. Allowed methods are \code{smooth}, the default,
-(\code{\link{smooth}}), \code{smooth.spline} (\code{\link{smooth.spline}})
+\item{method}{\link{character} (\emph{with default}):
+Defines method that is applied for cosmic ray removal. Allowed methods are
+\code{smooth}, the default, (\link{smooth}), \code{smooth.spline} (\link{smooth.spline})
 and \code{Pych}. See details for further information.}
 
-\item{method.Pych.smoothing}{\code{\link{integer}} (with default): Smoothing
-parameter for cosmic ray removal according to Pych (2003). The value defines
-how many neighboring values in each frame are used for smoothing (e.g.,
-\code{2} means that the two previous and two following values are used).}
+\item{method.Pych.smoothing}{\link{integer} (\emph{with default}):
+Smoothing parameter for cosmic ray removal according to Pych (2003).
+The value defines how many neighboring values in each frame are used for smoothing
+(e.g., \code{2} means that the two previous and two following values are used).}
 
-\item{method.Pych.threshold_factor}{\code{\link{numeric}} (with default): Threshold
-for zero-bins in the histogram. Small values mean that more peaks are removed, but signal
-might be also affected by this removal.}
+\item{method.Pych.threshold_factor}{\link{numeric} (\emph{with default}):
+Threshold for zero-bins in the histogram. Small values mean that more peaks
+are removed, but signal might be also affected by this removal.}
 
-\item{MARGIN}{\code{\link{integer}} (with default): on which part the function cosmic ray removal
-should be applied on: 1 = along the time axis (line by line), 2 = along the wavelength axis (column by
-column). Note: This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
+\item{MARGIN}{\link{integer} (\emph{with default}):
+on which part the function cosmic ray removal should be applied on:
+\itemize{
+\item 1 = along the time axis (line by line),
+\item 2 = along the wavelength axis (column by column).
+}
 
-\item{verbose}{\code{\link{logical}} (with default): Option to suppress
-terminal output.,}
+\strong{Note:} This argument currently only affects the methods \code{smooth} and \code{smooth.spline}}
 
-\item{plot}{\code{\link{logical}} (with default): If \code{TRUE} the
-histograms used for the cosmic-ray removal are returned as plot including
-the used threshold. Note: A separat plot is returned for each frame!
+\item{verbose}{\link{logical} (\emph{with default}):
+Option to suppress terminal output.,}
+
+\item{plot}{\link{logical} (\emph{with default}):
+If \code{TRUE} the histograms used for the cosmic-ray removal are returned as plot
+including the used threshold. Note: A separat plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}
 
-\item{\dots}{further arguments and graphical parameters that will be passed
-to the \code{smooth} function.}
+\item{...}{further arguments and graphical parameters that will be passed
+to the \link{smooth} function.}
 }
 \value{
-Returns same object as input
-(\code{\linkS4class{RLum.Data.Spectrum}})
+Returns same object as input (\linkS4class{RLum.Data.Spectrum})
 }
 \description{
 The function provides several methods for cosmic ray removal and spectrum
 smoothing for an RLum.Data.Spectrum S4 class object
 }
 \details{
-\bold{\code{method = "Pych"}} \cr
+\strong{\code{method = "Pych"}}
 
 This method applies the cosmic-ray removal algorithm described by Pych
-(2003). Some aspects that are different to the publication: \itemize{
-\item For interpolation between neighbouring values the median and not the
-mean is used. \item The number of breaks to construct the histogram is set
-to: \code{length(number.of.input.values)/2} } For further details see
-references below.
+(2003). Some aspects that are different to the publication:
+\itemize{
+\item For interpolation between neighbouring values the median and not the mean is used.
+\item The number of breaks to construct the histogram is set to: \code{length(number.of.input.values)/2}
+}
 
-\bold{\code{method = "smooth"}} \cr
+For further details see references below.
 
-Method uses the function \code{\link{smooth}} to remove cosmic rays.\cr
+\strong{\code{method = "smooth"}}
 
-Arguments that can be passed are: \code{kind}, \code{twiceit}\cr
+Method uses the function \link{smooth} to remove cosmic rays.
 
-\bold{\code{method = "smooth.spline"}} \cr Method uses the function
-\code{\link{smooth.spline}} to remove cosmic rays.\cr Arguments that can be
-passed are: \code{spar}\cr
+Arguments that can be passed are: \code{kind}, \code{twiceit}
 
-\bold{How to combine methods?}\cr
+\strong{\code{method = "smooth.spline"}}
+
+Method uses the function \link{smooth.spline} to remove cosmic rays.
+
+Arguments that can be passed are: \code{spar}
+
+\strong{How to combine methods?}
 
 Different methods can be combined by applying the method repeatedly to the
 dataset (see example).
 }
-\note{
--
-}
 \section{Function version}{
- 0.2.1 (2016-05-02 09:36:06)
+ 0.2.1
 }
 
 \examples{
-
 
 ##(1) - use with your own data and combine (uncomment for usage)
 ## run two times the default method and smooth with another method
@@ -90,23 +94,18 @@ dataset (see example).
 ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "Pych")
 ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "smooth")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). apply_CosmicRayRemoval(): Function to remove cosmic rays from an RLum.Data.Spectrum S4 class object. Function version 0.2.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Pych, W., 2003. A Fast Algorithm for Cosmic-Ray Removal from
 Single Images. Astrophysics 116, 148-153.
 \url{http://arxiv.org/pdf/astro-ph/0311290.pdf?origin=publication_detail}
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{smooth}},
-\code{\link{smooth.spline}}, \code{\link{apply_CosmicRayRemoval}}
+\linkS4class{RLum.Data.Spectrum}, \link{smooth}, \link{smooth.spline},
+\link{apply_CosmicRayRemoval}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 (France)
-\cr R Luminescence Package Team}
+}
 \keyword{manip}

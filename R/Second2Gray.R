@@ -3,71 +3,73 @@
 #' Conversion of absorbed radiation dose in seconds (s) to the SI unit gray
 #' (Gy) including error propagation. Normally used for equivalent dose data.
 #'
-#' Calculation of De values from seconds (s) to gray (Gy) \deqn{De [Gy] = De
-#' [s] * Dose Rate [Gy/s])} \cr
+#' Calculation of De values from seconds (s) to gray (Gy)
+#' 
+#' \deqn{De [Gy] = De [s] * Dose Rate [Gy/s])}
 #'
-#' Provided calculation error propagation methods for error calculation (with 'se' as the standard error
-#' and 'DR' of the dose rate of the beta-source):\cr
+#' Provided calculation error propagation methods for error calculation 
+#' (with 'se' as the standard error and 'DR' of the dose rate of the beta-source):
 #'
-#'
-#' \bold{(1) \code{omit}} (default)\cr
+#' **(1) `omit`** (default)
 #'
 #' \deqn{se(De) [Gy] = se(De) [s] * DR [Gy/s]}
 #'
-#' In this case the standard error of the dose rate of the beta-source is treated as systematic
-#' (i.e. non-random), it error propagation is omitted. However, the error must be considered during
-#' calculation of the final age. (cf. Aitken, 1985, pp. 242). This approach can be seen as
-#' method (2) (gaussian) for the case the (random) standard error of the beta-source calibration is
-#' 0. Which particular method is requested depends on the situation and cannot be prescriptive.
+#' In this case the standard error of the dose rate of the beta-source is 
+#' treated as systematic (i.e. non-random), it error propagation is omitted. 
+#' However, the error must be considered during calculation of the final age. 
+#' (cf. Aitken, 1985, pp. 242). This approach can be seen as method (2) (gaussian) 
+#' for the case the (random) standard error of the beta-source calibration is
+#' 0. Which particular method is requested depends on the situation and cannot 
+#' be prescriptive.
 #'
-#' \bold{(2) \code{gaussian}} error propagation \cr
+#' **(2) `gaussian`** error propagation
 #'
 #' \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
 #'
 #' Applicable under the assumption that errors of De and se are uncorrelated.
 #'
-#' \bold{(3) \code{absolute}} error propagation \cr
+#' **(3) `absolute`** error propagation
 #'
 #' \deqn{se(De) [Gy]= abs(DR [Gy/s] * se(De) [s]) + abs(De [s] * se(DR) [Gy/s])}
 #'
 #' Applicable under the assumption that errors of De and se are not uncorrelated.
 #'
-#' @param data \code{\link{data.frame}} (\bold{required}): input values,
-#' structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
-#' required
 #'
-#' @param dose.rate \code{\linkS4class{RLum.Results}} or \code{\link{data.frame}} or \code{\link{numeric}}
-#' (\bold{required}): \code{RLum.Results} needs to be orginated from the
-#' function \code{\link{calc_SourceDoseRate}}, for \code{vector} dose rate in
-#' Gy/s and dose rate error in Gy/s
+#' @param data [data.frame] (**required**): 
+#' input values, structure: data (`values[,1]`) and data error (`values [,2]`) 
+#' are required
 #'
-#' @param error.propagation \code{\link{character}} (with default): error propagation method used for error
-#' calculation (\code{omit}, \code{gaussian} or \code{absolute}), see details for further
-#' information
+#' @param dose.rate [RLum.Results-class], [data.frame] or [numeric] (**required**): 
+#' `RLum.Results` needs to be orginated from the function [calc_SourceDoseRate], 
+#' for `vector` dose rate in Gy/s and dose rate error in Gy/s
 #'
-#' @return Returns a \link{data.frame} with converted values.
+#' @param error.propagation [character] (*with default*): 
+#' error propagation method used for error calculation (`omit`, `gaussian` or 
+#' `absolute`), see details for further information
 #'
-#' @note If no or a wrong error propagation method is given, the execution of the function is
-#' stopped. Furthermore, if a \code{data.frame} is provided for the dose rate values is has to
-#' be of the same length as the data frame provided with the argument \code{data}
+#' @return 
+#' Returns a [data.frame] with converted values.
+#'
+#' @note 
+#' If no or a wrong error propagation method is given, the execution of the function is
+#' stopped. Furthermore, if a `data.frame` is provided for the dose rate values is has to
+#' be of the same length as the data frame provided with the argument `data`
 #'
 #' @section Function version: 0.6.0
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-#' (France),\cr Michael Dietze, GFZ Potsdam (Germany),\cr Margret C. Fuchs, HZDR,
-#' Helmholtz-Institute Freiberg for Resource Technology
-#' (Germany)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' Michael Dietze, GFZ Potsdam (Germany)\cr
+#' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 #'
-#' @seealso \code{\link{calc_SourceDoseRate}}
+#' @seealso [calc_SourceDoseRate]
 #'
 #' @references
-#'
 #' Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 #'
 #' @keywords manip
 #'
 #' @examples
-#'
 #'
 #' ##(A) for known source dose rate at date of measurement
 #' ## - load De data from the example data help file
@@ -91,6 +93,7 @@
 #' # apply dose.rate to convert De(s) to De(Gy)
 #' Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 #'
+#' @md
 #' @export
 Second2Gray <- function(
   data,

@@ -12,56 +12,65 @@ plot_DetPlot(object, signal.integral.min, signal.integral.max,
   ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}): input
-object containing data for analysis}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
+input object containing data for analysis}
 
-\item{signal.integral.min}{\code{\link{integer}} (\bold{required}): lower
-bound of the signal integral.}
+\item{signal.integral.min}{\link{integer} (\strong{required}):
+lower bound of the signal integral.}
 
-\item{signal.integral.max}{\code{\link{integer}} (\bold{required}): upper
-bound of the signal integral.}
+\item{signal.integral.max}{\link{integer} (\strong{required}):
+upper bound of the signal integral.}
 
-\item{background.integral.min}{\code{\link{integer}} (\bold{required}):
+\item{background.integral.min}{\link{integer} (\strong{required}):
 lower bound of the background integral.}
 
-\item{background.integral.max}{\code{\link{integer}} (\bold{required}):
+\item{background.integral.max}{\link{integer} (\strong{required}):
 upper bound of the background integral.}
 
-\item{method}{\code{\link{character}} (with default): method applied for constructing the De(t) plot.
-\code{shift} (the default): the chosen signal integral is shifted the shine down curve,
-\code{expansion}: the chosen signal integral is expanded each time by its length}
+\item{method}{\link{character} (\emph{with default}):
+method applied for constructing the De(t) plot.
+\itemize{
+\item \code{shift} (\emph{the default}): the chosen signal integral is shifted the shine down curve,
+\item \code{expansion}: the chosen signal integral is expanded each time by its length
+}}
 
-\item{signal_integral.seq}{\code{\link{numeric}} (optional): argument to provide an own
-signal integral sequence for constructing the De(t) plot}
+\item{signal_integral.seq}{\link{numeric} (\emph{optional}):
+argument to provide an own signal integral sequence for constructing the De(t) plot}
 
-\item{analyse_function}{\code{\link{character}} (with default): name of the analyse function
-to be called. Supported functions are: \code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
+\item{analyse_function}{\link{character} (\emph{with default}):
+name of the analyse function to be called. Supported functions are:
+\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'}}
 
-\item{analyse_function.control}{\code{\link{list}} (optional): arguments to be passed to the
-supported analyse functions (\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
+\item{analyse_function.control}{\link{list} (\emph{optional}):
+arguments to be passed to the supported analyse functions
+(\code{'analyse_SAR.CWOSL'}, \code{'analyse_pIRIRSequence'})}
 
-\item{n.channels}{\code{\link{integer}} (optional): number of channels used for the De(t) plot.
-If nothing is provided all De-values are calculated and plotted until the start of the background
+\item{n.channels}{\link{integer} (\emph{optional}):
+number of channels used for the De(t) plot. If nothing is provided all
+De-values are calculated and plotted until the start of the background
 integral.}
 
-\item{show_ShineDownCurve}{\code{\link{logical}} (with default): enables or disables shine down
-curve in the plot output}
+\item{show_ShineDownCurve}{\link{logical} (\emph{with default}):
+enables or disables shine down curve in the plot output}
 
-\item{respect_RC.Status}{\code{\link{logical} (with default)}: remove De-values with 'FAILED' RC.Status
-from the plot (cf. \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}})}
+\item{respect_RC.Status}{\link{logical} (\emph{with default}):
+remove De-values with 'FAILED' RC.Status from the plot
+(cf. \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence})}
 
-\item{verbose}{\code{\link{logical} (with default)}: enables or disables terminal feedback}
+\item{verbose}{\link{logical} (\emph{with default}):
+enables or disables terminal feedback}
 
-\item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot.default}}, \code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}.
+\item{...}{further arguments and graphical parameters passed to
+\link{plot.default}, \link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}.
 See details for further information.}
 }
 \value{
-A plot and an \code{\linkS4class{RLum.Results}} object with the produced De values
+A plot and an \linkS4class{RLum.Results} object with the produced De values
 
 \code{@data}:
+
 \tabular{lll}{
-\bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
 De.values \tab \code{data.frame} \tab table with De values \cr
 signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calculation
 }
@@ -69,18 +78,18 @@ signal_integral.seq \tab \code{numeric} \tab integral sequence used for the calc
 \code{@info}:
 
 \tabular{lll}{
-\bold{Object} \tab \bold{Type} \tab \bold{Description}\cr
+\strong{Object} \tab \strong{Type} \tab \strong{Description}\cr
 call \tab \code{call} \tab the original function call
 }
 }
 \description{
-Plots the equivalent dose (De) in dependency of the chosen signal integral (cf. Bailey et al., 2003).
-The function is simply passing several arguments to the function \code{\link{plot}} and the used
-analysis functions and runs it in a loop. Example: \code{legend.pos} for legend position,
-\code{legend} for legend text.\cr
+Plots the equivalent dose (De) in dependency of the chosen signal integral
+(cf. Bailey et al., 2003). The function is simply passing several arguments
+to the function \link{plot} and the used analysis functions and runs it in a loop.
+Example: \code{legend.pos} for legend position, \code{legend} for legend text.
 }
 \details{
-\bold{method}\cr
+\strong{method}
 
 The original method presented by Baiely et al., 2003 shifted the signal integrals and slightly
 extended them accounting for changes in the counting statistics. Example: \code{c(1:3, 3:5, 5:7)}.
@@ -88,17 +97,17 @@ However, here also another method is provided allowing to expand the signal inte
 consectutively expaning the integral by its chosen length. Example: \code{c(1:3, 1:5, 1:7)}
 
 Note that in both cases the integral limits are overlap. The finally applied limits are part
-of the function output.\cr
+of the function output.
 }
 \note{
 The entire analysis is based on the used analysis functions, namely
-\code{\link{analyse_SAR.CWOSL}} and \code{\link{analyse_pIRIRSequence}}. However, the integrity
-checks of this function are not that thoughtful as in these functions itself. It means, that
-every sequence should be checked carefully before running long calculations using serveral
-hundreds of channels.
+\link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}. However, the integrity
+checks of this function are not that thoughtful as in these functions itself.
+It means, that every sequence should be checked carefully before running long
+calculations using serveral hundreds of channels.
 }
 \section{Function version}{
- 0.1.1 (2017-01-24 21:10:47)
+ 0.1.1
 }
 
 \examples{
@@ -121,20 +130,15 @@ plot_DetPlot(object,
 )
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). plot_DetPlot(): Create De(t) plot. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
 using De as a function of illumination time. Radiation Measurements 37, 511-518.
 doi:10.1016/S1350-4487(03)00063-5
 }
 \seealso{
-\code{\link{plot}}, \code{\link{analyse_SAR.CWOSL}}, \code{\link{analyse_pIRIRSequence}}
+\link{plot}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}

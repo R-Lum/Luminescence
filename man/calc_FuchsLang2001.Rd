@@ -8,33 +8,32 @@ calc_FuchsLang2001(data, cvThreshold = 5, startDeValue = 1, plot = TRUE,
   ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
-\code{(data[,1])} and De error \code{(values[,2])}}
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
-\item{cvThreshold}{\link{numeric} (with default): coefficient of variation
-in percent, as threshold for the method, e.g. \code{cvThreshold = 3}. See
-details.}
+\item{cvThreshold}{\link{numeric} (\emph{with default}):
+coefficient of variation in percent, as threshold for the method,
+e.g. \code{cvThreshold = 3}. See details
+.}
 
-\item{startDeValue}{\link{numeric} (with default): number of the first
-aliquot that is used for the calculations}
+\item{startDeValue}{\link{numeric} (\emph{with default}):
+number of the first aliquot that is used for the calculations}
 
-\item{plot}{\link{logical} (with default): plot output
-\code{TRUE}/\code{FALSE}}
+\item{plot}{\link{logical} (\emph{with default}):
+plot output \code{TRUE}/\code{FALSE}}
 
-\item{\dots}{further arguments and graphical parameters passed to
-\code{\link{plot}}}
+\item{...}{further arguments and graphical parameters passed to \link{plot}}
 }
 \value{
-Returns a plot (optional) and terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
+Returns a plot (\emph{optional}) and terminal output. In addition an
+\linkS4class{RLum.Results} object is returned containing the
 following elements:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
-\item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-used arguments} \item{call}{\link{call} the function call}
-\item{usedDeValues}{\link{data.frame} containing the used values for the
-calculation}
+\item{data}{\link{data.frame} original input data}
+\item{args}{\link{list} used arguments}
+\item{call}{\link{call} the function call}
+\item{usedDeValues}{\link{data.frame} containing the used values for the calculation}
 }
 \description{
 This function applies the method according to Fuchs & Lang (2001) for
@@ -42,41 +41,37 @@ heterogeneously bleached samples with a given coefficient of variation
 threshold.
 }
 \details{
-\bold{Used values} \cr If the coefficient of variation (c[v]) of the first
-two values is larger than the threshold c[v_threshold], the first value is
+\strong{Used values}
+
+If the coefficient of variation (\code{c[v]}) of the first
+two values is larger than the threshold \code{c[v_threshold]}, the first value is
 skipped.  Use the \code{startDeValue} argument to define a start value for
-calculation (e.g. 2nd or 3rd value).\cr
+calculation (e.g. 2nd or 3rd value).
 
-\bold{Basic steps of the approach} \cr
-
-(1) Estimate natural relative variation of the sample using a dose recovery
-test\cr (2) Sort the input values ascendingly\cr (3) Calculate a running
-mean, starting with the lowermost two values and add values iteratively.\cr
-(4) Stop if the calculated c[v] exceeds the specified \code{cvThreshold}\cr
+\strong{Basic steps of the approach}
+\enumerate{
+\item Estimate natural relative variation of the sample using a dose recovery test
+\item Sort the input values ascendingly
+\item Calculate a running mean, starting with the lowermost two values and add values iteratively.
+\item Stop if the calculated \code{c[v]} exceeds the specified \code{cvThreshold}
+}
 }
 \note{
 Please consider the requirements and the constraints of this method
 (see Fuchs & Lang, 2001)
 }
 \section{Function version}{
- 0.4.1 (2016-05-02 09:36:06)
+ 0.4.1
 }
 
 \examples{
-
-
-##load example data
+## load example data
 data(ExampleData.DeValues, envir = environment())
 
-##calculate De according to Fuchs & Lang (2001)
+## calculate De according to Fuchs & Lang (2001)
 temp<- calc_FuchsLang2001(ExampleData.DeValues$BT998, cvThreshold = 5)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Burow, C. (2017). calc_FuchsLang2001(): Apply the model after Fuchs & Lang (2001) to a given De distribution.. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Fuchs, M. & Lang, A., 2001. OSL dating of coarse-grain fluvial
 quartz using single-aliqout protocols on sediments from NE Peloponnese,
@@ -87,12 +82,11 @@ small aliquots of quartz for reconstructing soil erosion in Greece.
 Quaternary Science Reviews 22, 1161-1167.
 }
 \seealso{
-\code{\link{plot}}, \code{\link{calc_MinDose}},
-\code{\link{calc_FiniteMixture}}, \code{\link{calc_CentralDose}},
-\code{\link{calc_CommonDose}}, \code{\linkS4class{RLum.Results}}
+\link{plot}, \link{calc_MinDose}, \link{calc_FiniteMixture}, \link{calc_CentralDose},
+\link{calc_CommonDose}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France) Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+Christoph Burow, University of Cologne (Germany)
+}
 \keyword{dplot}

@@ -7,24 +7,31 @@
 convert_Activity2Concentration(data, input_unit = "Bq/kg", verbose = TRUE)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} \bold{(required)}: provide dose rate data (activity or concentration)
-in three columns. The first column indicates the nuclides, the 2nd column measured value and
-in the 3rd column its error value. Allowed nuclide data are \code{'U-238'}, \code{'Th-232'} and \code{'K-40'}.
-See examples for an example.}
+\item{data}{\link{data.frame} \strong{(required)}:
+provide dose rate data (activity or concentration) in three columns.
+The first column indicates the nuclides, the 2nd column measured value and
+in the 3rd column its error value. Allowed nuclide data are
+\code{'U-238'}, \code{'Th-232'} and \code{'K-40'}. See examples for an example.}
 
-\item{input_unit}{\code{\link{character}} (with default): specify unit of input data given in the
-dose rate data frame, choose between \code{'Bq/kg'} and \code{'ppm/\%'} the default is \code{'Bq/kg'}}
+\item{input_unit}{\link{character} (\emph{with default}):
+specify unit of input data given in the dose rate data frame, choose between
+'Bq/kg' and 'ppm/\%' the default is 'Bq/kg'}
 
-\item{verbose}{\code{\link{logical}} (with default): enable or disable verbose mode}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable or disable verbose mode}
 }
 \description{
-The function performs the conversion of the specific activities into concentrations and vice versa for the nuclides U-238,
-Th-232 and K-40 to harmonise the measurement unit with the required data input unit of potential analytical tools for,
-e.g. dose rate calculation or related functions such as \code{\link{use_DRAC}}.
+The function performs the conversion of the specific activities into
+concentrations and vice versa for the nuclides U-238, Th-232 and K-40 to
+harmonise the measurement unit with the required data input unit of
+potential analytical tools for, e.g. dose rate calculation or related
+functions such as \link{use_DRAC}.
 }
 \details{
-The conversion from nuclide activity of a sample to nuclide concentration is performed using conversion factors t
-hat are based on the mass-related specific activity of the respective nuclides. The factors can be calculated using the equation:
+The conversion from nuclide activity of a sample to nuclide concentration
+is performed using conversion factors that are based on the mass-related
+specific activity of the respective nuclides.
+The factors can be calculated using the equation:
 
 \deqn{
 A = avogadronumber * N.freq / N.mol.mass   *  ln(2) / N.half.life
@@ -34,25 +41,26 @@ A = avogadronumber * N.freq / N.mol.mass   *  ln(2) / N.half.life
 f = A / 10^6
 }
 
-where:\cr
-
-A - specific activity of the nuclide\cr
-N.freq - natural frequency of the isotop \cr
-N.mol.mass - molare mass\cr
-n.half.life - half-life of the nuclide\cr
+where:
+\itemize{
+\item \code{A} - specific activity of the nuclide
+\item \code{N.freq} - natural frequency of the isotop
+\item \code{N.mol.mass} molare mass
+\item \code{n.half.life} half-life of the nuclide
+}
 
 example for U238:
-
-\eqn{avogadronumber = 6.02214199*10^23}\cr
-\eqn{uran.half.life = 1.41*10^17} (in s)\cr
-\eqn{uran.mol.mass = 0.23802891} (in kg/mol)\cr
-\eqn{uran.freq = 0.992745} (in mol)\cr
-
-\eqn{A.U = avogadronumber * uran.freq / uran.mol.mass * ln(2) / uran.half.life} (specific activity in Bq/kg)\cr
-\eqn{f.U = A.kg / 10^6}
+\itemize{
+\item \eqn{avogadronumber = 6.02214199*10^23}
+\item \eqn{uran.half.life = 1.41*10^17} (in s)
+\item \eqn{uran.mol.mass = 0.23802891} (in kg/mol)
+\item \eqn{uran.freq = 0.992745} (in mol)
+\item \eqn{A.U = avogadronumber * uran.freq / uran.mol.mass * ln(2) / uran.half.life} (specific activity in Bq/kg)
+\item \eqn{f.U = A.kg / 10^6}
+}
 }
 \section{Function version}{
- 0.1.0 (2017-06-18 11:11:08)
+ 0.1.0
 }
 
 \examples{
@@ -67,19 +75,16 @@ data <- data.frame(
 ##perform analysis
 convert_Activity2Concentration(data)
 
-} 
-
-\section{How to cite}{
-Fuchs, M.C. (2017). convert_Activity2Concentration(): Convert Nuclide Activities to Concentrations and Vice Versa. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
-Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with Semiconductor Detectors, Elsevier Science Publishers, p.283
+Debertin, K., Helmer, R.G., 1988. Gamma- and X-ray Spectrometry with
+Semiconductor Detectors, Elsevier Science Publishers, p.283
 
-Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
+Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen
+Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 \url{http://www.bmub.bund.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf}
 }
 \author{
 Margret C. Fuchs, Helmholtz-Institut Freiberg for Resource Technology (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{IO}

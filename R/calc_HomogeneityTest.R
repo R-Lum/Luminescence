@@ -4,27 +4,37 @@
 #'
 #' For details see Galbraith (2003).
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
-#' \code{(data[,1])} and De error \code{(values[,2])}
-#' @param log \code{\link{logical}} (with default): peform the homogeniety test
-#' with (un-)logged data
-#' @param \dots further arguments (for internal compatibility only).
-#' @return Returns a terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
-#' following element:
+#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
+#' 
+#' @param log [logical] (*with default*): 
+#' peform the homogeneity test with (un-)logged data
+#' 
+#' @param ... further arguments (for internal compatibility only).
+#' 
+#' @return 
+#' Returns a terminal output. In addition an
+#' [RLum.Results-class]-object is returned containing the
+#' following elements:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-#' used arguments} \item{call}{\link{call} the function call}
+#' \item{summary}{[data.frame] summary of all relevant model results.}
+#' \item{data}{[data.frame] original input data} 
+#' \item{args}{[list] used arguments} 
+#' \item{call}{[call] the function call}
 #'
-#' The output should be accessed using the function
-#' \code{\link{get_RLum}}
+#' The output should be accessed using the function [get_RLum]
+#' 
 #' @section Function version: 0.2
+#' 
 #' @author Christoph Burow, University of Cologne (Germany)
-#' @seealso \code{\link{pchisq}}
-#' @references Galbraith, R.F., 2003. A simple homogeneity test for estimates
+#' 
+#' @seealso [pchisq]
+#' 
+#' @references 
+#' Galbraith, R.F., 2003. A simple homogeneity test for estimates
 #' of dose obtained using OSL. Ancient TL 21, 75-77.
+#' 
+#' 
 #' @examples
 #'
 #' ## load example data
@@ -33,6 +43,7 @@
 #' ## apply the homogeneity test
 #' calc_HomogeneityTest(ExampleData.DeValues$BT998)
 #'
+#' @md
 #' @export
 calc_HomogeneityTest <- function(
   data,

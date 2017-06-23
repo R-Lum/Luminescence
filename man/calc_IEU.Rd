@@ -8,48 +8,50 @@
 calc_IEU(data, a, b, interval, decimal.point = 2, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\linkS4class{RLum.Results}} or \link{data.frame}
-(\bold{required}): for \code{data.frame}: two columns with De
-\code{(data[,1])} and De error \code{(values[,2])}}
+\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+for \link{data.frame}: two columns with De \code{(data[,1])} and
+De error \code{(values[,2])}}
 
-\item{a}{\code{\link{numeric}}: slope}
+\item{a}{\link{numeric} (\strong{required}):
+slope}
 
-\item{b}{\code{\link{numeric}}: intercept}
+\item{b}{\link{numeric} (\strong{required}):
+intercept}
 
-\item{interval}{\code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for
-iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
-[Dbar.Fixed vs Z]}
+\item{interval}{\link{numeric} (\strong{required}):
+fixed interval (e.g. 5 Gy) used for iteration of Dbar, from the mean to
+Lowest.De used to create Graph.IEU \code{[Dbar.Fixed vs Z]}}
 
-\item{decimal.point}{\code{\link{numeric}} (with default): number of decimal
-points for rounding calculations (e.g. 2)}
+\item{decimal.point}{\link{numeric} (\emph{with default}):
+number of decimal points for rounding calculations (e.g. 2)}
 
-\item{plot}{\code{\link{logical}} (with default): plot output}
+\item{plot}{\link{logical} (\emph{with default}):
+plot output}
 
-\item{\dots}{further arguments (\code{trace, verbose}).}
+\item{...}{further arguments (\code{trace, verbose}).}
 }
 \value{
-Returns a plot (optional) and terminal output. In addition an
-\code{\linkS4class{RLum.Results}} object is returned containing the
-following element:
+Returns a plot (\emph{optional}) and terminal output. In addition an
+\linkS4class{RLum.Results} object is returned containing the
+following elements:
 
-\item{summary}{\link{data.frame} summary of all relevant model results.}
-\item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-used arguments} \item{call}{\link{call} the function call}
-\item{tables}{\link{list} a list of data frames containing all calculation
-tables}
+\item{.$summary}{\link{data.frame} summary of all relevant model results.}
+\item{.$data}{\link{data.frame} original input data}
+\item{.$args}{\link{list} used arguments}
+\item{.$call}{\link{call} the function call}
+\item{.$tables}{\link{list} a list of data frames containing all calculation tables}
 
-The output should be accessed using the function
-\code{\link{get_RLum}}.
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 Function to calculate the IEU De for a De data set.
 }
 \details{
-This function uses the equations of Thomsen et al. (2007).  The parameters a
+This function uses the equations of Thomsen et al. (2007). The parameters a
 and b are estimated from dose-recovery experiments.
 }
 \section{Function version}{
- 0.1.0 (2016-05-02 09:36:06)
+ 0.1.0
 }
 
 \examples{
@@ -60,12 +62,7 @@ data(ExampleData.DeValues, envir = environment())
 ## apply the IEU model
 ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 
-} 
-
-\section{How to cite}{
-Smedley, R.K. (2017). calc_IEU(): Apply the internal-external-uncertainty (IEU) model after Thomsen et al. (2007) to a given De distribution. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 Ancient TL 33, 16-21.
@@ -75,12 +72,10 @@ Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
 using single grains of quartz. Radiation Measurements 42, 370-379.
 }
 \seealso{
-\code{\link{plot}}, \code{\link{calc_CommonDose}},
-\code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
-\code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+\link{plot}, \link{calc_CommonDose}, \link{calc_CentralDose}, \link{calc_FiniteMixture},
+\link{calc_FuchsLang2001}, \link{calc_MinDose}
 }
 \author{
-Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
-(United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
-written by Kristina Thomsen.
-\cr R Luminescence Package Team}
+Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
+Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen.
+}

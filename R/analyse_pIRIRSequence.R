@@ -1,92 +1,94 @@
 #' Analyse post-IR IRSL sequences
 #'
 #' The function performs an analysis of post-IR IRSL sequences including curve
-#' fitting on \code{\linkS4class{RLum.Analysis}} objects.
+#' fitting on [RLum.Analysis-class] objects.
 #'
 #'
 #' To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement analyses
 #' this function has been written as extended wrapper function for the function
-#' \code{\link{analyse_SAR.CWOSL}}, facilitating an entire sequence analysis in
+#' [analyse_SAR.CWOSL], facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
-#' functionality of the function \code{\link{analyse_SAR.CWOSL}}.\cr
+#' functionality of the function [analyse_SAR.CWOSL].
 #'
-#' \bold{If the input is a \code{list}}\cr
+#' **If the input is a `list`**
 #'
 #' If the input is a list of RLum.Analysis-objects, every argument can be provided as list to allow
 #' for different sets of parameters for every single input element.
-#' For further information see \code{\link{analyse_SAR.CWOSL}}.
+#' For further information see [analyse_SAR.CWOSL].
 #'
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}) or \code{\link{list}} of
-#' \code{\linkS4class{RLum.Analysis}} objects: input object containing data for analysis. If a \code{\link{list}}
-#' is provided the functions tries to iteratre over the list.
+#' @param object [RLum.Analysis-class] or [list] of [RLum.Analysis-class] objects (**required**): 
+#' input object containing data for analysis. 
+#' If a [list] is provided the functions tries to iteratre over the list.
 #'
-#' @param signal.integral.min \code{\link{integer}} (\bold{required}): lower
-#' bound of the signal integral. Provide this value as vector for different
+#' @param signal.integral.min [integer] (**required**): 
+#' lower bound of the signal integral. Provide this value as vector for different
 #' integration limits for the different IRSL curves.
 #'
-#' @param signal.integral.max \code{\link{integer}} (\bold{required}): upper
-#' bound of the signal integral. Provide this value as vector for different
+#' @param signal.integral.max [integer] (**required**): 
+#' upper bound of the signal integral. Provide this value as vector for different
 #' integration limits for the different IRSL curves.
 #'
-#' @param background.integral.min \code{\link{integer}} (\bold{required}):
+#' @param background.integral.min [integer] (**required**):
 #' lower bound of the background integral. Provide this value as vector for
 #' different integration limits for the different IRSL curves.
 #'
-#' @param background.integral.max \code{\link{integer}} (\bold{required}):
+#' @param background.integral.max [integer] (**required**):
 #' upper bound of the background integral. Provide this value as vector for
 #' different integration limits for the different IRSL curves.
 #'
-#' @param dose.points \code{\link{numeric}} (optional): a numeric vector
-#' containing the dose points values. Using this argument overwrites dose point
+#' @param dose.points [numeric] (*optional*): 
+#' a numeric vector containing the dose points values. Using this argument overwrites dose point
 #' values in the signal curves.
 #'
-#' @param sequence.structure \link{vector} \link{character} (with default):
-#' specifies the general sequence structure. Allowed values are \code{"TL"} and
-#' any \code{"IR"} combination (e.g., \code{"IR50"},\code{"pIRIR225"}).
-#' Additionally a parameter \code{"EXCLUDE"} is allowed to exclude curves from
+#' @param sequence.structure [vector] [character] (*with default*):
+#' specifies the general sequence structure. Allowed values are `"TL"` and
+#' any `"IR"` combination (e.g., `"IR50"`,`"pIRIR225"`).
+#' Additionally a parameter `"EXCLUDE"` is allowed to exclude curves from
 #' the analysis (Note: If a preheat without PMT measurement is used, i.e.
 #' preheat as non TL, remove the TL step.)
 #'
-#' @param plot \code{\link{logical}} (with default): enables or disables plot
-#' output.
+#' @param plot [logical] (*with default*): 
+#' enables or disables plot output.
 #'
-#' @param plot.single \code{\link{logical}} (with default): single plot output
-#' (\code{TRUE/FALSE}) to allow for plotting the results in single plot
-#' windows. Requires \code{plot = TRUE}.
+#' @param plot.single [logical] (*with default*): 
+#' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot
+#' windows. Requires `plot = TRUE`.
 #'
-#' @param \dots further arguments that will be passed to the function
-#' \code{\link{analyse_SAR.CWOSL}} and \code{\link{plot_GrowthCurve}}
+#' @param ... further arguments that will be passed to the function
+#' [analyse_SAR.CWOSL] and [plot_GrowthCurve]
 #'
-#' @return Plots (optional) and an \code{\linkS4class{RLum.Results}} object is
+#' @return 
+#' Plots (*optional*) and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #'
 #' \tabular{lll}{
-#' \bold{DATA.OBJECT} \tab \bold{TYPE} \tab \bold{DESCRIPTION} \cr
-#' \code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
-#' \code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab with the LnLxTnTx values \cr
-#' \code{..$rejection.criteria} : \tab \code{\link{data.frame}} \tab rejection criteria \cr
-#' \code{..$Formula} : \tab \code{\link{list}} \tab Function used for fitting of the dose response curve \cr
-#' \code{..$call} : \tab \code{\link{call}} \tab the original function call
+#' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
+#' `..$data` : \tab  `data.frame` \tab Table with De values \cr
+#' `..$LnLxTnTx.table` : \tab `data.frame` \tab with the LnLxTnTx values \cr
+#' `..$rejection.criteria` : \tab [data.frame] \tab rejection criteria \cr
+#' `..$Formula` : \tab [list] \tab Function used for fitting of the dose response curve \cr
+#' `..$call` : \tab [call] \tab the original function call
 #' }
 #'
-#' The output should be accessed using the function
-#' \code{\link{get_RLum}}.
+#' The output should be accessed using the function [get_RLum].
 #'
-#' @note Best graphical output can be achieved by using the function \code{pdf}
-#' with the following options:\cr \code{pdf(file = "...", height = 15, width =
-#' 15)}
+#' @note 
+#' Best graphical output can be achieved by using the function `pdf`
+#' with the following options: 
+#' 
+#' `pdf(file = "...", height = 15, width = 15)`
 #'
 #' @section Function version: 0.2.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
 #' (France)
 #'
-#' @seealso \code{\link{analyse_SAR.CWOSL}}, \code{\link{calc_OSLLxTxRatio}},
-#' \code{\link{plot_GrowthCurve}}, \code{\linkS4class{RLum.Analysis}},
-#' \code{\linkS4class{RLum.Results}} \code{\link{get_RLum}}
+#' @seealso [analyse_SAR.CWOSL], [calc_OSLLxTxRatio], [plot_GrowthCurve], 
+#' [RLum.Analysis-class], [RLum.Results-class] [get_RLum]
 #'
-#' @references Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
+#' @references 
+#' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz
 #' using an improved single-aliquot regenerative-dose protocol. Radiation
 #' Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
 #'
@@ -153,6 +155,7 @@
 #'   dev.off()
 #' }
 #'
+#' @md
 #' @export
 analyse_pIRIRSequence <- function(
   object,

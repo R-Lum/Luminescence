@@ -7,27 +7,31 @@
 use_DRAC(file, name, ...)
 }
 \arguments{
-\item{file}{\code{\link{character}}: spreadsheet to be passed
-to the DRAC website for calculation. Can also be a DRAC template object
-obtained from \code{template_DRAC()}.}
+\item{file}{\link{character} (\strong{required}):
+spreadsheet to be passed to the DRAC website for calculation. Can also be a
+DRAC template object obtained from \code{template_DRAC()}.}
 
-\item{name}{\code{\link{character}}: Optional user name submitted to DRAC. If
-omitted, a random name will be generated}
+\item{name}{\link{character} (\emph{with defautl}):
+Optional user name submitted to DRAC. If omitted, a random name will be generated}
 
-\item{...}{Further arguments.}
+\item{...}{Further arguments.
+\itemize{
+\item \code{url} \link{character}: provide an alternative URL to DRAC
+\item \code{verbose} \link{logical}: show or hide console output
+}}
 }
 \value{
-Returns an \code{\linkS4class{RLum.Results}} object containing the following elements:
+Returns an \linkS4class{RLum.Results} object containing the following elements:
 
 \item{DRAC}{\link{list}: a named list containing the following elements in slot \code{@data}:
 
 \tabular{lll}{
-   \code{$highlights} \tab \code{\link{data.frame}} \tab summary of 25 most important input/output fields \cr
-   \code{$header} \tab \code{\link{character}} \tab HTTP header from the DRAC server response \cr
-   \code{$labels} \tab \code{\link{data.frame}} \tab descriptive headers of all input/output fields \cr
-   \code{$content} \tab \code{\link{data.frame}} \tab complete DRAC input/output table \cr
-   \code{$input} \tab \code{\link{data.frame}} \tab DRAC input table \cr
-   \code{$output} \tab \code{\link{data.frame}} \tab DRAC output table \cr
+\code{$highlights} \tab \link{data.frame} \tab summary of 25 most important input/output fields \cr
+\code{$header} \tab \link{character} \tab HTTP header from the DRAC server response \cr
+\code{$labels} \tab \link{data.frame} \tab descriptive headers of all input/output fields \cr
+\code{$content} \tab \link{data.frame} \tab complete DRAC input/output table \cr
+\code{$input} \tab \link{data.frame} \tab DRAC input table \cr
+\code{$output} \tab \link{data.frame} \tab DRAC output table \cr
 }
 
 }
@@ -35,7 +39,7 @@ Returns an \code{\linkS4class{RLum.Results}} object containing the following ele
 \item{call}{\link{call} the function call}
 \item{args}{\link{list} used arguments}
 
-The output should be accessed using the function \code{\link{get_RLum}}.
+The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 The function provides an interface from R to DRAC. An R-object or a
@@ -43,7 +47,7 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.1 (2017-05-11 09:53:59)
+ 0.1.1
 }
 
 \examples{
@@ -96,17 +100,13 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M., Burow, C. (2017). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France), Michael Dietze,
-GFZ Potsdam (Germany), Christoph Burow, University of Cologne (Germany)\cr
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Michael Dietze, GFZ Potsdam (Germany)\cr
+Christoph Burow, University of Cologne (Germany)
+}

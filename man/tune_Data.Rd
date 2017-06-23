@@ -7,18 +7,18 @@
 tune_Data(data, decrease.error = 0, increase.data = 0)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} (\bold{required}): input values,
-structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
-required}
+\item{data}{\link{data.frame} (\strong{required}):
+input values, structure: data (\code{values[,1]}) and data error (\code{values [,2]})
+are required}
 
-\item{decrease.error}{\code{\link{numeric}}: factor by which the error
-is decreased, ranges between 0 and 1.}
+\item{decrease.error}{\link{numeric}:
+factor by which the error is decreased, ranges between 0 and 1.}
 
-\item{increase.data}{\code{\link{numeric}}: factor by which the error
-is decreased, ranges between 0 and inf.}
+\item{increase.data}{\link{numeric}:
+factor by which the error is decreased, ranges between 0 and inf.}
 }
 \value{
-Returns a \code{\link{data.frame}} with tuned values.
+Returns a \link{data.frame} with tuned values.
 }
 \description{
 The error can be reduced and sample size increased for specific purpose.
@@ -27,10 +27,11 @@ The error can be reduced and sample size increased for specific purpose.
 You should not use this function to improve your poor data set!
 }
 \section{Function version}{
- 0.5.0 (2015-11-29 17:27:48)
+ 0.5.0
 }
 
 \examples{
+
 ## load example data set
 data(ExampleData.DeValues, envir = environment())
 x <- ExampleData.DeValues$CA1
@@ -47,20 +48,8 @@ plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
 #plot_AbanicoPlot(data = tune_Data(x, increase.data = 2) ,
 #                summary = c("n", "mean"))
 
-
-} 
-
-\section{How to cite}{
-Dietze, M. (2017). tune_Data(): Tune data for experimental purpose. Function version 0.5.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
-#
-}
-\seealso{
-#
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{manip}

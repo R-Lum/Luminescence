@@ -7,15 +7,15 @@
 plot_RLum(object, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum}} (\bold{required}): S4 object of
-class \code{RLum}. Optional a \code{\link{list}} containing objects of class \code{\linkS4class{RLum}}
-can be provided. In this case the function tries to plot every object in this list according
-to its \code{RLum} class.}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+S4 object of class \code{RLum}. Optional a \link{list} containing objects of
+class \linkS4class{RLum} can be provided. In this case the function tries to plot
+every object in this list according to its \code{RLum} class.}
 
-\item{\dots}{further arguments and graphical parameters that will be passed
+\item{...}{further arguments and graphical parameters that will be passed
 to the specific plot functions. The only argument that is supported directly is \code{main}
 (setting the plot title). In contrast to the normal behaviour \code{main} can be here provided as
-\code{\link{list}} and the arguments in the list will dispatched to the plots if the \code{object}
+\link{list} and the arguments in the list will dispatched to the plots if the \code{object}
 is of type \code{list} as well.}
 }
 \value{
@@ -26,30 +26,28 @@ Function calls object specific plot functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for plotting specific
-\code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+\linkS4class{RLum} objects.\cr
+Depending on the input object, the
 corresponding plot function will be selected.  Allowed arguments can be
-found in the documentations of each plot function.  \tabular{lll}{
-\bold{object} \tab \tab \bold{corresponding plot function} \cr
+found in the documentations of each plot function.
 
-\code{\linkS4class{RLum.Data.Curve}} \tab : \tab
-\code{\link{plot_RLum.Data.Curve}} \cr
-\code{\linkS4class{RLum.Data.Spectrum}} \tab : \tab
-\code{\link{plot_RLum.Data.Spectrum}}\cr
-\code{\linkS4class{RLum.Data.Image}} \tab : \tab
-\code{\link{plot_RLum.Data.Image}}\cr \code{\linkS4class{RLum.Analysis}}
-\tab : \tab \code{\link{plot_RLum.Analysis}}\cr
-\code{\linkS4class{RLum.Results}} \tab : \tab
-\code{\link{plot_RLum.Results}} }
+\tabular{lll}{
+\strong{object} \tab \tab \strong{corresponding plot function} \cr
+\linkS4class{RLum.Data.Curve} \tab : \tab \link{plot_RLum.Data.Curve} \cr
+\linkS4class{RLum.Data.Spectrum} \tab : \tab \link{plot_RLum.Data.Spectrum}\cr
+\linkS4class{RLum.Data.Image} \tab : \tab \link{plot_RLum.Data.Image}\cr
+\linkS4class{RLum.Analysis} \tab : \tab \link{plot_RLum.Analysis}\cr
+\linkS4class{RLum.Results} \tab : \tab \link{plot_RLum.Results}
+}
 }
 \note{
 The provided plot output depends on the input object.
 }
 \section{Function version}{
- 0.4.3 (2017-01-24 21:10:47)
+ 0.4.3
 }
 
 \examples{
-
 
 #load Example data
 data(ExampleData.CW_OSL_Curve, envir = environment())
@@ -61,25 +59,14 @@ temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
 plot_RLum(temp)
 
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). plot_RLum(): General plot function for RLum S4 class objects. Function version 0.4.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
-#
 }
 \seealso{
-\code{\link{plot_RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Curve}}, \code{\link{plot_RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\link{plot_RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Image}}, \code{\link{plot_RLum.Analysis}},
-\code{\linkS4class{RLum.Analysis}}, \code{\link{plot_RLum.Results}},
-\code{\linkS4class{RLum.Results}}
+\link{plot_RLum.Data.Curve}, \linkS4class{RLum.Data.Curve}, \link{plot_RLum.Data.Spectrum},
+\linkS4class{RLum.Data.Spectrum}, \link{plot_RLum.Data.Image}, \linkS4class{RLum.Data.Image},
+\link{plot_RLum.Analysis}, \linkS4class{RLum.Analysis}, \link{plot_RLum.Results},
+\linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}
 \keyword{dplot}

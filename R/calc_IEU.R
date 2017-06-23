@@ -3,52 +3,55 @@
 #'
 #' Function to calculate the IEU De for a De data set.
 #'
-#' This function uses the equations of Thomsen et al. (2007).  The parameters a
+#' This function uses the equations of Thomsen et al. (2007). The parameters a
 #' and b are estimated from dose-recovery experiments.
 #'
-#' @param data \code{\linkS4class{RLum.Results}} or \link{data.frame}
-#' (\bold{required}): for \code{data.frame}: two columns with De
-#' \code{(data[,1])} and De error \code{(values[,2])}
+#' @param data [RLum.Results-class] or [data.frame] (**required**): 
+#' for [data.frame]: two columns with De `(data[,1])` and 
+#' De error `(values[,2])`
 #'
-#' @param a \code{\link{numeric}}: slope
+#' @param a [numeric] (**required**): 
+#' slope
 #'
-#' @param b \code{\link{numeric}}: intercept
+#' @param b [numeric] (**required**):  
+#' intercept
 #'
-#' @param interval \code{\link{numeric}}: fixed interval (e.g. 5 Gy) used for
-#' iteration of Dbar, from the mean to Lowest.De used to create Graph.IEU
-#' [Dbar.Fixed vs Z]
+#' @param interval [numeric] (**required**): 
+#' fixed interval (e.g. 5 Gy) used for iteration of Dbar, from the mean to 
+#' Lowest.De used to create Graph.IEU `[Dbar.Fixed vs Z]`
 #'
-#' @param decimal.point \code{\link{numeric}} (with default): number of decimal
-#' points for rounding calculations (e.g. 2)
+#' @param decimal.point [numeric] (*with default*): 
+#' number of decimal points for rounding calculations (e.g. 2)
 #'
-#' @param plot \code{\link{logical}} (with default): plot output
+#' @param plot [logical] (*with default*): 
+#' plot output
 #'
-#' @param \dots further arguments (\code{trace, verbose}).
+#' @param ... further arguments (`trace, verbose`).
 #'
-#' @return Returns a plot (optional) and terminal output. In addition an
-#' \code{\linkS4class{RLum.Results}} object is returned containing the
-#' following element:
+#' @return 
+#' Returns a plot (*optional*) and terminal output. In addition an
+#' [RLum.Results-class] object is returned containing the
+#' following elements:
 #'
-#' \item{summary}{\link{data.frame} summary of all relevant model results.}
-#' \item{data}{\link{data.frame} original input data} \item{args}{\link{list}
-#' used arguments} \item{call}{\link{call} the function call}
-#' \item{tables}{\link{list} a list of data frames containing all calculation
-#' tables}
+#' \item{.$summary}{[data.frame] summary of all relevant model results.}
+#' \item{.$data}{[data.frame] original input data} 
+#' \item{.$args}{[list] used arguments} 
+#' \item{.$call}{[call] the function call}
+#' \item{.$tables}{[list] a list of data frames containing all calculation tables}
 #'
-#' The output should be accessed using the function
-#' \code{\link{get_RLum}}.
+#' The output should be accessed using the function [get_RLum].
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Rachel Smedley, Geography & Earth Sciences, Aberystwyth University
-#' (United Kingdom) \cr Based on an excel spreadsheet and accompanying macro
-#' written by Kristina Thomsen.
+#' @author 
+#' Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr 
+#' Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen.
 #'
-#' @seealso \code{\link{plot}}, \code{\link{calc_CommonDose}},
-#' \code{\link{calc_CentralDose}}, \code{\link{calc_FiniteMixture}},
-#' \code{\link{calc_FuchsLang2001}}, \code{\link{calc_MinDose}}
+#' @seealso [plot], [calc_CommonDose], [calc_CentralDose], [calc_FiniteMixture],
+#' [calc_FuchsLang2001], [calc_MinDose]
 #'
-#' @references Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
+#' @references 
+#' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
 #' Ancient TL 33, 16-21.
 #'
 #' Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
@@ -63,6 +66,7 @@
 #' ## apply the IEU model
 #' ieu <- calc_IEU(ExampleData.DeValues$CA1, a = 0.2, b = 1.9, interval = 1)
 #'
+#' @md
 #' @export
 calc_IEU <- function(
   data,

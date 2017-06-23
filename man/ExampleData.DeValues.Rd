@@ -3,13 +3,16 @@
 \name{ExampleData.DeValues}
 \alias{ExampleData.DeValues}
 \title{Example De data sets for the package Luminescence}
-\format{A \code{\link{list}} with two elements, each containing a two column
-\code{\link{data.frame}}:
+\format{A \link{list} with two elements, each containing a two column \link{data.frame}:
 
-\describe{ \code{$BT998}: De and De error values for a fine grain quartz
-sample from a loess section in Rottewitz.\cr\cr \code{$CA1}: Single grain De
+\describe{
+\code{$BT998}: De and De error values for a fine grain quartz
+sample from a loess section in Rottewitz.
+
+\code{$CA1}: Single grain De
 and De error values for a coarse grain quartz sample from a fluvial deposit
-in the rock shelter of Cueva Anton }}
+in the rock shelter of Cueva Anton
+}}
 \description{
 Equivalent dose (De) values measured for a fine grain quartz sample from a
 loess section in Rottewitz (Saxony/Germany) and for a coarse grain quartz
@@ -33,24 +36,37 @@ plot_Histogram(De.values, xlab = "De [Gy]")
 
 }
 \references{
-\bold{BT998} \cr\cr Unpublished data \cr\cr
-\bold{CA1} \cr\cr
+\strong{BT998}
+
+Unpublished data
+
+\strong{CA1}
+
 Burow, C., Kehl, M., Hilgers, A., Weniger, G.-C., Angelucci, D., Villaverde,
 V., Zapata, J. and Zilhao, J.  (2015). Luminescence dating of fluvial
 deposits in the rock shelter of Cueva Anton, Spain. Geochronometria 52, 107-125.
 
-\bold{BT998} \cr
-\tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr
-Lab-Code: \tab BT998\cr Location: \tab Rottewitz (Saxony/Germany)\cr
-Material: \tab Fine grain quartz measured on aluminum discs on a Risoe
-TL/OSL DA-15 reader\cr Units: \tab Values are given in seconds \cr Dose
-Rate: \tab Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/-
-0.0019 Gy/s\cr Measurement Date: \tab 2012-01-27 }
-\bold{CA1} \cr
-\tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory (CLL)\cr Lab-Code:
-\tab C-L2941\cr Location: \tab Cueva Anton (Murcia/Spain)\cr Material: \tab
-Coarse grain quartz (200-250 microns) measured on single grain discs on a
-Risoe TL/OSL DA-20 reader\cr Units: \tab Values are given in Gray \cr
-Measurement Date: \tab 2012 }
+\strong{BT998}
+
+\tabular{ll}{
+Lab: \tab Luminescence Laboratory Bayreuth\cr
+Lab-Code: \tab BT998\cr
+Location: \tab Rottewitz (Saxony/Germany)\cr
+Material: \tab Fine grain quartz measured on aluminum discs on a Risoe TL/OSL DA-15 reader\cr
+Units: \tab Values are given in seconds \cr
+Dose Rate: \tab Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/- 0.0019 Gy/s\cr
+Measurement Date: \tab 2012-01-27
+}
+
+\strong{CA1}
+
+\tabular{ll}{
+Lab: \tab Cologne Luminescence Laboratory (CLL)\cr
+Lab-Code: \tab C-L2941\cr
+Location: \tab Cueva Anton (Murcia/Spain)\cr
+Material: \tab Coarse grain quartz (200-250 microns) measured on single grain discs on a Risoe TL/OSL DA-20 reader\cr
+Units: \tab Values are given in Gray \cr
+Measurement Date: \tab 2012
+}
 }
 \keyword{datasets}

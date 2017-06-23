@@ -8,44 +8,46 @@ calc_gSGC(data, gSGC.type = "0-250", gSGC.parameters, n.MC = 100,
   verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} (\bold{required}): input data of providing the following
-columns: 'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'
-Note: column names are not required. The function expect the input data in the given order}
+\item{data}{\link{data.frame} (\strong{required}):
+input data of providing the following columns: \emph{'LnTn', 'LnTn.error', Lr1Tr1', 'Lr1Tr1.error', 'Dr1'}
+\strong{Note:} column names are not required. The function expect the input data in the given order}
 
-\item{gSGC.type}{\code{\link{character}} (with default): define the function parameters that
+\item{gSGC.type}{\link{character} (\emph{with default}):
+define the function parameters that
 should be used for the iteration procedure: Li et al., 2015 (Table 2)
 presented function parameters for two dose ranges: \code{"0-450"} and \code{"0-250"}}
 
-\item{gSGC.parameters}{\code{\link{list}} (optional): option to provide own function
-parameters used for #' fitting as named list.
-Nomenclature follows Li et al., 2015, i.e.
-\code{list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)}, range requires a vector for
-the range the function is considered as valid, e.g. \code{range = c(0,250)}\cr
+\item{gSGC.parameters}{\link{list} (\emph{optional}):
+option to provide own function parameters used for fitting as named list.
+Nomenclature follows Li et al., 2015, i.e. \code{list(A,A.error,D0,D0.error,c,c.error,Y0,Y0.error,range)},
+range requires a vector for the range the function is considered as valid, e.g. \code{range = c(0,250)}\cr
 Using this option overwrites the default parameter list of the gSGC, meaning the argument
 \code{gSGC.type} will be without effect}
 
-\item{n.MC}{\code{\link{integer}} (with default): number of Monte Carlo simulation runs for
-error estimation, s. details.}
+\item{n.MC}{\link{integer} (\emph{with default}):
+number of Monte Carlo simulation runs for error estimation, see details.}
 
-\item{verbose}{\code{\link{logical}}: enable or disable terminal output}
+\item{verbose}{\link{logical}:
+enable or disable terminal output}
 
-\item{plot}{\code{\link{logical}}: enable or disable graphical feedback as plot}
+\item{plot}{\link{logical}:
+enable or disable graphical feedback as plot}
 
 \item{...}{parameters will be passed to the plot output}
 }
 \value{
-Returns an S4 object of type \code{\linkS4class{RLum.Results}}.\cr
+Returns an S4 object of type \linkS4class{RLum.Results}.
 
-\bold{@data}\cr
-$ De.value (data.frame) \cr
- .. $ De  \cr
- .. $ De.error \cr
- .. $ Eta \cr
-$ De.MC (list) contains the matricies from the error estimation.\cr
-$ uniroot (list) contains the uniroot outputs of the De estimations\cr
+\strong{\code{@data}}\cr
+\code{$ De.value} (\link{data.frame}) \cr
+\code{.. $ De}  \cr
+\code{.. $ De.error} \cr
+\code{.. $ Eta} \cr
+\code{$ De.MC} (\link{list}) contains the matricies from the error estimation.\cr
+\code{$ uniroot} (\link{list}) contains the uniroot outputs of the De estimations\cr
 
-\bold{@info}\cr
-$ call (call) the original function call
+\strong{\code{@info}}\cr
+`$ call`` (\link{call}) the original function call
 }
 \description{
 Function returns De value and De value error using the global standardised growth
@@ -53,14 +55,15 @@ curve (gSGC) assumption proposed by Li et al., 2015 for OSL dating of sedimentar
 }
 \details{
 The error of the De value is determined using a Monte Carlo simulation approach.
-Solving of the equation is realised using \code{\link{uniroot}}.
+Solving of the equation is realised using \link{uniroot}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.1 (2017-01-24 21:10:47)
+ 0.1.1
 }
 
 \examples{
+
 results <- calc_gSGC(data = data.frame(
 LnTn =  2.361, LnTn.error = 0.087,
 Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
@@ -68,21 +71,16 @@ Dr1 = 34.4))
 
 get_RLum(results, data.object = "De")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.
 Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
 }
 \seealso{
-\code{\linkS4class{RLum.Results}}, \code{\link{get_RLum}}, \code{\link{uniroot}}
+\linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)\cr
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
+}
 \keyword{datagen}

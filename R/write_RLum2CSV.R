@@ -1,47 +1,52 @@
 #' Export RLum-objects to CSV
 #'
-#' This function exports \code{\linkS4class{RLum}}-objects to CSV-files using the R function
-#' \code{\link[utils]{write.table}}. All \code{\linkS4class{RLum}}-objects are supported, but the
-#' export is lossy, i.e. the pure numerical values are exported only. Information that cannot
-#' be coerced to a \code{\link{data.frame}} or a \code{\link{matrix}} are discarded as well as
+#' This function exports [RLum-class]-objects to CSV-files using the R function
+#' [utils::write.table]. All [RLum-class]-objects are supported, but the
+#' export is lossy, i.e. the pure numerical values are exported only. Information 
+#' that cannot be coerced to a [data.frame] or a [matrix] are discarded as well as
 #' metadata.
 #'
-#' However, in combination with the implemented import functions, nearly every supported
-#' import data format can be exported to CSV-files, this gives a great deal of freedom in terms of
-#' compatibility with other tools.\cr
+#' However, in combination with the implemented import functions, nearly every 
+#' supported import data format can be exported to CSV-files, this gives a great 
+#' deal of freedom in terms of compatibility with other tools.
 #'
-#' \bold{Input is a list of objects}\cr
+#' **Input is a list of objects**
 #'
-#' If the input is a \code{\link{list}} of objects all explicit function arguments can be provided
-#' as \code{\link{list}}.
+#' If the input is a [list] of objects all explicit function arguments can be provided
+#' as [list].
 #'
-#' @param object \code{\linkS4class{RLum}} or a \code{\link{list}} of \code{RLum} objects (\bold{required}): objects to be written
+#' @param object [RLum-class] or a [list] of `RLum` objects (**required**): 
+#' objects to be written
 #'
-#' @param path \code{\link{character}} (optional): character string naming folder for the output to be written. If nothing
-#' is provided \code{path} will be set to the working directory. Note: this argument is ignored if the
-#' the argument \code{export} is set to \code{FALSE}.
+#' @param path [character] (*optional*): 
+#' character string naming folder for the output to be written. If nothing
+#' is provided `path` will be set to the working directory. 
+#' **Note:** this argument is ignored if the the argument `export` is set to `FALSE`.
 #'
-#' @param prefix \code{\link{character}} (with default): optional prefix to name the files. This prefix
-#' is valid for all written files
+#' @param prefix [character] (*with default*): 
+#' optional prefix to name the files. This prefix is valid for all written files
 #'
-#' @param export \code{\link{logical}} (with default): enable or disable the file export. If set to \code{FALSE}
-#' nothing is written to the file connection, but a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+#' @param export [logical] (*with default*): 
+#' enable or disable the file export. If set to `FALSE` nothing is written to 
+#' the file connection, but a list comprising objects of type [data.frame] and [matrix]
 #' is returned instead
 #'
-#' @param \dots further arguments that will be passed to the function \code{\link[utils]{write.table}}. All arguments
-#' except the argument \code{file} are supported
+#' @param ... further arguments that will be passed to the function 
+#' [utils::write.table]. All arguments except the argument `file` are supported
 #'
 #'
-#' @return The function returns either a CSV-file (or many of them) or for the option \code{export == FALSE}
-#' a list comprising objects of type \code{link{data.frame}} and \code{\link{matrix}}
+#' @return 
+#' The function returns either a CSV-file (or many of them) or for the 
+#' option `export == FALSE` a list comprising objects of type [data.frame] and [matrix]
 #'
 #'
 #' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data}}, \code{\linkS4class{RLum.Results}},
-#' \code{\link[utils]{write.table}}
+#' @seealso [RLum.Analysis-class], [RLum.Data-class], [RLum.Results-class],
+#' [utils::write.table]
 #'
 #' @keywords IO
 #'
@@ -62,6 +67,7 @@
 #'
 #' }
 #'
+#' @md
 #' @export
 write_RLum2CSV <- function(
   object,

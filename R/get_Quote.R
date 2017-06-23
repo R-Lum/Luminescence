@@ -4,17 +4,24 @@
 #' growing library. If called without any parameters, a random quote is
 #' returned.
 #'
-#' @param ID \code{\link{character}}, qoute ID to be returned.
-#' @param author \code{\link{character}}, all quotes by specified author.
-#' @param separated \code{\link{logical}}, return result in separated form.
+#' @param ID [character] (*optional*): qoute ID to be returned.
+#' 
+#' @param author [character] (*optional*): all quotes by specified author.
+#' 
+#' @param separated [logical] (*with default*): return result in separated form.
+#' 
 #' @return Returns a character with quote and respective (false) author.
+#' 
 #' @section Function version: 0.1.1
+#' 
 #' @author Michael Dietze, GFZ Potsdam (Germany)
+#' 
 #' @examples
 #'
 #' ## ask for an arbitrary qoute
 #' get_Quote()
 #'
+#' @md
 #' @export
 get_Quote <- function(
   ID,

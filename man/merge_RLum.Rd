@@ -7,11 +7,10 @@
 merge_RLum(objects, ...)
 }
 \arguments{
-\item{objects}{\code{\link{list}} of \code{\linkS4class{RLum}}
-(\bold{required}): list of S4 object of class \code{RLum}}
+\item{objects}{\link{list} of \linkS4class{RLum} (\strong{required}):
+list of S4 object of class \code{RLum}}
 
-\item{\dots}{further arguments that one might want to pass to the specific
-merge function}
+\item{...}{further arguments that one might want to pass to the specific merge function}
 }
 \value{
 Return is the same as input objects as provided in the list.
@@ -21,24 +20,23 @@ Function calls object-specific merge functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for merge specific
-\code{\linkS4class{RLum}} objects.\cr Depending on the input object, the
+\linkS4class{RLum} objects. Depending on the input object, the
 corresponding merge function will be selected.  Allowed arguments can be
-found in the documentations of each merge function. Empty list elements (\code{NULL}) are
-automatically removed from the input \code{list}.
+found in the documentations of each merge function.
+Empty list elements (\code{NULL}) are automatically removed from the input \code{list}.
 
 \tabular{lll}{
-\bold{object} \tab \tab \bold{corresponding merge function} \cr
-
-\code{\linkS4class{RLum.Data.Curve}} \tab : \tab \code{merge_RLum.Data.Curve} \cr
-\code{\linkS4class{RLum.Analysis}} \tab : \tab \code{merge_RLum.Analysis} \cr
-\code{\linkS4class{RLum.Results}} \tab : \tab \code{merge_RLum.Results}
+\strong{object} \tab \tab \strong{corresponding merge function} \cr
+\linkS4class{RLum.Data.Curve} \tab : \tab \code{merge_RLum.Data.Curve} \cr
+\linkS4class{RLum.Analysis} \tab : \tab \code{merge_RLum.Analysis} \cr
+\linkS4class{RLum.Results} \tab : \tab \code{merge_RLum.Results}
 }
 }
 \note{
 So far not for every \code{RLum} object a merging function exists.
 }
 \section{Function version}{
- 0.1.2 (2016-05-02 09:36:06)
+ 0.1.2
 }
 
 \examples{
@@ -59,21 +57,12 @@ temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
 temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). merge_RLum(): General merge function for RLum S4 class objects. Function version 0.1.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
-#
 }
 \seealso{
-\code{\linkS4class{RLum.Data.Curve}}, \code{\linkS4class{RLum.Data.Image}},
-\code{\linkS4class{RLum.Data.Spectrum}}, \code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
+\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}
 \keyword{utilities}

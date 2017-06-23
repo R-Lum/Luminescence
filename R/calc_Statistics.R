@@ -3,33 +3,35 @@
 #' This function calculates a number of descriptive statistics for estimates
 #' with a given standard error (SE), most fundamentally using error-weighted approaches.
 #'
-#' The option to use Monte Carlo Methods (\code{n.MCM}) allows calculating
+#' The option to use Monte Carlo Methods (`n.MCM`) allows calculating
 #' all descriptive statistics based on random values. The distribution of these
-#' random values is based on the Normal distribution with \code{De} values as
-#' means and \code{De_error} values as one standard deviation. Increasing the
+#' random values is based on the Normal distribution with `De` values as
+#' means and `De_error` values as one standard deviation. Increasing the
 #' number of MCM-samples linearly increases computation time. On a Lenovo X230
 #' machine evaluation of 25 Aliquots with n.MCM = 1000 takes 0.01 s, with
 #' n = 100000, ca. 1.65 s. It might be useful to work with logarithms of these
 #' values. See Dietze et al. (2016, Quaternary Geochronology) and the function
-#' \code{\link{plot_AbanicoPlot}} for details.
+#' [plot_AbanicoPlot] for details.
 #'
-#' @param data \code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-#' object (required): for \code{data.frame} two columns: De (\code{data[,1]})
-#' and De error (\code{data[,2]}). To plot several data sets in one plot the
-#' data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.
+#' @param data [data.frame] or [RLum.Results-class] object (**required**): 
+#' for [data.frame] two columns: De (`data[,1]`) and De error (`data[,2]`). 
+#' To plot several data sets in one plot the data sets must be provided 
+#' as `list`, e.g. `list(data.1, data.2)`.
 #'
-#' @param weight.calc \code{\link{character}}: type of weight calculation. One
-#' out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
-#' 1/error^2). Default is \code{"square"}.
+#' @param weight.calc [character]: 
+#' type of weight calculation. One out of `"reciprocal"` (weight is 1/error), 
+#' `"square"` (weight is 1/error^2). Default is `"square"`.
 #'
-#' @param digits \code{\link{integer}} (with default): round numbers to the
-#' specified digits. If digits is set to \code{NULL} nothing is rounded.
+#' @param digits [integer] (*with default*): 
+#' round numbers to the specified digits. 
+#' If digits is set to `NULL` nothing is rounded.
 #'
-#' @param n.MCM \code{\link{numeric}} (with default): number of samples drawn
-#' for Monte Carlo-based statistics. \code{NULL} (the default) disables MC runs.
+#' @param n.MCM [numeric] (*with default*): 
+#' number of samples drawn for Monte Carlo-based statistics. 
+#' `NULL` (the default) disables MC runs.
 #'
-#' @param na.rm \code{\link{logical}} (with default): indicating whether NA
-#' values should be stripped before the computation proceeds.
+#' @param na.rm [logical] (*with default*): 
+#' indicating whether `NA` values should be stripped before the computation proceeds.
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.
 #'
@@ -59,6 +61,7 @@
 #' str(calc_Statistics(x))
 #' }
 #'
+#' @md
 #' @export
 calc_Statistics <- function(
   data,

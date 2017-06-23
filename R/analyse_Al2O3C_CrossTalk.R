@@ -1,62 +1,68 @@
-#'Al2O3:C Reader Cross Talk Analysis
-#'
-#'The function provides the analysis of cross-talk measurements on a FI lexsyg SMART reader using
-#'Al2O3:C pellets
-#'
-#'@param object \code{\linkS4class{RLum.Analysis}} \bold{(required)}: measurement input
-#'
-#'@param signal_integral \code{\link{numeric}} (optional): signal integral, used for the signal
-#' and the background. If nothing is provided the full range is used
-#'
-#'@param dose_points \code{\link{numeric}} (with default): vector with dose points, if dose points
-#' are repeated, only the general pattern needs to be provided. Default values follow the suggestions
+#' Al2O3:C Reader Cross Talk Analysis
+#' 
+#' The function provides the analysis of cross-talk measurements on a 
+#' FI lexsyg SMART reader using Al2O3:C pellets
+#' 
+#' @param object [RLum.Analysis-class] **(required)**: 
+#' measurement input
+#' 
+#' @param signal_integral [numeric] (*optional*): 
+#' signal integral, used for the signal and the background. 
+#' If nothing is provided the full range is used
+#' 
+#' @param dose_points [numeric] (*with default*): 
+#' vector with dose points, if dose points are repeated, only the general 
+#' pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017
-#'
-#'@param irradiation_time_correction \code{\link{numeric}} or \code{\linkS4class{RLum.Results}} (optional):
+#' 
+#' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obained by another experiements.
-#'
-#'@param method_control \code{\link{list}} (optional): optional parameters to control the calculation.
+#' 
+#' @param method_control [list] (*optional*): 
+#' optional parameters to control the calculation. 
 #' See details for further explanations
+#' 
+#' @param plot [logical] (*with default*): 
+#' enable/disable plot output
+#' 
+#' @param ... further arguments that can be passed to the plot output
+#' 
+#' @return 
+#' Function returns results numerically and graphically:
+#' 
+#'  -----------------------------------\cr
+#'  `[ NUMERICAL OUTPUT ]`\cr
+#'  -----------------------------------\cr
+#'  
+#'  **`RLum.Results`**-object
+#' 
+#'  **slot:** **`@data`**
+#'  
+#'  \tabular{lll}{
+#'   **Element** \tab **Type** \tab **Description**\cr
+#'   `$data` \tab `data.frame` \tab summed apparent dose table \cr
+#'   `$data_full` \tab `data.frame` \tab full apparent dose table \cr
+#'   `$fit` \tab `lm` \tab the linear model obtained from fitting \cr
+#'   `$col.seq` \tab `numeric` \tab the used colour vector \cr
+#'  }
+#' 
+#' **slot:** **`@info`**
 #'
-#'@param plot \code{\link{logical}} (with default): enable/disable plot output
-#'
-#'@param ... further arguments that can be passed to the plot output
-#'
-#'@return Function returns results numerically and graphically:\cr
-#'
-#' -----------------------------------\cr
-#' [ NUMERICAL OUTPUT ]\cr
-#' -----------------------------------\cr
-#' \bold{\code{RLum.Reuslts}}-object\cr
-#'
-#' \bold{slot:} \bold{\code{@data}}\cr
-#' \tabular{lll}{
-#' \bold{Element} \tab \bold{Type} \tab \bold{Description}\cr
-#'  \code{$data} \tab \code{data.frame} \tab summed apparent dose table \cr
-#'  \code{$data_full} \tab \code{data.frame} \tab full apparent dose table \cr
-#'  \code{$fit} \tab \code{lm} \tab the linear model obtained from fitting \cr
-#'  \code{$col.seq} \tab \code{numeric} \tab the used colour vector \cr
-#' }
-#'
-#'\bold{slot:} \bold{\code{@info}}\cr
-#'
-#' The original function call\cr
+#' The original function call
 #'
 #' ------------------------\cr
-#' [ PLOT OUTPUT ]\cr
+#' `[ PLOT OUTPUT ]`\cr
 #' ------------------------\cr
 #'
-#' \itemize{
-#'  \item An overview of the obtained apparent dose values
+#' - An overview of the obtained apparent dose values
 #'
-#' }
 #'
 #'
 #' @section Function version: 0.1.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{analyse_Al2O3C_ITC}}
+#' @seealso [analyse_Al2O3C_ITC]
 #'
 #' @references TODO
 #'
@@ -64,9 +70,10 @@
 #'
 #' @examples
 #'
-#' ##nothing so far TODO ... add tests with example
+#' ## nothing so far TODO ... add tests with example
 #'
-#'@export
+#' @md
+#' @export
 analyse_Al2O3C_CrossTalk <- function(
   object,
   signal_integral = NULL,

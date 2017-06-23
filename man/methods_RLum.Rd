@@ -196,52 +196,64 @@ is.RLum.Results(x, ...)
 \method{$}{RLum.Results}(x, i)
 }
 \arguments{
-\item{x}{\code{\linkS4class{RLum}} or \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): input opject}
+\item{x}{\linkS4class{RLum} or \linkS4class{Risoe.BINfileData} (\strong{required}):
+input opject}
 
-\item{y}{\code{\link{integer}} (optional): the row index of the matrix, data.frame}
+\item{y}{\link{integer} (\emph{optional}):
+the row index of the matrix, data.frame}
 
 \item{...}{further arguments that can be passed to the method}
 
-\item{object}{\code{\linkS4class{RLum}} (\bold{required}): input opject}
+\item{object}{\linkS4class{RLum} (\strong{required}):
+input opject}
 
-\item{subset}{\code{[subset]} \code{\link{expression}} (\bold{required}): logical expression indicating elements or rows to keep,
-this function works in \code{\linkS4class{Risoe.BINfileData}} objects like \code{\link{subset.data.frame}}, but takes care
+\item{subset}{\code{[subset]} \link{expression} (\strong{required}):
+logical expression indicating elements or rows to keep, this function works
+in \linkS4class{Risoe.BINfileData} objects like \link{subset.data.frame}, but takes care
 of the object structure}
 
-\item{records.rm}{[subset] \code{\link{logical}} (with default): remove records from data set, can
-be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
+\item{records.rm}{\link{subset} \link{logical} (\emph{with default}):
+remove records from data set, can be disabled, to just set the column \code{SET} to \code{TRUE} or \code{FALSE}}
 
-\item{row.names}{\code{\link{logical}} (with default): enables or disables row names (\code{as.data.frame})}
+\item{row.names}{\link{logical} (\emph{with default}):
+enables or disables row names (\code{as.data.frame})}
 
-\item{optional}{\code{\link{logical}} (with default): logical. If TRUE, setting row names and
-converting column names (to syntactic names: see make.names) is optional (see \code{\link[base]{as.data.frame}})}
+\item{optional}{\link{logical} (\emph{with default}):
+logical. If TRUE, setting row names and converting column names
+(to syntactic names: see make.names) is optional (see \link[base:as.data.frame]{base::as.data.frame})}
 
-\item{recursive}{\code{\link{logical}} (with default): enables or disables further subsetting (\code{unlist})}
+\item{recursive}{\link{logical} (\emph{with default}):
+enables or disables further subsetting (\code{unlist})}
 
-\item{z}{\code{\link{integer}} (optional): the column index of the matrix, data.frame}
+\item{z}{\link{integer} (\emph{optional}):
+the column index of the matrix, data.frame}
 
-\item{drop}{\code{\link{logical}} (with default): keep object structure or drop it}
+\item{drop}{\link{logical} (\emph{with default}):
+keep object structure or drop it}
 
-\item{i}{\code{\link{character}} (optional): name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object}
+\item{i}{\link{character} (\emph{optional}):
+name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object}
 
-\item{j}{\code{\link{integer}} (optional): column of the data matrix in the \code{RLum.Data.Curve} object}
+\item{j}{\link{integer} (\emph{optional}):
+column of the data matrix in the \code{RLum.Data.Curve} object}
 
-\item{value}{\code{\link{numeric}} \bold{(required)}: numeric value which replace the value in the
-\code{RLum.Data.Curve} object}
+\item{value}{\link{numeric} \strong{(required)}:
+numeric value which replace the value in the \code{RLum.Data.Curve} object}
 }
 \description{
 Methods for S3-generics implemented for the package 'Luminescence'.
 This document summarises all implemented S3-generics. The name of the function
-is given before the first dot, after the dot the name of the object that is supported by this method
-is given, e.g. \code{plot.RLum.Data.Curve} can be called by \code{plot(object, ...)}, where
-\code{object} is the \code{RLum.Data.Curve} object.
+is given before the first dot, after the dot the name of the object that is
+supported by this method is given, e.g. \code{plot.RLum.Data.Curve} can be called
+by \code{plot(object, ...)}, where \code{object} is the \code{RLum.Data.Curve} object.
 }
 \details{
-The term S3-generics sounds complicated, however, it just means that something has been implemented
-in the package to increase the usability for users new in R and who are not familiar with the
-underlying \code{RLum}-object structure of the package. The practical outcome is that
-operations and functions presented in standard books on R can be used without knowing the specifica
-of the R package 'Luminescence'. For examples see the example section.
+The term S3-generics sounds complicated, however, it just means that something
+has been implemented in the package to increase the usability for users new
+in R and who are not familiar with the underlying \code{RLum}-object structure of
+the package. The practical outcome is that operations and functions presented
+in standard books on R can be used without knowing the specifica of the R
+package 'Luminescence'. For examples see the example section.
 }
 \note{
 \code{methods_RLum} are not really new functions, everything given here are mostly just

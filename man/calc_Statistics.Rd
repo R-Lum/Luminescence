@@ -8,23 +8,25 @@ calc_Statistics(data, weight.calc = "square", digits = NULL, n.MCM = NULL,
   na.rm = TRUE)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-object (required): for \code{data.frame} two columns: De (\code{data[,1]})
-and De error (\code{data[,2]}). To plot several data sets in one plot the
-data sets must be provided as \code{list}, e.g. \code{list(data.1, data.2)}.}
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
+for \link{data.frame} two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
+To plot several data sets in one plot the data sets must be provided
+as \code{list}, e.g. \code{list(data.1, data.2)}.}
 
-\item{weight.calc}{\code{\link{character}}: type of weight calculation. One
-out of \code{"reciprocal"} (weight is 1/error), \code{"square"} (weight is
-1/error^2). Default is \code{"square"}.}
+\item{weight.calc}{\link{character}:
+type of weight calculation. One out of \code{"reciprocal"} (weight is 1/error),
+\code{"square"} (weight is 1/error^2). Default is \code{"square"}.}
 
-\item{digits}{\code{\link{integer}} (with default): round numbers to the
-specified digits. If digits is set to \code{NULL} nothing is rounded.}
+\item{digits}{\link{integer} (\emph{with default}):
+round numbers to the specified digits.
+If digits is set to \code{NULL} nothing is rounded.}
 
-\item{n.MCM}{\code{\link{numeric}} (with default): number of samples drawn
-for Monte Carlo-based statistics. \code{NULL} (the default) disables MC runs.}
+\item{n.MCM}{\link{numeric} (\emph{with default}):
+number of samples drawn for Monte Carlo-based statistics.
+\code{NULL} (the default) disables MC runs.}
 
-\item{na.rm}{\code{\link{logical}} (with default): indicating whether NA
-values should be stripped before the computation proceeds.}
+\item{na.rm}{\link{logical} (\emph{with default}):
+indicating whether \code{NA} values should be stripped before the computation proceeds.}
 }
 \value{
 Returns a list with weighted and unweighted statistic measures.
@@ -42,10 +44,10 @@ number of MCM-samples linearly increases computation time. On a Lenovo X230
 machine evaluation of 25 Aliquots with n.MCM = 1000 takes 0.01 s, with
 n = 100000, ca. 1.65 s. It might be useful to work with logarithms of these
 values. See Dietze et al. (2016, Quaternary Geochronology) and the function
-\code{\link{plot_AbanicoPlot}} for details.
+\link{plot_AbanicoPlot} for details.
 }
 \section{Function version}{
- 0.1.7 (2017-02-10 18:30:04)
+ 0.1.7
 }
 
 \examples{
@@ -71,10 +73,5 @@ str(calc_Statistics(x))
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Dietze, M. (2017). calc_Statistics(): Function to calculate statistic measures. Function version 0.1.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{datagen}

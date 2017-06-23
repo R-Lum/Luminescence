@@ -8,34 +8,36 @@ Luminescence}
 
 \code{TL.SAR.Data}: SAR TL measurement data
 
-Each class object contains two slots: (a) \code{METADATA} is a
-\link{data.frame} with all metadata stored in the BIN file of the
-measurements and (b) \code{DATA} contains a list of vectors of the measured
-data (usually count values).}
+Each class object contains two slots: (a) \code{METADATA} is a \link{data.frame} with
+all metadata stored in the BIN file of the measurements and (b) \code{DATA}
+contains a list of vectors of the measured data (usually count values).}
 \source{
-\bold{CWOSL.SAR.Data}
+\strong{CWOSL.SAR.Data}
 
 \tabular{ll}{
+Lab: \tab Luminescence Laboratory Bayreuth \cr
+Lab-Code: \tab BT607 \cr
+Location: \tab Saxony/Germany \cr
+Material: \tab Middle grain quartz measured on aluminum cups on a Risoe TL/OSL DA-15 reader\cr
+Reference: \tab unpublished
+}
 
-Lab: \tab Luminescence Laboratory Bayreuth\cr Lab-Code: \tab BT607\cr
-Location: \tab Saxony/Germany\cr Material: \tab Middle grain quartz measured
-\cr \tab on aluminum cups on a Risoe TL/OSL DA-15 reader\cr Reference: \tab
-unpublished }
-
-\bold{TL.SAR.Data}
+\strong{TL.SAR.Data}
 
 \tabular{ll}{
-
-Lab: \tab Luminescence Laboratory of Cologne\cr Lab-Code: \tab LP1_5\cr
-Location: \tab Spain\cr Material: \tab Flint \cr Setup: \tab Risoe TL/OSL
-DA-20 reader \cr \tab (Filter: Semrock Brightline, \cr \tab HC475/50, N2,
-unpolished steel discs) \cr Reference: \tab unpublished \cr Remarks: \tab
-dataset limited to one position\cr }
+Lab: \tab Luminescence Laboratory of Cologne\cr
+Lab-Code: \tab LP1_5\cr
+Location: \tab Spain\cr
+Material: \tab Flint \cr
+Setup: \tab Risoe TL/OSL DA-20 reader (Filter: Semrock Brightline, HC475/50, N2, unpolished steel discs) \cr
+Reference: \tab unpublished \cr
+Remarks: \tab dataset limited to one position
+}
 }
 \description{
 Example data from a SAR OSL and TL measurement for package Luminescence
 directly extracted from a Risoe BIN-file and provided in an object of type
-\link{Risoe.BINfileData-class}
+\linkS4class{Risoe.BINfileData}
 }
 \note{
 Please note that this example data cannot be exported to a BIN-file using the function
@@ -48,15 +50,15 @@ the BIN-file format changed.
 
 \examples{
 
-##show first 5 elements of the METADATA and DATA elements in the terminal
+## show first 5 elements of the METADATA and DATA elements in the terminal
 data(ExampleData.BINfileData, envir = environment())
 CWOSL.SAR.Data@METADATA[1:5,]
 CWOSL.SAR.Data@DATA[1:5]
 
 }
 \references{
-\bold{CWOSL.SAR.Data}: unpublished data \cr
+\strong{CWOSL.SAR.Data}: unpublished data
 
-\bold{TL.SAR.Data}: unpublished data
+\strong{TL.SAR.Data}: unpublished data
 }
 \keyword{datasets}

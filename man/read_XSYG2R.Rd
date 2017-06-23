@@ -8,113 +8,134 @@ read_XSYG2R(file, recalculate.TL.curves = TRUE, fastForward = FALSE,
   import = TRUE, pattern = ".xsyg", txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\code{\link{character}} or \code{\link{list}} (\bold{required}): path and file name of the
-XSYG file. If input is a \code{list} it should comprise only \code{character}s representing each valid
-path and xsyg-file names. Alternatively the input character can be just a directory (path), in this case the
+\item{file}{\link{character} or \link{list} (\strong{required}):
+path and file name of the XSYG file. If input is a \code{list} it should comprise
+only \code{character}s representing each valid path and xsyg-file names.
+Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all xsyg files found in the directory.}
 
-\item{recalculate.TL.curves}{\link{logical} (with default): if set to
-\code{TRUE}, TL curves are returned as temperature against count values (see
-details for more information) Note: The option overwrites the time vs. count
-TL curve. Select \code{FALSE} to import the raw data delivered by the
+\item{recalculate.TL.curves}{\link{logical} (\emph{with default}):
+if set to \code{TRUE}, TL curves are returned as temperature against count values
+(see details for more information) Note: The option overwrites the time vs.
+count TL curve. Select \code{FALSE} to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.}
 
-\item{fastForward}{\code{\link{logical}} (with default): if \code{TRUE} for a
-more efficient data processing only a list of \code{RLum.Analysis} objects is returned.}
+\item{fastForward}{\link{logical} (\emph{with default}):
+if \code{TRUE} for a more efficient data processing only a list of \code{RLum.Analysis}
+objects is returned.}
 
-\item{import}{\code{\link{logical}} (with default): if set to \code{FALSE}, only
-the XSYG file structure is shown.}
+\item{import}{\link{logical} (\emph{with default}):
+if set to \code{FALSE}, only the XSYG file structure is shown.}
 
-\item{pattern}{\code{\link{regex}} (with default): optional regular expression if \code{file} is
-a link to a folder, to select just specific XSYG-files}
+\item{pattern}{\link{regex} (\emph{with default}):
+optional regular expression if \code{file} is a link to a folder, to select just
+specific XSYG-files}
 
-\item{txtProgressBar}{\link{logical} (with default): enables \code{TRUE} or
-disables \code{FALSE} the progression bar during import}
+\item{txtProgressBar}{\link{logical} (\emph{with default}):
+enables \code{TRUE} or disables \code{FALSE} the progression bar during import}
 }
 \value{
-\bold{Using the option \code{import = FALSE}}\cr\cr A list
-consisting of two elements is shown: \item{Sample}{\link{data.frame} with
-information on file.} \item{Sequences}{\link{data.frame} with information on
-the sequences stored in the XSYG file}.\cr\cr \bold{Using the option
-\code{import = TRUE} (default)} \cr\cr A list is provided, the list elements
+\strong{Using the option \code{import = FALSE}}
+
+A list consisting of two elements is shown:
+\itemize{
+\item \link{data.frame} with information on file.
+\item \link{data.frame} with information on the sequences stored in the XSYG file.
+}
+
+\strong{Using the option \code{import = TRUE} (default)}
+
+A list is provided, the list elements
 contain: \item{Sequence.Header}{\link{data.frame} with information on the
-sequence.} \item{Sequence.Object}{\code{\linkS4class{RLum.Analysis}}
+sequence.} \item{Sequence.Object}{\linkS4class{RLum.Analysis}
 containing the curves.}
 }
 \description{
 Imports XSYG files produced by a Freiberg Instrument lexsyg reader into R.
 }
 \details{
-\bold{How does the import function work?}\cr\cr The function uses the
-\code{\link{xml}} package to parse the file structure. Each sequence is
-subsequently translated into an \code{\linkS4class{RLum.Analysis}}
-object.\cr\cr
+\strong{How does the import function work?}
 
-\bold{General structure XSYG format}\cr\cr \code{<?xml?}\cr \code{
-<Sample>}\cr \code{ <Sequence>}\cr \code{ <Record>}\cr \code{ <Curve
-name="first curve" />}\cr \code{ <Curve name="curve with data">}\cr \code{
-x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3}\cr \code{ </Curve>}\cr \code{
-</Record>}\cr \code{ </Sequence>}\cr \code{ </Sample>}\cr\cr So far, each
+The function uses the \link{xml} package to parse the file structure. Each
+sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
+
+\strong{General structure XSYG format}\preformatted{<?xml?>
+<Sample>
+  <Sequence>
+    <Record>
+      <Curve name="first curve" /> 
+      <Curve name="curve with data">x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3</Curve>
+    </Record> 
+  </Sequence>
+</Sample>
+}
+
+So far, each
 XSYG file can only contain one \code{<Sample></Sample>}, but multiple
-sequences. \cr\cr Each record may comprise several curves.\cr\cr
+sequences.
 
-\bold{TL curve recalculation}\cr
+Each record may comprise several curves.
+
+\strong{TL curve recalculation}
 
 On the FI lexsyg device TL curves are recorded as time against count values.
 Temperature values are monitored on the heating plate and stored in a
 separate curve (time vs. temperature). If the option
 \code{recalculate.TL.curves = TRUE} is chosen, the time values for each TL
-curve are replaced by temperature values.\cr
+curve are replaced by temperature values.
 
 Practically, this means combining two matrices (Time vs. Counts and Time vs.
 Temperature) with different row numbers by their time values. Three cases
 are considered:
+\enumerate{
+\item HE: Heating element
+\item PMT: Photomultiplier tube
+\item Interpolation is done using the function \link{approx}
+}
 
-HE: Heating element\cr PMT: Photomultiplier tube\cr Interpolation is done
-using the function \code{\link{approx}}\cr
-
-CASE (1): \code{nrow(matrix(PMT))} > \code{nrow(matrix(HE))} \cr
+CASE (1): \code{nrow(matrix(PMT))} > \code{nrow(matrix(HE))}
 
 Missing temperature values from the heating element are calculated using
-time values from the PMT measurement.\cr
+time values from the PMT measurement.
 
-CASE (2): \code{nrow(matrix(PMT))} < \code{nrow(matrix(HE))} \cr
+CASE (2): \code{nrow(matrix(PMT))} < \code{nrow(matrix(HE))}
 
 Missing count values from the PMT are calculated using time values from the
-heating element measurement.\cr
+heating element measurement.
 
-CASE (3): \code{nrow(matrix(PMT))} == \code{nrow(matrix(HE))} \cr
+CASE (3): \code{nrow(matrix(PMT))} == \code{nrow(matrix(HE))}
 
 A new matrix is produced using temperature values from the heating element
-and count values from the PMT. \cr
+and count values from the PMT.
 
-\emph{Note: Please note that due to the recalculation of the temperature
+\strong{Note:}
+Please note that due to the recalculation of the temperature
 values based on values delivered by the heating element, it may happen that
 mutiple count values exists for each temperature value and temperature
-values may also decrease during heating, not only increase. }\cr
+values may also decrease during heating, not only increase.
 
-\bold{Advanced file import}\cr
+\strong{Advanced file import}
 
-To allow for a more efficient usage of the function, instead of single path to a file just
-a directory can be passed as input. In this particular case the function tries to extract
-all XSYG-files found in the directory and import them all. Using this option internally the function
-constructs as list of the XSYG-files found in the directory. Please note no recursive detection
+To allow for a more efficient usage of the function, instead of single path
+to a file just a directory can be passed as input. In this particular case
+the function tries to extract all XSYG-files found in the directory and import
+them all. Using this option internally the function constructs as list of
+the XSYG-files found in the directory. Please note no recursive detection
 is supported as this may lead to endless loops.
 }
 \note{
 This function is a beta version as the XSYG file format is not yet
 fully specified. Thus, further file operations (merge, export, write) should
-be done using the functions provided with the package \code{\link{xml}}.\cr
+be done using the functions provided with the package \link{xml}.
 
-\bold{So far, no image data import is provided!}\cr Corresponding values in
-the XSXG file are skipped.
+\strong{So far, no image data import is provided!} \cr
+Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.5.8 (2017-01-24 21:10:47)
+ 0.5.8
 }
 
 \examples{
-
 
 ##(1) import XSYG file to R (uncomment for usage)
 
@@ -140,25 +161,19 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 ##(3) How to see the structure of an object?
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
-
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). read_XSYG2R(): Import XSYG files to R. Function version 0.5.8. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
-XSYG file format. Unpublished Technical Note. Freiberg, Germany \cr\cr
+XSYG file format. Unpublished Technical Note. Freiberg, Germany
 
-\bold{Further reading} \cr\cr XML: \url{http://en.wikipedia.org/wiki/XML}
+\strong{Further reading}
+
+XML: \url{http://en.wikipedia.org/wiki/XML}
 }
 \seealso{
-\code{\link{xml}}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Data.Curve}}, \code{\link{approx}}
+\link{xml}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{approx}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}
 \keyword{IO}

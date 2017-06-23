@@ -20,43 +20,50 @@
 \S4method{names_RLum}{RLum.Data.Spectrum}(object)
 }
 \arguments{
-\item{object}{[\code{show_RLum}][\code{get_RLum}][\code{names_RLum}] an object of
-class \code{\linkS4class{RLum.Data.Spectrum}}}
+\item{object}{\code{\link{get_RLum}}, \code{\link{names_RLum}} (\strong{required}):
+an object of class \linkS4class{RLum.Data.Spectrum}}
 
-\item{class}{[\code{set_RLum}] \code{\link{character}} (automatic): name of the \code{RLum} class to create.}
+\item{class}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
+name of the \code{RLum} class to create.}
 
-\item{originator}{\code{\link{character}} (automatic): contains the name of the calling function
-(the function that produces this object); can be set manually.}
+\item{originator}{\link{character} (\emph{automatic}):
+contains the name of the calling function (the function that produces this object);
+can be set manually.}
 
-\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
-using the internal C++ function \code{.create_UID}.}
+\item{.uid}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
+sets an unique ID for this object using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
-at will.}
+\item{.pid}{\code{\link{set_RLum}}; \link{character} (\emph{with default}):
+option to provide a parent id for nesting at will.}
 
-\item{recordType}{[\code{set_RLum}] \code{\link{character}}: record type (e.g. "OSL")}
+\item{recordType}{\code{\link{set_RLum}}; \link{character}:
+record type (e.g. "OSL")}
 
-\item{curveType}{[\code{set_RLum}] \code{\link{character}}: curve type (e.g. "predefined" or "measured")}
+\item{curveType}{\code{\link{set_RLum}}; \link{character}:
+curve type (e.g. "predefined" or "measured")}
 
-\item{data}{[\code{set_RLum}] \code{\link{matrix}}: raw curve data. If data is of
-type \code{RLum.Data.Spectrum}, this can be used to re-construct the object.}
+\item{data}{\code{\link{set_RLum}}; \link{matrix}:
+raw curve data. If data is of type \code{RLum.Data.Spectrum}, this can be used
+to re-construct the object.}
 
-\item{info}{[\code{set_RLum}] \code{\link{list}}: info elements}
+\item{info}{\code{\link{set_RLum}} \link{list}:
+info elements}
 
-\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): the name of the info
-object to be called}
+\item{info.object}{\code{\link{get_RLum}}; \link{character} (\emph{optional}):
+the name of the info object to be called}
 }
 \value{
-\bold{\code{[set_RLum]}}\cr
+\strong{\code{[set_RLum]}}
 
 An object from the class \code{RLum.Data.Spectrum}
 
-\bold{\code{get_RLum}}\cr
+\strong{\code{get_RLum}}
+\enumerate{
+\item A \link{matrix} with the spectrum values or
+\item only the info object if \code{info.object} was set.
+}
 
-(1) A \code{\link{matrix}} with the spectrum values or \cr
-(2) only the info object if \code{info.object} was set.\cr
-
-\bold{\code{names_RLum}}\cr
+\strong{\code{names_RLum}}
 
 The names of the info objects
 }
@@ -80,25 +87,24 @@ is provided, the raw curve data (matrix) will be returned
 \section{Slots}{
 
 \describe{
-\item{\code{recordType}}{Object of class \code{\link{character}} containing the type of the curve (e.g. "TL" or "OSL")}
+\item{\code{recordType}}{Object of class \link{character} containing the type of the curve (e.g. "TL" or "OSL")}
 
-\item{\code{curveType}}{Object of class \code{\link{character}} containing curve type, allowed values
-are measured or predefined}
+\item{\code{curveType}}{Object of class \link{character} containing curve type, allowed values are measured or predefined}
 
-\item{\code{data}}{Object of class \code{\link{matrix}} containing spectrum (count) values.
+\item{\code{data}}{Object of class \link{matrix} containing spectrum (count) values.
 Row labels indicate wavelength/pixel values, column labels are temperature or time values.}
 
-\item{\code{info}}{Object of class \code{\link{list}} containing further meta information objects}
+\item{\code{info}}{Object of class \link{list} containing further meta information objects}
 }}
 
 \note{
 The class should only contain data for a single spectra data set. For
 additional elements the slot \code{info} can be used. Objects from this class are automatically
-created by, e.g., \code{\link{read_XSYG2R}}
+created by, e.g., \link{read_XSYG2R}
 }
 \section{Objects from the Class}{
- Objects can be created by calls of the form
-\code{set_RLum("RLum.Data.Spectrum", ...)}.
+
+Objects can be created by calls of the form \code{set_RLum("RLum.Data.Spectrum", ...)}.
 }
 
 \section{Class version}{
@@ -120,17 +126,12 @@ get_RLum(TL.Spectrum)
 \dontrun{
 plot_RLum(TL.Spectrum)
 }
+
 }
 \seealso{
-\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}
+\linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). RLum.Data.Spectrum-class(): Class 'RLum.Data.Spectrum'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{classes}

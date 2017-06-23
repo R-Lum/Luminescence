@@ -10,70 +10,80 @@ calc_FastRatio(object, stimulation.power = 30.6, wavelength = 470,
   fitCW.sigma = FALSE, fitCW.curve = FALSE, plot = TRUE, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}}, 
-\code{\linkS4class{RLum.Data.Curve}} or \code{\link{data.frame}} 
-(\bold{required}): x, y data of measured values (time and counts).}
+\item{object}{\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+x, y data of measured values (time and counts).}
 
-\item{stimulation.power}{\code{\link{numeric}} (with default): Stimulation power in mW/cm^2}
+\item{stimulation.power}{\link{numeric} (\emph{with default}):
+Stimulation power in mW/cm^2}
 
-\item{wavelength}{\code{\link{numeric}} (with default): Stimulation wavelength in nm}
+\item{wavelength}{\link{numeric} (\emph{with default}):
+Stimulation wavelength in nm}
 
-\item{sigmaF}{\code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
-fast component. Default value after Durcan & Duller (2011).}
+\item{sigmaF}{\link{numeric} (\emph{with default}):
+Photoionisation cross-section (cm^2) of the fast component.
+Default value after Durcan & Duller (2011).}
 
-\item{sigmaM}{\code{\link{numeric}} (with default): Photoionisation cross-section (cm^2) of the
-medium component. Default value after Durcan & Duller (2011).}
+\item{sigmaM}{\link{numeric} (\emph{with default}):
+Photoionisation cross-section (cm^2) of the medium component.
+Default value after Durcan & Duller (2011).}
 
-\item{Ch_L1}{\code{\link{numeric}} (with default): An integer specifying the channel for L1.}
+\item{Ch_L1}{\link{numeric} (\emph{with default}):
+An integer specifying the channel for L1.}
 
-\item{Ch_L2}{\code{\link{numeric}} (optional): An integer specifying the channel for L2.}
+\item{Ch_L2}{\link{numeric} (\emph{optional}):
+An integer specifying the channel for L2.}
 
-\item{Ch_L3}{\code{\link{numeric}} (optional): A vector of length 2 with integer
-values specifying the start and end channels for L3 (e.g., \code{c(40, 50)}).}
+\item{Ch_L3}{\link{numeric} (\emph{optional}):
+A vector of length 2 with integer values specifying the start and end channels for L3
+(e.g., \code{c(40, 50)}).}
 
-\item{x}{\code{\link{numeric}} (with default): \% of signal remaining from the fast component.
+\item{x}{\link{numeric} (\emph{with default}):
+\% of signal remaining from the fast component.
 Used to define the location of L2 and L3 (start).}
 
-\item{x2}{\code{\link{numeric}} (with default): \% of signal remaining from the medium component.
+\item{x2}{\link{numeric} (\emph{with default}):
+\% of signal remaining from the medium component.
 Used to define the location of L3 (end).}
 
-\item{dead.channels}{\code{\link{numeric}} (with default): Vector of length 2 in the form of
-\code{c(x, y)}. Channels that do not contain OSL data, i.e. at the start or end of
-measurement.}
+\item{dead.channels}{\link{numeric} (\emph{with default}):
+Vector of length 2 in the form of \code{c(x, y)}.
+Channels that do not contain OSL data, i.e. at the start or end of measurement.}
 
-\item{fitCW.sigma}{\code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
-to calculate \code{sigmaF} and \code{sigmaM} (experimental).}
+\item{fitCW.sigma}{\link{logical} (\emph{optional}):
+fit CW-OSL curve using \link{fit_CWCurve} to calculate \code{sigmaF} and \code{sigmaM} (\strong{experimental}).}
 
-\item{fitCW.curve}{\code{\link{logical}} (optional): fit CW-OSL curve using \code{\link{fit_CWCurve}}
-and derive the counts of L2 and L3 from the fitted OSL curve (experimental).}
+\item{fitCW.curve}{\link{logical} (\emph{optional}):
+fit CW-OSL curve using \link{fit_CWCurve} and derive the counts of L2 and L3
+from the fitted OSL curve (\strong{experimental}).}
 
-\item{plot}{\code{\link{logical}} (with default): plot output (\code{TRUE}/\code{FALSE})}
+\item{plot}{\link{logical} (\emph{with default}):
+plot output (\code{TRUE}/\code{FALSE})}
 
-\item{...}{available options: \code{verbose} (\code{\link{logical}}). Further
-arguments passed to \code{\link{fit_CWCurve}}.}
+\item{...}{available options: \code{verbose} (\link{logical}).
+Further arguments passed to \link{fit_CWCurve}.}
 }
 \value{
-Returns a plot (optional) and an S4 object of type \code{\linkS4class{RLum.Results}}. 
-The slot \code{data} contains a \code{\link{list}} with the following elements:\cr
+Returns a plot (\emph{optional}) and an S4 object of type \linkS4class{RLum.Results}.
+The slot \code{data} contains a \link{list} with the following elements:
 
-\item{summary}{\code{\link{data.frame}} summary of all relevant results}
+\item{summary}{\link{data.frame} summary of all relevant results}
 \item{data}{the original input data}
-\item{fit}{\code{\linkS4class{RLum.Results}} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
-\item{args}{\code{\link{list}} of used arguments}
-\item{call}{\code{\link{call}} the function call}
+\item{fit}{\linkS4class{RLum.Results} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
+\item{args}{\link{list} of used arguments}
+\item{call}{\code{[call]} the function call}
 }
 \description{
-Function to calculate the fast ratio of quartz CW-OSL single grain or single 
+Function to calculate the fast ratio of quartz CW-OSL single grain or single
 aliquot curves after Durcan & Duller (2011).
 }
 \details{
 This function follows the equations of Durcan & Duller (2011). The energy
 required to reduce the fast and medium quartz OSL components to \code{x} and
-\code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start 
+\code{x2} \% respectively using eq. 3 to determine channels L2 and L3 (start
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
- 0.1.1 (2017-04-07 12:07:03)
+ 0.1.1
 }
 
 \examples{
@@ -86,32 +96,27 @@ res <- calc_FastRatio(ExampleData.CW_OSL_Curve)
 # show the summary table
 get_RLum(res)
 
-} 
-
-\section{How to cite}{
-King, G., Durcan, J., Burow, C. (2017). calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
 the dominance of the fast component in the initial OSL signal from quartz.
-Radiation Measurements 46, 1065-1072. \cr\cr
+Radiation Measurements 46, 1065-1072.
 
 Madsen, A.T., Duller, G.A.T., Donnelly, J.P., Roberts, H.M. & Wintle, A.G., 2009.
 A chronology of hurricane landfalls at Little Sippewissett Marsh, Massachusetts, USA,
-using optical dating. Geomorphology 109, 36-45. \cr\cr
+using optical dating. Geomorphology 109, 36-45.
 
-\bold{Further reading} \cr\cr
+\strong{Further reading}
 
-Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation 
+Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation
 due to unstable signal components. Quaternary Geochronology 4, 353-362.
 }
 \seealso{
-\code{\link{fit_CWCurve}}, \code{\link{get_RLum}}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Results}}, \code{\linkS4class{RLum.Data.Curve}}
+\link{fit_CWCurve}, \link{get_RLum}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}, \linkS4class{RLum.Data.Curve}
 }
 \author{
 Georgina King, University of Cologne (Germany) \cr
 Julie A. Durcan, University of Oxford (United Kingdom) \cr
-Christoph Burow, University of Cologne (Germany) \cr
-\cr R Luminescence Package Team}
+Christoph Burow, University of Cologne (Germany)
+}

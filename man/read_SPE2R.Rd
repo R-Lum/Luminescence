@@ -8,44 +8,47 @@ read_SPE2R(file, output.object = "RLum.Data.Image", frame.range,
   txtProgressBar = TRUE)
 }
 \arguments{
-\item{file}{\link{character} (\bold{required}): spe-file name (including
-path), e.g. \cr [WIN]: \code{read_SPE2R("C:/Desktop/test.spe")}, \cr
-[MAC/LINUX]: \code{readSPER("/User/test/Desktop/test.spe")}}
+\item{file}{\link{character} (\strong{required}):
+spe-file name (including path), e.g.
+\itemize{
+\item \code{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
+\item \code{[MAC/LINUX]}: \code{readSPER("/User/test/Desktop/test.spe")}
+}}
 
-\item{output.object}{\code{\link{character}} (with default): set \code{RLum}
-output object.  Allowed types are \code{"RLum.Data.Spectrum"},
+\item{output.object}{\link{character} (\emph{with default}):
+set \code{RLum} output object.  Allowed types are \code{"RLum.Data.Spectrum"},
 \code{"RLum.Data.Image"} or \code{"matrix"}}
 
-\item{frame.range}{\code{\link{vector}} (optional): limit frame range, e.g.
-select first 100 frames by \code{frame.range = c(1,100)}}
+\item{frame.range}{\link{vector} (\emph{optional}):
+limit frame range, e.g. select first 100 frames by \code{frame.range = c(1,100)}}
 
-\item{txtProgressBar}{\link{logical} (with default): enables or disables
-\code{\link{txtProgressBar}}.}
+\item{txtProgressBar}{\link{logical} (\emph{with default}):
+enables or disables \link{txtProgressBar}.}
 }
 \value{
 Depending on the chosen option the functions returns three different
-type of objects:\cr
+type of objects:
 
-\code{output.object}. \cr
+\code{output.object}
 
-\code{RLum.Data.Spectrum}\cr
+\code{RLum.Data.Spectrum}
 
-An object of type \code{\linkS4class{RLum.Data.Spectrum}} is returned.  Row
+An object of type \linkS4class{RLum.Data.Spectrum} is returned.  Row
 sums are used to integrate all counts over one channel.
 
-\code{RLum.Data.Image}\cr
+\code{RLum.Data.Image}
 
-An object of type \code{\linkS4class{RLum.Data.Image}} is returned.  Due to
+An object of type \linkS4class{RLum.Data.Image} is returned.  Due to
 performace reasons the import is aborted for files containing more than 100
 frames. This limitation can be overwritten manually by using the argument
 \code{frame.frange}.
 
-\code{matrix}\cr
+\code{matrix}
 
 Returns a matrix of the form: Rows = Channels, columns = Frames. For the
-transformation the function \code{\link{get_RLum}} is used,
+transformation the function \link{get_RLum} is used,
 meaning that the same results can be obtained by using the function
-\code{\link{get_RLum}} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
+\link{get_RLum} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
 }
 \description{
 Function imports Princeton Instruments (TM) SPE-files into R environment and
@@ -58,20 +61,17 @@ Princton Instruments and a MatLab script written by Carl Hall (s.
 references).
 }
 \note{
-\bold{The function does not test whether the input data are spectra or
-pictures for spatial resolved analysis!}\cr
+\strong{The function does not test whether the input data are spectra or pictures for spatial resolved analysis!}
 
 The function has been successfully tested for SPE format versions 2.x.
 
-\emph{Currently not all information provided by the SPE format are
-supported.}
+\emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.0 (2017-02-10 18:30:04)
+ 0.1.0
 }
 
 \examples{
-
 
 ## to run examples uncomment lines and run the code
 
@@ -96,12 +96,7 @@ supported.}
 #             sep = ";", row.names = FALSE)
 
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). read_SPE2R(): Import Princeton Intruments (TM) SPE-file into R. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 Format Specification, Version 1.A (for document URL please use an internet search machine)
@@ -110,11 +105,9 @@ Hall, C., 2012: readSPE.m.
 \url{http://www.mathworks.com/matlabcentral/fileexchange/35940-readspe/content/readSPE.m}
 }
 \seealso{
-\code{\link{readBin}}, \code{\linkS4class{RLum.Data.Spectrum}},
-\code{\link[raster]{raster}}
+\link{readBin}, \linkS4class{RLum.Data.Spectrum}, \link[raster:raster]{raster::raster}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}
 \keyword{IO}

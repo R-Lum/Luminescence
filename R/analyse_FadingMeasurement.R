@@ -7,85 +7,92 @@
 #'
 #' All provided output corresponds to the \eqn{tc} value obtained by this analysis. Additionally
 #' in the output object the g-value normalised to 2-days is provided. The output of this function
-#' can be passed to the function \code{\link{calc_FadingCorr}}.\cr
+#' can be passed to the function [calc_FadingCorr].
 #'
-#' \bold{Fitting and error estimation}\cr
+#' **Fitting and error estimation**
 #'
-#' For the fitting the function \code{\link[stats]{lm}} is used without applying weights. For the
+#' For the fitting the function [stats::lm] is used without applying weights. For the
 #' error estimation all input values, except tc, as the precision can be consdiered as sufficiently
 #' high enough with regard to the underlying problem, are sampled assuming a normal distribution
-#' for each value with the value as the mean and the provided uncertainty as standard deviation. \cr
+#' for each value with the value as the mean and the provided uncertainty as standard deviation.
 #'
-#' \bold{Density of recombination centres}
+#' **Density of recombination centres**
 #'
 #' The density of recombination centres, expressed by the dimensionless variable rho', is estimated
 #' by fitting equation 5 in Kars et al. 2008 to the data. For the fitting the function
-#' \code{\link[stats]{nls}} is used without applying weights. For the error estimation the same
+#' [stats::nls] is used without applying weights. For the error estimation the same
 #' procedure as for the g-value is applied (see above).
 #'
-#' @param object \code{\linkS4class{RLum.Analysis}} (\bold{required}): input object with the
-#' measurement data. Alternatively, a \code{\link{list}} containing \code{\linkS4class{RLum.Analysis}}
-#' objects or a \code{\link{data.frame}} with three columns
+#' @param object [RLum.Analysis-class] (**required**): 
+#' input object with the measurement data. Alternatively, a [list] containing [RLum.Analysis-class]
+#' objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
-#' Can also be a wide table, i.e. a \code{\link{data.frame}} with a number of colums divisible by 3
+#' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the before mentioned column structure.
 #'
-#' @param structure \code{\link{character}} (with default): sets the structure of the measurement
-#' data. Allowed are \code{'Lx'} or \code{c('Lx','Tx')}. Other input is ignored
+#' @param structure [character] (*with default*): 
+#' sets the structure of the measurement data. Allowed are `'Lx'` or `c('Lx','Tx')`. 
+#' Other input is ignored
 #'
-#' @param signal.integral \code{\link{vector}} (\bold{required}): vector with the
-#' limits for the signal integral. Not required if a \code{data.frame} with LxTx values are
-#' provided.
+#' @param signal.integral [vector] (**required**): 
+#' vector with the limits for the signal integral. 
+#' Not required if a `data.frame` with LxTx values are provided.
 #'
-#' @param background.integral \code{\link{vector}} (\bold{required}): vector with the
-#' bounds for the background integral. Not required if a \code{data.frame} with LxTx values are
-#' provided.
+#' @param background.integral [vector] (**required**): 
+#' vector with the bounds for the background integral. 
+#' Not required if a `data.frame` with LxTx values are provided.
 #'
-#' @param t_star \code{\link{character}} (with default): method for calculating the time elasped
-#' since irradiaton. Options are: \code{'half'}, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
-#' and \code{'end'}, which takes the time between irradiation and the measurement step. Default is \code{'half'}
+#' @param t_star [character] (*with default*): 
+#' method for calculating the time elasped since irradiaton. Options are: 
+#' `'half'`, which is \eqn{t_star := t_1 + (t_2 - t_1)/2} (Auclair et al., 2003)
+#' and `'end'`, which takes the time between irradiation and the measurement step. 
+#' Default is `'half'`
 #'
-#' @param n.MC \code{\link{integer}} (with default): number for Monte Carlo runs for the error
-#' estimation
+#' @param n.MC [integer] (*with default*): 
+#' number for Monte Carlo runs for the error estimation
 #'
-#' @param verbose \code{\link{logical}} (with default): enables/disables verbose mode
+#' @param verbose [logical] (*with default*): 
+#' enables/disables verbose mode
 #'
-#' @param plot \code{\link{logical}} (with default): enables/disables plot output
+#' @param plot [logical] (*with default*): 
+#' enables/disables plot output
 #'
-#' @param plot.single \code{\link{logical}} (with default): enables/disables single plot
-#' mode, i.e. one plot window per plot. Alternatively a vector specifying the plot to be drawn, e.g.,
-#' \code{plot.single = c(3,4)} draws only the last two plots
+#' @param plot.single [logical] (*with default*): 
+#' enables/disables single plot mode, i.e. one plot window per plot. 
+#' Alternatively a vector specifying the plot to be drawn, e.g.,
+#' `plot.single = c(3,4)` draws only the last two plots
 #'
-#' @param \dots (optional) further arguments that can be passed to internally used functions (see details)
+#' @param ... (*optional*) further arguments that can be passed to internally used functions (see details)
 #'
-#' @return An \code{\linkS4class{RLum.Results}} object is returned:
+#' @return 
+#' An [RLum.Results-class] object is returned:
 #'
-#' Slot: \bold{@data}\cr
+#' Slot: **@data**
 #'
 #' \tabular{lll}{
-#' \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
-#' \code{fading_results} \tab \code{data.frame} \tab results of the fading measurement in a table \cr
-#' \code{fit} \tab \code{lm} \tab object returned by the used linear fitting function \code{\link[stats]{lm}}\cr
-#' \code{rho_prime} \tab \code{data.frame} \tab results of rho' estimation after Kars et al. 2008 \cr
-#' \code{LxTx_table} \tab \code{data.frame} \tab Lx/Tx table, if curve data had been provided \cr
-#' \code{irr.times} \tab \code{integer} \tab vector with the irradiation times in seconds \cr
+#'  **OBJECT** \tab **TYPE** \tab **COMMENT**\cr
+#' `fading_results` \tab `data.frame` \tab results of the fading measurement in a table \cr
+#' `fit` \tab `lm` \tab object returned by the used linear fitting function [stats::lm]\cr
+#' `rho_prime` \tab `data.frame` \tab results of rho' estimation after Kars et al. 2008 \cr
+#' `LxTx_table` \tab `data.frame` \tab Lx/Tx table, if curve data had been provided \cr
+#' `irr.times` \tab `integer` \tab vector with the irradiation times in seconds \cr
 #' }
 #'
-#' Slot: \bold{@info}\cr
+#' Slot: **@info**
 #'
 #' \tabular{lll}{
-#' \bold{OBJECT} \tab \code{TYPE} \tab \code{COMMENT}\cr
-#' \code{call} \tab \code{call} \tab the original function call\cr
-#'
+#' **OBJECT** \tab `TYPE` \tab `COMMENT`\cr
+#' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
 #'
 #' @section Function version: 0.1.5
 #'
-#' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
+#' @author 
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#' @note \bold{This function has BETA status and should not be used for publication work!}
+#' @note **This function has BETA status and should not be used for publication work!**
 #'
 #' @keywords datagen
 #'
@@ -101,8 +108,8 @@
 #' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 #' IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
 #'
-#' @seealso \code{\link{calc_OSLLxTxRatio}}, \code{\link{read_BIN2R}}, \code{\link{read_XSYG2R}},
-#' \code{\link{extract_IrradiationTimes}}
+#' @seealso [calc_OSLLxTxRatio], [read_BIN2R], [read_XSYG2R],
+#' [extract_IrradiationTimes]
 #'
 #' @examples
 #'
@@ -127,6 +134,7 @@
 #' n.MC = 10)
 #'
 #'
+#' @md
 #' @export
 analyse_FadingMeasurement <- function(
   object,

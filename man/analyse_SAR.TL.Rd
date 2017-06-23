@@ -11,79 +11,84 @@ analyse_SAR.TL(object, object.background, signal.integral.min,
   dose.points, log = "", ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}}(\bold{required}): input
-object containing data for analysis}
+\item{object}{\href{**required**}{RLum.Analysis-class}:
+input object containing data for analysis}
 
 \item{object.background}{currently not used}
 
-\item{signal.integral.min}{\link{integer} (\bold{required}): requires the
-channel number for the lower signal integral bound (e.g.
-\code{signal.integral.min = 100})}
+\item{signal.integral.min}{\link{integer} (\strong{required}):
+requires the channel number for the lower signal integral bound
+(e.g. \code{signal.integral.min = 100})}
 
-\item{signal.integral.max}{\link{integer} (\bold{required}): requires the
-channel number for the upper signal integral bound (e.g.
-\code{signal.integral.max = 200})}
+\item{signal.integral.max}{\link{integer} (\strong{required}):
+requires the channel number for the upper signal integral bound
+(e.g. \code{signal.integral.max = 200})}
 
-\item{integral_input}{\code{\link{character}} (with default): defines the input for the
-the arguments \code{signal.integral.min} and \code{signal.integral.max}. These limits can be
-either provided \code{'channel'} number (the default) or \code{'temperature'}. If \code{'temperature'}
-is chosen the best matching channel is selected.}
+\item{integral_input}{\link{character} (\emph{with default}):
+defines the input for the the arguments \code{signal.integral.min} and
+\code{signal.integral.max}. These limits can be either provided \code{'channel'}
+number (the default) or \code{'temperature'}. If \code{'temperature'} is chosen the
+best matching channel is selected.}
 
-\item{sequence.structure}{\link{vector} \link{character} (with default):
-specifies the general sequence structure. Three steps are allowed (
-\code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
+\item{sequence.structure}{\link{vector} \link{character} (\emph{with default}):
+specifies the general sequence structure. Three steps are allowed
+(\code{"PREHEAT"}, \code{"SIGNAL"}, \code{"BACKGROUND"}), in addition a
 parameter \code{"EXCLUDE"}. This allows excluding TL curves which are not
-relevant for the protocol analysis.  (Note: None TL are removed by default)}
+relevant for the protocol analysis.  (\strong{Note:} None TL are removed by default)}
 
-\item{rejection.criteria}{\link{list} (with default): list containing
-rejection criteria in percentage for the calculation.}
+\item{rejection.criteria}{\link{list} (\emph{with default}):
+list containing rejection criteria in percentage for the calculation.}
 
-\item{dose.points}{\code{\link{numeric}} (optional): option set dose points manually}
+\item{dose.points}{\link{numeric} (\emph{optional}):
+option set dose points manually}
 
-\item{log}{\link{character} (with default): a character string which
-contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be
-logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
+\item{log}{\link{character} (\emph{with default}):
+a character string which contains "x" if the x axis is to be logarithmic,
+"y" if the y axis is to be logarithmic and "xy" or "yx" if both axes are to be logarithmic. See
 \link{plot.default}).}
 
-\item{\dots}{further arguments that will be passed to the function
-\code{\link{plot_GrowthCurve}}}
+\item{...}{further arguments that will be passed to the function \link{plot_GrowthCurve}}
 }
 \value{
-A plot (optional) and an \code{\linkS4class{RLum.Results}} object is
+A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
 returned containing the following elements:
-\item{De.values}{\link{data.frame} containing De-values and further
-parameters} \item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx
-values including signal, background counts and the dose points.}
-\item{rejection.criteria}{\link{data.frame} with values that might by used
-as rejection criteria. NA is produced if no R0 dose point exists.}\cr\cr
-\bold{note:} the output should be accessed using the function
-\code{\link{get_RLum}}
+
+\item{De.values}{\link{data.frame} containing De-values and further parameters}
+\item{LnLxTnTx.values}{\link{data.frame} of all calculated Lx/Tx values including signal, background counts and the dose points.}
+\item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+
+\strong{note:} the output should be accessed using the function \link{get_RLum}
 }
 \description{
 The function performs a SAR TL analysis on a
-\code{\linkS4class{RLum.Analysis}} object including growth curve fitting.
+\linkS4class{RLum.Analysis} object including growth curve fitting.
 }
 \details{
 This function performs a SAR TL analysis on a set of curves. The SAR
 procedure in general is given by Murray and Wintle (2000). For the
 calculation of the Lx/Tx value the function \link{calc_TLLxTxRatio} is
-used.\cr\cr \bold{Provided rejection criteria}\cr\cr
-\sQuote{recyling.ratio}: calculated for every repeated regeneration dose
-point.\cr \sQuote{recuperation.rate}: recuperation rate calculated by
+used.
+
+\strong{Provided rejection criteria}
+
+\code{[recyling.ratio]}: calculated for every repeated regeneration dose point.
+
+\code{[recuperation.rate]}: recuperation rate calculated by
 comparing the Lx/Tx values of the zero regeneration point with the Ln/Tn
 value (the Lx/Tx ratio of the natural signal).  For methodological
-background see Aitken and Smith (1988)\cr
+background see Aitken and Smith (1988)
 }
 \note{
-\bold{THIS IS A BETA VERSION}\cr\cr None TL curves will be removed
+\strong{THIS IS A BETA VERSION}
+
+None TL curves will be removed
 from the input object without further warning.
 }
 \section{Function version}{
- 0.2.0 (2017-03-11 13:31:45)
+ 0.2.0
 }
 
 \examples{
-
 
 ##load data
 data(ExampleData.BINfileData, envir = environment())
@@ -99,12 +104,7 @@ analyse_SAR.TL(object,
                fit.method = "EXP OR LIN",
                sequence.structure = c("SIGNAL", "BACKGROUND"))
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching.  Quaternary Science Reviews 7, 387-393.
@@ -114,12 +114,11 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.
 }
 \seealso{
-\code{\link{calc_TLLxTxRatio}}, \code{\link{plot_GrowthCurve}},
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Results}}
-\code{\link{get_RLum}}
+\link{calc_TLLxTxRatio}, \link{plot_GrowthCurve}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}, \link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}
 \keyword{plot}

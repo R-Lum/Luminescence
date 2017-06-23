@@ -4,31 +4,31 @@
 #' S4 class object
 #'
 #' The function produces a multiple plot output.  A file output is recommended
-#' (e.g., \code{\link{pdf}}).
+#' (e.g., [pdf]).
 #'
-#' @param object \code{\linkS4class{RLum.Results}} (\bold{required}): S4 object
-#' of class \code{RLum.Results}
+#' @param object [RLum.Results-class] (**required**): 
+#' S4 object of class `RLum.Results`
 #'
-#' @param single \code{\link{logical}} (with default): single plot output
-#' (\code{TRUE/FALSE}) to allow for plotting the results in as few plot windows
-#' as possible.
+#' @param single [logical] (*with default*): 
+#' single plot output (`TRUE/FALSE`) to allow for plotting the results in as 
+#' few plot windows as possible.
 #'
-#' @param \dots further arguments and graphical parameters will be passed to
-#' the \code{plot} function.
+#' @param ... further arguments and graphical parameters will be passed to
+#' the `plot` function.
 #'
 #' @return Returns multiple plots.
 #'
-#' @note Not all arguments available for \code{\link{plot}} will be passed!
-#' Only plotting of \code{RLum.Results} objects are supported.
+#' @note 
+#' Not all arguments available for [plot] will be passed!
+#' Only plotting of `RLum.Results` objects are supported.
 #'
 #' @section Function version: 0.2.1
 #'
-#' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, IRAMAT-CRP2A,
-#' Universite Bordeaux Montaigne (France)
+#' @author 
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
-#' @seealso \code{\link{plot}}, \code{\link{plot_RLum}},
-#'
-#' @references #
+#' @seealso [plot], [plot_RLum]
 #'
 #' @keywords aplot
 #'
@@ -51,6 +51,7 @@
 #' plot_RLum.Results(grains)
 #'
 #'
+#' @md
 #' @export
 plot_RLum.Results<- function(
   object,

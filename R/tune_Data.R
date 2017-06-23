@@ -2,31 +2,30 @@
 #'
 #' The error can be reduced and sample size increased for specific purpose.
 #'
-#' @param data \code{\link{data.frame}} (\bold{required}): input values,
-#' structure: data (\code{values[,1]}) and data error (\code{values [,2]}) are
-#' required
+#' @param data [data.frame] (**required**): 
+#' input values, structure: data (`values[,1]`) and data error (`values [,2]`) 
+#' are required
 #'
-#' @param decrease.error \code{\link{numeric}}: factor by which the error
-#' is decreased, ranges between 0 and 1.
+#' @param decrease.error [numeric]: 
+#' factor by which the error is decreased, ranges between 0 and 1.
 #'
-#' @param increase.data \code{\link{numeric}}: factor by which the error
-#' is decreased, ranges between 0 and inf.
+#' @param increase.data [numeric]: 
+#' factor by which the error is decreased, ranges between 0 and inf.
 #'
-#' @return Returns a \code{\link{data.frame}} with tuned values.
+#' @return Returns a [data.frame] with tuned values.
 #'
-#' @note You should not use this function to improve your poor data set!
+#' @note 
+#' You should not use this function to improve your poor data set!
 #'
 #' @section Function version: 0.5.0
 #'
-#' @author Michael Dietze, GFZ Potsdam (Germany)
-#'
-#' @seealso #
-#'
-#' @references #
+#' @author 
+#' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @keywords manip
 #'
 #' @examples
+#' 
 #' ## load example data set
 #' data(ExampleData.DeValues, envir = environment())
 #' x <- ExampleData.DeValues$CA1
@@ -43,7 +42,7 @@
 #' #plot_AbanicoPlot(data = tune_Data(x, increase.data = 2) ,
 #' #                summary = c("n", "mean"))
 #'
-#'
+#' @md
 #' @export
 tune_Data <- function(
   data,

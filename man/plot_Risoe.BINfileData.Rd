@@ -9,43 +9,47 @@ plot_Risoe.BINfileData(BINfileData, position, run, set, sorter = "POSITION",
   dose_rate, temp.lab, cex.global = 1, ...)
 }
 \arguments{
-\item{BINfileData}{\link{Risoe.BINfileData-class} (\bold{required}):
+\item{BINfileData}{\linkS4class{Risoe.BINfileData} (\strong{required}):
 requires an S4 object returned by the \link{read_BIN2R} function.}
 
-\item{position}{\link{vector} (optional): option to limit the plotted curves
-by position (e.g. \code{position = 1}, \code{position = c(1,3,5)}).}
+\item{position}{\link{vector} (\emph{optional}):
+option to limit the plotted curves by position
+(e.g. \code{position = 1}, \code{position = c(1,3,5)}).}
 
-\item{run}{\link{vector} (optional): option to limit the plotted curves by
-run (e.g., \code{run = 1}, \code{run = c(1,3,5)}).}
+\item{run}{\link{vector} (\emph{optional}):
+option to limit the plotted curves by run
+(e.g., \code{run = 1}, \code{run = c(1,3,5)}).}
 
-\item{set}{\link{vector} (optional): option to limit the plotted curves by
-set (e.g., \code{set = 1}, \code{set = c(1,3,5)}).}
+\item{set}{\link{vector} (\emph{optional}):
+option to limit the plotted curves by set
+(e.g., \code{set = 1}, \code{set = c(1,3,5)}).}
 
-\item{sorter}{\link{character} (with default): the plot output can be
-ordered by "POSITION","SET" or "RUN". POSITION, SET and RUN are options
-defined in the Risoe Sequence Editor.}
+\item{sorter}{\link{character} (\emph{with default}):
+the plot output can be ordered by "POSITION","SET" or "RUN".
+POSITION, SET and RUN are options defined in the Risoe Sequence Editor.}
 
-\item{ltype}{\link{character} (with default): option to limit the plotted
-curves by the type of luminescence stimulation.  Allowed values:
-\code{"IRSL"}, \code{"OSL"},\code{"TL"}, \code{"RIR"}, \code{"RBR"}
+\item{ltype}{\link{character} (\emph{with default}):
+option to limit the plotted curves by the type of luminescence stimulation.
+Allowed values: \code{"IRSL"}, \code{"OSL"},\code{"TL"}, \code{"RIR"}, \code{"RBR"}
 (corresponds to LM-OSL), \code{"RL"}.  All type of curves are plotted by
 default.}
 
-\item{curve.transformation}{\link{character} (optional): allows transforming
-CW-OSL and CW-IRSL curves to pseudo-LM curves via transformation functions.
-Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
+\item{curve.transformation}{\link{character} (\emph{optional}):
+allows transforming CW-OSL and CW-IRSL curves to pseudo-LM curves via
+transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi}, \code{CW2pHMi} and
 \code{CW2pPMi}. See details.}
 
-\item{dose_rate}{\link{numeric} (optional): dose rate of the irradition
-source at the measurement date. If set, the given irradiation dose will be
-shown in Gy.  See details.}
+\item{dose_rate}{\link{numeric} (\emph{optional}):
+dose rate of the irradition source at the measurement date.
+If set, the given irradiation dose will be shown in Gy.  See details.}
 
-\item{temp.lab}{\link{character} (optional): option to allow for different
-temperature units. If no value is set deg. C is chosen.}
+\item{temp.lab}{\link{character} (\emph{optional}):
+option to allow for different temperature units. If no value is set deg. C is chosen.}
 
-\item{cex.global}{\link{numeric} (with default): global scaling factor.}
+\item{cex.global}{\link{numeric} (\emph{with default}):
+global scaling factor.}
 
-\item{\dots}{further undocumented plot arguments.}
+\item{...}{further undocumented plot arguments.}
 }
 \value{
 Returns a plot.
@@ -55,19 +59,19 @@ Plots single luminescence curves from an object returned by the
 \link{read_BIN2R} function.
 }
 \details{
-\bold{Nomenclature}\cr
+\strong{Nomenclature}
 
-See \code{\link{Risoe.BINfileData-class}}
+See \linkS4class{Risoe.BINfileData}
 
-\bold{curve.transformation}\cr
+\strong{curve.transformation}
 
 This argument allows transforming continuous wave (CW) curves to pseudo
 (linear) modulated curves. For the transformation, the functions of the
 package are used.  Currently, it is not possible to pass further arguments
 to the transformation functions. The argument works only for \code{ltype}
-\code{OSL} and \code{IRSL}.\cr
+\code{OSL} and \code{IRSL}.
 
-\bold{Irradiation time}\cr
+\strong{Irradiation time}
 
 Plotting the irradiation time (s) or the given dose (Gy) requires that the
 variable \code{IRR_TIME} has been set within the BIN-file.  This is normally
@@ -79,11 +83,10 @@ The function has been successfully tested for the Sequence Editor file
 output version 3 and 4.
 }
 \section{Function version}{
- 0.4.1 (2015-11-29 17:27:48)
+ 0.4.1
 }
 
 \examples{
-
 
 ##load data
 data(ExampleData.BINfileData, envir = environment())
@@ -100,22 +103,16 @@ data(ExampleData.BINfileData, envir = environment())
 #mtext(side = 4, BINfile, outer = TRUE, col = "blue", cex = .7)
 #dev.off()
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). plot_Risoe.BINfileData(): Plot single luminescence curves from a BIN file object. Function version 0.4.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Duller, G., 2007. Analyst. pp. 1-45.
 }
 \seealso{
-\code{\link{Risoe.BINfileData-class}},\code{\link{read_BIN2R}},
-\code{\link{CW2pLM}}, \code{\link{CW2pLMi}}, \code{\link{CW2pPMi}},
-\code{\link{CW2pHMi}}
+\linkS4class{Risoe.BINfileData},\link{read_BIN2R}, \link{CW2pLM}, \link{CW2pLMi},
+\link{CW2pPMi}, \link{CW2pHMi}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France),\cr Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
+Michael Dietze, GFZ Potsdam (Germany)
+}
 \keyword{dplot}

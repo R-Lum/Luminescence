@@ -5,15 +5,19 @@
 \alias{ExampleData.portableOSL}
 \title{Example portable OSL curve data for the package Luminescence}
 \source{
-\bold{ExampleData.portableOSL}
+\strong{ExampleData.portableOSL}
 
-\tabular{ll}{ Lab: \tab Cologne Luminescence Laboratory\cr Lab-Code: \tab
-- \cr Location: \tab Nievenheim/Germany\cr Material: \tab Fine grain quartz
-\cr Reference: \tab unpublished data }
+\tabular{ll}{
+Lab: \tab Cologne Luminescence Laboratory\cr
+Lab-Code: \tab <none> \cr
+Location: \tab Nievenheim/Germany\cr
+Material: \tab Fine grain quartz \cr
+Reference: \tab unpublished data
+}
 }
 \description{
-A \code{list} of \code{\linkS4class{RLum.Analysis}} objects, each containing
-the same number of \code{\linkS4class{RLum.Data.Curve}} objects representing
+A \code{list} of \linkS4class{RLum.Analysis} objects, each containing
+the same number of \linkS4class{RLum.Data.Curve} objects representing
 individual OSL, IRSL and dark count measurements of a sample.
 }
 \examples{

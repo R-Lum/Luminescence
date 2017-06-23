@@ -13,20 +13,20 @@
 #' These functions can be used to query a specific repository hosted on GitHub. \cr
 #' 
 #' 
-#' @param user \code{\link{character}}: 
+#' @param user [character] (*with default*): 
 #' GitHub user name (defaults to 'r-lum').
 #' 
-#' @param repo \code{\link{character}}: 
+#' @param repo [character] (*with default*): 
 #' name of a GitHub repository (defaults to 'luminescence').
 #' 
-#' @param branch \code{\link{character}}: 
+#' @param branch [character] (*with default*): 
 #' branch of a GitHub repository (defaults to 'master').
 #' 
-#' @param n \code{\link{integer}}:
+#' @param n [integer] (*with default*):
 #' number of commits returned (defaults to 5).
 #' 
-#' @param verbose \code{\link{logical}}: 
-#' print the output to the console (defaults to \code{TRUE}).
+#' @param verbose [logical] (*with default*): 
+#' print the output to the console (defaults to `TRUE`).
 #' 
 #' @author Christoph Burow, University of Cologne (Germany)
 #' 
@@ -34,7 +34,7 @@
 #' 
 #' @references 
 #' 
-#' GitHub Developer API v3. \url{https://developer.github.com/v3/}, last accessed: 10/01/2017.
+#' GitHub Developer API v3. [https://developer.github.com/v3/](), last accessed: 10/01/2017.
 #' 
 #' @examples
 #' 
@@ -44,6 +44,7 @@
 #' github_commits(user = "r-lum", repo = "luminescence", branch = "master", n = 10)
 #' }
 #' 
+#' @md
 #' @name GitHub-API
 NULL
 
@@ -51,18 +52,19 @@ NULL
 #' @rdname GitHub-API
 #' 
 #' @details 
-#' \code{github_commits} lists the most recent \code{n} commits of a specific
-#' branch of a repository.
+#' `github_commits` lists the most recent `n` commits of a specific branch of a repository.
 #' 
 #' @return 
-#' \code{github_commits}: \code{\link{data.frame}} with columns:
+#' `github_commits`: [data.frame] with columns:
+#' 
 #' \tabular{ll}{
-#'  [ ,1] \tab SHA \cr
-#'  [ ,2] \tab AUTHOR \cr
-#'  [ ,3] \tab DATE \cr
-#'  [ ,4] \tab MESSAGE \cr
+#'  `[ ,1]` \tab SHA \cr
+#'  `[ ,2]` \tab AUTHOR \cr
+#'  `[ ,3]` \tab DATE \cr
+#'  `[ ,4]` \tab MESSAGE \cr
 #' }
 #' 
+#' @md
 #' @export
 github_commits <- function(user = "r-lum", repo = "luminescence", 
                            branch = "master", n = 5) {
@@ -95,18 +97,20 @@ github_commits <- function(user = "r-lum", repo = "luminescence",
 #' @rdname GitHub-API
 #' 
 #' @details 
-#' \code{github_branches} can be used to list all current branches of a
+#' `github_branches` can be used to list all current branches of a
 #' repository and returns the corresponding SHA hash as well as an installation
 #' command to install the branch in R via the 'devtools' package.
 #' 
 #' @return 
-#' \code{github_branches}: \code{\link{data.frame}} with columns:
+#' `github_branches`: [data.frame] with columns:
+#' 
 #' \tabular{ll}{
-#'  [ ,1] \tab BRANCH \cr
-#'  [ ,2] \tab SHA \cr
-#'  [ ,3] \tab INSTALL \cr
+#'  `[ ,1]` \tab BRANCH \cr
+#'  `[ ,2]` \tab SHA \cr
+#'  `[ ,3]` \tab INSTALL \cr
 #' }
 #' 
+#' @md
 #' @export
 github_branches <- function(user = "r-lum", repo = "luminescence") {
   
@@ -134,22 +138,24 @@ github_branches <- function(user = "r-lum", repo = "luminescence") {
 #' @rdname GitHub-API
 #' 
 #' @details 
-#' \code{github_issues} lists all open issues for a repository in valid YAML.
+#' `github_issues` lists all open issues for a repository in valid YAML.
 #' 
 #' @return 
-#' \code{github_commits}: Nested \code{\link{list}} with \code{n} elements.
+#' `github_commits`: Nested [list] with `n` elements.
 #' Each commit element is a list with elements:
+#' 
 #' \tabular{ll}{
-#'  [[1]] \tab NUMBER \cr
-#'  [[2]] \tab TITLE \cr
-#'  [[3]] \tab BODY \cr
-#'  [[4]] \tab CREATED \cr
-#'  [[5]] \tab UPDATED \cr
-#'  [[6]] \tab CREATOR \cr
-#'  [[7]] \tab URL \cr
-#'  [[8]] \tab STATUS \cr
+#'  `[[1]]` \tab NUMBER \cr
+#'  `[[2]]` \tab TITLE \cr
+#'  `[[3]]` \tab BODY \cr
+#'  `[[4]]` \tab CREATED \cr
+#'  `[[5]]` \tab UPDATED \cr
+#'  `[[6]]` \tab CREATOR \cr
+#'  `[[7]]` \tab URL \cr
+#'  `[[8]]` \tab STATUS \cr
 #' }
 #' 
+#' @md
 #' @export
 github_issues <- function(user = "r-lum", repo = "luminescence", verbose = TRUE) {
   

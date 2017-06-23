@@ -30,71 +30,81 @@
   align = "right", method = "mean")
 }
 \arguments{
-\item{object}{[\code{show_RLum}][\code{get_RLum}][\code{length_RLum}][\code{names_RLum}] an object of
-class \code{\linkS4class{RLum.Data.Curve}} (\bold{required})}
+\item{object}{\code{\link{get_RLum}}, \code{\link{length_RLum}}, \code{\link{names_RLum}} (\strong{required}):
+an object of class \linkS4class{RLum.Data.Curve}}
 
-\item{class}{[\code{set_RLum}] \code{\link{character}} (\bold{required}): name of the \code{RLum} class to create}
+\item{class}{\code{\link{set_RLum}}; \link{character} (\strong{required}):
+name of the \code{RLum} class to create}
 
-\item{originator}{[\code{set_RLum}] \code{\link{character}} (automatic): contains the name of the calling function
-(the function that produces this object); can be set manually.}
+\item{originator}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
+contains the name of the calling function (the function that produces this object);
+can be set manually.}
 
-\item{.uid}{[\code{set_RLum}] \code{\link{character}} (automatic): sets an unique ID for this object
-using the internal C++ function \code{.create_UID}.}
+\item{.uid}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
+sets an unique ID for this object using the internal C++ function \code{.create_UID}.}
 
-\item{.pid}{[\code{set_RLum}] \code{\link{character}} (with default): option to provide a parent id for nesting
-at will.}
+\item{.pid}{\code{\link{set_RLum}}; \link{character} (\emph{with default}):
+option to provide a parent id for nesting at will.}
 
-\item{recordType}{[\code{set_RLum}] \code{\link{character}} (optional): record type (e.g., "OSL")}
+\item{recordType}{\code{\link{set_RLum}}; \link{character} (\emph{optional}):
+record type (e.g., "OSL")}
 
-\item{curveType}{[\code{set_RLum}] \code{\link{character}} (optional): curve type (e.g., "predefined" or "measured")}
+\item{curveType}{\code{\link{set_RLum}}; \link{character} (\emph{optional}):
+curve type (e.g., "predefined" or "measured")}
 
-\item{data}{[\code{set_RLum}] \code{\link{matrix}} (\bold{required}): raw curve data.
-If \code{data} itself is a \code{RLum.Data.Curve}-object this can be used to re-construct the object
-(s. Details)}
+\item{data}{\code{\link{set_RLum}}; \link{matrix} (\strong{required}):
+raw curve data. If \code{data} itself is a \code{RLum.Data.Curve}-object this can be
+used to re-construct the object (s. Details)}
 
-\item{info}{[\code{set_RLum}] \code{\link{list}} (optional): info elements}
+\item{info}{\code{\link{set_RLum}}; \link{list} (\emph{optional}):
+info elements}
 
-\item{info.object}{[\code{get_RLum}] \code{\link{character}} (optional): name of the wanted info
-element}
+\item{info.object}{\code{\link{get_RLum}} \link{character} (\emph{optional}):
+name of the wanted info element}
 
-\item{bin_size}{[\code{bin_RLum}] \code{\link{integer}} (with default): set number of channels
-used for each bin, e.g. \code{bin_size = 2} means that two channels are binned.}
+\item{bin_size}{\link{integer} (\emph{with default}):
+set number of channels used for each bin, e.g. \code{bin_size = 2} means that
+two channels are binned.}
 
-\item{k}{[\code{smooth_RLum}] \code{\link{integer}} (with default): window for the rolling mean; must be odd for rollmedian.
+\item{k}{\code{\link{smooth_RLum}}; \link{integer} (\emph{with default}):
+window for the rolling mean; must be odd for rollmedian.
 If nothing is set k is set automatically}
 
-\item{fill}{[\code{smooth_RLum}] \code{\link{numeric}} (with default): a vector defining the left and the right hand data}
+\item{fill}{\code{\link{smooth_RLum}}; \link{numeric} (\emph{with default}):
+a vector defining the left and the right hand data}
 
-\item{align}{[\code{smooth_RLum}] \code{\link{character}} (with default): specifying whether the index of the result should be
-left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
-\code{"right"}, \code{"center"} and \code{left}}
+\item{align}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
+specifying whether the index of the result should be left- or right-aligned
+or centered (default) compared to the rolling window of observations, allowed
+\code{"right"}, \code{"center"} and \code{"left"}}
 
-\item{method}{[\code{smooth_RLum}] \code{\link{character}} (with default): defines which method should be applied for the
-smoothing: \code{"mean"} or \code{"median"}}
+\item{method}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
+defines which method should be applied for the smoothing: \code{"mean"} or \code{"median"}}
 }
 \value{
-\bold{\code{set_RLum}}\cr
+\strong{\code{set_RLum}}
 
-Returns an \code{\linkS4class{RLum.Data.Curve}} object.
+Returns an \linkS4class{RLum.Data.Curve} object.
 
-\bold{\code{get_RLum}}\cr
+\strong{\code{get_RLum}}
+\enumerate{
+\item A \link{matrix} with the curve values or
+\item only the info object if \code{info.object} was set.
+}
 
-(1) A \code{\link{matrix}} with the curve values or \cr
-(2) only the info object if \code{info.object} was set.\cr
-
-\bold{\code{length_RLum}}\cr
+\strong{\code{length_RLum}}
 
 Number of channels in the curve (row number of the matrix)
 
-\bold{\code{names_RLum}}\cr
+**`names_RLum`**
 
-Names of the info elements (slot \code{info})
+Names of the info elements (slot `info`)
 
-\bold{\code{bin_RLum.Data}}\cr
+\strong{\code{bin_RLum.Data}}
 
 Same object as input, after applying the binning.
 
-\bold{\code{smooth_RLum}}\cr
+\strong{\code{smooth_RLum}}
 
 Same object as input, after smoothing
 }
@@ -119,7 +129,7 @@ value time/temperature of the curve (corresponding to the stimulation length)
 
 \item \code{bin_RLum.Data}: Allows binning of specific objects
 
-\item \code{smooth_RLum}: Smoothing of RLum.Data.Curve objects using the function \code{\link[zoo]{rollmean}} or \code{\link[zoo]{rollmedian}}.
+\item \code{smooth_RLum}: Smoothing of RLum.Data.Curve objects using the function \link[zoo:rollmean]{zoo::rollmean} or \link[zoo:rollmedian]{zoo::rollmedian}.
 In particular the internal function \code{.smoothing} is used.
 }}
 
@@ -130,23 +140,28 @@ In particular the internal function \code{.smoothing} is used.
 
 \item{\code{curveType}}{Object of class "character" containing curve type, allowed values are measured or predefined}
 
-\item{\code{data}}{Object of class \code{\link{matrix}} containing curve x and y data.
-'data' can also be of type \code{RLum.Data.Curve} to change object values without deconstructing the object.
-For example: \code{set_RLum(class = 'RLum.Data.Curve',
-data = Your.RLum.Data.Curve, recordType = 'never seen before')}
-would just change the recordType. Missing arguements  the value is taken from the input object
-in 'data' (which is already an RLum.Data.Curve object in this example)}
+\item{\code{data}}{Object of class \link{matrix} containing curve x and y data.
+'data' can also be of type \code{RLum.Data.Curve} to change object values without
+deconstructing the object. For example:\preformatted{set_RLum(class = 'RLum.Data.Curve', 
+         data = Your.RLum.Data.Curve, 
+         recordType = 'never seen before')
+}
+
+would just change the recordType. Missing arguements  the value is taken
+from the input object in 'data' (which is already an RLum.Data.Curve object
+in this example)}
 }}
 
 \note{
 The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
 ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
-functions (partyl within \code{\linkS4class{RLum.Analysis}} objects),
-namely: \code{\link{Risoe.BINfileData2RLum.Analysis}}, \code{\link{read_XSYG2R}}
+functions (partyl within \linkS4class{RLum.Analysis} objects),
+namely: \link{Risoe.BINfileData2RLum.Analysis}, \link{read_XSYG2R}
 }
 \section{Create objects from this Class}{
- Objects can be created by calls of the form
+
+Objects can be created by calls of the form
 \code{set_RLum(class = "RLum.Data.Curve", ...)}.
 }
 
@@ -163,15 +178,9 @@ set_RLum(class = "RLum.Data.Curve")
 
 }
 \seealso{
-\code{\linkS4class{RLum}}, \code{\linkS4class{RLum.Data}},
-\code{\link{plot_RLum}}, \code{\link{merge_RLum}}
+\linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). RLum.Data.Curve-class(): Class 'RLum.Data.Curve'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{classes}

@@ -5,22 +5,30 @@
 \alias{ExampleData.CW_OSL_Curve}
 \title{Example CW-OSL curve data for the package Luminescence}
 \format{Data frame with 1000 observations on the following 2 variables:
-\describe{ \item{list("x")}{a numeric vector, time} \item{list("y")}{a
-numeric vector, counts} }}
+
+\describe{
+\item{list("x")}{a numeric vector, time}
+\item{list("y")}{a numeric vector, counts}
+}}
 \source{
-\bold{ExampleData.CW_OSL_Curve}
+\strong{ExampleData.CW_OSL_Curve}
 
-\tabular{ll}{ Lab: \tab Luminescence Laboratory Bayreuth\cr Lab-Code: \tab
-BT607\cr Location: \tab Saxony/Germany\cr Material: \tab Middle grain quartz
-measured on aluminum cups on a Risoe TL/OSL DA-15 reader.\cr Reference: \tab
-unpublished data }
+\tabular{ll}{
+Lab: \tab Luminescence Laboratory Bayreuth\cr
+Lab-Code: \tab BT607\cr
+Location: \tab Saxony/Germany\cr
+Material: \tab Middle grain quartz measured on aluminum cups on a Risoe TL/OSL DA-15 reader.\cr
+Reference: \tab unpublished data }
 
-\bold{CW_Curve.BosWallinga2012}
+\strong{CW_Curve.BosWallinga2012}
 
-\tabular{ll}{ Lab: \tab Netherlands Centre for Luminescence Dating (NCL)\cr
-Lab-Code: \tab NCL-2108077\cr Location: \tab Guadalentin Basin, Spain\cr
-Material: \tab Coarse grain quartz\cr Reference: \tab Bos & Wallinga (2012)
-and Baartman et al. (2011) }
+\tabular{ll}{
+Lab: \tab Netherlands Centre for Luminescence Dating (NCL)\cr
+Lab-Code: \tab NCL-2108077\cr
+Location: \tab Guadalentin Basin, Spain\cr
+Material: \tab Coarse grain quartz\cr
+Reference: \tab Bos & Wallinga (2012) and Baartman et al. (2011)
+}
 }
 \description{
 \code{data.frame} containing CW-OSL curve data (time, counts)

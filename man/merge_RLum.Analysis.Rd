@@ -7,37 +7,35 @@
 merge_RLum.Analysis(objects)
 }
 \arguments{
-\item{objects}{\code{\link{list}} of \code{\linkS4class{RLum.Analysis}}
-(\bold{required}): list of S4 objects of class \code{RLum.Analysis}.
-Furthermore other objects of class \code{\linkS4class{RLum}} can be added,
-see details.}
+\item{objects}{\link{list} of \linkS4class{RLum.Analysis} (\strong{required}):
+list of S4 objects of class \code{RLum.Analysis}. Furthermore other objects of
+class \linkS4class{RLum} can be added, see details.}
 }
 \value{
-Return an \code{\linkS4class{RLum.Analysis}} object.
+Return an \linkS4class{RLum.Analysis} object.
 }
 \description{
 Function allows merging of RLum.Analysis objects and adding of allowed
 objects to an RLum.Analysis.
 }
 \details{
-This function simply allowing to merge \code{\linkS4class{RLum.Analysis}}
-objects.  Additionally other \code{\linkS4class{RLum}} objects can be added
-to an existing \code{\linkS4class{RLum.Analysis}} object. Supported objects
-to be added are: \code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Spectrum}} and
-\code{\linkS4class{RLum.Data.Image}}.\cr
+This function simply allowing to merge \linkS4class{RLum.Analysis}
+objects.  Additionally other \linkS4class{RLum} objects can be added
+to an existing \linkS4class{RLum.Analysis} object. Supported objects
+to be added are: \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum} and
+\linkS4class{RLum.Data.Image}.
 
-The order in the new \code{\linkS4class{RLum.Analysis}} object is the object
+The order in the new \linkS4class{RLum.Analysis} object is the object
 order provided with the input list.
 }
 \note{
 The information for the slot 'protocol' is taken from the first
-\code{\linkS4class{RLum.Analysis}} object in the input list. Therefore at
-least one object of type \code{\linkS4class{RLum.Analysis}} has to be
-provided.
+\linkS4class{RLum.Analysis} object in the input list. Therefore at
+least one object of type \linkS4class{RLum.Analysis} has to be provided.
 }
 \section{Function version}{
- 0.2.0 (2016-05-02 09:36:06)
+ 0.2.0
 }
 
 \examples{
@@ -52,23 +50,12 @@ curve <- get_RLum(object)[[2]]
 
 temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). merge_RLum.Analysis(): Merge function for RLum.Analysis S4 class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
-\references{
--
 }
 \seealso{
-\code{\link{merge_RLum}}, \code{\linkS4class{RLum.Analysis}},
-\code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{RLum.Data.Spectrum}},
-\code{\linkS4class{RLum.Data.Image}}, \code{\linkS4class{RLum}}
+\link{merge_RLum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image}, \linkS4class{RLum}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne
-(France)
-\cr R Luminescence Package Team}
+Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+}
 \keyword{utilities}

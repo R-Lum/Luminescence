@@ -11,8 +11,8 @@
 #' This function only applies on RLum.Analysis objects and was written for performance not
 #' usability, means the functions runs without any checks and is for internal usage only.
 #'
-#' @param \code{\linkS4class{RLum.Analysis}} (\bold{required}): input object where the function
-#' should be applied on
+#' @param [RLum.Analysis-class] (**required**): 
+#' input object where the function should be applied on
 #'
 #' @return
 #' Returns the same object as the input
@@ -32,6 +32,7 @@
 #'
 #' object <- .set_pid(object)
 #'
+#' @md
 #' @noRd
 .set_pid <- function(object){
 
@@ -52,8 +53,8 @@
 #' The original return of the function is returned. This function is in particular
 #' helpful if a function returns a lot of warnings with the same content.
 #'
-#' @param expr \code{\link{expression}} (\bold{required}): the R expression, usually a
-#' function
+#' @param expr [expression] (**required**): 
+#' the R expression, usually a function
 #'
 #' @return
 #' Returns the same object as the input and a warning table
@@ -72,6 +73,7 @@
 #' }
 #' print(.warningCatcher(f()))
 #'
+#' @md
 #' @noRd
 .warningCatcher <- function(expr) {
   ##set variables
@@ -119,20 +121,23 @@
 #' The function just allows a direct and meaningfull access to the functionality of the zoo::rollmean()
 #' function. Arguments of the function are only partly valid.
 #'
-#' @param x \code{\link{numeric}} (\bold{required}): the object for which the smoothing should be
-#' applied.
+#' @param x [numeric] (**required**): 
+#' the object for which the smoothing should be applied.
 #'
-#' @param k \code{\link{integer}} (with default): window for the rolling mean; must be odd for rollmedian.
+#' @param k [integer] (*with default*): 
+#' window for the rolling mean; must be odd for rollmedian.
 #' If nothing is set k is set automatically
 #'
-#' @param fill \code{\link{numeric}} (with default): a vector defining the left and the right hand data
+#' @param fill [numeric] (*with default*): 
+#' a vector defining the left and the right hand data
 #'
-#' @param align \code{\link{character}} (with default): specifying whether the index of the result should be
-#' left- or right-aligned or centered (default) compared to the rolling window of observations, allowed
-#' \code{"right"}, \code{"center"} and \code{left}
+#' @param align [character] (*with default*): 
+#' specifying whether the index of the result should be
+#' left- or right-aligned or centered (default) compared to the rolling window of observations, 
+#' allowed `"right"`, `"center"` and `left`
 #'
-#' @param method \code{\link{method}} (with default): defines which method should be applied for the
-#' smoothing: \code{"mean"} or \code{"median"}
+#' @param method [method] (*with default*): 
+#' defines which method should be applied for the smoothing: `"mean"` or `"median"`
 #'
 #' @return
 #' Returns the same object as the input and a warning table
@@ -146,6 +151,7 @@
 #' v <- 1:100
 #' .smoothing(v)
 #'
+#' @md
 #' @noRd
 .smoothing <- function(
   x,
@@ -182,10 +188,10 @@
 #' Jack Aidley) is at your help!
 #'
 #' Source:
-#' http://stackoverflow.com/questions/11610377/how-do-i-change-the-formatting-of-numbers-on-an-axis-with-ggplot
+#' [http://stackoverflow.com/questions/11610377/how-do-i-change-the-formatting-of-numbers-on-an-axis-with-ggplot]()
 #'
-#' @param l \code{\link{numeric}} (\bold{required}): a numeric vector, i.e. the
-#' labels that you want to add to your plot
+#' @param l [numeric] (**required**): 
+#' a numeric vector, i.e. the labels that you want to add to your plot
 #'
 #' @return
 #' Returns an expression
@@ -203,6 +209,7 @@
 #' axis(1, at = axTicks(1),
 #'      labels = fancy_scientific(axTicks(1)))
 #'
+#' @md
 #' @noRd
 fancy_scientific <- function(l) {
   # turn in to character string in scientific notation

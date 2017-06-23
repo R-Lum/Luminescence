@@ -7,27 +7,27 @@
 PSL2Risoe.BINfileData(object, ...)
 }
 \arguments{
-\item{object}{\code{\linkS4class{RLum.Analysis}} (\bold{required}):
-\code{RLum.Analysis} object produced by \code{\link{read_PSL2R}}}
+\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
+\code{RLum.Analysis} object produced by \link{read_PSL2R}}
 
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 \code{\linkS4class{Risoe.BINfileData}} object that can
-be used to write a BIN file using \code{\link{write_R2BIN}}.
+Returns an S4 \linkS4class{Risoe.BINfileData} object that can be used to write a
+BIN file using \link{write_R2BIN}.
 }
 \description{
 Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to
-an \code{Risoe.BINfileData} object \bold{(BETA)}.
+an \code{Risoe.BINfileData} object \strong{(BETA)}.
 }
 \details{
-This function converts an \code{\linkS4class{RLum.Analysis}} object that was produced
-by the \code{\link{read_PSL2R}} function to an \code{\linkS4class{Risoe.BINfileData}}.
+This function converts an \linkS4class{RLum.Analysis} object that was produced
+by the \link{read_PSL2R} function to an \linkS4class{Risoe.BINfileData}.
 The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
-\code{\link{write_R2BIN}}.
+\link{write_R2BIN}.
 }
 \section{Function version}{
- 0.0.1 (2017-02-10 18:30:04)
+ 0.0.1
 }
 
 \examples{
@@ -51,15 +51,10 @@ write_R2BIN(bin, "~/portableOSL.binx")
 
 }
 \seealso{
-\code{\linkS4class{RLum.Analysis}}, \code{\linkS4class{RLum.Data.Curve}},
-\code{\linkS4class{Risoe.BINfileData}}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
+\linkS4class{Risoe.BINfileData}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Burow, C. (2017). PSL2Risoe.BINfileData(): Convert portable OSL data to an Risoe.BINfileData object. Function version 0.0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{IO}

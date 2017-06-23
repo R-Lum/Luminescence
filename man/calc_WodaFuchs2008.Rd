@@ -7,31 +7,29 @@
 calc_WodaFuchs2008(data, breaks = NULL, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\code{\link{data.frame}} or \code{\linkS4class{RLum.Results}}
-object (required): for \code{data.frame}: two columns: De
-(\code{values[,1]}) and De error (\code{values[,2]}). For plotting multiple
-data sets, these must be provided as \code{list} (e.g. \code{list(dataset1,
-dataset2)}).}
+\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
+for \link{data.frame}: two columns: De (\code{values[,1]}) and De error (\code{values[,2]}).
+For plotting multiple data sets, these must be provided as \code{list}
+(e.g. \code{list(dataset1, dataset2)}).}
 
-\item{breaks}{\code{\link{numeric}}: Either number or locations of breaks.
-See \code{\link{hist}} for details. If missing, the number of breaks will
-be estimated based on the bin width (as function of median error).}
+\item{breaks}{\link{numeric}:
+Either number or locations of breaks. See \code{[hist]} for details.
+If missing, the number of breaks will be estimated based on the bin width
+(as function of median error).}
 
-\item{plot}{\code{\link{logical}} (with default): enable plot output.}
+\item{plot}{\link{logical} (\emph{with default}):
+enable plot output.}
 
-\item{\dots}{Further plot arguments passed to the function.}
+\item{...}{Further plot arguments passed to the function.}
 }
 \description{
 The description section
 }
 \details{
-The details section
-}
-\note{
-The notes section
+No details yet.
 }
 \section{Function version}{
- 0.2.0 (2017-06-18 11:11:08)
+ 0.2.0
 }
 
 \examples{
@@ -44,20 +42,15 @@ results <- calc_WodaFuchs2008(
    xlab = expression(paste(D[e], " [Gy]"))
  )
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
 obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.
 }
 \seealso{
-\code{\link{calc_FuchsLang2001}}, \code{\link{calc_CentralDose}}
+\link{calc_FuchsLang2001}, \link{calc_CentralDose}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+}
