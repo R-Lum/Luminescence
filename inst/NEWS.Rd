@@ -44,6 +44,16 @@
 
         }
 
+      \item \code{plot_FilterCombinations()}
+
+        \itemize{
+
+          \item Calculate optical density and return it,
+          \item fix calclation of transmission window,
+          \item improve plot output.
+
+        }
+
           \item \code{plot_RadialPlot()}
 
         \itemize{

@@ -26,6 +26,14 @@ Changes in version 0.7.5 (30th June, 2017):
                the g-value can be calculated therein (thanks to Geoff
                Duller).
 
+         • ‘plot_FilterCombinations()’
+
+             • Calculate optical density and return it,
+
+             • fix calclation of transmission window,
+
+             • improve plot output.
+
          • ‘plot_RadialPlot()’
 
              • Fix error which occasionally occurred if a list of
