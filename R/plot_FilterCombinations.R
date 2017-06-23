@@ -4,6 +4,24 @@
 #' wavelenghts are automatically interpolated for the given filter data using the function [approx].
 #' With that a standardised output is reached and a net transmission window can be shown.
 #'
+#' **Calculations**
+#'
+#' **Net transmission window**
+#' 
+#' The net transmission window of two filters is approximated by
+#'
+#' \deqn{T_{final} = T_{1} * T_{2}}
+#'
+#' **Optical density**
+#'
+#' \deqn{OD = -log(T)}
+#'
+#' **Total optical density**
+#'
+#' \deqn{OD_{total} = OD_{1} +  OD_{2}}
+#'
+#' Please consider using own calculations for more precise values.
+#'
 #' **How to provide input data?**
 #'
 #' *CASE 1*
@@ -40,11 +58,13 @@
 #' The following further non-common plotting parameters can be passed to the function:
 #'
 #' \tabular{lll}{
-#' **Argument** \tab **Datatype** \tab **Description**\cr
+#' **`Argument`** \tab **`Datatype`** \tab **`Description`**\cr
 #' `legend` \tab `logical` \tab enable/disable legend \cr
 #' `legend.pos` \tab `character` \tab change legend position ([graphics::legend]) \cr
 #' `legend.text` \tab `character` \tab same as the argument `legend` in ([graphics::legend]) \cr
 #' `net_transmission.col` \tab `col` \tab colour of net transmission window polygon \cr
+#' `net_transmission.col_lines` \tab `col` \tab colour of net transmission window polygon lines \cr
+#' `net_transmission.density` \tab  `numeric` \tab specify line density in the transmission polygon \cr
 #' `grid` \tab `list` \tab full list of arguments that can be passd to the function [graphics::grid]
 #' }
 #'
@@ -79,9 +99,10 @@
 #' **@data**
 #' 
 #' \tabular{lll}{
-#' **Object** \tab **Type** **Description** \cr
-#'  `net_transmission_window` \tab [matrix] \tab the resulting net transmission window \cr
-#'  `filter_matrix` \tab [matrix] \tab the filter matrix used for plotting
+#'  **`Object`** \tab **`Type`** **`Description`** \cr
+#'  `net_transmission_window` \tab `matrix` \tab the resulting net transmission window \cr
+#'  `OD_total` \tab `matrix` \tab the total optical density\cr
+#'  `filter_matrix` \tab `matrix` \tab the filter matrix used for plotting
 #' }
 #'
 #' **@info**
@@ -91,7 +112,7 @@
 #' `call` \tab [call] \tab the original function call
 #' }
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.3.0
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
 #'
@@ -116,7 +137,11 @@
 #' filters = list(filter_1 = filter1, Rectangle = list(filter2, d = 2, P = 0.6)))
 #' results
 #'
+#' ## Example 3 show optical density
+#' plot(results$OD_total)
+#'
 #' \dontrun{
+#' ##Example 4
 #' ##show the filters using the interative mode
 #' plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
 #'
@@ -215,18 +240,32 @@ plot_FilterCombinations <- function(
   ##calculate transmission window
   filter_matrix <- cbind(filter_matrix)
   net_transmission_window <- matrix(
-    c(wavelength_range, matrixStats::rowMins(filter_matrix)),
+    c(wavelength_range, matrixStats::rowProds(filter_matrix)),
     ncol = 2)
+
+  ##add optical density to filter matrix
+
+  ##calculate OD
+  OD <- -log(filter_matrix)
+
+  ##calculate  total OD
+  OD_total <- cbind(wavelength_range, matrixStats::rowSums2(OD))
+
+  ##add to matrix
+  filter_matrix <- cbind(filter_matrix, OD)
 
   ##set rownames of filter matrix
   rownames(filter_matrix) <- wavelength_range
 
   ##set column names for filter matrix
-  colnames(filter_matrix) <- names(filters)
+  colnames(filter_matrix) <- c(names(filters), paste0(names(filters), "_OD"))
 
   # Plotting ------------------------------------------------------------------------------------
 
   if (plot) {
+
+    ##(1) ... select transmission values
+    filter_matrix_transmisison <- filter_matrix[,!grepl(pattern = "OD", x = colnames(filter_matrix))]
 
     ##set plot settings
     plot_settings <- list(
@@ -241,8 +280,10 @@ plot_FilterCombinations <- function(
       col = 1:length(filters),
       grid = expression(nx = 10, ny = 10),
       legend = TRUE,
-      legend.text = colnames(filter_matrix),
-      net_transmission.col = "grey"
+      legend.text = colnames(filter_matrix_transmisison),
+      net_transmission.col = rgb(0,0.7,0,.2),
+      net_transmission.col_lines = "grey",
+      net_transmission.density = 20
 
     )
 
@@ -262,15 +303,15 @@ plot_FilterCombinations <- function(
         plotly::plot_ly(x = wavelength_range,
                         y = filter_matrix[,1],
                         type = "scatter",
-                        name = colnames(filter_matrix)[1],
+                        name = colnames(filter_matrix_transmisison)[1],
                         mode = "lines")
 
         ##add further filters
-        if (ncol(filter_matrix) > 1) {
-          for (i in 2:ncol(filter_matrix)) {
+        if (ncol(filter_matrix_transmisison) > 1) {
+          for (i in 2:ncol(filter_matrix_transmisison)) {
             p <- plotly::add_trace(p,
                         y = filter_matrix[, i],
-                        name = colnames(filter_matrix)[i],
+                        name = colnames(filter_matrix_transmisison)[i],
                         mode = 'lines')
           }
 
@@ -306,7 +347,7 @@ plot_FilterCombinations <- function(
       ##plot induvidal filters
       graphics::matplot(
         x = wavelength_range,
-        y = filter_matrix,
+        y = filter_matrix_transmisison,
         type = "l",
         main = plot_settings$main,
         xlab = plot_settings$xlab,
@@ -331,7 +372,15 @@ plot_FilterCombinations <- function(
           y = c(net_transmission_window[, 2],
                 rep(0, length(wavelength_range))),
           col = plot_settings$net_transmission.col,
-          border = NA
+          border = NA,
+        )
+        polygon(
+          x = c(wavelength_range, rev(wavelength_range)),
+          y = c(net_transmission_window[, 2],
+                rep(0, length(wavelength_range))),
+          col = plot_settings$net_transmission.col_lines,
+          border = NA,
+          density = plot_settings$net_transmission.density
         )
 
       }
@@ -357,6 +406,7 @@ plot_FilterCombinations <- function(
     class = "RLum.Results",
     data = list(
       net_transmission_window = net_transmission_window,
+      OD_total = OD_total,
       filter_matrix = filter_matrix
 
     ),

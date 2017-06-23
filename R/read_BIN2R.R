@@ -5,13 +5,13 @@
 #'
 #' The binary data file is parsed byte by byte following the data structure
 #' published in the Appendices of the Analyst manual p. 42.
-#'
+#' 
 #' For the general BIN-file structure, the reader is referred to the 
-#' Risoe website: `http://www.nutech.dtu.dk/`
+#' Risoe website: [http://www.nutech.dtu.dk/]()
 #'
-#' @param file [character] or [list] (**required**): 
-#' path and file name of the BIN/BINX file. If input is a `list` it should 
-#' comprise only `character`s representing each valid path and BIN/BINX-file names.
+#' @param file [character] or [list] (**required**): path and file name of the
+#' BIN/BINX file (URLs are supported). If input is a `list` it should comprise 
+#' only `character`s representing each valid path and BIN/BINX-file names. 
 #' Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all BIN/BINX files found in the directory.
 #'
@@ -90,7 +90,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.**
 #'
-#' @section Function version: 0.15.5
+#' @section Function version: 0.15.6
 #'
 #'
 #' @author 
@@ -280,8 +280,16 @@ read_BIN2R <- function(
   ##set file_link for internet downloads
   file_link <- NULL
   on_exit <- function(){
+
+    ##unlink internet connection
     if(!is.null(file_link)){
       unlink(file_link)
+    }
+
+    ##close connection
+    if(!is.null(con)){
+      close(con)
+
     }
 
   }
@@ -309,11 +317,13 @@ read_BIN2R <- function(
 
       }else{
         cat("FAILED")
+        con <- NULL
         stop("[read_BIN2R()] File does not exist!", call. = FALSE)
 
       }
 
     }else{
+      con <- NULL
       stop("[read_BIN2R()] File does not exist!", call. = FALSE)
 
     }
@@ -387,9 +397,6 @@ read_BIN2R <- function(
         ##show error message
         error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file seems to be not supported or the BIN-file is broken.! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
 
-        ##close connection
-        close(con)
-
         ##show error
         stop(error.text)
 
@@ -422,9 +429,6 @@ read_BIN2R <- function(
     }
 
   }
-
-  ##close con
-  close(con)
 
   ##set n.records
   if(is.null(n.records)){
@@ -643,7 +647,7 @@ read_BIN2R <- function(
   }
 
   #open connection
-  con<-file(file, "rb")
+  con <- file(file, "rb")
 
   ##get information about file size
   file.size<-file.info(file)
@@ -674,9 +678,6 @@ read_BIN2R <- function(
 
     ##stop input if wrong VERSION
     if((temp.VERSION%in%VERSION.supported) == FALSE){
-
-      ##close connection
-      close(con)
 
       ##show error message
       error.text <- paste("[read_BIN2R()] BIN-format version (",temp.VERSION,") of this file is currently not supported! Supported version numbers are: ",paste(VERSION.supported,collapse=", "),".",sep="")
@@ -730,12 +731,11 @@ read_BIN2R <- function(
               stop(paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"! Check your BIN-file!"), call. = FALSE)
 
             }else{
-              warning(paste0("[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,"! Check your BIN-file!"), call. = FALSE)
-
+              if(verbose) cat(paste0("\n[read_BIN2R()] Byte RECTYPE = ",temp.RECTYPE," is not supported in record #",temp.ID+1,", record skipped!"))
+              temp.ID <- temp.ID + 1
             }
 
           }
-
 
           next
         }
@@ -1355,9 +1355,6 @@ read_BIN2R <- function(
 
   }#endwhile::end lopp
 
-  ##close con
-  close(con)
-
   ##close
   if(txtProgressBar & verbose){close(pb)}
 
@@ -1407,9 +1404,9 @@ read_BIN2R <- function(
 
       warning(
         paste0(
-          "[read_BIN2R()] zero data records detected and removed: ",
+          "\n[read_BIN2R()] ", length(zero_data.check), " zero data records detected and removed: ",
           paste(zero_data.check, collapse = ", "),
-          ". Record index re-calculated."
+          ". \n\n >> Record index re-calculated."
         )
       )
 
@@ -1544,8 +1541,6 @@ read_BIN2R <- function(
 
   }
 
-
    return(object)
-
 
 }

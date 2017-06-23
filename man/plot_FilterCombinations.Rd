@@ -35,9 +35,10 @@ Returns an S4 object of type \linkS4class{RLum.Results}.
 \strong{@data}
 
 \tabular{lll}{
-\strong{Object} \tab \strong{Type} \strong{Description} \cr
-\code{net_transmission_window} \tab \link{matrix} \tab the resulting net transmission window \cr
-\code{filter_matrix} \tab \link{matrix} \tab the filter matrix used for plotting
+\strong{\code{Object}} \tab \strong{\code{Type}} \strong{\code{Description}} \cr
+\code{net_transmission_window} \tab \code{matrix} \tab the resulting net transmission window \cr
+\code{OD_total} \tab \code{matrix} \tab the total optical density\cr
+\code{filter_matrix} \tab \code{matrix} \tab the filter matrix used for plotting
 }
 
 \strong{@info}
@@ -53,6 +54,24 @@ wavelenghts are automatically interpolated for the given filter data using the f
 With that a standardised output is reached and a net transmission window can be shown.
 }
 \details{
+\strong{Calculations}
+
+\strong{Net transmission window}
+
+The net transmission window of two filters is approximated by
+
+\deqn{T_{final} = T_{1} * T_{2}}
+
+\strong{Optical density}
+
+\deqn{OD = -log(T)}
+
+\strong{Total optical density}
+
+\deqn{OD_{total} = OD_{1} +  OD_{2}}
+
+Please consider using own calculations for more precise values.
+
 \strong{How to provide input data?}
 
 \emph{CASE 1}
@@ -89,11 +108,13 @@ The final transmission becomes:
 The following further non-common plotting parameters can be passed to the function:
 
 \tabular{lll}{
-\strong{Argument} \tab \strong{Datatype} \tab \strong{Description}\cr
+\strong{\code{Argument}} \tab \strong{\code{Datatype}} \tab \strong{\code{Description}}\cr
 \code{legend} \tab \code{logical} \tab enable/disable legend \cr
 \code{legend.pos} \tab \code{character} \tab change legend position (\link[graphics:legend]{graphics::legend}) \cr
 \code{legend.text} \tab \code{character} \tab same as the argument \code{legend} in (\link[graphics:legend]{graphics::legend}) \cr
 \code{net_transmission.col} \tab \code{col} \tab colour of net transmission window polygon \cr
+\code{net_transmission.col_lines} \tab \code{col} \tab colour of net transmission window polygon lines \cr
+\code{net_transmission.density} \tab  \code{numeric} \tab specify line density in the transmission polygon \cr
 \code{grid} \tab \code{list} \tab full list of arguments that can be passd to the function \link[graphics:grid]{graphics::grid}
 }
 
@@ -102,7 +123,7 @@ can be fully customised by disabling the standard legend and use the function \l
 instead.
 }
 \section{Function version}{
- 0.2.0
+ 0.3.0
 }
 
 \examples{
@@ -122,7 +143,11 @@ results <- plot_FilterCombinations(
 filters = list(filter_1 = filter1, Rectangle = list(filter2, d = 2, P = 0.6)))
 results
 
+## Example 3 show optical density
+plot(results$OD_total)
+
 \dontrun{
+##Example 4
 ##show the filters using the interative mode
 plot_FilterCombinations(filters = list(filter1, filter2), interative = TRUE)
 

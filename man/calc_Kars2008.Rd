@@ -164,7 +164,7 @@ Morthekai, P., Jain, M., Cunha, P.P., Azevedo, J.M., Singhvi, A.K., 2011. An att
 for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
 }
 \author{
-Georgina King, University of Cologne (Germany), \cr
+Georgina King, University of Cologne (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
 }
 \keyword{datagen}

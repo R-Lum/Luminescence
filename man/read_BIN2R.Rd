@@ -11,9 +11,9 @@ read_BIN2R(file, show.raw.values = FALSE, position = NULL,
   verbose = TRUE, ...)
 }
 \arguments{
-\item{file}{\link{character} or \link{list} (\strong{required}):
-path and file name of the BIN/BINX file. If input is a \code{list} it should
-comprise only \code{character}s representing each valid path and BIN/BINX-file names.
+\item{file}{\link{character} or \link{list} (\strong{required}): path and file name of the
+BIN/BINX file (URLs are supported). If input is a \code{list} it should comprise
+only \code{character}s representing each valid path and BIN/BINX-file names.
 Alternatively the input character can be just a directory (path), in this case the
 the function tries to detect and import all BIN/BINX files found in the directory.}
 
@@ -95,7 +95,7 @@ The binary data file is parsed byte by byte following the data structure
 published in the Appendices of the Analyst manual p. 42.
 
 For the general BIN-file structure, the reader is referred to the
-Risoe website: \code{http://www.nutech.dtu.dk/}
+Risoe website: \url{http://www.nutech.dtu.dk/}
 }
 \note{
 The function works for BIN/BINX-format versions 03, 04, 06, 07 and 08. The
@@ -104,7 +104,7 @@ version number depends on the used Sequence Editor.
 \strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.}
 }
 \section{Function version}{
- 0.15.5
+ 0.15.6
 }
 
 \examples{
