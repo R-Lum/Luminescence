@@ -68,14 +68,19 @@ The function provides the analysis of cross-talk measurements on a
 FI lexsyg SMART reader using Al2O3:C pellets
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2017-06-24 12:46:37)
 }
 
 \examples{
 
 ## nothing so far TODO ... add tests with example
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 TODO
 }
@@ -84,5 +89,5 @@ TODO
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}

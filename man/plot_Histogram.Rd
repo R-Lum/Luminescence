@@ -90,7 +90,7 @@ one or more of the following keywords:
 The input data is not restricted to a special type.
 }
 \section{Function version}{
- 0.4.4
+ 0.4.4 (2017-06-24 12:46:37)
 }
 
 \examples{
@@ -127,4 +127,9 @@ plot_Histogram(ExampleData.DeValues,
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Dietze, M., Kreutzer, S. (2017). plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
+

@@ -40,7 +40,7 @@ Currenlty only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLu
 (with curve data) are supported!
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2017-06-24 12:46:37)
 }
 
 \examples{
@@ -66,5 +66,10 @@ plot_RLum(smooth_RLum(curve))
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). smooth_RLum(): Smoothing of data. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{utilities}

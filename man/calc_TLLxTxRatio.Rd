@@ -60,7 +60,7 @@ if both signals are similar the error becomes zero.
 background for both curves results in a zero error and is therefore set to \code{NA}.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.2 (2017-06-24 12:46:37)
 }
 
 \examples{
@@ -92,5 +92,10 @@ get_RLum(output)
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France) \cr
 Christoph Schmidt, University of Bayreuth (Germany)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S., Schmidt, C. (2017). calc_TLLxTxRatio(): Calculate the Lx/Tx ratio for a given set of TL curves [beta version]. Function version 0.3.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{datagen}

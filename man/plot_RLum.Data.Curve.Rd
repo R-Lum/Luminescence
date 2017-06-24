@@ -39,7 +39,7 @@ according to \link{plot}.
 Not all arguments of \link{plot} will be passed!
 }
 \section{Function version}{
- 0.2.3
+ 0.2.3 (2017-06-24 12:46:37)
 }
 
 \examples{
@@ -62,5 +62,10 @@ plot_RLum.Data.Curve(temp)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). plot_RLum.Data.Curve(): Plot function for an RLum.Data.Curve S4 class object. Function version 0.2.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{aplot}

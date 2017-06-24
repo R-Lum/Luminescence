@@ -27,7 +27,7 @@ be selected. Allowed arguments can be found in the documentations of the
 corresponding \linkS4class{RLum} class.
 }
 \section{Function version}{
- 0.2.0
+ 0.2.0 (2017-06-24 12:46:37)
 }
 
 \examples{
@@ -45,5 +45,10 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). structure_RLum(): General structure function for RLum S4 class objects. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{utilities}

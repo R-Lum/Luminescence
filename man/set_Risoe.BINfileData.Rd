@@ -28,7 +28,7 @@ Allowed arguments can be found in the documentations of the corresponding
 \linkS4class{Risoe.BINfileData} class.
 }
 \section{Function version}{
- 0.1
+ 0.1 (2017-06-24 12:46:37)
 }
 
 \seealso{
@@ -36,5 +36,10 @@ Allowed arguments can be found in the documentations of the corresponding
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). set_Risoe.BINfileData(): General accessor function for RLum S4 class objects. Function version 0.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{utilities}
