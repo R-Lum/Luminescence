@@ -1,11 +1,9 @@
 # Exclude R stuff
-
 NEWS\.rmd
 NEWS\.html
 ^\.Rprofile$
 
 # Exclude RStudio files
-
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^packrat/
@@ -19,7 +17,6 @@ tests/testdata
 ^codecov\.yml$
 
 # Exclude GitHub stuff
-
 LICENSE$
 README\.md
 ^cran-comments\.md$
@@ -29,19 +26,8 @@ NEWS_cache
 NEWS_files
 
 # Exclude RLum related stuff
-
 ^RLum.*$
-# RLum.CHECK_AND_BUILD.sh
-# RLum.CHECK_AND_BUILD_MacOSX.sh
-# RLum.CHECK_AND_BUILD_Linux.sh
-# RLum.CHECK_AND_BUILD.BAT
-# RLum.BuildScripts
-# RLum.BuildResults
-# RLum.Debug
-# RLum.Experiment
-# RLum.Images
 
 # Exclude vignettes cache and files
-
 ^vignettes/.*cache$
 ^vignettes/.*files$
