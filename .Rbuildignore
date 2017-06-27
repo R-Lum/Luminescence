@@ -1,29 +1,47 @@
-^.*\.Rproj$
-^\.Rproj\.user$
-LICENSE$
-^\.travis\.yml$
-README\.md
+# Exclude R stuff
+
 NEWS\.rmd
 NEWS\.html
-^\test\*
 ^\.Rprofile$
-^appveyor\.yml$
-^codecov\.yml$
-^cran-comments\.md$
-RLum.CHECK_AND_BUILD.sh
-RLum.CHECK_AND_BUILD_MacOSX.sh
-RLum.CHECK_AND_BUILD_Linux.sh
-RLum.CHECK_AND_BUILD.BAT
-RLum.BuildScripts
-RLum.BuildResults
-RLum.Debug
-RLum.Experiment
-RLum.Images
-revdep
+
+# Exclude RStudio files
+
+^.*\.Rproj$
+^\.Rproj\.user$
 ^packrat/
 packrat
-RLum.Images
+tests/testdata
+^\test\*
+
+# Exclude test suite files
+^\.travis\.yml$
+^appveyor\.yml$
+^codecov\.yml$
+
+# Exclude GitHub stuff
+
+LICENSE$
+README\.md
+^cran-comments\.md$
+revdep
 R/README\.md
 NEWS_cache
 NEWS_files
-tests/testdata
+
+# Exclude RLum related stuff
+
+^RLum.*$
+# RLum.CHECK_AND_BUILD.sh
+# RLum.CHECK_AND_BUILD_MacOSX.sh
+# RLum.CHECK_AND_BUILD_Linux.sh
+# RLum.CHECK_AND_BUILD.BAT
+# RLum.BuildScripts
+# RLum.BuildResults
+# RLum.Debug
+# RLum.Experiment
+# RLum.Images
+
+# Exclude vignettes cache and files
+
+^vignettes/.*cache$
+^vignettes/.*files$
