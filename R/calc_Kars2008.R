@@ -46,12 +46,28 @@
 #'
 #'
 #' @param data [data.frame] (**required**):
-#' A three column data frame with numeric values on a) dose (s), b) LxTx and and
-#' c) LxTx error. If a two column data frame is provided it is automatically
+#' A `data.frame` with one of the following structures:
+#' - A **three column** data frame with numeric values on a) dose (s), b) LxTx and and
+#' c) LxTx error. 
+#' - If a **two column** data frame is provided it is automatically
 #' assumed that errors on LxTx are missing. A third column will be attached
-#' with an arbitrary 5 \% error on the provided LxTx values.\cr
-#' Can also be a wide table, i.e. a [data.frame] with a number of colums divisible by 3
+#' with an arbitrary 5 \% error on the provided LxTx values.
+#' - Can also be a **wide table**, i.e. a [data.frame] with a number of colums divisible by 3
 #' and where each triplet has the aforementioned column structure.
+#' 
+#' ```
+#'                         (optional)
+#'      | dose (s)| LxTx | LxTx error |
+#'      |  [ ,1]  | [ ,2]|    [ ,3]   |
+#'      |---------|------|------------|
+#' [1, ]|  0      | LnTn | LnTn error | (optional)
+#' [2, ]|  R1     | L1T1 | L1T1 error |
+#'  ... |    ...  |  ... |     ...    |
+#' [x, ]|  Rx     | LxTx | LxTx error |
+#' 
+#' ```
+#' **NOTE:** The function assumes the first row of the function to be the 
+#' `Ln/Tn`-value.
 #'
 #' @param rhop [numeric] (**required**):
 #' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
@@ -161,6 +177,7 @@
 #' @md
 #' @export
 calc_Kars2008 <- function(data,
+                          LnTn = NULL,
                           rhop,
                           ddot,
                           readerDdot,

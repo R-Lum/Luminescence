@@ -4,17 +4,33 @@
 \alias{calc_Kars2008}
 \title{Apply the Kars et al. (2008) model}
 \usage{
-calc_Kars2008(data, rhop, ddot, readerDdot, normalise = TRUE,
+calc_Kars2008(data, LnTn = NULL, rhop, ddot, readerDdot, normalise = TRUE,
   summary = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
-A three column data frame with numeric values on a) dose (s), b) LxTx and and
-c) LxTx error. If a two column data frame is provided it is automatically
+A \code{data.frame} with one of the following structures:
+\itemize{
+\item A \strong{three column} data frame with numeric values on a) dose (s), b) LxTx and and
+c) LxTx error.
+\item If a \strong{two column} data frame is provided it is automatically
 assumed that errors on LxTx are missing. A third column will be attached
-with an arbitrary 5 \% error on the provided LxTx values.\cr
-Can also be a wide table, i.e. a \link{data.frame} with a number of colums divisible by 3
-and where each triplet has the aforementioned column structure.}
+with an arbitrary 5 \% error on the provided LxTx values.
+\item Can also be a \strong{wide table}, i.e. a \link{data.frame} with a number of colums divisible by 3
+and where each triplet has the aforementioned column structure.
+}\preformatted{                        (optional)
+     | dose (s)| LxTx | LxTx error |
+     |  [ ,1]  | [ ,2]|    [ ,3]   |
+     |---------|------|------------|
+[1, ]|  0      | LnTn | LnTn error | (optional)
+[2, ]|  R1     | L1T1 | L1T1 error |
+ ... |    ...  |  ... |     ...    |
+[x, ]|  Rx     | LxTx | LxTx error |
+
+}
+
+\strong{NOTE:} The function assumes the first row of the function to be the
+\code{Ln/Tn}-value.}
 
 \item{rhop}{\link{numeric} (\strong{required}):
 The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
@@ -117,7 +133,7 @@ in the derivation of (n/N) and (n/N)_SS.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0 (2017-06-24 12:46:37)
+ 0.1.0
 }
 
 \examples{
@@ -147,12 +163,7 @@ kars <- calc_Kars2008(data = data,
                       ddot = ddot,
                       readerDdot = readerDdot,
                       n.MC = 50)
-} 
-
-\section{How to cite}{
-King, G., Burow, C. (2017). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
@@ -171,5 +182,5 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 \author{
 Georgina King, University of Cologne (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}
