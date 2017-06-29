@@ -21,4 +21,5 @@ src/*.dll
 src-i386/
 src-x64/
 NEWS_*
+cran-comments.html
 

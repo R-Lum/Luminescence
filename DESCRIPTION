@@ -75,7 +75,7 @@ Suggests:
     testthat (>= 1.0.2),
     devtools (>= 1.12.0)
 URL: https://CRAN.R-project.org/package=Luminescence
-Collate:
+Collate: 
     'Analyse_SAR.OSLdata.R'
     'CW2pHMi.R'
     'CW2pLM.R'

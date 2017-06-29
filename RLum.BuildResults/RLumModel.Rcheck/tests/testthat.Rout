@@ -1,0 +1,45 @@
+
+R version 3.4.1 RC (2017-06-22 r72859) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(RLumModel)
+Loading required package: Luminescence
+Loading required package: magrittr
+
+Attaching package: 'magrittr'
+
+The following objects are masked from 'package:testthat':
+
+    equals, is_less_than, not
+
+Welcome to the R package Luminescence version 0.7.5 [Built: 2017-06-29 16:52:33 UTC]
+An arbitrary unexperienced RLum-user: 'Little by little, the bird builds its nest.'
+
+Attaching package: 'RLumModel'
+
+The following object is masked from 'package:Luminescence':
+
+    model_LuminescenceSignals
+
+> 
+> test_check("RLumModel")
+testthat results ================================================================
+OK: 162 SKIPPED: 0 FAILED: 0
+> 
+> proc.time()
+   user  system elapsed 
+  7.408   0.111   7.536 

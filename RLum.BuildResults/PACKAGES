@@ -1,0 +1,11 @@
+Package: Luminescence
+Version: 0.7.5
+Depends: R (>= 3.3.2), utils, magrittr (>= 1.5)
+Imports: bbmle (>= 1.0.18), data.table (>= 1.10.0), httr (>= 1.2.1), matrixStats (>= 0.51.0), methods, minpack.lm (>= 1.2-1), raster (>= 2.5-8), readxl (>=
+                  0.1.1), shape (>= 1.4.2), parallel, XML (>= 3.98-1.5), zoo (>= 1.7-14)
+LinkingTo: Rcpp (>= 0.12.9), RcppArmadillo (>= 0.7.600.1.0)
+Suggests: RLumShiny (>= 0.1.1), RLumModel (>= 0.1.2), plotly (>= 4.5.6), rmarkdown (>= 1.3), rjags (>= 4-6), coda (>= 0.19-1), pander (>= 0.6.0), rstudioapi (>=
+                  0.6), testthat (>= 1.0.2), devtools (>= 1.12.0)
+License: GPL-3
+MD5sum: 6bbc8eff45f3ce53bb7df05f7c422e7b
+NeedsCompilation: yes

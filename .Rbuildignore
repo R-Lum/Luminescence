@@ -10,6 +10,7 @@ NEWS\.html
 ^appveyor\.yml$
 ^codecov\.yml$
 ^cran-comments\.md$
+^cran-comments\.html$
 RLum.CHECK_AND_BUILD.sh
 RLum.CHECK_AND_BUILD_MacOSX.sh
 RLum.CHECK_AND_BUILD_Linux.sh

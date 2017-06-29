@@ -1,0 +1,27 @@
+-----------------------------------------------------------------------
+This file report the main changes make to the package for each version.
+-----------------------------------------------------------------------
+
+v0.1.3 (08/2016)
+------
+* Output modification to make the package compatible with shiny.
+* correction typo in use_DRAC4*
+
+v0.1.2 (06/2016)
+------
+* Modification of initial uncertainty
+* Modification of final uncertainty estimation for MAAD/SAR protocol.
+* All doses point are use for MAAD protocol (rather than means values).
+* ID not modified anymore by mod* functions.
+* Addition of template_DRAC4* and use_DRAC4* functions.
+* calc* function available for users.
+
+v0.1.1 (03/2016)
+------
+* Dependency update (Luminescence >= 0.5.0)
+* Reference to Luminescence package
+
+
+v0.1.0 (02/2016)
+------
+* First submission

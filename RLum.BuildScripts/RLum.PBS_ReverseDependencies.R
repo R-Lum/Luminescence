@@ -7,9 +7,9 @@
 ## This script should be run manually after the package has been built
 
 
-devtools::revdep_check()
-devtools::revdep_check_save_summary()
-devtools::revdep_check_print_problems()
+# devtools::revdep_check()
+# devtools::revdep_check_save_summary()
+# devtools::revdep_check_print_problems()
 
 
 ##keep the old one ... just in case, as the devtools function is a little bit broken ..

@@ -1,0 +1,12 @@
+* installing *source* package ‘RLumShiny’ ...
+** package ‘RLumShiny’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** preparing package for lazy loading
+Creating a generic function for ‘toJSON’ from package ‘jsonlite’ in package ‘googleVis’
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+Creating a generic function for ‘toJSON’ from package ‘jsonlite’ in package ‘googleVis’
+* DONE (RLumShiny)

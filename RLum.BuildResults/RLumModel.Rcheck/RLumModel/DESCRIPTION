@@ -1,0 +1,39 @@
+Package: RLumModel
+Type: Package
+Title: Solving Ordinary Differential Equations to Understand
+        Luminescence
+Version: 0.2.1
+Date: 2017-04-13
+Author: Johannes Friedrich [aut, trl, cre],
+    Sebastian Kreutzer [aut, ths],
+    Christoph Schmidt [aut, ths]
+Authors@R: c(
+    person("Johannes", "Friedrich", role = c("aut","trl","cre"), email = "johannes.friedrich@uni-bayreuth.de"),
+    person("Sebastian", "Kreutzer", role = c("aut", "ths")),
+    person("Christoph", "Schmidt", role = c("aut", "ths"))
+    )
+Maintainer: Johannes Friedrich <johannes.friedrich@uni-bayreuth.de>
+Description: A collection of functions to simulate luminescence signals in the
+    mineral quartz based on published models.
+Contact: Package Developer Team <developer@model.r-luminescence.de>
+License: GPL-3
+Depends: R (>= 3.3.0), utils, Luminescence (>= 0.7.0)
+Imports: deSolve (>= 1.12), methods, Rcpp
+URL: https://CRAN.R-project.org/package=RLumModel
+Collate: RLumModel-package.R RcppExports.R calc_signal.R
+        calc_concentrations.R create_DRT.sequence.R
+        create_SAR.sequence.R extract_pars.R
+        model_LuminescenceSignals.R read_SEQ2R.R set_pars.R
+        simulate_CW_OSL.R simulate_heating.R simulate_illumination.R
+        simulate_irradiation.R simulate_LM_OSL.R simulate_pause.R
+        simulate_RF.R simulate_RF_and_heating.R simulate_TL.R
+        translate_sequence.R
+RoxygenNote: 6.0.1
+Suggests: R.rsp, testthat
+VignetteBuilder: R.rsp
+LinkingTo: Rcpp, RcppArmadillo
+NeedsCompilation: yes
+Packaged: 2017-04-11 20:34:51 UTC; johannes
+Repository: CRAN
+Date/Publication: 2017-04-13 17:17:44 UTC
+Built: R 3.4.1; x86_64-apple-darwin15.6.0; 2017-06-29 17:02:16 UTC; unix

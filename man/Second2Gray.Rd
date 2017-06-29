@@ -62,7 +62,7 @@ stopped. Furthermore, if a \code{data.frame} is provided for the dose rate value
 be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.6.0 (2015-11-29 17:27:48)
+ 0.6.0 (2017-06-29 18:40:14)
 }
 
 \examples{
@@ -93,7 +93,7 @@ Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M., Fuchs, M.C., Fuchs, M. (2017). Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M., Fuchs, M.C., Fuchs, M. (2017). Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
