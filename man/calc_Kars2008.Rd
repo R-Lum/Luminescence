@@ -4,7 +4,7 @@
 \alias{calc_Kars2008}
 \title{Apply the Kars et al. (2008) model}
 \usage{
-calc_Kars2008(data, LnTn = NULL, rhop, ddot, readerDdot, normalise = TRUE,
+calc_Kars2008(data, rhop, ddot, readerDdot, normalise = TRUE,
   summary = TRUE, plot = TRUE, ...)
 }
 \arguments{

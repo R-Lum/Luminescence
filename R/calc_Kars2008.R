@@ -177,7 +177,6 @@
 #' @md
 #' @export
 calc_Kars2008 <- function(data,
-                          LnTn = NULL,
                           rhop,
                           ddot,
                           readerDdot,
