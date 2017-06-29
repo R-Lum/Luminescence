@@ -752,9 +752,13 @@ fit_CWCurve<- function(
 
     }#endif :: (exists("fit"))
 
-  }else{writeLines("[fit_CWCurve()] Fitting Error >> Plot without fit produced!")
-        output.table<-NA
-        component.contribution.matrix <- NA
+  }else{
+
+    if (output.terminal==TRUE)
+      writeLines("[fit_CWCurve()] Fitting Error >> Plot without fit produced!")
+    
+    output.table<-NA
+    component.contribution.matrix <- NA
   }
 
   ##============================================================================##
