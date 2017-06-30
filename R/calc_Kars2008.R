@@ -60,14 +60,38 @@
 #'      | dose (s)| LxTx | LxTx error |
 #'      |  [ ,1]  | [ ,2]|    [ ,3]   |
 #'      |---------|------|------------|
-#' [1, ]|  0      | LnTn | LnTn error | (optional)
+#' [1, ]|  0      | LnTn | LnTn error | (optional, see arg 'LnTn')
 #' [2, ]|  R1     | L1T1 | L1T1 error |
 #'  ... |    ...  |  ... |     ...    |
 #' [x, ]|  Rx     | LxTx | LxTx error |
 #' 
 #' ```
 #' **NOTE:** The function assumes the first row of the function to be the 
-#' `Ln/Tn`-value.
+#' `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-value consider
+#' using the argument `LnTn`.
+#' 
+#' @param LnTn [data.frame] (**optional**):
+#' This argument should **only** be used to provide more than one `Ln/Tn`-value.
+#' It assumes a two column data frame with the following structure:
+#' 
+#' ```
+#'      |  LnTn  |  LnTn error  |
+#'      |  [ ,1] |      [ ,2]   |  
+#'      |--------|--------------|
+#' [1, ]| LnTn_1 | LnTn_1 error |
+#' [2, ]| LnTn_2 | LnTn_2 error |
+#'  ... |   ...  |      ...     |
+#' [x, ]| LnTn_x | LnTn_x error |
+#' ``` 
+#' 
+#' The function will calculate a **mean** `Ln/Tn`-value and uses either the
+#' standard deviation or the highest individual error, whichever is larger. If
+#' another mean value (e.g. a weighted mean or median) or error is preferred, 
+#' this value must be calculated beforehand and used in the first row in the
+#' data frame for argument `data`.
+#' 
+#' **NOTE:** If you provide `LnTn`-values with this argument the data frame
+#' for the `data`-argument **must not** contain any `LnTn`-values!
 #'
 #' @param rhop [numeric] (**required**):
 #' The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
@@ -174,9 +198,27 @@
 #'                       ddot = ddot,
 #'                       readerDdot = readerDdot,
 #'                       n.MC = 50)
+#'                       
+#' 
+#' # You can also provide LnTn values separately via the 'LnTn' argument.
+#' # Note, however, that the data frame for 'data' must then NOT contain
+#' # a LnTn value. See argument descriptions!
+#' LnTn <- data.frame(LnTn = c(1.84833, 2.24833),
+#'                    LnTn.error = c(0.17, 0.22))
+#' 
+#' LxTx <- data[2:nrow(data), ]
+#'
+#' kars <- calc_Kars2008(data = LxTx,
+#'                       LnTn = LnTn,
+#'                       rhop = rhop,
+#'                       ddot = ddot,
+#'                       readerDdot = readerDdot,
+#'                       n.MC = 50)
+#'
 #' @md
 #' @export
 calc_Kars2008 <- function(data,
+                          LnTn = NULL,
                           rhop,
                           ddot,
                           readerDdot,
@@ -197,6 +239,32 @@ calc_Kars2008 <- function(data,
               " 5 % error.\n Please provide a data frame with three columns",
               " if you wish to use actually measured LxTx errors.", call. = FALSE)
       data[ ,3] <- data[ ,2] * 0.05
+    }
+    
+    # Check if 'LnTn' is used and overwrite 'data'
+    if (!is.null(LnTn)) {
+      
+      if (!is.data.frame(LnTn))
+        stop("Value for 'LnTn' must be a data frame!", call. = FALSE)
+      if (ncol(LnTn) != 2)
+        stop("Data frame for 'LnTn' must have two columns!", call. = FALSE)
+      if (ncol(data) > 3)
+        stop("Argument 'LnTn' requires the data frame 'data' to have 2 or 3 columns only!", call. = FALSE)
+      
+      # case 1: only one LnTn value
+      if (nrow(LnTn) == 1) {
+        LnTn <- setNames(cbind(0, LnTn), names(data))
+        data <- rbind(LnTn, data)
+        
+        # case 2: >1 LnTn value
+      } else {
+        LnTn_mean <- mean(LnTn[ ,1])
+        LnTn_sd <- sd(LnTn[ ,1])
+        LnTn_error <- max(LnTn_sd, LnTn[ ,2])
+        LnTn <- setNames(data.frame(0, LnTn_mean, LnTn_error), names(data))
+        data <- rbind(LnTn, data)
+      }
+      
     }
 
     # check number of columns

@@ -4,7 +4,7 @@
 \alias{calc_Kars2008}
 \title{Apply the Kars et al. (2008) model}
 \usage{
-calc_Kars2008(data, rhop, ddot, readerDdot, normalise = TRUE,
+calc_Kars2008(data, LnTn = NULL, rhop, ddot, readerDdot, normalise = TRUE,
   summary = TRUE, plot = TRUE, ...)
 }
 \arguments{
@@ -22,7 +22,7 @@ and where each triplet has the aforementioned column structure.
      | dose (s)| LxTx | LxTx error |
      |  [ ,1]  | [ ,2]|    [ ,3]   |
      |---------|------|------------|
-[1, ]|  0      | LnTn | LnTn error | (optional)
+[1, ]|  0      | LnTn | LnTn error | (optional, see arg 'LnTn')
 [2, ]|  R1     | L1T1 | L1T1 error |
  ... |    ...  |  ... |     ...    |
 [x, ]|  Rx     | LxTx | LxTx error |
@@ -30,7 +30,28 @@ and where each triplet has the aforementioned column structure.
 }
 
 \strong{NOTE:} The function assumes the first row of the function to be the
-\code{Ln/Tn}-value.}
+\code{Ln/Tn}-value. If you want to provide more than one \code{Ln/Tn}-value consider
+using the argument \code{LnTn}.}
+
+\item{LnTn}{\link{data.frame} (\strong{optional}):
+This argument should \strong{only} be used to provide more than one \code{Ln/Tn}-value.
+It assumes a two column data frame with the following structure:\preformatted{     |  LnTn  |  LnTn error  |
+     |  [ ,1] |      [ ,2]   |  
+     |--------|--------------|
+[1, ]| LnTn_1 | LnTn_1 error |
+[2, ]| LnTn_2 | LnTn_2 error |
+ ... |   ...  |      ...     |
+[x, ]| LnTn_x | LnTn_x error |
+}
+
+The function will calculate a \strong{mean} \code{Ln/Tn}-value and uses either the
+standard deviation or the highest individual error, whichever is larger. If
+another mean value (e.g. a weighted mean or median) or error is preferred,
+this value must be calculated beforehand and used in the first row in the
+data frame for argument \code{data}.
+
+\strong{NOTE:} If you provide \code{LnTn}-values with this argument the data frame
+for the \code{data}-argument \strong{must not} contain any \code{LnTn}-values!}
 
 \item{rhop}{\link{numeric} (\strong{required}):
 The density of recombination centres (\eqn{\rho}') and its error (see Huntley 2006),
@@ -163,6 +184,23 @@ kars <- calc_Kars2008(data = data,
                       ddot = ddot,
                       readerDdot = readerDdot,
                       n.MC = 50)
+                      
+
+# You can also provide LnTn values separately via the 'LnTn' argument.
+# Note, however, that the data frame for 'data' must then NOT contain
+# a LnTn value. See argument descriptions!
+LnTn <- data.frame(LnTn = c(1.84833, 2.24833),
+                   LnTn.error = c(0.17, 0.22))
+
+LxTx <- data[2:nrow(data), ]
+
+kars <- calc_Kars2008(data = LxTx,
+                      LnTn = LnTn,
+                      rhop = rhop,
+                      ddot = ddot,
+                      readerDdot = readerDdot,
+                      n.MC = 50)
+
 }
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
