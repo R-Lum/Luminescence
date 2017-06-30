@@ -311,7 +311,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \bold{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.29 (2017-06-29 18:40:14)
+ 0.1.29 (2017-06-30 11:23:30)
 }
 
 \examples{
@@ -362,7 +362,7 @@ list(
 } 
 
 \section{How to cite}{
-Mercier, N., Kreutzer, S. (2017). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.29. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
+Mercier, N., Kreutzer, S. (2017). analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.29. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

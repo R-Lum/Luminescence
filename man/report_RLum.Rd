@@ -115,7 +115,7 @@ CSS styling can be turned of using \code{css = FALSE}.
 This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.
 }
 \section{Function version}{
- 0.1.0 (2017-06-29 18:40:14)
+ 0.1.0 (2017-06-30 11:23:30)
 }
 
 \examples{
@@ -188,6 +188,6 @@ Christoph Burow, University of Cologne (Germany) \cr
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Burow, C. (2017). report_RLum(): Create a HTML report for (RLum) objects. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). report_RLum(): Create a HTML report for (RLum) objects. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 

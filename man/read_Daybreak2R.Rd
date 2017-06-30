@@ -34,7 +34,7 @@ used for a Daybreak, model 1100.
 the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{
- 0.3.0 (2017-06-29 18:40:14)
+ 0.3.0 (2017-06-30 11:23:30)
 }
 
 \examples{
@@ -48,7 +48,7 @@ temp <- read_Daybreak2R(file)
 } 
 
 \section{How to cite}{
-Kreutzer, S., Zink, A. (2017). read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Zink, A. (2017). read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

@@ -18,7 +18,7 @@ Wrapper for the function \code{\link[RLumShiny]{app_RLum}} from the package
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.1 (2017-06-29 18:40:14)
+ 0.1.1 (2017-06-30 11:23:30)
 }
 
 \author{
@@ -26,6 +26,6 @@ Christoph Burow, University of Cologne (Germany)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Burow, C. (2017). app_RLum(): Run Luminescence shiny apps (wrapper). Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). app_RLum(): Run Luminescence shiny apps (wrapper). Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 

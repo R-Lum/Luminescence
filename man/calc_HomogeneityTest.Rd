@@ -35,7 +35,7 @@ A simple homogeneity test for De estimates
 For details see Galbraith (2003).
 }
 \section{Function version}{
- 0.2 (2017-06-29 18:40:14)
+ 0.2 (2017-06-30 11:23:30)
 }
 
 \examples{
@@ -49,7 +49,7 @@ calc_HomogeneityTest(ExampleData.DeValues$BT998)
 } 
 
 \section{How to cite}{
-Burow, C. (2017). calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
+Burow, C. (2017). calc_HomogeneityTest(): Apply a simple homogeneity test after Galbraith (2003). Function version 0.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
