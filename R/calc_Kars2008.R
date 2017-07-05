@@ -449,7 +449,7 @@ calc_Kars2008 <- function(data,
   LxTx.sim <- A * theta(natdosetime, rhop[1]) * (1 - exp(-natdosetime / mean(computedD0, na.rm = TRUE)))
   
   # calculate Age
-  if (Ln < max(LxTx.sim)) {
+ 
     
     positive <- which(diff(LxTx.sim) > 0)
     
@@ -496,11 +496,9 @@ calc_Kars2008 <- function(data,
       
     } else {
       De.sim <- De.error.sim <- Age.sim <- Age.sim.error <- fit_simulated <- D0.sim.Gy <- D0.sim.Gy.error <-  NA
+      Age.sim.2D0 <- Age.sim.2D0.error <- NA
     }
     
-  } else {
-    De.sim <- De.error.sim <- Age.sim <- Age.sim.error <- fit_simulated <- D0.sim.Gy <- D0.sim.Gy.error <- NA
-  }
   
   if (Ln > max(LxTx.sim) * 1.1) 
     warning("[calc_Kars2008] Ln is >10 % larger than the maximum computed LxTx value.",
@@ -594,7 +592,7 @@ calc_Kars2008 <- function(data,
     
     # Find a good estimate of the x-axis limits
     xlim <- range(pretty(dosetimeGray))
-    if (De.sim > xlim[2])
+    if (!is.na(De.sim) & De.sim > xlim[2])
       xlim <- range(pretty(c(min(dosetimeGray), De.sim)))
     
     # Create figure after Kars et al. (2008) contrasting the dose response curves
@@ -672,6 +670,10 @@ calc_Kars2008 <- function(data,
       points(x = De.sim,
              y = Ln,
              col = "red" , pch = 16)
+    } else {
+      lines(x = c(De.measured, xlim[2]),
+            y = c(Ln, Ln),
+            col = "black", lty = 3)
     }
     
     # add unfaded DRC
