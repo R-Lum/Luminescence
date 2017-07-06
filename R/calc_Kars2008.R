@@ -432,10 +432,9 @@ calc_Kars2008 <- function(data,
   A <- mean(fitcoef[, 1], na.rm = TRUE)
   A.error <- sd(fitcoef[ ,1], na.rm = TRUE)
   
-  
   # calculate measured fraction of saturation
   nN <- Ln / A
-  nN.error <- sqrt( (Ln.error / Ln)^2 + (A.error / A)^2)
+  nN.error <- nN * sqrt( (Ln.error / Ln)^2 + (A.error / A)^2)
   
   # compute a natural dose response curve following the assumptions of
   # Morthekai et al. 2011, Geochronometria
@@ -490,9 +489,9 @@ calc_Kars2008 <- function(data,
                                          (ddot.error / ddot)^2)
       
       Age.sim.2D0 <- 2 * D0.sim.Gy / ddot
-      Age.sim.2D0.error <- sqrt( ( D0.sim.Gy.error / D0.sim.Gy)^2 +
-                                   (readerDdot.error / readerDdot)^2 +
-                                   (ddot.error / ddot)^2)
+      Age.sim.2D0.error <- Age.sim.2D0 * sqrt( ( D0.sim.Gy.error / D0.sim.Gy)^2 +
+                                                 (readerDdot.error / readerDdot)^2 +
+                                                 (ddot.error / ddot)^2)
       
     } else {
       De.sim <- De.error.sim <- Age.sim <- Age.sim.error <- fit_simulated <- D0.sim.Gy <- D0.sim.Gy.error <-  NA
@@ -523,8 +522,14 @@ calc_Kars2008 <- function(data,
     
   }, rhop_MC, ddot_MC, UFD0_MC, SIMPLIFY = TRUE)
   
-  nN_SS <- mean(nN_SS_MC, na.rm = TRUE)
-  nN_SS.error <- sd(nN_SS_MC, na.rm = TRUE)
+  nN_SS <- exp(mean(log(nN_SS_MC), na.rm = TRUE))
+  nN_SS.error <- nN_SS * abs(sd(log(nN_SS_MC), na.rm = TRUE) / mean(log(nN_SS_MC), na.rm = TRUE))
+  
+  ## legacy code for debugging purposes
+  ## nN_SS is often lognormally distributed, so we now take the mean and sd
+  ## of the log values.
+  # warning(mean(nN_SS_MC, na.rm = TRUE))
+  # warning(sd(nN_SS_MC, na.rm = TRUE))
   
   ## (3) UNFADED ---------------------------------------------------------------
   LxTx.unfaded <- LxTx.measured / theta(dosetime, rhop[1])
