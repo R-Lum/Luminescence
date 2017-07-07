@@ -79,7 +79,13 @@ plot.}
 \item{plot}{\link{logical} (\emph{with default}):
 enables/disables plot output.}
 
-\item{...}{further arguments passed to \link{plot} and \link{plot_GrowthCurve}.}
+\item{...}{Further parameters:
+\itemize{
+\item \code{verbose} \link{logical}: Show or hide console output
+\item \code{n.MC} \link{numeric}: Number of Monte Carlo iterations (default = \code{1000})
+}
+
+All other arguments are passed to \link{plot} and \link{plot_GrowthCurve}.}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:

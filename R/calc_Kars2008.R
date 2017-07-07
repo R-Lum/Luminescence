@@ -128,7 +128,12 @@
 #' @param plot [logical] (*with default*): 
 #' enables/disables plot output.
 #'
-#' @param ... further arguments passed to [plot] and [plot_GrowthCurve].
+#' @param ... 
+#' Further parameters:
+#' - `verbose` [logical]: Show or hide console output
+#' - `n.MC` [numeric]: Number of Monte Carlo iterations (default = `1000`)
+#' 
+#' All other arguments are passed to [plot] and [plot_GrowthCurve].
 #'
 #' @return An [RLum.Results-class] object is returned:
 #'
