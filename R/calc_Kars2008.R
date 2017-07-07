@@ -42,8 +42,17 @@
 #' distributed and are estimated using monte-carlo resamples (`n.MC = 1000`)
 #' of \eqn{\rho}' and LxTx during dose response curve fitting, and of \eqn{\rho}'
 #' in the derivation of (n/N) and (n/N)_SS.
+#' 
+#' 
+#' **Age calculated from 2\*D0 of the simulated natural DRC**
 #'
-#'
+#' In addition to the age calculated from the equivalent dose derived from 
+#' `Ln/Tn` projected on the simulated natural dose response curve (DRC), this function
+#' also calculates an age from twice the characteristic saturation dose (`D0`)
+#' of the simulated natural DRC. This can be a useful information for 
+#' (over)saturated samples (ie. no intersect of `Ln/Tn` on the natural DRC)
+#' to obtain at least a "minimum age" estimate of the sample. In the console
+#' output this value is denoted by *"Age @2D0 [ka]:"*.
 #'
 #' @param data [data.frame] (**required**):
 #' A `data.frame` with one of the following structures:
