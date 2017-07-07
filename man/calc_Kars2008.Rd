@@ -164,7 +164,7 @@ output this value is denoted by \emph{"Age @2D0 \link{ka}:"}.
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.1.0
+ 0.2.0
 }
 
 \examples{
