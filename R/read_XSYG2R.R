@@ -4,7 +4,7 @@
 #'
 #' **How does the import function work?**
 #'
-#' The function uses the [xml] package to parse the file structure. Each 
+#' The function uses the [xml] package to parse the file structure. Each
 #' sequence is subsequently translated into an [RLum.Analysis-class] object.
 #'
 #' **General structure XSYG format**
@@ -14,16 +14,16 @@
 #' <Sample>
 #'   <Sequence>
 #'     <Record>
-#'       <Curve name="first curve" /> 
+#'       <Curve name="first curve" />
 #'       <Curve name="curve with data">x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3</Curve>
-#'     </Record> 
+#'     </Record>
 #'   </Sequence>
 #' </Sample>
 #' ```
-#' 
+#'
 #' So far, each
 #' XSYG file can only contain one `<Sample></Sample>`, but multiple
-#' sequences. 
+#' sequences.
 #'
 #' Each record may comprise several curves.
 #'
@@ -58,7 +58,7 @@
 #' A new matrix is produced using temperature values from the heating element
 #' and count values from the PMT.
 #'
-#' **Note:** 
+#' **Note:**
 #' Please note that due to the recalculation of the temperature
 #' values based on values delivered by the heating element, it may happen that
 #' mutiple count values exists for each temperature value and temperature
@@ -66,54 +66,57 @@
 #'
 #' **Advanced file import**
 #'
-#' To allow for a more efficient usage of the function, instead of single path 
-#' to a file just a directory can be passed as input. In this particular case 
-#' the function tries to extract all XSYG-files found in the directory and import 
-#' them all. Using this option internally the function constructs as list of 
+#' To allow for a more efficient usage of the function, instead of single path
+#' to a file just a directory can be passed as input. In this particular case
+#' the function tries to extract all XSYG-files found in the directory and import
+#' them all. Using this option internally the function constructs as list of
 #' the XSYG-files found in the directory. Please note no recursive detection
 #' is supported as this may lead to endless loops.
 #'
-#' @param file [character] or [list] (**required**): 
-#' path and file name of the XSYG file. If input is a `list` it should comprise 
-#' only `character`s representing each valid path and xsyg-file names. 
+#' @param file [character] or [list] (**required**):
+#' path and file name of the XSYG file. If input is a `list` it should comprise
+#' only `character`s representing each valid path and xsyg-file names.
 #' Alternatively the input character can be just a directory (path), in this case the
 #' the function tries to detect and import all xsyg files found in the directory.
 #'
-#' @param recalculate.TL.curves [logical] (*with default*): 
-#' if set to `TRUE`, TL curves are returned as temperature against count values 
-#' (see details for more information) Note: The option overwrites the time vs. 
+#' @param recalculate.TL.curves [logical] (*with default*):
+#' if set to `TRUE`, TL curves are returned as temperature against count values
+#' (see details for more information) Note: The option overwrites the time vs.
 #' count TL curve. Select `FALSE` to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
 #'
-#' @param fastForward [logical] (*with default*): 
-#' if `TRUE` for a more efficient data processing only a list of `RLum.Analysis` 
+#' @param fastForward [logical] (*with default*):
+#' if `TRUE` for a more efficient data processing only a list of `RLum.Analysis`
 #' objects is returned.
 #'
-#' @param import [logical] (*with default*): 
+#' @param import [logical] (*with default*):
 #' if set to `FALSE`, only the XSYG file structure is shown.
 #'
-#' @param pattern [regex] (*with default*): 
-#' optional regular expression if `file` is a link to a folder, to select just 
+#' @param pattern [regex] (*with default*):
+#' optional regular expression if `file` is a link to a folder, to select just
 #' specific XSYG-files
 #'
-#' @param txtProgressBar [logical] (*with default*): 
+#' @param verbose [logical] (*with default*): enable or disable verbose mode. If verbose is `FALSE`
+#' the `txtProgressBar` is also switched off
+#'
+#' @param txtProgressBar [logical] (*with default*):
 #' enables `TRUE` or disables `FALSE` the progression bar during import
 #'
-#' @return 
+#' @return
 #' **Using the option `import = FALSE`**
 #'
-#' A list consisting of two elements is shown: 
+#' A list consisting of two elements is shown:
 #' - [data.frame] with information on file.
 #' - [data.frame] with information on the sequences stored in the XSYG file.
 #'
-#' **Using the option `import = TRUE` (default)** 
+#' **Using the option `import = TRUE` (default)**
 #'
 #' A list is provided, the list elements
 #' contain: \item{Sequence.Header}{[data.frame] with information on the
 #' sequence.} \item{Sequence.Object}{[RLum.Analysis-class]
 #' containing the curves.}
 #'
-#' @note 
+#' @note
 #' This function is a beta version as the XSYG file format is not yet
 #' fully specified. Thus, further file operations (merge, export, write) should
 #' be done using the functions provided with the package [xml].
@@ -122,21 +125,21 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.5.8
+#' @section Function version: 0.6.0
 #'
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
 #' @seealso [xml], [RLum.Analysis-class], [RLum.Data.Curve-class], [approx]
 #'
 #'
-#' @references 
+#' @references
 #' Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
-#' XSYG file format. Unpublished Technical Note. Freiberg, Germany 
+#' XSYG file format. Unpublished Technical Note. Freiberg, Germany
 #'
-#' **Further reading** 
+#' **Further reading**
 #'
 #' XML: [http://en.wikipedia.org/wiki/XML]()
 #'
@@ -176,6 +179,7 @@ read_XSYG2R <- function(
   fastForward = FALSE,
   import = TRUE,
   pattern = ".xsyg",
+  verbose = TRUE,
   txtProgressBar = TRUE
 ){
 
@@ -206,6 +210,7 @@ read_XSYG2R <- function(
         recalculate.TL.curves = recalculate.TL.curves,
         fastForward = fastForward,
         import = import,
+        verbose = verbose,
         txtProgressBar = txtProgressBar
       )
     })
@@ -230,14 +235,55 @@ read_XSYG2R <- function(
   }
 
 
-  # Consistency check -------------------------------------------------------
+  # On exit case --------------------------------------------------------------------------------
 
+  ##set file_link for internet downloads
+  file_link <- NULL
+  on_exit <- function(){
+
+    ##unlink internet connection
+    if(!is.null(file_link)){
+      unlink(file_link)
+    }
+
+  }
+  on.exit(expr = on_exit())
+
+  # Consistency check -------------------------------------------------------
 
   ##check if file exists
   if(!file.exists(file)){
 
-    warning("[read_XSYG2R()] Wrong file name or file does not exist, nothing imported!")
-    return(NULL)
+    ##check if the file as an URL ... you never know
+    if(grepl(pattern = "http", x = file, fixed = TRUE)){
+      if(verbose){
+        cat("[read_XSYG2R()] URL detected, checking connection ... ")
+      }
+
+      ##check URL
+      if(!httr::http_error(file)){
+        if(verbose) cat("OK")
+
+        ##dowload file
+        file_link <- tempfile("read_XSYG2R_FILE")
+        download.file(file, destfile = file_link, quiet = if(verbose){FALSE}else{TRUE})
+        file <- file_link
+
+      }else{
+        cat("FAILED")
+        file <- NULL
+        try(stop("[read_XSYG2R()] File does not exist! Return NULL!", call. = FALSE))
+        return(NULL)
+
+      }
+
+    }else{
+      file <- NULL
+      try(stop("[read_XSYG2R()] File does not exist, return NULL!", call. = FALSE))
+      return(NULL)
+
+    }
+
   }
 
   #TODO to be included again in a future version, if the format is given in the file itself
@@ -271,6 +317,7 @@ read_XSYG2R <- function(
           split = ",", fixed = TRUE),
         FUN = as.numeric,
         FUN.VALUE = c(1,1L)))
+
 
   }
 
@@ -381,7 +428,7 @@ read_XSYG2R <- function(
     message(paste0("[read_XSYG2R()]\n  Importing: ",file))
 
     ##PROGRESS BAR
-    if(txtProgressBar){
+    if(verbose && txtProgressBar){
       pb <- txtProgressBar(min=0,max=XML::xmlSize(temp), char = "=", style=3)
     }
 
@@ -729,7 +776,7 @@ read_XSYG2R <- function(
         temp.sequence.object <- .set_pid(temp.sequence.object)
 
         ##update progress bar
-        if (txtProgressBar) {
+        if (verbose && txtProgressBar) {
           setTxtProgressBar(pb, x)
         }
 
@@ -751,7 +798,7 @@ read_XSYG2R <- function(
     })##end loop for sequence list
 
     ##close ProgressBar
-    if(txtProgressBar ){close(pb)}
+    if(verbose && txtProgressBar ){close(pb)}
 
     ##show output informatioj
     if(length(output[sapply(output, is.null)]) == 0){
