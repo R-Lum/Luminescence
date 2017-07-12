@@ -33,18 +33,49 @@
            \item Multicore processing now also supports Windows (#47)
            \item Fixed a bug where manually specifying the number of CPU cores
            via 'method.control = list(cores = x)' was not respected
-    }
+     }
    }
 
-      \item \code{plot_FilterCombinations()}{
+   \item \code{plot_FilterCombinations()}{
         \itemize{
          \item Add interative mode (\code{interative = TRUE})
 
 
     }
+  }
+
+  \item \code{read_BIN2R()}{
+        \itemize{
+         \item The function unexpectetly dropped are warning for an unused connection; fixed.
+         \item If a file link was provided and the argument \code{pattern} was set and error was shown; fixed.
+
+
+    }
+  }
+
+
+
+   \item \code{read_XSYG2R()}{
+        \itemize{
+         \item Argument \code{verbose} added for more consistency with other functions,
+         \item the functions now supports the import form files via the internet.
+
+
+    }
+  }
+
+
  }
-}
 
 }
+
+  \subsection{S4 and Internals}{
+
+      \itemize{
+        \item The \code{RLum.Analysis} show method failed for \code{RLum.Data.Spectrum} objects; fixed.
+
+
+    }
+  }
 
 }

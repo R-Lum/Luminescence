@@ -33,3 +33,24 @@ Changes in version 0.8.0 ( ,2017):
 
              • Add interative mode (‘interative = TRUE’)
 
+         • ‘read_BIN2R()’
+
+             • The function unexpectetly dropped are warning for an
+               unused connection; fixed.
+
+             • If a file link was provided and the argument ‘pattern’
+               was set and error was shown; fixed.
+
+         • ‘read_XSYG2R()’
+
+             • Argument ‘verbose’ added for more consistency with other
+               functions,
+
+             • the functions now supports the import form files via the
+               internet.
+
+  S4 and Internals:
+
+         • The ‘RLum.Analysis’ show method failed for
+           ‘RLum.Data.Spectrum’ objects; fixed.
+

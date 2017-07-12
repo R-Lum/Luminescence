@@ -425,7 +425,8 @@ read_XSYG2R <- function(
     ##IMPORT XSYG FILE
 
     ##Display output
-    message(paste0("[read_XSYG2R()]\n  Importing: ",file))
+    if(verbose)
+      paste0("[read_XSYG2R()]\n  Importing: ",file)
 
     ##PROGRESS BAR
     if(verbose && txtProgressBar){
@@ -803,12 +804,16 @@ read_XSYG2R <- function(
     ##show output informatioj
     if(length(output[sapply(output, is.null)]) == 0){
 
-      message(paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n"), sep = "")
+      if(verbose)
+        paste("\t >>",XML::xmlSize(temp), " sequence(s) loaded successfully.\n")
 
     }else{
 
-      message(paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.",
-                XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n"), sep = "")
+      if(verbose){
+        paste("\t >>",XML::xmlSize(temp), " sequence(s) in file.", XML::xmlSize(temp)-length(output[sapply(output, is.null)]), "sequence(s) loaded successfully. \n")
+
+      }
+
 
       warning(paste0(length(output[sapply(output, is.null)])), " incomplete sequence(s) removed.")
 
