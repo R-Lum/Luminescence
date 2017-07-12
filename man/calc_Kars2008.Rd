@@ -36,7 +36,7 @@ using the argument \code{LnTn}.}
 \item{LnTn}{\link{data.frame} (\strong{optional}):
 This argument should \strong{only} be used to provide more than one \code{Ln/Tn}-value.
 It assumes a two column data frame with the following structure:\preformatted{     |  LnTn  |  LnTn error  |
-     |  [ ,1] |      [ ,2]   |  
+     |  [ ,1] |      [ ,2]   |
      |--------|--------------|
 [1, ]| LnTn_1 | LnTn_1 error |
 [2, ]| LnTn_2 | LnTn_2 error |
@@ -164,13 +164,13 @@ also calculates an age from twice the characteristic saturation dose (\code{D0})
 of the simulated natural DRC. This can be a useful information for
 (over)saturated samples (ie. no intersect of \code{Ln/Tn} on the natural DRC)
 to obtain at least a "minimum age" estimate of the sample. In the console
-output this value is denoted by \emph{"Age @2D0 \link{ka}:"}.
+output this value is denoted by \emph{"Age @2D0 (ka):"}.
 }
 \note{
 \strong{This function has BETA status and should not be used for publication work!}
 }
 \section{Function version}{
- 0.2.0
+ 0.2.0 (2017-07-12 15:59:35)
 }
 
 \examples{
@@ -200,7 +200,7 @@ kars <- calc_Kars2008(data = data,
                       ddot = ddot,
                       readerDdot = readerDdot,
                       n.MC = 50)
-                      
+
 
 # You can also provide LnTn values separately via the 'LnTn' argument.
 # Note, however, that the data frame for 'data' must then NOT contain
@@ -217,7 +217,12 @@ kars <- calc_Kars2008(data = LxTx,
                       readerDdot = readerDdot,
                       n.MC = 50)
 
+} 
+
+\section{How to cite}{
+King, G., Burow, C. (2017). calc_Kars2008(): Apply the Kars et al. (2008) model. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
 IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
@@ -236,5 +241,5 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 \author{
 Georgina King, University of Cologne (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}
