@@ -3,8 +3,8 @@ NULL
 
 #' Class `"RLum.Analysis"`
 #'
-#' Object class to represent analysis data for protocol analysis, i.e. all curves, 
-#' spectra etc. from one measurements. Objects from this class are produced, 
+#' Object class to represent analysis data for protocol analysis, i.e. all curves,
+#' spectra etc. from one measurements. Objects from this class are produced,
 #' by e.g. [read_XSYG2R], [read_Daybreak2R]
 #'
 #'
@@ -12,22 +12,22 @@ NULL
 #'
 #' @docType class
 #'
-#' @slot protocol 
+#' @slot protocol
 #' Object of class [character] describing the applied measurement protocol
 #'
-#' @slot records 
+#' @slot records
 #' Object of class [list] containing objects of class [RLum.Data-class]
 #'
-#' @note 
+#' @note
 #' The method [structure_RLum] is currently just avaiblable for objects
 #' containing [RLum.Data.Curve-class].
 #'
-#' @section Objects from the Class: 
+#' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.8
+#' @section Class version: 0.4.9
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [Risoe.BINfileData2RLum.Analysis],
@@ -112,7 +112,7 @@ setAs("RLum.Analysis", "list",
 ####################################################################################################
 #' @describeIn RLum.Analysis
 #' Show structure of `RLum.Analysis` object
-#' 
+#'
 #' @md
 #' @export
 setMethod("show",
@@ -144,7 +144,7 @@ setMethod("show",
               lapply(1:length(table(temp)), function(x){
 
                 ##show RLum class type
-                cat("\n\t .. :",names(table(temp)[x]),":",table(temp)[x])
+                cat("\n\t .. :", names(table(temp)[x]),":",table(temp)[x])
 
                 ##show structure
                 ##set width option ... just an implementation for the tutorial output
@@ -157,10 +157,12 @@ setMethod("show",
                 ##create terminal output
                 terminal_output <-
                   vapply(1:length(object@records),  function(i) {
+
                     if (names(table(temp)[x]) == is(object@records[[i]])[1]) {
                       if (i %% temp.width == 0 & i != length(object@records)) {
                         assign(x = "linebreak", value = TRUE, envir = env)
                       }
+
 
                       ##FIRST
                       first <-  paste0("#", i, " ", object@records[[i]]@recordType)
@@ -185,6 +187,10 @@ setMethod("show",
 
                       }
                       return(paste0(first,last))
+
+                    }else{
+                      return("")
+
                     }
 
               }, FUN.VALUE = vector(mode = "character", length = 1))
@@ -196,7 +202,7 @@ setMethod("show",
 
             }else{
 
-              cat("\n\t >> This is an empty object and cannot be used for further analysis! <<")
+              cat("\n\t >> This is an empty object, which cannot be used for further analysis! <<")
 
             }
 
@@ -211,26 +217,26 @@ setMethod("show",
 #' @describeIn RLum.Analysis
 #' Construction method for [RLum.Analysis-class] objects.
 #'
-#' @param class [`set_RLum`] [character] (**required**): 
+#' @param class [`set_RLum`] [character] (**required**):
 #' name of the `RLum` class to be created
-#' 
-#' @param originator [`set_RLum`] [character] (*automatic*): 
-#' contains the name of the calling function (the function that produces this object); 
+#'
+#' @param originator [`set_RLum`] [character] (*automatic*):
+#' contains the name of the calling function (the function that produces this object);
 #' can be set manually.
-#' 
-#' @param .uid [`set_RLum`] [character] (*automatic*): 
+#'
+#' @param .uid [`set_RLum`] [character] (*automatic*):
 #' sets an unique ID for this object using the internal C++ function `.create_UID`.
-#' 
-#' @param .pid [`set_RLum`] [character] (*with default*): 
+#'
+#' @param .pid [`set_RLum`] [character] (*with default*):
 #' option to provide a parent id for nesting at will.
-#' 
-#' @param protocol [`set_RLum`] [character] (*optional*): 
+#'
+#' @param protocol [`set_RLum`] [character] (*optional*):
 #' sets protocol type for analysis object. Value may be used by subsequent analysis functions.
-#' 
-#' @param records [`set_RLum`] [list] (**required**): 
+#'
+#' @param records [`set_RLum`] [list] (**required**):
 #' list of [RLum.Analysis-class] objects
-#' 
-#' @param info [`set_RLum`] [list] (*optional*): 
+#'
+#' @param info [`set_RLum`] [list] (*optional*):
 #' a list containing additional info data for the object
 #'
 #' **`set_RLum`**:
@@ -302,39 +308,39 @@ setMethod(
 #' @param object [`get_RLum`], [`names_RLum`], [`length_RLum`], [`structure_RLum`] (**required**):
 #' an object of class [RLum.Analysis-class]
 #'
-#' @param record.id [`get_RLum`]; [numeric] or [logical] (*optional*): 
-#' IDs of specific records. If of type `logical` the entire id range is assumed 
+#' @param record.id [`get_RLum`]; [numeric] or [logical] (*optional*):
+#' IDs of specific records. If of type `logical` the entire id range is assumed
 #' and `TRUE` and `FALSE` indicates the selection.
 #'
-#' @param recordType [`get_RLum`]; [character] (*optional*): 
-#' record type (e.g., "OSL"). Can be also a vector, for multiple matching, 
+#' @param recordType [`get_RLum`]; [character] (*optional*):
+#' record type (e.g., "OSL"). Can be also a vector, for multiple matching,
 #' e.g., `recordType = c("OSL", "IRSL")`
 #'
-#' @param curveType [`get_RLum`]; [character] (*optional*): 
+#' @param curveType [`get_RLum`]; [character] (*optional*):
 #' curve type (e.g. "predefined" or "measured")
 #'
-#' @param RLum.type [`get_RLum`]; [character] (*optional*): 
+#' @param RLum.type [`get_RLum`]; [character] (*optional*):
 #' RLum object type. Defaults to "RLum.Data.Curve" and "RLum.Data.Spectrum".
 #'
-#' @param get.index [`get_RLum`]; [logical] (*optional*): 
+#' @param get.index [`get_RLum`]; [logical] (*optional*):
 #' return a numeric vector with the index of each element in the RLum.Analysis object.
 #'
-#' @param recursive [`get_RLum`]; [logical] (*with default*): 
-#' if `TRUE` (the default) and the result of the 'get_RLum' request is a single 
-#' object this object will be unlisted, means only the object itself and no 
+#' @param recursive [`get_RLum`]; [logical] (*with default*):
+#' if `TRUE` (the default) and the result of the 'get_RLum' request is a single
+#' object this object will be unlisted, means only the object itself and no
 #' list containing exactly one object is returned. Mostly this makes things
 #' easier, however, if this method is used within a loop this might undesired.
 #'
-#' @param drop [`get_RLum`]; [logical] (*with default*): 
-#' coerce to the next possible layer (which are `RLum.Data`-objects), 
+#' @param drop [`get_RLum`]; [logical] (*with default*):
+#' coerce to the next possible layer (which are `RLum.Data`-objects),
 #' `drop = FALSE` keeps the original `RLum.Analysis`
 #'
-#' @param info.object [`get_RLum`]; [character] (*optional*): 
+#' @param info.object [`get_RLum`]; [character] (*optional*):
 #' name of the wanted info element
 #'
-#' @param subset [expression] (*optional*): 
-#' logical expression indicating elements or rows to keep: missing values are 
-#' taken as false. This argument takes precedence over all other arguments, 
+#' @param subset [expression] (*optional*):
+#' logical expression indicating elements or rows to keep: missing values are
+#' taken as false. This argument takes precedence over all other arguments,
 #' meaning they are not considered when subsetting the object.
 #'
 #' @return
@@ -342,8 +348,8 @@ setMethod(
 #' **`get_RLum`**:
 #'
 #' Returns:
-#' 
-#' 1. [list] of [RLum.Data-class] objects or 
+#'
+#' 1. [list] of [RLum.Data-class] objects or
 #' 2. Single [RLum.Data-class] object, if only one object is contained and `recursive = FALSE` or
 #' 3. [RLum.Analysis-class] ojects for `drop = FALSE`
 #'
@@ -641,9 +647,9 @@ setMethod("get_RLum",
 #' @describeIn RLum.Analysis
 #' Method to show the structure of an [RLum.Analysis-class] object.
 #'
-#' @param fullExtent [structure_RLum]; [logical] (*with default*): 
-#' extents the returned `data.frame` to its full extent, i.e. all info elements 
-#' are part of the return as well. The default value is `FALSE` as the data 
+#' @param fullExtent [structure_RLum]; [logical] (*with default*):
+#' extents the returned `data.frame` to its full extent, i.e. all info elements
+#' are part of the return as well. The default value is `FALSE` as the data
 #' frame might become rather big.
 #'
 #' @return
@@ -805,7 +811,7 @@ setMethod("names_RLum",
 #' @describeIn RLum.Analysis
 #'
 #' Smoothing of `RLum.Data` objects contained in this `RLum.Analysis` object
-#' [zoo::rollmean] or [zoo::rollmedian]. In particular the internal 
+#' [zoo::rollmean] or [zoo::rollmedian]. In particular the internal
 #' function `.smoothing` is used.
 #'
 #' @param ... further arguments passed to underlying methods
