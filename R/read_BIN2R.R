@@ -90,7 +90,7 @@
 #'
 #' **ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.**
 #'
-#' @section Function version: 0.15.6
+#' @section Function version: 0.15.7
 #'
 #'
 #' @author
@@ -171,9 +171,8 @@ read_BIN2R <- function(
       }
 
 
-    }else{
+    }else if(dir.exists(file)){
       file <- as.list(list.files(file, pattern = pattern, full.names = TRUE, recursive = TRUE))
-
 
     }
 
