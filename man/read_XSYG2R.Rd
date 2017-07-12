@@ -5,7 +5,8 @@
 \title{Import XSYG files to R}
 \usage{
 read_XSYG2R(file, recalculate.TL.curves = TRUE, fastForward = FALSE,
-  import = TRUE, pattern = ".xsyg", txtProgressBar = TRUE)
+  import = TRUE, pattern = ".xsyg", verbose = TRUE,
+  txtProgressBar = TRUE)
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}):
@@ -30,6 +31,9 @@ if set to \code{FALSE}, only the XSYG file structure is shown.}
 \item{pattern}{\link{regex} (\emph{with default}):
 optional regular expression if \code{file} is a link to a folder, to select just
 specific XSYG-files}
+
+\item{verbose}{\link{logical} (\emph{with default}): enable or disable verbose mode. If verbose is \code{FALSE}
+the \code{txtProgressBar} is also switched off}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enables \code{TRUE} or disables \code{FALSE} the progression bar during import}
@@ -63,9 +67,9 @@ sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
 <Sample>
   <Sequence>
     <Record>
-      <Curve name="first curve" /> 
+      <Curve name="first curve" />
       <Curve name="curve with data">x0 , y0 ; x1 , y1 ; x2 , y2 ; x3 , y3</Curve>
-    </Record> 
+    </Record>
   </Sequence>
 </Sample>
 }
@@ -132,7 +136,7 @@ be done using the functions provided with the package \link{xml}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.5.8 (2017-06-24 12:46:37)
+ 0.6.0 (2017-07-12 15:46:15)
 }
 
 \examples{
@@ -164,7 +168,7 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). read_XSYG2R(): Import XSYG files to R. Function version 0.5.8. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.7.5. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). read_XSYG2R(): Import XSYG files to R. Function version 0.6.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
