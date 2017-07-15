@@ -5,7 +5,8 @@
 \title{Al2O3 Irradiation Time Correction Analysis}
 \usage{
 analyse_Al2O3C_ITC(object, signal_integral = NULL, dose_points = c(2, 4, 8,
-  12, 16), method_control = NULL, verbose = TRUE, plot = TRUE, ...)
+  12, 16), recordType = c("OSL (UVVIS)"), method_control = NULL,
+  verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} or \link{list} \strong{(required)}:
@@ -20,6 +21,9 @@ If nothing is provided the full range is used. Argument can be provided as \link
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017. Argument can be provided as \link{list}.}
+
+\item{recordType}{\link{character} (\emph{with default}): input curve selection, which is passed to
+function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
 
 \item{method_control}{\link{list} (\emph{optional}):
 optional parameters to control the calculation.
@@ -91,7 +95,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.0 (2017-07-05 12:19:18)
+ 0.1.1 (2017-07-15 18:58:02)
 }
 
 \examples{
@@ -101,7 +105,7 @@ handled using the argument \code{method_control} only, e.g.,
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_Al2O3C_ITC(): Al2O3 Irradiation Time Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

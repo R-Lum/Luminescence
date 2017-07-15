@@ -1,14 +1,14 @@
 #' Al2O3 Irradiation Time Correction Analysis
-#' 
-#' The function provides a very particular analysis to correct the irradiation 
+#'
+#' The function provides a very particular analysis to correct the irradiation
 #' time while irradiating Al2O3:C pellets in a luminescence reader.
-#' 
-#' Background: Due to their high dose sensitivity Al2O3:C pellets are usually 
-#' irradiated for only a very short duration or under the closed beta-source 
-#' within a luminescence reader. However, due to its high dose sensitivity, the 
-#' movement itself below the source induces an apparent luminescence signal, 
+#'
+#' Background: Due to their high dose sensitivity Al2O3:C pellets are usually
+#' irradiated for only a very short duration or under the closed beta-source
+#' within a luminescence reader. However, due to its high dose sensitivity, the
+#' movement itself below the source induces an apparent luminescence signal,
 #' which can be translated to an irradiation time.
-#' Based on measurements following a protocol suggested by Kreutzer et al., 2017, 
+#' Based on measurements following a protocol suggested by Kreutzer et al., 2017,
 #' a dose response curve is constructed and the intersection with the
 #' time axis is taken as real irradiation time.
 #'
@@ -25,42 +25,45 @@
 #' `fit.method` \tab `plot_GrowthCurve` \tab as in [plot_GrowthCurve]; sets the function applied for fitting\cr
 #' }
 #'
-#' @param object [RLum.Analysis-class] or [list] **(required)**: 
+#' @param object [RLum.Analysis-class] or [list] **(required)**:
 #' results obtained from the measurement.
 #' Alternatively a list of 'RLum.Analysis' objects can be provided to allow an automatic analysis.
 #'
-#' @param signal_integral [numeric] (*optional*): 
-#' signal integral, used for the signal and the background. 
+#' @param signal_integral [numeric] (*optional*):
+#' signal integral, used for the signal and the background.
 #' If nothing is provided the full range is used. Argument can be provided as [list].
 #'
-#' @param dose_points [numeric] (*with default*): 
-#' vector with dose points, if dose points are repeated, only the general 
+#' @param dose_points [numeric] (*with default*):
+#' vector with dose points, if dose points are repeated, only the general
 #' pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017. Argument can be provided as [list].
 #'
-#' @param method_control [list] (*optional*): 
+#' @param recordType [character] (*with default*): input curve selection, which is passed to
+#' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
+#'
+#' @param method_control [list] (*optional*):
 #' optional parameters to control the calculation.
 #' See details for further explanations
 #'
-#' @param verbose [logical] (*with default*): 
+#' @param verbose [logical] (*with default*):
 #' enable/disable verbose mode
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enable/disable plot output
 #'
 #' @param ... further arguments that can be passed to the plot output
 #'
-#' @return 
+#' @return
 #' Function returns results numerically and graphically:
 #'
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' 
+#'
 #' **`RLum.Results`**-object
 #'
 #' **slot:** **`@data`**
-#' 
+#'
 #' \tabular{lll}{
 #'   **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `data.frame` \tab correction value and error \cr
@@ -79,7 +82,7 @@
 #'
 #' - A dose response curve with the marked correction values
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -99,6 +102,7 @@ analyse_Al2O3C_ITC <- function(
   object,
   signal_integral = NULL,
   dose_points = c(2,4,8,12,16),
+  recordType = c("OSL (UVVIS)"),
   method_control = NULL,
   verbose = TRUE,
   plot = TRUE,
@@ -176,16 +180,16 @@ analyse_Al2O3C_ITC <- function(
 
   }
 
-  ##check whether the curves are similar
-  if(length(unique(names(object))) > 1){
-    stop("[analyse_Al2O3C_ITC()] Input 'recordType' is not similar for all RLum.Data.Curve-objects!", call. = FALSE)
-
-  }
-
   ##TODO
   ##implement more checks ... if you find some time, somehow, somewhere
 
   # Preparation ---------------------------------------------------------------------------------
+
+  ##select curves based on the recordType selection; if not NULL
+  if(!is.null(recordType)){
+    object <- get_RLum(object, recordType = recordType, drop = FALSE)
+
+  }
 
   #set method control
   method_control_settings <- list(
