@@ -3,6 +3,8 @@
 #' The function provides the analysis routines for measurements on a
 #' FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
 #'
+#' ##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
+#'
 #' @param object [RLum.Analysis-class] **(required)**:
 #' measurement input
 #'
@@ -26,6 +28,10 @@
 #' information on the used irradiation time correction obained by another experiements.
 #' If a `numeric` vector is provided it has to be of length three:
 #' mean, 2.5 \% quantile, 97.5 \% quantile.
+#'
+#' @param travel_dosimeter [numeric] (*optional*): specify the position of the travel dosimeter
+#' (so far measured a the same time). The dose of travel dosimeter will be subtracted from all
+#' other values.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable verbose mode
@@ -85,6 +91,7 @@ analyse_Al2O3C_Measurement <- function(
   recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
   irradiation_time_correction = NULL,
   cross_talk_correction = NULL,
+  travel_dosimeter = NULL,
   verbose = TRUE,
   plot = TRUE,
   ...
@@ -150,9 +157,55 @@ analyse_Al2O3C_Measurement <- function(
 
     })
 
+    ##merge results
+    results <- merge_RLum(results)
 
-    ##merge and plot
-    return(merge_RLum(results))
+    ##travel dosimeter
+    ##check for travel dosimeter and subtract the values so far this is meaningful at all
+    if(!is.null(travel_dosimeter)){
+      ##check data type
+      if(!is(travel_dosimeter, "numeric"))
+        stop("[analyse_Al2O3C_Measurement()] Input for `travel_dosimeter` is not numeric!", call. = FALSE)
+
+      ##check whether everything is subtracted from everything ... you never know, users do weird stuff
+      if(length(travel_dosimeter) == nrow(results$data))
+        try(stop("[analyse_Al2O3C_Measurement()] You specified every position as travel dosimeter, nothing corrected!", call. = FALSE))
+
+      ##check if the position is valid
+      if(!any(travel_dosimeter%in%results$data$POSITION))
+        try(stop("[analyse_Al2O3C_Measurement()] Invalid position in 'travel_dosimeter', nothing corrected!", call. = FALSE))
+
+      ##correct for the travel dosimeter calculating the weighted mean and the sd (as new error)
+      ##if only one value is given just take it
+      if(length(travel_dosimeter) == 1){
+        correction <- results$data[travel_dosimeter==results$data$POSITION,c(1,2)]
+
+      }else{
+        temp.correction <- results$data[results$data$POSITION%in%travel_dosimeter,c(1,2)]
+        correction <- c(stats::weighted.mean(temp.correction[,1],temp.correction[,2]), sd(temp.correction[,1]))
+        rm(temp.correction)
+
+      }
+
+
+      ##subtract all the values, in a new data frame, we do not touch the original data
+      data_TDcorrected <- data.frame(
+        DE = results@data$data[!results$data$POSITION%in%travel_dosimeter,1] - correction[1],
+        DE_ERROR = sqrt(results@data$data[!results$data$POSITION%in%travel_dosimeter,2]^2 + correction[2]^2),
+        POSITION = results@data$data[!results$data$POSITION%in%travel_dosimeter, "POSITION"]
+      )
+
+
+      ##however, we set information on the travel dosimeter in the corresponding column
+      results@data$data$TRAVEL_DOSIMETER <- results$data$POSITION%in%travel_dosimeter
+
+      ##attach the new element to the results output
+      results@data <- c(results@data,  list(data_TDcorrected = data_TDcorrected))
+
+    } ##end travel dosimeter
+
+    ##return results
+    return(results)
 
   }
 
@@ -197,7 +250,7 @@ analyse_Al2O3C_Measurement <- function(
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
 
-        ##insert case for more than one observation ...
+        ##consider the case for more than one observation ...
         if(nrow(irradiation_time_correction)>1){
           irradiation_time_correction <- c(mean(irradiation_time_correction[[1]]), sd(irradiation_time_correction[[1]]))
 
@@ -301,12 +354,13 @@ analyse_Al2O3C_Measurement <- function(
    ##(5) calculate DE
    temp_DE <- (DOSE * INTEGRAL_RATIO)
 
-     ##(5) create final data.frame
+   ##(6) create final data.frame
    data <- data.frame(
      DE = mean(temp_DE),
      DE_ERROR = sd(temp_DE),
      POSITION,
      INTEGRAL_RATIO,
+     TRAVEL_DOSIMETER = NA,
      CT_CORRECTION = cross_talk_correction[1],
      CT_CORRECTION_Q2.5 = cross_talk_correction[2],
      CT_CORRECTION_Q97.5 = cross_talk_correction[3],

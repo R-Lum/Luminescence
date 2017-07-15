@@ -7,7 +7,7 @@
 analyse_Al2O3C_Measurement(object, signal_integral = NULL,
   dose_points = c(0, 4), recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
   irradiation_time_correction = NULL, cross_talk_correction = NULL,
-  verbose = TRUE, plot = TRUE, ...)
+  travel_dosimeter = NULL, verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -33,6 +33,10 @@ I a \code{numeric} is provided it has to be of length two: mean, standard error}
 information on the used irradiation time correction obained by another experiements.
 If a \code{numeric} vector is provided it has to be of length three:
 mean, 2.5 \% quantile, 97.5 \% quantile.}
+
+\item{travel_dosimeter}{\link{numeric} (\emph{optional}): specify the position of the travel dosimeter
+(so far measured a the same time). The dose of travel dosimeter will be subtracted from all
+other values.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable verbose mode}
@@ -74,8 +78,11 @@ The original function call
 The function provides the analysis routines for measurements on a
 FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
 }
+\details{
+##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETER
+}
 \section{Function version}{
- 0.1.1 (2017-07-15 19:11:20)
+ 0.1.1 (2017-07-15 21:17:04)
 }
 
 \examples{
