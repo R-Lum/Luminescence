@@ -5,8 +5,8 @@
 \title{Al2O3:C Reader Cross Talk Analysis}
 \usage{
 analyse_Al2O3C_CrossTalk(object, signal_integral = NULL, dose_points = c(0,
-  4), irradiation_time_correction = NULL, method_control = NULL,
-  plot = TRUE, ...)
+  4), recordType = c("OSL (UVVIS)"), irradiation_time_correction = NULL,
+  method_control = NULL, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -20,6 +20,9 @@ If nothing is provided the full range is used}
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
 made by Kreutzer et al., 2017}
+
+\item{recordType}{\link{character} (\emph{with default}): input curve selection, which is passed to
+function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
 
 \item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obained by another experiements.}
@@ -68,7 +71,7 @@ The function provides the analysis of cross-talk measurements on a
 FI lexsyg SMART reader using Al2O3:C pellets
 }
 \section{Function version}{
- 0.1.0 (2017-07-05 12:19:18)
+ 0.1.1 (2017-07-15 19:07:19)
 }
 
 \examples{
@@ -78,7 +81,7 @@ FI lexsyg SMART reader using Al2O3:C pellets
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_Al2O3C_CrossTalk(): Al2O3:C Reader Cross Talk Analysis. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

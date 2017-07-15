@@ -1,43 +1,46 @@
 #' Al2O3:C Reader Cross Talk Analysis
-#' 
-#' The function provides the analysis of cross-talk measurements on a 
+#'
+#' The function provides the analysis of cross-talk measurements on a
 #' FI lexsyg SMART reader using Al2O3:C pellets
-#' 
-#' @param object [RLum.Analysis-class] **(required)**: 
+#'
+#' @param object [RLum.Analysis-class] **(required)**:
 #' measurement input
-#' 
-#' @param signal_integral [numeric] (*optional*): 
-#' signal integral, used for the signal and the background. 
+#'
+#' @param signal_integral [numeric] (*optional*):
+#' signal integral, used for the signal and the background.
 #' If nothing is provided the full range is used
-#' 
-#' @param dose_points [numeric] (*with default*): 
-#' vector with dose points, if dose points are repeated, only the general 
+#'
+#' @param dose_points [numeric] (*with default*):
+#' vector with dose points, if dose points are repeated, only the general
 #' pattern needs to be provided. Default values follow the suggestions
 #' made by Kreutzer et al., 2017
-#' 
+#'
+#' @param recordType [character] (*with default*): input curve selection, which is passed to
+#' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
+#'
 #' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obained by another experiements.
-#' 
-#' @param method_control [list] (*optional*): 
-#' optional parameters to control the calculation. 
+#'
+#' @param method_control [list] (*optional*):
+#' optional parameters to control the calculation.
 #' See details for further explanations
-#' 
-#' @param plot [logical] (*with default*): 
+#'
+#' @param plot [logical] (*with default*):
 #' enable/disable plot output
-#' 
+#'
 #' @param ... further arguments that can be passed to the plot output
-#' 
-#' @return 
+#'
+#' @return
 #' Function returns results numerically and graphically:
-#' 
+#'
 #'  -----------------------------------\cr
 #'  `[ NUMERICAL OUTPUT ]`\cr
 #'  -----------------------------------\cr
-#'  
+#'
 #'  **`RLum.Results`**-object
-#' 
+#'
 #'  **slot:** **`@data`**
-#'  
+#'
 #'  \tabular{lll}{
 #'   **Element** \tab **Type** \tab **Description**\cr
 #'   `$data` \tab `data.frame` \tab summed apparent dose table \cr
@@ -45,7 +48,7 @@
 #'   `$fit` \tab `lm` \tab the linear model obtained from fitting \cr
 #'   `$col.seq` \tab `numeric` \tab the used colour vector \cr
 #'  }
-#' 
+#'
 #' **slot:** **`@info`**
 #'
 #' The original function call
@@ -58,7 +61,7 @@
 #'
 #'
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -78,6 +81,7 @@ analyse_Al2O3C_CrossTalk <- function(
   object,
   signal_integral = NULL,
   dose_points = c(0,4),
+  recordType = c("OSL (UVVIS)"),
   irradiation_time_correction = NULL,
   method_control = NULL,
   plot = TRUE,
@@ -97,6 +101,12 @@ analyse_Al2O3C_CrossTalk <- function(
   ##Add sufficient unit tests
 
   # Preparation ---------------------------------------------------------------------------------
+  ##select curves based on the recordType selection; if not NULL
+  if(!is.null(recordType)){
+    object <- get_RLum(object, recordType = recordType, drop = FALSE)
+
+  }
+
   #set method control
   method_control_settings <- list(
     fit.method = "EXP"

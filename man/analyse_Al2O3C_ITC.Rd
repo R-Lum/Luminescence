@@ -77,7 +77,7 @@ irradiated for only a very short duration or under the closed beta-source
 within a luminescence reader. However, due to its high dose sensitivity, the
 movement itself below the source induces an apparent luminescence signal,
 which can be translated to an irradiation time.
-Based on measurements following a protocol suggested by Kreutzer et al., 2017,
+Based on measurements following a protocol suggested by Kreutzer et al., XXXX,
 a dose response curve is constructed and the intersection with the
 time axis is taken as real irradiation time.
 
@@ -95,7 +95,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.1 (2017-07-15 18:58:02)
+ 0.1.1 (2017-07-15 19:09:19)
 }
 
 \examples{

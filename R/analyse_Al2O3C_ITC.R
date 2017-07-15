@@ -8,7 +8,7 @@
 #' within a luminescence reader. However, due to its high dose sensitivity, the
 #' movement itself below the source induces an apparent luminescence signal,
 #' which can be translated to an irradiation time.
-#' Based on measurements following a protocol suggested by Kreutzer et al., 2017,
+#' Based on measurements following a protocol suggested by Kreutzer et al., XXXX,
 #' a dose response curve is constructed and the intersection with the
 #' time axis is taken as real irradiation time.
 #'

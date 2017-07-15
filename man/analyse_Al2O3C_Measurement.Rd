@@ -5,8 +5,9 @@
 \title{Al2O3:C Passive Dosimeter Measurement Analysis}
 \usage{
 analyse_Al2O3C_Measurement(object, signal_integral = NULL,
-  dose_points = c(0, 4), irradiation_time_correction = NULL,
-  cross_talk_correction = NULL, verbose = TRUE, plot = TRUE, ...)
+  dose_points = c(0, 4), recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
+  irradiation_time_correction = NULL, cross_talk_correction = NULL,
+  verbose = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -19,7 +20,10 @@ If nothing is provided the full range is used}
 \item{dose_points}{\link{numeric} (\emph{with default}):
 vector with dose points, if dose points are repeated, only the general
 pattern needs to be provided. Default values follow the suggestions
-made by Kreutzer et al., 2017}
+made by Kreutzer et al., XXXX}
+
+\item{recordType}{\link{character} (\emph{with default}): input curve selection, which is passed to
+function \link{get_RLum}. To deactivate the automatic selection set the argument to \code{NULL}}
 
 \item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obained by another experiements.
@@ -71,7 +75,7 @@ The function provides the analysis routines for measurements on a
 FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
 }
 \section{Function version}{
- 0.1.0 (2017-07-05 12:19:18)
+ 0.1.1 (2017-07-15 19:11:20)
 }
 
 \examples{
@@ -81,7 +85,7 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
