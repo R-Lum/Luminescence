@@ -18,43 +18,46 @@ The package 'Luminescence' offers three distinct functions dealing with the anal
 2. `analyse_Al2O3C_CrossTalk()`
 3. `analyse_Al2O3C_Measurement()`
 
-Only the last function is really needed to routinely estimate the (environmental $\gamma$-) dose the pellet had received. However, the first two functions are needed to correct for equipment related issues. If you have already performed the first two analysis or you do not feel the need for them, you can direclty start with the Sec. [4](#Al2O3_Dose_Determination).
+Only the last function is really needed to routinely estimate the (environmental $\gamma$-) dose the pellet had received. However, the first two functions are needed to correct for equipment related issues. If you have already performed the first two analyses or you do not feel the need for them, you can direclty start with the Sec. [4](#Al2O3_Dose_Determination).
 
-The following tutorial assumes that all measurements have been performed on a Freiberg Instruments *lexsyg SMART* luminescence reader (Richter et al., 2015). However, the general procedure should work also for a Risø TL/OSL reader. 
+The following tutorial assumes that all measurements have been performed on a Freiberg Instruments *lexsyg SMART* luminescence reader (Richter et al., 2015). Nevertheless, the general procedure should work also for other luminescence
+readers. However, please keep in mind that for readers without a separate measurement chamber the determination 
+of the cross talk becomes indispensable and show not be skipped.  
 
 Please further note that this vignette covers only the **R** releated part of the data analysis and will 
-not explain the theoretical and physical background. Please see XXXX for details. 
+not explain the theoretical and physical background. Please see Kreutzer et al. (XXXX), for details. 
 
 # Determine irradiation time correction factors
 
 ## Data import
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 library(Luminescence)
-temp <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/2017-03-22_20170302_Al2O3_MDL.xsyg", fastForward = TRUE, txtProgressBar = FALSE) %>%
-  get_RLum(recordType = "OSL (UVVIS)", drop = FALSE)
+temp <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/2017-03-22_20170302_Al2O3_MDL.xsyg", fastForward = TRUE, txtProgressBar = FALSE)
 data_ITC <- temp[[1]]
 
 temp_CT <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/", fastForward = TRUE, pattern = "CrossTalk_NEW",
-  txtProgressBar = FALSE) %>%
-  get_RLum(recordType = "OSL (UVVIS)", drop = FALSE)
+  txtProgressBar = FALSE)
 data_CT <- temp_CT
 
+temp_CAL <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/", fastForward = TRUE, pattern = "Calibration",
+  txtProgressBar = FALSE)
+data_EnvD <- temp_CAL
 temp_CAL_info <- read_XSYG2R("~/Lumi/Bordeaux/Al2O3_Test/XSYG/Manuscript/", import = FALSE, pattern = "Calibration")
 ```
 
 To determine the irradiation time correction factor the function `analyse_Al2O3C_ITC()` is used. The measurement 
-sequence is based on the suggestions made by XXXXX. To import the measurement data run the function 
-'read_XSYG2R()` and select the measured curves, in our example 'UVVIS'.
+sequence is based on the suggestions made by Kreutzer et al. (XXXX). To import the measurement data run the function 
+`read_XSYG2R()`. The curve selection is done automatically by the function using the argument `recordType` (preset). 
+Modify this argument if the selection here does not fit to your equipement. 
 
 ```{r,eval = FALSE}
 library(Luminescence)
-data_ITC <- read_XSYG2R("MyIrradiationTimeCorrectionMeasurement.XSYG", fastForward = TRUE) %>%
-  get_RLum(recordType = "OSL (UVVIS)", drop = FALSE)
+data_ITC <- read_XSYG2R("MyIrradiationTimeCorrectionMeasurement.XSYG", fastForward = TRUE)
 data_ITC
 ```
 
 ```{r, echo=FALSE, R.options=list(width = 10)}
-data_ITC
+cat(paste(c(capture.output(data_ITC)[1:10], "... <remaining records truncated manually>"), collapse = "\n"))
 ```
 
 ## Run analysis
@@ -62,26 +65,26 @@ data_ITC
 The imported data are either a single `RLum.Analysis` object or a `list` of such objects, which can 
 be directly passed to the function `analyse_Al2O3C_ITC()`. 
 
-*Please note that if you follow the suggestions by XXXX no further arguments are necessary.*
+*Please note that if you follow the suggestions by Kreutzer et al. (XXXX) no further function arguments are necessary.*
+
 \newline{}
 
 ```{r Fig1, fig.cap="Dose response curve used to correct the irradiation time for the movement duration of the sample carrier.", out.width=".8\\linewidth", fig.align="center"}
 results_ITC <- analyse_Al2O3C_ITC(object = data_ITC)
 ```
 
-The analysis returns a plot (Fig.\ref{fig:Fig1}) and the output is stored in the object `results_ITC` and can be used later.  
+The analysis returns a plot (Fig.\ref{fig:Fig1}) and the output is stored in the object `results_ITC` and will be used later.  
 \clearpage{}
 
-# Estimate irradiation crosstalk
+# Irradiation crosstalk estimation
 
 ## Data import
 
-The data import is similar to the data import stated above. 
+The data import is similar to the data import given above (including the automatic curve selection).
 
 ```{r,eval = FALSE}
 library(Luminescence)
-data_CT <- read_XSYG2R("MyCrossTalkIrradiationMeasurement.XSYG", fastForward = TRUE) %>%
-  get_RLum(recordType = "OSL (UVVIS)", drop = FALSE)
+data_CT <- read_XSYG2R("MyCrossTalkIrradiationMeasurement.XSYG", fastForward = TRUE)
 data_CT
 ```
 
@@ -91,13 +94,14 @@ data_CT[[1]]
 
 ## Data analysis
 
-For the data analysis the function `analyse_Al2O3C_CrossTalk()` is called. Amongst others the function 
-holds one parameter `irradiation_time_correction`. This parameter can be left empty or the 
+For the data analysis the function `analyse_Al2O3C_CrossTalk()` is called. Amongst others, the function 
+has a parameter called `irradiation_time_correction`. This parameter can be left empty **or** the 
 results from the previous irradiation time correction measurements can be direclty passed to the 
 function. Graphical results are shown in Fig.$~$\ref{fig:Fig2}. The numerical output is again 
-an `RLum.Results` object which can be kept for a later usage. 
+an `RLum.Results` object which can be kept for a later usage, i.e. for an automatic correction during 
+the dose estimation.
 
-```{r, Fig2, fig.cap="Graphical function output of the crosstalk data analysis.", out.width=".5\\linewidth", fig.align="center", fig.height=6.5, fig.width=8, fig.pos="h"}
+```{r, Fig2, fig.cap="Graphical function output of the crosstalk data analysis. Please note that the plot shows the results from repeated cross-talk measurements as described by Kreutzer et al. (XXXX).", fig.align="center", fig.height=6.5, fig.width=8, fig.pos="h", out.height="400px", out.width="500px"}
 results_CT <- analyse_Al2O3C_CrossTalk(
   object = data_CT,
   irradiation_time_correction = results_ITC)
@@ -107,15 +111,89 @@ results_CT <- analyse_Al2O3C_CrossTalk(
 
 # Al$_{2}$O$_{3}$:C dose determination {#Al2O3_Dose_Determination}
 
-This section describes the workflow for the final apparent dose estimation of the Al$_{2}$O$_{3}$ pellet. 
+This section describes the workflow for the final apparent dose estimation of an Al$_{2}$O$_{3}$ pellet. 
 The analyses done above are not necessary, but recommended to correct for the equipement characteristics. 
 
-# Data import
+## Data import
 
+The data import follows the examples given below and consists of calling the function `read_XSYG2R()`. 
+An additional curve selection is not necessary, so far the sequence follows the suggestion by Kreutzer et al. (XXXX)
+
+```{r,eval = FALSE}
+library(Luminescence)
+data_EnvD <- read_XSYG2R("MyEnvironmentalDoseMeasurement.XSYG", fastForward = TRUE)
+data_EnvD
+```
+
+## Data analysis
+
+For the analysis of the environmental dose the Al$_{2}$O$_{3}$ pellets received, the results from the estimation 
+of the irradiation time correctio analysis and the cross-talk measurements are provided as input 
+objects. The function automatically correct for both effects. If this is not wanted the arguments 
+can be set to `NULL` (the default)
+
+```{r, eval = FALSE, echo = TRUE, fig.height = 4, fig.width=8, fig.align="center"}
+results_EnvD <- analyse_Al2O3C_Measurement(
+  object = data_EnvD, 
+  irradiation_time_correction = results_ITC, 
+  cross_talk_correction = results_CT)
+```
+
+```{r, echo = FALSE, fig.height = 4, fig.width=8, fig.align="center", fig.cap="Representive curve plots for one pellet. Shown are OSL and TL curves."}
+analyse_Al2O3C_Measurement(
+  object = data_EnvD[[2]], 
+  irradiation_time_correction = results_ITC, 
+  cross_talk_correction = results_CT)
+```
+
+```{r, echo = FALSE}
+results_EnvD <- analyse_Al2O3C_Measurement(
+  object = data_EnvD, 
+  irradiation_time_correction = results_ITC, 
+  cross_talk_correction = results_CT, 
+  verbose = FALSE, plot = FALSE)
+```
+
+For this example six Al$_{2}$O$_{3}$:C pellts have been measured. The function returns an object
+of type `RLum.Results`:
+
+```{r}
+results_EnvD
+```
+
+To access the numerical results the given data objects within the `RLum.Results` object can be 
+accessed using the `$` sign:
+
+```{r, eval = FALSE}
+results_EnvD$data
+```
+
+```{r, echo = FALSE}
+knitr::kable(results_EnvD$data)
+```
+
+This table is as `data.frame` and can be further treated with standard methods in **R**. For example, 
+the table show one extreme value on position (the first row). This value has obviously no meaning and 
+indeed, here the value was biased due to a technical error and should be removed from the data set.
+
+```{r}
+results_table <- results_EnvD$data[-1,]
+```
+
+In a last step the results can be plotted, e.g., using the Abancio Plot (Dietze et al., 2016).
+
+```{r, fig.width = 6, fig.height=5, warning=FALSE, message=FALSE, fig.align="center"}
+plot_AbanicoPlot(
+  data = results_table[,1:2], 
+  zlab = expression(paste(D[e], " [s]")),
+  main = "Dose Distribution", 
+  summary = c("n", "mean", "sd.abs", "sd.rel")
+  )
+```
 
 
 # Ease your workflow
 
 # References {-}
 
-Richter, D., Richter, A., Dornich, K., 2015. Lexsyg smart — a luminescence detection system for dosimetry, material research and dating application. Geochronometria 42, 202–209. [10.1515/geochr-2015-0022](http://dx.doi.org/10.1515/geochr-2015-0022)
+Richter, D., Richter, A., Dornich, K., 2015. Lexsyg smart — a luminescence detection system for dosimetry, material research and dating application. Geochronometria 42, 202–209. [doi: 10.1515/geochr-2015-0022](http://dx.doi.org/10.1515/geochr-2015-0022)
