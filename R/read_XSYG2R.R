@@ -193,7 +193,7 @@ read_XSYG2R <- function(
 
     ##If this is not really a path we skip this here
     if (dir.exists(file) & length(dir(file)) > 0) {
-      message("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
+      if(verbose) ("[read_XSYG2R()] Directory detected, trying to extract '*.xsyg' files ...\n")
       file <-
         as.list(paste0(file,dir(
           file, recursive = TRUE, pattern = pattern
