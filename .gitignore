@@ -21,4 +21,6 @@ src/*.dll
 src-i386/
 src-x64/
 NEWS_*
+^vignettes/.*cache$
+^vignettes/.*files$
 
