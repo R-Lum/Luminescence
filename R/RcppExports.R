@@ -2,14 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 .analyse_IRSARRF_SRS <- function(values_regenerated_limited, values_natural_limited, vslide_range, n_MC, trace = FALSE) {
-    .Call('Luminescence_analyse_IRSARRF_SRS', PACKAGE = 'Luminescence', values_regenerated_limited, values_natural_limited, vslide_range, n_MC, trace)
+    .Call('_Luminescence_analyse_IRSARRF_SRS', PACKAGE = 'Luminescence', values_regenerated_limited, values_natural_limited, vslide_range, n_MC, trace)
 }
 
 .create_RLumDataCurve_matrix <- function(DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF) {
-    .Call('Luminescence_create_RLumDataCurve_matrix', PACKAGE = 'Luminescence', DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF)
+    .Call('_Luminescence_create_RLumDataCurve_matrix', PACKAGE = 'Luminescence', DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF)
 }
 
 .create_UID <- function() {
-    .Call('Luminescence_create_UID', PACKAGE = 'Luminescence')
+    .Call('_Luminescence_create_UID', PACKAGE = 'Luminescence')
 }
 

@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // analyse_IRSARRF_SRS
 RcppExport SEXP analyse_IRSARRF_SRS(NumericVector values_regenerated_limited, NumericVector values_natural_limited, NumericVector vslide_range, int n_MC, bool trace);
-RcppExport SEXP Luminescence_analyse_IRSARRF_SRS(SEXP values_regenerated_limitedSEXP, SEXP values_natural_limitedSEXP, SEXP vslide_rangeSEXP, SEXP n_MCSEXP, SEXP traceSEXP) {
+RcppExport SEXP _Luminescence_analyse_IRSARRF_SRS(SEXP values_regenerated_limitedSEXP, SEXP values_natural_limitedSEXP, SEXP vslide_rangeSEXP, SEXP n_MCSEXP, SEXP traceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,7 +23,7 @@ END_RCPP
 }
 // create_RLumDataCurve_matrix
 NumericMatrix create_RLumDataCurve_matrix(NumericVector DATA, int VERSION, int NPOINTS, String LTYPE, int LOW, int HIGH, int AN_TEMP, int TOLDELAY, int TOLON, int TOLOFF);
-RcppExport SEXP Luminescence_create_RLumDataCurve_matrix(SEXP DATASEXP, SEXP VERSIONSEXP, SEXP NPOINTSSEXP, SEXP LTYPESEXP, SEXP LOWSEXP, SEXP HIGHSEXP, SEXP AN_TEMPSEXP, SEXP TOLDELAYSEXP, SEXP TOLONSEXP, SEXP TOLOFFSEXP) {
+RcppExport SEXP _Luminescence_create_RLumDataCurve_matrix(SEXP DATASEXP, SEXP VERSIONSEXP, SEXP NPOINTSSEXP, SEXP LTYPESEXP, SEXP LOWSEXP, SEXP HIGHSEXP, SEXP AN_TEMPSEXP, SEXP TOLDELAYSEXP, SEXP TOLONSEXP, SEXP TOLOFFSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // create_UID
 CharacterVector create_UID();
-RcppExport SEXP Luminescence_create_UID() {
+RcppExport SEXP _Luminescence_create_UID() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

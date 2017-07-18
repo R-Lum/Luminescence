@@ -82,7 +82,7 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
 ##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
 }
 \section{Function version}{
- 0.1.1 (2017-07-16 10:38:01)
+ 0.1.1 (2017-07-18 21:46:37)
 }
 
 \examples{

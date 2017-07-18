@@ -10,14 +10,14 @@
 */
 
 /* .Call calls */
-extern SEXP Luminescence_analyse_IRSARRF_SRS(SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP Luminescence_create_RLumDataCurve_matrix(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP Luminescence_create_UID();
+extern SEXP _Luminescence_analyse_IRSARRF_SRS(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _Luminescence_create_RLumDataCurve_matrix(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _Luminescence_create_UID();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"Luminescence_analyse_IRSARRF_SRS",         (DL_FUNC) &Luminescence_analyse_IRSARRF_SRS,          5},
-    {"Luminescence_create_RLumDataCurve_matrix", (DL_FUNC) &Luminescence_create_RLumDataCurve_matrix, 10},
-    {"Luminescence_create_UID",                  (DL_FUNC) &Luminescence_create_UID,                   0},
+    {"_Luminescence_analyse_IRSARRF_SRS",         (DL_FUNC) &_Luminescence_analyse_IRSARRF_SRS,          5},
+    {"_Luminescence_create_RLumDataCurve_matrix", (DL_FUNC) &_Luminescence_create_RLumDataCurve_matrix, 10},
+    {"_Luminescence_create_UID",                  (DL_FUNC) &_Luminescence_create_UID,                   0},
     {NULL, NULL, 0}
 };
 

@@ -178,7 +178,7 @@ analyse_Al2O3C_Measurement <- function(
       ##correct for the travel dosimeter calculating the weighted mean and the sd (as new error)
       ##if only one value is given just take it
       if(length(travel_dosimeter) == 1){
-        correction <- results$data[travel_dosimeter==results$data$POSITION,c(1,2)]
+        correction <- as.numeric(results$data[travel_dosimeter==results$data$POSITION,c(1,2)])
 
       }else{
         temp.correction <- results$data[results$data$POSITION%in%travel_dosimeter,c(1,2)]
@@ -187,14 +187,12 @@ analyse_Al2O3C_Measurement <- function(
 
       }
 
-
       ##subtract all the values, in a new data frame, we do not touch the original data
       data_TDcorrected <- data.frame(
         DE = results@data$data[!results$data$POSITION%in%travel_dosimeter,1] - correction[1],
         DE_ERROR = sqrt(results@data$data[!results$data$POSITION%in%travel_dosimeter,2]^2 + correction[2]^2),
         POSITION = results@data$data[!results$data$POSITION%in%travel_dosimeter, "POSITION"]
       )
-
 
       ##however, we set information on the travel dosimeter in the corresponding column
       results@data$data$TRAVEL_DOSIMETER <- results$data$POSITION%in%travel_dosimeter
