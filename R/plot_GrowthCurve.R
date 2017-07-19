@@ -246,13 +246,13 @@ plot_GrowthCurve <- function(
 
   ##2.1 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
-    stop("[plot_GrowthCurve()] The input data contain at least one Inf value. NULL returned!", call. = FALSE)
+    try(stop("[plot_GrowthCurve()] The input data contain at least one Inf value. NULL returned!", call. = FALSE))
     return(NULL)
   }
 
   ##2.2 check whether the dose value is equal all the time
   if(sum(abs(diff(sample[[1]]))) == 0){
-    stop("[plot_GrowthCurve()] All points have the same dose. NULL returned!", call. = FALSE)
+    try(stop("[plot_GrowthCurve()] All points have the same dose. NULL returned!", call. = FALSE))
     return(NULL)
 
   }
@@ -676,7 +676,7 @@ plot_GrowthCurve <- function(
   if (fit.method=="EXP" | fit.method=="EXP OR LIN" | fit.method=="LIN"){
 
     if((is.na(a) | is.na(b) | is.na(c)) && fit.method != "LIN"){
-      stop("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!", call. = FALSE)
+      try(stop("[plot_GrowthCurve()] Fit could not applied for this data set. NULL returned!", call. = FALSE))
       return(NULL)
 
     }
@@ -2010,8 +2010,8 @@ plot_GrowthCurve <- function(
 
     ##reset graphic device if the plotting failed!
     if(is(plot_check, "try-error")){
+      try(stop("[plot_GrowthCurve()] Figure margins too large, nothing plotted, but results returned!", call. = FALSE),)
       dev.off()
-      stop("[plot_GrowthCurve()] Figure margins too large, nothing plotted, but results returned!", call. = FALSE)
     }
 
   }
