@@ -19,7 +19,7 @@ NULL
 #'
 #' @slot .uid 
 #' Object of class [character] for a unique object identifier. This id is
-#' usually calculated using the internal function `.create_UID()` if the funtion [set_RLum]
+#' usually calculated using the internal function `create_UID()` if the funtion [set_RLum]
 #' is called.
 #'
 #' @slot .pid 

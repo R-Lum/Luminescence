@@ -225,7 +225,7 @@ setMethod("show",
 #' can be set manually.
 #'
 #' @param .uid [`set_RLum`] [character] (*automatic*):
-#' sets an unique ID for this object using the internal C++ function `.create_UID`.
+#' sets an unique ID for this object using the internal C++ function `create_UID`.
 #'
 #' @param .pid [`set_RLum`] [character] (*with default*):
 #' option to provide a parent id for nesting at will.

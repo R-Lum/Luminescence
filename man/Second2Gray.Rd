@@ -64,7 +64,7 @@ stopped. Furthermore, if a \code{data.frame} is provided for the dose rate value
 be of the same length as the data frame provided with the argument \code{data}
 }
 \section{Function version}{
- 0.6.0 (2017-07-05 12:19:18)
+ 0.6.0
 }
 
 \examples{
@@ -91,12 +91,7 @@ data(ExampleData.DeValues, envir = environment())
 # apply dose.rate to convert De(s) to De(Gy)
 Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M., Fuchs, M.C. (2017). Second2Gray(): Converting equivalent dose values from seconds (s) to gray (Gy). Function version 0.6.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 }
@@ -107,5 +102,5 @@ Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany)
-\cr R Luminescence Package Team}
+}
 \keyword{manip}

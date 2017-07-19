@@ -9,7 +9,7 @@
 ##http://stackoverflow.com/questions/42313373/r-cmd-check-note-found-no-calls-to-r-registerroutines-r-usedynamicsymbols
 
 ##run registration
-Luminescence_init <- utils::capture.output(tools::package_native_routine_registration_skeleton("."))
+Luminescence_init <- utils::capture.output(tools::package_native_routine_registration_skeleton(".", character_only = FALSE))
 
 ##add header text
 header <-  c(

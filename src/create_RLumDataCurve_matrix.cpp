@@ -32,7 +32,7 @@ NumericVector seq(int from, int to, double length_out) {
 
 // -----------------------------------------------------------------------------------------------
 // The function we want to export
-// [[Rcpp::export(".create_RLumDataCurve_matrix")]]
+// [[Rcpp::export("create_RLumDataCurve_matrix")]]
 NumericMatrix create_RLumDataCurve_matrix(
   NumericVector DATA,
   int VERSION,

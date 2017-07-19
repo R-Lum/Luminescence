@@ -34,7 +34,7 @@ contains the name of the calling function (the function that produces this objec
 can be set manually.}
 
 \item{.uid}{\code{\link{set_RLum}}; \link{character} (\emph{automatic}):
-sets an unique ID for this object using the internal C++ function \code{.create_UID}.}
+sets an unique ID for this object using the internal C++ function \code{create_UID}.}
 
 \item{.pid}{\code{\link{set_RLum}}; \link{character} (\emph{with default}):
 option to provide a parent id for nesting at will.}
@@ -154,11 +154,6 @@ dose.rate$parameters
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). RLum.Results-class(): Class 'RLum.Results'. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{classes}
 \keyword{methods}

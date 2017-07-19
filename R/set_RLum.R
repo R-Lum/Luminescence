@@ -21,7 +21,7 @@
 #' can be set manually.
 #'
 #' @param .uid [character] (*automatic*): 
-#' sets an unique ID for this object using the internal C++ function `.create_UID`.
+#' sets an unique ID for this object using the internal C++ function `create_UID`.
 #'
 #' @param .pid [character] (*with default*): 
 #' option to provide a parent id for nesting at will.
@@ -62,7 +62,7 @@
 #' 
 #' @md
 #' @export
-setGeneric("set_RLum", function (class, originator, .uid = .create_UID(), .pid = NA_character_, ... ) {
+setGeneric("set_RLum", function (class, originator, .uid = create_UID(), .pid = NA_character_, ... ) {
   class(class) <- as.character(class)
 
   if(missing(originator)) {

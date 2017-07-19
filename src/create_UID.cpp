@@ -10,7 +10,7 @@
 
 using namespace Rcpp;
 
-// [[Rcpp::export(".create_UID")]]
+// [[Rcpp::export("create_UID")]]
 CharacterVector create_UID() {
 
   //define variables

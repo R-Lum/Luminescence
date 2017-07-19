@@ -100,7 +100,7 @@ the values are removed and no further interpolation is attempted.
 In every case a warning message is shown.
 }
 \section{Function version}{
- 0.2.2 (2017-07-05 12:19:18)
+ 0.2.2
 }
 
 \examples{
@@ -178,12 +178,7 @@ lines(values[1:length(values.t[,1]),1],CW2pPMi(values, P=1/10)[,2],
       col="blue", lwd=1.3)
 text(0.5,6500,"PM", col="blue" ,cex=.8)
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
 signal components. Radiation Measurements, 47, 752-758.\cr
@@ -205,5 +200,5 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Based on comments and suggestions from:\cr
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
-\cr R Luminescence Package Team}
+}
 \keyword{manip}

@@ -4,7 +4,7 @@
 \alias{set_RLum}
 \title{General set function for RLum S4 class objects}
 \usage{
-set_RLum(class, originator, .uid = .create_UID(), .pid = NA_character_, ...)
+set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_, ...)
 }
 \arguments{
 \item{class}{\linkS4class{RLum} (\strong{required}):
@@ -15,7 +15,7 @@ contains the name of the calling function (the function that produces this objec
 can be set manually.}
 
 \item{.uid}{\link{character} (\emph{automatic}):
-sets an unique ID for this object using the internal C++ function \code{.create_UID}.}
+sets an unique ID for this object using the internal C++ function \code{create_UID}.}
 
 \item{.pid}{\link{character} (\emph{with default}):
 option to provide a parent id for nesting at will.}
@@ -43,7 +43,7 @@ in the documentations of the corresponding \linkS4class{RLum} class:
 }
 }
 \section{Function version}{
- 0.3.0 (2017-07-05 12:19:18)
+ 0.3.0
 }
 
 \examples{
@@ -72,10 +72,5 @@ plot_RLum(object)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). set_RLum(): General set function for RLum S4 class objects. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{utilities}

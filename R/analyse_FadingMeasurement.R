@@ -302,7 +302,7 @@ analyse_FadingMeasurement <- function(
 
 
   ##create unique identifier
-  uid <- .create_UID()
+  uid <- create_UID()
 
   ##normalise data to prompt measurement
   tc <- min(TIMESINCEIRR)[1]

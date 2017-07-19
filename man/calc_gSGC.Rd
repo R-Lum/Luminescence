@@ -59,7 +59,7 @@ Solving of the equation is realised using \link{uniroot}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.1 (2017-07-05 12:19:18)
+ 0.1.1
 }
 
 \examples{
@@ -71,12 +71,7 @@ Dr1 = 34.4))
 
 get_RLum(results, data.object = "De")
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). calc_gSGC(): Calculate De value based on the gSGC by Li et al., 2015. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.
@@ -87,5 +82,5 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montagine (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}

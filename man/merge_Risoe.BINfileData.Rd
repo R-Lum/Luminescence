@@ -63,7 +63,7 @@ With no additional summand the new position numbers would be:
 The validity of the output objects is not further checked.
 }
 \section{Function version}{
- 0.2.7 (2017-07-05 12:19:18)
+ 0.2.7
 }
 
 \examples{
@@ -76,12 +76,7 @@ object2 <- CWOSL.SAR.Data
 
 object.new <- merge_Risoe.BINfileData(c(object1, object2))
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Duller, G., 2007. Analyst.
 }
@@ -90,6 +85,6 @@ Duller, G., 2007. Analyst.
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{IO}
 \keyword{manip}

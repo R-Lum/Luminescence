@@ -1457,7 +1457,7 @@ if(is.list(object)){
     # Set return Values -----------------------------------------------------------
 
     ##generate unique identifier
-    UID <- .create_UID()
+    UID <- create_UID()
 
     temp.results.final <- set_RLum(
       class = "RLum.Results",

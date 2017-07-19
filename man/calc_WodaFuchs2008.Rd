@@ -29,7 +29,7 @@ The description section
 No details yet.
 }
 \section{Function version}{
- 0.2.0 (2017-07-05 12:19:18)
+ 0.2.0
 }
 
 \examples{
@@ -42,12 +42,7 @@ results <- calc_WodaFuchs2008(
    xlab = expression(paste(D[e], " [Gy]"))
  )
 
-} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
 obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.
@@ -58,4 +53,4 @@ obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France),\cr
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team}
+}

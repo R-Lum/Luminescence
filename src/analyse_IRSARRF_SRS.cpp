@@ -11,7 +11,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 
-// [[Rcpp::export(".analyse_IRSARRF_SRS")]]
+// [[Rcpp::export("analyse_IRSARRF_SRS")]]
 RcppExport SEXP analyse_IRSARRF_SRS(NumericVector values_regenerated_limited,
                                     NumericVector values_natural_limited,
                                     NumericVector vslide_range,

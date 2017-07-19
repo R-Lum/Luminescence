@@ -319,7 +319,7 @@ for this function and to allow a part of such tests the re-newed code was made p
 of the current package.
 }
 \section{Function version}{
- 0.7.2 (2017-07-05 12:19:18)
+ 0.7.2
 }
 
 \examples{
@@ -347,12 +347,7 @@ results <- analyse_IRSAR.RF(
 
 }
 
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). analyse_IRSAR.RF(): Analyse IRSAR RF measurements. Function version 0.7.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \references{
 Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
@@ -404,5 +399,5 @@ Measurements 32, 685-690.
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-\cr R Luminescence Package Team}
+}
 \keyword{datagen}
