@@ -16,7 +16,7 @@ Returns the right answer
 This function returns just the right answer
 }
 \section{Function version}{
- 0.1.0
+ 0.1.0 (2017-07-05 12:19:18)
 }
 
 \examples{
@@ -27,4 +27,9 @@ get_rightAnswer()
 }
 \author{
 inspired by R.G.
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+NA, NA, ,  (2017). get_rightAnswer(): Function to get the right answer. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+

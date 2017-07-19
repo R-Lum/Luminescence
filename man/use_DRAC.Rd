@@ -47,7 +47,7 @@ pre-formatted XLS/XLSX file is passed to the DRAC website and the
 results are re-imported into R.
 }
 \section{Function version}{
- 0.1.1
+ 0.1.1 (2017-07-05 12:19:18)
 }
 
 \examples{
@@ -100,7 +100,12 @@ input$`errDe (Gy)` <- 0.2
 output <- use_DRAC(input)
 }
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M., Burow, C. (2017). use_DRAC(): Use DRAC to calculate dose rate data. Function version 0.1.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
 Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
@@ -109,4 +114,4 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
-}
+\cr R Luminescence Package Team}

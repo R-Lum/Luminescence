@@ -68,7 +68,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -244,10 +244,7 @@ analyse_Al2O3C_Measurement <- function(
 
 
   ## Set Irradiation Time Correction ---------------
-  if (is.null(irradiation_time_correction)) {
-    irradiation_time_correction <- c(1,0)
-
-  } else{
+  if (!is.null(irradiation_time_correction)) {
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
@@ -324,8 +321,16 @@ analyse_Al2O3C_Measurement <- function(
   ##combine into data.frame
   temp_df <- data.frame(
       POSITION = POSITION,
-      DOSE = dose_points + irradiation_time_correction[1],
-      DOSE_ERROR = dose_points * irradiation_time_correction[2]/irradiation_time_correction[1],
+      DOSE = if(!is.null(irradiation_time_correction)){
+        dose_points + irradiation_time_correction[1]
+        }else{
+         dose_points
+        },
+      DOSE_ERROR = if(!is.null(irradiation_time_correction)){
+        dose_points * irradiation_time_correction[2]/irradiation_time_correction[1]
+        }else{
+        0
+        },
       STEP = c("NATURAL", "REGENERATED"),
       INTEGRAL = c(NATURAL, REGENERATED),
       BACKGROUND = c(BACKGROUND, BACKGROUND),
@@ -334,6 +339,8 @@ analyse_Al2O3C_Measurement <- function(
     )
 
      ##0 dose points should not be biased by the correction ..
+     ##Note: it does not mean that 0 s beneath the source has a dose of 0, however, in the certain
+     ##case aliquot was never moved under the source
      id_zero <- which(dose_points == 0)
      temp_df$DOSE[id_zero] <- 0
      temp_df$DOSE_ERROR[id_zero] <- 0
@@ -342,7 +349,13 @@ analyse_Al2O3C_Measurement <- function(
    ##calculate DE by using the irradiation time correction AND the cross talk correction
 
    ##(1) sample dose point values with irradiation time corrections (random)
-   DOSE_MC <- rnorm(1000, mean = temp_df$DOSE[2], sd = temp_df$DOSE_ERROR[2])
+   if(!is.null(irradiation_time_correction)){
+    DOSE_MC <- rnorm(1000, mean = temp_df$DOSE[2], sd = temp_df$DOSE_ERROR[2])
+
+   }else{
+    DOSE_MC <- temp_df$DOSE[2]
+
+  }
 
    ##(2) random sampling from cross-irradiation
    CT <- runif(1000, min = cross_talk_correction[2], max = cross_talk_correction[3])

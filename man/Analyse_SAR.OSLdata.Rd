@@ -106,7 +106,7 @@ consider using the functions \link{analyse_SAR.CWOSL} or
 \strong{The development of this function will not be continued. We recommend to use the function \link{analyse_SAR.CWOSL} or instead.}
 }
 \section{Function version}{
- 0.2.17
+ 0.2.17 (2017-07-05 12:19:18)
 }
 
 \examples{
@@ -126,7 +126,12 @@ output.SAR <- data.frame(Dose = output$LnLxTnTx[[1]]$Dose,
                          LxTx.Error = output$LnLxTnTx[[1]]$LxTx.Error)
 output.SAR
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Fuchs, M.C. (2017). Analyse_SAR.OSLdata(): Analyse SAR CW-OSL measurements.. Function version 0.2.17. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.
@@ -144,6 +149,6 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Margret C. Fuchs, HZDR, Freiberg (Germany)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}
 \keyword{dplot}

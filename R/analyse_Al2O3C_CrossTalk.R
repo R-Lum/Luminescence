@@ -61,7 +61,7 @@
 #'
 #'
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -140,9 +140,6 @@ analyse_Al2O3C_CrossTalk <- function(
 
   ##check irradiation time correction
   if (is.null(irradiation_time_correction)) {
-    irradiation_time_correction <- c(1,0)
-
-  } else{
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
@@ -180,8 +177,16 @@ analyse_Al2O3C_CrossTalk <- function(
 
     temp_df <- data.frame(
       POSITION = get_RLum(object[[i]][[1]], info.object = "position"),
-      DOSE = dose_points + irradiation_time_correction[1],
-      DOSE_ERROR = dose_points * irradiation_time_correction[2]/irradiation_time_correction[1],
+      DOSE = if(!is.null(irradiation_time_correction)){
+        dose_points + irradiation_time_correction[1]
+      }else{
+        dose_points
+      },
+      DOSE_ERROR = if(!is.null(irradiation_time_correction)){
+        dose_points * irradiation_time_correction[2]/irradiation_time_correction[1]
+      }else{
+        0
+      },
       STEP = c("NATURAL", "REGENERATED"),
       INTEGRAL = c(NATURAL, REGENERATED),
       BACKGROUND = c(BACKGROUND, BACKGROUND),
@@ -201,7 +206,14 @@ analyse_Al2O3C_CrossTalk <- function(
   APPARENT_DOSE <- as.data.frame(data.table::rbindlist(lapply(1:length(object), function(x){
 
     ##run in MC run
+    if(!is.null(irradiation_time_correction)){
     DOSE <- rnorm(1000, mean = signal_table_list[[x]]$DOSE[2], sd = signal_table_list[[x]]$DOSE_ERROR[2])
+
+    }else{
+      DOSE <- signal_table_list[[x]]$DOSE[2]
+
+    }
+
 
     ##calculation
     temp <- (DOSE * signal_table_list[[x]]$NET_INTEGRAL[1])/signal_table_list[[x]]$NET_INTEGRAL[2]

@@ -18,3 +18,5 @@ test_that("test import of XSYG files", {
   expect_output(print(results))
 
 })
+
+

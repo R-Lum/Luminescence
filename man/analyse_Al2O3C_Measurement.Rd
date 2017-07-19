@@ -82,14 +82,19 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
 ##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2 (2017-07-19 17:33:04)
 }
 
 \examples{
 
 ## nothing so far TODO ... add tests with example
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 TODO
 }
@@ -98,5 +103,5 @@ TODO
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \keyword{datagen}

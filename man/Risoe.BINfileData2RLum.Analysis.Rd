@@ -70,7 +70,7 @@ The \code{protocol} argument of the \linkS4class{RLum.Analysis}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
- 0.4.2
+ 0.4.2 (2017-07-05 12:19:18)
 }
 
 \examples{
@@ -87,5 +87,10 @@ Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+\cr R Luminescence Package Team} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). Risoe.BINfileData2RLum.Analysis(): Convert Risoe.BINfileData object to an RLum.Analysis object. Function version 0.4.2. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{manip}

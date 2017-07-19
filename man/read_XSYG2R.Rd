@@ -136,7 +136,7 @@ be done using the functions provided with the package \link{xml}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.6.0
+ 0.6.0 (2017-07-16 11:43:52)
 }
 
 \examples{
@@ -165,7 +165,12 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 ##(3) How to see the structure of an object?
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). read_XSYG2R(): Import XSYG files to R. Function version 0.6.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
 XSYG file format. Unpublished Technical Note. Freiberg, Germany
@@ -179,5 +184,5 @@ XML: \url{http://en.wikipedia.org/wiki/XML}
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-}
+\cr R Luminescence Package Team}
 \keyword{IO}

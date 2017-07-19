@@ -104,7 +104,7 @@ version number depends on the used Sequence Editor.
 \strong{ROI data sets introduced with BIN-file version 8 are not supported and skipped durint import.}
 }
 \section{Function version}{
- 0.15.7
+ 0.15.7 (2017-07-12 14:39:14)
 }
 
 \examples{
@@ -115,7 +115,12 @@ version number depends on the used Sequence Editor.
 #temp <- read_BIN2R(FILE)
 #temp
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Fuchs, M.C. (2017). read_BIN2R(): Import Risoe BIN-file into R. Function version 0.15.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \references{
 DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \url{http://www.nutech.dtu.dk/english/products-and-services/radiation-instruments/tl_osl_reader/manuals}
@@ -128,5 +133,5 @@ DTU Nutech, 2016. The Squence Editor, Users Manual, February, 2016.
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany)
-}
+\cr R Luminescence Package Team}
 \keyword{IO}
