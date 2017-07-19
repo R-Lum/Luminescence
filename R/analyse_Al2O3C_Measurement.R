@@ -68,7 +68,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -199,6 +199,10 @@ analyse_Al2O3C_Measurement <- function(
 
       ##attach the new element to the results output
       results@data <- c(results@data,  list(data_TDcorrected = data_TDcorrected))
+
+      ##return message
+      if(verbose)
+        cat("\n ...+ travel dosimeter correction applied.\n ...+ results stored in object $data_TDcorrected.\n")
 
     } ##end travel dosimeter
 
