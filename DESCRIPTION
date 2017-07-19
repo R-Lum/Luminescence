@@ -60,6 +60,7 @@ Imports:
     plotrix (>= 3.6-4),
     raster (>= 2.5-8),
     readxl (>= 0.1.1),
+    rstudioapi (>= 0.6),
     shape (>= 1.4.2),
     parallel,
     XML (>= 3.98-1.5),
@@ -72,7 +73,6 @@ Suggests:
     rjags (>= 4-6),
     coda (>= 0.19-1),
     pander (>= 0.6.0),
-    rstudioapi (>= 0.6),
     testthat (>= 1.0.2),
     devtools (>= 1.12.0),
     R.rsp (>= 0.41.0)
@@ -108,6 +108,7 @@ Collate:
     'get_Risoe.BINfileData.R'
     'RisoeBINfileData-class.R'
     'Second2Gray.R'
+    'addins_RLum.R'
     'analyse_Al2O3C_CrossTalk.R'
     'analyse_Al2O3C_ITC.R'
     'analyse_Al2O3C_Measurement.R'

@@ -73,6 +73,7 @@
 
       \itemize{
         \item The \code{RLum.Analysis} show method failed for \code{RLum.Data.Spectrum} objects; fixed.
+        \item Start supporting RStudio addins
 
 
     }

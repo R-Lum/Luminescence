@@ -1,0 +1,4 @@
+Name: Search TODO
+Description: List TODOs in the source code
+Binding: listTODO
+Interactive: false
