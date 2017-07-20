@@ -81,7 +81,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -174,7 +174,7 @@ analyse_Al2O3C_Measurement <- function(
 
     ##run analyis
     results <- lapply(1:length(object), function(x) {
-      analyse_Al2O3C_Measurement(
+      temp <- analyse_Al2O3C_Measurement(
         object = object[[x]],
         signal_integral = signal_integral[[x]],
         dose_points = dose_points[[x]],
@@ -187,11 +187,23 @@ analyse_Al2O3C_Measurement <- function(
 
       )
 
+     ##adjusting the terminal output, to avoid confusions
+     if(verbose)
+       cat(" ... (#",x, " | ALQ POS: ", temp$data$POSITION,")\n", sep = "")
 
+     ##add running number to the plot
+     title(main = paste0("#", x), adj = 1)
+
+     return(temp)
     })
 
     ##merge results
     results <- merge_RLum(results)
+
+    ##correct sys.call, otherwise it gets a little bit strange
+    ##why this is not implemented in the merge_RLum() method ... because here it would be wrong!
+    results@info[names(results@info) == "call"] <- NULL
+    results@info$call <- sys.call()
 
     ##travel dosimeter
     ##check for travel dosimeter and subtract the values so far this is meaningful at all
@@ -210,7 +222,7 @@ analyse_Al2O3C_Measurement <- function(
 
       ##correct for the travel dosimeter calculating the weighted mean and the sd (as new error)
       ##if only one value is given just take it
-      if(length(travel_dosimeter) == 1){
+      if(length(travel_dosimeter) == 1 && nrow(results$data[travel_dosimeter==results$data$POSITION,c(1,2)]) == 1){
         correction <- as.numeric(results$data[travel_dosimeter==results$data$POSITION,c(1,2)])
 
       }else{
@@ -235,7 +247,7 @@ analyse_Al2O3C_Measurement <- function(
 
       ##return message
       if(verbose)
-        cat("\n ...+ travel dosimeter correction applied.\n ...+ results stored in object $data_TDcorrected.\n")
+        cat("\n ...+ travel dosimeter correction applied.\n ...+ results stored in object $data_TDcorrected.\n\n")
 
     } ##end travel dosimeter
 
@@ -454,7 +466,7 @@ analyse_Al2O3C_Measurement <- function(
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){
     cat(" [analyse_Al2O3_Measurement()] #",POSITION, " ", "DE: ",
-               round(data$DE, 2), " \u00B1 ", round(data$DE_ERROR,2), "\n",sep = "")
+               round(data$DE, 2), " \u00B1 ", round(data$DE_ERROR,2), "\n", sep = "")
 
   }
 
