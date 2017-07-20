@@ -12,7 +12,7 @@ listTODO <- function(){
   id <- grep(pattern = "#TODO", x = code, fixed = TRUE)
 
   ##list lines
-  cat("\n", "[", length(id), "issue(s)]\n")
+  cat("\n", "[", length(id), "issue(s)]\n", sep = "")
    for(i in id){
     cat(" line ", i, ": ->", code[i], "\n", sep = "")
 
