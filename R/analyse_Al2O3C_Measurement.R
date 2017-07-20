@@ -36,8 +36,8 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable verbose mode
 #'
-#' @param plot [logical] (*with default*):
-#' enable/disable plot output
+#' @param plot [logical] (*with default*): enable/disable plot output, if `object` is of type [list],
+#' a [numeric] vector can be provided to limit the plot output to certain aliquots
 #'
 #' @param ... further arguments that can be passed to the plot output
 #'
@@ -138,9 +138,18 @@ analyse_Al2O3C_Measurement <- function(
 
     }
 
-
     ##verbose
+
     ##plot
+    if(is(plot, "logical")){
+      plot <- rep(x = plot, length(object))
+
+    }else{
+      plot <- 1:length(object)%in%plot
+
+    }
+
+    ##run analyis
     results <- lapply(1:length(object), function(x) {
       analyse_Al2O3C_Measurement(
         object = object[[x]],
@@ -149,7 +158,7 @@ analyse_Al2O3C_Measurement <- function(
         irradiation_time_correction = irradiation_time_correction[[x]],
         cross_talk_correction = cross_talk_correction[[x]],
         verbose = verbose,
-        plot = plot,
+        plot = plot[x],
         ...
 
       )

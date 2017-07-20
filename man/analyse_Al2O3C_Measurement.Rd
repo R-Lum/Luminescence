@@ -41,8 +41,8 @@ other values.}
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable verbose mode}
 
-\item{plot}{\link{logical} (\emph{with default}):
-enable/disable plot output}
+\item{plot}{\link{logical} (\emph{with default}): enable/disable plot output, if \code{object} is of type \link{list},
+a \link{numeric} vector can be provided to limit the plot output to certain aliquots}
 
 \item{...}{further arguments that can be passed to the plot output}
 }
@@ -82,7 +82,7 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
 ##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
 }
 \section{Function version}{
- 0.1.3 (2017-07-19 18:37:34)
+ 0.1.3 (2017-07-20 15:40:43)
 }
 
 \examples{

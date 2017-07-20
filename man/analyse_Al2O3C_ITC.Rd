@@ -74,12 +74,11 @@ time while irradiating Al2O3:C pellets in a luminescence reader.
 \details{
 Background: Due to their high dose sensitivity Al2O3:C pellets are usually
 irradiated for only a very short duration or under the closed beta-source
-within a luminescence reader. However, due to its high dose sensitivity, the
-movement itself below the source induces an apparent luminescence signal,
-which can be translated to an irradiation time.
-Based on measurements following a protocol suggested by Kreutzer et al., XXXX,
-a dose response curve is constructed and the intersection with the
-time axis is taken as real irradiation time.
+within a luminescence reader. However, due to its high dose sensitivity, during
+the movement towards the beta-source, the pellet already receives and non-negligible
+dose.  Based on measurements following a protocol suggested by Kreutzer et al., XXXX,
+a dose response curve is constructed and the intersection (absolute value) with the time axis
+is taken as real irradiation time.
 
 \strong{\code{method_control}}
 
@@ -95,7 +94,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.1 (2017-07-15 19:09:19)
+ 0.1.1 (2017-07-20 13:57:30)
 }
 
 \examples{
