@@ -36,9 +36,9 @@ Changes in version 0.8.0 ( ,2017):
          • ‘read_BIN2R()’
 
              • The function unexpectetly dropped are warning for an
-               unused connection; fixed.
+               unused connection; fixed,
 
-             • If a file link was provided and the argument ‘pattern’
+             • if a file link was provided and the argument ‘pattern’
                was set and error was shown; fixed.
 
          • ‘read_XSYG2R()’
@@ -54,5 +54,5 @@ Changes in version 0.8.0 ( ,2017):
          • The ‘RLum.Analysis’ show method failed for
            ‘RLum.Data.Spectrum’ objects; fixed.
 
-         • Start supporting RStudio addins
+         • Start supporting RStudio add-ins for more advanced users.
 

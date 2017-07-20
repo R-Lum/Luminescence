@@ -46,8 +46,8 @@
 
   \item \code{read_BIN2R()}{
         \itemize{
-         \item The function unexpectetly dropped are warning for an unused connection; fixed.
-         \item If a file link was provided and the argument \code{pattern} was set and error was shown; fixed.
+         \item The function unexpectetly dropped are warning for an unused connection; fixed,
+         \item if a file link was provided and the argument \code{pattern} was set and error was shown; fixed.
 
 
     }
@@ -73,7 +73,7 @@
 
       \itemize{
         \item The \code{RLum.Analysis} show method failed for \code{RLum.Data.Spectrum} objects; fixed.
-        \item Start supporting RStudio addins
+        \item Start supporting RStudio add-ins for more advanced users.
 
 
     }

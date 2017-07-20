@@ -178,7 +178,6 @@
 "length_RLum","General accessor function for RLum S4 class objects","Function calls object-specific get functions for RLum S4 class objects.","0.1.0","2017-07-05","12:19:18
 ","Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne<br /> (France)<br />  R Luminescence Package Team","Kreutzer, S. (2017). length_RLum(): General accessor function for RLum S4 class objects. Function version 0.1.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 "
-"listTODO","Search for TODOs in the source code and list them","Search for TODOs in the source code and list them",NA,NA,NA,NA,NA
 "merge_Risoe.BINfileData","Merge Risoe.BINfileData objects or Risoe BIN-files","Function allows merging Risoe BIN/BINX files or Risoe.BINfileData objects.","0.2.7","2017-07-05","12:19:18
 ","Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)<br />  R Luminescence Package Team","Kreutzer, S. (2017). merge_Risoe.BINfileData(): Merge Risoe.BINfileData objects or Risoe BIN-files. Function version 0.2.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 "
