@@ -20,7 +20,7 @@
 ##
 ## Q. The add-ins are not shown in the 'Addin' menu?
 ## A. Well, if you read this information you are an advanced used, so please install the
-##    package 'rstudioapi' and get happy.
+##    package 'rstudioapi', 'devtools' and get happy.
 
 
 
@@ -46,6 +46,21 @@
 #'@noRd
 .listTODO <- function(){
 
+  ##check if package is installed
+  if(!"rstudioapi"%in%installed.packages()[,"Package"]){
+    message("Package 'rstudioapi' is not installed but needed to search for TODOs, do you want to install it?\n\n",
+            " [n/N]: No (default)\n",
+            " [y/Y]: Yes\n")
+
+    ##parse answer
+    answer <- readline()
+
+    if(answer == "y" || answer == "Y"){
+      utils::install.packages("rstudioapi", dependencies = TRUE)
+    }
+
+  }else{
+
   ##parse code
   code <- rstudioapi::getActiveDocumentContext()$contents
 
@@ -57,6 +72,8 @@
    for(i in id){
     cat(" line ", i, ": ->", code[i], "\n", sep = "")
 
-  }
+   }
+
+ }
 
 }
