@@ -7,7 +7,8 @@
 analyse_Al2O3C_Measurement(object, signal_integral = NULL,
   dose_points = c(0, 4), recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
   irradiation_time_correction = NULL, cross_talk_correction = NULL,
-  travel_dosimeter = NULL, verbose = TRUE, plot = TRUE, ...)
+  travel_dosimeter = NULL, test_parameters = NULL, verbose = TRUE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} \strong{(required)}:
@@ -37,6 +38,10 @@ mean, 2.5 \% quantile, 97.5 \% quantile.}
 \item{travel_dosimeter}{\link{numeric} (\emph{optional}): specify the position of the travel dosimeter
 (so far measured a the same time). The dose of travel dosimeter will be subtracted from all
 other values.}
+
+\item{test_parameters}{\link{list} (\emph{with default}):
+set test parameters. Supported parameters are: \code{TL_peak_shift} All input: \link{numeric}
+values, \code{NA} and \code{NULL} (s. Details)}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable verbose mode}
@@ -76,13 +81,21 @@ The original function call
 }
 \description{
 The function provides the analysis routines for measurements on a
-FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
+FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX
 }
 \details{
+\strong{Working with a travel dosimeter}
 ##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
+
+\strong{Test parameters}
+
+\code{TL_peak_shift} \link{numeric} (default: \code{15}):
+
+Checks whether the TL peak shift is bigger > 15 K, indicating a problem with the
+thermal contact of the pellet
 }
 \section{Function version}{
- 0.1.3 (2017-07-20 15:40:43)
+ 0.1.5 (2017-07-20 17:42:06)
 }
 
 \examples{
@@ -92,7 +105,7 @@ FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.5. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

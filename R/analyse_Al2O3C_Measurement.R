@@ -1,9 +1,18 @@
 #' Al2O3:C Passive Dosimeter Measurement Analysis
 #'
 #' The function provides the analysis routines for measurements on a
-#' FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., 2017
+#' FI lexsyg SMART reader using Al2O3:C pellets according to Kreutzer et al., XXXX
 #'
+#' **Working with a travel dosimeter**
 #' ##ADD INFORMATION ON HOW IT WORKS WITH THE TRAVEL DOSIMETERS
+#'
+#' **Test parameters**
+#'
+#' `TL_peak_shift` [numeric] (default: `15`):
+#'
+#' Checks whether the TL peak shift is bigger > 15 K, indicating a problem with the
+#' thermal contact of the pellet
+#'
 #'
 #' @param object [RLum.Analysis-class] **(required)**:
 #' measurement input
@@ -32,6 +41,10 @@
 #' @param travel_dosimeter [numeric] (*optional*): specify the position of the travel dosimeter
 #' (so far measured a the same time). The dose of travel dosimeter will be subtracted from all
 #' other values.
+#'
+#' @param test_parameters [list] (*with default*):
+#' set test parameters. Supported parameters are: `TL_peak_shift` All input: [numeric]
+#' values, `NA` and `NULL` (s. Details)
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable verbose mode
@@ -68,7 +81,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.5
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -92,6 +105,7 @@ analyse_Al2O3C_Measurement <- function(
   irradiation_time_correction = NULL,
   cross_talk_correction = NULL,
   travel_dosimeter = NULL,
+  test_parameters = NULL,
   verbose = TRUE,
   plot = TRUE,
   ...
@@ -138,6 +152,15 @@ analyse_Al2O3C_Measurement <- function(
 
     }
 
+    ##test_parameters
+    if(is(test_parameters[[1]], "list")){
+      test_parameters <- rep(test_parameters, length = length(object))
+
+    }else{
+      test_parameters <- rep(list(test_parameters), length = length(object))
+
+    }
+
     ##verbose
 
     ##plot
@@ -157,6 +180,7 @@ analyse_Al2O3C_Measurement <- function(
         dose_points = dose_points[[x]],
         irradiation_time_correction = irradiation_time_correction[[x]],
         cross_talk_correction = cross_talk_correction[[x]],
+        test_parameters = test_parameters[[x]],
         verbose = verbose,
         plot = plot[x],
         ...
@@ -322,6 +346,23 @@ analyse_Al2O3C_Measurement <- function(
   # Calculation ---------------------------------------------------------------------------------
   ##we have two dose points, and one background curve, we do know only the 2nd dose
 
+  ##set test parameters
+  test_parameters.default <- list(
+    TL_peak_shift = 15
+  )
+
+  ##modify default values by given input
+  if(!is.null(test_parameters)){
+    test_parameters <- modifyList(test_parameters.default, test_parameters)
+
+    ##remove NULL elements from list
+    test_parameters <- test_parameters[!sapply(test_parameters, is.null)]
+
+  }else{
+    test_parameters <- test_parameters.default
+
+  }
+
   ##calculate needed values
   NATURAL <- sum(object[[1]][signal_integral, 2])
   REGENERATED <- sum(object[[3]][signal_integral, 2])
@@ -388,15 +429,32 @@ analyse_Al2O3C_Measurement <- function(
      CT_CORRECTION = cross_talk_correction[1],
      CT_CORRECTION_Q2.5 = cross_talk_correction[2],
      CT_CORRECTION_Q97.5 = cross_talk_correction[3],
+     TL_PEAK_SHIFT = NA,
      row.names = NULL
 
    )
 
 
+
+  ##check TL peak positions, if it differes more than the threshold, return a message
+  ##can be done better, but should be enough here.
+  if(any("TL_peak_shift"%in%names(test_parameters))){
+    check_curves <-
+      abs((object[[2]][which.max(object[[2]][,2]),1] -
+             object[[4]][which.max(object[[4]][,2]),1])) > test_parameters$TL_peak_shift
+
+    data[["TL_PEAK_SHIFT"]] <- check_curves
+
+    if(check_curves)
+      warning("TL peak shift detected for aliquot position ",POSITION, "! Check curves!", call. = FALSE)
+
+  }
+
+
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){
-    cat(paste0("\n[analyse_Al2O3_Measurement()] #",POSITION, " ", "DE: ",
-               round(data$DE, 2), " \u00B1 ", round(data$DE_ERROR,2)))
+    cat(" [analyse_Al2O3_Measurement()] #",POSITION, " ", "DE: ",
+               round(data$DE, 2), " \u00B1 ", round(data$DE_ERROR,2), "\n",sep = "")
 
   }
 
@@ -428,11 +486,11 @@ analyse_Al2O3C_Measurement <- function(
        object,
        plot.single = TRUE,
        combine = TRUE,
+       mtext = list(paste0("DE: ", round(data$DE,2), " \u00b1 ", round(data$DE_ERROR,2)), ""),
        xlab = list("Simulation [s]", "Temperature [\u00B0C]"),
-       mtext = "# - indicates seq. order",
        legend.text = list(list("#1 NAT", "#3 REG", "#5 BG"), list("#2 NAT", "#4 REG")),
        legend.pos = list("topright", "topleft"),
-       main = list(paste("POS:", POSITION, "| OSL"), paste("POS:", POSITION, "| TL"))
+       main = list(paste("ALQ POS:", POSITION, "| OSL"), paste("ALQ POS:", POSITION, "| TL"))
      )
 
 
@@ -440,11 +498,13 @@ analyse_Al2O3C_Measurement <- function(
     }
 
   # Output --------------------------------------------------------------------------------------
+  UID <- create_UID()
+
   output <- set_RLum(
     class = "RLum.Results",
     data = list(
-      data = data,
-      data_table = temp_df
+      data = cbind(data, UID),
+      data_table = cbind(temp_df, UID)
       ),
     info = list(
       call = sys.call()
