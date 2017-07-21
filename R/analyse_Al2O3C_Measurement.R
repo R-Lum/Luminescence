@@ -193,8 +193,11 @@ analyse_Al2O3C_Measurement <- function(
      if(verbose)
        cat(" ... (#",x, " | ALQ POS: ", temp$data$POSITION,")\n", sep = "")
 
-     ##add running number to the plot
-     title(main = paste0("#", x), adj = 1)
+     ##add running number to the plot, but only of we had a plot here...
+     if(plot[x]){
+       title(main = paste0("#", x), adj = 1)
+
+     }
 
      return(temp)
     })
