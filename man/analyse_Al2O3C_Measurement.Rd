@@ -65,7 +65,9 @@ Function returns results numerically and graphically:
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
 \code{$data} \tab \code{data.frame} \tab the estimated equivalent dose \cr
-\code{$data_talbe} \tab \code{data.frame} \tab full dose and signal table \cr
+\code{$data_table} \tab \code{data.frame} \tab full dose and signal table \cr
+\code{test_parameters} \tab \code{data.frame} \tab results with test paramaters \cr
+\code{data_TDcorrected} \tab \code{data.frame} \tab travel dosimeter corrected results (only if TD was provided)\cr
 }
 
 \strong{slot:} \strong{\code{@info}}
@@ -95,7 +97,7 @@ Checks whether the TL peak shift is bigger > 15 K, indicating a problem with the
 thermal contact of the pellet
 }
 \section{Function version}{
- 0.1.6 (2017-07-20 19:32:44)
+ 0.1.7 (2017-07-21 10:38:46)
 }
 
 \examples{
@@ -105,7 +107,7 @@ thermal contact of the pellet
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.6. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.1.7. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

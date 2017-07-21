@@ -67,7 +67,9 @@
 #' \tabular{lll}{
 #'  **Element** \tab **Type** \tab **Description**\cr
 #'  `$data` \tab `data.frame` \tab the estimated equivalent dose \cr
-#'  `$data_talbe` \tab `data.frame` \tab full dose and signal table \cr
+#'  `$data_table` \tab `data.frame` \tab full dose and signal table \cr
+#'  `test_parameters` \tab `data.frame` \tab results with test paramaters \cr
+#'  `data_TDcorrected` \tab `data.frame` \tab travel dosimeter corrected results (only if TD was provided)\cr
 #' }
 #'
 #'**slot:** **`@info`**
@@ -81,7 +83,7 @@
 #' - OSL and TL curves, combined on two plots.
 #'
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
@@ -441,7 +443,6 @@ analyse_Al2O3C_Measurement <- function(
      CT_CORRECTION = cross_talk_correction[1],
      CT_CORRECTION_Q2.5 = cross_talk_correction[2],
      CT_CORRECTION_Q97.5 = cross_talk_correction[3],
-     TL_PEAK_SHIFT = NA,
      row.names = NULL
 
    )
@@ -451,16 +452,36 @@ analyse_Al2O3C_Measurement <- function(
   ##check TL peak positions, if it differes more than the threshold, return a message
   ##can be done better, but should be enough here.
   if(any("TL_peak_shift"%in%names(test_parameters))){
-    check_curves <-
-      abs((object[[2]][which.max(object[[2]][,2]),1] -
-             object[[4]][which.max(object[[4]][,2]),1])) > test_parameters$TL_peak_shift
+    ##calculate value
+    TP_TL_peak_shift.value <- abs((object[[2]][which.max(object[[2]][,2]),1] -
+             object[[4]][which.max(object[[4]][,2]),1]))
 
-    data[["TL_PEAK_SHIFT"]] <- check_curves
 
-    if(check_curves)
+    ##compare
+    TP_TL_peak_shift.status <-  TP_TL_peak_shift.value > test_parameters$TL_peak_shift
+
+    ##return warning
+    if(TP_TL_peak_shift.status)
       warning("TL peak shift detected for aliquot position ",POSITION, "! Check curves!", call. = FALSE)
 
+    ##set data.frame
+    TP_TL_peak_shift <- data.frame(
+      CRITERIA = "TL_peak_shift",
+      THRESHOLD = test_parameters$TL_peak_shift,
+      VALUE = TP_TL_peak_shift.value,
+      STATUS = TP_TL_peak_shift.status,
+      stringsAsFactors = FALSE)
+
+  }else{
+    TP_TL_peak_shift <- data.frame(stringsAsFactors = FALSE)
+
   }
+
+
+   ##compile test parameter df
+   df_test_parameters <- rbind(
+     TP_TL_peak_shift)
+
 
 
   # Terminal output -----------------------------------------------------------------------------
@@ -516,7 +537,8 @@ analyse_Al2O3C_Measurement <- function(
     class = "RLum.Results",
     data = list(
       data = cbind(data, UID),
-      data_table = cbind(temp_df, UID)
+      data_table = cbind(temp_df, UID),
+      test_parameters = cbind(df_test_parameters, UID)
       ),
     info = list(
       call = sys.call()
