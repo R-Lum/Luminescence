@@ -125,7 +125,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.0
+#' @section Function version: 0.6.1
 #'
 #'
 #' @author
@@ -438,7 +438,10 @@ read_XSYG2R <- function(
 
       ##read sequence header
       temp.sequence.header <- as.data.frame(XML::xmlAttrs(temp[[x]]), stringsAsFactors = FALSE)
-      colnames(temp.sequence.header) <- ""
+
+      ##account for non set value
+      if(length(temp.sequence.header)!= 0)
+        colnames(temp.sequence.header) <- ""
 
       ###-----------------------------------------------------------------------
       ##LOOP
@@ -449,9 +452,16 @@ read_XSYG2R <- function(
         temp.sequence.object.recordType <- try(XML::xmlAttrs(temp[[x]][[i]])["recordType"],
                                                silent = TRUE)
 
+
         ##the XSYG file might be broken due to a machine error during the measurement, this
         ##control flow helps; if a try-error is observed NULL is returned
         if(!inherits(temp.sequence.object.recordType, "try-error")){
+
+         ##create a fallback, the function should not fail
+         if(is.null(temp.sequence.object.recordType) || is.na(temp.sequence.object.recordType)){
+           temp.sequence.object.recordType <- "not_set"
+
+         }
 
         ##correct record type in depending on the stimulator
         if(temp.sequence.object.recordType == "OSL"){
