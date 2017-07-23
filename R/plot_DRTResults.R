@@ -8,88 +8,90 @@
 #' and a known laboratory dose administered which is treated as unknown. Then
 #' the De measurement is carried out and the degree of congruence between
 #' administered and recovered dose is a measure of the protocol's accuracy for
-#' this sample.\cr 
+#' this sample.\cr
 #' In the plot the normalised De is shown on the y-axis, i.e. obtained De/Given Dose.
 #'
-#' @param values [RLum.Results-class] or [data.frame] (**required**): 
+#' @param values [RLum.Results-class] or [data.frame] (**required**):
 #' input values containing at least De and De error. To plot
 #' more than one data set in one figure, a `list` of the individual data
 #' sets must be provided (e.g. `list(dataset.1, dataset.2)`).
 #'
-#' @param given.dose [numeric] (*optional*): 
-#' given dose used for the dose recovery test to normalise data. 
-#' If only one given dose is provided this given dose is valid for all input 
-#' data sets (i.e., `values` is a list).  Oherwise a given dose for each input 
-#' data set has to be provided (e.g., `given.dose = c(100,200)`). 
-#' If `given.dose` in `NULL` the values are plotted without normalisation 
+#' @param given.dose [numeric] (*optional*):
+#' given dose used for the dose recovery test to normalise data.
+#' If only one given dose is provided this given dose is valid for all input
+#' data sets (i.e., `values` is a list).  Oherwise a given dose for each input
+#' data set has to be provided (e.g., `given.dose = c(100,200)`).
+#' If `given.dose` in `NULL` the values are plotted without normalisation
 #' (might be useful for preheat plateau tests).
 #' **Note:** Unit has to be the same as from the input values (e.g., Seconds or
 #' Gray).
 #'
-#' @param error.range [numeric]: 
-#' symmetric error range in percent will be shown as dashed lines in the plot. 
+#' @param error.range [numeric]:
+#' symmetric error range in percent will be shown as dashed lines in the plot.
 #' Set `error.range` to 0 to void plotting of error ranges.
 #'
-#' @param preheat [numeric]: 
-#' optional vector of preheat temperatures to be used for grouping the De values. 
+#' @param preheat [numeric]:
+#' optional vector of preheat temperatures to be used for grouping the De values.
 #' If specified, the temperatures are assigned to the x-axis.
 #'
-#' @param boxplot [logical]: 
+#' @param boxplot [logical]:
 #' optionally plot values, that are grouped by preheat temperature as boxplots.
 #'  Only possible when `preheat` vector is specified.
 #'
-#' @param mtext [character]: 
+#' @param mtext [character]:
 #' additional text below the plot title.
 #'
-#' @param summary [character] (*optional*): 
-#' adds numerical output to the plot.  Can be one or more out of: 
+#' @param summary [character] (*optional*):
+#' adds numerical output to the plot.  Can be one or more out of:
 #' - `"n"` (number of samples),
-#' - `"mean"` (mean De value), 
-#' - `"mean.weighted"` (error-weighted mean),
-#' - `"median"` (median of the De values), 
-#' - `"sdrel"` (relative standard deviation in percent), 
-#' - `"sdabs"` (absolute standard deviation),
-#' - `"serel"` (relative standard error) and 
-#' - `"seabs"` (absolute standard error).
+#' - `"mean"` (mean De value),
+#' - `"weighted$mean"` (error-weighted mean),
+#' - `"median"` (median of the De values),
+#' - `"sd.rel"` (relative standard deviation in percent),
+#' - `"sd.abs"` (absolute standard deviation),
+#' - `"se.rel"` (relative standard error) and
+#' - `"se.abs"` (absolute standard error)
 #'
-#' @param summary.pos [numeric] or [character] (*with default*): 
+#' and all other measures returned by the function [calc_Statistics].
+#'
+#' @param summary.pos [numeric] or [character] (*with default*):
 #' optional position coordinates or keyword (e.g. `"topright"`)
 #' for the statistical summary. Alternatively, the keyword `"sub"` may be
 #' specified to place the summary below the plot header. However, this latter
 #' option in only possible if `mtext` is not used.
 #'
-#' @param legend [character] vector (*optional*): 
+#' @param legend [character] vector (*optional*):
 #' legend content to be added to the plot.
 #'
-#' @param legend.pos [numeric] or [character] (*with default*): 
-#' optional position coordinates or keyword (e.g. `"topright"`) for the 
+#' @param legend.pos [numeric] or [character] (*with default*):
+#' optional position coordinates or keyword (e.g. `"topright"`) for the
 #' legend to be plotted.
-#' 
-#' @param par.local [logical] (*with default*): 
-#' use local graphical parameters for plotting, e.g. the plot is shown in one 
-#' column and one row. If `par.local = FALSE`, global parameters are inherited, 
+#'
+#' @param par.local [logical] (*with default*):
+#' use local graphical parameters for plotting, e.g. the plot is shown in one
+#' column and one row. If `par.local = FALSE`, global parameters are inherited,
 #' i.e. parameters provided via `par()` work
-#' 
+#'
 #' @param na.rm [logical]: indicating wether `NA` values are
 #' removed before plotting from the input data set
-#' 
+#'
 #' @param ... further arguments and graphical parameters passed to [plot].
-#' 
+#'
 #' @return A plot is returned.
 #'
-#' @note 
+#' @note
 #' Further data and plot arguments can be added by using the appropiate R
 #' commands.
-#' 
-#' @section Function version: 0.1.10
 #'
-#' @author 
-#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr 
+#' @section Function version: 0.1.11
+#'
+#' @author
+#' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #' @seealso [plot]
 #'
-#' @references 
+#' @references
 #' Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 #' stimulated luminescence characteristics and their relevance in
 #' single-aliquot regeneration dating protocols. Radiation Measurements, 41,
@@ -343,128 +345,29 @@ plot_DRTResults <- function(
   }
 
   ## calculate and paste statistical summary
-  label.text = list(NA)
-
   if(summary.pos[1] != "sub") {
-    n.rows <- length(summary)
+    label.text <- lapply(1:length(values), function(i) {
+      .create_StatisticalSummaryText(
+        x = calc_Statistics(values[[i]]),
+        keywords = summary,
+        digits = 2,
+        sep = " \n",
+        prefix = paste(rep("\n", (i - 1) * length(summary)), collapse = "")
+      )
+    })
 
-    for(i in 1:length(values)) {
-      stops <- paste(rep("\n", (i - 1) * n.rows), collapse = "")
-      label.text[[length(label.text) + 1]] <- paste(stops, paste(
-        ifelse("n" %in% summary == TRUE,
-               paste("n = ",
-                     nrow(values[[i]]),
-                     "\n",
-                     sep = ""),
-               ""),
-        ifelse("mean" %in% summary == TRUE,
-               paste("mean = ",
-                     round(mean(values[[i]][,1]), 2),
-                     "\n",
-                     sep = ""),
-               ""),
-        ifelse("mean.weighted" %in% summary == TRUE,
-               paste("weighted mean = ",
-                     round(weighted.mean(x = values[[i]][,1],
-                                         w = 1 / values[[i]][,2]), 2),
-                     "\n",
-                     sep = ""),
-               ""),
-        ifelse("median" %in% summary == TRUE,
-               paste("median = ",
-                     round(median(values[[i]][,1]), 2),
-                     "\n",
-                     sep = ""),
-               ""),
-        ifelse("sdrel" %in% summary == TRUE,
-               paste("sd = ",
-                     round(sd(values[[i]][,1]) / mean(values[[i]][,1]) * 100,
-                           2), " %",
-                     "\n",
-                     sep = ""),
-               ""),
-        ifelse("sdabs" %in% summary == TRUE,
-               paste("sd = ",
-                     round(sd(values[[i]][,1]), 2),
-                     "\n",
-                     sep = ""),
-               ""),
-        ifelse("serel" %in% summary == TRUE,
-               paste("se = ",
-                     round(calc_Statistics(values[[i]])$unweighted$se.rel, 2),
-                     " %\n",
-                     sep = ""),
-               ""),
-        ifelse("seabs" %in% summary == TRUE,
-               paste("se = ",
-                     round(calc_Statistics(values[[i]])$unweighted$se.abs, 2),
-                     "\n",
-                     sep = ""),
-               ""),
-        sep = ""), stops, sep = "")
+  }else{
+    label.text <- lapply(1:length(values), function(i) {
+      .create_StatisticalSummaryText(
+        x = calc_Statistics(values[[i]]),
+        keywords = summary,
+        digits = 2,
+        sep = " | "
+      )
+    })
 
-    }
-  } else {
-    for(i in 1:length(values)) {
-      label.text[[length(label.text) + 1]]  <- paste(
-        "| ",
-        ifelse("n" %in% summary == TRUE,
-               paste("n = ",
-                     nrow(values[[i]]),
-                     " | ",
-                     sep = ""),
-               ""),
-        ifelse("mean" %in% summary == TRUE,
-               paste("mean = ",
-                     round(mean(values[[i]][,1]), 2),
-                     " | ",
-                     sep = ""),
-               ""),
-        ifelse("mean.weighted" %in% summary == TRUE,
-               paste("weighted mean = ",
-                     round(weighted.mean(x = values[[i]][,1],
-                                         w = 1 / values[[i]][,2]), 2),
-                     " | ",
-                     sep = ""),
-               ""),
-        ifelse("median" %in% summary == TRUE,
-               paste("median = ",
-                     round(median(values[[i]][,1]), 2),
-                     " | ",
-                     sep = ""),
-               ""),
-        ifelse("sdrel" %in% summary == TRUE,
-               paste("sd = ",
-                     round(sd(values[[i]][,1]) / mean(values[[i]][,1]) * 100,
-                           2), " %",
-                     " | ",
-                     sep = ""),
-               ""),
-        ifelse("sdabs" %in% summary == TRUE,
-               paste("sd = ",
-                     round(sd(values[[i]][,1]), 2),
-                     " | ",
-                     sep = ""),
-               ""),
-        ifelse("serel" %in% summary == TRUE,
-               paste("se = ",
-                     round(calc_Statistics(values[[i]])$unweighted$se.rel, 2),
-                     " % | ",
-                     sep = ""),
-               ""),
-        ifelse("seabs" %in% summary == TRUE,
-               paste("se = ",
-                     round(calc_Statistics(values[[i]])$unweighted$se.abs, 2),
-                     " | ",
-                     sep = ""),
-               ""),
-        sep = "")
 
-    }
   }
-
-  ## remove dummy list element
-  label.text[[1]] <- NULL
 
   ## convert keywords into summary placement coordinates
   if(missing(summary.pos) == TRUE) {
@@ -836,3 +739,4 @@ plot_DRTResults <- function(
   if(fun == TRUE) {sTeve()}
 
 }
+

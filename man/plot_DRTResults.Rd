@@ -44,13 +44,15 @@ adds numerical output to the plot.  Can be one or more out of:
 \itemize{
 \item \code{"n"} (number of samples),
 \item \code{"mean"} (mean De value),
-\item \code{"mean.weighted"} (error-weighted mean),
+\item \code{"weighted$mean"} (error-weighted mean),
 \item \code{"median"} (median of the De values),
-\item \code{"sdrel"} (relative standard deviation in percent),
-\item \code{"sdabs"} (absolute standard deviation),
-\item \code{"serel"} (relative standard error) and
-\item \code{"seabs"} (absolute standard error).
-}}
+\item \code{"sd.rel"} (relative standard deviation in percent),
+\item \code{"sd.abs"} (absolute standard deviation),
+\item \code{"se.rel"} (relative standard error) and
+\item \code{"se.abs"} (absolute standard error)
+}
+
+and all other measures returned by the function \link{calc_Statistics}.}
 
 \item{summary.pos}{\link{numeric} or \link{character} (\emph{with default}):
 optional position coordinates or keyword (e.g. \code{"topright"})
@@ -96,7 +98,7 @@ Further data and plot arguments can be added by using the appropiate R
 commands.
 }
 \section{Function version}{
- 0.1.10 (2017-07-05 12:19:18)
+ 0.1.11 (2017-07-23 18:42:14)
 }
 
 \examples{
@@ -164,7 +166,7 @@ plot_DRTResults(values = ExampleData.DeValues$BT998[7:11,],
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.10. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2017). plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.11. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
