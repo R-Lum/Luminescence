@@ -11,7 +11,7 @@
 #' This function only applies on RLum.Analysis objects and was written for performance not
 #' usability, means the functions runs without any checks and is for internal usage only.
 #'
-#' @param [RLum.Analysis-class] (**required**): 
+#' @param [RLum.Analysis-class] (**required**):
 #' input object where the function should be applied on
 #'
 #' @return
@@ -53,7 +53,7 @@
 #' The original return of the function is returned. This function is in particular
 #' helpful if a function returns a lot of warnings with the same content.
 #'
-#' @param expr [expression] (**required**): 
+#' @param expr [expression] (**required**):
 #' the R expression, usually a function
 #'
 #' @return
@@ -121,22 +121,22 @@
 #' The function just allows a direct and meaningfull access to the functionality of the zoo::rollmean()
 #' function. Arguments of the function are only partly valid.
 #'
-#' @param x [numeric] (**required**): 
+#' @param x [numeric] (**required**):
 #' the object for which the smoothing should be applied.
 #'
-#' @param k [integer] (*with default*): 
+#' @param k [integer] (*with default*):
 #' window for the rolling mean; must be odd for rollmedian.
 #' If nothing is set k is set automatically
 #'
-#' @param fill [numeric] (*with default*): 
+#' @param fill [numeric] (*with default*):
 #' a vector defining the left and the right hand data
 #'
-#' @param align [character] (*with default*): 
+#' @param align [character] (*with default*):
 #' specifying whether the index of the result should be
-#' left- or right-aligned or centered (default) compared to the rolling window of observations, 
+#' left- or right-aligned or centered (default) compared to the rolling window of observations,
 #' allowed `"right"`, `"center"` and `left`
 #'
-#' @param method [method] (*with default*): 
+#' @param method [method] (*with default*):
 #' defines which method should be applied for the smoothing: `"mean"` or `"median"`
 #'
 #' @return
@@ -190,7 +190,7 @@
 #' Source:
 #' [http://stackoverflow.com/questions/11610377/how-do-i-change-the-formatting-of-numbers-on-an-axis-with-ggplot]()
 #'
-#' @param l [numeric] (**required**): 
+#' @param l [numeric] (**required**):
 #' a numeric vector, i.e. the labels that you want to add to your plot
 #'
 #' @return
@@ -223,3 +223,102 @@ fancy_scientific <- function(l) {
   # return this as an expression
   parse(text=l)
 }
+
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#+ Statistical Summary for Plot functions
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#' Create Statistical Summary Character Vector for Plot functions
+#'
+#' This function automatically generates the statistical summary for the plot functions within
+#' the package. This should unify the approach how such things are created and support, theoretically
+#' all keywords for all plot functions in a similar way.
+#'
+#'@param x [data.frame] (optional): output from the function `calc_Statistics()`. If nothing is
+#'provided a list of prefix keyword combinations supported by the function `calc_Statistics()` is returned.
+#'
+#'@param keywords[character] (with default): keywords supported by the function `calc_Statistics()`
+#'
+#'@param digits [numeric] (with default): modifiy the digits independently for the plot output
+#'
+#'@param sep [character] (with default): a separator used for the creation of the output of the plot
+#'
+#'@param prefix [character] (with default): allows to add a leading prefix to the string
+#'
+#'@param suffix [character] (with default): allows to add a suffix to the entire string
+#'
+#'@author Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+#'
+#'@section Version: 0.1.0
+#'
+#'
+#'@md
+#'@noRd
+.create_StatisticalSummaryText <- function(
+  x = NULL, #insert the output of calc_Statistics
+  keywords = NULL,
+  digits = 2, #allow for different digts
+  sep = " \n ",
+  prefix = "",
+  suffix = ""
+){
+
+
+  # Grep keyword information --------------------------------------------------------------------
+  if(is.null(x)){
+    summary <- calc_Statistics(data.frame(x = 1:10, y = 1:10))
+
+  }else{
+    summary <- x
+
+  }
+
+  #all allowed combinations
+  keywords_allowed <- unlist(lapply(names(summary), function(x){
+    paste0(x, "$", names(summary[[x]]))
+
+  }))
+
+  ##return if for x == NULL
+  if(is.null(x))
+    return(keywords_allowed)
+
+  # Create call ---------------------------------------------------------------------------------
+  #create list
+  l <- lapply(keywords, function(k){
+    ##strip keyword if necessary
+    if(grepl(pattern = "$", x = k, fixed = TRUE)[1]){
+      strip <- strsplit(k, split = "$", fixed = TRUE)[[1]]
+      keywords_prefix <- strip[1]
+      k_strip <- strip[2]
+    }else{
+      keywords_prefix <- "unweighted"
+      k_strip <- k
+
+    }
+
+    ##construct string
+    if(!is.null(summary[[keywords_prefix]][[k_strip]])){
+      if(keywords_prefix == "unweighted"){
+        paste0(k_strip, " = ", round(summary[[keywords_prefix]][[k_strip]], digits))
+
+      }else{
+        paste0(k, " = ", round(summary[[keywords_prefix]][[k_strip]], digits))
+
+      }
+
+    }else{
+      return(NULL)
+
+    }
+
+  })
+
+  ##remove NULL entries
+  l <- l[!sapply(l, is.null)]
+
+  ##construct final call
+  return(paste0(prefix, paste(unlist(l), collapse = sep), suffix))
+
+}
+
