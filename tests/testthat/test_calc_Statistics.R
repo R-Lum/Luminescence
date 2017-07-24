@@ -23,6 +23,8 @@ test_that("Test certain input scenarios", {
   df <- ExampleData.DeValues$BT998
   df[,2] <- 0
   expect_warning(calc_Statistics(df))
+
+  df <- ExampleData.DeValues$BT998
   expect_silent(calc_Statistics(df, weight.calc = "reciprocal"))
 
 
