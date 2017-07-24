@@ -9,6 +9,16 @@ temp <- calc_gSGC(data = data.frame(
   verbose = FALSE
   )
 
+test_that("plot and verbose and so", {
+  expect_output(calc_gSGC(data = data.frame(
+    LnTn =  2.361, LnTn.error = 0.087,
+    Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
+    Dr1 = 34.4),
+    plot = TRUE,
+    verbose = TRUE
+  ))
+
+})
 
 
 test_that("check class and length of output", {
