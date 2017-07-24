@@ -23,6 +23,7 @@ test_that("Test certain input scenarios", {
   df <- ExampleData.DeValues$BT998
   df[,2] <- 0
   expect_warning(calc_Statistics(df))
+  expect_silent(calc_Statistics(df, weight.calc = "reciprocal"))
 
 
 })
@@ -30,6 +31,9 @@ test_that("Test certain input scenarios", {
 
 test_that("check error messages", {
   testthat::skip_on_cran()
+
+  df <- ExampleData.DeValues$BT998
+
   expect_error(calc_Statistics(data = matrix(0,2)),
                regexp = "[calc_Statistics()] Input data is neither of type 'data.frame' nor 'RLum.Results'",
                fixed = TRUE)
