@@ -24,3 +24,12 @@ test_that("check class and length of output", {
   expect_null(get_RLum(temp_RLumResults))
 
 })
+
+test_that("check get_RLum on a list", {
+  testthat::skip_on_cran()
+
+  object <- set_RLum(class = "RLum.Analysis", records = rep(set_RLum(class = "RLum.Data.Curve"), 10))
+
+  expect_warning(get_RLum(object, recordType = "test"))
+
+})
