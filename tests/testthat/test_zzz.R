@@ -9,6 +9,9 @@ test_that("Test zzz functions ... they should still work", {
 
   ##get quote
   expect_silent(get_Quote())
+  expect_silent(get_Quote(ID = 1, author = "MK"))
+  expect_silent(get_Quote(ID = 0))
+  expect_silent(get_Quote(ID = 10, separated = TRUE))
 
   ##tune data
   expect_warning(tune_Data(1:10))
