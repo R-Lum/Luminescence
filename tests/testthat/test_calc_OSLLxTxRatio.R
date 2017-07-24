@@ -56,21 +56,43 @@ test_that("test input", {
     set_RLum(class = "RLum.Data.Curve", data = as.matrix(Lx.data)),
     set_RLum(class = "RLum.Data.Curve", data = as.matrix(Tx.data)),
     signal.integral = c(1:2),
-    background.integral = c(85:100)))
+    background.integral = c(70:100)))
 
   ##matrix
   expect_silent(calc_OSLLxTxRatio(
     as.matrix(Lx.data),
     as.matrix(Tx.data),
     signal.integral = c(1:2),
-    background.integral = c(85:100)))
+    background.integral = c(70:100)))
 
   ##numeric
   expect_silent(calc_OSLLxTxRatio(
     as.numeric(Lx.data[,2]),
     as.numeric(Tx.data[,2]),
     signal.integral = c(1:2),
-    background.integral = c(85:100)))
+    background.integral = c(70:100)))
+
+
+  ##RLum.Curve
+  expect_silent(calc_OSLLxTxRatio(
+    set_RLum(class = "RLum.Data.Curve", data = as.matrix(Lx.data)),
+    Tx.data = NULL,
+    signal.integral = c(1:2),
+    background.integral = c(70:100)))
+
+  ##matrix
+  expect_silent(calc_OSLLxTxRatio(
+    as.matrix(Lx.data),
+    Tx.data = NULL,
+    signal.integral = c(1:2),
+    background.integral = c(70:100)))
+
+  ##numeric
+  expect_silent(calc_OSLLxTxRatio(
+    as.numeric(Lx.data[,2]),
+    Tx.data = NULL,
+    signal.integral = c(1:2),
+    background.integral = c(70:100)))
 
 
 })
