@@ -139,9 +139,36 @@ test_that("force function break", {
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
     Tx.data,
+    signal.integral = c(1:10),
+    signal.integral.Tx = c(1:90),
+    background.integral = c(85:100),
+    background.integral.Tx = c(85:100)
+  ), "Overlapping of 'signal.integral.Tx' and 'background.integral.Tx' is not permitted!")
+
+  expect_error(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
     signal.integral = c(1:20),
     background.integral = c(85:1000)
   ), "background.integral is not valid! Max: 100")
+
+  expect_error(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal.integral = c(1:10),
+    signal.integral.Tx = c(1:10),
+    background.integral = c(85:100),
+    background.integral.Tx = c(85:10000)
+  ), "background.integral.Tx is not valid! Max: 100")
+
+  expect_error(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal.integral = c(1:10),
+    signal.integral.Tx = c(1:1000),
+    background.integral = c(85:100),
+    background.integral.Tx = c(85:100)
+  ), "signal.integral.Tx is not valid!")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
