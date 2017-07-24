@@ -16,6 +16,18 @@ test_that("check class and length of output", {
 
 })
 
+test_that("test arguments", {
+  testthat::skip_on_cran()
+
+  expect_silent(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal.integral = c(1:2),
+    background.integral = c(85:100),
+    digits = 1))
+
+})
+
 test_that("force function break", {
   testthat::skip_on_cran()
 
