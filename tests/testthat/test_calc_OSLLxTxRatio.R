@@ -19,12 +19,31 @@ test_that("check class and length of output", {
 test_that("test arguments", {
   testthat::skip_on_cran()
 
+  ##digits
   expect_silent(calc_OSLLxTxRatio(
     Lx.data,
     Tx.data,
     signal.integral = c(1:2),
     background.integral = c(85:100),
     digits = 1))
+
+  ##sigmab
+  expect_silent(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal.integral = c(1:2),
+    background.integral = c(85:100),
+    sigmab = c(1000,100)
+    ))
+
+  ##poisson
+  expect_silent(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal.integral = c(1:2),
+    background.integral = c(85:100),
+    background.count.distribution = "poisson"
+  ))
 
 })
 
@@ -52,6 +71,7 @@ test_that("test input", {
     as.numeric(Tx.data[,2]),
     signal.integral = c(1:2),
     background.integral = c(85:100)))
+
 
 })
 
