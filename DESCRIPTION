@@ -4,8 +4,8 @@ Title: Comprehensive Luminescence Dating Data Analysis [upcoming]
 Version: 0.8.0
 Date: 2017-XX-XX
 Author: Sebastian Kreutzer [aut, trl, cre, dtc],
-    Michael Dietze [aut],
     Christoph Burow [aut, trl, dtc],
+    Michael Dietze [aut],
     Margret C. Fuchs [aut],
     Christoph Schmidt [aut],
     Manfred Fischer [aut, trl],
@@ -21,8 +21,8 @@ Author: Sebastian Kreutzer [aut, trl, cre, dtc],
     Markus Fuchs [ths]
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "sebastian.kreutzer@u-bordeaux-montaigne.fr"),
-    person("Michael", "Dietze", role = c("aut")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc")),
+    person("Michael", "Dietze", role = c("aut")),
     person("Margret C.", "Fuchs", role = c("aut")),
     person("Christoph", "Schmidt", role = c("aut")),
     person("Manfred", "Fischer", role = c("aut", "trl")),
