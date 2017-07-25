@@ -4,11 +4,11 @@
 #' regenerative or additive protocol. The function supports interpolation and
 #' extraxpolation to calculate the equivalent dose.
 #'
-#' **Fitting methods** 
+#' **Fitting methods**
 #'
-#' For all options (except for the `LIN`, `QDR` and the `EXP OR LIN`), 
-#' the [minpack.lm::nlsLM] function with the `LM` (Levenberg-Marquardt algorithm) 
-#' algorithm is used. Note: For historical reasons for the Monte Carlo 
+#' For all options (except for the `LIN`, `QDR` and the `EXP OR LIN`),
+#' the [minpack.lm::nlsLM] function with the `LM` (Levenberg-Marquardt algorithm)
+#' algorithm is used. Note: For historical reasons for the Monte Carlo
 #' simulations partly the function [nls] using the `port` algorithm.
 #'
 #' The solution is found by transforming the function or using [uniroot].
@@ -20,29 +20,29 @@
 #' [lm]: \deqn{y = a + b * x + c * x^2}
 #'
 #' `EXP`: try to fit a function of the form
-#' \deqn{y = a*(1-exp(-(x+c)/b))} 
+#' \deqn{y = a*(1-exp(-(x+c)/b))}
 #' Parameters b and c are approximated by a linear fit using [lm]. Note: b = D0
 #'
-#' `EXP OR LIN`: works for some cases where an `EXP` fit fails. 
+#' `EXP OR LIN`: works for some cases where an `EXP` fit fails.
 #' If the `EXP` fit fails, a `LIN` fit is done instead.
 #'
 #' `EXP+LIN`: tries to fit an exponential plus linear function of the
-#' form: 
-#' \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))} 
+#' form:
+#' \deqn{y = a*(1-exp(-(x+c)/b)+(g*x))}
 #' The De is calculated by iteration.
-#' 
+#'
 #' **Note:** In the context of luminescence dating, this
 #' function has no physical meaning. Therefore, no D0 value is returned.
 #'
 #' `EXP+EXP`: tries to fit a double exponential function of the form
-#' \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))} 
-#' This fitting procedure is not robust against wrong start parameters and 
+#' \deqn{y = (a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
+#' This fitting procedure is not robust against wrong start parameters and
 #' should be further improved.
 #'
 #' **Fit weighting**
 #'
 #' If the option `fit.weights =  TRUE` is chosen, weights are calculated using
-#' provided signal errors (Lx/Tx error): 
+#' provided signal errors (Lx/Tx error):
 #' \deqn{fit.weights = 1/error/(sum(1/error))}
 #'
 #' **Error estimation using Monte Carlo simulation**
@@ -53,82 +53,82 @@
 #' = value, sd = value.error). Then, a growth curve fit is attempted for each
 #' dataset resulting in a new distribution of single De values. The [sd]
 #' of this distribution is becomes then the error of the De. With increasing
-#' iterations, the error value becomes more stable. 
-#' **Note:** It may take some calculation time with increasing MC runs, 
-#' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).\cr 
+#' iterations, the error value becomes more stable.
+#' **Note:** It may take some calculation time with increasing MC runs,
+#' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).\cr
 #' Each error estimation is done with the function of the chosen fitting method.
 #'
 #' **Subtitle information**
 #'
-#' To avoid plotting the subtitle information, provide an empty user mtext 
+#' To avoid plotting the subtitle information, provide an empty user mtext
 #' `mtext = ""`. To plot any other subtitle text, use `mtext`.
 #'
-#' @param sample [data.frame] (**required**): 
-#' data frame with three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx. 
-#' The column for the test dose response is optional, but requires 'TnTx' as 
-#' column name if used. For exponential fits at least three dose points 
+#' @param sample [data.frame] (**required**):
+#' data frame with three columns for x=Dose,y=LxTx,z=LxTx.Error, y1=TnTx.
+#' The column for the test dose response is optional, but requires 'TnTx' as
+#' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided.
-#' 
-#' @param na.rm [logical] (*with default*): 
+#'
+#' @param na.rm [logical] (*with default*):
 #' excludes `NA` values from the data set prior to any further operations.
 #'
-#' @param mode [character] (*with default*): 
+#' @param mode [character] (*with default*):
 #' selects calculation mode of the function.
 #' - `"interpolation"` (default) calculates the De by interpolation,
 #' - `"extrapolation"` calculates the De by extrapolation and
-#' - `"alternate"` calculates no De and just fits the data points. 
-#' 
-#' Please note that for option `"regenrative"` the first point is considered 
+#' - `"alternate"` calculates no De and just fits the data points.
+#'
+#' Please note that for option `"regenrative"` the first point is considered
 #' as natural dose
 #'
-#' @param fit.method [character] (*with default*): 
-#' function used for fitting. Possible options are: 
-#' - `LIN`, 
-#' - `QDR`, 
-#' - `EXP`, 
+#' @param fit.method [character] (*with default*):
+#' function used for fitting. Possible options are:
+#' - `LIN`,
+#' - `QDR`,
+#' - `EXP`,
 #' - `EXP OR LIN`,
-#' - `EXP+LIN` or 
+#' - `EXP+LIN` or
 #' - `EXP+EXP`.
-#'  
+#'
 #' See details.
 #'
-#' @param fit.force_through_origin [logical] (*with default*) 
-#' allow to force the fitted function through the origin. 
-#' For `method = "EXP+EXP"` the function will go to the origin in either case, 
+#' @param fit.force_through_origin [logical] (*with default*)
+#' allow to force the fitted function through the origin.
+#' For `method = "EXP+EXP"` the function will go to the origin in either case,
 #' so this option will have no effect.
 #'
-#' @param fit.weights [logical] (*with default*): 
+#' @param fit.weights [logical] (*with default*):
 #' option whether the fitting is done with or without weights. See details.
 #'
 #' @param fit.includingRepeatedRegPoints [logical] (*with default*):
 #' includes repeated points for fitting (`TRUE`/`FALSE`).
 #'
-#' @param fit.NumberRegPoints [integer] (*optional*): 
-#' set number of regeneration points manually. By default the number of all (!) 
+#' @param fit.NumberRegPoints [integer] (*optional*):
+#' set number of regeneration points manually. By default the number of all (!)
 #' regeneration points is used automatically.
 #'
-#' @param fit.NumberRegPointsReal [integer] (*optional*): 
-#' if the number of regeneration points is provided manually, the value of the 
-#' real, regeneration points = all points (repeated points) including reg 0, 
+#' @param fit.NumberRegPointsReal [integer] (*optional*):
+#' if the number of regeneration points is provided manually, the value of the
+#' real, regeneration points = all points (repeated points) including reg 0,
 #' has to be inserted.
 #'
-#' @param fit.bounds [logical] (*with default*): 
-#' set lower fit bounds for all fitting parameters to 0. Limited for the use 
-#' with the fit methods `EXP`, `EXP+LIN` and `EXP OR LIN`. 
+#' @param fit.bounds [logical] (*with default*):
+#' set lower fit bounds for all fitting parameters to 0. Limited for the use
+#' with the fit methods `EXP`, `EXP+LIN` and `EXP OR LIN`.
 #' Argument to be inserted for experimental application only!
 #'
-#' @param NumberIterations.MC [integer] (*with default*): 
+#' @param NumberIterations.MC [integer] (*with default*):
 #' number of Monte Carlo simulations for error estimation. See details.
 #'
-#' @param output.plot [logical] (*with default*): 
+#' @param output.plot [logical] (*with default*):
 #' plot output (`TRUE/FALSE`).
 #'
-#' @param output.plotExtended [logical] (*with default*): 
-#' If' `TRUE`, 3 plots on one plot area are provided: 
-#' 1. growth curve, 
-#' 2. histogram from Monte Carlo error simulation and 
-#' 3. a test dose response plot. 
-#' 
+#' @param output.plotExtended [logical] (*with default*):
+#' If' `TRUE`, 3 plots on one plot area are provided:
+#' 1. growth curve,
+#' 2. histogram from Monte Carlo error simulation and
+#' 3. a test dose response plot.
+#'
 #' If `FALSE`, just the growth curve will be plotted.
 #' **Requires:** `output.plot = TRUE`.
 #'
@@ -137,21 +137,21 @@
 #' single plot windows. Requires `output.plot = TRUE` and
 #' `output.plotExtended = TRUE`.
 #'
-#' @param cex.global [numeric] (*with default*): 
+#' @param cex.global [numeric] (*with default*):
 #' global scaling factor.
 #'
-#' @param txtProgressBar [logical] (*with default*): 
-#' enables or disables txtProgressBar. If `verbose = FALSE` also no 
+#' @param txtProgressBar [logical] (*with default*):
+#' enables or disables txtProgressBar. If `verbose = FALSE` also no
 #' txtProgressBar is shown.
 #'
-#' @param verbose [logical] (*with default*): 
+#' @param verbose [logical] (*with default*):
 #' enables or disables terminal feedback.
 #'
 #' @param ... Further arguments and graphical parameters to be passed. Note:
 #' Standard arguments will only be passed to the growth curve plot. Supported:
 #' `xlim`, `ylim`, `main`, `xlab`, `ylab`
 #'
-#' @return 
+#' @return
 #' Along with a plot (so far wanted) an `RLum.Results` object is returned containing,
 #' the slot `data` contains the following elements:
 #'
@@ -159,20 +159,20 @@
 #' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
 #' `..$De` : \tab  `data.frame` \tab Table with De values \cr
 #' `..$De.MC` : \tab `numeric` \tab Table with De values from MC runs \cr
-#' `..$Fit` : \tab [nls] or [lm] \tab object from the fitting for `EXP`, `EXP+LIN` and `EXP+EXP`. 
+#' `..$Fit` : \tab [nls] or [lm] \tab object from the fitting for `EXP`, `EXP+LIN` and `EXP+EXP`.
 #' In case of a resulting  linear fit when using `LIN`, `QDR` or `EXP OR LIN` \cr
 #' `..$Formula` : \tab [expression] \tab Fitting formula as R expression \cr
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.6
+#' @section Function version: 1.9.7
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
 #'
-#' @seealso [nls], [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM], 
+#' @seealso [nls], [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM],
 #' [lm], [uniroot]
 #'
 #' @examples
@@ -246,8 +246,11 @@ plot_GrowthCurve <- function(
 
   ##2.1 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
-    try(stop("[plot_GrowthCurve()] The input data contain at least one Inf value. NULL returned!", call. = FALSE))
-    return(NULL)
+    #https://stackoverflow.com/questions/12188509/cleaning-inf-values-from-an-r-dataframe
+    #This is slow, but it does not break with previous code
+    sample <- do.call(data.frame, lapply(sample, function(x) replace(x, is.infinite(x),NA)))
+    warning("[plot_GrowthCurve()] Inf values found, replaced by NA!", call. = FALSE)
+
   }
 
   ##2.2 check whether the dose value is equal all the time
@@ -262,16 +265,15 @@ plot_GrowthCurve <- function(
     n.NA <- sum(!complete.cases(sample))
 
     if (n.NA == 1) {
-      warning("[plot_GrowthCurve()] 1 NA value excluded.")
+      warning("[plot_GrowthCurve()] 1 NA value excluded.", call. = FALSE)
     } else if (n.NA > 1) {
-      warning(paste(" [plot_GrowthCurve()]", n.NA, "NA values excluded."))
+      warning(paste(" [plot_GrowthCurve()]", n.NA, "NA values excluded."), call. = FALSE)
     }
 
     sample <- na.exclude(sample)
 
     ##Check if anything is left after removal
     if(nrow(sample) == 0){
-
       warning("[plot_GrowthCurve()] Sorry, after NA removal nothing is left from the data set! NULL returned")
       return(NULL)
     }
