@@ -61,7 +61,7 @@ two other R packages exist providing a possibility to produces this kind of plot
 'vioplot' and 'violinmplot' (see References for details).
 }
 \section{Function version}{
- 0.1.3 (2017-07-05 12:19:18)
+ 0.1.4 (2017-07-23 19:01:49)
 }
 
 \examples{
@@ -76,7 +76,7 @@ plot_ViolinPlot(data = ExampleData.DeValues)
 } 
 
 \section{How to cite}{
-Kreutzer, S. (2017). plot_ViolinPlot(): Create a violin plot. Function version 0.1.3. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{

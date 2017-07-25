@@ -4,11 +4,14 @@
 \name{get_RLum}
 \alias{get_RLum}
 \alias{get_RLum,list-method}
+\alias{get_RLum,NULL-method}
 \title{General accessor function for RLum S4 class objects}
 \usage{
 get_RLum(object, ...)
 
 \S4method{get_RLum}{list}(object, null.rm = FALSE, ...)
+
+\S4method{get_RLum}{`NULL`}(object, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum} (\strong{required}):
@@ -27,6 +30,8 @@ Return is the same as input objects as provided in the list.
 }
 \description{
 Function calls object-specific get functions for RLum S4 class objects.
+
+Method to handle NULL if the user calls get_RLum
 }
 \details{
 The function provides a generalised access point for specific
@@ -38,10 +43,12 @@ Allowed arguments can be found in the documentations of the corresponding
 \section{Methods (by class)}{
 \itemize{
 \item \code{list}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{get_RLum}
+
+\item \code{NULL}: Returns NULL
 }}
 
 \section{Function version}{
- 0.3.0 (2017-07-05 12:19:18)
+ 0.3.1 (2017-07-25 19:20:04)
 }
 
 \examples{
@@ -67,7 +74,7 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 \cr R Luminescence Package Team} 
 
 \section{How to cite}{
-Kreutzer, S. (2017). get_RLum(): General accessor function for RLum S4 class objects. Function version 0.3.0. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S. (2017). get_RLum(): General accessor function for RLum S4 class objects. Function version 0.3.1. In: Kreutzer, S., Dietze, M., Burow, C., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \keyword{utilities}

@@ -33,6 +33,13 @@ Changes in version 0.8.0 ( ,2017):
 
              • Add interative mode (‘interative = TRUE’)
 
+         • ‘plot_GrowthCurve()’
+
+             • The function now turns ‘Inf’ into ‘NA’,
+
+             • the argument ‘na.rm’ is defunct and should not be used
+               anymore.
+
          • ‘read_BIN2R()’
 
              • The function unexpectetly dropped are warning for an
@@ -47,12 +54,18 @@ Changes in version 0.8.0 ( ,2017):
                functions,
 
              • the functions now supports the import form files via the
-               internet.
+               internet,
+
+             • minor modifications to support minimal examples without
+               'recordType'.
 
   S4 and Internals:
 
          • The ‘RLum.Analysis’ show method failed for
            ‘RLum.Data.Spectrum’ objects; fixed.
+
+         • Method for ‘get_RLum’ with signature ‘NULL’ added. Now it
+           returns ‘NULL’
 
          • Start supporting RStudio add-ins for more advanced users.
 

@@ -18,8 +18,8 @@
 #' writing separate for-loops. To gain in full control of the parameters (e.g., `dose.points`) for
 #' every aliquot (corresponding to one [RLum.Analysis-class] object in the list), in
 #' this case the arguments can be provided as [list]. This `list` should
-#' be of similar length as the `list` provided with the argument `object`, 
-#' otherwise the function will create an own list of the requested lenght. 
+#' be of similar length as the `list` provided with the argument `object`,
+#' otherwise the function will create an own list of the requested lenght.
 #' Function output will be just one single [RLum.Results-class] object.
 #'
 #' Please be careful when using this option. It may allow a fast an efficient data analysis, but
@@ -41,7 +41,7 @@
 #' the pIRIR225 curves.
 #'
 #' **Supported rejection criteria**
-#' 
+#'
 #' `[recycling.ratio]`: calculated for every repeated regeneration dose point.
 #'
 #' `[recuperation.rate]`: recuperation rate calculated by comparing the
@@ -55,16 +55,16 @@
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10\%.
 #'
-#' @param object [RLum.Analysis-class] (**required**): 
+#' @param object [RLum.Analysis-class] (**required**):
 #' input object containing data for analysis, alternatively a [list] of
 #' [RLum.Analysis-class] objects can be provided.
 #'
-#' @param signal.integral.min [integer] (**required**): 
+#' @param signal.integral.min [integer] (**required**):
 #' lower bound of the signal integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the minimum signal integral for the Tx curve.
 #'
-#' @param signal.integral.max [integer] (**required**): 
+#' @param signal.integral.max [integer] (**required**):
 #' upper bound of the signal integral. Can be a [list] of [integer]s, if `object` is
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the maximum signal integral for the Tx curve.
@@ -79,7 +79,7 @@
 #' of type [list]. If the input is vector (e.g., `c(1,2)`) the 2nd value will be interpreted
 #' as the maximum background integral for the Tx curve.
 #'
-#' @param rejection.criteria [list] (*with default*): 
+#' @param rejection.criteria [list] (*with default*):
 #' provide a named list and set rejection criteria in **percentage** for further calculation. Can be a [list] in
 #' a [list], if `object` is of type [list]
 #'
@@ -90,45 +90,45 @@
 #' Every criterium can be set to `NA`. In this value are calculated, but not considered, i.e.
 #' the RC.Status becomes always `'OK'`
 #'
-#' @param dose.points [numeric] (*optional*): 
-#' a numeric vector containg the dose points values Using this argument 
-#' overwrites dose point values in the signal curves. Can be a [list] of 
+#' @param dose.points [numeric] (*optional*):
+#' a numeric vector containg the dose points values Using this argument
+#' overwrites dose point values in the signal curves. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list]
 #'
-#' @param mtext.outer [character] (*optional*): 
+#' @param mtext.outer [character] (*optional*):
 #' option to provide an outer margin mtext. Can be a [list] of [character]s,
 #' if `object` is of type [list]
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' enables or disables plot output.
 #'
-#' @param plot.single [logical] (*with default*) or [numeric] (*optional*): 
-#' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows. 
-#' If a numerice vector is provided the plots can be selected individually, i.e. 
+#' @param plot.single [logical] (*with default*) or [numeric] (*optional*):
+#' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows.
+#' If a numerice vector is provided the plots can be selected individually, i.e.
 #' `plot.single = c(1,2,3,4)` will plot the TL and Lx, Tx curves but not the legend (5) or the
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
 #' @param ... further arguments that will be passed to the function
 #' [plot_GrowthCurve] or [calc_OSLLxTxRatio]
-#' (supported: `background.count.distribution`, `sigmab`, `sig0`). 
+#' (supported: `background.count.distribution`, `sigmab`, `sig0`).
 #' **Please note** that if you consider to use the early light subtraction
 #'  method you should provide your own `sigmab` value!
 #'
 #'
-#' @return 
+#' @return
 #' A plot (*optional*) and an [RLum.Results-class] object is
 #' returned containing the following elements:
 #'
-#' \item{data}{[data.frame] containing De-values, De-error and further parameters} 
-#' \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx values including signal, background counts and the dose points} 
+#' \item{data}{[data.frame] containing De-values, De-error and further parameters}
+#' \item{LnLxTnTx.values}{[data.frame] of all calculated Lx/Tx values including signal, background counts and the dose points}
 #' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
-#' \item{Formula}{[formula] formula that have been used for the growth curve fitting } 
-#' 
+#' \item{Formula}{[formula] formula that have been used for the growth curve fitting }
+#'
 #' The output should be accessed using the function [get_RLum].
 #'
 #'
-#' @note 
+#' @note
 #' This function must not be mixed up with the function
 #' [Analyse_SAR.OSLdata], which works with
 #' [Risoe.BINfileData-class] objects.
@@ -137,15 +137,15 @@
 #'
 #' @section Function version: 0.7.10
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #'
-#' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class], 
+#' @seealso [calc_OSLLxTxRatio], [plot_GrowthCurve], [RLum.Analysis-class],
 #' [RLum.Results-class], [get_RLum]
 #'
 #'
-#' @references 
+#' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 #' after bleaching. Quaternary Science Reviews 7, 387-393.
 #'
@@ -1333,12 +1333,14 @@ if(is.list(object)){
 
     # Plotting  GC  ----------------------------------------
 
+    ##create data.frame
     temp.sample <- data.frame(
       Dose = LnLxTnTx$Dose,
       LxTx = LnLxTnTx$LxTx,
       LxTx.Error = LnLxTnTx$LxTx.Error,
       TnTx = LnLxTnTx$Net_TnTx
     )
+
 
     ##overall plot option selection for plot.single.sel
     if (plot == TRUE && 6 %in% plot.single.sel) {
@@ -1354,7 +1356,8 @@ if(is.list(object)){
                                 output.plot = plot,
                                 ...)
 
-    ##grep informaton on the fit object
+
+    ##grep information on the fit object
     temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
 
     ##grep results

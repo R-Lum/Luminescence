@@ -120,4 +120,4 @@ setMethod("get_RLum",
 #' @export
 setMethod("get_RLum",
           signature = "NULL",
-          function(object){NULL})
+          function(object, ...){NULL})

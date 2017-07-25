@@ -44,6 +44,15 @@
     }
   }
 
+  \item \code{plot_GrowthCurve()}{
+        \itemize{
+         \item The function now turns \code{Inf} into \code{NA},
+         \item the argument \code{na.rm} is defunct and should not be used anymore.
+
+
+    }
+  }
+
   \item \code{read_BIN2R()}{
         \itemize{
          \item The function unexpectetly dropped are warning for an unused connection; fixed,
@@ -58,7 +67,8 @@
    \item \code{read_XSYG2R()}{
         \itemize{
          \item Argument \code{verbose} added for more consistency with other functions,
-         \item the functions now supports the import form files via the internet.
+         \item the functions now supports the import form files via the internet,
+         \item minor modifications to support minimal examples without 'recordType'.
 
 
     }
@@ -73,6 +83,7 @@
 
       \itemize{
         \item The \code{RLum.Analysis} show method failed for \code{RLum.Data.Spectrum} objects; fixed.
+        \item Method for \code{get_RLum} with signature \code{NULL} added. Now it returns \code{NULL}
         \item Start supporting RStudio add-ins for more advanced users.
 
 

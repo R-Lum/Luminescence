@@ -280,7 +280,7 @@ plot_GrowthCurve <- function(
     }
 
   }else{
-    stop("[plot_GrowthCurve()] Sorry, NA values in the input break the function!", call. = FALSE)
+    stop("[plot_GrowthCurve()] Sorry, the argument 'na.rm' is defunct and will be removed in future!", call. = FALSE)
 
   }
 
