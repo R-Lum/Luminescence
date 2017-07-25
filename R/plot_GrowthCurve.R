@@ -165,7 +165,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.7
+#' @section Function version: 1.9.8
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -246,10 +246,11 @@ plot_GrowthCurve <- function(
 
   ##2.1 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
-    #https://stackoverflow.com/questions/12188509/cleaning-inf-values-from-an-r-dataframe
-    #This is slow, but it does not break with previous code
-    sample <- do.call(data.frame, lapply(sample, function(x) replace(x, is.infinite(x),NA)))
-    warning("[plot_GrowthCurve()] Inf values found, replaced by NA!", call. = FALSE)
+
+      #https://stackoverflow.com/questions/12188509/cleaning-inf-values-from-an-r-dataframe
+      #This is slow, but it does not break with previous code
+      sample <- do.call(data.frame, lapply(sample, function(x) replace(x, is.infinite(x),NA)))
+      warning("[plot_GrowthCurve()] Inf values found, replaced by NA!", call. = FALSE)
 
   }
 
@@ -261,7 +262,7 @@ plot_GrowthCurve <- function(
   }
 
   ## optionally, count and exclude NA values and print result
-  if(na.rm == TRUE) {
+  if(na.rm) {
     n.NA <- sum(!complete.cases(sample))
 
     if (n.NA == 1) {
@@ -278,24 +279,23 @@ plot_GrowthCurve <- function(
       return(NULL)
     }
 
-  }
+  }else{
+    stop("[plot_GrowthCurve()] Sorry, NA values in the input break the function!", call. = FALSE)
 
+  }
 
   ##3. verbose mode
   if(!verbose){
     txtProgressBar <- FALSE
   }
 
-  ##4. check for Inf values
-
 
   ##remove rownames from data.frame, as this could causes errors for the reg point calculation
   rownames(sample) <- NULL
 
-
-  ##NULL values in the data.frame are not allowed for the y-column
+  ##zero values in the data.frame are not allowed for the y-column
   if(length(sample[sample[,2]==0,2])>0){
-    sample[sample[,2]==0,2]<-0.0001
+    sample[sample[, 2] == 0, 2] <- 0.0001
     warning(paste("[plot_GrowthCurve()]", length(sample[sample[,2]==0,2]), "values with 0 for Lx/Tx detected; replaced by 0.0001."))
   }
 
