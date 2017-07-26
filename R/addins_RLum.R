@@ -65,7 +65,7 @@
   code <- rstudioapi::getActiveDocumentContext()$contents
 
   ##get lines with ##TODO
-  id <- grep(pattern = "#TODO", x = code, fixed = TRUE)
+  id <- grep(pattern = "#\\s*TODO", x = code, fixed = FALSE)
 
   ##list lines
   cat("\n", "[", length(id), " issue(s)]\n", sep = "")
