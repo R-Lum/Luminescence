@@ -47,6 +47,15 @@ For **Linux** users *gcc* often comes pre-installed in most distributions. Shoul
 
 #### ii. Install the package
 
+##### Since 0.8.0 with RStudio
+
+Install development versions using our *RStudio* add-in
+
+![](RLum.Images/Screenshot_AddIn.png)
+
+
+##### The plain **R** way
+
 To install the stable version from CRAN, simply run the following from an R console:
 
 ```r
