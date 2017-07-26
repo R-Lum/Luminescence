@@ -139,7 +139,7 @@ analyse_Al2O3C_CrossTalk <- function(
   }
 
   ##check irradiation time correction
-  if (is.null(irradiation_time_correction)) {
+  if (!is.null(irradiation_time_correction)) {
     if (is(irradiation_time_correction, "RLum.Results")) {
       if (irradiation_time_correction@originator == "analyse_Al2O3C_ITC") {
         irradiation_time_correction <- get_RLum(irradiation_time_correction)
@@ -173,7 +173,6 @@ analyse_Al2O3C_CrossTalk <- function(
     BACKGROUND <- sum(object[[i]][[3]][, 2])
     NATURAL <- sum(object[[i]][[1]][, 2])
     REGENERATED <- sum(object[[i]][[2]][, 2])
-
 
     temp_df <- data.frame(
       POSITION = get_RLum(object[[i]][[1]], info.object = "position"),
