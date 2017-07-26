@@ -47,9 +47,9 @@ For **Linux** users *gcc* often comes pre-installed in most distributions. Shoul
 
 #### ii. Install the package
 
-##### Since 0.8.0 with RStudio
+##### Since version 0.8.0 with RStudio
 
-Install development versions using our *RStudio* add-in
+Install any development versions using our *RStudio* add-in
 
 ![](RLum.Images/Screenshot_AddIn.png)
 
@@ -61,7 +61,6 @@ To install the stable version from CRAN, simply run the following from an R cons
 ```r
 install.packages("Luminescence")
 ```
-
 
 To install the latest development builds directly from GitHub, run
 
