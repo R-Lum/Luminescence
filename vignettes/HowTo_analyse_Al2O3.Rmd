@@ -20,9 +20,8 @@ The package 'Luminescence' offers three distinct functions dealing with the anal
 
 Only the last function is really needed to routinely estimate the (environmental $\gamma$-) dose the pellet had received. However, the first two functions are needed to correct for equipment related issues. If you have already performed the first two analyses or you do not feel the need for them, you can directly start with the Sec. [4](#Al2O3_Dose_Determination).
 
-The following tutorial assumes that all measurements have been performed on a Freiberg Instruments *lexsyg SMART* luminescence reader (Richter et al., 2015). Nevertheless, the general procedure should work also for other luminescence
-readers. However, please keep in mind that for readers without a separate measurement chamber the determination 
-of the cross talk becomes indispensable and show not be skipped.  
+The following tutorial assumes that all measurements have been performed on a Freiberg Instruments *lexsyg SMART* luminescence reader (Richter et al., 2015). Nevertheless, the general procedure should work also for other luminescence readers. However, please keep in mind that for readers without a separate measurement chamber the determination 
+of the cross talk becomes indispensable and should not be skipped.  
 
 Please further note that this vignette covers only the **R** related part of the data analysis and will 
 not explain the theoretical and physical background. Please see Kreutzer et al. (XXXX), for details. 
