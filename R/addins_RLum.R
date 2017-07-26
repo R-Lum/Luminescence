@@ -55,7 +55,7 @@
     ##parse answer
     answer <- readline()
 
-    if(answer == "y" || answer == "Y"){
+    if(tolower(answer) == "y"){
       utils::install.packages("rstudioapi", dependencies = TRUE)
     }
 
