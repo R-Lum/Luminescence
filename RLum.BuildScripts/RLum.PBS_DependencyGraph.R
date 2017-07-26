@@ -10,7 +10,7 @@
 
 require(miniCRAN)
 
-Rversion <- "3.3.2"
+Rversion <- "3.4.0"
 
 graph <- miniCRAN::makeDepGraph(
   pkg = "Luminescence",
