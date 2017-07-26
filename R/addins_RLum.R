@@ -47,7 +47,7 @@
 .listTODO <- function(){
 
   ##check if package is installed
-  if(!"rstudioapi"%in%installed.packages()[,"Package"]){
+  if(!requireNamespace("rstudioapi", quietly = TRUE)){
     message("Package 'rstudioapi' is not installed but needed to search for TODOs, do you want to install it?\n\n",
             " [n/N]: No (default)\n",
             " [y/Y]: Yes\n")
