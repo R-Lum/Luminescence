@@ -14,6 +14,11 @@ appears to be mistakenly removed in the e-mail by Prof Hornik. Anyway, to avoid 
 we followed the alternative suggestion and set a package encoding (UTF-8) and provided the 
 accented character.
 
+> [Kurt Hornik via e-mail (2017-08-03)] "These have package CITATION files with author fields using BibTeX style
+> Family_1, Given_1
+> Family_1, Given_1 and Family_2, Given_2
+
+Changed as requested.
 
 ## Test environments
 * local macOS Sierra 10.12.6, R-devel
