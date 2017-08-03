@@ -59,7 +59,7 @@ Solving of the equation is realised using \link{uniroot}.
 Large values for \code{n.MC} will significantly increase the computation time.
 }
 \section{Function version}{
- 0.1.1 (2017-07-05 12:19:18)
+ 0.1.1 (2017-07-30 13:10:59)
 }
 
 \examples{

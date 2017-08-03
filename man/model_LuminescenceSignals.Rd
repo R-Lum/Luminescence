@@ -68,7 +68,7 @@ Wrapper for the function \link[RLumModel:model_LuminescenceSignals]{RLumModel::m
 see the manual of this package.
 }
 \section{Function version}{
- 0.1.3 (2017-07-05 12:19:18)
+ 0.1.3 (2017-07-30 13:10:59)
 }
 
 \author{

@@ -37,7 +37,7 @@ This function still needs to be tested properly. In particular
 the function has underwent only very rough rests using a few files.
 }
 \section{Function version}{
- 0.3.0 (2017-07-05 12:19:18)
+ 0.3.0 (2017-07-30 13:10:59)
 }
 
 \examples{

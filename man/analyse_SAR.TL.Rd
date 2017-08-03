@@ -85,7 +85,7 @@ None TL curves will be removed
 from the input object without further warning.
 }
 \section{Function version}{
- 0.2.0 (2017-07-05 12:19:18)
+ 0.2.0 (2017-07-30 13:10:59)
 }
 
 \examples{

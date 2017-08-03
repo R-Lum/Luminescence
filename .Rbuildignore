@@ -1,6 +1,7 @@
 # Exclude R stuff
 NEWS\.rmd
 NEWS\.html
+^cran-comments.*$
 ^\.Rprofile$
 
 # Exclude RStudio files

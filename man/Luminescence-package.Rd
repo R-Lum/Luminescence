@@ -46,16 +46,16 @@ Ancient TL 33, 16-21.
 
 \tabular{ll}{
 Christoph Burow \tab \emph{University of Cologne, Germany}* \cr
-Claire Christophe \tab \emph{IRAMAT-CRP2A, Universite Bordeaux Montaigne, France} \cr
+Claire Christophe \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Michael Dietze \tab \emph{GFZ Helmholtz Centre Potsdam, Germany} \cr
 Julie Durcan \tab \emph{University of Oxford, United Kingdom} \cr
 Manfred Fischer\tab \emph{University of Bayreuth, Germany} \cr
 Margret C. Fuchs \tab \emph{Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institute Freiberg for Resource Technology, Freiberg, Germany} \cr
 Johannes Friedrich \tab \emph{University of Bayreuth, Germany} \cr
-Guillaume Guerin \tab \emph{IRAMAT-CRP2A, Universite Bordeaux Montaigne, France} \cr
+Guillaume Guérin \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Georgina King \tab \emph{Institute of Geological Sciences, University of Bern, Switzerland} \cr
-Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, Universite Bordeaux Montaigne, France} \cr
-Norbert Mercier \tab \emph{IRAMAT-CRP2A, Universite Bordeaux Montaigne, France} \cr
+Sebastian Kreutzer \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
+Norbert Mercier \tab \emph{IRAMAT-CRP2A, Université Bordeaux Montaigne, France} \cr
 Anne Philippe \tab  \emph{Universite de Nantes and ANJA INRIA, Rennes, France} \cr
 Christoph Schmidt \tab \emph{University of Bayreuth, Germany} \cr
 Rachel K. Smedley \tab \emph{Aberystwyth University, United Kingdom} \cr
@@ -107,6 +107,6 @@ Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne, Pessac, France,
 Cooperation and personal exchange between the developers is gratefully
 funded by the DFG (SCHM 3051/3-1) in the framework of the program
 "Scientific Networks". Project title: "RLum.Network: Ein
-Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2017)
+Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
 }
 \keyword{package}

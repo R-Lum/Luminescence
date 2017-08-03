@@ -48,7 +48,7 @@ Allowed arguments can be found in the documentations of the corresponding
 }}
 
 \section{Function version}{
- 0.3.1 (2017-07-25 19:20:04)
+ 0.3.1 (2017-07-30 13:10:59)
 }
 
 \examples{

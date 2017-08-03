@@ -68,7 +68,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.0 (2017-07-05 12:19:18)
+ 0.1.0 (2017-07-30 13:10:59)
 }
 
 \examples{

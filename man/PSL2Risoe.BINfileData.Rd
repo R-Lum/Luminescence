@@ -27,7 +27,7 @@ The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
 \link{write_R2BIN}.
 }
 \section{Function version}{
- 0.0.1 (2017-07-05 12:19:18)
+ 0.0.1 (2017-07-30 13:10:59)
 }
 
 \examples{

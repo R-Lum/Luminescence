@@ -29,7 +29,7 @@ Allowed arguments can be found in the documentations of the corresponding
 Currenlty only \code{RLum.Data} objects of class \linkS4class{RLum.Data.Curve} are supported!
 }
 \section{Function version}{
- 0.1.0 (2017-07-05 12:19:18)
+ 0.1.0 (2017-07-30 13:10:59)
 }
 
 \examples{

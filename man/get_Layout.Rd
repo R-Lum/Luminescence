@@ -29,7 +29,7 @@ create either an empty or a default layout object and fill/modify the
 definitions (\code{user.layout <- get_Layout(data = "empty")}).
 }
 \section{Function version}{
- 0.1 (2017-07-05 12:19:18)
+ 0.1 (2017-07-30 13:10:59)
 }
 
 \examples{

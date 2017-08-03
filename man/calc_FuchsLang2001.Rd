@@ -61,7 +61,7 @@ Please consider the requirements and the constraints of this method
 (see Fuchs & Lang, 2001)
 }
 \section{Function version}{
- 0.4.1 (2017-07-05 12:19:18)
+ 0.4.1 (2017-07-30 13:10:59)
 }
 
 \examples{
