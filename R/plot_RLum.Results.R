@@ -1067,6 +1067,9 @@ plot_RLum.Results<- function(
     settings <- list(main = "Fast Ratio",
                      xlab = "t/s",
                      ylab = "Signal/cts",
+                     type = "b",
+                     log = "",
+                     pch = 16,
                      cex = 1.0)
     settings <- modifyList(settings, list(...))
 
@@ -1083,12 +1086,13 @@ plot_RLum.Results<- function(
     offset <- res$dead.channels.start * res$channel.width
 
     # plot the OSL curve
-    plot(curve, type = "p", main = settings$main,
-         xlab = settings$xlab, ylab = settings$ylab)
+    plot(curve, type = settings$type, main = settings$main,
+         xlab = settings$xlab, ylab = settings$ylab, log = settings$log)
 
     # plot points to show measured data points (i.e., the channels)
-    points(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end),],
-           pch = 16)
+    if (settings$type == "p" || settings$type == "b")
+      points(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), ],
+             pch = settings$pch)
 
     # plot dead channels as empty circles
     if (res$dead.channels.start > 0)
@@ -1096,6 +1100,9 @@ plot_RLum.Results<- function(
     if (res$dead.channels.end > 0)
       points(curve[(nrow(curve) - res$dead.channels.end):nrow(curve), ])
 
+    if (settings$type == "l" || settings$type == "b")
+      lines(curve)
+    
     # optional: plot fitted CW curve
     if (!is.null(fit)) {
       nls.fit <- get_RLum(fit, "fit")
@@ -1106,9 +1113,6 @@ plot_RLum.Results<- function(
         }
       }
     }
-
-    lines(curve)
-
 
     # add vertical lines and labels for L1, L2, L3
     L_times <- c(curve[res$Ch_L1, 1],
