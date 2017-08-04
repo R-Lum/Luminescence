@@ -218,12 +218,16 @@
 #' QNL84_2_unbleached <-
 #' read.table(system.file("extdata/QNL84_2_unbleached.txt", package = "Luminescence"))
 #'
-#' print(
-#' plot_GrowthCurve(
+#' results <- plot_GrowthCurve(
 #'  QNL84_2_unbleached,
-#'  mode = "alternate",
+#'  mode = "extrapolation",
 #'  plot = FALSE,
-#'  verbose = FALSE)$Fit)
+#'  verbose = FALSE)
+#'
+#' #calculate confidence interval for the parameters
+#' #as alternative error estimation
+#' confint(results$Fit, level = 0.68)
+#'
 #'
 #' \dontrun{
 #' QNL84_2_bleached <-

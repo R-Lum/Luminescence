@@ -187,7 +187,7 @@ To avoid plotting the subtitle information, provide an empty user mtext
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.9.9 (2017-08-04 06:48:25)
+ 1.9.9 (2017-08-04 07:13:19)
 }
 
 \examples{
@@ -230,12 +230,16 @@ print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 QNL84_2_unbleached <-
 read.table(system.file("extdata/QNL84_2_unbleached.txt", package = "Luminescence"))
 
-print(
-plot_GrowthCurve(
+results <- plot_GrowthCurve(
  QNL84_2_unbleached,
- mode = "alternate",
+ mode = "extrapolation",
  plot = FALSE,
- verbose = FALSE)$Fit)
+ verbose = FALSE)
+
+#calculate confidence interval for the parameters
+#as alternative error estimation
+confint(results$Fit, level = 0.68)
+
 
 \dontrun{
 QNL84_2_bleached <-
