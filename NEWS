@@ -63,7 +63,9 @@ Changes in version 0.8.0 ( ,2017):
                internet,
 
              • minor modifications to support minimal examples without
-               'recordType'.
+               'recordType',
+
+             • give the import a 30% performance boost.
 
   S4 and Internals:
 

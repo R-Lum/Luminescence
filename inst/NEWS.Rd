@@ -70,7 +70,8 @@
         \itemize{
          \item Argument \code{verbose} added for more consistency with other functions,
          \item the functions now supports the import form files via the internet,
-         \item minor modifications to support minimal examples without 'recordType'.
+         \item minor modifications to support minimal examples without 'recordType',
+         \item give the import a 30\% performance boost.
 
 
     }

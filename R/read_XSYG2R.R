@@ -125,7 +125,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.1
+#' @section Function version: 0.6.2
 #'
 #'
 #' @author
@@ -304,22 +304,17 @@ read_XSYG2R <- function(
   get_XSYG.curve.values <- function(curve.node){
 
     ##Four steps
-    ##(1) split string to paris of xy-values
-    ##(2) split string to xy-values itself
+    ##(1) replace all ; by ,
+    ##(2) split by ,
     ##(3) convert to numeric
-    ##(4) create matrix
-
-   curve.node <- t(
-      vapply(
-        strsplit(
-          strsplit(
-            XML::xmlValue(curve.node), split = ";", fixed = TRUE)[[1]],
-          split = ",", fixed = TRUE),
-        FUN = as.numeric,
-        FUN.VALUE = c(1,1L)))
-
+    ##(4) create matrix and transpose
+    temp <- as.numeric(strsplit(
+      gsub(XML::xmlValue(curve.node), pattern = ";", replacement = ",", fixed = TRUE),
+      split = ",", fixed = TRUE)[[1]])
+    t(matrix(temp, ncol = length(temp)/2))
 
   }
+
 
   get_XSYG.spectrum.values <- function(curve.node){
 
