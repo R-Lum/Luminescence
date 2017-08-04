@@ -49,7 +49,8 @@
          \item The function now turns \code{Inf} into \code{NA},
          \item the argument \code{na.rm} is defunct and should not be used anymore,
          \item minor code modifications to handle special cases such as input values with a
-         \code{data.frame} with no error column.
+         \code{data.frame} with no error column,
+         \item extent examples by for test data set by Berger & Huntley (1989).
 
     }
   }
@@ -86,6 +87,7 @@
         \item The \code{RLum.Analysis} show method failed for \code{RLum.Data.Spectrum} objects; fixed.
         \item Method for \code{get_RLum} with signature \code{NULL} added. Now it returns \code{NULL}
         \item Start supporting RStudio add-ins for more advanced users.
+        \item Add fitting test data set by Berger & Huntley (1989) as external data
 
 
     }

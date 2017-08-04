@@ -96,3 +96,4 @@ test_that("check extrapolation", {
   expect_equivalent(round(EXPLIN$De$De,2), 109.69)
 
 })
+

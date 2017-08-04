@@ -187,7 +187,7 @@ To avoid plotting the subtitle information, provide an empty user mtext
 \code{mtext = ""}. To plot any other subtitle text, use \code{mtext}.
 }
 \section{Function version}{
- 1.9.9 (2017-08-04 05:51:04)
+ 1.9.9 (2017-08-04 06:48:25)
 }
 
 \examples{
@@ -226,6 +226,55 @@ print(plot_GrowthCurve(LxTxData,mode = "extrapolation"))
 LxTxData[1,2:3] <- c(0.5, 0.001)
 print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 
+##(7) import and fit test data set by Berger & Huntley 1989
+QNL84_2_unbleached <-
+read.table(system.file("extdata/QNL84_2_unbleached.txt", package = "Luminescence"))
+
+print(
+plot_GrowthCurve(
+ QNL84_2_unbleached,
+ mode = "alternate",
+ plot = FALSE,
+ verbose = FALSE)$Fit)
+
+\dontrun{
+QNL84_2_bleached <-
+read.table(system.file("extdata/QNL84_2_bleached.txt", package = "Luminescence"))
+STRB87_1_unbleached <-
+read.table(system.file("extdata/STRB87_1_unbleached.txt", package = "Luminescence"))
+STRB87_1_bleached <-
+read.table(system.file("extdata/STRB87_1_bleached.txt", package = "Luminescence"))
+
+print(
+ plot_GrowthCurve(
+ QNL84_2_bleached,
+ mode = "alternate",
+ plot = FALSE,
+ verbose = FALSE)$Fit)
+
+print(
+ plot_GrowthCurve(
+ STRB87_1_unbleached,
+ mode = "alternate",
+ plot = FALSE,
+ verbose = FALSE)$Fit)
+
+print(
+ plot_GrowthCurve(
+ STRB87_1_bleached,
+ mode = "alternate",
+ plot = FALSE,
+ verbose = FALSE)$Fit)
+ }
+
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M. (2017). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.9.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+}
+
+\references{
+Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 }
 \seealso{
 \link{nls}, \linkS4class{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM},
@@ -234,9 +283,4 @@ print(plot_GrowthCurve(LxTxData,mode = "alternate"))
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-\cr R Luminescence Package Team} 
-
-\section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). plot_GrowthCurve(): Fit and plot a growth curve for luminescence data (Lx/Tx against dose). Function version 1.9.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
-}
-
+\cr R Luminescence Package Team}

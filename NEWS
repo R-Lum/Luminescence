@@ -38,7 +38,13 @@ Changes in version 0.8.0 ( ,2017):
              • The function now turns ‘Inf’ into ‘NA’,
 
              • the argument ‘na.rm’ is defunct and should not be used
-               anymore.
+               anymore,
+
+             • minor code modifications to handle special cases such as
+               input values with a ‘data.frame’ with no error column,
+
+             • extent examples by for test data set by Berger & Huntley
+               (1989).
 
          • ‘read_BIN2R()’
 
@@ -68,4 +74,7 @@ Changes in version 0.8.0 ( ,2017):
            returns ‘NULL’
 
          • Start supporting RStudio add-ins for more advanced users.
+
+         • Add fitting test data set by Berger & Huntley (1989) as
+           external data
 

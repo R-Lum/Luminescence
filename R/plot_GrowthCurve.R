@@ -171,6 +171,9 @@
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
+#' @references
+#'
+#' Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 #'
 #' @seealso [nls], [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM],
 #' [lm], [uniroot]
@@ -210,6 +213,47 @@
 #' ##(6) plot using the 'alternate' mode
 #' LxTxData[1,2:3] <- c(0.5, 0.001)
 #' print(plot_GrowthCurve(LxTxData,mode = "alternate"))
+#'
+#' ##(7) import and fit test data set by Berger & Huntley 1989
+#' QNL84_2_unbleached <-
+#' read.table(system.file("extdata/QNL84_2_unbleached.txt", package = "Luminescence"))
+#'
+#' print(
+#' plot_GrowthCurve(
+#'  QNL84_2_unbleached,
+#'  mode = "alternate",
+#'  plot = FALSE,
+#'  verbose = FALSE)$Fit)
+#'
+#' \dontrun{
+#' QNL84_2_bleached <-
+#' read.table(system.file("extdata/QNL84_2_bleached.txt", package = "Luminescence"))
+#' STRB87_1_unbleached <-
+#' read.table(system.file("extdata/STRB87_1_unbleached.txt", package = "Luminescence"))
+#' STRB87_1_bleached <-
+#' read.table(system.file("extdata/STRB87_1_bleached.txt", package = "Luminescence"))
+#'
+#' print(
+#'  plot_GrowthCurve(
+#'  QNL84_2_bleached,
+#'  mode = "alternate",
+#'  plot = FALSE,
+#'  verbose = FALSE)$Fit)
+#'
+#' print(
+#'  plot_GrowthCurve(
+#'  STRB87_1_unbleached,
+#'  mode = "alternate",
+#'  plot = FALSE,
+#'  verbose = FALSE)$Fit)
+#'
+#' print(
+#'  plot_GrowthCurve(
+#'  STRB87_1_bleached,
+#'  mode = "alternate",
+#'  plot = FALSE,
+#'  verbose = FALSE)$Fit)
+#'  }
 #'
 #' @md
 #' @export
