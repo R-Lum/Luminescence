@@ -1070,7 +1070,8 @@ plot_RLum.Results<- function(
                      type = "b",
                      log = "",
                      pch = 16,
-                     cex = 1.0)
+                     cex = 1.0,
+                     col = "black")
     settings <- modifyList(settings, list(...))
 
     par(cex = settings$cex)
@@ -1086,13 +1087,13 @@ plot_RLum.Results<- function(
     offset <- res$dead.channels.start * res$channel.width
 
     # plot the OSL curve
-    plot(curve, type = settings$type, main = settings$main,
+    plot(curve, type = "n", main = settings$main,
          xlab = settings$xlab, ylab = settings$ylab, log = settings$log)
 
     # plot points to show measured data points (i.e., the channels)
     if (settings$type == "p" || settings$type == "b")
       points(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), ],
-             pch = settings$pch)
+             pch = settings$pch, col = settings$col)
 
     # plot dead channels as empty circles
     if (res$dead.channels.start > 0)
@@ -1101,7 +1102,7 @@ plot_RLum.Results<- function(
       points(curve[(nrow(curve) - res$dead.channels.end):nrow(curve), ])
 
     if (settings$type == "l" || settings$type == "b")
-      lines(curve)
+      lines(curve, col = settings$col)
     
     # optional: plot fitted CW curve
     if (!is.null(fit)) {
