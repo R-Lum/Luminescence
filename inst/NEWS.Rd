@@ -47,8 +47,9 @@
   \item \code{plot_GrowthCurve()}{
         \itemize{
          \item The function now turns \code{Inf} into \code{NA},
-         \item the argument \code{na.rm} is defunct and should not be used anymore.
-
+         \item the argument \code{na.rm} is defunct and should not be used anymore,
+         \item minor code modifications to handle special cases such as input values with a
+         \code{data.frame} with no error column.
 
     }
   }

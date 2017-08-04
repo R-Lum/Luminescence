@@ -165,7 +165,7 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' @section Function version: 1.9.8
+#' @section Function version: 1.9.9
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
@@ -234,17 +234,31 @@ plot_GrowthCurve <- function(
   ...
 ) {
 
-  ##1. check if sample is data.frame
-  if(is.data.frame(sample)==FALSE){
-    stop("\n [plot_GrowthCurve()] Sample has to be of type data.fame!")
-  }
+  ##1. Check input variable
+  switch(
+    class(sample),
+    matrix = sample <- as.data.frame(sample),
+    list = sample <- as.data.frame(sample),
+    numeric = stop(
+      "[plot_GrowthCurve()] 'sample' needs to be of type 'data.frame'!",
+      call. = FALSE
+    )
+  )
 
   ##2. check if sample contains a least three rows
-  if(length(sample[,1])<3 & fit.method != "LIN"){
+  if(length(sample[[1]])<3 & fit.method != "LIN"){
     stop("\n [plot_GrowthCurve()] At least two regeneration points are needed!")
   }
 
-  ##2.1 check for inf data in the data.frame
+  ##2.1 check column numbers; we assume that in this particular case no error value
+  ##was provided, e.g., set all errors to 0
+  if(ncol(sample) == 2){
+    sample <- cbind(sample, 0)
+
+  }
+
+
+  ##2.2 check for inf data in the data.frame
   if(any(is.infinite(unlist(sample)))){
 
       #https://stackoverflow.com/questions/12188509/cleaning-inf-values-from-an-r-dataframe
@@ -254,7 +268,7 @@ plot_GrowthCurve <- function(
 
   }
 
-  ##2.2 check whether the dose value is equal all the time
+  ##2.3 check whether the dose value is equal all the time
   if(sum(abs(diff(sample[[1]]))) == 0){
     try(stop("[plot_GrowthCurve()] All points have the same dose. NULL returned!", call. = FALSE))
     return(NULL)
@@ -329,13 +343,11 @@ plot_GrowthCurve <- function(
 
   ##1.1.1 produce weights for weighted fitting
   if(fit.weights){
-
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
     if(is.na(fit.weights[1])){
-
-      fit.weights <- NULL
-      warning("fit.weights set to NULL as the error column is invalid or 0.")
+      fit.weights <- NA
+      warning("[plot_GrowthCurve()] 'fit.weights' set to NA since the error column is invalid or 0.", call. = FALSE)
 
     }
 
