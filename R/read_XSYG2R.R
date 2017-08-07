@@ -125,7 +125,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.3
+#' @section Function version: 0.6.4
 #'
 #'
 #' @author
@@ -182,6 +182,13 @@ read_XSYG2R <- function(
   verbose = TRUE,
   txtProgressBar = TRUE
 ){
+
+  ##TODO: this function should be reshaped:
+  ##  - metadata from the sequence should go into the info slot of the RLum.Analysis object
+  ##   >> however, the question is whether this works with subsequent functions
+  ##  - currently not all metadata are supported, it should be extended
+  ##  - the should be a mode importing ALL metadata
+  ##  - xlum should be general, xsyg should take care about subsequent details
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
@@ -301,6 +308,7 @@ read_XSYG2R <- function(
 
   #additional functions
   #get spectrum values
+  # TODO: This function could be written also in C++, however, not necessary due to a low demand
   get_XSYG.spectrum.values <- function(curve.node){
 
     ##1st grep wavelength table
@@ -325,7 +333,6 @@ read_XSYG2R <- function(
     ##4th combine to spectrum matrix
     spectrum.matrix <- matrix(0,length(wavelength),length(curve.node.time))
     spectrum.matrix <- sapply(1:length(curve.node.time), function(x){
-
       as.numeric(unlist(strsplit(curve.node.count[x], "[|]")))
 
     })
@@ -350,8 +357,7 @@ read_XSYG2R <- function(
 
   ##show error
   if(is(temp, "try-error") == TRUE){
-
-    warning("[read_XSYG2R()] XML file not readable, nothing imported!)")
+    try(stop("[read_XSYG2R()] XML file not readable, nothing imported!)", call. = FALSE))
     return(NULL)
 
   }
@@ -480,14 +486,14 @@ read_XSYG2R <- function(
 
           ##get parentID
           temp.sequence.object.parentID <- as.numeric(
-            XML::xmlAttrs(temp[[x]][[i]][[j]])["partentID"])
+            XML::xmlAttrs(temp[[x]][[i]][[j]])["parentID"])
 
           ##get additional information
           temp.sequence.object.info <- as.list(XML::xmlAttrs(temp.sequence.object.curveValue))
 
           ##add stimulator and detector and so on
           temp.sequence.object.info <- c(temp.sequence.object.info,
-                                         partentID = temp.sequence.object.parentID,
+                                         parentID = temp.sequence.object.parentID,
                                          position = as.integer(as.character(temp.sequence.header["position",])),
                                          name = as.character(temp.sequence.header["name",]))
 
@@ -495,7 +501,7 @@ read_XSYG2R <- function(
 
 
           ## TL curve recalculation ============================================
-          if(recalculate.TL.curves == TRUE){
+          if(recalculate.TL.curves){
 
             ##TL curve heating values is stored in the 3rd curve of every set
             if(temp.sequence.object.recordType == "TL" && j == 1){
@@ -666,7 +672,7 @@ read_XSYG2R <- function(
                     temperature.values[which(duplicated(temperature.values))] <-
                       temperature.values[which(duplicated(temperature.values))]+1
 
-                    warning("read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K")
+                    warning("[read_XSYG2R()] Temperatures values are found to be duplicated and increased by 1 K")
 
                   }
 
