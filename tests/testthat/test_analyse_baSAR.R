@@ -45,7 +45,7 @@ test_that("Full check of analyse_baSAR function", {
     expect_is(results$mcmc, "mcmc.list")
     expect_is(results$models, "list")
 
-    expect_type(round(sum(results$summary[, c(6:9)]), 2),type = "double")
+    expect_is(round(sum(results$summary[, c(6:9)]), 2),class = "numeric")
 
 })
 
