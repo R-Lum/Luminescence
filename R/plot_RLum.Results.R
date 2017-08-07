@@ -1117,7 +1117,7 @@ plot_RLum.Results<- function(
           for (i in 1:3) {
             if (!is.na(fit@data$data[[paste0("I0", i)]]))
               curve(fit@data$data[[paste0("I0", i)]] * fit@data$data[[paste0("lambda", i)]] * exp(-fit@data$data[[paste0("lambda", i)]] * x),
-                    lwd = 2, add = TRUE, col = col_components[i])
+                    lwd = 1, lty = 4, add = TRUE, col = col_components[i])
           }
           
         }
