@@ -11,39 +11,39 @@
 #' @param object [Risoe.BINfileData-class] (**required**):
 #' `Risoe.BINfileData` object
 #'
-#' @param id [integer] (**required**): 
-#' record id in the `Risoe.BINfileData` object of the curve that is to be 
-#' stored in the `RLum.Data.Curve` object. If no value for id is provided, 
+#' @param id [integer] (**required**):
+#' record id in the `Risoe.BINfileData` object of the curve that is to be
+#' stored in the `RLum.Data.Curve` object. If no value for id is provided,
 #' the record has to be specified by `pos`, `set` and `run`.
 #'
-#' @param pos [integer] (*optional*): 
-#' record position number in the `Risoe.BINfileData` object of the curve that 
-#' is to be stored in the `RLum.Data.Curve` object. If a value for `id` is 
+#' @param pos [integer] (*optional*):
+#' record position number in the `Risoe.BINfileData` object of the curve that
+#' is to be stored in the `RLum.Data.Curve` object. If a value for `id` is
 #' provided, this argument is ignored.
 #'
-#' @param run [integer] (*optional*): 
-#' record run number in the `Risoe.BINfileData` object of the curve that is 
-#' to be stored in the `RLum.Data.Curve` object. If a value for `id` is 
+#' @param run [integer] (*optional*):
+#' record run number in the `Risoe.BINfileData` object of the curve that is
+#' to be stored in the `RLum.Data.Curve` object. If a value for `id` is
 #' provided, this argument is ignored.
 #'
-#' @param set [integer] (*optional*): 
-#' record set number in the `Risoe.BINfileData` object of the curve that is 
-#' to be stored in the `RLum.Data.Curve` object. If a value for `id` is 
+#' @param set [integer] (*optional*):
+#' record set number in the `Risoe.BINfileData` object of the curve that is
+#' to be stored in the `RLum.Data.Curve` object. If a value for `id` is
 #' provided, this argument is ignored.
 #'
 #' @return Returns an [RLum.Data.Curve-class] object.
 #'
-#' @note 
+#' @note
 #' Due to changes in the BIN-file (version 3 to version 4) format the recalculation of TL-curves might be not
 #' overall correct for cases where the TL measurement is combined with a preheat.
 #'
 #' @section Function version: 0.5.0
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)\cr
 #' Christoph Burow, Universtiy of Cologne (Germany)
 #'
-#' @seealso [Risoe.BINfileData2RLum.Analysis], [set_RLum], 
+#' @seealso [Risoe.BINfileData2RLum.Analysis], [set_RLum],
 #' [RLum.Data.Curve-class], [RLum.Analysis-class], [Risoe.BINfileData-class],
 #' [plot_RLum]
 #'
@@ -92,7 +92,7 @@
   set_RLum(
     class = "RLum.Data.Curve",
     recordType = METADATA[["LTYPE"]][id],
-    data =  create_RLumDataCurve_matrix(
+    data =  src_create_RLumDataCurve_matrix(
       DATA = DATA[[id]],
       NPOINTS = METADATA[["NPOINTS"]][id],
       VERSION = METADATA[["VERSION"]][id],

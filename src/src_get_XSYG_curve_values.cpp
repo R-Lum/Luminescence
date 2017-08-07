@@ -1,5 +1,5 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Title:   get_XSYG_curve_values()
+// Title:   src_get_XSYG_curve_values()
 // Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 // Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
 // Version: 0.1.0 [2017-07-07]
