@@ -13,3 +13,7 @@ create_UID <- function() {
     .Call('_Luminescence_create_UID', PACKAGE = 'Luminescence')
 }
 
+src_get_XSYG_curve_values <- function(s) {
+    .Call('_Luminescence_src_get_XSYG_curve_values', PACKAGE = 'Luminescence', s)
+}
+

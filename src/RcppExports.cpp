@@ -51,3 +51,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// src_get_XSYG_curve_values
+NumericMatrix src_get_XSYG_curve_values(std::string s);
+RcppExport SEXP _Luminescence_src_get_XSYG_curve_values(SEXP sSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type s(sSEXP);
+    rcpp_result_gen = Rcpp::wrap(src_get_XSYG_curve_values(s));
+    return rcpp_result_gen;
+END_RCPP
+}

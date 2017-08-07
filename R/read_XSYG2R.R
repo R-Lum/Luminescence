@@ -125,7 +125,7 @@
 #' Corresponding values in the XSXG file are skipped.
 #'
 #'
-#' @section Function version: 0.6.2
+#' @section Function version: 0.6.3
 #'
 #'
 #' @author
@@ -300,22 +300,7 @@ read_XSYG2R <- function(
   #version.supported <- c("1.0")
 
   #additional functions
-  ##get curve values
-  get_XSYG.curve.values <- function(curve.node){
-
-    ##Four steps
-    ##(1) replace all ; by ,
-    ##(2) split by ,
-    ##(3) convert to numeric
-    ##(4) create matrix and transpose
-    temp <- as.numeric(strsplit(
-      gsub(XML::xmlValue(curve.node), pattern = ";", replacement = ",", fixed = TRUE),
-      split = ",", fixed = TRUE)[[1]])
-    t(matrix(temp, ncol = length(temp)/2))
-
-  }
-
-
+  #get spectrum values
   get_XSYG.spectrum.values <- function(curve.node){
 
     ##1st grep wavelength table
@@ -518,8 +503,8 @@ read_XSYG2R <- function(
               #grep values from PMT measurement or spectrometer
               if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
 
-                temp.sequence.object.curveValue.PMT <- get_XSYG.curve.values(
-                  temp[[x]][[i]][[j]])
+                temp.sequence.object.curveValue.PMT <- src_get_XSYG_curve_values(XML::xmlValue(
+                  temp[[x]][[i]][[j]]))
 
 
                 ##round values (1 digit is technical resolution of the heating element)
@@ -527,8 +512,8 @@ read_XSYG2R <- function(
                   temp.sequence.object.curveValue.PMT[,1], digits = 1)
 
                 #grep values from heating element
-                temp.sequence.object.curveValue.heating.element <- get_XSYG.curve.values(
-                  temp[[x]][[i]][[3]])
+                temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
+                  temp[[x]][[i]][[3]]))
 
 
 
@@ -548,8 +533,8 @@ read_XSYG2R <- function(
               }
 
               #grep values from heating element
-              temp.sequence.object.curveValue.heating.element <- get_XSYG.curve.values(
-                temp[[x]][[i]][[3]])
+              temp.sequence.object.curveValue.heating.element <- src_get_XSYG_curve_values(XML::xmlValue(
+                temp[[x]][[i]][[3]]))
 
 
               if("Spectrometer" %in% temp.sequence.object.detector == FALSE){
@@ -718,7 +703,7 @@ read_XSYG2R <- function(
             if(is(temp.sequence.object.curveValue, "matrix") == FALSE){
 
               temp.sequence.object.curveValue <-
-                get_XSYG.curve.values(temp.sequence.object.curveValue)
+                src_get_XSYG_curve_values(XML::xmlValue(temp.sequence.object.curveValue))
 
             }
 

@@ -65,7 +65,7 @@ Changes in version 0.8.0 ( ,2017):
              • minor modifications to support minimal examples without
                'recordType',
 
-             • give the import a 30% performance boost.
+             • give the XSYG-file import a 50% performance boost.
 
   S4 and Internals:
 
