@@ -1,17 +1,22 @@
-//analyse_IRSARRF_SRS.cpp
-//author: Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-//version: 0.3.5 [2017-02-06]
-//Function calculates the squared residuals for the R function analyse_IRSAR.RF()
-//including MC runs for the obtained minimum. The function allows a horizontal and
-//a vertical sliding of the curve
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Title:   src_analyse_IRSARRF_SRS()
+// Author:  Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+// Contact: sebastian.kreutzer@u-bordeaux-montaigne.fr
+// Version: 0.3.5 [2017-02-06]
+// Purpose:
 //
+//    Function calculates the squared residuals for the R function analyse_IRSAR.RF()
+//    including MC runs for the obtained minimum. The function allows a horizontal and
+//    a vertical sliding of the curve
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 #include <RcppArmadillo.h>
 #include <RcppArmadilloExtensions/sample.h>
 
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 
-// [[Rcpp::export("analyse_IRSARRF_SRS")]]
+// [[Rcpp::export("src_analyse_IRSARRF_SRS")]]
 RcppExport SEXP analyse_IRSARRF_SRS(NumericVector values_regenerated_limited,
                                     NumericVector values_natural_limited,
                                     NumericVector vslide_range,
@@ -21,7 +26,7 @@ RcppExport SEXP analyse_IRSARRF_SRS(NumericVector values_regenerated_limited,
 
   //check for the vslide_range()
   if(vslide_range.length() > 1e+08){
-    stop("[:::.analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+08)!");
+    stop("[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+08)!");
   }
 
   //pre-define variables
@@ -58,7 +63,7 @@ RcppExport SEXP analyse_IRSARRF_SRS(NumericVector values_regenerated_limited,
 
    //***TRACE****
    if(trace == true){
-      Rcout << "\n\n [:::.analyse_IRSAR_SRS()]";
+      Rcout << "\n\n [:::src_analyse_IRSAR_SRS()]";
       Rcout << "\n\n--- Inititalisation --- \n ";
       Rcout << "\n >> v_leftright: " << v_leftright;
       Rcout << "\n >> t_leftright: " << t_leftright;

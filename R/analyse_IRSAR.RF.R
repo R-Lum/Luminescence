@@ -7,8 +7,8 @@
 #' Erfurt et al. (2003) assuming a negligible sensitivity change of the RF
 #' signal.
 #'
-#' **General Sequence Structure** (according to Erfurt et al., 2003) 
-#' 
+#' **General Sequence Structure** (according to Erfurt et al., 2003)
+#'
 #'
 #' 1. Measuring IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
 #' 2. Bleach the samples under solar conditions for at least 30 min without changing the geometry
@@ -16,9 +16,9 @@
 #' 4. Regeneration of the IR-RF signal to at least the natural level (measuring (\eqn{RF_{reg}})
 #' 5. Fitting data with a stretched exponential function
 #' 6. Calculate the the palaeodose \eqn{D_{e}} using the parameters from the fitting
-#' 
 #'
-#' Actually two methods are supported to obtain the \eqn{D_{e}}: 
+#'
+#' Actually two methods are supported to obtain the \eqn{D_{e}}:
 #' `method = "FIT"` and `method = "SLIDE"`:
 #'
 #' **`method = "FIT"`**
@@ -29,19 +29,19 @@
 #' Function used for the fitting (according to Erfurt et al. (2003)):
 #'
 #' \deqn{\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta}
-#' 
-#' with 
-#' \eqn{\phi(D)} the dose dependent IR-RF flux, 
-#' \eqn{\phi_{0}} the initial IR-RF flux, 
+#'
+#' with
+#' \eqn{\phi(D)} the dose dependent IR-RF flux,
+#' \eqn{\phi_{0}} the initial IR-RF flux,
 #' \eqn{\Delta\phi} the dose dependent change of the IR-RF flux,
-#' \eqn{\lambda} the exponential parameter, \eqn{D} the dose and 
+#' \eqn{\lambda} the exponential parameter, \eqn{D} the dose and
 #' \eqn{\beta} the dispersive factor.
 #'
-#' To obtain the palaeodose 
+#' To obtain the palaeodose
 #' \eqn{D_{e}} the function is changed to:
-#' 
+#'
 #' \deqn{D_{e} = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}
-#' 
+#'
 #' The fitting is done using the `port` algorithm of the [nls] function.
 #'
 #'
@@ -138,18 +138,18 @@
 #' Per default the value of this parameter is calculated but not evaluated.
 #'
 #' `curves_bounds` [numeric] (default: \eqn{max(RF_{reg_counts})}:
-#' 
+#'
 #' This measure uses the maximum time (x) value of the regenerated curve.
 #' The maximum time (x) value of the natural curve cannot be larger than this value. However, although
 #' this is not recommended the value can be changed or disabled.
-#' 
+#'
 #' `dynamic_ratio` [numeric] (default: `NA`):
-#' 
+#'
 #' The dynamic ratio of the regenerated curve is calculated as ratio of the minimum and maximum count values.
-#' 
+#'
 #' `lambda`, `beta` and `delta.phi`
 #' [numeric] (default: `NA`; `method = "SLIDE"`):
-#' 
+#'
 #' The stretched exponential function suggested by Erfurt et al. (2003) describing the decay of
 #' the RF signal, comprises several parameters that might be useful to evaluate the shape of the curves.
 #' For `method = "FIT"` this parameter is obtained during the fitting, for `method = "SLIDE"` a
@@ -158,38 +158,38 @@
 #' to `NULL` also prevents a calculation of the remaining two.
 #'
 #'
-#' @param object [RLum.Analysis-class] or a [list] of [RLum.Analysis-class]-objects (**required**): 
-#' input object containing data for protocol analysis. The function expects to 
-#' find at least two curves in the [RLum.Analysis-class] object: (1) RF_nat, (2) RF_reg. 
+#' @param object [RLum.Analysis-class] or a [list] of [RLum.Analysis-class]-objects (**required**):
+#' input object containing data for protocol analysis. The function expects to
+#' find at least two curves in the [RLum.Analysis-class] object: (1) RF_nat, (2) RF_reg.
 #' If a `list` is provided as input all other parameters can be provided as
 #' `list` as well to gain full control.
 #'
-#' @param sequence_structure [vector] [character] (*with default*): 
-#' specifies the general sequence structure. Allowed steps are `NATURAL`, `REGENERATED`. 
-#' In addition any other character is allowed in the sequence structure; 
+#' @param sequence_structure [vector] [character] (*with default*):
+#' specifies the general sequence structure. Allowed steps are `NATURAL`, `REGENERATED`.
+#' In addition any other character is allowed in the sequence structure;
 #' such curves will be ignored during the analysis.
 #'
-#' @param RF_nat.lim [vector] (*with default*): 
-#' set minimum and maximum channel range for natural signal fitting and sliding. 
-#' If only one value is provided this will be treated as minimum value and the 
+#' @param RF_nat.lim [vector] (*with default*):
+#' set minimum and maximum channel range for natural signal fitting and sliding.
+#' If only one value is provided this will be treated as minimum value and the
 #' maximum limit will be added automatically.
 #'
-#' @param RF_reg.lim [vector] (*with default*): 
-#' set minimum and maximum channel range for regenerated signal fitting and sliding. 
-#' If only one value is provided this will be treated as minimum value and the 
+#' @param RF_reg.lim [vector] (*with default*):
+#' set minimum and maximum channel range for regenerated signal fitting and sliding.
+#' If only one value is provided this will be treated as minimum value and the
 #' maximum limit will be added automatically.
 #'
-#' @param method [character] (*with default*): 
-#' setting method applied for the data analysis. 
+#' @param method [character] (*with default*):
+#' setting method applied for the data analysis.
 #' Possible options are `"FIT"` or `"SLIDE"`.
 #'
 #' @param method.control [list] (*optional*):
-#' parameters to control the method, that can be passed to the chosen method. 
-#' These are for (1) `method = "FIT"`: 'trace', 'maxiter', 'warnOnly', 'minFactor' and for 
+#' parameters to control the method, that can be passed to the chosen method.
+#' These are for (1) `method = "FIT"`: 'trace', 'maxiter', 'warnOnly', 'minFactor' and for
 #' (2) `method = "SLIDE"`: 'correct_onset', 'show_density',  'show_fit', 'trace'.
 #' See details.
 #'
-#' @param test_parameters [list] (*with default*): 
+#' @param test_parameters [list] (*with default*):
 #' set test parameters. Supported parameters are: `curves_ratio`, `residuals_slope` (only for
 #' `method = "SLIDE"`), `curves_bounds`, `dynamic_ratio`,
 #' `lambda`, `beta` and `delta.phi`. All input: [numeric]
@@ -197,19 +197,19 @@
 #'
 #' (see Details for further information)
 #'
-#' @param n.MC [numeric] (*with default*): 
+#' @param n.MC [numeric] (*with default*):
 #' set number of Monte Carlo runs for start parameter estimation (`method = "FIT"`) or
 #' error estimation (`method = "SLIDE"`). This value can be set to `NULL` to skip the
 #' MC runs. Note: Large values will significantly increase the computation time
 #'
-#' @param txtProgressBar [logical] (*with default*): 
+#' @param txtProgressBar [logical] (*with default*):
 #' enables `TRUE` or disables `FALSE` the progression bar during MC runs
 #'
-#' @param plot [logical] (*with default*): 
+#' @param plot [logical] (*with default*):
 #' plot output (`TRUE` or `FALSE`)
 #'
-#' @param plot_reduced [logical] (*optional*): 
-#' provides a reduced plot output if enabled to allow common R plot combinations, 
+#' @param plot_reduced [logical] (*optional*):
+#' provides a reduced plot output if enabled to allow common R plot combinations,
 #' e.g., `par(mfrow(...))`. If `TRUE` no residual plot
 #' is returned; it has no effect if `plot = FALSE`
 #'
@@ -220,13 +220,13 @@
 #' [graphics::legend]), `xaxt`
 #'
 #'
-#' @return 
+#' @return
 #' The function returns numerical output and an (*optional*) plot.
 #'
 #' -----------------------------------\cr
 #' `[ NUMERICAL OUTPUT ]`\cr
 #' -----------------------------------\cr
-#' 
+#'
 #' **`RLum.Results`**-object
 #'
 #' **slot:** **`@data`**
@@ -320,7 +320,7 @@
 #' [nls], [minpack.lm::nlsLM], [parallel::mclapply]
 #'
 #'
-#' @references 
+#' @references
 #' Buylaert, J.P., Jain, M., Murray, A.S., Thomsen, K.J., Lapp, T.,
 #' 2012. IR-RF dating of sand-sized K-feldspar extracts: A test of accuracy.
 #' Radiation Measurements 44 (5-6), 560-565. doi: 10.1016/j.radmeas.2012.06.021
@@ -1059,7 +1059,7 @@ analyse_IRSAR.RF<- function(
         ##now run it in a loop and expand the range from the inner to the outer part
         ##at least this is considered for the final error range ...
         temp_minium_list <- lapply(1:10, function(x){
-          analyse_IRSARRF_SRS(
+          src_analyse_IRSARRF_SRS(
             values_regenerated_limited =  RF_reg.limited[,2],
             values_natural_limited = RF_nat.limited[,2],
             vslide_range = vslide_range[vslide_range.list[[x]][1]:vslide_range.list[[x]][2]],
@@ -1107,7 +1107,7 @@ analyse_IRSAR.RF<- function(
 
       ##now run the final sliding with the identified range that corresponds to the minium value
       temp.sum.residuals <-
-        analyse_IRSARRF_SRS(
+        src_analyse_IRSARRF_SRS(
           values_regenerated_limited =  RF_reg.limited[,2],
           values_natural_limited = RF_nat.limited[,2],
           vslide_range = vslide_range,
@@ -1276,15 +1276,15 @@ analyse_IRSAR.RF<- function(
           }else{
             cores <- parallel::detectCores() - 2
           }
-          
+
         }else if(is.numeric(method.control.settings$cores)){
 
           if(method.control.settings$cores > parallel::detectCores()){
             warning(paste0("[analyse_IRSAR.RF()] What do you want? Your machine has only ", parallel::detectCores(), " cores!"), call. = FALSE)
-            
+
             ##assign them anyway, it is not our problem
             cores <- parallel::detectCores()
-            
+
           } else if (method.control.settings$cores >= 1 && method.control.settings$cores <= parallel::detectCores()) {
             cores <- method.control.settings$cores
           } else { # Negative values
@@ -1299,25 +1299,25 @@ analyse_IRSAR.RF<- function(
         ##return message
         if (cores == 1)
           message(paste("[analyse_IRSAR.RF()] Singlecore mode"))
-        else 
+        else
           message(paste("[analyse_IRSAR.RF()] Multicore mode using", cores, "cores..."))
       }
-      
+
       ## SINGLE CORE -----
       if (cores == 1) {
-        
+
         if(txtProgressBar){
           ##progress bar
           cat("\n\t Run Monte Carlo loops for error estimation\n")
           pb<-txtProgressBar(min=0, max=n.MC, initial=0, char="=", style=3)
         }
-        
+
         De.MC <- sapply(1:n.MC, function(i) {
-          
+
           # update progress bar
           if (txtProgressBar)
             setTxtProgressBar(pb, i)
-        
+
           sliding(
             RF_nat = RF_nat,
             RF_reg.limited = RF_reg.limited,
@@ -1325,12 +1325,12 @@ analyse_IRSAR.RF<- function(
             numerical.only = TRUE
           )[[2]]
         })
-        
+
       ## MULTICORE -----
       } else {
         ## Create the determined number of R copies
         cl <- parallel::makeCluster(cores)
-        
+
         ##run MC runs
         De.MC <- parallel::parSapply(cl, X = slide.MC.list,
                                      FUN = function(x){
@@ -1344,7 +1344,7 @@ analyse_IRSAR.RF<- function(
         ##destroy multicore cluster
         parallel::stopCluster(cl)
       }
-      
+
       ##calculate absolute deviation between De and the here newly calculated De.MC
       ##this is, e.g. ^t_n.1* - ^t_n in Frouin et al.
       De.diff <- diff(x = c(De, De.MC))
