@@ -21,6 +21,9 @@ matrix:
       - chmod 755 ./travis-tool.sh
       - ./travis-tool.sh bootstrap
       - sudo apt-get install jags
+    install:
+      -  Rscript -e 'install.packages("devtools", type = "source", dependencies = TRUE)'
+      -  Rscript -e 'install.packages(c("RLumModel", "RLumShiny", "plotly", "rjags", "coda", "pander", "plotrix", "R.rsp", "stringdist"))'
     env: CACHE_NAME=JOB1
   - os: osx
     r: release
