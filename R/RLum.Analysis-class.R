@@ -359,7 +359,7 @@ setMethod("get_RLum",
           signature = ("RLum.Analysis"),
 
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
-                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE, info.object = NULL, subset = NULL) {
+                   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE, info.object = NULL, subset = NULL, env = parent.frame(2)) {
 
             if (!is.null(substitute(subset))) {
 
@@ -387,7 +387,7 @@ setMethod("get_RLum",
               sel <- tryCatch(eval(
                 expr = substitute(subset),
                 envir = envir,
-                enclos = parent.frame()
+                enclos = env
               ),
               error = function(e) {
                 stop("\n\n [ERROR] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "))
