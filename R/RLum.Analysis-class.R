@@ -342,6 +342,10 @@ setMethod(
 #' logical expression indicating elements or rows to keep: missing values are
 #' taken as false. This argument takes precedence over all other arguments,
 #' meaning they are not considered when subsetting the object.
+#' 
+#' @param env [environment] (*with default*):
+#' An environment passed to [eval] as the enclosure. This argument is only
+#' relevant when subsetting the object and should not be used manually.
 #'
 #' @return
 #'

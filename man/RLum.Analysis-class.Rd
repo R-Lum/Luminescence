@@ -20,7 +20,7 @@
 \S4method{get_RLum}{RLum.Analysis}(object, record.id = NULL,
   recordType = NULL, curveType = NULL, RLum.type = NULL,
   protocol = "UNKNOWN", get.index = NULL, drop = TRUE, recursive = TRUE,
-  info.object = NULL, subset = NULL)
+  info.object = NULL, subset = NULL, env = parent.frame(2))
 
 \S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 
@@ -94,6 +94,10 @@ name of the wanted info element}
 logical expression indicating elements or rows to keep: missing values are
 taken as false. This argument takes precedence over all other arguments,
 meaning they are not considered when subsetting the object.}
+
+\item{env}{\link{environment} (\emph{with default}):
+An environment passed to \link{eval} as the enclosure. This argument is only
+relevant when subsetting the object and should not be used manually.}
 
 \item{fullExtent}{\link{structure_RLum}; \link{logical} (\emph{with default}):
 extents the returned \code{data.frame} to its full extent, i.e. all info elements
@@ -206,11 +210,6 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
-} 
-
-\section{How to cite}{
-Kreutzer, S. (2017). RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
-
 \keyword{classes}
 \keyword{methods}
