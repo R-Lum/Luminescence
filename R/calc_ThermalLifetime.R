@@ -11,7 +11,7 @@
 #' is returned that can be used for further analyses or graphical output (see example 1)
 #'
 #' **Mode 2 `(profiling = TRUE)`**
-#' 
+#'
 #' This mode tries to profile the variation of the thermal lifetime for a chosen
 #' temperature by accounting for the provided E and s parameters and their corresponding
 #' standard errors, e.g., `E = c(1.600, 0.001)`
@@ -21,23 +21,23 @@
 #' **Used equation (Arrhenius equation)**
 #'
 #' \deqn{\tau = 1/s exp(E/kT)}
-#' where: 
+#' where:
 #' \eqn{\tau} in s as the mean time an electron spends in the trap for a given \eqn{T},
-#' \eqn{E} trap depth in eV, 
-#' \eqn{s} the frequency factor in 1/s, 
+#' \eqn{E} trap depth in eV,
+#' \eqn{s} the frequency factor in 1/s,
 #' \eqn{T} the temperature in K and \eqn{k} the Boltzmann constant in eV/K (cf. Furetta, 2010).
 #'
 #'
-#' @param E [numeric] (**required**): 
-#' vector of trap depths in eV, 
+#' @param E [numeric] (**required**):
+#' vector of trap depths in eV,
 #' if `profiling = TRUE` only the first two elements are considered
 #'
-#' @param s [numeric] (**required**): 
-#' vector of frequency factor in 1/s, 
+#' @param s [numeric] (**required**):
+#' vector of frequency factor in 1/s,
 #' if `profiling = TRUE` only the first two elements are considered
 #'
-#' @param T [numeric] (*with default*): 
-#' temperature in deg. C for which the lifetime(s) will be calculted. 
+#' @param T [numeric] (*with default*):
+#' temperature in deg. C for which the lifetime(s) will be calculted.
 #' A vector can be provided.
 #'
 #' @param output_unit [character] (*with default*):
@@ -46,35 +46,35 @@
 #'
 #' @param profiling [logical] (*with default*):
 #' this option allows to estimate uncertainties based on
-#' given E and s parameters and their corresponding standard error 
+#' given E and s parameters and their corresponding standard error
 #' (cf. details and examples section)
 #'
-#' @param profiling_config [list] (*optional*): 
-#' allows to set configurate parameters used for the profiling 
+#' @param profiling_config [list] (*optional*):
+#' allows to set configurate parameters used for the profiling
 #' (and only have an effect here). Supported parameters are:
-#' 
-#' - `n` (number of MC runs), 
+#'
+#' - `n` (number of MC runs),
 #' - `E.distribution` (distribution used for the resampling for E) and
 #' - `s.distribution` (distribution used for the resampling for s).
-#' 
-#' Currently only the normal distribution is supported 
+#'
+#' Currently only the normal distribution is supported
 #' (e.g., `profiling_config = list(E.distribution = "norm")`
 #'
-#' @param verbose [logical]: 
+#' @param verbose [logical]:
 #' enables/disables verbose mode
 #'
-#' @param plot [logical]: 
+#' @param plot [logical]:
 #' enables/disables output plot, currenlty only in combination with `profiling = TRUE`.
 #'
-#' @param ... further arguments that can be passed in combination with the plot output. 
+#' @param ... further arguments that can be passed in combination with the plot output.
 #' Standard plot parameters are supported ([plot.default])
 #'
-#' @return 
+#' @return
 #' A [RLum.Results-class] object is returned a along with a plot (for
 #' `profiling = TRUE`). The output object contain the following slots:
 #'
 #' **`@data`**
-#' 
+#'
 #' \tabular{lll}{
 #'  **Object** \tab **Type** \tab **Description** \cr
 #'  `lifetimes` \tab [array] or [numeric] \tab calculated lifetimes \cr
@@ -82,25 +82,25 @@
 #' }
 #'
 #' **`@info`**
-#' 
+#'
 #' \tabular{lll}{
 #' **Object** \tab **Type** \tab **Description** \cr
 #' `call` \tab `call` \tab the original function call
 #' }
 #'
-#' @note 
+#' @note
 #' The profiling is currently based on resampling from a normal distribution, this
 #' distribution assumption might be, however, not valid for given E and s paramters.
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [graphics::matplot], [stats::rnorm], [get_RLum]
 #'
-#' @references 
-#' 
+#' @references
+#'
 #' Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. ed. World Scientific.
 #'
 #' @keywords datagen
@@ -159,7 +159,7 @@ calc_ThermalLifetime <- function(
 # Integrity -----------------------------------------------------------------------------------
 
     if(missing(E) | missing(s)){
-      stop("[calc_ThermalLifetime()] 'E' or 's' or both are missing, but required.")
+      stop("[calc_ThermalLifetime()] 'E' or 's' or both are missing, but required.", call. = FALSE)
 
     }
 
