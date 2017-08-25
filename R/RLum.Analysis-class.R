@@ -25,7 +25,7 @@ NULL
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.9
+#' @section Class version: 0.4.10
 #'
 #' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
@@ -195,8 +195,14 @@ setMethod("show",
 
               }, FUN.VALUE = vector(mode = "character", length = 1))
 
-                 ##print combined output
-                 cat("\n\t .. .. : ", terminal_output, sep = "")
+                 ##print on screen, differentiate between records with many curves or just one
+                 if(any(grepl(terminal_output, pattern = "<>", fixed = TRUE))){
+                   cat("\n\t .. .. : ", gsub(pattern = "|", replacement = "\n\t .. .. :", x = terminal_output, fixed = TRUE), sep = "")
+
+                 } else{
+                   cat("\n\t .. .. : ", terminal_output, sep = "")
+
+                 }
 
               })
 
@@ -342,7 +348,7 @@ setMethod(
 #' logical expression indicating elements or rows to keep: missing values are
 #' taken as false. This argument takes precedence over all other arguments,
 #' meaning they are not considered when subsetting the object.
-#' 
+#'
 #' @param env [environment] (*with default*):
 #' An environment passed to [eval] as the enclosure. This argument is only
 #' relevant when subsetting the object and should not be used manually.

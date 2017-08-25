@@ -183,7 +183,7 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Analysis", ...)
 }
 
 \section{Class version}{
- 0.4.9
+ 0.4.10
 }
 
 \examples{
@@ -210,6 +210,11 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 }
 \author{
 Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
+} 
+
+\section{How to cite}{
+Kreutzer, S. (2017). RLum.Analysis-class(): Class 'RLum.Analysis'. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
+
 \keyword{classes}
 \keyword{methods}
