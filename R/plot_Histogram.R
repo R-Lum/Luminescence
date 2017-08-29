@@ -225,15 +225,21 @@ plot_Histogram <- function(
 
   if("breaks" %in% names(extraArgs)) {
     breaks.plot <- extraArgs$breaks
+    
+    breaks_calc <- hist(x = data[,1], 
+                        breaks = breaks.plot,
+                        plot = FALSE)$breaks
   } else {
     breaks.plot <- hist(x = data[,1],
                         plot = FALSE)$breaks
+    
+    breaks_calc <- breaks.plot
   }
 
   if("xlim" %in% names(extraArgs)) {
     xlim.plot <- extraArgs$xlim
   } else {
-    xlim.plot <- range(breaks.plot)
+    xlim.plot <- range(breaks_calc)
   }
 
   if("ylim" %in% names(extraArgs)) {
