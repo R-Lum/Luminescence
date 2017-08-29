@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_WodaFuchs2008.R
 \name{calc_WodaFuchs2008}
 \alias{calc_WodaFuchs2008}
-\title{Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008}
+\title{Obtain the equivalent dose using the approach of Woda and Fuchs 2008}
 \usage{
 calc_WodaFuchs2008(data, breaks = NULL, plot = TRUE, ...)
 }
@@ -23,13 +23,17 @@ enable plot output.}
 \item{...}{Further plot arguments passed to the function.}
 }
 \description{
-The description section
-}
-\details{
-No details yet.
+The function generates a histogram-like reorganisation of the data, to
+assess counts per bin. The log-transformed counts per bin are used to
+calculate the second derivative of the data (i.e., the curcature of the
+curve) and to find the central value of the bin hosting the distribution
+maximum. A normal distribution model is fitted to the counts per bin
+data to estimate the dose distribution parameters. The uncertainty of the
+model is estimated based on all input equivalent doses smaller that the
+modelled central value.
 }
 \section{Function version}{
- 0.2.0 (2017-07-30 13:10:59)
+ 0.2.0 (2017-08-29 12:26:27)
 }
 
 \examples{
@@ -45,7 +49,7 @@ results <- calc_WodaFuchs2008(
 } 
 
 \section{How to cite}{
-Kreutzer, S., Dietze, M. (2017). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
+Kreutzer, S., Dietze, M. (2017). calc_WodaFuchs2008(): Obtain the equivalent dose using the approach of Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J. (2017). Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 0.8.0. https://CRAN.R-project.org/package=Luminescence
 }
 
 \references{
