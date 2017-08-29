@@ -1,8 +1,13 @@
-#' Obtain the equivalent dose using the approach proposed by Woda and Fuchs 2008
+#' Obtain the equivalent dose using the approach of Woda and Fuchs 2008
 #'
-#' The description section
-#'
-#' No details yet.
+#' The function generates a histogram-like reorganisation of the data, to 
+#' assess counts per bin. The log-transformed counts per bin are used to 
+#' calculate the second derivative of the data (i.e., the curcature of the 
+#' curve) and to find the central value of the bin hosting the distribution 
+#' maximum. A normal distribution model is fitted to the counts per bin 
+#' data to estimate the dose distribution parameters. The uncertainty of the 
+#' model is estimated based on all input equivalent doses smaller that the 
+#' modelled central value.
 #'
 #' @param data [data.frame] or [RLum.Results-class] object (**required**): 
 #' for [data.frame]: two columns: De (`values[,1]`) and De error (`values[,2]`). 
@@ -178,7 +183,7 @@ calc_WodaFuchs2008 <- function(
   D_estimate <- as.numeric(x = class_center - sigma)
 
   ## count number of values smaller than center class
-  count_ID<-length(which(H_m <= class_center))
+  count_ID <- length(which(H_m <= class_center))
 
   ## extract H_m values smaller than center class
   H_m_smaller <- H_m[1:count_ID]
@@ -213,7 +218,7 @@ calc_WodaFuchs2008 <- function(
       sub = plot_settings$sub
     )
 
-    ##add curve with normal distribution
+    ## add curve with normal distribution
     x <- 0
     rm(x)
     curve((A / sqrt(2 * pi * sigma^2)) * exp(-(x- class_center)^2 / (2 * sigma^2)),
