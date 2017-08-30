@@ -13,7 +13,7 @@ r_binary_packages:
 matrix:
   include:
   - os: linux
-    r: devel
+    r: release
     before_install:
       ##as suggested by https://www.r-bloggers.com/evading-the-quothadley-taxquot-faster-travis-tests-for-r/
       - sudo add-apt-repository -y ppa:edd/misc
@@ -25,6 +25,19 @@ matrix:
       -  Rscript -e 'install.packages("devtools", type = "source", dependencies = TRUE)'
       -  Rscript -e 'install.packages(c("RLumModel", "RLumShiny", "plotly", "rjags", "coda", "pander", "plotrix", "R.rsp", "stringdist"))'
     env: CACHE_NAME=JOB1
+  - os: linux
+    r: devel
+    before_install:
+      ##as suggested by https://www.r-bloggers.com/evading-the-quothadley-taxquot-faster-travis-tests-for-r/
+      - sudo add-apt-repository -y ppa:edd/misc
+      - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+      - chmod 755 ./travis-tool.sh
+      - ./travis-tool.sh bootstrap
+      - sudo apt-get install jags
+    install:
+      -  Rscript -e 'install.packages("devtools", type = "source", dependencies = TRUE)'
+      -  Rscript -e 'install.packages(c("RLumModel", "RLumShiny", "plotly", "rjags", "coda", "pander", "plotrix", "R.rsp", "stringdist"))'
+    env: CACHE_NAME=JOB2
   - os: osx
     r: release
     before_install:
@@ -39,7 +52,7 @@ matrix:
       - Rscript -e 'install.packages("devtools", type = "source", dependencies = TRUE)'
       - Rscript -e 'install.packages(c("RLumModel", "RLumShiny", "plotly", "rjags", "coda", "pander", "plotrix", "R.rsp", "stringdist"))'
       - Rscript -e 'deps <- devtools::dev_package_deps(dependencies = TRUE)$package; if (!all(deps %in% installed.packages()[,"Package"])) {install.packages(deps, method = 'source', dependencies = TRUE)}'
-    env: CACHE_NAME=JOB2
+    env: CACHE_NAME=JOB3
 
 ##create notifications
 notifications:
