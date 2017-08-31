@@ -148,6 +148,7 @@ Collate:
     'convert_BIN2CSV.R'
     'convert_Daybreak2CSV.R'
     'convert_PSL2CSV.R'
+    'convert_RLum2Risoe.BINfileData.R'
     'convert_XSYG2CSV.R'
     'extract_IrradiationTimes.R'
     'fit_CWCurve.R'

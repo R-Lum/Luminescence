@@ -16,6 +16,8 @@ Changes in version 0.8.0 ( ,2017):
            activity data (Bq/kg) to concentrations (ppm or %) and vice
            versa
 
+         • ‘convert_RLum2RisoeBIN’
+
          • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
 

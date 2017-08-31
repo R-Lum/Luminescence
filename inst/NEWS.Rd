@@ -16,6 +16,9 @@
         \item \code{convert_Activity2Concentration()}: converts nuclide activity data (Bq/kg) to
         concentrations (ppm or \%) and vice versa
 
+        \item \code{convert_RLum2Risoe.BINfileData()}: Function to convert \code{RLum.Analysis} and \code{RLum.Data.Curve}
+        objects to \code{Risoe.BINfileData}, which can be exported to BIN/BINX-files using the function \code{write_R2BIN()}.
+
         \item \code{calc_WodaFuchs2008()}:
         Function to obtain the equivalent dose using
         the approach proposed by Woda and Fuchs, 2008.

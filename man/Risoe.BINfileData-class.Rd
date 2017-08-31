@@ -187,7 +187,7 @@ the BIN-file data import! Data types are converted during data import.\cr
 \strong{LIGHTSOURCE} values
 
 \tabular{rll}{
-\code{[,0]} \tab 0 \tab Non \cr
+\code{[,0]} \tab 0 \tab None \cr
 \code{[,1]} \tab 1 \tab Lamp \cr
 \code{[,2]} \tab 2 \tab IR diodes/IR Laser \cr
 \code{[,3]} \tab 3 \tab Calibration LED \cr
