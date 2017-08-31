@@ -107,7 +107,7 @@ NULL
 #' `[,78]` \tab EXTR_START \tab `numeric` \tab 08 \tab usage unknown \cr
 #' `[,79]` \tab EXTR_END \tab `numeric` \tab 08 \tab usage unknown\cr
 #' `[,80]` \tab SEQUENCE \tab `character` \tab 03-04 \tab Sequence name
-#' } 
+#' }
 #' V = BIN-file version (RLum means that it does not depend on a specific BIN version)
 #'
 #' Note that the `Risoe.BINfileData` object combines all values from
@@ -119,46 +119,46 @@ NULL
 #'
 #' **LTYPE** values
 #'
-#' \tabular{rll}{ 
-#' `[,0]` \tab TL \tab: Thermoluminescence \cr 
-#' `[,1]` \tab OSL \tab: Optically stimulated luminescence \cr 
-#' `[,2]` \tab IRSL \tab: Infrared stimulated luminescence \cr 
-#' `[,3]` \tab M-IR \tab: Infrared monochromator scan\cr 
-#' `[,4]` \tab M-VIS \tab: Visible monochromator scan\cr 
-#' `[,5]` \tab TOL \tab: Thermo-optical luminescence \cr 
-#' `[,6]` \tab TRPOSL \tab: Time Resolved Pulsed OSL\cr 
-#' `[,7]` \tab RIR \tab: Ramped IRSL\cr 
-#' `[,8]` \tab RBR \tab: Ramped (Blue) LEDs\cr 
-#' `[,9]` \tab USER \tab: User defined\cr 
-#' `[,10]` \tab POSL \tab: Pulsed OSL \cr 
-#' `[,11]` \tab SGOSL \tab: Single Grain OSL\cr 
-#' `[,12]` \tab RL \tab: Radio Luminescence \cr 
-#' `[,13]` \tab XRF \tab: X-ray Fluorescence 
+#' \tabular{rll}{
+#' `[,0]` \tab TL \tab: Thermoluminescence \cr
+#' `[,1]` \tab OSL \tab: Optically stimulated luminescence \cr
+#' `[,2]` \tab IRSL \tab: Infrared stimulated luminescence \cr
+#' `[,3]` \tab M-IR \tab: Infrared monochromator scan\cr
+#' `[,4]` \tab M-VIS \tab: Visible monochromator scan\cr
+#' `[,5]` \tab TOL \tab: Thermo-optical luminescence \cr
+#' `[,6]` \tab TRPOSL \tab: Time Resolved Pulsed OSL\cr
+#' `[,7]` \tab RIR \tab: Ramped IRSL\cr
+#' `[,8]` \tab RBR \tab: Ramped (Blue) LEDs\cr
+#' `[,9]` \tab USER \tab: User defined\cr
+#' `[,10]` \tab POSL \tab: Pulsed OSL \cr
+#' `[,11]` \tab SGOSL \tab: Single Grain OSL\cr
+#' `[,12]` \tab RL \tab: Radio Luminescence \cr
+#' `[,13]` \tab XRF \tab: X-ray Fluorescence
 #' }
 #'
-#' **DTYPE** values 
-#' 
-#' \tabular{rll}{ 
-#' `[,0]` \tab 0 \tab Natural \cr 
-#' `[,1]` \tab 1 \tab N+dose \cr 
-#' `[,2]` \tab 2 \tab Bleach \cr 
+#' **DTYPE** values
+#'
+#' \tabular{rll}{
+#' `[,0]` \tab 0 \tab Natural \cr
+#' `[,1]` \tab 1 \tab N+dose \cr
+#' `[,2]` \tab 2 \tab Bleach \cr
 #' `[,3]` \tab 3 \tab Bleach+dose \cr
-#' `[,4]` \tab 4 \tab Natural (Bleach) \cr 
+#' `[,4]` \tab 4 \tab Natural (Bleach) \cr
 #' `[,5]` \tab 5 \tab N+dose (Bleach) \cr
-#' `[,6]` \tab 6 \tab Dose \cr 
-#' `[,7]` \tab 7 \tab Background 
+#' `[,6]` \tab 6 \tab Dose \cr
+#' `[,7]` \tab 7 \tab Background
 #' }
 #'
-#' **LIGHTSOURCE** values 
-#' 
-#' \tabular{rll}{ 
-#' `[,0]` \tab 0 \tab Non \cr 
-#' `[,1]` \tab 1 \tab Lamp \cr 
-#' `[,2]` \tab 2 \tab IR diodes/IR Laser \cr 
-#' `[,3]` \tab 3 \tab Calibration LED \cr 
-#' `[,4]` \tab 4 \tab Blue Diodes \cr 
-#' `[,5]` \tab 5 \tab White lite \cr 
-#' `[,6]` \tab 6 \tab Green laser (single grain) \cr 
+#' **LIGHTSOURCE** values
+#'
+#' \tabular{rll}{
+#' `[,0]` \tab 0 \tab None \cr
+#' `[,1]` \tab 1 \tab Lamp \cr
+#' `[,2]` \tab 2 \tab IR diodes/IR Laser \cr
+#' `[,3]` \tab 3 \tab Calibration LED \cr
+#' `[,4]` \tab 4 \tab Blue Diodes \cr
+#' `[,5]` \tab 5 \tab White lite \cr
+#' `[,6]` \tab 6 \tab Green laser (single grain) \cr
 #' `[,7]` \tab 7 \tab IR laser (single grain) }
 #'
 #' (information on the BIN/BINX file format are kindly provided by Risoe, DTU Nutech)
@@ -168,15 +168,15 @@ NULL
 #'
 #' @section Function version: 0.3.3
 #'
-#' @author 
+#' @author
 #' Sebastian Kreutzer, IRAMAT-CRP2A, Universite Bordeaux Montaigne (France)
 #'
 #' @seealso [plot_Risoe.BINfileData], [read_BIN2R], [write_R2BIN],
 #' [merge_Risoe.BINfileData], [Risoe.BINfileData2RLum.Analysis]
 #'
-#' @references 
-#' Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016. 
-#' 
+#' @references
+#' Risoe DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risoe DTU, 2016.
+#'
 #' The Sequence Editor User Manual - Feburar 2016
 #'
 #' [http://www.nutech.dtu.dk/]()
@@ -186,7 +186,7 @@ NULL
 #' @examples
 #'
 #' showClass("Risoe.BINfileData")
-#' 
+#'
 #' @md
 #' @export
 setClass("Risoe.BINfileData",
@@ -288,7 +288,7 @@ setClass("Risoe.BINfileData",
 ##set generic S4 function for object
 #' @describeIn Risoe.BINfileData
 #' Show structure of RLum and Risoe.BINfile class objects
-#' 
+#'
 #' @md
 #' @export
 setMethod(f = "show",
@@ -354,7 +354,7 @@ setMethod(f = "show",
 #'
 #' @param .RESERVED Object of class "list" containing list of undocumented raw
 #' values for internal use only.
-#' 
+#'
 #' @md
 #' @export
 setMethod(f = "set_Risoe.BINfileData",
