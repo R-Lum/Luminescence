@@ -16,7 +16,10 @@ Changes in version 0.8.0 ( ,2017):
            activity data (Bq/kg) to concentrations (ppm or %) and vice
            versa
 
-         • ‘convert_RLum2RisoeBIN’
+         • ‘convert_RLum2Risoe.BINfileData()’: Function to convert
+           ‘RLum.Analysis’ and ‘RLum.Data.Curve’ objects to
+           ‘Risoe.BINfileData’, which can be exported to BIN/BINX-files
+           using the function ‘write_R2BIN()’.
 
          • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
