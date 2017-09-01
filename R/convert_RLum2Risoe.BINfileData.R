@@ -197,7 +197,7 @@ convert_RLum2Risoe.BINfileData <- function(
         strtrim(records[[x]]@info[["startDate"]], width = 8)
 
       }else{
-        "19780101"
+        as.character(format(Sys.Date(),"%Y%m%d"))
 
       }
 
@@ -210,7 +210,7 @@ convert_RLum2Risoe.BINfileData <- function(
         substr(records[[x]]@info[["startDate"]], start = 9, stop = 14)
 
       }else{
-        "111111"
+        as.character(format(Sys.time(),"%H%m%S"))
 
       }
 
@@ -251,9 +251,18 @@ convert_RLum2Risoe.BINfileData <- function(
   # METADA >> correct information -------------------------------------------------------------------------
   ##we have to correct the LTYPE, the format is rather strict
     ##(a) create LTYPE from names of objects
-    LTYPE <-
-      unlist(strsplit(names(object), split = " (", fixed = TRUE))[seq(1, length(records) * 2, by =
-                                                                        2)]
+    LTYPE <- vapply(names(object), function(s){
+      if(grepl(pattern = " (", x = s, fixed = TRUE)){
+        strsplit(names(object), split = " (", fixed = TRUE)[[1]][1]
+
+      }else{
+        s
+      }
+
+
+    }, FUN.VALUE = character(1))
+
+
     ##(b) replace characters
     ##(b.1) irradiation
     LTYPE <-  gsub(pattern = "irradiation", replacement = "USER", fixed = TRUE, x = LTYPE)
