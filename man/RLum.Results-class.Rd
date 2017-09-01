@@ -117,7 +117,7 @@ Objects can be created by calls of the form \code{new("RLum.Results", ...)}.
 }
 
 \section{Class version}{
- 0.5.1
+ 0.5.2
 }
 
 \examples{
