@@ -86,6 +86,14 @@
   }
 
 
+  \item \code{read_Daybreak2R()}{
+        \itemize{
+         \item The functions did not work anymore on ASCII files; fixed!
+
+
+    }
+  }
+
 
    \item \code{read_XSYG2R()}{
         \itemize{

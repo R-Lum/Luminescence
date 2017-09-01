@@ -75,6 +75,11 @@ Changes in version 0.8.0 ( ,2017):
              • if a file link was provided and the argument ‘pattern’
                was set and error was shown; fixed.
 
+         • ‘read_Daybreak2R()’
+
+             • The functions did not work anymore on ASCII files;
+               fixed!
+
          • ‘read_XSYG2R()’
 
              • Argument ‘verbose’ added for more consistency with other
