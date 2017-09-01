@@ -400,7 +400,7 @@ setMethod("get_RLum",
                 enclos = env
               ),
               error = function(e) {
-                stop("\n\n [ERROR] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "))
+                stop("\n\n [get_RLum()] Invalid subset options. \nValid terms are: ", paste(names(envir), collapse = ", "), call. = FALSE)
               })
 
               if (all(is.na(sel)))
@@ -411,7 +411,7 @@ setMethod("get_RLum",
                 return(object)
               } else {
                 tmp <- mapply(function(name, op) { message("  ",name, ": ", paste(unique(op),  collapse = ", ")) }, names(envir), envir)
-                message("\n [ERROR] Invalid value, please refer to unique options given above.")
+                message("\n [[get_RLum()] Invalid value, please refer to unique options given above.")
                 return(NULL)
               }
 
@@ -429,7 +429,7 @@ setMethod("get_RLum",
                 ##check for entries
                 if(length(object@info) == 0){
 
-                  warning("[get_RLum] This RLum.Analysis object has no info objects! NULL returned!)")
+                  warning("[get_RLum()] This RLum.Analysis object has no info objects! NULL returned!)")
                   return(NULL)
 
                 }else{
@@ -437,7 +437,7 @@ setMethod("get_RLum",
                   ##grep names
                   temp.element.names <- paste(names(object@info), collapse = ", ")
 
-                  warning.text <- paste("[get_RLum] Invalid info.object name. Valid names are:", temp.element.names)
+                  warning.text <- paste("[get_RLum()] Invalid info.object name. Valid names are:", temp.element.names)
 
                   warning(warning.text, call. = FALSE)
                   return(NULL)
@@ -452,7 +452,7 @@ setMethod("get_RLum",
               ##check for records
               if (length(object@records) == 0) {
 
-                warning("[get_RLum] This RLum.Analysis object has no records! NULL returned!)")
+                warning("[get_RLum()] This RLum.Analysis object has no records! NULL returned!)")
                 return(NULL)
 
               }
@@ -463,7 +463,7 @@ setMethod("get_RLum",
 
               } else if (!is(record.id, "numeric") &
                          !is(record.id, "logical")) {
-                stop("[get_RLum()] 'record.id' has to be of type 'numeric' or 'logical'!")
+                stop("[get_RLum()] 'record.id' has to be of type 'numeric' or 'logical'!", call. = FALSE)
 
               }
               ##logical needs a slightly different treatment
