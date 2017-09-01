@@ -26,6 +26,17 @@
     }
   }
 
+  \subsection{S4-classes and methods}{
+    \itemize{
+
+        \item The \code{RLum.Analysis} show method failed for \code{RLum.Data.Spectrum} objects; fixed.
+        \item Method for \code{get_RLum} with signature \code{NULL} added. Now it returns \code{NULL}.
+        \item The coercion from \code{list} to \code{RLum.Results} using \code{as()} did not work; fixed.
+
+
+    }
+  }
+
 
   \subsection{Bugfixes and changes}{
 
@@ -58,6 +69,13 @@
     }
   }
 
+  \item \code{plot_Historgram()}{
+        \itemize{
+         \item The forwarded argument \code{breaks} was not treated correctly (#54); fixed.
+
+    }
+  }
+
   \item \code{read_BIN2R()}{
         \itemize{
          \item The function unexpectetly dropped are warning for an unused connection; fixed,
@@ -85,13 +103,12 @@
 
 }
 
-  \subsection{S4 and Internals}{
+  \subsection{Internals}{
 
       \itemize{
-        \item The \code{RLum.Analysis} show method failed for \code{RLum.Data.Spectrum} objects; fixed.
-        \item Method for \code{get_RLum} with signature \code{NULL} added. Now it returns \code{NULL}
         \item Start supporting RStudio add-ins for more advanced users.
-        \item Add fitting test data set by Berger & Huntley (1989) as external data
+        \item Add fitting test data set by Berger & Huntley (1989) as external data.
+        \item The internal documentation now uses 'markdown'.
 
 
     }

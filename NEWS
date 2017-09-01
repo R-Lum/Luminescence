@@ -24,6 +24,17 @@ Changes in version 0.8.0 ( ,2017):
          • ‘calc_WodaFuchs2008()’: Function to obtain the equivalent
            dose using the approach proposed by Woda and Fuchs, 2008.
 
+  S4-classes and methods:
+
+         • The ‘RLum.Analysis’ show method failed for
+           ‘RLum.Data.Spectrum’ objects; fixed.
+
+         • Method for ‘get_RLum’ with signature ‘NULL’ added. Now it
+           returns ‘NULL’.
+
+         • The coercion from ‘list’ to ‘RLum.Results’ using ‘as()’ did
+           not work; fixed.
+
   Bugfixes and changes:
 
          • ‘analyse_IRSAR.RF()’
@@ -51,6 +62,11 @@ Changes in version 0.8.0 ( ,2017):
              • extent examples by for test data set by Berger & Huntley
                (1989).
 
+         • ‘plot_Historgram()’
+
+             • The forwarded argument ‘breaks’ was not treated
+               correctly (#54); fixed.
+
          • ‘read_BIN2R()’
 
              • The function unexpectetly dropped are warning for an
@@ -72,16 +88,12 @@ Changes in version 0.8.0 ( ,2017):
 
              • give the XSYG-file import a 50% performance boost.
 
-  S4 and Internals:
-
-         • The ‘RLum.Analysis’ show method failed for
-           ‘RLum.Data.Spectrum’ objects; fixed.
-
-         • Method for ‘get_RLum’ with signature ‘NULL’ added. Now it
-           returns ‘NULL’
+  Internals:
 
          • Start supporting RStudio add-ins for more advanced users.
 
          • Add fitting test data set by Berger & Huntley (1989) as
-           external data
+           external data.
+
+         • The internal documentation now uses 'markdown'.
 
